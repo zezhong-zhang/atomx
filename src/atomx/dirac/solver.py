@@ -26,58 +26,72 @@ class DiracResult:
             self.nsq = self.ns
 
     def get_orbital(self, idx):
-        """Get P and Q coefficients for the idx-th bound state."""
+        """Get P and Q coefficients for the idx-th bound state.
+
+        Layout: P in vec[0:nsp], Q in vec[ns_full:ns_full+nsq]
+        where ns_full = max(nsp, nsq) = self.ns.
+        Returns P, Q both zero-padded to length ns_full.
+        """
         bound_mask = (self.eigenvalues > -2.0 * C_SQ) & (self.eigenvalues < 0)
         bound_indices = np.where(bound_mask)[0]
         sorted_order = np.argsort(self.eigenvalues[bound_indices])
         eigvec_idx = bound_indices[sorted_order[idx]]
 
         vec = self.coefficients[:, eigvec_idx]
-        # P occupies first nsp entries, Q occupies next nsq entries
-        P = np.zeros(max(self.nsp, self.nsq))  # pad to equal size for compatibility
-        Q = np.zeros(max(self.nsp, self.nsq))
+        ns_full = self.ns  # = max(nsp, nsq)
+        P = np.zeros(ns_full)
+        Q = np.zeros(ns_full)
         P[:self.nsp] = vec[:self.nsp]
-        Q[:self.nsq] = vec[self.nsp:self.nsp + self.nsq]
+        Q[:self.nsq] = vec[ns_full:ns_full + self.nsq]
         return P, Q, self.bound_energies[idx]
 
 
 def solve_dirac(H, S, ns, kappa, n_remove_boundary=1, nsp=None, nsq=None):
     """Solve the generalized Dirac eigenvalue problem.
 
-    Handles both symmetric (nsp=nsq=ns) and asymmetric (RKB: nsp < nsq) cases.
+    Handles both symmetric (nsp=nsq=ns) and RKB (nsp < nsq) cases.
 
-    Parameters
-    ----------
-    H, S : ndarray, shape (ms, ms)
-    ns : int
-        Number of Q-component B-splines (backward compat; use nsq if given).
-    kappa : int
-    n_remove_boundary : int
-    nsp, nsq : int, optional
-        P and Q dimensions. Default: both = ns.
+    Matrix layout (DBSR_HF convention):
+      ns_full = max(nsp, nsq) = ns (for standard grids)
+      PP block: H[0:ns_full, 0:ns_full]  (only nsp rows/cols nonzero)
+      QQ block: H[ns_full:2*ns_full, ns_full:2*ns_full]
+      ms = 2 * ns_full
+
+    Boundary conditions (DBSR_HF ilzero=1, ibzero=2):
+      P: remove first n_remove_boundary splines + last ibzero splines + zero-padding
+      Q: remove first n_remove_boundary splines + last ibzero splines
+      ibzero defaults to 2 (DBSR_HF standard).
     """
     if nsp is None:
         nsp = ns
     if nsq is None:
         nsq = ns
-    ms = nsp + nsq
+    ns_full = max(nsp, nsq)
+    ms = 2 * ns_full
     nb = n_remove_boundary
+    ibzero = 2  # DBSR_HF default: remove 2 boundary B-splines at tail
 
     if nb > 0:
-        keep_p = list(range(nb, nsp - nb))
-        keep_q = list(range(nsp + nb, ms - nb))
+        # P: keep indices nb..nsp-ibzero-1 (remove nb at start, ibzero at end,
+        # plus any zero-padded indices nsp..ns_full-1)
+        keep_p = list(range(nb, nsp - ibzero))
+        # Q: keep indices ns_full+nb..ns_full+nsq-ibzero-1
+        keep_q = list(range(ns_full + nb, ns_full + nsq - ibzero))
         keep = keep_p + keep_q
         nk = len(keep)
         H_red = H[np.ix_(keep, keep)]
         S_red = S[np.ix_(keep, keep)]
     else:
-        H_red = H
-        S_red = S
-        keep = list(range(ms))
-        nk = ms
+        keep_p = list(range(nsp))
+        keep_q = list(range(ns_full, ns_full + nsq))
+        keep = keep_p + keep_q
+        nk = len(keep)
+        H_red = H[np.ix_(keep, keep)]
+        S_red = S[np.ix_(keep, keep)]
 
     eigenvalues, eigenvectors = linalg.eigh(H_red, S_red)
 
+    # Map back to full ms-dimensional vectors
     full_vecs = np.zeros((ms, nk))
     for col in range(nk):
         for i, k in enumerate(keep):
@@ -96,7 +110,7 @@ def solve_dirac(H, S, ns, kappa, n_remove_boundary=1, nsp=None, nsq=None):
         eigenvalues=physical_eigenvalues,
         bound_energies=bound_energies,
         coefficients=physical_vecs,
-        ns=nsq,
+        ns=ns_full,
         nsp=nsp,
         nsq=nsq,
     )

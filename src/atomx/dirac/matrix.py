@@ -149,6 +149,7 @@ def prepare_bspline_data(t, ns, ks, n_gauss=None, kinetic_balance=False):
     bsp_q = bsp_q_full[:, :, :ksq, 0]
     bsp_q_d = bsp_q_full[:, :, :ksq, 1]
 
+    tp = t  # default: same knot sequence for P and Q
     if ksp == ksq:
         # Same order: share B-spline arrays
         bsp_p = bsp_q.copy()
@@ -177,5 +178,6 @@ def prepare_bspline_data(t, ns, ks, n_gauss=None, kinetic_balance=False):
         "bsp_q_d": bsp_q_d,
         "bsp_p_d": bsp_p_d,
         "t": t,
+        "tp": tp,      # P-component knot sequence (differs from t when KB active)
         "ns": ns_full,  # max(nsp, nsq) for backward compatibility
     }
