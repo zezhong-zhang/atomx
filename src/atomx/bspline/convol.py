@@ -527,7 +527,8 @@ class ConvolCache:
             ks = bd.get("ksp", bd["ks"])
             ns = bd.get("nsp", bd["ns"])
             bsp = bd["bsp_p"]
-            rkb = _build_rkb_sym(bsp, gr, grw, t, nv, ks, ns, k)
+            tp = bd.get("tp", t)  # P-knot sequence (differs from t with KB)
+            rkb = _build_rkb_sym(bsp, gr, grw, tp, nv, ks, ns, k)
         elif itype == "qqqq":
             ks = bd.get("ksq", bd["ks"])
             ns = bd.get("nsq", bd["ns"])
