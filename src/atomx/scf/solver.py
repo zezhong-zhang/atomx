@@ -156,29 +156,41 @@ class DFSolver:
         return self._eval_P_on_grid(coeffs)
 
     def _build_direct_potential(self, orbitals):
-        """Build the direct (Hartree/Coulomb) potential matrix V_J.
+        """Build Hartree potential matrices for P and Q blocks separately.
 
-        Returns V_J as a single ns×ns matrix (same basis for P and Q in SCF).
+        With KB: V_J_PP uses ksp-order basis, V_J_QQ uses ksq-order.
+        Returns (V_J_PP, V_J_QQ).
         """
         nv = self.bsp_data["nv"]
         ns = self.ns
-        ks = self.ks
         gr = self.bsp_data["gr"]
         grw = self.bsp_data["grw"]
-        bsp = self.bsp_data["bsp_p"]
         n_gauss = gr.shape[1]
 
+        # Build total density using component-specific evaluation
         rho_total = np.zeros((nv, n_gauss))
         for kappa, orb_list in orbitals.items():
             for P, Q, occ in orb_list:
-                fP = self._eval_on_grid(P)
-                fQ = self._eval_on_grid(Q)
+                fP = self._eval_P_on_grid(P)
+                fQ = self._eval_Q_on_grid(Q)
                 rho_total += occ * (fP ** 2 + fQ ** 2)
 
         yk = compute_yk(rho_total, gr, grw, nv, n_gauss, k=0)
         yk_weights = grw * yk
-        V_J = _assemble_integral(nv, ks, ks, ns, bsp, bsp, yk_weights)
-        return 0.5 * (V_J + V_J.T)
+
+        # V_J for P-block
+        ksp = self.bsp_data.get("ksp", self.ks)
+        bsp_p = self.bsp_data["bsp_p"]
+        V_J_PP = _assemble_integral(nv, ksp, ksp, ns, bsp_p, bsp_p, yk_weights)
+        V_J_PP = 0.5 * (V_J_PP + V_J_PP.T)
+
+        # V_J for Q-block
+        ksq = self.bsp_data.get("ksq", self.ks)
+        bsp_q = self.bsp_data.get("bsp_q", bsp_p)
+        V_J_QQ = _assemble_integral(nv, ksq, ksq, ns, bsp_q, bsp_q, yk_weights)
+        V_J_QQ = 0.5 * (V_J_QQ + V_J_QQ.T)
+
+        return V_J_PP, V_J_QQ
 
     def _build_exchange_matrix_hf(self, target_kappa, orbitals):
         """Build non-local HF exchange matrix for a given kappa channel.
@@ -208,28 +220,29 @@ class DFSolver:
                     c_k = lam / (tj_b + 1.0)
                     Kk_PP, Kk_QQ = compute_exchange_matrix(
                         P_b, Q_b, self.bsp_data, k)
-                    K_PP[:ns, :ns] += c_k * Kk_PP[:ns, :ns]
-                    K_QQ[:ns, :ns] += c_k * Kk_QQ[:ns, :ns]
+                    # K_PP is (nsp x nsp), K_QQ is (nsq x nsq) — pad to ns
+                    n_pp = min(Kk_PP.shape[0], ns)
+                    n_qq = min(Kk_QQ.shape[0], ns)
+                    K_PP[:n_pp, :n_pp] += c_k * Kk_PP[:n_pp, :n_pp]
+                    K_QQ[:n_qq, :n_qq] += c_k * Kk_QQ[:n_qq, :n_qq]
 
         K_PP = 0.5 * (K_PP + K_PP.T)
         K_QQ = 0.5 * (K_QQ + K_QQ.T)
         return K_PP, K_QQ
 
     def _build_exchange_matrix_slater(self, orbitals):
-        """Build local Slater exchange potential V_x = -alpha * (3/pi * rho)^{1/3}."""
+        """Build local Slater exchange — separate PP and QQ matrices for KB."""
         nv = self.bsp_data["nv"]
         ns = self.ns
-        ks = self.ks
         gr = self.bsp_data["gr"]
         grw = self.bsp_data["grw"]
-        bsp = self.bsp_data["bsp_p"]
         n_gauss = gr.shape[1]
 
         rho = np.zeros((nv, n_gauss))
         for kappa, orb_list in orbitals.items():
             for P, Q, occ in orb_list:
-                fP = self._eval_on_grid(P)
-                fQ = self._eval_on_grid(Q)
+                fP = self._eval_P_on_grid(P)
+                fQ = self._eval_Q_on_grid(Q)
                 rho += occ * (fP ** 2 + fQ ** 2)
 
         vx = np.zeros_like(rho)
@@ -237,11 +250,19 @@ class DFSolver:
             for m in range(n_gauss):
                 if rho[iv, m] > 1e-30:
                     vx[iv, m] = -self.alpha_x * (3.0 / np.pi * rho[iv, m]) ** (1.0 / 3.0)
-
         vx_w = grw * vx
-        V_x = _assemble_integral(nv, ks, ks, ns, bsp, bsp, vx_w)
-        V_x = 0.5 * (V_x + V_x.T)
-        return V_x, V_x
+
+        ksp = self.bsp_data.get("ksp", self.ks)
+        bsp_p = self.bsp_data["bsp_p"]
+        Vx_PP = _assemble_integral(nv, ksp, ksp, ns, bsp_p, bsp_p, vx_w)
+        Vx_PP = 0.5 * (Vx_PP + Vx_PP.T)
+
+        ksq = self.bsp_data.get("ksq", self.ks)
+        bsp_q = self.bsp_data.get("bsp_q", bsp_p)
+        Vx_QQ = _assemble_integral(nv, ksq, ksq, ns, bsp_q, bsp_q, vx_w)
+        Vx_QQ = 0.5 * (Vx_QQ + Vx_QQ.T)
+
+        return Vx_PP, Vx_QQ
 
     def _compute_total_energy(self, orbitals):
         """Compute total atomic energy with proper double-counting correction.
@@ -362,13 +383,18 @@ class DFSolver:
         for sh in self.subshells:
             kappa_groups.setdefault(sh.kappa, []).append(sh)
 
+        has_kb = self.bsp_data.get("ksp", self.ks) != self.bsp_data.get("ksq", self.ks)
+        nsp_init = self.bsp_data.get("nsp", ns)
+        nsq_init = self.bsp_data.get("nsq", ns)
         for kappa, shells in kappa_groups.items():
             H, S = build_dirac_matrices(ns, kappa, self.Z, self.bsp_data)
-            result = solve_dirac(H, S, ns, kappa)
+            result = solve_dirac(H, S, ns, kappa,
+                                  nsp=nsp_init if has_kb else None,
+                                  nsq=nsq_init if has_kb else None)
             orb_list = []
             for sh in shells:
                 idx = sh.n - sh.l - 1
-                if kappa > 0:
+                if kappa > 0 and not has_kb:
                     idx += 1
                 if idx < result.n_bound:
                     P, Q, E = result.get_orbital(idx)
@@ -383,27 +409,33 @@ class DFSolver:
         for iteration in range(1, max_iter + 1):
             max_orb_change = 0.0
 
-            # Sweep over all orbitals sequentially
+            # Sweep over all orbitals sequentially (DBSR_HF style)
+            has_kb = self.bsp_data.get("ksp", self.ks) != self.bsp_data.get("ksq", self.ks)
+            nsp = self.bsp_data.get("nsp", ns)
+            nsq = self.bsp_data.get("nsq", ns)
+
             for sh, kappa, orb_idx in orbital_schedule:
-                # Build Fock matrix using CURRENT orbitals (includes latest updates)
-                V_J = self._build_direct_potential(orbitals)
+                # Build Fock: H_0 + V_J + V_exchange
+                V_J_PP, V_J_QQ = self._build_direct_potential(orbitals)
                 H, S_full = build_dirac_matrices(ns, kappa, self.Z, self.bsp_data)
 
                 if self.exchange == "hf":
                     K_PP, K_QQ = self._build_exchange_matrix_hf(kappa, orbitals)
-                    H[:ns, :ns] += V_J - K_PP[:ns, :ns]
-                    H[ns:, ns:] += V_J - K_QQ[:ns, :ns]
+                    H[:ns, :ns] += V_J_PP - K_PP[:ns, :ns]
+                    H[ns:, ns:] += V_J_QQ - K_QQ[:ns, :ns]
                 else:
                     Vx_PP, Vx_QQ = self._build_exchange_matrix_slater(orbitals)
-                    H[:ns, :ns] += V_J + Vx_PP[:ns, :ns]
-                    H[ns:, ns:] += V_J + Vx_QQ[:ns, :ns]
+                    H[:ns, :ns] += V_J_PP + Vx_PP[:ns, :ns]
+                    H[ns:, ns:] += V_J_QQ + Vx_QQ[:ns, :ns]
 
-                result = solve_dirac(H, S_full, ns, kappa)
+                result = solve_dirac(H, S_full, ns, kappa,
+                                      nsp=nsp if has_kb else None,
+                                      nsq=nsq if has_kb else None)
 
                 # Update only the target orbital
                 eig_idx = sh.n - sh.l - 1
-                if kappa > 0:
-                    eig_idx += 1
+                if kappa > 0 and not has_kb:
+                    eig_idx += 1  # skip spurious only without KB
                 if eig_idx < result.n_bound:
                     P_new, Q_new, E_new = result.get_orbital(eig_idx)
 
