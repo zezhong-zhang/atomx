@@ -757,15 +757,17 @@ class ConvolCache:
         grw = bd["grw"]
         t = bd["t"]
 
+        ns_full = bd["ns"]  # = max(nsp, nsq) — DBSR_HF uses this for all types
+
         if itype == "pppp":
             ks = bd.get("ksp", bd["ks"])
-            ns = bd.get("nsp", bd["ns"])
+            ns = ns_full  # DBSR_HF: rkb uses ns (not nsp) for first two dims
             bsp = bd["bsp_p"]
-            tp = bd.get("tp", t)  # P-knot sequence (differs from t with KB)
+            tp = bd.get("tp", t)
             rkb = _build_rkb_sym(bsp, gr, grw, tp, nv, ks, ns, k)
         elif itype == "qqqq":
             ks = bd.get("ksq", bd["ks"])
-            ns = bd.get("nsq", bd["ns"])
+            ns = ns_full
             bsp = bd.get("bsp_q", bd["bsp_p"])
             rkb = _build_rkb_sym(bsp, gr, grw, t, nv, ks, ns, k)
         elif itype == "pqpq":
