@@ -349,6 +349,218 @@ def _assemble_rkb_sym(rkd1, rkd2, rkd_diag, nv, ks, ns):
 
 
 # ══════════════════════════════════════════════════════════════════════
+# 3b. Mixed-basis (pqpq/qpqp) cell integrals
+# ══════════════════════════════════════════════════════════════════════
+
+@nb.njit(cache=True)
+def _triang_pqpq(bsp_p, bsp_q, gr, grw, tp, tq, nv, ksp, ksq, ns, k):
+    """Diagonal cell R^k integrals for pqpq type (P-pair × Q-pair).
+
+    DBSR_HF triang_pqpq: outer integral uses P-basis, inner uses Q-basis
+    (and vice versa via the transpose symmetrization).
+
+    Packed indices: ii packs (i, ip) with ip >= i for P-pair (ksp*(ksp+1)//2)
+                    jj packs (j, jp) with jp >= j for Q-pair (ksq*(ksq+1)//2)
+
+    Returns rkd: (kkp, kkq, nv) where kkp = ksp*(ksp+1)//2, kkq = ksq*(ksq+1)//2
+    """
+    n_gauss = gr.shape[1]
+    kkp = ksp * (ksp + 1) // 2
+    kkq = ksq * (ksq + 1) // 2
+    rkd = np.zeros((kkp, kkq, nv))
+
+    # Sub-quadrature on [0, 1]
+    n_sub = max(ksp, ksq)
+    x_01 = np.empty(n_sub)
+    w_01 = np.empty(n_sub)
+    _gauss_legendre_01(n_sub, x_01, w_01)
+
+    bsp_sub_q = np.empty((n_sub, ksq))
+    gw_rk = np.empty(n_sub)
+    INTP = np.empty((ksq, ksq, n_gauss))
+
+    for iv in range(nv):
+        left_q = ksq - 1 + iv
+        xbase = tq[left_q]
+
+        # --- Inner: Q-basis sub-quadrature for INTP[j, jp, m] ---
+        for m in range(n_gauss):
+            r_upper = gr[iv, m]
+            span = r_upper - xbase
+            if span < 1e-30:
+                for j in range(ksq):
+                    for jp in range(j, ksq):
+                        INTP[j, jp, m] = 0.0
+                continue
+
+            for n in range(n_sub):
+                gx_n = xbase + span * x_01[n]
+                _bsplvb_inplace(tq, ksq, gx_n, left_q, bsp_sub_q[n, :])
+                w = span * w_01[n]
+                if k > 0:
+                    gw_rk[n] = w * gx_n ** k
+                elif k < 0:
+                    gw_rk[n] = w / gx_n ** (-k)
+                else:
+                    gw_rk[n] = w
+
+            for j in range(ksq):
+                for jp in range(j, ksq):
+                    s = 0.0
+                    for n in range(n_sub):
+                        s += bsp_sub_q[n, j] * bsp_sub_q[n, jp] * gw_rk[n]
+                    INTP[j, jp, m] = s
+
+        # --- Outer: P-basis with 1/r^{k+1} weight ---
+        a = np.zeros((kkp, kkq))
+        ii = 0
+        for i in range(ksp):
+            for ip in range(i, ksp):
+                jj = 0
+                for j in range(ksq):
+                    for jp in range(j, ksq):
+                        s = 0.0
+                        for m in range(n_gauss):
+                            outer_w = grw[iv, m] / gr[iv, m] ** (k + 1)
+                            s += (bsp_p[iv, m, i] * bsp_p[iv, m, ip]
+                                  * outer_w * INTP[j, jp, m])
+                        a[ii, jj] = s
+                        jj += 1
+                ii += 1
+
+        # Also compute the transpose part: P inner, Q outer
+        # INTP_p[i, ip, m] for P-basis inner integral
+        bsp_sub_p = np.empty((n_sub, ksp))
+        left_p = ksp - 1 + iv
+        xbase_p = tp[left_p]
+        INTP_p = np.empty((ksp, ksp, n_gauss))
+
+        for m in range(n_gauss):
+            r_upper = gr[iv, m]
+            span = r_upper - xbase_p
+            if span < 1e-30:
+                for i2 in range(ksp):
+                    for ip2 in range(i2, ksp):
+                        INTP_p[i2, ip2, m] = 0.0
+                continue
+
+            for n in range(n_sub):
+                gx_n = xbase_p + span * x_01[n]
+                _bsplvb_inplace(tp, ksp, gx_n, left_p, bsp_sub_p[n, :])
+                w = span * w_01[n]
+                if k > 0:
+                    gw_rk[n] = w * gx_n ** k
+                elif k < 0:
+                    gw_rk[n] = w / gx_n ** (-k)
+                else:
+                    gw_rk[n] = w
+
+            for i2 in range(ksp):
+                for ip2 in range(i2, ksp):
+                    s = 0.0
+                    for n in range(n_sub):
+                        s += bsp_sub_p[n, i2] * bsp_sub_p[n, ip2] * gw_rk[n]
+                    INTP_p[i2, ip2, m] = s
+
+        # Transpose part: Q outer, P inner
+        aT = np.zeros((kkp, kkq))
+        jj = 0
+        for j in range(ksq):
+            for jp in range(j, ksq):
+                ii = 0
+                for i in range(ksp):
+                    for ip in range(i, ksp):
+                        s = 0.0
+                        for m in range(n_gauss):
+                            outer_w = grw[iv, m] / gr[iv, m] ** (k + 1)
+                            s += (bsp_q[iv, m, j] * bsp_q[iv, m, jp]
+                                  * outer_w * INTP_p[i, ip, m])
+                        aT[ii, jj] = s
+                        ii += 1
+                jj += 1
+
+        # Combine: rkd = a + aT (both r_< / r_> orderings)
+        for ii in range(kkp):
+            for jj in range(kkq):
+                rkd[ii, jj, iv] = a[ii, jj] + aT[ii, jj]
+
+    return rkd
+
+
+@nb.njit(cache=True)
+def _assemble_rkb_pqpq(rkd1_pp, rkd2_qq, rkd3_qq, rkd4_pp,
+                         rkd_diag, nv, ksp, ksq, nsp, nsq, ns):
+    """Assemble rkb for pqpq type (P-pair at r₁, Q-pair at r₂).
+
+    Off-diagonal cells:
+      iv < jv: P at smaller r, Q at larger r
+               c = rkd1_pp[ii, iv] * rkd2_qq[jj, jv]
+      iv > jv: Q at smaller r, P at larger r
+               c = rkd3_qq[jj, jv] * rkd4_pp[ii, iv]
+    Diagonal (iv == jv):
+               c = rkd_diag[ii, jj, iv]
+
+    Returns rkb: (ns, ns, ksp, ksq)
+    """
+    rkb = np.zeros((ns, ns, ksp, ksq))
+
+    for jv in range(nv):
+        jj = 0
+        for jh in range(ksq):
+            j = jv + jh
+            for jhp in range(jh, ksq):
+                jp = jhp - jh
+
+                for iv in range(nv):
+                    ii = 0
+                    for ih in range(ksp):
+                        i = iv + ih
+                        for ihp in range(ih, ksp):
+                            ip = ihp - ih
+
+                            if iv < jv:
+                                c = rkd1_pp[ii, iv] * rkd2_qq[jj, jv]
+                            elif iv > jv:
+                                c = rkd3_qq[jj, jv] * rkd4_pp[ii, iv]
+                            else:
+                                c = rkd_diag[ii, jj, iv]
+
+                            if i < ns and j < ns and ip < ksp and jp < ksq:
+                                rkb[i, j, ip, jp] += c
+
+                            ii += 1
+                jj += 1
+
+    return rkb
+
+
+def _build_rkb_pqpq(bsp_p, bsp_q, gr, grw, tp, tq, nv, ksp, ksq,
+                      nsp, nsq, ns, k):
+    """Build rkb for pqpq type: P-pair × Q-pair (DBSR_HF mrk_pqpq)."""
+    # 4 moment arrays (DBSR_HF uses different moment types for each off-diag case)
+    rkd1_pp = _compute_moments_sym(bsp_p, gr, grw, nv, ksp, k)        # P r^k
+    rkd2_qq = _compute_moments_sym(bsp_q, gr, grw, nv, ksq, -(k + 1)) # Q r^{-(k+1)}
+    rkd3_qq = _compute_moments_sym(bsp_q, gr, grw, nv, ksq, k)        # Q r^k
+    rkd4_pp = _compute_moments_sym(bsp_p, gr, grw, nv, ksp, -(k + 1)) # P r^{-(k+1)}
+    # Diagonal cells
+    rkd_diag = _triang_pqpq(bsp_p, bsp_q, gr, grw, tp, tq, nv, ksp, ksq, ns, k)
+    return _assemble_rkb_pqpq(rkd1_pp, rkd2_qq, rkd3_qq, rkd4_pp,
+                               rkd_diag, nv, ksp, ksq, nsp, nsq, ns)
+
+
+def _build_rkb_qpqp(bsp_p, bsp_q, gr, grw, tp, tq, nv, ksp, ksq,
+                      nsp, nsq, ns, k):
+    """Build rkb for qpqp type: Q-pair × P-pair (swap of pqpq)."""
+    rkd1_qq = _compute_moments_sym(bsp_q, gr, grw, nv, ksq, k)
+    rkd2_pp = _compute_moments_sym(bsp_p, gr, grw, nv, ksp, -(k + 1))
+    rkd3_pp = _compute_moments_sym(bsp_p, gr, grw, nv, ksp, k)
+    rkd4_qq = _compute_moments_sym(bsp_q, gr, grw, nv, ksq, -(k + 1))
+    rkd_diag = _triang_pqpq(bsp_q, bsp_p, gr, grw, tq, tp, nv, ksq, ksp, ns, k)
+    return _assemble_rkb_pqpq(rkd1_qq, rkd2_pp, rkd3_pp, rkd4_qq,
+                               rkd_diag, nv, ksq, ksp, nsq, nsp, ns)
+
+
+# ══════════════════════════════════════════════════════════════════════
 # 4. Density matrices
 # ══════════════════════════════════════════════════════════════════════
 
@@ -476,6 +688,28 @@ def _convol_case4(rkb, d, ns, ks):
 # ══════════════════════════════════════════════════════════════════════
 
 @nb.njit(cache=True)
+def _convol_case2_mixed(rkb, d_left, ns, ks_left, ks_right):
+    """icase=2 for mixed-basis rkb(ns, ns, ks_left, ks_right).
+
+    Contract left pair (i, ip) with banded density d_left(ns, ks_left).
+    Result is banded: a(ns, ks_right).
+    """
+    a = np.zeros((ns, ks_right))
+    for jp in range(ks_right):
+        for j in range(ns):
+            if j + jp >= ns:
+                continue
+            s = 0.0
+            for ip in range(ks_left):
+                for i in range(ns):
+                    if i + ip >= ns:
+                        continue
+                    s += rkb[i, j, ip, jp] * d_left[i, ip]
+            a[j, jp] = s
+    return a
+
+
+@nb.njit(cache=True)
 def _sum_amb_banded(a, b, ns, ks):
     """Trace contraction of two banded matrices: Σ_{i,s} a[i,s] * b[i,s]."""
     s = 0.0
@@ -534,13 +768,38 @@ class ConvolCache:
             ns = bd.get("nsq", bd["ns"])
             bsp = bd.get("bsp_q", bd["bsp_p"])
             rkb = _build_rkb_sym(bsp, gr, grw, t, nv, ks, ns, k)
-        elif itype in ("pqpq", "qpqp"):
-            raise NotImplementedError(
-                f"Mixed integral type '{itype}' not yet implemented. "
-                "Use Y^k approach for cross-component integrals."
-            )
+        elif itype == "pqpq":
+            ksp = bd.get("ksp", bd["ks"])
+            ksq = bd.get("ksq", bd["ks"])
+            nsp = bd.get("nsp", bd["ns"])
+            nsq = bd.get("nsq", bd["ns"])
+            ns_loc = bd["ns"]
+            bsp_p = bd["bsp_p"]
+            bsp_q = bd.get("bsp_q", bsp_p)
+            tp = bd.get("tp", t)
+            rkb = _build_rkb_pqpq(bsp_p, bsp_q, gr, grw, tp, t,
+                                   nv, ksp, ksq, nsp, nsq, ns_loc, k)
+            ks = ksp  # left-pair order for storage
+            ns_loc_out = ns_loc
+        elif itype == "qpqp":
+            ksp = bd.get("ksp", bd["ks"])
+            ksq = bd.get("ksq", bd["ks"])
+            nsp = bd.get("nsp", bd["ns"])
+            nsq = bd.get("nsq", bd["ns"])
+            ns_loc = bd["ns"]
+            bsp_p = bd["bsp_p"]
+            bsp_q = bd.get("bsp_q", bsp_p)
+            tp = bd.get("tp", t)
+            rkb = _build_rkb_qpqp(bsp_p, bsp_q, gr, grw, tp, t,
+                                   nv, ksp, ksq, nsp, nsq, ns_loc, k)
+            ks = ksq  # left-pair order for storage
+            ns_loc_out = ns_loc
         else:
             raise ValueError(f"Unknown integral type: {itype}")
+
+        if itype in ("pqpq", "qpqp"):
+            self._cache[key] = (rkb, ns_loc_out, ks)
+            return rkb, ns_loc_out, ks
 
         self._cache[key] = (rkb, ns, ks)
         return rkb, ns, ks
@@ -712,33 +971,39 @@ def compute_slater_rk_cell(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd, bsp_data, k,
     d_cd_Q = _density_sym(Qc, Qd, nsq, ksq)
     result += _sum_amb_banded(conv_Q, d_cd_Q, nsq, ksq)
 
-    # Cross-component contributions (pqpq + qpqp): use Y^k fallback
-    # These are typically small corrections (P·Q cross terms)
-    from atomx.scf.slater import _eval_P, _eval_Q, compute_yk
-    gr, grw = bd["gr"], bd["grw"]
-    nv = bd["nv"]
-    n_gauss = gr.shape[1]
+    # Cross-component contributions (pqpq + qpqp) via cell algorithm
+    ns_loc = bd["ns"]
 
-    fa_P = _eval_P(Pa, bd)
-    fa_Q = _eval_Q(Qa, bd)
-    fb_P = _eval_P(Pb, bd)
-    fb_Q = _eval_Q(Qb, bd)
-    fc_P = _eval_P(Pc, bd)
-    fc_Q = _eval_Q(Qc, bd)
-    fd_P = _eval_P(Pd, bd)
-    fd_Q = _eval_Q(Qd, bd)
+    # pqpq: P_a*P_b at r₁ with Q_c*Q_d at r₂
+    if cache is not None:
+        rkb_pq, ns_pq, ks_pq = cache.get_rkb(k, "pqpq")
+    else:
+        bsp_q = bd.get("bsp_q", bd["bsp_p"])
+        tp = bd.get("tp", bd["t"])
+        rkb_pq = _build_rkb_pqpq(
+            bd["bsp_p"], bsp_q, bd["gr"], bd["grw"], tp, bd["t"],
+            bd["nv"], ksp, ksq, nsp, nsq, ns_loc, k)
 
-    # pqpq: ρ_PQ(r₁) × ρ_PQ(r₂) — P_a*P_b at r₁ with Q_c*Q_d at r₂
-    rho_PP_ab = fa_P * fb_P
-    rho_QQ_cd = fc_Q * fd_Q
-    yk_QQ_cd = compute_yk(rho_QQ_cd, gr, grw, nv, n_gauss, k)
-    result += np.sum(grw * rho_PP_ab * yk_QQ_cd)
+    d_ab_P_pq = _density_sym(Pa, Pb, nsp, ksp)
+    conv_pq = _convol_case2_mixed(rkb_pq, d_ab_P_pq, ns_loc, ksp, ksq)
+    d_cd_Q_pq = _density_sym(Qc, Qd, nsq, ksq)
+    # Trace: need to align dimensions (both are banded with ksq bands, ns_loc rows)
+    result += _sum_amb_banded(conv_pq, d_cd_Q_pq, min(ns_loc, nsq), ksq)
 
     # qpqp: Q_a*Q_b at r₁ with P_c*P_d at r₂
-    rho_QQ_ab = fa_Q * fb_Q
-    rho_PP_cd = fc_P * fd_P
-    yk_PP_cd = compute_yk(rho_PP_cd, gr, grw, nv, n_gauss, k)
-    result += np.sum(grw * rho_QQ_ab * yk_PP_cd)
+    if cache is not None:
+        rkb_qp, ns_qp, ks_qp = cache.get_rkb(k, "qpqp")
+    else:
+        bsp_q = bd.get("bsp_q", bd["bsp_p"])
+        tp = bd.get("tp", bd["t"])
+        rkb_qp = _build_rkb_qpqp(
+            bd["bsp_p"], bsp_q, bd["gr"], bd["grw"], tp, bd["t"],
+            bd["nv"], ksp, ksq, nsp, nsq, ns_loc, k)
+
+    d_ab_Q_qp = _density_sym(Qa, Qb, nsq, ksq)
+    conv_qp = _convol_case2_mixed(rkb_qp, d_ab_Q_qp, ns_loc, ksq, ksp)
+    d_cd_P_qp = _density_sym(Pc, Pd, nsp, ksp)
+    result += _sum_amb_banded(conv_qp, d_cd_P_qp, min(ns_loc, nsp), ksp)
 
     return result
 
