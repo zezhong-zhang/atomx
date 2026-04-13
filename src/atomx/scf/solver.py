@@ -192,16 +192,14 @@ class DFSolver:
 
         return V_J_PP, V_J_QQ
 
-    def _build_exchange_matrix_hf(self, target_kappa, orbitals):
+    def _build_exchange_matrix_hf(self, target_kappa, orbitals,
+                                   exchange_cache=None):
         """Build non-local HF exchange matrix for a given kappa channel.
 
-        For the closed-shell Fock operator:
-          F = h + V_Hartree(total) - V_exchange
-          V_exchange = Σ_b Σ_k [Λ(k)/(2j_b+1)] * K^k(b)
-
-        The coefficient Λ/(2j_b+1) gives one exchange per spinorbital,
-        averaged over m_j. This correctly cancels self-interaction:
-        for same-subshell, V_J(q electrons) - V_K gives V_J(q-1 electrons).
+        OPT: exchange_cache stores K^k(b) matrices keyed by (kappa_b, orb_idx, k).
+        The Numba kernel compute_exchange_matrix depends only on the source
+        orbital (P_b, Q_b) and k — NOT on target_kappa. So K^k(b) can be
+        reused across all target kappas within the same orbital sweep.
         """
         from atomx.scf.angular_coeffs import exchange_lambda
 
@@ -211,16 +209,24 @@ class DFSolver:
 
         for kappa_b, orb_list in orbitals.items():
             tj_b = 2 * abs(kappa_b) - 1
-            for P_b, Q_b, occ_b in orb_list:
+            for orb_i, (P_b, Q_b, occ_b) in enumerate(orb_list):
                 k_values = exchange_k_range(target_kappa, kappa_b)
                 for k in k_values:
                     lam = exchange_lambda(target_kappa, kappa_b, k)
                     if lam < 1e-15:
                         continue
                     c_k = lam / (tj_b + 1.0)
-                    Kk_PP, Kk_QQ = compute_exchange_matrix(
-                        P_b, Q_b, self.bsp_data, k)
-                    # K_PP is (nsp x nsp), K_QQ is (nsq x nsq) — pad to ns
+
+                    # OPT: Reuse cached K^k(b) if available
+                    cache_key = (kappa_b, orb_i, k)
+                    if exchange_cache is not None and cache_key in exchange_cache:
+                        Kk_PP, Kk_QQ = exchange_cache[cache_key]
+                    else:
+                        Kk_PP, Kk_QQ = compute_exchange_matrix(
+                            P_b, Q_b, self.bsp_data, k)
+                        if exchange_cache is not None:
+                            exchange_cache[cache_key] = (Kk_PP, Kk_QQ)
+
                     n_pp = min(Kk_PP.shape[0], ns)
                     n_qq = min(Kk_QQ.shape[0], ns)
                     K_PP[:n_pp, :n_pp] += c_k * Kk_PP[:n_pp, :n_pp]
@@ -399,22 +405,35 @@ class DFSolver:
         converged = False
         E_old = 0.0
         residual = 1.0
+        has_kb = self.bsp_data.get("ksp", self.ks) != self.bsp_data.get("ksq", self.ks)
+        nsp = self.bsp_data.get("nsp", ns)
+        nsq = self.bsp_data.get("nsq", ns)
+
+        # OPT 1: Cache one-electron matrices per kappa (they never change)
+        H0_cache = {}
+        S0_cache = {}
+        for kappa in kappa_groups:
+            H0, S0 = build_dirac_matrices(ns, kappa, self.Z, self.bsp_data)
+            H0_cache[kappa] = H0
+            S0_cache[kappa] = S0
 
         for iteration in range(1, max_iter + 1):
             max_orb_change = 0.0
 
-            # Sweep over all orbitals sequentially (DBSR_HF style)
-            has_kb = self.bsp_data.get("ksp", self.ks) != self.bsp_data.get("ksq", self.ks)
-            nsp = self.bsp_data.get("nsp", ns)
-            nsq = self.bsp_data.get("nsq", ns)
+            # OPT 2: Exchange cache — K^k(b) depends only on source orbital
+            # and k, NOT on target kappa. Shared across the sweep.
+            # Invalidated when the source orbital changes.
+            exchange_cache = {}
 
             for sh, kappa, orb_idx in orbital_schedule:
-                # Build Fock: H_0 + V_J + V_exchange
+                # Build Fock: cached H0 + V_J (per-orbital) + exchange
                 V_J_PP, V_J_QQ = self._build_direct_potential(orbitals)
-                H, S_full = build_dirac_matrices(ns, kappa, self.Z, self.bsp_data)
+                H = H0_cache[kappa].copy()  # OPT 1: cached one-electron
+                S_full = S0_cache[kappa]
 
                 if self.exchange == "hf":
-                    K_PP, K_QQ = self._build_exchange_matrix_hf(kappa, orbitals)
+                    K_PP, K_QQ = self._build_exchange_matrix_hf(
+                        kappa, orbitals, exchange_cache=exchange_cache)
                     H[:ns, :ns] += V_J_PP - K_PP[:ns, :ns]
                     H[ns:, ns:] += V_J_QQ - K_QQ[:ns, :ns]
                 else:
@@ -462,6 +481,12 @@ class DFSolver:
                     orb_list[orb_idx] = (P_new, Q_new, sh.occupation)
                     orbitals[kappa] = orb_list
                     orbital_energies[sh.label] = E_new
+
+                    # OPT 2: Invalidate exchange cache for this source orbital
+                    keys_to_remove = [ck for ck in exchange_cache
+                                      if ck[0] == kappa and ck[1] == orb_idx]
+                    for ck in keys_to_remove:
+                        del exchange_cache[ck]
 
             # Check energy convergence
             E_total_quick = sum(
