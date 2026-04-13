@@ -90,8 +90,10 @@ def make_dbsr_knots(ks: int, Z: int, r_max: float = 50.0,
 
     ht = 1.0 + he
 
-    # Phase 1: ml = ks uniform intervals of size hs
-    ml = ks
+    # Phase 1: ml initial uniform intervals
+    # DBSR_HF uses ml=1 with Fermi nucleus (tiny hs → many exponential steps)
+    # For point nucleus or very light atoms, more uniform steps help resolve r≈0
+    ml = 1  # DBSR_HF default
     breakpoints = [hs * i for i in range(1, ml + 1)]
 
     # Phase 2: multiplicative growth r_next = r_prev * (1+he)

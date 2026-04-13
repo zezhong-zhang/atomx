@@ -145,9 +145,13 @@ class Atom:
         """
         self.Z = Z
         self.charge = charge
-        # Auto-select basis size based on Z for good accuracy
+        # Auto-select basis: DBSR Fermi grid for Z≥10, exponential for light atoms
+        self._use_dbsr_grid = (ns is None and Z >= 10)
         if ns is None:
-            ns = max(50, min(113, 50 + Z))  # scale with Z, cap at 113
+            if Z >= 10:
+                ns = 113  # DBSR_HF default
+            else:
+                ns = max(60, 50 + Z * 3)  # denser for light atoms
         self.ns = ns
         self.ks = ks
         self.breit = breit
@@ -220,6 +224,19 @@ class Atom:
                               exchange=self.exchange,
                               include_breit=self.breit,
                               include_qed=self.qed)
+
+            # Use DBSR_HF semi-exponential grid for Z≥10
+            if self._use_dbsr_grid:
+                from atomx.bspline.knots import make_dbsr_knots
+                from atomx.dirac.matrix import prepare_bspline_data
+                t_dbsr, ns_dbsr = make_dbsr_knots(ks=self.ks, Z=self.Z,
+                                                    nuclear='fermi')
+                data = prepare_bspline_data(t_dbsr, ns_dbsr, self.ks)
+                solver.t = t_dbsr
+                solver.bsp_data = data
+                solver.ns = ns_dbsr
+                solver._precompute()
+
             self._result = solver.solve(max_iter=max_iter, tol=tol)
 
         return self
