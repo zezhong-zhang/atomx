@@ -22,6 +22,10 @@ from atomx.scf.slater import (
     compute_yk, eval_orbital_on_grid,
     compute_exchange_matrix, compute_slater_fk, compute_slater_gk,
 )
+from atomx.bspline.convol import (
+    compute_slater_fk_cell, compute_slater_gk_cell,
+    ConvolCache,
+)
 from atomx.scf.angular_coeffs import (
     exchange_coefficient, exchange_k_range, direct_coefficient,
 )
@@ -403,6 +407,13 @@ class DFSolver:
 
         # Two-electron (DBSR_HF av_energy_coef formula)
         # Track direct (E_J = F^0) and exchange (E_K = F^{k>0}, G^k) separately
+        # Use cell-based integrals for consistency with DBSR_HF
+        convol_cache = ConvolCache(bsp_data)
+        _fk = lambda Pa, Qa, Pb, Qb, k: compute_slater_fk_cell(
+            Pa, Qa, Pb, Qb, bsp_data, k, convol_cache)
+        _gk = lambda Pa, Qa, Pb, Qb, k: compute_slater_gk_cell(
+            Pa, Qa, Pb, Qb, bsp_data, k, convol_cache)
+
         E_J = 0.0   # direct Coulomb (F^0 terms)
         E_K = 0.0   # exchange (F^{k>0} and G^k terms)
         for i, (Pa, Qa, oa, ka, la) in enumerate(orb_list):
@@ -419,24 +430,24 @@ class DFSolver:
                     if oa < 2.0 - 1e-10:
                         continue
                     c = oa * (oa - 1.0) / 2.0
-                    E_J += c * compute_slater_fk(Pa, Qa, Pa, Qa, bsp_data, 0)
+                    E_J += c * _fk(Pa, Qa, Pa, Qa, 0)
                     for k in range(1, tj_a + 1):
                         if (k + 2 * l_a) % 2 != 0:
                             continue
                         lam = exchange_lambda(ka, ka, k)
                         if lam < 1e-15:
                             continue
-                        fk = compute_slater_fk(Pa, Qa, Pa, Qa, bsp_data, k)
+                        fk = _fk(Pa, Qa, Pa, Qa, k)
                         E_K += c * lam / (tj_a * (tj_a + 1.0)) * fk
                 else:
                     # Cross-shell: q_a*q_b * [F^0 - Σ_k Λ/((2j_a+1)(2j_b+1)) * G^k]
                     c = oa * ob
-                    E_J += c * compute_slater_fk(Pa, Qa, Pb, Qb, bsp_data, 0)
+                    E_J += c * _fk(Pa, Qa, Pb, Qb, 0)
                     for k in exchange_k_range(ka, kb):
                         lam = exchange_lambda(ka, kb, k)
                         if lam < 1e-15:
                             continue
-                        gk = compute_slater_gk(Pa, Qa, Pb, Qb, bsp_data, k)
+                        gk = _gk(Pa, Qa, Pb, Qb, k)
                         E_K += c * lam / ((tj_a + 1.0) * (tj_b + 1.0)) * gk
 
         E_2e = E_J - E_K
