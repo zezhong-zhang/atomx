@@ -199,47 +199,43 @@ class DFSolver:
             _build_rkb_sym, _density_sym, _convol_case1,
         )
 
-        ns = self.ns
         bd = self.bsp_data
-        ksp = bd.get("ksp", self.ks)
-        nsp = bd.get("nsp", ns)
-        ksq = bd.get("ksq", self.ks)
-        nsq = bd.get("nsq", ns)
+        ksp = bd.get("ksp", bd["ks"])
+        ksq = bd.get("ksq", bd["ks"])
+        ns_full = bd["ns"]  # max(nsp, nsq) — DBSR_HF convention
 
-        # Build rkb for k=0 (reuse across all orbitals via convol_cache)
         if not hasattr(self, '_convol_cache'):
             self._convol_cache = ConvolCache(bd)
-        rkb_pp, _, _ = self._convol_cache.get_rkb(0, "pppp")
-        rkb_qq, _, _ = self._convol_cache.get_rkb(0, "qqqq")
+        rkb_pp, ns_pp, ks_pp = self._convol_cache.get_rkb(0, "pppp")
+        rkb_qq, ns_qq, ks_qq = self._convol_cache.get_rkb(0, "qqqq")
 
-        V_J_PP = np.zeros((ns, ns))
-        V_J_QQ = np.zeros((ns, ns))
+        V_J_PP = np.zeros((ns_full, ns_full))
+        V_J_QQ = np.zeros((ns_full, ns_full))
 
         for kappa, orb_list in orbitals.items():
             for orb_i, (P_b, Q_b, occ_b) in enumerate(orb_list):
-                # Self-direct: use (q-1) instead of q
                 coeff = occ_b
                 if target_kappa == kappa and target_idx == orb_i:
                     coeff = occ_b - 1.0
                 if coeff < 1e-10:
                     continue
 
-                # PP contribution: contract rkb_pppp with P-density
-                d_P = _density_sym(P_b, P_b, nsp, ksp)
-                v_banded = _convol_case1(rkb_pp, d_P, nsp, ksp)
-                for i in range(nsp):
+                # PP: density and convol use ns_full (DBSR_HF convention)
+                d_P = _density_sym(P_b[:ns_full], P_b[:ns_full], ns_full, ksp)
+                v_banded = _convol_case1(rkb_pp, d_P, ns_full, ksp)
+                for i in range(ns_full):
                     for s in range(ksp):
-                        if i + s < nsp:
+                        if i + s < ns_full:
                             V_J_PP[i, i + s] += coeff * v_banded[i, s]
                             if s > 0:
                                 V_J_PP[i + s, i] += coeff * v_banded[i, s]
 
-                # QQ contribution
-                d_Q = _density_sym(Q_b, Q_b, nsq, ksq)
-                v_banded_q = _convol_case1(rkb_qq, d_Q, nsq, ksq)
-                for i in range(nsq):
+                # QQ
+                d_Q = _density_sym(Q_b[:ns_full], Q_b[:ns_full], ns_full, ksq)
+                v_banded_q = _convol_case1(rkb_qq, d_Q, ns_full, ksq)
+                for i in range(ns_full):
                     for s in range(ksq):
-                        if i + s < nsq:
+                        if i + s < ns_full:
                             V_J_QQ[i, i + s] += coeff * v_banded_q[i, s]
                             if s > 0:
                                 V_J_QQ[i + s, i] += coeff * v_banded_q[i, s]
