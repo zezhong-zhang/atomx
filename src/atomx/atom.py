@@ -145,13 +145,10 @@ class Atom:
         """
         self.Z = Z
         self.charge = charge
-        # Auto-select basis: DBSR Fermi grid for Z≥10, exponential for light atoms
-        self._use_dbsr_grid = (ns is None and Z >= 10)
+        # Unified physics-based grid for all Z
+        self._use_physics_grid = (ns is None)
         if ns is None:
-            if Z >= 10:
-                ns = 113  # DBSR_HF default
-            else:
-                ns = max(60, 50 + Z * 3)  # denser for light atoms
+            ns = 113  # will be overridden by physics grid
         self.ns = ns
         self.ks = ks
         self.breit = breit
@@ -225,16 +222,16 @@ class Atom:
                               include_breit=self.breit,
                               include_qed=self.qed)
 
-            # Use DBSR_HF semi-exponential grid for Z≥10
-            if self._use_dbsr_grid:
-                from atomx.bspline.knots import make_dbsr_knots
+            # Unified physics-based grid: r_min from 1s scale, semi-exponential
+            if self._use_physics_grid:
+                from atomx.bspline.knots import make_physics_knots
                 from atomx.dirac.matrix import prepare_bspline_data
-                t_dbsr, ns_dbsr = make_dbsr_knots(ks=self.ks, Z=self.Z,
-                                                    nuclear='fermi')
-                data = prepare_bspline_data(t_dbsr, ns_dbsr, self.ks)
-                solver.t = t_dbsr
+                t_phys, ns_phys = make_physics_knots(
+                    ks=self.ks, Z=self.Z, ns=113)
+                data = prepare_bspline_data(t_phys, ns_phys, self.ks)
+                solver.t = t_phys
                 solver.bsp_data = data
-                solver.ns = ns_dbsr
+                solver.ns = ns_phys
                 solver._precompute()
 
             self._result = solver.solve(max_iter=max_iter, tol=tol)
