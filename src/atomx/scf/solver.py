@@ -469,10 +469,11 @@ class DFSolver:
                                                       orb_list, bsp_data)
 
         # One-electron: Σ q_a <a|h|a>
+        ns_e = bsp_data.get("ns", self.ns)  # max(nsp, nsq)
         E_1e = 0.0
         for P, Q, occ, kappa, label in orb_list:
-            H0, S0 = build_dirac_matrices(self.ns, kappa, self.Z, bsp_data, self._nuclear_potential)
-            vec = np.concatenate([P, Q])
+            H0, S0 = build_dirac_matrices(ns_e, kappa, self.Z, bsp_data, self._nuclear_potential)
+            vec = np.concatenate([P[:ns_e], Q[:ns_e]])
             norm_sq = vec @ S0 @ vec
             if norm_sq > 1e-20:
                 E_1e += occ * (vec @ H0 @ vec) / norm_sq
@@ -620,14 +621,17 @@ class DFSolver:
             V_start_PP, V_start_QQ = gsz_potential_matrix(
                 self.Z, self.N_electrons, self.bsp_data)
 
+        ns_full_init = max(nsp_init, nsq_init)
         for kappa, shells in kappa_groups.items():
-            H, S = build_dirac_matrices(ns, kappa, self.Z, self.bsp_data, self._nuclear_potential)
+            H, S = build_dirac_matrices(ns_full_init, kappa, self.Z, self.bsp_data, self._nuclear_potential)
             # Add starting potential if available
             if V_start_PP is not None:
-                H[:ns, :ns] += V_start_PP
+                n_vp = min(V_start_PP.shape[0], ns_full_init)
+                H[:n_vp, :n_vp] += V_start_PP[:n_vp, :n_vp]
             if V_start_QQ is not None:
-                H[ns:, ns:] += V_start_QQ
-            result = solve_dirac(H, S, ns, kappa,
+                n_vq = min(V_start_QQ.shape[0], ns_full_init)
+                H[ns_full_init:ns_full_init+n_vq, ns_full_init:ns_full_init+n_vq] += V_start_QQ[:n_vq, :n_vq]
+            result = solve_dirac(H, S, ns_full_init, kappa,
                                   nsp=nsp_init if has_kb else None,
                                   nsq=nsq_init if has_kb else None)
             orb_list = []
@@ -675,7 +679,7 @@ class DFSolver:
         H0_cache = {}
         S0_cache = {}
         for kappa in kappa_groups:
-            H0, S0 = build_dirac_matrices(ns, kappa, self.Z, self.bsp_data, self._nuclear_potential)
+            H0, S0 = build_dirac_matrices(ns_full_init, kappa, self.Z, self.bsp_data, self._nuclear_potential)
             H0_cache[kappa] = H0
             S0_cache[kappa] = S0
 
@@ -686,6 +690,8 @@ class DFSolver:
             # and k, NOT on target kappa. Shared across the sweep.
             # Invalidated when the source orbital changes.
             exchange_cache = {}
+
+            ns_full = max(nsp, nsq)  # matrix block dimension
 
             for sh, kappa, orb_idx in orbital_schedule:
                 H = H0_cache[kappa].copy()  # OPT 1: cached one-electron
@@ -698,19 +704,31 @@ class DFSolver:
                     K_PP, K_QQ = self._build_exchange_matrix_hf(
                         kappa, orb_idx, orbitals,
                         exchange_cache=exchange_cache)
-                    # Intra-shell F^k for k>0 (only for j>=1)
                     Vi_PP, Vi_QQ = self._build_intra_shell_potential(
                         kappa, orb_idx, orbitals)
-                    H[:ns, :ns] += V_J_PP - K_PP[:ns, :ns] + Vi_PP[:ns, :ns]
-                    H[ns:, ns:] += V_J_QQ - K_QQ[:ns, :ns] + Vi_QQ[:ns, :ns]
+                    # PP block: H[0:ns_full, 0:ns_full]
+                    n_pp = min(V_J_PP.shape[0], ns_full)
+                    n_kpp = min(K_PP.shape[0], ns_full)
+                    n_vpp = min(Vi_PP.shape[0], ns_full)
+                    H[:n_pp, :n_pp] += V_J_PP[:n_pp, :n_pp]
+                    H[:n_kpp, :n_kpp] -= K_PP[:n_kpp, :n_kpp]
+                    H[:n_vpp, :n_vpp] += Vi_PP[:n_vpp, :n_vpp]
+                    # QQ block: H[ns_full:, ns_full:]
+                    n_qq = min(V_J_QQ.shape[0], ns_full)
+                    n_kqq = min(K_QQ.shape[0], ns_full)
+                    n_vqq = min(Vi_QQ.shape[0], ns_full)
+                    H[ns_full:ns_full+n_qq, ns_full:ns_full+n_qq] += V_J_QQ[:n_qq, :n_qq]
+                    H[ns_full:ns_full+n_kqq, ns_full:ns_full+n_kqq] -= K_QQ[:n_kqq, :n_kqq]
+                    H[ns_full:ns_full+n_vqq, ns_full:ns_full+n_vqq] += Vi_QQ[:n_vqq, :n_vqq]
                 else:
-                    # Slater: total density (no self-subtraction)
                     V_J_PP, V_J_QQ = self._build_direct_potential(orbitals)
                     Vx_PP, Vx_QQ = self._build_exchange_matrix_slater(orbitals)
-                    H[:ns, :ns] += V_J_PP + Vx_PP[:ns, :ns]
-                    H[ns:, ns:] += V_J_QQ + Vx_QQ[:ns, :ns]
+                    n_pp = min(V_J_PP.shape[0], ns_full)
+                    H[:n_pp, :n_pp] += V_J_PP[:n_pp, :n_pp] + Vx_PP[:n_pp, :n_pp]
+                    n_qq = min(V_J_QQ.shape[0], ns_full)
+                    H[ns_full:ns_full+n_qq, ns_full:ns_full+n_qq] += V_J_QQ[:n_qq, :n_qq] + Vx_QQ[:n_qq, :n_qq]
 
-                result = solve_dirac(H, S_full, ns, kappa,
+                result = solve_dirac(H, S_full, ns_full, kappa,
                                       nsp=nsp if has_kb else None,
                                       nsq=nsq if has_kb else None)
 
@@ -728,11 +746,12 @@ class DFSolver:
                     sorted_idx = np.argsort(result.eigenvalues)
                     phys_idx = sorted_idx[actual_idx]
                     vec = result.coefficients[:, phys_idx]
-                    P_new = np.zeros(ns)
-                    Q_new = np.zeros(ns)
-                    nsp_loc = result.nsp if hasattr(result, 'nsp') else ns
+                    P_new = np.zeros(ns_full)
+                    Q_new = np.zeros(ns_full)
+                    nsp_loc = result.nsp if hasattr(result, 'nsp') else ns_full
+                    nsq_loc = result.nsq if hasattr(result, 'nsq') else ns_full
                     P_new[:nsp_loc] = vec[:nsp_loc]
-                    Q_new[:ns] = vec[nsp_loc:nsp_loc + ns]
+                    Q_new[:nsq_loc] = vec[nsp_loc:nsp_loc + nsq_loc]
                     E_new = result.eigenvalues[phys_idx]
 
                     # Track orbital change
@@ -741,12 +760,12 @@ class DFSolver:
                         P_old = orb_list[orb_idx][0]
                         p_max = np.max(np.abs(P_old))
                         if p_max > 1e-15:
-                            change = np.max(np.abs(P_new - P_old)) / p_max
+                            change = np.max(np.abs(P_new[:len(P_old)] - P_old[:len(P_new)])) / p_max
                             max_orb_change = max(max_orb_change, change)
 
                     # Pure eigenvector replacement (DBSR_HF style: no mixing)
                     while orb_idx >= len(orb_list):
-                        orb_list.append((np.zeros(ns), np.zeros(ns), sh.occupation))
+                        orb_list.append((np.zeros(ns_full), np.zeros(ns_full), sh.occupation))
                     orb_list[orb_idx] = (P_new, Q_new, sh.occupation)
                     orbitals[kappa] = orb_list
                     orbital_energies[sh.label] = E_new
