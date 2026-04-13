@@ -341,10 +341,18 @@ class DFSolver:
                                * (3.0 / np.pi) ** (1.0 / 3.0)
                                * rho[iv, m] ** (4.0 / 3.0))
 
-        # E_total = Σ q ε - E_J + E_K (eigenvalue-based, KB-safe)
-        # E_1e = Σ q ε - 2*(E_J - E_K) (derived)
-        E_total = E_orbital_sum - E_J + E_K
-        E_1e = E_orbital_sum - 2.0 * (E_J - E_K)
+        # Total energy formula depends on exchange type:
+        if self.exchange == "hf":
+            # HF: E = Σ q ε - E_J + E_K
+            E_total = E_orbital_sum - E_J + E_K
+            E_1e = E_orbital_sum - 2.0 * (E_J - E_K)
+        else:
+            # DFS (Slater local exchange):
+            # E = Σqε - E_J - (1/3)E_xc
+            # Accurate for Z≥10 (self-interaction error negligible)
+            E_total = E_orbital_sum - E_J - (1.0/3.0) * E_K
+            E_1e = E_orbital_sum - 2.0 * E_J - (4.0/3.0) * E_K
+
         components = {"E_1e": E_1e, "E_J": E_J, "E_K": E_K}
         return E_total, components
 
