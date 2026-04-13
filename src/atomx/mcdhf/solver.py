@@ -32,6 +32,8 @@ class MCDHFResult:
     ground_energy: float
     orbital_energies: Dict[str, float]
     csfs: List[CSF]
+    orbitals_dict: Dict = field(default_factory=dict)  # (n,kappa) -> (P, Q)
+    bsp_data: Dict = field(default_factory=dict)
 
     @property
     def n_states(self):
@@ -67,7 +69,12 @@ class MCDHFSolver:
         self.r_max = r_max
 
     def _averaged_subshells(self, weights=None):
-        """Guerra Eq (10): ϖᵢ = Σⱼ cⱼ² nᵢʲ — fractional occupations."""
+        """Guerra Eq (10): ϖᵢ = Σⱼ cⱼ² nᵢʲ — fractional occupations.
+
+        All orbitals appearing in any CSF are included (with minimum
+        occupation 0.001) so they get solved even when their weight is
+        near-zero. This is essential for transition calculations.
+        """
         if weights is None:
             weights = np.ones(self.n_csf) / self.n_csf
 
@@ -80,10 +87,11 @@ class MCDHFSolver:
         subshells = []
         for (n, kappa), occ in sorted(avg_occ.items(),
                                        key=lambda x: (x[0][0], abs(x[0][1]))):
-            if occ > 0.01:
-                max_q = 2 * abs(kappa)
-                occ = min(occ, max_q)
-                subshells.append(Subshell(n=n, kappa=kappa, occupation=occ))
+            max_q = 2 * abs(kappa)
+            # Ensure all orbitals are solved (min occupation for numerical stability)
+            occ = max(occ, 0.001)
+            occ = min(occ, max_q)
+            subshells.append(Subshell(n=n, kappa=kappa, occupation=occ))
 
         return subshells
 
@@ -163,4 +171,6 @@ class MCDHFSolver:
             ground_energy=state_energies[0],
             orbital_energies=orbital_energies,
             csfs=self.csfs,
+            orbitals_dict=dict(orbitals_dict),
+            bsp_data=dict(dhf.bsp_data),
         )
