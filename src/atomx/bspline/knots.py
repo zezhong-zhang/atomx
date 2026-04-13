@@ -31,16 +31,22 @@ def make_exponential_knots(ns: int, ks: int, r_min: float,
 
 
 def make_physics_knots(ks: int, Z: int, ns: int = 113,
-                       r_max: float = None) -> tuple:
-    """Unified physics-based grid for all elements (pure exponential).
+                       r_max: float = None, nuclear: str = "point",
+                       hi: float = None, he: float = None,
+                       hmax: float = None, ml: int = 1) -> tuple:
+    """DBSR_HF-style semi-exponential grid (mkgrid_01).
 
-    r_min = 0.05/Z : resolves 1s orbital peak (10% of orbital scale)
-    r_max = adapted : captures outermost orbital tail
-    he = computed  : from (ns, r_min, r_max) to optimally fill the range
+    Three-region grid:
+      1. ml equal-spaced intervals of step hs  (nuclear region)
+      2. Exponential growth with factor ht = 1 + he  (inner/mid region)
+      3. Constant step hmax  (outer region, if needed)
 
-    The pure exponential distributes points proportionally to r,
-    matching the density gradient of ALL atomic shells simultaneously.
-    No wasted points in regions with negligible density.
+    Default parameters tuned for DBSR_HF-quality accuracy:
+      nuclear="point":  hi=0.025, he=0.125, hmax=1.0  (~100-125 B-splines)
+      nuclear="fermi":  hi=0.25,  he=0.25,  hmax=1.0  (~112 B-splines, DBSR_HF standard)
+
+    For point nucleus: hs = hi / Z
+    For Fermi nucleus: hs = 4*log(3) * a_fermi * hi  (very small r_min)
 
     Parameters
     ----------
@@ -49,34 +55,88 @@ def make_physics_knots(ks: int, Z: int, ns: int = 113,
     Z : int
         Nuclear charge.
     ns : int
-        Number of B-splines (default 113, DBSR_HF standard).
+        Ignored — ns is determined by the grid construction.
     r_max : float or None
-        Box radius. Default: adapted to outermost shell.
+        Box radius. Default: 50.0 (DBSR_HF default).
+    nuclear : str
+        "point" (default) or "fermi" (DBSR_HF standard).
+    hi, he, hmax : float or None
+        Grid parameters. None = use defaults for the nuclear model.
+    ml : int
+        Number of initial equal-spaced intervals (default: 1).
 
     Returns
     -------
     t : ndarray
-    ns : int (same as input)
+    ns : int (determined by grid)
     """
-    # Physics-derived r_min: 10% of 1s orbital scale
-    r_min = 0.05 / max(Z, 1)
-
-    # Physics-derived r_max: capture outermost orbital tail
     if r_max is None:
-        # Outermost shell: n_max²/Z_eff, with tail extending to ~10x
-        n_max = {1:1, 2:1}.get(Z)
-        if n_max is None:
-            if Z <= 2: n_max = 1
-            elif Z <= 10: n_max = 2
-            elif Z <= 18: n_max = 3
-            elif Z <= 36: n_max = 4
-            elif Z <= 54: n_max = 5
-            else: n_max = 6
-        r_outer = n_max ** 2 / max(Z - 10, 1)  # rough Thomas-Fermi
-        r_max = max(20.0, min(50.0, 10.0 * r_outer))
+        r_max = 50.0  # DBSR_HF default
 
-    t = make_exponential_knots(ns, ks, r_min, r_max)
-    return t, ns
+    # Select defaults based on nuclear model
+    if nuclear == "fermi":
+        # DBSR_HF standard defaults (matches published parameters)
+        if hi is None: hi = 0.25
+        if he is None: he = 0.25
+        if hmax is None: hmax = 1.0
+    else:
+        # Point nucleus: slow exponential growth for dense coverage of the
+        # atomic physics region (0.01/Z to ~10 a.u.), with ~80% of
+        # B-splines in the exponential region.
+        if hi is None: hi = 0.025
+        if he is None: he = 0.08
+        if hmax is None: hmax = 1.0
+
+    # Initial step depends on nuclear model (DBSR_HF mkgrid_01)
+    if nuclear == "fermi":
+        from atomx.nuclear import fermi_grid_step
+        hs = fermi_grid_step(Z, hi=hi)
+    else:
+        # Point nucleus: hs = hi / Z
+        hs = hi / max(Z, 1)
+
+    # Build breakpoints following DBSR_HF mkgrid_01
+    breakpoints = []
+    # Region 1: ml equal-spaced intervals
+    for i in range(1, ml + 1):
+        breakpoints.append(hs * i)
+
+    # Region 2: exponential growth (ht = 1 + he)
+    ti = breakpoints[-1]
+    ht = 1.0 + he
+    while True:
+        tj = ti * ht
+        if (tj - ti) > hmax:
+            break
+        if tj > r_max:
+            break
+        breakpoints.append(tj)
+        ti = tj
+
+    # Region 3: constant step hmax
+    if ti < r_max:
+        while True:
+            ti_next = ti + hmax
+            if ti_next >= r_max:
+                break
+            breakpoints.append(ti_next)
+            ti = ti_next
+
+    # Final boundary
+    tmax = breakpoints[-1]
+    if tmax < r_max:
+        tmax = r_max
+
+    nv = len(breakpoints)
+    ns_out = nv + ks - 1
+
+    # Build knot sequence: ks copies of 0, then breakpoints, then ks copies of tmax
+    t = np.zeros(ns_out + ks)
+    for i, bp in enumerate(breakpoints):
+        t[ks + i] = bp
+    t[ns_out:ns_out + ks] = tmax
+
+    return t, ns_out
 
 
 def make_dbsr_knots(ks: int, Z: int, r_max: float = 50.0,
