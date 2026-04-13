@@ -402,7 +402,9 @@ class DFSolver:
                 E_1e += occ * (vec @ H0 @ vec) / norm_sq
 
         # Two-electron (DBSR_HF av_energy_coef formula)
-        E_2e = 0.0
+        # Track direct (E_J = F^0) and exchange (E_K = F^{k>0}, G^k) separately
+        E_J = 0.0   # direct Coulomb (F^0 terms)
+        E_K = 0.0   # exchange (F^{k>0} and G^k terms)
         for i, (Pa, Qa, oa, ka, la) in enumerate(orb_list):
             tj_a = 2 * abs(ka) - 1
             l_a = ka if ka > 0 else -ka - 1
@@ -417,7 +419,7 @@ class DFSolver:
                     if oa < 2.0 - 1e-10:
                         continue
                     c = oa * (oa - 1.0) / 2.0
-                    E_2e += c * compute_slater_fk(Pa, Qa, Pa, Qa, bsp_data, 0)
+                    E_J += c * compute_slater_fk(Pa, Qa, Pa, Qa, bsp_data, 0)
                     for k in range(1, tj_a + 1):
                         if (k + 2 * l_a) % 2 != 0:
                             continue
@@ -425,20 +427,21 @@ class DFSolver:
                         if lam < 1e-15:
                             continue
                         fk = compute_slater_fk(Pa, Qa, Pa, Qa, bsp_data, k)
-                        E_2e -= c * lam / (tj_a * (tj_a + 1.0)) * fk
+                        E_K += c * lam / (tj_a * (tj_a + 1.0)) * fk
                 else:
                     # Cross-shell: q_a*q_b * [F^0 - Σ_k Λ/((2j_a+1)(2j_b+1)) * G^k]
                     c = oa * ob
-                    E_2e += c * compute_slater_fk(Pa, Qa, Pb, Qb, bsp_data, 0)
+                    E_J += c * compute_slater_fk(Pa, Qa, Pb, Qb, bsp_data, 0)
                     for k in exchange_k_range(ka, kb):
                         lam = exchange_lambda(ka, kb, k)
                         if lam < 1e-15:
                             continue
                         gk = compute_slater_gk(Pa, Qa, Pb, Qb, bsp_data, k)
-                        E_2e -= c * lam / ((tj_a + 1.0) * (tj_b + 1.0)) * gk
+                        E_K += c * lam / ((tj_a + 1.0) * (tj_b + 1.0)) * gk
 
+        E_2e = E_J - E_K
         E_total = E_1e + E_2e
-        components = {"E_1e": E_1e, "E_2e": E_2e}
+        components = {"E_1e": E_1e, "E_2e": E_2e, "E_J": E_J, "E_K": E_K}
         return E_total, components
 
     def _compute_total_energy_slater(self, orbitals, orbital_energies,

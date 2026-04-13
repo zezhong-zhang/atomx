@@ -202,7 +202,7 @@ def _make_fermi_potential(Z, A=None):
 
     # Normalize: 4π ∫ ρ(r) r² dr = Z
     dr = r_grid[1] - r_grid[0]
-    norm = 4.0 * np.pi * np.trapz(rho_raw * r_grid ** 2, dx=dr)
+    norm = 4.0 * np.pi * np.trapezoid(rho_raw * r_grid ** 2, dx=dr)
     rho = Z / norm * rho_raw  # now 4π∫ρr²dr = Z
 
     # Inner integral: Q(r) = 4π ∫₀ʳ ρ(r') r'² dr' (enclosed charge)
