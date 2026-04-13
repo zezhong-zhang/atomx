@@ -74,18 +74,11 @@ def make_physics_knots(ks: int, Z: int, ns: int = 113,
         r_max = 50.0  # DBSR_HF default
 
     # Select defaults based on nuclear model
-    if nuclear == "fermi":
-        # DBSR_HF standard defaults (matches published parameters)
-        if hi is None: hi = 0.25
-        if he is None: he = 0.25
-        if hmax is None: hmax = 1.0
-    else:
-        # Point nucleus: slow exponential growth for dense coverage of the
-        # atomic physics region (0.01/Z to ~10 a.u.), with ~80% of
-        # B-splines in the exponential region.
-        if hi is None: hi = 0.025
-        if he is None: he = 0.08
-        if hmax is None: hmax = 1.0
+    # DBSR_HF mkgrid_01 uses the same defaults for all nuclear models:
+    #   hi=0.25, he=0.25, hmax=1.0
+    if hi is None: hi = 0.25
+    if he is None: he = 0.25
+    if hmax is None: hmax = 1.0
 
     # Initial step depends on nuclear model (DBSR_HF mkgrid_01)
     if nuclear == "fermi":

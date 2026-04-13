@@ -115,21 +115,22 @@ def _compute_moments_nonsym(bsp1, bsp2, gr, grw, nv, ks1, ks2, k):
 def _triang_sym(bsp, gr, grw, t, nv, ks, ns, k):
     """Diagonal cell R^k integrals for all intervals (symmetric basis).
 
+    Exact reproduction of DBSR_HF triang_pppp algorithm:
     For interval iv where both electrons are in the same cell:
-    rkd[ii, jj, iv] = ∫∫_{cell iv} B_i B_{ip}(r₁) [r_<^k/r_>^{k+1}] B_j B_{jp}(r₂) dr₁ dr₂
+    rkd[ii, jj, iv] = ∫∫_{cell iv} B_i*B_{ip}(r₁) [r_<^k/r_>^{k+1}] B_j*B_{jp}(r₂) dr₁ dr₂
 
-    Algorithm (DBSR_HF triang_pppp):
-    - Outer loop: Gauss points m (r₂)
-    - Inner: sub-quadrature from t[ks+iv-1] to gr[iv,m] for r₁ integral
-    - INTP[j, jp, m] = inner integral of B_j B_jp r₁^k
-    - Combine with outer B_i B_ip / r₂^{k+1} weights
-    - Symmetrize: rkd = a + a^T
+    Algorithm:
+    - Outer loop: Gauss points m in interval iv (r₂ = gr[iv,m])
+    - Inner: sub-quadrature from xbase to gr[iv,m] (r₁ direction)
+    - INTP[j, jp, m] = ∫_{xbase}^{gr[iv,m]} B_j(r₁)*B_jp(r₁)*r₁^k dr₁
+    - Combine: a[ii,jj] = Σ_m B_i(m)*B_ip(m)*grw(m)/r₂^{k+1} * INTP[j,jp,m]
+    - Symmetrize: rkd = a + a^T (swaps r_< and r_> roles)
 
     Parameters
     ----------
-    bsp : (nv, n_gauss, ks)
-    gr, grw : (nv, n_gauss)
-    t : knot sequence
+    bsp : (nv, n_gauss, ks)  -- B-spline values at main Gauss points
+    gr, grw : (nv, n_gauss)  -- main quadrature points and weights
+    t : knot sequence (use tp for P-component when KB is active)
     nv, ks, ns, k : int
 
     Returns
@@ -140,88 +141,44 @@ def _triang_sym(bsp, gr, grw, t, nv, ks, ns, k):
     kk = ks * (ks + 1) // 2
     rkd = np.zeros((kk, kk, nv))
 
-    # Sub-quadrature points on [0, 1] for inner integration
-    # Use ks points (same order as B-spline)
+    # Sub-quadrature: ks Gauss-Legendre points on [0, 1] (DBSR_HF convention)
     n_sub = ks
-    # Gauss-Legendre on [-1,1] mapped to [0,1]: x_01 = (x+1)/2, w_01 = w/2
-    # Pre-compute via recurrence (Numba-compatible)
     x_01 = np.empty(n_sub)
     w_01 = np.empty(n_sub)
     _gauss_legendre_01(n_sub, x_01, w_01)
 
-    # Temporary arrays
+    # Pre-allocate work arrays (reused per interval)
     bsp_sub = np.empty((n_sub, ks))
+    gw_rk = np.empty(n_sub)
     INTP = np.empty((ks, ks, n_gauss))
 
     for iv in range(nv):
-        # Left breakpoint of interval iv (0-indexed)
-        xbase = t[ks - 1 + iv]
-        left = ks - 1 + iv  # knot span index for this interval
+        # xbase = left boundary of interval iv (DBSR_HF: tp(iv + ksp - 1))
+        left = ks - 1 + iv
+        xbase = t[left]
 
-        # Step 1: compute INTP[j, jp, m] for each outer Gauss point m
+        # --- Inner integration: compute INTP[j, jp, m] ---
         for m in range(n_gauss):
             r_upper = gr[iv, m]
-            half_len = r_upper - xbase
+            span = r_upper - xbase
 
-            if half_len < 1e-30:
+            if span < 1e-30:
                 for j in range(ks):
                     for jp in range(j, ks):
                         INTP[j, jp, m] = 0.0
                 continue
 
-            # Map sub-quadrature [0,1] → [xbase, r_upper]
+            # Map [0,1] sub-quadrature -> [xbase, gr(iv,m)]
+            # Evaluate B-splines at each sub-point (DBSR_HF: calls zbsplvd)
             for n in range(n_sub):
-                r_sub = xbase + half_len * x_01[n]
-                gw_sub = half_len * w_01[n]
-
-                # Evaluate B-splines at r_sub (same interval iv)
-                _bsplvb_inplace(t, ks, r_sub, left, bsp_sub[n, :])
-
-                # Weight: gw_sub * r_sub^k
+                gx_n = xbase + span * x_01[n]
+                _bsplvb_inplace(t, ks, gx_n, left, bsp_sub[n, :])
+                # Inner weight: Jacobian * GL weight * r^k
+                w = span * w_01[n]
                 if k > 0:
-                    gw_sub *= r_sub ** k
+                    gw_rk[n] = w * gx_n ** k
                 elif k < 0:
-                    gw_sub /= r_sub ** (-k)
-
-                for j in range(ks):
-                    bsp_sub[n, j] *= gw_sub
-
-            # Accumulate INTP[j, jp, m] = Σ_n bsp_sub[n,j] * bsp_orig[n,jp]
-            # (but bsp_sub already includes the weight)
-            for j in range(ks):
-                for jp in range(j, ks):
-                    s = 0.0
-                    for n in range(n_sub):
-                        # bsp_sub[n,j] already has w*r^k, so we need unweighted jp
-                        # Actually bsp_sub was modified in-place above, need to split
-                        pass
-                    INTP[j, jp, m] = s
-
-        # Need to redo this more carefully: separate weighted and unweighted
-        # Let me use proper temporary arrays
-
-        # REDO: compute INTP properly
-        bsp_raw = np.empty((n_sub, ks))  # unweighted B-spline values
-        for m in range(n_gauss):
-            r_upper = gr[iv, m]
-            half_len = r_upper - xbase
-
-            if half_len < 1e-30:
-                for j in range(ks):
-                    for jp in range(j, ks):
-                        INTP[j, jp, m] = 0.0
-                continue
-
-            # Evaluate B-splines and weights at sub-quadrature points
-            gw_rk = np.empty(n_sub)
-            for n in range(n_sub):
-                r_sub = xbase + half_len * x_01[n]
-                _bsplvb_inplace(t, ks, r_sub, left, bsp_raw[n, :])
-                w = half_len * w_01[n]
-                if k > 0:
-                    gw_rk[n] = w * r_sub ** k
-                elif k < 0:
-                    gw_rk[n] = w / r_sub ** (-k)
+                    gw_rk[n] = w / gx_n ** (-k)
                 else:
                     gw_rk[n] = w
 
@@ -230,33 +187,29 @@ def _triang_sym(bsp, gr, grw, t, nv, ks, ns, k):
                 for jp in range(j, ks):
                     s = 0.0
                     for n in range(n_sub):
-                        s += bsp_raw[n, j] * bsp_raw[n, jp] * gw_rk[n]
+                        s += bsp_sub[n, j] * bsp_sub[n, jp] * gw_rk[n]
                     INTP[j, jp, m] = s
 
-        # Step 2: outer integration
-        # gx[m] = grw[iv,m] / gr[iv,m]^{k+1}  (outer weight for r_> part)
-        gx = np.empty(n_gauss)
-        for m in range(n_gauss):
-            gx[m] = grw[iv, m] / gr[iv, m] ** (k + 1)
-
-        # a[ii, jj] = Σ_m B_i(m)*B_ip(m)*gx[m] * INTP[j, jp, m]
+        # --- Outer integration ---
+        # Outer weight: grw(iv,m) / gr(iv,m)^{k+1}  (the 1/r_>^{k+1} factor)
+        # Assemble a[ii,jj] = Σ_m B_i(m)*B_ip(m) * outer_weight(m) * INTP[j,jp,m]
         a = np.zeros((kk, kk))
         ii = 0
         for i in range(ks):
             for ip in range(i, ks):
-                # bi[m] = bsp[iv, m, i] * bsp[iv, m, ip] * gx[m]
                 jj = 0
                 for j in range(ks):
                     for jp in range(j, ks):
                         s = 0.0
                         for m in range(n_gauss):
-                            s += (bsp[iv, m, i] * bsp[iv, m, ip] * gx[m]
-                                  * INTP[j, jp, m])
+                            outer_w = grw[iv, m] / gr[iv, m] ** (k + 1)
+                            s += (bsp[iv, m, i] * bsp[iv, m, ip]
+                                  * outer_w * INTP[j, jp, m])
                         a[ii, jj] = s
                         jj += 1
                 ii += 1
 
-        # Step 3: symmetrize: rkd = a + a^T
+        # Symmetrize: rkd = a + a^T (accounts for both r_< / r_> orderings)
         for ii in range(kk):
             for jj in range(kk):
                 rkd[ii, jj, iv] = a[ii, jj] + a[jj, ii]

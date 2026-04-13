@@ -160,6 +160,8 @@ class DFSolver:
         bsp = self.bsp_data["bsp_q"] if "bsp_q" in self.bsp_data else self.bsp_data["bsp_p"]
         self.S_mat = overlap_matrix(nv, ksq, ns, bsp, grw)
         self.V_nuc_mat = nuclear_matrix(nv, ksq, ns, bsp, gr, grw, self.Z)
+        # Reset convolution cache when grid changes
+        self._convol_cache = ConvolCache(self.bsp_data)
 
     def _eval_P_on_grid(self, coeffs):
         """Evaluate P-component (large) orbital on grid using ksp-order basis."""
@@ -181,22 +183,77 @@ class DFSolver:
         return self._eval_P_on_grid(coeffs)
 
     def _build_direct_potential(self, orbitals, target_kappa=None, target_idx=None):
-        """Build Hartree potential matrices for P and Q blocks separately.
+        """Build Hartree potential via cell-based convolution (DBSR_HF algorithm).
 
-        With KB: V_J_PP uses ksp-order basis, V_J_QQ uses ksq-order.
-        Returns (V_J_PP, V_J_QQ).
+        Uses rkb convolution for each orbital's F^0 contribution to the direct
+        potential matrix. Self-consistent with cell-based energy computation.
 
-        When target_kappa/target_idx are given, subtracts one electron of
-        self-density so that the self-direct coefficient is (q_a - 1)
-        instead of q_a (DBSR_HF convention).
+        Falls back to Y^k for DFS (Slater local exchange) mode, which doesn't
+        benefit from cell algorithm precision.
         """
+        # DFS mode: use fast Y^k approach (no cell-algorithm precision needed)
+        if self.exchange != "hf":
+            return self._build_direct_potential_yk(orbitals, target_kappa, target_idx)
+
+        from atomx.bspline.convol import (
+            _build_rkb_sym, _density_sym, _convol_case1,
+        )
+
+        ns = self.ns
+        bd = self.bsp_data
+        ksp = bd.get("ksp", self.ks)
+        nsp = bd.get("nsp", ns)
+        ksq = bd.get("ksq", self.ks)
+        nsq = bd.get("nsq", ns)
+
+        # Build rkb for k=0 (reuse across all orbitals via convol_cache)
+        if not hasattr(self, '_convol_cache'):
+            self._convol_cache = ConvolCache(bd)
+        rkb_pp, _, _ = self._convol_cache.get_rkb(0, "pppp")
+        rkb_qq, _, _ = self._convol_cache.get_rkb(0, "qqqq")
+
+        V_J_PP = np.zeros((ns, ns))
+        V_J_QQ = np.zeros((ns, ns))
+
+        for kappa, orb_list in orbitals.items():
+            for orb_i, (P_b, Q_b, occ_b) in enumerate(orb_list):
+                # Self-direct: use (q-1) instead of q
+                coeff = occ_b
+                if target_kappa == kappa and target_idx == orb_i:
+                    coeff = occ_b - 1.0
+                if coeff < 1e-10:
+                    continue
+
+                # PP contribution: contract rkb_pppp with P-density
+                d_P = _density_sym(P_b, P_b, nsp, ksp)
+                v_banded = _convol_case1(rkb_pp, d_P, nsp, ksp)
+                for i in range(nsp):
+                    for s in range(ksp):
+                        if i + s < nsp:
+                            V_J_PP[i, i + s] += coeff * v_banded[i, s]
+                            if s > 0:
+                                V_J_PP[i + s, i] += coeff * v_banded[i, s]
+
+                # QQ contribution
+                d_Q = _density_sym(Q_b, Q_b, nsq, ksq)
+                v_banded_q = _convol_case1(rkb_qq, d_Q, nsq, ksq)
+                for i in range(nsq):
+                    for s in range(ksq):
+                        if i + s < nsq:
+                            V_J_QQ[i, i + s] += coeff * v_banded_q[i, s]
+                            if s > 0:
+                                V_J_QQ[i + s, i] += coeff * v_banded_q[i, s]
+
+        return V_J_PP, V_J_QQ
+
+    def _build_direct_potential_yk(self, orbitals, target_kappa=None, target_idx=None):
+        """Y^k-based Hartree potential (fast, for DFS mode)."""
         nv = self.bsp_data["nv"]
         ns = self.ns
         gr = self.bsp_data["gr"]
         grw = self.bsp_data["grw"]
         n_gauss = gr.shape[1]
 
-        # Build total density using component-specific evaluation
         rho_total = np.zeros((nv, n_gauss))
         for kappa, orb_list in orbitals.items():
             for P, Q, occ in orb_list:
@@ -204,7 +261,6 @@ class DFSolver:
                 fQ = self._eval_Q_on_grid(Q)
                 rho_total += occ * (fP ** 2 + fQ ** 2)
 
-        # Subtract one electron of self-density for correct (q-1) self-direct
         if target_kappa is not None and target_idx is not None:
             orb_list_t = orbitals.get(target_kappa, [])
             if target_idx < len(orb_list_t):
@@ -216,13 +272,11 @@ class DFSolver:
         yk = compute_yk(rho_total, gr, grw, nv, n_gauss, k=0)
         yk_weights = grw * yk
 
-        # V_J for P-block
         ksp = self.bsp_data.get("ksp", self.ks)
         bsp_p = self.bsp_data["bsp_p"]
         V_J_PP = _assemble_integral(nv, ksp, ksp, ns, bsp_p, bsp_p, yk_weights)
         V_J_PP = 0.5 * (V_J_PP + V_J_PP.T)
 
-        # V_J for Q-block
         ksq = self.bsp_data.get("ksq", self.ks)
         bsp_q = self.bsp_data.get("bsp_q", bsp_p)
         V_J_QQ = _assemble_integral(nv, ksq, ksq, ns, bsp_q, bsp_q, yk_weights)
@@ -232,19 +286,27 @@ class DFSolver:
 
     def _build_exchange_matrix_hf(self, target_kappa, target_idx, orbitals,
                                    exchange_cache=None):
-        """Build non-local HF exchange matrix for a given kappa channel.
+        """Build non-local HF exchange matrix via cell-based convolution.
 
-        DBSR_HF convention: exchange only from OTHER orbitals (b≠a).
+        DBSR_HF convention: exchange only from OTHER orbitals (b!=a).
         Same-shell exchange is handled via _build_intra_shell_potential.
 
-        Coefficient: c_k = q_b * Lambda(k,a,b) / ((2j_a+1)(2j_b+1))
-        matching DBSR_HF av_energy_coef after dividing by q_a.
-
-        OPT: exchange_cache stores K^k(b) matrices keyed by (kappa_b, orb_idx, k).
+        Uses icase=4 (exchange contraction) of the cell algorithm for
+        self-consistency with the cell-based energy computation.
         """
         from atomx.scf.angular_coeffs import exchange_lambda
+        from atomx.bspline.convol import _density_full, _convol_case4
 
         ns = self.ns
+        bd = self.bsp_data
+        ksp = bd.get("ksp", self.ks)
+        nsp = bd.get("nsp", ns)
+        ksq = bd.get("ksq", self.ks)
+        nsq = bd.get("nsq", ns)
+
+        if not hasattr(self, '_convol_cache'):
+            self._convol_cache = ConvolCache(bd)
+
         tj_a = 2 * abs(target_kappa) - 1
         K_PP = np.zeros((ns, ns))
         K_QQ = np.zeros((ns, ns))
@@ -252,7 +314,6 @@ class DFSolver:
         for kappa_b, orb_list in orbitals.items():
             tj_b = 2 * abs(kappa_b) - 1
             for orb_i, (P_b, Q_b, occ_b) in enumerate(orb_list):
-                # Skip same orbital — handled via direct + intra-shell
                 if kappa_b == target_kappa and orb_i == target_idx:
                     continue
                 k_values = exchange_k_range(target_kappa, kappa_b)
@@ -262,19 +323,20 @@ class DFSolver:
                         continue
                     c_k = occ_b * lam / ((tj_a + 1.0) * (tj_b + 1.0))
 
-                    # OPT: Reuse cached K^k(b) if available
-                    cache_key = (kappa_b, orb_i, k)
-                    if exchange_cache is not None and cache_key in exchange_cache:
-                        Kk_PP, Kk_QQ = exchange_cache[cache_key]
-                    else:
-                        Kk_PP, Kk_QQ = compute_exchange_matrix(
-                            P_b, Q_b, self.bsp_data, k)
-                        if exchange_cache is not None:
-                            exchange_cache[cache_key] = (Kk_PP, Kk_QQ)
+                    # Cell-based exchange: rkb contracted with cross-density
+                    rkb_pp, _, _ = self._convol_cache.get_rkb(k, "pppp")
+                    rkb_qq, _, _ = self._convol_cache.get_rkb(k, "qqqq")
 
+                    # PP block
+                    d_P = _density_full(P_b, P_b, nsp)
+                    Kk_PP = _convol_case4(rkb_pp, d_P, nsp, ksp)
                     n_pp = min(Kk_PP.shape[0], ns)
-                    n_qq = min(Kk_QQ.shape[0], ns)
                     K_PP[:n_pp, :n_pp] += c_k * Kk_PP[:n_pp, :n_pp]
+
+                    # QQ block
+                    d_Q = _density_full(Q_b, Q_b, nsq)
+                    Kk_QQ = _convol_case4(rkb_qq, d_Q, nsq, ksq)
+                    n_qq = min(Kk_QQ.shape[0], ns)
                     K_QQ[:n_qq, :n_qq] += c_k * Kk_QQ[:n_qq, :n_qq]
 
         K_PP = 0.5 * (K_PP + K_PP.T)
