@@ -86,7 +86,20 @@ _GROUND_CONFIGS = {
     54: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6",
     55: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 6s1",
     56: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 6s2",
-    57: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 5d1 6s2",
+    57: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 5d1 6s2",     # La
+    58: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f1 5d1 6s2", # Ce
+    59: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f3 6s2",     # Pr
+    60: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f4 6s2",     # Nd
+    61: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f5 6s2",     # Pm
+    62: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f6 6s2",     # Sm
+    63: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f7 6s2",     # Eu
+    64: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f7 5d1 6s2", # Gd
+    65: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f9 6s2",     # Tb
+    66: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f10 6s2",    # Dy
+    67: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f11 6s2",    # Ho
+    68: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f12 6s2",    # Er
+    69: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s2",    # Tm
+    70: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6s2",    # Yb
     71: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d1 6s2",
     72: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d2 6s2",
     73: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d3 6s2",
@@ -121,9 +134,11 @@ class Atom:
     charge : int, optional
         Ion charge (0=neutral, 1=singly ionized, etc.). Default: 0.
     ns : int
-        Number of B-splines.
+        Number of B-splines. None = auto (DBSR_HF semi-exponential grid).
     ks : int
         B-spline order.
+    nuclear : str
+        Nuclear model: "fermi" (default, DBSR_HF), "point", or "uniform".
     breit : bool
         Include Breit (Gaunt) interaction.
     qed : bool
@@ -135,12 +150,15 @@ class Atom:
     """
 
     def __init__(self, Z, config=None, configs=None, charge=0,
-                 ns=None, ks=9, breit=False, qed=False, exchange="hf",
+                 ns=None, ks=9, nuclear="fermi",
+                 breit=False, qed=False, exchange="hf",
                  correlation=None, starting_potential=None,
                  plasma_ne=None, plasma_Te=None):
         """
         Parameters
         ----------
+        nuclear : str
+            Nuclear model: "fermi" (default, matches DBSR_HF), "point", "uniform".
         correlation : str or None
             None = single-config DHF (default).
             "sd" = add singles+doubles excitations (MCDHF with correlation).
@@ -158,6 +176,7 @@ class Atom:
         """
         self.Z = Z
         self.charge = charge
+        self.nuclear = nuclear
         # Unified physics-based grid for all Z
         self._use_physics_grid = (ns is None)
         if ns is None:
@@ -256,20 +275,37 @@ class Atom:
             )
         else:
             # B-spline DHF/DFS backend
-            from atomx.mcdhf.config import _parse_config_string
-            subshells = _parse_config_string(self._config_strings[0])
+            # Use jj-average with statistical weights (eal=5) for DBSR_HF-compatible
+            # fractional occupations. This distributes electrons in open p/d/f shells
+            # across j- and j+ subshells weighted by (2j+1) degeneracy.
+            from atomx.scf.jj_config import generate_jj_average
+            subshells, self._jj_configs = generate_jj_average(
+                self._config_strings[0], eal=5)
+            # Remove zero-occupation subshells (they add orbitals but slow SCF)
+            # Keep configs aligned: filter configs to match
+            kept_indices = [i for i, sh in enumerate(subshells) if sh.occupation > 1e-10]
+            subshells = [subshells[i] for i in kept_indices]
+            # Filter jj_configs to only include kept subshells
+            from atomx.scf.jj_config import JJConfig
+            filtered_configs = []
+            for c in self._jj_configs:
+                filtered_subs = [c.subshells[i] for i in kept_indices]
+                filtered_configs.append(JJConfig(subshells=filtered_subs, weight=c.weight))
             solver = DFSolver(Z=self.Z, subshells=subshells,
                               ns=self.ns, ks=self.ks,
                               exchange=self.exchange,
                               include_breit=self.breit,
                               include_qed=self.qed,
-                              starting_potential=self.starting_potential)
+                              nuclear=self.nuclear,
+                              starting_potential=self.starting_potential,
+                              jj_configs=filtered_configs)
 
+            # DBSR_HF-style semi-exponential grid (matched to nuclear model)
             if self._use_physics_grid:
                 from atomx.bspline.knots import make_physics_knots
                 from atomx.dirac.matrix import prepare_bspline_data
                 t_phys, ns_phys = make_physics_knots(
-                    ks=self.ks, Z=self.Z, ns=113)
+                    ks=self.ks, Z=self.Z, nuclear=self.nuclear)
                 data = prepare_bspline_data(t_phys, ns_phys, self.ks)
                 solver.t = t_phys
                 solver.bsp_data = data

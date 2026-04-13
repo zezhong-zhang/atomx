@@ -193,10 +193,13 @@ class CollisionalRadiativeModel:
         b = np.zeros(n)
         b[-1] = 1.0
 
+        import warnings
         try:
-            populations = linalg.solve(A, b)
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore", linalg.LinAlgWarning)
+                populations = linalg.solve(A, b)
         except linalg.LinAlgError:
-            # Fallback: use least squares
+            # Fallback: use least squares for singular/near-singular matrices
             populations, _, _, _ = linalg.lstsq(A, b)
 
         # Ensure non-negative

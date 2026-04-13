@@ -108,5 +108,6 @@ class TestSCFHartreeFock:
     def test_neon_hf_energy_components(self, ne_hf_result):
         E = ne_hf_result.energy_components
         assert E["E_1e"] < 0
-        assert E["E_J"] > 0
-        assert E["E_K"] > 0
+        assert E["E_J"] > 0   # direct Coulomb (F^0)
+        assert E["E_K"] > 0   # exchange (F^{k>0}, G^k)
+        assert E["E_2e"] == pytest.approx(E["E_J"] - E["E_K"])
