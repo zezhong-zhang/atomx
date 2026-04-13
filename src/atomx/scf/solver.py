@@ -99,7 +99,8 @@ class DFSolver:
                  exchange="hf", alpha_x=2.0/3.0,
                  include_breit=False, include_qed=False,
                  nuclear="point",
-                 starting_potential=None):
+                 starting_potential=None,
+                 jj_configs=None):
         """
         Parameters
         ----------
@@ -112,9 +113,14 @@ class DFSolver:
             Nuclear model: "point", "fermi", "uniform".
         starting_potential : str or None
             Starting potential for SCF: None (hydrogenic), "tfda", "gsz".
+        jj_configs : list of JJConfig, optional
+            Multi-configuration jj-coupled configurations with weights.
+            Used for WW-based energy coefficients (DBSR_HF av_energy_coef).
+            If None, uses simple q*(q-1)/2 and q_a*q_b formulas.
         """
         self.Z = Z
         self.subshells = subshells
+        self.jj_configs = jj_configs
         self.ns = ns
         self.ks = ks
         self.r_min = r_min if r_min is not None else 0.05 / Z
@@ -162,6 +168,22 @@ class DFSolver:
         self.V_nuc_mat = nuclear_matrix(nv, ksq, ns, bsp, gr, grw, self.Z)
         # Reset convolution cache when grid changes
         self._convol_cache = ConvolCache(self.bsp_data)
+
+    def _get_WW(self, i, j):
+        """Get WW(i,j) — generalized occupation product for energy coefficients.
+
+        With jj_configs: WW is the multi-configuration weighted average.
+        Without: WW(i,i) = q_i*(q_i-1), WW(i,j) = q_i*q_j.
+        """
+        if self.jj_configs is not None:
+            from atomx.scf.jj_config import compute_WW
+            return compute_WW(i, j, self.jj_configs)
+        # Single-config fallback
+        qi = self.subshells[i].occupation
+        if i == j:
+            return qi * (qi - 1.0)
+        qj = self.subshells[j].occupation
+        return qi * qj
 
     def _eval_P_on_grid(self, coeffs):
         """Evaluate P-component (large) orbital on grid using ksp-order basis."""
@@ -212,12 +234,38 @@ class DFSolver:
         V_J_PP = np.zeros((ns_full, ns_full))
         V_J_QQ = np.zeros((ns_full, ns_full))
 
+        # Build flat index map: (kappa, orb_idx) -> subshell index
+        flat_idx = {}
+        idx = 0
+        kappa_counter = {}
+        for sh in self.subshells:
+            orb_idx_local = kappa_counter.get(sh.kappa, 0)
+            kappa_counter[sh.kappa] = orb_idx_local + 1
+            flat_idx[(sh.kappa, orb_idx_local)] = idx
+            idx += 1
+
+        # Target subshell index
+        target_flat = flat_idx.get((target_kappa, target_idx), -1) if target_kappa is not None else -1
+        target_q = self.subshells[target_flat].occupation if target_flat >= 0 else 1.0
+
         for kappa, orb_list in orbitals.items():
             for orb_i, (P_b, Q_b, occ_b) in enumerate(orb_list):
-                coeff = occ_b
-                if target_kappa == kappa and target_idx == orb_i:
-                    coeff = occ_b - 1.0
-                if coeff < 1e-10:
+                j_flat = flat_idx.get((kappa, orb_i), -1)
+                if target_flat >= 0 and j_flat >= 0:
+                    # DBSR_HF Fock matrix coefficient:
+                    # c_direct = [a(i,j,0) * (2 if i==j else 1)] / qsum(i)
+                    # For self: coef = WW(i,i) / q_i
+                    # For other: coef = WW(i,j) / q_i
+                    ww = self._get_WW(target_flat, j_flat)
+                    if target_flat == j_flat:
+                        coeff = ww / target_q  # includes self-subtraction implicitly
+                    else:
+                        coeff = ww / target_q
+                else:
+                    coeff = occ_b
+                    if target_kappa == kappa and target_idx == orb_i:
+                        coeff = occ_b - 1.0
+                if abs(coeff) < 1e-10:
                     continue
 
                 # PP: density and convol use ns_full (DBSR_HF convention)
@@ -416,8 +464,8 @@ class DFSolver:
             return Vi_PP, Vi_QQ
 
         P_a, Q_a, q_a = orb_list_t[target_idx]
-        if q_a < 2.0 - 1e-10:
-            return Vi_PP, Vi_QQ
+        if q_a * (q_a - 1.0) < 1e-15:
+            return Vi_PP, Vi_QQ  # no intra-shell pairs for q<=1
 
         bd = self.bsp_data
         ksp = bd.get("ksp", self.ks)
@@ -499,6 +547,7 @@ class DFSolver:
         _gk = lambda Pa, Qa, Pb, Qb, k: compute_slater_gk_cell(
             Pa, Qa, Pb, Qb, bsp_data, k, convol_cache)
 
+        # Two-electron coefficients use WW function for multi-config average
         E_J = 0.0   # direct Coulomb (F^0 terms)
         E_K = 0.0   # exchange (F^{k>0} and G^k terms)
         for i, (Pa, Qa, oa, ka, la) in enumerate(orb_list):
@@ -506,15 +555,15 @@ class DFSolver:
             l_a = ka if ka > 0 else -ka - 1
             for j, (Pb, Qb, ob, kb, lb) in enumerate(orb_list):
                 if j > i:
-                    continue  # count each pair once
+                    continue
                 tj_b = 2 * abs(kb) - 1
                 l_b = kb if kb > 0 else -kb - 1
 
                 if i == j:
-                    # Same shell: q(q-1)/2 * [F^0 - Σ_{k>0} Λ/(2j*(2j+1)) * F^k]
-                    if oa < 2.0 - 1e-10:
+                    # Same shell: WW(i,i)/2 * [F^0 - Σ_{k>0} Λ/(2j*(2j+1)) * F^k]
+                    c = self._get_WW(i, i) / 2.0
+                    if abs(c) < 1e-15:
                         continue
-                    c = oa * (oa - 1.0) / 2.0
                     E_J += c * _fk(Pa, Qa, Pa, Qa, 0)
                     for k in range(1, tj_a + 1):
                         if (k + 2 * l_a) % 2 != 0:
@@ -525,15 +574,17 @@ class DFSolver:
                         fk = _fk(Pa, Qa, Pa, Qa, k)
                         E_K += c * lam / (tj_a * (tj_a + 1.0)) * fk
                 else:
-                    # Cross-shell: q_a*q_b * [F^0 - Σ_k Λ/((2j_a+1)(2j_b+1)) * G^k]
-                    c = oa * ob
-                    E_J += c * _fk(Pa, Qa, Pb, Qb, 0)
+                    # Cross-shell: WW(i,j) * F^0 - WW(i,j) * Σ_k ... * G^k
+                    ww = self._get_WW(i, j)
+                    if abs(ww) < 1e-15:
+                        continue
+                    E_J += ww * _fk(Pa, Qa, Pb, Qb, 0)
                     for k in exchange_k_range(ka, kb):
                         lam = exchange_lambda(ka, kb, k)
                         if lam < 1e-15:
                             continue
                         gk = _gk(Pa, Qa, Pb, Qb, k)
-                        E_K += c * lam / ((tj_a + 1.0) * (tj_b + 1.0)) * gk
+                        E_K += ww * lam / ((tj_a + 1.0) * (tj_b + 1.0)) * gk
 
         E_2e = E_J - E_K
         E_total = E_1e + E_2e

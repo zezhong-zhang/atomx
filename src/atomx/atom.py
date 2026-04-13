@@ -275,15 +275,30 @@ class Atom:
             )
         else:
             # B-spline DHF/DFS backend
-            from atomx.mcdhf.config import _parse_config_string
-            subshells = _parse_config_string(self._config_strings[0])
+            # Use jj-average with statistical weights (eal=5) for DBSR_HF-compatible
+            # fractional occupations. This distributes electrons in open p/d/f shells
+            # across j- and j+ subshells weighted by (2j+1) degeneracy.
+            from atomx.scf.jj_config import generate_jj_average
+            subshells, self._jj_configs = generate_jj_average(
+                self._config_strings[0], eal=5)
+            # Remove zero-occupation subshells (they add orbitals but slow SCF)
+            # Keep configs aligned: filter configs to match
+            kept_indices = [i for i, sh in enumerate(subshells) if sh.occupation > 1e-10]
+            subshells = [subshells[i] for i in kept_indices]
+            # Filter jj_configs to only include kept subshells
+            from atomx.scf.jj_config import JJConfig
+            filtered_configs = []
+            for c in self._jj_configs:
+                filtered_subs = [c.subshells[i] for i in kept_indices]
+                filtered_configs.append(JJConfig(subshells=filtered_subs, weight=c.weight))
             solver = DFSolver(Z=self.Z, subshells=subshells,
                               ns=self.ns, ks=self.ks,
                               exchange=self.exchange,
                               include_breit=self.breit,
                               include_qed=self.qed,
                               nuclear=self.nuclear,
-                              starting_potential=self.starting_potential)
+                              starting_potential=self.starting_potential,
+                              jj_configs=filtered_configs)
 
             # DBSR_HF-style semi-exponential grid (matched to nuclear model)
             if self._use_physics_grid:
