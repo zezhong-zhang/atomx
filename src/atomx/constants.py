@@ -52,3 +52,15 @@ def nuclear_rms_radius_fm(A: int) -> float:
 def nuclear_rms_radius_au(A: int) -> float:
     """RMS nuclear charge radius in Bohr radii."""
     return nuclear_rms_radius_fm(A) / (BOHR_RADIUS_M * 1e15)
+
+
+# --- Transition & spectroscopy constants ---
+AU_TIME_S = 2.418_884_326_5857e-17  # atomic time unit (hbar/E_h) in seconds
+AU_RATE_PER_S = 1.0 / AU_TIME_S     # 1/t_au in s^-1 (for converting A-coefficients)
+
+# Wavelength conversion: lambda(A) = 2*pi*a_0 / (alpha * E_hartree)
+# = (2*pi * BOHR_RADIUS_M * 1e10) / (ALPHA * E_hartree)
+HARTREE_INV_ANGSTROM = ALPHA / (2.0 * np.pi * BOHR_RADIUS_M * 1e10)  # E(Ha) -> 1/lambda(A)
+
+# Boltzmann constant
+BOLTZMANN_EV = 8.617_333_262e-5  # eV/K

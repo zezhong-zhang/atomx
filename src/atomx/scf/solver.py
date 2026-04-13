@@ -93,7 +93,19 @@ class DFSolver:
 
     def __init__(self, Z, subshells, ns=50, ks=9, r_min=None, r_max=None,
                  exchange="hf", alpha_x=2.0/3.0,
-                 include_breit=False, include_qed=False):
+                 include_breit=False, include_qed=False,
+                 starting_potential=None):
+        """
+        Parameters
+        ----------
+        exchange : str
+            "hf" for non-local Hartree-Fock exchange,
+            "slater" for local Slater exchange,
+            "tfda" for Thomas-Fermi-Dirac-Amaldi (no SCF iteration),
+            "gsz" for Green-Sellin-Zachor parametric potential.
+        starting_potential : str or None
+            Starting potential for SCF: None (hydrogenic), "tfda", "gsz".
+        """
         self.Z = Z
         self.subshells = subshells
         self.ns = ns
@@ -104,6 +116,7 @@ class DFSolver:
         self.alpha_x = alpha_x
         self.include_breit = include_breit
         self.include_qed = include_qed
+        self.starting_potential = starting_potential
         self.N_electrons = sum(sh.occupation for sh in subshells)
 
         self.t = make_knots(ns, ks, self.r_min, self.r_max)
@@ -394,8 +407,25 @@ class DFSolver:
         has_kb = self.bsp_data.get("ksp", self.ks) != self.bsp_data.get("ksq", self.ks)
         nsp_init = self.bsp_data.get("nsp", ns)
         nsq_init = self.bsp_data.get("nsq", ns)
+
+        # Starting potential: TFDA or GSZ provides better initial orbitals
+        V_start_PP, V_start_QQ = None, None
+        if self.starting_potential == "tfda" or self.exchange == "tfda":
+            from atomx.potentials.thomas_fermi import tfda_potential_matrix
+            V_start_PP, V_start_QQ = tfda_potential_matrix(
+                self.Z, self.N_electrons, self.bsp_data)
+        elif self.starting_potential == "gsz" or self.exchange == "gsz":
+            from atomx.potentials.parametric import gsz_potential_matrix
+            V_start_PP, V_start_QQ = gsz_potential_matrix(
+                self.Z, self.N_electrons, self.bsp_data)
+
         for kappa, shells in kappa_groups.items():
             H, S = build_dirac_matrices(ns, kappa, self.Z, self.bsp_data)
+            # Add starting potential if available
+            if V_start_PP is not None:
+                H[:ns, :ns] += V_start_PP
+            if V_start_QQ is not None:
+                H[ns:, ns:] += V_start_QQ
             result = solve_dirac(H, S, ns, kappa,
                                   nsp=nsp_init if has_kb else None,
                                   nsq=nsq_init if has_kb else None)
@@ -409,6 +439,29 @@ class DFSolver:
                     orb_list.append((P, Q, sh.occupation))
                     orbital_energies[sh.label] = E
             orbitals[kappa] = orb_list
+
+        # For parametric potentials (TFDA, GSZ), no SCF iteration needed --
+        # the initial orbitals ARE the final orbitals
+        if self.exchange in ("tfda", "gsz"):
+            total_energy, energy_components = self._compute_total_energy(
+                orbitals, orbital_energies)
+            orb_list = self._flatten_orbitals(orbitals)
+            if self.include_breit or self.include_qed:
+                from atomx.scf.breit import compute_breit_energy
+                from atomx.scf.qed import compute_qed_corrections
+                if self.include_breit:
+                    E_Breit = compute_breit_energy(orb_list, self.bsp_data, self.Z)
+                    energy_components["E_Breit"] = E_Breit
+                    total_energy += E_Breit
+                if self.include_qed:
+                    qed = compute_qed_corrections(orb_list, self.bsp_data, self.Z)
+                    energy_components.update(qed)
+                    total_energy += qed["E_QED_total"]
+            return SCFResult(
+                converged=True, iterations=1, residual=0.0,
+                total_energy=total_energy, orbital_energies=orbital_energies,
+                subshells=self.subshells, energy_components=energy_components,
+                orbitals_raw=dict(orbitals))
 
         converged = False
         E_old = 0.0
