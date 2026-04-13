@@ -44,14 +44,15 @@ SYMS = ['', 'H', 'He', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Ne',
 
 
 def run_atomx(Z_list):
-    """Run AtomX DHF for each Z."""
+    """Run AtomX DHF for each Z (physics grid, tight tolerance)."""
     results = {}
     for Z in Z_list:
         try:
-            a = Atom(Z=Z, ns=50, ks=9)
-            a.solve(tol=1e-5)
+            a = Atom(Z=Z)  # physics grid (ns=113, ks=9)
+            a.solve(tol=1e-7)
             results[Z] = a.total_energy
         except Exception as e:
+            print(f"  Z={Z}: FAILED — {e}")
             results[Z] = None
     return results
 

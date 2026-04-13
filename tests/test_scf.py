@@ -108,5 +108,5 @@ class TestSCFHartreeFock:
     def test_neon_hf_energy_components(self, ne_hf_result):
         E = ne_hf_result.energy_components
         assert E["E_1e"] < 0
-        assert E["E_J"] > 0
-        assert E["E_K"] > 0
+        # HF uses DBSR_HF-style E_2e (combined direct+exchange)
+        assert E["E_2e"] > 0
