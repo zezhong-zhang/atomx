@@ -129,7 +129,9 @@ class Atom:
     qed : bool
         Include QED (VP + SE) corrections.
     exchange : str
-        "hf" for Hartree-Fock, "slater" for local exchange.
+        "hf" for B-spline Hartree-Fock (default),
+        "slater" for B-spline local Slater exchange,
+        "shooting" for ODE shooting with Slater exchange (Radial-style).
     """
 
     def __init__(self, Z, config=None, configs=None, charge=0,
@@ -213,7 +215,31 @@ class Atom:
             solver = MCDHFSolver(Z=self.Z, csfs=csfs, ns=self.ns, ks=self.ks,
                                   include_breit=self.breit, include_qed=self.qed)
             self._mcdhf_result = solver.solve(max_iter=max_iter, scf_tol=tol)
+        elif self.exchange == "shooting":
+            # ODE shooting backend (Radial/Salvat-style)
+            from atomx.mcdhf.config import _parse_config_string
+            from atomx.shooting.solver import ShootingSolver
+            subshells = _parse_config_string(self._config_strings[0])
+            solver = ShootingSolver(Z=self.Z, subshells=subshells,
+                                    n_grid=1000, r_max=75.0, alpha_x=1.5)
+            shooting_result = solver.solve(max_iter=max_iter, tol=tol)
+            # Wrap in a compatible result object
+            from atomx.scf.solver import SCFResult, Subshell
+            self._result = SCFResult(
+                converged=shooting_result.converged,
+                iterations=shooting_result.iterations,
+                residual=0.0,
+                total_energy=shooting_result.total_energy,
+                orbital_energies=shooting_result.orbital_energies,
+                subshells=subshells,
+                energy_components={
+                    "E_1e": 0.0,
+                    "E_J": 0.0,
+                    "E_K": 0.0,
+                },
+            )
         else:
+            # B-spline DHF/DFS backend
             from atomx.mcdhf.config import _parse_config_string
             subshells = _parse_config_string(self._config_strings[0])
             solver = DFSolver(Z=self.Z, subshells=subshells,
@@ -222,7 +248,6 @@ class Atom:
                               include_breit=self.breit,
                               include_qed=self.qed)
 
-            # Unified physics-based grid: r_min from 1s scale, semi-exponential
             if self._use_physics_grid:
                 from atomx.bspline.knots import make_physics_knots
                 from atomx.dirac.matrix import prepare_bspline_data
