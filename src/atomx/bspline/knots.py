@@ -88,9 +88,13 @@ def make_physics_knots(ks: int, Z: int, ns: int = 113,
         # Point nucleus: hs = hi / Z
         hs = hi / max(Z, 1)
 
-    # Build breakpoints following DBSR_HF mkgrid_01
+    # Build breakpoints following DBSR_HF mkgrid_01 exactly.
+    # ns = ks + nv - 1, where nv = number of breakpoints (intervals).
+    # The knot vector t has ns+ks entries: ks zeros, then nv breakpoints,
+    # then ks-1 copies of tmax.
+
+    ns_count = ks + ml  # initial: ks boundary + ml uniform intervals
     breakpoints = []
-    # Region 1: ml equal-spaced intervals
     for i in range(1, ml + 1):
         breakpoints.append(hs * i)
 
@@ -101,29 +105,33 @@ def make_physics_knots(ks: int, Z: int, ns: int = 113,
         tj = ti * ht
         if (tj - ti) > hmax:
             break
-        if tj > r_max:
-            break
-        breakpoints.append(tj)
+        ns_count += 1
         ti = tj
+        if ti > r_max:
+            ns_count -= 1  # DBSR_HF: drop last if > rmax
+            break
+        breakpoints.append(ti)
 
-    # Region 3: constant step hmax
+    # Region 3: constant step hmax (until reaching rmax)
     if ti < r_max:
         while True:
             ti_next = ti + hmax
             if ti_next >= r_max:
                 break
-            breakpoints.append(ti_next)
+            ns_count += 1
             ti = ti_next
+            breakpoints.append(ti)
 
-    # Final boundary
-    tmax = breakpoints[-1]
-    if tmax < r_max:
-        tmax = r_max
+    # tmax = last breakpoint + hmax (DBSR_HF overshoots rmax)
+    tmax = breakpoints[-1] + hmax
+    breakpoints.append(tmax)  # include tmax as the final breakpoint
 
+    # nv = number of intervals = len(breakpoints)
+    # ns = nv + ks - 1  (standard B-spline relation)
     nv = len(breakpoints)
     ns_out = nv + ks - 1
 
-    # Build knot sequence: ks copies of 0, then breakpoints, then ks copies of tmax
+    # Knot vector: ks zeros, nv breakpoints, ks-1 copies of tmax
     t = np.zeros(ns_out + ks)
     for i, bp in enumerate(breakpoints):
         t[ks + i] = bp

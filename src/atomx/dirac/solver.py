@@ -52,13 +52,15 @@ def solve_dirac(H, S, ns, kappa, n_remove_boundary=1, nsp=None, nsq=None):
     Handles both symmetric (nsp=nsq=ns) and RKB (nsp < nsq) cases.
 
     Matrix layout (DBSR_HF convention):
-      ns_full = max(nsp, nsq)
-      PP block: H[0:ns_full, 0:ns_full]
+      ns_full = max(nsp, nsq) = ns (for standard grids)
+      PP block: H[0:ns_full, 0:ns_full]  (only nsp rows/cols nonzero)
       QQ block: H[ns_full:2*ns_full, ns_full:2*ns_full]
-      PQ/QP coupling blocks accordingly.
+      ms = 2 * ns_full
 
-    P coefficients use indices 0..nsp-1, Q uses ns_full..ns_full+nsq-1.
-    Boundary removal excludes first/last B-splines from each component.
+    Boundary conditions (DBSR_HF ilzero=1, ibzero=2):
+      P: remove first n_remove_boundary splines + last ibzero splines + zero-padding
+      Q: remove first n_remove_boundary splines + last ibzero splines
+      ibzero defaults to 2 (DBSR_HF standard).
     """
     if nsp is None:
         nsp = ns
@@ -67,18 +69,19 @@ def solve_dirac(H, S, ns, kappa, n_remove_boundary=1, nsp=None, nsq=None):
     ns_full = max(nsp, nsq)
     ms = 2 * ns_full
     nb = n_remove_boundary
+    ibzero = 2  # DBSR_HF default: remove 2 boundary B-splines at tail
 
     if nb > 0:
-        # P indices: nb..nsp-nb-1 (within [0, ns_full))
-        keep_p = list(range(nb, nsp - nb))
-        # Q indices: ns_full+nb..ns_full+nsq-nb-1 (within [ns_full, 2*ns_full))
-        keep_q = list(range(ns_full + nb, ns_full + nsq - nb))
+        # P: keep indices nb..nsp-ibzero-1 (remove nb at start, ibzero at end,
+        # plus any zero-padded indices nsp..ns_full-1)
+        keep_p = list(range(nb, nsp - ibzero))
+        # Q: keep indices ns_full+nb..ns_full+nsq-ibzero-1
+        keep_q = list(range(ns_full + nb, ns_full + nsq - ibzero))
         keep = keep_p + keep_q
         nk = len(keep)
         H_red = H[np.ix_(keep, keep)]
         S_red = S[np.ix_(keep, keep)]
     else:
-        # Use all P and Q indices (including zero-padded rows for nsp<ns_full)
         keep_p = list(range(nsp))
         keep_q = list(range(ns_full, ns_full + nsq))
         keep = keep_p + keep_q
