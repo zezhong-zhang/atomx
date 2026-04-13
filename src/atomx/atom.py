@@ -136,7 +136,8 @@ class Atom:
 
     def __init__(self, Z, config=None, configs=None, charge=0,
                  ns=None, ks=9, breit=False, qed=False, exchange="hf",
-                 correlation=None):
+                 correlation=None, starting_potential=None,
+                 plasma_ne=None, plasma_Te=None):
         """
         Parameters
         ----------
@@ -144,6 +145,16 @@ class Atom:
             None = single-config DHF (default).
             "sd" = add singles+doubles excitations (MCDHF with correlation).
             "s" = singles only.
+        exchange : str
+            "hf" for Hartree-Fock, "slater" for local Slater exchange,
+            "tfda" for Thomas-Fermi-Dirac-Amaldi (fast, no SCF),
+            "gsz" for Green-Sellin-Zachor parametric potential.
+        starting_potential : str or None
+            "tfda" or "gsz" for faster SCF convergence.
+        plasma_ne : float, optional
+            Electron density (cm^-3) for plasma screening.
+        plasma_Te : float, optional
+            Electron temperature (eV) for plasma screening.
         """
         self.Z = Z
         self.charge = charge
@@ -157,6 +168,9 @@ class Atom:
         self.qed = qed
         self.exchange = exchange
         self.correlation = correlation
+        self.starting_potential = starting_potential
+        self.plasma_ne = plasma_ne
+        self.plasma_Te = plasma_Te
 
         # Determine configuration(s)
         if configs is not None:
@@ -193,6 +207,7 @@ class Atom:
         # Results (populated after solve())
         self._result = None
         self._mcdhf_result = None
+        self._bsp_data = None
 
     def solve(self, tol=1e-5, max_iter=40):
         """Run the self-consistent field calculation.
@@ -215,6 +230,7 @@ class Atom:
             solver = MCDHFSolver(Z=self.Z, csfs=csfs, ns=self.ns, ks=self.ks,
                                   include_breit=self.breit, include_qed=self.qed)
             self._mcdhf_result = solver.solve(max_iter=max_iter, scf_tol=tol)
+            self._bsp_data = self._mcdhf_result.bsp_data
         elif self.exchange == "shooting":
             # ODE shooting backend (Radial/Salvat-style)
             from atomx.mcdhf.config import _parse_config_string
@@ -246,7 +262,8 @@ class Atom:
                               ns=self.ns, ks=self.ks,
                               exchange=self.exchange,
                               include_breit=self.breit,
-                              include_qed=self.qed)
+                              include_qed=self.qed,
+                              starting_potential=self.starting_potential)
 
             if self._use_physics_grid:
                 from atomx.bspline.knots import make_physics_knots
@@ -260,6 +277,7 @@ class Atom:
                 solver._precompute()
 
             self._result = solver.solve(max_iter=max_iter, tol=tol)
+            self._bsp_data = solver.bsp_data
 
         return self
 
@@ -308,11 +326,83 @@ class Atom:
             return self._mcdhf_result.excitation_energies(unit)
         return np.array([0.0])
 
+    def transitions(self, multipoles=None, gauge='length'):
+        """Compute radiative transitions between atomic states.
+
+        Parameters
+        ----------
+        multipoles : list of str, optional
+            Multipole types: 'E1', 'M1', 'E2', 'M2', etc. Default: ['E1'].
+        gauge : str
+            'length' (Babushkin) or 'velocity' (Coulomb).
+
+        Returns
+        -------
+        list of TransitionResult
+            Transitions sorted by wavelength.
+        """
+        from atomx.transitions.calculator import TransitionCalculator
+        calc = TransitionCalculator(self)
+        return calc.compute_all(multipoles, gauge)
+
+    def line_list(self, multipoles=None, gauge='length', unit='angstrom'):
+        """Print a formatted line list of transitions.
+
+        Parameters
+        ----------
+        multipoles : list of str, optional
+        gauge : str
+        unit : str
+            'angstrom', 'nm', 'eV', or 'cm-1'.
+        """
+        transitions = self.transitions(multipoles, gauge)
+        if not transitions:
+            print("No allowed transitions found.")
+            return transitions
+
+        print(f"{'Transition':>25s}  {'Type':>4s}  {'Wavelength':>12s}  "
+              f"{'A (s^-1)':>12s}  {'gf':>10s}")
+        print("-" * 70)
+        for tr in transitions:
+            label = f"{tr.initial_label} -> {tr.final_label}"
+            if unit == 'nm':
+                wl = f"{tr.wavelength_nm:.3f} nm"
+            elif unit == 'eV':
+                wl = f"{tr.energy_eV:.4f} eV"
+            elif unit == 'cm-1':
+                wl = f"{tr.energy_cm1:.1f} cm-1"
+            else:
+                wl = f"{tr.wavelength_angstrom:.3f} A"
+            print(f"{label:>25s}  {tr.multipole:>4s}  {wl:>12s}  "
+                  f"{tr.A_rate_per_s:>12.4e}  {tr.gf_value:>10.4e}")
+
+        return transitions
+
     @property
     def iterations(self):
         if self._mcdhf_result:
             return self._mcdhf_result.iterations
         return self._result.iterations if self._result else 0
+
+    def excitation_cross_section(self, final_atom, energies_eV, **kwargs):
+        """Compute electron-impact excitation cross-section (DW approximation).
+
+        Parameters
+        ----------
+        final_atom : Atom
+            Solved excited-state atom.
+        energies_eV : array_like
+            Incident electron energies in eV.
+
+        Returns
+        -------
+        sigma : ndarray
+            Cross-section in cm^2.
+        omega : ndarray
+            Collision strength (dimensionless).
+        """
+        from atomx.collisions.distorted_wave import dw_excitation_cross_section
+        return dw_excitation_cross_section(self, final_atom, energies_eV, **kwargs)
 
     def __repr__(self):
         sym = _element_symbol(self.Z)
