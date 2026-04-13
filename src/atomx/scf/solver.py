@@ -378,23 +378,26 @@ class DFSolver:
         return Vx_PP, Vx_QQ
 
     def _build_intra_shell_potential(self, target_kappa, target_idx, orbitals):
-        """Same-shell F^k contribution for k>0 (DBSR_HF av_energy_coef).
+        """Same-shell F^k contribution for k>0 via cell-based convolution.
 
-        For j=1/2 shells (s, p1/2), only k=0 is allowed → returns zeros.
+        For j=1/2 shells (s, p1/2), only k=0 is allowed -> returns zeros.
         For j>=1 (p3/2, d, f, ...), adds the intra-shell potential:
             coeff = -(q-1) * Lambda(k) / (2j * (2j+1))
-        using Y^k of the self-density.
+
+        Uses cell-based convolution (rkb + icase=1) for consistency with
+        the direct potential and exchange, avoiding Y^k/cell mismatch.
         """
         from atomx.scf.angular_coeffs import exchange_lambda
+        from atomx.bspline.convol import _density_sym, _convol_case1
 
         ns = self.ns
-        tj_a = 2 * abs(target_kappa) - 1  # 2j as integer
+        tj_a = 2 * abs(target_kappa) - 1
 
         Vi_PP = np.zeros((ns, ns))
         Vi_QQ = np.zeros((ns, ns))
 
         if tj_a <= 1:
-            return Vi_PP, Vi_QQ  # j=1/2: nothing beyond k=0
+            return Vi_PP, Vi_QQ
 
         orb_list_t = orbitals.get(target_kappa, [])
         if target_idx >= len(orb_list_t):
@@ -402,41 +405,48 @@ class DFSolver:
 
         P_a, Q_a, q_a = orb_list_t[target_idx]
         if q_a < 2.0 - 1e-10:
-            return Vi_PP, Vi_QQ  # single electron: no intra-shell pairs
+            return Vi_PP, Vi_QQ
 
-        nv = self.bsp_data["nv"]
-        gr = self.bsp_data["gr"]
-        grw = self.bsp_data["grw"]
-        n_gauss = gr.shape[1]
-        ksp = self.bsp_data.get("ksp", self.ks)
-        ksq = self.bsp_data.get("ksq", self.ks)
-        bsp_p = self.bsp_data["bsp_p"]
-        bsp_q = self.bsp_data.get("bsp_q", bsp_p)
-
-        # Self-density: |P|^2 + |Q|^2
-        fP_a = self._eval_P_on_grid(P_a)
-        fQ_a = self._eval_Q_on_grid(Q_a)
-        rho_a = fP_a ** 2 + fQ_a ** 2
+        bd = self.bsp_data
+        ksp = bd.get("ksp", self.ks)
+        nsp = bd.get("nsp", ns)
+        ksq = bd.get("ksq", self.ks)
+        nsq = bd.get("nsq", ns)
 
         l_a = target_kappa if target_kappa > 0 else -target_kappa - 1
 
+        if not hasattr(self, '_convol_cache'):
+            self._convol_cache = ConvolCache(bd)
+
         for k in range(2, tj_a + 1):
-            # Parity: k + l_a + l_a must be even
             if (k + 2 * l_a) % 2 != 0:
                 continue
             lam = exchange_lambda(target_kappa, target_kappa, k)
             if lam < 1e-15:
                 continue
-            # DBSR_HF: -(q-1) * Lambda(k) / (2j * (2j+1))
             coeff = -(q_a - 1.0) * lam / (tj_a * (tj_a + 1.0))
-            yk = compute_yk(rho_a, gr, grw, nv, n_gauss, k)
-            yk_w = grw * yk * coeff
 
-            Vi_PP += _assemble_integral(nv, ksp, ksp, ns, bsp_p, bsp_p, yk_w)
-            Vi_QQ += _assemble_integral(nv, ksq, ksq, ns, bsp_q, bsp_q, yk_w)
+            # Cell-based F^k contribution (icase=1)
+            rkb_pp, _, _ = self._convol_cache.get_rkb(k, "pppp")
+            d_P = _density_sym(P_a, P_a, nsp, ksp)
+            v_banded = _convol_case1(rkb_pp, d_P, nsp, ksp)
+            for i in range(nsp):
+                for s in range(ksp):
+                    if i + s < nsp:
+                        Vi_PP[i, i + s] += coeff * v_banded[i, s]
+                        if s > 0:
+                            Vi_PP[i + s, i] += coeff * v_banded[i, s]
 
-        Vi_PP = 0.5 * (Vi_PP + Vi_PP.T)
-        Vi_QQ = 0.5 * (Vi_QQ + Vi_QQ.T)
+            rkb_qq, _, _ = self._convol_cache.get_rkb(k, "qqqq")
+            d_Q = _density_sym(Q_a, Q_a, nsq, ksq)
+            v_banded_q = _convol_case1(rkb_qq, d_Q, nsq, ksq)
+            for i in range(nsq):
+                for s in range(ksq):
+                    if i + s < nsq:
+                        Vi_QQ[i, i + s] += coeff * v_banded_q[i, s]
+                        if s > 0:
+                            Vi_QQ[i + s, i] += coeff * v_banded_q[i, s]
+
         return Vi_PP, Vi_QQ
 
     def _compute_total_energy(self, orbitals, orbital_energies=None):
