@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "atomx"
+version = "0.1.0"
+description = "High-performance relativistic atomic structure calculations using B-spline Dirac-Fock"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "numba>=0.58",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "pytest-benchmark"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/atomx"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
