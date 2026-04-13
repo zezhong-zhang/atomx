@@ -96,22 +96,24 @@ def direct_coefficient(q_b):
 def exchange_coefficient(kappa_a, kappa_b, k, q_b):
     """Exchange coefficient for the Fock matrix of orbital a from orbital b.
 
-    c^k(a,b) = -q_b / (2*j_b + 1) * Lambda(k, kappa_a, kappa_b)
+    c^k(a,b) = -q_b / ((2*j_a + 1)*(2*j_b + 1)) * Lambda(k, kappa_a, kappa_b)
 
-    The minus sign is because exchange REDUCES the energy.
+    Matches DBSR_HF av_energy_coef: coef(j,i,k) = -q_i*q_j * Cjkj^2/((jbs(i)+1)*(jbs(j)+1))
+    after dividing by q_i (the target orbital occupation).
 
     Parameters
     ----------
     kappa_a, kappa_b : int
     k : int
-    q_b : int
+    q_b : int or float
 
     Returns
     -------
     float
     """
+    tj_a = 2 * abs(kappa_a) - 1
     tj_b = 2 * abs(kappa_b) - 1
     lam = exchange_lambda(kappa_a, kappa_b, k)
     if abs(lam) < 1e-15:
         return 0.0
-    return -q_b / (tj_b + 1.0) * lam
+    return -q_b / ((tj_a + 1.0) * (tj_b + 1.0)) * lam

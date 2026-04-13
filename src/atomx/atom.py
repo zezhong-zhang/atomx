@@ -121,9 +121,11 @@ class Atom:
     charge : int, optional
         Ion charge (0=neutral, 1=singly ionized, etc.). Default: 0.
     ns : int
-        Number of B-splines.
+        Number of B-splines. None = auto (DBSR_HF semi-exponential grid).
     ks : int
         B-spline order.
+    nuclear : str
+        Nuclear model: "fermi" (default, DBSR_HF), "point", or "uniform".
     breit : bool
         Include Breit (Gaunt) interaction.
     qed : bool
@@ -135,12 +137,15 @@ class Atom:
     """
 
     def __init__(self, Z, config=None, configs=None, charge=0,
-                 ns=None, ks=9, breit=False, qed=False, exchange="hf",
+                 ns=None, ks=9, nuclear="fermi",
+                 breit=False, qed=False, exchange="hf",
                  correlation=None, starting_potential=None,
                  plasma_ne=None, plasma_Te=None):
         """
         Parameters
         ----------
+        nuclear : str
+            Nuclear model: "fermi" (default, matches DBSR_HF), "point", "uniform".
         correlation : str or None
             None = single-config DHF (default).
             "sd" = add singles+doubles excitations (MCDHF with correlation).
@@ -158,6 +163,7 @@ class Atom:
         """
         self.Z = Z
         self.charge = charge
+        self.nuclear = nuclear
         # Unified physics-based grid for all Z
         self._use_physics_grid = (ns is None)
         if ns is None:
@@ -263,13 +269,15 @@ class Atom:
                               exchange=self.exchange,
                               include_breit=self.breit,
                               include_qed=self.qed,
+                              nuclear=self.nuclear,
                               starting_potential=self.starting_potential)
 
+            # DBSR_HF-style semi-exponential grid (matched to nuclear model)
             if self._use_physics_grid:
                 from atomx.bspline.knots import make_physics_knots
                 from atomx.dirac.matrix import prepare_bspline_data
                 t_phys, ns_phys = make_physics_knots(
-                    ks=self.ks, Z=self.Z, ns=113)
+                    ks=self.ks, Z=self.Z, nuclear=self.nuclear)
                 data = prepare_bspline_data(t_phys, ns_phys, self.ks)
                 solver.t = t_phys
                 solver.bsp_data = data

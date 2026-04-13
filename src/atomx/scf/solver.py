@@ -94,6 +94,7 @@ class DFSolver:
     def __init__(self, Z, subshells, ns=50, ks=9, r_min=None, r_max=None,
                  exchange="hf", alpha_x=2.0/3.0,
                  include_breit=False, include_qed=False,
+                 nuclear="point",
                  starting_potential=None):
         """
         Parameters
@@ -103,6 +104,8 @@ class DFSolver:
             "slater" for local Slater exchange,
             "tfda" for Thomas-Fermi-Dirac-Amaldi (no SCF iteration),
             "gsz" for Green-Sellin-Zachor parametric potential.
+        nuclear : str
+            Nuclear model: "point", "fermi", "uniform".
         starting_potential : str or None
             Starting potential for SCF: None (hydrogenic), "tfda", "gsz".
         """
@@ -116,8 +119,13 @@ class DFSolver:
         self.alpha_x = alpha_x
         self.include_breit = include_breit
         self.include_qed = include_qed
+        self.nuclear = nuclear
         self.starting_potential = starting_potential
         self.N_electrons = sum(sh.occupation for sh in subshells)
+
+        # Nuclear potential function (None = point nucleus -Z/r)
+        from atomx.nuclear import make_nuclear_potential
+        self._nuclear_potential = make_nuclear_potential(Z, nuclear)
 
         self.t = make_knots(ns, ks, self.r_min, self.r_max)
         self.bsp_data = prepare_bspline_data(self.t, ns, ks)
@@ -168,11 +176,15 @@ class DFSolver:
         """Evaluate orbital using P-component basis (backward compat)."""
         return self._eval_P_on_grid(coeffs)
 
-    def _build_direct_potential(self, orbitals):
+    def _build_direct_potential(self, orbitals, target_kappa=None, target_idx=None):
         """Build Hartree potential matrices for P and Q blocks separately.
 
         With KB: V_J_PP uses ksp-order basis, V_J_QQ uses ksq-order.
         Returns (V_J_PP, V_J_QQ).
+
+        When target_kappa/target_idx are given, subtracts one electron of
+        self-density so that the self-direct coefficient is (q_a - 1)
+        instead of q_a (DBSR_HF convention).
         """
         nv = self.bsp_data["nv"]
         ns = self.ns
@@ -187,6 +199,15 @@ class DFSolver:
                 fP = self._eval_P_on_grid(P)
                 fQ = self._eval_Q_on_grid(Q)
                 rho_total += occ * (fP ** 2 + fQ ** 2)
+
+        # Subtract one electron of self-density for correct (q-1) self-direct
+        if target_kappa is not None and target_idx is not None:
+            orb_list_t = orbitals.get(target_kappa, [])
+            if target_idx < len(orb_list_t):
+                P_self, Q_self, _ = orb_list_t[target_idx]
+                fP_self = self._eval_P_on_grid(P_self)
+                fQ_self = self._eval_Q_on_grid(Q_self)
+                rho_total -= (fP_self ** 2 + fQ_self ** 2)
 
         yk = compute_yk(rho_total, gr, grw, nv, n_gauss, k=0)
         yk_weights = grw * yk
@@ -205,30 +226,37 @@ class DFSolver:
 
         return V_J_PP, V_J_QQ
 
-    def _build_exchange_matrix_hf(self, target_kappa, orbitals,
+    def _build_exchange_matrix_hf(self, target_kappa, target_idx, orbitals,
                                    exchange_cache=None):
         """Build non-local HF exchange matrix for a given kappa channel.
 
+        DBSR_HF convention: exchange only from OTHER orbitals (b≠a).
+        Same-shell exchange is handled via _build_intra_shell_potential.
+
+        Coefficient: c_k = q_b * Lambda(k,a,b) / ((2j_a+1)(2j_b+1))
+        matching DBSR_HF av_energy_coef after dividing by q_a.
+
         OPT: exchange_cache stores K^k(b) matrices keyed by (kappa_b, orb_idx, k).
-        The Numba kernel compute_exchange_matrix depends only on the source
-        orbital (P_b, Q_b) and k — NOT on target_kappa. So K^k(b) can be
-        reused across all target kappas within the same orbital sweep.
         """
         from atomx.scf.angular_coeffs import exchange_lambda
 
         ns = self.ns
+        tj_a = 2 * abs(target_kappa) - 1
         K_PP = np.zeros((ns, ns))
         K_QQ = np.zeros((ns, ns))
 
         for kappa_b, orb_list in orbitals.items():
             tj_b = 2 * abs(kappa_b) - 1
             for orb_i, (P_b, Q_b, occ_b) in enumerate(orb_list):
+                # Skip same orbital — handled via direct + intra-shell
+                if kappa_b == target_kappa and orb_i == target_idx:
+                    continue
                 k_values = exchange_k_range(target_kappa, kappa_b)
                 for k in k_values:
                     lam = exchange_lambda(target_kappa, kappa_b, k)
                     if lam < 1e-15:
                         continue
-                    c_k = lam / (tj_b + 1.0)
+                    c_k = occ_b * lam / ((tj_a + 1.0) * (tj_b + 1.0))
 
                     # OPT: Reuse cached K^k(b) if available
                     cache_key = (kappa_b, orb_i, k)
@@ -283,91 +311,178 @@ class DFSolver:
 
         return Vx_PP, Vx_QQ
 
-    def _compute_total_energy(self, orbitals, orbital_energies=None):
-        """Compute total energy using orbital eigenvalue formula (KB-safe).
+    def _build_intra_shell_potential(self, target_kappa, target_idx, orbitals):
+        """Same-shell F^k contribution for k>0 (DBSR_HF av_energy_coef).
 
-        E_total = Σ_a q_a ε_a - E_J + E_K
-
-        where ε_a is the Fock eigenvalue. This avoids matrix expectation
-        values that can be numerically inaccurate with kinetic balance.
-
-        E_1e is derived as: Σ_a q_a ε_a - 2*(E_J - E_K)
+        For j=1/2 shells (s, p1/2), only k=0 is allowed → returns zeros.
+        For j>=1 (p3/2, d, f, ...), adds the intra-shell potential:
+            coeff = -(q-1) * Lambda(k) / (2j * (2j+1))
+        using Y^k of the self-density.
         """
+        from atomx.scf.angular_coeffs import exchange_lambda
+
+        ns = self.ns
+        tj_a = 2 * abs(target_kappa) - 1  # 2j as integer
+
+        Vi_PP = np.zeros((ns, ns))
+        Vi_QQ = np.zeros((ns, ns))
+
+        if tj_a <= 1:
+            return Vi_PP, Vi_QQ  # j=1/2: nothing beyond k=0
+
+        orb_list_t = orbitals.get(target_kappa, [])
+        if target_idx >= len(orb_list_t):
+            return Vi_PP, Vi_QQ
+
+        P_a, Q_a, q_a = orb_list_t[target_idx]
+        if q_a < 2.0 - 1e-10:
+            return Vi_PP, Vi_QQ  # single electron: no intra-shell pairs
+
+        nv = self.bsp_data["nv"]
+        gr = self.bsp_data["gr"]
+        grw = self.bsp_data["grw"]
+        n_gauss = gr.shape[1]
+        ksp = self.bsp_data.get("ksp", self.ks)
+        ksq = self.bsp_data.get("ksq", self.ks)
+        bsp_p = self.bsp_data["bsp_p"]
+        bsp_q = self.bsp_data.get("bsp_q", bsp_p)
+
+        # Self-density: |P|^2 + |Q|^2
+        fP_a = self._eval_P_on_grid(P_a)
+        fQ_a = self._eval_Q_on_grid(Q_a)
+        rho_a = fP_a ** 2 + fQ_a ** 2
+
+        l_a = target_kappa if target_kappa > 0 else -target_kappa - 1
+
+        for k in range(2, tj_a + 1):
+            # Parity: k + l_a + l_a must be even
+            if (k + 2 * l_a) % 2 != 0:
+                continue
+            lam = exchange_lambda(target_kappa, target_kappa, k)
+            if lam < 1e-15:
+                continue
+            # DBSR_HF: -(q-1) * Lambda(k) / (2j * (2j+1))
+            coeff = -(q_a - 1.0) * lam / (tj_a * (tj_a + 1.0))
+            yk = compute_yk(rho_a, gr, grw, nv, n_gauss, k)
+            yk_w = grw * yk * coeff
+
+            Vi_PP += _assemble_integral(nv, ksp, ksp, ns, bsp_p, bsp_p, yk_w)
+            Vi_QQ += _assemble_integral(nv, ksq, ksq, ns, bsp_q, bsp_q, yk_w)
+
+        Vi_PP = 0.5 * (Vi_PP + Vi_PP.T)
+        Vi_QQ = 0.5 * (Vi_QQ + Vi_QQ.T)
+        return Vi_PP, Vi_QQ
+
+    def _compute_total_energy(self, orbitals, orbital_energies=None):
+        """Compute total energy using direct Slater integral formula (DBSR_HF style).
+
+        E = Σ_a q_a <a|h|a> + E_2e
+
+        where E_2e uses DBSR_HF av_energy_coef formulas:
+          same-shell:  q(q-1)/2 * [F^0(a,a) - Σ_{k>0} Lambda(k)/(2j*(2j+1)) * F^k(a,a)]
+          cross-shell: q_a*q_b * [F^0(a,b) - Σ_k Lambda(k)/((2j_a+1)(2j_b+1)) * G^k(a,b)]
+        """
+        from atomx.scf.angular_coeffs import exchange_lambda
+
         orb_list = self._flatten_orbitals(orbitals)
         bsp_data = self.bsp_data
 
-        # Sum of orbital eigenvalues: Σ q_a ε_a
+        if self.exchange != "hf":
+            # DFS (Slater local exchange) — use eigenvalue formula
+            return self._compute_total_energy_slater(orbitals, orbital_energies,
+                                                      orb_list, bsp_data)
+
+        # One-electron: Σ q_a <a|h|a>
+        E_1e = 0.0
+        for P, Q, occ, kappa, label in orb_list:
+            H0, S0 = build_dirac_matrices(self.ns, kappa, self.Z, bsp_data, self._nuclear_potential)
+            vec = np.concatenate([P, Q])
+            norm_sq = vec @ S0 @ vec
+            if norm_sq > 1e-20:
+                E_1e += occ * (vec @ H0 @ vec) / norm_sq
+
+        # Two-electron (DBSR_HF av_energy_coef formula)
+        E_2e = 0.0
+        for i, (Pa, Qa, oa, ka, la) in enumerate(orb_list):
+            tj_a = 2 * abs(ka) - 1
+            l_a = ka if ka > 0 else -ka - 1
+            for j, (Pb, Qb, ob, kb, lb) in enumerate(orb_list):
+                if j > i:
+                    continue  # count each pair once
+                tj_b = 2 * abs(kb) - 1
+                l_b = kb if kb > 0 else -kb - 1
+
+                if i == j:
+                    # Same shell: q(q-1)/2 * [F^0 - Σ_{k>0} Λ/(2j*(2j+1)) * F^k]
+                    if oa < 2.0 - 1e-10:
+                        continue
+                    c = oa * (oa - 1.0) / 2.0
+                    E_2e += c * compute_slater_fk(Pa, Qa, Pa, Qa, bsp_data, 0)
+                    for k in range(1, tj_a + 1):
+                        if (k + 2 * l_a) % 2 != 0:
+                            continue
+                        lam = exchange_lambda(ka, ka, k)
+                        if lam < 1e-15:
+                            continue
+                        fk = compute_slater_fk(Pa, Qa, Pa, Qa, bsp_data, k)
+                        E_2e -= c * lam / (tj_a * (tj_a + 1.0)) * fk
+                else:
+                    # Cross-shell: q_a*q_b * [F^0 - Σ_k Λ/((2j_a+1)(2j_b+1)) * G^k]
+                    c = oa * ob
+                    E_2e += c * compute_slater_fk(Pa, Qa, Pb, Qb, bsp_data, 0)
+                    for k in exchange_k_range(ka, kb):
+                        lam = exchange_lambda(ka, kb, k)
+                        if lam < 1e-15:
+                            continue
+                        gk = compute_slater_gk(Pa, Qa, Pb, Qb, bsp_data, k)
+                        E_2e -= c * lam / ((tj_a + 1.0) * (tj_b + 1.0)) * gk
+
+        E_total = E_1e + E_2e
+        components = {"E_1e": E_1e, "E_2e": E_2e}
+        return E_total, components
+
+    def _compute_total_energy_slater(self, orbitals, orbital_energies,
+                                      orb_list, bsp_data):
+        """DFS total energy using eigenvalue formula (Slater local exchange)."""
         E_orbital_sum = 0.0
         if orbital_energies:
             for P, Q, occ, kappa, label in orb_list:
                 eps = orbital_energies.get(label, 0.0)
                 E_orbital_sum += occ * eps
         else:
-            # Fallback: compute from matrix expectation values
             for P, Q, occ, kappa, label in orb_list:
-                H0, S0 = build_dirac_matrices(self.ns, kappa, self.Z, bsp_data)
+                H0, S0 = build_dirac_matrices(self.ns, kappa, self.Z, bsp_data, self._nuclear_potential)
                 vec = np.concatenate([P, Q])
                 norm_sq = vec @ S0 @ vec
                 if norm_sq > 1e-20:
                     E_orbital_sum += occ * (vec @ H0 @ vec) / norm_sq
 
-        # Direct Coulomb: E_J = (1/2) Σ_{a,b} q_a * q_b * F^0(a,b)
         E_J = 0.0
         for i, (Pa, Qa, oa, ka, la) in enumerate(orb_list):
             for j, (Pb, Qb, ob, kb, lb) in enumerate(orb_list):
                 f0 = compute_slater_fk(Pa, Qa, Pb, Qb, bsp_data, k=0)
                 E_J += 0.5 * oa * ob * f0
 
-        # Exchange: E_K = (1/2) Σ_{a,b,k} w_k * G^k(a,b)
-        # w_k = q_a * q_b / ((2j_a+1)(2j_b+1)) * Lambda(k)
-        # The exchange removes self-interaction from E_J.
-        from atomx.scf.angular_coeffs import exchange_lambda
+        nv = bsp_data["nv"]
+        gr = bsp_data["gr"]
+        grw = bsp_data["grw"]
+        n_gauss = gr.shape[1]
+        rho = np.zeros((nv, n_gauss))
+        for P, Q, occ, _, _ in orb_list:
+            fP = self._eval_on_grid(P)
+            fQ = self._eval_on_grid(Q)
+            rho += occ * (fP ** 2 + fQ ** 2)
         E_K = 0.0
-        if self.exchange == "hf":
-            for i, (Pa, Qa, oa, ka, la) in enumerate(orb_list):
-                tj_a = 2 * abs(ka) - 1
-                for j, (Pb, Qb, ob, kb, lb) in enumerate(orb_list):
-                    tj_b = 2 * abs(kb) - 1
-                    k_values = exchange_k_range(ka, kb)
-                    for k in k_values:
-                        lam = exchange_lambda(ka, kb, k)
-                        if lam < 1e-15:
-                            continue
-                        gk = compute_slater_gk(Pa, Qa, Pb, Qb, bsp_data, k)
-                        w_k = oa * ob / ((tj_a + 1.0) * (tj_b + 1.0)) * lam
-                        E_K += 0.5 * w_k * gk
-        else:
-            # Slater exchange energy: E_x = alpha * (3/4)(3/pi)^{1/3} ∫ ρ^{4/3} dr
-            nv = bsp_data["nv"]
-            gr = bsp_data["gr"]
-            grw = bsp_data["grw"]
-            n_gauss = gr.shape[1]
-            rho = np.zeros((nv, n_gauss))
-            for P, Q, occ, _, _ in orb_list:
-                fP = self._eval_on_grid(P)
-                fQ = self._eval_on_grid(Q)
-                rho += occ * (fP ** 2 + fQ ** 2)
-            for iv in range(nv):
-                for m in range(n_gauss):
-                    if rho[iv, m] > 1e-30:
-                        E_K += grw[iv, m] * (self.alpha_x * 0.75
-                               * (3.0 / np.pi) ** (1.0 / 3.0)
-                               * rho[iv, m] ** (4.0 / 3.0))
+        for iv in range(nv):
+            for m in range(n_gauss):
+                if rho[iv, m] > 1e-30:
+                    E_K += grw[iv, m] * (self.alpha_x * 0.75
+                           * (3.0 / np.pi) ** (1.0 / 3.0)
+                           * rho[iv, m] ** (4.0 / 3.0))
 
-        # Total energy formula depends on exchange type:
-        if self.exchange == "hf":
-            # HF: E = Σ q ε - E_J + E_K
-            E_total = E_orbital_sum - E_J + E_K
-            E_1e = E_orbital_sum - 2.0 * (E_J - E_K)
-        else:
-            # DFS (Slater local exchange):
-            # E = Σqε - E_J - (1/3)E_xc
-            # Accurate for Z≥10 (self-interaction error negligible)
-            E_total = E_orbital_sum - E_J - (1.0/3.0) * E_K
-            E_1e = E_orbital_sum - 2.0 * E_J - (4.0/3.0) * E_K
-
-        components = {"E_1e": E_1e, "E_J": E_J, "E_K": E_K}
-        return E_total, components
+        E_total = E_orbital_sum - E_J - (1.0/3.0) * E_K
+        E_1e = E_orbital_sum - 2.0 * E_J - (4.0/3.0) * E_K
+        return E_total, {"E_1e": E_1e, "E_J": E_J, "E_K": E_K}
 
     def solve(self, max_iter=100, tol=1e-6, mixing=0.3):
         """Run the SCF iteration (DBSR_HF-style sequential orbital updates).
@@ -420,7 +535,7 @@ class DFSolver:
                 self.Z, self.N_electrons, self.bsp_data)
 
         for kappa, shells in kappa_groups.items():
-            H, S = build_dirac_matrices(ns, kappa, self.Z, self.bsp_data)
+            H, S = build_dirac_matrices(ns, kappa, self.Z, self.bsp_data, self._nuclear_potential)
             # Add starting potential if available
             if V_start_PP is not None:
                 H[:ns, :ns] += V_start_PP
@@ -474,7 +589,7 @@ class DFSolver:
         H0_cache = {}
         S0_cache = {}
         for kappa in kappa_groups:
-            H0, S0 = build_dirac_matrices(ns, kappa, self.Z, self.bsp_data)
+            H0, S0 = build_dirac_matrices(ns, kappa, self.Z, self.bsp_data, self._nuclear_potential)
             H0_cache[kappa] = H0
             S0_cache[kappa] = S0
 
@@ -487,17 +602,24 @@ class DFSolver:
             exchange_cache = {}
 
             for sh, kappa, orb_idx in orbital_schedule:
-                # Build Fock: cached H0 + V_J (per-orbital) + exchange
-                V_J_PP, V_J_QQ = self._build_direct_potential(orbitals)
                 H = H0_cache[kappa].copy()  # OPT 1: cached one-electron
                 S_full = S0_cache[kappa]
 
                 if self.exchange == "hf":
+                    # DBSR_HF convention: subtract 1 electron of self from direct
+                    V_J_PP, V_J_QQ = self._build_direct_potential(
+                        orbitals, target_kappa=kappa, target_idx=orb_idx)
                     K_PP, K_QQ = self._build_exchange_matrix_hf(
-                        kappa, orbitals, exchange_cache=exchange_cache)
-                    H[:ns, :ns] += V_J_PP - K_PP[:ns, :ns]
-                    H[ns:, ns:] += V_J_QQ - K_QQ[:ns, :ns]
+                        kappa, orb_idx, orbitals,
+                        exchange_cache=exchange_cache)
+                    # Intra-shell F^k for k>0 (only for j>=1)
+                    Vi_PP, Vi_QQ = self._build_intra_shell_potential(
+                        kappa, orb_idx, orbitals)
+                    H[:ns, :ns] += V_J_PP - K_PP[:ns, :ns] + Vi_PP[:ns, :ns]
+                    H[ns:, ns:] += V_J_QQ - K_QQ[:ns, :ns] + Vi_QQ[:ns, :ns]
                 else:
+                    # Slater: total density (no self-subtraction)
+                    V_J_PP, V_J_QQ = self._build_direct_potential(orbitals)
                     Vx_PP, Vx_QQ = self._build_exchange_matrix_slater(orbitals)
                     H[:ns, :ns] += V_J_PP + Vx_PP[:ns, :ns]
                     H[ns:, ns:] += V_J_QQ + Vx_QQ[:ns, :ns]
