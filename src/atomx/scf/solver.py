@@ -288,11 +288,11 @@ class DFSolver:
                                    exchange_cache=None):
         """Build non-local HF exchange matrix via cell-based convolution.
 
-        DBSR_HF convention: exchange only from OTHER orbitals (b!=a).
-        Same-shell exchange is handled via _build_intra_shell_potential.
-
-        Uses icase=4 (exchange contraction) of the cell algorithm for
-        self-consistency with the cell-based energy computation.
+        Returns (K_PP, K_QQ, K_PQ, K_QP) for all 4 component blocks:
+        - pppp -> PP diagonal block
+        - qqqq -> QQ diagonal block
+        - pqpq -> PQ off-diagonal block (cross-component exchange)
+        - qpqp -> QP off-diagonal block (cross-component exchange)
         """
         from atomx.scf.angular_coeffs import exchange_lambda
         from atomx.bspline.convol import _density_full, _convol_case4
@@ -303,13 +303,16 @@ class DFSolver:
         nsp = bd.get("nsp", ns)
         ksq = bd.get("ksq", self.ks)
         nsq = bd.get("nsq", ns)
+        ns_full = bd.get("ns", ns)
 
         if not hasattr(self, '_convol_cache'):
             self._convol_cache = ConvolCache(bd)
 
         tj_a = 2 * abs(target_kappa) - 1
-        K_PP = np.zeros((ns, ns))
-        K_QQ = np.zeros((ns, ns))
+        K_PP = np.zeros((ns_full, ns_full))
+        K_QQ = np.zeros((ns_full, ns_full))
+        K_PQ = np.zeros((ns_full, ns_full))
+        K_QP = np.zeros((ns_full, ns_full))
 
         for kappa_b, orb_list in orbitals.items():
             tj_b = 2 * abs(kappa_b) - 1
@@ -323,25 +326,38 @@ class DFSolver:
                         continue
                     c_k = occ_b * lam / ((tj_a + 1.0) * (tj_b + 1.0))
 
-                    # Cell-based exchange: rkb contracted with cross-density
+                    # pppp -> PP block
                     rkb_pp, _, _ = self._convol_cache.get_rkb(k, "pppp")
-                    rkb_qq, _, _ = self._convol_cache.get_rkb(k, "qqqq")
-
-                    # PP block
-                    d_P = _density_full(P_b, P_b, nsp)
+                    d_P = _density_full(P_b[:nsp], P_b[:nsp], nsp)
                     Kk_PP = _convol_case4(rkb_pp, d_P, nsp, ksp)
-                    n_pp = min(Kk_PP.shape[0], ns)
-                    K_PP[:n_pp, :n_pp] += c_k * Kk_PP[:n_pp, :n_pp]
+                    n = min(Kk_PP.shape[0], ns_full)
+                    K_PP[:n, :n] += c_k * Kk_PP[:n, :n]
 
-                    # QQ block
-                    d_Q = _density_full(Q_b, Q_b, nsq)
+                    # qqqq -> QQ block
+                    rkb_qq, _, _ = self._convol_cache.get_rkb(k, "qqqq")
+                    d_Q = _density_full(Q_b[:nsq], Q_b[:nsq], nsq)
                     Kk_QQ = _convol_case4(rkb_qq, d_Q, nsq, ksq)
-                    n_qq = min(Kk_QQ.shape[0], ns)
-                    K_QQ[:n_qq, :n_qq] += c_k * Kk_QQ[:n_qq, :n_qq]
+                    n = min(Kk_QQ.shape[0], ns_full)
+                    K_QQ[:n, :n] += c_k * Kk_QQ[:n, :n]
+
+                    # pqpq -> PQ block: density = P_b * Q_b (cross-component)
+                    rkb_pq, _, _ = self._convol_cache.get_rkb(k, "pqpq")
+                    d_PQ = _density_full(P_b[:nsp], Q_b[:nsq], max(nsp, nsq))
+                    Kk_PQ = _convol_case4(rkb_pq, d_PQ, ns_full, ksp)
+                    K_PQ[:ns_full, :ns_full] += c_k * Kk_PQ[:ns_full, :ns_full]
+
+                    # qpqp -> QP block: density = Q_b * P_b
+                    rkb_qp, _, _ = self._convol_cache.get_rkb(k, "qpqp")
+                    d_QP = _density_full(Q_b[:nsq], P_b[:nsp], max(nsp, nsq))
+                    Kk_QP = _convol_case4(rkb_qp, d_QP, ns_full, ksq)
+                    K_QP[:ns_full, :ns_full] += c_k * Kk_QP[:ns_full, :ns_full]
 
         K_PP = 0.5 * (K_PP + K_PP.T)
         K_QQ = 0.5 * (K_QQ + K_QQ.T)
-        return K_PP, K_QQ
+        # PQ and QP: symmetrize each individually
+        K_PQ = 0.5 * (K_PQ + K_PQ.T)
+        K_QP = 0.5 * (K_QP + K_QP.T)
+        return K_PP, K_QQ, K_PQ, K_QP
 
     def _build_exchange_matrix_slater(self, orbitals):
         """Build local Slater exchange — separate PP and QQ matrices for KB."""
@@ -698,28 +714,34 @@ class DFSolver:
                 S_full = S0_cache[kappa]
 
                 if self.exchange == "hf":
-                    # DBSR_HF convention: subtract 1 electron of self from direct
+                    # Direct potential (pppp→PP, qqqq→QQ diagonal blocks)
                     V_J_PP, V_J_QQ = self._build_direct_potential(
                         orbitals, target_kappa=kappa, target_idx=orb_idx)
-                    K_PP, K_QQ = self._build_exchange_matrix_hf(
+                    # Exchange (pppp→PP, qqqq→QQ + pqpq→PQ, qpqp→QP off-diag)
+                    K_PP, K_QQ, K_PQ, K_QP = self._build_exchange_matrix_hf(
                         kappa, orb_idx, orbitals,
                         exchange_cache=exchange_cache)
+                    # Intra-shell F^k for k>0
                     Vi_PP, Vi_QQ = self._build_intra_shell_potential(
                         kappa, orb_idx, orbitals)
-                    # PP block: H[0:ns_full, 0:ns_full]
+                    # PP block
                     n_pp = min(V_J_PP.shape[0], ns_full)
-                    n_kpp = min(K_PP.shape[0], ns_full)
-                    n_vpp = min(Vi_PP.shape[0], ns_full)
                     H[:n_pp, :n_pp] += V_J_PP[:n_pp, :n_pp]
+                    n_kpp = min(K_PP.shape[0], ns_full)
                     H[:n_kpp, :n_kpp] -= K_PP[:n_kpp, :n_kpp]
+                    n_vpp = min(Vi_PP.shape[0], ns_full)
                     H[:n_vpp, :n_vpp] += Vi_PP[:n_vpp, :n_vpp]
-                    # QQ block: H[ns_full:, ns_full:]
+                    # QQ block
                     n_qq = min(V_J_QQ.shape[0], ns_full)
-                    n_kqq = min(K_QQ.shape[0], ns_full)
-                    n_vqq = min(Vi_QQ.shape[0], ns_full)
                     H[ns_full:ns_full+n_qq, ns_full:ns_full+n_qq] += V_J_QQ[:n_qq, :n_qq]
+                    n_kqq = min(K_QQ.shape[0], ns_full)
                     H[ns_full:ns_full+n_kqq, ns_full:ns_full+n_kqq] -= K_QQ[:n_kqq, :n_kqq]
+                    n_vqq = min(Vi_QQ.shape[0], ns_full)
                     H[ns_full:ns_full+n_vqq, ns_full:ns_full+n_vqq] += Vi_QQ[:n_vqq, :n_vqq]
+                    # PQ and QP off-diagonal blocks (cross-component exchange)
+                    n_pq = min(K_PQ.shape[0], ns_full)
+                    H[:n_pq, ns_full:ns_full+n_pq] -= K_PQ[:n_pq, :n_pq]
+                    H[ns_full:ns_full+n_pq, :n_pq] -= K_QP[:n_pq, :n_pq]
                 else:
                     V_J_PP, V_J_QQ = self._build_direct_potential(orbitals)
                     Vx_PP, Vx_QQ = self._build_exchange_matrix_slater(orbitals)
