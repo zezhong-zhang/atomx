@@ -98,6 +98,19 @@ def build_dirac_matrices(ns, kappa, Z, bspline_data, nuclear_potential_func=None
     S[:ns_full, :ns_full] = S_PP
     S[ns_full:, ns_full:] = S_QQ
 
+    # --- Bloch boundary operator (restores variational principle with KB) ---
+    if ksp != ksq:
+        tmax = bspline_data["t"][bspline_data.get("nsq", ns)]  # boundary radius
+        if tmax > 0:
+            pnu = 1.0  # Q(R)/P(R) ratio at boundary (DBSR_HF default)
+            RN = kappa / (2.0 * tmax * C)  # (RB+kappa)/(2*tmax*c), RB=0
+            ip = nsp - 1       # last P-spline index (0-based)
+            iq = ns_full + nsq - 1  # last Q-spline index (0-based)
+            H[ip, ip] -= pnu * RN * C
+            H[ip, iq] += pnu * C
+            H[iq, ip] += (pnu - 1.0) * C  # = 0 when pnu=1
+            H[iq, iq] -= (pnu - 1.0) / RN * C if abs(RN) > 1e-30 else 0.0
+
     return H, S
 
 

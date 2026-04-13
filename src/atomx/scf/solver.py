@@ -264,41 +264,33 @@ class DFSolver:
 
         return Vx_PP, Vx_QQ
 
-    def _compute_total_energy(self, orbitals):
-        """Compute total atomic energy with proper double-counting correction.
+    def _compute_total_energy(self, orbitals, orbital_energies=None):
+        """Compute total energy using orbital eigenvalue formula (KB-safe).
 
-        E = Σ_a q_a * <a|T+V_nuc|a>
-          + (1/2) Σ_{a,b} q_a*q_b * F^0(a,b)
-          + (1/2) Σ_{a,b} Σ_k c^k(a,b) * G^k(a,b)
+        E_total = Σ_a q_a ε_a - E_J + E_K
 
-        For HF exchange, the energy breakdown is:
-          E_1e = Σ_a q_a * <a|T+V_nuc|a>  (one-electron: kinetic + nuclear)
-          E_J  = (1/2) Σ_{a,b} q_a*q_b * F^0(a,b)  (direct Coulomb)
-          E_K  = (1/2) Σ_{a,b} Σ_k c^k * G^k(a,b)  (exchange)
-          E_total = E_1e + E_J + E_K
+        where ε_a is the Fock eigenvalue. This avoids matrix expectation
+        values that can be numerically inaccurate with kinetic balance.
 
-        Parameters
-        ----------
-        orbitals : dict
-            kappa -> [(P, Q, occ), ...]
-
-        Returns
-        -------
-        E_total : float
-        components : dict
-            E_1e, E_J, E_K breakdown.
+        E_1e is derived as: Σ_a q_a ε_a - 2*(E_J - E_K)
         """
         orb_list = self._flatten_orbitals(orbitals)
         bsp_data = self.bsp_data
 
-        # One-electron energy: <a|T+V_nuc|a> via eigenvalue decomposition
-        # More direct: E_1e = Σ_a q_a * [Σ_{ij} P_a(i) (H^0_{ij}) P_a(j)]
-        # where H^0 is the one-electron Dirac Hamiltonian
-        E_1e = 0.0
-        for P, Q, occ, kappa, label in orb_list:
-            H0, S0 = build_dirac_matrices(self.ns, kappa, self.Z, bsp_data)
-            vec = np.concatenate([P, Q])
-            E_1e += occ * vec @ H0 @ vec / (vec @ S0 @ vec)
+        # Sum of orbital eigenvalues: Σ q_a ε_a
+        E_orbital_sum = 0.0
+        if orbital_energies:
+            for P, Q, occ, kappa, label in orb_list:
+                eps = orbital_energies.get(label, 0.0)
+                E_orbital_sum += occ * eps
+        else:
+            # Fallback: compute from matrix expectation values
+            for P, Q, occ, kappa, label in orb_list:
+                H0, S0 = build_dirac_matrices(self.ns, kappa, self.Z, bsp_data)
+                vec = np.concatenate([P, Q])
+                norm_sq = vec @ S0 @ vec
+                if norm_sq > 1e-20:
+                    E_orbital_sum += occ * (vec @ H0 @ vec) / norm_sq
 
         # Direct Coulomb: E_J = (1/2) Σ_{a,b} q_a * q_b * F^0(a,b)
         E_J = 0.0
@@ -343,8 +335,10 @@ class DFSolver:
                                * (3.0 / np.pi) ** (1.0 / 3.0)
                                * rho[iv, m] ** (4.0 / 3.0))
 
-        # E = E_1e + E_J - E_K  (exchange reduces repulsion)
-        E_total = E_1e + E_J - E_K
+        # E_total = Σ q ε - E_J + E_K (eigenvalue-based, KB-safe)
+        # E_1e = Σ q ε - 2*(E_J - E_K) (derived)
+        E_total = E_orbital_sum - E_J + E_K
+        E_1e = E_orbital_sum - 2.0 * (E_J - E_K)
         components = {"E_1e": E_1e, "E_J": E_J, "E_K": E_K}
         return E_total, components
 
@@ -473,7 +467,7 @@ class DFSolver:
                 break
 
         # Compute total energy
-        total_energy, energy_components = self._compute_total_energy(orbitals)
+        total_energy, energy_components = self._compute_total_energy(orbitals, orbital_energies)
 
         # QED and Breit corrections (perturbative, after SCF convergence)
         orb_list = self._flatten_orbitals(orbitals)
