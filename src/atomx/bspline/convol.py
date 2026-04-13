@@ -504,30 +504,15 @@ class ConvolCache:
     """Cache for cell-based R^k integrals.
 
     Stores pre-computed rkb arrays for each (k, itype) combination.
-    Avoids redundant assembly when the same k appears in both
-    direct potential and energy computation.
+    Reuses arrays across direct potential, exchange, and energy computation.
     """
 
     def __init__(self, bsp_data):
         self.bsp_data = bsp_data
-        self._cache = {}  # (k, itype) → rkb array
+        self._cache = {}
 
     def get_rkb(self, k, itype="pppp"):
-        """Get or compute rkb array for multipole order k and integral type.
-
-        Parameters
-        ----------
-        k : int
-            Multipole order.
-        itype : str
-            "pppp", "qqqq", "pqpq", or "qpqp".
-
-        Returns
-        -------
-        rkb : ndarray (ns, ns, ks, ks)
-        ns : int — basis dimension for this type
-        ks : int — basis order for this type
-        """
+        """Get or compute rkb array for multipole order k and integral type."""
         key = (k, itype)
         if key in self._cache:
             return self._cache[key]
@@ -549,7 +534,6 @@ class ConvolCache:
             bsp = bd.get("bsp_q", bd["bsp_p"])
             rkb = _build_rkb_sym(bsp, gr, grw, t, nv, ks, ns, k)
         elif itype in ("pqpq", "qpqp"):
-            # Mixed types — not yet implemented, fall back
             raise NotImplementedError(
                 f"Mixed integral type '{itype}' not yet implemented. "
                 "Use Y^k approach for cross-component integrals."
@@ -561,7 +545,6 @@ class ConvolCache:
         return rkb, ns, ks
 
     def clear(self):
-        """Clear the cache (e.g., when grid changes)."""
         self._cache.clear()
 
 
