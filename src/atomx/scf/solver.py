@@ -426,12 +426,26 @@ class DFSolver:
                                       nsp=nsp if has_kb else None,
                                       nsq=nsq if has_kb else None)
 
-                # Update only the target orbital
+                # Select target orbital by index
                 eig_idx = sh.n - sh.l - 1
                 if kappa > 0 and not has_kb:
                     eig_idx += 1  # skip spurious only without KB
-                if eig_idx < result.n_bound:
-                    P_new, Q_new, E_new = result.get_orbital(eig_idx)
+
+                # Get orbital from FULL physical spectrum (bound + discretized continuum)
+                # This handles outer orbitals that become weakly bound/unbound during SCF
+                n_phys = len(result.eigenvalues)
+                actual_idx = min(eig_idx, n_phys - 1)
+                if actual_idx >= 0 and actual_idx < n_phys:
+                    # Use eigenvalues/coefficients from the physical spectrum
+                    sorted_idx = np.argsort(result.eigenvalues)
+                    phys_idx = sorted_idx[actual_idx]
+                    vec = result.coefficients[:, phys_idx]
+                    P_new = np.zeros(ns)
+                    Q_new = np.zeros(ns)
+                    nsp_loc = result.nsp if hasattr(result, 'nsp') else ns
+                    P_new[:nsp_loc] = vec[:nsp_loc]
+                    Q_new[:ns] = vec[nsp_loc:nsp_loc + ns]
+                    E_new = result.eigenvalues[phys_idx]
 
                     # Track orbital change
                     orb_list = orbitals.get(kappa, [])
