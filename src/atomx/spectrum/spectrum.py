@@ -189,6 +189,34 @@ class Spectrum:
     def __len__(self) -> int:
         return len(self.wavelength_nm)
 
+    # ------------------------------------------------------------------
+    # Visualisation convenience
+    # ------------------------------------------------------------------
+
+    def plot(self, *, backend: str = "mpl", **kwargs):
+        """Render this Spectrum with the requested viz backend.
+
+        Parameters
+        ----------
+        backend : {"mpl", "plotly"}
+            Default ``"mpl"`` (matplotlib).
+        **kwargs
+            Forwarded to the backend's ``plot_spectrum``.
+
+        Returns
+        -------
+        Figure object from the selected backend.
+        """
+        if backend == "mpl":
+            from atomx.viz.mpl import plot_spectrum
+            return plot_spectrum(self, **kwargs)
+        if backend == "plotly":
+            from atomx.viz.plotly import plot_spectrum
+            return plot_spectrum(self, **kwargs)
+        raise ValueError(
+            f"Unknown backend {backend!r}; use 'mpl' or 'plotly'."
+        )
+
 
 # ---------------------------------------------------------------------------
 # Convenience: render many lines in one call
