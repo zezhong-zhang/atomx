@@ -103,38 +103,42 @@ class Wavefunctions:
         return (f"Wavefunctions({len(self.orbitals)} orbitals on "
                 f"{n_pts}-point grid, {self.basis_type})")
 
-    def plot(self, label: str):
+    def plot(self, label: str, *, backend: str = "mpl", **kwargs):
         """Plot P(r) [and Q(r)] for the given orbital.
 
         Parameters
         ----------
         label : str
             Spectroscopic label, e.g. ``"1s"`` or ``"2p3/2"``.
+        backend : {"mpl", "plotly"}
+            Rendering backend.  ``"mpl"`` returns a matplotlib Figure;
+            ``"plotly"`` returns an interactive plotly Figure.
+
+        Returns
+        -------
+        Figure object from the selected backend.
         """
-        try:
-            import matplotlib.pyplot as plt
-        except ImportError:
-            print("matplotlib required. Install: pip install matplotlib")
-            return
+        if backend == "mpl":
+            from atomx.viz.mpl import plot_radial_orbital
+            return plot_radial_orbital(self, label, **kwargs)
+        if backend == "plotly":
+            from atomx.viz.plotly import plot_radial_orbital
+            return plot_radial_orbital(self, label, **kwargs)
+        raise ValueError(
+            f"Unknown backend {backend!r}; use 'mpl' or 'plotly'."
+        )
 
-        orb = self.orbitals.get(label)
-        if orb is None:
-            available = ", ".join(sorted(self.orbitals.keys()))
-            raise KeyError(f"'{label}' not found. Available: {available}")
-
-        fig, ax = plt.subplots(figsize=(8, 5))
-        ax.plot(self.grid, orb.P, label=f"P(r) [{label}]", linewidth=1.5)
-        if orb.Q is not None:
-            ax.plot(self.grid, orb.Q, label=f"Q(r) [{label}]",
-                    linewidth=1.5, linestyle="--")
-        ax.set_xlabel(r"$r$ (Bohr)")
-        ax.set_ylabel("Radial wavefunction")
-        ax.set_title(f"Orbital {label}  "
-                     f"($\\varepsilon$ = {orb.energy:.6f} Ha)")
-        ax.legend()
-        ax.axhline(0, color="grey", linewidth=0.5)
-        plt.tight_layout()
-        plt.show()
+    def plot_density(self, labels=None, *, backend: str = "mpl", **kwargs):
+        """Plot ``P² + Q²`` radial density for one or more orbitals."""
+        if backend == "mpl":
+            from atomx.viz.mpl import plot_orbital_density
+            return plot_orbital_density(self, labels, **kwargs)
+        if backend == "plotly":
+            from atomx.viz.plotly import plot_orbital_density
+            return plot_orbital_density(self, labels, **kwargs)
+        raise ValueError(
+            f"Unknown backend {backend!r}; use 'mpl' or 'plotly'."
+        )
 
 
 @dataclass
