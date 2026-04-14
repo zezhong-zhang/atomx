@@ -75,12 +75,9 @@ def _diis_extrapolate(orb_history, err_history):
     rhs = np.zeros(n + 1)
     rhs[n] = -1.0
 
-    import warnings
     try:
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore", linalg.LinAlgWarning)
-            c = linalg.solve(B, rhs)
-    except linalg.LinAlgError:
+        c = np.linalg.solve(B, rhs)
+    except np.linalg.LinAlgError:
         return None
 
     # Check for reasonable coefficients
