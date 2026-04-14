@@ -22,9 +22,28 @@ is standard — see, e.g.
 
 Conventions
 -----------
-* The electron g-factor is fixed to the Dirac value g_s = 2 — anomalous
-  magnetic-moment corrections (g_s/2 − 1 ≈ α/(2π)) are of order 0.1 % and
-  are deferred to a later iteration.
+* By default this module returns the bare Dirac result with ``g_s = 2``.
+  The electron anomalous magnetic moment ``a_e = (g_s − 2)/2`` can be
+  enabled via ``include_anomalous_moment=True``; it multiplies the
+  result by ``(1 + a_e)`` with ``a_e = 1.15965218128e-3`` (CODATA).
+
+  **Important — applying only a_e is usually incomplete.**
+  The electron-anomaly correction is the first rung of a QED ladder
+  whose other rungs (Breit/relativistic binding corrections, recoil,
+  radiative corrections to the hyperfine operator itself, nuclear
+  structure via Bohr–Weisskopf) tend to *cancel* its contribution for
+  ground-state s-shells.  The canonical H 1s case is explicit:
+
+      Dirac-Fock baseline                  : 1421.27 MHz
+      +  Schwinger a_e  (+0.116 %)         : 1422.92 MHz
+      +  higher-order QED + Breit (−0.127 %): ≈ 1420.9 MHz
+      +  nuclear structure (Bohr–Weisskopf): ≈ 1420.4 MHz  (experiment)
+
+  Applying only the first correction *worsens* the prediction.
+  atomx therefore defaults to ``include_anomalous_moment=False`` so the
+  bare Dirac-Fock result is reported, with individual rungs opt-in.
+  A future release will bundle the full package as a single flag
+  ``include_qed_hyperfine=True``.
 * ``g_I = μ_I / I`` in units of the nuclear magneton μ_N; :mod:`atomx.
   hyperfine.nuclear_moments` tabulates μ_I for common isotopes.
 * Point magnetic moment.  Finite-nuclear-magnetization (Bohr–Weisskopf)
@@ -62,6 +81,13 @@ _H_PLANCK_J_S = 6.62607015e-34
 #: Conversion factor from Hartree to MHz, i.e. ``E_Ha × HARTREE_MHZ = f_MHz``.
 #: ``f = E/h`` with E in J, h in J·s.
 HARTREE_MHZ = HARTREE_J / _H_PLANCK_J_S / 1.0e6
+
+#: Electron anomalous magnetic moment ``a_e = (g_s - 2)/2``.
+#:
+#: CODATA 2018 recommended value.  Leading-order = α/(2π) ≈ 1.16140e-3
+#: (Schwinger 1948); higher QED loops bring it to 1.15965218128e-3.
+#: Multiplies the Dirac hyperfine constant by ``(1 + a_e)``.
+ELECTRON_ANOMALOUS_MOMENT = 1.15965218128e-3
 
 
 # ---------------------------------------------------------------------------
@@ -110,15 +136,19 @@ def hyperfine_A(
     bsp_data,
     kappa: int,
     g_I: float,
+    *,
+    include_anomalous_moment: bool = False,
 ) -> float:
     """Magnetic dipole hyperfine constant A in Hartree atomic units.
 
-    Implements eq. (1) above:
+    Implements eq. (1) above, with optional electron g-factor anomaly:
 
-        A = α g_I (m_e/m_p) · [ κ / (j(j+1)) ] · ⟨P Q / r²⟩
+        A = (1 + a_e) · α · g_I · (m_e/m_p) · [ κ / (j(j+1)) ] · ⟨P Q / r²⟩
 
-    with ``j = |κ| − 1/2``.  The prefactor follows Johnson, *Atomic
-    Structure Theory*, eq. 8.67 (Springer, 2007).
+    with ``j = |κ| − 1/2`` and ``a_e = 1.15965218e-3`` (CODATA).  The
+    Dirac prefactor without ``(1 + a_e)`` follows Johnson, *Atomic
+    Structure Theory*, eq. 8.67 (Springer, 2007); the anomaly is the
+    Schwinger 1948 correction plus higher QED loops.
 
     Parameters
     ----------
@@ -130,6 +160,11 @@ def hyperfine_A(
         Dirac quantum number of the orbital.
     g_I : float
         Nuclear g-factor in nuclear-magneton units (``μ_I / I``).
+    include_anomalous_moment : bool, keyword-only
+        When ``True`` multiply by ``(1 + a_e)``.  Default ``False`` so
+        that the return value is the pure Dirac-Fock baseline — see the
+        module docstring for why isolated application of a_e is
+        typically incomplete.
 
     Returns
     -------
@@ -144,7 +179,10 @@ def hyperfine_A(
 
     rad = hyperfine_radial_integral(P, Q, bsp_data)
 
-    return ALPHA * g_I * (1.0 / PROTON_ELECTRON_MASS_RATIO) * j_fac * rad
+    A = ALPHA * g_I * (1.0 / PROTON_ELECTRON_MASS_RATIO) * j_fac * rad
+    if include_anomalous_moment:
+        A *= (1.0 + ELECTRON_ANOMALOUS_MOMENT)
+    return A
 
 
 def hyperfine_A_MHz(
@@ -153,6 +191,11 @@ def hyperfine_A_MHz(
     bsp_data,
     kappa: int,
     g_I: float,
+    *,
+    include_anomalous_moment: bool = False,
 ) -> float:
     """Same as :func:`hyperfine_A`, converted to MHz (≡ A/h, ``h`` Planck)."""
-    return hyperfine_A(P, Q, bsp_data, kappa, g_I) * HARTREE_MHZ
+    return hyperfine_A(
+        P, Q, bsp_data, kappa, g_I,
+        include_anomalous_moment=include_anomalous_moment,
+    ) * HARTREE_MHZ

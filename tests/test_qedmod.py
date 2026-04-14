@@ -22,7 +22,7 @@ from atomx.corrections.qedmod import (
     get_backend,
 )
 from atomx.corrections.qedmod.welton import _density_at_origin  # noqa: F401
-from atomx.scf.solver import DFSolver, helium_subshells
+from atomx.scf.solver import DFSolver, Subshell, helium_subshells
 
 
 # ---------------------------------------------------------------------------
@@ -91,7 +91,84 @@ class TestWelton:
 
 
 # ---------------------------------------------------------------------------
-# Stub backends
+# Flambaum–Ginges backend (now a working implementation, electric SE only)
+# ---------------------------------------------------------------------------
+
+class TestFlambaumGinges:
+    def test_h_1s_matches_mohr_within_10pct(self):
+        """FG paper claims ~10 % accuracy for 1s; for H (Z=1) we expect
+        ~5 % agreement with Mohr's tabulated SE."""
+        shells = [Subshell(n=1, kappa=-1, occupation=1)]
+        solver = DFSolver(Z=1, subshells=shells, ns=60, ks=9, exchange="hf")
+        result = solver.solve(max_iter=50, tol=1e-8)
+        orb_list = solver._flatten_orbitals(result.orbitals_raw)
+        E_mohr = compute_se_energy(
+            orb_list, Z=1, method="mohr", bsp_data=result._bsp_data)
+        E_fg = compute_se_energy(
+            orb_list, Z=1, method="flambaum_ginges", bsp_data=result._bsp_data)
+        # Same sign, comparable magnitude
+        assert E_mohr > 0
+        assert E_fg > 0
+        ratio = E_fg / E_mohr
+        assert 0.9 < ratio < 1.1, f"H 1s FG/Mohr = {ratio:.3f} out of band"
+
+    def test_requires_bsp_data(self):
+        orbs = [(np.zeros(10), np.zeros(10), 2, -1, "1s1/2")]
+        with pytest.raises(ValueError, match="bsp_data"):
+            compute_se_energy(orbs, Z=1, method="flambaum_ginges", bsp_data=None)
+
+
+# ---------------------------------------------------------------------------
+# Wichmann–Kroll higher-order VP
+# ---------------------------------------------------------------------------
+
+class TestWichmannKroll:
+    def test_wk_signs_opposite_to_uehling(self):
+        """WK is opposite sign to Uehling (paper: ~1 % cancellation at
+        high Z).  In atomx convention: atomx Uehling < 0, atomx WK > 0."""
+        from atomx.corrections.qed import compute_vp_energy, compute_wk_vp_energy
+        solver = DFSolver(Z=10, subshells=helium_subshells()  # temp: small atom
+                          , ns=40, ks=9, exchange="hf")
+        # Use helium 1s² with Z=10 (charge-10 ion) so potentials probe higher-Z physics
+        # Actually just use real Ne for this test
+        from atomx.scf.solver import neon_subshells
+        solver = DFSolver(Z=10, subshells=neon_subshells(), ns=50, ks=9, exchange="hf")
+        result = solver.solve(max_iter=40, tol=1e-5)
+        orb_list = solver._flatten_orbitals(result.orbitals_raw)
+        E_U = compute_vp_energy(orb_list, result._bsp_data, 10)
+        E_WK = compute_wk_vp_energy(orb_list, result._bsp_data, 10)
+        assert E_U < 0
+        assert E_WK > 0
+        # WK magnitude should be much smaller than Uehling for Z=10
+        assert abs(E_WK) < abs(E_U) * 0.05  # < 5 %
+
+    def test_wk_included_via_compute_qed_corrections(self):
+        from atomx.corrections.qed import compute_qed_corrections
+        from atomx.scf.solver import neon_subshells
+        solver = DFSolver(Z=10, subshells=neon_subshells(), ns=50, ks=9, exchange="hf")
+        result = solver.solve(max_iter=40, tol=1e-5)
+        orb_list = solver._flatten_orbitals(result.orbitals_raw)
+        out = compute_qed_corrections(
+            orb_list, result._bsp_data, 10, include_wichmann_kroll=True,
+        )
+        assert "E_WK" in out
+        assert out["E_WK"] > 0
+        # total = VP + SE + WK
+        assert abs(out["E_QED_total"] - (out["E_VP"] + out["E_SE"] + out["E_WK"])) < 1e-15
+
+    def test_scf_integration_wichmann_kroll_flag(self):
+        from atomx.scf.solver import neon_subshells
+        solver = DFSolver(
+            Z=10, subshells=neon_subshells(), ns=50, ks=9, exchange="hf",
+            include_qed=True, include_wichmann_kroll=True,
+        )
+        result = solver.solve(max_iter=40, tol=1e-5)
+        assert "E_WK" in result.energy_components
+        assert result.energy_components["E_WK"] > 0
+
+
+# ---------------------------------------------------------------------------
+# Stub backend (Shabaev only, FG is now implemented above)
 # ---------------------------------------------------------------------------
 
 class TestStubBackends:
@@ -99,11 +176,6 @@ class TestStubBackends:
         orbs = [(np.zeros(10), np.zeros(10), 2, -1, "1s1/2")]
         with pytest.raises(NotImplementedError, match="Shabaev"):
             compute_se_energy(orbs, Z=1, method="shabaev")
-
-    def test_flambaum_ginges_raises_with_reference(self):
-        orbs = [(np.zeros(10), np.zeros(10), 2, -1, "1s1/2")]
-        with pytest.raises(NotImplementedError, match="Flambaum"):
-            compute_se_energy(orbs, Z=1, method="flambaum_ginges")
 
 
 # ---------------------------------------------------------------------------

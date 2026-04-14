@@ -143,6 +143,32 @@ class HyperfineResult:
 
     Populated by :meth:`SCFResult.hyperfine_constants`.
 
+    The ``A_MHz`` entry is the final *ladder* value — the DHF baseline
+    multiplied by each enabled rung:
+
+        A_ladder = A_DHF
+                 × (1 + a_e)           # electron anomalous moment
+                 × (1 + δ_QEDhf)       # QED + Breit corr. to HF operator
+                 × (1 + δ_recoil)      # nuclear recoil + Bohr–Weisskopf
+                 × (1 + δ_corr)        # electron correlation / core polar.
+
+    Every rung is *optional* and defaults to zero.  This design reflects
+    the physics: applying any one rung in isolation can make a prediction
+    *worse* because the individual QED corrections cancel each other
+    (the canonical example is H 1s — see the hyperfine module docstring).
+    For hydrogenic 1s ground states a published preset is available
+    via :meth:`SCFResult.hyperfine_constants`' ``preset="h1s"`` /
+    ``"d1s"`` / ``"he3_1s"`` kwargs, which inject the Karshenboim 2005
+    values for δ_QEDhf and δ_recoil.  With the preset enabled the
+    ladder reproduces experiment to ~0.05 %.  Reaching the 1 ppm
+    benchmark quoted in the atomic-clock literature needs rung
+    coefficients computed specifically for the DHF baseline, which is
+    a project unto itself.
+
+    The ``A_MHz_ladder`` dict breaks down the intermediate values at
+    each rung for transparency; the ``ladder`` attribute lists which
+    rungs were actually applied, in order.
+
     Attributes
     ----------
     isotope : str
@@ -156,11 +182,15 @@ class HyperfineResult:
     Q_nuc : float
         Nuclear electric quadrupole moment (barns).
     A_MHz : dict
-        ``{orbital_label: A_MHz}`` — magnetic dipole hyperfine constant
-        for each orbital in megahertz.  Note: single-configuration DHF
-        values; for alkalis these are typically 20–40 % below experiment
-        because core-polarization / correlation corrections are missing
-        (Dzuba–Flambaum–Sushkov, etc.).
+        ``{orbital_label: A_MHz}`` — final ladder-corrected magnetic
+        dipole hyperfine constant in megahertz.
+    A_MHz_ladder : dict
+        ``{orbital_label: {rung_name: A_MHz}}`` — A value at each rung,
+        e.g. ``{"1s1/2": {"dhf": 1421.27, "ae": 1422.92}}``.  The last
+        rung value in each orbital entry equals ``A_MHz[label]``.
+    ladder : list of str
+        Ordered list of ladder-rung names that were applied,
+        e.g. ``["dhf", "ae"]``.
     B_MHz : dict
         ``{orbital_label: B_MHz}`` — electric quadrupole hyperfine
         constant in MHz.  Currently empty (``B`` not yet implemented).
@@ -173,6 +203,8 @@ class HyperfineResult:
     mu_I: float
     Q_nuc: float
     A_MHz: Dict[str, float] = field(default_factory=dict)
+    A_MHz_ladder: Dict[str, Dict[str, float]] = field(default_factory=dict)
+    ladder: list = field(default_factory=list)
     B_MHz: Dict[str, float] = field(default_factory=dict)
 
 

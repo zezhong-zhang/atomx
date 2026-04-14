@@ -160,8 +160,58 @@ def compute_se_energy(orbitals, Z, bsp_data=None, *, method=DEFAULT_SE_METHOD):
 # Combined QED corrections
 # ---------------------------------------------------------------------------
 
-def compute_qed_corrections(orbitals, bsp_data, Z, *, se_method=DEFAULT_SE_METHOD):
-    """Compute all QED corrections (VP + SE).
+def compute_wk_vp_energy(orbitals, bsp_data, Z):
+    """Wichmann–Kroll higher-order vacuum-polarization energy contribution.
+
+    Uses the simplified closed-form approximation of Flambaum–Ginges
+    (PRA 72, 052115, 2005), eq. 12:
+
+        V_WK(r) = +(4α/9π) · (Z/r) · 0.092 Z²α² / (1 + (1.62·c·r)⁴)
+
+    (Sign in atomx potential-energy convention: WK is opposite to Uehling,
+    hence *positive* here — it is a small repulsive correction that
+    partially cancels Uehling at short range for heavy Z.)
+
+    Returns
+    -------
+    float
+        E_WK = Σ_a q_a · ⟨a | V_WK | a⟩  in Hartree.  Typically ≪ E_VP
+        (Uehling); it is a ~1 % correction for Z > 80 and negligible for
+        light atoms.
+    """
+    from atomx.bspline.evaluate import eval_orbital_on_grid
+    from atomx.corrections.qedmod.flambaum_ginges import V_wichmann_kroll
+
+    nv = bsp_data["nv"]
+    ns = bsp_data["ns"]
+    gr = bsp_data["gr"]
+    grw = bsp_data["grw"]
+    ksp = bsp_data.get("ksp", bsp_data["ks"])
+    ksq = bsp_data.get("ksq", bsp_data["ks"])
+    nsp = bsp_data.get("nsp", ns)
+    nsq = bsp_data.get("nsq", ns)
+    bsp_p = bsp_data["bsp_p"]
+    bsp_q = bsp_data.get("bsp_q", bsp_p)
+
+    V_wk = V_wichmann_kroll(gr, Z)
+
+    E_WK = 0.0
+    for P, Q, occ, kappa, label in orbitals:
+        fP = eval_orbital_on_grid(P, bsp_p, nv, ksp, nsp)
+        fQ = eval_orbital_on_grid(Q, bsp_q, nv, ksq, nsq)
+        rho = fP * fP + fQ * fQ
+        E_WK += occ * float(np.sum(grw * rho * V_wk))
+
+    return E_WK
+
+
+def compute_qed_corrections(
+    orbitals, bsp_data, Z,
+    *,
+    se_method=DEFAULT_SE_METHOD,
+    include_wichmann_kroll=False,
+):
+    """Compute all QED corrections (VP + SE), optionally with higher-order VP.
 
     Parameters
     ----------
@@ -171,17 +221,30 @@ def compute_qed_corrections(orbitals, bsp_data, Z, *, se_method=DEFAULT_SE_METHO
     se_method : str, keyword-only
         Self-energy backend.  Default ``"mohr"`` (atomx ≤ 0.2 behaviour).
         See :mod:`atomx.corrections.qedmod` for alternatives.
+    include_wichmann_kroll : bool, keyword-only
+        When ``True``, add the simplified Wichmann–Kroll higher-order VP
+        term (Flambaum–Ginges eq. 12) to the VP budget and return it as
+        the extra key ``E_WK`` in the result dict.  Default ``False``.
 
     Returns
     -------
-    dict with keys: ``E_VP``, ``E_SE``, ``E_QED_total``, ``se_method``.
+    dict with keys: ``E_VP``, ``E_SE``, ``E_QED_total``, ``se_method``,
+    and ``E_WK`` when ``include_wichmann_kroll=True``.
     """
     E_VP = compute_vp_energy(orbitals, bsp_data, Z)
     E_SE = compute_se_energy(orbitals, Z, bsp_data=bsp_data, method=se_method)
 
-    return {
+    result = {
         "E_VP": E_VP,
         "E_SE": E_SE,
-        "E_QED_total": E_VP + E_SE,
         "se_method": se_method,
     }
+
+    total = E_VP + E_SE
+    if include_wichmann_kroll:
+        E_WK = compute_wk_vp_energy(orbitals, bsp_data, Z)
+        result["E_WK"] = E_WK
+        total += E_WK
+
+    result["E_QED_total"] = total
+    return result
