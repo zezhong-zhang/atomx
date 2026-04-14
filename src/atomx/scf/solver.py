@@ -626,6 +626,81 @@ class SCFResult:
             orbital_FS_MHz=orbital_FS,
         )
 
+    # ------------------------------------------------------------------
+    # Zeeman (Landé g-factors + weak-field shifts)
+    # ------------------------------------------------------------------
+
+    def zeeman_factors(
+        self,
+        orbitals=None,
+        *,
+        include_anomalous_moment: bool = True,
+    ):
+        """Single-electron Landé g-factors for each orbital.
+
+        Parameters
+        ----------
+        orbitals : list of str, optional
+            Restrict to these orbital labels; default = all occupied.
+        include_anomalous_moment : bool, keyword-only
+            Include ``(1 + a_e)`` in the ``.bound`` entry (default ``True``).
+
+        Returns
+        -------
+        dict
+            ``{label: LandeFactor}`` — each entry has ``.nr``, ``.dirac``,
+            ``.bound``.  For heavy multi-electron atoms, ``.bound`` is
+            only a single-electron estimate; true many-electron Zeeman
+            is a future project.
+        """
+        from atomx.zeeman.lande import lande_factor
+
+        if self.Z is None:
+            raise ValueError("SCFResult.Z is None — cannot evaluate g_J.")
+
+        out = {}
+        for sh in self.subshells:
+            if orbitals is not None and sh.label not in orbitals:
+                continue
+            out[sh.label] = lande_factor(
+                kappa=sh.kappa, Z=self.Z, label=sh.label,
+                include_anomalous_moment=include_anomalous_moment,
+            )
+        return out
+
+    def zeeman_shifts(
+        self,
+        B_Tesla: float,
+        orbitals=None,
+        *,
+        g_source: str = "bound",
+    ):
+        """Weak-field Zeeman shifts ``ΔE = g_J μ_B B m_J`` for each orbital.
+
+        Parameters
+        ----------
+        B_Tesla : float
+            External field strength in tesla.
+        orbitals : list of str, optional
+            Restrict to these orbital labels.
+        g_source : str
+            Which g refinement to use: ``"nr"``, ``"dirac"``, or
+            ``"bound"`` (default).
+
+        Returns
+        -------
+        dict
+            ``{label: ZeemanShift}`` — each entry exposes ``.shifts_MHz``
+            (a ``{m_J: shift_MHz}`` dict) and ``.splitting_MHz``.
+        """
+        from atomx.zeeman import zeeman_shift_table
+
+        lf_dict = self.zeeman_factors(orbitals=orbitals)
+        return {
+            label: zeeman_shift_table(lf, B_Tesla, g_source=g_source)
+            for label, lf in lf_dict.items()
+        }
+
     def save(self, path: str):
         """Save result to HDF5 for restart or analysis.
 
