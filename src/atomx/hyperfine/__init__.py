@@ -33,13 +33,26 @@ from atomx.hyperfine.nuclear_moments import (
     g_factor,
     nuclear_moment,
 )
+from atomx.hyperfine.quadrupole import (
+    BARN_BOHR2,
+    hyperfine_B,
+    hyperfine_B_MHz,
+    radial_r_inv_cubed,
+)
 
 __all__ = [
+    # dipole
     "ELECTRON_ANOMALOUS_MOMENT",
     "HARTREE_MHZ",
     "hyperfine_A",
     "hyperfine_A_MHz",
     "hyperfine_radial_integral",
+    # quadrupole
+    "BARN_BOHR2",
+    "hyperfine_B",
+    "hyperfine_B_MHz",
+    "radial_r_inv_cubed",
+    # nuclear data
     "NUCLEAR_MOMENTS",
     "NuclearMoment",
     "default_isotope",
