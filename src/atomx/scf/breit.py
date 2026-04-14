@@ -79,24 +79,28 @@ def compute_breit_energy(orbitals, bsp_data, Z):
     S5..S8: "exchange" type — S^v(P_a Q_b, Q_a P_b) etc.
     """
     nv = bsp_data["nv"]
-    ks = bsp_data["ks"]
     ns = bsp_data["ns"]
     gr = bsp_data["gr"]
     grw = bsp_data["grw"]
-    bsp = bsp_data["bsp_p"]
+    ksp = bsp_data.get("ksp", bsp_data["ks"])
+    ksq = bsp_data.get("ksq", bsp_data["ks"])
+    nsp = bsp_data.get("nsp", ns)
+    nsq = bsp_data.get("nsq", ns)
+    bsp_p = bsp_data["bsp_p"]
+    bsp_q = bsp_data.get("bsp_q", bsp_p)
     n_gauss = gr.shape[1]
 
     E_Breit = 0.0
 
     for i, (Pa, Qa, oa, ka, la) in enumerate(orbitals):
         tj_a = 2 * abs(ka) - 1
-        fa_P = eval_orbital_on_grid(Pa, bsp, nv, ks, ns)
-        fa_Q = eval_orbital_on_grid(Qa, bsp, nv, ks, ns)
+        fa_P = eval_orbital_on_grid(Pa, bsp_p, nv, ksp, nsp)
+        fa_Q = eval_orbital_on_grid(Qa, bsp_q, nv, ksq, nsq)
 
         for j, (Pb, Qb, ob, kb, lb) in enumerate(orbitals):
             tj_b = 2 * abs(kb) - 1
-            fb_P = eval_orbital_on_grid(Pb, bsp, nv, ks, ns)
-            fb_Q = eval_orbital_on_grid(Qb, bsp, nv, ks, ns)
+            fb_P = eval_orbital_on_grid(Pb, bsp_p, nv, ksp, nsp)
+            fb_Q = eval_orbital_on_grid(Qb, bsp_q, nv, ksq, nsq)
 
             # Weight for average-of-configuration
             w_ab = oa * ob / ((tj_a + 1.0) * (tj_b + 1.0))

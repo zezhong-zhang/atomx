@@ -618,6 +618,42 @@ def _convol_case1(rkb, d, ns, ks):
 
 
 @nb.njit(cache=True)
+def _banded_to_full_add(V, v_banded, ns, ks, coeff):
+    """Add banded matrix v_banded(ns, ks) to full matrix V(ns, ns) with coefficient.
+
+    V[i, i+s] += coeff * v_banded[i, s]  (and symmetric: V[i+s, i] += ...)
+    """
+    for s in range(ks):
+        for i in range(ns - s):
+            val = coeff * v_banded[i, s]
+            V[i, i + s] += val
+            if s > 0:
+                V[i + s, i] += val
+
+
+@nb.njit(cache=True)
+def _convol_case1_mixed(rkb, d_right, ns, ks_left, ks_right):
+    """icase=1 for mixed-basis rkb(ns, ns, ks_left, ks_right).
+
+    Contract right pair (j, jp) with density d_right(ns, ks_right).
+    Result is banded: a(ns, ks_left).
+    """
+    a = np.zeros((ns, ks_left))
+    for ip in range(ks_left):
+        for i in range(ns):
+            if i + ip >= ns:
+                continue
+            s = 0.0
+            for jp in range(ks_right):
+                for j in range(ns):
+                    if j + jp >= ns:
+                        continue
+                    s += rkb[i, j, ip, jp] * d_right[j, jp]
+            a[i, ip] = s
+    return a
+
+
+@nb.njit(cache=True)
 def _convol_case2(rkb, d, ns, ks):
     """icase=2: R(a . ; b .) — contract left pair (i, ip) with density.
 
