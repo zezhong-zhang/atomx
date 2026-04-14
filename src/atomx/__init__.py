@@ -1,9 +1,5 @@
 """AtomX: Modern atomic structure calculations from Schrodinger to QED.
 
-A pedagogical and research platform for relativistic atomic structure,
-supporting progressive theory levels from non-relativistic Hartree-Fock
-through Dirac-Fock to MCDHF with QED corrections.
-
 Quick start:
     from atomx import Atom
     ne = Atom(Z=10)
@@ -12,9 +8,7 @@ Quick start:
 
 Method-based API:
     from atomx import Atom, DiracFock, Exchange
-    ne = Atom(Z=10)
-    result = ne.solve(DiracFock(breit=True))
-    print(result.total_energy)
+    result = Atom(Z=10).solve(DiracFock(breit=True))
 """
 
 __version__ = "0.2.0"
@@ -32,26 +26,14 @@ from atomx.types import (
     RelativisticCorrection,
     TheoryLevel,
 )
-from atomx.results import (
-    AtomicResult,
-    RadialWavefunctions,
-    RadialOrbital,
-    # Backward-compatible aliases
-    Wavefunctions,
-    OrbitalWavefunction,
-)
+from atomx.results import AtomicResult, Wavefunctions, OrbitalWavefunction
 from atomx.methods import (
     Method,
-    # Preferred names
-    NonRelativisticHydrogenic,
-    RelativisticHydrogenic,
-    HartreeFock,
-    BreitPauli,
-    DiracFock,
-    MCDHF,
-    # Backward-compatible aliases
     HydrogenicSchrodinger,
     HydrogenicDirac,
+    HartreeFock,
     RelativisticHartreeFock,
+    DiracFock,
+    MCDHF,
 )
 from atomx.compare import compare, theory_ladder, what_changed
