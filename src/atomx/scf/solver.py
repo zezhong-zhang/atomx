@@ -1224,6 +1224,10 @@ class DFSolver:
         if self._log:
             self._log.scf_start()
 
+        # Potential mixing state: store previous direct potential for blending
+        V_J_PP_prev = None
+        V_J_QQ_prev = None
+
         for iteration in range(1, max_iter + 1):
             max_orb_change = 0.0
 
@@ -1317,16 +1321,17 @@ class DFSolver:
 
             elif mode == "orbital" and self.exchange == "hf":
                 # ============================================================
-                # Legacy per-orbital mode: solve one orbital at a time with
-                # self-interaction subtraction.
+                # Per-orbital mode with exchange caching + potential mixing.
                 # ============================================================
                 exchange_cache = {}
+
                 for sh, kappa, orb_idx in orbital_schedule:
                     H = H0_cache[kappa].copy()
                     S_full = S0_cache[kappa]
 
                     V_J_PP, V_J_QQ = self._build_direct_potential(
                         orbitals, target_kappa=kappa, target_idx=orb_idx)
+
                     K_PP, K_QQ, K_PQ, K_QP = self._build_exchange_matrix_hf(
                         kappa, orb_idx, orbitals,
                         exchange_cache=exchange_cache)
@@ -1362,15 +1367,39 @@ class DFSolver:
                         if np.isnan(E_new) or np.any(np.isnan(vec)):
                             continue
                         orb_list = orbitals.get(kappa, [])
-                        if orb_idx < len(orb_list):
-                            P_old = orb_list[orb_idx][0]
-                            p_max = np.max(np.abs(P_old))
-                            if p_max > 1e-15:
-                                change = np.max(np.abs(P_new[:len(P_old)] - P_old[:len(P_new)])) / p_max
-                                max_orb_change = max(max_orb_change, change)
                         while orb_idx >= len(orb_list):
                             orb_list.append((np.zeros(ns_full), np.zeros(ns_full), sh.occupation))
-                        orb_list[orb_idx] = (P_new, Q_new, sh.occupation)
+
+                        P_old, Q_old, _ = orb_list[orb_idx]
+                        p_max = np.max(np.abs(P_old))
+                        if p_max > 1e-15:
+                            # Fix sign: ensure new orbital has same sign convention
+                            overlap = np.dot(P_new, P_old)
+                            if overlap < 0:
+                                P_new = -P_new
+                                Q_new = -Q_new
+                            change = np.max(np.abs(P_new[:len(P_old)] - P_old[:len(P_new)])) / p_max
+                            max_orb_change = max(max_orb_change, change)
+
+                        # Orbital damping: mix new eigenvector with old
+                        if damping > 0 and iteration > 1 and p_max > 1e-15:
+                            alpha = 1.0 - damping
+                            if residual < 0.1:
+                                alpha = min(1.0, alpha + 0.3)
+                            if residual < 0.01:
+                                alpha = 1.0
+                            P_mixed = alpha * P_new + (1.0 - alpha) * P_old
+                            Q_mixed = alpha * Q_new + (1.0 - alpha) * Q_old
+                            # Renormalize to preserve norm
+                            norm_new = np.sqrt(np.sum(P_new**2) + np.sum(Q_new**2))
+                            norm_mix = np.sqrt(np.sum(P_mixed**2) + np.sum(Q_mixed**2))
+                            if norm_mix > 1e-15 and norm_new > 1e-15:
+                                P_mixed *= norm_new / norm_mix
+                                Q_mixed *= norm_new / norm_mix
+                            orb_list[orb_idx] = (P_mixed, Q_mixed, sh.occupation)
+                        else:
+                            orb_list[orb_idx] = (P_new, Q_new, sh.occupation)
+
                         orbitals[kappa] = orb_list
                         orbital_energies[sh.label] = E_new
                         keys_to_remove = [ck for ck in exchange_cache
