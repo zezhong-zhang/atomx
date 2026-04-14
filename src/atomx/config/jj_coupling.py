@@ -17,7 +17,7 @@ Reference: DBSR_HF hf_def_conf_LS.f90, hf_MOD_energy.f90
 import numpy as np
 from math import comb
 from dataclasses import dataclass
-from typing import List, Tuple, Dict
+from typing import List, Tuple
 
 from atomx.scf.solver import Subshell
 
@@ -184,59 +184,3 @@ def compute_WW(i: int, j: int, configs: List[JJConfig]) -> float:
     return ww
 
 
-def compute_energy_coefficients(subshells: List[Subshell],
-                                 configs: List[JJConfig],
-                                 kmax: int = 10) -> Dict:
-    """Compute DBSR_HF av_energy_coef coefficients.
-
-    Returns dict with keys:
-      'direct': {(i, j, k): coef}  — F^k coefficients (i >= j)
-      'exchange': {(i, j, k): coef} — G^k coefficients (i > j)
-
-    These already include the occupation factors (WW).
-    """
-    from atomx.angular.coefficients import exchange_lambda
-
-    nbf = len(subshells)
-    direct = {}
-    exchange = {}
-
-    for i in range(nbf):
-        for j in range(i + 1):
-            ki = subshells[i].kappa
-            kj = subshells[j].kappa
-            tj_i = 2 * abs(ki) - 1  # 2*j_i
-            tj_j = 2 * abs(kj) - 1  # 2*j_j
-            l_i = ki if ki > 0 else -ki - 1
-            l_j = kj if kj > 0 else -kj - 1
-
-            if i == j:
-                # Same-shell
-                ww = compute_WW(i, i, configs)
-                c = ww / 2.0  # q(q-1)/2 averaged
-                if abs(c) > 1e-15:
-                    direct[(i, j, 0)] = c
-                    for k in range(1, (tj_i + 1) // 2 + 1):
-                        if (k + 2 * l_i) % 2 != 0:
-                            continue
-                        lam = exchange_lambda(ki, ki, k)
-                        if abs(lam) < 1e-15:
-                            continue
-                        direct[(i, j, k)] = -c * lam / (tj_i * (tj_i + 1))
-            else:
-                # Cross-shell
-                ww = compute_WW(i, j, configs)
-                if abs(ww) > 1e-15:
-                    direct[(i, j, 0)] = ww
-                    # Exchange G^k
-                    k_min = abs(l_i - l_j)
-                    k_max_val = l_i + l_j
-                    for k in range(k_min, k_max_val + 1):
-                        if (k + l_i + l_j) % 2 != 0:
-                            continue
-                        lam = exchange_lambda(ki, kj, k)
-                        if abs(lam) < 1e-15:
-                            continue
-                        exchange[(i, j, k)] = -ww * lam / ((tj_i + 1) * (tj_j + 1))
-
-    return {'direct': direct, 'exchange': exchange}
