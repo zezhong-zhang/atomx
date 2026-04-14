@@ -67,10 +67,10 @@ class MCDHFResult:
     @property
     def wavefunctions(self):
         """Build Wavefunctions container from orbital coefficients."""
-        from atomx.results import Wavefunctions, OrbitalWavefunction
+        from atomx.results import RadialWavefunctions, RadialOrbital
         from atomx.scf.solver import _eval_bspline_on_grid
         if not self.orbitals_dict or not self.bsp_data:
-            return Wavefunctions(grid=np.array([]))
+            return RadialWavefunctions(radial_grid=np.array([]))
 
         gr = self.bsp_data["gr"]
         grid = gr.ravel()
@@ -83,13 +83,14 @@ class MCDHFResult:
             label = f"{n}{l_char}{j2}/2"
             P_grid = _eval_bspline_on_grid(P_coeffs, self.bsp_data, "p")
             Q_grid = _eval_bspline_on_grid(Q_coeffs, self.bsp_data, "q")
-            orbitals[label] = OrbitalWavefunction(
-                P=P_grid, Q=Q_grid, n=n, l=l,
-                kappa=kappa,
+            orbitals[label] = RadialOrbital(
+                large_component=P_grid, small_component=Q_grid,
+                n=n, l=l, kappa=kappa,
                 occupation=0.0,  # fractional in MCDHF
-                energy=self.orbital_energies.get(label, 0.0),
+                orbital_energy=self.orbital_energies.get(label, 0.0),
                 label=label)
-        return Wavefunctions(grid=grid, orbitals=orbitals, basis_type="bspline")
+        return RadialWavefunctions(
+            radial_grid=grid, orbitals=orbitals, representation="bspline")
 
     def excitation_energies(self, unit="hartree"):
         from atomx.constants import HARTREE_EV, HARTREE_CM1

@@ -709,21 +709,24 @@ class ShootingResult:
 
     @property
     def wavefunctions(self):
-        from atomx.results import Wavefunctions, OrbitalWavefunction
+        from atomx.results import RadialWavefunctions, RadialOrbital
         if self._grid is None or self._orbital_data is None:
-            return Wavefunctions(grid=np.array([]), basis_type="grid")
+            return RadialWavefunctions(radial_grid=np.array([]),
+                                       representation="numerical")
 
         orbitals = {}
         for label, data in self._orbital_data.items():
-            orbitals[label] = OrbitalWavefunction(
-                P=data["P"], Q=data.get("Q"),
+            orbitals[label] = RadialOrbital(
+                large_component=data["P"],
+                small_component=data.get("Q"),
                 n=data["n"], l=data["l"],
                 kappa=data.get("kappa"),
                 occupation=data["occupation"],
-                energy=self.orbital_energies.get(label, 0.0),
+                orbital_energy=self.orbital_energies.get(label, 0.0),
                 label=label)
-        return Wavefunctions(
-            grid=self._grid, orbitals=orbitals, basis_type="grid")
+        return RadialWavefunctions(
+            radial_grid=self._grid, orbitals=orbitals,
+            representation="numerical")
 
 
 class ShootingSolver:
