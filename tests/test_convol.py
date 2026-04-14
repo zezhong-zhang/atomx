@@ -13,7 +13,8 @@ import pytest
 
 from atomx.bspline.knots import make_knots
 from atomx.bspline.basis import setup_gauss_points, evaluate_bsplines_on_grid
-from atomx.dirac.matrix import build_dirac_matrices, prepare_bspline_data
+from atomx.bspline.basis import prepare_bspline_data
+from atomx.dirac.matrix import build_dirac_matrices
 from atomx.dirac.solver import solve_dirac
 from atomx.scf.slater import (
     compute_slater_fk, compute_slater_gk, compute_slater_rk,

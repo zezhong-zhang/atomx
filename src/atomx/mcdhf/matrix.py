@@ -8,11 +8,9 @@ Slater-Condon rules:
 """
 
 import numpy as np
-from atomx.scf.slater import (
-    compute_slater_fk, compute_slater_gk, compute_slater_rk,
-    eval_orbital_on_grid, compute_yk,
-)
-from atomx.scf.angular_coeffs import exchange_lambda, exchange_k_range
+from atomx.scf.slater import compute_slater_fk, compute_slater_gk, compute_slater_rk
+from atomx.bspline.evaluate import eval_orbital_on_grid, compute_yk
+from atomx.angular.coefficients import exchange_lambda, exchange_k_range
 from atomx.dirac.matrix import build_dirac_matrices
 
 

@@ -3,7 +3,8 @@
 import numpy as np
 import pytest
 from atomx.bspline.knots import make_knots
-from atomx.dirac.matrix import prepare_bspline_data, build_dirac_matrices
+from atomx.bspline.basis import prepare_bspline_data
+from atomx.dirac.matrix import build_dirac_matrices
 from atomx.dirac.solver import solve_dirac
 from atomx.dirac.continuum import (
     solve_continuum, dipole_matrix_element, photoionization_cross_section,

@@ -71,7 +71,7 @@ def compute_vp_energy(orbitals, bsp_data, Z):
     -------
     E_VP : float (Hartree)
     """
-    from atomx.scf.slater import eval_orbital_on_grid
+    from atomx.bspline.evaluate import eval_orbital_on_grid
 
     nv = bsp_data["nv"]
     ns = bsp_data["ns"]
@@ -215,7 +215,7 @@ def _overlap_ratio(P, Q, kappa, Z, n, bsp_data):
 
     For the hydrogenic reference: <ψ_hydro|-Z/r|ψ_hydro> = -Z^2/n^2 (leading term).
     """
-    from atomx.scf.slater import eval_orbital_on_grid
+    from atomx.bspline.evaluate import eval_orbital_on_grid
 
     nv = bsp_data["nv"]
     ns = bsp_data["ns"]
