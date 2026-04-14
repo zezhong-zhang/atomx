@@ -138,6 +138,7 @@ class SCFResult:
     subshells: List[Subshell]
     energy_components: Dict[str, float] = field(default_factory=dict)
     orbitals_raw: Dict = field(default_factory=dict)  # kappa -> [(P, Q, occ)]
+    Z: Optional[int] = None
     _theory_level: Optional[int] = field(default=None, repr=False)
     _method_name: Optional[str] = field(default=None, repr=False)
     _bsp_data: Optional[Dict] = field(default=None, repr=False)
@@ -191,6 +192,83 @@ class SCFResult:
                     label=sh.label)
         return Wavefunctions(grid=grid, orbitals=orbitals, basis_type="bspline")
 
+
+    def hyperfine_constants(self, isotope=None, orbitals=None):
+        """Compute magnetic-dipole hyperfine constants for selected orbitals.
+
+        Parameters
+        ----------
+        isotope : tuple(int, int) or None
+            ``(Z, A)`` isotope specifier.  Defaults to the standard
+            isotope for this element (:func:`atomx.hyperfine.default_isotope`).
+        orbitals : list of str or None
+            Orbital labels to include, e.g. ``["3s1/2", "3p1/2"]``.  Defaults
+            to every orbital in the result.
+
+        Returns
+        -------
+        HyperfineResult
+            Populated ``A_MHz`` dict.  ``B_MHz`` is not yet computed and
+            remains empty.
+
+        Notes
+        -----
+        This is a single-configuration Dirac–Fock evaluation with a
+        point magnetic-moment nucleus — correlation / core-polarization
+        (typically ~25 % for alkali valence s-shells) and
+        Bohr–Weisskopf finite-magnetization corrections are *not*
+        included.  Results should be interpreted as the DHF baseline.
+        """
+        from atomx.hyperfine import (
+            hyperfine_A_MHz,
+            nuclear_moment,
+        )
+        from atomx.results import HyperfineResult
+
+        if self._bsp_data is None or not self.orbitals_raw:
+            raise RuntimeError(
+                "Hyperfine calculation requires retained orbitals "
+                "(orbitals_raw + _bsp_data); re-run solve().")
+
+        if isotope is not None:
+            z, a = isotope
+            mom = nuclear_moment(z, a)
+        elif self.Z is not None:
+            mom = nuclear_moment(self.Z)
+        else:
+            raise ValueError(
+                "Cannot infer isotope: SCFResult.Z is None — pass an "
+                "explicit (Z, A) via the `isotope` argument.")
+
+        # Build orbital label → (P, Q, kappa) map
+        orb_map = {}
+        for sh in self.subshells:
+            orb_list = self.orbitals_raw.get(sh.kappa, [])
+            idx = sh.n - 1 - sh.l
+            if idx < len(orb_list):
+                P, Q, _occ = orb_list[idx]
+                orb_map[sh.label] = (P, Q, sh.kappa)
+
+        labels = orbitals or list(orb_map.keys())
+
+        A_MHz = {}
+        for lbl in labels:
+            if lbl not in orb_map:
+                continue
+            P, Q, kappa = orb_map[lbl]
+            A_MHz[lbl] = hyperfine_A_MHz(
+                P, Q, self._bsp_data, kappa=kappa, g_I=mom.g_I,
+            )
+
+        return HyperfineResult(
+            isotope=mom.name,
+            Z=mom.Z,
+            A=mom.A,
+            I=mom.I,
+            mu_I=mom.mu_I,
+            Q_nuc=mom.Q,
+            A_MHz=A_MHz,
+        )
 
     def save(self, path: str):
         """Save result to HDF5 for restart or analysis.
@@ -1338,6 +1416,7 @@ class DFSolver:
                 total_energy=total_energy, orbital_energies=orbital_energies,
                 subshells=self.subshells, energy_components=energy_components,
                 orbitals_raw=dict(orbitals),
+                Z=self.Z,
                 _bsp_data=self.bsp_data)
 
         converged = False
@@ -1648,6 +1727,7 @@ class DFSolver:
             subshells=self.subshells,
             energy_components=energy_components,
             orbitals_raw=dict(orbitals),
+            Z=self.Z,
             _bsp_data=self.bsp_data,
         )
 

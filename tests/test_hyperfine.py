@@ -1,0 +1,206 @@
+"""Tests for the magnetic dipole hyperfine constant.
+
+Reference values:
+
+* **H 1s ground state**: the famous 21 cm line, A(¹H 1s) = 1420.4057 MHz
+  (experimental, Ramsey 1956).  Since hydrogen has no core electrons the
+  Dirac–Fock prediction should match this to ~0.1 % (the residuals are the
+  electron anomalous magnetic moment and finite-nuclear-magnetization
+  corrections, both sub-percent, not yet implemented).
+
+* **Na-23 3s**: single-configuration Dirac–Fock is known to under-predict
+  the experimental value of 885.8 MHz by ~30 % because of core-polarization
+  and valence-correlation effects.  Published DHF reference values
+  (Dzuba, Flambaum, Sushkov 1984; Safronova, Safronova, Clark 2011) sit
+  around 620–640 MHz — that is what we expect to reproduce here.
+
+* **¹³³Cs 6s**: DHF reference ≈ 1430 MHz vs experiment 2298.2 MHz.
+"""
+
+from __future__ import annotations
+
+import numpy as np
+import pytest
+
+from atomx.hyperfine import (
+    NUCLEAR_MOMENTS,
+    hyperfine_A,
+    hyperfine_A_MHz,
+    hyperfine_radial_integral,
+    nuclear_moment,
+)
+from atomx.results import HyperfineResult
+from atomx.scf.solver import DFSolver, Subshell
+
+
+# ---------------------------------------------------------------------------
+# Unit-ish tests on the data tables
+# ---------------------------------------------------------------------------
+
+class TestNuclearMoments:
+    def test_hydrogen_moment(self):
+        mom = nuclear_moment(1, 1)
+        assert mom.name == "H-1"
+        assert mom.I == 0.5
+        assert mom.mu_I == pytest.approx(2.7928474, rel=1e-5)
+        # g_I = mu_I / I = 2 * mu_I  for I=1/2
+        assert mom.g_I == pytest.approx(5.5857, rel=1e-4)
+
+    def test_cs133(self):
+        mom = nuclear_moment(55)  # default isotope
+        assert mom.name == "Cs-133"
+        assert mom.I == 3.5
+        assert mom.mu_I > 0
+
+    def test_no_moment_for_I_zero(self):
+        # We don't ship I=0 isotopes in NUCLEAR_MOMENTS — KeyError expected
+        with pytest.raises(KeyError):
+            nuclear_moment(1, 99)  # no such mass number
+
+
+# ---------------------------------------------------------------------------
+# Hydrogen — 21 cm line validation
+# ---------------------------------------------------------------------------
+
+@pytest.fixture(scope="module")
+def h_1s_result():
+    shells = [Subshell(n=1, kappa=-1, occupation=1)]
+    solver = DFSolver(Z=1, subshells=shells, ns=60, ks=9, exchange="hf")
+    return solver, solver.solve(max_iter=50, tol=1e-8)
+
+
+class TestHydrogen21cm:
+    def test_energy_is_half_hartree(self, h_1s_result):
+        _, result = h_1s_result
+        assert result.total_energy == pytest.approx(-0.5, abs=1e-4)
+
+    def test_A_matches_experiment(self, h_1s_result):
+        """Dirac–Fock A(¹H 1s) should match 1420 MHz within ~1 % — the
+        small residual is the un-implemented electron g-factor anomaly."""
+        solver, result = h_1s_result
+        orb_list = solver._flatten_orbitals(result.orbitals_raw)
+        P, Q, _occ, kappa, _lbl = orb_list[0]
+        mom = nuclear_moment(1, 1)
+        A = hyperfine_A_MHz(P, Q, result._bsp_data, kappa=kappa, g_I=mom.g_I)
+        assert A == pytest.approx(1420.4, rel=5e-3)  # 0.5 %
+
+    def test_convenience_method(self, h_1s_result):
+        """SCFResult.hyperfine_constants() produces a HyperfineResult
+        with the correct 1s A value."""
+        _, result = h_1s_result
+        hf = result.hyperfine_constants()
+        assert isinstance(hf, HyperfineResult)
+        assert hf.isotope == "H-1"
+        assert "1s1/2" in hf.A_MHz
+        assert hf.A_MHz["1s1/2"] == pytest.approx(1420.4, rel=5e-3)
+
+    def test_A_sign_positive(self, h_1s_result):
+        """For proton (g_I > 0), κ = −1, and Q < 0 phase convention,
+        A must be positive (this is the famous 21 cm ⇒ triplet above
+        singlet hierarchy)."""
+        _, result = h_1s_result
+        hf = result.hyperfine_constants()
+        assert hf.A_MHz["1s1/2"] > 0
+
+
+# ---------------------------------------------------------------------------
+# Deuterium — nuclear g-factor scaling
+# ---------------------------------------------------------------------------
+
+class TestDeuterium:
+    def test_deuterium_A_scales_with_g_I(self, h_1s_result):
+        """A is linear in g_I; deuterium (I=1, mu_I=+0.8574) should give
+        A scaled by g_D / g_H.
+
+        g_H = 2 * 2.7928 = 5.5857  (for I=1/2)
+        g_D = 1 * 0.8574 = 0.8574  (for I=1)
+        A_D / A_H = g_D / g_H = 0.1535
+        """
+        solver, result = h_1s_result
+        orb_list = solver._flatten_orbitals(result.orbitals_raw)
+        P, Q, _occ, kappa, _lbl = orb_list[0]
+        mom_H = nuclear_moment(1, 1)
+        mom_D = nuclear_moment(1, 2)
+        A_H = hyperfine_A_MHz(P, Q, result._bsp_data, kappa=kappa, g_I=mom_H.g_I)
+        A_D = hyperfine_A_MHz(P, Q, result._bsp_data, kappa=kappa, g_I=mom_D.g_I)
+        expected_ratio = mom_D.g_I / mom_H.g_I
+        assert A_D / A_H == pytest.approx(expected_ratio, rel=1e-10)
+
+    def test_deuterium_experimental_value(self, h_1s_result):
+        """Experimental ²D 1s hyperfine splitting: 327.4 MHz."""
+        _, result = h_1s_result
+        hf = result.hyperfine_constants(isotope=(1, 2))
+        A_D = hf.A_MHz["1s1/2"]
+        # Scaling: A_H × g_D/g_H ≈ 1420 × 0.1535 ≈ 218 MHz.  This is
+        # the Dirac prediction; the experimental 327.4 MHz is the
+        # hyperfine *splitting* E(F=3/2) − E(F=1/2) = (3/2)·A, so A ≈ 218.
+        assert A_D == pytest.approx(218.0, rel=1e-2)
+
+
+# ---------------------------------------------------------------------------
+# Na 3s — DHF should reproduce published DHF value (not experiment)
+# ---------------------------------------------------------------------------
+
+@pytest.fixture(scope="module")
+def na_dhf_result():
+    shells = [
+        Subshell(n=1, kappa=-1, occupation=2),
+        Subshell(n=2, kappa=-1, occupation=2),
+        Subshell(n=2, kappa=+1, occupation=2),
+        Subshell(n=2, kappa=-2, occupation=4),
+        Subshell(n=3, kappa=-1, occupation=1),
+    ]
+    solver = DFSolver(Z=11, subshells=shells, ns=60, ks=9, exchange="hf")
+    return solver, solver.solve(max_iter=100, tol=1e-7)
+
+
+class TestSodium:
+    def test_dhf_3s_matches_published_dhf_reference(self, na_dhf_result):
+        """Safronova et al. 2011 and Dzuba-Flambaum-Sushkov 1984 report
+        A^{DHF}(Na 3s) ≈ 624 MHz (experimental: 885.8 MHz; the ~30 %
+        underestimate is the well-known core-polarization correction).
+        """
+        _, result = na_dhf_result
+        hf = result.hyperfine_constants()
+        A_3s = hf.A_MHz["3s1/2"]
+        # Accept 600–660 MHz as "matches published DHF"
+        assert 600 < A_3s < 660, (
+            f"Na 3s DHF A = {A_3s:.1f} MHz out of published range "
+            f"(~624 MHz)."
+        )
+
+    def test_inner_shells_have_hyperfine_entries(self, na_dhf_result):
+        _, result = na_dhf_result
+        hf = result.hyperfine_constants()
+        for expected in ("1s1/2", "2s1/2", "3s1/2", "2p1/2", "2p3/2"):
+            assert expected in hf.A_MHz
+
+
+# ---------------------------------------------------------------------------
+# Consistency of low-level radial integral
+# ---------------------------------------------------------------------------
+
+class TestRadialIntegral:
+    def test_integral_nonzero_for_1s(self, h_1s_result):
+        solver, result = h_1s_result
+        orb_list = solver._flatten_orbitals(result.orbitals_raw)
+        P, Q, _, _, _ = orb_list[0]
+        rad = hyperfine_radial_integral(P, Q, result._bsp_data)
+        assert rad != 0.0
+
+    def test_hyperfine_A_zero_when_g_I_zero(self, h_1s_result):
+        """Nuclear g_I = 0 (spinless nucleus) must give A = 0."""
+        solver, result = h_1s_result
+        orb_list = solver._flatten_orbitals(result.orbitals_raw)
+        P, Q, _, kappa, _ = orb_list[0]
+        A = hyperfine_A(P, Q, result._bsp_data, kappa=kappa, g_I=0.0)
+        assert A == 0.0
+
+    def test_A_linear_in_g_I(self, h_1s_result):
+        """A(2·g_I) = 2·A(g_I) — linearity in nuclear moment."""
+        solver, result = h_1s_result
+        orb_list = solver._flatten_orbitals(result.orbitals_raw)
+        P, Q, _, kappa, _ = orb_list[0]
+        A_1 = hyperfine_A(P, Q, result._bsp_data, kappa=kappa, g_I=1.0)
+        A_2 = hyperfine_A(P, Q, result._bsp_data, kappa=kappa, g_I=2.0)
+        assert A_2 == pytest.approx(2.0 * A_1, rel=1e-12)
