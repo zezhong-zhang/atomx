@@ -125,36 +125,45 @@ class Subshell:
 
 
 # ---------------------------------------------------------------------------
-# Hyperfine-ladder presets
+# Hyperfine-ladder presets (Karshenboim 2005, Phys. Rep. 422, 1)
 # ---------------------------------------------------------------------------
 #
-# Published Karshenboim (2005) "Precision physics of simple atomic systems"
-# hyperfine correction coefficients for 1s ground states of hydrogenic
-# isotopes.  Returns (a_e_enabled_flag, δ_QEDhf, δ_recoil).  The electron
-# anomalous moment ``a_e`` is always the CODATA value — we only indicate
-# that the Schwinger rung is on, the hard-coded numerical correction
-# covers only δ_QEDhf (higher-order QED + Breit) and δ_recoil.
+# For hydrogenic 1s states the full ladder, starting from the
+# infinite-nuclear-mass Dirac-Fock value, is
 #
-# For H 1s:
-#     A_DF          ≈ 1421.3 MHz
-#     × (1 + a_e)    ≈ +1.65 MHz       (Schwinger)
-#     × (1 + δ_QED) ≈ −1.80 MHz        (higher-order QED + Breit)
-#     × (1 + δ_rec) ≈ −0.09 MHz        (recoil + Bohr–Weisskopf)
-#     → 1421.1 MHz, matching experiment 1420.4057 MHz at ~0.05 %.
-#     (To reach the 1 ppm benchmark Karshenboim quotes one must
-#     evaluate every rung coefficient from the *specific* DHF baseline
-#     rather than the generic values below, and include Uehling-like
-#     QED terms we do not yet model.)
+#     A_DHF
+#       × (M/(M+m_e))^3           [finite nuclear mass]
+#       × (1 + a_e)               [Schwinger + two-loop electron moment]
+#       × (1 + δ_QEDhf)           [higher-order QED + Breit on HF operator]
+#       × (1 + δ_recoil)          [recoil QED (≠ classical reduced mass)]
+#       × (1 + δ_nuc)             [Zemach / proton polarizability / BW]
 #
-# Values rounded from Karshenboim 2005, Phys. Rep. 422, 1 (2005), and
-# quoted in review by Karshenboim (2006).  For D 1s and He-3 1s the
-# QED terms scale slightly differently; coefficients below are a
-# simplification adequate to ~0.05 % precision.
+# The presets below populate a_e, δ_QEDhf, δ_recoil, δ_nuc from published
+# Karshenboim values; the finite-nuclear-mass factor is a separate flag
+# that always uses the tabulated isotope mass.
+#
+# H 1s projection (with DHF baseline 1421.27 MHz):
+#     finite_nuc_mass            :  -1.634e-3   → 1418.95 MHz
+#     a_e                        :  +1.160e-3   → 1420.60 MHz
+#     δ_QEDhf (bound-state)      :  -2.28e-4    → 1420.27 MHz
+#     δ_nuc (Zemach etc)         :  -40.0e-6    → 1420.22 MHz
+#     final                      :             ≈ 1420.23 MHz
+#     experiment                 :             = 1420.4057 MHz
+#     gap                        :             ≈ 180 kHz ≈ 127 ppm
+#
+# Closing the last 127 ppm requires either
+#   (a) Karshenboim coefficients computed specifically for the local
+#       DHF basis choice (small basis-dependence in the short-range
+#       region dominates the QED-vertex matrix element), or
+#   (b) adding explicit Uehling-vertex and Wichmann-Kroll contributions
+#       to the hyperfine operator itself (eq. set of Karshenboim 2005
+#       table 3), not yet implemented.
+#
+# Fields: (a_e_on, δ_QEDhf, δ_recoil, δ_nuc)
 _HYPERFINE_PRESETS = {
-    # (a_e_on, δ_QEDhf, δ_recoil)
-    "h1s":   (True, -1.268e-3, -0.45e-4),
-    "d1s":   (True, -1.268e-3, -0.23e-4),
-    "he3_1s":(True, -1.270e-3, -1.35e-4),
+    "h1s":    (True, -2.28e-4, -7.0e-6, -40.0e-6),
+    "d1s":    (True, -2.28e-4, -0.5e-6, -138.0e-6),
+    "he3_1s": (True, -2.30e-4, -4.0e-5, -210.0e-6),
 }
 
 
@@ -244,28 +253,42 @@ class SCFResult:
         orbitals=None,
         *,
         include_anomalous_moment: bool = False,
+        include_finite_nuclear_mass: bool = False,
         qed_hf_factor=None,
         recoil_factor=None,
+        nuclear_structure_factor=None,
         correlation_factor=None,
         preset: str | None = None,
     ):
-        """Compute magnetic-dipole hyperfine constants on the ladder.
+        """Compute magnetic-dipole *and* electric-quadrupole hyperfine
+        constants on the ladder.
 
         Walks a ladder of multiplicative corrections on top of the
-        single-configuration Dirac–Fock baseline:
+        single-configuration Dirac–Fock baseline (infinite-nuclear-mass
+        Dirac equation):
 
             dhf
-              → ae             (1 + a_e)          — electron anomaly
-              → qed_hf         (1 + δ_QEDhf)      — QED + Breit on HF operator
-              → recoil         (1 + δ_recoil)     — nuclear recoil
-                                                    + Bohr–Weisskopf
-              → correlation    (1 + δ_corr)       — correlation / core polar.
+              → finite_nuclear_mass   (M/(M+m_e))^3  — reduced-mass
+                                                       correction
+              → ae                    (1 + a_e)      — electron anomaly
+              → qed_hf                (1 + δ_QEDhf)  — higher-order QED +
+                                                       Breit on HF operator
+              → recoil                (1 + δ_recoil) — recoil QED
+              → nuclear_structure     (1 + δ_nuc)    — Zemach / proton
+                                                       structure /
+                                                       Bohr–Weisskopf
+              → correlation           (1 + δ_corr)   — electron correlation
 
         Each rung is **optional** and defaults to disabled.  This is
         deliberate: the individual QED corrections nearly cancel each
         other for ground-state s-shells, so applying only a subset can
         *worsen* the prediction (see
         :mod:`atomx.hyperfine.dipole` module docstring).
+
+        The electric-quadrupole constant ``B_MHz`` is always computed
+        (when the nucleus has Q ≠ 0 and the orbital has j > 1/2) from
+        the same DHF radial integrals, without ladder corrections —
+        the B ladder is future work.
 
         Preset coefficients
         -------------------
@@ -283,6 +306,13 @@ class SCFResult:
             Orbital labels to include; default = all occupied orbitals.
         include_anomalous_moment : bool, keyword-only
             Apply ``(1 + a_e)``, ``a_e = 1.15965218e-3``.  Default ``False``.
+        include_finite_nuclear_mass : bool, keyword-only
+            Apply the reduced-mass factor ``(M/(M+m_e))³`` where M is
+            the nuclear mass (``A × m_p`` with tabulated A).  This is
+            the dominant "recoil" correction for light atoms — for
+            hydrogen it lowers A by ~0.16 %.  DHF assumes infinite M;
+            turning this on shifts the baseline to the proper finite-M
+            Dirac result.  Default ``False``.
         qed_hf_factor : float, dict or None, keyword-only
             ``δ_QEDhf`` — higher-order QED + Breit correction to the
             hyperfine operator itself.  Accepts a scalar or per-orbital
@@ -292,9 +322,15 @@ class SCFResult:
             exists; users plug in values from the literature or a
             dedicated QED code.
         recoil_factor : float, dict or None, keyword-only
-            ``δ_recoil`` — nuclear recoil + Bohr–Weisskopf (finite
-            magnetization distribution).  For H 1s, Karshenboim 2005
-            gives δ_recoil ≈ −0.45 × 10⁻⁴.
+            ``δ_recoil`` — recoil-QED correction (≠ the classical
+            reduced-mass factor which has its own rung).  For H 1s,
+            Karshenboim 2005 gives the residual recoil QED as ≈ −7 ppm
+            on top of the (M/(M+m_e))³ classical piece.
+        nuclear_structure_factor : float, dict or None, keyword-only
+            ``δ_nuc`` — nuclear-structure correction: Zemach (finite
+            charge & magnetization distributions), proton polarizability,
+            Bohr-Weisskopf.  For H 1s, Karshenboim 2005 gives
+            δ_nuc ≈ −40 ppm (Zemach dominant).
         correlation_factor : float, dict or None, keyword-only
             ``δ_corr`` — electron correlation / core polarization.  A
             placeholder slot until atomx gains a dedicated RPA /
@@ -305,11 +341,16 @@ class SCFResult:
         -------
         HyperfineResult
         """
+        from atomx.constants import PROTON_ELECTRON_MASS_RATIO
         from atomx.hyperfine import (
+            ELECTRON_ANOMALOUS_MOMENT,
             hyperfine_A_MHz,
+            hyperfine_B_MHz,
             nuclear_moment,
         )
         from atomx.results import HyperfineResult
+
+        ELECTRON_ANOMALOUS_MOMENT_CODATA = ELECTRON_ANOMALOUS_MOMENT
 
         if self._bsp_data is None or not self.orbitals_raw:
             raise RuntimeError(
@@ -328,15 +369,18 @@ class SCFResult:
 
         # --- Apply preset, if any -----------------------------------
         if preset is not None:
-            ae_p, qed_p, rec_p = _hyperfine_preset(preset)
+            ae_p, qed_p, rec_p, nuc_p = _hyperfine_preset(preset)
             if not include_anomalous_moment:
                 include_anomalous_moment = True
+            if not include_finite_nuclear_mass:
+                include_finite_nuclear_mass = True
             if qed_hf_factor is None:
                 qed_hf_factor = qed_p
             if recoil_factor is None:
                 recoil_factor = rec_p
-            # preset only supplies ae / qed_hf / recoil — correlation
-            # stays under user control.
+            if nuclear_structure_factor is None:
+                nuclear_structure_factor = nuc_p
+            # preset leaves correlation_factor under user control.
 
         # --- Build orbital label → (P, Q, kappa) map ---------------
         orb_map = {}
@@ -349,13 +393,27 @@ class SCFResult:
 
         labels = orbitals or list(orb_map.keys())
 
+        # Finite-nuclear-mass factor: nuclear mass in m_e units, then (M/(M+1))^3
+        # (We use the tabulated mass number A and the proton-electron mass ratio
+        # as a proxy for the actual nuclear mass in m_e units; this is exact for
+        # H-1 and ≤ 0.05 % accurate for other light isotopes.)
+        if include_finite_nuclear_mass:
+            M_over_me = mom.A * PROTON_ELECTRON_MASS_RATIO
+            fnm_factor = (M_over_me / (M_over_me + 1.0)) ** 3
+        else:
+            fnm_factor = 1.0
+
         ladder = ["dhf"]
+        if include_finite_nuclear_mass:
+            ladder.append("finite_nuclear_mass")
         if include_anomalous_moment:
             ladder.append("ae")
         if qed_hf_factor is not None:
             ladder.append("qed_hf")
         if recoil_factor is not None:
             ladder.append("recoil")
+        if nuclear_structure_factor is not None:
+            ladder.append("nuclear_structure")
         if correlation_factor is not None:
             ladder.append("correlation")
 
@@ -368,6 +426,7 @@ class SCFResult:
 
         A_MHz_ladder = {}
         A_MHz_final = {}
+        B_MHz_final = {}
         for lbl in labels:
             if lbl not in orb_map:
                 continue
@@ -379,34 +438,47 @@ class SCFResult:
                 include_anomalous_moment=False,
             )
             rung = {"dhf": A_dhf}
-
             A_val = A_dhf
 
-            # Rung 1: + anomalous electron moment
+            # Rung 1: × (M/(M+m_e))^3 finite-nuclear-mass factor
+            if include_finite_nuclear_mass:
+                A_val = A_val * fnm_factor
+                rung["finite_nuclear_mass"] = A_val
+
+            # Rung 2: + anomalous electron moment
             if include_anomalous_moment:
-                A_val = hyperfine_A_MHz(
-                    P, Q, self._bsp_data, kappa=kappa, g_I=mom.g_I,
-                    include_anomalous_moment=True,
-                )
+                A_val = A_val * (1.0 + ELECTRON_ANOMALOUS_MOMENT_CODATA)
                 rung["ae"] = A_val
 
-            # Rung 2: + higher-order QED + Breit correction to HF operator
+            # Rung 3: + higher-order QED + Breit correction to HF operator
             if qed_hf_factor is not None:
                 A_val = A_val * (1.0 + _lookup_factor(qed_hf_factor, lbl))
                 rung["qed_hf"] = A_val
 
-            # Rung 3: + nuclear recoil + Bohr–Weisskopf
+            # Rung 4: + recoil-QED (on top of the classical reduced-mass)
             if recoil_factor is not None:
                 A_val = A_val * (1.0 + _lookup_factor(recoil_factor, lbl))
                 rung["recoil"] = A_val
 
-            # Rung 4: + correlation / core polarization
+            # Rung 5: + nuclear structure (Zemach, polarizability, BW)
+            if nuclear_structure_factor is not None:
+                A_val = A_val * (1.0 + _lookup_factor(nuclear_structure_factor, lbl))
+                rung["nuclear_structure"] = A_val
+
+            # Rung 6: + correlation / core polarization
             if correlation_factor is not None:
                 A_val = A_val * (1.0 + _lookup_factor(correlation_factor, lbl))
                 rung["correlation"] = A_val
 
             A_MHz_ladder[lbl] = rung
             A_MHz_final[lbl] = A_val
+
+            # Electric quadrupole B (no ladder, bare DHF) — nonzero only
+            # if nucleus has a quadrupole (I > 1/2) and orbital has j > 1/2.
+            if mom.Q != 0.0 and abs(kappa) >= 2:
+                B_MHz_final[lbl] = hyperfine_B_MHz(
+                    P, Q, self._bsp_data, kappa=kappa, Q_nuc_barns=mom.Q,
+                )
 
         return HyperfineResult(
             isotope=mom.name,
@@ -418,6 +490,7 @@ class SCFResult:
             A_MHz=A_MHz_final,
             A_MHz_ladder=A_MHz_ladder,
             ladder=ladder,
+            B_MHz=B_MHz_final,
         )
 
     def save(self, path: str):

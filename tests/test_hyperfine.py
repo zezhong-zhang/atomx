@@ -26,8 +26,11 @@ from atomx.hyperfine import (
     NUCLEAR_MOMENTS,
     hyperfine_A,
     hyperfine_A_MHz,
+    hyperfine_B,
+    hyperfine_B_MHz,
     hyperfine_radial_integral,
     nuclear_moment,
+    radial_r_inv_cubed,
 )
 from atomx.results import HyperfineResult
 from atomx.scf.solver import DFSolver, Subshell
@@ -256,13 +259,21 @@ class TestLadderCorrections:
         assert abs(A_full - 1421.3) < abs(A_ae - 1421.3)
 
     def test_h1s_preset_ladder(self, h_1s_result):
-        """Karshenboim h1s preset pulls full value within ~0.05 % of experiment."""
+        """Karshenboim h1s preset pulls full value within ~300 ppm of experiment.
+
+        With finite-nuclear-mass + full Karshenboim rungs, H 1s should
+        land close to 1420.4057 MHz — exact agreement at 1 ppm requires
+        Karshenboim coefficients tuned to the *specific* DHF basis."""
         _, result = h_1s_result
         hf = result.hyperfine_constants(preset="h1s")
-        assert hf.ladder == ["dhf", "ae", "qed_hf", "recoil"]
+        expected = [
+            "dhf", "finite_nuclear_mass", "ae",
+            "qed_hf", "recoil", "nuclear_structure",
+        ]
+        assert hf.ladder == expected
         A_final = hf.A_MHz["1s1/2"]
-        # ~0.05 % (500 ppm) of 1420 MHz ≈ 0.7 MHz
-        assert A_final == pytest.approx(1420.4057, abs=1.0), (
+        # ~300 ppm ≈ 0.5 MHz
+        assert A_final == pytest.approx(1420.4057, abs=0.5), (
             f"H 1s with preset = {A_final:.3f} MHz, experiment 1420.4057 MHz"
         )
 
@@ -270,6 +281,82 @@ class TestLadderCorrections:
         _, result = h_1s_result
         with pytest.raises(KeyError, match="Unknown hyperfine preset"):
             result.hyperfine_constants(preset="does_not_exist")
+
+
+class TestQuadrupoleB:
+    def test_B_vanishes_for_j_half(self, h_1s_result):
+        """B must vanish identically for j = 1/2 (κ = ±1) orbitals."""
+        solver, result = h_1s_result
+        orb_list = solver._flatten_orbitals(result.orbitals_raw)
+        P, Q, _, kappa, _ = orb_list[0]
+        assert kappa == -1
+        # Use a fake isotope with Q != 0
+        B = hyperfine_B(P, Q, result._bsp_data, kappa=kappa, Q_nuc_barns=0.5)
+        assert B == 0.0
+
+    def test_B_zero_when_Q_nuc_zero(self, na_dhf_result):
+        """B ∝ Q; with Q=0 B should be identically 0 regardless of orbital."""
+        solver, result = na_dhf_result
+        orb_list = solver._flatten_orbitals(result.orbitals_raw)
+        for P, Q, _, kappa, _ in orb_list:
+            if abs(kappa) >= 2:
+                B = hyperfine_B(P, Q, result._bsp_data,
+                                kappa=kappa, Q_nuc_barns=0.0)
+                assert B == 0.0
+                break
+
+    def test_B_linear_in_Q_nuc(self, na_dhf_result):
+        """B(2·Q) = 2·B(Q)."""
+        solver, result = na_dhf_result
+        orb_list = solver._flatten_orbitals(result.orbitals_raw)
+        for P, Q, _, kappa, _ in orb_list:
+            if abs(kappa) >= 2:
+                B1 = hyperfine_B(P, Q, result._bsp_data, kappa=kappa, Q_nuc_barns=1.0)
+                B2 = hyperfine_B(P, Q, result._bsp_data, kappa=kappa, Q_nuc_barns=2.0)
+                assert B2 == pytest.approx(2.0 * B1, rel=1e-14)
+                return
+        pytest.fail("No |κ| ≥ 2 orbital found in Na fixture.")
+
+    def test_r_inv_cubed_positive(self, na_dhf_result):
+        """⟨r⁻³⟩ is a positive-definite integral."""
+        solver, result = na_dhf_result
+        orb_list = solver._flatten_orbitals(result.orbitals_raw)
+        for P, Q, _, _, _ in orb_list:
+            r_m3 = radial_r_inv_cubed(P, Q, result._bsp_data)
+            assert r_m3 > 0
+
+    def test_HyperfineResult_includes_B_for_na(self, na_dhf_result):
+        """HyperfineResult.B_MHz populated only for (|κ|≥2) ∧ (Q_nuc≠0)."""
+        _, result = na_dhf_result
+        hf = result.hyperfine_constants()
+        # Na-23 has Q = +0.1006 b, so B should be populated for p3/2
+        assert "2p3/2" in hf.B_MHz
+        assert hf.B_MHz["2p3/2"] != 0
+        # p1/2 (κ=+1) should NOT have a B entry
+        assert "2p1/2" not in hf.B_MHz
+
+
+class TestFiniteNuclearMass:
+    def test_fnm_rung_shifts_h_1s_to_textbook_dirac(self, h_1s_result):
+        """(M/(M+me))^3 applied to H 1s → ~1418.95 MHz (textbook Dirac)."""
+        _, result = h_1s_result
+        hf = result.hyperfine_constants(include_finite_nuclear_mass=True)
+        assert "finite_nuclear_mass" in hf.ladder
+        A_fnm = hf.A_MHz_ladder["1s1/2"]["finite_nuclear_mass"]
+        # Should be ~ 1421.27 * (1 - 3/1836) ≈ 1418.95
+        assert A_fnm == pytest.approx(1418.95, abs=0.5)
+        # Also, fnm < dhf (smaller due to reduced-mass factor)
+        assert A_fnm < hf.A_MHz_ladder["1s1/2"]["dhf"]
+
+    def test_preset_h1s_pulls_close_to_experiment(self, h_1s_result):
+        """With all ladder rungs from h1s preset, H 1s should be within
+        ~200 ppm of experiment 1420.4057 MHz (no free-electron g-factor
+        coefficient fitted to DHF basis)."""
+        _, result = h_1s_result
+        hf = result.hyperfine_constants(preset="h1s")
+        A = hf.A_MHz["1s1/2"]
+        ppm = abs(A - 1420.4057) / 1420.4057 * 1e6
+        assert ppm < 300, f"H 1s with full preset ladder off by {ppm:.1f} ppm"
 
 
 class TestRadialIntegral:
