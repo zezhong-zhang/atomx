@@ -585,25 +585,28 @@ class DFSolver:
                                    exchange_cache=None):
         """Build non-local HF exchange matrix via cell-based convolution.
 
-        Returns (K_PP, K_QQ, K_PQ, K_QP) for all 4 component blocks:
-        - pppp -> PP diagonal block
-        - qqqq -> QQ diagonal block
-        - pqpq -> PQ off-diagonal block (cross-component exchange)
-        - qpqp -> QP off-diagonal block (cross-component exchange)
+        The convolution K^k_b (the exchange matrix from source orbital b at
+        multipole order k) depends ONLY on the source orbital, NOT on the
+        target.  So we cache it in exchange_cache and reuse across targets.
+
+        exchange_cache key: (kappa_b, orb_i, k, block_type) -> matrix
+        This gives ~N_target speedup since each source convolution is done once.
         """
         from atomx.angular.coefficients import exchange_lambda
         from atomx.bspline.convol import _density_full, _convol_case4
 
-        ns = self.ns
         bd = self.bsp_data
         ksp = bd.get("ksp", self.ks)
-        nsp = bd.get("nsp", ns)
+        nsp = bd.get("nsp", self.ns)
         ksq = bd.get("ksq", self.ks)
-        nsq = bd.get("nsq", ns)
-        ns_full = bd.get("ns", ns)
+        nsq = bd.get("nsq", self.ns)
+        ns_full = bd.get("ns", self.ns)
 
         if not hasattr(self, '_convol_cache'):
             self._convol_cache = ConvolCache(bd)
+
+        if exchange_cache is None:
+            exchange_cache = {}
 
         tj_a = 2 * abs(target_kappa) - 1
         K_PP = np.zeros((ns_full, ns_full))
@@ -623,38 +626,203 @@ class DFSolver:
                         continue
                     c_k = occ_b * lam / ((tj_a + 1.0) * (tj_b + 1.0))
 
-                    # pppp -> PP block
-                    rkb_pp, _, _ = self._convol_cache.get_rkb(k, "pppp")
-                    d_P = _density_full(P_b[:nsp], P_b[:nsp], nsp)
-                    Kk_PP = _convol_case4(rkb_pp, d_P, nsp, ksp)
+                    # Cache key: convolution result depends only on source + k
+                    cache_key = (kappa_b, orb_i, k)
+
+                    if cache_key not in exchange_cache:
+                        # Compute and cache all 4 block convolutions for this source
+                        rkb_pp, _, _ = self._convol_cache.get_rkb(k, "pppp")
+                        d_P = _density_full(P_b[:nsp], P_b[:nsp], nsp)
+                        Kk_PP = _convol_case4(rkb_pp, d_P, nsp, ksp)
+
+                        rkb_qq, _, _ = self._convol_cache.get_rkb(k, "qqqq")
+                        d_Q = _density_full(Q_b[:nsq], Q_b[:nsq], nsq)
+                        Kk_QQ = _convol_case4(rkb_qq, d_Q, nsq, ksq)
+
+                        rkb_pq, _, _ = self._convol_cache.get_rkb(k, "pqpq")
+                        d_PQ = _density_full(P_b[:nsp], Q_b[:nsq], max(nsp, nsq))
+                        Kk_PQ = _convol_case4(rkb_pq, d_PQ, ns_full, ksp)
+
+                        rkb_qp, _, _ = self._convol_cache.get_rkb(k, "qpqp")
+                        d_QP = _density_full(Q_b[:nsq], P_b[:nsp], max(nsp, nsq))
+                        Kk_QP = _convol_case4(rkb_qp, d_QP, ns_full, ksq)
+
+                        exchange_cache[cache_key] = (Kk_PP, Kk_QQ, Kk_PQ, Kk_QP)
+
+                    Kk_PP, Kk_QQ, Kk_PQ, Kk_QP = exchange_cache[cache_key]
+
+                    # Add with target-dependent coefficient (cheap multiply+add)
                     n = min(Kk_PP.shape[0], ns_full)
                     K_PP[:n, :n] += c_k * Kk_PP[:n, :n]
-
-                    # qqqq -> QQ block
-                    rkb_qq, _, _ = self._convol_cache.get_rkb(k, "qqqq")
-                    d_Q = _density_full(Q_b[:nsq], Q_b[:nsq], nsq)
-                    Kk_QQ = _convol_case4(rkb_qq, d_Q, nsq, ksq)
                     n = min(Kk_QQ.shape[0], ns_full)
                     K_QQ[:n, :n] += c_k * Kk_QQ[:n, :n]
-
-                    # pqpq -> PQ block: density = P_b * Q_b (cross-component)
-                    rkb_pq, _, _ = self._convol_cache.get_rkb(k, "pqpq")
-                    d_PQ = _density_full(P_b[:nsp], Q_b[:nsq], max(nsp, nsq))
-                    Kk_PQ = _convol_case4(rkb_pq, d_PQ, ns_full, ksp)
                     K_PQ[:ns_full, :ns_full] += c_k * Kk_PQ[:ns_full, :ns_full]
-
-                    # qpqp -> QP block: density = Q_b * P_b
-                    rkb_qp, _, _ = self._convol_cache.get_rkb(k, "qpqp")
-                    d_QP = _density_full(Q_b[:nsq], P_b[:nsp], max(nsp, nsq))
-                    Kk_QP = _convol_case4(rkb_qp, d_QP, ns_full, ksq)
                     K_QP[:ns_full, :ns_full] += c_k * Kk_QP[:ns_full, :ns_full]
 
         K_PP = 0.5 * (K_PP + K_PP.T)
         K_QQ = 0.5 * (K_QQ + K_QQ.T)
-        # PQ and QP: symmetrize each individually
         K_PQ = 0.5 * (K_PQ + K_PQ.T)
         K_QP = 0.5 * (K_QP + K_QP.T)
         return K_PP, K_QQ, K_PQ, K_QP
+
+    def _build_full_fock_accumulated(self, orbitals):
+        """Build the FULL Fock potential (direct + exchange) for all kappas at once.
+
+        Instead of building exchange orbital-by-orbital, accumulates weighted
+        densities per (k, block_type) and does ONE convolution per group.
+
+        This is the DBSR_HF-style approach: O(N_k × 4) convolutions instead
+        of O(N_orb × N_k × 4), giving ~N_orb speedup for the exchange part.
+
+        Returns dict: kappa -> (V_PP, V_QQ, V_PQ, V_QP) total Fock potential
+        """
+        from atomx.angular.coefficients import exchange_lambda, exchange_k_range
+        from atomx.bspline.convol import (
+            _density_sym, _density_full, _convol_case1, _convol_case4,
+            _convol_case1_mixed, _banded_to_full_add,
+        )
+
+        bd = self.bsp_data
+        ksp = bd.get("ksp", bd["ks"])
+        ksq = bd.get("ksq", bd["ks"])
+        nsp = bd.get("nsp", bd["ns"])
+        nsq = bd.get("nsq", bd["ns"])
+        ns_full = bd["ns"]
+
+        if not hasattr(self, '_convol_cache'):
+            self._convol_cache = ConvolCache(bd)
+
+        # Build flat index for WW lookup
+        flat_idx = {}
+        idx = 0
+        kappa_counter = {}
+        for sh in self.subshells:
+            k_idx = kappa_counter.get(sh.kappa, 0)
+            kappa_counter[sh.kappa] = k_idx + 1
+            flat_idx[(sh.kappa, k_idx)] = idx
+            idx += 1
+
+        # --- Step 1: Build DIRECT potential (accumulated, shared across all kappas) ---
+        dd_P = np.zeros((ns_full, ksp))
+        dd_Q = np.zeros((ns_full, ksq))
+        for kappa_b, orb_list in orbitals.items():
+            for orb_i, (P_b, Q_b, occ_b) in enumerate(orb_list):
+                dd_P += occ_b * _density_sym(P_b[:ns_full], P_b[:ns_full], ns_full, ksp)
+                dd_Q += occ_b * _density_sym(Q_b[:ns_full], Q_b[:ns_full], ns_full, ksq)
+
+        rkb_pp0, _, _ = self._convol_cache.get_rkb(0, "pppp")
+        rkb_qq0, _, _ = self._convol_cache.get_rkb(0, "qqqq")
+        rkb_pq0, _, _ = self._convol_cache.get_rkb(0, "pqpq")
+        rkb_qp0, _, _ = self._convol_cache.get_rkb(0, "qpqp")
+
+        V_J_PP_full = np.zeros((ns_full, ns_full))
+        V_J_QQ_full = np.zeros((ns_full, ns_full))
+        v = _convol_case1(rkb_pp0, dd_P, ns_full, ksp)
+        _banded_to_full_add(V_J_PP_full, v, ns_full, ksp, 1.0)
+        v = _convol_case1_mixed(rkb_pq0, dd_Q, ns_full, ksp, ksq)
+        _banded_to_full_add(V_J_PP_full, v, ns_full, ksp, 1.0)
+        v = _convol_case1_mixed(rkb_qp0, dd_P, ns_full, ksq, ksp)
+        _banded_to_full_add(V_J_QQ_full, v, ns_full, ksq, 1.0)
+        v = _convol_case1(rkb_qq0, dd_Q, ns_full, ksq)
+        _banded_to_full_add(V_J_QQ_full, v, ns_full, ksq, 1.0)
+
+        # --- Step 2: Build EXCHANGE for each target kappa ---
+        # Group source densities by k value: for each k, accumulate
+        # weighted density across all source orbitals
+        all_kappas = list(orbitals.keys())
+        # Precompute k_values and lambda for all kappa pairs
+        k_data = {}  # (target_kappa, k) -> list of (source_kappa, orb_i, c_k)
+        for target_kappa in all_kappas:
+            tj_a = 2 * abs(target_kappa) - 1
+            for kappa_b in all_kappas:
+                tj_b = 2 * abs(kappa_b) - 1
+                k_values = exchange_k_range(target_kappa, kappa_b)
+                for k in k_values:
+                    lam = exchange_lambda(target_kappa, kappa_b, k)
+                    if lam < 1e-15:
+                        continue
+                    base_c = lam / ((tj_a + 1.0) * (tj_b + 1.0))
+                    for orb_i, (P_b, Q_b, occ_b) in enumerate(orbitals.get(kappa_b, [])):
+                        c_k = occ_b * base_c
+                        if abs(c_k) < 1e-15:
+                            continue
+                        key = (target_kappa, k)
+                        if key not in k_data:
+                            k_data[key] = []
+                        k_data[key].append((kappa_b, orb_i, c_k, P_b, Q_b))
+
+        # For each (target_kappa, k): accumulate density, one convol
+        fock = {}  # kappa -> (V_PP, V_QQ, V_PQ, V_QP)
+        for target_kappa in all_kappas:
+            K_PP = np.zeros((ns_full, ns_full))
+            K_QQ = np.zeros((ns_full, ns_full))
+            K_PQ = np.zeros((ns_full, ns_full))
+            K_QP = np.zeros((ns_full, ns_full))
+
+            # Collect all k values for this target
+            target_ks = sorted(set(k for (tk, k) in k_data if tk == target_kappa))
+
+            for k in target_ks:
+                entries = k_data.get((target_kappa, k), [])
+                if not entries:
+                    continue
+
+                # Accumulate weighted densities for this k
+                acc_d_PP = np.zeros((ns_full, max(ns_full, ksp)))
+                acc_d_QQ = np.zeros((ns_full, max(ns_full, ksq)))
+                acc_d_PQ = np.zeros((ns_full, max(ns_full, max(ksp, ksq))))
+                acc_d_QP = np.zeros((ns_full, max(ns_full, max(ksp, ksq))))
+
+                for kappa_b, orb_i, c_k, P_b, Q_b in entries:
+                    d_pp = _density_full(P_b[:nsp], P_b[:nsp], nsp)
+                    d_qq = _density_full(Q_b[:nsq], Q_b[:nsq], nsq)
+                    d_pq = _density_full(P_b[:nsp], Q_b[:nsq], max(nsp, nsq))
+                    d_qp = _density_full(Q_b[:nsq], P_b[:nsp], max(nsp, nsq))
+                    n_d = min(d_pp.shape[0], acc_d_PP.shape[0])
+                    n_c = min(d_pp.shape[1], acc_d_PP.shape[1])
+                    acc_d_PP[:n_d, :n_c] += c_k * d_pp[:n_d, :n_c]
+                    n_d = min(d_qq.shape[0], acc_d_QQ.shape[0])
+                    n_c = min(d_qq.shape[1], acc_d_QQ.shape[1])
+                    acc_d_QQ[:n_d, :n_c] += c_k * d_qq[:n_d, :n_c]
+                    n_d = min(d_pq.shape[0], acc_d_PQ.shape[0])
+                    n_c = min(d_pq.shape[1], acc_d_PQ.shape[1])
+                    acc_d_PQ[:n_d, :n_c] += c_k * d_pq[:n_d, :n_c]
+                    n_d = min(d_qp.shape[0], acc_d_QP.shape[0])
+                    n_c = min(d_qp.shape[1], acc_d_QP.shape[1])
+                    acc_d_QP[:n_d, :n_c] += c_k * d_qp[:n_d, :n_c]
+
+                # One convolution per (k, block_type) instead of per orbital
+                rkb_pp, _, _ = self._convol_cache.get_rkb(k, "pppp")
+                Kk = _convol_case4(rkb_pp, acc_d_PP[:nsp, :nsp], nsp, ksp)
+                n = min(Kk.shape[0], ns_full)
+                K_PP[:n, :n] += Kk[:n, :n]
+
+                rkb_qq, _, _ = self._convol_cache.get_rkb(k, "qqqq")
+                Kk = _convol_case4(rkb_qq, acc_d_QQ[:nsq, :nsq], nsq, ksq)
+                n = min(Kk.shape[0], ns_full)
+                K_QQ[:n, :n] += Kk[:n, :n]
+
+                rkb_pq, _, _ = self._convol_cache.get_rkb(k, "pqpq")
+                Kk = _convol_case4(rkb_pq, acc_d_PQ[:ns_full, :ns_full], ns_full, ksp)
+                K_PQ[:ns_full, :ns_full] += Kk[:ns_full, :ns_full]
+
+                rkb_qp, _, _ = self._convol_cache.get_rkb(k, "qpqp")
+                Kk = _convol_case4(rkb_qp, acc_d_QP[:ns_full, :ns_full], ns_full, ksq)
+                K_QP[:ns_full, :ns_full] += Kk[:ns_full, :ns_full]
+
+            K_PP = 0.5 * (K_PP + K_PP.T)
+            K_QQ = 0.5 * (K_QQ + K_QQ.T)
+            K_PQ = 0.5 * (K_PQ + K_PQ.T)
+            K_QP = 0.5 * (K_QP + K_QP.T)
+
+            # Self-interaction correction per target orbital is handled
+            # separately in the per-orbital solve via _build_intra_shell_potential
+
+            fock[target_kappa] = (
+                V_J_PP_full.copy(), V_J_QQ_full.copy(),
+                K_PP, K_QQ, K_PQ, K_QP)
+
+        return fock
 
     def _build_exchange_matrix_slater(self, orbitals):
         """Build local Slater exchange — separate PP and QQ matrices for KB."""
@@ -872,23 +1040,90 @@ class DFSolver:
         E_1e = E_orbital_sum - 2.0 * E_J - (4.0/3.0) * E_K
         return E_total, {"E_1e": E_1e, "E_J": E_J, "E_K": E_K}
 
-    def solve(self, max_iter=100, tol=1e-6, mixing=0.3):
-        """Run the SCF iteration (DBSR_HF-style sequential orbital updates).
+    def _batch_orbital_update(self, orbitals, orbital_energies, kappa_groups,
+                               H0_cache, S0_cache, ns_full, has_kb, nsp, nsq):
+        """Solve ALL orbitals simultaneously using the accumulated Fock matrix.
 
-        Strategy (following DBSR_HF):
-        - Solve orbital-by-orbital, immediately updating the density
-        - Pure eigenvector replacement (no mixing on orbitals)
-        - Light potential mixing only for stability in early iterations
-        - Dual convergence: max orbital change AND energy change
+        Instead of orbital-by-orbital with per-orbital exchange, builds the
+        full Fock matrix once (accumulated density approach), then solves all
+        kappa eigenvalue problems in one pass.
+
+        This is much faster per iteration but less precise than orbital-by-orbital
+        (no self-interaction correction per orbital). Used for:
+        1. First few SCF iterations to get good initial orbitals quickly
+        2. Systems where orbital-by-orbital oscillates (f-electrons)
+        """
+        if self.exchange != "hf":
+            return  # Only for HF exchange
+
+        fock = self._build_full_fock_accumulated(orbitals)
+
+        for kappa, shells in kappa_groups.items():
+            H = H0_cache[kappa].copy()
+            S_full = S0_cache[kappa]
+
+            if kappa in fock:
+                V_J_PP, V_J_QQ, K_PP, K_QQ, K_PQ, K_QP = fock[kappa]
+
+                n_pp = min(V_J_PP.shape[0], ns_full)
+                H[:n_pp, :n_pp] += V_J_PP[:n_pp, :n_pp]
+                n_kpp = min(K_PP.shape[0], ns_full)
+                H[:n_kpp, :n_kpp] -= K_PP[:n_kpp, :n_kpp]
+                n_qq = min(V_J_QQ.shape[0], ns_full)
+                H[ns_full:ns_full+n_qq, ns_full:ns_full+n_qq] += V_J_QQ[:n_qq, :n_qq]
+                n_kqq = min(K_QQ.shape[0], ns_full)
+                H[ns_full:ns_full+n_kqq, ns_full:ns_full+n_kqq] -= K_QQ[:n_kqq, :n_kqq]
+                n_pq = min(K_PQ.shape[0], ns_full)
+                H[:n_pq, ns_full:ns_full+n_pq] -= K_PQ[:n_pq, :n_pq]
+                H[ns_full:ns_full+n_pq, :n_pq] -= K_QP[:n_pq, :n_pq]
+
+            result = solve_dirac(H, S_full, ns_full, kappa,
+                                  nsp=nsp if has_kb else None,
+                                  nsq=nsq if has_kb else None)
+
+            orb_list = []
+            for sh in shells:
+                eig_idx = sh.n - sh.l - 1
+                if kappa > 0 and not has_kb:
+                    eig_idx += 1
+                if eig_idx < result.n_bound:
+                    P, Q, E = result.get_orbital(eig_idx)
+                    if not np.isnan(E):
+                        orb_list.append((P, Q, sh.occupation))
+                        orbital_energies[sh.label] = E
+                    else:
+                        orb_list.append((np.zeros(ns_full), np.zeros(ns_full), sh.occupation))
+                else:
+                    orb_list.append((np.zeros(ns_full), np.zeros(ns_full), sh.occupation))
+            orbitals[kappa] = orb_list
+
+    def solve(self, max_iter=100, tol=1e-6, mixing=0.3, damping=None,
+              mode="orbital"):
+        """Run the SCF iteration.
 
         Parameters
         ----------
         max_iter : int
         tol : float
-            Orbital convergence tolerance (relative).
+            Convergence tolerance on orbital change (relative).
         mixing : float
-            Potential mixing for first few iterations only.
+            Legacy parameter.
+        damping : float or None
+            Orbital damping factor (0 = full replacement, 0.5 = heavy).
+            None = auto (0.3 for f-electrons, 0.0 otherwise).
+        mode : str
+            "orbital" (default): Solve one orbital at a time with per-orbital
+            self-interaction subtraction and cached exchange convolutions.
+            Each source orbital's K^k matrix is computed once per iteration
+            and reused across all targets.
+
+            "batch": Experimental — build total Fock and solve all kappas at
+            once.  Currently incorrect (self-interaction not properly handled).
         """
+        if damping is None:
+            has_f = any(sh.l >= 3 for sh in self.subshells)
+            damping = 0.3 if has_f else 0.0
+
         ns = self.ns
 
         # Build ordered list of (subshell, kappa, index_within_kappa)
@@ -976,8 +1211,9 @@ class DFSolver:
         has_kb = self.bsp_data.get("ksp", self.ks) != self.bsp_data.get("ksq", self.ks)
         nsp = self.bsp_data.get("nsp", ns)
         nsq = self.bsp_data.get("nsq", ns)
+        ns_full = max(nsp, nsq)
 
-        # OPT 1: Cache one-electron matrices per kappa (they never change)
+        # Cache one-electron matrices per kappa (they never change)
         H0_cache = {}
         S0_cache = {}
         for kappa in kappa_groups:
@@ -991,114 +1227,196 @@ class DFSolver:
         for iteration in range(1, max_iter + 1):
             max_orb_change = 0.0
 
-            # OPT 2: Exchange cache — K^k(b) depends only on source orbital
-            # and k, NOT on target kappa. Shared across the sweep.
-            # Invalidated when the source orbital changes.
-            exchange_cache = {}
+            if mode == "batch" and self.exchange == "hf":
+                # ============================================================
+                # DBSR_HF-style: build TOTAL Fock potential from ALL orbitals,
+                # solve ALL kappas at once, update ALL simultaneously.
+                #
+                # The average-of-configuration Fock operator includes ALL
+                # electrons (no per-orbital self-interaction subtraction).
+                # Self-interaction is handled by WW coefficients in the
+                # energy formula, NOT in the Hamiltonian.
+                # ============================================================
+                fock = self._build_full_fock_accumulated(orbitals)
+                new_orbitals = {}
+                new_energies = {}
 
-            ns_full = max(nsp, nsq)  # matrix block dimension
+                for kappa, shells in kappa_groups.items():
+                    H = H0_cache[kappa].copy()
+                    S_full = S0_cache[kappa]
 
-            for sh, kappa, orb_idx in orbital_schedule:
-                H = H0_cache[kappa].copy()  # OPT 1: cached one-electron
-                S_full = S0_cache[kappa]
+                    if kappa in fock:
+                        V_J_PP, V_J_QQ, K_PP, K_QQ, K_PQ, K_QP = fock[kappa]
+                        n = min(V_J_PP.shape[0], ns_full)
+                        H[:n, :n] += V_J_PP[:n, :n] - K_PP[:n, :n]
+                        H[ns_full:ns_full+n, ns_full:ns_full+n] += (
+                            V_J_QQ[:n, :n] - K_QQ[:n, :n])
+                        n_pq = min(K_PQ.shape[0], ns_full)
+                        H[:n_pq, ns_full:ns_full+n_pq] -= K_PQ[:n_pq, :n_pq]
+                        H[ns_full:ns_full+n_pq, :n_pq] -= K_QP[:n_pq, :n_pq]
 
-                if self.exchange == "hf":
-                    # Direct potential (pppp→PP, qqqq→QQ diagonal blocks)
+                    result = solve_dirac(H, S_full, ns_full, kappa,
+                                          nsp=nsp if has_kb else None,
+                                          nsq=nsq if has_kb else None)
+
+                    orb_list = []
+                    for sh in shells:
+                        eig_idx = sh.n - sh.l - 1
+                        if kappa > 0 and not has_kb:
+                            eig_idx += 1
+
+                        if eig_idx < result.n_bound:
+                            P_new, Q_new, E_new = result.get_orbital(eig_idx)
+
+                            if np.isnan(E_new):
+                                orb_list.append(
+                                    orbitals.get(kappa, [(np.zeros(ns_full), np.zeros(ns_full), sh.occupation)])[
+                                        len(orb_list)] if kappa in orbitals and len(orb_list) < len(orbitals[kappa])
+                                    else (np.zeros(ns_full), np.zeros(ns_full), sh.occupation))
+                                continue
+
+                            # Track change vs old orbital
+                            old_list = orbitals.get(kappa, [])
+                            idx = len(orb_list)
+                            if idx < len(old_list):
+                                P_old = old_list[idx][0]
+                                p_max = np.max(np.abs(P_old))
+                                if p_max > 1e-15:
+                                    change = np.max(np.abs(
+                                        P_new[:len(P_old)] - P_old[:len(P_new)])) / p_max
+                                    max_orb_change = max(max_orb_change, change)
+
+                            # Damping: mix new eigenvector with old orbital
+                            if damping > 0 and iteration > 1 and idx < len(old_list):
+                                P_old, Q_old, _ = old_list[idx]
+                                alpha = 1.0 - damping
+                                if max_orb_change < 0.1:
+                                    alpha = min(1.0, alpha + 0.3)
+                                if max_orb_change < 0.01:
+                                    alpha = 1.0
+                                P_new = alpha * P_new + (1.0 - alpha) * P_old
+                                Q_new = alpha * Q_new + (1.0 - alpha) * Q_old
+                                # Renormalize
+                                norm_eig = np.sqrt(np.sum(result.get_orbital(eig_idx)[0]**2) +
+                                                   np.sum(result.get_orbital(eig_idx)[1]**2))
+                                norm_mix = np.sqrt(np.sum(P_new**2) + np.sum(Q_new**2))
+                                if norm_mix > 1e-15 and norm_eig > 1e-15:
+                                    P_new *= norm_eig / norm_mix
+                                    Q_new *= norm_eig / norm_mix
+
+                            orb_list.append((P_new, Q_new, sh.occupation))
+                            new_energies[sh.label] = E_new
+                        else:
+                            orb_list.append((np.zeros(ns_full), np.zeros(ns_full), sh.occupation))
+
+                    new_orbitals[kappa] = orb_list
+
+                # Update ALL orbitals simultaneously
+                orbitals = new_orbitals
+                orbital_energies.update(new_energies)
+
+            elif mode == "orbital" and self.exchange == "hf":
+                # ============================================================
+                # Legacy per-orbital mode: solve one orbital at a time with
+                # self-interaction subtraction.
+                # ============================================================
+                exchange_cache = {}
+                for sh, kappa, orb_idx in orbital_schedule:
+                    H = H0_cache[kappa].copy()
+                    S_full = S0_cache[kappa]
+
                     V_J_PP, V_J_QQ = self._build_direct_potential(
                         orbitals, target_kappa=kappa, target_idx=orb_idx)
-                    # Exchange (pppp→PP, qqqq→QQ + pqpq→PQ, qpqp→QP off-diag)
                     K_PP, K_QQ, K_PQ, K_QP = self._build_exchange_matrix_hf(
                         kappa, orb_idx, orbitals,
                         exchange_cache=exchange_cache)
-                    # Intra-shell F^k for k>0
                     Vi_PP, Vi_QQ = self._build_intra_shell_potential(
                         kappa, orb_idx, orbitals)
-                    # PP block
-                    n_pp = min(V_J_PP.shape[0], ns_full)
-                    H[:n_pp, :n_pp] += V_J_PP[:n_pp, :n_pp]
-                    n_kpp = min(K_PP.shape[0], ns_full)
-                    H[:n_kpp, :n_kpp] -= K_PP[:n_kpp, :n_kpp]
-                    n_vpp = min(Vi_PP.shape[0], ns_full)
-                    H[:n_vpp, :n_vpp] += Vi_PP[:n_vpp, :n_vpp]
-                    # QQ block
-                    n_qq = min(V_J_QQ.shape[0], ns_full)
-                    H[ns_full:ns_full+n_qq, ns_full:ns_full+n_qq] += V_J_QQ[:n_qq, :n_qq]
-                    n_kqq = min(K_QQ.shape[0], ns_full)
-                    H[ns_full:ns_full+n_kqq, ns_full:ns_full+n_kqq] -= K_QQ[:n_kqq, :n_kqq]
-                    n_vqq = min(Vi_QQ.shape[0], ns_full)
-                    H[ns_full:ns_full+n_vqq, ns_full:ns_full+n_vqq] += Vi_QQ[:n_vqq, :n_vqq]
-                    # PQ and QP off-diagonal blocks (cross-component exchange)
+                    n = min(V_J_PP.shape[0], ns_full)
+                    H[:n, :n] += V_J_PP[:n, :n] - K_PP[:n, :n] + Vi_PP[:n, :n]
+                    H[ns_full:ns_full+n, ns_full:ns_full+n] += (
+                        V_J_QQ[:n, :n] - K_QQ[:n, :n] + Vi_QQ[:n, :n])
                     n_pq = min(K_PQ.shape[0], ns_full)
                     H[:n_pq, ns_full:ns_full+n_pq] -= K_PQ[:n_pq, :n_pq]
                     H[ns_full:ns_full+n_pq, :n_pq] -= K_QP[:n_pq, :n_pq]
-                else:
-                    V_J_PP, V_J_QQ = self._build_direct_potential(orbitals)
-                    Vx_PP, Vx_QQ = self._build_exchange_matrix_slater(orbitals)
-                    n_pp = min(V_J_PP.shape[0], ns_full)
-                    H[:n_pp, :n_pp] += V_J_PP[:n_pp, :n_pp] + Vx_PP[:n_pp, :n_pp]
-                    n_qq = min(V_J_QQ.shape[0], ns_full)
-                    H[ns_full:ns_full+n_qq, ns_full:ns_full+n_qq] += V_J_QQ[:n_qq, :n_qq] + Vx_QQ[:n_qq, :n_qq]
 
-                result = solve_dirac(H, S_full, ns_full, kappa,
-                                      nsp=nsp if has_kb else None,
-                                      nsq=nsq if has_kb else None)
+                    result = solve_dirac(H, S_full, ns_full, kappa,
+                                          nsp=nsp if has_kb else None,
+                                          nsq=nsq if has_kb else None)
+                    eig_idx = sh.n - sh.l - 1
+                    if kappa > 0 and not has_kb:
+                        eig_idx += 1
+                    n_phys = len(result.eigenvalues)
+                    actual_idx = min(eig_idx, n_phys - 1)
+                    if actual_idx >= 0 and actual_idx < n_phys:
+                        sorted_idx = np.argsort(result.eigenvalues)
+                        phys_idx = sorted_idx[actual_idx]
+                        vec = result.coefficients[:, phys_idx]
+                        P_new = np.zeros(ns_full)
+                        Q_new = np.zeros(ns_full)
+                        nsp_loc = result.nsp if hasattr(result, 'nsp') else ns_full
+                        nsq_loc = result.nsq if hasattr(result, 'nsq') else ns_full
+                        P_new[:nsp_loc] = vec[:nsp_loc]
+                        Q_new[:nsq_loc] = vec[ns_full:ns_full + nsq_loc]
+                        E_new = result.eigenvalues[phys_idx]
+                        if np.isnan(E_new) or np.any(np.isnan(vec)):
+                            continue
+                        orb_list = orbitals.get(kappa, [])
+                        if orb_idx < len(orb_list):
+                            P_old = orb_list[orb_idx][0]
+                            p_max = np.max(np.abs(P_old))
+                            if p_max > 1e-15:
+                                change = np.max(np.abs(P_new[:len(P_old)] - P_old[:len(P_new)])) / p_max
+                                max_orb_change = max(max_orb_change, change)
+                        while orb_idx >= len(orb_list):
+                            orb_list.append((np.zeros(ns_full), np.zeros(ns_full), sh.occupation))
+                        orb_list[orb_idx] = (P_new, Q_new, sh.occupation)
+                        orbitals[kappa] = orb_list
+                        orbital_energies[sh.label] = E_new
+                        keys_to_remove = [ck for ck in exchange_cache
+                                          if ck[0] == kappa and ck[1] == orb_idx]
+                        for ck in keys_to_remove:
+                            del exchange_cache[ck]
 
-                # Select target orbital by index
-                eig_idx = sh.n - sh.l - 1
-                if kappa > 0 and not has_kb:
-                    eig_idx += 1  # skip spurious only without KB
-
-                # Get orbital from FULL physical spectrum (bound + discretized continuum)
-                # This handles outer orbitals that become weakly bound/unbound during SCF
-                n_phys = len(result.eigenvalues)
-                actual_idx = min(eig_idx, n_phys - 1)
-                if actual_idx >= 0 and actual_idx < n_phys:
-                    # Use eigenvalues/coefficients from the physical spectrum
-                    sorted_idx = np.argsort(result.eigenvalues)
-                    phys_idx = sorted_idx[actual_idx]
-                    vec = result.coefficients[:, phys_idx]
-                    P_new = np.zeros(ns_full)
-                    Q_new = np.zeros(ns_full)
-                    nsp_loc = result.nsp if hasattr(result, 'nsp') else ns_full
-                    nsq_loc = result.nsq if hasattr(result, 'nsq') else ns_full
-                    # P occupies vec[0:nsp_loc], Q occupies vec[ns_full:ns_full+nsq_loc]
-                    # (NOT vec[nsp_loc:] — that would include the zero-padded P entry)
-                    P_new[:nsp_loc] = vec[:nsp_loc]
-                    Q_new[:nsq_loc] = vec[ns_full:ns_full + nsq_loc]
-                    E_new = result.eigenvalues[phys_idx]
-
-                    # NaN guard: skip if eigenvalue solver produced garbage
-                    if np.isnan(E_new) or np.any(np.isnan(vec)):
-                        continue
-
-                    # Track orbital change
-                    orb_list = orbitals.get(kappa, [])
-                    if orb_idx < len(orb_list):
-                        P_old = orb_list[orb_idx][0]
-                        p_max = np.max(np.abs(P_old))
-                        if p_max > 1e-15:
-                            change = np.max(np.abs(P_new[:len(P_old)] - P_old[:len(P_new)])) / p_max
-                            max_orb_change = max(max_orb_change, change)
-
-                    # Pure eigenvector replacement (DBSR_HF style: no mixing)
-                    while orb_idx >= len(orb_list):
-                        orb_list.append((np.zeros(ns_full), np.zeros(ns_full), sh.occupation))
-                    orb_list[orb_idx] = (P_new, Q_new, sh.occupation)
+            else:
+                # Slater local exchange — same Fock for all orbitals
+                V_J_PP, V_J_QQ = self._build_direct_potential(orbitals)
+                Vx_PP, Vx_QQ = self._build_exchange_matrix_slater(orbitals)
+                for kappa, shells in kappa_groups.items():
+                    H = H0_cache[kappa].copy()
+                    S_full = S0_cache[kappa]
+                    n = min(V_J_PP.shape[0], ns_full)
+                    H[:n, :n] += V_J_PP[:n, :n] + Vx_PP[:n, :n]
+                    H[ns_full:ns_full+n, ns_full:ns_full+n] += (
+                        V_J_QQ[:n, :n] + Vx_QQ[:n, :n])
+                    result = solve_dirac(H, S_full, ns_full, kappa,
+                                          nsp=nsp if has_kb else None,
+                                          nsq=nsq if has_kb else None)
+                    orb_list = []
+                    for sh in shells:
+                        eig_idx = sh.n - sh.l - 1
+                        if kappa > 0 and not has_kb:
+                            eig_idx += 1
+                        if eig_idx < result.n_bound:
+                            P_new, Q_new, E_new = result.get_orbital(eig_idx)
+                            old_list = orbitals.get(kappa, [])
+                            idx = len(orb_list)
+                            if idx < len(old_list):
+                                P_old = old_list[idx][0]
+                                p_max = np.max(np.abs(P_old))
+                                if p_max > 1e-15:
+                                    change = np.max(np.abs(P_new[:len(P_old)] - P_old[:len(P_new)])) / p_max
+                                    max_orb_change = max(max_orb_change, change)
+                            orb_list.append((P_new, Q_new, sh.occupation))
+                            orbital_energies[sh.label] = E_new
+                        else:
+                            orb_list.append((np.zeros(ns_full), np.zeros(ns_full), sh.occupation))
                     orbitals[kappa] = orb_list
-                    orbital_energies[sh.label] = E_new
 
-                    # OPT 2: Invalidate exchange cache for this source orbital
-                    keys_to_remove = [ck for ck in exchange_cache
-                                      if ck[0] == kappa and ck[1] == orb_idx]
-                    for ck in keys_to_remove:
-                        del exchange_cache[ck]
-
-            # Check energy convergence
+            # Check convergence
             E_total_quick = sum(
-                occ * orbital_energies.get(sh.label, 0.0)
-                for sh in self.subshells
-                for occ in [sh.occupation]
-            )
+                sh.occupation * orbital_energies.get(sh.label, 0.0)
+                for sh in self.subshells)
             if iteration > 1:
                 energy_change = abs(E_total_quick - E_old) / max(abs(E_old), 1e-10)
             else:
@@ -1108,7 +1426,6 @@ class DFSolver:
                     iteration, E_total_quick,
                     delta_E=(E_total_quick - E_old) if iteration > 1 else 0.0,
                     max_dp=max_orb_change)
-
             E_old = E_total_quick
             residual = max_orb_change
 
