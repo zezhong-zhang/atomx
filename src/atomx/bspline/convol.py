@@ -564,7 +564,31 @@ def _build_rkb_qpqp(bsp_p, bsp_q, gr, grw, tp, tq, nv, ksp, ksq,
 # 4. Density matrices
 # ══════════════════════════════════════════════════════════════════════
 
-@nb.njit(cache=True)
+@nb.njit(cache=True, fastmath=True)
+def _accumulate_density_sym(dd, p1, p2, ns, ks, coeff):
+    """Accumulate symmetric banded density into dd: dd += coeff * outer_sym(p1, p2).
+
+    Avoids allocating a temporary array per orbital.
+    """
+    for i in range(ns):
+        dd[i, 0] += coeff * p1[i] * p2[i]
+        for s in range(1, ks):
+            if i + s < ns:
+                dd[i, s] += coeff * (p1[i] * p2[i + s] + p1[i + s] * p2[i])
+
+
+@nb.njit(cache=True, fastmath=True)
+def _accumulate_density_full(xx, p1, p2, ns, coeff):
+    """Accumulate full density into xx: xx += coeff * outer(p1, p2).
+
+    Avoids allocating a temporary array per orbital.
+    """
+    for i in range(ns):
+        for j in range(ns):
+            xx[i, j] += coeff * p1[i] * p2[j]
+
+
+@nb.njit(cache=True, fastmath=True)
 def _density_sym(p1, p2, ns, ks):
     """Symmetric upper-band density: d[i, s] for s = 0..ks-1.
 
@@ -580,7 +604,7 @@ def _density_sym(p1, p2, ns, ks):
     return d
 
 
-@nb.njit(cache=True)
+@nb.njit(cache=True, fastmath=True)
 def _density_full(p1, p2, ns):
     """Full density matrix: d[i, j] = p1[i] * p2[j]."""
     d = np.zeros((ns, ns))
@@ -594,30 +618,33 @@ def _density_full(p1, p2, ns):
 # 5. Convolution: contract rkb with density
 # ══════════════════════════════════════════════════════════════════════
 
-@nb.njit(cache=True)
+@nb.njit(cache=True, fastmath=True, parallel=True)
 def _convol_case1(rkb, d, ns, ks):
     """icase=1: R(. a ; . b) — contract right pair (j, jp) with density.
 
     a[i, ip] = Σ_{j, jp} rkb[i, j, ip, jp] * d[j, jp]
 
     Result is banded: a[i, ip] with ip = 0..ks-1.
+    Parallelized over flattened output index (each element independent).
     """
     a = np.zeros((ns, ks))
-    for ip in range(ks):
-        for i in range(ns):
-            if i + ip >= ns:
-                continue
-            s = 0.0
-            for jp in range(ks):
-                for j in range(ns):
-                    if j + jp >= ns:
-                        continue
-                    s += rkb[i, j, ip, jp] * d[j, jp]
-            a[i, ip] = s
+    n_out = ns * ks
+    for idx in nb.prange(n_out):
+        i = idx // ks
+        ip = idx % ks
+        if i + ip >= ns:
+            continue
+        s = 0.0
+        for jp in range(ks):
+            for j in range(ns):
+                if j + jp >= ns:
+                    continue
+                s += rkb[i, j, ip, jp] * d[j, jp]
+        a[i, ip] = s
     return a
 
 
-@nb.njit(cache=True)
+@nb.njit(cache=True, fastmath=True)
 def _banded_to_full_add(V, v_banded, ns, ks, coeff):
     """Add banded matrix v_banded(ns, ks) to full matrix V(ns, ns) with coefficient.
 
@@ -631,7 +658,7 @@ def _banded_to_full_add(V, v_banded, ns, ks, coeff):
                 V[i + s, i] += val
 
 
-@nb.njit(cache=True)
+@nb.njit(cache=True, fastmath=True, parallel=True)
 def _convol_case1_mixed(rkb, d_right, ns, ks_left, ks_right):
     """icase=1 for mixed-basis rkb(ns, ns, ks_left, ks_right).
 
@@ -639,21 +666,23 @@ def _convol_case1_mixed(rkb, d_right, ns, ks_left, ks_right):
     Result is banded: a(ns, ks_left).
     """
     a = np.zeros((ns, ks_left))
-    for ip in range(ks_left):
-        for i in range(ns):
-            if i + ip >= ns:
-                continue
-            s = 0.0
-            for jp in range(ks_right):
-                for j in range(ns):
-                    if j + jp >= ns:
-                        continue
-                    s += rkb[i, j, ip, jp] * d_right[j, jp]
-            a[i, ip] = s
+    n_out = ns * ks_left
+    for idx in nb.prange(n_out):
+        i = idx // ks_left
+        ip = idx % ks_left
+        if i + ip >= ns:
+            continue
+        s = 0.0
+        for jp in range(ks_right):
+            for j in range(ns):
+                if j + jp >= ns:
+                    continue
+                s += rkb[i, j, ip, jp] * d_right[j, jp]
+        a[i, ip] = s
     return a
 
 
-@nb.njit(cache=True)
+@nb.njit(cache=True, fastmath=True, parallel=True)
 def _convol_case2(rkb, d, ns, ks):
     """icase=2: R(a . ; b .) — contract left pair (i, ip) with density.
 
@@ -662,60 +691,83 @@ def _convol_case2(rkb, d, ns, ks):
     Result is banded: a[j, jp].
     """
     a = np.zeros((ns, ks))
-    for jp in range(ks):
-        for j in range(ns):
-            if j + jp >= ns:
-                continue
-            s = 0.0
-            for ip in range(ks):
-                for i in range(ns):
-                    if i + ip >= ns:
-                        continue
-                    s += rkb[i, j, ip, jp] * d[i, ip]
-            a[j, jp] = s
+    n_out = ns * ks
+    for idx in nb.prange(n_out):
+        j = idx // ks
+        jp = idx % ks
+        if j + jp >= ns:
+            continue
+        s = 0.0
+        for ip in range(ks):
+            for i in range(ns):
+                if i + ip >= ns:
+                    continue
+                s += rkb[i, j, ip, jp] * d[i, ip]
+        a[j, jp] = s
     return a
 
 
-@nb.njit(cache=True)
+@nb.njit(cache=True, fastmath=True, parallel=True)
 def _convol_case4(rkb, d, ns, ks):
-    """icase=4: R(a . ; . b) — exchange contraction.
+    """icase=4: R(a . ; . b) — exchange contraction (gather formulation).
 
-    Contract i (1st index) and jp (4th index) with density d[i, jp_global].
-    Result indices: ip_global = i + ip, j.
-    a[ip_global, j] = Σ_{i, jp} rkb[i, j, ip, jp] * d[i, j+jp]
+    Computes: a[row, col] by gathering all (i,j,ip,jp) contributions
+    where the scatter would write to (row, col).
 
     Result is FULL matrix: a[ns, ns].
-
-    In DBSR_HF this scatters into 4 quadrants due to band symmetry:
-      rkb[i, j, ip, jp] contributes to:
-        a[i+ip, j]    using d[i,   j+jp]
-        a[i,    j]    using d[i+ip, j+jp]   (if ip > 0)
-        a[i+ip, j+jp] using d[i,   j]       (if jp > 0)
-        a[i,    j+jp] using d[i+ip, j]       (if ip > 0 and jp > 0)
+    Parallelized over output rows (each thread owns one row).
     """
     a = np.zeros((ns, ns))
-    for jp in range(ks):
-        for j in range(ns):
-            jj = j + jp
-            if jj >= ns:
-                continue
+    for row in nb.prange(ns):
+        for col in range(ns):
+            s = 0.0
             for ip in range(ks):
-                for i in range(ns):
-                    ii = i + ip
+                i = row - ip
+                if i < 0:
+                    continue
+                for jp in range(ks):
+                    j_val = col  # a[row, col] ← a[ii, j] with ii=i+ip=row, j=col
+                    jj = j_val + jp
+                    if jj >= ns:
+                        continue
+                    c = rkb[i, j_val, ip, jp]
+                    # Primary: a[i+ip, j] += c * d[i, j+jp]
+                    s += c * d[i, jj]
+            for ip in range(1, ks):
+                # a[i, j] += c * d[ii, jj]  → row=i, so i=row, ii=row+ip
+                ii = row + ip
+                if ii >= ns:
+                    continue
+                for jp in range(ks):
+                    j_val = col
+                    jj = j_val + jp
+                    if jj >= ns:
+                        continue
+                    c = rkb[row, j_val, ip, jp]
+                    s += c * d[ii, jj]
+            for jp in range(1, ks):
+                # a[ii, jj] += c * d[i, j]  → row=ii=i+ip, col=jj=j+jp
+                j_val = col - jp
+                if j_val < 0:
+                    continue
+                for ip in range(ks):
+                    i = row - ip
+                    if i < 0:
+                        continue
+                    c = rkb[i, j_val, ip, jp]
+                    s += c * d[i, j_val]
+            for ip in range(1, ks):
+                for jp in range(1, ks):
+                    # a[i, jj] += c * d[ii, j]  → row=i, col=jj=j+jp
+                    j_val = col - jp
+                    if j_val < 0:
+                        continue
+                    ii = row + ip
                     if ii >= ns:
                         continue
-                    c = rkb[i, j, ip, jp]
-                    if abs(c) < 1e-30:
-                        continue
-                    # Primary contribution
-                    a[ii, j] += c * d[i, jj]
-                    # Symmetry expansions
-                    if ip > 0:
-                        a[i, j] += c * d[ii, jj]
-                    if jp > 0:
-                        a[ii, jj] += c * d[i, j]
-                    if ip > 0 and jp > 0:
-                        a[i, jj] += c * d[ii, j]
+                    c = rkb[row, j_val, ip, jp]
+                    s += c * d[ii, j_val]
+            a[row, col] = s
     return a
 
 
@@ -723,7 +775,7 @@ def _convol_case4(rkb, d, ns, ks):
 # 6. Trace contraction: SUM_AmB
 # ══════════════════════════════════════════════════════════════════════
 
-@nb.njit(cache=True)
+@nb.njit(cache=True, fastmath=True, parallel=True)
 def _convol_case2_mixed(rkb, d_left, ns, ks_left, ks_right):
     """icase=2 for mixed-basis rkb(ns, ns, ks_left, ks_right).
 
@@ -731,21 +783,23 @@ def _convol_case2_mixed(rkb, d_left, ns, ks_left, ks_right):
     Result is banded: a(ns, ks_right).
     """
     a = np.zeros((ns, ks_right))
-    for jp in range(ks_right):
-        for j in range(ns):
-            if j + jp >= ns:
-                continue
-            s = 0.0
-            for ip in range(ks_left):
-                for i in range(ns):
-                    if i + ip >= ns:
-                        continue
-                    s += rkb[i, j, ip, jp] * d_left[i, ip]
-            a[j, jp] = s
+    n_out = ns * ks_right
+    for idx in nb.prange(n_out):
+        j = idx // ks_right
+        jp = idx % ks_right
+        if j + jp >= ns:
+            continue
+        s = 0.0
+        for ip in range(ks_left):
+            for i in range(ns):
+                if i + ip >= ns:
+                    continue
+                s += rkb[i, j, ip, jp] * d_left[i, ip]
+        a[j, jp] = s
     return a
 
 
-@nb.njit(cache=True)
+@nb.njit(cache=True, fastmath=True)
 def _sum_amb_banded(a, b, ns, ks):
     """Trace contraction of two banded matrices: Σ_{i,s} a[i,s] * b[i,s]."""
     s = 0.0
@@ -756,7 +810,7 @@ def _sum_amb_banded(a, b, ns, ks):
     return s
 
 
-@nb.njit(cache=True)
+@nb.njit(cache=True, fastmath=True)
 def _sum_amb_full(a, b, ns):
     """Trace contraction of two full matrices: Σ_{i,j} a[i,j] * b[i,j]."""
     s = 0.0
