@@ -137,6 +137,45 @@ class Wavefunctions:
         plt.show()
 
 
+@dataclass
+class HyperfineResult:
+    """Magnetic dipole / electric quadrupole hyperfine constants per orbital.
+
+    Populated by :meth:`SCFResult.hyperfine_constants`.
+
+    Attributes
+    ----------
+    isotope : str
+        Label of the isotope used, e.g. ``"H-1"``, ``"Cs-133"``.
+    Z, A : int
+        Nuclear charge and mass number.
+    I : float
+        Nuclear spin.
+    mu_I : float
+        Nuclear magnetic dipole moment (μ_N).
+    Q_nuc : float
+        Nuclear electric quadrupole moment (barns).
+    A_MHz : dict
+        ``{orbital_label: A_MHz}`` — magnetic dipole hyperfine constant
+        for each orbital in megahertz.  Note: single-configuration DHF
+        values; for alkalis these are typically 20–40 % below experiment
+        because core-polarization / correlation corrections are missing
+        (Dzuba–Flambaum–Sushkov, etc.).
+    B_MHz : dict
+        ``{orbital_label: B_MHz}`` — electric quadrupole hyperfine
+        constant in MHz.  Currently empty (``B`` not yet implemented).
+    """
+
+    isotope: str
+    Z: int
+    A: int
+    I: float
+    mu_I: float
+    Q_nuc: float
+    A_MHz: Dict[str, float] = field(default_factory=dict)
+    B_MHz: Dict[str, float] = field(default_factory=dict)
+
+
 @runtime_checkable
 class AtomicResult(Protocol):
     """Common interface for all atomic calculation results."""

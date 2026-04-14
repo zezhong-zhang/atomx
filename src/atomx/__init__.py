@@ -26,7 +26,13 @@ from atomx.types import (
     RelativisticCorrection,
     TheoryLevel,
 )
-from atomx.results import AtomicResult, Wavefunctions, OrbitalWavefunction
+from atomx.results import (
+    AtomicResult,
+    HyperfineResult,
+    OrbitalWavefunction,
+    Wavefunctions,
+)
+from atomx import hyperfine  # noqa: F401
 from atomx.methods import (
     Method,
     HydrogenicSchrodinger,
