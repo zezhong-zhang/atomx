@@ -129,6 +129,125 @@ class SCFResult:
         return Wavefunctions(grid=grid, orbitals=orbitals, basis_type="bspline")
 
 
+    def save(self, path: str):
+        """Save result for later restart or analysis.
+
+        Creates two files:
+        - ``{path}.npz`` — orbital coefficients and grid parameters
+        - ``{path}.json`` — metadata (energies, convergence, config)
+
+        Parameters
+        ----------
+        path : str
+            Base path (without extension).
+        """
+        import json
+
+        # Collect orbital arrays
+        arrays = {}
+        for kappa, orb_list in self.orbitals_raw.items():
+            for i, (P, Q, occ) in enumerate(orb_list):
+                arrays[f"P_{kappa}_{i}"] = P
+                arrays[f"Q_{kappa}_{i}"] = Q
+
+        # Save bsp_data grid params for reconstruction
+        if self._bsp_data:
+            arrays["bsp_t"] = self._bsp_data["t"]
+            if "tp" in self._bsp_data:
+                arrays["bsp_tp"] = self._bsp_data["tp"]
+
+        np.savez_compressed(f"{path}.npz", **arrays)
+
+        # JSON metadata
+        meta = {
+            "converged": self.converged,
+            "iterations": self.iterations,
+            "residual": self.residual,
+            "total_energy": self.total_energy,
+            "orbital_energies": self.orbital_energies,
+            "energy_components": self.energy_components,
+            "subshells": [(s.n, s.kappa, s.occupation, s.label) for s in self.subshells],
+            "orbitals_index": {
+                str(kappa): len(orb_list)
+                for kappa, orb_list in self.orbitals_raw.items()
+            },
+            "theory_level": self._theory_level,
+            "method_name": self._method_name,
+        }
+        if self._bsp_data:
+            meta["bsp_ns"] = int(self._bsp_data["ns"])
+            meta["bsp_ks"] = int(self._bsp_data["ks"])
+            meta["bsp_ksp"] = int(self._bsp_data.get("ksp", self._bsp_data["ks"]))
+
+        with open(f"{path}.json", "w") as f:
+            json.dump(meta, f, indent=2)
+
+    @classmethod
+    def load(cls, path: str) -> "SCFResult":
+        """Load a previously saved result.
+
+        Parameters
+        ----------
+        path : str
+            Base path (without extension). Reads {path}.npz and {path}.json.
+
+        Returns
+        -------
+        SCFResult
+        """
+        import json
+
+        with open(f"{path}.json") as f:
+            meta = json.load(f)
+
+        data = np.load(f"{path}.npz")
+
+        subshells = [
+            Subshell(n=s[0], kappa=s[1], occupation=s[2], label=s[3])
+            for s in meta["subshells"]
+        ]
+
+        orbitals_raw = {}
+        for kappa_str, count in meta["orbitals_index"].items():
+            kappa = int(kappa_str)
+            orb_list = []
+            for i in range(count):
+                P = data[f"P_{kappa}_{i}"]
+                Q = data[f"Q_{kappa}_{i}"]
+                # Find occupation from subshells
+                occ = 0.0
+                for sh in subshells:
+                    if sh.kappa == kappa:
+                        occ = sh.occupation
+                        break
+                orb_list.append((P, Q, occ))
+            orbitals_raw[kappa] = orb_list
+
+        # Reconstruct bsp_data if grid params were saved
+        bsp_data = None
+        if "bsp_t" in data and "bsp_ks" in meta:
+            from atomx.bspline.basis import prepare_bspline_data
+            t = data["bsp_t"]
+            ks = meta["bsp_ks"]
+            ns = len(t) - ks
+            kb = meta.get("bsp_ksp", ks) != ks
+            bsp_data = prepare_bspline_data(t, ns, ks, kinetic_balance=kb)
+
+        return cls(
+            converged=meta["converged"],
+            iterations=meta["iterations"],
+            residual=meta["residual"],
+            total_energy=meta["total_energy"],
+            orbital_energies=meta["orbital_energies"],
+            subshells=subshells,
+            energy_components=meta.get("energy_components", {}),
+            orbitals_raw=orbitals_raw,
+            _theory_level=meta.get("theory_level"),
+            _method_name=meta.get("method_name"),
+            _bsp_data=bsp_data,
+        )
+
+
 def _eval_bspline_on_grid(coeffs, bsp_data, component="p"):
     """Evaluate B-spline expansion on the quadrature grid.
 

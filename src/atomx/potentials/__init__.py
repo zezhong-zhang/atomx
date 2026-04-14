@@ -1,5 +1,12 @@
-"""Alternative potential models for speed/accuracy tradeoffs.
+"""Atomic potentials: nuclear charge models and starting approximations.
 
-Provides Thomas-Fermi-Dirac-Amaldi, parametric, and optimized
-effective potentials as alternatives to the standard HF exchange.
+Nuclear models (potentials.nuclear):
+    point, Fermi distribution, uniform sphere
+
+Starting potentials:
+    TFDA (Thomas-Fermi-Dirac-Amaldi) — fast approximate, no SCF needed
+    GSZ (Green-Sellin-Zachor) — parametric effective potential
+
+Note: The self-consistent Hartree (Coulomb) and exchange potentials are
+computed dynamically within the SCF loop via bspline.evaluate.compute_yk().
 """

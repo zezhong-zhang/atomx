@@ -22,20 +22,8 @@ from atomx.bspline.integrals import (
 )
 
 
-def _build_knot_sequence(t_master, ks_master, ns_master, k_target):
-    """Build knot sequence for order k_target from master knot sequence.
-
-    Same interior knots, different boundary multiplicity.
-    """
-    nv = ns_master - ks_master + 1
-    n_target = nv + k_target - 1
-    interior = t_master[ks_master:ns_master]  # interior knots
-
-    t_new = np.zeros(n_target + k_target)
-    t_new[:k_target] = t_master[0]         # boundary: k_target copies
-    t_new[k_target:k_target + len(interior)] = interior
-    t_new[n_target:] = t_master[ns_master]  # boundary: k_target copies of r_max
-    return t_new, n_target
+# Re-export for backward compatibility (moved to bspline.basis)
+from atomx.bspline.basis import prepare_bspline_data, _build_knot_sequence  # noqa: F401
 
 
 def build_dirac_matrices(ns, kappa, Z, bspline_data, nuclear_potential_func=None):
@@ -114,70 +102,3 @@ def build_dirac_matrices(ns, kappa, Z, bspline_data, nuclear_potential_func=None
     return H, S
 
 
-def prepare_bspline_data(t, ns, ks, n_gauss=None, kinetic_balance=False):
-    """Prepare all B-spline data for Dirac matrix assembly.
-
-    Parameters
-    ----------
-    t : ndarray, shape (ns + ks,)
-        Knot sequence (for the full ks order).
-    ns : int
-        Number of B-splines.
-    ks : int
-        B-spline order.
-    n_gauss : int, optional
-    kinetic_balance : bool
-        If True, use ksp=ks-1 for P, ksq=ks for Q (eliminates spurious states).
-    """
-    from atomx.bspline.basis import setup_gauss_points, evaluate_bsplines_on_grid
-
-    nv = ns - ks + 1
-    gr, grw = setup_gauss_points(t, ns, ks, n_gauss)
-
-    if kinetic_balance:
-        ksp = ks - 1
-        ksq = ks
-    else:
-        ksp = ks
-        ksq = ks
-
-    nsp = nv + ksp - 1
-    nsq = nv + ksq - 1  # = ns when ksq = ks
-
-    # Evaluate Q-component B-splines (full order ksq = ks)
-    bsp_q_full = evaluate_bsplines_on_grid(t, nsq, ksq, gr, nderiv=2)
-    bsp_q = bsp_q_full[:, :, :ksq, 0]
-    bsp_q_d = bsp_q_full[:, :, :ksq, 1]
-
-    tp = t  # default: same knot sequence for P and Q
-    if ksp == ksq:
-        # Same order: share B-spline arrays
-        bsp_p = bsp_q.copy()
-        bsp_p_d = bsp_q_d.copy()
-    else:
-        # RKB: build separate P-component B-splines on dedicated knot sequence
-        tp, nsp_check = _build_knot_sequence(t, ks, ns, ksp)
-        assert nsp_check == nsp
-        bsp_p_full = evaluate_bsplines_on_grid(tp, nsp, ksp, gr, nderiv=2)
-        bsp_p = bsp_p_full[:, :, :ksp, 0]
-        bsp_p_d = bsp_p_full[:, :, :ksp, 1]
-
-    ns_full = max(nsp, nsq)
-
-    return {
-        "nv": nv,
-        "ks": ks,
-        "ksp": ksp,
-        "ksq": ksq,
-        "nsp": nsp,
-        "nsq": nsq,
-        "gr": gr,
-        "grw": grw,
-        "bsp_p": bsp_p,
-        "bsp_q": bsp_q,
-        "bsp_q_d": bsp_q_d,
-        "bsp_p_d": bsp_p_d,
-        "t": t,
-        "tp": tp,      # P-component knot sequence (differs from t when KB active)
-        "ns": ns_full,  # max(nsp, nsq) for backward compatibility
-    }
