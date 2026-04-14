@@ -232,7 +232,10 @@ class Atom:
                 solver.ns = ns_phys
                 solver._precompute()
 
-            self._result = solver.solve(max_iter=max_iter, tol=tol)
+            # f-electron systems (lanthanides/actinides) need more iterations
+            has_f = any(sh.l >= 3 for sh in subshells)
+            effective_max_iter = max(max_iter, 120) if has_f else max_iter
+            self._result = solver.solve(max_iter=effective_max_iter, tol=tol)
             self._bsp_data = solver.bsp_data
 
         return self

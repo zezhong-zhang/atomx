@@ -61,6 +61,12 @@ def _diis_extrapolate(orb_history, err_history):
             B[i, j] = np.dot(err_history[i], err_history[j])
             B[j, i] = B[i, j]
 
+    # Tikhonov regularization for numerical stability
+    diag_mean = np.mean(np.abs(np.diag(B[:n, :n])))
+    if diag_mean > 0:
+        for i in range(n):
+            B[i, i] += 1e-12 * diag_mean
+
     # Lagrange constraint row/col
     B[:n, n] = -1.0
     B[n, :n] = -1.0
@@ -79,7 +85,7 @@ def _diis_extrapolate(orb_history, err_history):
 
     # Check for reasonable coefficients
     coeffs = c[:n]
-    if np.any(np.abs(coeffs) > 10.0):
+    if np.any(np.abs(coeffs) > 5.0):
         return None
 
     # Construct extrapolated vector
@@ -1241,7 +1247,10 @@ class DFSolver:
         """
         if damping is None:
             has_f = any(sh.l >= 3 for sh in self.subshells)
-            damping = 0.3 if has_f else 0.0
+            if has_f:
+                damping = 0.3   # f-electrons need damping to avoid oscillation
+            else:
+                damping = 0.0
 
         ns = self.ns
 
@@ -1410,12 +1419,14 @@ class DFSolver:
                         max_orb_change = max(max_orb_change, change)
 
                     # Damping: mix new eigenvector with old
+                    # alpha = fraction of new orbital to keep
                     if damping > 0 and iteration > 1 and p_max > 1e-15:
                         alpha = 1.0 - damping
-                        if residual < 0.1:
-                            alpha = min(1.0, alpha + 0.3)
-                        if residual < 0.01:
-                            alpha = 1.0
+                        # Reduce damping as convergence progresses
+                        if residual < 1e-2:
+                            alpha = 1.0  # no damping: let it converge freely
+                        elif residual < 1e-1:
+                            alpha = min(1.0, alpha + 0.2)
                         P_mixed = alpha * P_new + (1.0 - alpha) * P_old
                         Q_mixed = alpha * Q_new + (1.0 - alpha) * Q_old
                         norm_new = np.sqrt(np.sum(P_new**2) + np.sum(Q_new**2))
@@ -1431,10 +1442,11 @@ class DFSolver:
                     orbital_energies[sh.label] = E_new
 
                 # --- DIIS extrapolation at end of iteration ---
-                # Only use DIIS for heavy atoms (5+ orbitals) where the
-                # iteration count is the main bottleneck.
+                # Accelerate convergence via Pulay DIIS on orbital vectors.
+                # Collect history always (for 5+ orbital systems after iter 4),
+                # but only extrapolate when residual is in a useful range.
                 n_orb = len(orbital_schedule)
-                use_diis = n_orb >= 5 and iteration >= 5
+                use_diis = n_orb >= 5 and iteration >= 4
                 if use_diis:
                     orb_vec = self._flatten_orbital_vector(orbitals, orbital_schedule, ns_full)
                     if len(diis_orb_history) > 0:
@@ -1446,9 +1458,10 @@ class DFSolver:
                     if len(diis_orb_history) > diis_max:
                         diis_orb_history.pop(0)
                         diis_err_history.pop(0)
-                    # Extrapolate only when well into convergence
+                    # Extrapolate: need 3+ history, moderate residual.
+                    # Stop DIIS below 1e-3 to let undamped iterations converge.
                     if (len(diis_err_history) >= 3
-                            and 1e-8 < max_orb_change < 0.1):
+                            and 1e-3 < max_orb_change < 0.3):
                         diis_vec = _diis_extrapolate(diis_orb_history, diis_err_history)
                         if diis_vec is not None:
                             self._unflatten_orbital_vector(
