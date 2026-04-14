@@ -3,20 +3,15 @@
 Performance-critical module — the exchange matrix computation is a single
 Numba kernel eliminating all Python-level loop overhead.
 
-Shared utilities (eval_orbital_on_grid, compute_yk, compute_slater_rk) have
-been extracted to bspline.evaluate and are re-exported here for compatibility.
+Shared utilities (eval_orbital_on_grid, compute_yk, compute_slater_rk)
+live in bspline.evaluate.
 """
 
 import numpy as np
 import numba as nb
 
-# Re-export shared utilities (moved to bspline.evaluate)
-from atomx.bspline.evaluate import (  # noqa: F401
-    _compute_yk_flat,
-    compute_yk,
-    eval_orbital_on_grid,
-    eval_P as _eval_P,
-    eval_Q as _eval_Q,
+from atomx.bspline.evaluate import (
+    compute_yk, eval_orbital_on_grid, eval_P as _eval_P, eval_Q as _eval_Q,
     compute_slater_rk,
 )
 

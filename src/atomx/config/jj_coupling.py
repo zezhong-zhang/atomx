@@ -5,8 +5,8 @@ generates all possible jj-coupled configurations where electrons are
 distributed among the j- (kappa=+l) and j+ (kappa=-(l+1)) subshells,
 then computes the weighted average occupations.
 
-With equal weights (eal=1): each integer distribution has weight 1.
-With statistical weights (eal=5): weight = product of binomial coefficients C(2j+1, q_j).
+With equal averaging: each integer distribution has weight 1.
+With statistical averaging: weight = product of binomial coefficients C(2j+1, q_j).
 
 The WW function (generalized product of occupations) is also computed
 for use in the av_energy_coef formula.
@@ -29,16 +29,21 @@ class JJConfig:
     weight: float              # statistical weight
 
 
-def generate_jj_average(config_str: str, eal: int = 1) -> Tuple[List[Subshell], List[JJConfig]]:
+def generate_jj_average(config_str: str, eal: int = 1,
+                        averaging: str = None) -> Tuple[List[Subshell], List[JJConfig]]:
     """Generate jj-average subshells from a non-relativistic configuration string.
 
     Parameters
     ----------
     config_str : str
         e.g., "1s2 2s2 2p2"
+    averaging : str
+        "equal" or "statistical" (default: "statistical").
+        - "equal": each jj-configuration has equal weight.
+        - "statistical": weight by (2j+1) degeneracy (recommended).
     eal : int
-        1 = equal weights (DBSR_HF default),
-        5 = statistical weights (2j+1 degeneracy)
+        Legacy parameter. 1 = equal, 5 = statistical.
+        Ignored if ``averaging`` is set.
 
     Returns
     -------
@@ -48,6 +53,10 @@ def generate_jj_average(config_str: str, eal: int = 1) -> Tuple[List[Subshell], 
     configs : list of JJConfig
         All individual jj-configurations with their weights.
     """
+    # Map averaging parameter to internal eal flag
+    if averaging is not None:
+        eal = {"equal": 1, "statistical": 5}[averaging]
+
     l_map = {'s': 0, 'p': 1, 'd': 2, 'f': 3, 'g': 4, 'h': 5}
 
     # Parse into non-relativistic shells
@@ -186,7 +195,7 @@ def compute_energy_coefficients(subshells: List[Subshell],
 
     These already include the occupation factors (WW).
     """
-    from atomx.scf.angular_coeffs import exchange_lambda
+    from atomx.angular.coefficients import exchange_lambda
 
     nbf = len(subshells)
     direct = {}

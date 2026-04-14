@@ -179,8 +179,3 @@ class TheoryLevel(Enum):
     DIRAC_FOCK_BREIT = 6
     DIRAC_FOCK_QED = 7
     MCDHF = 8
-
-    # Backward compat aliases
-    HARTREE_FOCK_REL = 3
-    DHF_BREIT = 6
-    DHF_QED = 7

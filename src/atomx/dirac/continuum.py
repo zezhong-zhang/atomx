@@ -20,8 +20,9 @@ import numpy as np
 from scipy import linalg
 from atomx.constants import C, C_SQ, ALPHA, HARTREE_EV
 from atomx.bspline.knots import make_knots
-from atomx.dirac.matrix import prepare_bspline_data, build_dirac_matrices
-from atomx.scf.slater import eval_orbital_on_grid
+from atomx.bspline.basis import prepare_bspline_data
+from atomx.dirac.matrix import build_dirac_matrices
+from atomx.bspline.evaluate import eval_orbital_on_grid
 
 
 def solve_continuum(kappa, energy, Z, bsp_data, V_scf_PP=None, V_scf_QQ=None):

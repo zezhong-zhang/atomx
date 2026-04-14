@@ -137,11 +137,6 @@ class Wavefunctions:
         plt.show()
 
 
-# Backward-compatible aliases
-RadialOrbital = OrbitalWavefunction
-RadialWavefunctions = Wavefunctions
-
-
 @runtime_checkable
 class AtomicResult(Protocol):
     """Common interface for all atomic calculation results."""

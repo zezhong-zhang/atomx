@@ -280,27 +280,3 @@ def _make_uniform_potential(Z, A=None):
     return V_func
 
 
-# ── Legacy aliases ───────────────────────────────────────────────────
-
-def point_nucleus_potential(Z):
-    """V(r) = -Z/r."""
-    def V(r):
-        return -Z / r
-    return V
-
-
-def fermi_nucleus_potential(Z, A=None):
-    """Legacy alias for _make_fermi_potential."""
-    return _make_fermi_potential(Z, A)
-
-
-def uniform_sphere_potential(Z, A=None, R_nuc_au=None):
-    """Legacy alias for _make_uniform_potential."""
-    if R_nuc_au is not None:
-        R = R_nuc_au
-        def V(r):
-            if r <= R:
-                return -Z / (2.0 * R) * (3.0 - (r / R) ** 2)
-            return -Z / r
-        return V
-    return _make_uniform_potential(Z, A)

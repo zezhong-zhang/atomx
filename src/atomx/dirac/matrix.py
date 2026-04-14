@@ -22,10 +22,6 @@ from atomx.bspline.integrals import (
 )
 
 
-# Re-export for backward compatibility (moved to bspline.basis)
-from atomx.bspline.basis import prepare_bspline_data, _build_knot_sequence  # noqa: F401
-
-
 def build_dirac_matrices(ns, kappa, Z, bspline_data, nuclear_potential_func=None):
     """Assemble the Dirac Hamiltonian and overlap matrices.
 

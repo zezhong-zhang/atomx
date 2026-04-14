@@ -19,7 +19,7 @@ Reference:
 import numpy as np
 from scipy.optimize import minimize_scalar
 from atomx.bspline.integrals import _assemble_integral
-from atomx.scf.slater import eval_orbital_on_grid
+from atomx.bspline.evaluate import eval_orbital_on_grid
 
 
 def green_sellin_zachor(Z, N_electrons, r, d=None):

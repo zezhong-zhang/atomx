@@ -141,7 +141,3 @@ class BreitPauli(Method):
             energy_components=components,
             _equation="schrodinger",
         )
-
-
-# Alias
-RelativisticHartreeFock = BreitPauli

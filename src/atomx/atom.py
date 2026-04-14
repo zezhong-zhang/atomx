@@ -27,96 +27,7 @@ from atomx.constants import HARTREE_EV, HARTREE_CM1
 from atomx.scf.solver import DFSolver, Subshell, neon_subshells, argon_subshells
 
 
-# Standard ground-state configurations for Z=1..86
-# d/f shells use nonrelativistic notation (auto-split into j-1/2, j+1/2)
-_GROUND_CONFIGS = {
-    1:  "1s1",
-    2:  "1s2",
-    3:  "1s2 2s1",
-    4:  "1s2 2s2",
-    5:  "1s2 2s2 2p1",
-    6:  "1s2 2s2 2p2",
-    7:  "1s2 2s2 2p3",
-    8:  "1s2 2s2 2p4",
-    9:  "1s2 2s2 2p5",
-    10: "1s2 2s2 2p6",
-    11: "1s2 2s2 2p6 3s1",
-    12: "1s2 2s2 2p6 3s2",
-    13: "1s2 2s2 2p6 3s2 3p1",
-    14: "1s2 2s2 2p6 3s2 3p2",
-    15: "1s2 2s2 2p6 3s2 3p3",
-    16: "1s2 2s2 2p6 3s2 3p4",
-    17: "1s2 2s2 2p6 3s2 3p5",
-    18: "1s2 2s2 2p6 3s2 3p6",
-    19: "1s2 2s2 2p6 3s2 3p6 4s1",
-    20: "1s2 2s2 2p6 3s2 3p6 4s2",
-    21: "1s2 2s2 2p6 3s2 3p6 3d1 4s2",
-    22: "1s2 2s2 2p6 3s2 3p6 3d2 4s2",
-    23: "1s2 2s2 2p6 3s2 3p6 3d3 4s2",
-    24: "1s2 2s2 2p6 3s2 3p6 3d5 4s1",  # Cr exception
-    25: "1s2 2s2 2p6 3s2 3p6 3d5 4s2",
-    26: "1s2 2s2 2p6 3s2 3p6 3d6 4s2",
-    27: "1s2 2s2 2p6 3s2 3p6 3d7 4s2",
-    28: "1s2 2s2 2p6 3s2 3p6 3d8 4s2",
-    29: "1s2 2s2 2p6 3s2 3p6 3d10 4s1", # Cu exception
-    30: "1s2 2s2 2p6 3s2 3p6 3d10 4s2",
-    31: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p1",
-    32: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p2",
-    33: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p3",
-    34: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p4",
-    35: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p5",
-    36: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6",
-    37: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 5s1",
-    38: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 5s2",
-    39: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d1 5s2",
-    40: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d2 5s2",
-    41: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d4 5s1",
-    42: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d5 5s1",
-    43: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d5 5s2",
-    44: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d7 5s1",
-    45: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d8 5s1",
-    46: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10",
-    47: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1",
-    48: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2",
-    49: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p1",
-    50: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p2",
-    51: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p3",
-    52: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p4",
-    53: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5",
-    54: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6",
-    55: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 6s1",
-    56: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 6s2",
-    57: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 5d1 6s2",     # La
-    58: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f1 5d1 6s2", # Ce
-    59: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f3 6s2",     # Pr
-    60: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f4 6s2",     # Nd
-    61: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f5 6s2",     # Pm
-    62: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f6 6s2",     # Sm
-    63: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f7 6s2",     # Eu
-    64: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f7 5d1 6s2", # Gd
-    65: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f9 6s2",     # Tb
-    66: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f10 6s2",    # Dy
-    67: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f11 6s2",    # Ho
-    68: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f12 6s2",    # Er
-    69: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s2",    # Tm
-    70: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6s2",    # Yb
-    71: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d1 6s2",
-    72: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d2 6s2",
-    73: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d3 6s2",
-    74: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d4 6s2",
-    75: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d5 6s2",
-    76: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d6 6s2",
-    77: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d7 6s2",
-    78: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d9 6s1",
-    79: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s1",
-    80: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2",
-    81: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p1",
-    82: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p2",
-    83: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p3",
-    84: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p4",
-    85: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p5",
-    86: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6",
-}
+from atomx.config import ground_state_config
 
 
 class Atom:
@@ -199,8 +110,9 @@ class Atom:
             # Auto-generate correlation CSFs
             self._multi_config = True
             N_electrons = Z - charge
-            base_config = config or _GROUND_CONFIGS.get(N_electrons)
-            if base_config is None:
+            try:
+                base_config = config or ground_state_config(N_electrons)
+            except ValueError:
                 raise ValueError(f"No built-in config for {N_electrons} electrons.")
             from atomx.mcdhf.excitations import generate_sd_excitations, suggest_virtual_orbitals
             virtuals = suggest_virtual_orbitals(Z, n_virtual=1)
@@ -217,10 +129,7 @@ class Atom:
             self._multi_config = False
             if config is None:
                 N_electrons = Z - charge
-                config = _GROUND_CONFIGS.get(N_electrons)
-                if config is None:
-                    raise ValueError(f"No built-in config for {N_electrons} electrons. "
-                                     f"Provide config= explicitly.")
+                config = ground_state_config(N_electrons)
             self._config_strings = [config]
 
         # Results (populated after solve())
@@ -285,18 +194,18 @@ class Atom:
             )
         else:
             # B-spline DHF/DFS backend
-            # Use jj-average with statistical weights (eal=5) for DBSR_HF-compatible
+            # Use jj-average with statistical weights (averaging="statistical") for DBSR_HF-compatible
             # fractional occupations. This distributes electrons in open p/d/f shells
             # across j- and j+ subshells weighted by (2j+1) degeneracy.
-            from atomx.scf.jj_config import generate_jj_average
+            from atomx.config.jj_coupling import generate_jj_average
             subshells, self._jj_configs = generate_jj_average(
-                self._config_strings[0], eal=5)
+                self._config_strings[0], averaging="statistical")
             # Remove zero-occupation subshells (they add orbitals but slow SCF)
             # Keep configs aligned: filter configs to match
             kept_indices = [i for i, sh in enumerate(subshells) if sh.occupation > 1e-10]
             subshells = [subshells[i] for i in kept_indices]
             # Filter jj_configs to only include kept subshells
-            from atomx.scf.jj_config import JJConfig
+            from atomx.config.jj_coupling import JJConfig
             filtered_configs = []
             for c in self._jj_configs:
                 filtered_subs = [c.subshells[i] for i in kept_indices]
@@ -313,7 +222,7 @@ class Atom:
             # DBSR_HF-style semi-exponential grid (matched to nuclear model)
             if self._use_physics_grid:
                 from atomx.bspline.knots import make_physics_knots
-                from atomx.dirac.matrix import prepare_bspline_data
+                from atomx.bspline.basis import prepare_bspline_data
                 t_phys, ns_phys = make_physics_knots(
                     ks=self.ks, Z=self.Z, nuclear=self.nuclear)
                 data = prepare_bspline_data(t_phys, ns_phys, self.ks,
@@ -369,8 +278,8 @@ class Atom:
 
         if isinstance(method, DiracFock):
             # Use jj-average with statistical weights
-            from atomx.scf.jj_config import generate_jj_average, JJConfig
-            subshells, jj_configs = generate_jj_average(config_str, eal=5)
+            from atomx.config.jj_coupling import generate_jj_average, JJConfig
+            subshells, jj_configs = generate_jj_average(config_str, averaging="statistical")
             # Remove zero-occupation subshells
             kept = [i for i, sh in enumerate(subshells) if sh.occupation > 1e-10]
             subshells = [subshells[i] for i in kept]
@@ -558,15 +467,5 @@ class Atom:
 
 def _element_symbol(Z):
     """Element symbol from atomic number."""
-    syms = [
-        "", "H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne",
-        "Na", "Mg", "Al", "Si", "P", "S", "Cl", "Ar",
-        "K", "Ca", "Sc", "Ti", "V", "Cr", "Mn", "Fe", "Co", "Ni", "Cu", "Zn",
-        "Ga", "Ge", "As", "Se", "Br", "Kr",
-        "Rb", "Sr", "Y", "Zr", "Nb", "Mo", "Tc", "Ru", "Rh", "Pd", "Ag", "Cd",
-        "In", "Sn", "Sb", "Te", "I", "Xe",
-        "Cs", "Ba", "La", "Ce", "Pr", "Nd", "Pm", "Sm", "Eu", "Gd", "Tb", "Dy",
-        "Ho", "Er", "Tm", "Yb", "Lu", "Hf", "Ta", "W", "Re", "Os", "Ir", "Pt",
-        "Au", "Hg", "Tl", "Pb", "Bi", "Po", "At", "Rn",
-    ]
-    return syms[Z] if Z < len(syms) else f"Z{Z}"
+    from atomx.constants import element_symbol
+    return element_symbol(Z)

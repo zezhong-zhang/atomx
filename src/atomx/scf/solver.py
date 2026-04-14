@@ -16,17 +16,18 @@ from typing import List, Dict, Optional
 from atomx.constants import C, C_SQ
 from atomx.bspline.knots import make_knots
 from atomx.bspline.integrals import overlap_matrix, nuclear_matrix, _assemble_integral
-from atomx.dirac.matrix import build_dirac_matrices, prepare_bspline_data
+from atomx.dirac.matrix import build_dirac_matrices
+from atomx.bspline.basis import prepare_bspline_data
 from atomx.dirac.solver import solve_dirac
+from atomx.bspline.evaluate import compute_yk, eval_orbital_on_grid
 from atomx.scf.slater import (
-    compute_yk, eval_orbital_on_grid,
     compute_exchange_matrix, compute_slater_fk, compute_slater_gk,
 )
 from atomx.bspline.convol import (
     compute_slater_fk_cell, compute_slater_gk_cell,
     ConvolCache,
 )
-from atomx.scf.angular_coeffs import (
+from atomx.angular.coefficients import (
     exchange_coefficient, exchange_k_range, direct_coefficient,
 )
 
@@ -384,7 +385,7 @@ class DFSolver:
         self._log = log  # CalculationLog instance or None
 
         # Nuclear potential function (None = point nucleus -Z/r)
-        from atomx.nuclear import make_nuclear_potential
+        from atomx.potentials.nuclear import make_nuclear_potential
         self._nuclear_potential = make_nuclear_potential(Z, nuclear)
 
         self.t = make_knots(ns, ks, self.r_min, self.r_max)
@@ -429,7 +430,7 @@ class DFSolver:
           WW(i,j) = Σ_c w(c) * q_c(i) * q_c(j)
         """
         if self.jj_configs is not None:
-            from atomx.scf.jj_config import compute_WW
+            from atomx.config.jj_coupling import compute_WW
             return compute_WW(i, j, self.jj_configs)
         # Single-config with fractional occupations: q*(q-1) is correct
         qi = self.subshells[i].occupation
@@ -590,7 +591,7 @@ class DFSolver:
         - pqpq -> PQ off-diagonal block (cross-component exchange)
         - qpqp -> QP off-diagonal block (cross-component exchange)
         """
-        from atomx.scf.angular_coeffs import exchange_lambda
+        from atomx.angular.coefficients import exchange_lambda
         from atomx.bspline.convol import _density_full, _convol_case4
 
         ns = self.ns
@@ -699,7 +700,7 @@ class DFSolver:
         Uses cell-based convolution (rkb + icase=1) for consistency with
         the direct potential and exchange, avoiding Y^k/cell mismatch.
         """
-        from atomx.scf.angular_coeffs import exchange_lambda
+        from atomx.angular.coefficients import exchange_lambda
         from atomx.bspline.convol import _density_sym, _convol_case1, _banded_to_full_add
 
         bd = self.bsp_data
@@ -755,7 +756,7 @@ class DFSolver:
           same-shell:  q(q-1)/2 * [F^0(a,a) - Σ_{k>0} Lambda(k)/(2j*(2j+1)) * F^k(a,a)]
           cross-shell: q_a*q_b * [F^0(a,b) - Σ_k Lambda(k)/((2j_a+1)(2j_b+1)) * G^k(a,b)]
         """
-        from atomx.scf.angular_coeffs import exchange_lambda
+        from atomx.angular.coefficients import exchange_lambda
 
         orb_list = self._flatten_orbitals(orbitals)
         bsp_data = self.bsp_data
@@ -952,8 +953,8 @@ class DFSolver:
                 orbitals, orbital_energies)
             orb_list = self._flatten_orbitals(orbitals)
             if self.include_breit or self.include_qed:
-                from atomx.scf.breit import compute_breit_energy
-                from atomx.scf.qed import compute_qed_corrections
+                from atomx.corrections.breit import compute_breit_energy
+                from atomx.corrections.qed import compute_qed_corrections
                 if self.include_breit:
                     E_Breit = compute_breit_energy(orb_list, self.bsp_data, self.Z)
                     energy_components["E_Breit"] = E_Breit
@@ -1121,8 +1122,8 @@ class DFSolver:
         # QED and Breit corrections (perturbative, after SCF convergence)
         orb_list = self._flatten_orbitals(orbitals)
         if self.include_breit or self.include_qed:
-            from atomx.scf.breit import compute_breit_energy
-            from atomx.scf.qed import compute_qed_corrections
+            from atomx.corrections.breit import compute_breit_energy
+            from atomx.corrections.qed import compute_qed_corrections
 
             if self.include_breit:
                 E_Breit = compute_breit_energy(orb_list, self.bsp_data, self.Z)
