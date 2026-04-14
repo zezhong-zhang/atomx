@@ -306,7 +306,8 @@ class Atom:
                 from atomx.dirac.matrix import prepare_bspline_data
                 t_phys, ns_phys = make_physics_knots(
                     ks=self.ks, Z=self.Z, nuclear=self.nuclear)
-                data = prepare_bspline_data(t_phys, ns_phys, self.ks)
+                data = prepare_bspline_data(t_phys, ns_phys, self.ks,
+                                            kinetic_balance=True)
                 solver.t = t_phys
                 solver.bsp_data = data
                 solver.ns = ns_phys

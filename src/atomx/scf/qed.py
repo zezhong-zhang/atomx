@@ -74,19 +74,23 @@ def compute_vp_energy(orbitals, bsp_data, Z):
     from atomx.scf.slater import eval_orbital_on_grid
 
     nv = bsp_data["nv"]
-    ks = bsp_data["ks"]
     ns = bsp_data["ns"]
     gr = bsp_data["gr"]
     grw = bsp_data["grw"]
-    bsp = bsp_data["bsp_p"]
+    ksp = bsp_data.get("ksp", bsp_data["ks"])
+    ksq = bsp_data.get("ksq", bsp_data["ks"])
+    nsp = bsp_data.get("nsp", ns)
+    nsq = bsp_data.get("nsq", ns)
+    bsp_p = bsp_data["bsp_p"]
+    bsp_q = bsp_data.get("bsp_q", bsp_p)
 
     # VP potential on the grid
     V_vp = uehling_potential(gr, Z)
 
     E_VP = 0.0
     for P, Q, occ, kappa, label in orbitals:
-        fP = eval_orbital_on_grid(P, bsp, nv, ks, ns)
-        fQ = eval_orbital_on_grid(Q, bsp, nv, ks, ns)
+        fP = eval_orbital_on_grid(P, bsp_p, nv, ksp, nsp)
+        fQ = eval_orbital_on_grid(Q, bsp_q, nv, ksq, nsq)
         rho = fP * fP + fQ * fQ
         E_VP += occ * np.sum(grw * rho * V_vp)
 
@@ -214,14 +218,16 @@ def _overlap_ratio(P, Q, kappa, Z, n, bsp_data):
     from atomx.scf.slater import eval_orbital_on_grid
 
     nv = bsp_data["nv"]
-    ks = bsp_data["ks"]
     ns = bsp_data["ns"]
     gr = bsp_data["gr"]
     grw = bsp_data["grw"]
-    bsp = bsp_data["bsp_p"]
+    ksp = bsp_data.get("ksp", bsp_data["ks"])
+    ksq = bsp_data.get("ksq", bsp_data["ks"])
+    nsp = bsp_data.get("nsp", ns)
+    nsq = bsp_data.get("nsq", ns)
 
-    fP = eval_orbital_on_grid(P, bsp, nv, ks, ns)
-    fQ = eval_orbital_on_grid(Q, bsp, nv, ks, ns)
+    fP = eval_orbital_on_grid(P, bsp_data["bsp_p"], nv, ksp, nsp)
+    fQ = eval_orbital_on_grid(Q, bsp_data.get("bsp_q", bsp_data["bsp_p"]), nv, ksq, nsq)
     rho = fP * fP + fQ * fQ
 
     # SCF nuclear integral: ∫ ρ(r) * (-Z/r) dr

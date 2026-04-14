@@ -173,12 +173,15 @@ class DFSolver:
         """Get WW(i,j) — generalized occupation product for energy coefficients.
 
         With jj_configs: WW is the multi-configuration weighted average.
-        Without: WW(i,i) = q_i*(q_i-1), WW(i,j) = q_i*q_j.
+        Without: uses statistical weight formula for jj-average:
+          w(n-,n+) = C(2l,n-)*C(2l+2,n+) / C(4l+2, N)
+          WW(i,i) = Σ_c w(c) * q_c(i) * (q_c(i) - 1)
+          WW(i,j) = Σ_c w(c) * q_c(i) * q_c(j)
         """
         if self.jj_configs is not None:
             from atomx.scf.jj_config import compute_WW
             return compute_WW(i, j, self.jj_configs)
-        # Single-config fallback
+        # Single-config with fractional occupations: q*(q-1) is correct
         qi = self.subshells[i].occupation
         if i == j:
             return qi * (qi - 1.0)
@@ -218,23 +221,27 @@ class DFSolver:
             return self._build_direct_potential_yk(orbitals, target_kappa, target_idx)
 
         from atomx.bspline.convol import (
-            _build_rkb_sym, _density_sym, _convol_case1,
+            _build_rkb_sym, _density_sym, _convol_case1, _convol_case1_mixed,
         )
 
         bd = self.bsp_data
         ksp = bd.get("ksp", bd["ks"])
         ksq = bd.get("ksq", bd["ks"])
-        ns_full = bd["ns"]  # max(nsp, nsq) — DBSR_HF convention
+        ns_full = bd["ns"]
 
         if not hasattr(self, '_convol_cache'):
             self._convol_cache = ConvolCache(bd)
-        rkb_pp, ns_pp, ks_pp = self._convol_cache.get_rkb(0, "pppp")
-        rkb_qq, ns_qq, ks_qq = self._convol_cache.get_rkb(0, "qqqq")
+
+        # All 4 integral types for direct potential (DBSR_HF convention)
+        rkb_pp, _, _ = self._convol_cache.get_rkb(0, "pppp")
+        rkb_qq, _, _ = self._convol_cache.get_rkb(0, "qqqq")
+        rkb_pq, _, _ = self._convol_cache.get_rkb(0, "pqpq")
+        rkb_qp, _, _ = self._convol_cache.get_rkb(0, "qpqp")
 
         V_J_PP = np.zeros((ns_full, ns_full))
         V_J_QQ = np.zeros((ns_full, ns_full))
 
-        # Build flat index map: (kappa, orb_idx) -> subshell index
+        # Build flat index map
         flat_idx = {}
         idx = 0
         kappa_counter = {}
@@ -244,7 +251,6 @@ class DFSolver:
             flat_idx[(sh.kappa, orb_idx_local)] = idx
             idx += 1
 
-        # Target subshell index
         target_flat = flat_idx.get((target_kappa, target_idx), -1) if target_kappa is not None else -1
         target_q = self.subshells[target_flat].occupation if target_flat >= 0 else 1.0
 
@@ -252,15 +258,8 @@ class DFSolver:
             for orb_i, (P_b, Q_b, occ_b) in enumerate(orb_list):
                 j_flat = flat_idx.get((kappa, orb_i), -1)
                 if target_flat >= 0 and j_flat >= 0:
-                    # DBSR_HF Fock matrix coefficient:
-                    # c_direct = [a(i,j,0) * (2 if i==j else 1)] / qsum(i)
-                    # For self: coef = WW(i,i) / q_i
-                    # For other: coef = WW(i,j) / q_i
                     ww = self._get_WW(target_flat, j_flat)
-                    if target_flat == j_flat:
-                        coeff = ww / target_q  # includes self-subtraction implicitly
-                    else:
-                        coeff = ww / target_q
+                    coeff = ww / target_q
                 else:
                     coeff = occ_b
                     if target_kappa == kappa and target_idx == orb_i:
@@ -268,25 +267,47 @@ class DFSolver:
                 if abs(coeff) < 1e-10:
                     continue
 
-                # PP: density and convol use ns_full (DBSR_HF convention)
+                # DBSR_HF direct potential has 4 component contributions:
+                # PP block gets: pppp(P-density) + pqpq(Q-density)
+                # QQ block gets: qqqq(Q-density) + qpqp(P-density)
+
+                # pppp → PP: contract with P-density
                 d_P = _density_sym(P_b[:ns_full], P_b[:ns_full], ns_full, ksp)
-                v_banded = _convol_case1(rkb_pp, d_P, ns_full, ksp)
+                v_pp = _convol_case1(rkb_pp, d_P, ns_full, ksp)
                 for i in range(ns_full):
                     for s in range(ksp):
                         if i + s < ns_full:
-                            V_J_PP[i, i + s] += coeff * v_banded[i, s]
+                            V_J_PP[i, i + s] += coeff * v_pp[i, s]
                             if s > 0:
-                                V_J_PP[i + s, i] += coeff * v_banded[i, s]
+                                V_J_PP[i + s, i] += coeff * v_pp[i, s]
 
-                # QQ
+                # pqpq → PP: rkb(ns,ns,ksp,ksq), contract Q-density(ksq) → result(ksp)
                 d_Q = _density_sym(Q_b[:ns_full], Q_b[:ns_full], ns_full, ksq)
-                v_banded_q = _convol_case1(rkb_qq, d_Q, ns_full, ksq)
+                v_pq = _convol_case1_mixed(rkb_pq, d_Q, ns_full, ksp, ksq)
+                for i in range(ns_full):
+                    for s in range(ksp):
+                        if i + s < ns_full:
+                            V_J_PP[i, i + s] += coeff * v_pq[i, s]
+                            if s > 0:
+                                V_J_PP[i + s, i] += coeff * v_pq[i, s]
+
+                # qpqp → QQ: rkb(ns,ns,ksq,ksp), contract P-density(ksp) → result(ksq)
+                v_qp = _convol_case1_mixed(rkb_qp, d_P, ns_full, ksq, ksp)
                 for i in range(ns_full):
                     for s in range(ksq):
                         if i + s < ns_full:
-                            V_J_QQ[i, i + s] += coeff * v_banded_q[i, s]
+                            V_J_QQ[i, i + s] += coeff * v_qp[i, s]
                             if s > 0:
-                                V_J_QQ[i + s, i] += coeff * v_banded_q[i, s]
+                                V_J_QQ[i + s, i] += coeff * v_qp[i, s]
+
+                # qqqq → QQ: contract with Q-density
+                v_qq = _convol_case1(rkb_qq, d_Q, ns_full, ksq)
+                for i in range(ns_full):
+                    for s in range(ksq):
+                        if i + s < ns_full:
+                            V_J_QQ[i, i + s] += coeff * v_qq[i, s]
+                            if s > 0:
+                                V_J_QQ[i + s, i] += coeff * v_qq[i, s]
 
         return V_J_PP, V_J_QQ
 
@@ -819,9 +840,15 @@ class DFSolver:
                     Q_new = np.zeros(ns_full)
                     nsp_loc = result.nsp if hasattr(result, 'nsp') else ns_full
                     nsq_loc = result.nsq if hasattr(result, 'nsq') else ns_full
+                    # P occupies vec[0:nsp_loc], Q occupies vec[ns_full:ns_full+nsq_loc]
+                    # (NOT vec[nsp_loc:] — that would include the zero-padded P entry)
                     P_new[:nsp_loc] = vec[:nsp_loc]
-                    Q_new[:nsq_loc] = vec[nsp_loc:nsp_loc + nsq_loc]
+                    Q_new[:nsq_loc] = vec[ns_full:ns_full + nsq_loc]
                     E_new = result.eigenvalues[phys_idx]
+
+                    # NaN guard: skip if eigenvalue solver produced garbage
+                    if np.isnan(E_new) or np.any(np.isnan(vec)):
+                        continue
 
                     # Track orbital change
                     orb_list = orbitals.get(kappa, [])
