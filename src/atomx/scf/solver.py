@@ -131,120 +131,165 @@ class SCFResult:
 
 
     def save(self, path: str):
-        """Save result for later restart or analysis.
+        """Save result to HDF5 for restart or analysis.
 
-        Creates two files:
-        - ``{path}.npz`` — orbital coefficients and grid parameters
-        - ``{path}.json`` — metadata (energies, convergence, config)
+        Creates ``{path}.h5`` containing orbital coefficients, grid
+        parameters, energies, and all metadata in a self-describing format.
+
+        The file structure is::
+
+            /metadata/           — convergence, method, theory level
+            /energies/           — total, orbital, components
+            /subshells/          — (n, kappa, occupation, label) for each
+            /orbitals/{label}/P  — large component coefficients
+            /orbitals/{label}/Q  — small component coefficients
+            /basis/t             — knot sequence (for grid reconstruction)
 
         Parameters
         ----------
         path : str
-            Base path (without extension).
+            Output path (without extension; ``.h5`` is appended).
         """
-        import json
+        import h5py
 
-        # Collect orbital arrays
-        arrays = {}
-        for kappa, orb_list in self.orbitals_raw.items():
-            for i, (P, Q, occ) in enumerate(orb_list):
-                arrays[f"P_{kappa}_{i}"] = P
-                arrays[f"Q_{kappa}_{i}"] = Q
+        filepath = f"{path}.h5" if not path.endswith(".h5") else path
+        with h5py.File(filepath, "w") as f:
+            f.attrs["atomx_version"] = "0.2.0"
+            f.attrs["format"] = "SCFResult"
 
-        # Save bsp_data grid params for reconstruction
-        if self._bsp_data:
-            arrays["bsp_t"] = self._bsp_data["t"]
-            if "tp" in self._bsp_data:
-                arrays["bsp_tp"] = self._bsp_data["tp"]
+            # Metadata
+            meta = f.create_group("metadata")
+            meta.attrs["converged"] = self.converged
+            meta.attrs["iterations"] = self.iterations
+            meta.attrs["residual"] = self.residual
+            if self._theory_level is not None:
+                meta.attrs["theory_level"] = self._theory_level
+            if self._method_name is not None:
+                meta.attrs["method_name"] = self._method_name
 
-        np.savez_compressed(f"{path}.npz", **arrays)
+            # Energies
+            eng = f.create_group("energies")
+            eng.attrs["total_energy_hartree"] = self.total_energy
+            for label, E in self.orbital_energies.items():
+                eng.attrs[f"orbital_{label}"] = E
+            comp = eng.create_group("components")
+            for key, val in self.energy_components.items():
+                comp.attrs[key] = val
 
-        # JSON metadata
-        meta = {
-            "converged": self.converged,
-            "iterations": self.iterations,
-            "residual": self.residual,
-            "total_energy": self.total_energy,
-            "orbital_energies": self.orbital_energies,
-            "energy_components": self.energy_components,
-            "subshells": [(s.n, s.kappa, s.occupation, s.label) for s in self.subshells],
-            "orbitals_index": {
-                str(kappa): len(orb_list)
-                for kappa, orb_list in self.orbitals_raw.items()
-            },
-            "theory_level": self._theory_level,
-            "method_name": self._method_name,
-        }
-        if self._bsp_data:
-            meta["bsp_ns"] = int(self._bsp_data["ns"])
-            meta["bsp_ks"] = int(self._bsp_data["ks"])
-            meta["bsp_ksp"] = int(self._bsp_data.get("ksp", self._bsp_data["ks"]))
+            # Subshells (use safe keys — labels like "2p3/2" contain "/")
+            sub = f.create_group("subshells")
+            n_sub = len(self.subshells)
+            sub.attrs["count"] = n_sub
+            sub.create_dataset("n", data=[sh.n for sh in self.subshells])
+            sub.create_dataset("kappa", data=[sh.kappa for sh in self.subshells])
+            sub.create_dataset("occupation", data=[sh.occupation for sh in self.subshells])
+            labels = [sh.label for sh in self.subshells]
+            sub.create_dataset("label", data=labels)
 
-        with open(f"{path}.json", "w") as f:
-            json.dump(meta, f, indent=2)
+            # Orbital coefficients (keyed by safe index)
+            orb_grp = f.create_group("orbitals")
+            for i, sh in enumerate(self.subshells):
+                orb_list = self.orbitals_raw.get(sh.kappa, [])
+                idx = sh.n - 1 - sh.l
+                if idx < len(orb_list):
+                    P, Q, occ = orb_list[idx]
+                    g = orb_grp.create_group(f"orb_{i}")
+                    g.create_dataset("P", data=P, compression="gzip")
+                    g.create_dataset("Q", data=Q, compression="gzip")
+                    g.attrs["n"] = sh.n
+                    g.attrs["kappa"] = sh.kappa
+                    g.attrs["occupation"] = occ
+                    g.attrs["label"] = sh.label
+
+            # Basis parameters (for grid reconstruction)
+            if self._bsp_data:
+                basis = f.create_group("basis")
+                basis.create_dataset("t", data=self._bsp_data["t"])
+                basis.attrs["ks"] = int(self._bsp_data["ks"])
+                basis.attrs["ksp"] = int(self._bsp_data.get("ksp",
+                                         self._bsp_data["ks"]))
+                if "tp" in self._bsp_data:
+                    basis.create_dataset("tp", data=self._bsp_data["tp"])
 
     @classmethod
     def load(cls, path: str) -> "SCFResult":
-        """Load a previously saved result.
+        """Load a previously saved HDF5 result.
 
         Parameters
         ----------
         path : str
-            Base path (without extension). Reads {path}.npz and {path}.json.
+            Path to ``.h5`` file (extension optional).
 
         Returns
         -------
         SCFResult
+            Fully reconstructed result with bsp_data for downstream use.
         """
-        import json
+        import h5py
 
-        with open(f"{path}.json") as f:
-            meta = json.load(f)
+        filepath = f"{path}.h5" if not path.endswith(".h5") else path
+        with h5py.File(filepath, "r") as f:
+            meta = f["metadata"]
+            converged = bool(meta.attrs["converged"])
+            iterations = int(meta.attrs["iterations"])
+            residual = float(meta.attrs["residual"])
+            theory_level = meta.attrs.get("theory_level")
+            method_name = meta.attrs.get("method_name")
 
-        data = np.load(f"{path}.npz")
+            eng = f["energies"]
+            total_energy = float(eng.attrs["total_energy_hartree"])
+            orbital_energies = {
+                k.replace("orbital_", ""): float(v)
+                for k, v in eng.attrs.items()
+                if k.startswith("orbital_")
+            }
+            energy_components = dict(eng["components"].attrs) if "components" in eng else {}
 
-        subshells = [
-            Subshell(n=s[0], kappa=s[1], occupation=s[2], label=s[3])
-            for s in meta["subshells"]
-        ]
+            sub_grp = f["subshells"]
+            n_arr = sub_grp["n"][:]
+            kappa_arr = sub_grp["kappa"][:]
+            occ_arr = sub_grp["occupation"][:]
+            label_arr = [s.decode() if isinstance(s, bytes) else s
+                         for s in sub_grp["label"][:]]
+            subshells = [
+                Subshell(n=int(n_arr[i]), kappa=int(kappa_arr[i]),
+                         occupation=float(occ_arr[i]), label=label_arr[i])
+                for i in range(len(n_arr))
+            ]
 
-        orbitals_raw = {}
-        for kappa_str, count in meta["orbitals_index"].items():
-            kappa = int(kappa_str)
-            orb_list = []
-            for i in range(count):
-                P = data[f"P_{kappa}_{i}"]
-                Q = data[f"Q_{kappa}_{i}"]
-                # Find occupation from subshells
-                occ = 0.0
-                for sh in subshells:
-                    if sh.kappa == kappa:
-                        occ = sh.occupation
-                        break
-                orb_list.append((P, Q, occ))
-            orbitals_raw[kappa] = orb_list
+            orbitals_raw = {}
+            if "orbitals" in f:
+                for key in sorted(f["orbitals"].keys()):
+                    g = f["orbitals"][key]
+                    kappa = int(g.attrs["kappa"])
+                    P = g["P"][:]
+                    Q = g["Q"][:]
+                    occ = float(g.attrs["occupation"])
+                    if kappa not in orbitals_raw:
+                        orbitals_raw[kappa] = []
+                    orbitals_raw[kappa].append((P, Q, occ))
 
-        # Reconstruct bsp_data if grid params were saved
-        bsp_data = None
-        if "bsp_t" in data and "bsp_ks" in meta:
-            from atomx.bspline.basis import prepare_bspline_data
-            t = data["bsp_t"]
-            ks = meta["bsp_ks"]
-            ns = len(t) - ks
-            kb = meta.get("bsp_ksp", ks) != ks
-            bsp_data = prepare_bspline_data(t, ns, ks, kinetic_balance=kb)
+            bsp_data = None
+            if "basis" in f:
+                from atomx.bspline.basis import prepare_bspline_data
+                t = f["basis"]["t"][:]
+                ks = int(f["basis"].attrs["ks"])
+                ksp = int(f["basis"].attrs.get("ksp", ks))
+                ns = len(t) - ks
+                bsp_data = prepare_bspline_data(
+                    t, ns, ks, kinetic_balance=(ksp != ks))
 
         return cls(
-            converged=meta["converged"],
-            iterations=meta["iterations"],
-            residual=meta["residual"],
-            total_energy=meta["total_energy"],
-            orbital_energies=meta["orbital_energies"],
+            converged=converged,
+            iterations=iterations,
+            residual=residual,
+            total_energy=total_energy,
+            orbital_energies=orbital_energies,
             subshells=subshells,
-            energy_components=meta.get("energy_components", {}),
+            energy_components=energy_components,
             orbitals_raw=orbitals_raw,
-            _theory_level=meta.get("theory_level"),
-            _method_name=meta.get("method_name"),
+            _theory_level=theory_level,
+            _method_name=method_name,
             _bsp_data=bsp_data,
         )
 
@@ -303,7 +348,8 @@ class DFSolver:
                  include_breit=False, include_qed=False,
                  nuclear="point",
                  starting_potential=None,
-                 jj_configs=None):
+                 jj_configs=None,
+                 log=None):
         """
         Parameters
         ----------
@@ -335,6 +381,7 @@ class DFSolver:
         self.nuclear = nuclear
         self.starting_potential = starting_potential
         self.N_electrons = sum(sh.occupation for sh in subshells)
+        self._log = log  # CalculationLog instance or None
 
         # Nuclear potential function (None = point nucleus -Z/r)
         from atomx.nuclear import make_nuclear_potential
@@ -937,6 +984,9 @@ class DFSolver:
             H0_cache[kappa] = H0
             S0_cache[kappa] = S0
 
+        if self._log:
+            self._log.scf_start()
+
         for iteration in range(1, max_iter + 1):
             max_orb_change = 0.0
 
@@ -1052,6 +1102,12 @@ class DFSolver:
                 energy_change = abs(E_total_quick - E_old) / max(abs(E_old), 1e-10)
             else:
                 energy_change = 1.0
+            if self._log:
+                self._log.scf_iteration(
+                    iteration, E_total_quick,
+                    delta_E=(E_total_quick - E_old) if iteration > 1 else 0.0,
+                    max_dp=max_orb_change)
+
             E_old = E_total_quick
             residual = max_orb_change
 

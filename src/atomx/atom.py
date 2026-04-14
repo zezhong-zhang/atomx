@@ -228,7 +228,7 @@ class Atom:
         self._mcdhf_result = None
         self._bsp_data = None
 
-    def solve(self, method=None, tol=1e-5, max_iter=40):
+    def solve(self, method=None, tol=1e-5, max_iter=40, log=None):
         """Run an atomic structure calculation.
 
         Parameters
@@ -240,13 +240,17 @@ class Atom:
             Convergence tolerance.
         max_iter : int
             Maximum SCF iterations.
+        log : str or bool or None
+            Calculation log output.  If a string, writes to that file path.
+            If True, writes to ``"{element}_{method}.log"``.
+            If None/False, no log file.
 
         Returns
         -------
         self (for chaining), or AtomicResult if method is provided.
         """
         if method is not None:
-            return self._solve_method(method, tol, max_iter)
+            return self._solve_method(method, tol, max_iter, log=log)
 
         if self._multi_config:
             from atomx.mcdhf.config import make_csf_list
@@ -324,14 +328,31 @@ class Atom:
 
         return self
 
-    def _solve_method(self, method, tol, max_iter):
+    def _solve_method(self, method, tol, max_iter, log=None):
         """Dispatch to a theory-level method object."""
         from atomx.methods.base import Method
         from atomx.methods.hydrogenic import HydrogenicSchrodinger, HydrogenicDirac
         from atomx.methods.hartree_fock import HartreeFock
-        from atomx.methods.relativistic_hf import RelativisticHartreeFock
+        from atomx.methods.relativistic_hf import BreitPauli
         from atomx.methods.dirac_fock import DiracFock
         from atomx.methods.mcdhf import MCDHF
+
+        # Set up logging
+        calc_log = None
+        if log:
+            from atomx.log import CalculationLog
+            if isinstance(log, str):
+                log_path = log
+            else:
+                sym = _element_symbol(self.Z)
+                log_path = f"{sym}_Z{self.Z}_{method.name}.log"
+            calc_log = CalculationLog(log_path, verbose=False)
+            calc_log.header(
+                Z=self.Z, config=self._config_strings[0],
+                method=method.name,
+                nuclear=method.nuclear.value,
+                theory_level=method.theory_level.name,
+            )
 
         # Parse configuration into subshells
         from atomx.mcdhf.config import _parse_config_string
@@ -342,7 +363,7 @@ class Atom:
             return method.solve(self.Z, subshells_raw,
                                 tol=tol, max_iter=max_iter)
 
-        if isinstance(method, (HartreeFock, RelativisticHartreeFock)):
+        if isinstance(method, (HartreeFock, BreitPauli)):
             return method.solve(self.Z, subshells_raw,
                                 tol=tol, max_iter=max_iter)
 
@@ -357,9 +378,13 @@ class Atom:
                 JJConfig(subshells=[c.subshells[i] for i in kept], weight=c.weight)
                 for c in jj_configs
             ]
-            return method.solve(
+            result = method.solve(
                 self.Z, subshells, tol=tol, max_iter=max_iter,
-                jj_configs=jj_configs)
+                jj_configs=jj_configs, log=calc_log)
+            if calc_log:
+                calc_log.converged(result)
+                calc_log.close()
+            return result
 
         if isinstance(method, MCDHF):
             return method.solve(

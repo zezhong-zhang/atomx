@@ -50,7 +50,8 @@ class DiracFock(Method):
         return TheoryLevel.DIRAC_HARTREE_FOCK
 
     def solve(self, Z, subshells, tol=1e-5, max_iter=40,
-              jj_configs=None, use_physics_grid=True, ns=113, **kwargs):
+              jj_configs=None, use_physics_grid=True, ns=113,
+              log=None, **kwargs):
         """Run Dirac-Fock SCF calculation."""
         from atomx.scf.solver import DFSolver
 
@@ -66,7 +67,8 @@ class DiracFock(Method):
             include_qed=self.qed,
             nuclear=self.nuclear.value,
             starting_potential=starting,
-            jj_configs=jj_configs)
+            jj_configs=jj_configs,
+            log=log)
 
         if use_physics_grid:
             from atomx.bspline.knots import make_physics_knots
@@ -79,6 +81,8 @@ class DiracFock(Method):
             solver.bsp_data = data
             solver.ns = ns_phys
             solver._precompute()
+            if log:
+                log.basis_info(data)
 
         result = solver.solve(max_iter=max_iter, tol=tol)
         result._theory_level = self.theory_level.value
