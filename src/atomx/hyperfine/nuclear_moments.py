@@ -42,6 +42,15 @@ class NuclearMoment:
         Electric quadrupole moment in barns (10⁻²⁴ cm²).  Zero for I ≤ 1/2.
     name : str
         Human-readable label, e.g. ``"Cs-133"``.
+    mass_u : float
+        Atomic mass in unified atomic-mass units (1 u = 1/12 ¹²C mass).
+        When zero (default) :meth:`mass_me` falls back to
+        ``A × m_p/m_e``, adequate for isotope-shift estimates to ~0.1 %.
+    r_rms_fm : float
+        Nuclear charge RMS radius in femtometres (Angeli–Marinova 2013
+        tabulation for light isotopes; empirical ``0.836 A^(1/3) + 0.570``
+        for heavier).  When zero, callers should use
+        :func:`atomx.potentials.nuclear._get_rrms_fm` as a fallback.
     """
 
     Z: int
@@ -50,6 +59,8 @@ class NuclearMoment:
     mu_I: float
     Q: float
     name: str
+    mass_u: float = 0.0
+    r_rms_fm: float = 0.0
 
     @property
     def g_I(self) -> float:
@@ -57,6 +68,23 @@ class NuclearMoment:
         if self.I == 0:
             return 0.0
         return self.mu_I / self.I
+
+    @property
+    def mass_me(self) -> float:
+        """Nuclear (not atomic) mass in electron-mass units.
+
+        If ``mass_u`` is set, uses the atomic mass minus Z electron masses
+        (nuclear mass = atomic mass − Z × m_e in energy-equivalent terms,
+        but in u × PROTON_ELECTRON_MASS_RATIO for our purposes, with the
+        Z × 1 electron-mass subtraction small).  Otherwise the simple
+        ``A × m_p/m_e`` proxy is used.
+        """
+        from atomx.constants import PROTON_ELECTRON_MASS_RATIO
+        if self.mass_u > 0:
+            # 1 u ≈ 1822.888 m_e.  Subtract Z electrons.
+            U_IN_ME = 1822.888486209
+            return self.mass_u * U_IN_ME - self.Z
+        return self.A * PROTON_ELECTRON_MASS_RATIO
 
 
 # ---------------------------------------------------------------------------
@@ -66,9 +94,13 @@ class NuclearMoment:
 
 NUCLEAR_MOMENTS: Dict[Tuple[int, int], NuclearMoment] = {
     # (Z, A): NuclearMoment
-    (1, 1):   NuclearMoment(Z=1,  A=1,   I=0.5, mu_I=+2.7928474,  Q=0.0,    name="H-1"),
-    (1, 2):   NuclearMoment(Z=1,  A=2,   I=1.0, mu_I=+0.857438,   Q=+0.0028,name="H-2 (D)"),
-    (2, 3):   NuclearMoment(Z=2,  A=3,   I=0.5, mu_I=-2.127625,   Q=0.0,    name="He-3"),
+    # Precision isotopes (with atomic mass) for isotope-shift work
+    (1, 1):   NuclearMoment(Z=1,  A=1,   I=0.5, mu_I=+2.7928474,  Q=0.0,
+                            mass_u=1.00782503207, r_rms_fm=0.8783, name="H-1"),
+    (1, 2):   NuclearMoment(Z=1,  A=2,   I=1.0, mu_I=+0.857438,   Q=+0.0028,
+                            mass_u=2.01410177812, r_rms_fm=2.1421, name="H-2 (D)"),
+    (2, 3):   NuclearMoment(Z=2,  A=3,   I=0.5, mu_I=-2.127625,   Q=0.0,
+                            mass_u=3.01602932197, r_rms_fm=1.9661, name="He-3"),
     (3, 6):   NuclearMoment(Z=3,  A=6,   I=1.0, mu_I=+0.822047,   Q=-0.000806, name="Li-6"),
     (3, 7):   NuclearMoment(Z=3,  A=7,   I=1.5, mu_I=+3.256427,   Q=-0.0406,name="Li-7"),
     (4, 9):   NuclearMoment(Z=4,  A=9,   I=1.5, mu_I=-1.17749,    Q=+0.0529,name="Be-9"),

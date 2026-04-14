@@ -493,6 +493,139 @@ class SCFResult:
             B_MHz=B_MHz_final,
         )
 
+    # ------------------------------------------------------------------
+    # Isotope shifts (NMS + field shift)
+    # ------------------------------------------------------------------
+
+    def mass_shift_NMS(self, isotope=None):
+        """Normal mass shift of the *total energy* for a given isotope.
+
+        Parameters
+        ----------
+        isotope : tuple(int, int) or None
+            ``(Z, A)`` isotope specifier; defaults to the element's
+            standard isotope.
+
+        Returns
+        -------
+        atomx.isotope.MassShift
+        """
+        from atomx.hyperfine import nuclear_moment
+        from atomx.isotope import normal_mass_shift
+
+        if isotope is not None:
+            z, a = isotope
+            mom = nuclear_moment(z, a)
+        elif self.Z is not None:
+            mom = nuclear_moment(self.Z)
+        else:
+            raise ValueError(
+                "Cannot infer isotope: pass (Z, A) via the `isotope` argument."
+            )
+
+        return normal_mass_shift(
+            total_energy=self.total_energy,
+            mass_me=mom.mass_me,
+            isotope_label=mom.name,
+        )
+
+    def field_shift_parameter(self, orbitals=None):
+        """Per-orbital Seltzer field-shift factor F_a.
+
+        Parameters
+        ----------
+        orbitals : list of str, optional
+            Restrict to these orbital labels.  Default = every orbital.
+
+        Returns
+        -------
+        atomx.isotope.FieldShiftParameter
+        """
+        from atomx.isotope import field_shift_factor_per_orbital
+
+        if self._bsp_data is None or not self.orbitals_raw:
+            raise RuntimeError(
+                "Field-shift calculation requires retained orbitals; "
+                "re-run solve()."
+            )
+        if self.Z is None:
+            raise ValueError("SCFResult.Z is None — cannot evaluate F.")
+
+        orb_list = []
+        for sh in self.subshells:
+            obl = self.orbitals_raw.get(sh.kappa, [])
+            idx = sh.n - 1 - sh.l
+            if idx < len(obl):
+                P, Q, _occ = obl[idx]
+                if orbitals is None or sh.label in orbitals:
+                    orb_list.append((P, Q, sh.occupation, sh.kappa, sh.label))
+
+        return field_shift_factor_per_orbital(orb_list, self._bsp_data, self.Z)
+
+    def isotope_shift(self, isotope_a, isotope_b):
+        """Isotope shift between two isotopes for this atomic level.
+
+        Parameters
+        ----------
+        isotope_a, isotope_b : tuple(int, int)
+            ``(Z, A)`` identifiers; must share the same Z.
+
+        Returns
+        -------
+        atomx.isotope.IsotopeShiftResult
+            ``δν^{A,B} = ν^A − ν^B`` with NMS + FS pieces separated.
+            SMS is zero (two-body operator, not yet implemented).
+        """
+        from atomx.hyperfine import nuclear_moment
+        from atomx.isotope import IsotopeShiftResult, normal_mass_shift
+
+        za, aa = isotope_a
+        zb, ab = isotope_b
+        if za != zb:
+            raise ValueError(
+                f"Both isotopes must have the same Z; got {za} and {zb}."
+            )
+        mom_a = nuclear_moment(za, aa)
+        mom_b = nuclear_moment(zb, ab)
+
+        # --- mass shift (NMS only) ------------------------------------
+        ms_a = normal_mass_shift(
+            self.total_energy, mom_a.mass_me, isotope_label=mom_a.name,
+        )
+        ms_b = normal_mass_shift(
+            self.total_energy, mom_b.mass_me, isotope_label=mom_b.name,
+        )
+        E_NMS_MHz = ms_a.E_NMS_MHz - ms_b.E_NMS_MHz
+
+        # --- field shift ---------------------------------------------
+        # δ⟨r²⟩ from tabulated r_rms (zero if unknown — then FS = 0)
+        r2_a = mom_a.r_rms_fm ** 2 if mom_a.r_rms_fm > 0 else 0.0
+        r2_b = mom_b.r_rms_fm ** 2 if mom_b.r_rms_fm > 0 else 0.0
+        delta_r2 = r2_a - r2_b
+
+        fs_par = self.field_shift_parameter()
+        E_FS_MHz = fs_par.total_F_MHz_per_fm2 * delta_r2
+        orbital_FS = {
+            lbl: F * delta_r2 for lbl, F in fs_par.F_MHz_per_fm2.items()
+        }
+
+        E_total_MHz = E_NMS_MHz + E_FS_MHz
+
+        return IsotopeShiftResult(
+            isotope_a=mom_a.name,
+            isotope_b=mom_b.name,
+            mass_me_a=mom_a.mass_me,
+            mass_me_b=mom_b.mass_me,
+            r_rms_fm_a=mom_a.r_rms_fm,
+            r_rms_fm_b=mom_b.r_rms_fm,
+            delta_r2_fm2=delta_r2,
+            E_NMS_MHz=E_NMS_MHz,
+            E_FS_MHz=E_FS_MHz,
+            E_SMS_MHz=0.0,
+            E_total_MHz=E_total_MHz,
+            orbital_FS_MHz=orbital_FS,
+        )
+
     def save(self, path: str):
         """Save result to HDF5 for restart or analysis.
 
