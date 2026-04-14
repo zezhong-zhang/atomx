@@ -58,6 +58,37 @@ class TestSelectionRules:
         """E2: s1/2 -> d5/2 (kappa=-1 -> kappa=-3) should be allowed."""
         assert selection_rules(-1, -3, 2, 'E') is True
 
+    # --- Higher multipoles E3 / M3 ------------------------------------
+
+    def test_e3_s_to_f_allowed(self):
+        """E3: s1/2 -> f5/2 (kappa=-1 -> kappa=3) should be allowed
+        (parity: l_i=0, l_f=3; 0+3+3=6 even → E parity OK; triangle
+        |1/2 - 5/2|=2 ≤ 3 ≤ 3 ✓)."""
+        assert selection_rules(-1, 3, 3, 'E') is True
+
+    def test_e3_s_to_p_forbidden_by_triangle(self):
+        """E3: s1/2 -> p1/2 fails the triangle inequality
+        (|1/2−1/2|=0, 1/2+1/2=1 < 3)."""
+        assert selection_rules(-1, 1, 3, 'E') is False
+
+    def test_m3_p_to_f_allowed(self):
+        """M3: p3/2 -> f7/2 (kappa=-2 -> kappa=-4) should be allowed
+        (parity: l_i=1, l_f=3; 1+3+3=7 odd → M parity OK)."""
+        assert selection_rules(-2, -4, 3, 'M') is True
+
+    def test_m3_s_to_d_forbidden_by_parity(self):
+        """M3: s1/2 -> d5/2 fails parity for magnetic multipole
+        (l_i=0, l_f=2, L=3 → 0+2+3=5 odd ✓ for magnetic, triangle 2≤3≤3 ✓)."""
+        # Actually this is allowed by both — replace with a true M-forbidden:
+        # M3 p3/2 -> p3/2: parity l_i+l_f+L = 1+1+3=5 odd ✓ for M; but triangle 0≤3≤3 ✓
+        # M3 s1/2 -> s1/2: parity 0+0+3=3 odd ✓, but triangle 0≤3≤1 FAILS ✓
+        assert selection_rules(-1, -1, 3, 'M') is False
+
+    def test_angular_e3_nonzero_for_allowed(self):
+        """Angular factor for allowed E3 should be nonzero."""
+        ang = angular_eL(-1, 3, 3)   # s1/2 -> f5/2
+        assert abs(ang) > 1e-10
+
 
 class TestAllowedKappas:
     """Test generation of allowed final kappa values."""

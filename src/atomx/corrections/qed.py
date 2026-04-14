@@ -2,13 +2,40 @@
 
 Both computed perturbatively from converged DHF orbitals.
 
-Vacuum polarization: Uehling potential V_VP(r) = -(2Zα)/(3πr) K_1(2r/λ_C)
-Self-energy: tabulated Mohr (1983) / Mohr-Kim (1992) values with orbital scaling.
+Vacuum polarization
+-------------------
+``V_VP(r) = -(2Zα)/(3π) K_1(2cr) / r`` — Uehling potential for a point
+nucleus.  Higher-order vacuum-polarization (Wichmann–Kroll, Källén–Sabry)
+will be added alongside this; see the roadmap.
+
+Self-energy
+-----------
+Dispatched through :mod:`atomx.corrections.qedmod`, which supports
+multiple interchangeable backends:
+
+    * ``"mohr"`` (default) — tabulated Mohr F(Zα), the previous atomx
+      implementation.  Matches earlier results bit-for-bit.
+    * ``"welton"`` — closed-form Welton estimate using |ψ(0)|².  Extends
+      coverage to every (n, κ = ±1) orbital at ~25 % accuracy.
+    * ``"flambaum_ginges"`` — local radiative potential (stub).
+    * ``"shabaev"`` — Shabaev–Tupitsyn–Yerokhin QEDMOD (stub).
+
+See :mod:`atomx.corrections.qedmod` for details and references.
 """
 
 import numpy as np
 from scipy.special import k1 as bessel_k1
-from atomx.constants import ALPHA, C, C_SQ
+
+from atomx.constants import ALPHA, C
+from atomx.corrections.qedmod import get_backend
+
+# Re-export for backwards compatibility; external consumers that imported
+# these names from ``atomx.corrections.qed`` continue to work.
+from atomx.corrections.qedmod.mohr import (  # noqa: F401
+    _SE_TABLE,
+    _interpolate_se_f,
+    _overlap_ratio,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -39,16 +66,13 @@ def uehling_potential(r, Z):
     prefactor = -2.0 * Z * ALPHA / (3.0 * np.pi)
 
     if r_arr.ndim == 0:
-        # Scalar case
         if x < 0.01:
-            # K_1(x) ≈ 1/x + x/2*ln(x/2) for small x; leading term K_1 ~ 1/x
             return prefactor / (r_arr * x) if r_arr > 0 else 0.0
         return prefactor / r_arr * bessel_k1(float(x))
     else:
         V = np.zeros_like(r_arr)
         large = x > 0.01
         V[large] = prefactor / r_arr[large] * bessel_k1(x[large])
-        # Small-x asymptotic: K_1(x) ≈ 1/x
         small = (~large) & (r_arr > 0)
         if np.any(small):
             V[small] = prefactor / (r_arr[small] * x[small])
@@ -84,7 +108,6 @@ def compute_vp_energy(orbitals, bsp_data, Z):
     bsp_p = bsp_data["bsp_p"]
     bsp_q = bsp_data.get("bsp_q", bsp_p)
 
-    # VP potential on the grid
     V_vp = uehling_potential(gr, Z)
 
     E_VP = 0.0
@@ -98,124 +121,66 @@ def compute_vp_energy(orbitals, bsp_data, Z):
 
 
 # ---------------------------------------------------------------------------
-# Self-Energy (tabulated Mohr values)
+# Self-Energy (dispatched through the qedmod backend registry)
 # ---------------------------------------------------------------------------
 
-# Tabulated F(Zα) values from Mohr (1983), Mohr & Kim (1992).
-# F(Zα) for selected Z values, for 1s and 2s states.
-# Format: {(n, kappa): {Z: F_value}}
-# These are the scaled self-energy function: E_SE = α(Zα)^4/(πn^3) * F(Zα) * mc^2
-
-_SE_TABLE = {
-    # 1s1/2 (n=1, kappa=-1): Mohr (1983) Table I
-    (1, -1): {
-        1: 10.3169, 2: 10.6027, 5: 11.0742,
-        10: 11.6804, 20: 12.6423, 30: 13.4997,
-        40: 14.3356, 50: 15.2160, 60: 16.2140,
-        70: 17.4409, 80: 19.0723, 92: 21.6412,
-    },
-    # 2s1/2 (n=2, kappa=-1): Mohr (1983) Table II
-    (2, -1): {
-        1: 10.5468, 2: 10.8295, 5: 11.2874,
-        10: 11.8666, 20: 12.7615, 30: 13.5395,
-        40: 14.2838, 50: 15.0640, 60: 15.9530,
-        70: 17.0660, 80: 18.5840, 92: 21.0560,
-    },
-    # 2p1/2 (n=2, kappa=1): Mohr (1983)
-    (2, 1): {
-        1: -0.1264, 2: -0.1200, 5: -0.0890,
-        10: -0.0160, 20: 0.1920, 30: 0.4250,
-        40: 0.6760, 50: 0.9590, 60: 1.2890,
-        70: 1.7060, 80: 2.2780, 92: 3.2850,
-    },
-    # 2p3/2 (n=2, kappa=-2): Mohr (1983)
-    (2, -2): {
-        1: -0.1264, 2: -0.1270, 5: -0.1270,
-        10: -0.1280, 20: -0.1290, 30: -0.1310,
-        40: -0.1330, 50: -0.1360, 60: -0.1400,
-        70: -0.1470, 80: -0.1580, 92: -0.1800,
-    },
-}
+DEFAULT_SE_METHOD = "mohr"
 
 
-def _interpolate_se_f(Z, n, kappa):
-    """Interpolate the self-energy function F(Zα) from Mohr tables.
-
-    Uses linear interpolation in Z. For states not in the table,
-    uses hydrogenic scaling from the 1s value.
-    """
-    key = (n, kappa)
-    if key in _SE_TABLE:
-        table = _SE_TABLE[key]
-        z_vals = sorted(table.keys())
-        f_vals = [table[z] for z in z_vals]
-
-        if Z <= z_vals[0]:
-            return f_vals[0]
-        if Z >= z_vals[-1]:
-            return f_vals[-1]
-
-        # Linear interpolation
-        for i in range(len(z_vals) - 1):
-            if z_vals[i] <= Z <= z_vals[i + 1]:
-                t = (Z - z_vals[i]) / (z_vals[i + 1] - z_vals[i])
-                return f_vals[i] + t * (f_vals[i + 1] - f_vals[i])
-
-    # Fallback: scale from 1s value using n^{-3} hydrogenic scaling
-    f_1s = _interpolate_se_f(Z, 1, -1)
-    return f_1s / n ** 3
-
-
-def compute_se_energy(orbitals, Z, bsp_data=None):
-    """Compute self-energy correction with orbital overlap ratio.
-
-    E_SE = Σ_a q_a * (α/π) * (Zα)^4/n^3 * F(Zα) * mc^2 * overlap_ratio
-
-    The overlap ratio corrects for the difference between the
-    hydrogenic orbitals used in Mohr's calculation and the actual
-    self-consistent orbitals:
-        ratio = <ψ_SCF|V_nuc|ψ_SCF> / <ψ_hydro|V_nuc|ψ_hydro>
-
-    For point nucleus: <ψ_hydro|V_nuc|ψ_hydro> = -Z^2/n^2 (leading term).
+def compute_se_energy(orbitals, Z, bsp_data=None, *, method=DEFAULT_SE_METHOD):
+    """Compute the self-energy correction through a pluggable backend.
 
     Parameters
     ----------
     orbitals : list of (P, Q, occ, kappa, label) tuples
     Z : int
     bsp_data : dict, optional
-        If provided, computes overlap ratio from actual orbital wavefunctions.
+        B-spline workspace.  Required by backends that evaluate orbitals
+        on the radial grid (mohr overlap ratio, welton, ...).
+    method : str
+        Backend name.  One of :func:`atomx.corrections.qedmod.available_backends`.
+        Default ``"mohr"`` reproduces the behaviour of atomx ≤ 0.2.
+
+    Returns
+    -------
+    float
+        Total self-energy in Hartree (summed over orbitals and weighted
+        by occupation).
+
+    See Also
+    --------
+    atomx.corrections.qedmod : detailed backend documentation.
     """
-    from atomx.constants import C_SQ
-    aZ = ALPHA * Z
-
-    E_SE = 0.0
-    for P, Q, occ, kappa, label in orbitals:
-        n = int(label[0])
-        F_val = _interpolate_se_f(Z, n, kappa)
-
-        # E_SE per electron = (α/π) * (Zα)^4/n^3 * F(Zα) * mc^2
-        # In Hartree: mc^2 = c^2 = 1/α^2
-        # So E = (α/π) * (Zα)^4/n^3 * F / α^2 = (Zα)^4 * F / (π * α * n^3)
-        E_a = aZ ** 4 / (np.pi * ALPHA * n ** 3) * F_val
-
-        # Apply overlap ratio correction if orbitals available
-        if bsp_data is not None and np.max(np.abs(P)) > 1e-10:
-            ratio = _overlap_ratio(P, Q, kappa, Z, n, bsp_data)
-            E_a *= ratio
-
-        E_SE += occ * E_a
-
-    return E_SE
+    backend = get_backend(method)
+    result = backend.compute(orbitals, bsp_data, Z)
+    return result.E_SE
 
 
-def _overlap_ratio(P, Q, kappa, Z, n, bsp_data):
-    """Orbital overlap ratio for SE correction.
+# ---------------------------------------------------------------------------
+# Combined QED corrections
+# ---------------------------------------------------------------------------
 
-    ratio = <ψ_SCF | -Z/r | ψ_SCF> / <ψ_hydro | -Z/r | ψ_hydro>
+def compute_wk_vp_energy(orbitals, bsp_data, Z):
+    """Wichmann–Kroll higher-order vacuum-polarization energy contribution.
 
-    For the hydrogenic reference: <ψ_hydro|-Z/r|ψ_hydro> = -Z^2/n^2 (leading term).
+    Uses the simplified closed-form approximation of Flambaum–Ginges
+    (PRA 72, 052115, 2005), eq. 12:
+
+        V_WK(r) = +(4α/9π) · (Z/r) · 0.092 Z²α² / (1 + (1.62·c·r)⁴)
+
+    (Sign in atomx potential-energy convention: WK is opposite to Uehling,
+    hence *positive* here — it is a small repulsive correction that
+    partially cancels Uehling at short range for heavy Z.)
+
+    Returns
+    -------
+    float
+        E_WK = Σ_a q_a · ⟨a | V_WK | a⟩  in Hartree.  Typically ≪ E_VP
+        (Uehling); it is a ~1 % correction for Z > 80 and negligible for
+        light atoms.
     """
     from atomx.bspline.evaluate import eval_orbital_on_grid
+    from atomx.corrections.qedmod.flambaum_ginges import V_wichmann_kroll
 
     nv = bsp_data["nv"]
     ns = bsp_data["ns"]
@@ -225,44 +190,61 @@ def _overlap_ratio(P, Q, kappa, Z, n, bsp_data):
     ksq = bsp_data.get("ksq", bsp_data["ks"])
     nsp = bsp_data.get("nsp", ns)
     nsq = bsp_data.get("nsq", ns)
+    bsp_p = bsp_data["bsp_p"]
+    bsp_q = bsp_data.get("bsp_q", bsp_p)
 
-    fP = eval_orbital_on_grid(P, bsp_data["bsp_p"], nv, ksp, nsp)
-    fQ = eval_orbital_on_grid(Q, bsp_data.get("bsp_q", bsp_data["bsp_p"]), nv, ksq, nsq)
-    rho = fP * fP + fQ * fQ
+    V_wk = V_wichmann_kroll(gr, Z)
 
-    # SCF nuclear integral: ∫ ρ(r) * (-Z/r) dr
-    vnuc_scf = np.sum(grw * rho * (-Z / gr))
+    E_WK = 0.0
+    for P, Q, occ, kappa, label in orbitals:
+        fP = eval_orbital_on_grid(P, bsp_p, nv, ksp, nsp)
+        fQ = eval_orbital_on_grid(Q, bsp_q, nv, ksq, nsq)
+        rho = fP * fP + fQ * fQ
+        E_WK += occ * float(np.sum(grw * rho * V_wk))
 
-    # Hydrogenic reference: -Z^2/n^2 (exact for point nucleus)
-    vnuc_hydro = -Z * Z / (n * n)
-
-    if abs(vnuc_hydro) < 1e-20:
-        return 1.0
-    return vnuc_scf / vnuc_hydro
+    return E_WK
 
 
-# ---------------------------------------------------------------------------
-# Combined QED corrections
-# ---------------------------------------------------------------------------
-
-def compute_qed_corrections(orbitals, bsp_data, Z):
-    """Compute all QED corrections (VP + SE).
+def compute_qed_corrections(
+    orbitals, bsp_data, Z,
+    *,
+    se_method=DEFAULT_SE_METHOD,
+    include_wichmann_kroll=False,
+):
+    """Compute all QED corrections (VP + SE), optionally with higher-order VP.
 
     Parameters
     ----------
     orbitals : list of (P, Q, occ, kappa, label) tuples
     bsp_data : dict
     Z : int
+    se_method : str, keyword-only
+        Self-energy backend.  Default ``"mohr"`` (atomx ≤ 0.2 behaviour).
+        See :mod:`atomx.corrections.qedmod` for alternatives.
+    include_wichmann_kroll : bool, keyword-only
+        When ``True``, add the simplified Wichmann–Kroll higher-order VP
+        term (Flambaum–Ginges eq. 12) to the VP budget and return it as
+        the extra key ``E_WK`` in the result dict.  Default ``False``.
 
     Returns
     -------
-    dict with keys: E_VP, E_SE, E_QED_total
+    dict with keys: ``E_VP``, ``E_SE``, ``E_QED_total``, ``se_method``,
+    and ``E_WK`` when ``include_wichmann_kroll=True``.
     """
     E_VP = compute_vp_energy(orbitals, bsp_data, Z)
-    E_SE = compute_se_energy(orbitals, Z, bsp_data=bsp_data)
+    E_SE = compute_se_energy(orbitals, Z, bsp_data=bsp_data, method=se_method)
 
-    return {
+    result = {
         "E_VP": E_VP,
         "E_SE": E_SE,
-        "E_QED_total": E_VP + E_SE,
+        "se_method": se_method,
     }
+
+    total = E_VP + E_SE
+    if include_wichmann_kroll:
+        E_WK = compute_wk_vp_energy(orbitals, bsp_data, Z)
+        result["E_WK"] = E_WK
+        total += E_WK
+
+    result["E_QED_total"] = total
+    return result
