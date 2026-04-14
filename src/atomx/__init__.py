@@ -32,8 +32,14 @@ from atomx.results import (
     OrbitalWavefunction,
     Wavefunctions,
 )
+from atomx import autoionization  # noqa: F401
+from atomx import fitting  # noqa: F401
 from atomx import hyperfine  # noqa: F401
 from atomx import isotope  # noqa: F401
+from atomx import lineshapes  # noqa: F401
+from atomx import photoionization  # noqa: F401
+from atomx import spectrum  # noqa: F401
+from atomx import uta  # noqa: F401
 from atomx import zeeman  # noqa: F401
 from atomx.methods import (
     Method,
