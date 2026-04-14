@@ -15,7 +15,7 @@ Reference: Gu, Can. J. Phys. 86, 675 (2008) - FAC DW formulation
 import numpy as np
 from atomx.constants import ALPHA, C_SQ, HARTREE_EV, BOHR_RADIUS_M
 from atomx.dirac.continuum import solve_continuum
-from atomx.bspline.evaluate import compute_slater_rk
+from atomx.scf.slater import compute_slater_rk
 from atomx.transitions.angular import _kappa_to_lj, selection_rules
 
 

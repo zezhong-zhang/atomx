@@ -17,10 +17,9 @@ from atomx.bspline.basis import prepare_bspline_data
 from atomx.dirac.matrix import build_dirac_matrices
 from atomx.dirac.solver import solve_dirac
 from atomx.scf.slater import (
-    compute_slater_fk, compute_slater_gk,
+    compute_slater_fk, compute_slater_gk, compute_slater_rk,
     compute_exchange_matrix,
 )
-from atomx.bspline.evaluate import compute_slater_rk
 from atomx.bspline.convol import (
     _compute_moments_sym, _triang_sym, _assemble_rkb_sym,
     _density_sym, _density_full,

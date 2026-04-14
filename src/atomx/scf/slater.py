@@ -12,7 +12,6 @@ import numba as nb
 
 from atomx.bspline.evaluate import (
     compute_yk, eval_orbital_on_grid, eval_P as _eval_P, eval_Q as _eval_Q,
-    compute_slater_rk,
 )
 
 
@@ -141,8 +140,48 @@ def compute_exchange_matrix(orb_b_P, orb_b_Q, bsp_data, k):
 
 
 # ---------------------------------------------------------------------------
-# Slater integrals F^k and G^k (vectorized numpy)
+# Slater integrals R^k, F^k, G^k
 # ---------------------------------------------------------------------------
+
+def compute_slater_rk(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd, bsp_data, k):
+    """General two-electron Slater integral R^k(ab, cd).
+
+    R^k(ab,cd) = int rho_ab(r) Y^k(rho_cd; r) dr
+
+    where rho_ab(r) = P_a(r)*P_b(r) + Q_a(r)*Q_b(r).
+
+    Special cases:
+        F^k(a,b) = R^k(aa, bb) — direct (Coulomb) integral
+        G^k(a,b) = R^k(ab, ba) — exchange integral
+
+    Parameters
+    ----------
+    Pa, Qa : B-spline coefficients for orbital a (large, small components).
+    Pb, Qb : Coefficients for orbital b.
+    Pc, Qc : Coefficients for orbital c.
+    Pd, Qd : Coefficients for orbital d.
+    bsp_data : dict
+        B-spline grid data.
+    k : int
+        Multipole order (k=0 Coulomb, k>0 exchange).
+    """
+    gr, grw = bsp_data["gr"], bsp_data["grw"]
+    nv = bsp_data["nv"]
+
+    fa = _eval_P(Pa, bsp_data)
+    ga = _eval_Q(Qa, bsp_data)
+    fb = _eval_P(Pb, bsp_data)
+    gb = _eval_Q(Qb, bsp_data)
+    fc = _eval_P(Pc, bsp_data)
+    gc = _eval_Q(Qc, bsp_data)
+    fd = _eval_P(Pd, bsp_data)
+    gd = _eval_Q(Qd, bsp_data)
+
+    rho_ab = fa * fb + ga * gb
+    rho_cd = fc * fd + gc * gd
+    yk_cd = compute_yk(rho_cd, gr, grw, nv, gr.shape[1], k)
+    return np.sum(grw * rho_ab * yk_cd)
+
 
 def compute_slater_fk(orb_a_P, orb_a_Q, orb_b_P, orb_b_Q, bsp_data, k):
     """Direct Slater integral F^k(a,b) = R^k(aa,bb)."""
