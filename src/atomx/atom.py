@@ -297,7 +297,7 @@ class Atom:
                               include_breit=self.breit,
                               include_qed=self.qed,
                               nuclear=self.nuclear,
-                              starting_potential=self.starting_potential,
+                              starting_potential=self.starting_potential or ('tfda' if self.Z >= 20 else None),
                               jj_configs=filtered_configs)
 
             # DBSR_HF-style semi-exponential grid (matched to nuclear model)
