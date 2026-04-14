@@ -34,6 +34,7 @@ from atomx.results import (
 )
 from atomx import hyperfine  # noqa: F401
 from atomx import isotope  # noqa: F401
+from atomx import zeeman  # noqa: F401
 from atomx.methods import (
     Method,
     HydrogenicSchrodinger,
