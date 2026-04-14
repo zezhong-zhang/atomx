@@ -135,8 +135,8 @@ def theory_ladder(Z: int, config: str = None) -> list:
 
     Automatically selects methods appropriate for the given Z:
     - Z=1: HydrogenicSchrodinger, HydrogenicDirac
-    - Z>1: HartreeFock, RelativisticHartreeFock(scalar),
-            RelativisticHartreeFock(all), DiracFock
+    - Z>1: HartreeFock, BreitPauli(scalar),
+            BreitPauli(all), DiracFock
     - Z>=20: adds DiracFock(breit=True)
     - Z>=36: adds DiracFock(breit=True, qed=True)
 
@@ -154,7 +154,7 @@ def theory_ladder(Z: int, config: str = None) -> list:
     """
     from atomx.atom import Atom
     from atomx.methods import (
-        NonRelativisticHydrogenic, RelativisticHydrogenic,
+        HydrogenicSchrodinger, HydrogenicDirac,
         HartreeFock, BreitPauli,
         DiracFock,
     )
@@ -163,8 +163,8 @@ def theory_ladder(Z: int, config: str = None) -> list:
     results = []
 
     if Z == 1:
-        results.append(atom.solve(NonRelativisticHydrogenic()))
-        results.append(atom.solve(RelativisticHydrogenic()))
+        results.append(atom.solve(HydrogenicSchrodinger()))
+        results.append(atom.solve(HydrogenicDirac()))
     else:
         # Non-relativistic HF
         try:

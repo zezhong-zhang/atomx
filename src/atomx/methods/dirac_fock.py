@@ -1,16 +1,11 @@
 """Relativistic Dirac-Hartree-Fock method (B-spline basis).
 
-Solves the four-component Dirac equation self-consistently.  Unlike
-the Breit-Pauli approach, relativity is treated variationally: scalar
-relativistic corrections, spin-orbit coupling, and the Darwin term all
-emerge naturally from the Dirac equation structure.
+Solves the four-component Dirac equation self-consistently.  Relativity
+is treated variationally — scalar relativistic, spin-orbit, and Darwin
+effects all emerge from the Dirac equation structure.
 
-The orbital wavefunctions have two radial components:
-    P(r) — the large (upper) component
-    Q(r) — the small (lower) component, typically |Q| ~ (v/c)|P|
-
-Uses jj-coupling: each electron has a well-defined total angular
-momentum j = l +/- 1/2, characterized by the Dirac quantum number kappa.
+Orbitals have two radial components: P(r) (large) and Q(r) (small).
+Uses jj-coupling with Dirac quantum number kappa.
 """
 
 from __future__ import annotations
@@ -18,7 +13,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from atomx.methods.base import Method
-from atomx.types import Exchange, NuclearModel, StartingPotential, TheoryLevel
+from atomx.types import Exchange, NuclearModel, TheoryLevel
 
 
 @dataclass
@@ -28,30 +23,21 @@ class DiracFock(Method):
     Parameters
     ----------
     exchange : Exchange
-        Electron exchange approximation:
-        - ``Exchange.HARTREE_FOCK`` (default): exact non-local exchange
-          via Y^k Slater integrals.  Accurate but slower.
-        - ``Exchange.SLATER``: local density exchange V_x ~ -rho^{1/3}.
-          Faster but approximate.
+        HARTREE_FOCK (default, non-local) or SLATER (local).
     breit : bool
-        Include the Breit interaction — magnetic interaction between
-        electrons and retardation of the Coulomb interaction.  Important
-        for inner-shell energies of heavy atoms (Z > 30).
+        Include Breit interaction (magnetic + retardation corrections).
     qed : bool
-        Include QED corrections: vacuum polarization (Uehling potential)
-        and electron self-energy (Lamb shift from Mohr tables).
-    bspline_order : int
-        B-spline polynomial order (default 9, i.e. degree 8).
-        Higher order gives better accuracy but larger matrices.
-    starting_potential : StartingPotential or None
-        Approximate potential for the initial SCF guess.
-        Auto-selects TFDA for Z >= 20 if None.
+        Include QED: vacuum polarization (Uehling) + self-energy (Lamb).
+    basis_order : int
+        B-spline polynomial order (default 9).
+    starting_potential : str or None
+        "tfda" or "gsz" for faster SCF convergence.  Auto-selects for Z>=20.
     """
     exchange: Exchange = Exchange.HARTREE_FOCK
     breit: bool = False
     qed: bool = False
-    bspline_order: int = 9
-    starting_potential: StartingPotential = None
+    basis_order: int = 9
+    starting_potential: str = None
 
     @property
     def theory_level(self) -> TheoryLevel:
@@ -68,15 +54,13 @@ class DiracFock(Method):
         """Run Dirac-Fock SCF calculation."""
         from atomx.scf.solver import DFSolver
 
-        starting = None
-        if self.starting_potential is not None:
-            starting = self.starting_potential.value
-        elif Z >= 20:
+        starting = self.starting_potential
+        if starting is None and Z >= 20:
             starting = "tfda"
 
         solver = DFSolver(
             Z=Z, subshells=subshells,
-            ns=ns, ks=self.bspline_order,
+            ns=ns, ks=self.basis_order,
             exchange=self.exchange.value,
             include_breit=self.breit,
             include_qed=self.qed,
@@ -87,13 +71,13 @@ class DiracFock(Method):
         if use_physics_grid:
             from atomx.bspline.knots import make_physics_knots
             from atomx.bspline.basis import prepare_bspline_data
-            knots, ns_grid = make_physics_knots(
-                ks=self.bspline_order, Z=Z, nuclear=self.nuclear.value)
-            bsp_data = prepare_bspline_data(
-                knots, ns_grid, self.bspline_order, kinetic_balance=True)
-            solver.t = knots
-            solver.bsp_data = bsp_data
-            solver.ns = ns_grid
+            t_phys, ns_phys = make_physics_knots(
+                ks=self.basis_order, Z=Z, nuclear=self.nuclear.value)
+            data = prepare_bspline_data(
+                t_phys, ns_phys, self.basis_order, kinetic_balance=True)
+            solver.t = t_phys
+            solver.bsp_data = data
+            solver.ns = ns_phys
             solver._precompute()
 
         result = solver.solve(max_iter=max_iter, tol=tol)
