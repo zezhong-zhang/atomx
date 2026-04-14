@@ -408,6 +408,7 @@ class DFSolver:
     def __init__(self, Z, subshells, ns=50, ks=9, r_min=None, r_max=None,
                  exchange="hf", alpha_x=2.0/3.0,
                  include_breit=False, include_qed=False,
+                 qed_se_method="mohr",
                  nuclear="point",
                  starting_potential=None,
                  jj_configs=None,
@@ -420,6 +421,11 @@ class DFSolver:
             "slater" for local Slater exchange,
             "tfda" for Thomas-Fermi-Dirac-Amaldi (no SCF iteration),
             "gsz" for Green-Sellin-Zachor parametric potential.
+        qed_se_method : str
+            Self-energy backend, see
+            :func:`atomx.corrections.qedmod.available_backends`.
+            Only consulted when ``include_qed=True``.
+            Default ``"mohr"`` reproduces atomx ≤ 0.2 behaviour.
         nuclear : str
             Nuclear model: "point", "fermi", "uniform".
         starting_potential : str or None
@@ -440,6 +446,7 @@ class DFSolver:
         self.alpha_x = alpha_x
         self.include_breit = include_breit
         self.include_qed = include_qed
+        self.qed_se_method = qed_se_method
         self.nuclear = nuclear
         self.starting_potential = starting_potential
         self.N_electrons = sum(sh.occupation for sh in subshells)
@@ -1320,7 +1327,10 @@ class DFSolver:
                     energy_components["E_Breit"] = E_Breit
                     total_energy += E_Breit
                 if self.include_qed:
-                    qed = compute_qed_corrections(orb_list, self.bsp_data, self.Z)
+                    qed = compute_qed_corrections(
+                        orb_list, self.bsp_data, self.Z,
+                        se_method=self.qed_se_method,
+                    )
                     energy_components.update(qed)
                     total_energy += qed["E_QED_total"]
             return SCFResult(
@@ -1622,7 +1632,10 @@ class DFSolver:
                 total_energy += E_Breit
 
             if self.include_qed:
-                qed = compute_qed_corrections(orb_list, self.bsp_data, self.Z)
+                qed = compute_qed_corrections(
+                    orb_list, self.bsp_data, self.Z,
+                    se_method=self.qed_se_method,
+                )
                 energy_components.update(qed)
                 total_energy += qed["E_QED_total"]
 
