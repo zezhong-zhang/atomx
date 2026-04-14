@@ -20,6 +20,8 @@ atomx.hyperfine.nuclear_moments : tabulated μ_I, I, A for common isotopes.
 """
 
 from atomx.hyperfine.dipole import (
+    ELECTRON_ANOMALOUS_MOMENT,
+    HARTREE_MHZ,
     hyperfine_A,
     hyperfine_A_MHz,
     hyperfine_radial_integral,
@@ -33,6 +35,8 @@ from atomx.hyperfine.nuclear_moments import (
 )
 
 __all__ = [
+    "ELECTRON_ANOMALOUS_MOMENT",
+    "HARTREE_MHZ",
     "hyperfine_A",
     "hyperfine_A_MHz",
     "hyperfine_radial_integral",

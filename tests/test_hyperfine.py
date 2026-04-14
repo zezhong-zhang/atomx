@@ -180,6 +180,98 @@ class TestSodium:
 # Consistency of low-level radial integral
 # ---------------------------------------------------------------------------
 
+class TestLadderCorrections:
+    def test_ladder_default_is_dhf_only(self, h_1s_result):
+        """With default flags only ``dhf`` rung is populated."""
+        _, result = h_1s_result
+        hf = result.hyperfine_constants()
+        assert hf.ladder == ["dhf"]
+        assert set(hf.A_MHz_ladder["1s1/2"].keys()) == {"dhf"}
+
+    def test_anomalous_moment_rung(self, h_1s_result):
+        """Applying (1+a_e) increases A by exactly a_e × A_dhf."""
+        from atomx.hyperfine import ELECTRON_ANOMALOUS_MOMENT
+        _, result = h_1s_result
+        hf = result.hyperfine_constants(include_anomalous_moment=True)
+        assert "ae" in hf.ladder
+        rung = hf.A_MHz_ladder["1s1/2"]
+        scale = rung["ae"] / rung["dhf"]
+        assert scale == pytest.approx(1.0 + ELECTRON_ANOMALOUS_MOMENT, rel=1e-10)
+
+    def test_anomalous_moment_is_off_by_default(self, h_1s_result):
+        """Default: no a_e (isolated application is incomplete physics)."""
+        _, result = h_1s_result
+        hf = result.hyperfine_constants()  # default
+        # With only dhf rung, the final value equals the dhf rung value
+        assert hf.A_MHz["1s1/2"] == hf.A_MHz_ladder["1s1/2"]["dhf"]
+
+    def test_correlation_factor_scalar(self, na_dhf_result):
+        """Applying δ_corr=0.30 to Na 3s should roughly bring the
+        DHF value into agreement with experiment (~886 MHz)."""
+        _, result = na_dhf_result
+        hf = result.hyperfine_constants(correlation_factor=0.30)
+        assert "correlation" in hf.ladder
+        A_3s = hf.A_MHz["3s1/2"]
+        # DHF ≈ 630 × 1.30 = 819 MHz; allow 700–900 band
+        assert 700 < A_3s < 900, f"Correlation-corrected Na 3s A = {A_3s:.1f} MHz"
+
+    def test_correlation_factor_dict(self, na_dhf_result):
+        """Per-orbital correlation factors are honoured."""
+        _, result = na_dhf_result
+        hf = result.hyperfine_constants(
+            correlation_factor={"3s1/2": 0.30, "1s1/2": 0.0},
+        )
+        rung3s = hf.A_MHz_ladder["3s1/2"]
+        rung1s = hf.A_MHz_ladder["1s1/2"]
+        # 3s got the correction; 1s kept its DHF value
+        assert rung3s["correlation"] == pytest.approx(rung3s["dhf"] * 1.30, rel=1e-12)
+        assert rung1s["correlation"] == pytest.approx(rung1s["dhf"], rel=1e-12)
+
+    def test_full_ladder_on_hydrogen(self, h_1s_result):
+        """All three rungs populated, final value is sequential product."""
+        _, result = h_1s_result
+        hf = result.hyperfine_constants(
+            include_anomalous_moment=True, correlation_factor=0.05,
+        )
+        assert hf.ladder == ["dhf", "ae", "correlation"]
+        rung = hf.A_MHz_ladder["1s1/2"]
+        assert rung["ae"] > rung["dhf"]  # (1 + a_e) > 1
+        assert rung["correlation"] == pytest.approx(rung["ae"] * 1.05, rel=1e-12)
+        assert hf.A_MHz["1s1/2"] == rung["correlation"]
+
+    def test_qed_hf_rung_cancels_ae_for_h1s(self, h_1s_result):
+        """Applying a_e alone moves A *away* from experiment for H 1s;
+        adding the Karshenboim δ_QEDhf = −1.268e−3 rung cancels it."""
+        _, result = h_1s_result
+        # a_e alone
+        hf_ae = result.hyperfine_constants(include_anomalous_moment=True)
+        A_ae = hf_ae.A_MHz["1s1/2"]
+        # a_e + QED_HF cancellation
+        hf_full = result.hyperfine_constants(
+            include_anomalous_moment=True, qed_hf_factor=-1.268e-3,
+        )
+        A_full = hf_full.A_MHz["1s1/2"]
+        # After QED_HF cancellation, we should be CLOSER to DHF than to
+        # the a_e-only value.
+        assert abs(A_full - 1421.3) < abs(A_ae - 1421.3)
+
+    def test_h1s_preset_ladder(self, h_1s_result):
+        """Karshenboim h1s preset pulls full value within ~0.05 % of experiment."""
+        _, result = h_1s_result
+        hf = result.hyperfine_constants(preset="h1s")
+        assert hf.ladder == ["dhf", "ae", "qed_hf", "recoil"]
+        A_final = hf.A_MHz["1s1/2"]
+        # ~0.05 % (500 ppm) of 1420 MHz ≈ 0.7 MHz
+        assert A_final == pytest.approx(1420.4057, abs=1.0), (
+            f"H 1s with preset = {A_final:.3f} MHz, experiment 1420.4057 MHz"
+        )
+
+    def test_unknown_preset_raises(self, h_1s_result):
+        _, result = h_1s_result
+        with pytest.raises(KeyError, match="Unknown hyperfine preset"):
+            result.hyperfine_constants(preset="does_not_exist")
+
+
 class TestRadialIntegral:
     def test_integral_nonzero_for_1s(self, h_1s_result):
         solver, result = h_1s_result
