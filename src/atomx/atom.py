@@ -228,11 +228,14 @@ class Atom:
         self._mcdhf_result = None
         self._bsp_data = None
 
-    def solve(self, tol=1e-5, max_iter=40):
-        """Run the self-consistent field calculation.
+    def solve(self, method=None, tol=1e-5, max_iter=40):
+        """Run an atomic structure calculation.
 
         Parameters
         ----------
+        method : Method, optional
+            Theory-level method object (e.g. ``DiracFock(breit=True)``).
+            If None, uses legacy parameter-based dispatch.
         tol : float
             Convergence tolerance.
         max_iter : int
@@ -240,8 +243,11 @@ class Atom:
 
         Returns
         -------
-        self (for chaining)
+        self (for chaining), or AtomicResult if method is provided.
         """
+        if method is not None:
+            return self._solve_method(method, tol, max_iter)
+
         if self._multi_config:
             from atomx.mcdhf.config import make_csf_list
             from atomx.mcdhf.solver import MCDHFSolver
@@ -317,6 +323,50 @@ class Atom:
             self._bsp_data = solver.bsp_data
 
         return self
+
+    def _solve_method(self, method, tol, max_iter):
+        """Dispatch to a theory-level method object."""
+        from atomx.methods.base import Method
+        from atomx.methods.hydrogenic import HydrogenicSchrodinger, HydrogenicDirac
+        from atomx.methods.hartree_fock import HartreeFock
+        from atomx.methods.relativistic_hf import RelativisticHartreeFock
+        from atomx.methods.dirac_fock import DiracFock
+        from atomx.methods.mcdhf import MCDHF
+
+        # Parse configuration into subshells
+        from atomx.mcdhf.config import _parse_config_string
+        config_str = self._config_strings[0]
+        subshells_raw = _parse_config_string(config_str)
+
+        if isinstance(method, (HydrogenicSchrodinger, HydrogenicDirac)):
+            return method.solve(self.Z, subshells_raw,
+                                tol=tol, max_iter=max_iter)
+
+        if isinstance(method, (HartreeFock, RelativisticHartreeFock)):
+            return method.solve(self.Z, subshells_raw,
+                                tol=tol, max_iter=max_iter)
+
+        if isinstance(method, DiracFock):
+            # Use jj-average with statistical weights
+            from atomx.scf.jj_config import generate_jj_average, JJConfig
+            subshells, jj_configs = generate_jj_average(config_str, eal=5)
+            # Remove zero-occupation subshells
+            kept = [i for i, sh in enumerate(subshells) if sh.occupation > 1e-10]
+            subshells = [subshells[i] for i in kept]
+            jj_configs = [
+                JJConfig(subshells=[c.subshells[i] for i in kept], weight=c.weight)
+                for c in jj_configs
+            ]
+            return method.solve(
+                self.Z, subshells, tol=tol, max_iter=max_iter,
+                jj_configs=jj_configs)
+
+        if isinstance(method, MCDHF):
+            return method.solve(
+                self.Z, self._config_strings,
+                tol=tol, max_iter=max_iter)
+
+        raise TypeError(f"Unknown method type: {type(method).__name__}")
 
     @property
     def converged(self):

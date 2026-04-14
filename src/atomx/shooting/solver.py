@@ -670,12 +670,60 @@ def _dhfs_scf(z, nshell, shell_n, shell_kappa, shell_occ, shell_l, shell_2j,
 
 @dataclass
 class ShootingResult:
+    """Result of an ODE shooting calculation.
+
+    Satisfies the ``AtomicResult`` protocol from ``atomx.results``.
+    """
     converged: bool
     iterations: int
     total_energy: float
     orbital_energies: Dict[str, float]
     method: str = "shooting"
     energy_components: Dict[str, float] = field(default_factory=dict)
+    _grid: Optional[np.ndarray] = field(default=None, repr=False)
+    _orbital_data: Optional[Dict] = field(default=None, repr=False)
+    _equation: str = field(default="dirac", repr=False)
+
+    @property
+    def energy_breakdown(self) -> Dict[str, float]:
+        return self.energy_components
+
+    @property
+    def theory_level(self):
+        from atomx.types import TheoryLevel
+        if self._equation == "schrodinger":
+            return TheoryLevel.HARTREE_FOCK
+        return TheoryLevel.DIRAC_FOCK_SLATER
+
+    @property
+    def method_name(self) -> str:
+        eq = "Schrodinger" if self._equation == "schrodinger" else "Dirac"
+        return f"{eq}-Fock-Slater (shooting)"
+
+    @property
+    def coupling_scheme(self):
+        from atomx.types import CouplingScheme
+        if self._equation == "schrodinger":
+            return CouplingScheme.LS
+        return CouplingScheme.JJ
+
+    @property
+    def wavefunctions(self):
+        from atomx.results import Wavefunctions, OrbitalWavefunction
+        if self._grid is None or self._orbital_data is None:
+            return Wavefunctions(grid=np.array([]), basis_type="grid")
+
+        orbitals = {}
+        for label, data in self._orbital_data.items():
+            orbitals[label] = OrbitalWavefunction(
+                P=data["P"], Q=data.get("Q"),
+                n=data["n"], l=data["l"],
+                kappa=data.get("kappa"),
+                occupation=data["occupation"],
+                energy=self.orbital_energies.get(label, 0.0),
+                label=label)
+        return Wavefunctions(
+            grid=self._grid, orbitals=orbitals, basis_type="grid")
 
 
 class ShootingSolver:
