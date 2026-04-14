@@ -5,7 +5,8 @@ import pytest
 from atomx.constants import HARTREE_EV
 from atomx.dirac.hydrogenic import hydrogenic_dirac_energy, list_hydrogenic_states
 from atomx.bspline.knots import make_knots
-from atomx.dirac.matrix import prepare_bspline_data, build_dirac_matrices
+from atomx.bspline.basis import prepare_bspline_data
+from atomx.dirac.matrix import build_dirac_matrices
 from atomx.dirac.solver import solve_dirac
 
 

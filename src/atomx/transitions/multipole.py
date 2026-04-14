@@ -16,7 +16,7 @@ For magnetic multipole ML:
 
 import numpy as np
 from atomx.constants import C
-from atomx.scf.slater import eval_orbital_on_grid
+from atomx.bspline.evaluate import eval_orbital_on_grid
 
 
 def _eval_P(coeffs, bsp_data):
