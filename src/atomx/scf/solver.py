@@ -104,9 +104,9 @@ class SCFResult:
     @property
     def wavefunctions(self):
         """Build Wavefunctions container from B-spline coefficients."""
-        from atomx.results import Wavefunctions, OrbitalWavefunction
+        from atomx.results import RadialWavefunctions, RadialOrbital
         if not self.orbitals_raw or not self._bsp_data:
-            return Wavefunctions(grid=np.array([]))
+            return RadialWavefunctions(radial_grid=np.array([]))
 
         bsp_data = self._bsp_data
         gr = bsp_data["gr"]  # (nv, n_gauss)
@@ -121,12 +121,14 @@ class SCFResult:
                 # Evaluate B-spline on grid
                 P_grid = _eval_bspline_on_grid(P_coeffs, bsp_data, "p")
                 Q_grid = _eval_bspline_on_grid(Q_coeffs, bsp_data, "q")
-                orbitals[sh.label] = OrbitalWavefunction(
-                    P=P_grid, Q=Q_grid, n=sh.n, l=sh.l,
-                    kappa=sh.kappa, occupation=sh.occupation,
-                    energy=self.orbital_energies.get(sh.label, 0.0),
+                orbitals[sh.label] = RadialOrbital(
+                    large_component=P_grid, small_component=Q_grid,
+                    n=sh.n, l=sh.l, kappa=sh.kappa,
+                    occupation=sh.occupation,
+                    orbital_energy=self.orbital_energies.get(sh.label, 0.0),
                     label=sh.label)
-        return Wavefunctions(grid=grid, orbitals=orbitals, basis_type="bspline")
+        return RadialWavefunctions(
+            radial_grid=grid, orbitals=orbitals, representation="bspline")
 
 
     def save(self, path: str):

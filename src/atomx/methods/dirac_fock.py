@@ -1,11 +1,16 @@
 """Relativistic Dirac-Hartree-Fock method (B-spline basis).
 
-Solves the Dirac equation self-consistently with either non-local
-Hartree-Fock exchange or local Slater exchange.  Optionally includes
-Breit interaction and QED corrections.
+Solves the four-component Dirac equation self-consistently.  Unlike
+the Breit-Pauli approach, relativity is treated variationally: scalar
+relativistic corrections, spin-orbit coupling, and the Darwin term all
+emerge naturally from the Dirac equation structure.
 
-Uses jj-coupling naturally — spin-orbit effects emerge from the
-Dirac equation structure rather than being added perturbatively.
+The orbital wavefunctions have two radial components:
+    P(r) — the large (upper) component
+    Q(r) — the small (lower) component, typically |Q| ~ (v/c)|P|
+
+Uses jj-coupling: each electron has a well-defined total angular
+momentum j = l +/- 1/2, characterized by the Dirac quantum number kappa.
 """
 
 from __future__ import annotations
@@ -13,66 +18,65 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from atomx.methods.base import Method
-from atomx.types import Exchange, NuclearModel, TheoryLevel
+from atomx.types import Exchange, NuclearModel, StartingPotential, TheoryLevel
 
 
 @dataclass
 class DiracFock(Method):
-    """Relativistic Dirac-Fock self-consistent field.
-
-    The Dirac equation includes all relativistic effects variationally:
-    scalar relativistic corrections, spin-orbit coupling, and the
-    Darwin term are all embedded in the four-component formalism.
+    """Relativistic Dirac-Fock self-consistent field method.
 
     Parameters
     ----------
     exchange : Exchange
-        Exchange approximation:
-        - HARTREE_FOCK (default): non-local, accurate
-        - SLATER: local density approximation, faster
+        Electron exchange approximation:
+        - ``Exchange.HARTREE_FOCK`` (default): exact non-local exchange
+          via Y^k Slater integrals.  Accurate but slower.
+        - ``Exchange.SLATER``: local density exchange V_x ~ -rho^{1/3}.
+          Faster but approximate.
     breit : bool
-        Include Breit (Gaunt) interaction — magnetic and retardation
-        corrections to the Coulomb interaction.
+        Include the Breit interaction — magnetic interaction between
+        electrons and retardation of the Coulomb interaction.  Important
+        for inner-shell energies of heavy atoms (Z > 30).
     qed : bool
-        Include QED corrections: vacuum polarization (Uehling)
-        and self-energy (Mohr tables).
-    basis_order : int
-        B-spline order (default 9).
-    starting_potential : str or None
-        ``"tfda"`` or ``"gsz"`` for faster SCF convergence.
+        Include QED corrections: vacuum polarization (Uehling potential)
+        and electron self-energy (Lamb shift from Mohr tables).
+    bspline_order : int
+        B-spline polynomial order (default 9, i.e. degree 8).
+        Higher order gives better accuracy but larger matrices.
+    starting_potential : StartingPotential or None
+        Approximate potential for the initial SCF guess.
+        Auto-selects TFDA for Z >= 20 if None.
     """
     exchange: Exchange = Exchange.HARTREE_FOCK
     breit: bool = False
     qed: bool = False
-    basis_order: int = 9
-    starting_potential: str = None
+    bspline_order: int = 9
+    starting_potential: StartingPotential = None
 
     @property
     def theory_level(self) -> TheoryLevel:
         if self.qed:
-            return TheoryLevel.DHF_QED
+            return TheoryLevel.DIRAC_FOCK_QED
         if self.breit:
-            return TheoryLevel.DHF_BREIT
+            return TheoryLevel.DIRAC_FOCK_BREIT
         if self.exchange == Exchange.SLATER:
             return TheoryLevel.DIRAC_FOCK_SLATER
         return TheoryLevel.DIRAC_HARTREE_FOCK
 
     def solve(self, Z, subshells, tol=1e-5, max_iter=40,
               jj_configs=None, use_physics_grid=True, ns=113, **kwargs):
-        """Run Dirac-Fock SCF calculation.
-
-        This dispatches to the existing DFSolver with the appropriate
-        parameters set from this method object.
-        """
+        """Run Dirac-Fock SCF calculation."""
         from atomx.scf.solver import DFSolver
 
-        starting = self.starting_potential
-        if starting is None and Z >= 20:
+        starting = None
+        if self.starting_potential is not None:
+            starting = self.starting_potential.value
+        elif Z >= 20:
             starting = "tfda"
 
         solver = DFSolver(
             Z=Z, subshells=subshells,
-            ns=ns, ks=self.basis_order,
+            ns=ns, ks=self.bspline_order,
             exchange=self.exchange.value,
             include_breit=self.breit,
             include_qed=self.qed,
@@ -82,19 +86,17 @@ class DiracFock(Method):
 
         if use_physics_grid:
             from atomx.bspline.knots import make_physics_knots
-            from atomx.dirac.matrix import prepare_bspline_data
-            t_phys, ns_phys = make_physics_knots(
-                ks=self.basis_order, Z=Z, nuclear=self.nuclear.value)
-            data = prepare_bspline_data(
-                t_phys, ns_phys, self.basis_order, kinetic_balance=True)
-            solver.t = t_phys
-            solver.bsp_data = data
-            solver.ns = ns_phys
+            from atomx.bspline.basis import prepare_bspline_data
+            knots, ns_grid = make_physics_knots(
+                ks=self.bspline_order, Z=Z, nuclear=self.nuclear.value)
+            bsp_data = prepare_bspline_data(
+                knots, ns_grid, self.bspline_order, kinetic_balance=True)
+            solver.t = knots
+            solver.bsp_data = bsp_data
+            solver.ns = ns_grid
             solver._precompute()
 
         result = solver.solve(max_iter=max_iter, tol=tol)
-
-        # Tag with theory level
         result._theory_level = self.theory_level.value
         result._method_name = self.name
         if not result._bsp_data:

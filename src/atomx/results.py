@@ -4,9 +4,11 @@ All calculation backends (B-spline DHF, shooting, MCDHF) produce results
 that satisfy the ``AtomicResult`` protocol, enabling consistent comparison
 across theory levels.
 
-Wavefunction data is always available via the ``wavefunctions`` property,
-regardless of the underlying numerical representation (B-spline coefficients
-or tabulated grid values).
+Key types:
+
+    ``RadialOrbital``: One orbital's radial wavefunction P(r) [and Q(r)].
+    ``RadialWavefunctions``: Collection of all orbital wavefunctions on a grid.
+    ``AtomicResult``: Protocol satisfied by all result types.
 """
 
 from __future__ import annotations
@@ -24,105 +26,152 @@ from atomx.types import CouplingScheme, TheoryLevel
 # ---------------------------------------------------------------------------
 
 @dataclass
-class OrbitalWavefunction:
+class RadialOrbital:
     """Radial wavefunction for a single atomic orbital.
 
-    For non-relativistic (Schrodinger) calculations, only ``P`` is populated
-    and ``Q`` is None.  For relativistic (Dirac) calculations, both the large
-    component ``P(r)`` and small component ``Q(r)`` are stored.
+    In atomic physics, the full wavefunction is factored as:
+
+        psi(r, theta, phi) = (1/r) * P(r) * Omega(theta, phi)
+
+    where P(r) is the large (upper) radial component.  For the Dirac
+    equation, a second small (lower) component Q(r) appears:
+
+        psi = (1/r) * [ P(r) * Omega_kappa^mu ]
+                      [ Q(r) * Omega_{-kappa}^mu ]
 
     Attributes
     ----------
-    P : np.ndarray
-        Large component (or full radial wavefunction for Schrodinger).
-    Q : np.ndarray or None
-        Small component (Dirac only).
+    large_component : np.ndarray
+        P(r), the large radial component.  This is the main wavefunction
+        for non-relativistic calculations, and the upper component for Dirac.
+    small_component : np.ndarray or None
+        Q(r), the small (lower) radial component.  Only present for
+        relativistic (Dirac) calculations.  Typically |Q| ~ (v/c)|P|.
     n : int
         Principal quantum number.
     l : int
         Orbital angular momentum quantum number.
     kappa : int or None
-        Relativistic quantum number (None for non-relativistic).
+        Dirac quantum number.  kappa = -(l+1) for j = l+1/2,
+        kappa = +l for j = l-1/2.  None for non-relativistic.
     occupation : float
-        Occupation number.
-    energy : float
-        Orbital energy in Hartree.
+        Number of electrons in this orbital.
+    orbital_energy : float
+        One-electron orbital energy in Hartree.
     label : str
-        Human-readable label, e.g. ``"1s"`` (NR) or ``"1s1/2"`` (relativistic).
+        Spectroscopic label, e.g. ``"1s"`` (NR) or ``"2p3/2"`` (Dirac).
     """
-    P: np.ndarray
-    Q: Optional[np.ndarray]
+    large_component: np.ndarray
+    small_component: Optional[np.ndarray]
     n: int
     l: int
     kappa: Optional[int]
     occupation: float
-    energy: float
+    orbital_energy: float
     label: str = ""
 
+    # Standard aliases used in atomic physics textbooks
+    @property
+    def P(self) -> np.ndarray:
+        """Large component P(r) — standard notation (Grant, Johnson)."""
+        return self.large_component
+
+    @property
+    def Q(self) -> Optional[np.ndarray]:
+        """Small component Q(r) — standard notation (Grant, Johnson)."""
+        return self.small_component
+
     def expectation_r(self, grid: np.ndarray) -> float:
-        """Compute <r> = integral |P|^2 r dr (+ |Q|^2 r dr for Dirac)."""
-        integrand = self.P ** 2 * grid
-        if self.Q is not None:
-            integrand = integrand + self.Q ** 2 * grid
+        """Compute <r> = integral(P^2 * r) dr [+ integral(Q^2 * r) dr]."""
+        integrand = self.large_component ** 2 * grid
+        if self.small_component is not None:
+            integrand = integrand + self.small_component ** 2 * grid
         return np.trapezoid(integrand, grid)
 
     @property
     def is_relativistic(self) -> bool:
-        return self.Q is not None
+        """True if this orbital has a small component (Dirac calculation)."""
+        return self.small_component is not None
+
+    @property
+    def j(self) -> Optional[float]:
+        """Total angular momentum j = |kappa| - 1/2.  None if non-relativistic."""
+        if self.kappa is None:
+            return None
+        return abs(self.kappa) - 0.5
+
+
+# Backward-compatible alias
+OrbitalWavefunction = RadialOrbital
 
 
 @dataclass
-class Wavefunctions:
-    """Container for all orbital wavefunctions from a calculation.
+class RadialWavefunctions:
+    """Collection of radial orbital wavefunctions from a calculation.
+
+    Provides access to all orbital wavefunctions evaluated on a common
+    radial grid, with plotting support.
 
     Attributes
     ----------
-    grid : np.ndarray
-        Radial grid points r (in Bohr).
+    radial_grid : np.ndarray
+        Radial grid points r in Bohr (a_0).
     orbitals : dict
-        Mapping from orbital label (e.g. ``"1s"`` or ``"1s1/2"``) to
-        ``OrbitalWavefunction``.
-    basis_type : str
-        ``"bspline"`` or ``"grid"`` (shooting solver).
+        Mapping from spectroscopic label (e.g. ``"1s"`` or ``"2p3/2"``)
+        to ``RadialOrbital``.
+    representation : str
+        ``"bspline"`` (expansion coefficients evaluated on grid)
+        or ``"numerical"`` (tabulated from ODE integration).
     """
-    grid: np.ndarray
-    orbitals: Dict[str, OrbitalWavefunction] = field(default_factory=dict)
-    basis_type: str = "bspline"
+    radial_grid: np.ndarray
+    orbitals: Dict[str, RadialOrbital] = field(default_factory=dict)
+    representation: str = "bspline"
 
     def __repr__(self) -> str:
         labels = list(self.orbitals.keys())
-        n_pts = len(self.grid) if self.grid is not None else 0
-        return (f"Wavefunctions({len(labels)} orbitals on {n_pts}-point grid, "
-                f"basis={self.basis_type})")
+        n_pts = len(self.radial_grid) if self.radial_grid is not None else 0
+        return (f"RadialWavefunctions({len(labels)} orbitals on "
+                f"{n_pts}-point grid, {self.representation})")
 
     def plot(self, label: str):
-        """Plot the radial wavefunction for a given orbital label.
+        """Plot the radial wavefunction P(r) [and Q(r)] for an orbital.
 
-        Requires matplotlib.  Shows P(r) and Q(r) (if relativistic).
+        Parameters
+        ----------
+        label : str
+            Spectroscopic label, e.g. ``"1s"`` or ``"2p3/2"``.
         """
         try:
             import matplotlib.pyplot as plt
         except ImportError:
-            print("matplotlib is required for plotting. Install with: pip install matplotlib")
+            print("matplotlib is required for plotting. "
+                  "Install with: pip install matplotlib")
             return
 
         orb = self.orbitals.get(label)
         if orb is None:
             available = ", ".join(sorted(self.orbitals.keys()))
-            raise KeyError(f"Orbital '{label}' not found. Available: {available}")
+            raise KeyError(
+                f"Orbital '{label}' not found. Available: {available}")
 
         fig, ax = plt.subplots(figsize=(8, 5))
-        ax.plot(self.grid, orb.P, label=f"P(r) [{label}]", linewidth=1.5)
+        ax.plot(self.radial_grid, orb.P, label=f"P(r) [{label}]",
+                linewidth=1.5)
         if orb.Q is not None:
-            ax.plot(self.grid, orb.Q, label=f"Q(r) [{label}]",
+            ax.plot(self.radial_grid, orb.Q, label=f"Q(r) [{label}]",
                     linewidth=1.5, linestyle="--")
-        ax.set_xlabel("r (Bohr)")
+        ax.set_xlabel(r"$r$ (Bohr)")
         ax.set_ylabel("Radial wavefunction")
-        ax.set_title(f"Orbital {label}  (E = {orb.energy:.6f} Ha)")
+        ax.set_title(f"Orbital {label}  "
+                     f"($\\varepsilon$ = {orb.orbital_energy:.6f} Ha)")
         ax.legend()
         ax.axhline(0, color="grey", linewidth=0.5)
         plt.tight_layout()
         plt.show()
+
+
+# Backward-compatible aliases
+Wavefunctions = RadialWavefunctions
 
 
 # ---------------------------------------------------------------------------
@@ -135,6 +184,28 @@ class AtomicResult(Protocol):
 
     Any result object that satisfies this protocol can be used with
     ``atomx.compare()`` and ``atomx.theory_ladder()``.
+
+    Attributes
+    ----------
+    converged : bool
+        Whether the SCF iteration converged.
+    iterations : int
+        Number of SCF iterations performed.
+    total_energy : float
+        Total atomic energy in Hartree.
+    orbital_energies : dict
+        Mapping from spectroscopic label to one-electron energy (Hartree).
+    energy_breakdown : dict
+        Decomposition into physical contributions
+        (e.g. one-electron, Coulomb, exchange, Breit, QED).
+    theory_level : TheoryLevel
+        Which level of atomic theory was used.
+    method_name : str
+        Human-readable method name (e.g. "DiracFock", "MCDHF").
+    wavefunctions : RadialWavefunctions
+        Radial wavefunctions for all occupied orbitals.
+    coupling_scheme : CouplingScheme
+        Angular momentum coupling scheme used (LS or jj).
     """
     converged: bool
     iterations: int
@@ -143,5 +214,5 @@ class AtomicResult(Protocol):
     energy_breakdown: Dict[str, float]
     theory_level: TheoryLevel
     method_name: str
-    wavefunctions: Wavefunctions
+    wavefunctions: RadialWavefunctions
     coupling_scheme: CouplingScheme

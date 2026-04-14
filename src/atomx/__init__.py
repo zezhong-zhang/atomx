@@ -23,25 +23,35 @@ from atomx.atom import Atom
 from atomx.types import (
     NuclearModel,
     Exchange,
+    StartingPotential,
     Correlation,
     Multipole,
     Gauge,
     EnergyUnit,
     CouplingScheme,
+    RelativisticCorrection,
     TheoryLevel,
 )
 from atomx.results import (
     AtomicResult,
+    RadialWavefunctions,
+    RadialOrbital,
+    # Backward-compatible aliases
     Wavefunctions,
     OrbitalWavefunction,
 )
 from atomx.methods import (
     Method,
-    HydrogenicSchrodinger,
-    HydrogenicDirac,
+    # Preferred names
+    NonRelativisticHydrogenic,
+    RelativisticHydrogenic,
     HartreeFock,
-    RelativisticHartreeFock,
+    BreitPauli,
     DiracFock,
     MCDHF,
+    # Backward-compatible aliases
+    HydrogenicSchrodinger,
+    HydrogenicDirac,
+    RelativisticHartreeFock,
 )
 from atomx.compare import compare, theory_ladder, what_changed

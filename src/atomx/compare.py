@@ -12,7 +12,7 @@ from typing import List, Optional
 import numpy as np
 
 from atomx.constants import HARTREE_EV, HARTREE_CM1
-from atomx.types import EnergyUnit, TheoryLevel
+from atomx.types import EnergyUnit, RelativisticCorrection, TheoryLevel
 
 
 # ---------------------------------------------------------------------------
@@ -154,8 +154,8 @@ def theory_ladder(Z: int, config: str = None) -> list:
     """
     from atomx.atom import Atom
     from atomx.methods import (
-        HydrogenicSchrodinger, HydrogenicDirac,
-        HartreeFock, RelativisticHartreeFock,
+        NonRelativisticHydrogenic, RelativisticHydrogenic,
+        HartreeFock, BreitPauli,
         DiracFock,
     )
 
@@ -163,8 +163,8 @@ def theory_ladder(Z: int, config: str = None) -> list:
     results = []
 
     if Z == 1:
-        results.append(atom.solve(HydrogenicSchrodinger()))
-        results.append(atom.solve(HydrogenicDirac()))
+        results.append(atom.solve(NonRelativisticHydrogenic()))
+        results.append(atom.solve(RelativisticHydrogenic()))
     else:
         # Non-relativistic HF
         try:
@@ -175,13 +175,15 @@ def theory_ladder(Z: int, config: str = None) -> list:
         # Scalar relativistic corrections
         try:
             results.append(atom.solve(
-                RelativisticHartreeFock(corrections=["mass_velocity", "darwin"])))
+                BreitPauli(corrections=[
+                    RelativisticCorrection.MASS_VELOCITY,
+                    RelativisticCorrection.DARWIN])))
         except Exception:
             pass
 
         # Full relativistic corrections (+ spin-orbit)
         try:
-            results.append(atom.solve(RelativisticHartreeFock()))
+            results.append(atom.solve(BreitPauli()))
         except Exception:
             pass
 
@@ -209,13 +211,13 @@ _EXPLANATIONS = {
         "hydrogen-like solutions.  The Dirac equation introduces fine structure: "
         "states with the same n but different j have slightly different energies.",
 
-    (TheoryLevel.HARTREE_FOCK, TheoryLevel.HARTREE_FOCK_REL):
+    (TheoryLevel.HARTREE_FOCK, TheoryLevel.BREIT_PAULI):
         "Adding perturbative relativistic corrections to non-relativistic HF:\n"
         "  - Mass-velocity: p^4 correction to kinetic energy (all orbitals)\n"
         "  - Darwin term: s-wave contact interaction (s-orbitals only)\n"
         "  - Spin-orbit: L·S coupling splits l>0 shells into j=l±1/2",
 
-    (TheoryLevel.HARTREE_FOCK_REL, TheoryLevel.DIRAC_HARTREE_FOCK):
+    (TheoryLevel.BREIT_PAULI, TheoryLevel.DIRAC_HARTREE_FOCK):
         "Switching from perturbative corrections to the full Dirac equation.\n"
         "The Dirac equation treats relativity variationally (not perturbatively), "
         "giving more accurate results especially for heavy atoms where alpha*Z "
@@ -227,12 +229,12 @@ _EXPLANATIONS = {
         "(mass-velocity + Darwin), spin-orbit coupling, and the small component "
         "of the wavefunction.",
 
-    (TheoryLevel.DIRAC_HARTREE_FOCK, TheoryLevel.DHF_BREIT):
+    (TheoryLevel.DIRAC_HARTREE_FOCK, TheoryLevel.DIRAC_FOCK_BREIT):
         "Adding the Breit interaction: magnetic interaction between electrons "
         "and retardation of the Coulomb interaction.  Important for inner-shell "
         "energies of heavy atoms.",
 
-    (TheoryLevel.DHF_BREIT, TheoryLevel.DHF_QED):
+    (TheoryLevel.DIRAC_FOCK_BREIT, TheoryLevel.DIRAC_FOCK_QED):
         "Adding QED corrections:\n"
         "  - Vacuum polarization (Uehling): virtual electron-positron pairs "
         "screen the nuclear charge\n"
