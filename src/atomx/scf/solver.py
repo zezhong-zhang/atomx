@@ -11,7 +11,7 @@ Total energy computed as:
 import numpy as np
 from scipy import linalg
 from dataclasses import dataclass, field
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from atomx.constants import C, C_SQ
 from atomx.bspline.knots import make_knots
@@ -64,7 +64,10 @@ class Subshell:
 
 @dataclass
 class SCFResult:
-    """Result of an SCF calculation."""
+    """Result of an SCF calculation.
+
+    Satisfies the ``AtomicResult`` protocol from ``atomx.results``.
+    """
     converged: bool
     iterations: int
     residual: float
@@ -73,6 +76,86 @@ class SCFResult:
     subshells: List[Subshell]
     energy_components: Dict[str, float] = field(default_factory=dict)
     orbitals_raw: Dict = field(default_factory=dict)  # kappa -> [(P, Q, occ)]
+    _theory_level: Optional[int] = field(default=None, repr=False)
+    _method_name: Optional[str] = field(default=None, repr=False)
+    _bsp_data: Optional[Dict] = field(default=None, repr=False)
+
+    @property
+    def energy_breakdown(self) -> Dict[str, float]:
+        """Alias for energy_components (AtomicResult protocol)."""
+        return self.energy_components
+
+    @property
+    def theory_level(self):
+        from atomx.types import TheoryLevel
+        if self._theory_level is not None:
+            return TheoryLevel(self._theory_level)
+        return TheoryLevel.DIRAC_HARTREE_FOCK
+
+    @property
+    def method_name(self) -> str:
+        return self._method_name or "DiracFock"
+
+    @property
+    def coupling_scheme(self):
+        from atomx.types import CouplingScheme
+        return CouplingScheme.JJ
+
+    @property
+    def wavefunctions(self):
+        """Build Wavefunctions container from B-spline coefficients."""
+        from atomx.results import Wavefunctions, OrbitalWavefunction
+        if not self.orbitals_raw or not self._bsp_data:
+            return Wavefunctions(grid=np.array([]))
+
+        bsp_data = self._bsp_data
+        gr = bsp_data["gr"]  # (nv, n_gauss)
+        grid = gr.ravel()
+
+        orbitals = {}
+        for sh in self.subshells:
+            orb_list = self.orbitals_raw.get(sh.kappa, [])
+            idx = sh.n - 1 - sh.l  # index within this kappa group
+            if idx < len(orb_list):
+                P_coeffs, Q_coeffs, occ = orb_list[idx]
+                # Evaluate B-spline on grid
+                P_grid = _eval_bspline_on_grid(P_coeffs, bsp_data, "p")
+                Q_grid = _eval_bspline_on_grid(Q_coeffs, bsp_data, "q")
+                orbitals[sh.label] = OrbitalWavefunction(
+                    P=P_grid, Q=Q_grid, n=sh.n, l=sh.l,
+                    kappa=sh.kappa, occupation=sh.occupation,
+                    energy=self.orbital_energies.get(sh.label, 0.0),
+                    label=sh.label)
+        return Wavefunctions(grid=grid, orbitals=orbitals, basis_type="bspline")
+
+
+def _eval_bspline_on_grid(coeffs, bsp_data, component="p"):
+    """Evaluate B-spline expansion on the quadrature grid.
+
+    Parameters
+    ----------
+    coeffs : np.ndarray
+        B-spline expansion coefficients.
+    bsp_data : dict
+        B-spline data containing grid and basis values.
+    component : str
+        "p" for large component, "q" for small component.
+    """
+    key = "bsp_p" if component == "p" else "bsp_q"
+    bsp = bsp_data[key]  # (nv, n_gauss, ks)
+    nv, n_gauss, ks_comp = bsp.shape
+    ns_comp = len(coeffs)
+
+    result = np.zeros(nv * n_gauss)
+    for iv in range(nv):
+        for ig in range(n_gauss):
+            val = 0.0
+            for j in range(ks_comp):
+                idx = iv + j
+                if idx < ns_comp:
+                    val += coeffs[idx] * bsp[iv, ig, j]
+            result[iv * n_gauss + ig] = val
+    return result
 
 
 class DFSolver:
@@ -716,7 +799,8 @@ class DFSolver:
                 converged=True, iterations=1, residual=0.0,
                 total_energy=total_energy, orbital_energies=orbital_energies,
                 subshells=self.subshells, energy_components=energy_components,
-                orbitals_raw=dict(orbitals))
+                orbitals_raw=dict(orbitals),
+                _bsp_data=self.bsp_data)
 
         converged = False
         E_old = 0.0
@@ -882,7 +966,8 @@ class DFSolver:
             orbital_energies=orbital_energies,
             subshells=self.subshells,
             energy_components=energy_components,
-            orbitals_raw=dict(orbitals),  # expose converged orbitals
+            orbitals_raw=dict(orbitals),
+            _bsp_data=self.bsp_data,
         )
 
 
