@@ -44,3 +44,4 @@ from atomx.methods import (
     DiracFock,
     MCDHF,
 )
+from atomx.compare import compare, theory_ladder, what_changed
