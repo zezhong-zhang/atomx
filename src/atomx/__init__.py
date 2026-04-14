@@ -32,7 +32,7 @@ from atomx.methods import (
     HydrogenicSchrodinger,
     HydrogenicDirac,
     HartreeFock,
-    RelativisticHartreeFock,
+    BreitPauli,
     DiracFock,
     MCDHF,
 )

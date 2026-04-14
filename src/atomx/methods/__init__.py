@@ -17,16 +17,12 @@ from atomx.methods.relativistic_hf import BreitPauli
 from atomx.methods.dirac_fock import DiracFock
 from atomx.methods.mcdhf import MCDHF
 
-# Alias
-RelativisticHartreeFock = BreitPauli
-
 __all__ = [
     "Method",
     "HydrogenicSchrodinger",
     "HydrogenicDirac",
     "HartreeFock",
     "BreitPauli",
-    "RelativisticHartreeFock",
     "DiracFock",
     "MCDHF",
 ]

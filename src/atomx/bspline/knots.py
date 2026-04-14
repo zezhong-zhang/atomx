@@ -82,7 +82,7 @@ def make_physics_knots(ks: int, Z: int, ns: int = 113,
 
     # Initial step depends on nuclear model (DBSR_HF mkgrid_01)
     if nuclear == "fermi":
-        from atomx.nuclear import fermi_grid_step
+        from atomx.potentials.nuclear import fermi_grid_step
         hs = fermi_grid_step(Z, hi=hi)
     else:
         # Point nucleus: hs = hi / Z

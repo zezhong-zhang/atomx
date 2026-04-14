@@ -78,13 +78,13 @@ class CalculationLog:
         ksp = bsp_data.get("ksp", ks)
         r_min = bsp_data["gr"][0, 0] if "gr" in bsp_data else "?"
         r_max = bsp_data["gr"][-1, -1] if "gr" in bsp_data else "?"
+        kinetic_balance = ksp != ks
         self._write(f"  B-spline basis:")
-        self._write(f"    Order (P/Q):   ksp={ksp}, ksq={ks}")
-        self._write(f"    Splines (P/Q): nsp={nsp}, nsq={nsq}")
-        self._write(f"    Intervals:     nv={nv}")
+        self._write(f"    Order:         large={ksp}, small={ks}")
+        self._write(f"    N splines:     large={nsp}, small={nsq}")
+        self._write(f"    N intervals:   {nv}")
         self._write(f"    Radial range:  [{r_min:.2e}, {r_max:.1f}] Bohr")
-        kb = "Yes" if ksp != ks else "No"
-        self._write(f"    Kinetic bal.:  {kb}")
+        self._write(f"    Kinetic balance: {'Yes' if kinetic_balance else 'No'}")
         self._write("-" * 70)
 
     def scf_start(self):
