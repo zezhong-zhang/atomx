@@ -221,7 +221,7 @@ class DFSolver:
             return self._build_direct_potential_yk(orbitals, target_kappa, target_idx)
 
         from atomx.bspline.convol import (
-            _build_rkb_sym, _density_sym, _convol_case1, _convol_case1_mixed,
+            _density_sym, _convol_case1, _convol_case1_mixed, _banded_to_full_add,
         )
 
         bd = self.bsp_data
@@ -232,23 +232,24 @@ class DFSolver:
         if not hasattr(self, '_convol_cache'):
             self._convol_cache = ConvolCache(bd)
 
-        # All 4 integral types for direct potential (DBSR_HF convention)
         rkb_pp, _, _ = self._convol_cache.get_rkb(0, "pppp")
         rkb_qq, _, _ = self._convol_cache.get_rkb(0, "qqqq")
         rkb_pq, _, _ = self._convol_cache.get_rkb(0, "pqpq")
         rkb_qp, _, _ = self._convol_cache.get_rkb(0, "qpqp")
 
-        V_J_PP = np.zeros((ns_full, ns_full))
-        V_J_QQ = np.zeros((ns_full, ns_full))
+        # Accumulate weighted densities FIRST, then do ONE convol each
+        # This is O(N_orb) density ops + 4 convol ops, instead of O(N_orb) × 4 convols
+        dd_P = np.zeros((ns_full, ksp))  # accumulated P-density for all orbitals
+        dd_Q = np.zeros((ns_full, ksq))  # accumulated Q-density
 
-        # Build flat index map
+        # Build flat index map for WW coefficients
         flat_idx = {}
         idx = 0
         kappa_counter = {}
         for sh in self.subshells:
-            orb_idx_local = kappa_counter.get(sh.kappa, 0)
-            kappa_counter[sh.kappa] = orb_idx_local + 1
-            flat_idx[(sh.kappa, orb_idx_local)] = idx
+            k_idx = kappa_counter.get(sh.kappa, 0)
+            kappa_counter[sh.kappa] = k_idx + 1
+            flat_idx[(sh.kappa, k_idx)] = idx
             idx += 1
 
         target_flat = flat_idx.get((target_kappa, target_idx), -1) if target_kappa is not None else -1
@@ -258,8 +259,7 @@ class DFSolver:
             for orb_i, (P_b, Q_b, occ_b) in enumerate(orb_list):
                 j_flat = flat_idx.get((kappa, orb_i), -1)
                 if target_flat >= 0 and j_flat >= 0:
-                    ww = self._get_WW(target_flat, j_flat)
-                    coeff = ww / target_q
+                    coeff = self._get_WW(target_flat, j_flat) / target_q
                 else:
                     coeff = occ_b
                     if target_kappa == kappa and target_idx == orb_i:
@@ -267,47 +267,28 @@ class DFSolver:
                 if abs(coeff) < 1e-10:
                     continue
 
-                # DBSR_HF direct potential has 4 component contributions:
-                # PP block gets: pppp(P-density) + pqpq(Q-density)
-                # QQ block gets: qqqq(Q-density) + qpqp(P-density)
-
-                # pppp → PP: contract with P-density
+                # Accumulate weighted symmetric densities
                 d_P = _density_sym(P_b[:ns_full], P_b[:ns_full], ns_full, ksp)
-                v_pp = _convol_case1(rkb_pp, d_P, ns_full, ksp)
-                for i in range(ns_full):
-                    for s in range(ksp):
-                        if i + s < ns_full:
-                            V_J_PP[i, i + s] += coeff * v_pp[i, s]
-                            if s > 0:
-                                V_J_PP[i + s, i] += coeff * v_pp[i, s]
-
-                # pqpq → PP: rkb(ns,ns,ksp,ksq), contract Q-density(ksq) → result(ksp)
                 d_Q = _density_sym(Q_b[:ns_full], Q_b[:ns_full], ns_full, ksq)
-                v_pq = _convol_case1_mixed(rkb_pq, d_Q, ns_full, ksp, ksq)
-                for i in range(ns_full):
-                    for s in range(ksp):
-                        if i + s < ns_full:
-                            V_J_PP[i, i + s] += coeff * v_pq[i, s]
-                            if s > 0:
-                                V_J_PP[i + s, i] += coeff * v_pq[i, s]
+                dd_P += coeff * d_P
+                dd_Q += coeff * d_Q
 
-                # qpqp → QQ: rkb(ns,ns,ksq,ksp), contract P-density(ksp) → result(ksq)
-                v_qp = _convol_case1_mixed(rkb_qp, d_P, ns_full, ksq, ksp)
-                for i in range(ns_full):
-                    for s in range(ksq):
-                        if i + s < ns_full:
-                            V_J_QQ[i, i + s] += coeff * v_qp[i, s]
-                            if s > 0:
-                                V_J_QQ[i + s, i] += coeff * v_qp[i, s]
+        # 4 convolutions with accumulated densities (instead of 4 × N_orb)
+        V_J_PP = np.zeros((ns_full, ns_full))
+        V_J_QQ = np.zeros((ns_full, ns_full))
 
-                # qqqq → QQ: contract with Q-density
-                v_qq = _convol_case1(rkb_qq, d_Q, ns_full, ksq)
-                for i in range(ns_full):
-                    for s in range(ksq):
-                        if i + s < ns_full:
-                            V_J_QQ[i, i + s] += coeff * v_qq[i, s]
-                            if s > 0:
-                                V_J_QQ[i + s, i] += coeff * v_qq[i, s]
+        # pppp(P-density) → PP
+        v = _convol_case1(rkb_pp, dd_P, ns_full, ksp)
+        _banded_to_full_add(V_J_PP, v, ns_full, ksp, 1.0)
+        # pqpq(Q-density) → PP
+        v = _convol_case1_mixed(rkb_pq, dd_Q, ns_full, ksp, ksq)
+        _banded_to_full_add(V_J_PP, v, ns_full, ksp, 1.0)
+        # qpqp(P-density) → QQ
+        v = _convol_case1_mixed(rkb_qp, dd_P, ns_full, ksq, ksp)
+        _banded_to_full_add(V_J_QQ, v, ns_full, ksq, 1.0)
+        # qqqq(Q-density) → QQ
+        v = _convol_case1(rkb_qq, dd_Q, ns_full, ksq)
+        _banded_to_full_add(V_J_QQ, v, ns_full, ksq, 1.0)
 
         return V_J_PP, V_J_QQ
 
@@ -469,13 +450,14 @@ class DFSolver:
         the direct potential and exchange, avoiding Y^k/cell mismatch.
         """
         from atomx.scf.angular_coeffs import exchange_lambda
-        from atomx.bspline.convol import _density_sym, _convol_case1
+        from atomx.bspline.convol import _density_sym, _convol_case1, _banded_to_full_add
 
-        ns = self.ns
+        bd = self.bsp_data
+        ns_full = bd["ns"]
         tj_a = 2 * abs(target_kappa) - 1
 
-        Vi_PP = np.zeros((ns, ns))
-        Vi_QQ = np.zeros((ns, ns))
+        Vi_PP = np.zeros((ns_full, ns_full))
+        Vi_QQ = np.zeros((ns_full, ns_full))
 
         if tj_a <= 1:
             return Vi_PP, Vi_QQ
@@ -486,14 +468,10 @@ class DFSolver:
 
         P_a, Q_a, q_a = orb_list_t[target_idx]
         if q_a * (q_a - 1.0) < 1e-15:
-            return Vi_PP, Vi_QQ  # no intra-shell pairs for q<=1
+            return Vi_PP, Vi_QQ
 
-        bd = self.bsp_data
-        ksp = bd.get("ksp", self.ks)
-        nsp = bd.get("nsp", ns)
-        ksq = bd.get("ksq", self.ks)
-        nsq = bd.get("nsq", ns)
-
+        ksp = bd.get("ksp", bd["ks"])
+        ksq = bd.get("ksq", bd["ks"])
         l_a = target_kappa if target_kappa > 0 else -target_kappa - 1
 
         if not hasattr(self, '_convol_cache'):
@@ -507,27 +485,15 @@ class DFSolver:
                 continue
             coeff = -(q_a - 1.0) * lam / (tj_a * (tj_a + 1.0))
 
-            # Cell-based F^k contribution (icase=1)
             rkb_pp, _, _ = self._convol_cache.get_rkb(k, "pppp")
-            d_P = _density_sym(P_a, P_a, nsp, ksp)
-            v_banded = _convol_case1(rkb_pp, d_P, nsp, ksp)
-            for i in range(nsp):
-                for s in range(ksp):
-                    if i + s < nsp:
-                        Vi_PP[i, i + s] += coeff * v_banded[i, s]
-                        if s > 0:
-                            Vi_PP[i + s, i] += coeff * v_banded[i, s]
+            d_P = _density_sym(P_a[:ns_full], P_a[:ns_full], ns_full, ksp)
+            v = _convol_case1(rkb_pp, d_P, ns_full, ksp)
+            _banded_to_full_add(Vi_PP, v, ns_full, ksp, coeff)
 
             rkb_qq, _, _ = self._convol_cache.get_rkb(k, "qqqq")
-            d_Q = _density_sym(Q_a, Q_a, nsq, ksq)
-            v_banded_q = _convol_case1(rkb_qq, d_Q, nsq, ksq)
-            for i in range(nsq):
-                for s in range(ksq):
-                    if i + s < nsq:
-                        Vi_QQ[i, i + s] += coeff * v_banded_q[i, s]
-                        if s > 0:
-                            Vi_QQ[i + s, i] += coeff * v_banded_q[i, s]
-
+            d_Q = _density_sym(Q_a[:ns_full], Q_a[:ns_full], ns_full, ksq)
+            v = _convol_case1(rkb_qq, d_Q, ns_full, ksq)
+            _banded_to_full_add(Vi_QQ, v, ns_full, ksq, coeff)
         return Vi_PP, Vi_QQ
 
     def _compute_total_energy(self, orbitals, orbital_energies=None):
