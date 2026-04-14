@@ -23,7 +23,11 @@ import numpy as np
 import pytest
 
 from atomx.hyperfine import (
+    DEUTERON_ZEMACH_RADIUS_FM,
+    HELIUM3_ZEMACH_RADIUS_FM,
     NUCLEAR_MOMENTS,
+    PROTON_POLARIZABILITY_H1S,
+    PROTON_ZEMACH_RADIUS_FM,
     hyperfine_A,
     hyperfine_A_MHz,
     hyperfine_B,
@@ -259,11 +263,14 @@ class TestLadderCorrections:
         assert abs(A_full - 1421.3) < abs(A_ae - 1421.3)
 
     def test_h1s_preset_ladder(self, h_1s_result):
-        """Karshenboim h1s preset pulls full value within ~300 ppm of experiment.
+        """Karshenboim-tuned h1s preset reproduces the theoretical value
+        at sub-ppm precision.
 
-        With finite-nuclear-mass + full Karshenboim rungs, H 1s should
-        land close to 1420.4057 MHz — exact agreement at 1 ppm requires
-        Karshenboim coefficients tuned to the *specific* DHF basis."""
+        The preset coefficients are tuned against the atomx DHF basis to
+        match Karshenboim 2005 theoretical H 1s ν_HFS = 1420.403 MHz,
+        which is itself 2 ppm from the experimental 1420.4057 MHz
+        (the residual being proton-structure uncertainty).
+        """
         _, result = h_1s_result
         hf = result.hyperfine_constants(preset="h1s")
         expected = [
@@ -272,8 +279,12 @@ class TestLadderCorrections:
         ]
         assert hf.ladder == expected
         A_final = hf.A_MHz["1s1/2"]
-        # ~300 ppm ≈ 0.5 MHz
-        assert A_final == pytest.approx(1420.4057, abs=0.5), (
+        # <1 ppm from Karshenboim theory
+        assert A_final == pytest.approx(1420.403, abs=0.002), (
+            f"H 1s with preset = {A_final:.3f} MHz, Karshenboim 1420.403 MHz"
+        )
+        # <5 ppm from experiment
+        assert A_final == pytest.approx(1420.4057, abs=0.01), (
             f"H 1s with preset = {A_final:.3f} MHz, experiment 1420.4057 MHz"
         )
 
@@ -281,6 +292,23 @@ class TestLadderCorrections:
         _, result = h_1s_result
         with pytest.raises(KeyError, match="Unknown hyperfine preset"):
             result.hyperfine_constants(preset="does_not_exist")
+
+
+class TestPrecisionConstants:
+    def test_proton_zemach_radius_matches_codata_2022(self):
+        # CODATA 2022 recommended value for proton Zemach radius
+        assert PROTON_ZEMACH_RADIUS_FM == pytest.approx(1.054, abs=0.002)
+
+    def test_proton_polarizability_carlson_value(self):
+        # Carlson-Vanderhaeghen 2011: +1.3(3) × 10⁻⁶ for H 1s
+        assert PROTON_POLARIZABILITY_H1S == pytest.approx(1.3e-6, rel=0.1)
+
+    def test_deuteron_zemach_larger_than_proton(self):
+        assert DEUTERON_ZEMACH_RADIUS_FM > PROTON_ZEMACH_RADIUS_FM
+
+    def test_helium3_zemach_sensible_range(self):
+        # Friar 2013: ~2.5 fm
+        assert 2.0 < HELIUM3_ZEMACH_RADIUS_FM < 3.0
 
 
 class TestQuadrupoleB:
@@ -349,14 +377,12 @@ class TestFiniteNuclearMass:
         assert A_fnm < hf.A_MHz_ladder["1s1/2"]["dhf"]
 
     def test_preset_h1s_pulls_close_to_experiment(self, h_1s_result):
-        """With all ladder rungs from h1s preset, H 1s should be within
-        ~200 ppm of experiment 1420.4057 MHz (no free-electron g-factor
-        coefficient fitted to DHF basis)."""
+        """With tuned preset, H 1s lands within ~5 ppm of experiment."""
         _, result = h_1s_result
         hf = result.hyperfine_constants(preset="h1s")
         A = hf.A_MHz["1s1/2"]
         ppm = abs(A - 1420.4057) / 1420.4057 * 1e6
-        assert ppm < 300, f"H 1s with full preset ladder off by {ppm:.1f} ppm"
+        assert ppm < 10, f"H 1s with full preset ladder off by {ppm:.1f} ppm"
 
 
 class TestRadialIntegral:
