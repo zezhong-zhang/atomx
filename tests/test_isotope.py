@@ -12,8 +12,8 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from atomx.hyperfine import nuclear_moment
-from atomx.isotope import (
+from atomx.prop.hyperfine import nuclear_moment
+from atomx.prop.isotope_shift import (
     FieldShiftParameter,
     IsotopeShiftResult,
     MassShift,
@@ -23,7 +23,7 @@ from atomx.isotope import (
     seltzer_F_Ha_per_Bohr2,
     specific_mass_shift,
 )
-from atomx.scf.solver import DFSolver, Subshell
+from atomx.methods.dirac_fock import DFSolver, Subshell
 
 
 # ---------------------------------------------------------------------------
@@ -168,20 +168,20 @@ class TestNMSExplicitKineticEnergy:
 class TestAbInitioSMSSelectionRules:
     def test_same_l_pair_not_allowed(self):
         """l_a = l_b → no dipole coupling → K_SMS contribution = 0."""
-        from atomx.isotope.sms_abinitio import _allowed_sms_pair
+        from atomx.prop.isotope_shift.sms_abinitio import _allowed_sms_pair
         assert _allowed_sms_pair(-1, -1) is False  # s-s
         assert _allowed_sms_pair(+1, +1) is False  # p1/2-p1/2
         assert _allowed_sms_pair(-2, -2) is False  # p3/2-p3/2
 
     def test_adjacent_l_pair_allowed(self):
-        from atomx.isotope.sms_abinitio import _allowed_sms_pair
+        from atomx.prop.isotope_shift.sms_abinitio import _allowed_sms_pair
         assert _allowed_sms_pair(-1, +1) is True   # s-p1/2
         assert _allowed_sms_pair(-1, -2) is True   # s-p3/2
         assert _allowed_sms_pair(+1, +2) is True   # p1/2-d3/2
         assert _allowed_sms_pair(-2, -3) is True   # p3/2-d5/2
 
     def test_Δl_two_not_allowed(self):
-        from atomx.isotope.sms_abinitio import _allowed_sms_pair
+        from atomx.prop.isotope_shift.sms_abinitio import _allowed_sms_pair
         assert _allowed_sms_pair(-1, +2) is False  # s-d3/2 (Δl=2)
         assert _allowed_sms_pair(-1, -3) is False  # s-d5/2 (Δl=2)
 
@@ -190,8 +190,8 @@ class TestAbInitioSMSAllSClosedShell:
     """Atoms with only s-occupations give zero SMS (no dipole pairs)."""
 
     def test_He_zero_SMS(self):
-        from atomx.scf.solver import DFSolver, Subshell
-        from atomx.isotope import compute_sms_abinitio
+        from atomx.methods.dirac_fock import DFSolver, Subshell
+        from atomx.prop.isotope_shift import compute_sms_abinitio
         solver = DFSolver(
             Z=2, subshells=[Subshell(n=1, kappa=-1, occupation=2)],
             ns=40, ks=9, exchange="hf",
@@ -204,8 +204,8 @@ class TestAbInitioSMSAllSClosedShell:
 
     def test_Be_zero_SMS(self):
         """1s²2s² — all l=0, no SMS."""
-        from atomx.scf.solver import DFSolver, Subshell
-        from atomx.isotope import compute_sms_abinitio
+        from atomx.methods.dirac_fock import DFSolver, Subshell
+        from atomx.prop.isotope_shift import compute_sms_abinitio
         solver = DFSolver(
             Z=4,
             subshells=[
@@ -224,8 +224,8 @@ class TestAbInitioSMSNoble:
     """Ne and Ar: real closed-shell atoms with non-trivial SMS."""
 
     def _ne(self):
-        from atomx.scf.solver import DFSolver, neon_subshells
-        from atomx.isotope import compute_sms_abinitio
+        from atomx.methods.dirac_fock import DFSolver, neon_subshells
+        from atomx.prop.isotope_shift import compute_sms_abinitio
         solver = DFSolver(Z=10, subshells=neon_subshells(),
                           ns=50, ks=9, exchange="hf")
         result = solver.solve(max_iter=40, tol=1e-5)
@@ -254,8 +254,8 @@ class TestAbInitioSMSNoble:
 
     def test_Ar_larger_than_Ne(self):
         """Ar has 12 allowed pairs vs Ne's 4 → |K_SMS| significantly bigger."""
-        from atomx.scf.solver import DFSolver, Subshell
-        from atomx.isotope import compute_sms_abinitio
+        from atomx.methods.dirac_fock import DFSolver, Subshell
+        from atomx.prop.isotope_shift import compute_sms_abinitio
 
         ar_shells = [
             Subshell(n=1, kappa=-1, occupation=2),

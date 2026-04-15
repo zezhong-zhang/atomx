@@ -82,8 +82,11 @@ class OrbitalWavefunction:
 
 
 @dataclass
-class Wavefunctions:
+class Waves:
     """Collection of radial orbital wavefunctions from a calculation.
+
+    The short name deliberately mirrors the ``result.waves`` attribute
+    under which this container is exposed on every :class:`AtomicResult`.
 
     Attributes
     ----------
@@ -100,8 +103,12 @@ class Wavefunctions:
 
     def __repr__(self) -> str:
         n_pts = len(self.grid) if self.grid is not None else 0
-        return (f"Wavefunctions({len(self.orbitals)} orbitals on "
+        return (f"Waves({len(self.orbitals)} orbitals on "
                 f"{n_pts}-point grid, {self.basis_type})")
+
+    # ------------------------------------------------------------------
+    # Radial plotting (1-D)
+    # ------------------------------------------------------------------
 
     def plot(self, label: str, *, backend: str = "mpl", **kwargs):
         """Plot P(r) [and Q(r)] for the given orbital.
@@ -138,6 +145,72 @@ class Wavefunctions:
             return plot_orbital_density(self, labels, **kwargs)
         raise ValueError(
             f"Unknown backend {backend!r}; use 'mpl' or 'plotly'."
+        )
+
+    # ------------------------------------------------------------------
+    # 3-D interactive visualisation (angular + radial)
+    # ------------------------------------------------------------------
+
+    def plot3d(
+        self,
+        label: str,
+        *,
+        mu: Optional[float] = None,
+        box_size: Optional[float] = None,
+        n_grid: int = 60,
+        isosurface: Optional[float] = None,
+        backend: str = "plotly",
+        **kwargs,
+    ):
+        """Render a 3-D isosurface of the orbital amplitude or density.
+
+        Angular dependence is dispatched on the orbital flavour:
+
+        - **Non-relativistic** (``kappa is None``): plots the signed
+          amplitude ``psi(r,θ,φ) = P(r)/r · Y_{l,m}(θ,φ)`` with
+          ``m = 0`` (unless overridden via ``m=`` kwarg); two
+          isosurfaces are drawn at ±iso.
+        - **Relativistic** (``kappa is not None``): plots the spinor
+          density ``|ψ|² = (P² + Q²)/r² · |Ω_κ^μ(θ,φ)|²`` at the
+          chosen magnetic projection ``mu`` (default ``mu = j``); a
+          single non-negative isosurface is drawn.
+
+        Parameters
+        ----------
+        label
+            Orbital spectroscopic label.
+        mu
+            Magnetic-projection quantum number.  Only used for Dirac
+            orbitals; default is ``j = |kappa| − 1/2``.
+        box_size
+            Half-width of the cubic sampling box in Bohr.  Defaults to
+            ``3 · ⟨r⟩`` of the orbital.
+        n_grid
+            Points per Cartesian axis of the sampling grid.
+        isosurface
+            Iso-value.  Default = 15 % of the absolute maximum of the
+            sampled field.
+        backend
+            Currently only ``"plotly"``.
+
+        Returns
+        -------
+        plotly.graph_objects.Figure
+        """
+        if backend != "plotly":
+            raise ValueError(
+                f"plot3d currently only supports backend='plotly', got {backend!r}."
+            )
+        from atomx.viz.plotly3d import plot_orbital_3d
+
+        return plot_orbital_3d(
+            self,
+            label,
+            mu=mu,
+            box_size=box_size,
+            n_grid=n_grid,
+            isosurface=isosurface,
+            **kwargs,
         )
 
 
@@ -271,5 +344,5 @@ class AtomicResult(Protocol):
     energy_breakdown: Dict[str, float]
     theory_level: TheoryLevel
     method_name: str
-    wavefunctions: Wavefunctions
+    waves: Waves
     coupling_scheme: CouplingScheme

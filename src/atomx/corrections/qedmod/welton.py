@@ -54,7 +54,7 @@ def _density_at_origin(P, Q, bsp_data) -> float:
     where ``R_P = P/r``, ``R_Q = Q/r`` are the radial wavefunctions and the
     ``1/(4π)`` factor comes from the ``|Y_00|²`` angular piece.
     """
-    from atomx.bspline.evaluate import eval_orbital_on_grid
+    from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 
     nv = bsp_data["nv"]
     ns = bsp_data["ns"]

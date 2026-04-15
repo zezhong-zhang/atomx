@@ -24,7 +24,7 @@ from dataclasses import dataclass, field
 from typing import List, Dict, Optional
 
 from atomx.constants import HARTREE_EV, HARTREE_CM1
-from atomx.scf.solver import DFSolver, Subshell, neon_subshells, argon_subshells
+from atomx.methods.dirac_fock import DFSolver, Subshell, neon_subshells, argon_subshells
 
 
 from atomx.config import ground_state_config
@@ -114,7 +114,7 @@ class Atom:
                 base_config = config or ground_state_config(N_electrons)
             except ValueError:
                 raise ValueError(f"No built-in config for {N_electrons} electrons.")
-            from atomx.mcdhf.excitations import generate_sd_excitations, suggest_virtual_orbitals
+            from atomx.methods.mcdhf.excitations import generate_sd_excitations, suggest_virtual_orbitals
             virtuals = suggest_virtual_orbitals(Z, n_virtual=1)
             max_exc = 2 if correlation == "sd" else 1
             # Freeze core for Z > 10
@@ -162,8 +162,8 @@ class Atom:
             return self._solve_method(method, tol, max_iter, log=log)
 
         if self._multi_config:
-            from atomx.mcdhf.config import make_csf_list
-            from atomx.mcdhf.solver import MCDHFSolver
+            from atomx.methods.mcdhf.config import make_csf_list
+            from atomx.methods.mcdhf.solver import MCDHFSolver
             csfs = make_csf_list(self.Z, self._config_strings)
             solver = MCDHFSolver(Z=self.Z, csfs=csfs, ns=self.ns, ks=self.ks,
                                   include_breit=self.breit, include_qed=self.qed)
@@ -171,14 +171,14 @@ class Atom:
             self._bsp_data = self._mcdhf_result.bsp_data
         elif self.exchange == "shooting":
             # ODE shooting backend (Radial/Salvat-style)
-            from atomx.mcdhf.config import _parse_config_string
-            from atomx.shooting.solver import ShootingSolver
+            from atomx.methods.mcdhf.config import _parse_config_string
+            from atomx.numerics.shooting.solver import ShootingSolver
             subshells = _parse_config_string(self._config_strings[0])
             solver = ShootingSolver(Z=self.Z, subshells=subshells,
                                     n_grid=1000, r_max=75.0, alpha_x=1.5)
             shooting_result = solver.solve(max_iter=max_iter, tol=tol)
             # Wrap in a compatible result object
-            from atomx.scf.solver import SCFResult, Subshell
+            from atomx.methods.dirac_fock import SCFResult, Subshell
             self._result = SCFResult(
                 converged=shooting_result.converged,
                 iterations=shooting_result.iterations,
@@ -221,8 +221,8 @@ class Atom:
 
             # DBSR_HF-style semi-exponential grid (matched to nuclear model)
             if self._use_physics_grid:
-                from atomx.bspline.knots import make_physics_knots
-                from atomx.bspline.basis import prepare_bspline_data
+                from atomx.numerics.bspline.knots import make_physics_knots
+                from atomx.numerics.bspline.basis import prepare_bspline_data
                 t_phys, ns_phys = make_physics_knots(
                     ks=self.ks, Z=self.Z, nuclear=self.nuclear)
                 data = prepare_bspline_data(t_phys, ns_phys, self.ks,
@@ -267,7 +267,7 @@ class Atom:
             )
 
         # Parse configuration into subshells
-        from atomx.mcdhf.config import _parse_config_string
+        from atomx.methods.mcdhf.config import _parse_config_string
         config_str = self._config_strings[0]
         subshells_raw = _parse_config_string(config_str)
 
@@ -338,11 +338,11 @@ class Atom:
         return {}
 
     @property
-    def wavefunctions(self):
-        """Radial wavefunctions container (``atomx.results.Wavefunctions``)."""
+    def waves(self):
+        """Radial wavefunctions container (:class:`atomx.results.Waves`)."""
         if self._mcdhf_result:
-            return self._mcdhf_result.wavefunctions
-        return self._result.wavefunctions if self._result else None
+            return self._mcdhf_result.waves
+        return self._result.waves if self._result else None
 
     @property
     def state_energies(self):
@@ -372,7 +372,7 @@ class Atom:
         list of TransitionResult
             Transitions sorted by wavelength.
         """
-        from atomx.transitions.calculator import TransitionCalculator
+        from atomx.prop.transitions.calculator import TransitionCalculator
         calc = TransitionCalculator(self)
         return calc.compute_all(multipoles, gauge)
 
@@ -432,7 +432,7 @@ class Atom:
         omega : ndarray
             Collision strength (dimensionless).
         """
-        from atomx.collisions.distorted_wave import dw_excitation_cross_section
+        from atomx.scattering.distorted_wave.solver import dw_excitation_cross_section
         return dw_excitation_cross_section(self, final_atom, energies_eV, **kwargs)
 
     def __repr__(self):

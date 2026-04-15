@@ -5,7 +5,7 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from atomx.photoionization import (
+from atomx.scattering.photoionization import (
     FanoResonance,
     apply_resonances,
     fano_profile,

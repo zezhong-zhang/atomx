@@ -9,7 +9,7 @@ Ne HF tests share a single solver to avoid repeating the expensive SCF.
 
 import numpy as np
 import pytest
-from atomx.scf.solver import DFSolver, Subshell, helium_subshells, neon_subshells
+from atomx.methods.dirac_fock import DFSolver, Subshell, helium_subshells, neon_subshells
 from atomx.angular.coefficients import exchange_lambda, exchange_k_range, exchange_coefficient
 
 

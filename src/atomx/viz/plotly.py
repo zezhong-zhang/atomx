@@ -39,7 +39,7 @@ def _require_plotly():
 # ---------------------------------------------------------------------------
 
 def plot_radial_orbital(
-    wavefunctions,
+    waves,
     label: str,
     *,
     log_x: bool = False,
@@ -48,12 +48,12 @@ def plot_radial_orbital(
 ):
     """Interactive plot of P(r), Q(r) for one orbital."""
     _require_plotly()
-    if label not in wavefunctions.orbitals:
-        available = ", ".join(sorted(wavefunctions.orbitals.keys()))
+    if label not in waves.orbitals:
+        available = ", ".join(sorted(waves.orbitals.keys()))
         raise KeyError(
-            f"orbital {label!r} not in wavefunctions. Available: {available}")
-    orb = wavefunctions.orbitals[label]
-    r = wavefunctions.grid
+            f"orbital {label!r} not in waves. Available: {available}")
+    orb = waves.orbitals[label]
+    r = waves.grid
 
     fig = _go.Figure()
     fig.add_trace(_go.Scatter(
@@ -76,7 +76,7 @@ def plot_radial_orbital(
 
 
 def plot_orbital_density(
-    wavefunctions,
+    waves,
     labels: Optional[Sequence[str]] = None,
     *,
     log_x: bool = False,
@@ -85,15 +85,15 @@ def plot_orbital_density(
 ):
     """Interactive radial density for one or more orbitals."""
     _require_plotly()
-    r = wavefunctions.grid
+    r = waves.grid
     if labels is None:
-        labels = list(wavefunctions.orbitals.keys())
+        labels = list(waves.orbitals.keys())
 
     fig = _go.Figure()
     for lbl in labels:
-        if lbl not in wavefunctions.orbitals:
+        if lbl not in waves.orbitals:
             continue
-        orb = wavefunctions.orbitals[lbl]
+        orb = waves.orbitals[lbl]
         rho = orb.P ** 2
         if orb.Q is not None:
             rho = rho + orb.Q ** 2

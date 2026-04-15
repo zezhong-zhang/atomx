@@ -6,7 +6,7 @@ Reference magnitudes from Desclaux (1973) and DBSR_HF.
 
 import numpy as np
 import pytest
-from atomx.scf.solver import DFSolver, helium_subshells, neon_subshells
+from atomx.methods.dirac_fock import DFSolver, helium_subshells, neon_subshells
 from atomx.corrections.qed import uehling_potential, compute_se_energy, compute_vp_energy
 from atomx.corrections.breit import compute_breit_energy
 from atomx.constants import ALPHA, C

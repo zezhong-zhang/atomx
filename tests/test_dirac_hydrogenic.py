@@ -3,11 +3,11 @@
 import numpy as np
 import pytest
 from atomx.constants import HARTREE_EV
-from atomx.dirac.hydrogenic import hydrogenic_dirac_energy, list_hydrogenic_states
-from atomx.bspline.knots import make_knots
-from atomx.bspline.basis import prepare_bspline_data
-from atomx.dirac.matrix import build_dirac_matrices
-from atomx.dirac.solver import solve_dirac
+from atomx.physics.dirac import hydrogenic_dirac_energy, list_hydrogenic_states
+from atomx.numerics.bspline.knots import make_knots
+from atomx.numerics.bspline.basis import prepare_bspline_data
+from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
+from atomx.numerics.bspline.dirac_assembly import solve_dirac
 
 
 class TestHydrogenicAnalytical:

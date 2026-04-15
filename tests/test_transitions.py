@@ -10,11 +10,11 @@ Validates:
 
 import numpy as np
 import pytest
-from atomx.transitions.angular import (
+from atomx.prop.transitions.angular import (
     selection_rules, angular_eL, angular_mL,
     allowed_final_kappas, _kappa_to_lj,
 )
-from atomx.transitions.rates import (
+from atomx.prop.transitions.rates import (
     einstein_A_eL, oscillator_strength, lifetime, _double_factorial,
 )
 

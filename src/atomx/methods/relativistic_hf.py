@@ -62,8 +62,13 @@ class BreitPauli(Method):
 
     def solve(self, Z, subshells, tol=1e-5, max_iter=40, **kwargs):
         """Run NR-HF then apply perturbative relativistic corrections."""
-        from atomx.constants import ALPHA
-        from atomx.shooting.solver import ShootingSolver, ShootingResult
+        from atomx.numerics.shooting.solver import ShootingSolver, ShootingResult
+        from atomx.physics.breit_pauli import (
+            darwin_shift,
+            mass_velocity_shift,
+            spin_orbit_shifts,
+            spin_orbit_xi,
+        )
 
         # Step 1: Converge non-relativistic HF
         solver = ShootingSolver(
@@ -73,8 +78,7 @@ class BreitPauli(Method):
             equation='schrodinger')
         nr_result = solver.solve(max_iter=max_iter, tol=tol)
 
-        # Step 2: Perturbative corrections
-        alpha_sq = ALPHA ** 2
+        # Step 2: Perturbative corrections via physics/breit_pauli operators
         corrected_energies = dict(nr_result.orbital_energies)
         delta_mv = 0.0
         delta_darwin = 0.0
@@ -89,31 +93,18 @@ class BreitPauli(Method):
             q = sh.occupation
             Z_eff = Z
 
-            # Mass-velocity
-            if self.include_mass_velocity:
-                E_mv = -alpha_sq * Z_eff**4 / (2 * n**3) * (
-                    1.0 / (l + 0.5) - 3.0 / (4 * n))
-                delta_mv += q * E_mv
-            else:
-                E_mv = 0.0
+            E_mv = mass_velocity_shift(n, l, Z_eff) if self.include_mass_velocity else 0.0
+            delta_mv += q * E_mv
 
-            # Darwin (s-waves only)
-            if self.include_darwin and l == 0:
-                E_d = alpha_sq * Z_eff**4 / (2 * n**3)
-                delta_darwin += q * E_d
-            else:
-                E_d = 0.0
+            E_d = darwin_shift(n, l, Z_eff) if self.include_darwin else 0.0
+            delta_darwin += q * E_d
 
-            # Spin-orbit (l > 0 only)
             if self.include_spin_orbit and l > 0:
-                xi = alpha_sq * Z_eff**4 / (
-                    4 * n**3 * l * (l + 0.5) * (l + 1))
+                xi = spin_orbit_xi(n, l, Z_eff)
+                E_so_plus, E_so_minus = spin_orbit_shifts(l, xi)
 
                 j2_plus = 2 * l + 1
                 j2_minus = 2 * l - 1
-                E_so_plus = xi * (l / 2.0)        # j = l + 1/2
-                E_so_minus = xi * (-(l + 1) / 2.0)  # j = l - 1/2
-
                 E_base = E_orb + E_mv + E_d
                 corrected_energies[f"{n}{l_char}{j2_plus}/2"] = E_base + E_so_plus
                 corrected_energies[f"{n}{l_char}{j2_minus}/2"] = E_base + E_so_minus
