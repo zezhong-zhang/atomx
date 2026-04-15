@@ -173,9 +173,92 @@ class TestWichmannKroll:
 
 class TestStubBackends:
     def test_shabaev_raises_with_reference(self):
+        """The full (local + non-local) Shabaev stub raises."""
         orbs = [(np.zeros(10), np.zeros(10), 2, -1, "1s1/2")]
         with pytest.raises(NotImplementedError, match="Shabaev"):
             compute_se_energy(orbs, Z=1, method="shabaev")
+
+
+# ---------------------------------------------------------------------------
+# Shabaev local backend (working — QEDMOD v7 se_pot.f port)
+# ---------------------------------------------------------------------------
+
+class TestShabaevLocal:
+    def test_h_1s_matches_mohr_at_calibration_point(self):
+        """By construction: ⟨ψ_1s_hydrogenic|V_loc|ψ_1s_hydrogenic⟩ = Mohr(1s).
+
+        For a well-converged H 1s SCF orbital (which IS hydrogenic to
+        numerical precision) the Shabaev-local result should reproduce
+        Mohr to ~1 % — the small residual is the non-rel vs Dirac
+        density difference at O((Zα)²)."""
+        shells = [Subshell(n=1, kappa=-1, occupation=1)]
+        solver = DFSolver(Z=1, subshells=shells,
+                          ns=80, ks=9, r_min=1e-5, exchange="hf")
+        result = solver.solve(max_iter=80, tol=1e-10)
+        orb_list = solver._flatten_orbitals(result.orbitals_raw)
+        E_m = compute_se_energy(
+            orb_list, Z=1, method="mohr", bsp_data=result._bsp_data,
+        )
+        E_s = compute_se_energy(
+            orb_list, Z=1, method="shabaev_local", bsp_data=result._bsp_data,
+        )
+        # H 1s: should match to ~0.1 %
+        assert E_s == pytest.approx(E_m, rel=2e-3)
+
+    def test_ne_1s_closer_to_mohr_than_flambaum_ginges(self):
+        """Total Ne SE: Shabaev-local should be within ~10 % of Mohr
+        and demonstrably closer than FG-electric (which is 70 % off).
+
+        The residual ~ 6 % comes from Mohr's explicit orbital-overlap
+        ratio for 2s (not captured by the Shabaev local-only form);
+        the full non-local Shabaev operator would close this."""
+        from atomx.scf.solver import neon_subshells
+        solver = DFSolver(Z=10, subshells=neon_subshells(),
+                          ns=50, ks=9, exchange="hf")
+        result = solver.solve(max_iter=40, tol=1e-5)
+        orb_list = solver._flatten_orbitals(result.orbitals_raw)
+        E_m = compute_se_energy(
+            orb_list, Z=10, method="mohr", bsp_data=result._bsp_data)
+        E_s = compute_se_energy(
+            orb_list, Z=10, method="shabaev_local", bsp_data=result._bsp_data)
+        E_fg = compute_se_energy(
+            orb_list, Z=10, method="flambaum_ginges", bsp_data=result._bsp_data)
+        # Shabaev-local within 10 % of Mohr
+        assert abs(E_s - E_m) / abs(E_m) < 0.10
+        # And demonstrably closer than FG-electric (which is 70 % off)
+        assert abs(E_s - E_m) < abs(E_fg - E_m)
+
+    def test_d_orbitals_return_zero_cleanly(self):
+        """|κ| ≥ 3 orbitals have no reference → amplitude is 0, so the
+        backend returns a zero contribution without crashing."""
+        # Construct synthetic orbital with κ = -3 (f5/2)
+        from atomx.corrections.qedmod import get_backend
+        # Need a valid bsp_data context; borrow from a solved atom
+        shells = [Subshell(n=1, kappa=-1, occupation=1)]
+        solver = DFSolver(Z=1, subshells=shells,
+                          ns=40, ks=9, exchange="hf")
+        result = solver.solve(max_iter=40, tol=1e-7)
+        orb_list = solver._flatten_orbitals(result.orbitals_raw)
+        # Repackage 1s orbital with artificial kappa = -3 (f5/2)
+        P, Q, occ, _, _ = orb_list[0]
+        faux_f = [(P, Q, occ, -3, "4f5/2")]
+        r = get_backend("shabaev_local").compute(
+            faux_f, result._bsp_data, 1)
+        assert r.per_orbital["4f5/2"] == 0.0
+        assert r.E_SE == 0.0
+
+    def test_available_as_scf_qed_backend(self):
+        """DFSolver accepts qed_se_method='shabaev_local' end-to-end."""
+        shells = [Subshell(n=1, kappa=-1, occupation=1)]
+        solver = DFSolver(
+            Z=1, subshells=shells, ns=60, ks=9, exchange="hf",
+            include_qed=True, qed_se_method="shabaev_local",
+        )
+        result = solver.solve(max_iter=50, tol=1e-7)
+        E_SE = result.energy_components.get("E_SE")
+        assert E_SE is not None
+        assert E_SE > 0
+        assert result.energy_components.get("se_method") == "shabaev_local"
 
 
 # ---------------------------------------------------------------------------
