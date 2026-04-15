@@ -29,9 +29,17 @@ correction and is exposed separately via
 that it can be added on the VP side rather than the SE side.
 
 The **magnetic form factor** Φ_g (eq. 7) involves a non-local ``γ·∇``
-operator; it contributes at the ~10 % level and mostly shifts p-states.
-Its implementation is deferred — see the comments at the bottom of this
-file for the derivation sketch.
+operator; it contributes at the ~10 % level for high-n states but up to
+~70 % for 1s at Z ≈ 10.  Its implementation is deferred — see the
+comments at the bottom of this file for the derivation sketch.
+
+Practical note: the :class:`~atomx.corrections.qedmod.shabaev.ShabaevLocalBackend`
+(``"shabaev_local"``) provides a **different** decomposition that does
+not require Φ_g separately — it implements the Shabaev–Tupitsyn–Yerokhin
+model operator (local part), calibrated against Mohr's F(αZ), which
+closes the 1s gap to ~3 % for Ne without needing the γ·∇ reduction.
+Users wanting 1s precision should prefer ``"shabaev_local"`` over
+``"flambaum_ginges"``.
 
 All formulas below are written in atomic Hartree units (ℏ = m_e = e = 1,
 c = 1/α).  Conversions from the paper's natural units (ℏ = c = 1,
