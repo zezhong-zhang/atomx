@@ -16,7 +16,7 @@ factory-style design uses a module-level constructor:
 >>> atom = Atom(Z=10).solve()
 >>>
 >>> class NeRadial(RadialOrbitalScene):
-...     wavefunctions = atom.wavefunctions
+...     waves = atom.waves
 ...     orbital_label = "2p3/2"
 
 Then run:  ``manim -pqh ne_radial.py NeRadial``.
@@ -93,13 +93,13 @@ class RadialOrbitalScene(Scene):
     Override class attributes in a subclass, or instantiate with
     keyword arguments.  Attributes:
 
-    wavefunctions : :class:`atomx.results.Wavefunctions`
+    waves : :class:`atomx.results.Waves`
     orbital_label : str
     r_max_bohr : float or None   (default: 1.5 × orbital expectation)
     show_small_component : bool  (default True)
     """
 
-    wavefunctions: Any = None
+    waves: Any = None
     orbital_label: Optional[str] = None
     r_max_bohr: Optional[float] = None
     show_small_component: bool = True
@@ -107,13 +107,13 @@ class RadialOrbitalScene(Scene):
     def construct(self):
         if not _MANIM_AVAILABLE:  # pragma: no cover
             raise RuntimeError("manim not installed")
-        if self.wavefunctions is None or self.orbital_label is None:
+        if self.waves is None or self.orbital_label is None:
             raise ValueError(
-                "Subclass RadialOrbitalScene and set .wavefunctions + "
+                "Subclass RadialOrbitalScene and set .waves + "
                 ".orbital_label class attributes."
             )
-        orb = self.wavefunctions.orbitals[self.orbital_label]
-        r = np.asarray(self.wavefunctions.grid)
+        orb = self.waves.orbitals[self.orbital_label]
+        r = np.asarray(self.waves.grid)
         P = np.asarray(orb.P)
         Q = np.asarray(orb.Q) if orb.Q is not None else None
 

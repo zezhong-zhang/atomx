@@ -18,8 +18,8 @@ import numpy as np
 import pytest
 
 from atomx.constants import ALPHA
-from atomx.scf.solver import DFSolver, Subshell
-from atomx.zeeman import (
+from atomx.methods.dirac_fock import DFSolver, Subshell
+from atomx.prop.zeeman import (
     BOHR_MAGNETON_MHZ_PER_TESLA,
     LandeFactor,
     ZeemanShift,
@@ -29,7 +29,7 @@ from atomx.zeeman import (
     weak_field_shift_MHz,
     zeeman_shift_table,
 )
-from atomx.zeeman.lande import lande_factor
+from atomx.prop.zeeman.lande import lande_factor
 
 
 # ---------------------------------------------------------------------------

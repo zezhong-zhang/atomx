@@ -5,7 +5,7 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from atomx.autoionization import (
+from atomx.scattering.autoionization import (
     AutoionizationState,
     DRRateCoefficient,
     dr_rate_coefficient,

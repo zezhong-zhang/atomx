@@ -19,7 +19,7 @@ from math import comb
 from dataclasses import dataclass
 from typing import List, Tuple
 
-from atomx.scf.solver import Subshell
+from atomx.methods.dirac_fock import Subshell
 
 
 @dataclass

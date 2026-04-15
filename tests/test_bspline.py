@@ -2,9 +2,9 @@
 
 import numpy as np
 import pytest
-from atomx.bspline.knots import make_knots
-from atomx.bspline.basis import bsplvb, find_span, setup_gauss_points, evaluate_bsplines_on_grid
-from atomx.bspline.integrals import overlap_matrix
+from atomx.numerics.bspline.knots import make_knots
+from atomx.numerics.bspline.basis import bsplvb, find_span, setup_gauss_points, evaluate_bsplines_on_grid
+from atomx.numerics.bspline.integrals import overlap_matrix
 
 
 class TestKnots:

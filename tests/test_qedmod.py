@@ -22,7 +22,7 @@ from atomx.corrections.qedmod import (
     get_backend,
 )
 from atomx.corrections.qedmod.welton import _density_at_origin  # noqa: F401
-from atomx.scf.solver import DFSolver, Subshell, helium_subshells
+from atomx.methods.dirac_fock import DFSolver, Subshell, helium_subshells
 
 
 # ---------------------------------------------------------------------------
@@ -131,7 +131,7 @@ class TestWichmannKroll:
                           , ns=40, ks=9, exchange="hf")
         # Use helium 1s² with Z=10 (charge-10 ion) so potentials probe higher-Z physics
         # Actually just use real Ne for this test
-        from atomx.scf.solver import neon_subshells
+        from atomx.methods.dirac_fock import neon_subshells
         solver = DFSolver(Z=10, subshells=neon_subshells(), ns=50, ks=9, exchange="hf")
         result = solver.solve(max_iter=40, tol=1e-5)
         orb_list = solver._flatten_orbitals(result.orbitals_raw)
@@ -144,7 +144,7 @@ class TestWichmannKroll:
 
     def test_wk_included_via_compute_qed_corrections(self):
         from atomx.corrections.qed import compute_qed_corrections
-        from atomx.scf.solver import neon_subshells
+        from atomx.methods.dirac_fock import neon_subshells
         solver = DFSolver(Z=10, subshells=neon_subshells(), ns=50, ks=9, exchange="hf")
         result = solver.solve(max_iter=40, tol=1e-5)
         orb_list = solver._flatten_orbitals(result.orbitals_raw)
@@ -157,7 +157,7 @@ class TestWichmannKroll:
         assert abs(out["E_QED_total"] - (out["E_VP"] + out["E_SE"] + out["E_WK"])) < 1e-15
 
     def test_scf_integration_wichmann_kroll_flag(self):
-        from atomx.scf.solver import neon_subshells
+        from atomx.methods.dirac_fock import neon_subshells
         solver = DFSolver(
             Z=10, subshells=neon_subshells(), ns=50, ks=9, exchange="hf",
             include_qed=True, include_wichmann_kroll=True,
@@ -212,7 +212,7 @@ class TestShabaevLocal:
         The residual ~ 6 % comes from Mohr's explicit orbital-overlap
         ratio for 2s (not captured by the Shabaev local-only form);
         the full non-local Shabaev operator would close this."""
-        from atomx.scf.solver import neon_subshells
+        from atomx.methods.dirac_fock import neon_subshells
         solver = DFSolver(Z=10, subshells=neon_subshells(),
                           ns=50, ks=9, exchange="hf")
         result = solver.solve(max_iter=40, tol=1e-5)
@@ -285,7 +285,7 @@ class TestHydrogenicDiracReference:
     At heavy Z the difference is measurable."""
 
     def test_hydrogenic_solve_returns_valid_wavefunction(self):
-        from atomx.dirac.hydrogenic_wf import hydrogenic_dirac_wavefunction
+        from atomx.numerics.analytic.hydrogenic_dirac import hydrogenic_dirac_wavefunction
         import numpy as np
         P, Q, bsp_data, E = hydrogenic_dirac_wavefunction(
             n=1, kappa=-1, Z=1, ns=40, ks=9,
@@ -295,7 +295,7 @@ class TestHydrogenicDiracReference:
         assert P.shape == (40,)
         assert Q.shape == (40,)
         # Normalisation (∫ P² + Q² dr ≈ 1)
-        from atomx.bspline.evaluate import eval_orbital_on_grid
+        from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
         ksp = bsp_data.get("ksp", bsp_data["ks"])
         ksq = bsp_data.get("ksq", bsp_data["ks"])
         nsp = bsp_data.get("nsp", bsp_data["ns"])
@@ -310,7 +310,7 @@ class TestHydrogenicDiracReference:
 
     def test_r_exp_integral_dirac_matches_nr_at_low_Z(self):
         """For Z=1 the Dirac and non-rel integrals agree to ~0.1 %."""
-        from atomx.dirac.hydrogenic_wf import hydrogenic_r_exp_integral_dirac
+        from atomx.numerics.analytic.hydrogenic_dirac import hydrogenic_r_exp_integral_dirac
         from atomx.corrections.qedmod.shabaev import _hydrogenic_r_exp_integral
         I_d = hydrogenic_r_exp_integral_dirac(n=1, kappa=-1, Z=1)
         I_nr = _hydrogenic_r_exp_integral(n=1, l=0, Z=1)
@@ -318,7 +318,7 @@ class TestHydrogenicDiracReference:
 
     def test_dirac_differs_from_nr_at_heavy_Z(self):
         """For Z=50, the (Zα)² ≈ 0.13 correction gives several % shift."""
-        from atomx.dirac.hydrogenic_wf import hydrogenic_r_exp_integral_dirac
+        from atomx.numerics.analytic.hydrogenic_dirac import hydrogenic_r_exp_integral_dirac
         from atomx.corrections.qedmod.shabaev import _hydrogenic_r_exp_integral
         I_d = hydrogenic_r_exp_integral_dirac(n=1, kappa=-1, Z=50)
         I_nr = _hydrogenic_r_exp_integral(n=1, l=0, Z=50)

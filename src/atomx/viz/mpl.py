@@ -53,7 +53,7 @@ def _require_mpl():
 # ---------------------------------------------------------------------------
 
 def plot_radial_orbital(
-    wavefunctions,
+    waves,
     label: str,
     *,
     ax=None,
@@ -65,7 +65,7 @@ def plot_radial_orbital(
 
     Parameters
     ----------
-    wavefunctions : :class:`atomx.results.Wavefunctions`
+    waves : :class:`atomx.results.Waves`
     label : str
         Orbital key, e.g. ``"2p3/2"``.
     ax : :class:`matplotlib.axes.Axes`, optional
@@ -82,12 +82,12 @@ def plot_radial_orbital(
     :class:`matplotlib.figure.Figure`
     """
     _require_mpl()
-    if label not in wavefunctions.orbitals:
-        available = ", ".join(sorted(wavefunctions.orbitals.keys()))
-        raise KeyError(f"orbital {label!r} not in wavefunctions. "
+    if label not in waves.orbitals:
+        available = ", ".join(sorted(waves.orbitals.keys()))
+        raise KeyError(f"orbital {label!r} not in waves. "
                        f"Available: {available}")
-    orb = wavefunctions.orbitals[label]
-    r = wavefunctions.grid
+    orb = waves.orbitals[label]
+    r = waves.grid
 
     if ax is None:
         fig, ax = _plt.subplots(figsize=(7, 4.5))
@@ -115,7 +115,7 @@ def plot_radial_orbital(
 
 
 def plot_orbital_density(
-    wavefunctions,
+    waves,
     labels: Optional[Sequence[str]] = None,
     *,
     ax=None,
@@ -128,16 +128,16 @@ def plot_orbital_density(
     Parameters
     ----------
     labels : list of str, optional
-        Orbitals to plot; default = all in ``wavefunctions.orbitals``.
+        Orbitals to plot; default = all in ``waves.orbitals``.
     include_r2 : bool
         If ``True`` (default) plot the radial probability
         ``4π r² (P² + Q²)`` (peak-shaped).  If ``False`` plot the bare
         density ``P² + Q²``.
     """
     _require_mpl()
-    r = wavefunctions.grid
+    r = waves.grid
     if labels is None:
-        labels = list(wavefunctions.orbitals.keys())
+        labels = list(waves.orbitals.keys())
 
     if ax is None:
         fig, ax = _plt.subplots(figsize=(8, 5))
@@ -145,9 +145,9 @@ def plot_orbital_density(
         fig = ax.figure
 
     for lbl in labels:
-        if lbl not in wavefunctions.orbitals:
+        if lbl not in waves.orbitals:
             continue
-        orb = wavefunctions.orbitals[lbl]
+        orb = waves.orbitals[lbl]
         rho = orb.P ** 2
         if orb.Q is not None:
             rho = rho + orb.Q ** 2

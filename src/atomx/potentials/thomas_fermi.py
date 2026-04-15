@@ -14,7 +14,7 @@ Reference: Salvat et al., Comp. Phys. Comm. 165, 157 (2005)
 
 import numpy as np
 from atomx.constants import ALPHA
-from atomx.bspline.integrals import _assemble_integral
+from atomx.numerics.bspline.integrals import _assemble_integral
 
 
 def _thomas_fermi_screening(x):
