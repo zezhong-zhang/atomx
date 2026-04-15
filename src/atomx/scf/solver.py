@@ -233,6 +233,35 @@ class SCFResult:
         from atomx.types import CouplingScheme
         return CouplingScheme.JJ
 
+    # ------------------------------------------------------------------
+    # Unit-aware accessors (pint)
+    # ------------------------------------------------------------------
+
+    def total_energy_as(self, unit: str = "hartree"):
+        """Total energy in the requested unit (pint Quantity).
+
+        Internal unit is Hartree; spectroscopic conversions (to eV,
+        cm⁻¹, MHz, K via k_B) are handled automatically.
+
+        Requires :mod:`pint` — install via ``pip install atomx[units]``.
+
+        >>> result.total_energy_as("eV")
+        <Quantity(-3497.47, 'electron_volt')>
+        >>> result.total_energy_as("cm^-1")
+        <Quantity(-28215000, '1 / centimeter')>
+        """
+        from atomx.results import _as_quantity
+        return _as_quantity(self.total_energy, "hartree", unit)
+
+    def orbital_energy_as(self, label: str, unit: str = "hartree"):
+        """One-electron orbital energy ε_a for orbital ``label`` in target unit."""
+        from atomx.results import _as_quantity
+        if label not in self.orbital_energies:
+            raise KeyError(
+                f"{label!r} not in orbital_energies; "
+                f"available: {list(self.orbital_energies)}")
+        return _as_quantity(self.orbital_energies[label], "hartree", unit)
+
     @property
     def wavefunctions(self):
         """Build Wavefunctions container from B-spline coefficients."""
