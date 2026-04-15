@@ -80,6 +80,35 @@ class OrbitalWavefunction:
             return None
         return abs(self.kappa) - 0.5
 
+    @property
+    def s(self) -> float:
+        """Electron spin quantum number — always ``½`` for a single orbital."""
+        return 0.5
+
+    @property
+    def l_symbol(self) -> str:
+        """Spectroscopic letter for the orbital angular momentum
+        (``s``, ``p``, ``d``, …)."""
+        return "spdfghiklmno"[self.l] if self.l < 12 else f"l{self.l}"
+
+    def to_dict(self) -> dict:
+        """Compact ``{quantum_number → value}`` summary for ``Atom.summary()``
+        and external bookkeeping.  Excludes the radial arrays — fetch
+        those via the ``P`` / ``Q`` attributes directly."""
+        return {
+            "label": self.label,
+            "n": self.n,
+            "l": self.l,
+            "l_symbol": self.l_symbol,
+            "kappa": self.kappa,
+            "j": self.j,
+            "s": self.s,
+            "occupation": self.occupation,
+            "energy_Ha": float(self.energy),
+            "is_relativistic": self.is_relativistic,
+            "n_grid_points": int(self.P.size) if self.P is not None else 0,
+        }
+
 
 @dataclass
 class Waves:
