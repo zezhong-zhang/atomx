@@ -61,3 +61,31 @@ class IsotopeShiftResult:
     E_SMS_MHz: float = 0.0
     E_total_MHz: float = 0.0
     orbital_FS_MHz: Dict[str, float] = field(default_factory=dict)
+
+    # ------------------------------------------------------------------
+    # Unit-aware accessors (pint)
+    # ------------------------------------------------------------------
+
+    def _to_unit(self, value_MHz: float, unit: str):
+        from atomx.results import _as_quantity
+        return _as_quantity(value_MHz, "MHz", unit)
+
+    def total_as(self, unit: str = "MHz"):
+        """Total isotope shift in the target unit (pint Quantity).
+
+        Internal unit is MHz; spectroscopic conversions (Hz, GHz,
+        THz, cm⁻¹, eV, Hartree) are handled automatically.
+        """
+        return self._to_unit(self.E_total_MHz, unit)
+
+    def NMS_as(self, unit: str = "MHz"):
+        """Normal-mass-shift contribution in target unit."""
+        return self._to_unit(self.E_NMS_MHz, unit)
+
+    def SMS_as(self, unit: str = "MHz"):
+        """Specific-mass-shift contribution in target unit."""
+        return self._to_unit(self.E_SMS_MHz, unit)
+
+    def FS_as(self, unit: str = "MHz"):
+        """Field-shift contribution in target unit."""
+        return self._to_unit(self.E_FS_MHz, unit)

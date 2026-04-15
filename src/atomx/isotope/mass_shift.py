@@ -1,5 +1,7 @@
-"""Normal Mass Shift (NMS).
+"""Normal Mass Shift (NMS) and Specific Mass Shift (SMS).
 
+Normal mass shift
+-----------------
 The Breit–Salpeter one-body mass-shift operator in the non-relativistic
 limit is
 
@@ -13,7 +15,27 @@ T_e is the total electron kinetic energy.  The expectation value gives
 For a Coulomb-bound system the virial theorem states ⟨T_e⟩ = −E_total
 (non-relativistic) with a small relativistic correction of order
 ``(Zα)²``.  atomx uses the virial theorem as a *default* estimator and
-flags the ~1 % Dirac correction in the result.
+accepts an explicit ``kinetic_energy`` override for systems where the
+Dirac correction matters.
+
+Specific mass shift
+-------------------
+The SMS comes from the two-body piece of the mass-shift operator,
+
+    H_SMS = −(1/M) · Σ_{i<j} p_i · p_j,
+
+and is sensitive to electron-electron correlations.  A full ab-initio
+SMS evaluation on an SCF determinant requires two-electron momentum
+integrals and is non-trivial in the Dirac-Fock basis; atomx does not
+yet implement it automatically.
+
+Instead, this module exposes an **SMS parameter** ``K_SMS`` (in atomic
+units of ``h / (M_e · a_0²)``) that users can supply externally — for
+example from the Anisimova *et al.* 2023 model-QED recoil tables
+(``papers/2301.04132v1.pdf``) or from an MBPT calculation in a
+complementary code.  The SMS contribution to an isotope shift is then
+
+    δν_SMS(A → A')  =  K_SMS · (1/M_A − 1/M_A').                   (2)
 
 Relativistic generalisation
 ---------------------------
@@ -131,3 +153,70 @@ def default_nuclear_mass_me(Z: int, A: int) -> float:
     :attr:`atomx.hyperfine.NuclearMoment.mass_me`.
     """
     return A * PROTON_ELECTRON_MASS_RATIO
+
+
+# ---------------------------------------------------------------------------
+# Specific mass shift (user-supplied)
+# ---------------------------------------------------------------------------
+
+@dataclass
+class SpecificMassShift:
+    """Specific mass shift for a given isotope, from a user-supplied K_SMS.
+
+    Attributes
+    ----------
+    K_SMS_au : float
+        SMS coefficient in atomic units.  Positive or negative — the
+        sign convention is that δν_SMS(A → A') = K_SMS · (1/M_A − 1/M_A'),
+        so a positive K_SMS means the lighter isotope is *blue-shifted*
+        relative to the heavier one from SMS alone.
+    E_SMS_Ha : float
+        Energy contribution ``K_SMS / M_nuc``  in Hartree.
+    E_SMS_MHz : float
+        Same, in MHz.
+    mass_me : float
+        Nuclear mass used (electron-mass units).
+    isotope : str
+    """
+
+    K_SMS_au: float
+    E_SMS_Ha: float
+    E_SMS_MHz: float
+    mass_me: float
+    isotope: str = ""
+
+
+def specific_mass_shift(
+    K_SMS_au: float,
+    mass_me: float,
+    *,
+    isotope_label: str = "",
+) -> SpecificMassShift:
+    """Build a :class:`SpecificMassShift` from a user-supplied K_SMS.
+
+    Parameters
+    ----------
+    K_SMS_au : float
+        SMS coefficient in atomic units (Hartree · m_e).
+    mass_me : float
+        Nuclear mass in electron-mass units.  Must be positive.
+    isotope_label : str
+        Informational label.
+
+    Returns
+    -------
+    :class:`SpecificMassShift`
+    """
+    from atomx.hyperfine.dipole import HARTREE_MHZ
+
+    if mass_me <= 0:
+        raise ValueError(f"Nuclear mass must be positive; got {mass_me}.")
+
+    E_SMS_Ha = K_SMS_au / mass_me
+    return SpecificMassShift(
+        K_SMS_au=K_SMS_au,
+        E_SMS_Ha=E_SMS_Ha,
+        E_SMS_MHz=E_SMS_Ha * HARTREE_MHZ,
+        mass_me=mass_me,
+        isotope=isotope_label,
+    )

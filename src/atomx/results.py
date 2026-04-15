@@ -211,6 +211,55 @@ class HyperfineResult:
     ladder: list = field(default_factory=list)
     B_MHz: Dict[str, float] = field(default_factory=dict)
 
+    # ------------------------------------------------------------------
+    # Unit-aware accessors (pint)
+    # ------------------------------------------------------------------
+
+    def A_as(self, label: str, unit: str = "MHz"):
+        """Magnetic hyperfine constant A for an orbital in the target unit.
+
+        Requires pint (``pip install atomx[units]``).  The internal
+        unit is MHz; spectroscopic conversion to eV / cm⁻¹ / Hz is
+        handled automatically via pint's ``spectroscopy`` context.
+
+        >>> hf.A_as("1s1/2", "Hz")
+        <Quantity(1.42e9, 'hertz')>
+        >>> hf.A_as("1s1/2", "cm^-1")
+        <Quantity(0.0474, '1 / centimeter')>
+        """
+        if label not in self.A_MHz:
+            raise KeyError(
+                f"{label!r} not in A_MHz; available: {list(self.A_MHz)}")
+        return _as_quantity(self.A_MHz[label], "MHz", unit)
+
+    def B_as(self, label: str, unit: str = "MHz"):
+        """Electric-quadrupole hyperfine constant B for an orbital.
+
+        Returns 0-valued Quantity when the orbital has no B entry
+        (j = 1/2, or isotope with I ≤ 1/2).
+        """
+        if label not in self.B_MHz:
+            return _as_quantity(0.0, "MHz", unit)
+        return _as_quantity(self.B_MHz[label], "MHz", unit)
+
+
+def _as_quantity(value: float, internal_unit: str, target: str):
+    """Helper: convert ``value`` from ``internal_unit`` to ``target``.
+
+    Uses the spectroscopy context transparently for energy ↔ wavenumber
+    ↔ frequency conversions (e.g. Hartree → cm⁻¹ or MHz).
+    """
+    from atomx.units import ureg
+    q = float(value) * ureg(internal_unit)
+    try:
+        return q.to(target)
+    except Exception:
+        import pint as _pint
+        try:
+            return q.to(target, "spectroscopy")
+        except _pint.errors.DimensionalityError:
+            raise
+
 
 @runtime_checkable
 class AtomicResult(Protocol):
