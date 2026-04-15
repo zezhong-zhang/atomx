@@ -38,12 +38,18 @@ from atomx.isotope.mass_shift import (
     normal_mass_shift,
     specific_mass_shift,
 )
+from atomx.isotope.sms_abinitio import (
+    SMSResult,
+    compute_sms_abinitio,
+)
 
 __all__ = [
     "FieldShiftParameter",
     "IsotopeShiftResult",
     "MassShift",
+    "SMSResult",
     "SpecificMassShift",
+    "compute_sms_abinitio",
     "field_shift_factor_per_orbital",
     "normal_mass_shift",
     "seltzer_F_Ha_per_Bohr2",

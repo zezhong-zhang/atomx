@@ -162,6 +162,129 @@ class TestNMSExplicitKineticEnergy:
 
 
 # ---------------------------------------------------------------------------
+# Ab-initio SMS — closed-shell evaluation of H_SMS = −(1/M) Σ p_i·p_j
+# ---------------------------------------------------------------------------
+
+class TestAbInitioSMSSelectionRules:
+    def test_same_l_pair_not_allowed(self):
+        """l_a = l_b → no dipole coupling → K_SMS contribution = 0."""
+        from atomx.isotope.sms_abinitio import _allowed_sms_pair
+        assert _allowed_sms_pair(-1, -1) is False  # s-s
+        assert _allowed_sms_pair(+1, +1) is False  # p1/2-p1/2
+        assert _allowed_sms_pair(-2, -2) is False  # p3/2-p3/2
+
+    def test_adjacent_l_pair_allowed(self):
+        from atomx.isotope.sms_abinitio import _allowed_sms_pair
+        assert _allowed_sms_pair(-1, +1) is True   # s-p1/2
+        assert _allowed_sms_pair(-1, -2) is True   # s-p3/2
+        assert _allowed_sms_pair(+1, +2) is True   # p1/2-d3/2
+        assert _allowed_sms_pair(-2, -3) is True   # p3/2-d5/2
+
+    def test_Δl_two_not_allowed(self):
+        from atomx.isotope.sms_abinitio import _allowed_sms_pair
+        assert _allowed_sms_pair(-1, +2) is False  # s-d3/2 (Δl=2)
+        assert _allowed_sms_pair(-1, -3) is False  # s-d5/2 (Δl=2)
+
+
+class TestAbInitioSMSAllSClosedShell:
+    """Atoms with only s-occupations give zero SMS (no dipole pairs)."""
+
+    def test_He_zero_SMS(self):
+        from atomx.scf.solver import DFSolver, Subshell
+        from atomx.isotope import compute_sms_abinitio
+        solver = DFSolver(
+            Z=2, subshells=[Subshell(n=1, kappa=-1, occupation=2)],
+            ns=40, ks=9, exchange="hf",
+        )
+        result = solver.solve(max_iter=60, tol=1e-6)
+        orbs = solver._flatten_orbitals(result.orbitals_raw)
+        sms = compute_sms_abinitio(orbs, result._bsp_data)
+        assert sms.K_SMS_au == 0.0
+        assert sms.n_pairs == 0
+
+    def test_Be_zero_SMS(self):
+        """1s²2s² — all l=0, no SMS."""
+        from atomx.scf.solver import DFSolver, Subshell
+        from atomx.isotope import compute_sms_abinitio
+        solver = DFSolver(
+            Z=4,
+            subshells=[
+                Subshell(n=1, kappa=-1, occupation=2),
+                Subshell(n=2, kappa=-1, occupation=2),
+            ],
+            ns=50, ks=9, exchange="hf",
+        )
+        result = solver.solve(max_iter=60, tol=1e-6)
+        orbs = solver._flatten_orbitals(result.orbitals_raw)
+        sms = compute_sms_abinitio(orbs, result._bsp_data)
+        assert sms.K_SMS_au == 0.0
+
+
+class TestAbInitioSMSNoble:
+    """Ne and Ar: real closed-shell atoms with non-trivial SMS."""
+
+    def _ne(self):
+        from atomx.scf.solver import DFSolver, neon_subshells
+        from atomx.isotope import compute_sms_abinitio
+        solver = DFSolver(Z=10, subshells=neon_subshells(),
+                          ns=50, ks=9, exchange="hf")
+        result = solver.solve(max_iter=40, tol=1e-5)
+        orbs = solver._flatten_orbitals(result.orbitals_raw)
+        return compute_sms_abinitio(orbs, result._bsp_data)
+
+    def test_Ne_nonzero(self):
+        sms = self._ne()
+        assert sms.K_SMS_au != 0.0
+        assert sms.n_pairs == 4   # 1s-2p1/2, 1s-2p3/2, 2s-2p1/2, 2s-2p3/2
+
+    def test_Ne_ballpark(self):
+        sms = self._ne()
+        # Empirical: K_SMS for Ne ground state in atomic units ≈ −5e-7
+        # (several papers confirm this order of magnitude)
+        assert 1e-7 < abs(sms.K_SMS_au) < 1e-5
+
+    def test_Ne_inner_1s_2p_dominant(self):
+        """1s-2p3/2 is the largest radial overlap for closed-shell Ne."""
+        sms = self._ne()
+        largest_label_pair = max(
+            sms.pair_contributions.items(),
+            key=lambda kv: abs(kv[1]),
+        )[0]
+        assert largest_label_pair == ("1s1/2", "2p3/2")
+
+    def test_Ar_larger_than_Ne(self):
+        """Ar has 12 allowed pairs vs Ne's 4 → |K_SMS| significantly bigger."""
+        from atomx.scf.solver import DFSolver, Subshell
+        from atomx.isotope import compute_sms_abinitio
+
+        ar_shells = [
+            Subshell(n=1, kappa=-1, occupation=2),
+            Subshell(n=2, kappa=-1, occupation=2),
+            Subshell(n=2, kappa=+1, occupation=2),
+            Subshell(n=2, kappa=-2, occupation=4),
+            Subshell(n=3, kappa=-1, occupation=2),
+            Subshell(n=3, kappa=+1, occupation=2),
+            Subshell(n=3, kappa=-2, occupation=4),
+        ]
+        solver = DFSolver(Z=18, subshells=ar_shells,
+                          ns=60, ks=9, exchange="hf")
+        result = solver.solve(max_iter=80, tol=1e-6)
+        orbs = solver._flatten_orbitals(result.orbitals_raw)
+        sms_ar = compute_sms_abinitio(orbs, result._bsp_data)
+        sms_ne = self._ne()
+        assert sms_ar.n_pairs > sms_ne.n_pairs
+        assert abs(sms_ar.K_SMS_au) > abs(sms_ne.K_SMS_au)
+
+    def test_for_mass_inverse_scaling(self):
+        sms = self._ne()
+        E1 = sms.for_mass(1000.0)
+        E2 = sms.for_mass(2000.0)
+        assert E1 == pytest.approx(2.0 * E2, rel=1e-12)
+        with pytest.raises(ValueError):
+            sms.for_mass(0.0)
+
+
+# ---------------------------------------------------------------------------
 # Field shift
 # ---------------------------------------------------------------------------
 
