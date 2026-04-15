@@ -139,7 +139,53 @@ def _hydrogenic_r_exp_integral(n: int, l: int, Z: int) -> float:
         beta = Z + c
         return 5.0 * Z ** 5 / beta ** 6
 
-    # 3d and beyond not implemented — caller falls back to 0
+    if n == 3 and l == 2:
+        # P_{3d}(r)  = (4/(81√30)) Z^{7/2} r³ exp(-Zr/3)
+        # P_{3d}²    = (16/(81² · 30)) Z⁷ r⁶ exp(-2Zr/3)
+        #            = (16/196830) Z⁷ r⁶ exp(-2Zr/3)
+        # ⟨r · exp(-cr)⟩ = (16/196830) Z⁷ · ∫ r⁷ exp(-β r) dr   with β = 2Z/3 + c
+        #                = (16/196830) Z⁷ · 7!/β⁸
+        #                = (16 × 5040 / 196830) · Z⁷/β⁸
+        #                = (80640 / 196830) · Z⁷/β⁸
+        beta = (2.0 * Z) / 3.0 + c
+        return (80640.0 / 196830.0) * Z ** 7 / beta ** 8
+
+    if n == 3 and l == 1:
+        # P_{3p}(r) = (4/(81√6)) Z^{3/2} (6 − Zr) (Zr) exp(-Zr/3)
+        # P_{3p}²   = (16/(81²·6)) Z³ (6 − Zr)² (Zr)² exp(-2Zr/3)
+        #           = (16/39366) Z⁵ r² (6 − Zr)² exp(-2Zr/3)
+        # ⟨r · exp(-cr)⟩ = (16/39366) Z⁵ ∫ r³ (6 − Zr)² exp(-β r) dr
+        #   with β = 2Z/3 + c,
+        #   (6−Zr)² = 36 − 12Zr + Z²r²
+        #   ∫r³ exp(-βr) dr = 6/β⁴
+        #   ∫r⁴ exp(-βr) dr = 24/β⁵
+        #   ∫r⁵ exp(-βr) dr = 120/β⁶
+        beta = (2.0 * Z) / 3.0 + c
+        moment = (36.0 * 6.0 / beta ** 4
+                  - 12.0 * Z * 24.0 / beta ** 5
+                  + Z ** 2 * 120.0 / beta ** 6)
+        return (16.0 / 39366.0) * Z ** 5 * moment
+
+    if n == 3 and l == 0:
+        # P_{3s}(r) = (2/(81√3)) Z^{3/2} (27 − 18 Zr + 2 (Zr)²) exp(-Zr/3)
+        # P_{3s}²   = (4/(81²·3)) Z³ (27 − 18Zr + 2 Z²r²)² exp(-2Zr/3)
+        #           = (4/19683) Z³ (…)² exp(-2Zr/3)
+        # Expand (27 − 18Zr + 2 Z²r²)² = 729 − 972 Zr + 432 (Zr)²
+        #                                − 72 (Zr)³ + 4 (Zr)⁴.
+        # ⟨r · exp(-cr)⟩ = (4/19683) Z³ ∫ r [729 − 972 Zr + …] · r² · exp(-β r) dr
+        #   = (4/19683) Z³ ∫ [729 r³ − 972 Zr⁴ + 432 Z²r⁵
+        #                       − 72 Z³ r⁶ + 4 Z⁴ r⁷] exp(-βr) dr
+        beta = (2.0 * Z) / 3.0 + c
+        moment = (
+            729.0 * 6.0 / beta ** 4
+            - 972.0 * Z * 24.0 / beta ** 5
+            + 432.0 * Z ** 2 * 120.0 / beta ** 6
+            - 72.0 * Z ** 3 * 720.0 / beta ** 7
+            + 4.0 * Z ** 4 * 5040.0 / beta ** 8
+        )
+        return (4.0 / 19683.0) * Z ** 3 * moment
+
+    # Higher n not implemented — caller falls back to 0
     return 0.0
 
 
@@ -154,6 +200,10 @@ def _reference_state_for_kappa(kappa: int) -> Tuple[int, int] | None:
         return (2, 1)   # 2p₁/₂ (non-rel shared with 2p)
     if kappa == -2:
         return (2, 1)   # 2p₃/₂ (non-rel shared with 2p)
+    if kappa == +2:
+        return (3, 2)   # 3d₃/₂ (non-rel shared with 3d)
+    if kappa == -3:
+        return (3, 2)   # 3d₅/₂ (non-rel shared with 3d)
     return None
 
 

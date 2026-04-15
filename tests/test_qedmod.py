@@ -228,23 +228,21 @@ class TestShabaevLocal:
         # And demonstrably closer than FG-electric (which is 70 % off)
         assert abs(E_s - E_m) < abs(E_fg - E_m)
 
-    def test_d_orbitals_return_zero_cleanly(self):
-        """|κ| ≥ 3 orbitals have no reference → amplitude is 0, so the
-        backend returns a zero contribution without crashing."""
-        # Construct synthetic orbital with κ = -3 (f5/2)
+    def test_high_kappa_return_zero_cleanly(self):
+        """|κ| ≥ 4 orbitals have no reference → amplitude is 0, so the
+        backend returns zero contribution without crashing."""
         from atomx.corrections.qedmod import get_backend
-        # Need a valid bsp_data context; borrow from a solved atom
         shells = [Subshell(n=1, kappa=-1, occupation=1)]
         solver = DFSolver(Z=1, subshells=shells,
                           ns=40, ks=9, exchange="hf")
         result = solver.solve(max_iter=40, tol=1e-7)
         orb_list = solver._flatten_orbitals(result.orbitals_raw)
-        # Repackage 1s orbital with artificial kappa = -3 (f5/2)
+        # Fake κ = -4 (4f7/2) orbital — no reference tabulated yet
         P, Q, occ, _, _ = orb_list[0]
-        faux_f = [(P, Q, occ, -3, "4f5/2")]
+        faux = [(P, Q, occ, -4, "4f7/2")]
         r = get_backend("shabaev_local").compute(
-            faux_f, result._bsp_data, 1)
-        assert r.per_orbital["4f5/2"] == 0.0
+            faux, result._bsp_data, 1)
+        assert r.per_orbital["4f7/2"] == 0.0
         assert r.E_SE == 0.0
 
     def test_available_as_scf_qed_backend(self):
@@ -259,6 +257,53 @@ class TestShabaevLocal:
         assert E_SE is not None
         assert E_SE > 0
         assert result.energy_components.get("se_method") == "shabaev_local"
+
+    def test_d_orbital_calibration_now_works(self):
+        """After the 3d extension, κ = ±3 orbitals give non-zero SE."""
+        # Hydrogenic Z=22 with single 3d5/2 electron
+        shells = [Subshell(n=3, kappa=-3, occupation=1)]
+        solver = DFSolver(Z=22, subshells=shells,
+                          ns=60, ks=9, exchange="hf")
+        result = solver.solve(max_iter=60, tol=1e-7)
+        orb_list = solver._flatten_orbitals(result.orbitals_raw)
+        E_s = compute_se_energy(
+            orb_list, Z=22, method="shabaev_local", bsp_data=result._bsp_data,
+        )
+        E_m = compute_se_energy(
+            orb_list, Z=22, method="mohr", bsp_data=result._bsp_data,
+        )
+        # Both should be non-zero (and negative for 3d5/2)
+        assert E_s != 0.0
+        assert E_m != 0.0
+        # Signs should agree
+        assert (E_s < 0) == (E_m < 0)
+
+
+class TestMohrN3Table:
+    def test_n3_s_state_interpolated(self):
+        """New Mohr table entries for n=3 s-state: Z=10 should give
+        F ≈ 11.79 (between 1s=11.68 and 2s=11.87)."""
+        from atomx.corrections.qedmod.mohr import _interpolate_se_f
+        F_3s = _interpolate_se_f(10, 3, -1)
+        # Our tabulated value at Z=10 for 3s
+        assert 11.0 < F_3s < 13.0
+
+    def test_n3_p_states_small(self):
+        """3p1/2 and 3p3/2 SE is small, of the right sign."""
+        from atomx.corrections.qedmod.mohr import _interpolate_se_f
+        F_3p12 = _interpolate_se_f(10, 3, 1)
+        F_3p32 = _interpolate_se_f(10, 3, -2)
+        assert abs(F_3p12) < 1.0
+        assert abs(F_3p32) < 1.0
+
+    def test_n3_d_states_tiny(self):
+        """3d states have even smaller F values."""
+        from atomx.corrections.qedmod.mohr import _interpolate_se_f
+        F_3d32 = _interpolate_se_f(50, 3, 2)
+        F_3d52 = _interpolate_se_f(50, 3, -3)
+        # Larger-Z but d states still << 1
+        assert abs(F_3d32) < 0.5
+        assert abs(F_3d52) < 0.1
 
 
 # ---------------------------------------------------------------------------

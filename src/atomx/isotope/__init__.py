@@ -34,14 +34,18 @@ from atomx.isotope.isotope_shift import (
 )
 from atomx.isotope.mass_shift import (
     MassShift,
+    SpecificMassShift,
     normal_mass_shift,
+    specific_mass_shift,
 )
 
 __all__ = [
     "FieldShiftParameter",
     "IsotopeShiftResult",
     "MassShift",
+    "SpecificMassShift",
     "field_shift_factor_per_orbital",
     "normal_mass_shift",
     "seltzer_F_Ha_per_Bohr2",
+    "specific_mass_shift",
 ]
