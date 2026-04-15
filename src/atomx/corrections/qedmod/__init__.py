@@ -17,18 +17,26 @@ Available backends
     valid for every j=1/2 orbital (κ = ±1), zero for higher-l.
     Useful as a sanity estimator and for orbitals outside the Mohr table.
 ``"flambaum_ginges"``
-    Flambaum–Ginges (2005) / Ginges–Berengut (2016) local radiative
-    potential.  **Stub** — structure in place; formulas to be added.
+    Flambaum–Ginges (2005) local radiative potential — electric
+    pieces (V_l + V_f + simplified WK).  Magnetic form-factor Φ_g
+    deferred; use ``"shabaev_local"`` for precision on 1s.
+``"shabaev_local"``
+    Local part of the Shabaev–Tupitsyn–Yerokhin (2013) model operator,
+    ``A_κ · r · exp(−r·c)``, with ``A_κ(Z)`` calibrated against Mohr
+    F(αZ).  Port of QEDMOD v7 ``se_pot.f:local_se_pot`` keeping
+    atomx's Mohr tabulation as the authoritative reference data.
+    Handles κ ∈ {−1, +1, −2}; closes the Ne 1s FG gap (97 % of Mohr
+    vs 30 % for FG electric).
 ``"shabaev"``
-    Shabaev–Tupitsyn–Yerokhin (2013) model operator (as in the QEDMOD
-    code).  Local + non-local pieces, the current state of the art.
-    **Stub** — structure in place; parameter tables to be added.
+    Full Shabaev–Tupitsyn–Yerokhin operator (local + non-local).
+    **Stub** — non-local projector term needs Coulomb Green's
+    functions and a port of ``fse_dat.f`` tables.
 
 Public API
 ----------
 >>> from atomx.corrections.qedmod import available_backends, get_backend
 >>> available_backends()
-['mohr', 'welton', 'flambaum_ginges', 'shabaev']
+['mohr', 'welton', 'flambaum_ginges', 'shabaev_local', 'shabaev']
 >>> backend = get_backend("mohr")
 >>> result = backend.compute(orbitals, bsp_data, Z=10)
 >>> result["E_SE"]      # total SE in Hartree

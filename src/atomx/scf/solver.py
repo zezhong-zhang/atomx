@@ -233,6 +233,35 @@ class SCFResult:
         from atomx.types import CouplingScheme
         return CouplingScheme.JJ
 
+    # ------------------------------------------------------------------
+    # Unit-aware accessors (pint)
+    # ------------------------------------------------------------------
+
+    def total_energy_as(self, unit: str = "hartree"):
+        """Total energy in the requested unit (pint Quantity).
+
+        Internal unit is Hartree; spectroscopic conversions (to eV,
+        cm⁻¹, MHz, K via k_B) are handled automatically.
+
+        Requires :mod:`pint` — install via ``pip install atomx[units]``.
+
+        >>> result.total_energy_as("eV")
+        <Quantity(-3497.47, 'electron_volt')>
+        >>> result.total_energy_as("cm^-1")
+        <Quantity(-28215000, '1 / centimeter')>
+        """
+        from atomx.results import _as_quantity
+        return _as_quantity(self.total_energy, "hartree", unit)
+
+    def orbital_energy_as(self, label: str, unit: str = "hartree"):
+        """One-electron orbital energy ε_a for orbital ``label`` in target unit."""
+        from atomx.results import _as_quantity
+        if label not in self.orbital_energies:
+            raise KeyError(
+                f"{label!r} not in orbital_energies; "
+                f"available: {list(self.orbital_energies)}")
+        return _as_quantity(self.orbital_energies[label], "hartree", unit)
+
     @property
     def wavefunctions(self):
         """Build Wavefunctions container from B-spline coefficients."""
@@ -512,7 +541,7 @@ class SCFResult:
     # Isotope shifts (NMS + field shift)
     # ------------------------------------------------------------------
 
-    def mass_shift_NMS(self, isotope=None):
+    def mass_shift_NMS(self, isotope=None, *, kinetic_energy=None):
         """Normal mass shift of the *total energy* for a given isotope.
 
         Parameters
@@ -520,6 +549,12 @@ class SCFResult:
         isotope : tuple(int, int) or None
             ``(Z, A)`` isotope specifier; defaults to the element's
             standard isotope.
+        kinetic_energy : float, optional
+            Explicit ⟨T_e⟩ in Hartree to use instead of the virial
+            theorem ⟨T⟩ = −E_total.  For Dirac-Fock systems where
+            the relativistic correction matters this can be obtained
+            from one-electron energies:
+            ``⟨T⟩ = Σ_a n_a ε_a − ⟨V_nuc⟩ − 2⟨V_ee⟩``.
 
         Returns
         -------
@@ -540,6 +575,47 @@ class SCFResult:
 
         return normal_mass_shift(
             total_energy=self.total_energy,
+            mass_me=mom.mass_me,
+            isotope_label=mom.name,
+            kinetic_energy=kinetic_energy,
+        )
+
+    def mass_shift_SMS(self, K_SMS_au: float, isotope=None):
+        """Specific mass shift for the given isotope, from a user K_SMS.
+
+        The SMS two-body operator ``−(1/M) Σ_{i<j} p_i · p_j`` is not
+        evaluated by atomx from scratch; users supply the coefficient
+        ``K_SMS_au`` (atomic units, ``Hartree · m_e``) from a
+        companion calculation (MBPT, CI, or an Anisimova 2023 model-
+        operator table) and this method wraps it for isotope-shift
+        bookkeeping.
+
+        Parameters
+        ----------
+        K_SMS_au : float
+            Specific-mass-shift coefficient in atomic units.
+        isotope : tuple(int, int) or None
+            ``(Z, A)`` isotope specifier; default from ``self.Z``.
+
+        Returns
+        -------
+        atomx.isotope.SpecificMassShift
+        """
+        from atomx.hyperfine import nuclear_moment
+        from atomx.isotope import specific_mass_shift
+
+        if isotope is not None:
+            z, a = isotope
+            mom = nuclear_moment(z, a)
+        elif self.Z is not None:
+            mom = nuclear_moment(self.Z)
+        else:
+            raise ValueError(
+                "Cannot infer isotope: pass (Z, A) via the `isotope` argument."
+            )
+
+        return specific_mass_shift(
+            K_SMS_au=K_SMS_au,
             mass_me=mom.mass_me,
             isotope_label=mom.name,
         )
@@ -577,22 +653,35 @@ class SCFResult:
 
         return field_shift_factor_per_orbital(orb_list, self._bsp_data, self.Z)
 
-    def isotope_shift(self, isotope_a, isotope_b):
+    def isotope_shift(self, isotope_a, isotope_b, *,
+                      K_SMS_au: float | None = None,
+                      kinetic_energy: float | None = None):
         """Isotope shift between two isotopes for this atomic level.
 
         Parameters
         ----------
         isotope_a, isotope_b : tuple(int, int)
             ``(Z, A)`` identifiers; must share the same Z.
+        K_SMS_au : float, optional
+            User-supplied specific-mass-shift coefficient in atomic
+            units.  If ``None`` (default), the SMS term is zero and
+            the returned shift contains NMS + FS only.
+        kinetic_energy : float, optional
+            Explicit ⟨T_e⟩ in Hartree; passed through to the NMS
+            calculation.  Default: virial theorem ⟨T⟩ = −E_total.
 
         Returns
         -------
         atomx.isotope.IsotopeShiftResult
-            ``δν^{A,B} = ν^A − ν^B`` with NMS + FS pieces separated.
-            SMS is zero (two-body operator, not yet implemented).
+            ``δν^{A,B} = ν^A − ν^B`` with NMS + SMS + FS pieces
+            separated.  When ``K_SMS_au=None``, ``E_SMS_MHz`` is zero.
         """
         from atomx.hyperfine import nuclear_moment
-        from atomx.isotope import IsotopeShiftResult, normal_mass_shift
+        from atomx.isotope import (
+            IsotopeShiftResult,
+            normal_mass_shift,
+            specific_mass_shift,
+        )
 
         za, aa = isotope_a
         zb, ab = isotope_b
@@ -603,14 +692,25 @@ class SCFResult:
         mom_a = nuclear_moment(za, aa)
         mom_b = nuclear_moment(zb, ab)
 
-        # --- mass shift (NMS only) ------------------------------------
+        # --- normal mass shift ---------------------------------------
         ms_a = normal_mass_shift(
-            self.total_energy, mom_a.mass_me, isotope_label=mom_a.name,
+            self.total_energy, mom_a.mass_me,
+            isotope_label=mom_a.name, kinetic_energy=kinetic_energy,
         )
         ms_b = normal_mass_shift(
-            self.total_energy, mom_b.mass_me, isotope_label=mom_b.name,
+            self.total_energy, mom_b.mass_me,
+            isotope_label=mom_b.name, kinetic_energy=kinetic_energy,
         )
         E_NMS_MHz = ms_a.E_NMS_MHz - ms_b.E_NMS_MHz
+
+        # --- specific mass shift (user-supplied K_SMS) ---------------
+        E_SMS_MHz = 0.0
+        if K_SMS_au is not None:
+            sms_a = specific_mass_shift(K_SMS_au, mom_a.mass_me,
+                                         isotope_label=mom_a.name)
+            sms_b = specific_mass_shift(K_SMS_au, mom_b.mass_me,
+                                         isotope_label=mom_b.name)
+            E_SMS_MHz = sms_a.E_SMS_MHz - sms_b.E_SMS_MHz
 
         # --- field shift ---------------------------------------------
         # δ⟨r²⟩ from tabulated r_rms (zero if unknown — then FS = 0)
@@ -624,7 +724,7 @@ class SCFResult:
             lbl: F * delta_r2 for lbl, F in fs_par.F_MHz_per_fm2.items()
         }
 
-        E_total_MHz = E_NMS_MHz + E_FS_MHz
+        E_total_MHz = E_NMS_MHz + E_SMS_MHz + E_FS_MHz
 
         return IsotopeShiftResult(
             isotope_a=mom_a.name,
@@ -636,7 +736,7 @@ class SCFResult:
             delta_r2_fm2=delta_r2,
             E_NMS_MHz=E_NMS_MHz,
             E_FS_MHz=E_FS_MHz,
-            E_SMS_MHz=0.0,
+            E_SMS_MHz=E_SMS_MHz,
             E_total_MHz=E_total_MHz,
             orbital_FS_MHz=orbital_FS,
         )

@@ -173,9 +173,186 @@ class TestWichmannKroll:
 
 class TestStubBackends:
     def test_shabaev_raises_with_reference(self):
+        """The full (local + non-local) Shabaev stub raises."""
         orbs = [(np.zeros(10), np.zeros(10), 2, -1, "1s1/2")]
         with pytest.raises(NotImplementedError, match="Shabaev"):
             compute_se_energy(orbs, Z=1, method="shabaev")
+
+
+# ---------------------------------------------------------------------------
+# Shabaev local backend (working — QEDMOD v7 se_pot.f port)
+# ---------------------------------------------------------------------------
+
+class TestShabaevLocal:
+    def test_h_1s_matches_mohr_at_calibration_point(self):
+        """By construction: ⟨ψ_1s_hydrogenic|V_loc|ψ_1s_hydrogenic⟩ = Mohr(1s).
+
+        For a well-converged H 1s SCF orbital (which IS hydrogenic to
+        numerical precision) the Shabaev-local result should reproduce
+        Mohr to ~1 % — the small residual is the non-rel vs Dirac
+        density difference at O((Zα)²)."""
+        shells = [Subshell(n=1, kappa=-1, occupation=1)]
+        solver = DFSolver(Z=1, subshells=shells,
+                          ns=80, ks=9, r_min=1e-5, exchange="hf")
+        result = solver.solve(max_iter=80, tol=1e-10)
+        orb_list = solver._flatten_orbitals(result.orbitals_raw)
+        E_m = compute_se_energy(
+            orb_list, Z=1, method="mohr", bsp_data=result._bsp_data,
+        )
+        E_s = compute_se_energy(
+            orb_list, Z=1, method="shabaev_local", bsp_data=result._bsp_data,
+        )
+        # H 1s: should match to ~0.1 %
+        assert E_s == pytest.approx(E_m, rel=2e-3)
+
+    def test_ne_1s_closer_to_mohr_than_flambaum_ginges(self):
+        """Total Ne SE: Shabaev-local should be within ~10 % of Mohr
+        and demonstrably closer than FG-electric (which is 70 % off).
+
+        The residual ~ 6 % comes from Mohr's explicit orbital-overlap
+        ratio for 2s (not captured by the Shabaev local-only form);
+        the full non-local Shabaev operator would close this."""
+        from atomx.scf.solver import neon_subshells
+        solver = DFSolver(Z=10, subshells=neon_subshells(),
+                          ns=50, ks=9, exchange="hf")
+        result = solver.solve(max_iter=40, tol=1e-5)
+        orb_list = solver._flatten_orbitals(result.orbitals_raw)
+        E_m = compute_se_energy(
+            orb_list, Z=10, method="mohr", bsp_data=result._bsp_data)
+        E_s = compute_se_energy(
+            orb_list, Z=10, method="shabaev_local", bsp_data=result._bsp_data)
+        E_fg = compute_se_energy(
+            orb_list, Z=10, method="flambaum_ginges", bsp_data=result._bsp_data)
+        # Shabaev-local within 10 % of Mohr
+        assert abs(E_s - E_m) / abs(E_m) < 0.10
+        # And demonstrably closer than FG-electric (which is 70 % off)
+        assert abs(E_s - E_m) < abs(E_fg - E_m)
+
+    def test_high_kappa_return_zero_cleanly(self):
+        """|κ| ≥ 4 orbitals have no reference → amplitude is 0, so the
+        backend returns zero contribution without crashing."""
+        from atomx.corrections.qedmod import get_backend
+        shells = [Subshell(n=1, kappa=-1, occupation=1)]
+        solver = DFSolver(Z=1, subshells=shells,
+                          ns=40, ks=9, exchange="hf")
+        result = solver.solve(max_iter=40, tol=1e-7)
+        orb_list = solver._flatten_orbitals(result.orbitals_raw)
+        # Fake κ = -4 (4f7/2) orbital — no reference tabulated yet
+        P, Q, occ, _, _ = orb_list[0]
+        faux = [(P, Q, occ, -4, "4f7/2")]
+        r = get_backend("shabaev_local").compute(
+            faux, result._bsp_data, 1)
+        assert r.per_orbital["4f7/2"] == 0.0
+        assert r.E_SE == 0.0
+
+    def test_available_as_scf_qed_backend(self):
+        """DFSolver accepts qed_se_method='shabaev_local' end-to-end."""
+        shells = [Subshell(n=1, kappa=-1, occupation=1)]
+        solver = DFSolver(
+            Z=1, subshells=shells, ns=60, ks=9, exchange="hf",
+            include_qed=True, qed_se_method="shabaev_local",
+        )
+        result = solver.solve(max_iter=50, tol=1e-7)
+        E_SE = result.energy_components.get("E_SE")
+        assert E_SE is not None
+        assert E_SE > 0
+        assert result.energy_components.get("se_method") == "shabaev_local"
+
+    def test_d_orbital_calibration_now_works(self):
+        """After the 3d extension, κ = ±3 orbitals give non-zero SE."""
+        # Hydrogenic Z=22 with single 3d5/2 electron
+        shells = [Subshell(n=3, kappa=-3, occupation=1)]
+        solver = DFSolver(Z=22, subshells=shells,
+                          ns=60, ks=9, exchange="hf")
+        result = solver.solve(max_iter=60, tol=1e-7)
+        orb_list = solver._flatten_orbitals(result.orbitals_raw)
+        E_s = compute_se_energy(
+            orb_list, Z=22, method="shabaev_local", bsp_data=result._bsp_data,
+        )
+        E_m = compute_se_energy(
+            orb_list, Z=22, method="mohr", bsp_data=result._bsp_data,
+        )
+        # Both should be non-zero (and negative for 3d5/2)
+        assert E_s != 0.0
+        assert E_m != 0.0
+        # Signs should agree
+        assert (E_s < 0) == (E_m < 0)
+
+
+class TestHydrogenicDiracReference:
+    """The Shabaev-local calibration now uses *Dirac* (first-principles)
+    hydrogenic wavefunctions instead of non-relativistic analytic ones.
+    At heavy Z the difference is measurable."""
+
+    def test_hydrogenic_solve_returns_valid_wavefunction(self):
+        from atomx.dirac.hydrogenic_wf import hydrogenic_dirac_wavefunction
+        import numpy as np
+        P, Q, bsp_data, E = hydrogenic_dirac_wavefunction(
+            n=1, kappa=-1, Z=1, ns=40, ks=9,
+        )
+        # H 1s eigenvalue ≈ -0.5 Ha
+        assert E == pytest.approx(-0.5, abs=1e-4)
+        assert P.shape == (40,)
+        assert Q.shape == (40,)
+        # Normalisation (∫ P² + Q² dr ≈ 1)
+        from atomx.bspline.evaluate import eval_orbital_on_grid
+        ksp = bsp_data.get("ksp", bsp_data["ks"])
+        ksq = bsp_data.get("ksq", bsp_data["ks"])
+        nsp = bsp_data.get("nsp", bsp_data["ns"])
+        nsq = bsp_data.get("nsq", bsp_data["ns"])
+        bsp_p = bsp_data["bsp_p"]
+        bsp_q = bsp_data.get("bsp_q", bsp_p)
+        nv = bsp_data["nv"]
+        fP = eval_orbital_on_grid(P, bsp_p, nv, ksp, nsp)
+        fQ = eval_orbital_on_grid(Q, bsp_q, nv, ksq, nsq)
+        norm = float(np.sum(bsp_data["grw"] * (fP ** 2 + fQ ** 2)))
+        assert norm == pytest.approx(1.0, abs=1e-4)
+
+    def test_r_exp_integral_dirac_matches_nr_at_low_Z(self):
+        """For Z=1 the Dirac and non-rel integrals agree to ~0.1 %."""
+        from atomx.dirac.hydrogenic_wf import hydrogenic_r_exp_integral_dirac
+        from atomx.corrections.qedmod.shabaev import _hydrogenic_r_exp_integral
+        I_d = hydrogenic_r_exp_integral_dirac(n=1, kappa=-1, Z=1)
+        I_nr = _hydrogenic_r_exp_integral(n=1, l=0, Z=1)
+        assert I_d == pytest.approx(I_nr, rel=1e-2)
+
+    def test_dirac_differs_from_nr_at_heavy_Z(self):
+        """For Z=50, the (Zα)² ≈ 0.13 correction gives several % shift."""
+        from atomx.dirac.hydrogenic_wf import hydrogenic_r_exp_integral_dirac
+        from atomx.corrections.qedmod.shabaev import _hydrogenic_r_exp_integral
+        I_d = hydrogenic_r_exp_integral_dirac(n=1, kappa=-1, Z=50)
+        I_nr = _hydrogenic_r_exp_integral(n=1, l=0, Z=50)
+        # Dirac > non-rel for s-states (density piles up near nucleus)
+        assert I_d > I_nr
+        # Relative difference between 2 % and 30 %
+        assert 0.02 < (I_d - I_nr) / I_nr < 0.30
+
+
+class TestMohrN3Table:
+    def test_n3_s_state_interpolated(self):
+        """New Mohr table entries for n=3 s-state: Z=10 should give
+        F ≈ 11.79 (between 1s=11.68 and 2s=11.87)."""
+        from atomx.corrections.qedmod.mohr import _interpolate_se_f
+        F_3s = _interpolate_se_f(10, 3, -1)
+        # Our tabulated value at Z=10 for 3s
+        assert 11.0 < F_3s < 13.0
+
+    def test_n3_p_states_small(self):
+        """3p1/2 and 3p3/2 SE is small, of the right sign."""
+        from atomx.corrections.qedmod.mohr import _interpolate_se_f
+        F_3p12 = _interpolate_se_f(10, 3, 1)
+        F_3p32 = _interpolate_se_f(10, 3, -2)
+        assert abs(F_3p12) < 1.0
+        assert abs(F_3p32) < 1.0
+
+    def test_n3_d_states_tiny(self):
+        """3d states have even smaller F values."""
+        from atomx.corrections.qedmod.mohr import _interpolate_se_f
+        F_3d32 = _interpolate_se_f(50, 3, 2)
+        F_3d52 = _interpolate_se_f(50, 3, -3)
+        # Larger-Z but d states still << 1
+        assert abs(F_3d32) < 0.5
+        assert abs(F_3d52) < 0.1
 
 
 # ---------------------------------------------------------------------------
