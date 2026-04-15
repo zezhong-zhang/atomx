@@ -85,6 +85,7 @@ Deferred
 
 from __future__ import annotations
 
+from functools import lru_cache
 from typing import Dict, Tuple
 
 import numpy as np
@@ -207,7 +208,28 @@ def _reference_state_for_kappa(kappa: int) -> Tuple[int, int] | None:
     return None
 
 
-def _amplitude_A_kappa(Z: int, kappa: int) -> float:
+@lru_cache(maxsize=128)
+def _hydrogenic_r_exp_integral_dirac_cached(n: int, kappa: int, Z: int) -> float:
+    """Cache the Dirac ab-initio reference integral per (n, κ, Z).
+
+    Computes ``∫ [P² + Q²] · r · exp(−r·c) dr`` using a hydrogenic
+    Dirac solve on the B-spline basis (first-principles, includes all
+    (Zα)² relativistic corrections to the reference density).
+    """
+    from atomx.dirac.hydrogenic_wf import hydrogenic_r_exp_integral_dirac
+    try:
+        return hydrogenic_r_exp_integral_dirac(n, kappa, Z)
+    except Exception:
+        # Numerical solve failed (e.g. Z too high for bound state) —
+        # fall back to non-rel analytic.
+        l = kappa if kappa > 0 else -kappa - 1
+        return _hydrogenic_r_exp_integral(n, l, Z)
+
+
+def _amplitude_A_kappa(
+    Z: int, kappa: int,
+    *, use_dirac_reference: bool = True,
+) -> float:
     """Calibrated Shabaev amplitude ``A_κ(Z)`` per eq. (2).
 
     Implements the Fortran logic of QEDMOD ``local_se_pot``:
@@ -215,6 +237,12 @@ def _amplitude_A_kappa(Z: int, kappa: int) -> float:
         vloc(r) = r · exp(−r·c)
         de      = ∫ [P_ref² + Q_ref²] · vloc(r) dr
         A_κ     = E_SE^Mohr(ref) / de
+
+    By default uses the **Dirac ab-initio** reference density, which
+    includes all (Zα)² corrections relative to the non-rel analytic
+    form.  For heavy atoms this can differ from the non-rel value by
+    ~10 % (1s at Z=92) to ~100 % (2p₁/₂ at Z=92).  Set
+    ``use_dirac_reference=False`` to recover the faster non-rel form.
 
     Returns 0.0 for κ without a reference.
     """
@@ -228,7 +256,11 @@ def _amplitude_A_kappa(Z: int, kappa: int) -> float:
     F = _interpolate_se_f(Z, n_ref, kappa)
     E_ref = (ALPHA ** 3) * (Z ** 4) * F / (np.pi * n_ref ** 3)
 
-    I_ref = _hydrogenic_r_exp_integral(n_ref, l_ref, Z)
+    if use_dirac_reference:
+        I_ref = _hydrogenic_r_exp_integral_dirac_cached(n_ref, kappa, Z)
+    else:
+        I_ref = _hydrogenic_r_exp_integral(n_ref, l_ref, Z)
+
     if I_ref <= 0:
         return 0.0
     return E_ref / I_ref

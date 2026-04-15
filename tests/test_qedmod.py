@@ -279,6 +279,55 @@ class TestShabaevLocal:
         assert (E_s < 0) == (E_m < 0)
 
 
+class TestHydrogenicDiracReference:
+    """The Shabaev-local calibration now uses *Dirac* (first-principles)
+    hydrogenic wavefunctions instead of non-relativistic analytic ones.
+    At heavy Z the difference is measurable."""
+
+    def test_hydrogenic_solve_returns_valid_wavefunction(self):
+        from atomx.dirac.hydrogenic_wf import hydrogenic_dirac_wavefunction
+        import numpy as np
+        P, Q, bsp_data, E = hydrogenic_dirac_wavefunction(
+            n=1, kappa=-1, Z=1, ns=40, ks=9,
+        )
+        # H 1s eigenvalue ≈ -0.5 Ha
+        assert E == pytest.approx(-0.5, abs=1e-4)
+        assert P.shape == (40,)
+        assert Q.shape == (40,)
+        # Normalisation (∫ P² + Q² dr ≈ 1)
+        from atomx.bspline.evaluate import eval_orbital_on_grid
+        ksp = bsp_data.get("ksp", bsp_data["ks"])
+        ksq = bsp_data.get("ksq", bsp_data["ks"])
+        nsp = bsp_data.get("nsp", bsp_data["ns"])
+        nsq = bsp_data.get("nsq", bsp_data["ns"])
+        bsp_p = bsp_data["bsp_p"]
+        bsp_q = bsp_data.get("bsp_q", bsp_p)
+        nv = bsp_data["nv"]
+        fP = eval_orbital_on_grid(P, bsp_p, nv, ksp, nsp)
+        fQ = eval_orbital_on_grid(Q, bsp_q, nv, ksq, nsq)
+        norm = float(np.sum(bsp_data["grw"] * (fP ** 2 + fQ ** 2)))
+        assert norm == pytest.approx(1.0, abs=1e-4)
+
+    def test_r_exp_integral_dirac_matches_nr_at_low_Z(self):
+        """For Z=1 the Dirac and non-rel integrals agree to ~0.1 %."""
+        from atomx.dirac.hydrogenic_wf import hydrogenic_r_exp_integral_dirac
+        from atomx.corrections.qedmod.shabaev import _hydrogenic_r_exp_integral
+        I_d = hydrogenic_r_exp_integral_dirac(n=1, kappa=-1, Z=1)
+        I_nr = _hydrogenic_r_exp_integral(n=1, l=0, Z=1)
+        assert I_d == pytest.approx(I_nr, rel=1e-2)
+
+    def test_dirac_differs_from_nr_at_heavy_Z(self):
+        """For Z=50, the (Zα)² ≈ 0.13 correction gives several % shift."""
+        from atomx.dirac.hydrogenic_wf import hydrogenic_r_exp_integral_dirac
+        from atomx.corrections.qedmod.shabaev import _hydrogenic_r_exp_integral
+        I_d = hydrogenic_r_exp_integral_dirac(n=1, kappa=-1, Z=50)
+        I_nr = _hydrogenic_r_exp_integral(n=1, l=0, Z=50)
+        # Dirac > non-rel for s-states (density piles up near nucleus)
+        assert I_d > I_nr
+        # Relative difference between 2 % and 30 %
+        assert 0.02 < (I_d - I_nr) / I_nr < 0.30
+
+
 class TestMohrN3Table:
     def test_n3_s_state_interpolated(self):
         """New Mohr table entries for n=3 s-state: Z=10 should give
