@@ -79,9 +79,22 @@ from __future__ import annotations
 import numpy as np
 from scipy.integrate import quad
 
-from atomx.bspline.evaluate import eval_orbital_on_grid
+from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 from atomx.constants import ALPHA, C
 from atomx.corrections.qedmod.base import SEBackend, SEResult, register_backend
+from atomx.data.flambaum_ginges import (
+    A_CUTOFF_COEFF,
+    A_HIGH_FREQ_COEFFS,
+    A_HIGH_FREQ_Z_REF,
+    B_LOW_FREQ_CONST,
+    B_LOW_FREQ_LINEAR,
+    WK_DENOM_SCALE,
+    WK_LEADING,
+)
+
+# Minimum peak amplitude of the SCF large-component P(r) below which the
+# orbital is treated as numerically null (skips the FG evaluation).
+_SCF_ORBITAL_NULL_THRESHOLD = 1e-12
 
 
 # ---------------------------------------------------------------------------
@@ -89,19 +102,21 @@ from atomx.corrections.qedmod.base import SEBackend, SEResult, register_backend
 # ---------------------------------------------------------------------------
 
 def _B_low(Z: int) -> float:
-    """Low-frequency SE coefficient (FG eq. 9): B(Z) = 0.074 + 0.35 · Zα."""
-    return 0.074 + 0.35 * ALPHA * Z
+    """Low-frequency SE coefficient (FG eq. 9): B(Z) = b0 + b1 · Zα."""
+    return B_LOW_FREQ_CONST + B_LOW_FREQ_LINEAR * ALPHA * Z
 
 
 def _A_scale_high(Z: int) -> float:
     """High-frequency electric form-factor scale coefficient (FG eq. 10).
 
-    ``A(Z,r) = A_scale(Z) · r / (r + 0.07 Z² α²)``.
-    ``A_scale = 1.071 - 1.976 x² - 2.128 x³ + 0.169 x⁴``  with
-    ``x = (Z − 80) α``.
+    ``A(Z,r) = A_scale(Z) · r / (r + A_CUTOFF_COEFF · Z² α²)``.
+
+    ``A_scale`` is a polynomial in ``x = (Z − Z_ref) α`` whose
+    coefficients live in :mod:`atomx.data.flambaum_ginges`.
     """
-    x = (Z - 80) * ALPHA
-    return 1.071 - 1.976 * x * x - 2.128 * x ** 3 + 0.169 * x ** 4
+    a0, a2, a3, a4 = A_HIGH_FREQ_COEFFS
+    x = (Z - A_HIGH_FREQ_Z_REF) * ALPHA
+    return a0 + a2 * x * x + a3 * x ** 3 + a4 * x ** 4
 
 
 # ---------------------------------------------------------------------------
@@ -134,8 +149,8 @@ def V_wichmann_kroll(r, Z: int) -> np.ndarray:
     """
     r = np.asarray(r, dtype=float)
     cr = C * r
-    numer = 0.092 * Z * Z * ALPHA * ALPHA
-    denom = 1.0 + (1.62 * cr) ** 4
+    numer = WK_LEADING * Z * Z * ALPHA * ALPHA
+    denom = 1.0 + (WK_DENOM_SCALE * cr) ** 4
     with np.errstate(divide="ignore", invalid="ignore"):
         V = +(4.0 * ALPHA / (9.0 * np.pi)) * (Z / r) * numer / denom
     V = np.where(r > 0, V, 0.0)
@@ -170,7 +185,7 @@ def V_high_freq(r, Z: int) -> np.ndarray:
     aZ = ALPHA * Z
     log_arg = 4.0 * np.log(1.0 / aZ + 0.5)   # constant in r
     A_scale = _A_scale_high(Z)
-    cutoff = 0.07 * Z * Z * ALPHA * ALPHA      # "0.07 Z² α²" of A(Z,r)
+    cutoff = A_CUTOFF_COEFF * Z * Z * ALPHA * ALPHA    # A(Z,r) short-range cutoff
 
     flat_r = r_arr.reshape(-1)
     flat_V = out.reshape(-1)
@@ -240,7 +255,7 @@ class FlambaumGingesBackend(SEBackend):
         per_orbital = {}
         E_SE = 0.0
         for P, Q, occ, kappa, label in orbitals:
-            if np.max(np.abs(P)) < 1e-12:
+            if np.max(np.abs(P)) < _SCF_ORBITAL_NULL_THRESHOLD:
                 per_orbital[label] = 0.0
                 continue
 

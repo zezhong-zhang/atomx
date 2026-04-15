@@ -8,7 +8,7 @@ Covers three backends:
   if manim is absent; instantiation raises a helpful error.
 
 Also covers the ``.plot()`` / ``.plot_density()`` convenience methods on
-:class:`~atomx.results.Wavefunctions` and :class:`~atomx.spectrum.Spectrum`.
+:class:`~atomx.results.Waves` and :class:`~atomx.spectrum.Spectrum`.
 """
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ matplotlib = pytest.importorskip("matplotlib")
 import matplotlib.pyplot as _plt    # noqa: E402
 matplotlib.use("Agg")                # headless
 
-from atomx.results import OrbitalWavefunction, Wavefunctions   # noqa: E402
+from atomx.results import OrbitalWavefunction, Waves   # noqa: E402
 from atomx.spectrum import Spectrum                             # noqa: E402
 
 
@@ -44,7 +44,7 @@ def simple_wavefunctions():
         P=P2, Q=None, n=2, l=0, kappa=-1,
         occupation=1.0, energy=-0.125, label="2s1/2",
     )
-    return Wavefunctions(
+    return Waves(
         grid=r, orbitals={"1s1/2": orb, "2s1/2": orb2}, basis_type="grid",
     )
 
@@ -70,7 +70,7 @@ class TestMpl:
 
     def test_plot_radial_orbital_unknown_label_raises(self, simple_wavefunctions):
         from atomx.viz.mpl import plot_radial_orbital
-        with pytest.raises(KeyError, match="not in wavefunctions"):
+        with pytest.raises(KeyError, match="not in waves"):
             plot_radial_orbital(simple_wavefunctions, "9z9/2")
 
     def test_plot_orbital_density(self, simple_wavefunctions):
@@ -225,7 +225,7 @@ class TestManimImportGuard:
 
         if has_manim:
             with pytest.raises(ValueError):
-                # Missing wavefunctions/label → our ValueError
+                # Missing waves/label → our ValueError
                 scene = manim_mod.RadialOrbitalScene()
                 scene.construct()
         else:

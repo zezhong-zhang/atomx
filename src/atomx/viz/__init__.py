@@ -9,7 +9,7 @@ users can switch with a single import change:
   (requires ``manim-community``).
 
 The design principle is **result-object decoupling**: every renderer
-takes an atomx result (``SCFResult``, ``Wavefunctions``, ``Spectrum``,
+takes an atomx result (``SCFResult``, ``Waves``, ``Spectrum``,
 ``HyperfineResult``, …) and produces the corresponding figure.  No
 renderer imports solver internals, so a viz bug can never affect a
 physics calculation.
@@ -19,7 +19,7 @@ Quick start
 >>> from atomx import Atom
 >>> from atomx.viz import mpl
 >>> ne = Atom(Z=10).solve()
->>> fig = mpl.plot_radial_orbital(ne.wavefunctions, label="2p3/2")
+>>> fig = mpl.plot_radial_orbital(ne.waves, label="2p3/2")
 >>> fig.savefig("ne_2p.png")
 
 See the individual backend modules for the complete list of rendering

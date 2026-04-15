@@ -15,8 +15,8 @@ Reference: Grant & Pyper, J.Phys.B 9, 761 (1976); DBSR_HF hf_energy_BR.f90.
 
 import numpy as np
 from atomx.constants import ALPHA, C, C_SQ
-from atomx.bspline.evaluate import eval_orbital_on_grid, compute_yk
-from atomx.scf.slater import compute_slater_rk
+from atomx.numerics.bspline.evaluate import eval_orbital_on_grid, compute_yk
+from atomx.methods.kohn_sham import compute_slater_rk
 from atomx.angular.wigner import wigner_3j
 from atomx.angular.coefficients import exchange_lambda, exchange_k_range
 

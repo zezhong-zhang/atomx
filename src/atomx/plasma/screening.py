@@ -15,7 +15,7 @@ Reference:
 
 import numpy as np
 from atomx.constants import BOHR_RADIUS_M, HARTREE_EV, BOLTZMANN_EV
-from atomx.bspline.integrals import _assemble_integral
+from atomx.numerics.bspline.integrals import _assemble_integral
 
 
 # Conversion factors

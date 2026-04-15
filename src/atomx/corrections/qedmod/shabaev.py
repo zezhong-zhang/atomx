@@ -90,7 +90,7 @@ from typing import Dict, Tuple
 
 import numpy as np
 
-from atomx.bspline.evaluate import eval_orbital_on_grid
+from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 from atomx.constants import ALPHA, C
 from atomx.corrections.qedmod.base import SEBackend, SEResult, register_backend
 from atomx.corrections.qedmod.mohr import _interpolate_se_f
@@ -216,7 +216,7 @@ def _hydrogenic_r_exp_integral_dirac_cached(n: int, kappa: int, Z: int) -> float
     Dirac solve on the B-spline basis (first-principles, includes all
     (Zα)² relativistic corrections to the reference density).
     """
-    from atomx.dirac.hydrogenic_wf import hydrogenic_r_exp_integral_dirac
+    from atomx.numerics.analytic.hydrogenic_dirac import hydrogenic_r_exp_integral_dirac
     try:
         return hydrogenic_r_exp_integral_dirac(n, kappa, Z)
     except Exception:

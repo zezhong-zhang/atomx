@@ -30,19 +30,16 @@ from atomx.results import (
     AtomicResult,
     HyperfineResult,
     OrbitalWavefunction,
-    Wavefunctions,
+    Waves,
 )
-from atomx import autoionization  # noqa: F401
 from atomx import fitting  # noqa: F401
-from atomx import hyperfine  # noqa: F401
-from atomx import isotope  # noqa: F401
 from atomx import lineshapes  # noqa: F401
-from atomx import photoionization  # noqa: F401
+from atomx import prop  # noqa: F401  — observables (hyperfine, transitions, isotope_shift, zeeman, …)
+from atomx import scattering  # noqa: F401  — photoionization, autoionization, DR, distorted_wave
 from atomx import spectrum  # noqa: F401
 from atomx import units  # noqa: F401  always importable; pint-optional
 from atomx import uta  # noqa: F401
 from atomx import viz  # noqa: F401
-from atomx import zeeman  # noqa: F401
 
 # Conveniences re-exported at the top level
 from atomx.units import ureg, pint_available, codata_version  # noqa: F401

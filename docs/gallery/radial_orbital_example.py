@@ -15,7 +15,7 @@ ne = Atom(Z=10).solve()
 
 
 class NeRadial2p(RadialOrbitalScene):
-    wavefunctions = ne.wavefunctions
+    waves = ne.waves
     orbital_label = "2p3/2"
     r_max_bohr = 4.0
     show_small_component = True
