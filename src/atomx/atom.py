@@ -338,6 +338,13 @@ class Atom:
         return {}
 
     @property
+    def wavefunctions(self):
+        """Radial wavefunctions container (``atomx.results.Wavefunctions``)."""
+        if self._mcdhf_result:
+            return self._mcdhf_result.wavefunctions
+        return self._result.wavefunctions if self._result else None
+
+    @property
     def state_energies(self):
         """CI state energies (MCDHF only)."""
         if self._mcdhf_result:
