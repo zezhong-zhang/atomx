@@ -35,7 +35,7 @@ class HartreeFock(Method):
 
     def solve(self, Z, subshells, tol=1e-5, max_iter=40, **kwargs):
         """Run non-relativistic HF-Slater via ODE shooting."""
-        from atomx.shooting.solver import ShootingSolver
+        from atomx.numerics.shooting.solver import ShootingSolver
 
         solver = ShootingSolver(
             Z=Z, subshells=subshells,

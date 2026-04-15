@@ -95,7 +95,7 @@ def compute_vp_energy(orbitals, bsp_data, Z):
     -------
     E_VP : float (Hartree)
     """
-    from atomx.bspline.evaluate import eval_orbital_on_grid
+    from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 
     nv = bsp_data["nv"]
     ns = bsp_data["ns"]
@@ -179,7 +179,7 @@ def compute_wk_vp_energy(orbitals, bsp_data, Z):
         (Uehling); it is a ~1 % correction for Z > 80 and negligible for
         light atoms.
     """
-    from atomx.bspline.evaluate import eval_orbital_on_grid
+    from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
     from atomx.corrections.qedmod.flambaum_ginges import V_wichmann_kroll
 
     nv = bsp_data["nv"]

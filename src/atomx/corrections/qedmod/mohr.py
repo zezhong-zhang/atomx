@@ -1,20 +1,14 @@
 """Mohr tabulated self-energy backend.
 
-F(Zα) values from:
-    P. J. Mohr, "Self-energy correction to one-electron energy levels in a
-    strong Coulomb field", Phys. Rev. A 46, 4421 (1992)
-    P. J. Mohr, "Quantum electrodynamics of high-Z few-electron atoms",
-    Phys. Rev. A 26, 2338 (1982).
+The numerical F(Zα) table lives in :mod:`atomx.data.mohr_se` with full
+citations; this module owns only the interpolation logic and the
+SCF-vs-hydrogenic overlap screening that convert that table into a
+per-orbital self-energy shift.
 
-F is tabulated for 1s1/2, 2s1/2, 2p1/2, 2p3/2 on a grid of Z values
-{1, 2, 5, 10, 20, 30, 40, 50, 60, 70, 80, 92} and linearly interpolated.
-An orbital-overlap ratio corrects for the deviation of the actual
-SCF orbital from the hydrogenic reference used in Mohr's calculation.
-
-Orbitals outside the explicit table (n ≥ 3, higher-l) fall back to the
-hydrogenic n^-3 scaling of the 1s1/2 value — this is the limit of what the
-Mohr table can deliver.  Use the ``welton`` or ``shabaev`` backends for
-systematically better coverage.
+Orbitals outside the explicit table (n ≥ 4, higher-l) fall back to the
+hydrogenic n⁻³ scaling of the 1s1/2 value — this is the intrinsic
+limit of the Mohr tabulation; use the ``welton``, ``shabaev_local``
+or ``flambaum_ginges`` backends for systematically better coverage.
 """
 
 from __future__ import annotations
@@ -23,88 +17,38 @@ import numpy as np
 
 from atomx.constants import ALPHA
 from atomx.corrections.qedmod.base import SEBackend, SEResult, register_backend
+from atomx.data.mohr_se import TABLE as _SE_TABLE
 
 
-# ---------------------------------------------------------------------------
-# Tabulated F(Zα) values
-# ---------------------------------------------------------------------------
+# Numerical safety floor for comparing the hydrogenic ⟨-Z/r⟩ = -Z²/n² to
+# the SCF value before taking their ratio.  The hydrogenic denominator is
+# always non-zero for Z ≥ 1 and n ≥ 1, so this only guards against a
+# future caller sending Z = 0 or n = 0; the value is arbitrary as long as
+# it sits far below the smallest physical Z²/n² ~ 1 Ha.
+_NUCLEAR_ATTRACTION_FLOOR = 1e-20
 
-# Format: {(n, kappa): {Z: F_value}}
-# Defining relation: E_SE = α(Zα)^4/(πn^3) * F(Zα) * mc^2
-
-_SE_TABLE = {
-    # 1s1/2 (n=1, kappa=-1): Mohr (1983) Table I
-    (1, -1): {
-        1: 10.3169, 2: 10.6027, 5: 11.0742,
-        10: 11.6804, 20: 12.6423, 30: 13.4997,
-        40: 14.3356, 50: 15.2160, 60: 16.2140,
-        70: 17.4409, 80: 19.0723, 92: 21.6412,
-    },
-    # 2s1/2 (n=2, kappa=-1): Mohr (1983) Table II
-    (2, -1): {
-        1: 10.5468, 2: 10.8295, 5: 11.2874,
-        10: 11.8666, 20: 12.7615, 30: 13.5395,
-        40: 14.2838, 50: 15.0640, 60: 15.9530,
-        70: 17.0660, 80: 18.5840, 92: 21.0560,
-    },
-    # 2p1/2 (n=2, kappa=1): Mohr (1983)
-    (2, 1): {
-        1: -0.1264, 2: -0.1200, 5: -0.0890,
-        10: -0.0160, 20: 0.1920, 30: 0.4250,
-        40: 0.6760, 50: 0.9590, 60: 1.2890,
-        70: 1.7060, 80: 2.2780, 92: 3.2850,
-    },
-    # 2p3/2 (n=2, kappa=-2): Mohr (1983)
-    (2, -2): {
-        1: -0.1264, 2: -0.1270, 5: -0.1270,
-        10: -0.1280, 20: -0.1290, 30: -0.1310,
-        40: -0.1330, 50: -0.1360, 60: -0.1400,
-        70: -0.1470, 80: -0.1580, 92: -0.1800,
-    },
-    # ---- n = 3 shell (Mohr-Kim 1992; Indelicato-Mohr 1992) -----------
-    # 3s1/2 (n=3, kappa=-1): hydrogenic extrapolation of (2s) scaling
-    # plus logarithmic n³F_nlj correction from Mohr 1992 Table V.
-    # Values here are Mohr-Kim interpolation for F(Zα) at n=3.
-    (3, -1): {
-        1: 10.585, 5: 11.290, 10: 11.785, 20: 12.573, 30: 13.185,
-        40: 13.716, 50: 14.280, 60: 14.988, 70: 16.055, 80: 17.710,
-        92: 20.290,
-    },
-    # 3p1/2 (n=3, kappa=+1): Indelicato-Mohr (1992)
-    (3, 1): {
-        1: -0.098, 5: -0.075, 10: -0.014, 20: 0.175, 30: 0.395,
-        40: 0.638, 50: 0.913, 60: 1.238, 70: 1.640, 80: 2.178,
-        92: 3.085,
-    },
-    # 3p3/2 (n=3, kappa=-2): Indelicato-Mohr (1992)
-    (3, -2): {
-        1: -0.098, 5: -0.100, 10: -0.102, 20: -0.105, 30: -0.108,
-        40: -0.112, 50: -0.115, 60: -0.119, 70: -0.125, 80: -0.135,
-        92: -0.152,
-    },
-    # 3d3/2 (n=3, kappa=+2): Indelicato-Mohr (1992)
-    (3, 2): {
-        1: -0.002, 5: -0.002, 10: -0.003, 20: -0.005, 30: -0.008,
-        40: -0.014, 50: -0.023, 60: -0.038, 70: -0.064, 80: -0.110,
-        92: -0.205,
-    },
-    # 3d5/2 (n=3, kappa=-3): Indelicato-Mohr (1992)
-    (3, -3): {
-        1: -0.002, 5: -0.002, 10: -0.002, 20: -0.003, 30: -0.004,
-        40: -0.006, 50: -0.008, 60: -0.011, 70: -0.016, 80: -0.024,
-        92: -0.038,
-    },
-}
+# Minimum peak amplitude of the SCF large-component P(r) below which we
+# treat the orbital as numerically null and skip the overlap correction.
+# Well below any physically normalised orbital, which peaks at O(1).
+_SCF_ORBITAL_NULL_THRESHOLD = 1e-10
 
 
-def _interpolate_se_f(Z, n, kappa):
-    """Interpolate F(Zα) from the Mohr tables.
+def _interpolate_se_f(Z: float, n: int, kappa: int) -> float:
+    """Interpolate F(Zα) from the :mod:`atomx.data.mohr_se` table.
 
-    Linear in Z; hydrogenic n^-3 fallback for orbitals outside the table.
+    Linear in Z within the grid; hydrogenic n⁻³ fallback outside the
+    table.  ``Z`` is allowed to be a float so that continuous
+    interpolation on nuclear screening or finite-Z corrections can be
+    supported by callers.
     """
     key = (n, kappa)
     if key in _SE_TABLE:
         table = _SE_TABLE[key]
+        # Exact grid hit: return the tabulated value verbatim to avoid
+        # floating-point roundoff from the two-point formula below.
+        if Z in table:
+            return table[Z]
+
         z_vals = sorted(table.keys())
         f_vals = [table[z] for z in z_vals]
 
@@ -126,7 +70,7 @@ def _interpolate_se_f(Z, n, kappa):
 def _overlap_ratio(P, Q, kappa, Z, n, bsp_data):
     """⟨ψ_SCF|-Z/r|ψ_SCF⟩ / ⟨ψ_hydro|-Z/r|ψ_hydro⟩ with the hydrogenic value
     taken as -Z^2/n^2 (point-nucleus leading term)."""
-    from atomx.bspline.evaluate import eval_orbital_on_grid
+    from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 
     nv = bsp_data["nv"]
     ns = bsp_data["ns"]
@@ -146,7 +90,7 @@ def _overlap_ratio(P, Q, kappa, Z, n, bsp_data):
     vnuc_scf = np.sum(grw * rho * (-Z / gr))
     vnuc_hydro = -Z * Z / (n * n)
 
-    if abs(vnuc_hydro) < 1e-20:
+    if abs(vnuc_hydro) < _NUCLEAR_ATTRACTION_FLOOR:
         return 1.0
     return vnuc_scf / vnuc_hydro
 
@@ -176,7 +120,7 @@ class MohrBackend(SEBackend):
             # In Hartree with mc² = 1/α²  ⇒  (Zα)^4 × F / (π α n^3)
             E_a = aZ ** 4 / (np.pi * ALPHA * n ** 3) * F_val
 
-            if use_overlap and np.max(np.abs(P)) > 1e-10:
+            if use_overlap and np.max(np.abs(P)) > _SCF_ORBITAL_NULL_THRESHOLD:
                 ratio = _overlap_ratio(P, Q, kappa, Z, n, bsp_data)
                 E_a *= ratio
 

@@ -47,7 +47,7 @@ class HydrogenicSchrodinger(Method):
                 0.0)
             for sh in subshells)
 
-        from atomx.scf.solver import SCFResult
+        from atomx.methods.dirac_fock import SCFResult
         return SCFResult(
             converged=True, iterations=0, residual=0.0,
             total_energy=total_energy,
@@ -99,7 +99,7 @@ class HydrogenicDirac(Method):
             orbital_energies[label] = E
             total_energy += sh.occupation * E
 
-        from atomx.scf.solver import SCFResult
+        from atomx.methods.dirac_fock import SCFResult
         return SCFResult(
             converged=True, iterations=0, residual=0.0,
             total_energy=total_energy,

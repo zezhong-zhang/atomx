@@ -133,7 +133,7 @@ class TestQuantityFactories:
 
 @pytest.fixture(scope="module")
 def h_1s_result():
-    from atomx.scf.solver import DFSolver, Subshell
+    from atomx.methods.dirac_fock import DFSolver, Subshell
     shells = [Subshell(n=1, kappa=-1, occupation=1)]
     solver = DFSolver(Z=1, subshells=shells, ns=60, ks=9, exchange="hf")
     return solver.solve(max_iter=50, tol=1e-8)

@@ -2,11 +2,11 @@
 
 import numpy as np
 import pytest
-from atomx.bspline.knots import make_knots
-from atomx.bspline.basis import prepare_bspline_data
-from atomx.dirac.matrix import build_dirac_matrices
-from atomx.dirac.solver import solve_dirac
-from atomx.dirac.continuum import (
+from atomx.numerics.bspline.knots import make_knots
+from atomx.numerics.bspline.basis import prepare_bspline_data
+from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
+from atomx.numerics.bspline.dirac_assembly import solve_dirac
+from atomx.numerics.bspline.continuum import (
     solve_continuum, dipole_matrix_element, photoionization_cross_section,
 )
 
