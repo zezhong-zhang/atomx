@@ -420,24 +420,32 @@ class Atom:
         return dict(w.orbitals) if w is not None else {}
 
     def orbital(self, label: str):
-        """Look up a single :class:`~atomx.results.OrbitalWavefunction`.
+        """Look up orbital(s) matching ``label``.
 
-        Short labels like ``"1s"`` are resolved to their jj-coupled
-        form ``"1s1/2"`` via :meth:`Waves.resolve_label`.
+        Short labels like ``"1s"`` are resolved via
+        :meth:`Waves.resolve_all`:
+
+        - If exactly one orbital matches, returns a single
+          :class:`~atomx.results.OrbitalWavefunction`.
+        - If multiple match (e.g. ``"2p"`` → ``"2p1/2"`` + ``"2p3/2"``),
+          returns a **dict** ``{label: OrbitalWavefunction}``.
 
         >>> ne = Atom(Z=10).solve()
-        >>> ne.orbital('2p').kappa   # resolves '2p' → '2p3/2' (highest j)
-        -2
+        >>> ne.orbital('1s')            # single match → OrbitalWavefunction
+        >>> ne.orbital('2p')            # two matches → dict
+        >>> ne.orbital('2p')['2p3/2']   # drill into the dict
 
         Returns
         -------
-        :class:`~atomx.results.OrbitalWavefunction`
+        OrbitalWavefunction or dict[str, OrbitalWavefunction]
         """
         w = self.waves
         if w is None:
             raise RuntimeError("Atom has no result yet — call .solve() first.")
-        resolved = w.resolve_label(label)
-        return w.orbitals[resolved]
+        resolved = w.resolve_all(label)
+        if len(resolved) == 1:
+            return w.orbitals[resolved[0]]
+        return {lbl: w.orbitals[lbl] for lbl in resolved}
 
     def orbital_table(self) -> list:
         """Tabular per-orbital summary as a list of dicts.

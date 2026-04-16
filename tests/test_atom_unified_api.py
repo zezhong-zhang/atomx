@@ -240,27 +240,34 @@ def test_plot3d_shortcut(he_dhf):
 def test_orbital_lookup_returns_orbitalwavefunction(he_dhf):
     from atomx.results import OrbitalWavefunction
 
-    orb = he_dhf.orbital("1s1/2")
+    # Single match: returns an OrbitalWavefunction directly.
+    orb = he_dhf.orbital("1s")
     assert isinstance(orb, OrbitalWavefunction)
-    # Quantum numbers as expected for He 1s1/2.
+    assert orb.label == "1s1/2"
     assert orb.n == 1
     assert orb.l == 0
     assert orb.kappa == -1
     assert orb.j == 0.5
     assert orb.s == 0.5
     assert orb.l_symbol == "s"
-    # He has 2 electrons in 1s1/2.
     assert orb.occupation == pytest.approx(2.0, abs=0.01)
-    # Radial components are real arrays of the same length as the grid.
     assert orb.P.shape == he_dhf.waves.grid.shape
     assert orb.Q is not None and orb.Q.shape == orb.P.shape
     assert orb.is_relativistic
-    # ⟨r⟩ for hydrogenic He 1s ≈ 3/(2 Z) = 0.75 Bohr.
     assert orb.expectation_r(he_dhf.waves.grid) == pytest.approx(0.75, abs=0.2)
 
 
+def test_orbital_lookup_multiple_match_returns_dict(he_dhf):
+    """When label matches multiple j components, orbital() returns a dict."""
+    # He has only 1s1/2, so let's use Ne for a real multi-match.
+    ne = Atom(Z=10).solve()
+    result = ne.orbital("2p")
+    assert isinstance(result, dict)
+    assert "2p1/2" in result and "2p3/2" in result
+
+
 def test_orbital_lookup_raises_for_unknown_label(he_dhf):
-    with pytest.raises(KeyError, match="9z9/2"):
+    with pytest.raises(KeyError, match="not found"):
         he_dhf.orbital("9z9/2")
 
 
