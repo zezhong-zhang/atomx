@@ -57,7 +57,7 @@ def plot_radial_orbital(
     label: str,
     *,
     ax=None,
-    log_x: bool = False,
+    log_x: bool = True,
     show_small_component: bool = True,
     title: Optional[str] = None,
 ):
@@ -119,7 +119,7 @@ def plot_orbital_density(
     labels: Optional[Sequence[str]] = None,
     *,
     ax=None,
-    log_x: bool = False,
+    log_x: bool = True,
     include_r2: bool = True,
     title: Optional[str] = None,
 ):
