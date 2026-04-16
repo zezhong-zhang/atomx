@@ -90,19 +90,60 @@ def _make_dirac_waves():
 
 
 class TestPlotOrbital3D:
-    def test_schrodinger_returns_two_signed_isosurfaces(self):
+    def test_schrodinger_default_has_dropdown(self):
+        """Default mode='all' produces a dropdown with Total + Y_{l,m} entries."""
         w = _make_schrodinger_waves()
-        fig = w.plot3d("1s", n_grid=20)
+        fig = w.plot3d("1s", n_grid=16)
         assert isinstance(fig, plotly.Figure)
-        # Non-relativistic amplitude: positive + negative lobes.
-        assert len(fig.data) == 2
+        # l=0 → 1 Total + 1 Y(0,0) = 2 buttons.
+        btns = fig.layout.updatemenus[0].buttons
+        assert len(btns) == 2
+        assert "Total" in btns[0].label
 
-    def test_dirac_returns_single_density_isosurface(self):
+    def test_dirac_default_has_nr_and_rel(self):
+        """Dirac orbital mode='all' has Total + NR + rel entries."""
         w = _make_dirac_waves()
-        fig = w.plot3d("2p3/2", n_grid=20)
+        fig = w.plot3d("2p3/2", n_grid=16)
         assert isinstance(fig, plotly.Figure)
-        # Relativistic density: single non-negative surface.
-        assert len(fig.data) == 1
+        # l=1 → 3 Y + j=3/2 → 4 Ω + 1 Total = 8 buttons.
+        btns = fig.layout.updatemenus[0].buttons
+        assert len(btns) == 8
+
+    def test_mode_nr_excludes_rel(self):
+        w = _make_dirac_waves()
+        fig = w.plot3d("2p3/2", n_grid=16, mode="nr")
+        btns = fig.layout.updatemenus[0].buttons
+        # 1 Total + 3 Y entries = 4.
+        assert len(btns) == 4
+        assert all("Ω" not in b.label for b in btns)
+
+    def test_mode_rel_excludes_nr(self):
+        w = _make_dirac_waves()
+        fig = w.plot3d("2p3/2", n_grid=16, mode="rel")
+        btns = fig.layout.updatemenus[0].buttons
+        # 1 Total + 4 Ω entries = 5.
+        assert len(btns) == 5
+        assert all("Y" not in b.label for b in btns)
+
+    def test_pinned_m_no_dropdown(self):
+        w = _make_schrodinger_waves()
+        fig = w.plot3d("1s", n_grid=12, m=0)
+        assert isinstance(fig, plotly.Figure)
+        assert len(fig.layout.updatemenus) == 0
+        assert len(fig.data) == 2  # signed ± lobes
+
+    def test_pinned_mu_no_dropdown(self):
+        w = _make_dirac_waves()
+        fig = w.plot3d("2p3/2", n_grid=12, mu=0.5)
+        assert isinstance(fig, plotly.Figure)
+        assert len(fig.layout.updatemenus) == 0
+        assert len(fig.data) == 1  # density surface
+
+    def test_mode_auto_legacy_single_surface(self):
+        w = _make_schrodinger_waves()
+        fig = w.plot3d("1s", n_grid=12, mode="auto")
+        # Legacy: no dropdown.
+        assert len(fig.layout.updatemenus) == 0
 
     def test_unknown_label_raises(self):
         w = _make_schrodinger_waves()
