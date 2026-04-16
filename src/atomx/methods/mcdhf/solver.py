@@ -38,6 +38,21 @@ class MCDHFResult:
     csfs: List[CSF]
     orbitals_dict: Dict = field(default_factory=dict)  # (n,kappa) -> (P, Q)
     bsp_data: Dict = field(default_factory=dict)
+    Z: int = 0
+    #: ``{(n, kappa): occupation}`` — ground-state Guerra-averaged
+    #: effective occupations.  Populated by :class:`MCDHFSolver`;
+    #: empty for results that haven't been through an SCF cycle.
+    occupations: Dict = field(default_factory=dict)
+    _bsp_data: Dict = field(default_factory=dict, repr=False)
+
+    def __post_init__(self):
+        # Alias ``bsp_data`` → ``_bsp_data`` so downstream code (correction
+        # adapters, hyperfine evaluators) can treat any AtomicResult
+        # uniformly via the private name.
+        if self.bsp_data and not self._bsp_data:
+            self._bsp_data = self.bsp_data
+        elif self._bsp_data and not self.bsp_data:
+            self.bsp_data = self._bsp_data
 
     @property
     def n_states(self):
@@ -87,7 +102,10 @@ class MCDHFResult:
             orbitals[label] = OrbitalWavefunction(
                 P=P_grid, Q=Q_grid,
                 n=n, l=l, kappa=kappa,
-                occupation=0.0,  # fractional in MCDHF
+                # Guerra-averaged ground-state effective occupation;
+                # 0.0 if the solver did not populate ``occupations``
+                # (back-compat for callers constructing MCDHFResult by hand).
+                occupation=float(self.occupations.get((n, kappa), 0.0)),
                 energy=self.orbital_energies.get(label, 0.0),
                 label=label)
         return Waves(grid=grid, orbitals=orbitals, basis_type="bspline")
@@ -215,6 +233,14 @@ class MCDHFSolver:
                 converged = True
                 break
 
+        # Compute ground-state Guerra-averaged effective occupations,
+        # so MCDHFResult.waves can carry physically meaningful
+        # per-orbital occupations (used by Atom.density, etc.).
+        ground_weights = mixing[:, 0] ** 2
+        ground_weights = ground_weights / ground_weights.sum()
+        ground_subshells = self._averaged_subshells(weights=ground_weights)
+        occupations = {(sh.n, sh.kappa): float(sh.occupation) for sh in ground_subshells}
+
         return MCDHFResult(
             converged=converged,
             iterations=iteration,
@@ -225,4 +251,6 @@ class MCDHFSolver:
             csfs=self.csfs,
             orbitals_dict=dict(orbitals_dict),
             bsp_data=dict(dhf.bsp_data),
+            Z=self.Z,
+            occupations=occupations,
         )

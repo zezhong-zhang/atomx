@@ -130,5 +130,8 @@ class BreitPauli(Method):
             orbital_energies=corrected_energies,
             method="BreitPauli",
             energy_components=components,
+            Z=Z,
+            _grid=getattr(nr_result, "_grid", None),
+            _orbital_data=getattr(nr_result, "_orbital_data", None),
             _equation="schrodinger",
         )
