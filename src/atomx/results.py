@@ -301,6 +301,8 @@ class Waves:
         self,
         label: str,
         *,
+        mode: str = "all",
+        m: Optional[int] = None,
         mu: Optional[float] = None,
         box_size: Optional[float] = None,
         n_grid: int = 60,
@@ -308,34 +310,37 @@ class Waves:
         backend: str = "plotly",
         **kwargs,
     ):
-        """Render a 3-D isosurface of the orbital amplitude or density.
+        """Render 3-D orbital isosurface(s) with an interactive dropdown.
 
-        Angular dependence is dispatched on the orbital flavour:
+        By default (``mode="all"``) the figure contains a dropdown
+        selector with:
 
-        - **Non-relativistic** (``kappa is None``): plots the signed
-          amplitude ``psi(r,θ,φ) = P(r)/r · Y_{l,m}(θ,φ)`` with
-          ``m = 0`` (unless overridden via ``m=`` kwarg); two
-          isosurfaces are drawn at ±iso.
-        - **Relativistic** (``kappa is not None``): plots the spinor
-          density ``|ψ|² = (P² + Q²)/r² · |Ω_κ^μ(θ,φ)|²`` at the
-          chosen magnetic projection ``mu`` (default ``mu = j``); a
-          single non-negative isosurface is drawn.
+        1. **Total (m-averaged)** — radial shell, no angular structure.
+        2. **Y_{l,m}** entries for each ``m ∈ {−l, …, +l}``
+           (signed amplitude, textbook lobes).
+        3. **Ω^κ_μ** entries for each ``μ ∈ {−j, …, +j}``
+           (spinor density; Dirac orbitals only).
 
         Parameters
         ----------
         label
-            Orbital spectroscopic label.
+            Orbital spectroscopic label.  Short names (``"2p"``) are
+            resolved via :meth:`resolve_label`.
+        mode
+            ``"all"`` — total + NR + relativistic entries (default).
+            ``"nr"`` — total + Y_{l,m} only.
+            ``"rel"`` — total + Ω^κ_μ only.
+            ``"auto"`` — legacy single surface (m=0 or μ=+j, no dropdown).
+        m
+            Pin to a single Y_{l,m} surface (no dropdown).
         mu
-            Magnetic-projection quantum number.  Only used for Dirac
-            orbitals; default is ``j = |kappa| − 1/2``.
+            Pin to a single Ω^κ_μ surface (no dropdown).
         box_size
-            Half-width of the cubic sampling box in Bohr.  Defaults to
-            ``3 · ⟨r⟩`` of the orbital.
+            Half-width of the cubic sampling box in Bohr.
         n_grid
             Points per Cartesian axis of the sampling grid.
         isosurface
-            Iso-value.  Default = 15 % of the absolute maximum of the
-            sampled field.
+            Iso-value.  Default = 15 % of the field maximum.
         backend
             Currently only ``"plotly"``.
 
@@ -353,7 +358,7 @@ class Waves:
         if len(resolved) == 1:
             return plot_orbital_3d(
                 self, resolved[0],
-                mu=mu, box_size=box_size, n_grid=n_grid,
+                mode=mode, m=m, mu=mu, box_size=box_size, n_grid=n_grid,
                 isosurface=isosurface, **kwargs,
             )
 
@@ -365,7 +370,7 @@ class Waves:
         for lbl in resolved:
             figs.append(plot_orbital_3d(
                 self, lbl,
-                mu=mu, box_size=box_size, n_grid=n_grid,
+                mode=mode, m=m, mu=mu, box_size=box_size, n_grid=n_grid,
                 isosurface=isosurface, **kwargs,
             ))
 
