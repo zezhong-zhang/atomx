@@ -422,26 +422,22 @@ class Atom:
     def orbital(self, label: str):
         """Look up a single :class:`~atomx.results.OrbitalWavefunction`.
 
-        Convenience wrapper around ``self.orbitals[label]`` with a
-        helpful error message that lists the available labels when the
-        lookup fails.
+        Short labels like ``"1s"`` are resolved to their jj-coupled
+        form ``"1s1/2"`` via :meth:`Waves.resolve_label`.
 
         >>> ne = Atom(Z=10).solve()
-        >>> orb = ne.orbital('2p3/2')
-        >>> orb.n, orb.l, orb.kappa, orb.j, orb.occupation, orb.energy
-        (2, 1, -2, 1.5, 4.0, -0.7919...)
+        >>> ne.orbital('2p').kappa   # resolves '2p' → '2p3/2' (highest j)
+        -2
 
         Returns
         -------
         :class:`~atomx.results.OrbitalWavefunction`
         """
-        orbs = self.orbitals
-        if label not in orbs:
-            raise KeyError(
-                f"orbital {label!r} not found.  Available: "
-                f"{sorted(orbs)}"
-            )
-        return orbs[label]
+        w = self.waves
+        if w is None:
+            raise RuntimeError("Atom has no result yet — call .solve() first.")
+        resolved = w.resolve_label(label)
+        return w.orbitals[resolved]
 
     def orbital_table(self) -> list:
         """Tabular per-orbital summary as a list of dicts.

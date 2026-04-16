@@ -106,7 +106,7 @@ class TestPlotOrbital3D:
 
     def test_unknown_label_raises(self):
         w = _make_schrodinger_waves()
-        with pytest.raises(KeyError, match="not in waves"):
+        with pytest.raises(KeyError, match="not found"):
             w.plot3d("nope", n_grid=12)
 
     def test_rejects_non_plotly_backend(self):

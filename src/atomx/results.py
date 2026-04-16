@@ -136,6 +136,53 @@ class Waves:
                 f"{n_pts}-point grid, {self.basis_type})")
 
     # ------------------------------------------------------------------
+    # Label resolution (short-name → full jj label)
+    # ------------------------------------------------------------------
+
+    def resolve_label(self, short: str) -> str:
+        """Resolve a possibly-abbreviated label to an exact orbital key.
+
+        Rules applied in order:
+
+        1. **Exact match** — ``"2p3/2"`` returns ``"2p3/2"``.
+        2. **Prefix match** — ``"2p"`` matches ``"2p1/2"`` and ``"2p3/2"``.
+           If exactly one orbital matches, that label is returned.  If
+           multiple match, the one with the *highest* j is chosen (i.e.
+           the dominant fine-structure component ``j = l + ½``).
+        3. **No match** — raises ``KeyError`` listing available labels.
+
+        This lets users write ``"1s"`` instead of ``"1s1/2"`` when only
+        one s-orbital exists (common for filled subshells), and
+        ``"2p"`` instead of ``"2p3/2"`` when the j = l + ½ component is
+        intended (convention).
+        """
+        if short in self.orbitals:
+            return short
+        # Prefix match: '2p' → ['2p1/2', '2p3/2']
+        candidates = [k for k in self.orbitals if k.startswith(short)]
+        if len(candidates) == 1:
+            return candidates[0]
+        if len(candidates) > 1:
+            # Pick the highest-j (= dominant jj component for a filled shell)
+            return max(candidates, key=lambda c: self.orbitals[c].j or 0)
+        available = ", ".join(sorted(self.orbitals))
+        raise KeyError(
+            f"orbital {short!r} not found.  Available: {available}"
+        )
+
+    def _normalize_labels(self, labels) -> list:
+        """Coerce ``labels`` to a list of resolved orbital keys.
+
+        Accepts ``None`` (all orbitals), a single string, or a
+        sequence of strings.
+        """
+        if labels is None:
+            return list(self.orbitals.keys())
+        if isinstance(labels, str):
+            return [self.resolve_label(labels)]
+        return [self.resolve_label(l) for l in labels]
+
+    # ------------------------------------------------------------------
     # Radial plotting (1-D)
     # ------------------------------------------------------------------
 
@@ -146,6 +193,8 @@ class Waves:
         ----------
         label : str
             Spectroscopic label, e.g. ``"1s"`` or ``"2p3/2"``.
+            Short names like ``"1s"`` are resolved via
+            :meth:`resolve_label`.
         backend : {"mpl", "plotly"}
             Rendering backend.  ``"mpl"`` returns a matplotlib Figure;
             ``"plotly"`` returns an interactive plotly Figure.
@@ -154,6 +203,7 @@ class Waves:
         -------
         Figure object from the selected backend.
         """
+        label = self.resolve_label(label)
         if backend == "mpl":
             from atomx.viz.mpl import plot_radial_orbital
             return plot_radial_orbital(self, label, **kwargs)
@@ -165,7 +215,13 @@ class Waves:
         )
 
     def plot_density(self, labels=None, *, backend: str = "mpl", **kwargs):
-        """Plot ``P² + Q²`` radial density for one or more orbitals."""
+        """Plot ``P² + Q²`` radial density for one or more orbitals.
+
+        ``labels`` may be ``None`` (all orbitals), a single string
+        (``"1s"``), or a list of strings.  Short names are resolved
+        via :meth:`resolve_label`.
+        """
+        labels = self._normalize_labels(labels)
         if backend == "mpl":
             from atomx.viz.mpl import plot_orbital_density
             return plot_orbital_density(self, labels, **kwargs)
@@ -226,6 +282,7 @@ class Waves:
         -------
         plotly.graph_objects.Figure
         """
+        label = self.resolve_label(label)
         if backend != "plotly":
             raise ValueError(
                 f"plot3d currently only supports backend='plotly', got {backend!r}."
