@@ -362,52 +362,39 @@ class Waves:
                 isosurface=isosurface, **kwargs,
             )
 
-        # Multiple j-components: render each and combine with a
-        # dropdown selector so the user can toggle between them.
-        import plotly.graph_objects as go
-
-        figs = []
-        for lbl in resolved:
-            figs.append(plot_orbital_3d(
-                self, lbl,
-                mode=mode, m=m, mu=mu, box_size=box_size, n_grid=n_grid,
-                isosurface=isosurface, **kwargs,
-            ))
-
-        combined = go.Figure()
-        buttons = []
-        n_traces_per = [len(f.data) for f in figs]
-        for f in figs:
-            for trace in f.data:
-                trace.visible = False
-                combined.add_trace(trace)
-
-        # First component visible by default.
-        offset = 0
-        for idx, (lbl, n_t) in enumerate(zip(resolved, n_traces_per)):
-            vis = [False] * sum(n_traces_per)
-            for k in range(n_t):
-                vis[offset + k] = True
-                if idx == 0:
-                    combined.data[offset + k].visible = True
-            buttons.append(dict(
-                label=lbl, method="update",
-                args=[{"visible": vis},
-                      {"title": f"Orbital {lbl}"}],
-            ))
-            offset += n_t
-
-        combined.update_layout(
-            title=f"Orbital {resolved[0]}",
-            updatemenus=[dict(
-                type="dropdown", direction="down",
-                x=0.02, xanchor="left", y=1.12, yanchor="top",
-                buttons=buttons,
-            )],
-            scene=figs[0].layout.scene,
-            template="plotly_white",
+        # Multiple j-components (e.g. "2p" → 2p1/2 + 2p3/2).
+        # Build the view catalogue for ALL j-components into one flat
+        # dropdown using the same single-trace restyle approach.
+        from atomx.viz.plotly3d import (
+            _assemble_dropdown_figure,
+            _build_cart_grid,
+            _collect_views,
+            _resolve_box_size,
         )
-        return combined
+
+        # Use the largest ⟨r⟩ among the components for the box.
+        all_views = []
+        box = None
+        for lbl in resolved:
+            orb = self.orbitals[lbl]
+            b = _resolve_box_size(box_size, orb, self.grid)
+            box = max(box or 0.0, b)
+
+        X, Y, Z, r, theta, phi = _build_cart_grid(box, n_grid)
+        for lbl in resolved:
+            orb = self.orbitals[lbl]
+            views = _collect_views(orb, self.grid, r, theta, phi, mode)
+            # Prefix each view label with the j-component name.
+            for vname, vfield, vsigned in views:
+                all_views.append((f"{lbl} : {vname}", vfield, vsigned))
+
+        return _assemble_dropdown_figure(
+            X, Y, Z, all_views, label=label, user_iso=isosurface,
+            cs_pos=kwargs.get("colorscale_pos", "RdBu_r"),
+            cs_neg=kwargs.get("colorscale_neg", "RdBu_r"),
+            cs_density=kwargs.get("colorscale_density", "Reds"),
+            opacity=kwargs.get("opacity", 0.55),
+        )
 
 
 @dataclass
