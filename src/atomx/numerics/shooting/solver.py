@@ -680,9 +680,14 @@ class ShootingResult:
     orbital_energies: Dict[str, float]
     method: str = "shooting"
     energy_components: Dict[str, float] = field(default_factory=dict)
+    Z: int = 0
     _grid: Optional[np.ndarray] = field(default=None, repr=False)
     _orbital_data: Optional[Dict] = field(default=None, repr=False)
     _equation: str = field(default="dirac", repr=False)
+    #: Shooting carries no B-spline workspace; kept as an attribute so
+    #: callers that inspect ``result._bsp_data`` uniformly get ``None``
+    #: instead of an AttributeError.
+    _bsp_data: Optional[Dict] = field(default=None, repr=False)
 
     @property
     def energy_breakdown(self) -> Dict[str, float]:
@@ -783,6 +788,15 @@ class ShootingSolver:
         for i, sh in enumerate(self.subshells):
             oe[sh.label] = orb_E[i]
 
+        # _dhfs_scf currently returns only energies + the radial grid
+        # (the per-orbital P, Q arrays live inside the JIT-compiled
+        # core and are not surfaced).  We store the grid so the
+        # ``waves`` accessor exposes it; per-orbital wavefunction
+        # capture is tracked as a separate enhancement to _dhfs_scf.
         return ShootingResult(
             converged=converged, iterations=iters,
-            total_energy=E_total, orbital_energies=oe)
+            total_energy=E_total, orbital_energies=oe,
+            Z=self.Z,
+            _grid=r,
+            _equation=self.equation,
+        )

@@ -80,6 +80,35 @@ class OrbitalWavefunction:
             return None
         return abs(self.kappa) - 0.5
 
+    @property
+    def s(self) -> float:
+        """Electron spin quantum number — always ``½`` for a single orbital."""
+        return 0.5
+
+    @property
+    def l_symbol(self) -> str:
+        """Spectroscopic letter for the orbital angular momentum
+        (``s``, ``p``, ``d``, …)."""
+        return "spdfghiklmno"[self.l] if self.l < 12 else f"l{self.l}"
+
+    def to_dict(self) -> dict:
+        """Compact ``{quantum_number → value}`` summary for ``Atom.summary()``
+        and external bookkeeping.  Excludes the radial arrays — fetch
+        those via the ``P`` / ``Q`` attributes directly."""
+        return {
+            "label": self.label,
+            "n": self.n,
+            "l": self.l,
+            "l_symbol": self.l_symbol,
+            "kappa": self.kappa,
+            "j": self.j,
+            "s": self.s,
+            "occupation": self.occupation,
+            "energy_Ha": float(self.energy),
+            "is_relativistic": self.is_relativistic,
+            "n_grid_points": int(self.P.size) if self.P is not None else 0,
+        }
+
 
 @dataclass
 class Waves:
@@ -107,36 +136,153 @@ class Waves:
                 f"{n_pts}-point grid, {self.basis_type})")
 
     # ------------------------------------------------------------------
+    # Label resolution (short-name → full jj label)
+    # ------------------------------------------------------------------
+
+    def resolve_label(self, short: str) -> str:
+        """Resolve a possibly-abbreviated label to a **single** orbital key.
+
+        Rules applied in order:
+
+        1. **Exact match** — ``"2p3/2"`` returns ``"2p3/2"``.
+        2. **Prefix match** — ``"2p"`` matches ``"2p1/2"`` and
+           ``"2p3/2"``.  If exactly one orbital matches, that label is
+           returned.  If multiple match, the one with the *highest* j
+           is chosen (i.e. the dominant fine-structure component
+           ``j = l + ½``).
+        3. **No match** — raises ``KeyError`` listing available labels.
+
+        Use :meth:`resolve_all` when you want *every* matching
+        component (e.g. both ``3d3/2`` and ``3d5/2`` for ``"3d"``).
+        """
+        if short in self.orbitals:
+            return short
+        candidates = [k for k in self.orbitals if k.startswith(short)]
+        if len(candidates) == 1:
+            return candidates[0]
+        if len(candidates) > 1:
+            return max(candidates, key=lambda c: self.orbitals[c].j or 0)
+        available = ", ".join(sorted(self.orbitals))
+        raise KeyError(
+            f"orbital {short!r} not found.  Available: {available}"
+        )
+
+    def resolve_all(self, short: str) -> list:
+        """Resolve an abbreviated label to **all** matching orbital keys.
+
+        ``"3d"`` → ``["3d3/2", "3d5/2"]``.
+
+        Exact matches return a one-element list.  Raises ``KeyError``
+        when nothing matches.
+        """
+        if short in self.orbitals:
+            return [short]
+        candidates = sorted(
+            (k for k in self.orbitals if k.startswith(short)),
+            key=lambda c: self.orbitals[c].j or 0,
+        )
+        if candidates:
+            return candidates
+        available = ", ".join(sorted(self.orbitals))
+        raise KeyError(
+            f"orbital {short!r} not found.  Available: {available}"
+        )
+
+    def _normalize_labels(self, labels) -> list:
+        """Coerce ``labels`` to a flat list of resolved orbital keys.
+
+        Accepts ``None`` (all orbitals), a single string, or a
+        sequence of strings.  Each short name is expanded to *all*
+        matching jj-components via :meth:`resolve_all`, so
+        ``"3d"`` becomes ``["3d3/2", "3d5/2"]``.
+        """
+        if labels is None:
+            return list(self.orbitals.keys())
+        if isinstance(labels, str):
+            return self.resolve_all(labels)
+        out: list = []
+        for l in labels:
+            out.extend(self.resolve_all(l))
+        return out
+
+    # ------------------------------------------------------------------
     # Radial plotting (1-D)
     # ------------------------------------------------------------------
 
     def plot(self, label: str, *, backend: str = "mpl", **kwargs):
-        """Plot P(r) [and Q(r)] for the given orbital.
+        """Plot P(r) [and Q(r)] for the given orbital(s).
 
         Parameters
         ----------
         label : str
             Spectroscopic label, e.g. ``"1s"`` or ``"2p3/2"``.
+            Short names like ``"2p"`` are expanded to all matching
+            fine-structure components (``"2p1/2"`` + ``"2p3/2"``)
+            rendered as separate traces / subplots so you can compare
+            spin-up and spin-down.
         backend : {"mpl", "plotly"}
-            Rendering backend.  ``"mpl"`` returns a matplotlib Figure;
-            ``"plotly"`` returns an interactive plotly Figure.
+            ``"plotly"`` (default for multi-match) adds a dropdown
+            menu to switch between components.
 
         Returns
         -------
         Figure object from the selected backend.
         """
+        resolved = self.resolve_all(label)
+
+        if len(resolved) == 1:
+            if backend == "mpl":
+                from atomx.viz.mpl import plot_radial_orbital
+                return plot_radial_orbital(self, resolved[0], **kwargs)
+            if backend == "plotly":
+                from atomx.viz.plotly import plot_radial_orbital
+                return plot_radial_orbital(self, resolved[0], **kwargs)
+            raise ValueError(f"Unknown backend {backend!r}.")
+
+        # Multiple components: overlay all on one figure with a toggle.
         if backend == "mpl":
-            from atomx.viz.mpl import plot_radial_orbital
-            return plot_radial_orbital(self, label, **kwargs)
+            from atomx.viz.mpl import plot_radial_orbital as _mpl_plot
+            import matplotlib.pyplot as _plt
+            fig, axes = _plt.subplots(
+                1, len(resolved), figsize=(7 * len(resolved), 4.5), sharey=True
+            )
+            if len(resolved) == 1:
+                axes = [axes]
+            for ax, lbl in zip(axes, resolved):
+                _mpl_plot(self, lbl, ax=ax, **kwargs)
+            fig.tight_layout()
+            return fig
+
         if backend == "plotly":
-            from atomx.viz.plotly import plot_radial_orbital
-            return plot_radial_orbital(self, label, **kwargs)
-        raise ValueError(
-            f"Unknown backend {backend!r}; use 'mpl' or 'plotly'."
-        )
+            from atomx.viz.plotly import plot_radial_orbital as _ply_plot
+            import plotly.graph_objects as go
+            from plotly.subplots import make_subplots
+
+            fig = make_subplots(
+                rows=1, cols=len(resolved),
+                subplot_titles=resolved,
+            )
+            for i, lbl in enumerate(resolved, 1):
+                sub = _ply_plot(self, lbl, **kwargs)
+                for trace in sub.data:
+                    trace.name = f"{lbl}  {trace.name}"
+                    fig.add_trace(trace, row=1, col=i)
+            fig.update_layout(
+                title=f"Orbital {label}  (all j components)",
+                template="plotly_white",
+            )
+            return fig
+
+        raise ValueError(f"Unknown backend {backend!r}.")
 
     def plot_density(self, labels=None, *, backend: str = "mpl", **kwargs):
-        """Plot ``P² + Q²`` radial density for one or more orbitals."""
+        """Plot ``P² + Q²`` radial density for one or more orbitals.
+
+        ``labels`` may be ``None`` (all orbitals), a single string
+        (``"1s"``), or a list of strings.  Short names are resolved
+        via :meth:`resolve_label`.
+        """
+        labels = self._normalize_labels(labels)
         if backend == "mpl":
             from atomx.viz.mpl import plot_orbital_density
             return plot_orbital_density(self, labels, **kwargs)
@@ -155,6 +301,8 @@ class Waves:
         self,
         label: str,
         *,
+        mode: str = "all",
+        m: Optional[int] = None,
         mu: Optional[float] = None,
         box_size: Optional[float] = None,
         n_grid: int = 60,
@@ -162,34 +310,37 @@ class Waves:
         backend: str = "plotly",
         **kwargs,
     ):
-        """Render a 3-D isosurface of the orbital amplitude or density.
+        """Render 3-D orbital isosurface(s) with an interactive dropdown.
 
-        Angular dependence is dispatched on the orbital flavour:
+        By default (``mode="all"``) the figure contains a dropdown
+        selector with:
 
-        - **Non-relativistic** (``kappa is None``): plots the signed
-          amplitude ``psi(r,θ,φ) = P(r)/r · Y_{l,m}(θ,φ)`` with
-          ``m = 0`` (unless overridden via ``m=`` kwarg); two
-          isosurfaces are drawn at ±iso.
-        - **Relativistic** (``kappa is not None``): plots the spinor
-          density ``|ψ|² = (P² + Q²)/r² · |Ω_κ^μ(θ,φ)|²`` at the
-          chosen magnetic projection ``mu`` (default ``mu = j``); a
-          single non-negative isosurface is drawn.
+        1. **Total (m-averaged)** — radial shell, no angular structure.
+        2. **Y_{l,m}** entries for each ``m ∈ {−l, …, +l}``
+           (signed amplitude, textbook lobes).
+        3. **Ω^κ_μ** entries for each ``μ ∈ {−j, …, +j}``
+           (spinor density; Dirac orbitals only).
 
         Parameters
         ----------
         label
-            Orbital spectroscopic label.
+            Orbital spectroscopic label.  Short names (``"2p"``) are
+            resolved via :meth:`resolve_label`.
+        mode
+            ``"all"`` — total + NR + relativistic entries (default).
+            ``"nr"`` — total + Y_{l,m} only.
+            ``"rel"`` — total + Ω^κ_μ only.
+            ``"auto"`` — legacy single surface (m=0 or μ=+j, no dropdown).
+        m
+            Pin to a single Y_{l,m} surface (no dropdown).
         mu
-            Magnetic-projection quantum number.  Only used for Dirac
-            orbitals; default is ``j = |kappa| − 1/2``.
+            Pin to a single Ω^κ_μ surface (no dropdown).
         box_size
-            Half-width of the cubic sampling box in Bohr.  Defaults to
-            ``3 · ⟨r⟩`` of the orbital.
+            Half-width of the cubic sampling box in Bohr.
         n_grid
             Points per Cartesian axis of the sampling grid.
         isosurface
-            Iso-value.  Default = 15 % of the absolute maximum of the
-            sampled field.
+            Iso-value.  Default = 15 % of the field maximum.
         backend
             Currently only ``"plotly"``.
 
@@ -203,14 +354,46 @@ class Waves:
             )
         from atomx.viz.plotly3d import plot_orbital_3d
 
-        return plot_orbital_3d(
-            self,
-            label,
-            mu=mu,
-            box_size=box_size,
-            n_grid=n_grid,
-            isosurface=isosurface,
-            **kwargs,
+        resolved = self.resolve_all(label)
+        if len(resolved) == 1:
+            return plot_orbital_3d(
+                self, resolved[0],
+                mode=mode, m=m, mu=mu, box_size=box_size, n_grid=n_grid,
+                isosurface=isosurface, **kwargs,
+            )
+
+        # Multiple j-components (e.g. "2p" → 2p1/2 + 2p3/2).
+        # Build the view catalogue for ALL j-components into one flat
+        # dropdown using the same single-trace restyle approach.
+        from atomx.viz.plotly3d import (
+            _assemble_dropdown_figure,
+            _build_cart_grid,
+            _collect_views,
+            _resolve_box_size,
+        )
+
+        # Use the largest ⟨r⟩ among the components for the box.
+        all_views = []
+        box = None
+        for lbl in resolved:
+            orb = self.orbitals[lbl]
+            b = _resolve_box_size(box_size, orb, self.grid)
+            box = max(box or 0.0, b)
+
+        X, Y, Z, r, theta, phi = _build_cart_grid(box, n_grid)
+        for lbl in resolved:
+            orb = self.orbitals[lbl]
+            views = _collect_views(orb, self.grid, r, theta, phi, mode)
+            # Prefix each view label with the j-component name.
+            for vname, vfield, vsigned in views:
+                all_views.append((f"{lbl} : {vname}", vfield, vsigned))
+
+        return _assemble_dropdown_figure(
+            X, Y, Z, all_views, label=label, user_iso=isosurface,
+            cs_pos=kwargs.get("colorscale_pos", "RdBu_r"),
+            cs_neg=kwargs.get("colorscale_neg", "RdBu_r"),
+            cs_density=kwargs.get("colorscale_density", "Reds"),
+            opacity=kwargs.get("opacity", 0.55),
         )
 
 
