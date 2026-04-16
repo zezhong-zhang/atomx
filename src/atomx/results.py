@@ -140,79 +140,140 @@ class Waves:
     # ------------------------------------------------------------------
 
     def resolve_label(self, short: str) -> str:
-        """Resolve a possibly-abbreviated label to an exact orbital key.
+        """Resolve a possibly-abbreviated label to a **single** orbital key.
 
         Rules applied in order:
 
         1. **Exact match** — ``"2p3/2"`` returns ``"2p3/2"``.
-        2. **Prefix match** — ``"2p"`` matches ``"2p1/2"`` and ``"2p3/2"``.
-           If exactly one orbital matches, that label is returned.  If
-           multiple match, the one with the *highest* j is chosen (i.e.
-           the dominant fine-structure component ``j = l + ½``).
+        2. **Prefix match** — ``"2p"`` matches ``"2p1/2"`` and
+           ``"2p3/2"``.  If exactly one orbital matches, that label is
+           returned.  If multiple match, the one with the *highest* j
+           is chosen (i.e. the dominant fine-structure component
+           ``j = l + ½``).
         3. **No match** — raises ``KeyError`` listing available labels.
 
-        This lets users write ``"1s"`` instead of ``"1s1/2"`` when only
-        one s-orbital exists (common for filled subshells), and
-        ``"2p"`` instead of ``"2p3/2"`` when the j = l + ½ component is
-        intended (convention).
+        Use :meth:`resolve_all` when you want *every* matching
+        component (e.g. both ``3d3/2`` and ``3d5/2`` for ``"3d"``).
         """
         if short in self.orbitals:
             return short
-        # Prefix match: '2p' → ['2p1/2', '2p3/2']
         candidates = [k for k in self.orbitals if k.startswith(short)]
         if len(candidates) == 1:
             return candidates[0]
         if len(candidates) > 1:
-            # Pick the highest-j (= dominant jj component for a filled shell)
             return max(candidates, key=lambda c: self.orbitals[c].j or 0)
         available = ", ".join(sorted(self.orbitals))
         raise KeyError(
             f"orbital {short!r} not found.  Available: {available}"
         )
 
+    def resolve_all(self, short: str) -> list:
+        """Resolve an abbreviated label to **all** matching orbital keys.
+
+        ``"3d"`` → ``["3d3/2", "3d5/2"]``.
+
+        Exact matches return a one-element list.  Raises ``KeyError``
+        when nothing matches.
+        """
+        if short in self.orbitals:
+            return [short]
+        candidates = sorted(
+            (k for k in self.orbitals if k.startswith(short)),
+            key=lambda c: self.orbitals[c].j or 0,
+        )
+        if candidates:
+            return candidates
+        available = ", ".join(sorted(self.orbitals))
+        raise KeyError(
+            f"orbital {short!r} not found.  Available: {available}"
+        )
+
     def _normalize_labels(self, labels) -> list:
-        """Coerce ``labels`` to a list of resolved orbital keys.
+        """Coerce ``labels`` to a flat list of resolved orbital keys.
 
         Accepts ``None`` (all orbitals), a single string, or a
-        sequence of strings.
+        sequence of strings.  Each short name is expanded to *all*
+        matching jj-components via :meth:`resolve_all`, so
+        ``"3d"`` becomes ``["3d3/2", "3d5/2"]``.
         """
         if labels is None:
             return list(self.orbitals.keys())
         if isinstance(labels, str):
-            return [self.resolve_label(labels)]
-        return [self.resolve_label(l) for l in labels]
+            return self.resolve_all(labels)
+        out: list = []
+        for l in labels:
+            out.extend(self.resolve_all(l))
+        return out
 
     # ------------------------------------------------------------------
     # Radial plotting (1-D)
     # ------------------------------------------------------------------
 
     def plot(self, label: str, *, backend: str = "mpl", **kwargs):
-        """Plot P(r) [and Q(r)] for the given orbital.
+        """Plot P(r) [and Q(r)] for the given orbital(s).
 
         Parameters
         ----------
         label : str
             Spectroscopic label, e.g. ``"1s"`` or ``"2p3/2"``.
-            Short names like ``"1s"`` are resolved via
-            :meth:`resolve_label`.
+            Short names like ``"2p"`` are expanded to all matching
+            fine-structure components (``"2p1/2"`` + ``"2p3/2"``)
+            rendered as separate traces / subplots so you can compare
+            spin-up and spin-down.
         backend : {"mpl", "plotly"}
-            Rendering backend.  ``"mpl"`` returns a matplotlib Figure;
-            ``"plotly"`` returns an interactive plotly Figure.
+            ``"plotly"`` (default for multi-match) adds a dropdown
+            menu to switch between components.
 
         Returns
         -------
         Figure object from the selected backend.
         """
-        label = self.resolve_label(label)
+        resolved = self.resolve_all(label)
+
+        if len(resolved) == 1:
+            if backend == "mpl":
+                from atomx.viz.mpl import plot_radial_orbital
+                return plot_radial_orbital(self, resolved[0], **kwargs)
+            if backend == "plotly":
+                from atomx.viz.plotly import plot_radial_orbital
+                return plot_radial_orbital(self, resolved[0], **kwargs)
+            raise ValueError(f"Unknown backend {backend!r}.")
+
+        # Multiple components: overlay all on one figure with a toggle.
         if backend == "mpl":
-            from atomx.viz.mpl import plot_radial_orbital
-            return plot_radial_orbital(self, label, **kwargs)
+            from atomx.viz.mpl import plot_radial_orbital as _mpl_plot
+            import matplotlib.pyplot as _plt
+            fig, axes = _plt.subplots(
+                1, len(resolved), figsize=(7 * len(resolved), 4.5), sharey=True
+            )
+            if len(resolved) == 1:
+                axes = [axes]
+            for ax, lbl in zip(axes, resolved):
+                _mpl_plot(self, lbl, ax=ax, **kwargs)
+            fig.tight_layout()
+            return fig
+
         if backend == "plotly":
-            from atomx.viz.plotly import plot_radial_orbital
-            return plot_radial_orbital(self, label, **kwargs)
-        raise ValueError(
-            f"Unknown backend {backend!r}; use 'mpl' or 'plotly'."
-        )
+            from atomx.viz.plotly import plot_radial_orbital as _ply_plot
+            import plotly.graph_objects as go
+            from plotly.subplots import make_subplots
+
+            fig = make_subplots(
+                rows=1, cols=len(resolved),
+                subplot_titles=resolved,
+            )
+            for i, lbl in enumerate(resolved, 1):
+                sub = _ply_plot(self, lbl, **kwargs)
+                for trace in sub.data:
+                    trace.name = f"{lbl}  {trace.name}"
+                    fig.add_trace(trace, row=1, col=i)
+            fig.update_layout(
+                title=f"Orbital {label}  (all j components)",
+                template="plotly_white",
+            )
+            return fig
+
+        raise ValueError(f"Unknown backend {backend!r}.")
 
     def plot_density(self, labels=None, *, backend: str = "mpl", **kwargs):
         """Plot ``P² + Q²`` radial density for one or more orbitals.
@@ -282,22 +343,66 @@ class Waves:
         -------
         plotly.graph_objects.Figure
         """
-        label = self.resolve_label(label)
         if backend != "plotly":
             raise ValueError(
                 f"plot3d currently only supports backend='plotly', got {backend!r}."
             )
         from atomx.viz.plotly3d import plot_orbital_3d
 
-        return plot_orbital_3d(
-            self,
-            label,
-            mu=mu,
-            box_size=box_size,
-            n_grid=n_grid,
-            isosurface=isosurface,
-            **kwargs,
+        resolved = self.resolve_all(label)
+        if len(resolved) == 1:
+            return plot_orbital_3d(
+                self, resolved[0],
+                mu=mu, box_size=box_size, n_grid=n_grid,
+                isosurface=isosurface, **kwargs,
+            )
+
+        # Multiple j-components: render each and combine with a
+        # dropdown selector so the user can toggle between them.
+        import plotly.graph_objects as go
+
+        figs = []
+        for lbl in resolved:
+            figs.append(plot_orbital_3d(
+                self, lbl,
+                mu=mu, box_size=box_size, n_grid=n_grid,
+                isosurface=isosurface, **kwargs,
+            ))
+
+        combined = go.Figure()
+        buttons = []
+        n_traces_per = [len(f.data) for f in figs]
+        for f in figs:
+            for trace in f.data:
+                trace.visible = False
+                combined.add_trace(trace)
+
+        # First component visible by default.
+        offset = 0
+        for idx, (lbl, n_t) in enumerate(zip(resolved, n_traces_per)):
+            vis = [False] * sum(n_traces_per)
+            for k in range(n_t):
+                vis[offset + k] = True
+                if idx == 0:
+                    combined.data[offset + k].visible = True
+            buttons.append(dict(
+                label=lbl, method="update",
+                args=[{"visible": vis},
+                      {"title": f"Orbital {lbl}"}],
+            ))
+            offset += n_t
+
+        combined.update_layout(
+            title=f"Orbital {resolved[0]}",
+            updatemenus=[dict(
+                type="dropdown", direction="down",
+                x=0.02, xanchor="left", y=1.12, yanchor="top",
+                buttons=buttons,
+            )],
+            scene=figs[0].layout.scene,
+            template="plotly_white",
         )
+        return combined
 
 
 @dataclass
