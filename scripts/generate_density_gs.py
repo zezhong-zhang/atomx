@@ -26,7 +26,12 @@ Schema (verified against reference Ag.h5):
                        wave_large, wave_small   (all 1D, tail-trimmed)
 
 Conventions (verified against the reference Ag.h5):
+    r-grid is atomx's native Gauss-Legendre quadrature grid
+        (bsp_data["gr"].ravel()) — the natural, per-interval-dense sampling
+        of the B-spline solution. Dense in the tail, which matters for
+        outer-shell densities.
     wave_large = P(r), wave_small = Q(r), normalized so int(P^2+Q^2)dr=1.
+        Global phase pinned so P(r->0+) > 0 (SCF returns ±P arbitrarily).
     density_large = nq*P^2, density_small = nq*Q^2, density = sum.
     small_component_ratio = int(density_small) dr = nq * int Q^2 dr
         (integrated small-component electron count for the subshell).
@@ -57,7 +62,6 @@ from typing import List, Tuple
 
 import h5py
 import numpy as np
-from scipy.interpolate import CubicSpline
 
 from atomx import Atom
 from atomx.config import ground_state_config
@@ -191,42 +195,15 @@ def reference_subshells(Z: int):
 # Per-orbital payload construction
 # ----------------------------------------------------------------------
 
-_LOG_GRID_N = 400          # points per orbital on the smooth log grid
-_LOG_GRID_RMIN = 1.0e-8    # inner cutoff (bohr); avoids extrapolation below bspline grid
-_LOG_GRID_RATIO = 1.08     # fallback geometric ratio if the subshell is very compact
-
-
-def _resample_to_log_grid(grid_gauss, P, Q, tail_cut_r):
-    """Interpolate (P, Q) from the dense non-uniform Gauss-node grid to a
-    smooth geometric r-grid covering [r_min, tail_cut_r]. CubicSpline on
-    densely-sampled analytic B-splines reproduces the wavefunction to
-    machine precision in the interior.
-
-    Returns (r_smooth, P_smooth, Q_smooth).
-    """
-    r_min = max(_LOG_GRID_RMIN, float(grid_gauss[0]))
-    r_max = max(tail_cut_r, r_min * _LOG_GRID_RATIO)
-    r_smooth = np.geomspace(r_min, r_max, _LOG_GRID_N)
-
-    # Deduplicate any numerically coincident Gauss nodes at knot boundaries
-    # so CubicSpline accepts strictly-increasing x.
-    keep = np.concatenate(([True], np.diff(grid_gauss) > 0))
-    x = grid_gauss[keep]
-    P_spl = CubicSpline(x, P[keep], bc_type="natural", extrapolate=False)
-    Q_spl = CubicSpline(x, Q[keep], bc_type="natural", extrapolate=False)
-    P_smooth = np.nan_to_num(P_spl(r_smooth), nan=0.0)
-    Q_smooth = np.nan_to_num(Q_spl(r_smooth), nan=0.0)
-    return r_smooth, P_smooth, Q_smooth
-
-
 def build_orbital_payload(orb, nq: float, grid: np.ndarray) -> dict:
     """Compute attrs + datasets for one orbital group.
 
-    Scalar attrs (small_component_ratio, speed) are computed on the dense
-    Gauss-node grid for accuracy. Arrays (r, density, wave) are written on
-    a smooth geometric r-grid — mirrors the physical-grid convention of
-    DBSR_HF and the reference Ag.h5, and avoids the visible "wavy" look
-    caused by Gauss-Legendre node clustering at knot boundaries.
+    Arrays are written on atomx's native Gauss-Legendre quadrature grid
+    (the raveled ``bsp_data["gr"]``). This is the natural grid for the
+    B-spline solution: it samples each spline interval with Gauss points,
+    so the tail receives the same per-interval density as the bulk. A
+    geometric/log resample would concentrate points near the origin at
+    the cost of the tail — avoided here on purpose.
     """
     grid_g = np.asarray(grid, dtype=np.float64)
     P_g = np.asarray(orb.P, dtype=np.float64)
@@ -236,22 +213,25 @@ def build_orbital_payload(orb, nq: float, grid: np.ndarray) -> dict:
     # Sign convention: P(r) > 0 near the origin. Atomx's SCF picks an
     # arbitrary overall phase per orbital; pin it to match DBSR_HF / the
     # reference Ag.h5 so (wave_large, wave_small) are reproducible.
-    # Probe at the first sample where |P| is clearly above numerical floor.
-    probe = np.argmax(np.abs(P_g) > 1e-6 * np.abs(P_g).max())
+    # Probe at the first sample where |P| is clearly above numerical floor
+    # (inside the first lobe, before any physical node).
+    probe = int(np.argmax(np.abs(P_g) > 1e-6 * np.abs(P_g).max()))
     if P_g[probe] < 0:
         P_g = -P_g
         Q_g = -Q_g
 
-    # --- scalar attrs (on dense Gauss grid) ---------------------------------
+    # Densities on the full Gauss grid.
     p2 = P_g ** 2
     q2 = Q_g ** 2
-    density_large_g = nq * p2
-    density_small_g = nq * q2
+    density_large_full = nq * p2
+    density_small_full = nq * q2
+    density_full = density_large_full + density_small_full
 
-    # integrated small-component density (matches Ag.h5 convention)
-    small_component_ratio = float(np.trapezoid(density_small_g, grid_g))
+    # Integrated small-component density (matches Ag.h5 convention).
+    small_component_ratio = float(np.trapezoid(density_small_full, grid_g))
 
-    # non-rel kinetic expectation <T_NR> from P, then speed = sqrt(2 T)/c
+    # Non-rel kinetic expectation on the large component:
+    # <T_NR> = -1/2 <P|d^2/dr^2|P> + l(l+1)/2 <P|r^-2|P>; speed = sqrt(2T)/c.
     l_orb = int(orb.l)
     dP = np.gradient(P_g, grid_g)
     d2P = np.gradient(dP, grid_g)
@@ -264,17 +244,15 @@ def build_orbital_payload(orb, nq: float, grid: np.ndarray) -> dict:
     )
     speed = float(np.sqrt(2.0 * max(T_kin, 0.0)) / C_SPEED)
 
-    # --- tail cutoff (on Gauss grid) then resample to smooth log grid -------
-    keep = np.flatnonzero(density_large_g >= TAIL_THRESHOLD)
-    tail_cut_r = float(grid_g[keep[-1]]) if keep.size else float(grid_g[-1])
-
-    r_smooth, P_smooth, Q_smooth = _resample_to_log_grid(grid_g, P_g, Q_g, tail_cut_r)
-    density_large = nq * P_smooth ** 2
-    density_small = nq * Q_smooth ** 2
-    density = density_large + density_small
+    # Tail truncation: drop trailing samples where density_large has
+    # fallen below the numerical floor (matches the varying per-subshell
+    # grid lengths in the reference Ag.h5).
+    keep = np.flatnonzero(density_large_full >= TAIL_THRESHOLD)
+    last = int(keep[-1]) + 1 if keep.size else len(P_g)
+    sl = slice(0, last)
 
     j = abs(int(orb.kappa)) - 0.5
-    spin = float(j - l_orb)  # +0.5 for kappa<0 (j=l+1/2), -0.5 for kappa>0 (j=l-1/2)
+    spin = float(j - l_orb)  # +0.5 for kappa<0 (j=l+1/2), -0.5 for kappa>0
 
     return {
         "attrs": {
@@ -287,12 +265,12 @@ def build_orbital_payload(orb, nq: float, grid: np.ndarray) -> dict:
             "speed": speed,
         },
         "datasets": {
-            "r": r_smooth,
-            "density": density,
-            "density_large": density_large,
-            "density_small": density_small,
-            "wave_large": P_smooth,
-            "wave_small": Q_smooth,
+            "r": grid_g[sl],
+            "density": density_full[sl],
+            "density_large": density_large_full[sl],
+            "density_small": density_small_full[sl],
+            "wave_large": P_g[sl],
+            "wave_small": Q_g[sl],
         },
     }
 
