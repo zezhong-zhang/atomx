@@ -397,6 +397,22 @@ class Atom:
         """Radial wavefunctions container (:class:`atomx.results.Waves`)."""
         return self._result.waves if self._result else None
 
+    @property
+    def r(self) -> Optional[np.ndarray]:
+        """Radial grid in Bohr (shortcut for ``atom.waves.grid``).
+
+        Returns ``None`` if no result has been computed or the grid is empty.
+        Same array that indexes the orbital ``P`` / ``Q`` components; using
+        it avoids interpolation.
+        """
+        w = self.waves
+        if w is None:
+            return None
+        g = np.asarray(w.grid, dtype=float)
+        return g if g.size else None
+
+    grid = r  # alias — pick the name that reads best at the call site
+
     # ------------------------------------------------------------------
     # Per-orbital access
     # ------------------------------------------------------------------
@@ -483,18 +499,23 @@ class Atom:
     # ------------------------------------------------------------------
 
     def density(self, r: Optional[np.ndarray] = None) -> Optional[np.ndarray]:
-        """Total radial electron density ρ(r) = Σ_a n_a (P_a² + Q_a²) / r².
+        """Total radial electron density.
 
-        Computed from :attr:`waves` regardless of method flavor.
-        Returns ``None`` if the underlying result has no stored
-        wavefunctions (e.g. the current shooting backend).
+        When ``r`` is **not supplied** (default), returns the native radial
+        density directly from the stored orbitals on :attr:`r`:
 
-        Parameters
-        ----------
-        r
-            Radial grid (Bohr) at which to evaluate; defaults to the
-            grid stored on the orbitals.  If supplied, the orbital
-            radial functions are linearly interpolated onto it.
+            D(r) = Σ_a n_a [P_a(r)² + Q_a(r)²]        (∫ D dr = N_electrons)
+
+        This is the "original" per-orbital density — no 1/r² factor and no
+        interpolation — matching the DBSR_HF / density_gs H5 convention. The
+        grid is available via :attr:`r` (or equivalently :attr:`grid`).
+
+        When ``r`` **is supplied**, P and Q are linearly interpolated onto
+        ``r`` and the same quantity Σ n_a (P² + Q²) is returned on that
+        grid. Points outside the native grid are filled with 0.
+
+        Returns ``None`` if the underlying result has no stored wavefunctions
+        (e.g. the shooting backend).
         """
         w = self.waves
         if w is None or not w.orbitals:
@@ -502,24 +523,28 @@ class Atom:
         grid = np.asarray(w.grid, dtype=float)
         if grid.size == 0:
             return None
-        if r is None:
-            r = grid
-        else:
-            r = np.asarray(r, dtype=float)
 
-        rho = np.zeros_like(r, dtype=float)
-        r2 = np.where(r > 0.0, r * r, np.inf)
+        interpolate = r is not None
+        r_eval = np.asarray(r, dtype=float) if interpolate else grid
+        rho = np.zeros_like(r_eval, dtype=float)
+
         for orb in w.orbitals.values():
             P = np.asarray(orb.P, dtype=float)
             if P.shape != grid.shape:
                 continue
-            P_eval = P if r is grid else np.interp(r, grid, P)
+            if interpolate:
+                P_eval = np.interp(r_eval, grid, P, left=0.0, right=0.0)
+            else:
+                P_eval = P
             contrib = P_eval ** 2
             if orb.Q is not None:
                 Q = np.asarray(orb.Q, dtype=float)
-                Q_eval = Q if r is grid else np.interp(r, grid, Q)
+                if interpolate:
+                    Q_eval = np.interp(r_eval, grid, Q, left=0.0, right=0.0)
+                else:
+                    Q_eval = Q
                 contrib = contrib + Q_eval ** 2
-            rho = rho + orb.occupation * contrib / r2
+            rho = rho + orb.occupation * contrib
         return rho
 
     def corrections(self, stack=None) -> dict:
