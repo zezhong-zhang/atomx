@@ -144,8 +144,11 @@ def suggest_virtual_orbitals(Z, n_virtual=2):
     Returns virtual orbital labels (e.g., ["3d", "4s", "4p"]).
     """
     # Find highest occupied n
-    from atomx.atom import _GROUND_CONFIGS
-    config = _GROUND_CONFIGS.get(Z, "")
+    from atomx.config import ground_state_config
+    try:
+        config = ground_state_config(Z)
+    except ValueError:
+        config = ""
     l_map = {'s': 0, 'p': 1, 'd': 2, 'f': 3}
 
     max_n = 1
