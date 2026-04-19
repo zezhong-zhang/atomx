@@ -1372,7 +1372,8 @@ class DFSolver:
             Combined direct + exchange Fock matrix blocks.
         """
         from atomx.numerics.bspline.convol import (
-            _accumulate_density_sym, _accumulate_density_full,
+            _accumulate_direct_density_batch,
+            _accumulate_exchange_density_batch,
             _convol_case1, _convol_case4,
             _convol_case1_mixed, _banded_to_full_add,
         )
@@ -1390,19 +1391,22 @@ class DFSolver:
         target_sh = self.subshells[target_i]
         q_i = target_sh.occupation
 
-        # Build flat orbital list for iterating
-        orb_flat = []  # [(P, Q, occ, kappa, flat_idx)]
+        # Stack orbital coefficients into contiguous (n_orb, ns_full) arrays
+        # so the batched numba kernels below can iterate sources without any
+        # Python-level loop. We also carry the flat ``q_j`` and ``kappa_j``
+        # arrays for downstream code that still expects per-source access.
+        n_orb = len(self.subshells)
+        P_stack = np.zeros((n_orb, ns_full), dtype=np.float64)
+        Q_stack = np.zeros((n_orb, ns_full), dtype=np.float64)
         kappa_counter = {}
-        for sh in self.subshells:
+        for flat_j, sh in enumerate(self.subshells):
             k_idx = kappa_counter.get(sh.kappa, 0)
             kappa_counter[sh.kappa] = k_idx + 1
             orb_list = orbitals.get(sh.kappa, [])
             if k_idx < len(orb_list):
-                P, Q, occ = orb_list[k_idx]
-                orb_flat.append((P, Q, occ, sh.kappa, len(orb_flat)))
-            else:
-                orb_flat.append((np.zeros(ns_full), np.zeros(ns_full), 0.0,
-                                 sh.kappa, len(orb_flat)))
+                P_j, Q_j, _ = orb_list[k_idx]
+                P_stack[flat_j, :ns_full] = P_j[:ns_full]
+                Q_stack[flat_j, :ns_full] = Q_j[:ns_full]
 
         # Unique k values needed for this target orbital — precomputed in
         # ``_precompute_angular_coefficients`` since this is purely an
@@ -1413,6 +1417,9 @@ class DFSolver:
         hfm_QQ = np.zeros((ns_full, ns_full))
         hfm_PQ = np.zeros((ns_full, ns_full))
         hfm_QP = np.zeros((ns_full, ns_full))
+
+        angular_direct = self._angular_direct      # (n, n, kmax+1) ndarray
+        angular_exchange = self._angular_exchange  # (n, n, kmax+1) ndarray
 
         # Loop over block types: (ii, jj) = (1,1), (1,2), (2,1), (2,2)
         for ii, jj in [(1, 1), (1, 2), (2, 1), (2, 2)]:
@@ -1429,33 +1436,19 @@ class DFSolver:
                 block = "qqqq"
                 ks_bra, ks_ket = ksq, ksq
 
-            # Pre-slice angular coefficient arrays for this target and k.
-            # Each is a length-n_orb vector; the inner source loop reads it
-            # by position — no Python-level dict.get calls.
-            angular_direct = self._angular_direct     # (n, n, kmax+1) ndarray
-            angular_exchange = self._angular_exchange # (n, n, kmax+1) ndarray
+            comp_jj_stack = Q_stack if jj == 2 else P_stack
+            comp_ii_stack = Q_stack if ii == 2 else P_stack
 
             for k in all_k_set:
                 rkb, _, _ = self._convol_cache.get_rkb(k, block)
                 a_direct = angular_direct[target_i, :, k]     # length n_orb
                 b_exchange = angular_exchange[target_i, :, k] # length n_orb
 
-                # --- DIRECT: accumulate density in-place ---
-                dd = np.zeros((ns_full, ks_ket))
-                has_direct = False
-                for j, (P_j, Q_j, occ_j, kappa_j, flat_j) in enumerate(orb_flat):
-                    c = a_direct[flat_j]
-                    if c == 0.0:
-                        continue
-                    # DBSR_HF: if(i.eq.j) c = c + c
-                    if flat_j == target_i:
-                        c = c + c
-                    comp_j = Q_j if jj == 2 else P_j
-                    _accumulate_density_sym(dd, comp_j[:ns_full], comp_j[:ns_full],
-                                            ns_full, ks_ket, c)
-                    has_direct = True
-
-                if has_direct:
+                # --- DIRECT: one numba call for the whole j-sum ---
+                if np.any(a_direct):
+                    dd = np.zeros((ns_full, ks_ket))
+                    _accumulate_direct_density_batch(
+                        dd, comp_jj_stack, a_direct, target_i, ns_full, ks_ket)
                     if ks_bra == ks_ket:
                         v = _convol_case1(rkb, dd, ns_full, ks_ket)
                     else:
@@ -1465,20 +1458,11 @@ class DFSolver:
                     else:
                         _banded_to_full_add(hfm_QQ, v, ns_full, ks_bra, 1.0)
 
-                # --- EXCHANGE: accumulate density in-place ---
-                xx = np.zeros((ns_full, ns_full))
-                has_exchange = False
-                for j, (P_j, Q_j, occ_j, kappa_j, flat_j) in enumerate(orb_flat):
-                    c = b_exchange[flat_j]
-                    if c == 0.0:
-                        continue
-                    comp_ii_j = Q_j if ii == 2 else P_j
-                    comp_jj_j = Q_j if jj == 2 else P_j
-                    _accumulate_density_full(xx, comp_ii_j[:ns_full],
-                                              comp_jj_j[:ns_full], ns_full, c)
-                    has_exchange = True
-
-                if has_exchange:
+                # --- EXCHANGE: one numba call for the whole j-sum ---
+                if np.any(b_exchange):
+                    xx = np.zeros((ns_full, ns_full))
+                    _accumulate_exchange_density_batch(
+                        xx, comp_ii_stack, comp_jj_stack, b_exchange, ns_full)
                     Kk = _convol_case4(rkb, xx, ns_full, min(ks_bra, ks_ket))
                     if ii == 1 and jj == 1:
                         hfm_PP[:ns_full, :ns_full] += Kk[:ns_full, :ns_full]
