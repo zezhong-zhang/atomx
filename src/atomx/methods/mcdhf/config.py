@@ -110,6 +110,88 @@ def make_csf_list(Z, config_strings):
     return csfs
 
 
+def enumerate_jj_csfs(config_str: str) -> List[CSF]:
+    """Enumerate all jj-coupled CSFs of a single NR configuration string.
+
+    For each open NR shell ``nl^q`` with 0 < q < 4l+2, lists every integer
+    split ``(q-, q+)`` with ``q- + q+ == q``, ``0 <= q- <= 2l``,
+    ``0 <= q+ <= 2l+2``. Closed shells and s-shells contribute exactly one
+    CSF. The resulting set is the basis on which the CI Hamiltonian of the
+    "average-of-jj-configurations" is defined: diagonalising it and using
+    the ground-state amplitudes cⱼ as weights in
+
+        ϖᵢ = Σⱼ cⱼ² nᵢʲ                               (Guerra Eq 10)
+
+    realises the correct CI-weighted averaged monoconfiguration — as
+    opposed to the binomial statistical or equal-weight surrogates.
+
+    Parameters
+    ----------
+    config_str : str
+        Non-relativistic configuration, e.g. ``"1s2 2s2 2p6 6p2"``.
+
+    Returns
+    -------
+    csfs : list of :class:`CSF`
+        One CSF per jj-split combination. For fully closed configurations
+        the list has length 1.
+    """
+    l_map = {"s": 0, "p": 1, "d": 2, "f": 3, "g": 4, "h": 5}
+    # Parse into (n, l, q) shells
+    nr_shells = []
+    for token in config_str.strip().split():
+        n = int(token[0])
+        l = l_map[token[1]]
+        q = int(token[2:])
+        nr_shells.append((n, l, q))
+
+    # Per-shell list of (n, kappa, occ) tuples for each valid jj-split
+    per_shell_options: List[List[List[Tuple[int, int, int]]]] = []
+    for n, l, q in nr_shells:
+        if l == 0:
+            # s-shell: single kappa = -1
+            per_shell_options.append([[(n, -1, q)]])
+            continue
+        kappa_minus = l                 # j = l - 1/2
+        kappa_plus = -(l + 1)           # j = l + 1/2
+        max_minus = 2 * l               # 2j- + 1
+        max_plus = 2 * (l + 1)          # 2j+ + 1
+        options = []
+        for q_minus in range(max(0, q - max_plus), min(q, max_minus) + 1):
+            q_plus = q - q_minus
+            subs = []
+            if q_minus > 0:
+                subs.append((n, kappa_minus, q_minus))
+            if q_plus > 0:
+                subs.append((n, kappa_plus, q_plus))
+            # Even if both are zero (shouldn't happen for q>0) still add for completeness
+            if not subs:
+                subs.append((n, kappa_plus, 0))
+            options.append(subs)
+        per_shell_options.append(options)
+
+    # Cartesian product across shells
+    def product(lists):
+        if not lists:
+            return [[]]
+        acc = [[]]
+        for choices in lists:
+            acc = [prev + choice for prev in acc for choice in choices]
+        return acc
+
+    combos = product(per_shell_options)
+
+    csfs: List[CSF] = []
+    for combo in combos:
+        subs = []
+        labels = []
+        for n, kappa, occ in combo:
+            subs.append(Subshell(n=n, kappa=kappa, occupation=occ))
+            labels.append(f"{subs[-1].label}^{occ}")
+        csfs.append(CSF(subshells=subs, label=" ".join(labels)))
+    return csfs
+
+
 def _parse_config_string(config_str):
     """Parse "1s2 2s2 2p6" into list of Subshell objects.
 
