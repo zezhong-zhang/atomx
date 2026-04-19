@@ -589,6 +589,66 @@ def _accumulate_density_full(xx, p1, p2, ns, coeff):
 
 
 @nb.njit(cache=True, fastmath=True)
+def _accumulate_direct_density_batch(dd, comp_stack, coeffs, target_i, ns, ks):
+    """Batched symmetric direct density — single numba call per (k, block).
+
+    Replaces a Python-level loop over sources that called
+    :func:`_accumulate_density_sym` once per source. Each call to that
+    helper crosses the Python→numba boundary (~1 µs) and forces
+    ``a_direct[flat_j]`` scalar extraction; at ~900 k iterations per Pb
+    SCF the overhead dominated the Fock build.
+
+    Parameters
+    ----------
+    dd : (ns, ks) float64, modified in place.
+    comp_stack : (n_orb, ns) float64
+        Stacked P_j (or Q_j) for all source orbitals.
+    coeffs : (n_orb,) float64
+        a(target_i, j, k); zeros skip that source.
+    target_i : int
+        DBSR_HF ``c = c + c`` doubling applies only to j == target_i.
+    """
+    n_orb = coeffs.shape[0]
+    for j in range(n_orb):
+        c = coeffs[j]
+        if c == 0.0:
+            continue
+        if j == target_i:
+            c = c + c
+        for i in range(ns):
+            pi = comp_stack[j, i]
+            dd[i, 0] += c * pi * pi
+            for s in range(1, ks):
+                if i + s < ns:
+                    pis = comp_stack[j, i + s]
+                    dd[i, s] += c * (pi * pis + pis * pi)
+
+
+@nb.njit(cache=True, fastmath=True)
+def _accumulate_exchange_density_batch(xx, comp_ii_stack, comp_jj_stack,
+                                        coeffs, ns):
+    """Batched full-outer exchange density — single numba call per (k, block).
+
+    Parameters
+    ----------
+    xx : (ns, ns) float64, modified in place.
+    comp_ii_stack : (n_orb, ns) float64
+    comp_jj_stack : (n_orb, ns) float64
+    coeffs : (n_orb,) float64
+        b(target_i, j, k); zeros skip that source.
+    """
+    n_orb = coeffs.shape[0]
+    for j in range(n_orb):
+        c = coeffs[j]
+        if c == 0.0:
+            continue
+        for i in range(ns):
+            p1i = c * comp_ii_stack[j, i]
+            for k in range(ns):
+                xx[i, k] += p1i * comp_jj_stack[j, k]
+
+
+@nb.njit(cache=True, fastmath=True)
 def _density_sym(p1, p2, ns, ks):
     """Symmetric upper-band density: d[i, s] for s = 0..ks-1.
 

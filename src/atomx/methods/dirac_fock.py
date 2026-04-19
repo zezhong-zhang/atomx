@@ -984,6 +984,13 @@ class DFSolver:
         self.bsp_data = prepare_bspline_data(self.t, ns, ks)
         self._precompute()
 
+        # Optional warm-start: dict ``{kappa: [(P, Q, occ), ...]}`` matching the
+        # current basis. Set via :attr:`seed_orbitals` (or left ``None`` for
+        # hydrogenic + TFDA/GSZ cold start). Used by MCDHFSolver to reuse the
+        # previous outer-iteration orbitals, cutting inner SCF iterations from
+        # ~30 to ~3 once weights settle.
+        self.seed_orbitals = None
+
     def _flatten_orbitals(self, orbitals):
         """Flatten orbitals dict to list of (P, Q, occ, kappa, label)."""
         orb_list = []
@@ -1286,15 +1293,23 @@ class DFSolver:
     def _precompute_angular_coefficients(self, orbital_schedule):
         """Precompute all angular coefficients before SCF loop.
 
-        Builds:
-          _angular_direct[i, j, k]  — direct coefficient a(i,j,k)
-          _angular_exchange[i, j, k] — exchange coefficient b(i,j,k)
-          _angular_k_values[i, j]   — list of k with nonzero direct or exchange
-          _kmax                     — maximum k needed
-          _orb_kappas[i]            — kappa for flat orbital index i
-        """
-        from atomx.angular.coefficients import exchange_lambda
+        Builds (as dense ndarrays of shape ``(n_orb, n_orb, kmax+1)`` and
+        list lookups) — direct access via ``arr[i, j, k]`` is ~3× faster
+        than ``dict.get((i, j, k), 0.0)`` inside the SCF inner loop, which
+        runs ~900k times per Pb SCF and previously showed up as the #1
+        Python-overhead hotspot.
 
+          _angular_direct[i, j, k]    — direct coefficient a(i,j,k)
+          _angular_exchange[i, j, k]  — exchange coefficient b(i,j,k)
+          _angular_k_values[i, j]     — tuple of k with nonzero direct OR
+                                        exchange coefficient
+          _kmax                       — maximum k needed
+          _orb_kappas[i]              — kappa for flat orbital index i
+
+        The ``dict`` attributes ``_angular_direct_dict`` / ``..._exchange_dict``
+        are kept as back-compat aliases for any caller that still uses the
+        (i,j,k) key form; the hot SCF paths read the ndarrays instead.
+        """
         n_orb = len(self.subshells)
         kappas = [sh.kappa for sh in self.subshells]
         self._orb_kappas = kappas
@@ -1303,10 +1318,9 @@ class DFSolver:
         kmax = max(abs(ka) + abs(kb) for ka in all_kappas for kb in all_kappas)
         self._kmax = kmax
 
-        # Precompute all (i, j, k) -> (direct_coef, exchange_coef)
-        direct = {}    # (i, j, k) -> float
-        exchange = {}  # (i, j, k) -> float
-        k_values = {}  # (i, j) -> list of k with nonzero coefficients
+        direct = np.zeros((n_orb, n_orb, kmax + 1), dtype=np.float64)
+        exchange = np.zeros((n_orb, n_orb, kmax + 1), dtype=np.float64)
+        k_values: dict[tuple[int, int], tuple[int, ...]] = {}
 
         for i in range(n_orb):
             for j in range(n_orb):
@@ -1315,14 +1329,24 @@ class DFSolver:
                     dc = self._get_direct_coef(i, j, k, kappas[i], kappas[j])
                     ec = self._get_exchange_coef(i, j, k, kappas[i], kappas[j])
                     if abs(dc) > 1e-15 or abs(ec) > 1e-15:
-                        direct[(i, j, k)] = dc
-                        exchange[(i, j, k)] = ec
+                        direct[i, j, k] = dc
+                        exchange[i, j, k] = ec
                         ks_nonzero.append(k)
-                k_values[(i, j)] = ks_nonzero
+                k_values[(i, j)] = tuple(ks_nonzero)
 
         self._angular_direct = direct
         self._angular_exchange = exchange
         self._angular_k_values = k_values
+
+        # Per-target: sorted tuple of k values with ANY nonzero coefficient
+        # to any source. Lifts the ``all_k_set`` computation out of the SCF
+        # inner loop — it's geometry-only and iteration-invariant.
+        self._angular_k_for_target: list[tuple[int, ...]] = []
+        for i in range(n_orb):
+            ks = set()
+            for j in range(n_orb):
+                ks.update(k_values[(i, j)])
+            self._angular_k_for_target.append(tuple(sorted(ks)))
 
     def _build_hf_matrix_dbsr(self, target_i, orbitals):
         """Build the Fock matrix for orbital i — DBSR_HF hf_matrix algorithm.
@@ -1348,7 +1372,8 @@ class DFSolver:
             Combined direct + exchange Fock matrix blocks.
         """
         from atomx.numerics.bspline.convol import (
-            _accumulate_density_sym, _accumulate_density_full,
+            _accumulate_direct_density_batch,
+            _accumulate_exchange_density_batch,
             _convol_case1, _convol_case4,
             _convol_case1_mixed, _banded_to_full_add,
         )
@@ -1366,30 +1391,35 @@ class DFSolver:
         target_sh = self.subshells[target_i]
         q_i = target_sh.occupation
 
-        # Build flat orbital list for iterating
-        orb_flat = []  # [(P, Q, occ, kappa, flat_idx)]
+        # Stack orbital coefficients into contiguous (n_orb, ns_full) arrays
+        # so the batched numba kernels below can iterate sources without any
+        # Python-level loop. We also carry the flat ``q_j`` and ``kappa_j``
+        # arrays for downstream code that still expects per-source access.
+        n_orb = len(self.subshells)
+        P_stack = np.zeros((n_orb, ns_full), dtype=np.float64)
+        Q_stack = np.zeros((n_orb, ns_full), dtype=np.float64)
         kappa_counter = {}
-        for sh in self.subshells:
+        for flat_j, sh in enumerate(self.subshells):
             k_idx = kappa_counter.get(sh.kappa, 0)
             kappa_counter[sh.kappa] = k_idx + 1
             orb_list = orbitals.get(sh.kappa, [])
             if k_idx < len(orb_list):
-                P, Q, occ = orb_list[k_idx]
-                orb_flat.append((P, Q, occ, sh.kappa, len(orb_flat)))
-            else:
-                orb_flat.append((np.zeros(ns_full), np.zeros(ns_full), 0.0,
-                                 sh.kappa, len(orb_flat)))
+                P_j, Q_j, _ = orb_list[k_idx]
+                P_stack[flat_j, :ns_full] = P_j[:ns_full]
+                Q_stack[flat_j, :ns_full] = Q_j[:ns_full]
 
-        # Collect all unique k values needed for this target orbital
-        all_k_set = set()
-        for j in range(len(orb_flat)):
-            for k in self._angular_k_values.get((target_i, j), []):
-                all_k_set.add(k)
+        # Unique k values needed for this target orbital — precomputed in
+        # ``_precompute_angular_coefficients`` since this is purely an
+        # angular-geometry quantity and never changes across SCF iterations.
+        all_k_set = self._angular_k_for_target[target_i]
 
         hfm_PP = np.zeros((ns_full, ns_full))
         hfm_QQ = np.zeros((ns_full, ns_full))
         hfm_PQ = np.zeros((ns_full, ns_full))
         hfm_QP = np.zeros((ns_full, ns_full))
+
+        angular_direct = self._angular_direct      # (n, n, kmax+1) ndarray
+        angular_exchange = self._angular_exchange  # (n, n, kmax+1) ndarray
 
         # Loop over block types: (ii, jj) = (1,1), (1,2), (2,1), (2,2)
         for ii, jj in [(1, 1), (1, 2), (2, 1), (2, 2)]:
@@ -1406,25 +1436,19 @@ class DFSolver:
                 block = "qqqq"
                 ks_bra, ks_ket = ksq, ksq
 
+            comp_jj_stack = Q_stack if jj == 2 else P_stack
+            comp_ii_stack = Q_stack if ii == 2 else P_stack
+
             for k in all_k_set:
                 rkb, _, _ = self._convol_cache.get_rkb(k, block)
+                a_direct = angular_direct[target_i, :, k]     # length n_orb
+                b_exchange = angular_exchange[target_i, :, k] # length n_orb
 
-                # --- DIRECT: accumulate density in-place ---
-                dd = np.zeros((ns_full, ks_ket))
-                has_direct = False
-                for j, (P_j, Q_j, occ_j, kappa_j, flat_j) in enumerate(orb_flat):
-                    c = self._angular_direct.get((target_i, flat_j, k), 0.0)
-                    if abs(c) < 1e-15:
-                        continue
-                    # DBSR_HF: if(i.eq.j) c = c + c
-                    if flat_j == target_i:
-                        c = c + c
-                    comp_j = Q_j if jj == 2 else P_j
-                    _accumulate_density_sym(dd, comp_j[:ns_full], comp_j[:ns_full],
-                                            ns_full, ks_ket, c)
-                    has_direct = True
-
-                if has_direct:
+                # --- DIRECT: one numba call for the whole j-sum ---
+                if np.any(a_direct):
+                    dd = np.zeros((ns_full, ks_ket))
+                    _accumulate_direct_density_batch(
+                        dd, comp_jj_stack, a_direct, target_i, ns_full, ks_ket)
                     if ks_bra == ks_ket:
                         v = _convol_case1(rkb, dd, ns_full, ks_ket)
                     else:
@@ -1434,20 +1458,11 @@ class DFSolver:
                     else:
                         _banded_to_full_add(hfm_QQ, v, ns_full, ks_bra, 1.0)
 
-                # --- EXCHANGE: accumulate density in-place ---
-                xx = np.zeros((ns_full, ns_full))
-                has_exchange = False
-                for j, (P_j, Q_j, occ_j, kappa_j, flat_j) in enumerate(orb_flat):
-                    c = self._angular_exchange.get((target_i, flat_j, k), 0.0)
-                    if abs(c) < 1e-15:
-                        continue
-                    comp_ii_j = Q_j if ii == 2 else P_j
-                    comp_jj_j = Q_j if jj == 2 else P_j
-                    _accumulate_density_full(xx, comp_ii_j[:ns_full],
-                                              comp_jj_j[:ns_full], ns_full, c)
-                    has_exchange = True
-
-                if has_exchange:
+                # --- EXCHANGE: one numba call for the whole j-sum ---
+                if np.any(b_exchange):
+                    xx = np.zeros((ns_full, ns_full))
+                    _accumulate_exchange_density_batch(
+                        xx, comp_ii_stack, comp_jj_stack, b_exchange, ns_full)
                     Kk = _convol_case4(rkb, xx, ns_full, min(ks_bra, ks_ket))
                     if ii == 1 and jj == 1:
                         hfm_PP[:ns_full, :ns_full] += Kk[:ns_full, :ns_full]
@@ -1814,28 +1829,60 @@ class DFSolver:
                 self.Z, self.N_electrons, self.bsp_data)
 
         ns_full_init = max(nsp_init, nsq_init)
-        for kappa, shells in kappa_groups.items():
-            H, S = build_dirac_matrices(ns_full_init, kappa, self.Z, self.bsp_data, self._nuclear_potential)
-            # Add starting potential if available
-            if V_start_PP is not None:
-                n_vp = min(V_start_PP.shape[0], ns_full_init)
-                H[:n_vp, :n_vp] += V_start_PP[:n_vp, :n_vp]
-            if V_start_QQ is not None:
-                n_vq = min(V_start_QQ.shape[0], ns_full_init)
-                H[ns_full_init:ns_full_init+n_vq, ns_full_init:ns_full_init+n_vq] += V_start_QQ[:n_vq, :n_vq]
-            result = solve_dirac(H, S, ns_full_init, kappa,
-                                  nsp=nsp_init if has_kb else None,
-                                  nsq=nsq_init if has_kb else None)
-            orb_list = []
-            for sh in shells:
-                idx = sh.n - sh.l - 1
-                if kappa > 0 and not has_kb:
-                    idx += 1
-                if idx < result.n_bound:
-                    P, Q, E = result.get_orbital(idx)
-                    orb_list.append((P, Q, sh.occupation))
-                    orbital_energies[sh.label] = E
-            orbitals[kappa] = orb_list
+        # Warm-start path: if caller seeded orbitals (and basis dim matches),
+        # skip the hydrogenic/TFDA one-electron solve entirely. This is used by
+        # the MCDHF outer loop so each outer iteration starts from the previous
+        # iteration's converged orbitals, cutting inner SCF iterations by ~10×.
+        seeded = False
+        if self.seed_orbitals is not None:
+            ok = True
+            for kappa in kappa_groups:
+                seed_list = self.seed_orbitals.get(kappa, [])
+                if not seed_list or len(seed_list) < len(kappa_groups[kappa]):
+                    ok = False
+                    break
+                for P, Q, _occ in seed_list:
+                    if (np.asarray(P).shape[0] != ns_full_init
+                            or np.asarray(Q).shape[0] != ns_full_init):
+                        ok = False
+                        break
+                if not ok:
+                    break
+            if ok:
+                for kappa, shells in kappa_groups.items():
+                    seed_list = self.seed_orbitals[kappa]
+                    orb_list = []
+                    for i, sh in enumerate(shells):
+                        P, Q, _occ = seed_list[i]
+                        orb_list.append((np.asarray(P).copy(),
+                                         np.asarray(Q).copy(),
+                                         sh.occupation))
+                    orbitals[kappa] = orb_list
+                seeded = True
+
+        if not seeded:
+            for kappa, shells in kappa_groups.items():
+                H, S = build_dirac_matrices(ns_full_init, kappa, self.Z, self.bsp_data, self._nuclear_potential)
+                # Add starting potential if available
+                if V_start_PP is not None:
+                    n_vp = min(V_start_PP.shape[0], ns_full_init)
+                    H[:n_vp, :n_vp] += V_start_PP[:n_vp, :n_vp]
+                if V_start_QQ is not None:
+                    n_vq = min(V_start_QQ.shape[0], ns_full_init)
+                    H[ns_full_init:ns_full_init+n_vq, ns_full_init:ns_full_init+n_vq] += V_start_QQ[:n_vq, :n_vq]
+                result = solve_dirac(H, S, ns_full_init, kappa,
+                                      nsp=nsp_init if has_kb else None,
+                                      nsq=nsq_init if has_kb else None)
+                orb_list = []
+                for sh in shells:
+                    idx = sh.n - sh.l - 1
+                    if kappa > 0 and not has_kb:
+                        idx += 1
+                    if idx < result.n_bound:
+                        P, Q, E = result.get_orbital(idx)
+                        orb_list.append((P, Q, sh.occupation))
+                        orbital_energies[sh.label] = E
+                orbitals[kappa] = orb_list
 
         # For parametric potentials (TFDA, GSZ), no SCF iteration needed --
         # the initial orbitals ARE the final orbitals
