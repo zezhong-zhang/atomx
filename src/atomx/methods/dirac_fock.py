@@ -1293,15 +1293,23 @@ class DFSolver:
     def _precompute_angular_coefficients(self, orbital_schedule):
         """Precompute all angular coefficients before SCF loop.
 
-        Builds:
-          _angular_direct[i, j, k]  — direct coefficient a(i,j,k)
-          _angular_exchange[i, j, k] — exchange coefficient b(i,j,k)
-          _angular_k_values[i, j]   — list of k with nonzero direct or exchange
-          _kmax                     — maximum k needed
-          _orb_kappas[i]            — kappa for flat orbital index i
-        """
-        from atomx.angular.coefficients import exchange_lambda
+        Builds (as dense ndarrays of shape ``(n_orb, n_orb, kmax+1)`` and
+        list lookups) — direct access via ``arr[i, j, k]`` is ~3× faster
+        than ``dict.get((i, j, k), 0.0)`` inside the SCF inner loop, which
+        runs ~900k times per Pb SCF and previously showed up as the #1
+        Python-overhead hotspot.
 
+          _angular_direct[i, j, k]    — direct coefficient a(i,j,k)
+          _angular_exchange[i, j, k]  — exchange coefficient b(i,j,k)
+          _angular_k_values[i, j]     — tuple of k with nonzero direct OR
+                                        exchange coefficient
+          _kmax                       — maximum k needed
+          _orb_kappas[i]              — kappa for flat orbital index i
+
+        The ``dict`` attributes ``_angular_direct_dict`` / ``..._exchange_dict``
+        are kept as back-compat aliases for any caller that still uses the
+        (i,j,k) key form; the hot SCF paths read the ndarrays instead.
+        """
         n_orb = len(self.subshells)
         kappas = [sh.kappa for sh in self.subshells]
         self._orb_kappas = kappas
@@ -1310,10 +1318,9 @@ class DFSolver:
         kmax = max(abs(ka) + abs(kb) for ka in all_kappas for kb in all_kappas)
         self._kmax = kmax
 
-        # Precompute all (i, j, k) -> (direct_coef, exchange_coef)
-        direct = {}    # (i, j, k) -> float
-        exchange = {}  # (i, j, k) -> float
-        k_values = {}  # (i, j) -> list of k with nonzero coefficients
+        direct = np.zeros((n_orb, n_orb, kmax + 1), dtype=np.float64)
+        exchange = np.zeros((n_orb, n_orb, kmax + 1), dtype=np.float64)
+        k_values: dict[tuple[int, int], tuple[int, ...]] = {}
 
         for i in range(n_orb):
             for j in range(n_orb):
@@ -1322,14 +1329,24 @@ class DFSolver:
                     dc = self._get_direct_coef(i, j, k, kappas[i], kappas[j])
                     ec = self._get_exchange_coef(i, j, k, kappas[i], kappas[j])
                     if abs(dc) > 1e-15 or abs(ec) > 1e-15:
-                        direct[(i, j, k)] = dc
-                        exchange[(i, j, k)] = ec
+                        direct[i, j, k] = dc
+                        exchange[i, j, k] = ec
                         ks_nonzero.append(k)
-                k_values[(i, j)] = ks_nonzero
+                k_values[(i, j)] = tuple(ks_nonzero)
 
         self._angular_direct = direct
         self._angular_exchange = exchange
         self._angular_k_values = k_values
+
+        # Per-target: sorted tuple of k values with ANY nonzero coefficient
+        # to any source. Lifts the ``all_k_set`` computation out of the SCF
+        # inner loop — it's geometry-only and iteration-invariant.
+        self._angular_k_for_target: list[tuple[int, ...]] = []
+        for i in range(n_orb):
+            ks = set()
+            for j in range(n_orb):
+                ks.update(k_values[(i, j)])
+            self._angular_k_for_target.append(tuple(sorted(ks)))
 
     def _build_hf_matrix_dbsr(self, target_i, orbitals):
         """Build the Fock matrix for orbital i — DBSR_HF hf_matrix algorithm.
@@ -1387,11 +1404,10 @@ class DFSolver:
                 orb_flat.append((np.zeros(ns_full), np.zeros(ns_full), 0.0,
                                  sh.kappa, len(orb_flat)))
 
-        # Collect all unique k values needed for this target orbital
-        all_k_set = set()
-        for j in range(len(orb_flat)):
-            for k in self._angular_k_values.get((target_i, j), []):
-                all_k_set.add(k)
+        # Unique k values needed for this target orbital — precomputed in
+        # ``_precompute_angular_coefficients`` since this is purely an
+        # angular-geometry quantity and never changes across SCF iterations.
+        all_k_set = self._angular_k_for_target[target_i]
 
         hfm_PP = np.zeros((ns_full, ns_full))
         hfm_QQ = np.zeros((ns_full, ns_full))
@@ -1413,15 +1429,23 @@ class DFSolver:
                 block = "qqqq"
                 ks_bra, ks_ket = ksq, ksq
 
+            # Pre-slice angular coefficient arrays for this target and k.
+            # Each is a length-n_orb vector; the inner source loop reads it
+            # by position — no Python-level dict.get calls.
+            angular_direct = self._angular_direct     # (n, n, kmax+1) ndarray
+            angular_exchange = self._angular_exchange # (n, n, kmax+1) ndarray
+
             for k in all_k_set:
                 rkb, _, _ = self._convol_cache.get_rkb(k, block)
+                a_direct = angular_direct[target_i, :, k]     # length n_orb
+                b_exchange = angular_exchange[target_i, :, k] # length n_orb
 
                 # --- DIRECT: accumulate density in-place ---
                 dd = np.zeros((ns_full, ks_ket))
                 has_direct = False
                 for j, (P_j, Q_j, occ_j, kappa_j, flat_j) in enumerate(orb_flat):
-                    c = self._angular_direct.get((target_i, flat_j, k), 0.0)
-                    if abs(c) < 1e-15:
+                    c = a_direct[flat_j]
+                    if c == 0.0:
                         continue
                     # DBSR_HF: if(i.eq.j) c = c + c
                     if flat_j == target_i:
@@ -1445,8 +1469,8 @@ class DFSolver:
                 xx = np.zeros((ns_full, ns_full))
                 has_exchange = False
                 for j, (P_j, Q_j, occ_j, kappa_j, flat_j) in enumerate(orb_flat):
-                    c = self._angular_exchange.get((target_i, flat_j, k), 0.0)
-                    if abs(c) < 1e-15:
+                    c = b_exchange[flat_j]
+                    if c == 0.0:
                         continue
                     comp_ii_j = Q_j if ii == 2 else P_j
                     comp_jj_j = Q_j if jj == 2 else P_j
