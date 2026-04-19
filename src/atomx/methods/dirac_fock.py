@@ -984,6 +984,13 @@ class DFSolver:
         self.bsp_data = prepare_bspline_data(self.t, ns, ks)
         self._precompute()
 
+        # Optional warm-start: dict ``{kappa: [(P, Q, occ), ...]}`` matching the
+        # current basis. Set via :attr:`seed_orbitals` (or left ``None`` for
+        # hydrogenic + TFDA/GSZ cold start). Used by MCDHFSolver to reuse the
+        # previous outer-iteration orbitals, cutting inner SCF iterations from
+        # ~30 to ~3 once weights settle.
+        self.seed_orbitals = None
+
     def _flatten_orbitals(self, orbitals):
         """Flatten orbitals dict to list of (P, Q, occ, kappa, label)."""
         orb_list = []
@@ -1814,28 +1821,60 @@ class DFSolver:
                 self.Z, self.N_electrons, self.bsp_data)
 
         ns_full_init = max(nsp_init, nsq_init)
-        for kappa, shells in kappa_groups.items():
-            H, S = build_dirac_matrices(ns_full_init, kappa, self.Z, self.bsp_data, self._nuclear_potential)
-            # Add starting potential if available
-            if V_start_PP is not None:
-                n_vp = min(V_start_PP.shape[0], ns_full_init)
-                H[:n_vp, :n_vp] += V_start_PP[:n_vp, :n_vp]
-            if V_start_QQ is not None:
-                n_vq = min(V_start_QQ.shape[0], ns_full_init)
-                H[ns_full_init:ns_full_init+n_vq, ns_full_init:ns_full_init+n_vq] += V_start_QQ[:n_vq, :n_vq]
-            result = solve_dirac(H, S, ns_full_init, kappa,
-                                  nsp=nsp_init if has_kb else None,
-                                  nsq=nsq_init if has_kb else None)
-            orb_list = []
-            for sh in shells:
-                idx = sh.n - sh.l - 1
-                if kappa > 0 and not has_kb:
-                    idx += 1
-                if idx < result.n_bound:
-                    P, Q, E = result.get_orbital(idx)
-                    orb_list.append((P, Q, sh.occupation))
-                    orbital_energies[sh.label] = E
-            orbitals[kappa] = orb_list
+        # Warm-start path: if caller seeded orbitals (and basis dim matches),
+        # skip the hydrogenic/TFDA one-electron solve entirely. This is used by
+        # the MCDHF outer loop so each outer iteration starts from the previous
+        # iteration's converged orbitals, cutting inner SCF iterations by ~10×.
+        seeded = False
+        if self.seed_orbitals is not None:
+            ok = True
+            for kappa in kappa_groups:
+                seed_list = self.seed_orbitals.get(kappa, [])
+                if not seed_list or len(seed_list) < len(kappa_groups[kappa]):
+                    ok = False
+                    break
+                for P, Q, _occ in seed_list:
+                    if (np.asarray(P).shape[0] != ns_full_init
+                            or np.asarray(Q).shape[0] != ns_full_init):
+                        ok = False
+                        break
+                if not ok:
+                    break
+            if ok:
+                for kappa, shells in kappa_groups.items():
+                    seed_list = self.seed_orbitals[kappa]
+                    orb_list = []
+                    for i, sh in enumerate(shells):
+                        P, Q, _occ = seed_list[i]
+                        orb_list.append((np.asarray(P).copy(),
+                                         np.asarray(Q).copy(),
+                                         sh.occupation))
+                    orbitals[kappa] = orb_list
+                seeded = True
+
+        if not seeded:
+            for kappa, shells in kappa_groups.items():
+                H, S = build_dirac_matrices(ns_full_init, kappa, self.Z, self.bsp_data, self._nuclear_potential)
+                # Add starting potential if available
+                if V_start_PP is not None:
+                    n_vp = min(V_start_PP.shape[0], ns_full_init)
+                    H[:n_vp, :n_vp] += V_start_PP[:n_vp, :n_vp]
+                if V_start_QQ is not None:
+                    n_vq = min(V_start_QQ.shape[0], ns_full_init)
+                    H[ns_full_init:ns_full_init+n_vq, ns_full_init:ns_full_init+n_vq] += V_start_QQ[:n_vq, :n_vq]
+                result = solve_dirac(H, S, ns_full_init, kappa,
+                                      nsp=nsp_init if has_kb else None,
+                                      nsq=nsq_init if has_kb else None)
+                orb_list = []
+                for sh in shells:
+                    idx = sh.n - sh.l - 1
+                    if kappa > 0 and not has_kb:
+                        idx += 1
+                    if idx < result.n_bound:
+                        P, Q, E = result.get_orbital(idx)
+                        orb_list.append((P, Q, sh.occupation))
+                        orbital_energies[sh.label] = E
+                orbitals[kappa] = orb_list
 
         # For parametric potentials (TFDA, GSZ), no SCF iteration needed --
         # the initial orbitals ARE the final orbitals

@@ -64,7 +64,8 @@ class Atom:
                  ns=None, ks=9, nuclear="fermi",
                  breit=False, qed=False, exchange="hf",
                  correlation=None, starting_potential=None,
-                 plasma_ne=None, plasma_Te=None):
+                 plasma_ne=None, plasma_Te=None,
+                 averaging="ci"):
         """
         Parameters
         ----------
@@ -84,7 +85,31 @@ class Atom:
             Electron density (cm^-3) for plasma screening.
         plasma_Te : float, optional
             Electron temperature (eV) for plasma screening.
+        averaging : {"ci", "statistical", "equal", "fractional"}
+            How to weight the CSFs that span a partially-filled NR shell when
+            building the Guerra-averaged Fock operator
+
+                ϖᵢⱼ = Σⱼ cⱼ² nᵢʲ nⱼʲ  (Guerra Eq 10)
+
+            - ``"ci"`` (default) — cⱼ are the ground-state mixing amplitudes
+              obtained by diagonalising the CI Hamiltonian over all jj-CSFs
+              of the NR configuration. Physically correct
+              averaged-monoconfiguration; reduces to plain DHF for closed
+              shells (single CSF).
+            - ``"statistical"`` — cⱼ² ∝ C(2j⁻+1, q⁻)·C(2j⁺+1, q⁺),
+              i.e. number of M_J sublevels in each jj-split (matches
+              DBSR_HF ``term=AV``). Fastest open-shell option.
+            - ``"equal"`` — uniform 1/N over jj-CSFs.
+            - ``"fractional"`` — naive ϖᵢ(ϖᵢ−1) using the statistical
+              averaged occupations. Back-compat with pre-refactor behaviour.
+
+            Closed-shell atoms (Ne, Ar, Kr, Xe, Hg, …) are unaffected by
+            this choice — there is only one jj-CSF.
         """
+        if averaging not in {"ci", "statistical", "equal", "fractional"}:
+            raise ValueError(
+                f"averaging must be one of 'ci', 'statistical', 'equal', "
+                f"'fractional' (got {averaging!r})")
         self.Z = Z
         self.charge = charge
         self.nuclear = nuclear
@@ -101,6 +126,7 @@ class Atom:
         self.starting_potential = starting_potential
         self.plasma_ne = plasma_ne
         self.plasma_Te = plasma_Te
+        self.averaging = averaging
 
         # Determine configuration(s)
         if configs is not None:
@@ -162,7 +188,38 @@ class Atom:
         if method is not None:
             return self._solve_method(method, tol, max_iter, log=log)
 
-        if self._multi_config:
+        # Route "ci" averaging (Guerra with Hamiltonian-diagonalisation c_k²)
+        # through the MCDHF solver on the jj-CSF enumeration of the base
+        # configuration. For closed-shell atoms the enumeration yields a
+        # single CSF, so the MCDHF loop collapses to one DHF solve.
+        use_ci_avg = (
+            not self._multi_config
+            and self.averaging == "ci"
+            and self.exchange not in ("shooting", "slater")
+        )
+
+        if use_ci_avg:
+            from atomx.methods.mcdhf.config import enumerate_jj_csfs
+            from atomx.methods.mcdhf.solver import MCDHFSolver
+            csfs = enumerate_jj_csfs(self._config_strings[0])
+            if len(csfs) == 1:
+                # Closed-shell fast path: no CI mixing needed — fall back to
+                # the direct DFSolver route below for speed + identical
+                # numerics.
+                use_ci_avg = False
+            else:
+                solver = MCDHFSolver(
+                    Z=self.Z, csfs=csfs, ns=self.ns, ks=self.ks,
+                    include_breit=self.breit, include_qed=self.qed,
+                    nuclear=self.nuclear,
+                    use_physics_grid=self._use_physics_grid,
+                    starting_potential=self.starting_potential,
+                )
+                self._result = solver.solve(max_iter=max_iter, scf_tol=tol)
+
+        if use_ci_avg:
+            pass  # handled above
+        elif self._multi_config:
             from atomx.methods.mcdhf.config import make_csf_list
             from atomx.methods.mcdhf.solver import MCDHFSolver
             csfs = make_csf_list(self.Z, self._config_strings)
@@ -180,23 +237,24 @@ class Atom:
                                     n_grid=1000, r_max=75.0, alpha_x=1.5)
             self._result = solver.solve(max_iter=max_iter, tol=tol)
         else:
-            # B-spline DHF/DFS backend
-            # Use jj-average with statistical weights (averaging="statistical") for DBSR_HF-compatible
-            # fractional occupations. This distributes electrons in open p/d/f shells
-            # across j- and j+ subshells weighted by (2j+1) degeneracy.
+            # B-spline DHF/DFS backend with user-selected averaging
+            # (statistical | equal | fractional). The CI default is handled
+            # above via MCDHFSolver; "fractional" skips jj_configs to use
+            # the q*(q-1) fallback inside _get_WW.
             from atomx.config.jj_coupling import generate_jj_average
+            from atomx.config.jj_coupling import JJConfig
+            avg_key = "equal" if self.averaging == "equal" else "statistical"
             subshells, self._jj_configs = generate_jj_average(
-                self._config_strings[0], averaging="statistical")
+                self._config_strings[0], averaging=avg_key)
             # Remove zero-occupation subshells (they add orbitals but slow SCF)
             # Keep configs aligned: filter configs to match
             kept_indices = [i for i, sh in enumerate(subshells) if sh.occupation > 1e-10]
             subshells = [subshells[i] for i in kept_indices]
-            # Filter jj_configs to only include kept subshells
-            from atomx.config.jj_coupling import JJConfig
             filtered_configs = []
             for c in self._jj_configs:
                 filtered_subs = [c.subshells[i] for i in kept_indices]
                 filtered_configs.append(JJConfig(subshells=filtered_subs, weight=c.weight))
+            jj_arg = None if self.averaging == "fractional" else filtered_configs
             solver = DFSolver(Z=self.Z, subshells=subshells,
                               ns=self.ns, ks=self.ks,
                               exchange=self.exchange,
@@ -204,7 +262,7 @@ class Atom:
                               include_qed=self.qed,
                               nuclear=self.nuclear,
                               starting_potential=self.starting_potential or ('tfda' if self.Z >= 20 else None),
-                              jj_configs=filtered_configs)
+                              jj_configs=jj_arg)
 
             # DBSR_HF-style semi-exponential grid (matched to nuclear model)
             if self._use_physics_grid:

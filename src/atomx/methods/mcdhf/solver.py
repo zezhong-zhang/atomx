@@ -127,7 +127,9 @@ class MCDHFSolver:
     """
 
     def __init__(self, Z, csfs, ns=50, ks=9, r_min=None, r_max=None,
-                 include_breit=False, include_qed=False):
+                 include_breit=False, include_qed=False,
+                 nuclear="fermi", use_physics_grid=True,
+                 starting_potential=None):
         self.Z = Z
         self.csfs = csfs
         self.n_csf = len(csfs)
@@ -138,6 +140,9 @@ class MCDHFSolver:
         self.orbital_basis = get_shared_orbital_basis(csfs)
         self.r_min = r_min
         self.r_max = r_max
+        self.nuclear = nuclear
+        self.use_physics_grid = use_physics_grid
+        self.starting_potential = starting_potential
 
     def _averaged_subshells(self, weights=None):
         """Guerra Eq (10): ϖᵢ = Σⱼ cⱼ² nᵢʲ — fractional occupations.
@@ -166,6 +171,27 @@ class MCDHFSolver:
 
         return subshells
 
+    def _jj_configs(self, avg_subshells, weights):
+        """Build JJConfig list carrying c_k² weights for DFSolver.compute_WW.
+
+        The orbital index order in each JJConfig.subshells must match
+        ``avg_subshells`` so that DFSolver's ``compute_WW(i, j)`` picks the
+        right occupation. For CSFs that don't include a given orbital, we
+        insert it with occupation 0 so the positional index is preserved.
+        """
+        from atomx.config.jj_coupling import JJConfig
+        order = [(s.n, s.kappa) for s in avg_subshells]
+        configs = []
+        for i, csf in enumerate(self.csfs):
+            occ_map = {(sh.n, sh.kappa): sh.occupation for sh in csf.subshells}
+            positional = [
+                Subshell(n=n, kappa=kappa,
+                         occupation=float(occ_map.get((n, kappa), 0)))
+                for (n, kappa) in order
+            ]
+            configs.append(JJConfig(subshells=positional, weight=float(weights[i])))
+        return configs
+
     def solve(self, max_iter=30, scf_tol=1e-5, ci_tol=1e-8, scf_max_iter=40):
         """Run the MCDHF calculation.
 
@@ -175,28 +201,70 @@ class MCDHFSolver:
         weights = np.ones(self.n_csf) / self.n_csf
         E_old = 0.0
         converged = False
-        orbital_energies = {}
+        orbital_energies: Dict[str, float] = {}
         mixing = np.eye(self.n_csf)
         state_energies = np.zeros(self.n_csf)
+        iteration = 0
+        orbitals_dict: Dict = {}
+        dhf = None
+        seed_orbitals = None  # warm-start carry-over between outer iterations
 
         for iteration in range(1, max_iter + 1):
             # Step 1: Effective occupations (Guerra Eq 10)
             avg_subshells = self._averaged_subshells(weights)
 
-            # Step 2: Solve DHF with fractional occupations
+            # Step 2: Solve DHF with fractional occupations. Skip Breit/QED
+            # here — they are perturbative in atomx's DFSolver (do not enter
+            # the Fock matrix), so they only affect the final energy. We
+            # compute them ONCE after the MCDHF outer loop converges.
             kwargs = {}
             if self.r_min is not None:
                 kwargs["r_min"] = self.r_min
             if self.r_max is not None:
                 kwargs["r_max"] = self.r_max
 
+            # Build Guerra-weighted JJConfig list so DFSolver.compute_WW
+            # realises ϖᵢⱼ = Σⱼ cⱼ² nᵢʲ nⱼʲ — the correct
+            # averaged-monoconfiguration Fock operator (Guerra Eq 10).
+            jj_configs = self._jj_configs(avg_subshells, weights)
+
             dhf = DFSolver(
                 Z=self.Z, subshells=avg_subshells,
                 ns=self.ns, ks=self.ks,
-                exchange="hf", **kwargs
+                exchange="hf",
+                include_breit=False, include_qed=False,
+                nuclear=self.nuclear,
+                starting_potential=(self.starting_potential
+                                    or ("tfda" if self.Z >= 20 else None)),
+                jj_configs=jj_configs,
+                **kwargs,
             )
+
+            # Install the DBSR-HF-style semi-exponential physics grid before
+            # _precompute(), so the inner DHF matches the DFSolver path used
+            # for averaging in {"statistical","equal","fractional"}.
+            if self.use_physics_grid:
+                from atomx.numerics.bspline.knots import make_physics_knots
+                from atomx.numerics.bspline.basis import prepare_bspline_data
+                t_phys, ns_phys = make_physics_knots(
+                    ks=self.ks, Z=self.Z, nuclear=self.nuclear)
+                data = prepare_bspline_data(t_phys, ns_phys, self.ks,
+                                            kinetic_balance=True)
+                dhf.t = t_phys
+                dhf.bsp_data = data
+                dhf.ns = ns_phys
+                dhf._precompute()
+
+            # Warm-start from the previous outer iteration's converged
+            # orbitals. Only applied when the basis dimension matches; the
+            # grid is rebuilt identically each outer iter, so it does.
+            if seed_orbitals is not None:
+                dhf.seed_orbitals = seed_orbitals
+
             dhf_result = dhf.solve(max_iter=scf_max_iter, tol=scf_tol)
             orbital_energies = dhf_result.orbital_energies
+            # Stash for the next outer iteration
+            seed_orbitals = dhf_result.orbitals_raw
 
             # Step 3: Extract converged orbitals from SCFResult
             orbitals_dict = {}
@@ -241,16 +309,49 @@ class MCDHFSolver:
         ground_subshells = self._averaged_subshells(weights=ground_weights)
         occupations = {(sh.n, sh.kappa): float(sh.occupation) for sh in ground_subshells}
 
-        return MCDHFResult(
+        # One-shot perturbative Breit + QED on the final converged orbitals.
+        # These corrections do not enter the Fock matrix in atomx's DHF, so
+        # doing them once here (rather than inside each outer iteration's
+        # DFSolver) is both physically equivalent and N× faster, where N is
+        # the MCDHF outer-iteration count.
+        E_Breit = 0.0
+        qed_components: Dict[str, float] = {}
+        if dhf is not None and (self.include_breit or self.include_qed):
+            from atomx.corrections.breit import compute_breit_energy
+            from atomx.corrections.qed import compute_qed_corrections
+            # Flatten orbitals on the final basis for the correction APIs.
+            orb_list = []
+            kappa_counter: Dict[int, int] = {}
+            for sh in ground_subshells:
+                idx = kappa_counter.get(sh.kappa, 0)
+                kappa_counter[sh.kappa] = idx + 1
+                cached = orbitals_dict.get((sh.n, sh.kappa))
+                if cached is not None:
+                    P, Q = cached
+                    orb_list.append((P, Q, sh.occupation, sh.kappa, sh.label))
+            if self.include_breit:
+                E_Breit = float(compute_breit_energy(orb_list, dhf.bsp_data, self.Z))
+            if self.include_qed:
+                qed_components = dict(compute_qed_corrections(
+                    orb_list, dhf.bsp_data, self.Z,
+                ))
+
+        result = MCDHFResult(
             converged=converged,
             iterations=iteration,
             state_energies=state_energies,
             mixing_coefficients=mixing,
-            ground_energy=state_energies[0],
+            ground_energy=state_energies[0] + E_Breit + qed_components.get("E_QED_total", 0.0),
             orbital_energies=orbital_energies,
             csfs=self.csfs,
             orbitals_dict=dict(orbitals_dict),
-            bsp_data=dict(dhf.bsp_data),
+            bsp_data=dict(dhf.bsp_data) if dhf is not None else {},
             Z=self.Z,
             occupations=occupations,
         )
+        # Attach correction components for downstream energy breakdown.
+        if E_Breit:
+            result.__dict__["_E_Breit"] = E_Breit
+        if qed_components:
+            result.__dict__["_E_QED"] = qed_components
+        return result
