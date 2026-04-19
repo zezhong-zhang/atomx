@@ -1,0 +1,146 @@
+{
+  "project": "atomx",
+  "version": "0.2.0",
+  "generated": "2026-04-19",
+  "description": "High-performance relativistic atomic structure calculations using B-spline Dirac-Fock",
+  "python": ">=3.10",
+  "build_backend": "hatchling",
+  "package_root": "src/atomx",
+  "entry_points": {
+    "public_api": "src/atomx/__init__.py",
+    "facade": "src/atomx/atom.py",
+    "primary_scf": "src/atomx/methods/dirac_fock.py",
+    "benchmarks": [
+      "scripts/benchmark_energies.py",
+      "scripts/compare_energies.py",
+      "scripts/generate_density_gs.py"
+    ],
+    "examples": [
+      "docs/gallery/grotrian_example.py",
+      "docs/gallery/radial_orbital_example.py",
+      "docs/gallery/spectrum_example.py"
+    ]
+  },
+  "public_exports": [
+    "Atom",
+    "HydrogenicSchrodinger",
+    "HydrogenicDirac",
+    "HartreeFock",
+    "BreitPauli",
+    "DiracFock",
+    "MCDHF",
+    "Method",
+    "AtomicResult",
+    "HyperfineResult",
+    "OrbitalWavefunction",
+    "Waves",
+    "NuclearModel",
+    "Exchange",
+    "StartingPotential",
+    "Correlation",
+    "Multipole",
+    "Gauge",
+    "EnergyUnit",
+    "CouplingScheme",
+    "RelativisticCorrection",
+    "TheoryLevel",
+    "compare",
+    "theory_ladder",
+    "what_changed",
+    "ureg"
+  ],
+  "modules": {
+    "atom": {"path": "src/atomx/atom.py", "lines": 802, "purpose": "Atom facade — Z/config/breit/qed/exchange/correlation/plasma knobs"},
+    "types": {"path": "src/atomx/types.py", "purpose": "Enums for method configuration"},
+    "results": {"path": "src/atomx/results.py", "purpose": "AtomicResult, HyperfineResult, OrbitalWavefunction, Waves"},
+    "constants": {"path": "src/atomx/constants.py", "purpose": "CODATA 2022 physical constants"},
+    "units": {"path": "src/atomx/units.py", "purpose": "pint-based unit handling (pint-optional)"},
+    "compare": {"path": "src/atomx/compare.py", "purpose": "compare / theory_ladder / what_changed"},
+    "methods": {
+      "path": "src/atomx/methods/",
+      "purpose": "Theory-level Method objects",
+      "files": ["base.py", "hydrogenic.py", "hartree_fock.py", "relativistic_hf.py", "dirac_fock.py", "scf.py", "ci.py", "coupled_cluster.py", "mbpt.py", "rpa.py", "kohn_sham.py"],
+      "subpackages": {
+        "mcdhf": ["config.py", "excitations.py", "matrix.py", "solver.py"]
+      }
+    },
+    "numerics": {
+      "path": "src/atomx/numerics/",
+      "subpackages": {
+        "bspline": ["knots.py", "basis.py", "evaluate.py", "integrals.py", "convol.py", "dirac_assembly.py", "continuum.py"],
+        "shooting": ["grid.py", "spline.py", "quadrature.py", "integrator.py", "solver.py", "dirac_bound.py", "dirac_integrator.py", "dirac_power_series.py", "schrodinger_bound.py", "schrodinger_integrator.py", "schrodinger_power_series.py", "constants.py"],
+        "analytic": ["hydrogenic_dirac.py"]
+      }
+    },
+    "physics": {"path": "src/atomx/physics/", "files": ["base.py", "dirac.py", "schrodinger.py", "breit_pauli.py", "two_body.py"]},
+    "angular": {"path": "src/atomx/angular/", "files": ["wigner.py", "clebsch.py", "coefficients.py", "ls_coupling.py", "recoupling.py", "spinor_harmonics.py"]},
+    "config": {"path": "src/atomx/config/", "files": ["jj_coupling.py"]},
+    "corrections": {
+      "path": "src/atomx/corrections/",
+      "files": ["breit.py", "qed.py", "protocol.py", "adapters.py", "stack.py"],
+      "subpackages": {
+        "qedmod": ["base.py", "shabaev.py", "welton.py", "mohr.py", "flambaum_ginges.py"]
+      }
+    },
+    "potentials": {"path": "src/atomx/potentials/", "files": ["nuclear.py", "thomas_fermi.py", "parametric.py"]},
+    "prop": {
+      "path": "src/atomx/prop/",
+      "purpose": "Derived properties / observables",
+      "subpackages": {
+        "transitions": ["multipole.py", "angular.py", "rates.py", "calculator.py"],
+        "hyperfine": ["dipole.py", "quadrupole.py", "nuclear_moments.py", "qed_corrections.py"],
+        "isotope_shift": ["field_shift.py", "mass_shift.py", "sms_abinitio.py", "isotope_shift.py"],
+        "zeeman": ["lande.py", "shift.py"],
+        "g_factor": ["__init__.py"],
+        "polarizability": ["__init__.py"],
+        "edm": ["__init__.py"],
+        "pnc": ["__init__.py"]
+      }
+    },
+    "scattering": {
+      "path": "src/atomx/scattering/",
+      "subpackages": {
+        "photoionization": ["fano.py"],
+        "autoionization": ["auger.py"],
+        "dielectronic_recombination": ["solver.py"],
+        "distorted_wave": ["solver.py"],
+        "r_matrix": ["__init__.py"]
+      }
+    },
+    "plasma": {"path": "src/atomx/plasma/"},
+    "lineshapes": {"path": "src/atomx/lineshapes/"},
+    "spectrum": {"path": "src/atomx/spectrum/"},
+    "uta": {"path": "src/atomx/uta/"},
+    "fitting": {"path": "src/atomx/fitting/"},
+    "viz": {"path": "src/atomx/viz/", "files": ["mpl.py", "plotly.py", "plotly3d.py", "manim.py"]},
+    "data": {"path": "src/atomx/data/", "files": ["hyperfine_presets.py", "mohr_se.py", "flambaum_ginges.py", "nuclear_structure.py"]}
+  },
+  "tests": {
+    "dir": "tests/",
+    "count": 30,
+    "modules": [
+      "angular", "atom_api", "atom_unified_api", "autoionization", "bspline",
+      "ci", "constants", "continuum", "convol", "corrections_stack",
+      "data_loaders", "dirac_hydrogenic", "fitting", "hyperfine", "isotope",
+      "lineshapes", "mcdhf", "photoionization", "plasma", "potentials",
+      "qed", "qedmod", "scaffolds", "scf", "spectrum_and_uta",
+      "transitions", "units", "viz", "viz_plotly3d", "zeeman"
+    ]
+  },
+  "dependencies": {
+    "required": ["numpy>=1.24", "scipy>=1.10", "numba>=0.58", "h5py>=3.0", "plotly>=6.7.0", "manim>=0.19.1", "matplotlib>=3.10.8", "nbformat>=5.10.4", "ipython>=8.39.0", "ipykernel>=7.2.0"],
+    "extras": {
+      "dev": ["pytest>=7.0", "pytest-benchmark"],
+      "units": ["pint>=0.21"],
+      "viz": ["matplotlib>=3.7", "plotly>=5.0"],
+      "viz-manim": ["manim>=0.18"],
+      "viz-all": ["matplotlib>=3.7", "plotly>=5.0", "manim>=0.18"],
+      "all": ["matplotlib>=3.7", "plotly>=5.0", "manim>=0.18", "pint>=0.21"]
+    }
+  },
+  "quick_start": [
+    "pip install -e \".[dev,units]\"",
+    "python -c \"from atomx import Atom; Atom(Z=10).solve().summary()\"",
+    "pytest"
+  ]
+}
