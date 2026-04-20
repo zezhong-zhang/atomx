@@ -922,13 +922,20 @@ class DFSolver:
         Grid boundaries.
     exchange : str
         "hf" for non-local Hartree-Fock exchange,
-        "slater" for local Slater exchange with alpha_x parameter.
+        "slater" for local Slater exchange with ``alpha_x`` parameter,
+        "fac" for Gu's FAC-style local exchange with α_xc(Z, N)
+        (ignores ``alpha_x``; fit from
+        :func:`atomx.physics.local_exchange.get_hxs`).
     alpha_x : float
-        Slater exchange parameter (only used when exchange="slater").
+        Slater exchange parameter (used when exchange="slater").
+    fac_ihx, fac_hxs : float
+        Forwarded to ``get_hxs`` when ``exchange='fac'``; defaults
+        match FAC's own defaults (``ihx = -1``, ``hxs = 1``).
     """
 
     def __init__(self, Z, subshells, ns=50, ks=9, r_min=None, r_max=None,
                  exchange="hf", alpha_x=2.0/3.0,
+                 fac_ihx=-1.0, fac_hxs=1.0,
                  include_breit=False, include_qed=False,
                  qed_se_method="mohr",
                  include_wichmann_kroll=False,
@@ -941,7 +948,8 @@ class DFSolver:
         ----------
         exchange : str
             "hf" for non-local Hartree-Fock exchange,
-            "slater" for local Slater exchange,
+            "slater" for local Slater exchange (α from ``alpha_x``),
+            "fac" for Gu's Z- and N-dependent α_xc(Z, N),
             "tfda" for Thomas-Fermi-Dirac-Amaldi (no SCF iteration),
             "gsz" for Green-Sellin-Zachor parametric potential.
         qed_se_method : str
@@ -967,6 +975,30 @@ class DFSolver:
         self.r_max = r_max if r_max is not None else max(40.0, 60.0 / Z)
         self.exchange = exchange
         self.alpha_x = alpha_x
+        self.fac_ihx = fac_ihx
+        self.fac_hxs = fac_hxs
+        # When exchange='fac', resolve Gu's α_xc(Z, N) once — it is
+        # a function of (Z, total N) only and does not change during
+        # the SCF iterations (this mirrors FAC's potential->ahx,
+        # which is set once per OptimizeRadial call at radial.c:2348).
+        #
+        # Unit note: FAC's ``ahx`` lives in the ``V_x = -ahx · (4π·ρ)^(1/3)``
+        # convention, while this code path uses Slater α in the
+        # ``V_x = -α · (3·ρ/π)^(1/3)`` convention (see
+        # ``_build_exchange_matrix_slater``). The two differ by a
+        # constant factor ``(4π² / 3)^(1/3) ≈ 2.3609`` — multiply
+        # FAC's ahx by this factor to recover the equivalent Slater
+        # α.  See ``atomx.numerics.shooting.solver.ShootingSolver._effective_alpha``
+        # for the derivation.
+        if exchange == "fac":
+            import numpy as _np
+            from atomx.physics.local_exchange import get_hxs
+            n_total = float(sum(sh.occupation for sh in subshells))
+            ahx = get_hxs(
+                Z=float(Z), N=n_total,
+                ihx=self.fac_ihx, hxs=self.fac_hxs,
+            )
+            self.alpha_x = ahx * (4.0 * _np.pi ** 2 / 3.0) ** (1.0 / 3.0)
         self.include_breit = include_breit
         self.include_qed = include_qed
         self.qed_se_method = qed_se_method
