@@ -43,9 +43,14 @@ PANEL = [
     # takes several minutes per solve (follow-up task).
 ]
 
-FLAVOURS = ["shooting", "fac"]   # "slater", "hf" omitted: B-spline
-                                 # Slater path has a pre-existing 2×
-                                 # normalisation bug tracked separately.
+FLAVOURS = ["shooting", "fac"]   # "slater", "hf" omitted: this
+                                 # benchmark focuses on the local-
+                                 # exchange flavours routed through
+                                 # shooting.  The B-spline Slater path
+                                 # (``DFSolver(exchange='slater')``) is
+                                 # now correct to 10⁻³ vs shooting for
+                                 # Ne/Ar; see
+                                 # ``tests/test_dfsolver_slater.py``.
 
 
 _SF_TEMPLATE = """# benchmark reference run

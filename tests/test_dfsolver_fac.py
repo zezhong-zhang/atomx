@@ -1,13 +1,13 @@
 """DFSolver's ``exchange='fac'`` — unit-level wiring test.
 
-The B-spline local-exchange path in ``DFSolver`` has a long-standing
-normalisation bug (2× binding energy at Z=10 Ne when
-``exchange='slater'``) that is orthogonal to this plan's FAC work.
-This test pins what ``exchange='fac'`` does today so future DFSolver
-refactors don't silently regress the Gu α_xc wiring.  The
-``Atom(...exchange='fac').solve()`` facade routes through the
-shooting backend (validated in ``test_fac_dfs_shooting.py``) until
-the B-spline Slater path is fixed.
+Pins what ``exchange='fac'`` does today so future DFSolver refactors
+don't silently regress the Gu α_xc wiring.  The B-spline Slater
+normalisation bug (2× binding energy at Z=10 Ne) that the FAC plan
+called out as orthogonal has since been fixed — see
+``tests/test_dfsolver_slater.py`` for the closed-shell regression
+gate.  Flipping the ``Atom(..., exchange='fac').solve()`` facade
+away from the shooting backend onto DFSolver is now a one-line
+change in ``atom.py``.
 """
 
 from __future__ import annotations
