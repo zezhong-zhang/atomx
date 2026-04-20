@@ -39,8 +39,9 @@ PANEL = [
     (26, "Fe", "1s2 2s2 2p6"),       # Ne-like
     (36, "Kr", "1s2 2s2 2p6 3s2 3p6"),  # Ar-like
     (54, "Xe", "1s2 2s2 2p6"),       # Ne-like
-    # Z ≥ 74 omitted: shooting SCF with Gu's low α_xc at heavy Z
-    # takes several minutes per solve (follow-up task).
+    (74, "W",  "1s2 2s2 2p6"),       # Ne-like — re-enabled after the
+    (82, "Pb", "1s2 2s2 2p6 3s2 3p6"),   # _slater_integral nsteps cap
+    (92, "U",  "1s2 2s2 2p6"),       # fixed the heavy-Z stall.
 ]
 
 FLAVOURS = ["shooting", "fac"]   # "slater", "hf" omitted: this
