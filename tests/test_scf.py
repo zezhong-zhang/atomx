@@ -72,7 +72,15 @@ class TestSCFSlater:
         E = result.energy_components
         assert E["E_1e"] < 0
         assert E["E_J"] > 0
-        assert E["E_K"] > 0
+        # E_K is the HF-style exchange magnitude evaluated on the Slater
+        # orbitals (matching ``_compute_total_energy``'s HF convention, which
+        # is what shooting's ``_expval`` also does for its DFS orbitals).
+        # For closed-shell He 1s², there is no same-spin exchange pair, so
+        # ``E_K == 0``.  The old buggy LDA-integral assertion ``E_K > 0``
+        # reflected the pre-refactor convention; the positive-magnitude
+        # property of ``E_K`` still holds for multi-shell atoms (see
+        # ``tests/test_dfsolver_slater.py``).
+        assert E["E_K"] >= 0
 
 
 # ---- HF exchange tests (shared fixtures) ----
