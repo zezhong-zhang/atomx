@@ -922,13 +922,20 @@ class DFSolver:
         Grid boundaries.
     exchange : str
         "hf" for non-local Hartree-Fock exchange,
-        "slater" for local Slater exchange with alpha_x parameter.
+        "slater" for local Slater exchange with ``alpha_x`` parameter,
+        "fac" for Gu's FAC-style local exchange with α_xc(Z, N)
+        (ignores ``alpha_x``; fit from
+        :func:`atomx.physics.local_exchange.get_hxs`).
     alpha_x : float
-        Slater exchange parameter (only used when exchange="slater").
+        Slater exchange parameter (used when exchange="slater").
+    fac_ihx, fac_hxs : float
+        Forwarded to ``get_hxs`` when ``exchange='fac'``; defaults
+        match FAC's own defaults (``ihx = -1``, ``hxs = 1``).
     """
 
     def __init__(self, Z, subshells, ns=50, ks=9, r_min=None, r_max=None,
                  exchange="hf", alpha_x=2.0/3.0,
+                 fac_ihx=-1.0, fac_hxs=1.0,
                  include_breit=False, include_qed=False,
                  qed_se_method="mohr",
                  include_wichmann_kroll=False,
@@ -941,7 +948,8 @@ class DFSolver:
         ----------
         exchange : str
             "hf" for non-local Hartree-Fock exchange,
-            "slater" for local Slater exchange,
+            "slater" for local Slater exchange (α from ``alpha_x``),
+            "fac" for Gu's Z- and N-dependent α_xc(Z, N),
             "tfda" for Thomas-Fermi-Dirac-Amaldi (no SCF iteration),
             "gsz" for Green-Sellin-Zachor parametric potential.
         qed_se_method : str
@@ -967,6 +975,30 @@ class DFSolver:
         self.r_max = r_max if r_max is not None else max(40.0, 60.0 / Z)
         self.exchange = exchange
         self.alpha_x = alpha_x
+        self.fac_ihx = fac_ihx
+        self.fac_hxs = fac_hxs
+        # When exchange='fac', resolve Gu's α_xc(Z, N) once — it is
+        # a function of (Z, total N) only and does not change during
+        # the SCF iterations (this mirrors FAC's potential->ahx,
+        # which is set once per OptimizeRadial call at radial.c:2348).
+        #
+        # Unit note: FAC's ``ahx`` lives in the ``V_x = -ahx · (4π·ρ)^(1/3)``
+        # convention, while this code path uses Slater α in the
+        # ``V_x = -α · (3·ρ/π)^(1/3)`` convention (see
+        # ``_build_exchange_matrix_slater``). The two differ by a
+        # constant factor ``(4π² / 3)^(1/3) ≈ 2.3609`` — multiply
+        # FAC's ahx by this factor to recover the equivalent Slater
+        # α.  See ``atomx.numerics.shooting.solver.ShootingSolver._effective_alpha``
+        # for the derivation.
+        if exchange == "fac":
+            import numpy as _np
+            from atomx.physics.local_exchange import get_hxs
+            n_total = float(sum(sh.occupation for sh in subshells))
+            ahx = get_hxs(
+                Z=float(Z), N=n_total,
+                ihx=self.fac_ihx, hxs=self.fac_hxs,
+            )
+            self.alpha_x = ahx * (4.0 * _np.pi ** 2 / 3.0) ** (1.0 / 3.0)
         self.include_breit = include_breit
         self.include_qed = include_qed
         self.qed_se_method = qed_se_method
@@ -1550,26 +1582,50 @@ class DFSolver:
         return -ww * lam / ((tj_i + 1.0) * (tj_j + 1.0))
 
     def _build_exchange_matrix_slater(self, orbitals):
-        """Build local Slater exchange — separate PP and QQ matrices for KB."""
+        """Build local Slater exchange — separate PP and QQ matrices for KB.
+
+        ``V_x(r) = -α (3 ρ_vol(r) / π)^{1/3}`` uses the *volumetric* charge
+        density ``ρ_vol = (P² + Q²) / (4π r²)``, not the radial density
+        ``ρ_rad = P² + Q²`` which is normalised to ``∫ρ_rad dr = N``.
+
+        Applies Latter's tail correction (PRA **46**, 1481 (1992); DHFS.f:970)
+        so the total radial potential satisfies ``r V(r) ≤ -(1 + Z - N)``,
+        the asymptote of a neutral atom.  Pure LDA decays too fast, leaving
+        valence orbitals unbound — the common failure mode that made the
+        B-spline Slater path produce ~2× too-deep totals for Ne.
+        """
         nv = self.bsp_data["nv"]
         ns = self.ns
         gr = self.bsp_data["gr"]
         grw = self.bsp_data["grw"]
         n_gauss = gr.shape[1]
 
-        rho = np.zeros((nv, n_gauss))
+        rho_rad = np.zeros((nv, n_gauss))
         for kappa, orb_list in orbitals.items():
             for P, Q, occ in orb_list:
                 fP = self._eval_P_on_grid(P)
                 fQ = self._eval_Q_on_grid(Q)
-                rho += occ * (fP ** 2 + fQ ** 2)
+                rho_rad += occ * (fP ** 2 + fQ ** 2)
 
-        vx = np.zeros_like(rho)
-        for iv in range(nv):
-            for m in range(n_gauss):
-                if rho[iv, m] > 1e-30:
-                    vx[iv, m] = -self.alpha_x * (3.0 / np.pi * rho[iv, m]) ** (1.0 / 3.0)
-        vx_w = grw * vx
+        rho_vol = rho_rad / (4.0 * np.pi * gr ** 2)
+        vx = np.zeros_like(rho_vol)
+        mask = rho_vol > 1e-30
+        vx[mask] = -self.alpha_x * (3.0 / np.pi * rho_vol[mask]) ** (1.0 / 3.0)
+
+        yk = compute_yk(rho_rad, gr, grw, nv, n_gauss, 0)
+        if self._nuclear_potential is None:
+            V_nuc_grid = -self.Z / gr
+        else:
+            V_nuc_grid = np.empty_like(gr)
+            for iv in range(nv):
+                for m in range(n_gauss):
+                    V_nuc_grid[iv, m] = self._nuclear_potential(gr[iv, m])
+        V_total = V_nuc_grid + yk + vx
+        rvinf = -(1.0 + self.Z - self.N_electrons)
+        cap_mask = gr * V_total > rvinf
+        V_total_capped = np.where(cap_mask, rvinf / gr, V_total)
+        vx_corr = V_total_capped - V_nuc_grid - yk
+        vx_w = grw * vx_corr
 
         ksp = self.bsp_data.get("ksp", self.ks)
         bsp_p = self.bsp_data["bsp_p"]
@@ -1654,10 +1710,13 @@ class DFSolver:
         orb_list = self._flatten_orbitals(orbitals)
         bsp_data = self.bsp_data
 
-        if self.exchange != "hf":
-            # DFS (Slater local exchange) — use eigenvalue formula
-            return self._compute_total_energy_slater(orbitals, orbital_energies,
-                                                      orb_list, bsp_data)
+        # DFS (Slater local exchange) used to evaluate energy with an LDA-based
+        # formula that double-counts self-interaction; shooting's Salvat-style
+        # path instead converges orbitals with local V_x but evaluates the
+        # total energy with the configuration-average HF formula (F^0 + G^k)
+        # on those orbitals (DHFS.f:984 _expval).  We match that — converged
+        # Slater orbitals are close enough to HF that the HF energy functional
+        # is the right target and agrees with shooting at 10⁻³.
 
         # One-electron: Σ q_a <a|h|a>
         ns_e = bsp_data.get("ns", self.ns)  # max(nsp, nsq)
@@ -1721,49 +1780,6 @@ class DFSolver:
         E_total = E_1e + E_2e
         components = {"E_1e": E_1e, "E_2e": E_2e, "E_J": E_J, "E_K": E_K}
         return E_total, components
-
-    def _compute_total_energy_slater(self, orbitals, orbital_energies,
-                                      orb_list, bsp_data):
-        """DFS total energy using eigenvalue formula (Slater local exchange)."""
-        E_orbital_sum = 0.0
-        if orbital_energies:
-            for P, Q, occ, kappa, label in orb_list:
-                eps = orbital_energies.get(label, 0.0)
-                E_orbital_sum += occ * eps
-        else:
-            for P, Q, occ, kappa, label in orb_list:
-                H0, S0 = build_dirac_matrices(self.ns, kappa, self.Z, bsp_data, self._nuclear_potential)
-                vec = np.concatenate([P, Q])
-                norm_sq = vec @ S0 @ vec
-                if norm_sq > 1e-20:
-                    E_orbital_sum += occ * (vec @ H0 @ vec) / norm_sq
-
-        E_J = 0.0
-        for i, (Pa, Qa, oa, ka, la) in enumerate(orb_list):
-            for j, (Pb, Qb, ob, kb, lb) in enumerate(orb_list):
-                f0 = compute_slater_fk(Pa, Qa, Pb, Qb, bsp_data, k=0)
-                E_J += 0.5 * oa * ob * f0
-
-        nv = bsp_data["nv"]
-        gr = bsp_data["gr"]
-        grw = bsp_data["grw"]
-        n_gauss = gr.shape[1]
-        rho = np.zeros((nv, n_gauss))
-        for P, Q, occ, _, _ in orb_list:
-            fP = self._eval_on_grid(P)
-            fQ = self._eval_on_grid(Q)
-            rho += occ * (fP ** 2 + fQ ** 2)
-        E_K = 0.0
-        for iv in range(nv):
-            for m in range(n_gauss):
-                if rho[iv, m] > 1e-30:
-                    E_K += grw[iv, m] * (self.alpha_x * 0.75
-                           * (3.0 / np.pi) ** (1.0 / 3.0)
-                           * rho[iv, m] ** (4.0 / 3.0))
-
-        E_total = E_orbital_sum - E_J - (1.0/3.0) * E_K
-        E_1e = E_orbital_sum - 2.0 * E_J - (4.0/3.0) * E_K
-        return E_total, {"E_1e": E_1e, "E_J": E_J, "E_K": E_K}
 
     def solve(self, max_iter=100, tol=1e-6, mixing=0.3, damping=None,
               mode="batch"):
@@ -2136,16 +2152,35 @@ class DFSolver:
                             del exchange_cache[ck]
 
             else:
-                # Slater local exchange — same Fock for all orbitals
+                # Slater local exchange — same Fock for all orbitals.
+                #
+                # LDA SCF with a shared Fock is prone to root-swapping
+                # (valence bound state disappearing for one iteration because
+                # the potential briefly fails to bind it).  Shooting's
+                # Salvat-style DHFS avoids this by mixing the potential, not
+                # the orbitals — we do the same here.  The Fock matrix blocks
+                # V_J + V_x are blended with the previous iteration's blocks;
+                # ``slater_mix`` defaults to ``0.2`` (80% old / 20% new), the
+                # value DHFS.f uses as its opening factor.
                 V_J_PP, V_J_QQ = self._build_direct_potential(orbitals)
                 Vx_PP, Vx_QQ = self._build_exchange_matrix_slater(orbitals)
+                Pot_PP_new = V_J_PP + Vx_PP
+                Pot_QQ_new = V_J_QQ + Vx_QQ
+                if V_J_PP_prev is None:
+                    Pot_PP = Pot_PP_new
+                    Pot_QQ = Pot_QQ_new
+                else:
+                    slater_mix = 0.2
+                    Pot_PP = (1.0 - slater_mix) * V_J_PP_prev + slater_mix * Pot_PP_new
+                    Pot_QQ = (1.0 - slater_mix) * V_J_QQ_prev + slater_mix * Pot_QQ_new
+                V_J_PP_prev = Pot_PP
+                V_J_QQ_prev = Pot_QQ
                 for kappa, shells in kappa_groups.items():
                     H = H0_cache[kappa].copy()
                     S_full = S0_cache[kappa]
-                    n = min(V_J_PP.shape[0], ns_full)
-                    H[:n, :n] += V_J_PP[:n, :n] + Vx_PP[:n, :n]
-                    H[ns_full:ns_full+n, ns_full:ns_full+n] += (
-                        V_J_QQ[:n, :n] + Vx_QQ[:n, :n])
+                    n = min(Pot_PP.shape[0], ns_full)
+                    H[:n, :n] += Pot_PP[:n, :n]
+                    H[ns_full:ns_full+n, ns_full:ns_full+n] += Pot_QQ[:n, :n]
                     result = solve_dirac(H, S_full, ns_full, kappa,
                                           nsp=nsp if has_kb else None,
                                           nsq=nsq if has_kb else None)

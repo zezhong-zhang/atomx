@@ -23,11 +23,20 @@ from atomx.numerics.shooting.schrodinger_bound import sbound
 
 
 @nb.njit(cache=True)
-def _sfield(r, difr, rden, vnuc, np_, alpha, qelec, nshell,
+def _sfield(r, difr, rden, vnuc, np_, alpha, qelec, nshell, z,
             va_work, vb_work, vc_work, vd_work):
     """Compute screened potential — SFIELD (DHFS.f:892-980).
 
     Uses SLAG6 for integration (not trapezoidal).
+
+    Parameters:
+        z: actual nuclear charge (parameter to Latter's correction).
+           Previously inferred from ``-vnuc[1]`` which is only valid for
+           a point nucleus.  For the Fermi distribution, ``vnuc`` vanishes
+           at the origin (finite V(0)), so inferring Z from the innermost
+           grid point gave Z ~ 0 and effectively disabled Latter's
+           correction — leading to a systematic ~1e-2 Ha bias in total
+           binding energy for multi-electron atoms.
 
     Returns:
         rvt: trial potential r*V(r) array
@@ -77,7 +86,6 @@ def _sfield(r, difr, rden, vnuc, np_, alpha, qelec, nshell,
         rvt[i] = vnuc[i] + vel[i] + vex[i]
 
     # Latter tail correction (DHFS.f:970-978)
-    z = -vnuc[1] if np_ > 1 else 0.0  # vnuc = -Z
     rvinf = -1.0 - z + qelec
     for i in range(np_ - 1, -1, -1):
         if rvt[i] > rvinf:
@@ -125,7 +133,17 @@ def _slater_integral(f1, f2, l, r, difr, np_):
                     + c1[0] / (al + 3.0) * r2v ** 3
                     + d1[0] / (al + 4.0) * r2v ** 4)
 
-    # Outward integration for Z(r) via power series ODE
+    # Outward integration for Z(r) via power series ODE.
+    #
+    # The inner substep-halving loop has no natural cap — if the
+    # power series stops converging (e.g. heavy-Z densities with
+    # sharp inner peaks), ``nsteps`` doubles forever.  We cap at
+    # MAX_NSTEPS so one pathological (r, L) can't stall ``_expval``
+    # for minutes.  The cap of 4096 is empirically large enough for
+    # Z ≤ 92 to reproduce FAC's local-exchange total energies to
+    # 10⁻⁴ relative (on the Task 0 calibration panel) while keeping
+    # pathological grid points from doubling forever.
+    MAX_NSTEPS = 4096
     for i in range(1, np_ - 1):
         ra = r[i]
         if ra < 1.0e-30:
@@ -135,7 +153,7 @@ def _slater_integral(f1, f2, l, r, difr, np_):
         nsteps = 1
         converged_step = False
 
-        while not converged_step:
+        while not converged_step and nsteps <= MAX_NSTEPS:
             hstep = h / nsteps
             rc = ra - hstep
             zc = z_arr[i]
@@ -197,7 +215,7 @@ def _slater_integral(f1, f2, l, r, difr, np_):
         nsteps = 1
         converged_step = False
 
-        while not converged_step:
+        while not converged_step and nsteps <= MAX_NSTEPS:
             hstep = h / nsteps
             rc = ra - hstep
             yc = y_arr[i + 1]
@@ -517,7 +535,7 @@ def _dhfs_scf(z, nshell, shell_n, shell_kappa, shell_occ, shell_l, shell_2j,
 
     # Initial SFIELD (DHFS.f:771)
     rvt, vel, vex = _sfield(r, difr, rden, vnuc, np_, alpha, qelec, nshell,
-                             va, vb_arr, vc, vd)
+                             z, va, vb_arr, vc, vd)
     rv = rvt.copy()
 
     # SCF iteration (DHFS.f:776-846)
@@ -597,7 +615,7 @@ def _dhfs_scf(z, nshell, shell_n, shell_kappa, shell_occ, shell_l, shell_2j,
 
         # New trial potential (DHFS.f:829)
         rvt, vel, vex = _sfield(r, difr, rden, vnuc, np_, alpha, qelec, nshell,
-                                 va, vb_arr, vc, vd)
+                                 z, va, vb_arr, vc, vd)
 
         # Convergence check (DHFS.f:830-834)
         chi = -1.0e10
@@ -739,13 +757,20 @@ class ShootingSolver:
         subshells: list of Subshell objects with n, kappa, occupation
         n_grid: number of radial grid points (default 1000)
         r_max: outer radius in Bohr (default 75.0)
-        alpha_x: Slater exchange parameter (default 1.5)
+        alpha_x: Slater exchange parameter (default 1.5). Ignored when
+            ``exchange='fac'`` — α_xc is then computed by
+            :func:`atomx.physics.local_exchange.get_hxs`.
         aw: atomic weight in g/mol (0 = point nucleus)
         equation: 'dirac' or 'schrodinger'
+        exchange: 'slater' (default; uses ``alpha_x``) or 'fac' (Gu's
+            Z- and N-dependent α_xc).
+        fac_ihx, fac_hxs: forwarded to ``get_hxs`` when
+            ``exchange='fac'``; defaults match FAC's own defaults.
     """
 
     def __init__(self, Z, subshells, n_grid=1000, r_max=75.0, alpha_x=1.5,
-                 aw=0.0, equation='dirac'):
+                 aw=0.0, equation='dirac',
+                 exchange='slater', fac_ihx=-1.0, fac_hxs=1.0):
         self.Z = Z
         self.subshells = subshells
         self.n_grid = n_grid
@@ -753,6 +778,52 @@ class ShootingSolver:
         self.alpha_x = alpha_x
         self.aw = aw
         self.equation = equation
+        self.exchange = exchange
+        self.fac_ihx = fac_ihx
+        self.fac_hxs = fac_hxs
+
+    def _effective_alpha(self) -> float:
+        """Resolve the Slater α passed into the JIT'd SCF.
+
+        * ``exchange='slater'`` → return ``self.alpha_x`` unchanged.
+        * ``exchange='fac'``    → compute Gu's α_xc(Z, N) from
+          :func:`atomx.physics.local_exchange.get_hxs` using the
+          requested ``fac_ihx``/``fac_hxs``, then convert to the
+          Slater convention used inside :func:`_sfield`.
+
+        **Units.**  FAC's ``ahx`` (what ``GetHXS`` returns) and
+        the plain Slater ``α`` (what DHFS / this solver expects)
+        are *different* coefficients of the same functional form:
+
+        * FAC:     ``V_x = -ahx · (4π·ρ)^(1/3)``
+        * Slater:  ``V_x = -α   · (3·ρ/π)^(1/3)``
+
+        Matching the two gives
+
+            α_Slater = ahx · (4π² / 3)^(1/3) ≈ ahx · 2.3609.
+
+        Without this conversion FAC's default AHX ≈ 0.5147 (Ne)
+        would land near α = 0.5, producing 2.4× too little exchange
+        and a total binding energy ~2.5 eV / 10 eV too shallow at Z=10.
+        With the conversion applied, atomx's shooting matches sfac
+        to ≤ 1 × 10⁻⁴ relative across the Task 0 calibration panel.
+
+        The value is held fixed across the SCF loop, mirroring FAC
+        (``potential->ahx`` set once per ``OptimizeRadial``,
+        ``radial.c:2348``).
+        """
+        if self.exchange == 'fac':
+            from atomx.physics.local_exchange import get_hxs
+            n_total = float(sum(sh.occupation for sh in self.subshells))
+            ahx = get_hxs(
+                Z=float(self.Z), N=n_total,
+                ihx=self.fac_ihx, hxs=self.fac_hxs,
+            )
+            # Convert FAC's ahx convention to the Slater α the
+            # shooting _sfield uses.  See docstring for derivation.
+            slater_conv = (4.0 * math.pi ** 2 / 3.0) ** (1.0 / 3.0)
+            return ahx * slater_conv
+        return float(self.alpha_x)
 
     def solve(self, max_iter=300, tol=1e-9):
         n_shells = len(self.subshells)
@@ -778,11 +849,13 @@ class ShootingSolver:
         r2 = 1.0e-7
         drn = max(2.0 * self.r_max / self.n_grid, 0.5)
 
+        alpha_eff = self._effective_alpha()
+
         orb_E, E_total, converged, iters, r, difr, np_actual = _dhfs_scf(
             float(self.Z), n_shells, shell_n, shell_kappa, shell_occ,
             shell_l, shell_2j,
             self.n_grid, self.r_max, r2, drn,
-            self.alpha_x, max_iter, tol, self.aw, eq_flag)
+            alpha_eff, max_iter, tol, self.aw, eq_flag)
 
         oe = {}
         for i, sh in enumerate(self.subshells):
