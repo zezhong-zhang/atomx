@@ -25,21 +25,33 @@ def _double_factorial(n):
 def einstein_A_eL(omega, line_strength, L, tj_i):
     """Einstein A-coefficient for electric 2^L-pole transition.
 
-    A_EL = 2*alpha*omega^(2L+1) * (L+1) / [L * ((2L+1)!!)^2]
-           * S_EL / (tj_i + 1)
+    A_EL = 2 * alpha^(2L+1) * omega^(2L+1) * (L+1)(2L+1)
+           / [L * ((2L+1)!!)^2] * S_EL / (tj_i + 1)
 
-    where S_EL is the line strength and tj_i = 2*j_i (twice initial j).
+    This is Grant (2007) Eq. 8.4.10 in the long-wavelength, Babushkin
+    (length) gauge. For L=1 the prefactor collapses to (4/3)*alpha^3,
+    giving the textbook Einstein coefficient
+    A(E1) = (4/3)*alpha^3*omega^3*S/(2j_i+1).
+
+    ``line_strength`` is |<f || r^L * C^L || i>|^2 in atomic units
+    (i.e. the squared reduced matrix element of r^L*C^L^q, exactly
+    what :mod:`atomx.prop.transitions.multipole.radial_eL` times
+    :func:`~atomx.prop.transitions.angular.angular_eL` produces).
+
+    Reference validation: H 2p_{1/2}->1s_{1/2} with omega=3/8 Ha and
+    S = 1.110 returns A = 6.27 x 10^8 s^-1, matching NIST/FAC.
 
     Parameters
     ----------
     omega : float
         Transition energy in Hartree (positive).
     line_strength : float
-        Line strength S = |<f||T^L||i>|^2 in atomic units (a_0^{2L}).
+        Line strength S_EL = |<f||r^L C^L||i>|^2 in atomic units (a_0^{2L}).
     L : int
         Multipole rank (1=E1, 2=E2, ...).
     tj_i : int
-        Twice the initial-state total angular momentum.
+        Twice the initial-state total angular momentum (= 2*j_upper for
+        spontaneous emission).
 
     Returns
     -------
@@ -50,7 +62,8 @@ def einstein_A_eL(omega, line_strength, L, tj_i):
         return 0.0
 
     dbl_fact = _double_factorial(2 * L + 1)
-    prefactor = (2.0 * ALPHA * omega ** (2 * L + 1) * (L + 1)
+    prefactor = (2.0 * ALPHA ** (2 * L + 1) * omega ** (2 * L + 1)
+                 * (L + 1) * (2 * L + 1)
                  / (L * dbl_fact ** 2))
     A_au = prefactor * line_strength / (tj_i + 1)
     return A_au * AU_RATE_PER_S
