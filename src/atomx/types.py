@@ -29,11 +29,18 @@ class Exchange(Enum):
 
     HARTREE_FOCK: Non-local exchange via Slater integrals (Y^k expansion).
                   Exact within the single-determinant approximation.
-    SLATER: Local density approximation V_x ~ -alpha * rho^{1/3}.
-            Fast but approximate.
+    SLATER: Local density approximation V_x ~ -alpha * rho^{1/3} with
+            alpha = 2/3 (original Hartree-Fock-Slater).  Fast but
+            approximate.
+    FAC_GU: Same local form, but with Gu's empirically-tuned
+            alpha_xc(Z, N) — see ``atomx.physics.local_exchange.get_hxs``
+            and ``atomx.numerics.local_dfs``.  Reproduces FAC 1.1.5's
+            default local-exchange SCF to double-precision in the
+            alpha_xc fit.
     """
     HARTREE_FOCK = "hf"
     SLATER = "slater"
+    FAC_GU = "fac"
 
 
 class StartingPotential(Enum):

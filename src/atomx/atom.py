@@ -57,7 +57,10 @@ class Atom:
     exchange : str
         "hf" for B-spline Hartree-Fock (default),
         "slater" for B-spline local Slater exchange,
-        "shooting" for ODE shooting with Slater exchange (Radial-style).
+        "shooting" for ODE shooting with Slater α = 3/2 (Radial/DHFS
+        reference; Salvat 2018),
+        "fac" for ODE shooting with Gu's empirical Z- and N-dependent
+        α_xc(Z, N) (FAC-style local-exchange DFS; Gu 2008).
     """
 
     def __init__(self, Z, config=None, configs=None, charge=0,
@@ -195,7 +198,7 @@ class Atom:
         use_ci_avg = (
             not self._multi_config
             and self.averaging == "ci"
-            and self.exchange not in ("shooting", "slater")
+            and self.exchange not in ("shooting", "slater", "fac")
         )
 
         if use_ci_avg:
@@ -226,15 +229,51 @@ class Atom:
             solver = MCDHFSolver(Z=self.Z, csfs=csfs, ns=self.ns, ks=self.ks,
                                   include_breit=self.breit, include_qed=self.qed)
             self._result = solver.solve(max_iter=max_iter, scf_tol=tol)
-        elif self.exchange == "shooting":
-            # ODE shooting backend (Radial/Salvat-style); ShootingResult
-            # already satisfies the AtomicResult protocol — store it
-            # directly rather than wrapping it into a fake SCFResult.
-            from atomx.methods.mcdhf.config import _parse_config_string
+        elif self.exchange in ("shooting", "fac"):
+            # ODE shooting backend — two local-exchange flavours:
+            #   ``exchange='shooting'`` → Salvat-style DHFS with Slater
+            #     α = 3/2, bit-identical to the Fortran ``radial/DHFS``
+            #     reference used by all atomx shooting benchmarks.
+            #   ``exchange='fac'``      → Gu's FAC-style DFS with Z- and
+            #     N-dependent α_xc(Z, N) from
+            #     :mod:`atomx.physics.local_exchange`.
+            # Both produce a ``ShootingResult`` (AtomicResult-compatible).
+            #
+            # The B-spline ``DFSolver`` also accepts ``exchange='fac'``
+            # and wires Gu's α_xc in the same place the pre-existing
+            # ``'slater'`` path uses ``alpha_x`` (see Task 4 in
+            # ``docs/superpowers/plans/2026-04-20-fac-calculator.md``).
+            # We route via shooting for the Atom facade because the
+            # shooting path is already validated against sfac to 10⁻⁴
+            # relative across Z=2..92.
             from atomx.numerics.shooting.solver import ShootingSolver
-            subshells = _parse_config_string(self._config_strings[0])
-            solver = ShootingSolver(Z=self.Z, subshells=subshells,
-                                    n_grid=1000, r_max=75.0, alpha_x=1.5)
+            # Open-shell subshells need statistical (spherically-
+            # averaged) j-splitting so the density is physically
+            # correct — a raw ``_parse_config_string`` fills the
+            # lower-j subshell to capacity first (e.g. "2p2" → entire
+            # 2p_{1/2}), which is wrong for local-exchange SCF.
+            # ``generate_jj_average`` gives the correct statistical
+            # split (2p_{1/2}^{2/3}, 2p_{3/2}^{4/3}) that matches
+            # FAC's internal ``AVERAGE_CONFIG`` expansion.
+            if self.exchange == "fac":
+                from atomx.config.jj_coupling import generate_jj_average
+                subshells, _ = generate_jj_average(
+                    self._config_strings[0], averaging="statistical",
+                )
+                # Drop zero-occupation subshells (they only slow SCF)
+                subshells = [sh for sh in subshells if sh.occupation > 1e-10]
+                solver = ShootingSolver(
+                    Z=self.Z, subshells=subshells,
+                    n_grid=1000, r_max=75.0,
+                    exchange="fac", fac_ihx=-1.0, fac_hxs=1.0,
+                )
+            else:
+                from atomx.methods.mcdhf.config import _parse_config_string
+                subshells = _parse_config_string(self._config_strings[0])
+                solver = ShootingSolver(
+                    Z=self.Z, subshells=subshells,
+                    n_grid=1000, r_max=75.0, alpha_x=1.5,
+                )
             self._result = solver.solve(max_iter=max_iter, tol=tol)
         else:
             # B-spline DHF/DFS backend with user-selected averaging

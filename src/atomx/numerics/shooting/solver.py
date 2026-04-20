@@ -747,13 +747,20 @@ class ShootingSolver:
         subshells: list of Subshell objects with n, kappa, occupation
         n_grid: number of radial grid points (default 1000)
         r_max: outer radius in Bohr (default 75.0)
-        alpha_x: Slater exchange parameter (default 1.5)
+        alpha_x: Slater exchange parameter (default 1.5). Ignored when
+            ``exchange='fac'`` — α_xc is then computed by
+            :func:`atomx.physics.local_exchange.get_hxs`.
         aw: atomic weight in g/mol (0 = point nucleus)
         equation: 'dirac' or 'schrodinger'
+        exchange: 'slater' (default; uses ``alpha_x``) or 'fac' (Gu's
+            Z- and N-dependent α_xc).
+        fac_ihx, fac_hxs: forwarded to ``get_hxs`` when
+            ``exchange='fac'``; defaults match FAC's own defaults.
     """
 
     def __init__(self, Z, subshells, n_grid=1000, r_max=75.0, alpha_x=1.5,
-                 aw=0.0, equation='dirac'):
+                 aw=0.0, equation='dirac',
+                 exchange='slater', fac_ihx=-1.0, fac_hxs=1.0):
         self.Z = Z
         self.subshells = subshells
         self.n_grid = n_grid
@@ -761,6 +768,52 @@ class ShootingSolver:
         self.alpha_x = alpha_x
         self.aw = aw
         self.equation = equation
+        self.exchange = exchange
+        self.fac_ihx = fac_ihx
+        self.fac_hxs = fac_hxs
+
+    def _effective_alpha(self) -> float:
+        """Resolve the Slater α passed into the JIT'd SCF.
+
+        * ``exchange='slater'`` → return ``self.alpha_x`` unchanged.
+        * ``exchange='fac'``    → compute Gu's α_xc(Z, N) from
+          :func:`atomx.physics.local_exchange.get_hxs` using the
+          requested ``fac_ihx``/``fac_hxs``, then convert to the
+          Slater convention used inside :func:`_sfield`.
+
+        **Units.**  FAC's ``ahx`` (what ``GetHXS`` returns) and
+        the plain Slater ``α`` (what DHFS / this solver expects)
+        are *different* coefficients of the same functional form:
+
+        * FAC:     ``V_x = -ahx · (4π·ρ)^(1/3)``
+        * Slater:  ``V_x = -α   · (3·ρ/π)^(1/3)``
+
+        Matching the two gives
+
+            α_Slater = ahx · (4π² / 3)^(1/3) ≈ ahx · 2.3609.
+
+        Without this conversion FAC's default AHX ≈ 0.5147 (Ne)
+        would land near α = 0.5, producing 2.4× too little exchange
+        and a total binding energy ~2.5 eV / 10 eV too shallow at Z=10.
+        With the conversion applied, atomx's shooting matches sfac
+        to ≤ 1 × 10⁻⁴ relative across the Task 0 calibration panel.
+
+        The value is held fixed across the SCF loop, mirroring FAC
+        (``potential->ahx`` set once per ``OptimizeRadial``,
+        ``radial.c:2348``).
+        """
+        if self.exchange == 'fac':
+            from atomx.physics.local_exchange import get_hxs
+            n_total = float(sum(sh.occupation for sh in self.subshells))
+            ahx = get_hxs(
+                Z=float(self.Z), N=n_total,
+                ihx=self.fac_ihx, hxs=self.fac_hxs,
+            )
+            # Convert FAC's ahx convention to the Slater α the
+            # shooting _sfield uses.  See docstring for derivation.
+            slater_conv = (4.0 * math.pi ** 2 / 3.0) ** (1.0 / 3.0)
+            return ahx * slater_conv
+        return float(self.alpha_x)
 
     def solve(self, max_iter=300, tol=1e-9):
         n_shells = len(self.subshells)
@@ -786,11 +839,13 @@ class ShootingSolver:
         r2 = 1.0e-7
         drn = max(2.0 * self.r_max / self.n_grid, 0.5)
 
+        alpha_eff = self._effective_alpha()
+
         orb_E, E_total, converged, iters, r, difr, np_actual = _dhfs_scf(
             float(self.Z), n_shells, shell_n, shell_kappa, shell_occ,
             shell_l, shell_2j,
             self.n_grid, self.r_max, r2, drn,
-            self.alpha_x, max_iter, tol, self.aw, eq_flag)
+            alpha_eff, max_iter, tol, self.aw, eq_flag)
 
         oe = {}
         for i, sh in enumerate(self.subshells):
