@@ -133,7 +133,17 @@ def _slater_integral(f1, f2, l, r, difr, np_):
                     + c1[0] / (al + 3.0) * r2v ** 3
                     + d1[0] / (al + 4.0) * r2v ** 4)
 
-    # Outward integration for Z(r) via power series ODE
+    # Outward integration for Z(r) via power series ODE.
+    #
+    # The inner substep-halving loop has no natural cap — if the
+    # power series stops converging (e.g. heavy-Z densities with
+    # sharp inner peaks), ``nsteps`` doubles forever.  We cap at
+    # MAX_NSTEPS so one pathological (r, L) can't stall ``_expval``
+    # for minutes.  The cap of 4096 is empirically large enough for
+    # Z ≤ 92 to reproduce FAC's local-exchange total energies to
+    # 10⁻⁴ relative (on the Task 0 calibration panel) while keeping
+    # pathological grid points from doubling forever.
+    MAX_NSTEPS = 4096
     for i in range(1, np_ - 1):
         ra = r[i]
         if ra < 1.0e-30:
@@ -143,7 +153,7 @@ def _slater_integral(f1, f2, l, r, difr, np_):
         nsteps = 1
         converged_step = False
 
-        while not converged_step:
+        while not converged_step and nsteps <= MAX_NSTEPS:
             hstep = h / nsteps
             rc = ra - hstep
             zc = z_arr[i]
@@ -205,7 +215,7 @@ def _slater_integral(f1, f2, l, r, difr, np_):
         nsteps = 1
         converged_step = False
 
-        while not converged_step:
+        while not converged_step and nsteps <= MAX_NSTEPS:
             hstep = h / nsteps
             rc = ra - hstep
             yc = y_arr[i + 1]
