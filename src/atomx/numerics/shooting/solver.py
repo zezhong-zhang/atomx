@@ -23,11 +23,20 @@ from atomx.numerics.shooting.schrodinger_bound import sbound
 
 
 @nb.njit(cache=True)
-def _sfield(r, difr, rden, vnuc, np_, alpha, qelec, nshell,
+def _sfield(r, difr, rden, vnuc, np_, alpha, qelec, nshell, z,
             va_work, vb_work, vc_work, vd_work):
     """Compute screened potential — SFIELD (DHFS.f:892-980).
 
     Uses SLAG6 for integration (not trapezoidal).
+
+    Parameters:
+        z: actual nuclear charge (parameter to Latter's correction).
+           Previously inferred from ``-vnuc[1]`` which is only valid for
+           a point nucleus.  For the Fermi distribution, ``vnuc`` vanishes
+           at the origin (finite V(0)), so inferring Z from the innermost
+           grid point gave Z ~ 0 and effectively disabled Latter's
+           correction — leading to a systematic ~1e-2 Ha bias in total
+           binding energy for multi-electron atoms.
 
     Returns:
         rvt: trial potential r*V(r) array
@@ -77,7 +86,6 @@ def _sfield(r, difr, rden, vnuc, np_, alpha, qelec, nshell,
         rvt[i] = vnuc[i] + vel[i] + vex[i]
 
     # Latter tail correction (DHFS.f:970-978)
-    z = -vnuc[1] if np_ > 1 else 0.0  # vnuc = -Z
     rvinf = -1.0 - z + qelec
     for i in range(np_ - 1, -1, -1):
         if rvt[i] > rvinf:
@@ -517,7 +525,7 @@ def _dhfs_scf(z, nshell, shell_n, shell_kappa, shell_occ, shell_l, shell_2j,
 
     # Initial SFIELD (DHFS.f:771)
     rvt, vel, vex = _sfield(r, difr, rden, vnuc, np_, alpha, qelec, nshell,
-                             va, vb_arr, vc, vd)
+                             z, va, vb_arr, vc, vd)
     rv = rvt.copy()
 
     # SCF iteration (DHFS.f:776-846)
@@ -597,7 +605,7 @@ def _dhfs_scf(z, nshell, shell_n, shell_kappa, shell_occ, shell_l, shell_2j,
 
         # New trial potential (DHFS.f:829)
         rvt, vel, vex = _sfield(r, difr, rden, vnuc, np_, alpha, qelec, nshell,
-                                 va, vb_arr, vc, vd)
+                                 z, va, vb_arr, vc, vd)
 
         # Convergence check (DHFS.f:830-834)
         chi = -1.0e10

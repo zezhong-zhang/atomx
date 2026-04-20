@@ -157,6 +157,15 @@ def compute_breit_energy(orbitals, bsp_data, Z):
                              + s_coeffs[4] * R_pqqp + s_coeffs[5] * R_pqqp
                              + s_coeffs[6] * R_qppq + s_coeffs[7] * R_qppq)
 
-                    E_Breit -= w_ab * contrib / C_SQ
+                    # Breit Slater integrals on the native Dirac spinor
+                    # (P, Q) already carry the Q/c ~ Zα suppression: the
+                    # PPQQ, PQQP, etc. combinations are intrinsically
+                    # O(α²) relative to Coulomb.  The DBSR_HF reference
+                    # (``hf_energy_BR.f90``) accumulates ``crk·sk_ppqq``
+                    # without any further c² division.  atomx's original
+                    # ``/ C_SQ`` factor therefore over-suppressed Breit
+                    # by another α² (Z=26 He-like gave 3.8e-5 Ha instead
+                    # of ~0.7 Ha).
+                    E_Breit -= w_ab * contrib
 
     return 0.5 * E_Breit
