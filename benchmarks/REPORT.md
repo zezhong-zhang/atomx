@@ -348,12 +348,15 @@ stay aligned.
 
 The B-spline `DFSolver(exchange='fac')` path is wired
 (`self.alpha_x = ahx · (4π²/3)^{1/3}`) and has a unit test
-(`tests/test_dfsolver_fac.py`), but the `Atom(exchange='fac')`
-facade routes to the shooting backend for now: the B-spline
-`exchange='slater'` path has a pre-existing ~2× normalisation bug
-(closed-shell Ne comes out at E = −225 Ha instead of −128.6 Ha).
-Once that's fixed, a one-line switch in `atom.py` will route fac
-through the higher-resolution B-spline basis.
+(`tests/test_dfsolver_fac.py`).  The B-spline `exchange='slater'`
+normalisation bug that motivated the shooting-backend detour for
+`Atom(exchange='fac')` has since been fixed (ρ_rad→ρ_vol plus Latter
+tail correction plus potential mixing in the SCF loop; closed-shell
+Ne/Ar now match the shooting DHFS totals at 10⁻³ — see
+`tests/test_dfsolver_slater.py`).  Flipping the `Atom` facade onto
+DFSolver for fac is now a one-line switch in `atom.py`; the current
+routing through shooting is retained because it is already
+validated against `sfac` to 10⁻⁴ across Z = 2..92.
 
 Heavy atoms (Z ≥ 74) with Gu's lower α_xc make the shooting SCF
 slow to converge (several minutes per solve vs seconds at Z ≤ 54).
