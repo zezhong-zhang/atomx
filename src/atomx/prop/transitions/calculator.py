@@ -69,6 +69,44 @@ def _subshell_label(n, kappa):
     return f"{n}{l_char}{tj}/2"
 
 
+def _csf_twice_J(csf):
+    """Infer 2·J_total for a CSF from its subshell structure.
+
+    Accurate for CSFs with zero or one partially-filled relativistic
+    subshell (the common case enumerated by
+    :func:`atomx.methods.mcdhf.config.enumerate_jj_csfs`):
+
+    * closed CSF → J = 0 (returns 0)
+    * one electron or one hole in ``(n, kappa)`` → J = j_kappa (returns
+      ``2j = 2|kappa|-1``)
+
+    Multiple open shells are reported as J = j of the single most-open
+    shell; this is approximate but better than the previous hard-coded
+    ``tj=1`` placeholder. If a CSF carries an explicit non-zero
+    ``total_J2`` attribute that takes precedence.
+    """
+    # Honour explicit total_J2 if somebody populated it.
+    explicit = int(getattr(csf, "total_J2", 0))
+    if explicit > 0:
+        return explicit
+
+    open_shells = []
+    for sh in csf.subshells:
+        j2 = 2 * abs(sh.kappa) - 1  # twice j
+        max_occ = j2 + 1
+        if 1e-6 < sh.occupation < max_occ - 1e-6:
+            open_shells.append((sh, j2))
+    if not open_shells:
+        return 0
+    # Most-open shell: take the one furthest from half-filled.
+    # For one electron or one hole, result = j of that shell.
+    sh, j2 = min(
+        open_shells,
+        key=lambda s: abs(s[0].occupation - (s[1] + 1) / 2.0),
+    )
+    return int(j2)
+
+
 class TransitionCalculator:
     """Compute radiative transitions for solved atomic states.
 
@@ -252,10 +290,23 @@ class TransitionCalculator:
                     if S < 1e-30:
                         continue
 
-                    # For MCDHF states, use J of ground state as approximation
-                    # (proper J requires angular momentum projection)
-                    tj_I = 1  # placeholder; proper J from CSF structure
-                    tj_F = 1
+                    # Infer 2J of each state from its dominant CSF.
+                    # ``enumerate_jj_csfs`` does not populate total_J2
+                    # (it leaves the default 0), so we read it from the
+                    # CSF's open shells instead. This works exactly for
+                    # ≤1 open shell (J = j_open) and for closed-shell
+                    # CSFs (J = 0 → forbidden radiative transition).
+                    dom_I = int(np.argmax(np.abs(mixing[:, I])))
+                    dom_F = int(np.argmax(np.abs(mixing[:, F])))
+                    tj_I = _csf_twice_J(csfs[dom_I])
+                    tj_F = _csf_twice_J(csfs[dom_F])
+                    if tj_I == 0 and tj_F == 0:
+                        # J=0 → J=0 is a strictly forbidden single-photon
+                        # radiative transition; skip to avoid bogus rate
+                        # from a 0/0 denominator.
+                        continue
+                    if tj_I == 0:
+                        tj_I = tj_F  # conservative fallback: use partner J
 
                     if mp_type == 'E':
                         A = einstein_A_eL(omega, S, L, tj_I)
