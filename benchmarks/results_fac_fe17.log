@@ -1,0 +1,18 @@
+Running FAC Fe XVII …
+  FAC: 37 levels, 24 transitions, 0.556 s
+Running atomx Fe XVII MCDHF …
+  atomx: 0 levels, 6 transitions, 12.114 s
+
+--- Level Energies (eV above ground) ---
+ idx         atomx           fac           Δ        rel  fac_2J               fac_cfg
+
+--- E1 Transitions (sorted by FAC Δ E) ---
+  #     ΔE_fac      ΔE_ax        gA_fac       A_atomx     ratio
+  0     724.08      28.09     2.090e+05     1.584e+09   7578.68
+  1     726.12      50.75     8.744e+11     2.061e+09      0.00
+  2     738.01      78.84     7.900e+11     8.996e+10      0.11
+  3     754.40     807.92     1.708e+05     5.539e+12  32421027.65
+  4     758.01     836.01     4.866e+08     7.295e+11   1499.30
+  5     760.77     886.76     7.642e+03     2.449e+12  320515380.08
+
+Totals: atomx t = 12.114 s, FAC t = 0.556 s, atomx/fac = 21.77x slower
