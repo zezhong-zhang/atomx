@@ -324,13 +324,18 @@ Fermi nucleus):
 | 92  | U^{82+}, Ne-like (10)     | −618 164.48     | −494 344.64    | **0.25** | 0.09 s | 0.33 s |
 
 Wall time: atomx's fac is **2–5× faster** than sfac at Z ≤ 54 and
-**3–5× faster** at Z ≥ 74.  The heavy-Z ~20–30% accuracy gap is a
-known limit in atomx's post-SCF ``_expval`` total-energy formula
-(see §6.4 — the orbital eigenvalues themselves still match Salvat's
-DHFS.f to 10⁻⁸ across the full Z = 2..92 panel, so the SCF itself is
-bit-perfect; only the Coulomb-repulsion integration used by the
-total-energy line fails to converge accurately for 1s eigenvalues
-below ~−3000 Ha).
+**3–5× faster** at Z ≥ 74.  The heavy-Z ~20–30 % accuracy gap at
+Z ≥ 74 is an open bug in atomx's shooting SCF.  The earlier working
+hypothesis — that the ``_slater_integral`` power-series ODE was
+losing precision at its ``MAX_NSTEPS`` cap for sharp heavy-Z 1s
+densities — has been ruled out (see §6.4).  The **real** root cause
+lies in the bound-state solver: atomx's ``dbound`` / ``dir0``
+power-series integrator returns a spurious, too-deep eigenvalue for
+κ > 0 orbitals at Z ≳ 50 in bare-Coulomb and weakly-screened
+potentials (e.g. the Ne-like W⁶⁴⁺ 2p₁/₂ comes out at −57.9 keV
+instead of the physically correct −17.0 keV that Fortran DHFS.f
+returns for the same input).  The SCF then converges to a
+non-physical state whose total energy is 27 % too low.
 
 Open-shell Z=6 has the largest low-Z residual (6.5 × 10⁻⁴) because
 atomx and FAC integrate the statistical jj-split density slightly
@@ -350,6 +355,37 @@ Capping at ``MAX_NSTEPS = 4096`` lets the quadrature return with
 whatever precision the last substep reached (empirically 10⁻³ for
 Z=92 1s) rather than spinning indefinitely.  Heavy-Z wall times
 went from timeouts to 0.09 s / solve.
+
+### 6.2.2 Slater-integral backend toggle — `slater_method='slag6'` (new)
+
+The post-SCF ``_expval`` now carries two selectable backends for
+the Slater integral ``F^L(f1, f2)``:
+
+* ``slater_method='power_series'`` — the original Salvat/DHFS.f
+  Hartree ODE with ``MAX_NSTEPS = 4096`` cap (§6.2.1).
+* ``slater_method='slag6'`` (**default** since 2026-04-20) —
+  direct 6-point Lagrange forward and backward quadratures on the
+  Hartree ``Y^L(r)`` function, using the same SLAG6 routine the
+  outer SCF already calls from ``_sfield``.  Implementation:
+  [`_slater_integral_slag6`](../src/atomx/numerics/shooting/solver.py).
+  Regression-verified against the power-series backend to ≤ 10⁻⁷
+  relative across hydrogenic densities up to Z_eff = 70 and
+  multipole ``L ∈ {0, 1, 2}``
+  ([`tests/test_slater_integral_slag6.py`](../tests/test_slater_integral_slag6.py)).
+
+Flip via ``Atom(..., slater_method=...)`` or
+``ShootingSolver(..., slater_method=...)``.  Both backends also
+preserve the historical DHFS.f bit-for-bit agreement for neutral
+atoms to 2 × 10⁻⁸ relative across Z ∈ {10, 26, 82}
+(same tests).
+
+**Important:** the SLAG6 backend is a numerics hardening, not a
+physics fix.  It does **not** close the 20–30 % heavy-Z ion gap
+described above — that is a separate ``dbound`` issue (§6.4).
+Both backends now match each other to ~4 × 10⁻⁹ relative even on
+the Z = 74/92 1s density that motivated the switch, which refutes
+the earlier "power series loses precision for sharp inner peaks"
+hypothesis.
 
 ### 6.3 Weighting scheme — FAC uses pure statistical averaging
 
@@ -385,18 +421,46 @@ Heavy-atom (Z ≥ 74) SCF convergence is now ~0.1 s per solve — **no
 longer slow**, after the ``_slater_integral`` nsteps cap (§6.2.1).
 The automated test suite exercises the full Z = 2..92 panel.
 
-**Heavy-Z total-energy accuracy (open follow-up).** atomx's ``_expval``
-over-binds by ~20–30 % at Z ≥ 74 for local-exchange SCF (both
-``'shooting'`` α=3/2 and ``'fac'`` Gu α_xc behave identically, so the
-issue is not in the α choice).  The orbital eigenvalues still match
-the Fortran DHFS.f to 10⁻⁸ across the same panel, so the SCF loop
-itself is bit-perfect — the discrepancy sits entirely in the
-Slater-integral-based total-energy reconstruction used by ``_expval``.
-The cleanest fix is to replace ``_slater_integral``'s power-series
-ODE with a direct SLAG6 forward + backward Y^k integration (same
-accuracy as the outer SCF uses elsewhere).  Tracked as a separate
-task; the gate in ``tests/test_fac_dfs_shooting.py`` loosens to
-0.30 at Z ≥ 74 accordingly.
+**Heavy-Z total-energy accuracy (open follow-up — real root cause
+found 2026-04-20).** atomx's ``_expval`` over-binds by ~20–30 % at
+Z ≥ 74 for local-exchange SCF on highly-charged ions (both
+``'shooting'`` α = 3/2 and ``'fac'`` Gu α_xc behave identically, so
+the issue is not in the α choice).  The earlier hypothesis —
+"``_slater_integral`` power series degrades at its ``MAX_NSTEPS``
+cap for heavy-Z 1s densities" — has been **falsified**: a new
+direct SLAG6 backend (``slater_method='slag6'``, §6.2.2) was added
+and verified against the power-series backend to ~4 × 10⁻⁹
+relative on the exact Z = 74 / 92 densities that were supposed to
+stress the power series, yet it produces **identical** total
+energies — i.e. the Slater-integral quadrature is not the
+bottleneck.
+
+The **real** root cause is in the bound-state eigenvalue solver:
+``dbound`` / ``dir0`` return a spurious too-deep eigenvalue for
+κ > 0 orbitals at Z ≳ 50 when the potential is bare Coulomb or
+only weakly screened.  Concrete test: bare Coulomb Z = 74, n = 2,
+κ = +1 → atomx ``dbound`` returns E = −2394.7 Ha, exact Dirac
+hydrogenic 2p₁/₂ = −758.7 Ha (3.16 × too deep).  The same pattern
+at Z = 50 (3.35 ×) and Z = 92 (2.94 ×).  For neutral atoms the
+stronger outer screening lifts the 2p₁/₂ far enough out of this
+regime that ``dbound`` finds the right root, which is why every
+**neutral-atom** shooting benchmark (``bench_shooting_vs_radial``
+across Z = 2..92) reproduces Fortran DHFS.f to ~2 × 10⁻⁸.  But
+for Ne-like W⁶⁴⁺ the same atomx shooting SCF puts the 2p₁/₂ at
+−57.9 keV (vs Fortran DHFS.f −17.0 keV for bit-identical inputs),
+dragging the total binding energy to −382.7 keV (vs Fortran DHFS.f
+−301.3 keV, which matches sfac to 4 eV).  Fortran DHFS.f runs on
+the same grid, with the same exchange, and *does* find the right
+2p₁/₂ — so the port has a subtle bug in the κ > 0 small-r power
+series (``dir_integrate`` / ``dir0`` "Case A" u0 ≠ 0 branch).
+
+**Impact on the current suite.** ``tests/test_fac_dfs_shooting.py``
+keeps its 0.30 gate at Z ≥ 74 — that gate now reflects the
+``dbound`` bug, not a post-SCF quadrature limit.  The new SLAG6
+backend is useful numerics hardening on its own and is safe as the
+default, but it does **not** close this gap.  Fixing ``dbound`` /
+``dir0`` for κ > 0 at heavy Z is tracked as the remaining
+follow-up.
 
 ---
 
@@ -432,3 +496,20 @@ task; the gate in ``tests/test_fac_dfs_shooting.py`` loosens to
    validated only for L=1. M1 and E2 should be tested against a known
    reference (e.g. He-like 1s² ¹S₀ → 2p² ³P_J) before the corrected
    formula is relied upon for higher multipoles.
+
+6. **Heavy-Z ion ``dbound`` eigenvalue bug (κ > 0, Z ≳ 50).**  The
+   Dirac bound-state solver (``src/atomx/numerics/shooting/dbound`` →
+   ``dirac_power_series.dir0``, "Case A" u₀ ≠ 0 branch at r = 0)
+   returns an eigenvalue ~3 × too deep for 2p₁/₂ (κ = +1) and other
+   κ > 0 orbitals starting around Z = 50 when the potential is bare
+   Coulomb or weakly screened.  Drives the 20–30 % total-energy
+   over-binding seen in §6.2 at Z = 74 / 82 / 92 Ne-like ions.  The
+   Slater-integral SLAG6 rewrite (§6.2.2) was originally attempted as
+   the fix but is orthogonal to this bug — both Slater backends agree
+   to ~4 × 10⁻⁹ relative on the actual converged densities.  A true
+   fix requires re-deriving the κ > 0 small-r power-series
+   coefficients against Salvat's ME-4.30..4.34, or switching to a
+   direct integration from a fixed boundary condition.
+   Neutral atoms (including Z = 82 Pb) are unaffected because outer
+   screening keeps the 2p₁/₂ root in the region where ``dir0`` is
+   correct.

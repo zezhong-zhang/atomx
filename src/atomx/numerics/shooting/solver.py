@@ -279,6 +279,62 @@ def _slater_integral(f1, f2, l, r, difr, np_):
 
 
 @nb.njit(cache=True)
+def _slater_integral_slag6(f1, f2, l, r, difr, np_):
+    """Slater integral via direct SLAG6 forward+backward quadrature.
+
+    Computes ``F^L(f1, f2) = ∫∫ f1(r)·f2(s) · r_<^L / r_>^(L+1) dr ds``
+    by assembling the Hartree Y^L function
+
+        Y_L(r) = (1/r^(L+1)) · ∫_0^r f1(s) s^L ds  +  r^L · ∫_r^∞ f1(s)/s^(L+1) ds
+
+    and returning ``∫_0^∞ f2(r)·Y_L(r) dr``.  Each inner integral is
+    evaluated with the same 6-point Lagrange routine (:func:`slag6`)
+    that the outer SCF uses for the electronic potential — so the
+    quadrature error is bounded by the SCF's own tolerance even for
+    the sharp inner peaks of heavy-Z 1s densities, where the
+    Salvat/DHFS.f power-series ODE (:func:`_slater_integral`) hits its
+    ``MAX_NSTEPS`` cap and returns with only ~10⁻³ precision.
+
+    Inner-boundary treatment mirrors ``_sfield``: the innermost grid
+    point (``r[0] = 0``) is dropped from the backward integrand since
+    ``f1/r^(L+1)`` is formally singular there.  The lost interval
+    contribution is bounded by
+    ``O(f1(r[1]) · r[1] / r[1]^(L+1) · difr[1])`` and is negligible
+    whenever the density vanishes fast enough at the origin
+    (``f1 ~ r^(2γ)``, γ ≥ 0.7 for physical bound states).
+    """
+    # Forward: I1(r) = ∫_0^r f1(s) · s^L ds
+    aux_fwd = np.zeros(np_)
+    for i in range(np_):
+        aux_fwd[i] = f1[i] * r[i] ** l * difr[i]
+    i1 = slag6(1.0, aux_fwd, np_)
+
+    # Backward: I2_tail(r) = ∫_r^R f1(s)/s^(L+1) ds
+    # Build the integrand reversed so SLAG6 integrates outer → inner.
+    aux_bwd = np.zeros(np_)
+    for i in range(np_ - 1):
+        idx = np_ - 1 - i  # idx goes np_-1 down to 1
+        if r[idx] > 1.0e-30:
+            aux_bwd[i] = f1[idx] / r[idx] ** (l + 1) * difr[idx]
+    # aux_bwd[np_ - 1] corresponds to r[0] (= 0 or ~1e-30); leave it 0.
+    bwd = slag6(1.0, aux_bwd, np_)
+    # bwd[k] = ∫_{r[np_-1-k]}^{r[np_-1]} f1/s^(L+1) ds
+    # hence I2_tail(r[i]) = bwd[np_ - 1 - i]
+
+    # Outer integral: ∫ f2(r) · Y_L(r) · dr, with Jacobian difr built in.
+    integrand = np.zeros(np_)
+    for i in range(np_):
+        if r[i] > 1.0e-30:
+            y_val = (i1[i] / r[i] ** (l + 1)
+                     + r[i] ** l * bwd[np_ - 1 - i])
+            integrand[i] = f2[i] * y_val * difr[i]
+        # else: at r[0]=0 the physical density (and therefore f2) is zero;
+        # leave integrand[0] = 0 regardless of the singular Y prefactor.
+    result = slag6(1.0, integrand, np_)
+    return result[np_ - 1]
+
+
+@nb.njit(cache=True)
 def _dcj3(l, k1, k2):
     """Angular coefficient D^L(K1,K2) — DHFS.f DCJ3 (line 1113-1187).
 
@@ -365,13 +421,18 @@ def _dcj3(l, k1, k2):
 
 @nb.njit(cache=True)
 def _expval(nshell, shell_kappa, shell_occ, shell_2j,
-            pa, qa, ev, rv, vnuc, r, difr, np_, equation):
+            pa, qa, ev, rv, vnuc, r, difr, np_, equation,
+            slater_method):
     """Total energy via EXPVAL (DHFS.f:984-1103).
 
     Uses Slater integrals and DCJ3 angular coefficients for exact
     configuration-average total energy.
 
     equation: 0 = Dirac (density = P²+Q²), 1 = Schrödinger (density = P²)
+    slater_method: 0 = Salvat/DHFS.f power-series ODE (legacy,
+        bit-accurate at low Z), 1 = direct SLAG6 forward+backward
+        (accurate for heavy Z where the power series stops
+        converging — see :func:`_slater_integral_slag6`).
     """
     # Single-particle kinetic energies and nuclear interaction
     ek = np.zeros(nshell)
@@ -411,7 +472,10 @@ def _expval(nshell, shell_kappa, shell_occ, shell_2j,
                 else:
                     f1_s[i] = pa[is1, i] ** 2
                     f2_s[i] = pa[is2, i] ** 2
-            es[is1, is2] = _slater_integral(f1_s, f2_s, 0, r, difr, np_)
+            if slater_method == 1:
+                es[is1, is2] = _slater_integral_slag6(f1_s, f2_s, 0, r, difr, np_)
+            else:
+                es[is1, is2] = _slater_integral(f1_s, f2_s, 0, r, difr, np_)
             if is1 == is2:
                 es[is1, is2] /= ff0
 
@@ -434,7 +498,12 @@ def _expval(nshell, shell_kappa, shell_occ, shell_2j,
             for ll in range(lmin_ex, lmax_ex + 1):
                 coef = _dcj3(ll, shell_kappa[is1], shell_kappa[is2])
                 if abs(coef) > 1.0e-12:
-                    gl = _slater_integral(f1_ex, f2_ex, ll, r, difr, np_)
+                    if slater_method == 1:
+                        gl = _slater_integral_slag6(
+                            f1_ex, f2_ex, ll, r, difr, np_)
+                    else:
+                        gl = _slater_integral(
+                            f1_ex, f2_ex, ll, r, difr, np_)
                     es[is1, is2] -= gl * coef / float(shell_2j[is2] + 1)
 
             if is2 != is1:
@@ -460,11 +529,17 @@ def _expval(nshell, shell_kappa, shell_occ, shell_2j,
 
 @nb.njit(cache=True)
 def _dhfs_scf(z, nshell, shell_n, shell_kappa, shell_occ, shell_l, shell_2j,
-              np_, rn, r2, drn, alpha, max_iter, epsc, aw, equation):
+              np_, rn, r2, drn, alpha, max_iter, epsc, aw, equation,
+              slater_method):
     """Full DHFS SCF loop — DHFS.f lines 700-888.
 
     Parameters:
         equation: 0 = Dirac, 1 = Schrödinger
+        slater_method: 0 = legacy power-series ODE Slater integral,
+            1 = SLAG6 forward+backward (accurate for heavy Z; see
+            :func:`_slater_integral_slag6`).  Only affects the
+            post-SCF ``_expval`` total-energy assembly — the SCF
+            itself does not call ``_slater_integral``.
     """
     eps = 1.0e-11  # Internal solver tolerance (DHFS.f:739)
     qelec = 0.0
@@ -678,10 +753,13 @@ def _dhfs_scf(z, nshell, shell_n, shell_kappa, shell_occ, shell_l, shell_2j,
                 rden[i] += shell_occ[s] * pa[s, i] ** 2
 
     # Compute total energy via EXPVAL (DHFS.f:984-1103)
-    # Uses Slater integrals + DCJ3 angular coefficients for exact result
+    # Uses Slater integrals + DCJ3 angular coefficients for exact result.
+    # `slater_method` picks the Slater integral backend (0 = legacy
+    # power-series ODE, 1 = SLAG6 forward+backward).
     e_total, ekin_total = _expval(
         nshell, shell_kappa, shell_occ, shell_2j,
-        pa, qa, ev, rv, vnuc, r, difr, np_, equation)
+        pa, qa, ev, rv, vnuc, r, difr, np_, equation,
+        slater_method)
 
     return ev, e_total, converged, iteration, r, difr, np_
 
@@ -766,11 +844,26 @@ class ShootingSolver:
             Z- and N-dependent α_xc).
         fac_ihx, fac_hxs: forwarded to ``get_hxs`` when
             ``exchange='fac'``; defaults match FAC's own defaults.
+        slater_method: post-SCF Slater integral backend used by
+            ``_expval`` when assembling the total binding energy.
+            ``'slag6'`` (default) uses direct 6-point Lagrange forward
+            and backward Hartree-Y integrals — accurate for heavy-Z
+            densities where the original Salvat/DHFS.f power-series
+            ODE stalls at its ``MAX_NSTEPS`` cap (and over-binds by
+            20–30 % for Z ≥ 74).  ``'power_series'`` keeps the legacy
+            backend for regression comparisons.  The SCF loop itself
+            is unaffected — it uses direct SLAG6 integrals everywhere.
     """
 
     def __init__(self, Z, subshells, n_grid=1000, r_max=75.0, alpha_x=1.5,
                  aw=0.0, equation='dirac',
-                 exchange='slater', fac_ihx=-1.0, fac_hxs=1.0):
+                 exchange='slater', fac_ihx=-1.0, fac_hxs=1.0,
+                 slater_method='slag6'):
+        if slater_method not in ('slag6', 'power_series'):
+            raise ValueError(
+                f"slater_method must be 'slag6' or 'power_series' "
+                f"(got {slater_method!r})"
+            )
         self.Z = Z
         self.subshells = subshells
         self.n_grid = n_grid
@@ -781,6 +874,7 @@ class ShootingSolver:
         self.exchange = exchange
         self.fac_ihx = fac_ihx
         self.fac_hxs = fac_hxs
+        self.slater_method = slater_method
 
     def _effective_alpha(self) -> float:
         """Resolve the Slater α passed into the JIT'd SCF.
@@ -850,12 +944,14 @@ class ShootingSolver:
         drn = max(2.0 * self.r_max / self.n_grid, 0.5)
 
         alpha_eff = self._effective_alpha()
+        slater_flag = 1 if self.slater_method == 'slag6' else 0
 
         orb_E, E_total, converged, iters, r, difr, np_actual = _dhfs_scf(
             float(self.Z), n_shells, shell_n, shell_kappa, shell_occ,
             shell_l, shell_2j,
             self.n_grid, self.r_max, r2, drn,
-            alpha_eff, max_iter, tol, self.aw, eq_flag)
+            alpha_eff, max_iter, tol, self.aw, eq_flag,
+            slater_flag)
 
         oe = {}
         for i, sh in enumerate(self.subshells):

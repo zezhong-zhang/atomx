@@ -77,13 +77,22 @@ def test_atomx_fac_total_energy_matches_sfac(row):
     rel = abs(e_atomx_eV - e0_ref_eV) / abs(e0_ref_eV)
     # Gate depends on Z:
     #   * Z ≤ 54: 1 × 10⁻³ (closed-shell: 10⁻⁵; open-shell Z=6: 7×10⁻⁴)
-    #   * Z ≥ 74: 0.30 — atomx's ``_expval`` total-energy formula
-    #     diverges from FAC's own total-energy accumulator for very
-    #     deep-bound orbitals (1s eigenvalue ≲ -3000 Ha). This is a
-    #     pre-existing accuracy limit in the shooting SCF's post-SCF
-    #     energy evaluation; the orbital eigenvalues themselves match
-    #     DHFS.f to 10⁻⁸. See ``benchmarks/REPORT.md`` §6.4 for
-    #     follow-up.
+    #   * Z ≥ 74: 0.30 — atomx's shooting SCF converges to a
+    #     non-physical solution for highly-charged heavy ions because
+    #     ``dbound`` / ``dir0`` (the κ > 0 small-r power series)
+    #     returns a ~3× too-deep 2p₁/₂ eigenvalue at Z ≳ 50 in
+    #     weakly-screened potentials.  Concretely: the Ne-like W⁶⁴⁺
+    #     2p₁/₂ comes out at −57.9 keV (atomx) vs −17.0 keV (Fortran
+    #     DHFS.f and sfac, for bit-identical input).  A direct SLAG6
+    #     rewrite of ``_expval``'s Slater-integral quadrature
+    #     (``slater_method='slag6'``) was tried as the fix and does
+    #     **not** close this gap — both Slater backends give identical
+    #     heavy-Z totals to 4 × 10⁻⁹ relative, refuting the earlier
+    #     "power series loses precision for sharp 1s peaks"
+    #     hypothesis.  Neutral atoms are unaffected (outer screening
+    #     keeps the 2p₁/₂ root in the region where ``dir0`` is
+    #     correct).  See ``benchmarks/REPORT.md`` §6.4 and §7 item 6
+    #     for the remaining follow-up.
     gate = 1e-3 if Z <= 54 else 0.30
     assert rel < gate, (
         f"Z={Z}, cfg={cfg}: atomx={e_atomx_eV:.3f} eV, "

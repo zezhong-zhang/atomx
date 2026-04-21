@@ -68,7 +68,7 @@ class Atom:
                  breit=False, qed=False, exchange="hf",
                  correlation=None, starting_potential=None,
                  plasma_ne=None, plasma_Te=None,
-                 averaging="ci"):
+                 averaging="ci", slater_method="slag6"):
         """
         Parameters
         ----------
@@ -113,6 +113,11 @@ class Atom:
             raise ValueError(
                 f"averaging must be one of 'ci', 'statistical', 'equal', "
                 f"'fractional' (got {averaging!r})")
+        if slater_method not in {"slag6", "power_series"}:
+            raise ValueError(
+                f"slater_method must be 'slag6' or 'power_series' "
+                f"(got {slater_method!r})")
+        self.slater_method = slater_method
         self.Z = Z
         self.charge = charge
         self.nuclear = nuclear
@@ -266,6 +271,7 @@ class Atom:
                     Z=self.Z, subshells=subshells,
                     n_grid=1000, r_max=75.0,
                     exchange="fac", fac_ihx=-1.0, fac_hxs=1.0,
+                    slater_method=self.slater_method,
                 )
             else:
                 from atomx.methods.mcdhf.config import _parse_config_string
@@ -273,6 +279,7 @@ class Atom:
                 solver = ShootingSolver(
                     Z=self.Z, subshells=subshells,
                     n_grid=1000, r_max=75.0, alpha_x=1.5,
+                    slater_method=self.slater_method,
                 )
             self._result = solver.solve(max_iter=max_iter, tol=tol)
         else:
