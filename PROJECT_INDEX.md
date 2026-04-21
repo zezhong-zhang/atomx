@@ -1,6 +1,6 @@
 # Project Index: atomx
 
-Generated: 2026-04-19
+Generated: 2026-04-21
 
 > High-performance relativistic atomic structure calculations using B-spline Dirac-Fock.
 > Python 3.10+ · numpy/scipy/numba · pint units (optional) · matplotlib/plotly/manim viz.
@@ -11,7 +11,7 @@ Generated: 2026-04-19
 atomx/
 ├── src/atomx/
 │   ├── __init__.py            # Public API re-exports (Atom, Methods, units, …)
-│   ├── atom.py                # High-level Atom facade (802 lines)
+│   ├── atom.py                # High-level Atom facade (859 lines)
 │   ├── types.py               # Enums: NuclearModel, Exchange, Correlation, Multipole, Gauge, …
 │   ├── results.py             # AtomicResult, HyperfineResult, OrbitalWavefunction, Waves
 │   ├── constants.py           # CODATA 2022 physical constants
@@ -23,13 +23,14 @@ atomx/
 │   │   ├── hydrogenic.py      #   exact: HydrogenicSchrodinger / HydrogenicDirac
 │   │   ├── hartree_fock.py    #   non-rel SCF (LS-coupling)
 │   │   ├── relativistic_hf.py #   BreitPauli (HF + perturbative rel.)
-│   │   ├── dirac_fock.py      #   DiracFock — primary B-spline DHF engine (2328 lines)
+│   │   ├── dirac_fock.py      #   DiracFock — primary B-spline DHF engine (2363 lines)
 │   │   ├── scf.py             #   shared SCF glue
 │   │   ├── mcdhf/             #   multi-configuration DHF: config, excitations, matrix, solver
 │   │   ├── ci.py, coupled_cluster.py, mbpt.py, rpa.py, kohn_sham.py
 │   ├── numerics/              # Low-level numerical kernels
 │   │   ├── bspline/           #   knots, basis, evaluate, integrals, convol, dirac_assembly, continuum
-│   │   ├── shooting/          #   ODE bound-state shooting (Dirac + Schrödinger)
+│   │   ├── shooting/          #   ODE bound-state shooting (Dirac + Schrödinger), solver, spline, SLAG6
+│   │   ├── local_dfs/         #   FAC local-DFS: asymptotic.py, hxs_tables.py (local-exchange tables)
 │   │   └── analytic/          #   closed-form hydrogenic_dirac
 │   ├── physics/               # Physics operators: dirac, schrodinger, breit_pauli, two_body, base
 │   ├── angular/               # wigner, clebsch, coefficients, ls_coupling, recoupling, spinor_harmonics
@@ -55,9 +56,11 @@ atomx/
 │   ├── fitting/               # Slater-type orbital fits
 │   ├── viz/                   # mpl, plotly, plotly3d, manim back-ends
 │   └── data/                  # hyperfine_presets, mohr_se, flambaum_ginges, nuclear_structure
-├── tests/                     # pytest suite (30 modules)
-├── scripts/                   # benchmark_energies, compare_energies, generate_density_gs, density_plots/
+├── tests/                     # pytest suite (37 modules)
+├── benchmarks/                # FAC comparisons, local-exchange, shooting vs radial (CSV + logs + REPORT.md)
+├── scripts/                   # benchmark_energies, compare_energies, generate_density_gs, output/*.h5
 ├── docs/gallery/              # runnable examples (grotrian, radial_orbital, spectrum)
+├── docs/superpowers/plans/    # FAC calculator + calibration plan documents
 ├── papers/                    # Reference PDFs
 ├── media/                     # Generated figures / animations
 ├── pyproject.toml             # Hatchling build, deps, pytest config
@@ -68,8 +71,9 @@ atomx/
 
 - **Public API** — `src/atomx/__init__.py` — `Atom`, `HydrogenicSchrodinger`, `HydrogenicDirac`, `HartreeFock`, `BreitPauli`, `DiracFock`, `MCDHF`, `compare`, `theory_ladder`, `what_changed`, `ureg`.
 - **High-level facade** — `src/atomx/atom.py` — `Atom(Z, config=..., breit=..., qed=..., exchange=..., correlation=..., nuclear=..., plasma_ne=..., Te=...).solve(Method?)`.
-- **Primary SCF engine** — `src/atomx/methods/dirac_fock.py` (2328 lines) — B-spline Dirac-Fock with Breit + QED.
-- **Benchmarks** — `scripts/benchmark_energies.py`, `scripts/compare_energies.py`, `scripts/generate_density_gs.py`.
+- **Primary SCF engine** — `src/atomx/methods/dirac_fock.py` (2363 lines) — B-spline Dirac-Fock with Breit + QED.
+- **FAC-compatible local DFS** — `src/atomx/numerics/local_dfs/` — asymptotic turning-point logic + HXS local-exchange tables.
+- **Benchmarks** — `benchmarks/bench_fac_{structure,lithium_like,levels_transitions}.py`, `bench_local_exchange.py`, `bench_shooting_vs_radial.py`, `fac_runner.py`; `scripts/benchmark_energies.py`, `scripts/compare_energies.py`, `scripts/generate_density_gs.py`.
 - **Examples** — `docs/gallery/{grotrian,radial_orbital,spectrum}_example.py`.
 - **Tests** — `pytest` (discovery from `pyproject.toml`).
 
@@ -90,7 +94,8 @@ Method objects encode theory level and are mutually comparable via `theory_ladde
 
 ### `atomx.numerics`
 - `bspline/` — semi-exponential DBSR-HF-style grid, Dirac Hamiltonian assembly, continuum.
-- `shooting/` — reference ODE integrators (Dirac + Schrödinger bound/integrator/power-series) used for cross-validation.
+- `shooting/` — reference ODE integrators (Dirac + Schrödinger bound/integrator/power-series), `solver.py`, `spline.py` used for cross-validation and SLAG6 Slater-integral backend.
+- `local_dfs/` — FAC-style local Dirac-Fock-Slater: `asymptotic.py` (turning-point / dbound scan), `hxs_tables.py` (HXS local-exchange lookup tables).
 - `analytic/hydrogenic_dirac.py` — Sommerfeld closed-form wavefunctions.
 
 ### `atomx.physics`
@@ -116,18 +121,21 @@ Standalone operator definitions: `dirac`, `schrodinger`, `breit_pauli`, `two_bod
 ## 🔧 Configuration
 
 - `pyproject.toml` — project metadata, dependencies, `testpaths = ["tests"]`, wheel packages `src/atomx`.
+- `conftest.py` — repo-root pytest fixtures.
 - `uv.lock` — uv-resolved lockfile.
 
 ## 📚 Documentation
 
 - `docs/gallery/` — runnable examples: `grotrian_example.py`, `radial_orbital_example.py`, `spectrum_example.py`.
+- `docs/superpowers/plans/` — planning docs (FAC calculator, FAC calibration findings).
+- `benchmarks/REPORT.md` — FAC comparison report.
 - `papers/` — reference PDFs (Shabaev QED, Tupitsyn, arXiv 0507067/0610152, 2301.04132).
 - `trace.md` — rolling EARS/session trace.
 
 ## 🧪 Test Coverage
 
-30 pytest modules under `tests/`:
-angular · atom_api · atom_unified_api · autoionization · bspline · ci · constants · continuum · convol · corrections_stack · data_loaders · dirac_hydrogenic · fitting · hyperfine · isotope · lineshapes · mcdhf · photoionization · plasma · potentials · qed · qedmod · scaffolds · scf · spectrum_and_uta · transitions · units · viz · viz_plotly3d · zeeman.
+37 pytest modules under `tests/`:
+angular · atom_api · atom_unified_api · autoionization · bspline · ci · constants · continuum · convol · corrections_stack · data_loaders · dbound_heavy_z · dfsolver_fac · dfsolver_slater · dirac_hydrogenic · fac_asymptotic · fac_dfs_shooting · fitting · hyperfine · isotope · lineshapes · local_exchange · mcdhf · photoionization · plasma · potentials · qed · qedmod · scaffolds · scf · slater_integral_slag6 · spectrum_and_uta · transitions · units · viz · viz_plotly3d · zeeman.
 
 Run: `pytest` (discovery from `pyproject.toml`).
 
