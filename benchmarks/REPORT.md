@@ -15,7 +15,7 @@ runs use the current working tree (`src/atomx/`).
 | **Structure** (atomx DHF+QED vs `fac`, He-/Ne-/Ar-like) | Z≤36 : **≤ 0.3 %**; Z=82 : ~1.5 % (QED-model differences) | atomx 1.5–3 × slower |
 | **Li-like 2s-2p** (atomx MCDHF vs `fac`)               | ground E matches to 0.03–0.4 %;  A rate now matches literature for H (fine-structure needs true J-coupled CSFs) | atomx ~3 × slower |
 | **E1 rate, H 2p→1s** (atomx vs NIST / FAC)         | **atomx 6.27 × 10⁸ s⁻¹ = FAC 6.258 × 10⁸ = NIST 6.265 × 10⁸ ✓** | — |
-| **Local-exchange DFS** (`Atom(exchange='fac')` vs sfac, Coulomb-only) | **≤ 1 × 10⁻⁵** closed-shell, ≤ 1 × 10⁻³ open-shell (Z=6) | **atomx 2–5 × faster** than sfac |
+| **Local-exchange DFS** (`Atom(exchange='fac')` vs sfac, Coulomb-only) | **≤ 1 × 10⁻³** full Z = 2..92 panel after the 2026-04-20 DOUTW TCONV fix (was ≤ 1 × 10⁻⁵ closed-shell but **up to 27 %** at Z ≥ 74 ions) | **atomx 2–5 × faster** than sfac |
 
 Three bugs were found and fixed (see below).  After the fixes:
 - atomx **exactly reproduces** the Fortran DHFS (Salvat 2018) total
@@ -319,23 +319,16 @@ Fermi nucleus):
 | 26  | Fe^{16+}, Ne-like (10)    | −31 249.94      | −31 249.84     | 3.3e-6 | 0.11 s  | 0.27 s |
 | 36  | Kr, Ar-like (18)          | −71 144.66      | −71 143.99     | 9.3e-6 | 0.20 s  | 0.45 s |
 | 54  | Xe^{44+}, Ne-like (10)    | −151 480.91     | −151 473.84    | 4.7e-5 | 0.10 s  | 0.31 s |
-| 74  | W^{64+}, Ne-like (10)     | −382 679.90     | −301 323.43    | **0.27** | 0.09 s | 0.31 s |
-| 82  | Pb^{64+}, Ar-like (18)    | −541 283.55     | −445 060.99    | **0.22** | 0.20 s | 0.54 s |
-| 92  | U^{82+}, Ne-like (10)     | −618 164.48     | −494 344.64    | **0.25** | 0.09 s | 0.33 s |
+| 74  | W^{64+}, Ne-like (10)     | −301 390.46     | −301 323.43    | 2.2e-4 | 0.09 s | 0.31 s |
+| 82  | Pb^{64+}, Ar-like (18)    | −445 221.25     | −445 060.99    | 3.6e-4 | 0.20 s | 0.54 s |
+| 92  | U^{82+}, Ne-like (10)     | −494 811.43     | −494 344.64    | 9.4e-4 | 0.09 s | 0.33 s |
 
 Wall time: atomx's fac is **2–5× faster** than sfac at Z ≤ 54 and
-**3–5× faster** at Z ≥ 74.  The heavy-Z ~20–30 % accuracy gap at
-Z ≥ 74 is an open bug in atomx's shooting SCF.  The earlier working
-hypothesis — that the ``_slater_integral`` power-series ODE was
-losing precision at its ``MAX_NSTEPS`` cap for sharp heavy-Z 1s
-densities — has been ruled out (see §6.4).  The **real** root cause
-lies in the bound-state solver: atomx's ``dbound`` / ``dir0``
-power-series integrator returns a spurious, too-deep eigenvalue for
-κ > 0 orbitals at Z ≳ 50 in bare-Coulomb and weakly-screened
-potentials (e.g. the Ne-like W⁶⁴⁺ 2p₁/₂ comes out at −57.9 keV
-instead of the physically correct −17.0 keV that Fortran DHFS.f
-returns for the same input).  The SCF then converges to a
-non-physical state whose total energy is 27 % too low.
+**3–5× faster** at Z ≥ 74.  Accuracy is now **≤ 1 × 10⁻³ relative
+across the full Z = 2..92 panel** after the 2026-04-20 fix to
+``doutw``'s past-turning-point blow-up check (§6.4).  Heavy-Z Ne-
+and Ar-like ions (W⁶⁴⁺, Pb⁶⁴⁺, U⁸²⁺) that previously over-bound
+by 20–30 % now match sfac and Fortran DHFS.f to ≤ 10⁻³.
 
 Open-shell Z=6 has the largest low-Z residual (6.5 × 10⁻⁴) because
 atomx and FAC integrate the statistical jj-split density slightly
@@ -421,46 +414,64 @@ Heavy-atom (Z ≥ 74) SCF convergence is now ~0.1 s per solve — **no
 longer slow**, after the ``_slater_integral`` nsteps cap (§6.2.1).
 The automated test suite exercises the full Z = 2..92 panel.
 
-**Heavy-Z total-energy accuracy (open follow-up — real root cause
-found 2026-04-20).** atomx's ``_expval`` over-binds by ~20–30 % at
-Z ≥ 74 for local-exchange SCF on highly-charged ions (both
-``'shooting'`` α = 3/2 and ``'fac'`` Gu α_xc behave identically, so
-the issue is not in the α choice).  The earlier hypothesis —
-"``_slater_integral`` power series degrades at its ``MAX_NSTEPS``
-cap for heavy-Z 1s densities" — has been **falsified**: a new
-direct SLAG6 backend (``slater_method='slag6'``, §6.2.2) was added
-and verified against the power-series backend to ~4 × 10⁻⁹
-relative on the exact Z = 74 / 92 densities that were supposed to
-stress the power series, yet it produces **identical** total
-energies — i.e. the Slater-integral quadrature is not the
-bottleneck.
+**Heavy-Z total-energy accuracy (FIXED 2026-04-20).** atomx's
+shooting SCF previously over-bound by 20–30 % at Z ≥ 74 for
+highly-charged Ne-/Ar-like ions on local-exchange flavours (both
+``'shooting'`` α = 3/2 and ``'fac'`` Gu α_xc behaved identically).
+Two hypotheses were investigated:
 
-The **real** root cause is in the bound-state eigenvalue solver:
-``dbound`` / ``dir0`` return a spurious too-deep eigenvalue for
-κ > 0 orbitals at Z ≳ 50 when the potential is bare Coulomb or
-only weakly screened.  Concrete test: bare Coulomb Z = 74, n = 2,
-κ = +1 → atomx ``dbound`` returns E = −2394.7 Ha, exact Dirac
-hydrogenic 2p₁/₂ = −758.7 Ha (3.16 × too deep).  The same pattern
-at Z = 50 (3.35 ×) and Z = 92 (2.94 ×).  For neutral atoms the
-stronger outer screening lifts the 2p₁/₂ far enough out of this
-regime that ``dbound`` finds the right root, which is why every
-**neutral-atom** shooting benchmark (``bench_shooting_vs_radial``
-across Z = 2..92) reproduces Fortran DHFS.f to ~2 × 10⁻⁸.  But
-for Ne-like W⁶⁴⁺ the same atomx shooting SCF puts the 2p₁/₂ at
-−57.9 keV (vs Fortran DHFS.f −17.0 keV for bit-identical inputs),
-dragging the total binding energy to −382.7 keV (vs Fortran DHFS.f
-−301.3 keV, which matches sfac to 4 eV).  Fortran DHFS.f runs on
-the same grid, with the same exchange, and *does* find the right
-2p₁/₂ — so the port has a subtle bug in the κ > 0 small-r power
-series (``dir_integrate`` / ``dir0`` "Case A" u0 ≠ 0 branch).
+* _Hypothesis 1 (refuted)_: "``_slater_integral``'s power-series
+  ODE degrades at its ``MAX_NSTEPS`` cap for sharp heavy-Z 1s
+  densities".  Falsified — a new direct SLAG6 backend
+  (``slater_method='slag6'``, §6.2.2) was added and verified
+  against the power-series backend to ~4 × 10⁻⁹ relative on the
+  exact Z = 74 / 92 densities that were supposed to stress the
+  power series, yet both produce **identical** total energies.
+  SLAG6 ships as a useful numerics-hardening alternative even
+  though it is not the fix.
 
-**Impact on the current suite.** ``tests/test_fac_dfs_shooting.py``
-keeps its 0.30 gate at Z ≥ 74 — that gate now reflects the
-``dbound`` bug, not a post-SCF quadrature limit.  The new SLAG6
-backend is useful numerics hardening on its own and is safe as the
-default, but it does **not** close this gap.  Fixing ``dbound`` /
-``dir0`` for κ > 0 at heavy Z is tracked as the remaining
-follow-up.
+* _Hypothesis 2 (confirmed + fixed)_: ``doutw``'s past-turning-
+  point blow-up check ``TCONV = P''·P`` used a 3-point
+  finite-difference proxy that mis-detected the sign for sharp
+  heavy-Z 2p₁/₂ orbitals.  Failing to fire, integration continued
+  into the classically-forbidden region and picked up an
+  exponentially-growing irregular-solution contamination that
+  registered as a spurious radial node, which drove ``dbound``'s
+  "too many nodes" branch into an eigenvalue ~3× too deep.  For
+  neutral atoms the stronger outer screening kept the 2p₁/₂ root
+  out of this regime, which is why every neutral-atom shooting
+  benchmark (``bench_shooting_vs_radial`` across Z = 2..92) had
+  been reproducing Fortran DHFS.f to ~2 × 10⁻⁸ all along.
+
+**Fix.** Thread the analytical power-series ``(r-r0)²`` coefficient
+``ca[2]`` out of ``dir_integrate`` and use ``TCONV = 2·ca[2]·PPI``
+exactly as in Fortran radial.f DOUTW (line 1780), replacing the
+finite-difference proxy.  Root-cause-traced with a step-by-step
+comparison against Salvat's Fortran DIR0 / DOUTW where a
+compile-from-source ``demorad`` confirmed Fortran returns the
+correct bare-Coulomb bound state on the same grid / same initial
+guess that atomx fails on.  After the fix:
+
+* Heavy-Z ion rows in §6.2 now match sfac to 10⁻³ across the full
+  Z = 2..92 panel (was 27 % at Z = 74).
+* ``tests/test_fac_dfs_shooting.py`` gate tightened from 0.30 to
+  1 × 10⁻³ at Z ≥ 74.  All 14 panel rows pass.
+* New ``tests/test_dbound_heavy_z.py`` pins bare-Coulomb 2p₁/₂
+  across Z ∈ {10, 30, 50, 74, 82} from both shallow (−0.1 Ha)
+  and hydrogenic (−Z²/2n²) initial guesses.
+
+**Residual edge case (not critical).** Bare-Coulomb Z = 92 2p₁/₂
+from a shallow initial guess (≥ 200 Ha shallower than the exact
+−1257.4 Ha) still converges to a spurious ≥ 3× too-deep value
+because the sign change at shot 0 happens BEFORE the turning
+point — in the classically-allowed region — and the
+"too-many-nodes" branch then expands the bracket too aggressively.
+Does NOT affect the heavy-Z atomic SCF because screening lifts the
+2p₁/₂ eigenvalue out of this regime (Z = 92 U⁸²⁺ Ne-like now
+converges to within 10⁻³ of sfac).  Fixing the shallow-guess
+bare-Coulomb case at Z = 92+ would require tightening the emin
+expansion in the "too many nodes" branch or providing a better
+initial guess scheme; left as a low-priority follow-up.
 
 ---
 
@@ -497,45 +508,18 @@ follow-up.
    reference (e.g. He-like 1s² ¹S₀ → 2p² ³P_J) before the corrected
    formula is relied upon for higher multipoles.
 
-6. **Heavy-Z ion `dbound` eigenvalue search bug (κ > 0, Z ≳ 50).**
-   The Dirac bound-state solver
-   (`src/atomx/numerics/shooting/dirac_bound.py::dbound`) finds a
-   spurious, too-deep eigenvalue for κ > 0 orbitals at Z ≳ 50 in
-   bare-Coulomb or weakly-screened potentials.  Drives the 20–30 %
-   total-energy over-binding at Z = 74 / 82 / 92 highly-charged
-   ions (§6.2).
+6. **Heavy-Z ion `dbound` TCONV bug (κ > 0, Z ≳ 50).** — **FIXED
+   2026-04-20.**  See §6.4 for the full diagnosis and fix.  atomx's
+   shooting DBOUND used a 3-point finite-difference proxy for the
+   past-turning-point blow-up check ``TCONV = P''·P``; it
+   mis-detected the sign for sharp heavy-Z 2p₁/₂ orbitals and
+   counted a spurious node, driving the eigenvalue search 3× too
+   deep.  Fix was to replace the finite-difference proxy with the
+   analytical power-series coefficient ``TCONV = 2·ca[2]·PPI``
+   matching Fortran radial.f DOUTW line 1780.  After fix:
+   heavy-Z Ne-/Ar-like ion totals match sfac / Fortran-DHFS to
+   ≤ 10⁻³ relative across Z = 74 / 82 / 92 (was 27 % at Z = 74).
 
-   **Further localisation (2026-04-20, after the SLAG6 attempt).**
-   The bug is NOT in `dir0` / the power-series integrator and NOT
-   in the finite-difference TCONV early-exit.  It is in the
-   eigenvalue *search* itself: when the "too many nodes" branch
-   drives E below the initial `emin`, the shot loop converges on a
-   non-physical matching condition at E ≈ 3× the correct value.
-   Verified at Z = 74 2p₁/₂ bare Coulomb:
-   `dbound(e_guess=-758.67)` correctly returns −758.68 Ha, but any
-   shallower guess (including the solver's default −0.1 Ha) gives
-   −2394.95 Ha.  Z = 30 works fine from any shallow guess; Z = 50
-   breaks.  Fixing requires a tighter `emin` floor (cap at the
-   physical effective-potential minimum) or a different bracket
-   strategy when the turning point leaves the grid.  Both `dir0`'s
-   κ > 0 Case A power series and `doutw`'s TCONV check were ruled
-   out by direct single-call tests.
-
-   **Cross-solver comparison against the same reference:**
-
-   | path | vs `../radial/DHFS.f` (Salvat)         | vs `sfac` (FAC) |
-   |------|----------------------------------------|-----------------|
-   | **`exchange='shooting'` / `'fac'` (shooting)** | neutral Z=2..92 : 10⁻⁸ ✓; Ne-like W⁶⁴⁺ : 27 % **✗** (this bug) | same |
-   | **`exchange='slater'` / `'fac'` via DFSolver (B-spline)** | neutral Z=2..92 : 10⁻³ ✓; Ne-like W⁶⁴⁺ : 1.7 × 10⁻⁵ ✓; Ar-like Pb⁶⁴⁺ : 4.1 × 10⁻⁵ ✓; Ne-like U⁸²⁺ : 1.6 × 10⁻⁴ ✓ | same |
-   | **`exchange='hf'` (B-spline DHF, no local exchange)** | — | — (different physics; compare against `../dbsr_hf` instead, already passes test_shooting_vs_bspline panel) |
-
-   **Interim recommendation (not yet applied).** Route
-   `Atom(exchange='fac')` through the B-spline `DFSolver` instead
-   of `ShootingSolver` in `src/atomx/atom.py:258` for the
-   highly-charged-ion regime; the B-spline path is already wired
-   for FAC α_xc (`tests/test_dfsolver_fac.py`) and matches sfac to
-   ≤ 10⁻⁴ across the Z = 74 / 82 / 92 panel.  The shooting path
-   remains the right backend for neutral-atom DHFS.f reproduction.
-   Net: one-line wiring change would close the heavy-Z gap at
-   `Atom` level while leaving the `dbound` bug as a standalone
-   follow-up.
+   Residual low-priority edge: bare-Coulomb Z = 92 2p₁/₂ from a
+   shallow initial guess still hits a spurious root — doesn't
+   affect any atomic SCF because of screening.  See §6.4.
