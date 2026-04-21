@@ -87,3 +87,65 @@ Plan: (1) profile across panel to confirm warm timings ≤ FAC, (2) trace
 Z=74 to see whether the bottleneck is iteration count or per-iter cost,
 (3) identify targeted fixes, (4) reverify on the Task 0 panel at the
 10⁻⁵ gate.
+
+# Trace: trusting-hellman-f45deb
+
+<!-- concepts: shooting-dhfs, slater-integral, heavy-z-expval, dirac-power-series -->
+
+## 2026-04-20 · Heavy-Z total-energy diagnosis + SLAG6 Slater-integral toggle
+
+**Goal (from user).** Replace `_slater_integral`'s power-series ODE
+with direct SLAG6 forward+backward Hartree-Y quadrature in
+`_expval`, keep the old backend for comparison, tighten the
+Z ≥ 74 gate in `tests/test_fac_dfs_shooting.py` from 0.30 to 10⁻³.
+
+**What shipped.**
+* New `_slater_integral_slag6(f1, f2, L, r, difr, np_)` in
+  `src/atomx/numerics/shooting/solver.py`.
+* `slater_method` parameter plumbed through `_expval` →
+  `_dhfs_scf` → `ShootingSolver` → `Atom`, default `'slag6'`,
+  opt-in `'power_series'`.
+* 18 tests in `tests/test_slater_integral_slag6.py` — backend
+  agreement ≤ 10⁻⁷ across Z_eff ∈ {9, 30, 70} × L ∈ {0, 1, 2},
+  plus neutral-atom DHFS.f regression at Z ∈ {10, 26, 82} for
+  both backends.
+* `benchmarks/REPORT.md` §6.2 / §6.2.2 (new) / §6.4 / §7 item 6
+  (new) rewritten with the actual diagnosis.
+* Full suite: 513 passed / 3 skipped, no regression.
+
+**Key finding — the task's root-cause hypothesis was wrong.**
+Both Slater-integral backends agree to ~4 × 10⁻⁹ on the exact
+Z = 74 / 92 densities that were supposed to stress the power
+series, yet they give *identical* heavy-Z totals.  The power
+series does NOT lose precision for sharp inner peaks.
+
+**Real root cause (newly discovered).** `dbound` / `dir0` (the
+κ > 0 "Case A" small-r power series in
+`src/atomx/numerics/shooting/dirac_power_series.py:125`) returns
+a ~3× too-deep eigenvalue for 2p₁/₂ (κ = +1) orbitals at
+Z ≳ 50 in bare or weakly-screened potentials.  Concretely:
+bare Coulomb Z = 74 n = 2 κ = +1 → atomx −2394.7 Ha,
+exact Dirac −758.7 Ha.  Fortran DHFS.f on the same Ne-like
+W⁶⁴⁺ input gives 2p₁/₂ = −17.0 keV and total = −301.3 keV
+(matches sfac to 4 eV); atomx gives 2p₁/₂ = −57.9 keV and total
+= −382.7 keV.  Neutral atoms are unaffected because outer
+screening moves the 2p₁/₂ root out of the broken regime.
+
+**Consequently.** The gate in
+`tests/test_fac_dfs_shooting.py` stays at 0.30 for Z ≥ 74 with
+an updated comment pointing to the real `dbound` bug.  Tightening
+it to 10⁻³ requires fixing `dir0`'s κ > 0 small-r series, which
+is tracked as `benchmarks/REPORT.md` §7 item 6.
+
+### EARS — Session End (2026-04-20 wrap-up)
+<!-- concepts: shooting-dhfs, slater-integral, dbound-bug -->
+- Accomplished: SLAG6 toggle ships, DHFS.f bit-match preserved
+  for neutrals, real root cause of heavy-Z ion over-binding
+  diagnosed and documented (dbound κ > 0 small-r power series,
+  not the Slater integral).
+- Next session: fix `dirac_power_series.dir0` Case A branch so
+  κ > 0 2p₁/₂ at Z ≳ 50 matches exact Dirac hydrogenic.  Then
+  re-verify with `bench_local_exchange.py` and tighten the
+  `test_fac_dfs_shooting.py` gate to 10⁻³.
+- Open issues: `dbound` / `dir0` κ > 0 Case A bug (see
+  `benchmarks/REPORT.md` §7 item 6).

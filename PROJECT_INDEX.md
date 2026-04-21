@@ -76,7 +76,7 @@ atomx/
 ## 📦 Core Modules
 
 ### `atomx.atom` — `src/atomx/atom.py`
-High-level `Atom` class. Knobs: `Z`, `config`/`configs`, `charge`, `ns`/`ks` (B-spline count/order), `nuclear` ∈ {fermi, point, uniform}, `breit`, `qed`, `exchange` ∈ {hf, slater, shooting, tfda, gsz}, `correlation` ∈ {None, s, sd}, `plasma_ne`/`Te`. Drives a `Method` (default `DiracFock`) and returns `AtomicResult`.
+High-level `Atom` class. Knobs: `Z`, `config`/`configs`, `charge`, `ns`/`ks` (B-spline count/order), `nuclear` ∈ {fermi, point, uniform}, `breit`, `qed`, `exchange` ∈ {hf, slater, shooting, fac, tfda, gsz}, `correlation` ∈ {None, s, sd}, `plasma_ne`/`Te`, `slater_method` ∈ {slag6 (default), power_series}. Drives a `Method` (default `DiracFock`) and returns `AtomicResult`.
 
 ### `atomx.methods`
 Method objects encode theory level and are mutually comparable via `theory_ladder`:
