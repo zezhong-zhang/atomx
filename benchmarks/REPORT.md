@@ -497,19 +497,45 @@ follow-up.
    reference (e.g. He-like 1s² ¹S₀ → 2p² ³P_J) before the corrected
    formula is relied upon for higher multipoles.
 
-6. **Heavy-Z ion ``dbound`` eigenvalue bug (κ > 0, Z ≳ 50).**  The
-   Dirac bound-state solver (``src/atomx/numerics/shooting/dbound`` →
-   ``dirac_power_series.dir0``, "Case A" u₀ ≠ 0 branch at r = 0)
-   returns an eigenvalue ~3 × too deep for 2p₁/₂ (κ = +1) and other
-   κ > 0 orbitals starting around Z = 50 when the potential is bare
-   Coulomb or weakly screened.  Drives the 20–30 % total-energy
-   over-binding seen in §6.2 at Z = 74 / 82 / 92 Ne-like ions.  The
-   Slater-integral SLAG6 rewrite (§6.2.2) was originally attempted as
-   the fix but is orthogonal to this bug — both Slater backends agree
-   to ~4 × 10⁻⁹ relative on the actual converged densities.  A true
-   fix requires re-deriving the κ > 0 small-r power-series
-   coefficients against Salvat's ME-4.30..4.34, or switching to a
-   direct integration from a fixed boundary condition.
-   Neutral atoms (including Z = 82 Pb) are unaffected because outer
-   screening keeps the 2p₁/₂ root in the region where ``dir0`` is
-   correct.
+6. **Heavy-Z ion `dbound` eigenvalue search bug (κ > 0, Z ≳ 50).**
+   The Dirac bound-state solver
+   (`src/atomx/numerics/shooting/dirac_bound.py::dbound`) finds a
+   spurious, too-deep eigenvalue for κ > 0 orbitals at Z ≳ 50 in
+   bare-Coulomb or weakly-screened potentials.  Drives the 20–30 %
+   total-energy over-binding at Z = 74 / 82 / 92 highly-charged
+   ions (§6.2).
+
+   **Further localisation (2026-04-20, after the SLAG6 attempt).**
+   The bug is NOT in `dir0` / the power-series integrator and NOT
+   in the finite-difference TCONV early-exit.  It is in the
+   eigenvalue *search* itself: when the "too many nodes" branch
+   drives E below the initial `emin`, the shot loop converges on a
+   non-physical matching condition at E ≈ 3× the correct value.
+   Verified at Z = 74 2p₁/₂ bare Coulomb:
+   `dbound(e_guess=-758.67)` correctly returns −758.68 Ha, but any
+   shallower guess (including the solver's default −0.1 Ha) gives
+   −2394.95 Ha.  Z = 30 works fine from any shallow guess; Z = 50
+   breaks.  Fixing requires a tighter `emin` floor (cap at the
+   physical effective-potential minimum) or a different bracket
+   strategy when the turning point leaves the grid.  Both `dir0`'s
+   κ > 0 Case A power series and `doutw`'s TCONV check were ruled
+   out by direct single-call tests.
+
+   **Cross-solver comparison against the same reference:**
+
+   | path | vs `../radial/DHFS.f` (Salvat)         | vs `sfac` (FAC) |
+   |------|----------------------------------------|-----------------|
+   | **`exchange='shooting'` / `'fac'` (shooting)** | neutral Z=2..92 : 10⁻⁸ ✓; Ne-like W⁶⁴⁺ : 27 % **✗** (this bug) | same |
+   | **`exchange='slater'` / `'fac'` via DFSolver (B-spline)** | neutral Z=2..92 : 10⁻³ ✓; Ne-like W⁶⁴⁺ : 1.7 × 10⁻⁵ ✓; Ar-like Pb⁶⁴⁺ : 4.1 × 10⁻⁵ ✓; Ne-like U⁸²⁺ : 1.6 × 10⁻⁴ ✓ | same |
+   | **`exchange='hf'` (B-spline DHF, no local exchange)** | — | — (different physics; compare against `../dbsr_hf` instead, already passes test_shooting_vs_bspline panel) |
+
+   **Interim recommendation (not yet applied).** Route
+   `Atom(exchange='fac')` through the B-spline `DFSolver` instead
+   of `ShootingSolver` in `src/atomx/atom.py:258` for the
+   highly-charged-ion regime; the B-spline path is already wired
+   for FAC α_xc (`tests/test_dfsolver_fac.py`) and matches sfac to
+   ≤ 10⁻⁴ across the Z = 74 / 82 / 92 panel.  The shooting path
+   remains the right backend for neutral-atom DHFS.f reproduction.
+   Net: one-line wiring change would close the heavy-Z gap at
+   `Atom` level while leaving the `dbound` bug as a standalone
+   follow-up.
