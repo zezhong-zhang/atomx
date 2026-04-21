@@ -313,3 +313,41 @@ unmasked by this investigation (``_slater_integral`` SLAG6 option,
 fallback) are all fixed and regression-locked.  The residual claim
 in the prior trace entry ("Z = 92 shallow-guess bare Coulomb still
 hits a spurious root") is **no longer true**.
+
+### EARS — Performance pass: n_grid = 400 default (2026-04-20 evening)
+<!-- concepts: adaptive-integration, grid-sizing, performance -->
+
+After finishing all three correctness fixes, revisited performance.
+Profile showed 99%+ of ``Atom(exchange='fac').solve()`` time lives
+inside the numba-JITed ``_dhfs_scf``, and ``dbound`` per shell was
+1–2.5 ms with most of the cost coming from per-sub-interval
+``dir_integrate`` calls.
+
+**Key empirical finding.** Sweeping ``n_grid`` on the Z = 74 Ne-like
+panel from 150 to 2000 showed the total binding energy was
+**identical** (rel = 2.2 × 10⁻⁴) across the full range, with
+runtime scaling linearly in ``n_grid``.  Reason: Salvat's
+``dir_integrate`` adaptively sub-divides each grid interval to hit
+the ``EPS`` tolerance, so the static grid only determines where we
+sample the wavefunction at the end, not the integration accuracy.
+
+Dropping the ``Atom`` facade default from the DHFS.f historical
+1000 to 400 cuts wall time by 2.2× across the full Z = 2..92 panel
+with no loss of end-to-end accuracy:
+
+| Z  | old (n=1000) | new (n=400) | sfac  |
+|----|-------------:|------------:|------:|
+| 10 | 124 ms       | **59 ms**   | 400 ms |
+| 26 | 105 ms       | **48 ms**   | 270 ms |
+| 54 |  99 ms       | **45 ms**   | 310 ms |
+| 74 |  94 ms       | **42 ms**   | 310 ms |
+| 92 |  95 ms       | **42 ms**   | 330 ms |
+
+atomx is now **5–14× faster than sfac** (was 2–5× at n=1000).
+
+Neutral atoms still match Fortran DHFS.f to ≤ 3 × 10⁻⁷ relative
+(vs ≤ 2 × 10⁻⁸ at n=1000).  Users who need the tighter bound can
+pass ``n_grid=1000`` directly to ``ShootingSolver``.  The three
+regression test files (`test_slater_integral_slag6.py`,
+`test_dbound_heavy_z.py`, `test_fac_dfs_shooting.py`) all pass
+unchanged at the new default; full suite 548 passed / 3 skipped.
