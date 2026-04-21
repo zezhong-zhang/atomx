@@ -15,7 +15,7 @@ runs use the current working tree (`src/atomx/`).
 | **Structure** (atomx DHF+QED vs `fac`, He-/Ne-/Ar-like) | Z≤36 : **≤ 0.3 %**; Z=82 : ~1.5 % (QED-model differences) | atomx 1.5–3 × slower |
 | **Li-like 2s-2p** (atomx MCDHF vs `fac`)               | ground E matches to 0.03–0.4 %;  A rate now matches literature for H (fine-structure needs true J-coupled CSFs) | atomx ~3 × slower |
 | **E1 rate, H 2p→1s** (atomx vs NIST / FAC)         | **atomx 6.27 × 10⁸ s⁻¹ = FAC 6.258 × 10⁸ = NIST 6.265 × 10⁸ ✓** | — |
-| **Local-exchange DFS** (`Atom(exchange='fac')` vs sfac, Coulomb-only) | **≤ 1 × 10⁻³** full Z = 2..92 panel after the 2026-04-20 DOUTW TCONV fix (was ≤ 1 × 10⁻⁵ closed-shell but **up to 27 %** at Z ≥ 74 ions) | **atomx 2–5 × faster** than sfac |
+| **Local-exchange DFS** (`Atom(exchange='fac')` vs sfac, Coulomb-only) | **≤ 1 × 10⁻³** full Z = 2..92 panel after the 2026-04-20 DOUTW TCONV fix (was ≤ 1 × 10⁻⁵ closed-shell but **up to 27 %** at Z ≥ 74 ions) | **atomx 5–14 × faster** than sfac (was 2–5 × before the ``n_grid = 400`` default) |
 
 Three bugs were found and fixed (see below).  After the fixes:
 - atomx **exactly reproduces** the Fortran DHFS (Salvat 2018) total
@@ -312,23 +312,34 @@ Fermi nucleus):
 
 | Z   | config (N)                | atomx fac (eV)  | sfac (eV)      | rel    | t_atomx | t_sfac |
 |----:|:--------------------------|----------------:|---------------:|-------:|--------:|-------:|
-| 2   | 1s² (2)                   | −77.874         | −77.863        | 1.3e-4 | 0.04 s  | 0.19 s |
-| 6   | 1s²2s²2p² (6)             | −1 025.00       | −1 025.66      | 6.5e-4 | 0.12 s  | 0.32 s |
-| 10  | 1s²2s²2p⁶ (10)            | −3 501.07       | −3 501.11      | 1.2e-5 | 0.13 s  | 0.40 s |
-| 18  | 1s²2s²2p⁶3s²3p⁶ (18)      | −14 385.35      | −14 385.36     | 7 e-7  | 0.22 s  | 0.49 s |
-| 26  | Fe^{16+}, Ne-like (10)    | −31 249.94      | −31 249.84     | 3.3e-6 | 0.11 s  | 0.27 s |
-| 36  | Kr, Ar-like (18)          | −71 144.66      | −71 143.99     | 9.3e-6 | 0.20 s  | 0.45 s |
-| 54  | Xe^{44+}, Ne-like (10)    | −151 480.91     | −151 473.84    | 4.7e-5 | 0.10 s  | 0.31 s |
-| 74  | W^{64+}, Ne-like (10)     | −301 390.46     | −301 323.43    | 2.2e-4 | 0.09 s | 0.31 s |
-| 82  | Pb^{64+}, Ar-like (18)    | −445 221.25     | −445 060.99    | 3.6e-4 | 0.20 s | 0.54 s |
-| 92  | U^{82+}, Ne-like (10)     | −494 811.43     | −494 344.64    | 9.4e-4 | 0.09 s | 0.33 s |
+| 2   | 1s² (2)                   | −77.874         | −77.863        | 1.3e-4 | 0.014 s | 0.19 s |
+| 6   | 1s²2s²2p² (6)             | −1 025.00       | −1 025.66      | 6.5e-4 | 0.055 s | 0.32 s |
+| 10  | 1s²2s²2p⁶ (10)            | −3 501.07       | −3 501.11      | 1.2e-5 | 0.059 s | 0.40 s |
+| 18  | 1s²2s²2p⁶3s²3p⁶ (18)      | −14 385.35      | −14 385.36     | 7 e-7  | 0.093 s | 0.49 s |
+| 26  | Fe^{16+}, Ne-like (10)    | −31 249.94      | −31 249.84     | 3.3e-6 | 0.048 s | 0.27 s |
+| 36  | Kr, Ar-like (18)          | −71 144.66      | −71 143.99     | 9.3e-6 | 0.088 s | 0.45 s |
+| 54  | Xe^{44+}, Ne-like (10)    | −151 480.91     | −151 473.84    | 4.7e-5 | 0.045 s | 0.31 s |
+| 74  | W^{64+}, Ne-like (10)     | −301 390.46     | −301 323.43    | 2.2e-4 | 0.042 s | 0.31 s |
+| 82  | Pb^{64+}, Ar-like (18)    | −445 221.25     | −445 060.99    | 3.6e-4 | 0.080 s | 0.54 s |
+| 92  | U^{82+}, Ne-like (10)     | −494 811.43     | −494 344.64    | 9.4e-4 | 0.042 s | 0.33 s |
 
-Wall time: atomx's fac is **2–5× faster** than sfac at Z ≤ 54 and
-**3–5× faster** at Z ≥ 74.  Accuracy is now **≤ 1 × 10⁻³ relative
-across the full Z = 2..92 panel** after the 2026-04-20 fix to
-``doutw``'s past-turning-point blow-up check (§6.4).  Heavy-Z Ne-
-and Ar-like ions (W⁶⁴⁺, Pb⁶⁴⁺, U⁸²⁺) that previously over-bound
-by 20–30 % now match sfac and Fortran DHFS.f to ≤ 10⁻³.
+Wall time: atomx's fac is now **5–14× faster** than sfac across the
+full Z = 2..92 panel (warm timings, post-JIT).  Accuracy holds at
+**≤ 1 × 10⁻³ relative** across the same panel after the
+2026-04-20 fixes (``doutw`` analytical TCONV, ``dbound`` scan
+fallback, §6.4).  Heavy-Z Ne- and Ar-like ions (W⁶⁴⁺, Pb⁶⁴⁺, U⁸²⁺)
+that previously over-bound by 20–30 % now match sfac and Fortran
+DHFS.f to ≤ 10⁻³.
+
+The **2.2× speedup vs the original ``n_grid = 1000`` default** comes
+from dropping to ``n_grid = 400`` (the historical DHFS.f
+number-of-grid-points parameter) in the ``Atom`` facade for both
+``exchange='fac'`` and ``exchange='shooting'``: Salvat's adaptive
+``dir_integrate`` sub-divides each grid interval to hit the ``EPS``
+tolerance anyway, so cutting the static grid just drops redundant
+outer-region points.  Neutrals still match Fortran DHFS.f to
+≤ 3 × 10⁻⁷ relative (vs ≤ 2 × 10⁻⁸ at n=1000 — the tighter bound
+is preserved when users pass ``n_grid=1000`` explicitly).
 
 Open-shell Z=6 has the largest low-Z residual (6.5 × 10⁻⁴) because
 atomx and FAC integrate the statistical jj-split density slightly
