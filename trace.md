@@ -149,3 +149,51 @@ is tracked as `benchmarks/REPORT.md` §7 item 6.
   `test_fac_dfs_shooting.py` gate to 10⁻³.
 - Open issues: `dbound` / `dir0` κ > 0 Case A bug (see
   `benchmarks/REPORT.md` §7 item 6).
+
+### EARS — Follow-up (2026-04-20 post-wrap-up)
+<!-- concepts: dbound-eigenvalue-search, b-spline-vs-shooting, fac-comparison -->
+User asked for the real `dir0` κ > 0 fix with step-by-step FAC
+comparison, and to check if the B-spline path has the same issue
+against `../radial` and `../dbsr_hf`.
+
+**Further localisation of the dbound bug.** Ruled OUT:
+1. `dir0` Case A power-series coefficients — character-by-character
+   match with Fortran radial.f DIR0 (ME-4.30..4.34).
+2. `doutw` TCONV early-exit — disabling it doesn't change the
+   wrong-answer behaviour; finite-difference TCONV and Fortran
+   analytical `2·CA(3)·PPI` both detect the classically forbidden
+   region correctly when iotp is set right.
+3. Premature `ier=3` exit in dbound when turning point leaves the
+   grid — tried removing; still converges to spurious E.
+
+The actual bug: `dbound`'s **shoot loop itself** converges on a
+non-physical matching condition when e_guess is too shallow.  At
+bare Coulomb Z=74, `dbound(e_guess=-758.67)` correctly returns
+−758.68 Ha (ier=0), but any shallower guess (including the solver's
+default −0.1) gives the spurious −2394.95 Ha.  The "too many nodes"
+branch drives E below physical min, search range expands into an
+unphysical region, and a spurious E satisfying the Q-discontinuity
+matching is found.
+
+**Cross-solver check (user's direct question).**
+* `exchange='shooting'` / `'fac'` via `ShootingSolver`: matches
+  Fortran `../radial/DHFS.f` to 10⁻⁸ for neutral atoms Z = 2..92,
+  but fails by 20–30 % for Ne-like / Ar-like ions Z ≥ 74.
+* `exchange='slater'` / `'fac'` via B-spline `DFSolver`: matches
+  Fortran DHFS.f for neutrals AND heavy-Z ions.  Verified Z=74
+  W⁶⁴⁺ Ne-like atomx=−301,310 eV, DHFS.f=−301,327 eV (rel
+  1.7 × 10⁻⁵); Z=82 Pb⁶⁴⁺ Ar-like 4.1 × 10⁻⁵; Z=92 U⁸²⁺ Ne-like
+  1.6 × 10⁻⁴.  So the B-spline path does **not** share the bug.
+* `../dbsr_hf` is a Hartree-Fock code (exact exchange), not local
+  DFS, so not directly comparable to either `exchange='shooting'`
+  or `exchange='slater'` — the relevant atomx equivalent is
+  `exchange='hf'` which uses a separate `DFSolver` path already
+  validated via `scripts/generate_density_gs.py`.
+
+**Interim fix (not yet applied, awaiting user decision).**
+One-liner in `src/atomx/atom.py:258` to route
+`Atom(exchange='fac')` through the B-spline `DFSolver` for
+highly-charged ions.  The B-spline FAC wiring already exists
+(tests/test_dfsolver_fac.py).  This would close the heavy-Z
+facade gap without needing to fix `dbound` itself.  `dbound`
+remains a standalone follow-up.
