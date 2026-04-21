@@ -259,3 +259,57 @@ expansion in "too many nodes" branch when sign flip happens BEFORE
 the turning point).  Does NOT affect any atomic SCF (screening
 keeps the eigenvalue out of this regime).  Tracked but
 low-priority.
+
+### EARS — Second dbound patch: turning-point-scan fallback (2026-04-20)
+<!-- concepts: dbound-scan-fallback, fortran-do-loop-semantics -->
+
+Compiled a verbose variant of Salvat's radial.f (with
+``DATA IWR/1/``) and ran it against the "residual" Z = 92 bare
+Coulomb 2p₁/₂ case.  The verbose output showed Fortran's shot
+loop DOES jump to E = −3701 Ha on shot 0 (same as atomx), but then
+at shot 1 Fortran gets ``NZERO=0`` with ``IOTP=269`` (TCONV fires
+early in the forbidden region).  atomx on the other hand hits
+``ier=3`` immediately on shot 1 because its turning-point scan
+can't find a classically-allowed region.
+
+**Why:** Fortran's scan
+```fortran
+DO J=2,NRT
+  IOTP=NRT+2-J
+  ...
+  IF(EKIN.GT.0) GOTO 3
+ENDDO
+```
+**assigns** ``IOTP`` on every iteration.  If the loop completes
+without break (no classically-allowed region), ``IOTP = 2``
+(innermost, 1-indexed) from the last iteration.  After
+``IOTP+1=3`` the gate ``IOTP > NRT-1`` doesn't fire and DOUTW
+proceeds from the inner end.
+
+atomx's scan initialised ``iotp = nrt - 1`` **outside** the loop
+and only reassigned inside the break, so the Python for-loop's
+"fall-through" left ``iotp = nrt - 1``.  After ``iotp+1 = nrt``,
+the gate ``iotp > nrt - 2`` tripped and ``ier=3`` fired before the
+shot loop could bisect.
+
+**Fix:** mirror Fortran's scan exactly — initialise
+``iotp = 1`` (0-indexed fallback equivalent to Fortran ``IOTP=2``),
+loop ``jj=2..nrt`` visiting ``idx=nrt-1`` down to ``idx=1``,
+and relax the post-scan gate to ``iotp > nrt - 1`` so it only
+fires when the turning point genuinely lands past the last valid
+grid index.
+
+**Impact.**  Bare-Coulomb Dirac-hydrogenic 2p₁/₂ now converges
+from any shallow initial guess up through Z = 100 (verified by
+``tests/test_dbound_heavy_z.py`` at Z ∈ {10, 30, 50, 74, 82, 92,
+100} × shallow & hydrogenic guesses, plus the n=1..3 shell at
+Z = 74, 92 — 35 tests total).  No change to heavy-Z ion SCF
+accuracy (already correct after the TCONV patch).  Full suite:
+526 → 548 passed / 3 skipped.
+
+**Nothing left on the shooting path.**  The three independent bugs
+unmasked by this investigation (``_slater_integral`` SLAG6 option,
+``doutw`` TCONV analytical formula, ``dbound`` turning-point scan
+fallback) are all fixed and regression-locked.  The residual claim
+in the prior trace entry ("Z = 92 shallow-guess bare Coulomb still
+hits a spurious root") is **no longer true**.
