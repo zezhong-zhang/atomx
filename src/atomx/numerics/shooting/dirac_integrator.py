@@ -23,6 +23,14 @@ def dir_integrate(e, ak, eps, isum, ppi, qqi, ra, rb,
         rsum:   normalization integral contribution
         nstep:  number of steps taken
         nchs:   number of zeros of P in (ra, rb)
+        ca2:    ``ca[2]`` coefficient from the final ``dir0`` substep — the
+                power-series coefficient of the ``(r-r0)^2`` term for the
+                large component.  Needed by :func:`doutw` for the Fortran
+                DOUTW ``TCONV = 2*CA(3)*PPI`` turning-point blow-up check,
+                which is far more reliable than a 3-point finite-difference
+                approximation of ``P''`` (the FD version misfires for sharp
+                heavy-Z 1s / 2p₁/₂ orbitals where successive grid values are
+                very close in magnitude).
     """
     nchs = 0
     rln = 0.0
@@ -108,7 +116,8 @@ def dir_integrate(e, ak, eps, isum, ppi, qqi, ra, rb,
 
     pf = p1
     qf = q1
-    return pf, qf, rln, rsum, nstep, nchs
+    ca2 = ca[2]  # power-series (r-r0)² coefficient — used by DOUTW TCONV check
+    return pf, qf, rln, rsum, nstep, nchs, ca2
 
 
 @nb.njit(cache=True)
@@ -162,7 +171,7 @@ def doutw(e, eps, ak, nr, iotp_in, isum,
         ppi = pt[i]
         qqi = qt[i]
 
-        pf, qf, rln_val, rsum_val, nstep, nchs = dir_integrate(
+        pf, qf, rln_val, rsum_val, nstep, nchs, ca2 = dir_integrate(
             e, ak, eps, isum, ppi, qqi, ra, rb, rv0, rv1, rv2, rv3)
 
         nzero += nchs
@@ -177,19 +186,30 @@ def doutw(e, eps, ak, nr, iotp_in, isum,
         qt[i + 1] = qf
 
         if e < 0.0:
-            # Check if solution is convex past turning point (TCONV)
-            # TCONV = 2*CA(3)*PPI (second derivative * function)
-            # Use the dir0 coefficient as proxy: if P starts growing
-            # exponentially past turning point, stop
+            # Past-turning-point blow-up detection — Fortran DOUTW
+            # line 1777-1786.  ``TCONV = 2*CA(3)*PPI`` is the
+            # analytical second derivative of P (from the power-series
+            # ``(r-r0)^2`` coefficient returned by ``dir_integrate``)
+            # times the boundary value ``PPI``.  Positive TCONV past
+            # ``iotp`` means P is becoming convex (picking up the
+            # exponentially-growing irregular solution) — stop
+            # integration there so spurious sign flips don't corrupt
+            # the node count.
+            #
+            # The earlier 3-point finite-difference proxy
+            # ``(P[i+1] - 2·P[i] + P[i-1]) * PPI`` underestimated and
+            # sometimes flipped sign on the sharp heavy-Z inner
+            # region, letting doutw count a spurious node — which
+            # drove ``dbound`` into the "too many nodes" branch and
+            # out to the wrong eigenvalue.  See trace.md 2026-04-20
+            # and benchmarks/REPORT.md §6.4 for the diagnosis.
             if i >= iotp and ppi != 0.0:
-                # Approximate convexity from consecutive values
-                if i >= 2:
-                    tconv = (pt[i + 1] - 2.0 * pt[i] + pt[i - 1]) * ppi
-                    if tconv > 1.0e-15:
-                        if isum == 1:
-                            sumout = sumout + rsum_val
-                        iotp = i + 1
-                        return nzero, sumout, iotp, nzmax
+                tconv = 2.0 * ca2 * ppi
+                if tconv > 1.0e-15:
+                    if isum == 1:
+                        sumout = sumout + rsum_val
+                    iotp = i + 1
+                    return nzero, sumout, iotp, nzmax
 
         if i == 0:
             if isum == 1:
@@ -285,7 +305,7 @@ def dinw(e, eps, ak, iotp, isum,
         ppi = pt[i1]
         qqi = qt[i1]
 
-        pf, qf, rln_val, rsum_val, nstep, nchs = dir_integrate(
+        pf, qf, rln_val, rsum_val, nstep, nchs, ca2 = dir_integrate(
             e, ak, eps, isum, ppi, qqi, ra, rb, rv0, rv1, rv2, rv3)
 
         pt[i] = pf

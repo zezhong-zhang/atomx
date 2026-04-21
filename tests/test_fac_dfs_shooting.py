@@ -75,25 +75,20 @@ def test_atomx_fac_total_energy_matches_sfac(row):
     e_atomx_eV = atom.total_energy * HARTREE_EV
 
     rel = abs(e_atomx_eV - e0_ref_eV) / abs(e0_ref_eV)
-    # Gate depends on Z:
-    #   * Z ≤ 54: 1 × 10⁻³ (closed-shell: 10⁻⁵; open-shell Z=6: 7×10⁻⁴)
-    #   * Z ≥ 74: 0.30 — atomx's shooting SCF converges to a
-    #     non-physical solution for highly-charged heavy ions because
-    #     ``dbound`` / ``dir0`` (the κ > 0 small-r power series)
-    #     returns a ~3× too-deep 2p₁/₂ eigenvalue at Z ≳ 50 in
-    #     weakly-screened potentials.  Concretely: the Ne-like W⁶⁴⁺
-    #     2p₁/₂ comes out at −57.9 keV (atomx) vs −17.0 keV (Fortran
-    #     DHFS.f and sfac, for bit-identical input).  A direct SLAG6
-    #     rewrite of ``_expval``'s Slater-integral quadrature
-    #     (``slater_method='slag6'``) was tried as the fix and does
-    #     **not** close this gap — both Slater backends give identical
-    #     heavy-Z totals to 4 × 10⁻⁹ relative, refuting the earlier
-    #     "power series loses precision for sharp 1s peaks"
-    #     hypothesis.  Neutral atoms are unaffected (outer screening
-    #     keeps the 2p₁/₂ root in the region where ``dir0`` is
-    #     correct).  See ``benchmarks/REPORT.md`` §6.4 and §7 item 6
-    #     for the remaining follow-up.
-    gate = 1e-3 if Z <= 54 else 0.30
+    # Gate: 1 × 10⁻³ relative across the full Z = 2..92 panel.
+    # Heavy-Z (Z ≥ 74) was previously gated at 0.30 because atomx's
+    # ``doutw`` used a 3-point finite-difference proxy for the
+    # past-turning-point blow-up check ``TCONV = P''·P``, which
+    # mis-detected the sign for sharp heavy-Z 2p₁/₂ orbitals and let
+    # integration continue into the forbidden region — picking up an
+    # exponentially-growing irregular-solution contamination that
+    # registered as a spurious extra radial node, driving dbound's
+    # "too many nodes" branch to the wrong eigenvalue (~3× too deep).
+    # Fixed 2026-04-20 by threading the analytical power-series
+    # ``ca[2]`` coefficient out of ``dir_integrate`` and using
+    # ``TCONV = 2·ca[2]·PPI`` verbatim from Fortran radial.f DOUTW
+    # (line 1780).  See ``benchmarks/REPORT.md`` §6.4 and trace.md.
+    gate = 1e-3
     assert rel < gate, (
         f"Z={Z}, cfg={cfg}: atomx={e_atomx_eV:.3f} eV, "
         f"fac={e0_ref_eV:.3f} eV, rel={rel:.2e} (gate={gate:.0e})"

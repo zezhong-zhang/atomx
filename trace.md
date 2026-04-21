@@ -197,3 +197,65 @@ highly-charged ions.  The B-spline FAC wiring already exists
 (tests/test_dfsolver_fac.py).  This would close the heavy-Z
 facade gap without needing to fix `dbound` itself.  `dbound`
 remains a standalone follow-up.
+
+### EARS — Bug FIXED (2026-04-20 post-merge)
+<!-- concepts: doutw-tconv, dirac-power-series, ca2-coefficient -->
+
+Real root cause finally localised AND fixed.  Debugging went three
+layers deep:
+
+1. Ruled out `_slater_integral` (Slater integral quadrature).
+2. Ruled out `dir0` / power-series coefficients (character-by-
+   character match with Fortran radial.f DIR0).
+3. Ruled out `dbound`'s outer eigenvalue search logic (it matches
+   Fortran's emin/emax/bisection exactly).
+4. Ruled out `doutw`'s early-exit `ier=3` (Fortran has it too).
+
+**Actual bug:** `doutw`'s past-turning-point blow-up check
+``TCONV = P''·P`` used a 3-point finite-difference proxy.  For
+sharp heavy-Z 2p₁/₂ wavefunctions, this proxy mis-detected the
+sign of P'' near the turning point (finite difference gave
+NEGATIVE TCONV where analytical power-series gave +1.6 × 10⁵ at
+Z=74).  Result: TCONV never fired past the turning point,
+integration continued into the classically-forbidden region and
+picked up irregular-solution contamination that registered as a
+spurious radial node, driving the "too many nodes" branch 3× too
+deep.
+
+**Fix:** thread the analytical power-series ``(r-r0)²`` coefficient
+``ca[2]`` out of ``dir_integrate`` and use ``TCONV = 2·ca[2]·PPI``
+exactly as in Fortran radial.f DOUTW line 1780.  Two callers
+updated (doutw, dinw) — dinw only to consume the new return
+value, TCONV not used in inward integration.
+
+**Cross-solver sanity.**
+
+| path | vs `../radial/DHFS.f` (Salvat)                         | vs `sfac` (FAC) |
+|------|--------------------------------------------------------|-----------------|
+| `exchange='shooting'` / `'fac'` (shooting) | neutral Z=2..92 : 10⁻⁸ ✓; Ne-like W⁶⁴⁺ **now 2.2e-4** ✓ | same 2.2e-4 |
+| `exchange='slater'` / `'fac'` via DFSolver (B-spline) | neutral Z=2..92 : 10⁻³ ✓; Ne-like W⁶⁴⁺ : 5.7 × 10⁻⁵ ✓ | same |
+| `exchange='hf'` (B-spline DHF) | — | — (different physics; compared against ../dbsr_hf in generate_density_gs.py, not here) |
+
+**Verification — Fortran demorad on the exact same grid.** Compiled
+Salvat's `demorad.f` from source on arm64 with atomx's grid params
+(NGP=1000, RN=75, R2=1e-7, DRN=0.5), ran Dirac bound-state solver
+on bare Coulomb Z=74 and Z=92 2p₁/₂ — both return the correct
+Dirac hydrogenic eigenvalue.  Before fix: atomx returned
+3× too-deep spurious value for the same inputs.  After fix:
+atomx returns −758.68 Ha (Z=74) and −1257.40 Ha at correct initial
+guesses.  End-to-end: Ne-like W⁶⁴⁺ via `Atom(exchange='shooting')`
+drops from −383,544 eV (27 % off) to −301,389 eV (2.2 × 10⁻⁴ off).
+
+**Tests.**
+* Tightened `tests/test_fac_dfs_shooting.py` Z ≥ 74 gate from
+  0.30 to 1 × 10⁻³.  All 14 panel rows now pass the tighter gate.
+* New `tests/test_dbound_heavy_z.py` pins bare-Coulomb 2p₁/₂ at
+  Z ∈ {10, 30, 50, 74, 82} from shallow + hydrogenic guesses.
+* Full suite: 526 passed / 3 skipped (up from 513 — 13 new tests).
+
+**Residual edge.** Bare-Coulomb Z = 92 2p₁/₂ from a shallow
+initial guess still hits a spurious root (too-aggressive emin
+expansion in "too many nodes" branch when sign flip happens BEFORE
+the turning point).  Does NOT affect any atomic SCF (screening
+keeps the eigenvalue out of this regime).  Tracked but
+low-priority.
