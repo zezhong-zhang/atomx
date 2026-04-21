@@ -1,7 +1,7 @@
 {
   "project": "atomx",
   "version": "0.2.0",
-  "generated": "2026-04-19",
+  "generated": "2026-04-21",
   "description": "High-performance relativistic atomic structure calculations using B-spline Dirac-Fock",
   "python": ">=3.10",
   "build_backend": "hatchling",
@@ -10,7 +10,15 @@
     "public_api": "src/atomx/__init__.py",
     "facade": "src/atomx/atom.py",
     "primary_scf": "src/atomx/methods/dirac_fock.py",
+    "local_dfs": "src/atomx/numerics/local_dfs/",
+    "benchmarks_dir": "benchmarks/",
     "benchmarks": [
+      "benchmarks/bench_fac_structure.py",
+      "benchmarks/bench_fac_lithium_like.py",
+      "benchmarks/bench_fac_levels_transitions.py",
+      "benchmarks/bench_local_exchange.py",
+      "benchmarks/bench_shooting_vs_radial.py",
+      "benchmarks/fac_runner.py",
       "scripts/benchmark_energies.py",
       "scripts/compare_energies.py",
       "scripts/generate_density_gs.py"
@@ -50,7 +58,7 @@
     "ureg"
   ],
   "modules": {
-    "atom": {"path": "src/atomx/atom.py", "lines": 802, "purpose": "Atom facade — Z/config/breit/qed/exchange/correlation/plasma knobs"},
+    "atom": {"path": "src/atomx/atom.py", "lines": 859, "purpose": "Atom facade — Z/config/breit/qed/exchange/correlation/plasma knobs"},
     "types": {"path": "src/atomx/types.py", "purpose": "Enums for method configuration"},
     "results": {"path": "src/atomx/results.py", "purpose": "AtomicResult, HyperfineResult, OrbitalWavefunction, Waves"},
     "constants": {"path": "src/atomx/constants.py", "purpose": "CODATA 2022 physical constants"},
@@ -62,13 +70,15 @@
       "files": ["base.py", "hydrogenic.py", "hartree_fock.py", "relativistic_hf.py", "dirac_fock.py", "scf.py", "ci.py", "coupled_cluster.py", "mbpt.py", "rpa.py", "kohn_sham.py"],
       "subpackages": {
         "mcdhf": ["config.py", "excitations.py", "matrix.py", "solver.py"]
-      }
+      },
+      "primary_scf_lines": 2363
     },
     "numerics": {
       "path": "src/atomx/numerics/",
       "subpackages": {
         "bspline": ["knots.py", "basis.py", "evaluate.py", "integrals.py", "convol.py", "dirac_assembly.py", "continuum.py"],
         "shooting": ["grid.py", "spline.py", "quadrature.py", "integrator.py", "solver.py", "dirac_bound.py", "dirac_integrator.py", "dirac_power_series.py", "schrodinger_bound.py", "schrodinger_integrator.py", "schrodinger_power_series.py", "constants.py"],
+        "local_dfs": ["asymptotic.py", "hxs_tables.py"],
         "analytic": ["hydrogenic_dirac.py"]
       }
     },
@@ -107,25 +117,39 @@
         "r_matrix": ["__init__.py"]
       }
     },
-    "plasma": {"path": "src/atomx/plasma/"},
-    "lineshapes": {"path": "src/atomx/lineshapes/"},
-    "spectrum": {"path": "src/atomx/spectrum/"},
-    "uta": {"path": "src/atomx/uta/"},
-    "fitting": {"path": "src/atomx/fitting/"},
+    "plasma": {"path": "src/atomx/plasma/", "files": ["crm.py", "rates.py", "screening.py"]},
+    "lineshapes": {"path": "src/atomx/lineshapes/", "files": ["profiles.py", "stark.py"]},
+    "spectrum": {"path": "src/atomx/spectrum/", "files": ["crm_synth.py"]},
+    "uta": {"path": "src/atomx/uta/", "files": ["moments.py"]},
+    "fitting": {"path": "src/atomx/fitting/", "files": ["slater.py"]},
     "viz": {"path": "src/atomx/viz/", "files": ["mpl.py", "plotly.py", "plotly3d.py", "manim.py"]},
     "data": {"path": "src/atomx/data/", "files": ["hyperfine_presets.py", "mohr_se.py", "flambaum_ginges.py", "nuclear_structure.py"]}
   },
   "tests": {
     "dir": "tests/",
-    "count": 30,
+    "count": 37,
     "modules": [
       "angular", "atom_api", "atom_unified_api", "autoionization", "bspline",
       "ci", "constants", "continuum", "convol", "corrections_stack",
-      "data_loaders", "dirac_hydrogenic", "fitting", "hyperfine", "isotope",
-      "lineshapes", "mcdhf", "photoionization", "plasma", "potentials",
-      "qed", "qedmod", "scaffolds", "scf", "spectrum_and_uta",
-      "transitions", "units", "viz", "viz_plotly3d", "zeeman"
+      "data_loaders", "dbound_heavy_z", "dfsolver_fac", "dfsolver_slater",
+      "dirac_hydrogenic", "fac_asymptotic", "fac_dfs_shooting", "fitting",
+      "hyperfine", "isotope", "lineshapes", "local_exchange", "mcdhf",
+      "photoionization", "plasma", "potentials", "qed", "qedmod", "scaffolds",
+      "scf", "slater_integral_slag6", "spectrum_and_uta", "transitions",
+      "units", "viz", "viz_plotly3d", "zeeman"
     ]
+  },
+  "benchmarks": {
+    "dir": "benchmarks/",
+    "runners": [
+      "bench_fac_structure.py",
+      "bench_fac_lithium_like.py",
+      "bench_fac_levels_transitions.py",
+      "bench_local_exchange.py",
+      "bench_shooting_vs_radial.py",
+      "fac_runner.py"
+    ],
+    "report": "benchmarks/REPORT.md"
   },
   "dependencies": {
     "required": ["numpy>=1.24", "scipy>=1.10", "numba>=0.58", "h5py>=3.0", "plotly>=6.7.0", "manim>=0.19.1", "matplotlib>=3.10.8", "nbformat>=5.10.4", "ipython>=8.39.0", "ipykernel>=7.2.0"],
