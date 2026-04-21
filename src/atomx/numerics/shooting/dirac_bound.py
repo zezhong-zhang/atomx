@@ -144,10 +144,35 @@ def dbound(e_in, eps, n, k, rg, rvg, va, vb, vc, vd, nvt, rad, ngp):
             ier = 2
             break
 
-        # Outer turning point (ME-5.2) — scan from outside in
-        iotp = nrt - 1
-        for jj in range(1, nrt):
-            idx = nrt - 1 - jj
+        # Outer turning point (ME-5.2) — scan from outside in.
+        # Mirrors Fortran radial.f DBOUND lines 930-940:
+        #
+        #   DO J=2,NRT
+        #     IOTP = NRT+2-J    ! 1-indexed: NRT, NRT-1, ..., 2
+        #     ...
+        #     IF(EKIN.GT.0) GOTO 3
+        #   ENDDO
+        #
+        # IMPORTANT Fortran property: the DO loop **assigns** ``IOTP``
+        # on every iteration, so when the loop completes without a
+        # break, ``IOTP`` ends at its last assignment (= 2 in 1-indexed
+        # = idx 1 in 0-indexed).  When the turning-point scan fails
+        # (E below ``V_eff_min`` everywhere on the grid, as happens
+        # when the "too many nodes" branch expands ``emin`` past the
+        # physical minimum), Fortran then proceeds with ``IOTP=3`` and
+        # lets DOUTW run — getting ``NZERO=0`` (TCONV fires in the
+        # forbidden region) and taking the "too few nodes" branch to
+        # bisect back up.
+        #
+        # Before this fix atomx initialised ``iotp = nrt - 1`` and
+        # only updated on success, so on scan failure ``iotp+1 = nrt``
+        # tripped the ``iotp > nrt-2`` gate and ``dbound`` exited with
+        # ``ier=3`` — preventing the bisection from ever running.
+        # Result: heavy-Z (Z≥92) bare-Coulomb shallow-initial-guess
+        # searches converged to a spurious ~3× too-deep eigenvalue.
+        iotp = 1  # 0-indexed fallback matching Fortran IOTP=2 (1-indexed)
+        for jj in range(2, nrt + 1):
+            idx = nrt + 1 - jj  # 0-indexed: jj=2→nrt-1, jj=nrt→1
             rn = r[idx]
             if rn < 1.0e-30:
                 continue
@@ -158,8 +183,11 @@ def dbound(e_in, eps, n, k, rg, rvg, va, vb, vc, vd, nvt, rad, ngp):
                 iotp = idx
                 break
 
-        iotp = iotp + 1  # One past the turning point
-        if iotp > nrt - 2:
+        iotp = iotp + 1  # One past the turning point (matches Fortran IOTP=IOTP+1)
+        if iotp > nrt - 1:
+            # Corresponds to Fortran ``IF(IOTP.GT.NRT-1)``: turning
+            # point landed past the outermost grid point — user grid
+            # is too small to contain the bound state.
             ier = 3
             break
         if iotp < 2:

@@ -460,18 +460,35 @@ guess that atomx fails on.  After the fix:
   across Z ∈ {10, 30, 50, 74, 82} from both shallow (−0.1 Ha)
   and hydrogenic (−Z²/2n²) initial guesses.
 
-**Residual edge case (not critical).** Bare-Coulomb Z = 92 2p₁/₂
-from a shallow initial guess (≥ 200 Ha shallower than the exact
-−1257.4 Ha) still converges to a spurious ≥ 3× too-deep value
-because the sign change at shot 0 happens BEFORE the turning
-point — in the classically-allowed region — and the
-"too-many-nodes" branch then expands the bracket too aggressively.
-Does NOT affect the heavy-Z atomic SCF because screening lifts the
-2p₁/₂ eigenvalue out of this regime (Z = 92 U⁸²⁺ Ne-like now
-converges to within 10⁻³ of sfac).  Fixing the shallow-guess
-bare-Coulomb case at Z = 92+ would require tightening the emin
-expansion in the "too many nodes" branch or providing a better
-initial guess scheme; left as a low-priority follow-up.
+**Residual Z ≥ 92 bare-Coulomb shallow-guess failure — FIXED
+2026-04-20 (second dbound patch).**  Previously, bare-Coulomb
+Z = 92 2p₁/₂ with a shallow initial guess converged to a spurious
+3× too-deep value.  Root cause: in Fortran radial.f DBOUND the
+turning-point scan ``DO J=2,NRT; IOTP=NRT+2-J; ... ENDDO`` **assigns
+``IOTP`` on every iteration** — if the classically-allowed region
+falls entirely off the grid (E below ``V_eff_min`` on the current
+grid) the scan completes with ``IOTP=2`` (innermost), after which
+``IOTP+1=3`` passes the ``iotp > NRT-1`` gate and DOUTW runs from
+the inner end, reporting ``NZERO=0`` (TCONV fires immediately in
+the forbidden region) and letting the "too few nodes" branch bisect
+back up.  atomx's port initialised ``iotp = nrt - 1`` before the
+scan and only updated on break, so on scan failure ``iotp+1 = nrt``
+tripped the ``iotp > nrt-2`` gate and ``dbound`` exited with
+``ier=3`` before the bisection ever got a chance to run.
+
+Fix: change atomx's scan to mirror Fortran exactly —  initial
+fallback ``iotp = 1`` (0-indexed, matching Fortran ``IOTP=2``
+1-indexed), loop ``jj=2..nrt`` visiting idx = nrt-1 down to 1,
+same as Fortran, and relax the post-scan gate to
+``if iotp > nrt - 1: ier=3`` (was ``nrt - 2``) so it only fires
+when the turning point genuinely lands past the last grid point.
+
+**After this second patch** the bare-Coulomb shallow-guess case
+converges cleanly up through Z = 100 (tested Z ∈ {10, 30, 50, 74,
+82, 92, 100} × shallow & hydrogenic guesses × n=1..3 shells, all
+35 tests pass at 10⁻⁶ vs analytic Dirac-hydrogenic formula —
+``tests/test_dbound_heavy_z.py``).  No impact on the heavy-Z ion
+SCF numbers (already correct after the first TCONV patch).
 
 ---
 
@@ -508,18 +525,32 @@ initial guess scheme; left as a low-priority follow-up.
    reference (e.g. He-like 1s² ¹S₀ → 2p² ³P_J) before the corrected
    formula is relied upon for higher multipoles.
 
-6. **Heavy-Z ion `dbound` TCONV bug (κ > 0, Z ≳ 50).** — **FIXED
-   2026-04-20.**  See §6.4 for the full diagnosis and fix.  atomx's
-   shooting DBOUND used a 3-point finite-difference proxy for the
-   past-turning-point blow-up check ``TCONV = P''·P``; it
-   mis-detected the sign for sharp heavy-Z 2p₁/₂ orbitals and
-   counted a spurious node, driving the eigenvalue search 3× too
-   deep.  Fix was to replace the finite-difference proxy with the
-   analytical power-series coefficient ``TCONV = 2·ca[2]·PPI``
-   matching Fortran radial.f DOUTW line 1780.  After fix:
-   heavy-Z Ne-/Ar-like ion totals match sfac / Fortran-DHFS to
-   ≤ 10⁻³ relative across Z = 74 / 82 / 92 (was 27 % at Z = 74).
+6. **Heavy-Z ion `dbound` TCONV + turning-point-scan bugs.** —
+   **FIXED 2026-04-20** (two patches).  See §6.4 for the full
+   diagnosis.
 
-   Residual low-priority edge: bare-Coulomb Z = 92 2p₁/₂ from a
-   shallow initial guess still hits a spurious root — doesn't
-   affect any atomic SCF because of screening.  See §6.4.
+   * **Patch 1 (TCONV):** atomx's shooting DOUTW used a 3-point
+     finite-difference proxy for the past-turning-point blow-up
+     check ``TCONV = P''·P``; it mis-detected the sign for sharp
+     heavy-Z 2p₁/₂ orbitals and counted a spurious node, driving
+     the eigenvalue search 3× too deep.  Fixed by threading the
+     analytical power-series ``ca[2]`` out of ``dir_integrate`` and
+     using ``TCONV = 2·ca[2]·PPI`` verbatim from Fortran radial.f
+     DOUTW line 1780.
+
+   * **Patch 2 (scan fallback):** atomx's DBOUND turning-point scan
+     initialised ``iotp`` outside the loop and only updated on
+     break, so when the classically-allowed region was entirely off
+     the grid the scan's ``iotp`` fell through at ``nrt-1`` and the
+     ``iotp > nrt-2`` gate tripped ``ier=3`` prematurely.  Fortran's
+     ``DO J=2,NRT; IOTP=NRT+2-J`` re-assigns ``IOTP`` every
+     iteration, ending at ``IOTP=2`` on failure and allowing DOUTW
+     to proceed from the inner end and bisect upward.  Fixed by
+     aligning atomx's loop with Fortran (fallback ``iotp=1``, range
+     ``jj=2..nrt``) and relaxing the gate to ``iotp > nrt-1``.
+
+   After both patches: heavy-Z Ne-/Ar-like ions match sfac / Fortran
+   DHFS.f to ≤ 10⁻³ across Z = 74 / 82 / 92 (was up to 27 % at
+   Z = 74 pre-patch), AND bare-Coulomb 2p₁/₂ converges from any
+   shallow initial guess up through Z = 100 — verified by 35
+   regression tests in ``tests/test_dbound_heavy_z.py``.
