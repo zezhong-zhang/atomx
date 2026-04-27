@@ -68,7 +68,8 @@ class Atom:
                  breit=False, qed=False, exchange="hf",
                  correlation=None, starting_potential=None,
                  plasma_ne=None, plasma_Te=None,
-                 averaging="ci", slater_method="slag6"):
+                 averaging="ci", slater_method="slag6",
+                 sampling=None):
         """
         Parameters
         ----------
@@ -117,6 +118,17 @@ class Atom:
             raise ValueError(
                 f"slater_method must be 'slag6' or 'power_series' "
                 f"(got {slater_method!r})")
+        # ``sampling`` (a Sampling tier or custom Sampling object) provides
+        # defaults for ns/ks/starting_potential. Explicit kwargs still win
+        # so existing call sites are unaffected.
+        if sampling is not None:
+            if ns is None:
+                ns = sampling.ns
+            if ks == 9:  # default — only override if caller didn't ask
+                ks = sampling.ks
+            if starting_potential is None:
+                starting_potential = sampling.starting_potential
+        self._sampling = sampling
         self.slater_method = slater_method
         self.Z = Z
         self.charge = charge
@@ -172,7 +184,8 @@ class Atom:
         # delegate to it uniformly.
         self._result = None
 
-    def solve(self, method=None, tol=1e-5, max_iter=40, log=None):
+    def solve(self, method=None, tol=1e-5, max_iter=40, log=None,
+              sampling=None):
         """Run an atomic structure calculation.
 
         Parameters
@@ -181,18 +194,35 @@ class Atom:
             Theory-level method object (e.g. ``DiracFock(breit=True)``).
             If None, uses legacy parameter-based dispatch.
         tol : float
-            Convergence tolerance.
+            Convergence tolerance.  Overridden by ``sampling.tol`` when
+            ``sampling`` is supplied (unless the caller passes ``tol``
+            explicitly).
         max_iter : int
-            Maximum SCF iterations.
+            Maximum SCF iterations.  Same precedence as ``tol``.
         log : str or bool or None
             Calculation log output.  If a string, writes to that file path.
             If True, writes to ``"{element}_{method}.log"``.
             If None/False, no log file.
+        sampling : Sampling, optional
+            Numerical-discretization tier (e.g. ``Sampling.standard``).
+            When supplied, ``tol`` and ``max_iter`` default to the
+            sampling values.  ``ns``/``ks`` for the B-spline backend
+            must be set on the :class:`Atom` constructor.
 
         Returns
         -------
         self (for chaining), or AtomicResult if method is provided.
         """
+        # ``sampling`` falls back to whatever was attached to the atom at
+        # construction time, so ``Atom(Z=10, sampling=Sampling.high).solve()``
+        # picks up the high tolerance without re-passing it.
+        sampling = sampling if sampling is not None else self._sampling
+        if sampling is not None:
+            if tol == 1e-5:  # default — let sampling drive it
+                tol = sampling.tol
+            if max_iter == 40:
+                max_iter = sampling.max_iter
+
         if method is not None:
             return self._solve_method(method, tol, max_iter, log=log)
 
@@ -613,11 +643,79 @@ class Atom:
     # Derived observables (uniform across flavors)
     # ------------------------------------------------------------------
 
-    def density(self, r: Optional[np.ndarray] = None) -> Optional[np.ndarray]:
+    def r_uniform(self, n: int = 400, *, kind: str = "log",
+                  r_min: Optional[float] = None,
+                  r_max: Optional[float] = None) -> Optional[np.ndarray]:
+        """A smooth radial grid suitable for plotting.
+
+        ``atom.r`` returns the integration grid (Gauss-Legendre nodes
+        for the B-spline backend; Salvat's SGRID for the shooting
+        backend) — both are correct for ∫ but cluster at knots, which
+        looks zigzag in line plots.  This helper returns a clean
+        log-spaced (default) or linear grid that spans the support of
+        the stored orbitals.
+
+        Parameters
+        ----------
+        n : int
+            Number of grid points.  Default 400.
+        kind : {"log", "linear"}
+            Spacing.  Log is the right default for atomic orbitals;
+            linear is occasionally useful for outer-region close-ups.
+        r_min, r_max : float, optional
+            Override the auto-detected support.  ``r_min`` defaults to
+            ``max(1e-6, native[0])`` and ``r_max`` to where the orbital
+            density first drops below ``1e-12`` of its peak.
+
+        Returns ``None`` if the underlying result has no stored
+        wavefunctions.
+        """
+        if kind not in ("log", "linear"):
+            raise ValueError(f"kind must be 'log' or 'linear' (got {kind!r})")
+        w = self.waves
+        if w is None or not w.orbitals:
+            return None
+        grid = np.asarray(w.grid, dtype=float)
+        if grid.size == 0:
+            return None
+
+        if r_min is None:
+            r_min = max(1e-6, float(grid[grid > 0].min()) if (grid > 0).any() else 1e-6)
+        if r_max is None:
+            # Find where the largest orbital density tail drops to 1e-12 of peak
+            tail_cut = grid[-1]
+            for orb in w.orbitals.values():
+                P = np.asarray(orb.P, dtype=float)
+                if P.shape != grid.shape:
+                    continue
+                rho = P ** 2
+                if orb.Q is not None:
+                    Q = np.asarray(orb.Q, dtype=float)
+                    rho = rho + Q ** 2
+                peak = rho.max()
+                if peak <= 0:
+                    continue
+                threshold = 1e-12 * peak
+                below = np.where(rho < threshold)[0]
+                # First index past the orbital's classical-turning region
+                # where density falls under threshold and stays below.
+                for idx in below:
+                    if idx > rho.argmax() and (rho[idx:] < threshold).all():
+                        tail_cut = max(tail_cut, float(grid[idx]))
+                        break
+            r_max = min(tail_cut, float(grid[-1]))
+
+        if kind == "log":
+            return np.geomspace(r_min, r_max, n)
+        return np.linspace(r_min, r_max, n)
+
+    def density(self, r: Optional[np.ndarray] = None, *,
+                grid: str = "native", n: int = 400) -> Optional[np.ndarray]:
         """Total radial electron density.
 
-        When ``r`` is **not supplied** (default), returns the native radial
-        density directly from the stored orbitals on :attr:`r`:
+        When ``r`` is **not supplied** and ``grid='native'`` (defaults),
+        returns the native radial density directly from the stored
+        orbitals on :attr:`r`:
 
             D(r) = Σ_a n_a [P_a(r)² + Q_a(r)²]        (∫ D dr = N_electrons)
 
@@ -629,33 +727,42 @@ class Atom:
         ``r`` and the same quantity Σ n_a (P² + Q²) is returned on that
         grid. Points outside the native grid are filled with 0.
 
+        ``grid='log'`` is a convenience for plotting: returns the density
+        on a log-spaced grid of ``n`` points spanning the body of the
+        wavefunction (clipped at the small-r and large-r tails).  Use
+        :meth:`r_uniform` to get the matching radial axis.
+
         Returns ``None`` if the underlying result has no stored wavefunctions
         (e.g. the shooting backend).
         """
+        if grid not in ("native", "log", "linear"):
+            raise ValueError(f"grid must be 'native' | 'log' | 'linear' (got {grid!r})")
         w = self.waves
         if w is None or not w.orbitals:
             return None
-        grid = np.asarray(w.grid, dtype=float)
-        if grid.size == 0:
+        native_grid = np.asarray(w.grid, dtype=float)
+        if native_grid.size == 0:
             return None
 
+        if r is None and grid != "native":
+            r = self.r_uniform(n=n, kind=grid)
         interpolate = r is not None
-        r_eval = np.asarray(r, dtype=float) if interpolate else grid
+        r_eval = np.asarray(r, dtype=float) if interpolate else native_grid
         rho = np.zeros_like(r_eval, dtype=float)
 
         for orb in w.orbitals.values():
             P = np.asarray(orb.P, dtype=float)
-            if P.shape != grid.shape:
+            if P.shape != native_grid.shape:
                 continue
             if interpolate:
-                P_eval = np.interp(r_eval, grid, P, left=0.0, right=0.0)
+                P_eval = np.interp(r_eval, native_grid, P, left=0.0, right=0.0)
             else:
                 P_eval = P
             contrib = P_eval ** 2
             if orb.Q is not None:
                 Q = np.asarray(orb.Q, dtype=float)
                 if interpolate:
-                    Q_eval = np.interp(r_eval, grid, Q, left=0.0, right=0.0)
+                    Q_eval = np.interp(r_eval, native_grid, Q, left=0.0, right=0.0)
                 else:
                     Q_eval = Q
                 contrib = contrib + Q_eval ** 2
@@ -684,6 +791,40 @@ class Atom:
         if stack is None:
             stack = CorrectionStack()
         return stack.apply(self._result)
+
+    def climb(self, through=None, *, ladder=None, sampling=None):
+        """Run a ladder of theory rungs against this atom.
+
+        Parameters
+        ----------
+        through : Method, optional
+            Stop at this rung (inclusive).  If ``None``, climb the
+            entire ladder.
+        ladder : Ladder, optional
+            Custom ladder.  Defaults to :meth:`atomx.Ladder.standard`.
+        sampling : Sampling, optional
+            Numerical-discretization tier (e.g. ``Sampling.standard``).
+            Falls back to whatever was attached to this atom at
+            construction time.
+
+        Returns
+        -------
+        :class:`atomx.ladder.LadderRun`
+        """
+        from atomx.ladder import Ladder
+        base = ladder or Ladder.standard()
+        actual = base.through(through) if through is not None else base
+        return actual.run(self, sampling=sampling or self._sampling)
+
+    def show_ladder(self, through=None, *, unit: str = "eV",
+                    ladder=None, sampling=None, file=None):
+        """Climb the ladder and pretty-print the result table.
+
+        Returns the underlying :class:`LadderRun` for further inspection.
+        """
+        run = self.climb(through=through, ladder=ladder, sampling=sampling)
+        run.show(unit=unit, file=file)
+        return run
 
     def transitions(self, multipoles=None, gauge='length'):
         """Compute radiative transitions between atomic states.
