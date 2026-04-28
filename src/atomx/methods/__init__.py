@@ -16,6 +16,7 @@ from atomx.methods.hartree_fock import HartreeFock
 from atomx.methods.relativistic_hf import BreitPauli
 from atomx.methods.dirac_fock import DiracFock
 from atomx.methods.mcdhf import MCDHF
+from atomx.methods.mbpt import MBPT2Result, mbpt2_energy
 
 __all__ = [
     "Method",
@@ -25,4 +26,6 @@ __all__ = [
     "BreitPauli",
     "DiracFock",
     "MCDHF",
+    "MBPT2Result",
+    "mbpt2_energy",
 ]

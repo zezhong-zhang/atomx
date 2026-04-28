@@ -121,17 +121,16 @@ def dipole_matrix_element(P_bound, Q_bound, P_cont, Q_cont, bsp_data):
     float
         Dipole matrix element.
     """
-    nv = bsp_data["nv"]
-    ks = bsp_data["ks"]
-    ns = bsp_data["ns"]
+    # Use the kinetic-balance-aware helpers so P uses (bsp_p, ksp) and
+    # Q uses (bsp_q, ksq) — required when ksp ≠ ksq (RKB default).
+    from atomx.numerics.bspline.evaluate import eval_P, eval_Q
     gr = bsp_data["gr"]
     grw = bsp_data["grw"]
-    bsp = bsp_data["bsp_p"]
 
-    fi_P = eval_orbital_on_grid(P_bound, bsp, nv, ks, ns)
-    fi_Q = eval_orbital_on_grid(Q_bound, bsp, nv, ks, ns)
-    ff_P = eval_orbital_on_grid(P_cont, bsp, nv, ks, ns)
-    ff_Q = eval_orbital_on_grid(Q_cont, bsp, nv, ks, ns)
+    fi_P = eval_P(P_bound, bsp_data)
+    fi_Q = eval_Q(Q_bound, bsp_data)
+    ff_P = eval_P(P_cont, bsp_data)
+    ff_Q = eval_Q(Q_cont, bsp_data)
 
     # <f|r|i> = ∫ (P_f P_i + Q_f Q_i) r dr
     integrand = (ff_P * fi_P + ff_Q * fi_Q) * gr

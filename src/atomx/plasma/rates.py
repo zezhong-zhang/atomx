@@ -35,8 +35,9 @@ def maxwellian_rate(cross_section_cm2, energies_eV, temperature_eV):
     # Boltzmann-weighted integrand: sigma(E) * E * exp(-E/kT)
     integrand = cross_section_cm2 * energies_eV * np.exp(-energies_eV / kT)
 
-    # Trapezoidal integration
-    integral = np.trapz(integrand, energies_eV)
+    # Trapezoidal integration (np.trapezoid in numpy 2.x; np.trapz alias removed)
+    _trap = getattr(np, "trapezoid", None) or np.trapz  # type: ignore[attr-defined]
+    integral = _trap(integrand, energies_eV)
 
     # Prefactor: sqrt(8/(pi*m_e)) * (1/kT)^{3/2}
     # In cgs: m_e = 9.109e-28 g, E in erg = eV * 1.602e-12
@@ -44,7 +45,10 @@ def maxwellian_rate(cross_section_cm2, energies_eV, temperature_eV):
     eV_to_erg = 1.602_176_634e-12
     kT_erg = kT * eV_to_erg
 
-    prefactor = np.sqrt(8.0 / (np.pi * m_e_cgs)) * kT_erg ** (-1.5) * eV_to_erg
+    # eV_to_erg appears twice: one factor each for E in the integrand
+    # and dE — the integral is built in eV but the prefactor is in
+    # erg-consistent cgs.  (Previous version was missing one factor.)
+    prefactor = np.sqrt(8.0 / (np.pi * m_e_cgs)) * kT_erg ** (-1.5) * eV_to_erg ** 2
     return prefactor * integral
 
 
