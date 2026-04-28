@@ -36,3 +36,6 @@ packages = ["src/atomx"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = [
+    "slow: tests that run expensive atomic-structure calculations",
+]

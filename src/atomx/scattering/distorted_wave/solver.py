@@ -254,12 +254,92 @@ def collision_strength_to_rate(omega_array, energy_eV_array, temperature_eV):
     # Boltzmann weight
     weights = np.exp(-energy_eV_array / kT)
 
-    # Trapezoidal integration
+    # Trapezoidal integration (np.trapezoid in numpy 2.x)
     integrand = omega_array * weights
-    rate = np.trapz(integrand, energy_eV_array)
+    _trap = getattr(np, "trapezoid", None) or np.trapz  # type: ignore[attr-defined]
+    rate = _trap(integrand, energy_eV_array)
 
     # Prefactor (cgs units)
     from atomx.constants import BOHR_RADIUS_M, HARTREE_EV
     a0_cm = BOHR_RADIUS_M * 100
     prefactor = 2.0 * np.pi * a0_cm ** 2 / np.sqrt(kT / HARTREE_EV)
     return prefactor * rate
+
+
+# ---------------------------------------------------------------------------
+# Coulomb-Bethe high-ℓ top-up for dipole-allowed transitions
+# ---------------------------------------------------------------------------
+
+
+def coulomb_bethe_topup(
+    f_ab: float,
+    energies_eV: np.ndarray,
+    dE_eV: float,
+    L_truncation: int,
+) -> np.ndarray:
+    """High-ℓ Coulomb-Bethe (Burgess-Sheorey) top-up for the dipole-
+    allowed collision strength.
+
+    The DW partial-wave sum truncates at some ℓ_max; the contribution
+    from ℓ > ℓ_max is approximated by its Bethe asymptotic limit
+
+        Ω_CB(E) ≈ (8/E) · f_ab · ln(E_kin · ω_ab^{-1})  ·  (correction)
+
+    Following Burgess & Sheorey (J. Phys. B 7, 2403, 1974), a more
+    refined formula uses the projectile momentum k:
+
+        Ω_CB(E ; ℓ > L) ≈ (4 f_ab / ω) · ln[(k_initial + k_final) /
+                                              (k_initial - k_final)]
+
+    where k = √(2 E_kin) and ω = ΔE.  This expression closes the
+    partial-wave sum analytically and removes the slow log-divergent
+    convergence with ℓ_max for dipole transitions.
+
+    Parameters
+    ----------
+    f_ab
+        Optical (dipole) oscillator strength of the i → f transition,
+        atomic-units / dimensionless.
+    energies_eV
+        Incident-electron energies, eV.
+    dE_eV
+        Excitation energy E_f − E_i, eV.
+    L_truncation
+        ℓ value at which the DW sum was truncated.
+
+    Returns
+    -------
+    np.ndarray
+        Top-up Ω(E) per energy on the same grid as ``energies_eV``.
+
+    References
+    ----------
+    - A. Burgess, V. P. Sheorey, *J. Phys. B* **7**, 2403 (1974).
+    - C. Mendoza, P. J. Storey, *J. Phys. B* **15**, 1145 (1982) —
+      practical implementation in scattering codes.
+    """
+    from atomx.constants import HARTREE_EV
+    energies_au = np.asarray(energies_eV, dtype=float) / HARTREE_EV
+    omega_au = dE_eV / HARTREE_EV
+    out = np.zeros_like(energies_au)
+    above = energies_au > omega_au + 1e-12
+    if not np.any(above):
+        return out
+    k_i_sq = 2.0 * energies_au[above]
+    k_f_sq = 2.0 * (energies_au[above] - omega_au)
+    # Avoid log-singularity at threshold
+    k_i = np.sqrt(k_i_sq)
+    k_f = np.sqrt(k_f_sq)
+    log_arg = (k_i + k_f) / np.maximum(k_i - k_f, 1e-30)
+    out[above] = (4.0 * f_ab / omega_au) * np.log(log_arg)
+    # Soft suppression to avoid double-counting the L≤L_truncation
+    # dipole contribution: scale by (a heuristic) max(0, 1 − L_truncation^{-1}).
+    suppression = max(0.0, 1.0 - 1.0 / max(L_truncation + 1, 2))
+    return out * suppression
+
+
+__all__ = [
+    "dw_excitation_cross_section",
+    "collision_strength_to_rate",
+    "coulomb_bethe_topup",
+]
