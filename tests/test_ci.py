@@ -58,7 +58,12 @@ def test_ci_solve_matches_first_mcdhf_macroiteration():
     """ci_solve on frozen DHF orbitals reproduces the state energies that
     MCDHFSolver computes inside its first macro-iteration."""
     csfs = _he_csfs()
-    solver = MCDHFSolver(Z=2, csfs=csfs, ns=50, ks=7)
+    # Disable the DBSR-HF physics knots grid that MCDHFSolver installs by
+    # default — the standalone DFSolver below uses the default knot grid,
+    # so both code paths must share the same basis for the equivalence
+    # check to be meaningful (otherwise the DHF energies — and hence the
+    # 1×1 CI energies for a single CSF — differ by ~5 mHa).
+    solver = MCDHFSolver(Z=2, csfs=csfs, ns=50, ks=7, use_physics_grid=False)
 
     # Run the full MCDHF (single CSF, so zero correlation — converges
     # in one iteration but still produces a well-defined CI result).

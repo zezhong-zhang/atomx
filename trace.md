@@ -351,3 +351,30 @@ pass ``n_grid=1000`` directly to ``ShootingSolver``.  The three
 regression test files (`test_slater_integral_slag6.py`,
 `test_dbound_heavy_z.py`, `test_fac_dfs_shooting.py`) all pass
 unchanged at the new default; full suite 548 passed / 3 skipped.
+
+### EARS — Session Start (2026-05-01 13:02)
+<!-- concepts: ci-solver, mcdhf, test-tolerance -->
+- Task: Investigate and fix the failing CI test
+  `test_ci_solve_matches_first_mcdhf_macroiteration` in `tests/test_ci.py`,
+  where pure `ci_solve` on frozen DHF orbitals (-2.8451 Ha) deviates
+  ~0.18% from MCDHF first macro-iteration ground energy (-2.8401 Ha),
+  exceeding the `rel=1e-10` assertion.
+- Why: Restore green CI for atomx; ensure CI/MCDHF code paths are
+  consistent (Phase-6 split invariant) before further MCDHF work lands.
+
+### EARS — Progress (2026-05-01 13:06)
+<!-- concepts: ci-solver, mcdhf, bspline-knots -->
+- Root cause for `test_ci_solve_matches_first_mcdhf_macroiteration` failure:
+  `MCDHFSolver.solve()` swaps in the DBSR-HF semi-exponential physics knots
+  grid (`make_physics_knots`) post-construction (mcdhf/solver.py:246-256),
+  overriding the user's `ns`. The test's standalone DHF reproduction used
+  the default `DFSolver` knot grid with `ns=50`. For a single CSF (1s2 He)
+  the CI matrix is 1×1, so CI energy *equals* the DHF energy — and the two
+  different bases gave -2.8401 (physics grid) vs -2.8451 Ha (default grid),
+  a 5 mHa discrepancy that swamped the rel=1e-10 assertion.
+- Verified empirically by toggling `use_physics_grid` on the inner MCDHF
+  call: with both paths on the default grid, CI vs MCDHF first-macro agree
+  to 1.3e-10 Ha; with both on the physics grid they would also agree.
+- Fix (test-only): pass `use_physics_grid=False` to `MCDHFSolver` in the
+  test so both code paths share the default knot grid. Production behavior
+  unchanged — the test was just comparing apples to oranges.
