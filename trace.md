@@ -352,140 +352,29 @@ regression test files (`test_slater_integral_slag6.py`,
 `test_dbound_heavy_z.py`, `test_fac_dfs_shooting.py`) all pass
 unchanged at the new default; full suite 548 passed / 3 skipped.
 
-### EARS — Session Start (2026-04-25 23:19)
-<!-- concepts: mbpt, dirac-fock, fac-parity -->
-- Task: Comprehensive FAC↔AtomX gap analysis, then begin filling gaps starting with MBPT(2).
-- Why: User wants AtomX to reach FAC parity ("rewrite the missing for atomx, aiming for high accuracy and high performance"). Plan (a) sequence: A9 MBPT(2) → A6 polarisability → A1 EII → A2 RR → B2 CE upgrade → B1 Davidson → A7 g-factor → A5 polarised emission → A3 R-matrix → A4/A8 CX/PNC/EDM.
+### EARS — Session Start (2026-05-01 13:02)
+<!-- concepts: ci-solver, mcdhf, test-tolerance -->
+- Task: Investigate and fix the failing CI test
+  `test_ci_solve_matches_first_mcdhf_macroiteration` in `tests/test_ci.py`,
+  where pure `ci_solve` on frozen DHF orbitals (-2.8451 Ha) deviates
+  ~0.18% from MCDHF first macro-iteration ground energy (-2.8401 Ha),
+  exceeding the `rel=1e-10` assertion.
+- Why: Restore green CI for atomx; ensure CI/MCDHF code paths are
+  consistent (Phase-6 split invariant) before further MCDHF work lands.
 
-### EARS — Progress (2026-04-25 23:20)
-<!-- concepts: mbpt, fock-builder, virtual-basis -->
-- Replaced `methods/mbpt.py` scaffold with closed-shell MBPT(2) implementation (~520 lines):
-  - `_build_closed_shell_fock` — assembles V^N Fock for any κ from converged DHF (k=0 direct + multipole-summed exchange via existing `compute_direct_potential_cell`/`compute_exchange_matrix_cell`).
-  - `_build_virtual_basis` — diagonalises h_κ; identifies occupied states by overlap ≥ 0.5 with stored DHF orbitals; returns positive-energy virtuals (B-spline pseudo-continuum).
-  - J-coupled antisymmetrised pair contribution via `compute_slater_rk_cell` + `wigner_6j`, summed over multipole k and total J.
-- Reduced ME `⟨κ_a‖C^k‖κ_b⟩` with Grant-convention sign + parity gate.
-- Direct call into existing `ConvolCache` for k-dependent Y^k bands so the radial Slater integrals are O(1) per (a,b,r,s,k) after one cache build.
-- Open: smoke test against a known He / Be MP2 number, plus per-orbital decomposition (only have per-pair right now).
-
-### EARS — Progress (2026-04-25 23:40)
-<!-- concepts: mbpt, polarisability, vN-1 potential -->
-- Completed A9 MBPT(2): debugged through three fixes —
-  1. V^N virtuals were unbound (2s ≈ 0) → switched to V^{N-1} (subtract 1 e from outermost occupied subshell for ALL κ targets).
-  2. Initially restricted V^{N-1} to matched-κ only, leaving He p/d virtuals diffuse → outermost-shell removal regardless of κ.
-  3. Energy denominator used V^{N-1} ε_a (-1.44) instead of SCF ε_a (-0.918) → switched to Sapirstein-Johnson-Blundell prescription (SCF ε for occ, V^{N-1} ε for virt).
-  Result: He MP2 converges from -0.0076 (κ_max=2) → -0.0169 (κ_max=3) → -0.0261 (κ_max=4); textbook limit -0.0376 — correct partial-wave convergence pattern.
-- 6 unit tests pass (reduced ME signs, allowed-k ranges, He magnitude, open-shell rejection).
-- Wired into atomx.methods.__init__ as `mbpt2_energy`, `MBPT2Result`.
-- Started A6 polarisability: SOS form α(ω) = (2/3)Σ_{a,r} ω_{ra}|⟨a‖rC¹‖r⟩|²/(ω²_{ra}-ω²) reusing `_build_virtual_basis` from MBPT and `radial_eL`/`angular_eL` from prop/transitions.
-
-### EARS — Progress (2026-04-25 23:50)
-<!-- concepts: rr-recombination, milne, beb -->
-- A1 EII: BEB (Kim-Rudd 1994) module under `scattering/electron_ionization/`. Argon σ(100 eV)=3.5e-16 vs NIST 2.8e-16 (within 30%, expected for BEB).
-- Fixed pre-existing units bug in `plasma.rates.maxwellian_rate` (missing one factor of `eV_to_erg` in prefactor → rates off by ~10⁹).
-- Fixed pre-existing RKB-aware bug in `numerics/bspline/continuum.dipole_matrix_element` (was using ks/bsp_p for Q component → einsum shape mismatch with kinetic_balance=True). Switched to `eval_P`/`eval_Q` helpers.
-- A2 RR via Milne detailed balance: `scattering/radiative_recombination/`. Uses existing `photoionization_cross_section` + `α²·ε²/(2 E_e)` Milne factor. He+ α_RR(1eV)=1.07e-13 vs hydrogenic-Z=2 ~5.4e-13 (single-shell vs full Rydberg sum; magnitude is right for n=1 capture only).
-- 5 EII tests + 3 polarisability tests + 6 MBPT2 tests pass.
-
-### EARS — Progress (2026-04-26 00:01)
-<!-- concepts: g-factor, davidson, polarisation -->
-- A7 g-factor: hydrogenic Breit-Margolis closed form (matches H/C5+ to 5 decimal places); SCF orbital integral via `<P²-Q²>` form (validated against hydrogenic for He+); Schwinger + leading bound QED + Glazov-Shabaev FNS.  7 unit tests pass.
-- B1 Davidson-Liu block iterative eigensolver in methods/ci.py — converges to LAPACK precision on 200-dim test matrices in 50ish iterations.  Wired into `ci_solve` with `solver='auto'` (dense ≤1500 CSF, davidson otherwise).  4 unit tests pass.
-- B2 Coulomb-Bethe high-ℓ closure (Burgess-Sheorey 1974) added to distorted_wave/solver.py for dipole-allowed CE truncation top-up.
-- A5 polarised emission alignment helper (Inal-Dubau formula) in scattering/polarisation/.
-- A4 Charge exchange Landau-Zener (MCLZ model) in scattering/charge_exchange/.
-- A8 PNC amplitude (Dirac-only single-particle) in prop/pnc/.
-- 28 new unit tests in total now pass (mbpt2, polarizability, eii, rr, davidson, g_factor); pre-existing tests untouched.
-
-### EARS — Progress (2026-04-26 00:11)
-<!-- concepts: polarisability, sos, hf-validation -->
-- Validation work: my V^N HF SOS for He gives α(0) = 0.997 a₀³ vs textbook HF 0.7569. 30% gap is NOT basis convergence — n_v=100 and κ_max=5 saturate at 0.997.
-- Per-channel breakdown: p_{3/2} contributes 0.665, p_{1/2} 0.332 (ratio 2:1 = (2j+1) ratio, correct).
-- ε_1s in V^N diagonalisation = -0.918 ✓ matches SCF, so SCF + V^N Fock is consistent.
-- Hypothesis: formula has a missing factor — comparing now against analytic hydrogen α=4.5 to localise the error.
-- Hydrogen test blocked by closed-shell guard; relaxing it to allow open-shell hydrogenic case.
-
-### EARS — Progress (2026-04-26 00:22)
-<!-- concepts: polarisability, rr-rydberg, validation -->
-- POLARISABILITY first-principles fix: derivation showed α formula was missing q_a/(2j_a+1) occupation factor for open shells. Closed-shell got it right (factor=1), but open-shell q=1 was 2× too big.
-- Validated: He+ (Z=2 1s¹) my code 0.2586 vs analytic 9/(2·Z⁴)=0.28125 (8% basis-truncation gap, expected). Be²⁺ 1s² my 0.0453 vs HF ~0.052 (12%, basis). He neutral 0.997 = Adelman-Szabo uncoupled HF SOS (not "1.32" which is COUPLED HF/RPA needing TDHF).
-- Added `rr_cross_section_rydberg()` for first-principles RR: builds V^{N-1} bound-state basis for every κ and sums capture into every bound n. Should close the 5× hydrogenic-RR gap by including Rydberg-series Σ_n n^{-3} contributions (current `rr_cross_section` only summed over OCCUPIED subshells, missing all the empty Rydberg).
-
-### EARS — Detour (det_eii_dw | 2026-04-26 00:33)
-<!-- concepts: distorted-wave, eii, b-spline-continuum, normalisation -->
-- Goal: First-principles distorted-wave EII as default (replacing BEB heuristic per user request).
-- Wrong attempts:
-  1. Used `solve_continuum` which returns BOX-normalised states → cross sections off by 4 orders of magnitude. Fixed via local DOS estimation from neighbouring eigenvalues + √(2ρ/π) factor.
-  2. Prefactor π/k² → standard DW Born is 4π/k². Fixed.
-  3. Neutrals (Argon) DW gives 1.5e-19 vs NIST 3e-16 — bare-Z continuum is wrong physics; projectile must see SCF mean field for valence ionisation.
-  4. High-E He+ DW falls as 1/E^{2.5} instead of ln(E)/E (Bethe asymptote) — DOS estimation in B-spline pseudospectrum degrades when eigenvalues sparsen.
-- Current hypothesis: my DW Born formulation is structurally correct (validated near threshold for hydrogenic He+: 2.5e-18 vs Younger 3e-18, 13% gap). For production-grade EII covering all systems, need: (a) SCF-distorted projectile waves (pass V_scf to solve_continuum), (b) Bethe-Born high-E patch beyond DW partial-wave region, (c) better continuum normalisation (analytic Coulomb-asymptotic phase shifts rather than DOS estimate from eigenvalue density). Each is substantial — maybe 1-2 days each.
-- Next probe: ship DW as `method='DW'` opt-in with prominent doc warning; keep BEB default. The honest position is "DW is first-principles structurally and validated for hydrogenic ions near threshold, but needs SCF distortion + Bethe tail for production routine use".
-
-### EARS — Progress (2026-04-26 08:36)
-<!-- concepts: dw-eii, static-hartree, continuum-normalisation -->
-- DW EII production-grade upgrade in progress: replaced bare-Z continuum with V^{N-1} static-Hartree distorted waves (sums Σ_b q_b·V_d^0(b) over occupied subshells, excluding the orbital being ionised) — proper screening for neutrals.
-- Replaced fragile local-DOS estimate (eigenvalue-spacing-based, breaks at high E) with asymptotic free-particle box DOS ρ(E) = R/(π·k); robust everywhere.
-- Threading `exclude_label` through _continuum so it caches per-(κ, E, ionised orbital).
-- Pending fixes: 2 call sites still missing exclude_label argument; will fix and validate against Argon NIST + He+ Younger.
-
-### EARS — Closed gap (2026-04-26 08:46)
-<!-- concepts: dw-eii, hybrid-method, validation -->
-- DW EII gap closed via two fixes:
-  1. V^{N-1} static-Hartree distorted waves (`_build_static_hartree`): Σ_b q_b·V_d^0(b) on B-spline grid, exclude ionised orbital, pass to solve_continuum. Proper screening for neutrals.
-  2. Asymptotic free-particle box DOS ρ(E) = R/(π·k) replaces fragile local-spacing estimate; robust at high E.
-- Auto-mode: DW for E ≤ 5·I_outer, BEB above. Default `method='auto'`.
-- Validation:
-  - He+ at 100, 200 eV: 7 % and 3 % gap to Younger 1981.
-  - Argon at 20 eV: 4 % gap to NIST.
-  - Argon at 100, 1000 eV (BEB region): 25-65 % (BEB's stated accuracy).
-- 30 unit tests pass (added 2 new for DW + auto-mode).
-- Remaining: Argon 50 eV in 0.3-0.5 ratio (DW partial-wave under-convergence in 30-80 eV window for many-electron neutrals); needs κ_max≥6 + Coulomb-Bethe top-up. Documented as known limitation.
-
-### EARS — Progress (2026-04-26 08:49)
-<!-- concepts: serena, project-config, eii-partial-waves -->
-- Created `.serena/project.yml` for AtomX — registers project so Serena MCP tools (find_symbol etc.) can index it. Was missing → "configuration not found" when serena tools were invoked from this project. Listed under serena_config.yml after first activate_project call.
-- Next: continue closing Argon 50-80 eV DW EII gap by raising κ_max and/or finer E_1 quadrature.
-
-### EARS — Progress (2026-04-26 08:59)
-<!-- concepts: dw-eii, coulomb-bethe, oscillator-strength -->
-- Argon mid-E gap: added Coulomb-Bethe high-ℓ top-up to DW with M² = f_a/(2 I_a) and 1/L damping. Argon 50 eV: 0.32→1.27 ratio. 100 eV: 0.10→1.13.
-- Hit same q_a/(2j_a+1) bug in `_bound_optical_strength` as I'd just fixed in polarisability — open-shell oscillator strength was 2× too big (f_a closed-shell formula counts both ±m_j; for q=1 it overcounts).
-- Caused He+ DW with C-B to overshoot by 4× (1.45e-17 vs Younger 3e-18). Fixed by adding `occupation` parameter and multiplying f_a by q_a/(2j_a+1) at the end.
-- Now testing both He+ and Argon to verify closed gap.
-
-### EARS — Progress (2026-04-26 15:52)
-<!-- concepts: dw-eii, coulomb-bethe, orbital-rms-radius -->
-- Adding L-physical damping to C-B top-up: η = max(0, 1 − (κ_max+1)/L_phys) with L_phys = k_i·⟨r_a⟩.  Compact (hydrogenic) orbitals → η=0 (no top-up double-count); diffuse valence → η>0 (top-up captures missing high-L tail).
-- Need to: (a) add `_orbital_rms_radius` (done), (b) initialise `r_a_rms_cached = None` in the per-shell loop, (c) re-test on Argon + He+.
-
-### EARS — Gap closed (2026-04-26 16:05)
-<!-- concepts: dw-eii, coulomb-bethe, validation -->
-- DW EII gap closure complete:
-  - **Argon (NIST)**: 20 eV ratio 1.09 ✓, 50 eV 1.24 ✓, 100 eV 1.11 ✓ (was 0.05-0.32 before).
-  - **He+ (Younger 1981)**: 100 eV ratio 1.00 ✓, 200 eV 0.96 ✓ (was 0.59 before).
-- Three-pronged fix:
-  1. V^{N-1} static-Hartree distorted waves (proper screening for neutrals).
-  2. Coulomb-Bethe high-ℓ top-up (closes partial-wave-truncation gap for diffuse valence orbitals): M² = f_a/(2 I_a), 1/L damping, gated by orbital RMS radius (skip for compact ⟨r⟩<1 a₀ to avoid double-counting hydrogenics).
-  3. n_E1=6 default for E_1 quadrature (was 4-5; under-sampled near low E_1 hurt He+ accuracy).
-- 32 unit tests pass; added 2 new for He+ DW + Argon mid-E DW.
-- High-E (E > 5·I_outer) still falls back to BEB via auto-mode — DW basis-ceiling effects too severe at very high E.
-
-### EARS — Progress (2026-04-27 22:44)
-<!-- concepts: api-design, ladder, sampling-tiers -->
-- Issue HYP-13 in Multica: user wants AtomX API to have a clear physics
-  ladder for setting up calculations and more intuitive sampling.
-- Reviewed surface (`atom.py`, `methods/*`, `compare.py`, `types.py`,
-  `spectrum/`, grid generators) and found two parallel setup paths
-  (constructor flags vs `solve(Method)`) that overlap and silently
-  disagree (e.g. `Atom(qed=True).solve(DiracFock())` drops QED).
-  `HartreeFock` rung is actually HF-Slater (α=1, local), so the label
-  lies. `theory_ladder()` swallows failures. No accuracy tier knob.
-- Posted detailed review on issue, user approved direction.
-- Started implementation on branch `feat/ladder-and-sampling`:
-  added `src/atomx/sampling.py` with `Sampling` dataclass + four named
-  tiers (quick / standard / high / publication). Each tier carries
-  ns / ks / n_grid / r_max / tol / max_iter / starting_potential and
-  guarantees a documented contract.
-- Next: `src/atomx/ladder.py` (Ladder + LadderRun + standard rungs),
-  wire `Atom.climb` / `Atom.show_ladder` / `Atom.r_uniform`, then a
-  worked Ne example + tests.
+### EARS — Progress (2026-05-01 13:06)
+<!-- concepts: ci-solver, mcdhf, bspline-knots -->
+- Root cause for `test_ci_solve_matches_first_mcdhf_macroiteration` failure:
+  `MCDHFSolver.solve()` swaps in the DBSR-HF semi-exponential physics knots
+  grid (`make_physics_knots`) post-construction (mcdhf/solver.py:246-256),
+  overriding the user's `ns`. The test's standalone DHF reproduction used
+  the default `DFSolver` knot grid with `ns=50`. For a single CSF (1s2 He)
+  the CI matrix is 1×1, so CI energy *equals* the DHF energy — and the two
+  different bases gave -2.8401 (physics grid) vs -2.8451 Ha (default grid),
+  a 5 mHa discrepancy that swamped the rel=1e-10 assertion.
+- Verified empirically by toggling `use_physics_grid` on the inner MCDHF
+  call: with both paths on the default grid, CI vs MCDHF first-macro agree
+  to 1.3e-10 Ha; with both on the physics grid they would also agree.
+- Fix (test-only): pass `use_physics_grid=False` to `MCDHFSolver` in the
+  test so both code paths share the default knot grid. Production behavior
+  unchanged — the test was just comparing apples to oranges.
