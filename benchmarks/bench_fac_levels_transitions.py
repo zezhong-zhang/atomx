@@ -79,10 +79,18 @@ def run_atomx_fe17():
     trs = atom.transitions(multipoles=["E1"])
     t1 = time.perf_counter()
 
-    # Pull raw levels from MCDHFResult
+    # Pull CI eigenlevels from MCDHFResult.  Older snapshots exposed only
+    # per-CSF diagonal energies here, which made this benchmark report zero
+    # atomx levels even when the solver had state energies.
     r = atom._result
     levels = []
-    if hasattr(r, "csf_energies"):
+    if hasattr(r, "state_energies"):
+        for i, e in enumerate(r.state_energies):
+            twoJ = 0
+            if hasattr(r, "csfs") and i < len(r.csfs):
+                twoJ = getattr(r.csfs[i], "total_J2", 0)
+            levels.append({"idx": i, "E_ha": e, "twoJ": twoJ})
+    elif hasattr(r, "csf_energies"):
         for i, e in enumerate(r.csf_energies):
             levels.append({"idx": i, "E_ha": e})
     elif hasattr(r, "energies"):

@@ -7,7 +7,9 @@ characterized by (n, kappa), and the occupation q <= 2j+1.
 For MCDHF, we need multiple CSFs that can mix via CI.
 """
 
+from collections import Counter
 from dataclasses import dataclass, field
+from itertools import combinations
 from typing import List, Tuple
 import numpy as np
 
@@ -110,6 +112,47 @@ def make_csf_list(Z, config_strings):
     return csfs
 
 
+def _subshell_J2_terms(j2: int, q: int) -> List[int]:
+    """Return seniority-allowed ``2J`` terms for equivalent electrons j^q.
+
+    Terms are obtained by counting antisymmetrized Slater determinants by
+    total M.  For an SU(2) decomposition, the number of irreps with angular
+    momentum J is N(M=J) - N(M=J+1).  All values are stored as doubled
+    integers, so the adjacent M step is 2.
+    """
+    capacity = j2 + 1
+    if q < 0 or q > capacity:
+        raise ValueError(f"Occupation {q} exceeds capacity {capacity} for 2j={j2}")
+    if q == 0 or q == capacity:
+        return [0]
+
+    # Particle-hole conjugation preserves the set of allowed J values and
+    # keeps the determinant enumeration small for almost-filled subshells.
+    q_eff = min(q, capacity - q)
+    m2_values = range(-j2, j2 + 1, 2)
+    m_counts = Counter(sum(ms) for ms in combinations(m2_values, q_eff))
+
+    terms: List[int] = []
+    for J2 in sorted((m for m in m_counts if m >= 0), reverse=True):
+        multiplicity = m_counts[J2] - m_counts.get(J2 + 2, 0)
+        terms.extend([J2] * multiplicity)
+    return sorted(terms)
+
+
+def _couple_J2_terms(left: List[int], right: List[int]) -> List[int]:
+    """Clebsch-Gordan reduce two lists of ``2J`` terms."""
+    coupled: List[int] = []
+    for J1 in left:
+        for J2 in right:
+            coupled.extend(range(abs(J1 - J2), J1 + J2 + 1, 2))
+    return sorted(coupled)
+
+
+def _subshell_parity(kappa: int, q: int) -> int:
+    l = kappa if kappa > 0 else -kappa - 1
+    return -1 if (l * q) % 2 else 1
+
+
 def enumerate_jj_csfs(config_str: str) -> List[CSF]:
     """Enumerate all jj-coupled CSFs of a single NR configuration string.
 
@@ -145,12 +188,13 @@ def enumerate_jj_csfs(config_str: str) -> List[CSF]:
         q = int(token[2:])
         nr_shells.append((n, l, q))
 
-    # Per-shell list of (n, kappa, occ) tuples for each valid jj-split
-    per_shell_options: List[List[List[Tuple[int, int, int]]]] = []
+    # Per-shell list of (subshell tuples, allowed shell J terms) for each
+    # valid jj-split.
+    per_shell_options: List[List[Tuple[List[Tuple[int, int, int]], List[int]]]] = []
     for n, l, q in nr_shells:
         if l == 0:
             # s-shell: single kappa = -1
-            per_shell_options.append([[(n, -1, q)]])
+            per_shell_options.append([([(n, -1, q)], _subshell_J2_terms(1, q))])
             continue
         kappa_minus = l                 # j = l - 1/2
         kappa_plus = -(l + 1)           # j = l + 1/2
@@ -160,14 +204,21 @@ def enumerate_jj_csfs(config_str: str) -> List[CSF]:
         for q_minus in range(max(0, q - max_plus), min(q, max_minus) + 1):
             q_plus = q - q_minus
             subs = []
+            terms = [0]
             if q_minus > 0:
                 subs.append((n, kappa_minus, q_minus))
+                terms = _couple_J2_terms(
+                    terms, _subshell_J2_terms(2 * l - 1, q_minus)
+                )
             if q_plus > 0:
                 subs.append((n, kappa_plus, q_plus))
+                terms = _couple_J2_terms(
+                    terms, _subshell_J2_terms(2 * l + 1, q_plus)
+                )
             # Even if both are zero (shouldn't happen for q>0) still add for completeness
             if not subs:
                 subs.append((n, kappa_plus, 0))
-            options.append(subs)
+            options.append((subs, terms))
         per_shell_options.append(options)
 
     # Cartesian product across shells
@@ -176,7 +227,7 @@ def enumerate_jj_csfs(config_str: str) -> List[CSF]:
             return [[]]
         acc = [[]]
         for choices in lists:
-            acc = [prev + choice for prev in acc for choice in choices]
+            acc = [prev + [choice] for prev in acc for choice in choices]
         return acc
 
     combos = product(per_shell_options)
@@ -185,10 +236,22 @@ def enumerate_jj_csfs(config_str: str) -> List[CSF]:
     for combo in combos:
         subs = []
         labels = []
-        for n, kappa, occ in combo:
-            subs.append(Subshell(n=n, kappa=kappa, occupation=occ))
-            labels.append(f"{subs[-1].label}^{occ}")
-        csfs.append(CSF(subshells=subs, label=" ".join(labels)))
+        total_terms = [0]
+        parity = 1
+        for shell_subs, shell_terms in combo:
+            total_terms = _couple_J2_terms(total_terms, shell_terms)
+            for n, kappa, occ in shell_subs:
+                subs.append(Subshell(n=n, kappa=kappa, occupation=occ))
+                labels.append(f"{subs[-1].label}^{occ}")
+                parity *= _subshell_parity(kappa, occ)
+        label = " ".join(labels)
+        for total_J2 in total_terms:
+            csfs.append(CSF(
+                subshells=list(subs),
+                total_J2=total_J2,
+                parity=parity,
+                label=label,
+            ))
     return csfs
 
 
