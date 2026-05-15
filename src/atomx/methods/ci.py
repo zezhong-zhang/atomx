@@ -115,7 +115,25 @@ def ci_solve(
             f"or 'auto'."
         )
 
-    if solver == "dense":
+    # Block-diagonalise by (total_J2, parity) when the CSF list carries
+    # those labels (jj-CSFs from enumerate_jj_csfs). Total angular
+    # momentum and parity are exact symmetries of the Dirac–Coulomb
+    # Hamiltonian, so off-block matrix elements must vanish; zeroing
+    # them eliminates spurious cross-J mixing introduced by the
+    # average-of-jj-configurations matrix-element formulas.
+    blocks = _group_csfs_by_J_parity(csfs)
+    if blocks is not None and len(blocks) > 1:
+        state_energies, mixing = _solve_blocked(H_ci, blocks)
+        if n_states is not None:
+            state_energies = state_energies[:n_states]
+            mixing = mixing[:, :n_states]
+        provenance = {
+            "n_csf": n, "n_orbitals": len(orbitals_dict),
+            "solver": "dense-blocked",
+            "n_blocks": len(blocks),
+            "block_sizes": [len(idx) for _, idx in blocks],
+        }
+    elif solver == "dense":
         state_energies, mixing = linalg.eigh(H_ci)
         if n_states is not None:
             state_energies = state_energies[:n_states]
@@ -136,6 +154,60 @@ def ci_solve(
         mixing_coefficients=np.asarray(mixing),
         provenance=provenance,
     )
+
+
+def _group_csfs_by_J_parity(csfs):
+    """Group CSF indices by (total_J2, parity); return None if labels missing.
+
+    Returns
+    -------
+    blocks : list of ((J2, parity), [csf_idx, ...]) or None
+        Sorted so that (J2=0, +1) comes first.  Returns ``None`` when no
+        CSF carries a non-default J/parity label (legacy AL-flat path).
+    """
+    labels = []
+    seen_non_default = False
+    for csf in csfs:
+        j2 = int(getattr(csf, "total_J2", 0))
+        par = int(getattr(csf, "parity", 1))
+        if j2 != 0 or par != 1:
+            seen_non_default = True
+        labels.append((j2, par))
+    if not seen_non_default:
+        return None
+    groups: dict = {}
+    for i, key in enumerate(labels):
+        groups.setdefault(key, []).append(i)
+    # Stable order: lowest J2 first, even parity before odd
+    return sorted(groups.items(), key=lambda kv: (kv[0][0], -kv[0][1]))
+
+
+def _solve_blocked(H_ci, blocks):
+    """Block-diagonalise H_ci according to (J2, parity) groupings.
+
+    Each block is diagonalised independently with LAPACK ``eigh``; the
+    eigenvectors are scattered back into a full-size mixing matrix and
+    the eigenvalues are concatenated in ascending order.  Off-block
+    matrix elements are dropped because they must vanish by angular
+    selection rules.
+    """
+    n = H_ci.shape[0]
+    all_eigvals = []
+    all_eigvecs = []
+    for (_J2, _par), idx in blocks:
+        sub = H_ci[np.ix_(idx, idx)]
+        # Symmetrise residual numerical noise before eigh
+        sub = 0.5 * (sub + sub.T)
+        w, V = linalg.eigh(sub)
+        for k in range(len(w)):
+            vec = np.zeros(n)
+            vec[idx] = V[:, k]
+            all_eigvals.append(float(w[k]))
+            all_eigvecs.append(vec)
+    order = np.argsort(all_eigvals)
+    state_energies = np.asarray([all_eigvals[i] for i in order])
+    mixing = np.column_stack([all_eigvecs[i] for i in order])
+    return state_energies, mixing
 
 
 # ---------------------------------------------------------------------------
