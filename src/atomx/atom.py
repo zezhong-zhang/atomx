@@ -69,7 +69,7 @@ class Atom:
                  correlation=None, starting_potential=None,
                  plasma_ne=None, plasma_Te=None,
                  averaging="ci", slater_method="slag6",
-                 sampling=None):
+                 sampling=None, j_resolved_csfs=False):
         """
         Parameters
         ----------
@@ -147,6 +147,7 @@ class Atom:
         self.plasma_ne = plasma_ne
         self.plasma_Te = plasma_Te
         self.averaging = averaging
+        self.j_resolved_csfs = bool(j_resolved_csfs)
 
         # Determine configuration(s)
         if configs is not None:
@@ -258,9 +259,14 @@ class Atom:
         if use_ci_avg:
             pass  # handled above
         elif self._multi_config:
-            from atomx.methods.mcdhf.config import make_csf_list
+            from atomx.methods.mcdhf.config import enumerate_j_resolved_csfs, make_csf_list
             from atomx.methods.mcdhf.solver import MCDHFSolver
-            csfs = make_csf_list(self.Z, self._config_strings)
+            if self.j_resolved_csfs:
+                csfs = []
+                for cfg in self._config_strings:
+                    csfs.extend(enumerate_j_resolved_csfs(cfg))
+            else:
+                csfs = make_csf_list(self.Z, self._config_strings)
             solver = MCDHFSolver(Z=self.Z, csfs=csfs, ns=self.ns, ks=self.ks,
                                   include_breit=self.breit, include_qed=self.qed)
             self._result = solver.solve(max_iter=max_iter, scf_tol=tol)

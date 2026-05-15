@@ -22,7 +22,12 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from atomx.methods.base import Method
-from atomx.methods.mcdhf.config import CSF, make_csf_list
+from atomx.methods.mcdhf.config import (
+    CSF,
+    count_j_resolved_csfs,
+    enumerate_j_resolved_csfs,
+    make_csf_list,
+)
 from atomx.methods.mcdhf.matrix import build_ci_matrix
 from atomx.methods.mcdhf.solver import MCDHFResult, MCDHFSolver
 from atomx.types import Correlation, TheoryLevel
@@ -92,5 +97,7 @@ __all__ = [
     "MCDHFResult",
     "MCDHFSolver",
     "build_ci_matrix",
+    "count_j_resolved_csfs",
+    "enumerate_j_resolved_csfs",
     "make_csf_list",
 ]

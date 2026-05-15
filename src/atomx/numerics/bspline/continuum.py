@@ -23,9 +23,32 @@ from atomx.numerics.bspline.knots import make_knots
 from atomx.numerics.bspline.basis import prepare_bspline_data
 from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
 from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
+from atomx.prop.transitions.angular import line_strength_factor
 
 
-def solve_continuum(kappa, energy, Z, bsp_data, V_scf_PP=None, V_scf_QQ=None):
+def continuum_energy_normalization_factor(energy, bsp_data):
+    """Box-normalized pseudo-state -> delta-energy normalization factor.
+
+    ``solve_continuum`` diagonalizes the Dirac equation in a finite radial box,
+    so the returned eigenvectors have unit box norm.  Scattering amplitudes
+    require continuum waves normalized to ``delta(E-E')``.  For a large
+    hard-wall box the density of positive-energy states is
+
+        rho(E) ~= R / (pi * k),   k = sqrt(2E),
+
+    and the radial sine-normalized conversion used elsewhere in AtomX is
+    ``sqrt(2*rho/pi)``.
+    """
+    if energy <= 0:
+        return 0.0
+    R_box = float(bsp_data["t"][-1])
+    k = float(np.sqrt(2.0 * energy))
+    rho = R_box / (np.pi * max(k, 1e-30))
+    return float(np.sqrt(2.0 * rho / np.pi))
+
+
+def solve_continuum(kappa, energy, Z, bsp_data, V_scf_PP=None, V_scf_QQ=None,
+                    energy_normalized=False):
     """Find the continuum wavefunction at given positive energy.
 
     Solves the Dirac equation (H - E*S)c = 0 where E > 0 is the
@@ -45,6 +68,10 @@ def solve_continuum(kappa, energy, Z, bsp_data, V_scf_PP=None, V_scf_QQ=None):
     V_scf_PP, V_scf_QQ : ndarray, optional
         Self-consistent potential from bound electrons (Hartree + exchange).
         If None, uses bare nuclear potential.
+    energy_normalized : bool, optional
+        If true, multiply the box-normalized pseudo-state by the asymptotic
+        density-of-states factor so it approximates delta-energy
+        normalization.  Scattering and Auger matrix elements should set this.
 
     Returns
     -------
@@ -97,6 +124,11 @@ def solve_continuum(kappa, energy, Z, bsp_data, V_scf_PP=None, V_scf_QQ=None):
         P[k] = vec_red[ii]
     for ii, k in enumerate(keep_q):
         Q[k - ns] = vec_red[len(keep_p) + ii]
+
+    if energy_normalized:
+        norm = continuum_energy_normalization_factor(float(E_actual), bsp_data)
+        P *= norm
+        Q *= norm
 
     return P, Q, E_actual
 
@@ -185,8 +217,9 @@ def photoionization_cross_section(bound_P, bound_Q, bound_kappa, bound_energy,
             continue  # below threshold
 
         for kf in final_kappas:
-            j2_f = 2 * abs(kf) - 1
-            angular_factor = (j2_f + 1)  # (2j_f + 1) degeneracy
+            angular_factor = line_strength_factor(bound_kappa, kf, 1, "E") / abs(bound_kappa)
+            if angular_factor == 0.0:
+                continue
 
             Pf, Qf, E_actual = solve_continuum(
                 kf, electron_energy, Z, bsp_data, V_scf_PP, V_scf_QQ)

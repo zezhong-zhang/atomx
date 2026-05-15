@@ -56,9 +56,82 @@ import numpy as np
 
 from atomx.constants import ALPHA, BOHR_RADIUS_M, HARTREE_EV
 from atomx.numerics.bspline.continuum import photoionization_cross_section
+from atomx.prop.transitions.angular import line_strength_factor
+from atomx.scattering.models import ContinuumModel
 
 
 BOHR_CM2 = (BOHR_RADIUS_M * 100.0) ** 2  # a₀² in cm²
+
+
+def _final_e1_kappas(bound_kappa: int) -> list[int]:
+    l_bound = bound_kappa if bound_kappa > 0 else -bound_kappa - 1
+    out = []
+    for l_f in (l_bound - 1, l_bound + 1):
+        if l_f < 0:
+            continue
+        out.append(-(l_f + 1))
+        if l_f > 0:
+            out.append(l_f)
+    return out
+
+
+def _shooting_photoionization_cross_section(
+    scf_result,
+    sh,
+    P_bound,
+    Q_bound,
+    photon_au: np.ndarray,
+    continuum_model: ContinuumModel,
+) -> np.ndarray:
+    """PI cross section using direct shooting continuum from a model."""
+    from atomx.numerics.bspline.evaluate import eval_P, eval_Q
+    from atomx.numerics.shooting.dirac_continuum import solve_dirac_continuum_shooting
+
+    bsp_data = scf_result._bsp_data
+    if bsp_data is None:
+        raise ValueError("shooting PI requires B-spline data for bound orbitals")
+    gr = bsp_data["gr"].ravel()
+    sort_idx = np.argsort(gr)
+    gr_sorted = gr[sort_idx]
+    Pb_grid = eval_P(P_bound, bsp_data).ravel()[sort_idx]
+    Qb_grid = eval_Q(Q_bound, bsp_data).ravel()[sort_idx]
+
+    potential_model = continuum_model.potential
+    if potential_model is None:
+        from atomx.scattering.models import PotentialModel
+        potential_model = PotentialModel.bare()
+    V_func = potential_model.build_callable(
+        scf_result,
+        Z=float(scf_result.Z),
+        exclude_label=sh.label,
+    )
+    n_electrons = sum(float(s.occupation) for s in scf_result.subshells)
+    z_residual = max(float(scf_result.Z) - n_electrons + 1.0, 1.0)
+
+    sigma = np.zeros_like(photon_au, dtype=float)
+    for idx, omega in enumerate(photon_au):
+        electron_energy = float(omega + scf_result.orbital_energies[sh.label])
+        if electron_energy <= 0.0:
+            continue
+        for kf in _final_e1_kappas(sh.kappa):
+            angular_factor = line_strength_factor(sh.kappa, kf, 1, "E") / abs(sh.kappa)
+            if angular_factor == 0.0:
+                continue
+            r, P_cont, Q_cont, _delta = solve_dirac_continuum_shooting(
+                electron_energy,
+                kf,
+                V_func,
+                n_grid=continuum_model.shooting_n_grid,
+                Z_residual=z_residual,
+            )
+            Pb = np.interp(r, gr_sorted, Pb_grid, left=0.0, right=0.0)
+            Qb = np.interp(r, gr_sorted, Qb_grid, left=0.0, right=0.0)
+            dme = np.trapezoid((P_cont * Pb + Q_cont * Qb) * r, r)
+            sigma[idx] += (
+                4.0 * np.pi ** 2 * ALPHA * float(omega) / 3.0
+                * dme ** 2 * angular_factor
+            )
+    return sigma
 
 
 # ---------------------------------------------------------------------------
@@ -107,6 +180,7 @@ def rr_cross_section(
     capture_orbitals: Optional[List[str]] = None,
     g_initial: Optional[int] = None,
     g_final: Optional[int] = None,
+    continuum_model: Any = None,
 ) -> RRResult:
     """Total radiative-recombination cross section via Milne detailed balance.
 
@@ -129,6 +203,10 @@ def rr_cross_section(
         Statistical weight ``g_n`` of the recombined bound state.
         Default: ``2j_n + 1`` of the captured electron's subshell —
         appropriate for closed-shell (N-1)-cores.
+    continuum_model
+        Optional compatibility hook for benchmark callers.  The current
+        implementation uses the continuum data already attached to
+        ``scf_result``.
 
     Returns
     -------
@@ -172,16 +250,29 @@ def rr_cross_section(
             continue
         P_b, Q_b, _ = orb_list[idx_in_kappa]
 
-        sigma_PI_a0sq = photoionization_cross_section(
-            P_b, Q_b, sh.kappa, eps_n, photon_au, Z, bsp_data,
-        )
+        if (
+            isinstance(continuum_model, ContinuumModel)
+            and continuum_model.method.lower() == "shooting"
+        ):
+            sigma_PI_a0sq = _shooting_photoionization_cross_section(
+                scf_result,
+                sh,
+                P_b,
+                Q_b,
+                photon_au,
+                continuum_model,
+            )
+        else:
+            sigma_PI_a0sq = photoionization_cross_section(
+                P_b, Q_b, sh.kappa, eps_n, photon_au, Z, bsp_data,
+            )
 
         # Statistical-weight ratio
         g_n = g_final if g_final is not None else (2 * abs(sh.kappa))
         # Milne factor in atomic units:
-        # σ_RR/σ_PI = (g_n/(2 g_ion)) · α²·ω²/E_e.
+        # σ_RR/σ_PI = (g_n/(2 g_ion)) · α²·ω²/(2 E_e).
         # The 2 in the degeneracy ratio is the free-electron spin.
-        milne = (ALPHA ** 2) * (photon_au ** 2) / energies_au
+        milne = (ALPHA ** 2) * (photon_au ** 2) / (2.0 * energies_au)
         sigma_RR = (g_n / (2.0 * g_initial)) * milne * sigma_PI_a0sq
 
         by_orbital[sh.label] = sigma_RR
@@ -199,6 +290,7 @@ def rr_cross_section(
         provenance={
             "Z": Z,
             "g_initial": g_initial,
+            "continuum_model": repr(continuum_model) if continuum_model is not None else None,
             "per_orbital": prov_per_orb,
         },
     )
@@ -308,7 +400,7 @@ def rr_cross_section_rydberg(
                 P_n, Q_n, kappa, eps_n, photon_au, Z, bsp_data,
             )
             g_n = j2 + 1
-            milne = (ALPHA ** 2) * (photon_au ** 2) / energies_au
+            milne = (ALPHA ** 2) * (photon_au ** 2) / (2.0 * energies_au)
             sigma_RR = (g_n / (2.0 * g_initial)) * milne * sigma_PI
 
             by_state[label] = sigma_RR

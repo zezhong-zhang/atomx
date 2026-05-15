@@ -47,6 +47,44 @@ from typing import Sequence
 
 import numpy as np
 
+from atomx.angular.wigner import wigner_6j
+
+
+def _twice_j(value: float) -> int:
+    return int(round(2.0 * value))
+
+
+def _integer_phase(exponent: float) -> float:
+    n = int(round(exponent))
+    return -1.0 if n % 2 else 1.0
+
+
+def steffen_alder_F2(J_u: float, J_l: float, L: int = 1) -> float:
+    """Steffen-Alder ``F_2`` coefficient for a radiative multipole line.
+
+    The coefficient converts upper-level alignment into emitted-line angular
+    anisotropy/polarisation.  This implementation uses the standard 6j
+    angular factor and the Steffen-Alder normalization for rank 2.  It returns
+    zero for forbidden angular-momentum triangles and for upper levels that
+    cannot support rank-2 alignment.
+    """
+    if L < 1:
+        raise ValueError("Radiative multipole order L must be >= 1")
+    if J_u < 1.0:
+        return 0.0
+    if abs(J_u - J_l) > L or J_u + J_l < L:
+        return 0.0
+
+    Ju2 = _twice_j(J_u)
+    Jl2 = _twice_j(J_l)
+    L2 = 2 * int(L)
+    six = wigner_6j(Ju2, Ju2, 4, L2, L2, Jl2)
+    if abs(six) < 1e-14:
+        return 0.0
+    norm = np.sqrt(3.0 * J_u * (2.0 * J_u + 1.0) / (J_u + 1.0))
+    phase = _integer_phase(J_u + J_l + L)
+    return float(phase * norm * six)
+
 
 def linear_polarisation(alignment: float, J: float) -> float:
     """Linear polarisation P from alignment parameter A_2.
@@ -146,6 +184,7 @@ def polarised_emission_intensity(
 
 
 __all__ = [
+    "steffen_alder_F2",
     "linear_polarisation",
     "alignment_from_msublevel_cross_sections",
     "polarised_emission_intensity",

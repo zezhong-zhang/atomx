@@ -106,6 +106,16 @@ def ci_solve(
 
     H_ci = build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns)
     n = H_ci.shape[0]
+    # FAC diagonalises independent J/pi symmetry blocks.  Keep the dense
+    # matrix representation for simplicity, but remove numerically generated
+    # cross-block couplings so CI eigenvectors cannot mix incompatible CSFs.
+    for i in range(n):
+        Ji = getattr(csfs[i], "total_J2", 0)
+        pi = getattr(csfs[i], "parity", 1)
+        for j in range(i + 1, n):
+            if Ji != getattr(csfs[j], "total_J2", 0) or pi != getattr(csfs[j], "parity", 1):
+                H_ci[i, j] = 0.0
+                H_ci[j, i] = 0.0
 
     if solver == "auto":
         solver = "dense" if (n <= 1500 or n_states is None) else "davidson"

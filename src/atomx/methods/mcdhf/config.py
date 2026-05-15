@@ -11,6 +11,8 @@ from dataclasses import dataclass, field
 from typing import List, Tuple
 import numpy as np
 
+from atomx.angular.csf_recoupling import allowed_coupled_J2
+from atomx.angular.mscheme import subshell_j_counts_mscheme
 from atomx.methods.dirac_fock import Subshell
 
 
@@ -190,6 +192,101 @@ def enumerate_jj_csfs(config_str: str) -> List[CSF]:
             labels.append(f"{subs[-1].label}^{occ}")
         csfs.append(CSF(subshells=subs, label=" ".join(labels)))
     return csfs
+
+
+def _couple_j_count_maps(
+    left: dict[int, int],
+    right: dict[int, int],
+) -> dict[int, int]:
+    out: dict[int, int] = {}
+    for Jl2, nl in left.items():
+        for Jr2, nr in right.items():
+            for J2 in allowed_coupled_J2(Jl2, Jr2):
+                out[J2] = out.get(J2, 0) + nl * nr
+    return dict(sorted(out.items()))
+
+
+def _nr_shell_j_resolved_counts(n: int, l: int, q: int) -> dict[int, int]:
+    if l == 0:
+        return subshell_j_counts_mscheme(1, q)
+
+    jminus2 = 2 * l - 1
+    jplus2 = 2 * l + 1
+    cap_minus = jminus2 + 1
+    cap_plus = jplus2 + 1
+    out: dict[int, int] = {}
+    for q_minus in range(max(0, q - cap_plus), min(q, cap_minus) + 1):
+        q_plus = q - q_minus
+        minus_counts = subshell_j_counts_mscheme(jminus2, q_minus)
+        plus_counts = subshell_j_counts_mscheme(jplus2, q_plus)
+        shell_counts = _couple_j_count_maps(minus_counts, plus_counts)
+        for J2, count in shell_counts.items():
+            out[J2] = out.get(J2, 0) + count
+    return dict(sorted(out.items()))
+
+
+def count_j_resolved_csfs(config_str: str) -> dict[int, int]:
+    """Count antisymmetric jj-coupled CSFs by total ``2J``.
+
+    The input accepts FAC-style non-relativistic shell tokens such as
+    ``"2p2"`` or ``"1s2 2s2 2p6"``.  Each ``nl^q`` shell is split into its
+    relativistic ``j=l±1/2`` subshells, exact m-scheme multiplicities are used
+    inside each subshell, and shell angular momenta are convolved across the
+    configuration.
+    """
+    l_map = {"s": 0, "p": 1, "d": 2, "f": 3, "g": 4, "h": 5}
+    total_counts: dict[int, int] = {0: 1}
+    for token in config_str.strip().split():
+        if len(token) < 3:
+            raise ValueError(f"Invalid configuration token {token!r}")
+        n = int(token[0])
+        l_char = token[1]
+        if l_char not in l_map:
+            raise ValueError(f"Unsupported orbital letter {l_char!r}")
+        q = int(token[2:])
+        shell_counts = _nr_shell_j_resolved_counts(n, l_map[l_char], q)
+        total_counts = _couple_j_count_maps(total_counts, shell_counts)
+    return dict(sorted(total_counts.items()))
+
+
+def _csf_parity(subshells: List[Subshell]) -> int:
+    exponent = 0
+    for sh in subshells:
+        exponent += int(sh.l * round(sh.occupation))
+    return -1 if exponent % 2 else 1
+
+
+def enumerate_j_resolved_csfs(config_str: str) -> List[CSF]:
+    """Enumerate J-resolved CSF placeholders for a configuration.
+
+    This expands each jj occupation split into the exact antisymmetric
+    subshell ``J`` multiplicities from the m-scheme backend, then couples
+    subshell angular momenta to total ``J``.  Multiple parentage states with
+    the same occupation and total ``J`` are represented by distinct CSF rows
+    with stable labels.
+    """
+    out: List[CSF] = []
+    for jj_csf in enumerate_jj_csfs(config_str):
+        total_counts: dict[int, int] = {0: 1}
+        for sh in jj_csf.subshells:
+            q = int(round(sh.occupation))
+            total_counts = _couple_j_count_maps(
+                total_counts,
+                subshell_j_counts_mscheme(sh.j2, q),
+            )
+        parity = _csf_parity(jj_csf.subshells)
+        for J2, count in sorted(total_counts.items()):
+            for idx in range(count):
+                suffix = f" J={J2}/2"
+                if count > 1:
+                    suffix += f" #{idx + 1}"
+                out.append(CSF(
+                    subshells=list(jj_csf.subshells),
+                    total_J2=J2,
+                    parity=parity,
+                    label=f"{jj_csf.label}{suffix}",
+                ))
+    return out
 
 
 def _parse_config_string(config_str):
