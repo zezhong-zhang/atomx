@@ -565,3 +565,33 @@ SCF numbers (already correct after the first TCONV patch).
    Z = 74 pre-patch), AND bare-Coulomb 2p₁/₂ converges from any
    shallow initial guess up through Z = 100 — verified by 35
    regression tests in ``tests/test_dbound_heavy_z.py``.
+
+---
+
+## 11. CRM iso panel -- Au
+
+Added `bench_fac_crm_Au.py`, the Au50+...Au57+ M-shell CRM fixture for
+laser-driven ICF hohlraum conditions.  The fixture builds one `Atom(Z=79, ...)`
+per charge state with a forced UTA-mode marker and the lowest 15 Ar-core
+M-shell configurations used by the benchmark driver.
+
+The CSV output `results_fac_crm_Au.csv` covers:
+
+- `T_e = 0.5, 1, 2, 3, 5 keV`
+- `n_e = 1e20, 1e21, 1e22 cm^-3`
+- fractional abundances for Au50+...Au57+
+- `L_Au(T_e)` and the embedded NLTE-9/NLTE-10 workshop median
+- Au UTA centroid/variance and an M-band FAC-spectrum integral proxy
+
+Current acceptance gates:
+
+- Au52+ M-band UTA centroid and variance are checked against the
+  Bauche-Arnoult two-moment reference to <= 2%.
+- Every cooling-curve cell is checked to lie within the factor-1.5 NLTE
+  workshop spread.
+- Charge fractions are normalized in every temperature-density cell.
+
+The fixture is deterministic so CI does not require a local FAC install or
+external NLTE tables.  When those tables are available, update the embedded
+reference dictionaries in `bench_fac_crm_Au.py` without changing the public CSV
+schema or tests.
