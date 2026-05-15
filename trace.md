@@ -378,3 +378,48 @@ unchanged at the new default; full suite 548 passed / 3 skipped.
 - Fix (test-only): pass `use_physics_grid=False` to `MCDHFSolver` in the
   test so both code paths share the default knot grid. Production behavior
   unchanged — the test was just comparing apples to oranges.
+
+## 2026-05-15 17:43
+
+<!-- concepts: charge-density, benchmark-reference, wfn-formats -->
+- User asked to compare atomx ground-state charge density with
+  `/Users/zhangzz/code/ASAP/WF_TXT/<Z>.txt` (Z=2..108).
+- WF_TXT file format reverse-engineered: each file has *multiple* sections.
+  First section is `R, <orbital>LC, <orbital>SC, ...` for every occupied
+  relativistic subshell (with `*` = j-, no-star = j+); sections continue
+  with more orbitals (variable column count, padded with empty cells at
+  the tail of each orbital's support). Final section is `R, Density`
+  with `int rho(r) dr = Z` exactly — i.e. *radial* density, already
+  weighted by occupations, same convention as atomx's `density` field.
+- Existing atomx outputs in `scripts/output/` cover only H..Ca (Z=1..20),
+  so the cross-check is limited to that range unless we regenerate.
+- Wrote `scripts/compare_wf_txt.py`: sums per-subshell `density` arrays
+  (each on its own tail-trimmed grid) onto a common log grid via linear
+  interp + zero-pad, then compares against the WF_TXT density on the
+  support intersection. Emits PNGs + REPORT.md in `scripts/wf_txt_compare/`.
+- Pyright "could not be resolved" warnings on h5py/numpy/matplotlib are
+  the usual VSCode-vs-uv interpreter mismatch — not a real problem; the
+  script runs under `uv run`.
+
+### EARS — Progress (2026-05-15 17:53)
+<!-- concepts: charge-density, periodic-table, atomx-constants -->
+- Extending WF_TXT comparison to Z=79 (Au), 92 (U), 103 (Lr), 108 (Hs).
+  Spawned `scripts/generate_density_gs.py 79 92 103 108 -v` in background
+  to produce the missing `.h5` outputs.
+- Refactored `scripts/compare_wf_txt.py` to use `chemical_symbols` from
+  `atomx.constants` instead of a hard-coded H..Ca map, so the comparison
+  table auto-extends to whatever h5 files exist in `scripts/output/`.
+
+### EARS — Progress (2026-05-15 18:12)
+<!-- concepts: refactoring, script-merge, density-comparison -->
+- Merged `generate_density_gs.py` and `compare_wf_txt.py` into a single
+  `scripts/density_gs.py`. New script: per element it generates the h5
+  (skip if present, --force to overwrite) then compares against
+  `/Users/zhangzz/code/ASAP/WF_TXT/<Z>.txt` (skip if absent or --no-compare),
+  emitting per-element PNG + a final REPORT.md.
+- Cut the `--verify-ag` shim (one-shot sanity check against a frozen Ag
+  reference) and the long inline schema docstring — both still in git
+  history.
+- About to delete the two old scripts and re-run the regression on the
+  23 existing elements (H..Ca + Au, U, Lr, Hs) to confirm the merged
+  script reproduces the same REPORT.md.
