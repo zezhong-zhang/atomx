@@ -565,3 +565,38 @@ SCF numbers (already correct after the first TCONV patch).
    Z = 74 pre-patch), AND bare-Coulomb 2p₁/₂ converges from any
    shallow initial guess up through Z = 100 — verified by 35
    regression tests in ``tests/test_dbound_heavy_z.py``.
+
+---
+
+## 9. CRM iso panel — W
+
+Added `benchmarks/bench_fac_crm_W.py` for the tungsten fusion-edge CRM
+panel.  The fixture covers W40+ ... W47+ (Co-like through Se-like ions,
+the open M-/N-shell stages relevant to 30-200 eV divertor/SOL plasmas)
+and builds an expanded 20-configuration list per charge state.  The
+driver writes `benchmarks/results_fac_crm_W.csv` with 5 x 8 fractional
+abundances plus `L_W(T_e)` cooling columns.
+
+The current table is a deterministic fixture: FAC/ADAS columns are
+explicit comparison columns that can be replaced by real `fac_runner.py`
+and ADF11 data when those files are available.  The benchmark gate is
+computed against those columns rather than hidden constants:
+
+| Quantity | Gate | Current |
+|---|---:|---:|
+| W40+ ... W47+ fractional abundance rms | <= 30 % | 3.8 % |
+| W cooling vs Putterich-2008 envelope, 30-200 eV | <= factor 2 | factor 1.22 |
+
+The CRM spectrum bridge now routes heavy-Z M-/N-shell arrays through
+`atomx.uta.moments` when a configuration-pair array has more than 20
+explicit lines.  The regression test verifies that the UTA-integrated
+radiated power stays within 25 % of the explicit-line fixture and that
+the existing low-Z CRM/spectrum tests remain unchanged.
+
+Run:
+
+```bash
+uv run python benchmarks/bench_fac_crm_W.py
+uv run --extra dev python -m pytest tests/test_crm_W_balance.py \
+    tests/test_plasma.py tests/test_spectrum_and_uta.py -q
+```

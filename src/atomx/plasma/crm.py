@@ -14,11 +14,12 @@ In steady state: R * n = 0, with normalization sum(n) = n_total.
 Reference: Gu, Can. J. Phys. 86, 675 (2008) - FAC CRM module
 """
 
+from dataclasses import dataclass
+from typing import Callable, Optional
+
 import numpy as np
 from scipy import linalg
 from scipy.integrate import solve_ivp
-from dataclasses import dataclass
-from typing import List, Optional
 
 from atomx.constants import HARTREE_EV, BOLTZMANN_EV
 
@@ -29,6 +30,7 @@ class CRMLevel:
     label: str
     energy_eV: float
     g: int = 1  # statistical weight (2J+1)
+    config: Optional[str] = None
 
 
 @dataclass
@@ -53,10 +55,14 @@ class CollisionalRadiativeModel:
         Radiative transitions with A-rates.
     """
 
-    def __init__(self, levels, transitions):
+    def __init__(self, levels, transitions, *, Z: Optional[int] = None,
+                 charge: Optional[int] = None, configs: Optional[list[str]] = None):
         self.levels = levels
         self.transitions = transitions
         self.n_levels = len(levels)
+        self.Z = Z
+        self.charge = charge
+        self.configs = list(configs) if configs is not None else None
 
     @classmethod
     def from_atom(cls, atom, multipoles=None):
@@ -111,7 +117,13 @@ class CollisionalRadiativeModel:
                     gf=tr.gf_value,
                 ))
 
-        return cls(levels, transitions)
+        return cls(
+            levels,
+            transitions,
+            Z=getattr(atom, "Z", None),
+            charge=getattr(atom, "charge", None),
+            configs=getattr(atom, "_config_strings", None),
+        )
 
     def _build_rate_matrix(self, ne_cm3, Te_eV):
         """Build the rate matrix R.
@@ -330,3 +342,43 @@ def _E1_integral(x):
         return -np.log(x) - 0.5772 + x - x ** 2 / 4
     else:
         return np.exp(-x) / x * (x + 1) / (x + 2)
+
+
+@dataclass(frozen=True)
+class ChargeStateRate:
+    """Ionisation/recombination rate data for one adjacent charge pair."""
+
+    charge: int
+    ionization_cm3_s: float
+    recombination_cm3_s: float
+
+
+def coronal_charge_balance(
+    charges: list[int],
+    Te_eV: float,
+    ionization_rate: Callable[[int, float], float],
+    recombination_rate: Callable[[int, float], float],
+) -> np.ndarray:
+    """Solve a coronal charge-state balance for adjacent ion stages.
+
+    The steady coronal relation is
+    ``n_q S_q = n_{q+1} alpha_{q+1}``, so the population vector is built
+    recursively from a reference abundance for the lowest charge state.
+    ``charges`` must be contiguous and sorted.
+    """
+    if not charges:
+        raise ValueError("charges must not be empty")
+    if charges != list(range(charges[0], charges[-1] + 1)):
+        raise ValueError("charges must be contiguous")
+    if Te_eV <= 0:
+        raise ValueError("Te_eV must be positive")
+
+    abund = np.ones(len(charges), dtype=float)
+    for i, q in enumerate(charges[:-1]):
+        s_q = max(float(ionization_rate(q, Te_eV)), 0.0)
+        alpha_next = max(float(recombination_rate(q + 1, Te_eV)), 1e-300)
+        abund[i + 1] = abund[i] * s_q / alpha_next
+    total = abund.sum()
+    if total <= 0:
+        raise ValueError("charge balance produced zero total abundance")
+    return abund / total
