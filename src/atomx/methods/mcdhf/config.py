@@ -7,7 +7,7 @@ characterized by (n, kappa), and the occupation q <= 2j+1.
 For MCDHF, we need multiple CSFs that can mix via CI.
 """
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import List, Tuple
 import numpy as np
 
@@ -110,20 +110,119 @@ def make_csf_list(Z, config_strings):
     return csfs
 
 
+def subshell_allowed_J2(twoj: int, q: int) -> List[int]:
+    """Allowed values of ``2J`` for ``q`` electrons in a single (j) subshell.
+
+    Implements the Pauli-allowed J multiplet of ``j^q`` for the cases that
+    appear in MCDHF benchmarks of light/medium ions: q ∈ {0, 1, 2j, 2j+1}
+    trivially, plus the standard tables for ``(j)^2`` (j = 1/2, 3/2, 5/2,
+    7/2, ...) where Pauli antisymmetry restricts J to even values
+    J = 0, 2, 4, ..., 2j-1.  Particle-hole symmetry handles the
+    ``2j+1 - q`` cases by reflection.
+
+    For higher seniority cases (e.g. (j=5/2)^3 with J ∈ {3/2, 5/2, 9/2})
+    the Grant/Cowan tabulated terms are used.  Anything outside the
+    supported envelope raises ``NotImplementedError`` — these
+    configurations don't currently arise in the benchmark suite.
+
+    Parameters
+    ----------
+    twoj : int
+        Twice the subshell angular momentum j (e.g. 1 for s/p1/2, 3 for
+        p3/2 / d3/2, 5 for d5/2).
+    q : int
+        Number of electrons in the subshell, 0 ≤ q ≤ 2j+1.
+
+    Returns
+    -------
+    list of int
+        Distinct ``2J`` values realised by ``j^q``.  Repeats (multiple
+        terms with the same J — possible for j ≥ 9/2) are NOT generated;
+        downstream consumers treat each (kappa^q, 2J) tuple as a single
+        CSF.  For the Fe XVII / Li-like benchmark grid this is exact.
+    """
+    if q < 0 or q > twoj + 1:
+        raise ValueError(f"q={q} out of range for 2j={twoj}")
+
+    # Closed or empty subshell: J = 0
+    if q == 0 or q == twoj + 1:
+        return [0]
+
+    # Single electron or single hole: J = j (electron-hole symmetry)
+    if q == 1 or q == twoj:
+        return [twoj]
+
+    # Two electrons (or two holes by particle-hole symmetry):
+    # Pauli-allowed J = 0, 2, 4, ..., 2j-1 (i.e. even 2J from 0 to 2j-2)
+    if q == 2 or q == twoj - 1:
+        return list(range(0, twoj, 2))
+
+    # (j = 5/2)^3 — Grant Appendix A: J = 3/2, 5/2, 9/2
+    if twoj == 5 and q == 3:
+        return [3, 5, 9]
+
+    # (j = 7/2)^3 — Grant Appendix A: J = 3/2, 5/2, 7/2, 9/2, 11/2, 15/2
+    if twoj == 7 and q == 3:
+        return [3, 5, 7, 9, 11, 15]
+
+    # (j = 7/2)^4 — Grant Appendix A: J = 0, 2, 2, 4, 4, 5, 6, 8
+    # We collapse repeated J values (seniority distinguishes them but the
+    # current CI matrix doesn't carry seniority labels yet).
+    if twoj == 7 and q == 4:
+        return [0, 2, 4, 5, 6, 8]
+
+    raise NotImplementedError(
+        f"Seniority table missing for (2j={twoj})^{q}; extend "
+        f"subshell_allowed_J2 with the Grant Appendix A entry."
+    )
+
+
+def _triangle_J2(a: int, b: int) -> List[int]:
+    """Return list of 2J values satisfying |a-b| ≤ 2J ≤ a+b in steps of 2."""
+    return list(range(abs(a - b), a + b + 1, 2))
+
+
+def couple_J2_list(twoJ_per_shell: List[int]) -> List[int]:
+    """Repeated CG triangle coupling: return list of allowed total 2J.
+
+    Couples a list of subshell ``2J`` values sequentially: the result is
+    the multiset of all 2J that can be reached by combining the inputs
+    in order.  This is the relativistic analogue of ``j1 ⊗ j2 ⊗ j3 ⊗ …``
+    where each ⊗ enumerates all triangle-rule outputs.
+
+    Identical 2J values arising from different recoupling paths are kept
+    as separate entries — they index distinct CSFs in the angular basis.
+    """
+    if not twoJ_per_shell:
+        return [0]
+    accum: List[int] = [twoJ_per_shell[0]]
+    for nxt in twoJ_per_shell[1:]:
+        new: List[int] = []
+        for cur in accum:
+            new.extend(_triangle_J2(cur, nxt))
+        accum = new
+    return accum
+
+
 def enumerate_jj_csfs(config_str: str) -> List[CSF]:
-    """Enumerate all jj-coupled CSFs of a single NR configuration string.
+    """Enumerate J-resolved jj-coupled CSFs of a single NR configuration.
 
     For each open NR shell ``nl^q`` with 0 < q < 4l+2, lists every integer
     split ``(q-, q+)`` with ``q- + q+ == q``, ``0 <= q- <= 2l``,
-    ``0 <= q+ <= 2l+2``. Closed shells and s-shells contribute exactly one
-    CSF. The resulting set is the basis on which the CI Hamiltonian of the
-    "average-of-jj-configurations" is defined: diagonalising it and using
-    the ground-state amplitudes cⱼ as weights in
+    ``0 <= q+ <= 2l+2``.  For each (split) the Pauli-allowed J of each
+    subshell is enumerated (see :func:`subshell_allowed_J2`), and the
+    overall total ``2J`` is produced by repeated CG triangle coupling
+    across all subshells (see :func:`couple_J2_list`).
+
+    The resulting set is the J-resolved basis on which the CI
+    Hamiltonian of the average-of-jj-configurations is defined.
+    Diagonalising it block-by-(J, parity) and using the ground-state
+    amplitudes cⱼ as weights in
 
         ϖᵢ = Σⱼ cⱼ² nᵢʲ                               (Guerra Eq 10)
 
-    realises the correct CI-weighted averaged monoconfiguration — as
-    opposed to the binomial statistical or equal-weight surrogates.
+    realises the correct CI-weighted averaged monoconfiguration with
+    proper J-multiplet structure.
 
     Parameters
     ----------
@@ -133,8 +232,9 @@ def enumerate_jj_csfs(config_str: str) -> List[CSF]:
     Returns
     -------
     csfs : list of :class:`CSF`
-        One CSF per jj-split combination. For fully closed configurations
-        the list has length 1.
+        One CSF per (jj-split, total_J) tuple.  ``total_J2`` is ``2J``;
+        ``parity`` is ``(-1)^(Σ l_i q_i)``.  Closed-shell configurations
+        produce exactly one CSF (J=0, parity +1).
     """
     l_map = {"s": 0, "p": 1, "d": 2, "f": 3, "g": 4, "h": 5}
     # Parse into (n, l, q) shells
@@ -145,32 +245,40 @@ def enumerate_jj_csfs(config_str: str) -> List[CSF]:
         q = int(token[2:])
         nr_shells.append((n, l, q))
 
-    # Per-shell list of (n, kappa, occ) tuples for each valid jj-split
-    per_shell_options: List[List[List[Tuple[int, int, int]]]] = []
+    # Parity = (-1)^Σ l_i q_i (intrinsic parity from orbital ℓ × q)
+    parity = 1
+    for _, l, q in nr_shells:
+        if (l * q) % 2:
+            parity = -parity
+
+    # Per-shell list of jj-split options. Each option is a list of
+    # (n, kappa, occ, twoj) tuples for that NR shell.
+    per_shell_options: List[List[List[Tuple[int, int, int, int]]]] = []
     for n, l, q in nr_shells:
         if l == 0:
-            # s-shell: single kappa = -1
-            per_shell_options.append([[(n, -1, q)]])
+            # s-shell: single kappa = -1, twoj = 1
+            per_shell_options.append([[(n, -1, q, 1)]])
             continue
-        kappa_minus = l                 # j = l - 1/2
-        kappa_plus = -(l + 1)           # j = l + 1/2
+        kappa_minus = l                 # j = l - 1/2  → 2j = 2l - 1
+        kappa_plus = -(l + 1)           # j = l + 1/2  → 2j = 2l + 1
+        twoj_minus = 2 * l - 1
+        twoj_plus = 2 * l + 1
         max_minus = 2 * l               # 2j- + 1
-        max_plus = 2 * (l + 1)          # 2j+ + 1
         options = []
-        for q_minus in range(max(0, q - max_plus), min(q, max_minus) + 1):
+        for q_minus in range(max(0, q - (twoj_plus + 1)), min(q, max_minus) + 1):
             q_plus = q - q_minus
-            subs = []
+            subs: List[Tuple[int, int, int, int]] = []
             if q_minus > 0:
-                subs.append((n, kappa_minus, q_minus))
+                subs.append((n, kappa_minus, q_minus, twoj_minus))
             if q_plus > 0:
-                subs.append((n, kappa_plus, q_plus))
-            # Even if both are zero (shouldn't happen for q>0) still add for completeness
+                subs.append((n, kappa_plus, q_plus, twoj_plus))
             if not subs:
-                subs.append((n, kappa_plus, 0))
+                subs.append((n, kappa_plus, 0, twoj_plus))
             options.append(subs)
         per_shell_options.append(options)
 
-    # Cartesian product across shells
+    # Cartesian product across shells: one flat list of subshells per
+    # jj-split combination.
     def product(lists):
         if not lists:
             return [[]]
@@ -179,16 +287,52 @@ def enumerate_jj_csfs(config_str: str) -> List[CSF]:
             acc = [prev + choice for prev in acc for choice in choices]
         return acc
 
-    combos = product(per_shell_options)
-
     csfs: List[CSF] = []
-    for combo in combos:
-        subs = []
-        labels = []
-        for n, kappa, occ in combo:
-            subs.append(Subshell(n=n, kappa=kappa, occupation=occ))
-            labels.append(f"{subs[-1].label}^{occ}")
-        csfs.append(CSF(subshells=subs, label=" ".join(labels)))
+    for combo in product(per_shell_options):
+        # For each open subshell, enumerate Pauli-allowed 2J values.
+        per_subshell_J2 = []
+        for _, kappa, occ, twoj in combo:
+            allowed = subshell_allowed_J2(twoj, occ)
+            per_subshell_J2.append(allowed)
+
+        # Total J cascade via repeated CG triangle.  For multiple terms
+        # per subshell (e.g. (3d3/2)^2 with J=0,2) we expand the
+        # Cartesian product first, then triangle-couple sequentially.
+        def _cascade(per_shell_lists: List[List[int]]) -> List[int]:
+            seeds: List[Tuple[int, ...]] = [()]
+            for choices in per_shell_lists:
+                seeds = [s + (c,) for s in seeds for c in choices]
+            totals: List[int] = []
+            for tup in seeds:
+                totals.extend(couple_J2_list(list(tup)))
+            return totals
+
+        for total_J2 in _cascade(per_subshell_J2):
+            subs = []
+            labels = []
+            for n, kappa, occ, _twoj in combo:
+                subs.append(Subshell(n=n, kappa=kappa, occupation=occ))
+                labels.append(f"{subs[-1].label}^{occ}")
+            csfs.append(CSF(
+                subshells=subs,
+                total_J2=total_J2,
+                parity=parity,
+                label=" ".join(labels) + f" [J={total_J2}/2]",
+            ))
+    return csfs
+
+
+def enumerate_jj_csfs_many(config_strings: List[str]) -> List[CSF]:
+    """J-resolved enumeration over a list of NR configuration strings.
+
+    Equivalent to concatenating :func:`enumerate_jj_csfs` over each
+    config string in order.  Used by the public ``Atom(..., configs=[...])``
+    multi-configuration path so that each NR config contributes its full
+    J-multiplet to the CI basis.
+    """
+    csfs: List[CSF] = []
+    for s in config_strings:
+        csfs.extend(enumerate_jj_csfs(s))
     return csfs
 
 

@@ -119,6 +119,66 @@ class MCDHFResult:
             return de * HARTREE_CM1
         return de
 
+    @property
+    def state_J2(self) -> np.ndarray:
+        """For each eigenstate, the ``2J`` of its dominant CSF (jj-CSF only).
+
+        For an AL-flat CSF list (every CSF has ``total_J2=0``) this
+        returns all zeros — matches the legacy single-config behaviour.
+        """
+        if self.mixing_coefficients.ndim != 2 or self.mixing_coefficients.size == 0:
+            return np.zeros(0, dtype=int)
+        n_states = self.mixing_coefficients.shape[1]
+        out = np.zeros(n_states, dtype=int)
+        for k in range(n_states):
+            j = int(np.argmax(np.abs(self.mixing_coefficients[:, k])))
+            out[k] = int(getattr(self.csfs[j], "total_J2", 0))
+        return out
+
+    @property
+    def state_parity(self) -> np.ndarray:
+        """Parity (±1) of each eigenstate's dominant CSF."""
+        if self.mixing_coefficients.ndim != 2 or self.mixing_coefficients.size == 0:
+            return np.zeros(0, dtype=int)
+        n_states = self.mixing_coefficients.shape[1]
+        out = np.zeros(n_states, dtype=int)
+        for k in range(n_states):
+            j = int(np.argmax(np.abs(self.mixing_coefficients[:, k])))
+            out[k] = int(getattr(self.csfs[j], "parity", 1))
+        return out
+
+    @property
+    def level_table(self) -> list:
+        """Compact J-resolved level table.
+
+        Returns a list of dicts ``{index, E_hartree, dE_eV, twoJ, parity,
+        config}`` sorted by energy.  ``config`` is the dominant CSF
+        label; ``dE_eV`` is the excitation energy above the ground
+        state.  Intended for benchmark output and downstream FAC
+        comparison.
+        """
+        from atomx.constants import HARTREE_EV
+        n_states = len(self.state_energies)
+        if n_states == 0:
+            return []
+        e0 = float(self.state_energies[0])
+        twoJ = self.state_J2
+        par = self.state_parity
+        rows = []
+        for k in range(n_states):
+            dom = int(np.argmax(np.abs(self.mixing_coefficients[:, k]))) \
+                if self.mixing_coefficients.size else 0
+            cfg = self.csfs[dom].label if dom < len(self.csfs) else ""
+            rows.append({
+                "index": k,
+                "E_hartree": float(self.state_energies[k]),
+                "dE_eV": (float(self.state_energies[k]) - e0) * HARTREE_EV,
+                "twoJ": int(twoJ[k]),
+                "parity": int(par[k]),
+                "config": cfg,
+            })
+        return rows
+
 
 class MCDHFSolver:
     """Multi-Configuration Dirac-Hartree-Fock solver.
