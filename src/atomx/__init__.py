@@ -55,3 +55,4 @@ from atomx.methods import (
 from atomx.compare import compare, theory_ladder, what_changed
 from atomx.sampling import Sampling
 from atomx.ladder import Ladder, LadderRun, RungOutcome
+from atomx.scattering.models import ContinuumModel, PotentialModel

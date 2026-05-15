@@ -7,7 +7,10 @@ from atomx.numerics.bspline.basis import prepare_bspline_data
 from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
 from atomx.numerics.bspline.dirac_assembly import solve_dirac
 from atomx.numerics.bspline.continuum import (
-    solve_continuum, dipole_matrix_element, photoionization_cross_section,
+    continuum_energy_normalization_factor,
+    solve_continuum,
+    dipole_matrix_element,
+    photoionization_cross_section,
 )
 
 
@@ -29,6 +32,21 @@ class TestContinuumSolver:
         data = prepare_bspline_data(t, ns, ks)
         P, Q, E = solve_continuum(kappa=-1, energy=0.5, Z=1, bsp_data=data)
         assert np.max(np.abs(P)) > 1e-5
+
+    def test_energy_normalized_scales_box_state(self):
+        ns, ks = 40, 9
+        t = make_knots(ns, ks, 0.01, 50.0)
+        data = prepare_bspline_data(t, ns, ks)
+        P_box, Q_box, E_box = solve_continuum(
+            kappa=-1, energy=0.5, Z=1, bsp_data=data)
+        P_en, Q_en, E_en = solve_continuum(
+            kappa=-1, energy=0.5, Z=1, bsp_data=data,
+            energy_normalized=True)
+
+        factor = continuum_energy_normalization_factor(E_box, data)
+        assert E_en == pytest.approx(E_box)
+        np.testing.assert_allclose(P_en, factor * P_box)
+        np.testing.assert_allclose(Q_en, factor * Q_box)
 
 
 class TestDipoleMatrixElement:

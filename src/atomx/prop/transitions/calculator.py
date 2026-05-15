@@ -24,6 +24,13 @@ from atomx.prop.transitions.angular import (
 from atomx.prop.transitions.rates import (
     einstein_A_eL, einstein_A_mL, oscillator_strength, lifetime,
 )
+from atomx.angular.csf import (
+    csf_has_explicit_j,
+    csf_parity,
+    csf_twice_j,
+    multipole_allows_state_transition,
+    one_body_csf_coupling,
+)
 
 
 @dataclass
@@ -270,6 +277,26 @@ class TransitionCalculator:
                     mp_type = mp[0]
                     L = int(mp[1:])
 
+                    # Infer 2J/parity of each state from its dominant CSF and
+                    # apply the many-electron tensor selection rule before the
+                    # expensive CSF-pair accumulation.
+                    dom_I = int(np.argmax(np.abs(mixing[:, I])))
+                    dom_F = int(np.argmax(np.abs(mixing[:, F])))
+                    explicit_I = csf_has_explicit_j(csfs[dom_I])
+                    explicit_F = csf_has_explicit_j(csfs[dom_F])
+                    if explicit_I and explicit_F:
+                        tj_I = csf_twice_j(csfs[dom_I])
+                        tj_F = csf_twice_j(csfs[dom_F])
+                        pi_I = csf_parity(csfs[dom_I])
+                        pi_F = csf_parity(csfs[dom_F])
+                        if not multipole_allows_state_transition(
+                            tj_I, pi_I, tj_F, pi_F, L, mp_type
+                        ):
+                            continue
+                    else:
+                        tj_I = _csf_twice_J(csfs[dom_I])
+                        tj_F = _csf_twice_J(csfs[dom_F])
+
                     # Sum matrix element over CSF pairs
                     total_me = 0.0
                     for r, csf_r in enumerate(csfs):
@@ -290,28 +317,14 @@ class TransitionCalculator:
                     if S < 1e-30:
                         continue
 
-                    # Infer 2J of each state from its dominant CSF.
-                    # ``enumerate_jj_csfs`` does not populate total_J2
-                    # (it leaves the default 0), so we read it from the
-                    # CSF's open shells instead. This works exactly for
-                    # ≤1 open shell (J = j_open) and for closed-shell
-                    # CSFs (J = 0 → forbidden radiative transition).
-                    dom_I = int(np.argmax(np.abs(mixing[:, I])))
-                    dom_F = int(np.argmax(np.abs(mixing[:, F])))
-                    tj_I = _csf_twice_J(csfs[dom_I])
-                    tj_F = _csf_twice_J(csfs[dom_F])
-                    if tj_I == 0 and tj_F == 0:
-                        # J=0 → J=0 is a strictly forbidden single-photon
-                        # radiative transition; skip to avoid bogus rate
-                        # from a 0/0 denominator.
-                        continue
-                    if tj_I == 0:
-                        tj_I = tj_F  # conservative fallback: use partner J
-
+                    # ``dE > 0`` means I is the lower state and F is the upper
+                    # state.  The Einstein spontaneous rate is for F -> I, so
+                    # the statistical denominator is the upper-state 2J+1.
+                    tj_upper = tj_F
                     if mp_type == 'E':
-                        A = einstein_A_eL(omega, S, L, tj_I)
+                        A = einstein_A_eL(omega, S, L, tj_upper)
                     else:
-                        A = einstein_A_mL(omega, S, L, tj_I)
+                        A = einstein_A_mL(omega, S, L, tj_upper)
 
                     f_val, gf_val = oscillator_strength(omega, S, L, tj_I, tj_F)
 
@@ -339,31 +352,12 @@ class TransitionCalculator:
         For CSFs differing by more than one orbital, the ME is zero
         for one-body operators.
         """
-        # Find differing orbitals between CSF r and CSF s
-        subs_r = {(sh.n, sh.kappa): sh.occupation for sh in csf_r.subshells}
-        subs_s = {(sh.n, sh.kappa): sh.occupation for sh in csf_s.subshells}
-
-        all_keys = set(subs_r.keys()) | set(subs_s.keys())
-        diffs = []
-        for key in all_keys:
-            occ_r = subs_r.get(key, 0)
-            occ_s = subs_s.get(key, 0)
-            if abs(occ_r - occ_s) > 0.01:
-                diffs.append((key, occ_r, occ_s))
-
-        if len(diffs) != 2:
-            # Not a single-excitation difference
+        coupling = one_body_csf_coupling(csf_r, csf_s, L, mp_type)
+        if coupling is None:
             return 0.0
 
-        # Identify the hole (less occupied in r) and particle (more in r)
-        (key_a, occ_ra, occ_sa), (key_b, occ_rb, occ_sb) = diffs
-        if occ_ra < occ_sa:
-            # key_a lost an electron going r -> s, so a is the "from" orbital
-            n_i, k_i = key_a
-            n_f, k_f = key_b
-        else:
-            n_i, k_i = key_b
-            n_f, k_f = key_a
+        n_i, k_i = coupling.source
+        n_f, k_f = coupling.destination
 
         # Get orbital wavefunctions
         if (n_i, k_i) not in orbitals_dict or (n_f, k_f) not in orbitals_dict:
@@ -387,7 +381,7 @@ class TransitionCalculator:
             rme = radial_mL(P_i, Q_i, P_f, Q_f, bsp_data, L)
             ang = angular_mL(k_i, k_f, L)
 
-        return ang * rme
+        return coupling.population_factor * ang * rme
 
 
 def compute_transitions(atom, multipoles=None, gauge='length'):

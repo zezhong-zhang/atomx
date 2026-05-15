@@ -67,6 +67,28 @@ class MCDHFResult:
         return {"E_total": self.ground_energy}
 
     @property
+    def subshells(self) -> List[Subshell]:
+        """SCF-compatible subshell list using ground-state averaged occupations."""
+        keys = set(self.occupations) | set(self.orbitals_dict)
+        out: List[Subshell] = []
+        for n, kappa in sorted(keys, key=lambda nk: (nk[0], abs(nk[1]), -nk[1])):
+            occ = float(self.occupations.get((n, kappa), 0.0))
+            out.append(Subshell(n=n, kappa=kappa, occupation=occ))
+        return out
+
+    @property
+    def orbitals_raw(self) -> Dict[int, list]:
+        """SCF-compatible ``kappa -> [(P, Q, occ), ...]`` orbital mapping."""
+        by_kappa: Dict[int, list] = {}
+        for sh in self.subshells:
+            pq = self.orbitals_dict.get((sh.n, sh.kappa))
+            if pq is None:
+                continue
+            P, Q = pq
+            by_kappa.setdefault(sh.kappa, []).append((P, Q, sh.occupation))
+        return by_kappa
+
+    @property
     def theory_level(self):
         from atomx.types import TheoryLevel
         return TheoryLevel.MCDHF
