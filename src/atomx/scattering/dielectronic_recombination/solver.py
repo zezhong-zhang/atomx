@@ -35,11 +35,18 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from math import exp, pi, sqrt
-from typing import Dict, List, Sequence
+from typing import Callable, Dict, List, Sequence
 
 import numpy as np
 
 from atomx.scattering.autoionization.auger import AutoionizationState
+from atomx.scattering.dielectronic_recombination.enumerate import (
+    DRResonanceSpec,
+    build_autoionization_states,
+    enumerate_dr_resonances,
+    resonance_strength_rows,
+    _initial_statistical_weight,
+)
 
 
 # --- Universal prefactor for eq. (2) -------------------------------------
@@ -82,6 +89,7 @@ class DRRateCoefficient:
     per_resonance: Dict[str, np.ndarray] = field(default_factory=dict)
     initial_state_label: str = ""
     initial_state_g: float = 1.0
+    resonances: List[AutoionizationState] = field(default_factory=list)
 
     def at_T(self, T_eV: float) -> float:
         """Linear-interpolate α^DR at an arbitrary temperature."""
@@ -153,4 +161,101 @@ def dr_rate_coefficient(
         per_resonance=per,
         initial_state_label=initial_state_label,
         initial_state_g=initial_state_g,
+        resonances=list(resonances),
+    )
+
+
+def dr_strengths(
+    resonances: Sequence[AutoionizationState] | DRRateCoefficient,
+    T_eV=None,
+    *,
+    initial_state_g: float | None = None,
+) -> List[dict]:
+    """Return per-resonance DR contribution rows for diagnostics.
+
+    Parameters
+    ----------
+    resonances
+        Either a resonance sequence or the :class:`DRRateCoefficient`
+        returned by :func:`dr_calculate`.
+    T_eV
+        Temperature grid in eV.  Optional when ``resonances`` is a
+        :class:`DRRateCoefficient`; its stored grid is used by default.
+    initial_state_g
+        Statistical weight of the recombining ion ground state.  Defaults
+        to the value stored on ``DRRateCoefficient`` or ``1``.
+    """
+
+    if isinstance(resonances, DRRateCoefficient):
+        rc = resonances
+        seq = rc.resonances
+        T = rc.T_eV if T_eV is None else T_eV
+        g_i = rc.initial_state_g if initial_state_g is None else initial_state_g
+    else:
+        if T_eV is None:
+            raise ValueError("T_eV is required when passing raw resonances")
+        seq = resonances
+        T = T_eV
+        g_i = 1.0 if initial_state_g is None else initial_state_g
+    return resonance_strength_rows(seq, T, initial_state_g=g_i)
+
+
+def dr_calculate(
+    initial_atom,
+    target_iso,
+    *,
+    n_max: int = 10,
+    l_max: int | None = None,
+    T_eV=1000.0,
+    initial_state_g: float | None = None,
+    initial_state_label: str = "",
+    min_resonance_eV: float = 1e-9,
+    auger_rate_fn: Callable[[DRResonanceSpec, float], float] | None = None,
+    radiative_rate_fn: Callable[
+        [DRResonanceSpec, float],
+        float | tuple[float, dict[str, float]],
+    ] | None = None,
+) -> DRRateCoefficient:
+    """End-to-end dielectronic-recombination rate driver.
+
+    ``initial_atom`` is the recombining ion and ``target_iso`` is the
+    recombined ion ground configuration, either as an ``Atom``-like object or
+    a configuration string.  The driver enumerates doubly-excited resonances,
+    builds :class:`AutoionizationState` objects, and calls the existing
+    :func:`dr_rate_coefficient` kernel unchanged.
+
+    The present public Auger API exposes the low-level two-electron radial
+    integral but not a complete configuration-to-channel summation.  Until the
+    J-block matrix-element layer is available, default Auger/radiative widths
+    are screened hydrogenic estimates.  Production callers can pass
+    ``auger_rate_fn`` and ``radiative_rate_fn`` hooks to supply ab-initio
+    matrix-element sums without changing this driver API.
+    """
+
+    if hasattr(initial_atom, "solve") and not getattr(initial_atom, "converged", False):
+        initial_atom.solve()
+
+    g_i = (
+        _initial_statistical_weight(initial_atom)
+        if initial_state_g is None else float(initial_state_g)
+    )
+    label = initial_state_label or getattr(initial_atom, "_config_strings", [""])[0]
+    specs = enumerate_dr_resonances(
+        initial_atom,
+        target_iso,
+        n_max=n_max,
+        l_max=l_max,
+    )
+    resonances = build_autoionization_states(
+        specs,
+        initial_atom,
+        min_resonance_eV=min_resonance_eV,
+        auger_rate_fn=auger_rate_fn,
+        radiative_rate_fn=radiative_rate_fn,
+    )
+    return dr_rate_coefficient(
+        resonances,
+        T_eV,
+        initial_state_g=g_i,
+        initial_state_label=label,
     )

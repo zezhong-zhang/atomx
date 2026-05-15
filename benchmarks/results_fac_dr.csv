@@ -1,0 +1,8 @@
+T_eV,alpha_atomx_cm3_s,alpha_fac_cm3_s,alpha_savin2001_cm3_s,alpha_reference_cm3_s,reference_source,rel_diff,note
+100.0,8.069673776547714e-10,0.0,0.0,0.0,,,FAC failed: sfac failed (rc=1): Error at Line 9: Syntax Error | local FAC has no SetDR symbol and ChangeLog notes DRTable removal
+300.0,6.92007712620288e-10,0.0,0.0,0.0,,,FAC failed: sfac failed (rc=1): Error at Line 9: Syntax Error | local FAC has no SetDR symbol and ChangeLog notes DRTable removal
+1000.0,2.5315066792296487e-10,0.0,0.0,0.0,,,FAC failed: sfac failed (rc=1): Error at Line 9: Syntax Error | local FAC has no SetDR symbol and ChangeLog notes DRTable removal
+3000.0,6.469881662339359e-11,0.0,0.0,0.0,,,FAC failed: sfac failed (rc=1): Error at Line 9: Syntax Error | local FAC has no SetDR symbol and ChangeLog notes DRTable removal
+10000.0,1.2630073597873168e-11,0.0,0.0,0.0,,,FAC failed: sfac failed (rc=1): Error at Line 9: Syntax Error | local FAC has no SetDR symbol and ChangeLog notes DRTable removal
+rms,,,,,,,target <= 0.20
+legacy_sfac_script,,,,,,,"SetAtom('Fe')\nClosed('1s')\nConfig('fe17', '2*8')\nConfig('fe16g', '2*8 3s1')\nConfig('kll', '2*7 2*1 3s1')\nOptimizeRadial(['fe17'])\nStructure('fe17.lev.b', ['fe17'])\nStructure('fe16.lev.b', ['fe16g', 'kll'])\nSetDR('fe_dr', ['fe17'], ['kll'])\nDRTable('fe_dr.tbl', 'fe_dr', [100.0, 300.0, 1000.0, 3000.0, 10000.0])\nPrintTable('fe_dr.tbl', 'fe_dr.txt', 1)\n"

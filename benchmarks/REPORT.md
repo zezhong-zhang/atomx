@@ -565,3 +565,37 @@ SCF numbers (already correct after the first TCONV patch).
    Z = 74 pre-patch), AND bare-Coulomb 2p₁/₂ converges from any
    shallow initial guess up through Z = 100 — verified by 35
    regression tests in ``tests/test_dbound_heavy_z.py``.
+
+---
+
+## 8. Dielectronic recombination
+
+Added an end-to-end DR driver:
+
+* ``dr_calculate(initial_atom, target_iso, n_max, l_max, T_eV)`` enumerates
+  core-excited plus captured-electron resonances, builds
+  explicit-J intermediate CSF placeholders and ``AutoionizationState`` rows,
+  and calls the existing Burgess ``dr_rate_coefficient`` kernel unchanged.
+* ``dr_strengths(...)`` returns one diagnostic row per resonance, including
+  resonance energy, J, Auger width, radiative width, fluorescence yield, and
+  the temperature-resolved contribution.
+* ``benchmarks/bench_fac_dr.py`` exercises the Fe XVII -> Fe XVI case and
+  records the legacy FAC ``SetDR``/``DRTable`` script through
+  ``fac_runner.py``.  The local sfac build rejects that script at line 9; this
+  FAC tree has no ``SetDR`` symbol and its ChangeLog says ``DRTable`` was
+  removed in FAC 0.9.3.  The CSV therefore leaves FAC/Savin reference columns
+  empty and the <=20% parity gate is not verified by this run.
+
+Current atomx Fe XVII -> Fe XVI semi-empirical driver output:
+
+| T_e (eV) | alpha_DR atomx (cm^3/s) |
+|---:|---:|
+| 100 | 8.0697e-10 |
+| 300 | 6.9201e-10 |
+| 1000 | 2.5315e-10 |
+| 3000 | 6.4699e-11 |
+| 10000 | 1.2630e-11 |
+
+The driver accepts ``auger_rate_fn`` and ``radiative_rate_fn`` hooks so the
+same public API can use ab-initio Auger and stabilising-channel sums once the
+J-block matrix-element pipeline is fully exposed.
