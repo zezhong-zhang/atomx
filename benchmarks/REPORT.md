@@ -505,6 +505,18 @@ SCF numbers (already correct after the first TCONV patch).
 
 ## 7. Follow-up issues (NOT fixed in this pass)
 
+### 7.0 Frozen FAC-parity matrix gate
+
+Added 2026-05-13: the FAC tripwire is now frozen in
+[`reference/fac_matrix_2026-05-13.csv`](reference/fac_matrix_2026-05-13.csv),
+with a working copy at [`results_fac_matrix.csv`](results_fac_matrix.csv).
+Run any of the three FAC benchmark scripts with `--matrix` to regenerate the
+Z × iso-electronic panel (`--quick` skips Z=74 and Z=82 for local iteration).
+`tests/test_fac_parity_gates.py` is marked `fac_parity`; it reloads the frozen
+CSV, reruns the atomx-side matrix calculation only, and fails on >1e-3 relative
+energy drift, >5% first-E1 A-rate drift, or >30% per-Z atomx wall-time
+regression.
+
 1. **MCDHF CSF enumeration is J=0-only.**
    `enumerate_jj_csfs` returns CSFs without ever populating `total_J2`;
    callers see `J=0` uniformly.  Fixing this would let atomx reproduce

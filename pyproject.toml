@@ -38,4 +38,5 @@ packages = ["src/atomx"]
 testpaths = ["tests"]
 markers = [
     "slow: tests that run expensive atomic-structure calculations",
+    "fac_parity: frozen atomx parity checks against the FAC matrix golden",
 ]

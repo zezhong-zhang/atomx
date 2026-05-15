@@ -26,6 +26,7 @@ sys.path.insert(0, str(ROOT / "benchmarks"))
 from atomx import Atom  # noqa: E402
 from atomx.constants import HARTREE_EV  # noqa: E402
 from fac_runner import parse_levels, parse_transitions, run_sfac  # noqa: E402
+from fac_matrix import print_matrix_summary, run_matrix, write_matrix_csv  # noqa: E402
 
 
 # Canonical FAC demo script
@@ -101,7 +102,22 @@ def _ground_energy(levels_atomx):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--out-prefix", default=str(ROOT / "benchmarks" / "results_fac_levels"))
+    p.add_argument("--matrix", action="store_true", help="run the full Z x iso FAC-parity matrix")
+    p.add_argument("--quick", action="store_true", help="with --matrix, skip Z=74 and Z=82")
+    p.add_argument(
+        "--out",
+        default=str(ROOT / "benchmarks" / "results_fac_matrix.csv"),
+        help="CSV path for --matrix",
+    )
+    p.add_argument("--no-fac", action="store_true", help="with --matrix, omit sfac columns")
+    p.add_argument("--timeout", type=float, default=300.0, help="sfac timeout per matrix cell")
     args = p.parse_args()
+
+    if args.matrix:
+        rows = run_matrix(quick=args.quick, include_fac=not args.no_fac, timeout=args.timeout)
+        write_matrix_csv(rows, Path(args.out))
+        print_matrix_summary(rows)
+        return
 
     out_dir = Path(args.out_prefix).parent
     out_dir.mkdir(parents=True, exist_ok=True)
