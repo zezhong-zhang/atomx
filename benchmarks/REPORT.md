@@ -565,3 +565,32 @@ SCF numbers (already correct after the first TCONV patch).
    Z = 74 pre-patch), AND bare-Coulomb 2p₁/₂ converges from any
    shallow initial guess up through Z = 100 — verified by 35
    regression tests in ``tests/test_dbound_heavy_z.py``.
+
+---
+
+## 10. CRM iso panel — Fe
+
+Added the Fe astrophysical CRM gate in
+``benchmarks/bench_fac_crm_Fe.py`` with a deterministic Fe XVII...Fe XXVI
+panel (Z = 26, charges 16...25, up to 20 low configurations per ion).
+The benchmark writes ``benchmarks/results_fac_crm_Fe.csv`` and includes:
+
+* Coronal-balance fractions over T_e = 0.2, 0.5, 1, 2, 5, 10 keV,
+  compared against embedded CHIANTI v11 and FAC reference fixtures.
+* Fe XVII 3C/3D line-ratio rows over T_e = 300, 1000, 3000 eV and
+  n_e = 10^10, 10^12, 10^14 cm^-3, pinned to Bernitt 2012
+  R = 2.61 +/- 0.23 and a FAC comparison column.
+
+Current gates:
+
+* atomx/FAC fractional-abundance RMS relative error: <= 15 %
+  (``tests/test_crm_Fe_balance.py``).
+* atomx/CHIANTI fractional-abundance RMS relative error: <= 15 %
+  (``tests/test_crm_Fe_balance.py``).
+* Fe XVII 3C/3D stays within the Bernitt 2012 +/- 0.23 experimental
+  band over the requested temperature-density grid
+  (``tests/test_crm_Fe_3C3D.py``).
+
+DR satellite wiring remains a follow-up until the HYP-146
+``dr_calculate()`` API is available; the Fe benchmark keeps the line-ratio
+and balance gates independent of that future resonance path.
