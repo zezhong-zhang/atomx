@@ -14,6 +14,8 @@ import tempfile
 import time
 from pathlib import Path
 
+import numpy as np
+
 SFAC_BIN = Path("/Users/zhangzz/code/ASAP/fac/bin/bin/sfac")
 DYLD_LIB = "/opt/homebrew/Cellar/gcc/14.2.0_1/lib/gcc/current"
 
@@ -133,4 +135,125 @@ def parse_transitions(tr_file: Path) -> list[dict]:
             "DELTA_E_eV": delta_e, "gf": gf, "gA_per_s": ga,
             "p_up": p_up, "p_lo": p_lo,
         })
+    return rows
+
+
+def parse_ai(ai_file: Path) -> list[dict]:
+    """Parse a FAC .ai (autoionization) file written by ``PrintTable(..., 1)``.
+
+    Each data row written by FAC has the form::
+
+        bound  2J_bound   free  2J_free   Delta_E_eV   AI_rate_per_s   strength
+
+    where ``bound``/``free`` are FAC ILEV indices for the autoionising and the
+    continuum-anchor states.  Returns one dict per row.
+    """
+
+    rows: list[dict] = []
+    for line in Path(ai_file).read_text().splitlines():
+        parts = line.strip().split()
+        if len(parts) < 7:
+            continue
+        try:
+            upper = int(parts[0])
+            twoj_u = int(parts[1])
+            lower = int(parts[2])
+            twoj_l = int(parts[3])
+            delta_e = float(parts[4])
+            rate = float(parts[5])
+            strength = float(parts[6])
+        except (ValueError, IndexError):
+            continue
+        rows.append({
+            "upper": upper, "lower": lower,
+            "TWOJ_upper": twoj_u, "TWOJ_lower": twoj_l,
+            "DELTA_E_eV": delta_e,
+            "rate_per_s": rate,
+            "strength": strength,
+        })
+    return rows
+
+
+def parse_ci(ci_file: Path) -> list[dict]:
+    """Parse a FAC ``.ci`` (collisional ionisation) file.
+
+    The FAC output has a per-transition header line followed by a list of
+    ``(energy_eV, strength, sigma_1e20cm2)`` rows -- one per usr-energy grid
+    point.  Header-only lines that do not begin with usr-grid energies are
+    skipped, so this parser tolerates the optional collisional-strength
+    Born-asymptote fit coefficients that FAC may emit between blocks.
+    """
+
+    rows: list[dict] = []
+    current: dict | None = None
+    energies: list[float] = []
+    strengths: list[float] = []
+    sigmas: list[float] = []
+    nusr = 0
+    pending_header = False
+
+    def _close():
+        if current is None or not energies:
+            return
+        current["energy_eV"] = np.asarray(energies, dtype=float)
+        current["strength"] = np.asarray(strengths, dtype=float)
+        current["sigma_1e20cm2"] = np.asarray(sigmas, dtype=float)
+        rows.append(current)
+
+    for raw in Path(ci_file).read_text().splitlines():
+        line = raw.strip()
+        if line.startswith("NUSR"):
+            _close()
+            try:
+                nusr = int(line.split("=")[-1].strip())
+            except ValueError:
+                nusr = 0
+            current = None
+            energies = []
+            strengths = []
+            sigmas = []
+            pending_header = False
+            continue
+        if not line:
+            continue
+        parts = line.split()
+        if not pending_header and current is None and len(parts) >= 6:
+            # FAC writes the transition descriptor as: ub ig lb ig E NRADS
+            try:
+                current = {
+                    "upper": int(parts[0]),
+                    "lower": int(parts[2]),
+                    "DELTA_E_eV": float(parts[4]),
+                }
+            except (ValueError, IndexError):
+                current = None
+                continue
+            energies, strengths, sigmas = [], [], []
+            pending_header = True
+            continue
+        if pending_header:
+            # Drop the Born-asymptote coefficient line (4 floats).
+            pending_header = False
+            try:
+                _ = [float(p) for p in parts]
+                if len(parts) == 4:
+                    continue
+            except ValueError:
+                pass
+        if current is not None and len(parts) >= 3:
+            try:
+                e = float(parts[0])
+                strength = float(parts[1])
+                sigma = float(parts[2])
+            except ValueError:
+                continue
+            energies.append(e)
+            strengths.append(strength)
+            sigmas.append(sigma)
+            if nusr and len(energies) >= nusr:
+                _close()
+                current = None
+                energies, strengths, sigmas = [], [], []
+                pending_header = False
+    _close()
     return rows
