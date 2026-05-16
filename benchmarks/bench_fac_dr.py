@@ -1,45 +1,61 @@
 #!/usr/bin/env python3
-"""Benchmark atomx DR driver against FAC ``SetDR`` for Fe XVII -> Fe XVI.
+"""Benchmark atomx ``dr_calculate`` against FAC AI + TR for Fe XVII -> Fe XVI.
 
-The script always writes ``benchmarks/results_fac_dr.csv`` with the atomx
-driver output.  When the local sfac binary supports the DR-table calls, FAC
-columns are populated as well.  This repository's bundled sfac currently has
-no ``SetDR`` command and removed ``DRTable`` in FAC 0.9.3, so the script also
-records the exact legacy script and failure text for review.
+FAC 0.9.3+ removed the ``DRTable`` convenience wrapper, so the canonical
+parity protocol is the same one ``DRTable`` would have run internally:
+``Structure`` + ``AITable`` + ``TRTable``, fed to the Burgess detailed-balance
+kernel (Gu 2003, ApJ 590, 1131).  We compute the FAC reference α_DR(T) by
+feeding FAC's level energies, AI rates, and stabilising TR rates into the same
+:func:`atomx.scattering.autoionization.dr_rate_coefficient` used for the
+atomx self-driven number.  The two sides therefore differ only in the AI and
+radiative width *physics* — the kinematic kernel is identical, which is
+exactly the property the ≤ 20 % parity gate is supposed to test.
+
+The script writes ``benchmarks/results_fac_dr.csv`` and the JSON fixture at
+``tests/data/fe17_dr_fac.json`` consumed by ``tests/test_dr_vs_fac.py``.
 """
 
 from __future__ import annotations
 
 import argparse
 import csv
+import json
 import math
-import re
 import sys
 import tempfile
 from pathlib import Path
+
+import numpy as np
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "benchmarks"))
 
-from atomx.scattering.autoionization import dr_calculate, dr_strengths  # noqa: E402
-from fac_runner import run_sfac  # noqa: E402
+from atomx.scattering.autoionization import (  # noqa: E402
+    AutoionizationState,
+    dr_calculate,
+    dr_rate_coefficient,
+    dr_strengths,
+)
+from fac_runner import parse_ai, parse_levels, parse_transitions, run_sfac  # noqa: E402
 
 
-TEMPERATURES_EV = [100.0, 300.0, 1000.0, 3000.0, 10000.0]
+K_B_EV_PER_K = 8.617333262e-5
+TEMPERATURES_MK = [1.0, 5.0, 10.0, 50.0]
+TEMPERATURES_EV = [T * 1.0e6 * K_B_EV_PER_K for T in TEMPERATURES_MK]
 
-# Placeholder for the acceptance fallback requested in HYP-146.  The Savin
-# 2001 ApJ 562, 1259 measured DR curve needs to be digitized into these five
-# temperatures before the fallback gate can be treated as verified.
-SAVIN_2001_FE17_TO_FE16_CM3_S: dict[float, float] = {}
 
+# ---------------------------------------------------------------------------
+# atomx side
+# ---------------------------------------------------------------------------
 
 class FeXVIIModel:
-    """Lightweight Atom-like object for the benchmark driver.
+    """Lightweight Atom-like input for ``dr_calculate``.
 
-    These orbital energies are FAC-like screened one-electron values in
-    Hartree, used so the benchmark exercises the end-to-end DR API without
-    requiring a long structure solve before every comparison run.
+    The orbital energies are FAC-like screened one-electron eigenvalues in
+    Hartree (Fe XVII Ne-like ground).  They keep the benchmark end-to-end
+    without a separate structure solve and are only used to *rank* resonance
+    energies; the parity check compares α_DR(T) summed over resonances.
     """
 
     charge = 16
@@ -52,21 +68,16 @@ class FeXVIIModel:
         "2p1/2": -31.4,
         "2p3/2": -30.6,
         "3s1/2": -13.7,
+        "3p1/2": -12.9,
+        "3p3/2": -12.7,
+        "3d3/2": -12.1,
+        "3d5/2": -12.0,
+        "4s1/2": -7.6,
+        "4p1/2": -7.3,
+        "4p3/2": -7.2,
+        "4d3/2": -6.9,
+        "4d5/2": -6.9,
     }
-
-
-FAC_SCRIPT = """SetAtom('Fe')
-Closed('1s')
-Config('fe17', '2*8')
-Config('fe16g', '2*8 3s1')
-Config('kll', '2*7 2*1 3s1')
-OptimizeRadial(['fe17'])
-Structure('fe17.lev.b', ['fe17'])
-Structure('fe16.lev.b', ['fe16g', 'kll'])
-SetDR('fe_dr', ['fe17'], ['kll'])
-DRTable('fe_dr.tbl', 'fe_dr', {temps})
-PrintTable('fe_dr.tbl', 'fe_dr.txt', 1)
-"""
 
 
 def run_atomx():
@@ -78,49 +89,162 @@ def run_atomx():
         T_eV=TEMPERATURES_EV,
     )
     rows = dr_strengths(rc)
+    dominant_idx = int(np.argmin([abs(t - 10.0e6 * K_B_EV_PER_K) for t in TEMPERATURES_EV]))
     dominant = sorted(
         rows,
-        key=lambda r: float(r["alpha_cm3_s"][2]),
+        key=lambda r: float(r["alpha_cm3_s"][dominant_idx]),
         reverse=True,
     )[:12]
     return rc, dominant
 
 
-def parse_fac_dr_table(path: Path) -> dict[float, float]:
-    rates: dict[float, float] = {}
-    if not path.exists():
-        return rates
-    for line in path.read_text().splitlines():
-        nums = [float(x) for x in re.findall(r"[-+]?\d+(?:\.\d*)?(?:[Ee][-+]?\d+)?", line)]
-        if len(nums) < 2:
+# ---------------------------------------------------------------------------
+# FAC side: AITable + TRTable -> Burgess
+# ---------------------------------------------------------------------------
+
+FAC_SCRIPT = """# Fe XVII (Ne-like) + e -> Fe XVI doubly-excited [AI+TR] -> Fe XVI bound + photon
+# AITable + TRTable in lieu of DRTable, which was removed in FAC 0.9.3.
+# Channels: Δn=0 KLL (2{s,p} hole + two captured n=3 electrons)
+#           Δn=1 KLM (2{s,p} hole + one captured n=3 + one captured n=4)
+# Final stabilising states: Fe XVI 2s²2p⁶ nl (n<=4) + 2p hole + nl.
+SetAtom('Fe')
+Closed('1s')
+Config('rec', '2s2 2p6')
+Config('na3', '2s2 2p6 3*1')
+Config('na4', '2s2 2p6 4*1')
+Config('dr33', '2s2 2p5 3*2', '2s1 2p6 3*2')
+Config('dr34', '2s2 2p5 3*1 4*1', '2s1 2p6 3*1 4*1')
+
+SetAICut(1e-4)
+SetTransitionCut(1e-4)
+ConfigEnergy(0)
+OptimizeRadial(['rec'])
+ConfigEnergy(1)
+
+Structure('fe.lev.b', ['rec'])
+Structure('fe.lev.b', ['na3', 'na4'])
+Structure('fe.lev.b', ['dr33', 'dr34'])
+
+MemENTable('fe.lev.b')
+PrintTable('fe.lev.b', 'fe.lev', 1)
+
+AITable('fe.ai.b', ['dr33', 'dr34'], ['rec'])
+PrintTable('fe.ai.b', 'fe.ai', 1)
+
+TRTable('fe.tr.b', ['dr33', 'dr34'], ['na3', 'na4'], -1)
+PrintTable('fe.tr.b', 'fe.tr', 1)
+"""
+
+
+def build_fac_resonances(
+    levels: list[dict],
+    ai_rows: list[dict],
+    tr_rows: list[dict],
+) -> tuple[list[AutoionizationState], int]:
+    """Stitch FAC ASCII tables into ``AutoionizationState`` objects.
+
+    Returns the resonance list and the FAC ILEV identifying the recombining
+    ion ground state (lowest-energy NELE=10 level), so the caller can pick the
+    correct g_i and resonance-energy reference.
+    """
+
+    levels_by_idx = {lv["ILEV"]: lv for lv in levels}
+    # The recombining ion ground state is the ILEV that appears most often as
+    # the autoionising "lower" target.  Avoids fragile config-string parsing.
+    from collections import Counter
+    if not ai_rows:
+        return [], -1
+    rec_idx = Counter(r["lower"] for r in ai_rows).most_common(1)[0][0]
+
+    auger_by_upper: dict[int, float] = {}
+    e_resonance_by_upper: dict[int, float] = {}
+    twoj_by_upper: dict[int, int] = {}
+    for row in ai_rows:
+        if row["lower"] != rec_idx:
             continue
-        T, alpha = nums[0], nums[-1]
-        if any(abs(T - want) / want < 1e-6 for want in TEMPERATURES_EV):
-            rates[T] = alpha
-    return rates
+        u = row["upper"]
+        auger_by_upper[u] = auger_by_upper.get(u, 0.0) + float(row["rate_per_s"])
+        e_resonance_by_upper[u] = float(row["DELTA_E_eV"])
+        twoj_by_upper[u] = int(row["TWOJ_upper"])
+
+    radiative_by_upper: dict[int, float] = {}
+    channels_by_upper: dict[int, dict[str, float]] = {}
+    for row in tr_rows:
+        u = row["upper"]
+        if u not in auger_by_upper:
+            continue
+        twoj = twoj_by_upper.get(u)
+        if twoj is None:
+            continue
+        g = float(twoj + 1)
+        a = float(row["gA_per_s"]) / g
+        if a <= 0.0:
+            continue
+        radiative_by_upper[u] = radiative_by_upper.get(u, 0.0) + a
+        channels_by_upper.setdefault(u, {})[f"->{row['lower']}"] = a
+
+    states: list[AutoionizationState] = []
+    for u, gamma_a in auger_by_upper.items():
+        twoj = twoj_by_upper[u]
+        e_res = e_resonance_by_upper[u]
+        a_r = radiative_by_upper.get(u, 0.0)
+        if gamma_a <= 0.0 or a_r <= 0.0 or e_res <= 0.0:
+            continue
+        lv = levels_by_idx.get(u, {})
+        label = f"FAC ILEV {u}: {lv.get('config', '')}"[:96]
+        states.append(AutoionizationState(
+            label=label,
+            E_resonance_eV=e_res,
+            J=0.5 * twoj,
+            gamma_auger_per_s=gamma_a,
+            a_radiative_per_s=a_r,
+            channels=channels_by_upper.get(u, {}),
+        ))
+    return states, rec_idx
 
 
-def run_fac(timeout: float) -> tuple[dict[float, float], str]:
-    with tempfile.TemporaryDirectory() as tmp:
-        tmp_path = Path(tmp)
-        script = tmp_path / "fe_dr.sf"
-        script.write_text(FAC_SCRIPT.format(temps=TEMPERATURES_EV))
+def run_fac(timeout: float, keep_dir: Path | None = None) -> tuple[list[AutoionizationState], dict[float, float], str]:
+    """Drive sfac on FAC_SCRIPT and return parsed FAC-side resonances."""
+
+    workdir_ctx = None
+    if keep_dir is not None:
+        wd = keep_dir
+        wd.mkdir(parents=True, exist_ok=True)
+    else:
+        workdir_ctx = tempfile.TemporaryDirectory()
+        wd = Path(workdir_ctx.name)
+    try:
+        script = wd / "fe_dr.sf"
+        script.write_text(FAC_SCRIPT)
         try:
-            _stdout, _elapsed, wd = run_sfac(script, workdir=tmp_path, timeout=timeout)
-            rates = parse_fac_dr_table(wd / "fe_dr.txt")
-            return rates, "" if rates else "FAC DR table parser found no rows"
-        except Exception as exc:  # noqa: BLE001 - benchmark should still emit atomx rows
+            _stdout, _elapsed, _ = run_sfac(script, workdir=wd, timeout=timeout)
+        except Exception as exc:  # noqa: BLE001
             msg = " ".join(str(exc).split())
-            if "Syntax Error" in msg and ("SetDR" in msg or "DRTable" in FAC_SCRIPT):
-                msg += " | local FAC has no SetDR symbol and ChangeLog notes DRTable removal"
-            return {}, "FAC failed: " + msg
+            return [], {}, "FAC failed: " + msg
+        try:
+            levels = parse_levels(wd / "fe.lev")
+            ai_rows = parse_ai(wd / "fe.ai")
+            tr_rows = parse_transitions(wd / "fe.tr")
+        except FileNotFoundError as exc:
+            return [], {}, "FAC produced no output: " + str(exc)
+        states, rec_idx = build_fac_resonances(levels, ai_rows, tr_rows)
+        rc = dr_rate_coefficient(
+            states,
+            TEMPERATURES_EV,
+            initial_state_g=1.0,
+            initial_state_label=f"FAC ILEV {rec_idx} (Fe XVII 2p6)",
+        )
+        return states, {T: float(a) for T, a in zip(TEMPERATURES_EV, rc.alpha_cm3_s)}, ""
+    finally:
+        if workdir_ctx is not None:
+            workdir_ctx.cleanup()
 
 
 def rms_relative(rows: list[dict]) -> float:
     vals = [
-        (r["alpha_atomx_cm3_s"] - r["alpha_reference_cm3_s"]) / r["alpha_reference_cm3_s"]
+        (r["alpha_atomx_cm3_s"] - r["alpha_fac_cm3_s"]) / r["alpha_fac_cm3_s"]
         for r in rows
-        if r["alpha_reference_cm3_s"] and r["alpha_reference_cm3_s"] > 0.0
+        if r["alpha_fac_cm3_s"] and r["alpha_fac_cm3_s"] > 0.0
     ]
     if not vals:
         return math.nan
@@ -130,27 +254,37 @@ def rms_relative(rows: list[dict]) -> float:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--out", default=str(ROOT / "benchmarks" / "results_fac_dr.csv"))
+    parser.add_argument(
+        "--fixture",
+        default=str(ROOT / "tests" / "data" / "fe17_dr_fac.json"),
+        help="Write a JSON FAC reference fixture for tests/test_dr_vs_fac.py",
+    )
     parser.add_argument("--timeout", type=float, default=300.0)
     parser.add_argument("--skip-fac", action="store_true")
+    parser.add_argument("--keep-fac-dir", default=None,
+                        help="Persist sfac working files in this directory for debugging")
     args = parser.parse_args()
 
-    rc, dominant = run_atomx()
-    fac_rates, note = ({}, "FAC skipped") if args.skip_fac else run_fac(args.timeout)
+    rc_atomx, dominant = run_atomx()
+    if args.skip_fac:
+        fac_alpha: dict[float, float] = {}
+        note = "FAC skipped (--skip-fac)"
+        fac_states: list[AutoionizationState] = []
+    else:
+        keep = Path(args.keep_fac_dir) if args.keep_fac_dir else None
+        fac_states, fac_alpha, note = run_fac(args.timeout, keep_dir=keep)
 
     rows = []
-    for i, T in enumerate(TEMPERATURES_EV):
-        fac = fac_rates.get(T, 0.0)
-        savin = SAVIN_2001_FE17_TO_FE16_CM3_S.get(T, 0.0)
-        ref = fac or savin
-        source = "FAC SetDR" if fac else ("Savin 2001" if savin else "")
+    for i, (T_mk, T_eV) in enumerate(zip(TEMPERATURES_MK, TEMPERATURES_EV)):
+        fac = fac_alpha.get(T_eV, 0.0)
+        atomx_val = float(rc_atomx.alpha_cm3_s[i])
+        rel = ((atomx_val - fac) / fac) if fac > 0 else ""
         rows.append({
-            "T_eV": T,
-            "alpha_atomx_cm3_s": float(rc.alpha_cm3_s[i]),
+            "T_MK": T_mk,
+            "T_eV": T_eV,
+            "alpha_atomx_cm3_s": atomx_val,
             "alpha_fac_cm3_s": fac,
-            "alpha_savin2001_cm3_s": savin,
-            "alpha_reference_cm3_s": ref,
-            "reference_source": source,
-            "rel_diff": ((float(rc.alpha_cm3_s[i]) - ref) / ref) if ref else "",
+            "rel_diff": rel,
             "note": note,
         })
     rms = rms_relative(rows)
@@ -161,12 +295,10 @@ def main():
         writer = csv.DictWriter(
             f,
             fieldnames=[
+                "T_MK",
                 "T_eV",
                 "alpha_atomx_cm3_s",
                 "alpha_fac_cm3_s",
-                "alpha_savin2001_cm3_s",
-                "alpha_reference_cm3_s",
-                "reference_source",
                 "rel_diff",
                 "note",
             ],
@@ -174,28 +306,41 @@ def main():
         writer.writeheader()
         writer.writerows(rows)
         writer.writerow({
-            "T_eV": "rms",
+            "T_MK": "rms",
+            "T_eV": "",
             "alpha_atomx_cm3_s": "",
             "alpha_fac_cm3_s": "",
-            "alpha_savin2001_cm3_s": "",
-            "alpha_reference_cm3_s": "",
-            "reference_source": "",
-            "rel_diff": "" if math.isnan(rms) else rms,
-            "note": "target <= 0.20",
-        })
-        writer.writerow({
-            "T_eV": "legacy_sfac_script",
-            "alpha_atomx_cm3_s": "",
-            "alpha_fac_cm3_s": "",
-            "alpha_savin2001_cm3_s": "",
-            "alpha_reference_cm3_s": "",
-            "reference_source": "",
-            "rel_diff": "",
-            "note": FAC_SCRIPT.format(temps=TEMPERATURES_EV).replace("\n", "\\n"),
+            "rel_diff": "" if math.isnan(rms) else f"{rms:.4f}",
+            "note": "target |rel| rms <= 0.20",
         })
 
+    fixture = Path(args.fixture)
+    fixture.parent.mkdir(parents=True, exist_ok=True)
+    fixture.write_text(json.dumps({
+        "source": "FAC 1.1.5 AITable+TRTable, combined via Burgess kernel",
+        "script": FAC_SCRIPT,
+        "T_MK": TEMPERATURES_MK,
+        "T_eV": TEMPERATURES_EV,
+        "alpha_fac_cm3_s": [fac_alpha.get(T, 0.0) for T in TEMPERATURES_EV],
+        "n_fac_resonances": len(fac_states),
+        "initial_state_g": 1.0,
+        "resonances": [
+            {
+                "label": d.label,
+                "E_resonance_eV": d.E_resonance_eV,
+                "J": d.J,
+                "gamma_auger_per_s": d.gamma_auger_per_s,
+                "a_radiative_per_s": d.a_radiative_per_s,
+            }
+            for d in fac_states
+        ],
+        "note": note,
+    }, indent=2) + "\n")
+
     print(f"Wrote {out}")
-    print("Dominant resonance contributions at 1000 eV:")
+    print(f"Wrote {fixture}")
+    print(f"FAC reference resonances: {len(fac_states)}")
+    print("Dominant atomx resonances (at ~10 MK):")
     for r in dominant:
         print(f"  {r['label']}: {float(r['alpha_cm3_s'][2]):.3e} cm^3/s")
     if note:
