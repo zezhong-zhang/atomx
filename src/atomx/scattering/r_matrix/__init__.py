@@ -1,55 +1,42 @@
-"""R-matrix close-coupling scattering.  SCAFFOLD.
+"""R-matrix close-coupling scattering.
 
-Planned scope
--------------
-Systematic continuum treatment via the internal-external region
-split of the R-matrix method:
-
-- Inside ``r ≤ a``: the full configuration-interaction problem in a
-  square-integrable basis (B-splines natural fit).
-- Outside ``r > a``: the continuum is described by asymptotic
-  coupled partial waves matched at the boundary through the R-matrix.
-
-Gives the unified framework for:
-- Electron-impact excitation & ionisation cross-sections.
-- Photoionisation with resonances.
-- Dielectronic recombination with inter-resonance interference.
-- Low-energy scattering phase shifts.
+Phase 1 of HYP-172 ships the single-channel Wigner R-matrix driver
+:func:`compute_single_channel` on a B-spline internal-region basis with
+a symmetric Bloch operator (``b = 0``) and surface matching against the
+Riccati-Bessel functions. The multi-channel close-coupling driver
+:func:`compute` remains a scaffold and raises ``NotImplementedError``
+until Phase 2 lands.
 
 References
 ----------
-- P. G. Burke, *R-Matrix Theory of Atomic Collisions* (Springer,
-  2011) — the canonical reference.
+- P. G. Burke, *R-Matrix Theory of Atomic Collisions* (Springer, 2011).
 - K. A. Berrington, W. B. Eissner, P. H. Norrington, *Comput. Phys.
-  Commun.* **92**, 290 (1995) — relativistic Dirac R-matrix code
-  (DARC).
-- N. R. Badnell *et al.*, *J. Phys. B* **29**, 3683 (1996) —
-  relativistic close-coupling for heavy atoms.
+  Commun.* **92**, 290 (1995) (RMATRX-II / DARC).
+- O. Zatsarinny and C. Froese Fischer, *Comput. Phys. Commun.* **202**,
+  287 (2016) (DBSR_HF; same B-spline conventions reused here).
 """
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Any, Dict
-
-
-@dataclass
-class RMatrixResult:
-    """Output of an R-matrix calculation (scaffold)."""
-
-    cross_sections_Mbarn: Dict[str, Any] = field(default_factory=dict)
-    provenance: Dict[str, Any] = field(default_factory=dict)
+from atomx.scattering.r_matrix.coupled_channels import compute_multichannel
+from atomx.scattering.r_matrix.solver import RMatrixResult, compute_single_channel
 
 
 def compute(*_args, **_kwargs) -> RMatrixResult:
-    """Close-coupling R-matrix solve.  Not implemented yet.
+    """Close-coupling R-matrix solve — not implemented yet (HYP-172 Phase 2).
 
-    Tracking issue: *atomx#r_matrix*.
+    Use :func:`compute_single_channel` for the single-open-channel case.
     """
     raise NotImplementedError(
-        "R-matrix close-coupling is a planned module — see "
-        "scattering/r_matrix/ scaffold (tracking issue atomx#r_matrix)."
+        "Multi-channel R-matrix close-coupling is not yet implemented "
+        "(HYP-172 Phase 2). The single-channel driver "
+        "atomx.scattering.r_matrix.compute_single_channel is available."
     )
 
 
-__all__ = ["RMatrixResult", "compute"]
+__all__ = [
+    "RMatrixResult",
+    "compute",
+    "compute_single_channel",
+    "compute_multichannel",
+]
