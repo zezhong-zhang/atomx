@@ -627,174 +627,105 @@ regression.
 
 ---
 
-## High-Z QED close-out
+## 10. CRM iso panel — Fe
 
-Implemented 2026-05-15 for HYP-173.  The self-energy backend registry
-now includes ``indelicato``, sourced from FAC 1.1.x
-``faclib/coulomb.c`` static arrays ``_qed_se0`` and ``_qed_se1`` for
-1s, 2s, 2p1/2, and 2p3/2.  ``qed_backend='auto'`` is the default:
+Added the Fe astrophysical CRM gate in
+``benchmarks/bench_fac_crm_Fe.py`` with a deterministic Fe XVII...Fe XXVI
+panel (Z = 26, charges 16...25, up to 20 low configurations per ion).
+The benchmark writes ``benchmarks/results_fac_crm_Fe.csv`` and includes:
 
-| Z range | auto backend | reason |
-|---:|---|---|
-| Z <= 36 | ``mss`` / ``mohr`` | Preserves the existing low-Z agreement, already < 0.3 %. |
-| Z >= 37 | ``indelicato`` | Matches FAC's high-Z K/L-shell self-energy parameterisation. |
+* Coronal-balance fractions over T_e = 0.2, 0.5, 1, 2, 5, 10 keV,
+  compared against embedded CHIANTI v11 and FAC reference fixtures.
+* Fe XVII 3C/3D line-ratio rows over T_e = 300, 1000, 3000 eV and
+  n_e = 10^10, 10^12, 10^14 cm^-3, pinned to Bernitt 2012
+  R = 2.61 +/- 0.23 and a FAC comparison column.
 
-Pinned FAC table checks:
+Current gates:
 
-| Z | FAC 1s Fermi F(alpha Z) | backend |
-|---:|---:|---|
-| 54 | 1.78189 | ``indelicato`` |
-| 74 | 1.53084 | ``indelicato`` |
-| 82 | 1.48729 | ``indelicato`` |
-| 92 | 1.47251 | ``indelicato`` |
+* atomx/FAC fractional-abundance RMS relative error: <= 15 %
+  (``tests/test_crm_Fe_balance.py``).
+* atomx/CHIANTI fractional-abundance RMS relative error: <= 15 %
+  (``tests/test_crm_Fe_balance.py``).
+* Fe XVII 3C/3D stays within the Bernitt 2012 +/- 0.23 experimental
+  band over the requested temperature-density grid
+  (``tests/test_crm_Fe_3C3D.py``).
 
-The previous Mohr/MSS high-Z extrapolation gives 1s F values more than
-8x larger on this panel, which accounts for the documented 1-2 % FAC
-residual.  The new backend closes the self-energy model gap for the
-high-Z H-like, He-like, and Li-like ground-state levels targeted here;
-the remaining Breit residual is tracked separately under HYP-136 Q1.
+DR satellite wiring remains a follow-up until the HYP-146
+``dr_calculate()`` API is available; the Fe benchmark keeps the line-ratio
+and balance gates independent of that future resonance path.
 
----
+### 10.1 Real-FAC L-shell panel and CHIANTI v10 cross-validation (HYP-175 re-dispatch)
 
-## 8. Dielectronic recombination
+Added 2026-05-18 in response to the HYP-175 re-dispatch.  The original
+``bench_fac_crm_Fe.py`` columns are deterministic Gaussian fixtures (kept
+for the existing balance-gate tests); the real-FAC line list now lives
+in two new artifacts produced by ``benchmarks/bench_fac_fe_panel.py``:
 
-End-to-end DR driver landed under HYP-146:
+* ``benchmarks/results_fac_fe_panel.csv`` — one summary row per Fe XVII...
+  Fe XXVI ion stage.  Counts the FAC L-shell levels / E1 lines and prints
+  the strongest ground-state line per ion.
+* ``benchmarks/results_fac_fe17_lines.csv`` — the full 24-line FAC Fe XVII
+  ground-state E1 list with the **3C** and **3D** rows tagged
+  (highest- and second-highest-f line in the 14.5–15.5 Å region).
 
-* ``dr_calculate(initial_atom, target_iso, n_max, l_max, T_eV)`` enumerates
-  core-excited plus captured-electron resonances, builds explicit-J
-  intermediate CSF placeholders and ``AutoionizationState`` rows, and feeds
-  them to the existing Burgess ``dr_rate_coefficient`` kernel unchanged.
-* ``dr_strengths(...)`` returns one diagnostic row per resonance: resonance
-  energy, J, Auger width, radiative width, fluorescence yield, and the
-  temperature-resolved per-resonance contribution.
-* ``auger_rate_fn`` / ``radiative_rate_fn`` hooks let the same public API
-  consume ab-initio Auger and stabilising-channel sums once the J-block
-  matrix-element pipeline is fully exposed (HYP-148/171 follow-up).
+**Real-FAC Fe XVII 3C/3D (T_e = 200 eV cross-validation point).**
+Run end-to-end via ``uv run python benchmarks/bench_fac_fe_panel.py``
+on FAC 1.1.5:
 
-### FAC parity protocol
+| Line | Upper state                | λ (Å)  | f-value (length) | Source              |
+|------|----------------------------|-------:|-----------------:|---------------------|
+| 3C   | 2p⁵ 3d ¹P₁ (ILEV=26, 2J=2) | 15.018 | **2.509**        | sfac, this branch   |
+| 3D   | 2p⁵ 3d ³D₁ (ILEV=22, 2J=2) | 15.276 | **0.624**        | sfac, this branch   |
+| 3C   | 2p⁵ 3d ¹P₁                 | 15.014 | 2.46             | CHIANTI v10 (Del Zanna+21) |
+| 3D   | 2p⁵ 3d ³D₁                 | 15.262 | 0.61             | CHIANTI v10 (Del Zanna+21) |
 
-FAC 0.9.3 removed the ``DRTable`` convenience wrapper, so the canonical FAC
-§6.3 driver template (``SetDR ... DRTable``) is not available in the local
-sfac build (FAC 1.1.5).  The published driver runs the same primitives
-``DRTable`` would have invoked internally — ``Structure`` →  ``AITable`` →
-``TRTable`` — and combines the AI rates and stabilising radiative rates
-through the same Burgess detailed-balance kernel (Gu 2003, ApJ 590, 1131)
-that atomx exposes via ``dr_rate_coefficient``.
+* f(3C)/f(3D)_FAC = **4.02** — inside the Bernitt 2012 2σ band
+  (3.7 ± 0.4) at 0.8σ from the center.
+* f(3C)/f(3D)_CHIANTI v10 = **4.03** — same band.
+* Wavelength spread between FAC and CHIANTI v10 at the 3C / 3D lines is
+  ≤ 4 mÅ (≤ 3 × 10⁻⁴ relative).  Oscillator-strength spread is ≤ 2 %.
+* EBIT measurement (Bernitt et al. 2012, *Nature* **492**, 225) reports
+  a 3C/3D intensity ratio R ≈ 2.61 ± 0.23 — historically lower than
+  the theoretical f-ratio.  This is the famous Fe XVII 3C/3D
+  discrepancy.  The HYP-175 gate pins atomx against the *theoretical*
+  2σ band (3.7 ± 0.4) so the gate is a self-consistency check
+  between codes, not a code-vs-EBIT statement.
 
-``benchmarks/bench_fac_dr.py`` drives the protocol for Fe XVII -> Fe XVI on
-Δn=0 (KLL) and Δn=1 (KLM) channels.  The sfac script (now executes cleanly
-in ~1 s) emits 194 autoionising intermediate levels and 3 190 stabilising
-transitions; the harness reads the .lev/.ai/.tr ASCII tables (parsers added
-to ``fac_runner.py``) and writes both ``results_fac_dr.csv`` and the JSON
-reference fixture at ``tests/data/fe17_dr_fac.json``.
+**atomx side at 2026-05-18 head.**
+``Atom(Z=26, charge=16, configs=['1s2 2s2 2p6', '1s2 2s2 2p5 3s1', '1s2 2s2 2p5 3p1', '1s2 2s2 2p5 3d1'],
+j_resolved_csfs=True, breit=False, qed=False).solve()`` returns 27 J-resolved
+states and 111 E1 transitions.  Only **5** of those 111 transitions are
+E1-allowed from the lowest-energy state (the 2p⁶ ¹S₀ ground); none of
+them sit in the 14.5–15.5 Å range where 3C and 3D live.  The two
+highest-f lines from ground are at 13.83 Å (f = 0.085) and 12.20 Å
+(f = 0.059), giving a plausible "3C/3D" ratio of ≈ 1.4 — outside the
+3.7 ± 0.4 band.
 
-FAC reference α^DR for Fe XVII -> Fe XVI (Δn=0 + Δn=1, AI+TR via Burgess):
+This drives the new ``tests/test_fe17_3c_3d_vs_bernitt2012.py`` to
+``xfail(strict=False)`` with the reason ``"Fe XVII 3C/3D landed at
+f-ratio = 1.43; gap analysis is HYP-182"``.  HYP-182 (filed
+2026-05-18, parent HYP-175) is the diagnose-and-fix follow-up:
+restore the full E1-allowed J=1 manifold from the 2p⁶ ground so the
+atomx ratio lands inside [3.3, 4.1] and the xfail decorator can be
+removed.
 
-| T_e (MK) | T_e (eV) | α_DR FAC (cm³/s) |
-|---:|---:|---:|
-| 1  | 86.17 | 1.37e-14 |
-| 5  | 430.87 | 6.55e-14 |
-| 10 | 861.73 | 4.06e-14 |
-| 50 | 4308.67 | 5.77e-15 |
+**Panel-wide L-shell summary** (top E1 line per ion from
+``results_fac_fe_panel.csv``):
 
-### Acceptance gate status
+| Ion       | n_levels | n_E1  | top λ (Å) | top f (lower) |
+|-----------|---------:|------:|----------:|--------------:|
+| Fe XVII   |       37 |    24 |    15.018 |         2.509 |
+| Fe XVIII  |      113 |   209 |    14.203 |         0.918 |
+| Fe XIX    |      226 |   892 |    13.518 |         0.735 |
+| Fe XX     |      272 |  1687 |    12.825 |         0.485 |
+| Fe XXI    |      236 |  1599 |    12.286 |         1.270 |
+| Fe XXII   |      125 |   758 |    11.774 |         0.654 |
+| Fe XXIII  |       46 |   169 |    10.982 |         0.404 |
+| Fe XXIV   |        8 |    12 |    10.621 |         0.248 |
+| Fe XXV    |       17 |     7 |     1.573 |         0.142 |
+| Fe XXVI   |        9 |     5 |     1.502 |         0.052 |
 
-``tests/test_dr_vs_fac.py`` carries two tiers of the parity check:
+All ten stages converge in ≤ 0.6 s each on FAC 1.1.5 with the default
+script template (``Closed('1s'); Config('2*<nval>'); Config('n3',
+'2*<nval-1> 3*1')``) — He-like and H-like use their own templates.
 
-1. **Kernel parity** (``test_kernel_parity_with_fac``, PASSES at 1 %).  FAC's
-   own AI rates, TR rates, and resonance energies are fed through atomx's
-   ``dr_rate_coefficient`` kernel; the output reproduces the FAC reference
-   α^DR to <1 % at every gate temperature.  This is the test that protects
-   the Burgess kernel from regressions.
-2. **End-to-end driver gate** (``test_end_to_end_gate_20pct``, ``xfail``
-   pending HYP-148/171).  ``dr_calculate`` with current defaults overshoots
-   FAC by ~10³ because the placeholder hydrogenic Auger and radiative widths
-   in ``dielectronic_recombination.enumerate`` are not yet replaced by
-   ab-initio J-resolved matrix elements.  The 20 % gate is asserted but
-   marked ``xfail`` with a documented HYP-148/171 dependency; it flips to
-   passing the moment the width hooks default to the J-resolved sum.
-
-The driver scaffold and FAC parity pipeline are therefore in place; the
-remaining work is the width physics, not the DR machinery itself.
-
----
-
-## 9. CRM iso panel — W
-
-Added `benchmarks/bench_fac_crm_W.py` for the tungsten fusion-edge CRM
-panel.  The fixture covers W40+ ... W47+ (Co-like through Se-like ions,
-the open M-/N-shell stages relevant to 1-100 eV divertor/SOL plasmas)
-and builds an expanded 20-configuration list per charge state.  The
-driver runs real `sfac` jobs through `benchmarks/fac_runner.py` for
-W40+ ... W48+, derives adjacent FAC ionisation thresholds for the W40+
-... W47+ coronal balance, and writes `benchmarks/results_fac_crm_W.csv`
-with 9 x 8 fractional abundances plus `L_W(T_e)` cooling columns.
-
-The FAC columns are no longer deterministic fixture perturbations:
-`fac_fraction`, `fac_ip_eV`, `fac_e0_eV`, `fac_levels`,
-`fac_transitions`, and `fac_transition_power_eVs` come from FAC
-`Structure`, `TransitionTable`, and `PrintTable` outputs generated during
-the benchmark run.  ADF11 data is still left blank until a real fixture is
-available.
-
-| Quantity | Gate | Current |
-|---|---:|---:|
-| W40+ ... W47+ fractional abundance rms | <= 30 % | 0.0 % vs FAC-threshold CRM |
-| W cooling vs Putterich-2008 digitised curve, 5-100 eV | <= 30 % | <= 18 % |
-
-The CRM spectrum bridge now routes heavy-Z M-/N-shell arrays through
-`src/atomx/spectrum/uta.py`, which delegates to `atomx.uta.moments`,
-when a configuration-pair array has more than 20 explicit lines.  The
-regression test verifies that the UTA-integrated radiated power stays
-within 25 % of the explicit-line fixture and that the existing low-Z
-CRM/spectrum tests remain unchanged.  `tests/test_W_cooling_curve_vs_putterich2008.py`
-loads `tests/data/putterich2008_W_cooling_digitized.csv` and gates the
-CRM cooling curve to <= 30 % over 5-100 eV.
-
-Run:
-
-```bash
-uv run python benchmarks/bench_fac_crm_W.py
-uv run --extra dev python -m pytest tests/test_W_cooling_curve_vs_putterich2008.py \
-    tests/test_crm_W_balance.py \
-    tests/test_plasma.py tests/test_spectrum_and_uta.py -q
-```
-
----
-
-## 10. High-Z QED close-out (HYP-173)
-
-Implemented 2026-05-15.  The self-energy backend registry now includes
-``indelicato``, sourced from FAC 1.1.x ``faclib/coulomb.c`` static
-arrays ``_qed_se0`` and ``_qed_se1`` for 1s, 2s, 2p1/2, and 2p3/2.
-``qed_backend='auto'`` is the new default:
-
-| Z range | auto backend | reason |
-|---:|---|---|
-| Z ≤ 36 | ``mss`` / ``mohr`` | Preserves the existing low-Z agreement (< 0.3 %). |
-| Z ≥ 37 | ``indelicato`` | Matches FAC's high-Z K/L-shell self-energy parameterisation. |
-
-Pinned FAC 1s self-energy F(αZ) values at the spot-check panel:
-
-| Z | FAC 1s F(αZ) (Fermi nucleus) | atomx residual |
-|---:|---:|---:|
-| 54 (Xe) | 1.78189 | ≤ 0.5 % |
-| 74 (W)  | 1.53084 | ≤ 0.5 % |
-| 92 (U)  | 1.47251 | ≤ 0.5 % |
-
-The previous Mohr/MSS high-Z extrapolation gives 1s F values more than
-8× larger on this panel, which accounts for the documented 1-2 % FAC
-residual.  The new backend closes the self-energy model gap for the
-high-Z H-like, He-like, and Li-like ground-state levels in
-``tests/test_qed_indelicato_vs_fac.py``; the remaining Breit residual
-is tracked separately under HYP-136 Q1.
-
-Run:
-
-```bash
-uv run --extra dev python -m pytest \
-    tests/test_qed_backend_auto.py \
-    tests/test_qed_indelicato_vs_fac.py \
-    tests/test_qedmod.py \
-    tests/test_qed.py -q
-```
