@@ -360,11 +360,17 @@ class TestMohrN3Table:
 # ---------------------------------------------------------------------------
 
 class TestSCFIntegration:
-    def test_qed_se_method_defaults_to_mohr(self):
-        """DFSolver without qed_se_method kwarg uses Mohr (backward compat)."""
+    def test_qed_se_method_defaults_to_auto(self):
+        """DFSolver without qed_se_method kwarg uses the auto policy."""
         solver = DFSolver(Z=2, subshells=helium_subshells(), ns=40, ks=9,
                           exchange="hf", include_qed=True)
-        assert solver.qed_se_method == "mohr"
+        assert solver.qed_se_method == "auto"
+
+    def test_mss_alias_keeps_mohr_output_path(self):
+        """Users can still request the old Mohr/MSS backend explicitly."""
+        from atomx.corrections.qed import resolve_se_method
+
+        assert resolve_se_method("mss", 92) == "mohr"
 
     def test_qed_se_method_welton_end_to_end(self):
         """Solver accepts qed_se_method='welton' and populates SE accordingly."""

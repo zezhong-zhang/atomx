@@ -538,10 +538,12 @@ regression.
    frequency-dependent Bessel functions would match Drake 1988 to better
    than 1 %.
 
-4. **High-Z QED gap with FAC.** The 1–2 % structural difference at
-   Z ≥ 54 (§4.1) is not a bug; it reflects different parameterisations of
-   the self-energy above the Mohr-Soff tabulation range.  Documenting
-   the model choice is more appropriate than forcing a fit.
+4. **High-Z QED gap with FAC.** — **FIXED 2026-05-15**.  atomx now
+   exposes ``qed_backend='auto'|'mss'|'indelicato'``; ``auto`` keeps
+   the historic Mohr/MSS path for Z ≤ 36 and switches to the
+   FAC/Indelicato-Mohr K/L-shell self-energy table for Z ≥ 37.  Users
+   who need bit-stability with the old QED output can pass
+   ``qed_backend='mss'``.
 
 5. **Higher-L rate formula verification.** — **FIXED 2026-05-16**
    (HYP-144).  The L=1 E1 fix in §1.1 left the M1 path with two
@@ -622,6 +624,35 @@ regression.
    Z = 74 pre-patch), AND bare-Coulomb 2p₁/₂ converges from any
    shallow initial guess up through Z = 100 — verified by 35
    regression tests in ``tests/test_dbound_heavy_z.py``.
+
+---
+
+## High-Z QED close-out
+
+Implemented 2026-05-15 for HYP-173.  The self-energy backend registry
+now includes ``indelicato``, sourced from FAC 1.1.x
+``faclib/coulomb.c`` static arrays ``_qed_se0`` and ``_qed_se1`` for
+1s, 2s, 2p1/2, and 2p3/2.  ``qed_backend='auto'`` is the default:
+
+| Z range | auto backend | reason |
+|---:|---|---|
+| Z <= 36 | ``mss`` / ``mohr`` | Preserves the existing low-Z agreement, already < 0.3 %. |
+| Z >= 37 | ``indelicato`` | Matches FAC's high-Z K/L-shell self-energy parameterisation. |
+
+Pinned FAC table checks:
+
+| Z | FAC 1s Fermi F(alpha Z) | backend |
+|---:|---:|---|
+| 54 | 1.78189 | ``indelicato`` |
+| 74 | 1.53084 | ``indelicato`` |
+| 82 | 1.48729 | ``indelicato`` |
+| 92 | 1.47251 | ``indelicato`` |
+
+The previous Mohr/MSS high-Z extrapolation gives 1s F values more than
+8x larger on this panel, which accounts for the documented 1-2 % FAC
+residual.  The new backend closes the self-energy model gap for the
+high-Z H-like, He-like, and Li-like ground-state levels targeted here;
+the remaining Breit residual is tracked separately under HYP-136 Q1.
 
 ---
 
