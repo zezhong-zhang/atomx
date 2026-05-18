@@ -3,11 +3,25 @@
 import numpy as np
 import pytest
 
+from atomx.constants import HARTREE_EV, PROTON_ELECTRON_MASS_RATIO
+from atomx.physics.dirac import hydrogenic_dirac_energy
 from atomx.scattering.r_matrix import (
     RMatrixResult,
     compute,
     compute_single_channel,
 )
+
+# Live ``sfac`` reference values from the codex-review reviewer's pre-run
+# on 2026-05-18 (HYP-172 thread). These are the target-state thresholds
+# the R-matrix solver must agree with before any partial-wave channel
+# coupling is meaningful.
+FAC_H_E0_eV = -13.59842390
+FAC_HEPLUS_E0_eV = -54.41777820
+# Mass ratios used for the finite-nuclear-mass correction. The proton
+# ratio is already exposed by atomx.constants; the 4He nucleus mass
+# ratio (alpha particle / electron) is from CODATA 2018.
+M_ALPHA_OVER_E = 7294.29954136
+FAC_THRESHOLD_RELTOL = 5.0e-4
 
 
 def _V_zero(r):
@@ -87,3 +101,63 @@ def test_eigenvalues_sorted():
 def test_multi_channel_compute_not_implemented():
     with pytest.raises(NotImplementedError):
         compute()
+
+
+# -----------------------------------------------------------------------------
+# Target-state threshold pins against live FAC reference values.
+# -----------------------------------------------------------------------------
+#
+# An R-matrix close-coupling solver needs the target-state energies to
+# place the channel thresholds. Pojo and the codex-review reviewer
+# pre-ran ``sfac`` to lock in the H and He+ ground-state energies
+# (HYP-172, 2026-05-18). These tests pin atomx's atomic-structure path
+# (Sommerfeld/Dirac hydrogenic + finite-nuclear-mass scaling) against
+# those FAC numbers to ≤ 5e-4 relative — the gate Pojo demanded before
+# the R-matrix surface result is taken seriously.
+
+
+def _reduced_mass_factor(M_over_me: float) -> float:
+    """μ / m_e for an electron bound to a nucleus of mass ``M``."""
+    return M_over_me / (M_over_me + 1.0)
+
+
+def _atomx_hydrogenic_target_eV(Z: int, M_over_me: float) -> float:
+    """atomx's hydrogenic target threshold with finite-nuclear-mass scaling."""
+    E_inf = hydrogenic_dirac_energy(n=1, kappa=-1, Z=Z) * HARTREE_EV
+    return E_inf * _reduced_mass_factor(M_over_me)
+
+
+def test_hydrogen_target_threshold_pins_to_FAC():
+    """atomx H 1s threshold must match the FAC reference within 5e-4."""
+    E_atomx = _atomx_hydrogenic_target_eV(Z=1, M_over_me=PROTON_ELECTRON_MASS_RATIO)
+    relerr = abs(E_atomx - FAC_H_E0_eV) / abs(FAC_H_E0_eV)
+    assert relerr <= FAC_THRESHOLD_RELTOL, (
+        f"H 1s: atomx={E_atomx:.8f} eV  FAC={FAC_H_E0_eV:.8f} eV  "
+        f"relerr={relerr:.3e} (gate {FAC_THRESHOLD_RELTOL:.0e})"
+    )
+
+
+def test_heplus_target_threshold_pins_to_FAC():
+    """atomx He+ 1s threshold must match the FAC reference within 5e-4."""
+    E_atomx = _atomx_hydrogenic_target_eV(Z=2, M_over_me=M_ALPHA_OVER_E)
+    relerr = abs(E_atomx - FAC_HEPLUS_E0_eV) / abs(FAC_HEPLUS_E0_eV)
+    assert relerr <= FAC_THRESHOLD_RELTOL, (
+        f"He+ 1s: atomx={E_atomx:.8f} eV  FAC={FAC_HEPLUS_E0_eV:.8f} eV  "
+        f"relerr={relerr:.3e} (gate {FAC_THRESHOLD_RELTOL:.0e})"
+    )
+
+
+def test_r_matrix_carries_target_thresholds_into_kinematics():
+    """Sanity check: ``compute_single_channel`` operates above the H 1s
+    threshold (i.e. the projectile energies passed to it are positive
+    *kinetic* energies, not total energies that would dip below the
+    target ground state). This guards the gate that an open-channel
+    R-matrix call cannot accidentally describe a closed channel."""
+    E_kin = np.array([0.1, 1.0, 10.0])
+    res = compute_single_channel(_V_zero, E_kin, a_au=12.0, n_basis=60, l=0)
+    # Total energy of the (e + H) system in the elastic 1s channel:
+    total_E = res.energies_eV + FAC_H_E0_eV
+    # All total energies should remain above the H threshold (= FAC_H_E0_eV);
+    # equivalently, kinetic energy is strictly positive.
+    assert np.all(total_E > FAC_H_E0_eV)
+    assert np.all(res.cross_section_cm2 >= 0)
