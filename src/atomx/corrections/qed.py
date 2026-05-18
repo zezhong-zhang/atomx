@@ -13,8 +13,10 @@ Self-energy
 Dispatched through :mod:`atomx.corrections.qedmod`, which supports
 multiple interchangeable backends:
 
-    * ``"mohr"`` (default) — tabulated Mohr F(Zα), the previous atomx
+    * ``"auto"`` (default) — Mohr/MSS for Z <= 36, Indelicato for Z >= 37.
+    * ``"mohr"`` / ``"mss"`` — tabulated Mohr F(Zα), the previous atomx
       implementation.  Matches earlier results bit-for-bit.
+    * ``"indelicato"`` — FAC/Indelicato-Mohr high-Z K/L-shell table.
     * ``"welton"`` — closed-form Welton estimate using |ψ(0)|².  Extends
       coverage to every (n, κ = ±1) orbital at ~25 % accuracy.
     * ``"flambaum_ginges"`` — local radiative potential (stub).
@@ -124,7 +126,16 @@ def compute_vp_energy(orbitals, bsp_data, Z):
 # Self-Energy (dispatched through the qedmod backend registry)
 # ---------------------------------------------------------------------------
 
-DEFAULT_SE_METHOD = "mohr"
+DEFAULT_SE_METHOD = "auto"
+
+
+def resolve_se_method(method: str, Z: int) -> str:
+    """Resolve user-facing QED backend aliases and the high-Z auto policy."""
+    if method == "auto":
+        return "mohr" if Z <= 36 else "indelicato"
+    if method == "mss":
+        return "mohr"
+    return method
 
 
 def compute_se_energy(orbitals, Z, bsp_data=None, *, method=DEFAULT_SE_METHOD):
@@ -151,7 +162,8 @@ def compute_se_energy(orbitals, Z, bsp_data=None, *, method=DEFAULT_SE_METHOD):
     --------
     atomx.corrections.qedmod : detailed backend documentation.
     """
-    backend = get_backend(method)
+    resolved_method = resolve_se_method(method, Z)
+    backend = get_backend(resolved_method)
     result = backend.compute(orbitals, bsp_data, Z)
     return result.E_SE
 
@@ -232,12 +244,14 @@ def compute_qed_corrections(
     and ``E_WK`` when ``include_wichmann_kroll=True``.
     """
     E_VP = compute_vp_energy(orbitals, bsp_data, Z)
-    E_SE = compute_se_energy(orbitals, Z, bsp_data=bsp_data, method=se_method)
+    resolved_se_method = resolve_se_method(se_method, Z)
+    E_SE = compute_se_energy(orbitals, Z, bsp_data=bsp_data, method=resolved_se_method)
 
     result = {
         "E_VP": E_VP,
         "E_SE": E_SE,
-        "se_method": se_method,
+        "se_method": resolved_se_method,
+        "qed_backend": se_method,
     }
 
     total = E_VP + E_SE
