@@ -27,6 +27,7 @@ sys.path.insert(0, str(ROOT / "benchmarks"))
 from atomx import Atom  # noqa: E402
 from atomx.constants import HARTREE_EV  # noqa: E402
 from fac_runner import parse_e0, parse_levels, run_sfac  # noqa: E402
+from fac_matrix import print_matrix_summary, run_matrix, write_matrix_csv  # noqa: E402
 
 EV_PER_HARTREE = HARTREE_EV
 
@@ -142,7 +143,17 @@ def main():
     p.add_argument("--breit", action="store_true")
     p.add_argument("--qed", action="store_true")
     p.add_argument("--out", default=str(ROOT / "benchmarks" / "results_fac_structure.csv"))
+    p.add_argument("--matrix", action="store_true", help="run the full Z x iso FAC-parity matrix")
+    p.add_argument("--quick", action="store_true", help="with --matrix, skip Z=74 and Z=82")
+    p.add_argument("--no-fac", action="store_true", help="with --matrix, omit sfac columns")
+    p.add_argument("--timeout", type=float, default=300.0, help="sfac timeout per matrix cell")
     args = p.parse_args()
+
+    if args.matrix:
+        rows = run_matrix(quick=args.quick, include_fac=not args.no_fac, timeout=args.timeout)
+        write_matrix_csv(rows, Path(args.out))
+        print_matrix_summary(rows)
+        return
 
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)

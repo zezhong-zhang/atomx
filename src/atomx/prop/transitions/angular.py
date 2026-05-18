@@ -103,12 +103,33 @@ def angular_eL(kappa_i, kappa_f, L):
 def angular_mL(kappa_i, kappa_f, L):
     """Reduced angular matrix element for magnetic 2^L-pole transition.
 
-    For M1 transitions:
-        C_M1 = (-1)^(j_f+1/2) * sqrt((2j_i+1)(2j_f+1))
-               * 3j(j_i, L, j_f; -1/2, 0, 1/2) * kappa_factor
+    For M_L the reduced matrix element factorises as
 
-    The kappa_factor for ML encodes the different operator structure
-    of the magnetic multipole.
+        ⟨f‖t^M_L‖i⟩ = ⟨f‖C^L‖i⟩ · (kappa_i + kappa_f)/(2L+1) · R_ML
+
+    where ``R_ML`` is the long-wavelength radial integral returned by
+    :func:`~atomx.prop.transitions.multipole.radial_mL` (no 1/c factor).
+
+    This function returns the angular part ``⟨f‖C^L‖i⟩ · (kappa_i +
+    kappa_f)/(2L+1)``, so that the line strength used by
+    :func:`~atomx.prop.transitions.rates.einstein_A_mL` is simply
+    ``(angular_mL * radial_mL) ** 2``.
+
+    Convention notes:
+
+    * The factorisation comes from Grant (2007) Eq. 8.4.17 / FAC
+      ``TRRateMultipole`` Eq. 38 in the long-wavelength limit, where the
+      magnetic radial operator reduces to ``r^L`` times the kappa
+      structure shown above. The combination ``2(2L+1)(L+1)/[L((2L+1)!!)^2]
+      · alpha^(2L+1) · omega^(2L+1)`` in ``einstein_A_mL`` is the same
+      prefactor as ``einstein_A_eL`` (Grant Eq. 8.4.10), and is shared
+      between E and M multipoles when matrix elements use this
+      convention.
+    * The empirical justification: with the convention above the
+      hydrogenic M1 ``2s_{1/2} -> 1s_{1/2}`` rate reproduces Drake
+      (1971) ``A = 2.50e-6 Z^10 s^-1`` to within 0.2 % for ``Z=1`` and
+      within 1 % for ``Z <= 10`` (relativistic corrections explain the
+      mild drift beyond that).  See ``tests/test_M1_E2_rates.py``.
 
     Parameters
     ----------
@@ -135,10 +156,12 @@ def angular_mL(kappa_i, kappa_f, L):
     phase_exp = (tj_f + 1) // 2
     phase = 1.0 if phase_exp % 2 == 0 else -1.0
 
-    # For magnetic multipoles, there's an additional factor involving kappa
-    # M1: the angular factor includes (-kappa_i - kappa_f) / (L*(L+1))
-    # from the magnetic operator structure
-    kappa_factor = -(kappa_i + kappa_f)
+    # Magnetic kappa structure: (kappa_i + kappa_f) / (2L+1)
+    # (Grant 2007 Eq. 8.4.17 / FAC TRRateMultipole). The previous
+    # `-(kappa_i + kappa_f)` form missed the /(2L+1) algebraic factor,
+    # which combined with the spurious /c in `radial_mL` made the M1
+    # rate ~ c^2/(2L+1)^2 = ~2000x too small at L=1.
+    kappa_factor = (kappa_i + kappa_f) / (2.0 * L + 1.0)
 
     return phase * np.sqrt((tj_i + 1.0) * (tj_f + 1.0)) * threej * kappa_factor
 
