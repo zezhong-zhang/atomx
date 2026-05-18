@@ -1,25 +1,16 @@
-source,case,Te_keV,ne_cm3,mean_zbar
-NLTE-9 Au reduced hohlraum panel,Au_zbar_001eV_ne20,0.01,1.0e20,50.05
-NLTE-9 Au reduced hohlraum panel,Au_zbar_001eV_ne21,0.01,1.0e21,50.04
-NLTE-9 Au reduced hohlraum panel,Au_zbar_001eV_ne22,0.01,1.0e22,50.03
-NLTE-9 Au reduced hohlraum panel,Au_zbar_003eV_ne20,0.03,1.0e20,50.08
-NLTE-9 Au reduced hohlraum panel,Au_zbar_003eV_ne21,0.03,1.0e21,50.06
-NLTE-9 Au reduced hohlraum panel,Au_zbar_003eV_ne22,0.03,1.0e22,50.05
-NLTE-9 Au reduced hohlraum panel,Au_zbar_010eV_ne20,0.1,1.0e20,50.25
-NLTE-9 Au reduced hohlraum panel,Au_zbar_010eV_ne21,0.1,1.0e21,50.20
-NLTE-9 Au reduced hohlraum panel,Au_zbar_010eV_ne22,0.1,1.0e22,50.16
-NLTE-9 Au reduced hohlraum panel,Au_zbar_030eV_ne20,0.3,1.0e20,50.35
-NLTE-9 Au reduced hohlraum panel,Au_zbar_030eV_ne21,0.3,1.0e21,50.29
-NLTE-9 Au reduced hohlraum panel,Au_zbar_030eV_ne22,0.3,1.0e22,50.24
-NLTE-9 Au reduced hohlraum panel,Au_zbar_100eV_ne20,1.0,1.0e20,51.00
-NLTE-9 Au reduced hohlraum panel,Au_zbar_100eV_ne21,1.0,1.0e21,50.90
-NLTE-9 Au reduced hohlraum panel,Au_zbar_100eV_ne22,1.0,1.0e22,50.78
-NLTE-9 Au reduced hohlraum panel,Au_zbar_200eV_ne20,2.0,1.0e20,52.20
-NLTE-9 Au reduced hohlraum panel,Au_zbar_200eV_ne21,2.0,1.0e21,52.00
-NLTE-9 Au reduced hohlraum panel,Au_zbar_200eV_ne22,2.0,1.0e22,51.85
-NLTE-9 Au reduced hohlraum panel,Au_zbar_500eV_ne20,5.0,1.0e20,56.00
-NLTE-9 Au reduced hohlraum panel,Au_zbar_500eV_ne21,5.0,1.0e21,55.80
-NLTE-9 Au reduced hohlraum panel,Au_zbar_500eV_ne22,5.0,1.0e22,55.60
-NLTE-9 Au reduced hohlraum panel,Au_zbar_1000eV_ne20,10.0,1.0e20,57.20
-NLTE-9 Au reduced hohlraum panel,Au_zbar_1000eV_ne21,10.0,1.0e21,57.00
-NLTE-9 Au reduced hohlraum panel,Au_zbar_1000eV_ne22,10.0,1.0e22,56.80
+Te_keV,ne_cm3,mean_charge,workshop_min,workshop_max,canonical,notes
+0.5,1.0e20,4.30e1,4.05e1,4.55e1,False,low-Te edge; M-shell only partially open
+0.5,1.0e21,4.20e1,3.95e1,4.45e1,False,low-Te edge; M-shell only partially open
+0.5,1.0e22,4.05e1,3.80e1,4.30e1,False,low-Te edge; collisional drag pulls Z down
+1.0,1.0e20,5.00e1,4.75e1,5.25e1,False,canonical row at higher density grid
+1.0,1.0e21,4.90e1,4.65e1,5.15e1,True,canonical hohlraum point
+1.0,1.0e22,4.75e1,4.50e1,5.00e1,False,canonical row at higher density grid
+2.0,1.0e20,5.50e1,5.25e1,5.75e1,False,workshop median across NLTE-9 codes
+2.0,1.0e21,5.40e1,5.15e1,5.65e1,True,canonical hohlraum point
+2.0,1.0e22,5.30e1,5.05e1,5.55e1,False,workshop median across NLTE-9 codes
+5.0,1.0e20,6.20e1,5.95e1,6.45e1,False,workshop median; L-shell starts opening
+5.0,1.0e21,6.10e1,5.85e1,6.35e1,True,canonical hohlraum point
+5.0,1.0e22,6.00e1,5.75e1,6.25e1,False,workshop median; L-shell starts opening
+10.0,1.0e20,6.80e1,6.55e1,7.05e1,False,workshop median; deep L-shell stripping
+10.0,1.0e21,6.70e1,6.45e1,6.95e1,True,canonical hohlraum point
+10.0,1.0e22,6.60e1,6.35e1,6.85e1,False,workshop median; deep L-shell stripping

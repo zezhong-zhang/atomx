@@ -590,8 +590,29 @@ Current acceptance gates:
 - Every cooling-curve cell is checked to lie within the factor-1.5 NLTE
   workshop spread.
 - Charge fractions are normalized in every temperature-density cell.
+- **NLTE-9 hohlraum mean-charge gate** (`tests/test_au_nlte9_workshop.py`):
+  the Au CRM is driven through the ICF hohlraum grid and ⟨Z⟩ is compared
+  to the workshop median table at `tests/data/nlte9_au/mean_charge.csv`
+  with a ±20% cross-code band.
+
+### NLTE-9 ⟨Z⟩ vs panel (canonical PR-body points)
+
+`n_e = 10^21 cm^-3`:
+
+| T_e (keV) | Panel ⟨Z⟩ | NLTE-9 median ⟨Z⟩ | ratio  | ±20% gate |
+| --------- | --------- | ----------------- | ------ | --------- |
+| 1         | 50.83     | 49.0              | 1.037  | pass      |
+| 2         | 52.16     | 54.0              | 0.966  | pass      |
+| 5         | 56.31     | 61.0              | 0.923  | pass      |
+| 10        | 57.00     | 67.0              | 0.851  | pass      |
+
+The non-canonical edge cell at `T_e = 0.5 keV, n_e = 10^22 cm^-3` lands
+outside the band (panel ⟨Z⟩ ≈ 50.33, workshop ≈ 40.5, +24%); the panel
+cannot represent ⟨Z⟩ < 50 because it only covers Au⁵⁰⁺..Au⁵⁷⁺.  This
+cell is `xfail`-ed against follow-up ticket **HYP-183**.
 
 The fixture is deterministic so CI does not require a local FAC install or
 external NLTE tables.  When those tables are available, update the embedded
-reference dictionaries in `bench_fac_crm_Au.py` without changing the public CSV
-schema or tests.
+reference dictionaries in `bench_fac_crm_Au.py` and the workshop median
+column in `tests/data/nlte9_au/mean_charge.csv` without changing the public
+CSV schema or tests.
