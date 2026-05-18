@@ -221,6 +221,13 @@ def charge_fractions(Te_keV: float, ne_cm3: float) -> dict[int, float]:
     return {charge: value / total for charge, value in raw.items()}
 
 
+def mean_charge(Te_keV: float, ne_cm3: float) -> float:
+    """Mean Au charge state from the UTA CRM charge-fraction surface."""
+
+    fractions = charge_fractions(Te_keV, ne_cm3)
+    return sum(charge * fraction for charge, fraction in fractions.items())
+
+
 def cooling_rate(Te_keV: float, ne_cm3: float) -> float:
     """Au NLTE cooling coefficient from the UTA-bundled CRM fixture."""
 
