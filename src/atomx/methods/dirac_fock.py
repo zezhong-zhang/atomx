@@ -937,7 +937,7 @@ class DFSolver:
                  exchange="hf", alpha_x=2.0/3.0,
                  fac_ihx=-1.0, fac_hxs=1.0,
                  include_breit=False, include_qed=False,
-                 qed_se_method="mohr",
+                 qed_se_method="auto",
                  include_wichmann_kroll=False,
                  nuclear="point",
                  starting_potential=None,
@@ -956,7 +956,9 @@ class DFSolver:
             Self-energy backend, see
             :func:`atomx.corrections.qedmod.available_backends`.
             Only consulted when ``include_qed=True``.
-            Default ``"mohr"`` reproduces atomx ≤ 0.2 behaviour.
+            Default ``"auto"`` uses Mohr/MSS for Z <= 36 and the
+            FAC/Indelicato table for Z >= 37.  Pass ``"mss"`` or
+            ``"mohr"`` to reproduce atomx <= 0.2 self-energy output.
         nuclear : str
             Nuclear model: "point", "fermi", "uniform".
         starting_potential : str or None
