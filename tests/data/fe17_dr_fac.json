@@ -1,0 +1,1385 @@
+{
+  "source": "FAC 1.1.5 AITable+TRTable, combined via Burgess kernel",
+  "script": "# Fe XVII (Ne-like) + e -> Fe XVI doubly-excited [AI+TR] -> Fe XVI bound + photon\n# AITable + TRTable in lieu of DRTable, which was removed in FAC 0.9.3.\n# Channels: \u0394n=0 KLL (2{s,p} hole + two captured n=3 electrons)\n#           \u0394n=1 KLM (2{s,p} hole + one captured n=3 + one captured n=4)\n# Final stabilising states: Fe XVI 2s\u00b22p\u2076 nl (n<=4) + 2p hole + nl.\nSetAtom('Fe')\nClosed('1s')\nConfig('rec', '2s2 2p6')\nConfig('na3', '2s2 2p6 3*1')\nConfig('na4', '2s2 2p6 4*1')\nConfig('dr33', '2s2 2p5 3*2', '2s1 2p6 3*2')\nConfig('dr34', '2s2 2p5 3*1 4*1', '2s1 2p6 3*1 4*1')\n\nSetAICut(1e-4)\nSetTransitionCut(1e-4)\nConfigEnergy(0)\nOptimizeRadial(['rec'])\nConfigEnergy(1)\n\nStructure('fe.lev.b', ['rec'])\nStructure('fe.lev.b', ['na3', 'na4'])\nStructure('fe.lev.b', ['dr33', 'dr34'])\n\nMemENTable('fe.lev.b')\nPrintTable('fe.lev.b', 'fe.lev', 1)\n\nAITable('fe.ai.b', ['dr33', 'dr34'], ['rec'])\nPrintTable('fe.ai.b', 'fe.ai', 1)\n\nTRTable('fe.tr.b', ['dr33', 'dr34'], ['na3', 'na4'], -1)\nPrintTable('fe.tr.b', 'fe.tr', 1)\n",
+  "T_MK": [
+    1.0,
+    5.0,
+    10.0,
+    50.0
+  ],
+  "T_eV": [
+    86.17333262,
+    430.8666631,
+    861.7333262,
+    4308.666631
+  ],
+  "alpha_fac_cm3_s": [
+    1.367515788669949e-14,
+    6.546064004146498e-14,
+    4.064809657777274e-14,
+    5.770857060814852e-15
+  ],
+  "n_fac_resonances": 194,
+  "initial_state_g": 1.0,
+  "resonances": [
+    {
+      "label": "FAC ILEV 24: 2*7.3*2 2p5.3s1.3p1 2p-1(1)1.3s+1(1)2.3p-1(1)1",
+      "E_resonance_eV": 264.37,
+      "J": 0.5,
+      "gamma_auger_per_s": 27544000000000.0,
+      "a_radiative_per_s": 246104378000.0
+    },
+    {
+      "label": "FAC ILEV 30: 2*7.3*2 2p5.3s1.3p1 2p-1(1)1.3s+1(1)2.3p+1(3)1",
+      "E_resonance_eV": 277.67,
+      "J": 0.5,
+      "gamma_auger_per_s": 37910000000000.0,
+      "a_radiative_per_s": 401188883850.0
+    },
+    {
+      "label": "FAC ILEV 32: 2*7.3*2 2p5.3s1.3p1 2p-1(1)1.3s+1(1)2.3p-1(1)1",
+      "E_resonance_eV": 287.19,
+      "J": 0.5,
+      "gamma_auger_per_s": 410040000000000.0,
+      "a_radiative_per_s": 314717700000.0
+    },
+    {
+      "label": "FAC ILEV 33: 2*7.3*2 2p5.3p2 2p+3(3)3",
+      "E_resonance_eV": 287.56,
+      "J": 1.5,
+      "gamma_auger_per_s": 5731400000000.0,
+      "a_radiative_per_s": 9839015014.75
+    },
+    {
+      "label": "FAC ILEV 34: 2*7.3*2 2p5.3p2 2p+3(3)3.3p-1(1)2.3p+1(3)1",
+      "E_resonance_eV": 287.72,
+      "J": 0.5,
+      "gamma_auger_per_s": 15430000000000.0,
+      "a_radiative_per_s": 84246419520.0
+    },
+    {
+      "label": "FAC ILEV 37: 2*7.3*2 2p5.3p2 2p+3(3)3.3p-1(1)2.3p+1(3)3",
+      "E_resonance_eV": 290.24,
+      "J": 1.5,
+      "gamma_auger_per_s": 9526000000000.0,
+      "a_radiative_per_s": 21651811235.0
+    },
+    {
+      "label": "FAC ILEV 38: 2*7.3*2 2p5.3p2 2p+3(3)3.3p+2(4)1",
+      "E_resonance_eV": 292.26,
+      "J": 0.5,
+      "gamma_auger_per_s": 9640800000000.0,
+      "a_radiative_per_s": 32114921585.0
+    },
+    {
+      "label": "FAC ILEV 43: 2*7.3*2 2p5.3p2 2p-1(1)1",
+      "E_resonance_eV": 299.2,
+      "J": 0.5,
+      "gamma_auger_per_s": 28626000000000.0,
+      "a_radiative_per_s": 50814989340.0
+    },
+    {
+      "label": "FAC ILEV 44: 2*7.3*2 2p5.3p2 2p+3(3)3.3p+2(4)3",
+      "E_resonance_eV": 299.96,
+      "J": 1.5,
+      "gamma_auger_per_s": 12489000000000.0,
+      "a_radiative_per_s": 21357202812.5
+    },
+    {
+      "label": "FAC ILEV 48: 2*7.3*2 2p5.3p2 2p-1(1)1.3p-1(1)2.3p+1(3)3",
+      "E_resonance_eV": 302.63,
+      "J": 1.5,
+      "gamma_auger_per_s": 17854000000000.0,
+      "a_radiative_per_s": 15135719285.0
+    },
+    {
+      "label": "FAC ILEV 54: 2*7.3*2 2p5.3p2 2p+3(3)3.3p+2(0)3",
+      "E_resonance_eV": 304.81,
+      "J": 1.5,
+      "gamma_auger_per_s": 16745000000000.0,
+      "a_radiative_per_s": 19817306147.5
+    },
+    {
+      "label": "FAC ILEV 59: 2*7.3*2 2p5.3s1.3d1 2p+3(3)3.3s+1(1)2.3d-1(3)1",
+      "E_resonance_eV": 307.2,
+      "J": 0.5,
+      "gamma_auger_per_s": 13198000000000.0,
+      "a_radiative_per_s": 523272260650.0
+    },
+    {
+      "label": "FAC ILEV 62: 2*7.3*2 2p5.3s1.3d1 2p+3(3)3.3s+1(1)4.3d+1(5)1",
+      "E_resonance_eV": 311.0,
+      "J": 0.5,
+      "gamma_auger_per_s": 64310000000000.0,
+      "a_radiative_per_s": 1960267184650.0
+    },
+    {
+      "label": "FAC ILEV 63: 2*7.3*2 2p5.3s1.3d1 2p-1(1)1.3s+1(1)2.3d+1(5)3",
+      "E_resonance_eV": 314.58,
+      "J": 1.5,
+      "gamma_auger_per_s": 71429000000000.0,
+      "a_radiative_per_s": 488400762700.0
+    },
+    {
+      "label": "FAC ILEV 64: 2*7.3*2 2p5.3s1.3d1 2p+3(3)3.3s+1(1)2.3d+1(5)7",
+      "E_resonance_eV": 315.21,
+      "J": 3.5,
+      "gamma_auger_per_s": 4498000000000.0,
+      "a_radiative_per_s": 28554413587.5
+    },
+    {
+      "label": "FAC ILEV 65: 2*7.3*2 2p5.3s1.3d1 2p-1(1)1.3s+1(1)0.3d-1(3)3",
+      "E_resonance_eV": 316.69,
+      "J": 1.5,
+      "gamma_auger_per_s": 12825000000000.0,
+      "a_radiative_per_s": 180358671975.0
+    },
+    {
+      "label": "FAC ILEV 68: 2*7.3*2 2p5.3p2 2p-1(1)1.3p+2(0)1",
+      "E_resonance_eV": 317.98,
+      "J": 0.5,
+      "gamma_auger_per_s": 23924000000000.0,
+      "a_radiative_per_s": 176474767600.0
+    },
+    {
+      "label": "FAC ILEV 71: 2*7.3*2 2p5.3p2 2p+3(3)3.3p-1(1)4.3p+1(3)1",
+      "E_resonance_eV": 319.28,
+      "J": 0.5,
+      "gamma_auger_per_s": 392660000000000.0,
+      "a_radiative_per_s": 27653512875.0
+    },
+    {
+      "label": "FAC ILEV 72: 2*7.3*2 2p5.3p2 2p+3(3)3.3p+2(4)3",
+      "E_resonance_eV": 321.38,
+      "J": 1.5,
+      "gamma_auger_per_s": 312580000000000.0,
+      "a_radiative_per_s": 101175861400.0
+    },
+    {
+      "label": "FAC ILEV 73: 2*7.3*2 2p5.3s1.3d1 2p-1(1)1.3s+1(1)2.3d+1(5)3",
+      "E_resonance_eV": 323.32,
+      "J": 1.5,
+      "gamma_auger_per_s": 22761000000000.0,
+      "a_radiative_per_s": 3773332909000.0
+    },
+    {
+      "label": "FAC ILEV 79: 2*7.3*2 2p5.3s1.3d1 2p-1(1)1.3s+1(1)2.3d-1(3)3",
+      "E_resonance_eV": 331.99,
+      "J": 1.5,
+      "gamma_auger_per_s": 59967000000000.0,
+      "a_radiative_per_s": 2418906624750.0
+    },
+    {
+      "label": "FAC ILEV 118: 2*7.3*2 2p5.3p1.3d1 2p+3(3)3.3p+1(3)6.3d-1(3)9",
+      "E_resonance_eV": 350.83,
+      "J": 4.5,
+      "gamma_auger_per_s": 24666000000000.0,
+      "a_radiative_per_s": 17934240.0
+    },
+    {
+      "label": "FAC ILEV 119: 2*7.3*2 2p5.3p1.3d1 2p-1(1)1.3p-1(1)2.3d-1(3)3",
+      "E_resonance_eV": 351.48,
+      "J": 1.5,
+      "gamma_auger_per_s": 31384000000000.0,
+      "a_radiative_per_s": 128275141525.0
+    },
+    {
+      "label": "FAC ILEV 120: 2*7.3*2 2p5.3p1.3d1 2p-1(1)1.3p-1(1)0.3d+1(5)5",
+      "E_resonance_eV": 352.2,
+      "J": 2.5,
+      "gamma_auger_per_s": 61581000000000.0,
+      "a_radiative_per_s": 296331560083.3334
+    },
+    {
+      "label": "FAC ILEV 121: 2*7.3*2 2p5.3p1.3d1 2p+3(3)3.3p+1(3)6.3d+1(5)1",
+      "E_resonance_eV": 353.52,
+      "J": 0.5,
+      "gamma_auger_per_s": 11754000000000.0,
+      "a_radiative_per_s": 1181826020600.0
+    },
+    {
+      "label": "FAC ILEV 122: 2*7.3*2 2p5.3p1.3d1 2p-1(1)1.3p-1(1)2.3d+1(5)5",
+      "E_resonance_eV": 353.73,
+      "J": 2.5,
+      "gamma_auger_per_s": 7006100000000.0,
+      "a_radiative_per_s": 225626596583.33334
+    },
+    {
+      "label": "FAC ILEV 123: 2*7.3*2 2p5.3p1.3d1 2p+3(3)3.3p+1(3)4.3d-1(3)7",
+      "E_resonance_eV": 353.79,
+      "J": 3.5,
+      "gamma_auger_per_s": 10430000000000.0,
+      "a_radiative_per_s": 15150730.0
+    },
+    {
+      "label": "FAC ILEV 130: 2*7.3*2 2p5.3p1.3d1 2p+3(3)3.3p+1(3)6.3d+1(5)3",
+      "E_resonance_eV": 355.94,
+      "J": 1.5,
+      "gamma_auger_per_s": 31061000000000.0,
+      "a_radiative_per_s": 936639443750.0
+    },
+    {
+      "label": "FAC ILEV 131: 2*7.3*2 2p5.3p1.3d1 2p-1(1)1.3p-1(1)2.3d-1(3)3",
+      "E_resonance_eV": 358.63,
+      "J": 1.5,
+      "gamma_auger_per_s": 123810000000000.0,
+      "a_radiative_per_s": 4980885539250.0
+    },
+    {
+      "label": "FAC ILEV 132: 2*7.3*2 2p5.3p1.3d1 2p+3(3)3.3p+1(3)4.3d+1(5)5",
+      "E_resonance_eV": 359.22,
+      "J": 2.5,
+      "gamma_auger_per_s": 47233000000000.0,
+      "a_radiative_per_s": 1612496599500.0
+    },
+    {
+      "label": "FAC ILEV 133: 2*7.3*2 2p5.3p1.3d1 2p-1(1)1.3p-1(1)2.3d-1(3)1",
+      "E_resonance_eV": 359.48,
+      "J": 0.5,
+      "gamma_auger_per_s": 18450000000000.0,
+      "a_radiative_per_s": 7726732781500.0
+    },
+    {
+      "label": "FAC ILEV 135: 2*7.3*2 2s1 2s+1(1)1",
+      "E_resonance_eV": 363.63,
+      "J": 0.5,
+      "gamma_auger_per_s": 98863000000000.0,
+      "a_radiative_per_s": 5076215747500.0
+    },
+    {
+      "label": "FAC ILEV 136: 2*7.3*2 2p5.3p1.3d1 2p-1(1)1.3p+1(3)4.3d-1(3)7",
+      "E_resonance_eV": 364.93,
+      "J": 3.5,
+      "gamma_auger_per_s": 14725000000000.0,
+      "a_radiative_per_s": 17735344.75
+    },
+    {
+      "label": "FAC ILEV 139: 2*7.3*2 2p5.3p1.3d1 2p-1(1)1.3p+1(3)2.3d+1(5)3",
+      "E_resonance_eV": 366.8,
+      "J": 1.5,
+      "gamma_auger_per_s": 43284000000000.0,
+      "a_radiative_per_s": 1268258617000.0
+    },
+    {
+      "label": "FAC ILEV 140: 2*7.3*2 2p5.3p1.3d1 2p-1(1)1.3p-1(1)2.3d-1(3)1",
+      "E_resonance_eV": 368.82,
+      "J": 0.5,
+      "gamma_auger_per_s": 21101000000000.0,
+      "a_radiative_per_s": 4550500292500.0
+    },
+    {
+      "label": "FAC ILEV 141: 2*7.3*2 2p5.3p1.3d1 2p-1(1)1.3p-1(1)0.3d-1(3)3",
+      "E_resonance_eV": 371.25,
+      "J": 1.5,
+      "gamma_auger_per_s": 203890000000000.0,
+      "a_radiative_per_s": 294194365100.0
+    },
+    {
+      "label": "FAC ILEV 142: 2*7.3*2 2p5.3p1.3d1 2p-1(1)1.3p-1(1)0.3d+1(5)5",
+      "E_resonance_eV": 371.97,
+      "J": 2.5,
+      "gamma_auger_per_s": 318410000000000.0,
+      "a_radiative_per_s": 94588914150.0
+    },
+    {
+      "label": "FAC ILEV 150: 2*7.3*2 2p5.3d2 2p+3(3)3.3d-2(4)5",
+      "E_resonance_eV": 386.66,
+      "J": 2.5,
+      "gamma_auger_per_s": 12721000000000.0,
+      "a_radiative_per_s": 9332176316.666666
+    },
+    {
+      "label": "FAC ILEV 162: 2*7.3*2 2p5.3d2 2p+3(3)3.3d+2(4)7",
+      "E_resonance_eV": 391.09,
+      "J": 3.5,
+      "gamma_auger_per_s": 94244000000000.0,
+      "a_radiative_per_s": 133694369750.0
+    },
+    {
+      "label": "FAC ILEV 163: 2*7.3*2 2p5.3d2 2p+3(3)3.3d-1(3)6.3d+1(5)5",
+      "E_resonance_eV": 391.27,
+      "J": 2.5,
+      "gamma_auger_per_s": 71447000000000.0,
+      "a_radiative_per_s": 254525215716.6667
+    },
+    {
+      "label": "FAC ILEV 166: 2*7.3*2 2p5.3d2 2p+3(3)3.3d-1(3)4.3d+1(5)7",
+      "E_resonance_eV": 391.76,
+      "J": 3.5,
+      "gamma_auger_per_s": 26724000000000.0,
+      "a_radiative_per_s": 67789830337.5
+    },
+    {
+      "label": "FAC ILEV 168: 2*7.3*2 2p5.3d2 2p+3(3)3.3d-1(3)4.3d+1(5)5",
+      "E_resonance_eV": 394.14,
+      "J": 2.5,
+      "gamma_auger_per_s": 118600000000000.0,
+      "a_radiative_per_s": 630681075916.6666
+    },
+    {
+      "label": "FAC ILEV 170: 2*7.3*2 2p5.3d2 2p+3(3)3.3d+2(8)7",
+      "E_resonance_eV": 395.54,
+      "J": 3.5,
+      "gamma_auger_per_s": 72147000000000.0,
+      "a_radiative_per_s": 329737158750.0
+    },
+    {
+      "label": "FAC ILEV 171: 2*7.3*2 2s1.3s1.3p1 2s+1(1)1.3s+1(1)0.3p-1(1)1",
+      "E_resonance_eV": 395.97,
+      "J": 0.5,
+      "gamma_auger_per_s": 90941000000000.0,
+      "a_radiative_per_s": 1760077000000.0
+    },
+    {
+      "label": "FAC ILEV 172: 2*7.3*2 2p5.3d2 2p+3(3)3.3d-1(3)2.3d+1(5)5",
+      "E_resonance_eV": 396.4,
+      "J": 2.5,
+      "gamma_auger_per_s": 9110500000000.0,
+      "a_radiative_per_s": 610288851716.6667
+    },
+    {
+      "label": "FAC ILEV 173: 2*7.3*2 2p5.3d2 2p+3(3)3.3d+2(4)3",
+      "E_resonance_eV": 397.28,
+      "J": 1.5,
+      "gamma_auger_per_s": 38967000000000.0,
+      "a_radiative_per_s": 967561271800.0
+    },
+    {
+      "label": "FAC ILEV 174: 2*7.3*2 2s1.3s1.3p1 2s+1(1)1.3s+1(1)0.3p+1(3)3",
+      "E_resonance_eV": 397.49,
+      "J": 1.5,
+      "gamma_auger_per_s": 27826000000000.0,
+      "a_radiative_per_s": 587013340800.0
+    },
+    {
+      "label": "FAC ILEV 176: 2*7.3*2 2p5.3d2 2p+3(3)3.3d-1(3)6.3d+1(5)1",
+      "E_resonance_eV": 399.43,
+      "J": 0.5,
+      "gamma_auger_per_s": 6217200000000.0,
+      "a_radiative_per_s": 3489833494500.0
+    },
+    {
+      "label": "FAC ILEV 178: 2*7.3*2 2p5.3d2 2p-1(1)1.3d-1(3)4.3d+1(5)3",
+      "E_resonance_eV": 401.79,
+      "J": 1.5,
+      "gamma_auger_per_s": 7058100000000.0,
+      "a_radiative_per_s": 655051328500.0
+    },
+    {
+      "label": "FAC ILEV 179: 2*7.3*2 2p5.3d2 2p-1(1)1.3d+2(8)7",
+      "E_resonance_eV": 401.79,
+      "J": 3.5,
+      "gamma_auger_per_s": 34493000000000.0,
+      "a_radiative_per_s": 322011068375.0
+    },
+    {
+      "label": "FAC ILEV 180: 2*7.3*2 2p5.3d2 2p-1(1)1.3d-1(3)4.3d+1(5)5",
+      "E_resonance_eV": 402.1,
+      "J": 2.5,
+      "gamma_auger_per_s": 42094000000000.0,
+      "a_radiative_per_s": 1175990774000.0
+    },
+    {
+      "label": "FAC ILEV 181: 2*7.3*2 2p5.3d2 2p-1(1)1.3d-2(4)5",
+      "E_resonance_eV": 402.79,
+      "J": 2.5,
+      "gamma_auger_per_s": 281720000000000.0,
+      "a_radiative_per_s": 1660325181666.6665
+    },
+    {
+      "label": "FAC ILEV 187: 2*7.3*2 2s1.3s1.3p1 2s+1(1)1.3s+1(1)2.3p+1(3)1",
+      "E_resonance_eV": 406.46,
+      "J": 0.5,
+      "gamma_auger_per_s": 67684000000000.0,
+      "a_radiative_per_s": 574916704100.0
+    },
+    {
+      "label": "FAC ILEV 188: 2*7.3*2 2s1.3s1.3p1 2s+1(1)1.3s+1(1)0.3p+1(3)3",
+      "E_resonance_eV": 406.96,
+      "J": 1.5,
+      "gamma_auger_per_s": 89818000000000.0,
+      "a_radiative_per_s": 160351939000.0
+    },
+    {
+      "label": "FAC ILEV 189: 2*7.3*2 2p5.3d2 2p-1(1)1.3d+2(0)1",
+      "E_resonance_eV": 408.73,
+      "J": 0.5,
+      "gamma_auger_per_s": 5994200000000.0,
+      "a_radiative_per_s": 6523159317000.0
+    },
+    {
+      "label": "FAC ILEV 190: 2*7.3*2 2p5.3d2 2p-1(1)1.3d-1(3)2.3d+1(5)7",
+      "E_resonance_eV": 409.13,
+      "J": 3.5,
+      "gamma_auger_per_s": 308060000000000.0,
+      "a_radiative_per_s": 1580960766250.0
+    },
+    {
+      "label": "FAC ILEV 191: 2*7.3*2 2p5.3d2 2p-1(1)1.3d-1(3)2.3d+1(5)5",
+      "E_resonance_eV": 410.19,
+      "J": 2.5,
+      "gamma_auger_per_s": 4454100000000.0,
+      "a_radiative_per_s": 4169778447000.0
+    },
+    {
+      "label": "FAC ILEV 193: 2*7.3*2 2p5.3d2 2p-1(1)1.3d-1(3)2.3d+1(5)3",
+      "E_resonance_eV": 412.49,
+      "J": 1.5,
+      "gamma_auger_per_s": 20509000000000.0,
+      "a_radiative_per_s": 5602495299750.0
+    },
+    {
+      "label": "FAC ILEV 194: 2*7.3*2 2p5.3d2 2p-1(1)1.3d-2(0)1",
+      "E_resonance_eV": 417.64,
+      "J": 0.5,
+      "gamma_auger_per_s": 17309000000000.0,
+      "a_radiative_per_s": 3029286990800.0
+    },
+    {
+      "label": "FAC ILEV 196: 2*7.3*2 2s1.3p2 2s+1(1)1.3p-1(1)2.3p+1(3)5",
+      "E_resonance_eV": 428.47,
+      "J": 2.5,
+      "gamma_auger_per_s": 14245000000000.0,
+      "a_radiative_per_s": 232475666666.66666
+    },
+    {
+      "label": "FAC ILEV 197: 2*7.3*2 2s1.3p2 2s+1(1)1.3p-1(1)0.3p+1(3)3",
+      "E_resonance_eV": 428.64,
+      "J": 1.5,
+      "gamma_auger_per_s": 10870000000000.0,
+      "a_radiative_per_s": 260391332500.0
+    },
+    {
+      "label": "FAC ILEV 198: 2*7.3*2 2s1.3p2 2s+1(1)1.3p-1(1)2.3p+1(3)3",
+      "E_resonance_eV": 429.25,
+      "J": 1.5,
+      "gamma_auger_per_s": 7377500000000.0,
+      "a_radiative_per_s": 240235697500.0
+    },
+    {
+      "label": "FAC ILEV 199: 2*7.3*2 2s1.3p2 2s+1(1)1.3p+2(4)5",
+      "E_resonance_eV": 431.13,
+      "J": 2.5,
+      "gamma_auger_per_s": 4815900000000.0,
+      "a_radiative_per_s": 60781700000.0
+    },
+    {
+      "label": "FAC ILEV 206: 2*7.3*2 2s1.3p2 2s+1(1)1.3p+2(0)1",
+      "E_resonance_eV": 442.93,
+      "J": 0.5,
+      "gamma_auger_per_s": 25359000000000.0,
+      "a_radiative_per_s": 909585575100.0
+    },
+    {
+      "label": "FAC ILEV 207: 2*7.3*2 2s1.3s1.3d1 2s+1(1)1.3s+1(1)0.3d-1(3)3",
+      "E_resonance_eV": 448.73,
+      "J": 1.5,
+      "gamma_auger_per_s": 27034000000000.0,
+      "a_radiative_per_s": 622568456.75
+    },
+    {
+      "label": "FAC ILEV 208: 2*7.3*2 2s1.3s1.3d1 2s+1(1)1.3s+1(1)0.3d+1(5)5",
+      "E_resonance_eV": 448.99,
+      "J": 2.5,
+      "gamma_auger_per_s": 24177000000000.0,
+      "a_radiative_per_s": 390482059.0
+    },
+    {
+      "label": "FAC ILEV 209: 2*7.3*2 2s1.3s1.3d1 2s+1(1)1.3s+1(1)2.3d+1(5)3",
+      "E_resonance_eV": 454.7,
+      "J": 1.5,
+      "gamma_auger_per_s": 62272000000000.0,
+      "a_radiative_per_s": 63688157875.0
+    },
+    {
+      "label": "FAC ILEV 210: 2*7.3*2 2s1.3s1.3d1 2s+1(1)1.3s+1(1)0.3d+1(5)5",
+      "E_resonance_eV": 454.71,
+      "J": 2.5,
+      "gamma_auger_per_s": 64070000000000.0,
+      "a_radiative_per_s": 42072122131.666664
+    },
+    {
+      "label": "FAC ILEV 251: 2*7.3*2 2s1.3p1.3d1 2s+1(1)1.3p+1(3)2.3d-1(3)5",
+      "E_resonance_eV": 489.65,
+      "J": 2.5,
+      "gamma_auger_per_s": 7013200000000.0,
+      "a_radiative_per_s": 111238673633.33333
+    },
+    {
+      "label": "FAC ILEV 252: 2*7.3*2 2s1.3p1.3d1 2s+1(1)1.3p+1(3)4.3d-1(3)7",
+      "E_resonance_eV": 489.71,
+      "J": 3.5,
+      "gamma_auger_per_s": 7302300000000.0,
+      "a_radiative_per_s": 55135075572.5
+    },
+    {
+      "label": "FAC ILEV 386: 2*7.3*2 2s1.3d2 2s+1(1)1.3d-1(3)2.3d+1(5)7",
+      "E_resonance_eV": 527.89,
+      "J": 3.5,
+      "gamma_auger_per_s": 33844000000000.0,
+      "a_radiative_per_s": 730419125.0
+    },
+    {
+      "label": "FAC ILEV 387: 2*7.3*2 2s1.3d2 2s+1(1)1.3d-1(3)4.3d+1(5)9",
+      "E_resonance_eV": 527.98,
+      "J": 4.5,
+      "gamma_auger_per_s": 54411000000000.0,
+      "a_radiative_per_s": 220306900.0
+    },
+    {
+      "label": "FAC ILEV 388: 2*7.3*2 2s1.3d2 2s+1(1)1.3d+2(8)7",
+      "E_resonance_eV": 528.17,
+      "J": 3.5,
+      "gamma_auger_per_s": 29250000000000.0,
+      "a_radiative_per_s": 494996237.5
+    },
+    {
+      "label": "FAC ILEV 390: 2*7.3*2 2s1.3d2 2s+1(1)1.3d+2(8)7",
+      "E_resonance_eV": 528.26,
+      "J": 3.5,
+      "gamma_auger_per_s": 4787200000000.0,
+      "a_radiative_per_s": 285029042.2875
+    },
+    {
+      "label": "FAC ILEV 449: 2*7.3*2 2s1.3d2 2s+1(1)1.3d+2(0)1",
+      "E_resonance_eV": 539.37,
+      "J": 0.5,
+      "gamma_auger_per_s": 14337000000000.0,
+      "a_radiative_per_s": 22745538500.0
+    },
+    {
+      "label": "FAC ILEV 228: 2*7.3*1.4*1 2p5.3s1.4p1 2p+3(3)3.3s+1(1)2.4p-1(1)1",
+      "E_resonance_eV": 476.62,
+      "J": 0.5,
+      "gamma_auger_per_s": 6650400000000.0,
+      "a_radiative_per_s": 309566817500.0
+    },
+    {
+      "label": "FAC ILEV 243: 2*7.3*1.4*1 2p5.3s1.4p1 2p+3(3)3.3s+1(1)2.4p+1(3)1",
+      "E_resonance_eV": 481.87,
+      "J": 0.5,
+      "gamma_auger_per_s": 32701000000000.0,
+      "a_radiative_per_s": 271835140000.0
+    },
+    {
+      "label": "FAC ILEV 262: 2*7.3*1.4*1 2p5.3s1.4p1 2p-1(1)1.3s+1(1)2.4p-1(1)1",
+      "E_resonance_eV": 492.98,
+      "J": 0.5,
+      "gamma_auger_per_s": 27293000000000.0,
+      "a_radiative_per_s": 341311190000.0
+    },
+    {
+      "label": "FAC ILEV 273: 2*7.3*1.4*1 2p5.3p1.4s1 2p+3(3)3.3p-1(1)2.4s+1(1)1",
+      "E_resonance_eV": 496.53,
+      "J": 0.5,
+      "gamma_auger_per_s": 76962000000000.0,
+      "a_radiative_per_s": 72565043850.0
+    },
+    {
+      "label": "FAC ILEV 279: 2*7.3*1.4*1 2p5.3p1.4s1 2p+3(3)3.3p+1(3)2.4s+1(1)1",
+      "E_resonance_eV": 499.62,
+      "J": 0.5,
+      "gamma_auger_per_s": 8020000000000.0,
+      "a_radiative_per_s": 93373495000.0
+    },
+    {
+      "label": "FAC ILEV 301: 2*7.3*1.4*1 2p5.3s1.4f1 2p+3(3)3.3s+1(1)2.4f-1(5)3",
+      "E_resonance_eV": 506.87,
+      "J": 1.5,
+      "gamma_auger_per_s": 5504200000000.0,
+      "a_radiative_per_s": 156318949312.5
+    },
+    {
+      "label": "FAC ILEV 306: 2*7.3*1.4*1 2p5.3p1.4s1 2p+3(3)3.3p+1(3)0.4s+1(1)1",
+      "E_resonance_eV": 507.13,
+      "J": 0.5,
+      "gamma_auger_per_s": 12903000000000.0,
+      "a_radiative_per_s": 75730433000.0
+    },
+    {
+      "label": "FAC ILEV 332: 2*7.3*1.4*1 2p5.3p1.4p1 2p+3(3)3.3p+1(3)2.4p+1(3)1",
+      "E_resonance_eV": 514.0,
+      "J": 0.5,
+      "gamma_auger_per_s": 11302000000000.0,
+      "a_radiative_per_s": 69635216000.0
+    },
+    {
+      "label": "FAC ILEV 335: 2*7.3*1.4*1 2p5.3p1.4p1 2p+3(3)3.3p+1(3)4.4p+1(3)1",
+      "E_resonance_eV": 514.98,
+      "J": 0.5,
+      "gamma_auger_per_s": 10792000000000.0,
+      "a_radiative_per_s": 36747995000.0
+    },
+    {
+      "label": "FAC ILEV 341: 2*7.3*1.4*1 2p5.3p1.4p1 2p+3(3)3.3p+1(3)4.4p+1(3)1",
+      "E_resonance_eV": 516.12,
+      "J": 0.5,
+      "gamma_auger_per_s": 20713000000000.0,
+      "a_radiative_per_s": 8806769500.0
+    },
+    {
+      "label": "FAC ILEV 347: 2*7.3*1.4*1 2p5.3p1.4p1 2p+3(3)3.3p+1(3)6.4p+1(3)3",
+      "E_resonance_eV": 518.84,
+      "J": 1.5,
+      "gamma_auger_per_s": 54192000000000.0,
+      "a_radiative_per_s": 15887095750.0
+    },
+    {
+      "label": "FAC ILEV 353: 2*7.3*1.4*1 2p5.3p1.4p1 2p-1(1)1.3p-1(1)2.4p-1(1)3",
+      "E_resonance_eV": 520.51,
+      "J": 1.5,
+      "gamma_auger_per_s": 4704700000000.0,
+      "a_radiative_per_s": 12025015125.0
+    },
+    {
+      "label": "FAC ILEV 356: 2*7.3*1.4*1 2p5.3p1.4p1 2p+3(3)3.3p+1(3)0.4p-1(1)1",
+      "E_resonance_eV": 520.88,
+      "J": 0.5,
+      "gamma_auger_per_s": 45622000000000.0,
+      "a_radiative_per_s": 49337214000.0
+    },
+    {
+      "label": "FAC ILEV 357: 2*7.3*1.4*1 2p5.3p1.4p1 2p+3(3)3.3p+1(3)0.4p+1(3)3",
+      "E_resonance_eV": 521.74,
+      "J": 1.5,
+      "gamma_auger_per_s": 24278000000000.0,
+      "a_radiative_per_s": 8470581625.0
+    },
+    {
+      "label": "FAC ILEV 371: 2*7.3*1.4*1 2p5.3p1.4d1 2p+3(3)3.3p-1(1)2.4d+1(5)3",
+      "E_resonance_eV": 525.39,
+      "J": 1.5,
+      "gamma_auger_per_s": 4139400000000.0,
+      "a_radiative_per_s": 91901388125.0
+    },
+    {
+      "label": "FAC ILEV 378: 2*7.3*1.4*1 2p5.3p1.4p1 2p-1(1)1.3p-1(1)2.4p-1(1)1",
+      "E_resonance_eV": 526.91,
+      "J": 0.5,
+      "gamma_auger_per_s": 133580000000000.0,
+      "a_radiative_per_s": 80224595000.0
+    },
+    {
+      "label": "FAC ILEV 381: 2*7.3*1.4*1 2p5.3p1.4d1 2p+3(3)3.3p-1(1)4.4d+1(5)9",
+      "E_resonance_eV": 527.42,
+      "J": 4.5,
+      "gamma_auger_per_s": 7516600000000.0,
+      "a_radiative_per_s": 765433200.0
+    },
+    {
+      "label": "FAC ILEV 389: 2*7.3*1.4*1 2p5.3p1.4p1 2p-1(1)1.3p+1(3)2.4p+1(3)3",
+      "E_resonance_eV": 528.21,
+      "J": 1.5,
+      "gamma_auger_per_s": 11636000000000.0,
+      "a_radiative_per_s": 11429244100.0
+    },
+    {
+      "label": "FAC ILEV 392: 2*7.3*1.4*1 2p5.3p1.4d1 2p+3(3)3.3p+1(3)2.4d-1(3)1",
+      "E_resonance_eV": 528.7,
+      "J": 0.5,
+      "gamma_auger_per_s": 6203300000000.0,
+      "a_radiative_per_s": 238806075500.0
+    },
+    {
+      "label": "FAC ILEV 393: 2*7.3*1.4*1 2p5.3p1.4s1 2p-1(1)1.3p-1(1)0.4s+1(1)1",
+      "E_resonance_eV": 528.78,
+      "J": 0.5,
+      "gamma_auger_per_s": 156530000000000.0,
+      "a_radiative_per_s": 135699685000.0
+    },
+    {
+      "label": "FAC ILEV 401: 2*7.3*1.4*1 2p5.3p1.4d1 2p+3(3)3.3p+1(3)6.4d-1(3)9",
+      "E_resonance_eV": 530.29,
+      "J": 4.5,
+      "gamma_auger_per_s": 10464000000000.0,
+      "a_radiative_per_s": 103075900.0
+    },
+    {
+      "label": "FAC ILEV 402: 2*7.3*1.4*1 2p5.3p1.4d1 2p+3(3)3.3p-1(1)4.4d+1(5)3",
+      "E_resonance_eV": 530.33,
+      "J": 1.5,
+      "gamma_auger_per_s": 8283600000000.0,
+      "a_radiative_per_s": 358445101025.0
+    },
+    {
+      "label": "FAC ILEV 405: 2*7.3*1.4*1 2p5.3p1.4d1 2p+3(3)3.3p+1(3)6.4d+1(5)3",
+      "E_resonance_eV": 530.82,
+      "J": 1.5,
+      "gamma_auger_per_s": 10097000000000.0,
+      "a_radiative_per_s": 431321688250.0
+    },
+    {
+      "label": "FAC ILEV 406: 2*7.3*1.4*1 2p5.3p1.4p1 2p-1(1)1.3p+1(3)4.4p-1(1)3",
+      "E_resonance_eV": 530.86,
+      "J": 1.5,
+      "gamma_auger_per_s": 95373000000000.0,
+      "a_radiative_per_s": 50274365425.0
+    },
+    {
+      "label": "FAC ILEV 408: 2*7.3*1.4*1 2p5.3p1.4d1 2p+3(3)3.3p+1(3)6.4d+1(5)5",
+      "E_resonance_eV": 531.13,
+      "J": 2.5,
+      "gamma_auger_per_s": 7330800000000.0,
+      "a_radiative_per_s": 142294691833.33334
+    },
+    {
+      "label": "FAC ILEV 409: 2*7.3*1.4*1 2p5.3p1.4d1 2p+3(3)3.3p-1(1)2.4d+1(5)3",
+      "E_resonance_eV": 531.46,
+      "J": 1.5,
+      "gamma_auger_per_s": 6075900000000.0,
+      "a_radiative_per_s": 589420776825.0
+    },
+    {
+      "label": "FAC ILEV 412: 2*7.3*1.4*1 2p5.3p1.4d1 2p+3(3)3.3p+1(3)4.4d-1(3)5",
+      "E_resonance_eV": 532.74,
+      "J": 2.5,
+      "gamma_auger_per_s": 9010000000000.0,
+      "a_radiative_per_s": 168620611000.00003
+    },
+    {
+      "label": "FAC ILEV 415: 2*7.3*1.4*1 2p5.3p1.4p1 2p-1(1)1.3p+1(3)4.4p+1(3)1",
+      "E_resonance_eV": 533.06,
+      "J": 0.5,
+      "gamma_auger_per_s": 7335400000000.0,
+      "a_radiative_per_s": 56860077700.0
+    },
+    {
+      "label": "FAC ILEV 429: 2*7.3*1.4*1 2p5.3p1.4d1 2p+3(3)3.3p+1(3)4.4d+1(5)5",
+      "E_resonance_eV": 534.9,
+      "J": 2.5,
+      "gamma_auger_per_s": 12294000000000.0,
+      "a_radiative_per_s": 392729274000.0
+    },
+    {
+      "label": "FAC ILEV 430: 2*7.3*1.4*1 2p5.3p1.4d1 2p+3(3)3.3p+1(3)6.4d+1(5)1",
+      "E_resonance_eV": 535.83,
+      "J": 0.5,
+      "gamma_auger_per_s": 12068000000000.0,
+      "a_radiative_per_s": 2959924670000.0
+    },
+    {
+      "label": "FAC ILEV 444: 2*7.3*1.4*1 2p5.3p1.4d1 2p+3(3)3.3p+1(3)0.4d-1(3)3",
+      "E_resonance_eV": 538.27,
+      "J": 1.5,
+      "gamma_auger_per_s": 4401900000000.0,
+      "a_radiative_per_s": 95703056000.0
+    },
+    {
+      "label": "FAC ILEV 464: 2*7.3*1.4*1 2p5.3p1.4d1 2p-1(1)1.3p-1(1)2.4d-1(3)3",
+      "E_resonance_eV": 541.36,
+      "J": 1.5,
+      "gamma_auger_per_s": 24696000000000.0,
+      "a_radiative_per_s": 1140345272750.0
+    },
+    {
+      "label": "FAC ILEV 468: 2*7.3*1.4*1 2p5.3d1.4s1 2p+3(3)3.3d-1(3)2.4s+1(1)3",
+      "E_resonance_eV": 541.9,
+      "J": 1.5,
+      "gamma_auger_per_s": 5239100000000.0,
+      "a_radiative_per_s": 7350434175.0
+    },
+    {
+      "label": "FAC ILEV 469: 2*7.3*1.4*1 2p5.3p1.4p1 2p-1(1)1.3p-1(1)0.4p-1(1)1",
+      "E_resonance_eV": 541.98,
+      "J": 0.5,
+      "gamma_auger_per_s": 72624000000000.0,
+      "a_radiative_per_s": 132767470000.0
+    },
+    {
+      "label": "FAC ILEV 470: 2*7.3*1.4*1 2p5.3p1.4f1 2p+3(3)3.3p+1(3)6.4f-1(5)3",
+      "E_resonance_eV": 542.16,
+      "J": 1.5,
+      "gamma_auger_per_s": 6968200000000.0,
+      "a_radiative_per_s": 22294945525.0
+    },
+    {
+      "label": "FAC ILEV 475: 2*7.3*1.4*1 2p5.3p1.4f1 2p+3(3)3.3p+1(3)6.4f+1(7)1",
+      "E_resonance_eV": 542.87,
+      "J": 0.5,
+      "gamma_auger_per_s": 58204000000000.0,
+      "a_radiative_per_s": 159821265000.0
+    },
+    {
+      "label": "FAC ILEV 479: 2*7.3*1.4*1 2p5.3d1.4s1 2p+3(3)3.3d-1(3)2.4s+1(1)1",
+      "E_resonance_eV": 543.2,
+      "J": 0.5,
+      "gamma_auger_per_s": 37792000000000.0,
+      "a_radiative_per_s": 47375831000.0
+    },
+    {
+      "label": "FAC ILEV 480: 2*7.3*1.4*1 2p5.3p1.4p1 2p-1(1)1.3p-1(1)0.4p+1(3)3",
+      "E_resonance_eV": 543.24,
+      "J": 1.5,
+      "gamma_auger_per_s": 132840000000000.0,
+      "a_radiative_per_s": 99711841425.0
+    },
+    {
+      "label": "FAC ILEV 483: 2*7.3*1.4*1 2p5.3p1.4d1 2p-1(1)1.3p+1(3)2.4d-1(3)3",
+      "E_resonance_eV": 543.58,
+      "J": 1.5,
+      "gamma_auger_per_s": 11363000000000.0,
+      "a_radiative_per_s": 445363539750.0
+    },
+    {
+      "label": "FAC ILEV 492: 2*7.3*1.4*1 2p5.3d1.4s1 2p+3(3)3.3d+1(5)4.4s+1(1)3",
+      "E_resonance_eV": 544.69,
+      "J": 1.5,
+      "gamma_auger_per_s": 49263000000000.0,
+      "a_radiative_per_s": 69799552000.0
+    },
+    {
+      "label": "FAC ILEV 502: 2*7.3*1.4*1 2p5.3p1.4d1 2p-1(1)1.3p+1(3)2.4d-1(3)5",
+      "E_resonance_eV": 546.13,
+      "J": 2.5,
+      "gamma_auger_per_s": 31075000000000.0,
+      "a_radiative_per_s": 1006307250500.0
+    },
+    {
+      "label": "FAC ILEV 507: 2*7.3*1.4*1 2p5.3p1.4d1 2p-1(1)1.3p+1(3)4.4d-1(3)1",
+      "E_resonance_eV": 547.68,
+      "J": 0.5,
+      "gamma_auger_per_s": 13412000000000.0,
+      "a_radiative_per_s": 3402847315000.0
+    },
+    {
+      "label": "FAC ILEV 566: 2*7.3*1.4*1 2p5.3p1.4d1 2p-1(1)1.3p-1(1)0.4d+1(5)5",
+      "E_resonance_eV": 559.94,
+      "J": 2.5,
+      "gamma_auger_per_s": 14904000000000.0,
+      "a_radiative_per_s": 181561125333.3333
+    },
+    {
+      "label": "FAC ILEV 567: 2*7.3*1.4*1 2p5.3p1.4d1 2p-1(1)1.3p-1(1)0.4d-1(3)3",
+      "E_resonance_eV": 560.21,
+      "J": 1.5,
+      "gamma_auger_per_s": 30217000000000.0,
+      "a_radiative_per_s": 507796795000.0
+    },
+    {
+      "label": "FAC ILEV 570: 2*7.3*1.4*1 2p5.3d1.4p1 2p+3(3)3.3d-1(3)4.4p+1(3)5",
+      "E_resonance_eV": 560.36,
+      "J": 2.5,
+      "gamma_auger_per_s": 10618000000000.0,
+      "a_radiative_per_s": 58115908000.0
+    },
+    {
+      "label": "FAC ILEV 573: 2*7.3*1.4*1 2p5.3d1.4p1 2p+3(3)3.3d+1(5)6.4p-1(1)5",
+      "E_resonance_eV": 560.81,
+      "J": 2.5,
+      "gamma_auger_per_s": 9798600000000.0,
+      "a_radiative_per_s": 21132628166.666668
+    },
+    {
+      "label": "FAC ILEV 574: 2*7.3*1.4*1 2p5.3d1.4p1 2p+3(3)3.3d+1(5)6.4p+1(3)9",
+      "E_resonance_eV": 561.36,
+      "J": 4.5,
+      "gamma_auger_per_s": 5196000000000.0,
+      "a_radiative_per_s": 368139.9
+    },
+    {
+      "label": "FAC ILEV 577: 2*7.3*1.4*1 2p5.3d1.4p1 2p+3(3)3.3d+1(5)8.4p+1(3)5",
+      "E_resonance_eV": 563.44,
+      "J": 2.5,
+      "gamma_auger_per_s": 31989000000000.0,
+      "a_radiative_per_s": 56803410583.33333
+    },
+    {
+      "label": "FAC ILEV 578: 2*7.3*1.4*1 2p5.3d1.4p1 2p+3(3)3.3d-1(3)6.4p+1(3)3",
+      "E_resonance_eV": 564.25,
+      "J": 1.5,
+      "gamma_auger_per_s": 35916000000000.0,
+      "a_radiative_per_s": 77358217200.0
+    },
+    {
+      "label": "FAC ILEV 579: 2*7.3*1.4*1 2p5.3d1.4p1 2p+3(3)3.3d+1(5)6.4p+1(3)5",
+      "E_resonance_eV": 564.55,
+      "J": 2.5,
+      "gamma_auger_per_s": 58188000000000.0,
+      "a_radiative_per_s": 276609593.8333333
+    },
+    {
+      "label": "FAC ILEV 581: 2*7.3*1.4*1 2p5.3d1.4p1 2p+3(3)3.3d+1(5)2.4p-1(1)3",
+      "E_resonance_eV": 565.41,
+      "J": 1.5,
+      "gamma_auger_per_s": 54002000000000.0,
+      "a_radiative_per_s": 1106735137750.0
+    },
+    {
+      "label": "FAC ILEV 584: 2*7.3*1.4*1 2p5.3d1.4p1 2p+3(3)3.3d+1(5)2.4p+1(3)3",
+      "E_resonance_eV": 566.45,
+      "J": 1.5,
+      "gamma_auger_per_s": 10770000000000.0,
+      "a_radiative_per_s": 1124073840500.0
+    },
+    {
+      "label": "FAC ILEV 585: 2*7.3*1.4*1 2p5.3d1.4p1 2p+3(3)3.3d+1(5)2.4p+1(3)5",
+      "E_resonance_eV": 566.57,
+      "J": 2.5,
+      "gamma_auger_per_s": 9184100000000.0,
+      "a_radiative_per_s": 784462670499.9999
+    },
+    {
+      "label": "FAC ILEV 586: 2*7.3*1.4*1 2p5.3d1.4p1 2p+3(3)3.3d+1(5)2.4p+1(3)1",
+      "E_resonance_eV": 567.55,
+      "J": 0.5,
+      "gamma_auger_per_s": 13421000000000.0,
+      "a_radiative_per_s": 2937822055000.0
+    },
+    {
+      "label": "FAC ILEV 597: 2*7.3*1.4*1 2p5.3d1.4p1 2p-1(1)1.3d-1(3)4.4p+1(3)3",
+      "E_resonance_eV": 571.03,
+      "J": 1.5,
+      "gamma_auger_per_s": 14192000000000.0,
+      "a_radiative_per_s": 310238817750.0
+    },
+    {
+      "label": "FAC ILEV 608: 2*7.3*1.4*1 2p5.3d1.4p1 2p-1(1)1.3d+1(5)4.4p+1(3)5",
+      "E_resonance_eV": 572.19,
+      "J": 2.5,
+      "gamma_auger_per_s": 10735000000000.0,
+      "a_radiative_per_s": 59661881981.666664
+    },
+    {
+      "label": "FAC ILEV 619: 2*7.3*1.4*1 2p5.3d1.4p1 2p-1(1)1.3d-1(3)4.4p-1(1)3",
+      "E_resonance_eV": 573.46,
+      "J": 1.5,
+      "gamma_auger_per_s": 80212000000000.0,
+      "a_radiative_per_s": 502623119050.0
+    },
+    {
+      "label": "FAC ILEV 626: 2*7.3*1.4*1 2p5.3d1.4p1 2p-1(1)1.3d+1(5)6.4p+1(3)7",
+      "E_resonance_eV": 574.62,
+      "J": 3.5,
+      "gamma_auger_per_s": 5278500000000.0,
+      "a_radiative_per_s": 23167650.125
+    },
+    {
+      "label": "FAC ILEV 635: 2*7.3*1.4*1 2p5.3d1.4p1 2p-1(1)1.3d+1(5)6.4p+1(3)3",
+      "E_resonance_eV": 575.91,
+      "J": 1.5,
+      "gamma_auger_per_s": 32067000000000.0,
+      "a_radiative_per_s": 274959523325.0
+    },
+    {
+      "label": "FAC ILEV 638: 2*7.3*1.4*1 2p5.3d1.4p1 2p-1(1)1.3d+1(5)6.4p-1(1)5",
+      "E_resonance_eV": 576.52,
+      "J": 2.5,
+      "gamma_auger_per_s": 75992000000000.0,
+      "a_radiative_per_s": 87683145670.0
+    },
+    {
+      "label": "FAC ILEV 641: 2*7.3*1.4*1 2p5.3d1.4d1 2p+3(3)3.3d-1(3)4.4d-1(3)5",
+      "E_resonance_eV": 576.71,
+      "J": 2.5,
+      "gamma_auger_per_s": 8141800000000.0,
+      "a_radiative_per_s": 11564505833.333332
+    },
+    {
+      "label": "FAC ILEV 644: 2*7.3*1.4*1 2p5.3d1.4d1 2p+3(3)3.3d+1(5)4.4d-1(3)7",
+      "E_resonance_eV": 577.56,
+      "J": 3.5,
+      "gamma_auger_per_s": 4143900000000.0,
+      "a_radiative_per_s": 9867983750.0
+    },
+    {
+      "label": "FAC ILEV 649: 2*7.3*1.4*1 2p5.3d1.4d1 2p+3(3)3.3d-1(3)4.4d+1(5)5",
+      "E_resonance_eV": 578.12,
+      "J": 2.5,
+      "gamma_auger_per_s": 12807000000000.0,
+      "a_radiative_per_s": 335379246666.6666
+    },
+    {
+      "label": "FAC ILEV 653: 2*7.3*1.4*1 2p5.3d1.4d1 2p+3(3)3.3d+1(5)6.4d+1(5)5",
+      "E_resonance_eV": 578.84,
+      "J": 2.5,
+      "gamma_auger_per_s": 36785000000000.0,
+      "a_radiative_per_s": 650575528333.3333
+    },
+    {
+      "label": "FAC ILEV 654: 2*7.3*1.4*1 2p5.3d1.4d1 2p+3(3)3.3d+1(5)8.4d+1(5)7",
+      "E_resonance_eV": 578.85,
+      "J": 3.5,
+      "gamma_auger_per_s": 78289000000000.0,
+      "a_radiative_per_s": 278053330000.0
+    },
+    {
+      "label": "FAC ILEV 665: 2*7.3*1.4*1 2p5.3d1.4p1 2p-1(1)1.3d-1(3)2.4p-1(1)3",
+      "E_resonance_eV": 580.19,
+      "J": 1.5,
+      "gamma_auger_per_s": 4684600000000.0,
+      "a_radiative_per_s": 5528013190750.0
+    },
+    {
+      "label": "FAC ILEV 670: 2*7.3*1.4*1 2p5.3d1.4p1 2p-1(1)1.3d-1(3)2.4p+1(3)5",
+      "E_resonance_eV": 580.61,
+      "J": 2.5,
+      "gamma_auger_per_s": 56967000000000.0,
+      "a_radiative_per_s": 3765673990000.0
+    },
+    {
+      "label": "FAC ILEV 679: 2*7.3*1.4*1 2p5.3d1.4p1 2p-1(1)1.3d-1(3)2.4p+1(3)1",
+      "E_resonance_eV": 581.2,
+      "J": 0.5,
+      "gamma_auger_per_s": 48735000000000.0,
+      "a_radiative_per_s": 11836946000000.0
+    },
+    {
+      "label": "FAC ILEV 688: 2*7.3*1.4*1 2p5.3d1.4d1 2p+3(3)3.3d+1(5)2.4d-1(3)5",
+      "E_resonance_eV": 582.77,
+      "J": 2.5,
+      "gamma_auger_per_s": 102310000000000.0,
+      "a_radiative_per_s": 821947833333.3333
+    },
+    {
+      "label": "FAC ILEV 695: 2*7.3*1.4*1 2p5.3d1.4d1 2p+3(3)3.3d+1(5)2.4d+1(5)7",
+      "E_resonance_eV": 583.44,
+      "J": 3.5,
+      "gamma_auger_per_s": 62312000000000.0,
+      "a_radiative_per_s": 474908325000.0
+    },
+    {
+      "label": "FAC ILEV 702: 2*7.3*1.4*1 2p5.3d1.4d1 2p+3(3)3.3d+1(5)2.4d-1(3)5",
+      "E_resonance_eV": 584.72,
+      "J": 2.5,
+      "gamma_auger_per_s": 42965000000000.0,
+      "a_radiative_per_s": 1079795000000.0
+    },
+    {
+      "label": "FAC ILEV 710: 2*7.3*1.4*1 2p5.3d1.4d1 2p+3(3)3.3d+1(5)2.4d-1(3)1",
+      "E_resonance_eV": 585.54,
+      "J": 0.5,
+      "gamma_auger_per_s": 15202000000000.0,
+      "a_radiative_per_s": 3344180709500.0
+    },
+    {
+      "label": "FAC ILEV 723: 2*7.3*1.4*1 2p5.3d1.4d1 2p+3(3)3.3d+1(5)8.4d+1(5)3",
+      "E_resonance_eV": 586.69,
+      "J": 1.5,
+      "gamma_auger_per_s": 12179000000000.0,
+      "a_radiative_per_s": 585129877000.0
+    },
+    {
+      "label": "FAC ILEV 750: 2*7.3*1.4*1 2p5.3d1.4f1 2p+3(3)3.3d-1(3)4.4f+1(7)9",
+      "E_resonance_eV": 589.27,
+      "J": 4.5,
+      "gamma_auger_per_s": 7491700000000.0,
+      "a_radiative_per_s": 209113600000.0
+    },
+    {
+      "label": "FAC ILEV 751: 2*7.3*1.4*1 2p5.3d1.4d1 2p-1(1)1.3d-1(3)4.4d-1(3)5",
+      "E_resonance_eV": 589.46,
+      "J": 2.5,
+      "gamma_auger_per_s": 33290000000000.0,
+      "a_radiative_per_s": 631560493333.3334
+    },
+    {
+      "label": "FAC ILEV 753: 2*7.3*1.4*1 2p5.3d1.4d1 2p-1(1)1.3d-1(3)4.4d-1(3)5",
+      "E_resonance_eV": 590.13,
+      "J": 2.5,
+      "gamma_auger_per_s": 40001000000000.0,
+      "a_radiative_per_s": 945686275000.0
+    },
+    {
+      "label": "FAC ILEV 754: 2*7.3*1.4*1 2p5.3d1.4d1 2p-1(1)1.3d+1(5)4.4d+1(5)7",
+      "E_resonance_eV": 590.25,
+      "J": 3.5,
+      "gamma_auger_per_s": 15227000000000.0,
+      "a_radiative_per_s": 232660806750.0
+    },
+    {
+      "label": "FAC ILEV 757: 2*7.3*1.4*1 2p5.3d1.4d1 2p-1(1)1.3d+1(5)6.4d-1(3)5",
+      "E_resonance_eV": 591.14,
+      "J": 2.5,
+      "gamma_auger_per_s": 8487800000000.0,
+      "a_radiative_per_s": 653209166666.6666
+    },
+    {
+      "label": "FAC ILEV 761: 2*7.3*1.4*1 2p5.3d1.4f1 2p+3(3)3.3d+1(5)2.4f+1(7)7",
+      "E_resonance_eV": 591.81,
+      "J": 3.5,
+      "gamma_auger_per_s": 7319600000000.0,
+      "a_radiative_per_s": 420451900000.0
+    },
+    {
+      "label": "FAC ILEV 762: 2*7.3*1.4*1 2p5.3d1.4d1 2p-1(1)1.3d+1(5)4.4d-1(3)7",
+      "E_resonance_eV": 591.92,
+      "J": 3.5,
+      "gamma_auger_per_s": 10784000000000.0,
+      "a_radiative_per_s": 1245883250000.0
+    },
+    {
+      "label": "FAC ILEV 769: 2*7.3*1.4*1 2p5.3d1.4f1 2p-1(1)1.3d-1(3)2.4f-1(5)7",
+      "E_resonance_eV": 592.84,
+      "J": 3.5,
+      "gamma_auger_per_s": 7952300000000.0,
+      "a_radiative_per_s": 260863100000.0
+    },
+    {
+      "label": "FAC ILEV 771: 2*7.3*1.4*1 2p5.3d1.4f1 2p-1(1)1.3d+1(5)4.4f-1(5)9",
+      "E_resonance_eV": 592.99,
+      "J": 4.5,
+      "gamma_auger_per_s": 6025700000000.0,
+      "a_radiative_per_s": 102992600000.0
+    },
+    {
+      "label": "FAC ILEV 784: 2*7.3*1.4*1 2p5.3d1.4d1 2p-1(1)1.3d+1(5)6.4d+1(5)1",
+      "E_resonance_eV": 595.65,
+      "J": 0.5,
+      "gamma_auger_per_s": 5753900000000.0,
+      "a_radiative_per_s": 5473501650000.0
+    },
+    {
+      "label": "FAC ILEV 785: 2*7.3*1.4*1 2p5.3d1.4d1 2p-1(1)1.3d-1(3)2.4d-1(3)5",
+      "E_resonance_eV": 596.44,
+      "J": 2.5,
+      "gamma_auger_per_s": 81500000000000.0,
+      "a_radiative_per_s": 4593905100000.0
+    },
+    {
+      "label": "FAC ILEV 789: 2*7.3*1.4*1 2p5.3d1.4d1 2p-1(1)1.3d-1(3)2.4d+1(5)5",
+      "E_resonance_eV": 597.54,
+      "J": 2.5,
+      "gamma_auger_per_s": 6184900000000.0,
+      "a_radiative_per_s": 3887545783333.3335
+    },
+    {
+      "label": "FAC ILEV 791: 2*7.3*1.4*1 2p5.3d1.4f1 2p-1(1)1.3d+1(5)6.4f-1(5)9",
+      "E_resonance_eV": 597.67,
+      "J": 4.5,
+      "gamma_auger_per_s": 5759600000000.0,
+      "a_radiative_per_s": 350444100000.0
+    },
+    {
+      "label": "FAC ILEV 793: 2*7.3*1.4*1 2p5.3d1.4d1 2p-1(1)1.3d-1(3)2.4d+1(5)7",
+      "E_resonance_eV": 597.76,
+      "J": 3.5,
+      "gamma_auger_per_s": 205200000000000.0,
+      "a_radiative_per_s": 2581669132500.0
+    },
+    {
+      "label": "FAC ILEV 798: 2*7.3*1.4*1 2p5.3d1.4d1 2p-1(1)1.3d-1(3)2.4d+1(5)3",
+      "E_resonance_eV": 599.01,
+      "J": 1.5,
+      "gamma_auger_per_s": 29434000000000.0,
+      "a_radiative_per_s": 5608528812500.0
+    },
+    {
+      "label": "FAC ILEV 807: 2*7.3*1.4*1 2p5.3d1.4d1 2p-1(1)1.3d-1(3)2.4d-1(3)1",
+      "E_resonance_eV": 600.49,
+      "J": 0.5,
+      "gamma_auger_per_s": 28288000000000.0,
+      "a_radiative_per_s": 5837590555500.0
+    },
+    {
+      "label": "FAC ILEV 812: 2*7.3*1.4*1 2p5.3d1.4f1 2p-1(1)1.3d+1(5)4.4f+1(7)9",
+      "E_resonance_eV": 601.22,
+      "J": 4.5,
+      "gamma_auger_per_s": 8153100000000.0,
+      "a_radiative_per_s": 527232400000.0
+    },
+    {
+      "label": "FAC ILEV 813: 2*7.3*1.4*1 2s1.3s1.4s1 2s+1(1)1.3s+1(1)2.4s+1(1)1",
+      "E_resonance_eV": 602.22,
+      "J": 0.5,
+      "gamma_auger_per_s": 18074000000000.0,
+      "a_radiative_per_s": 22491118750.0
+    },
+    {
+      "label": "FAC ILEV 816: 2*7.3*1.4*1 2p5.3d1.4f1 2p-1(1)1.3d-1(3)2.4f-1(5)7",
+      "E_resonance_eV": 604.82,
+      "J": 3.5,
+      "gamma_auger_per_s": 58105000000000.0,
+      "a_radiative_per_s": 3211791737500.0
+    },
+    {
+      "label": "FAC ILEV 819: 2*7.3*1.4*1 2s1.3s1.4s1 2s+1(1)1.3s+1(1)0.4s+1(1)1",
+      "E_resonance_eV": 606.4,
+      "J": 0.5,
+      "gamma_auger_per_s": 22191000000000.0,
+      "a_radiative_per_s": 6695572100.0
+    },
+    {
+      "label": "FAC ILEV 823: 2*7.3*1.4*1 2p5.3d1.4f1 2p-1(1)1.3d-1(3)2.4f+1(7)9",
+      "E_resonance_eV": 608.56,
+      "J": 4.5,
+      "gamma_auger_per_s": 51155000000000.0,
+      "a_radiative_per_s": 1686419000000.0
+    },
+    {
+      "label": "FAC ILEV 829: 2*7.3*1.4*1 2s1.3s1.4p1 2s+1(1)1.3s+1(1)0.4p-1(1)1",
+      "E_resonance_eV": 619.77,
+      "J": 0.5,
+      "gamma_auger_per_s": 57244000000000.0,
+      "a_radiative_per_s": 399826948350.0
+    },
+    {
+      "label": "FAC ILEV 830: 2*7.3*1.4*1 2s1.3s1.4p1 2s+1(1)1.3s+1(1)0.4p+1(3)3",
+      "E_resonance_eV": 620.73,
+      "J": 1.5,
+      "gamma_auger_per_s": 56202000000000.0,
+      "a_radiative_per_s": 193605786850.0
+    },
+    {
+      "label": "FAC ILEV 835: 2*7.3*1.4*1 2s1.3s1.4d1 2s+1(1)1.3s+1(1)2.4d+1(5)5",
+      "E_resonance_eV": 631.72,
+      "J": 2.5,
+      "gamma_auger_per_s": 8697800000000.0,
+      "a_radiative_per_s": 31065164815.0
+    },
+    {
+      "label": "FAC ILEV 836: 2*7.3*1.4*1 2s1.3s1.4d1 2s+1(1)1.3s+1(1)2.4d+1(5)3",
+      "E_resonance_eV": 631.75,
+      "J": 1.5,
+      "gamma_auger_per_s": 8600400000000.0,
+      "a_radiative_per_s": 50226422052.5
+    },
+    {
+      "label": "FAC ILEV 840: 2*7.3*1.4*1 2s1.3p1.4s1 2s+1(1)1.3p-1(1)2.4s+1(1)1",
+      "E_resonance_eV": 636.4,
+      "J": 0.5,
+      "gamma_auger_per_s": 35103000000000.0,
+      "a_radiative_per_s": 592777980950.0
+    },
+    {
+      "label": "FAC ILEV 841: 2*7.3*1.4*1 2s1.3s1.4d1 2s+1(1)1.3s+1(1)0.4d-1(3)3",
+      "E_resonance_eV": 637.36,
+      "J": 1.5,
+      "gamma_auger_per_s": 35801000000000.0,
+      "a_radiative_per_s": 78249153250.0
+    },
+    {
+      "label": "FAC ILEV 842: 2*7.3*1.4*1 2s1.3s1.4d1 2s+1(1)1.3s+1(1)0.4d+1(5)5",
+      "E_resonance_eV": 637.63,
+      "J": 2.5,
+      "gamma_auger_per_s": 35343000000000.0,
+      "a_radiative_per_s": 42387810366.666664
+    },
+    {
+      "label": "FAC ILEV 844: 2*7.3*1.4*1 2s1.3p1.4s1 2s+1(1)1.3p+1(3)4.4s+1(1)3",
+      "E_resonance_eV": 639.08,
+      "J": 1.5,
+      "gamma_auger_per_s": 40908000000000.0,
+      "a_radiative_per_s": 133079321500.0
+    },
+    {
+      "label": "FAC ILEV 845: 2*7.3*1.4*1 2s1.3p1.4s1 2s+1(1)1.3p+1(3)2.4s+1(1)1",
+      "E_resonance_eV": 639.18,
+      "J": 0.5,
+      "gamma_auger_per_s": 8339700000000.0,
+      "a_radiative_per_s": 1259937062800.0
+    },
+    {
+      "label": "FAC ILEV 857: 2*7.3*1.4*1 2s1.3s1.4f1 2s+1(1)1.3s+1(1)0.4f-1(5)5",
+      "E_resonance_eV": 647.78,
+      "J": 2.5,
+      "gamma_auger_per_s": 5792000000000.0,
+      "a_radiative_per_s": 6264416533.333334
+    },
+    {
+      "label": "FAC ILEV 858: 2*7.3*1.4*1 2s1.3s1.4f1 2s+1(1)1.3s+1(1)0.4f+1(7)7",
+      "E_resonance_eV": 647.84,
+      "J": 3.5,
+      "gamma_auger_per_s": 5733100000000.0,
+      "a_radiative_per_s": 4798128000.0
+    },
+    {
+      "label": "FAC ILEV 871: 2*7.3*1.4*1 2s1.3p1.4p1 2s+1(1)1.3p+1(3)4.4p+1(3)1",
+      "E_resonance_eV": 658.05,
+      "J": 0.5,
+      "gamma_auger_per_s": 12363000000000.0,
+      "a_radiative_per_s": 836234885000.0
+    },
+    {
+      "label": "FAC ILEV 919: 2*7.3*1.4*1 2s1.3p1.4f1 2s+1(1)1.3p+1(3)4.4f-1(5)9",
+      "E_resonance_eV": 681.06,
+      "J": 4.5,
+      "gamma_auger_per_s": 5747000000000.0,
+      "a_radiative_per_s": 138576700000.0
+    },
+    {
+      "label": "FAC ILEV 920: 2*7.3*1.4*1 2s1.3p1.4f1 2s+1(1)1.3p+1(3)2.4f-1(5)7",
+      "E_resonance_eV": 681.41,
+      "J": 3.5,
+      "gamma_auger_per_s": 5637900000000.0,
+      "a_radiative_per_s": 234499200000.0
+    },
+    {
+      "label": "FAC ILEV 921: 2*7.3*1.4*1 2s1.3p1.4f1 2s+1(1)1.3p+1(3)4.4f+1(7)3",
+      "E_resonance_eV": 681.46,
+      "J": 1.5,
+      "gamma_auger_per_s": 4351900000000.0,
+      "a_radiative_per_s": 285907557025.0
+    },
+    {
+      "label": "FAC ILEV 922: 2*7.3*1.4*1 2s1.3p1.4f1 2s+1(1)1.3p+1(3)2.4f+1(7)5",
+      "E_resonance_eV": 681.79,
+      "J": 2.5,
+      "gamma_auger_per_s": 6639100000000.0,
+      "a_radiative_per_s": 240056189733.3333
+    },
+    {
+      "label": "FAC ILEV 923: 2*7.3*1.4*1 2s1.3d1.4s1 2s+1(1)1.3d-1(3)2.4s+1(1)3",
+      "E_resonance_eV": 682.74,
+      "J": 1.5,
+      "gamma_auger_per_s": 26943000000000.0,
+      "a_radiative_per_s": 162464518000.0
+    },
+    {
+      "label": "FAC ILEV 924: 2*7.3*1.4*1 2s1.3d1.4s1 2s+1(1)1.3d+1(5)6.4s+1(1)5",
+      "E_resonance_eV": 683.0,
+      "J": 2.5,
+      "gamma_auger_per_s": 24758000000000.0,
+      "a_radiative_per_s": 136688008283.33333
+    },
+    {
+      "label": "FAC ILEV 946: 2*7.3*1.4*1 2s1.3d1.4p1 2s+1(1)1.3d+1(5)4.4p+1(3)5",
+      "E_resonance_eV": 699.54,
+      "J": 2.5,
+      "gamma_auger_per_s": 5182400000000.0,
+      "a_radiative_per_s": 18002504166.666668
+    },
+    {
+      "label": "FAC ILEV 947: 2*7.3*1.4*1 2s1.3d1.4p1 2s+1(1)1.3d-1(3)4.4p+1(3)7",
+      "E_resonance_eV": 699.9,
+      "J": 3.5,
+      "gamma_auger_per_s": 4960800000000.0,
+      "a_radiative_per_s": 16787401250.0
+    },
+    {
+      "label": "FAC ILEV 969: 2*7.3*1.4*1 2s1.3d1.4d1 2s+1(1)1.3d-1(3)4.4d-1(3)7",
+      "E_resonance_eV": 712.97,
+      "J": 3.5,
+      "gamma_auger_per_s": 5457000000000.0,
+      "a_radiative_per_s": 232322096.25
+    },
+    {
+      "label": "FAC ILEV 970: 2*7.3*1.4*1 2s1.3d1.4d1 2s+1(1)1.3d+1(5)4.4d+1(5)9",
+      "E_resonance_eV": 713.37,
+      "J": 4.5,
+      "gamma_auger_per_s": 5788500000000.0,
+      "a_radiative_per_s": 187055600.0
+    },
+    {
+      "label": "FAC ILEV 985: 2*7.3*1.4*1 2s1.3d1.4d1 2s+1(1)1.3d-1(3)4.4d+1(5)9",
+      "E_resonance_eV": 716.85,
+      "J": 4.5,
+      "gamma_auger_per_s": 28000000000000.0,
+      "a_radiative_per_s": 1590313000.0
+    },
+    {
+      "label": "FAC ILEV 986: 2*7.3*1.4*1 2s1.3d1.4d1 2s+1(1)1.3d+1(5)4.4d+1(5)7",
+      "E_resonance_eV": 716.96,
+      "J": 3.5,
+      "gamma_auger_per_s": 24715000000000.0,
+      "a_radiative_per_s": 1883200500.0
+    },
+    {
+      "label": "FAC ILEV 1010: 2*7.3*1.4*1 2s1.3d1.4d1 2s+1(1)1.3d+1(5)4.4d+1(5)1",
+      "E_resonance_eV": 722.46,
+      "J": 0.5,
+      "gamma_auger_per_s": 9588800000000.0,
+      "a_radiative_per_s": 10633892200.0
+    }
+  ],
+  "note": ""
+}

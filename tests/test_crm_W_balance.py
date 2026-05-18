@@ -38,12 +38,19 @@ def test_w_panel_has_expected_charge_states_and_configs():
 def test_w_fractional_abundance_gate_against_fac_fixture():
     metrics = write_results_csv(RESULTS_CSV)
     assert metrics["fractional_abundance_rms"] <= 0.30
+    assert metrics["fac_structure_runs"] == 9.0
+    assert metrics["fac_transition_rows"] > 0.0
     with RESULTS_CSV.open() as f:
         rows = list(csv.DictReader(f))
     assert len(rows) == len(BALANCE_TEV) * len(W_CHARGES)
     for row in rows:
         assert float(row["atomx_fraction"]) >= 0.0
         assert float(row["fac_fraction"]) >= 0.0
+        assert float(row["fac_ip_eV"]) > 0.0
+        assert int(row["fac_transitions"]) > 0
+        assert float(row["fac_transition_power_eVs"]) > 0.0
+        assert row["fac_source"].startswith("sfac Structure/TransitionTable/PrintTable")
+        assert row["adas_fraction"] == ""
 
 
 def test_w_cooling_rate_within_putterich_factor_two():

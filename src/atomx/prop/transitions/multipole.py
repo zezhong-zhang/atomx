@@ -10,8 +10,16 @@ For electric multipole EL in length (Babushkin) gauge:
 For electric multipole EL in velocity (Coulomb) gauge:
     R_EL_vel involves d/dr and kappa-dependent terms
 
-For magnetic multipole ML:
-    R_ML = integral [P_f(r)*Q_i(r) + Q_f(r)*P_i(r)] * r^L dr / c
+For magnetic multipole ML (FAC / Grant 2007 Eq. 8.4.17 convention):
+    R_ML = integral [P_f(r)*Q_i(r) + Q_f(r)*P_i(r)] * r^L dr
+
+No explicit 1/c factor is included: the alpha-suppression of magnetic
+vs electric multipole rates arises naturally because the small-component
+spinor Q ~ (alpha Z) P, so the cross integral P_f Q_i + Q_f P_i carries
+one extra power of alpha relative to the electric P_f P_i + Q_f Q_i
+combination.  The angular kappa factor in :func:`~atomx.prop.transitions
+.angular.angular_mL` supplies the remaining (kappa_i+kappa_f)/(2L+1)
+algebraic structure of the magnetic operator (Grant Eq. 8.4.17).
 """
 
 import numpy as np
@@ -125,11 +133,21 @@ def radial_eL_velocity(P_i, Q_i, P_f, Q_f, bsp_data, L=1,
 
 
 def radial_mL(P_i, Q_i, P_f, Q_f, bsp_data, L=1):
-    """Magnetic 2^L-pole radial matrix element.
+    """Magnetic 2^L-pole radial matrix element (long-wavelength).
 
-    R_ML = integral [P_f(r)*Q_i(r) + Q_f(r)*P_i(r)] * r^L dr / c
+    R_ML = integral [P_f(r)*Q_i(r) + Q_f(r)*P_i(r)] * r^L dr
 
     For L=1 this is the M1 magnetic dipole matrix element.
+
+    Convention: matches Grant (2007) Eq. 8.4.17 / FAC's M_L(omega) in the
+    long-wavelength limit. The full magnetic reduced matrix element is
+    obtained by combining this with the kappa-dependent angular factor
+    in :func:`~atomx.prop.transitions.angular.angular_mL`:
+
+        ⟨f‖t^M_L‖i⟩ = ⟨f‖C^L‖i⟩ · (kappa_i + kappa_f)/(2L+1) · R_ML
+
+    No explicit 1/c factor is included — alpha-suppression of the rate
+    arises from the Q ~ (alpha Z) P scaling of the small spinor component.
 
     Parameters
     ----------
@@ -142,7 +160,7 @@ def radial_mL(P_i, Q_i, P_f, Q_f, bsp_data, L=1):
     Returns
     -------
     float
-        Radial matrix element in atomic units.
+        Radial matrix element in atomic units (a_0^L).
     """
     gr = bsp_data["gr"]
     grw = bsp_data["grw"]
@@ -152,5 +170,5 @@ def radial_mL(P_i, Q_i, P_f, Q_f, bsp_data, L=1):
     ff_P = _eval_P(P_f, bsp_data)
     ff_Q = _eval_Q(Q_f, bsp_data)
 
-    integrand = (ff_P * fi_Q + ff_Q * fi_P) * gr ** L / C
+    integrand = (ff_P * fi_Q + ff_Q * fi_P) * gr ** L
     return np.sum(grw * integrand)

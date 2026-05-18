@@ -18,7 +18,7 @@ import numpy as np
 from atomx.constants import HARTREE_EV, HARTREE_INV_ANGSTROM
 from atomx.lineshapes import doppler_width, natural_width
 from atomx.spectrum.spectrum import Spectrum
-from atomx.uta import uta_moments
+from atomx.spectrum.uta import add_uta_array_to_spectrum
 
 
 def _hartree_to_angstrom(dE_hartree: float) -> float:
@@ -223,28 +223,21 @@ def _add_uta_arrays(
     for key, rows in grouped.items():
         if len(rows) <= uta_threshold:
             continue
-        moments = uta_moments([(dE, strength) for _, _, dE, strength in rows])
-        lam_nm = moments.centroid_nm
-        if lam_nm < lam_min_nm or lam_nm > lam_max_nm:
+        rendered = add_uta_array_to_spectrum(
+            spec,
+            [(dE, strength) for _, _, dE, strength in rows],
+            lam_min_nm=lam_min_nm,
+            lam_max_nm=lam_max_nm,
+        )
+        if rendered is None:
             continue
-        intensity = moments.total_strength * moments.centroid_eV
-        sigma_nm = _uta_sigma_nm(moments.centroid_eV, moments.std_eV)
-        sigma_nm = max(sigma_nm, (lam_max_nm - lam_min_nm) / max(len(spec) - 1, 1))
-        spec.add_line(lam_nm, intensity, sigma_nm=sigma_nm)
         consumed.update(i_tr for i_tr, _, _, _ in rows)
         spec.metadata["uta_arrays"].append({
             "upper_config": key[0],
             "lower_config": key[1],
-            "n_lines": moments.n_lines,
-            "centroid_eV": moments.centroid_eV,
-            "fwhm_eV": moments.fwhm_eV,
-            "total_strength": moments.total_strength,
+            "n_lines": rendered.n_lines,
+            "centroid_eV": rendered.centroid_eV,
+            "fwhm_eV": rendered.fwhm_eV,
+            "total_strength": rendered.total_strength,
         })
     return consumed
-
-
-def _uta_sigma_nm(centroid_eV: float, std_eV: float) -> float:
-    if centroid_eV <= 0 or std_eV <= 0:
-        return 0.0
-    hc_ev_nm = 1239.841984
-    return hc_ev_nm * std_eV / (centroid_eV ** 2)
