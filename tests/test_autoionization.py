@@ -8,7 +8,12 @@ import pytest
 from atomx.scattering.autoionization import (
     AutoionizationState,
     DRRateCoefficient,
+    dr_calculate,
     dr_rate_coefficient,
+    dr_strengths,
+)
+from atomx.scattering.dielectronic_recombination.enumerate import (
+    enumerate_dr_resonances,
 )
 
 
@@ -141,3 +146,84 @@ class TestDRRateCoefficient:
         rc_only_ok = dr_rate_coefficient([d_ok], T_eV=10.0)
         rc_both = dr_rate_coefficient([d_ok, d_bad], T_eV=10.0)
         assert rc_only_ok.alpha_cm3_s[0] == pytest.approx(rc_both.alpha_cm3_s[0], rel=1e-12)
+
+
+class _FakeIon:
+    charge = 16
+    converged = True
+    _config_strings = ["1s2 2s2 2p6"]
+    result = None
+    orbital_energies = {
+        "1s1/2": -250.0,
+        "2s1/2": -50.0,
+        "2p1/2": -40.0,
+        "2p3/2": -38.0,
+    }
+
+
+class TestDRDriver:
+    def test_enumerates_kll_like_resonances(self):
+        specs = enumerate_dr_resonances(
+            _FakeIon(),
+            "1s2 2s2 2p6 3s1",
+            n_max=3,
+            l_max=2,
+        )
+        assert specs
+        labels = [s.label for s in specs]
+        assert any("2p1/2^-1" in label or "2p3/2^-1" in label for label in labels)
+        assert any(s.core_from.n == 2 for s in specs)
+        assert all(s.intermediate_csf is not None for s in specs)
+        assert all(s.intermediate_csf.total_J2 == int(round(2 * s.J)) for s in specs)
+
+    def test_enumerated_intermediates_are_j_resolved_for_hyp171_transition_sum(self):
+        """HYP-171 landed: radiative sums can filter explicit-J E1 branches."""
+        specs = enumerate_dr_resonances(
+            _FakeIon(),
+            "1s2 2s2 2p6 3s1",
+            n_max=3,
+            l_max=1,
+        )
+        assert specs
+        for spec in specs[:10]:
+            assert spec.intermediate_csf.total_J2 >= 0
+            assert spec.intermediate_csf.parity in (-1, 1)
+            assert "J=" in spec.intermediate_csf.label
+
+    def test_dr_calculate_returns_rate_and_resonance_table(self):
+        rc = dr_calculate(
+            _FakeIon(),
+            "1s2 2s2 2p6 3s1",
+            n_max=3,
+            l_max=2,
+            T_eV=[100.0, 300.0, 1000.0],
+        )
+        assert isinstance(rc, DRRateCoefficient)
+        assert rc.alpha_cm3_s.shape == (3,)
+        assert len(rc.resonances) > 0
+        assert np.all(rc.alpha_cm3_s >= 0.0)
+
+        rows = dr_strengths(rc)
+        assert len(rows) == len(rc.resonances)
+        assert rows[0]["alpha_cm3_s"].shape == (3,)
+        assert "gamma_auger_per_s" in rows[0]
+
+    def test_dr_calculate_accepts_width_hooks(self):
+        def auger(spec, energy_eV):
+            return 1.0e13
+
+        def rad(spec, energy_eV):
+            return 2.0e12, {"mock": 2.0e12}
+
+        rc = dr_calculate(
+            _FakeIon(),
+            "1s2 2s2 2p6 3s1",
+            n_max=3,
+            l_max=2,
+            T_eV=300.0,
+            auger_rate_fn=auger,
+            radiative_rate_fn=rad,
+        )
+        assert len(rc.resonances) > 0
+        assert all(d.gamma_auger_per_s == pytest.approx(1.0e13) for d in rc.resonances)
+        assert all(d.a_radiative_per_s == pytest.approx(2.0e12) for d in rc.resonances)
