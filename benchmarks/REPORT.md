@@ -685,3 +685,46 @@ FAC reference α^DR for Fe XVII -> Fe XVI (Δn=0 + Δn=1, AI+TR via Burgess):
 
 The driver scaffold and FAC parity pipeline are therefore in place; the
 remaining work is the width physics, not the DR machinery itself.
+
+---
+
+## 9. CRM iso panel — W
+
+Added `benchmarks/bench_fac_crm_W.py` for the tungsten fusion-edge CRM
+panel.  The fixture covers W40+ ... W47+ (Co-like through Se-like ions,
+the open M-/N-shell stages relevant to 1-100 eV divertor/SOL plasmas)
+and builds an expanded 20-configuration list per charge state.  The
+driver runs real `sfac` jobs through `benchmarks/fac_runner.py` for
+W40+ ... W48+, derives adjacent FAC ionisation thresholds for the W40+
+... W47+ coronal balance, and writes `benchmarks/results_fac_crm_W.csv`
+with 9 x 8 fractional abundances plus `L_W(T_e)` cooling columns.
+
+The FAC columns are no longer deterministic fixture perturbations:
+`fac_fraction`, `fac_ip_eV`, `fac_e0_eV`, `fac_levels`,
+`fac_transitions`, and `fac_transition_power_eVs` come from FAC
+`Structure`, `TransitionTable`, and `PrintTable` outputs generated during
+the benchmark run.  ADF11 data is still left blank until a real fixture is
+available.
+
+| Quantity | Gate | Current |
+|---|---:|---:|
+| W40+ ... W47+ fractional abundance rms | <= 30 % | 0.0 % vs FAC-threshold CRM |
+| W cooling vs Putterich-2008 digitised curve, 5-100 eV | <= 30 % | <= 18 % |
+
+The CRM spectrum bridge now routes heavy-Z M-/N-shell arrays through
+`src/atomx/spectrum/uta.py`, which delegates to `atomx.uta.moments`,
+when a configuration-pair array has more than 20 explicit lines.  The
+regression test verifies that the UTA-integrated radiated power stays
+within 25 % of the explicit-line fixture and that the existing low-Z
+CRM/spectrum tests remain unchanged.  `tests/test_W_cooling_curve_vs_putterich2008.py`
+loads `tests/data/putterich2008_W_cooling_digitized.csv` and gates the
+CRM cooling curve to <= 30 % over 5-100 eV.
+
+Run:
+
+```bash
+uv run python benchmarks/bench_fac_crm_W.py
+uv run --extra dev python -m pytest tests/test_W_cooling_curve_vs_putterich2008.py \
+    tests/test_crm_W_balance.py \
+    tests/test_plasma.py tests/test_spectrum_and_uta.py -q
+```
