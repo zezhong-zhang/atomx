@@ -72,22 +72,31 @@ def einstein_A_eL(omega, line_strength, L, tj_i):
 def einstein_A_mL(omega, line_strength, L, tj_i):
     """Einstein A-coefficient for magnetic 2^L-pole transition.
 
-    A_ML = 2*alpha*omega^(2L+1) * (L+1) / [L * ((2L+1)!!)^2]
-           * S_ML / (tj_i + 1)
+    A_ML = 2 * alpha^(2L+1) * omega^(2L+1) * (L+1)(2L+1)
+           / [L * ((2L+1)!!)^2] * S_ML / (tj_i + 1)
 
-    Same formula as EL but the line strength contains the 1/c factor
-    from the magnetic radial matrix element.
+    Same Grant (2007) Eq. 8.4.10 prefactor as the electric multipole
+    case.  The alpha-suppression of magnetic vs electric rates is
+    encoded in ``S_ML``, which uses the magnetic radial integral
+    ``R_ML = ∫(P_f Q_i + Q_f P_i) r^L dr`` (no explicit 1/c — the
+    suppression comes from Q ~ alpha Z P) combined with the kappa
+    angular factor ``(kappa_i + kappa_f)/(2L+1)`` from
+    :func:`~atomx.prop.transitions.angular.angular_mL`.
+
+    Reference validation: H-like ``2s_{1/2} -> 1s_{1/2}`` M1 rate
+    matches Drake (1971) ``2.5e-6 Z^10 s^-1`` to <1 % for Z <= 10 and
+    to ~5 % at Z = 26 (mild drift from relativistic corrections beyond
+    the leading Z^10 term).  See ``tests/test_M1_E2_rates.py``.
 
     Parameters
     ----------
-    omega, line_strength, L, tj_i : same as einstein_A_eL
+    omega, line_strength, L, tj_i : same as :func:`einstein_A_eL`.
 
     Returns
     -------
     float
         A-coefficient in s^-1.
     """
-    # Same functional form; the 1/c is already in the radial ME
     return einstein_A_eL(omega, line_strength, L, tj_i)
 
 
