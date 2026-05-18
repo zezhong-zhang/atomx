@@ -543,10 +543,55 @@ regression.
    the self-energy above the Mohr-Soff tabulation range.  Documenting
    the model choice is more appropriate than forcing a fit.
 
-5. **Higher-L rate formula verification.** The formula fix (§1.1) was
-   validated only for L=1. M1 and E2 should be tested against a known
-   reference (e.g. He-like 1s² ¹S₀ → 2p² ³P_J) before the corrected
-   formula is relied upon for higher multipoles.
+5. **Higher-L rate formula verification.** — **FIXED 2026-05-16**
+   (HYP-144).  The L=1 E1 fix in §1.1 left the M1 path with two
+   independent prefactor bugs: (a) `multipole.py:radial_mL` divided by
+   `c` (left over from a non-standard convention), and (b)
+   `angular.py:angular_mL` carried `-(κ_i+κ_f)` without the
+   `/(2L+1)` factor required by Grant (2007) Eq. 8.4.17 / FAC's
+   ``TRRateMultipole``.  The two together suppressed M1 rates by
+   ~ c² / (2L+1)² = ~2000× at L=1.  E2 was already correct — the
+   electric prefactor handles L=2 fine (no `/c`, angular structure
+   uses `⟨C^L⟩` directly).
+
+   **Fix.**
+
+   ```python
+   # multipole.py — magnetic radial integral (Grant 8.4.17 LWL)
+   R_ML = integral [P_f Q_i + Q_f P_i] · r^L dr     # was: / c
+   ```
+
+   ```python
+   # angular.py — magnetic kappa factor (Grant 8.4.17 / FAC eq. 38)
+   kappa_factor = (kappa_i + kappa_f) / (2*L + 1)   # was: -(kappa_i + kappa_f)
+   ```
+
+   The Bethe-Salpeter form requested in HYP-144,
+   ``A_M1 = (4ω³/3ℏc³)·|⟨μ̂⟩|²·(α/2)²``, drops out of the standard
+   Grant prefactor ``2α^(2L+1)ω^(2L+1)(L+1)(2L+1)/[L((2L+1)!!)²]`` once
+   the line strength uses the corrected ``(angular_mL · radial_mL)²``
+   — no change needed in `einstein_A_mL`/`einstein_A_eL`.
+
+   **Verification** (``tests/test_M1_E2_rates.py``, hydrogenic Dirac
+   B-spline orbitals, RKB):
+
+   | Z   | A(M1, 2s→1s) atomx | Drake 2.5×10⁻⁶·Z¹⁰ | atomx / Drake |
+   |-----|-------------------:|---------------------:|--------------:|
+   | 1   |   2.496×10⁻⁶ s⁻¹  |   2.500×10⁻⁶        | 0.998         |
+   | 2   |   2.556×10⁻³      |   2.560×10⁻³        | 0.998         |
+   | 10  |   2.510×10⁺⁴      |   2.500×10⁺⁴        | 1.004         |
+   | 26  |   3.664×10⁺⁸      |   3.529×10⁺⁸        | 1.038         |
+   | 82  |   5.31×10⁺¹³      |   3.44×10⁺¹³        | 1.54          |
+
+   The high-Z drift (~ 4 % at Z=26, ~ 54 % at Z=82) is the documented
+   retardation envelope around the leading ``2.5e-6 Z¹⁰`` scaling — at
+   Z = 82 the exact relativistic ``2s → 1s`` M1 rate departs
+   substantially from the Drake leading-order form, so the gauge here
+   is the Z ≤ 10 agreement, which is sub-percent.
+
+   E2 path is unchanged and continues to reproduce Garstang (1957)
+   ``A(3d_{5/2}→1s_{1/2}, H I) = 5.96e2 s⁻¹`` to <1 % for Z ≤ 26
+   (see ``test_E2_hlike_3d52_to_1s_garstang``).
 
 6. **Heavy-Z ion `dbound` TCONV + turning-point-scan bugs.** —
    **FIXED 2026-04-20** (two patches).  See §6.4 for the full
