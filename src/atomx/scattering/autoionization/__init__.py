@@ -46,7 +46,9 @@ from atomx.scattering.autoionization.auger import (
 )
 from atomx.scattering.dielectronic_recombination.solver import (
     DRRateCoefficient,
+    dr_calculate,
     dr_rate_coefficient,
+    dr_strengths,
 )
 
 
@@ -298,5 +300,7 @@ __all__ = [
     "auger_rate_csf_average",
     "auger_rate_level_resolved",
     "auger_rate_two_electron",
+    "dr_calculate",
     "dr_rate_coefficient",
+    "dr_strengths",
 ]

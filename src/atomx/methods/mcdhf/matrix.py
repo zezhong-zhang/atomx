@@ -5,12 +5,20 @@ Slater-Condon rules:
 - 1-diff (a→b):   <a|h|b> + Σ_c q_c [R^0(ac,bc) - Σ_k c^k R^k(ac,cb)]
 - 2-diff (ab→cd): Σ_k [direct R^k(ac,bd) - exchange R^k(ac,db)]
 - 3+ diff:        0  (orthogonality)
+
+For CSFs with explicit J-resolution (``total_J2`` set, intermediate
+parentage inferable), a J-coupled angular correction is added on top of
+the subshell-occupation kernel so that distinct (J, parity) blocks
+acquire physically meaningful J-dependent splittings.  See
+``_diagonal_J_correction`` and Grant, *Relativistic Quantum Theory of
+Atoms and Molecules* (2007) §8.3.
 """
 
 import numpy as np
 from atomx.methods.kohn_sham import compute_slater_fk, compute_slater_gk, compute_slater_rk
 from atomx.numerics.bspline.evaluate import eval_orbital_on_grid, compute_yk
 from atomx.angular.coefficients import exchange_lambda, exchange_k_range
+from atomx.angular.wigner import wigner_6j
 from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
 
 
@@ -21,7 +29,8 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns):
     for r in range(n_csf):
         for s in range(r, n_csf):
             h_rs = _ci_matrix_element(csfs[r], csfs[s], orbitals_dict,
-                                       orbital_basis, bsp_data, Z, ns)
+                                       orbital_basis, bsp_data, Z, ns,
+                                       is_diagonal=(r == s))
             H[r, s] = h_rs
             if r != s:
                 H[s, r] = h_rs
@@ -29,15 +38,47 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns):
 
 
 def _ci_matrix_element(csf_r, csf_s, orbitals_dict, orbital_basis,
-                        bsp_data, Z, ns):
+                        bsp_data, Z, ns, *, is_diagonal=False):
     n_diff = csf_r.n_electron_diff(csf_s)
     if n_diff == 0:
+        # Subshell occupations match.  When ``is_diagonal`` we are on
+        # the matrix diagonal (r == s) and apply the J-coupled
+        # correction (Grant §8.3) so distinct (J, parity) CSFs receive
+        # different physically meaningful diagonal energies.
+        #
+        # Two distinct CSFs with identical subshell lists but different
+        # ``total_J2`` (parentage-only difference) reuse the
+        # configuration-averaged kernel here; their cross-coupling is
+        # then zeroed by the block filter in ``methods/ci.py`` when
+        # ``(J, parity)`` differs.  Two distinct CSFs sharing both
+        # subshells and ``(J, parity)`` do not appear in any
+        # single-configuration Fe XVII basis and are left for the
+        # general parentage-aware treatment.
+        if is_diagonal:
+            return _diagonal_with_J(csf_r, orbitals_dict, bsp_data, Z, ns)
         return _diagonal_element(csf_r, orbitals_dict, bsp_data, Z, ns)
     elif n_diff == 1:
         return _one_diff_element(csf_r, csf_s, orbitals_dict, bsp_data, Z, ns)
     elif n_diff == 2:
         return _two_diff_element(csf_r, csf_s, orbitals_dict, bsp_data)
     return 0.0
+
+
+def _diagonal_with_J(csf, orbitals_dict, bsp_data, Z, ns):
+    """Diagonal CI element with J-coupled angular correction.
+
+    For CSFs with explicit ``total_J2`` and inferable intermediate
+    coupling — specifically those with at most two open subshells where
+    each open subshell carries a unique parentage (single electron or
+    single hole) — adds a J-dependent correction on top of the
+    configuration-averaged kernel so different (J, parity) members of
+    the same configuration acquire physically meaningful splittings.
+
+    Closed-shell or non-J-resolved CSFs are returned unchanged
+    (correction is zero), preserving backwards compatibility.
+    """
+    base = _diagonal_element(csf, orbitals_dict, bsp_data, Z, ns)
+    return base + _diagonal_J_correction(csf, orbitals_dict, bsp_data, ns)
 
 
 def _get_orb(key, orbitals_dict, ns):
@@ -196,3 +237,121 @@ def _two_diff_element(csf_r, csf_s, orbitals_dict, bsp_data):
         H_2e -= c_k * rk_exch
 
     return H_2e
+
+
+def _diagonal_J_correction(csf, orbitals_dict, bsp_data, ns):
+    """J-dependent diagonal correction for two-open-subshell CSFs.
+
+    The configuration-averaged exchange coefficient between two open
+    subshells (a, b) in :func:`_diagonal_element` is
+    ``q_a q_b /(g_a g_b) * λ^K``.  The proper Grant §8.3 J-coupled
+    coefficient for two electrons (or, by particle-hole symmetry, two
+    holes / one of each) with unique parentage ``J_a = j_a`` and
+    ``J_b = j_b`` coupled to total ``J`` is
+
+        g^K(J) = (-1)^{j_a + j_b + J + K}
+                 * λ^K_{ab} * {j_a j_b J; j_b j_a K}
+
+    where ``λ^K_{ab} = (2j_a+1)(2j_b+1) (j_a K j_b; -1/2 0 1/2)^2``.
+    The correction returned here is the difference times the Slater
+    integral ``G^K(a,b)``, summed over allowed multipoles ``K``, with
+    a sign that matches the existing kernel's ``-E_K`` convention.
+
+    For a single hole on subshell ``a`` (``q_a = g_a - 1``) the
+    particle-hole-conjugated decomposition gives
+    ``ΔE = G^K * (g^K(J) - λ^K/g_a)`` (and the symmetric form for
+    holes on ``b``) instead of the electron-electron expression
+    ``G^K * (g^K(J) - λ^K/(g_a g_b))``.
+
+    Returns ``0.0`` for closed-shell-only CSFs (no open subshells),
+    for CSFs without explicit ``total_J2`` metadata, and for CSFs with
+    more than two open subshells (the general case requires a full
+    parentage chain that is not inferable from a bare ``CSF`` object
+    today — those continue to use the configuration-averaged kernel
+    until parentage labels are threaded through the CSF generator).
+    """
+    if not _has_explicit_J(csf):
+        return 0.0
+
+    open_subs = _open_subshells(csf)
+    if len(open_subs) != 2:
+        return 0.0
+
+    sh_a, sh_b = open_subs
+    qa = int(round(sh_a.occupation))
+    qb = int(round(sh_b.occupation))
+    cap_a = 2 * abs(sh_a.kappa)   # 2j_a + 1 (subshell capacity)
+    cap_b = 2 * abs(sh_b.kappa)
+    tj_a = cap_a - 1              # 2 j_a
+    tj_b = cap_b - 1              # 2 j_b
+
+    # Each open subshell must be a single electron (q=1) or a single
+    # hole (q=2j) so that its parentage J = j_subshell is unique.
+    is_elec_a = qa == 1
+    is_hole_a = qa == cap_a - 1
+    is_elec_b = qb == 1
+    is_hole_b = qb == cap_b - 1
+    if not ((is_elec_a or is_hole_a) and (is_elec_b or is_hole_b)):
+        return 0.0
+    # q=1 and q=cap-1 can collide for cap=2 (j=1/2 subshells with one
+    # electron).  In that case both flags are true and the
+    # electron-electron prefactor below is the correct one.
+    if is_elec_a and is_hole_a:
+        is_hole_a = False
+    if is_elec_b and is_hole_b:
+        is_hole_b = False
+
+    Pa, Qa_orb = _get_orb((sh_a.n, sh_a.kappa), orbitals_dict, ns)
+    Pb, Qb_orb = _get_orb((sh_b.n, sh_b.kappa), orbitals_dict, ns)
+
+    total_J2 = int(csf.total_J2)
+    delta = 0.0
+    for k in exchange_k_range(sh_a.kappa, sh_b.kappa):
+        lam = exchange_lambda(sh_a.kappa, sh_b.kappa, k)
+        if lam < 1e-15:
+            continue
+        sixj = wigner_6j(tj_a, tj_b, total_J2, tj_b, tj_a, 2 * k)
+        if abs(sixj) < 1e-15:
+            g_K_J = 0.0
+        else:
+            exp_int = (tj_a + tj_b + total_J2) // 2 + k
+            phase = -1.0 if exp_int % 2 else 1.0
+            g_K_J = phase * sixj * lam
+
+        if is_elec_a and is_elec_b:
+            avg_coef = lam / (cap_a * cap_b)
+        elif is_hole_a and is_elec_b:
+            avg_coef = lam / cap_a
+        elif is_elec_a and is_hole_b:
+            avg_coef = lam / cap_b
+        else:  # both holes — closed-minus-two-electrons picture
+            avg_coef = lam * (1.0 - 1.0 / cap_a - 1.0 / cap_b
+                              + 1.0 / (cap_a * cap_b))
+
+        # Final energy uses (- exchange).  The existing kernel
+        # subtracts ``avg_coef * G^K`` from the diagonal; the proper
+        # J-coupled subtraction is ``g_K_J * G^K``.  Net correction to
+        # ADD to the existing diagonal energy is therefore
+        # ``(avg_coef - g_K_J) * G^K``.
+        gk_val = compute_slater_gk(Pa, Qa_orb, Pb, Qb_orb, bsp_data, k)
+        delta += (avg_coef - g_K_J) * gk_val
+
+    return float(delta)
+
+
+def _has_explicit_J(csf):
+    """Whether a CSF carries explicit J-resolution metadata."""
+    if int(getattr(csf, "total_J2", 0)) > 0:
+        return True
+    return " J=" in str(getattr(csf, "label", ""))
+
+
+def _open_subshells(csf):
+    """Return open subshells (0 < occupation < capacity) of a CSF."""
+    open_subs = []
+    for sh in csf.subshells:
+        cap = 2 * abs(sh.kappa)
+        q = int(round(sh.occupation))
+        if 0 < q < cap:
+            open_subs.append(sh)
+    return open_subs
