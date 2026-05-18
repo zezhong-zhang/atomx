@@ -434,3 +434,26 @@ unchanged at the new default; full suite 548 passed / 3 skipped.
 - Tension: atomx `dr_calculate` defaults overshoot FAC α_DR by 100-1000×. Two combined causes — (i) `FeXVIIModel` orbital energies in the bench were placeholder; updated to FAC-derived screened values (helped ~10×). (ii) The default `_default_auger_width` and `_default_radiative_width` are admittedly screened-hydrogenic and not tuned for highly-charged ions; the per-resonance branch is dominated by inflated Γ_A. This is a *documented limitation* of the scaffold ("hooks accept ab-initio matrix elements once HYP-171/M3 lands").
 - Dead-end avoided: tempted to retune the default prefactors to chase the 20% gate — backed off because that's overfitting placeholders. Cleaner test design: split the gate into (a) kernel parity using FAC widths fed through `dr_rate_coefficient` (should pass tight), (b) end-to-end atomx-driven with current defaults (xfail with HYP-171 follow-up rationale).
 - Fixed broken master test `tests/test_fac_runner_parsers.py` (from 74ff5ce) by adding `parse_ci` to `benchmarks/fac_runner.py`.
+
+### EARS — Progress (2026-05-18 20:32)
+<!-- concepts: QED-self-energy, FAC-Indelicato-table, high-Z-spectroscopy -->
+- HYP-173 re-dispatch: prior codex run finished the Indelicato backend +
+  tests locally on `agent/codex-review/79a2389e` (54 tests passing) but
+  never pushed to origin. Pojo is asking for push + PR + Z=54/74/92
+  H/He/Li-like FAC parity rows in the regression.
+- Discovery: the `tests/test_qed_indelicato_vs_fac.py` left in 79a2389e
+  *already* covers Z=54/74/82/92 1s F-values, Z=54/74/92 H-/He-/Li-like
+  ground levels via `GROUND_LEVELS`, and the leading-1s residual
+  <=0.5% gate. So the file mostly satisfies Pojo's "extend the FAC
+  regression" ask out of the box; just need to make sure those Z=54/74/92
+  residual % numbers show up explicitly in the PR body.
+- Approach: copy the 8 modified + 4 new files into the current
+  up-to-date `agent/claude/1c98aef6` worktree (none of the upstream
+  commits since 5cefde7 touched these files, so no rebase conflict).
+  Apply the REPORT.md gap-closed status change inline at the existing
+  "Outstanding gaps" item 4 rather than the trailing append (the
+  79a2389e copy used a `<<<<<<< HEAD` conflict marker which we must not
+  ship).
+- Next: run `uv run --extra dev python -m pytest ...` to confirm the
+  4-file QED suite still passes, capture residual %, then commit and
+  push.

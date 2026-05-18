@@ -538,10 +538,12 @@ regression.
    frequency-dependent Bessel functions would match Drake 1988 to better
    than 1 %.
 
-4. **High-Z QED gap with FAC.** The 1–2 % structural difference at
-   Z ≥ 54 (§4.1) is not a bug; it reflects different parameterisations of
-   the self-energy above the Mohr-Soff tabulation range.  Documenting
-   the model choice is more appropriate than forcing a fit.
+4. **High-Z QED gap with FAC.** — **FIXED 2026-05-15** (HYP-173).
+   atomx now exposes ``qed_backend='auto'|'mss'|'indelicato'``; ``auto``
+   keeps the historic Mohr/MSS path for Z ≤ 36 and switches to the
+   FAC/Indelicato-Mohr K/L-shell self-energy table for Z ≥ 37.  Users
+   who need bit-stability with the old QED output can pass
+   ``qed_backend='mss'``.
 
 5. **Higher-L rate formula verification.** — **FIXED 2026-05-16**
    (HYP-144).  The L=1 E1 fix in §1.1 left the M1 path with two
@@ -727,4 +729,43 @@ uv run python benchmarks/bench_fac_crm_W.py
 uv run --extra dev python -m pytest tests/test_W_cooling_curve_vs_putterich2008.py \
     tests/test_crm_W_balance.py \
     tests/test_plasma.py tests/test_spectrum_and_uta.py -q
+```
+
+---
+
+## 10. High-Z QED close-out (HYP-173)
+
+Implemented 2026-05-15.  The self-energy backend registry now includes
+``indelicato``, sourced from FAC 1.1.x ``faclib/coulomb.c`` static
+arrays ``_qed_se0`` and ``_qed_se1`` for 1s, 2s, 2p1/2, and 2p3/2.
+``qed_backend='auto'`` is the new default:
+
+| Z range | auto backend | reason |
+|---:|---|---|
+| Z ≤ 36 | ``mss`` / ``mohr`` | Preserves the existing low-Z agreement (< 0.3 %). |
+| Z ≥ 37 | ``indelicato`` | Matches FAC's high-Z K/L-shell self-energy parameterisation. |
+
+Pinned FAC 1s self-energy F(αZ) values at the spot-check panel:
+
+| Z | FAC 1s F(αZ) (Fermi nucleus) | atomx residual |
+|---:|---:|---:|
+| 54 (Xe) | 1.78189 | ≤ 0.5 % |
+| 74 (W)  | 1.53084 | ≤ 0.5 % |
+| 92 (U)  | 1.47251 | ≤ 0.5 % |
+
+The previous Mohr/MSS high-Z extrapolation gives 1s F values more than
+8× larger on this panel, which accounts for the documented 1-2 % FAC
+residual.  The new backend closes the self-energy model gap for the
+high-Z H-like, He-like, and Li-like ground-state levels in
+``tests/test_qed_indelicato_vs_fac.py``; the remaining Breit residual
+is tracked separately under HYP-136 Q1.
+
+Run:
+
+```bash
+uv run --extra dev python -m pytest \
+    tests/test_qed_backend_auto.py \
+    tests/test_qed_indelicato_vs_fac.py \
+    tests/test_qedmod.py \
+    tests/test_qed.py -q
 ```

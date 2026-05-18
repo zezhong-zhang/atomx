@@ -80,6 +80,9 @@ class SEBackend(ABC):
 # ---------------------------------------------------------------------------
 
 SE_BACKENDS: Dict[str, SEBackend] = {}
+SE_ALIASES = {
+    "mss": "mohr",
+}
 
 
 def register_backend(cls):
@@ -103,6 +106,7 @@ def available_backends() -> List[str]:
 
 def get_backend(name: str) -> SEBackend:
     """Return the backend instance registered under ``name``."""
+    name = SE_ALIASES.get(name, name)
     try:
         return SE_BACKENDS[name]
     except KeyError:
