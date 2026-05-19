@@ -114,7 +114,7 @@ class TestEnumerateJjCsfs:
         csfs = enumerate_jj_csfs("1s2 2p2")
         assert len(csfs) == 5
         twoJ = sorted(c.total_J2 for c in csfs)
-        assert twoJ == [0, 0, 2, 2, 4]
+        assert twoJ == [0, 0, 2, 4, 4]
         assert all(c.parity == 1 for c in csfs)
 
 
