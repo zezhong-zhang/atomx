@@ -48,7 +48,7 @@ C_SPEED = 137.03599908421
 TAIL_THRESHOLD = 1e-17
 
 DEFAULT_OUT = "output"
-DEFAULT_WF_TXT_DIR = Path("/Users/zhangzz/code/ASAP/WF_TXT")
+DEFAULT_WF_TXT_DIR = Path("./dataset/WF_TXT")
 
 
 # ---------------------------------------------------------------------------
