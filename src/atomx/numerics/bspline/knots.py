@@ -140,6 +140,73 @@ def make_physics_knots(ks: int, Z: int, ns: int = 113,
     return t, ns_out
 
 
+def make_continuum_knots(
+    ks: int,
+    Z: int,
+    k_max_au: float,
+    *,
+    r_max: float = 50.0,
+    points_per_wavelength: int = 4,
+) -> tuple[np.ndarray, int]:
+    """Continuum-oriented semi-exponential knot sequence.
+
+    The inner region resolves the shortest de Broglie wavelength
+    ``2*pi/k_max_au`` with roughly ``points_per_wavelength`` points, then
+    hands off to the standard physics grid spacing outside ``min(5/Z, 0.5)``.
+    """
+    if ks < 2:
+        raise ValueError("ks must be >= 2")
+    if Z <= 0:
+        raise ValueError("Z must be positive")
+    if k_max_au <= 0.0:
+        raise ValueError("k_max_au must be positive")
+    if r_max <= 0.0:
+        raise ValueError("r_max must be positive")
+    if points_per_wavelength <= 0:
+        raise ValueError("points_per_wavelength must be positive")
+
+    lambda_min = 2.0 * np.pi / float(k_max_au)
+    r_inner = min(5.0 / float(Z), 0.5)
+    h_inner = min(0.25 / float(Z), lambda_min / float(points_per_wavelength))
+
+    if k_max_au <= 2.0:
+        return make_physics_knots(ks=ks, Z=Z, r_max=r_max)
+
+    breakpoints: list[float] = []
+    r = h_inner
+    while r <= min(r_inner, r_max):
+        breakpoints.append(r)
+        r += h_inner
+
+    if not breakpoints:
+        breakpoints.append(min(h_inner, r_max))
+
+    # Continue with exponential growth capped by the standard 1 a0 outer step.
+    step_cap = 1.0
+    growth = 1.25
+    r = breakpoints[-1]
+    step = max(h_inner, 1.0e-8)
+    while r < r_max:
+        step = min(step * growth, step_cap)
+        r_next = r + step
+        if r_next >= r_max:
+            break
+        breakpoints.append(r_next)
+        r = r_next
+
+    if breakpoints[-1] < r_max:
+        breakpoints.append(r_max)
+
+    tmax = breakpoints[-1]
+    nv = len(breakpoints)
+    ns_out = nv + ks - 1
+    t = np.zeros(ns_out + ks)
+    for i, bp in enumerate(breakpoints):
+        t[ks + i] = bp
+    t[ns_out:ns_out + ks] = tmax
+    return t, ns_out
+
+
 def make_dbsr_knots(ks: int, Z: int, r_max: float = 50.0,
                     hi: float = 0.25, he: float = 0.25,
                     h_max: float = 1.0,

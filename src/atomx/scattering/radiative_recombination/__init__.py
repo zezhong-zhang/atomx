@@ -290,7 +290,7 @@ def rr_cross_section(
         provenance={
             "Z": Z,
             "g_initial": g_initial,
-            "continuum_model": repr(continuum_model) if continuum_model is not None else None,
+            "continuum_model": continuum_model,
             "per_orbital": prov_per_orb,
         },
     )
