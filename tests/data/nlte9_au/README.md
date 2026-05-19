@@ -27,6 +27,15 @@ around the median; the acceptance band used by
 `tests/test_au_nlte9_workshop.py` is the conservative ±20 % cross-code
 envelope.
 
+## atomx panel scope
+
+The atomx Au CRM fixture is an M-shell panel over Au50+ through Au57+,
+matching the ICF hohlraum drive band used by the project gates.  Mean-charge
+assertions therefore start at T_e >= 1 keV.  The 0.5 keV rows are kept in
+`mean_charge.csv` to document the workshop edge cells, but they require
+lower charge states (roughly Au35+...Au49+) and are intentionally outside
+the current panel.
+
 ## Schema (`mean_charge.csv`)
 
 | Column           | Units      | Meaning                                            |
@@ -39,4 +48,4 @@ envelope.
 | `canonical`      | bool       | Whether this row is one of the four PR-body points |
 | `notes`          | text       | Provenance / comments                              |
 
-Canonical PR-body points: T_e ∈ {1, 2, 5, 10} keV at n_e = 10²¹ cm⁻³.
+Canonical PR-body points: T_e in {1, 2, 5, 10} keV at n_e = 10^21 cm^-3.
