@@ -138,9 +138,22 @@ except Exception as exc:  # pragma: no cover — defensive
 
 _XFAIL_REASON = (
     f"Fe XVII 3C/3D landed at f-ratio = "
-    f"{('%.2f' % _F_RATIO) if _F_RATIO is not None else 'unavailable'}; "
-    "gap analysis is HYP-182 (originally tracked as HYP-181 in the HYP-175 "
-    "re-dispatch; HYP-181 was already taken — see HYP-175 thread)."
+    f"{('%.2f' % _F_RATIO) if _F_RATIO is not None else 'unavailable'} "
+    "(HYP-182). The configuration-averaged CI Hamiltonian in "
+    "atomx.methods.mcdhf.matrix has been corrected to (a) drop the spurious "
+    "k=0 direct term for κ_source ≠ κ_dest 1-/2-diff promotions, (b) use the "
+    "proper jj weight √(q_source · h_dest) instead of the placeholder "
+    "√(|Δq_source| · |Δq_dest|) = 1, and (c) use the geometric-mean angular "
+    "factor √(λ^k(a,c) λ^k(c,b)) for different-κ 1-diff exchange. After this "
+    "the 5 J=1 odd-parity states cleanly partition by character (3s vs 3d) "
+    "and the dominant J=1⁻ state has f ≈ 2.8 at ≈ 16.3 Å — in band on f, "
+    "but ≈ 1 Å redward of the Bernitt window because (i) MCDHF uses one "
+    "Guerra-averaged orbital set (no DODS for the excited 2p⁵3l states) and "
+    "(ii) the off-diagonal CI between J-resolved CSFs sharing open subshells "
+    "still uses the configuration-averaged angular factor without the "
+    "Grant §8.3-style 6j correction that _diagonal_J_correction already "
+    "applies to diagonals. Closing the gap is the HYP-184 follow-up "
+    "(off-diagonal J-coupled CI + EOL/DODS orbital relaxation)."
 )
 
 
