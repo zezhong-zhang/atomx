@@ -31,6 +31,10 @@ from atomx.uta import UTAArray, uta_moments  # noqa: E402
 
 
 Z_AU = 79
+# The deterministic Au CRM fixture is intentionally scoped to the ICF
+# hohlraum-drive M-shell panel: Au50+..Au57+ and T_e >= 1 keV.  Sub-keV
+# cold/dense NLTE-9 cells are out of scope until the panel is extended with
+# Au35+..Au49+ 3p/3d-opening ions.
 CHARGE_STATES = tuple(range(50, 58))
 TE_KEV_GRID = (0.5, 1.0, 2.0, 3.0, 5.0)
 NE_CM3_GRID = (1.0e20, 1.0e21, 1.0e22)

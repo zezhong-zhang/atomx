@@ -864,7 +864,20 @@ uv run --extra dev python -m pytest tests/test_W_cooling_curve_vs_putterich2008.
 
 ---
 
-## 10. High-Z QED close-out (HYP-173)
+## 10. CRM iso panel — Au
+
+`benchmarks/bench_fac_crm_Au.py` is scoped to the Au M-shell ICF hohlraum
+drive panel, covering Au50+ ... Au57+ and the T_e >= 1 keV gate used by the
+canonical NLTE-9 workshop points.  The sub-keV cold/dense NLTE-9 rows are not
+gated by this fixture because they require lower charge states, approximately
+Au35+ ... Au49+, where the 3p/3d-opening ions dominate the mean charge.  The
+current `tests/test_au_nlte9_workshop.py` gate therefore asserts the ±20 %
+workshop-median envelope only for T_e >= 1 keV while preserving the four
+canonical points at 1, 2, 5, and 10 keV with n_e = 10^21 cm^-3.
+
+---
+
+## 11. High-Z QED close-out (HYP-173)
 
 Implemented 2026-05-15.  The self-energy backend registry now includes
 ``indelicato``, sourced from FAC 1.1.x ``faclib/coulomb.c`` static
