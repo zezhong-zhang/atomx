@@ -54,6 +54,10 @@ class Atom:
         Include Breit (Gaunt) interaction.
     qed : bool
         Include QED (VP + SE) corrections.
+    qed_backend : str
+        Self-energy backend: ``"auto"`` (default), ``"mss"``/``"mohr"``,
+        or ``"indelicato"``.  ``"auto"`` uses MSS/Mohr for Z <= 36 and
+        Indelicato for Z >= 37.
     exchange : str
         "hf" for B-spline Hartree-Fock (default),
         "slater" for B-spline local Slater exchange,
@@ -66,6 +70,7 @@ class Atom:
     def __init__(self, Z, config=None, configs=None, charge=0,
                  ns=None, ks=9, nuclear="fermi",
                  breit=False, qed=False, exchange="hf",
+                 qed_backend="auto",
                  correlation=None, starting_potential=None,
                  plasma_ne=None, plasma_Te=None,
                  averaging="ci", slater_method="slag6",
@@ -141,6 +146,14 @@ class Atom:
         self.ks = ks
         self.breit = breit
         self.qed = qed
+        if qed_backend not in {"auto", "mss", "mohr", "indelicato", "welton",
+                               "flambaum_ginges", "shabaev_local", "shabaev"}:
+            raise ValueError(
+                "qed_backend must be one of 'auto', 'mss', 'mohr', "
+                "'indelicato', 'welton', 'flambaum_ginges', "
+                "'shabaev_local', or 'shabaev'"
+            )
+        self.qed_backend = qed_backend
         self.exchange = exchange
         self.correlation = correlation
         self.starting_potential = starting_potential
@@ -353,6 +366,7 @@ class Atom:
                               exchange=self.exchange,
                               include_breit=self.breit,
                               include_qed=self.qed,
+                              qed_se_method=self.qed_backend,
                               nuclear=self.nuclear,
                               starting_potential=self.starting_potential or ('tfda' if self.Z >= 20 else None),
                               jj_configs=jj_arg)
