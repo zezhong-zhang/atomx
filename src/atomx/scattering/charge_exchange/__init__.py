@@ -89,6 +89,65 @@ def landau_zener_cross_section(
     return 4.0 * np.pi * R_x_au ** 2 * P * (1.0 - P)
 
 
+def landau_zener_linear_diabatic_probability(
+    H_12_at_crossing: float,
+    H_12_slope: float,
+    velocity_au: np.ndarray,
+) -> np.ndarray:
+    """Linear-diabatic LZ transition probability.
+
+    Uses the common Nikitin/Janev linear-diabatic phase form
+    ``P = sin^2(pi gamma)`` with ``gamma = H_12^2 / (v |dH_12/dR|)``.
+    """
+    if H_12_slope <= 0.0:
+        raise ValueError("H_12_slope must be positive")
+    v = np.asarray(velocity_au, dtype=float)
+    if np.any(v <= 0.0):
+        raise ValueError("velocity_au must be positive")
+    gamma = H_12_at_crossing ** 2 / (v * abs(H_12_slope))
+    return np.sin(np.pi * gamma) ** 2
+
+
+def landau_zener_linear_diabatic_cross_section(
+    H_12_at_crossing: float,
+    H_12_slope: float,
+    velocity_au: np.ndarray,
+    R_x_au: float,
+) -> np.ndarray:
+    """Linear-diabatic total CX cross section for one crossing."""
+    P = landau_zener_linear_diabatic_probability(
+        H_12_at_crossing=H_12_at_crossing,
+        H_12_slope=H_12_slope,
+        velocity_au=velocity_au,
+    )
+    return np.pi * R_x_au ** 2 * P
+
+
+def olson_salop_total_cx(
+    q_projectile: int,
+    velocity_au: np.ndarray,
+    *,
+    binding_energy_au: float = 0.5,
+) -> np.ndarray:
+    """Olson-Salop universal total CX scaling.
+
+    This compact fit is intended for CRM scoping: the characteristic capture
+    radius scales roughly as ``q/I`` and the low-velocity turn-on is smooth.
+    """
+    if q_projectile <= 0:
+        raise ValueError("q_projectile must be positive")
+    if binding_energy_au <= 0.0:
+        raise ValueError("binding_energy_au must be positive")
+    v = np.asarray(velocity_au, dtype=float)
+    if np.any(v < 0.0):
+        raise ValueError("velocity_au must be non-negative")
+
+    r_c = float(q_projectile) / binding_energy_au
+    v_star = max(float(q_projectile) / np.sqrt(2.0 * binding_energy_au), 1.0e-30)
+    x = v / v_star
+    return np.pi * r_c ** 2 * (1.0 - np.exp(-x))
+
+
 def cx_cross_section_total_lz(
     crossings: List[Dict[str, float]],
     velocity_au: np.ndarray,
@@ -137,6 +196,9 @@ __all__ = [
     "CXResult",
     "landau_zener_probability",
     "landau_zener_cross_section",
+    "landau_zener_linear_diabatic_probability",
+    "landau_zener_linear_diabatic_cross_section",
+    "olson_salop_total_cx",
     "cx_cross_section_total_lz",
     "quantum_close_coupling_cx",
 ]

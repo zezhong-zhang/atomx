@@ -57,6 +57,11 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
     omega : ndarray
         Collision strength (dimensionless) at each energy.
     """
+    if L_max < 0:
+        raise ValueError("L_max must be non-negative")
+    if kappa_max < 1:
+        raise ValueError("kappa_max must be positive")
+
     energies_eV = np.atleast_1d(np.asarray(energies_eV, dtype=float))
     sigma = np.zeros_like(energies_eV)
     omega = np.zeros_like(energies_eV)
@@ -202,7 +207,7 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
     return sigma, omega
 
 
-def _extract_scf_potential(atom):
+def _extract_scf_potential(atom, include_local_exchange: bool = False):
     """Extract the direct (Hartree) potential matrices from a solved atom."""
     result = atom._result
     bsp_data = atom._bsp_data

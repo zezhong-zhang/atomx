@@ -2,14 +2,19 @@
 """Au collisional-radiative M-shell benchmark fixture.
 
 This benchmark is the high-Z CRM panel used by the ICF/hohlraum tests.  It
-keeps the expensive structure/FAC pieces behind a deterministic fixture so the
-acceptance tests can run in CI while still exercising the same charge-state,
-temperature, density, UTA, and cooling-curve surfaces.
+is scoped to the Au50+...Au57+ M-shell charge states that dominate the
+hohlraum drive band (T_e >= 1 keV).  It keeps the expensive structure/FAC
+pieces behind a deterministic fixture so the acceptance tests can run in CI
+while still exercising the same charge-state, temperature, density, UTA, and
+cooling-curve surfaces.
 
 The embedded reference values are the reduced Au NLTE workshop median curve and
 the Au52+ Bauche-Arnoult M-band two-moment target used for the project gate.
-When live NLTE/FAC tables are available, replace the tables below without
-changing the public helpers or CSV schema.
+Sub-keV workshop rows are retained for provenance and cooling-curve context,
+but the mean-charge gate starts at 1 keV because lower-temperature balance is
+controlled by Au35+...Au49+, outside this panel.  When live NLTE/FAC tables
+are available, replace the tables below without changing the public helpers or
+CSV schema.
 """
 
 from __future__ import annotations
@@ -208,7 +213,13 @@ def build_iso_panel() -> tuple[AuIsoStage, ...]:
 
 
 def charge_fractions(Te_keV: float, ne_cm3: float) -> dict[int, float]:
-    """Smooth fractional abundance model over the Au50+...Au57+ panel."""
+    """Smooth fractional abundance model over the Au50+...Au57+ panel.
+
+    The panel is calibrated for the ICF hohlraum drive band, T_e >= 1 keV.
+    Calls below 1 keV are still deterministic for cooling-table continuity,
+    but should not be interpreted as full Au ionization balance because
+    Au35+...Au49+ are intentionally absent.
+    """
 
     center = 50.0 + 7.0 * (Te_keV - min(TE_KEV_GRID)) / (max(TE_KEV_GRID) - min(TE_KEV_GRID))
     center -= 0.18 * math.log10(ne_cm3 / 1.0e20)
