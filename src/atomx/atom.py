@@ -856,8 +856,15 @@ class Atom:
         ----------
         multipoles : list of str, optional
             Multipole types: 'E1', 'M1', 'E2', 'M2', etc. Default: ['E1'].
-        gauge : str
-            'length' (Babushkin) or 'velocity' (Coulomb).
+        gauge : {'length', 'velocity', 'both'}
+            ``'length'`` (Babushkin) — default; matches the historical
+            ``A_rate_per_s`` value.
+            ``'velocity'`` (Coulomb) — velocity-gauge rates only.
+            ``'both'`` — populates ``A_length`` and ``A_velocity`` on each
+            :class:`TransitionResult`; ``A_rate_per_s`` stays length-gauge
+            for backward compatibility, so the FAC-style gauge-ratio
+            diagnostic (Gu 2008 §3.2) can be inspected via
+            ``result.gauge_ratio``.
 
         Returns
         -------
