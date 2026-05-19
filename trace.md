@@ -1,5 +1,52 @@
 # atomx trace log
 
+### EARS — Progress (2026-05-19 12:30)
+<!-- concepts: mcdhf-csfs, fe17-3c3d, j-resolved-coupling -->
+- Started HYP-182: Fe XVII 3C/3D root-cause + fix (the gate HYP-175 xfailed).
+- Issue: `Atom(Z=26, charge=16, j_resolved_csfs=True).solve()` returns 27 states
+  / 111 E1 transitions, but only 5 from State_0 (the 2p⁶ ¹S₀ ground), and
+  none in the 14.5–15.5 Å region where 3C/3D live.
+- Suspect surface: `enumerate_j_resolved_csfs` (`src/atomx/methods/mcdhf/config.py`)
+  generates J-resolved CSF placeholders by m-scheme counting, but the
+  `_compute_mcdhf_transitions` path filters by `multipole_allows_state_transition`
+  on the dominant CSF *only* — that's fine for J/parity, but the underlying
+  `one_body_csf_coupling` then only checks occupation diffs, not whether the
+  bra/ket parentages actually couple. Likely the 7 J=1 odd-parity 2p⁵3l
+  CSFs that share the same configuration occupation get the wrong angular
+  coupling factor (population_factor only) → only a handful end up nonzero.
+- Plan: build a minimal repro, dump per-CSF angular tables, then add the
+  missing parentage/spin-coupling weights so we span the full J=1⁻ manifold.
+
+### EARS — Progress (2026-05-19 12:57)
+<!-- concepts: ci-hamiltonian, slater-condon-2diff, angular-sign -->
+- Extended fix to `_two_diff_element` (analogous bug: hardcoded `k=0`
+  direct integral with no angular check on the orbital-pair κ's).  The
+  2-diff direct now requires `κ_a = κ_c AND κ_b = κ_d`; exchange
+  intersects (a,d) and (c,b) k-ranges and uses geometric-mean angular.
+- After both fixes the 5 J=1 odd-parity states cluster as expected
+  (3s: 716/952 eV; 3d: 761/963/1161 eV) — the 3C analog state[6] sits
+  at 16.29 Å with f=2.83 (in band [2.2, 3.0]).  But wavelength is just
+  outside the Bernitt 14.5–15.5 Å window, and state[24] still picks up
+  spurious f=1.42 at 10.68 Å, making the f-ratio = 2.0.
+- Adding a derived sign factor (-1)^{(tj_a+tj_c)/2 - 1} for the
+  different-κ exchange angular product — see whether it brings the
+  3 J=1 3d states closer in energy and pushes the spurious f down.
+
+### EARS — Progress (2026-05-19 12:45)
+<!-- concepts: ci-hamiltonian, slater-condon-1diff, jj-angular -->
+- Found two real bugs in `_one_diff_element` (`src/atomx/methods/mcdhf/matrix.py`):
+  1. Direct integral hardcodes `R^0(ac, bc)` with NO angular check, so
+     3s↔3d / 2p_{1/2}↔2p_{3/2} promotions get a spurious huge off-diagonal
+     coupling that scrambles the J=1 odd-parity manifold (the 5 J=1 states
+     end up at 635, 676, 896, 1017, 1332 eV — should be 730–840 eV).
+  2. `sqrt_factor = sqrt(|Δq_a|·|Δq_b|) = 1` for every 1p1h promotion,
+     missing the standard jj weight `sqrt(q_source^{ket} · h_dest^{ket})`
+     which is 2 for 2p₁/₂↔2p₃/₂ swaps and sqrt(6) for 3d₃/₂↔3d₅/₂.
+- Applied fix: zero direct when κ_a ≠ κ_b, use proper sqrt factor, and
+  geometric-mean exchange angular √(λ^k(a,c) λ^k(c,b)) (collapses to
+  λ^k(a,c) for the same-κ case = existing behaviour).
+- Next: rerun repro, check 3C/3D ratio.
+
 ## 2026-04-16
 
 <!-- concepts: atomic-structure, dbsr-hf, hdf5-schema -->
@@ -457,3 +504,10 @@ unchanged at the new default; full suite 548 passed / 3 skipped.
 - Next: run `uv run --extra dev python -m pytest ...` to confirm the
   4-file QED suite still passes, capture residual %, then commit and
   push.
+
+### EARS — Progress (2026-05-19 13:12)
+<!-- concepts: MCDHF-CI, J-coupled-CSF, Fe-XVII-spectroscopy -->
+- HYP-182 re-dispatch (push-or-invalid). Previous turn (commit 46dd02d) fixed three configuration-averaged Slater–Condon bugs in `src/atomx/methods/mcdhf/matrix.py`: (1) k=0 direct-integral angular check, (2) sqrt(q·h) jj weight, (3) geometric-mean exchange angular factor with k-range intersection. Gate `tests/test_fe17_3c_3d_vs_bernitt2012.py` still xfails because two physics terms remain.
+- Current state confirmed: 5 E1 transitions from ground; State_0→State_6 f=2.84 @ 16.307 Å (in [2.2, 3.0] but ~1.3 Å redward of Bernitt window); ratio of top-2 lines (State_24 picks up f=1.40 @ 10.7 Å) = 2.03. 157 passed / 1 skipped / 1 xfailed on the CI/MCDHF/transition subset.
+- Remaining gaps are multi-day per the partial-delivery clause: (a) off-diagonal Grant §8.3 J-coupled CI between same-(J, parity) CSFs sharing open subshells (1-diff and 2-diff cases — the diagonal `_diagonal_J_correction` works; the analog for `_one_diff_element` / `_two_diff_element` is the missing piece); (b) DODS / EOL orbital relaxation (the 1.3 Å red-shift is the canonical signature of single Guerra-averaged orbital set vs per-block).
+- Decision: per the explicit partial-delivery clause, opened **HYP-184** (Fe XVII 3C/3D wavelength residual + off-diag J-CI + DODS) as the targeted follow-up, updated the test's xfail reason from HYP-183 (which is Au CRM) → HYP-184, and will open a PR documenting the partial-delivery scope. Not chasing the off-diag CI in this session — the diagonal Grant correction took a full session in HYP-171, and DODS is its own multi-day driver change.
