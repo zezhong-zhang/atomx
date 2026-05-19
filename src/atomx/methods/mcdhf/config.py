@@ -291,36 +291,31 @@ def enumerate_jj_csfs(config_str: str) -> List[CSF]:
 
     csfs: List[CSF] = []
     for combo in product(per_shell_options):
-        # For each open subshell, enumerate Pauli-allowed 2J values.
-        per_subshell_J2 = []
-        for _, kappa, occ, twoj in combo:
-            allowed = subshell_allowed_J2(twoj, occ)
-            per_subshell_J2.append(allowed)
+        # Couple exact antisymmetric subshell-J multiplicities.  This keeps
+        # repeated parentage rows with the same total J as distinct CSFs.
+        total_counts: dict[int, int] = {0: 1}
+        for _, _kappa, occ, twoj in combo:
+            total_counts = _couple_j_count_maps(
+                total_counts,
+                subshell_j_counts_mscheme(twoj, occ),
+            )
 
-        # Total J cascade via repeated CG triangle.  For multiple terms
-        # per subshell (e.g. (3d3/2)^2 with J=0,2) we expand the
-        # Cartesian product first, then triangle-couple sequentially.
-        def _cascade(per_shell_lists: List[List[int]]) -> List[int]:
-            seeds: List[Tuple[int, ...]] = [()]
-            for choices in per_shell_lists:
-                seeds = [s + (c,) for s in seeds for c in choices]
-            totals: List[int] = []
-            for tup in seeds:
-                totals.extend(couple_J2_list(list(tup)))
-            return totals
-
-        for total_J2 in _cascade(per_subshell_J2):
+        for total_J2, count in sorted(total_counts.items()):
             subs = []
             labels = []
             for n, kappa, occ, _twoj in combo:
                 subs.append(Subshell(n=n, kappa=kappa, occupation=occ))
                 labels.append(f"{subs[-1].label}^{occ}")
-            csfs.append(CSF(
-                subshells=subs,
-                total_J2=total_J2,
-                parity=parity,
-                label=" ".join(labels) + f" [J={total_J2}/2]",
-            ))
+            for idx in range(count):
+                suffix = f" [J={total_J2}/2]"
+                if count > 1:
+                    suffix += f" #{idx + 1}"
+                csfs.append(CSF(
+                    subshells=list(subs),
+                    total_J2=total_J2,
+                    parity=parity,
+                    label=" ".join(labels) + suffix,
+                ))
     return csfs
 
 
@@ -403,34 +398,11 @@ def _csf_parity(subshells: List[Subshell]) -> int:
 def enumerate_j_resolved_csfs(config_str: str) -> List[CSF]:
     """Enumerate J-resolved CSF placeholders for a configuration.
 
-    This expands each jj occupation split into the exact antisymmetric
-    subshell ``J`` multiplicities from the m-scheme backend, then couples
-    subshell angular momenta to total ``J``.  Multiple parentage states with
-    the same occupation and total ``J`` are represented by distinct CSF rows
-    with stable labels.
+    Backward-compatible alias for :func:`enumerate_jj_csfs`.  The primary
+    enumerator now emits exact antisymmetric m-scheme multiplicities itself,
+    so this function must not re-expand its output.
     """
-    out: List[CSF] = []
-    for jj_csf in enumerate_jj_csfs(config_str):
-        total_counts: dict[int, int] = {0: 1}
-        for sh in jj_csf.subshells:
-            q = int(round(sh.occupation))
-            total_counts = _couple_j_count_maps(
-                total_counts,
-                subshell_j_counts_mscheme(sh.j2, q),
-            )
-        parity = _csf_parity(jj_csf.subshells)
-        for J2, count in sorted(total_counts.items()):
-            for idx in range(count):
-                suffix = f" J={J2}/2"
-                if count > 1:
-                    suffix += f" #{idx + 1}"
-                out.append(CSF(
-                    subshells=list(jj_csf.subshells),
-                    total_J2=J2,
-                    parity=parity,
-                    label=f"{jj_csf.label}{suffix}",
-                ))
-    return out
+    return enumerate_jj_csfs(config_str)
 
 
 def _parse_config_string(config_str):
