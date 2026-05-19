@@ -5,7 +5,7 @@ P is the radial function, Q = dP/dr (derivative).
 """
 
 import numpy as np
-import numba as nb
+from atomx._numba import nb
 import math
 
 

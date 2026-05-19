@@ -5,7 +5,7 @@ For non-uniform grids, the caller multiplies by the Jacobian DIFR(I) first.
 """
 
 import numpy as np
-import numba as nb
+from atomx._numba import nb
 
 
 @nb.njit(cache=True)

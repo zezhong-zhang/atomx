@@ -24,3 +24,8 @@ Modules
 :mod:`atomx.scattering.r_matrix` (Phase-7 scaffold)
     Close-coupling R-matrix method for systematic continuum treatment.
 """
+
+from atomx.scattering.models import ContinuumModel, PotentialModel
+
+
+__all__ = ["ContinuumModel", "PotentialModel"]

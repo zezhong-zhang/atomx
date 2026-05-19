@@ -6,7 +6,7 @@
 
 import numpy as np
 from atomx.angular.wigner import wigner_3j
-import numba as nb
+from atomx._numba import nb
 
 
 @nb.njit(cache=True)

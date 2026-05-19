@@ -5,7 +5,7 @@ Gauss-Legendre quadrature points within each knot interval.
 """
 
 import numpy as np
-import numba as nb
+from atomx._numba import nb
 
 
 @nb.njit(cache=True)

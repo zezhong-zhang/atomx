@@ -5,7 +5,7 @@ Properties: R(1)=0, R(N)=RN, R(2)≈R2, spacing increases monotonically.
 """
 
 import numpy as np
-import numba as nb
+from atomx._numba import nb
 import math
 
 

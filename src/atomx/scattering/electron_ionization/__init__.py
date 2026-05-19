@@ -156,6 +156,7 @@ def eii_cross_section(
     kappa_max: int = 5,
     n_outgoing_energies: int = 6,
     dw_energy_cutoff_per_I: float = 5.0,
+    continuum_model: Any = None,
 ) -> EIIResult:
     """Total electron-impact ionisation cross section.
 
@@ -201,6 +202,7 @@ def eii_cross_section(
             scf_result, energies_arr,
             kappa_max=kappa_max,
             n_outgoing_energies=n_outgoing_energies,
+            continuum_model=continuum_model,
         )
     if method_u == "AUTO":
         # Hybrid: DW for E < cutoff·I_outermost (where partial-wave
@@ -224,6 +226,7 @@ def eii_cross_section(
                 scf_result, energies_arr[dw_mask],
                 kappa_max=kappa_max,
                 n_outgoing_energies=n_outgoing_energies,
+                continuum_model=continuum_model,
             )
             sigma_total[dw_mask] = r_dw.sigma_total_cm2
             for k, v in r_dw.sigma_by_orbital.items():
@@ -485,6 +488,7 @@ def _eii_dw_total(
     *,
     kappa_max: int,
     n_outgoing_energies: int,
+    continuum_model: Any = None,
 ) -> "EIIResult":
     """Distorted-wave Born approximation for total EII cross section.
 
@@ -818,12 +822,21 @@ def _eii_dw_total(
             "n_E1_quadrature": n_outgoing_energies,
         }
 
+    include_local_exchange = False
+    if continuum_model is not None and continuum_model.potential is not None:
+        include_local_exchange = bool(continuum_model.potential.include_exchange)
+
     return EIIResult(
         energies_eV=energies,
         sigma_total_cm2=sigma_total,
         sigma_by_orbital=by_orbital,
         method="DW",
-        provenance={"per_orbital": prov_per_orb, "Z": scf_result.Z},
+        provenance={
+            "per_orbital": prov_per_orb,
+            "Z": scf_result.Z,
+            "continuum_model": continuum_model,
+            "include_local_exchange": include_local_exchange,
+        },
     )
 
 

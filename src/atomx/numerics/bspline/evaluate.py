@@ -57,7 +57,7 @@ The exchange matrix kernel remains in ``scf/slater.py``.
 """
 
 import numpy as np
-import numba as nb
+from atomx._numba import nb
 
 
 # ---------------------------------------------------------------------------

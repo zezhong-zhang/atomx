@@ -8,7 +8,7 @@ it accepts (ks1, ks2) and produces an (mm x mm) matrix where mm = max(ns1, ns2).
 """
 
 import numpy as np
-import numba as nb
+from atomx._numba import nb
 
 
 @nb.njit(cache=True)

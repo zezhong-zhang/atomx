@@ -5,7 +5,7 @@ giving consistent accuracy for eigenvalue refinement via Q-matching.
 """
 
 import numpy as np
-import numba as nb
+from atomx._numba import nb
 
 
 @nb.njit(cache=True)

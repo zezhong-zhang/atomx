@@ -4,7 +4,7 @@ Translates radial.f DIR (line 2118), DOUTW (line 1733), DINW (line 1808).
 """
 
 import numpy as np
-import numba as nb
+from atomx._numba import nb
 import math
 from atomx.numerics.shooting.constants import SL
 from atomx.numerics.shooting.dirac_power_series import dir0

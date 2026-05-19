@@ -9,7 +9,7 @@ Total energy computed via EXPVAL (DHFS.f:984-1103) using:
 """
 
 import numpy as np
-import numba as nb
+from atomx._numba import nb
 import math
 from dataclasses import dataclass, field
 from typing import Dict, Optional

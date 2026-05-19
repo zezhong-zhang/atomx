@@ -5,7 +5,7 @@ with power-series integration and eigenvalue refinement from Q-discontinuity.
 """
 
 import numpy as np
-import numba as nb
+from atomx._numba import nb
 import math
 from atomx.numerics.shooting.constants import SL
 from atomx.numerics.shooting.spline import findi, splin0, splval

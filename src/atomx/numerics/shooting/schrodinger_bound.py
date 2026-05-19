@@ -5,7 +5,7 @@ with power-series integration and eigenvalue refinement from derivative disconti
 """
 
 import numpy as np
-import numba as nb
+from atomx._numba import nb
 import math
 from atomx.numerics.shooting.spline import findi
 from atomx.numerics.shooting.schrodinger_integrator import soutw, sinw

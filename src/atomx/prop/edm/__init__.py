@@ -33,6 +33,12 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Dict
 
+from atomx.prop.edm.scaling import (
+    edm_summary,
+    electron_edm_enhancement_sandars,
+    schiff_moment_enhancement_scaling,
+)
+
 
 @dataclass
 class EDMResult:
@@ -42,16 +48,46 @@ class EDMResult:
     schiff_moment_enhancement: float = 0.0
     provenance: Dict[str, Any] = field(default_factory=dict)
 
+    @property
+    def schiff_moment_enhancement_cm(self) -> float:
+        """Schiff-moment enhancement in cm."""
+        return self.schiff_moment_enhancement
 
-def compute(*_args, **_kwargs) -> EDMResult:
-    """Evaluate T,P-odd enhancement factors.  Not implemented yet.
 
-    Tracking issue: *atomx#edm*.
-    """
-    raise NotImplementedError(
-        "EDM enhancement factors are a planned observable — see "
-        "prop/edm/ scaffold (tracking issue atomx#edm)."
+def compute(
+    *,
+    Z: int | None = None,
+    A: int | None = None,
+    n_eff: float = 2.0,
+    J: float = 0.5,
+    L: int = 0,
+    valence: str = "s",
+) -> EDMResult:
+    """Evaluate closed-form EDM enhancement scaling factors."""
+    if Z is None or A is None:
+        raise NotImplementedError(
+            "edm ab-initio enhancement factors are a planned observable; "
+            "pass Z and A to use closed-form scaling estimates."
+        )
+    summary = edm_summary(
+        Z=Z,
+        A=A,
+        n_eff=n_eff,
+        J=J,
+        L=L,
+        valence=valence,
+    )
+    return EDMResult(
+        electron_edm_enhancement=summary["R_electron_edm"],
+        schiff_moment_enhancement=summary["K_schiff_cm"],
+        provenance=summary,
     )
 
 
-__all__ = ["EDMResult", "compute"]
+__all__ = [
+    "EDMResult",
+    "compute",
+    "edm_summary",
+    "electron_edm_enhancement_sandars",
+    "schiff_moment_enhancement_scaling",
+]

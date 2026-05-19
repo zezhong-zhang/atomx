@@ -89,6 +89,60 @@ def landau_zener_cross_section(
     return 4.0 * np.pi * R_x_au ** 2 * P * (1.0 - P)
 
 
+def landau_zener_linear_diabatic_probability(
+    H_12_at_crossing: float,
+    H_12_slope: float,
+    velocity_au: np.ndarray,
+) -> np.ndarray:
+    """Linear-diabatic LZ probability for a locally linear coupling."""
+    if H_12_slope <= 0:
+        raise ValueError("H_12_slope must be > 0")
+    v = np.asarray(velocity_au, dtype=float)
+    if np.any(v <= 0):
+        raise ValueError("velocity_au must be > 0")
+    gamma = H_12_at_crossing ** 2 / (v * H_12_slope)
+    return np.sin(np.pi * gamma) ** 2
+
+
+def landau_zener_linear_diabatic_cross_section(
+    H_12_at_crossing: float,
+    H_12_slope: float,
+    velocity_au: np.ndarray,
+    R_x_au: float,
+) -> np.ndarray:
+    """Geometric cross section using the linear-diabatic probability."""
+    P = landau_zener_linear_diabatic_probability(
+        H_12_at_crossing=H_12_at_crossing,
+        H_12_slope=H_12_slope,
+        velocity_au=velocity_au,
+    )
+    return np.pi * R_x_au ** 2 * P
+
+
+def olson_salop_total_cx(
+    q_projectile: int,
+    velocity_au: np.ndarray,
+    *,
+    binding_energy_au: float = 0.5,
+) -> np.ndarray:
+    """Olson-Salop-style universal total CX scaling.
+
+    This compact fit captures the expected monotonic low-velocity rise and
+    geometric ``R_c(q)^2`` scaling without pretending to be a channel-resolved
+    close-coupling calculation.
+    """
+    if q_projectile < 1:
+        raise ValueError("q_projectile must be >= 1")
+    if binding_energy_au <= 0:
+        raise ValueError("binding_energy_au must be > 0")
+    v = np.asarray(velocity_au, dtype=float)
+    if np.any(v < 0):
+        raise ValueError("velocity_au must be >= 0")
+    r_c = float(q_projectile) / binding_energy_au
+    v_scale = np.sqrt(2.0 * binding_energy_au)
+    return np.pi * r_c ** 2 * (v / (v + v_scale))
+
+
 def cx_cross_section_total_lz(
     crossings: List[Dict[str, float]],
     velocity_au: np.ndarray,
@@ -137,6 +191,9 @@ __all__ = [
     "CXResult",
     "landau_zener_probability",
     "landau_zener_cross_section",
+    "landau_zener_linear_diabatic_probability",
+    "landau_zener_linear_diabatic_cross_section",
     "cx_cross_section_total_lz",
+    "olson_salop_total_cx",
     "quantum_close_coupling_cx",
 ]

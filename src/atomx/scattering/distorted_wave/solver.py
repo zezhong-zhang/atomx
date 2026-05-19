@@ -61,6 +61,11 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
     sigma = np.zeros_like(energies_eV)
     omega = np.zeros_like(energies_eV)
 
+    if L_max < 0:
+        raise ValueError("L_max must be non-negative")
+    if kappa_max < 1:
+        raise ValueError("kappa_max must be >= 1")
+
     # Extract structure data
     result_i = atom_initial._result
     result_f = atom_final._result
@@ -202,7 +207,7 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
     return sigma, omega
 
 
-def _extract_scf_potential(atom):
+def _extract_scf_potential(atom, include_local_exchange=False):
     """Extract the direct (Hartree) potential matrices from a solved atom."""
     result = atom._result
     bsp_data = atom._bsp_data

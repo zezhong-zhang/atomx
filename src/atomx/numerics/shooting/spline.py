@@ -5,7 +5,7 @@ The spline stores f(x) = A + B*x + C*x^2 + D*x^3 per interval.
 """
 
 import numpy as np
-import numba as nb
+from atomx._numba import nb
 import math
 
 

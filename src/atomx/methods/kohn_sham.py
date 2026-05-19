@@ -8,7 +8,7 @@ live in bspline.evaluate.
 """
 
 import numpy as np
-import numba as nb
+from atomx._numba import nb
 
 from atomx.numerics.bspline.evaluate import (
     compute_yk, eval_orbital_on_grid, eval_P as _eval_P, eval_Q as _eval_Q,

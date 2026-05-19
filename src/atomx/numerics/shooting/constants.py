@@ -4,7 +4,7 @@ These values are used exclusively in the shooting solver to ensure
 exact numerical reproduction of RADIAL/DHFS results.
 """
 
-import numba as nb
+from atomx._numba import nb
 
 # Speed of light in atomic units (= 1/alpha).
 # radial.f line 269: SL=137.035999139D0

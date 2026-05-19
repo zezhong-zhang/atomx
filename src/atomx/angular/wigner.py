@@ -8,7 +8,7 @@ The "t" prefix means "twice j" throughout this module.
 """
 
 import numpy as np
-import numba as nb
+from atomx._numba import nb
 
 # Pre-compute log-factorials up to 300! (sufficient for most atomic physics)
 _MAX_FACT = 500

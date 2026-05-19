@@ -7,7 +7,7 @@ Given boundary conditions (P0, Q0) at RA, computes (P1, Q1) at RB.
 """
 
 import numpy as np
-import numba as nb
+from atomx._numba import nb
 import math
 from atomx.numerics.shooting.constants import SL
 

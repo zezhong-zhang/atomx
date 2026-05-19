@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "High-performance relativistic atomic structure calculations using B-spline Dirac-Fock"
 requires-python = ">=3.10"
 dependencies = [
-    "numpy>=1.24",
+    "numpy>=1.24,<2.4",
     "scipy>=1.10",
     "numba>=0.58",
     "h5py>=3.0",

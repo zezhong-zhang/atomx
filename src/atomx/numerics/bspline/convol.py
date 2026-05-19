@@ -26,7 +26,7 @@ Convolution modes (icase):
 """
 
 import numpy as np
-import numba as nb
+from atomx._numba import nb
 
 
 # ══════════════════════════════════════════════════════════════════════
@@ -851,7 +851,7 @@ def _convol_case2_mixed(rkb, d_left, ns, ks_left, ks_right):
             continue
         s = 0.0
         for ip in range(ks_left):
-            for i in range(ns):
+            for i in range(d_left.shape[0]):
                 if i + ip >= ns:
                     continue
                 s += rkb[i, j, ip, jp] * d_left[i, ip]

@@ -4,7 +4,7 @@ Translates radial.f SCH (line 1895), SOUTW (line 1598), SINW (line 1655).
 """
 
 import numpy as np
-import numba as nb
+from atomx._numba import nb
 import math
 from atomx.numerics.shooting.schrodinger_power_series import sch0
 
