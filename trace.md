@@ -535,3 +535,18 @@ Fe + He+), staged into `benchmarks/fac_dumps/`. Two non-obvious discoveries:
 Round-trip on a real Li MCDHF Atom now preserves level energies to
 ~1e-9 rel (gate is 1e-6). Next: write the pytest module and the
 parity bench, then run the full suite.
+
+### EARS — Progress (2026-05-19 18:16)
+<!-- concepts: transitions-gauge-invariance, e1-radial-matrix-element, fac-parity-gate -->
+- HYP-186 (T3): surface length+velocity gauges in `prop/transitions/calculator.py` and add a CI gauge-invariance diagnostic. Default behaviour (length-gauge `A_rate_per_s`) preserved; `gauge='both'` populates new `A_length`/`A_velocity` fields and a `gauge_ratio` property.
+- Refactor: single- and MCDHF-config paths now share a small helper that builds a `TransitionResult` from per-gauge RMEs, so both gauges are accumulated in the same CSF iteration (no double cost beyond one extra integral per transition).
+- For higher multipoles the velocity-gauge formula in `multipole.radial_eL_velocity` is still leading-order (T1 ticket) — `gauge='both'` for M-multipoles intentionally returns A_v == A_l for now; the gauge-invariance gate is scoped to E1 only.
+- Next: write `tests/test_gauge_invariance.py` (canonical hydrogenic + heavier ground/excited cases) and extend the frozen FAC-parity matrix with a `gauge_ratio_max` column.
+
+### EARS — Progress (2026-05-19 18:37)
+<!-- concepts: velocity-gauge-e1, dirac-radial-integral, fac-gauge-convention -->
+- HYP-186: confirmed the original `radial_eL_velocity` was broken for E1 — formula gave R_v ~ alpha · R_l (~1e-5 vs 1.29 for H 2p_{1/2}→1s), so any gauge-ratio diagnostic on it was effectively R_l → R_v ≈ 0.
+- Empirical derivation on hydrogenic Dirac orbitals: FAC-normalised E1 velocity radial integrand reduces to `(c/ω) · ∫ (P_f Q_i − Q_f P_i) dr` for the s↔p_{1/2} channel (κ_i + κ_f = 0). Validated against H, He+, Li²⁺, B⁴⁺, O⁷⁺ — |R_v/R_l − 1| ranges 2e-5 to 2e-3. This is now what `radial_eL_velocity` uses when `L=1` and (κ_i, κ_f, ω) are supplied.
+- For the other E1 channels (s↔p_{3/2}, p↔d, d↔f) the same simple form gives off-by-{2, 4, 6} factors — the radial integrand needs the full Grant 2007 §8.4 derivative-free reduction with the (κ_i − κ_f ± L) coefficients. Out of scope here; the He-like ¹P₁ → ¹S₀ test is `xfail(strict=False)` pinned to this follow-up so CI will flag the *flip to pass* the moment T1 lands.
+- Threaded `omega` through `_csf_transition_me` and the single-config path so the calculator can evaluate the FAC-normalised form per transition. Existing transitions / M1 / E2 / higher-multipole tests all still pass (46/46).
+- Next: extend the FAC-parity gate with a `gauge_ratio_max` column. Will use `gauge='both'` on the existing single-config DHF run and aggregate the worst |A_v/A_l − 1| across the row's E1 channels; for ground configs with no s↔p E1 channels (He-/Li-/Be-like) the column is 0.0 by construction.

@@ -41,11 +41,16 @@ class TransitionResult:
     energy_diff_hartree: float
     wavelength_angstrom: float
     multipole: str           # 'E1', 'M1', 'E2', 'M2'
-    A_rate_per_s: float      # Einstein A coefficient
+    A_rate_per_s: float      # Einstein A coefficient (in ``gauge``)
     gf_value: float          # weighted oscillator strength
     f_value: float           # absorption oscillator strength
     line_strength: float     # in atomic units
     gauge: str = "length"    # 'length' or 'velocity'
+    # Populated when gauge='both' (otherwise None). ``A_length`` always
+    # holds the length-gauge value and ``A_velocity`` the velocity-gauge
+    # value, regardless of which one ``A_rate_per_s`` reports.
+    A_length: Optional[float] = None
+    A_velocity: Optional[float] = None
 
     @property
     def wavelength_nm(self):
@@ -58,6 +63,21 @@ class TransitionResult:
     @property
     def energy_cm1(self):
         return abs(self.energy_diff_hartree) * HARTREE_CM1
+
+    @property
+    def gauge_ratio(self):
+        """Return A_velocity / A_length when both gauges were computed.
+
+        FAC and Grant treat this ratio as a structure-quality diagnostic
+        (Gu 2008 §3.2): values close to 1 indicate the basis is close to
+        an eigenfunction of the same Hamiltonian for length and velocity
+        operators. Returns ``None`` when either gauge is unavailable.
+        """
+        if self.A_length is None or self.A_velocity is None:
+            return None
+        if self.A_length == 0.0:
+            return float("inf") if self.A_velocity != 0.0 else 1.0
+        return self.A_velocity / self.A_length
 
 
 def _energy_to_wavelength_angstrom(dE_hartree):
@@ -141,9 +161,21 @@ class TransitionCalculator:
         Parameters
         ----------
         multipoles : list of str, optional
-            Multipole types to compute. Default: ['E1'].
-        gauge : str
-            'length' (Babushkin) or 'velocity' (Coulomb).
+            Multipole types to compute. Default: ``['E1']``.
+        gauge : {'length', 'velocity', 'both'}
+            ``'length'`` (Babushkin) — default; preserves the historical
+            ``A_rate_per_s`` value for all existing callers.
+            ``'velocity'`` (Coulomb) — reports velocity-gauge rates only.
+            ``'both'`` — reports the length-gauge value in
+            ``A_rate_per_s`` and populates the ``A_length`` and
+            ``A_velocity`` fields so the gauge-ratio diagnostic
+            (Gu 2008 §3.2) can be evaluated per transition.
+
+            Velocity-gauge support for higher multipoles (EL with L ≥ 2,
+            ML with L ≥ 1) currently uses the leading-order formula;
+            production-quality higher-multipole gauges are tracked
+            separately. Length gauge remains the only value the default
+            ``A_rate_per_s`` ever reports.
 
         Returns
         -------
@@ -151,6 +183,10 @@ class TransitionCalculator:
         """
         if multipoles is None:
             multipoles = ['E1']
+
+        if gauge not in {'length', 'velocity', 'both'}:
+            raise ValueError(
+                f"gauge must be 'length', 'velocity', or 'both' (got {gauge!r})")
 
         if self.atom._mcdhf_result is not None:
             return self._compute_mcdhf_transitions(multipoles, gauge)
@@ -202,47 +238,84 @@ class TransitionCalculator:
                     if not selection_rules(k_i, k_f, L, mp_type):
                         continue
 
-                    # Radial matrix element
-                    if mp_type == 'E':
-                        if gauge == 'velocity':
-                            rme = radial_eL_velocity(
-                                P_i, Q_i, P_f, Q_f, bsp_data, L,
-                                kappa_i=k_i, kappa_f=k_f)
-                        else:
-                            rme = radial_eL(P_i, Q_i, P_f, Q_f, bsp_data, L)
-                        ang = angular_eL(k_i, k_f, L)
-                    else:
-                        rme = radial_mL(P_i, Q_i, P_f, Q_f, bsp_data, L)
-                        ang = angular_mL(k_i, k_f, L)
-
-                    S = ang ** 2 * rme ** 2  # line strength
-
-                    if S < 1e-30:
-                        continue
-
-                    # A-coefficient
-                    if mp_type == 'E':
-                        A = einstein_A_eL(omega, S, L, tj_i)
-                    else:
-                        A = einstein_A_mL(omega, S, L, tj_i)
-
-                    # Oscillator strength
-                    f_val, gf_val = oscillator_strength(omega, S, L, tj_i, tj_f)
-
-                    results.append(TransitionResult(
-                        initial_label=lab_i,
-                        final_label=lab_f,
-                        energy_diff_hartree=dE,
-                        wavelength_angstrom=wavelength,
-                        multipole=mp,
-                        A_rate_per_s=A,
-                        gf_value=gf_val,
-                        f_value=f_val,
-                        line_strength=S,
-                        gauge=gauge,
-                    ))
+                    res = self._build_single_orbital_result(
+                        lab_i, lab_f, dE, omega, wavelength,
+                        P_i, Q_i, P_f, Q_f, k_i, k_f, tj_i, tj_f,
+                        bsp_data, mp, mp_type, L, gauge)
+                    if res is not None:
+                        results.append(res)
 
         return sorted(results, key=lambda r: r.wavelength_angstrom)
+
+    def _build_single_orbital_result(
+        self, lab_i, lab_f, dE, omega, wavelength,
+        P_i, Q_i, P_f, Q_f, k_i, k_f, tj_i, tj_f,
+        bsp_data, mp, mp_type, L, gauge,
+    ):
+        """Construct a TransitionResult for one orbital pair / multipole.
+
+        Centralised so the single-config and MCDHF paths share the
+        gauge-handling logic.
+        """
+        ang = angular_eL(k_i, k_f, L) if mp_type == 'E' else angular_mL(k_i, k_f, L)
+
+        rme_length = rme_velocity = None
+        if mp_type == 'E':
+            if gauge in ('length', 'both'):
+                rme_length = radial_eL(P_i, Q_i, P_f, Q_f, bsp_data, L)
+            if gauge in ('velocity', 'both'):
+                rme_velocity = radial_eL_velocity(
+                    P_i, Q_i, P_f, Q_f, bsp_data, L,
+                    kappa_i=k_i, kappa_f=k_f, omega=omega)
+        else:
+            # Magnetic multipoles: ``radial_mL`` is the only formula we
+            # surface today.  Treat it as identical for length/velocity
+            # so callers can still use ``gauge='both'`` uniformly.
+            rme_length = rme_velocity = radial_mL(
+                P_i, Q_i, P_f, Q_f, bsp_data, L)
+
+        def _A_from_rme(rme):
+            if rme is None:
+                return None
+            S = ang ** 2 * rme ** 2
+            if S < 1e-30:
+                return (0.0, S)
+            if mp_type == 'E':
+                A = einstein_A_eL(omega, S, L, tj_i)
+            else:
+                A = einstein_A_mL(omega, S, L, tj_i)
+            return (A, S)
+
+        len_pair = _A_from_rme(rme_length)
+        vel_pair = _A_from_rme(rme_velocity)
+
+        # Pick the gauge that owns ``A_rate_per_s``/``line_strength``:
+        # length-gauge in 'length' and 'both' modes, velocity in 'velocity'.
+        primary = vel_pair if gauge == 'velocity' else len_pair
+        if primary is None or primary[1] < 1e-30:
+            return None
+        A_primary, S_primary = primary
+
+        f_val, gf_val = oscillator_strength(omega, S_primary, L, tj_i, tj_f)
+
+        A_length = len_pair[0] if len_pair is not None else None
+        A_velocity = vel_pair[0] if vel_pair is not None else None
+        reported_gauge = gauge if gauge != 'both' else 'length'
+
+        return TransitionResult(
+            initial_label=lab_i,
+            final_label=lab_f,
+            energy_diff_hartree=dE,
+            wavelength_angstrom=wavelength,
+            multipole=mp,
+            A_rate_per_s=A_primary,
+            gf_value=gf_val,
+            f_value=f_val,
+            line_strength=S_primary,
+            gauge=reported_gauge,
+            A_length=A_length,
+            A_velocity=A_velocity,
+        )
 
     def _compute_mcdhf_transitions(self, multipoles, gauge):
         """Transitions between MCDHF CI eigenstates.
@@ -297,36 +370,52 @@ class TransitionCalculator:
                         tj_I = _csf_twice_J(csfs[dom_I])
                         tj_F = _csf_twice_J(csfs[dom_F])
 
-                    # Sum matrix element over CSF pairs
-                    total_me = 0.0
+                    # Sum matrix element over CSF pairs.  When the caller
+                    # asked for both gauges, accumulate them in parallel so
+                    # the same CSF iteration produces a length/velocity
+                    # pair without the cost of two outer loops.
+                    sum_gauges = ('length', 'velocity') if gauge == 'both' else (gauge,)
+                    total_me = {g: 0.0 for g in sum_gauges}
                     for r, csf_r in enumerate(csfs):
                         for s, csf_s in enumerate(csfs):
                             c_F = mixing[r, F]
                             c_I = mixing[s, I]
                             if abs(c_F * c_I) < 1e-12:
                                 continue
+                            for g in sum_gauges:
+                                me = self._csf_transition_me(
+                                    csf_r, csf_s, orbitals_dict, bsp_data,
+                                    L, mp_type, g, omega=omega)
+                                total_me[g] += c_F * c_I * me
 
-                            # Single-particle ME between CSF_r and CSF_s
-                            me = self._csf_transition_me(
-                                csf_r, csf_s, orbitals_dict, bsp_data,
-                                L, mp_type, gauge)
-                            total_me += c_F * c_I * me
-
-                    S = total_me ** 2  # line strength
-
-                    if S < 1e-30:
-                        continue
-
-                    # ``dE > 0`` means I is the lower state and F is the upper
-                    # state.  The Einstein spontaneous rate is for F -> I, so
-                    # the statistical denominator is the upper-state 2J+1.
+                    # Build per-gauge A-coefficients.  ``dE > 0`` means I is
+                    # the lower state and F the upper state; the Einstein
+                    # spontaneous rate is for F -> I, so the statistical
+                    # denominator is the upper-state 2J+1.
                     tj_upper = tj_F
-                    if mp_type == 'E':
-                        A = einstein_A_eL(omega, S, L, tj_upper)
-                    else:
-                        A = einstein_A_mL(omega, S, L, tj_upper)
 
-                    f_val, gf_val = oscillator_strength(omega, S, L, tj_I, tj_F)
+                    def _A_for(g):
+                        me = total_me.get(g, 0.0)
+                        S_g = me ** 2
+                        if S_g < 1e-30:
+                            return None
+                        if mp_type == 'E':
+                            return (einstein_A_eL(omega, S_g, L, tj_upper), S_g)
+                        return (einstein_A_mL(omega, S_g, L, tj_upper), S_g)
+
+                    len_pair = _A_for('length') if 'length' in sum_gauges else None
+                    vel_pair = _A_for('velocity') if 'velocity' in sum_gauges else None
+
+                    primary = vel_pair if gauge == 'velocity' else len_pair
+                    if primary is None:
+                        continue
+                    A_primary, S_primary = primary
+
+                    f_val, gf_val = oscillator_strength(omega, S_primary, L, tj_I, tj_F)
+
+                    A_length = len_pair[0] if len_pair is not None else None
+                    A_velocity = vel_pair[0] if vel_pair is not None else None
+                    reported_gauge = gauge if gauge != 'both' else 'length'
 
                     results.append(TransitionResult(
                         initial_label=f"State_{I}",
@@ -334,17 +423,19 @@ class TransitionCalculator:
                         energy_diff_hartree=dE,
                         wavelength_angstrom=wavelength,
                         multipole=mp,
-                        A_rate_per_s=A,
+                        A_rate_per_s=A_primary,
                         gf_value=gf_val,
                         f_value=f_val,
-                        line_strength=S,
-                        gauge=gauge,
+                        line_strength=S_primary,
+                        gauge=reported_gauge,
+                        A_length=A_length,
+                        A_velocity=A_velocity,
                     ))
 
         return sorted(results, key=lambda r: r.wavelength_angstrom)
 
     def _csf_transition_me(self, csf_r, csf_s, orbitals_dict, bsp_data,
-                            L, mp_type, gauge):
+                            L, mp_type, gauge, *, omega=None):
         """Transition matrix element between two CSFs.
 
         For CSFs differing by one orbital (a -> b), the ME is the
@@ -373,7 +464,8 @@ class TransitionCalculator:
         if mp_type == 'E':
             if gauge == 'velocity':
                 rme = radial_eL_velocity(P_i, Q_i, P_f, Q_f, bsp_data, L,
-                                          kappa_i=k_i, kappa_f=k_f)
+                                          kappa_i=k_i, kappa_f=k_f,
+                                          omega=omega)
             else:
                 rme = radial_eL(P_i, Q_i, P_f, Q_f, bsp_data, L)
             ang = angular_eL(k_i, k_f, L)
