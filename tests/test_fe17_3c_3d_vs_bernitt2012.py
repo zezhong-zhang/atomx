@@ -152,7 +152,7 @@ _XFAIL_REASON = (
     "(ii) the off-diagonal CI between J-resolved CSFs sharing open subshells "
     "still uses the configuration-averaged angular factor without the "
     "Grant §8.3-style 6j correction that _diagonal_J_correction already "
-    "applies to diagonals. Closing the gap is the HYP-183 follow-up "
+    "applies to diagonals. Closing the gap is the HYP-184 follow-up "
     "(off-diagonal J-coupled CI + EOL/DODS orbital relaxation)."
 )
 
