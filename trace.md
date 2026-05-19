@@ -504,3 +504,10 @@ unchanged at the new default; full suite 548 passed / 3 skipped.
 - Next: run `uv run --extra dev python -m pytest ...` to confirm the
   4-file QED suite still passes, capture residual %, then commit and
   push.
+
+### EARS — Progress (2026-05-19 13:12)
+<!-- concepts: MCDHF-CI, J-coupled-CSF, Fe-XVII-spectroscopy -->
+- HYP-182 re-dispatch (push-or-invalid). Previous turn (commit 46dd02d) fixed three configuration-averaged Slater–Condon bugs in `src/atomx/methods/mcdhf/matrix.py`: (1) k=0 direct-integral angular check, (2) sqrt(q·h) jj weight, (3) geometric-mean exchange angular factor with k-range intersection. Gate `tests/test_fe17_3c_3d_vs_bernitt2012.py` still xfails because two physics terms remain.
+- Current state confirmed: 5 E1 transitions from ground; State_0→State_6 f=2.84 @ 16.307 Å (in [2.2, 3.0] but ~1.3 Å redward of Bernitt window); ratio of top-2 lines (State_24 picks up f=1.40 @ 10.7 Å) = 2.03. 157 passed / 1 skipped / 1 xfailed on the CI/MCDHF/transition subset.
+- Remaining gaps are multi-day per the partial-delivery clause: (a) off-diagonal Grant §8.3 J-coupled CI between same-(J, parity) CSFs sharing open subshells (1-diff and 2-diff cases — the diagonal `_diagonal_J_correction` works; the analog for `_one_diff_element` / `_two_diff_element` is the missing piece); (b) DODS / EOL orbital relaxation (the 1.3 Å red-shift is the canonical signature of single Guerra-averaged orbital set vs per-block).
+- Decision: per the explicit partial-delivery clause, opened **HYP-184** (Fe XVII 3C/3D wavelength residual + off-diag J-CI + DODS) as the targeted follow-up, updated the test's xfail reason from HYP-183 (which is Au CRM) → HYP-184, and will open a PR documenting the partial-delivery scope. Not chasing the off-diag CI in this session — the diagonal Grant correction took a full session in HYP-171, and DODS is its own multi-day driver change.
