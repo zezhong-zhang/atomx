@@ -43,12 +43,30 @@ class TestAtomAPI:
         assert "E_SE" in he.energy_components
 
     def test_mcdhf(self):
-        """Multi-configuration calculation."""
+        """Multi-configuration calculation produces J-resolved levels.
+
+        Be ``["1s2 2s2", "1s2 2p2"]``:
+          - ``1s2 2s2`` → 1 closed-shell CSF (J=0).
+          - ``1s2 2p2`` → 5 J-resolved CSFs (jj-splits (0,2), (1,1), (2,0)
+            with Pauli-allowed J multiplets {0,2}, {1,2}, {0}).
+        Public ``Atom(configs=[...])`` now uses the J-resolved
+        enumeration and block-diagonalises CI by (J, parity).
+        """
         be = Atom(Z=4, configs=["1s2 2s2", "1s2 2p2"])
         be.solve()
         assert be.converged
-        assert len(be.state_energies) == 2
+        # 1 + 5 = 6 J-resolved CSFs
+        assert len(be.state_energies) == 6
+        # Ground state must be lowest and well-separated
         assert be.state_energies[0] < be.state_energies[1]
+        # The MCDHFResult exposes J-resolved labels
+        twoJ = be._result.state_J2
+        par = be._result.state_parity
+        assert len(twoJ) == 6
+        assert twoJ[0] == 0  # ground state J=0 (1s2 2s2 closed shell)
+        # All these CSFs are even parity (l=0,1; q even on 2s², l*q even
+        # on 2p² since l=1 q=2 gives parity +1)
+        assert all(p == 1 for p in par)
 
     def test_chaining(self):
         """solve() returns self for chaining."""
