@@ -426,6 +426,10 @@ unchanged at the new default; full suite 548 passed / 3 skipped.
   test so both code paths share the default knot grid. Production behavior
   unchanged — the test was just comparing apples to oranges.
 
+### EARS — Progress (2026-05-15 11:25)
+<!-- concepts: mcdhf-csf-enumeration, jj-coupling, fac-parity -->
+HYP-165 (M3): User asked to "systematically compare intermediate results and fix". Root cause for Fe XVII 27 vs 37 gap: FAC's `Config('n3', '2*7 3*1')` expands to 7 non-relativistic configs (2p-hole AND 2s-hole patterns), while atomx's benchmark only lists 4 (2p-hole only). Compounded by `enumerate_jj_csfs` leaving `total_J2=0` for every CSF — no J-resolution at all. Counted: 7 NR configs → 1 + 4 + 10 + 12 + 2 + 4 + 4 = 37 J-resolved CSFs (matches FAC). Implementing: (1) seniority-allowed J enumeration per subshell, (2) cascaded CG triangle to total J, (3) multi-config helper, (4) Atom() multi-config path uses J-resolved, (5) block-diagonal CI by (J,π) in solver, (6) extend Fe XVII benchmark configs to 7.
+
 ## 2026-05-15 17:43
 
 <!-- concepts: charge-density, benchmark-reference, wfn-formats -->

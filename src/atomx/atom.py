@@ -272,14 +272,17 @@ class Atom:
         if use_ci_avg:
             pass  # handled above
         elif self._multi_config:
-            from atomx.methods.mcdhf.config import enumerate_j_resolved_csfs, make_csf_list
+            from atomx.methods.mcdhf.config import (
+                enumerate_j_resolved_csfs,
+                enumerate_jj_csfs_many,
+            )
             from atomx.methods.mcdhf.solver import MCDHFSolver
             if self.j_resolved_csfs:
                 csfs = []
                 for cfg in self._config_strings:
                     csfs.extend(enumerate_j_resolved_csfs(cfg))
             else:
-                csfs = make_csf_list(self.Z, self._config_strings)
+                csfs = enumerate_jj_csfs_many(self._config_strings)
             solver = MCDHFSolver(Z=self.Z, csfs=csfs, ns=self.ns, ks=self.ks,
                                   include_breit=self.breit, include_qed=self.qed)
             self._result = solver.solve(max_iter=max_iter, scf_tol=tol)

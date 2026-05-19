@@ -65,30 +65,43 @@ def run_atomx_fe17():
     transitions: list of dicts with initial_idx, final_idx, multipole, A_per_s, Δ eV
     """
     t0 = time.perf_counter()
-    # Build multi-config list: ground ⊕ 2p⁵3l (l=s,p,d)
+    # FAC's `Config('n3', '2*7 3*1')` expands to all 7 NR configurations
+    # consistent with "n=2 has 7 electrons (one hole), n=3 has 1
+    # electron" — that's the 2p-hole branch AND the 2s-hole branch.
+    # Listing all 7 explicitly is what closes the 27 → 37 J-resolved
+    # level gap vs the FAC reference (HYP-165, REPORT §4.2).
     configs = [
+        # ground (closed-shell)
         "1s2 2s2 2p6",
-        # 2p5 3s
+        # 2p hole + 3l
         "1s2 2s2 2p5 3s1",
-        # 2p5 3p
         "1s2 2s2 2p5 3p1",
-        # 2p5 3d
         "1s2 2s2 2p5 3d1",
+        # 2s hole + 3l
+        "1s2 2s1 2p6 3s1",
+        "1s2 2s1 2p6 3p1",
+        "1s2 2s1 2p6 3d1",
     ]
     atom = Atom(Z=26, charge=16, configs=configs, breit=False, qed=False)
     atom.solve()
     trs = atom.transitions(multipoles=["E1"])
     t1 = time.perf_counter()
 
-    # Pull raw levels from MCDHFResult
+    # Pull raw J-resolved levels from MCDHFResult.state_energies. With
+    # the M3 wiring the multi-config Atom path block-diagonalises CI
+    # per (J, parity), so each eigenvalue corresponds to one level in
+    # the FAC sense (one row in `fe17.lev`).
     r = atom._result
     levels = []
-    if hasattr(r, "csf_energies"):
-        for i, e in enumerate(r.csf_energies):
-            levels.append({"idx": i, "E_ha": e})
-    elif hasattr(r, "energies"):
-        for i, e in enumerate(r.energies):
-            levels.append({"idx": i, "E_ha": e})
+    twoJ = getattr(r, "state_J2", None)
+    par = getattr(r, "state_parity", None)
+    for i, e in enumerate(r.state_energies):
+        row = {"idx": i, "E_ha": float(e)}
+        if twoJ is not None and i < len(twoJ):
+            row["twoJ"] = int(twoJ[i])
+        if par is not None and i < len(par):
+            row["parity"] = int(par[i])
+        levels.append(row)
     return levels, trs, t1 - t0, atom
 
 
