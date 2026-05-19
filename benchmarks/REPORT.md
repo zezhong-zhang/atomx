@@ -729,6 +729,35 @@ All ten stages converge in ≤ 0.6 s each on FAC 1.1.5 with the default
 script template (``Closed('1s'); Config('2*<nval>'); Config('n3',
 '2*<nval-1> 3*1')``) — He-like and H-like use their own templates.
 
+## High-Z QED close-out
+
+Implemented 2026-05-15 for HYP-173.  The self-energy backend registry
+now includes ``indelicato``, sourced from FAC 1.1.x
+``faclib/coulomb.c`` static arrays ``_qed_se0`` and ``_qed_se1`` for
+1s, 2s, 2p1/2, and 2p3/2.  ``qed_backend='auto'`` is the default:
+
+| Z range | auto backend | reason |
+|---:|---|---|
+| Z <= 36 | ``mss`` / ``mohr`` | Preserves the existing low-Z agreement, already < 0.3 %. |
+| Z >= 37 | ``indelicato`` | Matches FAC's high-Z K/L-shell self-energy parameterisation. |
+
+Pinned FAC table checks:
+
+| Z | FAC 1s Fermi F(alpha Z) | backend |
+|---:|---:|---|
+| 54 | 1.78189 | ``indelicato`` |
+| 74 | 1.53084 | ``indelicato`` |
+| 82 | 1.48729 | ``indelicato`` |
+| 92 | 1.47251 | ``indelicato`` |
+
+The previous Mohr/MSS high-Z extrapolation gives 1s F values more than
+8x larger on this panel, which accounts for the documented 1-2 % FAC
+residual.  The new backend closes the self-energy model gap for the
+high-Z H-like, He-like, and Li-like ground-state levels targeted here;
+the remaining Breit residual is tracked separately under HYP-136 Q1.
+
+---
+
 ## 11. Dielectronic recombination
 
 End-to-end DR driver landed under HYP-146:
