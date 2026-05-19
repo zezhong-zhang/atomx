@@ -515,3 +515,23 @@ HYP-165 (M3): User asked to "systematically compare intermediate results and fix
 - Current state confirmed: 5 E1 transitions from ground; State_0→State_6 f=2.84 @ 16.307 Å (in [2.2, 3.0] but ~1.3 Å redward of Bernitt window); ratio of top-2 lines (State_24 picks up f=1.40 @ 10.7 Å) = 2.03. 157 passed / 1 skipped / 1 xfailed on the CI/MCDHF/transition subset.
 - Remaining gaps are multi-day per the partial-delivery clause: (a) off-diagonal Grant §8.3 J-coupled CI between same-(J, parity) CSFs sharing open subshells (1-diff and 2-diff cases — the diagonal `_diagonal_J_correction` works; the analog for `_one_diff_element` / `_two_diff_element` is the missing piece); (b) DODS / EOL orbital relaxation (the 1.3 Å red-shift is the canonical signature of single Guerra-averaged orbital set vs per-block).
 - Decision: per the explicit partial-delivery clause, opened **HYP-184** (Fe XVII 3C/3D wavelength residual + off-diag J-CI + DODS) as the targeted follow-up, updated the test's xfail reason from HYP-183 (which is Au CRM) → HYP-184, and will open a PR documenting the partial-delivery scope. Not chasing the off-diag CI in this session — the diagonal Grant correction took a full session in HYP-171, and DODS is its own multi-day driver change.
+
+### EARS — Progress (2026-05-19 18:27)
+<!-- concepts: fac-io-parity, mcdhf-state-export -->
+HYP-187: building `src/atomx/io/fac_writer.py` — FAC ASCII LEV/TR/CE
+writer + reader pair. Generated reference dumps via local sfac (Li-like
+Fe + He+), staged into `benchmarks/fac_dumps/`. Two non-obvious discoveries:
+
+1. **CE descriptor order.** FAC's existing `parse_ci` parser in
+   `benchmarks/fac_runner.py` labels CE columns as `upper, lower` but
+   the SaveExcitation source writes `lower 2J_l upper 2J_u E NRADS`
+   (positive ΔE means lower → upper excitation). Reader now uses the
+   physically correct order and disambiguates header vs 3-column data
+   rows by integer-token sniffing.
+2. **Dirac κ → ℓ for κ>0.** My first cut used `ℓ = κ − 1`, which
+   collapses 2p1/2 to ℓ=0. Standard convention is `ℓ = κ` for κ>0
+   (and `ℓ = −κ − 1` for κ<0). Fixed in `_l_from_kappa`.
+
+Round-trip on a real Li MCDHF Atom now preserves level energies to
+~1e-9 rel (gate is 1e-6). Next: write the pytest module and the
+parity bench, then run the full suite.
