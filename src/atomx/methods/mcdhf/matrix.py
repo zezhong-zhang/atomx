@@ -58,9 +58,15 @@ def _ci_matrix_element(csf_r, csf_s, orbitals_dict, orbital_basis,
             return _diagonal_with_J(csf_r, orbitals_dict, bsp_data, Z, ns)
         return _diagonal_element(csf_r, orbitals_dict, bsp_data, Z, ns)
     elif n_diff == 1:
-        return _one_diff_element(csf_r, csf_s, orbitals_dict, bsp_data, Z, ns)
+        base = _one_diff_element(csf_r, csf_s, orbitals_dict, bsp_data, Z, ns)
+        return base + _off_diagonal_J_correction(
+            csf_r, csf_s, orbitals_dict, bsp_data, ns, n_diff=1,
+        )
     elif n_diff == 2:
-        return _two_diff_element(csf_r, csf_s, orbitals_dict, bsp_data)
+        base = _two_diff_element(csf_r, csf_s, orbitals_dict, bsp_data)
+        return base + _off_diagonal_J_correction(
+            csf_r, csf_s, orbitals_dict, bsp_data, ns, n_diff=2,
+        )
     return 0.0
 
 
@@ -394,10 +400,18 @@ def _diagonal_J_correction(csf, orbitals_dict, bsp_data, ns):
 
 
 def _has_explicit_J(csf):
-    """Whether a CSF carries explicit J-resolution metadata."""
+    """Whether a CSF carries explicit J-resolution metadata.
+
+    Accepts a non-default ``total_J2`` attribute *or* a label containing
+    ``J=`` in either the legacy form ``... J=2/2`` or the bracketed form
+    ``... [J=2/2]`` that :func:`enumerate_jj_csfs` emits.  The bracketed
+    form is required for closed-shell J=0 CSFs whose ``total_J2`` is
+    zero — without it those silently bypass the J-coupled correction.
+    """
     if int(getattr(csf, "total_J2", 0)) > 0:
         return True
-    return " J=" in str(getattr(csf, "label", ""))
+    label = str(getattr(csf, "label", ""))
+    return " J=" in label or "[J=" in label
 
 
 def _open_subshells(csf):
@@ -409,3 +423,118 @@ def _open_subshells(csf):
         if 0 < q < cap:
             open_subs.append(sh)
     return open_subs
+
+
+def _off_diagonal_J_correction(csf_r, csf_s, orbitals_dict, bsp_data, ns,
+                                 *, n_diff):
+    """J-coupled off-diagonal CI correction (Grant §8.3) — scaffold.
+
+    HYP-184 follow-up.  The configuration-averaged 1-diff/2-diff
+    matrix elements computed by :func:`_one_diff_element` and
+    :func:`_two_diff_element` use the orbital-occupation-weighted
+    Slater-Condon expression appropriate for single-open-subshell
+    CSFs.  For two CSFs sharing the *same* (J, parity) block where
+    each CSF has two-or-more open subshells with **unique parentage**
+    (every open subshell is a single electron ``q=1`` or single hole
+    ``q=2j``), the proper Grant §8.3 6j-style J-coupled exchange
+    coefficient differs from the average-of-shell weight and must be
+    added as an off-diagonal correction analogous to
+    :func:`_diagonal_J_correction`.
+
+    The two relevant cases for the Fe XVII 2p⁵3l J=1⁻ block are:
+
+    * **1-diff**: bra and ket share one open subshell ``c`` (the
+      spectator) and differ in a single-electron promotion ``a → b``
+      (e.g. ``2p_{1/2}^{1} 3d_{3/2}^{1} ↔ 2p_{3/2}^{-1} 3d_{3/2}^{1}``).
+      The proper correction is
+
+          ΔH = Σ_K v^K(j_a, j_b, j_c; J) · R^K(ac, cb)
+
+      where ``v^K`` is the J-coupled exchange coefficient with a Wigner
+      6j weight ``{j_a j_b J; j_c j_c K}`` and the standard
+      ``(j_a, j_b)`` reduced matrix element.  The difference between
+      this and the geometric-mean configuration-averaged factor
+      ``√(λ^K(a,c) λ^K(c,b))`` used in
+      :func:`_one_diff_element` is what spreads the three J=1⁻
+      3d-electron CSFs into the proper ¹P₁ / ³D₁ / ³P₁ intensity
+      pattern that Bernitt 2012 sees.
+
+    * **2-diff**: bra and ket differ in two open subshells (e.g.
+      ``2p_{1/2}^{1} 3d_{3/2}^{1} ↔ 2p_{3/2}^{-1} 3d_{5/2}^{1}``).
+      The J-coupled formula involves a single 6j coupling on the
+      (j_a, j_b) → (j_c, j_d) → J chain analogous to the 1-diff
+      case.
+
+    Implementation notes (Grant §8.3 / Cowan §12):
+
+      g^K_offdiag(J) = (-1)^{j_a + j_b + j_c + j_d + J + K}
+                       * {6j(j_a j_b J; j_d j_c K)}
+                       * <j_a||C^K||j_b> <j_c||C^K||j_d>
+
+    The reduced matrix elements ``<j||C^K||j'>`` are the standard
+    angular tensor coefficients available via
+    :func:`atomx.angular.coefficients.exchange_lambda` (square root,
+    with sign managed by the 6j phase).
+
+    **Current status — scaffold only.**  The off-diagonal correction
+    is *not* applied yet (returns ``0.0``).  A correct implementation
+    requires:
+
+    1. Identifying the unique-parentage subset (each open subshell is
+       a single electron or single hole) on **both** ``csf_r`` and
+       ``csf_s`` and the matching same-(J,parity) constraint.
+    2. Selecting the spectator/source/destination shells and reading
+       off the ``(j_a, j_b, j_c, j_d)`` labels and total ``J``.
+    3. Evaluating the Slater integrals ``R^K`` over the radial part
+       using :func:`atomx.methods.kohn_sham.compute_slater_rk`.
+    4. Composing the 6j-weighted angular factor and accumulating the
+       additive correction.
+    5. Verifying against a He-like 1s2p ¹P₁/³P₁ analytic test (the
+       two J=1 CSFs ``|1s 2p_{1/2}; J=1⟩`` and ``|1s 2p_{3/2}; J=1⟩``
+       should diagonalise to the singlet/triplet states with the
+       2·G¹(1s,2p) splitting).
+
+    Parameters
+    ----------
+    csf_r, csf_s : CSF
+        The two CSFs whose off-diagonal element is being corrected.
+        ``r != s`` (we never call this on the diagonal).
+    orbitals_dict : dict
+        ``(n, kappa) -> (P, Q)`` orbital map.
+    bsp_data : dict
+        B-spline basis data for Slater integrals.
+    ns : int
+        Number of B-spline coefficients per orbital (for orbital lookup).
+    n_diff : int
+        Number of subshell differences (1 or 2).  Used to dispatch on
+        the 1-diff vs 2-diff sub-formula; not used in the no-op
+        scaffold.
+
+    Returns
+    -------
+    float
+        Additive correction to be added to the base 1-diff / 2-diff
+        matrix element.  Always ``0.0`` in the current scaffold.
+    """
+    # Only apply when both CSFs carry explicit J/parity metadata and
+    # sit in the same (J, parity) block.  The block filter in
+    # ``methods/ci.py`` already drops cross-block elements, so this
+    # check is mostly a clarity gate for the no-op path.
+    if not (_has_explicit_J(csf_r) and _has_explicit_J(csf_s)):
+        return 0.0
+    if int(csf_r.total_J2) != int(csf_s.total_J2):
+        return 0.0
+    if int(getattr(csf_r, "parity", 1)) != int(getattr(csf_s, "parity", 1)):
+        return 0.0
+
+    # n_diff > 2 is impossible (caller guarantees 1 or 2) and would
+    # otherwise also short-circuit.  The 1-diff and 2-diff bodies are
+    # not implemented in the scaffold; see the docstring for the
+    # Grant §8.3 formulas to fill in.
+    if n_diff not in (1, 2):
+        return 0.0
+
+    # No-op scaffold.  Filling in the J-coupled formula is HYP-184
+    # follow-up item (1).
+    del orbitals_dict, bsp_data, ns  # silence unused-arg warnings.
+    return 0.0
