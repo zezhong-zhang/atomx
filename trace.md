@@ -570,3 +570,21 @@ Re-applying that fix in `angular/csf.py` (now accepts `[J=` in addition to
 DODS per-block orbital-set hook. Pre-existing Pyright warnings in csf.py
 (numpy import + Optional subscripts in `one_body_csf_coupling`) are not
 from my edit.
+
+### EARS — Delivery (2026-05-20 06:55)
+<!-- concepts: off-diagonal-J-CI, DODS-EOL, partial-delivery -->
+HYP-184 retry under Pojo's push-or-invalid rule.  Pushed branch
+`agent/claude/d22ce182` carrying (a) the J-selection-rule loophole closure
+(re-applied from prior commit 335ab9c that died with the org cap), (b) the
+two scaffolds for the remaining physics items wired into the matrix /
+solver code paths, (c) a hand-checkable He-like 1s 2p J=1 analytic anchor
+in `tests/test_off_diagonal_j_ci_helike_1s2p.py` (3 lock-in tests + 1
+xfailed expectation that flips to strict on impl), and (d) updated xfail
+reason on `tests/test_fe17_3c_3d_vs_bernitt2012.py` referencing the
+follow-up.  Filed **HYP-189** (workspace auto-numbered, not HYP-185) for
+the two remaining bodies — off-diag Grant §8.3 / 6j and DODS EOL +
+biorthogonal transitions.  Gate suite: 175 passed / 1 skipped / 0 failed
+on the CI/MCDHF/transitions subset; FAC parity tripwire green; Fe XVII
+gate still conditionally xfailed (wavelength ~16.3 Å pending DODS).
+Both physics items are explicitly multi-day per the original brief — this
+is delivery under the partial-delivery clause, not silent gate-weakening.
