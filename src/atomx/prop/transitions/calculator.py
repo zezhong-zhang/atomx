@@ -109,12 +109,19 @@ def _csf_twice_J(csf):
 
     Multiple open shells are reported as J = j of the single most-open
     shell; this is approximate but better than the previous hard-coded
-    ``tj=1`` placeholder. If a CSF carries an explicit non-zero
-    ``total_J2`` attribute that takes precedence.
+    ``tj=1`` placeholder. If a CSF carries an explicit ``total_J2``
+    attribute that takes precedence — including the J=0 case, which is
+    recognised either from a non-default attribute *or* from the
+    bracketed ``[J=0/2]`` label tag emitted by
+    :func:`atomx.methods.mcdhf.config.enumerate_jj_csfs`.
     """
-    # Honour explicit total_J2 if somebody populated it.
+    # Honour explicit total_J2 if somebody populated it.  The closed-shell
+    # J=0 CSF carries ``total_J2=0`` (default int) but its label tags it
+    # with ``[J=0/2]``; treat that as explicit so the caller doesn't fall
+    # back to the open-shell heuristic.
     explicit = int(getattr(csf, "total_J2", 0))
-    if explicit > 0:
+    label = str(getattr(csf, "label", ""))
+    if explicit > 0 or " J=" in label or "[J=" in label:
         return explicit
 
     open_shells = []

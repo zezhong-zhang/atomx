@@ -550,3 +550,23 @@ parity bench, then run the full suite.
 - For the other E1 channels (s↔p_{3/2}, p↔d, d↔f) the same simple form gives off-by-{2, 4, 6} factors — the radial integrand needs the full Grant 2007 §8.4 derivative-free reduction with the (κ_i − κ_f ± L) coefficients. Out of scope here; the He-like ¹P₁ → ¹S₀ test is `xfail(strict=False)` pinned to this follow-up so CI will flag the *flip to pass* the moment T1 lands.
 - Threaded `omega` through `_csf_transition_me` and the single-config path so the calculator can evaluate the FAC-normalised form per transition. Existing transitions / M1 / E2 / higher-multipole tests all still pass (46/46).
 - Next: extend the FAC-parity gate with a `gauge_ratio_max` column. Will use `gauge='both'` on the existing single-config DHF run and aggregate the worst |A_v/A_l − 1| across the row's E1 channels; for ground configs with no s↔p E1 channels (He-/Li-/Be-like) the column is 0.0 by construction.
+
+### EARS — Progress (2026-05-19 19:03)
+<!-- concepts: jj-csf-J-selection-rule, mcdhf-transition-calculator, label-format-recognition -->
+HYP-184 follow-up. Re-baseline on origin/main after Jack's 6c5f3a5 CSF-enum
+fix surfaced a separate regression: top-f E1 lines from State_0 now include
+2J=4/6/8 finals (e.g. State_22 J=4⁻ at 12.458 Å, f=2.98), which is
+forbidden by ΔJ for a J=0 ground. Root cause: Jack's enumerator now emits
+labels of the form `... [J=2J/2]`, but `angular.csf.csf_has_explicit_j`
+checks only for ` J=` (legacy space-prefixed form). Closed-shell J=0
+ground has `total_J2=0` (default int) and label `[J=0/2]`, so the explicit-J
+detector returned False → the `multipole_allows_state_transition` filter in
+`_compute_mcdhf_transitions` was bypassed → legacy `_csf_twice_J` fallback
+(no parity check) was used. This is the same loophole the previous Claude
+turn (commit 335ab9c on the abandoned agent/claude/6cd3a562 branch) closed.
+Re-applying that fix in `angular/csf.py` (now accepts `[J=` in addition to
+` J=`). Next: apply the parallel fix to `_csf_twice_J` in
+`prop/transitions/calculator.py`, then build off-diagonal J-CI scaffold and
+DODS per-block orbital-set hook. Pre-existing Pyright warnings in csf.py
+(numpy import + Optional subscripts in `one_body_csf_coupling`) are not
+from my edit.
