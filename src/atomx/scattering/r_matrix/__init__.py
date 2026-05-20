@@ -18,25 +18,35 @@ References
 
 from __future__ import annotations
 
-from atomx.scattering.r_matrix.coupled_channels import compute_multichannel
+from atomx.scattering.r_matrix.coupled_channels import (
+    CCResult,
+    compute_multichannel,
+    extract_resonances,
+    r_matrix_excitation_cross_section,
+)
 from atomx.scattering.r_matrix.solver import RMatrixResult, compute_single_channel
+from atomx.scattering.r_matrix.target_states import (
+    TargetState,
+    heplus_target_states,
+)
 
 
-def compute(*_args, **_kwargs) -> RMatrixResult:
-    """Close-coupling R-matrix solve — not implemented yet (HYP-172 Phase 2).
+def compute(*args, **kwargs) -> CCResult:
+    """Close-coupling R-matrix solve — aliases :func:`compute_multichannel`.
 
     Use :func:`compute_single_channel` for the single-open-channel case.
     """
-    raise NotImplementedError(
-        "Multi-channel R-matrix close-coupling is not yet implemented "
-        "(HYP-172 Phase 2). The single-channel driver "
-        "atomx.scattering.r_matrix.compute_single_channel is available."
-    )
+    return compute_multichannel(*args, **kwargs)
 
 
 __all__ = [
+    "CCResult",
     "RMatrixResult",
+    "TargetState",
     "compute",
-    "compute_single_channel",
     "compute_multichannel",
+    "compute_single_channel",
+    "extract_resonances",
+    "heplus_target_states",
+    "r_matrix_excitation_cross_section",
 ]

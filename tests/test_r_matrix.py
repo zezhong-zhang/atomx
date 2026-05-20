@@ -98,9 +98,26 @@ def test_eigenvalues_sorted():
     assert np.all(np.diff(res.eigenvalues_E_n_au) >= 0)
 
 
-def test_multi_channel_compute_not_implemented():
-    with pytest.raises(NotImplementedError):
-        compute()
+def test_multi_channel_compute_dispatches_to_close_coupling():
+    """``compute`` aliases the phase-2 ``compute_multichannel`` driver.
+
+    Phase-1 left this entry point as a ``NotImplementedError`` stub; phase
+    2 wires it through to the multi-channel R-matrix solver (HYP-188).
+    Calling with no arguments now raises ``TypeError`` for the missing
+    required parameters, not ``NotImplementedError``.
+    """
+    from atomx.scattering.r_matrix import (
+        compute_multichannel,
+        heplus_target_states,
+    )
+    targets = list(heplus_target_states(Z=2.0).values())
+    res = compute_multichannel(
+        targets, L_total=0, S_total=0, parity=+1,
+        energies_au=np.array([-0.8]), Z=2.0, a_au=20.0,
+        n_basis=30, n_gauss=6, l_c_max=1,
+    )
+    assert res.eigenphase_sum.shape == (1,)
+    assert np.isfinite(res.eigenphase_sum[0])
 
 
 # -----------------------------------------------------------------------------
