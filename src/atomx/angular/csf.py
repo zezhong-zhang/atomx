@@ -46,12 +46,14 @@ class TwoBodyCsfCoupling:
 def csf_twice_j(csf) -> int:
     """Infer twice the total J for a CSF.
 
-    Explicit J-resolved CSFs carry ``total_J2`` and labels such as ``J=0``.
-    Legacy compact CSFs may not; for those, this falls back to the open-shell
-    estimate used by the older transition calculator.
+    Explicit J-resolved CSFs carry ``total_J2`` and labels such as
+    ``... J=0`` (legacy form) or ``... [J=0/2]`` (current
+    ``enumerate_jj_csfs`` form, including the J=0 closed-shell case).
+    Legacy compact CSFs may carry neither; for those, this falls back
+    to the open-shell estimate used by the older transition calculator.
     """
     explicit = int(getattr(csf, "total_J2", 0))
-    if explicit > 0 or " J=" in str(getattr(csf, "label", "")):
+    if csf_has_explicit_j(csf):
         return explicit
 
     open_shells = []
@@ -75,8 +77,20 @@ def csf_parity(csf) -> int:
 
 
 def csf_has_explicit_j(csf) -> bool:
-    """Whether a CSF has explicit total-J metadata."""
-    return int(getattr(csf, "total_J2", 0)) > 0 or " J=" in str(getattr(csf, "label", ""))
+    """Whether a CSF carries explicit total-J metadata.
+
+    Accepts either a non-default ``total_J2`` attribute or a label
+    containing ``J=`` in either the legacy form ``... J=2/2`` or the
+    bracketed form ``... [J=2/2]`` emitted by
+    :func:`atomx.methods.mcdhf.config.enumerate_jj_csfs`.  The bracketed
+    form is essential for closed-shell J=0 CSFs whose ``total_J2`` is
+    zero — without this they were silently bypassing the many-electron
+    multipole selection-rule filter in the MCDHF transition path.
+    """
+    if int(getattr(csf, "total_J2", 0)) > 0:
+        return True
+    label = str(getattr(csf, "label", ""))
+    return " J=" in label or "[J=" in label
 
 
 def multipole_allows_state_transition(tj_i: int, parity_i: int,

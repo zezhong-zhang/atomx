@@ -43,6 +43,15 @@ class MCDHFResult:
     #: effective occupations.  Populated by :class:`MCDHFSolver`;
     #: empty for results that haven't been through an SCF cycle.
     occupations: Dict = field(default_factory=dict)
+    #: DODS / EOL per-(J, parity)-block orbital sets.  HYP-184 scaffold:
+    #: each entry maps a ``(twoJ, parity)`` tuple to a separate
+    #: ``{(n, kappa): (P, Q)}`` orbital dict optimised for that block.
+    #: Empty by default — the solver currently emits one Guerra-averaged
+    #: orbital set shared across all blocks (see ``MCDHFSolver``).  When
+    #: populated, the transition calculator should apply a biorthogonal
+    #: transformation when computing ``<F|T^L|I>`` for I and F in
+    #: different blocks.
+    per_block_orbitals: Dict = field(default_factory=dict)
     _bsp_data: Dict = field(default_factory=dict, repr=False)
 
     def __post_init__(self):
@@ -211,7 +220,8 @@ class MCDHFSolver:
     def __init__(self, Z, csfs, ns=50, ks=9, r_min=None, r_max=None,
                  include_breit=False, include_qed=False,
                  nuclear="fermi", use_physics_grid=True,
-                 starting_potential=None):
+                 starting_potential=None,
+                 per_block_orbital_sets=False):
         self.Z = Z
         self.csfs = csfs
         self.n_csf = len(csfs)
@@ -225,6 +235,17 @@ class MCDHFSolver:
         self.nuclear = nuclear
         self.use_physics_grid = use_physics_grid
         self.starting_potential = starting_potential
+        # DODS / EOL per-(J, parity)-block orbital optimisation toggle —
+        # HYP-184 scaffold.  When True, ``solve()`` will (eventually)
+        # run a separate Guerra-averaged DHF per (J, parity) block on
+        # the CSF list filtered to that block, store the resulting
+        # orbital sets on ``MCDHFResult.per_block_orbitals``, and rely
+        # on the transition calculator to apply a biorthogonal
+        # transformation when computing inter-block matrix elements.
+        # The implementation is currently a no-op (one shared Guerra
+        # orbital set across all blocks) and is tracked under HYP-184
+        # follow-up item (2).
+        self.per_block_orbital_sets = bool(per_block_orbital_sets)
 
     def _averaged_subshells(self, weights=None):
         """Guerra Eq (10): ϖᵢ = Σⱼ cⱼ² nᵢʲ — fractional occupations.
@@ -418,6 +439,18 @@ class MCDHFSolver:
                     orb_list, dhf.bsp_data, self.Z,
                 ))
 
+        # DODS / EOL per-(J, parity)-block orbital relaxation (HYP-184
+        # scaffold).  When ``per_block_orbital_sets=True``, build a
+        # block → orbital-set map; otherwise leave empty so the
+        # transition calculator falls back to the shared Guerra set.
+        per_block_orbitals: Dict = {}
+        if self.per_block_orbital_sets:
+            per_block_orbitals = self._solve_per_block_orbitals(
+                mixing=mixing,
+                shared_orbitals=orbitals_dict,
+                dhf=dhf,
+            )
+
         result = MCDHFResult(
             converged=converged,
             iterations=iteration,
@@ -430,6 +463,7 @@ class MCDHFSolver:
             bsp_data=dict(dhf.bsp_data) if dhf is not None else {},
             Z=self.Z,
             occupations=occupations,
+            per_block_orbitals=per_block_orbitals,
         )
         # Attach correction components for downstream energy breakdown.
         if E_Breit:
@@ -437,3 +471,52 @@ class MCDHFSolver:
         if qed_components:
             result.__dict__["_E_QED"] = qed_components
         return result
+
+    def _solve_per_block_orbitals(self, *, mixing, shared_orbitals, dhf):
+        """DODS / EOL per-(J, parity)-block orbital optimisation — scaffold.
+
+        HYP-184 follow-up item (2).  In the canonical Guerra averaged-level
+        MCDHF, ``MCDHFSolver.solve`` produces one shared orbital set
+        optimised against the *flat* CI mixing weights.  For Fe XVII
+        2p⁵3l this means the excited-state 3l electron is solved in
+        the closed-shell 2p⁶ field rather than the open 2p⁵3l field,
+        pulling 2p→3l excitation energies ~5–8 % low and producing the
+        canonical ~1 Å redshift on the 3C wavelength (16.31 Å vs
+        Bernitt 15.014 Å).
+
+        The fix is to run a separate Guerra-averaged DHF *per
+        (J, parity) block*, using only that block's CSFs (with their
+        block-internal mixing weights), and to expose each
+        block-specific orbital set on
+        :attr:`MCDHFResult.per_block_orbitals` as
+        ``{(twoJ, parity): {(n, kappa): (P, Q)}}``.  The transition
+        calculator then applies a biorthogonal transformation between
+        the initial-state and final-state orbital sets when computing
+        radiative matrix elements (see
+        :mod:`atomx.prop.transitions.calculator`).
+
+        **Current status — scaffold only.**  Returns an empty dict;
+        the caller leaves the shared orbital set in place.
+
+        Parameters
+        ----------
+        mixing : np.ndarray
+            ``(n_csf, n_state)`` CI mixing coefficients.  Used to
+            extract per-block weights ``w^block_i = c_i^state_in_block``.
+        shared_orbitals : dict
+            ``{(n, kappa): (P, Q)}`` Guerra-averaged orbital set
+            already solved in :meth:`solve`.  Useful as a warm-start
+            seed for the per-block DHF.
+        dhf : DFSolver
+            The DFSolver instance used in the shared-orbital pass.
+            Carries the bsp_data / grid that per-block solves should
+            reuse for orbital-pair compatibility.
+
+        Returns
+        -------
+        dict
+            ``{(twoJ, parity): {(n, kappa): (P, Q)}}`` — empty when
+            the implementation is not yet filled in.
+        """
+        del mixing, shared_orbitals, dhf  # silence unused-arg warnings.
+        return {}
