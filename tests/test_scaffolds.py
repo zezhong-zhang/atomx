@@ -87,5 +87,9 @@ def test_r_matrix_scaffold_import_and_raises():
     from atomx.scattering import r_matrix
 
     assert hasattr(r_matrix, "RMatrixResult")
-    with pytest.raises(NotImplementedError, match="r_matrix"):
+    assert hasattr(r_matrix, "compute")
+    assert callable(r_matrix.compute)
+    # compute() now aliases compute_multichannel (phase 2 landed);
+    # calling with no args raises TypeError, not NotImplementedError.
+    with pytest.raises(TypeError):
         r_matrix.compute()
