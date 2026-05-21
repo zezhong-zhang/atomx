@@ -48,6 +48,7 @@ def test_frozen_fac_parity_matrix_atomx_columns():
         expected_E = float(golden["atomx_E_eV"])
         expected_E1 = float(golden["atomx_first_E1_eV"])
         expected_A = float(golden["atomx_first_A_s"])
+        expected_gauge = float(golden["atomx_gauge_ratio_max"])
 
         assert _relerr(float(actual["atomx_E_eV"]), expected_E) <= 1.0e-3, (Z, iso, "E")
         assert _relerr(float(actual["atomx_first_E1_eV"]), expected_E1) <= 1.0e-3, (
@@ -62,6 +63,22 @@ def test_frozen_fac_parity_matrix_atomx_columns():
                 Z,
                 iso,
                 "first A",
+            )
+
+        # Gauge-ratio tripwire: a 10 % perturbation in the radial /
+        # angular pipeline shifts the worst-channel |A_v/A_l - 1| past
+        # this bound.  Closed-shell ground configs with no s↔p E1
+        # channel record exactly 0 by construction; treat them as a
+        # strict-equality check so that any spurious non-zero entry from
+        # a structure-code regression trips immediately.
+        actual_gauge = float(actual["atomx_gauge_ratio_max"])
+        if expected_gauge == 0.0:
+            assert actual_gauge == 0.0, (Z, iso, "gauge_ratio_max non-zero")
+        else:
+            assert _relerr(actual_gauge, expected_gauge) <= 5.0e-2, (
+                Z,
+                iso,
+                "gauge_ratio_max",
             )
 
         frozen_time_by_z[Z] += float(golden["t_atomx"])
