@@ -79,32 +79,49 @@ def radial_eL(P_i, Q_i, P_f, Q_f, bsp_data, L=1):
 
 
 def radial_eL_velocity(P_i, Q_i, P_f, Q_f, bsp_data, L=1,
-                        kappa_i=None, kappa_f=None):
+                        kappa_i=None, kappa_f=None, omega=None):
     """Electric 2^L-pole radial matrix element (velocity/Coulomb gauge).
 
-    For E1 in velocity gauge (Grant, Eq. 9.21):
-        R_E1_vel = integral [P_f*Q_i*(kappa_i+1) + Q_f*P_i*(kappa_f+1)
-                             - P_f*Q_i + Q_f*P_i] * (1/(omega*r)) dr
-    Simplified for general L using Johnson (2007) formulation:
-        R_EL_vel = integral [P_f*Q_i - Q_f*P_i] * r^(L-1) / c dr
-                   * L / (L+1) + kappa-dependent terms
+    Normalised in the FAC / Grant convention: for exact eigenstates of a
+    common Dirac-Coulomb Hamiltonian the velocity-gauge integral is
+    constructed so that, when squared and inserted into the *same*
+    :func:`~atomx.prop.transitions.rates.einstein_A_eL` formula with the
+    *same* angular factor :func:`~atomx.prop.transitions.angular.angular_eL`,
+    the A-coefficient equals its length-gauge value (Gu 2008 §3.2).
 
-    For now, implements the leading-order velocity-gauge form.
+    The L = 1 derivative-free form used here is the canonical
+    s ↔ p_{1/2} reduction of the Heisenberg equation-of-motion identity
+    :math:`\\langle f|\\boldsymbol{\\alpha}|i\\rangle = (\\omega/c)\\,
+    \\langle f|\\mathbf{r}|i\\rangle` after eliminating derivatives via the
+    Dirac equation, yielding
+
+        R^V(E1) = (c/ω) ∫ (P_f Q_i - Q_f P_i) dr
+
+    For hydrogenic s ↔ p_{1/2} transitions this matches the length-gauge
+    matrix element to numerical precision (verified in
+    :mod:`tests.test_gauge_invariance`). The full (κ_i, κ_f, L)-dependent
+    velocity-gauge reduction for the other E1 channels (and for E≥2 /
+    M≥1 multipoles) is tracked separately as the T1 follow-up — those
+    channels still reuse the leading-order form below and so do *not*
+    yet satisfy gauge invariance to numerical precision.
 
     Parameters
     ----------
     P_i, Q_i, P_f, Q_f : ndarray
-        B-spline coefficients.
+        B-spline coefficients (initial / final, large / small components).
     bsp_data : dict
+        B-spline workspace.
     L : int
-        Multipole rank.
+        Multipole rank (only L = 1 uses the corrected form).
     kappa_i, kappa_f : int, optional
-        Kappa quantum numbers (needed for exact velocity gauge).
+        Dirac quantum numbers. Required for the E1 form.
+    omega : float, optional
+        Transition energy in Hartree. Required for the E1 form.
 
     Returns
     -------
     float
-        Velocity-gauge radial matrix element.
+        Velocity-gauge radial matrix element in atomic units.
     """
     gr = bsp_data["gr"]
     grw = bsp_data["grw"]
@@ -114,22 +131,25 @@ def radial_eL_velocity(P_i, Q_i, P_f, Q_f, bsp_data, L=1,
     ff_P = _eval_P(P_f, bsp_data)
     ff_Q = _eval_Q(Q_f, bsp_data)
 
-    # Leading velocity-gauge form: involves cross-terms P*Q
-    # For E1, the exact relativistic velocity form (Grant 2007):
-    # T_vel = (1/omega) * integral [(kappa_f + kappa_i) * (P_f*Q_i + Q_f*P_i)
-    #         + (kappa_f - kappa_i) * (P_f*Q_i - Q_f*P_i)] dr / (2c)
-    # Simplified for general L as the leading contribution:
+    # E1 derivative-free velocity gauge.
+    if L == 1 and omega is not None and kappa_i is not None and kappa_f is not None:
+        # FAC-normalised dipole velocity radial integral.  For exact
+        # Dirac-Coulomb eigenstates this equals the length-gauge value;
+        # any departure is the structure-quality "gauge ratio" diagnostic.
+        integrand = (ff_P * fi_Q - ff_Q * fi_P)
+        return (C / omega) * float(np.sum(grw * integrand))
+
+    # Higher-multipole fallback (T1): leading-order kappa-symmetric form
+    # kept verbatim from the original implementation.  Used only when
+    # ``L > 1`` or when ``omega`` is unavailable.
     if kappa_i is not None and kappa_f is not None:
-        # Exact E1 velocity gauge using kappa
         term1 = (ff_P * fi_Q + ff_Q * fi_P)  # symmetric
         term2 = (ff_P * fi_Q - ff_Q * fi_P)  # antisymmetric
         integrand = ((kappa_f + kappa_i) * term1
                      + (kappa_f - kappa_i) * term2) / (2.0 * C)
-        return np.sum(grw * integrand)
-    else:
-        # Approximate velocity form without kappa
-        integrand = (ff_P * fi_Q - ff_Q * fi_P) * gr ** (L - 1) / C
-        return np.sum(grw * integrand)
+        return float(np.sum(grw * integrand))
+    integrand = (ff_P * fi_Q - ff_Q * fi_P) * gr ** (L - 1) / C
+    return float(np.sum(grw * integrand))
 
 
 def radial_mL(P_i, Q_i, P_f, Q_f, bsp_data, L=1):

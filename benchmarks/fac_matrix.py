@@ -33,6 +33,13 @@ CSV_COLUMNS = [
     "fac_first_E1_eV",
     "atomx_first_A_s",
     "fac_first_A_s",
+    # Worst |A_v/A_l - 1| across all E1 channels in the ground-config
+    # DHF solve (Gu 2008 §3.2 gauge-invariance diagnostic).  Closed-shell
+    # ground configs with no s↔p E1 channel record 0.0 by construction;
+    # other rows pin the structure-code numerics tight enough that a 10 %
+    # perturbation anywhere in the radial / angular pipeline shifts the
+    # value past the frozen tolerance.
+    "atomx_gauge_ratio_max",
     "t_atomx",
     "t_sfac",
 ]
@@ -128,6 +135,25 @@ def atomx_e1_proxy(Z: int, iso: str) -> tuple[float, float]:
     return omega * HARTREE_EV, einstein_A_eL(omega, line_strength=1.0, L=1, tj_i=1)
 
 
+def _gauge_ratio_max(atom) -> float:
+    """Worst |A_v/A_l - 1| across the atom's ground-config E1 channels.
+
+    Closed-shell ground configs (1s², 1s²2s, 1s²2s² …) have no E1-allowed
+    orbital pair and return ``0.0``.  Open-shell or non-degenerate-l
+    ground configs (Ne-like, Ar-like …) drive a real ratio that pins the
+    structure-code numerics; a 10 % perturbation in the radial /
+    angular pipeline shifts this value past the frozen tolerance.
+    """
+    transitions = atom.transitions(multipoles=["E1"], gauge="both")
+    devs = [
+        abs(t.A_velocity / t.A_length - 1.0)
+        for t in transitions
+        if t.A_length is not None and t.A_velocity is not None
+        and t.A_length > 0.0
+    ]
+    return max(devs) if devs else 0.0
+
+
 def run_atomx_matrix_cell(Z: int, iso: str) -> dict[str, float | int | str]:
     spec = ISO_SPECS[iso]
     t0 = time.perf_counter()
@@ -141,6 +167,7 @@ def run_atomx_matrix_cell(Z: int, iso: str) -> dict[str, float | int | str]:
     )
     atom.solve()
     first_e1_eV, first_A_s = atomx_e1_proxy(Z, iso)
+    gauge_ratio_max = _gauge_ratio_max(atom)
     elapsed = time.perf_counter() - t0
     return {
         "Z": Z,
@@ -148,6 +175,7 @@ def run_atomx_matrix_cell(Z: int, iso: str) -> dict[str, float | int | str]:
         "atomx_E_eV": atom.total_energy * HARTREE_EV,
         "atomx_first_E1_eV": first_e1_eV,
         "atomx_first_A_s": first_A_s,
+        "atomx_gauge_ratio_max": gauge_ratio_max,
         "t_atomx": elapsed,
     }
 
@@ -235,6 +263,7 @@ def write_matrix_csv(rows: list[dict], out: Path) -> None:
                 "fac_first_E1_eV": f"{float(row['fac_first_E1_eV']):.8e}",
                 "atomx_first_A_s": f"{float(row['atomx_first_A_s']):.8e}",
                 "fac_first_A_s": f"{float(row['fac_first_A_s']):.8e}",
+                "atomx_gauge_ratio_max": f"{float(row['atomx_gauge_ratio_max']):.8e}",
                 "t_atomx": f"{float(row['t_atomx']):.6f}",
                 "t_sfac": f"{float(row['t_sfac']):.6f}",
             })
