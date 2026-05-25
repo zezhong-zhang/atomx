@@ -19,6 +19,7 @@ from atomx.methods.kohn_sham import compute_slater_rk
 from atomx.prop.transitions.angular import _kappa_to_lj, selection_rules, angular_eL
 from atomx.prop.transitions.multipole import radial_eL
 from atomx.prop.transitions.rates import oscillator_strength
+from atomx.scattering._jit_kernels import dw_excitation_sigma_sum
 
 
 # Cross-section unit: pi * a_0^2 in cm^2
@@ -33,6 +34,8 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
     Uses the DW approximation: the incoming/outgoing electron wavefunctions
     are computed in the static potential of the initial/final atomic state.
 
+    The inner partial-wave sum is JIT-compiled via numba for performance.
+
     Parameters
     ----------
     atom_initial : Atom
@@ -46,9 +49,7 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
     kappa_max : int
         Maximum |kappa| for partial-wave expansion.
     transition_energy_eV : float or array_like, optional
-        Override transition threshold energy.  This compatibility hook lets
-        FAC-parity benchmarks compare on FAC's level-resolved thresholds even
-        when AtomX's current structure energy differs.
+        Override transition threshold energy.
 
     Returns
     -------
@@ -63,8 +64,6 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
         raise ValueError("kappa_max must be positive")
 
     energies_eV = np.atleast_1d(np.asarray(energies_eV, dtype=float))
-    sigma = np.zeros_like(energies_eV)
-    omega = np.zeros_like(energies_eV)
 
     # Extract structure data
     result_i = atom_initial._result
@@ -77,7 +76,6 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
     Z = atom_initial.Z
 
     # Transition energy (difference in total energies), optionally overridden
-    # per energy-grid point by benchmark/reference data.
     dE_hartree = result_f.total_energy - result_i.total_energy
     if transition_energy_eV is not None:
         dE_override = np.asarray(transition_energy_eV, dtype=float)
@@ -99,86 +97,104 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
         _find_active_orbital(result_i, result_f)
 
     if P_bound_i is None:
-        return sigma, omega  # Cannot identify transition
+        return np.zeros_like(energies_eV), np.zeros_like(energies_eV)
 
     _, tj_i = _kappa_to_lj(kappa_i)
 
-    for idx, E_eV in enumerate(energies_eV):
-        E_inc_hartree = E_eV / HARTREE_EV
-        dE_point = float(dE_hartree_grid[idx])
+    n_energies = len(energies_eV)
+    E_inc_hartree = energies_eV / HARTREE_EV
 
-        # Kinetic energies of incident and scattered electrons
-        E_scattered = E_inc_hartree - dE_point
+    # Build kappa arrays (exclude 0)
+    kappa_inc_arr = np.array([k for k in range(-kappa_max, kappa_max + 1) if k != 0],
+                             dtype=np.int64)
+    kappa_scat_arr = kappa_inc_arr  # same range
+    k_arr = np.arange(0, L_max + 1, dtype=np.int64)
+
+    n_ki = len(kappa_inc_arr)
+    n_ks = len(kappa_scat_arr)
+    n_k = len(k_arr)
+
+    # Pre-solve all continuum waves and pre-compute Slater integrals.
+    # The continuum solve is Python-level (uses bsp_data dicts), but we
+    # batch it so the inner numba kernel gets pure arrays.
+    slater_direct = np.full((n_energies, n_ki, n_ks, n_k), np.nan)
+    slater_exchange = np.full((n_energies, n_ki, n_ks, n_k), np.nan)
+
+    # Cache continuum solutions: (kappa, E_hartree) -> (P, Q)
+    continuum_cache = {}
+
+    for idx in range(n_energies):
+        E_inc = E_inc_hartree[idx]
+        E_scattered = E_inc - dE_hartree_grid[idx]
         if E_scattered <= 0:
-            continue  # below threshold
+            continue
 
-        # k^2 of incident electron (in atomic units)
-        k_i_sq = 2.0 * E_inc_hartree  # non-relativistic: k^2 = 2*E
-
-        # Sum over partial waves for incoming and outgoing electrons
-        sigma_partial = 0.0
-
-        for kappa_inc in range(-kappa_max, kappa_max + 1):
-            if kappa_inc == 0:
+        # Solve continuum for all kappa at this energy (with caching)
+        for iki, kappa_inc in enumerate(kappa_inc_arr):
+            key_in = (int(kappa_inc), idx)
+            if key_in not in continuum_cache:
+                try:
+                    P_inc, Q_inc, _ = solve_continuum(
+                        int(kappa_inc), E_inc, Z, bsp_data,
+                        V_J_PP_i, V_J_QQ_i, energy_normalized=True)
+                    continuum_cache[key_in] = (P_inc, Q_inc)
+                except Exception:
+                    continuum_cache[key_in] = None
+            inc_result = continuum_cache[key_in]
+            if inc_result is None:
                 continue
-            for kappa_scat in range(-kappa_max, kappa_max + 1):
-                if kappa_scat == 0:
-                    continue
+            P_inc, Q_inc = inc_result
 
-                # Solve continuum for incoming electron
-                try:
-                    P_inc, Q_inc, E_inc_actual = solve_continuum(
-                        kappa_inc, E_inc_hartree, Z, bsp_data,
-                        V_J_PP_i, V_J_QQ_i, energy_normalized=True)
-                except Exception:
+            for iks, kappa_scat in enumerate(kappa_scat_arr):
+                key_scat = (int(kappa_scat), idx, 1)  # 1 = scattered
+                # Use energy as scatter key
+                key_scat = (int(kappa_scat), round(E_scattered, 12))
+                if key_scat not in continuum_cache:
+                    try:
+                        P_scat, Q_scat, _ = solve_continuum(
+                            int(kappa_scat), E_scattered, Z, bsp_data,
+                            V_J_PP_i, V_J_QQ_i, energy_normalized=True)
+                        continuum_cache[key_scat] = (P_scat, Q_scat)
+                    except Exception:
+                        continuum_cache[key_scat] = None
+                scat_result = continuum_cache[key_scat]
+                if scat_result is None:
                     continue
+                P_scat, Q_scat = scat_result
 
-                # Solve continuum for scattered electron
-                try:
-                    P_scat, Q_scat, E_scat_actual = solve_continuum(
-                        kappa_scat, E_scattered, Z, bsp_data,
-                        V_J_PP_i, V_J_QQ_i, energy_normalized=True)
-                except Exception:
-                    continue
-
-                # T-matrix: sum over Coulomb multipoles k
-                T = 0.0
-                for k in range(0, L_max + 1):
+                for ik, k in enumerate(k_arr):
                     # Direct: R^k(bound_i, inc; bound_f, scat)
                     try:
-                        Rk_direct = compute_slater_rk(
+                        Rk_d = compute_slater_rk(
                             P_bound_i, Q_bound_i, P_inc, Q_inc,
                             P_bound_f, Q_bound_f, P_scat, Q_scat,
-                            bsp_data, k)
+                            bsp_data, int(k))
+                        slater_direct[idx, iki, iks, ik] = Rk_d
                     except Exception:
-                        Rk_direct = 0.0
+                        pass
 
                     # Exchange: R^k(bound_i, inc; scat, bound_f)
                     try:
-                        Rk_exchange = compute_slater_rk(
+                        Rk_e = compute_slater_rk(
                             P_bound_i, Q_bound_i, P_inc, Q_inc,
                             P_scat, Q_scat, P_bound_f, Q_bound_f,
-                            bsp_data, k)
+                            bsp_data, int(k))
+                        slater_exchange[idx, iki, iks, ik] = Rk_e
                     except Exception:
-                        Rk_exchange = 0.0
+                        pass
 
-                    # Angular coupling (simplified: use direct coefficient)
-                    T += Rk_direct - Rk_exchange
-
-                sigma_partial += T ** 2
-
-        # sigma = pi / k_i^2 * sum |T|^2 / (2j_i + 1)
-        if k_i_sq > 0:
-            sigma[idx] = np.pi / k_i_sq * sigma_partial / (tj_i + 1)
-            omega[idx] = k_i_sq * (tj_i + 1) * sigma[idx] / np.pi
+    # JIT-compiled sigma assembly
+    sigma_au, omega = dw_excitation_sigma_sum(
+        n_energies, kappa_inc_arr, kappa_scat_arr, k_arr,
+        slater_direct, slater_exchange, E_inc_hartree,
+        dE_hartree_grid, tj_i,
+    )
 
     # Convert from atomic units (a_0^2) to cm^2
-    sigma *= (BOHR_RADIUS_M * 100) ** 2
+    sigma = sigma_au * (BOHR_RADIUS_M * 100) ** 2
 
     # FAC blends/augments high partial waves with a Coulomb-Bethe limit for
-    # optically allowed transitions.  The simplified partial-wave sum above can
-    # miss that channel entirely with sparse pseudo-continuum bases; use the
-    # analytic Bethe tail as a floor rather than returning an unphysical zero.
+    # optically allowed transitions.
     zero_mask = (sigma <= 0.0) & (energies_eV > dE_hartree_grid * HARTREE_EV)
     if np.any(zero_mask) and selection_rules(kappa_i, kappa_f, 1, "E"):
         omega0 = float(np.mean(dE_hartree_grid))
@@ -215,9 +231,7 @@ def _extract_scf_potential(atom, include_local_exchange: bool = False):
     if result is None or bsp_data is None:
         return None, None
 
-    # Reconstruct V_J from the converged orbitals
     from atomx.methods.dirac_fock import DFSolver
-    # Create a temporary solver to access potential building
     solver = DFSolver.__new__(DFSolver)
     solver.Z = atom.Z
     solver.ns = bsp_data["ns"]
@@ -231,10 +245,7 @@ def _extract_scf_potential(atom, include_local_exchange: bool = False):
 
 
 def _find_active_orbital(result_i, result_f):
-    """Find the orbital that differs between initial and final states.
-
-    Returns the bound orbital coefficients and kappa for the active electron.
-    """
+    """Find the orbital that differs between initial and final states."""
     occ_i = {(sh.n, sh.kappa): float(sh.occupation) for sh in result_i.subshells}
     occ_f = {(sh.n, sh.kappa): float(sh.occupation) for sh in result_f.subshells}
     sources = []
@@ -256,7 +267,6 @@ def _find_active_orbital(result_i, result_f):
     if orb_i_label is None or orb_f_label is None:
         return None, None, None, None, None, None, None, None
 
-    # Extract orbital coefficients
     P_i, Q_i, kappa_i = _get_orbital_by_key(result_i, source_key)
     P_f, Q_f, kappa_f = _get_orbital_by_key(result_f, destination_key)
 
@@ -322,15 +332,11 @@ def collision_strength_to_rate(omega_array, energy_eV_array, temperature_eV):
     if kT <= 0:
         return 0.0
 
-    # Boltzmann weight
     weights = np.exp(-energy_eV_array / kT)
-
-    # Trapezoidal integration (np.trapezoid in numpy 2.x)
     integrand = omega_array * weights
-    _trap = getattr(np, "trapezoid", None) or np.trapz  # type: ignore[attr-defined]
+    _trap = getattr(np, "trapezoid", None) or np.trapz
     rate = _trap(integrand, energy_eV_array)
 
-    # Prefactor (cgs units)
     from atomx.constants import BOHR_RADIUS_M, HARTREE_EV
     a0_cm = BOHR_RADIUS_M * 100
     prefactor = 2.0 * np.pi * a0_cm ** 2 / np.sqrt(kT / HARTREE_EV)
@@ -338,7 +344,7 @@ def collision_strength_to_rate(omega_array, energy_eV_array, temperature_eV):
 
 
 # ---------------------------------------------------------------------------
-# Coulomb-Bethe high-ℓ top-up for dipole-allowed transitions
+# Coulomb-Bethe high-l top-up for dipole-allowed transitions
 # ---------------------------------------------------------------------------
 
 
@@ -348,46 +354,24 @@ def coulomb_bethe_topup(
     dE_eV: float,
     L_truncation: int,
 ) -> np.ndarray:
-    """High-ℓ Coulomb-Bethe (Burgess-Sheorey) top-up for the dipole-
+    """High-l Coulomb-Bethe (Burgess-Sheorey) top-up for the dipole-
     allowed collision strength.
-
-    The DW partial-wave sum truncates at some ℓ_max; the contribution
-    from ℓ > ℓ_max is approximated by its Bethe asymptotic limit
-
-        Ω_CB(E) ≈ (8/E) · f_ab · ln(E_kin · ω_ab^{-1})  ·  (correction)
-
-    Following Burgess & Sheorey (J. Phys. B 7, 2403, 1974), a more
-    refined formula uses the projectile momentum k:
-
-        Ω_CB(E ; ℓ > L) ≈ (4 f_ab / ω) · ln[(k_initial + k_final) /
-                                              (k_initial - k_final)]
-
-    where k = √(2 E_kin) and ω = ΔE.  This expression closes the
-    partial-wave sum analytically and removes the slow log-divergent
-    convergence with ℓ_max for dipole transitions.
 
     Parameters
     ----------
     f_ab
-        Optical (dipole) oscillator strength of the i → f transition,
-        atomic-units / dimensionless.
+        Optical (dipole) oscillator strength of the i -> f transition.
     energies_eV
         Incident-electron energies, eV.
     dE_eV
-        Excitation energy E_f − E_i, eV.
+        Excitation energy E_f - E_i, eV.
     L_truncation
-        ℓ value at which the DW sum was truncated.
+        l value at which the DW sum was truncated.
 
     Returns
     -------
     np.ndarray
-        Top-up Ω(E) per energy on the same grid as ``energies_eV``.
-
-    References
-    ----------
-    - A. Burgess, V. P. Sheorey, *J. Phys. B* **7**, 2403 (1974).
-    - C. Mendoza, P. J. Storey, *J. Phys. B* **15**, 1145 (1982) —
-      practical implementation in scattering codes.
+        Top-up Omega(E) per energy on the same grid as ``energies_eV``.
     """
     from atomx.constants import HARTREE_EV
     energies_au = np.asarray(energies_eV, dtype=float) / HARTREE_EV
@@ -398,13 +382,10 @@ def coulomb_bethe_topup(
         return out
     k_i_sq = 2.0 * energies_au[above]
     k_f_sq = 2.0 * (energies_au[above] - omega_au)
-    # Avoid log-singularity at threshold
     k_i = np.sqrt(k_i_sq)
     k_f = np.sqrt(k_f_sq)
     log_arg = (k_i + k_f) / np.maximum(k_i - k_f, 1e-30)
     out[above] = (4.0 * f_ab / omega_au) * np.log(log_arg)
-    # Soft suppression to avoid double-counting the L≤L_truncation
-    # dipole contribution: scale by (a heuristic) max(0, 1 − L_truncation^{-1}).
     suppression = max(0.0, 1.0 - 1.0 / max(L_truncation + 1, 2))
     return out * suppression
 
