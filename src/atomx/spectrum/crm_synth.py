@@ -40,6 +40,11 @@ def crm_emission_spectrum(
     stark_hwhm_nm: Optional[float] = None,
     uta_threshold: int = 20,
     force_uta: bool = False,
+    include_eii: bool = True,
+    include_three_body: bool = True,
+    include_photoionization: bool = True,
+    radiation_temperature_eV: Optional[float] = None,
+    radiation_field=None,
 ) -> Spectrum:
     """Render a CRM's radiative transitions into a :class:`Spectrum`.
 
@@ -76,6 +81,12 @@ def crm_emission_spectrum(
     force_uta : bool
         Route every eligible multi-line array through UTA moments. Intended
         for validation fixtures and external FAC comparisons.
+    include_eii, include_three_body, include_photoionization : bool
+        Toggles for bound-free CRM rates when the CRM has bound-free channels.
+    radiation_temperature_eV : float, optional
+        Planck radiation temperature used for photoionisation rates.
+    radiation_field : callable, optional
+        User-supplied photon flux density for photoionisation integration.
 
     Returns
     -------
@@ -84,7 +95,15 @@ def crm_emission_spectrum(
     """
     # Compute populations (steady-state, user may have solved time-dependent
     # elsewhere — for emission spectrum the steady-state is the usual choice).
-    populations = crm.steady_state(n_e_cm3, T_e_eV)
+    populations = crm.steady_state(
+        n_e_cm3,
+        T_e_eV,
+        include_eii=include_eii,
+        include_three_body=include_three_body,
+        include_photoionization=include_photoionization,
+        radiation_temperature_eV=radiation_temperature_eV,
+        radiation_field=radiation_field,
+    )
 
     if T_ion_K is None:
         T_ion_K = T_e_eV * 11604.5250061657   # eV → K
@@ -101,6 +120,10 @@ def crm_emission_spectrum(
         "profile": profile,
         "uta_threshold": uta_threshold,
         "uta_arrays": [],
+        "include_eii": include_eii,
+        "include_three_body": include_three_body,
+        "include_photoionization": include_photoionization,
+        "radiation_temperature_eV": radiation_temperature_eV,
     }
     grid_step_nm = (lam_max_nm - lam_min_nm) / max(n_points - 1, 1)
 

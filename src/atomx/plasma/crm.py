@@ -8,6 +8,9 @@ where R_{ij} includes:
 - Radiative decay: A_{ij} (spontaneous emission, i > j)
 - Collisional excitation: n_e * C_{ij}^exc (i < j)
 - Collisional de-excitation: n_e * C_{ij}^deexc (i > j)
+- Electron-impact ionisation: n_e * S_i
+- Three-body recombination: n_e^2 * beta_i, detailed-balanced to EII
+- Photoionisation: gamma_i from a Planck or user-supplied radiation field
 
 In steady state: R * n = 0, with normalization sum(n) = n_total.
 
@@ -42,6 +45,30 @@ class CRMTransition:
     gf: float = 0.0  # weighted oscillator strength
 
 
+@dataclass
+class CRMBoundFreeChannel:
+    """Adjacent charge-state channel for CRM bound-free rates.
+
+    ``bound`` is the level before ionisation and ``continuum`` is the level
+    representing the adjacent charge state after one electron has been
+    removed.  EII rates are cm^3/s, TBR rates are cm^6/s, and PI rates are
+    s^-1 when supplied directly.
+    """
+
+    bound: int
+    continuum: int
+    ionization_potential_eV: float
+    g_bound: Optional[float] = None
+    g_continuum: Optional[float] = None
+    eii_rate_cm3_s: Optional[float | Callable[[float], float]] = None
+    photoionization_rate_s: Optional[float | Callable[[float], float]] = None
+    sigma0_cm2: Optional[float] = None
+    eii_scf_result: Optional[object] = None
+    eii_method: str = "BEB"
+    eii_energy_grid_eV: Optional[np.ndarray] = None
+    label: Optional[str] = None
+
+
 class CollisionalRadiativeModel:
     """Collisional-Radiative Model for plasma level populations.
 
@@ -56,13 +83,17 @@ class CollisionalRadiativeModel:
     """
 
     def __init__(self, levels, transitions, *, Z: Optional[int] = None,
-                 charge: Optional[int] = None, configs: Optional[list[str]] = None):
+                 charge: Optional[int] = None, configs: Optional[list[str]] = None,
+                 bound_free_channels: Optional[list[CRMBoundFreeChannel]] = None):
         self.levels = levels
         self.transitions = transitions
         self.n_levels = len(levels)
         self.Z = Z
         self.charge = charge
         self.configs = list(configs) if configs is not None else None
+        self.bound_free_channels = (
+            list(bound_free_channels) if bound_free_channels is not None else []
+        )
 
     @classmethod
     def from_atom(cls, atom, multipoles=None):
@@ -125,7 +156,17 @@ class CollisionalRadiativeModel:
             configs=getattr(atom, "_config_strings", None),
         )
 
-    def _build_rate_matrix(self, ne_cm3, Te_eV):
+    def _build_rate_matrix(
+        self,
+        ne_cm3,
+        Te_eV,
+        *,
+        include_eii: bool = True,
+        include_three_body: bool = True,
+        include_photoionization: bool = True,
+        radiation_temperature_eV: Optional[float] = None,
+        radiation_field: Optional[Callable[[float], float]] = None,
+    ):
         """Build the rate matrix R.
 
         R[j, i] = rate from level i to level j.
@@ -171,6 +212,41 @@ class CollisionalRadiativeModel:
                 C_deexc = C_exc * (g_l / g_u) * np.exp(dE_eV / kT)
                 R[l, u] += ne_cm3 * C_deexc
 
+        for ch in self.bound_free_channels:
+            b = ch.bound
+            c = ch.continuum
+            if b < 0 or c < 0 or b >= n or c >= n:
+                raise IndexError(
+                    f"bound-free channel {ch.label or ''} references "
+                    f"invalid levels ({b}, {c}) for {n} CRM levels"
+                )
+            if ch.ionization_potential_eV <= 0.0:
+                raise ValueError("ionization_potential_eV must be positive")
+
+            if include_eii:
+                eii = _channel_eii_rate_cm3_s(ch, Te_eV)
+                if eii > 0.0:
+                    R[c, b] += ne_cm3 * eii
+
+                    if include_three_body:
+                        beta = three_body_recombination_rate_cm6_s(
+                            eii,
+                            ch.ionization_potential_eV,
+                            Te_eV,
+                            g_bound=ch.g_bound or self.levels[b].g,
+                            g_continuum=ch.g_continuum or self.levels[c].g,
+                        )
+                        R[b, c] += ne_cm3 * ne_cm3 * beta
+
+            if include_photoionization:
+                pi_rate = _channel_photoionization_rate_s(
+                    ch,
+                    radiation_temperature_eV=radiation_temperature_eV,
+                    radiation_field=radiation_field,
+                )
+                if pi_rate > 0.0:
+                    R[c, b] += pi_rate
+
         # Diagonal: loss rate
         for i in range(n):
             R[i, i] = -np.sum(R[:, i]) + R[i, i]  # subtract off-diagonal sum
@@ -182,7 +258,7 @@ class CollisionalRadiativeModel:
 
         return R
 
-    def steady_state(self, ne_cm3, Te_eV):
+    def steady_state(self, ne_cm3, Te_eV, **rate_options):
         """Solve for steady-state level populations.
 
         Solves R * n = 0 with normalization sum(n) = 1.
@@ -196,7 +272,7 @@ class CollisionalRadiativeModel:
         populations : ndarray
             Fractional population of each level.
         """
-        R = self._build_rate_matrix(ne_cm3, Te_eV)
+        R = self._build_rate_matrix(ne_cm3, Te_eV, **rate_options)
         n = self.n_levels
 
         # Replace last equation with normalization: sum(n) = 1
@@ -222,7 +298,7 @@ class CollisionalRadiativeModel:
 
         return populations
 
-    def time_dependent(self, ne_cm3, Te_eV, t_span, n0=None):
+    def time_dependent(self, ne_cm3, Te_eV, t_span, n0=None, **rate_options):
         """Solve time-dependent rate equations.
 
         dn/dt = R * n
@@ -241,7 +317,7 @@ class CollisionalRadiativeModel:
             Time points.
         populations : ndarray, shape (n_levels, n_times)
         """
-        R = self._build_rate_matrix(ne_cm3, Te_eV)
+        R = self._build_rate_matrix(ne_cm3, Te_eV, **rate_options)
 
         if n0 is None:
             n0 = np.zeros(self.n_levels)
@@ -256,7 +332,7 @@ class CollisionalRadiativeModel:
         return sol.t, sol.y
 
     def spectrum(self, ne_cm3, Te_eV, wavelength_min=1.0, wavelength_max=10000.0,
-                 n_points=10000):
+                 n_points=10000, **rate_options):
         """Compute synthetic emission spectrum.
 
         Parameters
@@ -275,7 +351,7 @@ class CollisionalRadiativeModel:
         """
         from atomx.constants import HARTREE_INV_ANGSTROM
 
-        populations = self.steady_state(ne_cm3, Te_eV)
+        populations = self.steady_state(ne_cm3, Te_eV, **rate_options)
         wavelengths = np.linspace(wavelength_min, wavelength_max, n_points)
         intensities = np.zeros_like(wavelengths)
 
@@ -332,6 +408,149 @@ class CollisionalRadiativeModel:
             for lev in self.levels
         ])
         return weights / weights.sum()
+
+
+_ELECTRON_MASS_G = 9.109_383_7015e-28
+_BOLTZMANN_ERG_PER_EV = 1.602_176_634e-12
+_PLANCK_ERG_S = 6.626_070_15e-27
+_LIGHT_CM_S = 2.997_924_58e10
+_EV_TO_ERG = 1.602_176_634e-12
+
+
+def saha_ionization_density_cm3(
+    ionization_potential_eV: float,
+    Te_eV: float,
+    *,
+    g_bound: float = 1.0,
+    g_continuum: float = 1.0,
+) -> float:
+    """Return ``n_{q+1} n_e / n_q`` in cm^-3 from the Saha relation."""
+    if Te_eV <= 0.0:
+        return 0.0
+    g_bound = max(float(g_bound), 1e-300)
+    g_continuum = max(float(g_continuum), 1e-300)
+    kT_erg = Te_eV * _BOLTZMANN_ERG_PER_EV
+    lambda_cm = _PLANCK_ERG_S / np.sqrt(2.0 * np.pi * _ELECTRON_MASS_G * kT_erg)
+    prefactor = 2.0 / lambda_cm ** 3
+    return float(
+        prefactor
+        * (g_continuum / g_bound)
+        * np.exp(-ionization_potential_eV / Te_eV)
+    )
+
+
+def three_body_recombination_rate_cm6_s(
+    eii_rate_cm3_s: float,
+    ionization_potential_eV: float,
+    Te_eV: float,
+    *,
+    g_bound: float = 1.0,
+    g_continuum: float = 1.0,
+) -> float:
+    """Detailed-balance inverse of EII using the Saha relation."""
+    saha = saha_ionization_density_cm3(
+        ionization_potential_eV,
+        Te_eV,
+        g_bound=g_bound,
+        g_continuum=g_continuum,
+    )
+    if saha <= 0.0:
+        return 0.0
+    return max(float(eii_rate_cm3_s), 0.0) / saha
+
+
+def _channel_eii_rate_cm3_s(ch: CRMBoundFreeChannel, Te_eV: float) -> float:
+    if ch.eii_rate_cm3_s is not None:
+        value = (
+            ch.eii_rate_cm3_s(Te_eV)
+            if callable(ch.eii_rate_cm3_s) else ch.eii_rate_cm3_s
+        )
+        return max(float(value), 0.0)
+    if ch.eii_scf_result is None or Te_eV <= 0.0:
+        return 0.0
+    threshold = ch.ionization_potential_eV
+    energies = ch.eii_energy_grid_eV
+    if energies is None:
+        energies = np.geomspace(
+            threshold * (1.0 + 1e-6),
+            max(50.0 * Te_eV, 20.0 * threshold),
+            160,
+        )
+    from atomx.scattering.electron_ionization import (
+        eii_cross_section, eii_rate_coefficient,
+    )
+    xs = eii_cross_section(ch.eii_scf_result, energies, method=ch.eii_method)
+    return max(float(eii_rate_coefficient(xs, Te_eV)), 0.0)
+
+
+def _channel_photoionization_rate_s(
+    ch: CRMBoundFreeChannel,
+    *,
+    radiation_temperature_eV: Optional[float],
+    radiation_field: Optional[Callable[[float], float]],
+) -> float:
+    if ch.photoionization_rate_s is not None:
+        arg = radiation_temperature_eV if radiation_temperature_eV is not None else 0.0
+        value = (
+            ch.photoionization_rate_s(arg)
+            if callable(ch.photoionization_rate_s) else ch.photoionization_rate_s
+        )
+        return max(float(value), 0.0)
+    if radiation_field is not None:
+        threshold = ch.ionization_potential_eV
+        sigma0 = ch.sigma0_cm2 or _hydrogenic_sigma0_cm2(threshold)
+        energies = np.geomspace(threshold * (1.0 + 1e-6), 100.0 * threshold, 180)
+        sigma = _kramers_photoionization_sigma_cm2(energies, threshold, sigma0)
+        photons = np.array([
+            max(float(radiation_field(float(E))), 0.0) for E in energies
+        ])
+        _trap = getattr(np, "trapezoid", None) or np.trapz
+        return max(float(_trap(sigma * photons, energies)), 0.0)
+    if radiation_temperature_eV is None or radiation_temperature_eV <= 0.0:
+        return 0.0
+    return _planck_photoionization_rate_s(
+        ch.ionization_potential_eV,
+        radiation_temperature_eV,
+        sigma0_cm2=ch.sigma0_cm2,
+    )
+
+
+def _hydrogenic_sigma0_cm2(ionization_potential_eV: float) -> float:
+    return 6.3043e-18 * (13.605693122994 / ionization_potential_eV)
+
+
+def _kramers_photoionization_sigma_cm2(
+    energies_eV,
+    threshold_eV: float,
+    sigma0_cm2: float,
+):
+    energies = np.asarray(energies_eV, dtype=float)
+    sigma = np.zeros_like(energies)
+    mask = energies >= threshold_eV
+    sigma[mask] = sigma0_cm2 * (threshold_eV / energies[mask]) ** 3
+    return sigma
+
+
+def _planck_photoionization_rate_s(
+    threshold_eV: float,
+    radiation_temperature_eV: float,
+    *,
+    sigma0_cm2: Optional[float] = None,
+) -> float:
+    sigma0 = sigma0_cm2 or _hydrogenic_sigma0_cm2(threshold_eV)
+    upper = max(100.0 * radiation_temperature_eV, 40.0 * threshold_eV)
+    energies = np.geomspace(threshold_eV * (1.0 + 1e-6), upper, 240)
+    sigma = _kramers_photoionization_sigma_cm2(energies, threshold_eV, sigma0)
+    x = np.clip(energies / radiation_temperature_eV, 1e-12, 700.0)
+    photon_density_per_eV_cm3 = (
+        8.0 * np.pi * (energies * _EV_TO_ERG) ** 2
+        / (_PLANCK_ERG_S ** 3 * _LIGHT_CM_S ** 3)
+        * _EV_TO_ERG
+        / np.expm1(x)
+    )
+    _trap = getattr(np, "trapezoid", None) or np.trapz
+    rate = _trap(sigma * _LIGHT_CM_S * photon_density_per_eV_cm3, energies)
+    return max(float(rate), 0.0)
 
 
 def _E1_integral(x):
