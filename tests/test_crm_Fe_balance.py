@@ -27,7 +27,7 @@ def test_fe_iso_stage_panel_covers_xray_charge_states():
 def test_fe_coronal_balance_fixture_shape_and_normalisation():
     rows = coronal_balance_rows()
 
-    assert len(rows) == 6 * 10
+    assert len(rows) == len(TEMPERATURES_KEV) * 10
     for Te in TEMPERATURES_KEV:
         subset = [row for row in rows if row["Te_keV"] == Te]
         assert len(subset) == 10
@@ -39,3 +39,13 @@ def test_fe_coronal_balance_fixture_shape_and_normalisation():
 def test_fe_coronal_balance_meets_fac_gate():
     assert fractional_abundance_rms("fac") <= 0.15
     assert fractional_abundance_rms("chianti_v11") <= 0.15
+
+
+def test_fe_700ev_charge_state_distribution_matches_fac_within_20_percent():
+    rows = [row for row in coronal_balance_rows() if row["Te_eV"] == 700.0]
+    assert len(rows) == 10
+    for row in rows:
+        fac = float(row["fac"])
+        atomx = float(row["atomx"])
+        if fac > 1.0e-6:
+            assert abs(atomx - fac) / fac <= 0.20
