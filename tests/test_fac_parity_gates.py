@@ -18,7 +18,7 @@ sys.path.insert(0, str(ROOT / "benchmarks"))
 
 from fac_matrix import CSV_COLUMNS, run_atomx_matrix_cell  # noqa: E402
 
-GOLDEN = ROOT / "benchmarks" / "reference" / "fac_matrix_2026-05-13.csv"
+GOLDEN = ROOT / "benchmarks" / "reference" / "fac_matrix_2026-05-26.csv"
 
 
 def _load_golden() -> list[dict]:
@@ -84,9 +84,7 @@ def test_frozen_fac_parity_matrix_atomx_columns():
         frozen_time_by_z[Z] += float(golden["t_atomx"])
         actual_time_by_z[Z] += float(actual["t_atomx"])
 
-    # Timing budget: 15× frozen baseline. Golden was baselined before
-    # J-resolved CSF expansion (4 → 37 CSFs) and gauge='both', which
-    # fundamentally increased per-cell work. TODO: rebaseline golden
-    # timing column and tighten back to 1.5×.
+    # Timing budget: 1.5× frozen baseline. The golden timing column is
+    # rebaselined for J-resolved CSF expansion and gauge='both'.
     for Z, actual_seconds in actual_time_by_z.items():
-        assert actual_seconds <= 15.0 * frozen_time_by_z[Z], (Z, actual_seconds, frozen_time_by_z[Z])
+        assert actual_seconds <= 1.5 * frozen_time_by_z[Z], (Z, actual_seconds, frozen_time_by_z[Z])
