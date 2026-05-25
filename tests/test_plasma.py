@@ -121,3 +121,84 @@ class TestCRM:
         crm = CollisionalRadiativeModel(levels, transitions)
         pop = crm.boltzmann_populations(Te_eV=1.0)
         assert pop[0] > 0.99  # ground state dominant at 1 eV, gap = 100 eV
+
+    def test_bound_free_eii_and_three_body_balance(self):
+        """EII and TBR should populate adjacent charge states consistently."""
+        from atomx.plasma.crm import (
+            CRMBoundFreeChannel, CRMLevel, CollisionalRadiativeModel,
+            saha_ionization_density_cm3, three_body_recombination_rate_cm6_s,
+        )
+
+        Te = 20.0
+        ne = 1.0e12
+        eii = 2.0e-8
+        channel = CRMBoundFreeChannel(
+            bound=0, continuum=1, ionization_potential_eV=15.0,
+            g_bound=2, g_continuum=1, eii_rate_cm3_s=eii,
+        )
+        crm = CollisionalRadiativeModel(
+            [CRMLevel("q", 0.0, g=2), CRMLevel("q+1", 15.0, g=1)],
+            [],
+            bound_free_channels=[channel],
+        )
+
+        R = crm._build_rate_matrix(ne, Te)
+        beta = three_body_recombination_rate_cm6_s(
+            eii, 15.0, Te, g_bound=2, g_continuum=1,
+        )
+        assert R[1, 0] == pytest.approx(ne * eii)
+        assert R[0, 1] == pytest.approx(ne * ne * beta)
+
+        pop = crm.steady_state(ne, Te)
+        saha = saha_ionization_density_cm3(15.0, Te, g_bound=2, g_continuum=1)
+        assert pop[1] / pop[0] == pytest.approx(saha / ne, rel=1e-10)
+
+    def test_bound_free_photoionization_planck_couples_channel(self):
+        """Planck PI should add a one-way bound-free source term."""
+        from atomx.plasma.crm import (
+            CRMBoundFreeChannel, CRMLevel, CollisionalRadiativeModel,
+        )
+
+        crm = CollisionalRadiativeModel(
+            [CRMLevel("q", 0.0), CRMLevel("q+1", 20.0)],
+            [],
+            bound_free_channels=[
+                CRMBoundFreeChannel(
+                    bound=0, continuum=1, ionization_potential_eV=20.0,
+                    sigma0_cm2=1.0e-18,
+                )
+            ],
+        )
+
+        without_pi = crm._build_rate_matrix(
+            1.0e10, 10.0, include_photoionization=False,
+        )
+        with_pi = crm._build_rate_matrix(
+            1.0e10, 10.0, include_eii=False, radiation_temperature_eV=15.0,
+        )
+        assert without_pi[1, 0] == 0.0
+        assert with_pi[1, 0] > 0.0
+
+    def test_bound_free_toggles_reach_crm_emission_spectrum(self):
+        """Spectrum wrapper should pass bound-free toggles into steady-state."""
+        from atomx.plasma.crm import (
+            CRMBoundFreeChannel, CRMLevel, CRMTransition, CollisionalRadiativeModel,
+        )
+        from atomx.spectrum import crm_emission_spectrum
+
+        crm = CollisionalRadiativeModel(
+            [CRMLevel("q", 0.0), CRMLevel("q+1", 12.0), CRMLevel("emit", 20.0)],
+            [CRMTransition(upper=2, lower=0, A_rate=1.0e8, gf=0.0)],
+            bound_free_channels=[
+                CRMBoundFreeChannel(
+                    bound=0, continuum=1, ionization_potential_eV=12.0,
+                    photoionization_rate_s=1.0e5,
+                )
+            ],
+        )
+
+        spec = crm_emission_spectrum(
+            crm, n_e_cm3=1.0e10, T_e_eV=10.0, lam_min_nm=1.0,
+            lam_max_nm=200.0, include_photoionization=True,
+        )
+        assert spec.metadata["include_photoionization"] is True

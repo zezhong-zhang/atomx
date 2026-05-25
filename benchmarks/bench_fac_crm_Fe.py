@@ -24,7 +24,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
 Z_FE = 26
-TEMPERATURES_KEV = (0.2, 0.5, 1.0, 2.0, 5.0, 10.0)
+TEMPERATURES_KEV = (0.2, 0.5, 0.7, 1.0, 2.0, 5.0, 10.0)
 LINE_TEMPERATURES_EV = (300.0, 1000.0, 3000.0)
 LINE_DENSITIES_CM3 = (1.0e10, 1.0e12, 1.0e14)
 BERNITT_2012_3C3D = 2.61
@@ -140,6 +140,7 @@ def _reference_balance() -> dict[float, dict[str, np.ndarray]]:
     centers = {
         0.2: 16.55,
         0.5: 17.55,
+        0.7: 18.15,
         1.0: 18.95,
         2.0: 20.75,
         5.0: 23.00,
