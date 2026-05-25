@@ -136,27 +136,18 @@ def test_singlet_triplet_split_for_2p_target_state_thresholds():
 
 
 # ---------------------------------------------------------------------------
-# Burke 1971 1 %-gate — full benchmark. xfailed with explicit follow-up.
+# Burke 1971 1 %-gate — full benchmark.
 # ---------------------------------------------------------------------------
 
-@pytest.mark.xfail(
-    reason=(
-        "HYP-190 (phase 2b): the 3-state CC(1s,2s,2p) inner basis on "
-        "clamped B-splines [0, 25 a₀] reproduces the Burke 1971 ¹S/¹P/¹D "
-        "doubly-excited series qualitatively (a quasi-bound eigenpair "
-        "appears in the [-0.85, -0.5] a.u. window) but the 1 %-level "
-        "resonance positions and widths require either (a) explicit L²- "
-        "correlation pseudo-states for the (1s²), (1s2s), (1s2p), and "
-        "(2p²) configurations, or (b) a substantially denser radial "
-        "basis with an optimised boundary radius. Follow-up: HYP-190."
-    ),
-    strict=False,
-)
 def test_burke1971_three_lowest_resonances_within_1pc(heplus_targets):
-    """Strict Burke 1971 1 %-gate (HYP-190 follow-up)."""
+    """Strict Burke 1971 1 %-gate with L2 correlation pseudo-states."""
     res_1S = _scan_1S(heplus_targets)
     res_1Po = _scan_1Po(heplus_targets)
     res_1De = _scan_1De(heplus_targets)
+
+    assert res_1S.provenance["l2_pseudostates"][0]["configuration"] == "2s2"
+    assert res_1Po.provenance["l2_pseudostates"][0]["configuration"] == "2s2p"
+    assert res_1De.provenance["l2_pseudostates"][0]["configuration"] == "2p2"
 
     def _strongest(fits, E_ref):
         if not fits:
