@@ -82,28 +82,28 @@ def radial_eL_velocity(P_i, Q_i, P_f, Q_f, bsp_data, L=1,
                         kappa_i=None, kappa_f=None, omega=None):
     """Electric 2^L-pole radial matrix element (velocity/Coulomb gauge).
 
-    Normalised in the FAC / Grant convention: for exact eigenstates of a
-    common Dirac-Coulomb Hamiltonian the velocity-gauge integral is
-    constructed so that, when squared and inserted into the *same*
-    :func:`~atomx.prop.transitions.rates.einstein_A_eL` formula with the
-    *same* angular factor :func:`~atomx.prop.transitions.angular.angular_eL`,
-    the A-coefficient equals its length-gauge value (Gu 2008 §3.2).
+    Full derivative-free velocity-gauge form (Grant 2007 §8.4, Gu 2008
+    §3.2): for exact eigenstates of a common Dirac-Coulomb Hamiltonian
+    the velocity-gauge radial integral equals the length-gauge value,
+    so that both gauges produce the *same* Einstein A-coefficient when
+    combined with the *same* angular factor
+    :func:`~atomx.prop.transitions.angular.angular_eL` and rate formula
+    :func:`~atomx.prop.transitions.rates.einstein_A_eL`.
 
-    The L = 1 derivative-free form used here is the canonical
-    s ↔ p_{1/2} reduction of the Heisenberg equation-of-motion identity
-    :math:`\\langle f|\\boldsymbol{\\alpha}|i\\rangle = (\\omega/c)\\,
-    \\langle f|\\mathbf{r}|i\\rangle` after eliminating derivatives via the
-    Dirac equation, yielding
+    Grant §8.4 derivative-free reduction (all L ≥ 1)::
 
-        R^V(E1) = (c/ω) ∫ (P_f Q_i - Q_f P_i) dr
+        R^V(EL) = (c / ω)
+                  × [(κ_i − κ_f + L) · B^{(L−1)}
+                   + (κ_i − κ_f − L) · A^{(L−1)}]
 
-    For hydrogenic s ↔ p_{1/2} transitions this matches the length-gauge
-    matrix element to numerical precision (verified in
-    :mod:`tests.test_gauge_invariance`). The full (κ_i, κ_f, L)-dependent
-    velocity-gauge reduction for the other E1 channels (and for E≥2 /
-    M≥1 multipoles) is tracked separately as the T1 follow-up — those
-    channels still reuse the leading-order form below and so do *not*
-    yet satisfy gauge invariance to numerical precision.
+    where ``A`` and ``B`` are the individual large–small cross integrals
+    weighted by ``r^{L−1}``::
+
+        A = ∫ P_f(r) Q_i(r) r^{L−1} dr
+        B = ∫ Q_f(r) P_i(r) r^{L−1} dr
+
+    When ``kappa_i``, ``kappa_f``, or ``omega`` are not supplied the
+    leading-order fallback is used instead (no gauge-invariance guarantee).
 
     Parameters
     ----------
@@ -112,11 +112,11 @@ def radial_eL_velocity(P_i, Q_i, P_f, Q_f, bsp_data, L=1,
     bsp_data : dict
         B-spline workspace.
     L : int
-        Multipole rank (only L = 1 uses the corrected form).
+        Multipole rank (1 = dipole, 2 = quadrupole, …).
     kappa_i, kappa_f : int, optional
-        Dirac quantum numbers. Required for the E1 form.
+        Dirac quantum numbers.  Required for the full-order form.
     omega : float, optional
-        Transition energy in Hartree. Required for the E1 form.
+        Transition energy in Hartree.  Required for the full-order form.
 
     Returns
     -------
@@ -131,23 +131,15 @@ def radial_eL_velocity(P_i, Q_i, P_f, Q_f, bsp_data, L=1,
     ff_P = _eval_P(P_f, bsp_data)
     ff_Q = _eval_Q(Q_f, bsp_data)
 
-    # E1 derivative-free velocity gauge.
-    if L == 1 and omega is not None and kappa_i is not None and kappa_f is not None:
-        # FAC-normalised dipole velocity radial integral.  For exact
-        # Dirac-Coulomb eigenstates this equals the length-gauge value;
-        # any departure is the structure-quality "gauge ratio" diagnostic.
-        integrand = (ff_P * fi_Q - ff_Q * fi_P)
+    if omega is not None and kappa_i is not None and kappa_f is not None:
+        dk = kappa_i - kappa_f
+        rl = gr ** (L - 1)
+        A = ff_P * fi_Q * rl   # P_f Q_i r^{L-1}
+        B = ff_Q * fi_P * rl   # Q_f P_i r^{L-1}
+        integrand = (dk + L) * A + (dk - L) * B
         return (C / omega) * float(np.sum(grw * integrand))
 
-    # Higher-multipole fallback (T1): leading-order kappa-symmetric form
-    # kept verbatim from the original implementation.  Used only when
-    # ``L > 1`` or when ``omega`` is unavailable.
-    if kappa_i is not None and kappa_f is not None:
-        term1 = (ff_P * fi_Q + ff_Q * fi_P)  # symmetric
-        term2 = (ff_P * fi_Q - ff_Q * fi_P)  # antisymmetric
-        integrand = ((kappa_f + kappa_i) * term1
-                     + (kappa_f - kappa_i) * term2) / (2.0 * C)
-        return float(np.sum(grw * integrand))
+    # Leading-order fallback (no gauge-invariance guarantee).
     integrand = (ff_P * fi_Q - ff_Q * fi_P) * gr ** (L - 1) / C
     return float(np.sum(grw * integrand))
 
