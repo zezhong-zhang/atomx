@@ -1,0 +1,141 @@
+# atomx
+
+High-performance relativistic atomic structure calculations using B-spline Dirac-Fock methods.
+
+## Overview
+
+atomx is a Python library for computing atomic energy levels, wavefunctions, transition rates, hyperfine structure, and many other atomic properties. It implements a complete theory ladder — from simple hydrogenic models through multi-configuration Dirac-Hartree-Fock (MCDHF) with Breit and QED corrections — using B-spline basis sets and JIT-compiled numerical kernels.
+
+## Features
+
+- **Theory ladder** — Hydrogenic, Hartree-Fock, Breit-Pauli, Dirac-Fock, Dirac-Fock+Breit, Dirac-Fock+QED, MCDHF
+- **Atomic properties** — energy levels, orbital wavefunctions, transition rates (E1/M1/E2/M2), hyperfine structure (A, B), isotope shifts, Zeeman effect, g-factors, polarizability, EDM, PNC
+- **Scattering** — photoionization (Fano), autoionization (Auger), dielectronic recombination, distorted wave, R-matrix, electron-impact ionization, charge exchange, radiative recombination
+- **Plasma modeling** — Debye/ion-sphere screening, collisional-radiative model (CRM), average-atom model, cascades
+- **Spectrum synthesis** — combining transition lists with CRM, UTA (unresolved transition arrays)
+- **QED corrections** — vacuum polarization, self-energy (Mohr, Welton, Indelicato, Flambaum-Ginges backends)
+- **Visualization** — matplotlib, Plotly, and Manim backends for energy levels, radial orbitals, Grotrian diagrams, and spectra
+
+## Quick start
+
+```python
+from atomx import Atom
+
+# Neutral neon with default Dirac-Fock SCF
+ne = Atom(Z=10)
+ne.solve()
+print(ne.total_energy)       # -128.04 Hartree
+print(ne.orbital_energies)   # {1s: -32.6, 2s: -1.6, ...}
+
+# With Breit + QED corrections
+ne = Atom(Z=10, breit=True, qed=True)
+ne.solve()
+
+# Multi-configuration (Be with 2s² and 2p² mixing)
+be = Atom(Z=4, configs=["1s2 2s2", "1s2 2p2"])
+be.solve()
+```
+
+### Theory ladder
+
+Climb the physics ladder rung-by-rung, seeing how each effect changes the total energy:
+
+```python
+from atomx import Atom, Ladder, Sampling
+from atomx.methods import DiracFock
+
+ne = Atom(Z=10)
+run = ne.climb(through=DiracFock(breit=True, qed=True), sampling=Sampling.quick)
+run.show(unit="eV")
+```
+
+### Compare methods
+
+```python
+from atomx import Atom, compare
+from atomx.methods import HartreeFock, BreitPauli, DiracFock
+
+results = compare(
+    Atom(Z=10),
+    [HartreeFock(), BreitPauli(), DiracFock(), DiracFock(breit=True, qed=True)],
+)
+```
+
+## Installation
+
+```bash
+pip install -e .
+```
+
+Requires Python >=3.10. For development dependencies:
+
+```bash
+pip install -e ".[dev]"
+```
+
+### Optional extras
+
+| Extra | Description |
+|-------|-------------|
+| `units` | Pint-based unit handling |
+| `viz` | matplotlib + Plotly visualization |
+| `viz-manim` | Manim animation backend |
+| `viz-all` | All visualization backends |
+| `all` | Everything |
+
+## Architecture
+
+```
+src/atomx/
+  atom.py            # High-level Atom API
+  types.py           # Enums (Exchange, TheoryLevel, Gauge, ...)
+  results.py         # Data classes (AtomicResult, HyperfineResult, ...)
+  constants.py       # CODATA 2022 physical constants
+  methods/           # Theory-level Method objects (DiracFock, MCDHF, ...)
+  numerics/          # B-spline basis, ODE shooting, convolutions (numba JIT)
+  physics/           # Operator definitions (Dirac, Schrodinger, Breit-Pauli)
+  angular/           # Wigner symbols, Clebsch-Gordan, recoupling algebra
+  config/            # Electron configuration handling
+  corrections/       # Breit + QED correction stack
+  potentials/        # Nuclear charge distributions, statistical potentials
+  prop/              # Observables (transitions, hyperfine, isotope shift, ...)
+  scattering/        # Continuum processes (photoionization, DR, R-matrix, ...)
+  plasma/            # CRM, screening, average-atom, cascades
+  spectrum/          # Spectrum synthesis
+  viz/               # matplotlib, Plotly, Manim backends
+```
+
+The layered design means you can use atomx at whatever level suits your needs:
+- **High-level**: `Atom(Z=10).solve()` for quick calculations
+- **Method-level**: Compose specific `Method` objects for fine-grained control
+- **Numerics-level**: Use B-spline bases, shooting solvers, and angular algebra directly
+
+## Benchmarks
+
+The `benchmarks/` directory contains systematic comparisons against the Flexible Atomic Code (FAC) for structure, transitions, collisional/radiative rates, CRM, dielectronic recombination, and photoionization. See `benchmarks/REPORT.md` for the full parity report.
+
+## Documentation
+
+- `docs/MIGRATION.md` — Migration notes between versions
+- `docs/gallery/` — Runnable example scripts
+- `benchmarks/REPORT.md` — FAC parity benchmark report
+
+## Development
+
+```bash
+# Run tests
+pytest
+
+# Run only fast tests (exclude slow integration tests)
+pytest -m "not slow"
+
+# Run with verbose output
+pytest -v
+
+# Run benchmarks
+pytest -m fac_parity
+```
+
+## License
+
+See `pyproject.toml` for project metadata.
