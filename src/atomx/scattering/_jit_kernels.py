@@ -108,6 +108,99 @@ def eii_dw_inner_sum(
 
 
 @nb.njit(cache=True)
+def dw_excitation_angular_sum(
+    n_channels: int,
+    tj_i: int,
+    tj_f: int,
+    tj_in_arr: np.ndarray,
+    tj_out_arr: np.ndarray,
+    tJ_lo_arr: np.ndarray,
+    tJ_hi_arr: np.ndarray,
+    n_direct_arr: np.ndarray,
+    n_exchange_arr: np.ndarray,
+    direct_products: np.ndarray,
+    exchange_products: np.ndarray,
+    w6j_direct: np.ndarray,
+    w6j_exchange: np.ndarray,
+) -> float:
+    """JIT-compiled DW excitation angular sum.
+
+    For one energy point, sum over all (κ_in, κ_out) channels and their
+    J-sums to compute Σ_{ch,J} (2J+1)|A_J|², the collision strength.
+
+    Following Gu 2008 / Grant Ch. 12 j-j coupled angular reduction:
+      M_J^direct  = (-1)^{(j_in+j_f+J)/2} Σ_k 6j(j_i,j_in,J,j_out,j_f,k) · D_k
+      M_J^exchange = (-1)^{(j_in+j_out+J)/2} Σ_k 6j(j_i,j_in,J,j_f,j_out,k) · E_k
+      A_J = M_J^direct − (-1)^{(j_f+j_out−J)/2} · M_J^exchange
+
+    where D_k = ⟨κ_i‖C^k‖κ_f⟩·⟨κ_in‖C^k‖κ_out⟩·R^k(i,in;f,out)
+    and   E_k = ⟨κ_i‖C^k‖κ_out⟩·⟨κ_in‖C^k‖κ_f⟩·R^k(i,in;out,f).
+    """
+    acc = 0.0
+    d_offset = 0
+    e_offset = 0
+    w6j_d_offset = 0
+    w6j_e_offset = 0
+
+    for ch in range(n_channels):
+        tj_in = tj_in_arr[ch]
+        tj_out = tj_out_arr[ch]
+        tJ_lo = tJ_lo_arr[ch]
+        tJ_hi = tJ_hi_arr[ch]
+        n_d = n_direct_arr[ch]
+        n_e = n_exchange_arr[ch]
+
+        n_J = (tJ_hi - tJ_lo) // 2 + 1
+        J_sum = 0.0
+
+        for iJ in range(n_J):
+            tJ = tJ_lo + 2 * iJ
+
+            # Direct phase: (-1)^{(j_in + j_f + J)}
+            phase_d = 1.0
+            if ((tj_in + tj_f + tJ) // 2) % 2 != 0:
+                phase_d = -1.0
+
+            MJd = 0.0
+            for ik in range(n_d):
+                sj = w6j_direct[w6j_d_offset + iJ * n_d + ik]
+                if abs(sj) < 1e-15:
+                    continue
+                MJd += sj * direct_products[d_offset + ik]
+            MJd *= phase_d
+
+            # Exchange phase: (-1)^{(j_in + j_out + J)}
+            phase_e = 1.0
+            if ((tj_in + tj_out + tJ) // 2) % 2 != 0:
+                phase_e = -1.0
+
+            MJe = 0.0
+            for ik in range(n_e):
+                sj = w6j_exchange[w6j_e_offset + iJ * n_e + ik]
+                if abs(sj) < 1e-15:
+                    continue
+                MJe += sj * exchange_products[e_offset + ik]
+            MJe *= phase_e
+
+            # Antisymmetrization phase: (-1)^{(j_f + j_out - J)}
+            ph_swap = 1.0
+            if ((tj_f + tj_out - tJ) // 2) % 2 != 0:
+                ph_swap = -1.0
+
+            amp = MJd - ph_swap * MJe
+            J_sum += (tJ + 1) * amp * amp
+
+        acc += J_sum
+
+        d_offset += n_d
+        e_offset += n_e
+        w6j_d_offset += n_J * n_d
+        w6j_e_offset += n_J * n_e
+
+    return acc
+
+
+@nb.njit(cache=True)
 def dw_excitation_sigma_sum(
     n_energies: int,
     kappa_inc_arr: np.ndarray,
