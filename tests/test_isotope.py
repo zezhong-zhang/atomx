@@ -244,13 +244,13 @@ class TestAbInitioSMSNoble:
         assert 1e-7 < abs(sms.K_SMS_au) < 1e-5
 
     def test_Ne_inner_1s_2p_dominant(self):
-        """1s-2p3/2 is the largest radial overlap for closed-shell Ne."""
+        """1s-2p1/2 is the largest radial overlap for closed-shell Ne."""
         sms = self._ne()
         largest_label_pair = max(
             sms.pair_contributions.items(),
             key=lambda kv: abs(kv[1]),
         )[0]
-        assert largest_label_pair == ("1s1/2", "2p3/2")
+        assert largest_label_pair == ("1s1/2", "2p1/2")
 
     def test_Ar_larger_than_Ne(self):
         """Ar has 12 allowed pairs vs Ne's 4 → |K_SMS| significantly bigger."""

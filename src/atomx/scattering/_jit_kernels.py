@@ -14,76 +14,97 @@ import numpy as np
 import numba as nb
 
 
-@nb.njit(cache=True)
-def dw_j_sum(
-    tj_lo: int, tj_hi: int,
-    Rd_k: np.ndarray, Rd_val: np.ndarray,
-    Re_k: np.ndarray, Re_val: np.ndarray,
-    C_a1: np.ndarray, C_in2: np.ndarray,
-    C_a2: np.ndarray, C_in1: np.ndarray,
-    tj_a: int, tj_in: int, tj_1: int, tj_2: int,
-    wigner6j_table: np.ndarray,
+@nb.njit(cache=True, fastmath=True)
+def eii_dw_inner_sum(
+    n_channels: int,
+    tj_a: int,
+    # Per-channel arrays (all length n_channels):
+    tj_in_arr: np.ndarray,
+    tj_1_arr: np.ndarray,
+    tj_2_arr: np.ndarray,
+    tJ_lo_arr: np.ndarray,
+    tJ_hi_arr: np.ndarray,
+    n_direct_arr: np.ndarray,
+    n_exchange_arr: np.ndarray,
+    # Flat arrays of precomputed direct/exchange products
+    direct_products: np.ndarray,
+    exchange_products: np.ndarray,
+    # Flat arrays of precomputed wigner_6j values
+    w6j_direct: np.ndarray,
+    w6j_exchange: np.ndarray,
 ) -> float:
-    """Sum over total J for the EII DW inner loop.
+    """JIT-compiled EII DW inner loop: sum over all (kappa_in, kappa_1, kappa_2)
+    channels and their J-sums for a single (E_i, E_1) quadrature point.
 
-    Computes:
-        sum_J (2J+1) |M_J^dir - (-1)^{(j1+j2-J)/2} M_J^ex|^2
+    The Python caller pre-computes all angular coefficients, Slater integrals,
+    and wigner-6j values into flat arrays.  This kernel does the pure-numerical
+    assembly with zero Python overhead.
 
-    Parameters
-    ----------
-    tj_lo, tj_hi : int
-        Range of 2*J values (inclusive, step 2).
-    Rd_k, Rd_val : arrays of shape (n_direct,)
-        Multipole ranks k and precomputed C_a1[k]*C_in2[k]*R^k for direct.
-    Re_k, Re_val : arrays of shape (n_exchange,)
-        Same for exchange.
-    C_a1, C_in2, C_a2, C_in1 : arrays
-        Angular coefficients (not used directly — folded into Rd_val/Re_val).
-    tj_a, tj_in, tj_1, tj_2 : int
-        2*j values for the four angular momenta.
-    wigner6j_table : ndarray of shape (n_J, max(n_direct, n_exchange))
-        Precomputed wigner_6j values.  First index is J (indexed by
-        (tJ - tj_lo) // 2), second is the k-index.
+    Returns the accumulated |T|^2 for this E_1 point.
     """
-    n_J = (tj_hi - tj_lo) // 2 + 1
-    n_d = Rd_val.shape[0]
-    n_e = Re_val.shape[0]
-    total = 0.0
+    acc = 0.0
+    d_offset = 0
+    e_offset = 0
+    w6j_d_offset = 0
+    w6j_e_offset = 0
 
-    for iJ in range(n_J):
-        tJ = tj_lo + 2 * iJ
-        phase_sign_J = 1.0
-        if ((tj_in + tj_1 + tJ) // 2) % 2 != 0:
-            phase_sign_J = -1.0
+    for ch in range(n_channels):
+        tj_in = tj_in_arr[ch]
+        tj_1 = tj_1_arr[ch]
+        tj_2 = tj_2_arr[ch]
+        tJ_lo = tJ_lo_arr[ch]
+        tJ_hi = tJ_hi_arr[ch]
+        n_d = n_direct_arr[ch]
+        n_e = n_exchange_arr[ch]
 
-        MJd = 0.0
-        for ik in range(n_d):
-            sj = wigner6j_table[iJ, ik]  # direct 6j
-            if abs(sj) < 1e-15:
-                continue
-            MJd += sj * Rd_val[ik]
-        MJd *= phase_sign_J
+        n_J = (tJ_hi - tJ_lo) // 2 + 1
+        J_sum = 0.0
 
-        phase_sign_e = 1.0
-        if ((tj_in + tj_2 + tJ) // 2) % 2 != 0:
-            phase_sign_e = -1.0
+        for iJ in range(n_J):
+            tJ = tJ_lo + 2 * iJ
 
-        MJe = 0.0
-        for ik in range(n_e):
-            sj = wigner6j_table[iJ, n_d + ik]  # exchange 6j
-            if abs(sj) < 1e-15:
-                continue
-            MJe += sj * Re_val[ik]
-        MJe *= phase_sign_e
+            # Phase for direct: (-1)^{(j_in + j_1 + J)/2}
+            phase_d = 1.0
+            if ((tj_in + tj_1 + tJ) // 2) % 2 != 0:
+                phase_d = -1.0
 
-        ph_swap = 1.0
-        if ((tj_1 + tj_2 - tJ) // 2) % 2 != 0:
-            ph_swap = -1.0
+            MJd = 0.0
+            for ik in range(n_d):
+                sj = w6j_direct[w6j_d_offset + iJ * n_d + ik]
+                if abs(sj) < 1e-15:
+                    continue
+                MJd += sj * direct_products[d_offset + ik]
+            MJd *= phase_d
 
-        amp = MJd - ph_swap * MJe
-        total += (tJ + 1) * amp * amp
+            # Phase for exchange: (-1)^{(j_in + j_2 + J)/2}
+            phase_e = 1.0
+            if ((tj_in + tj_2 + tJ) // 2) % 2 != 0:
+                phase_e = -1.0
 
-    return total
+            MJe = 0.0
+            for ik in range(n_e):
+                sj = w6j_exchange[w6j_e_offset + iJ * n_e + ik]
+                if abs(sj) < 1e-15:
+                    continue
+                MJe += sj * exchange_products[e_offset + ik]
+            MJe *= phase_e
+
+            # Phase swap: (-1)^{(j_1 + j_2 - J)/2}
+            ph_swap = 1.0
+            if ((tj_1 + tj_2 - tJ) // 2) % 2 != 0:
+                ph_swap = -1.0
+
+            amp = MJd - ph_swap * MJe
+            J_sum += (tJ + 1) * amp * amp
+
+        acc += J_sum
+
+        d_offset += n_d
+        e_offset += n_e
+        w6j_d_offset += n_J * n_d
+        w6j_e_offset += n_J * n_e
+
+    return acc
 
 
 @nb.njit(cache=True)
@@ -103,31 +124,7 @@ def dw_excitation_sigma_sum(
     Given precomputed Slater integrals for all (kappa_inc, kappa_scat, k)
     combinations at each energy point, assemble sigma(E).
 
-    Parameters
-    ----------
-    n_energies : int
-        Number of energy grid points.
-    kappa_inc_arr, kappa_scat_arr : int arrays
-        Lists of kappa values for incident and scattered electrons.
-    k_arr : int array
-        Multipole orders.
-    slater_direct : ndarray, shape (n_energies, n_ki, n_ks, n_k)
-        Precomputed R^k direct Slater integrals.  NaN = skip.
-    slater_exchange : ndarray, shape (n_energies, n_ki, n_ks, n_k)
-        Precomputed R^k exchange Slater integrals.  NaN = skip.
-    E_inc_hartree : ndarray, shape (n_energies,)
-        Incident energies in Hartree.
-    dE_hartree_grid : ndarray, shape (n_energies,)
-        Transition energies in Hartree.
-    tj_i : int
-        2*j for initial bound orbital.
-
-    Returns
-    -------
-    sigma : ndarray, shape (n_energies,)
-        Cross section in atomic units (a0^2).
-    omega : ndarray, shape (n_energies,)
-        Collision strength (dimensionless).
+    Returns sigma (a0^2) and omega (dimensionless) arrays.
     """
     sigma = np.zeros(n_energies)
     omega = np.zeros(n_energies)
