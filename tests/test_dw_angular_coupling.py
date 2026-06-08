@@ -11,6 +11,8 @@ Tests cover:
 """
 
 import math
+from types import SimpleNamespace
+
 import numpy as np
 import pytest
 
@@ -19,6 +21,9 @@ from atomx.scattering.distorted_wave.solver import (
     _tj_of,
     _reduced_C,
     _allowed_k,
+    _target_projectile_J_range,
+    _target_state_metadata,
+    _target_transition_population,
     dw_excitation_cross_section,
 )
 from atomx.angular.wigner import wigner_3j, wigner_6j
@@ -179,30 +184,77 @@ class TestParityConservation:
         assert (l_i + l_in + l_f + l_out) % 2 != 0
 
 
+class TestTargetStateMetadata:
+    """Test target total-J metadata used by the DW angular reduction."""
+
+    def test_closed_shell_scf_infers_J0_even_parity(self):
+        from atomx.methods.dirac_fock import Subshell
+
+        result = SimpleNamespace(subshells=[Subshell(n=1, kappa=-1, occupation=2.0)])
+
+        tj, parity, csf = _target_state_metadata(result)
+
+        assert tj == 0
+        assert parity == 1
+        assert csf.total_J2 == 0
+
+    def test_mcdhf_uses_lowest_state_J_not_active_orbital_j(self):
+        from atomx.methods.dirac_fock import Subshell
+        from atomx.methods.mcdhf.config import CSF
+
+        csfs = [
+            CSF([Subshell(1, -1, 1.0), Subshell(2, 1, 1.0)],
+                total_J2=2, parity=-1, label="1s 2p1/2 [J=2/2]"),
+            CSF([Subshell(1, -1, 1.0), Subshell(2, -2, 1.0)],
+                total_J2=4, parity=-1, label="1s 2p3/2 [J=4/2]"),
+        ]
+        result = SimpleNamespace(
+            csfs=csfs,
+            mixing_coefficients=np.array([[0.9], [0.1]]),
+            state_J2=np.array([2]),
+            state_parity=np.array([-1]),
+        )
+
+        tj, parity, csf = _target_state_metadata(result)
+
+        assert tj == 2
+        assert parity == -1
+        assert csf is csfs[0]
+
+    def test_target_transition_population_filters_many_electron_rank(self):
+        from atomx.methods.dirac_fock import Subshell
+        from atomx.methods.mcdhf.config import CSF
+
+        csf_i = CSF([Subshell(1, -1, 2.0)],
+                    total_J2=0, parity=1, label="1s2 [J=0/2]")
+        csf_f = CSF([Subshell(1, -1, 1.0), Subshell(2, 1, 1.0)],
+                    total_J2=2, parity=-1, label="1s 2p1/2 [J=2/2]")
+
+        assert _target_transition_population(csf_i, csf_f, 1, -1, 1) == 1.0
+        assert _target_transition_population(csf_i, csf_f, 0, -1, 1) == 0.0
+
+
 class TestJRange:
     """Test J range calculation for total angular momentum."""
 
-    def test_1s_to_2p_kappa_neg1_in_kappa_neg1_out(self):
-        # κ_i=-1 (j=1/2), κ_in=-1 (j=1/2), κ_f=-2 (j=3/2), κ_out=-2 (j=3/2)
-        # J range: max(|1-1|, |3-3|)=0 to min(1+1, 3+3)=2
-        tj_i, tj_in = 1, 1
-        tj_f, tj_out = 3, 3
-        tJ_lo = max(abs(tj_i - tj_in), abs(tj_f - tj_out))
-        tJ_hi = min(tj_i + tj_in, tj_f + tj_out)
-        assert tJ_lo == 0
-        assert tJ_hi == 2
-        # J = 0, 1 (in twice-j), i.e. J = 0, 1/2
+    def test_target_J0_to_J1_with_spin_half_projectile(self):
+        # He-like 1s^2 J=0 -> 1s2p J=1 with incoming/outgoing j=1/2.
+        # The coupled target+projectile total J is 1/2, i.e. tJ=1.
+        assert _target_projectile_J_range(0, 2, 1, 1) == (1, 1)
 
-    def test_1s_to_2p_kappa_neg1_in_kappa_neg2_out(self):
-        # κ_i=-1 (j=1/2), κ_in=-1 (j=1/2), κ_f=-2 (j=3/2), κ_out=-1 (j=1/2)
-        # J range: max(|1-1|, |3-1|)=2 to min(1+1, 3+1)=2
-        tj_i, tj_in = 1, 1
-        tj_f, tj_out = 3, 1
-        tJ_lo = max(abs(tj_i - tj_in), abs(tj_f - tj_out))
-        tJ_hi = min(tj_i + tj_in, tj_f + tj_out)
-        assert tJ_lo == 2
-        assert tJ_hi == 2
-        # Only J = 1
+    def test_active_electron_range_would_be_different(self):
+        # The old active-electron reduction for s1/2 -> p1/2 would allow
+        # tJ=0,2. The target-state reduction must instead use tJ=1.
+        old_lo = max(abs(1 - 1), abs(1 - 1))
+        old_hi = min(1 + 1, 1 + 1)
+
+        assert (old_lo, old_hi) == (0, 2)
+        assert _target_projectile_J_range(0, 2, 1, 1) == (1, 1)
+
+    def test_no_common_total_J_returns_none(self):
+        # Initial target J=0 plus projectile j=1/2 can only make J=1/2;
+        # final target J=2 plus projectile j=1/2 cannot.
+        assert _target_projectile_J_range(0, 4, 1, 1) is None
 
 
 class TestWigner6jRecoupling:
