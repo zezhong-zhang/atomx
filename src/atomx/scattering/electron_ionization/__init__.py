@@ -8,9 +8,12 @@ Two methods are provided:
    optional dipole-Bethe parameter Q.  Accuracy ~30 % for valence
    shells, faster degradation for inner shells; widely used in
    plasma-physics databases (NIFS, NIST EII).
-2. **Distorted-wave (DW) EII** — TODO.  FAC's primary EII method
-   (``ionization.c``).  Plug-in point left in :func:`eii_cross_section`
-   for ``method="dw"``.
+2. **Distorted-wave (DW) EII** — First-principles DW Born approximation
+   (Younger 1981 / Pindzola-Griffin / Gu FAC 2008).  Frozen-core
+   V^{N-1} static-Hartree distorted waves, J-coupled antisymmetric
+   Slater integrals, and Coulomb-Bethe high-ℓ top-up.  Validated
+   against Younger 1981 for He⁺ (≤15 %) and NIST Argon near
+   threshold.  Access via ``method="dw"`` in :func:`eii_cross_section`.
 
 Maxwellian-averaged rate coefficients are produced by
 :func:`eii_rate_coefficient`; non-Maxwellian (e.g. κ-distribution)
@@ -683,6 +686,8 @@ def _eii_dw_total(
                                     P_a, Q_a, P_in, Q_in, P_1, Q_1, P_2, Q_2,
                                     bsp_data, k, cache=cache,
                                 )
+                                if not np.isfinite(Rk):
+                                    continue
                                 prod = C_a1[k] * C_in2[k] * Rk
                                 d_prods.append(prod)
                                 # Pre-compute wigner_6j for all J values
@@ -701,6 +706,8 @@ def _eii_dw_total(
                                     P_a, Q_a, P_in, Q_in, P_2, Q_2, P_1, Q_1,
                                     bsp_data, k, cache=cache,
                                 )
+                                if not np.isfinite(Rk):
+                                    continue
                                 prod = C_a2[k] * C_in1[k] * Rk
                                 e_prods.append(prod)
                                 n_J = (tJ_hi - tJ_lo) // 2 + 1
