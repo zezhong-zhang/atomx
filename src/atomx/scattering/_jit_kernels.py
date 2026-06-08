@@ -128,12 +128,14 @@ def dw_excitation_angular_sum(
     For one energy point, sum over all (κ_in, κ_out) channels and their
     J-sums to compute Σ_{ch,J} (2J+1)|A_J|², the collision strength.
 
-    Following Gu 2008 / Grant Ch. 12 j-j coupled angular reduction:
-      M_J^direct  = (-1)^{(j_in+j_f+J)/2} Σ_k 6j(j_i,j_in,J,j_out,j_f,k) · D_k
-      M_J^exchange = (-1)^{(j_in+j_out+J)/2} Σ_k 6j(j_i,j_in,J,j_f,j_out,k) · E_k
-      A_J = M_J^direct − (-1)^{(j_f+j_out−J)/2} · M_J^exchange
+    Following Gu 2008 / Grant Ch. 12 j-j coupled angular reduction, ``tj_i``
+    and ``tj_f`` are twice the target-state angular momenta, while ``tj_in``
+    and ``tj_out`` are projectile partial-wave angular momenta:
+      M_J^direct  = (-1)^{(j_in+J_f+J)/2} Σ_k 6j(J_i,j_in,J,j_out,J_f,k) · D_k
+      M_J^exchange = (-1)^{(j_in+j_out+J)/2} Σ_k 6j(J_i,j_in,J,J_f,j_out,k) · E_k
+      A_J = M_J^direct − (-1)^{(J_f+j_out−J)/2} · M_J^exchange
 
-    where D_k = ⟨κ_i‖C^k‖κ_f⟩·⟨κ_in‖C^k‖κ_out⟩·R^k(i,in;f,out)
+    where D_k = ⟨target_i‖C^k‖target_f⟩·⟨κ_in‖C^k‖κ_out⟩·R^k(i,in;f,out)
     and   E_k = ⟨κ_i‖C^k‖κ_out⟩·⟨κ_in‖C^k‖κ_f⟩·R^k(i,in;out,f).
     """
     acc = 0.0

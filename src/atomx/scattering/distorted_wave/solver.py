@@ -21,7 +21,9 @@ from atomx.methods.kohn_sham import compute_slater_rk
 from atomx.prop.transitions.angular import _kappa_to_lj, selection_rules, angular_eL
 from atomx.prop.transitions.multipole import radial_eL
 from atomx.prop.transitions.rates import oscillator_strength
+from atomx.angular.csf import csf_parity, csf_twice_j, one_body_csf_coupling
 from atomx.angular.wigner import wigner_3j, wigner_6j
+from atomx.methods.mcdhf.config import CSF
 from atomx.scattering._jit_kernels import dw_excitation_angular_sum
 
 
@@ -66,6 +68,72 @@ def _allowed_k(kappa_a, kappa_b):
     kmin = abs(tja - tjb) // 2
     kmax = (tja + tjb) // 2
     return [k for k in range(kmin, kmax + 1) if (k + la + lb) % 2 == 0]
+
+
+def _dominant_csf(result):
+    """Return the dominant CSF for the lowest state, if present."""
+    csfs = getattr(result, "csfs", None)
+    if not csfs:
+        return None
+    coeffs = getattr(result, "mixing_coefficients", None)
+    if coeffs is None or np.size(coeffs) == 0:
+        return csfs[0]
+    coeffs = np.asarray(coeffs)
+    if coeffs.ndim != 2 or coeffs.shape[0] == 0:
+        return csfs[0]
+    idx = int(np.argmax(np.abs(coeffs[:, 0])))
+    return csfs[idx] if idx < len(csfs) else csfs[0]
+
+
+def _csf_from_result_subshells(result):
+    """Build a lightweight CSF from a single-configuration result."""
+    subshells = list(getattr(result, "subshells", []))
+    parity = 1
+    for sh in subshells:
+        if int(round(float(sh.occupation))) % 2:
+            parity *= -1 if _l_of(sh.kappa) % 2 else 1
+    csf = CSF(subshells=subshells, total_J2=0, parity=parity, label="scf")
+    tj = csf_twice_j(csf)
+    return CSF(subshells=subshells, total_J2=tj, parity=parity, label=f"scf [J={tj}/2]")
+
+
+def _target_state_metadata(result):
+    """Return ``(2J, parity, csf)`` for the target state represented by result."""
+    csf = _dominant_csf(result)
+    if csf is not None:
+        state_j2 = getattr(result, "state_J2", None)
+        state_parity = getattr(result, "state_parity", None)
+        if state_j2 is not None and len(state_j2) > 0:
+            tj = int(state_j2[0])
+        else:
+            tj = csf_twice_j(csf)
+        if state_parity is not None and len(state_parity) > 0:
+            parity = int(state_parity[0])
+        else:
+            parity = csf_parity(csf)
+        return tj, parity, csf
+
+    csf = _csf_from_result_subshells(result)
+    return csf_twice_j(csf), csf_parity(csf), csf
+
+
+def _target_projectile_J_range(target_tj_i, target_tj_f, tj_in, tj_out):
+    """Allowed total 2J range for target + projectile recoupling."""
+    tJ_lo = max(abs(target_tj_i - tj_in), abs(target_tj_f - tj_out))
+    tJ_hi = min(target_tj_i + tj_in, target_tj_f + tj_out)
+    if tJ_lo > tJ_hi:
+        return None
+    return tJ_lo, tJ_hi
+
+
+def _target_transition_population(csf_i, csf_f, k, kappa_i, kappa_f):
+    """CSF population/selection factor for a one-electron target tensor."""
+    coupling = one_body_csf_coupling(csf_f, csf_i, k, "E")
+    if coupling is None:
+        return 0.0
+    if coupling.source[1] != kappa_i or coupling.destination[1] != kappa_f:
+        return 0.0
+    return coupling.population_factor
 
 
 # Cross-section unit: pi * a_0^2 in cm^2
@@ -145,8 +213,8 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
     if P_bound_i is None:
         return np.zeros_like(energies_eV), np.zeros_like(energies_eV)
 
-    _, tj_i = _kappa_to_lj(kappa_i)
-    _, tj_f = _kappa_to_lj(kappa_f)
+    target_tj_i, _target_parity_i, _target_csf_i = _target_state_metadata(result_i)
+    target_tj_f, _target_parity_f, _target_csf_f = _target_state_metadata(result_f)
     l_i = _l_of(kappa_i)
     l_f = _l_of(kappa_f)
 
@@ -209,11 +277,12 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
                 if (l_i + l_in + l_f + l_out) % 2 != 0:
                     continue
 
-                # J range: max(|j_i-j_in|, |j_f-j_out|) <= J <= min(j_i+j_in, j_f+j_out)
-                tJ_lo = max(abs(tj_i - tj_in), abs(tj_f - tj_out))
-                tJ_hi = min(tj_i + tj_in, tj_f + tj_out)
-                if tJ_lo > tJ_hi:
+                # Total J range for target + projectile channels.
+                tJ_range = _target_projectile_J_range(
+                    target_tj_i, target_tj_f, tj_in, tj_out)
+                if tJ_range is None:
                     continue
+                tJ_lo, tJ_hi = tJ_range
 
                 # Solve scattered continuum wave
                 key_scat = (int(kappa_scat), round(E_scattered, 12))
@@ -242,7 +311,9 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
                 d_prods = []
                 d_w6j = []
                 for k in kd_pair:
-                    C_if = _reduced_C(kappa_i, kappa_f, k)
+                    pop = _target_transition_population(
+                        _target_csf_i, _target_csf_f, k, kappa_i, kappa_f)
+                    C_if = pop * _reduced_C(kappa_i, kappa_f, k)
                     C_inout = _reduced_C(kappa_inc, kappa_scat, k)
                     if abs(C_if) < 1e-15 or abs(C_inout) < 1e-15:
                         continue
@@ -257,13 +328,15 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
                     n_J = (tJ_hi - tJ_lo) // 2 + 1
                     for iJ in range(n_J):
                         tJ = tJ_lo + 2 * iJ
-                        d_w6j.append(wigner_6j(tj_i, tj_in, tJ, tj_out, tj_f, 2 * k))
+                        d_w6j.append(wigner_6j(target_tj_i, tj_in, tJ, tj_out, target_tj_f, 2 * k))
 
                 # Exchange products and 6j
                 e_prods = []
                 e_w6j = []
                 for k in ke_pair:
-                    C_iout = _reduced_C(kappa_i, kappa_scat, k)
+                    pop = _target_transition_population(
+                        _target_csf_i, _target_csf_f, k, kappa_i, kappa_f)
+                    C_iout = pop * _reduced_C(kappa_i, kappa_scat, k)
                     C_inf = _reduced_C(kappa_inc, kappa_f, k)
                     if abs(C_iout) < 1e-15 or abs(C_inf) < 1e-15:
                         continue
@@ -278,7 +351,7 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
                     n_J = (tJ_hi - tJ_lo) // 2 + 1
                     for iJ in range(n_J):
                         tJ = tJ_lo + 2 * iJ
-                        e_w6j.append(wigner_6j(tj_i, tj_in, tJ, tj_f, tj_out, 2 * k))
+                        e_w6j.append(wigner_6j(target_tj_i, tj_in, tJ, target_tj_f, tj_out, 2 * k))
 
                 if not d_prods and not e_prods:
                     continue
@@ -299,8 +372,8 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
         if n_channels > 0:
             omega_sum = dw_excitation_angular_sum(
                 n_channels,
-                tj_i,
-                tj_f,
+                target_tj_i,
+                target_tj_f,
                 np.array(_ch_tj_in, dtype=np.int64),
                 np.array(_ch_tj_out, dtype=np.int64),
                 np.array(_ch_tJ_lo, dtype=np.int64),
@@ -313,7 +386,7 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
                 np.array(_w6j_exchange, dtype=np.float64),
             )
             if k_i_sq > 0.0:
-                sigma_au[idx] = np.pi / k_i_sq * omega_sum / (tj_i + 1.0)
+                sigma_au[idx] = np.pi / k_i_sq * omega_sum / (target_tj_i + 1.0)
                 omega[idx] = omega_sum
 
     # Convert from atomic units (a_0^2) to cm^2
@@ -328,7 +401,7 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
             rad = radial_eL(P_bound_i, Q_bound_i, P_bound_f, Q_bound_f, bsp_data, L=1)
             ang = angular_eL(kappa_i, kappa_f, 1)
             S_optical = (ang * rad) ** 2
-            f_optical, _gf = oscillator_strength(omega0, S_optical, 1, tj_i, _kappa_to_lj(kappa_f)[1])
+            f_optical, _gf = oscillator_strength(omega0, S_optical, 1, target_tj_i, target_tj_f)
             omega_bethe = coulomb_bethe_topup(
                 f_optical,
                 energies_eV,
@@ -338,7 +411,7 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
             k_i_sq_grid = 2.0 * energies_eV / HARTREE_EV
             sigma_bethe_au = np.divide(
                 np.pi * omega_bethe,
-                k_i_sq_grid * (tj_i + 1),
+                k_i_sq_grid * (target_tj_i + 1),
                 out=np.zeros_like(omega_bethe),
                 where=k_i_sq_grid > 0.0,
             )
