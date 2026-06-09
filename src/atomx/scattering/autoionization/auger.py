@@ -1,35 +1,35 @@
 """Auger (autoionization) rate calculator.
 
-For a doubly-excited state |d⟩ = |a, b⟩ (two electrons above the core)
+For a doubly-excited state |d> = |a, b> (two electrons above the core)
 at energy E_d above the singly-ionized ground state, the Auger rate
-into channel |f; εκ_f⟩ = |bound final, continuum electron⟩ is
+into channel |f; eps*kappa_f> = |bound final, continuum electron> is
 
-    Γ_Auger(d → f; εκ)  =  2π |⟨f; εκ | V_ee | d⟩|²                  (1)
+    Gamma_Auger(d -> f; eps*kappa)  =  2pi |<f; eps*kappa | V_ee | d>|^2  (1)
 
 with continuum orbital normalised per unit energy.  In jj-coupling the
 matrix element expands over Slater integrals R^k(a,b,c,d) between two
 bound orbitals and one continuum orbital:
 
-    ⟨f; εκ | V_ee | a, b⟩
-        =  Σ_k  W_k(κ_a, κ_b, κ_f, κ_ε)  ·  R^k(a, b, f, εκ)          (2)
+    <f; eps*kappa | V_ee | a, b>
+        =  Sum_k  W_k(kappa_a, kappa_b, kappa_f, kappa_eps)  ·  R^k(a, b, f, eps*kappa)  (2)
 
 where W_k is the angular-coupling coefficient and
 
     R^k(a, b, c, d)
-        =  ∫∫ dr₁ dr₂  [P_a(r₁)P_c(r₁) + Q_a(r₁)Q_c(r₁)]
+        =  int int dr1 dr2  [P_a(r1)P_c(r1) + Q_a(r1)Q_c(r1)]
                         · r_<^k / r_>^(k+1)
-                        · [P_b(r₂)P_d(r₂) + Q_b(r₂)Q_d(r₂)]           (3)
+                        · [P_b(r2)P_d(r2) + Q_b(r2)Q_d(r2)]           (3)
 
 is the Slater radial integral.
 
 Simplification for this release
 -------------------------------
-The full angular-momentum coupling is involved (see Grant 2007 §8.1).
+The full angular-momentum coupling is involved (see Grant 2007 sec.8.1).
 As a **calibrated practical helper** this module ships
 
     auger_rate_two_electron(...)
         Accepts the orbitals and a precomputed angular coefficient
-        (``W_k`` or its sum) and returns Γ_Auger in atomic units.
+        (``W_k`` or its sum) and returns Gamma_Auger in atomic units.
 
 For most production uses the angular coefficients are the same as for
 two-electron Coulomb matrix elements in MCDHF (see
@@ -44,6 +44,7 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple
 
 import numpy as np
+import numba as nb
 
 from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 from atomx.constants import ALPHA
@@ -64,11 +65,11 @@ class AutoionizationState:
     J : float
         Total angular momentum of the resonance.
     gamma_auger_per_s : float
-        Total Auger width (all ionization channels), in s⁻¹.
+        Total Auger width (all ionization channels), in s^-1.
     a_radiative_per_s : float
-        Total radiative decay width (all photon channels), in s⁻¹.
+        Total radiative decay width (all photon channels), in s^-1.
     channels : dict, optional
-        Per-channel breakdown ``{final_state_label: Γ_per_s}``.
+        Per-channel breakdown ``{final_state_label: Gamma_per_s}``.
     """
 
     label: str
@@ -85,16 +86,47 @@ class AutoionizationState:
 
     @property
     def total_width_per_s(self) -> float:
-        """Γ_total = Γ_Auger + A_rad."""
+        """Gamma_total = Gamma_Auger + A_rad."""
         return self.gamma_auger_per_s + self.a_radiative_per_s
 
     @property
     def fluorescence_yield(self) -> float:
-        """``Γ_r / (Γ_r + Γ_a)`` — probability of stabilisation via photon."""
+        """``Gamma_r / (Gamma_r + Gamma_a)`` — probability of stabilisation via photon."""
         w = self.total_width_per_s
         if w <= 0.0:
             return 0.0
         return self.a_radiative_per_s / w
+
+
+# ---------------------------------------------------------------------------
+# Numba-compiled Slater integral kernel
+# ---------------------------------------------------------------------------
+
+
+@nb.njit(cache=True, fastmath=True)
+def _slater_double_integral(
+    rho13: np.ndarray, rho24: np.ndarray,
+    r: np.ndarray, w: np.ndarray, k: int,
+) -> float:
+    """Numba-compiled O(N^2) double integral for R^k Slater.
+
+    Computes  sum_{i,j} w[i] * w[j] * rho13[i] * rho24[j] * kernel[i,j]
+    where kernel[i,j] = r_min^k / r_max^(k+1).
+    """
+    n = r.shape[0]
+    total = 0.0
+    for i in range(n):
+        ri = r[i]
+        rho13_i = rho13[i]
+        wi = w[i]
+        for j in range(n):
+            rj = r[j]
+            if ri <= rj:
+                rk_val = ri ** k / rj ** (k + 1)
+            else:
+                rk_val = rj ** k / ri ** (k + 1)
+            total += wi * w[j] * rho13_i * rho24[j] * rk_val
+    return total
 
 
 # ---------------------------------------------------------------------------
@@ -106,10 +138,8 @@ def _slater_integral(
 ) -> float:
     """Compute the Slater radial integral R^k(a, b, c, d) on the B-spline grid.
 
-    Direct O(N²) evaluation on the Gauss grid.  Not the most efficient
-    method (the Poisson-solver convolution in atomx.methods.mcdhf.matrix is
-    preferred for large-scale work), but transparent and sufficient
-    for single-Auger-rate evaluation.
+    Direct O(N^2) evaluation on the Gauss grid using the numba-compiled
+    double-integral kernel for the inner loop.
     """
     nv = bsp_data["nv"]
     ksp = bsp_data.get("ksp", bsp_data["ks"])
@@ -131,25 +161,13 @@ def _slater_integral(
     fPc, fQc = _ev(P_c), _ev(Q_c, small=True)
     fPd, fQd = _ev(P_d), _ev(Q_d, small=True)
 
-    rho13 = fPa * fPc + fQa * fQc     # density (a,c) at r₁
-    rho24 = fPb * fPd + fQb * fQd     # density (b,d) at r₂
+    rho13 = (fPa * fPc + fQa * fQc).reshape(-1)
+    rho24 = (fPb * fPd + fQb * fQd).reshape(-1)
 
-    # Flatten (nv, n_gauss) → 1-D for double integration
     r = gr.reshape(-1)
     w = grw.reshape(-1)
-    rho13 = rho13.reshape(-1)
-    rho24 = rho24.reshape(-1)
 
-    # R^k = ∫ dr₁ dr₂ ρ13(r₁) ρ24(r₂) r_<^k / r_>^(k+1)
-    # Vectorised: broadcast r₁ and r₂.
-    r1 = r[:, None]
-    r2 = r[None, :]
-    r_less = np.minimum(r1, r2)
-    r_greater = np.maximum(r1, r2)
-    kernel = r_less ** k / r_greater ** (k + 1)
-
-    integrand = rho13[:, None] * rho24[None, :] * kernel
-    return float(np.einsum("i,j,ij->", w, w, integrand))
+    return _slater_double_integral(rho13, rho24, r, w, k)
 
 
 def auger_rate_two_electron(
@@ -163,15 +181,15 @@ def auger_rate_two_electron(
 ) -> float:
     """Auger rate for the single-channel two-electron process
 
-        |a, b⟩   →   |c; ε_continuum⟩                                 (4)
+        |a, b>   ->   |c; eps_continuum>                                 (4)
 
-    in atomic units of rate (Hartree/ℏ = 4.1341e16 s⁻¹).
+    in atomic units of rate (Hartree/hbar = 4.1341e16 s^-1).
 
     The user supplies the angular-coupling coefficient ``angular_W``
     and multipole rank ``k``; the radial Slater integral ``R^k`` is
     computed here from the four radial wavefunctions.
 
-        Γ_Auger  =  2π · (angular_W)² · |R^k(a,b,c,ε)|²              (5)
+        Gamma_Auger  =  2pi * (angular_W)^2 * |R^k(a,b,c,eps)|^2        (5)
 
     Parameters
     ----------
@@ -180,10 +198,10 @@ def auger_rate_two_electron(
     P_c, Q_c : ndarray
         Final bound orbital (c becomes the residual singly-bound state).
     P_eps, Q_eps : ndarray
-        Continuum orbital (energy ε, kappa κ_ε; normalised per unit
+        Continuum orbital (energy eps, kappa kappa_eps; normalised per unit
         energy).  Obtain via :func:`atomx.numerics.bspline.continuum.solve_continuum`.
     angular_W : float
-        Pre-computed angular coefficient ``W_k(κ_a, κ_b, κ_c, κ_ε)``.
+        Pre-computed angular coefficient ``W_k(kappa_a, kappa_b, kappa_c, kappa_eps)``.
     k : int
         Slater multipole rank.
     bsp_data : dict
@@ -192,7 +210,7 @@ def auger_rate_two_electron(
     Returns
     -------
     float
-        Auger rate in atomic units (convert to s⁻¹ with 4.1341e16).
+        Auger rate in atomic units (convert to s^-1 with 4.1341e16).
     """
     R_k = _slater_integral(
         P_a, Q_a, P_b, Q_b,

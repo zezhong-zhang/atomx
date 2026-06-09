@@ -33,6 +33,7 @@ from typing import Any, Dict, Optional
 import numpy as np
 
 from atomx.constants import HARTREE_EV, BOHR_RADIUS_M
+from atomx.scattering._jit_kernels import eii_dw_inner_sum, trapezoidal_integrate
 
 
 # π·a₀² in cm² (atomic-physics cross-section unit)
@@ -87,58 +88,11 @@ def beb_cross_section(
 ) -> np.ndarray:
     """Binary-Encounter-Bethe (BEB) cross section for a single subshell.
 
-    σ_BEB(T) = (S / (t + (u + 1)/n)) · [
-                  (Q · ln t / 2) · (1 - 1/t²)
-                + (2 - Q) · (1 - 1/t - ln t / (t + 1))
-              ]
-
-    with ``t = T/U``, ``u = ⟨T⟩/U``, ``S = 4π a₀² N · (R/U)²``,
-    where ``R`` is the Rydberg energy and ``N`` the orbital
-    occupation.  Below threshold (T < U) the cross section is zero.
-
-    Parameters
-    ----------
-    T_eV
-        Incident electron energy(s), eV.
-    U_eV
-        Orbital binding energy = -ε_a, eV.
-    avgT_eV
-        Mean kinetic energy of the bound orbital, eV.  Use
-        |ε_a| (virial) if no explicit KE is available.
-    N_electrons
-        Orbital occupation (q_a = 2j_a+1 for a closed subshell).
-    n_principal
-        Principal quantum number n (denominator correction;
-        Kim-Rudd recommend n=1 unless using BEB-vM).
-    Q
-        Dipole-Bethe parameter.  ``Q = 1`` is the standard BEB; set
-        ``Q = 2 M_dipole²`` if dipole oscillator-strength data are
-        available (BED model).
-
-    Returns
-    -------
-    np.ndarray
-        Cross section in cm² on the same energy grid as ``T_eV``.
+    Delegates to the numba-JIT kernel in :mod:`atomx.scattering.electron_ionization.beb`.
     """
-    T = np.asarray(T_eV, dtype=float)
-    out = np.zeros_like(T)
-    above = T > U_eV
-    if not np.any(above):
-        return out
-
-    t = T[above] / U_eV
-    u = avgT_eV / U_eV
-    S = 4.0 * PI_A0_SQ_CM2 * N_electrons * (RYD_EV / U_eV) ** 2
-
-    log_t = np.log(t)
-    bracket = (
-        0.5 * Q * log_t * (1.0 - 1.0 / t ** 2)
-        + (2.0 - Q) * (1.0 - 1.0 / t - log_t / (t + 1.0))
-    )
-    out[above] = S / (t + (u + 1.0) / n_principal) * bracket
-    # Guard against tiny negative numerical noise just above threshold
-    out = np.where(out < 0.0, 0.0, out)
-    return out
+    from atomx.scattering.electron_ionization.beb import beb_cross_section as _beb_jit
+    return _beb_jit(T_eV, U_eV, avgT_eV, N_electrons,
+                    n_principal=n_principal, Q=Q)
 
 
 # ---------------------------------------------------------------------------
@@ -667,14 +621,27 @@ def _eii_dw_total(
 
             for j_E1, E_1_au in enumerate(E1_grid):
                 E_2_au = T_max - E_1_au
-                # Triple partial-wave sum
-                acc = 0.0
+                # ── Collect all valid channels into flat arrays ──
+                # For each (kappa_in, kappa_1, kappa_2) combo that passes
+                # angular selection rules, pre-compute angular coeffs,
+                # Slater integrals, and wigner-6j, then batch-sum via JIT.
+                _ch_tj_in = []
+                _ch_tj_1 = []
+                _ch_tj_2 = []
+                _ch_tJ_lo = []
+                _ch_tJ_hi = []
+                _ch_n_d = []
+                _ch_n_e = []
+                _direct_products = []
+                _exchange_products = []
+                _w6j_direct = []
+                _w6j_exchange = []
+
                 for kappa_in in kappa_list:
                     P_in, Q_in = _continuum(kappa_in, E_i_au, sh.label)
                     tj_in = _tj_of(kappa_in)
 
                     for kappa_1 in kappa_list:
-                        # Direct allowed multipoles k_d on (a,1):(in,2)
                         kd = _allowed_k(kappa_a, kappa_1)
                         if not kd:
                             continue
@@ -683,8 +650,6 @@ def _eii_dw_total(
 
                         for kappa_2 in kappa_list:
                             tj_2 = _tj_of(kappa_2)
-                            # Total-J range: J ∈ |j_a-j_in| .. j_a+j_in,
-                            # AND ∈ |j_1-j_2| .. j_1+j_2.
                             tJ_lo = max(abs(tj_a - tj_in), abs(tj_1 - tj_2))
                             tJ_hi = min(tj_a + tj_in, tj_1 + tj_2)
                             if tJ_lo > tJ_hi:
@@ -709,60 +674,77 @@ def _eii_dw_total(
                             C_in1 = {k: _reduced_C(kappa_in, kappa_1, k) for k in ke_pair}
 
                             # Radial Slater integrals
-                            Rd: Dict[int, float] = {}
+                            d_prods = []
+                            d_w6j = []
                             for k in kd_pair:
                                 if abs(C_a1[k]) < 1e-15 or abs(C_in2[k]) < 1e-15:
                                     continue
-                                Rd[k] = compute_slater_rk_cell(
+                                Rk = compute_slater_rk_cell(
                                     P_a, Q_a, P_in, Q_in, P_1, Q_1, P_2, Q_2,
                                     bsp_data, k, cache=cache,
                                 )
-                            Re: Dict[int, float] = {}
+                                prod = C_a1[k] * C_in2[k] * Rk
+                                d_prods.append(prod)
+                                # Pre-compute wigner_6j for all J values
+                                n_J = (tJ_hi - tJ_lo) // 2 + 1
+                                for iJ in range(n_J):
+                                    tJ = tJ_lo + 2 * iJ
+                                    d_w6j.append(wigner_6j(
+                                        tj_a, tj_in, tJ, tj_2, tj_1, 2 * k))
+
+                            e_prods = []
+                            e_w6j = []
                             for k in ke_pair:
                                 if abs(C_a2[k]) < 1e-15 or abs(C_in1[k]) < 1e-15:
                                     continue
-                                Re[k] = compute_slater_rk_cell(
+                                Rk = compute_slater_rk_cell(
                                     P_a, Q_a, P_in, Q_in, P_2, Q_2, P_1, Q_1,
                                     bsp_data, k, cache=cache,
                                 )
-                            if not Rd and not Re:
+                                prod = C_a2[k] * C_in1[k] * Rk
+                                e_prods.append(prod)
+                                n_J = (tJ_hi - tJ_lo) // 2 + 1
+                                for iJ in range(n_J):
+                                    tJ = tJ_lo + 2 * iJ
+                                    e_w6j.append(wigner_6j(
+                                        tj_a, tj_in, tJ, tj_1, tj_2, 2 * k))
+
+                            if not d_prods and not e_prods:
                                 continue
 
-                            # Sum over total J
-                            J_sum = 0.0
-                            for tJ in range(tJ_lo, tJ_hi + 1, 2):
-                                # M_J^dir = Σ_k (-1)^{j_in+j_1+J}·{j_a j_in J; j_2 j_1 k}·X_d^k
-                                MJd = 0.0
-                                for k, Rk in Rd.items():
-                                    sj = wigner_6j(tj_a, tj_in, tJ,
-                                                    tj_2, tj_1, 2 * k)
-                                    if abs(sj) < 1e-15:
-                                        continue
-                                    Xk = C_a1[k] * C_in2[k] * Rk
-                                    MJd += sj * Xk
-                                MJd *= (-1) ** ((tj_in + tj_1 + tJ) // 2)
+                            _ch_tj_in.append(tj_in)
+                            _ch_tj_1.append(tj_1)
+                            _ch_tj_2.append(tj_2)
+                            _ch_tJ_lo.append(tJ_lo)
+                            _ch_tJ_hi.append(tJ_hi)
+                            _ch_n_d.append(len(d_prods))
+                            _ch_n_e.append(len(e_prods))
+                            _direct_products.extend(d_prods)
+                            _exchange_products.extend(e_prods)
+                            _w6j_direct.extend(d_w6j)
+                            _w6j_exchange.extend(e_w6j)
 
-                                MJe = 0.0
-                                for k, Rk in Re.items():
-                                    sj = wigner_6j(tj_a, tj_in, tJ,
-                                                    tj_1, tj_2, 2 * k)
-                                    if abs(sj) < 1e-15:
-                                        continue
-                                    Xk = C_a2[k] * C_in1[k] * Rk
-                                    MJe += sj * Xk
-                                MJe *= (-1) ** ((tj_in + tj_2 + tJ) // 2)
+                # ── JIT-compiled inner sum over all channels ──
+                n_channels = len(_ch_tj_in)
+                if n_channels > 0:
+                    integrand[j_E1] = eii_dw_inner_sum(
+                        n_channels,
+                        tj_a,
+                        np.array(_ch_tj_in, dtype=np.int64),
+                        np.array(_ch_tj_1, dtype=np.int64),
+                        np.array(_ch_tj_2, dtype=np.int64),
+                        np.array(_ch_tJ_lo, dtype=np.int64),
+                        np.array(_ch_tJ_hi, dtype=np.int64),
+                        np.array(_ch_n_d, dtype=np.int64),
+                        np.array(_ch_n_e, dtype=np.int64),
+                        np.array(_direct_products, dtype=np.float64),
+                        np.array(_exchange_products, dtype=np.float64),
+                        np.array(_w6j_direct, dtype=np.float64),
+                        np.array(_w6j_exchange, dtype=np.float64),
+                    )
 
-                                ph_swap = (-1) ** ((tj_1 + tj_2 - tJ) // 2)
-                                amp = MJd - ph_swap * MJe
-                                J_sum += (tJ + 1) * amp * amp
-
-                            acc += J_sum
-
-                integrand[j_E1] = acc
-
-            # Trapezoidal integral over E_1
-            integral = float(np.trapezoid(integrand, E1_grid)) \
-                if hasattr(np, "trapezoid") else float(np.trapz(integrand, E1_grid))
+            # Trapezoidal integral over E_1 (JIT-compiled)
+            integral = trapezoidal_integrate(integrand, E1_grid)
 
             # Standard DW Born prefactor (Bransden-Joachain Eq. 12.137,
             # Gu FAC 2008): σ = (4π/k_i²)·(q_a/(2j_a+1))·∫dE_1 |T|²

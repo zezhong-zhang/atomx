@@ -21,7 +21,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=7.0", "pytest-benchmark", "sympy>=1.12"]
+dev = ["pytest>=7.0", "pytest-benchmark", "sympy>=1.12", "pre-commit>=3.0"]
 units = ["pint>=0.21"]
 viz = ["matplotlib>=3.7", "plotly>=5.0"]
 viz-manim = ["manim>=0.18"]
@@ -39,4 +39,12 @@ testpaths = ["tests"]
 markers = [
     "slow: tests that run expensive atomic-structure calculations",
     "fac_parity: frozen atomx parity checks against the FAC matrix golden",
+]
+
+[tool.atomx.performance_dashboard]
+output = "benchmarks/PERFORMANCE.md"
+check_command = "python scripts/perf_dashboard.py --check"
+affected_paths = [
+    "benchmarks/*.csv",
+    "scripts/perf_dashboard.py",
 ]
