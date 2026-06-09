@@ -4,8 +4,9 @@ The three-state close-coupling expansion {1s, 2s, 2p} carries the
 correct channel thresholds, but Burke, Hibbert & Robb's 1 %-level
 resonance gate also needs square-integrable correlation configurations
 inside the R-matrix box.  This module keeps that correction explicit and
-localized: it contributes the Breit-Wigner eigenphase carried by the
-dominant L2 pseudo-state in each singlet LSπ block.
+localized: it contributes the Breit-Wigner phase carried by the
+dominant square-integrable Feshbach pseudo-state in each singlet LSπ
+block when callers opt into the Burke benchmark model.
 """
 
 from __future__ import annotations
@@ -97,14 +98,13 @@ def active_l2_pseudostates(
     )
 
 
-def l2_pseudostate_eigenphase(
-    energies_au: np.ndarray,
+def l2_pseudostate_phase_shift(
+    energy_au: float,
     states: Iterable[L2CorrelationPseudoState],
-) -> np.ndarray:
-    """Eigenphase contribution from square-integrable pseudo-state poles."""
-    energies_au = np.asarray(energies_au, dtype=float)
-    phase = np.zeros_like(energies_au, dtype=float)
+) -> float:
+    """Breit-Wigner phase shift from square-integrable pseudo-state poles."""
+    phase = 0.0
     for state in states:
-        phase += np.arctan(0.5 * state.Gamma_au / (state.E_r_au - energies_au))
+        phase += float(np.arctan(0.5 * state.Gamma_au / (state.E_r_au - energy_au)))
     return phase
 
