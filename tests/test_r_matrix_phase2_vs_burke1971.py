@@ -50,6 +50,7 @@ def _scan_1S(heplus_targets):
         heplus_targets, L_total=0, S_total=0, parity=+1,
         energies_au=energies, Z=2.0, a_au=25.0, n_basis=60,
         k_spline_order=6, n_gauss=12, l_c_max=2,
+        include_l2_pseudostates=True,
     )
 
 
@@ -59,6 +60,7 @@ def _scan_1Po(heplus_targets):
         heplus_targets, L_total=1, S_total=0, parity=-1,
         energies_au=energies, Z=2.0, a_au=25.0, n_basis=60,
         k_spline_order=6, n_gauss=12, l_c_max=2,
+        include_l2_pseudostates=True,
     )
 
 
@@ -68,6 +70,7 @@ def _scan_1De(heplus_targets):
         heplus_targets, L_total=2, S_total=0, parity=+1,
         energies_au=energies, Z=2.0, a_au=25.0, n_basis=60,
         k_spline_order=6, n_gauss=12, l_c_max=3,
+        include_l2_pseudostates=True,
     )
 
 
@@ -148,6 +151,9 @@ def test_burke1971_three_lowest_resonances_within_1pc(heplus_targets):
     assert res_1S.provenance["l2_pseudostates"][0]["configuration"] == "2s2"
     assert res_1Po.provenance["l2_pseudostates"][0]["configuration"] == "2s2p"
     assert res_1De.provenance["l2_pseudostates"][0]["configuration"] == "2p2"
+    assert res_1S.matchings[0].eigenphase_sum == pytest.approx(
+        res_1S.eigenphase_sum[0]
+    )
 
     def _strongest(fits, E_ref):
         if not fits:
