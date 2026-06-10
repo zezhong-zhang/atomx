@@ -602,6 +602,30 @@ def _eii_dw_total(
         P_a, Q_a, _ = orb_list[idx_in_kappa]
 
         sigma_a = np.zeros_like(energies)
+        use_k_shell_high_e_hybrid = (
+            sh.n == 1
+            and Z >= 6
+            and q_a >= 1.0
+        )
+        high_e_hybrid_mask = (
+            (energies / (I_a_au * _HEV)) >= 2.0
+            if use_k_shell_high_e_hybrid
+            else np.zeros_like(energies, dtype=bool)
+        )
+        if np.any(high_e_hybrid_mask):
+            # The B-spline pseudo-continuum can miss compact K-shell
+            # continuum energies by O(10 %) once E/I >= 2, which is large
+            # enough to dominate the Slater integral.  The issue's accepted
+            # high-energy route is a DW/BEB hybrid, so keep explicit DW near
+            # threshold and use the stable Kim-Rudd high-E branch for the
+            # compact K-shell tail.
+            sigma_a[high_e_hybrid_mask] = beb_cross_section(
+                energies[high_e_hybrid_mask],
+                U_eV=I_a_au * _HEV,
+                avgT_eV=I_a_au * _HEV,
+                N_electrons=q_a,
+                n_principal=sh.n,
+            )
 
         # Cache the optical oscillator strength + orbital RMS radius
         # once per shell — they depend only on the bound orbital, not
@@ -611,6 +635,8 @@ def _eii_dw_total(
         r_a_rms_cached: Optional[float] = None
 
         for E_i_idx, E_i_eV in enumerate(energies):
+            if high_e_hybrid_mask[E_i_idx]:
+                continue
             E_i_au = E_i_eV / _HEV
             T_max = E_i_au - I_a_au
             if T_max <= 0.0:
@@ -809,6 +835,10 @@ def _eii_dw_total(
             "I_eV": I_a_au * _HEV, "occupation": q_a,
             "kappa_max": kappa_max,
             "n_E1_quadrature": n_outgoing_energies,
+            "k_shell_high_energy_hybrid": bool(np.any(high_e_hybrid_mask)),
+            "k_shell_hybrid_E_over_I_min": (
+                2.0 if np.any(high_e_hybrid_mask) else None
+            ),
         }
 
     include_local_exchange = False

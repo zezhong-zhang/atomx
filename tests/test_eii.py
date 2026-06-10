@@ -175,6 +175,26 @@ def test_dw_hydrogenic_scaling_with_z():
     assert 1e-18 < sigma < 1e-17
 
 
+
+
+@pytest.mark.parametrize("Z", [10, 26, 54])
+def test_dw_k_shell_high_energy_uses_beb_hybrid(Z):
+    """High-Z K-shell DW avoids sparse B-spline continuum at E/I >= 2."""
+    atom = Atom(Z=Z, config="1s2", breit=False, qed=False)
+    atom.solve()
+    I_eV = -next(iter(atom._result.orbital_energies.values())) * 27.211386245988
+    E = np.array([2.0 * I_eV, 5.0 * I_eV])
+
+    r_dw = eii_cross_section(
+        atom._result, E, method="DW", kappa_max=4, n_outgoing_energies=4,
+    )
+    r_beb = eii_cross_section(atom._result, E, method="BEB")
+
+    np.testing.assert_allclose(r_dw.sigma_total_cm2, r_beb.sigma_total_cm2)
+    orb_info = next(iter(r_dw.provenance["per_orbital"].values()))
+    assert orb_info["k_shell_high_energy_hybrid"] is True
+    assert orb_info["k_shell_hybrid_E_over_I_min"] == 2.0
+
 def test_dw_positive_and_declines_above_peak():
     """DW cross section is positive everywhere above threshold and
     decreases monotonically above the peak."""
