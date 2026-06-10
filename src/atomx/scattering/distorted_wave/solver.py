@@ -12,18 +12,48 @@ for neutral/near-neutral atoms where channel coupling is important.
 Reference: Gu, Can. J. Phys. 86, 675 (2008) - FAC DW formulation
 """
 
+import math
+
 import numpy as np
 from atomx.constants import ALPHA, C_SQ, HARTREE_EV, BOHR_RADIUS_M
 from atomx.numerics.bspline.continuum import solve_continuum
-from atomx.methods.kohn_sham import compute_slater_rk
+from atomx.numerics.bspline.convol import ConvolCache, compute_slater_rk_cell
+from atomx.angular.wigner import wigner_3j, wigner_6j
 from atomx.prop.transitions.angular import _kappa_to_lj, selection_rules, angular_eL
 from atomx.prop.transitions.multipole import radial_eL
 from atomx.prop.transitions.rates import oscillator_strength
-from atomx.scattering._jit_kernels import dw_excitation_sigma_sum
+from atomx.scattering._jit_kernels import dw_excitation_inner_sum
 
 
 # Cross-section unit: pi * a_0^2 in cm^2
 PI_A0_SQ_CM2 = np.pi * (BOHR_RADIUS_M * 100) ** 2
+
+
+def _l_of(kappa):
+    return kappa if kappa > 0 else -kappa - 1
+
+
+def _tj_of(kappa):
+    return 2 * abs(kappa) - 1
+
+
+def _allowed_k(kappa_a, kappa_b):
+    ja, jb = abs(kappa_a) - 0.5, abs(kappa_b) - 0.5
+    kmin, kmax = int(abs(ja - jb)), int(ja + jb)
+    la, lb = _l_of(kappa_a), _l_of(kappa_b)
+    return [k for k in range(kmin, kmax + 1) if (k + la + lb) % 2 == 0]
+
+
+def _reduced_C(kappa_a, kappa_b, k):
+    la, lb = _l_of(kappa_a), _l_of(kappa_b)
+    if (la + k + lb) % 2 != 0:
+        return 0.0
+    tja, tjb = _tj_of(kappa_a), _tj_of(kappa_b)
+    w = wigner_3j(tja, 2 * k, tjb, -1, 0, 1)
+    if abs(w) < 1e-15:
+        return 0.0
+    phase = (-1) ** ((tja + 1) // 2)
+    return phase * math.sqrt((tja + 1) * (tjb + 1)) * w
 
 
 def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
@@ -34,7 +64,9 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
     Uses the DW approximation: the incoming/outgoing electron wavefunctions
     are computed in the static potential of the initial/final atomic state.
 
-    The inner partial-wave sum is JIT-compiled via numba for performance.
+    The inner partial-wave sum with proper j-j angular coupling is
+    JIT-compiled via numba for performance, mirroring the EII module's
+    channel-batch + continuum-cache pattern.
 
     Parameters
     ----------
@@ -100,98 +132,199 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
         return np.zeros_like(energies_eV), np.zeros_like(energies_eV)
 
     _, tj_i = _kappa_to_lj(kappa_i)
+    _, tj_f = _kappa_to_lj(kappa_f)
 
     n_energies = len(energies_eV)
     E_inc_hartree = energies_eV / HARTREE_EV
 
-    # Build kappa arrays (exclude 0)
-    kappa_inc_arr = np.array([k for k in range(-kappa_max, kappa_max + 1) if k != 0],
-                             dtype=np.int64)
-    kappa_scat_arr = kappa_inc_arr  # same range
-    k_arr = np.arange(0, L_max + 1, dtype=np.int64)
+    # Build kappa array (exclude 0, limit l <= kappa_max)
+    kappa_list = []
+    for k_abs in range(1, kappa_max + 2):
+        kappa_list.append(-k_abs)
+        kappa_list.append(+k_abs)
+    kappa_list = [k for k in kappa_list if k != 0 and _l_of(k) <= kappa_max]
 
-    n_ki = len(kappa_inc_arr)
-    n_ks = len(kappa_scat_arr)
-    n_k = len(k_arr)
+    cache = ConvolCache(bsp_data)
 
-    # Pre-solve all continuum waves and pre-compute Slater integrals.
-    # The continuum solve is Python-level (uses bsp_data dicts), but we
-    # batch it so the inner numba kernel gets pure arrays.
-    slater_direct = np.full((n_energies, n_ki, n_ks, n_k), np.nan)
-    slater_exchange = np.full((n_energies, n_ki, n_ks, n_k), np.nan)
+    # Pre-compute the channel structure (energy-independent angular data).
+    # Each channel stores: (kappa_in, kappa_out, tj_in, tj_out, tJ_lo, tJ_hi,
+    #   direct_k_info, exchange_k_info) where k_info = [(k, C_a_b, C_c_d, w6j_list), ...]
+    _channels = []
+    for kappa_in in kappa_list:
+        tj_in = _tj_of(kappa_in)
+        for kappa_out in kappa_list:
+            tj_out = _tj_of(kappa_out)
 
-    # Cache continuum solutions: (kappa, E_hartree) -> (P, Q)
+            tJ_lo = max(abs(tj_i - tj_in), abs(tj_f - tj_out))
+            tJ_hi = min(tj_i + tj_in, tj_f + tj_out)
+            if tJ_lo > tJ_hi:
+                continue
+
+            l_i = _l_of(kappa_i); l_in = _l_of(kappa_in)
+            l_f = _l_of(kappa_f); l_out = _l_of(kappa_out)
+            if (l_i + l_in + l_f + l_out) % 2 != 0:
+                continue
+
+            kd = [k for k in _allowed_k(kappa_i, kappa_in)
+                  if k in _allowed_k(kappa_out, kappa_f) and k <= L_max]
+            ke = [k for k in _allowed_k(kappa_i, kappa_out)
+                  if k in _allowed_k(kappa_in, kappa_f) and k <= L_max]
+            if not kd and not ke:
+                continue
+
+            n_J = (tJ_hi - tJ_lo) // 2 + 1
+
+            d_info = []
+            for k in kd:
+                c_i_in = _reduced_C(kappa_i, kappa_in, k)
+                c_out_f = _reduced_C(kappa_out, kappa_f, k)
+                if abs(c_i_in) < 1e-15 or abs(c_out_f) < 1e-15:
+                    continue
+                w6j_list = []
+                for iJ in range(n_J):
+                    tJ = tJ_lo + 2 * iJ
+                    w6j_list.append(wigner_6j(tj_i, tj_in, tJ, tj_out, tj_f, 2 * k))
+                d_info.append((k, c_i_in * c_out_f, w6j_list))
+
+            e_info = []
+            for k in ke:
+                c_i_out = _reduced_C(kappa_i, kappa_out, k)
+                c_in_f = _reduced_C(kappa_in, kappa_f, k)
+                if abs(c_i_out) < 1e-15 or abs(c_in_f) < 1e-15:
+                    continue
+                w6j_list = []
+                for iJ in range(n_J):
+                    tJ = tJ_lo + 2 * iJ
+                    w6j_list.append(wigner_6j(tj_i, tj_in, tJ, tj_f, tj_out, 2 * k))
+                e_info.append((k, c_i_out * c_in_f, w6j_list))
+
+            if not d_info and not e_info:
+                continue
+
+            _channels.append((kappa_in, kappa_out, tj_in, tj_out,
+                              tJ_lo, tJ_hi, d_info, e_info))
+
+    # Continuum-wave cache: (kappa, round(energy, precision)) -> (P, Q)
     continuum_cache = {}
+
+    def _get_continuum(kappa, energy_au):
+        key = (int(kappa), round(energy_au, 10))
+        if key in continuum_cache:
+            return continuum_cache[key]
+        try:
+            P, Q, _ = solve_continuum(
+                int(kappa), energy_au, Z, bsp_data,
+                V_J_PP_i, V_J_QQ_i, energy_normalized=True)
+            continuum_cache[key] = (P, Q)
+            return P, Q
+        except Exception:
+            continuum_cache[key] = None
+            return None, None
+
+    # Pre-solve all incoming continuum waves (one per kappa per energy)
+    # and collect all scattered energies needed.
+    incoming_waves = {}  # (idx, kappa_in) -> (P, Q)
+    for idx in range(n_energies):
+        E_inc = E_inc_hartree[idx]
+        for ch in _channels:
+            kappa_in = ch[0]
+            key = (idx, kappa_in)
+            if key not in incoming_waves:
+                P, Q = _get_continuum(kappa_in, E_inc)
+                if P is not None:
+                    incoming_waves[key] = (P, Q)
+
+    sigma = np.zeros(n_energies)
+    omega = np.zeros(n_energies)
 
     for idx in range(n_energies):
         E_inc = E_inc_hartree[idx]
-        E_scattered = E_inc - dE_hartree_grid[idx]
-        if E_scattered <= 0:
+        dE = dE_hartree_grid[idx]
+        E_scattered = E_inc - dE
+        if E_scattered <= 0.0:
             continue
+        k_i_sq = 2.0 * E_inc
 
-        # Solve continuum for all kappa at this energy (with caching)
-        for iki, kappa_inc in enumerate(kappa_inc_arr):
-            key_in = (int(kappa_inc), idx)
-            if key_in not in continuum_cache:
-                try:
-                    P_inc, Q_inc, _ = solve_continuum(
-                        int(kappa_inc), E_inc, Z, bsp_data,
-                        V_J_PP_i, V_J_QQ_i, energy_normalized=True)
-                    continuum_cache[key_in] = (P_inc, Q_inc)
-                except Exception:
-                    continuum_cache[key_in] = None
-            inc_result = continuum_cache[key_in]
-            if inc_result is None:
+        _ch_tj_in = []
+        _ch_tj_out = []
+        _ch_tJ_lo = []
+        _ch_tJ_hi = []
+        _ch_n_d = []
+        _ch_n_e = []
+        _direct_products = []
+        _exchange_products = []
+        _w6j_direct = []
+        _w6j_exchange = []
+
+        for ch in _channels:
+            kappa_in, kappa_out, tj_in, tj_out, tJ_lo, tJ_hi, d_info, e_info = ch
+
+            inc = incoming_waves.get((idx, kappa_in))
+            if inc is None:
                 continue
-            P_inc, Q_inc = inc_result
+            P_in, Q_in = inc
 
-            for iks, kappa_scat in enumerate(kappa_scat_arr):
-                key_scat = (int(kappa_scat), idx, 1)  # 1 = scattered
-                # Use energy as scatter key
-                key_scat = (int(kappa_scat), round(E_scattered, 12))
-                if key_scat not in continuum_cache:
-                    try:
-                        P_scat, Q_scat, _ = solve_continuum(
-                            int(kappa_scat), E_scattered, Z, bsp_data,
-                            V_J_PP_i, V_J_QQ_i, energy_normalized=True)
-                        continuum_cache[key_scat] = (P_scat, Q_scat)
-                    except Exception:
-                        continuum_cache[key_scat] = None
-                scat_result = continuum_cache[key_scat]
-                if scat_result is None:
-                    continue
-                P_scat, Q_scat = scat_result
+            P_out, Q_out = _get_continuum(kappa_out, E_scattered)
+            if P_out is None:
+                continue
 
-                for ik, k in enumerate(k_arr):
-                    # Direct: R^k(bound_i, inc; bound_f, scat)
-                    try:
-                        Rk_d = compute_slater_rk(
-                            P_bound_i, Q_bound_i, P_inc, Q_inc,
-                            P_bound_f, Q_bound_f, P_scat, Q_scat,
-                            bsp_data, int(k))
-                        slater_direct[idx, iki, iks, ik] = Rk_d
-                    except Exception:
-                        pass
+            d_prods = []
+            d_w6j = []
+            for k, ang_prod, w6j_list in d_info:
+                Rk = compute_slater_rk_cell(
+                    P_bound_i, Q_bound_i, P_in, Q_in,
+                    P_bound_f, Q_bound_f, P_out, Q_out,
+                    bsp_data, k, cache=cache,
+                )
+                d_prods.append(ang_prod * Rk)
+                d_w6j.extend(w6j_list)
 
-                    # Exchange: R^k(bound_i, inc; scat, bound_f)
-                    try:
-                        Rk_e = compute_slater_rk(
-                            P_bound_i, Q_bound_i, P_inc, Q_inc,
-                            P_scat, Q_scat, P_bound_f, Q_bound_f,
-                            bsp_data, int(k))
-                        slater_exchange[idx, iki, iks, ik] = Rk_e
-                    except Exception:
-                        pass
+            e_prods = []
+            e_w6j = []
+            for k, ang_prod, w6j_list in e_info:
+                Rk = compute_slater_rk_cell(
+                    P_bound_i, Q_bound_i, P_in, Q_in,
+                    P_out, Q_out, P_bound_f, Q_bound_f,
+                    bsp_data, k, cache=cache,
+                )
+                e_prods.append(ang_prod * Rk)
+                e_w6j.extend(w6j_list)
 
-    # JIT-compiled sigma assembly
-    sigma_au, omega = dw_excitation_sigma_sum(
-        n_energies, kappa_inc_arr, kappa_scat_arr, k_arr,
-        slater_direct, slater_exchange, E_inc_hartree,
-        dE_hartree_grid, tj_i,
-    )
+            if not d_prods and not e_prods:
+                continue
+
+            _ch_tj_in.append(tj_in)
+            _ch_tj_out.append(tj_out)
+            _ch_tJ_lo.append(tJ_lo)
+            _ch_tJ_hi.append(tJ_hi)
+            _ch_n_d.append(len(d_prods))
+            _ch_n_e.append(len(e_prods))
+            _direct_products.extend(d_prods)
+            _exchange_products.extend(e_prods)
+            _w6j_direct.extend(d_w6j)
+            _w6j_exchange.extend(e_w6j)
+
+        n_channels = len(_ch_tj_in)
+        if n_channels > 0:
+            t_sq = dw_excitation_inner_sum(
+                n_channels,
+                np.array(_ch_tj_in, dtype=np.int64),
+                np.array(_ch_tj_out, dtype=np.int64),
+                np.array(_ch_tJ_lo, dtype=np.int64),
+                np.array(_ch_tJ_hi, dtype=np.int64),
+                np.array(_ch_n_d, dtype=np.int64),
+                np.array(_ch_n_e, dtype=np.int64),
+                np.array(_direct_products, dtype=np.float64),
+                np.array(_exchange_products, dtype=np.float64),
+                np.array(_w6j_direct, dtype=np.float64),
+                np.array(_w6j_exchange, dtype=np.float64),
+            )
+            if k_i_sq > 0.0:
+                sigma[idx] = np.pi / k_i_sq * t_sq / (tj_i + 1.0)
+                omega[idx] = k_i_sq * (tj_i + 1.0) * sigma[idx] / np.pi
 
     # Convert from atomic units (a_0^2) to cm^2
-    sigma = sigma_au * (BOHR_RADIUS_M * 100) ** 2
+    sigma *= (BOHR_RADIUS_M * 100) ** 2
 
     # FAC blends/augments high partial waves with a Coulomb-Bethe limit for
     # optically allowed transitions.
