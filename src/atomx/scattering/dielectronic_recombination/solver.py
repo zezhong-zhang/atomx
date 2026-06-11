@@ -34,7 +34,6 @@ M. F. Gu, *Astrophys. J.* **590**, 1131 (2003) — FAC DR calculations.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from math import exp, pi, sqrt
 from typing import Callable, Dict, List, Sequence
 
 import numpy as np
@@ -46,6 +45,11 @@ from atomx.scattering.dielectronic_recombination.enumerate import (
     enumerate_dr_resonances,
     resonance_strength_rows,
     _initial_statistical_weight,
+)
+from atomx.scattering.dielectronic_recombination.widths import (
+    has_solved_result,
+    make_abinitio_auger_rate_fn,
+    make_abinitio_radiative_rate_fn,
 )
 
 
@@ -224,12 +228,11 @@ def dr_calculate(
     builds :class:`AutoionizationState` objects, and calls the existing
     :func:`dr_rate_coefficient` kernel unchanged.
 
-    The present public Auger API exposes the low-level two-electron radial
-    integral but not a complete configuration-to-channel summation.  Until the
-    J-block matrix-element layer is available, default Auger/radiative widths
-    are screened hydrogenic estimates.  Production callers can pass
-    ``auger_rate_fn`` and ``radiative_rate_fn`` hooks to supply ab-initio
-    matrix-element sums without changing this driver API.
+    When ``initial_atom`` carries a solved structure result, omitted width
+    hooks default to ab-initio Auger and E1 radiative width factories.  Without
+    a solved result the driver keeps the screened hydrogenic fallback used by
+    earlier releases.  Production callers can still pass ``auger_rate_fn`` and
+    ``radiative_rate_fn`` hooks to override either path.
     """
 
     if hasattr(initial_atom, "solve") and not getattr(initial_atom, "converged", False):
@@ -246,6 +249,11 @@ def dr_calculate(
         n_max=n_max,
         l_max=l_max,
     )
+    if has_solved_result(initial_atom):
+        if auger_rate_fn is None:
+            auger_rate_fn = make_abinitio_auger_rate_fn(initial_atom)
+        if radiative_rate_fn is None:
+            radiative_rate_fn = make_abinitio_radiative_rate_fn(initial_atom)
     resonances = build_autoionization_states(
         specs,
         initial_atom,
