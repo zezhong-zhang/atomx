@@ -44,19 +44,30 @@ from atomx.scattering.autoionization.auger import (
     AutoionizationState,
     auger_rate_two_electron,
 )
-from atomx.scattering.dielectronic_recombination.solver import (
-    DRRateCoefficient,
-    dr_calculate,
-    dr_rate_coefficient,
-    dr_strengths,
-)
+
+_DR_EXPORTS = {
+    "DRRateCoefficient",
+    "dr_calculate",
+    "dr_rate_coefficient",
+    "dr_strengths",
+}
+
+
+def __getattr__(name):
+    if name in _DR_EXPORTS:
+        from atomx.scattering.dielectronic_recombination import solver
+
+        value = getattr(solver, name)
+        globals()[name] = value
+        return value
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 
 def _orbital_key_from_label(result, label: str):
     for n, kappa in getattr(result, "orbitals_dict", {}):
-        l = kappa if kappa > 0 else -kappa - 1
+        orbital_l = kappa if kappa > 0 else -kappa - 1
         j2 = 2 * abs(kappa) - 1
-        l_char = "spdfghiklmno"[l] if l < 12 else f"l{l}"
+        l_char = "spdfghiklmno"[orbital_l] if orbital_l < 12 else f"l{orbital_l}"
         if f"{n}{l_char}{j2}/2" == label:
             return (n, kappa)
     return None
