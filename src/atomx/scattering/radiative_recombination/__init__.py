@@ -33,9 +33,10 @@ Limitations
 -----------
 - Single-orbital approximation: assumes the ``(N-1)``-electron core
   is identical in PI and RR (no shake-up).
-- Length-gauge dipole only.
-- Includes only E1; M1/E2 are typically <1 % at energies below
-  Z·keV.
+- Single-active-electron bound-free matrix elements in the long-wavelength
+  approximation.
+- Direct shooting continuum currently supports E1 only; B-spline continuum
+  supports E1, M1, and E2.
 
 References
 ----------
@@ -55,24 +56,130 @@ from typing import Any, Dict, List, Optional
 import numpy as np
 
 from atomx.constants import ALPHA, BOHR_RADIUS_M, HARTREE_EV
-from atomx.numerics.bspline.continuum import photoionization_cross_section
-from atomx.prop.transitions.angular import line_strength_factor
+from atomx.numerics.bspline.continuum import (
+    photoionization_cross_section,
+    solve_continuum,
+)
+from atomx.prop.transitions.angular import allowed_final_kappas, line_strength_factor
+from atomx.prop.transitions.multipole import radial_eL, radial_mL
 from atomx.scattering.models import ContinuumModel
 
 
 BOHR_CM2 = (BOHR_RADIUS_M * 100.0) ** 2  # a₀² in cm²
+AU_VELOCITY_CM_S = ALPHA * 299_792_458.0 * 100.0
+
+DEFAULT_MULTIPOLES = (("E", 1), ("M", 1), ("E", 2))
 
 
 def _final_e1_kappas(bound_kappa: int) -> list[int]:
-    l_bound = bound_kappa if bound_kappa > 0 else -bound_kappa - 1
+    return allowed_final_kappas(bound_kappa, 1, "E")
+
+
+def _final_m1_kappas(bound_kappa: int) -> list[int]:
+    return allowed_final_kappas(bound_kappa, 1, "M")
+
+
+def _final_e2_kappas(bound_kappa: int) -> list[int]:
+    return allowed_final_kappas(bound_kappa, 2, "E")
+
+
+def _multipole_label(multipole_type: str, L: int) -> str:
+    return f"{multipole_type.upper()}{int(L)}"
+
+
+def _multipole_prefactor_scale(multipole_type: str, L: int, omega: float) -> float:
+    """Scale the existing E1 PI prefactor to an EL/ML long-wave prefactor."""
+    if L < 1:
+        raise ValueError("multipole rank L must be >= 1")
+    if omega <= 0.0:
+        return 0.0
+    dbl_fact = 1
+    for n in range(1, 2 * L + 2, 2):
+        dbl_fact *= n
+    pref_L = (
+        2.0 * ALPHA ** (2 * L + 1) * omega ** (2 * L + 1)
+        * (L + 1) * (2 * L + 1)
+        / (L * dbl_fact ** 2)
+    )
+    pref_e1 = (4.0 / 3.0) * ALPHA ** 3 * omega ** 3
+    return pref_L / pref_e1
+
+
+def _normalise_multipoles(multipoles) -> tuple[tuple[str, int], ...]:
+    if multipoles is None:
+        return DEFAULT_MULTIPOLES
     out = []
-    for l_f in (l_bound - 1, l_bound + 1):
-        if l_f < 0:
+    for item in multipoles:
+        if isinstance(item, str):
+            kind = item[0].upper()
+            rank = int(item[1:])
+        else:
+            kind = str(item[0]).upper()
+            rank = int(item[1])
+        if kind not in {"E", "M"}:
+            raise ValueError(f"unknown multipole type {kind!r}")
+        if rank < 1:
+            raise ValueError("multipole rank must be >= 1")
+        pair = (kind, rank)
+        if pair not in out:
+            out.append(pair)
+    if not out:
+        raise ValueError("at least one multipole must be requested")
+    return tuple(out)
+
+
+def _radial_multipole(P_bound, Q_bound, P_cont, Q_cont, bsp_data, kind: str, L: int):
+    if kind == "M":
+        return radial_mL(P_bound, Q_bound, P_cont, Q_cont, bsp_data, L=L)
+    return radial_eL(P_bound, Q_bound, P_cont, Q_cont, bsp_data, L=L)
+
+
+def _bound_free_multipole_cross_sections(
+    bound_P,
+    bound_Q,
+    bound_kappa: int,
+    bound_energy: float,
+    photon_energies: np.ndarray,
+    Z: int,
+    bsp_data,
+    multipoles,
+) -> Dict[str, np.ndarray]:
+    """Photoionization partial cross sections for E/M multipoles."""
+    partials = {
+        _multipole_label(kind, L): np.zeros_like(photon_energies, dtype=float)
+        for kind, L in multipoles
+    }
+
+    for idx, omega in enumerate(photon_energies):
+        electron_energy = float(omega + bound_energy)
+        if electron_energy <= 0.0:
             continue
-        out.append(-(l_f + 1))
-        if l_f > 0:
-            out.append(l_f)
-    return out
+
+        continuum_cache = {}
+        for kind, L in multipoles:
+            label = _multipole_label(kind, L)
+            for kf in allowed_final_kappas(bound_kappa, L, kind):
+                angular_factor = (
+                    line_strength_factor(bound_kappa, kf, L, kind) / abs(bound_kappa)
+                )
+                if angular_factor == 0.0:
+                    continue
+                if kf not in continuum_cache:
+                    Pf, Qf, _E_actual = solve_continuum(
+                        kf, electron_energy, Z, bsp_data
+                    )
+                    continuum_cache[kf] = (Pf, Qf)
+                Pf, Qf = continuum_cache[kf]
+                rme = _radial_multipole(
+                    bound_P, bound_Q, Pf, Qf, bsp_data, kind, L
+                )
+                prefactor = (
+                    4.0 * np.pi ** 2 * ALPHA * float(omega) / 3.0
+                    * _multipole_prefactor_scale(kind, L, float(omega))
+                )
+                partials[label][idx] += prefactor * rme ** 2 * angular_factor
+
+    return partials
 
 
 def _shooting_photoionization_cross_section(
@@ -151,6 +258,8 @@ class RRResult:
         Σ_n σ_RR(E_e; n) in atomic units (a₀²).
     sigma_by_orbital
         Per-orbital partial cross sections (a₀²).
+    sigma_by_multipole
+        Per-multipole partial cross sections (a₀²), keyed like ``"E1"``.
     sigma_total_cm2
         Same as ``sigma_total_a0_sq`` but in cm² (convenience).
     provenance
@@ -160,6 +269,7 @@ class RRResult:
     energies_eV: np.ndarray
     sigma_total_a0_sq: np.ndarray
     sigma_by_orbital: Dict[str, np.ndarray] = field(default_factory=dict)
+    sigma_by_multipole: Dict[str, np.ndarray] = field(default_factory=dict)
     sigma_total_cm2: Optional[np.ndarray] = None
     provenance: Dict[str, Any] = field(default_factory=dict)
 
@@ -181,6 +291,7 @@ def rr_cross_section(
     g_initial: Optional[int] = None,
     g_final: Optional[int] = None,
     continuum_model: Any = None,
+    multipoles=None,
 ) -> RRResult:
     """Total radiative-recombination cross section via Milne detailed balance.
 
@@ -207,6 +318,9 @@ def rr_cross_section(
         Optional compatibility hook for benchmark callers.  The current
         implementation uses the continuum data already attached to
         ``scf_result``.
+    multipoles
+        Iterable of multipoles to include, e.g. ``("E1", "M1", "E2")``
+        or ``(("E", 1), ("M", 1))``.  Default includes E1, M1, and E2.
 
     Returns
     -------
@@ -226,8 +340,13 @@ def rr_cross_section(
     if g_initial is None:
         g_initial = 1  # closed-shell-core ion: J=0 → 2J+1 = 1
 
+    multipoles = _normalise_multipoles(multipoles)
     sigma_total = np.zeros_like(energies)
     by_orbital: Dict[str, np.ndarray] = {}
+    by_multipole: Dict[str, np.ndarray] = {
+        _multipole_label(kind, L): np.zeros_like(energies)
+        for kind, L in multipoles
+    }
     prov_per_orb: Dict[str, Dict[str, float]] = {}
 
     for sh in scf_result.subshells:
@@ -254,17 +373,29 @@ def rr_cross_section(
             isinstance(continuum_model, ContinuumModel)
             and continuum_model.method.lower() == "shooting"
         ):
-            sigma_PI_a0sq = _shooting_photoionization_cross_section(
-                scf_result,
-                sh,
-                P_b,
-                Q_b,
-                photon_au,
-                continuum_model,
-            )
+            if multipoles != (("E", 1),):
+                raise NotImplementedError(
+                    "shooting RR currently supports only the E1 multipole"
+                )
+            sigma_PI_partials = {
+                "E1": _shooting_photoionization_cross_section(
+                    scf_result,
+                    sh,
+                    P_b,
+                    Q_b,
+                    photon_au,
+                    continuum_model,
+                )
+            }
+        elif multipoles == (("E", 1),):
+            sigma_PI_partials = {
+                "E1": photoionization_cross_section(
+                    P_b, Q_b, sh.kappa, eps_n, photon_au, Z, bsp_data,
+                )
+            }
         else:
-            sigma_PI_a0sq = photoionization_cross_section(
-                P_b, Q_b, sh.kappa, eps_n, photon_au, Z, bsp_data,
+            sigma_PI_partials = _bound_free_multipole_cross_sections(
+                P_b, Q_b, sh.kappa, eps_n, photon_au, Z, bsp_data, multipoles
             )
 
         # Statistical-weight ratio
@@ -273,24 +404,34 @@ def rr_cross_section(
         # σ_RR/σ_PI = (g_n/(2 g_ion)) · α²·ω²/(2 E_e).
         # The 2 in the degeneracy ratio is the free-electron spin.
         milne = (ALPHA ** 2) * (photon_au ** 2) / (2.0 * energies_au)
-        sigma_RR = (g_n / (2.0 * g_initial)) * milne * sigma_PI_a0sq
+        sigma_RR_partials = {
+            label: (g_n / (2.0 * g_initial)) * milne * sigma_PI
+            for label, sigma_PI in sigma_PI_partials.items()
+        }
+        sigma_RR = np.sum(list(sigma_RR_partials.values()), axis=0)
 
         by_orbital[sh.label] = sigma_RR
         sigma_total += sigma_RR
+        for label, sigma_part in sigma_RR_partials.items():
+            by_multipole.setdefault(label, np.zeros_like(energies))
+            by_multipole[label] += sigma_part
         prov_per_orb[sh.label] = {
             "I_n_eV": I_n_eV,
             "g_n": g_n,
             "occupation": float(sh.occupation),
+            "multipoles": list(sigma_RR_partials),
         }
 
     return RRResult(
         energies_eV=energies,
         sigma_total_a0_sq=sigma_total,
         sigma_by_orbital=by_orbital,
+        sigma_by_multipole=by_multipole,
         provenance={
             "Z": Z,
             "g_initial": g_initial,
             "continuum_model": continuum_model,
+            "multipoles": [_multipole_label(kind, L) for kind, L in multipoles],
             "per_orbital": prov_per_orb,
         },
     )
@@ -316,6 +457,63 @@ def rr_rate_coefficient(
         for T in T_arr
     ])
     return out if out.shape != (1,) else float(out[0])
+
+
+def rrc_spectrum(
+    scf_result,
+    T_e_eV: float,
+    energies_eV: np.ndarray,
+    **kwargs,
+) -> np.ndarray:
+    """Radiative recombination continuum emissivity on a photon-energy grid.
+
+    Returns photon emissivity coefficient in photons cm³ s⁻¹ eV⁻¹.  For each
+    capture orbital, the electron kinetic energy is ``E_gamma - I_n`` and the
+    differential coefficient is ``v(E) * sigma_RR(E) * f_M(E, T)``.
+    """
+    T = float(T_e_eV)
+    if T <= 0.0:
+        raise ValueError("T_e_eV must be > 0")
+    photon_energies = np.asarray(energies_eV, dtype=float)
+    if np.any(photon_energies <= 0.0):
+        raise ValueError("energies_eV must all be > 0")
+
+    spectrum = np.zeros_like(photon_energies, dtype=float)
+    capture_orbitals = kwargs.get("capture_orbitals")
+
+    for sh in scf_result.subshells:
+        if capture_orbitals is not None and sh.label not in capture_orbitals:
+            continue
+        eps_n = scf_result.orbital_energies.get(sh.label)
+        if eps_n is None or eps_n >= 0.0:
+            continue
+        binding_eV = -eps_n * HARTREE_EV
+        electron_eV = photon_energies - binding_eV
+        mask = electron_eV > 0.0
+        if not np.any(mask):
+            continue
+
+        rr = rr_cross_section(
+            scf_result,
+            electron_eV[mask],
+            capture_orbitals=[sh.label],
+            g_initial=kwargs.get("g_initial"),
+            g_final=kwargs.get("g_final"),
+            continuum_model=kwargs.get("continuum_model"),
+            multipoles=kwargs.get("multipoles"),
+        )
+        pdf_per_eV = (
+            2.0 / np.sqrt(np.pi)
+            * np.sqrt(electron_eV[mask])
+            / T ** 1.5
+            * np.exp(-electron_eV[mask] / T)
+        )
+        velocity_cm_s = AU_VELOCITY_CM_S * np.sqrt(
+            2.0 * electron_eV[mask] / HARTREE_EV
+        )
+        spectrum[mask] += velocity_cm_s * rr.sigma_total_cm2 * pdf_per_eV
+
+    return spectrum
 
 
 def rr_cross_section_rydberg(
@@ -432,4 +630,5 @@ __all__ = [
     "rr_cross_section",
     "rr_cross_section_rydberg",
     "rr_rate_coefficient",
+    "rrc_spectrum",
 ]
