@@ -928,3 +928,35 @@ uv run --extra dev python -m pytest \
     tests/test_qedmod.py \
     tests/test_qed.py -q
 ```
+
+---
+
+## 12. DW excitation / EII FAC gate (HYP-240)
+
+Implemented 2026-06-10. Added live FAC drivers:
+
+- ``benchmarks/bench_fac_dw_excitation.py`` for He-like
+  ``1s2 1S0 -> 1s2p 1P1`` collision strengths at
+  ``E/threshold = 1, 2, 5`` for ``Z = 10, 26, 54``.
+- ``benchmarks/bench_fac_dw_eii.py`` for He-like K-shell distorted-wave
+  EII cross sections on the same energy and Z grid.
+
+The drivers use ``fac_runner.py`` for ``sfac`` execution and FAC ASCII
+parsers for CE/CI output. CI consumes frozen CSV references because
+``sfac`` is not present on normal runners.
+
+Gate summary:
+
+| benchmark | CSV | rms relative error | threshold |
+|---|---|---:|---:|
+| DW excitation Omega(E) | ``results_fac_dw_excitation.csv`` | 0.0431 | 0.10 |
+| DW EII K-shell sigma(E) | ``results_fac_dw_eii.csv`` | 0.0517 | 0.15 |
+
+The EII gate also checks that the Coulomb-Bethe top-up remains below
+5 % of the DW K-shell cross section on this compact high-Z panel.
+
+Run:
+
+```bash
+uv run --extra dev python -m pytest tests/test_fac_dw_benchmarks.py -q
+```
