@@ -16,13 +16,54 @@ from pathlib import Path
 
 import numpy as np
 
-SFAC_BIN = Path("/Users/zhangzz/code/ASAP/fac/bin/bin/sfac")
-DYLD_LIB = "/opt/homebrew/Cellar/gcc/14.2.0_1/lib/gcc/current"
+_DEFAULT_SFAC_BIN = Path("/Users/zhangzz/code/ASAP/fac/bin/bin/sfac")
+_DEFAULT_DYLD_LIB = "/opt/homebrew/Cellar/gcc/14.2.0_1/lib/gcc/current"
+
+
+def resolve_sfac_bin() -> Path | None:
+    """Return the configured/available ``sfac`` executable, if any."""
+    for env_name in ("FAC_SFAC_PATH", "FAC_BIN"):
+        value = os.environ.get(env_name)
+        if value:
+            return Path(value).expanduser()
+
+    bin_dir = os.environ.get("FAC_BIN_DIR")
+    if bin_dir:
+        return Path(bin_dir).expanduser() / "sfac"
+
+    path_hit = shutil.which("sfac")
+    if path_hit:
+        return Path(path_hit)
+
+    return _DEFAULT_SFAC_BIN
+
+
+def require_sfac_bin() -> Path:
+    """Return an executable ``sfac`` path or raise a clear configuration error."""
+    sfac_bin = resolve_sfac_bin()
+    if sfac_bin is not None and sfac_bin.exists() and os.access(sfac_bin, os.X_OK):
+        return sfac_bin
+
+    configured = [
+        name for name in ("FAC_SFAC_PATH", "FAC_BIN", "FAC_BIN_DIR")
+        if os.environ.get(name)
+    ]
+    configured_msg = f" Checked: {', '.join(configured)}." if configured else ""
+    raise FileNotFoundError(
+        "sfac binary not found. Set FAC_SFAC_PATH or FAC_BIN to the sfac "
+        "executable, set FAC_BIN_DIR to the directory containing sfac, or add "
+        f"sfac to PATH.{configured_msg}"
+    )
+
+
+SFAC_BIN = resolve_sfac_bin()
+DYLD_LIB = os.environ.get("FAC_DYLD_LIB", _DEFAULT_DYLD_LIB)
 
 
 def run_sfac(script_path: Path, workdir: Path | None = None, timeout: float = 300.0) -> tuple[str, float, Path]:
     """Run sfac on the given script. Returns (stdout, elapsed_s, workdir)."""
     script_path = Path(script_path).resolve()
+    sfac_bin = require_sfac_bin()
     if workdir is None:
         workdir = Path(tempfile.mkdtemp(prefix="fac_bench_"))
     workdir.mkdir(parents=True, exist_ok=True)
@@ -35,7 +76,7 @@ def run_sfac(script_path: Path, workdir: Path | None = None, timeout: float = 30
 
     t0 = time.perf_counter()
     proc = subprocess.run(
-        [str(SFAC_BIN), script_path.name],
+        [str(sfac_bin), script_path.name],
         cwd=workdir,
         capture_output=True,
         text=True,
