@@ -136,13 +136,19 @@ def test_end_to_end_driver_returns_positive_alpha(fac_fixture):
 
 @pytest.mark.xfail(
     reason=(
-        "20 % FAC parity gate currently overshoots by ~10^3 because the "
+        "20 % FAC parity gate currently overshoots because the "
         "placeholder hydrogenic Auger/radiative widths in "
         "scattering.dielectronic_recombination.enumerate are not yet replaced "
         "by ab-initio J-block matrix elements (gap S6 in HYP-136, follow-up "
         "HYP-148/171).  Driver kernel itself passes parity to <1% — see "
-        "test_kernel_parity_with_fac.  This xfail flips to passing the moment "
-        "auger_rate_fn / radiative_rate_fn hooks default to the J-resolved sum."
+        "test_kernel_parity_with_fac.  HYP-530 landed the "
+        "auger_rate_csf_average magnitude fix (1e5 -> 1e14-1e16 s^-1 per "
+        "KLL pair) — see tests/test_auger_kll_vs_fac.py — but the per-pair "
+        "rate still uses the average-of-configuration angular factor and "
+        "overshoots the J-resolved FAC value by 1.2-100x depending on J and "
+        "channel.  Wiring auger_rate_csf_average into the DR driver as the "
+        "auger_rate_fn hook (and the matching radiative_rate_fn) is the "
+        "remaining work to flip this xfail."
     ),
     strict=False,
 )
