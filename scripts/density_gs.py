@@ -39,13 +39,17 @@ from atomx import Atom
 from atomx.config import ground_state_config
 from atomx.config.jj_coupling import generate_jj_average
 from atomx.constants import atomic_numbers, element_symbol
+from atomx.numerics.density_tail import smooth_exponential_tail
 
 LOG = logging.getLogger("density_gs")
 
 # c in atomic units (=1/alpha); used only for the ``speed`` orbital attr.
 C_SPEED = 137.03599908421
-# Trim each subshell grid where density_large drops below this.
-TAIL_THRESHOLD = 1e-17
+# Densities below this are physically negligible but can hit the numerical
+# noise floor and oscillate. Smooth detected oscillatory tails in log-space.
+TAIL_NOISE_FLOOR = 1e-18
+# Keep the smooth extrapolated tail until it is effectively zero.
+TAIL_OUTPUT_CUTOFF = 1e-300
 
 DEFAULT_OUT = "output"
 DEFAULT_WF_TXT_DIR = Path("./dataset/WF_TXT")
@@ -118,8 +122,14 @@ def build_orbital_payload(orb, nq: float, grid: np.ndarray) -> dict:
     if P_g[probe] < 0:
         P_g, Q_g = -P_g, -Q_g
 
-    density_large_full = nq * P_g ** 2
-    density_small_full = nq * Q_g ** 2
+    density_large_full = smooth_exponential_tail(
+        grid_g, nq * P_g ** 2, noise_floor=TAIL_NOISE_FLOOR,
+        output_cutoff=TAIL_OUTPUT_CUTOFF,
+    )
+    density_small_full = smooth_exponential_tail(
+        grid_g, nq * Q_g ** 2, noise_floor=TAIL_NOISE_FLOOR,
+        output_cutoff=TAIL_OUTPUT_CUTOFF,
+    )
     density_full = density_large_full + density_small_full
     small_component_ratio = float(np.trapezoid(density_small_full, grid_g))
 
@@ -136,7 +146,7 @@ def build_orbital_payload(orb, nq: float, grid: np.ndarray) -> dict:
     )
     speed = float(np.sqrt(2.0 * max(T_kin, 0.0)) / C_SPEED)
 
-    keep = np.flatnonzero(density_large_full >= TAIL_THRESHOLD)
+    keep = np.flatnonzero(density_full >= TAIL_OUTPUT_CUTOFF)
     last = int(keep[-1]) + 1 if keep.size else len(P_g)
     sl = slice(0, last)
     spin = float((abs(int(orb.kappa)) - 0.5) - l_orb)
