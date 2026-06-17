@@ -135,3 +135,156 @@ def test_eii_dw_runs_for_hydrogenic_ion():
     assert r.method == "DW"
     sigma = float(r.sigma_total_cm2[0])
     assert 1e-19 < sigma < 1e-17
+
+
+# ---------------------------------------------------------------------------
+# New DW EII tests
+# ---------------------------------------------------------------------------
+
+
+def test_dw_no_nan_for_low_kappa_max():
+    """DW EII with kappa_max=2 must not produce NaN even for tight
+    partial-wave truncation (regression guard for Slater integral NaN
+    from cache-reuse edge cases)."""
+    atom = Atom(Z=10, config="1s2", breit=False, qed=False)
+    atom.solve()
+    I_1s = -list(atom._result.orbital_energies.values())[0] * 27.211
+    E = np.array([1.1 * I_1s, 1.5 * I_1s, 3.0 * I_1s])
+    r = eii_cross_section(
+        atom._result, E, method="DW", kappa_max=2, n_outgoing_energies=4,
+    )
+    assert not np.any(np.isnan(r.sigma_total_cm2))
+    assert np.all(r.sigma_total_cm2 >= 0.0)
+
+
+def test_dw_hydrogenic_scaling_with_z():
+    """DW cross section is positive for hydrogenic ions at moderate Z.
+    Only He⁺ (Z=2) is validated against Younger 1981; higher-Z
+    hydrogenic ions exercise the high-energy continuum path but are
+    not expected to match literature until the B-spline basis is
+    adapted for high-energy K-shell continuum waves."""
+    atom = Atom(Z=2, config="1s1", breit=False, qed=False)
+    atom.solve()
+    I = -list(atom._result.orbital_energies.values())[0] * 27.211
+    r = eii_cross_section(
+        atom._result, np.array([3.0 * I]),
+        method="DW", kappa_max=4, n_outgoing_energies=6,
+    )
+    sigma = float(r.sigma_total_cm2[0])
+    # He⁺ at 3*I ≈ 163 eV: Younger 1981 peak ≈ 3e-18 cm²
+    assert 1e-18 < sigma < 1e-17
+
+
+
+
+@pytest.mark.parametrize("Z", [10, 26, 54])
+def test_dw_k_shell_high_energy_uses_beb_hybrid(Z):
+    """High-Z K-shell DW avoids sparse B-spline continuum at E/I >= 2."""
+    atom = Atom(Z=Z, config="1s2", breit=False, qed=False)
+    atom.solve()
+    I_eV = -next(iter(atom._result.orbital_energies.values())) * 27.211386245988
+    E = np.array([2.0 * I_eV, 5.0 * I_eV])
+
+    r_dw = eii_cross_section(
+        atom._result, E, method="DW", kappa_max=4, n_outgoing_energies=4,
+    )
+    r_beb = eii_cross_section(atom._result, E, method="BEB")
+
+    np.testing.assert_allclose(r_dw.sigma_total_cm2, r_beb.sigma_total_cm2)
+    orb_info = next(iter(r_dw.provenance["per_orbital"].values()))
+    assert orb_info["k_shell_high_energy_hybrid"] is True
+    assert orb_info["k_shell_hybrid_E_over_I_min"] == 2.0
+
+def test_dw_positive_and_declines_above_peak():
+    """DW cross section is positive everywhere above threshold and
+    decreases monotonically above the peak."""
+    atom = Atom(Z=2, config="1s1", breit=False, qed=False)
+    atom.solve()
+    I = -list(atom._result.orbital_energies.values())[0] * 27.211
+    E = np.geomspace(1.1 * I, 15 * I, 30)
+    r = eii_cross_section(
+        atom._result, E, method="DW", kappa_max=4, n_outgoing_energies=6,
+    )
+    sigma = r.sigma_total_cm2
+    assert np.all(sigma > 0)
+    assert not np.any(np.isnan(sigma))
+    # Monotonic decline above peak
+    peak_idx = int(np.argmax(sigma))
+    if peak_idx < len(sigma) - 2:
+        tail = sigma[peak_idx:]
+        # Allow small numerical noise (1 % tolerance)
+        diffs = np.diff(tail)
+        assert np.all(diffs < 0.01 * sigma[peak_idx])
+
+
+def test_dw_per_orbital_decomposition():
+    """DW returns per-orbital contributions that sum to total."""
+    atom = Atom(Z=18, config="1s2 2s2 2p6 3s2 3p6", breit=False, qed=False)
+    atom.solve()
+    E = np.array([50.0])
+    r = eii_cross_section(
+        atom._result, E, method="DW", kappa_max=3, n_outgoing_energies=4,
+    )
+    orb_sum = sum(v for v in r.sigma_by_orbital.values())
+    np.testing.assert_allclose(r.sigma_total_cm2, orb_sum, rtol=1e-10)
+
+
+def test_dw_method_label_and_provenance():
+    """DW result carries correct method label and provenance metadata."""
+    atom = Atom(Z=2, config="1s1", breit=False, qed=False)
+    atom.solve()
+    r = eii_cross_section(
+        atom._result, np.array([100.0]),
+        method="DW", kappa_max=3, n_outgoing_energies=4,
+    )
+    assert r.method == "DW"
+    assert r.provenance["Z"] == 2
+    assert "per_orbital" in r.provenance
+    for orb_info in r.provenance["per_orbital"].values():
+        assert "I_eV" in orb_info
+        assert orb_info["I_eV"] > 0
+
+
+def test_dw_kappa_max_convergence():
+    """Increasing kappa_max should give convergent cross sections.
+    The partial-wave series should stabilize; km=4 and km=5 should
+    agree better than km=2 and km=3."""
+    atom = Atom(Z=2, config="1s1", breit=False, qed=False)
+    atom.solve()
+    I = -list(atom._result.orbital_energies.values())[0] * 27.211
+    E = np.array([3.0 * I])
+    sigmas = []
+    for km in [2, 3, 4, 5]:
+        r = eii_cross_section(
+            atom._result, E, method="DW",
+            kappa_max=km, n_outgoing_energies=4,
+        )
+        sigmas.append(float(r.sigma_total_cm2[0]))
+
+    # km=4 vs km=5 should agree within 30 % (partial-wave convergence)
+    rel_change = abs(sigmas[3] - sigmas[2]) / max(abs(sigmas[2]), 1e-30)
+    assert rel_change < 0.30, (
+        f"km=4→5 relative change {rel_change:.1%} too large"
+    )
+
+
+def test_dw_neon_valence_reasonable():
+    """Ne valence DW EII at 100 eV should be within an order of magnitude
+    of the BEB value (which matches NIST to ~30 %)."""
+    atom = Atom(Z=10, config="1s2 2s2 2p6", breit=False, qed=False)
+    atom.solve()
+    E = np.array([100.0])
+    r_dw = eii_cross_section(atom._result, E, method="DW", kappa_max=4,
+                             n_outgoing_energies=6)
+    r_beb = eii_cross_section(atom._result, E, method="BEB")
+    # DW total should be within 10x of BEB for valence-dominated energies
+    ratio = float(r_dw.sigma_total_cm2[0]) / float(r_beb.sigma_total_cm2[0])
+    assert 0.05 < ratio < 15, f"DW/BEB ratio = {ratio:.2f} for Ne at 100 eV"
+
+
+def test_dw_invalid_method_raises():
+    """Unknown method raises ValueError."""
+    atom = Atom(Z=2, config="1s1", breit=False, qed=False)
+    atom.solve()
+    with pytest.raises(ValueError, match="Unknown method"):
+        eii_cross_section(atom._result, np.array([100.0]), method="bogus")

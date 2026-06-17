@@ -49,7 +49,7 @@ ConfigEnergy(1)
 Structure('{stem}.lev.b', ['g', 'ion'])
 MemENTable('{stem}.lev.b')
 PrintTable('{stem}.lev.b', '{stem}.lev', 1)
-SetUsrPEGrid({nusr}, {energies})
+SetUsrCIEGrid({energies})
 CITable('{stem}.ci.b', ['g'], ['ion'])
 PrintTable('{stem}.ci.b', '{stem}.ci', 1)
 """
