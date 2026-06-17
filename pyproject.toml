@@ -34,6 +34,14 @@ all = [
 [tool.hatch.build.targets.wheel]
 packages = ["src/atomx"]
 
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["T201"]
+ignore = []
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 markers = [

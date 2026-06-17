@@ -36,7 +36,7 @@ def compare(*results, unit: EnergyUnit = EnergyUnit.HARTREE):
     >>> compare(r1, r2)
     """
     if len(results) < 2:
-        print("Need at least 2 results to compare.")
+        print("Need at least 2 results to compare.")  # noqa: T201
         return
 
     conv = _unit_factor(unit)
@@ -50,15 +50,15 @@ def compare(*results, unit: EnergyUnit = EnergyUnit.HARTREE):
     header = f"{'Property':>25s}"
     for name in names:
         header += f"  {name:>{col_w}s}"
-    print(header)
-    print("-" * len(header))
+    print(header)  # noqa: T201
+    print("-" * len(header))  # noqa: T201
 
     # Total energy
     row = f"{'Total energy (' + unit_str + ')':>25s}"
     for r in results:
         E = r.total_energy * conv
         row += f"  {E:>{col_w}.6f}"
-    print(row)
+    print(row)  # noqa: T201
 
     # Delta from previous
     row = f"{'Delta from previous':>25s}"
@@ -66,23 +66,23 @@ def compare(*results, unit: EnergyUnit = EnergyUnit.HARTREE):
     for i in range(1, len(results)):
         dE = (results[i].total_energy - results[i - 1].total_energy) * conv
         row += f"  {dE:>{col_w}.6f}"
-    print(row)
+    print(row)  # noqa: T201
 
     # Theory level
     row = f"{'Theory level':>25s}"
     for r in results:
         lvl = _get_theory_level(r)
         row += f"  {lvl:>{col_w}s}"
-    print(row)
+    print(row)  # noqa: T201
 
     # Coupling scheme
     row = f"{'Coupling':>25s}"
     for r in results:
         cs = _get_coupling(r)
         row += f"  {cs:>{col_w}s}"
-    print(row)
+    print(row)  # noqa: T201
 
-    print()
+    print()  # noqa: T201
 
     # Orbital energies
     all_labels = set()
@@ -92,7 +92,7 @@ def compare(*results, unit: EnergyUnit = EnergyUnit.HARTREE):
                            key=lambda s: (int(s[0]), s[1:]))
 
     if sorted_labels:
-        print(f"{'Orbital energies (' + unit_str + ')':>25s}")
+        print(f"{'Orbital energies (' + unit_str + ')':>25s}")  # noqa: T201
         for label in sorted_labels:
             row = f"  {label:>23s}"
             for r in results:
@@ -101,7 +101,7 @@ def compare(*results, unit: EnergyUnit = EnergyUnit.HARTREE):
                     row += f"  {E * conv:>{col_w}.6f}"
                 else:
                     row += f"  {'---':>{col_w}s}"
-            print(row)
+            print(row)  # noqa: T201
 
     # Energy breakdown
     all_keys = set()
@@ -112,8 +112,8 @@ def compare(*results, unit: EnergyUnit = EnergyUnit.HARTREE):
                        if k not in ("E_1e", "E_total", "E_QED_total")]
 
     if correction_keys:
-        print()
-        print(f"{'Energy breakdown (' + unit_str + ')':>25s}")
+        print()  # noqa: T201
+        print(f"{'Energy breakdown (' + unit_str + ')':>25s}")  # noqa: T201
         for key in correction_keys:
             row = f"  {key:>23s}"
             for r in results:
@@ -123,7 +123,7 @@ def compare(*results, unit: EnergyUnit = EnergyUnit.HARTREE):
                     row += f"  {val * conv:>{col_w}.6f}"
                 else:
                     row += f"  {'---':>{col_w}s}"
-            print(row)
+            print(row)  # noqa: T201
 
 
 # ---------------------------------------------------------------------------

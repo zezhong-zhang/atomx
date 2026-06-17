@@ -961,12 +961,12 @@ class Atom:
         """
         transitions = self.transitions(multipoles, gauge)
         if not transitions:
-            print("No allowed transitions found.")
+            print("No allowed transitions found.")  # noqa: T201
             return transitions
 
-        print(f"{'Transition':>25s}  {'Type':>4s}  {'Wavelength':>12s}  "
+        print(f"{'Transition':>25s}  {'Type':>4s}  {'Wavelength':>12s}  "  # noqa: T201
               f"{'A (s^-1)':>12s}  {'gf':>10s}")
-        print("-" * 70)
+        print("-" * 70)  # noqa: T201
         for tr in transitions:
             label = f"{tr.initial_label} -> {tr.final_label}"
             if unit == 'nm':
@@ -977,7 +977,7 @@ class Atom:
                 wl = f"{tr.energy_cm1:.1f} cm-1"
             else:
                 wl = f"{tr.wavelength_angstrom:.3f} A"
-            print(f"{label:>25s}  {tr.multipole:>4s}  {wl:>12s}  "
+            print(f"{label:>25s}  {tr.multipole:>4s}  {wl:>12s}  "  # noqa: T201
                   f"{tr.A_rate_per_s:>12.4e}  {tr.gf_value:>10.4e}")
 
         return transitions
@@ -1015,31 +1015,31 @@ class Atom:
     def summary(self):
         """Print a summary of the calculation."""
         sym = _element_symbol(self.Z)
-        print(f"{'='*50}")
-        print(f"  {sym} (Z={self.Z})  AtomX DHF Calculation")
-        print(f"{'='*50}")
-        print(f"  Config: {self._config_strings[0]}")
-        print(f"  Converged: {self.converged} ({self.iterations} iterations)")
-        print(f"  Total energy: {self.total_energy:.6f} Ha"
+        print(f"{'='*50}")  # noqa: T201
+        print(f"  {sym} (Z={self.Z})  AtomX DHF Calculation")  # noqa: T201
+        print(f"{'='*50}")  # noqa: T201
+        print(f"  Config: {self._config_strings[0]}")  # noqa: T201
+        print(f"  Converged: {self.converged} ({self.iterations} iterations)")  # noqa: T201
+        print(f"  Total energy: {self.total_energy:.6f} Ha"  # noqa: T201
               f" ({self.total_energy_eV:.2f} eV)")
-        print(f"\n  Orbital energies:")
+        print(f"\n  Orbital energies:")  # noqa: T201
         for label, E in sorted(self.orbital_energies.items(),
                                 key=lambda x: x[1]):
-            print(f"    {label:8s}: {E:12.6f} Ha ({E*HARTREE_EV:10.2f} eV)")
+            print(f"    {label:8s}: {E:12.6f} Ha ({E*HARTREE_EV:10.2f} eV)")  # noqa: T201
 
         if self.breit or self.qed:
-            print(f"\n  Corrections:")
+            print(f"\n  Corrections:")  # noqa: T201
             ec = self.energy_components
             for key in ["E_Breit", "E_VP", "E_SE"]:
                 if key in ec:
-                    print(f"    {key:8s}: {ec[key]:12.2e} Ha"
+                    print(f"    {key:8s}: {ec[key]:12.2e} Ha"  # noqa: T201
                           f" ({ec[key]*HARTREE_CM1:10.1f} cm-1)")
 
         if self._multi_config and self._mcdhf_result:
-            print(f"\n  CI States:")
+            print(f"\n  CI States:")  # noqa: T201
             for i, E in enumerate(self.state_energies):
                 de = (E - self.state_energies[0]) * HARTREE_CM1
-                print(f"    State {i}: {E:.6f} Ha  (ΔE = {de:.0f} cm-1)")
+                print(f"    State {i}: {E:.6f} Ha  (ΔE = {de:.0f} cm-1)")  # noqa: T201
 
 
 def _element_symbol(Z):
