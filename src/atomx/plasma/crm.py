@@ -18,7 +18,7 @@ Reference: Gu, Can. J. Phys. 86, 675 (2008) - FAC CRM module
 """
 
 from dataclasses import dataclass
-from typing import Callable, Optional
+from typing import Callable, Mapping, Optional, Sequence
 
 import numpy as np
 from scipy import linalg
@@ -43,6 +43,22 @@ class CRMTransition:
     lower: int     # index of lower level
     A_rate: float  # Einstein A coefficient (s^-1)
     gf: float = 0.0  # weighted oscillator strength
+
+
+@dataclass
+class CRMDRSatelliteSource:
+    """Dielectronic-capture source feeding a synthetic satellite level.
+
+    The source is added to the CRM rate matrix as
+    ``initial -> upper`` with rate ``n_e * alpha(Te)``.  The synthetic
+    upper level then emits through ordinary :class:`CRMTransition` rows,
+    so spectrum rendering continues to use ``n_upper * A_ul``.
+    """
+
+    upper: int
+    initial: int
+    rate_coefficient_cm3_s: Callable[[float], float]
+    label: Optional[str] = None
 
 
 @dataclass
@@ -84,7 +100,8 @@ class CollisionalRadiativeModel:
 
     def __init__(self, levels, transitions, *, Z: Optional[int] = None,
                  charge: Optional[int] = None, configs: Optional[list[str]] = None,
-                 bound_free_channels: Optional[list[CRMBoundFreeChannel]] = None):
+                 bound_free_channels: Optional[list[CRMBoundFreeChannel]] = None,
+                 dr_satellite_sources: Optional[list[CRMDRSatelliteSource]] = None):
         self.levels = levels
         self.transitions = transitions
         self.n_levels = len(levels)
@@ -94,6 +111,103 @@ class CollisionalRadiativeModel:
         self.bound_free_channels = (
             list(bound_free_channels) if bound_free_channels is not None else []
         )
+        self.dr_satellite_sources = (
+            list(dr_satellite_sources) if dr_satellite_sources is not None else []
+        )
+
+    def add_dr_satellites(
+        self,
+        resonances: Sequence[object],
+        initial_level_idx: int,
+        *,
+        lower_level_by_channel: Optional[Mapping[str, int]] = None,
+        initial_state_g: Optional[float] = None,
+        label_prefix: str = "DR",
+    ) -> list[int]:
+        """Add DR satellite levels and radiative-stabilising transitions.
+
+        Parameters
+        ----------
+        resonances
+            Sequence of ``AutoionizationState``-like objects.  Each resonance
+            must provide ``E_resonance_eV``, ``gamma_auger_per_s``,
+            ``a_radiative_per_s``, ``g``, and a ``channels`` mapping of
+            stabilised-final-level labels to A-rates.
+        initial_level_idx
+            CRM level that dielectronic capture starts from.
+        lower_level_by_channel
+            Optional explicit mapping from each channel label to an existing
+            CRM lower-level index.  When omitted, channel labels are matched
+            against ``CRMLevel.label``.
+        initial_state_g
+            Statistical weight of the recombining level.  Defaults to the
+            selected CRM level's ``g``.
+        label_prefix
+            Prefix for synthetic DR level labels.
+
+        Returns
+        -------
+        list[int]
+            Indices of synthetic DR-populated upper levels that were added.
+        """
+        if initial_level_idx < 0 or initial_level_idx >= self.n_levels:
+            raise IndexError("initial_level_idx is outside CRM levels")
+
+        label_to_idx = {lev.label: i for i, lev in enumerate(self.levels)}
+        channel_map = dict(lower_level_by_channel or {})
+        g_i = float(initial_state_g or max(self.levels[initial_level_idx].g, 1))
+        added: list[int] = []
+
+        for i_res, resonance in enumerate(resonances):
+            channels = dict(getattr(resonance, "channels", {}) or {})
+            if not channels:
+                channels = {
+                    self.levels[initial_level_idx].label: float(
+                        getattr(resonance, "a_radiative_per_s", 0.0)
+                    )
+                }
+
+            lower_rates: list[tuple[int, str, float]] = []
+            for channel_label, A_rate in channels.items():
+                lower = channel_map.get(channel_label, label_to_idx.get(channel_label))
+                if lower is None:
+                    continue
+                A = max(float(A_rate), 0.0)
+                if A > 0.0:
+                    lower_rates.append((int(lower), str(channel_label), A))
+            if not lower_rates:
+                continue
+
+            upper = self.n_levels
+            label = str(getattr(resonance, "label", f"resonance_{i_res}"))
+            self.levels.append(
+                CRMLevel(
+                    f"{label_prefix}:{label}",
+                    self.levels[initial_level_idx].energy_eV
+                    + float(getattr(resonance, "E_resonance_eV")),
+                    g=max(int(round(float(getattr(resonance, "g", 1.0)))), 1),
+                    config=f"{label_prefix} satellite",
+                )
+            )
+            self.n_levels += 1
+            added.append(upper)
+
+            for lower, _, A in lower_rates:
+                self.transitions.append(CRMTransition(upper=upper, lower=lower, A_rate=A))
+
+            self.dr_satellite_sources.append(
+                CRMDRSatelliteSource(
+                    upper=upper,
+                    initial=initial_level_idx,
+                    rate_coefficient_cm3_s=_dr_capture_rate_coefficient_fn(
+                        resonance,
+                        initial_state_g=g_i,
+                    ),
+                    label=label,
+                )
+            )
+
+        return added
 
     @classmethod
     def from_atom(cls, atom, multipoles=None):
@@ -211,6 +325,18 @@ class CollisionalRadiativeModel:
                 g_u = max(self.levels[u].g, 1)
                 C_deexc = C_exc * (g_l / g_u) * np.exp(dE_eV / kT)
                 R[l, u] += ne_cm3 * C_deexc
+
+        for src in self.dr_satellite_sources:
+            u = src.upper
+            i = src.initial
+            if u < 0 or i < 0 or u >= n or i >= n:
+                raise IndexError(
+                    f"DR satellite source {src.label or ''} references "
+                    f"invalid levels ({i}, {u}) for {n} CRM levels"
+                )
+            alpha = max(float(src.rate_coefficient_cm3_s(Te_eV)), 0.0)
+            if alpha > 0.0:
+                R[u, i] += ne_cm3 * alpha
 
         for ch in self.bound_free_channels:
             b = ch.bound
@@ -457,6 +583,21 @@ def three_body_recombination_rate_cm6_s(
     if saha <= 0.0:
         return 0.0
     return max(float(eii_rate_cm3_s), 0.0) / saha
+
+
+def _dr_capture_rate_coefficient_fn(resonance, *, initial_state_g: float):
+    from atomx.scattering.dielectronic_recombination.solver import dr_rate_coefficient
+
+    def alpha(Te_eV: float) -> float:
+        if Te_eV <= 0.0:
+            return 0.0
+        return dr_rate_coefficient(
+            [resonance],
+            T_eV=Te_eV,
+            initial_state_g=initial_state_g,
+        ).alpha_cm3_s[0]
+
+    return alpha
 
 
 def _channel_eii_rate_cm3_s(ch: CRMBoundFreeChannel, Te_eV: float) -> float:
