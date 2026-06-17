@@ -52,11 +52,15 @@ References
 
 from __future__ import annotations
 
+import logging
 import math
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
+
+# Module-level logger
+logger = logging.getLogger(__name__)
 
 from atomx.angular.wigner import wigner_3j, wigner_6j
 from atomx.angular.coefficients import exchange_lambda
@@ -520,7 +524,7 @@ def mbpt2_energy(
                     E_corr += pair_E
                     pair_contribs[(lab_a, lab_b)] = pair_E
                     if verbose:
-                        print(f"  ({lab_a}, {lab_b})  ΔE^(2) = {pair_E:.6e} Ha")
+                        logger.debug(f"  ({lab_a}, {lab_b})  ΔE^(2) = {pair_E:.6e} Ha")
 
     elapsed = time.time() - t0
 

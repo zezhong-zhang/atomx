@@ -54,7 +54,7 @@ class CalculationLog:
             self._file.write(line + "\n")
             self._file.flush()
         if self._verbose:
-            print(line)
+            print(line)  # noqa: T201
 
     def header(self, Z: int, config: str, method: str, **params):
         """Write calculation header."""
