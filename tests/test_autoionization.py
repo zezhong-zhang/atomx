@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 
+import os
+import subprocess
+import sys
+
 import numpy as np
 import pytest
 
@@ -161,7 +165,90 @@ class _FakeIon:
     }
 
 
+class _SolvedFakeIon(_FakeIon):
+    _result = object()
+
+
 class TestDRDriver:
+    def test_dr_direct_import_paths_are_acyclic(self):
+        env = os.environ.copy()
+        env["PYTHONPATH"] = "src"
+        code = (
+            "from atomx.scattering.dielectronic_recombination.solver "
+            "import dr_calculate; "
+            "from atomx.scattering.dielectronic_recombination.widths "
+            "import make_abinitio_auger_rate_fn"
+        )
+        result = subprocess.run(
+            [sys.executable, "-c", code],
+            cwd=os.getcwd(),
+            env=env,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        assert result.returncode == 0, result.stderr
+
+    def test_dr_calculate_defaults_to_abinitio_widths_for_solved_atom(self, monkeypatch):
+        from atomx.scattering.dielectronic_recombination import solver
+
+        calls = {}
+
+        def fake_auger_factory(atom):
+            calls["auger_factory_atom"] = atom
+
+            def auger(_spec, _energy_eV):
+                return 3.0e12
+
+            return auger
+
+        def fake_radiative_factory(atom):
+            calls["radiative_factory_atom"] = atom
+
+            def radiative(_spec, _energy_eV):
+                return 4.0e11, {"fake-e1": 4.0e11}
+
+            return radiative
+
+        def fake_build_autoionization_states(specs, atom, **kwargs):
+            spec = specs[0]
+            auger = kwargs["auger_rate_fn"]
+            radiative = kwargs["radiative_rate_fn"]
+            a_rad, channels = radiative(spec, 25.0)
+            return [
+                AutoionizationState(
+                    label=spec.label,
+                    E_resonance_eV=25.0,
+                    J=spec.J,
+                    gamma_auger_per_s=auger(spec, 25.0),
+                    a_radiative_per_s=a_rad,
+                    channels=channels,
+                )
+            ]
+
+        monkeypatch.setattr(solver, "make_abinitio_auger_rate_fn", fake_auger_factory)
+        monkeypatch.setattr(
+            solver, "make_abinitio_radiative_rate_fn", fake_radiative_factory,
+        )
+        monkeypatch.setattr(
+            solver, "build_autoionization_states", fake_build_autoionization_states,
+        )
+
+        atom = _SolvedFakeIon()
+        rc = solver.dr_calculate(
+            atom,
+            "1s2 2s2 2p6 3s1",
+            n_max=3,
+            l_max=2,
+            T_eV=300.0,
+        )
+
+        assert calls["auger_factory_atom"] is atom
+        assert calls["radiative_factory_atom"] is atom
+        assert rc.resonances[0].gamma_auger_per_s == pytest.approx(3.0e12)
+        assert rc.resonances[0].a_radiative_per_s == pytest.approx(4.0e11)
+        assert rc.resonances[0].channels == {"fake-e1": 4.0e11}
+
     def test_enumerates_kll_like_resonances(self):
         specs = enumerate_dr_resonances(
             _FakeIon(),
