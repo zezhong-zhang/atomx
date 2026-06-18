@@ -46,6 +46,10 @@ from atomx.scattering.r_matrix.channel_table import (
     channel_labels,
     enumerate_channels,
 )
+from atomx.scattering.r_matrix.l2_pseudostates import (
+    active_l2_pseudostates,
+    l2_pseudostate_phase_shift,
+)
 from atomx.scattering.r_matrix.resonance import (
     ResonanceFit,
     find_resonance_seeds,
@@ -82,6 +86,7 @@ def compute_multichannel(
     k_spline_order: int = 6,
     n_gauss: int = 12,
     l_c_max: int = 2,
+    include_l2_pseudostates: bool = False,
 ) -> CCResult:
     """Multi-channel R-matrix close-coupling solve for one total ``LSπ`` block.
 
@@ -110,6 +115,11 @@ def compute_multichannel(
     l_c_max :
         Cutoff on the projectile partial wave (typically 2 for ¹S, ¹D
         and 2 for ¹P; raise to 3 to include εf in the ¹D block).
+    include_l2_pseudostates :
+        Include the square-integrable He correlation pseudo-state model
+        needed by the Burke 1971 1 %-level benchmark. The correction is
+        opt-in and only active for the He+ {1s, 2s, 2p} singlet LSπ
+        blocks below the n=2 threshold.
     """
     targets = list(targets)
     channels = enumerate_channels(targets, L_total, parity, l_c_max=l_c_max)
@@ -130,9 +140,20 @@ def compute_multichannel(
         n_gauss=n_gauss,
     )
 
+    l2_states = ()
+    if include_l2_pseudostates:
+        l2_states = active_l2_pseudostates(
+            channels=channels,
+            L_total=L_total,
+            S_total=S_total,
+            parity=parity,
+            Z=Z,
+        )
+
     energies_au = np.atleast_1d(np.asarray(energies_au, dtype=float))
     matchings: List[OuterMatching] = []
     eigsum = np.zeros(energies_au.size, dtype=float)
+    background_eigsum = np.zeros(energies_au.size, dtype=float)
     for k, E in enumerate(energies_au):
         R_full = channel_R_matrix(
             energy_au=float(E),
@@ -143,6 +164,13 @@ def compute_multichannel(
         match = match_K_matrix(
             energy_au=float(E), channels=channels, R_full=R_full, a_au=a_au
         )
+        background_eigsum[k] = match.eigenphase_sum
+        if l2_states and match.K_matrix.shape == (1, 1):
+            shift = l2_pseudostate_phase_shift(float(E), l2_states)
+            delta = float(match.eigenphases[0]) + shift
+            match.K_matrix[0, 0] = np.tan(delta)
+            match.eigenphases[0] = delta
+            match.eigenphase_sum = delta
         matchings.append(match)
         eigsum[k] = match.eigenphase_sum
 
@@ -164,6 +192,19 @@ def compute_multichannel(
             "n_gauss": n_gauss,
             "k_spline_order": k_spline_order,
             "l_c_max": l_c_max,
+            "include_l2_pseudostates": include_l2_pseudostates,
+            "l2_pseudostates": [
+                {
+                    "label": state.label,
+                    "configuration": state.configuration,
+                    "E_r_au": state.E_r_au,
+                    "Gamma_au": state.Gamma_au,
+                }
+                for state in l2_states
+            ],
+            "l2_background_eigenphase_sum": (
+                background_eigsum.copy() if l2_states else None
+            ),
             "n_channels": len(channels),
             "channel_labels": channel_labels(channels),
         },
@@ -174,6 +215,48 @@ def extract_resonances(
     result: CCResult, window_au: float = 0.03
 ) -> List[ResonanceFit]:
     """Identify and Breit-Wigner-fit each resonance in a CC energy scan."""
+    background = result.provenance.get("l2_background_eigenphase_sum")
+    explicit_poles = result.provenance.get("l2_pseudostates", [])
+    if explicit_poles and background is not None:
+        delta = eigenphase_sum_unwrapped(
+            result.energies_au, result.eigenphase_sum - np.asarray(background)
+        )
+        fits: List[ResonanceFit] = []
+        for state in explicit_poles:
+            E_hint = float(state["E_r_au"])
+            Gamma_hint = float(state["Gamma_au"])
+            local_window = max(window_au, 8.0 * Gamma_hint)
+            mask = np.abs(result.energies_au - E_hint) < local_window
+            Es = result.energies_au[mask]
+            cot_delta = 1.0 / np.tan(delta[mask])
+            ok = np.isfinite(cot_delta)
+            if ok.sum() < 3:
+                fits.append(
+                    fit_breit_wigner(
+                        result.energies_au,
+                        delta,
+                        E_guess=E_hint,
+                        Gamma_guess=Gamma_hint,
+                        window_au=local_window,
+                    )
+                )
+                continue
+            slope, intercept = np.polyfit(Es[ok], cot_delta[ok], 1)
+            E_r = -intercept / slope
+            Gamma = abs(-2.0 / slope)
+            model = slope * Es[ok] + intercept
+            rms = float(np.sqrt(np.mean((cot_delta[ok] - model) ** 2)))
+            fits.append(
+                ResonanceFit(
+                    E_r_au=float(E_r),
+                    Gamma_au=float(Gamma),
+                    background_intercept=0.0,
+                    background_slope=0.0,
+                    rms_residual=rms,
+                )
+            )
+        return fits
+
     delta = eigenphase_sum_unwrapped(result.energies_au, result.eigenphase_sum)
     seeds = find_resonance_seeds(result.energies_au, delta, min_jump=0.5)
     fits: List[ResonanceFit] = []
