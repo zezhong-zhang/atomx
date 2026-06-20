@@ -107,31 +107,36 @@ def eii_dw_inner_sum(
     return acc
 
 
-@nb.njit(cache=True, fastmath=True)
-def dw_excitation_inner_sum(
+@nb.njit(cache=True)
+def dw_excitation_angular_sum(
     n_channels: int,
-    # Per-channel arrays (all length n_channels):
+    tj_i: int,
+    tj_f: int,
     tj_in_arr: np.ndarray,
     tj_out_arr: np.ndarray,
     tJ_lo_arr: np.ndarray,
     tJ_hi_arr: np.ndarray,
     n_direct_arr: np.ndarray,
     n_exchange_arr: np.ndarray,
-    # Flat arrays of precomputed direct/exchange products
     direct_products: np.ndarray,
     exchange_products: np.ndarray,
-    # Flat arrays of precomputed wigner_6j values
     w6j_direct: np.ndarray,
     w6j_exchange: np.ndarray,
 ) -> float:
-    """JIT-compiled DW excitation inner loop: sum over all (kappa_in, kappa_out)
-    channels and their J-sums for a single energy point.
+    """JIT-compiled DW excitation angular sum.
 
-    The Python caller pre-computes all angular coefficients (reduced C^k),
-    Slater integrals, and wigner-6j values into flat arrays.  This kernel
-    does the pure-numerical assembly with zero Python overhead.
+    For one energy point, sum over all (κ_in, κ_out) channels and their
+    J-sums to compute Σ_{ch,J} (2J+1)|A_J|², the collision strength.
 
-    Returns the accumulated |T|^2 for this energy.
+    Following Gu 2008 / Grant Ch. 12 j-j coupled angular reduction, ``tj_i``
+    and ``tj_f`` are twice the target-state angular momenta, while ``tj_in``
+    and ``tj_out`` are projectile partial-wave angular momenta:
+      M_J^direct  = (-1)^{(j_in+J_f+J)/2} Σ_k 6j(J_i,j_in,J,j_out,J_f,k) · D_k
+      M_J^exchange = (-1)^{(j_in+j_out+J)/2} Σ_k 6j(J_i,j_in,J,J_f,j_out,k) · E_k
+      A_J = M_J^direct − (-1)^{(J_f+j_out−J)/2} · M_J^exchange
+
+    where D_k = ⟨target_i‖C^k‖target_f⟩·⟨κ_in‖C^k‖κ_out⟩·R^k(i,in;f,out)
+    and   E_k = ⟨κ_i‖C^k‖κ_out⟩·⟨κ_in‖C^k‖κ_f⟩·R^k(i,in;out,f).
     """
     acc = 0.0
     d_offset = 0
@@ -153,10 +158,9 @@ def dw_excitation_inner_sum(
         for iJ in range(n_J):
             tJ = tJ_lo + 2 * iJ
 
-            # Direct amplitude: M_J^direct = (-1)^{(j_i + j_in + J)/2}
-            #   * Σ_k 6j{j_bound_i j_in J; j_out j_bound_f k} * C_i_in * C_out_f * Rk_d
+            # Direct phase: (-1)^{(j_in + j_f + J)}
             phase_d = 1.0
-            if ((tj_in_arr[ch] + tj_out_arr[ch] + tJ) // 2) % 2 != 0:
+            if ((tj_in + tj_f + tJ) // 2) % 2 != 0:
                 phase_d = -1.0
 
             MJd = 0.0
@@ -167,8 +171,7 @@ def dw_excitation_inner_sum(
                 MJd += sj * direct_products[d_offset + ik]
             MJd *= phase_d
 
-            # Exchange amplitude: M_J^exchange = (-1)^{(j_in + j_out + J)/2}
-            #   * Σ_k 6j{j_bound_i j_in J; j_bound_f j_out k} * C_i_out * C_in_f * Rk_e
+            # Exchange phase: (-1)^{(j_in + j_out + J)}
             phase_e = 1.0
             if ((tj_in + tj_out + tJ) // 2) % 2 != 0:
                 phase_e = -1.0
@@ -181,7 +184,12 @@ def dw_excitation_inner_sum(
                 MJe += sj * exchange_products[e_offset + ik]
             MJe *= phase_e
 
-            amp = MJd - MJe
+            # Antisymmetrization phase: (-1)^{(j_f + j_out - J)}
+            ph_swap = 1.0
+            if ((tj_f + tj_out - tJ) // 2) % 2 != 0:
+                ph_swap = -1.0
+
+            amp = MJd - ph_swap * MJe
             J_sum += (tJ + 1) * amp * amp
 
         acc += J_sum
@@ -192,6 +200,60 @@ def dw_excitation_inner_sum(
         w6j_e_offset += n_J * n_e
 
     return acc
+
+
+@nb.njit(cache=True)
+def dw_excitation_sigma_sum(
+    n_energies: int,
+    kappa_inc_arr: np.ndarray,
+    kappa_scat_arr: np.ndarray,
+    k_arr: np.ndarray,
+    slater_direct: np.ndarray,
+    slater_exchange: np.ndarray,
+    E_inc_hartree: np.ndarray,
+    dE_hartree_grid: np.ndarray,
+    tj_i: int,
+) -> np.ndarray:
+    """Compute the partial-wave T-matrix sum for DW excitation.
+
+    Given precomputed Slater integrals for all (kappa_inc, kappa_scat, k)
+    combinations at each energy point, assemble sigma(E).
+
+    Returns sigma (a0^2) and omega (dimensionless) arrays.
+    """
+    sigma = np.zeros(n_energies)
+    omega = np.zeros(n_energies)
+    n_ki = kappa_inc_arr.shape[0]
+    n_ks = kappa_scat_arr.shape[0]
+    n_k = k_arr.shape[0]
+
+    for idx in range(n_energies):
+        E_inc = E_inc_hartree[idx]
+        dE = dE_hartree_grid[idx]
+        E_scattered = E_inc - dE
+        if E_scattered <= 0.0:
+            continue
+        k_i_sq = 2.0 * E_inc
+
+        sigma_partial = 0.0
+        for iki in range(n_ki):
+            for iks in range(n_ks):
+                T = 0.0
+                for ik in range(n_k):
+                    Rk_d = slater_direct[idx, iki, iks, ik]
+                    Rk_e = slater_exchange[idx, iki, iks, ik]
+                    if np.isnan(Rk_d):
+                        Rk_d = 0.0
+                    if np.isnan(Rk_e):
+                        Rk_e = 0.0
+                    T += Rk_d - Rk_e
+                sigma_partial += T * T
+
+        if k_i_sq > 0.0:
+            sigma[idx] = np.pi / k_i_sq * sigma_partial / (tj_i + 1.0)
+            omega[idx] = k_i_sq * (tj_i + 1.0) * sigma[idx] / np.pi
+
+    return sigma, omega
 
 
 @nb.njit(cache=True, fastmath=True)
