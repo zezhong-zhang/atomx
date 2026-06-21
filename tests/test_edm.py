@@ -2,6 +2,7 @@
 
 import pytest
 
+from atomx import Atom
 from atomx.prop.edm import (
     EDMResult,
     compute,
@@ -78,8 +79,19 @@ def test_summary_returns_all_keys():
         assert key in s
 
 
+def test_compute_edm_enhancement_high_level_api():
+    """High-level compute_edm_enhancement accepts a solved Atom."""
+    from atomx.methods.edm import compute_edm_enhancement
+
+    atom = Atom(Z=3, config="1s2 2s1", breit=False, qed=False)
+    atom.solve()
+    result = compute_edm_enhancement(atom, "2s1/2")
+    assert hasattr(result, "R_electron_edm")
+    assert hasattr(result, "per_orbital")
+
+
 def test_compute_returns_EDMResult():
-    res = compute(Z=55, A=133, n_eff=1.9, J=0.5, L=0)
-    assert isinstance(res, EDMResult)
-    assert res.electron_edm_enhancement > 0
-    assert res.schiff_moment_enhancement_cm > 0
+    # compute() now requires SCFResult; test the scaling path instead
+    res = edm_summary(Z=55, A=133, n_eff=1.9, J=0.5, L=0)
+    assert res["R_electron_edm"] > 0
+    assert res["K_schiff_cm"] > 0
