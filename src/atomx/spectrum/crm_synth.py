@@ -11,7 +11,8 @@ hydrogenic ions can be folded in.
 from __future__ import annotations
 
 from collections import defaultdict
-from typing import Optional
+from copy import deepcopy
+from typing import Mapping, Optional, Sequence
 
 import numpy as np
 
@@ -45,6 +46,11 @@ def crm_emission_spectrum(
     include_photoionization: bool = True,
     radiation_temperature_eV: Optional[float] = None,
     radiation_field=None,
+    dr_resonances: Optional[Sequence[object]] = None,
+    dr_initial_level_idx: int = 0,
+    dr_lower_level_by_channel: Optional[Mapping[str, int]] = None,
+    dr_initial_state_g: Optional[float] = None,
+    dr_label_prefix: str = "DR",
 ) -> Spectrum:
     """Render a CRM's radiative transitions into a :class:`Spectrum`.
 
@@ -87,12 +93,38 @@ def crm_emission_spectrum(
         Planck radiation temperature used for photoionisation rates.
     radiation_field : callable, optional
         User-supplied photon flux density for photoionisation integration.
+    dr_resonances : sequence, optional
+        ``AutoionizationState``-like dielectronic resonances whose
+        radiative-stabilising channels should be rendered as satellite lines.
+        The input CRM is copied before synthetic satellite levels are added.
+    dr_initial_level_idx : int
+        CRM level fed by dielectronic capture for ``dr_resonances``.
+    dr_lower_level_by_channel : mapping, optional
+        Explicit stabilising-channel label to CRM lower-level index map.
+    dr_initial_state_g : float, optional
+        Statistical weight of the recombining level. Defaults to the selected
+        CRM level's ``g``.
+    dr_label_prefix : str
+        Prefix for synthetic satellite level labels.
 
     Returns
     -------
     Spectrum
         Emission intensity on a linear nm grid.
     """
+    n_dr_satellites = 0
+    if dr_resonances:
+        crm = deepcopy(crm)
+        n_dr_satellites = len(
+            crm.add_dr_satellites(
+                dr_resonances,
+                initial_level_idx=dr_initial_level_idx,
+                lower_level_by_channel=dr_lower_level_by_channel,
+                initial_state_g=dr_initial_state_g,
+                label_prefix=dr_label_prefix,
+            )
+        )
+
     # Compute populations (steady-state, user may have solved time-dependent
     # elsewhere — for emission spectrum the steady-state is the usual choice).
     populations = crm.steady_state(
@@ -124,6 +156,7 @@ def crm_emission_spectrum(
         "include_three_body": include_three_body,
         "include_photoionization": include_photoionization,
         "radiation_temperature_eV": radiation_temperature_eV,
+        "dr_satellite_count": n_dr_satellites,
     }
     grid_step_nm = (lam_max_nm - lam_min_nm) / max(n_points - 1, 1)
 
