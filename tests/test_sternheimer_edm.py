@@ -183,6 +183,25 @@ class TestSternheimerEDM:
         assert edm.scaling_comparison["sandars"] > 0
         assert isinstance(edm.scaling_comparison["ratio"], float)
 
+    def test_value_error_on_bad_subshell(self):
+        """Unknown target_subshell must raise ValueError, not silently return zero."""
+        res = _solve_h()
+        with pytest.raises(ValueError, match="Unknown target_subshell"):
+            sternheimer_edm_enhancement(res, kappa_max=4, n_virt_max=20, target_subshell="bad")
+
+    def test_tp_odd_angular_selection_rules(self):
+        """Direct unit tests for the T,P-odd angular factor — instant, no SCF."""
+        from atomx.prop.edm.sternheimer import _tp_odd_angular
+        # s_{1/2} (kappa=-1) -> p_{3/2} (kappa=-2): Delta j != 0, must vanish
+        assert _tp_odd_angular(-1, -2) == 0.0
+        # p_{1/2} (kappa=+1) -> p_{3/2} (kappa=-2): Delta j != 0, must vanish
+        assert _tp_odd_angular(+1, -2) == 0.0
+        # s_{1/2} (kappa=-1) -> p_{1/2} (kappa=+1): Delta j = 0, must be non-zero
+        assert abs(_tp_odd_angular(-1, +1)) > 0.0
+        # s_{1/2} -> d_{3/2} (kappa=+2): Delta j != 0, must vanish
+        assert _tp_odd_angular(-1, +2) == 0.0
+
+    @pytest.mark.slow
     def test_fast_smoke_z_scaling(self):
         """Fast smoke variant of Z-scaling test with reduced virtual basis."""
         li = _solve_lithium()
@@ -206,6 +225,7 @@ class TestSternheimerEDM:
             f"Fast smoke: expected Z-scaling boost; got "
             f"R(Na)={R_na:.3e} vs R(Li)={R_li:.3e}")
 
+    @pytest.mark.slow
     def test_fast_smoke_thallium(self):
         """Fast smoke variant of Tl benchmark with reduced virtual basis."""
         df = DiracFock(exchange=Exchange.HARTREE_FOCK)
