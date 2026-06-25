@@ -83,6 +83,7 @@ class TestSternheimerEDM:
         # Light atoms carry essentially no relativistic enhancement.
         assert R_e < 1.0, f"R_e(H) unexpectedly large: {R_e}"
 
+    @pytest.mark.slow
     def test_rel_scaling_with_z(self):
         """R_e must rise steeply with Z — the Sandars relativistic
         enhancement.  A 3x increase in Z from Li to Na must increase
@@ -110,6 +111,7 @@ class TestSternheimerEDM:
             f"Expected steep Z-scaling (R(Na) >> R(Li)); got "
             f"R(Na)={R_na:.3e} vs R(Li)={R_li:.3e}")
 
+    @pytest.mark.slow
     def test_thallium_benchmark(self):
         """Tl 6p_{1/2} is the classic heavy-atom eEDM benchmark.
 
@@ -141,13 +143,18 @@ class TestSternheimerEDM:
     def test_p3_2_does_not_contribute(self):
         """For s_{1/2} valence, p_{3/2} virtuals must not contribute
         because the T,P-odd pseudoscalar operator requires Delta j = 0."""
+        from atomx.prop.edm.sternheimer import _tp_odd_angular
+        # Direct angular-factor test: s_{1/2} (kappa=-1) -> p_{3/2} (kappa=-2)
+        # has j_a=1/2, j_r=3/2 -> Delta j != 0, so the pseudoscalar operator
+        # must vanish.
+        assert _tp_odd_angular(-1, -2) == 0.0, (
+            "p_{3/2} angular factor for s_{1/2} valence should be exactly zero")
+        # End-to-end: with kappa_max large enough to include p_{3/2}, the
+        # total R_e must still be non-zero (p_{1/2} contributes) and finite.
         res = _solve_h()
-        # p_{1/2} (kappa=+1) virtuals only (kappa_max=1).
-        edm_p1 = sternheimer_edm_enhancement(res, kappa_max=1, n_virt_max=20)
-        # p_{1/2} and p_{3/2} (kappa=-2) virtuals (kappa_max=2).
-        edm_p3 = sternheimer_edm_enhancement(res, kappa_max=2, n_virt_max=20)
-        ratio = abs(edm_p3.R_electron_edm) / abs(edm_p1.R_electron_edm)
-        assert ratio < 2, f"p_{{3/2}} contribution unexpectedly large: {ratio}"
+        edm = sternheimer_edm_enhancement(res, kappa_max=4, n_virt_max=20)
+        R_e = abs(edm.R_electron_edm)
+        assert R_e > 1e-6, f"R_e unexpectedly zero: {R_e}"
 
     def test_target_subshell_selection(self):
         """Selecting a specific target subshell should work."""
@@ -175,3 +182,41 @@ class TestSternheimerEDM:
         edm = sternheimer_edm_enhancement(res, kappa_max=4, n_virt_max=20)
         assert edm.scaling_comparison["sandars"] > 0
         assert isinstance(edm.scaling_comparison["ratio"], float)
+
+    def test_fast_smoke_z_scaling(self):
+        """Fast smoke variant of Z-scaling test with reduced virtual basis."""
+        li = _solve_lithium()
+        df = DiracFock(exchange=Exchange.HARTREE_FOCK)
+        na = df.solve(
+            Z=11,
+            subshells=[
+                Subshell(n=1, kappa=-1, occupation=2),
+                Subshell(n=2, kappa=-1, occupation=2), Subshell(n=2, kappa=1, occupation=2),
+                Subshell(n=2, kappa=-2, occupation=4),
+                Subshell(n=3, kappa=-1, occupation=1),
+            ],
+        )
+        assert li.converged and na.converged
+        # Reduced n_virt_max for speed; still enough to see the boost.
+        R_li = abs(sternheimer_edm_enhancement(
+            li, kappa_max=4, n_virt_max=8, target_subshell="2s1/2").R_electron_edm)
+        R_na = abs(sternheimer_edm_enhancement(
+            na, kappa_max=4, n_virt_max=8, target_subshell="3s1/2").R_electron_edm)
+        assert R_na > 3.0 * R_li, (
+            f"Fast smoke: expected Z-scaling boost; got "
+            f"R(Na)={R_na:.3e} vs R(Li)={R_li:.3e}")
+
+    def test_fast_smoke_thallium(self):
+        """Fast smoke variant of Tl benchmark with reduced virtual basis."""
+        df = DiracFock(exchange=Exchange.HARTREE_FOCK)
+        res = df.solve(Z=81, subshells=_thallium_subshells())
+        assert res.converged
+        edm = sternheimer_edm_enhancement(
+            res, kappa_max=4, n_virt_max=8, target_subshell="6p1/2")
+        R_e = abs(edm.R_electron_edm)
+        # With reduced virtuals the result is rougher but must still be
+        # in the hundreds regime, not ~0.1.
+        assert R_e > 50.0, (
+            f"Fast smoke Tl R_e={R_e:.3e} below hundreds; "
+            f"relativistic boost not captured.")
+        assert R_e < 5000.0, f"Fast smoke Tl R_e={R_e:.3e} unphysically large"

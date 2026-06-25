@@ -331,6 +331,10 @@ def sternheimer_edm_enhancement(
     sh_by_label = {s.label: s for s in scf_result.subshells}
 
     if target_subshell is not None:
+        if target_subshell not in sh_by_label:
+            raise ValueError(
+                f"Unknown target_subshell '{target_subshell}'. "
+                f"Available: {list(sh_by_label.keys())}")
         target_shells = [target_subshell]
     else:
         # Sum over all partially-filled (open) subshells
