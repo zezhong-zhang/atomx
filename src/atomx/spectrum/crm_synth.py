@@ -10,8 +10,9 @@ hydrogenic ions can be folded in.
 
 from __future__ import annotations
 
+import copy
 from collections import defaultdict
-from typing import Optional
+from typing import Mapping, Optional, Sequence
 
 import numpy as np
 
@@ -45,6 +46,11 @@ def crm_emission_spectrum(
     include_photoionization: bool = True,
     radiation_temperature_eV: Optional[float] = None,
     radiation_field=None,
+    dr_satellites: Optional[Sequence[object] | object] = None,
+    dr_initial_level_idx: int = 0,
+    dr_lower_level_by_channel: Optional[Mapping[str, int]] = None,
+    dr_initial_state_g: Optional[float] = None,
+    dr_label_prefix: str = "DR",
 ) -> Spectrum:
     """Render a CRM's radiative transitions into a :class:`Spectrum`.
 
@@ -87,12 +93,38 @@ def crm_emission_spectrum(
         Planck radiation temperature used for photoionisation rates.
     radiation_field : callable, optional
         User-supplied photon flux density for photoionisation integration.
+    dr_satellites : sequence or DRRateCoefficient, optional
+        Dielectronic satellite resonances to fold into the rendered CRM. Each
+        resonance may carry stabilising ``channels`` from the ab-initio
+        radiative-width path; channel labels are matched to CRM lower levels.
+        A DRRateCoefficient-like object with a ``.resonances`` attribute is
+        also accepted.
+    dr_initial_level_idx : int
+        CRM level that dielectronic capture starts from when ``dr_satellites``
+        is supplied.
+    dr_lower_level_by_channel : mapping, optional
+        Explicit stabilising-channel label to CRM lower-level index map.
+    dr_initial_state_g : float, optional
+        Statistical weight of the recombining level used in the DR capture
+        source. Defaults to the selected CRM level's ``g``.
+    dr_label_prefix : str
+        Prefix for synthetic DR satellite level labels.
 
     Returns
     -------
     Spectrum
         Emission intensity on a linear nm grid.
     """
+    if dr_satellites is not None:
+        crm = _crm_with_dr_satellites(
+            crm,
+            dr_satellites,
+            initial_level_idx=dr_initial_level_idx,
+            lower_level_by_channel=dr_lower_level_by_channel,
+            initial_state_g=dr_initial_state_g,
+            label_prefix=dr_label_prefix,
+        )
+
     # Compute populations (steady-state, user may have solved time-dependent
     # elsewhere — for emission spectrum the steady-state is the usual choice).
     populations = crm.steady_state(
@@ -187,6 +219,37 @@ def crm_emission_spectrum(
             )
 
     return spec
+
+
+def _crm_with_dr_satellites(
+    crm,
+    dr_satellites,
+    *,
+    initial_level_idx: int,
+    lower_level_by_channel: Optional[Mapping[str, int]],
+    initial_state_g: Optional[float],
+    label_prefix: str,
+):
+    """Return a shallow CRM copy with DR satellite source levels installed."""
+    resonances = getattr(dr_satellites, "resonances", dr_satellites)
+    resonances = list(resonances)
+    if not resonances:
+        return crm
+
+    cloned = copy.copy(crm)
+    cloned.levels = list(crm.levels)
+    cloned.transitions = list(crm.transitions)
+    cloned.bound_free_channels = list(getattr(crm, "bound_free_channels", []))
+    cloned.dr_satellite_sources = list(getattr(crm, "dr_satellite_sources", []))
+    cloned.n_levels = len(cloned.levels)
+    cloned.add_dr_satellites(
+        resonances,
+        initial_level_idx=initial_level_idx,
+        lower_level_by_channel=lower_level_by_channel,
+        initial_state_g=initial_state_g,
+        label_prefix=label_prefix,
+    )
+    return cloned
 
 
 def _use_uta_bridge(crm, *, force_uta: bool) -> bool:
