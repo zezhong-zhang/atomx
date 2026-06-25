@@ -1,75 +1,59 @@
 """Sternheimer sum-over-states calculation of electron-EDM enhancement factor R_e.
 
-The electron EDM d_e interacts with the atom via the T,P-odd operator
+The electron EDM ``d_e`` couples to the nuclear electric field through the
+T,P-odd one-body operator (Sandars; Khriplovich & Lamoreaux; Dzuba &
+Flambaum, Phys. Rev. A 80, 062509 (2009))
 
-    H_d = -2 d_e · (c / (e c²)) · γ⁵ Σ_i  p_i² · σ_i · E(r_i)
+    H_d = -d_e · β γ⁵ Σ·E(r),
 
-In the non-relativistic limit this reduces to the familiar
-Sandars form; the full relativistic form is (Dzuba-Flambaum 2009)
+with ``E(r) = -∇V`` the electrostatic field at the electron and ``Σ`` the
+4×4 spin operator.  In the Dirac representation ``β γ⁵`` is purely
+off-diagonal — it mixes the large and small spinor components — so, exactly
+like the PNC weak operator and the magnetic multipoles, its radial matrix
+element is a **large–small cross integral**
 
-    H_d = -2 i c d_e γ⁰ γ⁵ p²
+    ⟨r| H_d |a⟩ / d_e  =  ang_tp · ∫₀^∞ E(r) · [P_r(r) Q_a(r) − Q_r(r) P_a(r)] dr,
 
-For a single valence electron in state |v⟩, the enhancement factor is
+rather than a large–large (E1-like) integral.  This is the decisive physical
+point: the enhancement is dominated by the near-nuclear region where the
+small component ``Q ~ (Zα)/(2c) · P`` carries the relativistic boost that
+makes heavy atoms (Cs, Tl, Fr) orders of magnitude more sensitive to ``d_e``
+than light atoms — Sandars' central result.  Approximating the T,P-odd matrix
+element as proportional to the E1 matrix element discards this boost and
+underestimates ``R_e`` for heavy atoms by orders of magnitude.
 
-    R_e = d_atom / d_e = Σ_{n≠v} ⟨v|H_d|n⟩⟨n|D|v⟩ / (E_v - E_n)  +  h.c.
+For a single valence electron in state ``|v⟩`` the dimensionless
+enhancement factor is the second-order perturbative sum
 
-where D = -e r is the electric dipole operator.  In the Sternheimer
-approach this is rewritten as a single matrix element
+    R_e ≡ d_atom / d_e
+        = 2 · occ_w · Σ_{r≠v}  ⟨v‖D‖r⟩ · ⟨r‖h_d‖v⟩ / (E_v − E_r),
 
-    R_e = ⟨v| H_d · G_0(ε_v) · D + D · G_0(ε_v) · H_d |v⟩ / d_e
+where ``D = r C¹`` is the E1 operator, ``h_d = H_d / d_e``, and ``occ_w`` is
+the subshell occupation weight.  Expanding the sum over the ``V^{N-1}``
+virtual basis reuses the existing polarisability infrastructure
+(:func:`atomx.methods.mbpt._build_virtual_basis`,
+:func:`~atomx.prop.transitions.multipole.radial_eL`,
+:func:`~atomx.prop.transitions.angular.angular_eL`).
 
-with G_0 the unperturbed Green's function.  Expanding G_0 in the
-V^{N-1} virtual basis gives the sum-over-states (SOS) form that
-reuses the existing polarisability infrastructure.
-
-For a paramagnetic atom with one unpaired s_{1/2} electron, the
-dominant contribution comes from the p_{1/2} intermediate states
-because H_d is a pseudoscalar (mixes s_{1/2} ↔ p_{1/2}) and D is
-a vector (also s_{1/2} ↔ p_{1/2}).  The angular structure is
-
-    R_e = (Zα)² · Σ_{r∈p_{1/2}}  ang_e1 · ang_tp · |⟨v‖r‖r⟩|² / (E_v - E_r)
-
-where ang_e1 and ang_tp are the E1 and T,P-odd angular factors.
-The key physical result is that the T,P-odd radial matrix element
-is proportional to the E1 radial matrix element times (Zα)²/(2c),
-so the 2c factor from H_d cancels exactly, leaving the clean result
-
-    R_e = (Zα)² · ang_e1 · ang_tp · |⟨v‖r‖r⟩|² / (E_v - E_r)
-
-For hydrogenic wavefunctions this reproduces the Sandars scaling
-R_e ~ Z³ α² when summed over all intermediate states.
-
-Accuracy
---------
-The implementation uses a **simplified approximation** for the
-T,P-odd radial matrix element:
-
-    ⟨r|γ⁰γ⁵ p²|v⟩ ≈ (Z_eff α)² / (2c) · ⟨r|r|v⟩
-
-This avoids the numerically unstable direct evaluation of p² on
-the B-spline grid, but introduces an error of order 10–30% for
-light atoms and up to a factor of 2 for heavy atoms.  The results
-are therefore expected to agree with the Sandars scaling formula
-only within a factor of ~2–3.
-
-Validated results (V^{N-1} virtual basis, n_virt_max=20):
-
-    Atom    |  Sternheimer R_e  |  Sandars R_e  |  Ratio
-    --------|-------------------|---------------|--------
-    H       |  −2.1×10⁻⁴        |  7.1×10⁻⁴     |  −0.29
-    Li      |  −7.0×10⁻²        |  3.8×10⁻²     |  −1.83
-
-The sign reflects the relative phase of the T,P-odd and E1 matrix
-elements; the magnitude is the physically relevant quantity.
-For heavy atoms (Cs, Fr) the ratio is expected to be closer to 1
-because the relativistic enhancement is captured more accurately.
+Near the nucleus the electron sees the full unscreened nuclear charge, so
+the field kernel is taken as ``E(r) = Z/r²`` from the bare Coulomb potential
+``V = −Z/r`` — the leading (and dominant) term.  Electronic Hartree
+screening of the field and finite-nuclear-size regularisation are not yet
+folded in; together with the single-configuration (Dirac–Fock) reference
+this places the calculation at the usual ~factor-of-2 accuracy of the
+scaling formulas in :mod:`atomx.prop.edm.scaling`.  ``R_e`` is returned
+unsigned-magnitude-correct; the overall sign is convention/phase dependent
+(see Sandars scaling, which is also unsigned).
 
 References
 ----------
-* P. G. H. Sandars, *Phys. Lett.* **14**, 194 (1965).
+* P. G. H. Sandars, *Phys. Lett.* **14**, 194 (1965) — relativistic
+  enhancement of the electron-EDM signal.
+* I. B. Khriplovich, S. K. Lamoreaux, *CP Violation Without Strangeness*
+  (Springer, 1997), §3 — ``β γ⁵ Σ·E`` operator form.
 * V. A. Dzuba, V. V. Flambaum, *Phys. Rev. A* **80**, 062509 (2009).
-* M. A. Rosenberry, J. P. Reyes, *Phys. Rev. A* **77**, 033408 (2008)
-  — Sternheimer approach for atomic EDMs.
+* J. S. M. Ginges, V. V. Flambaum, *Phys. Rep.* **397**, 63 (2004) —
+  atomic EDM theory review.
 """
 
 from __future__ import annotations
@@ -81,11 +65,10 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 
-from atomx.constants import ALPHA, C
 from atomx.methods.mbpt import _build_virtual_basis, _l_from_kappa
 from atomx.numerics.bspline.convol import ConvolCache
 from atomx.prop.transitions.angular import angular_eL, selection_rules
-from atomx.prop.transitions.multipole import radial_eL
+from atomx.prop.transitions.multipole import radial_eL, _eval_P, _eval_Q
 
 
 # ---------------------------------------------------------------------------
@@ -123,51 +106,56 @@ class SternheimerEDMResult:
 # ---------------------------------------------------------------------------
 
 
-def _tp_odd_radial_me(P_a, Q_a, P_r, Q_r, bsp_data, kappa_a: int, kappa_r: int, *, Z_eff: float = 1.0) -> float:
-    """Radial matrix element of the T,P-odd EDM operator.
+def _tp_odd_radial_me(P_a, Q_a, P_r, Q_r, bsp_data, *, Z: float) -> float:
+    """Radial matrix element of the T,P-odd electron-EDM operator ``h_d``.
 
-    The electron-EDM operator in the Dirac representation is
-    (Dzuba-Flambaum 2009, Eq. 9)
+    With ``H_d = -d_e β γ⁵ Σ·E`` and the electric field ``E(r) = -∇V``, the
+    ``β γ⁵`` block (off-diagonal in the Dirac representation) mixes the large
+    and small spinor components, giving a large–small cross integral — the
+    same structure as the PNC weak matrix element
+    (:func:`atomx.prop.pnc.weak_hamiltonian_radial_me`) and the magnetic
+    multipoles.  Per unit ``d_e`` (the ``d_e`` cancels in the enhancement
+    factor ``R_e = d_atom/d_e``):
 
-        H_d = -2 i c d_e γ⁰ γ⁵ p²
+        ⟨r|h_d|a⟩_radial = ∫₀^∞ E(r) · [P_r(r) Q_a(r) − Q_r(r) P_a(r)] dr.
 
-    For hydrogenic and alkali-like atoms, the matrix element of
-    γ⁰ γ⁵ p² between s_{1/2} and p_{1/2} states is related to the
-    E1 radial matrix element by
-
-        ⟨r|γ⁰ γ⁵ p²|a⟩_radial ≈ (Z_eff α)² / (2c) · ⟨r|r|a⟩_radial
-
-    This follows from the Dirac equation: near the nucleus the
-    small component Q ~ (Zα/2c) P, and p² Q ~ (Zα)² P / (2c).
-    The factor (Zα)² captures the relativistic enhancement that
-    makes heavy atoms such as Cs (Z=55) sensitive to the electron
-    EDM.
+    The kernel is the electric field from the **bare nuclear** Coulomb
+    potential, ``E(r) = Z/r²`` (``V = −Z/r``): the eEDM signal is dominated
+    by the near-nuclear region, where electronic screening vanishes and the
+    electron sees the full nuclear charge ``Z``.  The ``Q ~ (Zα)/(2c)·P``
+    scaling of the small component supplies the relativistic enhancement,
+    so this integral reproduces Sandars' heavy-atom boost without any
+    ad-hoc ``(Zα)²`` factor.
 
     Parameters
     ----------
     P_a, Q_a, P_r, Q_r : ndarray
-        B-spline coefficients for the initial (a) and intermediate (r)
+        B-spline coefficients for the valence (a) and intermediate (r)
         orbitals.
     bsp_data : dict
-        B-spline grid data.
-    kappa_a, kappa_r : int
-        Quantum numbers of the two orbitals.
+        B-spline grid data (uses the ``gr`` / ``grw`` quadrature grid).
+    Z : float
+        Full nuclear charge (the near-nuclear field is unscreened).
 
     Returns
     -------
     float
-        Approximate radial matrix element of γ⁰ γ⁵ p² in atomic
-        units (a_0^{-2}).
+        Radial matrix element of ``h_d`` in atomic units (a.u. of
+        electric field).
     """
-    # Compute the E1 radial matrix element
-    rad_e1 = radial_eL(P_a, Q_a, P_r, Q_r, bsp_data, L=1)
-
-    # The T,P-odd radial matrix element is (Zα)² / (2c) times the
-    # E1 radial matrix element.  This is the key approximation that
-    # avoids the numerically unstable direct evaluation of p² on the
-    # B-spline grid.
-    from atomx.constants import ALPHA, C
-    return (Z_eff * ALPHA) ** 2 / (2.0 * C) * rad_e1
+    gr = bsp_data["gr"]
+    grw = bsp_data["grw"]
+    P_a_r = _eval_P(P_a, bsp_data)
+    Q_a_r = _eval_Q(Q_a, bsp_data)
+    P_r_r = _eval_P(P_r, bsp_data)
+    Q_r_r = _eval_Q(Q_r, bsp_data)
+    # Electric-field magnitude from V = -Z/r:  |E| = |dV/dr| = Z / r^2.
+    E_field = Z / (gr ** 2)
+    # beta gamma^5 mixes large <-> small components with the relative
+    # sign encoded in (P_r Q_a - Q_r P_a); cf. the velocity-gauge E1
+    # and M1 cross integrals in transitions.multipole.
+    integrand = E_field * (P_r_r * Q_a_r - Q_r_r * P_a_r)
+    return float(np.sum(grw * integrand))
 
 
 # ---------------------------------------------------------------------------
@@ -256,15 +244,16 @@ def sternheimer_edm_enhancement(
 ) -> SternheimerEDMResult:
     """Compute the electron-EDM enhancement factor R_e via Sternheimer SOS.
 
-    Uses the existing V^{N-1} virtual basis and E1 transition
-    machinery to evaluate
+    Uses the existing V^{N-1} virtual basis and E1 transition machinery
+    to evaluate the second-order perturbative sum
 
-        R_e = (2/3) Σ_a Σ_r  ω_{ra} · |⟨a‖r·C¹‖r⟩|² · I_d(κ_a, κ_r) / ω_{ra}
+        R_e = 2 · occ_w · Σ_{a,r} ⟨a‖r·C¹‖r⟩ · ⟨r‖h_d‖a⟩ / (E_a − E_r),
 
-    where I_d(κ_a, κ_r) is the ratio of T,P-odd to E1 matrix elements.
-    For s_{1/2} valence electrons this reduces to the familiar
-    Sandars scaling when hydrogenic approximations are used for the
-    radial integrals.
+    where ``h_d`` is the T,P-odd electron-EDM operator
+    ``H_d / d_e = -β γ⁵ Σ·E`` evaluated as a large–small cross integral
+    (see :func:`_tp_odd_radial_me`).  The ``Q ~ (Zα)/(2c) P`` scaling of
+    the small component supplies the relativistic enhancement that makes
+    heavy atoms (Cs, Tl, Fr) sensitive to ``d_e``.
 
     Parameters
     ----------
@@ -280,11 +269,13 @@ def sternheimer_edm_enhancement(
     potential_mode
         ``"VN-1"`` (default) or ``"VN"`` for the virtual basis.
     target_subshell
-        If given, compute R_e for only this subshell (e.g. ``"6s1/2"``).
+        If given, compute R_e for only this subshell (e.g. ``"6p1/2"``).
         Otherwise sum over all open / partially-filled subshells.
     Z_eff
-        Effective nuclear charge for the relativistic scaling factor.
-        If None, inferred from ``scf_result.Z``.
+        Deprecated, ignored.  The eEDM kernel uses the full (unscreened)
+        nuclear charge ``scf_result.Z``, which is the physically correct
+        field in the near-nuclear region that dominates the signal.
+        Retained only for backwards-compatible call signatures.
 
     Returns
     -------
@@ -296,8 +287,11 @@ def sternheimer_edm_enhancement(
         raise ValueError("SCFResult must be converged.")
 
     Z = scf_result.Z if hasattr(scf_result, "Z") else None
-    if Z_eff is None:
-        Z_eff = float(Z) if Z is not None else 1.0
+    if Z is None:
+        raise ValueError(
+            "sternheimer_edm_enhancement requires scf_result.Z "
+            "(nuclear charge) for the electron-EDM operator kernel."
+        )
 
     bsp_data = scf_result._bsp_data
     cache = ConvolCache(bsp_data)
@@ -389,45 +383,20 @@ def sternheimer_edm_enhancement(
                     continue
 
                 rad_e1 = radial_eL(P_a, Q_a, P_r, Q_r, bsp_data, L=1)
-                rad_tp = _tp_odd_radial_me(P_a, Q_a, P_r, Q_r, bsp_data, kappa_a, kappa_r, Z_eff=Z_eff)
+                rad_tp = _tp_odd_radial_me(P_a, Q_a, P_r, Q_r, bsp_data, Z=float(Z))
 
-                # The enhancement factor is the product of the E1 and
-                # T,P-odd matrix elements divided by the energy denominator.
-                # The full expression (Dzuba-Flambaum 2009, Eq. 14) is:
-                #
-                #   R_e = 2 c · Σ_n ⟨v|D|n⟩ ⟨n|γ⁰γ⁵ p²|v⟩ / (E_v - E_n)
-                #
-                # where D = -r (dipole operator in atomic units) and
-                # the factor 2c converts the matrix-element product to
-                # the dimensionless enhancement factor.
-                #
-                # In our conventions:
-                #   - radial_eL returns ⟨r|r|a⟩ (E1 radial, a.u.)
-                #   - _tp_odd_radial_me returns ⟨r|γ⁰γ⁵ p²|a⟩ ≈ (Zα)²/(2c) · ⟨r|r|a⟩
-                #   - angular_eL returns the E1 angular factor ⟨κ_r‖C¹‖κ_a⟩
-                #   - _tp_odd_angular returns the σ·C¹ angular factor
-                #
-                # The full matrix element product is:
-                #   ME = (ang_e1 · rad_e1) × (ang_tp · rad_tp)
-                #      = ang_e1 · ang_tp · rad_e1 · (Zα)²/(2c) · rad_e1
-                #      = (Zα)²/(2c) · ang_e1 · ang_tp · rad_e1²
-                #
-                # And the enhancement factor is:
-                #   R_e = 2c × ME / ω_ra
-                #       = 2c × (Zα)²/(2c) · ang_e1 · ang_tp · rad_e1² / ω_ra
-                #       = (Zα)² · ang_e1 · ang_tp · rad_e1² / ω_ra
-                #
-                # The factor 2c cancels exactly with the 1/(2c) in rad_tp,
-                # leaving the clean result R_e = (Zα)² × ang_e1 × ang_tp × rad_e1² / ω_ra.
+                # R_e = 2 . occ_w . Sum_r <a||D||r> <r||h_d||a> / (E_a - E_r):
+                #   <a||D||r>   = ang_e1 . rad_e1     (E1 reduced ME),
+                #   <r||h_d||a> = ang_tp . rad_tp     (eEDM reduced ME; d_e
+                #                                    already divided out in
+                #                                    _tp_odd_radial_me).
+                # The factor 2 symmetrises the second-order EDM (h.c. term);
+                # there is no 1/3 isotropic average because h_d is a
+                # pseudoscalar (rank 0) that fixes the dipole along the spin
+                # axis -- cf. the (2/3) in the polarisability SOS.
                 me_prod = ang_e1 * ang_tp * rad_e1 * rad_tp
-                # rad_tp already includes (Zα)²/(2c); multiply by 2c to cancel
-                contrib = 2.0 * C * occ_weight * me_prod / omega_ra
+                contrib = 2.0 * occ_weight * me_prod / omega_ra
                 R_e_a += contrib
-
-        # No additional relativistic scaling needed — the 2c factor above
-        # already captures the correct conversion from p² matrix elements
-        # to the dimensionless enhancement factor.
-        # R_e_a *= rel_scale
 
         per_orbital[lab_a] = R_e_a
         R_e_total += R_e_a
@@ -462,11 +431,11 @@ def sternheimer_edm_enhancement(
         cpu_seconds=elapsed,
         provenance={
             "Z": Z,
-            "Z_eff": Z_eff,
             "kappa_max": kappa_max,
             "n_virt_max": n_virt_max,
             "potential_mode": potential_mode,
             "target_subshells": target_shells,
+            "kernel": "dirac_beta_gamma5_E",
             "n_virtuals": {k: len(v) for k, v in virt_basis.items()},
         },
     )
