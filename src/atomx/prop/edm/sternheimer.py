@@ -297,6 +297,27 @@ def sternheimer_edm_enhancement(
     cache = ConvolCache(bsp_data)
 
     # ── Build virtual basis for every κ in scope ──────────────────────
+    # ── Validate target_subshell early (before expensive basis construction) ──
+    sh_by_label = {s.label: s for s in scf_result.subshells}
+
+    if target_subshell is not None:
+        if target_subshell not in sh_by_label:
+            raise ValueError(
+                f"Unknown target_subshell '{target_subshell}'. "
+                f"Available: {list(sh_by_label.keys())}")
+        target_shells = [target_subshell]
+    else:
+        # Sum over all partially-filled (open) subshells
+        target_shells = [
+            s.label for s in scf_result.subshells
+            if s.occupation < (2 * abs(s.kappa))  # not fully closed
+        ]
+        if not target_shells:
+            # Fallback: use the outermost subshell
+            target_shells = [
+                max(scf_result.subshells, key=lambda s: (s.n, _l_from_kappa(s.kappa))).label
+            ]
+
     kappa_list = []
     for k_abs in range(1, kappa_max + 2):
         kappa_list.append(-k_abs)
@@ -326,27 +347,6 @@ def sternheimer_edm_enhancement(
             virt = virt[:n_virt_max]
         occ_basis[kappa] = occ_with_labels
         virt_basis[kappa] = virt
-
-    # ── Identify target subshells ─────────────────────────────────────
-    sh_by_label = {s.label: s for s in scf_result.subshells}
-
-    if target_subshell is not None:
-        if target_subshell not in sh_by_label:
-            raise ValueError(
-                f"Unknown target_subshell '{target_subshell}'. "
-                f"Available: {list(sh_by_label.keys())}")
-        target_shells = [target_subshell]
-    else:
-        # Sum over all partially-filled (open) subshells
-        target_shells = [
-            s.label for s in scf_result.subshells
-            if s.occupation < (2 * abs(s.kappa))  # not fully closed
-        ]
-        if not target_shells:
-            # Fallback: use the outermost subshell
-            target_shells = [
-                max(scf_result.subshells, key=lambda s: (s.n, _l_from_kappa(s.kappa))).label
-            ]
 
     # ── Sternheimer SOS sum ───────────────────────────────────────────
     R_e_total = 0.0
