@@ -23,6 +23,20 @@ def test_continuum_model_fac_residual_core_shape():
     assert model.potential is not None
     assert model.potential.include_exchange
     assert model.potential.exchange == "fac"
+    assert model.potential.fac_self_interaction_correction
+    assert model.potential.latter_correction
+
+
+def test_fac_residual_core_potential_uses_coulomb_tail():
+    atom = Atom(Z=2, config="1s2", breit=False, qed=False)
+    atom.solve()
+    model = PotentialModel.static_hartree_exchange(exchange="fac", n_radial=200, r_max=8.0)
+    V = model.build_callable(atom._result)
+    r = np.array([16.0, 32.0])
+    values = V(r)
+    assert values[0] < 0.0
+    assert values[1] < 0.0
+    np.testing.assert_allclose(values[0] / values[1], 2.0, rtol=1.0e-12)
 
 
 def test_dw_local_exchange_potential_matches_bspline_shape():

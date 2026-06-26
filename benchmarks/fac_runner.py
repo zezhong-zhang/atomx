@@ -8,10 +8,12 @@ Usage:
 from __future__ import annotations
 
 import os
+import re
 import shutil
 import subprocess
 import tempfile
 import time
+import struct
 from pathlib import Path
 
 import numpy as np
@@ -138,6 +140,141 @@ def parse_e0(lev_file: Path) -> float | None:
                     except ValueError:
                         return None
     return None
+
+
+def parse_hamiltonian_binary(ham_file: Path) -> dict:
+    """Parse a FAC binary Hamiltonian file written by ``Structure(..., hfn, ...)``.
+
+    FAC stores one lower-triangular sparse matrix per symmetry block. Values
+    are in Hartree. The returned block matrices are expanded to dense,
+    symmetric NumPy arrays because these diagnostics target small benchmark
+    blocks.
+    """
+    data = Path(ham_file).read_bytes()
+    off = 0
+
+    def read_i() -> int:
+        nonlocal off
+        value = struct.unpack_from("i", data, off)[0]
+        off += 4
+        return value
+
+    def read_d() -> float:
+        nonlocal off
+        value = struct.unpack_from("d", data, off)[0]
+        off += 8
+        return value
+
+    ng0 = read_i()
+    ng = read_i()
+    kg = [read_i() for _ in range(ng)]
+    ngp = read_i()
+    kgp = [read_i() for _ in range(ngp)]
+
+    blocks = []
+    while off < len(data):
+        symmetry = read_i()
+        dim = read_i()
+        if dim <= 0:
+            continue
+        orig_dim = read_i()
+        n_basis = read_i()
+        basis = [read_i() for _ in range(n_basis)]
+        n_values = read_i()
+        h = np.zeros((n_basis, n_basis), dtype=float)
+        values = []
+        for _ in range(n_values):
+            i = read_i()
+            j = read_i()
+            value = read_d()
+            h[i, j] = value
+            h[j, i] = value
+            values.append((i, j, value))
+        blocks.append({
+            "symmetry": symmetry,
+            "dim": dim,
+            "orig_dim": orig_dim,
+            "n_basis": n_basis,
+            "basis": basis,
+            "hamiltonian": h,
+            "values": values,
+        })
+
+    return {"ng0": ng0, "ng": ng, "kg": kg, "ngp": ngp, "kgp": kgp, "blocks": blocks}
+
+
+
+
+def parse_debug_hamiltonian_log(log_file: Path) -> list[dict]:
+    """Parse FAC ``FAC_DEBUG >= DEBUG_STRUCTURE`` Hamiltonian contribution logs.
+
+    A debug-enabled FAC build prints sections beginning with ``HPAIR i j``
+    followed by shell descriptors and ``1 electron:`` / ``2 electron:``
+    contribution totals.  This parser groups consecutive HPAIR sections into
+    Hamiltonian blocks (a new block starts when FAC returns to pair ``0 0``),
+    expands each group to a dense symmetric matrix, and preserves the
+    shell-resolved contribution details for coefficient audits.
+
+    The values are exactly as printed by FAC.  For scalar Hamiltonian matrix
+    elements FAC later applies the Wigner-Eckart factor ``1/sqrt(2J+1)``;
+    callers comparing with binary Hamiltonian files should apply that factor
+    when appropriate.
+    """
+    sections: list[dict] = []
+    current: dict | None = None
+    shell_lines: list[tuple[int, int, int, int, int]] = []
+    shell_re = re.compile(r"^\s*(-?\d+)\s+(-?\d+)\s+(-?\d+)\s+(-?\d+)\s+(-?\d+)\s*$")
+    contrib_re = re.compile(r"^\s*([12]) electron:\s+([+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[Ee][+-]?\d+)?)\s*$")
+
+    for line in Path(log_file).read_text(errors="ignore").splitlines():
+        if line.startswith("HPAIR "):
+            if current is not None:
+                sections.append(current)
+            _tag, i, j = line.split()[:3]
+            current = {"pair": (int(i), int(j)), "one": [], "two": [], "details": []}
+            shell_lines = []
+            continue
+        if current is None:
+            continue
+
+        m_shell = shell_re.match(line)
+        if m_shell:
+            shell_lines.append(tuple(int(x) for x in m_shell.groups()))
+            continue
+
+        m_contrib = contrib_re.match(line)
+        if m_contrib:
+            kind = "one" if m_contrib.group(1) == "1" else "two"
+            value = float(m_contrib.group(2))
+            n_shells = 2 if kind == "one" else 4
+            shells = tuple(shell_lines[-n_shells:])
+            current[kind].append(value)
+            current["details"].append({"kind": kind, "value": value, "shells": shells})
+
+    if current is not None:
+        sections.append(current)
+
+    groups: list[list[dict]] = []
+    group: list[dict] = []
+    for section in sections:
+        if section["pair"] == (0, 0) and group:
+            groups.append(group)
+            group = []
+        group.append(section)
+    if group:
+        groups.append(group)
+
+    out: list[dict] = []
+    for group in groups:
+        dim = max(max(section["pair"]) for section in group) + 1
+        h = np.zeros((dim, dim), dtype=float)
+        for section in group:
+            i, j = section["pair"]
+            value = float(sum(section["one"]) + sum(section["two"]))
+            h[i, j] = value
+            h[j, i] = value
+        out.append({"dimension": dim, "hamiltonian": h, "sections": group})
+    return out
 
 
 def parse_transitions(tr_file: Path) -> list[dict]:

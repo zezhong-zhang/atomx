@@ -21,6 +21,7 @@ from atomx.methods.dirac_fock import DFSolver, Subshell, SCFResult
 from atomx.methods.mcdhf.config import CSF, get_shared_orbital_basis
 from atomx.methods.mcdhf.matrix import build_ci_matrix
 from atomx.methods.ci import ci_solve
+from atomx.numerics.bspline.dirac_assembly import canonicalize_radial_phase
 
 
 @dataclass
@@ -221,7 +222,8 @@ class MCDHFSolver:
                  include_breit=False, include_qed=False,
                  nuclear="fermi", use_physics_grid=True,
                  starting_potential=None,
-                 per_block_orbital_sets=False):
+                 per_block_orbital_sets=False,
+                 radial_optimization="mcdhf"):
         self.Z = Z
         self.csfs = csfs
         self.n_csf = len(csfs)
@@ -235,6 +237,12 @@ class MCDHFSolver:
         self.nuclear = nuclear
         self.use_physics_grid = use_physics_grid
         self.starting_potential = starting_potential
+        if radial_optimization not in {"mcdhf", "fac_frozen", "fac_frozen_local"}:
+            raise ValueError(
+                "radial_optimization must be 'mcdhf', 'fac_frozen', or 'fac_frozen_local' "
+                f"(got {radial_optimization!r})"
+            )
+        self.radial_optimization = radial_optimization
         # DODS / EOL per-(J, parity)-block orbital optimisation toggle —
         # HYP-184 scaffold.  When True, ``solve()`` will (eventually)
         # run a separate Guerra-averaged DHF per (J, parity) block on
@@ -272,6 +280,28 @@ class MCDHFSolver:
             occ = min(occ, max_q)
             subshells.append(Subshell(n=n, kappa=kappa, occupation=occ))
 
+        return subshells
+
+    def _fac_frozen_subshells(self):
+        """FAC-like radial set: optimise the first CSF and keep virtuals tiny.
+
+        FAC structure scripts commonly call ``OptimizeRadial`` on the closed
+        ground group and then generate excited orbitals in that frozen
+        central potential. This helper builds the analogous subshell list:
+        occupations from the first CSF, plus tiny non-zero occupancies for
+        every additional orbital needed by the CI basis so DFSolver solves
+        those orbitals without relaxing the core toward the excited manifold.
+        """
+        ref_occ = {}
+        if self.csfs:
+            for sh in self.csfs[0].subshells:
+                ref_occ[(sh.n, sh.kappa)] = float(sh.occupation)
+
+        subshells = []
+        for n, kappa in sorted(self.orbital_basis, key=lambda x: (x[0], abs(x[1]), x[1])):
+            occ = ref_occ.get((n, kappa), 0.001)
+            occ = min(max(occ, 0.001), 2 * abs(kappa))
+            subshells.append(Subshell(n=n, kappa=kappa, occupation=occ))
         return subshells
 
     def _jj_configs(self, avg_subshells, weights):
@@ -313,13 +343,25 @@ class MCDHFSolver:
         seed_orbitals = None  # warm-start carry-over between outer iterations
 
         for iteration in range(1, max_iter + 1):
-            # Step 1: Effective occupations (Guerra Eq 10)
-            avg_subshells = self._averaged_subshells(weights)
+            # Step 1: Effective occupations. The default is Guerra Eq 10.
+            # ``fac_frozen`` intentionally follows FAC's structure protocol:
+            # optimise the first/ground configuration and keep excited
+            # orbitals as tiny-occupation virtuals in that frozen potential.
+            if self.radial_optimization in {"fac_frozen", "fac_frozen_local"}:
+                avg_subshells = self._fac_frozen_subshells()
+                jj_configs = None
+            else:
+                avg_subshells = self._averaged_subshells(weights)
+                jj_configs = self._jj_configs(avg_subshells, weights)
 
             # Step 2: Solve DHF with fractional occupations. Skip Breit/QED
             # here — they are perturbative in atomx's DFSolver (do not enter
             # the Fock matrix), so they only affect the final energy. We
             # compute them ONCE after the MCDHF outer loop converges.
+            exchange_model = "hf"
+            if self.radial_optimization == "fac_frozen_local":
+                exchange_model = "fac"
+
             kwargs = {}
             if self.r_min is not None:
                 kwargs["r_min"] = self.r_min
@@ -329,12 +371,16 @@ class MCDHFSolver:
             # Build Guerra-weighted JJConfig list so DFSolver.compute_WW
             # realises ϖᵢⱼ = Σⱼ cⱼ² nᵢʲ nⱼʲ — the correct
             # averaged-monoconfiguration Fock operator (Guerra Eq 10).
-            jj_configs = self._jj_configs(avg_subshells, weights)
+            # In FAC-frozen mode ``jj_configs`` is intentionally ``None``:
+            # DFSolver then uses the tiny virtual occupations in
+            # ``avg_subshells`` directly, matching the FAC-like radial
+            # experiment where excited orbitals are solved but do not relax
+            # the closed core appreciably.
 
             dhf = DFSolver(
                 Z=self.Z, subshells=avg_subshells,
                 ns=self.ns, ks=self.ks,
-                exchange="hf",
+                exchange=exchange_model,
                 include_breit=False, include_qed=False,
                 nuclear=self.nuclear,
                 starting_potential=(self.starting_potential
@@ -378,6 +424,7 @@ class MCDHFSolver:
                 orb_list = dhf_result.orbitals_raw.get(sh.kappa, [])
                 if idx < len(orb_list):
                     P, Q, occ = orb_list[idx]
+                    P, Q = canonicalize_radial_phase(P, Q)
                     orbitals_dict[(sh.n, sh.kappa)] = (P, Q)
 
             if not orbitals_dict:
@@ -391,7 +438,10 @@ class MCDHFSolver:
             state_energies = ci_res.state_energies
             mixing = ci_res.mixing_coefficients
 
-            # Step 6: Update weights = cⱼ² (ground state mixing)
+            # Step 6: Update weights = cⱼ² (ground state mixing). In
+            # FAC-frozen radial mode the Fock weights stay pinned to the
+            # first configuration, but keeping ``weights`` updated preserves
+            # convergence checks and result occupations.
             weights = mixing[:, 0] ** 2
             weights /= weights.sum()
 
@@ -450,6 +500,14 @@ class MCDHFSolver:
                 shared_orbitals=orbitals_dict,
                 dhf=dhf,
             )
+            if per_block_orbitals and dhf is not None:
+                state_energies, mixing = self._diagonalize_per_block_ci(
+                    state_energies=state_energies,
+                    mixing=mixing,
+                    per_block_orbitals=per_block_orbitals,
+                    bsp_data=dhf.bsp_data,
+                    ns=dhf.ns,
+                )
 
         result = MCDHFResult(
             converged=converged,
@@ -471,6 +529,49 @@ class MCDHFSolver:
         if qed_components:
             result.__dict__["_E_QED"] = qed_components
         return result
+
+
+    def _diagonalize_per_block_ci(self, *, state_energies, mixing, per_block_orbitals, bsp_data, ns):
+        """Replace same-(J, parity) CI subblocks with block-local orbitals."""
+        energies = np.array(state_energies, dtype=float, copy=True)
+        mixed = np.array(mixing, dtype=float, copy=True)
+        if mixed.ndim != 2 or mixed.size == 0:
+            return energies, mixed
+
+        state_blocks: Dict[tuple[int, int], list[int]] = {}
+        for state in range(mixed.shape[1]):
+            dom = int(np.argmax(np.abs(mixed[:, state])))
+            csf = self.csfs[dom]
+            block = (int(getattr(csf, "total_J2", 0)), int(getattr(csf, "parity", 1)))
+            state_blocks.setdefault(block, []).append(state)
+
+        for block, orbitals in per_block_orbitals.items():
+            csf_indices = [
+                i for i, csf in enumerate(self.csfs)
+                if int(getattr(csf, "total_J2", 0)) == block[0]
+                and int(getattr(csf, "parity", 1)) == block[1]
+            ]
+            state_indices = sorted(state_blocks.get(block, []), key=lambda i: energies[i])
+            if not csf_indices or not state_indices:
+                continue
+            H = build_ci_matrix(
+                [self.csfs[i] for i in csf_indices],
+                orbitals,
+                self.orbital_basis,
+                bsp_data,
+                self.Z,
+                ns,
+            )
+            vals, vecs = linalg.eigh(H)
+            count = min(len(state_indices), len(vals))
+            for local_state in range(count):
+                global_state = state_indices[local_state]
+                energies[global_state] = float(vals[local_state])
+                mixed[:, global_state] = 0.0
+                for local_csf, global_csf in enumerate(csf_indices):
+                    mixed[global_csf, global_state] = vecs[local_csf, local_state]
+
+        return energies, mixed
 
     def _solve_per_block_orbitals(self, *, mixing, shared_orbitals, dhf):
         """DODS / EOL per-(J, parity)-block orbital optimisation — scaffold.
@@ -518,5 +619,75 @@ class MCDHFSolver:
             ``{(twoJ, parity): {(n, kappa): (P, Q)}}`` — empty when
             the implementation is not yet filled in.
         """
-        del mixing, shared_orbitals, dhf  # silence unused-arg warnings.
-        return {}
+        del shared_orbitals
+        if dhf is None or mixing is None or np.asarray(mixing).size == 0:
+            return {}
+
+        mixing_arr = np.asarray(mixing, dtype=float)
+        dominant_blocks: Dict[tuple[int, int], list[int]] = {}
+        for state in range(mixing_arr.shape[1]):
+            dom = int(np.argmax(np.abs(mixing_arr[:, state])))
+            csf = self.csfs[dom]
+            block = (int(getattr(csf, "total_J2", 0)), int(getattr(csf, "parity", 1)))
+            dominant_blocks.setdefault(block, []).append(state)
+
+        out: Dict = {}
+        for block, states in dominant_blocks.items():
+            weights = np.zeros(self.n_csf, dtype=float)
+            for state in states:
+                weights += mixing_arr[:, state] ** 2
+            block_mask = np.array([
+                int(getattr(csf, "total_J2", 0)) == block[0]
+                and int(getattr(csf, "parity", 1)) == block[1]
+                for csf in self.csfs
+            ], dtype=bool)
+            weights = np.where(block_mask, weights, 0.0)
+            total = float(weights.sum())
+            if total <= 0.0:
+                continue
+            weights /= total
+
+            avg_subshells = self._averaged_subshells(weights=weights)
+            kwargs = {}
+            if self.r_min is not None:
+                kwargs["r_min"] = self.r_min
+            if self.r_max is not None:
+                kwargs["r_max"] = self.r_max
+            block_dhf = DFSolver(
+                Z=self.Z, subshells=avg_subshells,
+                ns=self.ns, ks=self.ks,
+                exchange="hf",
+                include_breit=False, include_qed=False,
+                nuclear=self.nuclear,
+                starting_potential=(self.starting_potential
+                                    or ("tfda" if self.Z >= 20 else None)),
+                jj_configs=self._jj_configs(avg_subshells, weights),
+                **kwargs,
+            )
+            if self.use_physics_grid:
+                from atomx.numerics.bspline.knots import make_physics_knots
+                from atomx.numerics.bspline.basis import prepare_bspline_data
+                t_phys, ns_phys = make_physics_knots(
+                    ks=self.ks, Z=self.Z, nuclear=self.nuclear)
+                data = prepare_bspline_data(t_phys, ns_phys, self.ks,
+                                            kinetic_balance=True)
+                block_dhf.t = t_phys
+                block_dhf.bsp_data = data
+                block_dhf.ns = ns_phys
+                block_dhf._precompute()
+
+            block_result = block_dhf.solve(max_iter=20, tol=1.0e-5)
+            orbitals_dict: Dict = {}
+            kappa_counter: Dict[int, int] = {}
+            for sh in avg_subshells:
+                idx = kappa_counter.get(sh.kappa, 0)
+                kappa_counter[sh.kappa] = idx + 1
+                orb_list = block_result.orbitals_raw.get(sh.kappa, [])
+                if idx < len(orb_list):
+                    P, Q, _occ = orb_list[idx]
+                    P, Q = canonicalize_radial_phase(P, Q)
+                    orbitals_dict[(sh.n, sh.kappa)] = (P, Q)
+            if orbitals_dict:
+                out[block] = orbitals_dict
+
+        return out

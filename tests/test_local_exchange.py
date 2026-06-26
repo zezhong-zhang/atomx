@@ -99,6 +99,14 @@ class TestGetHXS:
 
 
 class TestFacGu:
+    def test_fac_hxs_uses_fac_density_normalization(self):
+        r = np.linspace(0.01, 10.0, 512)
+        rho = np.exp(-r ** 2) / (4 * np.pi * r ** 2)
+        ahx = get_hxs(Z=26, N=10, ihx=-1.0, hxs=1.0)
+        V = fac_gu_exchange(rho, r, Z=26, N_total=10, ihx=-1.0, hxs=1.0)
+        expected = -ahx * (4.0 * np.pi * rho) ** (1.0 / 3.0)
+        assert np.allclose(V, expected, rtol=1e-12)
+
     def test_hxs_zero_falls_through_to_slater(self):
         r = np.linspace(0.01, 10.0, 512)
         rho = np.exp(-r ** 2) / (4 * np.pi * r ** 2)

@@ -74,7 +74,9 @@ class Atom:
                  correlation=None, starting_potential=None,
                  plasma_ne=None, plasma_Te=None,
                  averaging="ci", slater_method="slag6",
-                 sampling=None, j_resolved_csfs=False):
+                 sampling=None, j_resolved_csfs=False,
+                 per_block_orbital_sets=False,
+                 radial_optimization="mcdhf"):
         """
         Parameters
         ----------
@@ -160,7 +162,14 @@ class Atom:
         self.plasma_ne = plasma_ne
         self.plasma_Te = plasma_Te
         self.averaging = averaging
+        if radial_optimization not in {"mcdhf", "fac_frozen", "fac_frozen_local"}:
+            raise ValueError(
+                "radial_optimization must be 'mcdhf', 'fac_frozen', or 'fac_frozen_local' "
+                f"(got {radial_optimization!r})"
+            )
         self.j_resolved_csfs = bool(j_resolved_csfs)
+        self.per_block_orbital_sets = bool(per_block_orbital_sets)
+        self.radial_optimization = radial_optimization
 
         # Determine configuration(s)
         if configs is not None:
@@ -266,6 +275,8 @@ class Atom:
                     nuclear=self.nuclear,
                     use_physics_grid=self._use_physics_grid,
                     starting_potential=self.starting_potential,
+                    per_block_orbital_sets=self.per_block_orbital_sets,
+                    radial_optimization=self.radial_optimization,
                 )
                 self._result = solver.solve(max_iter=max_iter, scf_tol=tol)
 
@@ -283,8 +294,15 @@ class Atom:
                     csfs.extend(enumerate_j_resolved_csfs(cfg))
             else:
                 csfs = enumerate_jj_csfs_many(self._config_strings)
-            solver = MCDHFSolver(Z=self.Z, csfs=csfs, ns=self.ns, ks=self.ks,
-                                  include_breit=self.breit, include_qed=self.qed)
+            solver = MCDHFSolver(
+                Z=self.Z, csfs=csfs, ns=self.ns, ks=self.ks,
+                include_breit=self.breit, include_qed=self.qed,
+                nuclear=self.nuclear,
+                use_physics_grid=self._use_physics_grid,
+                starting_potential=self.starting_potential,
+                per_block_orbital_sets=self.per_block_orbital_sets,
+                radial_optimization=self.radial_optimization,
+            )
             self._result = solver.solve(max_iter=max_iter, scf_tol=tol)
         elif self.exchange in ("shooting", "fac"):
             # ODE shooting backend — two local-exchange flavours:

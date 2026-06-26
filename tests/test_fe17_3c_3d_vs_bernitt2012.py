@@ -5,17 +5,11 @@ The 2σ band quoted in the HYP-175 re-dispatch is f(3C)/f(3D) = 3.7 ± 0.4,
 matching the FAC and CHIANTI v10 theoretical line lists (FAC: 2.51/0.62 = 4.02;
 CHIANTI v10: ≈ 2.46/0.61 = 4.03).
 
-The gate uses ``Atom(Z=26, charge=16, configs=[ground + 2p⁵ 3l],
-j_resolved_csfs=True).solve()`` and the E1 transitions returned by
-``prop/transitions``. We confirm the 3C/3D pairings by selecting the two
-highest-f-value E1 transitions from the ground state (2p⁶ ¹S₀ → 2p⁵3d J=1
-odd parity).
-
-If atomx happens to be misaligned (the L-shell 2p⁵3d J=1 manifold is not
-recovered with the default basis), the test does NOT silently pass: it
-xfails with a HYP-182 reference (the diagnose-and-fix follow-up). The
-benchmark and CHIANTI/FAC cross-validation paragraph in
-``benchmarks/REPORT.md`` document the current spread.
+The gate uses the FAC-parity structure model: ground + 2p⁵3l plus the
+2s-hole partner configurations, with ``radial_optimization='fac_frozen'`` to
+match FAC's ``OptimizeRadial(['n2'])`` protocol. We confirm the 3C/3D pairings
+by selecting the two highest-f-value E1 transitions from the ground state in
+the 15 A 2p⁶ ¹S₀ → 2p⁵3d J=1 odd-parity window.
 """
 from __future__ import annotations
 
@@ -48,6 +42,9 @@ def _solve_fe17():
         "1s2 2s2 2p5 3s1",
         "1s2 2s2 2p5 3p1",
         "1s2 2s2 2p5 3d1",
+        "1s2 2s1 2p6 3s1",
+        "1s2 2s1 2p6 3p1",
+        "1s2 2s1 2p6 3d1",
     ]
     atom = Atom(
         Z=26,
@@ -56,6 +53,7 @@ def _solve_fe17():
         j_resolved_csfs=True,
         breit=False,
         qed=False,
+        radial_optimization="fac_frozen",
     )
     atom.solve()
     trs = atom.transitions(multipoles=["E1"])
@@ -74,12 +72,18 @@ def _from_ground(transitions, ground_label: str):
 
 
 def _pick_3c_3d(transitions_from_ground):
-    """Return (f_3c, f_3d) using the two highest-f E1 transitions from ground.
+    """Return (f_3c, f_3d) from the FAC/Bernitt 3C/3D wavelength window.
 
-    3C is the larger-f line (¹P₁ character); 3D is the next strongest (³D₁).
-    Both should sit in the 14.5–15.5 Å region.
+    FAC and CHIANTI place both 3C and 3D in 14.5-15.5 Å.  Selecting the top
+    two oscillator strengths globally can accidentally compare 3C against an
+    unrelated high-energy J=1 odd line, so this gate first restricts to the
+    physical 3C/3D window and then picks the two strongest lines there.
     """
-    by_f = sorted(transitions_from_ground, key=lambda t: -float(t.f_value))
+    in_window = [
+        t for t in transitions_from_ground
+        if FE17_3CD_WL_LOW_A <= float(t.wavelength_angstrom) <= FE17_3CD_WL_HIGH_A
+    ]
+    by_f = sorted(in_window, key=lambda t: -float(t.f_value))
     if len(by_f) < 2:
         return None, None, None, None
     t_3c, t_3d = by_f[0], by_f[1]
@@ -108,9 +112,10 @@ def _band_status() -> tuple[bool, float | None, str]:
     f_3c, f_3d, wl_3c, wl_3d = _atomx_f_ratio()
     if f_3c is None or f_3d is None or wl_3c is None or wl_3d is None or f_3d <= 0.0:
         return False, None, (
-            "Fe XVII ground state returned fewer than 2 E1 transitions "
-            f"(f_3c={f_3c}, f_3d={f_3d}). HYP-182 (atomx J-resolved CSF "
-            "coupling fix) is required before this gate can be evaluated."
+            "Fe XVII ground state returned fewer than two E1 transitions in "
+            f"the FAC 3C/3D wavelength window [{FE17_3CD_WL_LOW_A}, "
+            f"{FE17_3CD_WL_HIGH_A}] Å (f_3c={f_3c}, f_3d={f_3d}). "
+            "The J=1 odd 2p^5 3d manifold is still misplaced relative to FAC."
         )
     ratio = f_3c / f_3d
     in_band = BERNITT_2012_F_RATIO_LOW <= ratio <= BERNITT_2012_F_RATIO_HIGH
@@ -129,46 +134,15 @@ def _band_status() -> tuple[bool, float | None, str]:
     return in_band and wl_in_range, ratio, msg
 
 
-# Pre-evaluate the status once so the xfail reason is concrete (X.X filled in).
+# Pre-evaluate the status once so failure messages include concrete values.
 try:
     _IN_BAND, _F_RATIO, _STATUS_MSG = _band_status()
-except Exception as exc:  # pragma: no cover — defensive
+except Exception as exc:  # pragma: no cover - defensive
     _IN_BAND, _F_RATIO, _STATUS_MSG = False, None, f"atomx solve failed: {exc!r}"
 
 
-_XFAIL_REASON = (
-    f"Fe XVII 3C/3D landed at f-ratio = "
-    f"{('%.2f' % _F_RATIO) if _F_RATIO is not None else 'unavailable'} "
-    "(HYP-184 partial delivery). The HYP-182 corrections to the "
-    "configuration-averaged CI kernel (k=0 direct drop for κ_a ≠ κ_b, proper "
-    "jj sqrt weight, geometric-mean exchange factor) are in place, and the "
-    "HYP-184 first-pass landed the J-selection-rule loophole closure for "
-    "closed-shell J=0 CSFs in csf_has_explicit_j / csf_twice_j (the "
-    "bracketed `[J=0/2]` label tag is now recognised, so the multipole "
-    "filter no longer leaks 2J=4/6/8 finals out of the J=0 ground). What "
-    "still remains in HYP-189 is (i) the body of "
-    "atomx.methods.mcdhf.matrix._off_diagonal_J_correction — the Grant "
-    "§8.3 / 6j off-diagonal analogue of _diagonal_J_correction for 1-diff "
-    "and 2-diff CSF pairs in the same (J, parity) block, anchored by the "
-    "He-like 1s 2p singlet/triplet test in "
-    "tests/test_off_diagonal_j_ci_helike_1s2p.py — and (ii) the per-(J, "
-    "parity)-block orbital optimisation in atomx.methods.mcdhf.solver "
-    "(`per_block_orbital_sets=True` is scaffolded but currently returns an "
-    "empty per-block dict, so the transition calculator still falls back to "
-    "the single Guerra-averaged set and the 2p⁵3l excited states are solved "
-    "in the closed 2p⁶ field, giving the canonical ~1 Å redshift on 3C). "
-    "Closing both is HYP-189 follow-up scope; this xfail will flip to a "
-    "strict assertion once HYP-189 lands."
-)
-
-
-@pytest.mark.xfail(
-    condition=not _IN_BAND,
-    reason=_XFAIL_REASON,
-    strict=False,
-)
 def test_fe17_3c_3d_f_ratio_in_bernitt_2012_2sigma_band():
-    """f(3C)/f(3D) must land inside Bernitt 2012's 2σ band [3.3, 4.1]."""
+    """FAC-parity f(3C)/f(3D) must land inside Bernitt 2012's 2sigma band."""
     in_band, ratio, msg = _band_status()
     assert in_band, msg
 
@@ -179,3 +153,59 @@ def test_fe17_3c_3d_band_definition_matches_redispatch():
     assert BERNITT_2012_F_RATIO_2SIGMA == pytest.approx(0.4)
     assert BERNITT_2012_F_RATIO_LOW == pytest.approx(3.3)
     assert BERNITT_2012_F_RATIO_HIGH == pytest.approx(4.1)
+
+
+@pytest.mark.parametrize("radial_optimization", ["fac_frozen", "fac_frozen_local"])
+def test_fe17_fac_frozen_places_bright_3d_lines_in_fac_window(radial_optimization):
+    """FAC-frozen radial modes should recover the Fe XVII 15 A line bundle.
+
+    This is not the final Bernitt-ratio gate.  It pins the current FAC-parity
+    progress: the bright ground-state E1 strength belongs in the 14.5-15.5 A
+    2p^5 3d window and remains in the same total-strength scale as FAC.  After
+    the FAC Babushkin E1 normalization fix, FAC-vector/AtomX-radial hybrids
+    match the FAC fixture; the remaining production gap is CI mixing, which
+    can over-concentrate the same basis strength in the top AtomX eigenline.
+    The xfailed ratio gate above covers that unresolved Hamiltonian issue.
+    """
+    from atomx import Atom
+
+    configs = [
+        "1s2 2s2 2p6",
+        "1s2 2s2 2p5 3s1",
+        "1s2 2s2 2p5 3p1",
+        "1s2 2s2 2p5 3d1",
+    ]
+    atom = Atom(
+        Z=26,
+        charge=16,
+        configs=configs,
+        j_resolved_csfs=True,
+        breit=False,
+        qed=False,
+        radial_optimization=radial_optimization,
+    )
+    atom.solve()
+    assert atom._result.converged
+
+    ground = f"State_{_ground_index(atom)}"
+    in_window = [
+        t for t in _from_ground(atom.transitions(multipoles=["E1"]), ground)
+        if FE17_3CD_WL_LOW_A <= float(t.wavelength_angstrom) <= FE17_3CD_WL_HIGH_A
+    ]
+    by_f = sorted(in_window, key=lambda t: -float(t.f_value))
+
+    assert len(by_f) >= 3
+    f0, f1, f2 = (float(t.f_value) for t in by_f[:3])
+    assert f0 > 1.5
+    assert f1 > 0.2
+    # FAC has two bright 3C/3D lines plus a weak J=1 2p^5 3d line
+    # (f ~= 0.01).  A previous progress guard required all three lines to be
+    # bright, which incorrectly rewarded the over-mixed Hamiltonian this test
+    # is meant to catch.
+    assert 0.0 < f2 < 0.05
+    assert 3.0 < f0 / f1 < 5.5
+    # FAC fixture: 3C + 3D + weak J=1 2p^5 3d line = 3.142186529.
+    # Keep this as a broad progress guard; the exact strength distribution is
+    # still gated by the xfailed Bernitt/FAC ratio test until CI mixing closes.
+    total_f = f0 + f1 + f2
+    assert total_f == pytest.approx(3.142186529, rel=0.25)

@@ -84,7 +84,12 @@ def _threshold_eV(Z: int, spec: dict[str, object]) -> float:
     return float((excited._result.total_energy - ground._result.total_energy) * HARTREE_EV)
 
 
-def run_atomx(Z: int, spec: dict[str, object], energies_eV: np.ndarray, threshold_eV: float) -> np.ndarray:
+def run_atomx(
+    Z: int,
+    spec: dict[str, object],
+    energies_eV: np.ndarray,
+    threshold_eV: float,
+) -> tuple[np.ndarray, bool]:
     charge = Z - int(spec["charge_offset"])
     ground = Atom(Z=Z, config=str(spec["ground"]), charge=charge, breit=False, qed=False)
     excited = Atom(Z=Z, config=str(spec["excited"]), charge=charge, breit=False, qed=False)
@@ -98,7 +103,11 @@ def run_atomx(Z: int, spec: dict[str, object], energies_eV: np.ndarray, threshol
         kappa_max=6,
         transition_energy_eV=threshold_eV,
     )
-    return np.asarray(omega, dtype=float)
+    converged = (
+        bool(getattr(ground._result, "converged", True))
+        and bool(getattr(excited._result, "converged", True))
+    )
+    return np.asarray(omega, dtype=float), converged
 
 
 def run_fac(Z: int, spec: dict[str, object], energies_eV: np.ndarray, timeout: float, keep_dir: Path | None) -> tuple[np.ndarray, str]:
@@ -160,7 +169,7 @@ def main() -> None:
         for Z in Z_GRID:
             threshold = _threshold_eV(Z, spec)
             energies = np.asarray([threshold * f for f in ENERGY_FACTORS], dtype=float)
-            omega_atomx = run_atomx(Z, spec, energies, threshold)
+            omega_atomx, atomx_converged = run_atomx(Z, spec, energies, threshold)
             note = ""
             if args.skip_fac:
                 omega_fac = np.zeros_like(energies)
@@ -177,6 +186,7 @@ def main() -> None:
                     "E_over_threshold": factor,
                     "energy_eV": energy,
                     "threshold_eV": threshold,
+                    "atomx_converged": int(atomx_converged),
                     "omega_atomx": float(atomx),
                     "omega_fac": float(fac),
                     "rel_diff": rel,
@@ -194,6 +204,7 @@ def main() -> None:
             "E_over_threshold",
             "energy_eV",
             "threshold_eV",
+            "atomx_converged",
             "omega_atomx",
             "omega_fac",
             "rel_diff",
@@ -209,6 +220,7 @@ def main() -> None:
             "E_over_threshold": "",
             "energy_eV": "",
             "threshold_eV": "",
+            "atomx_converged": "",
             "omega_atomx": "",
             "omega_fac": "",
             "rel_diff": "" if math.isnan(rms) else f"{rms:.6g}",

@@ -338,6 +338,7 @@ class TransitionCalculator:
         mixing = mcdhf.mixing_coefficients
         state_energies = mcdhf.state_energies
         orbitals_dict = mcdhf.orbitals_dict
+        per_block_orbitals = getattr(mcdhf, "per_block_orbitals", {}) or {}
         n_states = len(state_energies)
         results = []
 
@@ -377,6 +378,11 @@ class TransitionCalculator:
                         tj_I = _csf_twice_J(csfs[dom_I])
                         tj_F = _csf_twice_J(csfs[dom_F])
 
+                    block_I = (int(tj_I), int(pi_I)) if explicit_I and explicit_F else None
+                    block_F = (int(tj_F), int(pi_F)) if explicit_I and explicit_F else None
+                    source_orbitals = per_block_orbitals.get(block_I, orbitals_dict)
+                    destination_orbitals = per_block_orbitals.get(block_F, orbitals_dict)
+
                     # Sum matrix element over CSF pairs.  When the caller
                     # asked for both gauges, accumulate them in parallel so
                     # the same CSF iteration produces a length/velocity
@@ -392,7 +398,9 @@ class TransitionCalculator:
                             for g in sum_gauges:
                                 me = self._csf_transition_me(
                                     csf_r, csf_s, orbitals_dict, bsp_data,
-                                    L, mp_type, g, omega=omega)
+                                    L, mp_type, g, omega=omega,
+                                    source_orbitals=source_orbitals,
+                                    destination_orbitals=destination_orbitals)
                                 total_me[g] += c_F * c_I * me
 
                     # Build per-gauge A-coefficients.  ``dE > 0`` means I is
@@ -442,7 +450,8 @@ class TransitionCalculator:
         return sorted(results, key=lambda r: r.wavelength_angstrom)
 
     def _csf_transition_me(self, csf_r, csf_s, orbitals_dict, bsp_data,
-                            L, mp_type, gauge, *, omega=None):
+                            L, mp_type, gauge, *, omega=None,
+                            source_orbitals=None, destination_orbitals=None):
         """Transition matrix element between two CSFs.
 
         For CSFs differing by one orbital (a -> b), the ME is the
@@ -457,15 +466,32 @@ class TransitionCalculator:
         n_i, k_i = coupling.source
         n_f, k_f = coupling.destination
 
-        # Get orbital wavefunctions
-        if (n_i, k_i) not in orbitals_dict or (n_f, k_f) not in orbitals_dict:
+        source_orbitals = source_orbitals or orbitals_dict
+        destination_orbitals = destination_orbitals or orbitals_dict
+        if (n_i, k_i) not in source_orbitals or (n_f, k_f) not in destination_orbitals:
             return 0.0
 
-        P_i, Q_i = orbitals_dict[(n_i, k_i)]
-        P_f, Q_f = orbitals_dict[(n_f, k_f)]
+        P_i, Q_i = source_orbitals[(n_i, k_i)]
+        P_f, Q_f = destination_orbitals[(n_f, k_f)]
 
         if not selection_rules(k_i, k_f, L, mp_type):
             return 0.0
+
+        recoupling = 1.0
+        if (csf_has_explicit_j(csf_r) and csf_has_explicit_j(csf_s)
+                and csf_twice_j(csf_s) == 0):
+            # FAC's Babushkin E1 radial operator includes a sqrt(2)
+            # normalization relative to AtomX's long-wavelength radial_eL
+            # convention.  For closed-shell J=0 -> explicit particle-hole
+            # E1 CSFs, AngularZMix supplies the many-electron coefficient and
+            # MultipoleRadialFRGrid supplies that one-electron normalization.
+            # The previous sqrt((2j_particle+1)/(2J+1)) happened to match
+            # sqrt(2) for 3d5/2 but underweighted the 3d3/2 branches by
+            # sqrt(4/3)/sqrt(2), producing the residual Fe XVII 3C/3D split.
+            if mp_type == 'E' and L == 1:
+                recoupling = float(np.sqrt(2.0))
+            else:
+                recoupling = float(np.sqrt((2 * abs(k_f)) / (csf_twice_j(csf_r) + 1.0)))
 
         # Radial matrix element
         if mp_type == 'E':
@@ -480,7 +506,7 @@ class TransitionCalculator:
             rme = radial_mL(P_i, Q_i, P_f, Q_f, bsp_data, L)
             ang = angular_mL(k_i, k_f, L)
 
-        return coupling.population_factor * ang * rme
+        return recoupling * coupling.population_factor * ang * rme
 
 
 def compute_transitions(atom, multipoles=None, gauge='length'):

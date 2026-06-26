@@ -29,6 +29,9 @@ class PotentialModel:
     alpha_x: float = 2.0 / 3.0
     fac_ihx: float = -1.0
     fac_hxs: float = 1.0
+    fac_csi: float = 0.55
+    fac_self_interaction_correction: bool = True
+    latter_correction: bool = True
     n_radial: int = 4000
     r_max: Optional[float] = None
 
@@ -72,6 +75,9 @@ class PotentialModel:
                 alpha_x=self.alpha_x,
                 fac_ihx=self.fac_ihx,
                 fac_hxs=self.fac_hxs,
+                fac_csi=self.fac_csi,
+                fac_self_interaction_correction=self.fac_self_interaction_correction,
+                latter_correction=self.latter_correction,
             )
         raise ValueError(f"unknown potential model kind {self.kind!r}")
 
