@@ -1098,3 +1098,66 @@ def chain_state_from_simple_csf_auto(csf) -> ChainCoupledCSFState | None:
         )
     except ValueError:
         return None
+
+
+def aligned_subshell_keys_from_simple_csfs(csf_a, csf_b) -> tuple[tuple[int, int], ...] | None:
+    """Return a deterministic merged subshell order for simple CSFs.
+
+    The FAC recoupling inventory needs a stable shell chain even when one CSF
+    has zero occupation in an active subshell.  We only expose this for CSFs
+    whose occupied subshells have unique reduced parentage; ambiguous open
+    shells still return ``None``.
+    """
+    for csf in (csf_a, csf_b):
+        for sh in getattr(csf, "subshells", []):
+            if single_state_for_subshell(sh.j2, int(round(sh.occupation))) is None:
+                return None
+
+    keys = {
+        (int(sh.n), int(sh.kappa))
+        for csf in (csf_a, csf_b)
+        for sh in getattr(csf, "subshells", [])
+    }
+    return tuple(sorted(keys, key=lambda key: (key[0], abs(key[1]), key[1])))
+
+
+def fac_angular_zxz0_branch_case(indices: tuple[int, int, int, int]):
+    """Mirror FAC ``AngularZxZ0`` shell sorting and branch selection."""
+    order = [0, 1, 2, 3]
+    phase = 0
+    for j in range(3):
+        for i in range(3, j, -1):
+            if indices[order[i]] < indices[order[i - 1]]:
+                order[i], order[i - 1] = order[i - 1], order[i]
+                phase += 1
+
+    counts = []
+    for pos in reversed(order):
+        if not counts or indices[pos] != counts[-1][0]:
+            counts.append([indices[pos], 1])
+        else:
+            counts[-1][1] += 1
+    nops = [count for _idx, count in counts]
+
+    if nops == [4]:
+        branch = 0
+    elif nops == [3, 1]:
+        branch = 1
+    elif nops == [1, 3]:
+        branch = 3
+    elif nops == [1, 2, 1]:
+        branch = 5
+    elif nops == [2, 2]:
+        branch = 6
+    elif nops == [2, 1, 1]:
+        branch = 7
+    elif nops == [1, 1, 2]:
+        branch = 8
+    else:
+        branch = 9
+    return tuple(order), phase, branch
+
+
+def fac_simple_axw_wxa_zxz0_postprocess(*_args, **_kwargs):
+    """Placeholder for FAC branch-7/8 composite-seed diagnostics."""
+    return None

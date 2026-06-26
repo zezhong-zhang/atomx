@@ -5,7 +5,13 @@ Tests CSF parsing, CI matrix construction, and MCDHF solver.
 
 import numpy as np
 import pytest
-from atomx.methods.mcdhf.config import CSF, make_csf_list, _parse_config_string, get_shared_orbital_basis
+from atomx.methods.mcdhf.config import (
+    CSF,
+    enumerate_j_resolved_csfs,
+    make_csf_list,
+    _parse_config_string,
+    get_shared_orbital_basis,
+)
 from atomx.methods.mcdhf.solver import MCDHFSolver, MCDHFResult
 from atomx.methods.dirac_fock import Subshell
 from atomx.constants import HARTREE_CM1
@@ -78,6 +84,25 @@ class TestMCDHFSolver:
         # Both states should be bound
         assert result.ground_energy < 0
 
+
+    def test_per_block_orbital_sets_are_populated_when_enabled(self):
+        """Opt-in DODS/EOL scaffold produces block-keyed orbital sets."""
+        csfs = []
+        for cfg in ["1s2", "1s1 2p1"]:
+            csfs.extend(enumerate_j_resolved_csfs(cfg))
+        solver = MCDHFSolver(
+            Z=6,
+            csfs=csfs,
+            ns=24,
+            ks=7,
+            use_physics_grid=False,
+            per_block_orbital_sets=True,
+        )
+        result = solver.solve(max_iter=3, scf_tol=1e-3, ci_tol=1e-5, scf_max_iter=8)
+        assert result.per_block_orbitals
+        assert all(isinstance(block, tuple) and len(block) == 2 for block in result.per_block_orbitals)
+        assert all(result.per_block_orbitals[block] for block in result.per_block_orbitals)
+
     def test_excitation_energies(self):
         """Excitation energies should be positive."""
         csfs = make_csf_list(4, ["1s2 2s2", "1s2 2p2"])
@@ -96,3 +121,48 @@ class TestMCDHFSolver:
         for state in range(result.n_states):
             norm = np.sum(result.mixing_coefficients[:, state] ** 2)
             assert norm == pytest.approx(1.0, abs=1e-10)
+
+
+def test_fac_frozen_radial_optimization_keeps_virtual_occupations_tiny():
+    from atomx.methods.mcdhf.config import enumerate_j_resolved_csfs
+
+    csfs = []
+    for cfg in ["1s2 2s2 2p6", "1s2 2s2 2p5 3d1"]:
+        csfs.extend(enumerate_j_resolved_csfs(cfg))
+
+    solver = MCDHFSolver(
+        Z=26,
+        csfs=csfs,
+        ns=35,
+        ks=7,
+        use_physics_grid=False,
+        radial_optimization="fac_frozen",
+    )
+    subshells = solver._fac_frozen_subshells()
+    occ = {(sh.n, sh.kappa): sh.occupation for sh in subshells}
+
+    assert occ[(2, 1)] == 2
+    assert occ[(2, -2)] == 4
+    assert occ[(3, 2)] == 0.001
+    assert occ[(3, -3)] == 0.001
+
+
+def test_fac_frozen_local_radial_optimization_solves_with_frozen_occupations():
+    from atomx.methods.mcdhf.config import enumerate_j_resolved_csfs
+
+    csfs = []
+    for cfg in ["1s2", "1s1 2p1"]:
+        csfs.extend(enumerate_j_resolved_csfs(cfg))
+
+    solver = MCDHFSolver(
+        Z=6,
+        csfs=csfs,
+        ns=28,
+        ks=7,
+        use_physics_grid=False,
+        radial_optimization="fac_frozen_local",
+    )
+    result = solver.solve(max_iter=4, scf_tol=1e-3, ci_tol=1e-5, scf_max_iter=8)
+
+    assert result.converged
+    assert result.orbitals_dict

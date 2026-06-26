@@ -155,7 +155,27 @@ class DiracResult:
         Q = np.zeros(ns_full)
         P[:self.nsp] = vec[:self.nsp]
         Q[:self.nsq] = vec[ns_full:ns_full + self.nsq]
+        P, Q = canonicalize_radial_phase(P, Q)
         return P, Q, self.bound_energies[idx]
+
+
+def canonicalize_radial_phase(P, Q):
+    """Return a deterministic sign for a radial spinor.
+
+    Generalised eigensolvers may return either phase for an eigenvector.
+    Densities and diagonal energies are unchanged, but CI, transition, and
+    scattering amplitudes contain products of different orbitals and need a
+    stable convention across basis sizes and solver backends. B-splines are
+    non-negative locally, so the largest large-component coefficient is a
+    robust proxy for the dominant radial lobe.
+    """
+    P_arr = np.asarray(P)
+    if P_arr.size == 0:
+        return P, Q
+    i = int(np.argmax(np.abs(P_arr)))
+    if float(P_arr[i]) < 0.0:
+        return -P, -Q
+    return P, Q
 
 
 # Module-level cache for (nsp, nsq, nb, ibzero) -> (keep indices, np.ix_ grid).

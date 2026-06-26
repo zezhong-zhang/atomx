@@ -177,5 +177,8 @@ def fac_gu_exchange(
     """
     if hxs == 0.0:
         return slater_exchange(rho, r, alpha=slater_alpha)
-    alpha = get_hxs(Z=Z, N=N_total, ihx=ihx, hxs=hxs)
+    ahx = get_hxs(Z=Z, N=N_total, ihx=ihx, hxs=hxs)
+    # FAC applies ``ahx`` to ``(4*pi*rho)^(1/3)``.  ``slater_exchange`` uses
+    # ``alpha * (3*rho/pi)^(1/3)``, so convert the coefficient once here.
+    alpha = ahx * (4.0 * np.pi ** 2 / 3.0) ** (1.0 / 3.0)
     return slater_exchange(rho, r, alpha=alpha)

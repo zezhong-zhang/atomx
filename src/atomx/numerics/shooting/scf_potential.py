@@ -128,6 +128,9 @@ def static_hartree_potential(
     alpha_x: float = 2.0 / 3.0,
     fac_ihx: float = -1.0,
     fac_hxs: float = 1.0,
+    fac_csi: float = 0.55,
+    fac_self_interaction_correction: bool = True,
+    latter_correction: bool = True,
 ) -> Callable[[np.ndarray], np.ndarray]:
     """V_static-Hartree(r) = -Z/r + Σ_b q_b' · V_d^{(0)}(b)(r).
 
@@ -168,9 +171,11 @@ def static_hartree_potential(
         coefficient; ``"slater"`` uses ``alpha_x``.
     alpha_x : float
         Slater exchange coefficient when ``exchange="slater"``.
-    fac_ihx, fac_hxs : float
-        FAC/Gu local-exchange parameters forwarded to
-        :func:`atomx.physics.local_exchange.fac_gu_exchange`.
+    fac_ihx, fac_hxs, fac_csi : float
+        FAC/Gu local-exchange and screening-tail parameters.
+    fac_self_interaction_correction, latter_correction : bool
+        Apply FAC's default local-potential screening-tail correction and
+        final asymptotic Latter cap when using FAC exchange.
 
     Returns
     -------
@@ -238,26 +243,48 @@ def static_hartree_potential(
     outer_term = outer_cum
     V_H = inner_term + outer_term
     V_total = -Z / r_h + V_H
+    use_latter_tail = False
     if include_exchange:
         rho_vol = rho / (4.0 * np.pi * r_h ** 2)
         exchange_l = exchange.lower()
         if exchange_l == "fac":
             from atomx.physics.local_exchange import fac_gu_exchange
-            V_total = V_total + fac_gu_exchange(
+            V_x = fac_gu_exchange(
                 rho_vol, r_h, Z=Z, N_total=N_eff,
                 ihx=fac_ihx, hxs=fac_hxs, slater_alpha=alpha_x,
             )
+            V_total = V_total + V_x
+            use_latter_tail = True
+            if fac_self_interaction_correction:
+                from atomx.numerics.bspline.local_potential import _fac_csi_screening_correction
+
+                screening = r_h * (V_H + V_x)
+                corrected = _fac_csi_screening_correction(
+                    r_h, screening, n_total=N_eff, ihx=fac_ihx, csi=fac_csi,
+                )
+                V_total = -Z / r_h + corrected / r_h
         elif exchange_l == "slater":
             from atomx.physics.local_exchange import slater_exchange
             V_total = V_total + slater_exchange(rho_vol, r_h, alpha=alpha_x)
         else:
             raise ValueError("exchange must be 'fac' or 'slater'")
 
-    # Wrap as interpolating callable, with the bare -Z/r tail beyond r_max
-    return tabulated_potential(
-        r_grid=r_h, V_grid=V_total,
-        fill_outer=-(Z - N_eff) / r_max,
-    )
+    if latter_correction and use_latter_tail:
+        rvinf = -(1.0 + Z - N_eff)
+        V_total = np.where(r_h * V_total > rvinf, rvinf / r_h, V_total)
+
+    # Wrap as an interpolating callable, with the Coulomb residual-core tail
+    # outside the tabulated interval instead of a constant endpoint value.
+    residual_charge = (1.0 + Z - N_eff) if (latter_correction and use_latter_tail) else (Z - N_eff)
+
+    def V_func(r: np.ndarray) -> np.ndarray:
+        r_arr = np.asarray(r, dtype=float)
+        r_safe = np.where(r_arr > 0.0, r_arr, 1.0e-30)
+        interp = np.interp(r_safe, r_h, V_total, left=V_total[0], right=np.nan)
+        tail = -residual_charge / r_safe
+        return np.where(np.isnan(interp), tail, interp)
+
+    return V_func
 
 
 __all__ = [

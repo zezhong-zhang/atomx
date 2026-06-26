@@ -15,6 +15,21 @@ import numpy as np
 from atomx.angular.wigner import wigner_3j
 
 
+def reduced_cl_j2(tj_a, tk, tj_b):
+    """FAC-compatible signed reduced C^k angular coefficient.
+
+    Arguments use the twice-angular-momentum convention.  FAC's
+    ``ReducedCL(ja, k, jb)`` is the signed square root whose square is the
+    ``exchange_lambda`` angular factor for the corresponding kappa pair.
+    """
+    w3j = wigner_3j(tj_a, tk, tj_b, 1, 0, -1)
+    if abs(w3j) < 1e-15:
+        return 0.0
+    phase_exp = (tj_a + 1) // 2
+    phase = -1.0 if phase_exp % 2 else 1.0
+    return float(phase * np.sqrt((tj_a + 1) * (tj_b + 1)) * w3j)
+
+
 def exchange_lambda(kappa_a, kappa_b, k):
     """Angular coefficient Lambda(k, kappa_a, kappa_b) for the exchange interaction.
 

@@ -86,27 +86,15 @@ def _make_helike_csfs():
     return alpha, beta
 
 
-def test_off_diag_j_ci_scaffold_returns_zero_for_helike_1s2p_j1_pair():
-    """Scaffold lock-in: the no-op scaffold must return exactly 0.0.
-
-    This guards against accidental drift in
-    :func:`_off_diagonal_J_correction` until the Grant Sec. 8.3 body is
-    landed in HYP-189.  When the body lands, this assertion should be
-    relaxed (the value will be non-zero) and the xfail below should flip
-    to a strict numeric expectation.
-    """
+def test_off_diag_j_ci_helike_1s2p_j1_pair_unit_radial_is_non_zero():
+    """The Grant Sec. 8.3 one-diff body is live for the He-like anchor."""
     alpha, beta = _make_helike_csfs()
-    # n_diff between alpha and beta is 1 (2p_{1/2} <-> 2p_{3/2}).
     assert alpha.n_electron_diff(beta) == 1
 
-    # The body of _off_diagonal_J_correction is a no-op scaffold today; it
-    # must return exactly 0.0 regardless of orbital/bsp contents, because
-    # the implementation has not yet been filled in.  orbitals_dict and
-    # bsp_data are passed as empty dicts to confirm the early-return path.
     delta = _off_diagonal_J_correction(
         alpha, beta, orbitals_dict={}, bsp_data={}, ns=1, n_diff=1,
     )
-    assert delta == 0.0
+    assert abs(delta) > 0.0
 
 
 def test_off_diag_j_ci_helike_1s2p_j1_pair_block_filter_is_consistent():
@@ -120,13 +108,13 @@ def test_off_diag_j_ci_helike_1s2p_j1_pair_block_filter_is_consistent():
     """
     alpha, beta = _make_helike_csfs()
 
-    # Same (J, parity) -> reaches the body (which is itself a no-op today).
+    # Same (J, parity) -> reaches the body.
     same_block = _off_diagonal_J_correction(
         alpha, beta, orbitals_dict={}, bsp_data={}, ns=1, n_diff=1,
     )
-    assert same_block == 0.0
+    assert abs(same_block) > 0.0
 
-    # Different parity -> early return, also 0.0 but for a different reason.
+    # Different parity -> early return.
     beta_wrong_parity = CSF(
         subshells=beta.subshells,
         total_J2=beta.total_J2,
@@ -195,19 +183,6 @@ def test_off_diag_j_ci_helike_1s2p_grant_section_8_3_kernel_inputs_resolve():
     )
 
 
-@pytest.mark.xfail(
-    reason=(
-        "HYP-189: off-diagonal J-coupled CI correction (Grant Sec. 8.3) is "
-        "scaffolded but not yet implemented in "
-        "atomx.methods.mcdhf.matrix._off_diagonal_J_correction.  When the "
-        "Grant Sec. 8.3 / 6j body lands, the off-diagonal element of the "
-        "He-like 1s 2p J=1 2x2 jj-block must be non-zero with the sign "
-        "that reproduces the canonical E([1]P_1) - E([3]P_1) = 2 G^1(1s,2p) "
-        "singlet/triplet splitting.  The minimal observable for this "
-        "anchor is just |delta| > 0 with synthetic non-zero orbitals."
-    ),
-    strict=True,
-)
 def test_off_diag_j_ci_helike_1s2p_j1_pair_is_non_zero():
     """Future expectation: the implemented off-diag J-CI is non-zero here.
 
@@ -218,10 +193,8 @@ def test_off_diag_j_ci_helike_1s2p_j1_pair_is_non_zero():
     is wired up -- a flat radial product is enough for the magnitude
     check.
 
-    This test will be flipped from xfail to a strict numeric check
-    against an analytic R^1(1s, 2p) value as soon as the body of
-    :func:`_off_diagonal_J_correction` lands the Grant Sec. 8.3 formula
-    in HYP-189.
+    The no-grid path uses a unit radial integral; real production calls use
+    the supplied B-spline data for ``R^K(ac, cb)``.
     """
     import numpy as np
 
@@ -248,3 +221,70 @@ def test_off_diag_j_ci_helike_1s2p_j1_pair_is_non_zero():
         "off-diagonal J-CI must mix the two J=1 He-like CSFs once "
         "Grant Sec. 8.3 is implemented (HYP-189)"
     )
+
+
+def test_off_diag_j_ci_two_diff_unique_parentage_unit_radial_is_non_zero():
+    """The conservative two-diff J-coupled body is reachable for jj pairs."""
+    from atomx.methods.dirac_fock import Subshell
+    from atomx.methods.mcdhf.config import CSF
+
+    bra = CSF(
+        subshells=[Subshell(1, -1, 1.0), Subshell(2, 1, 1.0)],
+        total_J2=2,
+        parity=-1,
+        label="1s 2p1/2 [J=2/2]",
+    )
+    ket = CSF(
+        subshells=[Subshell(2, -1, 1.0), Subshell(3, 1, 1.0)],
+        total_J2=2,
+        parity=-1,
+        label="2s 3p1/2 [J=2/2]",
+    )
+    assert bra.n_electron_diff(ket) == 2
+
+    delta = _off_diagonal_J_correction(
+        bra, ket, orbitals_dict={}, bsp_data={}, ns=1, n_diff=2,
+    )
+    assert abs(delta) > 0.0
+
+
+def test_fe17_one_diff_single_spectator_exact_scalar_anchor():
+    """Exact m-scheme scalar for the Fe XVII p-hole move with one 3d spectator."""
+    from atomx.methods.mcdhf.matrix import _branch9_double_excitation_scalar
+
+    bra = CSF(
+        subshells=[
+            Subshell(1, -1, 2.0),
+            Subshell(2, -1, 2.0),
+            Subshell(2, 1, 1.0),
+            Subshell(2, -2, 4.0),
+            Subshell(3, 2, 1.0),
+        ],
+        total_J2=2,
+        parity=-1,
+        label="2p1/2^-1 3d3/2 [J=2/2]",
+    )
+    ket = CSF(
+        subshells=[
+            Subshell(1, -1, 2.0),
+            Subshell(2, -1, 2.0),
+            Subshell(2, 1, 2.0),
+            Subshell(2, -2, 3.0),
+            Subshell(3, 2, 1.0),
+        ],
+        total_J2=2,
+        parity=-1,
+        label="2p3/2^-1 3d3/2 [J=2/2]",
+    )
+
+    # Electron source/destination is 2p1/2 -> 2p3/2; the hole moves the
+    # opposite way.  The unchanged 3d3/2 electron is the single spectator.
+    direct_k2 = _branch9_double_excitation_scalar(
+        bra, ket, (2, 1), (2, -2), (3, 2), (3, 2), 4,
+    )
+    exchange_k1 = _branch9_double_excitation_scalar(
+        bra, ket, (3, 2), (2, -2), (2, 1), (3, 2), 2,
+    )
+
+    assert direct_k2 == pytest.approx(-0.5, abs=1.0e-14)
+    assert exchange_k1 == pytest.approx(1.0 / (3.0 ** 0.5), abs=1.0e-14)

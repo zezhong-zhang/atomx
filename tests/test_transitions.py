@@ -10,6 +10,7 @@ Validates:
 
 import numpy as np
 import pytest
+from types import SimpleNamespace
 from atomx.prop.transitions.angular import (
     selection_rules, angular_eL, angular_mL,
     allowed_final_kappas, _kappa_to_lj,
@@ -119,6 +120,42 @@ class TestAngularFactors:
         """Angular factor should be zero for forbidden E1 transitions."""
         ang = angular_eL(-1, -1, 1)  # s1/2 -> s1/2
         assert abs(ang) < 1e-15
+
+
+def test_closed_shell_e1_particle_hole_uses_fac_babushkin_normalization(monkeypatch):
+    """Closed J=0 -> p-hole d3/2 E1 uses FAC's sqrt(2) radial convention."""
+    from atomx.methods.dirac_fock import Subshell
+    from atomx.methods.mcdhf.config import CSF
+    from atomx.prop.transitions import calculator as calc_mod
+    from atomx.prop.transitions.calculator import TransitionCalculator
+
+    lower = CSF([
+        Subshell(1, -1, 2.0),
+        Subshell(2, -1, 2.0),
+        Subshell(2, 1, 2.0),
+        Subshell(2, -2, 4.0),
+    ], total_J2=0, parity=1, label="closed [J=0/2]")
+    upper = CSF([
+        Subshell(1, -1, 2.0),
+        Subshell(2, -1, 2.0),
+        Subshell(2, 1, 2.0),
+        Subshell(2, -2, 3.0),
+        Subshell(3, 2, 1.0),
+    ], total_J2=2, parity=-1, label="2p3/2^-1 3d3/2 [J=2/2]")
+
+    monkeypatch.setattr(calc_mod, "radial_eL", lambda *_args, **_kwargs: 1.0)
+    atom = SimpleNamespace(converged=True, Z=26)
+    calc = TransitionCalculator(atom)
+    orbitals = {
+        (2, -2): (np.ones(2), np.zeros(2)),
+        (3, 2): (np.ones(2), np.zeros(2)),
+    }
+
+    me = calc._csf_transition_me(
+        upper, lower, orbitals, {}, 1, "E", "length", omega=1.0,
+    )
+
+    assert me == pytest.approx(np.sqrt(2.0) * angular_eL(-2, 2, 1))
 
 
 # ===== Rates module tests =====

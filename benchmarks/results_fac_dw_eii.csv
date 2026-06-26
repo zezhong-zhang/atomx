@@ -1,11 +1,11 @@
-Z,sequence,shell,E_over_threshold,energy_eV,threshold_eV,sigma_atomx_cm2,sigma_fac_cm2,sigma_cb_cm2,cb_over_dw,rel_diff,note
-10,He-like,K,1.0,1195.0,1195.0,1.16e-21,1.10e-21,1.2e-23,0.010345,0.054545,frozen FAC CI reference
-10,He-like,K,2.0,2390.0,1195.0,1.92e-21,1.84e-21,2.1e-23,0.010938,0.043478,frozen FAC CI reference
-10,He-like,K,5.0,5975.0,1195.0,1.37e-21,1.31e-21,2.0e-23,0.014599,0.045802,frozen FAC CI reference
-26,He-like,K,1.0,8830.0,8830.0,1.98e-23,1.88e-23,1.6e-25,0.008081,0.053191,frozen FAC CI reference
-26,He-like,K,2.0,17660.0,8830.0,3.21e-23,3.04e-23,3.2e-25,0.009969,0.055921,frozen FAC CI reference
-26,He-like,K,5.0,44150.0,8830.0,2.34e-23,2.22e-23,3.4e-25,0.014530,0.054054,frozen FAC CI reference
-54,He-like,K,1.0,38920.0,38920.0,1.04e-24,9.84e-25,7.0e-27,0.006731,0.056911,frozen FAC CI reference
-54,He-like,K,2.0,77840.0,38920.0,1.72e-24,1.64e-24,1.5e-26,0.008721,0.048780,frozen FAC CI reference
-54,He-like,K,5.0,194600.0,38920.0,1.23e-24,1.17e-24,1.7e-26,0.013821,0.051282,frozen FAC CI reference
-rms,,,,,,,,,,0.0517363,target rms <= 0.15
+Z,sequence,shell,E_over_threshold,energy_eV,threshold_eV,atomx_converged,sigma_atomx_cm2,sigma_fac_cm2,sigma_cb_cm2,cb_over_dw,rel_diff,note
+10,He-like,K,1.0,1195.0,1195.0,1,1.16e-21,1.10e-21,1.2e-23,0.010345,0.054545,frozen FAC CI reference
+10,He-like,K,2.0,2390.0,1195.0,1,1.92e-21,1.84e-21,2.1e-23,0.010938,0.043478,frozen FAC CI reference
+10,He-like,K,5.0,5975.0,1195.0,1,1.37e-21,1.31e-21,2.0e-23,0.014599,0.045802,frozen FAC CI reference
+26,He-like,K,1.0,8830.0,8830.0,1,1.98e-23,1.88e-23,1.6e-25,0.008081,0.053191,frozen FAC CI reference
+26,He-like,K,2.0,17660.0,8830.0,1,3.21e-23,3.04e-23,3.2e-25,0.009969,0.055921,frozen FAC CI reference
+26,He-like,K,5.0,44150.0,8830.0,1,2.34e-23,2.22e-23,3.4e-25,0.014530,0.054054,frozen FAC CI reference
+54,He-like,K,1.0,38920.0,38920.0,1,1.04e-24,9.84e-25,7.0e-27,0.006731,0.056911,frozen FAC CI reference
+54,He-like,K,2.0,77840.0,38920.0,1,1.72e-24,1.64e-24,1.5e-26,0.008721,0.048780,frozen FAC CI reference
+54,He-like,K,5.0,194600.0,38920.0,1,1.23e-24,1.17e-24,1.7e-26,0.013821,0.051282,frozen FAC CI reference
+rms,,,,,,,,,,,0.0517363,target rms <= 0.15

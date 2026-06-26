@@ -16,9 +16,10 @@ from typing import List, Dict, Optional
 from atomx.constants import C, C_SQ
 from atomx.numerics.bspline.knots import make_knots
 from atomx.numerics.bspline.integrals import overlap_matrix, nuclear_matrix, _assemble_integral
-from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
+from atomx.numerics.bspline.dirac_assembly import (
+    build_dirac_matrices, canonicalize_radial_phase, solve_dirac,
+)
 from atomx.numerics.bspline.basis import prepare_bspline_data
-from atomx.numerics.bspline.dirac_assembly import solve_dirac
 from atomx.numerics.bspline.evaluate import compute_yk, eval_orbital_on_grid
 from atomx.methods.kohn_sham import (
     compute_exchange_matrix, compute_slater_fk, compute_slater_gk,
@@ -76,6 +77,17 @@ from atomx.data.hyperfine_presets import TABLE as _HYPERFINE_PRESET_TABLE
 from atomx.methods.scf import diis_extrapolate
 from atomx.methods.base import Method
 from atomx.types import Exchange, TheoryLevel
+
+
+def _canonicalized_orbitals_raw(orbitals):
+    out = {}
+    for kappa, orb_list in orbitals.items():
+        fixed = []
+        for P, Q, occ in orb_list:
+            P_fix, Q_fix = canonicalize_radial_phase(P, Q)
+            fixed.append((P_fix, Q_fix, occ))
+        out[kappa] = fixed
+    return out
 
 
 def _hyperfine_preset(name: str):
@@ -1609,11 +1621,6 @@ class DFSolver:
                 fQ = self._eval_Q_on_grid(Q)
                 rho_rad += occ * (fP ** 2 + fQ ** 2)
 
-        rho_vol = rho_rad / (4.0 * np.pi * gr ** 2)
-        vx = np.zeros_like(rho_vol)
-        mask = rho_vol > 1e-30
-        vx[mask] = -self.alpha_x * (3.0 / np.pi * rho_vol[mask]) ** (1.0 / 3.0)
-
         yk = compute_yk(rho_rad, gr, grw, nv, n_gauss, 0)
         if self._nuclear_potential is None:
             V_nuc_grid = -self.Z / gr
@@ -1622,11 +1629,34 @@ class DFSolver:
             for iv in range(nv):
                 for m in range(n_gauss):
                     V_nuc_grid[iv, m] = self._nuclear_potential(gr[iv, m])
-        V_total = V_nuc_grid + yk + vx
-        rvinf = -(1.0 + self.Z - self.N_electrons)
-        cap_mask = gr * V_total > rvinf
-        V_total_capped = np.where(cap_mask, rvinf / gr, V_total)
-        vx_corr = V_total_capped - V_nuc_grid - yk
+
+        if self.exchange == "fac":
+            from atomx.numerics.bspline.local_potential import local_central_potential_from_radial_density
+
+            local = local_central_potential_from_radial_density(
+                Z=self.Z,
+                rho_rad=rho_rad,
+                gr=gr,
+                grw=grw,
+                n_total=self.N_electrons,
+                exchange="fac",
+                fac_ihx=self.fac_ihx,
+                fac_hxs=self.fac_hxs,
+                nuclear_grid=V_nuc_grid,
+                fac_self_interaction_correction=True,
+                latter_correction=True,
+            )
+            vx_corr = np.asarray(local["exchange"], dtype=float)
+        else:
+            rho_vol = rho_rad / (4.0 * np.pi * gr ** 2)
+            vx = np.zeros_like(rho_vol)
+            mask = rho_vol > 1e-30
+            vx[mask] = -self.alpha_x * (3.0 / np.pi * rho_vol[mask]) ** (1.0 / 3.0)
+            V_total = V_nuc_grid + yk + vx
+            rvinf = -(1.0 + self.Z - self.N_electrons)
+            cap_mask = gr * V_total > rvinf
+            V_total_capped = np.where(cap_mask, rvinf / gr, V_total)
+            vx_corr = V_total_capped - V_nuc_grid - yk
         vx_w = grw * vx_corr
 
         ksp = self.bsp_data.get("ksp", self.ks)
@@ -1927,7 +1957,7 @@ class DFSolver:
                 converged=True, iterations=1, residual=0.0,
                 total_energy=total_energy, orbital_energies=orbital_energies,
                 subshells=self.subshells, energy_components=energy_components,
-                orbitals_raw=dict(orbitals),
+                orbitals_raw=_canonicalized_orbitals_raw(orbitals),
                 Z=self.Z,
                 _bsp_data=self.bsp_data)
 
@@ -2109,6 +2139,7 @@ class DFSolver:
                         nsq_loc = result.nsq if hasattr(result, 'nsq') else ns_full
                         P_new[:nsp_loc] = vec[:nsp_loc]
                         Q_new[:nsq_loc] = vec[ns_full:ns_full + nsq_loc]
+                        P_new, Q_new = canonicalize_radial_phase(P_new, Q_new)
                         E_new = result.eigenvalues[phys_idx]
                         if np.isnan(E_new) or np.any(np.isnan(vec)):
                             continue
@@ -2258,7 +2289,7 @@ class DFSolver:
             orbital_energies=orbital_energies,
             subshells=self.subshells,
             energy_components=energy_components,
-            orbitals_raw=dict(orbitals),
+            orbitals_raw=_canonicalized_orbitals_raw(orbitals),
             Z=self.Z,
             _bsp_data=self.bsp_data,
         )
