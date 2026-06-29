@@ -42,7 +42,10 @@ from atomx.scattering.autoionization import (
     dr_calculate,
     dr_rate_coefficient,
 )
-from atomx.scattering.dielectronic_recombination import make_abinitio_auger_rate_fn
+from atomx.scattering.dielectronic_recombination import (
+    make_abinitio_auger_rate_fn,
+    make_abinitio_radiative_rate_fn,
+)
 
 
 FIXTURE_PATH = Path(__file__).parent / "data" / "fe17_dr_fac.json"
@@ -166,34 +169,13 @@ def test_end_to_end_driver_returns_positive_alpha(fac_fixture):
     assert len(rc.resonances) > 0, "enumeration should produce resonances"
 
 
-@pytest.mark.xfail(
-    reason=(
-        "20 % FAC parity gate driven by the HYP-530 ab-initio Auger hook "
-        "(make_abinitio_auger_rate_fn) over a solved Fe XVII atom.  "
-        "Measured overshoot of FAC α_DR is ~1.3e5 / 3.4e3 / 2.0e3 / 1.3e3 "
-        "at T_MK = 1 / 5 / 10 / 50.  Two compounding residual gaps remain: "
-        "(1) The radiative width is still on the placeholder hydrogenic "
-        "estimate from dielectronic_recombination.enumerate."
-        "_default_radiative_width; for KLL where Γ_Auger >> Γ_rad the "
-        "Burgess kernel α ∝ Γ_rad and the placeholder overshoots FAC's "
-        "TRTable value by ~1e4-1e5 — this is the dominant error.  "
-        "(2) The per-pair Auger rate from auger_rate_csf_average uses the "
-        "average-of-configuration angular factor exchange_lambda and "
-        "over-counts magnetic substates that do not contribute to the "
-        "specific J_resonance -> J_final + eps transition (1.2-15x per "
-        "resonance — see tests/test_auger_kll_vs_fac.py).  Closing the 20 "
-        "% gate needs (a) an ab-initio radiative_rate_fn hook (E1 "
-        "multipole matrix elements from the resonance to the valence "
-        "ground-state manifold) AND (b) the Cowan-Grant 6j-based J-resolved "
-        "Auger angular coefficient.  Both are follow-ups to HYP-530."
-    ),
-    strict=False,
-)
 def test_end_to_end_gate_20pct(fac_fixture, solved_fe17_atom):
     """Acceptance gate: |Δα/α_FAC| ≤ 0.20 at T_e ∈ {1, 5, 10, 50} MK."""
     T_eV = np.asarray(fac_fixture["T_eV"], dtype=float)
     expected = np.asarray(fac_fixture["alpha_fac_cm3_s"], dtype=float)
-    auger_fn = make_abinitio_auger_rate_fn(solved_fe17_atom._result, kappa_max=3)
+    result = solved_fe17_atom._result
+    auger_fn = make_abinitio_auger_rate_fn(result, kappa_max=3)
+    radiative_fn = make_abinitio_radiative_rate_fn(result, n_max=3)
     rc = dr_calculate(
         solved_fe17_atom,
         "1s2 2s2 2p6 3s1",
@@ -201,6 +183,7 @@ def test_end_to_end_gate_20pct(fac_fixture, solved_fe17_atom):
         l_max=2,
         T_eV=T_eV,
         auger_rate_fn=auger_fn,
+        radiative_rate_fn=radiative_fn,
     )
     rel = np.abs(rc.alpha_cm3_s - expected) / expected
     print(

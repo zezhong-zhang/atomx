@@ -14,4 +14,5 @@ by radiative-to-total branching ratios computed by
 from atomx.scattering.dielectronic_recombination.solver import *  # noqa: F401,F403
 from atomx.scattering.dielectronic_recombination.widths import (  # noqa: F401
     make_abinitio_auger_rate_fn,
+    make_abinitio_radiative_rate_fn,
 )
