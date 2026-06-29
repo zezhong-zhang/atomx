@@ -8,6 +8,7 @@ import pytest
 from atomx.scattering.autoionization import (
     AutoionizationState,
     DRRateCoefficient,
+    auger_rate_j_resolved,
     dr_calculate,
     dr_rate_coefficient,
     dr_strengths,
@@ -40,6 +41,34 @@ class TestAutoionizationState:
         )
         assert d.fluorescence_yield == 0.0
 
+
+
+
+def test_auger_rate_j_resolved_forwards_J_res(monkeypatch):
+    import atomx.scattering.autoionization as autoion
+
+    captured = {}
+
+    def fake_coarse(result, **kwargs):
+        captured.update(kwargs)
+        return {"Gamma_per_s": 0.0}
+
+    monkeypatch.setattr(autoion, "_coarse_auger_rate", fake_coarse)
+    row = auger_rate_j_resolved(
+        object(),
+        J_res=1.5,
+        J_final=0.5,
+        hole_label="2p1/2",
+        source_label="3s1/2",
+        source2_label="3p1/2",
+        resonance_energy_eV=100.0,
+        state_index=7,
+    )
+
+    assert row == {"Gamma_per_s": 0.0}
+    assert captured["J_res"] == 1.5
+    assert captured["J_final"] == 0.5
+    assert captured["state_index"] == 7
 
 # ---------------------------------------------------------------------------
 # DR rate coefficient — Burgess formula
