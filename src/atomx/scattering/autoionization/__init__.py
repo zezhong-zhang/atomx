@@ -97,6 +97,26 @@ def _state_occupation(result, state_index: int | None, key) -> float:
 
 
 def _channel_population_factor(result, state_index, source_key, source2_key, hole_key):
+    """Per-resonance source-pair / hole-vacancy population factor.
+
+    For ``state_index is None`` (the ``auger_rate_csf_average`` entry point)
+    the caller is asking for the *per-resonance* Auger rate of one source
+    pair decaying into one hole.  The average-of-configuration angular
+    factor ``exchange_lambda`` already folds in the per-subshell averaging,
+    so the population prefactor is just 1.0.  Reading the bound-orbital
+    occupations off a solved-atom result is the wrong thing to do here:
+    captured-electron orbitals (3s, 3p, 3d, …) are essentially unoccupied
+    in the ground-state solve, which collapsed the prefactor to ~1e-9 and
+    drove the per-pair rate down to ~1e5 s⁻¹ (the HYP-530 magnitude bug).
+
+    For an explicit ``state_index`` (the level-resolved entry point) we
+    still honour the CSF + mixing-coefficient occupation that
+    ``_state_occupation`` extracts, so callers that genuinely want the
+    configuration-average rate over a closed-shell CSF can keep using
+    ``auger_rate_level_resolved`` with a populated result.
+    """
+    if state_index is None:
+        return 1.0
     q1 = _state_occupation(result, state_index, source_key)
     q2 = _state_occupation(result, state_index, source2_key)
     qh = _state_occupation(result, state_index, hole_key)
@@ -119,7 +139,7 @@ def _coarse_auger_rate(
     source2_label: str,
     resonance_energy_eV: float | None,
     state_index: int | None,
-    kappa_max: int = 4,
+    kappa_max: int = 3,
     exchange_sign: float = 1.0,
     shooting_n_grid: int | None = None,
     **_kwargs,
@@ -263,9 +283,23 @@ def auger_rate_csf_average(
     source_label: str,
     source2_label: str,
     resonance_energy_eV: float | None = None,
+    shooting_n_grid: int | None = None,
     **kwargs,
 ):
-    """Coarse CSF-averaged Auger rate for a named two-electron channel."""
+    """Coarse CSF-averaged Auger rate for a named two-electron channel.
+
+    Returns the per-resonance Auger rate for one source-pair decaying into
+    one hole (units s⁻¹).  The average-of-configuration angular factor
+    ``exchange_lambda`` already includes the per-subshell averaging, so no
+    extra population prefactor is applied.  Defaults to the
+    δ(E)-normalised Dirac-continuum shooting solver for the Slater
+    integral — the B-spline pseudo-state + ``sqrt(2ρ/π)`` scaling in
+    ``solve_continuum`` mis-estimates the inner-profile amplitude by an
+    order of magnitude for KLL Auger energies; pass ``shooting_n_grid=0``
+    to fall back to the B-spline Slater path if needed.
+    """
+    if shooting_n_grid is None:
+        shooting_n_grid = 400
     return _coarse_auger_rate(
         result,
         hole_label=hole_label,
@@ -273,6 +307,7 @@ def auger_rate_csf_average(
         source2_label=source2_label,
         resonance_energy_eV=resonance_energy_eV,
         state_index=None,
+        shooting_n_grid=shooting_n_grid,
         **kwargs,
     )
 
@@ -285,9 +320,12 @@ def auger_rate_level_resolved(
     source_label: str,
     source2_label: str,
     resonance_energy_eV: float | None = None,
+    shooting_n_grid: int | None = None,
     **kwargs,
 ):
     """Coarse level-resolved Auger rate for a named two-electron channel."""
+    if shooting_n_grid is None:
+        shooting_n_grid = 400
     energies = getattr(result, "state_energies", None)
     energy_eV = 0.0
     if resonance_energy_eV is not None:
@@ -302,6 +340,7 @@ def auger_rate_level_resolved(
         source2_label=source2_label,
         resonance_energy_eV=energy_eV,
         state_index=int(state_index),
+        shooting_n_grid=shooting_n_grid,
         **kwargs,
     )
 
