@@ -115,8 +115,9 @@ def crm_emission_spectrum(
     Spectrum
         Emission intensity on a linear nm grid.
     """
+    n_dr_satellites = 0
     if dr_satellites is not None:
-        crm = _crm_with_dr_satellites(
+        crm, n_dr_satellites = _crm_with_dr_satellites(
             crm,
             dr_satellites,
             initial_level_idx=dr_initial_level_idx,
@@ -156,6 +157,7 @@ def crm_emission_spectrum(
         "include_three_body": include_three_body,
         "include_photoionization": include_photoionization,
         "radiation_temperature_eV": radiation_temperature_eV,
+        "dr_satellite_count": n_dr_satellites,
     }
     grid_step_nm = (lam_max_nm - lam_min_nm) / max(n_points - 1, 1)
 
@@ -234,7 +236,7 @@ def _crm_with_dr_satellites(
     resonances = getattr(dr_satellites, "resonances", dr_satellites)
     resonances = list(resonances)
     if not resonances:
-        return crm
+        return crm, 0
 
     cloned = copy.copy(crm)
     cloned.levels = list(crm.levels)
@@ -242,14 +244,14 @@ def _crm_with_dr_satellites(
     cloned.bound_free_channels = list(getattr(crm, "bound_free_channels", []))
     cloned.dr_satellite_sources = list(getattr(crm, "dr_satellite_sources", []))
     cloned.n_levels = len(cloned.levels)
-    cloned.add_dr_satellites(
+    added = cloned.add_dr_satellites(
         resonances,
         initial_level_idx=initial_level_idx,
         lower_level_by_channel=lower_level_by_channel,
         initial_state_g=initial_state_g,
         label_prefix=label_prefix,
     )
-    return cloned
+    return cloned, len(added)
 
 
 def _use_uta_bridge(crm, *, force_uta: bool) -> bool:
