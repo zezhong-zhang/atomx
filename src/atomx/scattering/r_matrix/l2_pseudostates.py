@@ -26,7 +26,7 @@ class L2CorrelationPseudoState:
     label: str
     configuration: str
     L_total: int
-    S_total: int
+    S_total: float
     parity: int
     E_r_au: float
     Gamma_au: float
@@ -79,7 +79,7 @@ def _is_heplus_burke_target_set(channels: Iterable[Channel], Z: float) -> bool:
 def active_l2_pseudostates(
     channels: Iterable[Channel],
     L_total: int,
-    S_total: int,
+    S_total: float,
     parity: int,
     Z: float,
 ) -> tuple[L2CorrelationPseudoState, ...]:

@@ -35,6 +35,10 @@ from scipy.linalg import eigh
 from atomx.scattering.r_matrix.angular_cc import direct_terms, exchange_terms
 from atomx.scattering.r_matrix.channel_table import Channel
 from atomx.scattering.r_matrix.cc_potentials import cumulative_y_k
+from atomx.scattering.two_electron.angular import (
+    _electron_contribution,
+    direct_coefficient,
+)
 
 
 @dataclass
@@ -48,6 +52,8 @@ class CCInnerSolution:
     n_basis_effective: int                 # n_basis - 1 (after dropping the
     # first clamped spline that enforces u(0) = 0)
     k_spline_order: int
+    H_au: np.ndarray | None = None        # full Bloch-augmented Hamiltonian
+    S_au: np.ndarray | None = None        # overlap matrix
 
 
 def _make_clamped_knots(a: float, n_basis: int, k_order: int) -> np.ndarray:
@@ -101,7 +107,7 @@ def _gauss_legendre_per_cell(
 def assemble_cc_inner_region(
     channels: Sequence[Channel],
     L_total: int,
-    S_total: int,
+    S_total: float,
     Z: float,
     a_au: float,
     n_basis: int,
@@ -117,6 +123,7 @@ def assemble_cc_inner_region(
     n_ch = len(channels)
     if n_ch == 0:
         raise ValueError("must pass at least one channel")
+    has_composite = any(ch.target.n_electrons > 1 for ch in channels)
     if a_au <= 0:
         raise ValueError(f"a_au must be positive, got {a_au}")
     if n_basis < k_spline_order:
@@ -158,6 +165,16 @@ def assemble_cc_inner_region(
             P_target_table[ch.target.label] = np.asarray(ch.target.P(r_q))
             target_labels.append(ch.target.label)
 
+    # Per-electron radial samples for composite (two-electron) targets.
+    target_orbitals: dict[tuple[str, int], np.ndarray] = {}
+    for ch in channels:
+        term = ch.target.two_electron_term
+        if term is not None:
+            for idx, P in enumerate((term.P1, term.P2), start=1):
+                key = (ch.target.label, idx)
+                if key not in target_orbitals:
+                    target_orbitals[key] = np.asarray(P(r_q))
+
     # Direct-multipole y_k integrals between target orbital pairs.
     target_y_k: dict[tuple[str, str, int], np.ndarray] = {}
 
@@ -167,6 +184,19 @@ def assemble_cc_inner_region(
             f_q = P_target_table[label_a] * P_target_table[label_b]
             target_y_k[key] = cumulative_y_k(r_q, w_q, f_q, k)
         return target_y_k[key]
+
+    # y_k for one active electron pair in a composite target.
+    two_e_y_k: dict[tuple[str, int, str, int, int], np.ndarray] = {}
+
+    def y_k_two_electron(label_a: str, a: int, label_b: str, b: int, k: int) -> np.ndarray:
+        if (label_a, a) < (label_b, b):
+            key = (label_a, a, label_b, b, k)
+        else:
+            key = (label_b, b, label_a, a, k)
+        if key not in two_e_y_k:
+            f_q = target_orbitals[(label_a, a)] * target_orbitals[(label_b, b)]
+            two_e_y_k[key] = cumulative_y_k(r_q, w_q, f_q, k)
+        return two_e_y_k[key]
 
     # B-spline-times-target multipole moments y_k^{target, B_alpha}(r).
     # Shape (n_q, n_eff) — one column per B-spline.
@@ -209,40 +239,90 @@ def assemble_cc_inner_region(
             # ----------------------------------------------------------
             # Direct multipole couplings (always present, diagonal+offdiag).
             # ----------------------------------------------------------
-            d_terms = direct_terms(
-                l_tj=ch_j.target.l,
-                l_cj=ch_j.l_c,
-                l_ti=ch_i.target.l,
-                l_ci=ch_i.l_c,
-                L=L_total,
-            )
-            for term in d_terms:
-                y = y_k_target(
-                    ch_j.target.label, ch_i.target.label, term.k
+            if ch_j.target.n_electrons == 1:
+                d_terms = direct_terms(
+                    l_tj=ch_j.target.l,
+                    l_cj=ch_j.l_c,
+                    l_ti=ch_i.target.l,
+                    l_ci=ch_i.l_c,
+                    L=L_total,
                 )
-                V_loc = term.coefficient * y
-                H[sl_ji] += (Bw * V_loc[:, None]).T @ B
+                for term in d_terms:
+                    y = y_k_target(
+                        ch_j.target.label, ch_i.target.label, term.k
+                    )
+                    V_loc = term.coefficient * y
+                    H[sl_ji] += (Bw * V_loc[:, None]).T @ B
+            else:
+                term_j = ch_j.target.two_electron_term
+                term_i = ch_i.target.two_electron_term
+                if term_j is None or term_i is None:
+                    raise ValueError(
+                        "Composite target missing two_electron_term"
+                    )
+                for a_idx, (l_aj, l_ai) in enumerate(
+                    zip((term_j.l1, term_j.l2), (term_i.l1, term_i.l2)),
+                    start=1,
+                ):
+                    b_idx = 2 if a_idx == 1 else 1
+                    l_bj = term_j.l2 if a_idx == 1 else term_j.l1
+                    l_bi = term_i.l2 if a_idx == 1 else term_i.l1
+                    if l_bj != l_bi:
+                        continue
+                    k_min = max(
+                        abs(l_aj - l_ai),
+                        abs(ch_j.l_c - ch_i.l_c),
+                    )
+                    k_max = min(
+                        l_aj + l_ai,
+                        ch_j.l_c + ch_i.l_c,
+                    )
+                    for k in range(k_min, k_max + 1):
+                        rm_active = _electron_contribution(
+                            l_aj, l_ai,
+                            ch_j.target.l, ch_i.target.l,
+                            l_bj, k,
+                        )
+                        if rm_active == 0.0:
+                            continue
+                        coef = direct_coefficient(
+                            l_aj, ch_j.l_c, l_ai, ch_i.l_c,
+                            L_total, k, rm_active,
+                        )
+                        if coef == 0.0:
+                            continue
+                        y = y_k_two_electron(
+                            ch_j.target.label, a_idx,
+                            ch_i.target.label, a_idx, k,
+                        )
+                        V_loc = coef * y
+                        H[sl_ji] += (Bw * V_loc[:, None]).T @ B
 
             # ----------------------------------------------------------
             # Exchange (non-local) couplings.
             # ----------------------------------------------------------
-            x_terms = exchange_terms(
-                l_tj=ch_j.target.l,
-                l_cj=ch_j.l_c,
-                l_ti=ch_i.target.l,
-                l_ci=ch_i.l_c,
-                L=L_total,
-                S=S_total,
-            )
-            for term in x_terms:
-                # [W F_i](r) = v_k^x P_{t_i}(r) * y_k(P_{t_j}, F_i)(r)
-                # Matrix element <B_alpha | W | B_beta> with F_i = B_beta:
-                #   M_{alpha,beta} = v_k * sum_q w_q B_alpha(r_q) P_{t_i}(r_q)
-                #                                  y_k^{t_j, B_beta}(r_q)
-                Pt_i = P_target_table[ch_i.target.label]
-                y_tj_B = y_k_target_bsp(ch_j.target.label, term.k)
-                left = Bw * Pt_i[:, None]              # (n_q, n_eff)
-                H[sl_ji] += term.coefficient * (left.T @ y_tj_B)
+            if ch_j.target.n_electrons == 1 and ch_i.target.n_electrons == 1:
+                x_terms = exchange_terms(
+                    l_tj=ch_j.target.l,
+                    l_cj=ch_j.l_c,
+                    l_ti=ch_i.target.l,
+                    l_ci=ch_i.l_c,
+                    L=L_total,
+                    S=S_total,
+                )
+                for term in x_terms:
+                    # [W F_i](r) = v_k^x P_{t_i}(r) * y_k(P_{t_j}, F_i)(r)
+                    # Matrix element <B_alpha | W | B_beta> with F_i = B_beta:
+                    #   M_{alpha,beta} = v_k * sum_q w_q B_alpha(r_q) P_{t_i}(r_q)
+                    #                                  y_k^{t_j, B_beta}(r_q)
+                    Pt_i = P_target_table[ch_i.target.label]
+                    y_tj_B = y_k_target_bsp(ch_j.target.label, term.k)
+                    left = Bw * Pt_i[:, None]              # (n_q, n_eff)
+                    H[sl_ji] += term.coefficient * (left.T @ y_tj_B)
+            elif has_composite:
+                # Composite-target exchange requires three-electron
+                # recoupling; it is not yet implemented.
+                pass
 
     # Symmetrise to undo accumulated round-off before eigensolve.
     H = 0.5 * (H + H.T)
@@ -267,4 +347,6 @@ def assemble_cc_inner_region(
         n_channels=n_ch,
         n_basis_effective=n_eff,
         k_spline_order=k_spline_order,
+        H_au=H,
+        S_au=S,
     )

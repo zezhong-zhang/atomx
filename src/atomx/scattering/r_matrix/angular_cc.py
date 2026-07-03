@@ -111,15 +111,24 @@ def direct_terms(
 
 
 def exchange_terms(
-    l_tj: int, l_cj: int, l_ti: int, l_ci: int, L: int, S: int
+    l_tj: int, l_cj: int, l_ti: int, l_ci: int, L: int, S: float
 ) -> List[AngularTerm]:
     """Multipole expansion of the exchange CC matrix element.
 
     Returns ``[(k, v_k^x)]`` (already including the ``-(-1)^S`` sign so
     callers add ``[K F](r) = sum_k v_k^x P_{t_j}(r) * <P_{t_i}|y^k| F>``).
+
+    ``S`` is the physical total spin of the two active electrons.  For a
+    one-electron target this is an integer (0 or 1).  Half-integer total
+    spins (composite targets) require the recoupled exchange kernel that is
+    implemented under Milestone 2.
     """
     if (l_tj + l_ci) % 2 != (l_cj + l_ti) % 2:
         return []
+    if int(round(2 * S)) % 2 != 0:
+        raise NotImplementedError(
+            "Half-integer total spin requires the recoupled exchange kernel."
+        )
     # The two reduced matrix elements connect (l_t_j, l_c_i) and
     # (l_c_j, l_t_i) — different from the direct term.
     k_min = max(abs(l_tj - l_ci), abs(l_cj - l_ti))

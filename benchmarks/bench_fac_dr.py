@@ -58,6 +58,7 @@ class FeXVIIModel:
     energies; the parity check compares α_DR(T) summed over resonances.
     """
 
+    Z = 26
     charge = 16
     converged = True
     _config_strings = ["1s2 2s2 2p6"]

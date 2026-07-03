@@ -199,6 +199,23 @@ def _orbital_energy_eV(atom, spec: SubshellSpec, *, z_eff: float) -> float:
 
 
 def _initial_statistical_weight(atom, default: float = 1.0) -> float:
+    # Prefer the core configuration string if available; an active-space
+    # MCDHF result used for DR widths can have fractional open-shell
+    # occupations that do not reflect the initial ion ground-state term.
+    core_config = _config_string(atom)
+    if core_config:
+        try:
+            closed = True
+            for n, l, occ in _parse_nr_config(core_config):
+                cap = 2 * (2 * l + 1)
+                if occ != cap:
+                    closed = False
+                    break
+            if closed:
+                return 1.0
+        except Exception:
+            pass
+
     result = getattr(atom, "result", None)
     subshells = getattr(result, "subshells", None)
     if not subshells:
@@ -340,8 +357,15 @@ def build_autoionization_states(
     min_resonance_eV: float = 1e-9,
     auger_rate_fn: Callable[[DRResonanceSpec, float], float] | None = None,
     radiative_rate_fn: Callable[[DRResonanceSpec, float], float | tuple[float, dict[str, float]]] | None = None,
+    energy_fn: Callable[[DRResonanceSpec], float] | None = None,
 ) -> list[AutoionizationState]:
-    """Attach energies and widths to enumerated DR resonance specs."""
+    """Attach energies and widths to enumerated DR resonance specs.
+
+    An optional ``energy_fn`` overrides the resonance energy taken from the
+    atom's one-electron orbital energies.  This is used by reference-width
+    adapters (e.g. FAC) that supply their own level energies while still
+    letting the driver enumerate resonances.
+    """
 
     charge = float(getattr(initial_atom, "charge", 0))
     z_eff = max(charge + 1.0, 1.0)
@@ -351,7 +375,10 @@ def build_autoionization_states(
         e_to = _orbital_energy_eV(initial_atom, spec.core_to, z_eff=z_eff)
         core_excitation = max(e_to - e_from, 0.0)
         capture_binding = abs(_orbital_energy_eV(initial_atom, spec.captured, z_eff=z_eff))
-        e_res = core_excitation - capture_binding
+        if energy_fn is None:
+            e_res = core_excitation - capture_binding
+        else:
+            e_res = float(energy_fn(spec))
         if e_res <= min_resonance_eV:
             continue
 

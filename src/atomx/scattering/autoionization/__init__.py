@@ -122,6 +122,7 @@ def _coarse_auger_rate(
     kappa_max: int = 4,
     exchange_sign: float = 1.0,
     shooting_n_grid: int | None = None,
+    population_factor: float | None = None,
     **_kwargs,
 ):
     import numpy as np
@@ -239,9 +240,12 @@ def _coarse_auger_rate(
                                 P_b, Q_b, P_a, Q_a, P_c, Q_c, P_eps, Q_eps,
                                 angular_W=angular, k=k, bsp_data=bsp_data,
                             )
-                pop = _channel_population_factor(
-                    result, state_index, source_key, source2_key, hole_key
-                )
+                if population_factor is None:
+                    pop = _channel_population_factor(
+                        result, state_index, source_key, source2_key, hole_key
+                    )
+                else:
+                    pop = float(population_factor)
                 rate = max(0.0, float(amplitude) * pop * AU_RATE_PER_S)
             else:
                 rate = 0.0

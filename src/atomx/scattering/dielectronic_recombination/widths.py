@@ -67,11 +67,25 @@ def _result_bsp_data(result):
 
 
 def make_abinitio_auger_rate_fn(initial_atom) -> Callable[[DRResonanceSpec, float], float]:
-    """Build a DR ``auger_rate_fn`` backed by the solved structure result."""
+    """Build a DR ``auger_rate_fn`` backed by the solved structure result.
+
+    The capture (inverse-Auger) process involves one electron pair
+    (core_to, captured) and one hole in the initial core shell
+    (core_from).  The channel population factor is therefore
+    ``1 / g_core_from`` where ``g = 2|κ|`` is the subshell degeneracy,
+    rather than the value inferred from a ground-state configuration
+    (which has no hole and would give zero).
+    """
 
     result = solved_result(initial_atom)
     if result is None:
         raise ValueError("initial_atom does not carry a solved result")
+
+    def _capture_population_factor(hole_label: str) -> float:
+        hole_key = _orbital_key_from_label(result, hole_label)
+        if hole_key is None:
+            return 0.0
+        return 1.0 / max(1, 2 * abs(hole_key[1]))
 
     def rate(spec: DRResonanceSpec, resonance_energy_eV: float) -> float:
         from atomx.scattering.autoionization import auger_rate_csf_average
@@ -82,6 +96,7 @@ def make_abinitio_auger_rate_fn(initial_atom) -> Callable[[DRResonanceSpec, floa
             source_label=spec.core_to.label,
             source2_label=spec.captured.label,
             resonance_energy_eV=resonance_energy_eV,
+            population_factor=_capture_population_factor(spec.core_from.label),
         )
         return float(row.get("Gamma_per_s", 0.0))
 
