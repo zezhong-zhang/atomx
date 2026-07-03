@@ -81,6 +81,7 @@ def test_fe17_satellite_to_w_line_ratio(T_e_eV):
     assert spec.line_count == 2
     assert crm.n_levels == 2
     assert len(crm.transitions) == 1
+    assert spec.metadata["dr_satellite_count"] == 1
     assert w_flux > 0.0
     assert satellite_flux > 0.0
     assert 0.025 < ratio < 0.40
