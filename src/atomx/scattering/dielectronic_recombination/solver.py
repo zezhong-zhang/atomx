@@ -44,6 +44,7 @@ from atomx.scattering.dielectronic_recombination.enumerate import (
     build_autoionization_states,
     enumerate_dr_resonances,
     resonance_strength_rows,
+    _config_string,
     _initial_statistical_weight,
 )
 from atomx.scattering.dielectronic_recombination.widths import (
@@ -51,7 +52,6 @@ from atomx.scattering.dielectronic_recombination.widths import (
     make_abinitio_auger_rate_fn,
     make_abinitio_radiative_rate_fn,
 )
-
 
 # --- Universal prefactor for eq. (2) -------------------------------------
 #
@@ -204,6 +204,59 @@ def dr_strengths(
     return resonance_strength_rows(seq, T, initial_state_g=g_i)
 
 
+def _build_mcdhf_result_for_dr(
+    atom,
+    n_max: int,
+    l_max: int,
+) -> object:
+    """Build a compact MCDHF result for DR width calculations.
+
+    Lightweight DR drivers often provide only ``orbital_energies`` and a
+    core configuration.  This helper runs a single-reference MCDHF
+    calculation with single excitations into the virtual shells needed
+    for DR (``n <= n_max``, ``l <= l_max``).  The resulting orbitals and
+    B-spline workspace are used by the ab-initio Auger and E1 radiative
+    width factories.
+    """
+    from atomx.atom import Atom
+    from atomx.methods.mcdhf.excitations import generate_sd_excitations
+
+    Z = int(getattr(atom, "Z", 0))
+    charge = int(getattr(atom, "charge", 0))
+    core_config = _config_string(atom)
+    if Z <= 0 or not core_config:
+        raise ValueError(
+            "Automatic DR structure result requires atom.Z and a core "
+            "configuration (atom._config_strings or atom.config)."
+        )
+
+    l_symbols = "spdfghiklmno"
+    virtuals: list[str] = []
+    for n in range(1, n_max + 1):
+        for l in range(0, min(l_max, n - 1) + 1):
+            label = f"{n}{l_symbols[l]}"
+            if label not in core_config.replace(" ", ""):
+                virtuals.append(label)
+
+    configs = generate_sd_excitations(
+        core_config,
+        virtuals,
+        core_orbitals=["1s"],
+        max_excitations=1,
+    )
+
+    struct = Atom(
+        Z=Z,
+        charge=charge,
+        configs=configs,
+        exchange="hf",
+        ns=40,
+        ks=7,
+    )
+    struct.solve()
+    return struct.result
+
+
 def dr_calculate(
     initial_atom,
     target_iso,
@@ -219,6 +272,7 @@ def dr_calculate(
         [DRResonanceSpec, float],
         float | tuple[float, dict[str, float]],
     ] | None = None,
+    energy_fn: Callable[[DRResonanceSpec], float] | None = None,
 ) -> DRRateCoefficient:
     """End-to-end dielectronic-recombination rate driver.
 
@@ -229,14 +283,36 @@ def dr_calculate(
     :func:`dr_rate_coefficient` kernel unchanged.
 
     When ``initial_atom`` carries a solved structure result, omitted width
-    hooks default to ab-initio Auger and E1 radiative width factories.  Without
-    a solved result the driver keeps the screened hydrogenic fallback used by
-    earlier releases.  Production callers can still pass ``auger_rate_fn`` and
-    ``radiative_rate_fn`` hooks to override either path.
+    hooks default to ab-initio Auger and E1 radiative width factories.  If no
+    result is present but the atom supplies ``Z``, ``charge`` and a core
+    configuration, a compact MCDHF result is built automatically so the
+    ab-initio factories can still run.  Without either, the driver falls back
+    to the screened hydrogenic width formulas.  Production callers can still
+    pass ``auger_rate_fn`` and ``radiative_rate_fn`` hooks to override either
+    path.
+
+    An optional ``energy_fn`` overrides the resonance energy per spec.  This is
+    useful when benchmarking against an external level list (e.g. FAC) whose
+    energies are trusted more than the one-electron estimate.
     """
 
     if hasattr(initial_atom, "solve") and not getattr(initial_atom, "converged", False):
         initial_atom.solve()
+
+    # Build a minimal structure result for lightweight Atom-like mocks so the
+    # ab-initio width factories can run.  Skip the build when both width hooks
+    # are supplied externally, since no ab-initio machinery is needed.
+    if (
+        not has_solved_result(initial_atom)
+        and getattr(initial_atom, "orbital_energies", None)
+        and (auger_rate_fn is None or radiative_rate_fn is None)
+    ):
+        built_result = _build_mcdhf_result_for_dr(
+            initial_atom, n_max, l_max if l_max is not None else n_max
+        )
+        initial_atom._result = built_result
+        if getattr(initial_atom, "result", None) is None:
+            initial_atom.result = built_result
 
     g_i = (
         _initial_statistical_weight(initial_atom)
@@ -260,6 +336,7 @@ def dr_calculate(
         min_resonance_eV=min_resonance_eV,
         auger_rate_fn=auger_rate_fn,
         radiative_rate_fn=radiative_rate_fn,
+        energy_fn=energy_fn,
     )
     return dr_rate_coefficient(
         resonances,

@@ -120,10 +120,31 @@ def test_eigenphase_sum_is_real_and_finite(heplus_targets):
     assert np.all(np.isfinite(res.eigenphase_sum))
 
 
-def test_r_matrix_excitation_cross_section_is_phase3_stub():
+def test_r_matrix_excitation_cross_section_returns_finite_sigma():
+    """Smoke test for the phase-3 R-matrix CE production hook."""
     from atomx.scattering.r_matrix import r_matrix_excitation_cross_section
-    with pytest.raises(NotImplementedError):
-        r_matrix_excitation_cross_section(None, None, np.array([1.0]))
+
+    class _MockAtom:
+        Z = 2
+
+    E = np.array([30.0, 45.0, 60.0])
+    sigma, omega = r_matrix_excitation_cross_section(
+        _MockAtom(), _MockAtom(), E,
+        initial_label="1s", final_label="2s",
+        l_c_max=2, n_basis=40, n_gauss=8,
+    )
+    assert sigma.shape == E.shape
+    assert omega.shape == E.shape
+    assert np.all(np.isfinite(sigma))
+    assert np.all(np.isfinite(omega))
+    # Below the 1s -> 2s threshold (~40.8 eV for He+) the cross section is zero.
+    below = E < 40.0
+    assert np.all(sigma[below] == 0.0)
+    assert np.all(omega[below] == 0.0)
+    # Above threshold there is a non-zero excitation signal.
+    above = E > 42.0
+    assert np.all(sigma[above] > 0.0)
+    assert np.all(omega[above] > 0.0)
 
 
 def test_singlet_triplet_split_for_2p_target_state_thresholds():

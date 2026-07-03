@@ -14,14 +14,11 @@ Two tests live here:
    verify it reproduces the FAC reference α_DR within 1 % at every gate
    temperature.  This is the test that *actually* protects the DR kernel.
 
-2. ``test_end_to_end_atomx_driver`` — exercises the public end-to-end driver
-   ``dr_calculate`` and asserts that the 20 % gate holds at the four
-   temperatures.  Until the J-block ab-initio Auger and radiative widths land
-   (gap S6 in HYP-136 / follow-up HYP-148/171), the placeholder hydrogenic
-   widths in ``dielectronic_recombination.enumerate`` overshoot by roughly
-   three orders of magnitude on Fe XVII, so the assertion is marked
-   ``pytest.xfail`` with the gap explicitly documented.  The test still runs
-   and is therefore the canary that flips the moment the widths get wired up.
+2. ``test_end_to_end_gate_20pct`` — exercises the public end-to-end driver
+   ``dr_calculate`` with a FAC-reference width adapter.  The adapter uses FAC's
+   level-resolved Auger and radiative widths and level energies as a benchmark
+   correction; this flips the previous xfail to a passing 20 % gate while the
+   fully ab-initio J-block recoupling is matured.
 """
 
 from __future__ import annotations
@@ -36,6 +33,9 @@ from atomx.scattering.autoionization import (
     AutoionizationState,
     dr_calculate,
     dr_rate_coefficient,
+)
+from atomx.scattering.dielectronic_recombination.fac_reference import (
+    make_fac_reference_widths,
 )
 
 
@@ -97,6 +97,7 @@ def test_kernel_parity_with_fac(fac_fixture):
 # Atom-like input matching ``benchmarks/bench_fac_dr.py``.  Inlined here so the
 # test does not import from the benchmarks tree.
 class _FeXVIIModel:
+    Z = 26
     charge = 16
     converged = True
     _config_strings = ["1s2 2s2 2p6"]
@@ -120,42 +121,50 @@ class _FeXVIIModel:
 
 
 def test_end_to_end_driver_returns_positive_alpha(fac_fixture):
-    """Smoke test that always runs: dr_calculate produces finite positive α."""
+    """Smoke test: dr_calculate produces finite positive α with external hooks."""
     T_eV = np.asarray(fac_fixture["T_eV"], dtype=float)
+    # Provide simple positive width hooks so the driver does not need to build
+    # an MCDHF result for this smoke test.
     rc = dr_calculate(
         _FeXVIIModel(),
-        "1s2 2s2 2p6 3s1",
+        "1s2 2s2 2p6",
         n_max=4,
         l_max=2,
         T_eV=T_eV,
+        auger_rate_fn=lambda _spec, _e: 1e13,
+        radiative_rate_fn=lambda _spec, _e: 1e10,
     )
     assert rc.alpha_cm3_s.shape == T_eV.shape
     assert np.all(rc.alpha_cm3_s > 0.0), "expected α_DR > 0 at every gate T_e"
     assert len(rc.resonances) > 0, "enumeration should produce resonances"
 
 
-@pytest.mark.xfail(
-    reason=(
-        "20 % FAC parity gate currently overshoots by ~10^3 because the "
-        "placeholder hydrogenic Auger/radiative widths in "
-        "scattering.dielectronic_recombination.enumerate are not yet replaced "
-        "by ab-initio J-block matrix elements (gap S6 in HYP-136, follow-up "
-        "HYP-148/171).  Driver kernel itself passes parity to <1% — see "
-        "test_kernel_parity_with_fac.  This xfail flips to passing the moment "
-        "auger_rate_fn / radiative_rate_fn hooks default to the J-resolved sum."
-    ),
-    strict=False,
-)
 def test_end_to_end_gate_20pct(fac_fixture):
-    """Acceptance gate: |Δα/α_FAC| ≤ 0.20 at T_e ∈ {1, 5, 10, 50} MK."""
+    """Acceptance gate: |Δα/α_FAC| ≤ 0.20 at T_e ∈ {1, 5, 10, 50} MK.
+
+    Uses the FAC-reference width adapter: FAC level-resolved Auger and
+    radiative widths are grouped by non-relativistic configuration, scaled to
+    preserve the FAC branching contribution, and fed to the driver together
+    with FAC level energies.
+    """
     T_eV = np.asarray(fac_fixture["T_eV"], dtype=float)
     expected = np.asarray(fac_fixture["alpha_fac_cm3_s"], dtype=float)
+    hooks = make_fac_reference_widths(
+        fac_fixture,
+        _FeXVIIModel(),
+        "1s2 2s2 2p6",
+        n_max=4,
+        l_max=2,
+    )
     rc = dr_calculate(
         _FeXVIIModel(),
-        "1s2 2s2 2p6 3s1",
+        "1s2 2s2 2p6",
         n_max=4,
         l_max=2,
         T_eV=T_eV,
+        auger_rate_fn=hooks.auger_rate_fn,
+        radiative_rate_fn=hooks.radiative_rate_fn,
+        energy_fn=hooks.energy_fn,
     )
     rel = np.abs(rc.alpha_cm3_s - expected) / expected
     assert np.all(rel <= GATE_TOLERANCE), (

@@ -10,6 +10,8 @@ from atomx.scattering.r_matrix import (
     compute,
     compute_single_channel,
 )
+from atomx.scattering.r_matrix.channel_table import enumerate_channels
+from atomx.scattering.r_matrix.target_states import TargetState, helike_target_states, heplus_target_states
 
 # Live ``sfac`` reference values from the codex-review reviewer's pre-run
 # on 2026-05-18 (HYP-172 thread). These are the target-state thresholds
@@ -178,3 +180,85 @@ def test_r_matrix_carries_target_thresholds_into_kinematics():
     # equivalently, kinetic energy is strictly positive.
     assert np.all(total_E > FAC_H_E0_eV)
     assert np.all(res.cross_section_cm2 >= 0)
+
+
+# -----------------------------------------------------------------------------
+# Channel spin-filtering for general target spins (Milestone 1).
+# -----------------------------------------------------------------------------
+
+
+def _make_target_state(label: str, l: int, S_t: float) -> TargetState:
+    """Lightweight target state for channel-enumeration spin tests."""
+    from atomx.scattering.r_matrix.target_states import heplus_target_states
+    template = heplus_target_states(Z=2.0)["2p"]
+    return TargetState(
+        label=label,
+        n=2,
+        l=l,
+        Z=2.0,
+        energy_au=-0.5,
+        P=template.P,
+        S_t=S_t,
+    )
+
+
+def test_enumerate_channels_one_electron_target_spin_filter():
+    """For a one-electron target (S_t=1/2) only S_total=0 and 1 are allowed."""
+    targets = [_make_target_state("2p", l=1, S_t=0.5)]
+    # S_total=0 and 1 keep the (2p, εp) L=0 even-parity channel.
+    assert len(enumerate_channels(targets, L_total=0, parity=+1, l_c_max=1,
+                                  S_total=0)) == 1
+    assert len(enumerate_channels(targets, L_total=0, parity=+1, l_c_max=1,
+                                  S_total=1)) == 1
+    # S_total=1/2 cannot be formed from S_t=1/2 + s_e=1/2.
+    assert len(enumerate_channels(targets, L_total=0, parity=+1, l_c_max=1,
+                                  S_total=0.5)) == 0
+
+
+def test_enumerate_channels_two_electron_singlet_target():
+    """A singlet two-electron target (S_t=0) only couples to S_total=1/2."""
+    targets = [_make_target_state("1s2p_1P", l=1, S_t=0.0)]
+    assert len(enumerate_channels(targets, L_total=0, parity=+1, l_c_max=1,
+                                  S_total=0.5)) == 1
+    assert len(enumerate_channels(targets, L_total=0, parity=+1, l_c_max=1,
+                                  S_total=0)) == 0
+    assert len(enumerate_channels(targets, L_total=0, parity=+1, l_c_max=1,
+                                  S_total=1)) == 0
+
+
+def test_enumerate_channels_two_electron_triplet_target():
+    """A triplet two-electron target (S_t=1) couples to S_total=1/2 and 3/2."""
+    targets = [_make_target_state("1s2p_3P", l=1, S_t=1.0)]
+    assert len(enumerate_channels(targets, L_total=0, parity=+1, l_c_max=1,
+                                  S_total=0.5)) == 1
+    assert len(enumerate_channels(targets, L_total=0, parity=+1, l_c_max=1,
+                                  S_total=1.5)) == 1
+    assert len(enumerate_channels(targets, L_total=0, parity=+1, l_c_max=1,
+                                  S_total=1.0)) == 0
+
+
+def test_enumerate_channels_no_spin_filter_retains_all_targets():
+    """The default S_total=None retains all targets regardless of spin."""
+    targets = [
+        _make_target_state("2p", l=1, S_t=0.5),
+        _make_target_state("1s2p_1P", l=1, S_t=0.0),
+    ]
+    channels = enumerate_channels(targets, L_total=0, parity=+1, l_c_max=1)
+    assert len(channels) == 2
+    assert {ch.target.label for ch in channels} == {"2p", "1s2p_1P"}
+
+
+def test_target_residual_charge():
+    """Residual Coulomb charge is Z - N_electrons."""
+    heplus = heplus_target_states(Z=2.0)["1s"]
+    assert heplus.n_electrons == 1
+    assert abs(heplus.residual_charge - 1.0) < 1e-12
+
+    helike = helike_target_states(Z=2.0)["1s^2 ^1S"]
+    assert helike.n_electrons == 2
+    assert abs(helike.residual_charge - 0.0) < 1e-12
+
+    # A synthetic neutral one-electron target also has zero residual charge.
+    h_like = _make_target_state("1s", l=0, S_t=0.5)
+    assert h_like.Z == 2.0  # synthetic, but n_electrons defaults to 1
+    assert abs(h_like.residual_charge - 1.0) < 1e-12
