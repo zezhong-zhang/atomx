@@ -1,4 +1,4 @@
-"""FAC parity tests for the DR driver (HYP-146).
+"""FAC parity tests for the DR driver (HYP-146, HYP-530).
 
 The acceptance gate is ``|α_atomx - α_FAC| / α_FAC ≤ 0.20`` at four electron
 temperatures (1, 5, 10, 50 MK) for Fe XVII → Fe XVI dielectronic recombination,
@@ -7,18 +7,25 @@ temperatures (1, 5, 10, 50 MK) for Fe XVII → Fe XVI dielectronic recombination
 captures every FAC resonance (E, J, Γ_A, A_r) so the parity tests run without
 ``sfac`` installed.
 
-Two tests live here:
+Three tests live here:
 
 1. ``test_kernel_parity_with_fac`` — feed FAC's own AI rates, TR rates, and
    resonance energies into atomx's ``dr_rate_coefficient`` Burgess kernel and
    verify it reproduces the FAC reference α_DR within 1 % at every gate
    temperature.  This is the test that *actually* protects the DR kernel.
 
-2. ``test_end_to_end_gate_20pct`` — exercises the public end-to-end driver
-   ``dr_calculate`` with a FAC-reference width adapter.  The adapter uses FAC's
-   level-resolved Auger and radiative widths and level energies as a benchmark
-   correction; this flips the previous xfail to a passing 20 % gate while the
-   fully ab-initio J-block recoupling is matured.
+2. ``test_end_to_end_driver_returns_positive_alpha`` — smoke test that always
+   runs with the placeholder hydrogenic widths.
+
+3. ``test_end_to_end_gate_20pct`` — exercises the public end-to-end driver
+   ``dr_calculate`` against a solved Fe XVII atom using the HYP-530
+   ab-initio Auger hook (``make_abinitio_auger_rate_fn``).  The 20 % gate
+   is marked ``pytest.xfail`` because the per-pair Auger rate from
+   ``auger_rate_csf_average`` over-counts magnetic substates vs the
+   J-resolved FAC value by 1.2-15x depending on J and channel (see the
+   5-resonance panel in ``test_auger_kll_vs_fac.py``).  Closing the gate
+   needs the Cowan-Grant 6j-based J-resolved Auger angular coefficient —
+   the remaining gap on HYP-530.
 """
 
 from __future__ import annotations
@@ -29,14 +36,13 @@ from pathlib import Path
 import numpy as np
 import pytest
 
+from atomx import Atom
 from atomx.scattering.autoionization import (
     AutoionizationState,
     dr_calculate,
     dr_rate_coefficient,
 )
-from atomx.scattering.dielectronic_recombination.fac_reference import (
-    make_fac_reference_widths,
-)
+from atomx.scattering.dielectronic_recombination import make_abinitio_auger_rate_fn
 
 
 FIXTURE_PATH = Path(__file__).parent / "data" / "fe17_dr_fac.json"
@@ -120,6 +126,32 @@ class _FeXVIIModel:
     }
 
 
+@pytest.fixture(scope="module")
+def solved_fe17_atom():
+    """Real MCDHF Fe XVII solve with 2p^5 3l reference configs.
+
+    Provides the radial orbitals + B-spline workspace that
+    ``make_abinitio_auger_rate_fn`` closes over.  Matches the solve in
+    ``tests/test_auger_kll_vs_fac.py::fe17_result`` so the two tests share
+    calibration assumptions.
+    """
+    atom = Atom(
+        Z=26,
+        charge=16,
+        configs=[
+            "1s2 2s2 2p6",
+            "1s2 2s2 2p5 3s1",
+            "1s2 2s2 2p5 3p1",
+            "1s2 2s2 2p5 3d1",
+        ],
+        j_resolved_csfs=False,
+        breit=False,
+        qed=False,
+    )
+    atom.solve()
+    return atom
+
+
 def test_end_to_end_driver_returns_positive_alpha(fac_fixture):
     """Smoke test: dr_calculate produces finite positive α with external hooks."""
     T_eV = np.asarray(fac_fixture["T_eV"], dtype=float)
@@ -139,34 +171,50 @@ def test_end_to_end_driver_returns_positive_alpha(fac_fixture):
     assert len(rc.resonances) > 0, "enumeration should produce resonances"
 
 
-def test_end_to_end_gate_20pct(fac_fixture):
-    """Acceptance gate: |Δα/α_FAC| ≤ 0.20 at T_e ∈ {1, 5, 10, 50} MK.
-
-    Uses the FAC-reference width adapter: FAC level-resolved Auger and
-    radiative widths are grouped by non-relativistic configuration, scaled to
-    preserve the FAC branching contribution, and fed to the driver together
-    with FAC level energies.
-    """
+@pytest.mark.xfail(
+    reason=(
+        "20 % FAC parity gate driven by the HYP-530 ab-initio Auger hook "
+        "(make_abinitio_auger_rate_fn) over a solved Fe XVII atom.  "
+        "Measured overshoot of FAC α_DR is ~1.3e5 / 3.4e3 / 2.0e3 / 1.3e3 "
+        "at T_MK = 1 / 5 / 10 / 50.  Two compounding residual gaps remain: "
+        "(1) The radiative width is still on the placeholder hydrogenic "
+        "estimate from dielectronic_recombination.enumerate."
+        "_default_radiative_width; for KLL where Γ_Auger >> Γ_rad the "
+        "Burgess kernel α ∝ Γ_rad and the placeholder overshoots FAC's "
+        "TRTable value by ~1e4-1e5 — this is the dominant error.  "
+        "(2) The per-pair Auger rate from auger_rate_csf_average uses the "
+        "average-of-configuration angular factor exchange_lambda and "
+        "over-counts magnetic substates that do not contribute to the "
+        "specific J_resonance -> J_final + eps transition (1.2-15x per "
+        "resonance — see tests/test_auger_kll_vs_fac.py).  Closing the 20 "
+        "% gate needs (a) an ab-initio radiative_rate_fn hook (E1 "
+        "multipole matrix elements from the resonance to the valence "
+        "ground-state manifold) AND (b) the Cowan-Grant 6j-based J-resolved "
+        "Auger angular coefficient.  Both are follow-ups to HYP-530."
+    ),
+    strict=False,
+)
+def test_end_to_end_gate_20pct(fac_fixture, solved_fe17_atom):
+    """Acceptance gate: |Δα/α_FAC| ≤ 0.20 at T_e ∈ {1, 5, 10, 50} MK."""
     T_eV = np.asarray(fac_fixture["T_eV"], dtype=float)
     expected = np.asarray(fac_fixture["alpha_fac_cm3_s"], dtype=float)
-    hooks = make_fac_reference_widths(
-        fac_fixture,
-        _FeXVIIModel(),
-        "1s2 2s2 2p6",
-        n_max=4,
-        l_max=2,
-    )
+    auger_fn = make_abinitio_auger_rate_fn(solved_fe17_atom._result, kappa_max=3)
     rc = dr_calculate(
-        _FeXVIIModel(),
-        "1s2 2s2 2p6",
+        solved_fe17_atom,
+        "1s2 2s2 2p6 3s1",
         n_max=4,
         l_max=2,
         T_eV=T_eV,
-        auger_rate_fn=hooks.auger_rate_fn,
-        radiative_rate_fn=hooks.radiative_rate_fn,
-        energy_fn=hooks.energy_fn,
+        auger_rate_fn=auger_fn,
     )
     rel = np.abs(rc.alpha_cm3_s - expected) / expected
+    print(
+        "\nDR gate panel (solved Fe XVII + ab-initio Auger hook):\n"
+        f"  T_MK  = {fac_fixture['T_MK']}\n"
+        f"  atomx = {rc.alpha_cm3_s.tolist()}\n"
+        f"  FAC   = {expected.tolist()}\n"
+        f"  |Δα|/α = {rel.tolist()}"
+    )
     assert np.all(rel <= GATE_TOLERANCE), (
         f"|Δα/α_FAC| = {rel.tolist()} exceeds {GATE_TOLERANCE:.0%} at "
         f"T_MK={fac_fixture['T_MK']}; atomx={rc.alpha_cm3_s.tolist()} vs "
