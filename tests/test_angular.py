@@ -133,3 +133,23 @@ class TestClebschGordan:
             if abs(tm2) <= tj2:
                 total += clebsch_gordan(tj1, tm1, tj2, tm2, tj3, tm3) ** 2
         assert total == pytest.approx(1.0, abs=1e-10)
+
+
+class TestCowanGrantAugerCoefficient:
+    def test_reduced_C_matches_grant_convention(self):
+        from atomx.angular.coefficients import reduced_C
+
+        assert reduced_C(-1, -1, 0) == pytest.approx(-np.sqrt(2.0))
+        assert reduced_C(-1, -2, 1) == pytest.approx(2.0 / np.sqrt(3.0))
+        assert reduced_C(-1, -1, 1) == 0.0
+
+    def test_cowan_grant_B_nonzero_closed_channel(self):
+        from atomx.angular.coefficients import cowan_grant_auger_B
+
+        val = cowan_grant_auger_B(-1, 1, 1, -1, 1, J_res=0.0, J_final=0.5)
+        assert val == pytest.approx(np.sqrt(2.0) / 3.0, abs=1e-12)
+
+    def test_cowan_grant_B_gates_final_continuum_coupling(self):
+        from atomx.angular.coefficients import cowan_grant_auger_B
+
+        assert cowan_grant_auger_B(-1, 1, 1, 1, 1, J_res=0.5, J_final=0.0) == 0.0
