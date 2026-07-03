@@ -143,11 +143,17 @@ def _coarse_auger_rate(
     exchange_sign: float = 1.0,
     shooting_n_grid: int | None = None,
     population_factor: float | None = None,
+    J_res: float | None = None,
+    J_final: float = 0.0,
     **_kwargs,
 ):
     import numpy as np
 
-    from atomx.angular.coefficients import exchange_k_range, exchange_lambda
+    from atomx.angular.coefficients import (
+        cowan_grant_auger_B,
+        exchange_k_range,
+        exchange_lambda,
+    )
     from atomx.constants import AU_RATE_PER_S, HARTREE_EV
     from atomx.numerics.bspline.continuum import solve_continuum
 
@@ -227,11 +233,19 @@ def _coarse_auger_rate(
                     exchange_ks = set(exchange_k_range(source2_key[1], hole_key[1]))
                     exchange_ks &= set(exchange_k_range(source_key[1], kappa_eps))
                     for k in sorted(direct_ks):
-                        wa = exchange_lambda(source_key[1], hole_key[1], k)
-                        wb = exchange_lambda(source2_key[1], kappa_eps, k)
-                        if wa <= 0.0 or wb <= 0.0:
-                            continue
-                        angular = float(np.sqrt(wa * wb))
+                        if J_res is None:
+                            wa = exchange_lambda(source_key[1], hole_key[1], k)
+                            wb = exchange_lambda(source2_key[1], kappa_eps, k)
+                            if wa <= 0.0 or wb <= 0.0:
+                                continue
+                            angular = float(np.sqrt(wa * wb))
+                        else:
+                            angular = cowan_grant_auger_B(
+                                source_key[1], source2_key[1], hole_key[1],
+                                kappa_eps, k, float(J_res), float(J_final),
+                            )
+                            if abs(angular) < 1e-15:
+                                continue
                         if shooting_n_grid:
                             Rk = _grid_slater(
                                 Pa_g, Qa_g, Pb_g, Qb_g,
@@ -244,11 +258,19 @@ def _coarse_auger_rate(
                                 angular_W=angular, k=k, bsp_data=bsp_data,
                             )
                     for k in sorted(exchange_ks):
-                        wa = exchange_lambda(source2_key[1], hole_key[1], k)
-                        wb = exchange_lambda(source_key[1], kappa_eps, k)
-                        if wa <= 0.0 or wb <= 0.0:
-                            continue
-                        angular = float(np.sqrt(wa * wb))
+                        if J_res is None:
+                            wa = exchange_lambda(source2_key[1], hole_key[1], k)
+                            wb = exchange_lambda(source_key[1], kappa_eps, k)
+                            if wa <= 0.0 or wb <= 0.0:
+                                continue
+                            angular = float(np.sqrt(wa * wb))
+                        else:
+                            angular = cowan_grant_auger_B(
+                                source2_key[1], source_key[1], hole_key[1],
+                                kappa_eps, k, float(J_res), float(J_final),
+                            )
+                            if abs(angular) < 1e-15:
+                                continue
                         if shooting_n_grid:
                             Rk = _grid_slater(
                                 Pb_g, Qb_g, Pa_g, Qa_g,
@@ -325,9 +347,15 @@ def auger_rate_level_resolved(
     source2_label: str,
     resonance_energy_eV: float | None = None,
     shooting_n_grid: int | None = None,
+    J_res: float | None = None,
+    J_final: float = 0.0,
     **kwargs,
 ):
-    """Coarse level-resolved Auger rate for a named two-electron channel."""
+    """Coarse level-resolved Auger rate for a named two-electron channel.
+
+    Passing ``J_res`` switches the angular factor from the configuration-
+    averaged exchange proxy to the Cowan-Grant J-resolved coefficient.
+    """
     if shooting_n_grid is None:
         shooting_n_grid = 400
     energies = getattr(result, "state_energies", None)
@@ -345,6 +373,34 @@ def auger_rate_level_resolved(
         resonance_energy_eV=energy_eV,
         state_index=int(state_index),
         shooting_n_grid=shooting_n_grid,
+        J_res=J_res,
+        J_final=J_final,
+        **kwargs,
+    )
+
+
+def auger_rate_j_resolved(
+    result,
+    *,
+    J_res: float,
+    hole_label: str,
+    source_label: str,
+    source2_label: str,
+    resonance_energy_eV: float | None = None,
+    state_index: int | None = None,
+    J_final: float = 0.0,
+    **kwargs,
+):
+    """J-resolved Auger rate for a named two-electron channel."""
+    return _coarse_auger_rate(
+        result,
+        hole_label=hole_label,
+        source_label=source_label,
+        source2_label=source2_label,
+        resonance_energy_eV=resonance_energy_eV,
+        state_index=state_index,
+        J_res=J_res,
+        J_final=J_final,
         **kwargs,
     )
 
@@ -352,6 +408,7 @@ __all__ = [
     "AutoionizationState",
     "DRRateCoefficient",
     "auger_rate_csf_average",
+    "auger_rate_j_resolved",
     "auger_rate_level_resolved",
     "auger_rate_two_electron",
     "dr_calculate",
