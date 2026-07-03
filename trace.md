@@ -1,5 +1,15 @@
 # atomx trace log
 
+### EARS — Session (2026-07-04) — stale-agent-branch re-derivation
+<!-- concepts: stale-agent-branches, cherry-pick, mcdhf-ci, dr-auger -->
+- Task: re-derive features #1–#4 from stale codex-aisi agent branches onto current main.
+- Method: for each, read the ACTUAL feature commit (`git show <sha>`), not the 100-file snapshot divergence; check `git cherry` first (many already landed via PR squash-merge); compare against main's current code before writing.
+- #4 (HYP-670 render DR satellites, b75e24b8): ALREADY on main (dr_satellites param + DRRateCoefficient support + shallow-copy helper). Landed only the missing `dr_satellite_count` metadata (commit 85ff883).
+- #3 (DR ab-initio radiative width hook, 8387dde7): ALREADY on main (`make_abinitio_radiative_rate_fn`, auto-defaulted in dr_calculate). Landed the missing `__init__` re-export + fixed the stale gate test (was TypeError-ing under xfail with old `kappa_max`/`_result` API). Gate is GENUINELY still open: α_DR overshoots FAC ~162x/3.4x/1.7x/1.9x at T_MK=1/5/10/50. xfail reason corrected (commit fdaa5ee).
+- #2 (J-resolved Auger angular coefficient, 83fe8db1): GENUINELY NEW — added `reduced_C` + `cowan_grant_auger_B` (Wigner-6j) to angular.coefficients; threaded J_res/J_final through `_coarse_auger_rate`; added `auger_rate_j_resolved`. This is the residual-gap piece #3's xfail points at. 4 new tests pass, all branch expectations match main's wigner_3j exactly (commit a99a073).
+- #1 (HYP-189 off-diagonal J-coupled CI + DODS, 86acfdc4): HEADLINE ALREADY ON MAIN — `_off_diagonal_J_correction` delegates to implemented `_off_diagonal_one_diff_J_correction`/`_off_diagonal_two_diff_J_correction` (6 He-like tests pass; the "returns 0.0" docstring is STALE). DODS scaffolding fully wired (per_block_orbital_sets → `_solve_per_block_orbitals` → result → calculator) but `_solve_per_block_orbitals` body is a no-op scaffold (HYP-184 deferred). Branch's body is explicitly goal-not-met (3C/3D still xfailed, needs MCSCF) + FAC-dependent CSV — did NOT transplant.
+- Lesson: For every stale agent branch, the headline feature was already on main under different names. `git cherry` + reading the actual feature commit + diffing against current main is mandatory before any re-implementation — blind transplant would duplicate or conflict. The one branch with genuinely-new physics (#2) was small, self-contained, and testable.
+
 ### EARS — Progress (2026-05-19 12:30)
 <!-- concepts: mcdhf-csfs, fe17-3c3d, j-resolved-coupling -->
 - Started HYP-182: Fe XVII 3C/3D root-cause + fix (the gate HYP-175 xfailed).
