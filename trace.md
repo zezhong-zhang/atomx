@@ -1,5 +1,35 @@
 # atomx trace log
 
+### EARS — Session End (2026-07-04 16:05) — conflicted stash-pop resolution
+<!-- concepts: git-stash-merge, fac-runner-parsers, mcdhf-result-api -->
+- Task: resolve a conflicted `git stash pop` (stash@{0}, base 5cefde7, an
+  *ancestor* of HEAD → stash is OLDER than current main).
+- Two unmerged files resolved:
+  - `benchmarks/fac_runner.py` (4 hunks): kept HEAD's robust sfac resolution
+    (`resolve_sfac_bin`/`require_sfac_bin` — needed by run_sfac, tests,
+    bench_fac_dw_eii/dw_excitation) and HEAD's `parse_ai` key schema
+    (`upper/lower/DELTA_E_eV/TWOJ_upper` — required by committed
+    `bench_fac_dr.py`); took the stash's new `parse_rr`/`parse_ce`/
+    `_parse_nusr`/`_parse_grid_table` + refactored `parse_ci`; dropped HEAD's
+    duplicate old `parse_ci`.
+  - `benchmarks/bench_fac_levels_transitions.py` (2 hunks): kept HEAD's level
+    extraction via canonical `MCDHFResult.state_J2`/`state_parity` properties
+    (`src/atomx/methods/mcdhf/solver.py:155,171`); discarded stash's older
+    mixing-coefficient derivation.
+- Verification: no markers remain; both files byte-compile; all 12 fac_runner
+  symbols import; `test_fac_runner_parsers.py` (3) + `test_fac_hamiltonian_parser.py`
+  (2) pass.
+- Lesson: For a 3-way stash-pop, "Updated upstream" = HEAD (target), "Stashed
+  changes" = the stash. When the stash is older than HEAD, HEAD often has the
+  newer code → verify each hunk against committed consumers + the test gate
+  rather than assuming the stash is newer. `benchmarks/bench_fac_pi_rr.py`,
+  `bench_fac_ce_ci_ai.py`, `bench_fac_rmatrix_ce.py` are git-IGNORED local
+  working files (not committed) → they did NOT constrain the merge.
+- Open: stash@{0} still retained as safety net — `git stash drop stash@{0}`
+  when satisfied. Staged changes uncommitted. Pyright flags on
+  `parse_debug_hamiltonian_log` (~242) and `r.state_energies` (~106) are
+  PRE-EXISTING HEAD code, not merge regressions.
+
 ### EARS — Session (2026-07-04) — stale-agent-branch re-derivation
 <!-- concepts: stale-agent-branches, cherry-pick, mcdhf-ci, dr-auger -->
 - Task: re-derive features #1–#4 from stale codex-aisi agent branches onto current main.
