@@ -3,7 +3,7 @@
 Given a :class:`~atomx.plasma.crm.CollisionalRadiativeModel` with rates
 and populations, build a :class:`~atomx.spectrum.Spectrum` where each
 radiative transition contributes a normalised line-profile weighted by
-``n_upper · A_{ul}``.  Line widths are computed from Doppler (thermal)
+``n_upper * A_{ul}``.  Line widths are computed from Doppler (thermal)
 and natural-lifetime contributions; an optional static Stark width for
 hydrogenic ions can be folded in.
 """
@@ -23,7 +23,7 @@ from atomx.spectrum.uta import add_uta_array_to_spectrum
 
 
 def _hartree_to_angstrom(dE_hartree: float) -> float:
-    """ΔE (Hartree) → λ (Å), standard 1/HARTREE_INV_ANGSTROM inversion."""
+    """DeltaE (Hartree) -> lambda (A), standard 1/HARTREE_INV_ANGSTROM inversion."""
     return 1.0 / (HARTREE_INV_ANGSTROM * dE_hartree)
 
 
@@ -54,66 +54,20 @@ def crm_emission_spectrum(
 ) -> Spectrum:
     """Render a CRM's radiative transitions into a :class:`Spectrum`.
 
-    Line intensities are the *emissivity-proportional* product
-    ``ε_{ul} = n_upper · A_{ul} · (hν)``  — appropriate for most
-    optical-plasma applications.  Multiply by a normalisation factor
-    externally if you need absolute emissivity in W·m⁻³·sr⁻¹·nm⁻¹.
+    Line intensities are the emissivity-proportional product
+    ``epsilon_{ul} = n_upper * A_{ul} * (h nu)``.
 
     Parameters
     ----------
     crm : CollisionalRadiativeModel
         A CRM with ``.levels`` and ``.transitions`` populated.
-    n_e_cm3, T_e_eV : float
-        Plasma electron density (cm⁻³) and temperature (eV).
-    lam_min_nm, lam_max_nm : float
-        Output wavelength range in nm.
-    n_points : int
-        Grid resolution.
-    ion_mass_amu : float
-        Atomic mass of the emitting ion (for Doppler broadening).
-    T_ion_K : float, optional
-        Ion kinetic temperature in K.  Defaults to
-        ``T_e_eV × 11604.52``  (ion-electron equilibrium assumption).
-    profile : {"gaussian", "lorentzian", "voigt"}
-        Line profile family.  Voigt is the default when both Doppler
-        and natural broadening are non-zero.
-    stark_hwhm_nm : float, optional
-        Additional HWHM added in quadrature to the Lorentzian width
-        (set from :func:`atomx.lineshapes.stark_hwhm_quasistatic`
-        for hydrogenic plasmas).
-    uta_threshold : int
-        Minimum number of explicit lines in a configuration-pair array
-        before heavy M-/N-shell ions are rendered through UTA moments.
-    force_uta : bool
-        Route every eligible multi-line array through UTA moments. Intended
-        for validation fixtures and external FAC comparisons.
-    include_eii, include_three_body, include_photoionization : bool
-        Toggles for bound-free CRM rates when the CRM has bound-free channels.
-    radiation_temperature_eV : float, optional
-        Planck radiation temperature used for photoionisation rates.
-    radiation_field : callable, optional
-        User-supplied photon flux density for photoionisation integration.
     dr_satellites : sequence or DRRateCoefficient, optional
         Dielectronic satellite resonances to fold into the rendered CRM. Each
         resonance may carry stabilising ``channels`` from the ab-initio
         radiative-width path; channel labels are matched to CRM lower levels.
         A DRRateCoefficient-like object with a ``.resonances`` attribute is
-        also accepted.
-    dr_initial_level_idx : int
-        CRM level that dielectronic capture starts from when ``dr_satellites``
-        is supplied.
-    dr_lower_level_by_channel : mapping, optional
-        Explicit stabilising-channel label to CRM lower-level index map.
-    dr_initial_state_g : float, optional
-        Statistical weight of the recombining level used in the DR capture
-        source. Defaults to the selected CRM level's ``g``.
-    dr_label_prefix : str
-        Prefix for synthetic DR satellite level labels.
-
-    Returns
-    -------
-    Spectrum
-        Emission intensity on a linear nm grid.
+        also accepted. The input CRM is copied before synthetic satellite
+        levels are added, so the caller's CRM is not mutated.
     """
     n_dr_satellites = 0
     if dr_satellites is not None:
@@ -126,8 +80,6 @@ def crm_emission_spectrum(
             label_prefix=dr_label_prefix,
         )
 
-    # Compute populations (steady-state, user may have solved time-dependent
-    # elsewhere — for emission spectrum the steady-state is the usual choice).
     populations = crm.steady_state(
         n_e_cm3,
         T_e_eV,
@@ -139,11 +91,11 @@ def crm_emission_spectrum(
     )
 
     if T_ion_K is None:
-        T_ion_K = T_e_eV * 11604.5250061657   # eV → K
+        T_ion_K = T_e_eV * 11604.5250061657
 
     spec = Spectrum.linear(
         lam_min_nm, lam_max_nm, n_points,
-        unit="emissivity (arb., n_u · A · hν)",
+        unit="emissivity (arb., n_u * A * h nu)",
     )
     spec.metadata = {
         "n_e_cm3": n_e_cm3,
@@ -189,14 +141,10 @@ def crm_emission_spectrum(
         if lam_nm < lam_min_nm or lam_nm > lam_max_nm:
             continue
 
-        # Doppler (thermal) σ in nm
         sigma_nm = doppler_width(lam_nm, T_ion_K, ion_mass_amu)
         sigma_nm = max(sigma_nm, grid_step_nm)
 
-        # Natural width in nm:  Γ_λ (HWHM) = A · λ²/(4πc)·... units
-        # Easier:  Γ_nu = A/(4π) [Hz], convert to Γ_λ via  Δλ = λ²/c · Δν
-        # c in nm/s = 2.998e17
-        gamma_nu_Hz = natural_width(tr.A_rate)   # in Hz (HWHM)
+        gamma_nu_Hz = natural_width(tr.A_rate)
         c_nm_per_s = 2.99792458e17
         gamma_nm = (lam_nm ** 2 / c_nm_per_s) * gamma_nu_Hz
 
@@ -204,7 +152,6 @@ def crm_emission_spectrum(
             gamma_nm = np.hypot(gamma_nm, stark_hwhm_nm)
         gamma_nm = max(gamma_nm, grid_step_nm)
 
-        # Intensity ~ n_upper · A · hν  — use photons·s⁻¹ weighted by energy
         intensity = n_upper * tr.A_rate * dE_eV
 
         if profile == "gaussian":
