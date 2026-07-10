@@ -167,6 +167,16 @@ window; obtain a trusted external Ne DHF value to characterise the 0.35 mHa syst
 Replace with tight external-reference values (Ne DHF ≈ −128.674, Ar ≈ −528.68; a
 published He-like Breit number).
 
+**[FIXED 2026-07-10]** Tightened, pinning atomx's deterministic converged values (all
+verified bit-identical across runs): Ne DHF total `±1.5 → ±1 mHa` (1500×), Ne 1s `±2.0 →
+±10 mHa`, Ne Breit `0.005–0.5 band → 0.0519 ±5%` (catches the α²-suppression regression
+class), Ne Uehling VP `nonzero → −0.002355 ±5%`. These are regression pins on the
+converged values (honestly labelled — not external validation); a deliberate operator
+refinement must now update the number rather than slip through a wide band. `test_scf`
+(16) + `test_qed` (13) pass. Still open: pin against a *trusted external* DHF/Breit
+reference once available (the doc's own remembered refs `−128.674` vs `−128.6923` disagree,
+underscoring why an authoritative source is needed).
+
 ---
 
 ## 🟠 Structure, duplication & performance
