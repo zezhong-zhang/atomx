@@ -284,13 +284,16 @@ the unambiguous `properties/` and rewrote all 56 import sites.
   methods).
 
 ### D8. Dead / vaporware modules
-- `physics/two_body.py` — 36 lines, **zero `def`/`class`**, pure prose; advertised in the
-  package docstring but never imported. Delete or implement.
-- `scattering/distorted_wave/born.py`, `scattering/electron_ionization/dw.py` — defined,
-  never imported by any src module.
-- `numerics/shooting/integrator.py` — the module that had the stray `137.03599908`; it is
-  **imported nowhere**. Dead. (Its literals were fixed for correctness; the module itself
-  should be removed.)
+- `physics/two_body.py` — **[DELETED]** (was 36 lines of pure prose, zero `def`/`class`).
+- `numerics/shooting/integrator.py` — **[DELETED]** (dead RK4 prototype, imported nowhere;
+  the live shooting path is the Salvat power-series integrator `dirac_integrator.py`).
+- `scattering/distorted_wave/born.py` — **NOT dead** (verified 2026-07-10): imported by
+  `tests/test_born_cb.py`. The original "never imported" claim was stale — do NOT delete.
+- `scattering/electron_ionization/dw.py` — unimported *internally* (the DW path in
+  `electron_ionization/__init__.py` uses its own `_eii_dw_total` + `_jit_kernels`, not this
+  module), but it is a **public API** (`__all__ = [dw_eii_cross_section, bound_optical_strength]`)
+  and may have external callers. Treat as a deprecation *candidate* (wire it into the public
+  `eii_cross_section(method="dw")` path or announce removal) — **not** a blind delete.
 
 ---
 
