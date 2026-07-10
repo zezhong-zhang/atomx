@@ -786,6 +786,14 @@ def _convol_case4(rkb, d, ns, ks):
 
     Result is FULL matrix: a[ns, ns].
     Serial over output rows (see section note: small-ns regime).
+
+    NOTE (2026-07-10): a scatter reformulation (iterate band offsets, four
+    ``a[...] +=`` writes per rkb element) micro-benchmarks ~2× faster on
+    cache-hot random data, but is ~1.6× *slower* in-context — its scattered
+    read-modify-writes to the ns×ns output thrash cache under real solver
+    memory pressure, whereas this gather accumulates each output element in
+    a register and writes once. Keep the gather; do not "optimise" to scatter
+    without an in-context full-solve measurement.
     """
     a = np.zeros((ns, ns))
     for row in range(ns):
