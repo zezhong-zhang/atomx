@@ -35,7 +35,7 @@ from typing import Any, Dict, Optional
 
 import numpy as np
 
-from atomx.constants import HARTREE_EV, BOHR_RADIUS_M
+from atomx.constants import HARTREE_EV, BOHR_RADIUS_M, C_SQ
 from atomx.scattering._jit_kernels import eii_dw_inner_sum, trapezoidal_integrate
 
 
@@ -323,8 +323,8 @@ def _bound_optical_strength(P_a, Q_a, kappa_a, eps_a, scf_result,
     from atomx.numerics.bspline.dirac_assembly import (
         build_dirac_matrices, solve_dirac,
     )
-    from atomx.prop.transitions.angular import angular_eL, selection_rules
-    from atomx.prop.transitions.multipole import radial_eL
+    from atomx.properties.transitions.angular import angular_eL, selection_rules
+    from atomx.properties.transitions.multipole import radial_eL
 
     bsp_data = scf_result._bsp_data
     Z = scf_result.Z
@@ -377,7 +377,7 @@ def _bound_optical_strength(P_a, Q_a, kappa_a, eps_a, scf_result,
             # transition energy ω = ε_f − ε_a is positive.
             if eps_f <= eps_a + 1e-9:
                 continue
-            if eps_f < -1.5 * (137.036 ** 2):  # below Dirac sea
+            if eps_f < -1.5 * C_SQ:  # below Dirac sea
                 continue
 
             vec = res_e.coefficients[:, i]

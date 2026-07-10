@@ -10,6 +10,57 @@ import math
 
 
 @nb.njit(cache=True)
+def merge_grids(rg, nvt, rad, ngp, eps_tol):
+    """Merge potential grid ``rg`` with user grid ``rad``; sort; return (r, ind, nrt).
+
+    Shared by the Dirac (DBOUND) and Schrödinger (SBOUND) shooting solvers —
+    both merge the fixed potential mesh with the requested output radii, tag
+    each point with its spline interval, and insertion-sort by radius.
+    """
+    max_pts = nvt + ngp
+    r = np.zeros(max_pts)
+    ind = np.zeros(max_pts, dtype=nb.int64)
+
+    # Copy potential grid
+    for i in range(nvt):
+        r[i] = rg[i]
+        ind[i] = i
+    nrt = nvt
+
+    # Add user grid points not already present
+    for i in range(ngp):
+        rloc = rad[i]
+        found = False
+        for j in range(nrt):
+            if abs(rloc - r[j]) < eps_tol:
+                found = True
+                break
+        if not found:
+            r[nrt] = rloc
+            # Find spline interval
+            j_idx = 0
+            for j in range(nvt - 1):
+                if rg[j] <= rloc:
+                    j_idx = j
+            ind[nrt] = j_idx
+            nrt += 1
+
+    # Sort by r value (insertion sort for stability)
+    for i in range(1, nrt):
+        key_r = r[i]
+        key_ind = ind[i]
+        j = i - 1
+        while j >= 0 and r[j] > key_r:
+            r[j + 1] = r[j]
+            ind[j + 1] = ind[j]
+            j -= 1
+        r[j + 1] = key_r
+        ind[j + 1] = key_ind
+
+    return r, ind, nrt
+
+
+@nb.njit(cache=True)
 def findi(x, xtab, n):
     """Binary search: find j such that xtab[j-1] <= x < xtab[j].
 

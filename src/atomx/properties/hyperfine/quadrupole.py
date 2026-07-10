@@ -46,7 +46,7 @@ import numpy as np
 
 from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 from atomx.constants import BOHR_RADIUS_M
-from atomx.prop.hyperfine.dipole import HARTREE_MHZ
+from atomx.properties.hyperfine.dipole import HARTREE_MHZ
 
 
 # 1 barn = 1e-24 cm² in Bohr² — exact with CODATA Bohr radius
@@ -137,7 +137,7 @@ def hyperfine_B(
     Returns
     -------
     float
-        ``B`` in Hartree.  Multiply by :data:`~atomx.prop.hyperfine.dipole.HARTREE_MHZ`
+        ``B`` in Hartree.  Multiply by :data:`~atomx.properties.hyperfine.dipole.HARTREE_MHZ`
         (imported here for convenience) to get MHz.
     """
     if kappa == 0:

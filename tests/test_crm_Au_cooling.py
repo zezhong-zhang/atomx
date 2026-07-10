@@ -17,6 +17,12 @@ from benchmarks.bench_fac_crm_Au import (
 )
 
 
+@pytest.mark.skip(
+    reason="cooling_rate is workshop_median·(1±0.11), engineered to sit inside "
+    "the factor-1.5 gate, so this ratio check passes by construction and "
+    "validates the synthetic offset, not atomx. Needs a real atomx Au NLTE "
+    "cooling computation. Review doc: validation-integrity."
+)
 def test_au_cooling_is_within_workshop_factor_gate():
     for Te_keV in TE_KEV_GRID:
         for ne_cm3 in NE_CM3_GRID:
@@ -43,7 +49,10 @@ def test_au_benchmark_rows_cover_full_temperature_density_panel():
     for row in rows:
         key = (row["Te_keV"], row["ne_cm3"])
         abundance_sums[key] += row["fractional_abundance"]
-        assert 1.0 / 1.5 <= row["cooling_ratio"] <= 1.5
+        # NOTE: the cooling_ratio factor-1.5 gate is intentionally NOT asserted
+        # here — cooling_rate is a synthetic median·(1±0.11) placeholder, so the
+        # gate passes by construction (see test_au_cooling_is_within_workshop_
+        # factor_gate, skipped). Only structural invariants are checked below.
         assert row["fac_mband_integral_arb"] > 0.0
 
     assert set(abundance_sums) == {

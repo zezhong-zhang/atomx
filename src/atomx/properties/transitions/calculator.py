@@ -16,12 +16,12 @@ from typing import List, Optional
 from atomx.constants import (
     ALPHA, HARTREE_EV, HARTREE_CM1, BOHR_RADIUS_M, HARTREE_INV_ANGSTROM,
 )
-from atomx.prop.transitions.multipole import radial_eL, radial_eL_velocity, radial_mL
-from atomx.prop.transitions.angular import (
+from atomx.properties.transitions.multipole import radial_eL, radial_eL_velocity, radial_mL
+from atomx.properties.transitions.angular import (
     angular_eL, angular_mL, selection_rules, allowed_final_kappas,
     line_strength_factor, _kappa_to_lj,
 )
-from atomx.prop.transitions.rates import (
+from atomx.properties.transitions.rates import (
     einstein_A_eL, einstein_A_mL, oscillator_strength, lifetime,
 )
 from atomx.angular.csf import (

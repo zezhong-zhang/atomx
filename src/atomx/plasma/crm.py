@@ -24,7 +24,7 @@ import numpy as np
 from scipy import linalg
 from scipy.integrate import solve_ivp
 
-from atomx.constants import HARTREE_EV, BOLTZMANN_EV
+from atomx.constants import HARTREE_EV, BOLTZMANN_EV, RYDBERG_EV
 
 
 @dataclass
@@ -657,7 +657,7 @@ def _channel_photoionization_rate_s(
 
 
 def _hydrogenic_sigma0_cm2(ionization_potential_eV: float) -> float:
-    return 6.3043e-18 * (13.605693122994 / ionization_potential_eV)
+    return 6.3043e-18 * (RYDBERG_EV / ionization_potential_eV)
 
 
 def _kramers_photoionization_sigma_cm2(

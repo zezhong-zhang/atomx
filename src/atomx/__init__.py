@@ -34,7 +34,7 @@ from atomx.results import (
 )
 from atomx import fitting  # noqa: F401
 from atomx import lineshapes  # noqa: F401
-from atomx import prop  # noqa: F401  — observables (hyperfine, transitions, isotope_shift, zeeman, …)
+from atomx import properties  # noqa: F401  — observables (hyperfine, transitions, isotope_shift, zeeman, …)
 from atomx import scattering  # noqa: F401  — photoionization, autoionization, DR, distorted_wave
 from atomx import spectrum  # noqa: F401
 from atomx import units  # noqa: F401  always importable; pint-optional

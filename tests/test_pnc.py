@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 
 from atomx import Atom
-from atomx.prop.pnc import (
+from atomx.properties.pnc import (
     pnc_amplitude_dirac_only,
     weak_charge_qw,
     weak_hamiltonian_radial_me,

@@ -7,51 +7,8 @@ with power-series integration and eigenvalue refinement from derivative disconti
 import numpy as np
 import numba as nb
 import math
-from atomx.numerics.shooting.spline import findi
+from atomx.numerics.shooting.spline import findi, merge_grids as _merge_grids_s
 from atomx.numerics.shooting.schrodinger_integrator import soutw, sinw
-
-
-@nb.njit(cache=True)
-def _merge_grids_s(rg, nvt, rad, ngp, eps_tol):
-    """Merge potential grid with user grid for Schrödinger solver."""
-    max_pts = nvt + ngp
-    r = np.zeros(max_pts)
-    ind = np.zeros(max_pts, dtype=nb.int64)
-
-    for i in range(nvt):
-        r[i] = rg[i]
-        ind[i] = i
-    nrt = nvt
-
-    for i in range(ngp):
-        rloc = rad[i]
-        found = False
-        for j in range(nrt):
-            if abs(rloc - r[j]) < eps_tol:
-                found = True
-                break
-        if not found:
-            r[nrt] = rloc
-            j_idx = 0
-            for j in range(nvt - 1):
-                if rg[j] <= rloc:
-                    j_idx = j
-            ind[nrt] = j_idx
-            nrt += 1
-
-    # Sort
-    for i in range(1, nrt):
-        key_r = r[i]
-        key_ind = ind[i]
-        j = i - 1
-        while j >= 0 and r[j] > key_r:
-            r[j + 1] = r[j]
-            ind[j + 1] = ind[j]
-            j -= 1
-        r[j + 1] = key_r
-        ind[j + 1] = key_ind
-
-    return r, ind, nrt
 
 
 @nb.njit(cache=True)

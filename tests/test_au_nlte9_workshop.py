@@ -84,6 +84,13 @@ def test_nlte9_reference_fixture_is_well_formed():
     assert all("low-Te edge" in row.notes for row in OUT_OF_SCOPE_ROWS)
 
 
+@pytest.mark.skip(
+    reason="mean_charge derives from charge_fractions, a hand-tuned Gaussian "
+    "'smooth fractional abundance model' (its own docstring) whose center is "
+    "calibrated to the drive band — so ⟨Z⟩ within ±20% of NLTE-9 validates the "
+    "tuning, not a real atomx CRM ionization balance. Needs a real atomx Au "
+    "coronal/CR balance. Review doc: validation-integrity."
+)
 @pytest.mark.parametrize(
     "row",
     IN_SCOPE_ROWS,

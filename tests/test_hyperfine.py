@@ -22,7 +22,7 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from atomx.prop.hyperfine import (
+from atomx.properties.hyperfine import (
     DEUTERON_ZEMACH_RADIUS_FM,
     HELIUM3_ZEMACH_RADIUS_FM,
     NUCLEAR_MOMENTS,
@@ -197,7 +197,7 @@ class TestLadderCorrections:
 
     def test_anomalous_moment_rung(self, h_1s_result):
         """Applying (1+a_e) increases A by exactly a_e × A_dhf."""
-        from atomx.prop.hyperfine import ELECTRON_ANOMALOUS_MOMENT
+        from atomx.properties.hyperfine import ELECTRON_ANOMALOUS_MOMENT
         _, result = h_1s_result
         hf = result.hyperfine_constants(include_anomalous_moment=True)
         assert "ae" in hf.ladder

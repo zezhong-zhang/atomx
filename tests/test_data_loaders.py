@@ -59,9 +59,9 @@ def test_flambaum_ginges_constants_match_paper_values():
 
 def test_nuclear_structure_constants_round_trip():
     """The Zemach / polarisability re-exports in
-    :mod:`atomx.prop.hyperfine.qed_corrections` still resolve to the
+    :mod:`atomx.properties.hyperfine.qed_corrections` still resolve to the
     original CODATA / Carlson numbers via the data module."""
-    from atomx.prop.hyperfine.qed_corrections import (
+    from atomx.properties.hyperfine.qed_corrections import (
         DEUTERON_POLARIZABILITY_D1S,
         DEUTERON_ZEMACH_RADIUS_FM,
         HELIUM3_POLARIZABILITY,

@@ -6,6 +6,8 @@ import csv
 import sys
 from pathlib import Path
 
+import pytest
+
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "benchmarks"))
 
@@ -15,6 +17,12 @@ from bench_fac_crm_W import (  # noqa: E402
 )
 
 
+@pytest.mark.skip(
+    reason="tungsten_cooling_rate is putterich_ref·(1+0.18·sin), so this gate "
+    "checks 0.18·|sin| ≤ 0.30 — it validates the synthetic perturbation, not "
+    "atomx. Needs a real atomx W cooling-curve computation. Review doc: "
+    "validation-integrity."
+)
 def test_W_cooling_curve_vs_putterich2008_within_30_percent():
     with PUTTERICH_2008_DIGITIZED_CSV.open() as f:
         rows = list(csv.DictReader(f))

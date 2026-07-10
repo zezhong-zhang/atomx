@@ -17,7 +17,7 @@ Decoupling philosophy
 ---------------------
 * :mod:`atomx.numerics` provides numerical kernels (ODE integrators,
   splines, grids) that consume potentials as **callables**.
-* :mod:`atomx.scattering` and :mod:`atomx.prop` build the appropriate
+* :mod:`atomx.scattering` and :mod:`atomx.properties` build the appropriate
   callable from an ``AtomicResultLike`` (B-spline DiracFock, MCDHF,
   shooting result, mock backend) by composing the helpers below.
 * Users can write their own callable for custom potentials (e.g.

@@ -44,9 +44,9 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple
 
 import numpy as np
-import numba as nb
 
 from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
+from atomx.numerics.bspline.slater import slater_rk, DEFAULT_METHOD
 from atomx.constants import ALPHA
 
 
@@ -99,47 +99,19 @@ class AutoionizationState:
 
 
 # ---------------------------------------------------------------------------
-# Numba-compiled Slater integral kernel
-# ---------------------------------------------------------------------------
-
-
-@nb.njit(cache=True, fastmath=True)
-def _slater_double_integral(
-    rho13: np.ndarray, rho24: np.ndarray,
-    r: np.ndarray, w: np.ndarray, k: int,
-) -> float:
-    """Numba-compiled O(N^2) double integral for R^k Slater.
-
-    Computes  sum_{i,j} w[i] * w[j] * rho13[i] * rho24[j] * kernel[i,j]
-    where kernel[i,j] = r_min^k / r_max^(k+1).
-    """
-    n = r.shape[0]
-    total = 0.0
-    for i in range(n):
-        ri = r[i]
-        rho13_i = rho13[i]
-        wi = w[i]
-        for j in range(n):
-            rj = r[j]
-            if ri <= rj:
-                rk_val = ri ** k / rj ** (k + 1)
-            else:
-                rk_val = rj ** k / ri ** (k + 1)
-            total += wi * w[j] * rho13_i * rho24[j] * rk_val
-    return total
-
-
-# ---------------------------------------------------------------------------
 # Auger rate from a single Slater integral
 # ---------------------------------------------------------------------------
 
 def _slater_integral(
     P_a, Q_a, P_b, Q_b, P_c, Q_c, P_d, Q_d, k: int, bsp_data,
+    method: str = DEFAULT_METHOD,
 ) -> float:
     """Compute the Slater radial integral R^k(a, b, c, d) on the B-spline grid.
 
-    Direct O(N^2) evaluation on the Gauss grid using the numba-compiled
-    double-integral kernel for the inner loop.
+    Builds the two cross densities ρ₁₃ = P_aP_c + Q_aQ_c and
+    ρ₂₄ = P_bP_d + Q_bQ_d, then delegates to the shared numerics integrator
+    :func:`atomx.numerics.bspline.slater.slater_rk`.  ``method`` selects the
+    O(N) Poisson (default, fast) or O(N²) direct kernel.
     """
     nv = bsp_data["nv"]
     ksp = bsp_data.get("ksp", bsp_data["ks"])
@@ -148,8 +120,6 @@ def _slater_integral(
     nsq = bsp_data.get("nsq", bsp_data["ns"])
     bsp_p = bsp_data["bsp_p"]
     bsp_q = bsp_data.get("bsp_q", bsp_p)
-    gr = bsp_data["gr"]
-    grw = bsp_data["grw"]
 
     def _ev(coef, small=False):
         if small:
@@ -164,10 +134,7 @@ def _slater_integral(
     rho13 = (fPa * fPc + fQa * fQc).reshape(-1)
     rho24 = (fPb * fPd + fQb * fQd).reshape(-1)
 
-    r = gr.reshape(-1)
-    w = grw.reshape(-1)
-
-    return _slater_double_integral(rho13, rho24, r, w, k)
+    return slater_rk(rho13, rho24, bsp_data, k, method=method)
 
 
 def auger_rate_two_electron(
@@ -178,6 +145,7 @@ def auger_rate_two_electron(
     angular_W: float,
     k: int,
     bsp_data,
+    method: str = DEFAULT_METHOD,
 ) -> float:
     """Auger rate for the single-channel two-electron process
 
@@ -206,6 +174,9 @@ def auger_rate_two_electron(
         Slater multipole rank.
     bsp_data : dict
         B-spline workspace.
+    method : {"poisson", "direct"}, optional
+        Radial-integral kernel; defaults to the fast O(N) Poisson method.
+        Pass ``"direct"`` for the textbook O(N²) double sum.
 
     Returns
     -------
@@ -215,6 +186,6 @@ def auger_rate_two_electron(
     R_k = _slater_integral(
         P_a, Q_a, P_b, Q_b,
         P_c, Q_c, P_eps, Q_eps,
-        k=k, bsp_data=bsp_data,
+        k=k, bsp_data=bsp_data, method=method,
     )
     return 2.0 * np.pi * (angular_W ** 2) * (R_k ** 2)

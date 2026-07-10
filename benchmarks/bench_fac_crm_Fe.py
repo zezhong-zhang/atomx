@@ -137,6 +137,22 @@ def _normalised_gaussian(center: float, width: float = 1.10) -> np.ndarray:
 
 
 def _reference_balance() -> dict[float, dict[str, np.ndarray]]:
+    """⚠️ SYNTHETIC PLACEHOLDER — NOT a real code comparison.
+
+    Every column here is fabricated from one Gaussian: ``chianti`` is a
+    made-up Gaussian ion-fraction distribution, and ``fac``/``atomx`` are
+    that same Gaussian multiplied by small deterministic perturbations
+    (linear ramp / ``sin``).  **No atomx CRM calculation is run and no real
+    CHIANTI/FAC data is used.**  Consequently any test that asserts
+    "atomx ≈ fac" over this dict is checking ``sin(0.045) ≈ linear(0.035)``,
+    i.e. it validates the fabrication, not the physics.
+
+    A genuine validation requires (a) real published CHIANTI Fe coronal
+    ion-balance data and (b) a real atomx ``coronal_charge_balance`` run
+    with EII/RR/DR rate coefficients per stage.  Until both are wired,
+    treat these rows as shape/normalisation fixtures only.  See
+    ``docs/CRITICAL_REVIEW_2026-07-09.md`` (validation-integrity).
+    """
     centers = {
         0.2: 16.55,
         0.5: 17.55,
@@ -182,7 +198,15 @@ def coronal_balance_rows() -> list[dict[str, float | str | int]]:
 
 
 def line_ratio_rows() -> list[dict[str, float | str | int]]:
-    """Return Fe XVII 3C/3D line-ratio comparison rows."""
+    """Return Fe XVII 3C/3D line-ratio comparison rows.
+
+    ⚠️ SYNTHETIC PLACEHOLDER — the ``atomx`` column is the Bernitt-2012
+    *experimental* value plus tiny deterministic log(Te)/log(ne) terms, not a
+    real atomx line-ratio calculation.  A test asserting ``|atomx − bernitt| ≤
+    σ`` therefore checks ``|t_term + n_term| ≤ σ`` — it validates the
+    fabrication, not atomx.  Needs a real atomx Fe XVII 3C/3D computation.
+    See ``docs/CRITICAL_REVIEW_2026-07-09.md`` (validation-integrity).
+    """
     rows: list[dict[str, float | str | int]] = []
     for Te in LINE_TEMPERATURES_EV:
         for ne in LINE_DENSITIES_CM3:

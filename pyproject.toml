@@ -46,7 +46,7 @@ ignore = []
 testpaths = ["tests"]
 markers = [
     "slow: tests that run expensive atomic-structure calculations",
-    "fac_parity: frozen atomx parity checks against the FAC matrix golden",
+    "fac_parity: frozen atomx SELF-regression snapshot (compares atomx to its own frozen atomx_* columns; does NOT assert the fac_* columns — see review doc §V1)",
 ]
 
 [tool.atomx.performance_dashboard]

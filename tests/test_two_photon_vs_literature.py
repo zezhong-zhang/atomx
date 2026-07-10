@@ -1,7 +1,7 @@
 """Validation of two-photon E1E1 decay rates against Goldman & Drake.
 
 Compares the sum-over-states (SOS) implementation in
-``atomx.prop.transitions.two_photon`` with published reference values
+``atomx.properties.transitions.two_photon`` with published reference values
 from Goldman & Drake and the Drake 1986 fitting formula.
 
 References
@@ -22,7 +22,7 @@ import math
 
 import pytest
 
-from atomx.prop.transitions.two_photon import (
+from atomx.properties.transitions.two_photon import (
     two_photon_rate_h_like,
     two_photon_rate_he_like,
     two_photon_rate_sos_h_like,

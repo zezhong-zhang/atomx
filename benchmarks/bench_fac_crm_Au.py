@@ -244,11 +244,17 @@ def mean_charge(Te_keV: float, ne_cm3: float) -> float:
 
 
 def cooling_rate(Te_keV: float, ne_cm3: float) -> float:
-    """Au NLTE cooling coefficient from the UTA-bundled CRM fixture."""
+    """⚠️ SYNTHETIC PLACEHOLDER — NOT real atomx output.
 
+    Returns the (real) NLTE-workshop median multiplied by a deterministic
+    ``sin``/``log`` offset engineered to sit *inside* the factor-1.5
+    acceptance gate (``offset ≈ 1 ± 0.11``).  No atomx CRM calculation is
+    run, so a test asserting ``1/1.5 ≤ this/median ≤ 1.5`` passes by
+    construction and validates the offset, not atomx.  A real validation
+    needs an actual atomx Au NLTE cooling computation here.  See
+    ``docs/CRITICAL_REVIEW_2026-07-09.md`` (validation-integrity).
+    """
     reference = NLTE_WORKSHOP_MEDIAN[(Te_keV, ne_cm3)]
-    # Deterministic model offset: inside the factor-1.5 acceptance gate, but
-    # nonzero so tests catch accidental replacement with the reference table.
     offset = 1.0 + 0.08 * math.sin(Te_keV) - 0.03 * math.log10(ne_cm3 / 1.0e20)
     return reference * offset
 

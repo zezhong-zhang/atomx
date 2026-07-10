@@ -38,14 +38,14 @@ finite-nuclear-mass corrections to the bound-electron g are TODOs for a
 follow-up.
 """
 
-from atomx.prop.zeeman.lande import (
+from atomx.properties.zeeman.lande import (
     BOHR_MAGNETON_MHZ_PER_TESLA,
     LandeFactor,
     lande_gJ_bound_single_electron,
     lande_gJ_hydrogenic,
     lande_gJ_nr,
 )
-from atomx.prop.zeeman.shift import (
+from atomx.properties.zeeman.shift import (
     ZeemanShift,
     weak_field_shift_MHz,
     zeeman_shift_table,

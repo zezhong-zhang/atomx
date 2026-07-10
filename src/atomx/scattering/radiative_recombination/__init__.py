@@ -60,8 +60,8 @@ from atomx.numerics.bspline.continuum import (
     photoionization_cross_section,
     solve_continuum,
 )
-from atomx.prop.transitions.angular import allowed_final_kappas, line_strength_factor
-from atomx.prop.transitions.multipole import radial_eL, radial_mL
+from atomx.properties.transitions.angular import allowed_final_kappas, line_strength_factor
+from atomx.properties.transitions.multipole import radial_eL, radial_mL
 from atomx.scattering.models import ContinuumModel
 
 

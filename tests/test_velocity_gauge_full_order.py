@@ -1,7 +1,7 @@
 """Full-order velocity gauge for EL (L >= 1) — Grant 2007 §8.4 validation.
 
 Exercises the derivative-free velocity-gauge radial integral
-:func:`~atomx.prop.transitions.multipole.radial_eL_velocity` for all
+:func:`~atomx.properties.transitions.multipole.radial_eL_velocity` for all
 multipole ranks L = 1…4, covering every (κ_i, κ_f) channel accessible in
 hydrogenic Dirac–Coulomb states.  For exact eigenstates of the common
 Hamiltonian the velocity gauge must reproduce the length gauge to numerical
@@ -13,9 +13,9 @@ from __future__ import annotations
 import pytest
 
 from atomx.numerics.analytic.hydrogenic_dirac import hydrogenic_dirac_wavefunction
-from atomx.prop.transitions.angular import angular_eL
-from atomx.prop.transitions.multipole import radial_eL, radial_eL_velocity
-from atomx.prop.transitions.rates import einstein_A_eL
+from atomx.properties.transitions.angular import angular_eL
+from atomx.properties.transitions.multipole import radial_eL, radial_eL_velocity
+from atomx.properties.transitions.rates import einstein_A_eL
 
 
 def _gauge_ratio(n_lo: int, k_lo: int, n_up: int, k_up: int,

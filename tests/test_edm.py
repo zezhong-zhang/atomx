@@ -3,7 +3,7 @@
 import pytest
 
 from atomx import Atom
-from atomx.prop.edm import (
+from atomx.properties.edm import (
     EDMResult,
     compute,
     edm_summary,

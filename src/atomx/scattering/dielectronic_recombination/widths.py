@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from typing import Callable
 
-from atomx.prop.transitions.angular import angular_eL, selection_rules
-from atomx.prop.transitions.multipole import radial_eL
-from atomx.prop.transitions.rates import einstein_A_eL
+from atomx.properties.transitions.angular import angular_eL, selection_rules
+from atomx.properties.transitions.multipole import radial_eL
+from atomx.properties.transitions.rates import einstein_A_eL
 from atomx.scattering.dielectronic_recombination.enumerate import DRResonanceSpec
 
 
