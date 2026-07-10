@@ -15,7 +15,14 @@ from atomx.constants import ALPHA, AU_RATE_PER_S
 
 
 def _double_factorial(n):
-    """Compute (2n+1)!! = 1*3*5*...*(2n+1)."""
+    """Odd double factorial ``n!! = 1*3*5*...*n`` (n odd).
+
+    NOTE the argument convention: this returns ``n!!``, NOT ``(2n+1)!!``.
+    To get the ``(2L+1)!!`` factor of the Einstein-A prefactor, call
+    ``_double_factorial(2*L + 1)`` (as :func:`einstein_A_eL` does).  Examples:
+    ``_double_factorial(3) == 3``, ``_double_factorial(5) == 15``,
+    ``_double_factorial(7) == 105``.
+    """
     result = 1
     for i in range(1, n + 1, 2):
         result *= i
