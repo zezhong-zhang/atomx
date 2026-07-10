@@ -38,6 +38,33 @@ Three classes of problem stand between the current state and the goal:
 
 Severity: 🔴 correctness/integrity · 🟠 design/performance · 🟡 quality.
 
+## Remediation status (2026-07-10)
+
+All three problem classes have been actioned; every finding below carries an inline
+`[FIXED]` / `[RESOLVED]` / verified-status note. Highlights:
+
+1. **Accuracy defects** — single-sourced constants (A1); SMS radial operator corrected, ~4
+   orders of magnitude (A2); He-like M1 shown to be *under-convergence*, not a bug, and made
+   to pass without a fudge (A4); RKB exposed as a validated opt-in (A3); flagship + QED/Breit
+   accuracy gates tightened up to 1500× so regressions actually trip (A5, A6).
+2. **Structural/performance** — Auger Slater O(N²)→O(N), **188×** (D1); the SCF convolution
+   `prange`-on-tiny-work pathology fixed, **9.3×** on the core solve (P1); O(N³) evaluator→O(N)
+   (D2); `dirac_fock` god-file −520 lines via mixin (D3); `merge_grids` deduped (D4); Rydberg
+   single-sourced + `_double_factorial` docstring trap fixed (D5); `prop`→`properties` (D6);
+   methods↔properties cycle broken (D7); dead modules verified before deletion — one stale
+   "delete" claim caught that would have broken the suite (D8).
+3. **Validation integrity** — the self-referential FAC-parity gate renamed + documented (V1);
+   the fabricated CRM benchmarks (sin-perturbation / verbatim FAC copy / tuned Gaussian) each
+   labelled synthetic with their fabricated-agreement tests skipped and the vacuous algebra
+   spelled out (V2).
+
+Every change is validated by byte-identical/known-answer checks; 1276 tests collect clean,
+zero regressions (the one suite failure — a DR-config `ValueError` — is pre-existing,
+confirmed on clean HEAD). **Genuinely gated (need external resources), documented in place:**
+real CHIANTI/FAC references + a working `sfac` to turn V1/V2 into *real* validations; a full
+LS-coupled Breit–Pauli M1 operator for the intercombination line's residual ~12% (A4); and
+full-suite CI budget to split `DFSolver.solve()` (D3) safely.
+
 ---
 
 ## 🔴 Accuracy & correctness
