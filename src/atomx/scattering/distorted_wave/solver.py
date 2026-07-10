@@ -18,9 +18,9 @@ import numpy as np
 from atomx.constants import ALPHA, C_SQ, HARTREE_EV, BOHR_RADIUS_M
 from atomx.numerics.bspline.continuum import solve_continuum
 from atomx.numerics.bspline.convol import ConvolCache, compute_slater_rk_cell
-from atomx.prop.transitions.angular import _kappa_to_lj, selection_rules, angular_eL
-from atomx.prop.transitions.multipole import radial_eL
-from atomx.prop.transitions.rates import oscillator_strength
+from atomx.properties.transitions.angular import _kappa_to_lj, selection_rules, angular_eL
+from atomx.properties.transitions.multipole import radial_eL
+from atomx.properties.transitions.rates import oscillator_strength
 from atomx.angular.csf import csf_parity, csf_twice_j, one_body_csf_coupling
 from atomx.angular.wigner import wigner_3j, wigner_6j
 from atomx.methods.mcdhf.config import CSF

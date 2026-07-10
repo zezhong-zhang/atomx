@@ -37,7 +37,11 @@ def test_w_panel_has_expected_charge_states_and_configs():
 
 def test_w_fractional_abundance_gate_against_fac_fixture():
     metrics = write_results_csv(RESULTS_CSV)
-    assert metrics["fractional_abundance_rms"] <= 0.30
+    # NOTE: the atomx fractional-abundance column is a verbatim copy of the FAC
+    # fixture (see bench_fac_crm_W: `abund = dict(fac_abund)`), so the rms is
+    # identically 0 — asserting `rms <= 0.30` validates nothing about atomx and
+    # is intentionally NOT checked here. The remaining assertions validate that
+    # the FAC fixture itself is real (sfac Structure/TransitionTable output).
     assert metrics["fac_structure_runs"] == 9.0
     assert metrics["fac_transition_rows"] > 0.0
     with RESULTS_CSV.open() as f:
@@ -53,6 +57,12 @@ def test_w_fractional_abundance_gate_against_fac_fixture():
         assert row["adas_fraction"] == ""
 
 
+@pytest.mark.skip(
+    reason="tungsten_cooling_rate is putterich_ref·(1+0.18·sin), so factor ≤ "
+    "1.18 ≤ 2.0 by construction — validates the synthetic perturbation, not "
+    "atomx. Needs a real atomx W cooling-curve computation. Review doc: "
+    "validation-integrity."
+)
 def test_w_cooling_rate_within_putterich_factor_two():
     for Te in COOLING_TEV:
         atomx = tungsten_cooling_rate(Te)

@@ -165,6 +165,7 @@ C_SQ = C * C
 # Energy conversions from Hartree (derived from CODATA)
 HARTREE_J = _active["_Ha_J"]
 HARTREE_EV = HARTREE_J / _active["_e"]                     # 1 Ha / (1 eV)
+RYDBERG_EV = 0.5 * HARTREE_EV                              # 1 Ry = Ha/2 in eV (~13.6057)
 HARTREE_CM1 = HARTREE_J / (100.0 * _active["_hplanck"] * _active["_c"])  # 1 Ha / cm^-1
 
 # Length

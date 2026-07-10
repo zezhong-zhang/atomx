@@ -23,7 +23,9 @@ from atomx.numerics.bspline.knots import make_knots
 from atomx.numerics.bspline.basis import prepare_bspline_data
 from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
 from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
-from atomx.prop.transitions.angular import line_strength_factor
+# NOTE: ``line_strength_factor`` (a pure angular quantity in the properties
+# layer) is imported lazily inside ``photoionization_cross_section`` to avoid a
+# numerics -> properties layer inversion at module-load time.
 
 
 def continuum_energy_normalization_factor(energy, bsp_data):
@@ -210,6 +212,8 @@ def photoionization_cross_section(bound_P, bound_Q, bound_kappa, bound_energy,
         final_kappas.append(-(l_f + 1))  # kappa for j = l+1/2
         if l_f > 0:
             final_kappas.append(l_f)      # kappa for j = l-1/2
+
+    from atomx.properties.transitions.angular import line_strength_factor
 
     for idx, omega in enumerate(photon_energies):
         electron_energy = omega + bound_energy  # kinetic energy of photoelectron

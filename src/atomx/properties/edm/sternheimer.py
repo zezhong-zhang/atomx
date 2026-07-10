@@ -32,8 +32,8 @@ where ``D = r C¹`` is the E1 operator, ``h_d = H_d / d_e``, and ``occ_w`` is
 the subshell occupation weight.  Expanding the sum over the ``V^{N-1}``
 virtual basis reuses the existing polarisability infrastructure
 (:func:`atomx.methods.mbpt._build_virtual_basis`,
-:func:`~atomx.prop.transitions.multipole.radial_eL`,
-:func:`~atomx.prop.transitions.angular.angular_eL`).
+:func:`~atomx.properties.transitions.multipole.radial_eL`,
+:func:`~atomx.properties.transitions.angular.angular_eL`).
 
 Near the nucleus the electron sees the full unscreened nuclear charge, so
 the field kernel is taken as ``E(r) = Z/r²`` from the bare Coulomb potential
@@ -41,7 +41,7 @@ the field kernel is taken as ``E(r) = Z/r²`` from the bare Coulomb potential
 screening of the field and finite-nuclear-size regularisation are not yet
 folded in; together with the single-configuration (Dirac–Fock) reference
 this places the calculation at the usual ~factor-of-2 accuracy of the
-scaling formulas in :mod:`atomx.prop.edm.scaling`.  ``R_e`` is returned
+scaling formulas in :mod:`atomx.properties.edm.scaling`.  ``R_e`` is returned
 unsigned-magnitude-correct; the overall sign is convention/phase dependent
 (see Sandars scaling, which is also unsigned).
 
@@ -65,10 +65,10 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 
-from atomx.methods.mbpt import _build_virtual_basis, _l_from_kappa
+from atomx.angular.coefficients import _l_from_kappa
 from atomx.numerics.bspline.convol import ConvolCache
-from atomx.prop.transitions.angular import angular_eL, selection_rules
-from atomx.prop.transitions.multipole import radial_eL, _eval_P, _eval_Q
+from atomx.properties.transitions.angular import angular_eL, selection_rules
+from atomx.properties.transitions.multipole import radial_eL, _eval_P, _eval_Q
 
 
 # ---------------------------------------------------------------------------
@@ -113,7 +113,7 @@ def _tp_odd_radial_me(P_a, Q_a, P_r, Q_r, bsp_data, *, Z: float) -> float:
     ``β γ⁵`` block (off-diagonal in the Dirac representation) mixes the large
     and small spinor components, giving a large–small cross integral — the
     same structure as the PNC weak matrix element
-    (:func:`atomx.prop.pnc.weak_hamiltonian_radial_me`) and the magnetic
+    (:func:`atomx.properties.pnc.weak_hamiltonian_radial_me`) and the magnetic
     multipoles.  Per unit ``d_e`` (the ``d_e`` cancels in the enhancement
     factor ``R_e = d_atom/d_e``):
 
@@ -327,6 +327,11 @@ def sternheimer_edm_enhancement(
     occ_basis: Dict[int, List[Tuple[np.ndarray, np.ndarray, float, str]]] = {}
     virt_basis: Dict[int, List[Tuple[np.ndarray, np.ndarray, float]]] = {}
 
+    # Deferred import: _build_virtual_basis is a mean-field (methods-layer)
+    # service; importing it lazily keeps properties → methods off the
+    # module-load path (avoids the layer inversion).
+    from atomx.methods.mbpt import _build_virtual_basis
+
     for kappa in kappa_list:
         occ, virt = _build_virtual_basis(
             scf_result, kappa, cache=cache, e_max=e_virt_max,
@@ -408,7 +413,7 @@ def sternheimer_edm_enhancement(
     elapsed = time.time() - t0
 
     # ── Compare with Sandars scaling ────────────────────────────────────
-    from atomx.prop.edm.scaling import electron_edm_enhancement_sandars
+    from atomx.properties.edm.scaling import electron_edm_enhancement_sandars
 
     sandars_R = 0.0
     if Z is not None and target_shells:

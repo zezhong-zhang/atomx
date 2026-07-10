@@ -5,7 +5,7 @@ For exact eigenstates of a common Dirac-Coulomb Hamiltonian the Babushkin
 operator agree exactly; for any approximate basis their ratio is the
 FAC-style gauge-invariance diagnostic (Gu 2008, *Can. J. Phys.* 86, 675,
 §3.2; Grant 2007, §8.4). This module exercises the new
-``gauge='both'`` path on :class:`atomx.prop.transitions.TransitionCalculator`
+``gauge='both'`` path on :class:`atomx.properties.transitions.TransitionCalculator`
 and gates the hydrogenic ratio at numerical precision.
 
 The full (κ_i, κ_f)-dependent velocity-gauge reduction for the *other*
@@ -19,9 +19,9 @@ from __future__ import annotations
 import pytest
 
 from atomx.numerics.analytic.hydrogenic_dirac import hydrogenic_dirac_wavefunction
-from atomx.prop.transitions.angular import angular_eL
-from atomx.prop.transitions.multipole import radial_eL, radial_eL_velocity
-from atomx.prop.transitions.rates import einstein_A_eL
+from atomx.properties.transitions.angular import angular_eL
+from atomx.properties.transitions.multipole import radial_eL, radial_eL_velocity
+from atomx.properties.transitions.rates import einstein_A_eL
 
 
 def _hydrogenic_e1_gauge_ratio(n_lo: int, k_lo: int,
@@ -32,7 +32,7 @@ def _hydrogenic_e1_gauge_ratio(n_lo: int, k_lo: int,
     Uses :func:`hydrogenic_dirac_wavefunction` to obtain numerically exact
     Dirac-Coulomb orbitals on a shared B-spline basis (so both transition
     legs are eigenstates of the *same* Hamiltonian), then calls
-    :mod:`atomx.prop.transitions` directly. This isolates the gauge
+    :mod:`atomx.properties.transitions` directly. This isolates the gauge
     diagnostic from any SCF averaging / configuration-mixing residuals.
     """
     P_lo, Q_lo, bsp, E_lo = hydrogenic_dirac_wavefunction(n_lo, k_lo, Z, ns=ns, ks=ks)

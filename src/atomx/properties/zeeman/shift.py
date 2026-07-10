@@ -21,7 +21,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Dict, List, Tuple
 
-from atomx.prop.zeeman.lande import BOHR_MAGNETON_MHZ_PER_TESLA, LandeFactor
+from atomx.properties.zeeman.lande import BOHR_MAGNETON_MHZ_PER_TESLA, LandeFactor
 
 
 @dataclass
@@ -68,7 +68,7 @@ def zeeman_shift_table(
     Parameters
     ----------
     lande : LandeFactor
-        Output of :func:`atomx.prop.zeeman.lande.lande_factor`.
+        Output of :func:`atomx.properties.zeeman.lande.lande_factor`.
     B_Tesla : float
         External magnetic-field magnitude in tesla.
     g_source : str

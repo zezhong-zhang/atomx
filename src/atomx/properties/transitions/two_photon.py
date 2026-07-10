@@ -241,7 +241,7 @@ def _hydrogenic_all_states(Z, kappa, ns=80, ks=9, bsp_data=None):
 
 def _e1_matrix_element(P_a, Q_a, P_b, Q_b, bsp_data):
     """Radial E1 matrix element between two B-spline orbital pairs."""
-    from atomx.prop.transitions.multipole import radial_eL
+    from atomx.properties.transitions.multipole import radial_eL
     return radial_eL(P_a, Q_a, P_b, Q_b, bsp_data, L=1)
 
 
@@ -295,7 +295,7 @@ def two_photon_rate_sos_h_like(Z, ns=80, ks=9, n_omega=200):
     """
     if Z < 1:
         raise ValueError("two_photon_rate_sos_h_like: Z must be >= 1")
-    from atomx.prop.transitions.angular import angular_eL
+    from atomx.properties.transitions.angular import angular_eL
 
     kappa_s = -1   # s_{1/2}
     kappa_p12 = 1  # p_{1/2}

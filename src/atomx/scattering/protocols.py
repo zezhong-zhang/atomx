@@ -24,7 +24,7 @@ Two layers of protocol:
     - ``_bsp_data`` (or equivalent grid data) — kernel-specific blob
       passed through opaquely to the numerical helpers that need it.
 
-Every consumer in ``atomx.scattering`` and ``atomx.prop`` should
+Every consumer in ``atomx.scattering`` and ``atomx.properties`` should
 type-hint its argument as ``AtomicResultLike`` and access only those
 fields.  This way:
 

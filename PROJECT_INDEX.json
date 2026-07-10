@@ -94,7 +94,7 @@
     },
     "potentials": {"path": "src/atomx/potentials/", "files": ["nuclear.py", "thomas_fermi.py", "parametric.py"]},
     "prop": {
-      "path": "src/atomx/prop/",
+      "path": "src/atomx/properties/",
       "purpose": "Derived properties / observables",
       "subpackages": {
         "transitions": ["multipole.py", "angular.py", "rates.py", "calculator.py"],

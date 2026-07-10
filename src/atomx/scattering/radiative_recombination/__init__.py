@@ -60,8 +60,8 @@ from atomx.numerics.bspline.continuum import (
     photoionization_cross_section,
     solve_continuum,
 )
-from atomx.prop.transitions.angular import allowed_final_kappas, line_strength_factor
-from atomx.prop.transitions.multipole import radial_eL, radial_mL
+from atomx.properties.transitions.angular import allowed_final_kappas, line_strength_factor
+from atomx.properties.transitions.multipole import radial_eL, radial_mL
 from atomx.scattering.models import ContinuumModel
 
 
@@ -93,6 +93,9 @@ def _multipole_prefactor_scale(multipole_type: str, L: int, omega: float) -> flo
         raise ValueError("multipole rank L must be >= 1")
     if omega <= 0.0:
         return 0.0
+    # (2L+1)!! = 1*3*5*...*(2L+1); equals
+    # properties.transitions.rates._double_factorial(2*L+1) — kept inline here
+    # to avoid a scattering→properties import. Keep the two in sync.
     dbl_fact = 1
     for n in range(1, 2 * L + 2, 2):
         dbl_fact *= n

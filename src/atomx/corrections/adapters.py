@@ -192,7 +192,7 @@ class NormalMassShiftCorrection:
         return hasattr(result, "total_energy")
 
     def evaluate(self, result: "AtomicResult", **_: Any) -> CorrectionResult:
-        from atomx.prop.isotope_shift.mass_shift import normal_mass_shift
+        from atomx.properties.isotope_shift.mass_shift import normal_mass_shift
 
         shift = normal_mass_shift(
             total_energy=result.total_energy,

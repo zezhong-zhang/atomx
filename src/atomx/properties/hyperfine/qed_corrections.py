@@ -75,7 +75,7 @@ from __future__ import annotations
 
 # Precision constants live in :mod:`atomx.data.nuclear_structure` with
 # full citations.  Re-export them here for backwards compatibility with
-# code that imports ``atomx.prop.hyperfine.qed_corrections.PROTON_ZEMACH_RADIUS_FM``.
+# code that imports ``atomx.properties.hyperfine.qed_corrections.PROTON_ZEMACH_RADIUS_FM``.
 from atomx.data.nuclear_structure import TABLE as _NUC
 
 

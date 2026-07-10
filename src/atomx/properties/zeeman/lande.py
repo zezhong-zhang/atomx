@@ -48,7 +48,7 @@ from dataclasses import dataclass
 from math import sqrt
 
 from atomx.constants import ALPHA
-from atomx.prop.hyperfine.dipole import ELECTRON_ANOMALOUS_MOMENT
+from atomx.properties.hyperfine.dipole import ELECTRON_ANOMALOUS_MOMENT
 
 
 # Bohr magneton in MHz / Tesla — CODATA 2018 derived:
