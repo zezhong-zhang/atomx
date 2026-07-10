@@ -1,6 +1,6 @@
 """Stark shift / external-electric-field perturbations.
 
-Companion to :mod:`atomx.prop.zeeman` for the magnetic field.  When
+Companion to :mod:`atomx.properties.zeeman` for the magnetic field.  When
 both fields are present, use :func:`stark_zeeman_table` to combine
 them into a single (M_J, F, B) shift table — equivalent to FAC's
 ``StructureEB`` knob.
@@ -166,7 +166,7 @@ def stark_zeeman_table(
     list[StarkZeemanShift]
         One entry per (m_J, B, F) point.
     """
-    from atomx.prop.zeeman.shift import weak_field_shift_MHz
+    from atomx.properties.zeeman.shift import weak_field_shift_MHz
     out: List[StarkZeemanShift] = []
     # Build m_J range: −J, −J+1, …, +J
     n_m = int(round(2 * J + 1))

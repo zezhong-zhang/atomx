@@ -101,3 +101,33 @@ class TestBsplineSlaterClosedShell:
         assert E["E_1e"] < 0
         assert E["E_J"] > 0
         assert E["E_K"] >= 0
+
+
+class TestDFSolverKineticBalanceOption:
+    """RKB is a user-selectable option on DFSolver; default preserves the
+    historical unbalanced basis exactly (regression-safe)."""
+
+    def _ne(self, **kw):
+        from atomx.methods.dirac_fock import neon_subshells
+        s = DFSolver(Z=10, subshells=neon_subshells(), ns=50, ks=9,
+                     exchange="hf", **kw)
+        return s, s.solve(max_iter=80, tol=1e-8)
+
+    def test_default_is_unbalanced(self):
+        s, _ = self._ne()
+        assert s.kinetic_balance is False
+        assert s.bsp_data["ksp"] == s.bsp_data["ks"]  # ksp == ksq == ks
+
+    def test_rkb_uses_reduced_order_p_basis(self):
+        s, _ = self._ne(kinetic_balance=True)
+        assert s.kinetic_balance is True
+        assert s.bsp_data["ksp"] == s.bsp_data["ks"] - 1  # P order = ks-1
+        assert s.bsp_data["ksq"] == s.bsp_data["ks"]      # Q order = ks
+
+    def test_rkb_ground_state_energy_matches_unbalanced(self):
+        """RKB removes spurious states without shifting the DHF energy:
+        Ne agrees to ~1e-5 (here machine-precision-close)."""
+        _, r0 = self._ne()
+        _, r1 = self._ne(kinetic_balance=True)
+        rel = abs(r0.total_energy - r1.total_energy) / abs(r0.total_energy)
+        assert rel < 1e-4

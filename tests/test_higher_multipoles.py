@@ -15,7 +15,7 @@ import math
 import pytest
 
 from atomx.constants import ALPHA, AU_RATE_PER_S
-from atomx.prop.transitions.rates import (
+from atomx.properties.transitions.rates import (
     einstein_A_eL,
     einstein_A_mL,
     oscillator_strength,

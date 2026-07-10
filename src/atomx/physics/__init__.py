@@ -20,9 +20,11 @@ Current equations
     Perturbative operators (mass-velocity, Darwin, spin-orbit) for the
     ``BreitPauli`` method — the non-relativistic-limit reduction of
     the Dirac equation.
-:mod:`atomx.physics.two_body`
-    Electron–electron interaction kernels — Coulomb, Breit magnetic,
-    retardation — used by both SCF and post-SCF machinery.
+
+Two-electron interaction kernels live where they are evaluated: the
+Coulomb/Slater radial machinery in :mod:`atomx.numerics.bspline` and
+:meth:`atomx.methods.kohn_sham.compute_slater_rk`, and the Breit
+angular coefficients in :mod:`atomx.corrections.breit`.
 """
 
 from atomx.physics.base import Equation  # noqa: F401

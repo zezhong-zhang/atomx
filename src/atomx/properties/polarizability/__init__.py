@@ -48,10 +48,10 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 
-from atomx.methods.mbpt import _build_virtual_basis, _l_from_kappa
+from atomx.angular.coefficients import _l_from_kappa
 from atomx.numerics.bspline.convol import ConvolCache
-from atomx.prop.transitions.angular import angular_eL, selection_rules
-from atomx.prop.transitions.multipole import radial_eL
+from atomx.properties.transitions.angular import angular_eL, selection_rules
+from atomx.properties.transitions.multipole import radial_eL
 
 
 # ---------------------------------------------------------------------------
@@ -170,6 +170,11 @@ def dipole_polarizability(
 
     occ_basis: Dict[int, List[Tuple[np.ndarray, np.ndarray, float, str]]] = {}
     virt_basis: Dict[int, List[Tuple[np.ndarray, np.ndarray, float]]] = {}
+
+    # Deferred import: _build_virtual_basis is a mean-field (methods-layer)
+    # service; importing it lazily keeps properties → methods off the
+    # module-load path (avoids the layer inversion).
+    from atomx.methods.mbpt import _build_virtual_basis
 
     for kappa in kappa_list:
         occ, virt = _build_virtual_basis(scf_result, kappa, cache=cache,

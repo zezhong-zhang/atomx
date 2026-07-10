@@ -13,7 +13,7 @@ elements.  Dominant deliverables:
 
 - Static dipole polarisability α(0) from the (ω = 0) response.
 - Dynamic polarisability α(ω) over a photon-energy sweep —
-  directly feeds :mod:`atomx.prop.polarizability`.
+  directly feeds :mod:`atomx.properties.polarizability`.
 - Black-body radiation shift (integral of α(ω) against Planck's law).
 
 References

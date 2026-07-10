@@ -64,7 +64,7 @@ class Correction(Protocol):
     """Common interface for a single named physics correction.
 
     Concrete implementations live across :mod:`atomx.corrections`
-    (Breit, VP, SE backends) and :mod:`atomx.prop.isotope_shift` (NMS, SMS).
+    (Breit, VP, SE backends) and :mod:`atomx.properties.isotope_shift` (NMS, SMS).
     They share this shape so that :class:`CorrectionStack` can compose
     them uniformly.
     """

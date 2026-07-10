@@ -145,6 +145,7 @@ def _coarse_auger_rate(
     population_factor: float | None = None,
     J_res: float | None = None,
     J_final: float = 0.0,
+    slater_method: str = "poisson",
     **_kwargs,
 ):
     import numpy as np
@@ -256,6 +257,7 @@ def _coarse_auger_rate(
                             amplitude += auger_rate_two_electron(
                                 P_a, Q_a, P_b, Q_b, P_c, Q_c, P_eps, Q_eps,
                                 angular_W=angular, k=k, bsp_data=bsp_data,
+                                method=slater_method,
                             )
                     for k in sorted(exchange_ks):
                         if J_res is None:
@@ -281,6 +283,7 @@ def _coarse_auger_rate(
                             amplitude += exchange_sign * auger_rate_two_electron(
                                 P_b, Q_b, P_a, Q_a, P_c, Q_c, P_eps, Q_eps,
                                 angular_W=angular, k=k, bsp_data=bsp_data,
+                                method=slater_method,
                             )
                 if population_factor is None:
                     pop = _channel_population_factor(

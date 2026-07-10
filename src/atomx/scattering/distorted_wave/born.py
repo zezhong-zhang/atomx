@@ -66,7 +66,7 @@ def born_excitation_dipole(
         Incident electron energies in eV.
     f_ab : float
         Absorption oscillator strength (dimensionless, computed from
-        :func:`atomx.prop.transitions.rates.oscillator_strength`).
+        :func:`atomx.properties.transitions.rates.oscillator_strength`).
     delta_E_eV : float
         Excitation energy E_ab in eV.
     g_lower : int

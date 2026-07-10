@@ -24,21 +24,21 @@ Public API
 >>> iso = result.isotope_shift((1, 1), (1, 2))  # H vs D for every orbital
 """
 
-from atomx.prop.isotope_shift.field_shift import (
+from atomx.properties.isotope_shift.field_shift import (
     FieldShiftParameter,
     field_shift_factor_per_orbital,
     seltzer_F_Ha_per_Bohr2,
 )
-from atomx.prop.isotope_shift.isotope_shift import (
+from atomx.properties.isotope_shift.isotope_shift import (
     IsotopeShiftResult,
 )
-from atomx.prop.isotope_shift.mass_shift import (
+from atomx.properties.isotope_shift.mass_shift import (
     MassShift,
     SpecificMassShift,
     normal_mass_shift,
     specific_mass_shift,
 )
-from atomx.prop.isotope_shift.sms_abinitio import (
+from atomx.properties.isotope_shift.sms_abinitio import (
     SMSResult,
     compute_sms_abinitio,
 )

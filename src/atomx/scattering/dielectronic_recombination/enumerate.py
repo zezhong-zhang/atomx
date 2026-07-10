@@ -21,10 +21,10 @@ from typing import Callable, Sequence
 
 import numpy as np
 
-from atomx.constants import HARTREE_EV
+from atomx.constants import HARTREE_EV, RYDBERG_EV
 from atomx.methods.dirac_fock import Subshell
 from atomx.methods.mcdhf.config import CSF
-from atomx.prop.transitions.angular import selection_rules
+from atomx.properties.transitions.angular import selection_rules
 from atomx.scattering.autoionization.auger import AutoionizationState
 
 
@@ -195,7 +195,7 @@ def _orbital_energy_eV(atom, spec: SubshellSpec, *, z_eff: float) -> float:
     matches = [float(v) * HARTREE_EV for k, v in energies.items() if k.startswith(short)]
     if matches:
         return float(np.mean(matches))
-    return -13.605693122994 * z_eff * z_eff / (spec.n * spec.n)
+    return -RYDBERG_EV * z_eff * z_eff / (spec.n * spec.n)
 
 
 def _initial_statistical_weight(atom, default: float = 1.0) -> float:
@@ -336,13 +336,13 @@ def _default_radiative_width(
     total = 0.0
 
     if selection_rules(spec.captured.kappa, spec.core_from.kappa, 1, "E"):
-        omega = max(capture_binding_eV, 1e-6) / 13.605693122994
+        omega = max(capture_binding_eV, 1e-6) / RYDBERG_EV
         a_cap = 6.25e8 * (max(z_eff, 1.0) ** 4) * omega ** 3 / (spec.captured.n ** 3)
         channels[f"{spec.captured.label}->{spec.core_from.label}"] = a_cap
         total += a_cap
 
     if selection_rules(spec.core_to.kappa, spec.core_from.kappa, 1, "E"):
-        omega = max(core_excitation_eV, 1e-6) / 13.605693122994
+        omega = max(core_excitation_eV, 1e-6) / RYDBERG_EV
         a_core = 6.25e8 * (max(z_eff, 1.0) ** 2) * omega ** 3
         channels[f"{spec.core_to.label}->{spec.core_from.label}"] = a_core
         total += a_core

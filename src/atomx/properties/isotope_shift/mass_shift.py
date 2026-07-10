@@ -74,7 +74,7 @@ class MassShift:
         NMS shift in Hartree:  ``E_NMS = −(m_e/M) · ⟨T_e⟩``.  Negative
         for bound states (T > 0, M > 0 → −1/M × T < 0).
     E_NMS_MHz : float
-        Same, converted to MHz via :data:`atomx.prop.hyperfine.HARTREE_MHZ`.
+        Same, converted to MHz via :data:`atomx.properties.hyperfine.HARTREE_MHZ`.
     kinetic_energy_au : float
         ``⟨T_e⟩`` used in the calculation (Hartree).  Typically obtained
         from the virial theorem ``T = −E_total`` (see
@@ -121,7 +121,7 @@ def normal_mass_shift(
     -------
     :class:`MassShift`
     """
-    from atomx.prop.hyperfine.dipole import HARTREE_MHZ
+    from atomx.properties.hyperfine.dipole import HARTREE_MHZ
 
     if mass_me <= 0:
         raise ValueError(f"Nuclear mass must be positive; got {mass_me}.")
@@ -150,7 +150,7 @@ def default_nuclear_mass_me(Z: int, A: int) -> float:
     Uses ``A × m_p/m_e`` where ``m_p/m_e ≈ 1836.15``.  Accurate to ~0.1 %
     for isotope-shift work.  For precision spectroscopy, callers should
     instead pass the atomic mass via
-    :attr:`atomx.prop.hyperfine.NuclearMoment.mass_me`.
+    :attr:`atomx.properties.hyperfine.NuclearMoment.mass_me`.
     """
     return A * PROTON_ELECTRON_MASS_RATIO
 
@@ -207,7 +207,7 @@ def specific_mass_shift(
     -------
     :class:`SpecificMassShift`
     """
-    from atomx.prop.hyperfine.dipole import HARTREE_MHZ
+    from atomx.properties.hyperfine.dipole import HARTREE_MHZ
 
     if mass_me <= 0:
         raise ValueError(f"Nuclear mass must be positive; got {mass_me}.")

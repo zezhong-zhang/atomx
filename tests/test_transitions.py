@@ -11,11 +11,11 @@ Validates:
 import numpy as np
 import pytest
 from types import SimpleNamespace
-from atomx.prop.transitions.angular import (
+from atomx.properties.transitions.angular import (
     selection_rules, angular_eL, angular_mL,
     allowed_final_kappas, _kappa_to_lj,
 )
-from atomx.prop.transitions.rates import (
+from atomx.properties.transitions.rates import (
     einstein_A_eL, oscillator_strength, lifetime, _double_factorial,
 )
 
@@ -126,8 +126,8 @@ def test_closed_shell_e1_particle_hole_uses_fac_babushkin_normalization(monkeypa
     """Closed J=0 -> p-hole d3/2 E1 uses FAC's sqrt(2) radial convention."""
     from atomx.methods.dirac_fock import Subshell
     from atomx.methods.mcdhf.config import CSF
-    from atomx.prop.transitions import calculator as calc_mod
-    from atomx.prop.transitions.calculator import TransitionCalculator
+    from atomx.properties.transitions import calculator as calc_mod
+    from atomx.properties.transitions.calculator import TransitionCalculator
 
     lower = CSF([
         Subshell(1, -1, 2.0),

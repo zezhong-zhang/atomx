@@ -3,7 +3,7 @@
 import numpy as np
 import pytest
 
-from atomx.prop.stark import (
+from atomx.properties.stark import (
     StarkZeemanShift,
     linear_stark_shift_hydrogenic,
     quadratic_stark_shift,

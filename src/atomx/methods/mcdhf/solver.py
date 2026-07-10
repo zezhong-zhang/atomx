@@ -594,7 +594,7 @@ class MCDHFSolver:
         calculator then applies a biorthogonal transformation between
         the initial-state and final-state orbital sets when computing
         radiative matrix elements (see
-        :mod:`atomx.prop.transitions.calculator`).
+        :mod:`atomx.properties.transitions.calculator`).
 
         **Current status — scaffold only.**  Returns an empty dict;
         the caller leaves the shared orbital set in place.

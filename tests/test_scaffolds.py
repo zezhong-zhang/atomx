@@ -47,7 +47,7 @@ def test_rpa_scaffold_import_and_raises():
 
 
 def test_polarizability_scaffold_import_and_raises():
-    from atomx.prop import polarizability
+    from atomx.properties import polarizability
 
     assert hasattr(polarizability, "PolarizabilityResult")
     with pytest.raises(NotImplementedError, match="polarizability"):
@@ -55,7 +55,7 @@ def test_polarizability_scaffold_import_and_raises():
 
 
 def test_g_factor_scaffold_import_and_raises():
-    from atomx.prop import g_factor
+    from atomx.properties import g_factor
 
     assert hasattr(g_factor, "GFactorResult")
     with pytest.raises(NotImplementedError, match="g_factor"):
@@ -63,7 +63,7 @@ def test_g_factor_scaffold_import_and_raises():
 
 
 def test_pnc_scaffold_import_and_raises():
-    from atomx.prop import pnc
+    from atomx.properties import pnc
 
     assert hasattr(pnc, "PNCResult")
     with pytest.raises(NotImplementedError, match="pnc"):
@@ -71,7 +71,7 @@ def test_pnc_scaffold_import_and_raises():
 
 
 def test_edm_scaffold_import_and_raises():
-    from atomx.prop import edm
+    from atomx.properties import edm
 
     assert hasattr(edm, "EDMResult")
     with pytest.raises(NotImplementedError, match="edm"):

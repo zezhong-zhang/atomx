@@ -16,7 +16,7 @@ from pathlib import Path
 from atomx import Atom
 from atomx.constants import HARTREE_EV
 from atomx.physics.dirac import hydrogenic_dirac_energy
-from atomx.prop.transitions.rates import einstein_A_eL
+from atomx.properties.transitions.rates import einstein_A_eL
 from atomx.sampling import Sampling
 from fac_runner import parse_e0, parse_levels, parse_transitions, run_sfac
 

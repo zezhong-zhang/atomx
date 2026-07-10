@@ -2,14 +2,14 @@
 
 This module is the user-facing entry point for the spin-independent
 PNC E1 amplitude between two s_{1/2} atomic states.  It adapts the
-low-level sum-over-states calculation in :mod:`atomx.prop.pnc` to the
+low-level sum-over-states calculation in :mod:`atomx.properties.pnc` to the
 :class:`~atomx.Atom` high-level API: pass either a (possibly unsolved)
 ``Atom`` or a converged ``SCFResult`` and the weak-interaction E1
-amplitude is returned as a :class:`~atomx.prop.pnc.PNCResult`.
+amplitude is returned as a :class:`~atomx.properties.pnc.PNCResult`.
 
 The physics — weak Hamiltonian radial matrix elements, the
 V^{N-1} p_{1/2} intermediate-state basis, and the Standard-Model weak
-charge — lives in :mod:`atomx.prop.pnc`; see there for formulae and
+charge — lives in :mod:`atomx.properties.pnc`; see there for formulae and
 references (Bouchiat & Bouchiat 1974; Dzuba, Flambaum & Kozlov 2002;
 Ginges & Flambaum 2004).
 
@@ -27,7 +27,7 @@ from __future__ import annotations
 
 from typing import Optional
 
-from atomx.prop.pnc import (
+from atomx.properties.pnc import (
     PNCResult,
     pnc_amplitude_dirac_only,
     weak_charge_qw,
@@ -72,14 +72,14 @@ def compute_pnc(
         so both endpoints must be s_{1/2}.
     N
         Neutron number, used to build the Standard-Model weak charge
-        via :func:`~atomx.prop.pnc.weak_charge_qw`.  PNC is
+        via :func:`~atomx.properties.pnc.weak_charge_qw`.  PNC is
         isotope-dependent, so either ``N`` or ``Q_W`` must be supplied.
     Q_W
         Nuclear weak charge, overriding the Standard-Model value.
     rho_nuc_func
         Nuclear charge density rho(r) (normalised to integral rho dr = 1).
         Default: a narrow Gaussian approximating the point-nucleus
-        contact term used in :func:`~atomx.prop.pnc.pnc_amplitude_dirac_only`.
+        contact term used in :func:`~atomx.properties.pnc.pnc_amplitude_dirac_only`.
     n_intermediate_max
         Maximum number of p_{1/2} intermediate states.  ``None`` -> all
         physical V^{N-1} virtuals.

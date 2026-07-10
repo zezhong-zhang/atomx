@@ -34,7 +34,7 @@ reduced matrix element in jj-coupling::
 the non-relativistic limit).
 
 The radial momentum integral R_p(a, b) uses the velocity-gauge E1
-matrix element already implemented in :mod:`atomx.prop.transitions.multipole`:
+matrix element already implemented in :mod:`atomx.properties.transitions.multipole`:
 
     R_p(a, b)  =  ⟨ψ_a | ∇_r | ψ_b⟩_radial                           (6)
 
@@ -80,7 +80,7 @@ from typing import Dict, List
 import numpy as np
 
 from atomx.angular.wigner import wigner_3j
-from atomx.prop.transitions.multipole import radial_eL_velocity
+from atomx.properties.transitions.multipole import radial_eL
 
 
 @dataclass
@@ -104,7 +104,7 @@ class SMSResult:
     K_SMS_au: float
     pair_contributions: Dict[tuple, float] = field(default_factory=dict)
     n_pairs: int = 0
-    method: str = "ab-initio velocity-gauge closed-shell"
+    method: str = "mean-field DHF closed-shell (R_p = ω·⟨r⟩)"
 
     def for_mass(self, mass_me: float) -> float:
         """Evaluate E_SMS (Hartree) at the given nuclear mass."""
@@ -161,8 +161,9 @@ def _reduced_C1(kappa_a: int, kappa_b: int) -> float:
 def compute_sms_abinitio(
     orbitals,
     bsp_data,
+    orbital_energies,
 ) -> SMSResult:
-    """Ab-initio SMS coefficient K_SMS from a closed-shell DHF calculation.
+    """Mean-field ab-initio SMS coefficient K_SMS from a closed-shell DHF calc.
 
     Parameters
     ----------
@@ -170,6 +171,10 @@ def compute_sms_abinitio(
         As produced by :meth:`DFSolver._flatten_orbitals`.
     bsp_data : dict
         B-spline workspace.
+    orbital_energies : dict[str, float]
+        ``{label: ε}`` orbital eigenvalues (Hartree), as in
+        ``SCFResult.orbital_energies``.  Needed for the ``ω_ab`` factor of
+        the momentum matrix element.
 
     Returns
     -------
@@ -183,7 +188,30 @@ def compute_sms_abinitio(
 
         ΔK = − q_a q_b · |⟨κ_a||C^1||κ_b⟩|² · R_p(a,b)²
 
-    and the total is the sum over all such pairs.
+    **Radial operator.**  The SMS building block is the momentum matrix
+    element ``R_p = ⟨a|∇_r|b⟩``.  Using the exact operator identity
+    ``∇ = -[H, r]`` (with r = r·C^1 a rank-1 tensor), this equals
+
+        R_p(a, b) = ω_ab · ⟨a‖r‖b⟩_radial = ω_ab · radial_eL(a, b, L=1)
+
+    with ``ω_ab = |ε_a − ε_b|`` and the *same* ``⟨κ_a‖C^1‖κ_b⟩`` angular
+    factor already applied in eq. (5).  This form is **antihermitian** by
+    construction (⟨a|r|b⟩ symmetric × ω_ab antisymmetric), as a momentum
+    matrix element must be, and reduces to the standard velocity/length
+    gauge relation.  (History: earlier code called ``radial_eL_velocity``
+    *without* ``omega``, hitting a fallback branch that returned the
+    O(α)-suppressed photon element — wrong by ~4 orders of magnitude on Ne.
+    See ``docs/CRITICAL_REVIEW_2026-07-09.md`` §A2.)
+
+    .. note::
+       **Mean-field scope.**  This is the closed-shell Dirac–Fock (single
+       determinant) SMS.  The literature repeatedly notes SMS is *very*
+       sensitive to electron correlation (contributing already in second
+       order); the correlated K_SMS therefore differs from this mean-field
+       value and requires MBPT/CI on top.  Two further mean-field-level
+       approximations: (i) ``∇ = -[H,r]`` is exact only for a *local*
+       potential — HF's nonlocal exchange adds a ``⟨[V_x, r]⟩`` term
+       (~%-level); (ii) non-relativistic reduction of the two-body recoil.
     """
     K_SMS = 0.0
     per_pair: Dict[tuple, float] = {}
@@ -201,11 +229,11 @@ def compute_sms_abinitio(
             if abs(C_red) < 1e-14:
                 continue
 
-            # Radial momentum integral R_p(a,b) = ⟨a|∇_r|b⟩ (velocity gauge)
-            R_p = radial_eL_velocity(
-                P_b, Q_b, P_a, Q_a, bsp_data,
-                L=1, kappa_i=kappa_b, kappa_f=kappa_a,
-            )
+            # Momentum matrix element R_p(a,b) = ⟨a|∇_r|b⟩ = ω_ab·⟨a|r|b⟩
+            # via ∇ = -[H,r]; antihermitian, same C^1 angular factor.
+            omega = abs(orbital_energies[label_a] - orbital_energies[label_b])
+            R_r = radial_eL(P_a, Q_a, P_b, Q_b, bsp_data, L=1)
+            R_p = omega * R_r
 
             contribution = -occ_a * occ_b * (C_red ** 2) * (R_p ** 2)
             K_SMS += contribution
