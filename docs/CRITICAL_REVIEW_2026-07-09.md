@@ -150,6 +150,17 @@ bit-identical). For an accuracy tool this must be made deterministic: seed/So wa
 cache at import, or find the uninitialized read. Also `-128.6919` vs DHF ref `-128.6923`
 is ~0.01 eV off — worth pinning with a tight known-answer test (currently ±1.5 Ha).
 
+**[CHECKED 2026-07-10]** In normal (warm-cache) operation the flagship path is fully
+**deterministic**: 5 fresh processes gave bit-identical `-128.6919546402539`. The energy is
+also fully **basis-converged** — identical to 8 digits from ns=50 to ns=150 (`-128.69197`
+at the ns=50 test fixture), so the ~0.35 mHa vs the remembered `-128.6923` is a fixed
+systematic (nuclear-model/reference-convention or a small physics term), not truncation or
+noise. The intermittent NaN was the cold first-ever-compile race only; warm operation is
+clean. Tightened the flagship gate `tests/test_scf.py::test_neon_hf_total_energy` from
+`±1.5 Ha` to `±1 mHa` (1500× tighter) and the 1s gate to `±10 mHa`, so accuracy regressions
+now actually trip. Remaining TODO: warm the JIT cache at import to close the cold-run NaN
+window; obtain a trusted external Ne DHF value to characterise the 0.35 mHa systematic.
+
 ### A6. Weak accuracy gates hide regressions
 `test_scf.py` accepts Ne total `−128.5 ± 1.5 Ha` and Breit magnitude in a 100×-wide band
 (`0.005 < |E| < 0.5`). A 1% energy error or a residual Breit factor error passes silently.
