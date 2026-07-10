@@ -156,6 +156,13 @@ def generate_jj_average(config_str: str, eal: int = 1,
     avg_subshells = []
     for n, kappa, max_occ in jshell_specs:
         occ = avg_occ.get((n, kappa), 0.0)
+        # Clean IEEE float noise from the weighted average: the weight
+        # normalisation above (c.weight /= total_weight) leaves Σ weights at
+        # ~1-1e-16, so occupations come out as e.g. 1.9999999999999998 (closed
+        # 2) or 3.5999999999999996 (statistical 3.6). Statistical occupations
+        # are exact rationals (multiples of 1/(2l+2)), well within 12 decimals,
+        # so rounding there removes the noise without touching physics.
+        occ = round(occ, 12)
         avg_subshells.append(Subshell(n=n, kappa=kappa, occupation=occ))
 
     return avg_subshells, configs
