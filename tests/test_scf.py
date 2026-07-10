@@ -91,12 +91,16 @@ class TestSCFHartreeFock:
         assert he_hf_result.iterations < 30
 
     def test_helium_hf_total_energy(self, he_hf_result):
-        assert he_hf_result.total_energy == pytest.approx(-2.862, abs=0.05), \
-            f"He DHF E={he_hf_result.total_energy:.4f}"
+        # Tight pin (was ±0.05 Ha ≈ 1.4 eV). Deterministic, basis-converged
+        # He DHF total -2.861813 Ha, consistent with the point-nucleus DHF
+        # reference (~-2.8617). abs=1 mHa catches real regressions.
+        assert he_hf_result.total_energy == pytest.approx(-2.8618, abs=1.0e-3), \
+            f"He DHF E={he_hf_result.total_energy:.5f} (expected ~-2.86181)"
 
     def test_helium_hf_1s_energy(self, he_hf_result):
+        # Tight pin (was ±0.05). Deterministic 1s eigenvalue -0.917991 Ha.
         E_1s = he_hf_result.orbital_energies["1s1/2"]
-        assert E_1s == pytest.approx(-0.918, abs=0.05)
+        assert E_1s == pytest.approx(-0.91799, abs=1.0e-2)
 
     def test_neon_hf_converges(self, ne_hf_result):
         assert ne_hf_result.converged, \
