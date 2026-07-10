@@ -108,11 +108,11 @@ def angular_mL(kappa_i, kappa_f, L):
         ⟨f‖t^M_L‖i⟩ = ⟨f‖C^L‖i⟩ · (kappa_i + kappa_f)/(2L+1) · R_ML
 
     where ``R_ML`` is the long-wavelength radial integral returned by
-    :func:`~atomx.prop.transitions.multipole.radial_mL` (no 1/c factor).
+    :func:`~atomx.properties.transitions.multipole.radial_mL` (no 1/c factor).
 
     This function returns the angular part ``⟨f‖C^L‖i⟩ · (kappa_i +
     kappa_f)/(2L+1)``, so that the line strength used by
-    :func:`~atomx.prop.transitions.rates.einstein_A_mL` is simply
+    :func:`~atomx.properties.transitions.rates.einstein_A_mL` is simply
     ``(angular_mL * radial_mL) ** 2``.
 
     Convention notes:

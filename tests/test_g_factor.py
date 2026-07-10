@@ -7,7 +7,7 @@ import math
 import pytest
 
 from atomx import Atom
-from atomx.prop.g_factor import (
+from atomx.properties.g_factor import (
     GFactorResult,
     g_factor,
     g_factor_dirac_hydrogenic,

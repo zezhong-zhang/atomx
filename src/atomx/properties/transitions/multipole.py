@@ -17,30 +17,16 @@ No explicit 1/c factor is included: the alpha-suppression of magnetic
 vs electric multipole rates arises naturally because the small-component
 spinor Q ~ (alpha Z) P, so the cross integral P_f Q_i + Q_f P_i carries
 one extra power of alpha relative to the electric P_f P_i + Q_f Q_i
-combination.  The angular kappa factor in :func:`~atomx.prop.transitions
+combination.  The angular kappa factor in :func:`~atomx.properties.transitions
 .angular.angular_mL` supplies the remaining (kappa_i+kappa_f)/(2L+1)
 algebraic structure of the magnetic operator (Grant Eq. 8.4.17).
 """
 
 import numpy as np
 from atomx.constants import C
-from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
-
-
-def _eval_P(coeffs, bsp_data):
-    """Evaluate P-component on grid (KB-aware)."""
-    ksp = bsp_data.get("ksp", bsp_data["ks"])
-    nsp = bsp_data.get("nsp", bsp_data["ns"])
-    return eval_orbital_on_grid(coeffs, bsp_data["bsp_p"],
-                                 bsp_data["nv"], ksp, nsp)
-
-
-def _eval_Q(coeffs, bsp_data):
-    """Evaluate Q-component on grid (KB-aware)."""
-    ksq = bsp_data.get("ksq", bsp_data["ks"])
-    nsq = bsp_data.get("nsq", bsp_data["ns"])
-    bsp_q = bsp_data.get("bsp_q", bsp_data["bsp_p"])
-    return eval_orbital_on_grid(coeffs, bsp_q, bsp_data["nv"], ksq, nsq)
+# P/Q grid evaluators are single-sourced in the B-spline layer; alias the
+# canonical (kinetic-balance-aware) implementations rather than re-copying them.
+from atomx.numerics.bspline.evaluate import eval_P as _eval_P, eval_Q as _eval_Q
 
 
 def radial_eL(P_i, Q_i, P_f, Q_f, bsp_data, L=1):
@@ -87,8 +73,8 @@ def radial_eL_velocity(P_i, Q_i, P_f, Q_f, bsp_data, L=1,
     the velocity-gauge radial integral equals the length-gauge value,
     so that both gauges produce the *same* Einstein A-coefficient when
     combined with the *same* angular factor
-    :func:`~atomx.prop.transitions.angular.angular_eL` and rate formula
-    :func:`~atomx.prop.transitions.rates.einstein_A_eL`.
+    :func:`~atomx.properties.transitions.angular.angular_eL` and rate formula
+    :func:`~atomx.properties.transitions.rates.einstein_A_eL`.
 
     Grant §8.4 derivative-free reduction (all L ≥ 1)::
 
@@ -154,7 +140,7 @@ def radial_mL(P_i, Q_i, P_f, Q_f, bsp_data, L=1):
     Convention: matches Grant (2007) Eq. 8.4.17 / FAC's M_L(omega) in the
     long-wavelength limit. The full magnetic reduced matrix element is
     obtained by combining this with the kappa-dependent angular factor
-    in :func:`~atomx.prop.transitions.angular.angular_mL`:
+    in :func:`~atomx.properties.transitions.angular.angular_mL`:
 
         ⟨f‖t^M_L‖i⟩ = ⟨f‖C^L‖i⟩ · (kappa_i + kappa_f)/(2L+1) · R_ML
 

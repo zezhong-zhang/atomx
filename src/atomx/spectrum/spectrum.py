@@ -237,7 +237,7 @@ def synthesize_from_transitions(
     Each item in ``transitions`` may be
 
       * an object with ``wavelength_nm`` and ``A_einstein`` attributes
-        (e.g. a :class:`~atomx.prop.transitions.calculator.TransitionResult`),
+        (e.g. a :class:`~atomx.properties.transitions.calculator.TransitionResult`),
       * a dict with keys ``wavelength_nm`` and ``A_einstein`` (or
         another ``intensity_key``), or
       * a 2- or 4-tuple  ``(λ_nm, intensity [, sigma [, gamma]])``.

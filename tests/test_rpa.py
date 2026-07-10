@@ -22,7 +22,7 @@ from atomx.methods.rpa import (
     rpa_dipole_polarizability,
     solve_rpa_amplitudes,
 )
-from atomx.prop.polarizability import dipole_polarizability
+from atomx.properties.polarizability import dipole_polarizability
 
 
 def test_rpa_import():

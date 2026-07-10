@@ -1,7 +1,16 @@
-"""Frozen FAC-parity gate.
+"""Frozen atomx **self-regression** snapshot (misnamed "FAC-parity" gate).
 
-The golden was generated with the benchmark matrix, including ``sfac`` columns,
-but CI intentionally reruns only atomx and compares against frozen atomx values.
+⚠️ This is NOT a validation against FAC.  The golden CSV was generated with
+the benchmark matrix (including ``sfac`` columns), but this test reruns only
+atomx and compares against the **frozen** ``atomx_*`` columns — i.e. it checks
+that atomx has not drifted from its own past output.  The ``fac_*`` columns are
+**never asserted**; they disagree with the atomx columns by orders of magnitude
+in places (e.g. Z=10 Ne-like ``atomx_first_A_s`` = 3.59e6 vs ``fac_first_A_s`` =
+6.85e-3), reflecting an unreconciled units/definition mismatch, so asserting
+them here would be meaningless without first fixing that.  Treat a green run as
+"atomx is self-consistent with its snapshot", **not** "atomx agrees with FAC".
+See ``docs/CRITICAL_REVIEW_2026-07-09.md`` §V1.  (The ``fac_parity`` marker name
+is retained only because CI/README select on it.)
 """
 
 from __future__ import annotations
@@ -37,7 +46,11 @@ def _relerr(actual: float, expected: float) -> float:
 
 
 @pytest.mark.fac_parity
-def test_frozen_fac_parity_matrix_atomx_columns():
+def test_frozen_atomx_self_regression_snapshot():
+    """Atomx self-regression: fresh atomx vs frozen atomx_* columns only.
+
+    NOT a FAC comparison — see module docstring / review §V1.
+    """
     golden_rows = _load_golden()
     frozen_time_by_z = defaultdict(float)
     actual_time_by_z = defaultdict(float)

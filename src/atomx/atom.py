@@ -889,7 +889,7 @@ class Atom:
         list of TransitionResult
             Transitions sorted by wavelength.
         """
-        from atomx.prop.transitions.calculator import TransitionCalculator
+        from atomx.properties.transitions.calculator import TransitionCalculator
         calc = TransitionCalculator(self)
         return calc.compute_all(multipoles, gauge)
 
@@ -907,7 +907,7 @@ class Atom:
             raise NotImplementedError(
                 f"hyperfine_constants is not yet implemented for "
                 f"{type(self._result).__name__}; convert to a DHF baseline "
-                f"or use atomx.prop.hyperfine directly."
+                f"or use atomx.properties.hyperfine directly."
             )
         return self._result.hyperfine_constants(*args, **kwargs)
 

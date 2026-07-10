@@ -15,7 +15,14 @@ from atomx.constants import ALPHA, AU_RATE_PER_S
 
 
 def _double_factorial(n):
-    """Compute (2n+1)!! = 1*3*5*...*(2n+1)."""
+    """Odd double factorial ``n!! = 1*3*5*...*n`` (n odd).
+
+    NOTE the argument convention: this returns ``n!!``, NOT ``(2n+1)!!``.
+    To get the ``(2L+1)!!`` factor of the Einstein-A prefactor, call
+    ``_double_factorial(2*L + 1)`` (as :func:`einstein_A_eL` does).  Examples:
+    ``_double_factorial(3) == 3``, ``_double_factorial(5) == 15``,
+    ``_double_factorial(7) == 105``.
+    """
     result = 1
     for i in range(1, n + 1, 2):
         result *= i
@@ -35,8 +42,8 @@ def einstein_A_eL(omega, line_strength, L, tj_i):
 
     ``line_strength`` is |<f || r^L * C^L || i>|^2 in atomic units
     (i.e. the squared reduced matrix element of r^L*C^L^q, exactly
-    what :mod:`atomx.prop.transitions.multipole.radial_eL` times
-    :func:`~atomx.prop.transitions.angular.angular_eL` produces).
+    what :mod:`atomx.properties.transitions.multipole.radial_eL` times
+    :func:`~atomx.properties.transitions.angular.angular_eL` produces).
 
     Reference validation: H 2p_{1/2}->1s_{1/2} with omega=3/8 Ha and
     S = 1.110 returns A = 6.27 x 10^8 s^-1, matching NIST/FAC.
@@ -81,7 +88,7 @@ def einstein_A_mL(omega, line_strength, L, tj_i):
     ``R_ML = ∫(P_f Q_i + Q_f P_i) r^L dr`` (no explicit 1/c — the
     suppression comes from Q ~ alpha Z P) combined with the kappa
     angular factor ``(kappa_i + kappa_f)/(2L+1)`` from
-    :func:`~atomx.prop.transitions.angular.angular_mL`.
+    :func:`~atomx.properties.transitions.angular.angular_mL`.
 
     Reference validation: H-like ``2s_{1/2} -> 1s_{1/2}`` M1 rate
     matches Drake (1971) ``2.5e-6 Z^10 s^-1`` to <1 % for Z <= 10 and

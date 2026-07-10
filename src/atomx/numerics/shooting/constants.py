@@ -1,26 +1,28 @@
-"""Physical constants matching Salvat's RADIAL package (MODULE CONSTANTS).
+"""Constants for the shooting solver, single-sourced from :mod:`atomx.constants`.
 
-These values are used exclusively in the shooting solver to ensure
-exact numerical reproduction of RADIAL/DHFS results.
+Historically these mirrored Salvat's RADIAL package (radial.f) for bit-for-bit
+DHFS reproduction.  They are now derived from the central CODATA-2022 table so
+the whole library carries one value per physical constant; the RADIAL literals
+are retained in comments for provenance.  All differences are <~1e-8 relative
+and physically negligible.
 """
 
 import numba as nb
 
-# Speed of light in atomic units (= 1/alpha).
-# radial.f line 269: SL=137.035999139D0
-SL = 137.035999139
+from atomx.constants import SPEED_OF_LIGHT, BOHR_RADIUS_M, HARTREE_EV, C_SQ
 
-# Bohr radius in cm.
-# radial.f line 271: A0B=5.2917721067D-9
-A0B = 5.2917721067e-9
+# Speed of light in atomic units (= 1/alpha).  RADIAL:269 SL=137.035999139D0.
+SL = SPEED_OF_LIGHT
 
-# Hartree energy in eV.
-# radial.f line 273: HREV=27.21138602D0
-HREV = 27.21138602
+# Bohr radius in cm.  RADIAL:271 A0B=5.2917721067D-9.
+A0B = BOHR_RADIUS_M * 100.0
 
-# Electron rest energy in eV.
-# radial.f line 275: REV=510.9989461D3
-REV = 510998.9461
+# Hartree energy in eV.  RADIAL:273 HREV=27.21138602D0.
+HREV = HARTREE_EV
+
+# Electron rest energy m_e c^2 in eV (= c^2 a.u. x Hartree/eV).
+# RADIAL:275 REV=510.9989461D3.
+REV = C_SQ * HARTREE_EV
 
 # Derived constants
 PI = 3.1415926535897932

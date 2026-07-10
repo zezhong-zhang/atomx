@@ -5,7 +5,7 @@ import math
 import numpy as np
 import pytest
 
-from atomx.prop.transitions.two_photon import (
+from atomx.properties.transitions.two_photon import (
     two_photon_rate_h_like,
     two_photon_rate_he_like,
     two_photon_spectrum,

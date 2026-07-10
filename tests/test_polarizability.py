@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 
 from atomx import Atom
-from atomx.prop.polarizability import (
+from atomx.properties.polarizability import (
     PolarizabilityResult,
     _bbr_shift_from_alpha,
     dipole_polarizability,

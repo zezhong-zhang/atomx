@@ -17,9 +17,9 @@ correlation included through Coupled-Cluster or all-order MBPT.
 
 Current modules
 ---------------
-:mod:`atomx.prop.edm.scaling`
+:mod:`atomx.properties.edm.scaling`
     Closed-form Sandars and Dzuba-Flambaum scaling formulas.
-:mod:`atomx.prop.edm.sternheimer`
+:mod:`atomx.properties.edm.sternheimer`
     Sternheimer sum-over-states calculation of the electron-EDM
     enhancement factor R_e using the existing V^{N-1} virtual basis.
 
@@ -39,12 +39,12 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Dict
 
-from atomx.prop.edm.scaling import (
+from atomx.properties.edm.scaling import (
     electron_edm_enhancement_sandars,
     schiff_moment_enhancement_scaling,
     edm_summary,
 )
-from atomx.prop.edm.sternheimer import (
+from atomx.properties.edm.sternheimer import (
     SternheimerEDMResult,
     sternheimer_edm_enhancement,
     compute,

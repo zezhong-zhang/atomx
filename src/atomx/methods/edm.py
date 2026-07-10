@@ -3,13 +3,13 @@
 This module is the user-facing entry point for T,P-violating
 electron-EDM enhancement-factor calculations.  It adapts the
 low-level Sternheimer sum-over-states machinery in
-:mod:`atomx.prop.edm.sternheimer` to the :class:`~atomx.Atom`
+:mod:`atomx.properties.edm.sternheimer` to the :class:`~atomx.Atom`
 high-level API: pass either a solved ``Atom`` or a bare
 ``SCFResult`` and the enhancement factor is returned as a
-:class:`~atomx.prop.edm.SternheimerEDMResult`.
+:class:`~atomx.properties.edm.SternheimerEDMResult`.
 
 The physics — Sternheimer SOS, V^{N-1} virtual basis, Sandars
-scaling — lives in :mod:`atomx.prop.edm`; see there for
+scaling — lives in :mod:`atomx.properties.edm`; see there for
 formulae and references (Sandars 1965; Dzuba & Flambaum 2009).
 
 Example
@@ -26,7 +26,7 @@ from __future__ import annotations
 
 from typing import Optional
 
-from atomx.prop.edm import (
+from atomx.properties.edm import (
     SternheimerEDMResult,
     sternheimer_edm_enhancement,
 )

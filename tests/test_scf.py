@@ -91,12 +91,16 @@ class TestSCFHartreeFock:
         assert he_hf_result.iterations < 30
 
     def test_helium_hf_total_energy(self, he_hf_result):
-        assert he_hf_result.total_energy == pytest.approx(-2.862, abs=0.05), \
-            f"He DHF E={he_hf_result.total_energy:.4f}"
+        # Tight pin (was ±0.05 Ha ≈ 1.4 eV). Deterministic, basis-converged
+        # He DHF total -2.861813 Ha, consistent with the point-nucleus DHF
+        # reference (~-2.8617). abs=1 mHa catches real regressions.
+        assert he_hf_result.total_energy == pytest.approx(-2.8618, abs=1.0e-3), \
+            f"He DHF E={he_hf_result.total_energy:.5f} (expected ~-2.86181)"
 
     def test_helium_hf_1s_energy(self, he_hf_result):
+        # Tight pin (was ±0.05). Deterministic 1s eigenvalue -0.917991 Ha.
         E_1s = he_hf_result.orbital_energies["1s1/2"]
-        assert E_1s == pytest.approx(-0.918, abs=0.05)
+        assert E_1s == pytest.approx(-0.91799, abs=1.0e-2)
 
     def test_neon_hf_converges(self, ne_hf_result):
         assert ne_hf_result.converged, \
@@ -104,14 +108,22 @@ class TestSCFHartreeFock:
         assert ne_hf_result.iterations < 30
 
     def test_neon_hf_total_energy(self, ne_hf_result):
-        assert ne_hf_result.total_energy == pytest.approx(-128.5, abs=1.5), \
-            f"Ne DHF E={ne_hf_result.total_energy:.2f}"
+        # Tight accuracy pin (was ±1.5 Ha, ~useless). atomx's Ne DHF total
+        # energy is deterministic and fully basis-converged (identical to 8
+        # digits from ns=50 up to ns=150) at -128.69197 Ha, within the
+        # accepted point-nucleus DHF range (~-128.692). abs=1e-3 catches any
+        # >1 mHa (0.027 eV) accuracy regression while tolerating grid/tol
+        # details. Confirmed bit-identical across fresh processes 2026-07-10.
+        assert ne_hf_result.total_energy == pytest.approx(-128.6920, abs=1.0e-3), \
+            f"Ne DHF E={ne_hf_result.total_energy:.5f} (expected ~-128.69197)"
 
     def test_neon_hf_orbital_ordering(self, ne_hf_result):
         assert ne_hf_result.orbital_energies["1s1/2"] < ne_hf_result.orbital_energies["2s1/2"]
 
     def test_neon_hf_1s_energy(self, ne_hf_result):
-        assert ne_hf_result.orbital_energies["1s1/2"] == pytest.approx(-32.8, abs=2.0)
+        # Tight pin (was ±2.0 Ha). Deterministic converged 1s eigenvalue
+        # -32.81748 Ha; abs=1e-2 catches any >10 mHa regression.
+        assert ne_hf_result.orbital_energies["1s1/2"] == pytest.approx(-32.8175, abs=1.0e-2)
 
     def test_neon_hf_energy_components(self, ne_hf_result):
         E = ne_hf_result.energy_components

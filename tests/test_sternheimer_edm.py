@@ -15,7 +15,7 @@ physics that the issue requires:
 4. The result container and Sandars comparison are populated.
 
 Absolute agreement with the Sandars closed-form scaling
-(:mod:`atomx.prop.edm.scaling`) is only expected at the factor-of-2-3
+(:mod:`atomx.properties.edm.scaling`) is only expected at the factor-of-2-3
 level of a single-configuration (Dirac-Fock) calculation; the
 light-atom ``R_e`` in particular is sensitive to finite-nuclear-size
 regularisation of the ``Z/r²`` field kernel, which is not yet folded
@@ -27,8 +27,8 @@ import pytest
 import numpy as np
 
 from atomx.methods.dirac_fock import DiracFock, Subshell, Exchange
-from atomx.prop.edm.sternheimer import sternheimer_edm_enhancement
-from atomx.prop.edm.scaling import electron_edm_enhancement_sandars
+from atomx.properties.edm.sternheimer import sternheimer_edm_enhancement
+from atomx.properties.edm.scaling import electron_edm_enhancement_sandars
 from atomx.constants import ALPHA
 
 
@@ -143,7 +143,7 @@ class TestSternheimerEDM:
     def test_p3_2_does_not_contribute(self):
         """For s_{1/2} valence, p_{3/2} virtuals must not contribute
         because the T,P-odd pseudoscalar operator requires Delta j = 0."""
-        from atomx.prop.edm.sternheimer import _tp_odd_angular
+        from atomx.properties.edm.sternheimer import _tp_odd_angular
         # Direct angular-factor test: s_{1/2} (kappa=-1) -> p_{3/2} (kappa=-2)
         # has j_a=1/2, j_r=3/2 -> Delta j != 0, so the pseudoscalar operator
         # must vanish.
@@ -191,7 +191,7 @@ class TestSternheimerEDM:
 
     def test_tp_odd_angular_selection_rules(self):
         """Direct unit tests for the T,P-odd angular factor — instant, no SCF."""
-        from atomx.prop.edm.sternheimer import _tp_odd_angular
+        from atomx.properties.edm.sternheimer import _tp_odd_angular
         # s_{1/2} (kappa=-1) -> p_{3/2} (kappa=-2): Delta j != 0, must vanish
         assert _tp_odd_angular(-1, -2) == 0.0
         # p_{1/2} (kappa=+1) -> p_{3/2} (kappa=-2): Delta j != 0, must vanish

@@ -43,7 +43,7 @@ import numpy as np
 from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 from atomx.constants import ALPHA, BOHR_RADIUS_M
 from atomx.corrections.qedmod.welton import _density_at_origin
-from atomx.prop.hyperfine.dipole import HARTREE_MHZ
+from atomx.properties.hyperfine.dipole import HARTREE_MHZ
 
 
 # 1 Bohr = BOHR_RADIUS_M metres;  1 fm = 1e-15 metres

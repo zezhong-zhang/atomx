@@ -11,29 +11,29 @@ the nuclear g-factor in units of the nuclear magneton μ_N.
 
 Public API
 ----------
->>> from atomx.prop.hyperfine import hyperfine_A, hyperfine_A_MHz
+>>> from atomx.properties.hyperfine import hyperfine_A, hyperfine_A_MHz
 >>> hyperfine_A_MHz(P, Q, bsp_data, kappa=-1, Z=1)   # H 1s ≈ 1420 MHz
 
 See Also
 --------
-atomx.prop.hyperfine.nuclear_moments : tabulated μ_I, I, A for common isotopes.
+atomx.properties.hyperfine.nuclear_moments : tabulated μ_I, I, A for common isotopes.
 """
 
-from atomx.prop.hyperfine.dipole import (
+from atomx.properties.hyperfine.dipole import (
     ELECTRON_ANOMALOUS_MOMENT,
     HARTREE_MHZ,
     hyperfine_A,
     hyperfine_A_MHz,
     hyperfine_radial_integral,
 )
-from atomx.prop.hyperfine.nuclear_moments import (
+from atomx.properties.hyperfine.nuclear_moments import (
     NUCLEAR_MOMENTS,
     NuclearMoment,
     default_isotope,
     g_factor,
     nuclear_moment,
 )
-from atomx.prop.hyperfine.qed_corrections import (
+from atomx.properties.hyperfine.qed_corrections import (
     DEUTERON_POLARIZABILITY_D1S,
     DEUTERON_ZEMACH_RADIUS_FM,
     HELIUM3_POLARIZABILITY,
@@ -41,7 +41,7 @@ from atomx.prop.hyperfine.qed_corrections import (
     PROTON_POLARIZABILITY_H1S,
     PROTON_ZEMACH_RADIUS_FM,
 )
-from atomx.prop.hyperfine.quadrupole import (
+from atomx.properties.hyperfine.quadrupole import (
     BARN_BOHR2,
     hyperfine_B,
     hyperfine_B_MHz,
