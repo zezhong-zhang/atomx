@@ -248,6 +248,15 @@ helper (`properties/transitions/rates._double_factorial`) but
 `radiative_recombination/__init__.py:96` reimplements it inline with a *different argument
 convention* — a subtle-difference trap.
 
+**[FIXED 2026-07-10]** Rydberg: added `constants.RYDBERG_EV` and replaced all four hardcoded
+`13.605693…` (enumerate.py ×3, crm.py); none remain. Double factorial: no numerical bug
+(the call site correctly passes `2*L+1`), but the helper's **docstring was wrong** — it
+claimed `(2n+1)!!` while the code computes `n!!`, exactly the trap that would bite a future
+caller passing `L`. Corrected the docstring to state the `n!!` convention explicitly, and
+annotated the `radiative_recombination` inline copy with its equivalence to
+`_double_factorial(2*L+1)` (kept inline to avoid a scattering→properties import). No import
+cycle introduced; `test_M1_E2_rates` (34) + `test_rr` (7) pass.
+
 ### D6. `prop/` → `properties/` — *(done 2026-07-09)*
 The sub-package holding transitions, hyperfine, isotope-shift, zeeman, polarizability,
 g-factor, pnc, edm, stark was named `prop` (mirroring PySCF's abbreviation). Renamed to
