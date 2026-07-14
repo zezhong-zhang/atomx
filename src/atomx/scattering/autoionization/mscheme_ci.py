@@ -49,6 +49,7 @@ from atomx.scattering.distorted_wave.solver import (
     _p_rel,
     _shooting_points,
     _tj_of,
+    _yk_fine,
 )
 
 
@@ -86,7 +87,8 @@ class ResonanceManifold:
     """
 
     def __init__(self, result, groups, *, r_fine, dr_fine, orbital_map,
-                 orbital_energies, configs=None, V_func=None):
+                 orbital_energies, configs=None, V_func=None,
+                 one_body=None):
         """``groups``: list of (subshell_list, n_electrons) with
         subshell_list = [(n, kappa), ...] (the jj components of one nl
         shell); ``orbital_map[(n, kappa)] = (P_fine, Q_fine)``;
@@ -125,6 +127,25 @@ class ResonanceManifold:
         #: electron (e.g. the converged exchange='fac' DFS potential —
         #: FAC's own convention).  Default: rebuilt from ``result``.
         self.V_func = V_func
+        #: Optional core-folded one-body matrix t[(n,kappa),(n',kappa)]
+        #: = <a| h + V_core |b> (same kappa; off-diagonals included).
+        #: With dressed mean-field eigenvalues as the default one-body
+        #: energies the active-active interactions are double-counted;
+        #: supplying the exact t makes the manifold a proper active-space
+        #: CI.  See scripts using ``build_core_folded_one_body``.
+        self.one_body = one_body
+        if one_body is not None:
+            # per-orbital-index matrix (m-independent, same-kappa only)
+            self._t = np.zeros((self.n_orb, self.n_orb))
+            for i, oi in enumerate(self.orbitals):
+                for j, oj in enumerate(self.orbitals):
+                    if oi.kappa != oj.kappa or oi.tm != oj.tm:
+                        continue
+                    val = one_body.get(((oi.n, oi.kappa), (oj.n, oj.kappa)))
+                    if val is not None:
+                        self._t[i, j] = float(val)
+        else:
+            self._t = None
         self._rk_cache: dict = {}
         self._v_cache: dict = {}
 
@@ -219,11 +240,15 @@ class ResonanceManifold:
         n = len(dets)
         H = np.zeros((n, n))
         orb = self.orbitals
+        t = self._t
         for a_idx in range(n):
             Da = dets[a_idx]
             occ_a = self._occ_list(Da)
             # diagonal
-            e = sum(self.eps[i] for i in occ_a)
+            if t is None:
+                e = sum(self.eps[i] for i in occ_a)
+            else:
+                e = sum(t[i, i] for i in occ_a)
             for x in range(len(occ_a)):
                 for y in range(x + 1, len(occ_a)):
                     i, j = occ_a[x], occ_a[y]
@@ -241,6 +266,8 @@ class ResonanceManifold:
                     ph = (self._phase_remove(Da, r)
                           * self._phase_remove(Db, s))
                     val = 0.0
+                    if t is not None:
+                        val += t[r, s]
                     for i in self._occ_list(common):
                         val += self._v_as(orb[r], orb[i], orb[s], orb[i])
                     val *= ph
@@ -605,4 +632,74 @@ class ResonanceManifold:
         return " ".join(parts)
 
 
-__all__ = ["ResonanceManifold", "ManifoldLevel"]
+def build_core_folded_one_body(active, core, V_screen, r_fine, dr_fine):
+    """Exact active-space one-body matrix t_ab = <a| h + V_core |b>.
+
+    ``active``: dict ``(n, kappa) -> (P, Q, eps)`` — eigenstates of the
+    SAME local potential (converged DFS), fine-grid arrays, with their
+    eigenvalues.  ``core``: list of ``(P, Q, occ, kappa)`` frozen core
+    orbitals.  ``V_screen``: the screening part of the solve potential
+    (V_solve + Z/r) on the fine grid.
+
+    Uses the eigenstate identity  h|b> = eps_b |b> - V_screen |b>  (no
+    derivatives), so
+
+        t_ab = eps_b delta_ab - <a|V_screen|b> + <a|J_core|b> - <a|K_core|b>
+
+    J_core is local (closed shells: only k=0 survives); K_core is the
+    closed-shell exchange, evaluated by explicit m-summation over each
+    core subshell (convention-safe).  Same-kappa pairs only.
+    """
+    # local pieces
+    J_core = np.zeros_like(r_fine)
+    for (Pc, Qc, occ, _kc) in core:
+        rho = Pc * Pc + Qc * Qc
+        J_core = J_core + float(occ) * _yk_fine(rho, r_fine, dr_fine, 0)
+
+    def _local(Pa, Qa, Pb, Qb, f):
+        return float(np.sum((Pa * Pb + Qa * Qb) * f * dr_fine))
+
+    def _k_core(Pa, Qa, ka, Pb, Qb, kb, ):
+        """<a m|K_core|b m> for same kappa (m-independent; use m = -j)."""
+        tja = _tj_of(ka)
+        tm = -tja
+        tot = 0.0
+        for (Pc, Qc, occ, kc) in core:
+            tjc = _tj_of(kc)
+            # occ must equal 2j_c+1 (closed) for this reduction
+            for tmc in range(-tjc, tjc + 1, 2):
+                tq = tm - tmc
+                for k in _allowed_k(ka, kc):
+                    if abs(tq) > 2 * k:
+                        continue
+                    e1 = _ck_m(ka, tm, kc, tmc, k, tq)
+                    if e1 == 0.0:
+                        continue
+                    e2 = _ck_m(kc, tmc, kb, tm, k, -tq)
+                    if e2 == 0.0:
+                        continue
+                    phase = 1.0 if (tq // 2) % 2 == 0 else -1.0
+                    Rk = _grid_slater_rk(Pa, Qa, Pc, Qc, Pc, Qc, Pb, Qb,
+                                         r_fine, dr_fine, k)
+                    tot += phase * e1 * e2 * Rk
+        return tot
+
+    t = {}
+    keys = sorted(active.keys())
+    for (na, ka) in keys:
+        Pa, Qa, ea = active[(na, ka)]
+        for (nb, kb) in keys:
+            if kb != ka:
+                continue
+            Pb, Qb, eb = active[(nb, kb)]
+            val = -_local(Pa, Qa, Pb, Qb, V_screen)
+            if (na, ka) == (nb, kb):
+                val += eb
+            val += _local(Pa, Qa, Pb, Qb, J_core)
+            val -= _k_core(Pa, Qa, ka, Pb, Qb, kb)
+            t[((na, ka), (nb, kb))] = val
+    return t
+
+
+__all__ = ["ResonanceManifold", "ManifoldLevel",
+           "build_core_folded_one_body"]
