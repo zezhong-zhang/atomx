@@ -483,6 +483,7 @@ def _eii_dw_total(
         _l_of,
         _make_fine_grid,
         _p_rel,
+        _pow_tables,
         _shooting_points,
         _tj_of,
         _yk_fine,
@@ -556,6 +557,48 @@ def _eii_dw_total(
 
         sigma_a = np.zeros_like(energies)
 
+        # Energy-independent channel table for this shell: parity/triangle
+        # selection, multipole lists, and the m-summed angular coefficients
+        # per total J.  Previously recomputed for every ejected-energy node
+        # of every incident energy — it only depends on the kappas.
+        channels = []
+        for kappa_in in kappa_list:
+            tj_in = _tj_of(kappa_in)
+            l_in = _l_of(kappa_in)
+            for kappa_1 in kappa_list:
+                tj_1 = _tj_of(kappa_1)
+                l_1 = _l_of(kappa_1)
+                for kappa_2 in kappa_list:
+                    tj_2 = _tj_of(kappa_2)
+                    l_2 = _l_of(kappa_2)
+                    if (l_a + l_in + l_1 + l_2) % 2 != 0:
+                        continue
+                    tJ_lo = max(abs(tj_a - tj_in), abs(tj_1 - tj_2))
+                    tJ_hi = min(tj_a + tj_in, tj_1 + tj_2)
+                    if tJ_lo > tJ_hi:
+                        continue
+                    ks = [k for k in _allowed_k(kappa_a, kappa_1)
+                          if k in _allowed_k(kappa_in, kappa_2)]
+                    ts = [t for t in _allowed_k(kappa_a, kappa_2)
+                          if t in _allowed_k(kappa_in, kappa_1)]
+                    if not ks and not ts:
+                        continue
+                    jrows = []
+                    for tJ in range(tJ_lo, tJ_hi + 1, 2):
+                        ccd = [(k, _cc_direct(kappa_1, kappa_2,
+                                              kappa_a, kappa_in, tJ, k))
+                               for k in ks]
+                        ccd = [(k, a) for (k, a) in ccd if a != 0.0]
+                        cce = [(t, _cc_exchange(kappa_1, kappa_2,
+                                                kappa_a, kappa_in, tJ, t))
+                               for t in ts]
+                        cce = [(t, a) for (t, a) in cce if a != 0.0]
+                        if ccd or cce:
+                            jrows.append((tJ, ccd, cce))
+                    if jrows:
+                        channels.append((kappa_in, kappa_1, kappa_2,
+                                         l_in, ks, ts, jrows))
+
         for E_i_idx, E_i_eV in enumerate(energies):
             E_i_au = E_i_eV / _HEV
             T_max = E_i_au - I_a_au
@@ -589,95 +632,82 @@ def _eii_dw_total(
             for j_E1, E_1_au in enumerate(E1_grid):
                 E_2_au = T_max - E_1_au
                 prof_l = np.zeros(kappa_max + 1)
-                # Y^k caches shared across the third kappa loop.
+                # Per-node caches: Y^k functions (fused numba kernel — a
+                # batched 2D-cumsum variant was tried and lost: the
+                # reversed-slice cumsums force full-matrix copies in this
+                # memory-bound regime) and bound-continuum density rows.
                 yd_cache: Dict[tuple, np.ndarray] = {}
                 ye_cache: Dict[tuple, np.ndarray] = {}
+                rho_a_cache: Dict[tuple, np.ndarray] = {}
 
-                for kappa_in in kappa_list:
+                def _rho_a(kappa, E):
+                    key = (kappa, round(float(E), 10))
+                    v = rho_a_cache.get(key)
+                    if v is None:
+                        w = _wave(kappa, E)
+                        if w is None:
+                            return None
+                        v = (P_a * w[0] + Q_a * w[1]) * dr_fine
+                        rho_a_cache[key] = v
+                    return v
+
+                for (kappa_in, kappa_1, kappa_2, l_in, ks, ts,
+                     jrows) in channels:
                     w_in = _wave(kappa_in, E_i_au)
                     if w_in is None:
                         continue
-                    tj_in = _tj_of(kappa_in)
-                    l_in = _l_of(kappa_in)
-                    for kappa_1 in kappa_list:
-                        w_1 = _wave(kappa_1, E_1_au)
-                        if w_1 is None:
+                    w_1 = _wave(kappa_1, E_1_au)
+                    if w_1 is None:
+                        continue
+                    w_2 = _wave(kappa_2, E_2_au)
+                    if w_2 is None:
+                        continue
+                    Rd = {}
+                    if ks:
+                        rho_a1 = _rho_a(kappa_1, E_1_au)
+                        if rho_a1 is None:
                             continue
-                        tj_1 = _tj_of(kappa_1)
-                        l_1 = _l_of(kappa_1)
-                        rho_a1 = P_a * w_1[0] + Q_a * w_1[1]
-                        for kappa_2 in kappa_list:
-                            tj_2 = _tj_of(kappa_2)
-                            l_2 = _l_of(kappa_2)
-                            if (l_a + l_in + l_1 + l_2) % 2 != 0:
-                                continue
-                            tJ_lo = max(abs(tj_a - tj_in), abs(tj_1 - tj_2))
-                            tJ_hi = min(tj_a + tj_in, tj_1 + tj_2)
-                            if tJ_lo > tJ_hi:
-                                continue
-                            ks = [k for k in _allowed_k(kappa_a, kappa_1)
-                                  if k in _allowed_k(kappa_in, kappa_2)]
-                            ts = [t for t in _allowed_k(kappa_a, kappa_2)
-                                  if t in _allowed_k(kappa_in, kappa_1)]
-                            if not ks and not ts:
-                                continue
-                            w_2 = _wave(kappa_2, E_2_au)
-                            if w_2 is None:
-                                continue
-                            # Direct radial R^k(a,in;1,2):
-                            #   rho13 = a*1, rho24 = in*2 (Y cached).
-                            Rd = {}
-                            for k in ks:
-                                ck = (kappa_in, kappa_2, k)
-                                y = yd_cache.get(ck)
-                                if y is None:
-                                    rho_in2 = (w_in[0] * w_2[0]
-                                               + w_in[1] * w_2[1])
-                                    y = _yk_fine(rho_in2, r_fine, dr_fine, k)
-                                    yd_cache[ck] = y
-                                Rd[k] = float(np.sum(rho_a1 * y * dr_fine))
-                            # Exchange radial R^t(a,in;2,1):
-                            #   rho13 = a*2, rho24 = in*1 (Y cached).
-                            Re = {}
-                            if ts:
-                                rho_a2 = P_a * w_2[0] + Q_a * w_2[1]
-                                for t in ts:
-                                    ct = (kappa_in, kappa_1, t)
-                                    y = ye_cache.get(ct)
-                                    if y is None:
-                                        rho_in1 = (w_in[0] * w_1[0]
-                                                   + w_in[1] * w_1[1])
-                                        y = _yk_fine(rho_in1, r_fine,
-                                                     dr_fine, t)
-                                        ye_cache[ct] = y
-                                    Re[t] = float(np.sum(rho_a2 * y
-                                                         * dr_fine))
-                            acc = 0.0
-                            for tJ in range(tJ_lo, tJ_hi + 1, 2):
-                                D = 0.0
-                                for k in ks:
-                                    ang = _cc_direct(kappa_1, kappa_2,
-                                                     kappa_a, kappa_in,
-                                                     tJ, k)
-                                    if ang != 0.0:
-                                        D += Rd[k] * ang
-                                E_x = 0.0
-                                for t in ts:
-                                    ang = _cc_exchange(kappa_1, kappa_2,
-                                                       kappa_a, kappa_in,
-                                                       tJ, t)
-                                    if ang != 0.0:
-                                        E_x += Re[t] * ang
-                                T = D - E_x
-                                if T != 0.0:
-                                    acc += (tJ + 1) * T * T
-                            prof_l[l_in] += acc
+                        for k in ks:
+                            ck = (kappa_in, kappa_2, k)
+                            y = yd_cache.get(ck)
+                            if y is None:
+                                rho_in2 = (w_in[0] * w_2[0]
+                                           + w_in[1] * w_2[1])
+                                y = _yk_fine(rho_in2, r_fine, dr_fine, k)
+                                yd_cache[ck] = y
+                            Rd[k] = float(rho_a1 @ y)
+                    Re = {}
+                    if ts:
+                        rho_a2 = _rho_a(kappa_2, E_2_au)
+                        if rho_a2 is None:
+                            continue
+                        for t in ts:
+                            ct = (kappa_in, kappa_1, t)
+                            y = ye_cache.get(ct)
+                            if y is None:
+                                rho_in1 = (w_in[0] * w_1[0]
+                                           + w_in[1] * w_1[1])
+                                y = _yk_fine(rho_in1, r_fine,
+                                             dr_fine, t)
+                                ye_cache[ct] = y
+                            Re[t] = float(rho_a2 @ y)
+                    acc = 0.0
+                    for (tJ, ccd, cce) in jrows:
+                        D = 0.0
+                        for (k, ang) in ccd:
+                            D += Rd[k] * ang
+                        E_x = 0.0
+                        for (t, ang) in cce:
+                            E_x += Re[t] * ang
+                        T = D - E_x
+                        if T != 0.0:
+                            acc += (tJ + 1) * T * T
+                    prof_l[l_in] += acc
 
                 om = float(np.sum(prof_l))
                 # Geometric high-l tail on the incident partial wave.
                 om += _geometric_tail(prof_l, kappa_max)
                 integrand[j_E1] = 2.0 * np.pi ** 2 * om
-
             integral = float(np.trapezoid(integrand, E1_grid))
             sigma_a_au = (np.pi / p_i_sq) * (q_a / (tj_a + 1.0)) * integral
             sigma_a[E_i_idx] = sigma_a_au * BOHR_RADIUS_M ** 2 * 1e4
