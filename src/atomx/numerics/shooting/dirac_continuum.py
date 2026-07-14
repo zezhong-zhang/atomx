@@ -48,9 +48,22 @@ from typing import Callable, Tuple
 
 import numpy as np
 
+from functools import lru_cache
+
 from atomx.numerics.shooting.dirac_integrator import doutw
 from atomx.numerics.shooting.grid import sgrid
 from atomx.numerics.shooting.spline import vint
+
+
+@lru_cache(maxsize=64)
+def _sgrid_cached(rn: float, r2: float, drn: float, n: int):
+    """Cache the Salvat grid: construction is ~15x the cost of the actual
+    Dirac integration, and every partial wave / energy in a scattering run
+    shares the same grid parameters.  Arrays are marked read-only."""
+    r, dr, n_out = sgrid(rn=rn, r2=r2, drn=drn, n=n)
+    r = np.ascontiguousarray(r[:n_out])
+    r.setflags(write=False)
+    return r, n_out
 
 
 def solve_dirac_continuum_shooting(
@@ -116,36 +129,25 @@ def solve_dirac_continuum_shooting(
     if kappa == 0:
         raise ValueError("kappa must be non-zero")
 
-    # 1) Salvat-style non-uniform radial grid
+    # 1) Salvat-style non-uniform radial grid (cached across solves)
     Z_eff = max(Z_residual, 1.0)
     r2 = 1.0e-3 / Z_eff
     drn = max(0.5, r_max / max(n_grid, 200))
-    r, dr, n_out = sgrid(rn=r_max, r2=r2, drn=drn, n=n_grid)
-    r = r[:n_out]
+    r, n_out = _sgrid_cached(float(r_max), float(r2), float(drn), int(n_grid))
 
-    # 2) Tabulate r·V(r) and cubic-spline interpolate
-    rv = np.empty_like(r)
-    for i, rv_r in enumerate(r):
-        if rv_r > 0:
-            rv[i] = rv_r * V_func(np.array([rv_r]))[0]
-        else:
-            # r=0: extrapolate to the limit r·V(r)|_{r→0} → -Z (if Coulomb)
-            small = 1.0e-30
-            rv[i] = small * V_func(np.array([small]))[0]
+    # 2) Tabulate r·V(r) and cubic-spline interpolate (single vectorized
+    #    call — a per-point loop here used to dominate the whole solve).
+    r_eval = np.where(r > 0, r, 1.0e-30)
+    rv = r_eval * np.asarray(V_func(r_eval), dtype=float)
     rg, rvg, va, vb, vc, vd, nvt = vint(r, rv, n_out)
 
     # Map full grid points to spline-interval indices.  For each grid
     # point r[i] in (rg[j], rg[j+1]) the relevant spline coefficients
-    # are va[j], vb[j], vc[j], vd[j].
-    ind = np.zeros(n_out, dtype=np.int64)
-    for i_pt in range(n_out):
-        # Binary search for r[i_pt] in rg
-        j = np.searchsorted(rg[:nvt], r[i_pt], side="right") - 1
-        if j < 0:
-            j = 0
-        if j >= nvt - 1:
-            j = nvt - 2
-        ind[i_pt] = j
+    # are va[j], vb[j], vc[j], vd[j].  (Vectorized: a per-point
+    # searchsorted loop here was the second-largest cost of the solve.)
+    ind = np.clip(
+        np.searchsorted(rg[:nvt], r, side="right") - 1, 0, nvt - 2
+    ).astype(np.int64)
 
     # 3) Outward integration
     P = np.zeros(n_out)

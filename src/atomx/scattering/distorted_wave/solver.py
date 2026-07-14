@@ -15,6 +15,7 @@ Reference: Gu, Can. J. Phys. 86, 675 (2008) - FAC DW formulation
 import math
 from functools import lru_cache
 
+import numba as nb
 import numpy as np
 from atomx.constants import ALPHA, C_SQ, HARTREE_EV, BOHR_RADIUS_M
 from atomx.numerics.bspline.continuum import solve_continuum
@@ -355,23 +356,70 @@ def _continuum_on_grid(kappa, energy, V_func, Z_res, r_grid, r_max, n_grid):
 
 def _yk_fine(rho, r, dr, k):
     """Hartree Y^k(r) = ∫ (r_<^k / r_>^{k+1}) ρ(r') dr' on a fine grid."""
-    rk = r ** k
-    rk1 = r ** (k + 1)
+    rk, rk1 = _pow_tables(r, k)
     inner = np.cumsum(rho * rk * dr)                       # ∫_0^r r'^k ρ dr'
     tail = (rho / rk1) * dr
     outer = np.cumsum(tail[::-1])[::-1]                    # ∫_r^∞ ρ/r'^{k+1} dr'
     return inner / rk1 + rk * outer
 
 
+# Power tables r^k / r^(k+1) per (grid, k): recomputing them was a large
+# share of every Slater integral.  Keyed by the grid's id() — fine grids are
+# built once per cross-section call and reused for thousands of integrals.
+_POW_CACHE: dict = {}
+
+
+def _pow_tables(r_grid, k):
+    key = (id(r_grid), k)
+    val = _POW_CACHE.get(key)
+    if val is None:
+        if len(_POW_CACHE) > 256:
+            _POW_CACHE.clear()
+        val = (r_grid ** k, r_grid ** (k + 1))
+        _POW_CACHE[key] = val
+    return val
+
+
+@nb.njit(cache=True)
+def _slater_rk_kernel(P_a, Q_a, P_b, Q_b, P_c, Q_c, P_d, Q_d,
+                      dr, rk, rk1):
+    """Fused R^k = ∫ ρ_ac Y^k[ρ_bd] dr: two passes, one temporary.
+
+    Serial by design — the arrays are ~10^4-10^5 long and the kernel is
+    memory-bound; thread fork/join would dominate (same lesson as the SCF
+    convolution kernels).
+    """
+    n = dr.shape[0]
+    # suffix[i] = sum_{j>=i} rho_bd[j]/rk1[j]*dr[j]
+    suffix = np.empty(n)
+    acc = 0.0
+    for i in range(n - 1, -1, -1):
+        rho_bd = P_b[i] * P_d[i] + Q_b[i] * Q_d[i]
+        acc += rho_bd / rk1[i] * dr[i]
+        suffix[i] = acc
+    total = 0.0
+    inner = 0.0
+    for i in range(n):
+        rho_bd = P_b[i] * P_d[i] + Q_b[i] * Q_d[i]
+        inner += rho_bd * rk[i] * dr[i]
+        # suffix[i] includes the i-th point, matching np.cumsum semantics
+        # of the reference implementation (self-point in both pieces).
+        y = inner / rk1[i] + rk[i] * suffix[i]
+        rho_ac = P_a[i] * P_c[i] + Q_a[i] * Q_c[i]
+        total += rho_ac * y * dr[i]
+    return total
+
+
 def _grid_slater_rk(P_a, Q_a, P_b, Q_b, P_c, Q_c, P_d, Q_d, r_grid, dr, k):
     """R^k(a,b,c,d) = ∫ ρ_ac(r) Y^k[ρ_bd](r) dr on a fine uniform grid.
 
     Same argument order as ``compute_slater_rk_cell`` (ρ13 = a·c, ρ24 = b·d).
+    The fused numba kernel reproduces the reference numpy implementation
+    (``_yk_fine`` + dot) exactly up to floating-point summation order.
     """
-    rho_ac = P_a * P_c + Q_a * Q_c
-    rho_bd = P_b * P_d + Q_b * Q_d
-    y_bd = _yk_fine(rho_bd, r_grid, dr, k)
-    return float(np.sum(rho_ac * y_bd * dr))
+    rk, rk1 = _pow_tables(r_grid, k)
+    return float(_slater_rk_kernel(P_a, Q_a, P_b, Q_b, P_c, Q_c, P_d, Q_d,
+                                   dr, rk, rk1))
 
 
 def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
