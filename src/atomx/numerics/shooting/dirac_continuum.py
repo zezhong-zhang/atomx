@@ -66,6 +66,75 @@ def _sgrid_cached(rn: float, r2: float, drn: float, n: int):
     return r, n_out
 
 
+def _prepare_potential(V_func, r_max: float, n_grid: int, Z_residual: float):
+    """Grid + potential spline shared by every partial wave and energy.
+
+    The spline of r*V(r) is independent of (kappa, E); rebuilding it per
+    solve cost ~30% of each call.  Cached on the ``V_func`` object itself
+    so all solves against the same potential reuse it.
+    """
+    key = (float(r_max), int(n_grid), float(Z_residual))
+    cache = getattr(V_func, "_contsolve_prep", None)
+    if cache is not None and cache.get("key") == key:
+        return cache["prep"]
+    Z_eff = max(Z_residual, 1.0)
+    r2 = 1.0e-3 / Z_eff
+    drn = max(0.5, r_max / max(n_grid, 200))
+    r, n_out = _sgrid_cached(float(r_max), float(r2), float(drn), int(n_grid))
+    r_eval = np.where(r > 0, r, 1.0e-30)
+    rv = r_eval * np.asarray(V_func(r_eval), dtype=float)
+    rg, rvg, va, vb, vc, vd, nvt = vint(r, rv, n_out)
+    ind = np.clip(
+        np.searchsorted(rg[:nvt], r, side="right") - 1, 0, nvt - 2
+    ).astype(np.int64)
+    for arr in (va, vb, vc, vd, ind):
+        try:
+            arr.setflags(write=False)
+        except Exception:
+            pass
+    prep = (r, n_out, va, vb, vc, vd, ind)
+    try:
+        V_func._contsolve_prep = {"key": key, "prep": prep}
+    except (AttributeError, TypeError):
+        pass
+    return prep
+
+
+def _solve_prepared(prep, E_au: float, kappa: int, eps_tol: float):
+    """One partial-wave solve against a prepared potential (thread-safe)."""
+    r, n_out, va, vb, vc, vd, ind = prep
+    P = np.zeros(n_out)
+    Q = np.zeros(n_out)
+    doutw(
+        E_au, eps_tol, float(kappa), 100, n_out, 0,
+        r, ind, n_out, va, vb, vc, vd, P, Q,
+    )
+
+    l = kappa if kappa > 0 else -kappa - 1
+    k_inf = math.sqrt(2.0 * E_au)
+
+    n_match = max(20, n_out // 5)
+    r_match = r[-n_match:]
+    P_match = P[-n_match:]
+    dP = np.gradient(P_match, r_match)
+    A_sq_arr = P_match ** 2 + (dP / k_inf) ** 2
+    A_meas = math.sqrt(float(np.median(A_sq_arr)))
+    if A_meas <= 0 or not math.isfinite(A_meas):
+        return r, P, Q, 0.0
+
+    sin_arg = max(-1.0, min(1.0, P[-1] / A_meas))
+    phase = math.asin(sin_arg)
+    if dP[-1] < 0:
+        phase = math.pi - phase
+    delta = phase - k_inf * r[-1] + 0.5 * l * math.pi
+    delta = (delta + math.pi) % (2 * math.pi) - math.pi
+
+    norm = math.sqrt(2.0 / (math.pi * k_inf)) / A_meas
+    P = P * norm
+    Q = Q * norm
+    return r, P, Q, delta
+
+
 def solve_dirac_continuum_shooting(
     E_au: float,
     kappa: int,
@@ -78,114 +147,75 @@ def solve_dirac_continuum_shooting(
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, float]:
     """Adaptive-Numerov Dirac continuum at exact energy ``E_au``.
 
-    Solves the standard radial Dirac equations for the large (P) and
-    small (Q) components of the continuum spinor on a Salvat-style
-    non-uniform grid.  Phase-matches to free-particle asymptote in
-    the outer region to extract δ.
+    Solves the radial Dirac equations for the large (P) and small (Q)
+    components on a Salvat-style non-uniform grid, then phase-matches to
+    the free-particle asymptote in the outer region and renormalises to
+    the delta-energy convention
 
-    Parameters
-    ----------
-    E_au : float
-        Continuum kinetic energy in Hartree (must be > 0).
-    kappa : int
-        Dirac quantum number.
-    V_func : callable
-        ``V_func(r)`` returns radial potential V(r) at array r
-        (atomic units).  Must include the bare-nuclear -Z/r tail
-        for photoionisation of an N-electron atom.
-    r_max : float
-        Outer integration radius (default 50 a₀).
-    n_grid : int
-        Tentative grid size; the actual grid is built by ``sgrid``
-        and may be larger for high accuracy.
-    eps_tol : float
-        Adaptive-step tolerance passed to ``dir_integrate``.
-    Z_residual : float
-        Residual ion charge (used only to pick a sensible inner grid
-        spacing; the actual asymptotic match uses ``V_func`` directly).
+        P(r -> inf)  ->  sqrt(2 / (pi k)) * sin(k r - l pi/2 + delta).
 
-    Returns
-    -------
-    r : np.ndarray
-        Radial grid (length nrt).
-    P : np.ndarray
-        Large-component continuum spinor, delta-energy normalised
-        so ``P(r → ∞) ≈ √(2/(πk))·sin(k r − lπ/2 + δ)``.
-    Q : np.ndarray
-        Small-component continuum spinor.
-    delta : float
-        Phase shift (radians) extracted from the asymptotic match.
-
-    Notes
-    -----
-    Uses the existing adaptive-Numerov-style ``dir_integrate`` from
-    :mod:`atomx.numerics.shooting.dirac_integrator`.  This is the
-    same kernel Salvat's RADIAL package and FAC's recombination.c
-    use, so the integration path is bit-for-bit equivalent up to
-    the choice of grid.
+    Returns ``(r, P, Q, delta)``.  The grid and the r*V(r) spline are
+    shared across partial waves and energies (cached on ``V_func``); see
+    :func:`solve_dirac_continuum_many` for the thread-parallel batch API.
     """
     if E_au <= 0:
         raise ValueError("solve_dirac_continuum_shooting: E_au must be > 0")
     if kappa == 0:
         raise ValueError("kappa must be non-zero")
-
-    # 1) Salvat-style non-uniform radial grid (cached across solves)
-    Z_eff = max(Z_residual, 1.0)
-    r2 = 1.0e-3 / Z_eff
-    drn = max(0.5, r_max / max(n_grid, 200))
-    r, n_out = _sgrid_cached(float(r_max), float(r2), float(drn), int(n_grid))
-
-    # 2) Tabulate r·V(r) and cubic-spline interpolate (single vectorized
-    #    call — a per-point loop here used to dominate the whole solve).
-    r_eval = np.where(r > 0, r, 1.0e-30)
-    rv = r_eval * np.asarray(V_func(r_eval), dtype=float)
-    rg, rvg, va, vb, vc, vd, nvt = vint(r, rv, n_out)
-
-    # Map full grid points to spline-interval indices.  For each grid
-    # point r[i] in (rg[j], rg[j+1]) the relevant spline coefficients
-    # are va[j], vb[j], vc[j], vd[j].  (Vectorized: a per-point
-    # searchsorted loop here was the second-largest cost of the solve.)
-    ind = np.clip(
-        np.searchsorted(rg[:nvt], r, side="right") - 1, 0, nvt - 2
-    ).astype(np.int64)
-
-    # 3) Outward integration
-    P = np.zeros(n_out)
-    Q = np.zeros(n_out)
-    nzero, sumout, iotp_new, nzmax = doutw(
-        E_au, eps_tol, float(kappa), 100, n_out, 0,
-        r, ind, n_out, va, vb, vc, vd, P, Q,
-    )
-
-    # 4) Asymptotic phase match in the outer 25 % of the grid
-    l = kappa if kappa > 0 else -kappa - 1
-    k_inf = math.sqrt(2.0 * E_au)
-
-    # Compute envelope amplitude on outer 25 % via P² + (P'/k)²
-    n_match = max(20, n_out // 5)
-    r_match = r[-n_match:]
-    P_match = P[-n_match:]
-    # Numerical derivative on non-uniform grid
-    dP = np.gradient(P_match, r_match)
-    A_sq_arr = P_match ** 2 + (dP / k_inf) ** 2
-    A_meas = math.sqrt(float(np.median(A_sq_arr)))
-    if A_meas <= 0 or not math.isfinite(A_meas):
-        return r, P, Q, 0.0
-
-    # Phase from sin/cos at outermost grid point
-    sin_arg = max(-1.0, min(1.0, P[-1] / A_meas))
-    phase = math.asin(sin_arg)
-    if dP[-1] < 0:
-        phase = math.pi - phase
-    delta = phase - k_inf * r[-1] + 0.5 * l * math.pi
-    delta = (delta + math.pi) % (2 * math.pi) - math.pi
-
-    # Renormalise so asymptote is √(2/(πk))·sin(...)
-    norm = math.sqrt(2.0 / (math.pi * k_inf)) / A_meas
-    P = P * norm
-    Q = Q * norm
-
-    return r, P, Q, delta
+    prep = _prepare_potential(V_func, r_max, n_grid, Z_residual)
+    return _solve_prepared(prep, E_au, int(kappa), eps_tol)
 
 
-__all__ = ["solve_dirac_continuum_shooting"]
+def solve_dirac_continuum_many(
+    requests,
+    V_func,
+    *,
+    r_max: float = 50.0,
+    n_grid: int = 1000,
+    eps_tol: float = 1.0e-10,
+    Z_residual: float = 0.0,
+    workers: int | None = None,
+    interp_grid=None,
+):
+    """Batch of partial-wave solves ``requests = [(kappa, E_au), ...]``.
+
+    Thread-parallel: ``doutw`` is nogil-jitted and each solve is ~0.4-4 ms
+    of numerics — the right granularity for threads (unlike the tiny
+    per-row SCF kernels where fork/join dominates).  Returns
+    ``(r, waves)`` with ``waves[(kappa, E_au)] = (P, Q)``.  When
+    ``interp_grid`` is given, the waves are linearly interpolated onto it
+    inside the worker threads (np.interp releases the GIL).
+    """
+    import os
+    from concurrent.futures import ThreadPoolExecutor
+
+    prep = _prepare_potential(V_func, r_max, n_grid, Z_residual)
+    r = prep[0]
+    reqs = [(int(k), float(E)) for (k, E) in requests]
+    if workers is None:
+        workers = min(len(reqs), os.cpu_count() or 1, 16)
+
+    def _run(req):
+        kappa, E = req
+        try:
+            _r, P, Q, _d = _solve_prepared(prep, E, kappa, eps_tol)
+            if interp_grid is not None:
+                return req, (np.interp(interp_grid, r, P),
+                             np.interp(interp_grid, r, Q))
+            return req, (P, Q)
+        except Exception:
+            return req, None
+
+    waves = {}
+    if workers <= 1 or len(reqs) <= 2:
+        for req in reqs:
+            key, val = _run(req)
+            waves[key] = val
+    else:
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            for key, val in pool.map(_run, reqs):
+                waves[key] = val
+    return r, waves
+
+
+__all__ = ["solve_dirac_continuum_shooting", "solve_dirac_continuum_many"]

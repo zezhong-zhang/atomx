@@ -470,6 +470,9 @@ def _eii_dw_total(
     """
     from atomx.constants import HARTREE_EV as _HEV
     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
+    from atomx.numerics.shooting.dirac_continuum import (
+        solve_dirac_continuum_many,
+    )
     from atomx.scattering.distorted_wave.solver import (
         _allowed_k,
         _cc_direct,
@@ -563,6 +566,25 @@ def _eii_dw_total(
             E1_grid = np.linspace(0.05 * T_max, 0.49 * T_max,
                                   n_outgoing_energies)
             integrand = np.zeros_like(E1_grid)
+
+            # Thread-parallel prefill of every continuum wave used by this
+            # incident energy: projectile + all ejected/scattered nodes.
+            energies_needed = {round(E_i_au, 10)}
+            for E_1_au in E1_grid:
+                energies_needed.add(round(float(E_1_au), 10))
+                energies_needed.add(round(float(T_max - E_1_au), 10))
+            try:
+                reqs = [(k, E) for k in kappa_list
+                        for E in energies_needed]
+                _r_s, raw = solve_dirac_continuum_many(
+                    reqs, V_func, r_max=r_max_box, n_grid=n_shoot,
+                    Z_residual=Z_res, interp_grid=r_fine)
+                for (kap, E), pq in raw.items():
+                    key = (int(kap), round(float(E), 10))
+                    if key not in cont_cache:
+                        cont_cache[key] = pq
+            except Exception:
+                pass
 
             for j_E1, E_1_au in enumerate(E1_grid):
                 E_2_au = T_max - E_1_au
