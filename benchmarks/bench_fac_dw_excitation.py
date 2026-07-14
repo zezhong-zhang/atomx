@@ -29,9 +29,19 @@ from fac_runner import SFAC_BIN, run_sfac  # noqa: E402
 
 
 Z_GRID = [10, 26, 54]
-ENERGY_FACTORS = [1.0, 2.0, 5.0]
+# 1.05 (not 1.0): at exact threshold the scattered energy is 0 and the two
+# codes would be compared at different clamped grid points; 5% above threshold
+# both are well-defined and FAC's grid covers it without extrapolation.
+ENERGY_FACTORS = [1.05, 2.0, 5.0]
 OUT = ROOT / "benchmarks" / "results_fac_dw_excitation.csv"
 
+# FAC computes CE collision strengths on its own automatically-constructed
+# energy grid (ETYPE=1 => scattered-electron energy).  We read that grid and
+# interpolate Omega(E_incident/threshold) to the requested E/threshold points,
+# so the comparison is at matched collision dynamics even though atomx and FAC
+# have slightly different absolute thresholds.  (The old SetUsrPEGrid(n, [list])
+# call is not valid in FAC 1.1.5 -- the correct list form is SetUsrPEGrid([list])
+# -- and forcing a custom grid is unnecessary here.)
 FAC_TEMPLATE = """SetAtom('{symbol}')
 Closed('')
 Config('g', '{ground_config}')
@@ -42,7 +52,6 @@ ConfigEnergy(1)
 Structure('{stem}.lev.b', ['g', 'e'])
 MemENTable('{stem}.lev.b')
 PrintTable('{stem}.lev.b', '{stem}.lev', 1)
-SetUsrPEGrid({nusr}, {energies})
 CETable('{stem}.ce.b', ['g'], ['e'])
 PrintTable('{stem}.ce.b', '{stem}.ce', 1)
 """
@@ -99,8 +108,8 @@ def run_atomx(
         ground,
         excited,
         energies_eV,
-        L_max=4,
-        kappa_max=6,
+        L_max=6,
+        kappa_max=10,
         transition_energy_eV=threshold_eV,
     )
     converged = (
@@ -110,16 +119,25 @@ def run_atomx(
     return np.asarray(omega, dtype=float), converged
 
 
-def run_fac(Z: int, spec: dict[str, object], energies_eV: np.ndarray, timeout: float, keep_dir: Path | None) -> tuple[np.ndarray, str]:
+def run_fac(Z: int, spec: dict[str, object], factors, timeout: float, keep_dir: Path | None) -> tuple[np.ndarray, float, str]:
+    """Return FAC multiplet-summed collision strengths at E_inc/threshold = ``factors``.
+
+    atomx's DW driver returns the configuration (multiplet-summed) collision
+    strength from the initial level, so the FAC reference sums Omega over ALL
+    fine-structure lines of the g -> e transition array, each line evaluated
+    at the same reduced incident energy E_inc = f * E_th(line).  FAC's CE grid
+    is the scattered-electron energy (ETYPE=1): E_inc = E_s + E_th.
+
+    Also returns FAC's strongest-line threshold (eV) for reporting.
+    """
+    factors = np.asarray(factors, dtype=float)
     if not SFAC_BIN.exists():
-        return np.zeros_like(energies_eV), f"FAC unavailable: {SFAC_BIN}"
+        return np.zeros_like(factors), 0.0, f"FAC unavailable: {SFAC_BIN}"
     sequence = next((name for name, candidate in SEQUENCES.items() if candidate is spec), "sequence")
     stem = f"{sequence.replace('-', '_')}_dw_ce_z{Z}"
     script_text = FAC_TEMPLATE.format(
         symbol=SYMBOLS[Z],
         stem=stem,
-        nusr=len(energies_eV),
-        energies="[" + ", ".join(f"{e:.8e}" for e in energies_eV) + "]",
         ground_config=str(spec["ground"]),
         excited_config=str(spec["excited"]),
     )
@@ -136,11 +154,28 @@ def run_fac(Z: int, spec: dict[str, object], energies_eV: np.ndarray, timeout: f
         run_sfac(script, workdir=workdir, timeout=timeout)
         rows = read_ce(workdir / f"{stem}.ce")
         if not rows:
-            return np.zeros_like(energies_eV), "FAC produced no CE rows"
-        row = max(rows, key=lambda r: float(np.nanmax(r["collision_strength"])))
-        return np.asarray(row["collision_strength"], dtype=float), ""
+            return np.zeros_like(factors), 0.0, "FAC produced no CE rows"
+        # Lines from the ground level (lower == 0) only.
+        ground_rows = [r for r in rows if int(r["lower"]) == 0] or rows
+        strongest = max(ground_rows,
+                        key=lambda r: float(np.nanmax(r["collision_strength"])))
+        fac_th = float(strongest["DELTA_E_eV"])
+        omega_sum = np.zeros_like(factors)
+        for row in ground_rows:
+            th = float(row["DELTA_E_eV"])
+            if th <= 0:
+                continue
+            E_scat = np.asarray(row["energy_eV"], dtype=float)
+            omega = np.asarray(row["collision_strength"], dtype=float)
+            keep = E_scat > 1.0e-3 * th  # drop FAC's sub-threshold sentinel row
+            if not np.any(keep):
+                continue
+            x = (E_scat[keep] + th) / th
+            order = np.argsort(x)
+            omega_sum += np.interp(factors, x[order], omega[keep][order])
+        return omega_sum, fac_th, ""
     except Exception as exc:  # noqa: BLE001
-        return np.zeros_like(energies_eV), "FAC failed: " + " ".join(str(exc).split())
+        return np.zeros_like(factors), 0.0, "FAC failed: " + " ".join(str(exc).split())
     finally:
         if ctx is not None:
             ctx.cleanup()
@@ -171,12 +206,13 @@ def main() -> None:
             energies = np.asarray([threshold * f for f in ENERGY_FACTORS], dtype=float)
             omega_atomx, atomx_converged = run_atomx(Z, spec, energies, threshold)
             note = ""
+            fac_th = 0.0
             if args.skip_fac:
                 omega_fac = np.zeros_like(energies)
                 note = "FAC skipped (--skip-fac)"
             else:
                 keep = Path(args.keep_fac_dir) if args.keep_fac_dir else None
-                omega_fac, note = run_fac(Z, spec, energies, args.timeout, keep)
+                omega_fac, fac_th, note = run_fac(Z, spec, ENERGY_FACTORS, args.timeout, keep)
             for factor, energy, atomx, fac in zip(ENERGY_FACTORS, energies, omega_atomx, omega_fac):
                 rel = ((float(atomx) - float(fac)) / float(fac)) if fac > 0.0 else ""
                 rows.append({
@@ -186,6 +222,7 @@ def main() -> None:
                     "E_over_threshold": factor,
                     "energy_eV": energy,
                     "threshold_eV": threshold,
+                    "fac_threshold_eV": fac_th,
                     "atomx_converged": int(atomx_converged),
                     "omega_atomx": float(atomx),
                     "omega_fac": float(fac),
@@ -204,6 +241,7 @@ def main() -> None:
             "E_over_threshold",
             "energy_eV",
             "threshold_eV",
+            "fac_threshold_eV",
             "atomx_converged",
             "omega_atomx",
             "omega_fac",
@@ -215,16 +253,8 @@ def main() -> None:
         writer.writerows(rows)
         writer.writerow({
             "Z": "rms",
-            "sequence": "",
-            "transition": "",
-            "E_over_threshold": "",
-            "energy_eV": "",
-            "threshold_eV": "",
-            "atomx_converged": "",
-            "omega_atomx": "",
-            "omega_fac": "",
             "rel_diff": "" if math.isnan(rms) else f"{rms:.6g}",
-            "note": "target rms <= 0.10",
+            "note": "LIVE FAC 1.1.5; atomx DW vs FAC CE, matched E/threshold",
         })
     print(f"Wrote {out}")
 

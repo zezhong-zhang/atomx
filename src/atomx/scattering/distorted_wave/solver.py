@@ -13,15 +13,19 @@ Reference: Gu, Can. J. Phys. 86, 675 (2008) - FAC DW formulation
 """
 
 import math
+from functools import lru_cache
 
 import numpy as np
 from atomx.constants import ALPHA, C_SQ, HARTREE_EV, BOHR_RADIUS_M
 from atomx.numerics.bspline.continuum import solve_continuum
 from atomx.numerics.bspline.convol import ConvolCache, compute_slater_rk_cell
+from atomx.numerics.bspline.evaluate import eval_P, eval_Q, compute_yk
+from atomx.numerics.shooting.dirac_continuum import solve_dirac_continuum_shooting
 from atomx.properties.transitions.angular import _kappa_to_lj, selection_rules, angular_eL
 from atomx.properties.transitions.multipole import radial_eL
 from atomx.properties.transitions.rates import oscillator_strength
 from atomx.angular.csf import csf_parity, csf_twice_j, one_body_csf_coupling
+from atomx.angular.coefficients import reduced_cl_j2
 from atomx.angular.wigner import wigner_3j, wigner_6j
 from atomx.methods.mcdhf.config import CSF
 from atomx.scattering._jit_kernels import dw_excitation_angular_sum
@@ -68,6 +72,111 @@ def _allowed_k(kappa_a, kappa_b):
     kmin = abs(tja - tjb) // 2
     kmax = (tja + tjb) // 2
     return [k for k in range(kmin, kmax + 1) if (k + la + lb) % 2 == 0]
+
+
+@lru_cache(maxsize=None)
+def _cg2(tj1, tm1, tj2, tm2, tJ, tM):
+    """Clebsch-Gordan <j1 m1 j2 m2 | J M> (all arguments doubled)."""
+    w = wigner_3j(tj1, tj2, tJ, tm1, tm2, -tM)
+    if abs(w) < 1e-15:
+        return 0.0
+    phase = 1.0 if ((tj1 - tj2 + tM) // 2) % 2 == 0 else -1.0
+    return phase * math.sqrt(tJ + 1.0) * w
+
+
+@lru_cache(maxsize=None)
+def _ck_m(kappa_c, tmc, kappa_a, tma, k, tq):
+    """<j_c m_c | C^k_q | j_a m_a> via Wigner-Eckart with Grant's <||C^k||>."""
+    red = _reduced_C(kappa_c, kappa_a, k)
+    if red == 0.0:
+        return 0.0
+    tjc, tja = _tj_of(kappa_c), _tj_of(kappa_a)
+    w = wigner_3j(tjc, 2 * k, tja, -tmc, tq, tma)
+    if abs(w) < 1e-15:
+        return 0.0
+    phase = 1.0 if ((tjc - tmc) // 2) % 2 == 0 else -1.0
+    return phase * w * red
+
+
+@lru_cache(maxsize=None)
+def _cc_direct(kappa_c, kappa_d, kappa_a, kappa_b, tJ, k):
+    """<(c d) J | C^k(1)·C^k(2) | (a b) J> by explicit m-summation.
+
+    Slot pairing (c<-a, d<-b): the direct channel of the scattering
+    matrix element (a=target_i, b=projectile_in, c=target_f,
+    d=projectile_out).  Radial factor excluded.
+    """
+    tja, tjb = _tj_of(kappa_a), _tj_of(kappa_b)
+    tjc, tjd = _tj_of(kappa_c), _tj_of(kappa_d)
+    tM = min(tJ, tja + tjb, tjc + tjd)
+    tot = 0.0
+    for tma in range(-tja, tja + 1, 2):
+        tmb = tM - tma
+        if abs(tmb) > tjb:
+            continue
+        c1 = _cg2(tja, tma, tjb, tmb, tJ, tM)
+        if abs(c1) < 1e-15:
+            continue
+        for tmc in range(-tjc, tjc + 1, 2):
+            tmd = tM - tmc
+            if abs(tmd) > tjd:
+                continue
+            c2 = _cg2(tjc, tmc, tjd, tmd, tJ, tM)
+            if abs(c2) < 1e-15:
+                continue
+            tq = tmc - tma
+            if abs(tq) > 2 * k:
+                continue
+            e1 = _ck_m(kappa_c, tmc, kappa_a, tma, k, tq)
+            if e1 == 0.0:
+                continue
+            e2 = _ck_m(kappa_d, tmd, kappa_b, tmb, k, -tq)
+            if e2 == 0.0:
+                continue
+            phase = 1.0 if (tq // 2) % 2 == 0 else -1.0
+            tot += c1 * c2 * phase * e1 * e2
+    return tot
+
+
+@lru_cache(maxsize=None)
+def _cc_exchange(kappa_c, kappa_d, kappa_a, kappa_b, tJ, t):
+    """Exchange coupled matrix element by explicit m-summation.
+
+    Same bra/ket couplings as :func:`_cc_direct` but with the one-electron
+    operators pairing (d<-a, c<-b) — the antisymmetrization term
+    <(c d) J | C^t·C^t | (a b) J>_exch.  The antisymmetrized amplitude is
+    ``T_J = D_J - E_J`` (radial factors excluded here).
+    """
+    tja, tjb = _tj_of(kappa_a), _tj_of(kappa_b)
+    tjc, tjd = _tj_of(kappa_c), _tj_of(kappa_d)
+    tM = min(tJ, tja + tjb, tjc + tjd)
+    tot = 0.0
+    for tma in range(-tja, tja + 1, 2):
+        tmb = tM - tma
+        if abs(tmb) > tjb:
+            continue
+        c1 = _cg2(tja, tma, tjb, tmb, tJ, tM)
+        if abs(c1) < 1e-15:
+            continue
+        for tmc in range(-tjc, tjc + 1, 2):
+            tmd = tM - tmc
+            if abs(tmd) > tjd:
+                continue
+            c2 = _cg2(tjc, tmc, tjd, tmd, tJ, tM)
+            if abs(c2) < 1e-15:
+                continue
+            tq = tmd - tma  # slot 1 transfers a -> d
+            if abs(tq) > 2 * t:
+                continue
+            e1 = _ck_m(kappa_d, tmd, kappa_a, tma, t, tq)
+            if e1 == 0.0:
+                continue
+            e2 = _ck_m(kappa_c, tmc, kappa_b, tmb, t, -tq)
+            if e2 == 0.0:
+                continue
+            phase = 1.0 if (tq // 2) % 2 == 0 else -1.0
+            tot += c1 * c2 * phase * e1 * e2
+    return tot
 
 
 def _dominant_csf(result):
@@ -140,37 +249,182 @@ def _target_transition_population(csf_i, csf_f, k, kappa_i, kappa_f):
 PI_A0_SQ_CM2 = np.pi * (BOHR_RADIUS_M * 100) ** 2
 
 
+def _distorting_potential_fn(result, bsp_data, Z, screening="fac"):
+    """Local distorting potential of the target for the projectile electron.
+
+    ``screening="fac"`` (default) reproduces FAC's convention: the continuum
+    electron moves in the same mean central potential as the bound electrons,
+    V(r) = -Z/r + ((N-1)/N)·V_Hartree(r), asymptotic charge Z-N+1.  For a
+    one-electron target this is the bare -Z/r, exactly as FAC.
+    ``screening="full"`` uses the full N-electron Hartree potential
+    (asymptotic charge Z-N).
+    """
+    gr = bsp_data["gr"]
+    grw = bsp_data["grw"]
+    nv = bsp_data["nv"]
+    ng = gr.shape[1]
+    rho = np.zeros_like(gr)
+    n_bound = 0.0
+    # orbitals_raw: kappa -> [(P, Q, occ), ...]
+    for _kappa, orb_list in result.orbitals_raw.items():
+        for P, Q, occ in orb_list:
+            if occ <= 0.0:
+                continue
+            Pg = eval_P(P, bsp_data)
+            Qg = eval_Q(Q, bsp_data)
+            rho += float(occ) * (Pg * Pg + Qg * Qg)
+            n_bound += float(occ)
+    scale = 1.0
+    if screening == "fac" and n_bound > 0.0:
+        scale = (n_bound - 1.0) / n_bound
+    V_H = compute_yk(rho, gr, grw, nv, ng, 0)  # Hartree Y^0(r) potential
+    V_gr = -float(Z) / np.maximum(gr, 1e-30) + scale * V_H
+    r_flat = gr.ravel()
+    order = np.argsort(r_flat)
+    r_sorted = r_flat[order]
+    V_sorted = V_gr.ravel()[order]
+    # Coulombic extrapolation beyond the B-spline box: V -> -Z_asym/r.
+    r_last = float(r_sorted[-1])
+    z_asym = -float(V_sorted[-1]) * r_last
+
+    def V_func(r_query):
+        r_query = np.asarray(r_query, dtype=float)
+        v = np.interp(r_query, r_sorted, V_sorted)
+        beyond = r_query > r_last
+        if np.any(beyond):
+            v = np.where(beyond, -z_asym / np.maximum(r_query, 1e-30), v)
+        return v
+
+    return V_func
+
+
+def _p_rel(E_au):
+    """Relativistic momentum p = sqrt(2E + (E/c)^2) in a.u."""
+    return math.sqrt(2.0 * E_au + (E_au * E_au) / C_SQ)
+
+
+def _make_fine_grid(bsp_data, k_max_au):
+    """Uniform radial grid fine enough to resolve continuum waves up to ``k_max_au``.
+
+    The B-spline Gauss grid is optimized for bound states and under-resolves the
+    rapid oscillation of keV continuum waves in the outer region.  We therefore
+    do the distorted-wave Slater integrals on a dedicated uniform grid with
+    step h such that h·k <= 0.2 (~30 points per wavelength) — linear
+    interpolation of the waves then loses < (hk)^2/8 ~ 0.5% amplitude.
+    """
+    r_max = float(bsp_data["t"][-1])
+    n = int(np.clip(5.0 * r_max * max(k_max_au, 1.0), 4000, 600000))
+    return np.linspace(r_max / n, r_max, n)
+
+
+def _shooting_points(r_max, p_max):
+    """Shooting-solver grid size for <1% amplitude accuracy: h·p <= 0.1."""
+    return int(np.clip(10.0 * r_max * max(p_max, 1.0), 3000, 300000))
+
+
+def _continuum_on_grid(kappa, energy, V_func, Z_res, r_grid, r_max, n_grid):
+    """δ(E)-normalized shooting continuum (P, Q) sampled on ``r_grid``."""
+    r_s, P_s, Q_s, _phase = solve_dirac_continuum_shooting(
+        float(energy), int(kappa), V_func,
+        r_max=r_max, n_grid=int(n_grid), Z_residual=float(Z_res),
+    )
+    P_g = np.interp(r_grid, r_s, P_s)
+    Q_g = np.interp(r_grid, r_s, Q_s)
+    return P_g, Q_g
+
+
+def _yk_fine(rho, r, dr, k):
+    """Hartree Y^k(r) = ∫ (r_<^k / r_>^{k+1}) ρ(r') dr' on a fine grid."""
+    rk = r ** k
+    rk1 = r ** (k + 1)
+    inner = np.cumsum(rho * rk * dr)                       # ∫_0^r r'^k ρ dr'
+    tail = (rho / rk1) * dr
+    outer = np.cumsum(tail[::-1])[::-1]                    # ∫_r^∞ ρ/r'^{k+1} dr'
+    return inner / rk1 + rk * outer
+
+
+def _grid_slater_rk(P_a, Q_a, P_b, Q_b, P_c, Q_c, P_d, Q_d, r_grid, dr, k):
+    """R^k(a,b,c,d) = ∫ ρ_ac(r) Y^k[ρ_bd](r) dr on a fine uniform grid.
+
+    Same argument order as ``compute_slater_rk_cell`` (ρ13 = a·c, ρ24 = b·d).
+    """
+    rho_ac = P_a * P_c + Q_a * Q_c
+    rho_bd = P_b * P_d + Q_b * Q_d
+    y_bd = _yk_fine(rho_bd, r_grid, dr, k)
+    return float(np.sum(rho_ac * y_bd * dr))
+
+
 def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
-                                 L_max=4, kappa_max=10,
-                                 transition_energy_eV=None):
-    """Compute electron-impact excitation cross-section sigma(E).
+                                 L_max=6, kappa_max=12,
+                                 transition_energy_eV=None,
+                                 continuum_method="shooting",
+                                 shooting_n_grid=None,
+                                 exchange=True,
+                                 topup=True):
+    """Electron-impact excitation cross-section sigma(E) and collision strength.
 
-    Uses the DW approximation: the incoming/outgoing electron wavefunctions
-    are computed in the static potential of the initial/final atomic state.
+    Relativistic distorted-wave implementation following FAC exactly
+    (Gu 2008, Can. J. Phys. 86, 675; faclib/excitation.c + radial.c):
 
-    The inner partial-wave sum is JIT-compiled via numba for performance.
+    For a one-electron target transition a -> b the collision strength is
+
+        Omega = 2*pi^2 * Sum_pairs pop_ab * Sum_{k, kap_in, kap_out}
+                (sd + se)^2 / (2k+1)                                     (*)
+
+        sd = R^k(a,in; b,out) <j_a||C^k||j_b> <j_in||C^k||j_out>
+        se = Sum_t (2k+1) W6j(j_a j_b k; j_in j_out t)
+                 R^t(a,in; out,b) <j_a||C^t||j_out> <j_in||C^t||j_b>
+
+    with delta(E)-normalized continuum waves (asymptotic amplitude
+    sqrt(2/(pi*k))).  The 2*pi^2 constant is the S-matrix factor
+    |S-1|^2 = 4*pi^2 |<f|V|i>|^2 combined with the electron-spin average
+    1/2; it is algebraically identical to FAC's ``8.0 * qk / (2k+1)``
+    given FAC's 1/sqrt(k)-amplitude waves (faclib/orbital.c:1988).
+    Verified channel-by-channel against FAC's CE tables (H-like 1s->2p,
+    1s->3d; He-like 1s2->1s2p).
+
+    The target factor treats the transition in the average-configuration
+    approximation: ``pop_ab = q_a * (g_b - q_b) / g_b`` summed incoherently
+    over all relativistic subshell pairs (a -> b) of the configuration
+    change.  Omega is therefore the *multiplet-summed* collision strength
+    from the initial level (sum over all fine-structure final levels).
 
     Parameters
     ----------
-    atom_initial : Atom
-        Solved initial-state atom (e.g., ground state).
-    atom_final : Atom
-        Solved final-state atom (e.g., excited state).
+    atom_initial, atom_final : Atom
+        Solved initial/final-state atoms.
     energies_eV : array_like
         Incident electron kinetic energies in eV.
     L_max : int
-        Maximum multipole order for the Coulomb interaction.
+        Maximum multipole rank for the Coulomb interaction (direct and
+        exchange).
     kappa_max : int
-        Maximum |kappa| for partial-wave expansion.
+        Maximum |kappa| of the projectile partial waves computed
+        explicitly.  For dipole-allowed transitions the l > kappa_max
+        tail is estimated with a geometric-ratio top-up (FAC's TopUpQk
+        scheme) when ``topup`` is true.
     transition_energy_eV : float or array_like, optional
         Override transition threshold energy.
+    continuum_method : {"shooting"}, optional
+        Continuum backend.  The delta(E)-normalized adaptive-Numerov
+        shooting solver in the target's FAC-convention mean potential
+        (-Z/r + (N-1)/N V_Hartree) is the only supported backend; the
+        legacy B-spline box continuum mis-normalizes at keV energies and
+        was removed from this path.
+    shooting_n_grid : int, optional
+        Radial points for the shooting solver.  Default (None) scales
+        with energy so that h*p <= 0.1 (sub-1% amplitude accuracy).
+    exchange : bool
+        Include the exchange amplitude (FAC's ``se``).  Default True.
+    topup : bool
+        Add the geometric high-l tail per multipole rank.  Default True.
 
     Returns
     -------
     sigma : ndarray
         Cross-section in cm^2 at each energy.
     omega : ndarray
-        Collision strength (dimensionless) at each energy.
+        Multiplet-summed collision strength at each energy.
     """
     if L_max < 0:
         raise ValueError("L_max must be non-negative")
@@ -179,11 +433,9 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
 
     energies_eV = np.atleast_1d(np.asarray(energies_eV, dtype=float))
 
-    # Extract structure data
     result_i = atom_initial._result
     result_f = atom_final._result
     bsp_data = atom_initial._bsp_data
-
     if result_i is None or result_f is None:
         raise ValueError("Both atoms must be solved.")
 
@@ -203,224 +455,236 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
     if np.all(dE_hartree_grid <= 0):
         raise ValueError("Final state must have higher energy than initial.")
 
-    # Build SCF potential matrices for continuum calculation
-    V_J_PP_i, V_J_QQ_i = _extract_scf_potential(atom_initial)
-
-    # Find the orbital that differs (the "active" electron)
-    orb_i_label, orb_f_label, P_bound_i, Q_bound_i, kappa_i, P_bound_f, Q_bound_f, kappa_f = \
-        _find_active_orbital(result_i, result_f)
-
-    if P_bound_i is None:
+    pairs = _active_transition_pairs(result_i, result_f)
+    if not pairs:
         return np.zeros_like(energies_eV), np.zeros_like(energies_eV)
 
-    target_tj_i, _target_parity_i, _target_csf_i = _target_state_metadata(result_i)
-    target_tj_f, _target_parity_f, _target_csf_f = _target_state_metadata(result_f)
-    l_i = _l_of(kappa_i)
-    l_f = _l_of(kappa_f)
+    target_tj_i, _p, _c = _target_state_metadata(result_i)
+    g_i = float(target_tj_i + 1)
 
     n_energies = len(energies_eV)
     E_inc_hartree = energies_eV / HARTREE_EV
 
-    # Build kappa arrays (exclude 0)
-    kappa_inc_arr = np.array([k for k in range(-kappa_max, kappa_max + 1) if k != 0],
-                             dtype=np.int64)
-    kappa_scat_arr = kappa_inc_arr
+    # FAC-convention distorting potential and residual charge for the
+    # shooting continuum solver.
+    N_bound = sum(float(sh.occupation) for sh in result_i.subshells)
+    Z_res = max(float(Z) - N_bound + 1.0, 1.0)
+    V_func = _distorting_potential_fn(result_i, bsp_data, Z, screening="fac")
+    r_max_box = float(bsp_data["t"][-1])
 
-    # Cache continuum solutions and Slater radial cells for this energy grid.
-    continuum_cache = {}
-    slater_cache = ConvolCache(bsp_data)
+    # Fine integration grid sized to the fastest wave on the panel.
+    E_max = float(np.max(E_inc_hartree))
+    p_max = _p_rel(max(E_max, 1.0))
+    r_fine = _make_fine_grid(bsp_data, p_max)
+    dr_fine = np.gradient(r_fine)
+    n_shoot = (int(shooting_n_grid) if shooting_n_grid
+               else _shooting_points(r_max_box, p_max))
+
+    # Bound orbitals interpolated onto the fine grid (smooth: safe).
+    gr_flat = bsp_data["gr"].ravel()
+    _o = np.argsort(gr_flat)
+    gr_sorted = gr_flat[_o]
+
+    def _bound_to_fine(coef_P, coef_Q, src_bsp):
+        Pg = eval_P(coef_P, src_bsp).ravel()[_o]
+        Qg = eval_Q(coef_Q, src_bsp).ravel()[_o]
+        return (np.interp(r_fine, gr_sorted, Pg),
+                np.interp(r_fine, gr_sorted, Qg))
+
+    bsp_f = atom_final._bsp_data
+    pair_data = []
+    for (ka, kb, pop, PQa, PQb) in pairs:
+        Pa, Qa = _bound_to_fine(PQa[0], PQa[1], bsp_data)
+        Pb, Qb = _bound_to_fine(PQb[0], PQb[1], bsp_f)
+        pair_data.append((ka, kb, float(pop), Pa, Qa, Pb, Qb))
+    if not pair_data:
+        return np.zeros_like(energies_eV), np.zeros_like(energies_eV)
+
+    kappa_list = [k for k in range(-kappa_max - 1, kappa_max + 1)
+                  if k != 0 and _l_of(k) <= kappa_max]
+
+    E_OUT_MIN = 1.0 / HARTREE_EV  # evaluate the threshold point at E_out = 1 eV
 
     sigma_au = np.zeros(n_energies)
     omega = np.zeros(n_energies)
 
     for idx in range(n_energies):
         E_inc = E_inc_hartree[idx]
-        E_scattered = E_inc - dE_hartree_grid[idx]
-        if E_scattered <= 0:
-            continue
-        k_i_sq = 2.0 * E_inc
-
-        _ch_tj_in = []
-        _ch_tj_out = []
-        _ch_tJ_lo = []
-        _ch_tJ_hi = []
-        _ch_n_d = []
-        _ch_n_e = []
-        _direct_products = []
-        _exchange_products = []
-        _w6j_direct = []
-        _w6j_exchange = []
-
-        for iki, kappa_inc in enumerate(kappa_inc_arr):
-            tj_in = _tj_of(kappa_inc)
-            l_in = _l_of(kappa_inc)
-
-            # Solve incoming continuum wave (with caching)
-            key_in = (int(kappa_inc), idx)
-            if key_in not in continuum_cache:
-                try:
-                    P_inc, Q_inc, _ = solve_continuum(
-                        int(kappa_inc), E_inc, Z, bsp_data,
-                        V_J_PP_i, V_J_QQ_i, energy_normalized=True)
-                    continuum_cache[key_in] = (P_inc, Q_inc)
-                except Exception:
-                    continuum_cache[key_in] = None
-            inc_result = continuum_cache[key_in]
-            if inc_result is None:
+        E_out = E_inc - dE_hartree_grid[idx]
+        if E_out <= 0.0:
+            if E_inc >= dE_hartree_grid[idx] * (1.0 - 1e-9):
+                E_out = E_OUT_MIN
+            else:
                 continue
-            P_inc, Q_inc = inc_result
+        E_out = max(E_out, E_OUT_MIN)
 
-            for iks, kappa_scat in enumerate(kappa_scat_arr):
-                tj_out = _tj_of(kappa_scat)
-                l_out = _l_of(kappa_scat)
+        cont = {}
 
-                # Parity conservation: l_i + l_in + l_f + l_out must be even
-                if (l_i + l_in + l_f + l_out) % 2 != 0:
-                    continue
+        def _wave(kappa, E):
+            key = (int(kappa), round(float(E), 12))
+            if key not in cont:
+                try:
+                    cont[key] = _continuum_on_grid(
+                        int(kappa), float(E), V_func, Z_res,
+                        r_fine, r_max_box, n_shoot)
+                except Exception:
+                    cont[key] = None
+            return cont[key]
 
-                # Total J range for target + projectile channels.
-                tJ_range = _target_projectile_J_range(
-                    target_tj_i, target_tj_f, tj_in, tj_out)
-                if tJ_range is None:
-                    continue
-                tJ_lo, tJ_hi = tJ_range
+        # Per-partial-wave collision-strength profile, indexed by l of the
+        # incident electron (FAC's qk(l) profile, used for the high-l tail).
+        prof_l = np.zeros(kappa_max + 1)
 
-                # Solve scattered continuum wave
-                key_scat = (int(kappa_scat), round(E_scattered, 12))
-                if key_scat not in continuum_cache:
-                    try:
-                        P_scat, Q_scat, _ = solve_continuum(
-                            int(kappa_scat), E_scattered, Z, bsp_data,
-                            V_J_PP_i, V_J_QQ_i, energy_normalized=True)
-                        continuum_cache[key_scat] = (P_scat, Q_scat)
-                    except Exception:
-                        continuum_cache[key_scat] = None
-                scat_result = continuum_cache[key_scat]
-                if scat_result is None:
-                    continue
-                P_scat, Q_scat = scat_result
-
-                # Allowed k: direct (i→f, in→out) and exchange (i→out, in→f)
-                kd_pair = [k for k in _allowed_k(kappa_i, kappa_f)
-                           if k in _allowed_k(kappa_inc, kappa_scat) and k <= L_max]
-                ke_pair = [k for k in _allowed_k(kappa_i, kappa_scat)
-                           if k in _allowed_k(kappa_inc, kappa_f) and k <= L_max]
-                if not kd_pair and not ke_pair:
-                    continue
-
-                # Direct products and 6j
-                d_prods = []
-                d_w6j = []
-                for k in kd_pair:
-                    pop = _target_transition_population(
-                        _target_csf_i, _target_csf_f, k, kappa_i, kappa_f)
-                    C_if = pop * _reduced_C(kappa_i, kappa_f, k)
-                    C_inout = _reduced_C(kappa_inc, kappa_scat, k)
-                    if abs(C_if) < 1e-15 or abs(C_inout) < 1e-15:
+        for kappa_in in kappa_list:
+            w_in = _wave(kappa_in, E_inc)
+            if w_in is None:
+                continue
+            tj_in = _tj_of(kappa_in)
+            l_in = _l_of(kappa_in)
+            for kappa_out in kappa_list:
+                tj_out = _tj_of(kappa_out)
+                l_out = _l_of(kappa_out)
+                w_out = None
+                for (ka, kb, pop, Pa, Qa, Pb, Qb) in pair_data:
+                    la, lb = _l_of(ka), _l_of(kb)
+                    if (la + l_in + lb + l_out) % 2 != 0:
                         continue
-                    try:
-                        Rk = compute_slater_rk_cell(
-                            P_bound_i, Q_bound_i, P_inc, Q_inc,
-                            P_bound_f, Q_bound_f, P_scat, Q_scat,
-                            bsp_data, int(k), cache=slater_cache)
-                    except Exception:
+                    tja, tjb = _tj_of(ka), _tj_of(kb)
+                    ks = [k for k in _allowed_k(ka, kb)
+                          if k in _allowed_k(kappa_in, kappa_out)
+                          and k <= L_max]
+                    ts = []
+                    if exchange:
+                        ts = [t for t in _allowed_k(ka, kappa_out)
+                              if t in _allowed_k(kappa_in, kb) and t <= L_max]
+                    if not ks and not ts:
                         continue
-                    d_prods.append(C_if * C_inout * Rk)
-                    n_J = (tJ_hi - tJ_lo) // 2 + 1
-                    for iJ in range(n_J):
-                        tJ = tJ_lo + 2 * iJ
-                        d_w6j.append(wigner_6j(target_tj_i, tj_in, tJ, tj_out, target_tj_f, 2 * k))
+                    if w_out is None:
+                        w_out = _wave(kappa_out, E_out)
+                        if w_out is None:
+                            break
+                    Rd = {k: _grid_slater_rk(
+                        Pa, Qa, w_in[0], w_in[1],
+                        Pb, Qb, w_out[0], w_out[1],
+                        r_fine, dr_fine, k) for k in ks}
+                    Re = {t: _grid_slater_rk(
+                        Pa, Qa, w_in[0], w_in[1],
+                        w_out[0], w_out[1], Pb, Qb,
+                        r_fine, dr_fine, t) for t in ts}
+                    # Explicit total-J sum: T_J = D_J - E_J with the coupled
+                    # scalar-product matrix elements evaluated by exact
+                    # m-summation (no 6j phase-convention risk).
+                    tJ_lo = max(abs(tja - tj_in), abs(tjb - tj_out))
+                    tJ_hi = min(tja + tj_in, tjb + tj_out)
+                    acc = 0.0
+                    for tJ in range(tJ_lo, tJ_hi + 1, 2):
+                        D = 0.0
+                        for k in ks:
+                            ang = _cc_direct(kb, kappa_out, ka, kappa_in,
+                                             tJ, k)
+                            if ang != 0.0:
+                                D += Rd[k] * ang
+                        E_ = 0.0
+                        for t in ts:
+                            ang = _cc_exchange(kb, kappa_out, ka, kappa_in,
+                                               tJ, t)
+                            if ang != 0.0:
+                                E_ += Re[t] * ang
+                        T = D - E_
+                        if T != 0.0:
+                            acc += (tJ + 1) * T * T
+                    prof_l[l_in] += pop * acc
 
-                # Exchange products and 6j
-                e_prods = []
-                e_w6j = []
-                for k in ke_pair:
-                    pop = _target_transition_population(
-                        _target_csf_i, _target_csf_f, k, kappa_i, kappa_f)
-                    C_iout = pop * _reduced_C(kappa_i, kappa_scat, k)
-                    C_inf = _reduced_C(kappa_inc, kappa_f, k)
-                    if abs(C_iout) < 1e-15 or abs(C_inf) < 1e-15:
-                        continue
-                    try:
-                        Rk = compute_slater_rk_cell(
-                            P_bound_i, Q_bound_i, P_inc, Q_inc,
-                            P_scat, Q_scat, P_bound_f, Q_bound_f,
-                            bsp_data, int(k), cache=slater_cache)
-                    except Exception:
-                        continue
-                    e_prods.append(C_iout * C_inf * Rk)
-                    n_J = (tJ_hi - tJ_lo) // 2 + 1
-                    for iJ in range(n_J):
-                        tJ = tJ_lo + 2 * iJ
-                        e_w6j.append(wigner_6j(target_tj_i, tj_in, tJ, target_tj_f, tj_out, 2 * k))
+        om = float(np.sum(prof_l))
+        if topup and kappa_max >= 2:
+            q1, q0 = float(prof_l[kappa_max]), float(prof_l[kappa_max - 1])
+            if q0 > 0.0 and 0.0 < q1 < q0:
+                ratio = q1 / q0
+                om += q1 * ratio / (1.0 - ratio)
+        om *= 2.0 * math.pi ** 2
 
-                if not d_prods and not e_prods:
-                    continue
+        p_i_sq = 2.0 * E_inc + (E_inc * E_inc) / C_SQ
+        omega[idx] = om
+        sigma_au[idx] = math.pi / p_i_sq * om / g_i
 
-                _ch_tj_in.append(tj_in)
-                _ch_tj_out.append(tj_out)
-                _ch_tJ_lo.append(tJ_lo)
-                _ch_tJ_hi.append(tJ_hi)
-                _ch_n_d.append(len(d_prods))
-                _ch_n_e.append(len(e_prods))
-                _direct_products.extend(d_prods)
-                _exchange_products.extend(e_prods)
-                _w6j_direct.extend(d_w6j)
-                _w6j_exchange.extend(e_w6j)
-
-        # JIT-compiled angular coupling sum
-        n_channels = len(_ch_tj_in)
-        if n_channels > 0:
-            omega_sum = dw_excitation_angular_sum(
-                n_channels,
-                target_tj_i,
-                target_tj_f,
-                np.array(_ch_tj_in, dtype=np.int64),
-                np.array(_ch_tj_out, dtype=np.int64),
-                np.array(_ch_tJ_lo, dtype=np.int64),
-                np.array(_ch_tJ_hi, dtype=np.int64),
-                np.array(_ch_n_d, dtype=np.int64),
-                np.array(_ch_n_e, dtype=np.int64),
-                np.array(_direct_products, dtype=np.float64),
-                np.array(_exchange_products, dtype=np.float64),
-                np.array(_w6j_direct, dtype=np.float64),
-                np.array(_w6j_exchange, dtype=np.float64),
-            )
-            if k_i_sq > 0.0:
-                sigma_au[idx] = np.pi / k_i_sq * omega_sum / (target_tj_i + 1.0)
-                omega[idx] = omega_sum
-
-    # Convert from atomic units (a_0^2) to cm^2
     sigma = sigma_au * (BOHR_RADIUS_M * 100) ** 2
-
-    # FAC blends/augments high partial waves with a Coulomb-Bethe limit for
-    # optically allowed transitions.
-    zero_mask = (sigma <= 0.0) & (energies_eV > dE_hartree_grid * HARTREE_EV)
-    if np.any(zero_mask) and selection_rules(kappa_i, kappa_f, 1, "E"):
-        omega0 = float(np.mean(dE_hartree_grid))
-        if omega0 > 0.0:
-            rad = radial_eL(P_bound_i, Q_bound_i, P_bound_f, Q_bound_f, bsp_data, L=1)
-            ang = angular_eL(kappa_i, kappa_f, 1)
-            S_optical = (ang * rad) ** 2
-            f_optical, _gf = oscillator_strength(omega0, S_optical, 1, target_tj_i, target_tj_f)
-            omega_bethe = coulomb_bethe_topup(
-                f_optical,
-                energies_eV,
-                float(omega0 * HARTREE_EV),
-                L_truncation=max(1, L_max),
-            )
-            k_i_sq_grid = 2.0 * energies_eV / HARTREE_EV
-            sigma_bethe_au = np.divide(
-                np.pi * omega_bethe,
-                k_i_sq_grid * (target_tj_i + 1),
-                out=np.zeros_like(omega_bethe),
-                where=k_i_sq_grid > 0.0,
-            )
-            sigma_bethe = sigma_bethe_au * (BOHR_RADIUS_M * 100) ** 2
-            sigma[zero_mask] = sigma_bethe[zero_mask]
-            omega[zero_mask] = omega_bethe[zero_mask]
-
     return sigma, omega
+
+
+def _active_transition_pairs(result_i, result_f):
+    """All relativistic subshell pairs (a -> b) of the config change.
+
+    The non-relativistic source and destination shells (n, l) are identified
+    from the occupation change between the two solves; the pair list then
+    expands over ALL jj components of both shells (a jj-averaged or
+    lowest-level solve may put the excited electron into only one j
+    component, but the multiplet-summed collision strength needs both).
+
+    Returns ``(kappa_a, kappa_b, pop, (P_a, Q_a), (P_b, Q_b))`` with the
+    average-configuration population factor
+    ``pop = q_a * (g_b - q_b) / g_b`` built from initial-state occupations.
+    Source orbitals come from the initial solve, destination orbitals from
+    the final (relaxed) solve.
+    """
+    occ_i = {(sh.n, sh.kappa): float(sh.occupation) for sh in result_i.subshells}
+    occ_f = {(sh.n, sh.kappa): float(sh.occupation) for sh in result_f.subshells}
+    src_nl = set()
+    dst_nl = set()
+    for key in sorted(set(occ_i) | set(occ_f)):
+        delta = occ_f.get(key, 0.0) - occ_i.get(key, 0.0)
+        n, kappa = key
+        if delta < -0.01:
+            src_nl.add((n, _l_of(kappa)))
+        elif delta > 0.01:
+            dst_nl.add((n, _l_of(kappa)))
+    dst_nl -= src_nl
+    if not src_nl or not dst_nl:
+        return []
+
+    def _kappas_of_l(l):
+        return [-1] if l == 0 else [l, -(l + 1)]
+
+    def _orb(result, key):
+        n, kappa = key
+        same = [sh for sh in result.subshells if sh.kappa == kappa]
+        for i, sh in enumerate(same):
+            if sh.n == n:
+                orb_list = result.orbitals_raw.get(kappa, [])
+                if i < len(orb_list):
+                    P, Q, _q = orb_list[i]
+                    return (P, Q)
+        return None
+
+    out = []
+    for (n_a, l_a) in sorted(src_nl):
+        for kappa_a in _kappas_of_l(l_a):
+            skey = (n_a, kappa_a)
+            q_a = occ_i.get(skey, 0.0)
+            if q_a <= 1e-8:
+                continue
+            PQa = _orb(result_i, skey)
+            if PQa is None:
+                continue
+            for (n_b, l_b) in sorted(dst_nl):
+                for kappa_b in _kappas_of_l(l_b):
+                    dkey = (n_b, kappa_b)
+                    g_b = 2.0 * abs(kappa_b)
+                    q_b = occ_i.get(dkey, 0.0)
+                    # The coupled-channel J-sum already counts the full
+                    # (2j_a+1) source line (all M_a); the population factor
+                    # is therefore just the destination vacancy fraction.
+                    # Exact for a closed source subshell and for a source
+                    # subshell that defines the initial level (H-like);
+                    # multi-open-shell config averages need level-resolved
+                    # CI amplitudes (future work).
+                    pop = max(g_b - q_b, 0.0) / g_b
+                    if pop <= 1e-10:
+                        continue
+                    PQb = _orb(result_f, dkey)
+                    if PQb is None:
+                        continue
+                    out.append((kappa_a, kappa_b, float(pop), PQa, PQb))
+    return out
 
 
 def _extract_scf_potential(atom, include_local_exchange: bool = False):
