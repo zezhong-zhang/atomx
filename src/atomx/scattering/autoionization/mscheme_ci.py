@@ -71,6 +71,8 @@ class ManifoldLevel:
     gamma_auger_per_s: float
     weights: np.ndarray       # eigenvector over determinants
     dominant: str             # label of the dominant determinant
+    E_res_au: float = 0.0     # absolute energy above the closed-shell ion
+    a_radiative_per_s: float = 0.0
 
 
 class ResonanceManifold:
@@ -304,19 +306,25 @@ class ResonanceManifold:
     # ---- Auger amplitude -------------------------------------------------
     def auger_widths(self, tM: int, resonance_energy_eV: float,
                      *, Z, bsp_data, shooting_n_grid=None,
-                     L_max: int = 6):
+                     L_max: int = 6, _only_level=None, _precomputed=None):
         """Diagonalize the manifold at 2M = tM and return ManifoldLevels
         with exact Auger widths for levels with 2J = tM.
 
         The final ion is the closed shell obtained by filling the hole
         group; the free electron carries j_f = J and the parity-allowed l.
+        ``_only_level``/``_precomputed`` are internal hooks used by
+        :meth:`dr_levels` to reuse a diagonalization and evaluate a single
+        eigenvector at its own resonance energy.
         """
-        dets = self.determinants(tM)
-        if not dets:
-            return []
-        H = self.hamiltonian(dets)
-        J2 = self.j2_matrix(dets)
-        evals, evecs = np.linalg.eigh(H)
+        if _precomputed is not None:
+            dets, H, J2, evals, evecs = _precomputed
+        else:
+            dets = self.determinants(tM)
+            if not dets:
+                return []
+            H = self.hamiltonian(dets)
+            J2 = self.j2_matrix(dets)
+            evals, evecs = np.linalg.eigh(H)
 
         # continuum electron
         E_res_au = float(resonance_energy_eV) / HARTREE_EV
@@ -400,7 +408,9 @@ class ResonanceManifold:
 
         levels_out = []
         e_min = float(np.min(evals))
-        for li in range(len(evals)):
+        level_range = (range(len(evals)) if _only_level is None
+                       else [_only_level])
+        for li in level_range:
             w = evecs[:, li]
             j2_exp = float(w @ J2 @ w)
             tJ_val = int(round(-1 + math.sqrt(1.0 + 4.0 * j2_exp)))
@@ -452,6 +462,126 @@ class ResonanceManifold:
                 self._rk_cache[key] = val
             tot += val * phase * e1 * e2
         return tot
+
+    def ion_energy(self) -> float:
+        """Energy of the closed-shell ion (hole group filled, no excited
+        electrons) in the same frozen-orbital accounting as the manifold
+        Hamiltonian — differences give resonance / transition energies."""
+        full = self.group_bits[0]
+        return float(self.hamiltonian([full])[0, 0])
+
+    def _rdip(self, o_a, o_b):
+        """Length-gauge radial dipole integral (P_a P_b + Q_a Q_b) r dr."""
+        key = ("dip", (o_a.n, o_a.kappa), (o_b.n, o_b.kappa))
+        val = self._rk_cache.get(key)
+        if val is None:
+            rho = o_a.P * o_b.P + o_a.Q * o_b.Q
+            val = float(np.sum(rho * self.r_fine * self.dr_fine))
+            self._rk_cache[key] = val
+        return val
+
+    def _radiative_width(self, dets, w, E_level: float) -> float:
+        """Total E1 stabilizing width of a CI level (fills the hole).
+
+        Final states: closed hole group + one spectator electron e'.
+        One-orbital-difference Slater-Condon: the dipole moves one excited
+        electron into the single hole; the other must match e'.
+
+            A = (4/3) alpha^3 sum_f w_f^3 sum_q |<f| d_q |level>|^2
+        """
+        from atomx.constants import ALPHA
+
+        full = self.group_bits[0]
+        # coherent amplitudes keyed by (spectator orbital index, 2q)
+        amps: dict = {}
+        efinal: dict = {}
+        for d_idx, det in enumerate(dets):
+            wd = w[d_idx]
+            if abs(wd) < 1e-12:
+                continue
+            missing = full & ~det
+            if bin(missing).count("1") != 1:
+                continue
+            nu = missing.bit_length() - 1
+            occ_exc = [i for i in self._occ_list(det)
+                       if not (full & (1 << i))]
+            if len(occ_exc) != 2:
+                continue
+            o_nu = self.orbitals[nu]
+            for e_i, spect in ((occ_exc[0], occ_exc[1]),
+                               (occ_exc[1], occ_exc[0])):
+                o_e = self.orbitals[e_i]
+                tq = o_nu.tm - o_e.tm
+                if abs(tq) > 2:
+                    continue
+                ang = _ck_m(o_nu.kappa, o_nu.tm, o_e.kappa, o_e.tm, 1, tq)
+                if ang == 0.0:
+                    continue
+                # SC one-body sign: remove e_i, create at nu.
+                ph = self._phase_remove(det, e_i)
+                mid = det & ~(1 << e_i)
+                ph *= self._phase_remove(mid, nu)
+                amp = wd * ph * ang * self._rdip(o_nu, o_e)
+                key = (spect, tq)
+                amps[key] = amps.get(key, 0.0) + amp
+                if spect not in efinal:
+                    fdet = full | (1 << spect)
+                    efinal[spect] = float(
+                        self.hamiltonian([fdet])[0, 0])
+        a_r = 0.0
+        for (spect, tq), amp in amps.items():
+            omega = E_level - efinal[spect]
+            if omega <= 0.0:
+                continue
+            a_r += (4.0 / 3.0) * (ALPHA ** 3) * omega ** 3 * amp * amp
+        return a_r * AU_RATE_PER_S
+
+    def dr_levels(self, tM: int, *, Z, bsp_data, shooting_n_grid=None,
+                  L_max: int = 6, e_ion: float | None = None):
+        """Manifold levels with ab-initio resonance energies, Auger and
+        E1 stabilizing widths — everything a DR calculation needs.
+
+        Like :meth:`auger_widths` but the Auger-electron energy is the
+        level's own ``E_level - E_ion`` (no external resonance energy),
+        and each level also carries its total radiative width.
+        """
+        dets = self.determinants(tM)
+        if not dets:
+            return []
+        H = self.hamiltonian(dets)
+        J2 = self.j2_matrix(dets)
+        evals, evecs = np.linalg.eigh(H)
+        if e_ion is None:
+            e_ion = self.ion_energy()
+
+        out = []
+        e_min = float(np.min(evals))
+        for li in range(len(evals)):
+            wvec = evecs[:, li]
+            j2_exp = float(wvec @ J2 @ wvec)
+            tJ_val = int(round(-1 + math.sqrt(1.0 + 4.0 * j2_exp)))
+            if tJ_val != tM:
+                continue
+            E_res = float(evals[li] - e_ion)
+            if E_res <= 0.0:
+                continue
+            lv = self.auger_widths(
+                tM, E_res * HARTREE_EV, Z=Z, bsp_data=bsp_data,
+                shooting_n_grid=shooting_n_grid, L_max=L_max,
+                _only_level=li, _precomputed=(dets, H, J2, evals, evecs))
+            gam_a = lv[0].gamma_auger_per_s if lv else 0.0
+            a_r = self._radiative_width(dets, wvec, float(evals[li]))
+            imax = int(np.argmax(np.abs(wvec)))
+            out.append(ManifoldLevel(
+                two_J=tM,
+                energy_au=float(evals[li] - e_min),
+                gamma_auger_per_s=float(gam_a),
+                weights=wvec,
+                dominant=self._det_label(dets[imax]),
+                E_res_au=E_res,
+                a_radiative_per_s=float(a_r),
+            ))
+        return out
 
     def _det_label(self, det):
         parts = []
