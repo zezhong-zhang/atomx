@@ -21,7 +21,10 @@ from atomx.constants import ALPHA, C_SQ, HARTREE_EV, BOHR_RADIUS_M
 from atomx.numerics.bspline.continuum import solve_continuum
 from atomx.numerics.bspline.convol import ConvolCache, compute_slater_rk_cell
 from atomx.numerics.bspline.evaluate import eval_P, eval_Q, compute_yk
-from atomx.numerics.shooting.dirac_continuum import solve_dirac_continuum_shooting
+from atomx.numerics.shooting.dirac_continuum import (
+    solve_dirac_continuum_many,
+    solve_dirac_continuum_shooting,
+)
 from atomx.properties.transitions.angular import _kappa_to_lj, selection_rules, angular_eL
 from atomx.properties.transitions.multipole import radial_eL
 from atomx.properties.transitions.rates import oscillator_strength
@@ -63,10 +66,12 @@ def _reduced_C(kappa_a, kappa_b, k):
     return phase * math.sqrt((tja + 1) * (tjb + 1)) * w
 
 
+@lru_cache(maxsize=None)
 def _allowed_k(kappa_a, kappa_b):
     """Allowed multipole k values for reduced C^k between two kappa states.
 
     Selection rules: |j_a - j_b| ≤ k ≤ j_a + j_b, l_a + l_b + k even.
+    (lru_cached; callers must not mutate the returned list.)
     """
     tja, tjb = _tj_of(kappa_a), _tj_of(kappa_b)
     la, lb = _l_of(kappa_a), _l_of(kappa_b)
@@ -357,10 +362,28 @@ def _continuum_on_grid(kappa, energy, V_func, Z_res, r_grid, r_max, n_grid):
 def _yk_fine(rho, r, dr, k):
     """Hartree Y^k(r) = ∫ (r_<^k / r_>^{k+1}) ρ(r') dr' on a fine grid."""
     rk, rk1 = _pow_tables(r, k)
-    inner = np.cumsum(rho * rk * dr)                       # ∫_0^r r'^k ρ dr'
-    tail = (rho / rk1) * dr
-    outer = np.cumsum(tail[::-1])[::-1]                    # ∫_r^∞ ρ/r'^{k+1} dr'
-    return inner / rk1 + rk * outer
+    return _yk_kernel_rho(rho, dr, rk, rk1)
+
+
+@nb.njit(cache=True, nogil=True)
+def _yk_kernel_rho(rho, dr, rk, rk1):
+    """Fused Y^k from a precomputed density (one temporary, two passes).
+
+    Matches the reference cumsum implementation exactly up to
+    floating-point summation order (self-point included in both the
+    inner and outer pieces, as np.cumsum does).
+    """
+    n = rho.shape[0]
+    y = np.empty(n)
+    acc = 0.0
+    for i in range(n - 1, -1, -1):
+        acc += rho[i] / rk1[i] * dr[i]
+        y[i] = acc                      # suffix sums, reused below
+    inner = 0.0
+    for i in range(n):
+        inner += rho[i] * rk[i] * dr[i]
+        y[i] = inner / rk1[i] + rk[i] * y[i]
+    return y
 
 
 # Power tables r^k / r^(k+1) per (grid, k): recomputing them was a large
@@ -587,6 +610,18 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
         E_out = max(E_out, E_OUT_MIN)
 
         cont = {}
+        # Thread-parallel prefill of all partial waves at both energies
+        # (doutw is nogil; each solve is ms-scale — the right thread grain).
+        try:
+            reqs = ([(k, E_inc) for k in kappa_list]
+                    + [(k, E_out) for k in kappa_list])
+            _r_s, raw = solve_dirac_continuum_many(
+                reqs, V_func, r_max=r_max_box, n_grid=n_shoot,
+                Z_residual=Z_res, interp_grid=r_fine)
+            for (kap, E), pq in raw.items():
+                cont[(int(kap), round(float(E), 12))] = pq
+        except Exception:
+            cont = {}
 
         def _wave(kappa, E):
             key = (int(kappa), round(float(E), 12))

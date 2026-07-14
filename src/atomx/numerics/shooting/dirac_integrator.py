@@ -10,7 +10,7 @@ from atomx.numerics.shooting.constants import SL
 from atomx.numerics.shooting.dirac_power_series import dir0
 
 
-@nb.njit(cache=True)
+@nb.njit(cache=True, nogil=True)
 def dir_integrate(e, ak, eps, isum, ppi, qqi, ra, rb,
                   rv0, rv1, rv2, rv3):
     """Adaptive step-size Dirac integrator — DIR (radial.f:2118-2226).
@@ -120,7 +120,7 @@ def dir_integrate(e, ak, eps, isum, ppi, qqi, ra, rb,
     return pf, qf, rln, rsum, nstep, nchs, ca2
 
 
-@nb.njit(cache=True)
+@nb.njit(cache=True, nogil=True)
 def doutw(e, eps, ak, nr, iotp_in, isum,
           r, ind, nrt, va, vb, vc, vd,
           pt, qt):
@@ -231,7 +231,7 @@ def doutw(e, eps, ak, nr, iotp_in, isum,
     return nzero, sumout, iotp, nzmax
 
 
-@nb.njit(cache=True)
+@nb.njit(cache=True, nogil=True)
 def dinw(e, eps, ak, iotp, isum,
          r, ind, nrt, va, vb, vc, vd,
          pt, qt):
