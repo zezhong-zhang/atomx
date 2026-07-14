@@ -99,29 +99,49 @@ hotter near threshold than Younger's exchange treatment — the well-known
 post/prior/Peterkop EII exchange-model spread. FAC-DW parity is the
 exactness anchor.
 
-## Auger per-level (jj) amplitudes — structurally exact, two residuals
+## Auger per-level amplitudes — determinant CI, traces exact
 
-New module `atomx/scattering/autoionization/jj_level.py`:
-`auger_rate_jj_level` computes the exact fine-structure resonance
-amplitude by explicit m-summation — hole conjugation
-`h†_{JM} = (−1)^{j−M}c_{j,−M}`, sequential `((h⊗e₁)J_a⊗e₂)J` and
-equivalent-pair `(h⊗(e²)J_p)J` coupling schemes (FAC level-name
-conventions), coherent direct−exchange, δ(E) shooting continuum, and
-`Γ = 2π|A|²` (≡ FAC's `4Σp²/(2J+1)` under their 1/√k convention,
-recombination.c:2168). The amplitude is verified exactly M-independent.
+Two new modules:
 
-Fe XVII KLL panel vs FAC: 0.49/0.68/0.90/1.50/4.2 (was 1.17–15.2 with the
-config-average proxy). The two identified residual sources:
-1. **Orbital basis**: FAC optimizes radials on the ground config
-   (`OptimizeRadial(['rec'])`); atomx's MCDHF average-level solve relaxes
-   3l orbitals over the excited configs — 3d differs most (largest
-   residual is the 3d² resonance).
-2. **CI mixing**: FAC levels mix within each (J, parity) manifold; the
-   jj_level rates are for pure basis states. Manifold traces
-   (mixing-invariant) still differ 1.75–5.3×, consistent with (1)
-   dominating for d states.
-Completion path: wire atomx's j-resolved CSF eigenvectors + ground-config
-orbital option into the jj_level amplitudes.
+1. `atomx/scattering/autoionization/jj_level.py`: exact amplitude for a
+   *pure* jj-coupled basis state by explicit m-summation — hole
+   conjugation `h†_{JM} = (−1)^{j−M}c_{j,−M}`, sequential
+   `((h⊗e₁)J_a⊗e₂)J` and equivalent-pair `(h⊗(e²)J_p)J` schemes,
+   coherent direct−exchange, δ(E) shooting continuum,
+   `Γ = 2π|A|²` (≡ FAC's `4Σp²/(2J+1)` under their 1/√k convention,
+   recombination.c:2168). Verified exactly M-independent.
+
+2. `atomx/scattering/autoionization/mscheme_ci.py`
+   (**ResonanceManifold**): a self-contained bitmask-determinant CI over
+   the resonance manifold. Hamiltonian (orbital energies +
+   all active-active Coulomb via Slater–Condon), J² classification, and
+   the Auger decay amplitude are all evaluated over the *same*
+   determinants — fermionic signs consistent by construction. Supports
+   multi-configuration manifolds (e.g. 2p⁵{3s3p + 3p3d} for a given
+   (J, parity)). Yields level energies *and* widths.
+
+Key validation steps (Fe XVII KLL vs FAC AITable):
+- With the **FAC-like orbital basis** (ground-config solve + frozen-core
+  virtuals from `mbpt._build_virtual_basis`), the **mixing-invariant
+  manifold traces match FAC**: J=7/2 2p⁵3d² trace ratio **0.984**;
+  J=1/2 2p⁵3s3p **0.878** (FAC lists only above-cut levels) — the
+  amplitude machinery is exact.
+- Per-level after CI: strongest-level widths at 1.078 / 0.56 / 0.73 /
+  1.149 / 1.066 of FAC across the five (J, parity) blocks (was 1.2–15×
+  with the config-average proxy). Pinned by
+  `tests/test_auger_mscheme_ci.py` (trace ≤20%, top level ≤35%).
+- The pure-basis-state panel with average-level orbitals was 0.49–4.2;
+  switching to ground-optimized orbitals moved every d-state into range
+  (ILEV 190: 4.2 → 0.77), confirming the orbital-basis diagnosis.
+
+Remaining residual (the 3p²-dominated blocks at 0.56–0.73 with strength
+spread over neighbors): the virtual-orbital potential. atomx's V^{N−1}
+virtuals give ε(3s) = −18.0 Ha where FAC's optimized DFS potential gives
+≈ −13.7 (full-N inner screening) → larger Slater integrals → stretched
+multiplet splittings → different mixing. Completion path: generate the
+3l orbitals in atomx's `exchange='fac'` local DFS potential (already
+validated to 1e-3 against sfac for structure) and/or include the
+dr34/2s-hole configurations in the manifold union.
 
 FAC's own machinery for reference: `recombination.c AutoionizeRate`
 (2021–2170), spectator 6j in `structure.c:6421` (AngularZxZFreeBound),
