@@ -447,143 +447,92 @@ def _eii_dw_total(
     n_outgoing_energies: int,
     continuum_model: Any = None,
 ) -> "EIIResult":
-    """Distorted-wave Born approximation for total EII cross section.
+    """Relativistic distorted-wave EII on the FAC-exact CE machinery.
 
-    Implementation:
-    - Frozen-core V^{N-1} static-Hartree distorted waves for both the
-      projectile and the two outgoing electrons (Pindzola-Griffin /
-      FAC prescription) — proper screening for neutrals.
-    - Asymptotic free-particle box DOS √(R/(π·k)) for delta-energy
-      normalisation, robust at high energy.
-    - J-coupled antisymmetric Slater integrals between bound + 3
-      continuum waves; partial-wave sum to ``kappa_max``.
+    Ionization is treated as excitation into the continuum: for each
+    ejected-electron energy E1 the two-electron T-matrix
+
+        T_J = <(eps1 kap1, eps2 kap2) J | 1/r12 | (a, eps_in kap_in) J>_A
+
+    is assembled exactly as in
+    :func:`atomx.scattering.distorted_wave.solver.dw_excitation_cross_section`
+    (exact m-summation angular coefficients, direct minus exchange,
+    delta(E)-normalized shooting continuum waves in the FAC-convention
+    (N-1)/N mean potential, fine-grid Slater integrals), and
+
+        sigma(E_i) = pi / p_i^2 * q_a / (2 j_a + 1)
+                     * Int_0^{Tmax/2} dE1  2 pi^2
+                       Sum_{J, kap_in, kap_1, kap_2} (2J+1) |T_J|^2
+
+    The E1 integral runs to Tmax/2 (identical outgoing electrons; the
+    antisymmetrized |D - E|^2 covers the exchange).  A geometric high-l
+    tail on the incident partial-wave profile tops up l > kappa_max.
     """
     from atomx.constants import HARTREE_EV as _HEV
-    from atomx.numerics.bspline.convol import (
-        ConvolCache, compute_slater_rk_cell,
+    from atomx.numerics.bspline.evaluate import eval_P, eval_Q
+    from atomx.scattering.distorted_wave.solver import (
+        _allowed_k,
+        _cc_direct,
+        _cc_exchange,
+        _continuum_on_grid,
+        _distorting_potential_fn,
+        _geometric_tail,
+        _l_of,
+        _make_fine_grid,
+        _p_rel,
+        _shooting_points,
+        _tj_of,
+        _yk_fine,
     )
-    from atomx.angular.wigner import wigner_6j
-
-    # Local helpers — duplicate the small ones from the MBPT module to
-    # avoid a circular import.
-    def _l_of(k):
-        return k if k > 0 else -k - 1
-    def _tj_of(k):
-        return 2 * abs(k) - 1
-    def _allowed_k(k_a, k_b):
-        ja, jb = abs(k_a) - 0.5, abs(k_b) - 0.5
-        kmin, kmax = int(abs(ja - jb)), int(ja + jb)
-        la, lb = _l_of(k_a), _l_of(k_b)
-        return [k for k in range(kmin, kmax + 1) if (k + la + lb) % 2 == 0]
-
-    import math
-
-    def _reduced_C(k_a, k_b, k):
-        la, lb = _l_of(k_a), _l_of(k_b)
-        if (la + k + lb) % 2 != 0:
-            return 0.0
-        from atomx.angular.wigner import wigner_3j
-        tja, tjb = _tj_of(k_a), _tj_of(k_b)
-        w = wigner_3j(tja, 2 * k, tjb, -1, 0, 1)
-        if abs(w) < 1e-15:
-            return 0.0
-        phase = (-1) ** ((tja + 1) // 2)
-        return phase * math.sqrt((tja + 1) * (tjb + 1)) * w
 
     bsp_data = scf_result._bsp_data
     if bsp_data is None:
         raise ValueError("SCFResult is missing _bsp_data — re-run solve().")
     Z = scf_result.Z
-    cache = ConvolCache(bsp_data)
 
     energies = np.asarray(energies_eV, dtype=float)
     sigma_total = np.zeros_like(energies)
     by_orbital: Dict[str, np.ndarray] = {}
     prov_per_orb: Dict[str, Dict[str, float]] = {}
 
-    # Continuum-wave cache.  solve_continuum returns BOX-normalised
-    # states (∫|ψ|² = 1); for cross sections we need DELTA-ENERGY
-    # normalisation (⟨ψ_E|ψ_E'⟩ = δ(E−E')).  The conversion factor
-    # is √(2 ρ(E)/π) where ρ(E) is the local eigenvalue density-of-
-    # states.  We estimate ρ(E) ≈ 1/ΔE_local from the spacing of
-    # neighbouring B-spline eigenvalues and fold it into ψ here.
-    # Build the V^{N-1} static-Hartree potential once per ionisation
-    # target — outside the per-energy loop.
-    cont_cache: Dict[tuple, tuple] = {}
-    static_potentials: Dict[str, tuple] = {}
+    # FAC-convention mean potential of the target; continuum waves for the
+    # projectile and both outgoing electrons are solved in it.
+    V_func = _distorting_potential_fn(scf_result, bsp_data, Z, screening="fac")
+    N_bound = sum(float(sh.occupation) for sh in scf_result.subshells)
+    Z_res = max(float(Z) - N_bound + 1.0, 1.0)
+    r_max_box = float(bsp_data["t"][-1])
 
-    # Box radius for asymptotic free-particle DOS (R / (π k))
-    R_box = float(bsp_data["t"][-1])
+    E_max_au = float(np.max(energies)) / _HEV
+    p_max = _p_rel(max(E_max_au, 1.0))
+    r_fine = _make_fine_grid(bsp_data, p_max)
+    dr_fine = np.gradient(r_fine)
+    n_shoot = _shooting_points(r_max_box, p_max)
 
-    def _continuum(kappa: int, energy_au: float, exclude_label: str):
-        key = (kappa, round(energy_au, 5), exclude_label)
-        cached = cont_cache.get(key)
-        if cached is not None:
-            return cached
-        # Get cached V^{N-1} static-Hartree for this exclude_label
-        if exclude_label not in static_potentials:
-            static_potentials[exclude_label] = _build_static_hartree(
-                scf_result, exclude_label, cache,
-            )
-        V_PP, V_QQ = static_potentials[exclude_label]
+    gr_flat = bsp_data["gr"].ravel()
+    _o = np.argsort(gr_flat)
+    gr_sorted = gr_flat[_o]
 
-        from atomx.numerics.bspline.dirac_assembly import (
-            build_dirac_matrices, solve_dirac,
-        )
-        ns_full = bsp_data["ns"]
-        nsp = bsp_data.get("nsp", ns_full)
-        nsq = bsp_data.get("nsq", ns_full)
-        H, S = build_dirac_matrices(ns_full, kappa, Z, bsp_data)
-        # Add static Hartree to bare-nuclear H
-        n_pp = V_PP.shape[0]; n_qq = V_QQ.shape[0]
-        H[:n_pp, :n_pp] += V_PP
-        H[ns_full:ns_full + n_qq, ns_full:ns_full + n_qq] += V_QQ
-        res_e = solve_dirac(H, S, ns_full, kappa, nsp=nsp, nsq=nsq)
+    def _bound_to_fine(coef_P, coef_Q):
+        Pg = eval_P(coef_P, bsp_data).ravel()[_o]
+        Qg = eval_Q(coef_Q, bsp_data).ravel()[_o]
+        return (np.interp(r_fine, gr_sorted, Pg),
+                np.interp(r_fine, gr_sorted, Qg))
 
-        evals = res_e.eigenvalues
-        # Restrict to physical positive-energy continuum
-        mask = evals > 0.0
-        idx_phys = np.where(mask)[0]
-        evals_phys = evals[idx_phys]
-        order = np.argsort(evals_phys)
-        evals_phys = evals_phys[order]
-        idx_phys = idx_phys[order]
+    cont_cache: Dict[tuple, Any] = {}
 
-        if len(evals_phys) == 0:
-            P = np.zeros(ns_full); Q = np.zeros(ns_full)
-            cont_cache[key] = (P, Q)
-            return P, Q
+    def _wave(kappa: int, energy_au: float):
+        key = (int(kappa), round(float(energy_au), 10))
+        if key not in cont_cache:
+            try:
+                cont_cache[key] = _continuum_on_grid(
+                    int(kappa), float(energy_au), V_func, Z_res,
+                    r_fine, r_max_box, n_shoot)
+            except Exception:
+                cont_cache[key] = None
+        return cont_cache[key]
 
-        nearest = int(np.argmin(np.abs(evals_phys - energy_au)))
-        # Asymptotic free-particle DOS in box: ρ(E) = R/(π·k) where
-        # k = √(2 E).  This is robust at high energy where the
-        # eigenvalue spectrum gets sparse — much more reliable than
-        # the local-spacing estimate.  For positive E (continuum) this
-        # is exact for hard-walled box (no Coulomb tail) and
-        # leading-order correct for screened/Coulomb tail.
-        k_loc = math.sqrt(max(2.0 * energy_au, 1e-12))
-        rho = R_box / (math.pi * k_loc)
-
-        # Extract the eigenvector and split P/Q
-        i_full = idx_phys[nearest]
-        vec = res_e.coefficients[:, i_full]
-        P = np.zeros(ns_full); Q = np.zeros(ns_full)
-        P[:nsp] = vec[:nsp]
-        Q[:nsq] = vec[ns_full:ns_full + nsq]
-
-        # Delta-E normalisation factor √(2 ρ(E)/π)
-        norm = math.sqrt(2.0 * rho / math.pi)
-        P *= norm
-        Q *= norm
-        cont_cache[key] = (P, Q)
-        return P, Q
-
-    # Build kappa list: ±1, ±2, … with l ≤ kappa_max
-    kappa_list = []
-    for k_abs in range(1, kappa_max + 2):
-        kappa_list.append(-k_abs)
-        kappa_list.append(+k_abs)
-    kappa_list = [k for k in kappa_list if 0 < abs(k) and _l_of(k) <= kappa_max]
+    kappa_list = [k for k in range(-kappa_max - 1, kappa_max + 1)
+                  if k != 0 and _l_of(k) <= kappa_max]
 
     for sh in scf_result.subshells:
         eps_a = scf_result.orbital_energies.get(sh.label)
@@ -592,241 +541,123 @@ def _eii_dw_total(
         I_a_au = -eps_a
         kappa_a = sh.kappa
         tj_a = _tj_of(kappa_a)
+        l_a = _l_of(kappa_a)
         q_a = float(sh.occupation)
-        # Bound orbital coefficients
         orb_list = scf_result.orbitals_raw.get(kappa_a, [])
         kappa_subs = [s for s in scf_result.subshells if s.kappa == kappa_a]
         idx_in_kappa = kappa_subs.index(sh)
         if idx_in_kappa >= len(orb_list):
             continue
-        P_a, Q_a, _ = orb_list[idx_in_kappa]
+        P_a_c, Q_a_c, _q = orb_list[idx_in_kappa]
+        P_a, Q_a = _bound_to_fine(P_a_c, Q_a_c)
 
         sigma_a = np.zeros_like(energies)
-        use_k_shell_high_e_hybrid = (
-            sh.n == 1
-            and Z >= 6
-            and q_a >= 1.0
-        )
-        high_e_hybrid_mask = (
-            (energies / (I_a_au * _HEV)) >= 2.0
-            if use_k_shell_high_e_hybrid
-            else np.zeros_like(energies, dtype=bool)
-        )
-        if np.any(high_e_hybrid_mask):
-            # The B-spline pseudo-continuum can miss compact K-shell
-            # continuum energies by O(10 %) once E/I >= 2, which is large
-            # enough to dominate the Slater integral.  The issue's accepted
-            # high-energy route is a DW/BEB hybrid, so keep explicit DW near
-            # threshold and use the stable Kim-Rudd high-E branch for the
-            # compact K-shell tail.
-            sigma_a[high_e_hybrid_mask] = beb_cross_section(
-                energies[high_e_hybrid_mask],
-                U_eV=I_a_au * _HEV,
-                avgT_eV=I_a_au * _HEV,
-                N_electrons=q_a,
-                n_principal=sh.n,
-            )
-
-        # Cache the optical oscillator strength + orbital RMS radius
-        # once per shell — they depend only on the bound orbital, not
-        # on the projectile energy.  Used by the Coulomb-Bethe
-        # high-ℓ top-up below.
-        f_a_cached: Optional[float] = None
-        r_a_rms_cached: Optional[float] = None
 
         for E_i_idx, E_i_eV in enumerate(energies):
-            if high_e_hybrid_mask[E_i_idx]:
-                continue
             E_i_au = E_i_eV / _HEV
             T_max = E_i_au - I_a_au
             if T_max <= 0.0:
                 continue
-            k_i_sq = 2.0 * E_i_au
+            p_i_sq = 2.0 * E_i_au + (E_i_au * E_i_au) / C_SQ
 
-            # E_1 quadrature on [0, T_max/2] — skip endpoints to avoid
-            # threshold singularities.
-            E1_grid = np.linspace(0.05 * T_max, 0.49 * T_max, n_outgoing_energies)
+            E1_grid = np.linspace(0.05 * T_max, 0.49 * T_max,
+                                  n_outgoing_energies)
             integrand = np.zeros_like(E1_grid)
 
             for j_E1, E_1_au in enumerate(E1_grid):
                 E_2_au = T_max - E_1_au
-                # ── Collect all valid channels into flat arrays ──
-                # For each (kappa_in, kappa_1, kappa_2) combo that passes
-                # angular selection rules, pre-compute angular coeffs,
-                # Slater integrals, and wigner-6j, then batch-sum via JIT.
-                _ch_tj_in = []
-                _ch_tj_1 = []
-                _ch_tj_2 = []
-                _ch_tJ_lo = []
-                _ch_tJ_hi = []
-                _ch_n_d = []
-                _ch_n_e = []
-                _direct_products = []
-                _exchange_products = []
-                _w6j_direct = []
-                _w6j_exchange = []
+                prof_l = np.zeros(kappa_max + 1)
+                # Y^k caches shared across the third kappa loop.
+                yd_cache: Dict[tuple, np.ndarray] = {}
+                ye_cache: Dict[tuple, np.ndarray] = {}
 
                 for kappa_in in kappa_list:
-                    P_in, Q_in = _continuum(kappa_in, E_i_au, sh.label)
+                    w_in = _wave(kappa_in, E_i_au)
+                    if w_in is None:
+                        continue
                     tj_in = _tj_of(kappa_in)
-
+                    l_in = _l_of(kappa_in)
                     for kappa_1 in kappa_list:
-                        kd = _allowed_k(kappa_a, kappa_1)
-                        if not kd:
+                        w_1 = _wave(kappa_1, E_1_au)
+                        if w_1 is None:
                             continue
-                        P_1, Q_1 = _continuum(kappa_1, E_1_au, sh.label)
                         tj_1 = _tj_of(kappa_1)
-
+                        l_1 = _l_of(kappa_1)
+                        rho_a1 = P_a * w_1[0] + Q_a * w_1[1]
                         for kappa_2 in kappa_list:
                             tj_2 = _tj_of(kappa_2)
+                            l_2 = _l_of(kappa_2)
+                            if (l_a + l_in + l_1 + l_2) % 2 != 0:
+                                continue
                             tJ_lo = max(abs(tj_a - tj_in), abs(tj_1 - tj_2))
                             tJ_hi = min(tj_a + tj_in, tj_1 + tj_2)
                             if tJ_lo > tJ_hi:
                                 continue
-                            l_a = _l_of(kappa_a); l_in = _l_of(kappa_in)
-                            l_1 = _l_of(kappa_1); l_2 = _l_of(kappa_2)
-                            if (l_a + l_in + l_1 + l_2) % 2 != 0:
+                            ks = [k for k in _allowed_k(kappa_a, kappa_1)
+                                  if k in _allowed_k(kappa_in, kappa_2)]
+                            ts = [t for t in _allowed_k(kappa_a, kappa_2)
+                                  if t in _allowed_k(kappa_in, kappa_1)]
+                            if not ks and not ts:
                                 continue
-
-                            kd_pair = [k for k in kd if k in _allowed_k(kappa_in, kappa_2)]
-                            ke_pair = [k for k in _allowed_k(kappa_a, kappa_2)
-                                        if k in _allowed_k(kappa_in, kappa_1)]
-                            if not kd_pair and not ke_pair:
+                            w_2 = _wave(kappa_2, E_2_au)
+                            if w_2 is None:
                                 continue
+                            # Direct radial R^k(a,in;1,2):
+                            #   rho13 = a*1, rho24 = in*2 (Y cached).
+                            Rd = {}
+                            for k in ks:
+                                ck = (kappa_in, kappa_2, k)
+                                y = yd_cache.get(ck)
+                                if y is None:
+                                    rho_in2 = (w_in[0] * w_2[0]
+                                               + w_in[1] * w_2[1])
+                                    y = _yk_fine(rho_in2, r_fine, dr_fine, k)
+                                    yd_cache[ck] = y
+                                Rd[k] = float(np.sum(rho_a1 * y * dr_fine))
+                            # Exchange radial R^t(a,in;2,1):
+                            #   rho13 = a*2, rho24 = in*1 (Y cached).
+                            Re = {}
+                            if ts:
+                                rho_a2 = P_a * w_2[0] + Q_a * w_2[1]
+                                for t in ts:
+                                    ct = (kappa_in, kappa_1, t)
+                                    y = ye_cache.get(ct)
+                                    if y is None:
+                                        rho_in1 = (w_in[0] * w_1[0]
+                                                   + w_in[1] * w_1[1])
+                                        y = _yk_fine(rho_in1, r_fine,
+                                                     dr_fine, t)
+                                        ye_cache[ct] = y
+                                    Re[t] = float(np.sum(rho_a2 * y
+                                                         * dr_fine))
+                            acc = 0.0
+                            for tJ in range(tJ_lo, tJ_hi + 1, 2):
+                                D = 0.0
+                                for k in ks:
+                                    ang = _cc_direct(kappa_1, kappa_2,
+                                                     kappa_a, kappa_in,
+                                                     tJ, k)
+                                    if ang != 0.0:
+                                        D += Rd[k] * ang
+                                E_x = 0.0
+                                for t in ts:
+                                    ang = _cc_exchange(kappa_1, kappa_2,
+                                                       kappa_a, kappa_in,
+                                                       tJ, t)
+                                    if ang != 0.0:
+                                        E_x += Re[t] * ang
+                                T = D - E_x
+                                if T != 0.0:
+                                    acc += (tJ + 1) * T * T
+                            prof_l[l_in] += acc
 
-                            P_2, Q_2 = _continuum(kappa_2, E_2_au, sh.label)
+                om = float(np.sum(prof_l))
+                # Geometric high-l tail on the incident partial wave.
+                om += _geometric_tail(prof_l, kappa_max)
+                integrand[j_E1] = 2.0 * np.pi ** 2 * om
 
-                            # Reduced C^k pieces
-                            C_a1 = {k: _reduced_C(kappa_a, kappa_1, k) for k in kd_pair}
-                            C_in2 = {k: _reduced_C(kappa_in, kappa_2, k) for k in kd_pair}
-                            C_a2 = {k: _reduced_C(kappa_a, kappa_2, k) for k in ke_pair}
-                            C_in1 = {k: _reduced_C(kappa_in, kappa_1, k) for k in ke_pair}
-
-                            # Radial Slater integrals
-                            d_prods = []
-                            d_w6j = []
-                            for k in kd_pair:
-                                if abs(C_a1[k]) < 1e-15 or abs(C_in2[k]) < 1e-15:
-                                    continue
-                                Rk = compute_slater_rk_cell(
-                                    P_a, Q_a, P_in, Q_in, P_1, Q_1, P_2, Q_2,
-                                    bsp_data, k, cache=cache,
-                                )
-                                if not np.isfinite(Rk):
-                                    continue
-                                prod = C_a1[k] * C_in2[k] * Rk
-                                d_prods.append(prod)
-                                # Pre-compute wigner_6j for all J values
-                                n_J = (tJ_hi - tJ_lo) // 2 + 1
-                                for iJ in range(n_J):
-                                    tJ = tJ_lo + 2 * iJ
-                                    d_w6j.append(wigner_6j(
-                                        tj_a, tj_in, tJ, tj_2, tj_1, 2 * k))
-
-                            e_prods = []
-                            e_w6j = []
-                            for k in ke_pair:
-                                if abs(C_a2[k]) < 1e-15 or abs(C_in1[k]) < 1e-15:
-                                    continue
-                                Rk = compute_slater_rk_cell(
-                                    P_a, Q_a, P_in, Q_in, P_2, Q_2, P_1, Q_1,
-                                    bsp_data, k, cache=cache,
-                                )
-                                if not np.isfinite(Rk):
-                                    continue
-                                prod = C_a2[k] * C_in1[k] * Rk
-                                e_prods.append(prod)
-                                n_J = (tJ_hi - tJ_lo) // 2 + 1
-                                for iJ in range(n_J):
-                                    tJ = tJ_lo + 2 * iJ
-                                    e_w6j.append(wigner_6j(
-                                        tj_a, tj_in, tJ, tj_1, tj_2, 2 * k))
-
-                            if not d_prods and not e_prods:
-                                continue
-
-                            _ch_tj_in.append(tj_in)
-                            _ch_tj_1.append(tj_1)
-                            _ch_tj_2.append(tj_2)
-                            _ch_tJ_lo.append(tJ_lo)
-                            _ch_tJ_hi.append(tJ_hi)
-                            _ch_n_d.append(len(d_prods))
-                            _ch_n_e.append(len(e_prods))
-                            _direct_products.extend(d_prods)
-                            _exchange_products.extend(e_prods)
-                            _w6j_direct.extend(d_w6j)
-                            _w6j_exchange.extend(e_w6j)
-
-                # ── JIT-compiled inner sum over all channels ──
-                n_channels = len(_ch_tj_in)
-                if n_channels > 0:
-                    integrand[j_E1] = eii_dw_inner_sum(
-                        n_channels,
-                        tj_a,
-                        np.array(_ch_tj_in, dtype=np.int64),
-                        np.array(_ch_tj_1, dtype=np.int64),
-                        np.array(_ch_tj_2, dtype=np.int64),
-                        np.array(_ch_tJ_lo, dtype=np.int64),
-                        np.array(_ch_tJ_hi, dtype=np.int64),
-                        np.array(_ch_n_d, dtype=np.int64),
-                        np.array(_ch_n_e, dtype=np.int64),
-                        np.array(_direct_products, dtype=np.float64),
-                        np.array(_exchange_products, dtype=np.float64),
-                        np.array(_w6j_direct, dtype=np.float64),
-                        np.array(_w6j_exchange, dtype=np.float64),
-                    )
-
-            # Trapezoidal integral over E_1 (JIT-compiled)
-            integral = trapezoidal_integrate(integrand, E1_grid)
-
-            # Standard DW Born prefactor (Bransden-Joachain Eq. 12.137,
-            # Gu FAC 2008): σ = (4π/k_i²)·(q_a/(2j_a+1))·∫dE_1 |T|²
-            sigma_a_au = (4.0 * np.pi / k_i_sq) * (q_a / (tj_a + 1.0)) * integral
-
-            # ── Coulomb-Bethe high-ℓ top-up (dipole-channel tail) ──
-            # The DW partial-wave sum is truncated at κ_max.  For the
-            # dipole-allowed E1 channel the projectile partial-wave
-            # tail (L_in > κ_max) decays slowly as 1/L².  The Bethe
-            # asymptote with proper L-tail damping (Burgess & Sheorey
-            # 1974):
-            #   σ_CB = (4π·a₀²/E_i)·M_a²·ln(α·E_i/I_a) · η(κ_max)
-            # with η(L_max) ≈ 1/(L_max+1)² for the geometric-series
-            # tail, and M_a² = f_a/(2·I_a) is the dimensionless
-            # generalised oscillator strength at threshold.  This adds
-            # only the tail BEYOND κ_max, not the full dipole.
-            if E_i_au > 1.5 * I_a_au:
-                if f_a_cached is None:
-                    f_a_cached = _bound_optical_strength(
-                        P_a, Q_a, kappa_a, eps_a, scf_result, cache,
-                        static_potentials,
-                        occupation=q_a,
-                    )
-                # M_a² ≈ f_a / (2·I_a) — the threshold value of the
-                # generalised oscillator strength integrated over the
-                # continuum.
-                M_sq = f_a_cached / max(2.0 * I_a_au, 1e-6)
-                # Compactness gate: skip C-B when the orbital is so
-                # compact that the explicit DW partial-wave sum at
-                # κ_max already captures all relevant L (typical of
-                # hydrogenic ions).  Threshold ⟨r_a⟩_rms ≥ 1 a₀ marks
-                # "diffuse valence" where the top-up is needed.
-                if r_a_rms_cached is None:
-                    r_a_rms_cached = _orbital_rms_radius(
-                        P_a, Q_a, scf_result._bsp_data
-                    )
-                if r_a_rms_cached >= 1.0:
-                    # Dipole-channel L-tail decays as 1/L; fraction of
-                    # contribution missing from κ_max-truncated sum is
-                    # ≈ 1/(κ_max+1).
-                    eta_tail = 1.0 / (kappa_max + 1.0)
-                    sigma_cb_au = (
-                        (4.0 * np.pi / E_i_au) * M_sq *
-                        math.log(max(E_i_au / I_a_au, 1.0)) *
-                        eta_tail
-                    )
-                    sigma_a_au += sigma_cb_au
-
-            # Convert from a₀² to cm²
+            integral = float(np.trapezoid(integrand, E1_grid))
+            sigma_a_au = (np.pi / p_i_sq) * (q_a / (tj_a + 1.0)) * integral
             sigma_a[E_i_idx] = sigma_a_au * BOHR_RADIUS_M ** 2 * 1e4
 
         by_orbital[sh.label] = sigma_a
@@ -835,10 +666,7 @@ def _eii_dw_total(
             "I_eV": I_a_au * _HEV, "occupation": q_a,
             "kappa_max": kappa_max,
             "n_E1_quadrature": n_outgoing_energies,
-            "k_shell_high_energy_hybrid": bool(np.any(high_e_hybrid_mask)),
-            "k_shell_hybrid_E_over_I_min": (
-                2.0 if np.any(high_e_hybrid_mask) else None
-            ),
+            "continuum": "shooting delta(E), FAC (N-1)/N mean potential",
         }
 
     include_local_exchange = False
@@ -858,6 +686,7 @@ def _eii_dw_total(
             "include_local_exchange": include_local_exchange,
         },
     )
+
 
 
 # ---------------------------------------------------------------------------

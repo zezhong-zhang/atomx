@@ -154,17 +154,22 @@ def test_kll_auger_magnitude_in_range(fac_panel, fe17_result):
 
 @pytest.mark.xfail(
     reason=(
-        "Strict 10 % per-resonance KLL Auger gate.  Currently fails "
-        "because the average-of-configuration angular factor "
-        "`exchange_lambda` (used as a coarse proxy for the J-resolved "
-        "Auger angular coefficient) over-counts magnetic substates that "
-        "do not contribute to the specific J_resonance -> J_final + eps "
-        "transition.  The dominant offenders are (i) the k=0 monopole "
-        "Slater term for 3p3/2 -> 2p3/2 channels (ILEV 71/72) and "
-        "(ii) the high-R^k 3d-3d couplings at J=3.5 (ILEV 190).  "
-        "Magnitude is correct (see test_kll_auger_magnitude_in_range); "
-        "flipping this xfail requires the Cowan-Grant 6j-based J-resolved "
-        "Auger angular treatment (follow-up to HYP-530)."
+        "Strict 10 % per-resonance KLL Auger gate.  2026-07-14 progress: "
+        "atomx.scattering.autoionization.jj_level.auger_rate_jj_level now "
+        "computes the exact jj-coupled level amplitude (explicit "
+        "m-summation with hole conjugation, direct-exchange antisymmetry, "
+        "delta(E) shooting continuum, Gamma = 2*pi*|A|^2 == FAC's "
+        "4*sum p^2/(2J+1) given FAC's 1/sqrt(k) waves).  The amplitude is "
+        "verified M-independent and improves the panel from 1.2-15x "
+        "(config-average proxy) to 0.5-4x.  The remaining deviation has "
+        "two identified sources: (i) orbital-basis difference — FAC "
+        "optimizes radials on the ground config while atomx's MCDHF "
+        "average-level solve relaxes them over the excited configs (the "
+        "3d radials differ most, matching the largest residual at ILEV "
+        "190), and (ii) CI mixing of the FAC levels within each "
+        "(J, parity) manifold vs atomx's pure basis states.  Closing "
+        "this requires wiring atomx's j-resolved CSF eigenvectors into "
+        "the jj_level amplitudes."
     ),
     strict=False,
 )
