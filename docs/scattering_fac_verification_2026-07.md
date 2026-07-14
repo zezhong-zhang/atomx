@@ -173,12 +173,32 @@ V^{N−1} 3l radials inflate the dipole integrals.  The low-T agreement
 (1.01) benefits from partial cancellation between the energy shift
 (Boltzmann suppression) and the width excess.
 
+## FAC-equivalent orbital basis — built and validated; H accounting isolated
+
+The shooting solver now exports the converged DFS potential and waves
+(`ShootingResult._rv/_pa/_qa`), and `dfs_frozen_orbital` solves excited
+orbitals in that frozen potential — exactly FAC's OptimizeRadial scheme.
+Validated against FAC 1.1.5 directly (`tests/test_dfs_frozen_orbitals.py`):
+occupied ε match `GetPotential` to ≤0.3%, and the frozen 3s/3p/3d
+eigenvalues match `WaveFuncTable` to 0.1–0.4%
+(−19.44/−18.24/−16.38 vs FAC −19.46/−18.26/−16.44 Ha).
+
+Feeding this exactly-FAC basis into the manifold CI *flipped* the
+residuals (traces 0.88–0.98 → 1.3–1.6; E_res +60 eV → −60 eV), which
+isolates the true remaining error: the manifold Hamiltonian's one-body
+accounting.  Using dressed mean-field eigenvalues ε *plus* explicit
+active–active v_as double-counts within the active space; the earlier
+V^{N−1} numbers benefited from partial error cancellation.  The exact
+scheme is standard active-space CI bookkeeping: core-folded one-body
+integrals ⟨a|h + V_core|b⟩ (including off-diagonal same-κ elements)
+with the FAC-basis orbitals.  That is the single remaining item for
+per-level exactness in Auger/DR.
+
 ## Remaining follow-ups
 
-- Orbital basis: generate the 3l orbitals in atomx's `exchange='fac'`
-  optimized DFS potential (validated to 1e-3 vs sfac) — closes the
-  common residual of the Auger per-level widths, the DR α excess, and
-  the ~60 eV resonance-energy shift in one move.
+- Manifold CI one-body integrals ⟨a|h+V_core|b⟩ (above) — closes the
+  Auger per-level widths, the DR α high-T excess, and the ±60 eV
+  resonance-energy shift together.
 - CE at very high E (E/th ≳ 8): add the Bethe `b·ln x` completion beyond
   the geometric tail (FAC blends Born there; atomx is ~4% low at E/th=9).
 - EII near threshold: FAC-CI's ejected-wave conventions if sub-2×

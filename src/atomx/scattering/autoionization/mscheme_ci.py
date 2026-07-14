@@ -86,7 +86,7 @@ class ResonanceManifold:
     """
 
     def __init__(self, result, groups, *, r_fine, dr_fine, orbital_map,
-                 orbital_energies, configs=None):
+                 orbital_energies, configs=None, V_func=None):
         """``groups``: list of (subshell_list, n_electrons) with
         subshell_list = [(n, kappa), ...] (the jj components of one nl
         shell); ``orbital_map[(n, kappa)] = (P_fine, Q_fine)``;
@@ -121,6 +121,10 @@ class ResonanceManifold:
         self.n_orb = len(self.orbitals)
         self.configs = ([tuple(self.group_ne)] if configs is None
                         else [tuple(c) for c in configs])
+        #: Optional local potential override for the Auger continuum
+        #: electron (e.g. the converged exchange='fac' DFS potential —
+        #: FAC's own convention).  Default: rebuilt from ``result``.
+        self.V_func = V_func
         self._rk_cache: dict = {}
         self._v_cache: dict = {}
 
@@ -353,8 +357,10 @@ class ResonanceManifold:
             return levels
         kappa_f = l_f if tj_f == 2 * l_f - 1 else -(l_f + 1)
 
-        V_func = _distorting_potential_fn(self.result, bsp_data,
-                                          Z, screening="fac")
+        V_func = self.V_func
+        if V_func is None:
+            V_func = _distorting_potential_fn(self.result, bsp_data,
+                                              Z, screening="fac")
         N_bound = sum(float(sh.occupation) for sh in self.result.subshells)
         Z_res = max(float(Z) - N_bound + 1.0, 1.0)
         r_max_box = float(bsp_data["t"][-1])

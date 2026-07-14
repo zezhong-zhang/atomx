@@ -761,7 +761,7 @@ def _dhfs_scf(z, nshell, shell_n, shell_kappa, shell_occ, shell_l, shell_2j,
         pa, qa, ev, rv, vnuc, r, difr, np_, equation,
         slater_method)
 
-    return ev, e_total, converged, iteration, r, difr, np_
+    return ev, e_total, converged, iteration, r, difr, np_, rv, pa, qa
 
 
 @dataclass
@@ -779,6 +779,14 @@ class ShootingResult:
     Z: int = 0
     _grid: Optional[np.ndarray] = field(default=None, repr=False)
     _orbital_data: Optional[Dict] = field(default=None, repr=False)
+    #: Converged r*V(r) (total local DFS potential), integration weights,
+    #: and per-shell (P, Q) waves on ``_grid`` — surfaced so frozen-orbital
+    #: solvers (scattering/DR orbital bases) can reuse the FAC-style
+    #: optimized potential.  See ``dfs_frozen_orbital``.
+    _rv: Optional[np.ndarray] = field(default=None, repr=False)
+    _difr: Optional[np.ndarray] = field(default=None, repr=False)
+    _pa: Optional[np.ndarray] = field(default=None, repr=False)
+    _qa: Optional[np.ndarray] = field(default=None, repr=False)
     _equation: str = field(default="dirac", repr=False)
     #: Shooting carries no B-spline workspace; kept as an attribute so
     #: callers that inspect ``result._bsp_data`` uniformly get ``None``
@@ -825,6 +833,35 @@ class ShootingResult:
                 label=label)
         return Waves(
             grid=self._grid, orbitals=orbitals, basis_type="grid")
+
+
+def dfs_frozen_orbital(result, n: int, kappa: int, e_guess: float = -1.0):
+    """Bound orbital (n, kappa) in the FROZEN converged DFS potential.
+
+    ``result`` is a ShootingResult from an ``exchange='fac'`` (or other
+    local-exchange) solve carrying ``_rv`` — the converged r*V(r).  This
+    is exactly FAC's scheme for excited/virtual orbitals: eigenstates of
+    the same optimized central potential as the occupied ones
+    (OptimizeRadial).  Returns ``(P, Q, eps)`` on ``result._grid``,
+    slag6-normalized.
+    """
+    r = result._grid
+    rv = result._rv
+    difr = result._difr
+    if r is None or rv is None:
+        raise ValueError("result carries no converged potential (_rv); "
+                         "re-solve with the extended shooting solver")
+    np_ = len(r)
+    va, vb_arr, vc, vd = splin0(r, rv, np_, 0.0, 0.0)
+    e_val, ier, p_sol, q_sol, ilast = dbound(
+        float(e_guess), 1.0e-9, int(n), int(kappa),
+        r, rv, va, vb_arr, vc, vd, np_, r, np_)
+    if ier != 0:
+        raise RuntimeError(f"dbound failed for n={n} kappa={kappa}: ier={ier}")
+    f1 = (p_sol ** 2 + q_sol ** 2) * difr
+    f1_int = slag6(1.0, f1, np_)
+    norm = 1.0 / math.sqrt(f1_int[np_ - 1]) if f1_int[np_ - 1] > 1e-30 else 1.0
+    return p_sol * norm, q_sol * norm, float(e_val)
 
 
 class ShootingSolver:
@@ -946,7 +983,8 @@ class ShootingSolver:
         alpha_eff = self._effective_alpha()
         slater_flag = 1 if self.slater_method == 'slag6' else 0
 
-        orb_E, E_total, converged, iters, r, difr, np_actual = _dhfs_scf(
+        (orb_E, E_total, converged, iters, r, difr, np_actual,
+         rv_conv, pa_conv, qa_conv) = _dhfs_scf(
             float(self.Z), n_shells, shell_n, shell_kappa, shell_occ,
             shell_l, shell_2j,
             self.n_grid, self.r_max, r2, drn,
@@ -968,4 +1006,5 @@ class ShootingSolver:
             Z=self.Z,
             _grid=r,
             _equation=self.equation,
+            _rv=rv_conv, _difr=difr, _pa=pa_conv, _qa=qa_conv,
         )
