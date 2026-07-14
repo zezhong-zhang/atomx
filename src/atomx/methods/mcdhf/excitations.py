@@ -12,9 +12,21 @@ Standard SD (singles-doubles) excitations capture the bulk of
 correlation energy (~95% for atoms).
 """
 
+import re
 from typing import List, Tuple
 from atomx.methods.mcdhf.config import CSF, _parse_config_string
 from atomx.methods.dirac_fock import Subshell
+
+# Orbital-label letters, index == l (shared with config parsing).
+_L_SYMBOLS = "spdfghiklmno"
+
+
+def _split_nl(key):
+    """Split an orbital key like ``"10h"`` into (n, l_char); n may be >= 10."""
+    m = re.fullmatch(r"(\d+)([spdfghiklmno])", key)
+    if m is None:
+        raise ValueError(f"cannot parse orbital label {key!r}")
+    return int(m.group(1)), m.group(2)
 
 
 def generate_sd_excitations(ref_config_str, virtual_orbitals,
@@ -40,7 +52,9 @@ def generate_sd_excitations(ref_config_str, virtual_orbitals,
     ref_shells = _parse_config_string(ref_config_str)
 
     # Build occupation dict for reference: (n, l_char) -> occupation
-    l_map_inv = {0: 's', 1: 'p', 2: 'd', 3: 'f', 4: 'g'}
+    # Cover high-l virtuals (l up to 'o') so DR/continuum drivers that request
+    # n up to ~10 with l_max >= 5 don't KeyError on 'h', 'i', ...
+    l_map_inv = {i: ch for i, ch in enumerate(_L_SYMBOLS)}
     ref_occ = {}
     for sh in ref_shells:
         l = sh.kappa if sh.kappa > 0 else -sh.kappa - 1
@@ -56,11 +70,13 @@ def generate_sd_excitations(ref_config_str, virtual_orbitals,
     active_from = [(k, v) for k, v in ref_occ.items() if k not in frozen and v > 0]
 
     # Generate all virtual orbital slots
-    l_map = {'s': 0, 'p': 1, 'd': 2, 'f': 3, 'g': 4}
+    l_map = {ch: i for i, ch in enumerate(_L_SYMBOLS)}
     virtual_slots = []
     for virt in virtual_orbitals:
-        n = int(virt[0])
-        l = l_map[virt[1]]
+        m = re.fullmatch(r"(\d+)([spdfghiklmno])", virt)
+        if m is None:
+            raise ValueError(f"cannot parse virtual orbital label {virt!r}")
+        l = l_map[m.group(2)]
         max_q = 2 * (2 * l + 1)  # total capacity of nl shell
         virtual_slots.append((virt, max_q))
 
@@ -116,7 +132,7 @@ def generate_sd_excitations(ref_config_str, virtual_orbitals,
                         # Validate
                         if any(v < 0 for v in new_occ.values()):
                             continue
-                        l_check = {k: l_map.get(k[1], 0) for k in new_occ}
+                        l_check = {k: l_map[_split_nl(k)[1]] for k in new_occ}
                         if any(new_occ[k] > 2 * (2 * l_check[k] + 1) for k in new_occ if new_occ[k] > 0):
                             continue
 
@@ -129,9 +145,9 @@ def generate_sd_excitations(ref_config_str, virtual_orbitals,
 
 def _occ_to_string(occ_dict):
     """Convert occupation dict to config string."""
-    l_order = {'s': 0, 'p': 1, 'd': 2, 'f': 3, 'g': 4}
+    l_order = {ch: i for i, ch in enumerate(_L_SYMBOLS)}
     parts = []
-    for key in sorted(occ_dict.keys(), key=lambda k: (int(k[0]), l_order.get(k[1], 9))):
+    for key in sorted(occ_dict.keys(), key=lambda k: (_split_nl(k)[0], l_order[_split_nl(k)[1]])):
         q = occ_dict[key]
         if q > 0:
             parts.append(f"{key}{int(q)}")

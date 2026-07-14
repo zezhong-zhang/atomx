@@ -24,7 +24,9 @@ from fac_runner import SFAC_BIN, parse_ci, run_sfac  # noqa: E402
 
 
 Z_GRID = [10, 26, 54]
-ENERGY_FACTORS = [1.0, 2.0, 5.0]
+# sigma(E) -> 0 at exact threshold for ionization; start the panel above it
+# so both codes are compared at well-defined matched reduced energies.
+ENERGY_FACTORS = [1.5, 2.0, 5.0]
 OUT = ROOT / "benchmarks" / "results_fac_dw_eii.csv"
 
 SYMBOLS = {
@@ -39,6 +41,11 @@ SEQUENCES = {
     "ne-like": {"charge_offset": 10, "ground": "1s2 2s2 2p6", "ion": "1s1 2s2 2p6"},
 }
 
+# SetCIQkMode('dw'): pure distorted-wave, matching atomx's method exactly.
+# FAC's default CI mode is QK_BED (binary-encounter-dipole scaled), a
+# different model that suppresses the DW result by ~10-30% at E/th <= 5.
+# FAC's CI user grid is the energy ABOVE threshold (incident - I); we let
+# FAC pick its own grid and interpolate at matched E_inc/threshold.
 FAC_TEMPLATE = """SetAtom('{symbol}')
 Closed('')
 Config('g', '{ground_config}')
@@ -48,8 +55,7 @@ OptimizeRadial(['g'])
 ConfigEnergy(1)
 Structure('{stem}.lev.b', ['g', 'ion'])
 MemENTable('{stem}.lev.b')
-PrintTable('{stem}.lev.b', '{stem}.lev', 1)
-SetUsrCIEGrid({energies})
+SetCIQkMode('dw')
 CITable('{stem}.ci.b', ['g'], ['ion'])
 PrintTable('{stem}.ci.b', '{stem}.ci', 1)
 """
@@ -67,23 +73,28 @@ def run_atomx(Z: int, spec: dict[str, object], energies_eV: np.ndarray) -> tuple
     dw = dw_eii_cross_section(
         atom._result,
         energies_eV,
-        kappa_max=4,
+        kappa_max=6,
         n_outgoing_energies=6,
     )
     cb = coulomb_born_ci_atom(atom._result, energies_eV)["sigma_total_cm2"]
     return np.asarray(dw.sigma_total_cm2, dtype=float), np.asarray(cb, dtype=float)
 
 
-def run_fac(Z: int, spec: dict[str, object], energies_eV: np.ndarray, timeout: float, keep_dir: Path | None) -> tuple[np.ndarray, str]:
+def run_fac(Z: int, spec: dict[str, object], factors, timeout: float, keep_dir: Path | None) -> tuple[np.ndarray, float, str]:
+    """FAC pure-DW CI cross section at matched E_incident/threshold ``factors``.
+
+    FAC's CI user grid is the energy above threshold; interpolate sigma at
+    E_grid/I = f - 1 using FAC's own threshold I (the row's DELTA_E_eV).
+    Also returns FAC's threshold (eV) for reporting.
+    """
+    factors = np.asarray(factors, dtype=float)
     if not SFAC_BIN.exists():
-        return np.zeros_like(energies_eV), f"FAC unavailable: {SFAC_BIN}"
+        return np.zeros_like(factors), 0.0, f"FAC unavailable: {SFAC_BIN}"
     sequence = next((name for name, candidate in SEQUENCES.items() if candidate is spec), "sequence")
     stem = f"{sequence.replace('-', '_')}_dw_ci_z{Z}"
     script_text = FAC_TEMPLATE.format(
         symbol=SYMBOLS[Z],
         stem=stem,
-        nusr=len(energies_eV),
-        energies="[" + ", ".join(f"{e:.8e}" for e in energies_eV) + "]",
         ground_config=str(spec["ground"]),
         ion_config=str(spec["ion"]),
     )
@@ -100,11 +111,24 @@ def run_fac(Z: int, spec: dict[str, object], energies_eV: np.ndarray, timeout: f
         run_sfac(script, workdir=workdir, timeout=timeout)
         rows = parse_ci(workdir / f"{stem}.ci")
         if not rows:
-            return np.zeros_like(energies_eV), "FAC produced no CI rows"
-        row = max(rows, key=lambda r: float(np.nanmax(r["sigma_1e20cm2"])))
-        return np.asarray(row["sigma_1e20cm2"], dtype=float) * 1.0e-20, ""
+            return np.zeros_like(factors), 0.0, "FAC produced no CI rows"
+        # Sum over final ion levels reachable from the ground level (for the
+        # He-like K-shell panel there is a single 1s channel).
+        ground_rows = [r for r in rows if int(r["bound"]) == 0] or rows
+        fac_th = float(ground_rows[0]["DELTA_E_eV"])
+        sigma_at = np.zeros_like(factors)
+        for row in ground_rows:
+            th = float(row["DELTA_E_eV"])
+            if th <= 0:
+                continue
+            E_grid = np.asarray(row["E_eV"], dtype=float)
+            sig = np.asarray(row["sigma_1e20cm2"], dtype=float) * 1.0e-20
+            x = E_grid / th  # = E_inc/I - 1
+            order = np.argsort(x)
+            sigma_at += np.interp(factors - 1.0, x[order], sig[order])
+        return sigma_at, fac_th, ""
     except Exception as exc:  # noqa: BLE001
-        return np.zeros_like(energies_eV), "FAC failed: " + " ".join(str(exc).split())
+        return np.zeros_like(factors), 0.0, "FAC failed: " + " ".join(str(exc).split())
     finally:
         if ctx is not None:
             ctx.cleanup()
@@ -137,12 +161,13 @@ def main() -> None:
             threshold = _k_threshold_eV(atom)
             energies = np.asarray([threshold * f for f in ENERGY_FACTORS], dtype=float)
             sigma_atomx, sigma_cb = run_atomx(Z, spec, energies)
+            fac_th = 0.0
             if args.skip_fac:
                 sigma_fac = np.zeros_like(energies)
                 note = "FAC skipped (--skip-fac)"
             else:
                 keep = Path(args.keep_fac_dir) if args.keep_fac_dir else None
-                sigma_fac, note = run_fac(Z, spec, energies, args.timeout, keep)
+                sigma_fac, fac_th, note = run_fac(Z, spec, ENERGY_FACTORS, args.timeout, keep)
             for factor, energy, atomx, fac, cb in zip(ENERGY_FACTORS, energies, sigma_atomx, sigma_fac, sigma_cb):
                 rel = ((float(atomx) - float(fac)) / float(fac)) if fac > 0.0 else ""
                 rows.append({
@@ -152,6 +177,7 @@ def main() -> None:
                     "E_over_threshold": factor,
                     "energy_eV": energy,
                     "threshold_eV": threshold,
+                    "fac_threshold_eV": fac_th,
                     "atomx_converged": int(bool(getattr(atom._result, "converged", True))),
                     "sigma_atomx_cm2": float(atomx),
                     "sigma_fac_cm2": float(fac),
@@ -172,6 +198,7 @@ def main() -> None:
             "E_over_threshold",
             "energy_eV",
             "threshold_eV",
+            "fac_threshold_eV",
             "atomx_converged",
             "sigma_atomx_cm2",
             "sigma_fac_cm2",

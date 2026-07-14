@@ -7,6 +7,7 @@ characterized by (n, kappa), and the occupation q <= 2j+1.
 For MCDHF, we need multiple CSFs that can mix via CI.
 """
 
+import re
 from dataclasses import dataclass
 from typing import List, Tuple
 import numpy as np
@@ -411,14 +412,18 @@ def _parse_config_string(config_str):
     Notation: nl^q where n=principal, l=s/p/d/f, q=occupation.
     For relativistic: each nl expands to nl- (j=l-1/2) and nl+ (j=l+1/2).
     """
-    l_map = {'s': 0, 'p': 1, 'd': 2, 'f': 3, 'g': 4}
+    l_map = {ch: i for i, ch in enumerate("spdfghiklmno")}
     subshells = []
 
     for token in config_str.strip().split():
-        n = int(token[0])
-        l_char = token[1]
+        # Parse nl^q with multi-digit n (e.g. "10d3") and high-l letters.
+        m = re.fullmatch(r"(\d+)([spdfghiklmno])(\d+)", token)
+        if m is None:
+            raise ValueError(f"cannot parse configuration token {token!r}")
+        n = int(m.group(1))
+        l_char = m.group(2)
         l = l_map[l_char]
-        q = int(token[2:])
+        q = int(m.group(3))
 
         if l == 0:
             # s orbital: only j = l+1/2 = 1/2, kappa = -(l+1) = -1

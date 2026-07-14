@@ -322,6 +322,26 @@ def _shooting_points(r_max, p_max):
     return int(np.clip(10.0 * r_max * max(p_max, 1.0), 3000, 300000))
 
 
+def _geometric_tail(prof_l, l_last):
+    """Geometric-ratio estimate of the l > l_last partial-wave tail.
+
+    FAC's TopUpQk scheme: tail = q(l_last) * r / (1 - r) with
+    r = q(l_last)/q(l_last - 1).  When the profile has not yet entered its
+    geometric decay (r -> 1) the raw formula diverges; the ratio is capped
+    at 0.85 (tail <= 5.7 q_last), which keeps the estimate a lower bound
+    instead of a blow-up.  Callers needing better accuracy should raise
+    kappa_max.
+    """
+    if l_last < 2:
+        return 0.0
+    q1 = float(prof_l[l_last])
+    q0 = float(prof_l[l_last - 1])
+    if q0 <= 0.0 or q1 <= 0.0 or q1 >= q0:
+        return 0.0
+    ratio = min(q1 / q0, 0.85)
+    return q1 * ratio / (1.0 - ratio)
+
+
 def _continuum_on_grid(kappa, energy, V_func, Z_res, r_grid, r_max, n_grid):
     """δ(E)-normalized shooting continuum (P, Q) sampled on ``r_grid``."""
     r_s, P_s, Q_s, _phase = solve_dirac_continuum_shooting(
@@ -596,11 +616,8 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
                     prof_l[l_in] += pop * acc
 
         om = float(np.sum(prof_l))
-        if topup and kappa_max >= 2:
-            q1, q0 = float(prof_l[kappa_max]), float(prof_l[kappa_max - 1])
-            if q0 > 0.0 and 0.0 < q1 < q0:
-                ratio = q1 / q0
-                om += q1 * ratio / (1.0 - ratio)
+        if topup:
+            om += _geometric_tail(prof_l, kappa_max)
         om *= 2.0 * math.pi ** 2
 
         p_i_sq = 2.0 * E_inc + (E_inc * E_inc) / C_SQ
