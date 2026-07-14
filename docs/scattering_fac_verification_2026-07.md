@@ -147,13 +147,40 @@ FAC's own machinery for reference: `recombination.c AutoionizeRate`
 (2021–2170), spectator 6j in `structure.c:6421` (AngularZxZFreeBound),
 `ReducedCL` (angular.c:529) ≡ atomx `reduced_cl_j2`.
 
+## DR end-to-end — ab-initio, 1.0–2.0× of FAC (was 10³–10⁴×)
+
+`ResonanceManifold.dr_levels` extends the determinant CI with ab-initio
+resonance energies (level minus closed-shell-ion energy in the same
+frozen-orbital accounting) and E1 stabilizing widths (one-orbital
+Slater–Condon dipole amplitudes, coherent over the CI vector, summed
+over all hole-filling final states with per-final ω³).  All 237 dr33
+resonances (2p⁵3l3l′ + 2s-hole 2s¹2p⁶3l3l′, every (J, parity) manifold)
+build in ~5 s; the Burgess kernel then gives
+
+| T (MK) | α_atomx/α_FAC(dr33) |
+|---|---|
+| 1 | 1.01 |
+| 5 | 1.77 |
+| 10 | 1.91 |
+| 50 | 2.05 |
+
+Pinned by `tests/test_dr_manifold_e2e.py` (ratios ∈ [0.5, 2.5]).
+Decomposition of the high-T excess: ~25% is *real* — FAC's reference
+drops levels below `SetAICut(1e-4)` (75 listed of 237); the rest is the
+orbital-basis/energy chain: resonance energies ~60 eV high
+(frozen-orbital, no relaxation) inflate ω³ in A_r, and the compact
+V^{N−1} 3l radials inflate the dipole integrals.  The low-T agreement
+(1.01) benefits from partial cancellation between the energy shift
+(Boltzmann suppression) and the width excess.
+
 ## Remaining follow-ups
 
+- Orbital basis: generate the 3l orbitals in atomx's `exchange='fac'`
+  optimized DFS potential (validated to 1e-3 vs sfac) — closes the
+  common residual of the Auger per-level widths, the DR α excess, and
+  the ~60 eV resonance-energy shift in one move.
 - CE at very high E (E/th ≳ 8): add the Bethe `b·ln x` completion beyond
   the geometric tail (FAC blends Born there; atomx is ~4% low at E/th=9).
 - EII near threshold: FAC-CI's ejected-wave conventions if sub-2×
   near-threshold parity is needed.
-- Auger: CI-mixed level amplitudes + ground-config orbital basis (above).
-- DR end-to-end: re-run `bench_fac_dr.py` with jj_level widths once the
-  CI-mixing wiring lands (the Burgess kernel already passes at <1% with
-  FAC widths).
+- DR: dr34 (3l4l′) manifolds need n=4 virtuals — same machinery.
