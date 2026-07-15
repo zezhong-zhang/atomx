@@ -38,11 +38,24 @@ class CRMLevel:
 
 @dataclass
 class CRMTransition:
-    """Transition between CRM levels."""
+    """Transition between CRM levels.
+
+    Collisional excitation uses, in order of preference:
+
+    1. ``omega_E_eV``/``omega`` — a tabulated collision strength
+       Omega(E_incident) (e.g. from
+       :func:`atomx.scattering.distorted_wave.solver.dw_excitation_cross_section`,
+       FAC-verified to ~5% rms).  The rate is the Maxwellian average of
+       the effective collision strength (:func:`effective_collision_strength`).
+    2. the van Regemorter formula from ``gf`` — a ~20-40% E1-only
+       approximation, kept as the explicitly labelled fallback.
+    """
     upper: int     # index of upper level
     lower: int     # index of lower level
     A_rate: float  # Einstein A coefficient (s^-1)
     gf: float = 0.0  # weighted oscillator strength
+    omega_E_eV: Optional[np.ndarray] = None   # incident-energy grid (eV)
+    omega: Optional[np.ndarray] = None         # collision strength Omega(E)
 
 
 @dataclass
@@ -308,17 +321,29 @@ class CollisionalRadiativeModel:
             # Radiative decay: upper -> lower
             R[l, u] += tr.A_rate
 
-            # Collisional excitation: lower -> upper
-            # Using van Regemorter formula: C_exc ~ 1.6e-5 * gf / (g_l * sqrt(T))
-            #                                * exp(-dE/kT) * gaunt_factor
+            # Collisional excitation: lower -> upper.  Tabulated DW
+            # collision strengths (FAC-verified machinery) when present;
+            # van Regemorter (E1-only, ~20-40%) as labelled fallback.
             dE_eV = self.levels[u].energy_eV - self.levels[l].energy_eV
-            if dE_eV > 0 and kT > 0 and tr.gf > 0:
+            C_exc = 0.0
+            if dE_eV > 0 and kT > 0:
                 g_l = max(self.levels[l].g, 1)
-                # van Regemorter approximation for excitation rate
-                gaunt = max(0.2, 0.276 * np.exp(dE_eV / kT)
-                            * _E1_integral(dE_eV / kT))
-                C_exc = (1.578e-5 * tr.gf * gaunt
-                         / (g_l * np.sqrt(kT)) * np.exp(-dE_eV / kT))
+                if tr.omega is not None and tr.omega_E_eV is not None:
+                    ups = effective_collision_strength(
+                        np.asarray(tr.omega_E_eV, dtype=float),
+                        np.asarray(tr.omega, dtype=float), dE_eV, kT)
+                    # C = 8.629e-6 / (g_l sqrt(T_K)) * Upsilon * exp(-dE/kT)
+                    T_K = kT / BOLTZMANN_EV
+                    C_exc = (8.6291e-6 * ups / (g_l * np.sqrt(T_K))
+                             * np.exp(-dE_eV / kT))
+                elif tr.gf > 0:
+                    # van Regemorter approximation for excitation rate
+                    gaunt = max(0.2, 0.276 * np.exp(dE_eV / kT)
+                                * _E1_integral(dE_eV / kT))
+                    C_exc = (1.578e-5 * tr.gf * gaunt
+                             / (g_l * np.sqrt(kT)) * np.exp(-dE_eV / kT))
+            if C_exc > 0.0:
+                g_l = max(self.levels[l].g, 1)
                 R[u, l] += ne_cm3 * C_exc
 
                 # Collisional de-excitation (detailed balance)
@@ -692,6 +717,54 @@ def _planck_photoionization_rate_s(
     _trap = getattr(np, "trapezoid", None) or np.trapz
     rate = _trap(sigma * _LIGHT_CM_S * photon_density_per_eV_cm3, energies)
     return max(float(rate), 0.0)
+
+
+def effective_collision_strength(E_eV, omega, dE_eV, Te_eV):
+    """Maxwellian effective collision strength Upsilon(T_e).
+
+    Upsilon = Int_0^inf Omega(E_f) exp(-E_f/kT) d(E_f/kT), with E_f the
+    FINAL (scattered) electron energy (Burgess & Tully 1992 convention),
+    so that
+
+        C_exc = 8.629e-6 / (g_l sqrt(T_K)) * Upsilon * exp(-dE/kT).
+
+    ``E_eV``/``omega`` tabulate Omega against the INCIDENT energy.  On
+    each grid interval Omega is taken linear and the product with
+    exp(-x) integrated in closed form (exact for piecewise-linear
+    Omega — a constant Omega = c gives Upsilon = c to machine
+    precision), plus an Omega = const tail beyond the last point (for a
+    Bethe ln E growth the tail is slightly underestimated — extend the
+    table if the high-T behaviour matters).
+    """
+    E = np.asarray(E_eV, dtype=float)
+    om = np.asarray(omega, dtype=float)
+    if len(E) == 0 or Te_eV <= 0:
+        return 0.0
+    Ef = E - float(dE_eV)
+    keep = Ef >= 0.0
+    Ef = Ef[keep]
+    om = om[keep]
+    if len(Ef) == 0:
+        return 0.0
+    x = Ef / float(Te_eV)
+    # anchor the threshold point E_f = 0 if the table starts above it
+    if x[0] > 0.0:
+        x = np.concatenate([[0.0], x])
+        om = np.concatenate([[om[0]], om])
+    # Int (a + b t) e^-t on [x0, x1], Omega linear per interval:
+    #   = [(a + b(1 + t)) e^-t]_{x1}^{x0}
+    x0, x1 = x[:-1], x[1:]
+    o0, o1 = om[:-1], om[1:]
+    dx = x1 - x0
+    good = dx > 0
+    b = np.zeros_like(dx)
+    b[good] = (o1[good] - o0[good]) / dx[good]
+    a = o0 - b * x0
+    F = lambda t: (a + b * (1.0 + t)) * np.exp(-t)
+    ups = float(np.sum((F(x0) - F(x1))[good]))
+    # constant-Omega tail beyond the table
+    ups += float(om[-1] * np.exp(-x[-1]))
+    return ups
 
 
 def _E1_integral(x):

@@ -670,8 +670,23 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
 
     E_OUT_MIN = 1.0 / HARTREE_EV  # evaluate the threshold point at E_out = 1 eV
 
+    # Exact plane-wave Born (GOS) for the high-energy completion: FAC's
+    # _topup=2 blends the DW value toward Born as the truncated-tail
+    # fraction of the partial-wave sum grows (excitation.c:1330-1337).
+    born_tr = None
+    if topup:
+        from atomx.scattering.distorted_wave.born import (
+            BornTransition, born_blend_weights)
+        pos = dE_hartree_grid[dE_hartree_grid > 0]
+        try:
+            born_tr = BornTransition(pair_data, r_fine, dr_fine,
+                                     float(np.median(pos)), E_max)
+        except Exception:
+            born_tr = None
+
     sigma_au = np.zeros(n_energies)
     omega = np.zeros(n_energies)
+    tail_omega = np.zeros(n_energies)
 
     for idx in range(n_energies):
         E_inc = E_inc_hartree[idx]
@@ -773,13 +788,34 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
                     prof_l[l_in] += pop * acc
 
         om = float(np.sum(prof_l))
-        if topup:
-            om += _geometric_tail(prof_l, kappa_max)
-        om *= 2.0 * math.pi ** 2
+        tail = _geometric_tail(prof_l, kappa_max) if topup else 0.0
+        om = (om + tail) * 2.0 * math.pi ** 2
 
         p_i_sq = 2.0 * E_inc + (E_inc * E_inc) / C_SQ
         omega[idx] = om
+        tail_omega[idx] = tail * 2.0 * math.pi ** 2
         sigma_au[idx] = math.pi / p_i_sq * om / g_i
+
+    # Born completion: blend each energy toward the exact plane-wave Born
+    # collision strength with weight w = (tail/Omega)^{1/2}, clamped
+    # monotone non-decreasing in energy (FAC _topup=2 default).
+    if born_tr is not None:
+        order = np.argsort(E_inc_hartree, kind="stable")
+        w_sorted = born_blend_weights(omega[order], tail_omega[order])
+        w = np.empty(n_energies)
+        w[order] = w_sorted
+        for idx in range(n_energies):
+            if w[idx] <= 0.0 or omega[idx] <= 0.0:
+                continue
+            om_b = born_tr.omega(E_inc_hartree[idx],
+                                 dE_au=float(dE_hartree_grid[idx]))
+            if om_b <= 0.0:
+                continue
+            om = omega[idx] * (1.0 - w[idx]) + om_b * w[idx]
+            E_inc = E_inc_hartree[idx]
+            p_i_sq = 2.0 * E_inc + (E_inc * E_inc) / C_SQ
+            omega[idx] = om
+            sigma_au[idx] = math.pi / p_i_sq * om / g_i
 
     sigma = sigma_au * (BOHR_RADIUS_M * 100) ** 2
     return sigma, omega
