@@ -73,12 +73,13 @@ def test_dw_excitation_fac_rms_gate():
     assert all(float(r["omega_atomx"]) > 0.0 for r in data)
     assert all(float(r["omega_fac"]) > 0.0 for r in data)
     # After the 2026-07-15 quadrature fix (trapezoidal Y^k cumulatives +
-    # inner-resolved composite radial grid) 8 of 9 panel points agree to
-    # <= 5.2%; the remaining Z=54 E/th=5 point (-16%) is the missing
-    # Bethe/Born completion at very high E (E = 153 keV), documented in
-    # docs/scattering_fac_verification_2026-07.md.
-    assert max(abs(float(r["rel_diff"])) for r in data) <= 0.18
-    assert _rms(rows) <= 0.08
+    # inner-resolved composite radial grid) and the exact-GOS plane-wave
+    # Born completion (FAC _topup=2 blend, Bethe limit verified to 0.5%)
+    # the panel rms is 5.1%; the remaining Z=54 E/th=5 point (-11%,
+    # E = 153 keV) is dominated by the Breit/Moller interaction FAC
+    # includes in the collision operator at high Z (documented follow-up).
+    assert max(abs(float(r["rel_diff"])) for r in data) <= 0.15
+    assert _rms(rows) <= 0.065
 
 
 @pytest.mark.fac_parity
@@ -94,11 +95,21 @@ def test_dw_eii_fac_rms_gate():
     were fabricated (matched neither code), and the old FAC driver passed
     absolute energies into a threshold-relative grid.
 
-    Current live parity (He-like K-shell, Z=10/26/54): 2-25% at
-    E/th >= 2; up to ~2x at E/th=1.5 where FAC-CI's ejected-wave
-    treatment (max_kl_eject restriction, log-y ejected-spectrum grid)
-    differs from the straight DWBA E1 quadrature — a documented model
-    difference, not a normalization error.
+    2026-07-15: two reference/physics fixes.  (1) The FAC user grid is
+    now pinned at the requested factors — the old run let FAC pick its
+    sparse default grid and interpolated across the steep threshold
+    rise, mis-stating sigma_fac(f=1.5) by -40% for He-like Fe.  (2) The
+    atomx ejected-energy window is now FAC-equivalent ([~1.5e-3 T, T/2],
+    log-spaced low nodes): the old 0.05T..0.49T window missed the
+    dominant soft-ejection region (30-45% of the integral at high E) and
+    partially cancelled against a geometric-tail overshoot.
+
+    Current live parity: Z=10 all points <= 5%; Z=26 <= 15% (threshold)
+    / <= 7% (f >= 2); Z=54 (40-keV K shell) +93/+32/-21% — the
+    relativistic (Moller/Breit) collision operator FAC uses at high Z is
+    a documented follow-up.  Note FAC-CI evaluates ALL its Slater
+    integrals in phase-amplitude mode (IONLQR = 0), so near threshold
+    the atomx exact integrals are the more accurate of the two.
     """
     rows = _rows(EII_CSV)
     data = [r for r in rows if r["Z"] != "rms"]
@@ -108,12 +119,11 @@ def test_dw_eii_fac_rms_gate():
     assert all(int(r["atomx_converged"]) == 1 for r in data)
     assert all(float(r["sigma_atomx_cm2"]) > 0.0 for r in data)
     assert all(float(r["sigma_fac_cm2"]) > 0.0 for r in data)
-    # Above 2x threshold the straight-DWBA and FAC-CI-DW agree to ~10%
-    # except at E/th=5 where atomx lacks the Born/Coulomb-Bethe
-    # completion for the ionization high-l tail (FAC's CI blends Born
-    # there); raising kappa_max shows the geometric tail is not the
-    # limiter — the deficit converges to ~ -25..-35%.  Documented
-    # follow-up in docs/scattering_fac_verification_2026-07.md.
     above = [r for r in data if float(r["E_over_threshold"]) >= 2.0]
     assert max(abs(float(r["rel_diff"])) for r in above) <= 0.35
     assert _rms(rows) <= 0.40
+    # Z <= 26 (where the Coulomb collision operator suffices) is much
+    # tighter — gate it separately so regressions in the verified regime
+    # trip even while the Z=54 Moller/Breit follow-up is open.
+    low_z = [r for r in data if int(r["Z"]) <= 26]
+    assert max(abs(float(r["rel_diff"])) for r in low_z) <= 0.20

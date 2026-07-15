@@ -44,8 +44,11 @@ SEQUENCES = {
 # SetCIQkMode('dw'): pure distorted-wave, matching atomx's method exactly.
 # FAC's default CI mode is QK_BED (binary-encounter-dipole scaled), a
 # different model that suppresses the DW result by ~10-30% at E/th <= 5.
-# FAC's CI user grid is the energy ABOVE threshold (incident - I); we let
-# FAC pick its own grid and interpolate at matched E_inc/threshold.
+# FAC's CI user grid is the energy ABOVE threshold (incident - I).  The
+# user grid is pinned explicitly at (f-1)*I so sigma is read at exactly the
+# requested factors: letting FAC pick its default sparse grid and
+# interpolating across the steep threshold rise mis-stated sigma(f=1.5) by
+# -40% for He-like Fe (FAC-true 2.626e-22 vs 1.879e-22 interpolated).
 FAC_TEMPLATE = """SetAtom('{symbol}')
 Closed('')
 Config('g', '{ground_config}')
@@ -56,6 +59,7 @@ ConfigEnergy(1)
 Structure('{stem}.lev.b', ['g', 'ion'])
 MemENTable('{stem}.lev.b')
 SetCIQkMode('dw')
+SetUsrCIEGrid({usr_grid})
 CITable('{stem}.ci.b', ['g'], ['ion'])
 PrintTable('{stem}.ci.b', '{stem}.ci', 1)
 """
@@ -73,14 +77,15 @@ def run_atomx(Z: int, spec: dict[str, object], energies_eV: np.ndarray) -> tuple
     dw = dw_eii_cross_section(
         atom._result,
         energies_eV,
-        kappa_max=6,
-        n_outgoing_energies=6,
+        kappa_max=8,
+        n_outgoing_energies=13,
     )
     cb = coulomb_born_ci_atom(atom._result, energies_eV)["sigma_total_cm2"]
     return np.asarray(dw.sigma_total_cm2, dtype=float), np.asarray(cb, dtype=float)
 
 
-def run_fac(Z: int, spec: dict[str, object], factors, timeout: float, keep_dir: Path | None) -> tuple[np.ndarray, float, str]:
+def run_fac(Z: int, spec: dict[str, object], factors, timeout: float, keep_dir: Path | None,
+            threshold_eV: float | None = None) -> tuple[np.ndarray, float, str]:
     """FAC pure-DW CI cross section at matched E_incident/threshold ``factors``.
 
     FAC's CI user grid is the energy above threshold; interpolate sigma at
@@ -92,11 +97,16 @@ def run_fac(Z: int, spec: dict[str, object], factors, timeout: float, keep_dir: 
         return np.zeros_like(factors), 0.0, f"FAC unavailable: {SFAC_BIN}"
     sequence = next((name for name, candidate in SEQUENCES.items() if candidate is spec), "sequence")
     stem = f"{sequence.replace('-', '_')}_dw_ci_z{Z}"
+    if threshold_eV:
+        usr = [float((f - 1.0) * threshold_eV) for f in factors]
+    else:
+        usr = []
     script_text = FAC_TEMPLATE.format(
         symbol=SYMBOLS[Z],
         stem=stem,
         ground_config=str(spec["ground"]),
         ion_config=str(spec["ion"]),
+        usr_grid="[" + ", ".join(f"{u:.4f}" for u in usr) + "]",
     )
     if keep_dir is None:
         ctx = tempfile.TemporaryDirectory()
@@ -167,7 +177,8 @@ def main() -> None:
                 note = "FAC skipped (--skip-fac)"
             else:
                 keep = Path(args.keep_fac_dir) if args.keep_fac_dir else None
-                sigma_fac, fac_th, note = run_fac(Z, spec, ENERGY_FACTORS, args.timeout, keep)
+                sigma_fac, fac_th, note = run_fac(Z, spec, ENERGY_FACTORS, args.timeout, keep,
+                                                  threshold_eV=threshold)
             for factor, energy, atomx, fac, cb in zip(ENERGY_FACTORS, energies, sigma_atomx, sigma_fac, sigma_cb):
                 rel = ((float(atomx) - float(fac)) / float(fac)) if fac > 0.0 else ""
                 rows.append({

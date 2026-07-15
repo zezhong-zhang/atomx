@@ -446,6 +446,8 @@ def _eii_dw_total(
     kappa_max: int,
     n_outgoing_energies: int,
     continuum_model: Any = None,
+    e1_grid_frac: Any = None,
+    _capture: Any = None,
 ) -> "EIIResult":
     """Relativistic distorted-wave EII on the FAC-exact CE machinery.
 
@@ -464,9 +466,14 @@ def _eii_dw_total(
                      * Int_0^{Tmax/2} dE1  2 pi^2
                        Sum_{J, kap_in, kap_1, kap_2} (2J+1) |T_J|^2
 
-    The E1 integral runs to Tmax/2 (identical outgoing electrons; the
-    antisymmetrized |D - E|^2 covers the exchange).  A geometric high-l
-    tail on the incident partial-wave profile tops up l > kappa_max.
+    The E1 integral runs over the FAC-equivalent ejected-energy window
+    [~1.5e-3 T, T/2] with log-spaced low nodes (FAC ionization.c
+    CIRadialQkIntegratedTable, YEG0 = 5e-4): dsigma/dE1 is dominated by
+    soft ejection, and a window starting at 0.05 T loses 30-45% of the
+    total at high E.  Identical outgoing electrons: the antisymmetrized
+    |D - E|^2 covers the exchange (Slater-Condon, no extra recoupling
+    phase - the exact m-summation absorbs it).  A geometric high-l tail
+    on the incident partial-wave profile tops up l > kappa_max.
     """
     from atomx.constants import HARTREE_EV as _HEV
     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
@@ -613,8 +620,21 @@ def _eii_dw_total(
                 continue
             p_i_sq = 2.0 * E_i_au + (E_i_au * E_i_au) / C_SQ
 
-            E1_grid = np.linspace(0.05 * T_max, 0.49 * T_max,
-                                  n_outgoing_energies)
+            if e1_grid_frac is not None:
+                E1_grid = np.asarray(e1_grid_frac, dtype=float) * T_max
+            else:
+                # FAC-equivalent ejected-energy window (ionization.c
+                # CIRadialQkIntegratedTable: y in [YEG0*I/T, 0.5],
+                # log-spaced): soft ejection dominates dsigma/dE1, so the
+                # low-E1 nodes are log-spaced down to ~1e-3 of T; the old
+                # 0.05T..0.49T linear window missed ~30-45% of the
+                # integral at high E.
+                n_lo = max(n_outgoing_energies // 2, 3)
+                n_hi = max(n_outgoing_energies - n_lo, 3)
+                E1_grid = np.concatenate([
+                    np.geomspace(1.5e-3, 0.08, n_lo),
+                    np.linspace(0.13, 0.499, n_hi),
+                ]) * T_max
             integrand = np.zeros_like(E1_grid)
 
             # Thread-parallel prefill of every continuum wave used by this
@@ -709,6 +729,11 @@ def _eii_dw_total(
                         E_x = 0.0
                         for (t, ang) in cce:
                             E_x += Re[t] * ang
+                        # Slater-Condon for the antisymmetrized outgoing
+                        # pair: T = D - E exactly; the exact m-summation
+                        # in _cc_exchange absorbs all recoupling phases
+                        # (verified: a J-dependent (-1)^{j1+j2-J} variant
+                        # degrades agreement with FAC's exact-grid values).
                         T = D - E_x
                         if T != 0.0:
                             acc += (tJ + 1) * T * T
@@ -718,6 +743,9 @@ def _eii_dw_total(
                 # Geometric high-l tail on the incident partial wave.
                 om += _geometric_tail(prof_l, kappa_max)
                 integrand[j_E1] = 2.0 * np.pi ** 2 * om
+            if _capture is not None:
+                _capture[(sh.label, float(E_i_eV))] = (
+                    E1_grid.copy(), integrand.copy(), T_max)
             integral = float(np.trapezoid(integrand, E1_grid))
             sigma_a_au = (np.pi / p_i_sq) * (q_a / (tj_a + 1.0)) * integral
             sigma_a[E_i_idx] = sigma_a_au * BOHR_RADIUS_M ** 2 * 1e4

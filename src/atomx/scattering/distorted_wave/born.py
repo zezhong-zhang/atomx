@@ -150,7 +150,158 @@ def born_excitation_forbidden(
     return out
 
 
+# ---------------------------------------------------------------------------
+# Exact relativistic plane-wave Born from generalized-oscillator-strength
+# moments (FAC excitation.c:CERadialQkBorn + radial.c:GeneralizedMoments).
+# Unlike the Gaunt-factor helpers above, this uses the actual SCF orbitals
+# and is exact in the Born limit — it anchors the high-energy completion of
+# the distorted-wave sum.
+# ---------------------------------------------------------------------------
+
+from scipy.special import spherical_jn  # noqa: E402
+
+ALPHA2 = 1.0 / 137.0359990836 ** 2
+
+_N_Q_MASTER = 256
+_N_Q_INT = 128
+
+
+def gos_moment_table(rho, r, dr, k, q_grid, overlap=None):
+    """M_k(q) = [Int rho(r) j_k(q r) dr - delta_{k0} S_ab] / q.
+
+    ``rho = P_a P_b + Q_a Q_b`` is the bound transition density on grid
+    ``r`` with weights ``dr``; ``overlap`` (the k = 0 subtraction,
+    FAC radial.c:7683) defaults to Int rho dr, which removes the spurious
+    monopole when the two SCF solves are not exactly orthogonal.  Only the
+    support of rho is integrated.
+    """
+    m = float(np.max(np.abs(rho)))
+    if m == 0.0:
+        return np.zeros_like(np.asarray(q_grid, dtype=float))
+    idx = np.nonzero(np.abs(rho) > 1e-16 * m)[0]
+    i_sup = int(idx[-1]) + 1
+    rs = r[:i_sup]
+    w = (rho * dr)[:i_sup]
+    if k == 0:
+        s0 = float(np.sum(w)) if overlap is None else float(overlap)
+    else:
+        s0 = 0.0
+    q_arr = np.asarray(q_grid, dtype=float)
+    out = np.empty(len(q_arr))
+    for i, q in enumerate(q_arr):
+        jk = spherical_jn(k, q * rs)
+        out[i] = (float(np.dot(w, jk)) - s0) / q
+    return out
+
+
+class BornTransition:
+    """Precomputed GOS tables for one CE transition; evaluates Omega^B(E).
+
+    The collision strength of a one-electron jj transition set in the first
+    Born approximation, derived from sigma = (8 pi / k_i^2) Int dq/q^3
+    |eps(q)|^2 with the plane-wave expansion and CG orthogonality killing
+    the multipole cross terms:
+
+        Omega^B(E) = 8 sum_pairs pop sum_k (2k+1) <j_a||C^k||j_b>^2
+                     Int_{c0-c1}^{c0+c1} dln q  M_k(q)^2  R_rel(q)
+
+    with relativistic momenta c_i = sqrt(2 E_i (1 + alpha^2 E_i / 2)) and
+    R_rel the free-electron kinematic factor of CERadialQkBorn (-> 1 as
+    alpha -> 0).  The dipole term reproduces the exact Bethe limit
+    Omega -> (8/3) S ln[(k_i+k_f)/(k_i-k_f)] with line strength
+    S = <j_a||C^1||j_b>^2 D^2 (tested).  ``pop`` is the same
+    average-configuration factor as the DW assembly
+    (``_active_transition_pairs``: q_a (g_b - q_b)/g_b).
+
+    ``pair_data`` is the fine-grid list of
+    ``(kappa_a, kappa_b, pop, P_a, Q_a, P_b, Q_b)`` built by
+    ``dw_excitation_cross_section``.
+    """
+
+    def __init__(self, pair_data, r_fine, dr_fine, dE_au, E_max_au,
+                 L_max=None):
+        from atomx.scattering.distorted_wave.solver import (
+            _allowed_k, _reduced_C)
+
+        self.dE_au = float(dE_au)
+        E_top = max(float(E_max_au), 2.0 * self.dE_au)
+        p_top = math.sqrt(2.0 * E_top * (1.0 + 0.5 * ALPHA2 * E_top))
+        q_lo = 1e-3 * math.sqrt(2.0 * self.dE_au)
+        q_hi = 50.0 * (2.0 * p_top)
+        self._lnq = np.linspace(math.log(q_lo), math.log(q_hi), _N_Q_MASTER)
+        q_master = np.exp(self._lnq)
+
+        self._channels = []
+        for (ka, kb, pop, Pa, Qa, Pb, Qb) in pair_data:
+            rho = Pa * Pb + Qa * Qb
+            ks = _allowed_k(ka, kb)
+            for k in (ks if L_max is None
+                      else [k for k in ks if k <= L_max]):
+                cl = _reduced_C(ka, kb, k)
+                if cl == 0.0:
+                    continue
+                mk = gos_moment_table(rho, r_fine, dr_fine, k, q_master)
+                wgt = 8.0 * float(pop) * (2.0 * k + 1.0) * cl * cl
+                self._channels.append((wgt, mk))
+
+    def omega(self, E_inc_au: float, dE_au: float = None) -> float:
+        """Omega^B at incident energy ``E_inc_au`` (0 below threshold)."""
+        dE = self.dE_au if dE_au is None else float(dE_au)
+        E1 = float(E_inc_au) - dE
+        if E1 <= 0.0 or not self._channels:
+            return 0.0
+        E0 = float(E_inc_au)
+        a0 = 1.0 + 0.5 * ALPHA2 * E0
+        a1 = 1.0 + 0.5 * ALPHA2 * E1
+        c0 = math.sqrt(2.0 * E0 * a0)
+        c1 = math.sqrt(2.0 * E1 * a1)
+        lnq = np.linspace(math.log(max(c0 - c1, 1e-30)),
+                          math.log(c0 + c1), _N_Q_INT)
+        q = np.exp(lnq)
+        # relativistic kinematic factor (CERadialQkBorn, m <= 0 branch)
+        a = a0 * a1
+        d = 0.25 * ALPHA2 / a
+        c = 0.5 * (c0 * c0 + c1 * c1 - q * q)
+        h = (1.0 - c / (c0 * c1)) * (c0 * c1 * d) ** 2
+        rel = a * ((1.0 + d * c) ** 2 + h)
+        total = 0.0
+        for wgt, mk in self._channels:
+            m_q = np.interp(lnq, self._lnq, mk)
+            total += wgt * float(np.trapezoid(m_q * m_q * rel, lnq))
+        return total
+
+
+def born_blend_weights(omega_dw, tails, p_born=0.5):
+    """FAC's _topup = 2 Born blend weight per energy.
+
+    w = (tail / Omega)^p_born, clamped monotone non-decreasing with
+    energy by processing energies in descending order and capping each
+    weight at the value found for the next-higher energy
+    (excitation.c:1331-1333, with the descending-ie loop of
+    CERadialQkTable).  Arrays must be sorted by ascending energy.
+    """
+    omega_dw = np.asarray(omega_dw, dtype=float)
+    tails = np.asarray(tails, dtype=float)
+    n = len(omega_dw)
+    w = np.zeros(n)
+    cap = None
+    for i in range(n - 1, -1, -1):
+        if omega_dw[i] > 0.0 and tails[i] > 0.0:
+            s = min(abs(tails[i] / omega_dw[i]) ** p_born, 1.0)
+        else:
+            s = 0.0
+        if cap is not None and s > cap:
+            s = cap
+        else:
+            cap = s
+        w[i] = s
+    return w
+
+
 __all__ = [
     "born_excitation_dipole",
     "born_excitation_forbidden",
+    "BornTransition",
+    "born_blend_weights",
+    "gos_moment_table",
 ]
