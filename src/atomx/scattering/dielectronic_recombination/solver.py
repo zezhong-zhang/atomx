@@ -106,12 +106,30 @@ def dr_rate_coefficient(
     *,
     initial_state_g: float = 1.0,
     initial_state_label: str = "",
+    ne_cm3: float | None = None,
+    Z_ion: int | None = None,
+    series_limit_eV: float | None = None,
+    ipd_model: str = "stewart_pyatt",
 ) -> DRRateCoefficient:
     """Burgess-formula DR rate coefficient from a list of resonances.
 
     Implements eq. (2) above.  Each resonance contributes a
     ``T_e^{−3/2} · exp(−E_d / T_e)`` term weighted by its statistical
     branching ratio.
+
+    Density suppression (continuum lowering): when ``ne_cm3``, ``Z_ion``
+    and ``series_limit_eV`` (the excitation threshold the resonance
+    series converges to) are given, a resonance whose captured-electron
+    binding energy ``series_limit_eV - E_resonance_eV`` is smaller than
+    the ionization-potential depression
+    (:func:`atomx.plasma.screening.ionization_potential_depression`,
+    Stewart-Pyatt by default) is dissolved into the lowered continuum
+    and dropped, per temperature.  This removes the high-n Rydberg
+    resonances that dominate the low-density rate but cannot survive at
+    ICF/stellar-interior densities (20-50% of the total there); the
+    finer collisional l-mixing/ionization suppression of surviving
+    levels (Burgess & Summers 1969) is a documented upgrade.  With
+    ``ne_cm3 = None`` (default) the zero-density rate is unchanged.
 
     Parameters
     ----------
@@ -134,6 +152,19 @@ def dr_rate_coefficient(
     if np.any(T_eV <= 0):
         raise ValueError("Temperatures must be positive (eV).")
 
+    survival = np.ones_like(T_eV, dtype=float)
+    ipd_eV = None
+    if ne_cm3 is not None and ne_cm3 > 0.0:
+        if Z_ion is None or series_limit_eV is None:
+            raise ValueError(
+                "density suppression needs Z_ion and series_limit_eV "
+                "alongside ne_cm3")
+        from atomx.plasma.screening import ionization_potential_depression
+        ipd_eV = np.array([
+            float(ionization_potential_depression(Z_ion, ne_cm3, t,
+                                                  model=ipd_model))
+            for t in T_eV])
+
     alpha_total = np.zeros_like(T_eV, dtype=float)
     per = {}
 
@@ -147,6 +178,10 @@ def dr_rate_coefficient(
             continue
         omega = d.g / (2.0 * initial_state_g)
 
+        if ipd_eV is not None:
+            e_bind = float(series_limit_eV) - d.E_resonance_eV
+            survival = (e_bind > ipd_eV).astype(float)
+
         # Boltzmann factor  exp(-E_d / T_e)
         boltz = np.exp(-d.E_resonance_eV / T_eV)
         contribution = (
@@ -155,6 +190,7 @@ def dr_rate_coefficient(
             * omega
             * branch
             * boltz
+            * survival
         )
         alpha_total += contribution
         per[d.label] = contribution
