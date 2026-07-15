@@ -51,6 +51,11 @@ def crm_emission_spectrum(
     dr_lower_level_by_channel: Optional[Mapping[str, int]] = None,
     dr_initial_state_g: Optional[float] = None,
     dr_label_prefix: str = "DR",
+    include_free_free: bool = False,
+    ff_Z_eff: Optional[float] = None,
+    include_rr_continuum: bool = False,
+    rr_scf_result=None,
+    continuum_ion_fraction: float = 1.0,
 ) -> Spectrum:
     """Render a CRM's radiative transitions into a :class:`Spectrum`.
 
@@ -61,6 +66,17 @@ def crm_emission_spectrum(
     ----------
     crm : CollisionalRadiativeModel
         A CRM with ``.levels`` and ``.transitions`` populated.
+    include_free_free, ff_Z_eff : bool, float
+        Fold in thermal bremsstrahlung
+        (:func:`atomx.spectrum.continuum.free_free_emissivity`,
+        Maxwell-averaged Born Gaunt factor) for an ion of effective
+        charge ``ff_Z_eff``.  The continuum shares the line units
+        (populations are per-ion, so the ion density in the product
+        n_e n_i is ``continuum_ion_fraction``).
+    include_rr_continuum, rr_scf_result : bool, SCFResult
+        Fold in the free-bound (radiative-recombination) continuum from
+        the Milne-relation RR machinery for the recombining ion whose
+        converged ``rr_scf_result`` is given.
     dr_satellites : sequence or DRRateCoefficient, optional
         Dielectronic satellite resonances to fold into the rendered CRM. Each
         resonance may carry stabilising ``channels`` from the ab-initio
@@ -166,6 +182,33 @@ def crm_emission_spectrum(
                 f"Unknown profile {profile!r}; use 'gaussian', "
                 f"'lorentzian', or 'voigt'."
             )
+
+    # Continuum channels, rendered on the same wavelength grid.  Photon
+    # energy E(eV) = 1239.8419843320026 / lambda(nm); the per-eV
+    # emissivity converts to per-nm with |dE/dlambda| = E / lambda.
+    if include_free_free or include_rr_continuum:
+        lam = spec.wavelength_nm
+        E_eV = 1239.8419843320026 / lam
+        jac = E_eV / lam  # eV per nm
+        if include_free_free:
+            if ff_Z_eff is None:
+                raise ValueError("include_free_free requires ff_Z_eff")
+            from atomx.spectrum.continuum import free_free_emissivity
+            eps_E = free_free_emissivity(
+                E_eV, T_e_eV, float(ff_Z_eff),
+                n_e_cm3=n_e_cm3, n_i_cm3=continuum_ion_fraction)
+            spec.values += eps_E * jac
+            spec.metadata["free_free"] = {"Z_eff": float(ff_Z_eff)}
+        if include_rr_continuum:
+            if rr_scf_result is None:
+                raise ValueError(
+                    "include_rr_continuum requires rr_scf_result")
+            from atomx.spectrum.continuum import rr_continuum_emissivity
+            eps_E = rr_continuum_emissivity(
+                rr_scf_result, E_eV, T_e_eV,
+                n_e_cm3=n_e_cm3, n_i_cm3=continuum_ion_fraction)
+            spec.values += eps_E * jac
+            spec.metadata["rr_continuum"] = True
 
     return spec
 
