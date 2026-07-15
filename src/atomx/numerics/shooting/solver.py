@@ -895,12 +895,34 @@ class ShootingSolver:
     def __init__(self, Z, subshells, n_grid=1000, r_max=75.0, alpha_x=1.5,
                  aw=0.0, equation='dirac',
                  exchange='slater', fac_ihx=-1.0, fac_hxs=1.0,
-                 slater_method='slag6'):
+                 slater_method='slag6',
+                 exchange_alpha_fn=None, nuclear=None):
         if slater_method not in ('slag6', 'power_series'):
             raise ValueError(
                 f"slater_method must be 'slag6' or 'power_series' "
                 f"(got {slater_method!r})"
             )
+        # Decoupled physics choices (review E2/E3):
+        # * exchange_alpha_fn(Z, N_total) -> Slater alpha overrides the
+        #   built-in 'slater'/'fac' selection, so any Slater-family
+        #   functional can be injected without touching this solver.
+        #   (The rho^(1/3) FORM is fused into the JIT'd _sfield — a
+        #   non-Slater functional form needs a kernel variant, which is
+        #   the documented boundary of this hook.)
+        # * nuclear='point'|'fermi' resolves the nuclear model through
+        #   the shared potentials.nuclear mass table instead of a raw
+        #   atomic-weight number; the legacy aw= parameter still wins
+        #   when nonzero for backward compatibility.
+        self.exchange_alpha_fn = exchange_alpha_fn
+        if nuclear is not None and not (aw and aw > 0.0):
+            if nuclear == "point":
+                aw = 0.0
+            elif nuclear == "fermi":
+                from atomx.potentials.nuclear import _get_mass
+                aw = float(_get_mass(Z))
+            else:
+                raise ValueError(
+                    f"nuclear must be 'point' or 'fermi' (got {nuclear!r})")
         self.Z = Z
         self.subshells = subshells
         self.n_grid = n_grid
@@ -943,6 +965,9 @@ class ShootingSolver:
         (``potential->ahx`` set once per ``OptimizeRadial``,
         ``radial.c:2348``).
         """
+        if self.exchange_alpha_fn is not None:
+            n_total = float(sum(sh.occupation for sh in self.subshells))
+            return float(self.exchange_alpha_fn(float(self.Z), n_total))
         if self.exchange == 'fac':
             from atomx.physics.local_exchange import get_hxs
             n_total = float(sum(sh.occupation for sh in self.subshells))
