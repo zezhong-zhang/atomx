@@ -304,51 +304,19 @@ def _distorting_potential_fn(result, bsp_data, Z, screening="fac"):
     return V_func
 
 
-def _p_rel(E_au):
-    """Relativistic momentum p = sqrt(2E + (E/c)^2) in a.u."""
-    return math.sqrt(2.0 * E_au + (E_au * E_au) / C_SQ)
-
-
-@lru_cache(maxsize=64)
-def _fine_grid_cached(r_max: float, k_max_au: float, z_inner: float):
-    p2 = max(k_max_au, 1.0) ** 2
-    pts = [max(1.0e-5 / max(z_inner, 1.0), 1.0e-7)]
-    r = pts[0]
-    while r < r_max:
-        p_loc = math.sqrt(p2 + 2.0 * z_inner / r)
-        dr = min(0.15 / p_loc, r / 48.0)
-        r += dr
-        pts.append(min(r, r_max))
-        if len(pts) > 2_000_000:
-            break
-    arr = np.asarray(pts)
-    arr.setflags(write=False)
-    return arr
+from atomx.numerics.quadrature import (   # canonical kernels (E5)
+    _fine_grid_cached, _slater_rk_kernel, _yk_kernel_rho,
+    p_rel as _p_rel, pow_tables as _pow_tables)
 
 
 def _make_fine_grid(bsp_data, k_max_au, z_inner=None):
-    """Radial integration grid resolving BOTH the inner bound structure and
-    the continuum oscillation.
-
-    A uniform grid sized by the continuum wavelength under-resolves deep
-    K/L-shell orbitals (Fe 1s: ~5 points across the peak at the old
-    h = r_max/n) — that caused a uniform ~15% error in Auger radial
-    integrals (found by direct comparison against FAC's SlaterTotal
-    values).  The step obeys two local constraints:
-
-        dr <= 0.15 / p_loc(r),  p_loc = sqrt(k_max^2 + 2 z_inner / r)
-        dr <= r / 48            (>= 48 points per radial e-fold)
-
-    ``z_inner`` defaults to an effective charge inferred from the knot
-    range; pass the actual nuclear Z for exactness at high Z.
-    """
+    """Composite inner-resolved radial grid (see
+    atomx.numerics.quadrature.make_fine_grid — the canonical home of the
+    validated composite-grid + trapezoidal-cumulative pairing)."""
+    from atomx.numerics.quadrature import make_fine_grid
     r_max = float(bsp_data["t"][-1])
-    if z_inner is None:
-        z_inner = 30.0
-    # round the momentum so repeated calls at nearby energies share a grid
-    # (and its cached power tables) — the grid criterion has ~30% headroom.
-    k_key = float(np.ceil(max(k_max_au, 1.0) * 4.0) / 4.0)
-    return _fine_grid_cached(r_max, k_key, float(z_inner))
+    return make_fine_grid(r_max, k_max_au,
+                          30.0 if z_inner is None else float(z_inner))
 
 
 def _shooting_points(r_max, p_max):
@@ -388,135 +356,20 @@ def _continuum_on_grid(kappa, energy, V_func, Z_res, r_grid, r_max, n_grid):
 
 
 def _yk_fine(rho, r, dr, k, i_cut=None):
-    """Hartree Y^k(r) = ∫ (r_<^k / r_>^{k+1}) ρ(r') dr' on a fine grid.
-
-    Trapezoidal cumulatives (``dr`` is accepted for API compatibility but
-    the true spacings come from ``r``): rectangle-rule cumulative sums are
-    O(h)-biased on non-uniform grids — this produced a uniform ~15% error
-    in Auger radial integrals on the composite inner-resolved grid before
-    the upgrade (verified against FAC's SlaterTotal values).
-
-    ``i_cut``: return Y only on ``r[:i_cut+1]`` (the suffix integral still
-    covers the full grid) — for consumers whose weighting density has
-    compact support.
-    """
-    rk, rk1, irk1 = _pow_tables(r, k)
-    n = rho.shape[0]
-    ic = n - 1 if i_cut is None else min(int(i_cut), n - 1)
-    return _yk_kernel_rho(rho, r, rk, irk1, ic)
-
-
-@nb.njit(cache=True, nogil=True)
-def _yk_kernel_rho(rho, r, rk, irk1, i_cut):
-    """Fused Y^k with trapezoidal cumulative sums (2nd order on any grid).
-
-    ``irk1`` = 1/r^{k+1} (division-free inner loops).  The suffix
-    (outer) integral spans the full grid; Y is materialized only on
-    [0, i_cut].
-    """
-    n = rho.shape[0]
-    y = np.empty(i_cut + 1)
-    acc = 0.0
-    prev_b = rho[n - 1] * irk1[n - 1]
-    if i_cut == n - 1:
-        y[n - 1] = 0.0
-    for i in range(n - 2, -1, -1):
-        b = rho[i] * irk1[i]
-        acc += 0.5 * (b + prev_b) * (r[i + 1] - r[i])
-        prev_b = b
-        if i <= i_cut:
-            y[i] = acc                  # suffix (outer) integrals
-    inner = 0.0
-    prev_a = rho[0] * rk[0]
-    y[0] = inner * irk1[0] + rk[0] * y[0]
-    for i in range(1, i_cut + 1):
-        a = rho[i] * rk[i]
-        inner += 0.5 * (a + prev_a) * (r[i] - r[i - 1])
-        prev_a = a
-        y[i] = inner * irk1[i] + rk[i] * y[i]
-    return y
-
-
-# Power tables r^k / r^(k+1) per (grid, k): recomputing them was a large
-# share of every Slater integral.  Keyed by the grid's id() — fine grids are
-# built once per cross-section call and reused for thousands of integrals.
-_POW_CACHE: dict = {}
-
-
-def _pow_tables(r_grid, k):
-    key = (id(r_grid), k)
-    val = _POW_CACHE.get(key)
-    if val is None:
-        if len(_POW_CACHE) > 256:
-            _POW_CACHE.clear()
-        rk1 = r_grid ** (k + 1)
-        val = (r_grid ** k, rk1, 1.0 / rk1)
-        _POW_CACHE[key] = val
-    return val
-
-
-@nb.njit(cache=True, nogil=True)
-def _slater_rk_kernel(P_a, Q_a, P_b, Q_b, P_c, Q_c, P_d, Q_d,
-                      r, rk, irk1):
-    """Fused R^k = ∫ ρ_ac Y^k[ρ_bd] dr with trapezoidal cumulatives.
-
-    Second-order on arbitrary (non-uniform) grids; serial by design —
-    memory-bound arrays, thread fork/join would dominate (same lesson as
-    the SCF convolution kernels).  The forward (accumulation) pass runs
-    only over the support of ρ_ac: beyond it every contribution is
-    exactly zero, and in the scattering integrals ρ_ac always contains
-    at least one bound orbital (support r ≲ few a₀, ~15% of the grid).
-    """
-    n = r.shape[0]
-    # support of rho_ac: |rho| > 1e-16 * max|rho| (interpolated bound
-    # tails are tiny-but-nonzero floats; the neglected contribution is
-    # ~1e-13 relative, far below the quadrature accuracy)
-    rho_max = 0.0
-    for i in range(n):
-        v = abs(P_a[i] * P_c[i] + Q_a[i] * Q_c[i])
-        if v > rho_max:
-            rho_max = v
-    thr = 1.0e-16 * rho_max
-    i_cut = 0
-    for i in range(n - 1, -1, -1):
-        if abs(P_a[i] * P_c[i] + Q_a[i] * Q_c[i]) > thr:
-            i_cut = i
-            break
-    suffix = np.empty(i_cut + 1)
-    acc = 0.0
-    prev_b = (P_b[n - 1] * P_d[n - 1] + Q_b[n - 1] * Q_d[n - 1]) * irk1[n - 1]
-    for i in range(n - 2, -1, -1):
-        b = (P_b[i] * P_d[i] + Q_b[i] * Q_d[i]) * irk1[i]
-        acc += 0.5 * (b + prev_b) * (r[i + 1] - r[i])
-        prev_b = b
-        if i <= i_cut:
-            suffix[i] = acc
-    total = 0.0
-    inner = 0.0
-    prev_a = (P_b[0] * P_d[0] + Q_b[0] * Q_d[0]) * rk[0]
-    y0 = inner * irk1[0] + rk[0] * suffix[0]
-    prev_g = (P_a[0] * P_c[0] + Q_a[0] * Q_c[0]) * y0
-    for i in range(1, i_cut + 1):
-        a = (P_b[i] * P_d[i] + Q_b[i] * Q_d[i]) * rk[i]
-        inner += 0.5 * (a + prev_a) * (r[i] - r[i - 1])
-        prev_a = a
-        y = inner * irk1[i] + rk[i] * suffix[i]
-        g = (P_a[i] * P_c[i] + Q_a[i] * Q_c[i]) * y
-        total += 0.5 * (g + prev_g) * (r[i] - r[i - 1])
-        prev_g = g
-    return total
+    """Hartree Y^k on an arbitrary grid (canonical:
+    atomx.numerics.quadrature.yk_on_grid; ``dr`` kept for API
+    compatibility — spacings come from ``r``)."""
+    from atomx.numerics.quadrature import yk_on_grid
+    return yk_on_grid(rho, r, k, i_cut=i_cut)
 
 
 def _grid_slater_rk(P_a, Q_a, P_b, Q_b, P_c, Q_c, P_d, Q_d, r_grid, dr, k):
-    """R^k(a,b,c,d) = ∫ ρ_ac(r) Y^k[ρ_bd](r) dr on a fine uniform grid.
-
-    Same argument order as ``compute_slater_rk_cell`` (ρ13 = a·c, ρ24 = b·d).
-    The fused numba kernel reproduces the reference numpy implementation
-    (``_yk_fine`` + dot) exactly up to floating-point summation order.
-    """
-    rk, rk1, irk1 = _pow_tables(r_grid, k)
-    return float(_slater_rk_kernel(P_a, Q_a, P_b, Q_b, P_c, Q_c, P_d, Q_d,
-                                   r_grid, rk, irk1))
+    """R^k(a,b,c,d) on an arbitrary grid (canonical:
+    atomx.numerics.quadrature.grid_slater_rk; ``dr`` kept for API
+    compatibility)."""
+    from atomx.numerics.quadrature import grid_slater_rk
+    return grid_slater_rk(P_a, Q_a, P_b, Q_b, P_c, Q_c, P_d, Q_d,
+                          r_grid, k)
 
 
 def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
