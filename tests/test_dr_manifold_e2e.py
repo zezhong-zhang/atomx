@@ -7,15 +7,18 @@ the Burgess kernel.  The reference is FAC's AITable+TRTable restricted to
 the same dr33 configuration set (tests/data/fe17_dr_fac.json).
 
 History: the old ``dr_calculate`` end-to-end path overshot FAC by
-~10^3-10^4 (hydrogenic width placeholders).  This determinant-CI path
-lands at 1.0-2.0x across T = 1-50 MK.  Known residuals (documented in
-docs/scattering_fac_verification_2026-07.md):
-- resonance energies ~60 eV high (frozen-orbital, no relaxation), which
-  also inflates omega^3 in the radiative widths;
-- V^{N-1} virtuals more compact than FAC's optimized DFS potential;
-- ~25% of the high-T excess is real physics: levels below FAC's
-  SetAICut(1e-4) that the FAC reference drops (atomx keeps all 237
-  dr33 resonances vs FAC's listed 75).
+~10^3-10^4 (hydrogenic width placeholders).  2026-07-15: the A_r audit
+against a clean-room FAC TRTable found the E1 stabilizing widths a
+uniform ~3.3x low — ``_radiative_width`` took the final-state energy
+from the determinant diagonal <f|H|f>, which is only consistent on the
+resonance sector (omega came out 450-550 eV where the physical Fe
+3l -> 2p energies are 700-900 eV).  With the physical decomposition
+omega = E_res + binding(spectator), per-level A_r sits at 1.09-1.27 of
+FAC and alpha_DR(T >= 5 MK) agrees to <= 17% against the complete
+clean-room reference (fe17_dr33_fac_cleanroom.json: SetSE/VP/MS/Breit
+off, AICut 0, both 2p- and 2s-hole manifolds, single-threaded sfac).
+Remaining low-T deficit (0.49 at 1 MK) is the documented ~+40 eV
+frozen-orbital E_res offset entering exp(-E/kT).
 """
 
 from __future__ import annotations
@@ -34,6 +37,7 @@ from atomx import Atom  # noqa: E402
 from atomx.constants import HARTREE_EV  # noqa: E402
 
 FIXTURE = Path(__file__).parent / "data" / "fe17_dr_fac.json"
+FIXTURE_CLEAN = Path(__file__).parent / "data" / "fe17_dr33_fac_cleanroom.json"
 K_B = 8.617333262e-5
 T_MK = (1.0, 5.0, 10.0, 50.0)
 
@@ -114,27 +118,47 @@ def test_resonance_count_and_energy_window(dr_states):
 
 @pytest.mark.fac_parity
 def test_alpha_dr_vs_fac_dr33(dr_states):
-    """Burgess alpha_DR(T) within [0.5, 2.5] of the FAC dr33 subset.
+    """Burgess alpha_DR(T) against the COMPLETE clean-room FAC dr33 set.
 
-    (The old dr_calculate end-to-end was ~10^3-10^4 off; see module
-    docstring for the sources of the remaining <=2x.)"""
+    Reference: fe17_dr33_fac_cleanroom.json (AICut 0, SetSE/VP/MS/Breit
+    off, both hole manifolds, E1 TR to 2s2 2p6 3l — apples-to-apples
+    with this pipeline).  Measured 2026-07-15 after the A_r omega fix:
+    0.49 / 0.99 / 1.08 / 1.17 at 1 / 5 / 10 / 50 MK.  The 1-MK ratio is
+    Boltzmann suppression from the ~+40 eV frozen-orbital E_res offset,
+    not a width error."""
     from atomx.scattering.autoionization import dr_rate_coefficient
     from atomx.scattering.autoionization.auger import AutoionizationState
 
-    fac = json.loads(FIXTURE.read_text())
-    fac33 = [r for r in fac["resonances"] if "2*7.3*2 " in r["label"]]
-    assert len(fac33) > 50
+    fac = json.loads(FIXTURE_CLEAN.read_text())
     fac_states = [AutoionizationState(
-        label="", E_resonance_eV=r["E_resonance_eV"], J=r["J"],
+        label=str(r["ilev"]), E_resonance_eV=r["E_resonance_eV"], J=r["J"],
         gamma_auger_per_s=r["gamma_auger_per_s"],
-        a_radiative_per_s=r["a_radiative_per_s"]) for r in fac33]
+        a_radiative_per_s=r["a_radiative_per_s"])
+        for r in fac["resonances"]]
+    assert len(fac_states) > 200
 
     T_eV = [T * 1.0e6 * K_B for T in T_MK]
     rc = dr_rate_coefficient(dr_states, T_eV, initial_state_g=1.0)
     rcf = dr_rate_coefficient(fac_states, T_eV, initial_state_g=1.0)
+    gates = {1.0: (0.35, 1.0), 5.0: (0.8, 1.25),
+             10.0: (0.85, 1.35), 50.0: (0.9, 1.45)}
     for i, T in enumerate(T_MK):
         ratio = float(rc.alpha_cm3_s[i]) / float(rcf.alpha_cm3_s[i])
-        assert 0.5 <= ratio <= 2.5, f"T={T} MK: alpha ratio {ratio:.2f}"
+        lo, hi = gates[T]
+        assert lo <= ratio <= hi, f"T={T} MK: alpha ratio {ratio:.2f}"
+
+
+@pytest.mark.fac_parity
+def test_total_radiative_width_vs_fac(dr_states):
+    """Sum of E1 stabilizing widths within [1.0, 1.45] of clean-room FAC.
+
+    Per-level A_r audited 2026-07-15: block sums 1.20-1.27, cleanest
+    single level 1.09; the excess is the +40 eV E_res offset in omega^3
+    plus V^{N-1}-vs-optimized-potential dipole differences."""
+    fac = json.loads(FIXTURE_CLEAN.read_text())
+    s_fac = sum(r["a_radiative_per_s"] for r in fac["resonances"])
+    s_ax = sum(s.a_radiative_per_s for s in dr_states)
+    assert 1.0 <= s_ax / s_fac <= 1.45, s_ax / s_fac
 
 
 @pytest.mark.fac_parity
