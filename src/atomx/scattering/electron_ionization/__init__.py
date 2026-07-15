@@ -554,6 +554,13 @@ def _eii_dw_total(
             continue
         P_a_c, Q_a_c, _q = orb_list[idx_in_kappa]
         P_a, Q_a = _bound_to_fine(P_a_c, Q_a_c)
+        # support of the ionized orbital: every radial integral of this
+        # shell is weighted by a density containing P_a — truncate the
+        # Y functions and dots there (|rho| < 1e-16*max contributes ~1e-13
+        # relative, far below quadrature accuracy).
+        _amax = float(np.max(np.abs(P_a)))
+        _sup = np.nonzero(np.abs(P_a) > 1.0e-16 * _amax)[0]
+        i_sup = int(_sup[-1]) if len(_sup) else len(P_a) - 1
 
         sigma_a = np.zeros_like(energies)
 
@@ -647,7 +654,9 @@ def _eii_dw_total(
                         w = _wave(kappa, E)
                         if w is None:
                             return None
-                        v = (P_a * w[0] + Q_a * w[1]) * dr_fine
+                        v = ((P_a[:i_sup + 1] * w[0][:i_sup + 1]
+                              + Q_a[:i_sup + 1] * w[1][:i_sup + 1])
+                             * dr_fine[:i_sup + 1])
                         rho_a_cache[key] = v
                     return v
 
@@ -673,7 +682,8 @@ def _eii_dw_total(
                             if y is None:
                                 rho_in2 = (w_in[0] * w_2[0]
                                            + w_in[1] * w_2[1])
-                                y = _yk_fine(rho_in2, r_fine, dr_fine, k)
+                                y = _yk_fine(rho_in2, r_fine, dr_fine, k,
+                                             i_cut=i_sup)
                                 yd_cache[ck] = y
                             Rd[k] = float(rho_a1 @ y)
                     Re = {}
@@ -688,7 +698,7 @@ def _eii_dw_total(
                                 rho_in1 = (w_in[0] * w_1[0]
                                            + w_in[1] * w_1[1])
                                 y = _yk_fine(rho_in1, r_fine,
-                                             dr_fine, t)
+                                             dr_fine, t, i_cut=i_sup)
                                 ye_cache[ct] = y
                             Re[t] = float(rho_a2 @ y)
                     acc = 0.0
