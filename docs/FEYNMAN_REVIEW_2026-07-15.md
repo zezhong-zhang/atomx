@@ -207,3 +207,25 @@ Items 1–2 are the striking ones: both halves of each fix already exist and are
 individually verified; only the wiring is missing. That is the recurring pattern of
 this review — atomx's physics debt is currently *integration* debt, not derivation
 debt.
+
+---
+
+## Remediation status (2026-07-15, same-day)
+
+All twelve actions were executed the day of the review; each carries its
+commit and verification.
+
+| # | Status | Evidence |
+|---|--------|----------|
+| 1 | **DONE** | `effective_collision_strength` (piecewise-exact Maxwellian kernel; constant-Ω recovers Υ to machine precision); CRM prefers tabulated Ω, van Regemorter stays as labelled fallback. 4 tests. |
+| 2 | **DONE — and the diagnosis deepened** | CE: exact-GOS plane-wave Born completion (Bethe limit verified to 0.5%), FAC `_topup=2` blend → panel rms 6.4%→5.1%, Z=54 f=5 −16%→−11%. EII: the deficit was **not** a tail problem — the ejected-energy window `[0.05T, 0.49T]` missed the dominant soft-ejection region (FAC uses `[5e-4·I, 0.5T]` log-spaced), and the benchmark's FAC reference itself was −40% at f=1.5 (interpolated across the threshold rise; now pinned with `SetUsrCIEGrid`). New parity: Z=10 ≤5%, Z=26 ≤15%/7%/1%. |
+| 3 | **DONE** | `CorrectionStack` injected into DFSolver/MCDHF; booleans are sugar; single `_finalize_with_corrections` seam; 84 existing gates pass unchanged; Breit-only-via-stack now possible and tested. |
+| 4 | **DONE** | `spectrum/continuum.py`: free-free (CODATA-verified constant, exact Maxwell-averaged Born Gaunt `(√3/π)e^{x/2}K₀(x/2)`) + Milne RR continuum folded into `crm_emission_spectrum`; He⁺ RR edge lands exactly at the 1s binding (test). |
+| 5 | **DONE** | `numerics/quadrature.py` canonical; solver keeps byte-identical wrappers. |
+| 6 | **DONE** | `exchange_alpha_fn` injection (values byte-identical on default paths); `nuclear='point'/'fermi'` via the shared mass table. |
+| 7 | **DONE** | `corrections/orbital_shifts.py`; Fe 1s +8.7 eV/e⁻ ≡ the documented −8 eV E_res offset. |
+| 8 | **DONE — real bug found** | `_radiative_width` was ~3.3× low: `⟨fdet|H|fdet⟩` is not a valid final-state energy (ω came out 450–550 eV vs physical 700–900 eV). Fixed with ω = E_res + binding(spectator). Per-level A_r now 1.09–1.27 of clean-room FAC TRTable; α_DR vs the **complete** clean-room dr33 set: 0.49/0.99/1.08/1.17 at 1/5/10/50 MK — the high-T factor-2 is closed (1 MK = the +40 eV frozen-orbital E_res offset in the Boltzmann factor). |
+| 9 | **DONE (EA + rate-level RE)** | `excitation_autoionization_cross_section` (DW × branching; He-like Fe test) and `resonant_excitation_rate` (Burgess twin, exactness test). Excited-channel *partial* Auger widths from the manifold remain the generalization. Side-finding: 3-open-shell jj-averaged solves can collapse below ground (noted in test). |
+| 10 | **CORRECTED — review premise was wrong** | Measured directly against instrumented/live FAC: with default options FAC **never** includes Breit in the CE collision operator (`SlaterTotal` requires `mode≠−1`, but `EXCLQR=0` forces phase-amplitude mode for every CE partial wave; `SetBreit(-1)` alone is inert — verified by identical CE tables). Forcing exact mode (qr=60) + `SetBreit(-1)`: operator-Breit at Z=54 He-like 1s→2p is **±5%** (+4.9% near threshold, −1.3% mid, +4.8% at 143 keV). Since our FAC references exclude it, it does not explain the Z=54 residual. Porting FAC's generalized `Breit()` for continuum orbitals is recorded as the opt-in follow-up; incidental finding: FAC's default phase-amplitude integrals differ from exact mode-1 by ~4% at low E (ours are exact). |
+| 11 | **DONE** | IPD (Stewart–Pyatt) dissolves resonances with binding below the depression, per temperature; zero-density path bit-identical. |
+| 12 | **OPEN (scoped)** | All-order correlation remains the precision ceiling. The existing MBPT(2) machinery (720 lines, per-pair coupled multipoles over the V^{N−1} virtual basis) is the correct substrate for a ladder/CCD iteration; the honest estimate is a multi-session project and no placeholder was added — `coupled_cluster.py` keeps its explicit `NotImplementedError`. |
