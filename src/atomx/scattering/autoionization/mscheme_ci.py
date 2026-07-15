@@ -513,7 +513,8 @@ class ResonanceManifold:
             self._rk_cache[key] = val
         return val
 
-    def _radiative_width(self, dets, w, E_level: float) -> float:
+    def _radiative_width(self, dets, w, E_level: float,
+                         e_ion: float | None = None) -> float:
         """Total E1 stabilizing width of a CI level (fills the hole).
 
         Final states: closed hole group + one spectator electron e'.
@@ -521,6 +522,20 @@ class ResonanceManifold:
         electron into the single hole; the other must match e'.
 
             A = (4/3) alpha^3 sum_f w_f^3 sum_q |<f| d_q |level>|^2
+
+        Transition energy: the determinant diagonal <f|H|f> is NOT a
+        valid final-state energy — the manifold Hamiltonian is only
+        consistent on the resonance sector, and using it put omega at
+        ~450-550 eV where the physical Fe 3l -> 2p energies are 700-900
+        eV (a uniform ~5x deficit in omega^3 against FAC's clean-room
+        TRTable).  The physical decomposition sidesteps it:
+
+            omega = (E_level - E_ion) - eps_spectator
+                  = E_res + binding(spectator)
+
+        with E_res validated against FAC AITable (0.1-6 eV) and the
+        V^{N-1} spectator energies validated against FAC WaveFuncTable
+        (0.1-0.4%).
         """
         from atomx.constants import ALPHA
 
@@ -558,9 +573,14 @@ class ResonanceManifold:
                 key = (spect, tq)
                 amps[key] = amps.get(key, 0.0) + amp
                 if spect not in efinal:
-                    fdet = full | (1 << spect)
-                    efinal[spect] = float(
-                        self.hamiltonian([fdet])[0, 0])
+                    o_s = self.orbitals[spect]
+                    eps_s = float(self.eps[spect])
+                    if e_ion is not None:
+                        efinal[spect] = float(e_ion) + eps_s
+                    else:
+                        fdet = full | (1 << spect)
+                        efinal[spect] = float(
+                            self.hamiltonian([fdet])[0, 0])
         a_r = 0.0
         for (spect, tq), amp in amps.items():
             omega = E_level - efinal[spect]
@@ -603,7 +623,8 @@ class ResonanceManifold:
                 shooting_n_grid=shooting_n_grid, L_max=L_max,
                 _only_level=li, _precomputed=(dets, H, J2, evals, evecs))
             gam_a = lv[0].gamma_auger_per_s if lv else 0.0
-            a_r = self._radiative_width(dets, wvec, float(evals[li]))
+            a_r = self._radiative_width(dets, wvec, float(evals[li]),
+                                        e_ion=float(e_ion))
             imax = int(np.argmax(np.abs(wvec)))
             out.append(ManifoldLevel(
                 two_J=tM,
