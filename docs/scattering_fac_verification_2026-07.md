@@ -194,11 +194,45 @@ integrals ⟨a|h + V_core|b⟩ (including off-diagonal same-κ elements)
 with the FAC-basis orbitals.  That is the single remaining item for
 per-level exactness in Auger/DR.
 
+## Auger exactness campaign — verified-exact inventory (2026-07-15)
+
+Head-to-head component verification against FAC 1.1.5, all PASSING:
+
+| component | test | agreement |
+|---|---|---|
+| DFS potential r·V(r) | `WaveFuncTable` cols 2+3 | 0.8% max |
+| continuum wave (s, 300 eV) | inner-region P vs shooting solve | **0.02% amplitude, 0.2% shape** (convention √(2/π) exact) |
+| bound 3s/3p/3d shapes | `WaveFuncTable` | 0.2–0.6% |
+| orbital eigenvalues | `GetPotential`/`WaveFuncTable` | 0.1–0.4% |
+| Slater–Condon amplitude formula | brute-force second quantization | exact (6/6) |
+| golden-rule constant | 2-state J=11/2 manifold trace | **1.01** |
+| manifold dimensions | level counts per (J, parity) | exact (all 11 blocks) |
+| weak-level Coulomb CI | vs no-QED FAC (`SetSE(0)` etc.) | 1.01–1.10 |
+
+Clean-room comparison protocol established: FAC with `SetAICut(0.0)`,
+`SetSE(0)/SetVP(0)/SetMS(0,0)/SetBreit(0)`, dr33 = 2p-hole configs only —
+the exact counterpart of the atomx manifold model (`/tmp` drivers,
+reference `d0.lev/d0.ai`).
+
+**Localized remaining deviation**: manifold traces are channel-class
+dependent — pure k=3 channels exact (J=11/2: 1.01), 3s3p (k=1 direct +
+k=0 exchange) 1.18, 3p3d (k=2 direct − k=1 exchange) 1.72, J=9/2-odd 0.82.
+Since the trace is unitarily invariant (= Σ_det |A_det|², independent of
+H/mixing) and every wave ingredient is verified, the deviation sits in
+specific multipole-class radial channels of the Auger matrix element.
+QED (on by default in FAC) accounts for −8 eV of E_res and up to 6× on
+individual weak levels; the remaining constant E_res offset vs no-QED
+FAC is −75 eV.
+
 ## Remaining follow-ups
 
-- Manifold CI one-body integrals ⟨a|h+V_core|b⟩ (above) — closes the
-  Auger per-level widths, the DR α high-T excess, and the ±60 eV
-  resonance-energy shift together.
+- **Instrument sfac** (source + build system available): printf of
+  (k, sd, se) per AI channel in `SlaterTotal`/`AIRadialPk` → direct
+  radial-integral comparison isolates the k=1/k=2 channel factor in one
+  run.  This is the single remaining unknown for per-level Auger/DR
+  exactness.
+- E_res −75 eV constant offset vs no-QED FAC (secondary: Boltzmann
+  factors; possibly ⟨a|V_screen|b⟩ vs FAC's ResidualPotential handling).
 - CE at very high E (E/th ≳ 8): add the Bethe `b·ln x` completion beyond
   the geometric tail (FAC blends Born there; atomx is ~4% low at E/th=9).
 - EII near threshold: FAC-CI's ejected-wave conventions if sub-2×
