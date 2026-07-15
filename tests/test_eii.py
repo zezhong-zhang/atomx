@@ -61,9 +61,13 @@ def test_argon_eii_dw_near_threshold():
 
 
 def test_argon_eii_dw_mid_energy_with_coulomb_bethe():
-    """Argon at 50 and 100 eV — Coulomb-Bethe high-ℓ top-up + V^{N-1}
-    distorted waves close the partial-wave-truncation gap to ~25 %.
-    Validated: 50 eV ratio 1.27 vs NIST, 100 eV ratio 1.13."""
+    """Argon at 50 and 100 eV — DW with the FAC-equivalent soft-ejection
+    window.  For NEUTRAL targets plain DWBA genuinely overshoots
+    (missing channel coupling); the pre-2026-07-15 ratios (1.27/1.13 vs
+    NIST) looked better only because the old 0.05T..0.49T ejected-energy
+    window truncated the soft-ejection region and partially cancelled
+    that overshoot.  Current honest ratios: ~1.8 at 50 eV, ~1.5 at
+    100 eV — gate them so regressions still trip."""
     atom = Atom(Z=18, config="1s2 2s2 2p6 3s2 3p6", breit=False, qed=False)
     atom.solve()
     r = eii_cross_section(
@@ -72,7 +76,7 @@ def test_argon_eii_dw_mid_energy_with_coulomb_bethe():
     )
     sigma_50, sigma_100 = float(r.sigma_total_cm2[0]), float(r.sigma_total_cm2[1])
     # NIST: σ(50)≈3.5e-16, σ(100)≈2.8e-16
-    assert 2.0e-16 < sigma_50 < 6.0e-16
+    assert 2.0e-16 < sigma_50 < 7.5e-16
     assert 1.5e-16 < sigma_100 < 5.0e-16
 
 
