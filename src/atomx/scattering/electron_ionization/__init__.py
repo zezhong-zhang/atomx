@@ -508,7 +508,7 @@ def _eii_dw_total(
 
     E_max_au = float(np.max(energies)) / _HEV
     p_max = _p_rel(max(E_max_au, 1.0))
-    r_fine = _make_fine_grid(bsp_data, p_max)
+    r_fine = _make_fine_grid(bsp_data, p_max, z_inner=float(Z))
     dr_fine = np.gradient(r_fine)
     n_shoot = _shooting_points(r_max_box, p_max)
 

@@ -224,15 +224,48 @@ QED (on by default in FAC) accounts for −8 eV of E_res and up to 6× on
 individual weak levels; the remaining constant E_res offset vs no-QED
 FAC is −75 eV.
 
+## 2026-07-15: THE quadrature bug — found via instrumented sfac, fixed
+
+Instrumenting `AIRadialPk` (env-gated printf of per-channel sd/se,
+rebuild, restored afterwards) gave FAC's raw radial integrals.  Direct
+comparison: my integrals were uniformly 1.14–1.16× FAC's — while a
+dense-window uniform grid reproduced FAC to 0.02%.  Root causes, both
+fixed in `distorted_wave/solver.py`:
+
+1. **`_make_fine_grid` was uniform**, sized only by the continuum
+   wavelength: 37 points below r=0.4 — ~5 points across the Fe 1s peak.
+   Now a composite grid with local step
+   `dr ≤ min(0.15/p_loc(r), r/48)`, `p_loc = √(k² + 2 z_inner/r)`,
+   resolving both the inner bound structure and the oscillation.
+2. **Rectangle-rule cumulative sums** in the Y^k kernels — O(h) biased
+   on non-uniform grids (hidden by cancellation on uniform ones).  Both
+   fused kernels upgraded to trapezoidal cumulatives (2nd order on any
+   grid).
+
+The same bug had been corrupting the manifold Hamiltonian's v_as —
+fixing it repaired the resonance energies too.
+
+**Results after the fix** (vs the clean-room no-QED 2p-hole-only FAC):
+- Li-like Fe KLL: per-level Auger widths **1.005 / 1.023 / 1.006 /
+  1.003 / 1.013** of FAC; traces 0.986 / 1.007; E_res within 2–6 eV.
+- Ne-like Fe dr33: E_res within **0.1–0.4 eV** (was −30); even-parity
+  traces 1.02–1.08; J=11/2 1.002; low-energy levels 0.95–1.15.
+- CE benchmark: **rms 9.4% → 6.4%**, 8 of 9 points ≤ 5.2% (the
+  quadrature bias had been degrading CE too).
+- EII rms 0.33 → 0.29.
+
 ## Remaining follow-ups
 
-- **Instrument sfac** (source + build system available): printf of
-  (k, sd, se) per AI channel in `SlaterTotal`/`AIRadialPk` → direct
-  radial-integral comparison isolates the k=1/k=2 channel factor in one
-  run.  This is the single remaining unknown for per-level Auger/DR
-  exactness.
-- E_res −75 eV constant offset vs no-QED FAC (secondary: Boltzmann
-  factors; possibly ⟨a|V_screen|b⟩ vs FAC's ResidualPotential handling).
+- Bethe/Born completion at very high E: CE Z=54 E/th=5 (−16%) and EII
+  E/th=5 (−25..−35%, shown NOT to be tail truncation by raising
+  kappa_max) — FAC blends Born there.
+- Ne-like odd-parity manifolds: traces 1.1–1.22 and high-energy-level
+  clusters at 1.3–1.9 (J=9/2-odd 0.83) — level-position/mixing fine
+  structure (candidates: FAC's ResidualPotential one-body diagonal
+  corrections, bound-wave linear interpolation, E-order pairing in the
+  comparison).
+- E_res: QED contributes −8 eV (FAC includes self-energy by default;
+  atomx manifolds are pure Coulomb by design so far).
 - CE at very high E (E/th ≳ 8): add the Bethe `b·ln x` completion beyond
   the geometric tail (FAC blends Born there; atomx is ~4% low at E/th=9).
 - EII near threshold: FAC-CI's ejected-wave conventions if sub-2×
