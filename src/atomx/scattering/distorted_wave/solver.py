@@ -309,18 +309,36 @@ def _p_rel(E_au):
     return math.sqrt(2.0 * E_au + (E_au * E_au) / C_SQ)
 
 
-def _make_fine_grid(bsp_data, k_max_au):
-    """Uniform radial grid fine enough to resolve continuum waves up to ``k_max_au``.
+def _make_fine_grid(bsp_data, k_max_au, z_inner=None):
+    """Radial integration grid resolving BOTH the inner bound structure and
+    the continuum oscillation.
 
-    The B-spline Gauss grid is optimized for bound states and under-resolves the
-    rapid oscillation of keV continuum waves in the outer region.  We therefore
-    do the distorted-wave Slater integrals on a dedicated uniform grid with
-    step h such that h·k <= 0.2 (~30 points per wavelength) — linear
-    interpolation of the waves then loses < (hk)^2/8 ~ 0.5% amplitude.
+    A uniform grid sized by the continuum wavelength under-resolves deep
+    K/L-shell orbitals (Fe 1s: ~5 points across the peak at the old
+    h = r_max/n) — that caused a uniform ~15% error in Auger radial
+    integrals (found by direct comparison against FAC's SlaterTotal
+    values).  The step obeys two local constraints:
+
+        dr <= 0.15 / p_loc(r),  p_loc = sqrt(k_max^2 + 2 z_inner / r)
+        dr <= r / 48            (>= 48 points per radial e-fold)
+
+    ``z_inner`` defaults to an effective charge inferred from the knot
+    range; pass the actual nuclear Z for exactness at high Z.
     """
     r_max = float(bsp_data["t"][-1])
-    n = int(np.clip(5.0 * r_max * max(k_max_au, 1.0), 4000, 600000))
-    return np.linspace(r_max / n, r_max, n)
+    if z_inner is None:
+        z_inner = 30.0
+    p2 = max(k_max_au, 1.0) ** 2
+    pts = [max(1.0e-5 / max(z_inner, 1.0), 1.0e-7)]
+    r = pts[0]
+    while r < r_max:
+        p_loc = math.sqrt(p2 + 2.0 * z_inner / r)
+        dr = min(0.15 / p_loc, r / 48.0)
+        r += dr
+        pts.append(min(r, r_max))
+        if len(pts) > 2_000_000:
+            break
+    return np.asarray(pts)
 
 
 def _shooting_points(r_max, p_max):
@@ -360,28 +378,37 @@ def _continuum_on_grid(kappa, energy, V_func, Z_res, r_grid, r_max, n_grid):
 
 
 def _yk_fine(rho, r, dr, k):
-    """Hartree Y^k(r) = ∫ (r_<^k / r_>^{k+1}) ρ(r') dr' on a fine grid."""
+    """Hartree Y^k(r) = ∫ (r_<^k / r_>^{k+1}) ρ(r') dr' on a fine grid.
+
+    Trapezoidal cumulatives (``dr`` is accepted for API compatibility but
+    the true spacings come from ``r``): rectangle-rule cumulative sums are
+    O(h)-biased on non-uniform grids — this produced a uniform ~15% error
+    in Auger radial integrals on the composite inner-resolved grid before
+    the upgrade (verified against FAC's SlaterTotal values).
+    """
     rk, rk1 = _pow_tables(r, k)
-    return _yk_kernel_rho(rho, dr, rk, rk1)
+    return _yk_kernel_rho(rho, r, rk, rk1)
 
 
 @nb.njit(cache=True, nogil=True)
-def _yk_kernel_rho(rho, dr, rk, rk1):
-    """Fused Y^k from a precomputed density (one temporary, two passes).
-
-    Matches the reference cumsum implementation exactly up to
-    floating-point summation order (self-point included in both the
-    inner and outer pieces, as np.cumsum does).
-    """
+def _yk_kernel_rho(rho, r, rk, rk1):
+    """Fused Y^k with trapezoidal cumulative sums (2nd order on any grid)."""
     n = rho.shape[0]
     y = np.empty(n)
     acc = 0.0
-    for i in range(n - 1, -1, -1):
-        acc += rho[i] / rk1[i] * dr[i]
-        y[i] = acc                      # suffix sums, reused below
+    y[n - 1] = 0.0
+    for i in range(n - 2, -1, -1):
+        b1 = rho[i] / rk1[i]
+        b2 = rho[i + 1] / rk1[i + 1]
+        acc += 0.5 * (b1 + b2) * (r[i + 1] - r[i])
+        y[i] = acc                      # suffix (outer) integrals
     inner = 0.0
-    for i in range(n):
-        inner += rho[i] * rk[i] * dr[i]
+    prev_a = rho[0] * rk[0]
+    y[0] = inner / rk1[0] + rk[0] * y[0]
+    for i in range(1, n):
+        a = rho[i] * rk[i]
+        inner += 0.5 * (a + prev_a) * (r[i] - r[i - 1])
+        prev_a = a
         y[i] = inner / rk1[i] + rk[i] * y[i]
     return y
 
@@ -403,33 +430,38 @@ def _pow_tables(r_grid, k):
     return val
 
 
-@nb.njit(cache=True)
+@nb.njit(cache=True, nogil=True)
 def _slater_rk_kernel(P_a, Q_a, P_b, Q_b, P_c, Q_c, P_d, Q_d,
-                      dr, rk, rk1):
-    """Fused R^k = ∫ ρ_ac Y^k[ρ_bd] dr: two passes, one temporary.
+                      r, rk, rk1):
+    """Fused R^k = ∫ ρ_ac Y^k[ρ_bd] dr with trapezoidal cumulatives.
 
-    Serial by design — the arrays are ~10^4-10^5 long and the kernel is
-    memory-bound; thread fork/join would dominate (same lesson as the SCF
-    convolution kernels).
+    Second-order on arbitrary (non-uniform) grids; serial by design —
+    memory-bound arrays, thread fork/join would dominate (same lesson as
+    the SCF convolution kernels).
     """
-    n = dr.shape[0]
-    # suffix[i] = sum_{j>=i} rho_bd[j]/rk1[j]*dr[j]
+    n = r.shape[0]
     suffix = np.empty(n)
     acc = 0.0
-    for i in range(n - 1, -1, -1):
-        rho_bd = P_b[i] * P_d[i] + Q_b[i] * Q_d[i]
-        acc += rho_bd / rk1[i] * dr[i]
+    suffix[n - 1] = 0.0
+    prev_b = (P_b[n - 1] * P_d[n - 1] + Q_b[n - 1] * Q_d[n - 1]) / rk1[n - 1]
+    for i in range(n - 2, -1, -1):
+        b = (P_b[i] * P_d[i] + Q_b[i] * Q_d[i]) / rk1[i]
+        acc += 0.5 * (b + prev_b) * (r[i + 1] - r[i])
+        prev_b = b
         suffix[i] = acc
     total = 0.0
     inner = 0.0
-    for i in range(n):
-        rho_bd = P_b[i] * P_d[i] + Q_b[i] * Q_d[i]
-        inner += rho_bd * rk[i] * dr[i]
-        # suffix[i] includes the i-th point, matching np.cumsum semantics
-        # of the reference implementation (self-point in both pieces).
+    prev_a = (P_b[0] * P_d[0] + Q_b[0] * Q_d[0]) * rk[0]
+    y0 = inner / rk1[0] + rk[0] * suffix[0]
+    prev_g = (P_a[0] * P_c[0] + Q_a[0] * Q_c[0]) * y0
+    for i in range(1, n):
+        a = (P_b[i] * P_d[i] + Q_b[i] * Q_d[i]) * rk[i]
+        inner += 0.5 * (a + prev_a) * (r[i] - r[i - 1])
+        prev_a = a
         y = inner / rk1[i] + rk[i] * suffix[i]
-        rho_ac = P_a[i] * P_c[i] + Q_a[i] * Q_c[i]
-        total += rho_ac * y * dr[i]
+        g = (P_a[i] * P_c[i] + Q_a[i] * Q_c[i]) * y
+        total += 0.5 * (g + prev_g) * (r[i] - r[i - 1])
+        prev_g = g
     return total
 
 
@@ -442,7 +474,7 @@ def _grid_slater_rk(P_a, Q_a, P_b, Q_b, P_c, Q_c, P_d, Q_d, r_grid, dr, k):
     """
     rk, rk1 = _pow_tables(r_grid, k)
     return float(_slater_rk_kernel(P_a, Q_a, P_b, Q_b, P_c, Q_c, P_d, Q_d,
-                                   dr, rk, rk1))
+                                   r_grid, rk, rk1))
 
 
 def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
@@ -566,7 +598,7 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
     # Fine integration grid sized to the fastest wave on the panel.
     E_max = float(np.max(E_inc_hartree))
     p_max = _p_rel(max(E_max, 1.0))
-    r_fine = _make_fine_grid(bsp_data, p_max)
+    r_fine = _make_fine_grid(bsp_data, p_max, z_inner=float(Z))
     dr_fine = np.gradient(r_fine)
     n_shoot = (int(shooting_n_grid) if shooting_n_grid
                else _shooting_points(r_max_box, p_max))
