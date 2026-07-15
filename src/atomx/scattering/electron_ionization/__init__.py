@@ -784,6 +784,74 @@ def _eii_dw_total(
 # ---------------------------------------------------------------------------
 
 
+def excitation_autoionization_cross_section(
+    atom_ground,
+    excited_atoms,
+    energies_eV,
+    *,
+    branching=None,
+    L_max: int = 6,
+    kappa_max: int = 8,
+):
+    """Excitation-autoionization (EA) contribution to total ionization.
+
+    Indirect ionization: collisional excitation of an inner-shell
+    electron into an autoionizing configuration, followed by Auger
+    decay,
+
+        sigma_EA(E) = sum_j sigma_exc(g -> j; E) * B_a(j),
+        B_a = Gamma_A / (Gamma_A + Gamma_r),
+
+    which dominates total EII for many M-shell ions (e.g. Na-like:
+    2p -> 3l excitation above the 2p threshold).  The excitation cross
+    sections come from the FAC-verified DW machinery
+    (:func:`atomx.scattering.distorted_wave.solver.dw_excitation_cross_section`)
+    and the branching ratios from the determinant-CI autoionization
+    machinery (Auger widths 1.005-1.023 of clean-room FAC) or user
+    input.
+
+    Parameters
+    ----------
+    atom_ground
+        Solved ground-state :class:`~atomx.atom.Atom`.
+    excited_atoms
+        Sequence of solved atoms, one per autoionizing excited
+        configuration (each must lie above the ionization limit).
+    energies_eV
+        Incident-electron grid.
+    branching
+        Autoionization branching ratio per excited configuration.
+        Either a sequence aligned with ``excited_atoms``, or ``None``
+        for B_a = 1 (valid when Gamma_A >> Gamma_r, the usual case for
+        low-Z / strong-Auger configurations; for high Z compute B_a
+        from :class:`ResonanceManifold` widths).
+
+    Returns
+    -------
+    (sigma_EA_cm2, per_config)
+        Total EA cross section and ``{index: sigma}`` per configuration.
+    """
+    from atomx.scattering.distorted_wave.solver import (
+        dw_excitation_cross_section)
+
+    energies = np.asarray(energies_eV, dtype=float)
+    if branching is None:
+        branching = [1.0] * len(excited_atoms)
+    if len(branching) != len(excited_atoms):
+        raise ValueError("branching must align with excited_atoms")
+    total = np.zeros_like(energies)
+    per = {}
+    for i, (exc, B) in enumerate(zip(excited_atoms, branching)):
+        B = float(B)
+        if not (0.0 <= B <= 1.0):
+            raise ValueError(f"branching[{i}] = {B} outside [0, 1]")
+        sigma, _om = dw_excitation_cross_section(
+            atom_ground, exc, energies, L_max=L_max, kappa_max=kappa_max)
+        per[i] = sigma * B
+        total = total + per[i]
+    return total, per
+
+
 def eii_rate_coefficient(
     eii_result: EIIResult,
     temperature_eV: np.ndarray,
@@ -820,6 +888,7 @@ def eii_rate_coefficient(
 
 
 __all__ = [
+    "excitation_autoionization_cross_section",
     "EIIResult",
     "eii_cross_section",
     "eii_rate_coefficient",

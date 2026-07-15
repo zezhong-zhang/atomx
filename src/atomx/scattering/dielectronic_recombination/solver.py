@@ -205,6 +205,52 @@ def dr_rate_coefficient(
     )
 
 
+def resonant_excitation_rate(
+    resonances,
+    T_eV,
+    *,
+    initial_state_g: float = 1.0,
+    partial_auger_to_final,
+):
+    """Resonant-excitation rate coefficient g -> f via capture + re-Auger.
+
+    The DR twin channel: capture into a doubly-excited resonance
+    (detailed balance from the ground-channel Auger width) followed by
+    autoionization INTO AN EXCITED final state f,
+
+        alpha_RE(T) = P * T^{-3/2} sum_d omega_d
+                      * Gamma_A^g(d) * Gamma_A^f(d) / Gamma_tot(d)
+                      * exp(-E_d / T),
+
+    the analog of the Burgess formula with the radiative width replaced
+    by the partial Auger width to f.  This is the resonance
+    contribution to the effective excitation rate that the direct DW
+    collision strength misses (review M6).
+
+    ``partial_auger_to_final`` maps each resonance label to
+    Gamma_A(d -> f) in s^-1; resonances absent from the map contribute
+    nothing.  Ground-channel widths and total widths come from the
+    :class:`AutoionizationState` entries (a_radiative_per_s counts in
+    Gamma_tot as usual).
+    """
+    T_eV = np.atleast_1d(np.asarray(T_eV, dtype=float))
+    if np.any(T_eV <= 0):
+        raise ValueError("Temperatures must be positive (eV).")
+    alpha = np.zeros_like(T_eV)
+    for d in resonances:
+        g_f = float(partial_auger_to_final.get(d.label, 0.0))
+        if g_f <= 0.0:
+            continue
+        w_tot = d.gamma_auger_per_s + g_f + d.a_radiative_per_s
+        if w_tot <= 0.0:
+            continue
+        omega = d.g / (2.0 * initial_state_g)
+        branch = d.gamma_auger_per_s * g_f / w_tot
+        alpha += (_DR_PREFACTOR_CM3_S_EV_32 * T_eV ** (-1.5) * omega
+                  * branch * np.exp(-d.E_resonance_eV / T_eV))
+    return alpha
+
+
 def dr_strengths(
     resonances: Sequence[AutoionizationState] | DRRateCoefficient,
     T_eV=None,
