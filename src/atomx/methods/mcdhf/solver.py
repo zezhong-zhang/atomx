@@ -220,6 +220,7 @@ class MCDHFSolver:
 
     def __init__(self, Z, csfs, ns=50, ks=9, r_min=None, r_max=None,
                  include_breit=False, include_qed=False,
+                 correction_stack=None,
                  nuclear="fermi", use_physics_grid=True,
                  starting_potential=None,
                  per_block_orbital_sets=False,
@@ -231,6 +232,24 @@ class MCDHFSolver:
         self.ks = ks
         self.include_breit = include_breit
         self.include_qed = include_qed
+        # Single configuration surface for post-SCF corrections (review
+        # E1).  MCDHF's Guerra-averaged occupations are not expressible
+        # through the result-based adapters yet, so the stack is consumed
+        # as configuration by _apply_corrections_to_orbitals below.
+        if correction_stack is not None:
+            self.correction_stack = correction_stack
+        elif include_breit or include_qed:
+            from atomx.corrections.qed import DEFAULT_SE_METHOD, resolve_se_method
+            from atomx.corrections.stack import CorrectionStack
+            self.correction_stack = CorrectionStack(
+                se_backend=(resolve_se_method(DEFAULT_SE_METHOD, Z)
+                            if include_qed else None),
+                include_vp=bool(include_qed),
+                include_wk_vp=False,
+                include_breit=bool(include_breit),
+            )
+        else:
+            self.correction_stack = None
         self.orbital_basis = get_shared_orbital_basis(csfs)
         self.r_min = r_min
         self.r_max = r_max
@@ -469,7 +488,8 @@ class MCDHFSolver:
         # the MCDHF outer-iteration count.
         E_Breit = 0.0
         qed_components: Dict[str, float] = {}
-        if dhf is not None and (self.include_breit or self.include_qed):
+        stack = self.correction_stack
+        if dhf is not None and stack is not None:
             from atomx.corrections.breit import compute_breit_energy
             from atomx.corrections.qed import compute_qed_corrections
             # Flatten orbitals on the final basis for the correction APIs.
@@ -482,11 +502,13 @@ class MCDHFSolver:
                 if cached is not None:
                     P, Q = cached
                     orb_list.append((P, Q, sh.occupation, sh.kappa, sh.label))
-            if self.include_breit:
+            if stack.include_breit:
                 E_Breit = float(compute_breit_energy(orb_list, dhf.bsp_data, self.Z))
-            if self.include_qed:
+            if stack.se_backend is not None or stack.include_vp:
                 qed_components = dict(compute_qed_corrections(
                     orb_list, dhf.bsp_data, self.Z,
+                    se_method=stack.se_backend or "auto",
+                    include_wichmann_kroll=stack.include_wk_vp,
                 ))
 
         # DODS / EOL per-(J, parity)-block orbital relaxation (HYP-184

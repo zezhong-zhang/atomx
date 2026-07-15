@@ -71,6 +71,7 @@ class Atom:
                  ns=None, ks=9, nuclear="fermi",
                  breit=False, qed=False, exchange="hf",
                  qed_backend="auto",
+                 correction_stack=None,
                  correlation=None, starting_potential=None,
                  plasma_ne=None, plasma_Te=None,
                  averaging="ci", slater_method="slag6",
@@ -82,6 +83,11 @@ class Atom:
         ----------
         nuclear : str
             Nuclear model: "fermi" (default, matches DBSR_HF), "point", "uniform".
+        correction_stack : CorrectionStack or None
+            Explicit post-SCF corrections bundle
+            (:class:`atomx.corrections.stack.CorrectionStack`).  When
+            given it OVERRIDES the ``breit``/``qed`` booleans, which are
+            sugar building the equivalent default stack.
         correlation : str or None
             None = single-config DHF (default).
             "sd" = add singles+doubles excitations (MCDHF with correlation).
@@ -156,6 +162,7 @@ class Atom:
                 "'shabaev_local', or 'shabaev'"
             )
         self.qed_backend = qed_backend
+        self.correction_stack = correction_stack
         self.exchange = exchange
         self.correlation = correlation
         self.starting_potential = starting_potential
@@ -272,6 +279,7 @@ class Atom:
                 solver = MCDHFSolver(
                     Z=self.Z, csfs=csfs, ns=self.ns, ks=self.ks,
                     include_breit=self.breit, include_qed=self.qed,
+                    correction_stack=self.correction_stack,
                     nuclear=self.nuclear,
                     use_physics_grid=self._use_physics_grid,
                     starting_potential=self.starting_potential,
@@ -297,6 +305,7 @@ class Atom:
             solver = MCDHFSolver(
                 Z=self.Z, csfs=csfs, ns=self.ns, ks=self.ks,
                 include_breit=self.breit, include_qed=self.qed,
+                correction_stack=self.correction_stack,
                 nuclear=self.nuclear,
                 use_physics_grid=self._use_physics_grid,
                 starting_potential=self.starting_potential,
@@ -388,6 +397,7 @@ class Atom:
                               include_breit=self.breit,
                               include_qed=self.qed,
                               qed_se_method=self.qed_backend,
+                              correction_stack=self.correction_stack,
                               nuclear=self.nuclear,
                               starting_potential=self.starting_potential or ('tfda' if self.Z >= 20 else None),
                               jj_configs=jj_arg)

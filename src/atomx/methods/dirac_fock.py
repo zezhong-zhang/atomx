@@ -407,6 +407,7 @@ class DFSolver:
                  include_breit=False, include_qed=False,
                  qed_se_method="auto",
                  include_wichmann_kroll=False,
+                 correction_stack=None,
                  nuclear="point",
                  starting_potential=None,
                  jj_configs=None,
@@ -484,6 +485,23 @@ class DFSolver:
         self.include_qed = include_qed
         self.qed_se_method = qed_se_method
         self.include_wichmann_kroll = include_wichmann_kroll
+        # Post-SCF corrections seam (review E1): a user-supplied
+        # CorrectionStack wins; otherwise the legacy include_breit /
+        # include_qed booleans are sugar that builds the equivalent stack.
+        if correction_stack is not None:
+            self.correction_stack = correction_stack
+        elif include_breit or include_qed:
+            from atomx.corrections.qed import resolve_se_method
+            from atomx.corrections.stack import CorrectionStack
+            self.correction_stack = CorrectionStack(
+                se_backend=(resolve_se_method(qed_se_method, Z)
+                            if include_qed else None),
+                include_vp=bool(include_qed),
+                include_wk_vp=bool(include_qed and include_wichmann_kroll),
+                include_breit=bool(include_breit),
+            )
+        else:
+            self.correction_stack = None
         self.nuclear = nuclear
         self.starting_potential = starting_potential
         self.N_electrons = sum(sh.occupation for sh in subshells)
@@ -1406,29 +1424,13 @@ class DFSolver:
         if self.exchange in ("tfda", "gsz"):
             total_energy, energy_components = self._compute_total_energy(
                 orbitals, orbital_energies)
-            orb_list = self._flatten_orbitals(orbitals)
-            if self.include_breit or self.include_qed:
-                from atomx.corrections.breit import compute_breit_energy
-                from atomx.corrections.qed import compute_qed_corrections
-                if self.include_breit:
-                    E_Breit = compute_breit_energy(orb_list, self.bsp_data, self.Z)
-                    energy_components["E_Breit"] = E_Breit
-                    total_energy += E_Breit
-                if self.include_qed:
-                    qed = compute_qed_corrections(
-                        orb_list, self.bsp_data, self.Z,
-                        se_method=self.qed_se_method,
-                        include_wichmann_kroll=self.include_wichmann_kroll,
-                    )
-                    energy_components.update(qed)
-                    total_energy += qed["E_QED_total"]
-            return SCFResult(
+            return self._finalize_with_corrections(SCFResult(
                 converged=True, iterations=1, residual=0.0,
                 total_energy=total_energy, orbital_energies=orbital_energies,
                 subshells=self.subshells, energy_components=energy_components,
                 orbitals_raw=_canonicalized_orbitals_raw(orbitals),
                 Z=self.Z,
-                _bsp_data=self.bsp_data)
+                _bsp_data=self.bsp_data))
 
         converged = False
         E_old = 0.0
@@ -1730,27 +1732,8 @@ class DFSolver:
         # Compute total energy
         total_energy, energy_components = self._compute_total_energy(orbitals, orbital_energies)
 
-        # QED and Breit corrections (perturbative, after SCF convergence)
-        orb_list = self._flatten_orbitals(orbitals)
-        if self.include_breit or self.include_qed:
-            from atomx.corrections.breit import compute_breit_energy
-            from atomx.corrections.qed import compute_qed_corrections
-
-            if self.include_breit:
-                E_Breit = compute_breit_energy(orb_list, self.bsp_data, self.Z)
-                energy_components["E_Breit"] = E_Breit
-                total_energy += E_Breit
-
-            if self.include_qed:
-                qed = compute_qed_corrections(
-                    orb_list, self.bsp_data, self.Z,
-                    se_method=self.qed_se_method,
-                    include_wichmann_kroll=self.include_wichmann_kroll,
-                )
-                energy_components.update(qed)
-                total_energy += qed["E_QED_total"]
-
-        return SCFResult(
+        # Post-SCF corrections via the injected CorrectionStack (E1 seam)
+        return self._finalize_with_corrections(SCFResult(
             converged=converged,
             iterations=iteration,
             residual=residual,
@@ -1761,7 +1744,47 @@ class DFSolver:
             orbitals_raw=_canonicalized_orbitals_raw(orbitals),
             Z=self.Z,
             _bsp_data=self.bsp_data,
-        )
+        ))
+
+    def _finalize_with_corrections(self, result):
+        """Apply the injected CorrectionStack to a converged SCFResult.
+
+        The single post-SCF corrections seam (review E1): every backend
+        the stack supports adds its energy_shift to total_energy, with
+        the legacy energy_components keys (E_Breit, E_SE, E_VP, E_WK,
+        E_QED_total) preserved for backward compatibility.
+        """
+        stack = self.correction_stack
+        if stack is None:
+            return result
+        applied = stack.apply(result)
+        comps = result.energy_components
+        e_qed = 0.0
+        has_qed = False
+        for name, cr in applied.items():
+            if name.startswith("_"):
+                continue
+            if name == "breit":
+                comps["E_Breit"] = cr.energy_shift
+            elif name.startswith("self_energy"):
+                comps["E_SE"] = cr.energy_shift
+                comps["se_method"] = name.split("[", 1)[1].rstrip("]")
+                e_qed += cr.energy_shift
+                has_qed = True
+            elif name == "uehling_vp":
+                comps["E_VP"] = cr.energy_shift
+                e_qed += cr.energy_shift
+                has_qed = True
+            elif name == "wichmann_kroll_vp":
+                comps["E_WK"] = cr.energy_shift
+                e_qed += cr.energy_shift
+                has_qed = True
+            else:
+                comps[name] = cr.energy_shift
+            result.total_energy += cr.energy_shift
+        if has_qed:
+            comps["E_QED_total"] = e_qed
+        return result
 
 
 def helium_subshells():
