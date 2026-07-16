@@ -1,12 +1,11 @@
-"""Shared SCF-iteration helpers (method-agnostic).
+"""Pulay DIIS extrapolation (method-agnostic convergence acceleration).
 
-Pulay DIIS extrapolation and related convergence-acceleration routines
-live here so that every method that runs a self-consistent loop
-(Dirac-Fock, Kohn-Sham, future HF-in-bspline) can share the same
-implementation.
+Generic direct-inversion-in-the-iterative-subspace extrapolator shared
+by every method that runs a self-consistent loop (Dirac-Fock, future
+HF-in-bspline).  Pure linear algebra on iterate/error histories — no
+knowledge of the equation being solved.
 
-Today this module exposes only the generic DIIS extrapolator; the
-outer SCF loop itself still lives inside
+The outer SCF loop itself still lives inside
 :class:`~atomx.methods.dirac_fock.DFSolver`.  Extracting that loop
 into a pure function is tracked as a follow-up to the
 physics/numerics reorg (it needs a small Fock-build callback

@@ -22,7 +22,7 @@ from atomx.numerics.bspline.dirac_assembly import (
 from atomx.numerics.bspline.basis import prepare_bspline_data
 from atomx.methods.scf_observables import SCFObservablesMixin
 from atomx.numerics.bspline.evaluate import compute_yk, eval_orbital_on_grid
-from atomx.methods.kohn_sham import (
+from atomx.numerics.bspline.slater_yk import (
     compute_exchange_matrix, compute_slater_fk, compute_slater_gk,
 )
 from atomx.numerics.bspline.convol import (
@@ -74,7 +74,7 @@ class Subshell:
 # :mod:`atomx.data.hyperfine_presets`.  This shim just re-exports the
 # tuple representation used by the legacy code path below.
 
-from atomx.methods.scf import diis_extrapolate
+from atomx.numerics.diis import diis_extrapolate
 from atomx.methods.base import Method
 from atomx.types import Exchange, TheoryLevel
 

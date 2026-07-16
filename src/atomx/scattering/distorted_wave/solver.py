@@ -29,7 +29,7 @@ from atomx.properties.transitions.angular import _kappa_to_lj, selection_rules, 
 from atomx.properties.transitions.multipole import radial_eL
 from atomx.properties.transitions.rates import oscillator_strength
 from atomx.angular.csf import csf_parity, csf_twice_j, one_body_csf_coupling
-from atomx.angular.coefficients import reduced_cl_j2
+from atomx.angular.coefficients import reduced_C, reduced_cl_j2
 from atomx.angular.wigner import wigner_3j, wigner_6j
 from atomx.methods.mcdhf.config import CSF
 from atomx.scattering._jit_kernels import dw_excitation_angular_sum
@@ -45,25 +45,10 @@ def _tj_of(kappa):
     return 2 * abs(kappa) - 1
 
 
-def _reduced_C(kappa_a, kappa_b, k):
-    """Reduced matrix element ⟨κ_a‖C^k‖κ_b⟩.
-
-    Follows Grant (2007) convention:
-        (-1)^{j_a+1/2} · √((2j_a+1)(2j_b+1)) · 3j(j_a, k, j_b; -1/2, 0, 1/2)
-    """
-    la, lb = _l_of(kappa_a), _l_of(kappa_b)
-    if (la + k + lb) % 2 != 0:
-        return 0.0
-    tja, tjb = _tj_of(kappa_a), _tj_of(kappa_b)
-    tL = 2 * k
-    if tL < abs(tja - tjb) or tL > tja + tjb:
-        return 0.0
-    w = wigner_3j(tja, tL, tjb, -1, 0, 1)
-    if abs(w) < 1e-15:
-        return 0.0
-    phase_exp = (tja + 1) // 2
-    phase = 1.0 if phase_exp % 2 == 0 else -1.0
-    return phase * math.sqrt((tja + 1) * (tjb + 1)) * w
+# Reduced matrix element ⟨κ_a‖C^k‖κ_b⟩, Grant (2007) convention.
+# Canonical implementation lives in atomx.angular.coefficients.reduced_C;
+# the name _reduced_C is kept as a test-imported alias.
+_reduced_C = reduced_C
 
 
 @lru_cache(maxsize=None)

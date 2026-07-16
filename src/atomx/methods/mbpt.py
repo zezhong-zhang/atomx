@@ -69,7 +69,12 @@ from atomx.angular.wigner import wigner_3j, wigner_6j
 # of thousands of times per pair block; memoize at this call-site level
 # (the shared numba wigner module stays uncached).
 _wigner_6j = lru_cache(maxsize=None)(wigner_6j)
-from atomx.angular.coefficients import exchange_lambda
+from atomx.angular.coefficients import (
+    _l_from_kappa,
+    _twoj_from_kappa,
+    exchange_lambda,
+    reduced_C,
+)
 from atomx.constants import C_SQ
 from atomx.numerics.bspline.convol import (
     ConvolCache,
@@ -126,47 +131,11 @@ class MBPT2Result:
 
 
 # ---------------------------------------------------------------------------
-# Angular helpers
+# Angular helpers — canonical implementations live in atomx.angular.coefficients
+# (imported above).  reduced_C stays in __all__ and is test-imported;
+# _l_from_kappa/_twoj_from_kappa are thin aliases used throughout this module
+# and by mbpt_transitions.py.
 # ---------------------------------------------------------------------------
-
-
-def _l_from_kappa(kappa: int) -> int:
-    return kappa if kappa > 0 else -kappa - 1
-
-
-def _twoj_from_kappa(kappa: int) -> int:
-    return 2 * abs(kappa) - 1
-
-
-@lru_cache(maxsize=None)
-def reduced_C(kappa_a: int, kappa_b: int, k: int) -> float:
-    """Reduced matrix element ⟨κ_a‖C^k‖κ_b⟩.
-
-    Standard Grant convention (sign included).  Returns 0 if the
-    triangle (j_a, k, j_b) or parity (l_a+k+l_b even) selection rule
-    is violated.  (lru_cached; pure function of small integers.)
-
-    >>> # ⟨s_{1/2} ‖ C^1 ‖ p_{1/2}⟩ = -√(2/3)·√2 ≈ -1.1547  (parity violated → 0!)
-    >>> # actually s_{1/2}↔p_{3/2}: l=0+1+1=even ✓
-    >>> abs(reduced_C(-1, -2, 1) + math.sqrt(2.0)) < 1e-12
-    True
-    """
-    l_a = _l_from_kappa(kappa_a)
-    l_b = _l_from_kappa(kappa_b)
-    if (l_a + k + l_b) % 2 != 0:
-        return 0.0
-
-    tj_a = _twoj_from_kappa(kappa_a)
-    tj_b = _twoj_from_kappa(kappa_b)
-    tk = 2 * k
-
-    w3j = wigner_3j(tj_a, tk, tj_b, -1, 0, 1)
-    if abs(w3j) < 1e-15:
-        return 0.0
-
-    # (-1)^{j_a + 1/2} = (-1)^{(2j_a+1)/2} = (-1)^{(tj_a+1)/2}
-    phase = (-1) ** ((tj_a + 1) // 2)
-    return phase * math.sqrt((tj_a + 1) * (tj_b + 1)) * w3j
 
 
 @lru_cache(maxsize=None)
@@ -330,7 +299,7 @@ def _build_closed_shell_fock(
 # ---------------------------------------------------------------------------
 
 
-def _build_virtual_basis(
+def build_virtual_basis(
     scf_result,
     kappa: int,
     *,
@@ -406,6 +375,14 @@ def _build_virtual_basis(
     occupied = [states[i] for i in sorted(occupied_indices)]
     virtuals = [states[i] for i in range(len(states)) if i not in occupied_indices]
     return occupied, virtuals
+
+
+# Backward-compatible alias.  External importers still on the old private
+# name: scattering/dielectronic_recombination/solver.py,
+# scattering/radiative_recombination/__init__.py, properties/edm/sternheimer.py,
+# properties/polarizability/__init__.py, and tests (test_pair_ladder.py,
+# test_rpa.py, test_auger_mscheme_ci.py, test_dr_manifold_e2e.py).
+_build_virtual_basis = build_virtual_basis
 
 
 # ---------------------------------------------------------------------------
@@ -488,7 +465,7 @@ def mbpt2_energy(
     virt_basis: Dict[int, List[Tuple[np.ndarray, np.ndarray, float]]] = {}
 
     for kappa in kappa_list:
-        occ, virt = _build_virtual_basis(scf_result, kappa, cache=cache,
+        occ, virt = build_virtual_basis(scf_result, kappa, cache=cache,
                                           e_max=e_virt_max)
         # Sapirstein-Johnson-Blundell prescription: use SCF ε_a for
         # occupied orbitals (the V^{N-1} eigenvalues differ and would
@@ -880,7 +857,7 @@ def pair_ladder_energy(
     occ_basis: Dict[int, List[Tuple[np.ndarray, np.ndarray, float, str]]] = {}
     virt_basis: Dict[int, List[Tuple[np.ndarray, np.ndarray, float]]] = {}
     for kappa in kappa_list:
-        occ, virt = _build_virtual_basis(scf_result, kappa, cache=cache,
+        occ, virt = build_virtual_basis(scf_result, kappa, cache=cache,
                                          e_max=e_virt_max)
         kappa_subshells = [x for x in scf_result.subshells if x.kappa == kappa]
         occ_l = []
@@ -1010,7 +987,13 @@ def pair_ladder_energy(
     )
 
 
-__all__ = ["MBPT2Result", "mbpt2_energy", "pair_ladder_energy", "reduced_C"]
+__all__ = [
+    "MBPT2Result",
+    "build_virtual_basis",
+    "mbpt2_energy",
+    "pair_ladder_energy",
+    "reduced_C",
+]
 
 
 # ---------------------------------------------------------------------------

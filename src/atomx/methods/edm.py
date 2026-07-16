@@ -26,6 +26,7 @@ from __future__ import annotations
 
 from typing import Optional
 
+from atomx.methods._result_adapters import to_scf_result
 from atomx.properties.edm import (
     SternheimerEDMResult,
     sternheimer_edm_enhancement,
@@ -92,7 +93,7 @@ def compute_edm_enhancement(
         If ``atom_or_result`` is neither an :class:`~atomx.Atom` nor an
         ``SCFResult``.
     """
-    scf_result = _to_scf_result(atom_or_result)
+    scf_result = to_scf_result(atom_or_result, caller="compute_edm_enhancement()")
     return sternheimer_edm_enhancement(
         scf_result,
         target_subshell=target_subshell,
@@ -104,27 +105,3 @@ def compute_edm_enhancement(
     )
 
 
-def _to_scf_result(atom_or_result):
-    """Coerce an :class:`~atomx.Atom` or ``SCFResult`` to an SCFResult.
-
-    ``Atom`` is matched by duck-typing (it carries an ``_result``
-    attribute, ``None`` until ``.solve()`` runs) so that this module
-    never imports :mod:`atomx.atom` and stays free of circular imports.
-    """
-    # atomx.Atom high-level wrapper: solve on demand.
-    if hasattr(atom_or_result, "_result"):
-        if atom_or_result._result is None:
-            if not hasattr(atom_or_result, "solve"):
-                raise TypeError(
-                    "compute_edm_enhancement() expects a solved atomx.Atom or an "
-                    f"SCFResult, got {type(atom_or_result).__name__!r}."
-                )
-            atom_or_result.solve()
-        return atom_or_result._result
-    # Bare converged SCFResult.
-    if hasattr(atom_or_result, "converged") and hasattr(atom_or_result, "_bsp_data"):
-        return atom_or_result
-    raise TypeError(
-        "compute_edm_enhancement() expects a solved atomx.Atom or an SCFResult, "
-        f"got {type(atom_or_result).__name__!r}."
-    )

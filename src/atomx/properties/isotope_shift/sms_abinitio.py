@@ -77,9 +77,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Dict, List
 
-import numpy as np
-
-from atomx.angular.wigner import wigner_3j
+from atomx.angular.coefficients import _l_from_kappa, reduced_C
 from atomx.properties.transitions.multipole import radial_eL
 
 
@@ -117,10 +115,6 @@ class SMSResult:
 # Selection rules + angular factor
 # ---------------------------------------------------------------------------
 
-def _l_from_kappa(kappa: int) -> int:
-    return kappa if kappa > 0 else -kappa - 1
-
-
 def _j_from_kappa(kappa: int) -> float:
     return abs(kappa) - 0.5
 
@@ -137,21 +131,6 @@ def _allowed_sms_pair(kappa_a: int, kappa_b: int) -> bool:
     if abs(j_a - j_b) > 1.0 + 1e-9 or (j_a + j_b) < 1.0 - 1e-9:
         return False
     return True
-
-
-def _reduced_C1(kappa_a: int, kappa_b: int) -> float:
-    """Reduced matrix element ``⟨κ_a || C^1 || κ_b⟩`` (eq. 5).
-
-    Zero when the parity selection rule is violated.
-    """
-    if not _allowed_sms_pair(kappa_a, kappa_b):
-        return 0.0
-    j_a = _j_from_kappa(kappa_a)
-    j_b = _j_from_kappa(kappa_b)
-    # Wigner-3j with twice-j convention (atomx.angular.wigner).
-    tj_3j = wigner_3j(int(2 * j_a), 2, int(2 * j_b), -1, 0, 1)
-    sign = (-1.0) ** (j_a + 0.5)
-    return sign * np.sqrt((2 * j_a + 1) * (2 * j_b + 1)) * tj_3j
 
 
 # ---------------------------------------------------------------------------
@@ -225,7 +204,8 @@ def compute_sms_abinitio(
             if not _allowed_sms_pair(kappa_a, kappa_b):
                 continue
 
-            C_red = _reduced_C1(kappa_a, kappa_b)
+            # ⟨κ_a‖C^1‖κ_b⟩ (eq. 5) — canonical Grant-convention implementation.
+            C_red = reduced_C(kappa_a, kappa_b, 1)
             if abs(C_red) < 1e-14:
                 continue
 
