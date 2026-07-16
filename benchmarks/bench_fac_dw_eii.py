@@ -48,6 +48,11 @@ SEQUENCES = {
 # (mode-1) Slater integrals for every partial wave: FAC's default
 # phase-amplitude mode (IONLQR=0) is 4-14% low (Z=26..54), while atomx
 # evaluates all integrals exactly — exact-to-exact is the honest gate.
+# SetCIEGrid pins the INTERNAL grid too: FAC computes DW only on its
+# internal egrid and evaluates user points through the 4-parameter
+# CIRadialQkFromFit form — near threshold that fit mis-stated sigma by
+# up to -44% at Z=54 (f=1.5: fit 8.77e-24 vs direct 1.578e-23).  With
+# both grids pinned FAC evaluates DW directly at the requested points.
 # FAC's CI user grid is the energy ABOVE threshold (incident - I).  The
 # user grid is pinned explicitly at (f-1)*I so sigma is read at exactly the
 # requested factors: letting FAC pick its default sparse grid and
@@ -64,6 +69,7 @@ Structure('{stem}.lev.b', ['g', 'ion'])
 MemENTable('{stem}.lev.b')
 SetCIQkMode('dw')
 SetCIPWOptions(1e-3, 36, 4, 36)
+SetCIEGrid({usr_grid})
 SetUsrCIEGrid({usr_grid})
 CITable('{stem}.ci.b', ['g'], ['ion'])
 PrintTable('{stem}.ci.b', '{stem}.ci', 1)
@@ -82,8 +88,8 @@ def run_atomx(Z: int, spec: dict[str, object], energies_eV: np.ndarray) -> tuple
     dw = dw_eii_cross_section(
         atom._result,
         energies_eV,
-        kappa_max=8,
-        n_outgoing_energies=13,
+        kappa_max=10,
+        n_outgoing_energies=25,
     )
     cb = coulomb_born_ci_atom(atom._result, energies_eV)["sigma_total_cm2"]
     return np.asarray(dw.sigma_total_cm2, dtype=float), np.asarray(cb, dtype=float)
