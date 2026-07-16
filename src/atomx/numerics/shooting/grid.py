@@ -43,11 +43,14 @@ def sgrid(rn, r2, drn, n):
     if rdrn > tst:
         rdrn = tst
 
-    nlow = int(min(rrn / rdrn + 10.0, 25000.0))
+    # Salvat's original NDIM was 25000; _shooting_points sizes grids up
+    # to 300k so that h*p stays ~0.5 for interpolation of the fastest
+    # waves (Xe 200 keV: capping at 25k degraded sampling to ~8 pts per
+    # wavelength -> percent-level interp wiggle on interp_grid consumers).
+    nmax = 400000
+    nlow = int(min(rrn / rdrn + 10.0, float(nmax)))
     if nr < nlow:
         nr = nlow
-
-    nmax = 25000
     if nr > nmax:
         nr = nmax
 
