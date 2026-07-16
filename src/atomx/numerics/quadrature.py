@@ -79,10 +79,14 @@ def make_fine_grid(r_max, k_max_au, z_inner=30.0):
 
 
 # Power tables r^k / r^(k+1) / r^-(k+1) per (grid, k): recomputing them
-# was a large share of every Slater integral.  Keyed by the grid's id()
-# — fine grids are cached (read-only) and reused for thousands of
-# integrals; the reciprocal table keeps the numba inner loops
-# division-free.
+# was a large share of every Slater integral.  Keyed by the grid's id(),
+# BUT the cache value holds a strong reference to the keyed array: a bare
+# id() key goes stale when the grid is garbage-collected (the fine-grid
+# lru evicts at 64 entries) and CPython reuses the address for a new
+# array — observed as order-dependent 1e-4 omega drift and intermittent
+# NaN before the fix.  Holding the reference makes id-reuse impossible
+# while the entry lives; the reciprocal table keeps the numba inner
+# loops division-free.
 _POW_CACHE: dict = {}
 
 
@@ -93,9 +97,9 @@ def pow_tables(r_grid, k):
         if len(_POW_CACHE) > 256:
             _POW_CACHE.clear()
         rk1 = r_grid ** (k + 1)
-        val = (r_grid ** k, rk1, 1.0 / rk1)
+        val = (r_grid, r_grid ** k, rk1, 1.0 / rk1)
         _POW_CACHE[key] = val
-    return val
+    return val[1:]
 
 
 def yk_on_grid(rho, r, k, i_cut=None):
@@ -141,6 +145,109 @@ def _yk_kernel_rho(rho, r, rk, irk1, i_cut):
         prev_a = a
         y[i] = inner * irk1[i] + rk[i] * y[i]
     return y
+
+
+# Stacked r^k / 1/r^{k+1} tables for the batch kernel, one row per k.
+# Rows are the pow_tables entries verbatim; keyed like _POW_CACHE.
+_POW2D_CACHE: dict = {}
+
+
+def _pow_tables_2d(r_grid, k_hi):
+    # same strong-reference convention as _POW_CACHE (id-reuse safety)
+    key = (id(r_grid), k_hi)
+    val = _POW2D_CACHE.get(key)
+    if val is None:
+        if len(_POW2D_CACHE) > 64:
+            _POW2D_CACHE.clear()
+        n = r_grid.shape[0]
+        RK = np.empty((k_hi + 1, n))
+        IRK1 = np.empty((k_hi + 1, n))
+        for k in range(k_hi + 1):
+            rk, _rk1, irk1 = pow_tables(r_grid, k)
+            RK[k] = rk
+            IRK1[k] = irk1
+        val = (r_grid, RK, IRK1)
+        _POW2D_CACHE[key] = val
+    return val[1:]
+
+
+def yk_pair_dot_batch_on_grid(PA, QA, PB, QB, rows_a, rows_b, rows_k,
+                              rows_ok, RhoA, cons_ptr, cons_rho, r,
+                              i_cut=None):
+    """Batch of ``Int rho_w(r) Y^k[rho](r) dr`` dot products where row m
+    integrates rho = PA[a]·PB[b] + QA[a]·QB[b] with k = rows_k[m] and is
+    dotted against the weight rows ``RhoA[cons_rho[s]]`` for its CSR
+    consumer slots s in ``[cons_ptr[m], cons_ptr[m+1])``.
+
+    Each row is the exact serial ``_yk_kernel_rho`` recurrence (the
+    density is formed elementwise on the fly — same IEEE op order), so
+    this is thread-parallel over ROWS only; the Y kernel itself stays
+    serial per the module contract, and Y is never materialized (a
+    725-row batch would be a ~75 MB matrix).  The fused dot accumulates
+    in grid order (a BLAS ``rho @ y`` reorders the same sum; both are
+    within one trapezoid-weight ulp).  Rows with ``rows_ok`` false
+    (missing waves) leave their slots zero.
+    """
+    n = r.shape[0]
+    ic = n - 1 if i_cut is None else min(int(i_cut), n - 1)
+    val = np.zeros(cons_ptr[-1] if cons_ptr.shape[0] else 0)
+    if rows_a.shape[0] == 0:
+        return val
+    RK, IRK1 = _pow_tables_2d(r, int(rows_k.max()))
+    _yk_kernel_pair_dot_batch(PA, QA, PB, QB, rows_a, rows_b, rows_k,
+                              rows_ok, RhoA, cons_ptr, cons_rho,
+                              r, RK, IRK1, ic, val)
+    return val
+
+
+@nb.njit(cache=True, nogil=True, parallel=True)
+def _yk_kernel_pair_dot_batch(PA, QA, PB, QB, rows_a, rows_b, rows_k,
+                              rows_ok, RhoA, cons_ptr, cons_rho,
+                              r, RK, IRK1, i_cut, val):
+    """prange-over-rows fusion of the ``_yk_kernel_rho`` recurrence with
+    the consumer dot products.
+
+    Per-row Y arithmetic must stay identical to ``_yk_kernel_rho``
+    (value invariance): no fastmath, no FMA contraction.  CSR slot
+    ranges are disjoint per row, so the parallel writes never race.
+    """
+    n = r.shape[0]
+    for m in nb.prange(rows_a.shape[0]):
+        if not rows_ok[m]:
+            continue
+        s0 = cons_ptr[m]
+        s1 = cons_ptr[m + 1]
+        if s1 == s0:
+            continue
+        ia = rows_a[m]
+        ib = rows_b[m]
+        rk = RK[rows_k[m]]
+        irk1 = IRK1[rows_k[m]]
+        suf = np.empty(i_cut + 1)
+        acc = 0.0
+        prev_b = (PA[ia, n - 1] * PB[ib, n - 1]
+                  + QA[ia, n - 1] * QB[ib, n - 1]) * irk1[n - 1]
+        if i_cut == n - 1:
+            suf[n - 1] = 0.0
+        for i in range(n - 2, -1, -1):
+            b = (PA[ia, i] * PB[ib, i] + QA[ia, i] * QB[ib, i]) * irk1[i]
+            acc += 0.5 * (b + prev_b) * (r[i + 1] - r[i])
+            prev_b = b
+            if i <= i_cut:
+                suf[i] = acc                  # suffix (outer) integrals
+        inner = 0.0
+        prev_a = (PA[ia, 0] * PB[ib, 0] + QA[ia, 0] * QB[ib, 0]) * rk[0]
+        y = inner * irk1[0] + rk[0] * suf[0]
+        for s in range(s0, s1):
+            val[s] += RhoA[cons_rho[s], 0] * y
+        for i in range(1, i_cut + 1):
+            a = (PA[ia, i] * PB[ib, i] + QA[ia, i] * QB[ib, i]) * rk[i]
+            inner += 0.5 * (a + prev_a) * (r[i] - r[i - 1])
+            prev_a = a
+            y = inner * irk1[i] + rk[i] * suf[i]
+            for s in range(s0, s1):
+                val[s] += RhoA[cons_rho[s], i] * y
+    return val
 
 
 @nb.njit(cache=True, nogil=True)
@@ -212,6 +319,7 @@ __all__ = [
     "make_fine_grid",
     "grid_slater_rk",
     "yk_on_grid",
+    "yk_pair_dot_batch_on_grid",
     "pow_tables",
     "p_rel",
 ]

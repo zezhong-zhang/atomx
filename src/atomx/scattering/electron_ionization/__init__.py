@@ -480,6 +480,8 @@ def _eii_dw_total(
     from atomx.numerics.shooting.dirac_continuum import (
         solve_dirac_continuum_many,
     )
+    from atomx.numerics.quadrature import yk_pair_dot_batch_on_grid
+    from atomx.scattering._jit_kernels import eii_dw_channel_jsum
     from atomx.scattering.distorted_wave.solver import (
         _allowed_k,
         _cc_direct,
@@ -490,10 +492,8 @@ def _eii_dw_total(
         _l_of,
         _make_fine_grid,
         _p_rel,
-        _pow_tables,
         _shooting_points,
         _tj_of,
-        _yk_fine,
     )
 
     bsp_data = scf_result._bsp_data
@@ -544,6 +544,23 @@ def _eii_dw_total(
 
     kappa_list = [k for k in range(-kappa_max - 1, kappa_max + 1)
                   if k != 0 and _l_of(k) <= kappa_max]
+    n_kappa = len(kappa_list)
+    n_fine = r_fine.shape[0]
+
+    def _stack_waves(energy_au):
+        """All partial waves at one energy as (P, Q) row stacks + a
+        per-kappa availability mask (missing waves leave zero rows;
+        the channel kernel masks them out)."""
+        P = np.zeros((n_kappa, n_fine))
+        Q = np.zeros((n_kappa, n_fine))
+        ok = np.zeros(n_kappa, dtype=np.bool_)
+        for i, kap in enumerate(kappa_list):
+            w = _wave(kap, energy_au)
+            if w is not None:
+                P[i] = w[0]
+                Q[i] = w[1]
+                ok[i] = True
+        return P, Q, ok
 
     for sh in scf_result.subshells:
         eps_a = scf_result.orbital_energies.get(sh.label)
@@ -613,6 +630,86 @@ def _eii_dw_total(
                         channels.append((kappa_in, kappa_1, kappa_2,
                                          l_in, ks, ts, jrows))
 
+        # Flat packs of the channel table for the numba node kernels —
+        # energy-independent, built once per shell.  Y^k builds are
+        # deduplicated exactly like the old per-node yd/ye caches
+        # (direct: (kappa_in, kappa_2, k); exchange: (kappa_in,
+        # kappa_1, t)), Slater values like the old per-node Rd/Re dots
+        # (one value slot per (kappa_1|kappa_2, Y build)); only
+        # multipoles referenced by a nonzero angular coefficient are
+        # kept.
+        kidx = {kap: i for i, kap in enumerate(kappa_list)}
+        d_map: Dict[tuple, int] = {}
+        e_map: Dict[tuple, int] = {}
+        d_val: Dict[tuple, int] = {}
+        e_val: Dict[tuple, int] = {}
+        ch_in = []; ch_1 = []; ch_2 = []; ch_lin = []
+        ch_jr0 = []; ch_jr1 = []
+        jw = []; jd0 = []; jd1 = []; je0 = []; je1 = []
+        d_slot = []; d_ang = []
+        e_slot = []; e_ang = []
+        for (kappa_in, kappa_1, kappa_2, l_in, ks, ts, jrows) in channels:
+            ch_in.append(kidx[kappa_in]); ch_1.append(kidx[kappa_1])
+            ch_2.append(kidx[kappa_2]); ch_lin.append(l_in)
+            ch_jr0.append(len(jw))
+            for (tJ, ccd, cce) in jrows:
+                jw.append(float(tJ + 1))
+                jd0.append(len(d_slot))
+                for (k, ang) in ccd:
+                    row = d_map.setdefault(
+                        (kidx[kappa_in], kidx[kappa_2], k), len(d_map))
+                    d_slot.append(d_val.setdefault(
+                        (kidx[kappa_1], row), len(d_val)))
+                    d_ang.append(ang)
+                jd1.append(len(d_slot))
+                je0.append(len(e_slot))
+                for (t, ang) in cce:
+                    row = e_map.setdefault(
+                        (kidx[kappa_in], kidx[kappa_1], t), len(e_map))
+                    e_slot.append(e_val.setdefault(
+                        (kidx[kappa_2], row), len(e_val)))
+                    e_ang.append(ang)
+                je1.append(len(e_slot))
+            ch_jr1.append(len(jw))
+
+        def _i64(v):
+            return np.asarray(v, dtype=np.int64)
+
+        def _csr_slots(val_map, n_rows):
+            """Group value slots by Y row (CSR) for the fused dot
+            kernel; returns (ptr, rho row per slot, old->new slot map)."""
+            rows = _i64([key[1] for key in val_map])
+            rhos = _i64([key[0] for key in val_map])
+            order = np.argsort(rows, kind="stable")
+            ptr = np.zeros(n_rows + 1, dtype=np.int64)
+            ptr[1:] = np.cumsum(np.bincount(rows, minlength=n_rows))
+            remap = np.empty(order.shape[0], dtype=np.int64)
+            remap[order] = np.arange(order.shape[0])
+            return ptr, rhos[order], remap
+
+        ch_in = _i64(ch_in); ch_1 = _i64(ch_1); ch_2 = _i64(ch_2)
+        ch_lin = _i64(ch_lin); ch_jr0 = _i64(ch_jr0); ch_jr1 = _i64(ch_jr1)
+        jw = np.asarray(jw, dtype=np.float64)
+        jd0 = _i64(jd0); jd1 = _i64(jd1); je0 = _i64(je0); je1 = _i64(je1)
+        d_ang = np.asarray(d_ang, dtype=np.float64)
+        e_ang = np.asarray(e_ang, dtype=np.float64)
+        # Unique Y^k build rows (wave-stack indices + multipole order)
+        # and their consumer slots.
+        db_a = _i64([key[0] for key in d_map])
+        db_b = _i64([key[1] for key in d_map])
+        db_k = _i64([key[2] for key in d_map])
+        eb_a = _i64([key[0] for key in e_map])
+        eb_b = _i64([key[1] for key in e_map])
+        eb_k = _i64([key[2] for key in e_map])
+        d_ptr, d_cons_rho, d_remap = _csr_slots(d_val, len(d_map))
+        e_ptr, e_cons_rho, e_remap = _csr_slots(e_val, len(e_map))
+        d_slot = d_remap[_i64(d_slot)] if d_slot else _i64([])
+        e_slot = e_remap[_i64(e_slot)] if e_slot else _i64([])
+
+        P_a_s = P_a[:i_sup + 1]
+        Q_a_s = Q_a[:i_sup + 1]
+        dr_s = dr_fine[:i_sup + 1]
+
         for E_i_idx, E_i_eV in enumerate(energies):
             E_i_au = E_i_eV / _HEV
             T_max = E_i_au - I_a_au
@@ -656,88 +753,42 @@ def _eii_dw_total(
             except Exception:
                 pass
 
+            WinP, WinQ, ok_in = _stack_waves(E_i_au)
+
             for j_E1, E_1_au in enumerate(E1_grid):
                 E_2_au = T_max - E_1_au
-                prof_l = np.zeros(kappa_max + 1)
-                # Per-node caches: Y^k functions (fused numba kernel — a
-                # batched 2D-cumsum variant was tried and lost: the
-                # reversed-slice cumsums force full-matrix copies in this
-                # memory-bound regime) and bound-continuum density rows.
-                yd_cache: Dict[tuple, np.ndarray] = {}
-                ye_cache: Dict[tuple, np.ndarray] = {}
-                rho_a_cache: Dict[tuple, np.ndarray] = {}
-
-                def _rho_a(kappa, E):
-                    key = (kappa, round(float(E), 10))
-                    v = rho_a_cache.get(key)
-                    if v is None:
-                        w = _wave(kappa, E)
-                        if w is None:
-                            return None
-                        v = ((P_a[:i_sup + 1] * w[0][:i_sup + 1]
-                              + Q_a[:i_sup + 1] * w[1][:i_sup + 1])
-                             * dr_fine[:i_sup + 1])
-                        rho_a_cache[key] = v
-                    return v
-
-                for (kappa_in, kappa_1, kappa_2, l_in, ks, ts,
-                     jrows) in channels:
-                    w_in = _wave(kappa_in, E_i_au)
-                    if w_in is None:
-                        continue
-                    w_1 = _wave(kappa_1, E_1_au)
-                    if w_1 is None:
-                        continue
-                    w_2 = _wave(kappa_2, E_2_au)
-                    if w_2 is None:
-                        continue
-                    Rd = {}
-                    if ks:
-                        rho_a1 = _rho_a(kappa_1, E_1_au)
-                        if rho_a1 is None:
-                            continue
-                        for k in ks:
-                            ck = (kappa_in, kappa_2, k)
-                            y = yd_cache.get(ck)
-                            if y is None:
-                                rho_in2 = (w_in[0] * w_2[0]
-                                           + w_in[1] * w_2[1])
-                                y = _yk_fine(rho_in2, r_fine, dr_fine, k,
-                                             i_cut=i_sup)
-                                yd_cache[ck] = y
-                            Rd[k] = float(rho_a1 @ y)
-                    Re = {}
-                    if ts:
-                        rho_a2 = _rho_a(kappa_2, E_2_au)
-                        if rho_a2 is None:
-                            continue
-                        for t in ts:
-                            ct = (kappa_in, kappa_1, t)
-                            y = ye_cache.get(ct)
-                            if y is None:
-                                rho_in1 = (w_in[0] * w_1[0]
-                                           + w_in[1] * w_1[1])
-                                y = _yk_fine(rho_in1, r_fine,
-                                             dr_fine, t, i_cut=i_sup)
-                                ye_cache[ct] = y
-                            Re[t] = float(rho_a2 @ y)
-                    acc = 0.0
-                    for (tJ, ccd, cce) in jrows:
-                        D = 0.0
-                        for (k, ang) in ccd:
-                            D += Rd[k] * ang
-                        E_x = 0.0
-                        for (t, ang) in cce:
-                            E_x += Re[t] * ang
-                        # Slater-Condon for the antisymmetrized outgoing
-                        # pair: T = D - E exactly; the exact m-summation
-                        # in _cc_exchange absorbs all recoupling phases
-                        # (verified: a J-dependent (-1)^{j1+j2-J} variant
-                        # degrades agreement with FAC's exact-grid values).
-                        T = D - E_x
-                        if T != 0.0:
-                            acc += (tJ + 1) * T * T
-                    prof_l[l_in] += acc
+                W1P, W1Q, ok_1 = _stack_waves(E_1_au)
+                W2P, W2Q, ok_2 = _stack_waves(E_2_au)
+                # Bound-continuum density rows (trapezoid weights folded
+                # in), then all direct/exchange Slater values of the
+                # node in two prange batches: Y^k builds parallel over
+                # ROWS with the consumer dots fused in (each row is the
+                # serial fused kernel — a batched 2D-cumsum variant was
+                # tried and lost: the reversed-slice cumsums force
+                # full-matrix copies in this memory-bound regime).
+                RhoA1 = (P_a_s * W1P[:, :i_sup + 1]
+                         + Q_a_s * W1Q[:, :i_sup + 1]) * dr_s
+                RhoA2 = (P_a_s * W2P[:, :i_sup + 1]
+                         + Q_a_s * W2Q[:, :i_sup + 1]) * dr_s
+                Rd = yk_pair_dot_batch_on_grid(
+                    WinP, WinQ, W2P, W2Q, db_a, db_b, db_k,
+                    ok_in[db_a] & ok_2[db_b], RhoA1, d_ptr, d_cons_rho,
+                    r_fine, i_cut=i_sup)
+                Re = yk_pair_dot_batch_on_grid(
+                    WinP, WinQ, W1P, W1Q, eb_a, eb_b, eb_k,
+                    ok_in[eb_a] & ok_1[eb_b], RhoA2, e_ptr, e_cons_rho,
+                    r_fine, i_cut=i_sup)
+                # Slater-Condon for the antisymmetrized outgoing pair:
+                # T = D - E exactly; the exact m-summation in
+                # _cc_exchange absorbs all recoupling phases (verified:
+                # a J-dependent (-1)^{j1+j2-J} variant degrades
+                # agreement with FAC's exact-grid values).
+                prof_l = eii_dw_channel_jsum(
+                    Rd, Re, ok_in, ok_1, ok_2,
+                    ch_in, ch_1, ch_2, ch_lin, ch_jr0, ch_jr1,
+                    jw, jd0, jd1, je0, je1,
+                    d_slot, d_ang, e_slot, e_ang,
+                    kappa_max + 1)
 
                 om = float(np.sum(prof_l))
                 # Geometric high-l tail on the incident partial wave.
