@@ -48,7 +48,7 @@ class Sampling:
         B-spline polynomial order.  Default 9, matching DBSR_HF.
     n_grid : int
         Number of radial grid points for the ODE-shooting backend
-        (``Atom(exchange='shooting' | 'fac')`` and the perturbative
+        (``Atom(numerics='shooting')`` and the perturbative
         Breit-Pauli rung).
     r_max : float
         Outer radius of the radial box, in Bohr.

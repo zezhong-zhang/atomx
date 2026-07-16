@@ -4,7 +4,7 @@ Exercises the same set of accessors on:
 
 - :class:`SCFResult` (B-spline DHF — ``Atom(Z).solve()``).
 - :class:`MCDHFResult` (multi-config — ``Atom(Z, configs=[...]).solve()``).
-- :class:`ShootingResult` (ODE shooting — ``Atom(Z, exchange='shooting').solve()``).
+- :class:`ShootingResult` (ODE shooting — ``Atom(Z, numerics='shooting', exchange='slater').solve()``).
 
 The intent is to lock in the Phase-3 promise: every ``Atom`` accessor
 delegates uniformly through ``self._result`` regardless of which method
@@ -36,7 +36,7 @@ def he_dhf():
 
 @pytest.fixture(scope="module")
 def he_shooting():
-    return Atom(Z=2, exchange="shooting").solve()
+    return Atom(Z=2, numerics="shooting", exchange="slater").solve()
 
 
 @pytest.fixture(scope="module")

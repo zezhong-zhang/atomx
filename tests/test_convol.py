@@ -16,7 +16,7 @@ from atomx.numerics.bspline.basis import setup_gauss_points, evaluate_bsplines_o
 from atomx.numerics.bspline.basis import prepare_bspline_data
 from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
 from atomx.numerics.bspline.dirac_assembly import solve_dirac
-from atomx.methods.kohn_sham import (
+from atomx.numerics.bspline.slater_yk import (
     compute_slater_fk, compute_slater_gk, compute_slater_rk,
     compute_exchange_matrix,
 )

@@ -17,14 +17,6 @@ import pytest
 # ---------------------------------------------------------------------------
 
 
-def test_mbpt_scaffold_import_and_raises():
-    from atomx.methods import mbpt
-
-    assert hasattr(mbpt, "MBPTResult")
-    with pytest.raises(NotImplementedError, match="mbpt"):
-        mbpt.compute()
-
-
 def test_coupled_cluster_scaffold_import_and_raises():
     from atomx.methods import coupled_cluster
 
@@ -39,43 +31,6 @@ def test_rpa_scaffold_import_and_raises():
     assert hasattr(rpa, "RPAResult")
     with pytest.raises(NotImplementedError, match="rpa"):
         rpa.compute()
-
-
-# ---------------------------------------------------------------------------
-# prop/ scaffolds
-# ---------------------------------------------------------------------------
-
-
-def test_polarizability_scaffold_import_and_raises():
-    from atomx.properties import polarizability
-
-    assert hasattr(polarizability, "PolarizabilityResult")
-    with pytest.raises(NotImplementedError, match="polarizability"):
-        polarizability.compute()
-
-
-def test_g_factor_scaffold_import_and_raises():
-    from atomx.properties import g_factor
-
-    assert hasattr(g_factor, "GFactorResult")
-    with pytest.raises(NotImplementedError, match="g_factor"):
-        g_factor.compute()
-
-
-def test_pnc_scaffold_import_and_raises():
-    from atomx.properties import pnc
-
-    assert hasattr(pnc, "PNCResult")
-    with pytest.raises(NotImplementedError, match="pnc"):
-        pnc.compute()
-
-
-def test_edm_scaffold_import_and_raises():
-    from atomx.properties import edm
-
-    assert hasattr(edm, "EDMResult")
-    with pytest.raises(NotImplementedError, match="edm"):
-        edm.compute()
 
 
 # ---------------------------------------------------------------------------

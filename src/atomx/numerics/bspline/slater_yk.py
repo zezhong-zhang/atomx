@@ -12,8 +12,8 @@ eliminating all Python-level loop overhead.
 Shared utilities (eval_orbital_on_grid, compute_yk) live in bspline.evaluate.
 
 History: this module was previously misnamed ``atomx.methods.kohn_sham``
-despite containing zero Kohn-Sham content; that path is kept as a deprecated
-re-export.
+despite containing zero Kohn-Sham content; that import path has been
+removed.
 """
 
 import numpy as np

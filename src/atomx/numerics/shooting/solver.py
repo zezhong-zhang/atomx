@@ -838,7 +838,7 @@ class ShootingResult:
 def dfs_frozen_orbital(result, n: int, kappa: int, e_guess: float = -1.0):
     """Bound orbital (n, kappa) in the FROZEN converged DFS potential.
 
-    ``result`` is a ShootingResult from an ``exchange='fac'`` (or other
+    ``result`` is a ShootingResult from an ``exchange='gu'`` (or other
     local-exchange) solve carrying ``_rv`` — the converged r*V(r).  This
     is exactly FAC's scheme for excited/virtual orbitals: eigenstates of
     the same optimized central potential as the occupied ones
@@ -873,14 +873,14 @@ class ShootingSolver:
         n_grid: number of radial grid points (default 1000)
         r_max: outer radius in Bohr (default 75.0)
         alpha_x: Slater exchange parameter (default 1.5). Ignored when
-            ``exchange='fac'`` — α_xc is then computed by
+            ``exchange='gu'`` — α_xc is then computed by
             :func:`atomx.physics.local_exchange.get_hxs`.
         aw: atomic weight in g/mol (0 = point nucleus)
         equation: 'dirac' or 'schrodinger'
-        exchange: 'slater' (default; uses ``alpha_x``) or 'fac' (Gu's
-            Z- and N-dependent α_xc).
+        exchange: 'slater' (default; uses ``alpha_x``) or 'gu' (Gu's
+            Z- and N-dependent α_xc; FAC's local-exchange model).
         fac_ihx, fac_hxs: forwarded to ``get_hxs`` when
-            ``exchange='fac'``; defaults match FAC's own defaults.
+            ``exchange='gu'``; defaults match FAC's own defaults.
         slater_method: post-SCF Slater integral backend used by
             ``_expval`` when assembling the total binding energy.
             ``'slag6'`` (default) uses direct 6-point Lagrange forward
@@ -902,9 +902,12 @@ class ShootingSolver:
                 f"slater_method must be 'slag6' or 'power_series' "
                 f"(got {slater_method!r})"
             )
+        if exchange not in ('slater', 'gu'):
+            raise ValueError(
+                f"exchange must be 'slater' or 'gu' (got {exchange!r})")
         # Decoupled physics choices (review E2/E3):
         # * exchange_alpha_fn(Z, N_total) -> Slater alpha overrides the
-        #   built-in 'slater'/'fac' selection, so any Slater-family
+        #   built-in 'slater'/'gu' selection, so any Slater-family
         #   functional can be injected without touching this solver.
         #   (The rho^(1/3) FORM is fused into the JIT'd _sfield — a
         #   non-Slater functional form needs a kernel variant, which is
@@ -939,7 +942,7 @@ class ShootingSolver:
         """Resolve the Slater α passed into the JIT'd SCF.
 
         * ``exchange='slater'`` → return ``self.alpha_x`` unchanged.
-        * ``exchange='fac'``    → compute Gu's α_xc(Z, N) from
+        * ``exchange='gu'``     → compute Gu's α_xc(Z, N) from
           :func:`atomx.physics.local_exchange.get_hxs` using the
           requested ``fac_ihx``/``fac_hxs``, then convert to the
           Slater convention used inside :func:`_sfield`.
@@ -968,7 +971,7 @@ class ShootingSolver:
         if self.exchange_alpha_fn is not None:
             n_total = float(sum(sh.occupation for sh in self.subshells))
             return float(self.exchange_alpha_fn(float(self.Z), n_total))
-        if self.exchange == 'fac':
+        if self.exchange == 'gu':
             from atomx.physics.local_exchange import get_hxs
             n_total = float(sum(sh.occupation for sh in self.subshells))
             ahx = get_hxs(

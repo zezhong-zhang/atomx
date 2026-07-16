@@ -143,7 +143,8 @@ def build_au_atom(charge: int) -> Atom:
         configs=list(au_m_shell_configs(charge)),
         breit=True,
         qed=True,
-        exchange="fac",
+        numerics="shooting",
+        exchange="gu",
         averaging="statistical",
     )
     # Explicit marker used by the benchmark/tests.  Atom itself does not yet

@@ -255,19 +255,9 @@ def g_factor(
 __all__ = [
     "GFactorResult",
     "g_factor",
-    "compute",
     "g_factor_orbital",
     "g_factor_dirac_hydrogenic",
     "g_factor_qed",
     "g_factor_finite_nuclear_size",
 ]
 
-
-def compute(scf_result=None, label: str = "", **kwargs) -> GFactorResult:
-    """Backwards-compat wrapper — call :func:`g_factor` directly."""
-    if scf_result is None or not label:
-        raise NotImplementedError(
-            "g_factor compute() requires a converged SCFResult and "
-            "subshell label; call g_factor(scf_result, label, ...)."
-        )
-    return g_factor(scf_result, label, **kwargs)

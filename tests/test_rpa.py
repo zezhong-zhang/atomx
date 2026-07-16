@@ -39,12 +39,12 @@ def test_rpa_channel_matrices_shape():
     atom.solve()
     res = atom._result
 
-    from atomx.methods.mbpt import _build_virtual_basis
+    from atomx.methods.mbpt import build_virtual_basis
     from atomx.numerics.bspline.convol import ConvolCache
 
     cache = ConvolCache(res._bsp_data)
-    occ_1s, virt_1s = _build_virtual_basis(res, -1, cache=cache, potential_mode="VN-1")
-    occ_2p, virt_2p = _build_virtual_basis(res, +1, cache=cache, potential_mode="VN-1")
+    occ_1s, virt_1s = build_virtual_basis(res, -1, cache=cache, potential_mode="VN-1")
+    occ_2p, virt_2p = build_virtual_basis(res, +1, cache=cache, potential_mode="VN-1")
 
     # Cap virtuals to 3 for speed
     virt_2p = virt_2p[:3]
@@ -70,12 +70,12 @@ def test_rpa_solver_positive_eigenvalues():
     atom.solve()
     res = atom._result
 
-    from atomx.methods.mbpt import _build_virtual_basis
+    from atomx.methods.mbpt import build_virtual_basis
     from atomx.numerics.bspline.convol import ConvolCache
 
     cache = ConvolCache(res._bsp_data)
-    occ_1s, virt_1s = _build_virtual_basis(res, -1, cache=cache, potential_mode="VN-1")
-    occ_2p, virt_2p = _build_virtual_basis(res, +1, cache=cache, potential_mode="VN-1")
+    occ_1s, virt_1s = build_virtual_basis(res, -1, cache=cache, potential_mode="VN-1")
+    occ_2p, virt_2p = build_virtual_basis(res, +1, cache=cache, potential_mode="VN-1")
 
     # Cap virtuals to 3 for speed
     virt_2p = virt_2p[:3]

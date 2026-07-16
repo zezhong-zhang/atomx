@@ -31,7 +31,7 @@ enhancement factor is the second-order perturbative sum
 where ``D = r C¹`` is the E1 operator, ``h_d = H_d / d_e``, and ``occ_w`` is
 the subshell occupation weight.  Expanding the sum over the ``V^{N-1}``
 virtual basis reuses the existing polarisability infrastructure
-(:func:`atomx.methods.mbpt._build_virtual_basis`,
+(:func:`atomx.methods.mbpt.build_virtual_basis`,
 :func:`~atomx.properties.transitions.multipole.radial_eL`,
 :func:`~atomx.properties.transitions.angular.angular_eL`).
 
@@ -240,7 +240,6 @@ def sternheimer_edm_enhancement(
     e_virt_max: Optional[float] = None,
     potential_mode: str = "VN-1",
     target_subshell: Optional[str] = None,
-    Z_eff: Optional[float] = None,
 ) -> SternheimerEDMResult:
     """Compute the electron-EDM enhancement factor R_e via Sternheimer SOS.
 
@@ -271,11 +270,12 @@ def sternheimer_edm_enhancement(
     target_subshell
         If given, compute R_e for only this subshell (e.g. ``"6p1/2"``).
         Otherwise sum over all open / partially-filled subshells.
-    Z_eff
-        Deprecated, ignored.  The eEDM kernel uses the full (unscreened)
-        nuclear charge ``scf_result.Z``, which is the physically correct
-        field in the near-nuclear region that dominates the signal.
-        Retained only for backwards-compatible call signatures.
+
+    Notes
+    -----
+    The eEDM kernel uses the full (unscreened) nuclear charge
+    ``scf_result.Z``, which is the physically correct field in the
+    near-nuclear region that dominates the signal.
 
     Returns
     -------
@@ -327,13 +327,13 @@ def sternheimer_edm_enhancement(
     occ_basis: Dict[int, List[Tuple[np.ndarray, np.ndarray, float, str]]] = {}
     virt_basis: Dict[int, List[Tuple[np.ndarray, np.ndarray, float]]] = {}
 
-    # Deferred import: _build_virtual_basis is a mean-field (methods-layer)
+    # Deferred import: build_virtual_basis is a mean-field (methods-layer)
     # service; importing it lazily keeps properties → methods off the
     # module-load path (avoids the layer inversion).
-    from atomx.methods.mbpt import _build_virtual_basis
+    from atomx.methods.mbpt import build_virtual_basis
 
     for kappa in kappa_list:
-        occ, virt = _build_virtual_basis(
+        occ, virt = build_virtual_basis(
             scf_result, kappa, cache=cache, e_max=e_virt_max,
             potential_mode=potential_mode
         )
@@ -450,23 +450,8 @@ def sternheimer_edm_enhancement(
     )
 
 
-# ---------------------------------------------------------------------------
-# Backwards-compat shim
-# ---------------------------------------------------------------------------
-
-
-def compute(scf_result=None, **kwargs) -> SternheimerEDMResult:
-    """Backwards-compat — call :func:`sternheimer_edm_enhancement` directly."""
-    if scf_result is None:
-        raise NotImplementedError(
-            "sternheimer_edm.compute() requires a converged SCFResult; "
-            "call sternheimer_edm_enhancement(scf_result, ...)."
-        )
-    return sternheimer_edm_enhancement(scf_result, **kwargs)
-
 
 __all__ = [
     "SternheimerEDMResult",
     "sternheimer_edm_enhancement",
-    "compute",
 ]

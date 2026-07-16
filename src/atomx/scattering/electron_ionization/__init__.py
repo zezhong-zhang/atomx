@@ -480,7 +480,8 @@ def _eii_dw_total(
     from atomx.numerics.shooting.dirac_continuum import (
         solve_dirac_continuum_many,
     )
-    from atomx.numerics.quadrature import yk_pair_dot_batch_on_grid
+    from atomx.numerics.quadrature import (
+        make_fine_grid, p_rel, yk_pair_dot_batch_on_grid)
     from atomx.scattering._jit_kernels import eii_dw_channel_jsum
     from atomx.scattering.distorted_wave.solver import (
         _allowed_k,
@@ -490,8 +491,6 @@ def _eii_dw_total(
         _distorting_potential_fn,
         _geometric_tail,
         _l_of,
-        _make_fine_grid,
-        _p_rel,
         _shooting_points,
         _tj_of,
     )
@@ -514,8 +513,8 @@ def _eii_dw_total(
     r_max_box = float(bsp_data["t"][-1])
 
     E_max_au = float(np.max(energies)) / _HEV
-    p_max = _p_rel(max(E_max_au, 1.0))
-    r_fine = _make_fine_grid(bsp_data, p_max, z_inner=float(Z))
+    p_max = p_rel(max(E_max_au, 1.0))
+    r_fine = make_fine_grid(r_max_box, p_max, z_inner=float(Z))
     dr_fine = np.gradient(r_fine)
     n_shoot = _shooting_points(r_max_box, p_max)
 

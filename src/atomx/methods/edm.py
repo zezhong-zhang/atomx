@@ -44,7 +44,6 @@ def compute_edm_enhancement(
     n_virt_max: Optional[int] = None,
     e_virt_max: Optional[float] = None,
     potential_mode: str = "VN-1",
-    Z_eff: Optional[float] = None,
 ) -> SternheimerEDMResult:
     """Electron-EDM enhancement factor via Sternheimer sum-over-states.
 
@@ -75,9 +74,6 @@ def compute_edm_enhancement(
         Optional energy ceiling on virtual orbitals (Hartree).
     potential_mode
         ``"VN-1"`` (default) or ``"VN"`` for the virtual basis.
-    Z_eff
-        Effective nuclear charge for relativistic scaling.  Inferred
-        from ``scf_result.Z`` if omitted.
 
     Returns
     -------
@@ -101,7 +97,6 @@ def compute_edm_enhancement(
         n_virt_max=n_virt_max,
         e_virt_max=e_virt_max,
         potential_mode=potential_mode,
-        Z_eff=Z_eff,
     )
 
 

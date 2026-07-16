@@ -174,7 +174,6 @@ def pnc_amplitude_dirac_only(
 
 __all__ = [
     "PNCResult",
-    "compute",
     "pnc_amplitude_dirac_only",
     "weak_hamiltonian_radial_me",
     "weak_charge_qw",
@@ -183,10 +182,3 @@ __all__ = [
     "Q_W_NEUTRON",
 ]
 
-
-def compute(*_args, **_kwargs) -> PNCResult:
-    """Backwards-compat placeholder for the full PNC amplitude."""
-    raise NotImplementedError(
-        "pnc compute() is not implemented; use weak_hamiltonian_radial_me() "
-        "for low-level weak matrix elements."
-    )

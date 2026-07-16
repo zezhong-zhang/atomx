@@ -30,7 +30,7 @@ def test_mohr_interpolator_matches_table_values():
 def test_hyperfine_presets_structure_matches_legacy_tuple():
     """``_hyperfine_preset('h1s')`` still returns the canonical
     4-tuple layout that the SCF ladder code consumes."""
-    from atomx.methods.dirac_fock import _hyperfine_preset
+    from atomx.methods.scf_observables import _hyperfine_preset
 
     assert _hyperfine_preset("h1s") == (True, -95.0e-6, -2.0e-6, -41.0e-6)
     assert _hyperfine_preset("d1s") == (True, -95.0e-6, -0.5e-6, -138.0e-6)

@@ -396,16 +396,6 @@ def _csf_parity(subshells: List[Subshell]) -> int:
     return -1 if exponent % 2 else 1
 
 
-def enumerate_j_resolved_csfs(config_str: str) -> List[CSF]:
-    """Enumerate J-resolved CSF placeholders for a configuration.
-
-    Backward-compatible alias for :func:`enumerate_jj_csfs`.  The primary
-    enumerator now emits exact antisymmetric m-scheme multiplicities itself,
-    so this function must not re-expand its output.
-    """
-    return enumerate_jj_csfs(config_str)
-
-
 def _parse_config_string(config_str):
     """Parse "1s2 2s2 2p6" into list of Subshell objects.
 

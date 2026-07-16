@@ -220,8 +220,8 @@ class BornTransition:
 
     def __init__(self, pair_data, r_fine, dr_fine, dE_au, E_max_au,
                  L_max=None):
-        from atomx.scattering.distorted_wave.solver import (
-            _allowed_k, _reduced_C)
+        from atomx.angular.coefficients import reduced_C
+        from atomx.scattering.distorted_wave.solver import _allowed_k
 
         self.dE_au = float(dE_au)
         E_top = max(float(E_max_au), 2.0 * self.dE_au)
@@ -237,7 +237,7 @@ class BornTransition:
             ks = _allowed_k(ka, kb)
             for k in (ks if L_max is None
                       else [k for k in ks if k <= L_max]):
-                cl = _reduced_C(ka, kb, k)
+                cl = reduced_C(ka, kb, k)
                 if cl == 0.0:
                     continue
                 mk = gos_moment_table(rho, r_fine, dr_fine, k, q_master)

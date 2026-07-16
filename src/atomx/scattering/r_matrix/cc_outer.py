@@ -106,7 +106,7 @@ def T_matrix_from_K(K: np.ndarray) -> np.ndarray:
 
 
 def _partial_wave_cross_section_factor(
-    channel: Channel, L_total: int, S_total: float, target_spin: float
+    channel: Channel, L_total: int, S_total: float
 ) -> float:
     """Angular/statistical factor for the σ_{i→j}^{LSπ} partial wave.
 
@@ -122,8 +122,7 @@ def _partial_wave_cross_section_factor(
     all channels (e.g. S_t = 1/2 for a one-electron target).
     """
     two_L_t = 2 * channel.target.l + 1
-    # For composite targets the target spin is stored on the channel; the
-    # legacy target_spin argument is ignored.
+    # For composite targets the target spin is stored on the channel.
     two_S_t = int(round(2 * channel.target.S_t + 1))
     two_l_i = 2 * channel.l_c + 1
     return (
@@ -139,7 +138,6 @@ def scattering_matrices_and_cross_sections(
     K: np.ndarray,
     L_total: int,
     S_total: float,
-    target_spin: float = 0.5,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """Build S, T, cross-section and collision-strength matrices.
 
@@ -161,7 +159,7 @@ def scattering_matrices_and_cross_sections(
         if k_i <= 0.0:
             continue
         factor = _partial_wave_cross_section_factor(
-            ch_i, L_total, S_total, target_spin
+            ch_i, L_total, S_total
         )
         prefactor = math.pi / (k_i * k_i) * factor
         for j_idx in range(n_open):
@@ -479,7 +477,6 @@ def match_K_matrix(
     *,
     L_total: int = 0,
     S_total: float = 0,
-    target_spin: float = 0.5,
     compute_cross_sections: bool = True,
     propagate_long_range: bool = False,
     R_asym: float | None = None,
@@ -619,7 +616,6 @@ def match_K_matrix(
             K=K,
             L_total=L_total,
             S_total=S_total,
-            target_spin=target_spin,
         )
 
     return OuterMatching(

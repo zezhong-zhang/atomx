@@ -65,15 +65,6 @@ class Subshell:
         return 2 * abs(self.kappa) - 1
 
 
-# ---------------------------------------------------------------------------
-# Hyperfine-ladder presets
-# ---------------------------------------------------------------------------
-#
-# The ladder and its semantics live in :mod:`atomx.properties.hyperfine.ladder`; the
-# Karshenboim-tuned coefficient presets themselves live in
-# :mod:`atomx.data.hyperfine_presets`.  This shim just re-exports the
-# tuple representation used by the legacy code path below.
-
 from atomx.numerics.diis import diis_extrapolate
 from atomx.methods.base import Method
 from atomx.types import Exchange, TheoryLevel
@@ -391,13 +382,13 @@ class DFSolver:
     exchange : str
         "hf" for non-local Hartree-Fock exchange,
         "slater" for local Slater exchange with ``alpha_x`` parameter,
-        "fac" for Gu's FAC-style local exchange with α_xc(Z, N)
+        "gu" for Gu's FAC-style local exchange with α_xc(Z, N)
         (ignores ``alpha_x``; fit from
         :func:`atomx.physics.local_exchange.get_hxs`).
     alpha_x : float
         Slater exchange parameter (used when exchange="slater").
     fac_ihx, fac_hxs : float
-        Forwarded to ``get_hxs`` when ``exchange='fac'``; defaults
+        Forwarded to ``get_hxs`` when ``exchange='gu'``; defaults
         match FAC's own defaults (``ihx = -1``, ``hxs = 1``).
     """
 
@@ -419,7 +410,7 @@ class DFSolver:
         exchange : str
             "hf" for non-local Hartree-Fock exchange,
             "slater" for local Slater exchange (α from ``alpha_x``),
-            "fac" for Gu's Z- and N-dependent α_xc(Z, N),
+            "gu" for Gu's Z- and N-dependent α_xc(Z, N),
             "tfda" for Thomas-Fermi-Dirac-Amaldi (no SCF iteration),
             "gsz" for Green-Sellin-Zachor parametric potential.
         qed_se_method : str
@@ -455,11 +446,15 @@ class DFSolver:
         self.ks = ks
         self.r_min = r_min if r_min is not None else 0.05 / Z
         self.r_max = r_max if r_max is not None else max(40.0, 60.0 / Z)
+        if exchange not in ("hf", "slater", "gu", "tfda", "gsz"):
+            raise ValueError(
+                f"exchange must be one of 'hf', 'slater', 'gu', "
+                f"'tfda', 'gsz' (got {exchange!r})")
         self.exchange = exchange
         self.alpha_x = alpha_x
         self.fac_ihx = fac_ihx
         self.fac_hxs = fac_hxs
-        # When exchange='fac', resolve Gu's α_xc(Z, N) once — it is
+        # When exchange='gu', resolve Gu's α_xc(Z, N) once — it is
         # a function of (Z, total N) only and does not change during
         # the SCF iterations (this mirrors FAC's potential->ahx,
         # which is set once per OptimizeRadial call at radial.c:2348).
@@ -472,7 +467,7 @@ class DFSolver:
         # FAC's ahx by this factor to recover the equivalent Slater
         # α.  See ``atomx.numerics.shooting.solver.ShootingSolver._effective_alpha``
         # for the derivation.
-        if exchange == "fac":
+        if exchange == "gu":
             import numpy as _np
             from atomx.physics.local_exchange import get_hxs
             n_total = float(sum(sh.occupation for sh in subshells))
@@ -585,10 +580,6 @@ class DFSolver:
         nsq = self.bsp_data.get("nsq", self.ns)
         bsp_q = self.bsp_data.get("bsp_q", self.bsp_data["bsp_p"])
         return eval_orbital_on_grid(coeffs, bsp_q, self.bsp_data["nv"], ksq, nsq)
-
-    def _eval_on_grid(self, coeffs):
-        """Evaluate orbital using P-component basis (backward compat)."""
-        return self._eval_P_on_grid(coeffs)
 
     def _flatten_orbital_vector(self, orbitals, orbital_schedule, ns_full):
         """Flatten all orbital P,Q vectors into a single 1D array for DIIS."""
@@ -1129,9 +1120,11 @@ class DFSolver:
                 for m in range(n_gauss):
                     V_nuc_grid[iv, m] = self._nuclear_potential(gr[iv, m])
 
-        if self.exchange == "fac":
+        if self.exchange == "gu":
             from atomx.numerics.bspline.local_potential import local_central_potential_from_radial_density
 
+            # local_potential spells Gu's model "fac" (FAC-parity
+            # potential layer with FAC's ihx/hxs/csi parameters).
             local = local_central_potential_from_radial_density(
                 Z=self.Z,
                 rho_rad=rho_rad,
@@ -1322,7 +1315,7 @@ class DFSolver:
         components = {"E_1e": E_1e, "E_2e": E_2e, "E_J": E_J, "E_K": E_K}
         return E_total, components
 
-    def solve(self, max_iter=100, tol=1e-6, mixing=0.3, damping=None,
+    def solve(self, max_iter=100, tol=1e-6, damping=None,
               mode="batch"):
         """Run the SCF iteration.
 
@@ -1331,8 +1324,6 @@ class DFSolver:
         max_iter : int
         tol : float
             Convergence tolerance on orbital change (relative).
-        mixing : float
-            Legacy parameter.
         damping : float or None
             Orbital damping factor (0 = full replacement, 0.5 = heavy).
             None = auto (0.3 for f-electrons, 0.0 otherwise).

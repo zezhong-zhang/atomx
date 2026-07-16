@@ -25,7 +25,7 @@ import pytest
 
 from atomx import Atom
 from atomx.constants import HARTREE_EV
-from atomx.methods.mcdhf.config import enumerate_j_resolved_csfs
+from atomx.methods.mcdhf.config import enumerate_jj_csfs
 from atomx.methods.mcdhf.solver import MCDHFSolver
 
 BENCH_DIR = Path(__file__).resolve().parent.parent / "benchmarks"
@@ -64,7 +64,7 @@ def test_fe17_csf_count_is_37():
     """
     csfs = []
     for cfg in FE17_CONFIGS:
-        csfs.extend(enumerate_j_resolved_csfs(cfg))
+        csfs.extend(enumerate_jj_csfs(cfg))
     assert len(csfs) == 37
 
 
@@ -96,7 +96,7 @@ def test_fe17_J_block_eigenvalue_counts(fe17_levels_ev):
     """
     csfs = []
     for cfg in FE17_CONFIGS:
-        csfs.extend(enumerate_j_resolved_csfs(cfg))
+        csfs.extend(enumerate_jj_csfs(cfg))
 
     # The eigenvalues come out sorted; their multiset is the union over
     # blocks of each block's eigenvalues.  Sanity-check that the total
@@ -191,7 +191,7 @@ def test_J_block_lift_h2plus_n2_p_states():
     """
     csfs = []
     for cfg in ["1s1", "2s1", "2p1"]:
-        csfs.extend(enumerate_j_resolved_csfs(cfg))
+        csfs.extend(enumerate_jj_csfs(cfg))
     # Each one-electron jj-CSF expands to a single J value.
     solver = MCDHFSolver(Z=1, csfs=csfs, ns=30, ks=7, use_physics_grid=False)
     res = solver.solve(max_iter=3, scf_tol=1e-4, ci_tol=1e-6)

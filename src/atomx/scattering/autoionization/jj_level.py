@@ -44,15 +44,13 @@ import numpy as np
 
 from atomx.constants import AU_RATE_PER_S, HARTREE_EV
 from atomx.numerics.bspline.evaluate import eval_P, eval_Q
+from atomx.numerics.quadrature import grid_slater_rk, make_fine_grid, p_rel
 from atomx.scattering.distorted_wave.solver import (
     _cg2,
     _ck_m,
     _continuum_on_grid,
     _distorting_potential_fn,
-    _grid_slater_rk,
     _l_of,
-    _make_fine_grid,
-    _p_rel,
     _shooting_points,
     _tj_of,
     _allowed_k,
@@ -152,9 +150,8 @@ def auger_rate_jj_level(
     N_bound = sum(float(sh.occupation) for sh in result.subshells)
     Z_res = max(float(Z) - N_bound + 1.0, 1.0)
     r_max_box = float(bsp_data["t"][-1])
-    p_max = _p_rel(max(E_res_au, 1.0))
-    r_fine = _make_fine_grid(bsp_data, p_max)
-    dr_fine = np.gradient(r_fine)
+    p_max = p_rel(max(E_res_au, 1.0))
+    r_fine = make_fine_grid(r_max_box, p_max)
     n_shoot = (int(shooting_n_grid) if shooting_n_grid
                else _shooting_points(r_max_box, p_max))
 
@@ -182,10 +179,10 @@ def auger_rate_jj_level(
             if k in _allowed_k(kappa_f, kappa_2) and k <= L_max]
     ks_X = [k for k in _allowed_k(kappa_h, kappa_2)
             if k in _allowed_k(kappa_f, kappa_1) and k <= L_max]
-    RD = {k: _grid_slater_rk(Ph, Qh, Pf, Qf, P1, Q1, P2, Q2,
-                             r_fine, dr_fine, k) for k in ks_D}
-    RX = {k: _grid_slater_rk(Ph, Qh, Pf, Qf, P2, Q2, P1, Q1,
-                             r_fine, dr_fine, k) for k in ks_X}
+    RD = {k: grid_slater_rk(Ph, Qh, Pf, Qf, P1, Q1, P2, Q2,
+                            r_fine, k) for k in ks_D}
+    RX = {k: grid_slater_rk(Ph, Qh, Pf, Qf, P2, Q2, P1, Q1,
+                            r_fine, k) for k in ks_X}
     if not RD and not RX:
         return 0.0
 

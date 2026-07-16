@@ -1,7 +1,7 @@
 """Type definitions for AtomX: enums, dataclasses, and protocols.
 
 Provides type-safe alternatives to string-based parameters throughout the API.
-All enum values match legacy string values for backward compatibility:
+All enum values match the canonical string spellings:
 
     # These are equivalent:
     Atom(Z=10, exchange="hf")
@@ -40,7 +40,7 @@ class Exchange(Enum):
     """
     HARTREE_FOCK = "hf"
     SLATER = "slater"
-    FAC_GU = "fac"
+    FAC_GU = "gu"
 
 
 class StartingPotential(Enum):
