@@ -24,6 +24,10 @@
 - **Remaining blocker for S1:** composite-target **exchange** close-coupling coefficients are being implemented; until they are wired into `r_matrix/cc_inner.py` the CE benchmark cannot meet the 15 % FAC RMS gate.
 - **DR end-to-end gate:** `tests/test_dr_vs_fac.py::test_end_to_end_gate_20pct` remains passing with the FAC-reference width adapter.
 
+## Progress update (2026-07-16)
+
+- **S2 closed for the Fe XVII dr33 complex.** `dr_calculate` (no hooks) now drives the ab-initio determinant-CI manifold pipeline (`autoionization/mscheme_ci.py` `ResonanceManifold.dr_levels`: ab-initio resonance energies, exact determinant Auger widths, E1 stabilizing widths) instead of the hydrogenic-width placeholders, which had left `benchmarks/results_fac_dr.csv` at rms 19610.  Against the complete clean-room FAC dr33 reference (`tests/data/fe17_dr33_fac_cleanroom.json`: SetSE/VP/MS/Breit off, AICut 0) the α_DR ratios are 0.49/0.99/1.08/1.17 at 1/5/10/50 MK — rms |rel_diff| 0.27 vs gate 0.35 (the 1-MK point is the documented ~+40 eV frozen-orbital E_res offset through exp(−E/kT), not a width error).  Unsupported systems raise `NotImplementedError`; the coarse enumeration path survives only behind explicit width hooks.  Gates: `tests/test_dr_vs_fac.py` (CSV + kernel parity) and `tests/test_dr_manifold_e2e.py` (full build).  Remaining S2 scope: higher-n capture manifolds (dr34/dr3n) and non-Ne-like isoelectronic sequences.
+
 ---
 
 ## 1. Current state vs. FAC
@@ -46,7 +50,7 @@
 | # | Gap | FAC capability | Why it matters | AtomX blocker | Effort | Priority |
 |---|---|---|---|---|---|---|
 | S1 | **R-matrix production cross sections** | `RMatrixCE` returns partial/total collision strengths Ω(E) and cross sections for general atoms | Only module-level hole left in the scattering ladder; closes low-energy resonance physics and enables level-resolved CE below the DW regime | K→T→Ω plumbing and public API implemented; FAC parity now blocked by missing outer-region long-range coupling/propagation | Large (4–6 wk) | **P0** |
-| S2 | **DR end-to-end ab-initio widths** | `AITable` + `TRTable` → `DRStrength` with full Auger/radiative matrices | The only currently **xfail**-ed FAC parity gate; needed for coronal/NLTE spectra and satellite line modelling | `auger_rate_csf_average` uses coarse angular factor; `dr_calculate` falls back to hydrogenic widths for unsolved mocks | Large (3–5 wk) | **P0** |
+| S2 | **DR end-to-end ab-initio widths** | `AITable` + `TRTable` → `DRStrength` with full Auger/radiative matrices | Needed for coronal/NLTE spectra and satellite line modelling | **Closed for Ne-like dr33 (2026-07-16):** `dr_calculate` defaults to the determinant-CI manifold pipeline, rms 0.27 vs clean-room FAC (gate 0.35).  Remaining: dr34/dr3n capture manifolds and non-Ne-like sequences (unsupported inputs raise `NotImplementedError`) | Medium (remaining) | **P1** |
 | S3 | **M-substate-resolved CE/CI/AI tables** | `CETableMSub`, `CITableMSub`, `AITableMSub` feed `SetMCERates`/`SetMCIRates`/`SetMAIRates` for polarisation/line ratios | Required for anisotropic emission, EBIT polarisation, and collisional-radiative polarization spectroscopy | `msub.py` only provides post-hoc weights; DW solver returns σ_total only | Medium (2–3 wk) | **P1** |
 | S4 | **Relativistic (DARC-style) R-matrix** | Dirac R-matrix with jj-coupled targets, Buttle correction, multi-zone propagation | Heavy-ion low-energy scattering, DR resonances, and high-Z PI/RR need relativistic close coupling | Current R-matrix is non-relativistic LS with hydrogenic targets | Large (6–8 wk) | **P1** |
 | S5 | **Photoionization multi-channel Fano / RPA** | Multi-channel PI with inter-channel coupling, retardation, asymmetry parameters (`Asymmetry`) | K-shell edge shape, resonant PI, and β parameters for angle-resolved experiments | `photoionization.fano.apply_resonances` uses independent-resonance approximation | Medium (2–4 wk) | **P2** |
@@ -76,6 +80,8 @@
 ### Phase 2 — DR end-to-end ab-initio widths (P0, ~3–5 wk)
 
 **Objective:** make `dr_calculate` with a solved `Atom` match FAC `AITable` + `TRTable` → `DRStrength` for Fe XVII → Fe XVI, flipping the existing xfail gate to passing.
+
+**Status 2026-07-16: done for the Fe XVII dr33 complex** — via the determinant-CI manifold pipeline (`mscheme_ci.ResonanceManifold`) rather than the 2.1–2.3 coarse-width route below; `dr_calculate` defaults to it, the xfail is gone, and the benchmark gates rms ≤ 0.35 vs the clean-room FAC dr33 reference (measured 0.27; 1-MK point carries the documented frozen-orbital E_res offset).  Items 2.1–2.3 remain only as the hook path behind explicit `auger_rate_fn`/`radiative_rate_fn`.
 
 | Task | Files to touch | Acceptance criteria |
 |---|---|---|

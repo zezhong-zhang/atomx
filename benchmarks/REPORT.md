@@ -650,9 +650,10 @@ Current gates:
   band over the requested temperature-density grid
   (``tests/test_crm_Fe_3C3D.py``).
 
-DR satellite wiring remains a follow-up until the HYP-146
-``dr_calculate()`` API is available; the Fe benchmark keeps the line-ratio
-and balance gates independent of that future resonance path.
+DR satellite wiring into the CRM remains a follow-up (the HYP-146
+``dr_calculate()`` API is now available and manifold-backed, see §11);
+the Fe benchmark keeps the line-ratio and balance gates independent of
+that resonance path.
 
 ### 10.1 Real-FAC L-shell panel and CHIANTI v10 cross-validation (HYP-175 re-dispatch)
 
@@ -798,14 +799,17 @@ sfac build (FAC 1.1.5).  The published driver runs the same primitives
 through the same Burgess detailed-balance kernel (Gu 2003, ApJ 590, 1131)
 that atomx exposes via ``dr_rate_coefficient``.
 
-``benchmarks/bench_fac_dr.py`` drives the protocol for Fe XVII -> Fe XVI on
-Δn=0 (KLL) and Δn=1 (KLM) channels.  The sfac script (now executes cleanly
-in ~1 s) emits 194 autoionising intermediate levels and 3 190 stabilising
-transitions; the harness reads the .lev/.ai/.tr ASCII tables (parsers added
-to ``fac_runner.py``) and writes both ``results_fac_dr.csv`` and the JSON
-reference fixture at ``tests/data/fe17_dr_fac.json``.
+An earlier revision of ``benchmarks/bench_fac_dr.py`` drove that live-sfac
+protocol for Fe XVII -> Fe XVI on Δn=0 (KLL) and Δn=1 (KLM) channels and
+wrote the JSON reference fixture at ``tests/data/fe17_dr_fac.json`` (still
+consumed by the kernel-parity test and the Auger m-scheme panels).  The
+benchmark itself now compares the ab-initio manifold pipeline against the
+frozen **clean-room** dr33 fixture
+``tests/data/fe17_dr33_fac_cleanroom.json`` instead — see the gate-status
+section below.
 
-FAC reference α^DR for Fe XVII -> Fe XVI (Δn=0 + Δn=1, AI+TR via Burgess):
+FAC reference α^DR from the legacy fixture (Δn=0 + Δn=1, AI+TR via
+Burgess; kernel-parity test only):
 
 | T_e (MK) | T_e (eV) | α_DR FAC (cm³/s) |
 |---:|---:|---:|
@@ -814,25 +818,52 @@ FAC reference α^DR for Fe XVII -> Fe XVI (Δn=0 + Δn=1, AI+TR via Burgess):
 | 10 | 861.73 | 4.06e-14 |
 | 50 | 4308.67 | 5.77e-15 |
 
-### Acceptance gate status
+### Acceptance gate status (updated 2026-07-16 — manifold pipeline live)
 
-``tests/test_dr_vs_fac.py`` carries two tiers of the parity check:
+``dr_calculate`` no longer defaults to the placeholder hydrogenic widths
+(which overshot FAC by ~10³-10⁴; the old ``results_fac_dr.csv`` recorded
+rms 19610).  Since 2026-07-16 the no-hook path drives the verified
+determinant-CI manifold pipeline
+(``atomx.scattering.autoionization.mscheme_ci.ResonanceManifold.dr_levels``:
+ab-initio resonance energies, exact determinant Auger widths, E1
+stabilizing widths) and ``benchmarks/bench_fac_dr.py`` benchmarks it
+against the **clean-room FAC** dr33 reference
+(``tests/data/fe17_dr33_fac_cleanroom.json``: FAC 1.1.5 with
+SetSE/VP/MS/Breit off, AICut 0, both 2p- and 2s-hole manifolds).
+Unsupported systems (non-Ne-like cores / unsolved atoms, without
+explicit width hooks) raise ``NotImplementedError`` instead of silently
+producing placeholder numbers.
+
+Current ``results_fac_dr.csv`` (Fe XVII dr33, α_atomx/α_FAC):
+
+| T_e (MK) | α_atomx (cm³/s) | α_FAC clean-room (cm³/s) | ratio |
+|---:|---:|---:|---:|
+| 1  | 2.59e-14 | 5.32e-14 | 0.49 |
+| 5  | 1.43e-13 | 1.46e-13 | 0.98 |
+| 10 | 8.60e-14 | 7.97e-14 | 1.08 |
+| 50 | 1.18e-14 | 1.01e-14 | 1.16 |
+
+rms |rel_diff| = 0.27, gate ≤ 0.35 (``tests/test_dr_vs_fac.py``, which
+also gates every T ≥ 5 MK point to α ratio ∈ [0.8, 1.35]).  The 1-MK
+point dominates the rms: it is Boltzmann suppression from the documented
+~+40 eV frozen-orbital E_res offset entering exp(−E/kT) at kT ≈ 86 eV,
+not a width error — hence the 0.35 target instead of the generic 0.20.
+
+``tests/test_dr_vs_fac.py`` keeps the fast tiers:
 
 1. **Kernel parity** (``test_kernel_parity_with_fac``, PASSES at 1 %).  FAC's
    own AI rates, TR rates, and resonance energies are fed through atomx's
    ``dr_rate_coefficient`` kernel; the output reproduces the FAC reference
    α^DR to <1 % at every gate temperature.  This is the test that protects
    the Burgess kernel from regressions.
-2. **End-to-end driver gate** (``test_end_to_end_gate_20pct``, ``xfail``
-   pending HYP-148/171).  ``dr_calculate`` with current defaults overshoots
-   FAC by ~10³ because the placeholder hydrogenic Auger and radiative widths
-   in ``dielectronic_recombination.enumerate`` are not yet replaced by
-   ab-initio J-resolved matrix elements.  The 20 % gate is asserted but
-   marked ``xfail`` with a documented HYP-148/171 dependency; it flips to
-   passing the moment the width hooks default to the J-resolved sum.
+2. **Benchmark CSV gate** (``test_benchmark_csv_gate``) on the numbers
+   above.  The slow full end-to-end manifold build is gated separately in
+   ``tests/test_dr_manifold_e2e.py``.
 
-The driver scaffold and FAC parity pipeline are therefore in place; the
-remaining work is the width physics, not the DR machinery itself.
+The old xfail'd ``test_end_to_end_gate_20pct`` (hydrogenic/coarse-width
+path) has been removed with the rewire; the coarse-width enumeration
+survives only behind explicit ``auger_rate_fn``/``radiative_rate_fn``
+hooks (used to feed external, e.g. FAC, widths through the kernel).
 
 ---
 
