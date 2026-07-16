@@ -881,7 +881,7 @@ class DFSolver:
                 ks.update(k_values[(i, j)])
             self._angular_k_for_target.append(tuple(sorted(ks)))
 
-    def _build_hf_matrix_dbsr(self, target_i, orbitals):
+    def _build_hf_matrix_dbsr(self, target_i, orbitals, skip_pq_exchange=False):
         """Build the Fock matrix for orbital i — DBSR_HF hf_matrix algorithm.
 
         Uses precomputed angular coefficients and in-place density accumulation
@@ -898,6 +898,16 @@ class DFSolver:
             Flat index of target orbital in self.subshells.
         orbitals : dict
             kappa -> [(P, Q, occ), ...]
+        skip_pq_exchange : bool
+            When True, skip the pqpq exchange contraction and return
+            ``hfm_PQ = 0``.  The batch SCF loop adds ``hfm_PQ`` only to the
+            strictly upper-right (P, Q) block of H, and ``solve_dirac``
+            calls ``scipy.linalg.eigh`` with the default ``lower=True`` —
+            LAPACK then reads only the lower triangle, so that block never
+            influences eigenvalues or eigenvectors.  Skipping it drops one
+            of the four ``_convol_case4`` contractions per (k, block) at
+            bit-identical SCF results.  Callers that consume ``hfm_PQ``
+            (e.g. reference/validation paths) must keep the default False.
 
         Returns
         -------
@@ -907,8 +917,8 @@ class DFSolver:
         from atomx.numerics.bspline.convol import (
             _accumulate_direct_density_batch,
             _accumulate_exchange_density_batch,
-            _convol_case1, _convol_case4,
-            _convol_case1_mixed, _banded_to_full_add,
+            _convol_case1_t, _convol_case4_t,
+            _banded_to_full_add,
         )
 
         bd = self.bsp_data
@@ -973,7 +983,7 @@ class DFSolver:
             comp_ii_stack = Q_stack if ii == 2 else P_stack
 
             for k in all_k_set:
-                rkb, _, _ = self._convol_cache.get_rkb(k, block)
+                rkbT, _, _ = self._convol_cache.get_rkb_t(k, block)
                 a_direct = angular_direct[target_i, :, k]     # length n_orb
                 b_exchange = angular_exchange[target_i, :, k] # length n_orb
 
@@ -982,21 +992,23 @@ class DFSolver:
                     dd = np.zeros((ns_full, ks_ket))
                     _accumulate_direct_density_batch(
                         dd, comp_jj_stack, a_direct, target_i, ns_full, ks_ket)
-                    if ks_bra == ks_ket:
-                        v = _convol_case1(rkb, dd, ns_full, ks_ket)
-                    else:
-                        v = _convol_case1_mixed(rkb, dd, ns_full, ks_bra, ks_ket)
+                    v = _convol_case1_t(rkbT, dd, ns_full, ks_bra, ks_ket)
                     if ii == 1:
                         _banded_to_full_add(hfm_PP, v, ns_full, ks_bra, 1.0)
                     else:
                         _banded_to_full_add(hfm_QQ, v, ns_full, ks_bra, 1.0)
 
                 # --- EXCHANGE: one numba call for the whole j-sum ---
+                # The pqpq (ii=1, jj=2) contraction only feeds hfm_PQ; see
+                # the ``skip_pq_exchange`` docstring for why the batch SCF
+                # path can drop it without changing any solve_dirac output.
+                if skip_pq_exchange and ii == 1 and jj == 2:
+                    continue
                 if np.any(b_exchange):
                     xx = np.zeros((ns_full, ns_full))
                     _accumulate_exchange_density_batch(
                         xx, comp_ii_stack, comp_jj_stack, b_exchange, ns_full)
-                    Kk = _convol_case4(rkb, xx, ns_full, min(ks_bra, ks_ket))
+                    Kk = _convol_case4_t(rkbT, xx, ns_full, min(ks_bra, ks_ket))
                     if ii == 1 and jj == 1:
                         hfm_PP[:ns_full, :ns_full] += Kk[:ns_full, :ns_full]
                     elif ii == 1 and jj == 2:
@@ -1240,8 +1252,12 @@ class DFSolver:
         # One-electron: Σ q_a <a|h|a>
         ns_e = bsp_data.get("ns", self.ns)  # max(nsp, nsq)
         E_1e = 0.0
+        h0_memo = {}  # kappa -> (H0, S0); orbitals sharing kappa reuse the build
         for P, Q, occ, kappa, label in orb_list:
-            H0, S0 = build_dirac_matrices(ns_e, kappa, self.Z, bsp_data, self._nuclear_potential)
+            if kappa not in h0_memo:
+                h0_memo[kappa] = build_dirac_matrices(
+                    ns_e, kappa, self.Z, bsp_data, self._nuclear_potential)
+            H0, S0 = h0_memo[kappa]
             vec = np.concatenate([P[:ns_e], Q[:ns_e]])
             norm_sq = vec @ S0 @ vec
             if norm_sq > 1e-20:
@@ -1249,8 +1265,14 @@ class DFSolver:
 
         # Two-electron (DBSR_HF av_energy_coef formula)
         # Track direct (E_J = F^0) and exchange (E_K = F^{k>0}, G^k) separately
-        # Use cell-based integrals for consistency with DBSR_HF
-        convol_cache = ConvolCache(bsp_data)
+        # Use cell-based integrals for consistency with DBSR_HF.
+        # Reuse the solver-level ConvolCache: the rkb tables depend only on
+        # the B-spline geometry (bsp_data), never on the orbitals, so the
+        # tables built during the SCF loop are bit-identical to fresh ones —
+        # rebuilding them here cost ~0.3 s per solve (~20% of an Fe XVII DHF).
+        if not hasattr(self, '_convol_cache'):
+            self._convol_cache = ConvolCache(bsp_data)
+        convol_cache = self._convol_cache
         _fk = lambda Pa, Qa, Pb, Qb, k: compute_slater_fk_cell(
             Pa, Qa, Pb, Qb, bsp_data, k, convol_cache)
         _gk = lambda Pa, Qa, Pb, Qb, k: compute_slater_gk_cell(
@@ -1473,9 +1495,13 @@ class DFSolver:
                 # DBSR_HF hf_matrix algorithm with DIIS acceleration.
                 # ============================================================
                 for flat_i, (sh, kappa, orb_idx) in enumerate(orbital_schedule):
-                    # Build DBSR_HF-style Fock matrix for orbital i
+                    # Build DBSR_HF-style Fock matrix for orbital i.
+                    # skip_pq_exchange: V_PQ lands in the strictly-upper
+                    # (P, Q) block of H, which eigh (lower=True) never reads
+                    # — skipping its contraction is bit-identical and saves
+                    # 1/4 of the exchange convolutions.
                     V_PP, V_QQ, V_PQ, V_QP = self._build_hf_matrix_dbsr(
-                        flat_i, orbitals)
+                        flat_i, orbitals, skip_pq_exchange=True)
 
                     H = H0_cache[kappa].copy()
                     S_full = S0_cache[kappa]

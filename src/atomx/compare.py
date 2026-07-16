@@ -119,6 +119,10 @@ def compare(*results, unit: EnergyUnit = EnergyUnit.HARTREE):
             for r in results:
                 bd = _get_breakdown(r)
                 val = bd.get(key)
+                # breakdowns can carry string provenance (e.g. the QED
+                # se_method backend name) — only numbers are rows
+                if isinstance(val, str):
+                    val = None
                 if val is not None and abs(val) > 1e-15:
                     row += f"  {val * conv:>{col_w}.6f}"
                 else:

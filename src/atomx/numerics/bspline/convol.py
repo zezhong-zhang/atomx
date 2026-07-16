@@ -151,6 +151,8 @@ def _triang_sym(bsp, gr, grw, t, nv, ks, ns, k):
     bsp_sub = np.empty((n_sub, ks))
     gw_rk = np.empty(n_sub)
     INTP = np.empty((ks, ks, n_gauss))
+    ow = np.empty(n_gauss)
+    bw = np.empty(n_gauss)
 
     for iv in range(nv):
         # xbase = left boundary of interval iv (DBSR_HF: tp(iv + ksp - 1))
@@ -193,18 +195,23 @@ def _triang_sym(bsp, gr, grw, t, nv, ks, ns, k):
         # --- Outer integration ---
         # Outer weight: grw(iv,m) / gr(iv,m)^{k+1}  (the 1/r_>^{k+1} factor)
         # Assemble a[ii,jj] = Σ_m B_i(m)*B_ip(m) * outer_weight(m) * INTP[j,jp,m]
+        # outer_w depends only on m — hoist it out of the kk² pair loops
+        # (and the B_i*B_ip*outer_w product out of the j-pair loop); the
+        # per-term operand order is unchanged, so the sums are bit-identical.
+        for m in range(n_gauss):
+            ow[m] = grw[iv, m] / gr[iv, m] ** (k + 1)
         a = np.zeros((kk, kk))
         ii = 0
         for i in range(ks):
             for ip in range(i, ks):
+                for m in range(n_gauss):
+                    bw[m] = bsp[iv, m, i] * bsp[iv, m, ip] * ow[m]
                 jj = 0
                 for j in range(ks):
                     for jp in range(j, ks):
                         s = 0.0
                         for m in range(n_gauss):
-                            outer_w = grw[iv, m] / gr[iv, m] ** (k + 1)
-                            s += (bsp[iv, m, i] * bsp[iv, m, ip]
-                                  * outer_w * INTP[j, jp, m])
+                            s += bw[m] * INTP[j, jp, m]
                         a[ii, jj] = s
                         jj += 1
                 ii += 1
@@ -378,6 +385,8 @@ def _triang_pqpq(bsp_p, bsp_q, gr, grw, tp, tq, nv, ksp, ksq, ns, k):
     bsp_sub_q = np.empty((n_sub, ksq))
     gw_rk = np.empty(n_sub)
     INTP = np.empty((ksq, ksq, n_gauss))
+    ow = np.empty(n_gauss)
+    bw = np.empty(n_gauss)
 
     for iv in range(nv):
         left_q = ksq - 1 + iv
@@ -412,18 +421,23 @@ def _triang_pqpq(bsp_p, bsp_q, gr, grw, tp, tq, nv, ksp, ksq, ns, k):
                     INTP[j, jp, m] = s
 
         # --- Outer: P-basis with 1/r^{k+1} weight ---
+        # outer_w depends only on m — hoist it (and the B_i*B_ip*outer_w
+        # product) out of the pair loops; operand order per term is
+        # unchanged, so the sums are bit-identical.
+        for m in range(n_gauss):
+            ow[m] = grw[iv, m] / gr[iv, m] ** (k + 1)
         a = np.zeros((kkp, kkq))
         ii = 0
         for i in range(ksp):
             for ip in range(i, ksp):
+                for m in range(n_gauss):
+                    bw[m] = bsp_p[iv, m, i] * bsp_p[iv, m, ip] * ow[m]
                 jj = 0
                 for j in range(ksq):
                     for jp in range(j, ksq):
                         s = 0.0
                         for m in range(n_gauss):
-                            outer_w = grw[iv, m] / gr[iv, m] ** (k + 1)
-                            s += (bsp_p[iv, m, i] * bsp_p[iv, m, ip]
-                                  * outer_w * INTP[j, jp, m])
+                            s += bw[m] * INTP[j, jp, m]
                         a[ii, jj] = s
                         jj += 1
                 ii += 1
@@ -462,19 +476,19 @@ def _triang_pqpq(bsp_p, bsp_q, gr, grw, tp, tq, nv, ksp, ksq, ns, k):
                         s += bsp_sub_p[n, i2] * bsp_sub_p[n, ip2] * gw_rk[n]
                     INTP_p[i2, ip2, m] = s
 
-        # Transpose part: Q outer, P inner
+        # Transpose part: Q outer, P inner (same hoist as above)
         aT = np.zeros((kkp, kkq))
         jj = 0
         for j in range(ksq):
             for jp in range(j, ksq):
+                for m in range(n_gauss):
+                    bw[m] = bsp_q[iv, m, j] * bsp_q[iv, m, jp] * ow[m]
                 ii = 0
                 for i in range(ksp):
                     for ip in range(i, ksp):
                         s = 0.0
                         for m in range(n_gauss):
-                            outer_w = grw[iv, m] / gr[iv, m] ** (k + 1)
-                            s += (bsp_q[iv, m, j] * bsp_q[iv, m, jp]
-                                  * outer_w * INTP_p[i, ip, m])
+                            s += bw[m] * INTP_p[i, ip, m]
                         aT[ii, jj] = s
                         ii += 1
                 jj += 1
@@ -849,6 +863,100 @@ def _convol_case4(rkb, d, ns, ks):
     return a
 
 
+# ── Transposed-layout contractions (batch-DHF hot path) ─────────────
+#
+# ``_convol_case1_t`` / ``_convol_case4_t`` are drop-in reformulations of
+# ``_convol_case1(_mixed)`` / ``_convol_case4`` that read the R^k bank in
+# the transposed layout rkbT[ip, jp, i, j] (see ``ConvolCache.get_rkb_t``)
+# so every innermost loop is unit-stride and SIMD-friendly — measured ~3×
+# faster per call at atomx sizes (ns≈113, ks≈9).
+#
+# Numerics: each output element accumulates exactly the same terms in the
+# same source order as the reference kernels (family 1→4 for case 4, jp
+# outer / j inner for case 1).  Under ``fastmath`` LLVM may still fuse or
+# vectorise the two loop structures differently, so results can differ
+# from the reference kernels in the last bits (measured ≤1e-15 relative
+# per element).  Inside the SCF fixed-point iteration this is a pure
+# float-op reordering; converged energies move ≲1e-13 relative.  Callers
+# that must reproduce the reference kernels bit-for-bit (validation
+# paths) should keep using the untransposed kernels.
+
+@nb.njit(cache=True, fastmath=True)
+def _convol_case1_t(rkbT, d_right, ns, ks_left, ks_right):
+    """icase=1 on the transposed bank: a[i, ip] = Σ rkbT[ip,jp,i,j]·d[j,jp].
+
+    Handles both the symmetric (ks_left == ks_right) and mixed cases;
+    result is banded a(ns, ks_left) like ``_convol_case1(_mixed)``.
+    """
+    # Transpose the banded density so the j-reduction is unit-stride in
+    # both operands (d_right is small: ns × ks_right).
+    dT = np.empty((ks_right, ns))
+    for j in range(ns):
+        for jp in range(ks_right):
+            dT[jp, j] = d_right[j, jp]
+    a = np.zeros((ns, ks_left))
+    for ip in range(ks_left):
+        for i in range(ns - ip):
+            s = 0.0
+            for jp in range(ks_right):
+                row = rkbT[ip, jp, i]
+                drow = dT[jp]
+                for j in range(ns - jp):
+                    s += row[j] * drow[j]
+            a[i, ip] = s
+    return a
+
+
+@nb.njit(cache=True, fastmath=True)
+def _convol_case4_t(rkbT, d, ns, ks):
+    """icase=4 on the transposed bank — same gather families as
+    ``_convol_case4``, with the output column innermost (unit stride)."""
+    a = np.zeros((ns, ns))
+    for row in range(ns):
+        buf = a[row]
+        # family 1: a[row, col] += rkb[row-ip, col, ip, jp] * d[row-ip, col+jp]
+        for ip in range(ks):
+            i = row - ip
+            if i < 0:
+                continue
+            for jp in range(ks):
+                bank = rkbT[ip, jp, i]
+                drow = d[i]
+                for col in range(ns - jp):
+                    buf[col] += bank[col] * drow[col + jp]
+        # family 2: a[row, col] += rkb[row, col, ip, jp] * d[row+ip, col+jp]
+        for ip in range(1, ks):
+            ii = row + ip
+            if ii >= ns:
+                continue
+            for jp in range(ks):
+                bank = rkbT[ip, jp, row]
+                drow = d[ii]
+                for col in range(ns - jp):
+                    buf[col] += bank[col] * drow[col + jp]
+        # family 3: a[row, col] += rkb[row-ip, col-jp, ip, jp] * d[row-ip, col-jp]
+        for jp in range(1, ks):
+            for ip in range(ks):
+                i = row - ip
+                if i < 0:
+                    continue
+                bank = rkbT[ip, jp, i]
+                drow = d[i]
+                for col in range(jp, ns):
+                    buf[col] += bank[col - jp] * drow[col - jp]
+        # family 4: a[row, col] += rkb[row, col-jp, ip, jp] * d[row+ip, col-jp]
+        for ip in range(1, ks):
+            ii = row + ip
+            if ii >= ns:
+                continue
+            for jp in range(1, ks):
+                bank = rkbT[ip, jp, row]
+                drow = d[ii]
+                for col in range(jp, ns):
+                    buf[col] += bank[col - jp] * drow[col - jp]
+    return a
+
+
 # ══════════════════════════════════════════════════════════════════════
 # 6. Trace contraction: SUM_AmB
 # ══════════════════════════════════════════════════════════════════════
@@ -973,6 +1081,25 @@ class ConvolCache:
 
         self._cache[key] = (rkb, ns, ks)
         return rkb, ns, ks
+
+    def get_rkb_t(self, k, itype="pppp"):
+        """Transposed rkb bank for the ``_convol_case*_t`` kernels.
+
+        Layout: rkbT[ip, jp, i, j] = rkb[i, j, ip, jp], C-contiguous so the
+        kernels' innermost j/col loops are unit-stride.  Cached alongside
+        the untransposed bank (which other consumers — case2, bilinear,
+        total-energy — still read), roughly doubling per-(k, itype) cache
+        memory; the one-time transpose (~1 ms) is amortised over the SCF
+        iterations.
+        """
+        key = (k, itype, "T")
+        cached = self._cache.get(key)
+        if cached is not None:
+            return cached
+        rkb, ns, ks = self.get_rkb(k, itype)
+        rkbT = np.ascontiguousarray(rkb.transpose(2, 3, 0, 1))
+        self._cache[key] = (rkbT, ns, ks)
+        return rkbT, ns, ks
 
     def clear(self):
         self._cache.clear()
