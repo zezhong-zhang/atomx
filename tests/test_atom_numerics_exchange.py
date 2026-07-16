@@ -6,7 +6,8 @@ These tests pin:
   (hf/slater → bspline, gu → shooting);
 - the removed legacy 'fac'/'shooting' exchange strings raise a
   ValueError naming the canonical replacement;
-- the unsupported shooting × hf cell raises;
+- the shooting × hf cell solves (non-local DHF via the
+  inhomogeneous-equation method) and matches the B-spline DHF;
 - the same MODEL on both ENGINES agrees physically (bspline+gu vs
   shooting+gu);
 - ``alpha_x`` reaches the engine.
@@ -74,11 +75,19 @@ def test_gu_defaults_to_shooting_engine():
 # Support matrix validation
 # ----------------------------------------------------------------------
 
-def test_shooting_hf_raises():
-    with pytest.raises(ValueError,
-                       match="non-local HF exchange requires "
-                             "numerics='bspline'"):
-        Atom(**FE17, numerics="shooting", exchange="hf")
+def test_shooting_hf_solves():
+    """shooting × hf (formerly the ValueError cell) routes to the
+    inhomogeneous-equation DHF solver and agrees with the B-spline DHF.
+
+    The tight cross-engine gates (1e-4 total / 5e-4 orbital relative,
+    also for He and Ne) live in tests/test_shooting_hf.py."""
+    shooting = Atom(**FE17, numerics="shooting", exchange="hf").solve()
+    bspline = Atom(**FE17, numerics="bspline", exchange="hf").solve()
+    assert shooting.converged
+    assert shooting.provenance == {"numerics": "shooting", "exchange": "hf"}
+    rel = abs(shooting.total_energy - bspline.total_energy) / abs(
+        bspline.total_energy)
+    assert rel < 1e-4
 
 
 def test_bad_numerics_raises():

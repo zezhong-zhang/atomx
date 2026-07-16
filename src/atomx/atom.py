@@ -73,8 +73,6 @@ def _resolve_numerics_exchange(numerics, exchange):
         raise ValueError(
             f"exchange must be one of 'hf', 'slater', 'gu' "
             f"(or the B-spline-only 'tfda', 'gsz'); got {exchange!r}")
-    if engine == "shooting" and model == "hf":
-        raise ValueError("non-local HF exchange requires numerics='bspline'")
     if engine == "shooting" and model in _BSPLINE_ONLY_MODELS:
         raise ValueError(
             f"exchange={model!r} is a parametric B-spline potential; "
@@ -123,10 +121,14 @@ class Atom:
 
                         hf      slater   gu
             bspline     yes     yes      yes
-            shooting    no*     yes      yes
+            shooting    yes*    yes      yes
 
-        (*) ``shooting`` + ``"hf"`` raises ``ValueError`` — non-local
-        HF exchange requires ``numerics='bspline'``.
+        (*) ``shooting`` + ``"hf"`` solves the non-local Dirac-HF
+        equations with the Froese-Fischer inhomogeneous-equation
+        (variation-of-parameters) method
+        (:class:`atomx.numerics.shooting.hf_shooting.ShootingHFSolver`);
+        validated against the B-spline DHF to ≤ 1e-4 relative on total
+        energies (He, Ne, Fe XVII).
     exchange : str
         Exchange MODEL:
 
@@ -412,7 +414,14 @@ class Atom:
             )
             self._result = solver.solve(max_iter=max_iter, scf_tol=tol)
         elif self.numerics == "shooting":
-            # ODE shooting engine — two local-exchange models:
+            # ODE shooting engine — three exchange models:
+            #   ``exchange='hf'`` → non-local Dirac-Hartree-Fock via the
+            #     Froese-Fischer inhomogeneous-equation method
+            #     (ShootingHFSolver; exchange enters as a Y^k source
+            #     term, eigenvalues from a Green-function normalisation
+            #     Newton).  Same jj-average angular coefficients as the
+            #     B-spline DFSolver — agreement ≤ 1e-4 relative on He /
+            #     Ne / Fe XVII totals (tests/test_shooting_hf.py).
             #   ``exchange='slater'`` → Salvat-style DHFS with Slater
             #     α = 3/2 by default, bit-identical to the Fortran
             #     ``radial/DHFS`` reference used by all atomx shooting
@@ -450,7 +459,28 @@ class Atom:
             # EPS tolerance, so reducing the static grid just drops
             # redundant outer-region points.  Exposed via ``n_grid``
             # for power users who need the tighter neutral-atom bound.
-            if self.exchange_model == "gu":
+            if self.exchange_model == "hf":
+                from atomx.numerics.shooting.hf_shooting import (
+                    ShootingHFSolver)
+                from atomx.config.jj_coupling import generate_jj_average
+                subshells, _ = generate_jj_average(
+                    self._config_strings[0], averaging="statistical",
+                )
+                subshells = [sh for sh in subshells if sh.occupation > 1e-10]
+                # n_grid=1000 (not the local-exchange 400): the HF
+                # Green-function quadratures ride on SLAG6 cumulative
+                # integrals whose error IS the orbital error, so the
+                # denser grid buys the cross-engine 1e-4 agreement.
+                solver = ShootingHFSolver(
+                    Z=self.Z, subshells=subshells,
+                    n_grid=1000, r_max=75.0,
+                )
+                # HF sweeps are Gauss-Seidel with 0.5 damping — give
+                # them headroom beyond Atom's default max_iter=40.
+                self._result = solver.solve(
+                    max_iter=max(max_iter, 60), tol=tol)
+                solver = None  # solved above; skip the local-model call
+            elif self.exchange_model == "gu":
                 from atomx.config.jj_coupling import generate_jj_average
                 subshells, _ = generate_jj_average(
                     self._config_strings[0], averaging="statistical",
@@ -472,7 +502,8 @@ class Atom:
                     alpha_x=1.5 if self.alpha_x is None else self.alpha_x,
                     slater_method=self.slater_method,
                 )
-            self._result = solver.solve(max_iter=max_iter, tol=tol)
+            if solver is not None:
+                self._result = solver.solve(max_iter=max_iter, tol=tol)
         else:
             # B-spline DHF/DFS backend with user-selected averaging
             # (statistical | equal | fractional). The CI default is handled

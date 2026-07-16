@@ -279,29 +279,23 @@ def _slater_integral(f1, f2, l, r, difr, np_):
 
 
 @nb.njit(cache=True)
-def _slater_integral_slag6(f1, f2, l, r, difr, np_):
-    """Slater integral via direct SLAG6 forward+backward quadrature.
+def _yk_over_r(f1, l, r, difr, np_):
+    """Hartree screening function ``Y^L(f1; r)/r`` on the grid via SLAG6.
 
-    Computes ``F^L(f1, f2) = ∫∫ f1(r)·f2(s) · r_<^L / r_>^(L+1) dr ds``
-    by assembling the Hartree Y^L function
+        Y_L(r)/r = (1/r^(L+1)) · ∫_0^r f1(s) s^L ds
+                   +  r^L · ∫_r^∞ f1(s)/s^(L+1) ds
 
-        Y_L(r) = (1/r^(L+1)) · ∫_0^r f1(s) s^L ds  +  r^L · ∫_r^∞ f1(s)/s^(L+1) ds
+    Each inner integral is evaluated with the same 6-point Lagrange
+    routine (:func:`slag6`) that the outer SCF uses for the electronic
+    potential.  Inner-boundary treatment mirrors ``_sfield``: the
+    innermost grid point (``r[0] = 0``) is dropped from the backward
+    integrand since ``f1/r^(L+1)`` is formally singular there; the
+    returned array is 0 wherever ``r <= 1e-30`` (the physical density
+    vanishes there anyway).
 
-    and returning ``∫_0^∞ f2(r)·Y_L(r) dr``.  Each inner integral is
-    evaluated with the same 6-point Lagrange routine (:func:`slag6`)
-    that the outer SCF uses for the electronic potential — so the
-    quadrature error is bounded by the SCF's own tolerance even for
-    the sharp inner peaks of heavy-Z 1s densities, where the
-    Salvat/DHFS.f power-series ODE (:func:`_slater_integral`) hits its
-    ``MAX_NSTEPS`` cap and returns with only ~10⁻³ precision.
-
-    Inner-boundary treatment mirrors ``_sfield``: the innermost grid
-    point (``r[0] = 0``) is dropped from the backward integrand since
-    ``f1/r^(L+1)`` is formally singular there.  The lost interval
-    contribution is bounded by
-    ``O(f1(r[1]) · r[1] / r[1]^(L+1) · difr[1])`` and is negligible
-    whenever the density vanishes fast enough at the origin
-    (``f1 ~ r^(2γ)``, γ ≥ 0.7 for physical bound states).
+    Shared by :func:`_slater_integral_slag6` (which contracts it with a
+    second density) and the non-local HF exchange source assembly in
+    :mod:`atomx.numerics.shooting.hf_shooting`.
     """
     # Forward: I1(r) = ∫_0^r f1(s) · s^L ds
     aux_fwd = np.zeros(np_)
@@ -321,15 +315,33 @@ def _slater_integral_slag6(f1, f2, l, r, difr, np_):
     # bwd[k] = ∫_{r[np_-1-k]}^{r[np_-1]} f1/s^(L+1) ds
     # hence I2_tail(r[i]) = bwd[np_ - 1 - i]
 
+    y = np.zeros(np_)
+    for i in range(np_):
+        if r[i] > 1.0e-30:
+            y[i] = i1[i] / r[i] ** (l + 1) + r[i] ** l * bwd[np_ - 1 - i]
+    return y
+
+
+@nb.njit(cache=True)
+def _slater_integral_slag6(f1, f2, l, r, difr, np_):
+    """Slater integral via direct SLAG6 forward+backward quadrature.
+
+    Computes ``F^L(f1, f2) = ∫∫ f1(r)·f2(s) · r_<^L / r_>^(L+1) dr ds``
+    by assembling the Hartree Y^L function (see :func:`_yk_over_r`)
+    and returning ``∫_0^∞ f2(r)·Y_L(r) dr``.  The quadrature error is
+    bounded by the SCF's own tolerance even for the sharp inner peaks
+    of heavy-Z 1s densities, where the Salvat/DHFS.f power-series ODE
+    (:func:`_slater_integral`) hits its ``MAX_NSTEPS`` cap and returns
+    with only ~10⁻³ precision.
+    """
+    y = _yk_over_r(f1, l, r, difr, np_)
+
     # Outer integral: ∫ f2(r) · Y_L(r) · dr, with Jacobian difr built in.
     integrand = np.zeros(np_)
     for i in range(np_):
-        if r[i] > 1.0e-30:
-            y_val = (i1[i] / r[i] ** (l + 1)
-                     + r[i] ** l * bwd[np_ - 1 - i])
-            integrand[i] = f2[i] * y_val * difr[i]
-        # else: at r[0]=0 the physical density (and therefore f2) is zero;
-        # leave integrand[0] = 0 regardless of the singular Y prefactor.
+        integrand[i] = f2[i] * y[i] * difr[i]
+        # at r[0]=0 the physical density (and therefore f2) is zero and
+        # y[0] = 0 by construction — the first point contributes nothing.
     result = slag6(1.0, integrand, np_)
     return result[np_ - 1]
 
@@ -792,6 +804,10 @@ class ShootingResult:
     #: callers that inspect ``result._bsp_data`` uniformly get ``None``
     #: instead of an AttributeError.
     _bsp_data: Optional[Dict] = field(default=None, repr=False)
+    #: Exchange MODEL that produced the orbitals: "dfs" for the local
+    #: Slater/Gu solvers in this module, "hf" for the non-local
+    #: Hartree-Fock solver (:mod:`atomx.numerics.shooting.hf_shooting`).
+    _model: str = field(default="dfs", repr=False)
 
     @property
     def energy_breakdown(self) -> Dict[str, float]:
@@ -802,10 +818,14 @@ class ShootingResult:
         from atomx.types import TheoryLevel
         if self._equation == "schrodinger":
             return TheoryLevel.HARTREE_FOCK
+        if self._model == "hf":
+            return TheoryLevel.DIRAC_HARTREE_FOCK
         return TheoryLevel.DIRAC_FOCK_SLATER
 
     @property
     def method_name(self) -> str:
+        if self._equation != "schrodinger" and self._model == "hf":
+            return "Dirac-Hartree-Fock (shooting)"
         eq = "Schrodinger" if self._equation == "schrodinger" else "Dirac"
         return f"{eq}-Fock-Slater (shooting)"
 
