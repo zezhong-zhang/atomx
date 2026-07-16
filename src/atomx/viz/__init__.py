@@ -28,6 +28,7 @@ that subclass ``manim.Scene`` and are run with the manim CLI.
 """
 
 from atomx.viz import mpl  # noqa: F401  always safe (matplotlib is core dep-light)
+from atomx.viz import scattering  # noqa: F401  cross sections / DR / synthesis
 
 # plotly and manim are optional — guarded so import atomx.viz never fails
 try:  # pragma: no cover — exercised on systems with plotly installed
@@ -43,6 +44,7 @@ except ImportError:
 
 __all__ = [
     "mpl",
+    "scattering",
     "plotly",
     "manim",
 ]
