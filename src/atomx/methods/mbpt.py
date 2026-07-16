@@ -690,7 +690,252 @@ def _mbpt2_pair_contribution(
     return pair_E
 
 
-__all__ = ["MBPT2Result", "mbpt2_energy", "reduced_C"]
+# ---------------------------------------------------------------------------
+# All-order pp-ladder resummation (first all-order rung beyond MBPT(2))
+# ---------------------------------------------------------------------------
+
+
+def _pair_v_J(Pa, Qa, kappa_a, Pb, Qb, kappa_b,
+              Pr, Qr, kappa_r, Ps, Qs, kappa_s,
+              tJ, bsp_data, cache, multipole_max=None):
+    """Antisymmetrised J-coupled pair matrix element <ab;J|v|rs;J>_A.
+
+    Exactly the V_J combination used by :func:`_mbpt2_pair_contribution`
+    (direct - (-1)^{j_r+j_s-J} exchange with the standard 6j recoupling),
+    factored out so the SAME kernel serves (occ,occ)->(virt,virt) and
+    (virt,virt)->(virt,virt) ladder blocks.  States are the UNNORMALISED
+    coupled products; callers divide by sqrt((1+delta_ab)(1+delta_rs)).
+    """
+    tj_a = _twoj_from_kappa(kappa_a)
+    tj_b = _twoj_from_kappa(kappa_b)
+    tj_r = _twoj_from_kappa(kappa_r)
+    tj_s = _twoj_from_kappa(kappa_s)
+    if tJ < max(abs(tj_a - tj_b), abs(tj_r - tj_s)):
+        return 0.0
+    if tJ > min(tj_a + tj_b, tj_r + tj_s):
+        return 0.0
+    if (_l_from_kappa(kappa_a) + _l_from_kappa(kappa_b)
+            + _l_from_kappa(kappa_r) + _l_from_kappa(kappa_s)) % 2:
+        return 0.0
+
+    k_d = [k for k in _allowed_k_range(kappa_a, kappa_r)
+           if k in _allowed_k_range(kappa_b, kappa_s)]
+    k_e = [k for k in _allowed_k_range(kappa_a, kappa_s)
+           if k in _allowed_k_range(kappa_b, kappa_r)]
+    if multipole_max is not None:
+        k_d = [k for k in k_d if k <= multipole_max]
+        k_e = [k for k in k_e if k <= multipole_max]
+
+    VJ_d = 0.0
+    for k in k_d:
+        c1 = reduced_C(kappa_a, kappa_r, k)
+        c2 = reduced_C(kappa_b, kappa_s, k)
+        if abs(c1) < 1e-15 or abs(c2) < 1e-15:
+            continue
+        sj = wigner_6j(tj_a, tj_b, tJ, tj_s, tj_r, 2 * k)
+        if abs(sj) < 1e-15:
+            continue
+        Rk = compute_slater_rk_cell(Pa, Qa, Pr, Qr, Pb, Qb, Ps, Qs,
+                                    bsp_data, k, cache=cache)
+        VJ_d += sj * c1 * c2 * Rk
+    VJ_d *= (-1) ** ((tj_b + tj_r + tJ) // 2)
+
+    VJ_e = 0.0
+    for k in k_e:
+        c1 = reduced_C(kappa_a, kappa_s, k)
+        c2 = reduced_C(kappa_b, kappa_r, k)
+        if abs(c1) < 1e-15 or abs(c2) < 1e-15:
+            continue
+        sj = wigner_6j(tj_a, tj_b, tJ, tj_r, tj_s, 2 * k)
+        if abs(sj) < 1e-15:
+            continue
+        Rk = compute_slater_rk_cell(Pa, Qa, Ps, Qs, Pb, Qb, Pr, Qr,
+                                    bsp_data, k, cache=cache)
+        VJ_e += sj * c1 * c2 * Rk
+    VJ_e *= (-1) ** ((tj_b + tj_s + tJ) // 2)
+
+    ph_swap = (-1) ** ((tj_r + tj_s - tJ) // 2)
+    return VJ_d - ph_swap * VJ_e
+
+
+def pair_ladder_energy(
+    scf_result,
+    *,
+    kappa_max: int = 3,
+    n_virt_max: Optional[int] = 8,
+    multipole_max: Optional[int] = None,
+    e_virt_max: Optional[float] = None,
+    include_ladder: bool = True,
+) -> "MBPT2Result":
+    """All-order particle-particle-ladder pair correlation energy.
+
+    For each occupied pair (a, b) and total J, the doubles space
+    {|rs;J>_A} carries the pair equation
+
+        (D + V_pp) t = -v0,      E_pair^J = (2J+1) v0^T t,
+
+    with D the diagonal denominators eps_r + eps_s - eps_a - eps_b,
+    v0[rs] = <rs;J|v|ab;J>_A and V_pp[rs,r's'] = <rs;J|v|r's';J>_A on
+    NORMALISED antisymmetrised states.  Solving the linear system sums
+    the pp-ladder diagram class TO ALL ORDERS exactly:
+
+        E = -v0^T D^-1 v0  +  v0^T D^-1 V D^-1 v0  -  ...
+
+    the first term being precisely MBPT(2) (``include_ladder=False``
+    reproduces :func:`mbpt2_energy` to machine precision — tested), the
+    second the third-order pp-ladder, etc.  Hole-hole and ring (core
+    polarisation) classes remain at second order; the full coupled-pair
+    (CCD) extension iterates the same objects with the ring recoupling
+    and is the documented next rung.
+
+    Cost scales as (n_virt_pairs)^2 per (pair, J); the defaults
+    (kappa_max 3, n_virt_max 8) keep He-like systems interactive.
+    """
+    import time
+    t0 = time.time()
+    if not scf_result.converged:
+        raise ValueError("SCFResult must be converged.")
+    for sh in scf_result.subshells:
+        max_occ = _twoj_from_kappa(sh.kappa) + 1
+        if abs(sh.occupation - max_occ) > 0.01:
+            raise ValueError("pair_ladder_energy requires a closed shell.")
+
+    bsp_data = scf_result._bsp_data
+    cache = ConvolCache(bsp_data)
+
+    kappa_list = []
+    for k_abs in range(1, kappa_max + 2):
+        kappa_list.append(-k_abs)
+        if k_abs >= 1:
+            kappa_list.append(+k_abs)
+    kappa_list = [k for k in kappa_list if _l_from_kappa(k) <= kappa_max]
+
+    occ_basis: Dict[int, List[Tuple[np.ndarray, np.ndarray, float, str]]] = {}
+    virt_basis: Dict[int, List[Tuple[np.ndarray, np.ndarray, float]]] = {}
+    for kappa in kappa_list:
+        occ, virt = _build_virtual_basis(scf_result, kappa, cache=cache,
+                                         e_max=e_virt_max)
+        kappa_subshells = [x for x in scf_result.subshells if x.kappa == kappa]
+        occ_l = []
+        for i, (P, Q, _e) in enumerate(occ):
+            if i < len(kappa_subshells):
+                lab = kappa_subshells[i].label
+                eps = scf_result.orbital_energies.get(lab, _e)
+            else:
+                lab, eps = f"occ-{kappa}-{i}", _e
+            occ_l.append((P, Q, float(eps), lab))
+        if n_virt_max is not None:
+            virt = virt[:n_virt_max]
+        occ_basis[kappa] = occ_l
+        virt_basis[kappa] = virt
+
+    occ_kappas = [k for k in kappa_list if occ_basis[k]]
+    E_corr = 0.0
+    pair_contribs: Dict[Tuple[str, str], float] = {}
+
+    for ka_idx, kappa_a in enumerate(occ_kappas):
+        for kappa_b in occ_kappas[ka_idx:]:
+            for ia, (Pa, Qa, eps_a, lab_a) in enumerate(occ_basis[kappa_a]):
+                itb = (enumerate(occ_basis[kappa_b][ia:], start=ia)
+                       if kappa_a == kappa_b
+                       else enumerate(occ_basis[kappa_b]))
+                for ib, (Pb, Qb, eps_b, lab_b) in itb:
+                    same_ab = (kappa_a == kappa_b and ia == ib)
+                    tj_a = _twoj_from_kappa(kappa_a)
+                    tj_b = _twoj_from_kappa(kappa_b)
+                    pair_E = 0.0
+                    for tJ in range(abs(tj_a - tj_b), tj_a + tj_b + 1, 2):
+                        # enumerate the doubles basis (kr,ir) <= (ks,is)
+                        basis = []
+                        for kr in kappa_list:
+                            for ks in kappa_list:
+                                if (kr, ks) > (ks, kr):
+                                    continue
+                                tj_r = _twoj_from_kappa(kr)
+                                tj_s = _twoj_from_kappa(ks)
+                                if tJ < abs(tj_r - tj_s) or tJ > tj_r + tj_s:
+                                    continue
+                                if (_l_from_kappa(kappa_a)
+                                        + _l_from_kappa(kappa_b)
+                                        + _l_from_kappa(kr)
+                                        + _l_from_kappa(ks)) % 2:
+                                    continue
+                                for ir, vr in enumerate(virt_basis[kr]):
+                                    js0 = ir if kr == ks else 0
+                                    for isx in range(js0,
+                                                     len(virt_basis[ks])):
+                                        vs = virt_basis[ks][isx]
+                                        same_rs = (kr == ks and ir == isx)
+                                        basis.append((kr, ir, ks, isx,
+                                                      vr, vs, same_rs))
+                        if not basis:
+                            continue
+                        n = len(basis)
+                        v0 = np.zeros(n)
+                        D = np.zeros(n)
+                        na = math.sqrt(2.0) if same_ab else 1.0
+                        keep = []
+                        for ii, (kr, ir, ks, isx, vr, vs, same_rs) in enumerate(basis):
+                            nr = math.sqrt(2.0) if same_rs else 1.0
+                            amp = _pair_v_J(
+                                Pa, Qa, kappa_a, Pb, Qb, kappa_b,
+                                vr[0], vr[1], kr, vs[0], vs[1], ks,
+                                tJ, bsp_data, cache, multipole_max)
+                            v0[ii] = amp / (na * nr)
+                            D[ii] = vr[2] + vs[2] - eps_a - eps_b
+                            # drop identically-empty rows (Pauli-forbidden
+                            # same-orbital odd-J states have amp == 0 and
+                            # zero ladder coupling; keep the space tight)
+                            if abs(v0[ii]) > 1e-18 or not same_rs:
+                                keep.append(ii)
+                        keep = np.asarray(keep, dtype=int)
+                        v0 = v0[keep]
+                        D = D[keep]
+                        basis_k = [basis[i] for i in keep]
+                        n = len(basis_k)
+                        if n == 0:
+                            continue
+                        if float(np.max(np.abs(v0))) < 1e-16:
+                            continue  # Pauli/parity-empty block
+                        if not include_ladder:
+                            eJ = -float(np.sum(v0 * v0 / D))
+                        else:
+                            V = np.zeros((n, n))
+                            for ii in range(n):
+                                (kr, ir, ks, isx, vr, vs, same_rs) = basis_k[ii]
+                                ni = math.sqrt(2.0) if same_rs else 1.0
+                                for jj in range(ii, n):
+                                    (kc, ic, kd, idx, vc, vd, same_cd) = basis_k[jj]
+                                    nj = math.sqrt(2.0) if same_cd else 1.0
+                                    vel = _pair_v_J(
+                                        vr[0], vr[1], kr, vs[0], vs[1], ks,
+                                        vc[0], vc[1], kc, vd[0], vd[1], kd,
+                                        tJ, bsp_data, cache, multipole_max)
+                                    V[ii, jj] = vel / (ni * nj)
+                                    V[jj, ii] = V[ii, jj]
+                            t = np.linalg.solve(np.diag(D) + V, -v0)
+                            eJ = float(v0 @ t)
+                        pair_E += (tJ + 1) * eJ
+                    E_corr += pair_E
+                    pair_contribs[(lab_a, lab_b)] = pair_E
+
+    return MBPT2Result(
+        correlation_energy=E_corr,
+        pair_contributions=pair_contribs,
+        n_virtuals={k: len(v) for k, v in virt_basis.items()},
+        kappa_max=kappa_max,
+        n_max=n_virt_max,
+        cpu_seconds=time.time() - t0,
+        provenance={
+            "method": ("all-order pp-ladder" if include_ladder
+                       else "MBPT(2) cross-check"),
+            "multipole_max": multipole_max,
+            "kappa_list": kappa_list,
+        },
+    )
+
+
+__all__ = ["MBPT2Result", "mbpt2_energy", "pair_ladder_energy", "reduced_C"]
 
 
 # ---------------------------------------------------------------------------
