@@ -30,6 +30,55 @@ from atomx.methods.dirac_fock import DFSolver, Subshell, neon_subshells, argon_s
 from atomx.config import ground_state_config
 
 
+#: Radial ENGINES (numerics) and exchange MODELS the Atom facade accepts.
+_NUMERICS_ENGINES = ("bspline", "shooting")
+_EXCHANGE_MODELS = ("hf", "slater", "gu")
+#: Parametric-potential pass-throughs handled by DFSolver (B-spline only).
+_BSPLINE_ONLY_MODELS = ("tfda", "gsz")
+#: Legacy exchange strings that conflated the engine with the model —
+#: each maps to its historical (engine, model) pair bit-identically.
+_LEGACY_EXCHANGE = {
+    "fac": ("shooting", "gu"),
+    "shooting": ("shooting", "slater"),
+}
+
+
+def _resolve_numerics_exchange(numerics, exchange):
+    """Resolve user-facing ``(numerics, exchange)`` to the canonical
+    (engine, model) pair.
+
+    ``numerics=None`` picks the historical engine for the model:
+    hf/slater → bspline, gu → shooting (the legacy ``'fac'`` routing).
+    An explicit ``numerics=`` always wins over an alias-implied engine.
+    """
+    # Accept atomx.types.Exchange enum members (documented equivalence).
+    exchange = getattr(exchange, "value", exchange)
+    if numerics is not None and numerics not in _NUMERICS_ENGINES:
+        raise ValueError(
+            f"numerics must be None, 'bspline', or 'shooting' "
+            f"(got {numerics!r})")
+    if exchange in _LEGACY_EXCHANGE:
+        implied_engine, model = _LEGACY_EXCHANGE[exchange]
+        engine = numerics or implied_engine
+    elif exchange in _EXCHANGE_MODELS or exchange in _BSPLINE_ONLY_MODELS:
+        model = exchange
+        if numerics is not None:
+            engine = numerics
+        else:
+            engine = "shooting" if model == "gu" else "bspline"
+    else:
+        raise ValueError(
+            f"exchange must be one of 'hf', 'slater', 'gu' (or legacy "
+            f"'fac', 'shooting', 'tfda', 'gsz'); got {exchange!r}")
+    if engine == "shooting" and model == "hf":
+        raise ValueError("non-local HF exchange requires numerics='bspline'")
+    if engine == "shooting" and model in _BSPLINE_ONLY_MODELS:
+        raise ValueError(
+            f"exchange={model!r} is a parametric B-spline potential; "
+            f"it requires numerics='bspline'")
+    return engine, model
+
+
 class Atom:
     """High-level interface for atomic structure calculations.
 
@@ -58,18 +107,51 @@ class Atom:
         Self-energy backend: ``"auto"`` (default), ``"mss"``/``"mohr"``,
         or ``"indelicato"``.  ``"auto"`` uses MSS/Mohr for Z <= 36 and
         Indelicato for Z >= 37.
+    numerics : str or None
+        Radial ENGINE, decoupled from the exchange MODEL:
+
+        - ``"bspline"``  — Galerkin B-spline :class:`DFSolver`.
+        - ``"shooting"`` — ODE shooting :class:`ShootingSolver`
+          (Salvat/Radial method).
+        - ``None`` (default) — resolved from ``exchange`` for
+          backward compatibility: ``"hf"``/``"slater"`` → bspline,
+          ``"gu"`` → shooting (matches the legacy ``"fac"`` routing).
+
+        Support matrix (engine × model)::
+
+                        hf      slater   gu
+            bspline     yes     yes      yes
+            shooting    no*     yes      yes
+
+        (*) ``shooting`` + ``"hf"`` raises ``ValueError`` — non-local
+        HF exchange requires ``numerics='bspline'``.
     exchange : str
-        "hf" for B-spline Hartree-Fock (default),
-        "slater" for B-spline local Slater exchange,
-        "shooting" for ODE shooting with Slater α = 3/2 (Radial/DHFS
-        reference; Salvat 2018),
-        "fac" for ODE shooting with Gu's empirical Z- and N-dependent
-        α_xc(Z, N) (FAC-style local-exchange DFS; Gu 2008).
+        Exchange MODEL:
+
+        - ``"hf"``     — non-local Hartree-Fock exchange (default).
+        - ``"slater"`` — local Slater ρ^(1/3) exchange with coefficient
+          ``alpha_x``.
+        - ``"gu"``     — Gu's empirical Z- and N-dependent α_xc(Z, N)
+          (FAC's local-exchange model; Gu 2008; see
+          :func:`atomx.physics.local_exchange.get_hxs`).
+
+        Legacy aliases (bit-identical to their historical behavior):
+        ``"fac"`` → ``(numerics='shooting', exchange='gu')``,
+        ``"shooting"`` → ``(numerics='shooting', exchange='slater')``
+        with that engine's default α = 3/2 (Radial/DHFS reference;
+        Salvat 2018).  ``"tfda"``/``"gsz"`` remain B-spline-only
+        parametric potentials.
+    alpha_x : float, optional
+        Slater exchange coefficient (only with ``exchange="slater"``).
+        Defaults preserve each engine's historical value:
+        ``2/3`` for bspline (:class:`DFSolver`), ``3/2`` for shooting
+        (:class:`ShootingSolver`).
     """
 
     def __init__(self, Z, config=None, configs=None, charge=0,
                  ns=None, ks=9, nuclear="fermi",
                  breit=False, qed=False, exchange="hf",
+                 numerics=None, alpha_x=None,
                  qed_backend="auto",
                  correction_stack=None,
                  correlation=None, starting_potential=None,
@@ -93,9 +175,19 @@ class Atom:
             "sd" = add singles+doubles excitations (MCDHF with correlation).
             "s" = singles only.
         exchange : str
-            "hf" for Hartree-Fock, "slater" for local Slater exchange,
-            "tfda" for Thomas-Fermi-Dirac-Amaldi (fast, no SCF),
-            "gsz" for Green-Sellin-Zachor parametric potential.
+            Exchange model: "hf" (non-local Hartree-Fock), "slater"
+            (local ρ^(1/3) with ``alpha_x``), "gu" (Gu's empirical
+            α_xc(Z, N)), plus legacy "fac"/"shooting" aliases and the
+            B-spline-only "tfda" (Thomas-Fermi-Dirac-Amaldi, no SCF)
+            and "gsz" (Green-Sellin-Zachor) parametric potentials.
+            See the class docstring for the ``numerics`` × ``exchange``
+            support matrix.
+        numerics : str or None
+            Radial engine: "bspline", "shooting", or None (resolve
+            from ``exchange`` — see class docstring).
+        alpha_x : float, optional
+            Slater coefficient for ``exchange="slater"``.  ``None``
+            keeps the engine default (2/3 bspline, 3/2 shooting).
         starting_potential : str or None
             "tfda" or "gsz" for faster SCF convergence.
         plasma_ne : float, optional
@@ -164,6 +256,16 @@ class Atom:
         self.qed_backend = qed_backend
         self.correction_stack = correction_stack
         self.exchange = exchange
+        # Decoupled ENGINE (numerics) × MODEL (exchange) pair — legacy
+        # exchange strings like 'fac'/'shooting' resolve to their
+        # historical (engine, model) combination bit-identically.
+        self.numerics, self.exchange_model = _resolve_numerics_exchange(
+            numerics, exchange)
+        if alpha_x is not None and self.exchange_model != "slater":
+            raise ValueError(
+                f"alpha_x only applies to exchange='slater' "
+                f"(got exchange={self.exchange_model!r})")
+        self.alpha_x = alpha_x
         self.correlation = correlation
         self.starting_potential = starting_potential
         self.plasma_ne = plasma_ne
@@ -263,7 +365,8 @@ class Atom:
         use_ci_avg = (
             not self._multi_config
             and self.averaging == "ci"
-            and self.exchange not in ("shooting", "slater", "fac")
+            and self.numerics != "shooting"
+            and self.exchange_model not in ("slater", "gu")
         )
 
         if use_ci_avg:
@@ -313,23 +416,25 @@ class Atom:
                 radial_optimization=self.radial_optimization,
             )
             self._result = solver.solve(max_iter=max_iter, scf_tol=tol)
-        elif self.exchange in ("shooting", "fac"):
-            # ODE shooting backend — two local-exchange flavours:
-            #   ``exchange='shooting'`` → Salvat-style DHFS with Slater
-            #     α = 3/2, bit-identical to the Fortran ``radial/DHFS``
+        elif self.numerics == "shooting":
+            # ODE shooting engine — two local-exchange models:
+            #   ``exchange='slater'`` (legacy alias ``'shooting'``) →
+            #     Salvat-style DHFS with Slater α = 3/2 by default,
+            #     bit-identical to the Fortran ``radial/DHFS``
             #     reference used by all atomx shooting benchmarks.
-            #   ``exchange='fac'``      → Gu's FAC-style DFS with Z- and
-            #     N-dependent α_xc(Z, N) from
+            #   ``exchange='gu'`` (legacy alias ``'fac'``) → Gu's
+            #     FAC-style DFS with Z- and N-dependent α_xc(Z, N) from
             #     :mod:`atomx.physics.local_exchange`.
             # Both produce a ``ShootingResult`` (AtomicResult-compatible).
             #
-            # The B-spline ``DFSolver`` also accepts ``exchange='fac'``
-            # and wires Gu's α_xc in the same place the pre-existing
-            # ``'slater'`` path uses ``alpha_x`` (see Task 4 in
+            # The B-spline ``DFSolver`` also accepts Gu's model
+            # (``numerics='bspline', exchange='gu'``) and wires α_xc in
+            # the same place the pre-existing ``'slater'`` path uses
+            # ``alpha_x`` (see Task 4 in
             # ``docs/superpowers/plans/2026-04-20-fac-calculator.md``).
-            # We route via shooting for the Atom facade because the
-            # shooting path is already validated against sfac to 10⁻⁴
-            # relative across Z=2..92.
+            # ``exchange='gu'`` with the default ``numerics=None``
+            # routes via shooting because the shooting path is already
+            # validated against sfac to 10⁻⁴ relative across Z=2..92.
             from atomx.numerics.shooting.solver import ShootingSolver
             # Open-shell subshells need statistical (spherically-
             # averaged) j-splitting so the density is physically
@@ -350,7 +455,7 @@ class Atom:
             # EPS tolerance, so reducing the static grid just drops
             # redundant outer-region points.  Exposed via ``n_grid``
             # for power users who need the tighter neutral-atom bound.
-            if self.exchange == "fac":
+            if self.exchange_model == "gu":
                 from atomx.config.jj_coupling import generate_jj_average
                 subshells, _ = generate_jj_average(
                     self._config_strings[0], averaging="statistical",
@@ -368,7 +473,8 @@ class Atom:
                 subshells = _parse_config_string(self._config_strings[0])
                 solver = ShootingSolver(
                     Z=self.Z, subshells=subshells,
-                    n_grid=400, r_max=75.0, alpha_x=1.5,
+                    n_grid=400, r_max=75.0,
+                    alpha_x=1.5 if self.alpha_x is None else self.alpha_x,
                     slater_method=self.slater_method,
                 )
             self._result = solver.solve(max_iter=max_iter, tol=tol)
@@ -391,9 +497,16 @@ class Atom:
                 filtered_subs = [c.subshells[i] for i in kept_indices]
                 filtered_configs.append(JJConfig(subshells=filtered_subs, weight=c.weight))
             jj_arg = None if self.averaging == "fractional" else filtered_configs
+            # DFSolver spells Gu's model 'fac'; it resolves α_xc(Z, N)
+            # in its own __init__ (see the alpha conversion there).
+            df_exchange = ("fac" if self.exchange_model == "gu"
+                           else self.exchange_model)
+            df_kwargs = {}
+            if self.alpha_x is not None:
+                df_kwargs["alpha_x"] = self.alpha_x
             solver = DFSolver(Z=self.Z, subshells=subshells,
                               ns=self.ns, ks=self.ks,
-                              exchange=self.exchange,
+                              exchange=df_exchange, **df_kwargs,
                               include_breit=self.breit,
                               include_qed=self.qed,
                               qed_se_method=self.qed_backend,
@@ -420,6 +533,15 @@ class Atom:
             effective_max_iter = max(max_iter, 120) if has_f else max_iter
             self._result = solver.solve(max_iter=effective_max_iter, tol=tol)
             # SCFResult retains its own _bsp_data; nothing else to wire.
+
+        # Provenance: record which (engine, model) pair produced the
+        # numbers so results are inspectable after the fact.  NOT
+        # mirrored into energy_components: consumers iterate that dict
+        # as numbers (compare(), viz), and string entries broke them —
+        # provenance lives on result.provenance / Atom.provenance only.
+        if self._result is not None:
+            self._result.provenance = {"numerics": self.numerics,
+                                       "exchange": self.exchange_model}
 
         return self
 
@@ -498,6 +620,12 @@ class Atom:
         flavor was produced by :meth:`solve` (SCFResult, MCDHFResult,
         ShootingResult, …)."""
         return self._result
+
+    @property
+    def provenance(self) -> dict:
+        """``{'numerics': engine, 'exchange': model}`` of the solved
+        result (empty before :meth:`solve`)."""
+        return dict(getattr(self._result, "provenance", None) or {})
 
     @property
     def _mcdhf_result(self):
