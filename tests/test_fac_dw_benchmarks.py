@@ -103,18 +103,17 @@ def test_dw_eii_fac_rms_gate():
     dominant soft-ejection region (30-45% of the integral at high E) and
     partially cancelled against a geometric-tail overshoot.
 
-    2026-07-16: (3) the FAC reference now uses EXACT (mode-1) Slater
+    2026-07-16: (3) the FAC reference uses EXACT (mode-1) Slater
     integrals (SetCIPWOptions qr=36) — FAC's default phase-amplitude
-    mode is 4-14% low (Z=26..54) while atomx is exact, so
-    exact-to-exact is the honest gate; (4) Grant's relativistic
-    delta(E) wave normalization fixed the high-energy deficit
-    (Z=54 f=5: -27% -> +2%).
-
-    Current live parity vs FAC-exact: f=5 within 6% at ALL Z;
-    Z=10 <= 6% everywhere; Z=26 +14/+7/+4%.  The remaining
-    near-threshold excess (Z=54 +83% at f=1.5, decaying ~1/(f-1),
-    concentrated in the equal-energy-sharing interference region) is
-    the open exchange-interference structure question at high Z.
+    mode is 4-14% low (Z=26..54) while atomx is exact; (4) Grant's
+    relativistic delta(E) wave normalization fixed the high-energy
+    deficit; (5) the INTERNAL grid is pinned (SetCIEGrid): FAC computes
+    DW only on its internal egrid and evaluates user points through the
+    4-parameter CIRadialQkFromFit form, which mis-stated
+    sigma(f=1.5, Z=54) by -44% — the entire apparent "near-threshold
+    interference excess" (+83%) was that fit artifact.  Direct-to-direct
+    with converged settings (kappa_max=10, 25 ejected-energy nodes):
+    rms 2.0%, every point within 3.1% at all Z from threshold to 5x.
     """
     rows = _rows(EII_CSV)
     data = [r for r in rows if r["Z"] != "rms"]
@@ -124,11 +123,5 @@ def test_dw_eii_fac_rms_gate():
     assert all(int(r["atomx_converged"]) == 1 for r in data)
     assert all(float(r["sigma_atomx_cm2"]) > 0.0 for r in data)
     assert all(float(r["sigma_fac_cm2"]) > 0.0 for r in data)
-    above = [r for r in data if float(r["E_over_threshold"]) >= 2.0]
-    assert max(abs(float(r["rel_diff"])) for r in above) <= 0.35
-    assert _rms(rows) <= 0.40
-    # the fully-verified regimes get tight gates so regressions trip:
-    low_z = [r for r in data if int(r["Z"]) <= 26]
-    assert max(abs(float(r["rel_diff"])) for r in low_z) <= 0.20
-    f5 = [r for r in data if float(r["E_over_threshold"]) >= 5.0]
-    assert max(abs(float(r["rel_diff"])) for r in f5) <= 0.10
+    assert max(abs(float(r["rel_diff"])) for r in data) <= 0.06
+    assert _rms(rows) <= 0.035
