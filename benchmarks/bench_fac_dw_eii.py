@@ -44,6 +44,10 @@ SEQUENCES = {
 # SetCIQkMode('dw'): pure distorted-wave, matching atomx's method exactly.
 # FAC's default CI mode is QK_BED (binary-encounter-dipole scaled), a
 # different model that suppresses the DW result by ~10-30% at E/th <= 5.
+# SetCIPWOptions(tol, max_kl, max_eject, qr) with qr=36 forces EXACT
+# (mode-1) Slater integrals for every partial wave: FAC's default
+# phase-amplitude mode (IONLQR=0) is 4-14% low (Z=26..54), while atomx
+# evaluates all integrals exactly — exact-to-exact is the honest gate.
 # FAC's CI user grid is the energy ABOVE threshold (incident - I).  The
 # user grid is pinned explicitly at (f-1)*I so sigma is read at exactly the
 # requested factors: letting FAC pick its default sparse grid and
@@ -59,6 +63,7 @@ ConfigEnergy(1)
 Structure('{stem}.lev.b', ['g', 'ion'])
 MemENTable('{stem}.lev.b')
 SetCIQkMode('dw')
+SetCIPWOptions(1e-3, 36, 4, 36)
 SetUsrCIEGrid({usr_grid})
 CITable('{stem}.ci.b', ['g'], ['ion'])
 PrintTable('{stem}.ci.b', '{stem}.ci', 1)

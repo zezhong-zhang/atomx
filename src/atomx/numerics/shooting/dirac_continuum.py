@@ -92,7 +92,9 @@ def _prepare_potential(V_func, r_max: float, n_grid: int, Z_residual: float):
             arr.setflags(write=False)
         except Exception:
             pass
-    prep = (r, n_out, va, vb, vc, vd, ind)
+    rv = np.ascontiguousarray(rv)
+    rv.setflags(write=False)
+    prep = (r, n_out, va, vb, vc, vd, ind, rv)
     try:
         V_func._contsolve_prep = {"key": key, "prep": prep}
     except (AttributeError, TypeError):
@@ -102,7 +104,7 @@ def _prepare_potential(V_func, r_max: float, n_grid: int, Z_residual: float):
 
 def _solve_prepared(prep, E_au: float, kappa: int, eps_tol: float):
     """One partial-wave solve against a prepared potential (thread-safe)."""
-    r, n_out, va, vb, vc, vd, ind = prep
+    r, n_out, va, vb, vc, vd, ind, rv = prep
     P = np.zeros(n_out)
     Q = np.zeros(n_out)
     doutw(
@@ -111,13 +113,33 @@ def _solve_prepared(prep, E_au: float, kappa: int, eps_tol: float):
     )
 
     l = kappa if kappa > 0 else -kappa - 1
-    k_inf = math.sqrt(2.0 * E_au)
+    # relativistic momentum and Grant's delta(E)-normalized amplitude:
+    # A^2 = (E + 2c^2)/(pi c^2 k) -> 2/(pi k) as E/c^2 -> 0.  The old
+    # nonrelativistic k = sqrt(2E) target left amplitude^2 low by
+    # sqrt(1 + E/2c^2) per wave (9% at 200 keV) — visible as a
+    # high-energy deficit in Z=54 K-shell cross sections.
+    _C_SQ = 137.0359990836 ** 2
+    eps_rel = E_au / _C_SQ
+    k_inf = math.sqrt(2.0 * E_au * (1.0 + 0.5 * eps_rel))
 
     n_match = max(20, n_out // 5)
     r_match = r[-n_match:]
     P_match = P[-n_match:]
     dP = np.gradient(P_match, r_match)
-    A_sq_arr = P_match ** 2 + (dP / k_inf) ** 2
+    # WKB envelope: for a slow wave over a residual ion the box edge is
+    # far from asymptotic (Z_res/(k r) can exceed 1 at high Z), where the
+    # local momentum k(r) >> k_inf.  The invariant is amplitude^2 * k:
+    #     P = A_inf sqrt(k_inf/k(r)) sin(Int k dr)
+    # so A_inf^2 = (P^2 + (P'/k(r))^2) * k(r)/k_inf.  Estimating with
+    # k_inf instead under-measured A_inf for slow ejected waves in deep
+    # potentials — a Z- and threshold-dependent overshoot of ionization
+    # cross sections (Xe K-shell +80% at 1.5x threshold).
+    V_m = rv[-n_match:] / r_match
+    b_loc = E_au - V_m
+    k_loc2 = (2.0 * b_loc * (1.0 + 0.5 * b_loc / _C_SQ)
+              - l * (l + 1.0) / (r_match * r_match))
+    k_loc = np.sqrt(np.maximum(k_loc2, k_inf * k_inf))
+    A_sq_arr = (P_match ** 2 + (dP / k_loc) ** 2) * (k_loc / k_inf)
     A_meas = math.sqrt(float(np.median(A_sq_arr)))
     if A_meas <= 0 or not math.isfinite(A_meas):
         return r, P, Q, 0.0
@@ -129,7 +151,7 @@ def _solve_prepared(prep, E_au: float, kappa: int, eps_tol: float):
     delta = phase - k_inf * r[-1] + 0.5 * l * math.pi
     delta = (delta + math.pi) % (2 * math.pi) - math.pi
 
-    norm = math.sqrt(2.0 / (math.pi * k_inf)) / A_meas
+    norm = math.sqrt((2.0 + eps_rel) / (math.pi * k_inf)) / A_meas
     P = P * norm
     Q = Q * norm
     return r, P, Q, delta

@@ -72,14 +72,13 @@ def test_dw_excitation_fac_rms_gate():
     assert all(int(r["atomx_converged"]) == 1 for r in data)
     assert all(float(r["omega_atomx"]) > 0.0 for r in data)
     assert all(float(r["omega_fac"]) > 0.0 for r in data)
-    # After the 2026-07-15 quadrature fix (trapezoidal Y^k cumulatives +
-    # inner-resolved composite radial grid) and the exact-GOS plane-wave
-    # Born completion (FAC _topup=2 blend, Bethe limit verified to 0.5%)
-    # the panel rms is 5.1%; the remaining Z=54 E/th=5 point (-11%,
-    # E = 153 keV) is dominated by the Breit/Moller interaction FAC
-    # includes in the collision operator at high Z (documented follow-up).
-    assert max(abs(float(r["rel_diff"])) for r in data) <= 0.15
-    assert _rms(rows) <= 0.065
+    # 2026-07-16: with Grant's relativistic delta(E) normalization
+    # (A^2 = (E+2c^2)/(pi c^2 k_rel); the old sqrt(2/(pi k_nonrel))
+    # target was low by sqrt(1+E/2c^2) per wave — 9% at 200 keV) the
+    # panel rms is 3.7% and every point is within 6.7% (Z=54 E/th=5
+    # went -11% -> +1.6%).
+    assert max(abs(float(r["rel_diff"])) for r in data) <= 0.10
+    assert _rms(rows) <= 0.05
 
 
 @pytest.mark.fac_parity
@@ -104,12 +103,18 @@ def test_dw_eii_fac_rms_gate():
     dominant soft-ejection region (30-45% of the integral at high E) and
     partially cancelled against a geometric-tail overshoot.
 
-    Current live parity: Z=10 all points <= 5%; Z=26 <= 15% (threshold)
-    / <= 7% (f >= 2); Z=54 (40-keV K shell) +93/+32/-21% — the
-    relativistic (Moller/Breit) collision operator FAC uses at high Z is
-    a documented follow-up.  Note FAC-CI evaluates ALL its Slater
-    integrals in phase-amplitude mode (IONLQR = 0), so near threshold
-    the atomx exact integrals are the more accurate of the two.
+    2026-07-16: (3) the FAC reference now uses EXACT (mode-1) Slater
+    integrals (SetCIPWOptions qr=36) — FAC's default phase-amplitude
+    mode is 4-14% low (Z=26..54) while atomx is exact, so
+    exact-to-exact is the honest gate; (4) Grant's relativistic
+    delta(E) wave normalization fixed the high-energy deficit
+    (Z=54 f=5: -27% -> +2%).
+
+    Current live parity vs FAC-exact: f=5 within 6% at ALL Z;
+    Z=10 <= 6% everywhere; Z=26 +14/+7/+4%.  The remaining
+    near-threshold excess (Z=54 +83% at f=1.5, decaying ~1/(f-1),
+    concentrated in the equal-energy-sharing interference region) is
+    the open exchange-interference structure question at high Z.
     """
     rows = _rows(EII_CSV)
     data = [r for r in rows if r["Z"] != "rms"]
@@ -122,8 +127,8 @@ def test_dw_eii_fac_rms_gate():
     above = [r for r in data if float(r["E_over_threshold"]) >= 2.0]
     assert max(abs(float(r["rel_diff"])) for r in above) <= 0.35
     assert _rms(rows) <= 0.40
-    # Z <= 26 (where the Coulomb collision operator suffices) is much
-    # tighter — gate it separately so regressions in the verified regime
-    # trip even while the Z=54 Moller/Breit follow-up is open.
+    # the fully-verified regimes get tight gates so regressions trip:
     low_z = [r for r in data if int(r["Z"]) <= 26]
     assert max(abs(float(r["rel_diff"])) for r in low_z) <= 0.20
+    f5 = [r for r in data if float(r["E_over_threshold"]) >= 5.0]
+    assert max(abs(float(r["rel_diff"])) for r in f5) <= 0.10
