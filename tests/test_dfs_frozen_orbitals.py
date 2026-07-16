@@ -1,4 +1,4 @@
-"""Frozen-orbital solver in the converged exchange='fac' DFS potential.
+"""Frozen-orbital solver in the converged exchange='gu' DFS potential.
 
 Validates that atomx's local-DFS machinery reproduces FAC's optimized
 central potential *and* its excited-orbital eigenvalues: FAC solves every
@@ -34,7 +34,8 @@ from atomx.numerics.shooting.solver import dfs_frozen_orbital  # noqa: E402
 
 @pytest.fixture(scope="module")
 def fe17_dfs():
-    a = Atom(Z=26, charge=16, config="1s2 2s2 2p6", exchange="fac")
+    a = Atom(Z=26, charge=16, config="1s2 2s2 2p6",
+             numerics="shooting", exchange="gu")
     a.solve()
     return a._result
 

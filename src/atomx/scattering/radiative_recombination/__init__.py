@@ -555,7 +555,7 @@ def rr_cross_section_rydberg(
     -------
     RRResult
     """
-    from atomx.methods.mbpt import _build_virtual_basis, _l_from_kappa
+    from atomx.methods.mbpt import build_virtual_basis, _l_from_kappa
     from atomx.numerics.bspline.convol import ConvolCache
 
     energies = np.asarray(energies_eV, dtype=float)
@@ -581,7 +581,7 @@ def rr_cross_section_rydberg(
     prov: Dict[str, Dict[str, float]] = {}
 
     for kappa in kappa_list:
-        occ, virt = _build_virtual_basis(scf_result, kappa, cache=cache,
+        occ, virt = build_virtual_basis(scf_result, kappa, cache=cache,
                                           potential_mode="VN-1")
         # Each bound state at energy < 0 is a capture target
         bound_states = [(P, Q, eps) for (P, Q, eps) in (list(occ) + list(virt))

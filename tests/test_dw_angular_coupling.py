@@ -1,7 +1,7 @@
 """Unit tests for the DW excitation angular coupling (j-j recoupling).
 
 Tests cover:
-- Reduced C^k matrix elements (_reduced_C)
+- Reduced C^k matrix elements (reduced_C)
 - Allowed multipole k selection rules (_allowed_k)
 - Parity conservation in channel selection
 - J range calculation
@@ -16,10 +16,10 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 
+from atomx.angular.coefficients import reduced_C
 from atomx.scattering.distorted_wave.solver import (
     _l_of,
     _tj_of,
-    _reduced_C,
     _allowed_k,
     _target_projectile_J_range,
     _target_state_metadata,
@@ -80,18 +80,18 @@ class TestReducedC:
         for kappa in [-1, 1, -2, 2, -3]:
             tj = _tj_of(kappa)
             expected_mag = math.sqrt(tj + 1)
-            actual = _reduced_C(kappa, kappa, 0)
+            actual = reduced_C(kappa, kappa, 0)
             assert abs(abs(actual) - expected_mag) < 1e-12, \
                 f"|C^0({kappa},{kappa})| = {abs(actual)}, expected {expected_mag}"
 
     def test_parity_forbidden(self):
         # kappa=-1 (l=0) to kappa=-2 (l=1) with k=0: l+l+k=0+1+0=1 (odd) → forbidden
-        assert _reduced_C(-1, -2, 0) == 0.0
+        assert reduced_C(-1, -2, 0) == 0.0
 
     def test_triangle_forbidden(self):
         # kappa=-1 (j=1/2) to kappa=-3 (j=5/2) with k=0:
         # |1/2 - 5/2| = 2 > 0, so k=0 is forbidden
-        assert _reduced_C(-1, -3, 0) == 0.0
+        assert reduced_C(-1, -3, 0) == 0.0
 
     def test_symmetry_under_conjugation(self):
         # ⟨a‖C^k‖b⟩ and ⟨b‖C^k‖a⟩ differ by phase (-1)^{j_a-j_b+k}
@@ -99,8 +99,8 @@ class TestReducedC:
         for kappa_a in [-1, -2, 1, 2]:
             for kappa_b in [-1, -2, 1, 2]:
                 for k in [0, 1, 2]:
-                    va = abs(_reduced_C(kappa_a, kappa_b, k))
-                    vb = abs(_reduced_C(kappa_b, kappa_a, k))
+                    va = abs(reduced_C(kappa_a, kappa_b, k))
+                    vb = abs(reduced_C(kappa_b, kappa_a, k))
                     assert abs(va - vb) < 1e-12, \
                         f"|C^{k}({kappa_a},{kappa_b})| = {va}, |C^{k}({kappa_b},{kappa_a})| = {vb}"
 
@@ -108,7 +108,7 @@ class TestReducedC:
         # 1s_{1/2} (κ=-1) → 2p_{3/2} (κ=-2): k=1 (E1 allowed)
         # l_i=0, l_f=1, k=1: l_i+l_f+k=2 (even) ✓
         # |j_i-j_f|=1, k=1: 0≤1≤2 ✓
-        val = _reduced_C(-1, -2, 1)
+        val = reduced_C(-1, -2, 1)
         assert val != 0.0
         # Known value: for κ=-1 (j=1/2) → κ=-2 (j=3/2), k=1:
         # ⟨1/2‖C^1‖3/2⟩ = (-1)^{1/2+1/2} · sqrt(2·4) · 3j(1, 2, 3; -1, 0, 1) [twice-j]

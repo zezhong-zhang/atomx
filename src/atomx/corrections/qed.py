@@ -31,14 +31,6 @@ from scipy.special import k1 as bessel_k1
 from atomx.constants import ALPHA, C
 from atomx.corrections.qedmod import get_backend
 
-# Re-export for backwards compatibility; external consumers that imported
-# these names from ``atomx.corrections.qed`` continue to work.
-from atomx.corrections.qedmod.mohr import (  # noqa: F401
-    _SE_TABLE,
-    _interpolate_se_f,
-    _overlap_ratio,
-)
-
 
 # ---------------------------------------------------------------------------
 # Vacuum Polarization (Uehling potential, 2nd order)

@@ -47,7 +47,6 @@ from atomx.properties.edm.scaling import (
 from atomx.properties.edm.sternheimer import (
     SternheimerEDMResult,
     sternheimer_edm_enhancement,
-    compute,
 )
 
 
@@ -59,17 +58,11 @@ class EDMResult:
     schiff_moment_enhancement_cm: float = 0.0
     provenance: Dict[str, Any] = field(default_factory=dict)
 
-    @property
-    def schiff_moment_enhancement(self) -> float:
-        """Backward-compatible alias for the Schiff enhancement in cm."""
-        return self.schiff_moment_enhancement_cm
-
 
 __all__ = [
     "EDMResult",
     "SternheimerEDMResult",
     "sternheimer_edm_enhancement",
-    "compute",
     "edm_summary",
     "electron_edm_enhancement_sandars",
     "schiff_moment_enhancement_scaling",

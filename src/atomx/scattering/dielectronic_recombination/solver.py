@@ -352,7 +352,7 @@ def _dr33_manifold_states(initial_atom) -> List[AutoionizationState]:
     the total E1 stabilizing width (``ResonanceManifold.dr_levels``).
     The n=3 orbitals are frozen-core V^{N-1} eigenstates (FAC's
     fixed-potential convention) from
-    :func:`atomx.methods.mbpt._build_virtual_basis`.
+    :func:`atomx.methods.mbpt.build_virtual_basis`.
 
     Verified against the complete clean-room FAC dr33 reference
     (``tests/data/fe17_dr33_fac_cleanroom.json``; SetSE/VP/MS/Breit off,
@@ -368,10 +368,10 @@ def _dr33_manifold_states(initial_atom) -> List[AutoionizationState]:
         so far.
     """
     from atomx.constants import HARTREE_EV
-    from atomx.methods.mbpt import _build_virtual_basis
+    from atomx.methods.mbpt import build_virtual_basis
     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
     from atomx.scattering.autoionization.mscheme_ci import ResonanceManifold
-    from atomx.scattering.distorted_wave.solver import _make_fine_grid, _p_rel
+    from atomx.numerics.quadrature import make_fine_grid, p_rel
 
     unsupported = (
         "dr_calculate without width hooks drives the ab-initio "
@@ -409,7 +409,7 @@ def _dr33_manifold_states(initial_atom) -> List[AutoionizationState]:
 
     # Fine radial grid sized for the fastest Auger electron (~500 eV for
     # Fe XVII dr33; harmless overkill for lighter Ne-like systems).
-    r_fine = _make_fine_grid(bsp, _p_rel(500.0 / HARTREE_EV))
+    r_fine = make_fine_grid(float(bsp["t"][-1]), p_rel(500.0 / HARTREE_EV))
     dr_fine = np.gradient(r_fine)
     gr = bsp["gr"].ravel()
     order = np.argsort(gr)
@@ -429,7 +429,7 @@ def _dr33_manifold_states(initial_atom) -> List[AutoionizationState]:
         orbital_map[(2, kappa)] = _tofine(P, Q)
         orbital_eps[(2, kappa)] = float(result.orbital_energies[lab])
     for kappa in (-1, 1, -2, 2, -3):
-        _occ, virt = _build_virtual_basis(result, kappa)
+        _occ, virt = build_virtual_basis(result, kappa)
         P, Q, e = virt[0]
         orbital_map[(3, kappa)] = _tofine(P, Q)
         orbital_eps[(3, kappa)] = float(e)

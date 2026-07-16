@@ -382,7 +382,7 @@ class MCDHFSolver:
             # compute them ONCE after the MCDHF outer loop converges.
             exchange_model = "hf"
             if self.radial_optimization == "fac_frozen_local":
-                exchange_model = "fac"
+                exchange_model = "gu"
 
             kwargs = {}
             if self.r_min is not None:

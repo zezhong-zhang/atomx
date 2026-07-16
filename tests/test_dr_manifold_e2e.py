@@ -44,17 +44,17 @@ T_MK = (1.0, 5.0, 10.0, 50.0)
 
 @pytest.fixture(scope="module")
 def dr_states():
-    from atomx.methods.mbpt import _build_virtual_basis
+    from atomx.methods.mbpt import build_virtual_basis
     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
     from atomx.scattering.autoionization.auger import AutoionizationState
     from atomx.scattering.autoionization.mscheme_ci import ResonanceManifold
-    from atomx.scattering.distorted_wave.solver import _make_fine_grid, _p_rel
+    from atomx.numerics.quadrature import make_fine_grid, p_rel
 
     g = Atom(Z=26, charge=16, configs=["1s2 2s2 2p6"], breit=False, qed=False)
     g.solve()
     res = g._result
     bsp = getattr(res, "_bsp_data", None) or res.bsp_data
-    r_fine = _make_fine_grid(bsp, _p_rel(500.0 / HARTREE_EV))
+    r_fine = make_fine_grid(float(bsp["t"][-1]), p_rel(500.0 / HARTREE_EV))
     dr_fine = np.gradient(r_fine)
     gr = bsp["gr"].ravel()
     order = np.argsort(gr)
@@ -72,7 +72,7 @@ def dr_states():
         orbital_map[(2, kappa)] = tofine(P, Q)
         orbital_eps[(2, kappa)] = float(res.orbital_energies[lab])
     for kappa in (-1, 1, -2, 2, -3):
-        _occ, virt = _build_virtual_basis(res, kappa)
+        _occ, virt = build_virtual_basis(res, kappa)
         P, Q, e = virt[0]
         orbital_map[(3, kappa)] = tofine(P, Q)
         orbital_eps[(3, kappa)] = float(e)

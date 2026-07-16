@@ -73,8 +73,9 @@ def solved():
 def test_wave_matches_fac(solved, fname, Z):
     from atomx.numerics.shooting.dirac_continuum import (
         solve_dirac_continuum_shooting)
+    from atomx.numerics.quadrature import p_rel
     from atomx.scattering.distorted_wave.solver import (
-        _distorting_potential_fn, _p_rel, _shooting_points)
+        _distorting_potential_fn, _shooting_points)
 
     hdr, r, P = _parse(FIXDIR / fname)
     E = hdr["energy"] / HEV
@@ -82,7 +83,7 @@ def test_wave_matches_fac(solved, fname, Z):
     a = solved[Z]
     V = _distorting_potential_fn(a._result, a._bsp_data, Z, screening="fac")
     r_max = float(a._bsp_data["t"][-1])
-    n = _shooting_points(r_max, _p_rel(E))
+    n = _shooting_points(r_max, p_rel(E))
     rs, Ps, _Qs, _ = solve_dirac_continuum_shooting(
         E, kappa, V, r_max=r_max, n_grid=n, Z_residual=Z - 1.0)
     Pi = np.interp(r, rs, Ps)

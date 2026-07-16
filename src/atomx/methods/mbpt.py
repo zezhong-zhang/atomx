@@ -377,14 +377,6 @@ def build_virtual_basis(
     return occupied, virtuals
 
 
-# Backward-compatible alias.  External importers still on the old private
-# name: scattering/dielectronic_recombination/solver.py,
-# scattering/radiative_recombination/__init__.py, properties/edm/sternheimer.py,
-# properties/polarizability/__init__.py, and tests (test_pair_ladder.py,
-# test_rpa.py, test_auger_mscheme_ci.py, test_dr_manifold_e2e.py).
-_build_virtual_basis = build_virtual_basis
-
-
 # ---------------------------------------------------------------------------
 # Main entry point
 # ---------------------------------------------------------------------------
@@ -994,30 +986,3 @@ __all__ = [
     "pair_ladder_energy",
     "reduced_C",
 ]
-
-
-# ---------------------------------------------------------------------------
-# Backwards-compat shims (the old scaffold exposed these names)
-# ---------------------------------------------------------------------------
-
-
-@dataclass
-class MBPTResult:
-    """Backwards-compat alias for :class:`MBPT2Result`.
-
-    Deprecated — prefer ``MBPT2Result`` directly.
-    """
-    order: int = 2
-    correlation_energy: float = 0.0
-    per_orbital: Dict[str, float] = field(default_factory=dict)
-    provenance: Dict[str, Any] = field(default_factory=dict)
-
-
-def compute(scf_result=None, **kwargs) -> MBPT2Result:
-    """Backwards-compat wrapper — call :func:`mbpt2_energy` directly."""
-    if scf_result is None:
-        raise NotImplementedError(
-            "mbpt compute() requires a converged SCFResult; call "
-            "mbpt2_energy(scf_result, ...) for MBPT(2)."
-        )
-    return mbpt2_energy(scf_result, **kwargs)

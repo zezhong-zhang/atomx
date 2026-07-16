@@ -171,13 +171,13 @@ def dipole_polarizability(
     occ_basis: Dict[int, List[Tuple[np.ndarray, np.ndarray, float, str]]] = {}
     virt_basis: Dict[int, List[Tuple[np.ndarray, np.ndarray, float]]] = {}
 
-    # Deferred import: _build_virtual_basis is a mean-field (methods-layer)
+    # Deferred import: build_virtual_basis is a mean-field (methods-layer)
     # service; importing it lazily keeps properties → methods off the
     # module-load path (avoids the layer inversion).
-    from atomx.methods.mbpt import _build_virtual_basis
+    from atomx.methods.mbpt import build_virtual_basis
 
     for kappa in kappa_list:
-        occ, virt = _build_virtual_basis(scf_result, kappa, cache=cache,
+        occ, virt = build_virtual_basis(scf_result, kappa, cache=cache,
                                           e_max=e_virt_max,
                                           potential_mode=potential_mode)
         kappa_subshells = [s for s in scf_result.subshells if s.kappa == kappa]
@@ -320,19 +320,5 @@ def _bbr_shift_from_alpha(
     return -0.5 * E_field_au * E_field_au * alpha_planck
 
 
-# ---------------------------------------------------------------------------
-# Backwards-compat shim
-# ---------------------------------------------------------------------------
 
-
-def compute(scf_result=None, **kwargs) -> PolarizabilityResult:
-    """Backwards-compat — call :func:`dipole_polarizability` directly."""
-    if scf_result is None:
-        raise NotImplementedError(
-            "polarizability compute() requires a converged SCFResult; "
-            "call dipole_polarizability(scf_result, ...)."
-        )
-    return dipole_polarizability(scf_result, **kwargs)
-
-
-__all__ = ["PolarizabilityResult", "dipole_polarizability", "compute"]
+__all__ = ["PolarizabilityResult", "dipole_polarizability"]

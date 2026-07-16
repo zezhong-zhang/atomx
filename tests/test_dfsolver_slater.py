@@ -53,14 +53,14 @@ def _dfsolver_slater(Z: int, config: str, alpha_x: float = SLATER_ALPHA,
 
 @pytest.fixture(scope="module")
 def ne_shooting_total_energy():
-    return Atom(Z=10, config="1s2 2s2 2p6",
-                exchange="shooting").solve().total_energy
+    return Atom(Z=10, config="1s2 2s2 2p6", numerics="shooting",
+                exchange="slater").solve().total_energy
 
 
 @pytest.fixture(scope="module")
 def ar_shooting_total_energy():
-    return Atom(Z=18, config="1s2 2s2 2p6 3s2 3p6",
-                exchange="shooting").solve().total_energy
+    return Atom(Z=18, config="1s2 2s2 2p6 3s2 3p6", numerics="shooting",
+                exchange="slater").solve().total_energy
 
 
 class TestBsplineSlaterClosedShell:

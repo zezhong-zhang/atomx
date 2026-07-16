@@ -7,7 +7,7 @@ import numpy as np
 import pytest
 from atomx.methods.mcdhf.config import (
     CSF,
-    enumerate_j_resolved_csfs,
+    enumerate_jj_csfs,
     make_csf_list,
     _parse_config_string,
     get_shared_orbital_basis,
@@ -89,7 +89,7 @@ class TestMCDHFSolver:
         """Opt-in DODS/EOL scaffold produces block-keyed orbital sets."""
         csfs = []
         for cfg in ["1s2", "1s1 2p1"]:
-            csfs.extend(enumerate_j_resolved_csfs(cfg))
+            csfs.extend(enumerate_jj_csfs(cfg))
         solver = MCDHFSolver(
             Z=6,
             csfs=csfs,
@@ -124,11 +124,11 @@ class TestMCDHFSolver:
 
 
 def test_fac_frozen_radial_optimization_keeps_virtual_occupations_tiny():
-    from atomx.methods.mcdhf.config import enumerate_j_resolved_csfs
+    from atomx.methods.mcdhf.config import enumerate_jj_csfs
 
     csfs = []
     for cfg in ["1s2 2s2 2p6", "1s2 2s2 2p5 3d1"]:
-        csfs.extend(enumerate_j_resolved_csfs(cfg))
+        csfs.extend(enumerate_jj_csfs(cfg))
 
     solver = MCDHFSolver(
         Z=26,
@@ -148,11 +148,11 @@ def test_fac_frozen_radial_optimization_keeps_virtual_occupations_tiny():
 
 
 def test_fac_frozen_local_radial_optimization_solves_with_frozen_occupations():
-    from atomx.methods.mcdhf.config import enumerate_j_resolved_csfs
+    from atomx.methods.mcdhf.config import enumerate_jj_csfs
 
     csfs = []
     for cfg in ["1s2", "1s1 2p1"]:
-        csfs.extend(enumerate_j_resolved_csfs(cfg))
+        csfs.extend(enumerate_jj_csfs(cfg))
 
     solver = MCDHFSolver(
         Z=6,

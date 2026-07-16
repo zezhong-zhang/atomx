@@ -5,7 +5,6 @@ import pytest
 from atomx import Atom
 from atomx.properties.edm import (
     EDMResult,
-    compute,
     edm_summary,
     electron_edm_enhancement_sandars,
     schiff_moment_enhancement_scaling,
@@ -90,8 +89,7 @@ def test_compute_edm_enhancement_high_level_api():
     assert hasattr(result, "per_orbital")
 
 
-def test_compute_returns_EDMResult():
-    # compute() now requires SCFResult; test the scaling path instead
+def test_edm_summary_scaling_path():
     res = edm_summary(Z=55, A=133, n_eff=1.9, J=0.5, L=0)
     assert res["R_electron_edm"] > 0
     assert res["K_schiff_cm"] > 0

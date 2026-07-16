@@ -87,7 +87,6 @@ def compute_multichannel(
     n_gauss: int = 12,
     l_c_max: int = 2,
     include_l2_pseudostates: bool = False,
-    target_spin: float = 0.5,
     propagate_long_range: bool = False,
     R_asym: float | None = None,
 ) -> CCResult:
@@ -123,10 +122,6 @@ def compute_multichannel(
         needed by the Burke 1971 1 %-level benchmark. The correction is
         opt-in and only active for the He+ {1s, 2s, 2p} singlet LSπ
         blocks below the n=2 threshold.
-    target_spin :
-        Spin of the target ion (e.g. 1/2 for a one-electron target such
-        as H or He+). Used only when converting the K-matrix to partial-
-        wave cross sections.
     """
     targets = list(targets)
     channels = enumerate_channels(
@@ -177,7 +172,6 @@ def compute_multichannel(
             a_au=a_au,
             L_total=L_total,
             S_total=S_total,
-            target_spin=target_spin,
             propagate_long_range=propagate_long_range,
             R_asym=R_asym,
         )
@@ -299,7 +293,6 @@ def _r_matrix_partial_wave_sum(
     energies_au: np.ndarray,
     *,
     Z: float = 2.0,
-    target_spin: float = 0.5,
     S_values: Sequence[float] = (0, 1),
     l_c_max: int = 3,
     a_au: float = 25.0,
@@ -346,7 +339,6 @@ def _r_matrix_partial_wave_sum(
                     k_spline_order=k_spline_order,
                     n_gauss=n_gauss,
                     l_c_max=l_c_max,
-                    target_spin=target_spin,
                     propagate_long_range=propagate_long_range,
                     R_asym=R_asym,
                 )
@@ -380,7 +372,6 @@ def r_matrix_excitation_cross_section(
     target_states: Sequence[TargetState] | None = None,
     initial_label: str | None = None,
     final_label: str | None = None,
-    target_spin: float = 0.5,
     S_values: Sequence[float] = (0, 1),
     l_c_max: int = 3,
     a_au: float = 25.0,
@@ -418,8 +409,6 @@ def r_matrix_excitation_cross_section(
     initial_label, final_label :
         Labels of the initial and final target states in ``target_states``.
         Defaults to the first two states.
-    target_spin :
-        Spin of the target ion (default 1/2 for a one-electron target).
     S_values :
         Total spin blocks to sum (default ``(0, 1)`` for singlet + triplet).
     l_c_max :
@@ -481,7 +470,6 @@ def r_matrix_excitation_cross_section(
             final_label,
             E_total_au,
             Z=Z,
-            target_spin=target_spin,
             S_values=S_values,
             l_c_max=l_c_max,
             a_au=a_au,

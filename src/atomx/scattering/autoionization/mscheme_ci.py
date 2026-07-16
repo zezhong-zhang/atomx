@@ -38,18 +38,15 @@ from itertools import combinations
 import numpy as np
 
 from atomx.constants import AU_RATE_PER_S, HARTREE_EV
+from atomx.numerics.quadrature import grid_slater_rk, p_rel, yk_on_grid
 from atomx.scattering.distorted_wave.solver import (
     _allowed_k,
     _ck_m,
     _continuum_on_grid,
     _distorting_potential_fn,
-    _grid_slater_rk,
     _l_of,
-    _make_fine_grid,
-    _p_rel,
     _shooting_points,
     _tj_of,
-    _yk_fine,
 )
 
 
@@ -124,7 +121,7 @@ class ResonanceManifold:
         self.configs = ([tuple(self.group_ne)] if configs is None
                         else [tuple(c) for c in configs])
         #: Optional local potential override for the Auger continuum
-        #: electron (e.g. the converged exchange='fac' DFS potential —
+        #: electron (e.g. the converged exchange='gu' DFS potential —
         #: FAC's own convention).  Default: rebuilt from ``result``.
         self.V_func = V_func
         #: Optional core-folded one-body matrix t[(n,kappa),(n',kappa)]
@@ -161,8 +158,8 @@ class ResonanceManifold:
                 return (o.P, o.Q) if isinstance(o, ActiveOrbital) else o
             Pa, Qa = _pq(a); Pb, Qb = _pq(b)
             Pc, Qc = _pq(c); Pd, Qd = _pq(d)
-            val = _grid_slater_rk(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd,
-                                  self.r_fine, self.dr_fine, k)
+            val = grid_slater_rk(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd,
+                                 self.r_fine, k)
             self._rk_cache[key] = val
         return val
 
@@ -407,7 +404,7 @@ class ResonanceManifold:
         Z_res = max(float(Z) - N_bound + 1.0, 1.0)
         r_max_box = float(bsp_data["t"][-1])
         n_shoot = (int(shooting_n_grid) if shooting_n_grid
-                   else _shooting_points(r_max_box, _p_rel(max(E_res_au, 1.0))))
+                   else _shooting_points(r_max_box, p_rel(max(E_res_au, 1.0))))
         try:
             Pf, Qf = _continuum_on_grid(kappa_f, E_res_au, V_func, Z_res,
                                         self.r_fine, r_max_box, n_shoot)
@@ -504,9 +501,9 @@ class ResonanceManifold:
                    (od.n, od.kappa), kappa_f, k)
             val = self._rk_cache.get(key)
             if val is None:
-                val = _grid_slater_rk(o_nu.P, o_nu.Q, Pf, Qf,
-                                      oc.P, oc.Q, od.P, od.Q,
-                                      self.r_fine, self.dr_fine, k)
+                val = grid_slater_rk(o_nu.P, o_nu.Q, Pf, Qf,
+                                     oc.P, oc.Q, od.P, od.Q,
+                                     self.r_fine, k)
                 self._rk_cache[key] = val
             tot += val * phase * e1 * e2
         return tot
@@ -690,7 +687,7 @@ def build_core_folded_one_body(active, core, V_screen, r_fine, dr_fine):
     J_core = np.zeros_like(r_fine)
     for (Pc, Qc, occ, _kc) in core:
         rho = Pc * Pc + Qc * Qc
-        J_core = J_core + float(occ) * _yk_fine(rho, r_fine, dr_fine, 0)
+        J_core = J_core + float(occ) * yk_on_grid(rho, r_fine, 0)
 
     def _local(Pa, Qa, Pb, Qb, f):
         return float(np.sum((Pa * Pb + Qa * Qb) * f * dr_fine))
@@ -715,8 +712,8 @@ def build_core_folded_one_body(active, core, V_screen, r_fine, dr_fine):
                     if e2 == 0.0:
                         continue
                     phase = 1.0 if (tq // 2) % 2 == 0 else -1.0
-                    Rk = _grid_slater_rk(Pa, Qa, Pc, Qc, Pc, Qc, Pb, Qb,
-                                         r_fine, dr_fine, k)
+                    Rk = grid_slater_rk(Pa, Qa, Pc, Qc, Pc, Qc, Pb, Qb,
+                                        r_fine, k)
                     tot += phase * e1 * e2 * Rk
         return tot
 

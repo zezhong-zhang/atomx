@@ -25,7 +25,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from atomx import Atom  # noqa: E402
 from atomx.methods.mbpt import (  # noqa: E402
-    mbpt2_energy, pair_ladder_energy, _pair_v_J, _build_virtual_basis)
+    mbpt2_energy, pair_ladder_energy, _pair_v_J, build_virtual_basis)
 from atomx.numerics.bspline.convol import ConvolCache  # noqa: E402
 
 
@@ -49,7 +49,7 @@ def test_all_order_1x1_closed_form(helium):
     """One-dimensional doubles space: E = -(2J+1) v0^2/(D+V) exactly."""
     res = helium._result
     cache = ConvolCache(res._bsp_data)
-    occ, virt = _build_virtual_basis(res, -1, cache=cache)
+    occ, virt = build_virtual_basis(res, -1, cache=cache)
     Pa, Qa, _ = occ[0]
     eps_a = float(res.orbital_energies["1s1/2"])
     Pr, Qr, eps_r = virt[0]

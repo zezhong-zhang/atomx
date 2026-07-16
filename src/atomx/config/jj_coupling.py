@@ -29,8 +29,8 @@ class JJConfig:
     weight: float              # statistical weight
 
 
-def generate_jj_average(config_str: str, eal: int = 1,
-                        averaging: str = None) -> Tuple[List[Subshell], List[JJConfig]]:
+def generate_jj_average(config_str: str,
+                        averaging: str = "statistical") -> Tuple[List[Subshell], List[JJConfig]]:
     """Generate jj-average subshells from a non-relativistic configuration string.
 
     Parameters
@@ -41,9 +41,6 @@ def generate_jj_average(config_str: str, eal: int = 1,
         "equal" or "statistical" (default: "statistical").
         - "equal": each jj-configuration has equal weight.
         - "statistical": weight by (2j+1) degeneracy (recommended).
-    eal : int
-        Legacy parameter. 1 = equal, 5 = statistical.
-        Ignored if ``averaging`` is set.
 
     Returns
     -------
@@ -53,9 +50,9 @@ def generate_jj_average(config_str: str, eal: int = 1,
     configs : list of JJConfig
         All individual jj-configurations with their weights.
     """
-    # Map averaging parameter to internal eal flag
-    if averaging is not None:
-        eal = {"equal": 1, "statistical": 5}[averaging]
+    # Map averaging parameter to the internal eal flag (FAC convention:
+    # 1 = equal, 5 = statistical) used by the enumeration below.
+    eal = {"equal": 1, "statistical": 5}[averaging]
 
     l_map = {'s': 0, 'p': 1, 'd': 2, 'f': 3, 'g': 4, 'h': 5}
 

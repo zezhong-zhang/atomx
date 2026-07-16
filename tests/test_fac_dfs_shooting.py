@@ -1,4 +1,4 @@
-"""End-to-end: atomx shooting with ``exchange='fac'`` vs FAC reference.
+"""End-to-end: atomx shooting with ``exchange='gu'`` vs FAC reference.
 
 Reference total-binding energies come from ``sfac`` runs captured
 during Task 0 (calibration.csv).  The gate is 5 × 10⁻⁴ relative
@@ -70,7 +70,8 @@ def test_atomx_fac_total_energy_matches_sfac(row):
     e0_ref_eV = float(row["E0_eV"])
     charge = max(Z - nel, 0)
 
-    atom = Atom(Z=Z, charge=charge, config=cfg, exchange="fac")
+    atom = Atom(Z=Z, charge=charge, config=cfg,
+                numerics="shooting", exchange="gu")
     atom.solve()
     e_atomx_eV = atom.total_energy * HARTREE_EV
 
@@ -95,13 +96,15 @@ def test_atomx_fac_total_energy_matches_sfac(row):
     )
 
 
-def test_fac_vs_shooting_alpha_values_differ_for_z26():
-    """Sanity: exchange='fac' and exchange='shooting' produce different
-    ground-state energies for Fe (Z=26), proving they take different
-    SCF paths. If we accidentally wired them to the same back-end
-    this assertion flags it."""
-    fac = Atom(Z=26, charge=16, config="1s2 2s2 2p6", exchange="fac")
-    fac.solve()
-    shooting = Atom(Z=26, charge=16, config="1s2 2s2 2p6", exchange="shooting")
-    shooting.solve()
-    assert fac.total_energy != pytest.approx(shooting.total_energy, rel=1e-6)
+def test_gu_vs_slater_alpha_values_differ_for_z26():
+    """Sanity: shooting exchange='gu' and exchange='slater' produce
+    different ground-state energies for Fe (Z=26), proving they take
+    different SCF paths. If we accidentally wired them to the same
+    back-end this assertion flags it."""
+    gu = Atom(Z=26, charge=16, config="1s2 2s2 2p6",
+              numerics="shooting", exchange="gu")
+    gu.solve()
+    slater = Atom(Z=26, charge=16, config="1s2 2s2 2p6",
+                  numerics="shooting", exchange="slater")
+    slater.solve()
+    assert gu.total_energy != pytest.approx(slater.total_energy, rel=1e-6)

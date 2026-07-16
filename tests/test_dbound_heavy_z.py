@@ -137,7 +137,7 @@ def test_dbound_bare_coulomb_n_up_to_3(
 def test_heavy_z_ion_shooting_matches_sfac(
     Z: int, charge: int, config: str, sfac_eV: float
 ) -> None:
-    """Ne-/Ar-like ions at Z ≥ 74 via ``exchange='shooting'`` must now
+    """Ne-/Ar-like ions at Z ≥ 74 via shooting/slater must now
     reproduce sfac/Fortran-DHFS total binding energy to 10⁻³
     relative — the gate tightened from 0.30 after the TCONV fix.
 
@@ -145,7 +145,8 @@ def test_heavy_z_ion_shooting_matches_sfac(
     bug reported in ``benchmarks/REPORT.md`` §6.4: pre-fix these rows
     over-bound by 20–30 %.
     """
-    atom = Atom(Z=Z, charge=charge, config=config, exchange="shooting")
+    atom = Atom(Z=Z, charge=charge, config=config,
+                numerics="shooting", exchange="slater")
     atom.solve(max_iter=300)
     assert atom.total_energy is not None
     e_eV = atom.total_energy * HARTREE_EV

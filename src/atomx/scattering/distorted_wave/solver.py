@@ -46,11 +46,6 @@ def _tj_of(kappa):
 
 
 # Reduced matrix element ⟨κ_a‖C^k‖κ_b⟩, Grant (2007) convention.
-# Canonical implementation lives in atomx.angular.coefficients.reduced_C;
-# the name _reduced_C is kept as a test-imported alias.
-_reduced_C = reduced_C
-
-
 @lru_cache(maxsize=None)
 def _allowed_k(kappa_a, kappa_b):
     """Allowed multipole k values for reduced C^k between two kappa states.
@@ -78,7 +73,7 @@ def _cg2(tj1, tm1, tj2, tm2, tJ, tM):
 @lru_cache(maxsize=None)
 def _ck_m(kappa_c, tmc, kappa_a, tma, k, tq):
     """<j_c m_c | C^k_q | j_a m_a> via Wigner-Eckart with Grant's <||C^k||>."""
-    red = _reduced_C(kappa_c, kappa_a, k)
+    red = reduced_C(kappa_c, kappa_a, k)
     if red == 0.0:
         return 0.0
     tjc, tja = _tj_of(kappa_c), _tj_of(kappa_a)
@@ -290,18 +285,7 @@ def _distorting_potential_fn(result, bsp_data, Z, screening="fac"):
 
 
 from atomx.numerics.quadrature import (   # canonical kernels (E5)
-    _fine_grid_cached, _slater_rk_kernel, _yk_kernel_rho,
-    p_rel as _p_rel, pow_tables as _pow_tables)
-
-
-def _make_fine_grid(bsp_data, k_max_au, z_inner=None):
-    """Composite inner-resolved radial grid (see
-    atomx.numerics.quadrature.make_fine_grid — the canonical home of the
-    validated composite-grid + trapezoidal-cumulative pairing)."""
-    from atomx.numerics.quadrature import make_fine_grid
-    r_max = float(bsp_data["t"][-1])
-    return make_fine_grid(r_max, k_max_au,
-                          30.0 if z_inner is None else float(z_inner))
+    grid_slater_rk, make_fine_grid, p_rel)
 
 
 def _shooting_points(r_max, p_max):
@@ -338,23 +322,6 @@ def _continuum_on_grid(kappa, energy, V_func, Z_res, r_grid, r_max, n_grid):
     P_g = np.interp(r_grid, r_s, P_s)
     Q_g = np.interp(r_grid, r_s, Q_s)
     return P_g, Q_g
-
-
-def _yk_fine(rho, r, dr, k, i_cut=None):
-    """Hartree Y^k on an arbitrary grid (canonical:
-    atomx.numerics.quadrature.yk_on_grid; ``dr`` kept for API
-    compatibility — spacings come from ``r``)."""
-    from atomx.numerics.quadrature import yk_on_grid
-    return yk_on_grid(rho, r, k, i_cut=i_cut)
-
-
-def _grid_slater_rk(P_a, Q_a, P_b, Q_b, P_c, Q_c, P_d, Q_d, r_grid, dr, k):
-    """R^k(a,b,c,d) on an arbitrary grid (canonical:
-    atomx.numerics.quadrature.grid_slater_rk; ``dr`` kept for API
-    compatibility)."""
-    from atomx.numerics.quadrature import grid_slater_rk
-    return grid_slater_rk(P_a, Q_a, P_b, Q_b, P_c, Q_c, P_d, Q_d,
-                          r_grid, k)
 
 
 def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
@@ -477,8 +444,8 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
 
     # Fine integration grid sized to the fastest wave on the panel.
     E_max = float(np.max(E_inc_hartree))
-    p_max = _p_rel(max(E_max, 1.0))
-    r_fine = _make_fine_grid(bsp_data, p_max, z_inner=float(Z))
+    p_max = p_rel(max(E_max, 1.0))
+    r_fine = make_fine_grid(r_max_box, p_max, z_inner=float(Z))
     dr_fine = np.gradient(r_fine)
     n_shoot = (int(shooting_n_grid) if shooting_n_grid
                else _shooting_points(r_max_box, p_max))
@@ -593,14 +560,14 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
                         w_out = _wave(kappa_out, E_out)
                         if w_out is None:
                             break
-                    Rd = {k: _grid_slater_rk(
+                    Rd = {k: grid_slater_rk(
                         Pa, Qa, w_in[0], w_in[1],
                         Pb, Qb, w_out[0], w_out[1],
-                        r_fine, dr_fine, k) for k in ks}
-                    Re = {t: _grid_slater_rk(
+                        r_fine, k) for k in ks}
+                    Re = {t: grid_slater_rk(
                         Pa, Qa, w_in[0], w_in[1],
                         w_out[0], w_out[1], Pb, Qb,
-                        r_fine, dr_fine, t) for t in ts}
+                        r_fine, t) for t in ts}
                     # Explicit total-J sum: T_J = D_J - E_J with the coupled
                     # scalar-product matrix elements evaluated by exact
                     # m-summation (no 6j phase-convention risk).

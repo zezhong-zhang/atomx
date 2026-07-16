@@ -1,10 +1,11 @@
 """Decoupled ``numerics`` (radial ENGINE) × ``exchange`` (MODEL) Atom API.
 
-The legacy single ``exchange`` string conflated the two axes
-('fac'/'shooting' picked the ODE shooting engine, 'hf'/'slater' the
-B-spline engine).  These tests pin:
+These tests pin:
 
-- legacy aliases resolve to the same (engine, model) pair bit-identically;
+- ``numerics=None`` resolves the historical engine for each model
+  (hf/slater → bspline, gu → shooting);
+- the removed legacy 'fac'/'shooting' exchange strings raise a
+  ValueError naming the canonical replacement;
 - the unsupported shooting × hf cell raises;
 - the same MODEL on both ENGINES agrees physically (bspline+gu vs
   shooting+gu);
@@ -25,42 +26,48 @@ FE17 = dict(Z=26, charge=16, config="1s2 2s2 2p6")
 
 
 # ----------------------------------------------------------------------
-# Back-compat: legacy exchange strings == explicit (numerics, exchange)
+# Removed legacy exchange strings raise with the canonical replacement
 # ----------------------------------------------------------------------
 
-def test_legacy_fac_equals_shooting_gu():
-    legacy = Atom(**FE17, exchange="fac").solve()
-    explicit = Atom(**FE17, numerics="shooting", exchange="gu").solve()
-    assert explicit.total_energy == legacy.total_energy
-    assert explicit.orbital_energies == legacy.orbital_energies
+@pytest.mark.parametrize("legacy,replacement", [
+    ("fac", "numerics='shooting', exchange='gu'"),
+    ("shooting", "numerics='shooting', exchange='slater'"),
+])
+def test_removed_legacy_exchange_raises_with_replacement(legacy, replacement):
+    with pytest.raises(ValueError, match="was removed"):
+        Atom(**FE17, exchange=legacy)
+    try:
+        Atom(**FE17, exchange=legacy)
+    except ValueError as err:
+        assert replacement in str(err)
 
 
-def test_legacy_shooting_equals_shooting_slater():
-    legacy = Atom(**FE17, exchange="shooting").solve()
-    explicit = Atom(**FE17, numerics="shooting", exchange="slater").solve()
-    assert explicit.total_energy == legacy.total_energy
-    assert explicit.orbital_energies == legacy.orbital_energies
+# ----------------------------------------------------------------------
+# numerics=None resolves the historical engine for each model
+# ----------------------------------------------------------------------
 
-
-def test_legacy_hf_equals_bspline_hf():
-    legacy = Atom(**FE17, exchange="hf").solve()
+def test_default_numerics_hf_equals_bspline_hf():
+    default = Atom(**FE17, exchange="hf").solve()
     explicit = Atom(**FE17, numerics="bspline", exchange="hf").solve()
-    assert explicit.total_energy == legacy.total_energy
-    assert explicit.orbital_energies == legacy.orbital_energies
+    assert explicit.total_energy == default.total_energy
+    assert explicit.orbital_energies == default.orbital_energies
 
 
-def test_legacy_slater_equals_bspline_slater():
-    legacy = Atom(**FE17, exchange="slater").solve()
+def test_default_numerics_slater_equals_bspline_slater():
+    default = Atom(**FE17, exchange="slater").solve()
     explicit = Atom(**FE17, numerics="bspline", exchange="slater").solve()
-    assert explicit.total_energy == legacy.total_energy
-    assert explicit.orbital_energies == legacy.orbital_energies
+    assert explicit.total_energy == default.total_energy
+    assert explicit.orbital_energies == default.orbital_energies
 
 
 def test_gu_defaults_to_shooting_engine():
-    """numerics=None + exchange='gu' matches the legacy 'fac' routing."""
-    legacy = Atom(**FE17, exchange="fac").solve()
-    gu = Atom(**FE17, exchange="gu").solve()
-    assert gu.total_energy == legacy.total_energy
+    """numerics=None + exchange='gu' routes via the shooting engine."""
+    default = Atom(**FE17, exchange="gu").solve()
+    explicit = Atom(**FE17, numerics="shooting", exchange="gu").solve()
+    assert explicit.total_energy == default.total_energy
+    # Pin the Fe XVII shooting/gu value — this must stay bit-identical
+    # to the historical exchange="fac" result.
+    assert default.total_energy == -1148.4141858935911
 
 
 # ----------------------------------------------------------------------
@@ -140,8 +147,8 @@ def test_alpha_x_propagates_to_bspline():
 @pytest.mark.parametrize("kwargs,expected", [
     (dict(exchange="hf"), ("bspline", "hf")),
     (dict(exchange="slater"), ("bspline", "slater")),
-    (dict(exchange="fac"), ("shooting", "gu")),
-    (dict(exchange="shooting"), ("shooting", "slater")),
+    (dict(numerics="shooting", exchange="gu"), ("shooting", "gu")),
+    (dict(numerics="shooting", exchange="slater"), ("shooting", "slater")),
     (dict(numerics="bspline", exchange="gu"), ("bspline", "gu")),
 ])
 def test_provenance_records_engine_and_model(kwargs, expected):

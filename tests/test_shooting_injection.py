@@ -20,8 +20,8 @@ SUBS = [Subshell(n=1, kappa=-1, occupation=2),
         Subshell(n=2, kappa=-2, occupation=4)]
 
 
-def test_injected_alpha_reproduces_fac_path():
-    a = ShootingSolver(10, SUBS, exchange="fac")
+def test_injected_alpha_reproduces_gu_path():
+    a = ShootingSolver(10, SUBS, exchange="gu")
     alpha = a._effective_alpha()
     b = ShootingSolver(10, SUBS,
                        exchange_alpha_fn=lambda Z, N: alpha)

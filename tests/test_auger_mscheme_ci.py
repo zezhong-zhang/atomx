@@ -40,17 +40,17 @@ FAC_TOP_J72 = 3.081e14
 
 @pytest.fixture(scope="module")
 def manifold_j72():
-    from atomx.methods.mbpt import _build_virtual_basis
+    from atomx.methods.mbpt import build_virtual_basis
     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
-    from atomx.scattering.distorted_wave.solver import _make_fine_grid, _p_rel
+    from atomx.numerics.quadrature import make_fine_grid, p_rel
     from atomx.scattering.autoionization.mscheme_ci import ResonanceManifold
 
     g = Atom(Z=26, charge=16, configs=["1s2 2s2 2p6"], breit=False, qed=False)
     g.solve()
     res = g._result
     bsp = getattr(res, "_bsp_data", None) or res.bsp_data
-    p_max = _p_rel(500.0 / HARTREE_EV)
-    r_fine = _make_fine_grid(bsp, p_max)
+    p_max = p_rel(500.0 / HARTREE_EV)
+    r_fine = make_fine_grid(float(bsp["t"][-1]), p_max)
     dr_fine = np.gradient(r_fine)
     gr = bsp["gr"].ravel()
     order = np.argsort(gr)
@@ -68,7 +68,7 @@ def manifold_j72():
         orbital_map[(2, kappa)] = tofine(P, Q)
         orbital_eps[(2, kappa)] = float(res.orbital_energies[lab])
     for kappa in (2, -3):
-        _occ, virt = _build_virtual_basis(res, kappa)
+        _occ, virt = build_virtual_basis(res, kappa)
         P, Q, e = virt[0]
         orbital_map[(3, kappa)] = tofine(P, Q)
         orbital_eps[(3, kappa)] = float(e)

@@ -30,7 +30,7 @@ from atomx.angular.csf_recoupling import (  # noqa: E402
     fac_simple_axw_wxa_zxz0_postprocess,
     single_state_for_subshell,
 )
-from atomx.methods.mcdhf.config import enumerate_j_resolved_csfs  # noqa: E402
+from atomx.methods.mcdhf.config import enumerate_jj_csfs  # noqa: E402
 from atomx.methods.mcdhf.matrix import (  # noqa: E402
     _chain_one_diff_spectator_exact_scalar,
     _fac_inner_shell_index,
@@ -370,7 +370,7 @@ def _diagonal_rows(panel: str, csf) -> list[BranchRow]:
 def inventory_panel(panel: str, configs: Iterable[str], *, include_diagonal: bool = True) -> list[BranchRow]:
     csfs = []
     for config in configs:
-        csfs.extend(enumerate_j_resolved_csfs(config))
+        csfs.extend(enumerate_jj_csfs(config))
 
     rows: list[BranchRow] = []
     if include_diagonal:
