@@ -53,12 +53,22 @@ def _ci_matrix_element(csf_r, csf_s, orbitals_dict, orbital_basis,
         # ``total_J2`` (parentage-only difference) reuse the
         # configuration-averaged kernel here; their cross-coupling is
         # then zeroed by the block filter in ``methods/ci.py`` when
-        # ``(J, parity)`` differs.  Two distinct CSFs sharing both
-        # subshells and ``(J, parity)`` do not appear in any
-        # single-configuration Fe XVII basis and are left for the
-        # general parentage-aware treatment.
+        # ``(J, parity)`` differs.
         if is_diagonal:
             return _diagonal_with_J(csf_r, orbitals_dict, bsp_data, Z, ns)
+        if (csf_r.total_J2 == csf_s.total_J2
+                and csf_r.parity == csf_s.parity):
+            # Same occupations AND same (J, parity): repeated-parentage
+            # rows (e.g. 1s 2s 2p with (1s,2s) coupled to 0 or 1).  The
+            # exact off-diagonal needs coefficients of fractional
+            # parentage; returning the configuration-average energy here
+            # (the old behaviour) made the duplicate block rank-1 —
+            # [[E, E], [E, E]] has eigenvalues 2E and 0, which collapsed
+            # a 3-open-shell Li-like solve 6.9 keV BELOW its own ground
+            # state.  Orthogonal-parentage approximation: 0 keeps every
+            # such state at the configuration-average energy and
+            # preserves the multiplet centroid.
+            return 0.0
         return _diagonal_element(csf_r, orbitals_dict, bsp_data, Z, ns)
     elif n_diff == 1:
         base = _one_diff_element(csf_r, csf_s, orbitals_dict, bsp_data, Z, ns)
