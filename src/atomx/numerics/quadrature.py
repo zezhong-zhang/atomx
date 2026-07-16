@@ -278,6 +278,12 @@ def _slater_rk_kernel(P_a, Q_a, P_b, Q_b, P_c, Q_c, P_d, Q_d,
             i_cut = i
             break
     suffix = np.empty(i_cut + 1)
+    if i_cut == n - 1:
+        suffix[n - 1] = 0.0  # backward loop starts at n-2: without this the
+        # last entry is uninitialized np.empty memory whenever rho_ac is
+        # above threshold at the box edge (bound-continuum exchange
+        # densities) — seen as first-call-vs-rest omega drift and
+        # intermittent NaN.  Mirrors _yk_kernel_rho/_yk_kernel_pair_dot_batch.
     acc = 0.0
     prev_b = (P_b[n - 1] * P_d[n - 1] + Q_b[n - 1] * Q_d[n - 1]) * irk1[n - 1]
     for i in range(n - 2, -1, -1):
