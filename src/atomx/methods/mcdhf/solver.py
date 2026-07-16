@@ -352,6 +352,9 @@ class MCDHFSolver:
         """
         weights = np.ones(self.n_csf) / self.n_csf
         E_old = 0.0
+        E_hist: list = []
+        w_prev = None
+        frozen_weights = None
         converged = False
         orbital_energies: Dict[str, float] = {}
         mixing = np.eye(self.n_csf)
@@ -461,17 +464,56 @@ class MCDHFSolver:
             # FAC-frozen radial mode the Fock weights stay pinned to the
             # first configuration, but keeping ``weights`` updated preserves
             # convergence checks and result occupations.
-            weights = mixing[:, 0] ** 2
-            weights /= weights.sum()
+            #
+            # Repeated-parentage CSFs are exactly degenerate under the
+            # orthogonal-parentage kernel, so the raw ground eigenvector is
+            # an arbitrary rotation within that subspace — feeding it to
+            # the Guerra occupations made open-shell solves (Co 3d7)
+            # oscillate forever.  Average |c|^2 over the degenerate
+            # multiplet: deterministic, and identical to the raw vector
+            # whenever the ground state is non-degenerate.
+            deg = np.abs(state_energies - state_energies[0]) < 1e-9
+            if deg.sum() > 1:
+                w_new = (mixing[:, deg] ** 2).mean(axis=1)
+            else:
+                w_new = mixing[:, 0] ** 2
+            w_new = w_new / w_new.sum()
 
-            # Convergence check
             E_new = state_energies[0]
             energy_change = abs(E_new - E_old)
-            E_old = E_new
 
-            if iteration > 1 and energy_change < ci_tol:
+            if frozen_weights is not None:
+                # final pass on the cycle-averaged weights: accept.
+                E_old = E_new
                 converged = True
                 break
+
+            if iteration > 1 and energy_change < ci_tol:
+                E_old = E_new
+                converged = True
+                break
+
+            # Period-2 limit-cycle detection: open-shell configurations
+            # with two near-degenerate AL ground candidates (e.g. Co
+            # 3d7 4s2, two jj CSFs 2.9e-4 Ha apart) flip dominance every
+            # iteration — each candidate's self-consistent orbitals favor
+            # the other, so the bare weights -> |c_ground|^2 iteration
+            # never settles (damping only makes the cycle aperiodic).
+            # When E returns to its value two iterations ago, freeze the
+            # weights at the cycle average — the configuration-average
+            # answer over the two competing states — and do one final
+            # self-consistent pass.
+            if (len(E_hist) >= 2 and w_prev is not None
+                    and abs(E_new - E_hist[-2]) < 10.0 * ci_tol
+                    and energy_change > ci_tol):
+                frozen_weights = 0.5 * (w_prev + w_new)
+                frozen_weights = frozen_weights / frozen_weights.sum()
+                weights = frozen_weights
+            else:
+                weights = w_new
+            E_hist.append(E_new)
+            w_prev = w_new
+            E_old = E_new
 
         # Compute ground-state Guerra-averaged effective occupations,
         # so MCDHFResult.waves can carry physically meaningful

@@ -16,6 +16,55 @@ Atoms and Molecules* (2007) §8.3.
 
 import numpy as np
 from atomx.numerics.bspline.slater_yk import compute_slater_fk, compute_slater_gk, compute_slater_rk
+
+
+# Build-scoped memo for Slater integrals and Dirac H0/S0 blocks: every CSF
+# in a CI build shares ONE orbital basis, so the same (orbitals, k)
+# integrals recur across all diagonal/off-diagonal elements — a Co ground
+# CI rebuilt them ~300k times per MCDHF outer iteration (7600 elements x
+# ~40 integrals each) where only a few hundred are distinct.  Keys use
+# id() of the orbital coefficient arrays, which orbitals_dict keeps alive
+# for the duration of the build; build_ci_matrix clears the memo on entry
+# so nothing leaks across outer iterations (whose orbitals differ).
+_SLATER_MEMO: dict = {}
+
+
+def _fk(Pa, Qa, Pb, Qb, bsp_data, k):
+    ia, ib = id(Pa), id(Pb)
+    key = ("f", k) + ((ia, ib) if ia <= ib else (ib, ia))
+    v = _SLATER_MEMO.get(key)
+    if v is None:
+        v = compute_slater_fk(Pa, Qa, Pb, Qb, bsp_data, k=k)
+        _SLATER_MEMO[key] = v
+    return v
+
+
+def _gk(Pa, Qa, Pb, Qb, bsp_data, k):
+    ia, ib = id(Pa), id(Pb)
+    key = ("g", k) + ((ia, ib) if ia <= ib else (ib, ia))
+    v = _SLATER_MEMO.get(key)
+    if v is None:
+        v = compute_slater_gk(Pa, Qa, Pb, Qb, bsp_data, k)
+        _SLATER_MEMO[key] = v
+    return v
+
+
+def _rk(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd, bsp_data, k):
+    key = ("r", k, id(Pa), id(Pb), id(Pc), id(Pd))
+    v = _SLATER_MEMO.get(key)
+    if v is None:
+        v = compute_slater_rk(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd, bsp_data, k)
+        _SLATER_MEMO[key] = v
+    return v
+
+
+def _dirac_blocks(ns, kappa, Z, bsp_data):
+    key = ("h0", kappa)
+    v = _SLATER_MEMO.get(key)
+    if v is None:
+        v = build_dirac_matrices(ns, kappa, Z, bsp_data)
+        _SLATER_MEMO[key] = v
+    return v
 from atomx.numerics.bspline.evaluate import eval_orbital_on_grid, compute_yk
 from atomx.angular.coefficients import exchange_lambda, exchange_k_range, reduced_cl_j2
 from atomx.angular.wigner import wigner_6j
@@ -27,6 +76,7 @@ from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
 
 def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns):
     """Build the CI Hamiltonian matrix H_{rs} in the CSF basis."""
+    _SLATER_MEMO.clear()
     n_csf = len(csfs)
     H = np.zeros((n_csf, n_csf))
     for r in range(n_csf):
@@ -118,7 +168,7 @@ def _diagonal_element(csf, orbitals_dict, bsp_data, Z, ns):
     E_1e = 0.0
     for sh in csf.subshells:
         P, Q = _get_orb((sh.n, sh.kappa), orbitals_dict, ns)
-        H0, S0 = build_dirac_matrices(ns, sh.kappa, Z, bsp_data)
+        H0, S0 = _dirac_blocks(ns, sh.kappa, Z, bsp_data)
         vec = np.concatenate([P, Q])
         norm_sq = vec @ S0 @ vec
         if norm_sq > 1e-20:
@@ -138,7 +188,7 @@ def _diagonal_element(csf, orbitals_dict, bsp_data, Z, ns):
                 coeff = sh_a.occupation * (sh_a.occupation - 1.0) / 2.0
                 if abs(coeff) < 1e-15:
                     continue
-                f0 = compute_slater_fk(Pa, Qa, Pa, Qa, bsp_data, k=0)
+                f0 = _fk(Pa, Qa, Pa, Qa, bsp_data, 0)
                 E_J += coeff * f0
                 for k in range(1, tj_a + 1):
                     if (k + 2 * l_a) % 2 != 0:
@@ -146,18 +196,18 @@ def _diagonal_element(csf, orbitals_dict, bsp_data, Z, ns):
                     lam = exchange_lambda(sh_a.kappa, sh_a.kappa, k)
                     if lam < 1e-15:
                         continue
-                    fk = compute_slater_fk(Pa, Qa, Pa, Qa, bsp_data, k=k)
+                    fk = _fk(Pa, Qa, Pa, Qa, bsp_data, k)
                     E_K += coeff * lam / (tj_a * (tj_a + 1.0)) * fk
                 continue
 
             coeff = sh_a.occupation * sh_b.occupation
-            f0 = compute_slater_fk(Pa, Qa, Pb, Qb, bsp_data, k=0)
+            f0 = _fk(Pa, Qa, Pb, Qb, bsp_data, 0)
             E_J += coeff * f0
             for k in exchange_k_range(sh_a.kappa, sh_b.kappa):
                 lam = exchange_lambda(sh_a.kappa, sh_b.kappa, k)
                 if lam < 1e-15:
                     continue
-                gk = compute_slater_gk(Pa, Qa, Pb, Qb, bsp_data, k)
+                gk = _gk(Pa, Qa, Pb, Qb, bsp_data, k)
                 E_K += coeff * lam / ((tj_a + 1.0) * (tj_b + 1.0)) * gk
 
     return E_1e + E_J - E_K
@@ -212,7 +262,7 @@ def _one_diff_element(csf_r, csf_s, orbitals_dict, bsp_data, Z, ns):
     # One-electron: ⟨a|h|b⟩ (non-zero only for same κ; h is a scalar tensor)
     H_1e = 0.0
     if kappa_a == kappa_b:
-        H0, S0 = build_dirac_matrices(ns, kappa_a, Z, bsp_data)
+        H0, S0 = _dirac_blocks(ns, kappa_a, Z, bsp_data)
         vec_a = np.concatenate([Pa, Qa])
         vec_b = np.concatenate([Pb, Qb])
         H_1e = vec_a @ H0 @ vec_b
@@ -240,8 +290,7 @@ def _one_diff_element(csf_r, csf_s, orbitals_dict, bsp_data, Z, ns):
         # ⟨ψ_3s|·|ψ_3d⟩-type cross-coupling that was inflating the
         # off-diagonal CI matrix for Fe XVII 2p⁵3l J=1 states.
         if kappa_a == kappa_b:
-            rk_direct = compute_slater_rk(Pa, Qa, Pc, Qc, Pb, Qb, Pc, Qc,
-                                           bsp_data, k=0)
+            rk_direct = _rk(Pa, Qa, Pc, Qc, Pb, Qb, Pc, Qc, bsp_data, 0)
             H_2e += q_common * rk_direct
 
         # Exchange: Σ_k c_k R^k(ac, cb) with k allowed on BOTH (a,c) and (c,b).
@@ -260,7 +309,7 @@ def _one_diff_element(csf_r, csf_s, orbitals_dict, bsp_data, Z, ns):
             cap_c = 2 * abs(kappa_c)
             if kappa_a != kappa_b and int(round(q_common)) == cap_c:
                 continue
-            rk_exch = compute_slater_rk(Pa, Qa, Pc, Qc, Pc, Qc, Pb, Qb,
+            rk_exch = _rk(Pa, Qa, Pc, Qc, Pc, Qc, Pb, Qb,
                                          bsp_data, k)
             # Angular factor: √(λ^k(a,c) λ^k(c,b)) reduces to λ^k(a,c)
             # when κ_a = κ_b (the standard same-orbital HF exchange).
@@ -319,8 +368,7 @@ def _two_diff_element(csf_r, csf_s, orbitals_dict, bsp_data):
     # to be simultaneously non-zero.  In the (a→c, b→d) two-body
     # promotion this means κ_a = κ_c AND κ_b = κ_d.
     if kappa_a == kappa_c and kappa_b == kappa_d:
-        rk_direct = compute_slater_rk(Pa, Qa, Pc, Qc, Pb, Qb, Pd, Qd,
-                                       bsp_data, k=0)
+        rk_direct = _rk(Pa, Qa, Pc, Qc, Pb, Qb, Pd, Qd, bsp_data, 0)
         H_2e += rk_direct
 
     # Exchange ⟨ac|g|db⟩.  We keep the original (κ_a, κ_d)-based form for
@@ -332,7 +380,7 @@ def _two_diff_element(csf_r, csf_s, orbitals_dict, bsp_data):
         lam = exchange_lambda(kappa_a, kappa_d, k)
         if lam < 1e-15:
             continue
-        rk_exch = compute_slater_rk(Pa, Qa, Pc, Qc, Pd, Qd, Pb, Qb,
+        rk_exch = _rk(Pa, Qa, Pc, Qc, Pd, Qd, Pb, Qb,
                                      bsp_data, k)
         tj_a = 2 * abs(kappa_a) - 1
         tj_d = 2 * abs(kappa_d) - 1
@@ -441,7 +489,7 @@ def _diagonal_J_correction(csf, orbitals_dict, bsp_data, ns):
         # J-coupled subtraction is ``g_K_J * G^K``.  Net correction to
         # ADD to the existing diagonal energy is therefore
         # ``(avg_coef - g_K_J) * G^K``.
-        gk_val = compute_slater_gk(Pa, Qa_orb, Pb, Qb_orb, bsp_data, k)
+        gk_val = _gk(Pa, Qa_orb, Pb, Qb_orb, bsp_data, k)
         delta += (avg_coef - g_K_J) * gk_val
 
     return float(delta)
@@ -722,7 +770,7 @@ def _off_diagonal_two_diff_J_correction(csf_r, csf_s, orbitals_dict, bsp_data, n
             phase = -1.0 if phase_exp % 2 else 1.0
             coeff = phase * sixj * float(np.sqrt(lam_ac * lam_bd))
         if bsp_data:
-            radial = compute_slater_rk(Pa, Qa, Pc, Qc, Pb, Qb, Pd, Qd, bsp_data, k)
+            radial = _rk(Pa, Qa, Pc, Qc, Pb, Qb, Pd, Qd, bsp_data, k)
         else:
             radial = 1.0
         proper += coeff * radial
@@ -742,7 +790,7 @@ def _off_diagonal_two_diff_J_correction(csf_r, csf_s, orbitals_dict, bsp_data, n
         phase = -1.0 if phase_exp % 2 else 1.0
         coeff = phase * sixj * float(np.sqrt(lam_ad * lam_bc))
         if bsp_data:
-            radial = compute_slater_rk(Pa, Qa, Pd, Qd, Pb, Qb, Pc, Qc, bsp_data, k)
+            radial = _rk(Pa, Qa, Pd, Qd, Pb, Qb, Pc, Qc, bsp_data, k)
         else:
             radial = 1.0
         proper += coeff * radial
@@ -915,7 +963,7 @@ def _one_diff_single_spectator_exact_correction(
     tj_c = 2 * abs(kappa_c) - 1
 
     if kappa_a == kappa_b:
-        rk_direct = compute_slater_rk(Pa, Qa, Pc, Qc, Pb, Qb, Pc, Qc, bsp_data, k=0)
+        rk_direct = _rk(Pa, Qa, Pc, Qc, Pb, Qb, Pc, Qc, bsp_data, 0)
         base += rk_direct
 
     base_ks = sorted(set(exchange_k_range(kappa_a, kappa_c))
@@ -925,7 +973,7 @@ def _one_diff_single_spectator_exact_correction(
         lam_cb = exchange_lambda(kappa_c, kappa_b, k)
         if lam_ac < 1.0e-15 or lam_cb < 1.0e-15:
             continue
-        rk_exch = compute_slater_rk(Pa, Qa, Pc, Qc, Pc, Qc, Pb, Qb, bsp_data, k)
+        rk_exch = _rk(Pa, Qa, Pc, Qc, Pc, Qc, Pb, Qb, bsp_data, k)
         ang_k = lam_ac if kappa_a == kappa_b else float(np.sqrt(lam_ac * lam_cb))
         base -= ang_k / (tj_c + 1.0) * rk_exch
 
@@ -937,7 +985,7 @@ def _one_diff_single_spectator_exact_correction(
         )
         if coeff is None or abs(coeff) < 1.0e-15:
             continue
-        radial = compute_slater_rk(Pa, Qa, Pb, Qb, Pc, Qc, Pc, Qc, bsp_data, k)
+        radial = _rk(Pa, Qa, Pb, Qb, Pc, Qc, Pc, Qc, bsp_data, k)
         proper += coeff * radial
 
     exchange_ks = sorted(set(exchange_k_range(kappa_a, kappa_c))
@@ -948,7 +996,7 @@ def _one_diff_single_spectator_exact_correction(
         )
         if coeff is None or abs(coeff) < 1.0e-15:
             continue
-        radial = compute_slater_rk(Pa, Qa, Pc, Qc, Pc, Qc, Pb, Qb, bsp_data, k)
+        radial = _rk(Pa, Qa, Pc, Qc, Pc, Qc, Pb, Qb, bsp_data, k)
         proper += coeff * radial
 
     return float(sqrt_factor * (proper - base))
@@ -1037,9 +1085,7 @@ def _off_diagonal_one_diff_J_correction(csf_r, csf_s, orbitals_dict, bsp_data, n
                 j_coef = phase * sixj * r_ac * r_cb
 
             if bsp_data:
-                rk_exch = compute_slater_rk(
-                    Pa, Qa, Pc, Qc, Pc, Qc, Pb, Qb, bsp_data, k,
-                )
+                rk_exch = _rk(Pa, Qa, Pc, Qc, Pc, Qc, Pb, Qb, bsp_data, k)
             else:
                 # Unit-radial fallback for analytic angular tests that only
                 # assert the correction is wired and non-zero.
