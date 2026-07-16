@@ -107,6 +107,57 @@ def eii_dw_inner_sum(
     return acc
 
 
+@nb.njit(cache=True, nogil=True)
+def eii_dw_channel_jsum(
+    Rd: np.ndarray,          # direct Slater integrals, one per value slot
+    Re: np.ndarray,          # exchange Slater integrals, one per value slot
+    ok_in: np.ndarray,       # per-kappa wave availability at E_i / E_1 / E_2
+    ok_1: np.ndarray,
+    ok_2: np.ndarray,
+    ch_in: np.ndarray,       # per-channel kappa indices + incident l
+    ch_1: np.ndarray,
+    ch_2: np.ndarray,
+    ch_lin: np.ndarray,
+    ch_jr0: np.ndarray,      # [jr0, jr1) J-row span per channel
+    ch_jr1: np.ndarray,
+    jw: np.ndarray,          # (tJ + 1) per J row
+    jd0: np.ndarray,         # [d0, d1) direct-entry span per J row
+    jd1: np.ndarray,
+    je0: np.ndarray,         # [e0, e1) exchange-entry span per J row
+    je1: np.ndarray,
+    d_slot: np.ndarray,      # (value slot, angular) per entry
+    d_ang: np.ndarray,
+    e_slot: np.ndarray,
+    e_ang: np.ndarray,
+    n_l: int,
+) -> np.ndarray:
+    """EII DW J-sum over the packed channel table for one (E_i, E_1) node.
+
+    Accumulation order matches the original per-channel Python loop
+    exactly (channels, then J rows, then entries) — value invariance.
+    No fastmath: T = D - E must round identically.
+    """
+    prof_l = np.zeros(n_l)
+    for c in range(ch_in.shape[0]):
+        if not (ok_in[ch_in[c]] and ok_1[ch_1[c]] and ok_2[ch_2[c]]):
+            continue
+        acc = 0.0
+        for jr in range(ch_jr0[c], ch_jr1[c]):
+            D = 0.0
+            for e in range(jd0[jr], jd1[jr]):
+                D += Rd[d_slot[e]] * d_ang[e]
+            E_x = 0.0
+            for e in range(je0[jr], je1[jr]):
+                E_x += Re[e_slot[e]] * e_ang[e]
+            # Slater-Condon for the antisymmetrized outgoing pair:
+            # T = D - E exactly (see _eii_dw_total).
+            T = D - E_x
+            if T != 0.0:
+                acc += jw[jr] * T * T
+        prof_l[ch_lin[c]] += acc
+    return prof_l
+
+
 @nb.njit(cache=True)
 def dw_excitation_angular_sum(
     n_channels: int,

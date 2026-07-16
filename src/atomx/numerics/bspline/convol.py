@@ -1188,3 +1188,105 @@ def compute_slater_gk_cell(Pa, Qa, Pb, Qb, bsp_data, k, cache=None):
     """Exchange Slater integral G^k(a,b) = R^k(ab, ba) via cell algorithm."""
     return compute_slater_rk_cell(Pa, Qa, Pb, Qb, Pb, Qb, Pa, Qa,
                                    bsp_data, k, cache)
+
+
+# ── Batched Slater integrals: bilinear form in the slot-2/4 orbitals ─
+
+
+@nb.njit(cache=True, fastmath=True)
+def _rkb_bilinear(rkb, wa, wb, n_left, n_right, ks_left, ks_right, ns_out):
+    """Fold the fixed orbital pair (wa, wb) into one rkb bank.
+
+    M[m, n] = Σ_{i,ip,j,jp} rkb[i,j,ip,jp] · σ_wa(i,ip;m) · σ_wb(j,jp;n)
+
+    where σ_w(i,ip;m) is the symmetrised-band factor of :func:`_density_sym`
+    (w[i]·δ_{m,i+ip} + [ip>0]·w[i+ip]·δ_{m,i}), so that for any coefficient
+    vectors v_l, v_r the block value equals the scalar path's
+    _convol_case2 → _sum_amb_banded chain: v_lᵀ · M · v_r.
+    Domains i+ip < n_left, j+jp < n_right match the scalar path (rkb rows
+    beyond the P/Q basis size are built zero, so trimming is exact).
+    """
+    # Stage 1: contract the left band pair — same O(ns²·ks²) as one
+    # _convol_case2 call.
+    T = np.zeros((ns_out, n_right, ks_right))
+    for i in range(n_left):
+        for j in range(n_right):
+            for ip in range(ks_left):
+                if i + ip >= n_left:
+                    break
+                wi = wa[i]
+                wip = wa[i + ip]
+                for jp in range(ks_right):
+                    if j + jp >= n_right:
+                        break
+                    c = rkb[i, j, ip, jp]
+                    T[i, j, jp] += c * wip
+                    if ip > 0:
+                        T[i + ip, j, jp] += c * wi
+    # Stage 2: contract the right band pair — O(ns²·ks), negligible.
+    M = np.zeros((ns_out, ns_out))
+    for m in range(ns_out):
+        for j in range(n_right):
+            wj = wb[j]
+            for jp in range(ks_right):
+                if j + jp >= n_right:
+                    break
+                t = T[m, j, jp]
+                M[m, j] += t * wb[j + jp]
+                if jp > 0:
+                    M[m, j + jp] += t * wj
+    return M
+
+
+def build_slater_rk_bilinear(Pa, Qa, Pb, Qb, bsp_data, k, cache=None):
+    """Bilinear-form matrices for R^k(a·, b·) with orbitals (a, b) fixed.
+
+    R^k(a r, b s) = Prᵀ·M_PP·Ps + Qrᵀ·M_QQ·Qs + Prᵀ·M_PQ·Qs + Qrᵀ·M_QP·Ps
+
+    for ANY orbital pair (r, s) — :func:`compute_slater_rk_cell` with the
+    density/convolution/trace contractions refactored as a bilinear form
+    in the slot-2/slot-4 coefficient vectors (same per-block summation
+    domains).  Build cost ≈ one scalar call; each subsequent evaluation is
+    O(ns²) (:func:`eval_slater_rk_bilinear`) or a GEMM over a whole table
+    of pairs (:func:`compute_slater_rk_table`) — the R^k(a r, b s) tables
+    in MBPT(2) and the pp-ladder come essentially for free.
+    """
+    bd = bsp_data
+    if cache is None:
+        cache = ConvolCache(bd)
+    ksp = bd.get("ksp", bd["ks"])
+    nsp = bd.get("nsp", bd["ns"])
+    ksq = bd.get("ksq", bd["ks"])
+    nsq = bd.get("nsq", bd["ns"])
+    ns_loc = bd["ns"]
+
+    rkb_pp, _, _ = cache.get_rkb(k, "pppp")
+    rkb_qq, _, _ = cache.get_rkb(k, "qqqq")
+    rkb_pq, _, _ = cache.get_rkb(k, "pqpq")
+    rkb_qp, _, _ = cache.get_rkb(k, "qpqp")
+
+    M_PP = _rkb_bilinear(rkb_pp, Pa, Pb, nsp, nsp, ksp, ksp, ns_loc)
+    M_QQ = _rkb_bilinear(rkb_qq, Qa, Qb, nsq, nsq, ksq, ksq, ns_loc)
+    M_PQ = _rkb_bilinear(rkb_pq, Pa, Qb, min(ns_loc, nsp), min(ns_loc, nsq),
+                         ksp, ksq, ns_loc)
+    M_QP = _rkb_bilinear(rkb_qp, Qa, Pb, min(ns_loc, nsq), min(ns_loc, nsp),
+                         ksq, ksp, ns_loc)
+    return M_PP, M_QQ, M_PQ, M_QP
+
+
+def eval_slater_rk_bilinear(M, Pl, Ql, Pr, Qr):
+    """Single R^k(a l, b r) from :func:`build_slater_rk_bilinear` matrices."""
+    M_PP, M_QQ, M_PQ, M_QP = M
+    return float(Pl @ (M_PP @ Pr) + Ql @ (M_QQ @ Qr)
+                 + Pl @ (M_PQ @ Qr) + Ql @ (M_QP @ Pr))
+
+
+def compute_slater_rk_table(M, CP_l, CQ_l, CP_r, CQ_r):
+    """Full table R^k(a l, b r) over stacked coefficient columns via GEMM.
+
+    ``CP_l``/``CQ_l`` and ``CP_r``/``CQ_r`` are (ns, n) matrices with one
+    orbital per column; returns the (n_l, n_r) table.
+    """
+    M_PP, M_QQ, M_PQ, M_QP = M
+    return (CP_l.T @ M_PP @ CP_r + CQ_l.T @ M_QQ @ CQ_r
+            + CP_l.T @ M_PQ @ CQ_r + CQ_l.T @ M_QP @ CP_r)

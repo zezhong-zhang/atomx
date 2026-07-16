@@ -55,6 +55,7 @@ from __future__ import annotations
 import logging
 import math
 from dataclasses import dataclass, field
+from functools import lru_cache
 from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
@@ -63,13 +64,21 @@ import numpy as np
 logger = logging.getLogger(__name__)
 
 from atomx.angular.wigner import wigner_3j, wigner_6j
+
+# The ladder path re-evaluates the same small-integer angular factors tens
+# of thousands of times per pair block; memoize at this call-site level
+# (the shared numba wigner module stays uncached).
+_wigner_6j = lru_cache(maxsize=None)(wigner_6j)
 from atomx.angular.coefficients import exchange_lambda
 from atomx.constants import C_SQ
 from atomx.numerics.bspline.convol import (
     ConvolCache,
+    build_slater_rk_bilinear,
     compute_direct_potential_cell,
     compute_exchange_matrix_cell,
     compute_slater_rk_cell,
+    compute_slater_rk_table,
+    eval_slater_rk_bilinear,
 )
 from atomx.numerics.bspline.dirac_assembly import (
     build_dirac_matrices,
@@ -129,12 +138,13 @@ def _twoj_from_kappa(kappa: int) -> int:
     return 2 * abs(kappa) - 1
 
 
+@lru_cache(maxsize=None)
 def reduced_C(kappa_a: int, kappa_b: int, k: int) -> float:
     """Reduced matrix element ⟨κ_a‖C^k‖κ_b⟩.
 
     Standard Grant convention (sign included).  Returns 0 if the
     triangle (j_a, k, j_b) or parity (l_a+k+l_b even) selection rule
-    is violated.
+    is violated.  (lru_cached; pure function of small integers.)
 
     >>> # ⟨s_{1/2} ‖ C^1 ‖ p_{1/2}⟩ = -√(2/3)·√2 ≈ -1.1547  (parity violated → 0!)
     >>> # actually s_{1/2}↔p_{3/2}: l=0+1+1=even ✓
@@ -159,8 +169,12 @@ def reduced_C(kappa_a: int, kappa_b: int, k: int) -> float:
     return phase * math.sqrt((tj_a + 1) * (tj_b + 1)) * w3j
 
 
+@lru_cache(maxsize=None)
 def _allowed_k_range(kappa_a: int, kappa_b: int) -> List[int]:
-    """k satisfying triangle(j_a,k,j_b) ∧ parity(l_a+k+l_b even)."""
+    """k satisfying triangle(j_a,k,j_b) ∧ parity(l_a+k+l_b even).
+
+    (lru_cached; callers must not mutate the returned list.)
+    """
     j_a = abs(kappa_a) - 0.5
     j_b = abs(kappa_b) - 0.5
     k_min = int(abs(j_a - j_b))
@@ -569,6 +583,33 @@ def _mbpt2_pair_contribution(
     pair_E = 0.0
     norm_ab = 2.0 if same_ab else 1.0  # δ_ab factor
 
+    # Bilinear R^k form: M^k_(ab) depends only on (a, b, k) — build once
+    # per k, reuse across every (κ_r, κ_s) channel AND both direct and
+    # exchange tables (exchange only swaps the virtual slots).  Turns the
+    # O(n_r·n_s) scalar compute_slater_rk_cell calls per channel into one
+    # GEMM against the stacked virtual coefficients.
+    M_ab: Dict[int, tuple] = {}
+
+    def _M(k):
+        Mk = M_ab.get(k)
+        if Mk is None:
+            Mk = build_slater_rk_bilinear(Pa, Qa, Pb, Qb, bsp_data, k,
+                                          cache=cache)
+            M_ab[k] = Mk
+        return Mk
+
+    # Stacked virtual coefficient columns per κ (GEMM operands)
+    virt_stacks: Dict[int, Tuple[np.ndarray, np.ndarray]] = {}
+
+    def _stack(kappa):
+        st = virt_stacks.get(kappa)
+        if st is None:
+            vl = virt_basis[kappa]
+            st = (np.column_stack([v[0] for v in vl]),
+                  np.column_stack([v[1] for v in vl]))
+            virt_stacks[kappa] = st
+        return st
+
     for kappa_r in kappa_list:
         # Triangle on (j_a, k, j_r) for at least one k ⇒ skip if range empty
         if not _allowed_k_range(kappa_a, kappa_r) and \
@@ -614,6 +655,22 @@ def _mbpt2_pair_contribution(
             # Loop over virtuals (r in κ_r, s in κ_s)
             virt_r = virt_basis[kappa_r]
             virt_s = virt_basis[kappa_s]
+            if not virt_r or not virt_s:
+                continue
+            CP_r, CQ_r = _stack(kappa_r)
+            CP_s, CQ_s = _stack(kappa_s)
+            # Whole-channel Slater tables: Rd[k][r, s] = R^k(a r, b s),
+            # Re[k][r, s] = R^k(a s, b r).  Same Ck gates as the scalar path.
+            Rd_tab = {
+                k: compute_slater_rk_table(_M(k), CP_r, CQ_r, CP_s, CQ_s)
+                for k in k_d_list
+                if abs(Ck_ar[k]) >= 1e-15 and abs(Ck_bs[k]) >= 1e-15
+            }
+            Re_tab = {
+                k: compute_slater_rk_table(_M(k), CP_s, CQ_s, CP_r, CQ_r).T
+                for k in k_e_list
+                if abs(Ck_as[k]) >= 1e-15 and abs(Ck_br[k]) >= 1e-15
+            }
             for orb_r_idx, (Pr, Qr, eps_r) in enumerate(virt_r):
                 for orb_s_idx, (Ps, Qs, eps_s) in enumerate(virt_s):
                     # Avoid double counting r↔s when κ_r == κ_s
@@ -627,23 +684,15 @@ def _mbpt2_pair_contribution(
                         continue
 
                     # Direct Slater integrals R^k_d(abrs)
-                    Rd: Dict[int, float] = {}
-                    for k in k_d_list:
-                        if abs(Ck_ar[k]) < 1e-15 or abs(Ck_bs[k]) < 1e-15:
-                            continue
-                        Rd[k] = compute_slater_rk_cell(
-                            Pa, Qa, Pr, Qr, Pb, Qb, Ps, Qs,
-                            bsp_data, k, cache=cache
-                        )
+                    Rd: Dict[int, float] = {
+                        k: tab[orb_r_idx, orb_s_idx]
+                        for k, tab in Rd_tab.items()
+                    }
                     # Exchange Slater integrals R^k_e(absr)
-                    Re: Dict[int, float] = {}
-                    for k in k_e_list:
-                        if abs(Ck_as[k]) < 1e-15 or abs(Ck_br[k]) < 1e-15:
-                            continue
-                        Re[k] = compute_slater_rk_cell(
-                            Pa, Qa, Ps, Qs, Pb, Qb, Pr, Qr,
-                            bsp_data, k, cache=cache
-                        )
+                    Re: Dict[int, float] = {
+                        k: tab[orb_r_idx, orb_s_idx]
+                        for k, tab in Re_tab.items()
+                    }
 
                     if not Rd and not Re:
                         continue
@@ -654,7 +703,7 @@ def _mbpt2_pair_contribution(
                         # V_J(abrs) = Σ_k (-1)^{j_b+j_r+J} {j_a j_b J; j_s j_r k} X^k(abrs)
                         VJ_d = 0.0
                         for k, Rk in Rd.items():
-                            sj = wigner_6j(tj_a, tj_b, tJ,
+                            sj = _wigner_6j(tj_a, tj_b, tJ,
                                            tj_s, tj_r, 2 * k)
                             if abs(sj) < 1e-15:
                                 continue
@@ -667,7 +716,7 @@ def _mbpt2_pair_contribution(
                         # V_J(absr) = Σ_k (-1)^{j_b+j_s+J} {j_a j_b J; j_r j_s k} X^k(absr)
                         VJ_e = 0.0
                         for k, Rk in Re.items():
-                            sj = wigner_6j(tj_a, tj_b, tJ,
+                            sj = _wigner_6j(tj_a, tj_b, tJ,
                                            tj_r, tj_s, 2 * k)
                             if abs(sj) < 1e-15:
                                 continue
@@ -697,7 +746,8 @@ def _mbpt2_pair_contribution(
 
 def _pair_v_J(Pa, Qa, kappa_a, Pb, Qb, kappa_b,
               Pr, Qr, kappa_r, Ps, Qs, kappa_s,
-              tJ, bsp_data, cache, multipole_max=None):
+              tJ, bsp_data, cache, multipole_max=None,
+              rk_bilinear=None):
     """Antisymmetrised J-coupled pair matrix element <ab;J|v|rs;J>_A.
 
     Exactly the V_J combination used by :func:`_mbpt2_pair_contribution`
@@ -705,7 +755,26 @@ def _pair_v_J(Pa, Qa, kappa_a, Pb, Qb, kappa_b,
     factored out so the SAME kernel serves (occ,occ)->(virt,virt) and
     (virt,virt)->(virt,virt) ladder blocks.  States are the UNNORMALISED
     coupled products; callers divide by sqrt((1+delta_ab)(1+delta_rs)).
+
+    ``rk_bilinear`` — optional {k: M} dict OWNED BY THE CALLER and valid
+    only for this (Pa,Qa,Pb,Qb): lazily filled with
+    :func:`build_slater_rk_bilinear` matrices and reused across every
+    (r, s) sharing the bra pair (direct and exchange use the same M).
+    One M build costs ≈ one scalar R^k; each reuse is O(ns²).
     """
+
+    def _rk(k, P2, Q2, P4, Q4):
+        # R^k(a ·, b ·) with slot-2/slot-4 orbitals (·) varying
+        if rk_bilinear is None:
+            return compute_slater_rk_cell(Pa, Qa, P2, Q2, Pb, Qb, P4, Q4,
+                                          bsp_data, k, cache=cache)
+        Mk = rk_bilinear.get(k)
+        if Mk is None:
+            Mk = build_slater_rk_bilinear(Pa, Qa, Pb, Qb, bsp_data, k,
+                                          cache=cache)
+            rk_bilinear[k] = Mk
+        return eval_slater_rk_bilinear(Mk, P2, Q2, P4, Q4)
+
     tj_a = _twoj_from_kappa(kappa_a)
     tj_b = _twoj_from_kappa(kappa_b)
     tj_r = _twoj_from_kappa(kappa_r)
@@ -732,11 +801,10 @@ def _pair_v_J(Pa, Qa, kappa_a, Pb, Qb, kappa_b,
         c2 = reduced_C(kappa_b, kappa_s, k)
         if abs(c1) < 1e-15 or abs(c2) < 1e-15:
             continue
-        sj = wigner_6j(tj_a, tj_b, tJ, tj_s, tj_r, 2 * k)
+        sj = _wigner_6j(tj_a, tj_b, tJ, tj_s, tj_r, 2 * k)
         if abs(sj) < 1e-15:
             continue
-        Rk = compute_slater_rk_cell(Pa, Qa, Pr, Qr, Pb, Qb, Ps, Qs,
-                                    bsp_data, k, cache=cache)
+        Rk = _rk(k, Pr, Qr, Ps, Qs)
         VJ_d += sj * c1 * c2 * Rk
     VJ_d *= (-1) ** ((tj_b + tj_r + tJ) // 2)
 
@@ -746,11 +814,10 @@ def _pair_v_J(Pa, Qa, kappa_a, Pb, Qb, kappa_b,
         c2 = reduced_C(kappa_b, kappa_r, k)
         if abs(c1) < 1e-15 or abs(c2) < 1e-15:
             continue
-        sj = wigner_6j(tj_a, tj_b, tJ, tj_r, tj_s, 2 * k)
+        sj = _wigner_6j(tj_a, tj_b, tJ, tj_r, tj_s, 2 * k)
         if abs(sj) < 1e-15:
             continue
-        Rk = compute_slater_rk_cell(Pa, Qa, Ps, Qs, Pb, Qb, Pr, Qr,
-                                    bsp_data, k, cache=cache)
+        Rk = _rk(k, Ps, Qs, Pr, Qr)
         VJ_e += sj * c1 * c2 * Rk
     VJ_e *= (-1) ** ((tj_b + tj_s + tJ) // 2)
 
@@ -843,6 +910,9 @@ def pair_ladder_energy(
                     same_ab = (kappa_a == kappa_b and ia == ib)
                     tj_a = _twoj_from_kappa(kappa_a)
                     tj_b = _twoj_from_kappa(kappa_b)
+                    # {k: M} bilinear cache for the fixed bra pair (a, b);
+                    # valid across all J blocks and (r, s) kets
+                    bl_ab: Dict[int, tuple] = {}
                     pair_E = 0.0
                     for tJ in range(abs(tj_a - tj_b), tj_a + tj_b + 1, 2):
                         # enumerate the doubles basis (kr,ir) <= (ks,is)
@@ -880,7 +950,8 @@ def pair_ladder_energy(
                             amp = _pair_v_J(
                                 Pa, Qa, kappa_a, Pb, Qb, kappa_b,
                                 vr[0], vr[1], kr, vs[0], vs[1], ks,
-                                tJ, bsp_data, cache, multipole_max)
+                                tJ, bsp_data, cache, multipole_max,
+                                rk_bilinear=bl_ab)
                             v0[ii] = amp / (na * nr)
                             D[ii] = vr[2] + vs[2] - eps_a - eps_b
                             # drop identically-empty rows (Pauli-forbidden
@@ -904,13 +975,17 @@ def pair_ladder_energy(
                             for ii in range(n):
                                 (kr, ir, ks, isx, vr, vs, same_rs) = basis_k[ii]
                                 ni = math.sqrt(2.0) if same_rs else 1.0
+                                # bilinear cache for the row bra (r, s);
+                                # discarded per row to bound memory
+                                bl_row: Dict[int, tuple] = {}
                                 for jj in range(ii, n):
                                     (kc, ic, kd, idx, vc, vd, same_cd) = basis_k[jj]
                                     nj = math.sqrt(2.0) if same_cd else 1.0
                                     vel = _pair_v_J(
                                         vr[0], vr[1], kr, vs[0], vs[1], ks,
                                         vc[0], vc[1], kc, vd[0], vd[1], kd,
-                                        tJ, bsp_data, cache, multipole_max)
+                                        tJ, bsp_data, cache, multipole_max,
+                                        rk_bilinear=bl_row)
                                     V[ii, jj] = vel / (ni * nj)
                                     V[jj, ii] = V[ii, jj]
                             t = np.linalg.solve(np.diag(D) + V, -v0)
