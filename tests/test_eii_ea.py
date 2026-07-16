@@ -4,8 +4,8 @@ He-like Fe: 1s2 + e -> 2s 2p + e (double excitation, 13.5 keV) lies
 above the 1s ionization limit (8.8 keV), so it autoionizes and adds to
 net ionization.  EA turns on at the excitation threshold and its
 magnitude is a DW collision strength times a branching ratio <= 1.
-(A Li-like 1s 2s 2p test config is blocked on the 3-open-shell
-jj-averaged solve collapsing below the ground state — separate issue.)
+(The 3-open-shell Li-like case below was unblocked by the 2026-07-16
+repeated-parentage CI fix.)
 """
 
 from __future__ import annotations
@@ -87,3 +87,22 @@ def test_resonant_excitation_rate_limits():
     a0 = resonant_excitation_rate([d], T, initial_state_g=1.0,
                                   partial_auger_to_final={})
     assert np.all(a0 == 0.0)
+
+
+def test_three_open_shell_solve_physical():
+    """Regression: 1s 2s 2p Li-like Fe solved 6.9 keV BELOW its own
+    ground state before the repeated-parentage CI fix (identical
+    (occupations, J, parity) CSFs got the full configuration-average
+    energy off-diagonally -> [[E,E],[E,E]] -> eigenvalues 2E and 0)."""
+    from atomx import Atom
+    g = Atom(Z=26, config="1s2 2s1", charge=23, breit=False, qed=False)
+    e = Atom(Z=26, config="1s1 2s1 2p1", charge=23, breit=False, qed=False)
+    g.solve(); e.solve()
+    dE = (e._result.total_energy - g._result.total_energy) * HARTREE_EV
+    # K-shell excitation of Li-like Fe: ~6.6 keV, autoionizing
+    assert 6000.0 < dE < 7500.0
+    I_2s = -float(g._result.orbital_energies["2s1/2"]) * HARTREE_EV
+    assert dE > I_2s
+    es = np.asarray(e._result.state_energies)
+    # no spurious doubled/zero eigenvalues
+    assert float(np.max(es) - np.min(es)) * HARTREE_EV < 200.0
