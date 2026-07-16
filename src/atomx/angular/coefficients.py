@@ -12,6 +12,7 @@ References:
 """
 
 import math
+from functools import lru_cache
 
 import numpy as np
 from atomx.angular.wigner import wigner_3j
@@ -30,6 +31,7 @@ def _twoj(value: float | int) -> int:
     return int(round(2.0 * float(value)))
 
 
+@lru_cache(maxsize=None)
 def reduced_C(kappa_a: int, kappa_b: int, k: int) -> float:
     """Reduced matrix element ``<kappa_a || C^k || kappa_b>``.
 
@@ -37,6 +39,8 @@ def reduced_C(kappa_a: int, kappa_b: int, k: int) -> float:
 
     ``(-1)^(j_a+1/2) sqrt((2j_a+1)(2j_b+1))
       (j_a k j_b; -1/2 0 1/2)``.
+
+    (lru_cached; pure function of small integers.)
     """
     l_a = _l_from_kappa(kappa_a)
     l_b = _l_from_kappa(kappa_b)

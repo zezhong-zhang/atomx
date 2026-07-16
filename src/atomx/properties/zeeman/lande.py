@@ -47,6 +47,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from math import sqrt
 
+from atomx.angular.coefficients import _l_from_kappa
 from atomx.constants import ALPHA
 from atomx.properties.hyperfine.dipole import ELECTRON_ANOMALOUS_MOMENT
 
@@ -106,11 +107,6 @@ def lande_gJ_nr(l: int, j: float, s: float = 0.5) -> float:
     num = j * (j + 1) - l * (l + 1) + s * (s + 1)
     den = 2.0 * j * (j + 1)
     return 1.0 + num / den
-
-
-def _l_from_kappa(kappa: int) -> int:
-    """Orbital angular momentum l from Dirac quantum number κ."""
-    return kappa if kappa > 0 else -kappa - 1
 
 
 # ---------------------------------------------------------------------------

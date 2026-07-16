@@ -83,7 +83,7 @@ def mbpt2_orbital_energy_shift(
         ΔE_a in Hartree.
     """
     from atomx.angular.coefficients import exchange_lambda
-    from atomx.methods.mbpt import _build_virtual_basis
+    from atomx.methods.mbpt import build_virtual_basis
     from atomx.numerics.bspline.convol import (
         ConvolCache, compute_slater_rk_cell,
     )
@@ -121,7 +121,7 @@ def mbpt2_orbital_energy_shift(
 
         for kappa_r in kappa_list_virt:
             try:
-                _, virt_r = _build_virtual_basis(
+                _, virt_r = build_virtual_basis(
                     scf_result, kappa_r, cache=cache,
                     potential_mode="VN-1",
                 )
@@ -133,7 +133,7 @@ def mbpt2_orbital_energy_shift(
 
                 for kappa_s in kappa_list_virt:
                     try:
-                        _, virt_s = _build_virtual_basis(
+                        _, virt_s = build_virtual_basis(
                             scf_result, kappa_s, cache=cache,
                             potential_mode="VN-1",
                         )

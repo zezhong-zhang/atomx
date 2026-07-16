@@ -15,7 +15,7 @@ Atoms and Molecules* (2007) §8.3.
 """
 
 import numpy as np
-from atomx.methods.kohn_sham import compute_slater_fk, compute_slater_gk, compute_slater_rk
+from atomx.numerics.bspline.slater_yk import compute_slater_fk, compute_slater_gk, compute_slater_rk
 from atomx.numerics.bspline.evaluate import eval_orbital_on_grid, compute_yk
 from atomx.angular.coefficients import exchange_lambda, exchange_k_range, reduced_cl_j2
 from atomx.angular.wigner import wigner_6j
@@ -838,7 +838,7 @@ def _off_diagonal_J_correction(csf_r, csf_s, orbitals_dict, bsp_data, ns,
     2. Selecting the spectator/source/destination shells and reading
        off the ``(j_a, j_b, j_c, j_d)`` labels and total ``J``.
     3. Evaluating the Slater integrals ``R^K`` over the radial part
-       using :func:`atomx.methods.kohn_sham.compute_slater_rk`.
+       using :func:`atomx.numerics.bspline.slater_yk.compute_slater_rk`.
     4. Composing the 6j-weighted angular factor and accumulating the
        additive correction.
     5. Verifying against a He-like 1s2p ¹P₁/³P₁ analytic test (the

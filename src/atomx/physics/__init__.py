@@ -23,7 +23,7 @@ Current equations
 
 Two-electron interaction kernels live where they are evaluated: the
 Coulomb/Slater radial machinery in :mod:`atomx.numerics.bspline` and
-:meth:`atomx.methods.kohn_sham.compute_slater_rk`, and the Breit
+:func:`atomx.numerics.bspline.slater_yk.compute_slater_rk`, and the Breit
 angular coefficients in :mod:`atomx.corrections.breit`.
 """
 
