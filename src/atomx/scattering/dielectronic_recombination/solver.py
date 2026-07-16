@@ -51,6 +51,7 @@ from atomx.scattering.dielectronic_recombination.widths import (
     has_solved_result,
     make_abinitio_auger_rate_fn,
     make_abinitio_radiative_rate_fn,
+    solved_result,
 )
 
 # --- Universal prefactor for eq. (2) -------------------------------------
@@ -339,6 +340,139 @@ def _build_mcdhf_result_for_dr(
     return struct.result
 
 
+def _dr33_manifold_states(initial_atom) -> List[AutoionizationState]:
+    """Ab-initio dr33 resonance list from determinant-CI manifolds.
+
+    Builds every 2p- and 2s-hole ``3l3l'`` (dr33) resonance manifold of a
+    Ne-like recombining ion with
+    :class:`~atomx.scattering.autoionization.mscheme_ci.ResonanceManifold`
+    and returns one :class:`AutoionizationState` per CI level, carrying
+    the ab-initio resonance energy (``E_level − E_ion`` in the manifold's
+    frozen-orbital accounting), the exact determinant Auger width, and
+    the total E1 stabilizing width (``ResonanceManifold.dr_levels``).
+    The n=3 orbitals are frozen-core V^{N-1} eigenstates (FAC's
+    fixed-potential convention) from
+    :func:`atomx.methods.mbpt._build_virtual_basis`.
+
+    Verified against the complete clean-room FAC dr33 reference
+    (``tests/data/fe17_dr33_fac_cleanroom.json``; SetSE/VP/MS/Breit off,
+    AICut 0): α_DR ratios 0.49 / 0.99 / 1.08 / 1.17 at 1 / 5 / 10 / 50 MK
+    for Fe XVII — see ``tests/test_dr_manifold_e2e.py`` and
+    ``benchmarks/bench_fac_dr.py``.
+
+    Raises
+    ------
+    NotImplementedError
+        If the recombining ion is not a solved Ne-like ``1s2 2s2 2p6``
+        system — the only manifold topology implemented (and FAC-verified)
+        so far.
+    """
+    from atomx.constants import HARTREE_EV
+    from atomx.methods.mbpt import _build_virtual_basis
+    from atomx.numerics.bspline.evaluate import eval_P, eval_Q
+    from atomx.scattering.autoionization.mscheme_ci import ResonanceManifold
+    from atomx.scattering.distorted_wave.solver import _make_fine_grid, _p_rel
+
+    unsupported = (
+        "dr_calculate without width hooks drives the ab-initio "
+        "determinant-CI manifold pipeline (ResonanceManifold.dr_levels), "
+        "which currently implements only Ne-like recombining ions "
+        "(core '1s2 2s2 2p6', dr33 3l3l' complex — e.g. Fe XVII) over a "
+        "solved MCDHF result. "
+    )
+    try:
+        core = _config_string(initial_atom)
+    except TypeError:
+        core = ""
+    if sorted(core.split()) != ["1s2", "2p6", "2s2"]:
+        raise NotImplementedError(
+            unsupported
+            + f"Got core config {core!r}.  Pass explicit auger_rate_fn / "
+            "radiative_rate_fn hooks, or feed externally computed "
+            "AutoionizationState rows to dr_rate_coefficient."
+        )
+
+    result = solved_result(initial_atom)
+    bsp = None
+    if result is not None:
+        bsp = getattr(result, "_bsp_data", None) or getattr(result, "bsp_data", None)
+    if result is None or bsp is None or not getattr(result, "orbitals_raw", None):
+        raise NotImplementedError(
+            unsupported
+            + "The atom does not carry a solved MCDHF result with raw "
+            "B-spline orbitals (orbitals_raw / bsp_data); solve the "
+            "recombining ion first, e.g. "
+            "Atom(Z=26, charge=16, configs=['1s2 2s2 2p6']).solve()."
+        )
+
+    Z = int(getattr(initial_atom, "Z", 0) or getattr(result, "Z", 0))
+
+    # Fine radial grid sized for the fastest Auger electron (~500 eV for
+    # Fe XVII dr33; harmless overkill for lighter Ne-like systems).
+    r_fine = _make_fine_grid(bsp, _p_rel(500.0 / HARTREE_EV))
+    dr_fine = np.gradient(r_fine)
+    gr = bsp["gr"].ravel()
+    order = np.argsort(gr)
+    grs = gr[order]
+
+    def _tofine(P, Q):
+        Pg = eval_P(P, bsp).ravel()[order]
+        Qg = eval_Q(Q, bsp).ravel()[order]
+        return np.interp(r_fine, grs, Pg), np.interp(r_fine, grs, Qg)
+
+    # n=2 hole orbitals from the solved ground configuration; n=3 excited
+    # orbitals from the frozen-core V^{N-1} eigenbasis.
+    orbital_map = {}
+    orbital_eps = {}
+    for kappa, lab, idx in ((-1, "2s1/2", 1), (1, "2p1/2", 0), (-2, "2p3/2", 0)):
+        P, Q, _ = result.orbitals_raw[kappa][idx]
+        orbital_map[(2, kappa)] = _tofine(P, Q)
+        orbital_eps[(2, kappa)] = float(result.orbital_energies[lab])
+    for kappa in (-1, 1, -2, 2, -3):
+        _occ, virt = _build_virtual_basis(result, kappa)
+        P, Q, e = virt[0]
+        orbital_map[(3, kappa)] = _tofine(P, Q)
+        orbital_eps[(3, kappa)] = float(e)
+
+    # Active-space groups: hole shell + the three n=3 nl groups.
+    G3 = [([(3, -1)], 0), ([(3, 1), (3, -2)], 0), ([(3, 2), (3, -3)], 0)]
+
+    def _make(hole_subs, hole_ne, confs):
+        return ResonanceManifold(
+            result, [(hole_subs, hole_ne)] + G3,
+            r_fine=r_fine, dr_fine=dr_fine, orbital_map=orbital_map,
+            orbital_energies=orbital_eps, configs=confs)
+
+    # Parity-blocked multi-configuration manifolds (matching the FAC dr33
+    # configuration set '2s2 2p5 3*2' + '2s1 2p6 3*2'):
+    #   2p^5 {3s3p + 3p3d}
+    #   2p^5 {3s3d + 3p² + 3d² + 3s²}
+    #   2s^1 {3s² + 3s3d + 3p² + 3d²}
+    #   2s^1 {3s3p + 3p3d}
+    manifolds = [
+        _make([(2, 1), (2, -2)], 5, [(5, 1, 1, 0), (5, 0, 1, 1)]),
+        _make([(2, 1), (2, -2)], 5,
+              [(5, 1, 0, 1), (5, 0, 2, 0), (5, 0, 0, 2), (5, 2, 0, 0)]),
+        _make([(2, -1)], 1,
+              [(1, 2, 0, 0), (1, 1, 0, 1), (1, 0, 2, 0), (1, 0, 0, 2)]),
+        _make([(2, -1)], 1, [(1, 1, 1, 0), (1, 0, 1, 1)]),
+    ]
+
+    states: List[AutoionizationState] = []
+    for M in manifolds:
+        e_ion = M.ion_energy()
+        for tM in range(1, 13, 2):
+            for L in M.dr_levels(tM, Z=Z, bsp_data=bsp, e_ion=e_ion):
+                states.append(AutoionizationState(
+                    label=L.dominant[:48],
+                    E_resonance_eV=L.E_res_au * HARTREE_EV,
+                    J=tM / 2.0,
+                    gamma_auger_per_s=L.gamma_auger_per_s,
+                    a_radiative_per_s=L.a_radiative_per_s,
+                ))
+    return states
+
+
 def dr_calculate(
     initial_atom,
     target_iso,
@@ -360,37 +494,75 @@ def dr_calculate(
 
     ``initial_atom`` is the recombining ion and ``target_iso`` is the
     recombined ion ground configuration, either as an ``Atom``-like object or
-    a configuration string.  The driver enumerates doubly-excited resonances,
-    builds :class:`AutoionizationState` objects, and calls the existing
-    :func:`dr_rate_coefficient` kernel unchanged.
+    a configuration string.
 
-    When ``initial_atom`` carries a solved structure result, omitted width
-    hooks default to ab-initio Auger and E1 radiative width factories.  If no
-    result is present but the atom supplies ``Z``, ``charge`` and a core
-    configuration, a compact MCDHF result is built automatically so the
-    ab-initio factories can still run.  Without either, the driver falls back
-    to the screened hydrogenic width formulas.  Production callers can still
-    pass ``auger_rate_fn`` and ``radiative_rate_fn`` hooks to override either
-    path.
+    Default path (no hooks) — ab-initio determinant-CI manifolds
+    -----------------------------------------------------------
+    When no external width/energy hooks are supplied, the driver builds
+    the resonance manifolds with :func:`_dr33_manifold_states`
+    (:class:`~atomx.scattering.autoionization.mscheme_ci.ResonanceManifold`
+    ``dr_levels``: ab-initio resonance energies, exact determinant Auger
+    widths, and E1 stabilizing widths) and feeds them to
+    :func:`dr_rate_coefficient` unchanged.  This is the FAC-verified
+    physics (Fe XVII dr33: α ratios 0.49/0.99/1.08/1.17 at 1/5/10/50 MK
+    against the complete clean-room FAC reference; the 1-MK deficit is
+    Boltzmann suppression from the documented ~+40 eV frozen-orbital
+    E_res offset, not a width error).  Currently implemented for Ne-like
+    recombining ions (core ``1s2 2s2 2p6``); the Δn=0 dr33 (3l3l')
+    complex is computed regardless of ``n_max``/``l_max`` (higher-n
+    capture manifolds, e.g. dr34, are a documented follow-up).  Other
+    systems raise :class:`NotImplementedError`.
 
-    An optional ``energy_fn`` overrides the resonance energy per spec.  This is
-    useful when benchmarking against an external level list (e.g. FAC) whose
-    energies are trusted more than the one-electron estimate.
+    Hook path (external widths)
+    ---------------------------
+    Passing any of ``auger_rate_fn`` / ``radiative_rate_fn`` /
+    ``energy_fn`` selects the legacy enumeration path: doubly-excited
+    resonances up to ``n_max``/``l_max`` are enumerated and the supplied
+    hooks provide the widths (an omitted hook defaults to the coarse
+    ab-initio width factory when a solved result is present — note this
+    coarse path historically overshoots FAC by orders of magnitude; see
+    ``benchmarks/REPORT.md`` §11).  This path is intended for feeding
+    externally computed (e.g. FAC) widths/energies through the Burgess
+    kernel, as in ``dielectronic_recombination.fac_reference``.
+
+    ``energy_fn`` overrides the resonance energy per spec, useful when
+    benchmarking against an external level list whose energies are
+    trusted more than the one-electron estimate.
     """
 
     if hasattr(initial_atom, "solve") and not getattr(initial_atom, "converged", False):
         initial_atom.solve()
 
+    g_i = (
+        _initial_statistical_weight(initial_atom)
+        if initial_state_g is None else float(initial_state_g)
+    )
+    label = initial_state_label or getattr(initial_atom, "_config_strings", [""])[0]
+
+    if auger_rate_fn is None and radiative_rate_fn is None and energy_fn is None:
+        # Verified ab-initio manifold pipeline (raises NotImplementedError
+        # for unsupported systems rather than silently falling back to the
+        # old hydrogenic-width placeholders).
+        states = [
+            s for s in _dr33_manifold_states(initial_atom)
+            if s.E_resonance_eV >= min_resonance_eV
+        ]
+        return dr_rate_coefficient(
+            states,
+            T_eV,
+            initial_state_g=g_i,
+            initial_state_label=label,
+        )
+
+    # ---- hook path -------------------------------------------------------
     # Build a minimal structure result for lightweight Atom-like mocks so the
-    # ab-initio width factories can run.  Skip the build when both width hooks
-    # are supplied externally, since no ab-initio machinery is needed.
+    # ab-initio width factories can run when only one hook is supplied.
     if (
         not has_solved_result(initial_atom)
         and getattr(initial_atom, "orbital_energies", None)
         and (auger_rate_fn is None or radiative_rate_fn is None)
     ):
-        # Best-effort: build a compact MCDHF result so the ab-initio width
-        # factories can run.  Lightweight mocks may lack Z / a parseable core
+        # Best-effort: lightweight mocks may lack Z / a parseable core
         # config; in that case fall back to the screened-hydrogenic default
         # widths rather than failing the whole driver.
         try:
@@ -404,11 +576,6 @@ def dr_calculate(
             if getattr(initial_atom, "result", None) is None:
                 initial_atom.result = built_result
 
-    g_i = (
-        _initial_statistical_weight(initial_atom)
-        if initial_state_g is None else float(initial_state_g)
-    )
-    label = initial_state_label or getattr(initial_atom, "_config_strings", [""])[0]
     specs = enumerate_dr_resonances(
         initial_atom,
         target_iso,

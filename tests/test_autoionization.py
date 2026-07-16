@@ -217,18 +217,58 @@ class TestDRDriver:
         )
         assert result.returncode == 0, result.stderr
 
-    def test_dr_calculate_defaults_to_abinitio_widths_for_solved_atom(self, monkeypatch):
+    def test_dr_calculate_defaults_to_manifold_states(self, monkeypatch):
+        """No hooks -> the determinant-CI manifold pipeline is the default."""
         from atomx.scattering.dielectronic_recombination import solver
 
         calls = {}
+        canned = [
+            AutoionizationState(
+                label="2p3/2^-1 3s 3p (manifold)",
+                E_resonance_eV=250.0,
+                J=1.5,
+                gamma_auger_per_s=3.0e12,
+                a_radiative_per_s=4.0e11,
+            )
+        ]
 
-        def fake_auger_factory(atom):
-            calls["auger_factory_atom"] = atom
+        def fake_manifold_states(atom):
+            calls["manifold_atom"] = atom
+            return canned
 
-            def auger(_spec, _energy_eV):
-                return 3.0e12
+        monkeypatch.setattr(solver, "_dr33_manifold_states", fake_manifold_states)
 
-            return auger
+        atom = _SolvedFakeIon()
+        rc = solver.dr_calculate(
+            atom,
+            "1s2 2s2 2p6 3s1",
+            T_eV=300.0,
+        )
+
+        assert calls["manifold_atom"] is atom
+        assert rc.resonances[0].gamma_auger_per_s == pytest.approx(3.0e12)
+        assert rc.resonances[0].a_radiative_per_s == pytest.approx(4.0e11)
+
+    def test_dr_calculate_without_hooks_raises_for_unsupported_input(self):
+        """Non-Ne-like / unsolved inputs must fail loudly, not fall back to
+        the old hydrogenic-width placeholders (rms 19610 vs FAC)."""
+        with pytest.raises(NotImplementedError, match="manifold"):
+            dr_calculate(
+                _FakeIon(),
+                "1s2 2s2 2p6 3s1",
+                n_max=3,
+                l_max=2,
+                T_eV=300.0,
+            )
+
+    def test_dr_calculate_hook_path_defaults_missing_hook_to_abinitio(
+        self, monkeypatch,
+    ):
+        """With one explicit hook + a solved result, the other hook defaults
+        to the coarse ab-initio width factory (legacy hook path)."""
+        from atomx.scattering.dielectronic_recombination import solver
+
+        calls = {}
 
         def fake_radiative_factory(atom):
             calls["radiative_factory_atom"] = atom
@@ -254,7 +294,6 @@ class TestDRDriver:
                 )
             ]
 
-        monkeypatch.setattr(solver, "make_abinitio_auger_rate_fn", fake_auger_factory)
         monkeypatch.setattr(
             solver, "make_abinitio_radiative_rate_fn", fake_radiative_factory,
         )
@@ -269,9 +308,9 @@ class TestDRDriver:
             n_max=3,
             l_max=2,
             T_eV=300.0,
+            auger_rate_fn=lambda _spec, _energy_eV: 3.0e12,
         )
 
-        assert calls["auger_factory_atom"] is atom
         assert calls["radiative_factory_atom"] is atom
         assert rc.resonances[0].gamma_auger_per_s == pytest.approx(3.0e12)
         assert rc.resonances[0].a_radiative_per_s == pytest.approx(4.0e11)
@@ -312,6 +351,8 @@ class TestDRDriver:
             n_max=3,
             l_max=2,
             T_eV=[100.0, 300.0, 1000.0],
+            auger_rate_fn=lambda _spec, _e: 1.0e13,
+            radiative_rate_fn=lambda _spec, _e: 2.0e12,
         )
         assert isinstance(rc, DRRateCoefficient)
         assert rc.alpha_cm3_s.shape == (3,)
