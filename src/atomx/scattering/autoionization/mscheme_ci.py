@@ -346,6 +346,21 @@ class ResonanceManifold:
         ``_only_level``/``_precomputed`` are internal hooks used by
         :meth:`dr_levels` to reuse a diagonalization and evaluate a single
         eigenvector at its own resonance energy.
+
+        EXCITED-channel partial widths (resonance -> excited ion + e',
+        needed for ab-initio resonant excitation) are the documented
+        generalization: the final ion is then open-shell (hole group with
+        one active spectator), its levels come from diagonalizing the
+        ion manifold with this same machinery, and the decay amplitude
+        needs the ONE-difference two-body Slater-Condon rule (a sum over
+        the shared core) in addition to the two-difference rule used
+        here; the continuum orbital can ride the existing fine-grid
+        v-machinery as an extra ActiveOrbital (n=0 key).  Validation
+        target: clean-room FAC AITable partial rates to excited ion
+        configurations (open channels appear for KLM / dr34-class
+        resonances).  Until then
+        :func:`~atomx.scattering.dielectronic_recombination.solver.resonant_excitation_rate`
+        takes the partial widths as input.
         """
         if _precomputed is not None:
             dets, H, J2, evals, evecs = _precomputed
