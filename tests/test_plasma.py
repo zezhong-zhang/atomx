@@ -62,9 +62,10 @@ class TestCRM:
         """CRM should be buildable from a solved Atom."""
         from atomx import Atom
         from atomx.plasma.crm import CollisionalRadiativeModel
-        # TODO: CRM.from_atom rides on transitions(), whose single-config
-        # path is B-spline-only — pin the engine.
-        ne = Atom(Z=10, ns=50, ks=9, numerics="bspline")
+        # Default engine (shooting): CRM.from_atom rides on
+        # transitions(), which now serves both radial flavours (gated in
+        # test_transitions_engine_uniform.py).
+        ne = Atom(Z=10)
         ne.solve(max_iter=40, tol=1e-4)
         if not ne.converged:
             pytest.skip("Ne did not converge")

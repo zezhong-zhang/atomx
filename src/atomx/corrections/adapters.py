@@ -283,6 +283,7 @@ __all__ = [
     "NormalMassShiftCorrection",
     "_flatten_scf_orbitals",
     "_flatten_grid_orbitals",
+    "_grid_workspace_of",
     "_has_bspline_dirac_data",
     "_has_radial_grid_data",
 ]

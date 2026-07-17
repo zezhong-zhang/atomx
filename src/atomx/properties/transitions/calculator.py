@@ -31,6 +31,12 @@ from atomx.angular.csf import (
     multipole_allows_state_transition,
     one_body_csf_coupling,
 )
+from atomx.corrections.adapters import (
+    _has_bspline_dirac_data,
+    _has_radial_grid_data,
+    _flatten_grid_orbitals,
+    _grid_workspace_of,
+)
 
 
 @dataclass
@@ -200,28 +206,65 @@ class TransitionCalculator:
         else:
             return self._compute_single_config_transitions(multipoles, gauge)
 
+    def _single_config_payload(self):
+        """``(orbitals, workspace)`` for whichever radial flavour the
+        solved result carries.
+
+        ``orbitals`` is a list of ``(label, n, kappa, P, Q, E, occ)``
+        tuples.  For the B-spline flavour ``P``/``Q`` are expansion
+        coefficient vectors and ``workspace`` is the B-spline
+        ``bsp_data`` dict; for the radial-grid (ODE shooting) flavour
+        they are grid-tabulated waves and ``workspace`` is a
+        :func:`atomx.corrections.workspace.make_grid_workspace` dict.
+        Either payload feeds the same radial integrals in
+        :mod:`~atomx.properties.transitions.multipole` through the
+        :mod:`atomx.corrections.workspace` seam.
+        """
+        result = self.atom._result
+
+        if _has_bspline_dirac_data(result):
+            orbitals = []
+            kappa_counter = {}
+            for sh in result.subshells:
+                idx = kappa_counter.get(sh.kappa, 0)
+                kappa_counter[sh.kappa] = idx + 1
+                orb_list = result.orbitals_raw.get(sh.kappa, [])
+                if idx < len(orb_list):
+                    P, Q, occ = orb_list[idx]
+                    E = result.orbital_energies.get(sh.label, 0.0)
+                    orbitals.append((sh.label, sh.n, sh.kappa, P, Q, E, occ))
+            return orbitals, result._bsp_data
+
+        if _has_radial_grid_data(result):
+            workspace = _grid_workspace_of(result)
+            orbitals = []
+            for (P, Q, occ, kappa, label), sh in zip(
+                    _flatten_grid_orbitals(result), result.subshells):
+                E = result.orbital_energies.get(label, 0.0)
+                orbitals.append((label, sh.n, kappa, P, Q, E, occ))
+            return orbitals, workspace
+
+        raise NotImplementedError(
+            "transitions() needs Dirac orbitals with a radial workspace: "
+            "either B-spline (orbitals_raw + bsp_data) or grid-tabulated "
+            "shooting (subshells + _grid/_difr/_pa/_qa) results are "
+            f"supported; got {type(result).__name__} "
+            f"(equation={getattr(result, '_equation', 'dirac')!r})")
+
     def _compute_single_config_transitions(self, multipoles, gauge):
         """Transitions for single-configuration (DHF/DFS) calculation.
 
         For single-config, we compute transitions between orbitals
         as if one electron is promoted from orbital i to orbital f.
         This gives orbital-to-orbital transition matrix elements.
+        Works on both radial flavours (B-spline and ODE shooting) via
+        :meth:`_single_config_payload`.
         """
-        result = self.atom._result
-        bsp_data = self.atom._bsp_data
         results = []
 
-        # Build list of orbitals: (label, n, kappa, P, Q, energy, occ)
-        orbitals = []
-        kappa_counter = {}
-        for sh in result.subshells:
-            idx = kappa_counter.get(sh.kappa, 0)
-            kappa_counter[sh.kappa] = idx + 1
-            orb_list = result.orbitals_raw.get(sh.kappa, [])
-            if idx < len(orb_list):
-                P, Q, occ = orb_list[idx]
-                E = result.orbital_energies.get(sh.label, 0.0)
-                orbitals.append((sh.label, sh.n, sh.kappa, P, Q, E, occ))
+        # List of orbitals (label, n, kappa, P, Q, energy, occ) plus the
+        # radial workspace the multipole integrals consume.
+        orbitals, workspace = self._single_config_payload()
 
         # Compute transitions between all pairs
         for i, (lab_i, n_i, k_i, P_i, Q_i, E_i, occ_i) in enumerate(orbitals):
@@ -248,7 +291,7 @@ class TransitionCalculator:
                     res = self._build_single_orbital_result(
                         lab_i, lab_f, dE, omega, wavelength,
                         P_i, Q_i, P_f, Q_f, k_i, k_f, tj_i, tj_f,
-                        bsp_data, mp, mp_type, L, gauge)
+                        workspace, mp, mp_type, L, gauge)
                     if res is not None:
                         results.append(res)
 
@@ -257,29 +300,31 @@ class TransitionCalculator:
     def _build_single_orbital_result(
         self, lab_i, lab_f, dE, omega, wavelength,
         P_i, Q_i, P_f, Q_f, k_i, k_f, tj_i, tj_f,
-        bsp_data, mp, mp_type, L, gauge,
+        workspace, mp, mp_type, L, gauge,
     ):
         """Construct a TransitionResult for one orbital pair / multipole.
 
         Centralised so the single-config and MCDHF paths share the
-        gauge-handling logic.
+        gauge-handling logic.  ``workspace`` is either radial flavour
+        (B-spline ``bsp_data`` or radial-grid workspace) — the multipole
+        integrals dispatch through the workspace seam.
         """
         ang = angular_eL(k_i, k_f, L) if mp_type == 'E' else angular_mL(k_i, k_f, L)
 
         rme_length = rme_velocity = None
         if mp_type == 'E':
             if gauge in ('length', 'both'):
-                rme_length = radial_eL(P_i, Q_i, P_f, Q_f, bsp_data, L)
+                rme_length = radial_eL(P_i, Q_i, P_f, Q_f, workspace, L)
             if gauge in ('velocity', 'both'):
                 rme_velocity = radial_eL_velocity(
-                    P_i, Q_i, P_f, Q_f, bsp_data, L,
+                    P_i, Q_i, P_f, Q_f, workspace, L,
                     kappa_i=k_i, kappa_f=k_f, omega=omega)
         else:
             # Magnetic multipoles: ``radial_mL`` is the only formula we
             # surface today.  Treat it as identical for length/velocity
             # so callers can still use ``gauge='both'`` uniformly.
             rme_length = rme_velocity = radial_mL(
-                P_i, Q_i, P_f, Q_f, bsp_data, L)
+                P_i, Q_i, P_f, Q_f, workspace, L)
 
         def _A_from_rme(rme):
             if rme is None:
