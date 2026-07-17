@@ -90,7 +90,6 @@ from typing import Dict, Tuple
 
 import numpy as np
 
-from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 from atomx.constants import ALPHA, C
 from atomx.corrections.qedmod.base import SEBackend, SEResult, register_backend
 from atomx.corrections.qedmod.mohr import _interpolate_se_f
@@ -295,15 +294,10 @@ class ShabaevLocalBackend(SEBackend):
                 "⟨a|r·exp(-r/λ_C)|a⟩ on the radial grid."
             )
 
-        gr = bsp_data["gr"]
-        grw = bsp_data["grw"]
-        nv = bsp_data["nv"]
-        ksp = bsp_data.get("ksp", bsp_data["ks"])
-        ksq = bsp_data.get("ksq", bsp_data["ks"])
-        nsp = bsp_data.get("nsp", bsp_data["ns"])
-        nsq = bsp_data.get("nsq", bsp_data["ns"])
-        bsp_p = bsp_data["bsp_p"]
-        bsp_q = bsp_data.get("bsp_q", bsp_p)
+        from atomx.corrections.workspace import (
+            eval_orbital_pair, workspace_arrays)
+
+        gr, grw = workspace_arrays(bsp_data)
 
         # V_loc kernel:  r · exp(−r·c),  c = 1/α
         r_exp_kernel = gr * np.exp(-C * gr)
@@ -325,8 +319,7 @@ class ShabaevLocalBackend(SEBackend):
                 per_orbital[label] = 0.0
                 continue
 
-            fP = eval_orbital_on_grid(P, bsp_p, nv, ksp, nsp)
-            fQ = eval_orbital_on_grid(Q, bsp_q, nv, ksq, nsq)
+            fP, fQ = eval_orbital_pair(P, Q, bsp_data)
             rho = fP * fP + fQ * fQ
 
             I_a = float(np.sum(grw * rho * r_exp_kernel))

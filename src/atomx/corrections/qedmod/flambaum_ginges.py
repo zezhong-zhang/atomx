@@ -79,7 +79,6 @@ from __future__ import annotations
 import numpy as np
 from scipy.integrate import quad
 
-from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 from atomx.constants import ALPHA, C
 from atomx.corrections.qedmod.base import SEBackend, SEResult, register_backend
 from atomx.data.flambaum_ginges import (
@@ -238,15 +237,10 @@ class FlambaumGingesBackend(SEBackend):
                 "⟨a|V_FG|a⟩ on the radial grid."
             )
 
-        gr = bsp_data["gr"]
-        grw = bsp_data["grw"]
-        nv = bsp_data["nv"]
-        ksp = bsp_data.get("ksp", bsp_data["ks"])
-        ksq = bsp_data.get("ksq", bsp_data["ks"])
-        nsp = bsp_data.get("nsp", bsp_data["ns"])
-        nsq = bsp_data.get("nsq", bsp_data["ns"])
-        bsp_p = bsp_data["bsp_p"]
-        bsp_q = bsp_data.get("bsp_q", bsp_p)
+        from atomx.corrections.workspace import (
+            eval_orbital_pair, workspace_arrays)
+
+        gr, grw = workspace_arrays(bsp_data)
 
         # Build the local FG potential once on the grid — same for every
         # orbital, so we pay the quad cost only once.
@@ -259,8 +253,7 @@ class FlambaumGingesBackend(SEBackend):
                 per_orbital[label] = 0.0
                 continue
 
-            fP = eval_orbital_on_grid(P, bsp_p, nv, ksp, nsp)
-            fQ = eval_orbital_on_grid(Q, bsp_q, nv, ksq, nsq)
+            fP, fQ = eval_orbital_pair(P, Q, bsp_data)
             rho = fP * fP + fQ * fQ
 
             E_a = float(np.sum(grw * rho * V_grid))

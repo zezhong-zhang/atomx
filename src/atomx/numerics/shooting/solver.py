@@ -789,6 +789,10 @@ class ShootingResult:
     method: str = "shooting"
     energy_components: Dict[str, float] = field(default_factory=dict)
     Z: int = 0
+    #: Solved subshells (n, kappa, occupation, label) in ``_pa``/``_qa``
+    #: row order — the metadata the post-SCF correction adapters need to
+    #: pair grid orbitals with occupations and angular quantum numbers.
+    subshells: Optional[list] = None
     _grid: Optional[np.ndarray] = field(default=None, repr=False)
     _orbital_data: Optional[Dict] = field(default=None, repr=False)
     #: Converged r*V(r) (total local DFS potential), integration weights,
@@ -1052,6 +1056,7 @@ class ShootingSolver:
             converged=converged, iterations=iters,
             total_energy=E_total, orbital_energies=oe,
             Z=self.Z,
+            subshells=list(self.subshells),
             _grid=r,
             _equation=self.equation,
             _rv=rv_conv, _difr=difr, _pa=pa_conv, _qa=qa_conv,

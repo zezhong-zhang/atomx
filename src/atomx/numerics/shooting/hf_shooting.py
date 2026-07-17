@@ -620,6 +620,7 @@ class ShootingHFSolver:
             converged=converged, iterations=iterations,
             total_energy=e_total, orbital_energies=oe,
             Z=self.Z,
+            subshells=list(self.subshells),
             energy_components={
                 "E_1e": e_sum_eps - 2.0 * e_2e,
                 "E_2e": e_2e,

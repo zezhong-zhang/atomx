@@ -11,13 +11,30 @@ The four types of Breit Slater integrals:
   (and symmetric partners obtained by swapping P↔Q)
 
 Reference: Grant & Pyper, J.Phys.B 9, 761 (1976); DBSR_HF hf_energy_BR.f90.
+
+Radial quadrature (2026-07 fix)
+-------------------------------
+The Y^v assembly uses the canonical arbitrary-grid kernel
+:func:`atomx.numerics.quadrature.yk_on_grid` (trapezoidal cumulatives,
+second order on any grid) on the flattened radial nodes of whichever
+workspace the orbitals live on (B-spline Gauss nodes or a shooting
+grid).  The previous implementation used the B-spline SCF helper
+``compute_yk``, whose rectangle-rule cumulatives double-count the
+diagonal cell (r' = r) — the exact O(h) bias class documented in
+``numerics/quadrature.py`` from the Auger verification campaign.  For
+the strongly cancelling Breit combinations that bias inflated the total
+by ~3%: Ne I (point nucleus) gave 0.05197 Ha where the dense-grid
+converged value is 0.050429 Ha (cubic-spline resampling of the same
+DHF orbitals onto 5k/20k/80k-point grids, all agreeing to 1e-6, and
+independently reproduced at 0.05044 Ha by the ODE-shooting engine).
 """
 
 import numpy as np
-from atomx.constants import ALPHA, C, C_SQ
-from atomx.numerics.bspline.evaluate import eval_orbital_on_grid, compute_yk
-from atomx.angular.wigner import wigner_3j
-from atomx.angular.coefficients import exchange_lambda, exchange_k_range
+from atomx.corrections.workspace import (
+    eval_orbital_pair,
+    workspace_arrays,
+)
+from atomx.numerics.quadrature import yk_on_grid
 
 
 def _breit_smu_coefficients(kappa_a, kappa_b, kappa_c, kappa_d, L):
@@ -77,33 +94,46 @@ def compute_breit_energy(orbitals, bsp_data, Z):
     The 8 integrals correspond to the four density pairings:
     S1..S4: "direct" type — S^v(P_a P_b, Q_a Q_b) etc.
     S5..S8: "exchange" type — S^v(P_a Q_b, Q_a P_b) etc.
+
+    Parameters
+    ----------
+    orbitals : list of (P, Q, occ, kappa, label) tuples
+    bsp_data : dict
+        B-spline workspace (``P``/``Q`` are coefficient vectors), or a
+        radial-grid workspace from
+        :func:`atomx.corrections.workspace.make_grid_workspace`
+        (``P``/``Q`` are grid arrays) — e.g. the ODE-shooting engine.
+    Z : int
     """
-    nv = bsp_data["nv"]
-    ns = bsp_data["ns"]
-    gr = bsp_data["gr"]
-    grw = bsp_data["grw"]
-    ksp = bsp_data.get("ksp", bsp_data["ks"])
-    ksq = bsp_data.get("ksq", bsp_data["ks"])
-    nsp = bsp_data.get("nsp", ns)
-    nsq = bsp_data.get("nsq", ns)
-    bsp_p = bsp_data["bsp_p"]
-    bsp_q = bsp_data.get("bsp_q", bsp_p)
-    n_gauss = gr.shape[1]
+    gr, grw = workspace_arrays(bsp_data)
+    # Flatten to 1D grid order for the arbitrary-grid Y^v kernel
+    # (B-spline workspaces carry (nv, n_gauss) arrays; the flattened
+    # Gauss nodes are strictly increasing).
+    r_flat = np.ravel(gr)
+    w_flat = np.ravel(grw)
+
+    # Evaluate every orbital on the radial nodes once.
+    evaluated = []
+    for (Pa, Qa, oa, ka, la) in orbitals:
+        fP, fQ = eval_orbital_pair(Pa, Qa, bsp_data)
+        evaluated.append((np.ravel(fP), np.ravel(fQ), oa, ka, la))
 
     E_Breit = 0.0
 
-    for i, (Pa, Qa, oa, ka, la) in enumerate(orbitals):
+    for i, (fa_P, fa_Q, oa, ka, la) in enumerate(evaluated):
         tj_a = 2 * abs(ka) - 1
-        fa_P = eval_orbital_on_grid(Pa, bsp_p, nv, ksp, nsp)
-        fa_Q = eval_orbital_on_grid(Qa, bsp_q, nv, ksq, nsq)
 
-        for j, (Pb, Qb, ob, kb, lb) in enumerate(orbitals):
+        for j, (fb_P, fb_Q, ob, kb, lb) in enumerate(evaluated):
             tj_b = 2 * abs(kb) - 1
-            fb_P = eval_orbital_on_grid(Pb, bsp_p, nv, ksp, nsp)
-            fb_Q = eval_orbital_on_grid(Qb, bsp_q, nv, ksq, nsq)
 
             # Weight for average-of-configuration
             w_ab = oa * ob / ((tj_a + 1.0) * (tj_b + 1.0))
+
+            # The four cross densities are L/v-independent.
+            rho_PP = fa_P * fb_P
+            rho_QQ = fa_Q * fb_Q
+            rho_PQ = fa_P * fb_Q
+            rho_QP = fa_Q * fb_P
 
             # Loop over multipole L
             L_max = abs(ka) + abs(kb)
@@ -121,34 +151,22 @@ def compute_breit_energy(orbitals, bsp_data, Z):
                     if all(abs(s) < 1e-15 for s in s_coeffs):
                         continue
 
-                    # Parity check on v
-                    l_a = ka if ka > 0 else -ka - 1
-                    l_b = kb if kb > 0 else -kb - 1
-
                     # Compute the 8 Breit integrals for this (a,b,v):
                     # Direct-type densities (indices 0-3):
                     #   PP density at r1, QQ density at r2 (and swaps)
                     # Exchange-type densities (indices 4-7):
                     #   PQ density at r1, QP density at r2 (and swaps)
-
-                    # For efficiency, compute the needed Y^k potentials
-                    # S1: <PaPb | v | QaQb>
-                    rho_PP = fa_P * fb_P
-                    rho_QQ = fa_Q * fb_Q
-                    rho_PQ = fa_P * fb_Q
-                    rho_QP = fa_Q * fb_P
-
-                    yk_QQ = compute_yk(rho_QQ, gr, grw, nv, n_gauss, v)
-                    yk_PP = compute_yk(rho_PP, gr, grw, nv, n_gauss, v)
-                    yk_QP = compute_yk(rho_QP, gr, grw, nv, n_gauss, v)
-                    yk_PQ = compute_yk(rho_PQ, gr, grw, nv, n_gauss, v)
+                    yk_QQ = yk_on_grid(rho_QQ, r_flat, v)
+                    yk_PP = yk_on_grid(rho_PP, r_flat, v)
+                    yk_QP = yk_on_grid(rho_QP, r_flat, v)
+                    yk_PQ = yk_on_grid(rho_PQ, r_flat, v)
 
                     # Direct integrals (S1-S4 pattern)
-                    R_ppqq = np.sum(grw * rho_PP * yk_QQ)  # S1, S2
-                    R_qqpp = np.sum(grw * rho_QQ * yk_PP)  # S3, S4
+                    R_ppqq = np.sum(w_flat * rho_PP * yk_QQ)  # S1, S2
+                    R_qqpp = np.sum(w_flat * rho_QQ * yk_PP)  # S3, S4
                     # Exchange integrals (S5-S8 pattern)
-                    R_pqqp = np.sum(grw * rho_PQ * yk_QP)  # S5, S6
-                    R_qppq = np.sum(grw * rho_QP * yk_PQ)  # S7, S8
+                    R_pqqp = np.sum(w_flat * rho_PQ * yk_QP)  # S5, S6
+                    R_qppq = np.sum(w_flat * rho_QP * yk_PQ)  # S7, S8
 
                     # Combine with angular coefficients
                     contrib = (s_coeffs[0] * R_ppqq + s_coeffs[1] * R_ppqq

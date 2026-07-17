@@ -40,12 +40,13 @@ from atomx.corrections.qedmod.base import SEBackend, SEResult, register_backend
 
 
 def _density_at_origin(P, Q, bsp_data) -> float:
-    """Approximate |ψ(0)|² for an orbital on the B-spline grid.
+    """Approximate |ψ(0)|² for an orbital on the radial grid.
 
-    Uses the innermost grid point as a proxy for ``|P(r)/r|² + |Q(r)/r|²``
-    extrapolated to ``r → 0``.  For κ = ±1 orbitals (γ ≈ 1) this is a
-    well-behaved finite limit.  For |κ| ≥ 2 the large component vanishes
-    at the origin and the proxy correctly returns a tiny value.
+    Uses the innermost (positive-r) grid point as a proxy for
+    ``|P(r)/r|² + |Q(r)/r|²`` extrapolated to ``r → 0``.  For κ = ±1
+    orbitals (γ ≈ 1) this is a well-behaved finite limit.  For |κ| ≥ 2
+    the large component vanishes at the origin and the proxy correctly
+    returns a tiny value.
 
     The 3D density at the origin is taken to be
 
@@ -54,28 +55,21 @@ def _density_at_origin(P, Q, bsp_data) -> float:
     where ``R_P = P/r``, ``R_Q = Q/r`` are the radial wavefunctions and the
     ``1/(4π)`` factor comes from the ``|Y_00|²`` angular piece.
     """
-    from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
+    from atomx.corrections.workspace import eval_orbital_pair, workspace_arrays
 
-    nv = bsp_data["nv"]
-    ns = bsp_data["ns"]
-    gr = bsp_data["gr"]
-    ksp = bsp_data.get("ksp", bsp_data["ks"])
-    ksq = bsp_data.get("ksq", bsp_data["ks"])
-    nsp = bsp_data.get("nsp", ns)
-    nsq = bsp_data.get("nsq", ns)
-    bsp_p = bsp_data["bsp_p"]
-    bsp_q = bsp_data.get("bsp_q", bsp_p)
+    gr, _ = workspace_arrays(bsp_data)
+    fP, fQ = eval_orbital_pair(P, Q, bsp_data)
 
-    fP = eval_orbital_on_grid(P, bsp_p, nv, ksp, nsp)
-    fQ = eval_orbital_on_grid(Q, bsp_q, nv, ksq, nsq)
-
-    # gr and fP have shape (nv, n_gauss) — the innermost quadrature point
-    # lives at index [0, 0].  Using P/r at that single point gives the
-    # dominant-r^γ extrapolation of the Dirac radial wavefunction to r → 0
-    # for γ ≈ 1 orbitals (κ = ±1), which is what Welton needs.
-    r0 = float(gr[0, 0])
-    P0 = float(fP[0, 0])
-    Q0 = float(fQ[0, 0])
+    # Flatten to grid order (B-spline arrays are (nv, n_gauss); grid
+    # workspaces are already 1D) and take the innermost r > 0 node.
+    # Using P/r at that single point gives the dominant-r^γ
+    # extrapolation of the Dirac radial wavefunction to r → 0 for
+    # γ ≈ 1 orbitals (κ = ±1), which is what Welton needs.
+    r_flat = np.ravel(gr)
+    i0 = int(np.argmax(r_flat > 0.0))
+    r0 = float(r_flat[i0])
+    P0 = float(np.ravel(fP)[i0])
+    Q0 = float(np.ravel(fQ)[i0])
     RP0_sq = (P0 / r0) ** 2
     RQ0_sq = (Q0 / r0) ** 2
 

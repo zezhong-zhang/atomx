@@ -60,6 +60,73 @@ def _has_bspline_dirac_data(result: "AtomicResult") -> bool:
     return bool(bsp) and bool(raw) and Z is not None
 
 
+def _has_radial_grid_data(result: "AtomicResult") -> bool:
+    """True iff ``result`` carries grid-tabulated Dirac orbitals.
+
+    This is the ODE-shooting flavour
+    (:class:`atomx.numerics.shooting.solver.ShootingResult`): the radial
+    grid ``_grid``, the integration weights ``_difr`` (integrals are
+    ``sum(f * difr)``), the per-shell ``(P, Q)`` waves ``_pa``/``_qa``,
+    and the subshell metadata (kappa, occupation, label).  Schrödinger
+    shooting results are rejected — Breit/SE/VP act on Dirac spinors.
+    """
+    if getattr(result, "_equation", "dirac") != "dirac":
+        return False
+    if getattr(result, "Z", None) is None:
+        return False
+    subshells = getattr(result, "subshells", None)
+    if not subshells:
+        return False
+    for attr in ("_grid", "_difr", "_pa", "_qa"):
+        if getattr(result, attr, None) is None:
+            return False
+    return len(result._pa) >= len(subshells)
+
+
+def _flatten_grid_orbitals(result: "AtomicResult") -> List[OrbitalTuple]:
+    """Flat orbital tuples for a grid-flavour (shooting) result.
+
+    Rows of ``_pa``/``_qa`` are ordered as ``result.subshells`` (the
+    solvers fill them in subshell order).  The leading ``r <= 0`` grid
+    points (Salvat's SGRID starts at r = 0, where every P, Q vanish)
+    are sliced off so downstream potentials (-Z/r, Uehling, Y^k/r^k+1)
+    stay finite; :func:`_grid_workspace_of` slices identically.
+    """
+    i0 = _origin_offset(result._grid)
+    return [
+        (result._pa[i][i0:], result._qa[i][i0:],
+         float(sh.occupation), sh.kappa, sh.label)
+        for i, sh in enumerate(result.subshells)
+    ]
+
+
+def _origin_offset(r) -> int:
+    """Number of leading non-positive radial nodes to slice off."""
+    import numpy as np
+    return int(np.searchsorted(r, 0.0, side="right"))
+
+
+def _grid_workspace_of(result: "AtomicResult"):
+    """Radial-grid workspace of a shooting result (origin point sliced)."""
+    from atomx.corrections.workspace import make_grid_workspace
+    i0 = _origin_offset(result._grid)
+    return make_grid_workspace(result._grid[i0:], result._difr[i0:])
+
+
+def _dirac_orbital_payload(result: "AtomicResult"):
+    """``(orbitals, workspace)`` for whichever Dirac flavour ``result`` is.
+
+    B-spline results yield coefficient-vector orbitals plus the B-spline
+    workspace; grid (shooting) results yield grid-array orbitals plus a
+    :func:`~atomx.corrections.workspace.make_grid_workspace` dict.  The
+    correction physics functions accept either through the
+    :mod:`atomx.corrections.workspace` seam.
+    """
+    if _has_bspline_dirac_data(result):
+        return _flatten_scf_orbitals(result), result._bsp_data
+    return _flatten_grid_orbitals(result), _grid_workspace_of(result)
+
+
 # ---------------------------------------------------------------------------
 # Vacuum polarisation (Uehling)
 # ---------------------------------------------------------------------------
@@ -71,13 +138,13 @@ class UehlingVPCorrection:
     description = "Uehling VP  ⟨a|V_VP|a⟩ with V_VP = −(2Zα/3π)/r · K₁(2cr)."
 
     def supports(self, result: "AtomicResult") -> bool:
-        return _has_bspline_dirac_data(result)
+        return _has_bspline_dirac_data(result) or _has_radial_grid_data(result)
 
     def evaluate(self, result: "AtomicResult", **_: Any) -> CorrectionResult:
         from atomx.corrections.qed import compute_vp_energy
 
-        orbitals = _flatten_scf_orbitals(result)
-        E = float(compute_vp_energy(orbitals, result._bsp_data, result.Z))
+        orbitals, workspace = _dirac_orbital_payload(result)
+        E = float(compute_vp_energy(orbitals, workspace, result.Z))
         return CorrectionResult(
             name=self.name,
             energy_shift=E,
@@ -92,13 +159,13 @@ class WichmannKrollVPCorrection:
     description = "Higher-order VP (Flambaum–Ginges 2005 eq. 12)."
 
     def supports(self, result: "AtomicResult") -> bool:
-        return _has_bspline_dirac_data(result)
+        return _has_bspline_dirac_data(result) or _has_radial_grid_data(result)
 
     def evaluate(self, result: "AtomicResult", **_: Any) -> CorrectionResult:
         from atomx.corrections.qed import compute_wk_vp_energy
 
-        orbitals = _flatten_scf_orbitals(result)
-        E = float(compute_wk_vp_energy(orbitals, result._bsp_data, result.Z))
+        orbitals, workspace = _dirac_orbital_payload(result)
+        E = float(compute_wk_vp_energy(orbitals, workspace, result.Z))
         return CorrectionResult(
             name=self.name,
             energy_shift=E,
@@ -130,14 +197,14 @@ class SelfEnergyCorrection:
         )
 
     def supports(self, result: "AtomicResult") -> bool:
-        return _has_bspline_dirac_data(result)
+        return _has_bspline_dirac_data(result) or _has_radial_grid_data(result)
 
     def evaluate(self, result: "AtomicResult", **_: Any) -> CorrectionResult:
         from atomx.corrections.qedmod import get_backend
 
         backend = get_backend(self._backend_name)
-        orbitals = _flatten_scf_orbitals(result)
-        out = backend.compute(orbitals, result._bsp_data, result.Z)
+        orbitals, workspace = _dirac_orbital_payload(result)
+        out = backend.compute(orbitals, workspace, result.Z)
         return CorrectionResult(
             name=self.name,
             energy_shift=float(out.E_SE),
@@ -157,13 +224,13 @@ class BreitCorrection:
     description = "Full Breit interaction (magnetic + retardation)."
 
     def supports(self, result: "AtomicResult") -> bool:
-        return _has_bspline_dirac_data(result)
+        return _has_bspline_dirac_data(result) or _has_radial_grid_data(result)
 
     def evaluate(self, result: "AtomicResult", **_: Any) -> CorrectionResult:
         from atomx.corrections.breit import compute_breit_energy
 
-        orbitals = _flatten_scf_orbitals(result)
-        E = float(compute_breit_energy(orbitals, result._bsp_data, result.Z))
+        orbitals, workspace = _dirac_orbital_payload(result)
+        E = float(compute_breit_energy(orbitals, workspace, result.Z))
         return CorrectionResult(
             name=self.name,
             energy_shift=E,
@@ -215,5 +282,7 @@ __all__ = [
     "BreitCorrection",
     "NormalMassShiftCorrection",
     "_flatten_scf_orbitals",
+    "_flatten_grid_orbitals",
     "_has_bspline_dirac_data",
+    "_has_radial_grid_data",
 ]
