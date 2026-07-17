@@ -28,7 +28,7 @@ from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 # numerics -> properties layer inversion at module-load time.
 
 
-def continuum_energy_normalization_factor(energy, bsp_data):
+def continuum_energy_normalization_factor(energy, bsp_data, equation=None):
     """Box-normalized pseudo-state -> delta-energy normalization factor.
 
     ``solve_continuum`` diagonalizes the Dirac equation in a finite radial box,
@@ -36,15 +36,25 @@ def continuum_energy_normalization_factor(energy, bsp_data):
     require continuum waves normalized to ``delta(E-E')``.  For a large
     hard-wall box the density of positive-energy states is
 
-        rho(E) ~= R / (pi * k),   k = sqrt(2E),
+        rho(E) ~= R / (pi * k),
 
     and the radial sine-normalized conversion used elsewhere in AtomX is
     ``sqrt(2*rho/pi)``.
+
+    ``equation`` selects the dispersion relation for ``k``: the Dirac
+    pseudo-spectrum oscillates with the relativistic
+    ``k = sqrt(2E(1 + alpha^2 E/2))``, so that is the default here; pass
+    :class:`atomx.physics.Schrodinger` for a non-relativistic box
+    (``k = sqrt(2E)``).
     """
     if energy <= 0:
         return 0.0
+    if equation is None:
+        from atomx.physics import Dirac
+
+        equation = Dirac()
     R_box = float(bsp_data["t"][-1])
-    k = float(np.sqrt(2.0 * energy))
+    k = float(equation.continuum_wave_number(float(energy)))
     rho = R_box / (np.pi * max(k, 1e-30))
     return float(np.sqrt(2.0 * rho / np.pi))
 

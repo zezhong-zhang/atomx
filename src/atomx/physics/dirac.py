@@ -19,6 +19,7 @@ wavefunctions live in :mod:`atomx.numerics.analytic.hydrogenic_dirac`.
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 
 import numpy as np
@@ -46,6 +47,20 @@ class Dirac:
     def eigenvalue_floor(self) -> float:
         """Dirac-sea / positive-energy boundary, ``−m_e c² = −c²`` in Hartree."""
         return -C_SQ
+
+    def continuum_wave_number(self, energy_au: float) -> float:
+        """Relativistic dispersion ``k = √(2E(1 + α²E/2))`` (Hartree, ``E > 0``).
+
+        From ``(ck)² = E(E + 2c²)`` with ``E`` the kinetic energy — the
+        wave number the two-component continuum spinors oscillate with
+        asymptotically.  Reduces to the Schrödinger ``√(2E)`` as
+        ``E/c² → 0``; at 200 keV the difference is ~9% in ``k``.
+        """
+        if energy_au <= 0.0:
+            raise ValueError(
+                f"continuum_wave_number requires E > 0, got {energy_au}"
+            )
+        return math.sqrt(2.0 * energy_au * (1.0 + 0.5 * energy_au / C_SQ))
 
 
 # ---------------------------------------------------------------------------

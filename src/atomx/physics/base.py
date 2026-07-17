@@ -53,5 +53,16 @@ class Equation(Protocol):
         """
         ...
 
+    def continuum_wave_number(self, energy_au: float) -> float:
+        """Asymptotic wave number ``k`` of a free continuum wave at
+        kinetic energy ``E`` (Hartree, ``E > 0``).
+
+        Non-relativistic dispersion gives ``k = √(2E)``; the Dirac
+        equation gives the relativistic ``k = √(2E(1 + α²E/2))``
+        (equivalently ``(cℏk)² = E(E + 2mc²)``), which the two-component
+        continuum waves oscillate with asymptotically.
+        """
+        ...
+
 
 __all__ = ["Equation"]

@@ -2,6 +2,8 @@
 
 import numpy as np
 import pytest
+from atomx.constants import C_SQ
+from atomx.physics import Dirac, Schrodinger
 from atomx.numerics.bspline.knots import make_knots
 from atomx.numerics.bspline.basis import prepare_bspline_data
 from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
@@ -12,6 +14,32 @@ from atomx.numerics.bspline.continuum import (
     dipole_matrix_element,
     photoionization_cross_section,
 )
+
+
+class TestContinuumWaveNumber:
+    def test_schrodinger_nonrelativistic(self):
+        assert Schrodinger().continuum_wave_number(0.5) == pytest.approx(1.0)
+
+    def test_dirac_relativistic_dispersion(self):
+        E = 100.0
+        k = Dirac().continuum_wave_number(E)
+        assert k == pytest.approx(np.sqrt(2.0 * E * (1.0 + 0.5 * E / C_SQ)))
+        # (ck)^2 = E (E + 2c^2), the exact relativistic dispersion
+        assert C_SQ * k * k == pytest.approx(E * (E + 2.0 * C_SQ))
+
+    def test_dirac_reduces_to_schrodinger_at_low_energy(self):
+        E = 1e-4
+        k_rel = Dirac().continuum_wave_number(E)
+        k_nr = Schrodinger().continuum_wave_number(E)
+        assert k_rel == pytest.approx(k_nr, rel=1e-8)
+        assert k_rel > k_nr  # relativistic k is always the larger one
+
+    def test_rejects_nonpositive_energy(self):
+        for eq in (Dirac(), Schrodinger()):
+            with pytest.raises(ValueError):
+                eq.continuum_wave_number(0.0)
+            with pytest.raises(ValueError):
+                eq.continuum_wave_number(-1.0)
 
 
 class TestContinuumSolver:
@@ -47,6 +75,22 @@ class TestContinuumSolver:
         assert E_en == pytest.approx(E_box)
         np.testing.assert_allclose(P_en, factor * P_box)
         np.testing.assert_allclose(Q_en, factor * Q_box)
+
+    def test_normalization_uses_relativistic_k_for_dirac(self):
+        ns, ks = 40, 9
+        t = make_knots(ns, ks, 0.01, 50.0)
+        data = prepare_bspline_data(t, ns, ks)
+        E = 500.0  # deep continuum, where the dispersions visibly differ
+
+        f_default = continuum_energy_normalization_factor(E, data)
+        f_dirac = continuum_energy_normalization_factor(E, data, Dirac())
+        f_schrod = continuum_energy_normalization_factor(E, data, Schrodinger())
+
+        assert f_default == pytest.approx(f_dirac)
+        # factor ~ 1/sqrt(k): relativistic k > sqrt(2E) -> smaller factor
+        k_ratio = Dirac().continuum_wave_number(E) / np.sqrt(2.0 * E)
+        assert f_dirac == pytest.approx(f_schrod / np.sqrt(k_ratio))
+        assert f_dirac < f_schrod
 
 
 class TestDipoleMatrixElement:

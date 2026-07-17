@@ -47,6 +47,7 @@ testpaths = ["tests"]
 markers = [
     "slow: tests that run expensive atomic-structure calculations",
     "fac_parity: frozen atomx SELF-regression snapshot (compares atomx to its own frozen atomx_* columns; does NOT assert the fac_* columns — see review doc §V1)",
+    "book: executable claims from the book (docs/book); a claim that fails to verify fails this gate — run with `pytest -m book`",
 ]
 
 [tool.atomx.performance_dashboard]
