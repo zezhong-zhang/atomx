@@ -77,16 +77,25 @@ def ci_solve(
     csfs
         List of :class:`~atomx.methods.mcdhf.config.CSF` objects.
     orbitals_dict
-        ``{(n, kappa): (P_coeffs, Q_coeffs)}`` — converged radial
-        orbitals on the shared B-spline basis.
+        ``{(n, kappa): (P, Q)}`` — converged radial orbitals in the
+        representation matching ``bsp_data``: B-spline coefficient
+        vectors for the B-spline workspace, or grid-tabulated arrays
+        (e.g. ``ShootingResult._pa/_qa`` rows) for the grid workspace.
     orbital_basis
         Shared orbital basis descriptor.
     bsp_data
-        B-spline workspace (grid, weights, basis).
+        B-spline workspace (grid, weights, basis) or a
+        :class:`~atomx.methods.mcdhf.matrix.GridCIWorkspace` wrapping
+        the shooting grid ``(r, difr, r·V_nuc)``.  The grid flavour
+        evaluates every matrix element with the shooting engine's own
+        numerics (SLAG6 Slater integrals, the solver's nuclear
+        potential array) so single-CSF CI totals reproduce
+        ``ShootingResult.total_energy`` — same consistency principle
+        as the cell integrator on the B-spline side.
     Z
         Nuclear charge.
     ns
-        B-spline dimension.
+        B-spline dimension (grid flavour: the grid size ``len(r)``).
     n_states
         Number of low-lying eigenpairs to compute.  ``None`` (default)
         diagonalises the full CI matrix; otherwise the iterative
@@ -103,9 +112,11 @@ def ci_solve(
         ``V(r)`` callable for the one-electron Dirac blocks (finite
         nucleus); ``None`` = point nucleus.  Pass the SCF solver's
         potential so CI and SCF energies share the same nuclear model.
+        B-spline flavour only — the grid workspace carries ``rv_nuc``.
     convol_cache
         Optional pre-built cell-integral cache on ``bsp_data`` (see
-        :func:`atomx.methods.mcdhf.matrix.build_ci_matrix`).
+        :func:`atomx.methods.mcdhf.matrix.build_ci_matrix`).  B-spline
+        flavour only.
 
     Returns
     -------

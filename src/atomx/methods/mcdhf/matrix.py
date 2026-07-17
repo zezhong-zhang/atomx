@@ -21,6 +21,9 @@ from atomx.numerics.bspline.convol import (
     compute_slater_gk_cell,
     compute_slater_rk_cell,
 )
+from atomx.numerics.shooting.constants import SL
+from atomx.numerics.shooting.quadrature import slag6
+from atomx.numerics.shooting.solver import _slater_integral_slag6
 
 
 # Build-scoped memo for Slater integrals and Dirac H0/S0 blocks: every CSF
@@ -65,8 +68,14 @@ def _fk(Pa, Qa, Pb, Qb, bsp_data, k):
     key = ("f", k) + ((ia, ib) if ia <= ib else (ib, ia))
     v = _SLATER_MEMO.get(key)
     if v is None:
-        v = compute_slater_fk_cell(Pa, Qa, Pb, Qb, bsp_data, k,
-                                   cache=_context_cache(bsp_data))
+        if isinstance(bsp_data, GridCIWorkspace):
+            v = float(_slater_integral_slag6(
+                _grid_pair_density(Pa, Qa, Pa, Qa),
+                _grid_pair_density(Pb, Qb, Pb, Qb),
+                k, bsp_data.r, bsp_data.difr, bsp_data.n))
+        else:
+            v = compute_slater_fk_cell(Pa, Qa, Pb, Qb, bsp_data, k,
+                                       cache=_context_cache(bsp_data))
         _SLATER_MEMO[key] = v
     return v
 
@@ -76,8 +85,13 @@ def _gk(Pa, Qa, Pb, Qb, bsp_data, k):
     key = ("g", k) + ((ia, ib) if ia <= ib else (ib, ia))
     v = _SLATER_MEMO.get(key)
     if v is None:
-        v = compute_slater_gk_cell(Pa, Qa, Pb, Qb, bsp_data, k,
-                                   cache=_context_cache(bsp_data))
+        if isinstance(bsp_data, GridCIWorkspace):
+            rho_ab = _grid_pair_density(Pa, Qa, Pb, Qb)
+            v = float(_slater_integral_slag6(
+                rho_ab, rho_ab, k, bsp_data.r, bsp_data.difr, bsp_data.n))
+        else:
+            v = compute_slater_gk_cell(Pa, Qa, Pb, Qb, bsp_data, k,
+                                       cache=_context_cache(bsp_data))
         _SLATER_MEMO[key] = v
     return v
 
@@ -86,8 +100,17 @@ def _rk(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd, bsp_data, k):
     key = ("r", k, id(Pa), id(Pb), id(Pc), id(Pd))
     v = _SLATER_MEMO.get(key)
     if v is None:
-        v = compute_slater_rk_cell(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd, bsp_data,
-                                   k, cache=_context_cache(bsp_data))
+        if isinstance(bsp_data, GridCIWorkspace):
+            # rho13 = a·c, rho24 = b·d — same pairing convention as
+            # compute_slater_rk_cell.
+            v = float(_slater_integral_slag6(
+                _grid_pair_density(Pa, Qa, Pc, Qc),
+                _grid_pair_density(Pb, Qb, Pd, Qd),
+                k, bsp_data.r, bsp_data.difr, bsp_data.n))
+        else:
+            v = compute_slater_rk_cell(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd,
+                                       bsp_data, k,
+                                       cache=_context_cache(bsp_data))
         _SLATER_MEMO[key] = v
     return v
 
@@ -100,6 +123,200 @@ def _dirac_blocks(ns, kappa, Z, bsp_data):
                                  _SLATER_MEMO.get("_nuclear_potential"))
         _SLATER_MEMO[key] = v
     return v
+
+
+# ---------------------------------------------------------------------------
+# Grid (shooting-engine) flavour of the radial workspace
+# ---------------------------------------------------------------------------
+#
+# Same seam idea as atomx.corrections.workspace: ONE physics implementation
+# of the CI matrix elements serves both orbital representations.  Dispatch is
+# on the workspace object (``isinstance(bsp_data, GridCIWorkspace)``), never
+# on array shapes.  The consistency principle that fixed the +74 Ha Pb bug
+# applies verbatim here: the grid flavour evaluates every matrix element with
+# the shooting engine's OWN numerics — Slater integrals through
+# ``_slater_integral_slag6`` (the same integrator
+# ``ShootingHFSolver._two_electron_energy`` uses) and one-electron Dirac
+# blocks with the solver's own nuclear potential array — so a single-CSF CI
+# total on converged shooting orbitals reproduces ``ShootingResult
+# .total_energy``.
+
+
+class GridCIWorkspace:
+    """Shooting-grid flavour of the CI radial workspace.
+
+    Wraps the Salvat SGRID arrays so :func:`build_ci_matrix` /
+    :func:`atomx.methods.ci.ci_solve` can consume orbitals tabulated on
+    the shooting grid: ``orbitals_dict`` values are ``(P, Q)`` arrays of
+    length ``len(r)`` (e.g. rows of ``ShootingResult._pa/_qa``), and the
+    ``ns`` argument must equal ``len(r)``.
+
+    Parameters
+    ----------
+    r : ndarray
+        SGRID radial nodes (``r[0] == 0`` included — the SLAG6 kernels
+        own the origin treatment).
+    difr : ndarray
+        Grid Jacobian ``dr/ds`` on the uniform-s index grid (``ds = 1``
+        per index): integrals are ``slag6(1, f*difr)`` and derivatives
+        are ``d/dr = (1/difr) d/ds``.
+    rv_nuc : ndarray
+        ``r·V_nuc(r)`` on the grid — the SAME array the shooting solver
+        used (``ShootingHFSolver._nuclear_rv``), point or Fermi.  Kept
+        in ``r·V`` form because ``V`` itself diverges at ``r = 0`` for
+        a point nucleus.
+    """
+
+    __slots__ = ("r", "difr", "rv_nuc", "inv_r", "n")
+
+    def __init__(self, r, difr, rv_nuc):
+        r = np.asarray(r, dtype=float)
+        difr = np.asarray(difr, dtype=float)
+        rv_nuc = np.asarray(rv_nuc, dtype=float)
+        if r.ndim != 1 or r.shape != difr.shape or r.shape != rv_nuc.shape:
+            raise ValueError(
+                f"GridCIWorkspace needs matching 1D r/difr/rv_nuc arrays "
+                f"(got shapes {r.shape}, {difr.shape}, {rv_nuc.shape})")
+        self.r = r
+        self.difr = difr
+        self.rv_nuc = rv_nuc
+        self.n = r.shape[0]
+        inv_r = np.zeros_like(r)
+        mask = r > 1.0e-30
+        inv_r[mask] = 1.0 / r[mask]
+        self.inv_r = inv_r
+
+    @classmethod
+    def from_shooting(cls, hf_solver, result):
+        """Workspace from a ShootingHFSolver + its ShootingResult.
+
+        Rebuilds ``r·V_nuc`` through the solver's own
+        ``_nuclear_rv`` so the CI one-electron blocks use the identical
+        nuclear model (point/Fermi) the SCF solved with.
+        """
+        r = result._grid
+        difr = result._difr
+        return cls(r, difr, hf_solver._nuclear_rv(r, difr, len(r)))
+
+
+# 8th-order first-derivative stencils on the uniform-s index grid.
+# Central: antisymmetric weights for offsets ±1..±4; edge rows i=0..3 are
+# the one-sided/offset 8th-order weights on nodes 0..8 (right edge uses the
+# mirrored negated rows — first-derivative parity).
+_FD_CENTRAL = (4.0 / 5.0, -1.0 / 5.0, 4.0 / 105.0, -1.0 / 280.0)
+
+
+def _build_fd_edge_weights():
+    W = np.empty((4, 9))
+    nodes = np.arange(9, dtype=float)
+    rhs = np.zeros(9)
+    rhs[1] = 1.0  # Σ_j w_j x_j^m = m! δ_{m,1}
+    for i in range(4):
+        x = nodes - float(i)
+        A = np.vander(x, 9, increasing=True).T
+        W[i] = np.linalg.solve(A, rhs)
+    return W
+
+
+_FD_EDGE = _build_fd_edge_weights()
+
+
+def _ds_derivative(y):
+    """dy/ds on the uniform-s grid (unit index spacing), 8th order."""
+    n = y.shape[0]
+    if n < 9:
+        raise ValueError(f"grid too small for 8th-order stencils (n={n})")
+    c1, c2, c3, c4 = _FD_CENTRAL
+    d = np.empty_like(y)
+    d[4:n - 4] = (c1 * (y[5:n - 3] - y[3:n - 5])
+                  + c2 * (y[6:n - 2] - y[2:n - 6])
+                  + c3 * (y[7:n - 1] - y[1:n - 7])
+                  + c4 * (y[8:n] - y[0:n - 8]))
+    head = y[:9]
+    tail = y[n - 9:][::-1]
+    for i in range(4):
+        d[i] = _FD_EDGE[i] @ head
+        d[n - 1 - i] = -(_FD_EDGE[i] @ tail)
+    return d
+
+
+def _grid_ds(y):
+    key = ("ds", id(y))
+    v = _SLATER_MEMO.get(key)
+    if v is None:
+        v = _ds_derivative(y)
+        _SLATER_MEMO[key] = (y, v)  # keep y alive: id-reuse safety
+    else:
+        v = v[1]
+    return v
+
+
+def _grid_pair_density(Pa, Qa, Pb, Qb):
+    ia, ib = id(Pa), id(Pb)
+    key = ("rho",) + ((ia, ib) if ia <= ib else (ib, ia))
+    v = _SLATER_MEMO.get(key)
+    if v is None:
+        v = Pa * Pb + Qa * Qb
+        _SLATER_MEMO[key] = v
+    return v
+
+
+def _grid_h_one_body(Pa, Qa, Pb, Qb, kappa, ws):
+    """⟨a|h_D|b⟩ on the shooting grid (same-κ orbitals).
+
+    Salvat convention (rest mass subtracted), matching the radial ODE the
+    shooting engine integrates:
+
+        h_D [P, Q] = [ V P + c(−Q' + κ Q/r),
+                       c(P' + κ P/r) + (V − 2c²) Q ]
+
+    The derivative terms integrate in s directly (``∫ f' g dr =
+    ∫ (df/ds) g ds`` — the Jacobians cancel) and are symmetrised so the
+    CI matrix stays exactly symmetric under a↔b; the local terms carry
+    the ``difr`` Jacobian.  ``V`` enters as the workspace's ``rv_nuc/r``
+    — never a rebuilt point-nucleus ``−Z/r``.
+    """
+    dPa, dQa = _grid_ds(Pa), _grid_ds(Qa)
+    dPb, dQb = _grid_ds(Pb), _grid_ds(Qb)
+    kin = 0.5 * SL * ((Qa * dPb + Qb * dPa) - (Pa * dQb + Pb * dQa))
+    rho = _grid_pair_density(Pa, Qa, Pb, Qb)
+    cross = Pa * Qb + Qa * Pb
+    loc = ((SL * kappa * cross + ws.rv_nuc * rho) * ws.inv_r
+           - 2.0 * SL * SL * (Qa * Qb))
+    integrand = kin + loc * ws.difr
+    return float(slag6(1.0, integrand, ws.n)[ws.n - 1])
+
+
+def _h_one_body(Pa, Qa, Pb, Qb, kappa, Z, bsp_data, ns):
+    """One-electron Dirac matrix element ⟨a|h_D|b⟩ — flavour dispatched."""
+    if isinstance(bsp_data, GridCIWorkspace):
+        ia, ib = id(Pa), id(Pb)
+        key = ("h1", kappa) + ((ia, ib) if ia <= ib else (ib, ia))
+        v = _SLATER_MEMO.get(key)
+        if v is None:
+            v = _grid_h_one_body(Pa, Qa, Pb, Qb, kappa, bsp_data)
+            _SLATER_MEMO[key] = v
+        return v
+    H0, _S0 = _dirac_blocks(ns, kappa, Z, bsp_data)
+    vec_a = np.concatenate([Pa, Qa])
+    vec_b = np.concatenate([Pb, Qb])
+    return vec_a @ H0 @ vec_b
+
+
+def _norm_sq(P, Q, kappa, Z, bsp_data, ns):
+    """⟨a|a⟩ — flavour dispatched (grid: SLAG6, bspline: overlap matrix)."""
+    if isinstance(bsp_data, GridCIWorkspace):
+        key = ("n2", id(P))
+        v = _SLATER_MEMO.get(key)
+        if v is None:
+            rho = _grid_pair_density(P, Q, P, Q)
+            v = float(slag6(1.0, rho * bsp_data.difr,
+                            bsp_data.n)[bsp_data.n - 1])
+            _SLATER_MEMO[key] = v
+        return v
+    _H0, S0 = _dirac_blocks(ns, kappa, Z, bsp_data)
+    vec = np.concatenate([P, Q])
+    return vec @ S0 @ vec
 from atomx.numerics.bspline.evaluate import eval_orbital_on_grid, compute_yk
 from atomx.angular.coefficients import exchange_lambda, exchange_k_range, reduced_cl_j2
 from atomx.angular.wigner import wigner_6j
@@ -115,22 +332,45 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
 
     Parameters
     ----------
+    bsp_data : dict or GridCIWorkspace
+        B-spline workspace (``orbitals_dict`` values are coefficient
+        vectors), or a :class:`GridCIWorkspace` (values are ``(P, Q)``
+        arrays on the shooting grid; ``ns`` must equal ``len(r)``).  The
+        grid flavour evaluates every element with the shooting engine's
+        own numerics (SLAG6 Slater integrals, workspace nuclear
+        potential) — the same consistency principle as the bspline cell
+        integrator below.
     nuclear_potential : callable or None
         ``V(r)`` for the one-electron Dirac blocks.  Pass the solver's
         potential (e.g. ``DFSolver._nuclear_potential``) so the CI
         one-electron energies use the SAME finite-nucleus model as the
         SCF that produced the orbitals; ``None`` = point nucleus.
+        B-spline flavour only — the grid workspace carries its own
+        ``rv_nuc`` array.
     convol_cache : ConvolCache or None
         Reuse an existing cell-integral rkb cache built on ``bsp_data``
         (e.g. ``DFSolver._convol_cache``) — the tables depend only on the
         B-spline geometry, so sharing them avoids an O(seconds) rebuild
         per CI construction.  A cache built on different ``bsp_data`` is
-        ignored and a fresh one created.
+        ignored and a fresh one created.  B-spline flavour only.
     """
     _SLATER_MEMO.clear()
-    if convol_cache is not None and convol_cache.bsp_data is bsp_data:
-        _SLATER_MEMO["_convol_cache"] = convol_cache
-    _SLATER_MEMO["_nuclear_potential"] = nuclear_potential
+    if isinstance(bsp_data, GridCIWorkspace):
+        if nuclear_potential is not None:
+            raise ValueError(
+                "grid-flavour CI takes its nuclear potential from "
+                "GridCIWorkspace.rv_nuc; nuclear_potential= is "
+                "bspline-only")
+        if convol_cache is not None:
+            raise ValueError("convol_cache= is bspline-only")
+        if ns != bsp_data.n:
+            raise ValueError(
+                f"grid-flavour CI needs ns == len(r) "
+                f"(got ns={ns}, grid size {bsp_data.n})")
+    else:
+        if convol_cache is not None and convol_cache.bsp_data is bsp_data:
+            _SLATER_MEMO["_convol_cache"] = convol_cache
+        _SLATER_MEMO["_nuclear_potential"] = nuclear_potential
     n_csf = len(csfs)
     H = np.zeros((n_csf, n_csf))
     for r in range(n_csf):
@@ -222,11 +462,11 @@ def _diagonal_element(csf, orbitals_dict, bsp_data, Z, ns):
     E_1e = 0.0
     for sh in csf.subshells:
         P, Q = _get_orb((sh.n, sh.kappa), orbitals_dict, ns)
-        H0, S0 = _dirac_blocks(ns, sh.kappa, Z, bsp_data)
-        vec = np.concatenate([P, Q])
-        norm_sq = vec @ S0 @ vec
+        norm_sq = _norm_sq(P, Q, sh.kappa, Z, bsp_data, ns)
         if norm_sq > 1e-20:
-            E_1e += sh.occupation * (vec @ H0 @ vec) / norm_sq
+            E_1e += (sh.occupation
+                     * _h_one_body(P, Q, P, Q, sh.kappa, Z, bsp_data, ns)
+                     / norm_sq)
 
     E_J, E_K = 0.0, 0.0
     subshells = list(csf.subshells)
@@ -316,10 +556,7 @@ def _one_diff_element(csf_r, csf_s, orbitals_dict, bsp_data, Z, ns):
     # One-electron: ⟨a|h|b⟩ (non-zero only for same κ; h is a scalar tensor)
     H_1e = 0.0
     if kappa_a == kappa_b:
-        H0, S0 = _dirac_blocks(ns, kappa_a, Z, bsp_data)
-        vec_a = np.concatenate([Pa, Qa])
-        vec_b = np.concatenate([Pb, Qb])
-        H_1e = vec_a @ H0 @ vec_b
+        H_1e = _h_one_body(Pa, Qa, Pb, Qb, kappa_a, Z, bsp_data, ns)
 
     # Two-electron: Σ_c q_c [direct − exchange] over common spectator orbitals
     H_2e = 0.0

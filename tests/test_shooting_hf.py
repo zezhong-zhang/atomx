@@ -89,8 +89,11 @@ def test_orbital_energies_match_bspline(solved, name):
 
 def test_provenance_and_method_metadata(solved):
     shooting, _ = solved["Ne"]
+    # averaging="ci" is the Atom default; Ne is closed-shell (single
+    # jj-CSF) so the ci route collapses to this plain solve exactly.
     assert shooting.provenance == {"numerics": "shooting",
-                                   "exchange": "hf"}
+                                   "exchange": "hf",
+                                   "averaging": "ci"}
     res = shooting.result
     assert res.method_name == "Dirac-Hartree-Fock (shooting)"
     assert res.theory_level.name == "DIRAC_HARTREE_FOCK"
@@ -116,3 +119,35 @@ def test_exchange_lowers_valence_orbitals_vs_local():
 def test_alpha_x_still_rejected_for_hf():
     with pytest.raises(ValueError, match="alpha_x"):
         Atom(Z=10, numerics="shooting", exchange="hf", alpha_x=0.7)
+
+
+@pytest.mark.parametrize("Z", [27, 82])
+def test_fermi_nuclear_model_matches_bspline_engine(Z):
+    """Both engines must solve the SAME Fermi nuclear model.
+
+    ``ShootingHFSolver._nuclear_rv`` takes its (c, a) shape parameters
+    from the library-wide ``fermi_params`` (DBSR_HF t = 2.30 fm +
+    empirical rms) — the model ``DFSolver`` gets via
+    ``make_nuclear_potential``.  The Salvat literals it used before
+    (R1 = 1.07 A^{1/3} fm, a = 0.546 fm) have a ~4% smaller rms radius
+    at Z=82; the ~5.5 Ha Pb finite-size shift turned that into a flat
+    0.351 Ha cross-engine offset on every HF/ci total (measured
+    -20914.1136 vs -20913.7625 on the Pb ci route).  Gate: the
+    slag6-built r·V_nuc equals r·V of the shared analytic potential to
+    1e-6 relative (measured 3.2e-9 at Z=27, 1.2e-8 at Z=82).
+    """
+    import numpy as np
+
+    from atomx.methods.dirac_fock import Subshell
+    from atomx.numerics.shooting.grid import sgrid
+    from atomx.numerics.shooting.hf_shooting import ShootingHFSolver
+    from atomx.potentials.nuclear import make_nuclear_potential
+
+    r, difr, n = sgrid(75.0, 1.0e-7, 0.5, 1000)
+    r, difr = r[:n], difr[:n]
+    solver = ShootingHFSolver(Z, [Subshell(1, -1, 2.0)], nuclear="fermi")
+    rv = solver._nuclear_rv(r, difr, n)
+    V = make_nuclear_potential(Z, "fermi")
+    rv_ref = np.array([x * V(x) for x in r])
+    rel = np.max(np.abs(rv - rv_ref) / np.maximum(np.abs(rv_ref), 1e-3))
+    assert rel <= 1e-6, f"Z={Z}: nuclear models diverge (rel {rel:.2e})"

@@ -88,7 +88,8 @@ def test_shooting_hf_solves():
     shooting = Atom(**FE17, numerics="shooting", exchange="hf").solve()
     bspline = Atom(**FE17, numerics="bspline", exchange="hf").solve()
     assert shooting.converged
-    assert shooting.provenance == {"numerics": "shooting", "exchange": "hf"}
+    assert shooting.provenance == {"numerics": "shooting", "exchange": "hf",
+                                   "averaging": "ci"}
     rel = abs(shooting.total_energy - bspline.total_energy) / abs(
         bspline.total_energy)
     assert rel < 1e-4
@@ -168,17 +169,27 @@ def test_alpha_x_propagates_to_bspline():
 # ----------------------------------------------------------------------
 
 @pytest.mark.parametrize("kwargs,expected", [
-    (dict(exchange="hf"), ("shooting", "hf")),
-    (dict(exchange="slater"), ("shooting", "slater")),
-    (dict(numerics="bspline", exchange="hf"), ("bspline", "hf")),
-    (dict(numerics="shooting", exchange="gu"), ("shooting", "gu")),
-    (dict(numerics="shooting", exchange="slater"), ("shooting", "slater")),
-    (dict(numerics="bspline", exchange="gu"), ("bspline", "gu")),
+    # averaging records what ACTUALLY ran: the defaulted "ci" stays
+    # "ci" for hf (Fe XVII is closed-shell — the single-CSF collapse
+    # delivers ci exactly), and falls back to "statistical" for the
+    # local-exchange models (no HF two-electron structure to
+    # CI-average; explicit averaging="ci" with slater/gu raises — see
+    # tests/test_averaging_decoupling.py).
+    (dict(exchange="hf"), ("shooting", "hf", "ci")),
+    (dict(exchange="slater"), ("shooting", "slater", "statistical")),
+    (dict(numerics="bspline", exchange="hf"), ("bspline", "hf", "ci")),
+    (dict(numerics="shooting", exchange="gu"),
+     ("shooting", "gu", "statistical")),
+    (dict(numerics="shooting", exchange="slater"),
+     ("shooting", "slater", "statistical")),
+    (dict(numerics="bspline", exchange="gu"),
+     ("bspline", "gu", "statistical")),
 ])
 def test_provenance_records_engine_and_model(kwargs, expected):
     a = Atom(**FE17, **kwargs).solve()
-    engine, model = expected
-    assert a.provenance == {"numerics": engine, "exchange": model}
+    engine, model, averaging = expected
+    assert a.provenance == {"numerics": engine, "exchange": model,
+                            "averaging": averaging}
     # provenance intentionally NOT mirrored into energy_components:
     # numeric consumers (compare, viz) iterate that dict as floats
     assert "numerics" not in (a.energy_components or {})

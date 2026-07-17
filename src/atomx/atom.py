@@ -167,7 +167,7 @@ class Atom:
                  correction_stack=None,
                  correlation=None, starting_potential=None,
                  plasma_ne=None, plasma_Te=None,
-                 averaging="ci", slater_method="slag6",
+                 averaging=None, slater_method="slag6",
                  sampling=None, j_resolved_csfs=False,
                  per_block_orbital_sets=False,
                  radial_optimization="mcdhf"):
@@ -205,11 +205,21 @@ class Atom:
             Electron density (cm^-3) for plasma screening.
         plasma_Te : float, optional
             Electron temperature (eV) for plasma screening.
-        averaging : {"ci", "statistical", "equal", "fractional"}
+        averaging : {"ci", "statistical", "equal", "fractional"} or None
             How to weight the CSFs that span a partially-filled NR shell when
             building the Guerra-averaged Fock operator
 
                 ϖᵢⱼ = Σⱼ cⱼ² nᵢʲ nⱼʲ  (Guerra Eq 10)
+
+            An orthogonal axis to ``numerics`` × ``exchange``: ``"ci"``
+            routes through the MCDHF outer loop on EITHER engine
+            (B-spline DFSolver + cell-integral CI kernel, or
+            ShootingHFSolver + grid-flavour CI kernel).  It requires
+            ``exchange="hf"``: the local-exchange models (slater/gu)
+            have no per-pair Slater-integral structure to CI-average, so
+            the unspecified default falls back quietly to
+            ``"statistical"`` while an EXPLICIT ``averaging="ci"``
+            raises.
 
             - ``"ci"`` (default) — cⱼ are the ground-state mixing amplitudes
               obtained by diagonalising the CI Hamiltonian over all jj-CSFs
@@ -226,6 +236,14 @@ class Atom:
             Closed-shell atoms (Ne, Ar, Kr, Xe, Hg, …) are unaffected by
             this choice — there is only one jj-CSF.
         """
+        # Track whether averaging was EXPLICITLY passed (mirrors the
+        # ``_numerics_explicit`` pattern): the explicit/default
+        # distinction drives the slater/gu × ci contradiction check
+        # below — explicit contradictions raise, the mere default falls
+        # back quietly.
+        self._averaging_explicit = averaging is not None
+        if averaging is None:
+            averaging = "ci"
         if averaging not in {"ci", "statistical", "equal", "fractional"}:
             raise ValueError(
                 f"averaging must be one of 'ci', 'statistical', 'equal', "
@@ -281,6 +299,20 @@ class Atom:
         self.plasma_ne = plasma_ne
         self.plasma_Te = plasma_Te
         self.averaging = averaging
+        # CI averaging needs the non-local HF two-electron structure —
+        # the local-exchange models (slater/gu) carry no per-pair Slater
+        # integrals for the CI kernel to average.  Because "ci" is the
+        # constructor DEFAULT, an unspecified averaging falls back
+        # quietly to statistical in solve() (erroring would break every
+        # slater/gu call); an EXPLICIT averaging="ci" is a contradiction
+        # and raises here instead of being silently ignored.
+        if (self._averaging_explicit and self.averaging == "ci"
+                and self.exchange_model in ("slater", "gu")):
+            raise ValueError(
+                f"averaging='ci' requires exchange='hf' (CI averaging "
+                f"needs the HF two-electron structure; exchange="
+                f"{self.exchange_model!r} is a local-exchange model). "
+                f"Drop averaging='ci' or use exchange='hf'.")
         if radial_optimization not in {"mcdhf", "fac_frozen", "fac_frozen_local"}:
             raise ValueError(
                 "radial_optimization must be 'mcdhf', 'fac_frozen', or 'fac_frozen_local' "
@@ -383,12 +415,18 @@ class Atom:
 
         # Route "ci" averaging (Guerra with Hamiltonian-diagonalisation c_k²)
         # through the MCDHF solver on the jj-CSF enumeration of the base
-        # configuration. For closed-shell atoms the enumeration yields a
+        # configuration — on EITHER engine (averaging is an orthogonal
+        # axis: numerics × exchange × averaging; MCDHFSolver runs the
+        # shooting engine via ShootingHFSolver + the grid-flavour CI
+        # kernel).  For closed-shell atoms the enumeration yields a
         # single CSF, so the MCDHF loop collapses to one DHF solve.
+        # slater/gu are excluded QUIETLY only for the defaulted "ci"
+        # (an explicit averaging="ci" already raised in __init__): "ci"
+        # is the constructor default, so erroring here would break
+        # every slater/gu call.
         use_ci_avg = (
             not self._multi_config
             and self.averaging == "ci"
-            and self.numerics != "shooting"
             and self.exchange_model not in ("slater", "gu")
         )
 
@@ -398,8 +436,9 @@ class Atom:
             csfs = enumerate_jj_csfs(self._config_strings[0])
             if len(csfs) == 1:
                 # Closed-shell fast path: no CI mixing needed — fall back to
-                # the direct DFSolver route below for speed + identical
-                # numerics.
+                # the direct single-config route below for speed + identical
+                # numerics (for one CSF the Guerra ci weights ARE the
+                # statistical weights, so provenance keeps averaging="ci").
                 use_ci_avg = False
             else:
                 solver = MCDHFSolver(
@@ -411,6 +450,7 @@ class Atom:
                     starting_potential=self.starting_potential,
                     per_block_orbital_sets=self.per_block_orbital_sets,
                     radial_optimization=self.radial_optimization,
+                    engine=self.numerics,
                 )
                 self._result = solver.solve(max_iter=max_iter, scf_tol=tol)
 
@@ -620,14 +660,31 @@ class Atom:
             self._result = solver.solve(max_iter=effective_max_iter, tol=tol)
             # SCFResult retains its own _bsp_data; nothing else to wire.
 
-        # Provenance: record which (engine, model) pair produced the
-        # numbers so results are inspectable after the fact.  NOT
-        # mirrored into energy_components: consumers iterate that dict
-        # as numbers (compare(), viz), and string entries broke them —
-        # provenance lives on result.provenance / Atom.provenance only.
+        # Provenance: record which (engine, model, averaging) triple
+        # produced the numbers so results are inspectable after the
+        # fact.  NOT mirrored into energy_components: consumers iterate
+        # that dict as numbers (compare(), viz), and string entries
+        # broke them — provenance lives on result.provenance /
+        # Atom.provenance only.
         if self._result is not None:
+            # ``averaging`` records what actually ran, not what was
+            # requested: multi-config MCDHF is inherently Guerra-CI;
+            # slater/gu default-ci fell back to statistical (see the
+            # gate above); the shooting single-config statistical route
+            # ignores equal/fractional.  The closed-shell ci collapse
+            # keeps "ci" — for a single CSF the Guerra ci weights ARE
+            # the statistical weights, so "ci" was delivered exactly.
+            averaging_ran = self.averaging
+            if self._multi_config:
+                averaging_ran = "ci"
+            elif self.exchange_model in ("slater", "gu"):
+                if self.averaging == "ci":
+                    averaging_ran = "statistical"
+            elif self.numerics == "shooting" and self.averaging != "ci":
+                averaging_ran = "statistical"
             self._result.provenance = {"numerics": self.numerics,
-                                       "exchange": self.exchange_model}
+                                       "exchange": self.exchange_model,
+                                       "averaging": averaging_ran}
 
         return self
 
