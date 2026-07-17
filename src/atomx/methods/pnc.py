@@ -58,8 +58,10 @@ def compute_pnc(
 
     between the two s_{1/2} states ``initial_label`` and
     ``final_label`` of an already-converged SCF reference, summing over
-    V^{N-1} p_{1/2} intermediate states.  Both labels must be present as
-    subshells in the SCF result.
+    V^{N-1} p_{1/2} intermediate states.  The initial label must be an
+    occupied s_{1/2} subshell.  If the final label is not occupied, the
+    low-level property uses the lowest V^{N-1} virtual s_{1/2} state
+    (for Cs ground-state references this is the requested 7s state).
 
     Parameters
     ----------
@@ -118,5 +120,4 @@ def compute_pnc(
         e_intermediate_max=e_intermediate_max,
         potential_mode=potential_mode,
     )
-
 

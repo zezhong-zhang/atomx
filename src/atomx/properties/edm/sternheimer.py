@@ -58,7 +58,6 @@ References
 
 from __future__ import annotations
 
-import math
 import time
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple
@@ -67,6 +66,7 @@ import numpy as np
 
 from atomx.angular.coefficients import _l_from_kappa
 from atomx.numerics.bspline.convol import ConvolCache
+from atomx.properties._pseudoscalar import pseudoscalar_angular
 from atomx.properties._sos_basis import build_sos_virtual_basis
 from atomx.properties.transitions.angular import angular_eL, selection_rules
 from atomx.properties.transitions.multipole import radial_eL
@@ -204,29 +204,7 @@ def _tp_odd_angular(kappa_a: int, kappa_r: int) -> float:
     float
         Angular factor (0 if forbidden).
     """
-    l_a = _l_from_kappa(kappa_a)
-    l_r = _l_from_kappa(kappa_r)
-
-    # Parity: l_a + l_r must be odd (pseudoscalar)
-    if (l_a + l_r) % 2 == 0:
-        return 0.0
-
-    tj_a = 2 * abs(kappa_a) - 1
-    tj_r = 2 * abs(kappa_r) - 1
-
-    # Pseudoscalar operator: Δj = 0 only
-    if tj_a != tj_r:
-        return 0.0
-
-    # For j = 1/2, the reduced matrix element of the pseudoscalar
-    # operator is proportional to (κ_a − κ_r) / √(2j+1).
-    # The sign convention follows Dzuba-Flambaum (2009).
-    phase_exp = (tj_r + 1) // 2
-    phase = 1.0 if phase_exp % 2 == 0 else -1.0
-
-    kappa_factor = (kappa_a - kappa_r) / math.sqrt(tj_a + 1.0)
-
-    return phase * kappa_factor
+    return pseudoscalar_angular(kappa_a, kappa_r)
 
 
 # ---------------------------------------------------------------------------
