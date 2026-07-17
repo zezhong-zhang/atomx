@@ -31,7 +31,7 @@ from atomx.numerics.bspline.convol import ConvolCache  # noqa: E402
 
 @pytest.fixture(scope="module")
 def helium():
-    a = Atom(Z=2, config="1s2", breit=False, qed=False)
+    a = Atom(Z=2, config="1s2", numerics="bspline", breit=False, qed=False)
     a.solve()
     return a
 

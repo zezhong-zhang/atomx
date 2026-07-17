@@ -56,7 +56,7 @@ def test_mbpt2_helium_negative_and_decreasing_with_basis():
 
     Marked slow because each evaluation builds a virtual basis per κ.
     """
-    atom = Atom(Z=2, config="1s2", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s2", numerics="bspline", breit=False, qed=False)
     atom.solve()
     res = atom._result
 
@@ -74,7 +74,7 @@ def test_mbpt2_helium_negative_and_decreasing_with_basis():
 
 def test_mbpt2_open_shell_rejected():
     """Open-shell references trigger a clear error."""
-    atom = Atom(Z=3, config="1s2 2s1", breit=False, qed=False)
+    atom = Atom(Z=3, config="1s2 2s1", numerics="bspline", breit=False, qed=False)
     atom.solve()
     res = atom._result
     with pytest.raises(ValueError, match="closed-shell"):

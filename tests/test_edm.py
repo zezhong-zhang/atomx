@@ -82,7 +82,7 @@ def test_compute_edm_enhancement_high_level_api():
     """High-level compute_edm_enhancement accepts a solved Atom."""
     from atomx.methods.edm import compute_edm_enhancement
 
-    atom = Atom(Z=3, config="1s2 2s1", breit=False, qed=False)
+    atom = Atom(Z=3, config="1s2 2s1", numerics="bspline", breit=False, qed=False)
     atom.solve()
     result = compute_edm_enhancement(atom, "2s1/2")
     assert hasattr(result, "R_electron_edm")

@@ -22,14 +22,15 @@ atomx is a Python library for computing atomic energy levels, wavefunctions, tra
 ```python
 from atomx import Atom
 
-# Neutral neon with default Dirac-Fock SCF
+# Neutral neon — Dirac-HF on the shooting engine with Breit + QED
+# corrections, all on by default
 atom = Atom(Z=10)
 atom.solve()
-print(atom.total_energy)       # -128.04 Hartree
+print(atom.total_energy)       # -128.61 Hartree
 print(atom.orbital_energies)   # {1s: -32.6, 2s: -1.6, ...}
 
-# With Breit + QED corrections
-atom = Atom(Z=10, breit=True, qed=True)
+# Correction-free (pure Dirac-Coulomb) reference run
+atom = Atom(Z=10, breit=False, qed=False)
 atom.solve()
 
 # Multi-configuration (Be with 2s² and 2p² mixing)

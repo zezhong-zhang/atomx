@@ -27,8 +27,8 @@ from atomx.scattering.electron_ionization import (  # noqa: E402
 
 @pytest.fixture(scope="module")
 def he_like():
-    g = Atom(Z=26, config="1s2", charge=24, breit=False, qed=False)
-    e = Atom(Z=26, config="2s1 2p1", charge=24, breit=False, qed=False)
+    g = Atom(Z=26, config="1s2", charge=24, numerics="bspline", breit=False, qed=False)
+    e = Atom(Z=26, config="2s1 2p1", charge=24, numerics="bspline", breit=False, qed=False)
     g.solve(); e.solve()
     return g, e
 
@@ -95,8 +95,8 @@ def test_three_open_shell_solve_physical():
     (occupations, J, parity) CSFs got the full configuration-average
     energy off-diagonally -> [[E,E],[E,E]] -> eigenvalues 2E and 0)."""
     from atomx import Atom
-    g = Atom(Z=26, config="1s2 2s1", charge=23, breit=False, qed=False)
-    e = Atom(Z=26, config="1s1 2s1 2p1", charge=23, breit=False, qed=False)
+    g = Atom(Z=26, config="1s2 2s1", charge=23, numerics="bspline", breit=False, qed=False)
+    e = Atom(Z=26, config="1s1 2s1 2p1", charge=23, numerics="bspline", breit=False, qed=False)
     g.solve(); e.solve()
     dE = (e._result.total_energy - g._result.total_energy) * HARTREE_EV
     # K-shell excitation of Li-like Fe: ~6.6 keV, autoionizing

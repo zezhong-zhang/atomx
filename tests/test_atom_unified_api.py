@@ -2,9 +2,9 @@
 
 Exercises the same set of accessors on:
 
-- :class:`SCFResult` (B-spline DHF — ``Atom(Z).solve()``).
+- :class:`SCFResult` (B-spline DHF — ``Atom(Z, numerics='bspline').solve()``).
 - :class:`MCDHFResult` (multi-config — ``Atom(Z, configs=[...]).solve()``).
-- :class:`ShootingResult` (ODE shooting — ``Atom(Z, numerics='shooting', exchange='slater').solve()``).
+- :class:`ShootingResult` (ODE shooting — ``Atom(Z, numerics='shooting', exchange='slater').solve()`` — also what the bare ``Atom(Z).solve()`` default produces since the 2026-07 defaults flip).
 
 The intent is to lock in the Phase-3 promise: every ``Atom`` accessor
 delegates uniformly through ``self._result`` regardless of which method
@@ -31,7 +31,9 @@ from atomx.results import AtomicResult, Waves
 
 @pytest.fixture(scope="module")
 def he_dhf():
-    return Atom(Z=2).solve()
+    # Explicit engine pin: this fixture IS the SCFResult flavor (the
+    # bare default now resolves to the shooting engine).
+    return Atom(Z=2, numerics="bspline").solve()
 
 
 @pytest.fixture(scope="module")
@@ -167,10 +169,14 @@ def test_mcdhf_density_is_positive_finite(be_mcdhf):
     assert rho[0] > rho[-1]
 
 
-def test_shooting_density_known_limitation(he_shooting):
-    # Current shooting backend doesn't surface per-orbital wavefunctions,
-    # so density() returns None.  Pin this so the limitation is explicit.
-    assert he_shooting.density() is None
+def test_shooting_density_from_grid_orbitals(he_shooting):
+    # The historical limitation (density() returned None on shooting) is
+    # fixed: ShootingResult.waves now builds grid orbitals from the raw
+    # SCF arrays, so the density integrates to the electron count.
+    rho = he_shooting.density()
+    assert rho is not None
+    integral = float(np.trapezoid(rho, he_shooting.r))
+    assert integral == pytest.approx(2.0, rel=1e-3)
 
 
 # ---------------------------------------------------------------------------

@@ -108,9 +108,13 @@ def test_shabaev_local_backend_runs_on_shooting(solved):
 
 
 def test_corrections_shift_total_energy(solved):
-    """total_energy includes the applied shifts (finalize seam ran)."""
+    """total_energy includes the applied shifts (finalize seam ran).
+
+    The invariant is E(breit+qed) == E(bare SCF) + ΔE_Breit + ΔE_SE +
+    ΔE_VP, so the baseline must be explicitly correction-free
+    (breit/qed default True since the 2026-07 defaults flip)."""
     shooting_plain = Atom(numerics="shooting", exchange="hf",
-                          **CASES["Ne"]).solve()
+                          breit=False, qed=False, **CASES["Ne"]).solve()
     shooting, _ = solved["Ne"]
     comp = shooting.energy_components
     shift = comp["E_Breit"] + comp["E_SE"] + comp["E_VP"]

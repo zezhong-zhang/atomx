@@ -17,7 +17,7 @@ from atomx.scattering.radiative_recombination import (
 def test_he_plus_rr_cross_section_falls_with_energy():
     """σ_RR for hydrogenic He⁺(1s) capture decreases monotonically
     with electron energy at low E (Sommerfeld limit ~ E^{-1})."""
-    atom = Atom(Z=2, config="1s1", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
     atom.solve()
     res = atom._result
 
@@ -30,7 +30,7 @@ def test_he_plus_rr_cross_section_falls_with_energy():
 
 
 def test_rr_default_degeneracy_matches_closed_core():
-    atom = Atom(Z=2, config="1s1", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
     atom.solve()
     E = np.geomspace(0.1, 20.0, 8)
     r_default = rr_cross_section(atom._result, E)
@@ -47,7 +47,7 @@ def test_rr_rate_coefficient_he_plus_order_of_magnitude():
     """α_RR(He²⁺ → He⁺) at T=1 eV should be in the 1e-14 to 1e-12 cm³/s
     window — capture into 1s only (full hydrogenic with Rydberg sum
     is ~5.4e-13 cm³/s for Z=2)."""
-    atom = Atom(Z=2, config="1s1", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
     atom.solve()
     res = atom._result
 
@@ -58,7 +58,7 @@ def test_rr_rate_coefficient_he_plus_order_of_magnitude():
 
 
 def test_rr_against_invalid_input():
-    atom = Atom(Z=2, config="1s1", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
     atom.solve()
     res = atom._result
     # Negative or zero energies should raise
@@ -68,7 +68,7 @@ def test_rr_against_invalid_input():
 
 
 def test_rr_e1_only_matches_legacy_path():
-    atom = Atom(Z=2, config="1s1", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
     atom.solve()
     E = np.geomspace(0.1, 20.0, 8)
 
@@ -92,7 +92,7 @@ def test_rr_e1_only_matches_legacy_path():
 
 
 def test_rr_m1_e2_small_for_he_plus_1ev():
-    atom = Atom(Z=2, config="1s1", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
     atom.solve()
     E = np.geomspace(0.05, 200.0, 40)
 
@@ -108,7 +108,7 @@ def test_rr_m1_e2_small_for_he_plus_1ev():
 
 
 def test_rrc_spectrum_threshold_and_shape():
-    atom = Atom(Z=2, config="1s1", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
     atom.solve()
     binding = -atom._result.orbital_energies["1s1/2"] * HARTREE_EV
     photon_E = np.linspace(binding - 2.0, binding + 20.0, 16)

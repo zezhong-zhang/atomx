@@ -130,7 +130,10 @@ def run_atomx(Z: int, iso: str, breit: bool = False, qed: bool = False):
     cfg, nel = ISOSEQUENCE_CONFIGS[iso]
     charge = Z - nel
     t0 = time.perf_counter()
-    atom = Atom(Z=Z, charge=charge, config=cfg, breit=breit, qed=qed)
+    # Engine pinned to the B-spline DHF: the FAC-parity CSVs/gates were
+    # produced on it (the bare default now resolves to shooting).
+    atom = Atom(Z=Z, charge=charge, config=cfg, breit=breit, qed=qed,
+                numerics="bspline")
     atom.solve()
     t1 = time.perf_counter()
     return atom.total_energy, t1 - t0, atom.converged

@@ -105,7 +105,7 @@ def test_grid_data_returns_none_if_absent():
 def test_real_scfresult_satisfies_protocol():
     """The actual SCFResult is also AtomicResultLike."""
     from atomx import Atom
-    atom = Atom(Z=2, config="1s2", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s2", numerics="bspline", breit=False, qed=False)
     atom.solve()
     assert isinstance(atom._result, AtomicResultLike)
     P, Q, kappa, eps, occ = get_orbital(atom._result, "1s1/2")

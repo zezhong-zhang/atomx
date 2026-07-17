@@ -24,7 +24,7 @@ FE26_K_SHELL_RR_REFERENCE = np.array([
 
 @pytest.mark.slow
 def test_fe26_k_shell_rr_hydrogenic_benchmark_within_15_percent():
-    atom = Atom(Z=26, config="1s1", breit=False, qed=False)
+    atom = Atom(Z=26, config="1s1", numerics="bspline", breit=False, qed=False)
     atom.solve()
 
     temperatures = np.array([100.0, 500.0, 1000.0, 5000.0, 10000.0])

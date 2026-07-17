@@ -217,7 +217,10 @@ def run_fac_panel_reference(*, timeout: float = 120.0) -> FACPanelReference:
 def _make_atom(charge: int, configs: list[str]) -> object:
     from atomx import Atom
 
-    return Atom(Z=Z_W, charge=charge, configs=configs, averaging="statistical")
+    # Correction-free to match the FAC fixture deck (breit/qed default
+    # True in Atom); configs= input yields to the B-spline MCDHF engine.
+    return Atom(Z=Z_W, charge=charge, configs=configs,
+                averaging="statistical", breit=False, qed=False)
 
 
 def build_w_ion_fixture(charge: int, *, build_atom: bool = False) -> WIonFixture:

@@ -17,7 +17,7 @@ def test_helium_polarizability_reasonable_magnitude():
     """He α(0) at the HF level lies in the 0.7-1.5 a₀³ window for any
     reasonable B-spline basis.  Exact Helium α(0) ≈ 1.383 a₀³.
     """
-    atom = Atom(Z=2, config="1s2", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s2", numerics="bspline", breit=False, qed=False)
     atom.solve()
     res = atom._result
 
@@ -28,7 +28,7 @@ def test_helium_polarizability_reasonable_magnitude():
 
 
 def test_polarizability_grows_with_basis():
-    atom = Atom(Z=2, config="1s2", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s2", numerics="bspline", breit=False, qed=False)
     atom.solve()
     res = atom._result
 
@@ -43,7 +43,7 @@ def test_dynamic_polarizability_below_resonance():
     """α(ω) is positive and increasing for ω below the lowest
     transition (1s→2p for He, ~0.78 hartree at HF level).
     """
-    atom = Atom(Z=2, config="1s2", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s2", numerics="bspline", breit=False, qed=False)
     atom.solve()
     res = atom._result
 

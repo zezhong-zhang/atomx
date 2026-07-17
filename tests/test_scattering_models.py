@@ -28,7 +28,7 @@ def test_continuum_model_fac_residual_core_shape():
 
 
 def test_fac_residual_core_potential_uses_coulomb_tail():
-    atom = Atom(Z=2, config="1s2", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s2", numerics="bspline", breit=False, qed=False)
     atom.solve()
     model = PotentialModel.static_hartree_exchange(exchange="fac", n_radial=200, r_max=8.0)
     V = model.build_callable(atom._result)
@@ -40,7 +40,7 @@ def test_fac_residual_core_potential_uses_coulomb_tail():
 
 
 def test_dw_local_exchange_potential_matches_bspline_shape():
-    atom = Atom(Z=2, config="1s2", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s2", numerics="bspline", breit=False, qed=False)
     atom.solve()
     V_PP, V_QQ = _extract_scf_potential(atom, include_local_exchange=True)
     ns = atom._bsp_data["ns"]
@@ -49,7 +49,7 @@ def test_dw_local_exchange_potential_matches_bspline_shape():
 
 
 def test_eii_accepts_continuum_model_for_dw_exchange():
-    atom = Atom(Z=2, config="1s1", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
     atom.solve()
     model = ContinuumModel(
         method="bspline",
@@ -68,7 +68,7 @@ def test_eii_accepts_continuum_model_for_dw_exchange():
 
 
 def test_rr_accepts_continuum_model_without_changing_default_bspline():
-    atom = Atom(Z=2, config="1s1", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
     atom.solve()
     model = ContinuumModel.bspline()
     out = rr_cross_section(

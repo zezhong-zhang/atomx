@@ -41,11 +41,19 @@ CASES = {
 
 @pytest.fixture(scope="module")
 def solved():
-    """Solve each case once on both engines."""
+    """Solve each case once on both engines.
+
+    Correction-free on both sides (breit/qed default True since the
+    2026-07 defaults flip): this file validates the bare HF radial
+    numerics, and ``test_energy_components_consistent`` requires
+    ``total_energy == E_1e + E_2e`` exactly.
+    """
     out = {}
     for name, kw in CASES.items():
-        shooting = Atom(numerics="shooting", exchange="hf", **kw).solve()
-        bspline = Atom(numerics="bspline", exchange="hf", **kw).solve()
+        shooting = Atom(numerics="shooting", exchange="hf",
+                        breit=False, qed=False, **kw).solve()
+        bspline = Atom(numerics="bspline", exchange="hf",
+                       breit=False, qed=False, **kw).solve()
         out[name] = (shooting, bspline)
     return out
 
