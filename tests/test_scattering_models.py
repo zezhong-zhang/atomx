@@ -18,8 +18,10 @@ def test_potential_model_bare_callable():
 
 
 def test_continuum_model_fac_residual_core_shape():
-    model = ContinuumModel.fac_residual_core(n_grid=800)
+    model = ContinuumModel.fac_residual_core(n_grid=800, r_max=40.0)
     assert model.method == "shooting"
+    assert model.shooting_n_grid == 800
+    assert model.shooting_r_max == 40.0
     assert model.potential is not None
     assert model.potential.include_exchange
     assert model.potential.exchange == "fac"
@@ -64,6 +66,24 @@ def test_eii_accepts_continuum_model_for_dw_exchange():
         continuum_model=model,
     )
     assert out.provenance["include_local_exchange"] is True
+    assert out.sigma_total_cm2[0] > 0.0
+
+
+def test_eii_dw_uses_shooting_mesh_from_continuum_model():
+    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom.solve()
+    model = ContinuumModel.shooting(n_grid=700, r_max=35.0)
+    out = eii_cross_section(
+        atom._result,
+        np.array([100.0]),
+        method="DW",
+        kappa_max=2,
+        n_outgoing_energies=3,
+        continuum_model=model,
+    )
+    orb_info = next(iter(out.provenance["per_orbital"].values()))
+    assert orb_info["shooting_n_grid"] == 700
+    assert orb_info["shooting_r_max_a0"] == 35.0
     assert out.sigma_total_cm2[0] > 0.0
 
 

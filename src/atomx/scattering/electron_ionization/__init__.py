@@ -511,12 +511,27 @@ def _eii_dw_total(
     N_bound = sum(float(sh.occupation) for sh in scf_result.subshells)
     Z_res = max(float(Z) - N_bound + 1.0, 1.0)
     r_max_box = float(bsp_data["t"][-1])
+    shooting_n_grid = None
+    if continuum_model is not None:
+        model_method = str(getattr(continuum_model, "method", "")).lower()
+        if model_method == "shooting":
+            model_r_max = getattr(continuum_model, "shooting_r_max", None)
+            if model_r_max is not None:
+                if float(model_r_max) > r_max_box:
+                    raise ValueError(
+                        "shooting r_max cannot exceed the bound-orbital "
+                        f"B-spline box ({r_max_box:.6g} a0)"
+                    )
+                r_max_box = float(model_r_max)
+            model_n_grid = getattr(continuum_model, "shooting_n_grid", None)
+            if model_n_grid is not None:
+                shooting_n_grid = int(model_n_grid)
 
     E_max_au = float(np.max(energies)) / _HEV
     p_max = p_rel(max(E_max_au, 1.0))
     r_fine = make_fine_grid(r_max_box, p_max, z_inner=float(Z))
     dr_fine = np.gradient(r_fine)
-    n_shoot = _shooting_points(r_max_box, p_max)
+    n_shoot = shooting_n_grid or _shooting_points(r_max_box, p_max)
 
     gr_flat = bsp_data["gr"].ravel()
     _o = np.argsort(gr_flat)
@@ -806,6 +821,8 @@ def _eii_dw_total(
             "I_eV": I_a_au * _HEV, "occupation": q_a,
             "kappa_max": kappa_max,
             "n_E1_quadrature": n_outgoing_energies,
+            "shooting_n_grid": int(n_shoot),
+            "shooting_r_max_a0": float(r_max_box),
             "continuum": "shooting delta(E), FAC (N-1)/N mean potential",
         }
 
