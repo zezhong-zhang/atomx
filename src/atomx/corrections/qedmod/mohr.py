@@ -70,21 +70,10 @@ def _interpolate_se_f(Z: float, n: int, kappa: int) -> float:
 def _overlap_ratio(P, Q, kappa, Z, n, bsp_data):
     """⟨ψ_SCF|-Z/r|ψ_SCF⟩ / ⟨ψ_hydro|-Z/r|ψ_hydro⟩ with the hydrogenic value
     taken as -Z^2/n^2 (point-nucleus leading term)."""
-    from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
+    from atomx.corrections.workspace import eval_orbital_pair, workspace_arrays
 
-    nv = bsp_data["nv"]
-    ns = bsp_data["ns"]
-    gr = bsp_data["gr"]
-    grw = bsp_data["grw"]
-    ksp = bsp_data.get("ksp", bsp_data["ks"])
-    ksq = bsp_data.get("ksq", bsp_data["ks"])
-    nsp = bsp_data.get("nsp", ns)
-    nsq = bsp_data.get("nsq", ns)
-
-    fP = eval_orbital_on_grid(P, bsp_data["bsp_p"], nv, ksp, nsp)
-    fQ = eval_orbital_on_grid(
-        Q, bsp_data.get("bsp_q", bsp_data["bsp_p"]), nv, ksq, nsq
-    )
+    gr, grw = workspace_arrays(bsp_data)
+    fP, fQ = eval_orbital_pair(P, Q, bsp_data)
     rho = fP * fP + fQ * fQ
 
     vnuc_scf = np.sum(grw * rho * (-Z / gr))

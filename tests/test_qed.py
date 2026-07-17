@@ -117,12 +117,19 @@ class TestBreitQEDIntegration:
         E_Breit = ne_full_result.energy_components.get("E_Breit", 0)
         assert E_Breit != 0, "Ne Breit should be nonzero"
         # Tight pin (was a 100×-wide 0.005–0.5 band that hid regressions).
-        # atomx's Ne Breit is deterministic at +0.05192 Ha (~+0.05, Grant
+        # atomx's Ne Breit is deterministic at +0.0504 Ha (~+0.05, Grant
         # 2007). rel=5% catches the α²-suppression class of bug (the old
         # 100×-too-small regression) and any >5% drift; a deliberate Breit-
         # operator refinement should update this number, not slip through.
-        assert E_Breit == pytest.approx(0.0519, rel=0.05), (
-            f"Ne Breit {E_Breit:.5f} out of range (expected ~+0.05192)"
+        # 2026-07: pin moved 0.0519 → 0.0504 when the Breit radial
+        # quadrature switched to the canonical trapezoidal Y^k kernel
+        # (numerics.quadrature.yk_on_grid); the old rectangle-cumulative
+        # compute_yk double-counted the diagonal cell and inflated the
+        # strongly-cancelling Breit total by ~3% (dense-grid converged
+        # value 0.050429, independently confirmed by the shooting engine
+        # at 0.050437 — see tests/test_shooting_corrections.py).
+        assert E_Breit == pytest.approx(0.0504, rel=0.05), (
+            f"Ne Breit {E_Breit:.5f} out of range (expected ~+0.0504)"
         )
 
     def test_ne_has_vp(self, ne_full_result):

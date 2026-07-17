@@ -73,6 +73,73 @@ def uehling_potential(r, Z):
         return V
 
 
+#: Dense auxiliary log-grid used to integrate nuclear-range kernels
+#: against B-spline orbitals.  25k points over 9 decades ≈ 2800 points
+#: per decade — trapezoid error < 1e-6 relative on the Uehling folding
+#: (checked against a 400k-point evaluation).
+_DENSE_KERNEL_POINTS = 25_000
+_DENSE_KERNEL_R_MIN = 1.0e-9
+
+
+def _short_range_expectation(orbitals, bsp_data, V_of_r):
+    """Σ_a q_a ⟨a|V|a⟩ for a nuclear-range local potential ``V(r)``.
+
+    The Uehling kernel ``K₁(2cr)/r`` lives on the Compton scale
+    ``r ≲ 1/(2c) ≈ 0.004`` Bohr and diverges like ``1/r²`` toward the
+    origin; the SCF basis' own Gauss nodes under-resolve it whenever the
+    innermost knots are wide on that scale (He physics grid: 8e-3
+    relative error on E_VP).  For B-spline workspaces we therefore
+    evaluate the spline expansion EXACTLY on a dense auxiliary log grid
+    and integrate there.  Radial-grid (shooting) workspaces keep their
+    native ``sum(f · difr)`` sum — Salvat's SGRID is exponentially dense
+    at the origin and self-converged to ~1e-7 on this integral.
+    """
+    from atomx.corrections.workspace import (
+        eval_orbital_pair, is_grid_workspace, workspace_arrays)
+
+    gr, grw = workspace_arrays(bsp_data)
+
+    if is_grid_workspace(bsp_data) or "t" not in bsp_data:
+        # Grid flavour — or a legacy B-spline workspace without its knot
+        # vector, where the Gauss-node sum is the only option.
+        V = V_of_r(gr)
+        E = 0.0
+        for P, Q, occ, kappa, label in orbitals:
+            fP, fQ = eval_orbital_pair(P, Q, bsp_data)
+            E += occ * float(np.sum(grw * (fP * fP + fQ * fQ) * V))
+        return E
+
+    # B-spline flavour: exact spline evaluation on a dense log grid.
+    from scipy.interpolate import BSpline
+
+    t = np.asarray(bsp_data["t"], dtype=float)
+    tp = np.asarray(bsp_data.get("tp", t), dtype=float)
+    ks = bsp_data["ks"]
+    ksp = bsp_data.get("ksp", ks)
+    ksq = bsp_data.get("ksq", ks)
+    nsp = bsp_data.get("nsp", bsp_data["ns"])
+    nsq = bsp_data.get("nsq", bsp_data["ns"])
+
+    r = np.geomspace(_DENSE_KERNEL_R_MIN, float(t[-1]),
+                     _DENSE_KERNEL_POINTS)
+    w = np.empty_like(r)
+    w[1:-1] = 0.5 * (r[2:] - r[:-2])
+    w[0] = 0.5 * (r[1] - r[0])
+    w[-1] = 0.5 * (r[-1] - r[-2])
+    V = V_of_r(r)
+
+    E = 0.0
+    for P, Q, occ, kappa, label in orbitals:
+        splP = BSpline(tp, np.asarray(P[:nsp], dtype=float), ksp - 1,
+                       extrapolate=False)
+        splQ = BSpline(t, np.asarray(Q[:nsq], dtype=float), ksq - 1,
+                       extrapolate=False)
+        fP = np.nan_to_num(splP(r))
+        fQ = np.nan_to_num(splQ(r))
+        E += occ * float(np.sum(w * (fP * fP + fQ * fQ) * V))
+    return E
+
+
 def compute_vp_energy(orbitals, bsp_data, Z):
     """Compute vacuum polarization energy correction.
 
@@ -83,35 +150,17 @@ def compute_vp_energy(orbitals, bsp_data, Z):
     ----------
     orbitals : list of (P, Q, occ, kappa, label) tuples
     bsp_data : dict
+        B-spline workspace, or a radial-grid workspace from
+        :func:`atomx.corrections.workspace.make_grid_workspace`
+        (in which case ``P``/``Q`` are grid arrays).
     Z : int
 
     Returns
     -------
     E_VP : float (Hartree)
     """
-    from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
-
-    nv = bsp_data["nv"]
-    ns = bsp_data["ns"]
-    gr = bsp_data["gr"]
-    grw = bsp_data["grw"]
-    ksp = bsp_data.get("ksp", bsp_data["ks"])
-    ksq = bsp_data.get("ksq", bsp_data["ks"])
-    nsp = bsp_data.get("nsp", ns)
-    nsq = bsp_data.get("nsq", ns)
-    bsp_p = bsp_data["bsp_p"]
-    bsp_q = bsp_data.get("bsp_q", bsp_p)
-
-    V_vp = uehling_potential(gr, Z)
-
-    E_VP = 0.0
-    for P, Q, occ, kappa, label in orbitals:
-        fP = eval_orbital_on_grid(P, bsp_p, nv, ksp, nsp)
-        fQ = eval_orbital_on_grid(Q, bsp_q, nv, ksq, nsq)
-        rho = fP * fP + fQ * fQ
-        E_VP += occ * np.sum(grw * rho * V_vp)
-
-    return E_VP
+    return _short_range_expectation(
+        orbitals, bsp_data, lambda r: uehling_potential(r, Z))
 
 
 # ---------------------------------------------------------------------------
@@ -183,30 +232,10 @@ def compute_wk_vp_energy(orbitals, bsp_data, Z):
         (Uehling); it is a ~1 % correction for Z > 80 and negligible for
         light atoms.
     """
-    from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
     from atomx.corrections.qedmod.flambaum_ginges import V_wichmann_kroll
 
-    nv = bsp_data["nv"]
-    ns = bsp_data["ns"]
-    gr = bsp_data["gr"]
-    grw = bsp_data["grw"]
-    ksp = bsp_data.get("ksp", bsp_data["ks"])
-    ksq = bsp_data.get("ksq", bsp_data["ks"])
-    nsp = bsp_data.get("nsp", ns)
-    nsq = bsp_data.get("nsq", ns)
-    bsp_p = bsp_data["bsp_p"]
-    bsp_q = bsp_data.get("bsp_q", bsp_p)
-
-    V_wk = V_wichmann_kroll(gr, Z)
-
-    E_WK = 0.0
-    for P, Q, occ, kappa, label in orbitals:
-        fP = eval_orbital_on_grid(P, bsp_p, nv, ksp, nsp)
-        fQ = eval_orbital_on_grid(Q, bsp_q, nv, ksq, nsq)
-        rho = fP * fP + fQ * fQ
-        E_WK += occ * float(np.sum(grw * rho * V_wk))
-
-    return E_WK
+    return _short_range_expectation(
+        orbitals, bsp_data, lambda r: V_wichmann_kroll(r, Z))
 
 
 def compute_qed_corrections(

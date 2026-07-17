@@ -471,9 +471,25 @@ class Atom:
                 # Green-function quadratures ride on SLAG6 cumulative
                 # integrals whose error IS the orbital error, so the
                 # denser grid buys the cross-engine 1e-4 agreement.
+                #
+                # nuclear= is forwarded so both engines solve the SAME
+                # nuclear model (Atom defaults to "fermi").  This
+                # matters for the post-solve corrections: with a point
+                # nucleus the B-spline basis cannot represent the r^γ
+                # Dirac cusp (γ = sqrt(1 − (Zα)²) < 1) and its Uehling
+                # VP drifts 3.8e-3 from the analytic value at Z = 26,
+                # while the shooting power-series start is exact — the
+                # Fermi nucleus regularises the origin for both.
+                # "uniform" is B-spline-only; reject it rather than
+                # silently solving a different model.
+                if self.nuclear not in ("point", "fermi"):
+                    raise ValueError(
+                        f"numerics='shooting' supports nuclear='point' or "
+                        f"'fermi' (got {self.nuclear!r})")
                 solver = ShootingHFSolver(
                     Z=self.Z, subshells=subshells,
                     n_grid=1000, r_max=75.0,
+                    nuclear=self.nuclear,
                 )
                 # HF sweeps are Gauss-Seidel with 0.5 damping — give
                 # them headroom beyond Atom's default max_iter=40.
@@ -504,6 +520,28 @@ class Atom:
                 )
             if solver is not None:
                 self._result = solver.solve(max_iter=max_iter, tol=tol)
+
+            # Post-solve corrections — same seam as DFSolver (review E1):
+            # a user-supplied CorrectionStack wins; otherwise the
+            # breit/qed booleans are sugar building the equivalent
+            # stack.  The adapters evaluate directly on the shooting
+            # grid orbitals (corrections.workspace grid flavour), so
+            # Breit/SE/VP here are the same physics as the B-spline
+            # engine (cross-validated to <= 2e-3 in
+            # tests/test_shooting_corrections.py).
+            stack = self.correction_stack
+            if stack is None and (self.breit or self.qed):
+                from atomx.corrections.qed import resolve_se_method
+                from atomx.corrections.stack import CorrectionStack
+                stack = CorrectionStack(
+                    se_backend=(resolve_se_method(self.qed_backend, self.Z)
+                                if self.qed else None),
+                    include_vp=bool(self.qed),
+                    include_breit=bool(self.breit),
+                )
+            if stack is not None:
+                from atomx.corrections.stack import finalize_with_corrections
+                finalize_with_corrections(self._result, stack)
         else:
             # B-spline DHF/DFS backend with user-selected averaging
             # (statistical | equal | fractional). The CI default is handled

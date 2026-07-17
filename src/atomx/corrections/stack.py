@@ -144,13 +144,67 @@ class CorrectionStack:
     @staticmethod
     def _explain_skip(corr: Correction, result: "AtomicResult") -> str:
         """Return a short human-readable reason the correction was skipped."""
-        if getattr(result, "_bsp_data", None) is None:
-            return f"{corr.name} requires a B-spline workspace (got none)."
-        if getattr(result, "orbitals_raw", None) is None:
+        if getattr(result, "_equation", "dirac") != "dirac":
+            return (f"{corr.name} requires Dirac orbitals "
+                    f"(got equation={result._equation!r}).")
+        if (getattr(result, "_bsp_data", None) is None
+                and getattr(result, "_grid", None) is None):
+            return (f"{corr.name} requires a B-spline workspace or "
+                    f"grid-tabulated orbitals (got neither).")
+        if (getattr(result, "orbitals_raw", None) is None
+                and getattr(result, "_pa", None) is None):
             return f"{corr.name} requires retained orbitals (got none)."
         if getattr(result, "Z", None) is None:
             return f"{corr.name} requires result.Z (got None)."
         return f"{corr.name} does not support this AtomicResult flavour."
 
 
-__all__ = ["CorrectionStack"]
+def finalize_with_corrections(result: "AtomicResult",
+                              stack: Optional["CorrectionStack"]):
+    """Apply ``stack`` to a converged result — the single post-SCF seam.
+
+    Every backend the stack supports adds its ``energy_shift`` to
+    ``result.total_energy``, with the legacy ``energy_components`` keys
+    (``E_Breit``, ``E_SE``, ``E_VP``, ``E_WK``, ``E_QED_total``,
+    ``se_method``) preserved for backward compatibility.  Skipped
+    backends leave no component keys (their reasons stay inspectable
+    through ``stack.apply(result)["_skipped"]``).
+
+    Shared by :meth:`DFSolver._finalize_with_corrections` (B-spline)
+    and the ``Atom`` shooting path, so both engines report corrections
+    through identical keys.  Returns ``result`` for chaining;
+    ``stack=None`` is a no-op.
+    """
+    if stack is None:
+        return result
+    applied = stack.apply(result)
+    comps = result.energy_components
+    e_qed = 0.0
+    has_qed = False
+    for name, cr in applied.items():
+        if name.startswith("_"):
+            continue
+        if name == "breit":
+            comps["E_Breit"] = cr.energy_shift
+        elif name.startswith("self_energy"):
+            comps["E_SE"] = cr.energy_shift
+            comps["se_method"] = name.split("[", 1)[1].rstrip("]")
+            e_qed += cr.energy_shift
+            has_qed = True
+        elif name == "uehling_vp":
+            comps["E_VP"] = cr.energy_shift
+            e_qed += cr.energy_shift
+            has_qed = True
+        elif name == "wichmann_kroll_vp":
+            comps["E_WK"] = cr.energy_shift
+            e_qed += cr.energy_shift
+            has_qed = True
+        else:
+            comps[name] = cr.energy_shift
+        result.total_energy += cr.energy_shift
+    if has_qed:
+        comps["E_QED_total"] = e_qed
+    return result
+
+
+__all__ = ["CorrectionStack", "finalize_with_corrections"]

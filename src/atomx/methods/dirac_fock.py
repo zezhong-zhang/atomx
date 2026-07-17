@@ -1766,42 +1766,12 @@ class DFSolver:
     def _finalize_with_corrections(self, result):
         """Apply the injected CorrectionStack to a converged SCFResult.
 
-        The single post-SCF corrections seam (review E1): every backend
-        the stack supports adds its energy_shift to total_energy, with
-        the legacy energy_components keys (E_Breit, E_SE, E_VP, E_WK,
-        E_QED_total) preserved for backward compatibility.
+        The single post-SCF corrections seam (review E1) — delegates to
+        :func:`atomx.corrections.stack.finalize_with_corrections`, which
+        the shooting path shares.
         """
-        stack = self.correction_stack
-        if stack is None:
-            return result
-        applied = stack.apply(result)
-        comps = result.energy_components
-        e_qed = 0.0
-        has_qed = False
-        for name, cr in applied.items():
-            if name.startswith("_"):
-                continue
-            if name == "breit":
-                comps["E_Breit"] = cr.energy_shift
-            elif name.startswith("self_energy"):
-                comps["E_SE"] = cr.energy_shift
-                comps["se_method"] = name.split("[", 1)[1].rstrip("]")
-                e_qed += cr.energy_shift
-                has_qed = True
-            elif name == "uehling_vp":
-                comps["E_VP"] = cr.energy_shift
-                e_qed += cr.energy_shift
-                has_qed = True
-            elif name == "wichmann_kroll_vp":
-                comps["E_WK"] = cr.energy_shift
-                e_qed += cr.energy_shift
-                has_qed = True
-            else:
-                comps[name] = cr.energy_shift
-            result.total_energy += cr.energy_shift
-        if has_qed:
-            comps["E_QED_total"] = e_qed
-        return result
+        from atomx.corrections.stack import finalize_with_corrections
+        return finalize_with_corrections(result, self.correction_stack)
 
 
 def helium_subshells():

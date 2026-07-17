@@ -188,16 +188,19 @@ def test_dhf_corrections_runs_and_returns_dict(he_dhf):
         assert isinstance(c[name], CorrectionResult)
 
 
-def test_shooting_corrections_skips_bspline_backends(he_shooting):
+def test_shooting_corrections_run_grid_natively(he_shooting):
+    """Dirac shooting results are no longer skipped: the adapters
+    evaluate Breit/SE/VP directly on the shooting grid orbitals
+    (see tests/test_shooting_corrections.py for cross-engine gates)."""
     c = he_shooting.corrections(CorrectionStack(se_backend="mohr",
                                                    include_vp=True,
                                                    include_breit=True))
-    # Without a B-spline workspace, every backend is skipped.
-    assert "_skipped" in c
-    skipped = c["_skipped"].provenance
-    assert "self_energy[mohr]" in skipped
-    assert "uehling_vp" in skipped
-    assert "breit" in skipped
+    expected = {"self_energy[mohr]", "uehling_vp", "breit"}
+    assert expected <= set(c)
+    assert "_skipped" not in c
+    for name in expected:
+        assert isinstance(c[name], CorrectionResult)
+        assert np.isfinite(c[name].energy_shift)
 
 
 # ---------------------------------------------------------------------------
