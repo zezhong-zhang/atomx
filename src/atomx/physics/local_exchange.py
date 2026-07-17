@@ -8,8 +8,10 @@ and applying Latter's tail correction.
 
 The three functionals implemented:
 
-* :func:`slater_exchange` — plain Slater with user-chosen α; default
-  α = 2/3 reproduces the original Hartree-Fock-Slater form.
+* :func:`slater_exchange` — plain local exchange with user-chosen α.
+  In this module's convention the original Slater potential uses
+  α = 3/2.  The function's legacy low-level default remains 2/3 for
+  compatibility; high-level :class:`atomx.Atom` calculations use 3/2.
 * :func:`kohn_sham_exchange` — α = 1 (Kohn-Sham exchange).
 * :func:`fac_gu_exchange` — Gu's empirically-tuned α_xc(Z, N) per
   ``faclib/radial.c:654 GetHXS``; the default FAC local-exchange form.
@@ -57,7 +59,9 @@ def slater_exchange(
         Radial grid (Bohr). Included for interface symmetry with
         grid-dependent functionals; ignored here.
     alpha : float, default 2/3
-        Slater exchange coefficient.
+        Slater exchange coefficient. In this formula, ``alpha=3/2`` is
+        the original Slater potential; the default ``2/3`` is retained
+        for compatibility with direct low-level callers.
 
     Returns
     -------

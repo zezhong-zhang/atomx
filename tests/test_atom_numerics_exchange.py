@@ -157,11 +157,18 @@ def test_alpha_x_propagates_to_shooting():
 def test_alpha_x_propagates_to_bspline():
     default = Atom(**FE17, numerics="bspline", exchange="slater").solve()
     explicit = Atom(**FE17, numerics="bspline", exchange="slater",
-                    alpha_x=2.0 / 3.0).solve()
+                    alpha_x=1.5).solve()
     other = Atom(**FE17, numerics="bspline", exchange="slater",
                  alpha_x=1.0).solve()
     assert explicit.total_energy == default.total_energy
     assert other.total_energy != explicit.total_energy
+
+
+def test_slater_default_is_engine_independent():
+    shooting = Atom(**FE17, numerics="shooting", exchange="slater")
+    bspline = Atom(**FE17, numerics="bspline", exchange="slater")
+    assert shooting.alpha_x == pytest.approx(1.5)
+    assert bspline.alpha_x == pytest.approx(1.5)
 
 
 # ----------------------------------------------------------------------

@@ -6,6 +6,23 @@ radiative transition contributes a normalised line-profile weighted by
 ``n_upper * A_{ul}``.  Line widths are computed from Doppler (thermal)
 and natural-lifetime contributions; an optional static Stark width for
 hydrogenic ions can be folded in.
+
+Line resolution
+---------------
+The CRM rate matrix stays at configuration level — full J-resolved CRM
+needs J-resolved collision strengths and is out of scope.  Line
+resolution enters at SYNTHESIS: with ``line_resolution='ci'`` each
+radiative transition group that the determinant-CI engine can resolve
+(a two-config single-hole pair within ``ci_det_cap``, via
+:func:`atomx.properties.transitions.ci_lines.ci_line_strengths`)
+replaces its UTA line distribution with the exact CI line list
+(per-line energy, g_J, Einstein A), with the upper configuration's CRM
+population distributed statistically over its J-levels
+(``p_J = (2J+1) / sum_levels (2J'+1)`` within the config).  Everything
+else keeps the UTA bridge / per-transition path.  Each emitted line or
+array records the engine that produced it: CI groups in
+``spec.metadata['ci_groups']`` (``engine='ci'``, per-line records),
+UTA arrays in ``spec.metadata['uta_arrays']`` (``engine='uta'``).
 """
 
 from __future__ import annotations
@@ -41,6 +58,10 @@ def crm_emission_spectrum(
     stark_hwhm_nm: Optional[float] = None,
     uta_threshold: int = 20,
     force_uta: bool = False,
+    line_resolution: str = "uta",
+    ci_result=None,
+    ci_e_max_eV: float = 1000.0,
+    ci_det_cap: int = 2000,
     include_eii: bool = True,
     include_three_body: bool = True,
     include_photoionization: bool = True,
