@@ -154,9 +154,9 @@ class Atom:
         ``"tfda"``/``"gsz"`` are B-spline-only parametric potentials.
     alpha_x : float, optional
         Slater exchange coefficient (only with ``exchange="slater"``).
-        Defaults preserve each engine's historical value:
-        ``2/3`` for bspline (:class:`DFSolver`), ``3/2`` for shooting
-        (:class:`ShootingSolver`).
+        Defaults to ``3/2`` for both numerical engines, corresponding to
+        the original Slater exchange potential in atomx's convention
+        ``V_x = -alpha_x (3 rho / pi)^(1/3)``.
     """
 
     def __init__(self, Z, config=None, configs=None, charge=0,
@@ -197,8 +197,8 @@ class Atom:
             Radial engine: "bspline", "shooting", or None (resolve
             from ``exchange`` — see class docstring).
         alpha_x : float, optional
-            Slater coefficient for ``exchange="slater"``.  ``None``
-            keeps the engine default (2/3 bspline, 3/2 shooting).
+            Slater coefficient for ``exchange="slater"``.  ``None`` uses
+            ``3/2`` for both B-spline and shooting numerics.
         starting_potential : str or None
             "tfda" or "gsz" for faster SCF convergence.
         plasma_ne : float, optional
@@ -293,7 +293,12 @@ class Atom:
             raise ValueError(
                 f"alpha_x only applies to exchange='slater' "
                 f"(got exchange={self.exchange_model!r})")
-        self.alpha_x = alpha_x
+        # ``alpha_x`` selects exchange PHYSICS, so its default must not
+        # depend on the numerical engine.  The low-level DFSolver retains
+        # its historical 2/3 default for direct callers, but Atom always
+        # passes the canonical Slater value explicitly.
+        self.alpha_x = (1.5 if alpha_x is None
+                        and self.exchange_model == "slater" else alpha_x)
         self.correlation = correlation
         self.starting_potential = starting_potential
         self.plasma_ne = plasma_ne
@@ -581,7 +586,7 @@ class Atom:
                 solver = ShootingSolver(
                     Z=self.Z, subshells=subshells,
                     n_grid=400, r_max=75.0,
-                    alpha_x=1.5 if self.alpha_x is None else self.alpha_x,
+                    alpha_x=self.alpha_x,
                     slater_method=self.slater_method,
                 )
             if solver is not None:
