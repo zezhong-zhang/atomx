@@ -73,8 +73,30 @@ class MCDHFResult:
         return self.ground_energy
 
     @property
+    def energy_components(self) -> Dict[str, float]:
+        """Correction-aware energy breakdown (legacy SCFResult keys).
+
+        Mirrors ``SCFResult.energy_components`` /
+        :func:`atomx.corrections.stack.finalize_with_corrections` so the
+        Breit/QED shifts folded into ``state_energies`` stay inspectable
+        on the MCDHF route: ``E_Breit``, ``E_SE``, ``E_VP``, ``E_WK``,
+        ``E_QED_total``, ``se_method`` (whichever were computed), plus
+        ``E_total``.
+        """
+        comps: Dict[str, float] = {"E_total": self.ground_energy}
+        e_breit = self.__dict__.get("_E_Breit")
+        if e_breit:
+            comps["E_Breit"] = e_breit
+        qed = self.__dict__.get("_E_QED") or {}
+        for key in ("E_SE", "E_VP", "E_WK", "E_QED_total", "se_method"):
+            if key in qed:
+                comps[key] = qed[key]
+        return comps
+
+    @property
     def energy_breakdown(self) -> Dict[str, float]:
-        return {"E_total": self.ground_energy}
+        """Alias for :attr:`energy_components` (AtomicResult protocol)."""
+        return self.energy_components
 
     @property
     def subshells(self) -> List[Subshell]:
@@ -274,21 +296,64 @@ class MCDHFSolver:
         # follow-up item (2).
         self.per_block_orbital_sets = bool(per_block_orbital_sets)
 
-    def _averaged_subshells(self, weights=None):
-        """Guerra Eq (10): ϖᵢ = Σⱼ cⱼ² nᵢʲ — fractional occupations.
+    @staticmethod
+    def _floored_occ_map(csf) -> Dict:
+        """Per-CSF occupations with the jj-PARTNER floor (``ñ``).
 
-        All orbitals appearing in any CSF are included (with minimum
-        occupation 0.001) so they get solved even when their weight is
-        near-zero. This is essential for transition calculations.
+        Returns ``{(n, kappa): q̃}`` where an orbital ABSENT from the CSF
+        is injected at 0.001 iff its same-``(n, l)`` jj partner
+        (``kappa' = -kappa - 1``) IS occupied — e.g. a Pb (6p₁/₂)² CSF
+        carries ``6p₃/₂ → 0.001``.  Rationale: when the CI weights
+        collapse onto such a CSF, a hard-zero entry makes every
+        ``WW(i, ·)`` product vanish for the orphaned jj component, its
+        Fock operator loses the entire electron-repulsion term, and the
+        orbital dives to a hydrogenic bare-nucleus state (Pb 6p₃/₂ →
+        −95.6 Ha, mislabeled 4p-scale energy).  With the floor,
+        ``WW(i, j)/ϖᵢ → q_j`` — the correct neutral-atom mean field.
+
+        The floor is deliberately restricted to jj partners: orbitals
+        from *other* NR shells (pure correlation orbitals, e.g. 2s/2p in
+        a He-like ``1s² + 2s² + 2p²`` expansion) keep hard zeros so their
+        shapes — to which correlation-sensitive observables are tuned —
+        are not re-screened by phantom occupation.
+        """
+        occ = {(sh.n, sh.kappa): float(sh.occupation) for sh in csf.subshells}
+        for (n, kappa), q in list(occ.items()):
+            partner = -kappa - 1
+            if partner == 0 or q <= 0.0:
+                continue  # s₁/₂ has no partner / unoccupied source
+            occ.setdefault((n, partner), 0.001)
+        return occ
+
+    def _averaged_subshells(self, weights=None):
+        """Guerra Eq (10): ϖᵢ = Σⱼ cⱼ² ñᵢʲ — fractional occupations.
+
+        All orbitals appearing in any CSF are included (with a final
+        minimum occupation 0.001) so they get solved even when their
+        weight is near-zero — essential for transition calculations.
+
+        The average runs over the jj-partner-floored per-CSF occupations
+        ``ñ`` (:meth:`_floored_occ_map`) — the SAME occupations
+        ``_jj_configs`` feeds to ``compute_WW`` — so the effective mean
+        field ``WW(i, j)/ϖᵢ`` stays an exact weighted average of the
+        other shells' occupations even when the CI weights collapse onto
+        CSFs where orbital *i* is absent.  With inconsistent floors the
+        ratio under-counts screening and near-phantom jj components dive
+        toward hydrogenic energies.
         """
         if weights is None:
             weights = np.ones(self.n_csf) / self.n_csf
 
-        avg_occ = {}
-        for i, csf in enumerate(self.csfs):
-            for sh in csf.subshells:
-                key = (sh.n, sh.kappa)
-                avg_occ[key] = avg_occ.get(key, 0.0) + weights[i] * sh.occupation
+        occ_maps = [self._floored_occ_map(csf) for csf in self.csfs]
+        keys = set()
+        for m in occ_maps:
+            keys.update(m)
+
+        avg_occ = {
+            key: sum(w * m.get(key, 0.0)
+                     for w, m in zip(weights, occ_maps))
+            for key in keys
+        }
 
         subshells = []
         for (n, kappa), occ in sorted(avg_occ.items(),
@@ -328,17 +393,22 @@ class MCDHFSolver:
 
         The orbital index order in each JJConfig.subshells must match
         ``avg_subshells`` so that DFSolver's ``compute_WW(i, j)`` picks the
-        right occupation. For CSFs that don't include a given orbital, we
-        insert it with occupation 0 so the positional index is preserved.
+        right occupation. Occupations are the jj-partner-floored ``ñ`` of
+        :meth:`_floored_occ_map` — identical to what
+        :meth:`_averaged_subshells` averages — so ``WW(i, j)/ϖᵢ`` stays a
+        consistent mean field even when the CI weights collapse onto CSFs
+        where a jj component is absent (Pb (6p₁/₂)² ground: without the
+        partner floor the orphaned 6p₃/₂ saw zero electron repulsion and
+        collapsed to a hydrogenic −95.6 Ha state).
         """
         from atomx.config.jj_coupling import JJConfig
         order = [(s.n, s.kappa) for s in avg_subshells]
         configs = []
         for i, csf in enumerate(self.csfs):
-            occ_map = {(sh.n, sh.kappa): sh.occupation for sh in csf.subshells}
+            occ_map = self._floored_occ_map(csf)
             positional = [
                 Subshell(n=n, kappa=kappa,
-                         occupation=float(occ_map.get((n, kappa), 0)))
+                         occupation=float(occ_map.get((n, kappa), 0.0)))
                 for (n, kappa) in order
             ]
             configs.append(JJConfig(subshells=positional, weight=float(weights[i])))
@@ -437,25 +507,30 @@ class MCDHFSolver:
             # Stash for the next outer iteration
             seed_orbitals = dhf_result.orbitals_raw
 
-            # Step 3: Extract converged orbitals from SCFResult
+            # Step 3: Extract converged orbitals from SCFResult, keyed by
+            # (n, kappa) via the result's own subshell bookkeeping —
+            # never by positional per-kappa counters (see
+            # SCFResult.orbitals_by_subshell).
             orbitals_dict = {}
-            kappa_counter = {}
-            for sh in avg_subshells:
-                idx = kappa_counter.get(sh.kappa, 0)
-                kappa_counter[sh.kappa] = idx + 1
-                orb_list = dhf_result.orbitals_raw.get(sh.kappa, [])
-                if idx < len(orb_list):
-                    P, Q, occ = orb_list[idx]
-                    P, Q = canonicalize_radial_phase(P, Q)
-                    orbitals_dict[(sh.n, sh.kappa)] = (P, Q)
+            for (n, kappa), (P, Q, _occ) in dhf_result.orbitals_by_subshell().items():
+                P, Q = canonicalize_radial_phase(P, Q)
+                orbitals_dict[(n, kappa)] = (P, Q)
 
             if not orbitals_dict:
                 break  # no orbitals found
 
             # Steps 4 + 5: CI matrix build + diagonalise via methods/ci.
+            # Share the inner solver's nuclear potential and cell-integral
+            # cache: CI matrix elements must be evaluated with the SAME
+            # finite-nucleus model and the SAME (cell-algorithm) Slater
+            # integrator as the SCF energy functional, or the CI total
+            # drifts from the DHF total on identical orbitals (74 Ha at
+            # Z=82 with the old point-nucleus + Y^k-quadrature kernel).
             ci_res = ci_solve(
                 self.csfs, orbitals_dict, self.orbital_basis,
                 dhf.bsp_data, self.Z, dhf.ns,
+                nuclear_potential=dhf._nuclear_potential,
+                convol_cache=getattr(dhf, "_convol_cache", None),
             )
             state_energies = ci_res.state_energies
             mixing = ci_res.mixing_coefficients
@@ -571,6 +646,8 @@ class MCDHFSolver:
                     per_block_orbitals=per_block_orbitals,
                     bsp_data=dhf.bsp_data,
                     ns=dhf.ns,
+                    nuclear_potential=dhf._nuclear_potential,
+                    convol_cache=getattr(dhf, "_convol_cache", None),
                 )
 
         # The one-shot corrections are computed from the shared
@@ -605,7 +682,9 @@ class MCDHFSolver:
         return result
 
 
-    def _diagonalize_per_block_ci(self, *, state_energies, mixing, per_block_orbitals, bsp_data, ns):
+    def _diagonalize_per_block_ci(self, *, state_energies, mixing,
+                                  per_block_orbitals, bsp_data, ns,
+                                  nuclear_potential=None, convol_cache=None):
         """Replace same-(J, parity) CI subblocks with block-local orbitals."""
         energies = np.array(state_energies, dtype=float, copy=True)
         mixed = np.array(mixing, dtype=float, copy=True)
@@ -635,6 +714,8 @@ class MCDHFSolver:
                 bsp_data,
                 self.Z,
                 ns,
+                nuclear_potential=nuclear_potential,
+                convol_cache=convol_cache,
             )
             vals, vecs = linalg.eigh(H)
             count = min(len(state_indices), len(vals))
@@ -751,16 +832,12 @@ class MCDHFSolver:
                 block_dhf._precompute()
 
             block_result = block_dhf.solve(max_iter=20, tol=1.0e-5)
+            # Keyed by (n, kappa) via SCFResult's own subshell bookkeeping
+            # (never positional per-kappa counters).
             orbitals_dict: Dict = {}
-            kappa_counter: Dict[int, int] = {}
-            for sh in avg_subshells:
-                idx = kappa_counter.get(sh.kappa, 0)
-                kappa_counter[sh.kappa] = idx + 1
-                orb_list = block_result.orbitals_raw.get(sh.kappa, [])
-                if idx < len(orb_list):
-                    P, Q, _occ = orb_list[idx]
-                    P, Q = canonicalize_radial_phase(P, Q)
-                    orbitals_dict[(sh.n, sh.kappa)] = (P, Q)
+            for (n, kappa), (P, Q, _occ) in block_result.orbitals_by_subshell().items():
+                P, Q = canonicalize_radial_phase(P, Q)
+                orbitals_dict[(n, kappa)] = (P, Q)
             if orbitals_dict:
                 out[block] = orbitals_dict
 
