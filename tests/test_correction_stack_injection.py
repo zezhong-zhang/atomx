@@ -40,15 +40,27 @@ def test_custom_stack_breit_only():
     assert "E_Breit" in c
     assert "E_QED_total" not in c and "E_SE" not in c
 
-    # and the value matches the boolean-sugar Breit
-    b = Atom(Z=10, config="1s2", charge=8, breit=True)
+    # and the value matches the boolean-sugar Breit (qed explicitly off
+    # so the sugar stack is Breit-only, mirroring the custom stack)
+    b = Atom(Z=10, config="1s2", charge=8, breit=True, qed=False)
     b.solve()
     assert c["E_Breit"] == pytest.approx(
         b._result.energy_components["E_Breit"], rel=1e-12)
 
 
-def test_stack_none_no_corrections():
+def test_default_atom_has_corrections():
+    """breit/qed default True (2026-07 defaults flip): a bare Atom
+    carries the full default correction stack."""
     a = Atom(Z=10, config="1s2", charge=8)
+    a.solve()
+    c = a._result.energy_components
+    for key in ("E_Breit", "E_SE", "E_VP", "E_QED_total"):
+        assert key in c
+
+
+def test_explicit_flags_off_no_corrections():
+    """breit=False, qed=False builds no stack — no correction keys."""
+    a = Atom(Z=10, config="1s2", charge=8, breit=False, qed=False)
     a.solve()
     c = a._result.energy_components
     assert "E_Breit" not in c and "E_QED_total" not in c

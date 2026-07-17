@@ -161,6 +161,10 @@ def run_atomx_matrix_cell(Z: int, iso: str) -> dict[str, float | int | str]:
         Z=Z,
         charge=Z - spec.nel,
         config=spec.ground,
+        # Pinned engine + corrections-off: the frozen golden CSV was
+        # produced on the B-spline DHF, and _gauge_ratio_max rides on
+        # the B-spline-only transitions path.
+        numerics="bspline",
         breit=False,
         qed=False,
         sampling=Sampling.quick,

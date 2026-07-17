@@ -137,13 +137,16 @@ def au_m_shell_configs(charge: int) -> tuple[str, ...]:
 def build_au_atom(charge: int) -> Atom:
     """Build, but do not solve, the Au charge-state Atom for the fixture."""
 
+    # No explicit numerics= here: multi-configuration input requires the
+    # B-spline MCDHF machinery, so Atom now REJECTS an explicit
+    # numerics="shooting" with configs=[...] (the defaulted engine
+    # yields to bspline automatically).
     atom = Atom(
         Z=Z_AU,
         charge=charge,
         configs=list(au_m_shell_configs(charge)),
         breit=True,
         qed=True,
-        numerics="shooting",
         exchange="gu",
         averaging="statistical",
     )

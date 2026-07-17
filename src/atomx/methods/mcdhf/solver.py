@@ -573,12 +573,22 @@ class MCDHFSolver:
                     ns=dhf.ns,
                 )
 
+        # The one-shot corrections are computed from the shared
+        # Guerra-averaged orbital set, so to this order they shift every
+        # CI state by the same scalar.  Fold the shift into
+        # ``state_energies`` as well, preserving the AtomicResult
+        # invariant ``state_energies[0] == total_energy`` (excitation
+        # energies are unchanged by a uniform shift).
+        e_corr = E_Breit + qed_components.get("E_QED_total", 0.0)
+        if e_corr:
+            state_energies = state_energies + e_corr
+
         result = MCDHFResult(
             converged=converged,
             iterations=iteration,
             state_energies=state_energies,
             mixing_coefficients=mixing,
-            ground_energy=state_energies[0] + E_Breit + qed_components.get("E_QED_total", 0.0),
+            ground_energy=state_energies[0],
             orbital_energies=orbital_energies,
             csfs=self.csfs,
             orbitals_dict=dict(orbitals_dict),

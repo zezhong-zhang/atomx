@@ -205,7 +205,9 @@ class TestAtomTransitions:
         """Hydrogen should produce orbital-to-orbital transitions."""
         from atomx import Atom
         # H atom: single 1s electron
-        h = Atom(Z=1, config="1s1", ns=50, ks=9)
+        # TODO: TransitionCalculator's single-config path needs orbitals_raw
+        # + B-spline radial integrals — no ShootingResult support yet.
+        h = Atom(Z=1, config="1s1", ns=50, ks=9, numerics="bspline")
         h.solve(max_iter=40)
         if not h.converged:
             pytest.skip("H did not converge")
@@ -218,7 +220,8 @@ class TestAtomTransitions:
     def test_neon_transitions(self):
         """Neon should have E1 transitions between subshells."""
         from atomx import Atom
-        ne = Atom(Z=10, ns=50, ks=9)
+        # TODO: same B-spline-only TransitionCalculator gap as above.
+        ne = Atom(Z=10, ns=50, ks=9, numerics="bspline")
         ne.solve(max_iter=50, tol=1e-4)
         if not ne.converged:
             pytest.skip("Ne did not converge")

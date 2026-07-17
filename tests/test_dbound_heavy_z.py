@@ -145,8 +145,12 @@ def test_heavy_z_ion_shooting_matches_sfac(
     bug reported in ``benchmarks/REPORT.md`` §6.4: pre-fix these rows
     over-bound by 20–30 %.
     """
+    # sfac/Fortran-DHFS reference is pure Dirac-Coulomb — keep the
+    # atomx side correction-free (breit/qed default True since the
+    # 2026-07 defaults flip).
     atom = Atom(Z=Z, charge=charge, config=config,
-                numerics="shooting", exchange="slater")
+                numerics="shooting", exchange="slater",
+                breit=False, qed=False)
     atom.solve(max_iter=300)
     assert atom.total_energy is not None
     e_eV = atom.total_energy * HARTREE_EV

@@ -22,7 +22,10 @@ def test_hydrogen_dirac_1s_eleven_digits():
 
     exact = C ** 2 * (np.sqrt(1.0 - ALPHA ** 2) - 1.0)  # -0.5000066565953 Eh
     for numerics in ("bspline", "shooting"):
-        result = Atom(Z=1, nuclear="point", numerics=numerics).solve()
+        # The claim is against the PURE analytic Dirac eigenvalue —
+        # run correction-free (breit/qed default True in Atom).
+        result = Atom(Z=1, nuclear="point", numerics=numerics,
+                      breit=False, qed=False).solve()
         e = result.orbital_energies["1s1/2"]
         assert abs(e / exact - 1.0) < 1e-11, numerics
 

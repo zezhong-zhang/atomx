@@ -413,7 +413,7 @@ class TestIntegration:
     def he_ground_atom(self):
         """Solve He 1s² ground state and return Atom."""
         from atomx import Atom
-        atom = Atom(Z=2, config="1s2", breit=False, qed=False)
+        atom = Atom(Z=2, config="1s2", numerics="bspline", breit=False, qed=False)
         atom.solve()
         return atom
 
@@ -421,7 +421,7 @@ class TestIntegration:
     def he_excited_atom(self):
         """Solve He 1s2p excited state and return Atom."""
         from atomx import Atom
-        atom = Atom(Z=2, config="1s1 2p1", breit=False, qed=False)
+        atom = Atom(Z=2, config="1s1 2p1", numerics="bspline", breit=False, qed=False)
         atom.solve()
         return atom
 

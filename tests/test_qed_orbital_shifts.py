@@ -18,7 +18,7 @@ from atomx.corrections.orbital_shifts import (  # noqa: E402
 
 @pytest.fixture(scope="module")
 def fe17():
-    a = Atom(Z=26, config="1s2 2s2 2p6", charge=16, breit=False, qed=False)
+    a = Atom(Z=26, config="1s2 2s2 2p6", charge=16, numerics="bspline", breit=False, qed=False)
     a.solve()
     return a
 

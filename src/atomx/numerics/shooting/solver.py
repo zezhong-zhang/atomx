@@ -843,18 +843,37 @@ class ShootingResult:
     @property
     def waves(self):
         from atomx.results import Waves, OrbitalWavefunction
-        if self._grid is None or self._orbital_data is None:
+        if self._grid is None:
             return Waves(grid=np.array([]), basis_type="grid")
 
         orbitals = {}
-        for label, data in self._orbital_data.items():
-            orbitals[label] = OrbitalWavefunction(
-                P=data["P"], Q=data.get("Q"),
-                n=data["n"], l=data["l"],
-                kappa=data.get("kappa"),
-                occupation=data["occupation"],
-                energy=self.orbital_energies.get(label, 0.0),
-                label=label)
+        if self._orbital_data is not None:
+            for label, data in self._orbital_data.items():
+                orbitals[label] = OrbitalWavefunction(
+                    P=data["P"], Q=data.get("Q"),
+                    n=data["n"], l=data["l"],
+                    kappa=data.get("kappa"),
+                    occupation=data["occupation"],
+                    energy=self.orbital_energies.get(label, 0.0),
+                    label=label)
+        elif self._pa is not None and self.subshells:
+            # The SCF solvers surface the converged grid orbitals as the
+            # raw ``_pa``/``_qa`` arrays (row order == ``subshells``
+            # order) rather than an ``_orbital_data`` dict — build the
+            # protocol Waves from them so ``Atom.waves`` / ``.density()``
+            # / ``.r_uniform()`` work uniformly across engines.
+            for i, sh in enumerate(self.subshells):
+                Q = None
+                if self._equation != "schrodinger" and self._qa is not None:
+                    Q = np.asarray(self._qa[i])
+                orbitals[sh.label] = OrbitalWavefunction(
+                    P=np.asarray(self._pa[i]), Q=Q,
+                    n=sh.n, l=sh.l, kappa=sh.kappa,
+                    occupation=float(sh.occupation),
+                    energy=self.orbital_energies.get(sh.label, 0.0),
+                    label=sh.label)
+        if not orbitals:
+            return Waves(grid=np.array([]), basis_type="grid")
         return Waves(
             grid=self._grid, orbitals=orbitals, basis_type="grid")
 

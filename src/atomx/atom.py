@@ -5,12 +5,12 @@ Simple interface for common atomic structure calculations:
     from atomx import Atom
 
     ne = Atom(Z=10)                    # Neon
-    ne.solve()                          # Run DHF SCF
-    print(ne.total_energy)              # -128.04 Hartree
+    ne.solve()                          # Run DHF SCF (Breit + QED on by default)
+    print(ne.total_energy)              # -128.61 Hartree
     print(ne.orbital_energies)          # {1s: -32.6, 2s: -1.6, ...}
 
-    # With QED corrections:
-    ne = Atom(Z=10, breit=True, qed=True)
+    # Correction-free (pure Dirac-Coulomb) comparison runs:
+    ne = Atom(Z=10, breit=False, qed=False)
     ne.solve()
 
     # Multi-configuration:
@@ -48,8 +48,12 @@ def _resolve_numerics_exchange(numerics, exchange):
     """Resolve user-facing ``(numerics, exchange)`` to the canonical
     (engine, model) pair.
 
-    ``numerics=None`` picks the historical engine for the model:
-    hf/slater → bspline, gu → shooting.
+    ``numerics=None`` defaults to the shooting engine for every model it
+    supports (hf/slater/gu — it is both the fastest engine and an
+    independent cross-check of the B-spline results); the parametric
+    B-spline-only potentials (tfda/gsz) resolve to bspline.  Multi-
+    configuration input overrides to bspline in ``solve()`` — CI needs
+    the B-spline MCDHF machinery.
     """
     # Accept atomx.types.Exchange enum members (documented equivalence).
     exchange = getattr(exchange, "value", exchange)
@@ -68,7 +72,8 @@ def _resolve_numerics_exchange(numerics, exchange):
         if numerics is not None:
             engine = numerics
         else:
-            engine = "shooting" if model == "gu" else "bspline"
+            engine = ("bspline" if model in _BSPLINE_ONLY_MODELS
+                      else "shooting")
     else:
         raise ValueError(
             f"exchange must be one of 'hf', 'slater', 'gu' "
@@ -101,9 +106,11 @@ class Atom:
     nuclear : str
         Nuclear model: "fermi" (default, DBSR_HF), "point", or "uniform".
     breit : bool
-        Include Breit (Gaunt) interaction.
+        Include Breit (Gaunt) interaction.  Default ``True`` — pass
+        ``breit=False`` for pure Dirac-Coulomb reference runs.
     qed : bool
-        Include QED (VP + SE) corrections.
+        Include QED (VP + SE) corrections.  Default ``True`` — pass
+        ``qed=False`` for pure Dirac-Coulomb reference runs.
     qed_backend : str
         Self-energy backend: ``"auto"`` (default), ``"mss"``/``"mohr"``,
         or ``"indelicato"``.  ``"auto"`` uses MSS/Mohr for Z <= 36 and
@@ -114,8 +121,13 @@ class Atom:
         - ``"bspline"``  — Galerkin B-spline :class:`DFSolver`.
         - ``"shooting"`` — ODE shooting :class:`ShootingSolver`
           (Salvat/Radial method).
-        - ``None`` (default) — resolved from ``exchange``:
-          ``"hf"``/``"slater"`` → bspline, ``"gu"`` → shooting.
+        - ``None`` (default) — resolves to ``"shooting"`` for every
+          model it supports (``"hf"``/``"slater"``/``"gu"``); the
+          B-spline-only parametric potentials (``"tfda"``/``"gsz"``)
+          resolve to ``"bspline"``.  Multi-configuration input
+          (``configs=[...]`` or ``correlation=``) yields to
+          ``"bspline"`` (MCDHF); combining it with an EXPLICIT
+          ``numerics="shooting"`` raises.
 
         Support matrix (engine × model)::
 
@@ -149,7 +161,7 @@ class Atom:
 
     def __init__(self, Z, config=None, configs=None, charge=0,
                  ns=None, ks=9, nuclear="fermi",
-                 breit=False, qed=False, exchange="hf",
+                 breit=True, qed=True, exchange="hf",
                  numerics=None, alpha_x=None,
                  qed_backend="auto",
                  correction_stack=None,
@@ -256,6 +268,7 @@ class Atom:
         self.correction_stack = correction_stack
         self.exchange = exchange
         # Decoupled ENGINE (numerics) × MODEL (exchange) pair.
+        self._numerics_explicit = numerics is not None
         self.numerics, self.exchange_model = _resolve_numerics_exchange(
             numerics, exchange)
         if alpha_x is not None and self.exchange_model != "slater":
@@ -306,6 +319,19 @@ class Atom:
                 N_electrons = Z - charge
                 config = ground_state_config(N_electrons)
             self._config_strings = [config]
+
+        # Multi-configuration input needs the B-spline MCDHF CI
+        # machinery: the defaulted shooting engine silently yields to
+        # bspline (provenance stays truthful); an EXPLICIT
+        # numerics='shooting' with configs=[...] is a contradiction and
+        # raises instead of being ignored.
+        if self._multi_config and self.numerics == "shooting":
+            if self._numerics_explicit:
+                raise ValueError(
+                    "multi-configuration input requires the B-spline "
+                    "MCDHF machinery; drop numerics='shooting' or pass "
+                    "numerics='bspline'")
+            self.numerics = "bspline"
 
         # Result (populated after solve()).  ``self._result`` may be
         # any :class:`atomx.results.AtomicResult` flavor (SCFResult,

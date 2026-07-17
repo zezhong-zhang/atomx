@@ -2,8 +2,10 @@
 
 These tests pin:
 
-- ``numerics=None`` resolves the historical engine for each model
-  (hf/slater → bspline, gu → shooting);
+- ``numerics=None`` resolves to the shooting engine for every model it
+  supports (hf/slater/gu); the B-spline-only parametric potentials
+  (tfda/gsz) resolve to bspline, and multi-config input yields to the
+  B-spline MCDHF machinery;
 - the removed legacy 'fac'/'shooting' exchange strings raise a
   ValueError naming the canonical replacement;
 - the shooting × hf cell solves (non-local DHF via the
@@ -44,30 +46,32 @@ def test_removed_legacy_exchange_raises_with_replacement(legacy, replacement):
 
 
 # ----------------------------------------------------------------------
-# numerics=None resolves the historical engine for each model
+# numerics=None resolves to the shooting engine for every model it supports
 # ----------------------------------------------------------------------
 
-def test_default_numerics_hf_equals_bspline_hf():
+def test_default_numerics_hf_equals_shooting_hf():
     default = Atom(**FE17, exchange="hf").solve()
-    explicit = Atom(**FE17, numerics="bspline", exchange="hf").solve()
+    explicit = Atom(**FE17, numerics="shooting", exchange="hf").solve()
     assert explicit.total_energy == default.total_energy
     assert explicit.orbital_energies == default.orbital_energies
 
 
-def test_default_numerics_slater_equals_bspline_slater():
+def test_default_numerics_slater_equals_shooting_slater():
     default = Atom(**FE17, exchange="slater").solve()
-    explicit = Atom(**FE17, numerics="bspline", exchange="slater").solve()
+    explicit = Atom(**FE17, numerics="shooting", exchange="slater").solve()
     assert explicit.total_energy == default.total_energy
     assert explicit.orbital_energies == default.orbital_energies
 
 
 def test_gu_defaults_to_shooting_engine():
     """numerics=None + exchange='gu' routes via the shooting engine."""
-    default = Atom(**FE17, exchange="gu").solve()
-    explicit = Atom(**FE17, numerics="shooting", exchange="gu").solve()
+    default = Atom(**FE17, exchange="gu", breit=False, qed=False).solve()
+    explicit = Atom(**FE17, numerics="shooting", exchange="gu",
+                    breit=False, qed=False).solve()
     assert explicit.total_energy == default.total_energy
     # Pin the Fe XVII shooting/gu value — this must stay bit-identical
-    # to the historical exchange="fac" result.
+    # to the historical exchange="fac" result (correction-free: the
+    # historical value predates the breit/qed=True defaults).
     assert default.total_energy == -1148.4141858935911
 
 
@@ -93,6 +97,16 @@ def test_shooting_hf_solves():
 def test_bad_numerics_raises():
     with pytest.raises(ValueError, match="numerics"):
         Atom(**FE17, numerics="finite-difference")
+
+
+def test_multi_config_yields_to_bspline_but_explicit_shooting_raises():
+    """configs=[...] needs the B-spline MCDHF machinery: the defaulted
+    shooting engine silently yields to bspline, while an EXPLICIT
+    numerics='shooting' is a contradiction and raises."""
+    a = Atom(Z=4, configs=["1s2 2s2", "1s2 2p2"])
+    assert a.numerics == "bspline"
+    with pytest.raises(ValueError, match="multi-configuration"):
+        Atom(Z=4, configs=["1s2 2s2", "1s2 2p2"], numerics="shooting")
 
 
 def test_bad_exchange_raises():
@@ -154,8 +168,9 @@ def test_alpha_x_propagates_to_bspline():
 # ----------------------------------------------------------------------
 
 @pytest.mark.parametrize("kwargs,expected", [
-    (dict(exchange="hf"), ("bspline", "hf")),
-    (dict(exchange="slater"), ("bspline", "slater")),
+    (dict(exchange="hf"), ("shooting", "hf")),
+    (dict(exchange="slater"), ("shooting", "slater")),
+    (dict(numerics="bspline", exchange="hf"), ("bspline", "hf")),
     (dict(numerics="shooting", exchange="gu"), ("shooting", "gu")),
     (dict(numerics="shooting", exchange="slater"), ("shooting", "slater")),
     (dict(numerics="bspline", exchange="gu"), ("bspline", "gu")),

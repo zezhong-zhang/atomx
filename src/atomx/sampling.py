@@ -43,7 +43,9 @@ class Sampling:
     ns : int or None
         Number of B-spline functions.  ``None`` (default) means
         "auto-select from the DBSR_HF physics grid" — the recommended
-        choice and what ``Atom(Z).solve()`` does today.
+        choice for the B-spline engine
+        (``Atom(Z, numerics='bspline').solve()``; the bare default now
+        resolves to the shooting engine).
     ks : int
         B-spline polynomial order.  Default 9, matching DBSR_HF.
     n_grid : int
