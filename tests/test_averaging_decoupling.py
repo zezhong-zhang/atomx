@@ -71,6 +71,17 @@ def test_shooting_ci_routes_to_mcdhf(co_solved):
                             "averaging": "ci"}
 
 
+def test_shooting_ci_exposes_grid_waves(co_solved):
+    """The grid-flavour MCDHF result must not require B-spline metadata."""
+    a = co_solved[("shooting", "ci")]
+    waves = a.waves
+    assert waves.basis_type == "grid"
+    assert waves.grid.size > 0
+    assert waves.orbitals
+    assert waves.resolve_all("1s") == ["1s1/2"]
+    assert waves.orbitals["1s1/2"].P.shape == waves.grid.shape
+
+
 def test_shooting_ci_differs_from_shooting_statistical(co_solved):
     """The old gate made these bit-identical; now the Guerra CI weights
     actually reach the shooting Fock operator (measured delta

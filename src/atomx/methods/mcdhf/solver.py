@@ -54,6 +54,11 @@ class MCDHFResult:
     #: different blocks.
     per_block_orbitals: Dict = field(default_factory=dict)
     _bsp_data: Dict = field(default_factory=dict, repr=False)
+    #: Radial grid metadata for the shooting-engine flavor.  In that
+    #: flavor ``orbitals_dict`` already contains sampled P/Q arrays rather
+    #: than B-spline coefficients.
+    _grid: np.ndarray | None = field(default=None, repr=False)
+    _difr: np.ndarray | None = field(default=None, repr=False)
 
     def __post_init__(self):
         # Alias ``bsp_data`` → ``_bsp_data`` so downstream code (correction
@@ -136,14 +141,20 @@ class MCDHFResult:
 
     @property
     def waves(self):
-        """Build :class:`atomx.results.Waves` container from orbital coefficients."""
+        """Build :class:`atomx.results.Waves` for either radial engine."""
         from atomx.results import Waves, OrbitalWavefunction
         from atomx.methods.dirac_fock import _eval_bspline_on_grid
-        if not self.orbitals_dict or not self.bsp_data:
+        if not self.orbitals_dict:
             return Waves(grid=np.array([]))
 
-        gr = self.bsp_data["gr"]
-        grid = gr.ravel()
+        if self.bsp_data:
+            grid = self.bsp_data["gr"].ravel()
+            basis_type = "bspline"
+        elif self._grid is not None:
+            grid = np.asarray(self._grid)
+            basis_type = "grid"
+        else:
+            return Waves(grid=np.array([]))
 
         orbitals = {}
         for (n, kappa), (P_coeffs, Q_coeffs) in self.orbitals_dict.items():
@@ -151,8 +162,12 @@ class MCDHFResult:
             j2 = 2 * abs(kappa) - 1
             l_char = "spdfghiklmno"[l] if l < 12 else f"l{l}"
             label = f"{n}{l_char}{j2}/2"
-            P_grid = _eval_bspline_on_grid(P_coeffs, self.bsp_data, "p")
-            Q_grid = _eval_bspline_on_grid(Q_coeffs, self.bsp_data, "q")
+            if self.bsp_data:
+                P_grid = _eval_bspline_on_grid(P_coeffs, self.bsp_data, "p")
+                Q_grid = _eval_bspline_on_grid(Q_coeffs, self.bsp_data, "q")
+            else:
+                P_grid = np.asarray(P_coeffs)
+                Q_grid = np.asarray(Q_coeffs)
             orbitals[label] = OrbitalWavefunction(
                 P=P_grid, Q=Q_grid,
                 n=n, l=l, kappa=kappa,
@@ -162,7 +177,7 @@ class MCDHFResult:
                 occupation=float(self.occupations.get((n, kappa), 0.0)),
                 energy=self.orbital_energies.get(label, 0.0),
                 label=label)
-        return Waves(grid=grid, orbitals=orbitals, basis_type="bspline")
+        return Waves(grid=grid, orbitals=orbitals, basis_type=basis_type)
 
     def excitation_energies(self, unit="hartree"):
         from atomx.constants import HARTREE_EV, HARTREE_CM1
@@ -776,6 +791,10 @@ class MCDHFSolver:
             Z=self.Z,
             occupations=occupations,
             per_block_orbitals=per_block_orbitals,
+            _grid=(np.asarray(shoot_result._grid)
+                   if shoot_result is not None else None),
+            _difr=(np.asarray(shoot_result._difr)
+                   if shoot_result is not None else None),
         )
         # Attach correction components for downstream energy breakdown.
         if E_Breit:

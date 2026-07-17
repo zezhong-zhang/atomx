@@ -1,0 +1,68 @@
+{
+  "provenance": {
+    "code": "FAC 1.1.5 (live sfac run, single-threaded)",
+    "date": "2026-07-17",
+    "environment": "OMP_NUM_THREADS=1; fresh .b files (FAC binary tables APPEND across reruns)",
+    "deck": [
+      "SetAtom('Fe')",
+      "Closed('1s')",
+      "Config('gnd', '2s2 2p6')",
+      "Config('up3s', '2s2 2p5 3s1')",
+      "Config('up3d', '2s2 2p5 3d1')",
+      "SetSE(0)",
+      "SetVP(0)",
+      "SetMS(0,0)",
+      "SetBreit(0)",
+      "ConfigEnergy(0)",
+      "OptimizeRadial(['gnd'])",
+      "ConfigEnergy(1)",
+      "Structure('tr.lev.b', ['gnd'])",
+      "Structure('tr.lev.b', ['up3s'])",
+      "Structure('tr.lev.b', ['up3d'])",
+      "MemENTable('tr.lev.b')",
+      "TRTable('tr.tr.b', ['gnd'], ['up3s'], -1)",
+      "TRTable('tr.tr.b', ['gnd'], ['up3d'], -1)",
+      "PrintTable('tr.tr.b', 'tr.tr', 0)",
+      "PrintTable('tr.lev.b', 'tr.lev', 1)"
+    ],
+    "notes": [
+      "Clean-room protocol of docs/scattering_fac_verification_2026-07.md:",
+      "QED/Breit off, radial basis optimized on the closed-shell ground,",
+      "each configuration Structure'd separately (no 3s-3d interconfig",
+      "mixing) — the exact counterpart of atomx's",
+      "numerics='shooting'/exchange='gu' + manifold_from_configs pipeline.",
+      "PrintTable(verbose=1) on TR tables segfaults in this build; the",
+      "verbose=0 table stores the multipole reduced matrix element 'rme'.",
+      "Verified-exact reconstruction (2026-07 A_r audit):",
+      "  gf = omega_au * rme^2 / 3   (E1)",
+      "  A  = 2 * alpha^3 * omega_au^2 * gf / (2J_u + 1)   [a.u. -> *AU_RATE_PER_S]",
+      "  S_standard = rme^2 / 2      (atomx line-strength convention,",
+      "                               A = (4/3) alpha^3 omega^3 S / (2J_u+1))"
+    ]
+  },
+  "ground": {"ilev": 0, "E_eV": 0.0, "two_J": 0, "config": "2p6"},
+  "lines": [
+    {
+      "ilev": 2, "config": "2p5 3s1", "fac_name": "2p+3(3)3.3s+1(1)2",
+      "E_upper_eV": 726.732747, "two_J": 2, "rme": -9.346937e-2
+    },
+    {
+      "ilev": 4, "config": "2p5 3s1", "fac_name": "2p-1(1)1.3s+1(1)2",
+      "E_upper_eV": 738.951278, "two_J": 2, "rme": 8.245515e-2
+    },
+    {
+      "ilev": 6, "config": "2p5 3d1", "fac_name": "2p+3(3)3.3d-1(3)2",
+      "E_upper_eV": 802.352137, "two_J": 2, "rme": -3.188899e-2
+    },
+    {
+      "ilev": 12, "config": "2p5 3d1", "fac_name": "2p+3(3)3.3d+1(5)2",
+      "E_upper_eV": 812.319848, "two_J": 2, "rme": 2.506479e-1,
+      "note": "Fe XVII 3D"
+    },
+    {
+      "ilev": 16, "config": "2p5 3d1", "fac_name": "2p-1(1)1.3d-1(3)2",
+      "E_upper_eV": 826.712974, "two_J": 2, "rme": -4.934775e-1,
+      "note": "Fe XVII 3C"
+    }
+  ]
+}
