@@ -41,9 +41,9 @@ def make_physics_knots(ks: int, Z: int, ns: int = 113,
       2. Exponential growth with factor ht = 1 + he  (inner/mid region)
       3. Constant step hmax  (outer region, if needed)
 
-    Default parameters tuned for DBSR_HF-quality accuracy:
-      nuclear="point":  hi=0.025, he=0.125, hmax=1.0  (~100-125 B-splines)
-      nuclear="fermi":  hi=0.25,  he=0.25,  hmax=1.0  (~112 B-splines, DBSR_HF standard)
+    Default parameters (DBSR_HF mkgrid_01): hi=0.25, he=0.25, hmax=1.0
+    for every nuclear model, except he=0.0625 for Z <= 2 (the
+    eleven-digit hydrogen gate; see inline comment).
 
     For point nucleus: hs = hi / Z
     For Fermi nucleus: hs = 4*log(3) * a_fermi * hi  (very small r_min)
@@ -77,7 +77,16 @@ def make_physics_knots(ks: int, Z: int, ns: int = 113,
     # DBSR_HF mkgrid_01 uses the same defaults for all nuclear models:
     #   hi=0.25, he=0.25, hmax=1.0
     if hi is None: hi = 0.25
-    if he is None: he = 0.25
+    if he is None:
+        # Light atoms span a larger relative range between the nuclear
+        # scale (1/Z) and the diffuse valence tail; the default
+        # mid-region density leaves the point-nucleus H 1s eigenvalue
+        # 2e-11 off the Sommerfeld value where the book's preface gate
+        # (tests/test_book_preface.py) demands 1e-11.  Quadrupling the
+        # exponential density for Z <= 2 reaches 6.6e-12 (H) at ~1.6x
+        # the spline count; heavier atoms keep the DBSR_HF-validated
+        # grid unchanged.
+        he = 0.0625 if Z <= 2 else 0.25
     if hmax is None: hmax = 1.0
 
     # Initial step depends on nuclear model (DBSR_HF mkgrid_01)

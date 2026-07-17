@@ -52,12 +52,25 @@ _DR_EXPORTS = {
     "dr_strengths",
 }
 
+_MANIFOLD_EXPORTS = {
+    "ManifoldLevel",
+    "ResonanceManifold",
+    "auger_levels",
+    "manifold_from_configs",
+}
+
 
 def __getattr__(name):
     if name in _DR_EXPORTS:
         from atomx.scattering.dielectronic_recombination import solver
 
         value = getattr(solver, name)
+        globals()[name] = value
+        return value
+    if name in _MANIFOLD_EXPORTS:
+        from atomx.scattering.autoionization import mscheme_ci
+
+        value = getattr(mscheme_ci, name)
         globals()[name] = value
         return value
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
@@ -410,6 +423,9 @@ def auger_rate_j_resolved(
 __all__ = [
     "AutoionizationState",
     "DRRateCoefficient",
+    "ManifoldLevel",
+    "ResonanceManifold",
+    "auger_levels",
     "auger_rate_csf_average",
     "auger_rate_j_resolved",
     "auger_rate_level_resolved",
@@ -417,4 +433,5 @@ __all__ = [
     "dr_calculate",
     "dr_rate_coefficient",
     "dr_strengths",
+    "manifold_from_configs",
 ]

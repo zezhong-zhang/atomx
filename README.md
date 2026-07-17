@@ -23,26 +23,26 @@ atomx is a Python library for computing atomic energy levels, wavefunctions, tra
 from atomx import Atom
 
 # Neutral neon with default Dirac-Fock SCF
-ne = Atom(Z=10)
-ne.solve()
-print(ne.total_energy)       # -128.04 Hartree
-print(ne.orbital_energies)   # {1s: -32.6, 2s: -1.6, ...}
+atom = Atom(Z=10)
+atom.solve()
+print(atom.total_energy)       # -128.04 Hartree
+print(atom.orbital_energies)   # {1s: -32.6, 2s: -1.6, ...}
 
 # With Breit + QED corrections
-ne = Atom(Z=10, breit=True, qed=True)
-ne.solve()
+atom = Atom(Z=10, breit=True, qed=True)
+atom.solve()
 
 # Multi-configuration (Be with 2s² and 2p² mixing)
-be = Atom(Z=4, configs=["1s2 2s2", "1s2 2p2"])
-be.solve()
+atom = Atom(Z=4, configs=["1s2 2s2", "1s2 2p2"])
+atom.solve()
 
 # Numerics engine and exchange model are independent choices:
-fe = Atom(Z=26, charge=16, config="1s2 2s2 2p6",
+atom = Atom(Z=26, charge=16, config="1s2 2s2 2p6",
           numerics="shooting", exchange="gu")     # FAC-style local DFS, ~50 ms
-fe = Atom(Z=26, charge=16, config="1s2 2s2 2p6",
+atom = Atom(Z=26, charge=16, config="1s2 2s2 2p6",
           numerics="bspline", exchange="slater", alpha_x=2/3)
-fe.solve()
-print(fe.provenance)   # {'numerics': 'bspline', 'exchange': 'slater'}
+atom.solve()
+print(atom.provenance)   # {'numerics': 'bspline', 'exchange': 'slater'}
 ```
 
 ### Theory ladder
@@ -53,8 +53,8 @@ Climb the physics ladder rung-by-rung, seeing how each effect changes the total 
 from atomx import Atom, Ladder, Sampling
 from atomx.methods import DiracFock
 
-ne = Atom(Z=10)
-run = ne.climb(through=DiracFock(breit=True, qed=True), sampling=Sampling.quick)
+atom = Atom(Z=10)
+run = atom.climb(through=DiracFock(breit=True, qed=True), sampling=Sampling.quick)
 run.show(unit="eV")
 ```
 

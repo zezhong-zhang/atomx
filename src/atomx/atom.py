@@ -644,6 +644,13 @@ class Atom:
         return self._result
 
     @property
+    def subshells(self):
+        """Subshells of the solved result (relativistic occupations)."""
+        if self._result is None:
+            raise RuntimeError("call solve() first")
+        return self._result.subshells
+
+    @property
     def provenance(self) -> dict:
         """``{'numerics': engine, 'exchange': model}`` of the solved
         result (empty before :meth:`solve`)."""

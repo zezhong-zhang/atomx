@@ -71,6 +71,7 @@ class ManifoldLevel:
     dominant: str             # label of the dominant determinant
     E_res_au: float = 0.0     # absolute energy above the closed-shell ion
     a_radiative_per_s: float = 0.0
+    parity: int = 0           # +1 / -1 relative to the closed-shell ion
 
 
 class ResonanceManifold:
@@ -232,6 +233,25 @@ class ResonanceManifold:
     def _phase_remove(mask, i):
         return -1.0 if bin(mask & ((1 << i) - 1)).count("1") % 2 else 1.0
 
+    def parity_of_det(self, det: int) -> int:
+        """Parity of a determinant relative to the closed-shell ion.
+
+        Product of (-1)^l over occupied active orbitals times the parity
+        of the full (closed) hole group — i.e. the parity the continuum
+        electron must carry away in the Auger decay.  H conserves parity,
+        so all determinants mixed into one eigenlevel share this value;
+        a multi-parity determinant basis (e.g. a full 3l3l' complex)
+        block-diagonalizes and each level inherits the parity of its own
+        block."""
+        par = 1
+        for i in self._occ_list(det):
+            par *= -1 if _l_of(self.orbitals[i].kappa) % 2 else 1
+        mask = self.group_bits[0]
+        for i in range(self.n_orb):
+            if mask & (1 << i):
+                par *= -1 if _l_of(self.orbitals[i].kappa) % 2 else 1
+        return par
+
     # ---- Hamiltonian ----------------------------------------------------
     def hamiltonian(self, dets):
         n = len(dets)
@@ -369,33 +389,12 @@ class ResonanceManifold:
             J2 = self.j2_matrix(dets)
             evals, evecs = np.linalg.eigh(H)
 
-        # continuum electron
+        # continuum electron: one partial wave per parity block (a
+        # multi-configuration determinant basis may span both parities;
+        # H is parity-block-diagonal, so each eigenlevel carries the
+        # parity of its dominant determinant and decays into the l_f
+        # that parity allows).
         E_res_au = float(resonance_energy_eV) / HARTREE_EV
-        par = 1
-        d0 = dets[0]
-        for i in self._occ_list(d0):
-            par *= -1 if _l_of(self.orbitals[i].kappa) % 2 else 1
-        # hole parity: closed core is even; the det parity IS the resonance
-        # parity relative to the closed shell times the hole-orbital parity
-        # squared — i.e. par computed over occupied active orbitals times
-        # the parity of the full hole group (even, since the closed group
-        # has even parity iff capacity*l even; for a full jj group parity
-        # is (+1) only if l*capacity even — compute explicitly):
-        hole_group_par = 1
-        mask = self.group_bits[0]
-        for i in range(self.n_orb):
-            if mask & (1 << i):
-                hole_group_par *= -1 if _l_of(self.orbitals[i].kappa) % 2 else 1
-        par_res = par * hole_group_par  # det holes: closed/det ratio
-        tj_f = tM
-        l_opts = [(tj_f + 1) // 2, (tj_f - 1) // 2]
-        l_f = next((l for l in l_opts
-                    if l >= 0 and ((-1 if l % 2 else 1) == par_res)), None)
-        levels = []
-        if l_f is None:
-            return levels
-        kappa_f = l_f if tj_f == 2 * l_f - 1 else -(l_f + 1)
-
         V_func = self.V_func
         if V_func is None:
             V_func = _distorting_potential_fn(self.result, bsp_data,
@@ -405,13 +404,31 @@ class ResonanceManifold:
         r_max_box = float(bsp_data["t"][-1])
         n_shoot = (int(shooting_n_grid) if shooting_n_grid
                    else _shooting_points(r_max_box, p_rel(max(E_res_au, 1.0))))
-        try:
-            Pf, Qf = _continuum_on_grid(kappa_f, E_res_au, V_func, Z_res,
-                                        self.r_fine, r_max_box, n_shoot)
-        except Exception:
-            return levels
-        cont = (Pf, Qf)
         tm_f = tM  # closed-shell ion: m_f = M
+        tj_f = tM
+
+        _cont_cache: dict = {}
+
+        def _cont_for_parity(par_res):
+            """(kappa_f, (Pf, Qf)) for this parity, or None if forbidden."""
+            if par_res in _cont_cache:
+                return _cont_cache[par_res]
+            l_opts = [(tj_f + 1) // 2, (tj_f - 1) // 2]
+            l_f = next((l for l in l_opts
+                        if l >= 0 and ((-1 if l % 2 else 1) == par_res)),
+                       None)
+            out = None
+            if l_f is not None:
+                kappa_f = l_f if tj_f == 2 * l_f - 1 else -(l_f + 1)
+                try:
+                    Pf, Qf = _continuum_on_grid(
+                        kappa_f, E_res_au, V_func, Z_res,
+                        self.r_fine, r_max_box, n_shoot)
+                    out = (kappa_f, (Pf, Qf))
+                except Exception:
+                    out = None
+            _cont_cache[par_res] = out
+            return out
 
         # Amplitude per determinant: bra = closed hole-group + eps_f;
         # ket = det.  Two-orbital difference: ket-only = {e1, e2} (the
@@ -419,7 +436,7 @@ class ResonanceManifold:
         hole_mask = self.group_bits[0]
         full_hole = hole_mask
 
-        def _amp(det):
+        def _amp(det, kappa_f, cont):
             # holes nu = hole-group orbitals absent in det
             missing = full_hole & ~det
             occ_exc = [i for i in self._occ_list(det)
@@ -461,20 +478,26 @@ class ResonanceManifold:
             tJ_val = int(round(-1 + math.sqrt(1.0 + 4.0 * j2_exp)))
             if tJ_val != tM:
                 continue
-            A = 0.0
-            for d_idx, det in enumerate(dets):
-                wi = w[d_idx]
-                if abs(wi) < 1e-12:
-                    continue
-                A += wi * _amp(det)
-            gam = 2.0 * math.pi * A * A * AU_RATE_PER_S
             imax = int(np.argmax(np.abs(w)))
+            par_res = self.parity_of_det(dets[imax])
+            chan = _cont_for_parity(par_res)
+            gam = 0.0
+            if chan is not None:
+                kappa_f, cont = chan
+                A = 0.0
+                for d_idx, det in enumerate(dets):
+                    wi = w[d_idx]
+                    if abs(wi) < 1e-12:
+                        continue
+                    A += wi * _amp(det, kappa_f, cont)
+                gam = 2.0 * math.pi * A * A * AU_RATE_PER_S
             levels_out.append(ManifoldLevel(
                 two_J=tM,
                 energy_au=float(evals[li] - e_min),
                 gamma_auger_per_s=float(gam),
                 weights=w,
                 dominant=self._det_label(dets[imax]),
+                parity=par_res,
             ))
         return levels_out
 
@@ -646,6 +669,8 @@ class ResonanceManifold:
                 dominant=self._det_label(dets[imax]),
                 E_res_au=E_res,
                 a_radiative_per_s=float(a_r),
+                parity=(lv[0].parity if lv
+                        else self.parity_of_det(dets[imax])),
             ))
         return out
 
@@ -734,5 +759,340 @@ def build_core_folded_one_body(active, core, V_screen, r_fine, dr_fine):
     return t
 
 
-__all__ = ["ResonanceManifold", "ManifoldLevel",
-           "build_core_folded_one_body"]
+# ---------------------------------------------------------------------------
+# High-level entry point: config strings -> J-resolved CI levels
+# ---------------------------------------------------------------------------
+
+_L_CHARS = "spdfghiklmno"
+
+
+def _parse_config_tokens(config: str) -> dict:
+    """'2p5 3s1 3p1' -> {(n, l): occ}."""
+    import re
+
+    out: dict = {}
+    for tok in config.split():
+        m = re.fullmatch(r"(\d+)([a-z])(\d*)", tok)
+        if m is None:
+            raise ValueError(f"cannot parse config token {tok!r}")
+        n, l_char, occ = int(m.group(1)), m.group(2), m.group(3)
+        l = _L_CHARS.index(l_char)
+        out[(n, l)] = out.get((n, l), 0) + (int(occ) if occ else 1)
+    return out
+
+
+def _kappas_of_l(l: int) -> list[int]:
+    return [-1] if l == 0 else [l, -(l + 1)]
+
+
+def _orbital_label(n: int, kappa: int) -> str:
+    return f"{n}{_L_CHARS[_l_of(kappa)]}{_tj_of(kappa)}/2"
+
+
+def _subshell_meta(result):
+    """[(n, kappa, occupation)] for a solved closed-shell result.
+
+    B-spline results carry ``subshells``; shooting results are
+    reconstructed from the ``orbital_energies`` labels (the ground
+    configuration is closed-shell, so each subshell holds 2j+1)."""
+    import re
+
+    subs = getattr(result, "subshells", None)
+    if subs is not None:
+        return [(sh.n, sh.kappa, float(sh.occupation)) for sh in subs]
+    out = []
+    for label in result.orbital_energies:
+        m = re.fullmatch(r"(\d+)([a-z])(\d+)/2", label)
+        if m is None:
+            raise ValueError(f"cannot parse orbital label {label!r}")
+        n = int(m.group(1))
+        l = _L_CHARS.index(m.group(2))
+        tj = int(m.group(3))
+        kappa = l if tj == 2 * l - 1 else -(l + 1)
+        out.append((n, kappa, float(tj + 1)))
+    return out
+
+
+class _ClosedShellTarget:
+    """Minimal result adapter the manifold needs: Z + subshell occupations."""
+
+    class _Sub:
+        __slots__ = ("n", "kappa", "occupation")
+
+        def __init__(self, n, kappa, occupation):
+            self.n, self.kappa, self.occupation = n, kappa, occupation
+
+    def __init__(self, Z, meta):
+        self.Z = Z
+        self.subshells = [self._Sub(*m) for m in meta]
+
+
+def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
+                          one_body=None, V_func=None):
+    """Build a :class:`ResonanceManifold` from non-relativistic config strings.
+
+    ``result`` is the solved closed-shell ground configuration of the
+    recombined ion; ``configs`` are strings like ``"2p5 3s1 3p1"`` naming
+    one or more resonance configurations of the SAME hole subshell
+    (closed-core tokens such as ``1s2 2s2`` may be included and are
+    ignored).  All configurations are unioned into a single CI manifold,
+    so levels mix across configurations within each (J, parity) block —
+    the physics the configuration-average proxy misses.
+
+    Two orbital-basis pipelines, selected by the solve that produced
+    ``result``:
+
+    * **FAC-like local-DFS basis** (``numerics="shooting"``,
+      ``exchange="gu"`` — the result carries the converged ``_rv``
+      potential): every orbital, occupied or virtual, is an eigenstate
+      of the one optimized central potential (FAC's ``OptimizeRadial``
+      scheme, via :func:`~atomx.numerics.shooting.solver.dfs_frozen_orbital`),
+      the exact core-folded one-body matrix
+      (:func:`build_core_folded_one_body`) makes the manifold a proper
+      active-space CI, and the Auger continuum runs in the same
+      potential.  This is the configuration validated against FAC
+      AITable per-level widths.
+    * **B-spline V^(N-1) basis** (MCDHF results): hole orbitals from the
+      solved result, virtuals from
+      :func:`atomx.methods.mbpt.build_virtual_basis`, dressed mean-field
+      eigenvalues as one-body energies.  Faster, but the dressed
+      eigenvalues double-count part of the active-active interaction,
+      so multi-configuration level placement (and hence mixing) is less
+      accurate — prefer the DFS pipeline for quantitative widths.
+
+    Returns ``(manifold, bsp_data)`` ready for
+    :meth:`ResonanceManifold.dr_levels` / :meth:`~ResonanceManifold.auger_widths`.
+    """
+    meta = _subshell_meta(result)
+
+    # ---- classify tokens against the ground configuration ---------------
+    ground_occ: dict = {}
+    for (n, kappa, occ) in meta:
+        key = (n, _l_of(kappa))
+        ground_occ[key] = ground_occ.get(key, 0.0) + occ
+
+    parsed = [_parse_config_tokens(c) for c in configs]
+    hole_nl = None
+    excited_nls: list = []
+    for p in parsed:
+        for (n, l), occ in p.items():
+            cap = 2 * (2 * l + 1)
+            g_occ = ground_occ.get((n, l), 0.0)
+            if g_occ >= cap - 0.5:                      # filled in ground
+                if occ == cap:
+                    continue                            # closed core token
+                if occ != cap - 1:
+                    raise ValueError(
+                        f"hole subshell {n}{_L_CHARS[l]}{occ}: only "
+                        f"single-hole resonances are supported")
+                if hole_nl is not None and hole_nl != (n, l):
+                    raise ValueError(
+                        f"all configs must share one hole subshell; got "
+                        f"{hole_nl} and {(n, l)}")
+                hole_nl = (n, l)
+            elif g_occ == 0.0:
+                if (n, l) not in excited_nls:
+                    excited_nls.append((n, l))
+            else:
+                raise ValueError(
+                    f"subshell {n}{_L_CHARS[l]} is partially occupied in "
+                    f"the ground result — not a closed-shell core")
+    if hole_nl is None:
+        raise ValueError("no hole subshell found in configs")
+    excited_nls.sort()
+
+    # ---- fine grid + orbital basis ---------------------------------------
+    from atomx.numerics.quadrature import make_fine_grid
+
+    n_h, l_h = hole_nl
+    hole_kappas = _kappas_of_l(l_h)
+    active_nks = ([(n_h, k) for k in hole_kappas]
+                  + [(n_e, k) for (n_e, l_e) in excited_nls
+                     for k in _kappas_of_l(l_e)])
+
+    orbital_map: dict = {}
+    orbital_eps: dict = {}
+    rv = getattr(result, "_rv", None)
+
+    if rv is not None:
+        # ---- FAC-like basis: converged local-DFS potential ---------------
+        from atomx.numerics.shooting.solver import dfs_frozen_orbital
+
+        grid = result._grid
+        Z = int(result.Z)
+        r_max = float(grid[-1])
+        r_fine = make_fine_grid(r_max, p_rel(float(e_max_eV) / HARTREE_EV))
+        dr_fine = np.gradient(r_fine)
+        N_bound = sum(occ for (_n, _k, occ) in meta)
+        Z_res = max(Z - N_bound + 1.0, 1.0)
+
+        def _tofine(P, Q):
+            return (np.interp(r_fine, grid, P),
+                    np.interp(r_fine, grid, Q))
+
+        labels = list(result.orbital_energies)
+        active_set = set(active_nks)
+        core = []
+        occupied_fine = {}
+        for i, (n, kappa, occ) in enumerate(meta):
+            PQ = _tofine(result._pa[i], result._qa[i])
+            occupied_fine[(n, kappa)] = PQ
+            if (n, kappa) not in active_set:
+                core.append((PQ[0], PQ[1], occ, kappa))
+
+        active = {}
+        for (n, kappa) in active_nks:
+            if (n, kappa) in occupied_fine:
+                P, Q = occupied_fine[(n, kappa)]
+                eps = float(result.orbital_energies[_orbital_label(n, kappa)])
+            else:
+                e_guess = -0.5 * ((Z_res + 1.0) / n) ** 2
+                P_g = Q_g = eps = None
+                for scale in (1.0, 1.6, 0.6):
+                    try:
+                        P_g, Q_g, eps = dfs_frozen_orbital(
+                            result, n, kappa, e_guess * scale)
+                        break
+                    except RuntimeError:
+                        continue
+                if eps is None:
+                    raise RuntimeError(
+                        f"dfs_frozen_orbital failed for "
+                        f"{_orbital_label(n, kappa)}")
+                P, Q = _tofine(P_g, Q_g)
+            active[(n, kappa)] = (P, Q, float(eps))
+            orbital_map[(n, kappa)] = (P, Q)
+            orbital_eps[(n, kappa)] = float(eps)
+
+        if one_body is None:
+            V_screen = np.interp(
+                r_fine, grid, (rv + Z) / np.maximum(grid, 1e-30))
+            one_body = build_core_folded_one_body(
+                active, core, V_screen, r_fine, dr_fine)
+        if V_func is None:
+            def V_func(r, _grid=grid, _rv=rv):
+                r = np.asarray(r, dtype=float)
+                return np.interp(r, _grid, _rv) / np.maximum(r, 1e-30)
+        target = _ClosedShellTarget(Z, meta)
+        bsp = {"t": np.asarray(grid)}
+    else:
+        # ---- B-spline basis: solved orbitals + V^(N-1) virtuals ----------
+        from atomx.methods.mbpt import build_virtual_basis
+        from atomx.numerics.bspline.evaluate import eval_P, eval_Q
+
+        bsp = getattr(result, "_bsp_data", None) or result.bsp_data
+        target = result
+        r_max = float(bsp["t"][-1])
+        r_fine = make_fine_grid(r_max, p_rel(float(e_max_eV) / HARTREE_EV))
+        dr_fine = np.gradient(r_fine)
+        gr = bsp["gr"].ravel()
+        order = np.argsort(gr)
+        grs = gr[order]
+
+        def _tofine(P, Q):
+            Pg = eval_P(P, bsp).ravel()[order]
+            Qg = eval_Q(Q, bsp).ravel()[order]
+            return np.interp(r_fine, grs, Pg), np.interp(r_fine, grs, Qg)
+
+        for kappa in hole_kappas:
+            same = [sh for sh in result.subshells if sh.kappa == kappa]
+            idx = next(i for i, sh in enumerate(same) if sh.n == n_h)
+            P, Q = result.orbitals_raw[kappa][idx][:2]
+            orbital_map[(n_h, kappa)] = _tofine(P, Q)
+            orbital_eps[(n_h, kappa)] = float(
+                result.orbital_energies[_orbital_label(n_h, kappa)])
+
+        for (n_e, l_e) in excited_nls:
+            for kappa in _kappas_of_l(l_e):
+                occ_ns = [sh.n for sh in result.subshells
+                          if sh.kappa == kappa]
+                n_first_virt = max([_l_of(kappa)] + occ_ns) + 1
+                _occ, virt = build_virtual_basis(result, kappa)
+                vi = n_e - n_first_virt
+                if vi < 0 or vi >= len(virt):
+                    raise ValueError(
+                        f"virtual orbital {_orbital_label(n_e, kappa)} not "
+                        f"in the V^(N-1) basis (index {vi} of {len(virt)})")
+                P, Q, eps = virt[vi]
+                orbital_map[(n_e, kappa)] = _tofine(P, Q)
+                orbital_eps[(n_e, kappa)] = float(eps)
+
+    groups = [([(n_h, k) for k in hole_kappas],
+               2 * (2 * l_h + 1) - 1)]
+    for (n_e, l_e) in excited_nls:
+        groups.append(([(n_e, k) for k in _kappas_of_l(l_e)],
+                       parsed[0].get((n_e, l_e), 0)))
+
+    config_tuples = []
+    for p in parsed:
+        tup = [2 * (2 * l_h + 1) - 1]
+        tup += [p.get(nl, 0) for nl in excited_nls]
+        config_tuples.append(tuple(tup))
+
+    manifold = ResonanceManifold(
+        target, groups, r_fine=r_fine, dr_fine=dr_fine,
+        orbital_map=orbital_map, orbital_energies=orbital_eps,
+        configs=config_tuples, V_func=V_func, one_body=one_body)
+    return manifold, bsp
+
+
+def auger_levels(result, configs, *, two_J=None, e_max_eV: float = 1000.0,
+                 shooting_n_grid=None, L_max: int = 6,
+                 one_body=None, V_func=None):
+    """J-resolved, CI-mixed autoionization levels of a resonance complex.
+
+    The proper-physics replacement for the configuration-average
+    ``auger_rate_csf_average`` proxy (which over-counts magnetic
+    substates by 1.2-15x on the Fe XVII KLL panel): a determinant-CI
+    diagonalization of the full complex (union of ``configs``) with
+    exact Slater-Condon Auger amplitudes coherently summed over each
+    CI eigenvector — see :class:`ResonanceManifold`.
+
+    Parameters
+    ----------
+    result
+        Solved closed-shell structure result of the recombined ion
+        (``Atom`` instances are accepted and unwrapped).
+    configs : sequence of str
+        Resonance configurations, e.g.
+        ``["2p5 3s2", "2p5 3s1 3p1", "2p5 3p2", ...]``.
+    two_J : int or sequence of int, optional
+        Restrict to these 2J values; default = every J the complex
+        supports.
+
+    Returns
+    -------
+    list of :class:`ManifoldLevel`
+        Sorted by resonance energy; each carries the ab-initio
+        ``E_res_au`` (above the closed-shell ion), ``gamma_auger_per_s``,
+        ``a_radiative_per_s``, ``two_J`` and the dominant-determinant
+        label.
+    """
+    if hasattr(result, "_result") and result._result is not None:
+        result = result._result
+    manifold, bsp = manifold_from_configs(
+        result, configs, e_max_eV=e_max_eV,
+        one_body=one_body, V_func=V_func)
+    Z = int(getattr(result, "Z", 0))
+
+    if two_J is None:
+        n_act = sum(manifold.configs[0])
+        tMs = []
+        tM = 1 if n_act % 2 else 0
+        while manifold.determinants(tM):
+            tMs.append(tM)
+            tM += 2
+    else:
+        tMs = [int(two_J)] if np.isscalar(two_J) else [int(t) for t in two_J]
+
+    levels: list[ManifoldLevel] = []
+    for tM in tMs:
+        levels.extend(manifold.dr_levels(
+            tM, Z=Z, bsp_data=bsp,
+            shooting_n_grid=shooting_n_grid, L_max=L_max))
+    levels.sort(key=lambda L: L.E_res_au)
+    return levels
+
+
+__all__ = ["ResonanceManifold", "ManifoldLevel", "auger_levels",
+           "build_core_folded_one_body", "manifold_from_configs"]

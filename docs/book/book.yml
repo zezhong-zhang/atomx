@@ -1,0 +1,54 @@
+# Series manifest — Theoretical Atomic Physics: Define, Derive, Calculate
+# Chapter status: planned | recon | draft | reviewed | final
+series:
+  title: "Theoretical Atomic Physics — Define, Derive, Calculate"
+  companion: atomx
+  style: STYLE.md
+  plan: PLAN.md
+
+volume1:
+  title: "The Atom: Structure, Radiation, Collisions, Plasmas"
+  frontmatter:
+    - { file: vol1/frontmatter/preface.md, status: draft }
+  chapters:
+    - { n: 0,  slug: prologue_fe17,                title: "Prologue: One Spectrum, the Whole Book",            status: planned }
+    - { n: 1,  slug: scales_units_conventions,     title: "Scales, Units, and the Convention Contract",        status: draft }
+    - { n: 2,  slug: hydrogen_schrodinger,         title: "Hydrogen: the Schrödinger Atom",                    status: draft }
+    - { n: 3,  slug: hydrogen_dirac,               title: "Hydrogen: the Dirac Atom",                          status: planned }
+    - { n: 4,  slug: radial_numerics,              title: "The Radial Problem as Numerics",                    status: planned }
+    - { n: 5,  slug: modified_potentials,          title: "Modified Potentials",                               status: planned }
+    - { n: 6,  slug: angular_machine,              title: "The Angular Momentum Machine",                      status: planned }
+    - { n: 7,  slug: central_field_configs,        title: "Central Field and Configurations",                  status: planned }
+    - { n: 8,  slug: hartree_fock,                 title: "Hartree–Fock",                                      status: planned }
+    - { n: 9,  slug: dirac_fock,                   title: "Dirac–Fock",                                        status: planned }
+    - { n: 10, slug: csf_ci,                       title: "CSFs and Configuration Interaction",                status: planned }
+    - { n: 11, slug: mcdhf,                        title: "MCDHF",                                             status: planned }
+    - { n: 12, slug: correlation,                  title: "Electron Correlation",                              status: planned }
+    - { n: 13, slug: breit,                        title: "The Breit Interaction",                             status: planned }
+    - { n: 14, slug: qed_bound_states,             title: "QED in Bound States",                               status: planned }
+    - { n: 15, slug: nucleus_in_atom,              title: "The Nucleus in the Atom",                           status: planned }
+    - { n: 16, slug: static_fields,                title: "Static External Fields",                            status: planned }
+    - { n: 17, slug: symmetry_violation,           title: "Symmetry Violation",                                status: planned }
+    - { n: 18, slug: multipole_transitions,        title: "Multipole Transition Theory",                       status: planned }
+    - { n: 19, slug: rates_lifetimes,              title: "Rates, Lifetimes, Oscillator Strengths",            status: planned }
+    - { n: 20, slug: line_shapes,                  title: "Line Shapes",                                       status: planned }
+    - { n: 21, slug: continuum_normalization,      title: "Continuum States and the Normalization Contract",   status: draft }
+    - { n: 22, slug: photoionization,              title: "Photoionization",                                   status: planned }
+    - { n: 23, slug: distorted_wave,               title: "Distorted-Wave Collision Theory",                   status: planned }
+    - { n: 24, slug: eii,                          title: "Electron-Impact Ionization",                        status: planned }
+    - { n: 25, slug: auger,                        title: "Autoionization and Auger",                          status: planned }
+    - { n: 26, slug: recombination,                title: "Recombination",                                     status: planned }
+    - { n: 27, slug: charge_exchange,              title: "Charge Exchange",                                   status: planned }
+    - { n: 28, slug: r_matrix,                     title: "R-matrix",                                          status: planned }
+    - { n: 29, slug: crm,                          title: "Collisional–Radiative Modeling",                    status: planned }
+    - { n: 30, slug: plasma_environment,           title: "The Plasma Environment",                            status: planned }
+    - { n: 31, slug: cascades_spectra,             title: "Cascades and Spectrum Synthesis",                   status: planned }
+    - { n: 32, slug: epilogue_fe17,                title: "Epilogue: Solving the Prologue",                    status: planned }
+    - { n: 33, slug: verification,                 title: "Verification: How to Know a Number Is Right",       status: planned }
+    - { n: 34, slug: performance,                  title: "Performance Engineering for Physics",               status: planned }
+    - { n: 35, slug: ai_collaboration,             title: "Building Atomic Physics with an AI Collaborator",   status: planned }
+  appendices:
+    - { id: A, slug: convention_contract, title: "The Convention Contract", status: planned, note: generated from chapter contract boxes }
+    - { id: B, slug: notation_special_functions, title: "Notation and Special Functions", status: planned }
+    - { id: C, slug: api_crosswalk, title: "atomx API ↔ Chapter ↔ Test Crosswalk", status: planned }
+    - { id: D, slug: data_sources, title: "Data Sources", status: planned }

@@ -37,7 +37,7 @@ from typing import Dict
 CODATA = {
     "2018": {
         "_c": 299_792_458.0,            # speed of light, m/s (exact)
-        "_mu0": 4.0e-7 * pi,           # permeability of vacuum (≈ exact)
+        "_mu0": 1.25663706212e-6,       # vacuum permeability, N/A^2 (measured since 2019 SI)
         "_Grav": 6.67430e-11,           # gravitational constant
         "_hplanck": 6.62607015e-34,     # Planck constant, J s (exact)
         "_e": 1.602176634e-19,          # elementary charge, C (exact)
@@ -55,7 +55,7 @@ CODATA = {
     "2022": {
         # Defined (exact) constants — unchanged
         "_c": 299_792_458.0,            # speed of light, m/s (exact)
-        "_mu0": 4.0e-7 * pi,
+        "_mu0": 1.25663706127e-6,       # vacuum permeability, N/A^2 (was 1.25663706212e-6)
         "_Grav": 6.67430e-11,           # unchanged from 2018
         "_hplanck": 6.62607015e-34,     # exact
         "_e": 1.602176634e-19,          # exact
@@ -182,7 +182,10 @@ R0_FM = 1.2  # nuclear radius parameter, fm
 
 # Spectroscopy
 import numpy as np
-AU_TIME_S = 2.418_884_326_5857e-17
+# Atomic unit of time tau_0 = hbar/E_h, derived from the active CODATA
+# table (a hard-coded 2018 value survived here until 2026-07; see
+# tests/test_book_ch01_contracts.py::test_au_time_derived_from_active_table).
+AU_TIME_S = _active["_hplanck"] / (2.0 * pi) / _active["_Ha_J"]
 AU_RATE_PER_S = 1.0 / AU_TIME_S
 HARTREE_INV_ANGSTROM = ALPHA / (2.0 * np.pi * BOHR_RADIUS_M * 1e10)
 BOLTZMANN_EV = 8.617_333_262e-5
