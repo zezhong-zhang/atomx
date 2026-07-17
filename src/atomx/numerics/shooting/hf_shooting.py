@@ -342,6 +342,19 @@ class ShootingHFSolver:
     nuclear : str or None
         ``'point'`` (default) or ``'fermi'`` — same convention as
         :class:`ShootingSolver`.
+    jj_configs : list of JJConfig, optional
+        Multi-configuration jj-coupled configurations with c_j^2 weights
+        (the structure ``MCDHFSolver._jj_configs`` builds).  When given,
+        the pair coefficients become the Guerra Eq (10) weighted averages
+        ``WW(a,b) = Σ_j c_j² n_a^j n_b^j`` (``WW(a,a) = Σ_j c_j² n_a^j
+        (n_a^j − 1)``) via :func:`atomx.config.jj_coupling.compute_WW`,
+        and the per-electron Fock coefficients are ``WW(a,b)/q_a`` —
+        exactly the B-spline ``DFSolver`` convention.  Each config's
+        ``subshells`` must align positionally with ``subshells`` (same
+        ``(n, kappa)`` order), and every ``q_a`` must be positive (the
+        MCDHF driver floors occupations at 0.001).  When ``None``, the
+        statistical products below are used, bit-identical to the
+        historical behaviour.
 
     Notes
     -----
@@ -354,18 +367,67 @@ class ShootingHFSolver:
 
     def __init__(self, Z, subshells: Sequence, n_grid: int = 1000,
                  r_max: float = 75.0, aw: float = 0.0,
-                 nuclear: Optional[str] = None):
+                 nuclear: Optional[str] = None,
+                 jj_configs: Optional[List] = None):
         self.Z = Z
         self.subshells = list(subshells)
         self.n_grid = n_grid
         self.r_max = r_max
         self.aw = aw
         self.nuclear = nuclear
+        if jj_configs is not None:
+            for cfg in jj_configs:
+                if (len(cfg.subshells) != len(self.subshells)
+                        or any((c.n, c.kappa) != (s.n, s.kappa)
+                               for c, s in zip(cfg.subshells,
+                                               self.subshells))):
+                    raise ValueError(
+                        "jj_configs subshells must align positionally "
+                        "with the solver subshells (same (n, kappa) "
+                        "order) — compute_WW indexes by position")
+            for s in self.subshells:
+                if float(s.occupation) <= 1.0e-15:
+                    raise ValueError(
+                        "jj_configs mode divides WW(a,b) by q_a; every "
+                        f"subshell needs q > 0 (got {s.label} with "
+                        f"q={s.occupation})")
+        self.jj_configs = jj_configs
+
+    def _get_WW(self, i, j):
+        """WW(i,j) — generalized occupation product (DBSR_HF convention).
+
+        Mirrors ``DFSolver._get_WW``: with ``jj_configs`` the
+        multi-configuration weighted average, otherwise the statistical
+        products ``q_i (q_i − 1)`` / ``q_i q_j``.
+        """
+        if self.jj_configs is not None:
+            from atomx.config.jj_coupling import compute_WW
+            return compute_WW(i, j, self.jj_configs)
+        qi = float(self.subshells[i].occupation)
+        if i == j:
+            return qi * (qi - 1.0)
+        return qi * float(self.subshells[j].occupation)
 
     # ------------------------------------------------------------------
     # angular tables (reuses the DFSolver's jj-average coefficients)
     # ------------------------------------------------------------------
     def _angular_tables(self):
+        """Per-electron Fock coefficients (DBSR_HF hf_matrix / q_a form).
+
+        Statistical (``jj_configs=None``): intra-shell ``q_a − 1``,
+        cross-shell ``q_b`` — the historical products, kept verbatim so
+        the default path stays bit-identical.  Guerra: every energy
+        coefficient ``WW`` divided by the target occupation ``q_a``,
+        mirroring ``DFSolver._build_direct_potential`` (``WW(i,j)/q_i``)
+        and ``_build_hf_matrix_dbsr`` (``hfm /= q_i``).  Statistically
+        ``WW(a,a)/q_a = q_a − 1`` and ``WW(a,b)/q_a = q_b``, so the two
+        forms agree up to float rounding.
+
+        Returns ``(intra, exch, direct0)``; ``direct0`` is ``None`` in
+        statistical mode (the SCF loop then uses the equivalent
+        ``Σ_b q_b Y⁰_bb − Y⁰_aa`` fast path) and otherwise the per-target
+        k=0 Hartree coefficients ``direct0[a][b] = WW(a,b)/q_a``.
+        """
         from atomx.angular.coefficients import (
             exchange_lambda, exchange_k_range)
 
@@ -373,13 +435,16 @@ class ShootingHFSolver:
         kappas = [sh.kappa for sh in self.subshells]
         occ = [float(sh.occupation) for sh in self.subshells]
         tj = [2 * abs(k) - 1 for k in kappas]
+        guerra = self.jj_configs is not None
 
         # Same-shell k>0 multipoles (local F^k structure):
-        # coefficient -(q_a - 1) * Lambda_k / (2j_a (2j_a + 1)).
+        # coefficient -(q_a - 1) * Lambda_k / (2j_a (2j_a + 1)),
+        # with q_a - 1 -> WW(a,a)/q_a in Guerra mode.
         intra = []  # per shell: list of (k, coeff)
         for a in range(nsh):
             terms = []
             la = _l_of_kappa(kappas[a])
+            wq_aa = self._get_WW(a, a) / occ[a] if guerra else occ[a] - 1.0
             for k in range(2, tj[a] + 1):
                 if (k + 2 * la) % 2 != 0:
                     continue
@@ -387,25 +452,36 @@ class ShootingHFSolver:
                 if lam < 1.0e-15:
                     continue
                 terms.append(
-                    (k, -(occ[a] - 1.0) * lam / (tj[a] * (tj[a] + 1.0))))
+                    (k, -wq_aa * lam / (tj[a] * (tj[a] + 1.0))))
             intra.append(terms)
 
         # Cross-shell exchange multipoles (non-local source):
-        # coefficient q_b * Lambda_k / ((2j_a+1)(2j_b+1)).
+        # coefficient q_b * Lambda_k / ((2j_a+1)(2j_b+1)),
+        # with q_b -> WW(a,b)/q_a in Guerra mode.
         exch = {}  # (a, b) -> list of (k, coeff)
         for a in range(nsh):
             for b in range(nsh):
                 if a == b:
                     continue
+                wq_ab = (self._get_WW(a, b) / occ[a] if guerra
+                         else occ[b])
                 terms = []
                 for k in exchange_k_range(kappas[a], kappas[b]):
                     lam = exchange_lambda(kappas[a], kappas[b], k)
                     if lam < 1.0e-15:
                         continue
                     terms.append(
-                        (k, occ[b] * lam / ((tj[a] + 1.0) * (tj[b] + 1.0))))
+                        (k, wq_ab * lam / ((tj[a] + 1.0) * (tj[b] + 1.0))))
                 exch[(a, b)] = terms
-        return intra, exch
+
+        # k=0 Hartree coefficients: only needed explicitly in Guerra mode
+        # (statistically they collapse to the target-independent
+        # Σ_b q_b Y⁰_bb − Y⁰_aa form the SCF loop builds directly).
+        direct0 = None
+        if guerra:
+            direct0 = [[self._get_WW(a, b) / occ[a] for b in range(nsh)]
+                       for a in range(nsh)]
+        return intra, exch, direct0
 
     # ------------------------------------------------------------------
     # total energy (DBSR_HF av_energy_coef formula on the shooting grid)
@@ -417,7 +493,6 @@ class ShootingHFSolver:
 
         nsh = len(self.subshells)
         kappas = [sh.kappa for sh in self.subshells]
-        occ = [float(sh.occupation) for sh in self.subshells]
         tj = [2 * abs(k) - 1 for k in kappas]
 
         dens = [pa[s] ** 2 + qa[s] ** 2 for s in range(nsh)]
@@ -427,7 +502,8 @@ class ShootingHFSolver:
             la = _l_of_kappa(kappas[a])
             for b in range(a, nsh):
                 if a == b:
-                    c = occ[a] * (occ[a] - 1.0) / 2.0
+                    # WW(a,a)/2 — statistically q(q-1)/2, bit-identical.
+                    c = self._get_WW(a, a) / 2.0
                     if abs(c) < 1.0e-15:
                         continue
                     e_j += c * _slater_integral_slag6(
@@ -442,7 +518,8 @@ class ShootingHFSolver:
                             dens[a], dens[a], k, r, difr, np_)
                         e_k += c * lam / (tj[a] * (tj[a] + 1.0)) * fk
                 else:
-                    ww = occ[a] * occ[b]
+                    # WW(a,b) — statistically q_a q_b, bit-identical.
+                    ww = self._get_WW(a, b)
                     if abs(ww) < 1.0e-15:
                         continue
                     e_j += ww * _slater_integral_slag6(
@@ -500,7 +577,7 @@ class ShootingHFSolver:
         # Nuclear potential in r*V form.
         rvnuc = self._nuclear_rv(r, difr, np_)
 
-        intra, exch = self._angular_tables()
+        intra, exch, direct0 = self._angular_tables()
         # kappa groups for Schmidt orthogonalisation (ascending n).
         groups: Dict[int, List[int]] = {}
         for s in range(nsh):
@@ -520,10 +597,18 @@ class ShootingHFSolver:
             for a in range(nsh):
                 # --- local potential (direct + same-shell F^k) ---
                 dens = [pa[s] ** 2 + qa[s] ** 2 for s in range(nsh)]
-                vel = np.zeros(np_)
-                for b in range(nsh):
-                    vel += occ[b] * _yk_over_r(dens[b], 0, r, difr, np_)
-                v_loc = vel - _yk_over_r(dens[a], 0, r, difr, np_)
+                if direct0 is None:
+                    vel = np.zeros(np_)
+                    for b in range(nsh):
+                        vel += occ[b] * _yk_over_r(dens[b], 0, r, difr, np_)
+                    v_loc = vel - _yk_over_r(dens[a], 0, r, difr, np_)
+                else:
+                    # Guerra: per-target k=0 coefficients WW(a,b)/q_a
+                    # (statistically q_b, resp. q_a - 1 for b == a).
+                    v_loc = np.zeros(np_)
+                    for b in range(nsh):
+                        v_loc += direct0[a][b] * _yk_over_r(
+                            dens[b], 0, r, difr, np_)
                 for k, coeff in intra[a]:
                     v_loc += coeff * _yk_over_r(dens[a], k, r, difr, np_)
                 rv_loc = rvnuc + r * v_loc
@@ -636,11 +721,19 @@ class ShootingHFSolver:
     def _nuclear_rv(self, r, difr, np_):
         """r*V_nuc on the grid: point nucleus or Fermi distribution.
 
-        Mirrors the nuclear block of ``_dhfs_scf`` (solver.py) so the HF
-        path supports the same ``nuclear=`` options as the local one.
+        The Fermi SHAPE parameters (c, a) come from the library-wide
+        :func:`atomx.potentials.nuclear.fermi_params` (DBSR_HF
+        t = 2.30 fm skin + empirical rms radius) — the SAME nuclear
+        model ``DFSolver`` solves via ``make_nuclear_potential``.  The
+        Salvat literals (R1 = 1.07 A^{1/3} fm, a = 0.546 fm) that
+        ``_dhfs_scf`` keeps for bit-for-bit DHFS reproduction give a
+        ~4% smaller rms radius at Z=82; with a ~5.5 Ha finite-size
+        shift at Pb that left every HF total 0.35 Ha below the
+        B-spline engine on identical Guerra weights (measured
+        -20914.1136 vs -20913.7625 on the ci route).  The potential is
+        still built by grid-native slag6 integration of the density,
+        normalized to Z on this SGRID.
         """
-        from atomx.numerics.shooting.constants import A0B, FR1O3
-
         aw = self.aw
         if self.nuclear is not None and not (aw and aw > 0.0):
             if self.nuclear == "point":
@@ -655,10 +748,9 @@ class ShootingHFSolver:
         z = float(self.Z)
         if aw <= 0.5:
             return np.full(np_, -z)
-        f2bohr = 1.0e-13 / A0B
-        r1_nuc = 1.07 * aw ** FR1O3 * f2bohr
-        r2_nuc = 0.546 * f2bohr
-        arg = np.minimum((r1_nuc - r) / r2_nuc, 500.0)
+        from atomx.potentials.nuclear import fermi_params
+        a_nuc, c_nuc = fermi_params(self.Z, A=aw)
+        arg = np.minimum((c_nuc - r) / a_nuc, 500.0)
         xx = np.where(arg < 500.0, np.exp(arg), 1.0e200)
         denn = xx / (1.0 + xx)
         fwd = slag6(1.0, denn * r ** 2 * difr, np_)
