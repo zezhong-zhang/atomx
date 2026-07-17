@@ -254,6 +254,63 @@ fixing it repaired the resonance energies too.
   quadrature bias had been degrading CE too).
 - EII rms 0.33 → 0.29.
 
+## 2026-07-17: J-resolved radiative line strengths — determinant-CI lines
+
+The transitions calculator distributed configuration-average strength
+with FAC's UTA population factor: multiplet totals correct, individual
+lines inside multi-open-shell multiplets not (measured 0.37–14× off per
+line on Ne-like Fe 2p⁵3l → 2p⁶).  New engine
+`atomx/properties/transitions/ci_lines.py` reuses the FAC-verified
+m-scheme machinery (`manifold_from_configs` determinants + Hamiltonian +
+J²): both configurations are enumerated over one shared orbital basis,
+each (J, M) block is diagonalized (J-purified inside degenerate
+clusters), and the exact reduced E1 element comes from the coherent
+Slater–Condon one-body amplitude at fixed M_i = J_i:
+
+    S = |<f||d||i>|² = (2J_i+1) · Σ_{M_f} |amp(M_f, q=M_f−M_i)|²
+
+(3j orthogonality; only one q per (M_i, M_f), so eigenvector signs
+cancel per term — no phase matching across M blocks).  Exact sum rule
+pinned at 1e-10: Σ_lines S = Σ_{det_i,det_f,q} |⟨det_f|d_q|det_i⟩|², the
+mixing-invariant configuration-pair total.
+
+Validation vs live clean-room FAC 1.1.5 TRTable (same protocol; TR
+PrintTable verbose=1 segfaults — verbose=0 stores the rme with
+gf = ω·rme²/3, A = 2α³ω²gf/g_u, S_std = rme²/2, verified exact in the
+A_r audit).  Fe XVII 2p⁵3s → 2p⁶ and 2p⁵3d → 2p⁶ (the 3C/3D multiplet),
+`exchange='gu'` DFS basis:
+
+| line | A ratio atomx/FAC | in-multiplet fraction ratio |
+|---|---|---|
+| 3s (2p₃/₂ hole) J=1 | 1.021 | 1.004 |
+| 3s (2p₁/₂ hole) J=1 | 1.011 | 0.994 |
+| 3d weak J=1 | 1.034 | 1.031 |
+| 3D | 1.033 | 1.031 |
+| 3C | 0.994 | 0.992 |
+
+3C/3D line-strength ratio 3.729 vs FAC 3.876 (0.962); transition
+energies +2.4 to +2.9 eV of 730–830 eV.  Reference + provenance:
+`tests/data/fe17_tr_fac_cleanroom.json`; gates in
+`tests/test_ci_line_strengths.py` (per-line A ∈ [0.85, 1.20], relative
+intensities ≤5%, sum rule 1e-10, one-electron consistency: multiplet
+total ≡ Σ|⟨κ_h‖C¹‖κ_e⟩|²R² exactly, per-line redistribution =
+physical 2p₁/₂/2p₃/₂ hole mixing, CI/pure = 0.820/1.397).
+
+Wiring: `compute_transitions(..., line_resolution='ci')` (also
+`Atom.transitions`) routes two-configuration single-hole-pair atoms
+through the CI engine (determinant cap 2000/block; closed-shell ground
+re-solved internally in the gu-DFS pure-Coulomb basis);
+`TransitionResult.resolution` records `'ci'`/`'uta'` per row.  Anything
+else — >2 configs, multi-hole configs, above-cap blocks, velocity
+gauge, magnetic multipoles — falls back to UTA.  E2 implemented via the
+generic r^L C^L element (sum rule verified); **M1 and velocity gauge
+not implemented in the CI engine**.  Default NOT flipped: on 2-config
+atoms the flip would replace the MCDHF/UTA values (energies ~70–95 eV
+higher than FAC, per-line A 0.37–14× off) with the CI values wholesale —
+a large intentional physics change that also swaps level labels
+(`State_n` → jj-determinant labels) and silently ignores the atom's
+Breit/QED flags (CI manifold is pure Coulomb by design).
+
 ## Remaining follow-ups
 
 - Bethe/Born completion at very high E: CE Z=54 E/th=5 (−16%) and EII

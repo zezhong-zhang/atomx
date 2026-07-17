@@ -52,6 +52,12 @@ class TransitionResult:
     f_value: float           # absorption oscillator strength
     line_strength: float     # in atomic units
     gauge: str = "length"    # 'length' or 'velocity'
+    # Which line-resolution engine produced this row:
+    #   'uta' — statistical/configuration-average machinery (single-config
+    #           orbital pairs or the MCDHF UTA population-factor path);
+    #   'ci'  — exact J-resolved determinant-CI line strengths
+    #           (:mod:`atomx.properties.transitions.ci_lines`).
+    resolution: str = "uta"
     # Populated when gauge='both' (otherwise None). ``A_length`` always
     # holds the length-gauge value and ``A_velocity`` the velocity-gauge
     # value, regardless of which one ``A_rate_per_s`` reports.
@@ -168,13 +174,27 @@ class TransitionCalculator:
         self.atom = atom
         self.Z = atom.Z
 
-    def compute_all(self, multipoles=None, gauge='length'):
+    def compute_all(self, multipoles=None, gauge='length',
+                    line_resolution='uta', ci_det_cap=2000):
         """Compute all allowed transitions.
 
         Parameters
         ----------
         multipoles : list of str, optional
             Multipole types to compute. Default: ``['E1']``.
+        line_resolution : {'uta', 'ci'}
+            ``'uta'`` (default) — the statistical machinery: exact
+            multiplet totals distributed with FAC's UTA population
+            factor.  ``'ci'`` — exact J-resolved determinant-CI line
+            strengths (:mod:`atomx.properties.transitions.ci_lines`)
+            for single-configuration-pair atoms within the ``ci_det_cap``
+            size cap; anything the CI engine cannot handle (more than
+            two configurations, multi-hole configs, blocks above the
+            cap, velocity gauge, magnetic multipoles) falls back to the
+            UTA path.  Each :class:`TransitionResult` records the engine
+            that produced it in ``resolution``.
+        ci_det_cap : int
+            Maximum determinants per (J, M) block for the CI engine.
         gauge : {'length', 'velocity', 'both'}
             ``'length'`` (Babushkin) — default; preserves the historical
             ``A_rate_per_s`` value for all existing callers.
@@ -200,11 +220,116 @@ class TransitionCalculator:
         if gauge not in {'length', 'velocity', 'both'}:
             raise ValueError(
                 f"gauge must be 'length', 'velocity', or 'both' (got {gauge!r})")
+        if line_resolution not in {'uta', 'ci'}:
+            raise ValueError(
+                f"line_resolution must be 'uta' or 'ci' (got {line_resolution!r})")
+
+        if line_resolution == 'ci':
+            ci_results = self._compute_ci_transitions(
+                multipoles, gauge, ci_det_cap)
+            if ci_results is not None:
+                return ci_results
+            # CI path not applicable — statistical fallback below.
 
         if self.atom._mcdhf_result is not None:
             return self._compute_mcdhf_transitions(multipoles, gauge)
         else:
             return self._compute_single_config_transitions(multipoles, gauge)
+
+    def _compute_ci_transitions(self, multipoles, gauge, det_cap):
+        """Exact J-resolved lines via the determinant-CI engine.
+
+        Applies when the atom was built from exactly two configuration
+        strings forming a single-hole pair (e.g. ``["1s2 2s2 2p6",
+        "1s2 2s2 2p5 3d1"]``).  The closed-shell ground configuration is
+        (re-)solved in the FAC-equivalent local-DFS basis
+        (``numerics='shooting', exchange='gu'``, pure Coulomb) that the
+        CI engine was validated with, and
+        :func:`atomx.properties.transitions.ci_lines.ci_line_strengths`
+        supplies the exact per-line strengths.
+
+        Returns ``None`` whenever the CI path does not apply — the
+        caller then falls back to the statistical (UTA) machinery.
+        Magnetic multipoles in ``multipoles`` are not implemented in the
+        CI engine; they are computed with the UTA machinery and marked
+        ``resolution='uta'`` alongside the CI electric-multipole rows.
+        """
+        if gauge != 'length':
+            return None
+        cfgs = list(getattr(self.atom, '_config_strings', None) or [])
+        if len(cfgs) != 2:
+            return None
+
+        from atomx.properties.transitions.ci_lines import (
+            CISizeError, ci_line_strengths, ground_config_of_pair)
+
+        try:
+            ground_cfg = ground_config_of_pair(cfgs[0], cfgs[1])
+        except ValueError:
+            return None
+        ground = self._ci_ground_result(ground_cfg)
+        if ground is None:
+            return None
+
+        e_poles = [mp for mp in (multipoles or ['E1']) if mp[0] == 'E']
+        m_poles = [mp for mp in (multipoles or ['E1']) if mp[0] != 'E']
+        results = []
+        for mp in e_poles:
+            try:
+                lineset = ci_line_strengths(
+                    ground, cfgs[1], cfgs[0], multipole=mp, det_cap=det_cap)
+            except (CISizeError, ValueError, NotImplementedError):
+                return None
+            for ln in lineset.lines:
+                results.append(TransitionResult(
+                    initial_label=ln.lower.label,
+                    final_label=ln.upper.label,
+                    energy_diff_hartree=ln.omega_au,
+                    wavelength_angstrom=ln.wavelength_angstrom,
+                    multipole=ln.multipole,
+                    A_rate_per_s=ln.A_per_s,
+                    gf_value=ln.gf,
+                    f_value=ln.f_value,
+                    line_strength=ln.S,
+                    gauge='length',
+                    A_length=ln.A_per_s,
+                    A_velocity=None,
+                    resolution='ci',
+                ))
+        if m_poles:
+            if self.atom._mcdhf_result is not None:
+                results.extend(self._compute_mcdhf_transitions(m_poles, gauge))
+            else:
+                results.extend(
+                    self._compute_single_config_transitions(m_poles, gauge))
+        return sorted(results, key=lambda r: r.wavelength_angstrom)
+
+    def _ci_ground_result(self, ground_cfg):
+        """Solved pure-Coulomb closed-shell ground in the DFS-gu basis.
+
+        Cached per configuration string.  Returns ``None`` when the
+        solve fails (caller falls back to the UTA path)."""
+        cache = getattr(self, '_ci_ground_cache', None)
+        if cache is None:
+            cache = self._ci_ground_cache = {}
+        if ground_cfg in cache:
+            return cache[ground_cfg]
+        from atomx.atom import Atom
+        from atomx.scattering.autoionization.mscheme_ci import (
+            _parse_config_tokens)
+        res = None
+        try:
+            n_el = sum(_parse_config_tokens(ground_cfg).values())
+            a = Atom(Z=self.Z, charge=int(self.Z) - int(n_el),
+                     config=ground_cfg, numerics='shooting', exchange='gu',
+                     breit=False, qed=False)
+            a.solve()
+            if a.converged:
+                res = a._result
+        except Exception:
+            res = None
+        cache[ground_cfg] = res
+        return res
 
     def _single_config_payload(self):
         """``(orbitals, workspace)`` for whichever radial flavour the
@@ -554,7 +679,8 @@ class TransitionCalculator:
         return recoupling * coupling.population_factor * ang * rme
 
 
-def compute_transitions(atom, multipoles=None, gauge='length'):
+def compute_transitions(atom, multipoles=None, gauge='length',
+                        line_resolution='uta', ci_det_cap=2000):
     """Convenience function to compute transitions for a solved Atom.
 
     Parameters
@@ -565,10 +691,20 @@ def compute_transitions(atom, multipoles=None, gauge='length'):
         Default: ['E1'].
     gauge : str
         'length' or 'velocity'.
+    line_resolution : {'uta', 'ci'}
+        ``'ci'`` uses the exact J-resolved determinant-CI engine for
+        single-configuration-pair atoms (falls back to the statistical
+        UTA machinery otherwise); each returned row records the engine
+        in ``TransitionResult.resolution``.  Default ``'uta'``
+        (unchanged behaviour).
+    ci_det_cap : int
+        Determinant-per-block cap for the CI engine.
 
     Returns
     -------
     list of TransitionResult
     """
     calc = TransitionCalculator(atom)
-    return calc.compute_all(multipoles, gauge)
+    return calc.compute_all(multipoles, gauge,
+                            line_resolution=line_resolution,
+                            ci_det_cap=ci_det_cap)

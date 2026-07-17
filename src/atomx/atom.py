@@ -1155,13 +1155,23 @@ class Atom:
         run.show(unit=unit, file=file)
         return run
 
-    def transitions(self, multipoles=None, gauge='length'):
+    def transitions(self, multipoles=None, gauge='length',
+                    line_resolution='uta', ci_det_cap=2000):
         """Compute radiative transitions between atomic states.
 
         Parameters
         ----------
         multipoles : list of str, optional
             Multipole types: 'E1', 'M1', 'E2', 'M2', etc. Default: ['E1'].
+        line_resolution : {'uta', 'ci'}
+            ``'ci'`` switches single-configuration-pair atoms to the
+            exact J-resolved determinant-CI line engine
+            (:mod:`atomx.properties.transitions.ci_lines`, FAC-verified
+            per line); everything else falls back to the statistical
+            UTA machinery.  Each result row records its engine in
+            ``TransitionResult.resolution``.  Default ``'uta'``.
+        ci_det_cap : int
+            Determinant-per-block cap for the CI engine.
         gauge : {'length', 'velocity', 'both'}
             ``'length'`` (Babushkin) — default; matches the historical
             ``A_rate_per_s`` value.
@@ -1179,7 +1189,9 @@ class Atom:
         """
         from atomx.properties.transitions.calculator import TransitionCalculator
         calc = TransitionCalculator(self)
-        return calc.compute_all(multipoles, gauge)
+        return calc.compute_all(multipoles, gauge,
+                                line_resolution=line_resolution,
+                                ci_det_cap=ci_det_cap)
 
     def hyperfine_constants(self, *args, **kwargs):
         """Magnetic-dipole and electric-quadrupole hyperfine constants.
