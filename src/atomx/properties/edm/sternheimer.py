@@ -67,6 +67,7 @@ import numpy as np
 
 from atomx.angular.coefficients import _l_from_kappa
 from atomx.numerics.bspline.convol import ConvolCache
+from atomx.properties._sos_basis import build_sos_virtual_basis
 from atomx.properties.transitions.angular import angular_eL, selection_rules
 from atomx.properties.transitions.multipole import radial_eL
 from atomx.numerics.bspline.evaluate import eval_P as _eval_P, eval_Q as _eval_Q
@@ -319,40 +320,11 @@ def sternheimer_edm_enhancement(
                 max(scf_result.subshells, key=lambda s: (s.n, _l_from_kappa(s.kappa))).label
             ]
 
-    kappa_list = []
-    for k_abs in range(1, kappa_max + 2):
-        kappa_list.append(-k_abs)
-        kappa_list.append(+k_abs)
-    kappa_list = [k for k in kappa_list if 0 < abs(k) and _l_from_kappa(k) <= kappa_max]
-
-    occ_basis: Dict[int, List[Tuple[np.ndarray, np.ndarray, float, str]]] = {}
-    virt_basis: Dict[int, List[Tuple[np.ndarray, np.ndarray, float]]] = {}
-
-    # Deferred import: build_virtual_basis is a mean-field (methods-layer)
-    # service; importing it lazily keeps properties → methods off the
-    # module-load path (avoids the layer inversion).
-    from atomx.methods.mbpt import build_virtual_basis
-
-    for kappa in kappa_list:
-        occ, virt = build_virtual_basis(
-            scf_result, kappa, cache=cache, e_max=e_virt_max,
-            potential_mode=potential_mode
-        )
-        kappa_subshells = [s for s in scf_result.subshells if s.kappa == kappa]
-        occ_with_labels: List[Tuple[np.ndarray, np.ndarray, float, str]] = []
-        for i, (P, Q, _eps_v_n1) in enumerate(occ):
-            if i < len(kappa_subshells):
-                sh = kappa_subshells[i]
-                lab = sh.label
-                eps_use = scf_result.orbital_energies.get(lab, _eps_v_n1)
-            else:
-                lab = f"occ-{kappa}-{i}"
-                eps_use = _eps_v_n1
-            occ_with_labels.append((P, Q, eps_use, lab))
-        if n_virt_max is not None:
-            virt = virt[:n_virt_max]
-        occ_basis[kappa] = occ_with_labels
-        virt_basis[kappa] = virt
+    kappa_list, occ_basis, virt_basis = build_sos_virtual_basis(
+        scf_result, cache=cache, kappa_max=kappa_max,
+        n_virt_max=n_virt_max, e_virt_max=e_virt_max,
+        potential_mode=potential_mode,
+    )
 
     # ── Sternheimer SOS sum ───────────────────────────────────────────
     R_e_total = 0.0
