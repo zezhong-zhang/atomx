@@ -20,7 +20,7 @@ Example
     >>> cs = Atom(Z=55, config="1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 6s1")
     >>> cs.solve()
     >>> E = compute_pnc(cs, "6s1/2", "7s1/2", N=78)   # Cs-133
-    >>> E.E_pnc_iea   # amplitude in 10^-11 i e a0 / Q_W
+    >>> E.k_pnc   # C = -(N/Q_W) * E_pnc_au / 10^-11
 """
 
 from __future__ import annotations
@@ -80,9 +80,9 @@ def compute_pnc(
     Q_W
         Nuclear weak charge, overriding the Standard-Model value.
     rho_nuc_func
-        Nuclear charge density rho(r) (normalised to integral rho dr = 1).
-        Default: a narrow Gaussian approximating the point-nucleus
-        contact term used in :func:`~atomx.properties.pnc.pnc_amplitude_dirac_only`.
+        Nuclear charge density rho(r), normalised in 3-D as
+        4π∫r²rho(r)dr = 1.  Default: a finite Fermi density built from
+        ``A = Z + N`` and normalised numerically on the B-spline grid.
     n_intermediate_max
         Maximum number of p_{1/2} intermediate states.  ``None`` -> all
         physical V^{N-1} virtuals.
@@ -95,8 +95,10 @@ def compute_pnc(
     Returns
     -------
     PNCResult
-        Amplitude in atomic units (``E_pnc_au``) and in the standard
-        convenience unit 10^-11 i e a_0 / Q_W (``E_pnc_iea``).
+        Amplitude in atomic units (``E_pnc_au``), the conventional
+        Boulder/Dzuba coefficient ``k_pnc`` defined by
+        ``C = -(N/Q_W) * E_pnc_au / 10^-11``, and the separate diagnostic
+        ``E_pnc_per_qw = E_pnc_au / (Q_W * 10^-11)``.
 
     Raises
     ------
@@ -120,4 +122,3 @@ def compute_pnc(
         e_intermediate_max=e_intermediate_max,
         potential_mode=potential_mode,
     )
-

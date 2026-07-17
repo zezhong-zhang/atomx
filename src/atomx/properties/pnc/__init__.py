@@ -49,6 +49,7 @@ import numpy as np
 
 from atomx.numerics.bspline.convol import ConvolCache
 from atomx.numerics.bspline.evaluate import eval_P, eval_Q
+from atomx.potentials.nuclear import fermi_params
 from atomx.properties._pseudoscalar import pseudoscalar_angular
 from atomx.properties._sos_basis import build_sos_virtual_basis
 from atomx.properties.transitions.angular import angular_eL
@@ -66,8 +67,13 @@ class PNCResult:
     """PNC amplitude result for a transition n₁s ↔ n₂s."""
 
     E_pnc_au: float = 0.0
-    E_pnc_iea: float = 0.0   # in 10⁻¹¹ i e a₀ / Q_W convenience unit
+    # Conventional coefficient: C = -(N/Q_W)·E_pnc_au/10⁻¹¹.
+    k_pnc: Optional[float] = None
+    # Diagnostic only: E_PNC/(Q_W·10⁻¹¹), not the Boulder/Dzuba C.
+    E_pnc_per_qw: float = 0.0
+    E_pnc_iea: float = 0.0   # legacy alias for E_pnc_per_qw, not Boulder/Dzuba C
     Q_W: float = 0.0
+    N: Optional[int] = None
     label_initial: str = ""
     label_final: str = ""
     provenance: Dict[str, Any] = field(default_factory=dict)
@@ -115,9 +121,10 @@ def weak_hamiltonian_radial_me(
     ----------
     rho_nuc_func
         Callable rho_nuc(r) returning the normalised nuclear charge
-        density at radius r (atomic units), normalised to ∫ρ dr = 1.
-        Use the Fermi or uniform models from
-        :mod:`atomx.potentials.nuclear`.
+        density at radius r (atomic units), normalised in 3-D as
+        4π∫r²ρ(r)dr = 1.  The weak radial matrix element itself remains
+        ∫ρ(r)[P_a Q_b - Q_a P_b]dr because P and Q are radial components
+        with the volume factor already absorbed.
     Q_W
         Nuclear weak charge.
 
@@ -174,28 +181,43 @@ def pnc_amplitude_dirac_only(
         if N is None:
             raise ValueError("Either N or Q_W must be supplied.")
         Q_W = weak_charge_qw(int(scf_result.Z), int(N))
+    if rho_nuc_func is None and N is None:
+        raise ValueError(
+            "Default finite nuclear density requires N so A=Z+N is known; "
+            "pass N or an explicit rho_nuc_func."
+        )
     if not hasattr(scf_result, "_bsp_data") or scf_result._bsp_data is None:
         sh_by_label = {s.label: s for s in scf_result.subshells}
         _validate_s_half_label(initial_label, sh_by_label, "initial_label")
         _validate_s_half_label(final_label, sh_by_label, "final_label")
+        k_pnc, per_qw, unit_reason = _pnc_unit_diagnostics(0.0, float(Q_W), N)
         return PNCResult(
             E_pnc_au=0.0,
-            E_pnc_iea=0.0,
+            k_pnc=k_pnc,
+            E_pnc_per_qw=per_qw,
+            E_pnc_iea=per_qw,
             Q_W=float(Q_W),
+            N=N,
             label_initial=initial_label,
             label_final=final_label,
             provenance={
                 "method": "dirac_sos_vn_minus_1",
                 "status": "no_bspline_sos_basis",
+                "k_pnc_status": unit_reason,
                 "n_intermediates": 0,
+                "term_initial": 0.0,
+                "term_final": 0.0,
                 "cpu_seconds": time.time() - t0,
             },
         )
 
     bsp_data = scf_result._bsp_data
     default_rho = rho_nuc_func is None
+    density_provenance: Dict[str, Any] = {}
     if rho_nuc_func is None:
-        rho_nuc_func = _default_contact_density(bsp_data)
+        rho_nuc_func, density_provenance = _default_finite_nuclear_density(
+            int(scf_result.Z), int(N), bsp_data,
+        )
 
     cache = ConvolCache(bsp_data)
     kappa_list, occ_basis, virt_basis = build_sos_virtual_basis(
@@ -259,16 +281,21 @@ def pnc_amplitude_dirac_only(
                 total += contrib_i + contrib_f
                 n_used += 1
 
+    k_pnc, per_qw, unit_reason = _pnc_unit_diagnostics(total, float(Q_W), N)
     return PNCResult(
         E_pnc_au=float(total),
-        E_pnc_iea=float((total / Q_W) / 1.0e-11) if Q_W != 0.0 else 0.0,
+        k_pnc=k_pnc,
+        E_pnc_per_qw=per_qw,
+        E_pnc_iea=per_qw,
         Q_W=float(Q_W),
+        N=N,
         label_initial=lab_i,
         label_final=lab_f,
         provenance={
             "method": "dirac_sos_vn_minus_1",
             "potential_mode": potential_mode,
-            "rho_nuc_func": "narrow_gaussian_contact" if default_rho else "user",
+            "rho_nuc_func": "fermi_finite_grid_normalized" if default_rho else "user",
+            "k_pnc_status": unit_reason,
             "intermediate_kappa": kappa_n,
             "n_intermediates": n_used,
             "n_virtuals": {k: len(v) for k, v in virt_basis.items()},
@@ -277,22 +304,68 @@ def pnc_amplitude_dirac_only(
             "term_initial": float(term_initial),
             "term_final": float(term_final),
             "cpu_seconds": time.time() - t0,
+            **density_provenance,
         },
     )
 
 
-def _default_contact_density(bsp_data):
-    """Return a narrow radial Gaussian normalised as ∫rho(r) dr = 1."""
+def _pnc_unit_diagnostics(
+    E_pnc_au: float,
+    Q_W: float,
+    N: Optional[int],
+) -> Tuple[Optional[float], float, str]:
+    """Return conventional C and per-Q_W diagnostics for E_PNC."""
+    per_qw = float((E_pnc_au / Q_W) / 1.0e-11) if Q_W != 0.0 else np.nan
+    if N is None:
+        return None, per_qw, "k_pnc_unavailable_without_N"
+    if Q_W == 0.0:
+        return np.nan, per_qw, "k_pnc_unavailable_zero_Q_W"
+    return float(-(int(N) / Q_W) * E_pnc_au / 1.0e-11), per_qw, "ok"
+
+
+def _default_finite_nuclear_density(Z: int, N: int, bsp_data, *, tol: float = 1e-6):
+    """Return an A-based Fermi density normalised as 4π∫r²rho(r)dr = 1."""
     gr = np.asarray(bsp_data["gr"], dtype=float)
-    positive = gr[gr > 0.0]
-    sigma = max(float(np.min(positive)) * 4.0, 1.0e-8) if positive.size else 1.0e-8
-    norm = 2.0 / (np.sqrt(np.pi) * sigma)
+    grw = np.asarray(bsp_data["grw"], dtype=float)
+    A = int(Z) + int(N)
+    a, c = fermi_params(int(Z), A)
+
+    def shape_values(r):
+        r_arr = np.asarray(r, dtype=float)
+        with np.errstate(over="ignore"):
+            return 1.0 / (1.0 + np.exp((r_arr - c) / a))
+
+    shape_grid = shape_values(gr)
+    norm = float(4.0 * np.pi * np.sum(grw * gr * gr * shape_grid))
+    if not np.isfinite(norm) or norm <= 0.0:
+        raise ValueError(
+            "Could not normalize finite nuclear density on the integration grid; "
+            f"normalization was {norm!r}."
+        )
+    rho_grid = shape_grid / norm
+    residual = float(abs(4.0 * np.pi * np.sum(grw * gr * gr * rho_grid) - 1.0))
+    if not np.isfinite(residual) or residual > tol:
+        raise ValueError(
+            "Finite nuclear density is not resolved on the integration grid; "
+            f"3-D normalization residual {residual:.3e} exceeds {tol:.1e}."
+        )
 
     def rho(r):
-        x = float(r) / sigma
-        return norm * np.exp(-(x * x))
+        values = shape_values(r) / norm
+        if np.ndim(values) == 0:
+            return float(values)
+        return values
 
-    return rho
+    provenance = {
+        "density_model": "fermi",
+        "density_A": A,
+        "density_N": int(N),
+        "density_fermi_a_bohr": float(a),
+        "density_fermi_c_bohr": float(c),
+        "density_norm_3d": float(4.0 * np.pi * np.sum(grw * gr * gr * rho_grid)),
+        "density_norm_residual": residual,
+    }
+    return rho, provenance
 
 
 def _parse_label_n(label: str) -> Optional[int]:
