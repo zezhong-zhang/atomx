@@ -98,9 +98,10 @@ class TestGaugeBothApi:
         """``gauge='both'`` populates ``A_length`` and ``A_velocity`` fields."""
         from atomx import Atom
 
-        # TODO: transitions() single-config path is B-spline-only (needs
-        # orbitals_raw + bsp_data radial integrals) — pin the engine.
-        ne = Atom(Z=10, ns=50, ks=9, numerics="bspline")
+        # Default engine (shooting); the gauge machinery runs on grid
+        # orbitals through the workspace seam and its quality is gated
+        # against bspline in test_transitions_engine_uniform.py.
+        ne = Atom(Z=10)
         ne.solve(max_iter=50, tol=1e-4)
         if not ne.converged:
             pytest.skip("Ne single-config DHF did not converge")
@@ -218,8 +219,7 @@ def test_gauge_both_unaffected_by_no_kappa_argument():
     # don't ask for" contract.
     from atomx import Atom
 
-    # TODO: transitions() single-config path is B-spline-only — pin.
-    h = Atom(Z=1, config="1s1", ns=40, ks=7, numerics="bspline")
+    h = Atom(Z=1, config="1s1")  # default engine (shooting)
     h.solve(max_iter=30, tol=1e-4)
     if not h.converged:
         pytest.skip("H did not converge")

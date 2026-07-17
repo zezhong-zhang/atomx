@@ -68,7 +68,8 @@ import numpy as np
 from atomx.angular.coefficients import _l_from_kappa
 from atomx.numerics.bspline.convol import ConvolCache
 from atomx.properties.transitions.angular import angular_eL, selection_rules
-from atomx.properties.transitions.multipole import radial_eL, _eval_P, _eval_Q
+from atomx.properties.transitions.multipole import radial_eL
+from atomx.numerics.bspline.evaluate import eval_P as _eval_P, eval_Q as _eval_Q
 
 
 # ---------------------------------------------------------------------------

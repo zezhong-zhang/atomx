@@ -1,8 +1,7 @@
 """Radial multipole matrix elements for radiative transitions.
 
 Computes the radial part of electric (EL) and magnetic (ML) multipole
-matrix elements between relativistic (Dirac) orbitals represented in
-a B-spline basis.
+matrix elements between relativistic (Dirac) orbitals.
 
 For electric multipole EL in length (Babushkin) gauge:
     R_EL = integral [P_f(r)*P_i(r) + Q_f(r)*Q_i(r)] * r^L dr
@@ -20,13 +19,28 @@ one extra power of alpha relative to the electric P_f P_i + Q_f Q_i
 combination.  The angular kappa factor in :func:`~atomx.properties.transitions
 .angular.angular_mL` supplies the remaining (kappa_i+kappa_f)/(2L+1)
 algebraic structure of the magnetic operator (Grant Eq. 8.4.17).
+
+Workspace flavours
+------------------
+Every integral here is of the form ``∫ f(P_a, Q_a, P_b, Q_b, r) dr`` and
+is evaluated through the :mod:`atomx.corrections.workspace` seam, so the
+``bsp_data`` argument accepts either radial flavour:
+
+* the B-spline workspace dict (``prepare_bspline_data``) with orbital
+  arguments as expansion **coefficient vectors** (``orbitals_raw``); or
+* a raw radial-grid workspace (:func:`atomx.corrections.workspace
+  .make_grid_workspace` over the shooting engine's ``(r, difr)``) with
+  orbital arguments as **grid-tabulated** ``P(r)``/``Q(r)`` arrays.
+
+One implementation of each radial kernel serves both engines.
 """
 
 import numpy as np
 from atomx.constants import C
-# P/Q grid evaluators are single-sourced in the B-spline layer; alias the
-# canonical (kinetic-balance-aware) implementations rather than re-copying them.
-from atomx.numerics.bspline.evaluate import eval_P as _eval_P, eval_Q as _eval_Q
+# One radial-integral implementation serves both engines: the workspace
+# seam evaluates B-spline coefficient vectors through the (kinetic-
+# balance-aware) basis tables and passes grid-tabulated orbitals through.
+from atomx.corrections.workspace import eval_orbital_pair, workspace_arrays
 
 
 def radial_eL(P_i, Q_i, P_f, Q_f, bsp_data, L=1):
@@ -39,11 +53,14 @@ def radial_eL(P_i, Q_i, P_f, Q_f, bsp_data, L=1):
     Parameters
     ----------
     P_i, Q_i : ndarray
-        Initial-state B-spline coefficients (large, small components).
+        Initial-state large/small components: B-spline coefficient
+        vectors for the B-spline workspace flavour, grid-tabulated
+        arrays for the radial-grid flavour.
     P_f, Q_f : ndarray
-        Final-state B-spline coefficients.
+        Final-state components (same flavour as the initial state).
     bsp_data : dict
-        B-spline grid data.
+        B-spline workspace or radial-grid workspace
+        (:func:`atomx.corrections.workspace.make_grid_workspace`).
     L : int
         Multipole rank (1=dipole, 2=quadrupole, ...).
 
@@ -52,13 +69,10 @@ def radial_eL(P_i, Q_i, P_f, Q_f, bsp_data, L=1):
     float
         Radial matrix element in atomic units (a_0^L).
     """
-    gr = bsp_data["gr"]
-    grw = bsp_data["grw"]
+    gr, grw = workspace_arrays(bsp_data)
 
-    fi_P = _eval_P(P_i, bsp_data)
-    fi_Q = _eval_Q(Q_i, bsp_data)
-    ff_P = _eval_P(P_f, bsp_data)
-    ff_Q = _eval_Q(Q_f, bsp_data)
+    fi_P, fi_Q = eval_orbital_pair(P_i, Q_i, bsp_data)
+    ff_P, ff_Q = eval_orbital_pair(P_f, Q_f, bsp_data)
 
     integrand = (ff_P * fi_P + ff_Q * fi_Q) * gr ** L
     return np.sum(grw * integrand)
@@ -94,9 +108,10 @@ def radial_eL_velocity(P_i, Q_i, P_f, Q_f, bsp_data, L=1,
     Parameters
     ----------
     P_i, Q_i, P_f, Q_f : ndarray
-        B-spline coefficients (initial / final, large / small components).
+        Initial / final, large / small components (B-spline coefficient
+        vectors or grid-tabulated arrays — see module docstring).
     bsp_data : dict
-        B-spline workspace.
+        B-spline or radial-grid workspace.
     L : int
         Multipole rank (1 = dipole, 2 = quadrupole, …).
     kappa_i, kappa_f : int, optional
@@ -109,13 +124,10 @@ def radial_eL_velocity(P_i, Q_i, P_f, Q_f, bsp_data, L=1,
     float
         Velocity-gauge radial matrix element in atomic units.
     """
-    gr = bsp_data["gr"]
-    grw = bsp_data["grw"]
+    gr, grw = workspace_arrays(bsp_data)
 
-    fi_P = _eval_P(P_i, bsp_data)
-    fi_Q = _eval_Q(Q_i, bsp_data)
-    ff_P = _eval_P(P_f, bsp_data)
-    ff_Q = _eval_Q(Q_f, bsp_data)
+    fi_P, fi_Q = eval_orbital_pair(P_i, Q_i, bsp_data)
+    ff_P, ff_Q = eval_orbital_pair(P_f, Q_f, bsp_data)
 
     if omega is not None and kappa_i is not None and kappa_f is not None:
         dk = kappa_i - kappa_f
@@ -150,8 +162,9 @@ def radial_mL(P_i, Q_i, P_f, Q_f, bsp_data, L=1):
     Parameters
     ----------
     P_i, Q_i, P_f, Q_f : ndarray
-        B-spline coefficients.
+        B-spline coefficient vectors or grid-tabulated arrays.
     bsp_data : dict
+        B-spline or radial-grid workspace.
     L : int
         Multipole rank.
 
@@ -160,13 +173,10 @@ def radial_mL(P_i, Q_i, P_f, Q_f, bsp_data, L=1):
     float
         Radial matrix element in atomic units (a_0^L).
     """
-    gr = bsp_data["gr"]
-    grw = bsp_data["grw"]
+    gr, grw = workspace_arrays(bsp_data)
 
-    fi_P = _eval_P(P_i, bsp_data)
-    fi_Q = _eval_Q(Q_i, bsp_data)
-    ff_P = _eval_P(P_f, bsp_data)
-    ff_Q = _eval_Q(Q_f, bsp_data)
+    fi_P, fi_Q = eval_orbital_pair(P_i, Q_i, bsp_data)
+    ff_P, ff_Q = eval_orbital_pair(P_f, Q_f, bsp_data)
 
     integrand = (ff_P * fi_Q + ff_Q * fi_P) * gr ** L
     return np.sum(grw * integrand)

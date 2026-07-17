@@ -204,10 +204,10 @@ class TestAtomTransitions:
     def test_hydrogen_e1_basic(self):
         """Hydrogen should produce orbital-to-orbital transitions."""
         from atomx import Atom
-        # H atom: single 1s electron
-        # TODO: TransitionCalculator's single-config path needs orbitals_raw
-        # + B-spline radial integrals — no ShootingResult support yet.
-        h = Atom(Z=1, config="1s1", ns=50, ks=9, numerics="bspline")
+        # H atom: single 1s electron — default engine (shooting); the
+        # transition machinery consumes grid orbitals through the
+        # corrections.workspace seam (see test_transitions_engine_uniform).
+        h = Atom(Z=1, config="1s1")
         h.solve(max_iter=40)
         if not h.converged:
             pytest.skip("H did not converge")
@@ -220,8 +220,9 @@ class TestAtomTransitions:
     def test_neon_transitions(self):
         """Neon should have E1 transitions between subshells."""
         from atomx import Atom
-        # TODO: same B-spline-only TransitionCalculator gap as above.
-        ne = Atom(Z=10, ns=50, ks=9, numerics="bspline")
+        # Default engine (shooting) — cross-engine rate agreement is
+        # gated in test_transitions_engine_uniform.py.
+        ne = Atom(Z=10)
         ne.solve(max_iter=50, tol=1e-4)
         if not ne.converged:
             pytest.skip("Ne did not converge")
