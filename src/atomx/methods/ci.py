@@ -67,6 +67,8 @@ def ci_solve(
     solver: str = "auto",
     tol: float = 1e-8,
     max_iter: int = 200,
+    nuclear_potential=None,
+    convol_cache=None,
 ) -> CIResult:
     """Build the CI matrix and diagonalise it.
 
@@ -97,6 +99,13 @@ def ci_solve(
         Convergence tolerance on the residual norm (Davidson only).
     max_iter
         Hard iteration cap (Davidson only).
+    nuclear_potential
+        ``V(r)`` callable for the one-electron Dirac blocks (finite
+        nucleus); ``None`` = point nucleus.  Pass the SCF solver's
+        potential so CI and SCF energies share the same nuclear model.
+    convol_cache
+        Optional pre-built cell-integral cache on ``bsp_data`` (see
+        :func:`atomx.methods.mcdhf.matrix.build_ci_matrix`).
 
     Returns
     -------
@@ -104,7 +113,9 @@ def ci_solve(
     """
     from atomx.methods.mcdhf.matrix import build_ci_matrix
 
-    H_ci = build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns)
+    H_ci = build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
+                           nuclear_potential=nuclear_potential,
+                           convol_cache=convol_cache)
     n = H_ci.shape[0]
     # FAC diagonalises independent J/pi symmetry blocks.  Keep the dense
     # matrix representation for simplicity, but remove numerically generated

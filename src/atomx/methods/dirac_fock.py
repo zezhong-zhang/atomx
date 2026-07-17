@@ -121,6 +121,28 @@ class SCFResult(SCFObservablesMixin):
         from atomx.types import CouplingScheme
         return CouplingScheme.JJ
 
+    def orbitals_by_subshell(self) -> Dict:
+        """``{(n, kappa): (P, Q, occ)}`` — orbitals keyed by quantum numbers.
+
+        ``orbitals_raw`` stores per-kappa lists whose positions are aligned
+        with the per-kappa order of ``subshells`` (the order the solver
+        iterated them).  That positional invariant lives HERE, in one
+        place; downstream consumers (MCDHF orbital extraction, correction
+        adapters) should key by ``(n, kappa)`` through this accessor
+        instead of replicating per-kappa counters — with many same-kappa
+        shells (e.g. Pb: six ``ns``, five ``np``) a counter mismatch
+        silently mislabels orbitals.
+        """
+        out: Dict = {}
+        counters: Dict[int, int] = {}
+        for sh in self.subshells:
+            idx = counters.get(sh.kappa, 0)
+            counters[sh.kappa] = idx + 1
+            orb_list = self.orbitals_raw.get(sh.kappa, [])
+            if idx < len(orb_list):
+                out[(sh.n, sh.kappa)] = orb_list[idx]
+        return out
+
     # ------------------------------------------------------------------
     # Unit-aware accessors (pint)
     # ------------------------------------------------------------------

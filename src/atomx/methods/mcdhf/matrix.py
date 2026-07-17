@@ -15,7 +15,12 @@ Atoms and Molecules* (2007) §8.3.
 """
 
 import numpy as np
-from atomx.numerics.bspline.slater_yk import compute_slater_fk, compute_slater_gk, compute_slater_rk
+from atomx.numerics.bspline.convol import (
+    ConvolCache,
+    compute_slater_fk_cell,
+    compute_slater_gk_cell,
+    compute_slater_rk_cell,
+)
 
 
 # Build-scoped memo for Slater integrals and Dirac H0/S0 blocks: every CSF
@@ -26,7 +31,33 @@ from atomx.numerics.bspline.slater_yk import compute_slater_fk, compute_slater_g
 # id() of the orbital coefficient arrays, which orbitals_dict keeps alive
 # for the duration of the build; build_ci_matrix clears the memo on entry
 # so nothing leaks across outer iterations (whose orbitals differ).
+#
+# Two reserved keys carry the build context set by :func:`build_ci_matrix`:
+#   "_convol_cache"      — ConvolCache with the cell-algorithm rkb tables.
+#   "_nuclear_potential" — V(r) callable (finite nucleus) or None (point).
+#
+# Radial integrals use the DBSR_HF cell algorithm (``convol.*_cell``) — the
+# same production integrator the DFSolver energy functional uses.  The
+# previous Y^k-quadrature adapters (``slater_yk``) accumulate quadrature
+# error where the density varies rapidly inside a knot cell; at Z=82 that
+# put F^0(1s,1s) off by 0.97 Ha and the CI total off by ~74 Ha even on
+# perfectly converged orbitals (Pb 6p² under-binding bug).
 _SLATER_MEMO: dict = {}
+
+
+def _context_cache(bsp_data) -> ConvolCache:
+    """Cell-integral rkb cache for the current build (lazily created).
+
+    Standalone helper calls (unit tests poking ``_diagonal_element`` etc.
+    without going through :func:`build_ci_matrix`) get a fresh cache bound
+    to their ``bsp_data``; the identity check evicts a stale cache when the
+    grid changes between direct calls.
+    """
+    cache = _SLATER_MEMO.get("_convol_cache")
+    if cache is None or cache.bsp_data is not bsp_data:
+        cache = ConvolCache(bsp_data)
+        _SLATER_MEMO["_convol_cache"] = cache
+    return cache
 
 
 def _fk(Pa, Qa, Pb, Qb, bsp_data, k):
@@ -34,7 +65,8 @@ def _fk(Pa, Qa, Pb, Qb, bsp_data, k):
     key = ("f", k) + ((ia, ib) if ia <= ib else (ib, ia))
     v = _SLATER_MEMO.get(key)
     if v is None:
-        v = compute_slater_fk(Pa, Qa, Pb, Qb, bsp_data, k=k)
+        v = compute_slater_fk_cell(Pa, Qa, Pb, Qb, bsp_data, k,
+                                   cache=_context_cache(bsp_data))
         _SLATER_MEMO[key] = v
     return v
 
@@ -44,7 +76,8 @@ def _gk(Pa, Qa, Pb, Qb, bsp_data, k):
     key = ("g", k) + ((ia, ib) if ia <= ib else (ib, ia))
     v = _SLATER_MEMO.get(key)
     if v is None:
-        v = compute_slater_gk(Pa, Qa, Pb, Qb, bsp_data, k)
+        v = compute_slater_gk_cell(Pa, Qa, Pb, Qb, bsp_data, k,
+                                   cache=_context_cache(bsp_data))
         _SLATER_MEMO[key] = v
     return v
 
@@ -53,7 +86,8 @@ def _rk(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd, bsp_data, k):
     key = ("r", k, id(Pa), id(Pb), id(Pc), id(Pd))
     v = _SLATER_MEMO.get(key)
     if v is None:
-        v = compute_slater_rk(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd, bsp_data, k)
+        v = compute_slater_rk_cell(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd, bsp_data,
+                                   k, cache=_context_cache(bsp_data))
         _SLATER_MEMO[key] = v
     return v
 
@@ -62,7 +96,8 @@ def _dirac_blocks(ns, kappa, Z, bsp_data):
     key = ("h0", kappa)
     v = _SLATER_MEMO.get(key)
     if v is None:
-        v = build_dirac_matrices(ns, kappa, Z, bsp_data)
+        v = build_dirac_matrices(ns, kappa, Z, bsp_data,
+                                 _SLATER_MEMO.get("_nuclear_potential"))
         _SLATER_MEMO[key] = v
     return v
 from atomx.numerics.bspline.evaluate import eval_orbital_on_grid, compute_yk
@@ -74,9 +109,28 @@ from atomx.angular.csf_recoupling import make_chain_coupled_state, chain_project
 from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
 
 
-def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns):
-    """Build the CI Hamiltonian matrix H_{rs} in the CSF basis."""
+def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
+                    nuclear_potential=None, convol_cache=None):
+    """Build the CI Hamiltonian matrix H_{rs} in the CSF basis.
+
+    Parameters
+    ----------
+    nuclear_potential : callable or None
+        ``V(r)`` for the one-electron Dirac blocks.  Pass the solver's
+        potential (e.g. ``DFSolver._nuclear_potential``) so the CI
+        one-electron energies use the SAME finite-nucleus model as the
+        SCF that produced the orbitals; ``None`` = point nucleus.
+    convol_cache : ConvolCache or None
+        Reuse an existing cell-integral rkb cache built on ``bsp_data``
+        (e.g. ``DFSolver._convol_cache``) — the tables depend only on the
+        B-spline geometry, so sharing them avoids an O(seconds) rebuild
+        per CI construction.  A cache built on different ``bsp_data`` is
+        ignored and a fresh one created.
+    """
     _SLATER_MEMO.clear()
+    if convol_cache is not None and convol_cache.bsp_data is bsp_data:
+        _SLATER_MEMO["_convol_cache"] = convol_cache
+    _SLATER_MEMO["_nuclear_potential"] = nuclear_potential
     n_csf = len(csfs)
     H = np.zeros((n_csf, n_csf))
     for r in range(n_csf):
@@ -343,6 +397,19 @@ def _two_diff_element(csf_r, csf_s, orbitals_dict, bsp_data):
     lost = [(key, qs, qo) for key, qs, qo in diffs if qs > qo]
     gained = [(key, qs, qo) for key, qs, qo in diffs if qs < qo]
 
+    # Same-shell pair excitation a² → b² (single source AND single
+    # destination key, Δq = 2) falls through to 0 here.  The J=0 pairing
+    # element is well-defined —
+    #   ⟨(j_b)² 0|1/r₁₂|(j_a)² 0⟩ = Σ_k (−1)^k ⟨j_b‖C^k‖j_a⟩²/√(g_a g_b) G^k(a,b)
+    # (≈ +0.04 Ha for Pb (6p₁/₂)² ↔ (6p₃/₂)², ~5 % ground admixture) —
+    # but wiring it in is deferred: feeding the resulting pair-correlation
+    # weight back into the Guerra c²-driven occupations is bistable (the
+    # admixture deoptimises the very orbital that sustains it), sending
+    # the Pb outer loop into a period-~6 limit cycle instead of the
+    # 4-iteration convergence without it.  Enabling this channel needs
+    # fixed-weight (statistical/equal) radial optimisation for pair
+    # channels or a simultaneous orbital+coefficient Newton — see the
+    # MCDHF solver notes.
     if len(lost) != 2 or len(gained) != 2:
         return 0.0
 
@@ -886,7 +953,7 @@ def _off_diagonal_J_correction(csf_r, csf_s, orbitals_dict, bsp_data, ns,
     2. Selecting the spectator/source/destination shells and reading
        off the ``(j_a, j_b, j_c, j_d)`` labels and total ``J``.
     3. Evaluating the Slater integrals ``R^K`` over the radial part
-       using :func:`atomx.numerics.bspline.slater_yk.compute_slater_rk`.
+       using the module-level ``_rk`` (cell-algorithm integrator).
     4. Composing the 6j-weighted angular factor and accumulating the
        additive correction.
     5. Verifying against a He-like 1s2p ¹P₁/³P₁ analytic test (the
