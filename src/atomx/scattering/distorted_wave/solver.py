@@ -285,12 +285,28 @@ def _distorting_potential_fn(result, bsp_data, Z, screening="fac"):
 
 
 from atomx.numerics.quadrature import (   # canonical kernels (E5)
-    grid_slater_rk, make_fine_grid, p_rel)
+    RadialGridResourceError, grid_slater_rk, make_fine_grid, p_rel)
+
+
+SHOOTING_POINT_CAP = 300000
 
 
 def _shooting_points(r_max, p_max):
     """Shooting-solver grid size for <1% amplitude accuracy: h·p <= 0.1."""
-    return int(np.clip(10.0 * r_max * max(p_max, 1.0), 3000, 300000))
+    r = float(r_max)
+    p = float(p_max)
+    if not np.isfinite(r) or r <= 0.0:
+        raise ValueError(f"_shooting_points: r_max must be finite and > 0, got {r_max!r}")
+    if not np.isfinite(p) or p <= 0.0:
+        raise ValueError(f"_shooting_points: p_max must be finite and > 0, got {p_max!r}")
+    required = int(np.ceil(10.0 * r * max(p, 1.0)))
+    if required > SHOOTING_POINT_CAP:
+        raise RadialGridResourceError(
+            "_shooting_points would exceed shooting-grid point cap: "
+            f"required_points={required}, cap={SHOOTING_POINT_CAP}, "
+            f"p_max={p:.12g}, r_max={r:.12g}"
+        )
+    return int(max(required, 3000))
 
 
 def _geometric_tail(prof_l, l_last):

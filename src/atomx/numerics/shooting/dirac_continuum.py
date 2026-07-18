@@ -55,6 +55,20 @@ from atomx.numerics.shooting.grid import sgrid
 from atomx.numerics.shooting.spline import vint
 
 
+class ContinuumBatchError(RuntimeError):
+    """Aggregated failure from a batch of continuum partial-wave solves."""
+
+    def __init__(self, failures):
+        self.failures = tuple(failures)
+        details = "; ".join(
+            f"kappa={kappa}, E_au={energy:.12g}: {reason}"
+            for kappa, energy, reason in self.failures[:8]
+        )
+        if len(self.failures) > 8:
+            details += f"; ... {len(self.failures) - 8} more"
+        super().__init__(f"continuum batch failed for {len(self.failures)} request(s): {details}")
+
+
 @lru_cache(maxsize=64)
 def _sgrid_cached(rn: float, r2: float, drn: float, n: int):
     """Cache the Salvat grid: construction is ~15x the cost of the actual
@@ -198,6 +212,8 @@ def solve_dirac_continuum_many(
     Z_residual: float = 0.0,
     workers: int | None = None,
     interp_grid=None,
+    fail_closed: bool = False,
+    return_failures: bool = False,
 ):
     """Batch of partial-wave solves ``requests = [(kappa, E_au), ...]``.
 
@@ -223,21 +239,34 @@ def solve_dirac_continuum_many(
             _r, P, Q, _d = _solve_prepared(prep, E, kappa, eps_tol)
             if interp_grid is not None:
                 return req, (np.interp(interp_grid, r, P),
-                             np.interp(interp_grid, r, Q))
-            return req, (P, Q)
-        except Exception:
-            return req, None
+                             np.interp(interp_grid, r, Q)), None
+            return req, (P, Q), None
+        except Exception as exc:  # noqa: BLE001 - surfaced below with context
+            return req, None, f"{type(exc).__name__}: {exc}"
 
     waves = {}
+    failures = []
     if workers <= 1 or len(reqs) <= 2:
         for req in reqs:
-            key, val = _run(req)
+            key, val, failure = _run(req)
             waves[key] = val
+            if failure is not None:
+                failures.append((key[0], key[1], failure))
     else:
         with ThreadPoolExecutor(max_workers=workers) as pool:
-            for key, val in pool.map(_run, reqs):
+            for key, val, failure in pool.map(_run, reqs):
                 waves[key] = val
+                if failure is not None:
+                    failures.append((key[0], key[1], failure))
+    if fail_closed and failures:
+        raise ContinuumBatchError(failures)
+    if return_failures:
+        return r, waves, failures
     return r, waves
 
 
-__all__ = ["solve_dirac_continuum_shooting", "solve_dirac_continuum_many"]
+__all__ = [
+    "ContinuumBatchError",
+    "solve_dirac_continuum_shooting",
+    "solve_dirac_continuum_many",
+]

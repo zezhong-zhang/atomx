@@ -5,9 +5,13 @@ import math
 import numpy as np
 import pytest
 
+from atomx.numerics.quadrature import RadialGridResourceError
 from atomx.numerics.shooting.dirac_continuum import (
+    ContinuumBatchError,
+    solve_dirac_continuum_many,
     solve_dirac_continuum_shooting,
 )
+from atomx.scattering.distorted_wave import solver as dw_solver
 
 
 def _V_hydrogen(r):
@@ -53,6 +57,30 @@ def test_invalid_inputs():
         solve_dirac_continuum_shooting(E_au=-1.0, kappa=-1, V_func=_V_zero)
     with pytest.raises(ValueError):
         solve_dirac_continuum_shooting(E_au=1.0, kappa=0, V_func=_V_zero)
+
+
+def test_solve_many_can_fail_closed(monkeypatch):
+    def fail_prepared(*args, **kwargs):
+        raise RuntimeError("unit batch failure")
+
+    monkeypatch.setattr(
+        "atomx.numerics.shooting.dirac_continuum._solve_prepared",
+        fail_prepared,
+    )
+    with pytest.raises(ContinuumBatchError, match="kappa=-1"):
+        solve_dirac_continuum_many(
+            [(-1, 1.0)], _V_zero, r_max=10.0, n_grid=100,
+            fail_closed=True,
+        )
+
+
+def test_shooting_points_cap_raises_with_context(monkeypatch):
+    monkeypatch.setattr(dw_solver, "SHOOTING_POINT_CAP", 100)
+    with pytest.raises(
+        RadialGridResourceError,
+        match="required_points=.*cap=100.*p_max=.*r_max",
+    ):
+        dw_solver._shooting_points(50.0, 10.0)
 
 
 def test_relativistic_small_component_suppressed():

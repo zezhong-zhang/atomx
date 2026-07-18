@@ -7,7 +7,10 @@ import pytest
 
 from atomx import Atom
 from atomx.scattering.electron_ionization import (
+    EIIContinuumError,
+    EIIInputError,
     EIIResult,
+    _validate_jit_slater_values,
     beb_cross_section,
     eii_cross_section,
     eii_rate_coefficient,
@@ -20,6 +23,70 @@ def test_beb_zero_below_threshold():
     sigma = beb_cross_section(E, U_eV=10.0, avgT_eV=10.0, N_electrons=2)
     assert np.all(sigma[E <= 10.0] == 0.0)
     assert sigma[-1] > 0.0
+
+
+def test_eii_public_rejects_nonfinite_energies():
+    with pytest.raises(EIIInputError, match="finite"):
+        eii_cross_section(None, np.array([100.0, np.nan]), method="BEB")
+
+
+def test_eii_jit_slater_values_must_be_finite():
+    with pytest.raises(EIIInputError, match="direct Slater"):
+        _validate_jit_slater_values(
+            np.array([1.0, np.nan]), np.array([0.0]), context="unit-test"
+        )
+    with pytest.raises(EIIInputError, match="exchange Slater"):
+        _validate_jit_slater_values(
+            np.array([1.0]), np.array([np.inf]), context="unit-test"
+        )
+
+
+def test_dw_fail_closed_on_required_continuum_failure(monkeypatch):
+    from atomx.numerics.shooting.dirac_continuum import ContinuumBatchError
+    import atomx.numerics.shooting.dirac_continuum as dc
+
+    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom.solve()
+
+    def fail_many(*args, **kwargs):
+        raise ContinuumBatchError([(-1, 1.0, "unit failure")])
+
+    monkeypatch.setattr(dc, "solve_dirac_continuum_many", fail_many)
+    with pytest.raises(EIIContinuumError, match="incident_energy_eV"):
+        eii_cross_section(
+            atom._result, np.array([100.0]),
+            method="DW", kappa_max=1, n_outgoing_energies=3,
+        )
+
+
+def test_dw_diagnostic_mode_reports_skipped_waves(monkeypatch):
+    from atomx.numerics.shooting.dirac_continuum import ContinuumBatchError
+    import atomx.numerics.shooting.dirac_continuum as dc
+    import atomx.scattering.distorted_wave.solver as dw_solver
+
+    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom.solve()
+
+    def fail_many(*args, **kwargs):
+        if kwargs.get("return_failures"):
+            return np.array([0.0, 1.0]), {}, [(-1, 1.0, "unit batch failure")]
+        raise ContinuumBatchError([(-1, 1.0, "unit batch failure")])
+
+    def fail_single(*args, **kwargs):
+        raise RuntimeError("unit single failure")
+
+    monkeypatch.setattr(dc, "solve_dirac_continuum_many", fail_many)
+    monkeypatch.setattr(dw_solver, "_continuum_on_grid", fail_single)
+
+    r = eii_cross_section(
+        atom._result, np.array([100.0]),
+        method="DW", kappa_max=1, n_outgoing_energies=3,
+        diagnostic=True,
+    )
+    assert r.provenance["partial_mode"] is True
+    failures = r.provenance["continuum_failures"]
+    assert failures
+    assert any(f["stage"] == "batch_prefill" for f in failures)
 
 
 def test_beb_peak_around_3U():

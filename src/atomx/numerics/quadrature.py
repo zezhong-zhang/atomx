@@ -35,6 +35,11 @@ import numba as nb
 import numpy as np
 
 C_SQ = 137.0359990836 ** 2
+FINE_GRID_POINT_CAP = 2_000_000
+
+
+class RadialGridResourceError(RuntimeError):
+    """Raised when a requested radial grid would violate resource caps."""
 
 
 def p_rel(E_au):
@@ -44,6 +49,16 @@ def p_rel(E_au):
 
 @lru_cache(maxsize=64)
 def _fine_grid_cached(r_max: float, k_max_au: float, z_inner: float):
+    if not math.isfinite(r_max) or r_max <= 0.0:
+        raise ValueError(f"make_fine_grid: r_max must be finite and > 0, got {r_max!r}")
+    if not math.isfinite(k_max_au) or k_max_au <= 0.0:
+        raise ValueError(
+            f"make_fine_grid: k_max_au must be finite and > 0, got {k_max_au!r}"
+        )
+    if not math.isfinite(z_inner) or z_inner <= 0.0:
+        raise ValueError(
+            f"make_fine_grid: z_inner must be finite and > 0, got {z_inner!r}"
+        )
     p2 = max(k_max_au, 1.0) ** 2
     pts = [max(1.0e-5 / max(z_inner, 1.0), 1.0e-7)]
     r = pts[0]
@@ -52,8 +67,13 @@ def _fine_grid_cached(r_max: float, k_max_au: float, z_inner: float):
         dr = min(0.15 / p_loc, r / 48.0)
         r += dr
         pts.append(min(r, r_max))
-        if len(pts) > 2_000_000:
-            break
+        if len(pts) > FINE_GRID_POINT_CAP and r < r_max:
+            raise RadialGridResourceError(
+                "make_fine_grid would exceed radial-grid point cap: "
+                f"required_points>{FINE_GRID_POINT_CAP}, cap={FINE_GRID_POINT_CAP}, "
+                f"k_max_au={k_max_au:.12g}, z_inner={z_inner:.12g}, "
+                f"r_max={r_max:.12g}, reached_r={r:.12g}"
+            )
     arr = np.asarray(pts)
     arr.setflags(write=False)
     return arr
@@ -322,6 +342,7 @@ def grid_slater_rk(P_a, Q_a, P_b, Q_b, P_c, Q_c, P_d, Q_d, r_grid, k):
 
 
 __all__ = [
+    "RadialGridResourceError",
     "make_fine_grid",
     "grid_slater_rk",
     "yk_on_grid",
