@@ -355,6 +355,39 @@ def test_fresh_three_z_fac_k_shell_gate():
     assert not failures, f"FAC K-shell relative-difference gate failed: {failures}"
 
 
+def test_fac_near_threshold_shape_gate_pending_q1():
+    """Track the Q1 1.05I gate without inventing its pending tolerance."""
+    csv_path = (
+        Path(__file__).resolve().parents[1]
+        / "benchmarks"
+        / "results_fac_dw_eii.csv"
+    )
+    if not csv_path.exists():
+        pytest.skip("fresh FAC DW-EII CSV missing; rerun the benchmark")
+
+    with csv_path.open(newline="", encoding="utf-8") as stream:
+        rows = [
+            row
+            for row in csv.DictReader(stream)
+            if row["Z"] != "rms"
+            and row["shell"] == "K"
+            and np.isclose(float(row["E_over_threshold"]), 1.05)
+        ]
+    if not rows:
+        pytest.skip(
+            "HYP-841 Q1 pending: fresh FAC panel has no 1.05I shape rows"
+        )
+
+    assert {int(row["Z"]) for row in rows} == {10, 26, 54}
+    threshold_differences = [
+        abs(float(row["threshold_eV"]) - float(row["fac_threshold_eV"]))
+        / float(row["fac_threshold_eV"])
+        for row in rows
+    ]
+    assert max(threshold_differences) <= 5.0e-3
+    pytest.skip("HYP-841 Q1 pending: 1.05I shape X% gate is not final")
+
+
 @pytest.mark.slow
 def test_dw_k_shell_shooting_mesh_converges_n_grid_and_r_max():
     """K-shell sigma converges under independent n_grid and r_max scans."""
