@@ -31,6 +31,7 @@ References
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import logging
 from typing import Any, Dict, Optional
 
 import numpy as np
@@ -43,6 +44,16 @@ from atomx.scattering._jit_kernels import eii_dw_inner_sum, trapezoidal_integrat
 PI_A0_SQ_CM2 = np.pi * (BOHR_RADIUS_M * 100.0) ** 2  # ≈ 8.797e-17 cm²
 # Rydberg energy in eV
 RYD_EV = HARTREE_EV / 2.0
+
+# Public DW resource caps: kappa=16 covers production partial waves with
+# Coulomb-Bethe top-up, 64 E1 nodes is well beyond observed quadrature
+# convergence, and 2^20 bounds the per-call continuum request surface.
+EII_KAPPA_MAX_LIMIT = 16
+EII_N_OUTGOING_ENERGIES_LIMIT = 64
+EII_MAX_INCIDENT_ENERGIES = 8192
+EII_MAX_CONTINUUM_REQUEST_SURFACE = 1_048_576
+
+_log = logging.getLogger("atomx.scattering.electron_ionization")
 
 
 class EIIInputError(ValueError):
@@ -65,7 +76,13 @@ class EIIContinuumError(RuntimeError):
         )
 
 
-def _validate_eii_inputs(energies, *, kappa_max: int, n_outgoing_energies: int):
+def _validate_eii_inputs(
+    energies,
+    *,
+    kappa_max: int,
+    n_outgoing_energies: int,
+    check_continuum_work: bool = True,
+):
     energies_arr = np.atleast_1d(np.asarray(energies, dtype=float))
     if energies_arr.ndim != 1:
         raise EIIInputError("energies_eV must be a one-dimensional array")
@@ -80,6 +97,32 @@ def _validate_eii_inputs(energies, *, kappa_max: int, n_outgoing_energies: int):
             "n_outgoing_energies must be a positive integer, "
             f"got {n_outgoing_energies!r}"
         )
+    if int(kappa_max) > EII_KAPPA_MAX_LIMIT:
+        raise EIIInputError(
+            f"kappa_max must be <= {EII_KAPPA_MAX_LIMIT}, got {kappa_max!r}"
+        )
+    if int(n_outgoing_energies) > EII_N_OUTGOING_ENERGIES_LIMIT:
+        raise EIIInputError(
+            "n_outgoing_energies must be <= "
+            f"{EII_N_OUTGOING_ENERGIES_LIMIT}, got {n_outgoing_energies!r}"
+        )
+    if energies_arr.size > EII_MAX_INCIDENT_ENERGIES:
+        raise EIIInputError(
+            "len(energies_eV) must be <= "
+            f"{EII_MAX_INCIDENT_ENERGIES}, got {energies_arr.size}"
+        )
+
+    if check_continuum_work:
+        n_kappa_bound = 2 * int(kappa_max) + 1
+        energies_needed_bound = 2 * int(n_outgoing_energies) + 1
+        work_surface = energies_arr.size * n_kappa_bound * energies_needed_bound
+        if work_surface > EII_MAX_CONTINUUM_REQUEST_SURFACE:
+            raise EIIInputError(
+                f"EII continuum-request surface {work_surface} exceeds single-call "
+                f"limit {EII_MAX_CONTINUUM_REQUEST_SURFACE} "
+                f"(len(energies)={energies_arr.size}, kappa_max={kappa_max}, "
+                f"n_outgoing_energies={n_outgoing_energies}). Reduce one of them."
+            )
     return energies_arr
 
 
@@ -222,12 +265,13 @@ def eii_cross_section(
     -------
     EIIResult
     """
+    method_u = method.upper()
     energies_arr = _validate_eii_inputs(
         energies_eV,
         kappa_max=kappa_max,
         n_outgoing_energies=n_outgoing_energies,
+        check_continuum_work=method_u in {"DW", "AUTO"},
     )
-    method_u = method.upper()
     if method_u == "DW":
         return _eii_dw_total(
             scf_result, energies_arr,
@@ -641,8 +685,14 @@ def _eii_dw_total(
                     int(kappa), float(energy_au), V_func, Z_res,
                     r_fine, r_max_box, n_shoot)
             except Exception as exc:  # noqa: BLE001 - surfaced with EII context
+                _log.debug(
+                    "EII continuum failure (%s): %r",
+                    "continuum_wave_solve_failed",
+                    exc,
+                    exc_info=True,
+                )
                 _record_or_raise(
-                    f"{type(exc).__name__}: {exc}",
+                    "continuum_wave_solve_failed",
                     kappa=int(kappa),
                     energy_au=float(energy_au),
                     stage="single_wave",
@@ -876,8 +926,14 @@ def _eii_dw_total(
                     if key not in cont_cache:
                         cont_cache[key] = pq
             except ContinuumBatchError as exc:
-                _record_or_raise(
+                _log.debug(
+                    "EII continuum failure (%s): %r",
+                    "continuum_batch_failed",
                     exc,
+                    exc_info=True,
+                )
+                _record_or_raise(
+                    "continuum_batch_failed",
                     stage="batch_prefill",
                     orbital=sh.label,
                     incident_energy_eV=float(E_i_eV),
@@ -916,8 +972,14 @@ def _eii_dw_total(
                 try:
                     _validate_jit_slater_values(Rd, Re, context=context)
                 except EIIInputError as exc:
-                    _record_or_raise(
+                    _log.debug(
+                        "EII continuum failure (%s): %r",
+                        "slater_nonfinite",
                         exc,
+                        exc_info=True,
+                    )
+                    _record_or_raise(
+                        "slater_nonfinite",
                         stage="jit_slater_input",
                         orbital=sh.label,
                         incident_energy_eV=float(E_i_eV),

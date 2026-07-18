@@ -8,6 +8,9 @@ import pytest
 from atomx import Atom
 from atomx.scattering.electron_ionization import (
     EIIContinuumError,
+    EII_KAPPA_MAX_LIMIT,
+    EII_MAX_INCIDENT_ENERGIES,
+    EII_N_OUTGOING_ENERGIES_LIMIT,
     EIIInputError,
     EIIResult,
     _validate_jit_slater_values,
@@ -52,11 +55,14 @@ def test_dw_fail_closed_on_required_continuum_failure(monkeypatch):
         raise ContinuumBatchError([(-1, 1.0, "unit failure")])
 
     monkeypatch.setattr(dc, "solve_dirac_continuum_many", fail_many)
-    with pytest.raises(EIIContinuumError, match="incident_energy_eV"):
+    with pytest.raises(EIIContinuumError, match="incident_energy_eV") as exc_info:
         eii_cross_section(
             atom._result, np.array([100.0]),
             method="DW", kappa_max=1, n_outgoing_energies=3,
         )
+    message = str(exc_info.value)
+    assert "continuum_batch_failed" in message
+    assert "unit failure" not in message
 
 
 def test_dw_diagnostic_mode_reports_skipped_waves(monkeypatch):
@@ -87,6 +93,120 @@ def test_dw_diagnostic_mode_reports_skipped_waves(monkeypatch):
     failures = r.provenance["continuum_failures"]
     assert failures
     assert any(f["stage"] == "batch_prefill" for f in failures)
+    assert any(f["reason"] == "continuum_wave_solve_failed" for f in failures)
+    assert all("unit single failure" not in str(f) for f in failures)
+
+    with pytest.raises(EIIContinuumError) as exc_info:
+        eii_cross_section(
+            atom._result, np.array([100.0]),
+            method="DW", kappa_max=1, n_outgoing_energies=3,
+        )
+    assert "continuum_batch_failed" in str(exc_info.value)
+    assert "unit batch failure" not in str(exc_info.value)
+
+
+def _helium_scf_result():
+    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom.solve()
+    return atom._result
+
+
+def _forbid_continuum_solver(monkeypatch):
+    import atomx.numerics.shooting.dirac_continuum as dc
+
+    def fail_if_called(*args, **kwargs):
+        raise AssertionError("continuum solver should not be called")
+
+    monkeypatch.setattr(dc, "solve_dirac_continuum_many", fail_if_called)
+
+
+def test_eii_kappa_max_cap_boundary_and_fail_fast(monkeypatch):
+    res = _helium_scf_result()
+    eii_cross_section(
+        res,
+        np.array([0.0]),
+        method="DW",
+        kappa_max=EII_KAPPA_MAX_LIMIT,
+        n_outgoing_energies=3,
+    )
+
+    _forbid_continuum_solver(monkeypatch)
+    with pytest.raises(EIIInputError, match="kappa_max must be <="):
+        eii_cross_section(
+            res,
+            np.array([100.0]),
+            method="DW",
+            kappa_max=EII_KAPPA_MAX_LIMIT + 1,
+            n_outgoing_energies=3,
+        )
+
+
+def test_eii_n_outgoing_energies_cap_boundary_and_fail_fast(monkeypatch):
+    res = _helium_scf_result()
+    eii_cross_section(
+        res,
+        np.array([0.0]),
+        method="DW",
+        kappa_max=1,
+        n_outgoing_energies=EII_N_OUTGOING_ENERGIES_LIMIT,
+    )
+
+    _forbid_continuum_solver(monkeypatch)
+    with pytest.raises(EIIInputError, match="n_outgoing_energies must be <="):
+        eii_cross_section(
+            res,
+            np.array([100.0]),
+            method="DW",
+            kappa_max=1,
+            n_outgoing_energies=EII_N_OUTGOING_ENERGIES_LIMIT + 1,
+        )
+
+
+@pytest.mark.parametrize(
+    ("kappa_max", "n_outgoing_energies", "match"),
+    [
+        (0, 3, "kappa_max must be a positive integer"),
+        (1, 0, "n_outgoing_energies must be a positive integer"),
+    ],
+)
+def test_eii_positive_integer_grid_regression(kappa_max, n_outgoing_energies, match):
+    with pytest.raises(EIIInputError, match=match):
+        eii_cross_section(
+            None,
+            np.array([100.0]),
+            method="BEB",
+            kappa_max=kappa_max,
+            n_outgoing_energies=n_outgoing_energies,
+        )
+
+
+def test_eii_incident_energy_count_cap():
+    res = _helium_scf_result()
+    eii_cross_section(
+        res,
+        np.linspace(0.0, 100.0, EII_MAX_INCIDENT_ENERGIES),
+        method="BEB",
+    )
+    with pytest.raises(EIIInputError, match="len\\(energies_eV\\) must be <="):
+        eii_cross_section(
+            None,
+            np.linspace(0.0, 100.0, EII_MAX_INCIDENT_ENERGIES + 1),
+            method="BEB",
+        )
+
+
+def test_eii_continuum_request_surface_budget_fail_fast(monkeypatch):
+    res = _helium_scf_result()
+    _forbid_continuum_solver(monkeypatch)
+
+    with pytest.raises(EIIInputError, match="continuum-request surface"):
+        eii_cross_section(
+            res,
+            np.linspace(100.0, 200.0, 300),
+            method="DW",
+            kappa_max=EII_KAPPA_MAX_LIMIT,
+            n_outgoing_energies=EII_N_OUTGOING_ENERGIES_LIMIT,
+        )
 
 
 def test_beb_peak_around_3U():
