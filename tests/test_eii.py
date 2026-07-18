@@ -2,10 +2,15 @@
 
 from __future__ import annotations
 
+import csv
+from pathlib import Path
+
 import numpy as np
 import pytest
 
 from atomx import Atom
+from atomx.constants import HARTREE_EV
+from atomx.scattering import ContinuumModel
 from atomx.scattering.electron_ionization import (
     EIIResult,
     beb_cross_section,
@@ -307,3 +312,89 @@ def test_dw_invalid_method_raises():
     atom.solve()
     with pytest.raises(ValueError, match="Unknown method"):
         eii_cross_section(atom._result, np.array([100.0]), method="bogus")
+
+
+def test_fresh_three_z_fac_k_shell_gate():
+    """Fresh FAC panel keeps every requested K-shell point within 15 %."""
+    root = Path(__file__).resolve().parents[1]
+    csv_path = root / "benchmarks" / "results_fac_dw_eii.csv"
+    provenance_path = root / "benchmarks" / "RESULTS_fac_dw_eii.md"
+    if not csv_path.exists() or not provenance_path.exists():
+        pytest.skip(
+            "fresh FAC DW-EII artifacts missing; rerun "
+            "benchmarks/bench_fac_dw_eii.py"
+        )
+
+    provenance = provenance_path.read_text(encoding="utf-8")
+    if "Fresh FAC DW-EII gate run" not in provenance:
+        pytest.skip(
+            "FAC DW-EII CSV has no fresh-run provenance; rerun the benchmark"
+        )
+
+    with csv_path.open(newline="", encoding="utf-8") as stream:
+        rows = list(csv.DictReader(stream))
+    required_columns = {"Z", "shell", "E_over_threshold", "rel_diff"}
+    if not rows or not required_columns.issubset(rows[0]):
+        pytest.skip("FAC DW-EII CSV is missing the fresh gate columns")
+
+    requested = {
+        (z, factor)
+        for z in (10, 26, 54)
+        for factor in (2.0, 5.0)
+    }
+    panel = {
+        (int(row["Z"]), float(row["E_over_threshold"])): float(row["rel_diff"])
+        for row in rows
+        if row["Z"] != "rms" and row["shell"] == "K"
+    }
+    missing = requested - panel.keys()
+    if missing:
+        pytest.skip(f"fresh FAC DW-EII CSV is incomplete; missing {sorted(missing)}")
+
+    failures = {point: panel[point] for point in requested if panel[point] > 0.15}
+    assert not failures, f"FAC K-shell relative-difference gate failed: {failures}"
+
+
+@pytest.mark.slow
+def test_dw_k_shell_shooting_mesh_converges_n_grid_and_r_max():
+    """K-shell sigma converges under independent n_grid and r_max scans."""
+    atom = Atom(
+        Z=26,
+        config="1s2",
+        charge=24,
+        numerics="bspline",
+        breit=False,
+        qed=False,
+    )
+    atom.solve()
+    threshold = -atom._result.orbital_energies["1s1/2"] * HARTREE_EV
+    energy = np.array([2.0 * threshold])
+
+    def sigma(n_grid, r_max):
+        result = eii_cross_section(
+            atom._result,
+            energy,
+            method="DW",
+            kappa_max=4,
+            n_outgoing_energies=9,
+            continuum_model=ContinuumModel.shooting(
+                n_grid=n_grid,
+                r_max=r_max,
+            ),
+        )
+        return float(result.sigma_total_cm2[0])
+
+    grid_sigmas = np.array([
+        sigma(n, 50.0) for n in (8000, 12000, 16000, 20000, 24000)
+    ])
+    grid_changes = np.abs(np.diff(grid_sigmas) / grid_sigmas[:-1])
+    assert np.all(np.diff(grid_sigmas) < 0.0), grid_sigmas
+    assert np.all(np.diff(grid_changes) < 0.0), grid_changes
+    assert grid_changes[-1] < 1.0e-2, grid_changes
+
+    radius_sigmas = np.array([
+        sigma(16000, r_max) for r_max in (40.0, 45.0, 50.0)
+    ])
+    radius_changes = np.abs(np.diff(radius_sigmas) / radius_sigmas[:-1])
+    assert np.all(np.diff(radius_sigmas) > 0.0), radius_sigmas
+    assert radius_changes[-1] < 1.0e-2, radius_changes
