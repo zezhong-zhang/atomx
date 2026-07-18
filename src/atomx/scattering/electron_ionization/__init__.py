@@ -908,8 +908,13 @@ def _eii_dw_total(
                 if allow_partial:
                     _r_s, raw, failures = batch
                     for kap, E, reason in failures:
-                        continuum_failures.append(_failure_record(
+                        _log.debug(
+                            "EII continuum failure (%s): %s",
+                            "continuum_batch_failed",
                             reason,
+                        )
+                        continuum_failures.append(_failure_record(
+                            "continuum_batch_failed",
                             stage="batch_prefill",
                             orbital=sh.label,
                             incident_energy_eV=float(E_i_eV),

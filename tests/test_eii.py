@@ -95,6 +95,7 @@ def test_dw_diagnostic_mode_reports_skipped_waves(monkeypatch):
     assert any(f["stage"] == "batch_prefill" for f in failures)
     assert any(f["reason"] == "continuum_wave_solve_failed" for f in failures)
     assert all("unit single failure" not in str(f) for f in failures)
+    assert all("unit batch failure" not in str(f) for f in failures)
 
     with pytest.raises(EIIContinuumError) as exc_info:
         eii_cross_section(
