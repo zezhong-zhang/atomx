@@ -23,6 +23,9 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest>=7.0", "pytest-benchmark", "sympy>=1.12", "pre-commit>=3.0"]
 units = ["pint>=0.21"]
+# Electronic-structure providers (ADR-0001). Each back-end is an optional
+# extra; the adapter fails with a clear message when its extra is absent.
+pyscf = ["pyscf>=2.3"]
 viz = ["matplotlib>=3.7", "plotly>=5.0"]
 viz-manim = ["manim>=0.18"]
 viz-all = ["matplotlib>=3.7", "plotly>=5.0", "manim>=0.18"]
