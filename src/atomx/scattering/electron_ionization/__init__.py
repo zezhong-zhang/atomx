@@ -76,6 +76,16 @@ class EIIContinuumError(RuntimeError):
         )
 
 
+def _default_e1_grid_size(n_outgoing_energies: int) -> int:
+    n_lo = max(int(n_outgoing_energies) // 2, 3)
+    n_hi = max(int(n_outgoing_energies) - n_lo, 3)
+    return n_lo + n_hi
+
+
+def _continuum_energies_needed_bound(n_outgoing_energies: int) -> int:
+    return 2 * _default_e1_grid_size(n_outgoing_energies) + 1
+
+
 def _validate_eii_inputs(
     energies,
     *,
@@ -116,9 +126,7 @@ def _validate_eii_inputs(
         )
     if check_continuum_work:
         n_kappa_bound = 2 * int(kappa_max) + 1
-        energies_needed_bound = 2 * _effective_e1_node_count(
-            int(n_outgoing_energies)
-        ) + 1
+        energies_needed_bound = _continuum_energies_needed_bound(n_outgoing_energies)
         work_surface = energies_arr.size * n_kappa_bound * energies_needed_bound
         if work_surface > EII_MAX_CONTINUUM_REQUEST_SURFACE:
             raise EIIInputError(
@@ -128,13 +136,6 @@ def _validate_eii_inputs(
                 f"n_outgoing_energies={n_outgoing_energies}). Reduce one of them."
             )
     return energies_arr
-
-
-def _effective_e1_node_count(n_outgoing_energies: int) -> int:
-    """Number of E1 quadrature nodes built by the DW execution path."""
-    n_lo = max(int(n_outgoing_energies) // 2, 3)
-    n_hi = max(int(n_outgoing_energies) - n_lo, 3)
-    return n_lo + n_hi
 
 
 def _validate_dw_grid_inputs(bsp_data, *, r_max_box: float, p_max: float, Z: float):
@@ -990,7 +991,7 @@ def _eii_dw_total(
                 # 0.05T..0.49T linear window missed ~30-45% of the
                 # integral at high E.
                 n_lo = max(n_outgoing_energies // 2, 3)
-                n_hi = max(n_outgoing_energies - n_lo, 3)
+                n_hi = _default_e1_grid_size(n_outgoing_energies) - n_lo
                 E1_grid = np.concatenate([
                     np.geomspace(1.5e-3, 0.08, n_lo),
                     np.linspace(0.13, 0.499, n_hi),

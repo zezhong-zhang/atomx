@@ -107,6 +107,41 @@ def test_dw_diagnostic_mode_reports_skipped_waves(monkeypatch):
     assert sensitive_batch_text not in str(exc_info.value)
 
 
+def test_dw_diagnostic_provenance_omits_raw_sensitive_exception_text(monkeypatch):
+    from atomx.numerics.shooting.dirac_continuum import ContinuumBatchError
+    import atomx.numerics.shooting.dirac_continuum as dc
+
+    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom.solve()
+    sensitive = "/srv/secret/run-42/continuum.cache"
+
+    def fail_many(*args, **kwargs):
+        if kwargs.get("return_failures"):
+            return np.array([0.0, 1.0]), {}, [(-1, 1.0, f"failed at {sensitive}")]
+        raise ContinuumBatchError([(-1, 1.0, f"failed at {sensitive}")])
+
+    monkeypatch.setattr(dc, "solve_dirac_continuum_many", fail_many)
+
+    r = eii_cross_section(
+        atom._result, np.array([100.0]),
+        method="DW", kappa_max=1, n_outgoing_energies=3,
+        diagnostic=True,
+    )
+    provenance_text = str(r.provenance)
+    assert "continuum_batch_failed" in provenance_text
+    assert sensitive not in provenance_text
+    assert sensitive not in str(r)
+
+    with pytest.raises(EIIContinuumError) as exc_info:
+        eii_cross_section(
+            atom._result, np.array([100.0]),
+            method="DW", kappa_max=1, n_outgoing_energies=3,
+        )
+    message = str(exc_info.value)
+    assert "continuum_batch_failed" in message
+    assert sensitive not in message
+
+
 def _helium_scf_result():
     atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
     atom.solve()
@@ -233,41 +268,15 @@ def test_eii_continuum_request_surface_budget_fail_fast(monkeypatch):
         )
 
 
-def test_eii_dw_budget_uses_effective_small_e1_grid(monkeypatch):
+def test_eii_dw_effective_grid_budget_rejects_small_n_bypass(monkeypatch):
     res = _helium_scf_result()
     _forbid_continuum_solver(monkeypatch)
 
     with pytest.raises(EIIInputError, match="continuum-request surface"):
         eii_cross_section(
             res,
-            np.linspace(100.0, 200.0, 2445),
+            np.linspace(1.0, 8192.0, EII_MAX_INCIDENT_ENERGIES),
             method="DW",
-            kappa_max=EII_KAPPA_MAX_LIMIT,
-            n_outgoing_energies=1,
-        )
-
-
-def test_eii_auto_budget_uses_effective_small_e1_grid_for_dw_slice(monkeypatch):
-    import atomx.scattering.electron_ionization as eii
-
-    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
-    atom.solve()
-    eps_outer = max(e for e in atom._result.orbital_energies.values() if e < 0.0)
-    cutoff = -eps_outer * HARTREE_EV * 5.0
-    energies = np.concatenate([
-        np.linspace(0.0, cutoff - 1.0, 2445),
-        np.array([cutoff + 1.0]),
-    ])
-
-    def fake_dw(*args, **kwargs):
-        raise AssertionError("DW execution should be rejected before routing")
-
-    monkeypatch.setattr(eii, "_eii_dw_total", fake_dw)
-    with pytest.raises(EIIInputError, match="continuum-request surface"):
-        eii_cross_section(
-            atom._result,
-            energies,
-            method="auto",
             kappa_max=EII_KAPPA_MAX_LIMIT,
             n_outgoing_energies=1,
         )
@@ -308,6 +317,56 @@ def test_eii_auto_budget_counts_only_dw_routed_energies(monkeypatch):
     assert r.sigma_total_cm2.shape == energies.shape
     assert calls["n_dw"] == 1
     assert r.provenance["DW_provenance"]["per_orbital"]
+
+
+def test_eii_auto_dw_slice_effective_grid_boundary(monkeypatch):
+    import atomx.scattering.electron_ionization as eii
+
+    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom.solve()
+    eps_outer = max(e for e in atom._result.orbital_energies.values() if e < 0.0)
+    cutoff = -eps_outer * 27.211386245988 * 5.0
+    max_dw_energies = 1_048_576 // ((2 * EII_KAPPA_MAX_LIMIT + 1) * 13)
+    legal = np.concatenate([
+        np.linspace(0.0, cutoff * 0.99, max_dw_energies),
+        np.linspace(cutoff + 1.0, cutoff + 50.0, 50),
+    ])
+    illegal = np.concatenate([
+        np.linspace(0.0, cutoff * 0.99, max_dw_energies + 1),
+        np.linspace(cutoff + 1.0, cutoff + 50.0, 50),
+    ])
+
+    calls = {}
+
+    def fake_dw(_scf_result, dw_energies, **_kwargs):
+        calls["n_dw"] = len(dw_energies)
+        return EIIResult(
+            energies_eV=dw_energies,
+            sigma_total_cm2=np.zeros_like(dw_energies),
+            sigma_by_orbital={},
+            method="DW",
+            provenance={"per_orbital": {"fake": {}}},
+        )
+
+    monkeypatch.setattr(eii, "_eii_dw_total", fake_dw)
+    r = eii_cross_section(
+        atom._result,
+        legal,
+        method="auto",
+        kappa_max=EII_KAPPA_MAX_LIMIT,
+        n_outgoing_energies=1,
+    )
+    assert r.sigma_total_cm2.shape == legal.shape
+    assert calls["n_dw"] == max_dw_energies
+
+    with pytest.raises(EIIInputError, match="continuum-request surface"):
+        eii_cross_section(
+            atom._result,
+            illegal,
+            method="auto",
+            kappa_max=EII_KAPPA_MAX_LIMIT,
+            n_outgoing_energies=1,
+        )
 
 
 def test_eii_auto_ignores_dw_knobs_when_all_energies_route_to_beb():
