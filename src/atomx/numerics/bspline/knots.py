@@ -84,9 +84,9 @@ def make_physics_knots(ks: int, Z: int, ns: int = 113,
         # 2e-11 off the Sommerfeld value where the book's preface gate
         # (tests/test_book_preface.py) demands 1e-11.  Quadrupling the
         # exponential density was marginal on newer Python/NumPy
-        # combinations; he=0.05 gives headroom while keeping heavier
+        # combinations; he=0.04 gives headroom while keeping heavier
         # DBSR_HF-validated grids unchanged.
-        he = 0.05 if Z <= 2 else 0.25
+        he = 0.04 if Z <= 2 else 0.25
     if hmax is None: hmax = 1.0
 
     # Initial step depends on nuclear model (DBSR_HF mkgrid_01)
