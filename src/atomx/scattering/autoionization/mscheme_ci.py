@@ -74,6 +74,19 @@ class ManifoldLevel:
     parity: int = 0           # +1 / -1 relative to the closed-shell ion
 
 
+class AugerContinuumError(RuntimeError):
+    """Required continuum wave generation failed for an Auger width."""
+
+    def __init__(self, *, kappa: int, energy_au: float, parity: int):
+        self.kappa = int(kappa)
+        self.energy_au = float(energy_au)
+        self.parity = int(parity)
+        super().__init__(
+            "Auger continuum failed for required wave: "
+            f"kappa={self.kappa}, energy_au={self.energy_au}, parity={self.parity}"
+        )
+
+
 class ResonanceManifold:
     """Determinant CI over one resonance configuration.
 
@@ -426,7 +439,9 @@ class ResonanceManifold:
                         self.r_fine, r_max_box, n_shoot)
                     out = (kappa_f, (Pf, Qf))
                 except Exception:
-                    out = None
+                    raise AugerContinuumError(
+                        kappa=kappa_f, energy_au=E_res_au, parity=par_res
+                    )
             _cont_cache[par_res] = out
             return out
 

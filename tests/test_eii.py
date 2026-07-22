@@ -90,6 +90,7 @@ def test_dw_diagnostic_mode_reports_skipped_waves(monkeypatch):
         diagnostic=True,
     )
     assert r.provenance["partial_mode"] is True
+    assert r.provenance["diagnostic_mode"] is True
     failures = r.provenance["continuum_failures"]
     assert failures
     assert any(f["stage"] == "batch_prefill" for f in failures)
@@ -170,15 +171,37 @@ def test_eii_n_outgoing_energies_cap_boundary_and_fail_fast(monkeypatch):
         (1, 0, "n_outgoing_energies must be a positive integer"),
     ],
 )
-def test_eii_positive_integer_grid_regression(kappa_max, n_outgoing_energies, match):
+def test_eii_dw_positive_integer_grid_regression(kappa_max, n_outgoing_energies, match):
     with pytest.raises(EIIInputError, match=match):
         eii_cross_section(
             None,
-            np.array([100.0]),
-            method="BEB",
+            np.array([0.0]),
+            method="DW",
             kappa_max=kappa_max,
             n_outgoing_energies=n_outgoing_energies,
         )
+
+
+@pytest.mark.parametrize("method", ["BEB", "BED"])
+def test_eii_beb_bed_ignore_unconsumed_dw_knobs(method):
+    res = _helium_scf_result()
+    kwargs = {"Q_per_orbital": {"1s1/2": 1.0}} if method == "BED" else {}
+    eii_cross_section(
+        res,
+        np.array([100.0]),
+        method=method,
+        kappa_max=0,
+        n_outgoing_energies=0,
+        **kwargs,
+    )
+    eii_cross_section(
+        res,
+        np.array([100.0]),
+        method=method,
+        kappa_max=EII_KAPPA_MAX_LIMIT + 1,
+        n_outgoing_energies=EII_N_OUTGOING_ENERGIES_LIMIT + 1,
+        **kwargs,
+    )
 
 
 def test_eii_incident_energy_count_cap():
@@ -208,6 +231,59 @@ def test_eii_continuum_request_surface_budget_fail_fast(monkeypatch):
             kappa_max=EII_KAPPA_MAX_LIMIT,
             n_outgoing_energies=EII_N_OUTGOING_ENERGIES_LIMIT,
         )
+
+
+def test_eii_auto_budget_counts_only_dw_routed_energies(monkeypatch):
+    import atomx.scattering.electron_ionization as eii
+
+    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom.solve()
+    eps_outer = max(e for e in atom._result.orbital_energies.values() if e < 0.0)
+    cutoff = -eps_outer * 27.211386245988 * 5.0
+    energies = np.concatenate([
+        np.array([0.0]),
+        np.linspace(cutoff + 1.0, cutoff + 300.0, 300),
+    ])
+
+    calls = {}
+
+    def fake_dw(_scf_result, dw_energies, **_kwargs):
+        calls["n_dw"] = len(dw_energies)
+        return EIIResult(
+            energies_eV=dw_energies,
+            sigma_total_cm2=np.zeros_like(dw_energies),
+            sigma_by_orbital={},
+            method="DW",
+            provenance={"per_orbital": {"fake": {}}},
+        )
+
+    monkeypatch.setattr(eii, "_eii_dw_total", fake_dw)
+    r = eii_cross_section(
+        atom._result,
+        energies,
+        method="auto",
+        kappa_max=EII_KAPPA_MAX_LIMIT,
+        n_outgoing_energies=EII_N_OUTGOING_ENERGIES_LIMIT,
+    )
+    assert r.sigma_total_cm2.shape == energies.shape
+    assert calls["n_dw"] == 1
+    assert r.provenance["DW_provenance"]["per_orbital"]
+
+
+def test_eii_auto_ignores_dw_knobs_when_all_energies_route_to_beb():
+    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom.solve()
+    eps_outer = max(e for e in atom._result.orbital_energies.values() if e < 0.0)
+    cutoff = -eps_outer * 27.211386245988 * 5.0
+
+    r = eii_cross_section(
+        atom._result,
+        np.array([cutoff + 1.0]),
+        method="auto",
+        kappa_max=0,
+        n_outgoing_energies=0,
+    )
+    assert "DW_provenance" not in r.provenance
 
 
 def test_beb_peak_around_3U():

@@ -81,6 +81,7 @@ def _validate_eii_inputs(
     *,
     kappa_max: int,
     n_outgoing_energies: int,
+    check_dw_knobs: bool = True,
     check_continuum_work: bool = True,
 ):
     energies_arr = np.atleast_1d(np.asarray(energies, dtype=float))
@@ -90,6 +91,13 @@ def _validate_eii_inputs(
         raise EIIInputError("energies_eV must contain only finite values")
     if not np.all(energies_arr >= 0.0):
         raise EIIInputError("energies_eV must be non-negative")
+    if energies_arr.size > EII_MAX_INCIDENT_ENERGIES:
+        raise EIIInputError(
+            "len(energies_eV) must be <= "
+            f"{EII_MAX_INCIDENT_ENERGIES}, got {energies_arr.size}"
+        )
+    if not check_dw_knobs:
+        return energies_arr
     if int(kappa_max) != kappa_max or int(kappa_max) < 1:
         raise EIIInputError(f"kappa_max must be a positive integer, got {kappa_max!r}")
     if int(n_outgoing_energies) != n_outgoing_energies or int(n_outgoing_energies) < 1:
@@ -106,12 +114,6 @@ def _validate_eii_inputs(
             "n_outgoing_energies must be <= "
             f"{EII_N_OUTGOING_ENERGIES_LIMIT}, got {n_outgoing_energies!r}"
         )
-    if energies_arr.size > EII_MAX_INCIDENT_ENERGIES:
-        raise EIIInputError(
-            "len(energies_eV) must be <= "
-            f"{EII_MAX_INCIDENT_ENERGIES}, got {energies_arr.size}"
-        )
-
     if check_continuum_work:
         n_kappa_bound = 2 * int(kappa_max) + 1
         energies_needed_bound = 2 * int(n_outgoing_energies) + 1
@@ -256,21 +258,30 @@ def eii_cross_section(
     n_outgoing_energies
         DW-only: number of E_1 quadrature nodes for the integral
         over the outgoing-electron energy share.  Default 8.
-    partial, diagnostic
-        DW-only: explicit opt-in to continue after required continuum
+    partial
+        DW-only: canonical opt-in to continue after required continuum
         waves fail.  The returned provenance includes
         ``continuum_failures``; default mode raises instead.
+    diagnostic
+        Backward-compatible alias for ``partial`` that also marks
+        ``diagnostic_mode`` in provenance.
 
     Returns
     -------
     EIIResult
     """
     method_u = method.upper()
+    if method_u not in ("AUTO", "DW", "BEB", "BED"):
+        raise ValueError(
+            f"Unknown method {method!r}; expected 'auto', 'DW', "
+            f"'BEB', or 'BED'."
+        )
     energies_arr = _validate_eii_inputs(
         energies_eV,
         kappa_max=kappa_max,
         n_outgoing_energies=n_outgoing_energies,
-        check_continuum_work=method_u in {"DW", "AUTO"},
+        check_dw_knobs=method_u == "DW",
+        check_continuum_work=method_u == "DW",
     )
     if method_u == "DW":
         return _eii_dw_total(
@@ -295,6 +306,14 @@ def eii_cross_section(
         I_outer_eV = -eps_outer * HARTREE_EV
         cutoff_eV = dw_energy_cutoff_per_I * I_outer_eV
         dw_mask = energies_arr <= cutoff_eV
+        if np.any(dw_mask):
+            _validate_eii_inputs(
+                energies_arr[dw_mask],
+                kappa_max=kappa_max,
+                n_outgoing_energies=n_outgoing_energies,
+                check_dw_knobs=True,
+                check_continuum_work=True,
+            )
         sigma_total = np.zeros_like(energies_arr)
         sigma_by_orbital: Dict[str, np.ndarray] = {}
         prov: Dict[str, Any] = {"hybrid": True, "DW_E_max_eV": float(cutoff_eV)}
@@ -332,12 +351,6 @@ def eii_cross_section(
             method="auto (DW+BEB)",
             provenance=prov,
         )
-    if method_u not in ("BEB", "BED"):
-        raise ValueError(
-            f"Unknown method {method!r}; expected 'auto', 'DW', "
-            f"'BEB', or 'BED'."
-        )
-
     energies = energies_arr
     sigma_total = np.zeros_like(energies)
     by_orbital: Dict[str, np.ndarray] = {}
@@ -1049,7 +1062,8 @@ def _eii_dw_total(
             "Z": scf_result.Z,
             "continuum_model": continuum_model,
             "include_local_exchange": include_local_exchange,
-            **({"partial_mode": True,
+            **({"partial_mode": allow_partial,
+                "diagnostic_mode": bool(diagnostic),
                 "continuum_failures": continuum_failures}
                if allow_partial else {}),
         },

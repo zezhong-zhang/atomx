@@ -53,6 +53,7 @@ _DR_EXPORTS = {
 }
 
 _MANIFOLD_EXPORTS = {
+    "AugerContinuumError",
     "ManifoldLevel",
     "ResonanceManifold",
     "auger_levels",

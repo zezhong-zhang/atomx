@@ -28,6 +28,10 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from atomx import Atom  # noqa: E402
 from atomx.constants import HARTREE_EV  # noqa: E402
+from atomx.scattering.autoionization.mscheme_ci import (  # noqa: E402
+    AugerContinuumError,
+    ResonanceManifold,
+)
 
 
 FIXTURE = Path(__file__).parent / "data" / "fe17_dr_fac.json"
@@ -36,6 +40,36 @@ FIXTURE = Path(__file__).parent / "data" / "fe17_dr_fac.json"
 # above its AI cut, so the reference trace is a slight lower bound).
 FAC_TRACE_J72 = 5.357e14
 FAC_TOP_J72 = 3.081e14
+
+
+def test_manifold_auger_widths_surface_continuum_failure(monkeypatch):
+    import atomx.scattering.autoionization.mscheme_ci as mscheme_ci
+
+    result = type("Result", (), {"subshells": []})()
+    manifold = ResonanceManifold.__new__(ResonanceManifold)
+    manifold.result = result
+    manifold.r_fine = np.array([0.0, 1.0])
+    manifold.group_bits = [1]
+    manifold.V_func = lambda r: np.zeros_like(np.asarray(r, dtype=float))
+
+    monkeypatch.setattr(manifold, "determinants", lambda _tM: [0])
+    monkeypatch.setattr(manifold, "hamiltonian", lambda _dets: np.array([[0.0]]))
+    monkeypatch.setattr(manifold, "j2_matrix", lambda _dets: np.array([[0.75]]))
+    monkeypatch.setattr(manifold, "parity_of_det", lambda _det: 1)
+    monkeypatch.setattr(
+        mscheme_ci,
+        "_continuum_on_grid",
+        lambda *args, **kwargs: (_ for _ in ()).throw(RuntimeError("unit failure")),
+    )
+
+    with pytest.raises(AugerContinuumError, match="Auger continuum failed"):
+        manifold.auger_widths(
+            1,
+            10.0,
+            Z=1,
+            bsp_data={"t": np.array([1.0])},
+            shooting_n_grid=3000,
+        )
 
 
 @pytest.fixture(scope="module")

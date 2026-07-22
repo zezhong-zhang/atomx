@@ -18,6 +18,7 @@ import pytest
 
 from atomx.angular.coefficients import reduced_C
 from atomx.scattering.distorted_wave.solver import (
+    DWExcitationContinuumError,
     _l_of,
     _tj_of,
     _allowed_k,
@@ -469,3 +470,80 @@ class TestIntegration:
         """Test that invalid kappa_max raises ValueError."""
         with pytest.raises(ValueError, match="kappa_max"):
             dw_excitation_cross_section(None, None, np.array([100.0]), kappa_max=0)
+
+    def test_dw_excitation_continuum_failure_fails_closed(self, monkeypatch):
+        from atomx.numerics.shooting.dirac_continuum import ContinuumBatchError
+        import atomx.scattering.distorted_wave.solver as dw_solver
+
+        atom_i, atom_f = _fake_dw_atoms(monkeypatch)
+
+        def fail_many(*args, **kwargs):
+            raise ContinuumBatchError([(-1, 1.0, "unit failure")])
+
+        monkeypatch.setattr(dw_solver, "solve_dirac_continuum_many", fail_many)
+        with pytest.raises(DWExcitationContinuumError, match="batch_prefill"):
+            dw_excitation_cross_section(
+                atom_i,
+                atom_f,
+                np.array([20.0]),
+                L_max=2,
+                kappa_max=1,
+            )
+
+    def test_dw_excitation_diagnostic_mode_reports_failures(self, monkeypatch):
+        from atomx.numerics.shooting.dirac_continuum import ContinuumBatchError
+        import atomx.scattering.distorted_wave.solver as dw_solver
+
+        atom_i, atom_f = _fake_dw_atoms(monkeypatch)
+
+        def fail_many(*args, **kwargs):
+            if kwargs.get("return_failures"):
+                return np.array([0.0, 1.0]), {}, [(-1, 1.0, "unit batch failure")]
+            raise ContinuumBatchError([(-1, 1.0, "unit batch failure")])
+
+        def fail_single(*args, **kwargs):
+            raise RuntimeError("unit single failure")
+
+        monkeypatch.setattr(dw_solver, "solve_dirac_continuum_many", fail_many)
+        monkeypatch.setattr(dw_solver, "_continuum_on_grid", fail_single)
+
+        sigma, omega, provenance = dw_excitation_cross_section(
+            atom_i,
+            atom_f,
+            np.array([20.0]),
+            L_max=2,
+            kappa_max=1,
+            diagnostic=True,
+        )
+
+        assert sigma.shape == (1,)
+        assert omega.shape == (1,)
+        assert provenance["partial_mode"] is True
+        failures = provenance["continuum_failures"]
+        assert failures
+        assert any(f["stage"] == "batch_prefill" for f in failures)
+        assert any(f["reason"] == "continuum_wave_solve_failed" for f in failures)
+
+
+def _fake_dw_atoms(monkeypatch):
+    import atomx.scattering.distorted_wave.solver as dw_solver
+
+    result_i = SimpleNamespace(total_energy=0.0, subshells=[])
+    result_f = SimpleNamespace(total_energy=0.1)
+    bsp = {"t": np.array([0.0, 1.0]), "gr": np.array([0.0, 1.0])}
+    atom_i = SimpleNamespace(_result=result_i, _bsp_data=bsp, Z=2)
+    atom_f = SimpleNamespace(_result=result_f, _bsp_data=bsp)
+
+    monkeypatch.setattr(dw_solver, "_target_state_metadata", lambda _result: (1, 1, None))
+    monkeypatch.setattr(dw_solver, "_active_transition_pairs", lambda *_args: [
+        (-1, 1, 1.0, (object(), object()), (object(), object()))
+    ])
+    monkeypatch.setattr(
+        dw_solver,
+        "_distorting_potential_fn",
+        lambda *_args, **_kwargs: (lambda r: np.zeros_like(np.asarray(r, dtype=float))),
+    )
+    monkeypatch.setattr(dw_solver, "make_fine_grid", lambda *_args, **_kwargs: np.array([0.0, 1.0]))
+    monkeypatch.setattr(dw_solver, "eval_P", lambda *_args, **_kwargs: np.array([0.0, 1.0]))
+    monkeypatch.setattr(dw_solver, "eval_Q", lambda *_args, **_kwargs: np.array([0.0, 0.0]))
+    return atom_i, atom_f
