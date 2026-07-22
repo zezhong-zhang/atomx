@@ -229,7 +229,7 @@ def main() -> None:
             "rel_diff",
             "note",
         ]
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer = csv.DictWriter(f, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
         writer.writerow({

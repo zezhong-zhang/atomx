@@ -1,11 +1,13 @@
 # FAC DW-EII Gate Results
 
-Fresh FAC DW-EII gate run for HYP-832 on 2026-07-17.
+Fresh FAC DW-EII gate run for HYP-832, rerun on 2026-07-22 after the
+HYP-862 integrity changes were present on PR #41.
 
 ## Reproduction
 
-- atomx commit: `fdd8c6e4f6dc07205c8b1eae19d36643a0fbdb50`
-- conda environment: `em`
+- PR #41 code head present for rerun: `0e2a614ada8bb56fb2284b3603dddd78fb08b185`
+- Atomx Python runtime: Python `3.13.10`, NumPy `2.2.6`
+- FAC/sfac provider environment: conda `em`
 - FAC package: conda `fac 1.1.5`, build `py39h4665d0e_0`, channel `zezhong-zhang`
 - Python package view: `PFAC 1.1.5`
 - sfac binary: `/home/zzhang/miniconda3/envs/em/bin/sfac`
@@ -13,7 +15,7 @@ Fresh FAC DW-EII gate run for HYP-832 on 2026-07-17.
 - sfac binary mtime: `2025-02-13 14:27:55.838016271 +0800`
 - sfac binary birth time: `2025-09-02 18:16:18.072188186 +0800`
 
-Exact commands:
+Exact commands, run from the repository root:
 
 ```bash
 MPLCONFIGDIR=/tmp/matplotlib FAC_SFAC_PATH=/home/zzhang/miniconda3/envs/em/bin/sfac \
@@ -22,6 +24,15 @@ MPLCONFIGDIR=/tmp/matplotlib FAC_SFAC_PATH=/home/zzhang/miniconda3/envs/em/bin/s
 MPLCONFIGDIR=/tmp/matplotlib \
   python benchmarks/scan_eii_shooting_convergence.py
 ```
+
+The `em` environment supplies the FAC `sfac` binary and PFAC package metadata.
+The Atomx benchmark/test process above uses the repository's active Python
+runtime (`python`, Python 3.13.10 / NumPy 2.2.6), not the `em` Python runtime.
+
+The HYP-862 commit (`0e2a614`) was already present when the FAC gate and
+convergence scan were rerun. The later HYP-832 revision only normalizes CSV line
+terminators and updates generator/provenance text; it does not change the
+default numerical DW-EII path exercised by the rerun.
 
 The FAC script template is embedded in `benchmarks/bench_fac_dw_eii.py` as `FAC_TEMPLATE`. It uses:
 
