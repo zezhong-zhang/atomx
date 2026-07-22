@@ -21,6 +21,7 @@ from atomx.providers.contract import (
     OverlapBlock,
     Provenance,
     ProviderContractError,
+    TwoElectronIntegrals,
     UncertaintyBlock,
     UncertaintyGateError,
     UnitError,
@@ -147,6 +148,20 @@ def test_validate_rejects_incomplete_provenance():
         payload.validate()
 
 
+def test_provenance_default_energy_zero_passes():
+    assert _good_provenance().validate() is not None
+
+
+def test_provenance_empty_energy_zero_rejected():
+    with pytest.raises(ProviderContractError):
+        _good_provenance(energy_zero="").validate()
+
+
+def test_provenance_whitespace_energy_zero_rejected():
+    with pytest.raises(ProviderContractError):
+        _good_provenance(energy_zero="   ").validate()
+
+
 def test_ml_payload_without_uncertainty_fails_closed():
     payload = _minimal_payload(
         provenance=_good_provenance(is_ml=True, ood_status="in-domain")
@@ -269,3 +284,45 @@ def test_orbital_block_shape_mismatch_rejected():
 def test_overlap_must_be_square():
     with pytest.raises(ProviderContractError):
         OverlapBlock(np.zeros((3, 2)))
+
+
+def test_payload_overlap_shape_must_match_orbital_ao_count():
+    payload = _minimal_payload(overlap=OverlapBlock(np.eye(4)))
+
+    with pytest.raises(ProviderContractError):
+        payload.validate()
+
+
+def test_payload_density_shape_must_match_orbital_ao_count():
+    payload = _minimal_payload(density=DensityMatrix(np.eye(4)))
+
+    with pytest.raises(ProviderContractError):
+        payload.validate()
+
+
+def test_payload_ao_eri_shape_must_match_orbital_ao_count():
+    payload = _minimal_payload(
+        two_electron=TwoElectronIntegrals(np.zeros((4, 4, 4, 4)), basis="ao")
+    )
+
+    with pytest.raises(ProviderContractError):
+        payload.validate()
+
+
+def test_payload_unknown_eri_basis_rejected():
+    payload = _minimal_payload(
+        two_electron=TwoElectronIntegrals(np.zeros((3, 3, 3, 3)), basis="grid")
+    )
+
+    with pytest.raises(ProviderContractError):
+        payload.validate()
+
+
+def test_two_electron_integrals_must_be_rank_four():
+    with pytest.raises(ProviderContractError):
+        TwoElectronIntegrals(np.zeros((2, 2, 2)))
+
+
+def test_two_electron_integrals_axes_must_be_equal_length():
+    with pytest.raises(ProviderContractError):
+        TwoElectronIntegrals(np.zeros((2, 2, 2, 3)))

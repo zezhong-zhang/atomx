@@ -204,8 +204,9 @@ class Provenance:
 
     def validate(self) -> "Provenance":
         """Raise :class:`ProviderContractError` if identity fields missing."""
-        for name in ("provider", "code_version", "method", "basis"):
-            if not getattr(self, name):
+        # ``theory_level`` is intentionally free-form and not an I1-I6 gate.
+        for name in ("provider", "code_version", "method", "basis", "energy_zero"):
+            if not getattr(self, name).strip():
                 raise ProviderContractError(
                     f"Provenance.{name} is mandatory and must be non-empty"
                 )
@@ -319,6 +320,15 @@ class TwoElectronIntegrals:
 
     def __post_init__(self) -> None:
         self.eri = np.asarray(self.eri, dtype=float)
+        if self.eri.ndim != 4:
+            raise ProviderContractError(
+                f"ERI must be rank-4 (ij|kl), got ndim={self.eri.ndim}"
+            )
+        if len(set(self.eri.shape)) != 1:
+            raise ProviderContractError(
+                "ERI must have equal dimensions in all four axes, "
+                f"got shape={self.eri.shape}"
+            )
 
 
 @dataclass
@@ -458,6 +468,35 @@ class ElectronicStructurePayload:
                 "ML provider payload lacks an uncertainty block; "
                 "fails closed (I6)"
             )
+        if self.orbitals is not None:
+            n_ao = self.orbitals.n_ao
+            if self.overlap is not None and self.overlap.matrix.shape != (n_ao, n_ao):
+                raise ProviderContractError(
+                    "overlap S shape must match orbitals.n_ao: "
+                    f"expected {(n_ao, n_ao)}, got {self.overlap.matrix.shape}"
+                )
+            if self.density is not None and self.density.matrix.shape != (n_ao, n_ao):
+                raise ProviderContractError(
+                    "density matrix shape must match orbitals.n_ao: "
+                    f"expected {(n_ao, n_ao)}, got {self.density.matrix.shape}"
+                )
+            if self.two_electron is not None:
+                basis = self.two_electron.basis
+                if basis == "ao":
+                    expected = n_ao
+                elif basis == "mo":
+                    expected = self.orbitals.n_mo
+                else:
+                    raise ProviderContractError(
+                        "two-electron integral basis must be 'ao' or 'mo', "
+                        f"got {basis!r}"
+                    )
+                actual = self.two_electron.eri.shape[0]
+                if actual != expected:
+                    raise ProviderContractError(
+                        f"{basis}-basis ERI leading dimension must match "
+                        f"orbitals.n_{basis}: expected {expected}, got {actual}"
+                    )
         return self
 
     # -- physics-adjacent helpers (pure linear algebra, no back-end) -------
