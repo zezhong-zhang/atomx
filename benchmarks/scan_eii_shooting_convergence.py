@@ -137,7 +137,7 @@ def main() -> None:
             "sigma_cm2",
             "rel_change_from_previous",
         ]
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer = csv.DictWriter(f, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
     print(f"Wrote {out}")  # noqa: T201
