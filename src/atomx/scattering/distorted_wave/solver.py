@@ -288,9 +288,23 @@ from atomx.numerics.quadrature import (   # canonical kernels (E5)
     grid_slater_rk, make_fine_grid, p_rel)
 
 
-def _shooting_points(r_max, p_max):
+def _shooting_points(r_max, p_max, *, max_points=300000):
     """Shooting-solver grid size for <1% amplitude accuracy: h·p <= 0.1."""
-    return int(np.clip(10.0 * r_max * max(p_max, 1.0), 3000, 300000))
+    if not (math.isfinite(float(r_max)) and float(r_max) > 0.0):
+        raise ValueError(f"_shooting_points: r_max must be finite and > 0, got {r_max!r}")
+    if not (math.isfinite(float(p_max)) and float(p_max) > 0.0):
+        raise ValueError(f"_shooting_points: p_max must be finite and > 0, got {p_max!r}")
+    if int(max_points) < 2:
+        raise ValueError("_shooting_points: max_points must be >= 2")
+    required = int(max(10.0 * float(r_max) * max(float(p_max), 1.0), 3000))
+    if required > int(max_points):
+        from atomx.numerics.quadrature import GridResourceError
+        raise GridResourceError(
+            "_shooting_points exceeded radial grid cap: "
+            f"required_points={required}, cap={int(max_points)}, "
+            f"p={float(p_max):.12g} a.u., r_max={float(r_max):.12g} a0"
+        )
+    return required
 
 
 def _geometric_tail(prof_l, l_last):
