@@ -8,6 +8,8 @@ any external back-end.
 
 from __future__ import annotations
 
+from types import SimpleNamespace
+
 import numpy as np
 import pytest
 
@@ -21,6 +23,7 @@ from atomx.providers.contract import (
     OverlapBlock,
     Provenance,
     ProviderContractError,
+    TwoElectronIntegrals,
     UncertaintyBlock,
     UncertaintyGateError,
     UnitError,
@@ -147,6 +150,29 @@ def test_validate_rejects_incomplete_provenance():
         payload.validate()
 
 
+def test_provenance_default_energy_zero_passes():
+    assert _good_provenance().validate() is not None
+
+
+def test_provenance_empty_energy_zero_rejected():
+    with pytest.raises(ProviderContractError):
+        _good_provenance(energy_zero="").validate()
+
+
+def test_provenance_whitespace_energy_zero_rejected():
+    with pytest.raises(ProviderContractError):
+        _good_provenance(energy_zero="   ").validate()
+
+
+@pytest.mark.parametrize("bad_value", [None, 42])
+@pytest.mark.parametrize(
+    "field_name", ["provider", "code_version", "method", "basis", "energy_zero"]
+)
+def test_provenance_mandatory_fields_must_be_strings(field_name, bad_value):
+    with pytest.raises(ProviderContractError):
+        _good_provenance(**{field_name: bad_value}).validate()
+
+
 def test_ml_payload_without_uncertainty_fails_closed():
     payload = _minimal_payload(
         provenance=_good_provenance(is_ml=True, ood_status="in-domain")
@@ -269,3 +295,59 @@ def test_orbital_block_shape_mismatch_rejected():
 def test_overlap_must_be_square():
     with pytest.raises(ProviderContractError):
         OverlapBlock(np.zeros((3, 2)))
+
+
+def test_payload_overlap_shape_must_match_orbital_ao_count():
+    payload = _minimal_payload(overlap=OverlapBlock(np.eye(4)))
+
+    with pytest.raises(ProviderContractError):
+        payload.validate()
+
+
+def test_payload_density_shape_must_match_orbital_ao_count():
+    payload = _minimal_payload(density=DensityMatrix(np.eye(4)))
+
+    with pytest.raises(ProviderContractError):
+        payload.validate()
+
+
+def test_payload_ao_eri_shape_must_match_orbital_ao_count():
+    payload = _minimal_payload(
+        two_electron=TwoElectronIntegrals(np.zeros((4, 4, 4, 4)), basis="ao")
+    )
+
+    with pytest.raises(ProviderContractError):
+        payload.validate()
+
+
+def test_payload_unknown_eri_basis_rejected():
+    payload = _minimal_payload(
+        two_electron=TwoElectronIntegrals(np.zeros((3, 3, 3, 3)), basis="grid")
+    )
+
+    with pytest.raises(ProviderContractError):
+        payload.validate()
+
+
+def test_radial_only_payload_unknown_eri_basis_rejected():
+    payload = ElectronicStructurePayload(
+        Z=2,
+        provenance=_good_provenance(),
+        subshells=[SimpleNamespace(occupation=2.0)],
+        orbital_energies={"1s": -0.5},
+        orbitals_raw={-1: [(np.array([0.0]), np.array([1.0]), 1.0)]},
+        two_electron=TwoElectronIntegrals(np.zeros((2, 2, 2, 2)), basis="grid"),
+    )
+
+    with pytest.raises(ProviderContractError):
+        payload.validate()
+
+
+def test_two_electron_integrals_must_be_rank_four():
+    with pytest.raises(ProviderContractError):
+        TwoElectronIntegrals(np.zeros((2, 2, 2)))
+
+
+def test_two_electron_integrals_axes_must_be_equal_length():
+    with pytest.raises(ProviderContractError):
+        TwoElectronIntegrals(np.zeros((2, 2, 2, 3)))
