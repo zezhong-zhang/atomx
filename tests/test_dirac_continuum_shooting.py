@@ -32,6 +32,36 @@ def test_H_continuum_envelope_close_to_norm():
     assert A_meas == pytest.approx(expected, rel=5e-2)
 
 
+def test_high_energy_coulomb_envelope_converges_with_grid_refinement():
+    """Refinement removes high-energy spatial aliasing.
+
+    A Coulomb continuum has a known delta(E)-normalised asymptotic
+    amplitude.  The error must decrease as the Salvat mesh resolves more
+    points per wavelength; this catches a return to box pseudostates or an
+    under-sampled exact-energy shooting wave.
+    """
+    E = 50.0
+    k = math.sqrt(2.0 * E)
+    expected = math.sqrt(2.0 / (math.pi * k))
+    relative_errors = []
+
+    for n_grid in (400, 800, 1600, 3200):
+        r, P, _, _ = solve_dirac_continuum_shooting(
+            E_au=E,
+            kappa=-2,
+            V_func=_V_hydrogen,
+            r_max=40.0,
+            n_grid=n_grid,
+            Z_residual=1.0,
+        )
+        outer = P[r > 30.0]
+        measured = math.sqrt(2.0 * float(np.mean(outer ** 2)))
+        relative_errors.append(abs(measured / expected - 1.0))
+
+    assert np.all(np.diff(relative_errors) < 0.0), relative_errors
+    assert relative_errors[-1] < 2.0e-2, relative_errors
+
+
 def test_phase_shift_finite():
     r, P, Q, delta = solve_dirac_continuum_shooting(
         E_au=2.0, kappa=-1, V_func=_V_hydrogen, r_max=30.0, n_grid=3000,
