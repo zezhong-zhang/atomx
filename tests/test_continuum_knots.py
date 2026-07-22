@@ -69,15 +69,14 @@ def test_validates_inputs():
         make_continuum_knots(ks=9, Z=10, k_max_au=10.0, r_max=0.0)
 
 
-def test_make_fine_grid_cap_raises_with_context(monkeypatch):
+def test_make_fine_grid_cap_raises_with_context():
     quadrature._fine_grid_cached.cache_clear()
-    monkeypatch.setattr(quadrature, "FINE_GRID_POINT_CAP", 64)
     try:
         with pytest.raises(
             quadrature.RadialGridResourceError,
-            match="required_points>64.*cap=64.*k_max_au=.*r_max",
+            match=r"required_points>=\d+.*cap=64.*p=.*r_max",
         ):
-            quadrature.make_fine_grid(50.0, 20.0, z_inner=10.0)
+            quadrature.make_fine_grid(50.0, 20.0, z_inner=10.0, max_points=64)
     finally:
         quadrature._fine_grid_cached.cache_clear()
 
