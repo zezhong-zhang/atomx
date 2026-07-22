@@ -10,8 +10,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from itertools import combinations_with_replacement
+from typing import cast
 
 import numpy as np
+from numpy.typing import NDArray
 
 from atomx.providers.contract import (
     Capability,
@@ -63,10 +65,10 @@ class LocalizedValenceActiveSpace:
 
     orbitals: tuple[ActiveMolecularOrbital, ...]
     parent_ao_labels: tuple[str, ...]
-    overlap_s: np.ndarray
+    overlap_s: NDArray[np.float64]
     parent_mo_indices: tuple[int, ...]
     localization_method: str
-    localization_transform: np.ndarray
+    localization_transform: NDArray[np.float64]
     population_threshold: float
     occupation_threshold: float
     orthonormality_residual: float
@@ -205,11 +207,13 @@ def _core_atom_symbol(core_label: str) -> str:
     return parts[0]
 
 
-def _ao_label_atom(ao_label: str) -> str | None:
+def _ao_label_atom(ao_label: str) -> str:
     parts = ao_label.split()
     if len(parts) >= 2:
         return parts[1]
-    return None
+    raise ProviderContractError(
+        f"AO label {ao_label!r} does not include an atom identifier"
+    )
 
 
 def _basis_labels(payload: ElectronicStructurePayload) -> tuple[str, ...]:
@@ -230,15 +234,18 @@ def _basis_labels(payload: ElectronicStructurePayload) -> tuple[str, ...]:
 def _selected_coefficients(
     orbitals: OrbitalCoefficients,
     active_indices: tuple[int, ...],
-    localization_transform: np.ndarray,
-) -> np.ndarray:
-    return orbitals.coefficients[:, active_indices] @ localization_transform
+    localization_transform: NDArray[np.float64],
+) -> NDArray[np.float64]:
+    return cast(
+        NDArray[np.float64],
+        orbitals.coefficients[:, active_indices] @ localization_transform,
+    )
 
 
 def _active_residual(
     payload: ElectronicStructurePayload,
     active_indices: tuple[int, ...],
-    localization_transform: np.ndarray,
+    localization_transform: NDArray[np.float64],
 ) -> float:
     if payload.orbitals is None:
         raise ProviderContractError("active-space residual requires MO coefficients")
@@ -282,16 +289,20 @@ def local_valence_active_space(
         core_hole.orbital_label if core_hole is not None else payload.provenance.core_hole
     )
     core_atom = _core_atom_symbol(core_label)
-    atom_mask = np.array(
-        [_ao_label_atom(label).lower() == core_atom.lower() for label in labels],
-        dtype=bool,
+    atom_indices = np.asarray(
+        [
+            index
+            for index, label in enumerate(labels)
+            if _ao_label_atom(label).lower() == core_atom.lower()
+        ],
+        dtype=int,
     )
-    if not np.any(atom_mask):
+    if atom_indices.size == 0:
         raise ProviderContractError(f"no AO labels match core atom {core_atom!r}")
 
     C = orbitals.coefficients
     SC = overlap.matrix @ C
-    populations = np.einsum("mi,mi->i", C[atom_mask, :], SC[atom_mask, :])
+    populations = np.einsum("mi,mi->i", C[atom_indices, :], SC[atom_indices, :])
     core_spec = payload.metadata.get("core_hole")
     tracked_core = None
     if isinstance(core_spec, dict) and "tracked_mo_index" in core_spec:

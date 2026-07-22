@@ -59,8 +59,9 @@ def _payload(*, core_hole: str = "O 1s", overlap=True, metadata=True):
     )
 
 
-def _active_payload():
+def _active_payload(*, ao_labels=None):
     C = np.eye(4)
+    labels = ao_labels or ["0 O 1s", "0 O 2s", "0 O 2p", "1 H 1s"]
     return ElectronicStructurePayload(
         Z=8,
         provenance=Provenance(
@@ -78,11 +79,11 @@ def _active_payload():
             coefficients=C,
             energies=np.array([-20.0, -1.0, -0.5, 0.2]),
             occupations=np.array([1.0, 2.0, 2.0, 0.0]),
-            basis_labels=["0 O 1s", "0 O 2s", "0 O 2p", "1 H 1s"],
+            basis_labels=labels,
         ),
         overlap=OverlapBlock(
             np.eye(4),
-            basis_labels=["0 O 1s", "0 O 2s", "0 O 2p", "1 H 1s"],
+            basis_labels=labels,
         ),
         density=DensityMatrix(np.diag([1.0, 2.0, 2.0, 0.0])),
         metadata={
@@ -151,6 +152,13 @@ def test_local_valence_active_space_records_transform_contract():
     np.testing.assert_allclose(active.overlap_s, np.eye(4))
     assert active.orthonormality_residual <= 1e-12
     assert "mulliken-active-space" in active.provenance.approximations
+
+
+def test_local_valence_active_space_rejects_malformed_ao_label():
+    payload = _active_payload(ao_labels=["O", "0 O 2s", "0 O 2p", "1 H 1s"])
+
+    with pytest.raises(ProviderContractError, match="AO label"):
+        local_valence_active_space(payload, population_threshold=0.5)
 
 
 def test_two_hole_csf_count_matches_closed_shell_spin_coupling_formula():
