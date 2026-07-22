@@ -303,28 +303,30 @@ def _distorting_potential_fn(result, bsp_data, Z, screening="fac"):
 
 
 from atomx.numerics.quadrature import (   # canonical kernels (E5)
-    RadialGridResourceError, grid_slater_rk, make_fine_grid, p_rel)
+    GridResourceError, grid_slater_rk, make_fine_grid, p_rel)
 
 
 SHOOTING_POINT_CAP = 300000
 
 
-def _shooting_points(r_max, p_max):
+def _shooting_points(r_max, p_max, *, max_points=None):
     """Shooting-solver grid size for <1% amplitude accuracy: h·p <= 0.1."""
-    r = float(r_max)
-    p = float(p_max)
-    if not np.isfinite(r) or r <= 0.0:
+    if max_points is None:
+        max_points = SHOOTING_POINT_CAP
+    if not (math.isfinite(float(r_max)) and float(r_max) > 0.0):
         raise ValueError(f"_shooting_points: r_max must be finite and > 0, got {r_max!r}")
-    if not np.isfinite(p) or p <= 0.0:
+    if not (math.isfinite(float(p_max)) and float(p_max) > 0.0):
         raise ValueError(f"_shooting_points: p_max must be finite and > 0, got {p_max!r}")
-    required = int(np.ceil(10.0 * r * max(p, 1.0)))
-    if required > SHOOTING_POINT_CAP:
-        raise RadialGridResourceError(
-            "_shooting_points would exceed shooting-grid point cap: "
-            f"required_points={required}, cap={SHOOTING_POINT_CAP}, "
-            f"p_max={p:.12g}, r_max={r:.12g}"
+    if int(max_points) < 2:
+        raise ValueError("_shooting_points: max_points must be >= 2")
+    required = int(max(10.0 * float(r_max) * max(float(p_max), 1.0), 3000))
+    if required > int(max_points):
+        raise GridResourceError(
+            "_shooting_points exceeded radial grid cap: "
+            f"required_points={required}, cap={int(max_points)}, "
+            f"p_max={float(p_max):.12g} a.u., r_max={float(r_max):.12g} a0"
         )
-    return int(max(required, 3000))
+    return required
 
 
 def _geometric_tail(prof_l, l_last):

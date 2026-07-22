@@ -229,7 +229,7 @@ def main() -> None:
             "rel_diff",
             "note",
         ]
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer = csv.DictWriter(f, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
         writer.writerow({
@@ -245,9 +245,9 @@ def main() -> None:
             "sigma_cb_cm2": "",
             "cb_over_dw": "",
             "rel_diff": "" if math.isnan(rms) else f"{rms:.6g}",
-            "note": "target rms <= 0.15",
+            "note": "target rms <= 0.15; see RESULTS_fac_dw_eii.md for provenance",
         })
-    print(f"Wrote {out}")
+    print(f"Wrote {out}")  # noqa: T201
 
 
 if __name__ == "__main__":

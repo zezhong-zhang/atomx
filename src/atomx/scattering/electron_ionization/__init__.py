@@ -116,7 +116,9 @@ def _validate_eii_inputs(
         )
     if check_continuum_work:
         n_kappa_bound = 2 * int(kappa_max) + 1
-        energies_needed_bound = 2 * int(n_outgoing_energies) + 1
+        energies_needed_bound = 2 * _effective_e1_node_count(
+            int(n_outgoing_energies)
+        ) + 1
         work_surface = energies_arr.size * n_kappa_bound * energies_needed_bound
         if work_surface > EII_MAX_CONTINUUM_REQUEST_SURFACE:
             raise EIIInputError(
@@ -126,6 +128,13 @@ def _validate_eii_inputs(
                 f"n_outgoing_energies={n_outgoing_energies}). Reduce one of them."
             )
     return energies_arr
+
+
+def _effective_e1_node_count(n_outgoing_energies: int) -> int:
+    """Number of E1 quadrature nodes built by the DW execution path."""
+    n_lo = max(int(n_outgoing_energies) // 2, 3)
+    n_hi = max(int(n_outgoing_energies) - n_lo, 3)
+    return n_lo + n_hi
 
 
 def _validate_dw_grid_inputs(bsp_data, *, r_max_box: float, p_max: float, Z: float):
@@ -184,6 +193,48 @@ class EIIResult:
     provenance: Dict[str, Any] = field(default_factory=dict)
 
 
+def _validate_energy_grid(energies_eV: Any, *, name: str = "energies_eV") -> np.ndarray:
+    energies = np.atleast_1d(np.asarray(energies_eV, dtype=float))
+    if energies.ndim != 1 or energies.size == 0:
+        raise ValueError(f"{name} must be a non-empty 1-D energy grid")
+    if not np.all(np.isfinite(energies)):
+        raise ValueError(f"{name} must contain only finite values")
+    if np.any(energies < 0.0):
+        raise ValueError(f"{name} must be non-negative")
+    return energies
+
+
+def _validate_positive_int(value: Any, name: str, *, minimum: int = 1) -> int:
+    if isinstance(value, bool):
+        raise ValueError(f"{name} must be an integer >= {minimum}")
+    if not np.isfinite(float(value)):
+        raise ValueError(f"{name} must be a finite integer >= {minimum}")
+    ivalue = int(value)
+    if ivalue != value or ivalue < minimum:
+        raise ValueError(f"{name} must be an integer >= {minimum}")
+    return ivalue
+
+
+def _validate_continuum_failure_mode(mode: str) -> str:
+    mode_l = str(mode).lower()
+    if mode_l in {"raise", "fail_closed", "fail-closed", "error"}:
+        return "raise"
+    if mode_l in {"diagnostic", "partial"}:
+        return mode_l
+    raise ValueError(
+        "continuum_failure_mode must be 'raise', 'diagnostic', or 'partial'"
+    )
+
+
+def _require_finite_array(value: Any, name: str, *, shape: tuple[int, ...] | None = None) -> np.ndarray:
+    arr = np.asarray(value, dtype=float)
+    if shape is not None and arr.shape != shape:
+        raise ValueError(f"{name} shape mismatch: expected {shape}, got {arr.shape}")
+    if not np.all(np.isfinite(arr)):
+        raise ValueError(f"{name} must contain only finite values")
+    return arr
+
+
 # ---------------------------------------------------------------------------
 # Kim-Rudd BEB single-orbital cross section
 # ---------------------------------------------------------------------------
@@ -225,6 +276,7 @@ def eii_cross_section(
     continuum_model: Any = None,
     partial: bool = False,
     diagnostic: bool = False,
+    continuum_failure_mode: str = "raise",
 ) -> EIIResult:
     """Total electron-impact ionisation cross section.
 
@@ -265,6 +317,10 @@ def eii_cross_section(
     diagnostic
         Backward-compatible alias for ``partial`` that also marks
         ``diagnostic_mode`` in provenance.
+    continuum_failure_mode
+        DW-only canonical failure mode: ``"raise"`` fails closed,
+        ``"partial"`` continues and reports structured failures, and
+        ``"diagnostic"`` does the same with diagnostic provenance.
 
     Returns
     -------
@@ -276,6 +332,12 @@ def eii_cross_section(
             f"Unknown method {method!r}; expected 'auto', 'DW', "
             f"'BEB', or 'BED'."
         )
+    if diagnostic:
+        failure_mode = "diagnostic"
+    elif partial and continuum_failure_mode == "raise":
+        failure_mode = "partial"
+    else:
+        failure_mode = _validate_continuum_failure_mode(continuum_failure_mode)
     energies_arr = _validate_eii_inputs(
         energies_eV,
         kappa_max=kappa_max,
@@ -289,8 +351,7 @@ def eii_cross_section(
             kappa_max=kappa_max,
             n_outgoing_energies=n_outgoing_energies,
             continuum_model=continuum_model,
-            partial=partial,
-            diagnostic=diagnostic,
+            continuum_failure_mode=failure_mode,
         )
     if method_u == "AUTO":
         # Hybrid: DW for E < cutoff·I_outermost (where partial-wave
@@ -323,8 +384,7 @@ def eii_cross_section(
                 kappa_max=kappa_max,
                 n_outgoing_energies=n_outgoing_energies,
                 continuum_model=continuum_model,
-                partial=partial,
-                diagnostic=diagnostic,
+                continuum_failure_mode=failure_mode,
             )
             sigma_total[dw_mask] = r_dw.sigma_total_cm2
             for k, v in r_dw.sigma_by_orbital.items():
@@ -581,6 +641,7 @@ def _eii_dw_total(
     kappa_max: int,
     n_outgoing_energies: int,
     continuum_model: Any = None,
+    continuum_failure_mode: str = "raise",
     e1_grid_frac: Any = None,
     _capture: Any = None,
     partial: bool = False,
@@ -614,10 +675,7 @@ def _eii_dw_total(
     """
     from atomx.constants import HARTREE_EV as _HEV
     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
-    from atomx.numerics.shooting.dirac_continuum import (
-        ContinuumBatchError,
-        solve_dirac_continuum_many,
-    )
+    from atomx.numerics.shooting.dirac_continuum import solve_dirac_continuum_many
     from atomx.numerics.quadrature import (
         make_fine_grid, p_rel, yk_pair_dot_batch_on_grid)
     from atomx.scattering._jit_kernels import eii_dw_channel_jsum
@@ -646,8 +704,14 @@ def _eii_dw_total(
     sigma_total = np.zeros_like(energies)
     by_orbital: Dict[str, np.ndarray] = {}
     prov_per_orb: Dict[str, Dict[str, float]] = {}
-    allow_partial = bool(partial or diagnostic)
-    continuum_failures = []
+    if diagnostic:
+        failure_mode = "diagnostic"
+    elif partial and continuum_failure_mode == "raise":
+        failure_mode = "partial"
+    else:
+        failure_mode = _validate_continuum_failure_mode(continuum_failure_mode)
+    allow_partial = failure_mode in {"partial", "diagnostic"}
+    continuum_failures: list[dict[str, Any]] = []
 
     # FAC-convention mean potential of the target; continuum waves for the
     # projectile and both outgoing electrons are solved in it.
@@ -655,6 +719,25 @@ def _eii_dw_total(
     N_bound = sum(float(sh.occupation) for sh in scf_result.subshells)
     Z_res = max(float(Z) - N_bound + 1.0, 1.0)
     r_max_box = float(bsp_data["t"][-1])
+    shooting_n_grid = None
+    if continuum_model is not None:
+        model_method = str(getattr(continuum_model, "method", "")).lower()
+        if model_method == "shooting":
+            model_r_max = getattr(continuum_model, "shooting_r_max", None)
+            if model_r_max is not None:
+                if not np.isfinite(float(model_r_max)) or float(model_r_max) <= 0.0:
+                    raise ValueError("shooting r_max must be finite and > 0")
+                if float(model_r_max) > r_max_box:
+                    raise ValueError(
+                        "shooting r_max cannot exceed the bound-orbital "
+                        f"B-spline box ({r_max_box:.6g} a0)"
+                    )
+                r_max_box = float(model_r_max)
+            model_n_grid = getattr(continuum_model, "shooting_n_grid", None)
+            if model_n_grid is not None:
+                shooting_n_grid = _validate_positive_int(
+                    model_n_grid, "continuum_model.shooting_n_grid", minimum=10
+                )
 
     E_max_au = float(np.max(energies)) / _HEV
     p_max = p_rel(max(E_max_au, 1.0))
@@ -662,8 +745,10 @@ def _eii_dw_total(
         bsp_data, r_max_box=r_max_box, p_max=p_max, Z=float(Z)
     )
     r_fine = make_fine_grid(r_max_box, p_max, z_inner=float(Z))
+    _require_finite_array(r_fine, "continuum fine grid")
     dr_fine = np.gradient(r_fine)
-    n_shoot = _shooting_points(r_max_box, p_max)
+    _require_finite_array(dr_fine, "continuum fine-grid spacings", shape=r_fine.shape)
+    n_shoot = shooting_n_grid or _shooting_points(r_max_box, p_max)
 
     gr_flat = bsp_data["gr"].ravel()
     _o = np.argsort(gr_flat)
@@ -672,8 +757,11 @@ def _eii_dw_total(
     def _bound_to_fine(coef_P, coef_Q):
         Pg = eval_P(coef_P, bsp_data).ravel()[_o]
         Qg = eval_Q(coef_Q, bsp_data).ravel()[_o]
-        return (np.interp(r_fine, gr_sorted, Pg),
-                np.interp(r_fine, gr_sorted, Qg))
+        P = np.interp(r_fine, gr_sorted, Pg)
+        Q = np.interp(r_fine, gr_sorted, Qg)
+        _require_finite_array(P, "bound large-component wave", shape=r_fine.shape)
+        _require_finite_array(Q, "bound small-component wave", shape=r_fine.shape)
+        return P, Q
 
     cont_cache: Dict[tuple, Any] = {}
 
@@ -694,7 +782,7 @@ def _eii_dw_total(
         key = (int(kappa), round(float(energy_au), 10))
         if key not in cont_cache:
             try:
-                cont_cache[key] = _continuum_on_grid(
+                P, Q = _continuum_on_grid(
                     int(kappa), float(energy_au), V_func, Z_res,
                     r_fine, r_max_box, n_shoot)
             except Exception as exc:  # noqa: BLE001 - surfaced with EII context
@@ -711,6 +799,10 @@ def _eii_dw_total(
                     stage="single_wave",
                 )
                 cont_cache[key] = None
+            else:
+                _require_finite_array(P, "continuum large-component wave", shape=r_fine.shape)
+                _require_finite_array(Q, "continuum small-component wave", shape=r_fine.shape)
+                cont_cache[key] = (P, Q)
         return cont_cache[key]
 
     kappa_list = [k for k in range(-kappa_max - 1, kappa_max + 1)
@@ -942,8 +1034,41 @@ def _eii_dw_total(
                 for (kap, E), pq in raw.items():
                     key = (int(kap), round(float(E), 10))
                     if key not in cont_cache:
-                        cont_cache[key] = pq
-            except ContinuumBatchError as exc:
+                        if pq is None:
+                            _record_or_raise(
+                                "continuum_batch_failed",
+                                stage="batch_prefill",
+                                orbital=sh.label,
+                                incident_energy_eV=float(E_i_eV),
+                                kappa=int(kap),
+                                energy_au=float(E),
+                            )
+                            cont_cache[key] = None
+                        else:
+                            P, Q = pq
+                            _require_finite_array(
+                                P, "batch continuum large-component wave",
+                                shape=r_fine.shape,
+                            )
+                            _require_finite_array(
+                                Q, "batch continuum small-component wave",
+                                shape=r_fine.shape,
+                            )
+                            cont_cache[key] = (P, Q)
+                missing = set(reqs) - set(raw)
+                for kap, E in missing:
+                    key = (int(kap), round(float(E), 10))
+                    if key not in cont_cache:
+                        _record_or_raise(
+                            "continuum_batch_failed",
+                            stage="batch_prefill",
+                            orbital=sh.label,
+                            incident_energy_eV=float(E_i_eV),
+                            kappa=int(kap),
+                            energy_au=float(E),
+                        )
+                        cont_cache[key] = None
+            except Exception as exc:
                 _log.debug(
                     "EII continuum failure (%s): %r",
                     "continuum_batch_failed",
@@ -989,7 +1114,9 @@ def _eii_dw_total(
                 )
                 try:
                     _validate_jit_slater_values(Rd, Re, context=context)
-                except EIIInputError as exc:
+                    _require_finite_array(Rd, "DW EII direct Slater integrals")
+                    _require_finite_array(Re, "DW EII exchange Slater integrals")
+                except (EIIInputError, ValueError) as exc:
                     _log.debug(
                         "EII continuum failure (%s): %r",
                         "slater_nonfinite",
@@ -1044,6 +1171,8 @@ def _eii_dw_total(
             "I_eV": I_a_au * _HEV, "occupation": q_a,
             "kappa_max": kappa_max,
             "n_E1_quadrature": n_outgoing_energies,
+            "shooting_n_grid": int(n_shoot),
+            "shooting_r_max_a0": float(r_max_box),
             "continuum": "shooting delta(E), FAC (N-1)/N mean potential",
         }
 
@@ -1062,9 +1191,10 @@ def _eii_dw_total(
             "Z": scf_result.Z,
             "continuum_model": continuum_model,
             "include_local_exchange": include_local_exchange,
+            "continuum_failure_mode": failure_mode,
+            "continuum_failures": continuum_failures,
             **({"partial_mode": allow_partial,
-                "diagnostic_mode": bool(diagnostic),
-                "continuum_failures": continuum_failures}
+                "diagnostic_mode": failure_mode == "diagnostic"}
                if allow_partial else {}),
         },
     )

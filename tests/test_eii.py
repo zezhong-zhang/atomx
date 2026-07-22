@@ -2,10 +2,15 @@
 
 from __future__ import annotations
 
+import csv
+from pathlib import Path
+
 import numpy as np
 import pytest
 
 from atomx import Atom
+from atomx.constants import HARTREE_EV
+from atomx.scattering import ContinuumModel
 from atomx.scattering.electron_ionization import (
     EIIContinuumError,
     EII_KAPPA_MAX_LIMIT,
@@ -68,21 +73,17 @@ def test_dw_fail_closed_on_required_continuum_failure(monkeypatch):
 def test_dw_diagnostic_mode_reports_skipped_waves(monkeypatch):
     from atomx.numerics.shooting.dirac_continuum import ContinuumBatchError
     import atomx.numerics.shooting.dirac_continuum as dc
-    import atomx.scattering.distorted_wave.solver as dw_solver
 
+    sensitive_batch_text = "/private/tmp/unit-secret/batch.trace"
     atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
     atom.solve()
 
     def fail_many(*args, **kwargs):
         if kwargs.get("return_failures"):
-            return np.array([0.0, 1.0]), {}, [(-1, 1.0, "unit batch failure")]
-        raise ContinuumBatchError([(-1, 1.0, "unit batch failure")])
-
-    def fail_single(*args, **kwargs):
-        raise RuntimeError("unit single failure")
+            return np.array([0.0, 1.0]), {}, [(-1, 1.0, sensitive_batch_text)]
+        raise ContinuumBatchError([(-1, 1.0, sensitive_batch_text)])
 
     monkeypatch.setattr(dc, "solve_dirac_continuum_many", fail_many)
-    monkeypatch.setattr(dw_solver, "_continuum_on_grid", fail_single)
 
     r = eii_cross_section(
         atom._result, np.array([100.0]),
@@ -94,9 +95,8 @@ def test_dw_diagnostic_mode_reports_skipped_waves(monkeypatch):
     failures = r.provenance["continuum_failures"]
     assert failures
     assert any(f["stage"] == "batch_prefill" for f in failures)
-    assert any(f["reason"] == "continuum_wave_solve_failed" for f in failures)
-    assert all("unit single failure" not in str(f) for f in failures)
-    assert all("unit batch failure" not in str(f) for f in failures)
+    assert any(f["reason"] == "continuum_batch_failed" for f in failures)
+    assert all(sensitive_batch_text not in str(f) for f in failures)
 
     with pytest.raises(EIIContinuumError) as exc_info:
         eii_cross_section(
@@ -104,7 +104,7 @@ def test_dw_diagnostic_mode_reports_skipped_waves(monkeypatch):
             method="DW", kappa_max=1, n_outgoing_energies=3,
         )
     assert "continuum_batch_failed" in str(exc_info.value)
-    assert "unit batch failure" not in str(exc_info.value)
+    assert sensitive_batch_text not in str(exc_info.value)
 
 
 def _helium_scf_result():
@@ -230,6 +230,46 @@ def test_eii_continuum_request_surface_budget_fail_fast(monkeypatch):
             method="DW",
             kappa_max=EII_KAPPA_MAX_LIMIT,
             n_outgoing_energies=EII_N_OUTGOING_ENERGIES_LIMIT,
+        )
+
+
+def test_eii_dw_budget_uses_effective_small_e1_grid(monkeypatch):
+    res = _helium_scf_result()
+    _forbid_continuum_solver(monkeypatch)
+
+    with pytest.raises(EIIInputError, match="continuum-request surface"):
+        eii_cross_section(
+            res,
+            np.linspace(100.0, 200.0, 2445),
+            method="DW",
+            kappa_max=EII_KAPPA_MAX_LIMIT,
+            n_outgoing_energies=1,
+        )
+
+
+def test_eii_auto_budget_uses_effective_small_e1_grid_for_dw_slice(monkeypatch):
+    import atomx.scattering.electron_ionization as eii
+
+    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom.solve()
+    eps_outer = max(e for e in atom._result.orbital_energies.values() if e < 0.0)
+    cutoff = -eps_outer * HARTREE_EV * 5.0
+    energies = np.concatenate([
+        np.linspace(0.0, cutoff - 1.0, 2445),
+        np.array([cutoff + 1.0]),
+    ])
+
+    def fake_dw(*args, **kwargs):
+        raise AssertionError("DW execution should be rejected before routing")
+
+    monkeypatch.setattr(eii, "_eii_dw_total", fake_dw)
+    with pytest.raises(EIIInputError, match="continuum-request surface"):
+        eii_cross_section(
+            atom._result,
+            energies,
+            method="auto",
+            kappa_max=EII_KAPPA_MAX_LIMIT,
+            n_outgoing_energies=1,
         )
 
 
@@ -571,3 +611,123 @@ def test_dw_invalid_method_raises():
     atom.solve()
     with pytest.raises(ValueError, match="Unknown method"):
         eii_cross_section(atom._result, np.array([100.0]), method="bogus")
+
+
+def test_fresh_three_z_fac_k_shell_gate():
+    """Fresh FAC panel keeps every requested K-shell point within 15 %."""
+    root = Path(__file__).resolve().parents[1]
+    csv_path = root / "benchmarks" / "results_fac_dw_eii.csv"
+    provenance_path = root / "benchmarks" / "RESULTS_fac_dw_eii.md"
+    if not csv_path.exists() or not provenance_path.exists():
+        pytest.skip(
+            "fresh FAC DW-EII artifacts missing; rerun "
+            "benchmarks/bench_fac_dw_eii.py"
+        )
+
+    provenance = provenance_path.read_text(encoding="utf-8")
+    if "Fresh FAC DW-EII gate run" not in provenance:
+        pytest.skip(
+            "FAC DW-EII CSV has no fresh-run provenance; rerun the benchmark"
+        )
+
+    with csv_path.open(newline="", encoding="utf-8") as stream:
+        rows = list(csv.DictReader(stream))
+    required_columns = {"Z", "shell", "E_over_threshold", "rel_diff"}
+    if not rows or not required_columns.issubset(rows[0]):
+        pytest.skip("FAC DW-EII CSV is missing the fresh gate columns")
+
+    requested = {
+        (z, factor)
+        for z in (10, 26, 54)
+        for factor in (2.0, 5.0)
+    }
+    panel = {
+        (int(row["Z"]), float(row["E_over_threshold"])): float(row["rel_diff"])
+        for row in rows
+        if row["Z"] != "rms" and row["shell"] == "K"
+    }
+    missing = requested - panel.keys()
+    if missing:
+        pytest.skip(f"fresh FAC DW-EII CSV is incomplete; missing {sorted(missing)}")
+
+    failures = {point: panel[point] for point in requested if panel[point] > 0.15}
+    assert not failures, f"FAC K-shell relative-difference gate failed: {failures}"
+
+
+def test_fac_near_threshold_shape_gate_pending_q1():
+    """Track the Q1 1.05I gate without inventing its pending tolerance."""
+    csv_path = (
+        Path(__file__).resolve().parents[1]
+        / "benchmarks"
+        / "results_fac_dw_eii.csv"
+    )
+    if not csv_path.exists():
+        pytest.skip("fresh FAC DW-EII CSV missing; rerun the benchmark")
+
+    with csv_path.open(newline="", encoding="utf-8") as stream:
+        rows = [
+            row
+            for row in csv.DictReader(stream)
+            if row["Z"] != "rms"
+            and row["shell"] == "K"
+            and np.isclose(float(row["E_over_threshold"]), 1.05)
+        ]
+    if not rows:
+        pytest.skip(
+            "HYP-841 Q1 pending: fresh FAC panel has no 1.05I shape rows"
+        )
+
+    assert {int(row["Z"]) for row in rows} == {10, 26, 54}
+    threshold_differences = [
+        abs(float(row["threshold_eV"]) - float(row["fac_threshold_eV"]))
+        / float(row["fac_threshold_eV"])
+        for row in rows
+    ]
+    assert max(threshold_differences) <= 5.0e-3
+    pytest.skip("HYP-841 Q1 pending: 1.05I shape X% gate is not final")
+
+
+@pytest.mark.slow
+def test_dw_k_shell_shooting_mesh_converges_n_grid_and_r_max():
+    """K-shell sigma converges under independent n_grid and r_max scans.
+
+    Convergence is judged by the final change magnitude, not by a guaranteed
+    direction of approach, which may vary with valid solver improvements.
+    """
+    atom = Atom(
+        Z=26,
+        config="1s2",
+        charge=24,
+        numerics="bspline",
+        breit=False,
+        qed=False,
+    )
+    atom.solve()
+    threshold = -atom._result.orbital_energies["1s1/2"] * HARTREE_EV
+    energy = np.array([2.0 * threshold])
+
+    def sigma(n_grid, r_max):
+        result = eii_cross_section(
+            atom._result,
+            energy,
+            method="DW",
+            kappa_max=4,
+            n_outgoing_energies=9,
+            continuum_model=ContinuumModel.shooting(
+                n_grid=n_grid,
+                r_max=r_max,
+            ),
+        )
+        return float(result.sigma_total_cm2[0])
+
+    grid_sigmas = np.array([
+        sigma(n, 50.0) for n in (8000, 12000, 16000, 20000, 24000)
+    ])
+    grid_changes = np.abs(np.diff(grid_sigmas) / grid_sigmas[:-1])
+    assert grid_changes[-1] < 1.0e-2, grid_changes
+
+    radius_sigmas = np.array([
+        sigma(16000, r_max) for r_max in (40.0, 45.0, 50.0)
+    ])
+    radius_changes = np.abs(np.diff(radius_sigmas) / radius_sigmas[:-1])
+    assert radius_changes[-1] < 1.0e-2, radius_changes
