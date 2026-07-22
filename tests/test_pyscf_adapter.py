@@ -11,9 +11,17 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from atomx.providers.contract import Capability  # noqa: E402
+from atomx.providers.contract import (  # noqa: E402
+    Capability,
+    DensityMatrix,
+    ElectronicStructurePayload,
+    OrbitalCoefficients,
+    OverlapBlock,
+    Provenance,
+)
 from atomx.providers.pyscf_adapter import (  # noqa: E402
     PySCFProvider,
+    _core_hole_metadata,
     _mom_core_hole_occ,
     from_core_hole_delta_scf,
     from_scf,
@@ -142,6 +150,7 @@ def test_mom_core_hole_occ_tracks_orbital_character_after_column_swap():
     S = np.eye(4)
     C_ground = np.eye(4)
     core_index = 1
+    final_index = 3
     ref_ao = C_ground[:, core_index]
     mo_coeff = C_ground[:, [0, 2, 3, 1]]
     mo_energy = np.array([-0.5, -1.0, -0.6, -20.0])
@@ -157,11 +166,52 @@ def test_mom_core_hole_occ_tracks_orbital_character_after_column_swap():
 
     # The old fixed-index occupation would leave the hole at core_index=1 even
     # though the O 1s character moved to column 3; MOM follows the character.
-    assert tracked_index == 3
+    assert tracked_index == final_index
     assert tracked_index == int(np.argmax(np.abs((ref_ao @ S) @ mo_coeff)))
     assert max_overlap == pytest.approx(1.0)
     assert occ[tracked_index] == pytest.approx(1.0)
     assert occ[core_index] != pytest.approx(1.0)
+
+    ground_occ = np.array([2.0, 2.0, 0.0, 0.0])
+    core_hole = _core_hole_metadata(
+        "O 1s",
+        ground_occ,
+        occ,
+        core_index,
+        final_index,
+        max_overlap,
+        delta_e=10.0,
+    )
+    payload = ElectronicStructurePayload(
+        Z=8,
+        provenance=Provenance(
+            provider="mock",
+            code_version="mock 0",
+            method="ROHF",
+            basis="synthetic",
+            theory_level="ROHF",
+            core_hole="O 1s",
+            energy_zero="delta_scf_total_energy",
+        ),
+        orbital_energies={f"MO{i}": float(e) for i, e in enumerate(mo_energy)},
+        orbitals=OrbitalCoefficients(
+            coefficients=mo_coeff,
+            energies=mo_energy,
+            occupations=occ,
+        ),
+        overlap=OverlapBlock(S),
+        density=DensityMatrix(np.diag(occ)),
+        metadata={"core_hole": core_hole},
+    )
+    state = molecular_auger_initial_state(payload)
+    assert core_hole["occupation_before"] == pytest.approx(2.0)
+    assert payload.orbitals.occupations[final_index] == pytest.approx(1.0)
+    assert core_hole["occupation_after"] == pytest.approx(1.0)
+    assert core_hole["occupation_delta"] == pytest.approx(-1.0)
+    assert state.orbital_label == "O 1s"
+    assert state.occupation_before == pytest.approx(2.0)
+    assert state.occupation_after == pytest.approx(1.0)
+    assert state.occupation_delta == pytest.approx(-1.0)
 
 
 def test_h2o_o_1s_core_hole_delta_scf_payload():

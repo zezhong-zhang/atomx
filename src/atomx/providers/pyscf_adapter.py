@@ -326,6 +326,29 @@ def _mom_core_hole_occ(
     return occ, tracked_index, max_overlap
 
 
+def _core_hole_metadata(
+    core_label: str,
+    ground_occ: np.ndarray,
+    final_occ: np.ndarray,
+    core_index: int,
+    final_index: int,
+    final_overlap: float,
+    delta_e: float,
+) -> dict[str, float | int | str]:
+    occupation_before = float(np.asarray(ground_occ, dtype=float)[core_index])
+    occupation_after = float(np.asarray(final_occ, dtype=float)[final_index])
+    return {
+        "orbital_label": core_label,
+        "occupation_before": occupation_before,
+        "occupation_after": occupation_after,
+        "occupation_delta": float(occupation_after - occupation_before),
+        "tracked_mo_index": int(final_index),
+        "max_overlap": float(final_overlap),
+        "overlap_threshold": float(CORE_HOLE_OVERLAP_THRESHOLD),
+        "initial_state_energy_hartree": delta_e,
+    }
+
+
 def build_core_hole_delta_scf_payload(
     ground_mf: Any,
     core_orbital: int | str,
@@ -418,16 +441,15 @@ def build_core_hole_delta_scf_payload(
         "ground_state_total_energy_hartree": ensure_hartree(float(ground_mf.e_tot)),
         "core_hole_total_energy_hartree": ensure_hartree(float(mf.e_tot)),
         "delta_scf_energy_hartree": delta_e,
-        "core_hole": {
-            "orbital_label": core_label,
-            "occupation_before": float(ground_occ[final_index]),
-            "occupation_after": float(mf.mo_occ[final_index]),
-            "occupation_delta": float(mf.mo_occ[final_index] - ground_occ[final_index]),
-            "tracked_mo_index": int(final_index),
-            "max_overlap": float(final_overlap),
-            "overlap_threshold": float(CORE_HOLE_OVERLAP_THRESHOLD),
-            "initial_state_energy_hartree": delta_e,
-        },
+        "core_hole": _core_hole_metadata(
+            core_label,
+            ground_occ,
+            np.asarray(mf.mo_occ, dtype=float),
+            core_index,
+            final_index,
+            final_overlap,
+            delta_e,
+        ),
     }
     payload = PySCFProvider(
         mf,
