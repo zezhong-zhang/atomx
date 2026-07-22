@@ -323,12 +323,34 @@ def _pnc_unit_diagnostics(
     return float(-(int(N) / Q_W) * E_pnc_au / 1.0e-11), per_qw, "ok"
 
 
-def _default_finite_nuclear_density(Z: int, N: int, bsp_data, *, tol: float = 1e-6):
+def _default_finite_nuclear_density(
+    Z: int,
+    N: int,
+    bsp_data,
+    *,
+    tol: float = 1e-6,
+    min_core_points: int = 6,
+    min_surface_points: int = 3,
+):
     """Return an A-based Fermi density normalised as 4π∫r²rho(r)dr = 1."""
     gr = np.asarray(bsp_data["gr"], dtype=float)
     grw = np.asarray(bsp_data["grw"], dtype=float)
     A = int(Z) + int(N)
     a, c = fermi_params(int(Z), A)
+    resolution = _fermi_density_resolution(gr, a, c)
+    if (
+        resolution["density_resolution_core_points"] < min_core_points
+        or resolution["density_resolution_surface_points"] < min_surface_points
+    ):
+        raise ValueError(
+            "Finite nuclear density is under-resolved on the integration grid; "
+            f"found {resolution['density_resolution_core_points']} quadrature points "
+            f"within r <= c+4a and "
+            f"{resolution['density_resolution_surface_points']} points in "
+            f"c-2a <= r <= c+2a, but require at least {min_core_points} "
+            f"and {min_surface_points}, respectively. "
+            f"Fermi scale: a={a:.6e} bohr, c={c:.6e} bohr."
+        )
 
     def shape_values(r):
         r_arr = np.asarray(r, dtype=float)
@@ -364,8 +386,31 @@ def _default_finite_nuclear_density(Z: int, N: int, bsp_data, *, tol: float = 1e
         "density_fermi_c_bohr": float(c),
         "density_norm_3d": float(4.0 * np.pi * np.sum(grw * gr * gr * rho_grid)),
         "density_norm_residual": residual,
+        **resolution,
     }
     return rho, provenance
+
+
+def _fermi_density_resolution(gr: np.ndarray, a: float, c: float) -> Dict[str, Any]:
+    """Resolution metrics for the Fermi core and half-density surface."""
+    finite_gr = np.asarray(gr, dtype=float)
+    finite_gr = finite_gr[np.isfinite(finite_gr)]
+    surface_lo = max(0.0, c - 2.0 * a)
+    surface_hi = c + 2.0 * a
+    core_hi = c + 4.0 * a
+    core_points = int(np.count_nonzero(finite_gr <= core_hi))
+    surface_points = int(
+        np.count_nonzero((finite_gr >= surface_lo) & (finite_gr <= surface_hi))
+    )
+    first_grid_point = float(np.min(finite_gr)) if finite_gr.size else np.nan
+    return {
+        "density_resolution_core_points": core_points,
+        "density_resolution_surface_points": surface_points,
+        "density_resolution_core_radius_bohr": float(core_hi),
+        "density_resolution_surface_lo_bohr": float(surface_lo),
+        "density_resolution_surface_hi_bohr": float(surface_hi),
+        "density_resolution_first_grid_point_bohr": first_grid_point,
+    }
 
 
 def _parse_label_n(label: str) -> Optional[int]:

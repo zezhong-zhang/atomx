@@ -10,6 +10,7 @@ from atomx.properties._pseudoscalar import pseudoscalar_angular
 from atomx.properties.pnc import (
     PNCResult,
     _default_finite_nuclear_density,
+    _fermi_density_resolution,
     _pnc_unit_diagnostics,
     pnc_amplitude_dirac_only,
     weak_charge_qw,
@@ -27,7 +28,13 @@ def test_pnc_amplitude_runs_on_hydrogen():
     atom.solve()
     # H has no p_{1/2} virtuals in a minimal basis, so this returns a
     # PNCResult with zero amplitude (no intermediate states to sum over).
-    result = pnc_amplitude_dirac_only(atom._result, "1s1/2", "1s1/2", N=0)
+    result = pnc_amplitude_dirac_only(
+        atom._result,
+        "1s1/2",
+        "1s1/2",
+        N=0,
+        rho_nuc_func=lambda _r: 1.0,
+    )
     assert result.E_pnc_au == 0.0
     assert result.N == 0
     assert result.k_pnc == 0.0
@@ -40,7 +47,13 @@ def test_compute_pnc_high_level_api():
 
     atom = Atom(Z=3, config="1s2 2s1", breit=False, qed=False)
     atom.solve()
-    result = compute_pnc(atom, "2s1/2", "1s1/2", N=4)
+    result = compute_pnc(
+        atom,
+        "2s1/2",
+        "1s1/2",
+        N=4,
+        rho_nuc_func=lambda _r: 1.0,
+    )
     assert hasattr(result, "E_pnc_au")
     assert hasattr(result, "k_pnc")
     assert hasattr(result, "E_pnc_per_qw")
@@ -168,14 +181,9 @@ def test_isotope_dependence_records_N_QW_density_and_k():
     assert result.N == 78
 
 
-def test_default_density_is_3d_normalized_on_real_grid():
-    atom = Atom(
-        Z=3, config="1s2 2s1", numerics="bspline", ns=60,
-        breit=False, qed=False,
-    )
-    atom.solve()
-    bsp_data = atom._result._bsp_data
-    rho, provenance = _default_finite_nuclear_density(3, 4, bsp_data)
+def test_default_density_is_3d_normalized_on_resolved_nuclear_grid():
+    bsp_data = _resolved_nuclear_grid()
+    rho, provenance = _default_finite_nuclear_density(55, 78, bsp_data)
     gr = bsp_data["gr"]
     grw = bsp_data["grw"]
     rho_grid = np.vectorize(rho)(gr.ravel()).reshape(gr.shape)
@@ -183,9 +191,11 @@ def test_default_density_is_3d_normalized_on_real_grid():
 
     assert norm == pytest.approx(1.0, abs=1e-6)
     assert provenance["density_model"] == "fermi"
-    assert provenance["density_A"] == 7
-    assert provenance["density_N"] == 4
+    assert provenance["density_A"] == 133
+    assert provenance["density_N"] == 78
     assert provenance["density_norm_residual"] <= 1e-6
+    assert provenance["density_resolution_core_points"] >= 6
+    assert provenance["density_resolution_surface_points"] >= 3
 
 
 def test_default_density_requires_N_when_QW_is_supplied():
@@ -197,14 +207,31 @@ def test_default_density_requires_N_when_QW_is_supplied():
 
 def test_default_density_rejects_unresolved_grid():
     bsp_data = {"gr": np.array([10.0, 20.0, 30.0]), "grw": np.ones(3)}
-    with pytest.raises(ValueError, match="normalize finite nuclear density"):
+    with pytest.raises(ValueError, match="under-resolved"):
+        _default_finite_nuclear_density(55, 78, bsp_data)
+
+
+def test_default_density_rejects_observed_cs_underresolved_grid():
+    gr = np.array([1.4472618405624526e-05, 7.453131486826284e-05, 2.361e-04])
+    bsp_data = {"gr": gr, "grw": np.ones_like(gr)}
+    metrics = _fermi_density_resolution(gr, 9.890591372451268e-06, 1.0804746066304463e-04)
+
+    assert metrics["density_resolution_core_points"] == 2
+    assert metrics["density_resolution_surface_points"] == 0
+    with pytest.raises(ValueError, match="under-resolved"):
         _default_finite_nuclear_density(55, 78, bsp_data)
 
 
 def test_pnc_provenance_keeps_both_sos_terms_observable():
     atom = Atom(Z=3, config="1s2 2s1", breit=False, qed=False)
     atom.solve()
-    result = pnc_amplitude_dirac_only(atom._result, "2s1/2", "1s1/2", N=4)
+    result = pnc_amplitude_dirac_only(
+        atom._result,
+        "2s1/2",
+        "1s1/2",
+        N=4,
+        rho_nuc_func=lambda _r: 1.0,
+    )
 
     assert "term_initial" in result.provenance
     assert "term_final" in result.provenance
