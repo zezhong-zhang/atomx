@@ -42,6 +42,8 @@ def dw_eii_cross_section(
     *,
     kappa_max: int = 4,
     n_outgoing_energies: int = 6,
+    continuum_model=None,
+    continuum_failure_mode: str = "raise",
 ):
     """Distorted-wave Born EII cross section for all occupied subshells.
 
@@ -77,6 +79,8 @@ def dw_eii_cross_section(
         scf_result, np.asarray(energies_eV, dtype=float),
         kappa_max=kappa_max,
         n_outgoing_energies=n_outgoing_energies,
+        continuum_model=continuum_model,
+        continuum_failure_mode=continuum_failure_mode,
     )
 
 

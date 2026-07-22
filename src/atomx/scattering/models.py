@@ -89,6 +89,7 @@ class ContinuumModel:
     method: str = "bspline"
     potential: Optional[PotentialModel] = None
     shooting_n_grid: int = 2000
+    shooting_r_max: Optional[float] = None
 
     @classmethod
     def bspline(cls) -> "ContinuumModel":
@@ -100,15 +101,27 @@ class ContinuumModel:
         *,
         potential: Optional[PotentialModel] = None,
         n_grid: int = 2000,
+        r_max: Optional[float] = None,
     ) -> "ContinuumModel":
-        return cls(method="shooting", potential=potential, shooting_n_grid=n_grid)
+        return cls(
+            method="shooting",
+            potential=potential,
+            shooting_n_grid=n_grid,
+            shooting_r_max=r_max,
+        )
 
     @classmethod
-    def fac_residual_core(cls, *, n_grid: int = 2000) -> "ContinuumModel":
+    def fac_residual_core(
+        cls,
+        *,
+        n_grid: int = 2000,
+        r_max: Optional[float] = None,
+    ) -> "ContinuumModel":
         """FAC-like shooting continuum in V^{N-1} + Gu local exchange."""
         return cls.shooting(
             potential=PotentialModel.static_hartree_exchange(exchange="fac"),
             n_grid=n_grid,
+            r_max=r_max,
         )
 
 
