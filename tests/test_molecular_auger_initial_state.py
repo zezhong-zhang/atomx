@@ -16,7 +16,9 @@ from atomx.providers.contract import (
     ProviderContractError,
 )
 from atomx.scattering.autoionization.molecular import (
+    ActiveMolecularOrbital,
     CoreHoleState,
+    TwoHoleCSF,
     TwoHoleFinalState,
     enumerate_two_hole_csfs,
     local_valence_active_space,
@@ -59,9 +61,27 @@ def _payload(*, core_hole: str = "O 1s", overlap=True, metadata=True):
     )
 
 
-def _active_payload(*, ao_labels=None):
-    C = np.eye(4)
+def _active_payload(
+    *,
+    ao_labels=None,
+    coefficients=None,
+    overlap_matrix=None,
+    occupations=None,
+    metadata_extra=None,
+):
+    C = np.eye(4) if coefficients is None else np.asarray(coefficients, dtype=float)
     labels = ao_labels or ["0 O 1s", "0 O 2s", "0 O 2p", "1 H 1s"]
+    overlap = np.eye(4) if overlap_matrix is None else np.asarray(overlap_matrix, dtype=float)
+    occ = np.array([1.0, 2.0, 2.0, 0.0]) if occupations is None else np.asarray(occupations, dtype=float)
+    core_metadata = {
+        "orbital_label": "O 1s",
+        "occupation_before": 2.0,
+        "occupation_after": 1.0,
+        "tracked_mo_index": 0,
+        "initial_state_energy_hartree": 19.5,
+    }
+    if metadata_extra:
+        core_metadata.update(metadata_extra)
     return ElectronicStructurePayload(
         Z=8,
         provenance=Provenance(
@@ -78,23 +98,15 @@ def _active_payload(*, ao_labels=None):
         orbitals=OrbitalCoefficients(
             coefficients=C,
             energies=np.array([-20.0, -1.0, -0.5, 0.2]),
-            occupations=np.array([1.0, 2.0, 2.0, 0.0]),
+            occupations=occ,
             basis_labels=labels,
         ),
         overlap=OverlapBlock(
-            np.eye(4),
+            overlap,
             basis_labels=labels,
         ),
-        density=DensityMatrix(np.diag([1.0, 2.0, 2.0, 0.0])),
-        metadata={
-            "core_hole": {
-                "orbital_label": "O 1s",
-                "occupation_before": 2.0,
-                "occupation_after": 1.0,
-                "tracked_mo_index": 0,
-                "initial_state_energy_hartree": 19.5,
-            }
-        },
+        density=DensityMatrix(np.diag(occ)),
+        metadata={"core_hole": core_metadata},
     )
 
 
@@ -141,6 +153,14 @@ def test_molecular_entry_rejects_missing_core_hole_metadata():
         molecular_auger_initial_state(payload)
 
 
+def test_molecular_entry_rejects_incomplete_core_hole_metadata():
+    payload = _payload()
+    payload.metadata["core_hole"].pop("occupation_before")
+
+    with pytest.raises(ProviderContractError, match="occupation_before"):
+        molecular_auger_initial_state(payload)
+
+
 def test_local_valence_active_space_records_transform_contract():
     active = local_valence_active_space(_active_payload(), population_threshold=0.5)
 
@@ -152,13 +172,81 @@ def test_local_valence_active_space_records_transform_contract():
     np.testing.assert_allclose(active.overlap_s, np.eye(4))
     assert active.orthonormality_residual <= 1e-12
     assert "mulliken-active-space" in active.provenance.approximations
+    assert "single-core-center-active-space" in active.provenance.approximations
 
 
-def test_local_valence_active_space_rejects_malformed_ao_label():
-    payload = _active_payload(ao_labels=["O", "0 O 2s", "0 O 2p", "1 H 1s"])
+@pytest.mark.parametrize(
+    "bad_label",
+    ["O", "O 1s"],
+)
+def test_local_valence_active_space_rejects_malformed_ao_label(bad_label):
+    payload = _active_payload(ao_labels=[bad_label, "0 O 2s", "0 O 2p", "1 H 1s"])
 
     with pytest.raises(ProviderContractError, match="AO label"):
         local_valence_active_space(payload, population_threshold=0.5)
+
+
+def test_local_valence_active_space_rejects_ambiguous_same_element_centers():
+    payload = _active_payload(
+        ao_labels=["0 O 1s", "0 O 2s", "1 O 2s", "1 O 2p"],
+    )
+
+    with pytest.raises(ProviderContractError, match="ambiguous"):
+        local_valence_active_space(payload, population_threshold=0.5)
+
+
+def test_local_valence_active_space_uses_explicit_core_hole_center():
+    payload = _active_payload(
+        ao_labels=["0 O 1s", "0 O 2s", "1 O 2s", "1 O 2p"],
+        metadata_extra={"atom_center": "0"},
+    )
+
+    active = local_valence_active_space(payload, population_threshold=0.5)
+
+    assert active.labels == ("MO1",)
+
+
+def test_local_valence_active_space_excludes_tracked_core_mo_even_if_occupied():
+    payload = _active_payload(occupations=np.array([2.0, 2.0, 2.0, 0.0]))
+
+    active = local_valence_active_space(payload, population_threshold=0.5)
+
+    assert "MO0" not in active.labels
+
+
+def test_local_valence_active_space_rejects_open_shell_active_mo():
+    payload = _active_payload(occupations=np.array([1.0, 1.0, 2.0, 0.0]))
+
+    with pytest.raises(ProviderContractError, match="closed-shell"):
+        local_valence_active_space(
+            payload,
+            population_threshold=0.5,
+            occupation_threshold=0.5,
+        )
+
+
+def test_local_valence_active_space_rejects_empty_active_space():
+    with pytest.raises(ProviderContractError, match="no occupied valence MOs"):
+        local_valence_active_space(_active_payload(), population_threshold=1.1)
+
+
+def test_local_valence_active_space_rejects_nonorthonormal_active_block():
+    payload = _active_payload(overlap_matrix=np.diag([1.0, 2.0, 1.0, 1.0]))
+
+    with pytest.raises(ProviderContractError, match="C_active"):
+        local_valence_active_space(payload, population_threshold=0.5)
+
+
+def test_local_valence_active_space_accepts_nonidentity_overlap_contract():
+    overlap = np.diag([1.0, 4.0, 9.0, 1.0])
+    coefficients = np.diag([1.0, 0.5, 1.0 / 3.0, 1.0])
+    payload = _active_payload(coefficients=coefficients, overlap_matrix=overlap)
+
+    active = local_valence_active_space(payload, population_threshold=0.5)
+
+    assert active.labels == ("MO1", "MO2")
+    np.testing.assert_allclose(active.overlap_s, overlap)
+    assert active.orthonormality_residual <= 1e-12
 
 
 def test_two_hole_csf_count_matches_closed_shell_spin_coupling_formula():
@@ -175,6 +263,34 @@ def test_two_hole_csf_count_matches_closed_shell_spin_coupling_formula():
         "singlet",
     ]
     assert all("MO" in csf.label for csf in csfs)
+
+
+def test_two_hole_csf_rejects_invalid_spin_contracts():
+    with pytest.raises(ProviderContractError, match="multiplicity"):
+        TwoHoleCSF(
+            hole_orbitals=("MO1", "MO2"),
+            spin_multiplicity=2,
+            spin_symmetry="doublet",
+            label="MO1^-1 MO2^-1 doublet",
+        )
+    with pytest.raises(ProviderContractError, match="same-orbital"):
+        TwoHoleCSF(
+            hole_orbitals=("MO1", "MO1"),
+            spin_multiplicity=3,
+            spin_symmetry="triplet",
+            label="MO1^-2 triplet",
+        )
+
+
+def test_active_molecular_orbital_rejects_empty_label():
+    with pytest.raises(ProviderContractError, match="label"):
+        ActiveMolecularOrbital(
+            label="",
+            index=1,
+            energy=-1.0,
+            occupation=2.0,
+            core_atom_population=0.8,
+        )
 
 
 def test_two_hole_final_states_stamp_i2_i4_i5_provenance_and_energy():
@@ -197,6 +313,16 @@ def test_two_hole_final_states_stamp_i2_i4_i5_provenance_and_energy():
     assert "mulliken-active-space" in pair.provenance.approximations
 
 
+def test_two_hole_final_states_reuse_same_orbital_csf_label():
+    final_states = molecular_auger_final_states(_active_payload(), population_threshold=0.5)
+
+    same_orbital = next(
+        state for state in final_states if state.hole_orbitals == ("MO1", "MO1")
+    )
+
+    assert same_orbital.provenance.final_state == "MO1^-2 singlet"
+
+
 def test_two_hole_final_state_rejects_missing_approximation_stamp():
     active = local_valence_active_space(_active_payload(), population_threshold=0.5)
     with pytest.raises(ProviderContractError):
@@ -216,3 +342,51 @@ def test_two_hole_final_state_rejects_missing_approximation_stamp():
             ),
             active_space=active,
         )
+
+
+def test_two_hole_final_state_rejects_missing_energy_zero():
+    active = local_valence_active_space(_active_payload(), population_threshold=0.5)
+    with pytest.raises(ProviderContractError, match="energy_zero"):
+        TwoHoleFinalState(
+            hole_orbitals=("MO1", "MO2"),
+            spin_multiplicity=1,
+            spin_symmetry="singlet",
+            final_energy=20.0,
+            provenance=Provenance(
+                provider="mock",
+                code_version="mock 0",
+                method="RHF",
+                basis="sto-3g",
+                theory_level="RHF",
+                approximations=["cluster-ci-final-state"],
+                core_hole="O 1s",
+                final_state="MO1^-1 MO2^-1 singlet",
+                energy_zero="",
+            ),
+            active_space=active,
+        )
+
+
+def test_two_hole_final_state_accepts_non_koopmans_energy_model_stamp():
+    active = local_valence_active_space(_active_payload(), population_threshold=0.5)
+    state = TwoHoleFinalState(
+        hole_orbitals=("MO1", "MO2"),
+        spin_multiplicity=1,
+        spin_symmetry="singlet",
+        final_energy=20.0,
+        provenance=Provenance(
+            provider="mock",
+            code_version="mock 0",
+            method="RHF",
+            basis="sto-3g",
+            theory_level="RHF",
+            approximations=["cluster-ci-final-state"],
+            core_hole="O 1s",
+            final_state="MO1^-1 MO2^-1 singlet",
+            energy_zero="delta_scf_total_energy",
+        ),
+        active_space=active,
+        energy_model="cluster-ci",
+    )
+
+    assert state.energy_model == "cluster-ci"

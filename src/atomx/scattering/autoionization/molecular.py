@@ -57,10 +57,11 @@ class ActiveMolecularOrbital:
 class LocalizedValenceActiveSpace:
     """Local valence active-space selection with an ADR Q2 transform contract.
 
-    HYP-910.B deliberately starts with Mulliken-on-canonical-MO selection.  The
-    localization transform is therefore the identity in the selected MO block,
-    but it is still recorded explicitly so downstream two-electron kernels know
-    the parent AO ordering, S metric and residual they must match.
+    HYP-910.B deliberately starts with Mulliken-on-canonical-MO selection on
+    the core-hole atom center.  The localization transform is therefore the
+    identity in the selected MO block, but it is still recorded explicitly so
+    downstream two-electron kernels know the parent AO ordering, S metric and
+    residual they must match.
     """
 
     orbitals: tuple[ActiveMolecularOrbital, ...]
@@ -129,13 +130,14 @@ class TwoHoleFinalState:
             raise ProviderContractError("final state requires two hole MO labels")
         if not self.provenance.final_state:
             raise ProviderContractError("final-state provenance.final_state is required")
-        approximations = set(self.provenance.approximations)
-        required = {"independent-hole-koopmans", "mulliken-active-space"}
-        if not required.issubset(approximations):
+        if not self.provenance.energy_zero:
             raise ProviderContractError(
-                "final-state provenance.approximations must stamp "
-                "independent-hole-koopmans and mulliken-active-space"
+                "final-state provenance.energy_zero is required"
             )
+        if not self.provenance.approximations:
+            raise ProviderContractError("final-state approximations must be stamped")
+        if not self.energy_model:
+            raise ProviderContractError("final-state energy_model must be non-empty")
         object.__setattr__(self, "final_energy", ensure_hartree(self.final_energy))
 
 
@@ -184,6 +186,20 @@ def molecular_auger_initial_state(
     spec = payload.metadata.get("core_hole")
     if not isinstance(spec, dict):
         raise ProviderContractError("payload metadata lacks core_hole specification")
+    missing = [
+        key
+        for key in (
+            "occupation_before",
+            "occupation_after",
+            "initial_state_energy_hartree",
+        )
+        if key not in spec
+    ]
+    if missing:
+        raise ProviderContractError(
+            "core_hole specification missing required fields: "
+            + ", ".join(sorted(missing))
+        )
 
     return CoreHoleState(
         orbital_label=str(spec.get("orbital_label") or payload.provenance.core_hole),
@@ -207,12 +223,18 @@ def _core_atom_symbol(core_label: str) -> str:
     return parts[0]
 
 
-def _ao_label_atom(ao_label: str) -> str:
+@dataclass(frozen=True)
+class _AOLabel:
+    center: str
+    atom: str
+
+
+def _ao_label_identity(ao_label: str) -> _AOLabel:
     parts = ao_label.split()
-    if len(parts) >= 2:
-        return parts[1]
+    if len(parts) >= 3:
+        return _AOLabel(center=parts[0], atom=parts[1])
     raise ProviderContractError(
-        f"AO label {ao_label!r} does not include an atom identifier"
+        f"AO label {ao_label!r} must have '<center> <element> <shell>' format"
     )
 
 
@@ -257,6 +279,47 @@ def _active_residual(
     return float(np.max(np.abs(gram - np.eye(gram.shape[0]))))
 
 
+def _core_hole_center(core_spec: object) -> str | None:
+    if not isinstance(core_spec, dict):
+        return None
+    for key in ("atom_center", "center_index", "atom_index"):
+        if key in core_spec:
+            return str(core_spec[key])
+    return None
+
+
+def _core_atom_ao_indices(
+    labels: tuple[str, ...],
+    core_atom: str,
+    core_center: str | None,
+) -> tuple[int, ...]:
+    parsed = tuple(_ao_label_identity(label) for label in labels)
+    matching_centers = {
+        label.center
+        for label in parsed
+        if label.atom.lower() == core_atom.lower()
+    }
+    if not matching_centers:
+        raise ProviderContractError(f"no AO labels match core atom {core_atom!r}")
+    if core_center is None:
+        if len(matching_centers) > 1:
+            raise ProviderContractError(
+                "core-hole active-space selection is ambiguous for multiple "
+                f"{core_atom!r} centers; provide core_hole atom_center/center_index"
+            )
+        core_center = next(iter(matching_centers))
+    selected = tuple(
+        index
+        for index, label in enumerate(parsed)
+        if label.atom.lower() == core_atom.lower() and label.center == core_center
+    )
+    if not selected:
+        raise ProviderContractError(
+            f"no AO labels match core atom {core_atom!r} at center {core_center!r}"
+        )
+    return selected
+
+
 def local_valence_active_space(
     payload: ElectronicStructurePayload,
     core_hole: CoreHoleState | None = None,
@@ -267,10 +330,11 @@ def local_valence_active_space(
 ) -> LocalizedValenceActiveSpace:
     """Select local occupied valence MOs around the core-hole atom.
 
-    The first implementation uses Mulliken population analysis on the core atom
-    and keeps canonical MOs as the active orbitals.  IAO/Boys/Pipek-Mezey
-    localization can replace the identity transform later without changing the
-    contract consumed by Auger matrix-element code.
+    The first implementation uses Mulliken population analysis on one
+    core-hole atom center and keeps canonical MOs as the active orbitals.  AO
+    labels must have ``<center> <element> <shell>`` format.  If the core-hole
+    spec does not identify a center, selection only proceeds when the core
+    element appears on exactly one center.
     """
 
     payload.require(
@@ -289,21 +353,15 @@ def local_valence_active_space(
         core_hole.orbital_label if core_hole is not None else payload.provenance.core_hole
     )
     core_atom = _core_atom_symbol(core_label)
+    core_spec = payload.metadata.get("core_hole")
     atom_indices = np.asarray(
-        [
-            index
-            for index, label in enumerate(labels)
-            if _ao_label_atom(label).lower() == core_atom.lower()
-        ],
+        _core_atom_ao_indices(labels, core_atom, _core_hole_center(core_spec)),
         dtype=int,
     )
-    if atom_indices.size == 0:
-        raise ProviderContractError(f"no AO labels match core atom {core_atom!r}")
 
     C = orbitals.coefficients
     SC = overlap.matrix @ C
     populations = np.einsum("mi,mi->i", C[atom_indices, :], SC[atom_indices, :])
-    core_spec = payload.metadata.get("core_hole")
     tracked_core = None
     if isinstance(core_spec, dict) and "tracked_mo_index" in core_spec:
         tracked_core = int(core_spec["tracked_mo_index"])
@@ -316,6 +374,11 @@ def local_valence_active_space(
             continue
         if occupation < occupation_threshold or population < population_threshold:
             continue
+        if not np.isclose(occupation, 2.0, atol=1e-6):
+            raise ProviderContractError(
+                "two-hole closed-shell active space requires doubly occupied "
+                f"valence MOs; {_mo_label(index)} has occupation {occupation:.6g}"
+            )
         active.append(
             ActiveMolecularOrbital(
                 label=_mo_label(index),
@@ -340,7 +403,11 @@ def local_valence_active_space(
         )
     provenance = _copy_provenance_with(
         payload.provenance,
-        approximations=("mulliken-active-space", "canonical-mo-localization-identity"),
+        approximations=(
+            "mulliken-active-space",
+            "single-core-center-active-space",
+            "canonical-mo-localization-identity",
+        ),
     )
     return LocalizedValenceActiveSpace(
         orbitals=tuple(active),
@@ -423,7 +490,7 @@ def molecular_auger_final_states(
     for csf in enumerate_two_hole_csfs(active_space):
         holes = csf.hole_orbitals
         correction = float(corrections.get(holes, corrections.get(holes[::-1], 0.0)))
-        final_label = f"{holes[0]}^-1 {holes[1]}^-1 {csf.spin_symmetry}"
+        final_label = csf.label
         final_energy = (
             initial.initial_energy
             - energy_by_label[holes[0]]
@@ -435,6 +502,7 @@ def molecular_auger_final_states(
             final_state=final_label,
             approximations=(
                 "mulliken-active-space",
+                "single-core-center-active-space",
                 "canonical-mo-localization-identity",
                 "independent-hole-koopmans",
             ),
