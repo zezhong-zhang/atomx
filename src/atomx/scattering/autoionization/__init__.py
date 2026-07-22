@@ -45,7 +45,14 @@ from atomx.scattering.autoionization.auger import (
     auger_rate_two_electron,
 )
 from atomx.scattering.autoionization.molecular import (
+    ActiveMolecularOrbital,
     CoreHoleState,
+    LocalizedValenceActiveSpace,
+    TwoHoleCSF,
+    TwoHoleFinalState,
+    enumerate_two_hole_csfs,
+    local_valence_active_space,
+    molecular_auger_final_states,
     molecular_auger_initial_state,
 )
 
