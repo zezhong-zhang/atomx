@@ -71,8 +71,14 @@ def _active_payload(
 ):
     C = np.eye(4) if coefficients is None else np.asarray(coefficients, dtype=float)
     labels = ao_labels or ["0 O 1s", "0 O 2s", "0 O 2p", "1 H 1s"]
-    overlap = np.eye(4) if overlap_matrix is None else np.asarray(overlap_matrix, dtype=float)
-    occ = np.array([1.0, 2.0, 2.0, 0.0]) if occupations is None else np.asarray(occupations, dtype=float)
+    overlap = (
+        np.eye(4) if overlap_matrix is None else np.asarray(overlap_matrix, dtype=float)
+    )
+    occ = (
+        np.array([1.0, 2.0, 2.0, 0.0])
+        if occupations is None
+        else np.asarray(occupations, dtype=float)
+    )
     core_metadata = {
         "orbital_label": "O 1s",
         "occupation_before": 2.0,
@@ -214,6 +220,22 @@ def test_local_valence_active_space_excludes_tracked_core_mo_even_if_occupied():
     assert "MO0" not in active.labels
 
 
+def test_local_valence_active_space_requires_tracked_core_mo_index():
+    payload = _active_payload(occupations=np.array([2.0, 2.0, 2.0, 0.0]))
+    payload.metadata["core_hole"].pop("tracked_mo_index")
+
+    with pytest.raises(ProviderContractError, match="tracked_mo_index"):
+        local_valence_active_space(payload, population_threshold=0.5)
+
+
+def test_final_states_require_tracked_core_mo_index():
+    payload = _active_payload()
+    payload.metadata["core_hole"].pop("tracked_mo_index")
+
+    with pytest.raises(ProviderContractError, match="tracked_mo_index"):
+        molecular_auger_final_states(payload, population_threshold=0.5)
+
+
 def test_local_valence_active_space_rejects_open_shell_active_mo():
     payload = _active_payload(occupations=np.array([1.0, 1.0, 2.0, 0.0]))
 
@@ -303,10 +325,9 @@ def test_two_hole_final_states_stamp_i2_i4_i5_provenance_and_energy():
     pair = next(
         state
         for state in final_states
-        if state.hole_orbitals == ("MO1", "MO2")
-        and state.spin_symmetry == "singlet"
+        if state.hole_orbitals == ("MO1", "MO2") and state.spin_symmetry == "singlet"
     )
-    assert pair.final_energy == pytest.approx(19.5 - (-1.0) - (-0.5) + 0.1)
+    assert pair.final_energy == pytest.approx(19.5 + (-20.0) - (-1.0) - (-0.5) + 0.1)
     assert pair.provenance.final_state == "MO1^-1 MO2^-1 singlet"
     assert pair.provenance.energy_zero == "delta_scf_total_energy"
     assert "independent-hole-koopmans" in pair.provenance.approximations
@@ -314,7 +335,9 @@ def test_two_hole_final_states_stamp_i2_i4_i5_provenance_and_energy():
 
 
 def test_two_hole_final_states_reuse_same_orbital_csf_label():
-    final_states = molecular_auger_final_states(_active_payload(), population_threshold=0.5)
+    final_states = molecular_auger_final_states(
+        _active_payload(), population_threshold=0.5
+    )
 
     same_orbital = next(
         state for state in final_states if state.hole_orbitals == ("MO1", "MO1")

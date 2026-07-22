@@ -81,7 +81,10 @@ class LocalizedValenceActiveSpace:
         object.__setattr__(self, "localization_transform", transform)
         if not self.orbitals:
             raise ProviderContractError("local valence active space is empty")
-        if self.overlap_s.ndim != 2 or self.overlap_s.shape[0] != self.overlap_s.shape[1]:
+        if (
+            self.overlap_s.ndim != 2
+            or self.overlap_s.shape[0] != self.overlap_s.shape[1]
+        ):
             raise ProviderContractError("active-space S metric must be square")
         n = len(self.orbitals)
         if transform.shape != (n, n):
@@ -108,7 +111,10 @@ class TwoHoleCSF:
             raise ProviderContractError("two-hole CSF requires two MO labels")
         if self.spin_multiplicity not in (1, 3):
             raise ProviderContractError("two-hole spin multiplicity must be 1 or 3")
-        if self.hole_orbitals[0] == self.hole_orbitals[1] and self.spin_multiplicity != 1:
+        if (
+            self.hole_orbitals[0] == self.hole_orbitals[1]
+            and self.spin_multiplicity != 1
+        ):
             raise ProviderContractError("same-orbital two-hole CSF must be singlet")
 
 
@@ -129,7 +135,9 @@ class TwoHoleFinalState:
         if len(self.hole_orbitals) != 2 or not all(self.hole_orbitals):
             raise ProviderContractError("final state requires two hole MO labels")
         if not self.provenance.final_state:
-            raise ProviderContractError("final-state provenance.final_state is required")
+            raise ProviderContractError(
+                "final-state provenance.final_state is required"
+            )
         if not self.provenance.energy_zero:
             raise ProviderContractError(
                 "final-state provenance.energy_zero is required"
@@ -274,7 +282,11 @@ def _active_residual(
     coeff = _selected_coefficients(
         payload.orbitals, active_indices, localization_transform
     )
-    S = payload.overlap.matrix if payload.overlap is not None else np.eye(coeff.shape[0])
+    S = (
+        payload.overlap.matrix
+        if payload.overlap is not None
+        else np.eye(coeff.shape[0])
+    )
     gram = coeff.T @ S @ coeff
     return float(np.max(np.abs(gram - np.eye(gram.shape[0]))))
 
@@ -295,9 +307,7 @@ def _core_atom_ao_indices(
 ) -> tuple[int, ...]:
     parsed = tuple(_ao_label_identity(label) for label in labels)
     matching_centers = {
-        label.center
-        for label in parsed
-        if label.atom.lower() == core_atom.lower()
+        label.center for label in parsed if label.atom.lower() == core_atom.lower()
     }
     if not matching_centers:
         raise ProviderContractError(f"no AO labels match core atom {core_atom!r}")
@@ -320,6 +330,20 @@ def _core_atom_ao_indices(
     return selected
 
 
+def _tracked_core_mo_index(core_spec: object, n_mo: int) -> int:
+    if not isinstance(core_spec, dict) or "tracked_mo_index" not in core_spec:
+        raise ProviderContractError(
+            "core_hole.tracked_mo_index is required to exclude the core MO "
+            "from the valence active space"
+        )
+    tracked_core = int(core_spec["tracked_mo_index"])
+    if tracked_core < 0 or tracked_core >= n_mo:
+        raise ProviderContractError(
+            "core_hole.tracked_mo_index is outside the MO coefficient range"
+        )
+    return tracked_core
+
+
 def local_valence_active_space(
     payload: ElectronicStructurePayload,
     core_hole: CoreHoleState | None = None,
@@ -334,7 +358,9 @@ def local_valence_active_space(
     core-hole atom center and keeps canonical MOs as the active orbitals.  AO
     labels must have ``<center> <element> <shell>`` format.  If the core-hole
     spec does not identify a center, selection only proceeds when the core
-    element appears on exactly one center.
+    element appears on exactly one center.  The core-hole spec must also carry
+    ``tracked_mo_index`` so the selected active space can fail closed rather
+    than accidentally treat the core MO as a valence orbital.
     """
 
     payload.require(
@@ -350,7 +376,9 @@ def local_valence_active_space(
     if len(labels) != orbitals.n_ao:
         raise ProviderContractError("AO label count must match coefficient rows")
     core_label = (
-        core_hole.orbital_label if core_hole is not None else payload.provenance.core_hole
+        core_hole.orbital_label
+        if core_hole is not None
+        else payload.provenance.core_hole
     )
     core_atom = _core_atom_symbol(core_label)
     core_spec = payload.metadata.get("core_hole")
@@ -362,9 +390,7 @@ def local_valence_active_space(
     C = orbitals.coefficients
     SC = overlap.matrix @ C
     populations = np.einsum("mi,mi->i", C[atom_indices, :], SC[atom_indices, :])
-    tracked_core = None
-    if isinstance(core_spec, dict) and "tracked_mo_index" in core_spec:
-        tracked_core = int(core_spec["tracked_mo_index"])
+    tracked_core = _tracked_core_mo_index(core_spec, orbitals.n_mo)
 
     active = []
     for index, (energy, occupation, population) in enumerate(
@@ -469,11 +495,12 @@ def molecular_auger_final_states(
 ) -> tuple[TwoHoleFinalState, ...]:
     """Build independent-hole molecular Auger final states.
 
-    Energies use the same declared zero as the core-hole initial state.  The
-    first-stage model removes two occupied valence electrons from the core-hole
-    state using Koopmans orbital energies plus an optional caller-provided
-    Coulomb correction.  Correlated Cini-Sawatzky/cluster-CI final states are
-    intentionally left to HYP-918.
+    Energies use the same declared zero as the core-hole initial state and name
+    the two-valence-hole final state after core refilling.  The first-stage
+    independent-hole model estimates ``E_final = E_core_hole + epsilon_core -
+    epsilon_i - epsilon_j + U_ij`` using the tracked core MO energy and optional
+    caller-provided Coulomb correction.  Correlated Cini-Sawatzky/cluster-CI
+    final states are intentionally left to HYP-918.
     """
 
     initial = core_hole or molecular_auger_initial_state(payload)
@@ -484,6 +511,13 @@ def molecular_auger_final_states(
         occupation_threshold=occupation_threshold,
         residual_tolerance=residual_tolerance,
     )
+    orbitals = payload.orbitals
+    if orbitals is None:
+        raise ProviderContractError("final-state energies require MO coefficients")
+    tracked_core = _tracked_core_mo_index(
+        payload.metadata.get("core_hole"), orbitals.n_mo
+    )
+    core_energy = float(orbitals.energies[tracked_core])
     energy_by_label = {orb.label: orb.energy for orb in active_space.orbitals}
     corrections = coulomb_corrections or {}
     final_states: list[TwoHoleFinalState] = []
@@ -493,6 +527,7 @@ def molecular_auger_final_states(
         final_label = csf.label
         final_energy = (
             initial.initial_energy
+            + core_energy
             - energy_by_label[holes[0]]
             - energy_by_label[holes[1]]
             + correction
