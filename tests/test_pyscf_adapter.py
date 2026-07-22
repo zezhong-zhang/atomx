@@ -16,7 +16,14 @@ pyscf = pytest.importorskip("pyscf")
 from pyscf import gto, scf  # noqa: E402
 
 from atomx.providers.contract import Capability  # noqa: E402
-from atomx.providers.pyscf_adapter import PySCFProvider, from_scf  # noqa: E402
+from atomx.providers.pyscf_adapter import (  # noqa: E402
+    PySCFProvider,
+    from_core_hole_delta_scf,
+    from_scf,
+)
+from atomx.scattering.autoionization.molecular import (  # noqa: E402
+    molecular_auger_initial_state,
+)
 
 
 def _h2(basis="sto-3g"):
@@ -120,3 +127,27 @@ def test_uhf_rejected_fail_closed():
     mf.kernel()
     with pytest.raises(Exception):
         PySCFProvider(mf)
+
+
+def test_h2o_o_1s_core_hole_delta_scf_payload():
+    mol, mf = _h2o()
+    payload = from_core_hole_delta_scf(mf, "O 1s", max_cycle=80)
+    assert Capability.CORE_HOLE_SPEC in payload.capabilities()
+    assert payload.provenance.core_hole == "O 1s"
+    assert payload.provenance.energy_zero == "delta_scf_total_energy"
+    assert payload.metadata["n_electrons"] == mol.nelectron - 1
+    assert payload.metadata["core_hole"]["occupation_before"] == pytest.approx(2.0)
+    assert payload.metadata["core_hole"]["occupation_after"] == pytest.approx(1.0)
+    assert payload.metadata["delta_scf_energy_hartree"] == pytest.approx(
+        payload.metadata["core_hole"]["initial_state_energy_hartree"]
+    )
+    assert payload.metadata["delta_scf_energy_hartree"] > 0.0
+    assert payload.electron_count() == pytest.approx(mol.nelectron - 1, abs=1e-7)
+    assert payload.orthonormality_residual() == pytest.approx(0.0, abs=1e-7)
+
+    state = molecular_auger_initial_state(payload)
+    assert state.orbital_label == "O 1s"
+    assert state.occupation_delta == pytest.approx(-1.0)
+    assert state.initial_energy == pytest.approx(
+        payload.metadata["delta_scf_energy_hartree"]
+    )

@@ -44,6 +44,10 @@ from atomx.scattering.autoionization.auger import (
     AutoionizationState,
     auger_rate_two_electron,
 )
+from atomx.scattering.autoionization.molecular import (
+    CoreHoleState,
+    molecular_auger_initial_state,
+)
 
 _DR_EXPORTS = {
     "DRRateCoefficient",
