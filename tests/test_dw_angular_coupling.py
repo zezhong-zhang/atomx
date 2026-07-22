@@ -495,14 +495,16 @@ class TestIntegration:
         import atomx.scattering.distorted_wave.solver as dw_solver
 
         atom_i, atom_f = _fake_dw_atoms(monkeypatch)
+        sensitive_batch_text = "/srv/private/dw-excitation/batch.trace"
+        sensitive_single_text = "token=dw-excitation-single"
 
         def fail_many(*args, **kwargs):
             if kwargs.get("return_failures"):
-                return np.array([0.0, 1.0]), {}, [(-1, 1.0, "unit batch failure")]
-            raise ContinuumBatchError([(-1, 1.0, "unit batch failure")])
+                return np.array([0.0, 1.0]), {}, [(-1, 1.0, sensitive_batch_text)]
+            raise ContinuumBatchError([(-1, 1.0, sensitive_batch_text)])
 
         def fail_single(*args, **kwargs):
-            raise RuntimeError("unit single failure")
+            raise RuntimeError(sensitive_single_text)
 
         monkeypatch.setattr(dw_solver, "solve_dirac_continuum_many", fail_many)
         monkeypatch.setattr(dw_solver, "_continuum_on_grid", fail_single)
@@ -522,7 +524,11 @@ class TestIntegration:
         failures = provenance["continuum_failures"]
         assert failures
         assert any(f["stage"] == "batch_prefill" for f in failures)
+        assert any(f["reason"] == "continuum_batch_failed" for f in failures)
         assert any(f["reason"] == "continuum_wave_solve_failed" for f in failures)
+        rendered = str((sigma, omega, provenance))
+        assert sensitive_batch_text not in rendered
+        assert sensitive_single_text not in rendered
 
 
 def _fake_dw_atoms(monkeypatch):

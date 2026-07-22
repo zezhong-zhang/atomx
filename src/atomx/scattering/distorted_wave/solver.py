@@ -12,6 +12,7 @@ for neutral/near-neutral atoms where channel coupling is important.
 Reference: Gu, Can. J. Phys. 86, 675 (2008) - FAC DW formulation
 """
 
+import logging
 import math
 from functools import lru_cache
 
@@ -34,6 +35,8 @@ from atomx.angular.coefficients import reduced_C, reduced_cl_j2
 from atomx.angular.wigner import wigner_3j, wigner_6j
 from atomx.methods.mcdhf.config import CSF
 from atomx.scattering._jit_kernels import dw_excitation_angular_sum
+
+_log = logging.getLogger("atomx.scattering.distorted_wave.solver")
 
 
 def _l_of(kappa):
@@ -580,8 +583,13 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
             if allow_partial:
                 _r_s, raw, failures = batch
                 for kap, E, reason in failures:
-                    continuum_failures.append(_failure(
+                    _log.debug(
+                        "DW excitation continuum failure (%s): %s",
+                        "continuum_batch_failed",
                         reason,
+                    )
+                    continuum_failures.append(_failure(
+                        "continuum_batch_failed",
                         stage="batch_prefill",
                         kappa=int(kap),
                         energy_au=float(E),
@@ -590,7 +598,13 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
                 _r_s, raw = batch
             for (kap, E), pq in raw.items():
                 cont[(int(kap), round(float(E), 12))] = pq
-        except ContinuumBatchError:
+        except ContinuumBatchError as exc:
+            _log.debug(
+                "DW excitation continuum failure (%s): %r",
+                "continuum_batch_failed",
+                exc,
+                exc_info=True,
+            )
             _record_or_raise("continuum_batch_failed", stage="batch_prefill")
 
         def _wave(kappa, E):
