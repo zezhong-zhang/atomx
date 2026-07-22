@@ -83,10 +83,10 @@ def make_physics_knots(ks: int, Z: int, ns: int = 113,
         # mid-region density leaves the point-nucleus H 1s eigenvalue
         # 2e-11 off the Sommerfeld value where the book's preface gate
         # (tests/test_book_preface.py) demands 1e-11.  Quadrupling the
-        # exponential density for Z <= 2 reaches 6.6e-12 (H) at ~1.6x
-        # the spline count; heavier atoms keep the DBSR_HF-validated
-        # grid unchanged.
-        he = 0.0625 if Z <= 2 else 0.25
+        # exponential density was marginal on newer Python/NumPy
+        # combinations; he=0.05 gives headroom while keeping heavier
+        # DBSR_HF-validated grids unchanged.
+        he = 0.05 if Z <= 2 else 0.25
     if hmax is None: hmax = 1.0
 
     # Initial step depends on nuclear model (DBSR_HF mkgrid_01)

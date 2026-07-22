@@ -137,6 +137,10 @@ def pnc_amplitude_dirac_only(
     *,
     rho_nuc_func=None,
     N: Optional[int] = None,
+    Q_W: Optional[float] = None,
+    n_intermediate_max: Optional[int] = None,
+    e_intermediate_max: Optional[float] = None,
+    potential_mode: str = "VN-1",
 ) -> PNCResult:
     """Dirac-only PNC E1 amplitude.
 
@@ -159,11 +163,26 @@ def pnc_amplitude_dirac_only(
     N
         Neutron number (for default Standard-Model Q_W).  Required
         if Q_W not supplied.
+    Q_W
+        Nuclear weak charge override.
+    n_intermediate_max, e_intermediate_max, potential_mode
+        Reserved for the planned sum-over-states implementation.
 
     Returns
     -------
     PNCResult
     """
+    _ = (
+        scf_result,
+        initial_label,
+        final_label,
+        rho_nuc_func,
+        N,
+        Q_W,
+        n_intermediate_max,
+        e_intermediate_max,
+        potential_mode,
+    )
     raise NotImplementedError(
         "PNC E1 amplitudes require a sum over opposite-parity "
         "intermediate states with E1 and weak matrix elements. Use "
@@ -181,4 +200,3 @@ __all__ = [
     "Q_W_PROTON",
     "Q_W_NEUTRON",
 ]
-
