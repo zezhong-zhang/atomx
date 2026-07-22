@@ -46,6 +46,11 @@ __all__ = [
     "MOLabel",
 ]
 
+# S-overlap below this majority-component threshold means the named core-hole
+# character no longer dominates the tracked orbital, so provenance would be
+# physically ambiguous if accepted.
+CORE_HOLE_OVERLAP_THRESHOLD = 0.5
+
 
 class MOLabel:
     """Lightweight ``SubshellLike`` for a molecular orbital.
@@ -274,7 +279,29 @@ def _resolve_core_orbital_index(mf: Any, core_orbital: int | str) -> tuple[int, 
     return index, label
 
 
-def _core_hole_occ(mo_energy: np.ndarray, n_electrons: int, spin: int, core_index: int):
+def _mom_core_hole_occ(
+    mo_coeff: np.ndarray,
+    mo_energy: np.ndarray,
+    S: np.ndarray,
+    ref_ao: np.ndarray,
+    n_electrons: int,
+    spin: int,
+) -> tuple[np.ndarray, int, float]:
+    """Assign a one-electron core hole to the MO with maximum MOM overlap."""
+
+    coeff = np.asarray(mo_coeff, dtype=float)
+    energies = np.asarray(mo_energy, dtype=float)
+    overlap = np.asarray(S, dtype=float)
+    ref = np.asarray(ref_ao, dtype=float)
+    if coeff.ndim != 2:
+        raise ProviderContractError("MOM core-hole tracking requires 2-D mo_coeff")
+    if energies.shape != (coeff.shape[1],):
+        raise ProviderContractError("MOM core-hole mo_energy shape mismatches mo_coeff")
+    if overlap.shape != (coeff.shape[0], coeff.shape[0]):
+        raise ProviderContractError("MOM core-hole overlap shape mismatches mo_coeff")
+    if ref.shape != (coeff.shape[0],):
+        raise ProviderContractError("MOM core-hole reference AO vector shape mismatch")
+
     n_alpha = (n_electrons + spin) // 2
     n_beta = (n_electrons - spin) // 2
     if n_alpha < n_beta or n_alpha + n_beta != n_electrons:
@@ -283,14 +310,20 @@ def _core_hole_occ(mo_energy: np.ndarray, n_electrons: int, spin: int, core_inde
         )
     if n_alpha - n_beta != 1:
         raise ProviderContractError("core-hole ΔSCF currently supports one open shell")
-    order = list(np.argsort(np.asarray(mo_energy, dtype=float)))
-    occ = np.zeros_like(mo_energy, dtype=float)
-    occ[core_index] = 1.0
-    doubly = [i for i in order if i != core_index][:n_beta]
+
+    mom_overlap = (ref @ overlap) @ coeff
+    abs_overlap = np.abs(mom_overlap)
+    tracked_index = int(np.argmax(abs_overlap))
+    max_overlap = float(abs_overlap[tracked_index])
+
+    order = list(np.argsort(energies))
+    occ = np.zeros_like(energies, dtype=float)
+    occ[tracked_index] = 1.0
+    doubly = [i for i in order if i != tracked_index][:n_beta]
     occ[doubly] = 2.0
     if float(np.sum(occ)) != float(n_electrons):
         raise ProviderContractError("failed to construct core-hole occupations")
-    return occ
+    return occ, tracked_index, max_overlap
 
 
 def build_core_hole_delta_scf_payload(
@@ -319,6 +352,9 @@ def build_core_hole_delta_scf_payload(
         raise ProviderContractError(
             f"selected core orbital {core_label!r} is not occupied in the ground state"
         )
+    ground_coeff = np.asarray(ground_mf.mo_coeff, dtype=float)
+    S = np.asarray(ground_mf.get_ovlp(), dtype=float)
+    ref_ao = ground_coeff[:, core_index].copy()
 
     mol = ground_mf.mol.copy()
     mol.charge = int(getattr(mol, "charge", 0)) + 1
@@ -330,21 +366,52 @@ def build_core_hole_delta_scf_payload(
         mf.max_cycle = int(max_cycle)
 
     def get_occ(self, mo_energy=None, mo_coeff=None):
-        del mo_coeff
         energies = np.asarray(self.mo_energy if mo_energy is None else mo_energy)
-        return _core_hole_occ(energies, self.mol.nelectron, self.mol.spin, core_index)
+        coeff = np.asarray(self.mo_coeff if mo_coeff is None else mo_coeff)
+        occ, _, _ = _mom_core_hole_occ(
+            coeff,
+            energies,
+            S,
+            ref_ao,
+            self.mol.nelectron,
+            self.mol.spin,
+        )
+        return occ
 
-    mf.get_occ = MethodType(get_occ, mf)
-    target_occ = _core_hole_occ(
+    target_occ, _, _ = _mom_core_hole_occ(
+        ground_coeff,
         np.asarray(ground_mf.mo_energy, dtype=float),
+        S,
+        ref_ao,
         mol.nelectron,
         mol.spin,
-        core_index,
     )
+    mf.get_occ = MethodType(get_occ, mf)
     dm0 = mf.make_rdm1(np.asarray(ground_mf.mo_coeff, dtype=float), target_occ)
     mf.kernel(dm0=dm0)
     if not mf.converged:
         raise ProviderContractError("core-hole ΔSCF PySCF calculation did not converge")
+
+    _, final_index, final_overlap = _mom_core_hole_occ(
+        np.asarray(mf.mo_coeff, dtype=float),
+        np.asarray(mf.mo_energy, dtype=float),
+        S,
+        ref_ao,
+        mol.nelectron,
+        mol.spin,
+    )
+    single_occupied = np.flatnonzero(np.isclose(np.asarray(mf.mo_occ, dtype=float), 1.0))
+    if single_occupied.shape != (1,) or int(single_occupied[0]) != final_index:
+        raise ProviderContractError(
+            "core-hole ΔSCF converged with inconsistent MOM occupation: "
+            f"tracked MO{final_index}, single-occupied columns={single_occupied.tolist()}"
+        )
+    if final_overlap < CORE_HOLE_OVERLAP_THRESHOLD:
+        raise ProviderContractError(
+            "core-hole ΔSCF lost the named orbital character: "
+            f"max_overlap={final_overlap:.6f}, "
+            f"threshold={CORE_HOLE_OVERLAP_THRESHOLD:.6f}"
+        )
 
     delta_e = ensure_hartree(float(mf.e_tot) - float(ground_mf.e_tot))
     metadata = {
@@ -353,9 +420,12 @@ def build_core_hole_delta_scf_payload(
         "delta_scf_energy_hartree": delta_e,
         "core_hole": {
             "orbital_label": core_label,
-            "occupation_before": float(ground_occ[core_index]),
-            "occupation_after": float(mf.mo_occ[core_index]),
-            "occupation_delta": float(mf.mo_occ[core_index] - ground_occ[core_index]),
+            "occupation_before": float(ground_occ[final_index]),
+            "occupation_after": float(mf.mo_occ[final_index]),
+            "occupation_delta": float(mf.mo_occ[final_index] - ground_occ[final_index]),
+            "tracked_mo_index": int(final_index),
+            "max_overlap": float(final_overlap),
+            "overlap_threshold": float(CORE_HOLE_OVERLAP_THRESHOLD),
             "initial_state_energy_hartree": delta_e,
         },
     }

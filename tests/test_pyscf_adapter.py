@@ -11,13 +11,10 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-pyscf = pytest.importorskip("pyscf")
-
-from pyscf import gto, scf  # noqa: E402
-
 from atomx.providers.contract import Capability  # noqa: E402
 from atomx.providers.pyscf_adapter import (  # noqa: E402
     PySCFProvider,
+    _mom_core_hole_occ,
     from_core_hole_delta_scf,
     from_scf,
 )
@@ -27,6 +24,9 @@ from atomx.scattering.autoionization.molecular import (  # noqa: E402
 
 
 def _h2(basis="sto-3g"):
+    pytest.importorskip("pyscf")
+    from pyscf import gto, scf
+
     mol = gto.M(atom="H 0 0 0; H 0 0 0.74", basis=basis, verbose=0)
     mf = scf.RHF(mol)
     mf.kernel()
@@ -34,6 +34,9 @@ def _h2(basis="sto-3g"):
 
 
 def _h2o(basis="sto-3g"):
+    pytest.importorskip("pyscf")
+    from pyscf import gto, scf
+
     mol = gto.M(
         atom="O 0 0 0; H 0 0.757 0.587; H 0 -0.757 0.587",
         basis=basis,
@@ -113,6 +116,9 @@ def test_h2o_roundtrip_validates():
 
 
 def test_unsolved_meanfield_rejected():
+    pytest.importorskip("pyscf")
+    from pyscf import gto, scf
+
     mol = gto.M(atom="H 0 0 0; H 0 0 0.74", basis="sto-3g", verbose=0)
     mf = scf.RHF(mol)  # not kernel()-ed
     with pytest.raises(Exception):
@@ -120,6 +126,9 @@ def test_unsolved_meanfield_rejected():
 
 
 def test_uhf_rejected_fail_closed():
+    pytest.importorskip("pyscf")
+    from pyscf import gto, scf
+
     mol = gto.M(
         atom="H 0 0 0", basis="sto-3g", spin=1, verbose=0
     )
@@ -129,17 +138,48 @@ def test_uhf_rejected_fail_closed():
         PySCFProvider(mf)
 
 
+def test_mom_core_hole_occ_tracks_orbital_character_after_column_swap():
+    S = np.eye(4)
+    C_ground = np.eye(4)
+    core_index = 1
+    ref_ao = C_ground[:, core_index]
+    mo_coeff = C_ground[:, [0, 2, 3, 1]]
+    mo_energy = np.array([-0.5, -1.0, -0.6, -20.0])
+
+    occ, tracked_index, max_overlap = _mom_core_hole_occ(
+        mo_coeff,
+        mo_energy,
+        S,
+        ref_ao,
+        n_electrons=3,
+        spin=1,
+    )
+
+    # The old fixed-index occupation would leave the hole at core_index=1 even
+    # though the O 1s character moved to column 3; MOM follows the character.
+    assert tracked_index == 3
+    assert tracked_index == int(np.argmax(np.abs((ref_ao @ S) @ mo_coeff)))
+    assert max_overlap == pytest.approx(1.0)
+    assert occ[tracked_index] == pytest.approx(1.0)
+    assert occ[core_index] != pytest.approx(1.0)
+
+
 def test_h2o_o_1s_core_hole_delta_scf_payload():
     mol, mf = _h2o()
     payload = from_core_hole_delta_scf(mf, "O 1s", max_cycle=80)
+    core_hole = payload.metadata["core_hole"]
     assert Capability.CORE_HOLE_SPEC in payload.capabilities()
     assert payload.provenance.core_hole == "O 1s"
     assert payload.provenance.energy_zero == "delta_scf_total_energy"
     assert payload.metadata["n_electrons"] == mol.nelectron - 1
-    assert payload.metadata["core_hole"]["occupation_before"] == pytest.approx(2.0)
-    assert payload.metadata["core_hole"]["occupation_after"] == pytest.approx(1.0)
+    assert core_hole["occupation_before"] == pytest.approx(2.0)
+    assert core_hole["occupation_after"] == pytest.approx(1.0)
+    assert core_hole["max_overlap"] >= core_hole["overlap_threshold"]
+    assert payload.orbitals.occupations[core_hole["tracked_mo_index"]] == pytest.approx(
+        1.0
+    )
     assert payload.metadata["delta_scf_energy_hartree"] == pytest.approx(
-        payload.metadata["core_hole"]["initial_state_energy_hartree"]
+        core_hole["initial_state_energy_hartree"]
     )
     assert payload.metadata["delta_scf_energy_hartree"] > 0.0
     assert payload.electron_count() == pytest.approx(mol.nelectron - 1, abs=1e-7)
