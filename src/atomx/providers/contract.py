@@ -206,9 +206,10 @@ class Provenance:
         """Raise :class:`ProviderContractError` if identity fields missing."""
         # ``theory_level`` is intentionally free-form and not an I1-I6 gate.
         for name in ("provider", "code_version", "method", "basis", "energy_zero"):
-            if not getattr(self, name).strip():
+            value = getattr(self, name)
+            if not isinstance(value, str) or not value.strip():
                 raise ProviderContractError(
-                    f"Provenance.{name} is mandatory and must be non-empty"
+                    f"Provenance.{name} is mandatory and must be a non-empty string"
                 )
         if self.is_ml and self.ood_status is None:
             # An ML provider must at least declare its domain status.
@@ -480,17 +481,15 @@ class ElectronicStructurePayload:
                     "density matrix shape must match orbitals.n_ao: "
                     f"expected {(n_ao, n_ao)}, got {self.density.matrix.shape}"
                 )
-            if self.two_electron is not None:
-                basis = self.two_electron.basis
-                if basis == "ao":
-                    expected = n_ao
-                elif basis == "mo":
-                    expected = self.orbitals.n_mo
-                else:
-                    raise ProviderContractError(
-                        "two-electron integral basis must be 'ao' or 'mo', "
-                        f"got {basis!r}"
-                    )
+        if self.two_electron is not None:
+            basis = self.two_electron.basis
+            if basis not in ("ao", "mo"):
+                raise ProviderContractError(
+                    "two-electron integral basis must be 'ao' or 'mo', "
+                    f"got {basis!r}"
+                )
+            if self.orbitals is not None:
+                expected = n_ao if basis == "ao" else self.orbitals.n_mo
                 actual = self.two_electron.eri.shape[0]
                 if actual != expected:
                     raise ProviderContractError(

@@ -8,6 +8,8 @@ any external back-end.
 
 from __future__ import annotations
 
+from types import SimpleNamespace
+
 import numpy as np
 import pytest
 
@@ -162,6 +164,15 @@ def test_provenance_whitespace_energy_zero_rejected():
         _good_provenance(energy_zero="   ").validate()
 
 
+@pytest.mark.parametrize("bad_value", [None, 42])
+@pytest.mark.parametrize(
+    "field_name", ["provider", "code_version", "method", "basis", "energy_zero"]
+)
+def test_provenance_mandatory_fields_must_be_strings(field_name, bad_value):
+    with pytest.raises(ProviderContractError):
+        _good_provenance(**{field_name: bad_value}).validate()
+
+
 def test_ml_payload_without_uncertainty_fails_closed():
     payload = _minimal_payload(
         provenance=_good_provenance(is_ml=True, ood_status="in-domain")
@@ -312,6 +323,20 @@ def test_payload_ao_eri_shape_must_match_orbital_ao_count():
 def test_payload_unknown_eri_basis_rejected():
     payload = _minimal_payload(
         two_electron=TwoElectronIntegrals(np.zeros((3, 3, 3, 3)), basis="grid")
+    )
+
+    with pytest.raises(ProviderContractError):
+        payload.validate()
+
+
+def test_radial_only_payload_unknown_eri_basis_rejected():
+    payload = ElectronicStructurePayload(
+        Z=2,
+        provenance=_good_provenance(),
+        subshells=[SimpleNamespace(occupation=2.0)],
+        orbital_energies={"1s": -0.5},
+        orbitals_raw={-1: [(np.array([0.0]), np.array([1.0]), 1.0)]},
+        two_electron=TwoElectronIntegrals(np.zeros((2, 2, 2, 2)), basis="grid"),
     )
 
     with pytest.raises(ProviderContractError):
