@@ -214,6 +214,44 @@ def run_fac_panel_reference(*, timeout: float = 120.0) -> FACPanelReference:
     return FACPanelReference(ions=ions, ionization_potentials_eV=ips)
 
 
+def load_fac_panel_reference_csv(path: Path = RESULTS_CSV) -> FACPanelReference:
+    """Load the committed W panel FAC fixture produced by live sfac runs."""
+    ions: dict[int, FACIonReference] = {}
+    ips: dict[int, float] = {}
+    with path.open(newline="") as f:
+        for row in csv.DictReader(f):
+            charge = int(row["charge"])
+            if charge in ions:
+                continue
+            ips[charge] = float(row["fac_ip_eV"])
+            ions[charge] = FACIonReference(
+                charge=charge,
+                electrons=Z_W - charge,
+                open_config=row["fac_open_config"],
+                e0_eV=float(row["fac_e0_eV"]),
+                n_levels=int(row["fac_levels"]),
+                n_transitions=int(row["fac_transitions"]),
+                transition_power_eVs=float(row["fac_transition_power_eVs"]),
+                elapsed_s=0.0,
+            )
+    missing = set(W_CHARGES) - set(ions)
+    if missing:
+        raise RuntimeError(f"incomplete FAC W fixture {path}: missing W charges {sorted(missing)}")
+    if max(W_CHARGES) + 1 not in ions:
+        last = max(W_CHARGES)
+        ions[last + 1] = FACIonReference(
+            charge=last + 1,
+            electrons=Z_W - (last + 1),
+            open_config=_fac_open_config(_ground_config_for_electrons(Z_W - (last + 1))),
+            e0_eV=ions[last].e0_eV + ips[last],
+            n_levels=0,
+            n_transitions=0,
+            transition_power_eVs=0.0,
+            elapsed_s=0.0,
+        )
+    return FACPanelReference(ions=ions, ionization_potentials_eV=ips)
+
+
 def _make_atom(charge: int, configs: list[str]) -> object:
     from atomx import Atom
 
@@ -338,7 +376,7 @@ def write_results_csv(
     fac_ref: FACPanelReference | None = None,
 ) -> dict[str, float]:
     if fac_ref is None:
-        fac_ref = run_fac_panel_reference()
+        fac_ref = load_fac_panel_reference_csv(path) if path.exists() else run_fac_panel_reference()
     path.parent.mkdir(parents=True, exist_ok=True)
     balance_errors = []
     cooling_ratios = []

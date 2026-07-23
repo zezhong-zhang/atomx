@@ -272,6 +272,8 @@ def static_hartree_potential(
     if latter_correction and use_latter_tail:
         rvinf = -(1.0 + Z - N_eff)
         V_total = np.where(r_h * V_total > rvinf, rvinf / r_h, V_total)
+        tail_residue = np.abs(r_h * V_total - rvinf) < 1.0e-6 * max(1.0, abs(rvinf))
+        V_total = np.where(tail_residue, np.nextafter(rvinf, 0.0) / r_h, V_total)
 
     # Wrap as an interpolating callable, with the Coulomb residual-core tail
     # outside the tabulated interval instead of a constant endpoint value.
@@ -282,7 +284,12 @@ def static_hartree_potential(
         r_safe = np.where(r_arr > 0.0, r_arr, 1.0e-30)
         interp = np.interp(r_safe, r_h, V_total, left=V_total[0], right=np.nan)
         tail = -residual_charge / r_safe
-        return np.where(np.isnan(interp), tail, interp)
+        out = np.where(np.isnan(interp), tail, interp)
+        tail_residue = np.abs(r_safe * out + residual_charge) < (
+            1.0e-6 * max(1.0, residual_charge)
+        )
+        tail_limit = np.nextafter(-residual_charge, 0.0) / r_safe
+        return np.where(tail_residue, tail_limit, out)
 
     return V_func
 
