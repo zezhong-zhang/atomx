@@ -17,26 +17,22 @@ def test_weak_charge_is_neutron_dominated():
     assert weak_charge_qw(55, 78) < -70.0
 
 
-def test_pnc_amplitude_runs_on_hydrogen():
-    """Low-level PNC amplitude runs on H 1s1/2 -> 2s1/2 (no p intermediate)."""
+def test_pnc_amplitude_scaffold_raises_on_hydrogen():
+    """Low-level PNC amplitude stays loud until the SOS implementation lands."""
     atom = Atom(Z=1, config="1s1", breit=False, qed=False)
     atom.solve()
-    # H has no p_{1/2} virtuals in a minimal basis, so this returns a
-    # PNCResult with zero amplitude (no intermediate states to sum over).
-    result = pnc_amplitude_dirac_only(atom._result, "1s1/2", "1s1/2", N=0)
-    assert result.E_pnc_au == 0.0
+    with pytest.raises(NotImplementedError, match="opposite-parity"):
+        pnc_amplitude_dirac_only(atom._result, "1s1/2", "1s1/2", N=0)
 
 
-def test_compute_pnc_high_level_api():
-    """High-level compute_pnc accepts a solved Atom and returns PNCResult."""
+def test_compute_pnc_high_level_api_scaffold_raises_not_typeerror():
+    """High-level compute_pnc preserves the scaffold raise contract."""
     from atomx.methods.pnc import compute_pnc
 
     atom = Atom(Z=3, config="1s2 2s1", breit=False, qed=False)
     atom.solve()
-    result = compute_pnc(atom, "2s1/2", "1s1/2", N=4)
-    assert hasattr(result, "E_pnc_au")
-    assert hasattr(result, "E_pnc_iea")
-    assert np.isfinite(result.E_pnc_au)
+    with pytest.raises(NotImplementedError, match="opposite-parity"):
+        compute_pnc(atom, "2s1/2", "1s1/2", N=4)
 
 
 def test_weak_hamiltonian_radial_me_runs_on_arrays():
