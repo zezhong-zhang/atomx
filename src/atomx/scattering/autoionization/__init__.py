@@ -189,7 +189,9 @@ def _coarse_auger_rate(
         rate = 0.0
     else:
         orbitals = getattr(result, "orbitals_dict", {})
-        bsp_data = getattr(result, "bsp_data", None) or getattr(result, "_bsp_data", None)
+        bsp_data = getattr(result, "bsp_data", None) or getattr(
+            result, "_bsp_data", None
+        )
         if not orbitals or not bsp_data:
             rate = 0.0
         else:
@@ -201,7 +203,11 @@ def _coarse_auger_rate(
             amplitude = 0.0
             if E_ha > 0.0:
                 if shooting_n_grid:
-                    from atomx.numerics.bspline.evaluate import compute_yk, eval_P, eval_Q
+                    from atomx.numerics.bspline.evaluate import (
+                        compute_yk,
+                        eval_P,
+                        eval_Q,
+                    )
                     from atomx.numerics.shooting.dirac_continuum import (
                         solve_dirac_continuum_shooting,
                     )
@@ -223,9 +229,7 @@ def _coarse_auger_rate(
                     def _grid_slater(P1, Q1, P2, Q2, P3, Q3, P4, Q4, k):
                         rho13 = P1 * P3 + Q1 * Q3
                         rho24 = P2 * P4 + Q2 * Q4
-                        y24 = compute_yk(
-                            rho24, gr, grw, bsp_data["nv"], gr.shape[1], k
-                        )
+                        y24 = compute_yk(rho24, gr, grw, bsp_data["nv"], gr.shape[1], k)
                         return float(np.sum(grw * rho13 * y24))
 
                 for kappa_eps in range(-int(kappa_max), int(kappa_max) + 1):
@@ -241,14 +245,21 @@ def _coarse_auger_rate(
                                 n_grid=int(shooting_n_grid),
                                 Z_residual=float(getattr(result, "Z", 0)),
                             )
-                            P_eps_g = np.interp(gr.ravel(), r_eps, P_eps_r).reshape(gr.shape)
-                            Q_eps_g = np.interp(gr.ravel(), r_eps, Q_eps_r).reshape(gr.shape)
+                            P_eps_g = np.interp(gr.ravel(), r_eps, P_eps_r).reshape(
+                                gr.shape
+                            )
+                            Q_eps_g = np.interp(gr.ravel(), r_eps, Q_eps_r).reshape(
+                                gr.shape
+                            )
                         except Exception:
                             continue
                     else:
                         try:
                             P_eps, Q_eps, _ = solve_continuum(
-                                kappa_eps, E_ha, int(getattr(result, "Z", 0)), bsp_data,
+                                kappa_eps,
+                                E_ha,
+                                int(getattr(result, "Z", 0)),
+                                bsp_data,
                                 energy_normalized=True,
                             )
                         except Exception:
@@ -266,21 +277,42 @@ def _coarse_auger_rate(
                             angular = float(np.sqrt(wa * wb))
                         else:
                             angular = cowan_grant_auger_B(
-                                source_key[1], source2_key[1], hole_key[1],
-                                kappa_eps, k, float(J_res), float(J_final),
+                                source_key[1],
+                                source2_key[1],
+                                hole_key[1],
+                                kappa_eps,
+                                k,
+                                float(J_res),
+                                float(J_final),
                             )
                             if abs(angular) < 1e-15:
                                 continue
                         if shooting_n_grid:
                             Rk = _grid_slater(
-                                Pa_g, Qa_g, Pb_g, Qb_g,
-                                Pc_g, Qc_g, P_eps_g, Q_eps_g, k,
+                                Pa_g,
+                                Qa_g,
+                                Pb_g,
+                                Qb_g,
+                                Pc_g,
+                                Qc_g,
+                                P_eps_g,
+                                Q_eps_g,
+                                k,
                             )
-                            amplitude += 2.0 * np.pi * angular ** 2 * Rk ** 2
+                            amplitude += 2.0 * np.pi * angular**2 * Rk**2
                         else:
                             amplitude += auger_rate_two_electron(
-                                P_a, Q_a, P_b, Q_b, P_c, Q_c, P_eps, Q_eps,
-                                angular_W=angular, k=k, bsp_data=bsp_data,
+                                P_a,
+                                Q_a,
+                                P_b,
+                                Q_b,
+                                P_c,
+                                Q_c,
+                                P_eps,
+                                Q_eps,
+                                angular_W=angular,
+                                k=k,
+                                bsp_data=bsp_data,
                                 method=slater_method,
                             )
                     for k in sorted(exchange_ks):
@@ -292,21 +324,44 @@ def _coarse_auger_rate(
                             angular = float(np.sqrt(wa * wb))
                         else:
                             angular = cowan_grant_auger_B(
-                                source2_key[1], source_key[1], hole_key[1],
-                                kappa_eps, k, float(J_res), float(J_final),
+                                source2_key[1],
+                                source_key[1],
+                                hole_key[1],
+                                kappa_eps,
+                                k,
+                                float(J_res),
+                                float(J_final),
                             )
                             if abs(angular) < 1e-15:
                                 continue
                         if shooting_n_grid:
                             Rk = _grid_slater(
-                                Pb_g, Qb_g, Pa_g, Qa_g,
-                                Pc_g, Qc_g, P_eps_g, Q_eps_g, k,
+                                Pb_g,
+                                Qb_g,
+                                Pa_g,
+                                Qa_g,
+                                Pc_g,
+                                Qc_g,
+                                P_eps_g,
+                                Q_eps_g,
+                                k,
                             )
-                            amplitude += exchange_sign * 2.0 * np.pi * angular ** 2 * Rk ** 2
+                            amplitude += (
+                                exchange_sign * 2.0 * np.pi * angular**2 * Rk**2
+                            )
                         else:
                             amplitude += exchange_sign * auger_rate_two_electron(
-                                P_b, Q_b, P_a, Q_a, P_c, Q_c, P_eps, Q_eps,
-                                angular_W=angular, k=k, bsp_data=bsp_data,
+                                P_b,
+                                Q_b,
+                                P_a,
+                                Q_a,
+                                P_c,
+                                Q_c,
+                                P_eps,
+                                Q_eps,
+                                angular_W=angular,
+                                k=k,
+                                bsp_data=bsp_data,
                                 method=slater_method,
                             )
                 if population_factor is None:
@@ -391,6 +446,7 @@ def auger_rate_level_resolved(
         energy_eV = float(resonance_energy_eV)
     elif energies is not None and len(energies) > int(state_index):
         from atomx.constants import HARTREE_EV
+
         energy_eV = float((energies[int(state_index)] - energies[0]) * HARTREE_EV)
     return _coarse_auger_rate(
         result,
@@ -430,6 +486,7 @@ def auger_rate_j_resolved(
         J_final=J_final,
         **kwargs,
     )
+
 
 __all__ = [
     "AutoionizationState",
