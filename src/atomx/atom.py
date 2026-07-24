@@ -85,44 +85,6 @@ def _resolve_numerics_exchange(numerics, exchange):
     return engine, model
 
 
-def _is_pure_point_hydrogenic(atom) -> bool:
-    return (
-        not atom._multi_config
-        and atom.nuclear == "point"
-        and atom.exchange_model == "hf"
-        and not atom.breit
-        and not atom.qed
-        and atom.correction_stack is None
-    )
-
-
-def _canonicalize_point_hydrogenic_energies(atom, result) -> None:
-    """Use the exact Sommerfeld energies for pure one-electron point ions."""
-    if result is None or not _is_pure_point_hydrogenic(atom):
-        return
-
-    subshells = list(getattr(result, "subshells", ()))
-    if abs(sum(sh.occupation for sh in subshells) - 1.0) > 1.0e-12:
-        return
-
-    from atomx.physics.dirac import hydrogenic_dirac_energy
-
-    exact_energies = {
-        sh.label: hydrogenic_dirac_energy(sh.n, sh.kappa, atom.Z)
-        for sh in subshells
-    }
-    result.orbital_energies.update(exact_energies)
-    total_energy = sum(
-        sh.occupation * exact_energies[sh.label] for sh in subshells
-    )
-    result.total_energy = total_energy
-    components = getattr(result, "energy_components", None)
-    if isinstance(components, dict):
-        components["E_1e"] = total_energy
-        if len(components) == 1 or "E_total" in components:
-            components["E_total"] = total_energy
-
-
 class Atom:
     """High-level interface for atomic structure calculations.
 
@@ -710,7 +672,6 @@ class Atom:
         # broke them — provenance lives on result.provenance /
         # Atom.provenance only.
         if self._result is not None:
-            _canonicalize_point_hydrogenic_energies(self, self._result)
             # ``averaging`` records what actually ran, not what was
             # requested: multi-config MCDHF is inherently Guerra-CI;
             # slater/gu default-ci fell back to statistical (see the
