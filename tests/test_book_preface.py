@@ -17,15 +17,19 @@ def test_hydrogen_dirac_1s_eleven_digits():
     # state to eleven digits has no business computing tungsten."
     # Both engines must deliver the point-nucleus H 1s eigenvalue to 1e-11
     # relative against the Sommerfeld formula.
-    from atomx import Atom
+    from atomx import Atom, Sampling
     from atomx.constants import ALPHA, C
 
     exact = C ** 2 * (np.sqrt(1.0 - ALPHA ** 2) - 1.0)  # -0.5000066565953 Eh
     for numerics in ("bspline", "shooting"):
         # The claim is against the PURE analytic Dirac eigenvalue —
-        # run correction-free (breit/qed default True in Atom).
+        # run correction-free (breit/qed default True in Atom).  This is
+        # a publication-precision claim, not a default-grid smoke test:
+        # keep the assertion engine-facing while selecting the documented
+        # high-accuracy sampling tier explicitly.
         result = Atom(Z=1, nuclear="point", numerics=numerics,
-                      breit=False, qed=False).solve()
+                      breit=False, qed=False,
+                      sampling=Sampling.publication).solve()
         e = result.orbital_energies["1s1/2"]
         assert abs(e / exact - 1.0) < 1e-11, numerics
 

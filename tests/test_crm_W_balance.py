@@ -12,9 +12,12 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "benchmarks"))
 
+import bench_fac_crm_W as bench_w  # noqa: E402
 from bench_fac_crm_W import (  # noqa: E402
     BALANCE_TEV,
     COOLING_TEV,
+    FACIonReference,
+    FACPanelReference,
     RESULTS_CSV,
     W_CHARGES,
     build_w_ion_fixture,
@@ -23,6 +26,34 @@ from bench_fac_crm_W import (  # noqa: E402
     tungsten_cooling_rate,
     write_results_csv,
 )
+
+
+def _load_committed_fac_panel_reference(path: Path = RESULTS_CSV) -> FACPanelReference:
+    """Load the committed FAC-derived W panel fixture for CI-safe tests."""
+    ions: dict[int, FACIonReference] = {}
+    ips: dict[int, float] = {}
+    with path.open(newline="") as f:
+        for row in csv.DictReader(f):
+            charge = int(row["charge"])
+            if charge in ions:
+                continue
+            ips[charge] = float(row["fac_ip_eV"])
+            ions[charge] = FACIonReference(
+                charge=charge,
+                electrons=bench_w.Z_W - charge,
+                open_config=row["fac_open_config"],
+                e0_eV=float(row["fac_e0_eV"]),
+                n_levels=int(row["fac_levels"]),
+                n_transitions=int(row["fac_transitions"]),
+                transition_power_eVs=float(row["fac_transition_power_eVs"]),
+                elapsed_s=0.0,
+            )
+    missing = set(W_CHARGES) - set(ions)
+    if missing:
+        raise RuntimeError(
+            f"incomplete FAC W fixture {path}: missing W charges {sorted(missing)}"
+        )
+    return FACPanelReference(ions=ions, ionization_potentials_eV=ips)
 
 
 def test_w_panel_has_expected_charge_states_and_configs():
@@ -35,16 +66,18 @@ def test_w_panel_has_expected_charge_states_and_configs():
         assert item.crm.charge == item.charge
 
 
-def test_w_fractional_abundance_gate_against_fac_fixture():
-    metrics = write_results_csv(RESULTS_CSV)
+def test_w_fractional_abundance_gate_against_fac_fixture(tmp_path):
+    fac_ref = _load_committed_fac_panel_reference()
+    out = tmp_path / "w.csv"
+    metrics = write_results_csv(out, fac_ref=fac_ref)
     # NOTE: the atomx fractional-abundance column is a verbatim copy of the FAC
     # fixture (see bench_fac_crm_W: `abund = dict(fac_abund)`), so the rms is
     # identically 0 — asserting `rms <= 0.30` validates nothing about atomx and
-    # is intentionally NOT checked here. The remaining assertions validate that
-    # the FAC fixture itself is real (sfac Structure/TransitionTable output).
-    assert metrics["fac_structure_runs"] == 9.0
+    # is intentionally NOT checked here. The remaining assertions validate the
+    # committed FAC-derived fixture without requiring sfac in ordinary CI.
+    assert metrics["fac_structure_runs"] == float(len(W_CHARGES))
     assert metrics["fac_transition_rows"] > 0.0
-    with RESULTS_CSV.open() as f:
+    with out.open() as f:
         rows = list(csv.DictReader(f))
     assert len(rows) == len(BALANCE_TEV) * len(W_CHARGES)
     for row in rows:
@@ -55,6 +88,22 @@ def test_w_fractional_abundance_gate_against_fac_fixture():
         assert float(row["fac_transition_power_eVs"]) > 0.0
         assert row["fac_source"].startswith("sfac Structure/TransitionTable/PrintTable")
         assert row["adas_fraction"] == ""
+
+
+def test_w_results_writer_defaults_to_live_fac_reference(monkeypatch, tmp_path):
+    """The benchmark default stays live-FAC; tests must inject fixtures explicitly."""
+    fac_ref = _load_committed_fac_panel_reference()
+    calls = 0
+
+    def fake_live_fac_reference() -> FACPanelReference:
+        nonlocal calls
+        calls += 1
+        return fac_ref
+
+    monkeypatch.setattr(bench_w, "run_fac_panel_reference", fake_live_fac_reference)
+    metrics = bench_w.write_results_csv(tmp_path / "w.csv")
+    assert calls == 1
+    assert metrics["fac_transition_rows"] > 0.0
 
 
 @pytest.mark.skip(
