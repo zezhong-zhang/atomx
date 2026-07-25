@@ -66,13 +66,14 @@ class EIIContinuumError(RuntimeError):
     def __init__(self, failures):
         self.failures = tuple(failures)
         details = "; ".join(
-            ", ".join(f"{k}={v}" for k, v in failure.items())
+            _format_failure_detail(failure)
             for failure in self.failures[:8]
         )
         if len(self.failures) > 8:
             details += f"; ... {len(self.failures) - 8} more"
         super().__init__(
-            f"DW EII continuum failed for {len(self.failures)} required wave(s): {details}"
+            "DW EII fail-closed continuum failed for "
+            f"{len(self.failures)} required wave(s): {details}"
         )
 
 
@@ -108,25 +109,22 @@ def _validate_eii_inputs(
         )
     if not check_dw_knobs:
         return energies_arr
-    if int(kappa_max) != kappa_max or int(kappa_max) < 1:
-        raise EIIInputError(f"kappa_max must be a positive integer, got {kappa_max!r}")
-    if int(n_outgoing_energies) != n_outgoing_energies or int(n_outgoing_energies) < 1:
-        raise EIIInputError(
-            "n_outgoing_energies must be a positive integer, "
-            f"got {n_outgoing_energies!r}"
-        )
-    if int(kappa_max) > EII_KAPPA_MAX_LIMIT:
+    kappa_max_i = _validate_eii_positive_int(kappa_max, "kappa_max")
+    n_outgoing_i = _validate_eii_positive_int(
+        n_outgoing_energies, "n_outgoing_energies"
+    )
+    if kappa_max_i > EII_KAPPA_MAX_LIMIT:
         raise EIIInputError(
             f"kappa_max must be <= {EII_KAPPA_MAX_LIMIT}, got {kappa_max!r}"
         )
-    if int(n_outgoing_energies) > EII_N_OUTGOING_ENERGIES_LIMIT:
+    if n_outgoing_i > EII_N_OUTGOING_ENERGIES_LIMIT:
         raise EIIInputError(
             "n_outgoing_energies must be <= "
             f"{EII_N_OUTGOING_ENERGIES_LIMIT}, got {n_outgoing_energies!r}"
         )
     if check_continuum_work:
-        n_kappa_bound = 2 * int(kappa_max) + 1
-        energies_needed_bound = _continuum_energies_needed_bound(n_outgoing_energies)
+        n_kappa_bound = 2 * kappa_max_i + 1
+        energies_needed_bound = _continuum_energies_needed_bound(n_outgoing_i)
         work_surface = energies_arr.size * n_kappa_bound * energies_needed_bound
         if work_surface > EII_MAX_CONTINUUM_REQUEST_SURFACE:
             raise EIIInputError(
@@ -160,8 +158,54 @@ def _validate_jit_slater_values(Rd, Re, *, context: str):
 
 def _failure_record(reason, **context):
     out = {k: v for k, v in context.items() if v is not None}
+    if "r_max" in out:
+        out.setdefault("r_max_a0", out["r_max"])
+    if "n_shoot" in out:
+        out.setdefault("shooting_n_grid", int(out["n_shoot"]))
+    if "energy_au" in out:
+        out.setdefault("energy_eV", float(out["energy_au"]) * HARTREE_EV)
     out["reason"] = str(reason)
     return out
+
+
+def _validate_eii_positive_int(value: Any, name: str) -> int:
+    if isinstance(value, bool):
+        raise EIIInputError(f"{name} must be a positive integer, got {value!r}")
+    try:
+        finite = np.isfinite(float(value))
+    except (TypeError, ValueError) as exc:
+        raise EIIInputError(
+            f"{name} must be a positive integer, got {value!r}"
+        ) from exc
+    if not finite:
+        raise EIIInputError(f"{name} must be a finite integer, got {value!r}")
+    ivalue = int(value)
+    if ivalue != value or ivalue < 1:
+        raise EIIInputError(f"{name} must be a positive integer, got {value!r}")
+    return ivalue
+
+
+def _format_failure_detail(failure):
+    priority = (
+        "kappa",
+        "energy_eV",
+        "energy_au",
+        "r_max_a0",
+        "shooting_n_grid",
+        "kappa_max",
+        "stage",
+        "orbital",
+        "incident_energy_eV",
+        "reason",
+    )
+    seen = set()
+    parts = []
+    for key in priority:
+        if key in failure:
+            parts.append(f"{key}={failure[key]}")
+            seen.add(key)
+    parts.extend(f"{k}={v}" for k, v in failure.items() if k not in seen)
+    return ", ".join(parts)
 
 
 # ---------------------------------------------------------------------------
@@ -1010,7 +1054,11 @@ def _eii_dw_total(
                     fail_closed=not allow_partial,
                     return_failures=allow_partial)
                 if allow_partial:
-                    _r_s, raw, failures = batch
+                    if len(batch) == 3:
+                        _r_s, raw, failures = batch
+                    else:
+                        _r_s, raw = batch
+                        failures = ()
                     for kap, E, reason in failures:
                         _log.debug(
                             "EII continuum failure (%s): %s",
@@ -1067,6 +1115,8 @@ def _eii_dw_total(
                             energy_au=float(E),
                         )
                         cont_cache[key] = None
+            except EIIContinuumError:
+                raise
             except Exception as exc:
                 _log.debug(
                     "EII continuum failure (%s): %r",
