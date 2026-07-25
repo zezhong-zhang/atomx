@@ -249,6 +249,22 @@ class TestDRDriver:
         assert rc.resonances[0].gamma_auger_per_s == pytest.approx(3.0e12)
         assert rc.resonances[0].a_radiative_per_s == pytest.approx(4.0e11)
 
+    def test_dr_calculate_surfaces_manifold_continuum_failure(self, monkeypatch):
+        from atomx.scattering.autoionization import AugerContinuumError
+        from atomx.scattering.dielectronic_recombination import solver
+
+        def fail_manifold_states(_atom):
+            raise AugerContinuumError(kappa=-1, energy_au=1.0, parity=1)
+
+        monkeypatch.setattr(solver, "_dr33_manifold_states", fail_manifold_states)
+
+        with pytest.raises(AugerContinuumError, match="Auger continuum failed"):
+            solver.dr_calculate(
+                _SolvedFakeIon(),
+                "1s2 2s2 2p6 3s1",
+                T_eV=300.0,
+            )
+
     def test_dr_calculate_without_hooks_raises_for_unsupported_input(self):
         """Non-Ne-like / unsolved inputs must fail loudly, not fall back to
         the old hydrogenic-width placeholders (rms 19610 vs FAC)."""

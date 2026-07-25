@@ -3,6 +3,7 @@
 import numpy as np
 import pytest
 
+from atomx.numerics import quadrature
 from atomx.numerics.bspline.knots import (
     make_continuum_knots,
     make_physics_knots,
@@ -66,6 +67,18 @@ def test_validates_inputs():
         make_continuum_knots(ks=9, Z=0, k_max_au=10.0)
     with pytest.raises(ValueError):
         make_continuum_knots(ks=9, Z=10, k_max_au=10.0, r_max=0.0)
+
+
+def test_make_fine_grid_cap_raises_with_context():
+    quadrature._fine_grid_cached.cache_clear()
+    try:
+        with pytest.raises(
+            quadrature.RadialGridResourceError,
+            match=r"required_points>=\d+.*cap=64.*p=.*r_max",
+        ):
+            quadrature.make_fine_grid(50.0, 20.0, z_inner=10.0, max_points=64)
+    finally:
+        quadrature._fine_grid_cached.cache_clear()
 
 
 def test_monotonic_knots():

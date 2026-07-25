@@ -12,6 +12,7 @@ for neutral/near-neutral atoms where channel coupling is important.
 Reference: Gu, Can. J. Phys. 86, 675 (2008) - FAC DW formulation
 """
 
+import logging
 import math
 from functools import lru_cache
 
@@ -22,6 +23,7 @@ from atomx.numerics.bspline.continuum import solve_continuum
 from atomx.numerics.bspline.convol import ConvolCache, compute_slater_rk_cell
 from atomx.numerics.bspline.evaluate import eval_P, eval_Q, compute_yk
 from atomx.numerics.shooting.dirac_continuum import (
+    ContinuumBatchError,
     solve_dirac_continuum_many,
     solve_dirac_continuum_shooting,
 )
@@ -34,6 +36,8 @@ from atomx.angular.wigner import wigner_3j, wigner_6j
 from atomx.methods.mcdhf.config import CSF
 from atomx.scattering._jit_kernels import dw_excitation_angular_sum
 
+_log = logging.getLogger("atomx.scattering.distorted_wave.solver")
+
 
 def _l_of(kappa):
     """Orbital angular momentum l from kappa."""
@@ -43,6 +47,23 @@ def _l_of(kappa):
 def _tj_of(kappa):
     """Twice-j from kappa."""
     return 2 * abs(kappa) - 1
+
+
+class DWExcitationContinuumError(RuntimeError):
+    """Required continuum wave generation failed for DW excitation."""
+
+    def __init__(self, failures):
+        self.failures = tuple(failures)
+        details = "; ".join(
+            ", ".join(f"{k}={v}" for k, v in failure.items())
+            for failure in self.failures[:8]
+        )
+        if len(self.failures) > 8:
+            details += f"; ... {len(self.failures) - 8} more"
+        super().__init__(
+            "DW excitation continuum failed for "
+            f"{len(self.failures)} required wave(s): {details}"
+        )
 
 
 # Reduced matrix element ⟨κ_a‖C^k‖κ_b⟩, Grant (2007) convention.
@@ -344,7 +365,9 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
                                  continuum_method="shooting",
                                  shooting_n_grid=None,
                                  exchange=True,
-                                 topup=True):
+                                 topup=True,
+                                 partial=False,
+                                 diagnostic=False):
     """Electron-impact excitation cross-section sigma(E) and collision strength.
 
     Relativistic distorted-wave implementation following FAC exactly
@@ -402,6 +425,12 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
         Include the exchange amplitude (FAC's ``se``).  Default True.
     topup : bool
         Add the geometric high-l tail per multipole rank.  Default True.
+    partial : bool
+        Continue when required continuum waves fail.  Failed channels are
+        omitted and the two-array return shape is preserved.
+    diagnostic : bool
+        Compatibility alias for ``partial`` that also returns a third
+        provenance dict containing ``continuum_failures``.
 
     Returns
     -------
@@ -414,6 +443,8 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
         raise ValueError("L_max must be non-negative")
     if kappa_max < 1:
         raise ValueError("kappa_max must be positive")
+    allow_partial = bool(partial or diagnostic)
+    continuum_failures = []
 
     energies_eV = np.atleast_1d(np.asarray(energies_eV, dtype=float))
 
@@ -518,18 +549,57 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
         E_out = max(E_out, E_OUT_MIN)
 
         cont = {}
+
+        def _failure(reason, **context):
+            rec = {k: v for k, v in context.items() if v is not None}
+            rec["reason"] = str(reason)
+            rec["energy_index"] = int(idx)
+            rec["incident_energy_eV"] = float(energies_eV[idx])
+            return rec
+
+        def _record_or_raise(reason, **context):
+            rec = _failure(reason, **context)
+            if allow_partial:
+                continuum_failures.append(rec)
+                return None
+            raise DWExcitationContinuumError([rec])
+
         # Thread-parallel prefill of all partial waves at both energies
         # (doutw is nogil; each solve is ms-scale — the right thread grain).
         try:
             reqs = ([(k, E_inc) for k in kappa_list]
                     + [(k, E_out) for k in kappa_list])
-            _r_s, raw = solve_dirac_continuum_many(
+            batch = solve_dirac_continuum_many(
                 reqs, V_func, r_max=r_max_box, n_grid=n_shoot,
-                Z_residual=Z_res, interp_grid=r_fine)
+                Z_residual=Z_res, interp_grid=r_fine,
+                fail_closed=not allow_partial,
+                return_failures=allow_partial)
+            if allow_partial:
+                _r_s, raw, failures = batch
+                for kap, E, reason in failures:
+                    _log.debug(
+                        "DW excitation continuum failure (%s): %s",
+                        "continuum_batch_failed",
+                        reason,
+                    )
+                    continuum_failures.append(_failure(
+                        "continuum_batch_failed",
+                        stage="batch_prefill",
+                        kappa=int(kap),
+                        energy_au=float(E),
+                    ))
+            else:
+                _r_s, raw = batch
             for (kap, E), pq in raw.items():
                 cont[(int(kap), round(float(E), 12))] = pq
-        except Exception:
-            cont = {}
+        except ContinuumBatchError as exc:
+            _log.debug(
+                "DW excitation continuum failure (%s): %r",
+                "continuum_batch_failed",
+                exc,
+                exc_info=True,
+            )
+            _record_or_raise("continuum_batch_failed", stage="batch_prefill")
 
         def _wave(kappa, E):
             key = (int(kappa), round(float(E), 12))
@@ -538,7 +608,19 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
                     cont[key] = _continuum_on_grid(
                         int(kappa), float(E), V_func, Z_res,
                         r_fine, r_max_box, n_shoot)
-                except Exception:
+                except Exception as exc:  # noqa: BLE001 - surfaced with DW context
+                    _log.debug(
+                        "DW excitation continuum failure (%s): %r",
+                        "continuum_wave_solve_failed",
+                        exc,
+                        exc_info=True,
+                    )
+                    _record_or_raise(
+                        "continuum_wave_solve_failed",
+                        stage="single_wave",
+                        kappa=int(kappa),
+                        energy_au=float(E),
+                    )
                     cont[key] = None
             return cont[key]
 
@@ -637,6 +719,11 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
             sigma_au[idx] = math.pi / p_i_sq * om / g_i
 
     sigma = sigma_au * (BOHR_RADIUS_M * 100) ** 2
+    if diagnostic:
+        return sigma, omega, {
+            "partial_mode": allow_partial,
+            "continuum_failures": continuum_failures,
+        }
     return sigma, omega
 
 

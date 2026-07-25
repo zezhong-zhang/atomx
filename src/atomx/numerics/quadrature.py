@@ -41,6 +41,9 @@ class GridResourceError(RuntimeError):
     """Raised when a requested scattering quadrature grid exceeds its cap."""
 
 
+RadialGridResourceError = GridResourceError
+
+
 def p_rel(E_au):
     """Relativistic momentum p = sqrt(2E + (E/c)^2) in a.u."""
     return math.sqrt(2.0 * E_au + (E_au * E_au) / C_SQ)
@@ -352,6 +355,7 @@ def grid_slater_rk(P_a, Q_a, P_b, Q_b, P_c, Q_c, P_d, Q_d, r_grid, k):
 
 __all__ = [
     "GridResourceError",
+    "RadialGridResourceError",
     "make_fine_grid",
     "grid_slater_rk",
     "yk_on_grid",
