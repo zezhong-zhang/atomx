@@ -721,6 +721,7 @@ def _eii_dw_total(
     from atomx.constants import HARTREE_EV as _HEV
     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
     from atomx.numerics.shooting.dirac_continuum import (
+        ContinuumBatchError,
         solve_dirac_continuum_many,
     )
     from atomx.numerics.quadrature import (
@@ -1117,6 +1118,30 @@ def _eii_dw_total(
                         cont_cache[key] = None
             except EIIContinuumError:
                 raise
+            except ContinuumBatchError as exc:
+                _log.debug(
+                    "EII continuum failure (%s): %r",
+                    "continuum_batch_failed",
+                    exc,
+                    exc_info=True,
+                )
+                if exc.failures:
+                    kap, E, _reason = exc.failures[0]
+                    _record_or_raise(
+                        "continuum_batch_failed",
+                        stage="batch_prefill",
+                        orbital=sh.label,
+                        incident_energy_eV=float(E_i_eV),
+                        kappa=int(kap),
+                        energy_au=float(E),
+                    )
+                else:
+                    _record_or_raise(
+                        "continuum_batch_failed",
+                        stage="batch_prefill",
+                        orbital=sh.label,
+                        incident_energy_eV=float(E_i_eV),
+                    )
             except Exception as exc:
                 _log.debug(
                     "EII continuum failure (%s): %r",

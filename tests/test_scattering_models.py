@@ -6,7 +6,9 @@ import numpy as np
 import pytest
 
 from atomx import Atom
+from atomx.constants import HARTREE_EV
 from atomx.numerics.quadrature import GridResourceError, make_fine_grid
+from atomx.numerics.shooting.dirac_continuum import ContinuumBatchError
 from atomx.scattering import ContinuumModel, PotentialModel
 from atomx.scattering.distorted_wave.solver import (
     _extract_scf_potential,
@@ -102,6 +104,50 @@ def test_eii_dw_batch_wave_failure_fails_closed(monkeypatch):
             kappa_max=1,
             n_outgoing_energies=3,
         )
+
+
+def test_eii_dw_batch_error_preserves_sanitized_structured_context(monkeypatch):
+    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom.solve()
+    raw_reason = "/secret/path/token=abc123 continuum stack trace"
+
+    def fail_many(*args, **kwargs):
+        raise ContinuumBatchError([(-1, 1.0, raw_reason)])
+
+    monkeypatch.setattr(
+        "atomx.numerics.shooting.dirac_continuum.solve_dirac_continuum_many",
+        fail_many,
+    )
+
+    with pytest.raises(RuntimeError) as exc_info:
+        eii_cross_section(
+            atom._result,
+            np.array([100.0]),
+            method="DW",
+            kappa_max=1,
+            n_outgoing_energies=3,
+        )
+
+    message = str(exc_info.value)
+    assert "continuum_batch_failed" in message
+    assert "kappa=-1" in message
+    assert "energy_au=1.0" in message
+    assert "energy_eV=" in message
+    assert "r_max_a0=" in message
+    assert "shooting_n_grid=" in message
+    assert raw_reason not in message
+    assert "/secret/path" not in message
+    assert "token=abc123" not in message
+
+    failure = exc_info.value.failures[0]
+    assert failure["reason"] == "continuum_batch_failed"
+    assert failure["kappa"] == -1
+    assert failure["energy_au"] == pytest.approx(1.0)
+    assert failure["energy_eV"] == pytest.approx(HARTREE_EV)
+    assert "r_max_a0" in failure
+    assert "shooting_n_grid" in failure
+    assert raw_reason not in str(failure)
+    assert "token=abc123" not in str(failure)
 
 
 def test_eii_dw_diagnostic_mode_reports_skipped_waves(monkeypatch):
