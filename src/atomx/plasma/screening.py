@@ -232,6 +232,32 @@ def screening_potential_matrix(V_func, Z, bsp_data):
     return V_PP, V_QQ
 
 
+def _stewart_pyatt_ipd_au(Z_ion, lam_D, R_IS):
+    """Continuous Stewart-Pyatt IPD in Hartree.
+
+    Stewart-Pyatt writes the continuum lowering as
+    ``3 Z e^2 / (2 R) * ((1 + (lambda_D/R)^3)^(2/3)
+    - (lambda_D/R)^2)``.  With this module's ``u = R/lambda_D``,
+    the equivalent form is
+    ``3 Z / (2 lambda_D) * (((1 + u^3)^(2/3) - 1) / u^3)``.
+    It tends to ``Z/lambda_D`` for ``u -> 0`` and ``3Z/(2R)`` for
+    ``u -> inf`` without any branch point in the physical range.
+    """
+    if not (Z_ion > 0 and lam_D > 0 and R_IS > 0):
+        return 0.0
+    if not (np.isfinite(lam_D) and np.isfinite(R_IS)):
+        return 0.0
+
+    u = R_IS / lam_D
+    if u == 0.0:
+        return Z_ion / lam_D
+    if u < 1e-5:
+        ratio = (2.0 / 3.0) - (1.0 / 9.0) * u ** 3
+    else:
+        ratio = np.expm1((2.0 / 3.0) * np.log1p(u ** 3)) / u ** 3
+    return 1.5 * Z_ion / lam_D * ratio
+
+
 def ionization_potential_depression(Z_ion, ne_cm3, Te_eV, model='stewart_pyatt'):
     """Ionization potential depression (IPD) from plasma screening.
 
@@ -267,18 +293,7 @@ def ionization_potential_depression(Z_ion, ne_cm3, Te_eV, model='stewart_pyatt')
     elif model == 'stewart_pyatt':
         lam_D = debye_length(ne_cm3, Te_eV)
         R_IS = ion_sphere_radius(Z_ion, ne_cm3)
-        if lam_D > 0 and R_IS > 0:
-            u = R_IS / lam_D
-            # SP interpolation
-            if u < 0.1:
-                IPD_au = Z_ion / lam_D
-            elif u > 10:
-                IPD_au = 1.5 * Z_ion / R_IS
-            else:
-                lam_eff = lam_D * np.sqrt(max((1 + u ** 3) ** (2.0 / 3.0) - u ** 2, 0.01))
-                IPD_au = Z_ion / lam_eff
-        else:
-            IPD_au = 0.0
+        IPD_au = _stewart_pyatt_ipd_au(Z_ion, lam_D, R_IS)
     else:
         raise ValueError(f"Unknown model: {model}")
 
