@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from itertools import combinations_with_replacement
-from typing import cast
+from typing import Protocol, cast, runtime_checkable
 
 import numpy as np
 from numpy.typing import NDArray
@@ -30,8 +30,15 @@ __all__ = [
     "TwoHoleCSF",
     "TwoHoleFinalState",
     "CoreHoleState",
+    "AugerStick",
+    "AugerTransitionAmplitude",
+    "ContinuumChannel",
+    "DiscreteMOContinuumChannel",
+    "SpectrumResult",
     "enumerate_two_hole_csfs",
     "local_valence_active_space",
+    "molecular_auger_spectrum",
+    "molecular_auger_transition_amplitude",
     "molecular_auger_final_states",
     "molecular_auger_initial_state",
 ]
@@ -175,6 +182,123 @@ class CoreHoleState:
     def occupation_delta(self) -> float:
         """Occupation change, ``occupation_after - occupation_before``."""
         return float(self.occupation_after - self.occupation_before)
+
+
+@runtime_checkable
+class ContinuumChannel(Protocol):
+    """Replaceable continuum-electron channel for molecular Auger kernels.
+
+    The v1 implementations deliberately expose coefficients in the provider
+    MO basis; later D-1 residual-ion continuum solvers can satisfy the same
+    Protocol while producing physically energy-normalized scattering waves.
+    """
+
+    label: str
+    approximations: tuple[str, ...]
+
+    def coefficients(
+        self,
+        payload: ElectronicStructurePayload,
+        kinetic_energy: float,
+    ) -> NDArray[np.float64]:
+        """Return continuum coefficients in the payload MO basis."""
+        ...
+
+
+@dataclass(frozen=True)
+class DiscreteMOContinuumChannel:
+    """Unit-normalized virtual-MO placeholder for the outgoing Auger electron.
+
+    This is a degradation path, not a scattering solution.  It is useful for
+    wiring and testing the ERI/direct-exchange contract until the residual-ion
+    energy-normalized continuum solver is available.
+    """
+
+    mo_index: int | None = None
+    label: str = "discrete-mo-continuum-v1"
+    approximations: tuple[str, ...] = (
+        "continuum:discrete-mo-v1-replaceable",
+        "continuum:not-energy-normalized",
+    )
+
+    def coefficients(
+        self,
+        payload: ElectronicStructurePayload,
+        kinetic_energy: float,
+    ) -> NDArray[np.float64]:
+        if kinetic_energy <= 0.0:
+            raise ProviderContractError("continuum kinetic energy must be positive")
+        if payload.orbitals is None:
+            raise ProviderContractError("MO continuum channel requires MO coefficients")
+        n_mo = payload.orbitals.n_mo
+        index = self.mo_index
+        if index is None:
+            virtual = np.flatnonzero(payload.orbitals.occupations <= 1e-8)
+            if virtual.size == 0:
+                raise ProviderContractError(
+                    "discrete MO continuum channel requires an unoccupied MO "
+                    "or an explicit mo_index"
+                )
+            index = int(virtual[0])
+        if index < 0 or index >= n_mo:
+            raise ProviderContractError("continuum mo_index is outside the MO range")
+        coeff = np.zeros(n_mo, dtype=float)
+        coeff[index] = 1.0
+        return coeff
+
+
+@dataclass(frozen=True)
+class AugerTransitionAmplitude:
+    """Direct/exchange components and antisymmetrized Auger amplitude."""
+
+    direct: float
+    exchange: float
+    amplitude: float
+    selection_rule: str = "allowed"
+
+    @property
+    def rate_sum_intensity(self) -> float:
+        """Incorrect incoherent reference, exposed only for tests/audits."""
+        return float(self.direct * self.direct + self.exchange * self.exchange)
+
+    @property
+    def coherent_intensity(self) -> float:
+        """Correct I3 intensity: ``|direct - exchange|^2``."""
+        return float(self.amplitude * self.amplitude)
+
+
+@dataclass(frozen=True)
+class AugerStick:
+    """One kinetic-energy Auger stick line."""
+
+    kinetic_energy: float
+    intensity: float
+    raw_intensity: float
+    amplitude: AugerTransitionAmplitude
+    initial_state: CoreHoleState
+    final_state: TwoHoleFinalState
+    continuum_label: str
+    provenance: Provenance
+
+
+@dataclass(frozen=True)
+class SpectrumResult:
+    """Auger kinetic-energy stick spectrum with provenance aggregation."""
+
+    lines: tuple[AugerStick, ...]
+    dropped: tuple[dict[str, str], ...]
+    provenance: tuple[Provenance, ...]
+    axis: str = "kinetic_energy"
+    axis_unit: str = "hartree"
+    intensity_unit: str = "sum_rule_normalized_probability"
+
+    @property
+    def kinetic_energies(self) -> tuple[float, ...]:
+        return tuple(line.kinetic_energy for line in self.lines)
+
+    @property
+    def intensities(self) -> tuple[float, ...]:
+        return tuple(line.intensity for line in self.lines)
 
 
 def molecular_auger_initial_state(
@@ -554,6 +678,220 @@ def molecular_auger_final_states(
             )
         )
     return tuple(final_states)
+
+
+def _mo_index_from_label(label: str) -> int:
+    if not label.startswith("MO"):
+        raise ProviderContractError(f"expected an MO label, got {label!r}")
+    try:
+        return int(label[2:])
+    except ValueError as exc:
+        raise ProviderContractError(f"invalid MO label {label!r}") from exc
+
+
+def _mo_eri(payload: ElectronicStructurePayload) -> NDArray[np.float64]:
+    payload.require(Capability.TWO_ELECTRON_INTEGRALS, Capability.MO_COEFFICIENTS)
+    if payload.two_electron is None or payload.orbitals is None:
+        raise ProviderContractError("molecular Auger amplitudes require ERIs and MOs")
+    eri = payload.two_electron.eri
+    if payload.two_electron.notation != "chemist":
+        raise ProviderContractError("molecular Auger requires chemist ERI notation")
+    if payload.two_electron.basis == "mo":
+        return cast(NDArray[np.float64], eri)
+    if payload.two_electron.basis != "ao":
+        raise ProviderContractError("two-electron integral basis must be 'ao' or 'mo'")
+    C = payload.orbitals.coefficients
+    return cast(
+        NDArray[np.float64],
+        np.einsum("pa,qb,rc,sd,pqrs->abcd", C, C, C, C, eri, optimize=True),
+    )
+
+
+def _line_provenance(
+    provenance: Provenance,
+    final_state: str,
+    continuum_channel: ContinuumChannel,
+    *,
+    sum_rule_normalized: bool,
+) -> Provenance:
+    approximations = (
+        *continuum_channel.approximations,
+        "direct-minus-exchange-amplitude",
+        "independent-particle-auger-strength",
+    )
+    if sum_rule_normalized:
+        approximations = (*approximations, "sum-rule-total-stick-normalization")
+    return _copy_provenance_with(
+        provenance,
+        final_state=final_state,
+        approximations=approximations,
+    )
+
+
+def molecular_auger_transition_amplitude(
+    payload: ElectronicStructurePayload,
+    initial_state: CoreHoleState,
+    final_state: TwoHoleFinalState,
+    continuum_channel: ContinuumChannel | None = None,
+) -> AugerTransitionAmplitude:
+    """Compute one molecular Auger amplitude from provider ERIs.
+
+    Direct and exchange are combined as ``direct - exchange`` before squaring
+    (ADR I3).  Triplet two-hole states are currently spin-forbidden in the
+    closed-shell non-SOC v1 path and return an exactly zero amplitude rather
+    than an incoherent rate.
+    """
+
+    if final_state.spin_multiplicity != 1:
+        return AugerTransitionAmplitude(
+            direct=0.0,
+            exchange=0.0,
+            amplitude=0.0,
+            selection_rule="spin-forbidden-non-soc-v1",
+        )
+    channel = continuum_channel or DiscreteMOContinuumChannel()
+    kinetic_energy = initial_state.initial_energy - final_state.final_energy
+    coeff = channel.coefficients(payload, kinetic_energy)
+    eri = _mo_eri(payload)
+    orbitals = payload.orbitals
+    if orbitals is None:
+        raise ProviderContractError("molecular Auger amplitudes require MOs")
+    if coeff.shape != (orbitals.n_mo,):
+        raise ProviderContractError(
+            "continuum coefficient vector must have length orbitals.n_mo"
+        )
+    core = _tracked_core_mo_index(payload.metadata.get("core_hole"), orbitals.n_mo)
+    hole_i, hole_j = (
+        _mo_index_from_label(label) for label in final_state.hole_orbitals
+    )
+    direct = float(np.einsum("e,e->", coeff, eri[core, :, hole_i, hole_j]))
+    exchange = float(np.einsum("e,e->", coeff, eri[core, :, hole_j, hole_i]))
+    return AugerTransitionAmplitude(
+        direct=direct,
+        exchange=exchange,
+        amplitude=direct - exchange,
+    )
+
+
+def _dropped_line(final_state: TwoHoleFinalState, reason: str) -> dict[str, str]:
+    return {
+        "final_state": final_state.provenance.final_state,
+        "reason": reason,
+    }
+
+
+def _stick_from_final_state(
+    payload: ElectronicStructurePayload,
+    initial: CoreHoleState,
+    final: TwoHoleFinalState,
+    channel: ContinuumChannel,
+    *,
+    normalize: bool,
+) -> AugerStick | dict[str, str]:
+    kinetic_energy = initial.initial_energy - final.final_energy
+    if kinetic_energy <= 0.0:
+        return _dropped_line(final, "non_positive_kinetic_energy")
+    amplitude = molecular_auger_transition_amplitude(
+        payload,
+        initial,
+        final,
+        channel,
+    )
+    raw_intensity = amplitude.coherent_intensity
+    if raw_intensity <= 0.0:
+        reason = (
+            amplitude.selection_rule
+            if amplitude.selection_rule != "allowed"
+            else "zero_coherent_intensity"
+        )
+        return _dropped_line(final, reason)
+    provenance = _line_provenance(
+        final.provenance,
+        final.provenance.final_state,
+        channel,
+        sum_rule_normalized=normalize,
+    )
+    return AugerStick(
+        kinetic_energy=kinetic_energy,
+        intensity=raw_intensity,
+        raw_intensity=raw_intensity,
+        amplitude=amplitude,
+        initial_state=initial,
+        final_state=final,
+        continuum_label=channel.label,
+        provenance=provenance,
+    )
+
+
+def _normalize_sticks(
+    raw_lines: list[AugerStick],
+    normalize: bool,
+) -> tuple[AugerStick, ...]:
+    total = sum(line.raw_intensity for line in raw_lines)
+    if not normalize or total <= 0.0:
+        return tuple(raw_lines)
+    return tuple(
+        AugerStick(
+            kinetic_energy=line.kinetic_energy,
+            intensity=line.raw_intensity / total,
+            raw_intensity=line.raw_intensity,
+            amplitude=line.amplitude,
+            initial_state=line.initial_state,
+            final_state=line.final_state,
+            continuum_label=line.continuum_label,
+            provenance=line.provenance,
+        )
+        for line in raw_lines
+    )
+
+
+def molecular_auger_spectrum(
+    payload: ElectronicStructurePayload,
+    *,
+    core_hole: CoreHoleState | None = None,
+    final_states: tuple[TwoHoleFinalState, ...] | None = None,
+    continuum_channel: ContinuumChannel | None = None,
+    normalize: bool = True,
+    population_threshold: float = 0.2,
+    occupation_threshold: float = 1.5,
+    residual_tolerance: float = 1e-7,
+) -> SpectrumResult:
+    """Synthesize an Auger kinetic-energy stick spectrum.
+
+    Lines with non-positive kinetic energy or zero/forbidden coherent
+    intensity are dropped and reported.  Normalization, when enabled, is a
+    single total-stick sum-rule normalization; no empirical per-peak scaling is
+    applied.
+    """
+
+    initial = core_hole or molecular_auger_initial_state(payload)
+    finals = final_states or molecular_auger_final_states(
+        payload,
+        initial,
+        population_threshold=population_threshold,
+        occupation_threshold=occupation_threshold,
+        residual_tolerance=residual_tolerance,
+    )
+    channel = continuum_channel or DiscreteMOContinuumChannel()
+    raw_lines: list[AugerStick] = []
+    dropped: list[dict[str, str]] = []
+    for final in finals:
+        item = _stick_from_final_state(
+            payload, initial, final, channel, normalize=normalize
+        )
+        if isinstance(item, AugerStick):
+            raw_lines.append(item)
+        else:
+            dropped.append(item)
+    lines = _normalize_sticks(raw_lines, normalize)
+    return SpectrumResult(
+        lines=lines,
+        dropped=tuple(dropped),
+        provenance=tuple(line.provenance for line in lines),
+        intensity_unit="sum_rule_normalized_probability"
+        if normalize
+        else "coherent_auger_strength",
+    )
 
 
 def _copy_provenance_with(

@@ -46,14 +46,21 @@ from atomx.scattering.autoionization.auger import (
 )
 from atomx.scattering.autoionization.molecular import (
     ActiveMolecularOrbital,
+    AugerStick,
+    AugerTransitionAmplitude,
+    ContinuumChannel,
     CoreHoleState,
+    DiscreteMOContinuumChannel,
     LocalizedValenceActiveSpace,
+    SpectrumResult,
     TwoHoleCSF,
     TwoHoleFinalState,
     enumerate_two_hole_csfs,
     local_valence_active_space,
+    molecular_auger_spectrum,
     molecular_auger_final_states,
     molecular_auger_initial_state,
+    molecular_auger_transition_amplitude,
 )
 
 _DR_EXPORTS = {
