@@ -7,6 +7,7 @@ import warnings
 import numpy as np
 import pytest
 
+import atomx.providers.abacus_adapter as abacus_adapter
 from atomx.providers.abacus_adapter import (
     ABACUSKPointData,
     ABACUSLCAOProvider,
@@ -69,6 +70,19 @@ def _replace_kdata(kdata: ABACUSKPointData, **updates) -> ABACUSKPointData:
     }
     values.update(updates)
     return ABACUSKPointData(**values)
+
+
+def _integer_kdata() -> ABACUSKPointData:
+    return _replace_kdata(
+        _kdata(1.0),
+        hamiltonian=np.diag([-20, -1, 0, 1]),
+        overlap=np.eye(4, dtype=np.int64),
+        coefficients=np.eye(4, dtype=np.int64),
+        energies=np.array([-20, -1, 0, 1], dtype=np.int64),
+        occupations=np.array([1, 2, 2, 0], dtype=np.int64),
+        density=np.diag([1, 2, 2, 0]).astype(np.int64),
+        two_electron=_eri(1.0).astype(np.int64),
+    )
 
 
 def test_abacus_payload_exposes_periodic_lcao_contract():
@@ -292,6 +306,64 @@ def test_abacus_adapter_rejects_aggregate_multik_array_element_limit():
             },
             validation_limits=ABACUSValidationLimits(max_array_elements=500),
         )
+
+
+def test_abacus_adapter_preflights_aggregate_limit_before_coercion(monkeypatch):
+    coercions: list[str] = []
+    original_real_array = abacus_adapter._real_array
+
+    def recording_real_array(value, name):
+        coercions.append(name)
+        return original_real_array(value, name)
+
+    kpoint = _integer_kdata()
+    monkeypatch.setattr(abacus_adapter, "_real_array", recording_real_array)
+
+    with pytest.raises(ProviderContractError, match="element limit"):
+        ABACUSLCAOProvider(
+            Z=13,
+            kpoints=[kpoint, kpoint],
+            ao_labels=["0 Al 1s", "0 Al 3s", "0 Al 3p", "0 Al cont"],
+            core_hole={
+                "orbital_label": "Al 1s",
+                "occupation_before": 2.0,
+                "occupation_after": 1.0,
+                "tracked_mo_index": 0,
+                "initial_state_energy_hartree": 19.5,
+            },
+            validation_limits=ABACUSValidationLimits(max_array_elements=500),
+        )
+
+    assert coercions == []
+
+
+def test_abacus_adapter_preflights_aggregate_byte_limit_before_coercion(monkeypatch):
+    coercions: list[str] = []
+    original_real_array = abacus_adapter._real_array
+
+    def recording_real_array(value, name):
+        coercions.append(name)
+        return original_real_array(value, name)
+
+    kpoint = _integer_kdata()
+    monkeypatch.setattr(abacus_adapter, "_real_array", recording_real_array)
+
+    with pytest.raises(ProviderContractError, match="byte limit"):
+        ABACUSLCAOProvider(
+            Z=13,
+            kpoints=[kpoint, kpoint],
+            ao_labels=["0 Al 1s", "0 Al 3s", "0 Al 3p", "0 Al cont"],
+            core_hole={
+                "orbital_label": "Al 1s",
+                "occupation_before": 2.0,
+                "occupation_after": 1.0,
+                "tracked_mo_index": 0,
+                "initial_state_energy_hartree": 19.5,
+            },
+            validation_limits=ABACUSValidationLimits(max_input_bytes=4_000),
+        )
+
+    assert coercions == []
 
 
 def test_abacus_adapter_rejects_eri_resource_limit():

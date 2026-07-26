@@ -350,41 +350,49 @@ def _enforce_array_limits(
         raise ProviderContractError("ABACUS input arrays exceed byte limit")
 
 
+@dataclass
+class _ResourceAccount:
+    limits: ABACUSValidationLimits
+    elements: int = 0
+    bytes_: int = 0
+    eri_elements: int = 0
+
+    def add_array(self, value: Any, *, is_eri: bool = False) -> None:
+        arr = np.asarray(value)
+        size = int(arr.size)
+        self.elements += size
+        self.bytes_ += max(int(arr.nbytes), size * np.dtype(float).itemsize)
+        if self.elements > self.limits.max_array_elements:
+            raise ProviderContractError("ABACUS input arrays exceed element limit")
+        if self.bytes_ > self.limits.max_input_bytes:
+            raise ProviderContractError("ABACUS input arrays exceed byte limit")
+        if is_eri:
+            self.eri_elements += size
+            if self.eri_elements > self.limits.max_eri_elements:
+                raise ProviderContractError("ABACUS ERI tensor exceeds validation limit")
+
+    def add_scalar(self) -> None:
+        self.add_array(np.empty(1, dtype=float))
+
+
 def _enforce_multikpoint_resource_limits(
     kpoints: tuple[ABACUSKPointData, ...],
     limits: ABACUSValidationLimits,
 ) -> None:
-    arrays: list[np.ndarray] = []
-    eri_elements = 0
+    account = _ResourceAccount(limits)
     for kdata in kpoints:
-        arrays.extend(
-            [
-                _real_array(tuple(kdata.coordinate), "ABACUS k-point coordinate"),
-                np.asarray([_real_float(kdata.weight, "ABACUS k-point weight")]),
-                _real_array(kdata.hamiltonian, "ABACUS Hamiltonian"),
-                _real_array(kdata.overlap, "ABACUS overlap"),
-                _real_array(kdata.coefficients, "ABACUS MO coefficients"),
-                _real_array(kdata.energies, "ABACUS energies"),
-                _real_array(kdata.occupations, "ABACUS occupations"),
-                np.asarray(
-                    [
-                        _real_float(
-                            kdata.local_projection_weight,
-                            "local projection weight",
-                        )
-                    ]
-                ),
-            ]
-        )
+        account.add_array(tuple(kdata.coordinate))
+        account.add_scalar()
+        account.add_array(kdata.hamiltonian)
+        account.add_array(kdata.overlap)
+        account.add_array(kdata.coefficients)
+        account.add_array(kdata.energies)
+        account.add_array(kdata.occupations)
+        account.add_scalar()
         if kdata.density is not None:
-            arrays.append(_real_array(kdata.density, "ABACUS density"))
+            account.add_array(kdata.density)
         if kdata.two_electron is not None:
-            eri = _real_array(kdata.two_electron, "ABACUS two-electron tensor")
-            eri_elements += int(eri.size)
-            arrays.append(eri)
-    _enforce_array_limits(limits, *arrays)
-    if eri_elements > limits.max_eri_elements:
-        raise ProviderContractError("ABACUS ERI tensor exceeds validation limit")
+            account.add_array(kdata.two_electron, is_eri=True)
 
 
 def _normalize_core_hole(core_hole: dict[str, Any]) -> dict[str, Any]:
