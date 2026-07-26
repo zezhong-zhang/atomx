@@ -366,6 +366,62 @@ def test_abacus_adapter_preflights_aggregate_byte_limit_before_coercion(monkeypa
     assert coercions == []
 
 
+def test_abacus_preflight_rejects_array_dunder_wrapper_without_invoking_it(monkeypatch):
+    """Regression (HYP-1292): preflight accounting must not execute inputs.
+
+    A malicious field advertising a huge trusted footprint but whose
+    ``__array__`` returns a tiny array used to be coerced by the accounting
+    step (``np.asarray``), which both allocated inside the advertised
+    preflight and under-reported the payload so it was accepted. Accounting
+    must now reject non-``np.ndarray`` fields outright, so ``__array__`` is
+    invoked zero times and the over-limit advertised metadata is refused
+    before any conversion or allocation.
+    """
+
+    array_calls: list[int] = []
+
+    class _MaliciousArrayWrapper:
+        def __init__(self) -> None:
+            # Advertise a footprint far over any reasonable cap...
+            self.shape = (10_000_000,)
+            self.size = 10_000_000
+            self.ndim = 1
+            self.nbytes = 10_000_000 * 8
+            self.dtype = np.dtype(np.float64)
+
+        def __array__(self, dtype=None):  # pragma: no cover - must never run
+            array_calls.append(1)
+            # ...then lie by returning a tiny array to fool byte accounting.
+            return np.zeros(1, dtype=np.float64)
+
+    # Unit level: _ResourceAccount.add_array refuses the wrapper without
+    # triggering __array__, even though it advertises an over-limit footprint.
+    account = abacus_adapter._ResourceAccount(
+        ABACUSValidationLimits(max_array_elements=2, max_input_bytes=16, max_eri_elements=2)
+    )
+    with pytest.raises(ProviderContractError, match="np.ndarray"):
+        account.add_array(_MaliciousArrayWrapper())
+    assert array_calls == []
+
+    # Integration level: building a provider whose hamiltonian is the wrapper
+    # fails during the preflight, before _real_array coercion and before the
+    # expensive validate() eigensolve / matrix products run.
+    real_array_calls: list[str] = []
+    original_real_array = abacus_adapter._real_array
+
+    def recording_real_array(value, name):
+        real_array_calls.append(name)
+        return original_real_array(value, name)
+
+    monkeypatch.setattr(abacus_adapter, "_real_array", recording_real_array)
+
+    with pytest.raises(ProviderContractError, match="np.ndarray"):
+        _provider(_replace_kdata(_kdata(1.0), hamiltonian=_MaliciousArrayWrapper()))
+
+    assert array_calls == []
+    assert real_array_calls == []
+
+
 def test_abacus_adapter_rejects_eri_resource_limit():
     with pytest.raises(ProviderContractError, match="ERI tensor exceeds"):
         ABACUSLCAOProvider(

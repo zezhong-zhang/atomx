@@ -350,18 +350,32 @@ def _enforce_array_limits(
         raise ProviderContractError("ABACUS input arrays exceed byte limit")
 
 
+_FLOAT64_ITEMSIZE = np.dtype(np.float64).itemsize
+
+
 @dataclass
 class _ResourceAccount:
+    """Streaming resource quota for the ABACUS preflight.
+
+    The preflight must reject over-budget payloads before any expensive
+    coercion or allocation, so it inspects only genuine ``np.ndarray``
+    metadata (``size``/``dtype.itemsize``) and contracted scalar footprints.
+    It never calls ``np.asarray`` and never triggers an input's ``__array__``:
+    a non-``ndarray`` field is refused outright rather than coerced for
+    counting, so an attacker-controlled wrapper cannot allocate inside the
+    advertised preflight or under-report its footprint.
+    """
+
     limits: ABACUSValidationLimits
     elements: int = 0
     bytes_: int = 0
     eri_elements: int = 0
 
-    def add_array(self, value: Any, *, is_eri: bool = False) -> None:
-        arr = np.asarray(value)
-        size = int(arr.size)
+    def _tally(self, size: int, bytes_: int, *, is_eri: bool) -> None:
+        # Python ``int`` tallies cannot overflow; reject the moment any
+        # advertised cap is crossed so later fields/k-points are never converted.
         self.elements += size
-        self.bytes_ += max(int(arr.nbytes), size * np.dtype(float).itemsize)
+        self.bytes_ += bytes_
         if self.elements > self.limits.max_array_elements:
             raise ProviderContractError("ABACUS input arrays exceed element limit")
         if self.bytes_ > self.limits.max_input_bytes:
@@ -371,8 +385,25 @@ class _ResourceAccount:
             if self.eri_elements > self.limits.max_eri_elements:
                 raise ProviderContractError("ABACUS ERI tensor exceeds validation limit")
 
-    def add_scalar(self) -> None:
-        self.add_array(np.empty(1, dtype=float))
+    def add_array(self, value: Any, *, is_eri: bool = False) -> None:
+        """Account one genuine ``np.ndarray`` field without coercing it."""
+
+        if not isinstance(value, np.ndarray):
+            raise ProviderContractError(
+                "ABACUS preflight requires np.ndarray array fields; "
+                "non-ndarray inputs are rejected before any conversion or allocation"
+            )
+        size = int(value.size)
+        itemsize = int(value.dtype.itemsize)
+        # Validation coerces every array to float64, so account the
+        # float64-equivalent footprint as a lower bound on post-coercion memory.
+        bytes_ = max(size * itemsize, size * _FLOAT64_ITEMSIZE)
+        self._tally(size, bytes_, is_eri=is_eri)
+
+    def add_scalar(self, *, count: int = 1) -> None:
+        """Account ``count`` float64-sized scalars (coordinates, weights, ...)."""
+
+        self._tally(count, count * _FLOAT64_ITEMSIZE, is_eri=False)
 
 
 def _enforce_multikpoint_resource_limits(
@@ -381,14 +412,18 @@ def _enforce_multikpoint_resource_limits(
 ) -> None:
     account = _ResourceAccount(limits)
     for kdata in kpoints:
-        account.add_array(tuple(kdata.coordinate))
-        account.add_scalar()
+        # The coordinate is a length-3 iterable per contract; account its
+        # contracted float64 footprint directly instead of materializing or
+        # inspecting the iterable, so a pathological coordinate cannot
+        # allocate or run conversion code inside the preflight.
+        account.add_scalar(count=3)
+        account.add_scalar()  # k-point weight
         account.add_array(kdata.hamiltonian)
         account.add_array(kdata.overlap)
         account.add_array(kdata.coefficients)
         account.add_array(kdata.energies)
         account.add_array(kdata.occupations)
-        account.add_scalar()
+        account.add_scalar()  # local_projection_weight
         if kdata.density is not None:
             account.add_array(kdata.density)
         if kdata.two_electron is not None:
