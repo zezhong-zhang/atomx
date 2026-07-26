@@ -64,6 +64,12 @@ def _payload_with_eri(eri: np.ndarray) -> ElectronicStructurePayload:
     )
 
 
+def _payload_with_core_metadata(**updates) -> ElectronicStructurePayload:
+    payload = _payload_with_eri(np.zeros((4, 4, 4, 4)))
+    payload.metadata["core_hole"].update(updates)
+    return payload
+
+
 def _large_ao_eri_payload(n_mo: int = 49) -> ElectronicStructurePayload:
     labels = [
         "0 O 1s",
@@ -392,6 +398,106 @@ def test_compute_molecular_auger_rejects_bad_thresholds_before_provider(kwargs):
         )
 
     assert provider.calls == []
+
+
+@pytest.mark.parametrize(
+    "tracked_mo_index",
+    [
+        1.5,
+        "1",
+        True,
+        -1,
+        4,
+    ],
+)
+def test_compute_molecular_auger_rejects_bad_provider_tracked_mo_index_before_final_states(
+    monkeypatch,
+    tracked_mo_index,
+):
+    provider = _CoreHoleProvider(
+        _payload_with_core_metadata(tracked_mo_index=tracked_mo_index)
+    )
+
+    def fail_if_called(*args, **kwargs):
+        raise AssertionError("two-hole final-state enumeration was reached")
+
+    monkeypatch.setattr(
+        "atomx.scattering.autoionization.molecular.enumerate_two_hole_csfs",
+        fail_if_called,
+    )
+
+    with pytest.raises(ProviderContractError, match="tracked_mo_index"):
+        compute_molecular_auger(
+            provider,
+            "O 1s",
+            continuum_channel=DiscreteMOContinuumChannel(mo_index=3),
+            population_threshold=0.5,
+        )
+
+    assert provider.calls == [("O 1s", True)]
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("occupation_before", float("nan")),
+        ("occupation_before", float("inf")),
+        ("occupation_before", "2"),
+        ("occupation_before", True),
+        ("occupation_before", -1.0),
+        ("occupation_before", 2.5),
+        ("occupation_after", float("nan")),
+        ("occupation_after", float("-inf")),
+        ("occupation_after", "1"),
+        ("occupation_after", False),
+        ("occupation_after", -1.0),
+        ("initial_state_energy_hartree", float("nan")),
+        ("initial_state_energy_hartree", float("inf")),
+        ("initial_state_energy_hartree", "19.5"),
+        ("initial_state_energy_hartree", True),
+    ],
+)
+def test_compute_molecular_auger_rejects_bad_provider_core_hole_numbers_before_final_states(
+    monkeypatch,
+    field,
+    value,
+):
+    provider = _CoreHoleProvider(_payload_with_core_metadata(**{field: value}))
+
+    def fail_if_called(*args, **kwargs):
+        raise AssertionError("final-state construction was reached")
+
+    monkeypatch.setattr(
+        "atomx.scattering.autoionization.molecular.molecular_auger_final_states",
+        fail_if_called,
+    )
+
+    with pytest.raises(ProviderContractError, match="core_hole"):
+        compute_molecular_auger(
+            provider,
+            "O 1s",
+            continuum_channel=DiscreteMOContinuumChannel(mo_index=3),
+            population_threshold=0.5,
+        )
+
+    assert provider.calls == [("O 1s", True)]
+
+
+def test_compute_molecular_auger_rejects_non_core_hole_occupation_change():
+    provider = _CoreHoleProvider(
+        _payload_with_core_metadata(
+            occupation_before=1.0,
+            occupation_after=1.0,
+        )
+    )
+
+    with pytest.raises(ProviderContractError, match="occupation_after"):
+        compute_molecular_auger(
+            provider,
+            "O 1s",
+            continuum_channel=DiscreteMOContinuumChannel(mo_index=3),
+            population_threshold=0.5,
+        )
 
 
 def test_compute_molecular_auger_fails_closed_without_eris():

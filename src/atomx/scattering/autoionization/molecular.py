@@ -11,6 +11,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from inspect import Parameter, signature
 from itertools import combinations_with_replacement
+from numbers import Integral, Real
 from typing import Any, Protocol, cast, runtime_checkable
 
 import numpy as np
@@ -469,6 +470,101 @@ def _assert_active_space_budget(active_orbital_count: int) -> None:
         )
 
 
+def _core_hole_metadata(
+    payload: ElectronicStructurePayload,
+    *,
+    n_mo: int | None = None,
+    require_tracked_mo: bool = False,
+) -> dict[str, Any]:
+    spec = payload.metadata.get("core_hole")
+    if not isinstance(spec, dict):
+        raise ProviderContractError("payload metadata lacks core_hole specification")
+    missing = [
+        key
+        for key in (
+            "occupation_before",
+            "occupation_after",
+            "initial_state_energy_hartree",
+        )
+        if key not in spec
+    ]
+    if missing:
+        raise ProviderContractError(
+            "core_hole specification missing required fields: "
+            + ", ".join(sorted(missing))
+        )
+    if "orbital_label" in spec and (
+        not isinstance(spec["orbital_label"], str) or not spec["orbital_label"].strip()
+    ):
+        raise ProviderContractError("core_hole.orbital_label must be a non-empty string")
+    occupation_before = _validate_core_hole_occupation(
+        spec["occupation_before"],
+        "core_hole.occupation_before",
+    )
+    occupation_after = _validate_core_hole_occupation(
+        spec["occupation_after"],
+        "core_hole.occupation_after",
+    )
+    if occupation_after >= occupation_before:
+        raise ProviderContractError(
+            "core_hole.occupation_after must be less than occupation_before"
+        )
+    initial_energy = _validate_core_hole_real(
+        spec["initial_state_energy_hartree"],
+        "core_hole.initial_state_energy_hartree",
+    )
+    validated = dict(spec)
+    validated["occupation_before"] = occupation_before
+    validated["occupation_after"] = occupation_after
+    validated["initial_state_energy_hartree"] = initial_energy
+    if require_tracked_mo or "tracked_mo_index" in spec:
+        validated["tracked_mo_index"] = _validate_tracked_core_mo_index(
+            spec,
+            n_mo,
+        )
+    return validated
+
+
+def _validate_core_hole_real(value: Any, field: str) -> float:
+    if isinstance(value, bool) or not isinstance(value, Real):
+        raise ProviderContractError(f"{field} must be a real number")
+    numeric = float(value)
+    if not np.isfinite(numeric):
+        raise ProviderContractError(f"{field} must be finite")
+    return numeric
+
+
+def _validate_core_hole_occupation(value: Any, field: str) -> float:
+    occupation = _validate_core_hole_real(value, field)
+    if occupation < 0.0 or occupation > 2.0:
+        raise ProviderContractError(f"{field} must be between 0 and 2")
+    return occupation
+
+
+def _validate_tracked_core_mo_index(
+    core_spec: dict[str, Any],
+    n_mo: int | None,
+) -> int:
+    if "tracked_mo_index" not in core_spec:
+        raise ProviderContractError(
+            "core_hole.tracked_mo_index is required to exclude the core MO "
+            "from the valence active space"
+        )
+    value = core_spec["tracked_mo_index"]
+    if isinstance(value, bool) or not isinstance(value, Integral):
+        raise ProviderContractError("core_hole.tracked_mo_index must be an integer")
+    tracked_core = int(value)
+    if tracked_core < 0:
+        raise ProviderContractError(
+            "core_hole.tracked_mo_index is outside the MO coefficient range"
+        )
+    if n_mo is not None and tracked_core >= n_mo:
+        raise ProviderContractError(
+            "core_hole.tracked_mo_index is outside the MO coefficient range"
+        )
+    return tracked_core
+
+
 def _call_core_hole_builder(
     builder: Any,
     core_hole_spec: str | int | dict[str, Any],
@@ -559,28 +655,12 @@ def molecular_auger_initial_state(
         Capability.MO_COEFFICIENTS,
         Capability.OVERLAP_S,
     )
-    spec = payload.metadata.get("core_hole")
-    if not isinstance(spec, dict):
-        raise ProviderContractError("payload metadata lacks core_hole specification")
-    missing = [
-        key
-        for key in (
-            "occupation_before",
-            "occupation_after",
-            "initial_state_energy_hartree",
-        )
-        if key not in spec
-    ]
-    if missing:
-        raise ProviderContractError(
-            "core_hole specification missing required fields: "
-            + ", ".join(sorted(missing))
-        )
+    spec = _core_hole_metadata(payload)
 
     return CoreHoleState(
         orbital_label=str(spec.get("orbital_label") or payload.provenance.core_hole),
-        occupation_before=float(spec["occupation_before"]),
-        occupation_after=float(spec["occupation_after"]),
+        occupation_before=spec["occupation_before"],
+        occupation_after=spec["occupation_after"],
         initial_energy=spec["initial_state_energy_hartree"],
         provenance=payload.provenance,
     )
@@ -699,17 +779,12 @@ def _core_atom_ao_indices(
 
 
 def _tracked_core_mo_index(core_spec: object, n_mo: int) -> int:
-    if not isinstance(core_spec, dict) or "tracked_mo_index" not in core_spec:
+    if not isinstance(core_spec, dict):
         raise ProviderContractError(
             "core_hole.tracked_mo_index is required to exclude the core MO "
             "from the valence active space"
         )
-    tracked_core = int(core_spec["tracked_mo_index"])
-    if tracked_core < 0 or tracked_core >= n_mo:
-        raise ProviderContractError(
-            "core_hole.tracked_mo_index is outside the MO coefficient range"
-        )
-    return tracked_core
+    return _validate_tracked_core_mo_index(core_spec, n_mo)
 
 
 def local_valence_active_space(
@@ -759,7 +834,11 @@ def local_valence_active_space(
         else payload.provenance.core_hole
     )
     core_atom = _core_atom_symbol(core_label)
-    core_spec = payload.metadata.get("core_hole")
+    core_spec = _core_hole_metadata(
+        payload,
+        n_mo=orbitals.n_mo,
+        require_tracked_mo=True,
+    )
     atom_indices = np.asarray(
         _core_atom_ao_indices(labels, core_atom, _core_hole_center(core_spec)),
         dtype=int,
