@@ -150,21 +150,30 @@ def dr_rate_coefficient(
     :class:`DRRateCoefficient`
     """
     T_eV = np.atleast_1d(np.asarray(T_eV, dtype=float))
-    if np.any(T_eV <= 0):
-        raise ValueError("Temperatures must be positive (eV).")
+    if np.any(~np.isfinite(T_eV)) or np.any(T_eV <= 0):
+        raise ValueError("Temperatures must be finite and positive (eV).")
 
     survival = np.ones_like(T_eV, dtype=float)
     ipd_eV = None
+    if ne_cm3 is not None:
+        ne_cm3 = float(ne_cm3)
+        if not np.isfinite(ne_cm3) or ne_cm3 < 0.0:
+            raise ValueError("ne_cm3 must be finite and non-negative")
     if ne_cm3 is not None and ne_cm3 > 0.0:
         if Z_ion is None or series_limit_eV is None:
             raise ValueError(
                 "density suppression needs Z_ion and series_limit_eV "
                 "alongside ne_cm3")
+        series_limit_eV = float(series_limit_eV)
+        if not np.isfinite(series_limit_eV):
+            raise ValueError("series_limit_eV must be finite")
         from atomx.plasma.screening import ionization_potential_depression
         ipd_eV = np.array([
             float(ionization_potential_depression(Z_ion, ne_cm3, t,
                                                   model=ipd_model))
             for t in T_eV])
+        if np.any(~np.isfinite(ipd_eV)):
+            raise ValueError("density suppression produced non-finite IPD")
 
     alpha_total = np.zeros_like(T_eV, dtype=float)
     per = {}
@@ -181,6 +190,9 @@ def dr_rate_coefficient(
 
         if ipd_eV is not None:
             e_bind = float(series_limit_eV) - d.E_resonance_eV
+            if not np.isfinite(e_bind):
+                raise ValueError(
+                    f"resonance {d.label!r} produced non-finite binding energy")
             survival = (e_bind > ipd_eV).astype(float)
 
         # Boltzmann factor  exp(-E_d / T_e)
