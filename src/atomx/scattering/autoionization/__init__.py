@@ -55,6 +55,7 @@ from atomx.scattering.autoionization.molecular import (
     SpectrumResult,
     TwoHoleCSF,
     TwoHoleFinalState,
+    compute_molecular_auger,
     enumerate_two_hole_csfs,
     local_valence_active_space,
     molecular_auger_spectrum,

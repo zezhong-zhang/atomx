@@ -9,8 +9,9 @@ initial state; Auger-rate kernels are wired in later stages.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from inspect import Parameter, signature
 from itertools import combinations_with_replacement
-from typing import Protocol, cast, runtime_checkable
+from typing import Any, Protocol, cast, runtime_checkable
 
 import numpy as np
 from numpy.typing import NDArray
@@ -35,6 +36,7 @@ __all__ = [
     "ContinuumChannel",
     "DiscreteMOContinuumChannel",
     "SpectrumResult",
+    "compute_molecular_auger",
     "enumerate_two_hole_csfs",
     "local_valence_active_space",
     "molecular_auger_spectrum",
@@ -299,6 +301,146 @@ class SpectrumResult:
     @property
     def intensities(self) -> tuple[float, ...]:
         return tuple(line.intensity for line in self.lines)
+
+
+def compute_molecular_auger(
+    provider: Any,
+    core_hole_spec: str | int | dict[str, Any] | None = None,
+    *,
+    continuum_channel: ContinuumChannel | None = None,
+    normalize: bool = True,
+    population_threshold: float = 0.2,
+    occupation_threshold: float = 1.5,
+    residual_tolerance: float = 1e-7,
+) -> SpectrumResult:
+    """Run the provider-to-stick molecular Auger pipeline.
+
+    The entrypoint accepts either a validated
+    :class:`ElectronicStructurePayload` that already carries the explicit
+    core-hole state, or a provider exposing ``build_core_hole_payload``.  It
+    fails closed on missing core-hole, MO, overlap, or ERI capabilities before
+    delegating to the existing initial-state, final-state, amplitude, and
+    stick-spectrum kernels.  Normalization is the global stick sum-rule
+    normalization used by :func:`molecular_auger_spectrum`; no per-line
+    empirical scaling is applied.
+    """
+
+    payload = _compute_payload(provider, core_hole_spec).validate()
+    _assert_requested_core_hole(payload, core_hole_spec)
+    payload.require(
+        Capability.CORE_HOLE_SPEC,
+        Capability.MO_COEFFICIENTS,
+        Capability.OVERLAP_S,
+        Capability.TWO_ELECTRON_INTEGRALS,
+    )
+    return molecular_auger_spectrum(
+        payload,
+        continuum_channel=continuum_channel,
+        normalize=normalize,
+        population_threshold=population_threshold,
+        occupation_threshold=occupation_threshold,
+        residual_tolerance=residual_tolerance,
+    )
+
+
+def _compute_payload(
+    provider: Any,
+    core_hole_spec: str | int | dict[str, Any] | None,
+) -> ElectronicStructurePayload:
+    if isinstance(provider, ElectronicStructurePayload):
+        return provider
+
+    if core_hole_spec is not None and hasattr(provider, "build_core_hole_payload"):
+        payload = _call_core_hole_builder(
+            provider.build_core_hole_payload,
+            core_hole_spec,
+        )
+    elif hasattr(provider, "build_payload"):
+        payload = provider.build_payload()
+    else:
+        raise ProviderContractError(
+            "compute_molecular_auger requires an ElectronicStructurePayload "
+            "or a provider with build_payload/build_core_hole_payload"
+        )
+    if not isinstance(payload, ElectronicStructurePayload):
+        raise ProviderContractError("provider did not return an ElectronicStructurePayload")
+    return payload
+
+
+def _call_core_hole_builder(
+    builder: Any,
+    core_hole_spec: str | int | dict[str, Any],
+) -> ElectronicStructurePayload:
+    sig = signature(builder)
+    params = sig.parameters
+    args: list[Any] = []
+    kwargs: dict[str, Any] = {}
+
+    if any(p.kind == Parameter.VAR_POSITIONAL for p in params.values()):
+        args.append(core_hole_spec)
+    else:
+        for name in ("core_hole_spec", "core_orbital", "core_hole"):
+            if name in params:
+                kwargs[name] = core_hole_spec
+                break
+        else:
+            positional = [
+                p
+                for p in params.values()
+                if p.kind
+                in (Parameter.POSITIONAL_ONLY, Parameter.POSITIONAL_OR_KEYWORD)
+                and p.default is Parameter.empty
+            ]
+            if len(positional) == 1:
+                args.append(core_hole_spec)
+            else:
+                raise ProviderContractError(
+                    "provider build_core_hole_payload cannot accept core_hole_spec"
+                )
+
+    if "with_eri" in params or any(
+        p.kind == Parameter.VAR_KEYWORD for p in params.values()
+    ):
+        kwargs["with_eri"] = True
+    return cast(ElectronicStructurePayload, builder(*args, **kwargs))
+
+
+def _requested_core_hole_label(
+    spec: str | int | dict[str, Any] | None,
+) -> str | None:
+    if spec is None:
+        return None
+    if isinstance(spec, int):
+        return f"MO{spec}"
+    if isinstance(spec, str):
+        return spec
+    for key in ("orbital_label", "core_hole", "core_orbital"):
+        if key in spec:
+            value = spec[key]
+            return f"MO{value}" if isinstance(value, int) else str(value)
+    return None
+
+
+def _payload_core_hole_label(payload: ElectronicStructurePayload) -> str:
+    spec = payload.metadata.get("core_hole")
+    if isinstance(spec, dict) and spec.get("orbital_label"):
+        return str(spec["orbital_label"])
+    return payload.provenance.core_hole
+
+
+def _assert_requested_core_hole(
+    payload: ElectronicStructurePayload,
+    core_hole_spec: str | int | dict[str, Any] | None,
+) -> None:
+    requested = _requested_core_hole_label(core_hole_spec)
+    if requested is None:
+        return
+    actual = _payload_core_hole_label(payload)
+    if actual != requested:
+        raise ProviderContractError(
+            "provider returned a different core-hole payload: "
+            f"requested {requested!r}, got {actual!r}"
+        )
 
 
 def molecular_auger_initial_state(

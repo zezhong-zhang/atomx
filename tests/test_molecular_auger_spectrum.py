@@ -6,16 +6,19 @@ import numpy as np
 import pytest
 
 from atomx.providers.contract import (
+    CapabilityError,
     DensityMatrix,
     ElectronicStructurePayload,
     OrbitalCoefficients,
     OverlapBlock,
     Provenance,
+    ProviderContractError,
     TwoElectronIntegrals,
 )
 from atomx.scattering.autoionization.molecular import (
     DiscreteMOContinuumChannel,
     TwoHoleFinalState,
+    compute_molecular_auger,
     local_valence_active_space,
     molecular_auger_final_states,
     molecular_auger_initial_state,
@@ -59,6 +62,21 @@ def _payload_with_eri(eri: np.ndarray) -> ElectronicStructurePayload:
             }
         },
     )
+
+
+class _CoreHoleProvider:
+    def __init__(self, payload: ElectronicStructurePayload) -> None:
+        self.payload = payload
+        self.calls: list[tuple[object, bool]] = []
+
+    def build_core_hole_payload(
+        self,
+        core_hole_spec,
+        *,
+        with_eri: bool = False,
+    ) -> ElectronicStructurePayload:
+        self.calls.append((core_hole_spec, with_eri))
+        return self.payload
 
 
 def _pair_state(payload: ElectronicStructurePayload, spin: str = "singlet"):
@@ -141,6 +159,60 @@ def test_molecular_auger_spectrum_uses_ke_axis_and_sum_rule_normalization():
         "direct-minus-exchange-amplitude" in line.provenance.approximations
         for line in spectrum.lines
     )
+
+
+def test_compute_molecular_auger_orchestrates_provider_core_hole_payload():
+    eri = np.zeros((4, 4, 4, 4))
+    eri[0, 3, 1, 2] = 3.0
+    eri[0, 3, 2, 1] = 1.0
+    provider = _CoreHoleProvider(_payload_with_eri(eri))
+
+    spectrum = compute_molecular_auger(
+        provider,
+        "O 1s",
+        continuum_channel=DiscreteMOContinuumChannel(mo_index=3),
+        population_threshold=0.5,
+    )
+
+    assert provider.calls == [("O 1s", True)]
+    assert spectrum.axis == "kinetic_energy"
+    assert len(spectrum.lines) == 1
+    assert spectrum.lines[0].raw_intensity == pytest.approx(4.0)
+    assert spectrum.lines[0].provenance.core_hole == "O 1s"
+    assert "sum-rule-total-stick-normalization" in (
+        spectrum.lines[0].provenance.approximations
+    )
+
+
+def test_compute_molecular_auger_accepts_prepared_payload():
+    eri = np.zeros((4, 4, 4, 4))
+    eri[0, 3, 1, 2] = 3.0
+    eri[0, 3, 2, 1] = 1.0
+
+    spectrum = compute_molecular_auger(
+        _payload_with_eri(eri),
+        {"orbital_label": "O 1s"},
+        continuum_channel=DiscreteMOContinuumChannel(mo_index=3),
+        population_threshold=0.5,
+    )
+
+    assert len(spectrum.lines) == 1
+    assert sum(spectrum.intensities) == pytest.approx(1.0)
+
+
+def test_compute_molecular_auger_fails_closed_without_eris():
+    payload = _payload_with_eri(np.zeros((4, 4, 4, 4)))
+    payload.two_electron = None
+
+    with pytest.raises(CapabilityError, match="two_electron_integrals"):
+        compute_molecular_auger(payload, "O 1s", population_threshold=0.5)
+
+
+def test_compute_molecular_auger_rejects_core_hole_identity_mismatch():
+    provider = _CoreHoleProvider(_payload_with_eri(np.zeros((4, 4, 4, 4))))
+
+    with pytest.raises(ProviderContractError, match="different core-hole"):
+        compute_molecular_auger(provider, "Ne 1s", population_threshold=0.5)
 
 
 def test_non_positive_kinetic_energy_line_is_dropped_and_reported():
