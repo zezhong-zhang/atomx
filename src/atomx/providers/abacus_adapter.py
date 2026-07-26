@@ -175,9 +175,7 @@ class ABACUSLCAOProvider:
         if validation_tolerance <= 0.0:
             raise ProviderContractError("ABACUS validation tolerance must be positive")
         limits = (validation_limits or ABACUSValidationLimits()).validate()
-        raw_kpoints = tuple(kpoints)
-        if len(raw_kpoints) > limits.max_kpoints:
-            raise ProviderContractError("ABACUS n_k exceeds validation limit")
+        raw_kpoints = _collect_bounded_kpoints(kpoints, limits.max_kpoints)
         _enforce_multikpoint_resource_limits(raw_kpoints, limits)
         self.kpoint_data = tuple(
             k.validate(tol=validation_tolerance, limits=limits) for k in raw_kpoints
@@ -348,6 +346,18 @@ def _enforce_array_limits(
         raise ProviderContractError("ABACUS input arrays exceed element limit")
     if bytes_ > limits.max_input_bytes:
         raise ProviderContractError("ABACUS input arrays exceed byte limit")
+
+
+def _collect_bounded_kpoints(
+    kpoints: Iterable[ABACUSKPointData],
+    max_kpoints: int,
+) -> tuple[ABACUSKPointData, ...]:
+    raw_kpoints: list[ABACUSKPointData] = []
+    for count, kpoint in enumerate(kpoints, start=1):
+        if count > max_kpoints:
+            raise ProviderContractError("ABACUS n_k exceeds validation limit")
+        raw_kpoints.append(kpoint)
+    return tuple(raw_kpoints)
 
 
 _FLOAT64_ITEMSIZE = np.dtype(np.float64).itemsize

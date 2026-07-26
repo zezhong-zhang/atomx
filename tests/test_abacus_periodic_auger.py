@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import warnings
+from collections.abc import Iterator
 
 import numpy as np
 import pytest
@@ -83,6 +84,12 @@ def _integer_kdata() -> ABACUSKPointData:
         density=np.diag([1, 2, 2, 0]).astype(np.int64),
         two_electron=_eri(1.0).astype(np.int64),
     )
+
+
+def _counting_kpoints(counter: dict[str, int]) -> Iterator[ABACUSKPointData]:
+    while True:
+        counter["consumed"] += 1
+        yield _kdata(1.0)
 
 
 def test_abacus_payload_exposes_periodic_lcao_contract():
@@ -272,6 +279,54 @@ def test_abacus_adapter_rejects_kpoint_resource_limit():
             },
             validation_limits=ABACUSValidationLimits(max_kpoints=1),
         )
+
+
+def test_abacus_adapter_rejects_kpoint_generator_at_first_excess_item():
+    consumed = 0
+
+    def kpoints() -> Iterator[ABACUSKPointData]:
+        nonlocal consumed
+        for _ in range(1000):
+            consumed += 1
+            yield _kdata(1.0)
+
+    with pytest.raises(ProviderContractError, match="n_k exceeds"):
+        ABACUSLCAOProvider(
+            Z=13,
+            kpoints=kpoints(),
+            ao_labels=["0 Al 1s", "0 Al 3s", "0 Al 3p", "0 Al cont"],
+            core_hole={
+                "orbital_label": "Al 1s",
+                "occupation_before": 2.0,
+                "occupation_after": 1.0,
+                "tracked_mo_index": 0,
+                "initial_state_energy_hartree": 19.5,
+            },
+            validation_limits=ABACUSValidationLimits(max_kpoints=1),
+        )
+
+    assert consumed == 2
+
+
+def test_abacus_adapter_rejects_infinite_kpoint_generator_at_first_excess_item():
+    counter = {"consumed": 0}
+
+    with pytest.raises(ProviderContractError, match="n_k exceeds"):
+        ABACUSLCAOProvider(
+            Z=13,
+            kpoints=_counting_kpoints(counter),
+            ao_labels=["0 Al 1s", "0 Al 3s", "0 Al 3p", "0 Al cont"],
+            core_hole={
+                "orbital_label": "Al 1s",
+                "occupation_before": 2.0,
+                "occupation_after": 1.0,
+                "tracked_mo_index": 0,
+                "initial_state_energy_hartree": 19.5,
+            },
+            validation_limits=ABACUSValidationLimits(max_kpoints=1),
+        )
+
+    assert counter["consumed"] == 2
 
 
 def test_abacus_adapter_rejects_total_array_element_resource_limit():
