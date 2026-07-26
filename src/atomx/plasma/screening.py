@@ -168,6 +168,8 @@ def _stewart_pyatt_ipd_au(Z_ion, R_IS, lam_D):
         u = R_IS / lam_D
     if not np.isfinite(u):
         bracket = 1.0
+    elif u < np.cbrt(np.finfo(float).tiny):
+        return Z_ion / lam_D
     elif u < 1.0:
         bracket = np.expm1((2.0 / 3.0) * np.log1p(u ** 3)) / (u ** 2)
     else:

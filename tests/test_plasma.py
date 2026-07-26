@@ -141,6 +141,18 @@ class TestScreening:
         assert ipd >= 0.0
         assert ipd == pytest.approx(1.5e-110)
 
+    @pytest.mark.parametrize("u", [1.0e-108, 1.0e-110])
+    def test_stewart_pyatt_tiny_finite_u_has_debye_limit(self, u):
+        """Tiny finite u must not lose the weak-coupling IPD to underflow."""
+        from atomx.plasma.screening import _stewart_pyatt_ipd_au
+
+        lam_D = 1.0
+        ipd = _stewart_pyatt_ipd_au(Z_ion=1.0, R_IS=u * lam_D, lam_D=lam_D)
+
+        assert np.isfinite(ipd)
+        assert ipd > 0.0
+        assert ipd == pytest.approx(1.0 / lam_D)
+
     def test_stewart_pyatt_ratio_overflow_has_no_nan(self):
         """R_IS / lam_D overflow should take the same large-u branch."""
         from atomx.plasma.screening import _stewart_pyatt_ipd_au
