@@ -71,6 +71,8 @@ __all__ = [
     "Provenance",
     "OverlapBlock",
     "OrbitalCoefficients",
+    "KPointBlock",
+    "PeriodicCell",
     "DensityMatrix",
     "TwoElectronIntegrals",
     "SpinBlock",
@@ -578,6 +580,56 @@ class OrbitalCoefficients:
 
 
 @dataclass
+class KPointBlock:
+    """Periodic k-point mesh and integration weights.
+
+    Coordinates are fractional reciprocal-lattice coordinates.  Weights are
+    normalized to sum to one so downstream spectra can apply Brillouin-zone
+    weights without guessing the convention used by a back-end output file.
+    """
+
+    coordinates: np.ndarray      # (n_k, 3)
+    weights: np.ndarray          # (n_k,)
+
+    def __post_init__(self) -> None:
+        self.coordinates = np.asarray(self.coordinates, dtype=float)
+        self.weights = np.asarray(self.weights, dtype=float)
+        if self.coordinates.ndim != 2 or self.coordinates.shape[1] != 3:
+            raise ProviderContractError("k-point coordinates must have shape (n_k, 3)")
+        if self.weights.shape != (self.coordinates.shape[0],):
+            raise ProviderContractError("k-point weights must have length n_k")
+        if np.any(self.weights < 0.0):
+            raise ProviderContractError("k-point weights must be non-negative")
+        total = float(np.sum(self.weights))
+        if total <= 0.0:
+            raise ProviderContractError("k-point weights must have a positive sum")
+        self.weights = self.weights / total
+
+
+@dataclass
+class PeriodicCell:
+    """Real-space periodic cell in Angstrom plus atom labels/positions."""
+
+    lattice_angstrom: np.ndarray      # (3, 3)
+    atom_symbols: tuple[str, ...] = ()
+    fractional_positions: np.ndarray | None = None
+
+    def __post_init__(self) -> None:
+        self.lattice_angstrom = np.asarray(self.lattice_angstrom, dtype=float)
+        if self.lattice_angstrom.shape != (3, 3):
+            raise ProviderContractError("periodic lattice must have shape (3, 3)")
+        if self.fractional_positions is None:
+            return
+        self.fractional_positions = np.asarray(
+            self.fractional_positions, dtype=float
+        )
+        if self.fractional_positions.shape != (len(self.atom_symbols), 3):
+            raise ProviderContractError(
+                "fractional positions must have shape (n_atoms, 3)"
+            )
+
+
+@dataclass
 class DensityMatrix:
     """One-particle reduced density matrix in the AO basis."""
 
@@ -790,6 +842,8 @@ class ElectronicStructurePayload:
     density: Optional[DensityMatrix] = None
     two_electron: Optional[TwoElectronIntegrals] = None
     spin: Optional[SpinBlock] = None
+    kpoints: Optional[KPointBlock] = None
+    cell: Optional[PeriodicCell] = None
     uncertainty: Optional[UncertaintyBlock] = None
     metadata: Dict[str, Any] = field(default_factory=dict)
 
@@ -821,6 +875,8 @@ class ElectronicStructurePayload:
             caps.add(Capability.DENSITY_MATRIX)
         if self.two_electron is not None:
             caps.add(Capability.TWO_ELECTRON_INTEGRALS)
+        if self.kpoints is not None:
+            caps.add(Capability.KPOINTS)
         if self.spin is not None and self.spin.soc:
             caps.add(Capability.SPIN_SOC)
         if self.uncertainty is not None:
