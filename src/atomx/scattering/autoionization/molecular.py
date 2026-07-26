@@ -25,6 +25,10 @@ from atomx.providers.contract import (
     ensure_hartree,
 )
 
+_CORE_HOLE_IDENTITY_KEYS = frozenset(("orbital_label", "core_hole", "core_orbital"))
+_MAX_MOLECULAR_AUGER_ACTIVE_ORBITALS = 16
+_MAX_MOLECULAR_AUGER_AO_TO_MO_ORBITALS = 48
+
 __all__ = [
     "ActiveMolecularOrbital",
     "LocalizedValenceActiveSpace",
@@ -325,8 +329,16 @@ def compute_molecular_auger(
     empirical scaling is applied.
     """
 
-    payload = _compute_payload(provider, core_hole_spec).validate()
-    _assert_requested_core_hole(payload, core_hole_spec)
+    validated_spec = _validate_core_hole_spec(core_hole_spec)
+    population_threshold, occupation_threshold, residual_tolerance = (
+        _validate_active_space_parameters(
+            population_threshold,
+            occupation_threshold,
+            residual_tolerance,
+        )
+    )
+    payload = _compute_payload(provider, validated_spec).validate()
+    _assert_requested_core_hole(payload, validated_spec)
     payload.require(
         Capability.CORE_HOLE_SPEC,
         Capability.MO_COEFFICIENTS,
@@ -365,6 +377,91 @@ def _compute_payload(
     if not isinstance(payload, ElectronicStructurePayload):
         raise ProviderContractError("provider did not return an ElectronicStructurePayload")
     return payload
+
+
+def _validate_core_hole_spec(
+    spec: str | int | dict[str, Any] | None,
+) -> str | int | dict[str, Any] | None:
+    if spec is None:
+        return None
+    if isinstance(spec, bool):
+        raise ProviderContractError("core_hole_spec MO index must be an integer")
+    if isinstance(spec, int):
+        if spec < 0:
+            raise ProviderContractError("core_hole_spec MO index must be non-negative")
+        return spec
+    if isinstance(spec, str):
+        if not spec.strip():
+            raise ProviderContractError("core_hole_spec label must be non-empty")
+        return spec
+    if not isinstance(spec, dict):
+        raise ProviderContractError(
+            "core_hole_spec must be None, a non-empty string, a non-negative "
+            "MO index, or a one-key dict"
+        )
+    if len(spec) != 1:
+        raise ProviderContractError(
+            "core_hole_spec dict must contain exactly one supported identity key"
+        )
+    key, value = next(iter(spec.items()))
+    if key not in _CORE_HOLE_IDENTITY_KEYS:
+        supported = ", ".join(sorted(_CORE_HOLE_IDENTITY_KEYS))
+        raise ProviderContractError(
+            f"unsupported core_hole_spec key {key!r}; supported keys: {supported}"
+        )
+    _validate_core_hole_identity_value(value)
+    return spec
+
+
+def _validate_core_hole_identity_value(value: Any) -> None:
+    if isinstance(value, bool):
+        raise ProviderContractError("core_hole_spec MO index must be an integer")
+    if isinstance(value, int):
+        if value < 0:
+            raise ProviderContractError("core_hole_spec MO index must be non-negative")
+        return
+    if isinstance(value, str) and value.strip():
+        return
+    raise ProviderContractError(
+        "core_hole_spec identity value must be a non-empty string or "
+        "non-negative MO index"
+    )
+
+
+def _validate_active_space_parameters(
+    population_threshold: float,
+    occupation_threshold: float,
+    residual_tolerance: float,
+) -> tuple[float, float, float]:
+    try:
+        values = (
+            ("population_threshold", float(population_threshold), False),
+            ("occupation_threshold", float(occupation_threshold), False),
+            ("residual_tolerance", float(residual_tolerance), True),
+        )
+    except (TypeError, ValueError) as exc:
+        raise ProviderContractError(
+            "active-space thresholds must be numeric"
+        ) from exc
+    for name, value, strictly_positive in values:
+        if not np.isfinite(value):
+            raise ProviderContractError(f"{name} must be finite")
+        if strictly_positive:
+            if value <= 0.0:
+                raise ProviderContractError(f"{name} must be greater than zero")
+        elif value < 0.0:
+            raise ProviderContractError(f"{name} must be non-negative")
+    return values[0][1], values[1][1], values[2][1]
+
+
+def _assert_active_space_budget(active_orbital_count: int) -> None:
+    if active_orbital_count > _MAX_MOLECULAR_AUGER_ACTIVE_ORBITALS:
+        raise ProviderContractError(
+            "molecular Auger active space exceeds the supported budget: "
+            f"{active_orbital_count} active MOs > "
+            f"{_MAX_MOLECULAR_AUGER_ACTIVE_ORBITALS}; reduce thresholds or "
+            "split the calculation"
+        )
 
 
 def _call_core_hole_builder(
@@ -627,8 +724,18 @@ def local_valence_active_space(
     element appears on exactly one center.  The core-hole spec must also carry
     ``tracked_mo_index`` so the selected active space can fail closed rather
     than accidentally treat the core MO as a valence orbital.
+
+    To keep two-hole enumeration and downstream ERI contractions bounded, the
+    selected local valence active space is capped at 16 MOs.
     """
 
+    population_threshold, occupation_threshold, residual_tolerance = (
+        _validate_active_space_parameters(
+            population_threshold,
+            occupation_threshold,
+            residual_tolerance,
+        )
+    )
     payload.require(
         Capability.CORE_HOLE_SPEC,
         Capability.MO_COEFFICIENTS,
@@ -684,6 +791,7 @@ def local_valence_active_space(
         raise ProviderContractError(
             "no occupied valence MOs passed the local Mulliken thresholds"
         )
+    _assert_active_space_budget(len(active))
 
     active_indices = tuple(orb.index for orb in active)
     transform = np.eye(len(active_indices))
@@ -769,6 +877,13 @@ def molecular_auger_final_states(
     final states are intentionally left to HYP-918.
     """
 
+    population_threshold, occupation_threshold, residual_tolerance = (
+        _validate_active_space_parameters(
+            population_threshold,
+            occupation_threshold,
+            residual_tolerance,
+        )
+    )
     initial = core_hole or molecular_auger_initial_state(payload)
     active_space = local_valence_active_space(
         payload,
@@ -842,6 +957,12 @@ def _mo_eri(payload: ElectronicStructurePayload) -> NDArray[np.float64]:
         return cast(NDArray[np.float64], eri)
     if payload.two_electron.basis != "ao":
         raise ProviderContractError("two-electron integral basis must be 'ao' or 'mo'")
+    if payload.orbitals.n_mo > _MAX_MOLECULAR_AUGER_AO_TO_MO_ORBITALS:
+        raise ProviderContractError(
+            "AO-to-MO ERI transformation exceeds the molecular Auger budget: "
+            f"{payload.orbitals.n_mo} MOs > "
+            f"{_MAX_MOLECULAR_AUGER_AO_TO_MO_ORBITALS}"
+        )
     C = payload.orbitals.coefficients
     return cast(
         NDArray[np.float64],
@@ -891,7 +1012,7 @@ def molecular_auger_transition_amplitude(
             amplitude=0.0,
             selection_rule="spin-forbidden-non-soc-v1",
         )
-    channel = continuum_channel or DiscreteMOContinuumChannel()
+    channel = cast(ContinuumChannel, continuum_channel or DiscreteMOContinuumChannel())
     kinetic_energy = initial_state.initial_energy - final_state.final_energy
     coeff = channel.coefficients(payload, kinetic_energy)
     eri = _mo_eri(payload)
@@ -1006,6 +1127,13 @@ def molecular_auger_spectrum(
     applied.
     """
 
+    population_threshold, occupation_threshold, residual_tolerance = (
+        _validate_active_space_parameters(
+            population_threshold,
+            occupation_threshold,
+            residual_tolerance,
+        )
+    )
     initial = core_hole or molecular_auger_initial_state(payload)
     finals = final_states or molecular_auger_final_states(
         payload,
@@ -1014,7 +1142,11 @@ def molecular_auger_spectrum(
         occupation_threshold=occupation_threshold,
         residual_tolerance=residual_tolerance,
     )
-    channel = continuum_channel or DiscreteMOContinuumChannel()
+    if finals:
+        _assert_active_space_budget(
+            max(len(final.active_space.orbitals) for final in finals)
+        )
+    channel = cast(ContinuumChannel, continuum_channel or DiscreteMOContinuumChannel())
     raw_lines: list[AugerStick] = []
     dropped: list[dict[str, str]] = []
     for final in finals:

@@ -64,6 +64,53 @@ def _payload_with_eri(eri: np.ndarray) -> ElectronicStructurePayload:
     )
 
 
+def _large_ao_eri_payload(n_mo: int = 49) -> ElectronicStructurePayload:
+    labels = [
+        "0 O 1s",
+        "0 O 2s",
+        "0 O 2p",
+        *(f"1 H aux{i}" for i in range(3, n_mo)),
+    ]
+    occupations = np.zeros(n_mo)
+    occupations[0] = 1.0
+    occupations[1:3] = 2.0
+    return ElectronicStructurePayload(
+        Z=8,
+        provenance=Provenance(
+            provider="mock",
+            code_version="mock 0",
+            method="RHF",
+            basis="orthonormal-ao",
+            theory_level="RHF",
+            approximations=["nonrel-gto"],
+            core_hole="O 1s",
+            energy_zero="delta_scf_total_energy",
+        ),
+        orbital_energies={f"MO{i}": float(i) for i in range(n_mo)},
+        orbitals=OrbitalCoefficients(
+            coefficients=np.eye(n_mo),
+            energies=np.arange(n_mo, dtype=float),
+            occupations=occupations,
+            basis_labels=labels,
+        ),
+        overlap=OverlapBlock(np.eye(n_mo), basis_labels=labels),
+        density=DensityMatrix(np.diag(occupations)),
+        two_electron=TwoElectronIntegrals(
+            np.zeros((n_mo, n_mo, n_mo, n_mo)),
+            basis="ao",
+        ),
+        metadata={
+            "core_hole": {
+                "orbital_label": "O 1s",
+                "occupation_before": 2.0,
+                "occupation_after": 1.0,
+                "tracked_mo_index": 0,
+                "initial_state_energy_hartree": 19.5,
+            }
+        },
+    )
+
+
 class _CoreHoleProvider:
     def __init__(self, payload: ElectronicStructurePayload) -> None:
         self.payload = payload
@@ -125,6 +172,20 @@ def test_triplet_two_hole_state_is_spin_forbidden_zero_amplitude():
     assert amplitude.amplitude == pytest.approx(0.0)
     assert amplitude.coherent_intensity == pytest.approx(0.0)
     assert amplitude.selection_rule == "spin-forbidden-non-soc-v1"
+
+
+def test_ao_to_mo_eri_transform_rejects_oversized_mo_budget():
+    payload = _large_ao_eri_payload()
+    initial = molecular_auger_initial_state(payload)
+    final = _pair_state(payload)
+
+    with pytest.raises(ProviderContractError, match="AO-to-MO ERI"):
+        molecular_auger_transition_amplitude(
+            payload,
+            initial,
+            final,
+            DiscreteMOContinuumChannel(mo_index=3),
+        )
 
 
 def test_molecular_auger_spectrum_uses_ke_axis_and_sum_rule_normalization():
@@ -198,6 +259,60 @@ def test_compute_molecular_auger_accepts_prepared_payload():
 
     assert len(spectrum.lines) == 1
     assert sum(spectrum.intensities) == pytest.approx(1.0)
+
+
+@pytest.mark.parametrize(
+    "core_hole_spec",
+    [
+        {},
+        {"orbital_label": "O 1s", "core_orbital": "O 1s"},
+        {"unknown": "O 1s"},
+        {"orbital_label": ""},
+        {"core_orbital": -1},
+        {"core_orbital": 1.5},
+        {"core_orbital": False},
+        -1,
+        1.5,
+        True,
+    ],
+)
+def test_compute_molecular_auger_rejects_bad_core_hole_spec_before_provider(
+    core_hole_spec,
+):
+    provider = _CoreHoleProvider(_payload_with_eri(np.zeros((4, 4, 4, 4))))
+
+    with pytest.raises(ProviderContractError):
+        compute_molecular_auger(provider, core_hole_spec, population_threshold=0.5)
+
+    assert provider.calls == []
+
+
+@pytest.mark.parametrize(
+    "kwargs",
+    [
+        {"population_threshold": float("nan")},
+        {"population_threshold": float("inf")},
+        {"population_threshold": -1e-6},
+        {"occupation_threshold": float("nan")},
+        {"occupation_threshold": -1e-6},
+        {"residual_tolerance": float("nan")},
+        {"residual_tolerance": float("inf")},
+        {"residual_tolerance": 0.0},
+        {"residual_tolerance": -1e-7},
+    ],
+)
+def test_compute_molecular_auger_rejects_bad_thresholds_before_provider(kwargs):
+    provider = _CoreHoleProvider(_payload_with_eri(np.zeros((4, 4, 4, 4))))
+
+    with pytest.raises(ProviderContractError):
+        compute_molecular_auger(
+            provider,
+            "O 1s",
+            continuum_channel=DiscreteMOContinuumChannel(mo_index=3),
+            **kwargs,
+        )
+
+    assert provider.calls == []
 
 
 def test_compute_molecular_auger_fails_closed_without_eris():
