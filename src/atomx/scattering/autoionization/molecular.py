@@ -448,7 +448,13 @@ def _validate_active_space_parameters(
     for name, raw_value, strictly_positive in raw_values:
         if isinstance(raw_value, bool) or not isinstance(raw_value, Real):
             raise ProviderContractError(f"{name} must be a real number")
-        values.append((name, float(raw_value), strictly_positive))
+        try:
+            value = float(raw_value)
+        except (OverflowError, TypeError, ValueError) as exc:
+            raise ProviderContractError(
+                f"{name} must be a finite real number"
+            ) from exc
+        values.append((name, value, strictly_positive))
     for name, value, strictly_positive in values:
         if not np.isfinite(value):
             raise ProviderContractError(f"{name} must be finite")

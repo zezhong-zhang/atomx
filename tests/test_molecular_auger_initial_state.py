@@ -33,6 +33,7 @@ _NON_REAL_THRESHOLD_VALUES = (
     b"0.5",
     object(),
 )
+_HUGE_REAL_THRESHOLD_VALUE = 10**10000
 
 
 def _payload(*, core_hole: str = "O 1s", overlap=True, metadata=True):
@@ -299,6 +300,56 @@ def test_local_valence_active_space_rejects_non_real_thresholds_before_active_wo
 
     with pytest.raises(ProviderContractError, match=parameter):
         local_valence_active_space(_active_payload(), **{parameter: bad_value})
+
+
+@pytest.mark.parametrize(
+    "parameter",
+    ["population_threshold", "occupation_threshold", "residual_tolerance"],
+)
+def test_local_valence_active_space_rejects_huge_real_thresholds_before_active_work(
+    monkeypatch,
+    parameter,
+):
+    def fail_if_called(*args, **kwargs):
+        raise AssertionError("Mulliken active-space population work was reached")
+
+    monkeypatch.setattr(
+        "atomx.scattering.autoionization.molecular.np.einsum",
+        fail_if_called,
+    )
+
+    with pytest.raises(ProviderContractError, match=parameter):
+        local_valence_active_space(
+            _active_payload(),
+            **{parameter: _HUGE_REAL_THRESHOLD_VALUE},
+        )
+
+
+@pytest.mark.parametrize(
+    "parameter",
+    ["population_threshold", "occupation_threshold", "residual_tolerance"],
+)
+def test_molecular_auger_final_states_rejects_huge_real_thresholds_before_work(
+    monkeypatch,
+    parameter,
+):
+    def fail_if_called(*args, **kwargs):
+        raise AssertionError("initial-state or active-space work was reached")
+
+    monkeypatch.setattr(
+        "atomx.scattering.autoionization.molecular.molecular_auger_initial_state",
+        fail_if_called,
+    )
+    monkeypatch.setattr(
+        "atomx.scattering.autoionization.molecular.local_valence_active_space",
+        fail_if_called,
+    )
+
+    with pytest.raises(ProviderContractError, match=parameter):
+        molecular_auger_final_states(
+            _active_payload(),
+            **{parameter: _HUGE_REAL_THRESHOLD_VALUE},
+        )
 
 
 def test_local_valence_active_space_rejects_oversized_active_space_budget():

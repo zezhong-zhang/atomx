@@ -33,6 +33,7 @@ _NON_REAL_THRESHOLD_VALUES = (
     b"0.5",
     object(),
 )
+_HUGE_REAL_THRESHOLD_VALUE = 10**10000
 
 
 def _payload_with_eri(eri: np.ndarray) -> ElectronicStructurePayload:
@@ -434,6 +435,26 @@ def test_compute_molecular_auger_rejects_non_real_thresholds_before_provider(
     "parameter",
     ["population_threshold", "occupation_threshold", "residual_tolerance"],
 )
+def test_compute_molecular_auger_rejects_huge_real_thresholds_before_provider(
+    parameter,
+):
+    provider = _CoreHoleProvider(_payload_with_eri(np.zeros((4, 4, 4, 4))))
+
+    with pytest.raises(ProviderContractError, match=parameter):
+        compute_molecular_auger(
+            provider,
+            "O 1s",
+            continuum_channel=DiscreteMOContinuumChannel(mo_index=3),
+            **{parameter: _HUGE_REAL_THRESHOLD_VALUE},
+        )
+
+    assert provider.calls == []
+
+
+@pytest.mark.parametrize(
+    "parameter",
+    ["population_threshold", "occupation_threshold", "residual_tolerance"],
+)
 @pytest.mark.parametrize("bad_value", _NON_REAL_THRESHOLD_VALUES)
 def test_molecular_auger_spectrum_rejects_non_real_thresholds_before_final_work(
     monkeypatch,
@@ -456,6 +477,35 @@ def test_molecular_auger_spectrum_rejects_non_real_thresholds_before_final_work(
 
     with pytest.raises(ProviderContractError, match=parameter):
         molecular_auger_spectrum(payload, **{parameter: bad_value})
+
+
+@pytest.mark.parametrize(
+    "parameter",
+    ["population_threshold", "occupation_threshold", "residual_tolerance"],
+)
+def test_molecular_auger_spectrum_rejects_huge_real_thresholds_before_final_work(
+    monkeypatch,
+    parameter,
+):
+    payload = _payload_with_eri(np.zeros((4, 4, 4, 4)))
+
+    def fail_if_called(*args, **kwargs):
+        raise AssertionError("final-state or ERI work was reached")
+
+    monkeypatch.setattr(
+        "atomx.scattering.autoionization.molecular.molecular_auger_final_states",
+        fail_if_called,
+    )
+    monkeypatch.setattr(
+        "atomx.scattering.autoionization.molecular._mo_eri",
+        fail_if_called,
+    )
+
+    with pytest.raises(ProviderContractError, match=parameter):
+        molecular_auger_spectrum(
+            payload,
+            **{parameter: _HUGE_REAL_THRESHOLD_VALUE},
+        )
 
 
 @pytest.mark.parametrize(
