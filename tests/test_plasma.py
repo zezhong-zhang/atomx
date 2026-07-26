@@ -166,6 +166,47 @@ class TestScreening:
         assert np.all(rates.alpha_cm3_s > 0.0)
         assert max(rates.alpha_cm3_s) / min(rates.alpha_cm3_s) < 1.03
 
+    @pytest.mark.parametrize(
+        ("lam_D", "R_IS"),
+        [
+            (1.0, 1.0e110),
+            (1.0e-200, 1.0e200),
+        ],
+    )
+    def test_stewart_pyatt_ipd_extreme_finite_u_stays_finite(self, lam_D, R_IS):
+        """Finite but extreme ratios must not overflow or return NaN."""
+        from atomx.plasma.screening import _stewart_pyatt_ipd_au
+
+        Z_ion = 4.0
+        ipd = _stewart_pyatt_ipd_au(Z_ion, lam_D, R_IS)
+        ion_sphere = 1.5 * Z_ion / R_IS
+        assert np.isfinite(ipd)
+        assert ipd >= 0.0
+        assert ipd == pytest.approx(ion_sphere, rel=1e-12)
+
+    def test_stewart_pyatt_ipd_large_u_matches_ion_sphere_asymptote(self):
+        from atomx.plasma.screening import _stewart_pyatt_ipd_au
+
+        Z_ion = 2.0
+        lam_D = 1.0
+        R_IS = 1.0e20
+        assert _stewart_pyatt_ipd_au(Z_ion, lam_D, R_IS) == pytest.approx(
+            1.5 * Z_ion / R_IS, rel=1e-12)
+
+    @pytest.mark.parametrize(
+        ("kwargs", "match"),
+        [
+            ({"Z_ion": 0, "ne_cm3": 1e20, "Te_eV": 10.0}, "Z_ion"),
+            ({"Z_ion": 1, "ne_cm3": np.nan, "Te_eV": 10.0}, "ne_cm3"),
+            ({"Z_ion": 1, "ne_cm3": 1e20, "Te_eV": np.inf}, "Te_eV"),
+        ],
+    )
+    def test_ipd_public_inputs_fail_closed(self, kwargs, match):
+        from atomx.plasma.screening import ionization_potential_depression
+
+        with pytest.raises(ValueError, match=match):
+            ionization_potential_depression(**kwargs)
+
 
 class TestCRM:
     """Test Collisional-Radiative Model."""
