@@ -7,6 +7,23 @@ import numpy as np
 import pytest
 
 
+def _temperature_for_screening_u(Z_ion, ne_cm3, u):
+    """Return Te_eV giving u = R_IS/lambda_D for this density.
+
+    The tests below use the Stewart-Pyatt IPD form
+    3 Z/(2 R_IS) [((1 + (lambda_D/R_IS)^3)^(2/3)
+    - (lambda_D/R_IS)^2)] in Hartree.  This is the continuous
+    Stewart-Pyatt interpolation quoted in, e.g., Stewart & Pyatt,
+    ApJ 144, 1203 (1966), and Calisti/Preston formula comparisons.
+    """
+    from atomx.constants import BOHR_RADIUS_M, HARTREE_EV
+    from atomx.plasma.screening import ion_sphere_radius
+
+    ne_au = ne_cm3 * (BOHR_RADIUS_M * 100) ** 3
+    lam_D = ion_sphere_radius(Z_ion, ne_cm3) / u
+    return lam_D ** 2 * 4.0 * np.pi * ne_au * HARTREE_EV
+
+
 class TestScreening:
     """Test plasma screening models."""
 
@@ -53,6 +70,66 @@ class TestScreening:
         # Should be between Debye and ion-sphere limits
         V_val = V_sp(r)
         assert V_val < 0  # attractive
+
+    def test_stewart_pyatt_ipd_continuous_at_u_10_counterexample(self):
+        """Original u=9.99/10.00 counterexample must not jump by orders."""
+        from atomx.plasma.screening import ionization_potential_depression
+
+        Z_ion = 1
+        ne_cm3 = 1.0e23
+        ipd_999 = ionization_potential_depression(
+            Z_ion, ne_cm3, _temperature_for_screening_u(Z_ion, ne_cm3, 9.99))
+        ipd_1000 = ionization_potential_depression(
+            Z_ion, ne_cm3, _temperature_for_screening_u(Z_ion, ne_cm3, 10.0))
+        ipd_1001 = ionization_potential_depression(
+            Z_ion, ne_cm3, _temperature_for_screening_u(Z_ion, ne_cm3, 10.01))
+
+        assert ipd_999 / ipd_1000 == pytest.approx(1.0, rel=5e-3)
+        assert ipd_1001 / ipd_1000 == pytest.approx(1.0, rel=5e-3)
+
+    def test_stewart_pyatt_ipd_scan_has_no_order_jumps(self):
+        """Dense log/boundary scan should vary smoothly across SP regimes."""
+        from atomx.plasma.screening import ionization_potential_depression
+
+        Z_ion = 3
+        ne_cm3 = 5.0e23
+        u_values = np.unique(np.sort(np.concatenate([
+            np.geomspace(0.05, 20.0, 500),
+            np.linspace(9.5, 10.5, 101),
+        ])))
+        ipd = np.array([
+            ionization_potential_depression(
+                Z_ion, ne_cm3,
+                _temperature_for_screening_u(Z_ion, ne_cm3, u))
+            for u in u_values
+        ])
+        ratios = np.maximum(ipd[1:] / ipd[:-1], ipd[:-1] / ipd[1:])
+
+        assert np.all(np.isfinite(ipd))
+        assert ratios.max() < 1.05
+
+    def test_stewart_pyatt_ipd_matches_debye_and_ion_sphere_limits(self):
+        """SP limit checks use analytic Debye and ion-sphere values."""
+        from atomx.plasma.screening import (
+            ion_sphere_radius, ionization_potential_depression,
+        )
+        from atomx.constants import HARTREE_EV
+
+        Z_ion = 2
+        ne_cm3 = 1.0e22
+
+        weak_u = 1.0e-4
+        weak_Te = _temperature_for_screening_u(Z_ion, ne_cm3, weak_u)
+        weak_R = ion_sphere_radius(Z_ion, ne_cm3)
+        weak_debye = Z_ion / (weak_R / weak_u) * HARTREE_EV
+        assert ionization_potential_depression(
+            Z_ion, ne_cm3, weak_Te) == pytest.approx(weak_debye, rel=1e-6)
+
+        strong_u = 1.0e4
+        strong_Te = _temperature_for_screening_u(Z_ion, ne_cm3, strong_u)
+        strong_is = 1.5 * Z_ion / weak_R * HARTREE_EV
+        assert ionization_potential_depression(
+            Z_ion, ne_cm3, strong_Te) == pytest.approx(strong_is, rel=1e-4)
 
 
 class TestCRM:

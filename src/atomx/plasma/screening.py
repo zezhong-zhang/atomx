@@ -138,6 +138,30 @@ def ion_sphere_potential(Z, Z_ion, ne_cm3):
     return V
 
 
+def _stewart_pyatt_ipd_au(Z_ion, R_IS, lam_D):
+    """Stewart-Pyatt IPD in Hartree for a supplied ion-sphere and Debye scale.
+
+    Uses the continuous interpolation form
+
+        Δ_SP = 3 Z / (2 R_IS) * [((1 + u^3)^(2/3) - 1) / u^2],
+        u = R_IS / lambda_D,
+
+    which is algebraically equivalent to the common
+    3 Z / (2 R_IS) * [((1 + s^3)^(2/3) - s^2)] form with
+    s = lambda_D / R_IS.  The ``log1p``/``expm1`` evaluation avoids
+    cancellation in the weak-coupling limit, where Δ_SP -> Z/lambda_D.
+    """
+    if not (Z_ion > 0 and R_IS > 0 and R_IS < 1e10
+            and lam_D > 0 and lam_D < 1e10):
+        return 0.0
+
+    u = R_IS / lam_D
+    if u == 0.0:
+        return 0.0
+    bracket = np.expm1((2.0 / 3.0) * np.log1p(u ** 3)) / (u ** 2)
+    return 1.5 * Z_ion / R_IS * bracket
+
+
 def stewart_pyatt_potential(Z, Z_ion, ne_cm3, Te_eV):
     """Stewart-Pyatt screened potential.
 
@@ -267,18 +291,7 @@ def ionization_potential_depression(Z_ion, ne_cm3, Te_eV, model='stewart_pyatt')
     elif model == 'stewart_pyatt':
         lam_D = debye_length(ne_cm3, Te_eV)
         R_IS = ion_sphere_radius(Z_ion, ne_cm3)
-        if lam_D > 0 and R_IS > 0:
-            u = R_IS / lam_D
-            # SP interpolation
-            if u < 0.1:
-                IPD_au = Z_ion / lam_D
-            elif u > 10:
-                IPD_au = 1.5 * Z_ion / R_IS
-            else:
-                lam_eff = lam_D * np.sqrt(max((1 + u ** 3) ** (2.0 / 3.0) - u ** 2, 0.01))
-                IPD_au = Z_ion / lam_eff
-        else:
-            IPD_au = 0.0
+        IPD_au = _stewart_pyatt_ipd_au(Z_ion, R_IS, lam_D)
     else:
         raise ValueError(f"Unknown model: {model}")
 

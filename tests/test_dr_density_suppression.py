@@ -16,6 +16,15 @@ from atomx.scattering.dielectronic_recombination.solver import (  # noqa: E402
     dr_rate_coefficient)
 
 
+def _temperature_for_screening_u(Z_ion, ne_cm3, u):
+    from atomx.constants import BOHR_RADIUS_M, HARTREE_EV
+    from atomx.plasma.screening import ion_sphere_radius
+
+    ne_au = ne_cm3 * (BOHR_RADIUS_M * 100) ** 3
+    lam_D = ion_sphere_radius(Z_ion, ne_cm3) / u
+    return lam_D ** 2 * 4.0 * np.pi * ne_au * HARTREE_EV
+
+
 def _states():
     # two resonances converging to a 800-eV series limit: a low-n one
     # bound by 500 eV and a high-n Rydberg one bound by only 5 eV.
@@ -54,3 +63,29 @@ def test_high_density_drops_high_n_only():
 def test_suppression_requires_limit():
     with pytest.raises(ValueError, match="series_limit_eV"):
         dr_rate_coefficient(_states(), [100.0], ne_cm3=1e20)
+
+
+def test_stewart_pyatt_boundary_does_not_toggle_dr_survival():
+    from atomx.plasma.screening import ionization_potential_depression
+
+    Z_ion = 1
+    ne_cm3 = 1.0e23
+    temps = [
+        _temperature_for_screening_u(Z_ion, ne_cm3, 9.99),
+        _temperature_for_screening_u(Z_ion, ne_cm3, 10.0),
+    ]
+    ipd = np.array([
+        ionization_potential_depression(Z_ion, ne_cm3, t) for t in temps
+    ])
+    binding_eV = 2.0 * float(ipd.max())
+    series_limit_eV = binding_eV + 0.1
+    state = AutoionizationState(
+        label="boundary-bound", E_resonance_eV=series_limit_eV - binding_eV,
+        J=1.5, gamma_auger_per_s=1e14, a_radiative_per_s=1e13)
+
+    rate = dr_rate_coefficient(
+        [state], temps, initial_state_g=1.0, ne_cm3=ne_cm3,
+        Z_ion=Z_ion, series_limit_eV=series_limit_eV)
+
+    assert rate.per_resonance["boundary-bound"][0] > 0.0
+    assert rate.per_resonance["boundary-bound"][1] > 0.0
