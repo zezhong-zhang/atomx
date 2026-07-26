@@ -27,6 +27,14 @@ from atomx.scattering.autoionization.molecular import (
 )
 
 
+_NON_REAL_THRESHOLD_VALUES = (
+    True,
+    "0.5",
+    b"0.5",
+    object(),
+)
+
+
 def _payload(*, core_hole: str = "O 1s", overlap=True, metadata=True):
     C = np.eye(2)
     return ElectronicStructurePayload(
@@ -269,6 +277,28 @@ def test_local_valence_active_space_rejects_empty_active_space():
 def test_local_valence_active_space_rejects_bad_thresholds(kwargs):
     with pytest.raises(ProviderContractError):
         local_valence_active_space(_active_payload(), **kwargs)
+
+
+@pytest.mark.parametrize(
+    "parameter",
+    ["population_threshold", "occupation_threshold", "residual_tolerance"],
+)
+@pytest.mark.parametrize("bad_value", _NON_REAL_THRESHOLD_VALUES)
+def test_local_valence_active_space_rejects_non_real_thresholds_before_active_work(
+    monkeypatch,
+    parameter,
+    bad_value,
+):
+    def fail_if_called(*args, **kwargs):
+        raise AssertionError("Mulliken active-space population work was reached")
+
+    monkeypatch.setattr(
+        "atomx.scattering.autoionization.molecular.np.einsum",
+        fail_if_called,
+    )
+
+    with pytest.raises(ProviderContractError, match=parameter):
+        local_valence_active_space(_active_payload(), **{parameter: bad_value})
 
 
 def test_local_valence_active_space_rejects_oversized_active_space_budget():

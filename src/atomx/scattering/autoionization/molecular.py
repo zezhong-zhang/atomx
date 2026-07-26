@@ -439,16 +439,16 @@ def _validate_active_space_parameters(
     occupation_threshold: float,
     residual_tolerance: float,
 ) -> tuple[float, float, float]:
-    try:
-        values = (
-            ("population_threshold", float(population_threshold), False),
-            ("occupation_threshold", float(occupation_threshold), False),
-            ("residual_tolerance", float(residual_tolerance), True),
-        )
-    except (TypeError, ValueError) as exc:
-        raise ProviderContractError(
-            "active-space thresholds must be numeric"
-        ) from exc
+    raw_values = (
+        ("population_threshold", population_threshold, False),
+        ("occupation_threshold", occupation_threshold, False),
+        ("residual_tolerance", residual_tolerance, True),
+    )
+    values: list[tuple[str, float, bool]] = []
+    for name, raw_value, strictly_positive in raw_values:
+        if isinstance(raw_value, bool) or not isinstance(raw_value, Real):
+            raise ProviderContractError(f"{name} must be a real number")
+        values.append((name, float(raw_value), strictly_positive))
     for name, value, strictly_positive in values:
         if not np.isfinite(value):
             raise ProviderContractError(f"{name} must be finite")
