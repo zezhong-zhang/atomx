@@ -6,6 +6,17 @@ Validates Debye/ion-sphere screening models and basic CRM functionality.
 import numpy as np
 import pytest
 
+from atomx.constants import BOHR_RADIUS_M, HARTREE_EV
+
+
+def _temperature_for_u(Z_ion, ne_cm3, u):
+    from atomx.plasma.screening import EV_TO_HARTREE, ion_sphere_radius
+
+    ne_au = ne_cm3 * (BOHR_RADIUS_M * 100) ** 3
+    R_IS = ion_sphere_radius(Z_ion, ne_cm3)
+    kT_au = 4.0 * np.pi * ne_au * (R_IS / u) ** 2
+    return kT_au / EV_TO_HARTREE
+
 
 class TestScreening:
     """Test plasma screening models."""
@@ -53,6 +64,107 @@ class TestScreening:
         # Should be between Debye and ion-sphere limits
         V_val = V_sp(r)
         assert V_val < 0  # attractive
+
+    def test_stewart_pyatt_ipd_matches_limits(self):
+        """SP IPD should recover Debye and ion-sphere analytic limits."""
+        from atomx.plasma.screening import (
+            debye_length,
+            ion_sphere_radius,
+            ionization_potential_depression,
+        )
+
+        Z_ion = 3
+        ne = 1.0e23
+
+        Te_debye = _temperature_for_u(Z_ion, ne, 1.0e-4)
+        lam_D = debye_length(ne, Te_debye)
+        debye = Z_ion / lam_D * HARTREE_EV
+        sp_debye = ionization_potential_depression(
+            Z_ion, ne, Te_debye, model="stewart_pyatt")
+        assert sp_debye == pytest.approx(debye, rel=1e-4)
+
+        Te_ion_sphere = _temperature_for_u(Z_ion, ne, 1.0e4)
+        R_IS = ion_sphere_radius(Z_ion, ne)
+        ion_sphere = 1.5 * Z_ion / R_IS * HARTREE_EV
+        sp_ion_sphere = ionization_potential_depression(
+            Z_ion, ne, Te_ion_sphere, model="stewart_pyatt")
+        assert sp_ion_sphere == pytest.approx(ion_sphere, rel=2e-4)
+
+    @pytest.mark.parametrize("u0", [0.1, 10.0])
+    def test_stewart_pyatt_ipd_continuous_at_legacy_boundaries(self, u0):
+        """Legacy implementation branched at u=0.1 and u=10."""
+        from atomx.plasma.screening import ionization_potential_depression
+
+        Z_ion = 1
+        ne = 1.0e23
+        values = [
+            ionization_potential_depression(
+                Z_ion, ne, _temperature_for_u(Z_ion, ne, u), "stewart_pyatt")
+            for u in (u0 * 0.999, u0, u0 * 1.001)
+        ]
+        ratios = np.maximum(values[:-1], values[1:]) / np.minimum(
+            values[:-1], values[1:])
+        assert np.max(ratios) < 1.003
+
+    def test_stewart_pyatt_ipd_log_sweep_has_no_silent_jump(self):
+        """Adjacent SP values over the coupling range should vary smoothly."""
+        from atomx.plasma.screening import ionization_potential_depression
+
+        Z_ion = 2
+        ne = 1.0e23
+        values = np.array([
+            ionization_potential_depression(
+                Z_ion, ne, _temperature_for_u(Z_ion, ne, u), "stewart_pyatt")
+            for u in np.geomspace(0.05, 20.0, 256)
+        ])
+        assert np.all(np.isfinite(values))
+        assert np.all(values >= 0.0)
+        adjacent = np.maximum(values[:-1], values[1:]) / np.minimum(
+            values[:-1], values[1:])
+        assert np.max(adjacent) < 1.03
+
+    def test_stewart_pyatt_ipd_reported_u10_reproducer_is_continuous(self):
+        """Reported u=9.99 -> 10.00 vector must not jump by orders."""
+        from atomx.plasma.screening import ionization_potential_depression
+
+        Z_ion = 1
+        ne = 1.0e23
+        below = ionization_potential_depression(
+            Z_ion, ne, _temperature_for_u(Z_ion, ne, 9.99), "stewart_pyatt")
+        at = ionization_potential_depression(
+            Z_ion, ne, _temperature_for_u(Z_ion, ne, 10.0), "stewart_pyatt")
+        assert max(below, at) / min(below, at) < 1.002
+
+    def test_dr_density_suppression_uses_continuous_stewart_pyatt_ipd(self):
+        """DR survival should not inherit the old SP branch discontinuity."""
+        from atomx.scattering.autoionization.auger import AutoionizationState
+        from atomx.scattering.dielectronic_recombination.solver import (
+            dr_rate_coefficient,
+        )
+
+        Z_ion = 1
+        ne = 1.0e23
+        series_limit = 1000.01
+        state = AutoionizationState(
+            label="u10-boundary",
+            E_resonance_eV=0.01,
+            J=1.5,
+            gamma_auger_per_s=1e14,
+            a_radiative_per_s=1e13,
+        )
+        T = [
+            _temperature_for_u(Z_ion, ne, 9.99),
+            _temperature_for_u(Z_ion, ne, 10.0),
+        ]
+        rates = dr_rate_coefficient(
+            [state],
+            T,
+            ne_cm3=ne,
+            Z_ion=Z_ion,
+            series_limit_eV=series_limit,
+        )
+        assert np.all(rates.alpha_cm3_s > 0.0)
+        assert max(rates.alpha_cm3_s) / min(rates.alpha_cm3_s) < 1.03
 
 
 class TestCRM:
