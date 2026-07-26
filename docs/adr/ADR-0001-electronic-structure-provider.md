@@ -266,10 +266,13 @@ must reject non-real H/S/coefficient/integral inputs rather than casting away
 imaginary parts; complex periodic-k support requires a separate typed contract.
 K weights are authoritative only in the typed `KPointBlock`, must be finite,
 non-negative, normalized to one, and conserved across the payload set being
-aggregated. Mutable metadata (`k_weight`, `kpoint`, `hamiltonian`,
-`local_projection_weight`, `core_hole`) is never allowed to override typed,
-validated fields; any collision or mismatch fails closed. Local projection
-weights are probabilities in `[0, 1]` and may only attenuate, not amplify, a
+aggregated. Each per-k payload binds its H/S/C/orbital data to a typed
+`KPointBlock.selected_index`; mutable metadata (`kpoint_index`, `k_weight`,
+`kpoint`, `hamiltonian`, `local_projection_weight`, `core_hole`) is never
+allowed to override typed, validated fields; any collision or mismatch fails
+closed. Local projection weights are independent localization
+probabilities/fractions in `[0, 1]`, not a cross-k partition, so no cross-k
+projection normalization is intended; they may only attenuate, not amplify, a
 matrix-element-weighted Auger intensity.
 
 Adapters must enforce finite values for tolerance, coordinates, cell data,

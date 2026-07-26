@@ -210,9 +210,15 @@ def _payload_kpoint_contract(
     if not np.isclose(float(np.sum(weights)), 1.0, atol=1e-12, rtol=0.0):
         raise ProviderContractError("k-point weights must sum to one")
 
-    index = _metadata_index(payload, "kpoint_index", upper=coordinates.shape[0])
+    index = _typed_kpoint_index(payload, upper=coordinates.shape[0])
     typed_kpoint = tuple(float(x) for x in coordinates[index])
     k_weight = float(weights[index])
+    if "kpoint_index" in payload.metadata:
+        metadata_index = _optional_metadata_index(payload, "kpoint_index")
+        if metadata_index is not None and metadata_index != index:
+            raise ProviderContractError(
+                "periodic Auger metadata 'kpoint_index' conflicts with typed kpoints"
+            )
     metadata_kpoint = _optional_metadata_tuple(payload, "kpoint", length=3)
     if metadata_kpoint is not None and not np.allclose(
         metadata_kpoint, typed_kpoint, atol=1e-12, rtol=0.0
@@ -240,22 +246,29 @@ def _validate_k_weight_conservation(
         raise ProviderContractError("periodic Auger payload k weights must sum to one")
 
 
-def _metadata_index(
+def _typed_kpoint_index(payload: ElectronicStructurePayload, *, upper: int) -> int:
+    index = payload.kpoints.selected_index
+    if index is None:
+        raise ProviderContractError("periodic Auger payload lacks typed selected k-point index")
+    if not 0 <= index < upper:
+        raise ProviderContractError("typed selected k-point index is out of range")
+    return int(index)
+
+
+def _optional_metadata_index(
     payload: ElectronicStructurePayload,
     key: str,
-    *,
-    upper: int,
-) -> int:
+) -> int | None:
     value = payload.metadata.get(key)
     if value is None:
-        raise ProviderContractError(f"periodic Auger payload lacks {key!r}")
+        return None
     try:
         result = int(value)
     except (TypeError, ValueError) as exc:
         raise ProviderContractError(
             f"periodic Auger metadata {key!r} is out of range"
         ) from exc
-    if result != value or not 0 <= result < upper:
+    if result != value:
         raise ProviderContractError(f"periodic Auger metadata {key!r} is out of range")
     return result
 

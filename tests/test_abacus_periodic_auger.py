@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import warnings
+
 import numpy as np
 import pytest
 
@@ -187,6 +189,26 @@ def test_abacus_adapter_rejects_nonfinite_and_physical_bounds(updates):
         _provider(_replace_kdata(_kdata(1.0), **updates))
 
 
+@pytest.mark.parametrize(
+    "updates",
+    [
+        {"coordinate": (1j, 0.0, 0.0)},
+        {"weight": 1.0 + 1j},
+        {"coefficients": np.eye(4, dtype=complex) + 1j * np.eye(4)},
+        {"energies": np.array([-20.0 + 1j, -1.0, -0.5, 0.2])},
+        {"density": np.diag([1.0 + 1j, 2.0, 2.0, 0.0])},
+        {"two_electron": _eri(1.0).astype(complex) + 1j},
+    ],
+)
+def test_abacus_adapter_rejects_complex_import_fields_without_warning(updates):
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        with pytest.raises(ProviderContractError, match="real"):
+            _provider(_replace_kdata(_kdata(1.0), **updates))
+
+    assert not caught
+
+
 def test_abacus_adapter_rejects_nonfinite_validation_tolerance():
     with pytest.raises(ProviderContractError, match="tolerance"):
         ABACUSLCAOProvider(
@@ -255,6 +277,23 @@ def test_abacus_adapter_rejects_total_array_element_resource_limit():
         )
 
 
+def test_abacus_adapter_rejects_aggregate_multik_array_element_limit():
+    with pytest.raises(ProviderContractError, match="element limit"):
+        ABACUSLCAOProvider(
+            Z=13,
+            kpoints=[_kdata(1.0), _kdata(1.0)],
+            ao_labels=["0 Al 1s", "0 Al 3s", "0 Al 3p", "0 Al cont"],
+            core_hole={
+                "orbital_label": "Al 1s",
+                "occupation_before": 2.0,
+                "occupation_after": 1.0,
+                "tracked_mo_index": 0,
+                "initial_state_energy_hartree": 19.5,
+            },
+            validation_limits=ABACUSValidationLimits(max_array_elements=500),
+        )
+
+
 def test_abacus_adapter_rejects_eri_resource_limit():
     with pytest.raises(ProviderContractError, match="ERI tensor exceeds"):
         ABACUSLCAOProvider(
@@ -269,6 +308,23 @@ def test_abacus_adapter_rejects_eri_resource_limit():
                 "initial_state_energy_hartree": 19.5,
             },
             validation_limits=ABACUSValidationLimits(max_eri_elements=1),
+        )
+
+
+def test_abacus_adapter_rejects_aggregate_eri_resource_limit():
+    with pytest.raises(ProviderContractError, match="ERI tensor exceeds"):
+        ABACUSLCAOProvider(
+            Z=13,
+            kpoints=[_kdata(1.0), _kdata(1.0)],
+            ao_labels=["0 Al 1s", "0 Al 3s", "0 Al 3p", "0 Al cont"],
+            core_hole={
+                "orbital_label": "Al 1s",
+                "occupation_before": 2.0,
+                "occupation_after": 1.0,
+                "tracked_mo_index": 0,
+                "initial_state_energy_hartree": 19.5,
+            },
+            validation_limits=ABACUSValidationLimits(max_eri_elements=300),
         )
 
 
@@ -305,6 +361,21 @@ def test_periodic_auger_spectrum_is_k_weighted_and_not_dos():
     )
 
 
+def test_periodic_projection_weights_are_independent_local_fractions():
+    k0 = _replace_kdata(_kdata(1.0, eri_value=1.0), local_projection_weight=0.25)
+    k1 = _replace_kdata(_kdata(1.0, eri_value=2.0), local_projection_weight=0.25)
+    payloads = _provider(k0, k1).iter_kpoint_payloads()
+
+    spectrum = periodic_auger_spectrum(
+        payloads,
+        continuum_channel=DiscreteMOContinuumChannel(mo_index=3),
+        population_threshold=0.5,
+        normalize=False,
+    )
+
+    assert sum(spectrum.intensities) == pytest.approx((1.0**2 + 2.0**2) * 0.5 * 0.25)
+
+
 def test_periodic_auger_rejects_tampered_k_weight_metadata():
     payloads = list(_provider(_kdata(1.0)).iter_kpoint_payloads())
     payloads[0].metadata["k_weight"] = 2.0
@@ -328,11 +399,42 @@ def test_periodic_auger_rejects_unconserved_payload_weight_subset():
         )
 
 
+def test_periodic_auger_rejects_symmetric_metadata_index_swap_tampering():
+    k0 = _kdata(1.0, eri_value=1.0)
+    k1 = ABACUSKPointData(
+        coordinate=(0.5, 0.0, 0.0),
+        weight=3.0,
+        hamiltonian=np.diag([-20.0, -1.0, -0.5, 0.2]),
+        overlap=np.eye(4),
+        coefficients=np.eye(4),
+        energies=np.array([-20.0, -1.0, -0.5, 0.2]),
+        occupations=np.array([1.0, 2.0, 2.0, 0.0]),
+        density=np.diag([1.0, 2.0, 2.0, 0.0]),
+        two_electron=_eri(2.0),
+        local_projection_weight=0.5,
+    )
+    payloads = list(_provider(k0, k1).iter_kpoint_payloads())
+    for key in ("kpoint_index", "kpoint", "k_weight"):
+        payloads[0].metadata[key], payloads[1].metadata[key] = (
+            payloads[1].metadata[key],
+            payloads[0].metadata[key],
+        )
+
+    with pytest.raises(ProviderContractError, match="conflicts with typed kpoints"):
+        periodic_auger_spectrum(
+            payloads,
+            continuum_channel=DiscreteMOContinuumChannel(mo_index=3),
+            population_threshold=0.5,
+            normalize=False,
+        )
+
+
 def test_periodic_auger_rejects_nonfinite_typed_k_weight():
     payload = _provider(_kdata(1.0)).build_payload()
     payload.kpoints = KPointBlock(
         coordinates=np.array([[0.0, 0.0, 0.0]]),
         weights=np.array([1.0]),
+        selected_index=0,
     )
     payload.kpoints.weights[0] = np.nan
 

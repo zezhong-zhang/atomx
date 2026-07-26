@@ -806,6 +806,12 @@ def test_orthonormal_mo_residual_nonorthogonal_basis():
     assert payload.orthonormality_residual() == pytest.approx(0.0, abs=1e-10)
 
 
+def test_overlap_is_symmetric_uses_absolute_tolerance_only():
+    S = np.array([[1e12, 1e12], [1e12 + 1e-4, 1e12]])
+
+    assert not OverlapBlock(S).is_symmetric(tol=1e-8)
+
+
 def test_density_electron_count_uses_overlap():
     """Tr(P S) recovers the electron number for a non-orthogonal basis."""
     rng = np.random.default_rng(2)

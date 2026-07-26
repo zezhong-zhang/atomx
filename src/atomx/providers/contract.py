@@ -223,7 +223,16 @@ def ensure_hartree(value: Any) -> float:
 
 
 def _ensure_hartree_mapping(mapping: Dict[str, Any]) -> Dict[str, float]:
-    return {k: ensure_hartree(v) for k, v in mapping.items()}
+    coerced = {k: ensure_hartree(v) for k, v in mapping.items()}
+    _ensure_finite_array(
+        np.asarray(tuple(coerced.values()), dtype=float), "orbital energies"
+    )
+    return coerced
+
+
+def _ensure_finite_array(value: np.ndarray, name: str) -> None:
+    if not np.all(np.isfinite(value)):
+        raise ProviderContractError(f"{name} must contain only finite values")
 
 
 def _bounded_key(key: Any) -> str:
@@ -527,7 +536,7 @@ class OverlapBlock:
 
     def is_symmetric(self, tol: float = 1e-8) -> bool:
         self.validate()
-        return bool(np.allclose(self.matrix, self.matrix.T, atol=tol))
+        return bool(np.allclose(self.matrix, self.matrix.T, atol=tol, rtol=0.0))
 
 
 @dataclass
@@ -592,10 +601,13 @@ class KPointBlock:
 
     coordinates: np.ndarray      # (n_k, 3)
     weights: np.ndarray          # (n_k,)
+    selected_index: int | None = None
 
     def __post_init__(self) -> None:
         self.coordinates = np.asarray(self.coordinates, dtype=float)
         self.weights = np.asarray(self.weights, dtype=float)
+        _ensure_finite_array(self.coordinates, "k-point coordinates")
+        _ensure_finite_array(self.weights, "k-point weights")
         if self.coordinates.ndim != 2 or self.coordinates.shape[1] != 3:
             raise ProviderContractError("k-point coordinates must have shape (n_k, 3)")
         if self.weights.shape != (self.coordinates.shape[0],):
@@ -606,6 +618,10 @@ class KPointBlock:
         if total <= 0.0:
             raise ProviderContractError("k-point weights must have a positive sum")
         self.weights = self.weights / total
+        if self.selected_index is not None:
+            self.selected_index = int(self.selected_index)
+            if not 0 <= self.selected_index < self.coordinates.shape[0]:
+                raise ProviderContractError("selected k-point index is out of range")
 
 
 @dataclass
@@ -618,6 +634,7 @@ class PeriodicCell:
 
     def __post_init__(self) -> None:
         self.lattice_angstrom = np.asarray(self.lattice_angstrom, dtype=float)
+        _ensure_finite_array(self.lattice_angstrom, "periodic lattice")
         if self.lattice_angstrom.shape != (3, 3):
             raise ProviderContractError("periodic lattice must have shape (3, 3)")
         if self.fractional_positions is None:
@@ -625,6 +642,7 @@ class PeriodicCell:
         self.fractional_positions = np.asarray(
             self.fractional_positions, dtype=float
         )
+        _ensure_finite_array(self.fractional_positions, "fractional positions")
         if self.fractional_positions.shape != (len(self.atom_symbols), 3):
             raise ProviderContractError(
                 "fractional positions must have shape (n_atoms, 3)"

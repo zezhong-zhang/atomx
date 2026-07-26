@@ -89,11 +89,10 @@ class ABACUSKPointData:
         limits: ABACUSValidationLimits | None = None,
     ) -> "ABACUSKPointData":
         limits = (limits or ABACUSValidationLimits()).validate()
-        coord = np.asarray(tuple(self.coordinate), dtype=float)
+        coord = _real_array(tuple(self.coordinate), "ABACUS k-point coordinate")
         if coord.shape != (3,):
             raise ProviderContractError("ABACUS k-point coordinate must have length 3")
-        _require_finite_array(coord, "ABACUS k-point coordinate")
-        weight = _finite_float(self.weight, "ABACUS k-point weight")
+        weight = _real_float(self.weight, "ABACUS k-point weight")
         if weight < 0.0:
             raise ProviderContractError("ABACUS k-point weight must be non-negative")
         H = _real_matrix(self.hamiltonian, "ABACUS Hamiltonian")
@@ -110,17 +109,14 @@ class ABACUSKPointData:
         eig = np.linalg.eigvalsh(S)
         if float(np.min(eig)) <= tol:
             raise ProviderContractError("ABACUS overlap must be positive definite")
-        C = np.asarray(self.coefficients, dtype=float)
-        _require_finite_array(C, "ABACUS MO coefficients")
+        C = _real_array(self.coefficients, "ABACUS MO coefficients")
         if C.ndim != 2 or C.shape[0] != S.shape[0]:
             raise ProviderContractError("ABACUS MO coefficients must have shape (n_ao, n_mo)")
         n_mo = C.shape[1]
         if n_mo > limits.max_mo:
             raise ProviderContractError("ABACUS n_mo exceeds validation limit")
-        energies = np.asarray(self.energies, dtype=float)
-        occupations = np.asarray(self.occupations, dtype=float)
-        _require_finite_array(energies, "ABACUS energies")
-        _require_finite_array(occupations, "ABACUS occupations")
+        energies = _real_array(self.energies, "ABACUS energies")
+        occupations = _real_array(self.occupations, "ABACUS occupations")
         if energies.shape != (n_mo,) or occupations.shape != (n_mo,):
             raise ProviderContractError("ABACUS energies/occupations must have length n_mo")
         if np.any((occupations < 0.0) | (occupations > 2.0)):
@@ -133,20 +129,18 @@ class ABACUSKPointData:
                 f"ABACUS MO coefficients fail C^T S C = I: residual={residual:.3e}"
             )
         if self.density is not None:
-            P = np.asarray(self.density, dtype=float)
-            _require_finite_array(P, "ABACUS density")
+            P = _real_array(self.density, "ABACUS density")
             if P.shape != S.shape:
                 raise ProviderContractError("ABACUS density shape must match overlap")
             _enforce_array_limits(limits, P)
         if self.two_electron is not None:
-            eri = np.asarray(self.two_electron, dtype=float)
-            _require_finite_array(eri, "ABACUS two-electron tensor")
+            eri = _real_array(self.two_electron, "ABACUS two-electron tensor")
             if eri.ndim != 4 or len(set(eri.shape)) != 1 or eri.shape[0] != n_mo:
                 raise ProviderContractError("ABACUS MVP two-electron tensor must be MO-basis (n_mo,)^4")
             if eri.size > limits.max_eri_elements:
                 raise ProviderContractError("ABACUS ERI tensor exceeds validation limit")
             _enforce_array_limits(limits, eri)
-        projection = _finite_float(
+        projection = _real_float(
             self.local_projection_weight, "local projection weight"
         )
         if not 0.0 <= projection <= 1.0:
@@ -175,7 +169,7 @@ class ABACUSLCAOProvider:
         validation_limits: ABACUSValidationLimits | None = None,
     ) -> None:
         self.Z = int(Z)
-        validation_tolerance = _finite_float(
+        validation_tolerance = _real_float(
             validation_tolerance, "ABACUS validation tolerance"
         )
         if validation_tolerance <= 0.0:
@@ -184,6 +178,7 @@ class ABACUSLCAOProvider:
         raw_kpoints = tuple(kpoints)
         if len(raw_kpoints) > limits.max_kpoints:
             raise ProviderContractError("ABACUS n_k exceeds validation limit")
+        _enforce_multikpoint_resource_limits(raw_kpoints, limits)
         self.kpoint_data = tuple(
             k.validate(tol=validation_tolerance, limits=limits) for k in raw_kpoints
         )
@@ -221,10 +216,15 @@ class ABACUSLCAOProvider:
                 "ABACUS metadata may not override reserved fields: "
                 + ", ".join(sorted(collision))
             )
-        self._kblock = KPointBlock(
-            coordinates=np.asarray([k.coordinate for k in self.kpoint_data]),
-            weights=np.asarray([k.weight for k in self.kpoint_data]),
+        self._k_coordinates = _real_array(
+            [k.coordinate for k in self.kpoint_data], "ABACUS k-point coordinates"
         )
+        self._k_weights = KPointBlock(
+            coordinates=self._k_coordinates,
+            weights=_real_array(
+                [k.weight for k in self.kpoint_data], "ABACUS k-point weights"
+            ),
+        ).weights
 
     def capabilities(self):
         return self.build_payload().capabilities()
@@ -242,7 +242,7 @@ class ABACUSLCAOProvider:
 
     def kpoint_payload(self, index: int) -> ElectronicStructurePayload:
         kdata = self.kpoint_data[index]
-        weight = float(self._kblock.weights[index])
+        weight = float(self._k_weights[index])
         energies = np.asarray([ensure_hartree(e) for e in kdata.energies], dtype=float)
         occupations = np.asarray(kdata.occupations, dtype=float)
         orbitals = OrbitalCoefficients(
@@ -273,7 +273,11 @@ class ABACUSLCAOProvider:
             density=density,
             two_electron=two_electron,
             spin=SpinBlock(soc=self.spin_soc),
-            kpoints=self._kblock,
+            kpoints=KPointBlock(
+                coordinates=self._k_coordinates,
+                weights=self._k_weights,
+                selected_index=index,
+            ),
             cell=self.cell,
             metadata={
                 "core_hole": self.core_hole,
@@ -296,24 +300,37 @@ def from_abacus_lcao(**kwargs: Any) -> ABACUSLCAOProvider:
 
 
 def _real_matrix(value: np.ndarray, name: str) -> np.ndarray:
-    arr = np.asarray(value)
-    if np.iscomplexobj(arr) and not np.allclose(arr.imag, 0.0, atol=0.0, rtol=0.0):
-        raise ProviderContractError(f"{name} must be real in the MVP adapter")
-    arr = np.asarray(arr, dtype=float)
-    _require_finite_array(arr, name)
+    arr = _real_array(value, name)
     if arr.ndim != 2 or arr.shape[0] != arr.shape[1]:
         raise ProviderContractError(f"{name} must be a square matrix")
     return arr
 
 
-def _finite_float(value: Any, name: str) -> float:
+def _real_float(value: Any, name: str) -> float:
     try:
-        result = float(value)
+        arr = np.asarray(value)
+        if np.iscomplexobj(arr):
+            if arr.shape != ():
+                raise TypeError("expected scalar")
+            if not np.isclose(float(arr.imag), 0.0, atol=0.0, rtol=0.0):
+                raise ProviderContractError(f"{name} must be real in the MVP adapter")
+            result = float(arr.real)
+        else:
+            result = float(value)
     except (TypeError, ValueError) as exc:
         raise ProviderContractError(f"{name} must be a finite scalar") from exc
     if not np.isfinite(result):
         raise ProviderContractError(f"{name} must be finite")
     return result
+
+
+def _real_array(value: Any, name: str) -> np.ndarray:
+    arr = np.asarray(value)
+    if np.iscomplexobj(arr) and not np.allclose(arr.imag, 0.0, atol=0.0, rtol=0.0):
+        raise ProviderContractError(f"{name} must be real in the MVP adapter")
+    arr = np.asarray(arr.real if np.iscomplexobj(arr) else arr, dtype=float)
+    _require_finite_array(arr, name)
+    return arr
 
 
 def _require_finite_array(value: np.ndarray, name: str) -> None:
@@ -333,6 +350,43 @@ def _enforce_array_limits(
         raise ProviderContractError("ABACUS input arrays exceed byte limit")
 
 
+def _enforce_multikpoint_resource_limits(
+    kpoints: tuple[ABACUSKPointData, ...],
+    limits: ABACUSValidationLimits,
+) -> None:
+    arrays: list[np.ndarray] = []
+    eri_elements = 0
+    for kdata in kpoints:
+        arrays.extend(
+            [
+                _real_array(tuple(kdata.coordinate), "ABACUS k-point coordinate"),
+                np.asarray([_real_float(kdata.weight, "ABACUS k-point weight")]),
+                _real_array(kdata.hamiltonian, "ABACUS Hamiltonian"),
+                _real_array(kdata.overlap, "ABACUS overlap"),
+                _real_array(kdata.coefficients, "ABACUS MO coefficients"),
+                _real_array(kdata.energies, "ABACUS energies"),
+                _real_array(kdata.occupations, "ABACUS occupations"),
+                np.asarray(
+                    [
+                        _real_float(
+                            kdata.local_projection_weight,
+                            "local projection weight",
+                        )
+                    ]
+                ),
+            ]
+        )
+        if kdata.density is not None:
+            arrays.append(_real_array(kdata.density, "ABACUS density"))
+        if kdata.two_electron is not None:
+            eri = _real_array(kdata.two_electron, "ABACUS two-electron tensor")
+            eri_elements += int(eri.size)
+            arrays.append(eri)
+    _enforce_array_limits(limits, *arrays)
+    if eri_elements > limits.max_eri_elements:
+        raise ProviderContractError("ABACUS ERI tensor exceeds validation limit")
+
+
 def _normalize_core_hole(core_hole: dict[str, Any]) -> dict[str, Any]:
     required = {
         "orbital_label",
@@ -348,10 +402,10 @@ def _normalize_core_hole(core_hole: dict[str, Any]) -> dict[str, Any]:
             + ", ".join(sorted(missing))
         )
     normalized = dict(core_hole)
-    normalized["occupation_before"] = _finite_float(
+    normalized["occupation_before"] = _real_float(
         normalized["occupation_before"], "core-hole occupation_before"
     )
-    normalized["occupation_after"] = _finite_float(
+    normalized["occupation_after"] = _real_float(
         normalized["occupation_after"], "core-hole occupation_after"
     )
     if not 0.0 <= normalized["occupation_before"] <= 2.0:
@@ -364,7 +418,7 @@ def _normalize_core_hole(core_hole: dict[str, Any]) -> dict[str, Any]:
     normalized["initial_state_energy_hartree"] = ensure_hartree(
         normalized["initial_state_energy_hartree"]
     )
-    _finite_float(
+    _real_float(
         normalized["initial_state_energy_hartree"],
         "core-hole initial_state_energy_hartree",
     )
