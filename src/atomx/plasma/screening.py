@@ -23,6 +23,13 @@ CM_TO_BOHR = 1.0 / (BOHR_RADIUS_M * 100)  # 1 cm in Bohr radii
 EV_TO_HARTREE = 1.0 / HARTREE_EV
 
 
+def _require_positive_finite(name, value):
+    value = float(value)
+    if not np.isfinite(value) or value <= 0.0:
+        raise ValueError(f"{name} must be positive and finite.")
+    return value
+
+
 def debye_length(ne_cm3, Te_eV):
     """Debye screening length in Bohr radii.
 
@@ -151,15 +158,26 @@ def _stewart_pyatt_ipd_au(Z_ion, R_IS, lam_D):
     s = lambda_D / R_IS.  The ``log1p``/``expm1`` evaluation avoids
     cancellation in the weak-coupling limit, where Δ_SP -> Z/lambda_D.
     """
-    if not (Z_ion > 0 and R_IS > 0 and R_IS < 1e10
-            and lam_D > 0 and lam_D < 1e10):
-        return 0.0
+    Z_ion = _require_positive_finite("Z_ion", Z_ion)
+    R_IS = _require_positive_finite("R_IS", R_IS)
+    lam_D = _require_positive_finite("lam_D", lam_D)
 
-    u = R_IS / lam_D
-    if u == 0.0:
-        return 0.0
-    bracket = np.expm1((2.0 / 3.0) * np.log1p(u ** 3)) / (u ** 2)
-    return 1.5 * Z_ion / R_IS * bracket
+    if R_IS / np.finfo(float).max > lam_D:
+        u = np.inf
+    else:
+        u = R_IS / lam_D
+    if not np.isfinite(u):
+        bracket = 1.0
+    elif u < 1.0:
+        bracket = np.expm1((2.0 / 3.0) * np.log1p(u ** 3)) / (u ** 2)
+    else:
+        inv_u = 1.0 / u
+        bracket = (1.0 + inv_u ** 3) ** (2.0 / 3.0) - inv_u ** 2
+
+    IPD_au = 1.5 * Z_ion / R_IS * bracket
+    if not np.isfinite(IPD_au) or IPD_au < 0.0:
+        raise ValueError("Stewart-Pyatt IPD evaluation produced a non-finite value.")
+    return IPD_au
 
 
 def stewart_pyatt_potential(Z, Z_ion, ne_cm3, Te_eV):
@@ -274,17 +292,19 @@ def ionization_potential_depression(Z_ion, ne_cm3, Te_eV, model='stewart_pyatt')
     float
         IPD in eV.
     """
-    kT_au = Te_eV * EV_TO_HARTREE
+    Z_ion = _require_positive_finite("Z_ion", Z_ion)
+    ne_cm3 = _require_positive_finite("ne_cm3", ne_cm3)
+    Te_eV = _require_positive_finite("Te_eV", Te_eV)
 
     if model == 'debye':
         lam_D = debye_length(ne_cm3, Te_eV)
-        if lam_D > 0 and lam_D < 1e10:
+        if lam_D > 0 and np.isfinite(lam_D):
             IPD_au = Z_ion / lam_D
         else:
             IPD_au = 0.0
     elif model == 'ion_sphere':
         R_IS = ion_sphere_radius(Z_ion, ne_cm3)
-        if R_IS > 0 and R_IS < 1e10:
+        if R_IS > 0 and np.isfinite(R_IS):
             IPD_au = 1.5 * Z_ion / R_IS  # Ecker-Kroll formula
         else:
             IPD_au = 0.0
@@ -295,4 +315,7 @@ def ionization_potential_depression(Z_ion, ne_cm3, Te_eV, model='stewart_pyatt')
     else:
         raise ValueError(f"Unknown model: {model}")
 
-    return IPD_au * HARTREE_EV
+    IPD_eV = IPD_au * HARTREE_EV
+    if not np.isfinite(IPD_eV) or IPD_eV < 0.0:
+        raise ValueError("Ionization potential depression must be finite and non-negative.")
+    return IPD_eV

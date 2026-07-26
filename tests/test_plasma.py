@@ -131,6 +131,40 @@ class TestScreening:
         assert ionization_potential_depression(
             Z_ion, ne_cm3, strong_Te) == pytest.approx(strong_is, rel=1e-4)
 
+    def test_stewart_pyatt_huge_finite_u_has_finite_ion_sphere_limit(self):
+        """Huge finite u must not construct u**3 or overflow."""
+        from atomx.plasma.screening import _stewart_pyatt_ipd_au
+
+        ipd = _stewart_pyatt_ipd_au(Z_ion=1.0, R_IS=1.0e110, lam_D=1.0)
+
+        assert np.isfinite(ipd)
+        assert ipd >= 0.0
+        assert ipd == pytest.approx(1.5e-110)
+
+    def test_stewart_pyatt_ratio_overflow_has_no_nan(self):
+        """R_IS / lam_D overflow should take the same large-u branch."""
+        from atomx.plasma.screening import _stewart_pyatt_ipd_au
+
+        ipd = _stewart_pyatt_ipd_au(Z_ion=1.0, R_IS=1.0e308, lam_D=1.0e-10)
+
+        assert np.isfinite(ipd)
+        assert ipd >= 0.0
+        assert ipd == pytest.approx(1.5e-308)
+
+    @pytest.mark.parametrize(
+        "kwargs",
+        [
+            {"Z_ion": np.nan, "ne_cm3": 1.0e20, "Te_eV": 10.0},
+            {"Z_ion": 1.0, "ne_cm3": np.inf, "Te_eV": 10.0},
+            {"Z_ion": 1.0, "ne_cm3": 1.0e20, "Te_eV": np.nan},
+        ],
+    )
+    def test_ipd_invalid_public_inputs_fail_closed(self, kwargs):
+        from atomx.plasma.screening import ionization_potential_depression
+
+        with pytest.raises(ValueError, match="positive and finite"):
+            ionization_potential_depression(**kwargs)
+
 
 class TestCRM:
     """Test Collisional-Radiative Model."""

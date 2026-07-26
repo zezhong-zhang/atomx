@@ -89,3 +89,55 @@ def test_stewart_pyatt_boundary_does_not_toggle_dr_survival():
 
     assert rate.per_resonance["boundary-bound"][0] > 0.0
     assert rate.per_resonance["boundary-bound"][1] > 0.0
+
+
+def test_dr_survival_rejects_nonfinite_ipd(monkeypatch):
+    import atomx.plasma.screening as screening
+
+    monkeypatch.setattr(
+        screening, "ionization_potential_depression",
+        lambda *_args, **_kwargs: np.nan,
+    )
+
+    with pytest.raises(ValueError, match="IPD values"):
+        dr_rate_coefficient(
+            _states(), [100.0], initial_state_g=1.0, ne_cm3=1.0e20,
+            Z_ion=16, series_limit_eV=800.0)
+
+
+def test_dr_survival_rejects_nonfinite_binding_energy():
+    state = AutoionizationState(
+        label="nan-binding", E_resonance_eV=np.nan, J=1.5,
+        gamma_auger_per_s=1e14, a_radiative_per_s=1e13)
+
+    with pytest.raises(ValueError, match="binding energy"):
+        dr_rate_coefficient(
+            [state], [100.0], initial_state_g=1.0, ne_cm3=1.0e20,
+            Z_ion=16, series_limit_eV=800.0)
+
+
+@pytest.mark.parametrize(
+    "kwargs, match",
+    [
+        ({"T_eV": [np.nan]}, "Temperatures"),
+        ({"T_eV": [100.0], "ne_cm3": np.nan}, "ne_cm3"),
+        ({"T_eV": [100.0], "ne_cm3": 1.0e20, "Z_ion": np.inf}, "Z_ion"),
+        (
+            {"T_eV": [100.0], "ne_cm3": 1.0e20, "Z_ion": 16,
+             "series_limit_eV": np.nan},
+            "series_limit_eV",
+        ),
+    ],
+)
+def test_dr_density_suppression_invalid_inputs_fail_closed(kwargs, match):
+    defaults = {
+        "T_eV": [100.0],
+        "initial_state_g": 1.0,
+        "ne_cm3": 1.0e20,
+        "Z_ion": 16,
+        "series_limit_eV": 800.0,
+    }
+    defaults.update(kwargs)
+
+    with pytest.raises(ValueError, match=match):
+        dr_rate_coefficient(_states(), **defaults)
