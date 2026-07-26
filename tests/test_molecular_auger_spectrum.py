@@ -111,6 +111,58 @@ def _large_ao_eri_payload(n_mo: int = 49) -> ElectronicStructurePayload:
     )
 
 
+def _asymmetric_ao_eri_payload(*, n_ao: int = 1000) -> ElectronicStructurePayload:
+    n_mo = 4
+    labels = [
+        "0 O 1s",
+        "0 O 2s",
+        "0 O 2p",
+        *(f"1 H aux{i}" for i in range(3, n_ao)),
+    ]
+    occupations = np.array([1.0, 2.0, 2.0, 0.0])
+    coefficients = np.zeros((n_ao, n_mo))
+    coefficients[:n_mo, :n_mo] = np.eye(n_mo)
+    tiny_eri = np.zeros((1, 1, 1, 1), dtype=float)
+    eri = np.lib.stride_tricks.as_strided(
+        tiny_eri,
+        shape=(n_ao, n_ao, n_ao, n_ao),
+        strides=(0, 0, 0, 0),
+        writeable=False,
+    )
+    return ElectronicStructurePayload(
+        Z=8,
+        provenance=Provenance(
+            provider="mock",
+            code_version="mock 0",
+            method="RHF",
+            basis="orthonormal-ao",
+            theory_level="RHF",
+            approximations=["nonrel-gto"],
+            core_hole="O 1s",
+            energy_zero="delta_scf_total_energy",
+        ),
+        orbital_energies={f"MO{i}": float(i) for i in range(n_mo)},
+        orbitals=OrbitalCoefficients(
+            coefficients=coefficients,
+            energies=np.arange(n_mo, dtype=float),
+            occupations=occupations,
+            basis_labels=labels,
+        ),
+        overlap=OverlapBlock(np.eye(n_ao), basis_labels=labels),
+        density=DensityMatrix(np.diag([*occupations, *np.zeros(n_ao - n_mo)])),
+        two_electron=TwoElectronIntegrals(eri, basis="ao"),
+        metadata={
+            "core_hole": {
+                "orbital_label": "O 1s",
+                "occupation_before": 2.0,
+                "occupation_after": 1.0,
+                "tracked_mo_index": 0,
+                "initial_state_energy_hartree": 19.5,
+            }
+        },
+    )
+
+
 class _CoreHoleProvider:
     def __init__(self, payload: ElectronicStructurePayload) -> None:
         self.payload = payload
@@ -180,6 +232,33 @@ def test_ao_to_mo_eri_transform_rejects_oversized_mo_budget():
     final = _pair_state(payload)
 
     with pytest.raises(ProviderContractError, match="AO-to-MO ERI"):
+        molecular_auger_transition_amplitude(
+            payload,
+            initial,
+            final,
+            DiscreteMOContinuumChannel(mo_index=3),
+        )
+
+
+def test_ao_to_mo_eri_transform_rejects_asymmetric_ao_budget_before_einsum(
+    monkeypatch,
+):
+    payload = _asymmetric_ao_eri_payload()
+    initial = molecular_auger_initial_state(payload)
+    final = _pair_state(payload)
+
+    def fail_if_called(*args, **kwargs):
+        raise AssertionError("AO-to-MO transform reached np.einsum")
+
+    monkeypatch.setattr(
+        "atomx.scattering.autoionization.molecular.np.einsum",
+        fail_if_called,
+    )
+
+    with pytest.raises(
+        ProviderContractError,
+        match="AO-to-MO ERI transformation exceeds the molecular Auger budget",
+    ):
         molecular_auger_transition_amplitude(
             payload,
             initial,

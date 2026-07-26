@@ -28,6 +28,11 @@ from atomx.providers.contract import (
 _CORE_HOLE_IDENTITY_KEYS = frozenset(("orbital_label", "core_hole", "core_orbital"))
 _MAX_MOLECULAR_AUGER_ACTIVE_ORBITALS = 16
 _MAX_MOLECULAR_AUGER_AO_TO_MO_ORBITALS = 48
+_MAX_MOLECULAR_AUGER_AO_TO_MO_AOS = 88
+_MAX_MOLECULAR_AUGER_AO_TO_MO_ELEMENTS = (
+    _MAX_MOLECULAR_AUGER_AO_TO_MO_AOS**4
+)
+_MAX_MOLECULAR_AUGER_AO_TO_MO_INPUT_BYTES = 512 * 1024**2
 
 __all__ = [
     "ActiveMolecularOrbital",
@@ -946,6 +951,39 @@ def _mo_index_from_label(label: str) -> int:
         raise ProviderContractError(f"invalid MO label {label!r}") from exc
 
 
+def _assert_ao_to_mo_eri_budget(
+    eri: NDArray[np.float64],
+    orbitals: OrbitalCoefficients,
+) -> None:
+    n_ao = orbitals.n_ao
+    n_mo = orbitals.n_mo
+    if eri.shape != (n_ao, n_ao, n_ao, n_ao):
+        raise ProviderContractError(
+            "ao-basis ERI shape must match orbitals.n_ao on every axis: "
+            f"expected {(n_ao, n_ao, n_ao, n_ao)}, got {eri.shape}"
+        )
+    c_bytes = orbitals.coefficients.size * orbitals.coefficients.itemsize
+    eri_bytes = eri.size * eri.itemsize
+    output_bytes = (n_mo**4) * eri.dtype.itemsize
+    input_bytes = c_bytes + eri_bytes
+    if (
+        n_mo > _MAX_MOLECULAR_AUGER_AO_TO_MO_ORBITALS
+        or n_ao > _MAX_MOLECULAR_AUGER_AO_TO_MO_AOS
+        or eri.size > _MAX_MOLECULAR_AUGER_AO_TO_MO_ELEMENTS
+        or input_bytes > _MAX_MOLECULAR_AUGER_AO_TO_MO_INPUT_BYTES
+    ):
+        raise ProviderContractError(
+            "AO-to-MO ERI transformation exceeds the molecular Auger budget: "
+            f"n_mo={n_mo} <= {_MAX_MOLECULAR_AUGER_AO_TO_MO_ORBITALS}, "
+            f"n_ao={n_ao} <= {_MAX_MOLECULAR_AUGER_AO_TO_MO_AOS}, "
+            "dense AO ERI elements="
+            f"{eri.size} <= {_MAX_MOLECULAR_AUGER_AO_TO_MO_ELEMENTS}, "
+            "estimated input bytes="
+            f"{input_bytes} <= {_MAX_MOLECULAR_AUGER_AO_TO_MO_INPUT_BYTES}, "
+            f"estimated MO ERI output bytes={output_bytes}"
+        )
+
+
 def _mo_eri(payload: ElectronicStructurePayload) -> NDArray[np.float64]:
     payload.require(Capability.TWO_ELECTRON_INTEGRALS, Capability.MO_COEFFICIENTS)
     if payload.two_electron is None or payload.orbitals is None:
@@ -957,12 +995,7 @@ def _mo_eri(payload: ElectronicStructurePayload) -> NDArray[np.float64]:
         return cast(NDArray[np.float64], eri)
     if payload.two_electron.basis != "ao":
         raise ProviderContractError("two-electron integral basis must be 'ao' or 'mo'")
-    if payload.orbitals.n_mo > _MAX_MOLECULAR_AUGER_AO_TO_MO_ORBITALS:
-        raise ProviderContractError(
-            "AO-to-MO ERI transformation exceeds the molecular Auger budget: "
-            f"{payload.orbitals.n_mo} MOs > "
-            f"{_MAX_MOLECULAR_AUGER_AO_TO_MO_ORBITALS}"
-        )
+    _assert_ao_to_mo_eri_budget(eri, payload.orbitals)
     C = payload.orbitals.coefficients
     return cast(
         NDArray[np.float64],
