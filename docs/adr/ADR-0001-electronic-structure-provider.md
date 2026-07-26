@@ -259,6 +259,27 @@ Each gate must be green before the next stage's implementation issues leave `bac
 | R7 | Provider API drift (PySCF/ABACUS/DeePTB versions) | Med/Med | pin versions in provenance; adapter contract tests per version |
 | R8 | Scope creep: kernels grow back-end knowledge | Med/High | enforce "kernels never import a back-end" in review; adapters are the only edge |
 
+### ABACUS periodic Auger MVP safety contract
+
+The HYP-912 ABACUS path is a real Gamma/LCAO MVP. Public periodic Auger APIs
+must reject non-real H/S/coefficient/integral inputs rather than casting away
+imaginary parts; complex periodic-k support requires a separate typed contract.
+K weights are authoritative only in the typed `KPointBlock`, must be finite,
+non-negative, normalized to one, and conserved across the payload set being
+aggregated. Mutable metadata (`k_weight`, `kpoint`, `hamiltonian`,
+`local_projection_weight`, `core_hole`) is never allowed to override typed,
+validated fields; any collision or mismatch fails closed. Local projection
+weights are probabilities in `[0, 1]` and may only attenuate, not amplify, a
+matrix-element-weighted Auger intensity.
+
+Adapters must enforce finite values for tolerance, coordinates, cell data,
+energies, occupations, density, ERI, H/S, coefficients, k weights, and
+projection weights before any expensive eigensolve, matrix multiplication, or
+payload expansion. They must also apply configurable limits on `n_k`, `n_ao`,
+`n_mo`, total input elements/bytes, and fourth-rank ERI size. These API limits
+do not replace parser-layer controls: any future ABACUS file parser must also
+independently cap file size and parser allocation before arrays enter Atomx.
+
 ---
 
 ## 11. Dynamic task graph (DAG) & PR切分

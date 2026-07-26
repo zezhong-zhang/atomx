@@ -32,9 +32,39 @@ from atomx.providers.pyscf_adapter import MOLabel
 
 __all__ = [
     "ABACUSKPointData",
+    "ABACUSValidationLimits",
     "ABACUSLCAOProvider",
     "from_abacus_lcao",
 ]
+
+_RESERVED_METADATA_KEYS = frozenset(
+    {
+        "core_hole",
+        "kpoint_index",
+        "kpoint",
+        "k_weight",
+        "local_projection_weight",
+        "hamiltonian",
+    }
+)
+
+
+@dataclass(frozen=True)
+class ABACUSValidationLimits:
+    """Resource limits enforced before expensive ABACUS validation work."""
+
+    max_kpoints: int = 512
+    max_ao: int = 4096
+    max_mo: int = 4096
+    max_array_elements: int = 20_000_000
+    max_input_bytes: int = 512_000_000
+    max_eri_elements: int = 10_000_000
+
+    def validate(self) -> "ABACUSValidationLimits":
+        for name, value in self.__dict__.items():
+            if not isinstance(value, int) or value <= 0:
+                raise ProviderContractError(f"{name} must be a positive integer")
+        return self
 
 
 @dataclass(frozen=True)
@@ -52,31 +82,50 @@ class ABACUSKPointData:
     two_electron: np.ndarray | None = None
     local_projection_weight: float = 1.0
 
-    def validate(self, *, tol: float = 1e-8) -> "ABACUSKPointData":
+    def validate(
+        self,
+        *,
+        tol: float = 1e-8,
+        limits: ABACUSValidationLimits | None = None,
+    ) -> "ABACUSKPointData":
+        limits = (limits or ABACUSValidationLimits()).validate()
         coord = np.asarray(tuple(self.coordinate), dtype=float)
         if coord.shape != (3,):
             raise ProviderContractError("ABACUS k-point coordinate must have length 3")
-        if float(self.weight) < 0.0:
+        _require_finite_array(coord, "ABACUS k-point coordinate")
+        weight = _finite_float(self.weight, "ABACUS k-point weight")
+        if weight < 0.0:
             raise ProviderContractError("ABACUS k-point weight must be non-negative")
         H = _real_matrix(self.hamiltonian, "ABACUS Hamiltonian")
         S = _real_matrix(self.overlap, "ABACUS overlap")
         if H.shape != S.shape:
             raise ProviderContractError("ABACUS H and S shapes must match")
-        if not np.allclose(H, H.T, atol=tol):
+        if H.shape[0] > limits.max_ao:
+            raise ProviderContractError("ABACUS n_ao exceeds validation limit")
+        _enforce_array_limits(limits, H, S)
+        if not np.allclose(H, H.T, atol=tol, rtol=0.0):
             raise ProviderContractError("ABACUS Hamiltonian must be Hermitian")
-        if not np.allclose(S, S.T, atol=tol):
+        if not np.allclose(S, S.T, atol=tol, rtol=0.0):
             raise ProviderContractError("ABACUS overlap must be Hermitian")
         eig = np.linalg.eigvalsh(S)
         if float(np.min(eig)) <= tol:
             raise ProviderContractError("ABACUS overlap must be positive definite")
         C = np.asarray(self.coefficients, dtype=float)
+        _require_finite_array(C, "ABACUS MO coefficients")
         if C.ndim != 2 or C.shape[0] != S.shape[0]:
             raise ProviderContractError("ABACUS MO coefficients must have shape (n_ao, n_mo)")
         n_mo = C.shape[1]
+        if n_mo > limits.max_mo:
+            raise ProviderContractError("ABACUS n_mo exceeds validation limit")
         energies = np.asarray(self.energies, dtype=float)
         occupations = np.asarray(self.occupations, dtype=float)
+        _require_finite_array(energies, "ABACUS energies")
+        _require_finite_array(occupations, "ABACUS occupations")
         if energies.shape != (n_mo,) or occupations.shape != (n_mo,):
             raise ProviderContractError("ABACUS energies/occupations must have length n_mo")
+        if np.any((occupations < 0.0) | (occupations > 2.0)):
+            raise ProviderContractError("ABACUS occupations must be in [0, 2]")
+        _enforce_array_limits(limits, C, energies, occupations)
         gram = C.T @ S @ C
         residual = float(np.max(np.abs(gram - np.eye(n_mo))))
         if residual > tol:
@@ -85,14 +134,23 @@ class ABACUSKPointData:
             )
         if self.density is not None:
             P = np.asarray(self.density, dtype=float)
+            _require_finite_array(P, "ABACUS density")
             if P.shape != S.shape:
                 raise ProviderContractError("ABACUS density shape must match overlap")
+            _enforce_array_limits(limits, P)
         if self.two_electron is not None:
             eri = np.asarray(self.two_electron, dtype=float)
+            _require_finite_array(eri, "ABACUS two-electron tensor")
             if eri.ndim != 4 or len(set(eri.shape)) != 1 or eri.shape[0] != n_mo:
                 raise ProviderContractError("ABACUS MVP two-electron tensor must be MO-basis (n_mo,)^4")
-        if float(self.local_projection_weight) < 0.0:
-            raise ProviderContractError("local projection weight must be non-negative")
+            if eri.size > limits.max_eri_elements:
+                raise ProviderContractError("ABACUS ERI tensor exceeds validation limit")
+            _enforce_array_limits(limits, eri)
+        projection = _finite_float(
+            self.local_projection_weight, "local projection weight"
+        )
+        if not 0.0 <= projection <= 1.0:
+            raise ProviderContractError("local projection weight must be in [0, 1]")
         return self
 
 
@@ -114,9 +172,21 @@ class ABACUSLCAOProvider:
         spin_soc: bool = False,
         metadata: dict[str, Any] | None = None,
         validation_tolerance: float = 1e-8,
+        validation_limits: ABACUSValidationLimits | None = None,
     ) -> None:
         self.Z = int(Z)
-        self.kpoint_data = tuple(k.validate(tol=validation_tolerance) for k in kpoints)
+        validation_tolerance = _finite_float(
+            validation_tolerance, "ABACUS validation tolerance"
+        )
+        if validation_tolerance <= 0.0:
+            raise ProviderContractError("ABACUS validation tolerance must be positive")
+        limits = (validation_limits or ABACUSValidationLimits()).validate()
+        raw_kpoints = tuple(kpoints)
+        if len(raw_kpoints) > limits.max_kpoints:
+            raise ProviderContractError("ABACUS n_k exceeds validation limit")
+        self.kpoint_data = tuple(
+            k.validate(tol=validation_tolerance, limits=limits) for k in raw_kpoints
+        )
         if not self.kpoint_data:
             raise ProviderContractError("ABACUS provider requires at least one k-point")
         self.ao_labels = tuple(str(label) for label in ao_labels)
@@ -145,6 +215,12 @@ class ABACUSLCAOProvider:
         self.cell = cell
         self.spin_soc = bool(spin_soc)
         self.metadata = dict(metadata or {})
+        collision = _RESERVED_METADATA_KEYS & self.metadata.keys()
+        if collision:
+            raise ProviderContractError(
+                "ABACUS metadata may not override reserved fields: "
+                + ", ".join(sorted(collision))
+            )
         self._kblock = KPointBlock(
             coordinates=np.asarray([k.coordinate for k in self.kpoint_data]),
             weights=np.asarray([k.weight for k in self.kpoint_data]),
@@ -221,12 +297,40 @@ def from_abacus_lcao(**kwargs: Any) -> ABACUSLCAOProvider:
 
 def _real_matrix(value: np.ndarray, name: str) -> np.ndarray:
     arr = np.asarray(value)
-    if np.iscomplexobj(arr) and not np.allclose(arr.imag, 0.0):
+    if np.iscomplexobj(arr) and not np.allclose(arr.imag, 0.0, atol=0.0, rtol=0.0):
         raise ProviderContractError(f"{name} must be real in the MVP adapter")
     arr = np.asarray(arr, dtype=float)
+    _require_finite_array(arr, name)
     if arr.ndim != 2 or arr.shape[0] != arr.shape[1]:
         raise ProviderContractError(f"{name} must be a square matrix")
     return arr
+
+
+def _finite_float(value: Any, name: str) -> float:
+    try:
+        result = float(value)
+    except (TypeError, ValueError) as exc:
+        raise ProviderContractError(f"{name} must be a finite scalar") from exc
+    if not np.isfinite(result):
+        raise ProviderContractError(f"{name} must be finite")
+    return result
+
+
+def _require_finite_array(value: np.ndarray, name: str) -> None:
+    if not np.all(np.isfinite(value)):
+        raise ProviderContractError(f"{name} must contain only finite values")
+
+
+def _enforce_array_limits(
+    limits: ABACUSValidationLimits,
+    *arrays: np.ndarray,
+) -> None:
+    elements = sum(int(arr.size) for arr in arrays)
+    bytes_ = sum(int(arr.nbytes) for arr in arrays)
+    if elements > limits.max_array_elements:
+        raise ProviderContractError("ABACUS input arrays exceed element limit")
+    if bytes_ > limits.max_input_bytes:
+        raise ProviderContractError("ABACUS input arrays exceed byte limit")
 
 
 def _normalize_core_hole(core_hole: dict[str, Any]) -> dict[str, Any]:
@@ -244,10 +348,24 @@ def _normalize_core_hole(core_hole: dict[str, Any]) -> dict[str, Any]:
             + ", ".join(sorted(missing))
         )
     normalized = dict(core_hole)
-    normalized["occupation_before"] = float(normalized["occupation_before"])
-    normalized["occupation_after"] = float(normalized["occupation_after"])
+    normalized["occupation_before"] = _finite_float(
+        normalized["occupation_before"], "core-hole occupation_before"
+    )
+    normalized["occupation_after"] = _finite_float(
+        normalized["occupation_after"], "core-hole occupation_after"
+    )
+    if not 0.0 <= normalized["occupation_before"] <= 2.0:
+        raise ProviderContractError("core-hole occupation_before must be in [0, 2]")
+    if not 0.0 <= normalized["occupation_after"] <= 2.0:
+        raise ProviderContractError("core-hole occupation_after must be in [0, 2]")
     normalized["tracked_mo_index"] = int(normalized["tracked_mo_index"])
+    if normalized["tracked_mo_index"] < 0:
+        raise ProviderContractError("core-hole tracked_mo_index must be non-negative")
     normalized["initial_state_energy_hartree"] = ensure_hartree(
         normalized["initial_state_energy_hartree"]
+    )
+    _finite_float(
+        normalized["initial_state_energy_hartree"],
+        "core-hole initial_state_energy_hartree",
     )
     return normalized

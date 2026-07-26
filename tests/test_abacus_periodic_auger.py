@@ -5,8 +5,12 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from atomx.providers.abacus_adapter import ABACUSKPointData, ABACUSLCAOProvider
-from atomx.providers.contract import Capability, ProviderContractError
+from atomx.providers.abacus_adapter import (
+    ABACUSKPointData,
+    ABACUSLCAOProvider,
+    ABACUSValidationLimits,
+)
+from atomx.providers.contract import Capability, KPointBlock, ProviderContractError
 from atomx.scattering.autoionization.molecular import DiscreteMOContinuumChannel
 from atomx.scattering.autoionization.periodic import periodic_auger_spectrum
 
@@ -48,6 +52,23 @@ def _provider(*kpoints: ABACUSKPointData) -> ABACUSLCAOProvider:
     )
 
 
+def _replace_kdata(kdata: ABACUSKPointData, **updates) -> ABACUSKPointData:
+    values = {
+        "coordinate": kdata.coordinate,
+        "weight": kdata.weight,
+        "hamiltonian": kdata.hamiltonian,
+        "overlap": kdata.overlap,
+        "coefficients": kdata.coefficients,
+        "energies": kdata.energies,
+        "occupations": kdata.occupations,
+        "density": kdata.density,
+        "two_electron": kdata.two_electron,
+        "local_projection_weight": kdata.local_projection_weight,
+    }
+    values.update(updates)
+    return ABACUSKPointData(**values)
+
+
 def test_abacus_payload_exposes_periodic_lcao_contract():
     payload = _provider(_kdata(2.0)).build_payload()
 
@@ -70,16 +91,18 @@ def test_abacus_adapter_rejects_non_hermitian_hamiltonian():
 
     with pytest.raises(ProviderContractError, match="Hamiltonian"):
         _provider(
-            ABACUSKPointData(
-                coordinate=bad.coordinate,
-                weight=bad.weight,
-                hamiltonian=H,
-                overlap=bad.overlap,
-                coefficients=bad.coefficients,
-                energies=bad.energies,
-                occupations=bad.occupations,
-            )
+            _replace_kdata(bad, hamiltonian=H)
         )
+
+
+def test_abacus_adapter_rejects_high_amplitude_absolute_hermiticity_residual():
+    bad = _kdata(1.0)
+    H = np.diag([1e12, 2e12, 3e12, 4e12])
+    H[0, 1] = 1e12
+    H[1, 0] = 1e12 + 1e-4
+
+    with pytest.raises(ProviderContractError, match="Hamiltonian"):
+        _provider(_replace_kdata(bad, hamiltonian=H))
 
 
 def test_abacus_adapter_rejects_non_positive_overlap():
@@ -89,15 +112,163 @@ def test_abacus_adapter_rejects_non_positive_overlap():
 
     with pytest.raises(ProviderContractError, match="positive definite"):
         _provider(
-            ABACUSKPointData(
-                coordinate=bad.coordinate,
-                weight=bad.weight,
-                hamiltonian=bad.hamiltonian,
-                overlap=S,
-                coefficients=bad.coefficients,
-                energies=bad.energies,
-                occupations=bad.occupations,
+            _replace_kdata(bad, overlap=S)
+        )
+
+
+def test_abacus_adapter_rejects_local_projection_outside_probability_contract():
+    with pytest.raises(ProviderContractError, match="local projection weight"):
+        _provider(_replace_kdata(_kdata(1.0), local_projection_weight=2.0))
+
+
+@pytest.mark.parametrize(
+    ("reserved_key", "value"),
+    [
+        ("core_hole", {}),
+        ("kpoint_index", 0),
+        ("kpoint", (0.25, 0.0, 0.0)),
+        ("k_weight", 99.0),
+        ("local_projection_weight", 0.25),
+        ("hamiltonian", np.eye(4)),
+    ],
+)
+def test_abacus_adapter_rejects_reserved_metadata_collisions(reserved_key, value):
+    with pytest.raises(ProviderContractError, match="reserved fields"):
+        ABACUSLCAOProvider(
+            Z=13,
+            kpoints=[_kdata(1.0)],
+            ao_labels=["0 Al 1s", "0 Al 3s", "0 Al 3p", "0 Al cont"],
+            core_hole={
+                "orbital_label": "Al 1s",
+                "occupation_before": 2.0,
+                "occupation_after": 1.0,
+                "tracked_mo_index": 0,
+                "initial_state_energy_hartree": 19.5,
+            },
+            metadata={reserved_key: value},
+        )
+
+
+@pytest.mark.parametrize(
+    "updates",
+    [
+        {"coordinate": (np.nan, 0.0, 0.0)},
+        {"weight": np.inf},
+        {"hamiltonian": np.diag([np.nan, -1.0, -0.5, 0.2])},
+        {
+            "overlap": np.array(
+                [
+                    [np.inf, 0.0, 0.0, 0.0],
+                    [0.0, 1.0, 0.0, 0.0],
+                    [0.0, 0.0, 1.0, 0.0],
+                    [0.0, 0.0, 0.0, 1.0],
+                ]
             )
+        },
+        {
+            "coefficients": np.array(
+                [
+                    [np.nan, 0.0, 0.0, 0.0],
+                    [0.0, 1.0, 0.0, 0.0],
+                    [0.0, 0.0, 1.0, 0.0],
+                    [0.0, 0.0, 0.0, 1.0],
+                ]
+            )
+        },
+        {"energies": np.array([-20.0, -1.0, np.inf, 0.2])},
+        {"occupations": np.array([1.0, 2.0, -0.1, 0.0])},
+        {"density": np.diag([1.0, np.nan, 2.0, 0.0])},
+        {"two_electron": np.full((4, 4, 4, 4), np.inf)},
+        {"local_projection_weight": np.nan},
+    ],
+)
+def test_abacus_adapter_rejects_nonfinite_and_physical_bounds(updates):
+    with pytest.raises(ProviderContractError):
+        _provider(_replace_kdata(_kdata(1.0), **updates))
+
+
+def test_abacus_adapter_rejects_nonfinite_validation_tolerance():
+    with pytest.raises(ProviderContractError, match="tolerance"):
+        ABACUSLCAOProvider(
+            Z=13,
+            kpoints=[_kdata(1.0)],
+            ao_labels=["0 Al 1s", "0 Al 3s", "0 Al 3p", "0 Al cont"],
+            core_hole={
+                "orbital_label": "Al 1s",
+                "occupation_before": 2.0,
+                "occupation_after": 1.0,
+                "tracked_mo_index": 0,
+                "initial_state_energy_hartree": 19.5,
+            },
+            validation_tolerance=np.inf,
+        )
+
+
+def test_abacus_adapter_rejects_resource_limit_before_eigensolve():
+    with pytest.raises(ProviderContractError, match="n_ao exceeds"):
+        ABACUSLCAOProvider(
+            Z=13,
+            kpoints=[_kdata(1.0)],
+            ao_labels=["0 Al 1s", "0 Al 3s", "0 Al 3p", "0 Al cont"],
+            core_hole={
+                "orbital_label": "Al 1s",
+                "occupation_before": 2.0,
+                "occupation_after": 1.0,
+                "tracked_mo_index": 0,
+                "initial_state_energy_hartree": 19.5,
+            },
+            validation_limits=ABACUSValidationLimits(max_ao=3),
+        )
+
+
+def test_abacus_adapter_rejects_kpoint_resource_limit():
+    with pytest.raises(ProviderContractError, match="n_k exceeds"):
+        ABACUSLCAOProvider(
+            Z=13,
+            kpoints=[_kdata(1.0), _kdata(1.0)],
+            ao_labels=["0 Al 1s", "0 Al 3s", "0 Al 3p", "0 Al cont"],
+            core_hole={
+                "orbital_label": "Al 1s",
+                "occupation_before": 2.0,
+                "occupation_after": 1.0,
+                "tracked_mo_index": 0,
+                "initial_state_energy_hartree": 19.5,
+            },
+            validation_limits=ABACUSValidationLimits(max_kpoints=1),
+        )
+
+
+def test_abacus_adapter_rejects_total_array_element_resource_limit():
+    with pytest.raises(ProviderContractError, match="element limit"):
+        ABACUSLCAOProvider(
+            Z=13,
+            kpoints=[_kdata(1.0)],
+            ao_labels=["0 Al 1s", "0 Al 3s", "0 Al 3p", "0 Al cont"],
+            core_hole={
+                "orbital_label": "Al 1s",
+                "occupation_before": 2.0,
+                "occupation_after": 1.0,
+                "tracked_mo_index": 0,
+                "initial_state_energy_hartree": 19.5,
+            },
+            validation_limits=ABACUSValidationLimits(max_array_elements=1),
+        )
+
+
+def test_abacus_adapter_rejects_eri_resource_limit():
+    with pytest.raises(ProviderContractError, match="ERI tensor exceeds"):
+        ABACUSLCAOProvider(
+            Z=13,
+            kpoints=[_kdata(1.0)],
+            ao_labels=["0 Al 1s", "0 Al 3s", "0 Al 3p", "0 Al cont"],
+            core_hole={
+                "orbital_label": "Al 1s",
+                "occupation_before": 2.0,
+                "occupation_after": 1.0,
+                "tracked_mo_index": 0,
+                "initial_state_energy_hartree": 19.5,
+            },
+            validation_limits=ABACUSValidationLimits(max_eri_elements=1),
         )
 
 
@@ -132,6 +303,58 @@ def test_periodic_auger_spectrum_is_k_weighted_and_not_dos():
         "matrix-element-weighted-not-dos" in line.provenance.approximations
         for line in spectrum.lines
     )
+
+
+def test_periodic_auger_rejects_tampered_k_weight_metadata():
+    payloads = list(_provider(_kdata(1.0)).iter_kpoint_payloads())
+    payloads[0].metadata["k_weight"] = 2.0
+
+    with pytest.raises(ProviderContractError, match="k_weight"):
+        periodic_auger_spectrum(
+            payloads,
+            continuum_channel=DiscreteMOContinuumChannel(mo_index=3),
+            population_threshold=0.5,
+        )
+
+
+def test_periodic_auger_rejects_unconserved_payload_weight_subset():
+    payloads = list(_provider(_kdata(1.0), _kdata(3.0)).iter_kpoint_payloads())
+
+    with pytest.raises(ProviderContractError, match="sum to one"):
+        periodic_auger_spectrum(
+            payloads[:1],
+            continuum_channel=DiscreteMOContinuumChannel(mo_index=3),
+            population_threshold=0.5,
+        )
+
+
+def test_periodic_auger_rejects_nonfinite_typed_k_weight():
+    payload = _provider(_kdata(1.0)).build_payload()
+    payload.kpoints = KPointBlock(
+        coordinates=np.array([[0.0, 0.0, 0.0]]),
+        weights=np.array([1.0]),
+    )
+    payload.kpoints.weights[0] = np.nan
+
+    with pytest.raises(ProviderContractError, match="weights"):
+        periodic_auger_spectrum(
+            [payload],
+            continuum_channel=DiscreteMOContinuumChannel(mo_index=3),
+            population_threshold=0.5,
+        )
+
+
+def test_periodic_auger_rejects_complex_coefficients_at_public_boundary():
+    payload = _provider(_kdata(1.0)).build_payload()
+    payload.orbitals.coefficients = payload.orbitals.coefficients.astype(complex)
+    payload.orbitals.coefficients[0, 0] += 1j
+
+    with pytest.raises(ProviderContractError, match="real"):
+        periodic_auger_spectrum(
+            [payload],
+            continuum_channel=DiscreteMOContinuumChannel(mo_index=3),
+            population_threshold=0.5,
+        )
 
 
 def test_periodic_auger_normalizes_total_k_weighted_intensity():

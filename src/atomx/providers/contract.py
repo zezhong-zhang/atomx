@@ -568,6 +568,8 @@ class OrbitalCoefficients:
                 "orbital energies/occupations must have length n_mo "
                 f"= {n_mo}"
             )
+        if np.any((self.occupations < 0.0) | (self.occupations > 2.0)):
+            raise ProviderContractError("orbital occupations must be in [0, 2]")
         return self
 
     @property
