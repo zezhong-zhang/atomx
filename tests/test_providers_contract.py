@@ -133,6 +133,99 @@ def test_validate_ok_on_minimal_payload():
     assert _minimal_payload().validate() is not None
 
 
+@pytest.mark.parametrize(
+    "bad_value", [np.nan, np.inf, -np.inf, complex(1.0, np.nan)]
+)
+@pytest.mark.parametrize(
+    "block_factory",
+    [
+        lambda bad: OrbitalCoefficients(
+            coefficients=np.array([[bad]]),
+            energies=np.array([-0.5]),
+            occupations=np.array([2.0]),
+        ),
+        lambda bad: OrbitalCoefficients(
+            coefficients=np.eye(1),
+            energies=np.array([bad]),
+            occupations=np.array([2.0]),
+        ),
+        lambda bad: OrbitalCoefficients(
+            coefficients=np.eye(1),
+            energies=np.array([-0.5]),
+            occupations=np.array([bad]),
+        ),
+        lambda bad: OverlapBlock(np.array([[bad]])),
+        lambda bad: DensityMatrix(np.array([[bad]])),
+        lambda bad: TwoElectronIntegrals(np.full((1, 1, 1, 1), bad)),
+    ],
+)
+def test_numeric_blocks_reject_non_finite_values(block_factory, bad_value):
+    with pytest.raises(ProviderContractError, match="finite"):
+        block_factory(bad_value)
+
+
+@pytest.mark.parametrize("bad_value", [np.nan, np.inf, -np.inf])
+def test_orbital_energy_mapping_rejects_non_finite_values(bad_value):
+    with pytest.raises(UnitError, match="finite"):
+        _minimal_payload(orbital_energies={"MO0": bad_value})
+
+
+@pytest.mark.parametrize("bad_value", [np.nan, np.inf, -np.inf])
+def test_radial_orbitals_reject_non_finite_arrays_before_validate(bad_value):
+    with pytest.raises(ProviderContractError, match="finite"):
+        ElectronicStructurePayload(
+            Z=2,
+            provenance=_good_provenance(),
+            subshells=[SimpleNamespace(occupation=2.0)],
+            orbital_energies={"1s": -0.5},
+            orbitals_raw={-1: [(np.array([0.0, bad_value]), np.zeros(2), 2.0)]},
+        )
+
+
+@pytest.mark.parametrize("bad_value", [np.nan, np.inf, -np.inf])
+def test_radial_subshell_occupations_reject_non_finite_values(bad_value):
+    payload = ElectronicStructurePayload(
+        Z=2,
+        provenance=_good_provenance(),
+        subshells=[SimpleNamespace(occupation=bad_value)],
+        orbital_energies={"1s": -0.5},
+        orbitals_raw={-1: [(np.array([0.0]), np.array([0.0]), 2.0)]},
+    )
+
+    with pytest.raises(ProviderContractError, match="finite"):
+        payload.validate()
+
+
+def test_non_finite_coefficients_fail_before_orthonormality_residual():
+    with pytest.raises(ProviderContractError, match="finite"):
+        OrbitalCoefficients(
+            coefficients=np.array([[np.nan]]),
+            energies=np.array([-0.5]),
+            occupations=np.array([2.0]),
+        )
+
+
+def test_finite_complex_contract_arrays_remain_supported():
+    phase = np.exp(0.25j)
+    payload = _minimal_payload(
+        orbitals=OrbitalCoefficients(
+            coefficients=np.array([[phase]], dtype=complex),
+            energies=np.array([-0.5]),
+            occupations=np.array([2.0]),
+        ),
+        overlap=OverlapBlock(np.array([[1.0 + 0.0j]])),
+        density=DensityMatrix(np.array([[2.0 + 0.0j]])),
+        two_electron=TwoElectronIntegrals(
+            np.ones((1, 1, 1, 1), dtype=complex), basis="mo"
+        ),
+        orbital_energies={"MO0": -0.5},
+    )
+
+    assert payload.validate() is payload
+    assert payload.orbitals.coefficients.dtype.kind == "c"
+    assert payload.orthonormality_residual() == pytest.approx(0.0, abs=1e-12)
+
+
 def test_validate_rejects_no_orbital_representation():
     payload = ElectronicStructurePayload(
         Z=2,

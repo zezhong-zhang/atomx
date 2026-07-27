@@ -165,15 +165,56 @@ def ensure_hartree(value: Any) -> float:
     stray unit can never slip across the boundary silently.
     """
     try:
-        return to_hartree(value)
+        hartree = to_hartree(value)
     except Exception as exc:  # pragma: no cover - defensive
         raise UnitError(
             f"cannot coerce {value!r} to Hartree atomic units: {exc}"
         ) from exc
+    if np.iscomplexobj(hartree) or not np.isscalar(hartree):
+        raise UnitError(
+            f"cannot coerce {value!r} to a real Hartree scalar"
+        )
+    if not np.isfinite(hartree):
+        raise UnitError(
+            f"cannot coerce {value!r} to finite Hartree atomic units"
+        )
+    return float(hartree)
 
 
 def _ensure_hartree_mapping(mapping: Dict[str, Any]) -> Dict[str, float]:
     return {k: ensure_hartree(v) for k, v in mapping.items()}
+
+
+def _as_finite_numeric_array(name: str, value: Any) -> np.ndarray:
+    try:
+        array = np.asarray(value)
+        dtype = complex if np.iscomplexobj(array) else float
+        array = np.asarray(value, dtype=dtype)
+    except (TypeError, ValueError) as exc:
+        raise ProviderContractError(f"{name} must be numeric") from exc
+    if not np.all(np.isfinite(array)):
+        raise ProviderContractError(f"{name} must contain only finite values")
+    return array
+
+
+def _ensure_finite_orbitals_raw(
+    orbitals_raw: Dict[int, List[Tuple[Any, Any, float]]],
+) -> None:
+    for kappa, orbitals in orbitals_raw.items():
+        for index, (p_component, q_component, occupation) in enumerate(orbitals):
+            label = f"orbitals_raw[{kappa!r}][{index}]"
+            _as_finite_numeric_array(f"{label}.P", p_component)
+            _as_finite_numeric_array(f"{label}.Q", q_component)
+            _as_finite_numeric_array(f"{label}.occupation", occupation)
+
+
+def _ensure_finite_subshell_occupations(subshells: Iterable[Any]) -> None:
+    for index, subshell in enumerate(subshells):
+        occupation = getattr(subshell, "occupation", None)
+        if occupation is not None:
+            _as_finite_numeric_array(
+                f"subshells[{index}].occupation", occupation
+            )
 
 
 # ---------------------------------------------------------------------------
@@ -238,7 +279,7 @@ class OverlapBlock:
     basis_labels: Optional[List[str]] = None
 
     def __post_init__(self) -> None:
-        self.matrix = np.asarray(self.matrix, dtype=float)
+        self.matrix = _as_finite_numeric_array("overlap S", self.matrix)
         if self.matrix.ndim != 2 or self.matrix.shape[0] != self.matrix.shape[1]:
             raise ProviderContractError("overlap S must be a square 2-D matrix")
 
@@ -271,9 +312,15 @@ class OrbitalCoefficients:
     spin: str = "restricted"      # "restricted" | "alpha" | "beta"
 
     def __post_init__(self) -> None:
-        self.coefficients = np.asarray(self.coefficients, dtype=float)
-        self.energies = np.asarray(self.energies, dtype=float)
-        self.occupations = np.asarray(self.occupations, dtype=float)
+        self.coefficients = _as_finite_numeric_array(
+            "orbital coefficients", self.coefficients
+        )
+        self.energies = _as_finite_numeric_array(
+            "orbital energies", self.energies
+        )
+        self.occupations = _as_finite_numeric_array(
+            "orbital occupations", self.occupations
+        )
         if self.coefficients.ndim != 2:
             raise ProviderContractError("orbital coefficients must be 2-D")
         n_mo = self.coefficients.shape[1]
@@ -300,7 +347,7 @@ class DensityMatrix:
     basis: str = "ao"
 
     def __post_init__(self) -> None:
-        self.matrix = np.asarray(self.matrix, dtype=float)
+        self.matrix = _as_finite_numeric_array("density matrix", self.matrix)
         if self.matrix.ndim != 2 or self.matrix.shape[0] != self.matrix.shape[1]:
             raise ProviderContractError("density matrix must be square 2-D")
 
@@ -320,7 +367,7 @@ class TwoElectronIntegrals:
     notation: str = "chemist"     # "chemist" (ij|kl) | "physicist" <ij|kl>
 
     def __post_init__(self) -> None:
-        self.eri = np.asarray(self.eri, dtype=float)
+        self.eri = _as_finite_numeric_array("ERI", self.eri)
         if self.eri.ndim != 4:
             raise ProviderContractError(
                 f"ERI must be rank-4 (ij|kl), got ndim={self.eri.ndim}"
@@ -391,6 +438,7 @@ class ElectronicStructurePayload:
     def __post_init__(self) -> None:
         # I1: coerce declared orbital energies to Hartree at construction.
         self.orbital_energies = _ensure_hartree_mapping(self.orbital_energies)
+        _ensure_finite_orbitals_raw(self.orbitals_raw)
 
     # -- capability negotiation --------------------------------------------
 
@@ -469,6 +517,7 @@ class ElectronicStructurePayload:
                 "ML provider payload lacks an uncertainty block; "
                 "fails closed (I6)"
             )
+        _ensure_finite_subshell_occupations(self.subshells)
         if self.orbitals is not None:
             n_ao = self.orbitals.n_ao
             if self.overlap is not None and self.overlap.matrix.shape != (n_ao, n_ao):
@@ -516,7 +565,7 @@ class ElectronicStructurePayload:
             if self.overlap is not None
             else np.eye(C.shape[0])
         )
-        gram = C.T @ S @ C
+        gram = C.conj().T @ S @ C
         return float(np.max(np.abs(gram - np.eye(gram.shape[1]))))
 
     def electron_count(self) -> Optional[float]:
