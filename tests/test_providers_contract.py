@@ -8,6 +8,7 @@ any external back-end.
 
 from __future__ import annotations
 
+import re
 from types import SimpleNamespace
 
 import numpy as np
@@ -19,6 +20,7 @@ from atomx.providers.contract import (
     DensityMatrix,
     ElectronicStructurePayload,
     ElectronicStructureProvider,
+    NonFiniteDataError,
     OrbitalCoefficients,
     OverlapBlock,
     Provenance,
@@ -193,6 +195,87 @@ def test_ml_payload_with_uncertainty_passes():
 def test_ml_provenance_requires_ood_status():
     with pytest.raises(ProviderContractError):
         _good_provenance(is_ml=True).validate()
+
+
+@pytest.mark.parametrize("bad_value", [np.nan, np.inf, -np.inf])
+@pytest.mark.parametrize(
+    ("factory", "field_name"),
+    [
+        (
+            lambda value: OrbitalCoefficients(
+                coefficients=np.array([[1.0, value], [0.0, 1.0]]),
+                energies=np.array([-1.0, 0.0]),
+                occupations=np.array([2.0, 0.0]),
+            ),
+            "OrbitalCoefficients.coefficients",
+        ),
+        (
+            lambda value: OrbitalCoefficients(
+                coefficients=np.eye(2),
+                energies=np.array([-1.0, value]),
+                occupations=np.array([2.0, 0.0]),
+            ),
+            "OrbitalCoefficients.energies",
+        ),
+        (
+            lambda value: OrbitalCoefficients(
+                coefficients=np.eye(2),
+                energies=np.array([-1.0, 0.0]),
+                occupations=np.array([2.0, value]),
+            ),
+            "OrbitalCoefficients.occupations",
+        ),
+        (
+            lambda value: OverlapBlock(np.array([[1.0, value], [0.0, 1.0]])),
+            "OverlapBlock.matrix",
+        ),
+        (
+            lambda value: DensityMatrix(np.array([[1.0, value], [0.0, 1.0]])),
+            "DensityMatrix.matrix",
+        ),
+        (
+            lambda value: TwoElectronIntegrals(
+                np.array(
+                    [
+                        [[[1.0, 0.0], [0.0, 0.0]], [[0.0, 0.0], [0.0, 0.0]]],
+                        [[[0.0, 0.0], [0.0, 0.0]], [[0.0, 0.0], [0.0, value]]],
+                    ]
+                )
+            ),
+            "TwoElectronIntegrals.eri",
+        ),
+        (
+            lambda value: _minimal_payload(orbital_energies={"MO0": value}),
+            "ElectronicStructurePayload.orbital_energies[MO0]",
+        ),
+    ],
+)
+def test_non_finite_numeric_provider_data_fails_closed(
+    factory, field_name, bad_value
+):
+    with pytest.raises(NonFiniteDataError, match=re.escape(field_name)):
+        factory(bad_value)
+
+
+def test_finite_real_payload_with_all_numeric_blocks_passes():
+    payload = ElectronicStructurePayload(
+        Z=2,
+        provenance=_good_provenance(),
+        subshells=[],
+        orbital_energies={"MO0": -0.5, "MO1": 0.25},
+        orbitals=OrbitalCoefficients(
+            coefficients=np.eye(2),
+            energies=np.array([-0.5, 0.25]),
+            occupations=np.array([2.0, 0.0]),
+        ),
+        overlap=OverlapBlock(np.eye(2)),
+        density=DensityMatrix(np.array([[2.0, 0.0], [0.0, 0.0]])),
+        two_electron=TwoElectronIntegrals(np.zeros((2, 2, 2, 2))),
+    )
+
+    assert payload.validate() is payload
+    assert np.isfinite(payload.orthonormality_residual())
+    assert np.isfinite(payload.electron_count())
 
 
 # ── orthogonal / non-orthogonal consistency ─────────────────────────────

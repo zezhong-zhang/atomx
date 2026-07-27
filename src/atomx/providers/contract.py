@@ -65,6 +65,7 @@ __all__ = [
     "CapabilityError",
     "UncertaintyGateError",
     "UnitError",
+    "NonFiniteDataError",
     "Provenance",
     "OverlapBlock",
     "OrbitalCoefficients",
@@ -151,6 +152,10 @@ class UnitError(ProviderContractError):
     """A quantity could not be coerced to Hartree atomic units (I1)."""
 
 
+class NonFiniteDataError(ProviderContractError):
+    """Numerical provider data contained NaN or Inf values."""
+
+
 # ---------------------------------------------------------------------------
 # Unit coercion (I1) — the only sanctioned energy entry point
 # ---------------------------------------------------------------------------
@@ -174,6 +179,23 @@ def ensure_hartree(value: Any) -> float:
 
 def _ensure_hartree_mapping(mapping: Dict[str, Any]) -> Dict[str, float]:
     return {k: ensure_hartree(v) for k, v in mapping.items()}
+
+
+def _require_finite(values: Any, field_name: str) -> None:
+    """Fail closed when provider numeric data contains NaN or Inf.
+
+    Existing blocks coerce arrays to ``dtype=float`` before this check. If a
+    future block accepts complex data, ``np.isfinite`` also rejects non-finite
+    real or imaginary components without any special casing here.
+    """
+    values_array = np.asarray(values)
+    finite_mask = np.isfinite(values_array)
+    non_finite_count = int(values_array.size - np.count_nonzero(finite_mask))
+    if non_finite_count:
+        raise NonFiniteDataError(
+            f"{field_name} contains non-finite values (NaN or Inf); found "
+            f"{non_finite_count} of {values_array.size} non-finite entries"
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -241,6 +263,7 @@ class OverlapBlock:
         self.matrix = np.asarray(self.matrix, dtype=float)
         if self.matrix.ndim != 2 or self.matrix.shape[0] != self.matrix.shape[1]:
             raise ProviderContractError("overlap S must be a square 2-D matrix")
+        _require_finite(self.matrix, "OverlapBlock.matrix")
 
     def max_deviation_from_identity(self) -> float:
         n = self.matrix.shape[0]
@@ -282,6 +305,9 @@ class OrbitalCoefficients:
                 "orbital energies/occupations must have length n_mo "
                 f"= {n_mo}"
             )
+        _require_finite(self.coefficients, "OrbitalCoefficients.coefficients")
+        _require_finite(self.energies, "OrbitalCoefficients.energies")
+        _require_finite(self.occupations, "OrbitalCoefficients.occupations")
 
     @property
     def n_ao(self) -> int:
@@ -303,6 +329,7 @@ class DensityMatrix:
         self.matrix = np.asarray(self.matrix, dtype=float)
         if self.matrix.ndim != 2 or self.matrix.shape[0] != self.matrix.shape[1]:
             raise ProviderContractError("density matrix must be square 2-D")
+        _require_finite(self.matrix, "DensityMatrix.matrix")
 
     def n_electrons(self, overlap: Optional[OverlapBlock] = None) -> float:
         """Trace of ``P`` (orthonormal) or ``P S`` (non-orthogonal AO)."""
@@ -330,6 +357,7 @@ class TwoElectronIntegrals:
                 "ERI must have equal dimensions in all four axes, "
                 f"got shape={self.eri.shape}"
             )
+        _require_finite(self.eri, "TwoElectronIntegrals.eri")
 
 
 @dataclass
@@ -391,6 +419,11 @@ class ElectronicStructurePayload:
     def __post_init__(self) -> None:
         # I1: coerce declared orbital energies to Hartree at construction.
         self.orbital_energies = _ensure_hartree_mapping(self.orbital_energies)
+        for key, value in self.orbital_energies.items():
+            _require_finite(
+                value,
+                f"ElectronicStructurePayload.orbital_energies[{key}]",
+            )
 
     # -- capability negotiation --------------------------------------------
 
