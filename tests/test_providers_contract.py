@@ -100,6 +100,19 @@ def test_unit_error_on_uncoercible():
         ensure_hartree(object())
 
 
+def test_unit_error_does_not_embed_unbounded_value_repr():
+    class Noisy:
+        def __repr__(self):
+            return "x" * 1000
+
+    with pytest.raises(UnitError) as exc_info:
+        ensure_hartree(Noisy())
+
+    message = str(exc_info.value)
+    assert "x" * 100 not in message
+    assert "type=Noisy" in message
+
+
 # ── capability negotiation ─────────────────────────────────────────────
 
 
@@ -196,6 +209,30 @@ def test_radial_subshell_occupations_reject_non_finite_values(bad_value):
         payload.validate()
 
 
+@pytest.mark.parametrize("bad_index", [0, 1, 2])
+def test_subshell_generator_is_replayable_and_validate_checks_all_positions(
+    bad_index,
+):
+    def subshells():
+        for index, occupation in enumerate([2.0, 1.0, 0.0]):
+            yield SimpleNamespace(
+                occupation=np.inf if index == bad_index else occupation
+            )
+
+    payload = ElectronicStructurePayload(
+        Z=2,
+        provenance=_good_provenance(),
+        subshells=subshells(),
+        orbital_energies={"1s": -0.5},
+        orbitals_raw={-1: [(np.array([0.0]), np.array([0.0]), 2.0)]},
+    )
+
+    assert payload.capabilities()
+    assert isinstance(payload.subshells, tuple)
+    with pytest.raises(ProviderContractError, match=f"subshells\\[{bad_index}\\]"):
+        payload.validate()
+
+
 def test_non_finite_coefficients_fail_before_orthonormality_residual():
     with pytest.raises(ProviderContractError, match="finite"):
         OrbitalCoefficients(
@@ -224,6 +261,91 @@ def test_finite_complex_contract_arrays_remain_supported():
     assert payload.validate() is payload
     assert payload.orbitals.coefficients.dtype.kind == "c"
     assert payload.orthonormality_residual() == pytest.approx(0.0, abs=1e-12)
+
+
+def test_object_dtype_contract_arrays_fail_closed_even_for_finite_complex():
+    with pytest.raises(ProviderContractError, match="non-object dtype"):
+        OrbitalCoefficients(
+            coefficients=np.array([[1.0 + 0.0j]], dtype=object),
+            energies=np.array([-0.5]),
+            occupations=np.array([2.0]),
+        )
+
+
+@pytest.mark.parametrize(
+    "mutate, call, error_type, match",
+    [
+        (
+            lambda payload: payload.orbitals.coefficients.__setitem__(
+                (0, 0), np.nan
+            ),
+            lambda payload: payload.validate(),
+            ProviderContractError,
+            "orbital coefficients",
+        ),
+        (
+            lambda payload: payload.orbitals.energies.__setitem__(0, np.inf),
+            lambda payload: payload.validate(),
+            ProviderContractError,
+            "orbital energies",
+        ),
+        (
+            lambda payload: payload.orbitals.occupations.__setitem__(
+                0, -np.inf
+            ),
+            lambda payload: payload.validate(),
+            ProviderContractError,
+            "orbital occupations",
+        ),
+        (
+            lambda payload: payload.overlap.matrix.__setitem__((0, 0), np.nan),
+            lambda payload: payload.orthonormality_residual(),
+            ProviderContractError,
+            "overlap S",
+        ),
+        (
+            lambda payload: payload.density.matrix.__setitem__((0, 0), np.nan),
+            lambda payload: payload.electron_count(),
+            ProviderContractError,
+            "density matrix",
+        ),
+        (
+            lambda payload: payload.two_electron.eri.__setitem__(
+                (0, 0, 0, 0), np.inf
+            ),
+            lambda payload: payload.validate(),
+            ProviderContractError,
+            "ERI",
+        ),
+        (
+            lambda payload: payload.orbital_energies.__setitem__("MO0", np.nan),
+            lambda payload: payload.validate(),
+            UnitError,
+            "finite Hartree",
+        ),
+        (
+            lambda payload: payload.orbitals_raw[-1][0][0].__setitem__(0, np.nan),
+            lambda payload: payload.validate(),
+            ProviderContractError,
+            "orbitals_raw",
+        ),
+    ],
+)
+def test_payload_validate_rejects_public_numeric_mutation(
+    mutate, call, error_type, match
+):
+    payload = _minimal_payload(
+        orbitals=_mo_block(n_ao=2, n_mo=2, occ=(2.0, 0.0)),
+        overlap=OverlapBlock(np.eye(2)),
+        density=DensityMatrix(np.eye(2)),
+        two_electron=TwoElectronIntegrals(np.zeros((2, 2, 2, 2)), basis="mo"),
+        orbitals_raw={-1: [(np.array([0.0]), np.array([1.0]), 1.0)]},
+    )
+
+    mutate(payload)
+
+    with pytest.raises(error_type, match=match):
+        call(payload)
 
 
 def test_validate_rejects_no_orbital_representation():
@@ -281,6 +403,52 @@ def test_ml_payload_with_uncertainty_passes():
     )
     assert payload.validate() is not None
     assert Capability.UNCERTAINTY in payload.capabilities()
+
+
+@pytest.mark.parametrize("bad_value", [np.nan, np.inf, -np.inf])
+def test_uncertainty_rejects_non_finite_per_orbital_sigma(bad_value):
+    with pytest.raises(
+        ProviderContractError,
+        match=r"UncertaintyBlock\.per_orbital_sigma\['MO0'\]",
+    ):
+        UncertaintyBlock(per_orbital_sigma={"MO0": bad_value})
+
+
+@pytest.mark.parametrize("bad_value", [np.nan, np.inf, -np.inf])
+def test_uncertainty_rejects_non_finite_ood_score(bad_value):
+    with pytest.raises(ProviderContractError, match="UncertaintyBlock.ood_score"):
+        UncertaintyBlock(ood_score=bad_value)
+
+
+@pytest.mark.parametrize(
+    "summary, match",
+    [
+        ({"level": {"sigma": np.nan}}, "UncertaintyBlock.summary.level.sigma"),
+        ({"values": [0.1, np.inf]}, r"UncertaintyBlock.summary.values\[1\]"),
+    ],
+)
+def test_uncertainty_summary_rejects_nested_non_finite_numeric_values(
+    summary, match
+):
+    with pytest.raises(ProviderContractError, match=match):
+        UncertaintyBlock(summary=summary)
+
+
+def test_uncertainty_summary_allows_finite_nested_numeric_values():
+    block = UncertaintyBlock(
+        summary={"level": {"sigma": 0.2}, "flags": [True, "ok", None]}
+    )
+    assert block.validate() is block
+
+
+def test_provenance_uncertainty_summary_rejects_nested_non_finite_values():
+    provenance = _good_provenance(uncertainty_summary={"ood": {"score": np.inf}})
+
+    with pytest.raises(
+        ProviderContractError,
+        match="Provenance.uncertainty_summary.ood.score",
+    ):
+        provenance.validate()
 
 
 def test_ml_provenance_requires_ood_status():

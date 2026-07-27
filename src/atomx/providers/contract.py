@@ -41,6 +41,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import Enum
+from numbers import Number
 from typing import (
     Any,
     Dict,
@@ -168,15 +169,18 @@ def ensure_hartree(value: Any) -> float:
         hartree = to_hartree(value)
     except Exception as exc:  # pragma: no cover - defensive
         raise UnitError(
-            f"cannot coerce {value!r} to Hartree atomic units: {exc}"
+            "cannot coerce energy value to Hartree atomic units "
+            f"(type={type(value).__name__}): {exc}"
         ) from exc
     if np.iscomplexobj(hartree) or not np.isscalar(hartree):
         raise UnitError(
-            f"cannot coerce {value!r} to a real Hartree scalar"
+            "cannot coerce energy value to a real Hartree scalar "
+            f"(type={type(value).__name__})"
         )
     if not np.isfinite(hartree):
         raise UnitError(
-            f"cannot coerce {value!r} to finite Hartree atomic units"
+            "cannot coerce energy value to finite Hartree atomic units "
+            f"(type={type(value).__name__})"
         )
     return float(hartree)
 
@@ -188,13 +192,50 @@ def _ensure_hartree_mapping(mapping: Dict[str, Any]) -> Dict[str, float]:
 def _as_finite_numeric_array(name: str, value: Any) -> np.ndarray:
     try:
         array = np.asarray(value)
-        dtype = complex if np.iscomplexobj(array) else float
-        array = np.asarray(value, dtype=dtype)
+    except (TypeError, ValueError) as exc:
+        raise ProviderContractError(f"{name} must be numeric") from exc
+    if array.dtype == object:
+        raise ProviderContractError(
+            f"{name} must be numeric with non-object dtype"
+        )
+    dtype = complex if np.issubdtype(array.dtype, np.complexfloating) else float
+    try:
+        array = array.astype(dtype, copy=False)
     except (TypeError, ValueError) as exc:
         raise ProviderContractError(f"{name} must be numeric") from exc
     if not np.all(np.isfinite(array)):
         raise ProviderContractError(f"{name} must contain only finite values")
     return array
+
+
+def _ensure_finite_real_scalar(name: str, value: Any) -> float:
+    array = _as_finite_numeric_array(name, value)
+    if array.shape != () or np.iscomplexobj(array):
+        raise ProviderContractError(f"{name} must be a finite real scalar")
+    return float(array)
+
+
+def _ensure_finite_nested_numeric_values(name: str, value: Any) -> None:
+    """Reject non-finite numeric leaves while allowing non-numeric metadata."""
+    if value is None:
+        return
+    if isinstance(value, dict):
+        for key, item in value.items():
+            _ensure_finite_nested_numeric_values(f"{name}.{key}", item)
+        return
+    if isinstance(value, (list, tuple)):
+        for index, item in enumerate(value):
+            _ensure_finite_nested_numeric_values(f"{name}[{index}]", item)
+        return
+    if isinstance(value, np.ndarray):
+        array = _as_finite_numeric_array(name, value)
+        if np.iscomplexobj(array):
+            raise ProviderContractError(
+                f"{name} numeric values must be finite real values"
+            )
+        return
+    if isinstance(value, Number) and not isinstance(value, bool):
+        _ensure_finite_real_scalar(name, value)
 
 
 def _ensure_finite_orbitals_raw(
@@ -204,7 +245,8 @@ def _ensure_finite_orbitals_raw(
         for index, (p_component, q_component, occupation) in enumerate(orbitals):
             label = f"orbitals_raw[{kappa!r}][{index}]"
             _as_finite_numeric_array(f"{label}.P", p_component)
-            _as_finite_numeric_array(f"{label}.Q", q_component)
+            if q_component is not None:
+                _as_finite_numeric_array(f"{label}.Q", q_component)
             _as_finite_numeric_array(f"{label}.occupation", occupation)
 
 
@@ -258,6 +300,9 @@ class Provenance:
                 "ML provenance must declare ood_status "
                 "('in-domain' | 'ood' | 'unknown')"
             )
+        _ensure_finite_nested_numeric_values(
+            "Provenance.uncertainty_summary", self.uncertainty_summary
+        )
         return self
 
 
@@ -279,11 +324,16 @@ class OverlapBlock:
     basis_labels: Optional[List[str]] = None
 
     def __post_init__(self) -> None:
+        self.validate()
+
+    def validate(self) -> "OverlapBlock":
         self.matrix = _as_finite_numeric_array("overlap S", self.matrix)
         if self.matrix.ndim != 2 or self.matrix.shape[0] != self.matrix.shape[1]:
             raise ProviderContractError("overlap S must be a square 2-D matrix")
+        return self
 
     def max_deviation_from_identity(self) -> float:
+        self.validate()
         n = self.matrix.shape[0]
         return float(np.max(np.abs(self.matrix - np.eye(n))))
 
@@ -291,6 +341,7 @@ class OverlapBlock:
         return self.max_deviation_from_identity() <= tol
 
     def is_symmetric(self, tol: float = 1e-8) -> bool:
+        self.validate()
         return bool(np.allclose(self.matrix, self.matrix.T, atol=tol))
 
 
@@ -312,6 +363,9 @@ class OrbitalCoefficients:
     spin: str = "restricted"      # "restricted" | "alpha" | "beta"
 
     def __post_init__(self) -> None:
+        self.validate()
+
+    def validate(self) -> "OrbitalCoefficients":
         self.coefficients = _as_finite_numeric_array(
             "orbital coefficients", self.coefficients
         )
@@ -329,6 +383,7 @@ class OrbitalCoefficients:
                 "orbital energies/occupations must have length n_mo "
                 f"= {n_mo}"
             )
+        return self
 
     @property
     def n_ao(self) -> int:
@@ -347,14 +402,20 @@ class DensityMatrix:
     basis: str = "ao"
 
     def __post_init__(self) -> None:
+        self.validate()
+
+    def validate(self) -> "DensityMatrix":
         self.matrix = _as_finite_numeric_array("density matrix", self.matrix)
         if self.matrix.ndim != 2 or self.matrix.shape[0] != self.matrix.shape[1]:
             raise ProviderContractError("density matrix must be square 2-D")
+        return self
 
     def n_electrons(self, overlap: Optional[OverlapBlock] = None) -> float:
         """Trace of ``P`` (orthonormal) or ``P S`` (non-orthogonal AO)."""
+        self.validate()
         if overlap is None:
             return float(np.trace(self.matrix))
+        overlap.validate()
         return float(np.einsum("ij,ji->", self.matrix, overlap.matrix))
 
 
@@ -367,6 +428,9 @@ class TwoElectronIntegrals:
     notation: str = "chemist"     # "chemist" (ij|kl) | "physicist" <ij|kl>
 
     def __post_init__(self) -> None:
+        self.validate()
+
+    def validate(self) -> "TwoElectronIntegrals":
         self.eri = _as_finite_numeric_array("ERI", self.eri)
         if self.eri.ndim != 4:
             raise ProviderContractError(
@@ -377,6 +441,7 @@ class TwoElectronIntegrals:
                 "ERI must have equal dimensions in all four axes, "
                 f"got shape={self.eri.shape}"
             )
+        return self
 
 
 @dataclass
@@ -395,6 +460,23 @@ class UncertaintyBlock:
     per_orbital_sigma: Dict[str, float] = field(default_factory=dict)
     ood_score: Optional[float] = None
     summary: Optional[dict] = None
+
+    def __post_init__(self) -> None:
+        self.validate()
+
+    def validate(self) -> "UncertaintyBlock":
+        for label, sigma in self.per_orbital_sigma.items():
+            self.per_orbital_sigma[label] = _ensure_finite_real_scalar(
+                f"UncertaintyBlock.per_orbital_sigma[{label!r}]", sigma
+            )
+        if self.ood_score is not None:
+            self.ood_score = _ensure_finite_real_scalar(
+                "UncertaintyBlock.ood_score", self.ood_score
+            )
+        _ensure_finite_nested_numeric_values(
+            "UncertaintyBlock.summary", self.summary
+        )
+        return self
 
 
 # ---------------------------------------------------------------------------
@@ -437,6 +519,7 @@ class ElectronicStructurePayload:
 
     def __post_init__(self) -> None:
         # I1: coerce declared orbital energies to Hartree at construction.
+        self.subshells = tuple(self.subshells)
         self.orbital_energies = _ensure_hartree_mapping(self.orbital_energies)
         _ensure_finite_orbitals_raw(self.orbitals_raw)
 
@@ -500,6 +583,18 @@ class ElectronicStructurePayload:
             attached (I6 — ML fails closed).
         """
         self.provenance.validate()
+        self.orbital_energies = _ensure_hartree_mapping(self.orbital_energies)
+        _ensure_finite_orbitals_raw(self.orbitals_raw)
+        if self.overlap is not None:
+            self.overlap.validate()
+        if self.orbitals is not None:
+            self.orbitals.validate()
+        if self.density is not None:
+            self.density.validate()
+        if self.two_electron is not None:
+            self.two_electron.validate()
+        if self.uncertainty is not None:
+            self.uncertainty.validate()
         caps = self.capabilities()
         missing = MUST_CAPABILITIES - caps
         if missing:
@@ -557,6 +652,7 @@ class ElectronicStructurePayload:
         orthonormal in the ``S`` metric.  A native (orthonormal) payload
         with ``overlap=None`` treats ``S = I``.
         """
+        self.validate()
         if self.orbitals is None:
             return None
         C = self.orbitals.coefficients
@@ -570,6 +666,7 @@ class ElectronicStructurePayload:
 
     def electron_count(self) -> Optional[float]:
         """Electron number from the density block (``Tr(P S)``)."""
+        self.validate()
         if self.density is None:
             return None
         return self.density.n_electrons(self.overlap)
