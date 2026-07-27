@@ -863,6 +863,122 @@ def test_density_overlap_revalidates_before_contraction(monkeypatch):
         payload.electron_count()
 
 
+def test_density_overlap_shape_mismatch_rejected_before_contraction(monkeypatch):
+    payload = _minimal_payload(
+        density=DensityMatrix(np.eye(2)),
+        overlap=OverlapBlock(np.eye(3)),
+        orbitals=None,
+        subshells=[SimpleNamespace(occupation=2.0)],
+        orbitals_raw={-1: [(np.array([0.0]), np.array([1.0]), 2.0)]},
+    )
+
+    def fail_einsum(*_args, **_kwargs):
+        raise AssertionError("einsum must not run before shape check")
+
+    monkeypatch.setattr(np, "einsum", fail_einsum)
+
+    with pytest.raises(
+        ProviderContractError, match="DensityMatrix.n_electrons.overlap"
+    ):
+        payload.electron_count()
+
+
+def test_density_overlap_shape_mismatch_error_includes_shapes():
+    payload = _minimal_payload(
+        density=DensityMatrix(np.eye(2)),
+        overlap=OverlapBlock(np.eye(3)),
+        orbitals=None,
+        subshells=[SimpleNamespace(occupation=2.0)],
+        orbitals_raw={-1: [(np.array([0.0]), np.array([1.0]), 2.0)]},
+    )
+
+    with pytest.raises(ProviderContractError) as exc_info:
+        payload.electron_count()
+
+    message = str(exc_info.value)
+    assert "DensityMatrix.n_electrons.overlap" in message
+    assert "density (2, 2)" in message
+    assert "overlap (3, 3)" in message
+
+
+@pytest.mark.parametrize("use_overlap", [False, True])
+def test_complex_density_electron_count_accepts_imaginary_tolerance_boundary(
+    use_overlap,
+):
+    real = 2.0
+    tolerance = 1e-10 + 1e-12 * abs(real)
+    payload = _minimal_payload(
+        density=DensityMatrix(
+            np.array([[real + tolerance * 1j]], dtype=complex)
+        ),
+        overlap=(
+            OverlapBlock(np.array([[1.0 + 0.0j]], dtype=complex))
+            if use_overlap
+            else None
+        ),
+        orbitals=OrbitalCoefficients(
+            coefficients=np.ones((1, 1)),
+            energies=np.array([-0.5]),
+            occupations=np.array([2.0]),
+        ),
+        orbital_energies={"MO0": -0.5},
+    )
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", _complex_warning_type())
+        assert payload.electron_count() == pytest.approx(real, abs=1e-12)
+
+
+@pytest.mark.parametrize(
+    "use_overlap, match",
+    [
+        (False, "DensityMatrix.n_electrons.trace"),
+        (True, "DensityMatrix.n_electrons.overlap"),
+    ],
+)
+def test_complex_density_electron_count_rejects_beyond_imaginary_tolerance(
+    use_overlap, match
+):
+    real = 2.0
+    tolerance = 1e-10 + 1e-12 * abs(real)
+    imag = np.nextafter(tolerance, np.inf)
+    payload = _minimal_payload(
+        density=DensityMatrix(np.array([[real + imag * 1j]], dtype=complex)),
+        overlap=(
+            OverlapBlock(np.array([[1.0 + 0.0j]], dtype=complex))
+            if use_overlap
+            else None
+        ),
+        orbitals=OrbitalCoefficients(
+            coefficients=np.ones((1, 1)),
+            energies=np.array([-0.5]),
+            occupations=np.array([2.0]),
+        ),
+        orbital_energies={"MO0": -0.5},
+    )
+
+    with pytest.raises(ProviderContractError, match=match):
+        payload.electron_count()
+
+
+def test_density_overlap_contraction_non_finite_result_fails_closed():
+    payload = _minimal_payload(
+        density=DensityMatrix(np.array([[2e154]])),
+        overlap=OverlapBlock(np.array([[2e154]])),
+        orbitals=OrbitalCoefficients(
+            coefficients=np.ones((1, 1)),
+            energies=np.array([-0.5]),
+            occupations=np.array([2.0]),
+        ),
+        orbital_energies={"MO0": -0.5},
+    )
+
+    with pytest.raises(
+        ProviderContractError, match="DensityMatrix.n_electrons.overlap.*finite"
+    ):
+        payload.electron_count()
+
+
 # ── structural compatibility with AtomicResultLike ──────────────────────
 
 

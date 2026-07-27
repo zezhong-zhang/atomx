@@ -570,6 +570,12 @@ class DensityMatrix:
                 "DensityMatrix.n_electrons.trace", np.trace(self.matrix)
             )
         overlap.validate()
+        if self.matrix.shape != overlap.matrix.shape:
+            raise ProviderContractError(
+                "DensityMatrix.n_electrons.overlap requires density and "
+                "overlap with identical shapes; got density "
+                f"{self.matrix.shape} and overlap {overlap.matrix.shape}"
+            )
         return _ensure_real_electron_count(
             "DensityMatrix.n_electrons.overlap",
             np.einsum("ij,ji->", self.matrix, overlap.matrix),
