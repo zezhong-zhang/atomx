@@ -14,6 +14,7 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 
+import atomx.providers.contract as contract_module
 from atomx.providers.contract import (
     Capability,
     CapabilityError,
@@ -129,6 +130,22 @@ def test_unit_error_does_not_embed_unbounded_coercion_exception_text():
     assert "attacker-controlled-text" not in message
     assert "type=BadFloat" in message
     assert "reason=unsupported-or-invalid-value" in message
+    assert exc_info.value.__cause__ is not None
+
+
+def test_unit_error_public_text_is_bounded_when_coercion_raises_long_marker():
+    marker = "ATTACKER_MARKER"
+
+    class LongMarkerFloat:
+        def __float__(self):
+            raise RuntimeError(marker * 20_000)
+
+    with pytest.raises(UnitError) as exc_info:
+        ensure_hartree(LongMarkerFloat())
+
+    assert len(str(exc_info.value)) < 200
+    assert marker not in str(exc_info.value)
+    assert marker in str(exc_info.value.__cause__)
 
 
 def test_unit_error_survives_hostile_metaclass_type_name_lookup():
@@ -291,6 +308,70 @@ def test_validate_normalizes_mutated_subshell_generator_before_capabilities():
     with pytest.raises(ProviderContractError, match=r"subshells\[1\]"):
         payload.validate()
     assert isinstance(payload.subshells, tuple)
+
+
+@pytest.mark.parametrize("count", [0, 1, 3])
+def test_orbitals_raw_one_shot_iterables_are_normalized_and_replayable(count):
+    def orbital_stream():
+        for index in range(count):
+            yield (
+                np.array([float(index)]),
+                np.array([float(index + 1)]),
+                1.0,
+            )
+
+    payload = ElectronicStructurePayload(
+        Z=2,
+        provenance=_good_provenance(),
+        subshells=[SimpleNamespace(occupation=2.0)],
+        orbital_energies={"1s": -0.5},
+        orbitals_raw={-1: iter(orbital_stream())},
+        orbitals=None if count else _mo_block(n_mo=2, occ=(2.0, 0.0)),
+    )
+
+    assert isinstance(payload.orbitals_raw[-1], list)
+    assert len(payload.orbitals_raw[-1]) == count
+    assert payload.validate() is payload
+    assert payload.validate() is payload
+    if count:
+        assert Capability.RADIAL_ORBITALS in payload.capabilities()
+    else:
+        assert Capability.RADIAL_ORBITALS not in payload.capabilities()
+
+
+def test_orbitals_raw_infinite_iterable_fails_with_bounded_budget(monkeypatch):
+    monkeypatch.setattr(contract_module, "_MAX_ORBITALS_RAW_PER_KAPPA", 2)
+
+    def infinite_orbitals():
+        while True:
+            yield (np.array([0.0]), np.array([1.0]), 1.0)
+
+    with pytest.raises(ProviderContractError, match="maximum item budget"):
+        ElectronicStructurePayload(
+            Z=2,
+            provenance=_good_provenance(),
+            subshells=[SimpleNamespace(occupation=2.0)],
+            orbital_energies={"1s": -0.5},
+            orbitals_raw={-1: infinite_orbitals()},
+        )
+
+
+def test_orbitals_raw_entry_iterable_is_normalized_once_and_revalidated():
+    entry = iter((np.array([0.0]), np.array([1.0]), 1.0))
+    payload = ElectronicStructurePayload(
+        Z=2,
+        provenance=_good_provenance(),
+        subshells=[SimpleNamespace(occupation=2.0)],
+        orbital_energies={"1s": -0.5},
+        orbitals_raw={-1: iter([entry])},
+    )
+
+    assert payload.validate() is payload
+    assert payload.validate() is payload
+    p_component, q_component, occupation = payload.orbitals_raw[-1][0]
+    assert isinstance(p_component, np.ndarray)
+    assert isinstance(q_component, np.ndarray)
+    assert occupation == pytest.approx(1.0)
 
 
 def test_non_finite_coefficients_fail_before_orthonormality_residual():
@@ -542,9 +623,47 @@ def test_uncertainty_summary_rejects_nested_non_finite_numeric_values(
 
 def test_uncertainty_summary_allows_finite_nested_numeric_values():
     block = UncertaintyBlock(
-        summary={"level": {"sigma": 0.2}, "flags": [True, "ok", None]}
+        summary={
+            "level": {"sigma": 0.2 + 0.1j},
+            "values": np.array([1.0 + 0.0j]),
+            "flags": [True, "ok", None],
+        }
     )
     assert block.validate() is block
+
+
+def test_uncertainty_summary_rejects_self_reference_cycle():
+    summary = {}
+    summary["self"] = summary
+
+    with pytest.raises(
+        ProviderContractError,
+        match="UncertaintyBlock.summary.self contains a cycle",
+    ):
+        UncertaintyBlock(summary=summary)
+
+
+def test_uncertainty_summary_rejects_indirect_cycle():
+    parent = {}
+    child = {"parent": parent}
+    parent["child"] = child
+
+    with pytest.raises(ProviderContractError, match="contains a cycle"):
+        UncertaintyBlock(summary=parent)
+
+
+def test_uncertainty_summary_rejects_excessive_depth(monkeypatch):
+    monkeypatch.setattr(contract_module, "_MAX_NESTED_NUMERIC_DEPTH", 2)
+
+    with pytest.raises(ProviderContractError, match="maximum nested depth"):
+        UncertaintyBlock(summary={"a": {"b": {"c": 1.0}}})
+
+
+def test_uncertainty_summary_rejects_excessive_node_budget(monkeypatch):
+    monkeypatch.setattr(contract_module, "_MAX_NESTED_NUMERIC_NODES", 3)
+
+    with pytest.raises(ProviderContractError, match="nested node budget"):
+        UncertaintyBlock(summary={"values": [1.0, 2.0, 3.0]})
 
 
 def test_provenance_uncertainty_summary_rejects_nested_non_finite_values():
@@ -553,6 +672,18 @@ def test_provenance_uncertainty_summary_rejects_nested_non_finite_values():
     with pytest.raises(
         ProviderContractError,
         match="Provenance.uncertainty_summary.ood.score",
+    ):
+        provenance.validate()
+
+
+def test_provenance_uncertainty_summary_rejects_cycle():
+    summary = {}
+    summary["self"] = summary
+    provenance = _good_provenance(uncertainty_summary=summary)
+
+    with pytest.raises(
+        ProviderContractError,
+        match="Provenance.uncertainty_summary.self contains a cycle",
     ):
         provenance.validate()
 

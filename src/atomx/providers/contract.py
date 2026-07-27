@@ -39,6 +39,8 @@ Reference: ``docs/adr/ADR-0001-electronic-structure-provider.md``.
 
 from __future__ import annotations
 
+from collections.abc import Iterable as IterableABC
+from collections.abc import Mapping as MappingABC
 from dataclasses import dataclass, field
 from enum import Enum
 from numbers import Number
@@ -160,6 +162,11 @@ _MAX_ERROR_TYPE_NAME = 80
 _FALLBACK_ERROR_TYPE_NAME = "unknown"
 _ELECTRON_COUNT_IMAG_ATOL = 1e-10
 _ELECTRON_COUNT_IMAG_RTOL = 1e-12
+_MAX_NESTED_NUMERIC_DEPTH = 16
+_MAX_NESTED_NUMERIC_NODES = 10_000
+_MAX_ORBITALS_RAW_KAPPAS = 128
+_MAX_ORBITALS_RAW_PER_KAPPA = 10_000
+_MAX_ORBITALS_RAW_TOTAL = 100_000
 
 
 def _safe_type_name(value: Any) -> str:
@@ -276,37 +283,123 @@ def _ensure_real_electron_count(name: str, value: Any) -> float:
 
 def _ensure_finite_nested_numeric_values(name: str, value: Any) -> None:
     """Reject non-finite numeric leaves while allowing non-numeric metadata."""
-    if value is None:
-        return
-    if isinstance(value, dict):
-        for key, item in value.items():
-            _ensure_finite_nested_numeric_values(f"{name}.{_bounded_key(key)}", item)
-        return
-    if isinstance(value, (list, tuple)):
-        for index, item in enumerate(value):
-            _ensure_finite_nested_numeric_values(f"{name}[{index}]", item)
-        return
-    if isinstance(value, np.ndarray):
-        array = _as_finite_numeric_array(name, value)
-        if np.iscomplexobj(array):
+    seen: set[int] = set()
+    nodes = 0
+
+    def visit(label: str, item: Any, depth: int) -> None:
+        nonlocal nodes
+        nodes += 1
+        if nodes > _MAX_NESTED_NUMERIC_NODES:
             raise ProviderContractError(
-                f"{name} numeric values must be finite real values"
+                f"{name} exceeds maximum nested node budget "
+                f"({_MAX_NESTED_NUMERIC_NODES})"
             )
-        return
-    if isinstance(value, Number) and not isinstance(value, bool):
-        _ensure_finite_real_scalar(name, value)
+        if depth > _MAX_NESTED_NUMERIC_DEPTH:
+            raise ProviderContractError(
+                f"{label} exceeds maximum nested depth "
+                f"({_MAX_NESTED_NUMERIC_DEPTH})"
+            )
+        if item is None:
+            return
+        if isinstance(item, MappingABC):
+            item_id = id(item)
+            if item_id in seen:
+                raise ProviderContractError(f"{label} contains a cycle")
+            seen.add(item_id)
+            try:
+                for key, child in item.items():
+                    visit(f"{label}.{_bounded_key(key)}", child, depth + 1)
+            finally:
+                seen.remove(item_id)
+            return
+        if isinstance(item, (list, tuple)):
+            item_id = id(item)
+            if item_id in seen:
+                raise ProviderContractError(f"{label} contains a cycle")
+            seen.add(item_id)
+            try:
+                for index, child in enumerate(item):
+                    visit(f"{label}[{index}]", child, depth + 1)
+            finally:
+                seen.remove(item_id)
+            return
+        if isinstance(item, np.ndarray):
+            _as_finite_numeric_array(label, item)
+            return
+        if isinstance(item, Number) and not isinstance(item, bool):
+            array = _as_finite_numeric_array(label, item)
+            if array.shape != ():
+                raise ProviderContractError(f"{label} must be a finite scalar")
+
+    visit(name, value, 0)
 
 
-def _ensure_finite_orbitals_raw(
-    orbitals_raw: Dict[int, List[Tuple[Any, Any, float]]],
-) -> None:
+def _as_bounded_list(value: Any, limit: int, name: str) -> list[Any]:
+    if isinstance(value, (str, bytes)):
+        raise ProviderContractError(f"{name} must be an iterable container")
+    if not isinstance(value, IterableABC):
+        raise ProviderContractError(f"{name} must be an iterable container")
+    items: list[Any] = []
+    for index, item in enumerate(value):
+        if index >= limit:
+            raise ProviderContractError(
+                f"{name} exceeds maximum item budget ({limit})"
+            )
+        items.append(item)
+    return items
+
+
+def _normalize_orbitals_raw(
+    orbitals_raw: MappingABC | None,
+) -> Dict[int, List[Tuple[np.ndarray, Optional[np.ndarray], float]]]:
+    if orbitals_raw is None:
+        return {}
+    if not isinstance(orbitals_raw, MappingABC):
+        raise ProviderContractError("orbitals_raw must be a mapping")
+    if len(orbitals_raw) > _MAX_ORBITALS_RAW_KAPPAS:
+        raise ProviderContractError(
+            "orbitals_raw exceeds maximum kappa budget "
+            f"({_MAX_ORBITALS_RAW_KAPPAS})"
+        )
+    normalized: Dict[int, List[Tuple[np.ndarray, Optional[np.ndarray], float]]] = {}
+    total = 0
     for kappa, orbitals in orbitals_raw.items():
-        for index, (p_component, q_component, occupation) in enumerate(orbitals):
-            label = f"orbitals_raw[{_bounded_key(kappa)}][{index}]"
-            _as_finite_numeric_array(f"{label}.P", p_component)
-            if q_component is not None:
-                _as_finite_numeric_array(f"{label}.Q", q_component)
-            _as_finite_numeric_array(f"{label}.occupation", occupation)
+        try:
+            kappa_key = int(kappa)
+        except (TypeError, ValueError) as exc:
+            raise ProviderContractError(
+                f"orbitals_raw key {kappa!r} must be an integer kappa"
+            ) from exc
+        orbital_items = _as_bounded_list(
+            orbitals,
+            _MAX_ORBITALS_RAW_PER_KAPPA,
+            f"orbitals_raw[{kappa_key!r}]",
+        )
+        total += len(orbital_items)
+        if total > _MAX_ORBITALS_RAW_TOTAL:
+            raise ProviderContractError(
+                "orbitals_raw exceeds maximum total orbital budget "
+                f"({_MAX_ORBITALS_RAW_TOTAL})"
+            )
+        normalized_orbitals = []
+        for index, orbital in enumerate(orbital_items):
+            label = f"orbitals_raw[{_bounded_key(kappa_key)}][{index}]"
+            components = _as_bounded_list(orbital, 4, label)
+            if len(components) != 3:
+                raise ProviderContractError(
+                    f"{label} must contain exactly P, Q, occupation"
+                )
+            p_component, q_component, occupation = components
+            p_array = _as_finite_numeric_array(f"{label}.P", p_component)
+            q_array = (
+                None
+                if q_component is None
+                else _as_finite_numeric_array(f"{label}.Q", q_component)
+            )
+            occ = _ensure_finite_real_scalar(f"{label}.occupation", occupation)
+            normalized_orbitals.append((p_array, q_array, occ))
+        normalized[kappa_key] = normalized_orbitals
+    return normalized
 
 
 def _ensure_finite_subshell_occupations(subshells: Iterable[Any]) -> None:
@@ -591,7 +684,7 @@ class ElectronicStructurePayload:
         # I1: coerce declared orbital energies to Hartree at construction.
         self.subshells = tuple(self.subshells)
         self.orbital_energies = _ensure_hartree_mapping(self.orbital_energies)
-        _ensure_finite_orbitals_raw(self.orbitals_raw)
+        self.orbitals_raw = _normalize_orbitals_raw(self.orbitals_raw)
 
     # -- capability negotiation --------------------------------------------
 
@@ -605,7 +698,7 @@ class ElectronicStructurePayload:
             caps.add(Capability.ORBITAL_ENERGIES)
         if self._has_occupations():
             caps.add(Capability.OCCUPATIONS)
-        if self.orbitals_raw:
+        if any(self.orbitals_raw.values()):
             caps.add(Capability.RADIAL_ORBITALS)
         if self.orbitals is not None:
             caps.add(Capability.MO_COEFFICIENTS)
@@ -655,7 +748,7 @@ class ElectronicStructurePayload:
         self.subshells = tuple(self.subshells)
         self.provenance.validate()
         self.orbital_energies = _ensure_hartree_mapping(self.orbital_energies)
-        _ensure_finite_orbitals_raw(self.orbitals_raw)
+        self.orbitals_raw = _normalize_orbitals_raw(self.orbitals_raw)
         if self.overlap is not None:
             self.overlap.validate()
         if self.orbitals is not None:
