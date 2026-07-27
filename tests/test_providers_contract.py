@@ -113,6 +113,23 @@ def test_unit_error_does_not_embed_unbounded_value_repr():
     assert "type=Noisy" in message
 
 
+def test_unit_error_does_not_embed_unbounded_coercion_exception_text():
+    attacker_text = "attacker-controlled-text-" * 10_000
+
+    class BadFloat:
+        def __float__(self):
+            raise ValueError(attacker_text)
+
+    with pytest.raises(UnitError) as exc_info:
+        ensure_hartree(BadFloat())
+
+    message = str(exc_info.value)
+    assert len(message) < 200
+    assert "attacker-controlled-text" not in message
+    assert "type=BadFloat" in message
+    assert "reason=unsupported-or-invalid-value" in message
+
+
 # ── capability negotiation ─────────────────────────────────────────────
 
 

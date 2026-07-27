@@ -156,6 +156,19 @@ class UnitError(ProviderContractError):
 # Unit coercion (I1) — the only sanctioned energy entry point
 # ---------------------------------------------------------------------------
 
+_MAX_ERROR_TYPE_NAME = 80
+
+
+def _safe_type_name(value: Any) -> str:
+    name = type(value).__name__
+    sanitized = "".join(
+        ch if ch.isprintable() and ch not in "\r\n\t" else "?"
+        for ch in name
+    )
+    if len(sanitized) > _MAX_ERROR_TYPE_NAME:
+        return sanitized[: _MAX_ERROR_TYPE_NAME - 3] + "..."
+    return sanitized
+
 
 def ensure_hartree(value: Any) -> float:
     """Coerce a single energy to Hartree atomic units.
@@ -170,7 +183,7 @@ def ensure_hartree(value: Any) -> float:
     except Exception as exc:  # pragma: no cover - defensive
         raise UnitError(
             "cannot coerce energy value to Hartree atomic units "
-            f"(type={type(value).__name__}): {exc}"
+            f"(type={_safe_type_name(value)}, reason=unsupported-or-invalid-value)"
         ) from exc
     if np.iscomplexobj(hartree) or not np.isscalar(hartree):
         raise UnitError(
