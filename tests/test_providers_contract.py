@@ -8,6 +8,7 @@ any external back-end.
 
 from __future__ import annotations
 
+import warnings
 from types import SimpleNamespace
 
 import numpy as np
@@ -532,6 +533,115 @@ def test_density_electron_count_uses_overlap():
         overlap=OverlapBlock(S), density=DensityMatrix(P)
     )
     assert payload.electron_count() == pytest.approx(2.0, abs=1e-9)
+
+
+def _complex_warning_type():
+    return getattr(np, "ComplexWarning", np.exceptions.ComplexWarning)
+
+
+def test_complex_density_trace_electron_count_without_complex_warning():
+    payload = _minimal_payload(
+        orbitals=OrbitalCoefficients(
+            coefficients=np.eye(2, dtype=complex),
+            energies=np.array([-0.5, 0.1]),
+            occupations=np.array([1.0, 1.0]),
+        ),
+        density=DensityMatrix(
+            np.array(
+                [[1.0 + 2e-12j, 0.0], [0.0, 1.0 - 1e-12j]],
+                dtype=complex,
+            )
+        ),
+    )
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", _complex_warning_type())
+        assert payload.electron_count() == pytest.approx(2.0, abs=1e-12)
+
+
+def test_complex_density_overlap_electron_count_without_complex_warning():
+    payload = _minimal_payload(
+        orbitals=OrbitalCoefficients(
+            coefficients=np.eye(2, dtype=complex),
+            energies=np.array([-0.5, 0.1]),
+            occupations=np.array([1.0, 1.0]),
+        ),
+        overlap=OverlapBlock(np.eye(2, dtype=complex)),
+        density=DensityMatrix(
+            np.array(
+                [[1.0 + 2e-12j, 0.0], [0.0, 1.0 - 1e-12j]],
+                dtype=complex,
+            )
+        ),
+    )
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", _complex_warning_type())
+        assert payload.electron_count() == pytest.approx(2.0, abs=1e-12)
+
+
+def test_complex_density_trace_electron_count_rejects_imaginary_part():
+    payload = _minimal_payload(
+        density=DensityMatrix(np.array([[2.0 + 1e-4j]], dtype=complex)),
+        orbitals=OrbitalCoefficients(
+            coefficients=np.ones((1, 1)),
+            energies=np.array([-0.5]),
+            occupations=np.array([2.0]),
+        ),
+        orbital_energies={"MO0": -0.5},
+    )
+
+    with pytest.raises(
+        ProviderContractError, match="DensityMatrix.n_electrons.trace"
+    ):
+        payload.electron_count()
+
+
+def test_complex_density_overlap_electron_count_rejects_imaginary_part():
+    payload = _minimal_payload(
+        density=DensityMatrix(np.array([[2.0 + 1e-4j]], dtype=complex)),
+        overlap=OverlapBlock(np.array([[1.0 + 0.0j]], dtype=complex)),
+        orbitals=OrbitalCoefficients(
+            coefficients=np.ones((1, 1)),
+            energies=np.array([-0.5]),
+            occupations=np.array([2.0]),
+        ),
+        orbital_energies={"MO0": -0.5},
+    )
+
+    with pytest.raises(
+        ProviderContractError, match="DensityMatrix.n_electrons.overlap"
+    ):
+        payload.electron_count()
+
+
+def test_density_trace_revalidates_before_contraction(monkeypatch):
+    payload = _minimal_payload(density=DensityMatrix(np.eye(2)))
+    payload.density.matrix[0, 0] = np.nan
+
+    def fail_trace(_matrix):
+        raise AssertionError("trace should not run before validation")
+
+    monkeypatch.setattr(np, "trace", fail_trace)
+
+    with pytest.raises(ProviderContractError, match="density matrix"):
+        payload.electron_count()
+
+
+def test_density_overlap_revalidates_before_contraction(monkeypatch):
+    payload = _minimal_payload(
+        density=DensityMatrix(np.eye(2)),
+        overlap=OverlapBlock(np.eye(2)),
+    )
+    payload.overlap.matrix[0, 0] = np.nan
+
+    def fail_einsum(*_args, **_kwargs):
+        raise AssertionError("einsum should not run before validation")
+
+    monkeypatch.setattr(np, "einsum", fail_einsum)
+
+    with pytest.raises(ProviderContractError, match="overlap S"):
+        payload.electron_count()
 
 
 # ── structural compatibility with AtomicResultLike ──────────────────────

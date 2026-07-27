@@ -157,6 +157,8 @@ class UnitError(ProviderContractError):
 # ---------------------------------------------------------------------------
 
 _MAX_ERROR_TYPE_NAME = 80
+_ELECTRON_COUNT_IMAG_ATOL = 1e-10
+_ELECTRON_COUNT_IMAG_RTOL = 1e-12
 
 
 def _safe_type_name(value: Any) -> str:
@@ -226,6 +228,27 @@ def _ensure_finite_real_scalar(name: str, value: Any) -> float:
     if array.shape != () or np.iscomplexobj(array):
         raise ProviderContractError(f"{name} must be a finite real scalar")
     return float(array)
+
+
+def _ensure_real_electron_count(name: str, value: Any) -> float:
+    array = _as_finite_numeric_array(name, value)
+    if array.shape != ():
+        raise ProviderContractError(f"{name} must be a finite scalar")
+    scalar = array.item()
+    if np.iscomplexobj(array):
+        real = float(np.real(scalar))
+        imag = float(np.imag(scalar))
+        tolerance = (
+            _ELECTRON_COUNT_IMAG_ATOL
+            + _ELECTRON_COUNT_IMAG_RTOL * abs(real)
+        )
+        if abs(imag) > tolerance:
+            raise ProviderContractError(
+                f"{name} must be real within tolerance; "
+                f"imag={imag}, tolerance={tolerance}"
+            )
+        return real
+    return float(scalar)
 
 
 def _ensure_finite_nested_numeric_values(name: str, value: Any) -> None:
@@ -427,9 +450,14 @@ class DensityMatrix:
         """Trace of ``P`` (orthonormal) or ``P S`` (non-orthogonal AO)."""
         self.validate()
         if overlap is None:
-            return float(np.trace(self.matrix))
+            return _ensure_real_electron_count(
+                "DensityMatrix.n_electrons.trace", np.trace(self.matrix)
+            )
         overlap.validate()
-        return float(np.einsum("ij,ji->", self.matrix, overlap.matrix))
+        return _ensure_real_electron_count(
+            "DensityMatrix.n_electrons.overlap",
+            np.einsum("ij,ji->", self.matrix, overlap.matrix),
+        )
 
 
 @dataclass
