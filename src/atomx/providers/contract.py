@@ -157,16 +157,24 @@ class UnitError(ProviderContractError):
 # ---------------------------------------------------------------------------
 
 _MAX_ERROR_TYPE_NAME = 80
+_FALLBACK_ERROR_TYPE_NAME = "unknown"
 _ELECTRON_COUNT_IMAG_ATOL = 1e-10
 _ELECTRON_COUNT_IMAG_RTOL = 1e-12
 
 
 def _safe_type_name(value: Any) -> str:
-    name = type(value).__name__
+    try:
+        name = type.__getattribute__(type(value), "__name__")
+        if not isinstance(name, str):
+            return _FALLBACK_ERROR_TYPE_NAME
+    except Exception:
+        return _FALLBACK_ERROR_TYPE_NAME
     sanitized = "".join(
         ch if ch.isprintable() and ch not in "\r\n\t" else "?"
         for ch in name
     )
+    if not sanitized:
+        return _FALLBACK_ERROR_TYPE_NAME
     if len(sanitized) > _MAX_ERROR_TYPE_NAME:
         return sanitized[: _MAX_ERROR_TYPE_NAME - 3] + "..."
     return sanitized

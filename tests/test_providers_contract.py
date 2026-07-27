@@ -131,6 +131,34 @@ def test_unit_error_does_not_embed_unbounded_coercion_exception_text():
     assert "reason=unsupported-or-invalid-value" in message
 
 
+def test_unit_error_survives_hostile_metaclass_type_name_lookup():
+    attacker_text = "attacker-controlled\r\ntext-" + ("x" * 200_000)
+
+    class HostileMeta(type):
+        def __getattribute__(cls, name):
+            if name == "__name__":
+                raise RuntimeError(attacker_text)
+            return super().__getattribute__(name)
+
+    class HostileFloat(metaclass=HostileMeta):
+        def __float__(self):
+            raise ValueError(attacker_text)
+
+    value = HostileFloat()
+    with pytest.raises(UnitError) as exc_info:
+        ensure_hartree(value)
+
+    message = str(exc_info.value)
+    assert len(message) < 200
+    assert "\r" not in message
+    assert "\n" not in message
+    assert "attacker-controlled" not in message
+    assert "type=HostileFloat" in message
+    assert "reason=unsupported-or-invalid-value" in message
+    assert isinstance(exc_info.value.__cause__, ValueError)
+    assert exc_info.value.__cause__.args == (attacker_text,)
+
+
 # ── capability negotiation ─────────────────────────────────────────────
 
 
