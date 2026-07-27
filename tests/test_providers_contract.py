@@ -258,6 +258,35 @@ def test_radial_orbitals_reject_non_finite_arrays_before_validate(bad_value):
         )
 
 
+def test_orbitals_raw_hostile_kappa_error_is_bounded():
+    marker = "HOSTILE_KAPPA_MARKER"
+
+    class HostileKappa:
+        def __int__(self):
+            raise RuntimeError(marker * 10_000)
+
+        def __repr__(self):
+            return marker * 10_000
+
+    with pytest.raises(ProviderContractError) as exc_info:
+        ElectronicStructurePayload(
+            Z=2,
+            provenance=_good_provenance(),
+            subshells=[SimpleNamespace(occupation=2.0)],
+            orbital_energies={"1s": -0.5},
+            orbitals_raw={HostileKappa(): []},
+        )
+
+    message = str(exc_info.value)
+    assert len(message) < 200
+    assert marker not in message
+    assert "orbitals_raw key" in message
+    assert "integer kappa" in message
+    assert "type=HostileKappa" in message
+    assert isinstance(exc_info.value.__cause__, RuntimeError)
+    assert marker in str(exc_info.value.__cause__)
+
+
 @pytest.mark.parametrize("bad_value", [np.nan, np.inf, -np.inf])
 def test_radial_subshell_occupations_reject_non_finite_values(bad_value):
     payload = ElectronicStructurePayload(
@@ -664,6 +693,47 @@ def test_uncertainty_summary_rejects_excessive_node_budget(monkeypatch):
 
     with pytest.raises(ProviderContractError, match="nested node budget"):
         UncertaintyBlock(summary={"values": [1.0, 2.0, 3.0]})
+
+
+def test_uncertainty_summary_hostile_key_error_is_bounded():
+    marker = "HOSTILE_SUMMARY_KEY"
+
+    class HostileKey:
+        def __str__(self):
+            raise RuntimeError(marker * 3_000)
+
+        def __repr__(self):
+            return marker * 3_000
+
+    with pytest.raises(ProviderContractError) as exc_info:
+        UncertaintyBlock(summary={HostileKey(): np.inf})
+
+    message = str(exc_info.value)
+    assert len(message) < 200
+    assert marker not in message
+    assert "UncertaintyBlock.summary.<HostileKey>" in message
+    assert "finite" in message
+
+
+def test_uncertainty_summary_long_label_hook_return_is_not_public():
+    marker = "HOSTILE_LABEL_RETURN"
+
+    class HostileString(str):
+        def __str__(self):
+            return marker * 3_000
+
+    with pytest.raises(ProviderContractError) as exc_info:
+        UncertaintyBlock(summary={HostileString("stable-key"): np.inf})
+
+    message = str(exc_info.value)
+    assert len(message) < 200
+    assert marker not in message
+    assert "UncertaintyBlock.summary.stable-key" in message
+
+
+def test_bounded_key_preserves_legal_int_and_string_mapping_keys():
+    with pytest.raises(ProviderContractError, match="summary.shell.1"):
+        UncertaintyBlock(summary={"shell": {1: np.inf}})
 
 
 def test_provenance_uncertainty_summary_rejects_nested_non_finite_values():

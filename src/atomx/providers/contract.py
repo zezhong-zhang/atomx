@@ -159,6 +159,7 @@ class UnitError(ProviderContractError):
 # ---------------------------------------------------------------------------
 
 _MAX_ERROR_TYPE_NAME = 80
+_MAX_KEY_LABEL = 40
 _FALLBACK_ERROR_TYPE_NAME = "unknown"
 _ELECTRON_COUNT_IMAG_ATOL = 1e-10
 _ELECTRON_COUNT_IMAG_RTOL = 1e-12
@@ -220,9 +221,22 @@ def _ensure_hartree_mapping(mapping: Dict[str, Any]) -> Dict[str, float]:
 
 
 def _bounded_key(key: Any) -> str:
-    text = str(key)
-    if len(text) > 40:
-        return text[:37] + "..."
+    if type(key) is str:
+        text = key
+    elif isinstance(key, str):
+        text = str.__str__(key)
+    elif type(key) is int:
+        text = str(key)
+    elif isinstance(key, int) and not isinstance(key, bool):
+        text = int.__str__(key)
+    else:
+        text = f"<{_safe_type_name(key)}>"
+    text = "".join(
+        ch if ch.isprintable() and ch not in "\r\n\t" else "?"
+        for ch in text
+    )
+    if len(text) > _MAX_KEY_LABEL:
+        return text[: _MAX_KEY_LABEL - 3] + "..."
     return text
 
 
@@ -366,9 +380,10 @@ def _normalize_orbitals_raw(
     for kappa, orbitals in orbitals_raw.items():
         try:
             kappa_key = int(kappa)
-        except (TypeError, ValueError) as exc:
+        except Exception as exc:
             raise ProviderContractError(
-                f"orbitals_raw key {kappa!r} must be an integer kappa"
+                "orbitals_raw key must be an integer kappa "
+                f"(type={_safe_type_name(kappa)})"
             ) from exc
         orbital_items = _as_bounded_list(
             orbitals,
