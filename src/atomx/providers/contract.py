@@ -190,12 +190,12 @@ def ensure_hartree(value: Any) -> float:
     if np.iscomplexobj(hartree) or not np.isscalar(hartree):
         raise UnitError(
             "cannot coerce energy value to a real Hartree scalar "
-            f"(type={type(value).__name__})"
+            f"(type={_safe_type_name(value)})"
         )
     if not np.isfinite(hartree):
         raise UnitError(
             "cannot coerce energy value to finite Hartree atomic units "
-            f"(type={type(value).__name__})"
+            f"(type={_safe_type_name(value)})"
         )
     return float(hartree)
 
@@ -204,7 +204,22 @@ def _ensure_hartree_mapping(mapping: Dict[str, Any]) -> Dict[str, float]:
     return {k: ensure_hartree(v) for k, v in mapping.items()}
 
 
+def _bounded_key(key: Any) -> str:
+    text = str(key)
+    if len(text) > 40:
+        return text[:37] + "..."
+    return text
+
+
 def _as_finite_numeric_array(name: str, value: Any) -> np.ndarray:
+    """Coerce one public numeric array once and reject ambiguous object dtype.
+
+    Object dtype is fail-closed because it can hide arbitrary Python objects,
+    deferred conversions, or values whose numeric status changes after
+    construction. This contract intentionally does not impose size caps; very
+    large finite arrays remain a residual availability risk for adapters and
+    runtime resource limits to control.
+    """
     try:
         array = np.asarray(value)
     except (TypeError, ValueError) as exc:
@@ -257,7 +272,7 @@ def _ensure_finite_nested_numeric_values(name: str, value: Any) -> None:
         return
     if isinstance(value, dict):
         for key, item in value.items():
-            _ensure_finite_nested_numeric_values(f"{name}.{key}", item)
+            _ensure_finite_nested_numeric_values(f"{name}.{_bounded_key(key)}", item)
         return
     if isinstance(value, (list, tuple)):
         for index, item in enumerate(value):
@@ -279,7 +294,7 @@ def _ensure_finite_orbitals_raw(
 ) -> None:
     for kappa, orbitals in orbitals_raw.items():
         for index, (p_component, q_component, occupation) in enumerate(orbitals):
-            label = f"orbitals_raw[{kappa!r}][{index}]"
+            label = f"orbitals_raw[{_bounded_key(kappa)}][{index}]"
             _as_finite_numeric_array(f"{label}.P", p_component)
             if q_component is not None:
                 _as_finite_numeric_array(f"{label}.Q", q_component)
@@ -496,7 +511,12 @@ class SpinBlock:
 
 @dataclass
 class UncertaintyBlock:
-    """Per-quantity uncertainty; required when ``provenance.is_ml``."""
+    """Per-quantity uncertainty; required when ``provenance.is_ml``.
+
+    ``per_orbital_sigma`` and ``ood_score`` are typed numeric fields and must
+    be finite real scalars. Numeric leaves in ``summary`` must also be finite;
+    descriptive strings, booleans and ``None`` are accepted.
+    """
 
     per_orbital_sigma: Dict[str, float] = field(default_factory=dict)
     ood_score: Optional[float] = None
@@ -508,7 +528,8 @@ class UncertaintyBlock:
     def validate(self) -> "UncertaintyBlock":
         for label, sigma in self.per_orbital_sigma.items():
             self.per_orbital_sigma[label] = _ensure_finite_real_scalar(
-                f"UncertaintyBlock.per_orbital_sigma[{label!r}]", sigma
+                f"UncertaintyBlock.per_orbital_sigma[{_bounded_key(label)}]",
+                sigma,
             )
         if self.ood_score is not None:
             self.ood_score = _ensure_finite_real_scalar(
@@ -623,6 +644,7 @@ class ElectronicStructurePayload:
             The provenance is flagged ML but no uncertainty block is
             attached (I6 — ML fails closed).
         """
+        self.subshells = tuple(self.subshells)
         self.provenance.validate()
         self.orbital_energies = _ensure_hartree_mapping(self.orbital_energies)
         _ensure_finite_orbitals_raw(self.orbitals_raw)

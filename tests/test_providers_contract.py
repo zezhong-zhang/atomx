@@ -251,6 +251,20 @@ def test_subshell_generator_is_replayable_and_validate_checks_all_positions(
         payload.validate()
 
 
+def test_validate_normalizes_mutated_subshell_generator_before_capabilities():
+    payload = _minimal_payload()
+    payload.orbitals = None
+    payload.subshells = (
+        SimpleNamespace(occupation=np.nan if index == 1 else 1.0)
+        for index in range(3)
+    )
+    payload.orbitals_raw = {-1: [(np.array([0.0]), np.array([0.0]), 1.0)]}
+
+    with pytest.raises(ProviderContractError, match=r"subshells\[1\]"):
+        payload.validate()
+    assert isinstance(payload.subshells, tuple)
+
+
 def test_non_finite_coefficients_fail_before_orthonormality_residual():
     with pytest.raises(ProviderContractError, match="finite"):
         OrbitalCoefficients(
@@ -288,6 +302,21 @@ def test_object_dtype_contract_arrays_fail_closed_even_for_finite_complex():
             energies=np.array([-0.5]),
             occupations=np.array([2.0]),
         )
+
+
+@pytest.mark.parametrize(
+    "block_factory",
+    [
+        lambda: OverlapBlock(np.array([[1.0]], dtype=object)),
+        lambda: DensityMatrix(np.array([[1.0]], dtype=object)),
+        lambda: TwoElectronIntegrals(
+            np.ones((1, 1, 1, 1), dtype=object)
+        ),
+    ],
+)
+def test_object_dtype_optional_blocks_fail_closed(block_factory):
+    with pytest.raises(ProviderContractError, match="non-object dtype"):
+        block_factory()
 
 
 @pytest.mark.parametrize(
@@ -347,6 +376,20 @@ def test_object_dtype_contract_arrays_fail_closed_even_for_finite_complex():
             ProviderContractError,
             "orbitals_raw",
         ),
+        (
+            lambda payload: payload.orbitals_raw[-1][0][1].__setitem__(0, np.inf),
+            lambda payload: payload.validate(),
+            ProviderContractError,
+            "orbitals_raw",
+        ),
+        (
+            lambda payload: payload.orbitals_raw[-1].__setitem__(
+                0, (np.array([0.0]), np.array([1.0]), -np.inf)
+            ),
+            lambda payload: payload.validate(),
+            ProviderContractError,
+            "orbitals_raw",
+        ),
     ],
 )
 def test_payload_validate_rejects_public_numeric_mutation(
@@ -364,6 +407,23 @@ def test_payload_validate_rejects_public_numeric_mutation(
 
     with pytest.raises(error_type, match=match):
         call(payload)
+
+
+def test_density_block_revalidates_mutated_overlap_before_einsum():
+    density = DensityMatrix(np.eye(2))
+    overlap = OverlapBlock(np.eye(2))
+    overlap.matrix[0, 0] = np.nan
+
+    with pytest.raises(ProviderContractError, match="overlap S"):
+        density.n_electrons(overlap)
+
+
+def test_density_block_revalidates_mutated_matrix_before_trace():
+    density = DensityMatrix(np.eye(2))
+    density.matrix[0, 0] = np.nan
+
+    with pytest.raises(ProviderContractError, match="density matrix"):
+        density.n_electrons()
 
 
 def test_validate_rejects_no_orbital_representation():
@@ -427,7 +487,7 @@ def test_ml_payload_with_uncertainty_passes():
 def test_uncertainty_rejects_non_finite_per_orbital_sigma(bad_value):
     with pytest.raises(
         ProviderContractError,
-        match=r"UncertaintyBlock\.per_orbital_sigma\['MO0'\]",
+        match=r"UncertaintyBlock\.per_orbital_sigma\[MO0\]",
     ):
         UncertaintyBlock(per_orbital_sigma={"MO0": bad_value})
 
