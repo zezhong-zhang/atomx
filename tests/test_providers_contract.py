@@ -8,11 +8,13 @@ any external back-end.
 
 from __future__ import annotations
 
+import warnings
 from types import SimpleNamespace
 
 import numpy as np
 import pytest
 
+import atomx.providers.contract as contract_module
 from atomx.providers.contract import (
     Capability,
     CapabilityError,
@@ -100,6 +102,80 @@ def test_unit_error_on_uncoercible():
         ensure_hartree(object())
 
 
+def test_unit_error_does_not_embed_unbounded_value_repr():
+    class Noisy:
+        def __repr__(self):
+            return "x" * 1000
+
+    with pytest.raises(UnitError) as exc_info:
+        ensure_hartree(Noisy())
+
+    message = str(exc_info.value)
+    assert "x" * 100 not in message
+    assert "type=Noisy" in message
+
+
+def test_unit_error_does_not_embed_unbounded_coercion_exception_text():
+    attacker_text = "attacker-controlled-text-" * 10_000
+
+    class BadFloat:
+        def __float__(self):
+            raise ValueError(attacker_text)
+
+    with pytest.raises(UnitError) as exc_info:
+        ensure_hartree(BadFloat())
+
+    message = str(exc_info.value)
+    assert len(message) < 200
+    assert "attacker-controlled-text" not in message
+    assert "type=BadFloat" in message
+    assert "reason=unsupported-or-invalid-value" in message
+    assert exc_info.value.__cause__ is not None
+
+
+def test_unit_error_public_text_is_bounded_when_coercion_raises_long_marker():
+    marker = "ATTACKER_MARKER"
+
+    class LongMarkerFloat:
+        def __float__(self):
+            raise RuntimeError(marker * 20_000)
+
+    with pytest.raises(UnitError) as exc_info:
+        ensure_hartree(LongMarkerFloat())
+
+    assert len(str(exc_info.value)) < 200
+    assert marker not in str(exc_info.value)
+    assert marker in str(exc_info.value.__cause__)
+
+
+def test_unit_error_survives_hostile_metaclass_type_name_lookup():
+    attacker_text = "attacker-controlled\r\ntext-" + ("x" * 200_000)
+
+    class HostileMeta(type):
+        def __getattribute__(cls, name):
+            if name == "__name__":
+                raise RuntimeError(attacker_text)
+            return super().__getattribute__(name)
+
+    class HostileFloat(metaclass=HostileMeta):
+        def __float__(self):
+            raise ValueError(attacker_text)
+
+    value = HostileFloat()
+    with pytest.raises(UnitError) as exc_info:
+        ensure_hartree(value)
+
+    message = str(exc_info.value)
+    assert len(message) < 200
+    assert "\r" not in message
+    assert "\n" not in message
+    assert "attacker-controlled" not in message
+    assert "type=HostileFloat" in message
+    assert "reason=unsupported-or-invalid-value" in message
+    assert isinstance(exc_info.value.__cause__, ValueError)
+    assert exc_info.value.__cause__.args == (attacker_text,)
+
+
 # ── capability negotiation ─────────────────────────────────────────────
 
 
@@ -131,6 +207,361 @@ def test_supports_and_require():
 
 def test_validate_ok_on_minimal_payload():
     assert _minimal_payload().validate() is not None
+
+
+@pytest.mark.parametrize(
+    "bad_value", [np.nan, np.inf, -np.inf, complex(1.0, np.nan)]
+)
+@pytest.mark.parametrize(
+    "block_factory",
+    [
+        lambda bad: OrbitalCoefficients(
+            coefficients=np.array([[bad]]),
+            energies=np.array([-0.5]),
+            occupations=np.array([2.0]),
+        ),
+        lambda bad: OrbitalCoefficients(
+            coefficients=np.eye(1),
+            energies=np.array([bad]),
+            occupations=np.array([2.0]),
+        ),
+        lambda bad: OrbitalCoefficients(
+            coefficients=np.eye(1),
+            energies=np.array([-0.5]),
+            occupations=np.array([bad]),
+        ),
+        lambda bad: OverlapBlock(np.array([[bad]])),
+        lambda bad: DensityMatrix(np.array([[bad]])),
+        lambda bad: TwoElectronIntegrals(np.full((1, 1, 1, 1), bad)),
+    ],
+)
+def test_numeric_blocks_reject_non_finite_values(block_factory, bad_value):
+    with pytest.raises(ProviderContractError, match="finite"):
+        block_factory(bad_value)
+
+
+@pytest.mark.parametrize("bad_value", [np.nan, np.inf, -np.inf])
+def test_orbital_energy_mapping_rejects_non_finite_values(bad_value):
+    with pytest.raises(UnitError, match="finite"):
+        _minimal_payload(orbital_energies={"MO0": bad_value})
+
+
+@pytest.mark.parametrize("bad_value", [np.nan, np.inf, -np.inf])
+def test_radial_orbitals_reject_non_finite_arrays_before_validate(bad_value):
+    with pytest.raises(ProviderContractError, match="finite"):
+        ElectronicStructurePayload(
+            Z=2,
+            provenance=_good_provenance(),
+            subshells=[SimpleNamespace(occupation=2.0)],
+            orbital_energies={"1s": -0.5},
+            orbitals_raw={-1: [(np.array([0.0, bad_value]), np.zeros(2), 2.0)]},
+        )
+
+
+def test_orbitals_raw_hostile_kappa_error_is_bounded():
+    marker = "HOSTILE_KAPPA_MARKER"
+
+    class HostileKappa:
+        def __int__(self):
+            raise RuntimeError(marker * 10_000)
+
+        def __repr__(self):
+            return marker * 10_000
+
+    with pytest.raises(ProviderContractError) as exc_info:
+        ElectronicStructurePayload(
+            Z=2,
+            provenance=_good_provenance(),
+            subshells=[SimpleNamespace(occupation=2.0)],
+            orbital_energies={"1s": -0.5},
+            orbitals_raw={HostileKappa(): []},
+        )
+
+    message = str(exc_info.value)
+    assert len(message) < 200
+    assert marker not in message
+    assert "orbitals_raw key" in message
+    assert "integer kappa" in message
+    assert "type=HostileKappa" in message
+    assert isinstance(exc_info.value.__cause__, RuntimeError)
+    assert marker in str(exc_info.value.__cause__)
+
+
+@pytest.mark.parametrize("bad_value", [np.nan, np.inf, -np.inf])
+def test_radial_subshell_occupations_reject_non_finite_values(bad_value):
+    payload = ElectronicStructurePayload(
+        Z=2,
+        provenance=_good_provenance(),
+        subshells=[SimpleNamespace(occupation=bad_value)],
+        orbital_energies={"1s": -0.5},
+        orbitals_raw={-1: [(np.array([0.0]), np.array([0.0]), 2.0)]},
+    )
+
+    with pytest.raises(ProviderContractError, match="finite"):
+        payload.validate()
+
+
+@pytest.mark.parametrize("bad_index", [0, 1, 2])
+def test_subshell_generator_is_replayable_and_validate_checks_all_positions(
+    bad_index,
+):
+    def subshells():
+        for index, occupation in enumerate([2.0, 1.0, 0.0]):
+            yield SimpleNamespace(
+                occupation=np.inf if index == bad_index else occupation
+            )
+
+    payload = ElectronicStructurePayload(
+        Z=2,
+        provenance=_good_provenance(),
+        subshells=subshells(),
+        orbital_energies={"1s": -0.5},
+        orbitals_raw={-1: [(np.array([0.0]), np.array([0.0]), 2.0)]},
+    )
+
+    assert payload.capabilities()
+    assert isinstance(payload.subshells, tuple)
+    with pytest.raises(ProviderContractError, match=f"subshells\\[{bad_index}\\]"):
+        payload.validate()
+
+
+def test_validate_normalizes_mutated_subshell_generator_before_capabilities():
+    payload = _minimal_payload()
+    payload.orbitals = None
+    payload.subshells = (
+        SimpleNamespace(occupation=np.nan if index == 1 else 1.0)
+        for index in range(3)
+    )
+    payload.orbitals_raw = {-1: [(np.array([0.0]), np.array([0.0]), 1.0)]}
+
+    with pytest.raises(ProviderContractError, match=r"subshells\[1\]"):
+        payload.validate()
+    assert isinstance(payload.subshells, tuple)
+
+
+@pytest.mark.parametrize("count", [0, 1, 3])
+def test_orbitals_raw_one_shot_iterables_are_normalized_and_replayable(count):
+    def orbital_stream():
+        for index in range(count):
+            yield (
+                np.array([float(index)]),
+                np.array([float(index + 1)]),
+                1.0,
+            )
+
+    payload = ElectronicStructurePayload(
+        Z=2,
+        provenance=_good_provenance(),
+        subshells=[SimpleNamespace(occupation=2.0)],
+        orbital_energies={"1s": -0.5},
+        orbitals_raw={-1: iter(orbital_stream())},
+        orbitals=None if count else _mo_block(n_mo=2, occ=(2.0, 0.0)),
+    )
+
+    assert isinstance(payload.orbitals_raw[-1], list)
+    assert len(payload.orbitals_raw[-1]) == count
+    assert payload.validate() is payload
+    assert payload.validate() is payload
+    if count:
+        assert Capability.RADIAL_ORBITALS in payload.capabilities()
+    else:
+        assert Capability.RADIAL_ORBITALS not in payload.capabilities()
+
+
+def test_orbitals_raw_infinite_iterable_fails_with_bounded_budget(monkeypatch):
+    monkeypatch.setattr(contract_module, "_MAX_ORBITALS_RAW_PER_KAPPA", 2)
+
+    def infinite_orbitals():
+        while True:
+            yield (np.array([0.0]), np.array([1.0]), 1.0)
+
+    with pytest.raises(ProviderContractError, match="maximum item budget"):
+        ElectronicStructurePayload(
+            Z=2,
+            provenance=_good_provenance(),
+            subshells=[SimpleNamespace(occupation=2.0)],
+            orbital_energies={"1s": -0.5},
+            orbitals_raw={-1: infinite_orbitals()},
+        )
+
+
+def test_orbitals_raw_entry_iterable_is_normalized_once_and_revalidated():
+    entry = iter((np.array([0.0]), np.array([1.0]), 1.0))
+    payload = ElectronicStructurePayload(
+        Z=2,
+        provenance=_good_provenance(),
+        subshells=[SimpleNamespace(occupation=2.0)],
+        orbital_energies={"1s": -0.5},
+        orbitals_raw={-1: iter([entry])},
+    )
+
+    assert payload.validate() is payload
+    assert payload.validate() is payload
+    p_component, q_component, occupation = payload.orbitals_raw[-1][0]
+    assert isinstance(p_component, np.ndarray)
+    assert isinstance(q_component, np.ndarray)
+    assert occupation == pytest.approx(1.0)
+
+
+def test_non_finite_coefficients_fail_before_orthonormality_residual():
+    with pytest.raises(ProviderContractError, match="finite"):
+        OrbitalCoefficients(
+            coefficients=np.array([[np.nan]]),
+            energies=np.array([-0.5]),
+            occupations=np.array([2.0]),
+        )
+
+
+def test_finite_complex_contract_arrays_remain_supported():
+    phase = np.exp(0.25j)
+    payload = _minimal_payload(
+        orbitals=OrbitalCoefficients(
+            coefficients=np.array([[phase]], dtype=complex),
+            energies=np.array([-0.5]),
+            occupations=np.array([2.0]),
+        ),
+        overlap=OverlapBlock(np.array([[1.0 + 0.0j]])),
+        density=DensityMatrix(np.array([[2.0 + 0.0j]])),
+        two_electron=TwoElectronIntegrals(
+            np.ones((1, 1, 1, 1), dtype=complex), basis="mo"
+        ),
+        orbital_energies={"MO0": -0.5},
+    )
+
+    assert payload.validate() is payload
+    assert payload.orbitals.coefficients.dtype.kind == "c"
+    assert payload.orthonormality_residual() == pytest.approx(0.0, abs=1e-12)
+
+
+def test_object_dtype_contract_arrays_fail_closed_even_for_finite_complex():
+    with pytest.raises(ProviderContractError, match="non-object dtype"):
+        OrbitalCoefficients(
+            coefficients=np.array([[1.0 + 0.0j]], dtype=object),
+            energies=np.array([-0.5]),
+            occupations=np.array([2.0]),
+        )
+
+
+@pytest.mark.parametrize(
+    "block_factory",
+    [
+        lambda: OverlapBlock(np.array([[1.0]], dtype=object)),
+        lambda: DensityMatrix(np.array([[1.0]], dtype=object)),
+        lambda: TwoElectronIntegrals(
+            np.ones((1, 1, 1, 1), dtype=object)
+        ),
+    ],
+)
+def test_object_dtype_optional_blocks_fail_closed(block_factory):
+    with pytest.raises(ProviderContractError, match="non-object dtype"):
+        block_factory()
+
+
+@pytest.mark.parametrize(
+    "mutate, call, error_type, match",
+    [
+        (
+            lambda payload: payload.orbitals.coefficients.__setitem__(
+                (0, 0), np.nan
+            ),
+            lambda payload: payload.validate(),
+            ProviderContractError,
+            "orbital coefficients",
+        ),
+        (
+            lambda payload: payload.orbitals.energies.__setitem__(0, np.inf),
+            lambda payload: payload.validate(),
+            ProviderContractError,
+            "orbital energies",
+        ),
+        (
+            lambda payload: payload.orbitals.occupations.__setitem__(
+                0, -np.inf
+            ),
+            lambda payload: payload.validate(),
+            ProviderContractError,
+            "orbital occupations",
+        ),
+        (
+            lambda payload: payload.overlap.matrix.__setitem__((0, 0), np.nan),
+            lambda payload: payload.orthonormality_residual(),
+            ProviderContractError,
+            "overlap S",
+        ),
+        (
+            lambda payload: payload.density.matrix.__setitem__((0, 0), np.nan),
+            lambda payload: payload.electron_count(),
+            ProviderContractError,
+            "density matrix",
+        ),
+        (
+            lambda payload: payload.two_electron.eri.__setitem__(
+                (0, 0, 0, 0), np.inf
+            ),
+            lambda payload: payload.validate(),
+            ProviderContractError,
+            "ERI",
+        ),
+        (
+            lambda payload: payload.orbital_energies.__setitem__("MO0", np.nan),
+            lambda payload: payload.validate(),
+            UnitError,
+            "finite Hartree",
+        ),
+        (
+            lambda payload: payload.orbitals_raw[-1][0][0].__setitem__(0, np.nan),
+            lambda payload: payload.validate(),
+            ProviderContractError,
+            "orbitals_raw",
+        ),
+        (
+            lambda payload: payload.orbitals_raw[-1][0][1].__setitem__(0, np.inf),
+            lambda payload: payload.validate(),
+            ProviderContractError,
+            "orbitals_raw",
+        ),
+        (
+            lambda payload: payload.orbitals_raw[-1].__setitem__(
+                0, (np.array([0.0]), np.array([1.0]), -np.inf)
+            ),
+            lambda payload: payload.validate(),
+            ProviderContractError,
+            "orbitals_raw",
+        ),
+    ],
+)
+def test_payload_validate_rejects_public_numeric_mutation(
+    mutate, call, error_type, match
+):
+    payload = _minimal_payload(
+        orbitals=_mo_block(n_ao=2, n_mo=2, occ=(2.0, 0.0)),
+        overlap=OverlapBlock(np.eye(2)),
+        density=DensityMatrix(np.eye(2)),
+        two_electron=TwoElectronIntegrals(np.zeros((2, 2, 2, 2)), basis="mo"),
+        orbitals_raw={-1: [(np.array([0.0]), np.array([1.0]), 1.0)]},
+    )
+
+    mutate(payload)
+
+    with pytest.raises(error_type, match=match):
+        call(payload)
+
+
+def test_density_block_revalidates_mutated_overlap_before_einsum():
+    density = DensityMatrix(np.eye(2))
+    overlap = OverlapBlock(np.eye(2))
+    overlap.matrix[0, 0] = np.nan
+
+    with pytest.raises(ProviderContractError, match="overlap S"):
+        density.n_electrons(overlap)
+
+
+def test_density_block_revalidates_mutated_matrix_before_trace():
+    density = DensityMatrix(np.eye(2))
+    density.matrix[0, 0] = np.nan
+
+    with pytest.raises(ProviderContractError, match="density matrix"):
+        density.n_electrons()
 
 
 def test_validate_rejects_no_orbital_representation():
@@ -188,6 +619,143 @@ def test_ml_payload_with_uncertainty_passes():
     )
     assert payload.validate() is not None
     assert Capability.UNCERTAINTY in payload.capabilities()
+
+
+@pytest.mark.parametrize("bad_value", [np.nan, np.inf, -np.inf])
+def test_uncertainty_rejects_non_finite_per_orbital_sigma(bad_value):
+    with pytest.raises(
+        ProviderContractError,
+        match=r"UncertaintyBlock\.per_orbital_sigma\[MO0\]",
+    ):
+        UncertaintyBlock(per_orbital_sigma={"MO0": bad_value})
+
+
+@pytest.mark.parametrize("bad_value", [np.nan, np.inf, -np.inf])
+def test_uncertainty_rejects_non_finite_ood_score(bad_value):
+    with pytest.raises(ProviderContractError, match="UncertaintyBlock.ood_score"):
+        UncertaintyBlock(ood_score=bad_value)
+
+
+@pytest.mark.parametrize(
+    "summary, match",
+    [
+        ({"level": {"sigma": np.nan}}, "UncertaintyBlock.summary.level.sigma"),
+        ({"values": [0.1, np.inf]}, r"UncertaintyBlock.summary.values\[1\]"),
+    ],
+)
+def test_uncertainty_summary_rejects_nested_non_finite_numeric_values(
+    summary, match
+):
+    with pytest.raises(ProviderContractError, match=match):
+        UncertaintyBlock(summary=summary)
+
+
+def test_uncertainty_summary_allows_finite_nested_numeric_values():
+    block = UncertaintyBlock(
+        summary={
+            "level": {"sigma": 0.2 + 0.1j},
+            "values": np.array([1.0 + 0.0j]),
+            "flags": [True, "ok", None],
+        }
+    )
+    assert block.validate() is block
+
+
+def test_uncertainty_summary_rejects_self_reference_cycle():
+    summary = {}
+    summary["self"] = summary
+
+    with pytest.raises(
+        ProviderContractError,
+        match="UncertaintyBlock.summary.self contains a cycle",
+    ):
+        UncertaintyBlock(summary=summary)
+
+
+def test_uncertainty_summary_rejects_indirect_cycle():
+    parent = {}
+    child = {"parent": parent}
+    parent["child"] = child
+
+    with pytest.raises(ProviderContractError, match="contains a cycle"):
+        UncertaintyBlock(summary=parent)
+
+
+def test_uncertainty_summary_rejects_excessive_depth(monkeypatch):
+    monkeypatch.setattr(contract_module, "_MAX_NESTED_NUMERIC_DEPTH", 2)
+
+    with pytest.raises(ProviderContractError, match="maximum nested depth"):
+        UncertaintyBlock(summary={"a": {"b": {"c": 1.0}}})
+
+
+def test_uncertainty_summary_rejects_excessive_node_budget(monkeypatch):
+    monkeypatch.setattr(contract_module, "_MAX_NESTED_NUMERIC_NODES", 3)
+
+    with pytest.raises(ProviderContractError, match="nested node budget"):
+        UncertaintyBlock(summary={"values": [1.0, 2.0, 3.0]})
+
+
+def test_uncertainty_summary_hostile_key_error_is_bounded():
+    marker = "HOSTILE_SUMMARY_KEY"
+
+    class HostileKey:
+        def __str__(self):
+            raise RuntimeError(marker * 3_000)
+
+        def __repr__(self):
+            return marker * 3_000
+
+    with pytest.raises(ProviderContractError) as exc_info:
+        UncertaintyBlock(summary={HostileKey(): np.inf})
+
+    message = str(exc_info.value)
+    assert len(message) < 200
+    assert marker not in message
+    assert "UncertaintyBlock.summary.<HostileKey>" in message
+    assert "finite" in message
+
+
+def test_uncertainty_summary_long_label_hook_return_is_not_public():
+    marker = "HOSTILE_LABEL_RETURN"
+
+    class HostileString(str):
+        def __str__(self):
+            return marker * 3_000
+
+    with pytest.raises(ProviderContractError) as exc_info:
+        UncertaintyBlock(summary={HostileString("stable-key"): np.inf})
+
+    message = str(exc_info.value)
+    assert len(message) < 200
+    assert marker not in message
+    assert "UncertaintyBlock.summary.stable-key" in message
+
+
+def test_bounded_key_preserves_legal_int_and_string_mapping_keys():
+    with pytest.raises(ProviderContractError, match="summary.shell.1"):
+        UncertaintyBlock(summary={"shell": {1: np.inf}})
+
+
+def test_provenance_uncertainty_summary_rejects_nested_non_finite_values():
+    provenance = _good_provenance(uncertainty_summary={"ood": {"score": np.inf}})
+
+    with pytest.raises(
+        ProviderContractError,
+        match="Provenance.uncertainty_summary.ood.score",
+    ):
+        provenance.validate()
+
+
+def test_provenance_uncertainty_summary_rejects_cycle():
+    summary = {}
+    summary["self"] = summary
+    provenance = _good_provenance(uncertainty_summary=summary)
+
+    with pytest.raises(
+        ProviderContractError,
+        match="Provenance.uncertainty_summary.self contains a cycle",
+    ):
+        provenance.validate()
 
 
 def test_ml_provenance_requires_ood_status():
@@ -254,6 +822,231 @@ def test_density_electron_count_uses_overlap():
         overlap=OverlapBlock(S), density=DensityMatrix(P)
     )
     assert payload.electron_count() == pytest.approx(2.0, abs=1e-9)
+
+
+def _complex_warning_type():
+    return getattr(np, "ComplexWarning", np.exceptions.ComplexWarning)
+
+
+def test_complex_density_trace_electron_count_without_complex_warning():
+    payload = _minimal_payload(
+        orbitals=OrbitalCoefficients(
+            coefficients=np.eye(2, dtype=complex),
+            energies=np.array([-0.5, 0.1]),
+            occupations=np.array([1.0, 1.0]),
+        ),
+        density=DensityMatrix(
+            np.array(
+                [[1.0 + 2e-12j, 0.0], [0.0, 1.0 - 1e-12j]],
+                dtype=complex,
+            )
+        ),
+    )
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", _complex_warning_type())
+        assert payload.electron_count() == pytest.approx(2.0, abs=1e-12)
+
+
+def test_complex_density_overlap_electron_count_without_complex_warning():
+    payload = _minimal_payload(
+        orbitals=OrbitalCoefficients(
+            coefficients=np.eye(2, dtype=complex),
+            energies=np.array([-0.5, 0.1]),
+            occupations=np.array([1.0, 1.0]),
+        ),
+        overlap=OverlapBlock(np.eye(2, dtype=complex)),
+        density=DensityMatrix(
+            np.array(
+                [[1.0 + 2e-12j, 0.0], [0.0, 1.0 - 1e-12j]],
+                dtype=complex,
+            )
+        ),
+    )
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", _complex_warning_type())
+        assert payload.electron_count() == pytest.approx(2.0, abs=1e-12)
+
+
+def test_complex_density_trace_electron_count_rejects_imaginary_part():
+    payload = _minimal_payload(
+        density=DensityMatrix(np.array([[2.0 + 1e-4j]], dtype=complex)),
+        orbitals=OrbitalCoefficients(
+            coefficients=np.ones((1, 1)),
+            energies=np.array([-0.5]),
+            occupations=np.array([2.0]),
+        ),
+        orbital_energies={"MO0": -0.5},
+    )
+
+    with pytest.raises(
+        ProviderContractError, match="DensityMatrix.n_electrons.trace"
+    ):
+        payload.electron_count()
+
+
+def test_complex_density_overlap_electron_count_rejects_imaginary_part():
+    payload = _minimal_payload(
+        density=DensityMatrix(np.array([[2.0 + 1e-4j]], dtype=complex)),
+        overlap=OverlapBlock(np.array([[1.0 + 0.0j]], dtype=complex)),
+        orbitals=OrbitalCoefficients(
+            coefficients=np.ones((1, 1)),
+            energies=np.array([-0.5]),
+            occupations=np.array([2.0]),
+        ),
+        orbital_energies={"MO0": -0.5},
+    )
+
+    with pytest.raises(
+        ProviderContractError, match="DensityMatrix.n_electrons.overlap"
+    ):
+        payload.electron_count()
+
+
+def test_density_trace_revalidates_before_contraction(monkeypatch):
+    payload = _minimal_payload(density=DensityMatrix(np.eye(2)))
+    payload.density.matrix[0, 0] = np.nan
+
+    def fail_trace(_matrix):
+        raise AssertionError("trace should not run before validation")
+
+    monkeypatch.setattr(np, "trace", fail_trace)
+
+    with pytest.raises(ProviderContractError, match="density matrix"):
+        payload.electron_count()
+
+
+def test_density_overlap_revalidates_before_contraction(monkeypatch):
+    payload = _minimal_payload(
+        density=DensityMatrix(np.eye(2)),
+        overlap=OverlapBlock(np.eye(2)),
+    )
+    payload.overlap.matrix[0, 0] = np.nan
+
+    def fail_einsum(*_args, **_kwargs):
+        raise AssertionError("einsum should not run before validation")
+
+    monkeypatch.setattr(np, "einsum", fail_einsum)
+
+    with pytest.raises(ProviderContractError, match="overlap S"):
+        payload.electron_count()
+
+
+def test_density_overlap_shape_mismatch_rejected_before_contraction(monkeypatch):
+    payload = _minimal_payload(
+        density=DensityMatrix(np.eye(2)),
+        overlap=OverlapBlock(np.eye(3)),
+        orbitals=None,
+        subshells=[SimpleNamespace(occupation=2.0)],
+        orbitals_raw={-1: [(np.array([0.0]), np.array([1.0]), 2.0)]},
+    )
+
+    def fail_einsum(*_args, **_kwargs):
+        raise AssertionError("einsum must not run before shape check")
+
+    monkeypatch.setattr(np, "einsum", fail_einsum)
+
+    with pytest.raises(
+        ProviderContractError, match="DensityMatrix.n_electrons.overlap"
+    ):
+        payload.electron_count()
+
+
+def test_density_overlap_shape_mismatch_error_includes_shapes():
+    payload = _minimal_payload(
+        density=DensityMatrix(np.eye(2)),
+        overlap=OverlapBlock(np.eye(3)),
+        orbitals=None,
+        subshells=[SimpleNamespace(occupation=2.0)],
+        orbitals_raw={-1: [(np.array([0.0]), np.array([1.0]), 2.0)]},
+    )
+
+    with pytest.raises(ProviderContractError) as exc_info:
+        payload.electron_count()
+
+    message = str(exc_info.value)
+    assert "DensityMatrix.n_electrons.overlap" in message
+    assert "density (2, 2)" in message
+    assert "overlap (3, 3)" in message
+
+
+@pytest.mark.parametrize("use_overlap", [False, True])
+def test_complex_density_electron_count_accepts_imaginary_tolerance_boundary(
+    use_overlap,
+):
+    real = 2.0
+    tolerance = 1e-10 + 1e-12 * abs(real)
+    payload = _minimal_payload(
+        density=DensityMatrix(
+            np.array([[real + tolerance * 1j]], dtype=complex)
+        ),
+        overlap=(
+            OverlapBlock(np.array([[1.0 + 0.0j]], dtype=complex))
+            if use_overlap
+            else None
+        ),
+        orbitals=OrbitalCoefficients(
+            coefficients=np.ones((1, 1)),
+            energies=np.array([-0.5]),
+            occupations=np.array([2.0]),
+        ),
+        orbital_energies={"MO0": -0.5},
+    )
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", _complex_warning_type())
+        assert payload.electron_count() == pytest.approx(real, abs=1e-12)
+
+
+@pytest.mark.parametrize(
+    "use_overlap, match",
+    [
+        (False, "DensityMatrix.n_electrons.trace"),
+        (True, "DensityMatrix.n_electrons.overlap"),
+    ],
+)
+def test_complex_density_electron_count_rejects_beyond_imaginary_tolerance(
+    use_overlap, match
+):
+    real = 2.0
+    tolerance = 1e-10 + 1e-12 * abs(real)
+    imag = np.nextafter(tolerance, np.inf)
+    payload = _minimal_payload(
+        density=DensityMatrix(np.array([[real + imag * 1j]], dtype=complex)),
+        overlap=(
+            OverlapBlock(np.array([[1.0 + 0.0j]], dtype=complex))
+            if use_overlap
+            else None
+        ),
+        orbitals=OrbitalCoefficients(
+            coefficients=np.ones((1, 1)),
+            energies=np.array([-0.5]),
+            occupations=np.array([2.0]),
+        ),
+        orbital_energies={"MO0": -0.5},
+    )
+
+    with pytest.raises(ProviderContractError, match=match):
+        payload.electron_count()
+
+
+def test_density_overlap_contraction_non_finite_result_fails_closed():
+    payload = _minimal_payload(
+        density=DensityMatrix(np.array([[2e154]])),
+        overlap=OverlapBlock(np.array([[2e154]])),
+        orbitals=OrbitalCoefficients(
+            coefficients=np.ones((1, 1)),
+            energies=np.array([-0.5]),
+            occupations=np.array([2.0]),
+        ),
+        orbital_energies={"MO0": -0.5},
+    )
+
+    with pytest.raises(
+        ProviderContractError, match="DensityMatrix.n_electrons.overlap.*finite"
+    ):
+        payload.electron_count()
 
 
 # ── structural compatibility with AtomicResultLike ──────────────────────
