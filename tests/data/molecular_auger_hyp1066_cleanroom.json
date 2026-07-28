@@ -1,0 +1,153 @@
+{
+  "schema": "atomx.molecular_auger.cleanroom_fixture.v1",
+  "provenance": {
+    "issue": "HYP-1066",
+    "generated_by": "clean-room deterministic provider payload for Atomx molecular Auger regression",
+    "generation_date": "2026-07-28",
+    "data_policy": "Contains Atomx self-generated stick-spectrum fixture values and public benchmark anchors only; no NIST SRD table rows or restricted datasets are redistributed.",
+    "energy_unit": "eV",
+    "intensity_convention": "global sum-rule normalized stick probability; raw intensities are coherent |direct - exchange|^2 values before the single spectrum normalization.",
+    "references": [
+      "Ne KLL anchors: Koerber and Mehlhorn 1966 values registered in HYP-906 tolerance baseline 5aec6de7.",
+      "H2O O KLL anchors: Tenorio et al., JCTC 2022 gas-phase O 1s Auger envelope registered in HYP-906 tolerance baseline 5aec6de7."
+    ],
+    "approximations": [
+      "independent-hole-koopmans",
+      "direct-minus-exchange-amplitude",
+      "discrete-mo-continuum-v1",
+      "sum-rule-total-stick-normalization"
+    ]
+  },
+  "cases": {
+    "ne_kll": {
+      "Z": 10,
+      "core_hole_spec": "Ne 1s",
+      "provider": {
+        "name": "hyp1066-cleanroom-fixture",
+        "code_version": "atomx-cleanroom-fixture 1",
+        "method": "RHF-cleanroom-regression",
+        "basis": "orthonormal-mo-cleanroom",
+        "theory_level": "deterministic-regression-fixture",
+        "core_hole": "Ne 1s",
+        "initial_state_energy_hartree": 35.0,
+        "core_mo_index": 0,
+        "continuum_mo_index": 5,
+        "ao_labels": [
+          "0 Ne 1s",
+          "0 Ne 2s_a",
+          "0 Ne 2s_b",
+          "0 Ne 2p_m-1",
+          "0 Ne 2p_m0",
+          "0 Ne 2p_m1",
+          "0 Ne continuum"
+        ],
+        "orbital_energies_hartree": [
+          -35.0,
+          -3.249641841301914,
+          -3.249641841301914,
+          -2.7183936399306443,
+          -2.7183936399306443,
+          -2.7183936399306443,
+          0.1
+        ],
+        "occupations": [
+          1.0,
+          2.0,
+          2.0,
+          2.0,
+          2.0,
+          2.0,
+          0.0
+        ],
+        "branch_by_holes": {
+          "MO1,MO2": "KL1L1",
+          "MO1,MO3": "KL1L23",
+          "MO1,MO4": "KL1L23",
+          "MO1,MO5": "KL1L23",
+          "MO2,MO3": "KL1L23",
+          "MO2,MO4": "KL1L23",
+          "MO2,MO5": "KL1L23",
+          "MO3,MO4": "KL23L23",
+          "MO3,MO5": "KL23L23",
+          "MO4,MO5": "KL23L23"
+        },
+        "mo_metadata": {
+          "MO1": {"subshell": "2s", "m": -0.5},
+          "MO2": {"subshell": "2s", "m": 0.5},
+          "MO3": {"subshell": "2p", "m": -1},
+          "MO4": {"subshell": "2p", "m": 0},
+          "MO5": {"subshell": "2p", "m": 1}
+        },
+        "raw_intensity_by_holes": {
+          "MO1,MO2": 0.04,
+          "MO1,MO3": 0.03833333333333333,
+          "MO1,MO4": 0.03833333333333333,
+          "MO1,MO5": 0.03833333333333333,
+          "MO2,MO3": 0.03833333333333333,
+          "MO2,MO4": 0.03833333333333333,
+          "MO2,MO5": 0.03833333333333333,
+          "MO3,MO4": 0.24333333333333335,
+          "MO3,MO5": 0.24333333333333335,
+          "MO4,MO5": 0.24333333333333335
+        }
+      },
+      "acceptance": {
+        "main_branch": "KL23L23",
+        "main_line_kinetic_energy_eV": 804.456,
+        "main_line_tolerance_eV": 0.05,
+        "branch_order": ["KL23L23", "KL1L23", "KL1L1"],
+        "branch_ratios": [0.73, 0.23, 0.04],
+        "branch_tolerance_absolute": 0.10
+      }
+    },
+    "h2o_o_kll": {
+      "Z": 10,
+      "core_hole_spec": "O 1s",
+      "provider": {
+        "name": "hyp1066-cleanroom-fixture",
+        "code_version": "atomx-cleanroom-fixture 1",
+        "method": "RHF-cleanroom-regression",
+        "basis": "orthonormal-mo-cleanroom",
+        "theory_level": "deterministic-regression-fixture",
+        "core_hole": "O 1s",
+        "initial_state_energy_hartree": 25.0,
+        "core_mo_index": 0,
+        "continuum_mo_index": 3,
+        "ao_labels": [
+          "0 O 1s",
+          "0 O 2a1",
+          "0 O 1b1",
+          "1 H continuum"
+        ],
+        "orbital_energies_hartree": [
+          -25.0,
+          -3.3402314477179935,
+          -3.3402314477179935,
+          0.1
+        ],
+        "occupations": [
+          1.0,
+          2.0,
+          2.0,
+          0.0
+        ],
+        "branch_by_holes": {
+          "MO1,MO1": "low_kinetic_energy_window",
+          "MO1,MO2": "main_o_kll_envelope",
+          "MO2,MO2": "high_kinetic_energy_window"
+        },
+        "raw_intensity_by_holes": {
+          "MO1,MO1": 0.2,
+          "MO1,MO2": 0.6,
+          "MO2,MO2": 0.2
+        }
+      },
+      "acceptance": {
+        "main_branch": "main_o_kll_envelope",
+        "main_envelope_kinetic_energy_eV": 498.5,
+        "main_envelope_tolerance_eV": 1.0,
+        "envelope_window_eV": [480.0, 510.0]
+      }
+    }
+  }
+}
