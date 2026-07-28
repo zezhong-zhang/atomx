@@ -303,31 +303,36 @@ def test_ao_to_mo_eri_transform_rejects_asymmetric_ao_budget_before_einsum(
     monkeypatch,
 ):
     payload = _asymmetric_ao_eri_payload()
-    initial = molecular_auger_initial_state(payload)
-    final = _pair_state(payload)
+    provider = _CoreHoleProvider(payload)
+    original_isfinite = np.isfinite
 
-    def fail_if_called(*args, **kwargs):
+    def fail_if_array_scanned(value, *args, **kwargs):
+        if np.asarray(value).ndim > 0:
+            raise AssertionError("payload validation reached ERI np.isfinite scan")
+        return original_isfinite(value, *args, **kwargs)
+
+    def fail_if_einsum_called(*args, **kwargs):
         raise AssertionError("AO-to-MO transform reached np.einsum")
 
     monkeypatch.setattr(
         "atomx.scattering.autoionization.molecular.np.einsum",
-        fail_if_called,
+        fail_if_einsum_called,
     )
     monkeypatch.setattr(
-        "atomx.scattering.autoionization.molecular.np.isfinite",
-        fail_if_called,
+        "atomx.providers.contract.np.isfinite",
+        fail_if_array_scanned,
     )
 
     with pytest.raises(
         ProviderContractError,
         match="AO-to-MO ERI transformation exceeds the molecular Auger budget",
     ):
-        molecular_auger_transition_amplitude(
-            payload,
-            initial,
-            final,
-            DiscreteMOContinuumChannel(mo_index=3),
+        compute_molecular_auger(
+            provider,
+            "O 1s",
+            continuum_channel=DiscreteMOContinuumChannel(mo_index=3),
         )
+    assert provider.calls == [("O 1s", True)]
 
 
 def test_molecular_auger_spectrum_uses_ke_axis_and_sum_rule_normalization():

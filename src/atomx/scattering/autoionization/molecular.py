@@ -344,7 +344,9 @@ def compute_molecular_auger(
             residual_tolerance,
         )
     )
-    payload = _compute_payload(provider, validated_spec).validate()
+    payload = _compute_payload(provider, validated_spec)
+    _assert_molecular_auger_eri_budget_before_validation(payload)
+    payload.validate()
     _assert_requested_core_hole(payload, validated_spec)
     payload.require(
         Capability.CORE_HOLE_SPEC,
@@ -384,6 +386,17 @@ def _compute_payload(
     if not isinstance(payload, ElectronicStructurePayload):
         raise ProviderContractError("provider did not return an ElectronicStructurePayload")
     return payload
+
+
+def _assert_molecular_auger_eri_budget_before_validation(
+    payload: ElectronicStructurePayload,
+) -> None:
+    if (
+        payload.two_electron is not None
+        and payload.two_electron.basis == "ao"
+        and payload.orbitals is not None
+    ):
+        _assert_ao_to_mo_eri_budget(payload.two_electron.eri, payload.orbitals)
 
 
 def _validate_core_hole_spec(

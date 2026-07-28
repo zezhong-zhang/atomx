@@ -129,6 +129,8 @@ ORBITAL_CAPABILITIES: Set[Capability] = {
     Capability.MO_COEFFICIENTS,
 }
 
+_MAX_ERI_FINITE_SCAN_ELEMENTS = 50_000_000
+
 
 # ---------------------------------------------------------------------------
 # Typed, fail-closed errors (ADR-0001 §7)
@@ -496,6 +498,14 @@ class ElectronicStructurePayload:
                         f"{basis}-basis ERI leading dimension must match "
                         f"orbitals.n_{basis}: expected {expected}, got {actual}"
                     )
+            eri = self.two_electron.eri
+            if eri.size > _MAX_ERI_FINITE_SCAN_ELEMENTS:
+                raise ProviderContractError(
+                    "ERI finite validation exceeds the provider contract budget: "
+                    f"elements={eri.size} > {_MAX_ERI_FINITE_SCAN_ELEMENTS}"
+                )
+            if not np.all(np.isfinite(eri)):
+                raise ProviderContractError("ERI values must be finite")
         return self
 
     # -- physics-adjacent helpers (pure linear algebra, no back-end) -------

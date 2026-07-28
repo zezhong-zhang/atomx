@@ -329,6 +329,15 @@ def test_payload_unknown_eri_basis_rejected():
         payload.validate()
 
 
+def test_payload_small_eri_values_must_be_finite():
+    eri = np.zeros((2, 2, 2, 2))
+    eri[0, 0, 0, 0] = np.nan
+    payload = _minimal_payload(two_electron=TwoElectronIntegrals(eri, basis="mo"))
+
+    with pytest.raises(ProviderContractError, match="ERI values must be finite"):
+        payload.validate()
+
+
 def test_radial_only_payload_unknown_eri_basis_rejected():
     payload = ElectronicStructurePayload(
         Z=2,
