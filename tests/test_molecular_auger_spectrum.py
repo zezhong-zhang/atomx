@@ -188,6 +188,7 @@ def _asymmetric_ao_eri_payload(*, n_ao: int = 1000) -> ElectronicStructurePayloa
         strides=(0, 0, 0, 0),
         writeable=False,
     )
+    two_electron = TwoElectronIntegrals(eri, basis="ao")
     return ElectronicStructurePayload(
         Z=8,
         provenance=Provenance(
@@ -209,7 +210,7 @@ def _asymmetric_ao_eri_payload(*, n_ao: int = 1000) -> ElectronicStructurePayloa
         ),
         overlap=OverlapBlock(np.eye(n_ao), basis_labels=labels),
         density=DensityMatrix(np.diag([*occupations, *np.zeros(n_ao - n_mo)])),
-        two_electron=TwoElectronIntegrals(eri, basis="ao"),
+        two_electron=two_electron,
         metadata={
             "core_hole": {
                 "orbital_label": "O 1s",
@@ -250,6 +251,27 @@ class _LazyCoreHoleProvider:
     ) -> ElectronicStructurePayload:
         self.calls.append((core_hole_spec, with_eri))
         return self.payload_factory()
+
+
+class _AdversarialERI:
+    def __init__(self, *, shape=()):
+        self._shape = shape
+        self.shape_reads = 0
+        self.array_calls = 0
+
+    @property
+    def shape(self):
+        self.shape_reads += 1
+        return self._shape
+
+    def __array__(self, dtype=None):
+        self.array_calls += 1
+        raise AssertionError("ERI __array__ conversion was reached")
+
+
+class _ShapeChangingERI(np.ndarray):
+    def astype(self, *args, **kwargs):
+        raise AssertionError("ERI ndarray subclass astype conversion was reached")
 
 
 def _pair_state(payload: ElectronicStructurePayload, spin: str = "singlet"):
@@ -347,6 +369,57 @@ def test_ao_to_mo_eri_transform_rejects_asymmetric_ao_budget_before_einsum(
             continuum_channel=DiscreteMOContinuumChannel(mo_index=3),
         )
     assert provider.calls == [("O 1s", True)]
+
+
+@pytest.mark.parametrize(
+    "bad_eri_factory",
+    [
+        lambda: object(),
+        lambda: _AdversarialERI(shape=(1, 1, 1, 1)),
+        lambda: _AdversarialERI(shape=(1, -1, 1, 1)),
+        lambda: np.zeros((1, 1, 1, 1)).view(_ShapeChangingERI),
+    ],
+)
+def test_compute_molecular_auger_rejects_untrusted_eri_before_array_protocols(
+    monkeypatch,
+    bad_eri_factory,
+):
+    bad_eri = bad_eri_factory()
+    provider = _LazyCoreHoleProvider(
+        lambda: TwoElectronIntegrals(bad_eri, basis="ao")
+    )
+    original_isfinite = np.isfinite
+
+    def fail_if_array_scanned(value, *args, **kwargs):
+        if np.asarray(value).ndim > 0:
+            raise AssertionError("ERI rejection reached np.isfinite array scan")
+        return original_isfinite(value, *args, **kwargs)
+
+    def fail_if_einsum_called(*args, **kwargs):
+        raise AssertionError("ERI rejection reached np.einsum")
+
+    monkeypatch.setattr(
+        "atomx.providers.contract.np.isfinite",
+        fail_if_array_scanned,
+    )
+    monkeypatch.setattr(
+        "atomx.scattering.autoionization.molecular.np.einsum",
+        fail_if_einsum_called,
+    )
+
+    with pytest.raises(
+        ProviderContractError,
+        match="ERI must be provided as a base numpy.ndarray",
+    ):
+        compute_molecular_auger(
+            provider,
+            "O 1s",
+            continuum_channel=DiscreteMOContinuumChannel(mo_index=3),
+        )
+    assert provider.calls == [("O 1s", True)]
+    if isinstance(bad_eri, _AdversarialERI):
+        assert bad_eri.shape_reads == 0
+        assert bad_eri.array_calls == 0
 
 
 def test_molecular_auger_spectrum_uses_ke_axis_and_sum_rule_normalization():

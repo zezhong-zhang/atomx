@@ -39,8 +39,11 @@ Reference: ``docs/adr/ADR-0001-electronic-structure-provider.md``.
 
 from __future__ import annotations
 
+from collections.abc import Iterable as IterableABC
+from collections.abc import Mapping as MappingABC
 from dataclasses import dataclass, field
 from enum import Enum
+from numbers import Number
 from typing import (
     Any,
     Dict,
@@ -157,6 +160,35 @@ class UnitError(ProviderContractError):
 # Unit coercion (I1) — the only sanctioned energy entry point
 # ---------------------------------------------------------------------------
 
+_MAX_ERROR_TYPE_NAME = 80
+_MAX_KEY_LABEL = 40
+_FALLBACK_ERROR_TYPE_NAME = "unknown"
+_ELECTRON_COUNT_IMAG_ATOL = 1e-10
+_ELECTRON_COUNT_IMAG_RTOL = 1e-12
+_MAX_NESTED_NUMERIC_DEPTH = 16
+_MAX_NESTED_NUMERIC_NODES = 10_000
+_MAX_ORBITALS_RAW_KAPPAS = 128
+_MAX_ORBITALS_RAW_PER_KAPPA = 10_000
+_MAX_ORBITALS_RAW_TOTAL = 100_000
+
+
+def _safe_type_name(value: Any) -> str:
+    try:
+        name = type.__getattribute__(type(value), "__name__")
+        if not isinstance(name, str):
+            return _FALLBACK_ERROR_TYPE_NAME
+    except Exception:
+        return _FALLBACK_ERROR_TYPE_NAME
+    sanitized = "".join(
+        ch if ch.isprintable() and ch not in "\r\n\t" else "?"
+        for ch in name
+    )
+    if not sanitized:
+        return _FALLBACK_ERROR_TYPE_NAME
+    if len(sanitized) > _MAX_ERROR_TYPE_NAME:
+        return sanitized[: _MAX_ERROR_TYPE_NAME - 3] + "..."
+    return sanitized
+
 
 def ensure_hartree(value: Any) -> float:
     """Coerce a single energy to Hartree atomic units.
@@ -167,15 +199,233 @@ def ensure_hartree(value: Any) -> float:
     stray unit can never slip across the boundary silently.
     """
     try:
-        return to_hartree(value)
+        hartree = to_hartree(value)
     except Exception as exc:  # pragma: no cover - defensive
         raise UnitError(
-            f"cannot coerce {value!r} to Hartree atomic units: {exc}"
+            "cannot coerce energy value to Hartree atomic units "
+            f"(type={_safe_type_name(value)}, reason=unsupported-or-invalid-value)"
         ) from exc
+    if np.iscomplexobj(hartree) or not np.isscalar(hartree):
+        raise UnitError(
+            "cannot coerce energy value to a real Hartree scalar "
+            f"(type={_safe_type_name(value)})"
+        )
+    if not np.isfinite(hartree):
+        raise UnitError(
+            "cannot coerce energy value to finite Hartree atomic units "
+            f"(type={_safe_type_name(value)})"
+        )
+    return float(hartree)
 
 
 def _ensure_hartree_mapping(mapping: Dict[str, Any]) -> Dict[str, float]:
     return {k: ensure_hartree(v) for k, v in mapping.items()}
+
+
+def _bounded_key(key: Any) -> str:
+    if type(key) is str:
+        text = key
+    elif isinstance(key, str):
+        text = str.__str__(key)
+    elif type(key) is int:
+        text = str(key)
+    elif isinstance(key, int) and not isinstance(key, bool):
+        text = int.__str__(key)
+    else:
+        text = f"<{_safe_type_name(key)}>"
+    text = "".join(
+        ch if ch.isprintable() and ch not in "\r\n\t" else "?"
+        for ch in text
+    )
+    if len(text) > _MAX_KEY_LABEL:
+        return text[: _MAX_KEY_LABEL - 3] + "..."
+    return text
+
+
+def _as_finite_numeric_array(name: str, value: Any) -> np.ndarray:
+    """Coerce one public numeric array once and reject ambiguous object dtype.
+
+    Object dtype is fail-closed because it can hide arbitrary Python objects,
+    deferred conversions, or values whose numeric status changes after
+    construction. This contract intentionally does not impose size caps; very
+    large finite arrays remain a residual availability risk for adapters and
+    runtime resource limits to control.
+    """
+    try:
+        array = np.asarray(value)
+    except (TypeError, ValueError) as exc:
+        raise ProviderContractError(f"{name} must be numeric") from exc
+    if array.dtype == object:
+        raise ProviderContractError(
+            f"{name} must be numeric with non-object dtype"
+        )
+    dtype = complex if np.issubdtype(array.dtype, np.complexfloating) else float
+    try:
+        array = array.astype(dtype, copy=False)
+    except (TypeError, ValueError) as exc:
+        raise ProviderContractError(f"{name} must be numeric") from exc
+    if not np.all(np.isfinite(array)):
+        raise ProviderContractError(f"{name} must contain only finite values")
+    return array
+
+
+def _ensure_finite_real_scalar(name: str, value: Any) -> float:
+    array = _as_finite_numeric_array(name, value)
+    if array.shape != () or np.iscomplexobj(array):
+        raise ProviderContractError(f"{name} must be a finite real scalar")
+    return float(array)
+
+
+def _ensure_real_electron_count(name: str, value: Any) -> float:
+    array = _as_finite_numeric_array(name, value)
+    if array.shape != ():
+        raise ProviderContractError(f"{name} must be a finite scalar")
+    scalar = array.item()
+    if np.iscomplexobj(array):
+        real = float(np.real(scalar))
+        imag = float(np.imag(scalar))
+        tolerance = (
+            _ELECTRON_COUNT_IMAG_ATOL
+            + _ELECTRON_COUNT_IMAG_RTOL * abs(real)
+        )
+        if abs(imag) > tolerance:
+            raise ProviderContractError(
+                f"{name} must be real within tolerance; "
+                f"imag={imag}, tolerance={tolerance}"
+            )
+        return real
+    return float(scalar)
+
+
+def _ensure_finite_nested_numeric_values(name: str, value: Any) -> None:
+    """Reject non-finite numeric leaves while allowing non-numeric metadata."""
+    seen: set[int] = set()
+    nodes = 0
+
+    def visit(label: str, item: Any, depth: int) -> None:
+        nonlocal nodes
+        nodes += 1
+        if nodes > _MAX_NESTED_NUMERIC_NODES:
+            raise ProviderContractError(
+                f"{name} exceeds maximum nested node budget "
+                f"({_MAX_NESTED_NUMERIC_NODES})"
+            )
+        if depth > _MAX_NESTED_NUMERIC_DEPTH:
+            raise ProviderContractError(
+                f"{label} exceeds maximum nested depth "
+                f"({_MAX_NESTED_NUMERIC_DEPTH})"
+            )
+        if item is None:
+            return
+        if isinstance(item, MappingABC):
+            item_id = id(item)
+            if item_id in seen:
+                raise ProviderContractError(f"{label} contains a cycle")
+            seen.add(item_id)
+            try:
+                for key, child in item.items():
+                    visit(f"{label}.{_bounded_key(key)}", child, depth + 1)
+            finally:
+                seen.remove(item_id)
+            return
+        if isinstance(item, (list, tuple)):
+            item_id = id(item)
+            if item_id in seen:
+                raise ProviderContractError(f"{label} contains a cycle")
+            seen.add(item_id)
+            try:
+                for index, child in enumerate(item):
+                    visit(f"{label}[{index}]", child, depth + 1)
+            finally:
+                seen.remove(item_id)
+            return
+        if isinstance(item, np.ndarray):
+            _as_finite_numeric_array(label, item)
+            return
+        if isinstance(item, Number) and not isinstance(item, bool):
+            array = _as_finite_numeric_array(label, item)
+            if array.shape != ():
+                raise ProviderContractError(f"{label} must be a finite scalar")
+
+    visit(name, value, 0)
+
+
+def _as_bounded_list(value: Any, limit: int, name: str) -> list[Any]:
+    if isinstance(value, (str, bytes)):
+        raise ProviderContractError(f"{name} must be an iterable container")
+    if not isinstance(value, IterableABC):
+        raise ProviderContractError(f"{name} must be an iterable container")
+    items: list[Any] = []
+    for index, item in enumerate(value):
+        if index >= limit:
+            raise ProviderContractError(
+                f"{name} exceeds maximum item budget ({limit})"
+            )
+        items.append(item)
+    return items
+
+
+def _normalize_orbitals_raw(
+    orbitals_raw: MappingABC | None,
+) -> Dict[int, List[Tuple[np.ndarray, Optional[np.ndarray], float]]]:
+    if orbitals_raw is None:
+        return {}
+    if not isinstance(orbitals_raw, MappingABC):
+        raise ProviderContractError("orbitals_raw must be a mapping")
+    if len(orbitals_raw) > _MAX_ORBITALS_RAW_KAPPAS:
+        raise ProviderContractError(
+            "orbitals_raw exceeds maximum kappa budget "
+            f"({_MAX_ORBITALS_RAW_KAPPAS})"
+        )
+    normalized: Dict[int, List[Tuple[np.ndarray, Optional[np.ndarray], float]]] = {}
+    total = 0
+    for kappa, orbitals in orbitals_raw.items():
+        try:
+            kappa_key = int(kappa)
+        except Exception as exc:
+            raise ProviderContractError(
+                "orbitals_raw key must be an integer kappa "
+                f"(type={_safe_type_name(kappa)})"
+            ) from exc
+        orbital_items = _as_bounded_list(
+            orbitals,
+            _MAX_ORBITALS_RAW_PER_KAPPA,
+            f"orbitals_raw[{kappa_key!r}]",
+        )
+        total += len(orbital_items)
+        if total > _MAX_ORBITALS_RAW_TOTAL:
+            raise ProviderContractError(
+                "orbitals_raw exceeds maximum total orbital budget "
+                f"({_MAX_ORBITALS_RAW_TOTAL})"
+            )
+        normalized_orbitals = []
+        for index, orbital in enumerate(orbital_items):
+            label = f"orbitals_raw[{_bounded_key(kappa_key)}][{index}]"
+            components = _as_bounded_list(orbital, 4, label)
+            if len(components) != 3:
+                raise ProviderContractError(
+                    f"{label} must contain exactly P, Q, occupation"
+                )
+            p_component, q_component, occupation = components
+            p_array = _as_finite_numeric_array(f"{label}.P", p_component)
+            q_array = (
+                None
+                if q_component is None
+                else _as_finite_numeric_array(f"{label}.Q", q_component)
+            )
+            occ = _ensure_finite_real_scalar(f"{label}.occupation", occupation)
+            normalized_orbitals.append((p_array, q_array, occ))
+        normalized[kappa_key] = normalized_orbitals
+    return normalized
+
+
+def _ensure_finite_subshell_occupations(subshells: Iterable[Any]) -> None:
+    for index, subshell in enumerate(subshells):
+        occupation = getattr(subshell, "occupation", None)
+        if occupation is not None:
+            _as_finite_numeric_array(
+                f"subshells[{index}].occupation", occupation
+            )
 
 
 # ---------------------------------------------------------------------------
@@ -219,6 +469,9 @@ class Provenance:
                 "ML provenance must declare ood_status "
                 "('in-domain' | 'ood' | 'unknown')"
             )
+        _ensure_finite_nested_numeric_values(
+            "Provenance.uncertainty_summary", self.uncertainty_summary
+        )
         return self
 
 
@@ -240,11 +493,16 @@ class OverlapBlock:
     basis_labels: Optional[List[str]] = None
 
     def __post_init__(self) -> None:
-        self.matrix = np.asarray(self.matrix, dtype=float)
+        self.validate()
+
+    def validate(self) -> "OverlapBlock":
+        self.matrix = _as_finite_numeric_array("overlap S", self.matrix)
         if self.matrix.ndim != 2 or self.matrix.shape[0] != self.matrix.shape[1]:
             raise ProviderContractError("overlap S must be a square 2-D matrix")
+        return self
 
     def max_deviation_from_identity(self) -> float:
+        self.validate()
         n = self.matrix.shape[0]
         return float(np.max(np.abs(self.matrix - np.eye(n))))
 
@@ -252,6 +510,7 @@ class OverlapBlock:
         return self.max_deviation_from_identity() <= tol
 
     def is_symmetric(self, tol: float = 1e-8) -> bool:
+        self.validate()
         return bool(np.allclose(self.matrix, self.matrix.T, atol=tol))
 
 
@@ -273,9 +532,18 @@ class OrbitalCoefficients:
     spin: str = "restricted"      # "restricted" | "alpha" | "beta"
 
     def __post_init__(self) -> None:
-        self.coefficients = np.asarray(self.coefficients, dtype=float)
-        self.energies = np.asarray(self.energies, dtype=float)
-        self.occupations = np.asarray(self.occupations, dtype=float)
+        self.validate()
+
+    def validate(self) -> "OrbitalCoefficients":
+        self.coefficients = _as_finite_numeric_array(
+            "orbital coefficients", self.coefficients
+        )
+        self.energies = _as_finite_numeric_array(
+            "orbital energies", self.energies
+        )
+        self.occupations = _as_finite_numeric_array(
+            "orbital occupations", self.occupations
+        )
         if self.coefficients.ndim != 2:
             raise ProviderContractError("orbital coefficients must be 2-D")
         n_mo = self.coefficients.shape[1]
@@ -284,6 +552,7 @@ class OrbitalCoefficients:
                 "orbital energies/occupations must have length n_mo "
                 f"= {n_mo}"
             )
+        return self
 
     @property
     def n_ao(self) -> int:
@@ -302,15 +571,32 @@ class DensityMatrix:
     basis: str = "ao"
 
     def __post_init__(self) -> None:
-        self.matrix = np.asarray(self.matrix, dtype=float)
+        self.validate()
+
+    def validate(self) -> "DensityMatrix":
+        self.matrix = _as_finite_numeric_array("density matrix", self.matrix)
         if self.matrix.ndim != 2 or self.matrix.shape[0] != self.matrix.shape[1]:
             raise ProviderContractError("density matrix must be square 2-D")
+        return self
 
     def n_electrons(self, overlap: Optional[OverlapBlock] = None) -> float:
         """Trace of ``P`` (orthonormal) or ``P S`` (non-orthogonal AO)."""
+        self.validate()
         if overlap is None:
-            return float(np.trace(self.matrix))
-        return float(np.einsum("ij,ji->", self.matrix, overlap.matrix))
+            return _ensure_real_electron_count(
+                "DensityMatrix.n_electrons.trace", np.trace(self.matrix)
+            )
+        overlap.validate()
+        if self.matrix.shape != overlap.matrix.shape:
+            raise ProviderContractError(
+                "DensityMatrix.n_electrons.overlap requires density and "
+                "overlap with identical shapes; got density "
+                f"{self.matrix.shape} and overlap {overlap.matrix.shape}"
+            )
+        return _ensure_real_electron_count(
+            "DensityMatrix.n_electrons.overlap",
+            np.einsum("ij,ji->", self.matrix, overlap.matrix),
+        )
 
 
 @dataclass
@@ -322,33 +608,83 @@ class TwoElectronIntegrals:
     notation: str = "chemist"     # "chemist" (ij|kl) | "physicist" <ij|kl>
 
     def __post_init__(self) -> None:
-        shape = np.shape(self.eri)
+        self.validate()
+
+    def validate(self) -> "TwoElectronIntegrals":
+        if type(self.eri) is not np.ndarray:
+            raise ProviderContractError(
+                "ERI must be provided as a base numpy.ndarray; generic "
+                "array-like objects are rejected before NumPy array conversion"
+            )
+        advertised_shape = self._validated_shape(self.eri.shape)
+        advertised_size = self._shape_size(advertised_shape)
+        self._require_finite_scan_budget(advertised_size, "construction")
+        if self.eri.dtype == object:
+            raise ProviderContractError("ERI must be numeric with non-object dtype")
+        if not np.issubdtype(self.eri.dtype, np.number):
+            raise ProviderContractError("ERI must be numeric")
+        if np.iscomplexobj(self.eri):
+            if not np.all(np.isfinite(self.eri)):
+                raise ProviderContractError("ERI values must be finite")
+            normalized = self.eri.real.astype(float, copy=False)
+        else:
+            try:
+                normalized = self.eri.astype(float, copy=False)
+            except (TypeError, ValueError) as exc:
+                raise ProviderContractError("ERI must be numeric") from exc
+        if normalized.ndim != 4:
+            raise ProviderContractError(
+                f"ERI must be rank-4 (ij|kl), got ndim={normalized.ndim}"
+            )
+        normalized_shape = self._validated_shape(normalized.shape)
+        if normalized_shape != advertised_shape:
+            raise ProviderContractError(
+                "ERI normalized shape must match advertised ndarray shape: "
+                f"expected {advertised_shape}, got {normalized_shape}"
+            )
+        normalized_size = self._shape_size(normalized_shape)
+        if normalized_size != advertised_size:
+            raise ProviderContractError(
+                "ERI normalized size must match advertised ndarray size: "
+                f"expected {advertised_size}, got {normalized_size}"
+            )
+        self._require_finite_scan_budget(normalized_size, "validation")
+        if not np.all(np.isfinite(normalized)):
+            raise ProviderContractError("ERI values must be finite")
+        self.eri = normalized
+        return self
+
+    @staticmethod
+    def _validated_shape(shape: tuple[int, ...]) -> tuple[int, ...]:
         if len(shape) != 4:
             raise ProviderContractError(
                 f"ERI must be rank-4 (ij|kl), got ndim={len(shape)}"
             )
+        for dimension in shape:
+            if type(dimension) is not int or dimension < 0:
+                raise ProviderContractError(
+                    "ERI dimensions must be non-negative built-in integers"
+                )
         if len(set(shape)) != 1:
             raise ProviderContractError(
                 "ERI must have equal dimensions in all four axes, "
                 f"got shape={shape}"
             )
+        return shape
+
+    @staticmethod
+    def _shape_size(shape: tuple[int, ...]) -> int:
         size = 1
         for dimension in shape:
-            size *= int(dimension)
+            size *= dimension
+        return size
+
+    @staticmethod
+    def _require_finite_scan_budget(size: int, stage: str) -> None:
         if size > _MAX_ERI_FINITE_SCAN_ELEMENTS:
             raise ProviderContractError(
-                "ERI construction exceeds the provider contract finite-validation "
+                f"ERI {stage} exceeds the provider contract finite-validation "
                 f"budget: elements={size} > {_MAX_ERI_FINITE_SCAN_ELEMENTS}"
-            )
-        self.eri = np.asarray(self.eri, dtype=float)
-        if self.eri.ndim != 4:
-            raise ProviderContractError(
-                f"ERI must be rank-4 (ij|kl), got ndim={self.eri.ndim}"
-            )
-        if len(set(self.eri.shape)) != 1:
-            raise ProviderContractError(
-                "ERI must have equal dimensions in all four axes, "
-                f"got shape={self.eri.shape}"
             )
 
 
@@ -363,11 +699,34 @@ class SpinBlock:
 
 @dataclass
 class UncertaintyBlock:
-    """Per-quantity uncertainty; required when ``provenance.is_ml``."""
+    """Per-quantity uncertainty; required when ``provenance.is_ml``.
+
+    ``per_orbital_sigma`` and ``ood_score`` are typed numeric fields and must
+    be finite real scalars. Numeric leaves in ``summary`` must also be finite;
+    descriptive strings, booleans and ``None`` are accepted.
+    """
 
     per_orbital_sigma: Dict[str, float] = field(default_factory=dict)
     ood_score: Optional[float] = None
     summary: Optional[dict] = None
+
+    def __post_init__(self) -> None:
+        self.validate()
+
+    def validate(self) -> "UncertaintyBlock":
+        for label, sigma in self.per_orbital_sigma.items():
+            self.per_orbital_sigma[label] = _ensure_finite_real_scalar(
+                f"UncertaintyBlock.per_orbital_sigma[{_bounded_key(label)}]",
+                sigma,
+            )
+        if self.ood_score is not None:
+            self.ood_score = _ensure_finite_real_scalar(
+                "UncertaintyBlock.ood_score", self.ood_score
+            )
+        _ensure_finite_nested_numeric_values(
+            "UncertaintyBlock.summary", self.summary
+        )
+        return self
 
 
 # ---------------------------------------------------------------------------
@@ -410,7 +769,9 @@ class ElectronicStructurePayload:
 
     def __post_init__(self) -> None:
         # I1: coerce declared orbital energies to Hartree at construction.
+        self.subshells = tuple(self.subshells)
         self.orbital_energies = _ensure_hartree_mapping(self.orbital_energies)
+        self.orbitals_raw = _normalize_orbitals_raw(self.orbitals_raw)
 
     # -- capability negotiation --------------------------------------------
 
@@ -424,7 +785,7 @@ class ElectronicStructurePayload:
             caps.add(Capability.ORBITAL_ENERGIES)
         if self._has_occupations():
             caps.add(Capability.OCCUPATIONS)
-        if self.orbitals_raw:
+        if any(self.orbitals_raw.values()):
             caps.add(Capability.RADIAL_ORBITALS)
         if self.orbitals is not None:
             caps.add(Capability.MO_COEFFICIENTS)
@@ -471,7 +832,20 @@ class ElectronicStructurePayload:
             The provenance is flagged ML but no uncertainty block is
             attached (I6 — ML fails closed).
         """
+        self.subshells = tuple(self.subshells)
         self.provenance.validate()
+        self.orbital_energies = _ensure_hartree_mapping(self.orbital_energies)
+        self.orbitals_raw = _normalize_orbitals_raw(self.orbitals_raw)
+        if self.overlap is not None:
+            self.overlap.validate()
+        if self.orbitals is not None:
+            self.orbitals.validate()
+        if self.density is not None:
+            self.density.validate()
+        if self.two_electron is not None:
+            self.two_electron.validate()
+        if self.uncertainty is not None:
+            self.uncertainty.validate()
         caps = self.capabilities()
         missing = MUST_CAPABILITIES - caps
         if missing:
@@ -489,6 +863,7 @@ class ElectronicStructurePayload:
                 "ML provider payload lacks an uncertainty block; "
                 "fails closed (I6)"
             )
+        _ensure_finite_subshell_occupations(self.subshells)
         if self.orbitals is not None:
             n_ao = self.orbitals.n_ao
             if self.overlap is not None and self.overlap.matrix.shape != (n_ao, n_ao):
@@ -536,6 +911,7 @@ class ElectronicStructurePayload:
         orthonormal in the ``S`` metric.  A native (orthonormal) payload
         with ``overlap=None`` treats ``S = I``.
         """
+        self.validate()
         if self.orbitals is None:
             return None
         C = self.orbitals.coefficients
@@ -544,11 +920,12 @@ class ElectronicStructurePayload:
             if self.overlap is not None
             else np.eye(C.shape[0])
         )
-        gram = C.T @ S @ C
+        gram = C.conj().T @ S @ C
         return float(np.max(np.abs(gram - np.eye(gram.shape[1]))))
 
     def electron_count(self) -> Optional[float]:
         """Electron number from the density block (``Tr(P S)``)."""
+        self.validate()
         if self.density is None:
             return None
         return self.density.n_electrons(self.overlap)
