@@ -5,6 +5,7 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
+import atomx.scattering.autoionization.molecular as molecular
 from atomx.providers.contract import (
     CapabilityError,
     DensityMatrix,
@@ -59,6 +60,49 @@ def _payload_with_eri(eri: np.ndarray) -> ElectronicStructurePayload:
             basis_labels=labels,
         ),
         overlap=OverlapBlock(np.eye(4), basis_labels=labels),
+        density=DensityMatrix(np.diag(occupations)),
+        two_electron=TwoElectronIntegrals(eri, basis="mo"),
+        metadata={
+            "core_hole": {
+                "orbital_label": "O 1s",
+                "occupation_before": 2.0,
+                "occupation_after": 1.0,
+                "tracked_mo_index": 0,
+                "initial_state_energy_hartree": 19.5,
+            }
+        },
+    )
+
+
+def _five_mo_payload_with_eri(eri: np.ndarray) -> ElectronicStructurePayload:
+    labels = ["0 O 1s", "0 O 2s", "0 O 2p", "0 O 3s", "1 H 1s"]
+    occupations = np.array([1.0, 2.0, 2.0, 2.0, 0.0])
+    return ElectronicStructurePayload(
+        Z=8,
+        provenance=Provenance(
+            provider="mock",
+            code_version="mock 0",
+            method="RHF",
+            basis="orthonormal-mo",
+            theory_level="RHF",
+            approximations=["nonrel-gto"],
+            core_hole="O 1s",
+            energy_zero="delta_scf_total_energy",
+        ),
+        orbital_energies={
+            "MO0": -20.0,
+            "MO1": -1.0,
+            "MO2": -0.8,
+            "MO3": -0.6,
+            "MO4": 0.2,
+        },
+        orbitals=OrbitalCoefficients(
+            coefficients=np.eye(5),
+            energies=np.array([-20.0, -1.0, -0.8, -0.6, 0.2]),
+            occupations=occupations,
+            basis_labels=labels,
+        ),
+        overlap=OverlapBlock(np.eye(5), basis_labels=labels),
         density=DensityMatrix(np.diag(occupations)),
         two_electron=TwoElectronIntegrals(eri, basis="mo"),
         metadata={
@@ -269,6 +313,10 @@ def test_ao_to_mo_eri_transform_rejects_asymmetric_ao_budget_before_einsum(
         "atomx.scattering.autoionization.molecular.np.einsum",
         fail_if_called,
     )
+    monkeypatch.setattr(
+        "atomx.scattering.autoionization.molecular.np.isfinite",
+        fail_if_called,
+    )
 
     with pytest.raises(
         ProviderContractError,
@@ -314,6 +362,34 @@ def test_molecular_auger_spectrum_uses_ke_axis_and_sum_rule_normalization():
         "direct-minus-exchange-amplitude" in line.provenance.approximations
         for line in spectrum.lines
     )
+
+
+def test_molecular_auger_spectrum_reuses_one_mo_eri_transform_for_many_singlets(
+    monkeypatch,
+):
+    eri = np.zeros((5, 5, 5, 5))
+    for hole_i in range(1, 4):
+        for hole_j in range(hole_i, 4):
+            eri[0, 4, hole_i, hole_j] = float(hole_i + hole_j)
+    payload = _five_mo_payload_with_eri(eri)
+    calls = 0
+    original_mo_eri = molecular._mo_eri
+
+    def counted_mo_eri(payload):
+        nonlocal calls
+        calls += 1
+        return original_mo_eri(payload)
+
+    monkeypatch.setattr(molecular, "_mo_eri", counted_mo_eri)
+
+    spectrum = molecular_auger_spectrum(
+        payload,
+        continuum_channel=DiscreteMOContinuumChannel(mo_index=4),
+        population_threshold=0.5,
+    )
+
+    assert calls == 1
+    assert len(spectrum.lines) > 1
 
 
 def test_compute_molecular_auger_orchestrates_provider_core_hole_payload():

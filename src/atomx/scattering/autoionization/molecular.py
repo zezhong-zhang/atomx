@@ -34,6 +34,7 @@ _MAX_MOLECULAR_AUGER_AO_TO_MO_ELEMENTS = (
     _MAX_MOLECULAR_AUGER_AO_TO_MO_AOS**4
 )
 _MAX_MOLECULAR_AUGER_AO_TO_MO_INPUT_BYTES = 512 * 1024**2
+_MAX_MOLECULAR_AUGER_AO_TO_MO_OUTPUT_BYTES = 512 * 1024**2
 
 __all__ = [
     "ActiveMolecularOrbital",
@@ -1047,15 +1048,20 @@ def _assert_ao_to_mo_eri_budget(
             "ao-basis ERI shape must match orbitals.n_ao on every axis: "
             f"expected {(n_ao, n_ao, n_ao, n_ao)}, got {eri.shape}"
         )
-    c_bytes = orbitals.coefficients.size * orbitals.coefficients.itemsize
-    eri_bytes = eri.size * eri.itemsize
+    c_logical_bytes = orbitals.coefficients.size * orbitals.coefficients.itemsize
+    eri_logical_bytes = eri.size * eri.itemsize
+    c_stride_span_bytes = _array_stride_span_bytes(orbitals.coefficients)
+    eri_stride_span_bytes = _array_stride_span_bytes(eri)
     output_bytes = (n_mo**4) * eri.dtype.itemsize
-    input_bytes = c_bytes + eri_bytes
+    logical_input_bytes = c_logical_bytes + eri_logical_bytes
+    stride_span_input_bytes = c_stride_span_bytes + eri_stride_span_bytes
     if (
         n_mo > _MAX_MOLECULAR_AUGER_AO_TO_MO_ORBITALS
         or n_ao > _MAX_MOLECULAR_AUGER_AO_TO_MO_AOS
         or eri.size > _MAX_MOLECULAR_AUGER_AO_TO_MO_ELEMENTS
-        or input_bytes > _MAX_MOLECULAR_AUGER_AO_TO_MO_INPUT_BYTES
+        or logical_input_bytes > _MAX_MOLECULAR_AUGER_AO_TO_MO_INPUT_BYTES
+        or stride_span_input_bytes > _MAX_MOLECULAR_AUGER_AO_TO_MO_INPUT_BYTES
+        or output_bytes > _MAX_MOLECULAR_AUGER_AO_TO_MO_OUTPUT_BYTES
     ):
         raise ProviderContractError(
             "AO-to-MO ERI transformation exceeds the molecular Auger budget: "
@@ -1063,10 +1069,27 @@ def _assert_ao_to_mo_eri_budget(
             f"n_ao={n_ao} <= {_MAX_MOLECULAR_AUGER_AO_TO_MO_AOS}, "
             "dense AO ERI elements="
             f"{eri.size} <= {_MAX_MOLECULAR_AUGER_AO_TO_MO_ELEMENTS}, "
-            "estimated input bytes="
-            f"{input_bytes} <= {_MAX_MOLECULAR_AUGER_AO_TO_MO_INPUT_BYTES}, "
-            f"estimated MO ERI output bytes={output_bytes}"
+            "estimated logical input bytes="
+            f"{logical_input_bytes} <= "
+            f"{_MAX_MOLECULAR_AUGER_AO_TO_MO_INPUT_BYTES}, "
+            "estimated stride-span input bytes="
+            f"{stride_span_input_bytes} <= "
+            f"{_MAX_MOLECULAR_AUGER_AO_TO_MO_INPUT_BYTES}, "
+            "estimated MO ERI output bytes="
+            f"{output_bytes} <= {_MAX_MOLECULAR_AUGER_AO_TO_MO_OUTPUT_BYTES}"
         )
+
+
+def _array_stride_span_bytes(array: NDArray[np.float64]) -> int:
+    if array.size == 0:
+        return 0
+    low = 0
+    high = 0
+    for dimension, stride in zip(array.shape, array.strides):
+        extent = (dimension - 1) * stride
+        low += min(0, extent)
+        high += max(0, extent)
+    return high - low + array.itemsize
 
 
 def _mo_eri(payload: ElectronicStructurePayload) -> NDArray[np.float64]:
@@ -1130,13 +1153,33 @@ def molecular_auger_transition_amplitude(
             amplitude=0.0,
             selection_rule="spin-forbidden-non-soc-v1",
         )
-    channel = cast(ContinuumChannel, continuum_channel or DiscreteMOContinuumChannel())
+    eri = _mo_eri(payload)
+    return _molecular_auger_transition_amplitude_from_mo_eri(
+        payload,
+        initial_state,
+        final_state,
+        cast(ContinuumChannel, continuum_channel or DiscreteMOContinuumChannel()),
+        eri,
+    )
+
+
+def _molecular_auger_transition_amplitude_from_mo_eri(
+    payload: ElectronicStructurePayload,
+    initial_state: CoreHoleState,
+    final_state: TwoHoleFinalState,
+    channel: ContinuumChannel,
+    eri: NDArray[np.float64],
+) -> AugerTransitionAmplitude:
     kinetic_energy = initial_state.initial_energy - final_state.final_energy
     coeff = channel.coefficients(payload, kinetic_energy)
-    eri = _mo_eri(payload)
     orbitals = payload.orbitals
     if orbitals is None:
         raise ProviderContractError("molecular Auger amplitudes require MOs")
+    if eri.shape != (orbitals.n_mo, orbitals.n_mo, orbitals.n_mo, orbitals.n_mo):
+        raise ProviderContractError(
+            "mo-basis ERI shape must match orbitals.n_mo on every axis: "
+            f"expected {(orbitals.n_mo,) * 4}, got {eri.shape}"
+        )
     if coeff.shape != (orbitals.n_mo,):
         raise ProviderContractError(
             "continuum coefficient vector must have length orbitals.n_mo"
@@ -1166,18 +1209,30 @@ def _stick_from_final_state(
     initial: CoreHoleState,
     final: TwoHoleFinalState,
     channel: ContinuumChannel,
+    mo_eri: NDArray[np.float64] | None,
     *,
     normalize: bool,
 ) -> AugerStick | dict[str, str]:
     kinetic_energy = initial.initial_energy - final.final_energy
     if kinetic_energy <= 0.0:
         return _dropped_line(final, "non_positive_kinetic_energy")
-    amplitude = molecular_auger_transition_amplitude(
-        payload,
-        initial,
-        final,
-        channel,
-    )
+    if final.spin_multiplicity != 1:
+        amplitude = AugerTransitionAmplitude(
+            direct=0.0,
+            exchange=0.0,
+            amplitude=0.0,
+            selection_rule="spin-forbidden-non-soc-v1",
+        )
+    else:
+        if mo_eri is None:
+            raise ProviderContractError("molecular Auger amplitudes require ERIs")
+        amplitude = _molecular_auger_transition_amplitude_from_mo_eri(
+            payload,
+            initial,
+            final,
+            channel,
+            mo_eri,
+        )
     raw_intensity = amplitude.coherent_intensity
     if raw_intensity <= 0.0:
         reason = (
@@ -1265,11 +1320,15 @@ def molecular_auger_spectrum(
             max(len(final.active_space.orbitals) for final in finals)
         )
     channel = cast(ContinuumChannel, continuum_channel or DiscreteMOContinuumChannel())
+    mo_eri: NDArray[np.float64] | None = None
     raw_lines: list[AugerStick] = []
     dropped: list[dict[str, str]] = []
     for final in finals:
+        kinetic_energy = initial.initial_energy - final.final_energy
+        if kinetic_energy > 0.0 and final.spin_multiplicity == 1 and mo_eri is None:
+            mo_eri = _mo_eri(payload)
         item = _stick_from_final_state(
-            payload, initial, final, channel, normalize=normalize
+            payload, initial, final, channel, mo_eri, normalize=normalize
         )
         if isinstance(item, AugerStick):
             raw_lines.append(item)
