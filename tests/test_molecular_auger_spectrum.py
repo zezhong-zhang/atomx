@@ -528,19 +528,14 @@ def test_molecular_auger_spectrum_rejects_nonfinite_mo_eri_before_stick(
 ):
     eri = np.zeros((4, 4, 4, 4))
     eri[0, 3, 1, 2] = np.nan
-    payload = _payload_with_eri(eri)
 
     def fail_stick(*args, **kwargs):
         raise AssertionError("AugerStick must not be emitted for non-finite ERI")
 
     monkeypatch.setattr(molecular, "AugerStick", fail_stick)
 
-    with pytest.raises(ProviderContractError, match="mo-basis ERI"):
-        molecular_auger_spectrum(
-            payload,
-            continuum_channel=DiscreteMOContinuumChannel(mo_index=3),
-            population_threshold=0.5,
-        )
+    with pytest.raises(ProviderContractError, match="ERI values must be finite"):
+        _payload_with_eri(eri)
 
 
 @pytest.mark.parametrize(
