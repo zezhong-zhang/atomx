@@ -322,6 +322,24 @@ class TwoElectronIntegrals:
     notation: str = "chemist"     # "chemist" (ij|kl) | "physicist" <ij|kl>
 
     def __post_init__(self) -> None:
+        shape = np.shape(self.eri)
+        if len(shape) != 4:
+            raise ProviderContractError(
+                f"ERI must be rank-4 (ij|kl), got ndim={len(shape)}"
+            )
+        if len(set(shape)) != 1:
+            raise ProviderContractError(
+                "ERI must have equal dimensions in all four axes, "
+                f"got shape={shape}"
+            )
+        size = 1
+        for dimension in shape:
+            size *= int(dimension)
+        if size > _MAX_ERI_FINITE_SCAN_ELEMENTS:
+            raise ProviderContractError(
+                "ERI construction exceeds the provider contract finite-validation "
+                f"budget: elements={size} > {_MAX_ERI_FINITE_SCAN_ELEMENTS}"
+            )
         self.eri = np.asarray(self.eri, dtype=float)
         if self.eri.ndim != 4:
             raise ProviderContractError(

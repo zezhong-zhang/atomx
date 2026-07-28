@@ -237,6 +237,21 @@ class _CoreHoleProvider:
         return self.payload
 
 
+class _LazyCoreHoleProvider:
+    def __init__(self, payload_factory) -> None:
+        self.payload_factory = payload_factory
+        self.calls: list[tuple[object, bool]] = []
+
+    def build_core_hole_payload(
+        self,
+        core_hole_spec,
+        *,
+        with_eri: bool = False,
+    ) -> ElectronicStructurePayload:
+        self.calls.append((core_hole_spec, with_eri))
+        return self.payload_factory()
+
+
 def _pair_state(payload: ElectronicStructurePayload, spin: str = "singlet"):
     final_states = molecular_auger_final_states(payload, population_threshold=0.5)
     return next(
@@ -302,13 +317,12 @@ def test_ao_to_mo_eri_transform_rejects_oversized_mo_budget():
 def test_ao_to_mo_eri_transform_rejects_asymmetric_ao_budget_before_einsum(
     monkeypatch,
 ):
-    payload = _asymmetric_ao_eri_payload()
-    provider = _CoreHoleProvider(payload)
+    provider = _LazyCoreHoleProvider(_asymmetric_ao_eri_payload)
     original_isfinite = np.isfinite
 
     def fail_if_array_scanned(value, *args, **kwargs):
         if np.asarray(value).ndim > 0:
-            raise AssertionError("payload validation reached ERI np.isfinite scan")
+            raise AssertionError("ERI validation reached np.isfinite array scan")
         return original_isfinite(value, *args, **kwargs)
 
     def fail_if_einsum_called(*args, **kwargs):
@@ -325,7 +339,7 @@ def test_ao_to_mo_eri_transform_rejects_asymmetric_ao_budget_before_einsum(
 
     with pytest.raises(
         ProviderContractError,
-        match="AO-to-MO ERI transformation exceeds the molecular Auger budget",
+        match="ERI construction exceeds the provider contract finite-validation budget",
     ):
         compute_molecular_auger(
             provider,
