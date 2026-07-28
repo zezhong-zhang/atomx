@@ -1105,6 +1105,11 @@ def _array_stride_span_bytes(array: NDArray[np.float64]) -> int:
     return high - low + array.itemsize
 
 
+def _assert_eri_finite(eri: NDArray[np.float64], basis: str) -> None:
+    if not np.all(np.isfinite(eri)):
+        raise ProviderContractError(f"{basis}-basis ERI contains non-finite values")
+
+
 def _mo_eri(payload: ElectronicStructurePayload) -> NDArray[np.float64]:
     payload.require(Capability.TWO_ELECTRON_INTEGRALS, Capability.MO_COEFFICIENTS)
     if payload.two_electron is None or payload.orbitals is None:
@@ -1113,10 +1118,12 @@ def _mo_eri(payload: ElectronicStructurePayload) -> NDArray[np.float64]:
     if payload.two_electron.notation != "chemist":
         raise ProviderContractError("molecular Auger requires chemist ERI notation")
     if payload.two_electron.basis == "mo":
+        _assert_eri_finite(eri, "mo")
         return cast(NDArray[np.float64], eri)
     if payload.two_electron.basis != "ao":
         raise ProviderContractError("two-electron integral basis must be 'ao' or 'mo'")
     _assert_ao_to_mo_eri_budget(eri, payload.orbitals)
+    _assert_eri_finite(eri, "ao")
     C = payload.orbitals.coefficients
     return cast(
         NDArray[np.float64],
