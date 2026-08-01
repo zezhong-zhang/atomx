@@ -68,7 +68,7 @@ def thomas_fermi_potential(Z, N_electrons, r):
     V_tf = -Z * phi / np.maximum(r, 1e-30)
     # Latter tail correction: ensure correct asymptotic -Z_eff/r
     V_asym = -Z_eff_inf / np.maximum(r, 1e-30)
-    return np.maximum(V_tf, V_asym)
+    return np.minimum(V_tf, V_asym)
 
 
 def tfda_potential(Z, N_electrons, r):
