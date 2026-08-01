@@ -21,14 +21,14 @@ class TestThomasFermi:
         assert _thomas_fermi_screening(100.0) < 0.01
 
     def test_tf_potential_asymptotics(self):
-        """TFDA potential should be -Z/r near origin, -1/r far out for neutral."""
-        from atomx.potentials.thomas_fermi import tfda_potential
+        """TF potential should be -Z/r near origin, -1/r far out for neutral."""
+        from atomx.potentials.thomas_fermi import thomas_fermi_potential
         r = np.array([0.001, 100.0])
-        V = tfda_potential(10, 10, r)
+        V = thomas_fermi_potential(10, 10, r)
         # Near origin: V ~ -Z/r
-        assert abs(V[0] * r[0] / (-10)) - 1.0 < 0.2
+        assert abs(V[0] * r[0] / (-10) - 1.0) < 0.05
         # Far out: V ~ -(Z-N+1)/r = -1/r for neutral
-        assert abs(V[1] * r[1] / (-1)) - 1.0 < 0.5
+        assert abs(V[1] * r[1] / (-1) - 1.0) < 0.1
 
     def test_tfda_atom_calculation(self):
         """TFDA exchange mode should produce a converged result with orbital energies."""
