@@ -2,7 +2,9 @@
 
 import numpy as np
 import pytest
+from atomx.constants import ALPHA, BOHR_RADIUS_M
 from atomx.constants import C_SQ
+from atomx.methods.hydrogenic_cross_sections import stobbe_1s_pi_cross_section
 from atomx.physics import Dirac, Schrodinger
 from atomx.numerics.bspline.knots import make_knots
 from atomx.numerics.bspline.basis import prepare_bspline_data
@@ -14,6 +16,9 @@ from atomx.numerics.bspline.continuum import (
     dipole_matrix_element,
     photoionization_cross_section,
 )
+
+
+BOHR_CM2 = (BOHR_RADIUS_M * 100.0) ** 2
 
 
 class TestContinuumWaveNumber:
@@ -113,6 +118,20 @@ class TestDipoleMatrixElement:
 
 
 class TestPhotoionization:
+    @staticmethod
+    def _hydrogen_1s_case(ns, r_box, photon_factor=1.5):
+        ks = 9
+        t = make_knots(ns, ks, 0.01, r_box)
+        data = prepare_bspline_data(t, ns, ks)
+
+        H, S = build_dirac_matrices(ns, -1, 1, data)
+        result = solve_dirac(H, S, ns, -1)
+        P_1s, Q_1s, E_1s = result.get_orbital(0)
+        photon = np.array([-E_1s * photon_factor])
+        sigma = photoionization_cross_section(
+            P_1s, Q_1s, -1, E_1s, photon, Z=1, bsp_data=data)
+        return data, P_1s, Q_1s, E_1s, photon, sigma
+
     def test_hydrogen_cross_section(self):
         """H 1s photoionization cross-section should be positive above threshold."""
         ns, ks = 40, 9
@@ -133,6 +152,66 @@ class TestPhotoionization:
 
         # Cross-section should be positive above threshold
         assert np.all(sigma > 0), f"sigma={sigma}"
+
+    def test_hydrogen_cross_section_box_invariant_with_energy_normalization(self):
+        """The public PI path must not consume raw box-normalized states.
+
+        Before HYP-1530, the same H 1s photon point fell by about 35 % when
+        increasing the B-spline box from 100 a0 to 150 a0 because the finite-box
+        pseudo-state was inserted directly into the delta-energy PI formula.
+        """
+        cases = [
+            self._hydrogen_1s_case(80, 100.0),
+            self._hydrogen_1s_case(120, 150.0),
+        ]
+        sigmas = np.array([case[-1][0] for case in cases])
+
+        np.testing.assert_allclose(sigmas[0], sigmas[1], rtol=0.08)
+
+    def test_hydrogen_cross_section_stobbe_scale_and_threshold(self):
+        """Hydrogen 1s PI keeps the Stobbe absolute scale and threshold."""
+        data, P_1s, Q_1s, E_1s, photon, sigma = self._hydrogen_1s_case(
+            120, 150.0)
+        stobbe_a0_sq = stobbe_1s_pi_cross_section(1, photon) / BOHR_CM2
+
+        # This B-spline path is a finite-box Dirac-Coulomb approximation, not
+        # the closed-form non-relativistic Stobbe solver.  The order-unity
+        # agreement pins the absolute normalization convention while the
+        # separate box-invariance test pins the missing density-of-states factor.
+        assert sigma[0] / stobbe_a0_sq[0] == pytest.approx(4.5, rel=0.2)
+
+        below = photoionization_cross_section(
+            P_1s,
+            Q_1s,
+            -1,
+            E_1s,
+            np.array([-E_1s * 0.99]),
+            Z=1,
+            bsp_data=data,
+        )
+        assert below[0] == 0.0
+
+    def test_hydrogen_1s_e1_channel_sum_nonzero_for_both_p_waves(self):
+        data, P_1s, Q_1s, E_1s, photon, sigma_total = self._hydrogen_1s_case(
+            80, 100.0)
+        electron_energy = float(photon[0] + E_1s)
+
+        from atomx.properties.transitions.angular import line_strength_factor
+
+        partials = []
+        for kf in (1, -2):
+            angular_factor = line_strength_factor(-1, kf, 1, "E")
+            Pf, Qf, _ = solve_continuum(
+                kf, electron_energy, 1, data, energy_normalized=True)
+            dme = dipole_matrix_element(P_1s, Q_1s, Pf, Qf, data)
+            partials.append(
+                4.0 * np.pi ** 2 * ALPHA * float(photon[0]) / 3.0
+                * dme ** 2 * angular_factor
+            )
+
+        assert partials[0] > 0.0
+        assert partials[1] > 0.0
+        assert sum(partials) == pytest.approx(sigma_total[0])
 
     def test_below_threshold_zero(self):
         """Below ionization threshold, cross-section should be zero."""

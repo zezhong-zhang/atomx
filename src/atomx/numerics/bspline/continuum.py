@@ -3,7 +3,7 @@
 For photoionization, we need the continuum wavefunction at energy E > 0
 (electron energy above the ionization threshold). The continuum state
 satisfies the same Dirac equation but with positive energy, and is
-normalized to unit flux (not L^2 normalizable).
+normalized to ``delta(E-E')`` (not L^2 normalizable).
 
 In the B-spline basis, the continuum solution is obtained by solving
 the Dirac equation at a specified positive energy, then extracting
@@ -38,8 +38,8 @@ def continuum_energy_normalization_factor(energy, bsp_data, equation=None):
 
         rho(E) ~= R / (pi * k),
 
-    and the radial sine-normalized conversion used elsewhere in AtomX is
-    ``sqrt(2*rho/pi)``.
+    and the radial Coulomb-wave convention used by AtomX is the
+    ``sqrt(2*rho/pi)`` conversion from unit-box pseudo-state amplitudes.
 
     ``equation`` selects the dispersion relation for ``k``: the Dirac
     pseudo-spectrum oscillates with the relativistic
@@ -206,6 +206,14 @@ def photoionization_cross_section(bound_P, bound_Q, bound_kappa, bound_energy,
     -------
     sigma : ndarray
         Cross-section in atomic units (a_0^2) at each photon energy.
+
+    Notes
+    -----
+    The bound-free formula assumes continuum orbitals normalized to
+    ``delta(E-E')``.  The B-spline diagonalization produces unit-box
+    pseudo-states, so this public path must request ``energy_normalized=True``.
+    Callers that need raw pseudo-states should use :func:`solve_continuum`
+    directly.
     """
     sigma = np.zeros_like(photon_energies)
 
@@ -236,7 +244,8 @@ def photoionization_cross_section(bound_P, bound_Q, bound_kappa, bound_energy,
                 continue
 
             Pf, Qf, E_actual = solve_continuum(
-                kf, electron_energy, Z, bsp_data, V_scf_PP, V_scf_QQ)
+                kf, electron_energy, Z, bsp_data, V_scf_PP, V_scf_QQ,
+                energy_normalized=True)
 
             dme = dipole_matrix_element(bound_P, bound_Q, Pf, Qf, bsp_data)
 
