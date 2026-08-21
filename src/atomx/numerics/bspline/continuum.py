@@ -63,24 +63,53 @@ def continuum_energy_normalization_factor(energy, bsp_data, equation=None):
     return float(np.sqrt(rho))
 
 
-def _continuum_energy_normalization_from_spectrum(positive_energies, idx):
-    """Return ``sqrt(dn/dE)`` from the local positive-energy pseudo-spectrum."""
+def _continuum_energy_normalization_from_spectrum(
+    positive_energies,
+    idx,
+    fallback_density=None,
+):
+    """Return ``sqrt(dn/dE)`` from a bounded local continuum stencil.
+
+    A single adjacent spacing is too fragile near spectrum boundaries or
+    unresolved pseudo-level clusters: it can turn a numerical near-degeneracy
+    into an arbitrarily large continuum amplitude.  We therefore estimate the
+    level density from the widest available five-state local stencil centered on
+    ``idx``.  Duplicate, unordered, or too-sparse spectra fail closed unless an
+    analytic fallback density is supplied by the caller.  When supplied, the
+    fallback is also an upper bound on the local density; for the B-spline
+    continuum this is the free hard-wall density ``R/(pi*k)``.
+    """
     energies = np.asarray(positive_energies, dtype=float)
     n = len(energies)
-    if n < 2:
-        raise ValueError("at least two positive-energy states are required")
     if idx < 0 or idx >= n:
         raise IndexError("continuum spectrum index out of range")
-
-    if idx == 0:
-        delta_e = energies[1] - energies[0]
-    elif idx == n - 1:
-        delta_e = energies[-1] - energies[-2]
-    else:
-        delta_e = 0.5 * (energies[idx + 1] - energies[idx - 1])
-    if delta_e <= 0.0:
+    has_fallback = (
+        fallback_density is not None
+        and np.isfinite(fallback_density)
+        and fallback_density > 0.0
+    )
+    if n < 3:
+        if has_fallback:
+            return float(np.sqrt(fallback_density))
+        raise ValueError("at least three positive-energy states are required")
+    if np.any(np.diff(energies) <= 0.0):
         raise ValueError("positive continuum spectrum must be strictly ordered")
-    return float(1.0 / np.sqrt(delta_e))
+
+    start = max(0, min(idx - 2, n - 5))
+    stop = min(n, max(idx + 3, start + 5))
+    start = max(0, stop - 5)
+    stencil = energies[start:stop]
+    span = float(stencil[-1] - stencil[0])
+    scale = max(float(abs(stencil[-1])), float(abs(stencil[0])), 1.0)
+    if not np.isfinite(span) or span <= np.sqrt(np.finfo(float).eps) * scale:
+        if has_fallback:
+            return float(np.sqrt(fallback_density))
+        raise ValueError("continuum spectrum stencil is numerically unresolved")
+
+    density = float((len(stencil) - 1) / span)
+    if has_fallback:
+        density = min(density, float(fallback_density))
+    return float(np.sqrt(density))
 
 
 def solve_continuum(kappa, energy, Z, bsp_data, V_scf_PP=None, V_scf_QQ=None,
@@ -167,8 +196,10 @@ def solve_continuum(kappa, energy, Z, bsp_data, V_scf_PP=None, V_scf_QQ=None,
         Q[k - ns] = vec_red[len(keep_p) + ii]
 
     if energy_normalized:
+        fallback_density = continuum_energy_normalization_factor(
+            float(E_actual), bsp_data) ** 2
         norm = _continuum_energy_normalization_from_spectrum(
-            positive_evals, idx)
+            positive_evals, idx, fallback_density=fallback_density)
         P *= norm
         Q *= norm
 

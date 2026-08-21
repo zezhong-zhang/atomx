@@ -112,6 +112,51 @@ class TestContinuumSolver:
 
         assert factor == pytest.approx(expected, rel=0.03)
 
+    def test_spectrum_normalization_boundaries_are_finite(self):
+        energies = np.array([1.0, 2.0, 4.0, 7.0, 11.0])
+
+        left = _continuum_energy_normalization_from_spectrum(energies, 0)
+        right = _continuum_energy_normalization_from_spectrum(energies, 4)
+
+        assert np.isfinite(left)
+        assert np.isfinite(right)
+        assert left == pytest.approx(np.sqrt(4.0 / 10.0))
+        assert right == pytest.approx(np.sqrt(4.0 / 10.0))
+
+    def test_spectrum_normalization_rejects_bad_spectra_without_fallback(self):
+        with pytest.raises(ValueError, match="at least three"):
+            _continuum_energy_normalization_from_spectrum(np.array([1.0, 2.0]), 0)
+        with pytest.raises(IndexError, match="index out of range"):
+            _continuum_energy_normalization_from_spectrum(
+                np.array([1.0, 2.0]), 3, fallback_density=4.0)
+        with pytest.raises(ValueError, match="strictly ordered"):
+            _continuum_energy_normalization_from_spectrum(
+                np.array([1.0, 1.0, 2.0]), 1)
+        with pytest.raises(ValueError, match="strictly ordered"):
+            _continuum_energy_normalization_from_spectrum(
+                np.array([1.0, 0.9, 2.0]), 1)
+
+    def test_spectrum_normalization_fallback_bounds_unresolved_clusters(self):
+        fallback_density = 9.0
+        near_degenerate = np.array([1.0, 1.0 + 1e-14, 1.0 + 2e-14])
+        factor = _continuum_energy_normalization_from_spectrum(
+            near_degenerate, 1, fallback_density=fallback_density)
+
+        assert factor == pytest.approx(np.sqrt(fallback_density))
+
+    def test_spectrum_normalization_sparse_spectrum_uses_analytic_fallback(self):
+        factor = _continuum_energy_normalization_from_spectrum(
+            np.array([1.0, 2.0]), 1, fallback_density=4.0)
+
+        assert factor == pytest.approx(2.0)
+
+    def test_spectrum_normalization_smooths_resolved_level_clusters(self):
+        clustered = np.array([1.0, 1.0 + 1e-6, 1.0 + 2e-6, 2.0, 3.0])
+        factor = _continuum_energy_normalization_from_spectrum(clustered, 1)
+
+        assert np.isfinite(factor)
+        assert factor < 10.0
+
 
 class TestDipoleMatrixElement:
     def test_nonzero_for_allowed(self):
@@ -176,17 +221,29 @@ class TestPhotoionization:
         pseudo-state was inserted directly into the delta-energy PI formula.
         """
         cases = [
-            self._hydrogen_1s_case(80, 100.0),
-            self._hydrogen_1s_case(120, 150.0),
+            self._hydrogen_1s_case(160, 200.0),
+            self._hydrogen_1s_case(200, 250.0),
         ]
         sigmas = np.array([case[-1][0] for case in cases])
 
         np.testing.assert_allclose(sigmas[0], sigmas[1], rtol=0.08)
 
+    @pytest.mark.parametrize(("ns", "r_box"), [(160, 200.0), (200, 250.0)])
+    def test_hydrogen_cross_section_stobbe_energy_scan(self, ns, r_box):
+        """Resolved finite boxes track Stobbe H 1s over a threshold scan."""
+        data, P_1s, Q_1s, E_1s, _, _ = self._hydrogen_1s_case(ns, r_box)
+        photon = -E_1s * np.array([1.02, 1.05, 1.1, 1.25, 1.5, 1.75, 2.0])
+
+        sigma = photoionization_cross_section(
+            P_1s, Q_1s, -1, E_1s, photon, Z=1, bsp_data=data)
+        stobbe_a0_sq = stobbe_1s_pi_cross_section(1, photon) / BOHR_CM2
+
+        np.testing.assert_allclose(sigma / stobbe_a0_sq, 1.0, rtol=0.15)
+
     def test_hydrogen_cross_section_stobbe_scale_and_threshold(self):
         """Hydrogen 1s PI keeps the Stobbe absolute scale and threshold."""
         data, P_1s, Q_1s, E_1s, photon, sigma = self._hydrogen_1s_case(
-            120, 150.0)
+            160, 200.0)
         stobbe_a0_sq = stobbe_1s_pi_cross_section(1, photon) / BOHR_CM2
 
         assert sigma[0] / stobbe_a0_sq[0] == pytest.approx(1.0, rel=0.15)
