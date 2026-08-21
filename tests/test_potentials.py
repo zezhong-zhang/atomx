@@ -46,6 +46,32 @@ class TestThomasFermi:
 
         np.testing.assert_allclose(rv, expected_tail, rtol=0.0, atol=1e-8)
 
+    @pytest.mark.parametrize(
+        ("Z", "N_electrons", "expected_tail", "switch_radius"),
+        [
+            (10, 10, -1.0, 1.76162),
+            (10, 8, -3.0, 0.651464),
+            (10, 8, -3.0, 0.992003),
+        ],
+    )
+    def test_tfda_latter_switch_neighborhood_is_continuous(
+        self, Z, N_electrons, expected_tail, switch_radius
+    ):
+        """TFDA Latter selection must not introduce a jump near the switch."""
+        from atomx.potentials.thomas_fermi import tfda_potential
+
+        r = np.linspace(0.98 * switch_radius, 1.02 * switch_radius, 4097)
+        V = tfda_potential(Z, N_electrons, r)
+        rv = r * V
+
+        assert np.all(np.isfinite(V))
+        assert np.all(V < 0.0)
+        assert np.max(np.abs(np.diff(rv))) < 1e-3
+
+        tail_r = np.array([200.0, 500.0, 1000.0])
+        tail_rv = tail_r * tfda_potential(Z, N_electrons, tail_r)
+        np.testing.assert_allclose(tail_rv, expected_tail, rtol=0.0, atol=1e-8)
+
     def test_tfda_atom_calculation(self):
         """TFDA exchange mode should produce a converged result with orbital energies."""
         from atomx import Atom
