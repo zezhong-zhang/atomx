@@ -163,7 +163,8 @@ def _bound_free_multipole_cross_sections(
             label = _multipole_label(kind, L)
             for kf in allowed_final_kappas(bound_kappa, L, kind):
                 angular_factor = (
-                    line_strength_factor(bound_kappa, kf, L, kind) / abs(bound_kappa)
+                    line_strength_factor(bound_kappa, kf, L, kind)
+                    / (2.0 * abs(bound_kappa))
                 )
                 if angular_factor == 0.0:
                     continue

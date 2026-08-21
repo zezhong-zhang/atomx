@@ -33,13 +33,17 @@ def continuum_energy_normalization_factor(energy, bsp_data, equation=None):
 
     ``solve_continuum`` diagonalizes the Dirac equation in a finite radial box,
     so the returned eigenvectors have unit box norm.  Scattering amplitudes
-    require continuum waves normalized to ``delta(E-E')``.  For a large
-    hard-wall box the density of positive-energy states is
+    require continuum waves normalized to ``delta(E-E')``.  Discrete box
+    states obey ``<n|m> = delta_nm`` and continuum states obey
+    ``<E|E'> = delta(E-E')``; therefore ``|E_n> ~= sqrt(dn/dE) |n>``.
+    For a large free hard-wall box this density is
 
         rho(E) ~= R / (pi * k),
 
-    and the radial Coulomb-wave convention used by AtomX is the
-    ``sqrt(2*rho/pi)`` conversion from unit-box pseudo-state amplitudes.
+    so this helper returns the analytic fallback ``sqrt(rho)``.  Coulomb and
+    finite-box phase shifts change ``dn/dE`` appreciably near threshold;
+    ``solve_continuum(..., energy_normalized=True)`` therefore uses the local
+    pseudo-spectrum spacing instead of this asymptotic fallback.
 
     ``equation`` selects the dispersion relation for ``k``: the Dirac
     pseudo-spectrum oscillates with the relativistic
@@ -56,7 +60,27 @@ def continuum_energy_normalization_factor(energy, bsp_data, equation=None):
     R_box = float(bsp_data["t"][-1])
     k = float(equation.continuum_wave_number(float(energy)))
     rho = R_box / (np.pi * max(k, 1e-30))
-    return float(np.sqrt(2.0 * rho / np.pi))
+    return float(np.sqrt(rho))
+
+
+def _continuum_energy_normalization_from_spectrum(positive_energies, idx):
+    """Return ``sqrt(dn/dE)`` from the local positive-energy pseudo-spectrum."""
+    energies = np.asarray(positive_energies, dtype=float)
+    n = len(energies)
+    if n < 2:
+        raise ValueError("at least two positive-energy states are required")
+    if idx < 0 or idx >= n:
+        raise IndexError("continuum spectrum index out of range")
+
+    if idx == 0:
+        delta_e = energies[1] - energies[0]
+    elif idx == n - 1:
+        delta_e = energies[-1] - energies[-2]
+    else:
+        delta_e = 0.5 * (energies[idx + 1] - energies[idx - 1])
+    if delta_e <= 0.0:
+        raise ValueError("positive continuum spectrum must be strictly ordered")
+    return float(1.0 / np.sqrt(delta_e))
 
 
 def solve_continuum(kappa, energy, Z, bsp_data, V_scf_PP=None, V_scf_QQ=None,
@@ -81,8 +105,8 @@ def solve_continuum(kappa, energy, Z, bsp_data, V_scf_PP=None, V_scf_QQ=None,
         Self-consistent potential from bound electrons (Hartree + exchange).
         If None, uses bare nuclear potential.
     energy_normalized : bool, optional
-        If true, multiply the box-normalized pseudo-state by the asymptotic
-        density-of-states factor so it approximates delta-energy
+        If true, multiply the box-normalized pseudo-state by the local
+        pseudo-spectrum ``sqrt(dn/dE)`` factor so it approximates delta-energy
         normalization.  Scattering and Auger matrix elements should set this.
 
     Returns
@@ -123,13 +147,18 @@ def solve_continuum(kappa, energy, Z, bsp_data, V_scf_PP=None, V_scf_QQ=None,
     physical_mask = eigenvalues > sea_threshold
     phys_evals = eigenvalues[physical_mask]
     phys_evecs = eigenvectors[:, physical_mask]
+    positive_indices = np.flatnonzero(phys_evals > 0.0)
+    positive_evals = phys_evals[positive_indices]
+    positive_evecs = phys_evecs[:, positive_indices]
+    if len(positive_evals) == 0:
+        raise ValueError("no positive-energy continuum pseudo-states found")
 
-    # Find closest to target
-    idx = np.argmin(np.abs(phys_evals - energy))
-    E_actual = phys_evals[idx]
+    # Find closest positive-energy pseudo-state to the target continuum energy.
+    idx = int(np.argmin(np.abs(positive_evals - energy)))
+    E_actual = positive_evals[idx]
 
     # Map back to full vectors
-    vec_red = phys_evecs[:, idx]
+    vec_red = positive_evecs[:, idx]
     P = np.zeros(ns)
     Q = np.zeros(ns)
     for ii, k in enumerate(keep_p):
@@ -138,7 +167,8 @@ def solve_continuum(kappa, energy, Z, bsp_data, V_scf_PP=None, V_scf_QQ=None,
         Q[k - ns] = vec_red[len(keep_p) + ii]
 
     if energy_normalized:
-        norm = continuum_energy_normalization_factor(float(E_actual), bsp_data)
+        norm = _continuum_energy_normalization_from_spectrum(
+            positive_evals, idx)
         P *= norm
         Q *= norm
 
@@ -239,7 +269,10 @@ def photoionization_cross_section(bound_P, bound_Q, bound_kappa, bound_energy,
             continue  # below threshold
 
         for kf in final_kappas:
-            angular_factor = line_strength_factor(bound_kappa, kf, 1, "E") / abs(bound_kappa)
+            angular_factor = (
+                line_strength_factor(bound_kappa, kf, 1, "E")
+                / (2.0 * abs(bound_kappa))
+            )
             if angular_factor == 0.0:
                 continue
 

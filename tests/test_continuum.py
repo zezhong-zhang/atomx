@@ -11,6 +11,7 @@ from atomx.numerics.bspline.basis import prepare_bspline_data
 from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
 from atomx.numerics.bspline.dirac_assembly import solve_dirac
 from atomx.numerics.bspline.continuum import (
+    _continuum_energy_normalization_from_spectrum,
     continuum_energy_normalization_factor,
     solve_continuum,
     dipole_matrix_element,
@@ -76,10 +77,11 @@ class TestContinuumSolver:
             kappa=-1, energy=0.5, Z=1, bsp_data=data,
             energy_normalized=True)
 
-        factor = continuum_energy_normalization_factor(E_box, data)
         assert E_en == pytest.approx(E_box)
-        np.testing.assert_allclose(P_en, factor * P_box)
-        np.testing.assert_allclose(Q_en, factor * Q_box)
+        mask = np.abs(P_box) > 1e-12
+        ratios = P_en[mask] / P_box[mask]
+        np.testing.assert_allclose(ratios, ratios[0], rtol=1e-12, atol=1e-12)
+        assert ratios[0] > 1.0
 
     def test_normalization_uses_relativistic_k_for_dirac(self):
         ns, ks = 40, 9
@@ -92,10 +94,23 @@ class TestContinuumSolver:
         f_schrod = continuum_energy_normalization_factor(E, data, Schrodinger())
 
         assert f_default == pytest.approx(f_dirac)
-        # factor ~ 1/sqrt(k): relativistic k > sqrt(2E) -> smaller factor
+        # analytic fallback factor ~ 1/sqrt(k): relativistic k > sqrt(2E)
+        # -> smaller factor
         k_ratio = Dirac().continuum_wave_number(E) / np.sqrt(2.0 * E)
         assert f_dirac == pytest.approx(f_schrod / np.sqrt(k_ratio))
         assert f_dirac < f_schrod
+
+    def test_spectrum_normalization_matches_free_box_density(self):
+        R_box = 200.0
+        n = np.arange(8, 14, dtype=float)
+        energies = 0.5 * (n * np.pi / R_box) ** 2
+
+        idx = 2
+        factor = _continuum_energy_normalization_from_spectrum(energies, idx)
+        k = np.sqrt(2.0 * energies[idx])
+        expected = np.sqrt(R_box / (np.pi * k))
+
+        assert factor == pytest.approx(expected, rel=0.03)
 
 
 class TestDipoleMatrixElement:
@@ -174,11 +189,7 @@ class TestPhotoionization:
             120, 150.0)
         stobbe_a0_sq = stobbe_1s_pi_cross_section(1, photon) / BOHR_CM2
 
-        # This B-spline path is a finite-box Dirac-Coulomb approximation, not
-        # the closed-form non-relativistic Stobbe solver.  The order-unity
-        # agreement pins the absolute normalization convention while the
-        # separate box-invariance test pins the missing density-of-states factor.
-        assert sigma[0] / stobbe_a0_sq[0] == pytest.approx(4.5, rel=0.2)
+        assert sigma[0] / stobbe_a0_sq[0] == pytest.approx(1.0, rel=0.15)
 
         below = photoionization_cross_section(
             P_1s,
@@ -200,7 +211,7 @@ class TestPhotoionization:
 
         partials = []
         for kf in (1, -2):
-            angular_factor = line_strength_factor(-1, kf, 1, "E")
+            angular_factor = line_strength_factor(-1, kf, 1, "E") / 2.0
             Pf, Qf, _ = solve_continuum(
                 kf, electron_energy, 1, data, energy_normalized=True)
             dme = dipole_matrix_element(P_1s, Q_1s, Pf, Qf, data)
