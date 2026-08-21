@@ -30,6 +30,22 @@ class TestThomasFermi:
         # Far out: V ~ -(Z-N+1)/r = -1/r for neutral
         assert abs(V[1] * r[1] / (-1) - 1.0) < 0.1
 
+    @pytest.mark.parametrize(
+        ("Z", "N_electrons", "expected_tail"),
+        [
+            (10, 10, -1.0),
+            (10, 8, -3.0),
+        ],
+    )
+    def test_tfda_potential_preserves_latter_tail(self, Z, N_electrons, expected_tail):
+        """TFDA Amaldi correction must not change the Latter asymptotic charge."""
+        from atomx.potentials.thomas_fermi import tfda_potential
+
+        r = np.array([200.0, 500.0, 1000.0])
+        rv = r * tfda_potential(Z, N_electrons, r)
+
+        np.testing.assert_allclose(rv, expected_tail, rtol=0.0, atol=1e-8)
+
     def test_tfda_atom_calculation(self):
         """TFDA exchange mode should produce a converged result with orbital energies."""
         from atomx import Atom

@@ -90,6 +90,12 @@ def tfda_potential(Z, N_electrons, r):
     ndarray
         TFDA potential in Hartree.
     """
+    r_safe = np.maximum(r, 1e-30)
+    b = 0.8853 / Z ** (1.0 / 3.0)
+    phi = _thomas_fermi_screening(r / b)
+    Z_eff_inf = max(Z - N_electrons + 1, 1)
+    V_tf_raw = -Z * phi / r_safe
+    V_asym = -Z_eff_inf / r_safe
     V_tf = thomas_fermi_potential(Z, N_electrons, r)
 
     # Amaldi correction: scale electron-electron by (N-1)/N
@@ -99,16 +105,19 @@ def tfda_potential(Z, N_electrons, r):
         amaldi_factor = 0.0
 
     # Separate nuclear and electron parts
-    V_nuc = -Z / np.maximum(r, 1e-30)
+    V_nuc = -Z / r_safe
     V_ee = V_tf - V_nuc  # electron screening part
 
     # Dirac exchange: V_x = -alpha_x * (3*rho/(pi))^(1/3)
     # For TF density: rho_TF = (Z/b)^3 * (phi/x)^(3/2) / (3*pi^2)
     # We approximate as a correction factor to V_ee
-    # Simplified: just apply Amaldi correction to the screening
+    # Simplified: just apply Amaldi correction to the screening.
+    # In the Latter-controlled tail, V_tf already carries the residual
+    # -(Z-N+1)/r charge.  Replacing that segment after the Amaldi scaling avoids
+    # double-correcting the asymptotic electron screening.
     V_tfda = V_nuc + amaldi_factor * V_ee
 
-    return V_tfda
+    return np.where(V_tf_raw > V_asym, V_asym, V_tfda)
 
 
 def tfda_potential_on_grid(Z, N_electrons, gr):
