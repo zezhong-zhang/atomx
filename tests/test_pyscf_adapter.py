@@ -161,6 +161,8 @@ def test_build_payload_revalidates_convergence_before_consuming_orbitals():
 
 
 def test_unconverged_meanfield_rejected_before_mo_coeff_probe():
+    pytest.importorskip("pyscf")
+
     class UnconvergedMeanField:
         converged = False
         mo_coeff_accessed = False
@@ -192,6 +194,8 @@ def test_meanfield_missing_converged_status_rejected_fail_closed():
 
 
 def test_throwing_converged_descriptor_rejected_without_leaking_detail():
+    pytest.importorskip("pyscf")
+
     class ThrowingConvergedMeanField:
         @property
         def converged(self):
