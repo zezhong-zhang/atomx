@@ -46,6 +46,17 @@ class TestThomasFermi:
 
         np.testing.assert_allclose(rv, expected_tail, rtol=0.0, atol=1e-8)
 
+    @pytest.mark.parametrize("N_electrons", [0.5, 1.0])
+    def test_tfda_sub_one_electron_cases_are_bare_nuclear(self, N_electrons):
+        """TFDA must not add screening for one-electron and sub-one-electron ions."""
+        from atomx.potentials.thomas_fermi import tfda_potential
+
+        r = np.geomspace(1e-6, 1e3, 128)
+        V = tfda_potential(10, N_electrons, r)
+
+        assert np.all(np.isfinite(V))
+        np.testing.assert_allclose(V, -10.0 / r, rtol=0.0, atol=0.0)
+
     @pytest.mark.parametrize(
         ("Z", "N_electrons", "expected_tail", "switch_radius"),
         [
