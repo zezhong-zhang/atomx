@@ -84,6 +84,17 @@ def _require_pyscf():
     return pyscf
 
 
+def _require_converged_mean_field(mf: Any, *, context: str) -> None:
+    """Enforce the PySCF adapter contract before consuming SCF arrays."""
+
+    if not hasattr(mf, "converged"):
+        raise ProviderContractError(
+            f"{context} PySCF mean-field lacks required .converged status"
+        )
+    if getattr(mf, "converged") is not True:
+        raise ProviderContractError(f"{context} PySCF mean-field did not converge")
+
+
 class PySCFProvider:
     """Wrap a converged PySCF restricted mean-field object as a provider.
 
@@ -114,6 +125,7 @@ class PySCFProvider:
                 "PySCFProvider expects a PySCF mean-field object with a "
                 "converged .mo_coeff and .mol"
             )
+        _require_converged_mean_field(mf, context="input")
         if getattr(mf, "mo_coeff", None) is None:
             raise ProviderContractError(
                 "PySCF mean-field is not solved yet — call mf.kernel() first"
@@ -366,6 +378,7 @@ def build_core_hole_delta_scf_payload(
     _require_pyscf()
     from pyscf import scf
 
+    _require_converged_mean_field(ground_mf, context="ground-state")
     ground_payload = PySCFProvider(ground_mf).build_payload()
     if getattr(ground_mf, "e_tot", None) is None:
         raise ProviderContractError("ground-state mean field has no total energy")

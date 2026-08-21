@@ -8,6 +8,8 @@ density, occupations, provenance, and the orthonormality consistency.
 
 from __future__ import annotations
 
+from types import SimpleNamespace
+
 import numpy as np
 import pytest
 
@@ -17,6 +19,7 @@ from atomx.providers.contract import (  # noqa: E402
     ElectronicStructurePayload,
     OrbitalCoefficients,
     OverlapBlock,
+    ProviderContractError,
     Provenance,
 )
 from atomx.providers.pyscf_adapter import (  # noqa: E402
@@ -131,6 +134,38 @@ def test_unsolved_meanfield_rejected():
     mf = scf.RHF(mol)  # not kernel()-ed
     with pytest.raises(Exception):
         PySCFProvider(mf)
+
+
+def test_unconverged_meanfield_with_orbitals_rejected():
+    _, mf = _h2()
+    assert mf.mo_coeff is not None
+    mf.converged = False
+
+    with pytest.raises(
+        ProviderContractError,
+        match="input PySCF mean-field did not converge",
+    ):
+        PySCFProvider(mf)
+
+
+def test_meanfield_missing_converged_status_rejected_fail_closed():
+    _, mf = _h2()
+    no_status = SimpleNamespace(mol=mf.mol, mo_coeff=mf.mo_coeff)
+
+    with pytest.raises(ProviderContractError, match=r"lacks required \.converged"):
+        PySCFProvider(no_status)
+
+
+def test_core_hole_delta_scf_rejects_unconverged_ground_state():
+    _, mf = _h2o()
+    assert mf.mo_coeff is not None
+    mf.converged = False
+
+    with pytest.raises(
+        ProviderContractError,
+        match="ground-state PySCF mean-field did not converge",
+    ):
+        from_core_hole_delta_scf(mf, "O 1s", max_cycle=1)
 
 
 def test_uhf_rejected_fail_closed():
