@@ -19,6 +19,23 @@ Physics model
   in every environment by its Mulliken population on that atom's named AO
   shell (e.g. ``Mg 1s``).  Matching is fail-closed: the matched MO must
   dominate the AO subspace and be unambiguous against the runner-up.
+
+Reading the two cluster models
+------------------------------
+``quantum_shells=0`` and ``quantum_shells=1`` are **two distinct physical
+models, not one convergence series** — never plot their shifts as a single
+monotonic curve:
+
+* ``qm0`` keeps only the central cation quantum; the embedding carries net
+  charge ``-q_cation`` (anion-dominated), so the cation core level is
+  *destabilized* toward the bulk Madelung limit as ``mm_shells`` grows
+  (for MgO: orbital shift → +24 eV, binding shift → −24 eV).
+* ``qm1`` selects the non-stoichiometric 27-site cube (Mg13O14) whose
+  formal charge is *negative*; the embedding then carries ``+q_cation`` and
+  the central cation sees an **opposite-sign** potential, so the shifts
+  reverse.  This series converges the *quantum cluster* (screening and
+  charge transfer from real neighbours), a different question than the
+  point-ion Madelung limit.
 * **Energy zero** — two declared, traceable conventions:
   ``"mo_energy"`` (orbital-energy difference between environments, I4) and
   ``"delta_scf_total_energy"`` (core binding energy

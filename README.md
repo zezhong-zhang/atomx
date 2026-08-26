@@ -87,11 +87,41 @@ pip install -e ".[dev]"
 
 | Extra | Description |
 |-------|-------------|
+| `pyscf` | PySCF back-end for the electronic-structure providers (molecules, embedded clusters) |
 | `units` | Pint-based unit handling |
 | `viz` | matplotlib + Plotly visualization |
 | `viz-manim` | Manim animation backend |
 | `viz-all` | All visualization backends |
 | `all` | Everything |
+
+### External electronic-structure providers
+
+Atomx can drive its Auger/CSF kernels from external electronic-structure
+back-ends through the unified provider contract (`src/atomx/providers/`,
+ADR-0001). PySCF support is optional:
+
+```bash
+pip install "atomx[pyscf]"
+```
+
+Entry points:
+
+- `atomx.providers.pyscf_adapter.PySCFProvider` / `from_scf(mf)` — translate a
+  converged PySCF mean field into a validated `ElectronicStructurePayload`.
+- `atomx.providers.pyscf_adapter.build_core_hole_delta_scf_payload` —
+  MOM-tracked ΔSCF core-hole states for molecules.
+- `atomx.providers.pyscf_embedding` — cluster/point-charge embedding
+  (`rocksalt_embedding`, `build_embedded_scf`), the local-orbital bridge
+  (`core_orbital_identity`, `bridge_core_orbitals`) that keeps a central
+  atom's core-orbital identity traceable across isolated atom / molecule /
+  embedded cluster, embedded ΔSCF binding energies, and
+  `study_cluster_convergence` for environment convergence studies.
+
+Run the condensed-matter convergence benchmark (rock-salt MgO, Mg 1s):
+
+```bash
+python benchmarks/bench_pyscf_embedding_convergence.py
+```
 
 ## Architecture
 
