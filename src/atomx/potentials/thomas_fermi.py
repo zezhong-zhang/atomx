@@ -38,6 +38,17 @@ def _thomas_fermi_screening(x):
     return 0.10 * np.exp(-6.0 * x) + 0.55 * np.exp(-1.2 * x) + 0.35 * np.exp(-0.3 * x)
 
 
+def _tf_raw_and_asym(Z, N_electrons, r):
+    """Return the raw TF potential and Latter asymptotic tail."""
+    r_safe = np.maximum(r, 1e-30)
+    b = 0.8853 / Z ** (1.0 / 3.0)
+    phi = _thomas_fermi_screening(r / b)
+    Z_eff_inf = max(min(Z - N_electrons + 1, Z), 1)
+    V_tf_raw = -Z * phi / r_safe
+    V_asym = -Z_eff_inf / r_safe
+    return V_tf_raw, V_asym
+
+
 def thomas_fermi_potential(Z, N_electrons, r):
     """Thomas-Fermi screened nuclear potential.
 
@@ -59,16 +70,10 @@ def thomas_fermi_potential(Z, N_electrons, r):
     ndarray
         Potential V(r) in Hartree.
     """
-    b = 0.8853 / Z ** (1.0 / 3.0)  # TF length scale in Bohr
-    x = r / b
-    phi = _thomas_fermi_screening(x)
     # For neutral atom: V -> -Z/r at r=0, V -> 0 at r->inf
     # For ion: V -> -(Z - N + 1)/r at r->inf (Latter tail correction)
-    Z_eff_inf = max(Z - N_electrons + 1, 1)
-    V_tf = -Z * phi / np.maximum(r, 1e-30)
-    # Latter tail correction: ensure correct asymptotic -Z_eff/r
-    V_asym = -Z_eff_inf / np.maximum(r, 1e-30)
-    return np.minimum(V_tf, V_asym)
+    V_tf_raw, V_asym = _tf_raw_and_asym(Z, N_electrons, r)
+    return np.minimum(V_tf_raw, V_asym)
 
 
 def tfda_potential(Z, N_electrons, r):
@@ -90,7 +95,8 @@ def tfda_potential(Z, N_electrons, r):
     ndarray
         TFDA potential in Hartree.
     """
-    V_tf = thomas_fermi_potential(Z, N_electrons, r)
+    r_safe = np.maximum(r, 1e-30)
+    V_tf_raw, V_asym = _tf_raw_and_asym(Z, N_electrons, r)
 
     # Amaldi correction: scale electron-electron by (N-1)/N
     if N_electrons > 1:
@@ -99,16 +105,16 @@ def tfda_potential(Z, N_electrons, r):
         amaldi_factor = 0.0
 
     # Separate nuclear and electron parts
-    V_nuc = -Z / np.maximum(r, 1e-30)
-    V_ee = V_tf - V_nuc  # electron screening part
+    V_nuc = -Z / r_safe
+    V_ee = V_tf_raw - V_nuc  # electron screening part
 
     # Dirac exchange: V_x = -alpha_x * (3*rho/(pi))^(1/3)
     # For TF density: rho_TF = (Z/b)^3 * (phi/x)^(3/2) / (3*pi^2)
     # We approximate as a correction factor to V_ee
-    # Simplified: just apply Amaldi correction to the screening
+    # Simplified: just apply Amaldi correction to the screening.
     V_tfda = V_nuc + amaldi_factor * V_ee
 
-    return V_tfda
+    return np.minimum(V_tfda, V_asym)
 
 
 def tfda_potential_on_grid(Z, N_electrons, gr):
