@@ -57,7 +57,7 @@ def darwin_shift(n: int, l: int, Z_eff: float) -> float:
 def spin_orbit_xi(n: int, l: int, Z_eff: float) -> float:
     """Spin-orbit radial factor ``ξ_{n,l}`` in Hartree.
 
-    ``ξ = α² · Z_eff⁴ / [4 n³ l (l + ½)(l + 1)]``.
+    ``ξ = α² · Z_eff⁴ / [2 n³ l (l + ½)(l + 1)]``.
 
     The fine-structure splitting for the two ``j = l ± ½`` levels is
     then ``E_so_+ = +ξ · l/2`` and ``E_so_− = −ξ · (l+1)/2``.
@@ -65,7 +65,7 @@ def spin_orbit_xi(n: int, l: int, Z_eff: float) -> float:
     """
     if l == 0:
         return 0.0
-    return ALPHA_SQ * Z_eff ** 4 / (4.0 * n ** 3 * l * (l + 0.5) * (l + 1))
+    return ALPHA_SQ * Z_eff ** 4 / (2.0 * n ** 3 * l * (l + 0.5) * (l + 1))
 
 
 def spin_orbit_shifts(l: int, xi: float) -> tuple[float, float]:

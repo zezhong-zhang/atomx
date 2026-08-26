@@ -8,6 +8,8 @@ density, occupations, provenance, and the orthonormality consistency.
 
 from __future__ import annotations
 
+from types import SimpleNamespace
+
 import numpy as np
 import pytest
 
@@ -17,6 +19,7 @@ from atomx.providers.contract import (  # noqa: E402
     ElectronicStructurePayload,
     OrbitalCoefficients,
     OverlapBlock,
+    ProviderContractError,
     Provenance,
 )
 from atomx.providers.pyscf_adapter import (  # noqa: E402
@@ -131,6 +134,150 @@ def test_unsolved_meanfield_rejected():
     mf = scf.RHF(mol)  # not kernel()-ed
     with pytest.raises(Exception):
         PySCFProvider(mf)
+
+
+def test_unconverged_meanfield_with_orbitals_rejected():
+    _, mf = _h2()
+    assert mf.mo_coeff is not None
+    mf.converged = False
+
+    with pytest.raises(
+        ProviderContractError,
+        match="input PySCF mean-field did not converge",
+    ):
+        PySCFProvider(mf)
+
+
+def test_build_payload_revalidates_convergence_before_consuming_orbitals():
+    _, mf = _h2()
+    provider = PySCFProvider(mf)
+    mf.converged = False
+
+    with pytest.raises(
+        ProviderContractError,
+        match="input PySCF mean-field did not converge",
+    ):
+        provider.build_payload()
+
+
+def test_unconverged_meanfield_rejected_before_mo_coeff_probe():
+    pytest.importorskip("pyscf")
+
+    class UnconvergedMeanField:
+        converged = False
+        mo_coeff_accessed = False
+
+        @property
+        def mo_coeff(self):
+            self.mo_coeff_accessed = True
+            raise AssertionError("mo_coeff should not be accessed")
+
+    mf = UnconvergedMeanField()
+
+    with pytest.raises(
+        ProviderContractError,
+        match="input PySCF mean-field did not converge",
+    ):
+        PySCFProvider(mf)
+    assert mf.mo_coeff_accessed is False
+
+
+def test_meanfield_missing_converged_status_rejected_fail_closed():
+    _, mf = _h2()
+    no_status = SimpleNamespace(mol=mf.mol, mo_coeff=mf.mo_coeff)
+
+    with pytest.raises(
+        ProviderContractError,
+        match="convergence status is unavailable",
+    ):
+        PySCFProvider(no_status)
+
+
+def test_throwing_converged_descriptor_rejected_without_leaking_detail():
+    pytest.importorskip("pyscf")
+
+    class ThrowingConvergedMeanField:
+        @property
+        def converged(self):
+            raise RuntimeError("attacker-controlled detail")
+
+        @property
+        def mo_coeff(self):
+            raise AssertionError("mo_coeff should not be accessed")
+
+    with pytest.raises(ProviderContractError) as exc_info:
+        PySCFProvider(ThrowingConvergedMeanField())
+    message = str(exc_info.value)
+    assert message == "input PySCF mean-field convergence status is unavailable"
+    assert "attacker-controlled" not in message
+    assert exc_info.value.__suppress_context__ is True
+
+
+def test_truthy_non_bool_converged_rejected_fail_closed():
+    _, mf = _h2()
+    truthy_status = SimpleNamespace(converged=1, mol=mf.mol, mo_coeff=mf.mo_coeff)
+
+    with pytest.raises(
+        ProviderContractError,
+        match="input PySCF mean-field did not converge",
+    ):
+        PySCFProvider(truthy_status)
+
+
+def test_core_hole_delta_scf_rejects_unconverged_ground_state():
+    _, mf = _h2o()
+    assert mf.mo_coeff is not None
+    mf.converged = False
+
+    with pytest.raises(
+        ProviderContractError,
+        match="ground-state PySCF mean-field did not converge",
+    ):
+        from_core_hole_delta_scf(mf, "O 1s", max_cycle=1)
+
+
+def test_core_hole_delta_scf_rejects_unconverged_final_state_before_orbitals(
+    monkeypatch,
+):
+    pytest.importorskip("pyscf")
+    from pyscf import scf
+
+    _, ground_mf = _h2o()
+    final_states = []
+
+    class UnconvergedFinalState:
+        def __init__(self, mol):
+            self.mol = mol
+            self.conv_tol = 1e-9
+            self.max_cycle = 50
+            self.converged = False
+            self.mo_coeff_accessed = False
+
+        @property
+        def mo_coeff(self):
+            self.mo_coeff_accessed = True
+            raise AssertionError("final-state mo_coeff should not be accessed")
+
+        def make_rdm1(self, mo_coeff, occ):
+            return ground_mf.make_rdm1(mo_coeff, occ)
+
+        def kernel(self, dm0=None):
+            return 0.0
+
+    def fake_rohf(mol):
+        mf = UnconvergedFinalState(mol)
+        final_states.append(mf)
+        return mf
+
+    monkeypatch.setattr(scf, "ROHF", fake_rohf)
+
+    with pytest.raises(
+        ProviderContractError,
+        match="core-hole final-state PySCF mean-field did not converge",
+    ):
+        from_core_hole_delta_scf(ground_mf, "O 1s")
+    assert final_states
+    assert final_states[0].mo_coeff_accessed is False
 
 
 def test_uhf_rejected_fail_closed():

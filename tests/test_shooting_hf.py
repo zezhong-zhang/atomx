@@ -22,6 +22,7 @@ He 7e-9, Ne 4e-7, Fe XVII 4e-6 on totals; <= 5e-5 on orbitals.
 import sys
 from pathlib import Path
 
+import numpy as np
 import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -68,6 +69,8 @@ def test_converged(solved, name):
 @pytest.mark.parametrize("name", list(CASES))
 def test_total_energy_matches_bspline(solved, name):
     shooting, bspline = solved[name]
+    assert np.isfinite(shooting.total_energy)
+    assert np.isfinite(bspline.total_energy)
     rel = abs(shooting.total_energy - bspline.total_energy) / abs(
         bspline.total_energy)
     assert rel <= TOTAL_RTOL, (
