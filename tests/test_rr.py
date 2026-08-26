@@ -6,6 +6,7 @@ import numpy as np
 
 from atomx import Atom
 from atomx.constants import HARTREE_EV
+import atomx.scattering.radiative_recombination as rr_mod
 from atomx.scattering.radiative_recombination import (
     RRResult,
     rr_cross_section,
@@ -89,6 +90,42 @@ def test_rr_e1_only_matches_legacy_path():
     )
     assert {"E1", "M1", "E2"}.issubset(total.sigma_by_multipole)
     assert np.all(total.sigma_total_a0_sq >= legacy.sigma_total_a0_sq)
+
+
+def test_rr_multipole_path_uses_energy_normalized_continuum(monkeypatch):
+    calls = []
+
+    def fake_allowed_final_kappas(bound_kappa, L, kind):
+        return [1]
+
+    def fake_line_strength_factor(bound_kappa, kf, L, kind):
+        return 1.0
+
+    def fake_solve_continuum(*args, **kwargs):
+        calls.append(kwargs)
+        return np.ones(1), np.zeros(1), 0.2
+
+    def fake_radial_multipole(*args, **kwargs):
+        return 2.0
+
+    monkeypatch.setattr(rr_mod, "allowed_final_kappas", fake_allowed_final_kappas)
+    monkeypatch.setattr(rr_mod, "line_strength_factor", fake_line_strength_factor)
+    monkeypatch.setattr(rr_mod, "solve_continuum", fake_solve_continuum)
+    monkeypatch.setattr(rr_mod, "_radial_multipole", fake_radial_multipole)
+
+    partials = rr_mod._bound_free_multipole_cross_sections(
+        np.ones(1),
+        np.zeros(1),
+        -1,
+        -0.5,
+        np.array([0.75]),
+        1,
+        {},
+        (("E", 1),),
+    )
+
+    assert partials["E1"][0] > 0.0
+    assert calls == [{"energy_normalized": True}]
 
 
 def test_rr_m1_e2_small_for_he_plus_1ev():

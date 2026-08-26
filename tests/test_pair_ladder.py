@@ -60,6 +60,15 @@ def test_all_order_1x1_closed_form(helium):
     V11 = _pair_v_J(Pr, Qr, -1, Pr, Qr, -1, Pr, Qr, -1, Pr, Qr, -1,
                     0, bsp, cache) / 2.0
     D = 2.0 * eps_r - 2.0 * eps_a
+    # Physical preconditions of the identity being verified: finite matrix
+    # elements, a positive excitation denominator, and |V/D| < 1 (the
+    # convergence domain of the geometric perturbation series below).  A
+    # non-finite intermediate — e.g. from corrupted BLAS output on hosted
+    # CI hardware, as seen in the HYP-1530 pipeline — must fail HERE with
+    # the culprit named, not downstream as an opaque `nan == nan`.
+    assert np.isfinite([v0, V11, D]).all(), (v0, V11, D)
+    assert D > 0.0, (eps_a, eps_r)
+    assert abs(V11 / D) < 1.0, (v0, V11, D)
     e_closed = -(0 + 1) * v0 * v0 / (D + V11)
     # the same series the solver resums: -v0^2/D * sum (-V/D)^n
     e_series = 0.0

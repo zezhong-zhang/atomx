@@ -163,13 +163,15 @@ def _bound_free_multipole_cross_sections(
             label = _multipole_label(kind, L)
             for kf in allowed_final_kappas(bound_kappa, L, kind):
                 angular_factor = (
-                    line_strength_factor(bound_kappa, kf, L, kind) / abs(bound_kappa)
+                    line_strength_factor(bound_kappa, kf, L, kind)
+                    / (2.0 * abs(bound_kappa))
                 )
                 if angular_factor == 0.0:
                     continue
                 if kf not in continuum_cache:
                     Pf, Qf, _E_actual = solve_continuum(
-                        kf, electron_energy, Z, bsp_data
+                        kf, electron_energy, Z, bsp_data,
+                        energy_normalized=True,
                     )
                     continuum_cache[kf] = (Pf, Qf)
                 Pf, Qf = continuum_cache[kf]
