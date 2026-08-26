@@ -9,8 +9,10 @@ initial state; Auger-rate kernels are wired in later stages.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from inspect import Parameter, signature
 from itertools import combinations_with_replacement
-from typing import Protocol, cast, runtime_checkable
+from numbers import Integral, Real
+from typing import Any, Protocol, cast, runtime_checkable
 
 import numpy as np
 from numpy.typing import NDArray
@@ -24,6 +26,16 @@ from atomx.providers.contract import (
     ensure_hartree,
 )
 
+_CORE_HOLE_IDENTITY_KEYS = frozenset(("orbital_label", "core_hole", "core_orbital"))
+_MAX_MOLECULAR_AUGER_ACTIVE_ORBITALS = 16
+_MAX_MOLECULAR_AUGER_AO_TO_MO_ORBITALS = 48
+_MAX_MOLECULAR_AUGER_AO_TO_MO_AOS = 88
+_MAX_MOLECULAR_AUGER_AO_TO_MO_ELEMENTS = (
+    _MAX_MOLECULAR_AUGER_AO_TO_MO_AOS**4
+)
+_MAX_MOLECULAR_AUGER_AO_TO_MO_INPUT_BYTES = 512 * 1024**2
+_MAX_MOLECULAR_AUGER_AO_TO_MO_OUTPUT_BYTES = 512 * 1024**2
+
 __all__ = [
     "ActiveMolecularOrbital",
     "LocalizedValenceActiveSpace",
@@ -35,6 +47,7 @@ __all__ = [
     "ContinuumChannel",
     "DiscreteMOContinuumChannel",
     "SpectrumResult",
+    "compute_molecular_auger",
     "enumerate_two_hole_csfs",
     "local_valence_active_space",
     "molecular_auger_spectrum",
@@ -301,20 +314,188 @@ class SpectrumResult:
         return tuple(line.intensity for line in self.lines)
 
 
-def molecular_auger_initial_state(
-    payload: ElectronicStructurePayload,
-) -> CoreHoleState:
-    """Build the molecular Auger core-hole initial state from a payload.
+def compute_molecular_auger(
+    provider: Any,
+    core_hole_spec: str | int | dict[str, Any] | None = None,
+    *,
+    continuum_channel: ContinuumChannel | None = None,
+    normalize: bool = True,
+    population_threshold: float = 0.2,
+    occupation_threshold: float = 1.5,
+    residual_tolerance: float = 1e-7,
+) -> SpectrumResult:
+    """Run the provider-to-stick molecular Auger pipeline.
 
-    Required capabilities fail closed before any state is accepted:
-    ``CORE_HOLE_SPEC``, ``MO_COEFFICIENTS`` and ``OVERLAP_S``.
+    The entrypoint accepts either a validated
+    :class:`ElectronicStructurePayload` that already carries the explicit
+    core-hole state, or a provider exposing ``build_core_hole_payload``.  It
+    fails closed on missing core-hole, MO, overlap, or ERI capabilities before
+    delegating to the existing initial-state, final-state, amplitude, and
+    stick-spectrum kernels.  Normalization is the global stick sum-rule
+    normalization used by :func:`molecular_auger_spectrum`; no per-line
+    empirical scaling is applied.
     """
 
+    validated_spec = _validate_core_hole_spec(core_hole_spec)
+    population_threshold, occupation_threshold, residual_tolerance = (
+        _validate_active_space_parameters(
+            population_threshold,
+            occupation_threshold,
+            residual_tolerance,
+        )
+    )
+    payload = _compute_payload(provider, validated_spec)
+    _assert_molecular_auger_eri_budget_before_validation(payload)
+    payload.validate()
+    _assert_requested_core_hole(payload, validated_spec)
     payload.require(
         Capability.CORE_HOLE_SPEC,
         Capability.MO_COEFFICIENTS,
         Capability.OVERLAP_S,
+        Capability.TWO_ELECTRON_INTEGRALS,
     )
+    return molecular_auger_spectrum(
+        payload,
+        continuum_channel=continuum_channel,
+        normalize=normalize,
+        population_threshold=population_threshold,
+        occupation_threshold=occupation_threshold,
+        residual_tolerance=residual_tolerance,
+    )
+
+
+def _compute_payload(
+    provider: Any,
+    core_hole_spec: str | int | dict[str, Any] | None,
+) -> ElectronicStructurePayload:
+    if isinstance(provider, ElectronicStructurePayload):
+        return provider
+
+    if core_hole_spec is not None and hasattr(provider, "build_core_hole_payload"):
+        payload = _call_core_hole_builder(
+            provider.build_core_hole_payload,
+            core_hole_spec,
+        )
+    elif hasattr(provider, "build_payload"):
+        payload = provider.build_payload()
+    else:
+        raise ProviderContractError(
+            "compute_molecular_auger requires an ElectronicStructurePayload "
+            "or a provider with build_payload/build_core_hole_payload"
+        )
+    if not isinstance(payload, ElectronicStructurePayload):
+        raise ProviderContractError("provider did not return an ElectronicStructurePayload")
+    return payload
+
+
+def _assert_molecular_auger_eri_budget_before_validation(
+    payload: ElectronicStructurePayload,
+) -> None:
+    if (
+        payload.two_electron is not None
+        and payload.two_electron.basis == "ao"
+        and payload.orbitals is not None
+    ):
+        _assert_ao_to_mo_eri_budget(payload.two_electron.eri, payload.orbitals)
+
+
+def _validate_core_hole_spec(
+    spec: str | int | dict[str, Any] | None,
+) -> str | int | dict[str, Any] | None:
+    if spec is None:
+        return None
+    if isinstance(spec, bool):
+        raise ProviderContractError("core_hole_spec MO index must be an integer")
+    if isinstance(spec, int):
+        if spec < 0:
+            raise ProviderContractError("core_hole_spec MO index must be non-negative")
+        return spec
+    if isinstance(spec, str):
+        if not spec.strip():
+            raise ProviderContractError("core_hole_spec label must be non-empty")
+        return spec
+    if not isinstance(spec, dict):
+        raise ProviderContractError(
+            "core_hole_spec must be None, a non-empty string, a non-negative "
+            "MO index, or a one-key dict"
+        )
+    if len(spec) != 1:
+        raise ProviderContractError(
+            "core_hole_spec dict must contain exactly one supported identity key"
+        )
+    key, value = next(iter(spec.items()))
+    if key not in _CORE_HOLE_IDENTITY_KEYS:
+        supported = ", ".join(sorted(_CORE_HOLE_IDENTITY_KEYS))
+        raise ProviderContractError(
+            f"unsupported core_hole_spec key {key!r}; supported keys: {supported}"
+        )
+    _validate_core_hole_identity_value(value)
+    return spec
+
+
+def _validate_core_hole_identity_value(value: Any) -> None:
+    if isinstance(value, bool):
+        raise ProviderContractError("core_hole_spec MO index must be an integer")
+    if isinstance(value, int):
+        if value < 0:
+            raise ProviderContractError("core_hole_spec MO index must be non-negative")
+        return
+    if isinstance(value, str) and value.strip():
+        return
+    raise ProviderContractError(
+        "core_hole_spec identity value must be a non-empty string or "
+        "non-negative MO index"
+    )
+
+
+def _validate_active_space_parameters(
+    population_threshold: float,
+    occupation_threshold: float,
+    residual_tolerance: float,
+) -> tuple[float, float, float]:
+    raw_values = (
+        ("population_threshold", population_threshold, False),
+        ("occupation_threshold", occupation_threshold, False),
+        ("residual_tolerance", residual_tolerance, True),
+    )
+    values: list[tuple[str, float, bool]] = []
+    for name, raw_value, strictly_positive in raw_values:
+        if isinstance(raw_value, bool) or not isinstance(raw_value, Real):
+            raise ProviderContractError(f"{name} must be a real number")
+        try:
+            value = float(raw_value)
+        except (OverflowError, TypeError, ValueError) as exc:
+            raise ProviderContractError(
+                f"{name} must be a finite real number"
+            ) from exc
+        values.append((name, value, strictly_positive))
+    for name, value, strictly_positive in values:
+        if not np.isfinite(value):
+            raise ProviderContractError(f"{name} must be finite")
+        if strictly_positive:
+            if value <= 0.0:
+                raise ProviderContractError(f"{name} must be greater than zero")
+        elif value < 0.0:
+            raise ProviderContractError(f"{name} must be non-negative")
+    return values[0][1], values[1][1], values[2][1]
+
+
+def _assert_active_space_budget(active_orbital_count: int) -> None:
+    if active_orbital_count > _MAX_MOLECULAR_AUGER_ACTIVE_ORBITALS:
+        raise ProviderContractError(
+            "molecular Auger active space exceeds the supported budget: "
+            f"{active_orbital_count} active MOs > "
+            f"{_MAX_MOLECULAR_AUGER_ACTIVE_ORBITALS}; reduce thresholds or "
+            "split the calculation"
+        )
+
+
+def _core_hole_metadata(
+    payload: ElectronicStructurePayload,
+    *,
+    n_mo: int | None = None,
+    require_tracked_mo: bool = False,
+) -> dict[str, Any]:
     spec = payload.metadata.get("core_hole")
     if not isinstance(spec, dict):
         raise ProviderContractError("payload metadata lacks core_hole specification")
@@ -332,11 +513,174 @@ def molecular_auger_initial_state(
             "core_hole specification missing required fields: "
             + ", ".join(sorted(missing))
         )
+    if "orbital_label" in spec and (
+        not isinstance(spec["orbital_label"], str) or not spec["orbital_label"].strip()
+    ):
+        raise ProviderContractError("core_hole.orbital_label must be a non-empty string")
+    occupation_before = _validate_core_hole_occupation(
+        spec["occupation_before"],
+        "core_hole.occupation_before",
+    )
+    occupation_after = _validate_core_hole_occupation(
+        spec["occupation_after"],
+        "core_hole.occupation_after",
+    )
+    if occupation_after >= occupation_before:
+        raise ProviderContractError(
+            "core_hole.occupation_after must be less than occupation_before"
+        )
+    initial_energy = _validate_core_hole_real(
+        spec["initial_state_energy_hartree"],
+        "core_hole.initial_state_energy_hartree",
+    )
+    validated = dict(spec)
+    validated["occupation_before"] = occupation_before
+    validated["occupation_after"] = occupation_after
+    validated["initial_state_energy_hartree"] = initial_energy
+    if require_tracked_mo or "tracked_mo_index" in spec:
+        validated["tracked_mo_index"] = _validate_tracked_core_mo_index(
+            spec,
+            n_mo,
+        )
+    return validated
+
+
+def _validate_core_hole_real(value: Any, field: str) -> float:
+    if isinstance(value, bool) or not isinstance(value, Real):
+        raise ProviderContractError(f"{field} must be a real number")
+    numeric = float(value)
+    if not np.isfinite(numeric):
+        raise ProviderContractError(f"{field} must be finite")
+    return numeric
+
+
+def _validate_core_hole_occupation(value: Any, field: str) -> float:
+    occupation = _validate_core_hole_real(value, field)
+    if occupation < 0.0 or occupation > 2.0:
+        raise ProviderContractError(f"{field} must be between 0 and 2")
+    return occupation
+
+
+def _validate_tracked_core_mo_index(
+    core_spec: dict[str, Any],
+    n_mo: int | None,
+) -> int:
+    if "tracked_mo_index" not in core_spec:
+        raise ProviderContractError(
+            "core_hole.tracked_mo_index is required to exclude the core MO "
+            "from the valence active space"
+        )
+    value = core_spec["tracked_mo_index"]
+    if isinstance(value, bool) or not isinstance(value, Integral):
+        raise ProviderContractError("core_hole.tracked_mo_index must be an integer")
+    tracked_core = int(value)
+    if tracked_core < 0:
+        raise ProviderContractError(
+            "core_hole.tracked_mo_index is outside the MO coefficient range"
+        )
+    if n_mo is not None and tracked_core >= n_mo:
+        raise ProviderContractError(
+            "core_hole.tracked_mo_index is outside the MO coefficient range"
+        )
+    return tracked_core
+
+
+def _call_core_hole_builder(
+    builder: Any,
+    core_hole_spec: str | int | dict[str, Any],
+) -> ElectronicStructurePayload:
+    sig = signature(builder)
+    params = sig.parameters
+    args: list[Any] = []
+    kwargs: dict[str, Any] = {}
+
+    if any(p.kind == Parameter.VAR_POSITIONAL for p in params.values()):
+        args.append(core_hole_spec)
+    else:
+        for name in ("core_hole_spec", "core_orbital", "core_hole"):
+            if name in params:
+                kwargs[name] = core_hole_spec
+                break
+        else:
+            positional = [
+                p
+                for p in params.values()
+                if p.kind
+                in (Parameter.POSITIONAL_ONLY, Parameter.POSITIONAL_OR_KEYWORD)
+                and p.default is Parameter.empty
+            ]
+            if len(positional) == 1:
+                args.append(core_hole_spec)
+            else:
+                raise ProviderContractError(
+                    "provider build_core_hole_payload cannot accept core_hole_spec"
+                )
+
+    if "with_eri" in params or any(
+        p.kind == Parameter.VAR_KEYWORD for p in params.values()
+    ):
+        kwargs["with_eri"] = True
+    return cast(ElectronicStructurePayload, builder(*args, **kwargs))
+
+
+def _requested_core_hole_label(
+    spec: str | int | dict[str, Any] | None,
+) -> str | None:
+    if spec is None:
+        return None
+    if isinstance(spec, int):
+        return f"MO{spec}"
+    if isinstance(spec, str):
+        return spec
+    for key in ("orbital_label", "core_hole", "core_orbital"):
+        if key in spec:
+            value = spec[key]
+            return f"MO{value}" if isinstance(value, int) else str(value)
+    return None
+
+
+def _payload_core_hole_label(payload: ElectronicStructurePayload) -> str:
+    spec = payload.metadata.get("core_hole")
+    if isinstance(spec, dict) and spec.get("orbital_label"):
+        return str(spec["orbital_label"])
+    return payload.provenance.core_hole
+
+
+def _assert_requested_core_hole(
+    payload: ElectronicStructurePayload,
+    core_hole_spec: str | int | dict[str, Any] | None,
+) -> None:
+    requested = _requested_core_hole_label(core_hole_spec)
+    if requested is None:
+        return
+    actual = _payload_core_hole_label(payload)
+    if actual != requested:
+        raise ProviderContractError(
+            "provider returned a different core-hole payload: "
+            f"requested {requested!r}, got {actual!r}"
+        )
+
+
+def molecular_auger_initial_state(
+    payload: ElectronicStructurePayload,
+) -> CoreHoleState:
+    """Build the molecular Auger core-hole initial state from a payload.
+
+    Required capabilities fail closed before any state is accepted:
+    ``CORE_HOLE_SPEC``, ``MO_COEFFICIENTS`` and ``OVERLAP_S``.
+    """
+
+    payload.require(
+        Capability.CORE_HOLE_SPEC,
+        Capability.MO_COEFFICIENTS,
+        Capability.OVERLAP_S,
+    )
+    spec = _core_hole_metadata(payload)
 
     return CoreHoleState(
         orbital_label=str(spec.get("orbital_label") or payload.provenance.core_hole),
-        occupation_before=float(spec["occupation_before"]),
-        occupation_after=float(spec["occupation_after"]),
+        occupation_before=spec["occupation_before"],
+        occupation_after=spec["occupation_after"],
         initial_energy=spec["initial_state_energy_hartree"],
         provenance=payload.provenance,
     )
@@ -455,17 +799,12 @@ def _core_atom_ao_indices(
 
 
 def _tracked_core_mo_index(core_spec: object, n_mo: int) -> int:
-    if not isinstance(core_spec, dict) or "tracked_mo_index" not in core_spec:
+    if not isinstance(core_spec, dict):
         raise ProviderContractError(
             "core_hole.tracked_mo_index is required to exclude the core MO "
             "from the valence active space"
         )
-    tracked_core = int(core_spec["tracked_mo_index"])
-    if tracked_core < 0 or tracked_core >= n_mo:
-        raise ProviderContractError(
-            "core_hole.tracked_mo_index is outside the MO coefficient range"
-        )
-    return tracked_core
+    return _validate_tracked_core_mo_index(core_spec, n_mo)
 
 
 def local_valence_active_space(
@@ -485,8 +824,18 @@ def local_valence_active_space(
     element appears on exactly one center.  The core-hole spec must also carry
     ``tracked_mo_index`` so the selected active space can fail closed rather
     than accidentally treat the core MO as a valence orbital.
+
+    To keep two-hole enumeration and downstream ERI contractions bounded, the
+    selected local valence active space is capped at 16 MOs.
     """
 
+    population_threshold, occupation_threshold, residual_tolerance = (
+        _validate_active_space_parameters(
+            population_threshold,
+            occupation_threshold,
+            residual_tolerance,
+        )
+    )
     payload.require(
         Capability.CORE_HOLE_SPEC,
         Capability.MO_COEFFICIENTS,
@@ -505,7 +854,11 @@ def local_valence_active_space(
         else payload.provenance.core_hole
     )
     core_atom = _core_atom_symbol(core_label)
-    core_spec = payload.metadata.get("core_hole")
+    core_spec = _core_hole_metadata(
+        payload,
+        n_mo=orbitals.n_mo,
+        require_tracked_mo=True,
+    )
     atom_indices = np.asarray(
         _core_atom_ao_indices(labels, core_atom, _core_hole_center(core_spec)),
         dtype=int,
@@ -542,6 +895,7 @@ def local_valence_active_space(
         raise ProviderContractError(
             "no occupied valence MOs passed the local Mulliken thresholds"
         )
+    _assert_active_space_budget(len(active))
 
     active_indices = tuple(orb.index for orb in active)
     transform = np.eye(len(active_indices))
@@ -627,6 +981,13 @@ def molecular_auger_final_states(
     final states are intentionally left to HYP-918.
     """
 
+    population_threshold, occupation_threshold, residual_tolerance = (
+        _validate_active_space_parameters(
+            population_threshold,
+            occupation_threshold,
+            residual_tolerance,
+        )
+    )
     initial = core_hole or molecular_auger_initial_state(payload)
     active_space = local_valence_active_space(
         payload,
@@ -689,6 +1050,66 @@ def _mo_index_from_label(label: str) -> int:
         raise ProviderContractError(f"invalid MO label {label!r}") from exc
 
 
+def _assert_ao_to_mo_eri_budget(
+    eri: NDArray[np.float64],
+    orbitals: OrbitalCoefficients,
+) -> None:
+    n_ao = orbitals.n_ao
+    n_mo = orbitals.n_mo
+    if eri.shape != (n_ao, n_ao, n_ao, n_ao):
+        raise ProviderContractError(
+            "ao-basis ERI shape must match orbitals.n_ao on every axis: "
+            f"expected {(n_ao, n_ao, n_ao, n_ao)}, got {eri.shape}"
+        )
+    c_logical_bytes = orbitals.coefficients.size * orbitals.coefficients.itemsize
+    eri_logical_bytes = eri.size * eri.itemsize
+    c_stride_span_bytes = _array_stride_span_bytes(orbitals.coefficients)
+    eri_stride_span_bytes = _array_stride_span_bytes(eri)
+    output_bytes = (n_mo**4) * eri.dtype.itemsize
+    logical_input_bytes = c_logical_bytes + eri_logical_bytes
+    stride_span_input_bytes = c_stride_span_bytes + eri_stride_span_bytes
+    if (
+        n_mo > _MAX_MOLECULAR_AUGER_AO_TO_MO_ORBITALS
+        or n_ao > _MAX_MOLECULAR_AUGER_AO_TO_MO_AOS
+        or eri.size > _MAX_MOLECULAR_AUGER_AO_TO_MO_ELEMENTS
+        or logical_input_bytes > _MAX_MOLECULAR_AUGER_AO_TO_MO_INPUT_BYTES
+        or stride_span_input_bytes > _MAX_MOLECULAR_AUGER_AO_TO_MO_INPUT_BYTES
+        or output_bytes > _MAX_MOLECULAR_AUGER_AO_TO_MO_OUTPUT_BYTES
+    ):
+        raise ProviderContractError(
+            "AO-to-MO ERI transformation exceeds the molecular Auger budget: "
+            f"n_mo={n_mo} <= {_MAX_MOLECULAR_AUGER_AO_TO_MO_ORBITALS}, "
+            f"n_ao={n_ao} <= {_MAX_MOLECULAR_AUGER_AO_TO_MO_AOS}, "
+            "dense AO ERI elements="
+            f"{eri.size} <= {_MAX_MOLECULAR_AUGER_AO_TO_MO_ELEMENTS}, "
+            "estimated logical input bytes="
+            f"{logical_input_bytes} <= "
+            f"{_MAX_MOLECULAR_AUGER_AO_TO_MO_INPUT_BYTES}, "
+            "estimated stride-span input bytes="
+            f"{stride_span_input_bytes} <= "
+            f"{_MAX_MOLECULAR_AUGER_AO_TO_MO_INPUT_BYTES}, "
+            "estimated MO ERI output bytes="
+            f"{output_bytes} <= {_MAX_MOLECULAR_AUGER_AO_TO_MO_OUTPUT_BYTES}"
+        )
+
+
+def _array_stride_span_bytes(array: NDArray[np.float64]) -> int:
+    if array.size == 0:
+        return 0
+    low = 0
+    high = 0
+    for dimension, stride in zip(array.shape, array.strides):
+        extent = (dimension - 1) * stride
+        low += min(0, extent)
+        high += max(0, extent)
+    return high - low + array.itemsize
+
+
+def _assert_eri_finite(eri: NDArray[np.float64], basis: str) -> None:
+    if not np.all(np.isfinite(eri)):
+        raise ProviderContractError(f"{basis}-basis ERI contains non-finite values")
+
+
 def _mo_eri(payload: ElectronicStructurePayload) -> NDArray[np.float64]:
     payload.require(Capability.TWO_ELECTRON_INTEGRALS, Capability.MO_COEFFICIENTS)
     if payload.two_electron is None or payload.orbitals is None:
@@ -697,9 +1118,12 @@ def _mo_eri(payload: ElectronicStructurePayload) -> NDArray[np.float64]:
     if payload.two_electron.notation != "chemist":
         raise ProviderContractError("molecular Auger requires chemist ERI notation")
     if payload.two_electron.basis == "mo":
+        _assert_eri_finite(eri, "mo")
         return cast(NDArray[np.float64], eri)
     if payload.two_electron.basis != "ao":
         raise ProviderContractError("two-electron integral basis must be 'ao' or 'mo'")
+    _assert_ao_to_mo_eri_budget(eri, payload.orbitals)
+    _assert_eri_finite(eri, "ao")
     C = payload.orbitals.coefficients
     return cast(
         NDArray[np.float64],
@@ -749,13 +1173,33 @@ def molecular_auger_transition_amplitude(
             amplitude=0.0,
             selection_rule="spin-forbidden-non-soc-v1",
         )
-    channel = continuum_channel or DiscreteMOContinuumChannel()
+    eri = _mo_eri(payload)
+    return _molecular_auger_transition_amplitude_from_mo_eri(
+        payload,
+        initial_state,
+        final_state,
+        cast(ContinuumChannel, continuum_channel or DiscreteMOContinuumChannel()),
+        eri,
+    )
+
+
+def _molecular_auger_transition_amplitude_from_mo_eri(
+    payload: ElectronicStructurePayload,
+    initial_state: CoreHoleState,
+    final_state: TwoHoleFinalState,
+    channel: ContinuumChannel,
+    eri: NDArray[np.float64],
+) -> AugerTransitionAmplitude:
     kinetic_energy = initial_state.initial_energy - final_state.final_energy
     coeff = channel.coefficients(payload, kinetic_energy)
-    eri = _mo_eri(payload)
     orbitals = payload.orbitals
     if orbitals is None:
         raise ProviderContractError("molecular Auger amplitudes require MOs")
+    if eri.shape != (orbitals.n_mo, orbitals.n_mo, orbitals.n_mo, orbitals.n_mo):
+        raise ProviderContractError(
+            "mo-basis ERI shape must match orbitals.n_mo on every axis: "
+            f"expected {(orbitals.n_mo,) * 4}, got {eri.shape}"
+        )
     if coeff.shape != (orbitals.n_mo,):
         raise ProviderContractError(
             "continuum coefficient vector must have length orbitals.n_mo"
@@ -785,18 +1229,30 @@ def _stick_from_final_state(
     initial: CoreHoleState,
     final: TwoHoleFinalState,
     channel: ContinuumChannel,
+    mo_eri: NDArray[np.float64] | None,
     *,
     normalize: bool,
 ) -> AugerStick | dict[str, str]:
     kinetic_energy = initial.initial_energy - final.final_energy
     if kinetic_energy <= 0.0:
         return _dropped_line(final, "non_positive_kinetic_energy")
-    amplitude = molecular_auger_transition_amplitude(
-        payload,
-        initial,
-        final,
-        channel,
-    )
+    if final.spin_multiplicity != 1:
+        amplitude = AugerTransitionAmplitude(
+            direct=0.0,
+            exchange=0.0,
+            amplitude=0.0,
+            selection_rule="spin-forbidden-non-soc-v1",
+        )
+    else:
+        if mo_eri is None:
+            raise ProviderContractError("molecular Auger amplitudes require ERIs")
+        amplitude = _molecular_auger_transition_amplitude_from_mo_eri(
+            payload,
+            initial,
+            final,
+            channel,
+            mo_eri,
+        )
     raw_intensity = amplitude.coherent_intensity
     if raw_intensity <= 0.0:
         reason = (
@@ -864,6 +1320,13 @@ def molecular_auger_spectrum(
     applied.
     """
 
+    population_threshold, occupation_threshold, residual_tolerance = (
+        _validate_active_space_parameters(
+            population_threshold,
+            occupation_threshold,
+            residual_tolerance,
+        )
+    )
     initial = core_hole or molecular_auger_initial_state(payload)
     finals = final_states or molecular_auger_final_states(
         payload,
@@ -872,12 +1335,20 @@ def molecular_auger_spectrum(
         occupation_threshold=occupation_threshold,
         residual_tolerance=residual_tolerance,
     )
-    channel = continuum_channel or DiscreteMOContinuumChannel()
+    if finals:
+        _assert_active_space_budget(
+            max(len(final.active_space.orbitals) for final in finals)
+        )
+    channel = cast(ContinuumChannel, continuum_channel or DiscreteMOContinuumChannel())
+    mo_eri: NDArray[np.float64] | None = None
     raw_lines: list[AugerStick] = []
     dropped: list[dict[str, str]] = []
     for final in finals:
+        kinetic_energy = initial.initial_energy - final.final_energy
+        if kinetic_energy > 0.0 and final.spin_multiplicity == 1 and mo_eri is None:
+            mo_eri = _mo_eri(payload)
         item = _stick_from_final_state(
-            payload, initial, final, channel, normalize=normalize
+            payload, initial, final, channel, mo_eri, normalize=normalize
         )
         if isinstance(item, AugerStick):
             raw_lines.append(item)

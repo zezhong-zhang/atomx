@@ -132,6 +132,8 @@ ORBITAL_CAPABILITIES: Set[Capability] = {
     Capability.MO_COEFFICIENTS,
 }
 
+_MAX_ERI_FINITE_SCAN_ELEMENTS = 50_000_000
+
 
 # ---------------------------------------------------------------------------
 # Typed, fail-closed errors (ADR-0001 §7)
@@ -609,17 +611,81 @@ class TwoElectronIntegrals:
         self.validate()
 
     def validate(self) -> "TwoElectronIntegrals":
-        self.eri = _as_finite_numeric_array("ERI", self.eri)
-        if self.eri.ndim != 4:
+        if type(self.eri) is not np.ndarray:
             raise ProviderContractError(
-                f"ERI must be rank-4 (ij|kl), got ndim={self.eri.ndim}"
+                "ERI must be provided as a base numpy.ndarray; generic "
+                "array-like objects are rejected before NumPy array conversion"
             )
-        if len(set(self.eri.shape)) != 1:
+        advertised_shape = self._validated_shape(self.eri.shape)
+        advertised_size = self._shape_size(advertised_shape)
+        self._require_finite_scan_budget(advertised_size, "construction")
+        if self.eri.dtype == object:
+            raise ProviderContractError("ERI must be numeric with non-object dtype")
+        if not np.issubdtype(self.eri.dtype, np.number):
+            raise ProviderContractError("ERI must be numeric")
+        if np.iscomplexobj(self.eri):
+            if not np.all(np.isfinite(self.eri)):
+                raise ProviderContractError("ERI values must be finite")
+            normalized = self.eri.real.astype(float, copy=False)
+        else:
+            try:
+                normalized = self.eri.astype(float, copy=False)
+            except (TypeError, ValueError) as exc:
+                raise ProviderContractError("ERI must be numeric") from exc
+        if normalized.ndim != 4:
+            raise ProviderContractError(
+                f"ERI must be rank-4 (ij|kl), got ndim={normalized.ndim}"
+            )
+        normalized_shape = self._validated_shape(normalized.shape)
+        if normalized_shape != advertised_shape:
+            raise ProviderContractError(
+                "ERI normalized shape must match advertised ndarray shape: "
+                f"expected {advertised_shape}, got {normalized_shape}"
+            )
+        normalized_size = self._shape_size(normalized_shape)
+        if normalized_size != advertised_size:
+            raise ProviderContractError(
+                "ERI normalized size must match advertised ndarray size: "
+                f"expected {advertised_size}, got {normalized_size}"
+            )
+        self._require_finite_scan_budget(normalized_size, "validation")
+        if not np.all(np.isfinite(normalized)):
+            raise ProviderContractError("ERI values must be finite")
+        self.eri = normalized
+        return self
+
+    @staticmethod
+    def _validated_shape(shape: tuple[int, ...]) -> tuple[int, ...]:
+        if len(shape) != 4:
+            raise ProviderContractError(
+                f"ERI must be rank-4 (ij|kl), got ndim={len(shape)}"
+            )
+        for dimension in shape:
+            if type(dimension) is not int or dimension < 0:
+                raise ProviderContractError(
+                    "ERI dimensions must be non-negative built-in integers"
+                )
+        if len(set(shape)) != 1:
             raise ProviderContractError(
                 "ERI must have equal dimensions in all four axes, "
-                f"got shape={self.eri.shape}"
+                f"got shape={shape}"
             )
-        return self
+        return shape
+
+    @staticmethod
+    def _shape_size(shape: tuple[int, ...]) -> int:
+        size = 1
+        for dimension in shape:
+            size *= dimension
+        return size
+
+    @staticmethod
+    def _require_finite_scan_budget(size: int, stage: str) -> None:
+        if size > _MAX_ERI_FINITE_SCAN_ELEMENTS:
+            raise ProviderContractError(
+                f"ERI {stage} exceeds the provider contract finite-validation "
+                f"budget: elements={size} > {_MAX_ERI_FINITE_SCAN_ELEMENTS}"
+            )
 
 
 @dataclass
@@ -825,6 +891,14 @@ class ElectronicStructurePayload:
                         f"{basis}-basis ERI leading dimension must match "
                         f"orbitals.n_{basis}: expected {expected}, got {actual}"
                     )
+            eri = self.two_electron.eri
+            if eri.size > _MAX_ERI_FINITE_SCAN_ELEMENTS:
+                raise ProviderContractError(
+                    "ERI finite validation exceeds the provider contract budget: "
+                    f"elements={eri.size} > {_MAX_ERI_FINITE_SCAN_ELEMENTS}"
+                )
+            if not np.all(np.isfinite(eri)):
+                raise ProviderContractError("ERI values must be finite")
         return self
 
     # -- physics-adjacent helpers (pure linear algebra, no back-end) -------
