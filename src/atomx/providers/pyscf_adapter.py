@@ -84,6 +84,19 @@ def _require_pyscf():
     return pyscf
 
 
+def _require_converged_mean_field(mf: Any, *, context: str) -> None:
+    """Enforce the PySCF adapter contract before consuming SCF arrays."""
+
+    try:
+        converged = getattr(mf, "converged")
+    except Exception:
+        raise ProviderContractError(
+            f"{context} PySCF mean-field convergence status is unavailable"
+        ) from None
+    if converged is not True:
+        raise ProviderContractError(f"{context} PySCF mean-field did not converge")
+
+
 class PySCFProvider:
     """Wrap a converged PySCF restricted mean-field object as a provider.
 
@@ -109,6 +122,7 @@ class PySCFProvider:
         metadata: Optional[dict[str, Any]] = None,
     ) -> None:
         _require_pyscf()
+        _require_converged_mean_field(mf, context="input")
         if not hasattr(mf, "mol") or not hasattr(mf, "mo_coeff"):
             raise TypeError(
                 "PySCFProvider expects a PySCF mean-field object with a "
@@ -143,6 +157,7 @@ class PySCFProvider:
     def build_payload(self) -> ElectronicStructurePayload:
         pyscf = _require_pyscf()
         mf = self.mf
+        _require_converged_mean_field(mf, context="input")
         mol = mf.mol
 
         Z = int(sum(mol.atom_charges()))
@@ -366,6 +381,7 @@ def build_core_hole_delta_scf_payload(
     _require_pyscf()
     from pyscf import scf
 
+    _require_converged_mean_field(ground_mf, context="ground-state")
     ground_payload = PySCFProvider(ground_mf).build_payload()
     if getattr(ground_mf, "e_tot", None) is None:
         raise ProviderContractError("ground-state mean field has no total energy")
@@ -412,8 +428,7 @@ def build_core_hole_delta_scf_payload(
     mf.get_occ = MethodType(get_occ, mf)
     dm0 = mf.make_rdm1(np.asarray(ground_mf.mo_coeff, dtype=float), target_occ)
     mf.kernel(dm0=dm0)
-    if not mf.converged:
-        raise ProviderContractError("core-hole ΔSCF PySCF calculation did not converge")
+    _require_converged_mean_field(mf, context="core-hole final-state")
 
     _, final_index, final_overlap = _mom_core_hole_occ(
         np.asarray(mf.mo_coeff, dtype=float),
