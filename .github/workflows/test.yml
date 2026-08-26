@@ -26,4 +26,15 @@ jobs:
       - name: Show pytest interpreter
         run: uv run --python 3.10 python -c "import sys; print(sys.version); print(sys.executable)"
       - name: Run pytest
+        env:
+          # Serial math kernels for CI determinism. Hosted runners land on
+          # heterogeneous Azure hardware, and threaded OpenBLAS (bundled in
+          # the numpy/scipy wheels) intermittently produced non-finite
+          # intermediates there: HYP-1530 forensics showed byte-identical
+          # numerical code passing and NaN-failing on the same runner image
+          # within hours (three consecutive runs failed at three unrelated
+          # numerical sites). Serial BLAS removes the thread-scheduling
+          # variance vector at a modest runtime cost.
+          OPENBLAS_NUM_THREADS: "1"
+          NUMBA_NUM_THREADS: "1"
         run: uv run --python 3.10 pytest -m "not slow" -q
