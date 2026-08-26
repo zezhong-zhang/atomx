@@ -30,6 +30,59 @@ class TestThomasFermi:
         # Far out: V ~ -(Z-N+1)/r = -1/r for neutral
         assert abs(V[1] * r[1] / (-1) - 1.0) < 0.1
 
+    @pytest.mark.parametrize(
+        ("Z", "N_electrons", "expected_tail"),
+        [
+            (10, 10, -1.0),
+            (10, 8, -3.0),
+        ],
+    )
+    def test_tfda_potential_preserves_latter_tail(self, Z, N_electrons, expected_tail):
+        """TFDA Amaldi correction must not change the Latter asymptotic charge."""
+        from atomx.potentials.thomas_fermi import tfda_potential
+
+        r = np.array([200.0, 500.0, 1000.0])
+        rv = r * tfda_potential(Z, N_electrons, r)
+
+        np.testing.assert_allclose(rv, expected_tail, rtol=0.0, atol=1e-8)
+
+    @pytest.mark.parametrize("N_electrons", [0.5, 1.0])
+    def test_tfda_sub_one_electron_cases_are_bare_nuclear(self, N_electrons):
+        """TFDA must not add screening for one-electron and sub-one-electron ions."""
+        from atomx.potentials.thomas_fermi import tfda_potential
+
+        r = np.geomspace(1e-6, 1e3, 128)
+        V = tfda_potential(10, N_electrons, r)
+
+        assert np.all(np.isfinite(V))
+        np.testing.assert_allclose(V, -10.0 / r, rtol=0.0, atol=0.0)
+
+    @pytest.mark.parametrize(
+        ("Z", "N_electrons", "expected_tail", "switch_radius"),
+        [
+            (10, 10, -1.0, 1.76162),
+            (10, 8, -3.0, 0.651464),
+            (10, 8, -3.0, 0.992003),
+        ],
+    )
+    def test_tfda_latter_switch_neighborhood_is_continuous(
+        self, Z, N_electrons, expected_tail, switch_radius
+    ):
+        """TFDA Latter selection must not introduce a jump near the switch."""
+        from atomx.potentials.thomas_fermi import tfda_potential
+
+        r = np.linspace(0.98 * switch_radius, 1.02 * switch_radius, 4097)
+        V = tfda_potential(Z, N_electrons, r)
+        rv = r * V
+
+        assert np.all(np.isfinite(V))
+        assert np.all(V < 0.0)
+        assert np.max(np.abs(np.diff(rv))) < 1e-3
+
+        tail_r = np.array([200.0, 500.0, 1000.0])
+        tail_rv = tail_r * tfda_potential(Z, N_electrons, tail_r)
+        np.testing.assert_allclose(tail_rv, expected_tail, rtol=0.0, atol=1e-8)
+
     def test_tfda_atom_calculation(self):
         """TFDA exchange mode should produce a converged result with orbital energies."""
         from atomx import Atom
