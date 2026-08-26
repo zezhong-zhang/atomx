@@ -11,6 +11,9 @@ importing a back-end.
   the reference provider.
 * :mod:`atomx.providers.pyscf_adapter` — the PySCF molecular adapter
   (optional dependency).
+* :mod:`atomx.providers.pyscf_embedding` — PySCF cluster / point-charge
+  embedding and the local-orbital bridge for environmental chemical shifts
+  (optional dependency; HYP-909).
 
 The PySCF adapter is imported lazily; importing this package never
 requires PySCF to be installed.
