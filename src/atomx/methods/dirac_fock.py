@@ -1337,6 +1337,33 @@ class DFSolver:
         components = {"E_1e": E_1e, "E_2e": E_2e, "E_J": E_J, "E_K": E_K}
         return E_total, components
 
+    def _final_energy_checked(self, orbitals, orbital_energies,
+                              max_retries=2):
+        """Evaluate the final total energy with a NaN tripwire (HYP-1590).
+
+        Under extreme CPU oversubscription a single serial energy-kernel
+        call has been observed to return NaN from finite inputs while an
+        immediate identical re-evaluation recovers (reproducer: concurrent
+        he_dhf solves at box load > 150).  Retry the deterministic
+        evaluation a few times; if the corruption persists, raise loudly
+        rather than returning a ``converged=True`` result whose
+        ``total_energy`` is NaN — a silent NaN here previously surfaced
+        as flaky failures in the he_dhf / pair_ladder test families.
+        """
+        last = None
+        for _attempt in range(max_retries + 1):
+            total_energy, energy_components = self._compute_total_energy(
+                orbitals, orbital_energies)
+            if np.isfinite(total_energy):
+                return total_energy, energy_components
+            last = energy_components
+        raise FloatingPointError(
+            "DFSolver: total energy is non-finite on "
+            f"{max_retries + 1} consecutive evaluations "
+            f"(components={last}) — transient numerical corruption did "
+            "not recover (HYP-1590)."
+        )
+
     def solve(self, max_iter=100, tol=1e-6, damping=None,
               mode="batch"):
         """Run the SCF iteration.
@@ -1450,6 +1477,11 @@ class DFSolver:
                         idx += 1
                     if idx < result.n_bound:
                         P, Q, E = result.get_orbital(idx)
+                        if np.isnan(E) or np.any(np.isnan(P)) or np.any(np.isnan(Q)):
+                            # HYP-1590: never seed the SCF with a poisoned
+                            # orbital — leave it to the first SCF iteration
+                            # (which has its own NaN guards) to rebuild it.
+                            continue
                         orb_list.append((P, Q, sh.occupation))
                         orbital_energies[sh.label] = E
                 orbitals[kappa] = orb_list
@@ -1538,7 +1570,11 @@ class DFSolver:
                         continue
 
                     P_new, Q_new, E_new = result.get_orbital(eig_idx)
-                    if np.isnan(E_new):
+                    if (np.isnan(E_new) or np.any(np.isnan(P_new))
+                            or np.any(np.isnan(Q_new))):
+                        # HYP-1590: a NaN eigenvector with a finite
+                        # eigenvalue poisons every downstream convolution
+                        # just as surely — skip the update either way.
                         continue
 
                     # Track change + sign fix
@@ -1768,8 +1804,9 @@ class DFSolver:
                 converged = True
                 break
 
-        # Compute total energy
-        total_energy, energy_components = self._compute_total_energy(orbitals, orbital_energies)
+        # Compute total energy (with a transient-NaN tripwire, HYP-1590)
+        total_energy, energy_components = self._final_energy_checked(
+            orbitals, orbital_energies)
 
         # Post-SCF corrections via the injected CorrectionStack (E1 seam)
         return self._finalize_with_corrections(SCFResult(
