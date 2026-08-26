@@ -1122,6 +1122,30 @@ def test_payload_unknown_eri_basis_rejected():
         payload.validate()
 
 
+def test_payload_small_eri_values_must_be_finite():
+    eri = np.zeros((2, 2, 2, 2))
+    eri[0, 0, 0, 0] = np.nan
+
+    with pytest.raises(ProviderContractError, match="ERI values must be finite"):
+        TwoElectronIntegrals(eri, basis="mo")
+
+
+@pytest.mark.parametrize(
+    "shape",
+    [
+        (np.int64(1), 1, 1, 1),
+        (True, 1, 1, 1),
+        (-1, 1, 1, 1),
+    ],
+)
+def test_eri_shape_metadata_rejects_abnormal_dimensions(shape):
+    with pytest.raises(
+        ProviderContractError,
+        match="ERI dimensions must be non-negative built-in integers",
+    ):
+        TwoElectronIntegrals._validated_shape(shape)
+
+
 def test_radial_only_payload_unknown_eri_basis_rejected():
     payload = ElectronicStructurePayload(
         Z=2,

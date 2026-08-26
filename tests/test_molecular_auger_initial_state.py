@@ -27,6 +27,15 @@ from atomx.scattering.autoionization.molecular import (
 )
 
 
+_NON_REAL_THRESHOLD_VALUES = (
+    True,
+    "0.5",
+    b"0.5",
+    object(),
+)
+_HUGE_REAL_THRESHOLD_VALUE = 10**10000
+
+
 def _payload(*, core_hole: str = "O 1s", overlap=True, metadata=True):
     C = np.eye(2)
     return ElectronicStructurePayload(
@@ -250,6 +259,137 @@ def test_local_valence_active_space_rejects_open_shell_active_mo():
 def test_local_valence_active_space_rejects_empty_active_space():
     with pytest.raises(ProviderContractError, match="no occupied valence MOs"):
         local_valence_active_space(_active_payload(), population_threshold=1.1)
+
+
+@pytest.mark.parametrize(
+    "kwargs",
+    [
+        {"population_threshold": float("nan")},
+        {"population_threshold": float("inf")},
+        {"population_threshold": -1e-6},
+        {"occupation_threshold": float("nan")},
+        {"occupation_threshold": -1e-6},
+        {"residual_tolerance": float("nan")},
+        {"residual_tolerance": float("inf")},
+        {"residual_tolerance": 0.0},
+        {"residual_tolerance": -1e-7},
+    ],
+)
+def test_local_valence_active_space_rejects_bad_thresholds(kwargs):
+    with pytest.raises(ProviderContractError):
+        local_valence_active_space(_active_payload(), **kwargs)
+
+
+@pytest.mark.parametrize(
+    "parameter",
+    ["population_threshold", "occupation_threshold", "residual_tolerance"],
+)
+@pytest.mark.parametrize("bad_value", _NON_REAL_THRESHOLD_VALUES)
+def test_local_valence_active_space_rejects_non_real_thresholds_before_active_work(
+    monkeypatch,
+    parameter,
+    bad_value,
+):
+    def fail_if_called(*args, **kwargs):
+        raise AssertionError("Mulliken active-space population work was reached")
+
+    monkeypatch.setattr(
+        "atomx.scattering.autoionization.molecular.np.einsum",
+        fail_if_called,
+    )
+
+    with pytest.raises(ProviderContractError, match=parameter):
+        local_valence_active_space(_active_payload(), **{parameter: bad_value})
+
+
+@pytest.mark.parametrize(
+    "parameter",
+    ["population_threshold", "occupation_threshold", "residual_tolerance"],
+)
+def test_local_valence_active_space_rejects_huge_real_thresholds_before_active_work(
+    monkeypatch,
+    parameter,
+):
+    def fail_if_called(*args, **kwargs):
+        raise AssertionError("Mulliken active-space population work was reached")
+
+    monkeypatch.setattr(
+        "atomx.scattering.autoionization.molecular.np.einsum",
+        fail_if_called,
+    )
+
+    with pytest.raises(ProviderContractError, match=parameter):
+        local_valence_active_space(
+            _active_payload(),
+            **{parameter: _HUGE_REAL_THRESHOLD_VALUE},
+        )
+
+
+@pytest.mark.parametrize(
+    "parameter",
+    ["population_threshold", "occupation_threshold", "residual_tolerance"],
+)
+def test_molecular_auger_final_states_rejects_huge_real_thresholds_before_work(
+    monkeypatch,
+    parameter,
+):
+    def fail_if_called(*args, **kwargs):
+        raise AssertionError("initial-state or active-space work was reached")
+
+    monkeypatch.setattr(
+        "atomx.scattering.autoionization.molecular.molecular_auger_initial_state",
+        fail_if_called,
+    )
+    monkeypatch.setattr(
+        "atomx.scattering.autoionization.molecular.local_valence_active_space",
+        fail_if_called,
+    )
+
+    with pytest.raises(ProviderContractError, match=parameter):
+        molecular_auger_final_states(
+            _active_payload(),
+            **{parameter: _HUGE_REAL_THRESHOLD_VALUE},
+        )
+
+
+def test_local_valence_active_space_rejects_oversized_active_space_budget():
+    n_mo = 18
+    occupations = np.array([1.0, *([2.0] * 17)])
+    labels = ["0 O 1s", *(f"0 O valence{i}" for i in range(1, n_mo))]
+    payload = ElectronicStructurePayload(
+        Z=8,
+        provenance=Provenance(
+            provider="mock",
+            code_version="mock 0",
+            method="RHF",
+            basis="sto-3g",
+            theory_level="RHF",
+            approximations=["nonrel-gto"],
+            core_hole="O 1s",
+            energy_zero="delta_scf_total_energy",
+        ),
+        orbital_energies={f"MO{i}": float(i) for i in range(n_mo)},
+        orbitals=OrbitalCoefficients(
+            coefficients=np.eye(n_mo),
+            energies=np.arange(n_mo, dtype=float),
+            occupations=occupations,
+            basis_labels=labels,
+        ),
+        overlap=OverlapBlock(np.eye(n_mo), basis_labels=labels),
+        density=DensityMatrix(np.diag(occupations)),
+        metadata={
+            "core_hole": {
+                "orbital_label": "O 1s",
+                "occupation_before": 2.0,
+                "occupation_after": 1.0,
+                "tracked_mo_index": 0,
+                "initial_state_energy_hartree": 19.5,
+            }
+        },
+    )
+
+    with pytest.raises(ProviderContractError, match="active space exceeds"):
+        local_valence_active_space(payload, population_threshold=0.5)
 
 
 def test_local_valence_active_space_rejects_nonorthonormal_active_block():
