@@ -45,7 +45,7 @@ def main() -> int:
     try:
         import pyscf  # noqa: F401
     except ImportError:
-        print("PySCF is required: pip install 'atomx[pyscf]'", file=sys.stderr)
+        print("PySCF is required: pip install 'atomx[pyscf]'", file=sys.stderr)  # noqa: T201
         return 2
 
     from atomx.providers.pyscf_embedding import study_cluster_convergence
@@ -63,6 +63,9 @@ def main() -> int:
         mm_shells=(1, 2, 3),
         evjen=True,
         charge_scales=(1.0,),
+        # The 27-atom (qm=1) clusters need ~100 SCF cycles; PySCF's default
+        # max_cycle=50 fails closed before the study table is produced.
+        max_cycle=200,
     )
     # Embedding-charge sensitivity at the largest embedding radius.
     sensitivity = study_cluster_convergence(
@@ -77,20 +80,21 @@ def main() -> int:
         mm_shells=(3,),
         evjen=True,
         charge_scales=(0.5, 1.0, 1.5),
+        max_cycle=200,
     )
 
     rows = study.to_table() + sensitivity.to_table()
-    print(f"reference (isolated Mg, {args.basis}):")
-    print(f"  Mg 1s epsilon   = {study.reference_identity.energy_hartree:.8f} Ha")
-    print(f"  Mg 1s binding   = {study.reference_binding_hartree:.8f} Ha "
+    print(f"reference (isolated Mg, {args.basis}):")  # noqa: T201
+    print(f"  Mg 1s epsilon   = {study.reference_identity.energy_hartree:.8f} Ha")  # noqa: T201
+    print(f"  Mg 1s binding   = {study.reference_binding_hartree:.8f} Ha "  # noqa: T201
           f"({study.reference_binding_hartree * HARTREE_TO_EV:.3f} eV)")
     header = (
         "label", "n_qm", "n_mm", "scale", "dominance",
         "d_eps(eV)", "d_bind(eV)",
     )
-    print(" | ".join(f"{h:>24s}" for h in header))
+    print(" | ".join(f"{h:>24s}" for h in header))  # noqa: T201
     for row in rows:
-        print(
+        print(  # noqa: T201
             " | ".join(
                 [
                     f"{row['label']:>24s}",
@@ -108,7 +112,7 @@ def main() -> int:
             writer = csv.DictWriter(fh, fieldnames=list(rows[0]))
             writer.writeheader()
             writer.writerows(rows)
-        print(f"wrote {args.csv}")
+        print(f"wrote {args.csv}")  # noqa: T201
     return 0
 
 

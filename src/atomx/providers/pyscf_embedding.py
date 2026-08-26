@@ -22,9 +22,11 @@ Physics model
 * **Energy zero** — two declared, traceable conventions:
   ``"mo_energy"`` (orbital-energy difference between environments, I4) and
   ``"delta_scf_total_energy"`` (core binding energy
-  ``E(N-1 core hole) − E(N)``; identical point-charge layouts cancel
-  exactly in the difference, so embedded ΔSCF is the preferred
-  environment-to-environment comparator).
+  ``E(N-1 core hole) − E(N)``; the identical point-charge layout makes the
+  constant nucleus–MM/MM–MM terms cancel exactly in the difference, while
+  the electron–MM interaction of the removed core electron survives and
+  *is* the physical environmental shift — so embedded ΔSCF is the
+  preferred artifact-free environment-to-environment comparator).
 
 PySCF remains an optional dependency; every public entry point imports it
 lazily and raises a clear :class:`ImportError` when missing.
@@ -233,8 +235,10 @@ def rocksalt_embedding(
     to ``mm_shells`` become point charges with formal charges
     ``q_cation``/``q_anion``.  With ``evjen=True`` the boundary shell carries
     fractional charges (face 1/2, edge 1/4, corner 1/8) so the truncated
-    lattice is exactly neutral; the net MM charge (``-q_cation``, balancing
-    the quantum cube) is recorded in the model metadata either way.
+    lattice is exactly neutral; the MM region then carries net charge
+    ``-(quantum-region formal charge)`` (e.g. ``-q_cation`` for a bare
+    central cation, ``+q_cation`` for the 27-site quantum_shells=1 cube),
+    recorded in the model metadata either way.
     """
     for name, value in (
         ("q_cation", q_cation),
@@ -511,10 +515,12 @@ def embedded_core_hole_delta_scf(
     """ΔSCF core-hole calculation on the embedded cluster.
 
     Applies the *same* point-charge layout to the ground-state RHF and the
-    MOM-tracked ROHF core-hole state, so the QM/MM electrostatic terms are
-    identical in both total energies and cancel exactly in
-    ``delta_scf_binding_energy = E(N−1) − E(N)`` — the traceable,
-    environment-comparable energy zero (I4).
+    MOM-tracked ROHF core-hole state.  The environment-constant terms
+    (nucleus–MM and MM–MM) cancel exactly in
+    ``delta_scf_binding_energy = E(N−1) − E(N)``, while the electron–MM
+    interaction of the removed core electron survives and *is* the physical
+    environmental (Madelung) shift — so the difference is artifact-free and
+    environment-comparable, the traceable energy zero (I4).
 
     Returns ``(core_hole_payload, ground_identity, binding_energy_hartree)``.
     """
@@ -745,17 +751,22 @@ def study_cluster_convergence(
     core-orbital identity, orbital-energy shift and ΔSCF binding-energy
     shift against that reference, all with declared energy zeros.
     """
-    _require_pyscf()
-    from pyscf import gto, scf
-
-    from atomx.providers.pyscf_adapter import build_core_hole_delta_scf_payload
-
     for q in quantum_shells:
         if q < 0:
             raise ProviderContractError(f"quantum_shells entries must be >= 0, got {q}")
     mms = sorted(set(int(m) for m in mm_shells))
     if not mms or mms[0] < 1:
         raise ProviderContractError("mm_shells entries must be >= 1")
+    if not any(m > q for q in quantum_shells for m in mms):
+        raise ProviderContractError(
+            "convergence sweep produced no configurations — check "
+            "quantum_shells/mm_shells/charge_scales"
+        )
+
+    _require_pyscf()
+    from pyscf import gto, scf
+
+    from atomx.providers.pyscf_adapter import build_core_hole_delta_scf_payload
 
     # Isolated-atom reference (same basis, same ΔSCF protocol → one zero).
     ref_mol = gto.M(atom=f"{cation} 0 0 0", basis=basis, verbose=0)

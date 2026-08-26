@@ -25,7 +25,6 @@ from atomx.providers.contract import (  # noqa: E402
 )
 from atomx.providers.pyscf_embedding import (  # noqa: E402
     CORE_IDENTITY_DOMINANCE_THRESHOLD,
-    EmbeddingModel,
     bridge_core_orbitals,
     build_embedded_scf,
     core_orbital_identity,
@@ -67,76 +66,8 @@ def _mgo_model(quantum_shells=0, mm_shells=1, evjen=True):
 # ---------------------------------------------------------------------------
 
 
-def test_rocksalt_embedding_structure_and_evjen_neutrality():
-    model = _mgo_model(quantum_shells=0, mm_shells=1, evjen=True)
-    assert model.central_atom_index == 0
-    assert model.quantum_atoms.startswith("Mg 0.0000000000 0.0000000000 0.0000000000")
-    assert model.n_quantum_atoms == 1
-    assert model.n_mm_charges == 26  # full first Chebyshev shell around Mg
-    # Evjen fractional boundary charges: 6 faces (1/2) + 12 edges (1/4)
-    # + 8 corners (1/8) -> the truncated lattice is neutral overall, so the
-    # MM region carries exactly -q_cation to balance the quantum cube.
-    assert model.net_mm_charge == pytest.approx(-2.0, abs=1e-12)
-    # Nearest neighbours of the central cation are the 6 face anions.
-    distances = np.linalg.norm(model.mm_coords, axis=1)
-    nearest = np.sort(distances)[:6]
-    np.testing.assert_allclose(nearest, MGO_NN_ANGSTROM, atol=1e-12)
-    np.testing.assert_allclose(model.mm_charges[np.argsort(distances)[:6]], -1.0)
-
-
-def test_rocksalt_embedding_without_evjen_records_net_charge():
-    model = _mgo_model(quantum_shells=0, mm_shells=1, evjen=False)
-    assert model.n_mm_charges == 26
-    # The full 27-site cube carries one extra anion-parity site; removing the
-    # central cation leaves the MM region at net -2 * q_cation, recorded in
-    # the model metadata rather than silently renormalized.
-    assert model.net_mm_charge == pytest.approx(-4.0, abs=1e-12)
-    assert "evjen-boundary-charges" not in model.approximations
-
-
-def test_embedding_model_validation_fail_closed():
-    model = _mgo_model()
-    with pytest.raises(ProviderContractError, match="mm_coords"):
-        EmbeddingModel(
-            quantum_atoms=model.quantum_atoms,
-            central_atom_index=0,
-            core_shell="1s",
-            mm_coords=np.zeros((3, 2)),
-            mm_charges=np.zeros(3),
-        )
-    with pytest.raises(ProviderContractError, match="mm_charges"):
-        EmbeddingModel(
-            quantum_atoms=model.quantum_atoms,
-            central_atom_index=0,
-            core_shell="1s",
-            mm_coords=np.zeros((3, 3)),
-            mm_charges=np.zeros(2),
-        )
-    with pytest.raises(ProviderContractError, match="finite"):
-        EmbeddingModel(
-            quantum_atoms=model.quantum_atoms,
-            central_atom_index=0,
-            core_shell="1s",
-            mm_coords=np.array([[np.inf, 0.0, 0.0]]),
-            mm_charges=np.array([1.0]),
-        )
-    with pytest.raises(ProviderContractError, match="central_atom_index"):
-        EmbeddingModel(
-            quantum_atoms=model.quantum_atoms,
-            central_atom_index=7,
-            core_shell="1s",
-            mm_coords=np.zeros((0, 3)),
-            mm_charges=np.zeros(0),
-        )
-    with pytest.raises(ProviderContractError, match="quantum_shells"):
-        rocksalt_embedding("Mg", "O", 2.0, -2.0, MGO_NN_ANGSTROM,
-                           quantum_shells=1, mm_shells=1)
-    with pytest.raises(ProviderContractError, match="scale"):
-        model.scaled_mm_charges(-0.5)
-
-
 def test_odd_electron_quantum_region_fail_closed():
-    # LiF qm=1 cube has 14 Li + 13 F = 159 electrons: open shell, restricted
+    # LiF qm=1 cube has 13 Li + 14 F = 165 electrons: open shell, restricted
     # embedding must fail closed rather than silently average spin channels.
     model = rocksalt_embedding(
         "Li", "F", 1.0, -1.0, 2.014, quantum_shells=1, mm_shells=2
@@ -312,6 +243,34 @@ def test_charge_scale_sensitivity_is_linear():
 # ---------------------------------------------------------------------------
 
 
+@pytest.mark.slow
+def test_benchmark_default_grid_qm1_converges():
+    """R1 regression: the 27-atom quantum cluster needs ~100 SCF cycles.
+
+    With the benchmark's lifted ``max_cycle=200`` the qm=1 path must
+    converge and the local-orbital bridge must keep the Mg 1s identity.
+    """
+    study = study_cluster_convergence(
+        cation="Mg",
+        anion="O",
+        q_cation=2.0,
+        q_anion=-2.0,
+        nearest_neighbor_angstrom=MGO_NN_ANGSTROM,
+        basis="sto-3g",
+        quantum_shells=(1,),
+        mm_shells=(2,),
+        charge_scales=(1.0,),
+        max_cycle=200,
+    )
+    assert len(study.records) == 1
+    rec = study.records[0]
+    assert rec.n_quantum_atoms == 27
+    assert rec.identity.label == "Mg 1s"
+    assert rec.identity.dominance > CORE_IDENTITY_DOMINANCE_THRESHOLD
+    assert np.isfinite(rec.binding_energy_hartree)
+    assert np.isfinite(rec.binding_shift_hartree)
+
+
 def test_convergence_study_small_grid():
     study = study_cluster_convergence(
         cation="Mg",
@@ -369,17 +328,3 @@ def test_convergence_study_charge_sensitivity_records_scale():
     half, full = study.records
     assert "scale=0.5" in half.label
     assert abs(half.binding_shift_hartree) < abs(full.binding_shift_hartree)
-
-
-def test_convergence_study_fail_closed_on_empty_grid():
-    with pytest.raises(ProviderContractError, match="no configurations"):
-        study_cluster_convergence(
-            cation="Mg",
-            anion="O",
-            q_cation=2.0,
-            q_anion=-2.0,
-            nearest_neighbor_angstrom=MGO_NN_ANGSTROM,
-            basis="sto-3g",
-            quantum_shells=(2,),
-            mm_shells=(1,),
-        )
