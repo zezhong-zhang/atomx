@@ -13,6 +13,12 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
+pytest.importorskip(
+    "pyscf",
+    reason="PySCF is an optional dependency (atomx[pyscf]); the whole module "
+    "is skipped on the minimal dependency set",
+)
+
 from atomx.providers.contract import (  # noqa: E402
     Capability,
     ProviderContractError,
