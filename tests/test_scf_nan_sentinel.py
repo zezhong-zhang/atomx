@@ -301,3 +301,63 @@ def test_convol_case2_mixed_never_reads_past_density_rows():
 
     want = _case2_mixed_reference(rkb, d_ref, ns, ks_left, ks_right)
     np.testing.assert_allclose(got, want, rtol=0, atol=1e-14)
+
+
+# ---------------------------------------------------------------------------
+# HYP-1608 review: seeding guard must fail loud (positional indexing makes
+# skip-and-rebuild unsound, and the tfda/gsz path has no SCF sweep);
+# tfda/gsz final energy must pass through the same tripwire.
+# ---------------------------------------------------------------------------
+
+
+def test_dhf_raises_on_poisoned_hydrogenic_seed(monkeypatch):
+    """A NaN eigenvector from the initial eigensolve raises immediately —
+    a silent skip would misalign positional orbital indexing and (in the
+    tfda/gsz path) deliver a wrong energy with converged=True."""
+    from atomx.numerics.bspline.dirac_assembly import DiracResult
+
+    real_get = DiracResult.get_orbital
+    poisoned = {"done": False}
+
+    def poison_get_orbital(self, idx):
+        P, Q, E = real_get(self, idx)
+        if not poisoned["done"]:
+            poisoned["done"] = True
+            P = P.copy()
+            P[0] = np.nan   # NaN eigenvector with finite eigenvalue
+        return P, Q, E
+
+    monkeypatch.setattr(DiracResult, "get_orbital", poison_get_orbital)
+    atom = Atom(Z=2, numerics="bspline")
+    with pytest.raises(FloatingPointError, match="HYP-1590"):
+        atom.solve()
+
+
+def test_tfda_final_energy_uses_tripwire(monkeypatch):
+    """The parametric (tfda) early return routes through
+    _final_energy_checked: transient NaN recovers, persistent raises."""
+    real_cte = DFSolver._compute_total_energy
+    calls = {"n": 0}
+
+    def flaky_cte(self, orbitals, orbital_energies=None):
+        calls["n"] += 1
+        E, comp = real_cte(self, orbitals, orbital_energies)
+        if calls["n"] == 1:
+            return float("nan"), comp
+        return E, comp
+
+    monkeypatch.setattr(DFSolver, "_compute_total_energy", flaky_cte)
+    atom = Atom(Z=2, numerics="bspline", exchange="tfda")
+    atom.solve()
+    assert np.isfinite(atom._result.total_energy)
+    assert calls["n"] >= 2   # the first NaN evaluation was retried
+
+
+def test_tfda_raises_on_persistent_nan(monkeypatch):
+    monkeypatch.setattr(
+        DFSolver, "_compute_total_energy",
+        lambda self, orbitals, orbital_energies=None: (
+            float("nan"), {"E_1e": float("nan")}))
+    atom = Atom(Z=2, numerics="bspline", exchange="tfda")
+    with pytest.raises(FloatingPointError, match="HYP-1590"):
+        atom.solve()

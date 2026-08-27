@@ -1477,11 +1477,22 @@ class DFSolver:
                         idx += 1
                     if idx < result.n_bound:
                         P, Q, E = result.get_orbital(idx)
-                        if np.isnan(E) or np.any(np.isnan(P)) or np.any(np.isnan(Q)):
-                            # HYP-1590: never seed the SCF with a poisoned
-                            # orbital — leave it to the first SCF iteration
-                            # (which has its own NaN guards) to rebuild it.
-                            continue
+                        if (np.isnan(E) or np.any(np.isnan(P))
+                                or np.any(np.isnan(Q))):
+                            # HYP-1590 (review HYP-1608): a poisoned
+                            # hydrogenic seed must fail loud, not be
+                            # skipped — orbital indexing is positional
+                            # within each kappa group, so a bare skip
+                            # would shift every same-kappa orbital one
+                            # slot, and the parametric (tfda/gsz) path
+                            # below has no SCF sweep to rebuild anything.
+                            raise FloatingPointError(
+                                "DFSolver: non-finite hydrogenic seed "
+                                f"orbital for {sh.label} (kappa={kappa}) — "
+                                "the initial eigensolve produced NaN and "
+                                "the seed cannot be rebuilt positionally "
+                                "(HYP-1590)."
+                            )
                         orb_list.append((P, Q, sh.occupation))
                         orbital_energies[sh.label] = E
                 orbitals[kappa] = orb_list
@@ -1489,7 +1500,10 @@ class DFSolver:
         # For parametric potentials (TFDA, GSZ), no SCF iteration needed --
         # the initial orbitals ARE the final orbitals
         if self.exchange in ("tfda", "gsz"):
-            total_energy, energy_components = self._compute_total_energy(
+            # HYP-1590 (review HYP-1608): route through the same final-energy
+            # tripwire as the SCF path — never deliver converged=True with a
+            # non-finite total energy from the parametric path either.
+            total_energy, energy_components = self._final_energy_checked(
                 orbitals, orbital_energies)
             return self._finalize_with_corrections(SCFResult(
                 converged=True, iterations=1, residual=0.0,
