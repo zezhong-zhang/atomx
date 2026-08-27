@@ -967,7 +967,21 @@ def _convol_case2_mixed(rkb, d_left, ns, ks_left, ks_right):
 
     Contract left pair (i, ip) with banded density d_left(ns, ks_left).
     Result is banded: a(ns, ks_right).
+
+    HYP-1590: the left-pair contraction is bounded by the density's own
+    row count (``n_left``), NOT by ``ns``.  Under kinetic balance
+    ``nsp = ns - 1``, so a caller passing ``ns`` rows for a P-density
+    with only ``nsp`` rows made the old loop read past the end of
+    ``d_left`` — numba nopython mode performs no bounds checking, so the
+    kernel consumed whatever garbage float64s happened to follow the
+    array on the heap.  R^k rows beyond the P/Q basis size are built
+    exactly zero (same trimming rule as :func:`_rkb_bilinear`), so
+    ``0 * garbage`` was silently benign — until the garbage was a NaN
+    bit pattern, when ``0 * NaN = NaN`` poisoned the whole Slater
+    integral.  Heap contents depend on allocator state, which is why the
+    failure only surfaced under heavy box load.  Trimming is exact.
     """
+    n_left = d_left.shape[0]
     a = np.zeros((ns, ks_right))
     n_out = ns * ks_right
     for idx in range(n_out):
@@ -977,8 +991,8 @@ def _convol_case2_mixed(rkb, d_left, ns, ks_left, ks_right):
             continue
         s = 0.0
         for ip in range(ks_left):
-            for i in range(ns):
-                if i + ip >= ns:
+            for i in range(n_left):
+                if i + ip >= n_left:
                     continue
                 s += rkb[i, j, ip, jp] * d_left[i, ip]
         a[j, jp] = s
@@ -1230,7 +1244,31 @@ def compute_slater_rk_cell(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd, bsp_data, k,
 
     Uses all 4 component types: pppp + qqqq + pqpq + qpqp.
     Currently pppp and qqqq are exact cell algorithm; pqpq/qpqp use Y^k fallback.
+
+    The evaluation is wrapped in a transient-NaN tripwire (HYP-1590): under
+    extreme CPU oversubscription a single serial kernel call has been
+    observed to return NaN from finite inputs while an immediate identical
+    re-evaluation recovers (reproducer: 8 concurrent he_dhf solves at box
+    load ~200, NaN only on each process's first solve, E_J component).
+    The result check is O(1) per call; the retry path is cold.
     """
+    last = None
+    for _attempt in range(3):
+        result = _compute_slater_rk_cell_once(
+            Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd, bsp_data, k, cache=cache)
+        if np.isfinite(result):
+            return result
+        last = result
+    raise FloatingPointError(
+        "compute_slater_rk_cell: non-finite R^k on 3 consecutive "
+        f"evaluations (k={k}, value={last}) — transient numerical "
+        "corruption did not recover (HYP-1590)."
+    )
+
+
+def _compute_slater_rk_cell_once(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd, bsp_data, k,
+                                  cache=None):
+    """Single evaluation behind :func:`compute_slater_rk_cell`."""
     bd = bsp_data
     ksp = bd.get("ksp", bd["ks"])
     nsp = bd.get("nsp", bd["ns"])

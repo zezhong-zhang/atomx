@@ -220,6 +220,36 @@ def clear_solve_dirac_caches() -> None:
     _solve_dirac_basis_cache.clear()
 
 
+
+
+def _eigh_finite(H_red, S_red, max_retries=2):
+    """``linalg.eigh`` with a transient-NaN tripwire (HYP-1590).
+
+    Under extreme CPU oversubscription (box load > 100 with many
+    concurrent runs) a BLAS/LAPACK call has been observed to return
+    non-finite eigenvalues from finite inputs; an immediate re-issue of
+    the same call recovers.  Gate the solver output on finiteness: retry
+    the identical call a few times, and raise loudly if the corruption
+    persists instead of letting a silent NaN poison the SCF.
+
+    The finiteness scan is O(ms) on the eigenvalues only — negligible
+    next to the O(ms^3) factorisation (the full-matrix input scan is
+    what ``check_finite=False`` avoids, and stays off).
+    """
+    last_w = None
+    for attempt in range(max_retries + 1):
+        w, v = linalg.eigh(H_red, S_red, check_finite=False)
+        if np.all(np.isfinite(w)):
+            return w, v
+        last_w = w
+    raise linalg.LinAlgError(
+        "solve_dirac: eigh returned non-finite eigenvalues "
+        f"({int(np.isnan(last_w).sum())} NaN of {last_w.size}) on "
+        f"{max_retries + 1} consecutive attempts from finite input — "
+        "transient numerical corruption did not recover (HYP-1590)."
+    )
+
+
 def solve_dirac(H, S, ns, kappa, n_remove_boundary=1, nsp=None, nsq=None):
     """Solve the generalized Dirac eigenvalue problem.
 
@@ -274,7 +304,7 @@ def solve_dirac(H, S, ns, kappa, n_remove_boundary=1, nsp=None, nsq=None):
     # (bisection + inverse iteration) by 2–3× — subset drivers only win
     # for banded or much larger problems. ``check_finite=False`` skips a
     # full-matrix scan that scipy otherwise does on every call.
-    eigenvalues, eigenvectors = linalg.eigh(H_red, S_red, check_finite=False)
+    eigenvalues, eigenvectors = _eigh_finite(H_red, S_red)
 
     sea_threshold = -2.0 * C_SQ
     physical_mask = eigenvalues > sea_threshold
