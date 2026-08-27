@@ -61,7 +61,36 @@ class BreitPauli(Method):
         return RelativisticCorrection.SPIN_ORBIT in self.corrections
 
     def solve(self, Z, subshells, tol=1e-5, max_iter=40, **kwargs):
-        """Run NR-HF then apply perturbative relativistic corrections."""
+        """Run NR-HF then apply perturbative relativistic corrections.
+
+        Output ``orbital_energies`` key convention
+        ------------------------------------------
+        Keys are jj subshell labels (``"{n}{l}{2j}/2"``, e.g. ``"1s1/2"``,
+        ``"2p3/2"``) — the same labelling the NR :class:`ShootingSolver`
+        uses for its base result:
+
+        - ``l = 0`` (or spin-orbit disabled): each input jj key is
+          updated **in place** with the corrected energy; no extra
+          NR-style key (``"1s"``) is created.
+        - ``l > 0`` with spin-orbit enabled: exactly two jj keys,
+          ``"{n}{l}{2l-1}/2"`` and ``"{n}{l}{2l+1}/2"``, holding the
+          corrected energies of the ``j = l - 1/2`` / ``j = l + 1/2``
+          fine-structure levels.  Both share one NR base energy, so
+          their difference is exactly the spin-orbit splitting.
+
+        When the input lists several subshells sharing the same
+        ``(n, l)`` (e.g. ``2p1/2`` + ``2p3/2`` from a ``2p6`` token),
+        they form one NR shell: the shared base energy is the
+        occupation-weighted average of their NR orbital energies (the
+        Breit-Pauli shifts depend only on ``(n, l)``), and the two
+        output jj keys are written once.
+
+        Raises
+        ------
+        KeyError
+            If a subshell's NR orbital energy is missing from the base
+            result — there is no silent zero fallback.
+        """
         from atomx.numerics.shooting.solver import ShootingSolver, ShootingResult
         from atomx.physics.breit_pauli import (
             darwin_shift,
@@ -85,37 +114,64 @@ class BreitPauli(Method):
         delta_so = 0.0
         components = dict(nr_result.energy_components)
 
+        # Group subshells by (n, l): jj-split inputs of one NR shell
+        # (e.g. "2p6" -> 2p1/2 + 2p3/2) share a single NR base energy.
+        # Resolve each base energy via the subshell's own jj label —
+        # the key the NR solver actually wrote — never a synthesized
+        # NR label with a silent 0.0 fallback.
+        groups = []  # [{"n", "l", "members": [(subshell, E_orb)]}]
+        group_index = {}
         for sh in subshells:
-            n, l = sh.n, sh.l
+            if sh.label not in nr_result.orbital_energies:
+                raise KeyError(
+                    f"NR base energy for subshell {sh.label!r} is missing "
+                    f"from the ShootingSolver result; available keys: "
+                    f"{sorted(nr_result.orbital_energies)}")
+            key = (sh.n, sh.l)
+            member = (sh, nr_result.orbital_energies[sh.label])
+            if key in group_index:
+                groups[group_index[key]]["members"].append(member)
+            else:
+                group_index[key] = len(groups)
+                groups.append({"n": sh.n, "l": sh.l, "members": [member]})
+
+        for group in groups:
+            n, l, members = group["n"], group["l"], group["members"]
             l_char = "spdfghiklmno"[l] if l < 12 else f"l{l}"
-            label_nr = f"{n}{l_char}"
-            E_orb = nr_result.orbital_energies.get(label_nr, 0.0)
-            q = sh.occupation
+            q_tot = sum(sh.occupation for sh, _ in members)
             Z_eff = Z
 
             E_mv = mass_velocity_shift(n, l, Z_eff) if self.include_mass_velocity else 0.0
-            delta_mv += q * E_mv
+            delta_mv += q_tot * E_mv
 
             E_d = darwin_shift(n, l, Z_eff) if self.include_darwin else 0.0
-            delta_darwin += q * E_d
+            delta_darwin += q_tot * E_d
 
             if self.include_spin_orbit and l > 0:
+                # Occupation-weighted NR base shared by both j levels.
+                E_orb = (sum(sh.occupation * E for sh, E in members) / q_tot
+                         if q_tot > 0 else 0.0)
                 xi = spin_orbit_xi(n, l, Z_eff)
                 E_so_plus, E_so_minus = spin_orbit_shifts(l, xi)
 
                 j2_plus = 2 * l + 1
                 j2_minus = 2 * l - 1
                 E_base = E_orb + E_mv + E_d
+                # Replace the real NR jj key(s) of this (n, l) shell with
+                # the two corrected fine-structure levels.
+                corrected_energies.pop(f"{n}{l_char}{j2_minus}/2", None)
+                corrected_energies.pop(f"{n}{l_char}{j2_plus}/2", None)
                 corrected_energies[f"{n}{l_char}{j2_plus}/2"] = E_base + E_so_plus
                 corrected_energies[f"{n}{l_char}{j2_minus}/2"] = E_base + E_so_minus
-                del corrected_energies[label_nr]
 
                 deg_plus, deg_minus = j2_plus + 1, j2_minus + 1
                 E_so_avg = (deg_plus * E_so_plus + deg_minus * E_so_minus
                             ) / (deg_plus + deg_minus)
-                delta_so += q * E_so_avg
+                delta_so += q_tot * E_so_avg
             else:
-                corrected_energies[label_nr] = E_orb + E_mv + E_d
+                # l = 0 (or spin-orbit off): update each jj key in place.
+                for sh, E_orb in members:
+                    corrected_energies[sh.label] = E_orb + E_mv + E_d
 
         total_correction = delta_mv + delta_darwin + delta_so
         components["E_mass_velocity"] = delta_mv
