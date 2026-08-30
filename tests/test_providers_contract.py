@@ -1237,3 +1237,93 @@ def test_payload_validate_catches_complex_eri_imaginary_violation():
 
     with pytest.raises(ProviderContractError):
         payload.validate()
+def _masked(matrix):
+    # HYP-1381 F2 probe: the mask hides a finite sentinel (999) that
+    # np.asarray would silently promote to active data.
+    return np.ma.masked_array(matrix, mask=matrix == 0.0, fill_value=999.0)
+
+
+@pytest.mark.parametrize(
+    "block_factory",
+    [
+        lambda: OverlapBlock(_masked(np.eye(2))),
+        lambda: DensityMatrix(_masked(np.eye(2))),
+        lambda: OrbitalCoefficients(
+            coefficients=_masked(np.eye(2)),
+            energies=np.array([-0.5, 0.5]),
+            occupations=np.array([2.0, 0.0]),
+        ),
+        lambda: OrbitalCoefficients(
+            coefficients=np.eye(2),
+            energies=_masked(np.array([-0.5, 0.5])),
+            occupations=np.array([2.0, 0.0]),
+        ),
+        lambda: OrbitalCoefficients(
+            coefficients=np.eye(2),
+            energies=np.array([-0.5, 0.5]),
+            occupations=_masked(np.array([2.0, 0.0])),
+        ),
+        lambda: TwoElectronIntegrals(
+            _masked(np.zeros((2, 2, 2, 2))), basis="ao"
+        ),
+    ],
+)
+def test_masked_arrays_fail_closed_on_all_numeric_blocks(block_factory):
+    with pytest.raises(
+        ProviderContractError, match="base numpy.ndarray"
+    ):
+        block_factory()
+
+
+def test_masked_scalar_fails_closed_in_electron_count_path():
+    payload = _minimal_payload(
+        density=DensityMatrix(np.array([[2.0]])),
+        orbitals=OrbitalCoefficients(
+            coefficients=np.ones((1, 1)),
+            energies=np.array([-0.5]),
+            occupations=np.array([2.0]),
+        ),
+        orbital_energies={"MO0": -0.5},
+    )
+    payload.density.matrix = np.ma.masked
+
+    with pytest.raises(
+        ProviderContractError, match="base numpy.ndarray"
+    ):
+        payload.electron_count()
+
+
+class _TaggedArray(np.ndarray):
+    """Minimal ndarray subclass used to probe the subclass gate."""
+
+
+@pytest.mark.parametrize(
+    "subclass_value",
+    [
+        np.matrix(np.eye(2)),
+        np.eye(2).view(_TaggedArray),
+    ],
+)
+def test_ndarray_subclasses_fail_closed_on_overlap_block(subclass_value):
+    with pytest.raises(
+        ProviderContractError, match="base numpy.ndarray"
+    ):
+        OverlapBlock(subclass_value)
+
+
+def test_masked_array_subclass_name_in_error_is_bounded():
+    try:
+        OverlapBlock(_masked(np.eye(2)))
+    except ProviderContractError as exc:
+        message = str(exc)
+    else:  # pragma: no cover - the parametrize above guarantees the raise
+        raise AssertionError("masked overlap must fail closed")
+    assert "MaskedArray" in message
+    assert len(message) < 300
+
+
+def test_plain_array_like_inputs_still_accepted_after_subclass_gate():
+    block = OverlapBlock([[1.0, 0.0], [0.0, 1.0]])
+    assert block.matrix.shape == (2, 2)
+    density = DensityMatrix(np.eye(2))
+    assert density.matrix.shape == (2, 2)
