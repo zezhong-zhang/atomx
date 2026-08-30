@@ -165,6 +165,8 @@ _MAX_KEY_LABEL = 40
 _FALLBACK_ERROR_TYPE_NAME = "unknown"
 _ELECTRON_COUNT_IMAG_ATOL = 1e-10
 _ELECTRON_COUNT_IMAG_RTOL = 1e-12
+_ERI_IMAG_ATOL = 1e-10
+_ERI_IMAG_RTOL = 1e-12
 _MAX_NESTED_NUMERIC_DEPTH = 16
 _MAX_NESTED_NUMERIC_NODES = 10_000
 _MAX_ORBITALS_RAW_KAPPAS = 128
@@ -626,7 +628,19 @@ class TwoElectronIntegrals:
         if np.iscomplexobj(self.eri):
             if not np.all(np.isfinite(self.eri)):
                 raise ProviderContractError("ERI values must be finite")
-            normalized = self.eri.real.astype(float, copy=False)
+            real = self.eri.real
+            imag = self.eri.imag
+            tolerance = _ERI_IMAG_ATOL + _ERI_IMAG_RTOL * np.abs(real)
+            if np.any(np.abs(imag) > tolerance):
+                raise ProviderContractError(
+                    "complex ERI imaginary parts exceed the provider contract "
+                    "tolerance and cannot be discarded: "
+                    f"max|imag|={float(np.abs(imag).max())}, "
+                    f"tolerance<=atol {_ERI_IMAG_ATOL} + rtol {_ERI_IMAG_RTOL} "
+                    "* |real|; project the back-end data to a real ERI "
+                    "explicitly instead of relying on silent truncation"
+                )
+            normalized = real.astype(float, copy=False)
         else:
             try:
                 normalized = self.eri.astype(float, copy=False)
