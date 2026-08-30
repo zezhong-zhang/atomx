@@ -1168,3 +1168,72 @@ def test_two_electron_integrals_must_be_rank_four():
 def test_two_electron_integrals_axes_must_be_equal_length():
     with pytest.raises(ProviderContractError):
         TwoElectronIntegrals(np.zeros((2, 2, 2, 3)))
+
+
+def test_complex_eri_within_imaginary_tolerance_is_projected_to_real():
+    eri = np.zeros((2, 2, 2, 2), dtype=complex)
+    eri[0, 0, 0, 0] = 1.5 + 1e-12j
+
+    block = TwoElectronIntegrals(eri, basis="ao")
+
+    assert block.eri.dtype == float
+    assert block.eri[0, 0, 0, 0] == pytest.approx(1.5)
+
+
+def test_complex_eri_imaginary_tolerance_boundary_is_accepted():
+    real = 1.5
+    tolerance = 1e-10 + 1e-12 * abs(real)
+    eri = np.full((2, 2, 2, 2), real + tolerance * 1j, dtype=complex)
+
+    block = TwoElectronIntegrals(eri, basis="ao")
+
+    assert block.eri.dtype == float
+    assert np.all(block.eri == pytest.approx(real))
+
+
+def test_complex_eri_large_imaginary_part_fails_closed():
+    # HYP-1381 F1 probe: imag=1e6 was silently discarded by ``.real``.
+    eri = np.zeros((2, 2, 2, 2), dtype=complex)
+    eri[1, 1, 1, 1] = 0.25 + 1e6j
+
+    with pytest.raises(
+        ProviderContractError,
+        match="complex ERI imaginary parts exceed the provider contract",
+    ):
+        TwoElectronIntegrals(eri, basis="ao")
+
+
+def test_complex_eri_just_beyond_imaginary_tolerance_fails_closed():
+    real = 1.5
+    tolerance = 1e-10 + 1e-12 * abs(real)
+    imag = np.nextafter(tolerance, np.inf)
+    eri = np.full((2, 2, 2, 2), real + imag * 1j, dtype=complex)
+
+    with pytest.raises(
+        ProviderContractError,
+        match="complex ERI imaginary parts exceed the provider contract",
+    ):
+        TwoElectronIntegrals(eri, basis="ao")
+
+
+def test_complex_eri_non_finite_imaginary_part_still_rejected_as_non_finite():
+    eri = np.zeros((2, 2, 2, 2), dtype=complex)
+    eri[0, 0, 0, 0] = 1.0 + np.inf * 1j
+
+    with pytest.raises(ProviderContractError, match="ERI values must be finite"):
+        TwoElectronIntegrals(eri, basis="ao")
+
+
+def test_payload_validate_catches_complex_eri_imaginary_violation():
+    eri = np.zeros((2, 2, 2, 2), dtype=complex)
+    eri[0, 1, 0, 1] = 0.5 + 10.0j
+    payload = _minimal_payload(
+        two_electron=TwoElectronIntegrals.__new__(TwoElectronIntegrals)
+    )
+    # Construct without __post_init__ validation to exercise payload.validate().
+    payload.two_electron.eri = eri
+    payload.two_electron.basis = "ao"
+    payload.two_electron.notation = "chemist"
+
+    with pytest.raises(ProviderContractError):
+        payload.validate()
