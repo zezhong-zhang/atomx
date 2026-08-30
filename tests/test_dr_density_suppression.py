@@ -54,3 +54,38 @@ def test_high_density_drops_high_n_only():
 def test_suppression_requires_limit():
     with pytest.raises(ValueError, match="series_limit_eV"):
         dr_rate_coefficient(_states(), [100.0], ne_cm3=1e20)
+
+
+def test_density_suppression_rejects_nonfinite_ipd(monkeypatch):
+    import atomx.plasma.screening as screening
+
+    monkeypatch.setattr(
+        screening, "ionization_potential_depression", lambda *args, **kw: np.nan)
+
+    with pytest.raises(ValueError, match="non-finite IPD"):
+        dr_rate_coefficient(
+            _states(),
+            [100.0],
+            ne_cm3=1e20,
+            Z_ion=16,
+            series_limit_eV=800.0,
+        )
+
+
+def test_density_suppression_rejects_nonfinite_binding_energy():
+    state = AutoionizationState(
+        label="bad-energy",
+        E_resonance_eV=np.nan,
+        J=1.5,
+        gamma_auger_per_s=1e14,
+        a_radiative_per_s=1e13,
+    )
+
+    with pytest.raises(ValueError, match="binding energy"):
+        dr_rate_coefficient(
+            [state],
+            [100.0],
+            ne_cm3=1e20,
+            Z_ion=16,
+            series_limit_eV=800.0,
+        )
