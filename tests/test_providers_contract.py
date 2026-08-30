@@ -1327,3 +1327,57 @@ def test_plain_array_like_inputs_still_accepted_after_subclass_gate():
     assert block.matrix.shape == (2, 2)
     density = DensityMatrix(np.eye(2))
     assert density.matrix.shape == (2, 2)
+def _payload_with_eri_basis(basis):
+    return _minimal_payload(
+        two_electron=TwoElectronIntegrals(np.zeros((2, 2, 2, 2)), basis=basis)
+    )
+
+
+def test_unknown_eri_basis_echo_is_bounded_and_truncated():
+    # HYP-1381 F3 probe: an adapter-controlled token-like string was echoed
+    # unbounded into the error message and any downstream logs.
+    token_like = "sk-live-TOKEN-" + "A" * 500
+    payload = _payload_with_eri_basis(token_like)
+
+    with pytest.raises(ProviderContractError) as excinfo:
+        payload.validate()
+
+    message = str(excinfo.value)
+    assert token_like not in message
+    assert "sk-live-TOKEN-" in message  # prefix retained for debuggability
+    assert message.endswith("...'") or "...'" in message
+    assert len(message) < 160
+
+
+def test_unknown_eri_basis_echo_strips_control_characters():
+    basis = "ao\x00\nsecret\ttoken\r\n"
+    payload = _payload_with_eri_basis(basis)
+
+    with pytest.raises(ProviderContractError) as excinfo:
+        payload.validate()
+
+    message = str(excinfo.value)
+    assert "\n" not in message
+    assert "\t" not in message
+    assert "\x00" not in message
+
+
+def test_unknown_eri_basis_non_string_type_echoes_bounded_type_name():
+    class HostileBasis:
+        pass
+
+    payload = _payload_with_eri_basis(HostileBasis())
+
+    with pytest.raises(ProviderContractError) as excinfo:
+        payload.validate()
+
+    message = str(excinfo.value)
+    assert "HostileBasis" in message
+    assert len(message) < 160
+
+
+def test_unknown_eri_basis_short_string_still_echoed_for_debuggability():
+    payload = _payload_with_eri_basis("grid")
+
+    with pytest.raises(ProviderContractError, match="got 'grid'"):
+        payload.validate()
