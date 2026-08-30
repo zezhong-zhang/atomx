@@ -249,10 +249,22 @@ def _as_finite_numeric_array(name: str, value: Any) -> np.ndarray:
 
     Object dtype is fail-closed because it can hide arbitrary Python objects,
     deferred conversions, or values whose numeric status changes after
-    construction. This contract intentionally does not impose size caps; very
-    large finite arrays remain a residual availability risk for adapters and
-    runtime resource limits to control.
+    construction. ``numpy.ndarray`` subclasses (e.g. ``np.ma.MaskedArray``)
+    are likewise fail-closed: ``np.asarray`` would silently drop their
+    metadata, letting masked sentinel values become active data. This
+    contract intentionally does not impose size caps; very large finite
+    arrays remain a residual availability risk for adapters and runtime
+    resource limits to control.
     """
+    if isinstance(value, np.ndarray) and type(value) is not np.ndarray:
+        raise ProviderContractError(
+            f"{name} must be provided as a base numpy.ndarray or plain "
+            "array-like; ndarray subclasses "
+            f"(type={_safe_type_name(value)}) are rejected before NumPy "
+            "array conversion because np.asarray silently discards their "
+            "metadata (e.g. a MaskedArray mask), which would let masked "
+            "sentinel values bypass the finite gate"
+        )
     try:
         array = np.asarray(value)
     except (TypeError, ValueError) as exc:
