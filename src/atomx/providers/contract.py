@@ -907,7 +907,7 @@ class ElectronicStructurePayload:
             if basis not in ("ao", "mo"):
                 raise ProviderContractError(
                     "two-electron integral basis must be 'ao' or 'mo', "
-                    f"got {basis!r}"
+                    f"got {_bounded_key(basis)!r}"
                 )
             if self.orbitals is not None:
                 expected = n_ao if basis == "ao" else self.orbitals.n_mo
