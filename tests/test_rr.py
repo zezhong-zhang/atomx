@@ -6,6 +6,8 @@ import numpy as np
 
 from atomx import Atom
 from atomx.constants import HARTREE_EV
+from atomx.methods.hydrogenic_cross_sections import milne_rr_cross_section
+from atomx.plasma.rates import maxwellian_rate
 import atomx.scattering.radiative_recombination as rr_mod
 from atomx.scattering.radiative_recombination import (
     RRResult,
@@ -56,6 +58,43 @@ def test_rr_rate_coefficient_he_plus_order_of_magnitude():
     r = rr_cross_section(res, E, g_initial=1)
     rate = rr_rate_coefficient(r, np.array([1.0]))
     assert 1e-14 < rate < 1e-12
+
+
+def test_rr_rate_coefficient_matches_hydrogenic_stobbe_milne():
+    """Fast quantitative regression guard for the RR rate coefficient.
+
+    Compares the full pipeline (B-spline Dirac-Fock solve ->
+    delta-energy-normalized continuum -> Milne detailed balance ->
+    Maxwellian average) for hydrogenic He2+ + e -> He+(1s) against the
+    exact nonrelativistic hydrogenic benchmark: Stobbe 1s PI cross
+    section mapped through Milne detailed balance.
+
+    Regression coverage for HYP-1645: the pre-#65 continuum path used
+    box-normalized pseudo-states (no ``sqrt(dn/dE)`` density factor),
+    which understated the Fe K-shell rate coefficients by 10x-300x with
+    an inverted temperature trend.  The benchmark here would fail by
+    the same factors under that defect.  Rate coefficients (integrals
+    over the pseudo-spectrum staircase) are compared rather than
+    pointwise cross sections, which oscillate from one pseudo-state to
+    the next.
+    """
+    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom.solve()
+
+    energies = np.geomspace(1.0, 500.0, 40)
+    rr = rr_cross_section(atom._result, energies, g_initial=1, multipoles=["E1"])
+
+    sigma_ref_cm2 = milne_rr_cross_section(2, 1, energies / HARTREE_EV)
+    temperatures = np.array([1.0, 10.0, 100.0])
+    rates = np.atleast_1d(rr_rate_coefficient(rr, temperatures))
+    rates_ref = np.array([
+        maxwellian_rate(sigma_ref_cm2, energies, float(T))
+        for T in temperatures
+    ])
+    np.testing.assert_allclose(rates, rates_ref, rtol=0.10)
+    # Hydrogenic RR rates decrease with temperature in this range; the
+    # regressed (box-normalized) path produced an increasing trend.
+    assert np.all(np.diff(rates) < 0.0)
 
 
 def test_rr_against_invalid_input():

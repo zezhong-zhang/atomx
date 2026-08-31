@@ -146,8 +146,14 @@ def milne_rr_cross_section(
     Built on the exact Stobbe σ_PI for n=1, the Kramers approximation
     for n ≥ 2.  Sums over all l for each n.
 
-    σ_RR(E_e) = σ_PI(ω) · (g_b / (2 g_a)) · α² ω² / (2 E_e)
+    σ_RR(E_e) = σ_PI(ω) · (g_b / g_a) · α² ω² / (2 E_e)
         with ω = E_e + I_n.
+
+    In detailed balance the free-electron spin degeneracy (2) cancels
+    the photon's two polarisations, so no factor 2 multiplies the ion
+    degeneracy; the 1/2 in α²ω²/(2E_e) comes from E_e = p²/(2 m_e)
+    (Gu 2003, ApJ 589, 1085).  Anchored absolutely by the H 1s RR rate
+    at 1e4 K (Storey & Hummer 1995) in test_hydrogenic_cross_sections.
 
     Parameters
     ----------
@@ -177,7 +183,7 @@ def milne_rr_cross_section(
     else:
         sigma_pi_cm2 = kramers_pi_cross_section(Z, n, omega)
     milne = (ALPHA ** 2) * (omega ** 2) / (2.0 * Ee)
-    return sigma_pi_cm2 * (g_recombined / (2.0 * g_recombining)) * milne
+    return sigma_pi_cm2 * (g_recombined / g_recombining) * milne
 
 
 # -----------------------------------------------------------------
