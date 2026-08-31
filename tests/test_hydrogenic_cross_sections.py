@@ -87,7 +87,9 @@ def test_milne_rr_h1s_absolute_rate_anchor():
     energies_eV = np.geomspace(1e-3, 100.0, 4000)
     sigma_cm2 = milne_rr_cross_section(1, 1, energies_eV / HARTREE_EV)
     rate = maxwellian_rate(sigma_cm2, energies_eV, T_eV)
-    assert rate == pytest.approx(1.596e-13, rel=0.02)
+    # HYP-1662: abs=0.0 keeps rel=0.02 effective — the pytest.approx
+    # default abs-floor of 1e-12 would swamp the 1.596e-13 expectation.
+    assert rate == pytest.approx(1.596e-13, rel=0.02, abs=0.0)
 
 
 def test_milne_rr_invalid_energy():
