@@ -6,7 +6,7 @@ The inverse of photoionisation:
 
 is related to photoionisation by Milne detailed balance (Milne 1924):
 
-    σ_RR(E_e; n) = (g_n / (2 g_{q+}))
+    σ_RR(E_e; n) = (g_n / g_{q+})
                    · (ε² / (2 m_e c² · E_e))
                    · σ_PI(ε; n)
 
@@ -16,13 +16,16 @@ photoionisation cross section for the bound orbital ``n``.
 
 In atomic units (m_e c² = c² = α⁻², where α ≈ 1/137):
 
-    σ_RR(E_e; n) [a₀²] = (g_n / (2 g_{q+}))
+    σ_RR(E_e; n) [a₀²] = (g_n / g_{q+})
                          · α² · ε² / (2 E_e)
                          · σ_PI(ε; n) [a₀²].
 
-The factor 1/2 alongside the degeneracy ratio is the standard Milne
-form (Gu 2003, ApJ 589, 1085, eq. 1); the 2 in ``2 g_{q+}`` is the
-free-electron spin.
+In detailed balance the free-electron spin degeneracy (2) cancels the
+photon's two polarisations, so no factor 2 multiplies the ion
+degeneracy ``g_{q+}``; the remaining 1/2 comes from
+``E_e = p² / (2 m_e)``.  This is the standard Milne form (Gu 2003,
+ApJ 589, 1085) and is anchored absolutely by the H 1s RR rate at
+1e4 K (Storey & Hummer 1995; test_hydrogenic_cross_sections).
 
 This module:
 
@@ -316,9 +319,9 @@ def rr_cross_section(
         Default: every occupied subshell.
     g_initial
         Statistical weight ``2J_ion + 1`` of the recombining ion,
-        excluding the free electron.  The free-electron spin factor
-        is included explicitly in the Milne relation.  Default: 1 for
-        a closed-shell or hydrogenic bare ion core.
+        excluding the free electron (whose spin degeneracy cancels
+        the photon polarisations in the Milne relation).  Default: 1
+        for a closed-shell or hydrogenic bare ion core.
     g_final
         Statistical weight ``g_n`` of the recombined bound state.
         Default: ``2j_n + 1`` of the captured electron's subshell —
@@ -410,11 +413,13 @@ def rr_cross_section(
         # Statistical-weight ratio
         g_n = g_final if g_final is not None else (2 * abs(sh.kappa))
         # Milne factor in atomic units:
-        # σ_RR/σ_PI = (g_n/(2 g_ion)) · α²·ω²/(2 E_e).
-        # The 2 in the degeneracy ratio is the free-electron spin.
+        # σ_RR/σ_PI = (g_n/g_ion) · α²·ω²/(2 E_e).
+        # The free-electron spin degeneracy cancels the two photon
+        # polarisations in detailed balance; the 1/2 in ω²/(2 E_e)
+        # comes from E_e = p²/(2 m_e) (Gu 2003, ApJ 589, 1085, eq. 1).
         milne = (ALPHA ** 2) * (photon_au ** 2) / (2.0 * energies_au)
         sigma_RR_partials = {
-            label: (g_n / (2.0 * g_initial)) * milne * sigma_PI
+            label: (g_n / g_initial) * milne * sigma_PI
             for label, sigma_PI in sigma_PI_partials.items()
         }
         sigma_RR = np.sum(list(sigma_RR_partials.values()), axis=0)
@@ -608,7 +613,7 @@ def rr_cross_section_rydberg(
             )
             g_n = j2 + 1
             milne = (ALPHA ** 2) * (photon_au ** 2) / (2.0 * energies_au)
-            sigma_RR = (g_n / (2.0 * g_initial)) * milne * sigma_PI
+            sigma_RR = (g_n / g_initial) * milne * sigma_PI
 
             by_state[label] = sigma_RR
             sigma_total += sigma_RR
