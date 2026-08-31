@@ -7,7 +7,7 @@ The inverse of photoionisation:
 is related to photoionisation by Milne detailed balance (Milne 1924):
 
     σ_RR(E_e; n) = (g_n / (2 g_{q+}))
-                   · (ε² / (m_e c² · E_e))
+                   · (ε² / (2 m_e c² · E_e))
                    · σ_PI(ε; n)
 
 with ε = E_e + I_n the photon energy, ``g`` statistical weights,
@@ -17,8 +17,12 @@ photoionisation cross section for the bound orbital ``n``.
 In atomic units (m_e c² = c² = α⁻², where α ≈ 1/137):
 
     σ_RR(E_e; n) [a₀²] = (g_n / (2 g_{q+}))
-                         · α² · ε² / E_e
+                         · α² · ε² / (2 E_e)
                          · σ_PI(ε; n) [a₀²].
+
+The factor 1/2 alongside the degeneracy ratio is the standard Milne
+form (Gu 2003, ApJ 589, 1085, eq. 1); the 2 in ``2 g_{q+}`` is the
+free-electron spin.
 
 This module:
 
