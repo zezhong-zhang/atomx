@@ -5,12 +5,14 @@ import math
 import numpy as np
 import pytest
 
+from atomx.constants import BOLTZMANN_EV, HARTREE_EV
 from atomx.methods.hydrogenic_cross_sections import (
     hydrogenic_e1_rate,
     kramers_pi_cross_section,
     milne_rr_cross_section,
     stobbe_1s_pi_cross_section,
 )
+from atomx.plasma.rates import maxwellian_rate
 
 
 def test_stobbe_threshold_h():
@@ -62,6 +64,30 @@ def test_milne_rr_he_plus_falls_with_energy():
     Ee = np.geomspace(0.05, 50.0, 20) / 27.211
     sigma = milne_rr_cross_section(2, 1, Ee, g_recombined=2, g_recombining=1)
     assert np.all(np.diff(sigma) < 0)
+
+
+def test_milne_rr_h1s_absolute_rate_anchor():
+    """Absolute normalisation anchor for the Milne prefactor.
+
+    Direct radiative capture of free electrons into the H 1s ground
+    state at T = 1e4 K:
+
+        alpha_1s = alpha_A - alpha_B
+                 = (4.189 - 2.593)e-13 = 1.596e-13 cm^3/s
+
+    (Storey & Hummer 1995, MNRAS 272, 41 — exact nonrelativistic
+    hydrogenic recombination coefficients; alpha_B omits captures
+    directly to the ground state).  The Stobbe 1s PI cross section is
+    independently pinned to NIST above, so this test isolates the
+    Milne detailed-balance prefactor: a factor-2 error in the
+    free-electron spin / photon polarisation bookkeeping moves the
+    result by exactly 2x (HYP-1645 review R1).
+    """
+    T_eV = BOLTZMANN_EV * 1.0e4
+    energies_eV = np.geomspace(1e-3, 100.0, 4000)
+    sigma_cm2 = milne_rr_cross_section(1, 1, energies_eV / HARTREE_EV)
+    rate = maxwellian_rate(sigma_cm2, energies_eV, T_eV)
+    assert rate == pytest.approx(1.596e-13, rel=0.02)
 
 
 def test_milne_rr_invalid_energy():
