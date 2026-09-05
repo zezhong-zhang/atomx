@@ -128,3 +128,91 @@ class TestBreitPauliSolve:
             - result.orbital_energies["2p1/2"]
         )
         assert splitting == pytest.approx(ALPHA_SQ * 10.0**4 / 32.0, rel=1e-9)
+
+
+class TestBreitPauliSpinOrbitTotalEnergy:
+    """Regression tests for HYP-1674 defect 1.
+
+    The spin-orbit contribution to ``total_energy`` must be the
+    occupation-weighted sum of the per-member jj shifts.  The previous
+    implementation used a (2j+1)-weighted statistical average, which
+    cancels identically for any ``l`` — pinning ``E_spin_orbit`` to
+    zero even for non-statistical occupations.
+    """
+
+    def test_single_2p1_electron_so_correction_nonzero(self):
+        """H-like Z=1 '2p1': E_spin_orbit == E_so_minus analytically."""
+        from atomx.methods.dirac_fock import Subshell
+        from atomx.methods.relativistic_hf import BreitPauli
+
+        result = BreitPauli().solve(
+            Z=1, subshells=[Subshell(n=2, kappa=1, occupation=1.0)]
+        )
+
+        xi = spin_orbit_xi(n=2, l=1, Z_eff=1.0)
+        _, e_so_minus = spin_orbit_shifts(l=1, xi=xi)
+        assert e_so_minus != 0.0
+        assert result.energy_components["E_spin_orbit"] == pytest.approx(
+            e_so_minus, rel=1e-12
+        )
+        # Single electron: total energy equals the corrected 2p1/2
+        # orbital energy (no electron-electron terms).
+        assert result.total_energy == pytest.approx(
+            result.orbital_energies["2p1/2"], rel=1e-9
+        )
+
+    def test_full_shell_so_correction_vanishes(self):
+        """jj-split closed shell 2p1/2^2 + 2p3/2^4 keeps E_spin_orbit == 0.
+
+        Statistical (full) occupation is the one case where the old
+        (2j+1)-weighted average happened to be correct; the fix must
+        not regress it.
+        """
+        from atomx.methods.dirac_fock import Subshell
+        from atomx.methods.relativistic_hf import BreitPauli
+
+        subshells = [
+            Subshell(n=1, kappa=-1, occupation=2),
+            Subshell(n=2, kappa=-1, occupation=2),
+            Subshell(n=2, kappa=1, occupation=2),   # 2p1/2
+            Subshell(n=2, kappa=-2, occupation=4),  # 2p3/2
+        ]
+        result = BreitPauli().solve(Z=10, subshells=subshells)
+
+        assert result.energy_components["E_spin_orbit"] == pytest.approx(
+            0.0, abs=1e-15
+        )
+
+    def test_partial_statistical_occupation_weighted_by_member(self):
+        """2p3/2^1 alone contributes its own shift times occupation."""
+        from atomx.methods.dirac_fock import Subshell
+        from atomx.methods.relativistic_hf import BreitPauli
+
+        result = BreitPauli().solve(
+            Z=1, subshells=[Subshell(n=2, kappa=-2, occupation=1.0)]
+        )
+
+        xi = spin_orbit_xi(n=2, l=1, Z_eff=1.0)
+        e_so_plus, _ = spin_orbit_shifts(l=1, xi=xi)
+        assert result.energy_components["E_spin_orbit"] == pytest.approx(
+            e_so_plus, rel=1e-12
+        )
+
+
+class TestBreitPauliCustomLabel:
+    """Regression test for HYP-1674 defect 2.
+
+    A user-customised ``Subshell.label`` is the key the NR solver
+    writes; ``solve()`` must pop that key (not only synthesized jj
+    keys) so no uncorrected NR energy survives in the output.
+    """
+
+    def test_custom_label_leaves_no_stale_nr_key(self):
+        from atomx.methods.dirac_fock import Subshell
+        from atomx.methods.relativistic_hf import BreitPauli
+
+        subshells = [Subshell(n=2, kappa=1, occupation=1.0, label="2p-core")]
+        result = BreitPauli().solve(Z=1, subshells=subshells)
+
+        assert set(result.orbital_energies) == {"2p1/2", "2p3/2"}
+        assert "2p-core" not in result.orbital_energies

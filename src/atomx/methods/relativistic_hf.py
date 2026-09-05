@@ -76,7 +76,10 @@ class BreitPauli(Method):
           ``"{n}{l}{2l-1}/2"`` and ``"{n}{l}{2l+1}/2"``, holding the
           corrected energies of the ``j = l - 1/2`` / ``j = l + 1/2``
           fine-structure levels.  Both share one NR base energy, so
-          their difference is exactly the spin-orbit splitting.
+          their difference is exactly the spin-orbit splitting.  The
+          input key(s) of the shell — including any user-customised
+          ``Subshell.label`` — are removed, so no uncorrected NR energy
+          survives under a stale key.
 
         When the input lists several subshells sharing the same
         ``(n, l)`` (e.g. ``2p1/2`` + ``2p3/2`` from a ``2p6`` token),
@@ -158,16 +161,24 @@ class BreitPauli(Method):
                 j2_minus = 2 * l - 1
                 E_base = E_orb + E_mv + E_d
                 # Replace the real NR jj key(s) of this (n, l) shell with
-                # the two corrected fine-structure levels.
-                corrected_energies.pop(f"{n}{l_char}{j2_minus}/2", None)
-                corrected_energies.pop(f"{n}{l_char}{j2_plus}/2", None)
+                # the two corrected fine-structure levels.  Pop each
+                # member's own label — the key the NR solver actually
+                # wrote — because users may override ``Subshell.label``,
+                # in which case no synthesized jj key exists to pop.
+                for sh, _ in members:
+                    corrected_energies.pop(sh.label, None)
                 corrected_energies[f"{n}{l_char}{j2_plus}/2"] = E_base + E_so_plus
                 corrected_energies[f"{n}{l_char}{j2_minus}/2"] = E_base + E_so_minus
 
-                deg_plus, deg_minus = j2_plus + 1, j2_minus + 1
-                E_so_avg = (deg_plus * E_so_plus + deg_minus * E_so_minus
-                            ) / (deg_plus + deg_minus)
-                delta_so += q_tot * E_so_avg
+                # First-order SO contribution to the total energy is the
+                # occupation-weighted sum of each member's jj shift.  A
+                # (2j+1)-weighted statistical average of the two shifts
+                # cancels identically for any l, so it cannot be used here
+                # (it is only correct for statistically filled shells).
+                delta_so += sum(
+                    sh.occupation * (E_so_plus if sh.j2 == j2_plus else E_so_minus)
+                    for sh, _ in members
+                )
             else:
                 # l = 0 (or spin-orbit off): update each jj key in place.
                 for sh, E_orb in members:
