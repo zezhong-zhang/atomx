@@ -89,7 +89,14 @@ class ABACUSKPointData:
         limits: ABACUSValidationLimits | None = None,
     ) -> "ABACUSKPointData":
         limits = (limits or ABACUSValidationLimits()).validate()
-        coord = _real_array(tuple(self.coordinate), "ABACUS k-point coordinate")
+        coord = _real_array(
+            _collect_bounded(
+                self.coordinate,
+                3,
+                "ABACUS k-point coordinate must have length 3",
+            ),
+            "ABACUS k-point coordinate",
+        )
         if coord.shape != (3,):
             raise ProviderContractError("ABACUS k-point coordinate must have length 3")
         weight = _real_float(self.weight, "ABACUS k-point weight")
@@ -182,7 +189,14 @@ class ABACUSLCAOProvider:
         )
         if not self.kpoint_data:
             raise ProviderContractError("ABACUS provider requires at least one k-point")
-        self.ao_labels = tuple(str(label) for label in ao_labels)
+        self.ao_labels = tuple(
+            str(label)
+            for label in _collect_bounded(
+                ao_labels,
+                limits.max_ao,
+                "ABACUS AO label count exceeds validation limit",
+            )
+        )
         n_ao = self.kpoint_data[0].overlap.shape[0]
         if len(self.ao_labels) != n_ao:
             raise ProviderContractError("ABACUS AO label count must match H/S shape")
@@ -348,16 +362,32 @@ def _enforce_array_limits(
         raise ProviderContractError("ABACUS input arrays exceed byte limit")
 
 
+def _collect_bounded(
+    items: Iterable[Any],
+    limit: int,
+    message: str,
+) -> tuple[Any, ...]:
+    """Materialize at most ``limit`` items from an unknown-length iterable.
+
+    The (``limit`` + 1)-th pull raises immediately and the remaining tail is
+    never consumed, so an oversized or infinite iterable cannot exhaust
+    memory or hang before the contracted limit applies.
+    """
+    collected: list[Any] = []
+    for count, item in enumerate(items, start=1):
+        if count > limit:
+            raise ProviderContractError(message)
+        collected.append(item)
+    return tuple(collected)
+
+
 def _collect_bounded_kpoints(
     kpoints: Iterable[ABACUSKPointData],
     max_kpoints: int,
 ) -> tuple[ABACUSKPointData, ...]:
-    raw_kpoints: list[ABACUSKPointData] = []
-    for count, kpoint in enumerate(kpoints, start=1):
-        if count > max_kpoints:
-            raise ProviderContractError("ABACUS n_k exceeds validation limit")
-        raw_kpoints.append(kpoint)
-    return tuple(raw_kpoints)
+    return _collect_bounded(
+        kpoints, max_kpoints, "ABACUS n_k exceeds validation limit"
+    )
 
 
 _FLOAT64_ITEMSIZE = np.dtype(np.float64).itemsize

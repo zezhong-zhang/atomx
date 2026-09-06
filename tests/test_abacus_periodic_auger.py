@@ -329,6 +329,132 @@ def test_abacus_adapter_rejects_infinite_kpoint_generator_at_first_excess_item()
     assert counter["consumed"] == 2
 
 
+_CORE_HOLE = {
+    "orbital_label": "Al 1s",
+    "occupation_before": 2.0,
+    "occupation_after": 1.0,
+    "tracked_mo_index": 0,
+    "initial_state_energy_hartree": 19.5,
+}
+
+_AO_LABELS = ["0 Al 1s", "0 Al 3s", "0 Al 3p", "0 Al cont"]
+
+
+def test_abacus_adapter_rejects_oversized_coordinate_at_fourth_item():
+    consumed = 0
+
+    def coordinate() -> Iterator[float]:
+        nonlocal consumed
+        for _ in range(1000):
+            consumed += 1
+            yield 0.0
+
+    with pytest.raises(ProviderContractError, match="coordinate must have length 3"):
+        _provider(_replace_kdata(_kdata(1.0), coordinate=coordinate()))
+
+    assert consumed == 4
+
+
+def test_abacus_adapter_rejects_infinite_coordinate_at_fourth_item():
+    consumed = 0
+
+    def coordinate() -> Iterator[float]:
+        nonlocal consumed
+        while True:
+            consumed += 1
+            yield 0.0
+
+    with pytest.raises(ProviderContractError, match="coordinate must have length 3"):
+        _provider(_replace_kdata(_kdata(1.0), coordinate=coordinate()))
+
+    assert consumed == 4
+
+
+def test_abacus_adapter_rejects_ao_label_generator_at_first_excess_item():
+    consumed = 0
+
+    def ao_labels() -> Iterator[str]:
+        nonlocal consumed
+        for _ in range(1000):
+            consumed += 1
+            yield "x"
+
+    with pytest.raises(ProviderContractError, match="AO label count exceeds"):
+        ABACUSLCAOProvider(
+            Z=13,
+            kpoints=[_kdata(1.0)],
+            ao_labels=ao_labels(),
+            core_hole=_CORE_HOLE,
+            validation_limits=ABACUSValidationLimits(max_ao=4),
+        )
+
+    assert consumed == 5
+
+
+def test_abacus_adapter_rejects_infinite_ao_label_generator_at_first_excess_item():
+    consumed = 0
+
+    def ao_labels() -> Iterator[str]:
+        nonlocal consumed
+        while True:
+            consumed += 1
+            yield "x"
+
+    with pytest.raises(ProviderContractError, match="AO label count exceeds"):
+        ABACUSLCAOProvider(
+            Z=13,
+            kpoints=[_kdata(1.0)],
+            ao_labels=ao_labels(),
+            core_hole=_CORE_HOLE,
+            validation_limits=ABACUSValidationLimits(max_ao=4),
+        )
+
+    assert consumed == 5
+
+
+def test_abacus_adapter_ao_label_rejection_does_not_consume_tail():
+    class TailBombLabels:
+        def __init__(self) -> None:
+            self.consumed = 0
+
+        def __iter__(self) -> "TailBombLabels":
+            return self
+
+        def __next__(self) -> str:
+            self.consumed += 1
+            if self.consumed > 5:
+                raise RuntimeError("ao_labels tail consumed after rejection")
+            return "x"
+
+    labels = TailBombLabels()
+
+    with pytest.raises(ProviderContractError, match="AO label count exceeds"):
+        ABACUSLCAOProvider(
+            Z=13,
+            kpoints=[_kdata(1.0)],
+            ao_labels=labels,
+            core_hole=_CORE_HOLE,
+            validation_limits=ABACUSValidationLimits(max_ao=4),
+        )
+
+    assert labels.consumed == 5
+
+
+def test_abacus_adapter_accepts_ao_labels_at_exact_limit():
+    def ao_labels() -> Iterator[str]:
+        yield from _AO_LABELS
+
+    provider = ABACUSLCAOProvider(
+        Z=13,
+        kpoints=[_kdata(1.0)],
+        ao_labels=ao_labels(),
+        core_hole=_CORE_HOLE,
+        validation_limits=ABACUSValidationLimits(max_ao=4),
+    )
+
+    assert provider.ao_labels == tuple(_AO_LABELS)
+
+
 def test_abacus_adapter_rejects_total_array_element_resource_limit():
     with pytest.raises(ProviderContractError, match="element limit"):
         ABACUSLCAOProvider(
