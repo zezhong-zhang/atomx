@@ -24,6 +24,8 @@ import math
 import numpy as np
 from scipy.special import eval_genlaguerre
 
+from atomx.scattering.two_electron.states import TwoElectronTerm
+
 
 @dataclass(frozen=True)
 class TargetState:
@@ -43,7 +45,7 @@ class TargetState:
     P: Callable[[np.ndarray], np.ndarray]  # P(r) = r R(r), vectorised in r
     S_t: float = 0.5
     n_electrons: int = 1
-    two_electron_term: "TwoElectronTerm | None" = None
+    two_electron_term: TwoElectronTerm | None = None
 
     @property
     def residual_charge(self) -> float:

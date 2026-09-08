@@ -8,12 +8,17 @@ core-hole + excited-electron DR resonances that dominate Fe XVII.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Callable
+from typing import TYPE_CHECKING, Callable
 
 import numpy as np
 
-from atomx.scattering.r_matrix.target_states import TargetState
 from atomx.scattering.two_electron import coulomb
+
+if TYPE_CHECKING:
+    # Imported lazily at runtime inside ``to_target_state`` to avoid the
+    # circular import with ``r_matrix.target_states``, which annotates
+    # ``TargetState.two_electron_term`` with ``TwoElectronTerm``.
+    from atomx.scattering.r_matrix.target_states import TargetState
 
 
 @dataclass(frozen=True)
@@ -61,6 +66,8 @@ class TwoElectronTerm:
         term energy.  This is a temporary bridge; Milestone 1 will generalise
         ``TargetState`` to hold the term directly.
         """
+        from atomx.scattering.r_matrix.target_states import TargetState
+
         return TargetState(
             label=self.label,
             n=max(self.n1, self.n2),
