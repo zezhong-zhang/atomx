@@ -2,10 +2,16 @@
 
 from __future__ import annotations
 
+import types
+import typing
+
 import pytest
 
-from atomx.scattering.two_electron.states import helike_terms
-from atomx.scattering.r_matrix.target_states import helike_target_states
+from atomx.scattering.two_electron.states import TwoElectronTerm, helike_terms
+from atomx.scattering.r_matrix.target_states import (
+    TargetState,
+    helike_target_states,
+)
 from atomx.constants import HARTREE_EV
 
 
@@ -76,3 +82,20 @@ def test_helike_target_states_wrap_terms():
     assert excited.S_t == 0.0
     assert excited.l == 1
     assert excited.two_electron_term.label == "1s2p ^1P"
+
+
+def test_target_state_type_hints_resolve_two_electron_term():
+    """Regression (HYP-1688): ``get_type_hints(TargetState)`` must resolve the
+    ``two_electron_term`` forward reference to the real ``TwoElectronTerm``
+    class instead of raising ``NameError``.
+
+    ``TwoElectronTerm`` lives in a module that also consumes ``TargetState``,
+    so the annotation is only resolvable if the import cycle between
+    ``r_matrix.target_states`` and ``two_electron.states`` stays broken.
+    """
+    hints = typing.get_type_hints(TargetState)
+    assert "two_electron_term" in hints
+    hint = hints["two_electron_term"]
+    assert typing.get_origin(hint) in (typing.Union, types.UnionType)
+    args = typing.get_args(hint)
+    assert args == (TwoElectronTerm, type(None))
