@@ -159,14 +159,6 @@ class TestHeLikeGroundTransitionGaugeRatio:
     reflects the wavefunction quality.
     """
 
-    @pytest.mark.xfail(
-        strict=False,
-        reason=(
-            "Low-Z He-like MCDHF: the ¹P₁ resonance mixes s↔p_{1/2} and "
-            "s↔p_{3/2} CSFs.  The ns=60, ks=9 basis is insufficient for "
-            "gauge invariance below ~0.10 at Z=2."
-        ),
-    )
     def test_he_like_resonance_e1_z2(self):
         from atomx import Atom
 
@@ -183,6 +175,12 @@ class TestHeLikeGroundTransitionGaugeRatio:
 
         strongest = max(e1s, key=lambda t: t.A_length)
         ratio_dev = abs(strongest.A_velocity / strongest.A_length - 1.0)
+        # HYP-1689: after the HYP-190 velocity-gauge fix this passes
+        # deterministically at ratio_dev = 0.0833 (main @ 6172d1e), i.e.
+        # below the Gu 2008 §3.2 ground-state E1 threshold of 0.10.  The
+        # gate is kept at the literature value rather than tightened:
+        # 0.0833 sits at 83% of the threshold, leaving too little headroom
+        # for cross-platform (numba/BLAS) jitter at a tighter bound.
         assert ratio_dev < 0.10, (
             f"He-like Z=2: strongest E1 |A_v/A_l - 1| = {ratio_dev:.3f}"
         )
