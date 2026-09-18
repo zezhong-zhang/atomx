@@ -15,24 +15,22 @@ Reference: Gu, Can. J. Phys. 86, 675 (2008) - FAC DW formulation
 import math
 from functools import lru_cache
 
-import numba as nb
 import numpy as np
-from atomx.constants import ALPHA, C_SQ, HARTREE_EV, BOHR_RADIUS_M
-from atomx.numerics.bspline.continuum import solve_continuum
-from atomx.numerics.bspline.convol import ConvolCache, compute_slater_rk_cell
-from atomx.numerics.bspline.evaluate import eval_P, eval_Q, compute_yk
+
+from atomx.angular.coefficients import cg, ckm
+from atomx.angular.csf import csf_parity, csf_twice_j, one_body_csf_coupling
+from atomx.constants import BOHR_RADIUS_M, C_SQ, HARTREE_EV
+from atomx.methods.mcdhf.config import CSF
+from atomx.numerics.bspline.evaluate import compute_yk, eval_P, eval_Q
+from atomx.numerics.quadrature import (  # canonical kernels (E5)
+    grid_slater_rk,
+    make_fine_grid,
+    p_rel,
+)
 from atomx.numerics.shooting.dirac_continuum import (
     solve_dirac_continuum_many,
     solve_dirac_continuum_shooting,
 )
-from atomx.properties.transitions.angular import _kappa_to_lj, selection_rules, angular_eL
-from atomx.properties.transitions.multipole import radial_eL
-from atomx.properties.transitions.rates import oscillator_strength
-from atomx.angular.csf import csf_parity, csf_twice_j, one_body_csf_coupling
-from atomx.angular.coefficients import reduced_C, reduced_cl_j2
-from atomx.angular.wigner import wigner_3j, wigner_6j
-from atomx.methods.mcdhf.config import CSF
-from atomx.scattering._jit_kernels import dw_excitation_angular_sum
 
 
 def _l_of(kappa):
@@ -60,28 +58,12 @@ def _allowed_k(kappa_a, kappa_b):
     return [k for k in range(kmin, kmax + 1) if (k + la + lb) % 2 == 0]
 
 
-@lru_cache(maxsize=None)
-def _cg2(tj1, tm1, tj2, tm2, tJ, tM):
-    """Clebsch-Gordan <j1 m1 j2 m2 | J M> (all arguments doubled)."""
-    w = wigner_3j(tj1, tj2, tJ, tm1, tm2, -tM)
-    if abs(w) < 1e-15:
-        return 0.0
-    phase = 1.0 if ((tj1 - tj2 + tM) // 2) % 2 == 0 else -1.0
-    return phase * math.sqrt(tJ + 1.0) * w
-
-
-@lru_cache(maxsize=None)
-def _ck_m(kappa_c, tmc, kappa_a, tma, k, tq):
-    """<j_c m_c | C^k_q | j_a m_a> via Wigner-Eckart with Grant's <||C^k||>."""
-    red = reduced_C(kappa_c, kappa_a, k)
-    if red == 0.0:
-        return 0.0
-    tjc, tja = _tj_of(kappa_c), _tj_of(kappa_a)
-    w = wigner_3j(tjc, 2 * k, tja, -tmc, tq, tma)
-    if abs(w) < 1e-15:
-        return 0.0
-    phase = 1.0 if ((tjc - tmc) // 2) % 2 == 0 else -1.0
-    return phase * w * red
+# The m-resolved angular coefficient and Clebsch-Gordan helper live in the
+# angular layer (single implementation, shared with the CI matrix elements in
+# atomx.methods.mcdhf.matrix); these aliases keep the local call sites and the
+# ``_ck_m`` / ``_cg2`` names used by atomx.scattering.autoionization.mscheme_ci.
+_cg2 = cg
+_ck_m = ckm
 
 
 @lru_cache(maxsize=None)
@@ -282,10 +264,6 @@ def _distorting_potential_fn(result, bsp_data, Z, screening="fac"):
         return v
 
     return V_func
-
-
-from atomx.numerics.quadrature import (   # canonical kernels (E5)
-    grid_slater_rk, make_fine_grid, p_rel)
 
 
 def _shooting_points(r_max, p_max, *, max_points=300000):
@@ -495,7 +473,9 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
     born_tr = None
     if topup:
         from atomx.scattering.distorted_wave.born import (
-            BornTransition, born_blend_weights)
+            BornTransition,
+            born_blend_weights,
+        )
         pos = dE_hartree_grid[dE_hartree_grid > 0]
         try:
             born_tr = BornTransition(pair_data, r_fine, dr_fine,
@@ -531,7 +511,7 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
         except Exception:
             cont = {}
 
-        def _wave(kappa, E):
+        def _wave(kappa, E, cont=cont):
             key = (int(kappa), round(float(E), 12))
             if key not in cont:
                 try:

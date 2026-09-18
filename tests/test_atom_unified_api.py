@@ -23,7 +23,6 @@ from atomx.methods.mcdhf.solver import MCDHFResult
 from atomx.numerics.shooting.solver import ShootingResult
 from atomx.results import AtomicResult, Waves
 
-
 # ---------------------------------------------------------------------------
 # Fixtures: one Atom of each flavor.  Module-scoped so the SCF only runs once.
 # ---------------------------------------------------------------------------
@@ -143,10 +142,20 @@ def test_dhf_waves_have_orbitals(he_dhf):
 
 def test_mcdhf_waves_have_meaningful_occupations(be_mcdhf):
     w = be_mcdhf.waves
-    # Be 1s2 2s2 has the dominant CSF, so 1s and 2s are ~doubly occupied.
     occs = {lbl: orb.occupation for lbl, orb in w.orbitals.items()}
-    assert occs["1s1/2"] == pytest.approx(2.0, abs=0.05)
-    assert occs["2s1/2"] == pytest.approx(2.0, abs=0.05)
+    # 1s is a spectator closed shell: exactly doubly occupied.
+    assert occs["1s1/2"] == pytest.approx(2.0, abs=0.02)
+    # 2s is the dominant CSF but *not* alone: the 2p^2 pair admixture takes
+    # weight off it, and the Guerra occupation must reflect that.  Before
+    # 2026-09-18 the pair channel did not couple at all, so this pinned 2.0;
+    # now the occupation is derived from the CI vector instead of frozen:
+    # each 2p^2 CSF removes two electrons from 2s.
+    mixing = np.asarray(be_mcdhf.result.mixing_coefficients)[:, 0]
+    p_weight = float(np.sum(mixing[1:] ** 2))
+    assert 0.05 < p_weight < 0.25, f"2p^2 admixture {p_weight:.4f}"
+    assert occs["2s1/2"] == pytest.approx(2.0 * (1.0 - p_weight), abs=0.02), (
+        f"2s occupation {occs['2s1/2']:.4f} inconsistent with the CI "
+        f"admixture {p_weight:.4f}")
 
 
 def test_dhf_density_is_positive_finite(he_dhf):
@@ -299,9 +308,15 @@ def test_orbital_table_summary_shape(he_dhf):
 
 def test_mcdhf_orbital_carries_guerra_occupation(be_mcdhf):
     orb = be_mcdhf.orbital("2s1/2")
-    # Be ground state has 2s1/2 ~ doubly occupied (with a tiny 2p mix
-    # bleeding off some weight).
-    assert orb.occupation == pytest.approx(2.0, abs=0.05)
+    # The Guerra occupation is the CI-weighted one.  With the 2s^2/2p^2 pair
+    # channel coupled (see tests/test_two_electron_replacement.py) the pair
+    # correlation moves ~0.22 electrons off 2s^2, so the old "~2.0" pin is
+    # replaced by the consistency check that the occupation equals
+    # 2 * (1 - weight in the 2p^2 CSFs).
+    mixing = np.asarray(be_mcdhf.result.mixing_coefficients)[:, 0]
+    p_weight = float(np.sum(mixing[1:] ** 2))
+    assert orb.occupation == pytest.approx(2.0 * (1.0 - p_weight), abs=0.02)
+    assert 1.70 < orb.occupation < 1.90
 
 
 # ---------------------------------------------------------------------------

@@ -202,12 +202,19 @@ def test_hydrogenic_slater_integrals(hydrogenic_grid, kind, a, b, k, exact):
 
 
 def test_rk_pairing_matches_gk(hydrogenic_grid):
-    """R^k pairing convention: rho13 = a*c, rho24 = b*d (as the cell
-    integrator) — R^0(1s 1s, 2s 2s) must equal G^0(1s, 2s)."""
+    """``_rk`` pairs its first two orbitals and its last two: ``R^k(ab, cd)``.
+
+    Callers pass the roles explicitly — ``_rk(Pa, Pc, Pb, Pd)`` asks for
+    ``R^k(ac, bd)``.  Passing ``(1s, 2s, 1s, 2s)`` therefore gives
+    ``R^0(1s 2s, 1s 2s) = G^0(1s, 2s)``.  The previous version of this test
+    asserted the pairs were ``(a, c)`` and ``(b, d)``, which the grid branch
+    implemented but no caller used; that mismatch made the grid-flavour CI
+    evaluate different integrals from the B-spline one.
+    """
     ws, orb, Q = hydrogenic_grid
     ci_matrix._SLATER_MEMO.clear()
-    rk = ci_matrix._rk(orb["1s"], Q, orb["1s"], Q,
-                       orb["2s"], Q, orb["2s"], Q, ws, 0)
+    rk = ci_matrix._rk(orb["1s"], Q, orb["2s"], Q,
+                       orb["1s"], Q, orb["2s"], Q, ws, 0)
     gk = ci_matrix._gk(orb["1s"], Q, orb["2s"], Q, ws, 0)
     assert rk == pytest.approx(gk, rel=1.0e-12)
 

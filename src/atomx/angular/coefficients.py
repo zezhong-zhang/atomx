@@ -15,8 +15,8 @@ import math
 from functools import lru_cache
 
 import numpy as np
-from atomx.angular.wigner import wigner_3j
-from atomx.angular.wigner import wigner_6j
+
+from atomx.angular.wigner import wigner_3j, wigner_6j
 
 
 def _l_from_kappa(kappa: int) -> int:
@@ -230,3 +230,48 @@ def exchange_coefficient(kappa_a, kappa_b, k, q_b):
     if abs(lam) < 1e-15:
         return 0.0
     return -q_b / ((tj_a + 1.0) * (tj_b + 1.0)) * lam
+
+
+# ---------------------------------------------------------------------------
+# m-resolved angular coefficients (shared by the continuum/DW scattering code
+# and the CI matrix elements)
+# ---------------------------------------------------------------------------
+
+@lru_cache(maxsize=None)
+def _twoj_of(kappa: int) -> int:
+    """2j for a relativistic kappa quantum number."""
+    return 2 * abs(kappa) - 1
+
+
+@lru_cache(maxsize=None)
+def cg(tj1: int, tm1: int, tj2: int, tm2: int, tJ: int, tM: int) -> float:
+    """Clebsch-Gordan ``<j1 m1; j2 m2 | J M>`` — all arguments doubled.
+
+    ``cg(j1, m1, j2, m2, J, M) = (-1)^(j1-j2+M) sqrt(2J+1) (j1 j2 J; m1 m2 -M)``.
+    """
+    w = wigner_3j(tj1, tj2, tJ, tm1, tm2, -tM)
+    if abs(w) < 1e-15:
+        return 0.0
+    phase = 1.0 if ((tj1 - tj2 + tM) // 2) % 2 == 0 else -1.0
+    return phase * math.sqrt(tJ + 1.0) * w
+
+
+@lru_cache(maxsize=None)
+def ckm(kappa_c: int, tmc: int, kappa_a: int, tma: int, k: int, tq: int) -> float:
+    """``<j_c m_c | C^k_q | j_a m_a>`` (doubled m and q), Grant's ``<||C^k||>``.
+
+    This is FAC's ``ckm`` — the m-resolved angular factor multiplying the
+    Slater integral ``R^k`` in every two-electron matrix element.  It lives in
+    the angular layer so the scattering (continuum/DW) and CI codes share one
+    implementation; ``atomx.scattering.distorted_wave.solver`` imports it as
+    ``_ck_m``.
+    """
+    red = reduced_C(kappa_c, kappa_a, k)
+    if red == 0.0:
+        return 0.0
+    tjc, tja = _twoj_of(kappa_c), _twoj_of(kappa_a)
+    w = wigner_3j(tjc, 2 * k, tja, -tmc, tq, tma)
+    if abs(w) < 1e-15:
+        return 0.0
+    phase = 1.0 if ((tjc - tmc) // 2) % 2 == 0 else -1.0
+    return phase * w * red

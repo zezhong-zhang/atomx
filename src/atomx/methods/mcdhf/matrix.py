@@ -14,17 +14,35 @@ acquire physically meaningful J-dependent splittings.  See
 Atoms and Molecules* (2007) §8.3.
 """
 
+import math
+
 import numpy as np
+
+from atomx.angular.clebsch import clebsch_gordan
+from atomx.angular.coefficients import (
+    cg,
+    ckm,
+    exchange_k_range,
+    exchange_lambda,
+    reduced_cl_j2,
+)
+from atomx.angular.csf_recoupling import (
+    chain_projection_amplitudes,
+    make_chain_coupled_state,
+    single_state_for_subshell,
+)
+from atomx.angular.rcfp import ReducedSubshellState
+from atomx.angular.wigner import wigner_6j
 from atomx.numerics.bspline.convol import (
     ConvolCache,
     compute_slater_fk_cell,
     compute_slater_gk_cell,
     compute_slater_rk_cell,
 )
+from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
 from atomx.numerics.shooting.constants import SL
 from atomx.numerics.shooting.quadrature import slag6
 from atomx.numerics.shooting.solver import _slater_integral_slag6
-
 
 # Build-scoped memo for Slater integrals and Dirac H0/S0 blocks: every CSF
 # in a CI build shares ONE orbital basis, so the same (orbitals, k)
@@ -34,6 +52,15 @@ from atomx.numerics.shooting.solver import _slater_integral_slag6
 # id() of the orbital coefficient arrays, which orbitals_dict keeps alive
 # for the duration of the build; build_ci_matrix clears the memo on entry
 # so nothing leaks across outer iterations (whose orbitals differ).
+#
+# An id()-keyed cache is only sound while the keyed arrays are alive:
+# CPython recycles an id() as soon as the object is freed, so a later array
+# can inherit an id and read a stale entry.  That is enforced here rather
+# than assumed — every array whose id() enters a key is appended to
+# ``_MEMO_KEEPALIVE`` when its entry is *stored*, so no memoised id can be
+# recycled for the memo's lifetime, and ``_memo_context`` drops the whole
+# memo if a different radial workspace is used (a key does not carry
+# bsp_data, so a stale entry from another grid must not survive).
 #
 # Two reserved keys carry the build context set by :func:`build_ci_matrix`:
 #   "_convol_cache"      — ConvolCache with the cell-algorithm rkb tables.
@@ -46,6 +73,39 @@ from atomx.numerics.shooting.solver import _slater_integral_slag6
 # put F^0(1s,1s) off by 0.97 Ha and the CI total off by ~74 Ha even on
 # perfectly converged orbitals (Pb 6p² under-binding bug).
 _SLATER_MEMO: dict = {}
+
+# Strong references to every array whose id() appears in a _SLATER_MEMO key.
+_MEMO_KEEPALIVE: list = []
+
+# The radial workspace the current memo contents belong to (identity, not id()).
+_MEMO_CONTEXT = None
+
+
+def _reset_memo() -> None:
+    """Drop all memoised integrals and the references pinning their keys."""
+    global _MEMO_CONTEXT
+    _SLATER_MEMO.clear()
+    _MEMO_KEEPALIVE.clear()
+    _MEMO_CONTEXT = None
+
+
+def _memo_context(bsp_data):
+    """Bind the memo to one radial workspace, discarding it on a change."""
+    global _MEMO_CONTEXT
+    if _MEMO_CONTEXT is not bsp_data:
+        _reset_memo()
+        _MEMO_CONTEXT = bsp_data
+    return bsp_data
+
+
+def _pin(*arrays) -> None:
+    """Keep ``arrays`` alive so their id()s cannot be recycled while memoised.
+
+    Called only when an entry is *stored*, which is what makes the id() keys
+    sound: every id in the memo then belongs to a live array, so no lookup
+    can hit an entry left behind by a freed one.
+    """
+    _MEMO_KEEPALIVE.extend(arrays)
 
 
 def _context_cache(bsp_data) -> ConvolCache:
@@ -64,10 +124,12 @@ def _context_cache(bsp_data) -> ConvolCache:
 
 
 def _fk(Pa, Qa, Pb, Qb, bsp_data, k):
+    _memo_context(bsp_data)
     ia, ib = id(Pa), id(Pb)
     key = ("f", k) + ((ia, ib) if ia <= ib else (ib, ia))
     v = _SLATER_MEMO.get(key)
     if v is None:
+        _pin(Pa, Pb)
         if isinstance(bsp_data, GridCIWorkspace):
             v = float(_slater_integral_slag6(
                 _grid_pair_density(Pa, Qa, Pa, Qa),
@@ -81,10 +143,12 @@ def _fk(Pa, Qa, Pb, Qb, bsp_data, k):
 
 
 def _gk(Pa, Qa, Pb, Qb, bsp_data, k):
+    _memo_context(bsp_data)
     ia, ib = id(Pa), id(Pb)
     key = ("g", k) + ((ia, ib) if ia <= ib else (ib, ia))
     v = _SLATER_MEMO.get(key)
     if v is None:
+        _pin(Pa, Pb)
         if isinstance(bsp_data, GridCIWorkspace):
             rho_ab = _grid_pair_density(Pa, Qa, Pb, Qb)
             v = float(_slater_integral_slag6(
@@ -97,15 +161,23 @@ def _gk(Pa, Qa, Pb, Qb, bsp_data, k):
 
 
 def _rk(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd, bsp_data, k):
+    _memo_context(bsp_data)
     key = ("r", k, id(Pa), id(Pb), id(Pc), id(Pd))
     v = _SLATER_MEMO.get(key)
     if v is None:
+        _pin(Pa, Pb, Pc, Pd)
         if isinstance(bsp_data, GridCIWorkspace):
-            # rho13 = a·c, rho24 = b·d — same pairing convention as
-            # compute_slater_rk_cell.
+            # Convention: the first two orbitals form the first pair and the
+            # last two the second, i.e. ``R^k(ab, cd)`` — the same reading as
+            # the cell integrator below.  Every caller passes the orbitals in
+            # the role order it wants, e.g. ``_rk(Pa, Pc, Pb, Pd)`` for
+            # ``R^k(ac, bd)``.  This branch used to pair (a, c) and (b, d)
+            # instead, so the two engines evaluated *different* integrals for
+            # the same call and the grid-flavour CI was wrong wherever an
+            # off-diagonal element went through here.
             v = float(_slater_integral_slag6(
-                _grid_pair_density(Pa, Qa, Pc, Qc),
-                _grid_pair_density(Pb, Qb, Pd, Qd),
+                _grid_pair_density(Pa, Qa, Pb, Qb),
+                _grid_pair_density(Pc, Qc, Pd, Qd),
                 k, bsp_data.r, bsp_data.difr, bsp_data.n))
         else:
             v = compute_slater_rk_cell(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd,
@@ -116,7 +188,8 @@ def _rk(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd, bsp_data, k):
 
 
 def _dirac_blocks(ns, kappa, Z, bsp_data):
-    key = ("h0", kappa)
+    _memo_context(bsp_data)
+    key = ("h0", ns, kappa, Z)
     v = _SLATER_MEMO.get(key)
     if v is None:
         v = build_dirac_matrices(ns, kappa, Z, bsp_data,
@@ -244,6 +317,7 @@ def _grid_ds(y):
     key = ("ds", id(y))
     v = _SLATER_MEMO.get(key)
     if v is None:
+        _pin(y)
         v = _ds_derivative(y)
         _SLATER_MEMO[key] = (y, v)  # keep y alive: id-reuse safety
     else:
@@ -256,6 +330,7 @@ def _grid_pair_density(Pa, Qa, Pb, Qb):
     key = ("rho",) + ((ia, ib) if ia <= ib else (ib, ia))
     v = _SLATER_MEMO.get(key)
     if v is None:
+        _pin(Pa, Pb)
         v = Pa * Pb + Qa * Qb
         _SLATER_MEMO[key] = v
     return v
@@ -290,10 +365,12 @@ def _grid_h_one_body(Pa, Qa, Pb, Qb, kappa, ws):
 def _h_one_body(Pa, Qa, Pb, Qb, kappa, Z, bsp_data, ns):
     """One-electron Dirac matrix element ⟨a|h_D|b⟩ — flavour dispatched."""
     if isinstance(bsp_data, GridCIWorkspace):
+        _memo_context(bsp_data)
         ia, ib = id(Pa), id(Pb)
         key = ("h1", kappa) + ((ia, ib) if ia <= ib else (ib, ia))
         v = _SLATER_MEMO.get(key)
         if v is None:
+            _pin(Pa, Pb)
             v = _grid_h_one_body(Pa, Qa, Pb, Qb, kappa, bsp_data)
             _SLATER_MEMO[key] = v
         return v
@@ -306,9 +383,11 @@ def _h_one_body(Pa, Qa, Pb, Qb, kappa, Z, bsp_data, ns):
 def _norm_sq(P, Q, kappa, Z, bsp_data, ns):
     """⟨a|a⟩ — flavour dispatched (grid: SLAG6, bspline: overlap matrix)."""
     if isinstance(bsp_data, GridCIWorkspace):
+        _memo_context(bsp_data)
         key = ("n2", id(P))
         v = _SLATER_MEMO.get(key)
         if v is None:
+            _pin(P)
             rho = _grid_pair_density(P, Q, P, Q)
             v = float(slag6(1.0, rho * bsp_data.difr,
                             bsp_data.n)[bsp_data.n - 1])
@@ -317,13 +396,6 @@ def _norm_sq(P, Q, kappa, Z, bsp_data, ns):
     _H0, S0 = _dirac_blocks(ns, kappa, Z, bsp_data)
     vec = np.concatenate([P, Q])
     return vec @ S0 @ vec
-from atomx.numerics.bspline.evaluate import eval_orbital_on_grid, compute_yk
-from atomx.angular.coefficients import exchange_lambda, exchange_k_range, reduced_cl_j2
-from atomx.angular.wigner import wigner_6j
-from atomx.angular.clebsch import clebsch_gordan
-from atomx.angular.rcfp import ReducedSubshellState
-from atomx.angular.csf_recoupling import make_chain_coupled_state, chain_projection_amplitudes, single_state_for_subshell
-from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
 
 
 def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
@@ -354,7 +426,8 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
         per CI construction.  A cache built on different ``bsp_data`` is
         ignored and a fresh one created.  B-spline flavour only.
     """
-    _SLATER_MEMO.clear()
+    _reset_memo()
+    _memo_context(bsp_data)
     if isinstance(bsp_data, GridCIWorkspace):
         if nuclear_potential is not None:
             raise ValueError(
@@ -425,6 +498,159 @@ def _ci_matrix_element(csf_r, csf_s, orbitals_dict, orbital_basis,
             csf_r, csf_s, orbitals_dict, bsp_data, ns, n_diff=2,
         )
     return 0.0
+
+
+def _subshell_tm(key):
+    """Doubled-m values of a ``(n, kappa)`` subshell, ascending."""
+    tj = 2 * abs(key[1]) - 1
+    return list(range(-tj, tj + 1, 2))
+
+
+def _two_electron_state(pattern, tJ, order):
+    """m-resolved J-coupled two-electron state as ``{(i, j): coefficient}``.
+
+    ``pattern`` is ``[(key, 2)]`` (both electrons in one subshell) or
+    ``[(key_c, 1), (key_d, 1)]`` (one electron in each of two subshells);
+    ``order`` maps ``(key, tm)`` to a global spin-orbital index that fixes the
+    ascending-order sign convention (shared by both states of an element, so
+    relative signs are consistent).  States are built at ``M = 0``, which is
+    sufficient because a scalar two-body element is M-independent.
+
+    The one-subshell case uses the antisymmetrised combination
+    ``cg(m_i, m_j) - cg(m_j, m_i)`` over ascending pairs; the two-subshell case
+    uses ``cg`` in the ``(c, d)`` slot order with the sign flipped whenever the
+    ascending pair reverses that order.
+    """
+    vec: dict = {}
+    if len(pattern) == 1:
+        key = pattern[0][0]
+        tj = 2 * abs(key[1]) - 1
+        tms = _subshell_tm(key)
+        for x, tm_i in enumerate(tms):
+            for tm_j in tms[x + 1:]:
+                if tm_i + tm_j != 0:
+                    continue
+                c = (cg(tj, tm_i, tj, tm_j, tJ, 0)
+                     - cg(tj, tm_j, tj, tm_i, tJ, 0))
+                if c != 0.0:
+                    vec[(order[(key, tm_i)], order[(key, tm_j)])] = (
+                        vec.get((order[(key, tm_i)], order[(key, tm_j)]), 0.0) + c)
+    else:
+        key_c, key_d = pattern[0][0], pattern[1][0]
+        tjc, tjd = 2 * abs(key_c[1]) - 1, 2 * abs(key_d[1]) - 1
+        for tm_i in _subshell_tm(key_c):
+            for tm_j in _subshell_tm(key_d):
+                if tm_i + tm_j != 0:
+                    continue
+                c = cg(tjc, tm_i, tjd, tm_j, tJ, 0)
+                if c == 0.0:
+                    continue
+                i, j = order[(key_c, tm_i)], order[(key_d, tm_j)]
+                pair = (i, j) if i < j else (j, i)
+                vec[pair] = vec.get(pair, 0.0) + (c if i < j else -c)
+    norm = math.sqrt(sum(v * v for v in vec.values()))
+    if norm < 1e-14:
+        return {}                      # J not allowed for this pattern
+    return {k: v / norm for k, v in vec.items()}
+
+
+def _two_electron_replacement_element(csf_r, pattern_r, pattern_s,
+                                      orbitals_dict, bsp_data):
+    """⟨pattern_r| 1/r₁₂ |pattern_s⟩ for two electrons outside closed spectators.
+
+    Both patterns hold exactly two electrons, in one subshell (``[(key, 2)]``,
+    the a² ↔ b² pair channel) or in two different subshells (``[(c,1),(d,1)]``,
+    the a² ↔ c¹d¹ channel and its transpose).  With every other subshell closed
+    the spectators couple to J = 0, so the two electrons are a pure J-coupled
+    two-electron state with ``J`` equal to the CSF's total J, and the element
+    is exact — no configuration average is involved.
+
+    Implementation: the two J-coupled states are expanded in the m-scheme
+    (Clebsch-Gordan coefficients, ascending-order signs) and contracted with
+    the antisymmetrised two-body elements
+
+        ⟨i j|g|k l⟩ = Σ_t R^t(i k, j l) · ckm·ckm · phase
+                      − (k ↔ l)
+
+    exactly as the FAC-ported determinant code does.  The radial integrals
+    ``R^t`` depend only on the subshells (not on m), so each distinct
+    (i,k,j,l,t) combination is evaluated once through the existing cell
+    integrator and reused for every m pair.
+
+    Guards (conservative): the CSF pair must be in the same (J, parity) block
+    (enforced upstream) and every spectator subshell must be closed — otherwise
+    the two active electrons are not in a definite J state and the
+    configuration-average machinery would have to supply the parentage.
+    """
+    if any(abs(sh.occupation - (2 * abs(sh.kappa))) > 1e-9
+           for sh in csf_r.subshells
+           if (sh.n, sh.kappa) not in {p[0] for p in pattern_r + pattern_s}):
+        return 0.0
+
+    keys = sorted({p[0] for p in pattern_r + pattern_s})
+    order = {(key, tm): idx
+             for idx, (key, tm) in enumerate(
+                 (key, tm) for key in keys for tm in _subshell_tm(key))}
+
+    tJ = int(getattr(csf_r, "total_J2", 0))
+    state_r = _two_electron_state(pattern_r, tJ, order)
+    state_s = _two_electron_state(pattern_s, tJ, order)
+    if not state_r or not state_s:
+        return 0.0
+
+    ns = len(list(orbitals_dict.values())[0][0]) if orbitals_dict else 50
+    pq = {key: _get_orb(key, orbitals_dict, ns) for key in keys}
+    so = {idx: (key, tm) for (key, tm), idx in order.items()}
+
+    cache: dict = {}
+
+    def r_table(key_i, key_j, key_k, key_l, t):
+        """R^t(i k, j l) — subshell-resolved, so m-independent."""
+        ck = (key_i, key_j, key_k, key_l, t)
+        val = cache.get(ck)
+        if val is None:
+            Pi, Qi = pq[key_i]
+            Pj, Qj = pq[key_j]
+            Pk, Qk = pq[key_k]
+            Pl, Ql = pq[key_l]
+            # _rk pairs its first two orbitals and its last two, so pass
+            # (i, k, j, l) to obtain R^t(i k, j l).
+            val = _rk(Pi, Qi, Pk, Qk, Pj, Qj, Pl, Ql, bsp_data, t)
+            cache[ck] = val
+        return val
+
+    def v_element(idx_i, idx_j, idx_k, idx_l):
+        """⟨i(1) j(2)| 1/r₁₂ |k(1) l(2)⟩ (m-resolved)."""
+        key_i, tm_i = so[idx_i]
+        key_j, tm_j = so[idx_j]
+        key_k, tm_k = so[idx_k]
+        key_l, tm_l = so[idx_l]
+        tq = tm_i - tm_k
+        if tq != tm_l - tm_j:
+            return 0.0
+        total = 0.0
+        for t in exchange_k_range(key_i[1], key_k[1]):
+            if t not in exchange_k_range(key_j[1], key_l[1]):
+                continue
+            if abs(tq) > 2 * t:
+                continue
+            # slot order matches atomx.scattering...mscheme_ci._v exactly:
+            # ckm(kappa_a, tm_a, kappa_c, tm_c, k, tq) for the (a -> c) pair
+            e1 = ckm(key_i[1], tm_i, key_k[1], tm_k, t, tq)
+            if e1 == 0.0:
+                continue
+            e2 = ckm(key_j[1], tm_j, key_l[1], tm_l, t, -tq)
+            if e2 == 0.0:
+                continue
+            phase = 1.0 if (tq // 2) % 2 == 0 else -1.0
+            total += (r_table(key_i, key_j, key_k, key_l, t) * phase * e1 * e2)
+        return total
+
+    total = 0.0
+    for (i, j), c_r in state_r.items():
+        for (k, l), c_s in state_s.items():
+            total += c_r * c_s * (v_element(i, j, k, l) - v_element(i, j, l, k))
+    return total
 
 
 def _diagonal_with_J(csf, orbitals_dict, bsp_data, Z, ns):
@@ -611,6 +837,28 @@ def _one_diff_element(csf_r, csf_s, orbitals_dict, bsp_data, Z, ns):
     return sqrt_factor * (H_1e + H_2e)
 
 
+def _pair_pattern(side):
+    """Occupancy pattern of the two active electrons, or None if not a pair.
+
+    ``side`` is the ``(key, q_bra, q_ket)`` list of subshells that gained or
+    lost electrons between the two CSFs.  Returns ``[(key, 2)]`` when a single
+    subshell changed by ±2 and ``[(key_c, 1), (key_d, 1)]`` when two subshells
+    changed by ±1 each (i.e. the two electrons arrived/left together); returns
+    None for any other pattern, which the caller treats as "not this channel".
+    """
+    if len(side) == 1:
+        key, q_bra, q_ket = side[0]
+        if abs(q_bra - q_ket) == 2:
+            return [(key, 2)]
+        return None
+    if len(side) == 2:
+        for _key, q_bra, q_ket in side:
+            if abs(q_bra - q_ket) != 1:
+                return None
+        return [(side[0][0], 1), (side[1][0], 1)]
+    return None
+
+
 def _two_diff_element(csf_r, csf_s, orbitals_dict, bsp_data):
     """2-electron promotion (c → a, d → b).
 
@@ -634,19 +882,26 @@ def _two_diff_element(csf_r, csf_s, orbitals_dict, bsp_data):
     lost = [(key, qs, qo) for key, qs, qo in diffs if qs > qo]
     gained = [(key, qs, qo) for key, qs, qo in diffs if qs < qo]
 
-    # Same-shell pair excitation a² → b² (single source AND single
-    # destination key, Δq = 2) falls through to 0 here.  The J=0 pairing
-    # element is well-defined —
-    #   ⟨(j_b)² 0|1/r₁₂|(j_a)² 0⟩ = Σ_k (−1)^k ⟨j_b‖C^k‖j_a⟩²/√(g_a g_b) G^k(a,b)
-    # (≈ +0.04 Ha for Pb (6p₁/₂)² ↔ (6p₃/₂)², ~5 % ground admixture) —
-    # but wiring it in is deferred: feeding the resulting pair-correlation
-    # weight back into the Guerra c²-driven occupations is bistable (the
-    # admixture deoptimises the very orbital that sustains it), sending
-    # the Pb outer loop into a period-~6 limit cycle instead of the
-    # 4-iteration convergence without it.  Enabling this channel needs
-    # fixed-weight (statistical/equal) radial optimisation for pair
-    # channels or a simultaneous orbital+coefficient Newton — see the
-    # MCDHF solver notes.
+    # Two-electron replacements where one subshell changes by two electrons
+    # leave the two active electrons in a *definite* J-coupled state (with
+    # closed spectators the pair's J is the CSF's total J), so the element is
+    # exact rather than a configuration average.  Three patterns reach here:
+    #
+    #   a² ↔ b²        one key loses 2, one gains 2   (2s² ↔ 2p², the
+    #                                                  6p½² ↔ 6p3/2² jj pair)
+    #   a² ↔ c¹ d¹     one key loses 2, two gain 1    (double excitation into
+    #                                                  two different orbitals)
+    #   a¹ b¹ ↔ c²     two lose 1, one gains 2        (the transpose)
+    #
+    # All three go through the general two-electron element, which handles any
+    # total J (the J = 0 case was implemented first; J ≠ 0 needs the same
+    # machinery, not a special case).
+    pair_r = _pair_pattern(lost)
+    pair_s = _pair_pattern(gained)
+    if pair_r is not None and pair_s is not None:
+        return _two_electron_replacement_element(
+            csf_r, pair_r, pair_s, orbitals_dict, bsp_data)
+
     if len(lost) != 2 or len(gained) != 2:
         return 0.0
 
@@ -867,7 +1122,7 @@ def _chain_global_projection(chain):
     out = {}
     for projections, chain_coeff in chain_projection_amplitudes(chain, chain.total_J2):
         partial = {0: float(chain_coeff)}
-        for idx, (state, M2) in enumerate(zip(chain.subshells, projections)):
+        for idx, (state, M2) in enumerate(zip(chain.subshells, projections, strict=False)):
             next_partial = {}
             for mask, coeff in partial.items():
                 for local_mask, local_coeff in _simple_subshell_projection(state, M2).items():
@@ -1073,10 +1328,7 @@ def _off_diagonal_two_diff_J_correction(csf_r, csf_s, orbitals_dict, bsp_data, n
                 phase_exp += 1
             phase = -1.0 if phase_exp % 2 else 1.0
             coeff = phase * sixj * float(np.sqrt(lam_ac * lam_bd))
-        if bsp_data:
-            radial = _rk(Pa, Qa, Pc, Qc, Pb, Qb, Pd, Qd, bsp_data, k)
-        else:
-            radial = 1.0
+        radial = _rk(Pa, Qa, Pc, Qc, Pb, Qb, Pd, Qd, bsp_data, k) if bsp_data else 1.0
         proper += coeff * radial
 
     # Antisymmetrized exchange partner <a||C^K||d><b||C^K||c> R^K(ad,bc).
@@ -1093,10 +1345,7 @@ def _off_diagonal_two_diff_J_correction(csf_r, csf_s, orbitals_dict, bsp_data, n
         phase_exp = (tj_a + tj_b + tj_c + tj_d + total_J2) // 2 + k + 1
         phase = -1.0 if phase_exp % 2 else 1.0
         coeff = phase * sixj * float(np.sqrt(lam_ad * lam_bc))
-        if bsp_data:
-            radial = _rk(Pa, Qa, Pd, Qd, Pb, Qb, Pc, Qc, bsp_data, k)
-        else:
-            radial = 1.0
+        radial = _rk(Pa, Qa, Pd, Qd, Pb, Qb, Pc, Qc, bsp_data, k) if bsp_data else 1.0
         proper += coeff * radial
 
     base = _two_diff_element(csf_r, csf_s, orbitals_dict, bsp_data) if bsp_data else 0.0

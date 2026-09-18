@@ -582,23 +582,36 @@ def _build_rkb_qpqp(bsp_p, bsp_q, gr, grw, tp, tq, nv, ksp, ksq,
 def _accumulate_density_sym(dd, p1, p2, ns, ks, coeff):
     """Accumulate symmetric banded density into dd: dd += coeff * outer_sym(p1, p2).
 
-    Avoids allocating a temporary array per orbital.
+    Avoids allocating a temporary array per orbital.  Out-of-range reads
+    are zero (see :func:`_density_sym`).
     """
-    for i in range(ns):
+    n1 = min(p1.shape[0], ns)
+    n2 = min(p2.shape[0], ns)
+    for i in range(min(n1, n2)):
         dd[i, 0] += coeff * p1[i] * p2[i]
         for s in range(1, ks):
-            if i + s < ns:
-                dd[i, s] += coeff * (p1[i] * p2[i + s] + p1[i + s] * p2[i])
+            ip = i + s
+            if ip >= ns:
+                break
+            v = 0.0
+            if ip < n2:
+                v += p1[i] * p2[ip]
+            if ip < n1:
+                v += p1[ip] * p2[i]
+            dd[i, s] += coeff * v
 
 
 @nb.njit(cache=True, fastmath=True)
 def _accumulate_density_full(xx, p1, p2, ns, coeff):
     """Accumulate full density into xx: xx += coeff * outer(p1, p2).
 
-    Avoids allocating a temporary array per orbital.
+    Avoids allocating a temporary array per orbital.  Out-of-range reads
+    are zero (see :func:`_density_full`).
     """
-    for i in range(ns):
-        for j in range(ns):
+    n1 = min(p1.shape[0], ns)
+    n2 = min(p2.shape[0], ns)
+    for i in range(n1):
+        for j in range(n2):
             xx[i, j] += coeff * p1[i] * p2[j]
 
 
@@ -668,22 +681,49 @@ def _density_sym(p1, p2, ns, ks):
 
     d[i, 0]   = p1[i] * p2[i]                    (diagonal)
     d[i, s>0] = p1[i] * p2[i+s] + p1[i+s] * p2[i]  (symmetrized off-diagonal)
+
+    ``ns`` is the row extent of the requested band matrix and may be the
+    *larger* of the two basis orders (``bd["ns"] = max(nsp, nsq)``).  Reads
+    past the actual length of ``p1``/``p2`` are treated as zero — the
+    shorter component is zero-padded — rather than reading out of bounds
+    (numba performs no bounds checking; the callers pass ``P[:ns_full]``,
+    which is shorter than ``ns_full`` whenever the P/Q orders differ under
+    kinetic balance).  With ``len(p1) == len(p2) == ns`` this is
+    bit-identical to the plain band construction.
     """
+    n1 = p1.shape[0]
+    n2 = p2.shape[0]
     d = np.zeros((ns, ks))
-    for i in range(ns):
-        d[i, 0] = p1[i] * p2[i]
+    for i in range(min(n1, ns)):
+        if i < n2:
+            d[i, 0] = p1[i] * p2[i]
         for s in range(1, ks):
-            if i + s < ns:
-                d[i, s] = p1[i] * p2[i + s] + p1[i + s] * p2[i]
+            ip = i + s
+            if ip >= ns:
+                break
+            v = 0.0
+            if ip < n2:
+                v += p1[i] * p2[ip]
+            if ip < n1 and i < n2:
+                v += p1[ip] * p2[i]
+            d[i, s] = v
     return d
 
 
 @nb.njit(cache=True, fastmath=True)
 def _density_full(p1, p2, ns):
-    """Full density matrix: d[i, j] = p1[i] * p2[j]."""
+    """Full density matrix: d[i, j] = p1[i] * p2[j].
+
+    ``ns`` is the requested matrix extent and may exceed the length of
+    either component (see :func:`_density_sym`): out-of-range reads are
+    zero, i.e. the shorter component is zero-padded.  Identical to the
+    plain outer product when ``len(p1) == len(p2) == ns``.
+    """
+    n1 = min(p1.shape[0], ns)
+    n2 = min(p2.shape[0], ns)
     d = np.zeros((ns, ns))
-    for i in range(ns):
-        for j in range(ns):
+    for i in range(n1):
+        for j in range(n2):
             d[i, j] = p1[i] * p2[j]
     return d
 
