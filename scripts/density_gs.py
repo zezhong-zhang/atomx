@@ -283,13 +283,16 @@ def load_atomx_total_density(
         keys = sorted([k for k in f if k != "metadata"], key=int)
         subshells = [(str(f[k].attrs["orbital"]), float(f[k].attrs["nq"]))
                      for k in keys]
-        r_min = min(float(f[k]["r"][0]) for k in keys)
-        r_max = max(float(f[k]["r"][-1]) for k in keys)
+        grids = [f[k]["r"][:] for k in keys]
+        # Solver grids pin r[0] = 0 (DBSR convention); geomspace cannot
+        # include zero, so start at the smallest strictly positive node.
+        r_min = min(float(r[r > 0][0]) for r in grids)
+        r_max = max(float(r[-1]) for r in grids)
         r_common = np.geomspace(r_min, r_max, 4000)
         rho_total = np.zeros_like(r_common)
-        for k in keys:
+        for k, r in zip(keys, grids, strict=True):
             rho_total += np.interp(
-                r_common, f[k]["r"][:], f[k]["density"][:],
+                r_common, r, f[k]["density"][:],
                 left=0.0, right=0.0,
             )
     return r_common, rho_total, subshells
