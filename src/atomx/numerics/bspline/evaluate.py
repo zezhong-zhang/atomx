@@ -56,9 +56,8 @@ Performance: ``_compute_yk_flat`` is @nb.njit compiled.
 The exchange matrix kernel remains in ``scf/slater.py``.
 """
 
-import numpy as np
 import numba as nb
-
+import numpy as np
 
 # ---------------------------------------------------------------------------
 # Y^k potential: outward/inward cumulative integration (Numba)

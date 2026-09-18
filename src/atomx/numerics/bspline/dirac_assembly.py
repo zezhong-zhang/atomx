@@ -22,13 +22,17 @@ Block assembly (DBSR_HF convention):
     H(Q,P) = +c * fqpbsd + κ*c * fqpbs
 """
 
+from dataclasses import dataclass, field
+
 import numpy as np
-from atomx.constants import C, C_SQ
+from scipy import linalg
+
+from atomx.constants import C_SQ, C
 from atomx.numerics.bspline.integrals import (
-    overlap_matrix,
-    nuclear_matrix,
-    coupling_matrix,
     coupling_deriv_matrix,
+    coupling_matrix,
+    nuclear_matrix,
+    overlap_matrix,
 )
 
 
@@ -112,10 +116,6 @@ def build_dirac_matrices(ns, kappa, Z, bspline_data, nuclear_potential_func=None
 # ---------------------------------------------------------------------------
 # Generalised-eigenvalue solver
 # ---------------------------------------------------------------------------
-
-from dataclasses import dataclass, field
-
-from scipy import linalg
 
 
 @dataclass
@@ -237,7 +237,7 @@ def _eigh_finite(H_red, S_red, max_retries=2):
     what ``check_finite=False`` avoids, and stays off).
     """
     last_w = None
-    for attempt in range(max_retries + 1):
+    for _attempt in range(max_retries + 1):
         w, v = linalg.eigh(H_red, S_red, check_finite=False)
         if np.all(np.isfinite(w)):
             return w, v

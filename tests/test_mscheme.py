@@ -4,15 +4,14 @@ import pytest
 
 from atomx.angular.mscheme import (
     coupled_axw_matrix_element,
+    coupled_one_body_tensor_matrix_element,
     coupled_pair_annihilation_matrix_element,
     coupled_pair_creation_matrix_element,
-    coupled_wxa_matrix_element,
     coupled_wxw_scalar_matrix_element,
-    coupled_one_body_tensor_matrix_element,
     creation_matrix_element,
     highest_weight_states,
-    reduced_creation_matrix_element,
     reduced_axw_matrix_element,
+    reduced_creation_matrix_element,
     reduced_one_body_tensor_matrix_element,
     reduced_pair_annihilation_matrix_element,
     reduced_pair_creation_matrix_element,

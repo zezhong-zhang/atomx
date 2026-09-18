@@ -19,7 +19,6 @@ from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices, solve_di
 from atomx.numerics.bspline.integrals import _assemble_integral
 from atomx.numerics.bspline.knots import make_knots
 
-
 OrbitalKey = tuple[int, int]
 
 

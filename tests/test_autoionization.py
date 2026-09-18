@@ -21,7 +21,6 @@ from atomx.scattering.dielectronic_recombination.enumerate import (
     enumerate_dr_resonances,
 )
 
-
 # ---------------------------------------------------------------------------
 # AutoionizationState
 # ---------------------------------------------------------------------------

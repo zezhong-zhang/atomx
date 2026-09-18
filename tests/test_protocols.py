@@ -14,7 +14,6 @@ from atomx.scattering.protocols import (
     list_occupied_orbitals,
 )
 
-
 # ── Mock backend with no SCF ──────────────────────────────
 
 

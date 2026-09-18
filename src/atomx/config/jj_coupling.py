@@ -14,9 +14,8 @@ for use in the av_energy_coef formula.
 Reference: DBSR_HF hf_def_conf_LS.f90, hf_MOD_energy.f90
 """
 
-import numpy as np
-from math import comb
 from dataclasses import dataclass
+from math import comb
 from typing import List, Tuple
 
 from atomx.methods.dirac_fock import Subshell
@@ -151,7 +150,7 @@ def generate_jj_average(config_str: str,
 
     # Build average subshell list (include all j-subshells, even if occ=0)
     avg_subshells = []
-    for n, kappa, max_occ in jshell_specs:
+    for n, kappa, _max_occ in jshell_specs:
         occ = avg_occ.get((n, kappa), 0.0)
         # Clean IEEE float noise from the weighted average: the weight
         # normalisation above (c.weight /= total_weight) leaves Σ weights at

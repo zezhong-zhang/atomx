@@ -50,10 +50,7 @@ Reference
 
 from __future__ import annotations
 
-import math
 from typing import Dict, List
-
-import numpy as np
 
 from atomx.angular.wigner import wigner_3j
 

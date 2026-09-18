@@ -33,7 +33,6 @@ from atomx.providers.contract import (
 )
 from atomx.scattering.protocols import AtomicResultLike
 
-
 # ── helpers ────────────────────────────────────────────────────────────
 
 
@@ -80,7 +79,7 @@ def test_ensure_hartree_passes_floats_through():
 
 
 def test_ensure_hartree_converts_pint_quantity():
-    pint = pytest.importorskip("pint")
+    pytest.importorskip("pint")
     from atomx.units import ureg
 
     q = 27.211386245988 * ureg.electron_volt
@@ -88,7 +87,7 @@ def test_ensure_hartree_converts_pint_quantity():
 
 
 def test_orbital_energies_coerced_at_construction():
-    pint = pytest.importorskip("pint")
+    pytest.importorskip("pint")
     from atomx.units import ureg
 
     payload = _minimal_payload(

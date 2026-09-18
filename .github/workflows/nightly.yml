@@ -1,0 +1,49 @@
+name: Nightly (slow + bounds-check)
+
+# The default test job runs `pytest -m "not slow"` for turnaround time, which
+# left 15 slow tests — MCDHF, EII, DR end-to-end, MBPT(2), the book gate and
+# the numba bounds-check gate — unexecuted by any automation.  They run here.
+
+on:
+  schedule:
+    # 04:17 UTC daily (off the hour: GitHub schedules are busiest then).
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nightly-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  slow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pkg-config libcairo2-dev libpango1.0-dev
+      - name: Install dependencies
+        run: uv sync --locked --all-extras --python 3.13
+      - name: Slow tests
+        run: uv run --python 3.13 pytest -m "slow" -q
+      - name: Book claims
+        run: uv run --python 3.13 pytest -m "book" -q
+      - name: Out-of-bounds read gate (NUMBA_BOUNDSCHECK=1)
+        # Deterministic IndexError instead of heap garbage: this is the gate
+        # that turns the "nondeterministic NaN" class into a hard failure.
+        run: uv run --python 3.13 python scripts/check_determinism.py --repeat 1 --panel full --boundscheck
+      - name: Determinism across fresh processes
+        run: uv run --python 3.13 python scripts/check_determinism.py --repeat 12 --panel full

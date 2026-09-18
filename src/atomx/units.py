@@ -35,17 +35,11 @@ calculations never depend on pint).
 
 from __future__ import annotations
 
-from typing import Any, Optional, Union
+from typing import Any
 
 from atomx.constants import (
-    ALPHA,
-    BOHR_RADIUS_M,
-    HARTREE_EV,
-    HARTREE_J,
-    PROTON_ELECTRON_MASS_RATIO,
     DEFAULT_CODATA_VERSION,
 )
-
 
 # ---------------------------------------------------------------------------
 # Optional pint import

@@ -40,7 +40,6 @@ from atomx.scattering.autoionization import (
     dr_rate_coefficient,
 )
 
-
 FIXTURE_PATH = Path(__file__).parent / "data" / "fe17_dr_fac.json"
 RESULTS_CSV = Path(__file__).parent.parent / "benchmarks" / "results_fac_dr.csv"
 KERNEL_TOLERANCE = 0.01  # 1 % parity for the Burgess kernel itself
@@ -75,6 +74,7 @@ def _fac_resonance_states(data: dict) -> list[AutoionizationState]:
 # 1.  Kernel parity — feeds FAC widths through atomx's Burgess kernel
 # ---------------------------------------------------------------------------
 
+@pytest.mark.external_fac
 def test_kernel_parity_with_fac(fac_fixture):
     states = _fac_resonance_states(fac_fixture)
     T_eV = np.asarray(fac_fixture["T_eV"], dtype=float)
@@ -113,7 +113,7 @@ def _load_results_csv():
     return data_rows, rms_rows[0]
 
 
-@pytest.mark.fac_parity
+@pytest.mark.external_fac
 def test_benchmark_csv_gate():
     """rms <= 0.35 and every T >= 5 MK point within alpha ratio [0.8, 1.35].
 
@@ -151,7 +151,7 @@ def test_benchmark_csv_gate():
             )
 
 
-@pytest.mark.fac_parity
+@pytest.mark.external_fac
 def test_benchmark_csv_reference_is_cleanroom():
     """The CSV must be benchmarked against the clean-room FAC reference."""
     data_rows, rms_row = _load_results_csv()

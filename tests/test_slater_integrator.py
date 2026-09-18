@@ -14,15 +14,14 @@ direct method's diagonal (r₁≈r₂) product-quadrature error, which Poisson
 resolves analytically per interval.
 """
 
-import numpy as np
 import pytest
 
 from atomx.numerics.bspline.slater import (
+    AVAILABLE_METHODS,
+    DEFAULT_METHOD,
     slater_rk,
     slater_rk_direct,
     slater_rk_poisson,
-    DEFAULT_METHOD,
-    AVAILABLE_METHODS,
 )
 
 
@@ -87,8 +86,8 @@ def test_unknown_method_raises(ne_grid):
 
 
 def test_auger_api_honours_method(ne_grid):
-    from atomx.scattering.autoionization.auger import auger_rate_two_electron
     from atomx.methods.dirac_fock import DFSolver, neon_subshells
+    from atomx.scattering.autoionization.auger import auger_rate_two_electron
 
     solver = DFSolver(Z=10, subshells=neon_subshells(), ns=60, ks=9,
                       exchange="hf")

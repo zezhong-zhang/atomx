@@ -54,7 +54,7 @@ class TestScreening:
     def test_stewart_pyatt_interpolates(self):
         """Stewart-Pyatt should give intermediate result."""
         from atomx.plasma.screening import (
-            stewart_pyatt_potential, debye_potential, ion_sphere_potential
+            stewart_pyatt_potential,
         )
         ne = 1e22
         Te = 50.0
@@ -227,9 +227,7 @@ class TestCRM:
 
     def test_steady_state_normalized(self):
         """Steady-state populations should sum to 1."""
-        from atomx.plasma.crm import (
-            CollisionalRadiativeModel, CRMLevel, CRMTransition
-        )
+        from atomx.plasma.crm import CollisionalRadiativeModel, CRMLevel, CRMTransition
         levels = [
             CRMLevel("ground", 0.0, g=1),
             CRMLevel("excited", 10.0, g=3),
@@ -243,9 +241,7 @@ class TestCRM:
 
     def test_high_density_approaches_boltzmann(self):
         """At high ne, CRM should approach LTE (Boltzmann distribution)."""
-        from atomx.plasma.crm import (
-            CollisionalRadiativeModel, CRMLevel, CRMTransition
-        )
+        from atomx.plasma.crm import CollisionalRadiativeModel, CRMLevel, CRMTransition
         Te = 10.0  # eV
         levels = [
             CRMLevel("ground", 0.0, g=1),
@@ -258,7 +254,7 @@ class TestCRM:
 
         # High density -> collisional rates dominate -> LTE
         pop_crm = crm.steady_state(ne_cm3=1e25, Te_eV=Te)
-        pop_boltz = crm.boltzmann_populations(Te)
+        crm.boltzmann_populations(Te)  # must not raise; not compared below
 
         # Should be reasonably close at high density
         # (may not be exact due to simplified collisional rates)
@@ -266,9 +262,7 @@ class TestCRM:
 
     def test_boltzmann_ground_dominant_at_low_T(self):
         """At low T, Boltzmann should put most population in ground state."""
-        from atomx.plasma.crm import (
-            CollisionalRadiativeModel, CRMLevel, CRMTransition
-        )
+        from atomx.plasma.crm import CollisionalRadiativeModel, CRMLevel
         levels = [
             CRMLevel("ground", 0.0, g=1),
             CRMLevel("excited", 100.0, g=3),
@@ -281,8 +275,11 @@ class TestCRM:
     def test_bound_free_eii_and_three_body_balance(self):
         """EII and TBR should populate adjacent charge states consistently."""
         from atomx.plasma.crm import (
-            CRMBoundFreeChannel, CRMLevel, CollisionalRadiativeModel,
-            saha_ionization_density_cm3, three_body_recombination_rate_cm6_s,
+            CollisionalRadiativeModel,
+            CRMBoundFreeChannel,
+            CRMLevel,
+            saha_ionization_density_cm3,
+            three_body_recombination_rate_cm6_s,
         )
 
         Te = 20.0
@@ -312,7 +309,9 @@ class TestCRM:
     def test_bound_free_photoionization_planck_couples_channel(self):
         """Planck PI should add a one-way bound-free source term."""
         from atomx.plasma.crm import (
-            CRMBoundFreeChannel, CRMLevel, CollisionalRadiativeModel,
+            CollisionalRadiativeModel,
+            CRMBoundFreeChannel,
+            CRMLevel,
         )
 
         crm = CollisionalRadiativeModel(
@@ -338,7 +337,10 @@ class TestCRM:
     def test_bound_free_toggles_reach_crm_emission_spectrum(self):
         """Spectrum wrapper should pass bound-free toggles into steady-state."""
         from atomx.plasma.crm import (
-            CRMBoundFreeChannel, CRMLevel, CRMTransition, CollisionalRadiativeModel,
+            CollisionalRadiativeModel,
+            CRMBoundFreeChannel,
+            CRMLevel,
+            CRMTransition,
         )
         from atomx.spectrum import crm_emission_spectrum
 

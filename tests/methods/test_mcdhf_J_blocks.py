@@ -28,7 +28,6 @@ from atomx.methods.mcdhf.config import (
     subshell_allowed_J2,
 )
 
-
 # ---------------------------------------------------------------------------
 # Angular-momentum building blocks
 # ---------------------------------------------------------------------------

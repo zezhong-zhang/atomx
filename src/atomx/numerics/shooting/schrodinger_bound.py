@@ -4,11 +4,13 @@ Solves the radial Schrödinger equation for bound states using shooting method
 with power-series integration and eigenvalue refinement from derivative discontinuity.
 """
 
-import numpy as np
-import numba as nb
 import math
-from atomx.numerics.shooting.spline import findi, merge_grids as _merge_grids_s
-from atomx.numerics.shooting.schrodinger_integrator import soutw, sinw
+
+import numba as nb
+import numpy as np
+
+from atomx.numerics.shooting.schrodinger_integrator import sinw, soutw
+from atomx.numerics.shooting.spline import merge_grids as _merge_grids_s
 
 
 @nb.njit(cache=True)
@@ -82,7 +84,7 @@ def sbound(e_in, eps, n, l, rg, rvg, va, vb, vc, vd, nvt, rad, ngp):
     total_sum = 1.0
 
     max_shots = 200
-    for shot in range(max_shots):
+    for _ in range(max_shots):
         if e > -1.0e-16:
             ier = 2
             break
@@ -155,10 +157,7 @@ def sbound(e_in, eps, n, l, rg, rvg, va, vb, vc, vd, nvt, rad, ngp):
             break
 
         # Match
-        if abs(pt[iotp]) > 1.0e-30:
-            fact = po / pt[iotp]
-        else:
-            fact = 1.0
+        fact = po / pt[iotp] if abs(pt[iotp]) > 1e-30 else 1.0
         for i in range(iotp, ilast + 1):
             pt[i] *= fact
             qt[i] *= fact

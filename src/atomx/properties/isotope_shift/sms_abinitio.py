@@ -75,7 +75,7 @@ J. C. Berengut, V. V. Flambaum, M. G. Kozlov, *Phys. Rev. A* **73**,
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Dict, List
+from typing import Dict
 
 from atomx.angular.coefficients import _l_from_kappa, reduced_C
 from atomx.properties.transitions.multipole import radial_eL
@@ -128,9 +128,9 @@ def _allowed_sms_pair(kappa_a: int, kappa_b: int) -> bool:
     # Triangle inequality on j (j_a − j_b ≤ 1 ≤ j_a + j_b)
     j_a = _j_from_kappa(kappa_a)
     j_b = _j_from_kappa(kappa_b)
-    if abs(j_a - j_b) > 1.0 + 1e-9 or (j_a + j_b) < 1.0 - 1e-9:
-        return False
-    return True
+    return not (
+        abs(j_a - j_b) > 1.0 + 1e-9 or (j_a + j_b) < 1.0 - 1e-9
+    )
 
 
 # ---------------------------------------------------------------------------

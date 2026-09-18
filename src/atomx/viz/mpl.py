@@ -24,7 +24,7 @@ Available renderers
 
 from __future__ import annotations
 
-from typing import Iterable, Optional, Sequence, Tuple
+from typing import Optional, Sequence
 
 import numpy as np
 
@@ -237,7 +237,7 @@ def plot_grotrian(
     xs = [L_to_x[L] for L in L_values]
 
     # Draw each level as a short horizontal bar
-    for i, (E, x, lv) in enumerate(zip(energies, xs, levels)):
+    for i, (E, x, lv) in enumerate(zip(energies, xs, levels, strict=False)):
         ax.plot([x - 0.3, x + 0.3], [E, E], color="navy", linewidth=2.0)
         lbl = _get(lv, "label", f"lvl{i}")
         if lbl:
@@ -274,7 +274,7 @@ def plot_grotrian(
     if unique_L:
         l_labels = "SPDFGHIKLMNO"
         ax.set_xticks(list(L_to_x.values()))
-        ax.set_xticklabels([l_labels[L] if L < len(l_labels) else f"L={L}"
+        ax.set_xticklabels([l_labels[L] if len(l_labels) > L else f"L={L}"
                             for L in unique_L])
         ax.set_xlim(-0.5, len(unique_L) - 0.5)
     else:
@@ -398,7 +398,7 @@ def plot_qed_breakdown(
                               if reference_key else "")))
 
     # Annotate each bar
-    for bar, v in zip(bars, values):
+    for bar, v in zip(bars, values, strict=False):
         ax.text(bar.get_x() + bar.get_width() / 2,
                 v + (0.02 * abs(values.max())),
                 f"{v:+.3e}", ha="center", va="bottom", fontsize=7)

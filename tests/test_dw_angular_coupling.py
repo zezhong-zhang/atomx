@@ -17,17 +17,16 @@ import numpy as np
 import pytest
 
 from atomx.angular.coefficients import reduced_C
+from atomx.angular.wigner import wigner_3j, wigner_6j
 from atomx.scattering.distorted_wave.solver import (
-    _l_of,
-    _tj_of,
     _allowed_k,
+    _l_of,
     _target_projectile_J_range,
     _target_state_metadata,
     _target_transition_population,
+    _tj_of,
     dw_excitation_cross_section,
 )
-from atomx.angular.wigner import wigner_3j, wigner_6j
-
 
 # ---------------------------------------------------------------------------
 # Helper function tests

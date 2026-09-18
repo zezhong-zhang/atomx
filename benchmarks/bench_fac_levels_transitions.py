@@ -24,11 +24,11 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "benchmarks"))
 
+from fac_matrix import print_matrix_summary, run_matrix, write_matrix_csv  # noqa: E402
+from fac_runner import parse_levels, parse_transitions, run_sfac  # noqa: E402
+
 from atomx import Atom  # noqa: E402
 from atomx.constants import HARTREE_EV  # noqa: E402
-from fac_runner import parse_levels, parse_transitions, run_sfac  # noqa: E402
-from fac_matrix import print_matrix_summary, run_matrix, write_matrix_csv  # noqa: E402
-
 
 # Canonical FAC demo script
 FAC_SCRIPT_FE17 = """SetAtom('Fe')

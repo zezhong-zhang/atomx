@@ -3,9 +3,10 @@
 Translates radial.f DIR (line 2118), DOUTW (line 1733), DINW (line 1808).
 """
 
-import numpy as np
-import numba as nb
 import math
+
+import numba as nb
+
 from atomx.numerics.shooting.constants import SL
 from atomx.numerics.shooting.dirac_power_series import dir0
 
@@ -37,10 +38,7 @@ def dir_integrate(e, ak, eps, isum, ppi, qqi, ra, rb,
     rsum = 0.0
 
     h = rb - ra
-    if h < 0.0:
-        direct = -1.0
-    else:
-        direct = 1.0
+    direct = -1.0 if h < 0.0 else 1.0
 
     k_ctrl = -2
     nstep = 0
@@ -151,10 +149,7 @@ def doutw(e, eps, ak, nr, iotp_in, isum,
     nzmax = 0
     iotp = iotp_in  # 0-based
 
-    if e < 0.0:
-        n1 = nrt
-    else:
-        n1 = iotp
+    n1 = nrt if e < 0.0 else iotp
 
     pt[0] = 0.0
     qt[0] = 0.0
@@ -185,31 +180,30 @@ def doutw(e, eps, ak, nr, iotp_in, isum,
         pt[i + 1] = pf
         qt[i + 1] = qf
 
-        if e < 0.0:
-            # Past-turning-point blow-up detection — Fortran DOUTW
-            # line 1777-1786.  ``TCONV = 2*CA(3)*PPI`` is the
-            # analytical second derivative of P (from the power-series
-            # ``(r-r0)^2`` coefficient returned by ``dir_integrate``)
-            # times the boundary value ``PPI``.  Positive TCONV past
-            # ``iotp`` means P is becoming convex (picking up the
-            # exponentially-growing irregular solution) — stop
-            # integration there so spurious sign flips don't corrupt
-            # the node count.
-            #
-            # The earlier 3-point finite-difference proxy
-            # ``(P[i+1] - 2·P[i] + P[i-1]) * PPI`` underestimated and
-            # sometimes flipped sign on the sharp heavy-Z inner
-            # region, letting doutw count a spurious node — which
-            # drove ``dbound`` into the "too many nodes" branch and
-            # out to the wrong eigenvalue.  See trace.md 2026-04-20
-            # and benchmarks/REPORT.md §6.4 for the diagnosis.
-            if i >= iotp and ppi != 0.0:
-                tconv = 2.0 * ca2 * ppi
-                if tconv > 1.0e-15:
-                    if isum == 1:
-                        sumout = sumout + rsum_val
-                    iotp = i + 1
-                    return nzero, sumout, iotp, nzmax
+        # Past-turning-point blow-up detection — Fortran DOUTW
+        # line 1777-1786.  ``TCONV = 2*CA(3)*PPI`` is the
+        # analytical second derivative of P (from the power-series
+        # ``(r-r0)^2`` coefficient returned by ``dir_integrate``)
+        # times the boundary value ``PPI``.  Positive TCONV past
+        # ``iotp`` means P is becoming convex (picking up the
+        # exponentially-growing irregular solution) — stop
+        # integration there so spurious sign flips don't corrupt
+        # the node count.
+        #
+        # The earlier 3-point finite-difference proxy
+        # ``(P[i+1] - 2·P[i] + P[i-1]) * PPI`` underestimated and
+        # sometimes flipped sign on the sharp heavy-Z inner
+        # region, letting doutw count a spurious node — which
+        # drove ``dbound`` into the "too many nodes" branch and
+        # out to the wrong eigenvalue.  See trace.md 2026-04-20
+        # and benchmarks/REPORT.md §6.4 for the diagnosis.
+        if e < 0.0 and i >= iotp and ppi != 0.0:
+            tconv = 2.0 * ca2 * ppi
+            if tconv > 1.0e-15:
+                if isum == 1:
+                    sumout = sumout + rsum_val
+                iotp = i + 1
+                return nzero, sumout, iotp, nzmax
 
         if i == 0:
             if isum == 1:
@@ -244,10 +238,7 @@ def dinw(e, eps, ak, iotp, isum,
         ilast:  index of practical infinity (0-based)
     """
     kappa_int = int(ak)
-    if kappa_int < 0:
-        l = -kappa_int - 1
-    else:
-        l = kappa_int
+    l = -kappa_int - 1 if kappa_int < 0 else kappa_int
     al = float(l)
     trinf = 22500.0  # 150^2
 

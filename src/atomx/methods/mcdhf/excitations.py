@@ -13,9 +13,8 @@ correlation energy (~95% for atoms).
 """
 
 import re
-from typing import List, Tuple
-from atomx.methods.mcdhf.config import CSF, _parse_config_string
-from atomx.methods.dirac_fock import Subshell
+
+from atomx.methods.mcdhf.config import _parse_config_string
 
 # Orbital-label letters, index == l (shared with config parsing).
 _L_SYMBOLS = "spdfghiklmno"
@@ -112,13 +111,13 @@ def generate_sd_excitations(ref_config_str, virtual_orbitals,
                 if i != j and (occ1 < 1 or occ2 < 1):
                     continue
 
-                for vi, (virt1, vmax1) in enumerate(virtual_slots):
-                    for vj, (virt2, vmax2) in enumerate(virtual_slots):
+                for vi, (virt1, _vmax1) in enumerate(virtual_slots):
+                    for vj, (virt2, _vmax2) in enumerate(virtual_slots):
                         if vj < vi:
                             continue
-                        if virt1 == src1 or virt1 == src2:
+                        if virt1 in (src1, src2):
                             continue
-                        if virt2 == src1 or virt2 == src2:
+                        if virt2 in (src1, src2):
                             continue
 
                         new_occ = dict(ref_occ)

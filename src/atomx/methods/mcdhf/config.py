@@ -10,6 +10,7 @@ For MCDHF, we need multiple CSFs that can mix via CI.
 import re
 from dataclasses import dataclass
 from typing import List, Tuple
+
 import numpy as np
 
 from atomx.angular.csf_recoupling import allowed_coupled_J2
@@ -421,7 +422,6 @@ def _parse_config_string(config_str):
         else:
             # Split occupation between j=l-1/2 (kappa=+l) and j=l+1/2 (kappa=-(l+1))
             max_minus = 2 * l  # 2*(l-1/2)+1 = 2l
-            max_plus = 2 * (l + 1)  # 2*(l+1/2)+1 = 2l+2
 
             if q <= max_minus:
                 subshells.append(Subshell(n=n, kappa=l, occupation=q))

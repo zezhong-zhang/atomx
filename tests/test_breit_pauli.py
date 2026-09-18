@@ -10,7 +10,6 @@ from atomx.physics.breit_pauli import (
     spin_orbit_xi,
 )
 
-
 ALPHA_SQ = ALPHA * ALPHA
 
 

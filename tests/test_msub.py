@@ -44,7 +44,7 @@ def test_alignment_from_axial_excitation():
     A_2 = alignment_from_m_resolved(sigma, J_b=1.0)
     # Inal-Dubau: A_2 = √(1/6) ≈ 0.408 for pure |M|=1 alignment
     expected = (1.0 / 6.0) ** 0.5
-    assert A_2 == pytest.approx(expected, rel=1e-3)
+    assert pytest.approx(expected, rel=1e-3) == A_2
 
 
 def test_higher_multipoles_not_implemented():

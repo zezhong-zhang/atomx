@@ -31,7 +31,6 @@ from atomx.properties.zeeman import (
 )
 from atomx.properties.zeeman.lande import lande_factor
 
-
 # ---------------------------------------------------------------------------
 # Non-relativistic closed form
 # ---------------------------------------------------------------------------
@@ -160,7 +159,7 @@ class TestLandeFactor:
 class TestZeemanShift:
     def test_bohr_magneton_mhz_per_tesla(self):
         """μ_B/h ≈ 1.39962 × 10⁴ MHz/T — CODATA 2018."""
-        assert BOHR_MAGNETON_MHZ_PER_TESLA == pytest.approx(13996.24, abs=0.1)
+        assert pytest.approx(13996.24, abs=0.1) == BOHR_MAGNETON_MHZ_PER_TESLA
 
     def test_weak_field_shift_single(self):
         """For g=2, m_J=1/2, B=1 T:  ΔE = μ_B × 1 T ≈ 13996 MHz."""

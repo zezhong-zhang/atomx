@@ -16,16 +16,13 @@ import pytest
 
 pint = pytest.importorskip("pint")
 
-from atomx import codata_version, pint_available, ureg   # noqa: E402
-from atomx.units import (                                  # noqa: E402
-    Bohr,
+from atomx import codata_version, pint_available, ureg  # noqa: E402
+from atomx.units import (  # noqa: E402
     GHz,
-    Hartree,
-    MHz,
     Rydberg,
     cm_inv,
-    eV,
     energy_quantity,
+    eV,
     frequency_quantity,
     length_quantity,
     to_bohr,
@@ -33,7 +30,6 @@ from atomx.units import (                                  # noqa: E402
     to_kelvin,
     to_MHz,
 )
-
 
 # ---------------------------------------------------------------------------
 # Availability + metadata
@@ -47,8 +43,8 @@ class TestAvailability:
         assert codata_version() == "2022"
 
     def test_ureg_is_shared(self):
-        from atomx.units import ureg as ureg_mod
         from atomx import ureg as ureg_top
+        from atomx.units import ureg as ureg_mod
         assert ureg_mod is ureg_top
 
 
@@ -104,7 +100,7 @@ class TestToKelvin:
     def test_energy_via_kB(self):
         # 1 eV → k_B T with T = 11604.5 K
         T = to_kelvin(1.0 * eV)
-        assert T == pytest.approx(11604.525, rel=1e-4)
+        assert pytest.approx(11604.525, rel=1e-4) == T
 
 
 # ---------------------------------------------------------------------------

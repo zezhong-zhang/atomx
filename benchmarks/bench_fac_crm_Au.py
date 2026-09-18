@@ -31,9 +31,12 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
 from atomx import Atom  # noqa: E402
-from atomx.plasma.crm import CRMLevel, CRMTransition, CollisionalRadiativeModel  # noqa: E402
+from atomx.plasma.crm import (  # noqa: E402
+    CollisionalRadiativeModel,
+    CRMLevel,
+    CRMTransition,
+)
 from atomx.uta import UTAArray, uta_moments  # noqa: E402
-
 
 Z_AU = 79
 # The deterministic Au CRM fixture is intentionally scoped to the ICF

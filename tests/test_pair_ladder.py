@@ -25,7 +25,11 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from atomx import Atom  # noqa: E402
 from atomx.methods.mbpt import (  # noqa: E402
-    mbpt2_energy, pair_ladder_energy, _pair_v_J, build_virtual_basis)
+    _pair_v_J,
+    build_virtual_basis,
+    mbpt2_energy,
+    pair_ladder_energy,
+)
 from atomx.numerics.bspline.convol import ConvolCache  # noqa: E402
 
 

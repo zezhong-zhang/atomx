@@ -20,10 +20,12 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import List
 
-import numpy as np
-
 from atomx.methods.base import Method
-from atomx.types import CouplingScheme, NuclearModel, RelativisticCorrection, TheoryLevel
+from atomx.types import (
+    CouplingScheme,
+    RelativisticCorrection,
+    TheoryLevel,
+)
 
 
 @dataclass
@@ -94,7 +96,7 @@ class BreitPauli(Method):
             If a subshell's NR orbital energy is missing from the base
             result — there is no silent zero fallback.
         """
-        from atomx.numerics.shooting.solver import ShootingSolver, ShootingResult
+        from atomx.numerics.shooting.solver import ShootingResult, ShootingSolver
         from atomx.physics.breit_pauli import (
             darwin_shift,
             mass_velocity_shift,

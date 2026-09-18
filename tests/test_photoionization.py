@@ -23,7 +23,7 @@ class TestFanoProfile:
     def test_window_resonance_q_zero(self):
         """q = 0 gives the "window" resonance:  F(ε=0) = 0."""
         F0 = fano_profile(10.0, 10.0, gamma_eV=0.1, q=0.0)
-        assert F0 == pytest.approx(0.0, abs=1e-14)
+        assert pytest.approx(0.0, abs=1e-14) == F0
 
     def test_asymptotic_behaviour(self):
         """Far from the resonance F → 1 (slowly: 1/ε convergence).

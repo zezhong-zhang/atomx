@@ -49,11 +49,11 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
+from atomx.angular.coefficients import exchange_k_range, exchange_lambda
+from atomx.angular.wigner import wigner_6j
 from atomx.methods.dirac_fock import Subshell
 from atomx.methods.mcdhf.config import CSF
 from atomx.methods.mcdhf.matrix import _off_diagonal_J_correction
-from atomx.angular.coefficients import exchange_k_range, exchange_lambda
-from atomx.angular.wigner import wigner_6j
 
 
 def _make_helike_csfs():

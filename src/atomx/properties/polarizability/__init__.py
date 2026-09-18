@@ -53,7 +53,6 @@ from atomx.properties._sos_basis import build_sos_virtual_basis
 from atomx.properties.transitions.angular import angular_eL, selection_rules
 from atomx.properties.transitions.multipole import radial_eL
 
-
 # ---------------------------------------------------------------------------
 # Result
 # ---------------------------------------------------------------------------

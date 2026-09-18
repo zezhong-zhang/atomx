@@ -24,10 +24,11 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "benchmarks"))
 
+from fac_matrix import print_matrix_summary, run_matrix, write_matrix_csv  # noqa: E402
+from fac_runner import parse_e0, parse_levels, run_sfac  # noqa: E402
+
 from atomx import Atom  # noqa: E402
 from atomx.constants import HARTREE_EV  # noqa: E402
-from fac_runner import parse_e0, parse_levels, run_sfac  # noqa: E402
-from fac_matrix import print_matrix_summary, run_matrix, write_matrix_csv  # noqa: E402
 
 EV_PER_HARTREE = HARTREE_EV
 
@@ -172,7 +173,7 @@ def main():
                 if iso not in ISOSEQUENCE_CONFIGS:
                     continue
                 cfg, nel = ISOSEQUENCE_CONFIGS[iso]
-                if Z < nel:
+                if nel > Z:
                     continue  # unphysical (can't have more electrons than Z)
                 try:
                     e_a_ha, t_a, conv = run_atomx(Z, iso, breit=args.breit, qed=args.qed)

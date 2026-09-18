@@ -71,16 +71,16 @@ from typing import Dict, List, Optional, Sequence
 import numpy as np
 
 from atomx.numerics.shooting.constants import SL
-from atomx.numerics.shooting.spline import splin0
-from atomx.numerics.shooting.quadrature import slag6
 from atomx.numerics.shooting.dirac_bound import dbound
-from atomx.numerics.shooting.dirac_integrator import doutw, dinw
+from atomx.numerics.shooting.dirac_integrator import dinw, doutw
+from atomx.numerics.shooting.quadrature import slag6
 from atomx.numerics.shooting.solver import (
-    ShootingSolver,
     ShootingResult,
-    _yk_over_r,
+    ShootingSolver,
     _slater_integral_slag6,
+    _yk_over_r,
 )
+from atomx.numerics.shooting.spline import splin0
 
 #: Power-series ODE tolerance for the homogeneous integrations —
 #: matches the internal DBOUND tolerance used by the local-exchange SCF.
@@ -380,7 +380,7 @@ class ShootingHFSolver:
                 if (len(cfg.subshells) != len(self.subshells)
                         or any((c.n, c.kappa) != (s.n, s.kappa)
                                for c, s in zip(cfg.subshells,
-                                               self.subshells))):
+                                               self.subshells, strict=False))):
                     raise ValueError(
                         "jj_configs subshells must align positionally "
                         "with the solver subshells (same (n, kappa) "
@@ -428,8 +428,7 @@ class ShootingHFSolver:
         ``Σ_b q_b Y⁰_bb − Y⁰_aa`` fast path) and otherwise the per-target
         k=0 Hartree coefficients ``direct0[a][b] = WW(a,b)/q_a``.
         """
-        from atomx.angular.coefficients import (
-            exchange_lambda, exchange_k_range)
+        from atomx.angular.coefficients import exchange_k_range, exchange_lambda
 
         nsh = len(self.subshells)
         kappas = [sh.kappa for sh in self.subshells]
@@ -488,8 +487,7 @@ class ShootingHFSolver:
     # ------------------------------------------------------------------
     def _two_electron_energy(self, pa, qa, r, difr, np_):
         """(E_J, E_K): direct and exchange two-electron energies."""
-        from atomx.angular.coefficients import (
-            exchange_lambda, exchange_k_range)
+        from atomx.angular.coefficients import exchange_k_range, exchange_lambda
 
         nsh = len(self.subshells)
         kappas = [sh.kappa for sh in self.subshells]
@@ -689,11 +687,10 @@ class ShootingHFSolver:
             e_2e = e_j - e_k
             e_total = float(np.dot(occ, ev) - e_2e)
 
-            if e_total_prev is not None:
-                if abs(e_total - e_total_prev) <= tol_e * max(
-                        1.0, abs(e_total)):
-                    converged = True
-                    break
+            if e_total_prev is not None and abs(
+                    e_total - e_total_prev) <= tol_e * max(1.0, abs(e_total)):
+                converged = True
+                break
             e_total_prev = e_total
 
         oe = {sh.label: float(ev[i])

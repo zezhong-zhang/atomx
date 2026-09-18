@@ -19,8 +19,6 @@ import re
 from dataclasses import dataclass
 from typing import Callable
 
-import numpy as np
-
 from atomx.scattering.dielectronic_recombination.enumerate import (
     DRResonanceSpec,
     enumerate_dr_resonances,

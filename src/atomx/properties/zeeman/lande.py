@@ -51,7 +51,6 @@ from atomx.angular.coefficients import _l_from_kappa
 from atomx.constants import ALPHA
 from atomx.properties.hyperfine.dipole import ELECTRON_ANOMALOUS_MOMENT
 
-
 # Bohr magneton in MHz / Tesla — CODATA 2018 derived:
 #   μ_B = 9.2740100783e-24 J/T,  h = 6.62607015e-34 J·s
 #   μ_B/h = 1.39962449361e10 Hz/T  =  1.39962449361e4 MHz/T

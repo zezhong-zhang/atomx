@@ -61,17 +61,14 @@ splitting that gives rise to the HI line in astrophysics.
 
 from __future__ import annotations
 
-from typing import Optional
-
 import numpy as np
 
-from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 from atomx.constants import (
     ALPHA,
     HARTREE_J,
     PROTON_ELECTRON_MASS_RATIO,
 )
-
+from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 
 # Unit conversions ---------------------------------------------------------
 

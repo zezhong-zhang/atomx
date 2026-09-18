@@ -14,11 +14,10 @@ References
 
 from __future__ import annotations
 
-import numpy as np
 import numba as nb
+import numpy as np
 
-from atomx.constants import HARTREE_EV, BOHR_RADIUS_M
-
+from atomx.constants import BOHR_RADIUS_M, HARTREE_EV
 
 # pi*a_0^2 in cm^2 (atomic-physics cross-section unit)
 PI_A0_SQ_CM2 = np.pi * (BOHR_RADIUS_M * 100.0) ** 2  # ~ 8.797e-17 cm^2

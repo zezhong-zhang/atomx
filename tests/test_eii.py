@@ -356,7 +356,14 @@ def test_fresh_three_z_fac_k_shell_gate():
 
 
 def test_fac_near_threshold_shape_gate_pending_q1():
-    """Track the Q1 1.05I gate without inventing its pending tolerance."""
+    """Track the Q1 1.05I gate without inventing its pending tolerance.
+
+    The threshold-agreement assertions below run whenever the CSV carries
+    1.05I rows.  The committed ``results_fac_dw_eii.csv`` currently has only
+    1.5/2.0/5.0 rows, so the earlier ``if not rows`` guard reports this test
+    as skipped (an honest "no data"), NOT the trailing ``pytest.skip`` that
+    used to swallow the assertions after they had already run.
+    """
     csv_path = (
         Path(__file__).resolve().parents[1]
         / "benchmarks"
@@ -385,7 +392,6 @@ def test_fac_near_threshold_shape_gate_pending_q1():
         for row in rows
     ]
     assert max(threshold_differences) <= 5.0e-3
-    pytest.skip("HYP-841 Q1 pending: 1.05I shape X% gate is not final")
 
 
 @pytest.mark.slow

@@ -237,8 +237,7 @@ class FlambaumGingesBackend(SEBackend):
                 "⟨a|V_FG|a⟩ on the radial grid."
             )
 
-        from atomx.corrections.workspace import (
-            eval_orbital_pair, workspace_arrays)
+        from atomx.corrections.workspace import eval_orbital_pair, workspace_arrays
 
         gr, grw = workspace_arrays(bsp_data)
 
@@ -248,7 +247,7 @@ class FlambaumGingesBackend(SEBackend):
 
         per_orbital = {}
         E_SE = 0.0
-        for P, Q, occ, kappa, label in orbitals:
+        for P, Q, occ, _kappa, label in orbitals:
             if np.max(np.abs(P)) < _SCF_ORBITAL_NULL_THRESHOLD:
                 per_orbital[label] = 0.0
                 continue

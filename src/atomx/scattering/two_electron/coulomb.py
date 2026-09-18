@@ -36,7 +36,6 @@ def _y_k(
     r = np.asarray(r, dtype=float)
     w = np.asarray(w, dtype=float)
     f = np.asarray(f, dtype=float)
-    n = r.shape[0]
 
     rk = r ** k
     inv_rk1 = 1.0 / (r ** (k + 1))

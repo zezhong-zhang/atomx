@@ -31,7 +31,6 @@ from scipy.special import k1 as bessel_k1
 from atomx.constants import ALPHA, C
 from atomx.corrections.qedmod import get_backend
 
-
 # ---------------------------------------------------------------------------
 # Vacuum Polarization (Uehling potential, 2nd order)
 # ---------------------------------------------------------------------------
@@ -95,7 +94,10 @@ def _short_range_expectation(orbitals, bsp_data, V_of_r):
     at the origin and self-converged to ~1e-7 on this integral.
     """
     from atomx.corrections.workspace import (
-        eval_orbital_pair, is_grid_workspace, workspace_arrays)
+        eval_orbital_pair,
+        is_grid_workspace,
+        workspace_arrays,
+    )
 
     gr, grw = workspace_arrays(bsp_data)
 
@@ -104,7 +106,7 @@ def _short_range_expectation(orbitals, bsp_data, V_of_r):
         # vector, where the Gauss-node sum is the only option.
         V = V_of_r(gr)
         E = 0.0
-        for P, Q, occ, kappa, label in orbitals:
+        for P, Q, occ, _kappa, _label in orbitals:
             fP, fQ = eval_orbital_pair(P, Q, bsp_data)
             E += occ * float(np.sum(grw * (fP * fP + fQ * fQ) * V))
         return E
@@ -129,7 +131,7 @@ def _short_range_expectation(orbitals, bsp_data, V_of_r):
     V = V_of_r(r)
 
     E = 0.0
-    for P, Q, occ, kappa, label in orbitals:
+    for P, Q, occ, _kappa, _label in orbitals:
         splP = BSpline(tp, np.asarray(P[:nsp], dtype=float), ksp - 1,
                        extrapolate=False)
         splQ = BSpline(t, np.asarray(Q[:nsq], dtype=float), ksq - 1,

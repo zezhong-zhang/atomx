@@ -10,8 +10,8 @@ with one group per occupied relativistic subshell (datasets ``r``,
 is ``int_0^inf rho(r) dr = nq`` per subshell, so the total atomic
 density ``sum_i rho_i(r)`` integrates to Z.
 
-Then, if ``/Users/zhangzz/code/ASAP/WF_TXT/<Z>.txt`` exists, compares
-the summed atomx density against the WF_TXT reference (which has a
+Then, if ``$ATOMX_WF_TXT_DIR/<Z>.txt`` (default ``./dataset/WF_TXT``) exists,
+compares the summed atomx density against the WF_TXT reference (which has a
 final ``R,Density`` section, same convention) on the intersection of
 the two supports and writes a PNG + appends a row to REPORT.md.
 
@@ -52,7 +52,7 @@ TAIL_NOISE_FLOOR = 1e-18
 TAIL_OUTPUT_CUTOFF = 1e-300
 
 DEFAULT_OUT = "output"
-DEFAULT_WF_TXT_DIR = Path("./dataset/WF_TXT")
+DEFAULT_WF_TXT_DIR = Path(os.environ.get("ATOMX_WF_TXT_DIR", "./dataset/WF_TXT"))
 
 
 # ---------------------------------------------------------------------------
@@ -64,7 +64,7 @@ def _resolve_single(tok: str) -> int:
         Z = int(tok)
     except ValueError:
         if tok not in atomic_numbers:
-            raise SystemExit(f"Unknown element token: {tok!r}")
+            raise SystemExit(f"Unknown element token: {tok!r}") from None
         Z = atomic_numbers[tok]
     if not 1 <= Z <= 118:
         raise SystemExit(f"Z={Z} out of range 1..118")
@@ -277,7 +277,7 @@ def load_atomx_total_density(
     """Sum per-subshell densities onto a common log grid (each subshell is
     tail-trimmed to its own r-range)."""
     with h5py.File(h5_path, "r") as f:
-        keys = sorted([k for k in f.keys() if k != "metadata"], key=int)
+        keys = sorted([k for k in f if k != "metadata"], key=int)
         subshells = [(str(f[k].attrs["orbital"]), float(f[k].attrs["nq"]))
                      for k in keys]
         r_min = min(float(f[k]["r"][0]) for k in keys)

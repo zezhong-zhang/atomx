@@ -25,9 +25,8 @@ Convolution modes (icase):
   4: R(a . ; . b)  — mixed contraction   → full result   (exchange)
 """
 
-import numpy as np
 import numba as nb
-
+import numpy as np
 
 # ══════════════════════════════════════════════════════════════════════
 # 1. Moments: <B_i B_j | r^k> per interval
@@ -1186,9 +1185,9 @@ def compute_direct_potential_cell(orb_P, orb_Q, bsp_data, k, cache=None):
 
     # PP block: rkb_pppp contracted with P-density
     if cache is not None:
-        rkb_pp, ns_pp, ks_pp = cache.get_rkb(k, "pppp")
+        rkb_pp, _, _ = cache.get_rkb(k, "pppp")
     else:
-        rkb_pp, ns_pp, ks_pp = _build_rkb_sym(
+        rkb_pp, _, _ = _build_rkb_sym(
             bd["bsp_p"], bd["gr"], bd["grw"], bd["t"],
             bd["nv"], ksp, nsp, k), nsp, ksp
 
@@ -1206,13 +1205,12 @@ def compute_direct_potential_cell(orb_P, orb_Q, bsp_data, k, cache=None):
 
     # QQ block: rkb_qqqq contracted with Q-density
     if cache is not None:
-        rkb_qq, ns_qq, ks_qq = cache.get_rkb(k, "qqqq")
+        rkb_qq, _, _ = cache.get_rkb(k, "qqqq")
     else:
         bsp_q = bd.get("bsp_q", bd["bsp_p"])
         rkb_qq = _build_rkb_sym(
             bsp_q, bd["gr"], bd["grw"], bd["t"],
             bd["nv"], ksq, nsq, k)
-        ns_qq, ks_qq = nsq, ksq
 
     d_Q = _density_sym(orb_Q, orb_Q, nsq, ksq)
     v_QQ_banded = _convol_case1(rkb_qq, d_Q, nsq, ksq)
@@ -1246,25 +1244,23 @@ def compute_exchange_matrix_cell(orb_a_P, orb_a_Q, orb_b_P, orb_b_Q,
 
     # PP block
     if cache is not None:
-        rkb_pp, ns_pp, ks_pp = cache.get_rkb(k, "pppp")
+        rkb_pp, _, _ = cache.get_rkb(k, "pppp")
     else:
         rkb_pp = _build_rkb_sym(
             bd["bsp_p"], bd["gr"], bd["grw"], bd["t"],
             bd["nv"], ksp, nsp, k)
-        ns_pp, ks_pp = nsp, ksp
 
     d_P = _density_full(orb_a_P, orb_b_P, nsp)
     K_PP = _convol_case4(rkb_pp, d_P, nsp, ksp)
 
     # QQ block
     if cache is not None:
-        rkb_qq, ns_qq, ks_qq = cache.get_rkb(k, "qqqq")
+        rkb_qq, _, _ = cache.get_rkb(k, "qqqq")
     else:
         bsp_q = bd.get("bsp_q", bd["bsp_p"])
         rkb_qq = _build_rkb_sym(
             bsp_q, bd["gr"], bd["grw"], bd["t"],
             bd["nv"], ksq, nsq, k)
-        ns_qq, ks_qq = nsq, ksq
 
     d_Q = _density_full(orb_a_Q, orb_b_Q, nsq)
     K_QQ = _convol_case4(rkb_qq, d_Q, nsq, ksq)
@@ -1319,12 +1315,11 @@ def _compute_slater_rk_cell_once(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd, bsp_data, k,
 
     # pppp contribution: R^k_PP(P_a·P_b, P_c·P_d)
     if cache is not None:
-        rkb_pp, ns_pp, ks_pp = cache.get_rkb(k, "pppp")
+        rkb_pp, _, _ = cache.get_rkb(k, "pppp")
     else:
         rkb_pp = _build_rkb_sym(
             bd["bsp_p"], bd["gr"], bd["grw"], bd["t"],
             bd["nv"], ksp, nsp, k)
-        ns_pp, ks_pp = nsp, ksp
 
     d_ab_P = _density_sym(Pa, Pb, nsp, ksp)
     conv_P = _convol_case2(rkb_pp, d_ab_P, nsp, ksp)
@@ -1333,13 +1328,12 @@ def _compute_slater_rk_cell_once(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd, bsp_data, k,
 
     # qqqq contribution: R^k_QQ(Q_a·Q_b, Q_c·Q_d)
     if cache is not None:
-        rkb_qq, ns_qq, ks_qq = cache.get_rkb(k, "qqqq")
+        rkb_qq, _, _ = cache.get_rkb(k, "qqqq")
     else:
         bsp_q = bd.get("bsp_q", bd["bsp_p"])
         rkb_qq = _build_rkb_sym(
             bsp_q, bd["gr"], bd["grw"], bd["t"],
             bd["nv"], ksq, nsq, k)
-        ns_qq, ks_qq = nsq, ksq
 
     d_ab_Q = _density_sym(Qa, Qb, nsq, ksq)
     conv_Q = _convol_case2(rkb_qq, d_ab_Q, nsq, ksq)

@@ -41,13 +41,12 @@ are planned follow-ups.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple
+from typing import Dict
 
 import numpy as np
 
 from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
-from atomx.numerics.bspline.slater import slater_rk, DEFAULT_METHOD
-from atomx.constants import ALPHA
+from atomx.numerics.bspline.slater import DEFAULT_METHOD, slater_rk
 
 
 @dataclass

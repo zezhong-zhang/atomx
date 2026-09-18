@@ -16,10 +16,10 @@ import bench_fac_crm_W as bench_w  # noqa: E402
 from bench_fac_crm_W import (  # noqa: E402
     BALANCE_TEV,
     COOLING_TEV,
-    FACIonReference,
-    FACPanelReference,
     RESULTS_CSV,
     W_CHARGES,
+    FACIonReference,
+    FACPanelReference,
     build_w_ion_fixture,
     build_w_panel,
     putterich_2008_cooling_reference,

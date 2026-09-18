@@ -19,7 +19,7 @@ in a later release.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Tuple
+from typing import Dict, List
 
 from atomx.properties.zeeman.lande import BOHR_MAGNETON_MHZ_PER_TESLA, LandeFactor
 

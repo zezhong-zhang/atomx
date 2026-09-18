@@ -49,6 +49,14 @@ Public API
 >>> result["per_orbital"]  # dict {label: E_SE_a}
 """
 
+# Import side-effects register backends
+from atomx.corrections.qedmod import (
+    flambaum_ginges,  # noqa: F401
+    indelicato,  # noqa: F401
+    mohr,  # noqa: F401
+    shabaev,  # noqa: F401
+    welton,  # noqa: F401
+)
 from atomx.corrections.qedmod.base import (
     SE_BACKENDS,
     SEBackend,
@@ -57,13 +65,6 @@ from atomx.corrections.qedmod.base import (
     get_backend,
     register_backend,
 )
-
-# Import side-effects register backends
-from atomx.corrections.qedmod import mohr  # noqa: F401
-from atomx.corrections.qedmod import indelicato  # noqa: F401
-from atomx.corrections.qedmod import welton  # noqa: F401
-from atomx.corrections.qedmod import flambaum_ginges  # noqa: F401
-from atomx.corrections.qedmod import shabaev  # noqa: F401
 
 __all__ = [
     "SE_BACKENDS",

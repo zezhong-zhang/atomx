@@ -40,9 +40,9 @@ from dataclasses import dataclass, field
 from typing import Any, Dict
 
 from atomx.properties.edm.scaling import (
+    edm_summary,
     electron_edm_enhancement_sandars,
     schiff_moment_enhancement_scaling,
-    edm_summary,
 )
 from atomx.properties.edm.sternheimer import (
     SternheimerEDMResult,

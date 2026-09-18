@@ -46,9 +46,9 @@ T_MK = (1.0, 5.0, 10.0, 50.0)
 def dr_states():
     from atomx.methods.mbpt import build_virtual_basis
     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
+    from atomx.numerics.quadrature import make_fine_grid, p_rel
     from atomx.scattering.autoionization.auger import AutoionizationState
     from atomx.scattering.autoionization.mscheme_ci import ResonanceManifold
-    from atomx.numerics.quadrature import make_fine_grid, p_rel
 
     g = Atom(Z=26, charge=16, configs=["1s2 2s2 2p6"], breit=False, qed=False)
     g.solve()
@@ -107,7 +107,7 @@ def dr_states():
     return states
 
 
-@pytest.mark.fac_parity
+@pytest.mark.external_fac
 def test_resonance_count_and_energy_window(dr_states):
     # dr33 supports ~237 resonances; energies in the physical window.
     assert 200 <= len(dr_states) <= 260
@@ -116,16 +116,23 @@ def test_resonance_count_and_energy_window(dr_states):
     assert 450.0 <= max(Es) <= 750.0
 
 
-@pytest.mark.fac_parity
+@pytest.mark.external_fac
 def test_alpha_dr_vs_fac_dr33(dr_states):
     """Burgess alpha_DR(T) against the COMPLETE clean-room FAC dr33 set.
 
     Reference: fe17_dr33_fac_cleanroom.json (AICut 0, SetSE/VP/MS/Breit
     off, both hole manifolds, E1 TR to 2s2 2p6 3l — apples-to-apples
-    with this pipeline).  Measured 2026-07-15 after the A_r omega fix:
-    0.49 / 0.99 / 1.08 / 1.17 at 1 / 5 / 10 / 50 MK.  The 1-MK ratio is
-    Boltzmann suppression from the ~+40 eV frozen-orbital E_res offset,
-    not a width error."""
+    with this pipeline).
+
+    Gates (reconciled 2026-09-17 with the measurement): each ratio must lie
+    within **±10 % of the measured value** — measured atomx/FAC =
+    0.487 / 0.983 / 1.079 / 1.164 at 1 / 5 / 10 / 50 MK, i.e. a worst
+    deviation of 16.4 % from FAC at T >= 5 MK (the "<= 17 %" in the module
+    docstring).  The previous bands reached 0.35-1.45, which could not have
+    caught a 40 % regression.  The 1-MK ratio is Boltzmann suppression from
+    the ~+40 eV frozen-orbital E_res offset, not a width error; its ±10 %
+    band (0.438-0.536) still tolerates that documented systematic.
+    """
     from atomx.scattering.autoionization import dr_rate_coefficient
     from atomx.scattering.autoionization.auger import AutoionizationState
 
@@ -140,28 +147,36 @@ def test_alpha_dr_vs_fac_dr33(dr_states):
     T_eV = [T * 1.0e6 * K_B for T in T_MK]
     rc = dr_rate_coefficient(dr_states, T_eV, initial_state_g=1.0)
     rcf = dr_rate_coefficient(fac_states, T_eV, initial_state_g=1.0)
-    gates = {1.0: (0.35, 1.0), 5.0: (0.8, 1.25),
-             10.0: (0.85, 1.35), 50.0: (0.9, 1.45)}
+    measured = {1.0: 0.487, 5.0: 0.983, 10.0: 1.079, 50.0: 1.164}
+    band = 0.10
     for i, T in enumerate(T_MK):
         ratio = float(rc.alpha_cm3_s[i]) / float(rcf.alpha_cm3_s[i])
-        lo, hi = gates[T]
-        assert lo <= ratio <= hi, f"T={T} MK: alpha ratio {ratio:.2f}"
+        centre = measured[T]
+        lo, hi = centre * (1.0 - band), centre * (1.0 + band)
+        assert lo <= ratio <= hi, (
+            f"T={T} MK: alpha ratio {ratio:.3f} outside [{lo:.3f}, {hi:.3f}] "
+            f"(measured {centre:.3f} ± {band:.0%})"
+        )
 
 
-@pytest.mark.fac_parity
+@pytest.mark.external_fac
 def test_total_radiative_width_vs_fac(dr_states):
-    """Sum of E1 stabilizing widths within [1.0, 1.45] of clean-room FAC.
+    """Sum of E1 stabilizing widths within ±10 % of the measured 1.24 of FAC.
 
     Per-level A_r audited 2026-07-15: block sums 1.20-1.27, cleanest
     single level 1.09; the excess is the +40 eV E_res offset in omega^3
-    plus V^{N-1}-vs-optimized-potential dipole differences."""
+    plus V^{N-1}-vs-optimized-potential dipole differences.  Measured
+    2026-09-17: sum ratio 1.242; gate 1.242 ± 10 % = [1.118, 1.366]
+    (the previous [1.0, 1.45] could not catch a 25 % regression).
+    """
     fac = json.loads(FIXTURE_CLEAN.read_text())
     s_fac = sum(r["a_radiative_per_s"] for r in fac["resonances"])
     s_ax = sum(s.a_radiative_per_s for s in dr_states)
-    assert 1.0 <= s_ax / s_fac <= 1.45, s_ax / s_fac
+    ratio = s_ax / s_fac
+    assert 1.12 <= ratio <= 1.37, ratio
 
 
-@pytest.mark.fac_parity
+@pytest.mark.external_fac
 def test_widths_magnitudes(dr_states):
     strongest = max(dr_states, key=lambda s: s.gamma_auger_per_s)
     # Strong KLL-type Auger widths are a few 1e14 s^-1 in FAC.

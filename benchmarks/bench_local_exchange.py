@@ -28,8 +28,11 @@ sys.path.insert(0, str(ROOT / "src"))
 from atomx import Atom  # noqa: E402
 from atomx.constants import HARTREE_EV  # noqa: E402
 
-SFAC = "/Users/zhangzz/code/ASAP/fac/bin/bin/sfac"
-DYLD = "/opt/homebrew/Cellar/gcc/14.2.0_1/lib/gcc/current"
+# Configure the reference code from the environment (no machine-specific
+# defaults): FAC_SFAC_PATH points at the sfac executable, FAC_DYLD_LIB at the
+# gcc runtime dir it needs on macOS.
+SFAC = os.environ.get("FAC_SFAC_PATH", "")
+DYLD = os.environ.get("FAC_DYLD_LIB", "")
 
 PANEL = [
     (2,  "He", "1s2"),
@@ -72,6 +75,10 @@ PrintTable('out.lev.b', 'out.lev', 1)
 
 def run_sfac(Z: int, sym: str, cfg: str) -> tuple[float | None, float]:
     """Run sfac, return (E_total_eV, wall_s)."""
+    if not SFAC:
+        raise SystemExit(
+            "sfac not configured: set FAC_SFAC_PATH to the sfac executable "
+            "(and FAC_DYLD_LIB to the gcc runtime dir on macOS).")
     with tempfile.TemporaryDirectory(prefix="atomx_bench_") as tmp:
         sf = Path(tmp) / "run.sf"
         sf.write_text(_SF_TEMPLATE.format(sym=sym, Z=Z, cfg=cfg))
@@ -82,7 +89,7 @@ def run_sfac(Z: int, sym: str, cfg: str) -> tuple[float | None, float]:
                 [SFAC, "run.sf"], cwd=tmp, env=env, check=True,
                 capture_output=True, text=True,
             )
-        except subprocess.CalledProcessError:
+        except (subprocess.CalledProcessError, FileNotFoundError):
             return None, 0.0
         t = time.perf_counter() - t0
         lev = Path(tmp) / "out.lev"

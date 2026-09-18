@@ -43,12 +43,12 @@ Reference
 
 from __future__ import annotations
 
+import contextlib
 import math
+from functools import lru_cache
 from typing import Callable, Tuple
 
 import numpy as np
-
-from functools import lru_cache
 
 from atomx.numerics.shooting.dirac_integrator import doutw
 from atomx.numerics.shooting.grid import sgrid
@@ -88,17 +88,13 @@ def _prepare_potential(V_func, r_max: float, n_grid: int, Z_residual: float):
         np.searchsorted(rg[:nvt], r, side="right") - 1, 0, nvt - 2
     ).astype(np.int64)
     for arr in (va, vb, vc, vd, ind):
-        try:
+        with contextlib.suppress(Exception):
             arr.setflags(write=False)
-        except Exception:
-            pass
     rv = np.ascontiguousarray(rv)
     rv.setflags(write=False)
     prep = (r, n_out, va, vb, vc, vd, ind, rv)
-    try:
+    with contextlib.suppress(AttributeError, TypeError):
         V_func._contsolve_prep = {"key": key, "prep": prep}
-    except (AttributeError, TypeError):
-        pass
     return prep
 
 

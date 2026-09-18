@@ -10,14 +10,7 @@ Recoupling (LS ↔ jj transformations):
     ls_jj_transformation, kappa_from_lj, lj_from_kappa
 """
 
-from atomx.angular.wigner import wigner_3j, wigner_6j, wigner_9j
 from atomx.angular.clebsch import clebsch_gordan
-from atomx.angular.ls_coupling import (
-    term_symbol, ls_expectation, allowed_terms, slater_condon_f,
-)
-from atomx.angular.recoupling import (
-    ls_jj_transformation, kappa_from_lj, lj_from_kappa,
-)
 from atomx.angular.csf_recoupling import (
     ChainCoupledCSFState,
     RecoupledCSFState,
@@ -31,3 +24,15 @@ from atomx.angular.csf_recoupling import (
     discover_chain_two_body_scalar_coefficients,
     make_chain_coupled_state,
 )
+from atomx.angular.ls_coupling import (
+    allowed_terms,
+    ls_expectation,
+    slater_condon_f,
+    term_symbol,
+)
+from atomx.angular.recoupling import (
+    kappa_from_lj,
+    lj_from_kappa,
+    ls_jj_transformation,
+)
+from atomx.angular.wigner import wigner_3j, wigner_6j, wigner_9j

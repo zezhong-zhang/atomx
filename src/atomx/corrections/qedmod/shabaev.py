@@ -94,7 +94,6 @@ from atomx.constants import ALPHA, C
 from atomx.corrections.qedmod.base import SEBackend, SEResult, register_backend
 from atomx.corrections.qedmod.mohr import _interpolate_se_f
 
-
 # ---------------------------------------------------------------------------
 # Non-relativistic hydrogenic ⟨r · exp(-r·c)⟩ analytic formulas
 # ---------------------------------------------------------------------------
@@ -294,8 +293,7 @@ class ShabaevLocalBackend(SEBackend):
                 "⟨a|r·exp(-r/λ_C)|a⟩ on the radial grid."
             )
 
-        from atomx.corrections.workspace import (
-            eval_orbital_pair, workspace_arrays)
+        from atomx.corrections.workspace import eval_orbital_pair, workspace_arrays
 
         gr, grw = workspace_arrays(bsp_data)
 

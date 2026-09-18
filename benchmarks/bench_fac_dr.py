@@ -112,7 +112,7 @@ def main():
     rc_atomx = run_atomx()
 
     rows = []
-    for i, (T_mk, T_eV) in enumerate(zip(TEMPERATURES_MK, TEMPERATURES_EV)):
+    for i, (T_mk, T_eV) in enumerate(zip(TEMPERATURES_MK, TEMPERATURES_EV, strict=False)):
         fac = float(rc_fac.alpha_cm3_s[i])
         atomx_val = float(rc_atomx.alpha_cm3_s[i])
         rel = ((atomx_val - fac) / fac) if fac > 0 else ""

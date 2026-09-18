@@ -13,12 +13,13 @@ import time
 from dataclasses import dataclass
 from pathlib import Path
 
+from fac_runner import parse_e0, parse_levels, parse_transitions, run_sfac
+
 from atomx import Atom
 from atomx.constants import HARTREE_EV
 from atomx.physics.dirac import hydrogenic_dirac_energy
 from atomx.properties.transitions.rates import einstein_A_eL
 from atomx.sampling import Sampling
-from fac_runner import parse_e0, parse_levels, parse_transitions, run_sfac
 
 MATRIX_Z = [10, 18, 26, 36, 54, 74, 82]
 MATRIX_ISO = ["He-like", "Li-like", "Be-like", "Ne-like", "Ar-like"]
@@ -114,7 +115,7 @@ def iter_matrix(quick: bool = False):
             continue
         for iso in MATRIX_ISO:
             spec = ISO_SPECS[iso]
-            if Z >= spec.nel:
+            if spec.nel <= Z:
                 yield Z, iso
 
 

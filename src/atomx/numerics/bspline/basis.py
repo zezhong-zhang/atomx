@@ -4,8 +4,8 @@ Core routines for evaluating B-splines and their derivatives at
 Gauss-Legendre quadrature points within each knot interval.
 """
 
-import numpy as np
 import numba as nb
+import numpy as np
 
 
 @nb.njit(cache=True)
@@ -119,21 +119,6 @@ def bsplvd(t, ks, x, left, nderiv):
             # For d-th derivative we apply this d times
             # But simplest to just do first derivative from order ks-1 splines
 
-            if d == 1:
-                # Index of B_{gi, kk}(x) in the lower order array
-                idx = gi - (left - kk + 1)
-                # B_{gi, kk}(x)
-                bgi = 0.0
-                if 0 <= idx < kk:
-                    bgi = b_low[idx]
-                # B_{gi+1, kk}(x)
-                bgi1 = 0.0
-                if 0 <= idx - 1 < kk:
-                    bgi1 = b_low[idx - 1]
-                    # Actually need B_{gi+1,kk} which is at index idx+1 shifted
-                # Let me redo this more carefully
-
-                pass  # Will use the matrix approach below
 
             deriv[i] = val
 

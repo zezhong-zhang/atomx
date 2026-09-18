@@ -39,7 +39,7 @@ def build_sos_virtual_basis(
         kappa_list.append(-k_abs)
         kappa_list.append(+k_abs)
     kappa_list = [
-        k for k in kappa_list if 0 < abs(k) and _l_from_kappa(k) <= kappa_max
+        k for k in kappa_list if abs(k) > 0 and _l_from_kappa(k) <= kappa_max
     ]
 
     occ_basis: Dict[int, List[Tuple[np.ndarray, np.ndarray, float, str]]] = {}

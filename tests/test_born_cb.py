@@ -3,15 +3,14 @@
 import numpy as np
 import pytest
 
-from atomx.scattering.electron_ionization.coulomb_born import (
-    bethe_born_ci_cross_section,
-)
 from atomx.scattering.distorted_wave.born import (
     born_excitation_dipole,
     born_excitation_forbidden,
 )
 from atomx.scattering.distorted_wave.solver import dw_excitation_cross_section
-
+from atomx.scattering.electron_ionization.coulomb_born import (
+    bethe_born_ci_cross_section,
+)
 
 # ── Coulomb-Born / Bethe-Born CI ────────────────────────────────
 

@@ -24,10 +24,11 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "benchmarks"))
 
+from fac_matrix import print_matrix_summary, run_matrix, write_matrix_csv  # noqa: E402
+from fac_runner import parse_e0, parse_levels, parse_transitions, run_sfac  # noqa: E402
+
 from atomx import Atom  # noqa: E402
 from atomx.constants import HARTREE_EV  # noqa: E402
-from fac_runner import parse_e0, parse_levels, parse_transitions, run_sfac  # noqa: E402
-from fac_matrix import print_matrix_summary, run_matrix, write_matrix_csv  # noqa: E402
 
 DEFAULT_Z = [10, 18, 26, 36, 54, 74, 92]
 
@@ -101,7 +102,7 @@ def run_atomx(Z: int):
     r = atom._result
     de_ev = None
     if r is not None and hasattr(r, "state_energies"):
-        se = getattr(r, "state_energies")
+        se = r.state_energies
         if se is not None and len(se) >= 2:
             de_ev = (se - se[0]) * HARTREE_EV
     A_list = [t.A_rate_per_s for t in trs if t.multipole == "E1"]

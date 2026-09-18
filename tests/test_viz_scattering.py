@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 
 import matplotlib
+
 matplotlib.use("Agg")
 
 import numpy as np
@@ -15,8 +16,13 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
 from atomx.viz.scattering import (  # noqa: E402
-    plot_collision_strength, plot_cross_section, plot_dr_rate,
-    plot_dr_resonances, plot_eii_channels, plot_spectrum_channels)
+    plot_collision_strength,
+    plot_cross_section,
+    plot_dr_rate,
+    plot_dr_resonances,
+    plot_eii_channels,
+    plot_spectrum_channels,
+)
 
 
 def test_cross_section_with_reference_and_ratio():
@@ -52,8 +58,7 @@ def test_eii_channels():
 
 def test_dr_resonances_and_rate():
     from atomx.scattering.autoionization.auger import AutoionizationState
-    from atomx.scattering.dielectronic_recombination.solver import (
-        dr_rate_coefficient)
+    from atomx.scattering.dielectronic_recombination.solver import dr_rate_coefficient
     res = [AutoionizationState(label=f"r{i}", E_resonance_eV=200.0 + 30 * i,
                                J=0.5 + (i % 3), gamma_auger_per_s=1e13,
                                a_radiative_per_s=2e12) for i in range(9)]

@@ -154,8 +154,8 @@ def test_both_backends_match_dhfs_fortran_for_neutral_atoms(
     agreement on the current panel (~2 × 10⁻⁸), loose enough to absorb
     platform FP drift.
     """
-    from atomx.numerics.shooting.solver import ShootingSolver
     from atomx.methods.mcdhf.config import _parse_config_string
+    from atomx.numerics.shooting.solver import ShootingSolver
 
     subs = _parse_config_string(config)
     solver = ShootingSolver(

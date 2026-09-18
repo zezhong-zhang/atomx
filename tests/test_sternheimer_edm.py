@@ -24,12 +24,9 @@ agreement with the (heavy-atom-calibrated) Sandars formula.
 """
 
 import pytest
-import numpy as np
 
-from atomx.methods.dirac_fock import DiracFock, Subshell, Exchange
+from atomx.methods.dirac_fock import DiracFock, Exchange, Subshell
 from atomx.properties.edm.sternheimer import sternheimer_edm_enhancement
-from atomx.properties.edm.scaling import electron_edm_enhancement_sandars
-from atomx.constants import ALPHA
 
 
 def _solve_h():

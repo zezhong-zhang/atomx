@@ -40,7 +40,6 @@ import numpy as np
 from atomx.constants import ALPHA
 from atomx.numerics.bspline.evaluate import eval_P, eval_Q
 
-
 # ---------------------------------------------------------------------------
 # Result
 # ---------------------------------------------------------------------------

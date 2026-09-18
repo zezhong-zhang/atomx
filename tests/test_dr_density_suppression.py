@@ -13,15 +13,17 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from atomx.scattering.autoionization.auger import AutoionizationState  # noqa: E402
 from atomx.scattering.dielectronic_recombination.solver import (  # noqa: E402
-    dr_rate_coefficient)
+    dr_rate_coefficient,
+)
 
 
 def _states():
     # two resonances converging to a 800-eV series limit: a low-n one
     # bound by 500 eV and a high-n Rydberg one bound by only 5 eV.
-    mk = lambda E, lab: AutoionizationState(
-        label=lab, E_resonance_eV=E, J=1.5,
-        gamma_auger_per_s=1e14, a_radiative_per_s=1e13)
+    def mk(E, lab):
+        return AutoionizationState(
+            label=lab, E_resonance_eV=E, J=1.5,
+            gamma_auger_per_s=1e14, a_radiative_per_s=1e13)
     return [mk(300.0, "low-n"), mk(795.0, "high-n")]
 
 

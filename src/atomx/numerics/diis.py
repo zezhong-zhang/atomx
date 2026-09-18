@@ -16,7 +16,6 @@ from __future__ import annotations
 
 import numpy as np
 
-
 #: Threshold on DIIS coefficient magnitude beyond which extrapolation
 #: is rejected as numerically unstable.
 _DIIS_COEFFICIENT_CUTOFF: float = 5.0

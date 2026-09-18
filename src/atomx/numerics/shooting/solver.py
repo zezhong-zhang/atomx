@@ -8,18 +8,19 @@ Total energy computed via EXPVAL (DHFS.f:984-1103) using:
 - DCJ3 angular coefficients (reuses atomx.methods.dirac_fock.angular_coeffs.exchange_lambda)
 """
 
-import numpy as np
-import numba as nb
 import math
 from dataclasses import dataclass, field
 from typing import Dict, Optional
 
-from atomx.numerics.shooting.constants import SL, HREV, A0B, PI, FOURPI, CSLATE, FR1O3
-from atomx.numerics.shooting.grid import sgrid
-from atomx.numerics.shooting.spline import splin0, findi
-from atomx.numerics.shooting.quadrature import slag6
+import numba as nb
+import numpy as np
+
+from atomx.numerics.shooting.constants import A0B, CSLATE, FR1O3
 from atomx.numerics.shooting.dirac_bound import dbound
+from atomx.numerics.shooting.grid import sgrid
+from atomx.numerics.shooting.quadrature import slag6
 from atomx.numerics.shooting.schrodinger_bound import sbound
+from atomx.numerics.shooting.spline import splin0
 
 
 @nb.njit(cache=True)
@@ -157,7 +158,7 @@ def _slater_integral(f1, f2, l, r, difr, np_):
             hstep = h / nsteps
             rc = ra - hstep
             zc = z_arr[i]
-            for kk in range(nsteps):
+            for _ in range(nsteps):
                 rc = rc + hstep
                 if rc < 1.0e-30:
                     continue
@@ -219,7 +220,7 @@ def _slater_integral(f1, f2, l, r, difr, np_):
             hstep = h / nsteps
             rc = ra - hstep
             yc = y_arr[i + 1]
-            for kk in range(nsteps):
+            for _ in range(nsteps):
                 rc = rc + hstep
                 if abs(rc) < 1.0e-30:
                     break
@@ -360,16 +361,10 @@ def _dcj3(l, k1, k2):
         return 0.0
 
     j1d = abs(k1 + k1) - 1  # 2*j1
-    if k1 > 0:
-        l1d = j1d + 1  # 2*l1
-    else:
-        l1d = j1d - 1
+    l1d = j1d + 1 if k1 > 0 else j1d - 1  # 2*l1
 
     j2d = abs(k2 + k2) - 1  # 2*j2
-    if k2 > 0:
-        l2d = j2d + 1
-    else:
-        l2d = j2d - 1
+    l2d = j2d + 1 if k2 > 0 else j2d - 1
 
     ld = l + l  # 2*L
 
@@ -456,10 +451,7 @@ def _expval(nshell, shell_kappa, shell_occ, shell_2j,
         f1[0] = 0.0
         f2[0] = 0.0
         for i in range(1, np_):
-            if equation == 0:
-                dens_i = pa[s, i] ** 2 + qa[s, i] ** 2
-            else:
-                dens_i = pa[s, i] ** 2
+            dens_i = pa[s, i] ** 2 + qa[s, i] ** 2 if equation == 0 else pa[s, i] ** 2
             f1[i] = dens_i * rv[i] * difr[i] / r[i]
             f2[i] = dens_i * vnuc[i] * difr[i] / r[i]
         f1_int = slag6(1.0, f1, np_)
@@ -842,7 +834,7 @@ class ShootingResult:
 
     @property
     def waves(self):
-        from atomx.results import Waves, OrbitalWavefunction
+        from atomx.results import OrbitalWavefunction, Waves
         if self._grid is None:
             return Waves(grid=np.array([]), basis_type="grid")
 

@@ -2,22 +2,20 @@
 
 import numpy as np
 import pytest
-from atomx.constants import ALPHA, BOHR_RADIUS_M
-from atomx.constants import C_SQ
+
+from atomx.constants import ALPHA, BOHR_RADIUS_M, C_SQ
 from atomx.methods.hydrogenic_cross_sections import stobbe_1s_pi_cross_section
-from atomx.physics import Dirac, Schrodinger
-from atomx.numerics.bspline.knots import make_knots
 from atomx.numerics.bspline.basis import prepare_bspline_data
-from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
-from atomx.numerics.bspline.dirac_assembly import solve_dirac
 from atomx.numerics.bspline.continuum import (
     _continuum_energy_normalization_from_spectrum,
     continuum_energy_normalization_factor,
-    solve_continuum,
     dipole_matrix_element,
     photoionization_cross_section,
+    solve_continuum,
 )
-
+from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices, solve_dirac
+from atomx.numerics.bspline.knots import make_knots
+from atomx.physics import Dirac, Schrodinger
 
 BOHR_CM2 = (BOHR_RADIUS_M * 100.0) ** 2
 

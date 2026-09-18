@@ -10,7 +10,6 @@ Reference: Grant (2007) Eq. 8.4.10:
            / [L · ((2L+1)!!)²] · S / (2j_i + 1)
 """
 
-import math
 
 import pytest
 
@@ -114,7 +113,7 @@ def test_he_like_m1_2s_to_1s_z_scaling():
     A0 = einstein_A_mL(omega=1.0, line_strength=1.0, L=1, tj_i=2)
     Z = 10.0
     A1 = einstein_A_mL(omega=Z**2, line_strength=Z**4, L=1, tj_i=2)
-    assert A1 / A0 == pytest.approx(Z**10, rel=1e-12)
+    assert pytest.approx(Z**10, rel=1e-12) == A1 / A0
 
 
 def test_oscillator_strength_e1():

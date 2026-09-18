@@ -12,15 +12,16 @@ Algorithm:
 5. Iterate until energy converges
 """
 
+from dataclasses import dataclass, field
+from typing import Dict, List
+
 import numpy as np
 from scipy import linalg
-from dataclasses import dataclass, field
-from typing import List, Dict
 
-from atomx.methods.dirac_fock import DFSolver, Subshell, SCFResult
-from atomx.methods.mcdhf.config import CSF, get_shared_orbital_basis
-from atomx.methods.mcdhf.matrix import build_ci_matrix, GridCIWorkspace
 from atomx.methods.ci import ci_solve
+from atomx.methods.dirac_fock import DFSolver, Subshell
+from atomx.methods.mcdhf.config import CSF, get_shared_orbital_basis
+from atomx.methods.mcdhf.matrix import GridCIWorkspace, build_ci_matrix
 from atomx.numerics.bspline.dirac_assembly import canonicalize_radial_phase
 
 
@@ -142,8 +143,8 @@ class MCDHFResult:
     @property
     def waves(self):
         """Build :class:`atomx.results.Waves` for either radial engine."""
-        from atomx.results import Waves, OrbitalWavefunction
         from atomx.methods.dirac_fock import _eval_bspline_on_grid
+        from atomx.results import OrbitalWavefunction, Waves
         if not self.orbitals_dict:
             return Waves(grid=np.array([]))
 
@@ -180,7 +181,7 @@ class MCDHFResult:
         return Waves(grid=grid, orbitals=orbitals, basis_type=basis_type)
 
     def excitation_energies(self, unit="hartree"):
-        from atomx.constants import HARTREE_EV, HARTREE_CM1
+        from atomx.constants import HARTREE_CM1, HARTREE_EV
         de = self.state_energies - self.state_energies[0]
         if unit == "ev":
             return de * HARTREE_EV
@@ -392,7 +393,7 @@ class MCDHFSolver:
 
         avg_occ = {
             key: sum(w * m.get(key, 0.0)
-                     for w, m in zip(weights, occ_maps))
+                     for w, m in zip(weights, occ_maps, strict=False))
             for key in keys
         }
 
@@ -498,8 +499,7 @@ class MCDHFSolver:
                 # its own local-exchange (Gu) starter on a fresh SGRID —
                 # and one inner solve is cheap next to the B-spline path,
                 # so re-solving per outer iteration is acceptable.
-                from atomx.numerics.shooting.hf_shooting import (
-                    ShootingHFSolver)
+                from atomx.numerics.shooting.hf_shooting import ShootingHFSolver
 
                 shoot_solver = ShootingHFSolver(
                     Z=self.Z, subshells=avg_subshells,
@@ -584,8 +584,8 @@ class MCDHFSolver:
                 # DFSolver path used for averaging in
                 # {"statistical","equal","fractional"}.
                 if self.use_physics_grid:
-                    from atomx.numerics.bspline.knots import make_physics_knots
                     from atomx.numerics.bspline.basis import prepare_bspline_data
+                    from atomx.numerics.bspline.knots import make_physics_knots
                     t_phys, ns_phys = make_physics_knots(
                         ks=self.ks, Z=self.Z, nuclear=self.nuclear)
                     data = prepare_bspline_data(t_phys, ns_phys, self.ks,
@@ -942,8 +942,8 @@ class MCDHFSolver:
                 **kwargs,
             )
             if self.use_physics_grid:
-                from atomx.numerics.bspline.knots import make_physics_knots
                 from atomx.numerics.bspline.basis import prepare_bspline_data
+                from atomx.numerics.bspline.knots import make_physics_knots
                 t_phys, ns_phys = make_physics_knots(
                     ks=self.ks, Z=self.Z, nuclear=self.nuclear)
                 data = prepare_bspline_data(t_phys, ns_phys, self.ks,

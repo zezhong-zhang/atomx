@@ -36,7 +36,9 @@ One implementation of each radial kernel serves both engines.
 """
 
 import numpy as np
+
 from atomx.constants import C
+
 # One radial-integral implementation serves both engines: the workspace
 # seam evaluates B-spline coefficient vectors through the (kinetic-
 # balance-aware) basis tables and passes grid-tabulated orbitals through.

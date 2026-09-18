@@ -44,10 +44,9 @@ from __future__ import annotations
 
 import numpy as np
 
-from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 from atomx.constants import BOHR_RADIUS_M
+from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 from atomx.properties.hyperfine.dipole import HARTREE_MHZ
-
 
 # 1 barn = 1e-24 cm² in Bohr² — exact with CODATA Bohr radius
 # 1 Bohr = BOHR_RADIUS_M  in metres;  Bohr² = BOHR_RADIUS_M² m²

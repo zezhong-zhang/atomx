@@ -18,8 +18,11 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from atomx.constants import BOLTZMANN_EV  # noqa: E402
 from atomx.plasma.crm import (  # noqa: E402
-    CRMLevel, CRMTransition, CollisionalRadiativeModel,
-    effective_collision_strength)
+    CollisionalRadiativeModel,
+    CRMLevel,
+    CRMTransition,
+    effective_collision_strength,
+)
 
 
 def test_effective_collision_strength_constant_omega_exact():

@@ -9,8 +9,8 @@ from atomx.angular.csf_recoupling import (
     angular_momenta_couple,
     chain_one_body_excitation_reduced,
     chain_projection_amplitudes,
-    chain_state_from_simple_csf_auto,
     chain_state_from_recoupled_csf,
+    chain_state_from_simple_csf_auto,
     chain_two_body_scalar_coefficients,
     chain_w_reduced,
     chain_wxw_scalar,
@@ -27,10 +27,10 @@ from atomx.angular.csf_recoupling import (
     scalar_wxw0_subshell_coeff,
     single_state_for_subshell,
     spectator_subshells_match,
+    two_body_scalar_coefficients_simple,
     two_subshell_left_w_reduced,
     two_subshell_right_w_reduced,
     two_subshell_wxw_scalar,
-    two_body_scalar_coefficients_simple,
 )
 from atomx.angular.rcfp import reduced_subshell_states
 from atomx.angular.wigner import wigner_3j
@@ -329,7 +329,7 @@ def _one_electron_product_vector(chain):
     out = {}
     for ms, chain_coeff in chain_projection_amplitudes(chain, chain.total_J2):
         partial = {0: chain_coeff}
-        for idx, (subshell, M2) in enumerate(zip(chain.subshells, ms)):
+        for idx, (subshell, M2) in enumerate(zip(chain.subshells, ms, strict=False)):
             next_partial = {}
             for mask, coeff in partial.items():
                 for local_mask, local_coeff in _one_electron_subshell_vector(

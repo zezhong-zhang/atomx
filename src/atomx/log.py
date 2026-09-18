@@ -20,10 +20,9 @@ when ``log=True`` or ``log="path/to/file.log"`` is passed.
 from __future__ import annotations
 
 import datetime
-import sys
 from typing import Optional
 
-from atomx.constants import HARTREE_EV, HARTREE_CM1
+from atomx.constants import HARTREE_CM1, HARTREE_EV
 
 
 class CalculationLog:
@@ -44,7 +43,9 @@ class CalculationLog:
             If True, also print log lines to stdout.
         """
         self._path = path
-        self._file = open(path, "w") if path else None
+        # The handle deliberately outlives this call (written in _write,
+        # closed in close()); a `with` block would close it immediately.
+        self._file = open(path, "w") if path else None  # noqa: SIM115
         self._verbose = verbose
         self._lines = []
 
@@ -59,7 +60,7 @@ class CalculationLog:
     def header(self, Z: int, config: str, method: str, **params):
         """Write calculation header."""
         self._write("=" * 70)
-        self._write(f"  AtomX Calculation Log")
+        self._write("  AtomX Calculation Log")
         self._write(f"  {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         self._write("=" * 70)
         self._write(f"  Element:       Z = {Z}")
@@ -79,15 +80,15 @@ class CalculationLog:
         r_min = bsp_data["gr"][0, 0] if "gr" in bsp_data else "?"
         r_max = bsp_data["gr"][-1, -1] if "gr" in bsp_data else "?"
         kinetic_balance = ksp != ks
-        self._write(f"  B-spline basis:")
+        self._write("  B-spline basis:")
         self._write(f"    Order:     ksp={ksp} (large), ksq={ks} (small)")
         self._write(f"    Splines:   nsp={nsp} (large), nsq={nsq} (small)")
         self._write(f"    Intervals: nv={nv}")
         self._write(f"    Range:     [{r_min:.2e}, {r_max:.1f}] Bohr")
         if kinetic_balance:
-            self._write(f"    Kinetic balance: Yes (ksp=ks-1 eliminates spurious states)")
+            self._write("    Kinetic balance: Yes (ksp=ks-1 eliminates spurious states)")
         else:
-            self._write(f"    Kinetic balance: No (same order for P and Q)")
+            self._write("    Kinetic balance: No (same order for P and Q)")
         self._write("-" * 70)
 
     def scf_start(self):

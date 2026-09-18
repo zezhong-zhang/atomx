@@ -30,10 +30,9 @@ from typing import Any, Dict, Iterable, List, Sequence
 import numpy as np
 
 from atomx.constants import BOHR_RADIUS_M, HARTREE_EV
-
 from atomx.scattering.r_matrix.cc_inner import (
-    assemble_cc_inner_region,
     CCInnerSolution,
+    assemble_cc_inner_region,
 )
 from atomx.scattering.r_matrix.cc_outer import (
     OuterMatching,

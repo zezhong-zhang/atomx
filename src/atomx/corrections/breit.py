@@ -30,6 +30,7 @@ independently reproduced at 0.05044 Ha by the ODE-shooting engine).
 """
 
 import numpy as np
+
 from atomx.corrections.workspace import (
     eval_orbital_pair,
     workspace_arrays,
@@ -120,10 +121,10 @@ def compute_breit_energy(orbitals, bsp_data, Z):
 
     E_Breit = 0.0
 
-    for i, (fa_P, fa_Q, oa, ka, la) in enumerate(evaluated):
+    for _i, (fa_P, fa_Q, oa, ka, _la) in enumerate(evaluated):
         tj_a = 2 * abs(ka) - 1
 
-        for j, (fb_P, fb_Q, ob, kb, lb) in enumerate(evaluated):
+        for _j, (fb_P, fb_Q, ob, kb, _lb) in enumerate(evaluated):
             tj_b = 2 * abs(kb) - 1
 
             # Weight for average-of-configuration
@@ -139,7 +140,7 @@ def compute_breit_energy(orbitals, bsp_data, Z):
             L_max = abs(ka) + abs(kb)
             for L in range(1, L_max + 1):
                 # Check angular selection rule: 3j triangle for (j_a, L, j_b)
-                if 2 * L > tj_a + tj_b or 2 * L < abs(tj_a - tj_b):
+                if tj_a + tj_b < 2 * L or abs(tj_a - tj_b) > 2 * L:
                     continue
 
                 # Get 8 S-coefficients for each v = L-1, L, L+1

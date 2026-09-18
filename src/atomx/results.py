@@ -241,22 +241,23 @@ class Waves:
 
         # Multiple components: overlay all on one figure with a toggle.
         if backend == "mpl":
-            from atomx.viz.mpl import plot_radial_orbital as _mpl_plot
             import matplotlib.pyplot as _plt
+
+            from atomx.viz.mpl import plot_radial_orbital as _mpl_plot
             fig, axes = _plt.subplots(
                 1, len(resolved), figsize=(7 * len(resolved), 4.5), sharey=True
             )
             if len(resolved) == 1:
                 axes = [axes]
-            for ax, lbl in zip(axes, resolved):
+            for ax, lbl in zip(axes, resolved, strict=False):
                 _mpl_plot(self, lbl, ax=ax, **kwargs)
             fig.tight_layout()
             return fig
 
         if backend == "plotly":
-            from atomx.viz.plotly import plot_radial_orbital as _ply_plot
-            import plotly.graph_objects as go
             from plotly.subplots import make_subplots
+
+            from atomx.viz.plotly import plot_radial_orbital as _ply_plot
 
             fig = make_subplots(
                 rows=1, cols=len(resolved),

@@ -13,18 +13,27 @@ Method-based API:
 
 __version__ = "0.2.0"
 
+from atomx import (
+    fitting,  # noqa: F401
+    lineshapes,  # noqa: F401
+    properties,  # noqa: F401  — observables (hyperfine, transitions, isotope_shift, zeeman, …)
+    scattering,  # noqa: F401  — photoionization, autoionization, DR, distorted_wave
+    spectrum,  # noqa: F401
+    units,  # noqa: F401  always importable; pint-optional
+    uta,  # noqa: F401
+    viz,  # noqa: F401
+)
 from atomx.atom import Atom
-from atomx.types import (
-    NuclearModel,
-    Exchange,
-    StartingPotential,
-    Correlation,
-    Multipole,
-    Gauge,
-    EnergyUnit,
-    CouplingScheme,
-    RelativisticCorrection,
-    TheoryLevel,
+from atomx.compare import compare, theory_ladder, what_changed
+from atomx.ladder import Ladder, LadderRun, RungOutcome
+from atomx.methods import (
+    MCDHF,
+    BreitPauli,
+    DiracFock,
+    HartreeFock,
+    HydrogenicDirac,
+    HydrogenicSchrodinger,
+    Method,
 )
 from atomx.results import (
     AtomicResult,
@@ -32,27 +41,20 @@ from atomx.results import (
     OrbitalWavefunction,
     Waves,
 )
-from atomx import fitting  # noqa: F401
-from atomx import lineshapes  # noqa: F401
-from atomx import properties  # noqa: F401  — observables (hyperfine, transitions, isotope_shift, zeeman, …)
-from atomx import scattering  # noqa: F401  — photoionization, autoionization, DR, distorted_wave
-from atomx import spectrum  # noqa: F401
-from atomx import units  # noqa: F401  always importable; pint-optional
-from atomx import uta  # noqa: F401
-from atomx import viz  # noqa: F401
+from atomx.sampling import Sampling
+from atomx.scattering.models import ContinuumModel, PotentialModel
+from atomx.types import (
+    Correlation,
+    CouplingScheme,
+    EnergyUnit,
+    Exchange,
+    Gauge,
+    Multipole,
+    NuclearModel,
+    RelativisticCorrection,
+    StartingPotential,
+    TheoryLevel,
+)
 
 # Conveniences re-exported at the top level
-from atomx.units import ureg, pint_available, codata_version  # noqa: F401
-from atomx.methods import (
-    Method,
-    HydrogenicSchrodinger,
-    HydrogenicDirac,
-    HartreeFock,
-    BreitPauli,
-    DiracFock,
-    MCDHF,
-)
-from atomx.compare import compare, theory_ladder, what_changed
-from atomx.sampling import Sampling
-from atomx.ladder import Ladder, LadderRun, RungOutcome
-from atomx.scattering.models import ContinuumModel, PotentialModel
+from atomx.units import codata_version, pint_available, ureg  # noqa: F401

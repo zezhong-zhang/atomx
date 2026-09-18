@@ -19,16 +19,13 @@ Simple interface for common atomic structure calculations:
     print(be.state_energies)
 """
 
+from typing import Optional
+
 import numpy as np
-from dataclasses import dataclass, field
-from typing import List, Dict, Optional
-
-from atomx.constants import HARTREE_EV, HARTREE_CM1
-from atomx.methods.dirac_fock import DFSolver, Subshell, neon_subshells, argon_subshells
-
 
 from atomx.config import ground_state_config
-
+from atomx.constants import HARTREE_CM1, HARTREE_EV
+from atomx.methods.dirac_fock import DFSolver
 
 #: Radial ENGINES (numerics) and exchange MODELS the Atom facade accepts.
 _NUMERICS_ENGINES = ("bspline", "shooting")
@@ -338,8 +335,12 @@ class Atom:
             try:
                 base_config = config or ground_state_config(N_electrons)
             except ValueError:
-                raise ValueError(f"No built-in config for {N_electrons} electrons.")
-            from atomx.methods.mcdhf.excitations import generate_sd_excitations, suggest_virtual_orbitals
+                raise ValueError(
+                    f"No built-in config for {N_electrons} electrons.") from None
+            from atomx.methods.mcdhf.excitations import (
+                generate_sd_excitations,
+                suggest_virtual_orbitals,
+            )
             virtuals = suggest_virtual_orbitals(Z, n_virtual=1)
             max_exc = 2 if correlation == "sd" else 1
             # Freeze core for Z > 10
@@ -531,9 +532,8 @@ class Atom:
             # redundant outer-region points.  Exposed via ``n_grid``
             # for power users who need the tighter neutral-atom bound.
             if self.exchange_model == "hf":
-                from atomx.numerics.shooting.hf_shooting import (
-                    ShootingHFSolver)
                 from atomx.config.jj_coupling import generate_jj_average
+                from atomx.numerics.shooting.hf_shooting import ShootingHFSolver
                 subshells, _ = generate_jj_average(
                     self._config_strings[0], averaging="statistical",
                 )
@@ -618,8 +618,7 @@ class Atom:
             # (statistical | equal | fractional). The CI default is handled
             # above via MCDHFSolver; "fractional" skips jj_configs to use
             # the q*(q-1) fallback inside _get_WW.
-            from atomx.config.jj_coupling import generate_jj_average
-            from atomx.config.jj_coupling import JJConfig
+            from atomx.config.jj_coupling import JJConfig, generate_jj_average
             avg_key = "equal" if self.averaging == "equal" else "statistical"
             subshells, self._jj_configs = generate_jj_average(
                 self._config_strings[0], averaging=avg_key)
@@ -648,8 +647,8 @@ class Atom:
 
             # DBSR_HF-style semi-exponential grid (matched to nuclear model)
             if self._use_physics_grid:
-                from atomx.numerics.bspline.knots import make_physics_knots
                 from atomx.numerics.bspline.basis import prepare_bspline_data
+                from atomx.numerics.bspline.knots import make_physics_knots
                 t_phys, ns_phys = make_physics_knots(
                     ks=self.ks, Z=self.Z, nuclear=self.nuclear)
                 data = prepare_bspline_data(t_phys, ns_phys, self.ks,
@@ -695,12 +694,11 @@ class Atom:
 
     def _solve_method(self, method, tol, max_iter, log=None):
         """Dispatch to a theory-level method object."""
-        from atomx.methods.base import Method
-        from atomx.methods.hydrogenic import HydrogenicSchrodinger, HydrogenicDirac
-        from atomx.methods.hartree_fock import HartreeFock
-        from atomx.methods.relativistic_hf import BreitPauli
         from atomx.methods.dirac_fock import DiracFock
+        from atomx.methods.hartree_fock import HartreeFock
+        from atomx.methods.hydrogenic import HydrogenicDirac, HydrogenicSchrodinger
         from atomx.methods.mcdhf import MCDHF
+        from atomx.methods.relativistic_hf import BreitPauli
 
         # Set up logging
         calc_log = None
@@ -734,7 +732,7 @@ class Atom:
 
         if isinstance(method, DiracFock):
             # Use jj-average with statistical weights
-            from atomx.config.jj_coupling import generate_jj_average, JJConfig
+            from atomx.config.jj_coupling import JJConfig, generate_jj_average
             subshells, jj_configs = generate_jj_average(config_str, averaging="statistical")
             # Remove zero-occupation subshells
             kept = [i for i, sh in enumerate(subshells) if sh.occupation > 1e-10]
@@ -1327,13 +1325,13 @@ class Atom:
         print(f"  Converged: {self.converged} ({self.iterations} iterations)")  # noqa: T201
         print(f"  Total energy: {self.total_energy:.6f} Ha"  # noqa: T201
               f" ({self.total_energy_eV:.2f} eV)")
-        print(f"\n  Orbital energies:")  # noqa: T201
+        print("\n  Orbital energies:")  # noqa: T201
         for label, E in sorted(self.orbital_energies.items(),
                                 key=lambda x: x[1]):
             print(f"    {label:8s}: {E:12.6f} Ha ({E*HARTREE_EV:10.2f} eV)")  # noqa: T201
 
         if self.breit or self.qed:
-            print(f"\n  Corrections:")  # noqa: T201
+            print("\n  Corrections:")  # noqa: T201
             ec = self.energy_components
             for key in ["E_Breit", "E_VP", "E_SE"]:
                 if key in ec:
@@ -1341,7 +1339,7 @@ class Atom:
                           f" ({ec[key]*HARTREE_CM1:10.1f} cm-1)")
 
         if self._multi_config and self._mcdhf_result:
-            print(f"\n  CI States:")  # noqa: T201
+            print("\n  CI States:")  # noqa: T201
             for i, E in enumerate(self.state_energies):
                 de = (E - self.state_energies[0]) * HARTREE_CM1
                 print(f"    State {i}: {E:.6f} Ha  (ΔE = {de:.0f} cm-1)")  # noqa: T201

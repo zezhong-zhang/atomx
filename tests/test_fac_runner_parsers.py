@@ -9,7 +9,12 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "benchmarks"))
 
-from fac_runner import parse_ci, require_sfac_bin, resolve_sfac_bin, run_sfac  # noqa: E402
+from fac_runner import (  # noqa: E402
+    parse_ci,
+    require_sfac_bin,
+    resolve_sfac_bin,
+    run_sfac,
+)
 
 
 def test_parse_ci_uses_third_column_as_cross_section(tmp_path):

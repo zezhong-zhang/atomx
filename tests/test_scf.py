@@ -7,11 +7,14 @@ Reference values (Desclaux 1973, Dirac-Hartree-Fock):
 Ne HF tests share a single solver to avoid repeating the expensive SCF.
 """
 
-import numpy as np
 import pytest
-from atomx.methods.dirac_fock import DFSolver, Subshell, helium_subshells, neon_subshells
-from atomx.angular.coefficients import exchange_lambda, exchange_k_range, exchange_coefficient
 
+from atomx.angular.coefficients import (
+    exchange_coefficient,
+    exchange_k_range,
+    exchange_lambda,
+)
+from atomx.methods.dirac_fock import DFSolver, helium_subshells, neon_subshells
 
 # ---- Shared fixtures (run SCF ONCE, reuse across tests) ----
 

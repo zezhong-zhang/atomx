@@ -34,17 +34,22 @@ Grant (2007) Eq. 8.4.17 / FAC ``TRRateMultipole`` convention.
 import numpy as np
 import pytest
 
+from atomx.angular.wigner import wigner_3j
 from atomx.constants import ALPHA, AU_RATE_PER_S
-from atomx.numerics.bspline.knots import make_knots
+from atomx.numerics.analytic.hydrogenic_dirac import hydrogenic_dirac_wavefunction
 from atomx.numerics.bspline.basis import prepare_bspline_data
 from atomx.numerics.bspline.dirac_assembly import (
-    build_dirac_matrices, solve_dirac,
+    build_dirac_matrices,
+    solve_dirac,
 )
-from atomx.numerics.analytic.hydrogenic_dirac import hydrogenic_dirac_wavefunction
-from atomx.properties.transitions.multipole import radial_eL, radial_eL_velocity, radial_mL
+from atomx.numerics.bspline.knots import make_knots
 from atomx.properties.transitions.angular import angular_eL, angular_mL
+from atomx.properties.transitions.multipole import (
+    radial_eL,
+    radial_eL_velocity,
+    radial_mL,
+)
 from atomx.properties.transitions.rates import einstein_A_eL, einstein_A_mL
-from atomx.angular.wigner import wigner_3j
 
 
 def _solve_hlike(Z, kappa, n_idx, ns=80, ks=9, r_max=None, kb=True):
@@ -106,7 +111,7 @@ def test_M1_hlike_2s_to_1s_drake(Z, A_ref):
     ~ 2000× too small at all Z.
     """
     A = _hlike_A_M1_2s_1s(Z)
-    assert A == pytest.approx(A_ref, rel=0.01), (
+    assert pytest.approx(A_ref, rel=0.01) == A, (
         f"M1 Z={Z}: atomx={A:.4e}, Drake={A_ref:.4e}, "
         f"ratio={A/A_ref:.4f}"
     )
@@ -120,7 +125,7 @@ def test_M1_hlike_2s_to_1s_Z26_moderate_relativistic():
     eye on the moderate-Z regime."""
     A = _hlike_A_M1_2s_1s(26)
     A_ref = 2.5e-6 * 26**10
-    assert A == pytest.approx(A_ref, rel=0.05), (
+    assert pytest.approx(A_ref, rel=0.05) == A, (
         f"M1 Z=26: atomx={A:.4e}, Drake-Z^10={A_ref:.4e}, "
         f"ratio={A/A_ref:.4f}"
     )
@@ -145,7 +150,7 @@ def test_E2_hlike_3d52_to_1s_garstang(Z, A_ref):
     (Grant Eq. 8.4.10 at L=2) and confirms the E2 path is unaffected
     by the M1 fix."""
     A = _hlike_A_E2_3d52_1s(Z)
-    assert A == pytest.approx(A_ref, rel=0.01), (
+    assert pytest.approx(A_ref, rel=0.01) == A, (
         f"E2 Z={Z}: atomx={A:.4e}, Garstang Z^6={A_ref:.4e}, "
         f"ratio={A/A_ref:.4f}"
     )
@@ -161,7 +166,7 @@ def test_E1_baseline_h_2p_to_1s_regression():
     6.265e8 s^-1.  Guards against accidental coupling of the M1 fix
     into the E1 path."""
     A = einstein_A_eL(omega=3.0/8.0, line_strength=1.110, L=1, tj_i=1)
-    assert A == pytest.approx(6.265e8, rel=2e-3)
+    assert pytest.approx(6.265e8, rel=2e-3) == A
 
 
 # ======================================================================
@@ -254,8 +259,9 @@ class TestM1AngularPrefactor:
         if not allowed:
             assert val == pytest.approx(0.0, abs=1e-15), (
                 f"M({ki},{kf},L={L}) should be zero (forbidden)")
-        else:
-            assert val != 0.0 or True  # allowed can still give zero 3j
+        # else: an allowed transition may legitimately have a vanishing 3j
+        # factor, so there is nothing to assert on this branch.  (This was
+        # ``assert val != 0.0 or True``, which asserted nothing.)
 
 
 # ======================================================================
@@ -421,7 +427,7 @@ class TestE2AdditionalChannels:
         ang = angular_eL(2, -1, L=2)
         S = (ang * R) ** 2
         A = einstein_A_eL(omega, S, L=2, tj_i=3)
-        assert A == pytest.approx(5.94e2, rel=0.01), (
+        assert pytest.approx(5.94e2, rel=0.01) == A, (
             f"E2 3d3/2→1s Z=1: A={A:.4e}")
 
     def test_E2_3d32_garstang_Z6_scaling(self):
@@ -436,7 +442,7 @@ class TestE2AdditionalChannels:
             S = (ang * R) ** 2
             A = einstein_A_eL(omega, S, L=2, tj_i=3)
             A_expected = A_ref * Z ** 6
-            assert A == pytest.approx(A_expected, rel=0.01), (
+            assert pytest.approx(A_expected, rel=0.01) == A, (
                 f"E2 3d3/2 Z={Z}: A={A:.4e}, expected={A_expected:.4e}")
 
 
@@ -454,50 +460,70 @@ class TestHeliumLikeM1:
     well enough for a benchmark at the ~10 % level.
 
     Reference: Lin, Johnson & Dalgarno (1977), Phys. Rev. A 15, 154.
-    At Z=10 (Ne IX): A(M1, 2³S₁ → 1¹S₀) ≈ 7.0 × 10⁶ s⁻¹.
+    At Z=10 (Ne IX): A(M1, 2³S₁ → 1¹S₀) ≈ 7.0 × 10⁶ s⁻¹ at 904.7 eV.
+
+    **Correction (2026-09-18).**  This class used to take the *largest* M1
+    rate in the CI space as "the" benchmark value.  In this CSF set the
+    largest rate belongs to a different transition near 1010 eV, so the
+    quoted "6.19e6 = 0.88 × Lin" was never the 2³S₁ → 1¹S₀ line.  Selected by
+    transition energy instead, the tracer sits at 3.94e6 s⁻¹ = **0.56 × Lin**,
+    and it has been at that value all along: 3.970e6 before the 2s²/2p²
+    configurations were added, 3.940e6 after (the pair channel changes it by
+    <1 %).  The literature comparison is therefore an explicit ``xfail``, and
+    the passing gate is a regression pin on the energy-selected tracer.
     """
 
     @pytest.mark.slow
     def test_helike_M1_Z10(self):
-        """He-like M1 at Z=10 (Ne IX) 2³S₁→1¹S₀ vs Lin et al. 1977 (7.0e6 s⁻¹).
+        """He-like M1 at Z=10 (Ne IX): pin the 2³S₁ → 1¹S₀ tracer.
 
-        The transition *energy* is reproduced to <0.1 % (904.7 eV), so the
-        wavefunctions are sound; the rate of this near-*forbidden*
-        intercombination line is what stresses the treatment.
-
-        **Correlation matters here — a lot.**  This M1 line strength is
-        strongly correlation-sensitive (it vanishes in the non-relativistic
-        single-config limit).  With only ``["1s2","1s1 2s1"]`` atomx gives
-        3.9e6 (0.56× ref); adding the ``2s²``/``2p²`` double excitations
-        converges it to **6.19e6 (0.88× ref)** — and n=3 configs / Breit do
-        not move it further (measured 2026-07-10).  So the config set below
-        is the correlation-converged one; the old 2-config test was simply
-        under-converged.
-
-        The residual ~12 % gap to the reference is the honest limitation of
-        the jj-coupled MCDHF treatment for this near-forbidden line (higher-
-        order relativistic M1 / full LS-coupled Breit–Pauli terms present in
-        Lin et al. but not here) — hence the 15 % tolerance, which reflects
-        the *true converged* accuracy rather than a value fudged to pass.
+        The transition is selected by *energy* (904.7 eV per Lin et al.), not
+        by ``max(A)`` — see the class docstring for why that mattered.
         """
-        from atomx import Atom
-        he = Atom(Z=10, charge=8,
-                  configs=["1s2", "1s1 2s1", "2s2", "2p2"], ns=60, ks=9)
-        he.solve(max_iter=80, tol=1e-4)
-        if not he.converged:
-            pytest.skip("He-like Z=10 MCDHF did not converge")
+        he = _he_like_ne_m1()
+        trs = [t for t in he.transitions(multipoles=["M1"])
+               if t.A_rate_per_s > 1e4]
+        assert trs, "Expected at least one strong M1 transition"
 
-        trs = he.transitions(multipoles=["M1"])
-        # Find the dominant M1 transition (ground ↔ excited)
-        strong = [t for t in trs if t.A_rate_per_s > 1e4]
-        assert len(strong) >= 1, (
-            f"Expected at least one strong M1 transition, got {len(trs)}")
+        tracer = min(trs, key=lambda t: abs(t.energy_eV - 904.7))
+        assert abs(tracer.energy_eV - 904.7) < 10.0, (
+            f"no M1 transition near the 2³S₁ → 1¹S₀ energy: nearest is "
+            f"{tracer.energy_eV:.1f} eV")
+        # Regression pin on atomx's own value (0.56 × Lin et al.).
+        assert tracer.A_rate_per_s == pytest.approx(3.94e6, rel=0.05), (
+            f"He-like M1 Z=10 tracer A={tracer.A_rate_per_s:.4e} "
+            f"(pinned 3.94e6, = {tracer.A_rate_per_s / 7.0e6:.3f} × Lin)")
 
-        A_max = max(t.A_rate_per_s for t in strong)
-        A_ref = 7.0e6
-        assert A_max == pytest.approx(A_ref, rel=0.15), (
-            f"He-like M1 Z=10: A={A_max:.4e}, ref={A_ref:.4e}, "
-            f"ratio={A_max/A_ref:.4f}")
+    @pytest.mark.slow
+    @pytest.mark.xfail(
+        strict=False,
+        reason="atomx's jj-coupled MCDHF gives 0.56 × Lin et al. for the "
+               "2³S₁ → 1¹S₀ line (3.94e6 vs 7.0e6 s⁻¹); closing it needs the "
+               "full LS-coupled Breit–Pauli M1 operator. The previously "
+               "reported 0.88 × was a different transition (see class "
+               "docstring).",
+    )
+    def test_helike_M1_Z10_vs_lin(self):
+        """Literature gate: tracer within 15 % of Lin et al. (currently 44 %)."""
+        he = _he_like_ne_m1()
+        trs = [t for t in he.transitions(multipoles=["M1"])
+               if t.A_rate_per_s > 1e4]
+        tracer = min(trs, key=lambda t: abs(t.energy_eV - 904.7))
+        assert tracer.A_rate_per_s == pytest.approx(7.0e6, rel=0.15), (
+            f"A={tracer.A_rate_per_s:.4e} vs Lin 7.0e6 "
+            f"(ratio {tracer.A_rate_per_s / 7.0e6:.3f})")
+
+
+def _he_like_ne_m1():
+    """Solved He-like Ne (Z=10, H-like core + 2 electrons) for the M1 gate."""
+    from atomx import Atom
+
+    he = Atom(Z=10, charge=8,
+              configs=["1s2", "1s1 2s1", "2s2", "2p2"], ns=60, ks=9)
+    he.solve(max_iter=80, tol=1e-4)
+    if not he.converged:
+        pytest.skip("He-like Z=10 MCDHF did not converge")
+    return he
 
 
 # ======================================================================

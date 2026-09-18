@@ -41,27 +41,22 @@ without manim (attribute access fails with a helpful error).
 
 from __future__ import annotations
 
-from typing import Any, Optional, Sequence
+from typing import Any, Optional
 
 import numpy as np
 
 try:
     import manim as _manim
     from manim import (
-        AnimationGroup,
         Arrow,
         Axes,
         BarChart,
         Create,
-        DashedVMobject,
         FadeIn,
         FadeOut,
         Line,
-        MathTex,
-        NumberLine,
         Scene,
         Text,
-        VGroup,
         Write,
     )
     _MANIM_AVAILABLE = True
@@ -133,7 +128,6 @@ class RadialOrbitalScene(Scene):
             tips=False,
         )
         x_label = axes.get_x_axis_label("r  (Bohr)")
-        y_label = axes.get_y_axis_label("")
         title = Text(
             f"{self.orbital_label}    ε = {orb.energy:.6f} Ha",
             font_size=24,
@@ -207,7 +201,7 @@ class GrotrianScene(Scene):
         self.play(Create(axes), Write(y_label))
 
         level_lines = []
-        for E, L, lbl in zip(energies, L_vals, labels):
+        for E, L, lbl in zip(energies, L_vals, labels, strict=False):
             x = L_to_x[L]
             start = axes.coords_to_point(x - 0.35, E)
             end = axes.coords_to_point(x + 0.35, E)

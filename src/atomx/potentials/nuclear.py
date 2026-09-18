@@ -10,8 +10,8 @@ shared between grid (knots.py) and potential via `fermi_params()`.
 """
 
 import numpy as np
-from atomx.constants import BOHR_RADIUS_FM
 
+from atomx.constants import BOHR_RADIUS_FM
 
 # ── Tabulated RMS charge radii (Angeli & Marinova, 2013) ────────────
 # Values from DBSR_HF atoms_par module (fm). Empirical formula used for Z>10.

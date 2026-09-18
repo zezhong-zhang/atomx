@@ -7,8 +7,8 @@ All angular momentum arguments are twice the physical value (integer storage):
 The "t" prefix means "twice j" throughout this module.
 """
 
-import numpy as np
 import numba as nb
+import numpy as np
 
 # Pre-compute log-factorials up to 300! (sufficient for most atomic physics)
 _MAX_FACT = 500
@@ -85,9 +85,6 @@ def wigner_3j(tj1, tj2, tj3, tm1, tm2, tm3):
         return 0.0
 
     # Racah formula summation
-    # Convert to half-integer arithmetic
-    j1, j2, j3 = tj1 // 2, tj2 // 2, tj3 // 2
-    m1, m2, m3 = tm1 // 2, tm2 // 2, tm3 // 2
 
     # For half-integer j, we work with twice-j directly
     # The sum index t runs over integer values satisfying:

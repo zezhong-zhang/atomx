@@ -32,8 +32,8 @@ from atomx.providers.contract import (
     ElectronicStructurePayload,
     OrbitalCoefficients,
     OverlapBlock,
-    ProviderContractError,
     Provenance,
+    ProviderContractError,
     TwoElectronIntegrals,
     ensure_hartree,
 )
@@ -88,7 +88,7 @@ def _require_converged_mean_field(mf: Any, *, context: str) -> None:
     """Enforce the PySCF adapter contract before consuming SCF arrays."""
 
     try:
-        converged = getattr(mf, "converged")
+        converged = mf.converged
     except Exception:
         raise ProviderContractError(
             f"{context} PySCF mean-field convergence status is unavailable"

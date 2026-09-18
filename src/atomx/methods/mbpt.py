@@ -60,21 +60,13 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 
-# Module-level logger
-logger = logging.getLogger(__name__)
-
-from atomx.angular.wigner import wigner_3j, wigner_6j
-
-# The ladder path re-evaluates the same small-integer angular factors tens
-# of thousands of times per pair block; memoize at this call-site level
-# (the shared numba wigner module stays uncached).
-_wigner_6j = lru_cache(maxsize=None)(wigner_6j)
 from atomx.angular.coefficients import (
     _l_from_kappa,
     _twoj_from_kappa,
     exchange_lambda,
     reduced_C,
 )
+from atomx.angular.wigner import wigner_6j
 from atomx.constants import C_SQ
 from atomx.numerics.bspline.convol import (
     ConvolCache,
@@ -90,6 +82,13 @@ from atomx.numerics.bspline.dirac_assembly import (
     solve_dirac,
 )
 
+# Module-level logger
+logger = logging.getLogger(__name__)
+
+# The ladder path re-evaluates the same small-integer angular factors tens
+# of thousands of times per pair block; memoize at this call-site level
+# (the shared numba wigner module stays uncached).
+_wigner_6j = lru_cache(maxsize=None)(wigner_6j)
 
 # ---------------------------------------------------------------------------
 # Result container
@@ -348,11 +347,8 @@ def build_virtual_basis(
     # Identify which states are the occupied ones — by overlap with
     # the stored DHF orbitals.
     occ_orbs = scf_result.orbitals_raw.get(kappa, [])
-    if "bsp_p" in bsp_data:
-        # Use S overlap matrix for proper inner product
-        S_full = S
-    else:
-        S_full = None
+    # Use S overlap matrix for proper inner product
+    S_full = S if "bsp_p" in bsp_data else None
 
     def _overlap(Pa, Qa, Pb, Qb):
         # ⟨a|b⟩ via S matrix
@@ -640,8 +636,8 @@ def _mbpt2_pair_contribution(
                 for k in k_e_list
                 if abs(Ck_as[k]) >= 1e-15 and abs(Ck_br[k]) >= 1e-15
             }
-            for orb_r_idx, (Pr, Qr, eps_r) in enumerate(virt_r):
-                for orb_s_idx, (Ps, Qs, eps_s) in enumerate(virt_s):
+            for orb_r_idx, (_Pr, _Qr, eps_r) in enumerate(virt_r):
+                for orb_s_idx, (_Ps, _Qs, eps_s) in enumerate(virt_s):
                     # Avoid double counting r↔s when κ_r == κ_s
                     if kappa_r == kappa_s and orb_r_idx > orb_s_idx:
                         continue
@@ -914,7 +910,7 @@ def pair_ladder_energy(
                         D = np.zeros(n)
                         na = math.sqrt(2.0) if same_ab else 1.0
                         keep = []
-                        for ii, (kr, ir, ks, isx, vr, vs, same_rs) in enumerate(basis):
+                        for ii, (kr, _ir, ks, _isx, vr, vs, same_rs) in enumerate(basis):
                             nr = math.sqrt(2.0) if same_rs else 1.0
                             amp = _pair_v_J(
                                 Pa, Qa, kappa_a, Pb, Qb, kappa_b,

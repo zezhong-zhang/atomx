@@ -44,8 +44,6 @@ References
 
 from __future__ import annotations
 
-import math
-
 from atomx.constants import ALPHA
 
 

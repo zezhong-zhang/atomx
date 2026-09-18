@@ -44,7 +44,6 @@ from scipy import special as _sp
 
 from atomx.angular.clebsch import clebsch_gordan
 
-
 # scipy ≥ 1.15 deprecates ``sph_harm`` in favour of ``sph_harm_y`` with
 # a different argument order.  Centralise the compatibility shim once so
 # the rest of the module can call a single helper.

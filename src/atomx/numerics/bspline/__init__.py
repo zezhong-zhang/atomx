@@ -11,16 +11,16 @@ convol : Two-electron Slater integrals via cell-based convolution.
 evaluate : Orbital evaluation and Y^k potentials on the grid.
 """
 
-from atomx.numerics.bspline.knots import make_knots, make_exponential_knots
 from atomx.numerics.bspline.basis import (
     bsplvb,
     bsplvd,
-    setup_gauss_points,
     evaluate_bsplines_on_grid,
+    setup_gauss_points,
 )
 from atomx.numerics.bspline.integrals import (
-    overlap_matrix,
-    nuclear_matrix,
-    coupling_matrix,
     coupling_deriv_matrix,
+    coupling_matrix,
+    nuclear_matrix,
+    overlap_matrix,
 )
+from atomx.numerics.bspline.knots import make_exponential_knots, make_knots

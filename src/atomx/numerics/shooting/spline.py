@@ -4,9 +4,9 @@ Translates radial.f SPLIN0 (line 6464), SPLINE (line 6336), VINT (line 283).
 The spline stores f(x) = A + B*x + C*x^2 + D*x^3 per interval.
 """
 
-import numpy as np
+
 import numba as nb
-import math
+import numpy as np
 
 
 @nb.njit(cache=True)

@@ -1,0 +1,7 @@
+benchmark,returncode,elapsed_s,metrics,command
+rcfp_primitives,0,1.031,,benchmarks/bench_rcfp_primitives.py
+j_resolved_csfs,0,2.203,,benchmarks/bench_fac_j_resolved_csfs.py
+local_exchange,0,5.566,,benchmarks/bench_local_exchange.py
+levels_transitions,0,13.142,strong_mapped=7/24; strong_recoup_sign_flips=; strong_ci_recoup_hybrid_max_factor=; strong_ci_recoup_abs_hybrid_max_factor=; strong_ci_recoup_gauge_hybrid_max_factor=; strong_ci_recoup_create_first_max_factor=; strong_phase_gauge_max_conflicts=; strong_max_factor=134.667; strong_median_factor=18.7527,benchmarks/bench_fac_levels_transitions.py
+pi_rr,0,5.009,,benchmarks/bench_fac_pi_rr.py
+ce_ci_ai,0,16.029,ce_max_abs_rel=0.641421; ce_median_abs_rel=0.408531; ce_omega_max_abs_rel=0.942684; ce_omega_median_abs_rel=0.914803; ci_max_abs_rel=0.241976; ci_median_abs_rel=0.208543; ai_max_abs_rel=16.5963; ai_median_abs_rel=0.96667; ai_exchange_plus_max_abs_rel=16.5963; ai_exchange_plus_median_abs_rel=0.96667,benchmarks/bench_fac_ce_ci_ai.py

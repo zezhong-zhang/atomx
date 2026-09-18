@@ -16,12 +16,14 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "benchmarks"))
 
-from atomx import Atom  # noqa: E402
-from atomx.constants import HARTREE_EV  # noqa: E402
-from atomx.scattering.electron_ionization.coulomb_born import coulomb_born_ci_atom  # noqa: E402
-from atomx.scattering.electron_ionization.dw import dw_eii_cross_section  # noqa: E402
 from fac_runner import SFAC_BIN, parse_ci, run_sfac  # noqa: E402
 
+from atomx import Atom  # noqa: E402
+from atomx.constants import HARTREE_EV  # noqa: E402
+from atomx.scattering.electron_ionization.coulomb_born import (
+    coulomb_born_ci_atom,  # noqa: E402
+)
+from atomx.scattering.electron_ionization.dw import dw_eii_cross_section  # noqa: E402
 
 Z_GRID = [10, 26, 54]
 # sigma(E) -> 0 at exact threshold for ionization; start the panel above it
@@ -108,10 +110,7 @@ def run_fac(Z: int, spec: dict[str, object], factors, timeout: float, keep_dir: 
         return np.zeros_like(factors), 0.0, f"FAC unavailable: {SFAC_BIN}"
     sequence = next((name for name, candidate in SEQUENCES.items() if candidate is spec), "sequence")
     stem = f"{sequence.replace('-', '_')}_dw_ci_z{Z}"
-    if threshold_eV:
-        usr = [float((f - 1.0) * threshold_eV) for f in factors]
-    else:
-        usr = []
+    usr = [float((f - 1.0) * threshold_eV) for f in factors] if threshold_eV else []
     script_text = FAC_TEMPLATE.format(
         symbol=SYMBOLS[Z],
         stem=stem,
@@ -190,7 +189,7 @@ def main() -> None:
                 keep = Path(args.keep_fac_dir) if args.keep_fac_dir else None
                 sigma_fac, fac_th, note = run_fac(Z, spec, ENERGY_FACTORS, args.timeout, keep,
                                                   threshold_eV=threshold)
-            for factor, energy, atomx, fac, cb in zip(ENERGY_FACTORS, energies, sigma_atomx, sigma_fac, sigma_cb):
+            for factor, energy, atomx, fac, cb in zip(ENERGY_FACTORS, energies, sigma_atomx, sigma_fac, sigma_cb, strict=False):
                 rel = ((float(atomx) - float(fac)) / float(fac)) if fac > 0.0 else ""
                 rows.append({
                     "Z": Z,

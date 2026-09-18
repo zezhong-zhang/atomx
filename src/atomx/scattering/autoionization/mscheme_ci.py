@@ -157,8 +157,10 @@ class ResonanceManifold:
         if val is None:
             def _pq(o):
                 return (o.P, o.Q) if isinstance(o, ActiveOrbital) else o
-            Pa, Qa = _pq(a); Pb, Qb = _pq(b)
-            Pc, Qc = _pq(c); Pd, Qd = _pq(d)
+            Pa, Qa = _pq(a)
+            Pb, Qb = _pq(b)
+            Pc, Qc = _pq(c)
+            Pd, Qd = _pq(d)
             val = grid_slater_rk(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd,
                                  self.r_fine, k)
             self._rk_cache[key] = val
@@ -202,10 +204,11 @@ class ResonanceManifold:
         dets: set[int] = set()
         for config in self.configs:
             per_group_choices = []
-            for mask, ne in zip(self.group_bits, config):
+            for mask, ne in zip(self.group_bits, config, strict=False):
                 bits = [i for i in range(self.n_orb) if mask & (1 << i)]
                 per_group_choices.append(list(combinations(bits, ne)))
-            def _recurse(gi, occ_bits):
+            def _recurse(gi, occ_bits,
+                         per_group_choices=per_group_choices):
                 if gi == len(per_group_choices):
                     tm = sum(self.orbitals[i].tm for i in occ_bits)
                     if tm == tM:
@@ -309,7 +312,6 @@ class ResonanceManifold:
         J^2 |M> with 2M fixed: J^2 = J-J+ + Jz^2 + Jz (hbar=1;
         using doubled m: Jz = tM/2)."""
         n = len(dets)
-        index = {d: i for i, d in enumerate(dets)}
         orbs = self.orbitals
         # J+ applied to each det: sum over occupied i, raise m by 1 within
         # the same (n, kappa) subshell.
@@ -608,7 +610,6 @@ class ResonanceManifold:
                 key = (spect, tq)
                 amps[key] = amps.get(key, 0.0) + amp
                 if spect not in efinal:
-                    o_s = self.orbitals[spect]
                     eps_s = float(self.eps[spect])
                     if e_ion is not None:
                         efinal[spect] = float(e_ion) + eps_s
@@ -617,7 +618,7 @@ class ResonanceManifold:
                         efinal[spect] = float(
                             self.hamiltonian([fdet])[0, 0])
         a_r = 0.0
-        for (spect, tq), amp in amps.items():
+        for (spect, _tq), amp in amps.items():
             omega = E_level - efinal[spect]
             if omega <= 0.0:
                 continue
@@ -722,7 +723,7 @@ def build_core_folded_one_body(active, core, V_screen, r_fine, dr_fine):
         tja = _tj_of(ka)
         tm = -tja
         tot = 0.0
-        for (Pc, Qc, occ, kc) in core:
+        for (Pc, Qc, _occ, kc) in core:
             tjc = _tj_of(kc)
             # occ must equal 2j_c+1 (closed) for this reduction
             for tmc in range(-tjc, tjc + 1, 2):
@@ -930,7 +931,6 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
             return (np.interp(r_fine, grid, P),
                     np.interp(r_fine, grid, Q))
 
-        labels = list(result.orbital_energies)
         active_set = set(active_nks)
         core = []
         occupied_fine = {}

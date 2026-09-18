@@ -24,7 +24,7 @@ import numpy as np
 from scipy import linalg
 from scipy.integrate import solve_ivp
 
-from atomx.constants import HARTREE_EV, BOLTZMANN_EV, RYDBERG_EV
+from atomx.constants import BOLTZMANN_EV, HARTREE_EV, RYDBERG_EV
 
 
 @dataclass
@@ -197,7 +197,7 @@ class CollisionalRadiativeModel:
                 CRMLevel(
                     f"{label_prefix}:{label}",
                     self.levels[initial_level_idx].energy_eV
-                    + float(getattr(resonance, "E_resonance_eV")),
+                    + float(resonance.E_resonance_eV),
                     g=max(int(round(float(getattr(resonance, "g", 1.0)))), 1),
                     config=f"{label_prefix} satellite",
                 )
@@ -643,7 +643,8 @@ def _channel_eii_rate_cm3_s(ch: CRMBoundFreeChannel, Te_eV: float) -> float:
             160,
         )
     from atomx.scattering.electron_ionization import (
-        eii_cross_section, eii_rate_coefficient,
+        eii_cross_section,
+        eii_rate_coefficient,
     )
     xs = eii_cross_section(ch.eii_scf_result, energies, method=ch.eii_method)
     return max(float(eii_rate_coefficient(xs, Te_eV)), 0.0)
@@ -760,7 +761,9 @@ def effective_collision_strength(E_eV, omega, dE_eV, Te_eV):
     b = np.zeros_like(dx)
     b[good] = (o1[good] - o0[good]) / dx[good]
     a = o0 - b * x0
-    F = lambda t: (a + b * (1.0 + t)) * np.exp(-t)
+    def F(t):
+        return (a + b * (1.0 + t)) * np.exp(-t)
+
     ups = float(np.sum((F(x0) - F(x1))[good]))
     # constant-Omega tail beyond the table
     ups += float(om[-1] * np.exp(-x[-1]))

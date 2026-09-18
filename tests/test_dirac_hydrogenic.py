@@ -1,13 +1,11 @@
 """M1 tests: Dirac solver validated against hydrogenic analytical solutions."""
 
-import numpy as np
 import pytest
-from atomx.constants import HARTREE_EV
-from atomx.physics.dirac import hydrogenic_dirac_energy, list_hydrogenic_states
-from atomx.numerics.bspline.knots import make_knots
+
 from atomx.numerics.bspline.basis import prepare_bspline_data
-from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
-from atomx.numerics.bspline.dirac_assembly import solve_dirac
+from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices, solve_dirac
+from atomx.numerics.bspline.knots import make_knots
+from atomx.physics.dirac import hydrogenic_dirac_energy
 
 
 class TestHydrogenicAnalytical:
@@ -16,12 +14,12 @@ class TestHydrogenicAnalytical:
     def test_hydrogen_1s(self):
         """H 1s1/2: E = -0.50000665 Hartree (Dirac, not -0.5 Schrodinger)."""
         E = hydrogenic_dirac_energy(n=1, kappa=-1, Z=1)
-        assert E == pytest.approx(-0.50000665, rel=1e-6)
+        assert pytest.approx(-0.50000665, rel=1e-6) == E
 
     def test_hydrogen_2s(self):
         E = hydrogenic_dirac_energy(n=2, kappa=-1, Z=1)
         assert E < 0
-        assert E > hydrogenic_dirac_energy(n=1, kappa=-1, Z=1)
+        assert hydrogenic_dirac_energy(n=1, kappa=-1, Z=1) < E
 
     def test_hydrogen_2p_fine_structure(self):
         """2p3/2 is less bound than 2p1/2 (fine structure)."""

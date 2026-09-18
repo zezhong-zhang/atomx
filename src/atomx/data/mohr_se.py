@@ -35,7 +35,6 @@ tabulation; for systematically better coverage prefer the
 
 from __future__ import annotations
 
-
 CITATION = (
     "Mohr (PRA 26, 2338, 1982); Mohr (PRA 46, 4421, 1992); "
     "Indelicato & Mohr (Theor. Chim. Acta 80, 207, 1991)."

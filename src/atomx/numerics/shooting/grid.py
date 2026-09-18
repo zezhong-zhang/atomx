@@ -4,9 +4,10 @@ Grid equation: A*R + B*log(R+C) + D = I
 Properties: R(1)=0, R(N)=RN, R(2)≈R2, spacing increases monotonically.
 """
 
-import numpy as np
-import numba as nb
 import math
+
+import numba as nb
+import numpy as np
 
 
 @nb.njit(cache=True)

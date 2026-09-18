@@ -161,7 +161,7 @@ def subshell_j_counts_mscheme(j2: int, q: int) -> dict[int, int]:
 def _state_vector_map(state: SubshellTermState) -> dict[int, float]:
     return {
         det: coeff
-        for det, coeff in zip(state.determinants, state.coefficients)
+        for det, coeff in zip(state.determinants, state.coefficients, strict=False)
         if abs(coeff) > 1e-14
     }
 
@@ -171,7 +171,7 @@ def creation_matrix_element(bra: SubshellTermState, ket: SubshellTermState,
     """Return ``<bra|a†_m|ket>`` between highest-weight subshell states."""
     if bra.j2 != ket.j2 or bra.q != ket.q + 1:
         return 0.0
-    if bra.J2 != ket.J2 + m2:
+    if ket.J2 + m2 != bra.J2:
         return 0.0
     m_values = _m2_values(bra.j2)
     try:

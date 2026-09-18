@@ -18,11 +18,10 @@ matrix element involves the dipole operator.
 
 import numpy as np
 from scipy import linalg
-from atomx.constants import C, C_SQ, ALPHA, HARTREE_EV
-from atomx.numerics.bspline.knots import make_knots
-from atomx.numerics.bspline.basis import prepare_bspline_data
+
+from atomx.constants import ALPHA, C_SQ
 from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
-from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
+
 # NOTE: ``line_strength_factor`` (a pure angular quantity in the properties
 # layer) is imported lazily inside ``photoionization_cross_section`` to avoid a
 # numerics -> properties layer inversion at module-load time.
@@ -163,7 +162,6 @@ def solve_continuum(kappa, energy, Z, bsp_data, V_scf_PP=None, V_scf_QQ=None,
     keep_p = list(range(nb, ns - nb))
     keep_q = list(range(ns + nb, ms - nb))
     keep = keep_p + keep_q
-    nk = len(keep)
 
     H_red = H[np.ix_(keep, keep)]
     S_red = S[np.ix_(keep, keep)]
@@ -280,7 +278,6 @@ def photoionization_cross_section(bound_P, bound_Q, bound_kappa, bound_energy,
 
     # Allowed final-state kappa values (E1 dipole selection rules: Δl = ±1)
     l_bound = bound_kappa if bound_kappa > 0 else -bound_kappa - 1
-    j2_bound = 2 * abs(bound_kappa) - 1
 
     # E1 dipole: final states with l_f = l_bound ± 1
     final_kappas = []

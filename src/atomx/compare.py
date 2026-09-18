@@ -7,13 +7,10 @@ of what physics each correction adds.
 
 from __future__ import annotations
 
-from typing import List, Optional
+import contextlib
 
-import numpy as np
-
-from atomx.constants import HARTREE_EV, HARTREE_CM1
+from atomx.constants import HARTREE_CM1, HARTREE_EV
 from atomx.types import EnergyUnit, RelativisticCorrection, TheoryLevel
-
 
 # ---------------------------------------------------------------------------
 # compare: side-by-side table
@@ -158,9 +155,11 @@ def theory_ladder(Z: int, config: str = None) -> list:
     """
     from atomx.atom import Atom
     from atomx.methods import (
-        HydrogenicSchrodinger, HydrogenicDirac,
-        HartreeFock, BreitPauli,
+        BreitPauli,
         DiracFock,
+        HartreeFock,
+        HydrogenicDirac,
+        HydrogenicSchrodinger,
     )
 
     atom = Atom(Z=Z, config=config) if config else Atom(Z=Z)
@@ -171,25 +170,19 @@ def theory_ladder(Z: int, config: str = None) -> list:
         results.append(atom.solve(HydrogenicDirac()))
     else:
         # Non-relativistic HF
-        try:
+        with contextlib.suppress(Exception):
             results.append(atom.solve(HartreeFock()))
-        except Exception:
-            pass
 
         # Scalar relativistic corrections
-        try:
+        with contextlib.suppress(Exception):
             results.append(atom.solve(
                 BreitPauli(corrections=[
                     RelativisticCorrection.MASS_VELOCITY,
                     RelativisticCorrection.DARWIN])))
-        except Exception:
-            pass
 
         # Full relativistic corrections (+ spin-orbit)
-        try:
+        with contextlib.suppress(Exception):
             results.append(atom.solve(BreitPauli()))
-        except Exception:
-            pass
 
         # Full Dirac-Fock
         results.append(atom.solve(DiracFock()))

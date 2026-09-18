@@ -19,7 +19,6 @@ fingerprint) so repeated calls within a session are cheap.
 
 from __future__ import annotations
 
-from functools import lru_cache
 from typing import Tuple
 
 import numpy as np
@@ -112,8 +111,8 @@ def hydrogenic_r_exp_integral_dirac(
     (which uses a non-relativistic analytic formula).  The difference
     matters at the O((Zα)²) level for heavy elements.
     """
-    from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
     from atomx.constants import C
+    from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 
     P, Q, bsp_data, _E = hydrogenic_dirac_wavefunction(
         n, kappa, Z, ns=ns, ks=ks,

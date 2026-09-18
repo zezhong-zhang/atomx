@@ -4,7 +4,6 @@ import pytest
 
 from atomx import Atom
 from atomx.properties.edm import (
-    EDMResult,
     edm_summary,
     electron_edm_enhancement_sandars,
     schiff_moment_enhancement_scaling,
@@ -22,7 +21,7 @@ def test_R_e_z_cubed_scaling():
     """R_e ∝ Z³ at fixed n_eff, J, L."""
     R1 = electron_edm_enhancement_sandars(Z=10, n_eff=2.0)
     R2 = electron_edm_enhancement_sandars(Z=20, n_eff=2.0)
-    assert R2 / R1 == pytest.approx(8.0, rel=1e-12)
+    assert pytest.approx(8.0, rel=1e-12) == R2 / R1
 
 
 def test_R_e_p_state_smaller():

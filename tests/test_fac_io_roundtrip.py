@@ -216,7 +216,7 @@ def test_ce_roundtrip_synthetic(tmp_path):
     write_ce(transitions, out, Z=26, nele=3)
     back = read_ce(out)
     assert len(back) == len(transitions)
-    for ref, got in zip(transitions, back):
+    for ref, got in zip(transitions, back, strict=False):
         assert got["lower"] == ref["lower"] and got["upper"] == ref["upper"]
         np.testing.assert_allclose(got["energy_eV"], ref["energies_eV"], rtol=1e-7)
         np.testing.assert_allclose(got["collision_strength"], ref["collision_strength"], rtol=1e-7)

@@ -17,9 +17,8 @@ Reference:
 """
 
 import numpy as np
-from scipy.optimize import minimize_scalar
+
 from atomx.numerics.bspline.integrals import _assemble_integral
-from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 
 
 def green_sellin_zachor(Z, N_electrons, r, d=None):
@@ -96,7 +95,6 @@ def optimized_central_potential(Z, subshells, bsp_data, alpha_x=2.0/3.0):
     ns = bsp_data["ns"]
     gr = bsp_data["gr"]
     grw = bsp_data["grw"]
-    n_gauss = gr.shape[1]
     N_electrons = sum(sh.occupation for sh in subshells)
 
     # Build total density (for starting potential without orbitals)

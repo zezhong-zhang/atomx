@@ -95,10 +95,7 @@ class WeltonBackend(SEBackend):
         aZ = ALPHA * Z
         # ln(1/(Zα)²) is only meaningful for Zα < 1 — clamp for heavy Z to
         # keep the estimate tame near the "Dirac plunge" at Z ≈ 137.
-        if aZ >= 1.0:
-            ln_factor = 0.0
-        else:
-            ln_factor = np.log(1.0 / (aZ * aZ))
+        ln_factor = 0.0 if aZ >= 1.0 else np.log(1.0 / (aZ * aZ))
 
         # ΔE_a = (1/6) × ⟨(δr)²⟩ × ⟨∇²V_nuc⟩_a
         #      = (1/6) × (2α³/π) ln(1/(Zα)²) × 4π Z |ψ_a(0)|²
@@ -109,7 +106,7 @@ class WeltonBackend(SEBackend):
 
         per_orbital: dict = {}
         E_SE = 0.0
-        for P, Q, occ, kappa, label in orbitals:
+        for P, Q, occ, _kappa, label in orbitals:
             if bsp_data is None or np.max(np.abs(P)) < 1e-10:
                 per_orbital[label] = 0.0
                 continue

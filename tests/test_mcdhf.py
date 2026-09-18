@@ -5,16 +5,15 @@ Tests CSF parsing, CI matrix construction, and MCDHF solver.
 
 import numpy as np
 import pytest
-from atomx.methods.mcdhf.config import (
-    CSF,
-    enumerate_jj_csfs,
-    make_csf_list,
-    _parse_config_string,
-    get_shared_orbital_basis,
-)
-from atomx.methods.mcdhf.solver import MCDHFSolver, MCDHFResult
+
 from atomx.methods.dirac_fock import Subshell
-from atomx.constants import HARTREE_CM1
+from atomx.methods.mcdhf.config import (
+    _parse_config_string,
+    enumerate_jj_csfs,
+    get_shared_orbital_basis,
+    make_csf_list,
+)
+from atomx.methods.mcdhf.solver import MCDHFResult, MCDHFSolver
 
 
 class TestCSFParsing:

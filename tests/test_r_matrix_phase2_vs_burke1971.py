@@ -26,8 +26,6 @@ from atomx.scattering.r_matrix import (
     extract_resonances,
     heplus_target_states,
 )
-from atomx.scattering.r_matrix.cc_outer import eigenphase_sum_unwrapped
-
 
 # Burke, Hibbert & Robb 1971 Table 2 reference values.
 # Positions in Hartree (total e + He+ energy, He+ ground state at -2.0 Ha).

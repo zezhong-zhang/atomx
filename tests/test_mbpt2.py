@@ -9,11 +9,10 @@ import pytest
 from atomx import Atom
 from atomx.methods.mbpt import (
     MBPT2Result,
+    _allowed_k_range,
     mbpt2_energy,
     reduced_C,
-    _allowed_k_range,
 )
-
 
 # ── Reduced matrix-element sanity checks ────────────────────────────────
 

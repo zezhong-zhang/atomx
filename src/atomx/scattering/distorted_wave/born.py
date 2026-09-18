@@ -37,8 +37,7 @@ import math
 
 import numpy as np
 
-from atomx.constants import HARTREE_EV, BOHR_RADIUS_M
-
+from atomx.constants import BOHR_RADIUS_M, HARTREE_EV
 
 _A0_CM2 = (BOHR_RADIUS_M * 100.0) ** 2  # a₀² in cm²
 
@@ -85,7 +84,7 @@ def born_excitation_dipole(
         raise ValueError("born_excitation_dipole: ΔE must be > 0")
     E = np.asarray(energies_eV, dtype=float)
     out = np.zeros_like(E)
-    above = E > delta_E_eV
+    above = delta_E_eV < E
     if not np.any(above):
         return out
     Ee = E[above]
@@ -138,7 +137,7 @@ def born_excitation_forbidden(
         raise ValueError("delta_E_eV must be > 0")
     E = np.asarray(energies_eV, dtype=float)
     out = np.zeros_like(E)
-    above = E > delta_E_eV
+    above = delta_E_eV < E
     if not np.any(above):
         return out
     Ee_au = E[above] / HARTREE_EV
@@ -182,10 +181,7 @@ def gos_moment_table(rho, r, dr, k, q_grid, overlap=None):
     i_sup = int(idx[-1]) + 1
     rs = r[:i_sup]
     w = (rho * dr)[:i_sup]
-    if k == 0:
-        s0 = float(np.sum(w)) if overlap is None else float(overlap)
-    else:
-        s0 = 0.0
+    s0 = (float(np.sum(w)) if overlap is None else float(overlap)) if k == 0 else 0.0
     q_arr = np.asarray(q_grid, dtype=float)
     out = np.empty(len(q_arr))
     for i, q in enumerate(q_arr):

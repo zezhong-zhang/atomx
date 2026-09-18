@@ -8,30 +8,36 @@ Total energy computed as:
     E = Σ_a q_a ε_a^{1e} + (1/2) Σ_{a,b} [q_a*q_b*F^0(a,b) + Σ_k c^k * G^k(a,b)]
 """
 
-import numpy as np
-from scipy import linalg
 from dataclasses import dataclass, field
-from typing import List, Dict, Optional
+from typing import Dict, List, Optional
 
-from atomx.constants import C, C_SQ
-from atomx.numerics.bspline.knots import make_knots
-from atomx.numerics.bspline.integrals import overlap_matrix, nuclear_matrix, _assemble_integral
-from atomx.numerics.bspline.dirac_assembly import (
-    build_dirac_matrices, canonicalize_radial_phase, solve_dirac,
-)
-from atomx.numerics.bspline.basis import prepare_bspline_data
-from atomx.methods.scf_observables import SCFObservablesMixin
-from atomx.numerics.bspline.evaluate import compute_yk, eval_orbital_on_grid
-from atomx.numerics.bspline.slater_yk import (
-    compute_exchange_matrix, compute_slater_fk, compute_slater_gk,
-)
-from atomx.numerics.bspline.convol import (
-    compute_slater_fk_cell, compute_slater_gk_cell,
-    ConvolCache,
-)
+import numpy as np
+
 from atomx.angular.coefficients import (
-    exchange_coefficient, exchange_k_range, direct_coefficient,
+    exchange_k_range,
 )
+from atomx.methods.base import Method
+from atomx.methods.scf_observables import SCFObservablesMixin
+from atomx.numerics.bspline.basis import prepare_bspline_data
+from atomx.numerics.bspline.convol import (
+    ConvolCache,
+    compute_slater_fk_cell,
+    compute_slater_gk_cell,
+)
+from atomx.numerics.bspline.dirac_assembly import (
+    build_dirac_matrices,
+    canonicalize_radial_phase,
+    solve_dirac,
+)
+from atomx.numerics.bspline.evaluate import compute_yk, eval_orbital_on_grid
+from atomx.numerics.bspline.integrals import (
+    _assemble_integral,
+    nuclear_matrix,
+    overlap_matrix,
+)
+from atomx.numerics.bspline.knots import make_knots
+from atomx.numerics.diis import diis_extrapolate
+from atomx.types import Exchange, TheoryLevel
 
 
 @dataclass
@@ -57,17 +63,14 @@ class Subshell:
             self.label = f"{self.n}{l_char}{j2}/2"
 
     @property
-    def l(self):
+    def l(self):  # noqa: E743 — `l` is the orbital angular-momentum quantum
+        # number and part of the public API (`Subshell.l`), as in the FAC/
+        # DBSR_HF sources this module ports.
         return self.kappa if self.kappa > 0 else -self.kappa - 1
 
     @property
     def j2(self):
         return 2 * abs(self.kappa) - 1
-
-
-from atomx.numerics.diis import diis_extrapolate
-from atomx.methods.base import Method
-from atomx.types import Exchange, TheoryLevel
 
 
 def _canonicalized_orbitals_raw(orbitals):
@@ -175,7 +178,7 @@ class SCFResult(SCFObservablesMixin):
     @property
     def waves(self):
         """Build :class:`atomx.results.Waves` container from B-spline coefficients."""
-        from atomx.results import Waves, OrbitalWavefunction
+        from atomx.results import OrbitalWavefunction, Waves
         if not self.orbitals_raw or not self._bsp_data:
             return Waves(grid=np.array([]))
 
@@ -491,6 +494,7 @@ class DFSolver:
         # for the derivation.
         if exchange == "gu":
             import numpy as _np
+
             from atomx.physics.local_exchange import get_hxs
             n_total = float(sum(sh.occupation for sh in subshells))
             ahx = get_hxs(
@@ -607,8 +611,7 @@ class DFSolver:
         """Flatten all orbital P,Q vectors into a single 1D array for DIIS."""
         n_orb = len(orbital_schedule)
         vec = np.zeros(n_orb * 2 * ns_full)
-        kappa_counter = {}
-        for flat_i, (sh, kappa, orb_idx) in enumerate(orbital_schedule):
+        for flat_i, (_sh, kappa, orb_idx) in enumerate(orbital_schedule):
             orb_list = orbitals.get(kappa, [])
             if orb_idx < len(orb_list):
                 P, Q, _ = orb_list[orb_idx]
@@ -619,7 +622,7 @@ class DFSolver:
 
     def _unflatten_orbital_vector(self, vec, orbitals, orbital_schedule, ns_full):
         """Restore orbitals from a flattened DIIS vector."""
-        for flat_i, (sh, kappa, orb_idx) in enumerate(orbital_schedule):
+        for flat_i, (_sh, kappa, orb_idx) in enumerate(orbital_schedule):
             orb_list = orbitals.get(kappa, [])
             if orb_idx < len(orb_list):
                 _, _, occ = orb_list[orb_idx]
@@ -643,7 +646,10 @@ class DFSolver:
             return self._build_direct_potential_yk(orbitals, target_kappa, target_idx)
 
         from atomx.numerics.bspline.convol import (
-            _density_sym, _convol_case1, _convol_case1_mixed, _banded_to_full_add,
+            _banded_to_full_add,
+            _convol_case1,
+            _convol_case1_mixed,
+            _density_sym,
         )
 
         bd = self.bsp_data
@@ -666,13 +672,11 @@ class DFSolver:
 
         # Build flat index map for WW coefficients
         flat_idx = {}
-        idx = 0
         kappa_counter = {}
-        for sh in self.subshells:
+        for idx, sh in enumerate(self.subshells):
             k_idx = kappa_counter.get(sh.kappa, 0)
             kappa_counter[sh.kappa] = k_idx + 1
             flat_idx[(sh.kappa, k_idx)] = idx
-            idx += 1
 
         target_flat = flat_idx.get((target_kappa, target_idx), -1) if target_kappa is not None else -1
         target_q = self.subshells[target_flat].occupation if target_flat >= 0 else 1.0
@@ -723,7 +727,7 @@ class DFSolver:
         n_gauss = gr.shape[1]
 
         rho_total = np.zeros((nv, n_gauss))
-        for kappa, orb_list in orbitals.items():
+        for _kappa, orb_list in orbitals.items():
             for P, Q, occ in orb_list:
                 fP = self._eval_P_on_grid(P)
                 fQ = self._eval_Q_on_grid(Q)
@@ -764,7 +768,7 @@ class DFSolver:
         This gives ~N_target speedup since each source convolution is done once.
         """
         from atomx.angular.coefficients import exchange_lambda
-        from atomx.numerics.bspline.convol import _density_full, _convol_case4
+        from atomx.numerics.bspline.convol import _convol_case4, _density_full
 
         bd = self.bsp_data
         ksp = bd.get("ksp", self.ks)
@@ -930,15 +934,14 @@ class DFSolver:
         from atomx.numerics.bspline.convol import (
             _accumulate_direct_density_batch,
             _accumulate_exchange_density_batch,
-            _convol_case1_t, _convol_case4_t,
             _banded_to_full_add,
+            _convol_case1_t,
+            _convol_case4_t,
         )
 
         bd = self.bsp_data
         ksp = bd.get("ksp", bd["ks"])
         ksq = bd.get("ksq", bd["ks"])
-        nsp = bd.get("nsp", bd["ns"])
-        nsq = bd.get("nsq", bd["ns"])
         ns_full = bd["ns"]
 
         if not hasattr(self, '_convol_cache'):
@@ -1054,8 +1057,6 @@ class DFSolver:
         from atomx.angular.coefficients import exchange_lambda
         tj_i = 2 * abs(kappa_i) - 1
         tj_j = 2 * abs(kappa_j) - 1
-        l_i = kappa_i if kappa_i > 0 else -kappa_i - 1
-        l_j = kappa_j if kappa_j > 0 else -kappa_j - 1
 
         if k % 2 != 0:
             return 0.0
@@ -1127,7 +1128,7 @@ class DFSolver:
         n_gauss = gr.shape[1]
 
         rho_rad = np.zeros((nv, n_gauss))
-        for kappa, orb_list in orbitals.items():
+        for _kappa, orb_list in orbitals.items():
             for P, Q, occ in orb_list:
                 fP = self._eval_P_on_grid(P)
                 fQ = self._eval_Q_on_grid(Q)
@@ -1143,7 +1144,9 @@ class DFSolver:
                     V_nuc_grid[iv, m] = self._nuclear_potential(gr[iv, m])
 
         if self.exchange == "gu":
-            from atomx.numerics.bspline.local_potential import local_central_potential_from_radial_density
+            from atomx.numerics.bspline.local_potential import (
+                local_central_potential_from_radial_density,
+            )
 
             # local_potential spells Gu's model "fac" (FAC-parity
             # potential layer with FAC's ihx/hxs/csi parameters).
@@ -1196,7 +1199,11 @@ class DFSolver:
         the direct potential and exchange, avoiding Y^k/cell mismatch.
         """
         from atomx.angular.coefficients import exchange_lambda
-        from atomx.numerics.bspline.convol import _density_sym, _convol_case1, _banded_to_full_add
+        from atomx.numerics.bspline.convol import (
+            _banded_to_full_add,
+            _convol_case1,
+            _density_sym,
+        )
 
         bd = self.bsp_data
         ns_full = bd["ns"]
@@ -1268,7 +1275,7 @@ class DFSolver:
         ns_e = bsp_data.get("ns", self.ns)  # max(nsp, nsq)
         E_1e = 0.0
         h0_memo = {}  # kappa -> (H0, S0); orbitals sharing kappa reuse the build
-        for P, Q, occ, kappa, label in orb_list:
+        for P, Q, occ, kappa, _label in orb_list:
             if kappa not in h0_memo:
                 h0_memo[kappa] = build_dirac_matrices(
                     ns_e, kappa, self.Z, bsp_data, self._nuclear_potential)
@@ -1288,22 +1295,24 @@ class DFSolver:
         if not hasattr(self, '_convol_cache'):
             self._convol_cache = ConvolCache(bsp_data)
         convol_cache = self._convol_cache
-        _fk = lambda Pa, Qa, Pb, Qb, k: compute_slater_fk_cell(
-            Pa, Qa, Pb, Qb, bsp_data, k, convol_cache)
-        _gk = lambda Pa, Qa, Pb, Qb, k: compute_slater_gk_cell(
-            Pa, Qa, Pb, Qb, bsp_data, k, convol_cache)
+        def _fk(Pa, Qa, Pb, Qb, k):
+            return compute_slater_fk_cell(
+                Pa, Qa, Pb, Qb, bsp_data, k, convol_cache)
+
+        def _gk(Pa, Qa, Pb, Qb, k):
+            return compute_slater_gk_cell(
+                Pa, Qa, Pb, Qb, bsp_data, k, convol_cache)
 
         # Two-electron coefficients use WW function for multi-config average
         E_J = 0.0   # direct Coulomb (F^0 terms)
         E_K = 0.0   # exchange (F^{k>0} and G^k terms)
-        for i, (Pa, Qa, oa, ka, la) in enumerate(orb_list):
+        for i, (Pa, Qa, _oa, ka, _la) in enumerate(orb_list):
             tj_a = 2 * abs(ka) - 1
             l_a = ka if ka > 0 else -ka - 1
-            for j, (Pb, Qb, ob, kb, lb) in enumerate(orb_list):
+            for j, (Pb, Qb, _ob, kb, _lb) in enumerate(orb_list):
                 if j > i:
                     continue
                 tj_b = 2 * abs(kb) - 1
-                l_b = kb if kb > 0 else -kb - 1
 
                 if i == j:
                     # Same shell: WW(i,i)/2 * [F^0 - Σ_{k>0} Λ/(2j*(2j+1)) * F^k]
@@ -1387,10 +1396,8 @@ class DFSolver:
         """
         if damping is None:
             has_f = any(sh.l >= 3 for sh in self.subshells)
-            if has_f:
-                damping = 0.3   # f-electrons need damping to avoid oscillation
-            else:
-                damping = 0.0
+            # f-electrons need damping to avoid oscillation
+            damping = 0.3 if has_f else 0.0
 
         ns = self.ns
 
@@ -1927,8 +1934,8 @@ class DiracFock(Method):
             log=log)
 
         if use_physics_grid:
-            from atomx.numerics.bspline.knots import make_physics_knots
             from atomx.numerics.bspline.basis import prepare_bspline_data
+            from atomx.numerics.bspline.knots import make_physics_knots
             t_phys, ns_phys = make_physics_knots(
                 ks=self.basis_order, Z=Z, nuclear=self.nuclear.value)
             data = prepare_bspline_data(

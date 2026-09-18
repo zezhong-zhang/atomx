@@ -47,7 +47,7 @@ Reference
 
 from __future__ import annotations
 
-from typing import Callable, Optional, Sequence
+from typing import Callable, Optional
 
 import numpy as np
 
@@ -256,7 +256,9 @@ def static_hartree_potential(
             V_total = V_total + V_x
             use_latter_tail = True
             if fac_self_interaction_correction:
-                from atomx.numerics.bspline.local_potential import _fac_csi_screening_correction
+                from atomx.numerics.bspline.local_potential import (
+                    _fac_csi_screening_correction,
+                )
 
                 screening = r_h * (V_H + V_x)
                 corrected = _fac_csi_screening_correction(

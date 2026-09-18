@@ -22,14 +22,16 @@ sys.path.insert(0, str(ROOT / "src"))
 from atomx import Atom  # noqa: E402
 from atomx.constants import HARTREE_EV  # noqa: E402
 from atomx.scattering.electron_ionization import (  # noqa: E402
-    excitation_autoionization_cross_section)
+    excitation_autoionization_cross_section,
+)
 
 
 @pytest.fixture(scope="module")
 def he_like():
     g = Atom(Z=26, config="1s2", charge=24, numerics="bspline", breit=False, qed=False)
     e = Atom(Z=26, config="2s1 2p1", charge=24, numerics="bspline", breit=False, qed=False)
-    g.solve(); e.solve()
+    g.solve()
+    e.solve()
     return g, e
 
 
@@ -67,7 +69,9 @@ def test_resonant_excitation_rate_limits():
     """RE rate: detailed-balance composer over capture x re-Auger."""
     from atomx.scattering.autoionization.auger import AutoionizationState
     from atomx.scattering.dielectronic_recombination.solver import (
-        dr_rate_coefficient, resonant_excitation_rate)
+        dr_rate_coefficient,
+        resonant_excitation_rate,
+    )
 
     d = AutoionizationState(label="r1", E_resonance_eV=300.0, J=1.5,
                             gamma_auger_per_s=1e14,
@@ -97,7 +101,8 @@ def test_three_open_shell_solve_physical():
     from atomx import Atom
     g = Atom(Z=26, config="1s2 2s1", charge=23, numerics="bspline", breit=False, qed=False)
     e = Atom(Z=26, config="1s1 2s1 2p1", charge=23, numerics="bspline", breit=False, qed=False)
-    g.solve(); e.solve()
+    g.solve()
+    e.solve()
     dE = (e._result.total_energy - g._result.total_energy) * HARTREE_EV
     # K-shell excitation of Li-like Fe: ~6.6 keV, autoionizing
     assert 6000.0 < dE < 7500.0

@@ -41,7 +41,6 @@ import numpy as np
 
 from atomx.constants import ALPHA, BOHR_RADIUS_M
 
-
 # σ_K *prefactor* for the Stobbe formula (without the exp(−4) Coulomb
 # enhancement that emerges from the formula itself at threshold):
 #     A = σ_K^thr / e⁻⁴   →  6.3043 × 10⁻¹⁸ × e⁴ = 3.4422 × 10⁻¹⁶ cm²

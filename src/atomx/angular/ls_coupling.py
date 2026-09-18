@@ -12,10 +12,7 @@ when spin-orbit coupling is small compared to Coulomb repulsion
 
 from __future__ import annotations
 
-import math
 from typing import List, Tuple
-
-import numpy as np
 
 
 def term_symbol(L: int, S2: int, J2: int) -> str:
@@ -36,7 +33,7 @@ def term_symbol(L: int, S2: int, J2: int) -> str:
         Term symbol like "^3P_2" or "^1S_0".
     """
     L_symbols = "SPDFGHIKLMNO"
-    L_char = L_symbols[L] if L < len(L_symbols) else f"[{L}]"
+    L_char = L_symbols[L] if len(L_symbols) > L else f"[{L}]"
     multiplicity = S2 + 1
     J_str = f"{J2}/2" if J2 % 2 != 0 else str(J2 // 2)
     return f"^{multiplicity}{L_char}_{J_str}"
@@ -103,7 +100,6 @@ def allowed_terms(l: int, n_electrons: int) -> List[Tuple[int, int]]:
 
     from itertools import combinations
 
-    term_set = set()
     ML_MS_counts = {}
 
     for combo in combinations(range(len(states)), n_electrons):

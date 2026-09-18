@@ -31,9 +31,9 @@ def qed_orbital_shifts(result, *, Z=None, se_method: str = "auto",
     Positive shift = orbital pushed up (binding reduced), the usual sign
     for s-state self-energy.  Keys match ``result.orbital_energies``.
     """
+    from atomx.corrections import qedmod
     from atomx.corrections.adapters import _flatten_scf_orbitals
     from atomx.corrections.qed import resolve_se_method, uehling_potential
-    from atomx.corrections import qedmod
     from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 
     bsp = getattr(result, "_bsp_data", None) or getattr(
@@ -48,7 +48,7 @@ def qed_orbital_shifts(result, *, Z=None, se_method: str = "auto",
     method = resolve_se_method(se_method, Z)
     backend = qedmod.get_backend(method)
     se = backend.compute(orbitals, bsp, Z)
-    for (P, Q, occ, kappa, label) in orbitals:
+    for (_P, _Q, occ, _kappa, label) in orbitals:
         if occ > 0 and label in se.per_orbital:
             shifts[label] = se.per_orbital[label] / occ
 
@@ -62,7 +62,7 @@ def qed_orbital_shifts(result, *, Z=None, se_method: str = "auto",
         bsp_p = bsp["bsp_p"]
         bsp_q = bsp.get("bsp_q", bsp_p)
         V_vp = uehling_potential(gr, Z)
-        for (P, Q, occ, kappa, label) in orbitals:
+        for (P, Q, _occ, _kappa, label) in orbitals:
             fP = eval_orbital_on_grid(P, bsp_p, nv, ksp, nsp)
             fQ = eval_orbital_on_grid(Q, bsp_q, nv, ksq, nsq)
             rho = fP * fP + fQ * fQ

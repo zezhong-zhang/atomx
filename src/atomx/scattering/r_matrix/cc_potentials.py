@@ -69,7 +69,6 @@ def cumulative_y_k(
     """
     if k < 0:
         raise ValueError(f"k must be >= 0, got {k}")
-    n = r_q.shape[0]
     if w_q.shape != r_q.shape or f_q.shape != r_q.shape:
         raise ValueError("r_q, w_q, f_q must have matching shape")
 
@@ -82,8 +81,6 @@ def cumulative_y_k(
     f_inv = f_q * inv_rk1
 
     # Total integral over [r_q[0], r_q[-1]] via the Gauss weights.
-    total_lower = float(np.dot(w_q, f_rk))
-    total_upper = float(np.dot(w_q, f_inv))
 
     # Cumulative sums (running integrals from each node).
     cum_lower = np.cumsum(w_q * f_rk)

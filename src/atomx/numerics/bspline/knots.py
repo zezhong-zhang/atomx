@@ -76,7 +76,8 @@ def make_physics_knots(ks: int, Z: int, ns: int = 113,
     # Select defaults based on nuclear model
     # DBSR_HF mkgrid_01 uses the same defaults for all nuclear models:
     #   hi=0.25, he=0.25, hmax=1.0
-    if hi is None: hi = 0.25
+    if hi is None:
+        hi = 0.25
     if he is None:
         # Light atoms span a larger relative range between the nuclear
         # scale (1/Z) and the diffuse valence tail; the default
@@ -87,7 +88,8 @@ def make_physics_knots(ks: int, Z: int, ns: int = 113,
         # the spline count; heavier atoms keep the DBSR_HF-validated
         # grid unchanged.
         he = 0.0625 if Z <= 2 else 0.25
-    if hmax is None: hmax = 1.0
+    if hmax is None:
+        hmax = 1.0
 
     # Initial step depends on nuclear model (DBSR_HF mkgrid_01)
     if nuclear == "fermi":

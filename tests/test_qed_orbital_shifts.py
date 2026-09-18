@@ -13,7 +13,9 @@ sys.path.insert(0, str(ROOT / "src"))
 from atomx import Atom  # noqa: E402
 from atomx.constants import HARTREE_EV  # noqa: E402
 from atomx.corrections.orbital_shifts import (  # noqa: E402
-    qed_orbital_shifts, shifted_orbital_energies)
+    qed_orbital_shifts,
+    shifted_orbital_energies,
+)
 
 
 @pytest.fixture(scope="module")

@@ -959,10 +959,10 @@ class ElectronicStructurePayload:
     def _has_occupations(self) -> bool:
         if self.orbitals is not None:
             return True
-        for sh in self.subshells:
-            if getattr(sh, "occupation", None) is not None:
-                return True
-        return False
+        return any(
+            getattr(sh, "occupation", None) is not None
+            for sh in self.subshells
+        )
 
 
 # ---------------------------------------------------------------------------

@@ -12,7 +12,8 @@ Key selection rules:
 """
 
 import numpy as np
-from atomx.angular.wigner import wigner_3j, wigner_6j
+
+from atomx.angular.wigner import wigner_3j
 
 
 def _kappa_to_lj(kappa):

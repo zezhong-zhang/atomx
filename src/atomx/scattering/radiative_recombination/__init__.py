@@ -67,10 +67,12 @@ from atomx.numerics.bspline.continuum import (
     photoionization_cross_section,
     solve_continuum,
 )
-from atomx.properties.transitions.angular import allowed_final_kappas, line_strength_factor
+from atomx.properties.transitions.angular import (
+    allowed_final_kappas,
+    line_strength_factor,
+)
 from atomx.properties.transitions.multipole import radial_eL, radial_mL
 from atomx.scattering.models import ContinuumModel
-
 
 BOHR_CM2 = (BOHR_RADIUS_M * 100.0) ** 2  # a₀² in cm²
 AU_VELOCITY_CM_S = ALPHA * 299_792_458.0 * 100.0
@@ -566,7 +568,7 @@ def rr_cross_section_rydberg(
     -------
     RRResult
     """
-    from atomx.methods.mbpt import build_virtual_basis, _l_from_kappa
+    from atomx.methods.mbpt import _l_from_kappa, build_virtual_basis
     from atomx.numerics.bspline.convol import ConvolCache
 
     energies = np.asarray(energies_eV, dtype=float)
@@ -585,7 +587,7 @@ def rr_cross_section_rydberg(
     for k_abs in range(1, kappa_max + 2):
         kappa_list.append(-k_abs)
         kappa_list.append(+k_abs)
-    kappa_list = [k for k in kappa_list if 0 < abs(k) and _l_from_kappa(k) <= kappa_max]
+    kappa_list = [k for k in kappa_list if abs(k) > 0 and _l_from_kappa(k) <= kappa_max]
 
     sigma_total = np.zeros_like(energies)
     by_state: Dict[str, np.ndarray] = {}

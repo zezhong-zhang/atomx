@@ -9,7 +9,6 @@ from atomx.properties.transitions.multipole import radial_eL
 from atomx.properties.transitions.rates import einstein_A_eL
 from atomx.scattering.dielectronic_recombination.enumerate import DRResonanceSpec
 
-
 _L_SYMBOLS = "spdfghiklmno"
 
 

@@ -27,14 +27,13 @@ import sys
 from dataclasses import dataclass, field
 from typing import List, Optional, Sequence
 
-from atomx.constants import HARTREE_EV, HARTREE_CM1
+from atomx.constants import HARTREE_CM1, HARTREE_EV
 from atomx.methods.base import Method
-from atomx.methods.hydrogenic import HydrogenicSchrodinger, HydrogenicDirac
-from atomx.methods.hartree_fock import HartreeFock
-from atomx.methods.relativistic_hf import BreitPauli
 from atomx.methods.dirac_fock import DiracFock
+from atomx.methods.hartree_fock import HartreeFock
+from atomx.methods.hydrogenic import HydrogenicDirac, HydrogenicSchrodinger
+from atomx.methods.relativistic_hf import BreitPauli
 from atomx.types import Exchange, TheoryLevel
-
 
 # ---------------------------------------------------------------------------
 # Outcome objects

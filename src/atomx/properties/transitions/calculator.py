@@ -9,21 +9,11 @@ Usage:
     results = he.transitions(multipoles=['E1', 'M1'])
 """
 
-import numpy as np
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import Optional
 
-from atomx.constants import (
-    ALPHA, HARTREE_EV, HARTREE_CM1, BOHR_RADIUS_M, HARTREE_INV_ANGSTROM,
-)
-from atomx.properties.transitions.multipole import radial_eL, radial_eL_velocity, radial_mL
-from atomx.properties.transitions.angular import (
-    angular_eL, angular_mL, selection_rules, allowed_final_kappas,
-    line_strength_factor, _kappa_to_lj,
-)
-from atomx.properties.transitions.rates import (
-    einstein_A_eL, einstein_A_mL, oscillator_strength, lifetime,
-)
+import numpy as np
+
 from atomx.angular.csf import (
     csf_has_explicit_j,
     csf_parity,
@@ -31,11 +21,32 @@ from atomx.angular.csf import (
     multipole_allows_state_transition,
     one_body_csf_coupling,
 )
+from atomx.constants import (
+    HARTREE_CM1,
+    HARTREE_EV,
+    HARTREE_INV_ANGSTROM,
+)
 from atomx.corrections.adapters import (
-    _has_bspline_dirac_data,
-    _has_radial_grid_data,
     _flatten_grid_orbitals,
     _grid_workspace_of,
+    _has_bspline_dirac_data,
+    _has_radial_grid_data,
+)
+from atomx.properties.transitions.angular import (
+    _kappa_to_lj,
+    angular_eL,
+    angular_mL,
+    selection_rules,
+)
+from atomx.properties.transitions.multipole import (
+    radial_eL,
+    radial_eL_velocity,
+    radial_mL,
+)
+from atomx.properties.transitions.rates import (
+    einstein_A_eL,
+    einstein_A_mL,
+    oscillator_strength,
 )
 
 
@@ -261,7 +272,10 @@ class TransitionCalculator:
             return None
 
         from atomx.properties.transitions.ci_lines import (
-            CISizeError, ci_line_strengths, ground_config_of_pair)
+            CISizeError,
+            ci_line_strengths,
+            ground_config_of_pair,
+        )
 
         try:
             ground_cfg = ground_config_of_pair(cfgs[0], cfgs[1])
@@ -315,8 +329,7 @@ class TransitionCalculator:
         if ground_cfg in cache:
             return cache[ground_cfg]
         from atomx.atom import Atom
-        from atomx.scattering.autoionization.mscheme_ci import (
-            _parse_config_tokens)
+        from atomx.scattering.autoionization.mscheme_ci import _parse_config_tokens
         res = None
         try:
             n_el = sum(_parse_config_tokens(ground_cfg).values())
@@ -364,7 +377,7 @@ class TransitionCalculator:
             workspace = _grid_workspace_of(result)
             orbitals = []
             for (P, Q, occ, kappa, label), sh in zip(
-                    _flatten_grid_orbitals(result), result.subshells):
+                    _flatten_grid_orbitals(result), result.subshells, strict=False):
                 E = result.orbital_energies.get(label, 0.0)
                 orbitals.append((label, sh.n, kappa, P, Q, E, occ))
             return orbitals, workspace
@@ -392,8 +405,8 @@ class TransitionCalculator:
         orbitals, workspace = self._single_config_payload()
 
         # Compute transitions between all pairs
-        for i, (lab_i, n_i, k_i, P_i, Q_i, E_i, occ_i) in enumerate(orbitals):
-            for j, (lab_f, n_f, k_f, P_f, Q_f, E_f, occ_f) in enumerate(orbitals):
+        for i, (lab_i, _n_i, k_i, P_i, Q_i, E_i, _occ_i) in enumerate(orbitals):
+            for j, (lab_f, _n_f, k_f, P_f, Q_f, E_f, _occ_f) in enumerate(orbitals):
                 if i == j:
                     continue  # no self-transition
 
@@ -579,7 +592,8 @@ class TransitionCalculator:
                     # denominator is the upper-state 2J+1.
                     tj_upper = tj_F
 
-                    def _A_for(g):
+                    def _A_for(g, total_me=total_me, mp_type=mp_type,
+                               omega=omega, L=L, tj_upper=tj_upper):
                         me = total_me.get(g, 0.0)
                         S_g = me ** 2
                         if S_g < 1e-30:

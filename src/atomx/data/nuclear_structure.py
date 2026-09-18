@@ -22,7 +22,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-
 CITATION = (
     "CODATA 2022; Friar & Sick, PRC 88, 034003 (2013); "
     "Carlson, Nazaryan, Griffioen, PRL 107, 020401 (2011)."

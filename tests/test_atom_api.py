@@ -1,7 +1,7 @@
 """Tests for the high-level Atom API."""
 
 import pytest
-import numpy as np
+
 from atomx import Atom
 
 

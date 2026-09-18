@@ -28,7 +28,6 @@ from atomx.methods.dirac_fock import DFSolver
 from atomx.numerics.bspline.basis import prepare_bspline_data
 from atomx.numerics.bspline.knots import make_physics_knots
 
-
 SLATER_ALPHA = 1.5   # matches shooting's DHFS convention
 
 

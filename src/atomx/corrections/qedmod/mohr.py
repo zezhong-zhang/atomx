@@ -19,7 +19,6 @@ from atomx.constants import ALPHA
 from atomx.corrections.qedmod.base import SEBackend, SEResult, register_backend
 from atomx.data.mohr_se import TABLE as _SE_TABLE
 
-
 # Numerical safety floor for comparing the hydrogenic ⟨-Z/r⟩ = -Z²/n² to
 # the SCF value before taking their ratio.  The hydrogenic denominator is
 # always non-zero for Z ≥ 1 and n ≥ 1, so this only guards against a
@@ -52,9 +51,9 @@ def _interpolate_se_f(Z: float, n: int, kappa: int) -> float:
         z_vals = sorted(table.keys())
         f_vals = [table[z] for z in z_vals]
 
-        if Z <= z_vals[0]:
+        if z_vals[0] >= Z:
             return f_vals[0]
-        if Z >= z_vals[-1]:
+        if z_vals[-1] <= Z:
             return f_vals[-1]
 
         for i in range(len(z_vals) - 1):

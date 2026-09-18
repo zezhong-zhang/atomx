@@ -27,7 +27,6 @@ from atomx.scattering.autoionization.molecular import (
     molecular_auger_transition_amplitude,
 )
 
-
 _NON_REAL_THRESHOLD_VALUES = (
     True,
     "0.5",

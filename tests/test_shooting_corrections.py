@@ -91,7 +91,7 @@ def test_stack_apply_on_shooting_is_skip_free(solved):
     applied = stack.apply(shooting.result)
     assert {"self_energy[mohr]", "uehling_vp", "breit"} <= set(applied)
     assert "_skipped" not in applied
-    for key, cr in applied.items():
+    for _key, cr in applied.items():
         assert cr.energy_shift == cr.energy_shift  # not NaN
 
 
@@ -158,8 +158,8 @@ def test_correction_signs(solved, name):
 
 def test_schrodinger_shooting_still_skips():
     """Dirac-only corrections must not run on Schrödinger orbitals."""
-    from atomx.numerics.shooting.solver import ShootingSolver
     from atomx.methods.dirac_fock import Subshell
+    from atomx.numerics.shooting.solver import ShootingSolver
 
     res = ShootingSolver(
         Z=2, subshells=[Subshell(n=1, kappa=-1, occupation=2)],

@@ -19,8 +19,8 @@ from atomx.providers.contract import (  # noqa: E402
     ElectronicStructurePayload,
     OrbitalCoefficients,
     OverlapBlock,
-    ProviderContractError,
     Provenance,
+    ProviderContractError,
 )
 from atomx.providers.pyscf_adapter import (  # noqa: E402
     PySCFProvider,
@@ -120,7 +120,7 @@ def test_h2_with_eri_exposes_two_electron_integrals():
 def test_h2o_roundtrip_validates():
     mol, mf = _h2o()
     payload = from_scf(mf)
-    assert payload.Z == int(sum(mol.atom_charges()))  # 10
+    assert int(sum(mol.atom_charges())) == payload.Z  # 10
     assert payload.validate() is not None
     assert payload.electron_count() == pytest.approx(mol.nelectron, abs=1e-7)
     assert payload.orthonormality_residual() == pytest.approx(0.0, abs=1e-7)
@@ -132,7 +132,7 @@ def test_unsolved_meanfield_rejected():
 
     mol = gto.M(atom="H 0 0 0; H 0 0 0.74", basis="sto-3g", verbose=0)
     mf = scf.RHF(mol)  # not kernel()-ed
-    with pytest.raises(Exception):
+    with pytest.raises(ProviderContractError, match="not solved yet"):
         PySCFProvider(mf)
 
 
@@ -289,7 +289,7 @@ def test_uhf_rejected_fail_closed():
     )
     mf = scf.UHF(mol)
     mf.kernel()
-    with pytest.raises(Exception):
+    with pytest.raises(ProviderContractError, match="restricted references"):
         PySCFProvider(mf)
 
 

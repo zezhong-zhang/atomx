@@ -28,9 +28,9 @@ angular coefficients in :mod:`atomx.corrections.breit`.
 """
 
 from atomx.physics.base import Equation  # noqa: F401
-from atomx.physics.schrodinger import Schrodinger  # noqa: F401
 from atomx.physics.dirac import (  # noqa: F401
     Dirac,
     hydrogenic_dirac_energy,
     list_hydrogenic_states,
 )
+from atomx.physics.schrodinger import Schrodinger  # noqa: F401

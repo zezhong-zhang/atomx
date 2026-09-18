@@ -28,10 +28,10 @@ from typing import Union
 import numpy as np
 
 from atomx.numerics.local_dfs.hxs_tables import (
-    NHXN,
-    SLATER_ALPHA_LDA,
     _HX0,
     _HX1,
+    NHXN,
+    SLATER_ALPHA_LDA,
 )
 
 ArrayLike = Union[np.ndarray, float]

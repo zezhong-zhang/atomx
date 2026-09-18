@@ -19,8 +19,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-import numpy as np
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -140,13 +140,13 @@ def panel_uta(ax, rng):
     n_lines = 300
     E_lines = rng.normal(62.0, 1.6, n_lines)               # eV, e.g. W 4d-4f band
     strengths = rng.lognormal(0.0, 1.0, n_lines)
-    lines = list(zip(E_lines, strengths))
+    lines = list(zip(E_lines, strengths, strict=False))
 
     lam = HC_EV_NM / E_lines
     lo, hi = 17.0, 23.0
 
     resolved = Spectrum.linear(lo, hi, 8001)
-    for lam0, s in zip(lam, strengths):
+    for lam0, s in zip(lam, strengths, strict=False):
         resolved.add_line(lam0, s * HC_EV_NM / lam0, sigma_nm=0.004)
 
     uta = Spectrum.linear(lo, hi, 8001)

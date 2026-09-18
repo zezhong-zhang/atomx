@@ -95,10 +95,10 @@ def bound_optical_strength(
 
     Returns ``f_a`` in atomic units (dimensionless).
     """
-    from atomx.scattering.electron_ionization import (
-        _bound_optical_strength, _build_static_hartree,
-    )
     from atomx.numerics.bspline.convol import ConvolCache
+    from atomx.scattering.electron_ionization import (
+        _bound_optical_strength,
+    )
     sh = next((s for s in scf_result.subshells if s.label == orbital_label),
                 None)
     if sh is None:

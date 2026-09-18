@@ -17,13 +17,13 @@ from __future__ import annotations
 from typing import Any, Optional
 
 from atomx import __version__ as _atomx_version
-from atomx.scattering.protocols import AtomicResultLike
 from atomx.providers.contract import (
     Capability,
     ElectronicStructurePayload,
     Provenance,
     SpinBlock,
 )
+from atomx.scattering.protocols import AtomicResultLike
 
 __all__ = ["NativeProvider", "from_atomic_result"]
 

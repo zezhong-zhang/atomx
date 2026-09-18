@@ -78,7 +78,6 @@ from __future__ import annotations
 # code that imports ``atomx.properties.hyperfine.qed_corrections.PROTON_ZEMACH_RADIUS_FM``.
 from atomx.data.nuclear_structure import TABLE as _NUC
 
-
 PROTON_ZEMACH_RADIUS_FM = _NUC["h1s"].zemach_radius_fm
 DEUTERON_ZEMACH_RADIUS_FM = _NUC["d1s"].zemach_radius_fm
 HELIUM3_ZEMACH_RADIUS_FM = _NUC["he3_1s"].zemach_radius_fm

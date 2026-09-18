@@ -11,6 +11,7 @@ Units:
 """
 
 import numpy as np
+
 from atomx.constants import ALPHA, AU_RATE_PER_S
 
 

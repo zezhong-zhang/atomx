@@ -47,7 +47,6 @@ import numpy as np
 
 from atomx.numerics.bspline.evaluate import eval_P, eval_Q
 
-
 G_F_AU = 2.222516e-14  # Fermi constant in atomic units
 # Q_W(p) ≈ 0.0713; Q_W(n) ≈ -0.9890 (Standard Model)
 Q_W_PROTON = 0.0713

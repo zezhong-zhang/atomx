@@ -4,9 +4,16 @@ Drives the Au M-shell CRM through the in-scope workshop T_e/n_e grid and
 compares the resulting mean charge ⟨Z⟩ to the workshop median table
 transcribed in ``tests/data/nlte9_au/mean_charge.csv``.
 
-The ±20 % band is the conservative cross-code envelope for the Au panel
-(workshop participants generally fall in a ±10–15 % band; we pin ±20 %
-to leave room for the deterministic fixture used by ``bench_fac_crm_Au``).
+Honest status (2026-09-17 validation-integrity pass)
+---------------------------------------------------
+``bench_fac_crm_Au.mean_charge`` derives from ``charge_fractions``, a
+hand-tuned Gaussian "smooth fractional abundance model" whose ``center`` is
+fixed to the drive band (``center = 50 + 7·(Te-0.5)/4.5 - 0.18·log10(ne/1e20)``),
+so ⟨Z⟩ within ±20 % of NLTE-9 validates the tuning, not a real atomx Au
+ionization balance.  Measured model/reference ratios at the four canonical
+points: 1.019 / 0.966 / 0.923 / 0.851 — all pass by construction.  Both the
+parametrised gate and the canonical-points gate are therefore skipped with
+that reason; a real atomx Au coronal/CR balance is required to unskip them.
 
 The atomx fixture is explicitly an Au50+...Au57+ M-shell panel for the
 ICF hohlraum drive band.  Workshop rows below 1 keV require lower charge
@@ -24,11 +31,23 @@ import pytest
 
 from benchmarks.bench_fac_crm_Au import mean_charge
 
-
 NLTE9_AU_BAND = 0.20  # ±20 % cross-code spread, per workshop summary.
 NLTE9_AU_MIN_TE_KEV = 1.0
 DATA_DIR = Path(__file__).resolve().parent / "data" / "nlte9_au"
 DATA_FILE = DATA_DIR / "mean_charge.csv"
+
+# Shared by every calibrated assertion in this module: the ±20 % band is
+# checked against a hand-tuned Gaussian, so passing it proves nothing about
+# atomx physics.
+_CALIBRATED_REASON = (
+    "mean_charge derives from charge_fractions, a hand-tuned Gaussian "
+    "'smooth fractional abundance model' (its own docstring) whose center is "
+    "calibrated to the drive band — so ⟨Z⟩ within ±20% of NLTE-9 validates the "
+    "tuning, not a real atomx CRM ionization balance. Measured model/reference "
+    "ratios at the four canonical points: 1.019 / 0.966 / 0.923 / 0.851 (all "
+    "inside the band by construction). Needs a real atomx Au coronal/CR "
+    "balance. Review doc: validation-integrity."
+)
 
 
 @dataclass(frozen=True)
@@ -84,20 +103,14 @@ def test_nlte9_reference_fixture_is_well_formed():
     assert all("low-Te edge" in row.notes for row in OUT_OF_SCOPE_ROWS)
 
 
-@pytest.mark.skip(
-    reason="mean_charge derives from charge_fractions, a hand-tuned Gaussian "
-    "'smooth fractional abundance model' (its own docstring) whose center is "
-    "calibrated to the drive band — so ⟨Z⟩ within ±20% of NLTE-9 validates the "
-    "tuning, not a real atomx CRM ionization balance. Needs a real atomx Au "
-    "coronal/CR balance. Review doc: validation-integrity."
-)
+@pytest.mark.skip(reason=_CALIBRATED_REASON)
 @pytest.mark.parametrize(
     "row",
     IN_SCOPE_ROWS,
     ids=[f"Te{row.Te_keV}keV_ne{row.ne_cm3:.0e}" for row in IN_SCOPE_ROWS],
 )
 def test_au_crm_mean_charge_vs_nlte9(row: NLTE9Row):
-    """In-scope Au CRM ⟨Z⟩ must lie within ±20 % of NLTE-9."""
+    """In-scope Au CRM ⟨Z⟩ must lie within ±20 % of NLTE-9 (calibrated)."""
 
     model = mean_charge(row.Te_keV, row.ne_cm3)
     ratio = model / row.mean_charge
@@ -106,8 +119,13 @@ def test_au_crm_mean_charge_vs_nlte9(row: NLTE9Row):
     assert lower <= ratio <= upper
 
 
+@pytest.mark.skip(reason=_CALIBRATED_REASON)
 def test_au_crm_mean_charge_canonical_points_pass():
-    """All four canonical PR-body points must lie inside ±20 %."""
+    """All four canonical PR-body points must lie inside ±20 % (calibrated).
+
+    Previously asserted without a skip — the same calibration as the test
+    above, so it is skipped here too.
+    """
 
     failures: list[str] = []
     for row in REFERENCE_ROWS:

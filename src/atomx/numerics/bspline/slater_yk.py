@@ -16,13 +16,19 @@ despite containing zero Kohn-Sham content; that import path has been
 removed.
 """
 
-import numpy as np
 import numba as nb
+import numpy as np
 
 from atomx.numerics.bspline.evaluate import (
-    compute_yk, eval_orbital_on_grid, eval_P as _eval_P, eval_Q as _eval_Q,
+    compute_yk,
+    eval_orbital_on_grid,
 )
-
+from atomx.numerics.bspline.evaluate import (
+    eval_P as _eval_P,
+)
+from atomx.numerics.bspline.evaluate import (
+    eval_Q as _eval_Q,
+)
 
 # ---------------------------------------------------------------------------
 # Exchange matrix: FULL Numba kernel (the critical hot path)

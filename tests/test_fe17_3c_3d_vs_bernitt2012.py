@@ -157,10 +157,10 @@ def test_fe17_3c_3d_f_ratio_in_bernitt_2012_2sigma_band():
 
 def test_fe17_3c_3d_band_definition_matches_redispatch():
     """The 2σ band must match Pojo's HYP-175 re-dispatch (3.7 ± 0.4)."""
-    assert BERNITT_2012_F_RATIO_CENTER == pytest.approx(3.7)
-    assert BERNITT_2012_F_RATIO_2SIGMA == pytest.approx(0.4)
-    assert BERNITT_2012_F_RATIO_LOW == pytest.approx(3.3)
-    assert BERNITT_2012_F_RATIO_HIGH == pytest.approx(4.1)
+    assert pytest.approx(3.7) == BERNITT_2012_F_RATIO_CENTER
+    assert pytest.approx(0.4) == BERNITT_2012_F_RATIO_2SIGMA
+    assert pytest.approx(3.3) == BERNITT_2012_F_RATIO_LOW
+    assert pytest.approx(4.1) == BERNITT_2012_F_RATIO_HIGH
 
 
 @pytest.mark.parametrize("radial_optimization", ["fac_frozen", "fac_frozen_local"])

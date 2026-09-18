@@ -11,7 +11,6 @@ from atomx.properties.transitions.two_photon import (
     two_photon_spectrum,
 )
 
-
 # Drake 1986 / FAC TwoPhotonRate(z, 0) reference values, computed from
 # the exact closed-form fit so AtomX should match these to round-off.
 _H_LIKE_REF = {

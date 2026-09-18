@@ -85,7 +85,8 @@ def mbpt2_orbital_energy_shift(
     from atomx.angular.coefficients import exchange_lambda
     from atomx.methods.mbpt import build_virtual_basis
     from atomx.numerics.bspline.convol import (
-        ConvolCache, compute_slater_rk_cell,
+        ConvolCache,
+        compute_slater_rk_cell,
     )
 
     sh_a = next((s for s in scf_result.subshells if s.label == orbital_label),

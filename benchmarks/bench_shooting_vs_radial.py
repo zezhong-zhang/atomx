@@ -5,7 +5,7 @@ For each Z in a chosen panel:
   1. parse the Z{XXX}.in DHFS input file (atomic weight, shell list,
      alpha_x, RN, n_grid) — the single source of truth for the numerical
      setup.
-  2. run ``/Users/zhangzz/code/ASAP/radial/DHFS/DHFS`` on that input, parse
+  2. run the Fortran ``radial/DHFS`` program on that input, parse
      ``dhfs.dat`` for its higher-precision total-binding energy.
   3. run atomx's ``ShootingSolver`` **with the same numerical setup**
      (aw, alpha_x, r_max, n_grid, subshells) — pure apples-to-apples.
@@ -13,6 +13,7 @@ For each Z in a chosen panel:
 """
 
 import argparse
+import os
 import re
 import shutil
 import subprocess
@@ -26,10 +27,13 @@ from typing import Optional
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from atomx.numerics.shooting.solver import ShootingSolver  # noqa: E402
 from atomx.methods.dirac_fock import Subshell  # noqa: E402
+from atomx.numerics.shooting.solver import ShootingSolver  # noqa: E402
 
-RADIAL_DIR = Path("/Users/zhangzz/code/ASAP/radial/DHFS")
+# Reference code location comes from the environment (no machine-specific
+# default): RADIAL_DHFS_DIR must contain the DHFS executable and the Z{NNN}.in
+# inputs.
+RADIAL_DIR = Path(os.environ.get("RADIAL_DHFS_DIR", ""))
 DHFS_BIN = RADIAL_DIR / "DHFS"
 
 DEFAULT_PANEL = [2, 6, 10, 18, 26, 36, 54, 74, 82, 92]
@@ -162,6 +166,12 @@ def main():
     p.add_argument("--nuclear", choices=["point", "fermi", "both"], default="both",
                    help="Nuclear model: point (aw=0), fermi (default from .in), or both.")
     args = p.parse_args()
+
+    if not DHFS_BIN.is_file():
+        p.error(
+            "reference DHFS binary not found. Set RADIAL_DHFS_DIR to the "
+            "directory containing the DHFS executable and the Z{NNN}.in "
+            f"inputs (looked in {RADIAL_DIR or '<unset>'}).")
 
     models = ["point", "fermi"] if args.nuclear == "both" else [args.nuclear]
 

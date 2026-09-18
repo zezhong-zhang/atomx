@@ -46,6 +46,7 @@ from atomx.constants import AU_RATE_PER_S, HARTREE_EV
 from atomx.numerics.bspline.evaluate import eval_P, eval_Q
 from atomx.numerics.quadrature import grid_slater_rk, make_fine_grid, p_rel
 from atomx.scattering.distorted_wave.solver import (
+    _allowed_k,
     _cg2,
     _ck_m,
     _continuum_on_grid,
@@ -53,7 +54,6 @@ from atomx.scattering.distorted_wave.solver import (
     _l_of,
     _shooting_points,
     _tj_of,
-    _allowed_k,
 )
 
 _L_SYMBOLS = "spdfghiklmno"

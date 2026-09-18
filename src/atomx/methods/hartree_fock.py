@@ -9,7 +9,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from atomx.methods.base import Method
-from atomx.types import CouplingScheme, NuclearModel, TheoryLevel
+from atomx.types import CouplingScheme, TheoryLevel
 
 
 @dataclass

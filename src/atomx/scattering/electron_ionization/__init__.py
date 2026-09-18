@@ -35,9 +35,8 @@ from typing import Any, Dict, Optional
 
 import numpy as np
 
-from atomx.constants import HARTREE_EV, BOHR_RADIUS_M, C_SQ
+from atomx.constants import BOHR_RADIUS_M, C_SQ, HARTREE_EV
 from atomx.scattering._jit_kernels import eii_dw_inner_sum, trapezoidal_integrate
-
 
 # π·a₀² in cm² (atomic-physics cross-section unit)
 PI_A0_SQ_CM2 = np.pi * (BOHR_RADIUS_M * 100.0) ** 2  # ≈ 8.797e-17 cm²
@@ -343,6 +342,7 @@ def eii_cross_section(
 def _orbital_rms_radius(P, Q, bsp_data) -> float:
     """⟨r²⟩^{1/2} of a Dirac orbital on the B-spline grid."""
     import numpy as _np
+
     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
     gr = bsp_data["gr"]
     grw = bsp_data["grw"]
@@ -370,8 +370,10 @@ def _bound_optical_strength(P_a, Q_a, kappa_a, eps_a, scf_result,
     The result is in atomic units (dimensionless).
     """
     import numpy as _np
+
     from atomx.numerics.bspline.dirac_assembly import (
-        build_dirac_matrices, solve_dirac,
+        build_dirac_matrices,
+        solve_dirac,
     )
     from atomx.properties.transitions.angular import angular_eL, selection_rules
     from atomx.properties.transitions.multipole import radial_eL
@@ -414,7 +416,8 @@ def _bound_optical_strength(P_a, Q_a, kappa_a, eps_a, scf_result,
         if abs(ang) < 1e-15:
             continue
         H, S = build_dirac_matrices(ns_full, kappa_f, Z, bsp_data)
-        n_pp = V_PP.shape[0]; n_qq = V_QQ.shape[0]
+        n_pp = V_PP.shape[0]
+        n_qq = V_QQ.shape[0]
         H[:n_pp, :n_pp] += V_PP
         H[ns_full:ns_full + n_qq, ns_full:ns_full + n_qq] += V_QQ
         res_e = solve_dirac(H, S, ns_full, kappa_f, nsp=nsp, nsq=nsq)
@@ -431,7 +434,8 @@ def _bound_optical_strength(P_a, Q_a, kappa_a, eps_a, scf_result,
                 continue
 
             vec = res_e.coefficients[:, i]
-            P_f = _np.zeros(ns_full); Q_f = _np.zeros(ns_full)
+            P_f = _np.zeros(ns_full)
+            Q_f = _np.zeros(ns_full)
             P_f[:nsp] = vec[:nsp]
             Q_f[:nsq] = vec[ns_full:ns_full + nsq]
 
@@ -459,6 +463,7 @@ def _build_static_hartree(scf_result, exclude_label, cache):
     in FAC and Pindzola-Griffin.
     """
     import numpy as _np
+
     from atomx.numerics.bspline.convol import compute_direct_potential_cell
 
     bsp_data = scf_result._bsp_data
@@ -528,11 +533,14 @@ def _eii_dw_total(
     """
     from atomx.constants import HARTREE_EV as _HEV
     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
+    from atomx.numerics.quadrature import (
+        make_fine_grid,
+        p_rel,
+        yk_pair_dot_batch_on_grid,
+    )
     from atomx.numerics.shooting.dirac_continuum import (
         solve_dirac_continuum_many,
     )
-    from atomx.numerics.quadrature import (
-        make_fine_grid, p_rel, yk_pair_dot_batch_on_grid)
     from atomx.scattering._jit_kernels import eii_dw_channel_jsum
     from atomx.scattering.distorted_wave.solver import (
         _allowed_k,
@@ -762,14 +770,26 @@ def _eii_dw_total(
         e_map: Dict[tuple, int] = {}
         d_val: Dict[tuple, int] = {}
         e_val: Dict[tuple, int] = {}
-        ch_in = []; ch_1 = []; ch_2 = []; ch_lin = []
-        ch_jr0 = []; ch_jr1 = []
-        jw = []; jd0 = []; jd1 = []; je0 = []; je1 = []
-        d_slot = []; d_ang = []
-        e_slot = []; e_ang = []
-        for (kappa_in, kappa_1, kappa_2, l_in, ks, ts, jrows) in channels:
-            ch_in.append(kidx[kappa_in]); ch_1.append(kidx[kappa_1])
-            ch_2.append(kidx[kappa_2]); ch_lin.append(l_in)
+        ch_in = []
+        ch_1 = []
+        ch_2 = []
+        ch_lin = []
+        ch_jr0 = []
+        ch_jr1 = []
+        jw = []
+        jd0 = []
+        jd1 = []
+        je0 = []
+        je1 = []
+        d_slot = []
+        d_ang = []
+        e_slot = []
+        e_ang = []
+        for (kappa_in, kappa_1, kappa_2, l_in, _ks, _ts, jrows) in channels:
+            ch_in.append(kidx[kappa_in])
+            ch_1.append(kidx[kappa_1])
+            ch_2.append(kidx[kappa_2])
+            ch_lin.append(l_in)
             ch_jr0.append(len(jw))
             for (tJ, ccd, cce) in jrows:
                 jw.append(float(tJ + 1))
@@ -806,10 +826,17 @@ def _eii_dw_total(
             remap[order] = np.arange(order.shape[0])
             return ptr, rhos[order], remap
 
-        ch_in = _i64(ch_in); ch_1 = _i64(ch_1); ch_2 = _i64(ch_2)
-        ch_lin = _i64(ch_lin); ch_jr0 = _i64(ch_jr0); ch_jr1 = _i64(ch_jr1)
+        ch_in = _i64(ch_in)
+        ch_1 = _i64(ch_1)
+        ch_2 = _i64(ch_2)
+        ch_lin = _i64(ch_lin)
+        ch_jr0 = _i64(ch_jr0)
+        ch_jr1 = _i64(ch_jr1)
         jw = np.asarray(jw, dtype=np.float64)
-        jd0 = _i64(jd0); jd1 = _i64(jd1); je0 = _i64(je0); je1 = _i64(je1)
+        jd0 = _i64(jd0)
+        jd1 = _i64(jd1)
+        je0 = _i64(je0)
+        je1 = _i64(je1)
         d_ang = np.asarray(d_ang, dtype=np.float64)
         e_ang = np.asarray(e_ang, dtype=np.float64)
         # Unique Y^k build rows (wave-stack indices + multipole order)
@@ -1030,8 +1057,7 @@ def excitation_autoionization_cross_section(
     (sigma_EA_cm2, per_config)
         Total EA cross section and ``{index: sigma}`` per configuration.
     """
-    from atomx.scattering.distorted_wave.solver import (
-        dw_excitation_cross_section)
+    from atomx.scattering.distorted_wave.solver import dw_excitation_cross_section
 
     energies = np.asarray(energies_eV, dtype=float)
     if branching is None:
@@ -1040,7 +1066,7 @@ def excitation_autoionization_cross_section(
         raise ValueError("branching must align with excited_atoms")
     total = np.zeros_like(energies)
     per = {}
-    for i, (exc, B) in enumerate(zip(excited_atoms, branching)):
+    for i, (exc, B) in enumerate(zip(excited_atoms, branching, strict=False)):
         B = float(B)
         if not (0.0 <= B <= 1.0):
             raise ValueError(f"branching[{i}] = {B} outside [0, 1]")

@@ -14,7 +14,7 @@ and a same-length intensity array.  It provides:
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Iterable, Optional
+from typing import Iterable
 
 import numpy as np
 
@@ -271,7 +271,7 @@ def synthesize_from_transitions(
     for t in transitions:
         # Extract wavelength / intensity / widths
         if hasattr(t, "wavelength_nm"):
-            lam0 = float(getattr(t, "wavelength_nm"))
+            lam0 = float(t.wavelength_nm)
             inten = float(getattr(t, intensity_key))
             sigma = getattr(t, "sigma_nm", None)
             gamma = getattr(t, "gamma_nm", None)

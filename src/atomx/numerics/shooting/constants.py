@@ -7,9 +7,8 @@ are retained in comments for provenance.  All differences are <~1e-8 relative
 and physically negligible.
 """
 
-import numba as nb
 
-from atomx.constants import SPEED_OF_LIGHT, BOHR_RADIUS_M, HARTREE_EV, C_SQ
+from atomx.constants import BOHR_RADIUS_M, C_SQ, HARTREE_EV, SPEED_OF_LIGHT
 
 # Speed of light in atomic units (= 1/alpha).  RADIAL:269 SL=137.035999139D0.
 SL = SPEED_OF_LIGHT

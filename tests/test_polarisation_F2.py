@@ -6,7 +6,6 @@ import pytest
 
 from atomx.scattering.polarisation import steffen_alder_F2
 
-
 # Textbook table from Steffen-Alder 1965 / Krause 1979 for E1 (L=1):
 #
 #   J_u → J_l   F_2

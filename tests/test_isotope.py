@@ -9,22 +9,16 @@ Covers:
 
 from __future__ import annotations
 
-import numpy as np
 import pytest
 
-from atomx.properties.hyperfine import nuclear_moment
+from atomx.methods.dirac_fock import DFSolver, Subshell
 from atomx.properties.isotope_shift import (
     FieldShiftParameter,
-    IsotopeShiftResult,
-    MassShift,
     SpecificMassShift,
-    field_shift_factor_per_orbital,
     normal_mass_shift,
     seltzer_F_Ha_per_Bohr2,
     specific_mass_shift,
 )
-from atomx.methods.dirac_fock import DFSolver, Subshell
-
 
 # ---------------------------------------------------------------------------
 # Shared H fixture
@@ -277,7 +271,8 @@ class TestAbInitioSMSNoble:
         """
         from atomx.methods.dirac_fock import DFSolver, neon_subshells
         from atomx.properties.transitions.multipole import (
-            radial_eL, radial_eL_velocity,
+            radial_eL,
+            radial_eL_velocity,
         )
         solver = DFSolver(Z=10, subshells=neon_subshells(),
                           ns=50, ks=9, exchange="hf")
@@ -321,7 +316,7 @@ class TestAbInitioSMSNoble:
         sms = self._ne()
         E1 = sms.for_mass(1000.0)
         E2 = sms.for_mass(2000.0)
-        assert E1 == pytest.approx(2.0 * E2, rel=1e-12)
+        assert pytest.approx(2.0 * E2, rel=1e-12) == E1
         with pytest.raises(ValueError):
             sms.for_mass(0.0)
 
@@ -349,7 +344,7 @@ class TestFieldShift:
         psi0_sq = 0.1
         F1 = seltzer_F_Ha_per_Bohr2(psi0_sq, Z=1)
         F10 = seltzer_F_Ha_per_Bohr2(psi0_sq, Z=10)
-        assert F10 == pytest.approx(10 * F1, rel=1e-14)
+        assert pytest.approx(10 * F1, rel=1e-14) == F10
 
     def test_field_shift_parameter_structure(self, h_1s_result):
         """Returns the expected dataclass with consistent dicts."""

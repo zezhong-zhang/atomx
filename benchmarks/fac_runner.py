@@ -10,20 +10,47 @@ from __future__ import annotations
 import os
 import re
 import shutil
+import struct
 import subprocess
 import tempfile
 import time
-import struct
 from pathlib import Path
 
 import numpy as np
 
-_DEFAULT_SFAC_BIN = Path("/Users/zhangzz/code/ASAP/fac/bin/bin/sfac")
-_DEFAULT_DYLD_LIB = "/opt/homebrew/Cellar/gcc/14.2.0_1/lib/gcc/current"
+_DEFAULT_SFAC_BIN = None  # no machine-specific guess: configure via env/PATH
+_DEFAULT_DYLD_LIB = ""  # macOS gcc runtime dir; set FAC_DYLD_LIB if needed
+
+#: Substrings meaning "the binary could not be loaded at all" rather than
+#: "the physics run failed" (macOS dyld, Linux ld.so).
+_LOAD_FAILURE_MARKERS = (
+    "Library not loaded",
+    "dyld:",
+    "image not found",
+    "error while loading shared libraries",
+)
+
+
+class SfacUnavailable(RuntimeError):
+    """``sfac`` exists but cannot be executed in this environment.
+
+    Deliberately distinct from a computation failure: a missing shared library
+    (``dyld: Library not loaded: @rpath/libgfortran.5.dylib`` for a relocated
+    gcc runtime) or a relocated binary is an *environment* problem, so a
+    live-FAC comparison should skip with an actionable message instead of
+    failing as if the physics disagreed.
+    """
 
 
 def resolve_sfac_bin() -> Path | None:
-    """Return the configured/available ``sfac`` executable, if any."""
+    """Return the configured/available ``sfac`` executable, if any.
+
+    Resolution order: ``FAC_SFAC_PATH`` / ``FAC_BIN`` (full path),
+    ``FAC_BIN_DIR`` (directory), then ``sfac`` on ``PATH``.  There is no
+    hard-coded fallback — a machine-specific default silently pointed at the
+    original author's checkout and made the benchmark fail confusingly
+    everywhere else.
+    """
     for env_name in ("FAC_SFAC_PATH", "FAC_BIN"):
         value = os.environ.get(env_name)
         if value:
@@ -87,6 +114,18 @@ def run_sfac(script_path: Path, workdir: Path | None = None, timeout: float = 30
     )
     t1 = time.perf_counter()
     if proc.returncode != 0:
+        stderr = proc.stderr or ""
+        if proc.returncode < 0 or any(m in stderr for m in _LOAD_FAILURE_MARKERS):
+            runtime_hint = ""
+            if not DYLD_LIB:
+                runtime_hint = (
+                    " On macOS a relocated gcc runtime often needs "
+                    "FAC_DYLD_LIB=$(dirname $(gfortran -print-file-name="
+                    "libgfortran.5.dylib)).")
+            raise SfacUnavailable(
+                f"sfac cannot be executed in this environment "
+                f"(rc={proc.returncode}):\n{stderr.strip()}\n"
+                f"Configured binary: {sfac_bin}.{runtime_hint}")
         raise RuntimeError(f"sfac failed (rc={proc.returncode}):\n{proc.stderr}\n{proc.stdout}")
     return proc.stdout, t1 - t0, workdir
 
@@ -326,7 +365,7 @@ def parse_rr(rr_file: Path) -> list[dict]:
     """
     lines = Path(rr_file).read_text().splitlines()
     nusr = None
-    for i, line in enumerate(lines):
+    for _, line in enumerate(lines):
         if line.strip().startswith("NUSR"):
             try:
                 nusr = int(line.split("=")[1].strip())
@@ -476,7 +515,9 @@ def parse_ci(ci_file: Path) -> list[dict]:
         parts = ls.split()
         if nusr is not None and len(parts) >= 6:
             try:
-                int(parts[0]); int(parts[2]); float(parts[4])
+                int(parts[0])
+                int(parts[2])
+                float(parts[4])
             except ValueError:
                 i += 1
                 continue
@@ -497,7 +538,7 @@ def parse_ci(ci_file: Path) -> list[dict]:
                 i = data_end
                 continue
         i += 1
-    for row, grid in zip(rows, grid_blocks):
+    for row, grid in zip(rows, grid_blocks, strict=False):
         row["strength"] = grid[:, 1]
         row["sigma_1e20cm2"] = grid[:, 2]
         row["Omega"] = grid[:, 1]

@@ -192,7 +192,7 @@ def ground_config_of_pair(config_a: str, config_b: str) -> str:
 def _config_parity(tup, groups) -> int:
     """Parity (-1)^(sum l * occ) over the active groups."""
     s = 0
-    for (subshells, _ne), occ in zip(groups, tup):
+    for (subshells, _ne), occ in zip(groups, tup, strict=False):
         l = _l_of(subshells[0][1])
         s += l * int(occ)
     return -1 if s % 2 else 1
@@ -299,7 +299,7 @@ class _PairCI:
 
         man = self.manifold
         per_group = []
-        for mask, ne in zip(man.group_bits, tup):
+        for mask, ne in zip(man.group_bits, tup, strict=False):
             bits = [i for i in range(man.n_orb) if mask & (1 << i)]
             per_group.append(list(combinations(bits, int(ne))))
         dets = []
@@ -572,7 +572,7 @@ def ci_line_strengths(result, config_i, config_f, *, multipole="E1",
         for lv in levels_f:
             by_tj.setdefault(lv.two_J, []).append(lv)
 
-        for lv_i, (tM_i, w_i, dets_i) in zip(levels_i, vecs_i):
+        for lv_i, (tM_i, w_i, dets_i) in zip(levels_i, vecs_i, strict=False):
             tJ_i = lv_i.two_J
             # accumulated |amp|^2 per f-level index
             acc: dict = {}

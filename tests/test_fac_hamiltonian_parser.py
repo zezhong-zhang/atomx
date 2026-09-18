@@ -9,7 +9,10 @@ import numpy as np
 BENCH_DIR = Path(__file__).resolve().parent.parent / "benchmarks"
 sys.path.insert(0, str(BENCH_DIR))
 
-from fac_runner import parse_debug_hamiltonian_log, parse_hamiltonian_binary  # noqa: E402
+from fac_runner import (  # noqa: E402
+    parse_debug_hamiltonian_log,
+    parse_hamiltonian_binary,
+)
 
 
 def test_parse_hamiltonian_binary_expands_lower_triangle(tmp_path):
@@ -33,9 +36,15 @@ def test_parse_hamiltonian_binary_expands_lower_triangle(tmp_path):
     put_i(3)       # basis[0]
     put_i(4)       # basis[1]
     put_i(3)       # n_values
-    put_i(0); put_i(0); put_d(-10.0)
-    put_i(0); put_i(1); put_d(0.25)
-    put_i(1); put_i(1); put_d(-9.5)
+    put_i(0)
+    put_i(0)
+    put_d(-10.0)
+    put_i(0)
+    put_i(1)
+    put_d(0.25)
+    put_i(1)
+    put_i(1)
+    put_d(-9.5)
     put_i(9)       # empty symmetry block
     put_i(0)
     ham.write_bytes(payload)

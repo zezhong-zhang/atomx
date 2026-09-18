@@ -31,6 +31,7 @@ from __future__ import annotations
 import argparse
 import csv
 import logging
+import os
 import sys
 import time
 from pathlib import Path
@@ -42,7 +43,7 @@ from atomx.constants import atomic_numbers, element_symbol
 
 LOG = logging.getLogger("energies_gs")
 
-DEFAULT_REF_CSV = Path("/Users/zhangzz/code/ASAP/energy_level.csv")
+DEFAULT_REF_CSV = Path(os.environ.get("ATOMX_MCDHF_REF_CSV", ""))
 
 # Radial DHFS (Salvat) — kept inline; no upstream source file.
 RADIAL_DHFS: dict[int, float] = {
@@ -63,7 +64,7 @@ def _resolve_single(tok: str) -> int:
         Z = int(tok)
     except ValueError:
         if tok not in atomic_numbers:
-            raise SystemExit(f"Unknown element token: {tok!r}")
+            raise SystemExit(f"Unknown element token: {tok!r}") from None
         Z = atomic_numbers[tok]
     if not 1 <= Z <= 118:
         raise SystemExit(f"Z={Z} out of range 1..118")

@@ -29,7 +29,6 @@ import json
 import sys
 from pathlib import Path
 
-import numpy as np
 import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -104,36 +103,41 @@ def test_line_counts_and_j_selection(linesets):
 # FAC parity gates
 # ---------------------------------------------------------------------------
 
-@pytest.mark.fac_parity
+@pytest.mark.external_fac
 def test_per_line_A_vs_fac(linesets):
-    """Per-line Einstein A within [0.85, 1.20] of clean-room FAC.
+    """Per-line Einstein A within ±8 % of clean-room FAC.
 
-    Measured 2026-07-17: 1.021 / 1.011 (3s) and 1.034 / 1.033 / 0.994
-    (3d weak / 3D / 3C).  The gate width covers the documented
-    radial-basis difference (~10-25% in A per the A_r audit)."""
+    Measured 2026-09-17: 1.021 / 1.011 (3s) and 1.034 / 1.033 / 0.994 (3d),
+    i.e. every line inside 3.4 % — 2.3x margin inside the gate.  The previous
+    gate ([0.85, 1.20]) was justified by "the documented radial-basis
+    difference (~10-25% in A per the A_r audit)"; that spread belongs to the
+    *DR stabilizing widths* (frozen-orbital vs optimized basis, see
+    ``test_dr_manifold_e2e``), not to this comparison: with the FAC-equivalent
+    shooting/gu basis the per-line A's reproduce FAC to ≤ 3.4 %."""
     fac = _fac_lines()
     for cfg, ls in linesets.items():
         ref = fac[cfg]
         lines = sorted(ls.lines, key=lambda ln: ln.omega_au)
         assert len(lines) == len(ref)
-        for (E_fac, _S_fac, A_fac), ln in zip(ref, lines):
+        for (E_fac, _S_fac, A_fac), ln in zip(ref, lines, strict=False):
             ratio = ln.A_per_s / A_fac
-            assert 0.85 <= ratio <= 1.20, (
-                f"{cfg}: line at {E_fac:.1f} eV A ratio {ratio:.3f}")
+            assert 0.92 <= ratio <= 1.08, (
+                f"{cfg}: line at {E_fac:.1f} eV A ratio {ratio:.3f} outside "
+                "[0.92, 1.08] (gate 8%; measured worst 3.4%)")
 
 
-@pytest.mark.fac_parity
+@pytest.mark.external_fac
 def test_transition_energies_vs_fac(linesets):
     """CI transition energies within 6 eV of FAC (measured +2.4..+2.9)."""
     fac = _fac_lines()
     for cfg, ls in linesets.items():
         lines = sorted(ls.lines, key=lambda ln: ln.omega_au)
-        for (E_fac, _S, _A), ln in zip(fac[cfg], lines):
+        for (E_fac, _S, _A), ln in zip(fac[cfg], lines, strict=False):
             dE = ln.omega_au * HARTREE_EV - E_fac
             assert abs(dE) <= 6.0, f"{cfg}: dE = {dE:.2f} eV at {E_fac:.1f} eV"
 
 
-@pytest.mark.fac_parity
+@pytest.mark.external_fac
 def test_relative_intensities_vs_fac(linesets):
     """In-multiplet S fractions within 5% of FAC — THE J-resolved gate.
 
@@ -146,7 +150,7 @@ def test_relative_intensities_vs_fac(linesets):
         lines = sorted(ls.lines, key=lambda ln: ln.omega_au)
         tot_fac = sum(S for (_E, S, _A) in ref)
         tot_ax = sum(ln.S for ln in lines)
-        for (E_fac, S_fac, _A), ln in zip(ref, lines):
+        for (E_fac, S_fac, _A), ln in zip(ref, lines, strict=False):
             frac_fac = S_fac / tot_fac
             frac_ax = ln.S / tot_ax
             assert frac_ax / frac_fac == pytest.approx(1.0, abs=0.05), (
@@ -154,7 +158,7 @@ def test_relative_intensities_vs_fac(linesets):
                 f"{frac_ax:.5f} vs FAC {frac_fac:.5f}")
 
 
-@pytest.mark.fac_parity
+@pytest.mark.external_fac
 def test_3c_3d_ratio_vs_fac(linesets):
     """The Fe XVII 3C/3D line-strength ratio matches FAC to 5%.
 
@@ -202,7 +206,7 @@ def test_one_electron_consistency(linesets):
     Per line the CI values differ from the pure channels by the physical
     2p1/2/2p3/2 hole-channel mixing (measured: CI/pure = 0.820 for the
     2p3/2-hole line, 1.397 for the 2p1/2-hole line) — the redistribution
-    FAC shares, pinned per line by the fac_parity gates above."""
+    FAC shares, pinned per line by the external_fac gates above."""
     from atomx.angular.coefficients import reduced_C
     from atomx.properties.transitions.angular import angular_eL
 
@@ -272,7 +276,7 @@ def test_compute_transitions_ci_wiring(fe17_pair_atom, linesets):
     assert len(rows) == 3
     assert all(r.resolution == "ci" for r in rows)
     engine = sorted(linesets["2p5 3d1"].lines, key=lambda ln: ln.omega_au)
-    for ln, row in zip(engine, sorted(rows, key=lambda r: r.energy_eV)):
+    for ln, row in zip(engine, sorted(rows, key=lambda r: r.energy_eV), strict=False):
         assert row.A_rate_per_s == pytest.approx(ln.A_per_s, rel=1e-6)
         assert row.line_strength == pytest.approx(ln.S, rel=1e-6)
         assert row.gf_value == pytest.approx(ln.gf, rel=1e-6)

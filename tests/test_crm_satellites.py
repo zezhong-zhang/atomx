@@ -3,7 +3,7 @@
 import pytest
 
 from atomx.constants import HARTREE_EV, HARTREE_INV_ANGSTROM
-from atomx.plasma.crm import CRMLevel, CRMTransition, CollisionalRadiativeModel
+from atomx.plasma.crm import CollisionalRadiativeModel, CRMLevel, CRMTransition
 from atomx.scattering.autoionization import AutoionizationState
 from atomx.spectrum import crm_emission_spectrum
 

@@ -27,23 +27,34 @@ from atomx import Atom
 atom = Atom(Z=10)
 atom.solve()
 print(atom.total_energy)       # -128.61 Hartree
-print(atom.orbital_energies)   # {1s: -32.6, 2s: -1.6, ...}
+print(atom.orbital_energies)   # {'1s1/2': -32.82, '2s1/2': -1.94, '2p1/2': -0.85, ...}
 
 # Correction-free (pure Dirac-Coulomb) reference run
 atom = Atom(Z=10, breit=False, qed=False)
 atom.solve()
 
-# Multi-configuration (Be with 2s² and 2p² mixing)
+# Multi-configuration CI, including two-electron replacements.  1s2 and
+# 1s1 2s1 are both 1S0 (J=0, even) and couple through the Hamiltonian.
+atom = Atom(Z=2, configs=["1s2", "1s1 2s1"])
+atom.solve()
+print(atom.total_energy)                        # -2.8629 Hartree (HF: -2.8617)
+print(atom.result.mixing_coefficients[:, 0])    # [-0.999, 0.042, 0.0]
+
+# Same-symmetry *double* replacements couple too (the 2s²/2p²
+# near-degeneracy pair): the ground state mixes 2s² with both 2p² jj pairs
+# and drops 0.041 Ha below the single-configuration HF energy.
 atom = Atom(Z=4, configs=["1s2 2s2", "1s2 2p2"])
 atom.solve()
+print(atom.total_energy)                        # -14.6139 Hartree
+print(atom.result.mixing_coefficients[:, 0])    # [0.944, 0.282, 0.0, 0.0, 0.0, 0.171]
 
 # Numerics engine and exchange model are independent choices:
 atom = Atom(Z=26, charge=16, config="1s2 2s2 2p6",
-          numerics="shooting", exchange="gu")     # FAC-style local DFS, ~50 ms
+          numerics="shooting", exchange="gu")     # FAC-style local DFS
 atom = Atom(Z=26, charge=16, config="1s2 2s2 2p6",
           numerics="bspline", exchange="slater", alpha_x=2/3)
 atom.solve()
-print(atom.provenance)   # {'numerics': 'bspline', 'exchange': 'slater'}
+print(atom.provenance)   # {'numerics': 'bspline', 'exchange': 'slater', 'averaging': 'statistical'}
 ```
 
 ### Theory ladder
@@ -152,22 +163,35 @@ The layered design means you can use atomx at whatever level suits your needs:
 
 ## Verification against FAC
 
-The scattering and spectroscopy core is verified point-by-point against a
-live Flexible Atomic Code (FAC) build under a clean-room protocol
-(matched physics flags, exact-mode integrals, pinned energy grids):
+The scattering and spectroscopy core is developed against a Flexible Atomic
+Code (FAC) build under a clean-room protocol (matched physics flags,
+exact-mode integrals, pinned energy grids). **What is gated in CI, and what is
+only a recorded result, is listed per row in [`docs/VERIFICATION.md`](docs/VERIFICATION.md)**
+— read it before quoting any number below. In short:
 
-| Quantity | Parity vs FAC |
-|----------|---------------|
-| Continuum waves (100 eV – 200 keV, l = 0–5, Fe/Xe) | amplitude √(2/π)·(1 ± 0.01), shape 0.001 % in matched potentials |
-| Collisional excitation Ω (He-like Z = 10/26/54, 1.05–5× threshold) | rms 3.7 %, every point ≤ 6.7 % |
-| Electron-impact ionization (K-shell, vs exact-mode FAC) | ≤ 6 % at 5× threshold for all Z; Z ≤ 26 within 15 % everywhere |
-| Auger widths (Li-like KLL, per level) | 1.005–1.023 |
-| DR radiative widths (Fe XVII dr33, per level) | 1.09–1.27 |
-| DR rate coefficient α(T) (complete clean-room dr33 set) | 0.98–1.17 at 5–50 MK (rms 0.27 incl. the documented 1-MK E_res offset) |
+| Quantity | Parity vs FAC | Gated by |
+|----------|---------------|----------|
+| Continuum waves (100 eV – 200 keV, l = 0–5, Fe/Xe) | amplitude √(2/π)·(1 ± 0.01), shape 0.001 % in matched potentials | `tests/test_continuum_vs_fac.py` — recomputes atomx against stored FAC dumps |
+| Collisional excitation Ω (He-like Z = 10/26/54, 1.05–5× threshold) | **live-measured** rms 3.3 %, every point ≤ 5.2 % (2026-09-18) | `tests/test_fac_dw_benchmarks.py` — recomputes atomx for the grid and asserts both the recorded FAC column and the recorded atomx column; regenerating the FAC reference needs `sfac` |
+| Electron-impact ionization (K-shell, vs exact-mode FAC) | **live-measured** rms 2.0 %, every point ≤ 3.1 % | same file |
+| DR radiative widths and α(T) (Fe XVII dr33) | widths 1.09–1.27; α(T) ratios 0.98 / 1.08 / 1.16 at 5 / 10 / 50 MK (worst FAC deviation 16.4 %, incl. the documented E_res offset) | `tests/test_dr_manifold_e2e.py` (`slow`), `tests/test_dr_vs_fac.py` — recompute against the clean-room fixture |
+| Auger widths (Li-like KLL) | 1.005–1.023 | **no executing gate for these ratios.** `tests/test_auger_fac_panel.py` computes atomx live for the five strongest Fe XVII KLL resonances and measures live/FAC = 1.13–14.8 (2026-09-17); the strict 10 % gate is `xfail`. The `1.005–1.023` figures in `docs/scattering_fac_verification_2026-07.md` are a development note, not a reproducible claim |
 
-`benchmarks/` regenerates these live (`bench_fac_dw_excitation.py`,
-`bench_fac_dw_eii.py`, `bench_fac_dr.py`); `pytest -m fac_parity` gates
-them. See `benchmarks/REPORT.md` and
+Two further caveats that the numbers above do not convey:
+
+* **Structure vs FAC** (`benchmarks/bench_fac_structure.py`) is reported
+  relative to *total* energy, which hides large absolute disagreements — the
+  committed run differs from FAC by 7 keV at Z=82 (1.6 %) — and it runs atomx
+  with `breit=False, qed=False` by default while FAC's default has QED on, so
+  it is not a like-for-like comparison.
+* **The CRM/plasma benchmarks** (`bench_fac_crm_*.py`: Au/Fe/W cooling,
+  charge-state balance, NLTE-9 ⟨Z⟩) are **synthetic placeholders**, disclosed
+  in each file; the tests that asserted agreement with them are skipped with
+  the reason spelled out. They are not validation.
+
+`benchmarks/` regenerates the FAC references (`bench_fac_dw_excitation.py`,
+`bench_fac_dw_eii.py`, `bench_fac_dr.py`) when a live `sfac` is configured
+(`FAC_SFAC_PATH`, see `docs/VERIFICATION.md`). See `benchmarks/REPORT.md` and
 `docs/scattering_fac_verification_2026-07.md` for the methodology.
 
 ## Performance
@@ -191,19 +215,32 @@ desktop, warm):
 ## Development
 
 ```bash
-# Run tests
+# Run tests (fast: excludes the slow integration tests)
 pytest
 
-# Run only fast tests (exclude slow integration tests)
-pytest -m "not slow"
+# Everything, including the slow suite and the book claims
+pytest -m ""
 
-# Run with verbose output
-pytest -v
+# Detectors, by what they assert
+pytest -m external_fac   # atomx vs stored external FAC reference data
+pytest -m snapshot       # atomx vs its own recorded output (drift detector)
+pytest -m book           # executable claims from docs/book
 
-# Run benchmarks
-pytest -m fac_parity
+# Numerics gate: N fresh processes must agree bit-for-bit, and no numba
+# kernel may read out of bounds (see docs/VERIFICATION.md)
+python scripts/check_determinism.py --repeat 8 --panel full
+python scripts/check_determinism.py --repeat 1 --panel full --boundscheck
 ```
+
+## Contributing checks
+
+The CI runs `ruff check --no-cache src tests scripts benchmarks` with the rule
+set in `pyproject.toml`, `pytest -m "not slow"` on Python 3.10 and 3.13, and
+the determinism gate. `pre-commit install` wires the same ruff selection into
+your commits.
 
 ## License
 
-See `pyproject.toml` for project metadata.
+No license has been chosen for this repository yet — `pyproject.toml` carries
+no `license` field and there is no `LICENSE` file, so the default "all rights
+reserved" applies. Pick one before distributing the package.

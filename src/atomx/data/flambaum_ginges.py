@@ -13,7 +13,6 @@ preprint numbering.
 
 from __future__ import annotations
 
-
 CITATION = "Flambaum & Ginges, Phys. Rev. A 72, 052115 (2005)."
 
 # -- low-frequency SE (eq. 9) --------------------------------------------

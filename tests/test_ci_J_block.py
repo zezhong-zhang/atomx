@@ -107,11 +107,37 @@ def test_fe17_J_block_eigenvalue_counts(fe17_levels_ev):
 
 
 def _sfac_available() -> bool:
+    """True when an sfac *runs*, not merely when a file of that name exists.
+
+    Path existence was not enough: a relocated copy of the binary that cannot
+    load its gcc runtime (``dyld: Library not loaded: @rpath/libgfortran.5.dylib``)
+    satisfied the old check and then failed the test as if the physics
+    disagreed.  ``run_sfac`` now raises :class:`SfacUnavailable` for that case
+    and the test turns it into a skip; this probe covers the same ground
+    cheaply (one ``--help``-style invocation) so the reason is reported at
+    collection time.
+    """
     try:
-        from fac_runner import SFAC_BIN  # type: ignore[import-not-found]
+        from fac_runner import SfacUnavailable, resolve_sfac_bin, run_sfac
     except ImportError:
         return False
-    return Path(SFAC_BIN).exists() and os.access(SFAC_BIN, os.X_OK)
+    binary = resolve_sfac_bin()
+    if binary is None or not (Path(binary).exists() and os.access(binary, os.X_OK)):
+        return False
+    import tempfile as _tempfile
+
+    with _tempfile.TemporaryDirectory() as tmp:
+        probe = Path(tmp) / "probe.sf"
+        probe.write_text("SetAtom('He')\n")
+        try:
+            run_sfac(probe, workdir=Path(tmp), timeout=120)
+        except SfacUnavailable:
+            return False
+        except Exception:
+            # The probe is not a valid FAC deck for every build; only a load
+            # failure is disqualifying here.
+            return True
+    return True
 
 
 @pytest.mark.skipif(not _sfac_available(),
@@ -144,7 +170,11 @@ def test_fe17_first_10_levels_vs_fac(fe17_levels_ev):
     parity with FAC and full ``K>0`` direct Coulomb are wired (HYP-180+).
     """
     sys.path.insert(0, str(BENCH_DIR))
-    from fac_runner import run_sfac, parse_levels  # type: ignore[import-not-found]
+    from fac_runner import (  # type: ignore[import-not-found]
+        SfacUnavailable,
+        parse_levels,
+        run_sfac,
+    )
 
     FAC_SCRIPT = """SetAtom('Fe')
 Closed('1s')
@@ -161,7 +191,10 @@ PrintTable('fe17.lev.b', 'fe17.lev', 1)
         tmp_path = Path(tmp)
         sf = tmp_path / "fe17.sf"
         sf.write_text(FAC_SCRIPT)
-        run_sfac(sf, workdir=tmp_path, timeout=300)
+        try:
+            run_sfac(sf, workdir=tmp_path, timeout=300)
+        except SfacUnavailable as exc:
+            pytest.skip(f"sfac cannot run here: {exc}")
         fac_levels = parse_levels(tmp_path / "fe17.lev")
 
     fac_levels.sort(key=lambda r: r["ENERGY_eV"])

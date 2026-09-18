@@ -37,7 +37,6 @@ from dataclasses import dataclass
 from typing import Dict, Tuple
 
 import numpy as np
-from scipy.optimize import brentq
 
 from atomx.constants import HARTREE_EV
 from atomx.plasma.screening import ion_sphere_radius

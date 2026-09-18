@@ -4,12 +4,14 @@ Solves the radial Dirac equation for bound states using shooting method
 with power-series integration and eigenvalue refinement from Q-discontinuity.
 """
 
-import numpy as np
-import numba as nb
 import math
+
+import numba as nb
+import numpy as np
+
 from atomx.numerics.shooting.constants import SL
-from atomx.numerics.shooting.spline import findi, splin0, splval, merge_grids as _merge_grids
-from atomx.numerics.shooting.dirac_integrator import doutw, dinw
+from atomx.numerics.shooting.dirac_integrator import dinw, doutw
+from atomx.numerics.shooting.spline import merge_grids as _merge_grids
 
 
 @nb.njit(cache=True)
@@ -35,10 +37,7 @@ def dbound(e_in, eps, n, k, rg, rvg, va, vb, vc, vd, nvt, rad, ngp):
     """
     ier = 0
 
-    if k < 0:
-        l = -k - 1
-    else:
-        l = k
+    l = -k - 1 if k < 0 else k
     nr = n - l - 1  # Radial quantum number
     ak = float(k)
 
@@ -93,7 +92,7 @@ def dbound(e_in, eps, n, k, rg, rvg, va, vb, vc, vd, nvt, rad, ngp):
 
     # Shooting loop
     max_shots = 200
-    for shot in range(max_shots):
+    for _ in range(max_shots):
         if e > -1.0e-16:
             ier = 2
             break
@@ -196,10 +195,7 @@ def dbound(e_in, eps, n, k, rg, rvg, va, vb, vc, vd, nvt, rad, ngp):
             break
 
         # Match outward and inward solutions at iotp
-        if abs(pt[iotp]) > 1.0e-30:
-            fact = po / pt[iotp]
-        else:
-            fact = 1.0
+        fact = po / pt[iotp] if abs(pt[iotp]) > 1e-30 else 1.0
         for i in range(iotp, nrt):
             pt[i] *= fact
             qt[i] *= fact

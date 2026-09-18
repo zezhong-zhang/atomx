@@ -27,6 +27,7 @@ P. J. Mohr *et al.*, CODATA recommended values of the fundamental
 from math import pi, sqrt
 from typing import Dict
 
+import numpy as np
 
 # ---------------------------------------------------------------------------
 # CODATA physical constants
@@ -181,7 +182,7 @@ PROTON_ELECTRON_MASS_RATIO = _active["_mp_over_me"]
 R0_FM = 1.2  # nuclear radius parameter, fm
 
 # Spectroscopy
-import numpy as np
+
 # Atomic unit of time tau_0 = hbar/E_h, derived from the active CODATA
 # table (a hard-coded 2018 value survived here until 2026-07; see
 # tests/test_book_ch01_contracts.py::test_au_time_derived_from_active_table).

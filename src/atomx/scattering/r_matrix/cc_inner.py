@@ -33,8 +33,8 @@ from scipy.interpolate import BSpline
 from scipy.linalg import eigh
 
 from atomx.scattering.r_matrix.angular_cc import direct_terms, exchange_terms
-from atomx.scattering.r_matrix.channel_table import Channel
 from atomx.scattering.r_matrix.cc_potentials import cumulative_y_k
+from atomx.scattering.r_matrix.channel_table import Channel
 from atomx.scattering.two_electron.angular import (
     _electron_contribution,
     direct_coefficient,
@@ -94,7 +94,7 @@ def _gauss_legendre_per_cell(
     nodes, weights = np.polynomial.legendre.leggauss(n_gauss)
     pts = []
     wts = []
-    for left, right in zip(breakpoints[:-1], breakpoints[1:]):
+    for left, right in zip(breakpoints[:-1], breakpoints[1:], strict=False):
         if right <= left:
             continue
         half = 0.5 * (right - left)
@@ -261,10 +261,9 @@ def assemble_cc_inner_region(
                         "Composite target missing two_electron_term"
                     )
                 for a_idx, (l_aj, l_ai) in enumerate(
-                    zip((term_j.l1, term_j.l2), (term_i.l1, term_i.l2)),
+                    zip((term_j.l1, term_j.l2), (term_i.l1, term_i.l2), strict=False),
                     start=1,
                 ):
-                    b_idx = 2 if a_idx == 1 else 1
                     l_bj = term_j.l2 if a_idx == 1 else term_j.l1
                     l_bi = term_i.l2 if a_idx == 1 else term_i.l1
                     if l_bj != l_bi:

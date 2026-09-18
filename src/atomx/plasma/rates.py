@@ -5,7 +5,6 @@ integration over Maxwellian electron energy distributions.
 """
 
 import numpy as np
-from atomx.constants import HARTREE_EV, BOHR_RADIUS_M, BOLTZMANN_EV
 
 
 def maxwellian_rate(cross_section_cm2, energies_eV, temperature_eV):

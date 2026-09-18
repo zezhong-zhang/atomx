@@ -16,10 +16,9 @@ Reference: any standard QM text; e.g. Bethe & Salpeter (1957) eq. (3.16).
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from typing import Callable
-
-import math
 
 import numpy as np
 from scipy.special import eval_genlaguerre

@@ -19,7 +19,6 @@ from atomx.constants import HARTREE_EV  # noqa: E402
 from atomx.scattering import ContinuumModel  # noqa: E402
 from atomx.scattering.electron_ionization import eii_cross_section  # noqa: E402
 
-
 OUT = ROOT / "benchmarks" / "results_eii_shooting_convergence.csv"
 
 

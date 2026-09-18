@@ -17,12 +17,12 @@ import numpy as np
 import pytest
 
 matplotlib = pytest.importorskip("matplotlib")
-import matplotlib.pyplot as _plt    # noqa: E402
+import matplotlib.pyplot as _plt  # noqa: E402
+
 matplotlib.use("Agg")                # headless
 
-from atomx.results import OrbitalWavefunction, Waves   # noqa: E402
-from atomx.spectrum import Spectrum                             # noqa: E402
-
+from atomx.results import OrbitalWavefunction, Waves  # noqa: E402
+from atomx.spectrum import Spectrum  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Shared fixtures

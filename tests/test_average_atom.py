@@ -51,7 +51,7 @@ def test_occupations_sum_to_bound_electrons():
 def test_occupations_capped_at_2nsq():
     """No shell exceeds its 2 n² capacity."""
     res = average_atom_thomas_fermi(Z=26, T_eV=10.0, ne_cm3=1e15)
-    for (n, l), occ in res.occupations.items():
+    for (_n, l), occ in res.occupations.items():
         cap = 2 * (2 * l + 1)
         assert occ <= cap + 1e-9
 

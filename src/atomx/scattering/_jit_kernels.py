@@ -10,8 +10,8 @@ with ``@nb.njit`` for ahead-of-time compilation.
 
 from __future__ import annotations
 
-import numpy as np
 import numba as nb
+import numpy as np
 
 
 @nb.njit(cache=True, fastmath=True)

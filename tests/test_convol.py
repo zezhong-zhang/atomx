@@ -11,24 +11,24 @@ Verifies:
 import numpy as np
 import pytest
 
-from atomx.numerics.bspline.knots import make_knots
-from atomx.numerics.bspline.basis import setup_gauss_points, evaluate_bsplines_on_grid
-from atomx.numerics.bspline.basis import prepare_bspline_data
-from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
-from atomx.numerics.bspline.dirac_assembly import solve_dirac
-from atomx.numerics.bspline.slater_yk import (
-    compute_slater_fk, compute_slater_gk, compute_slater_rk,
-    compute_exchange_matrix,
+from atomx.numerics.bspline.basis import (
+    prepare_bspline_data,
 )
 from atomx.numerics.bspline.convol import (
-    _compute_moments_sym, _triang_sym, _assemble_rkb_sym,
-    _density_sym, _density_full,
-    _convol_case1, _convol_case2, _convol_case4,
-    _sum_amb_banded, _sum_amb_full,
     _build_rkb_sym,
-    compute_slater_fk_cell, compute_slater_gk_cell,
-    compute_slater_rk_cell,
-    ConvolCache,
+    _compute_moments_sym,
+    _convol_case1,
+    _convol_case2,
+    _density_sym,
+    _triang_sym,
+    compute_slater_fk_cell,
+    compute_slater_gk_cell,
+)
+from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices, solve_dirac
+from atomx.numerics.bspline.knots import make_knots
+from atomx.numerics.bspline.slater_yk import (
+    compute_slater_fk,
+    compute_slater_gk,
 )
 
 

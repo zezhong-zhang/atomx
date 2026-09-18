@@ -17,13 +17,11 @@ import pytest
 from atomx.constants import ALPHA
 from atomx.corrections.qed import compute_qed_corrections, compute_se_energy
 from atomx.corrections.qedmod import (
-    SE_BACKENDS,
     available_backends,
     get_backend,
 )
 from atomx.corrections.qedmod.welton import _density_at_origin  # noqa: F401
 from atomx.methods.dirac_fock import DFSolver, Subshell, helium_subshells
-
 
 # ---------------------------------------------------------------------------
 # Registry
@@ -59,7 +57,7 @@ class TestMohrBackwardCompat:
         E = compute_se_energy(orbs, Z=1, method="mohr")
         # Analytic: α³ × 10.3169 / π
         expected = ALPHA ** 3 * 10.3169 / np.pi
-        assert E == pytest.approx(expected, rel=1e-10)
+        assert pytest.approx(expected, rel=1e-10) == E
 
     def test_default_method_is_mohr(self):
         """compute_se_energy without `method` keyword == method='mohr'."""
@@ -143,7 +141,6 @@ class TestWichmannKroll:
         assert abs(E_WK) < abs(E_U) * 0.05  # < 5 %
 
     def test_wk_included_via_compute_qed_corrections(self):
-        from atomx.corrections.qed import compute_qed_corrections
         from atomx.methods.dirac_fock import neon_subshells
         solver = DFSolver(Z=10, subshells=neon_subshells(), ns=50, ks=9, exchange="hf")
         result = solver.solve(max_iter=40, tol=1e-5)
@@ -285,13 +282,16 @@ class TestHydrogenicDiracReference:
     At heavy Z the difference is measurable."""
 
     def test_hydrogenic_solve_returns_valid_wavefunction(self):
-        from atomx.numerics.analytic.hydrogenic_dirac import hydrogenic_dirac_wavefunction
         import numpy as np
+
+        from atomx.numerics.analytic.hydrogenic_dirac import (
+            hydrogenic_dirac_wavefunction,
+        )
         P, Q, bsp_data, E = hydrogenic_dirac_wavefunction(
             n=1, kappa=-1, Z=1, ns=40, ks=9,
         )
         # H 1s eigenvalue ≈ -0.5 Ha
-        assert E == pytest.approx(-0.5, abs=1e-4)
+        assert pytest.approx(-0.5, abs=1e-4) == E
         assert P.shape == (40,)
         assert Q.shape == (40,)
         # Normalisation (∫ P² + Q² dr ≈ 1)
@@ -310,16 +310,20 @@ class TestHydrogenicDiracReference:
 
     def test_r_exp_integral_dirac_matches_nr_at_low_Z(self):
         """For Z=1 the Dirac and non-rel integrals agree to ~0.1 %."""
-        from atomx.numerics.analytic.hydrogenic_dirac import hydrogenic_r_exp_integral_dirac
         from atomx.corrections.qedmod.shabaev import _hydrogenic_r_exp_integral
+        from atomx.numerics.analytic.hydrogenic_dirac import (
+            hydrogenic_r_exp_integral_dirac,
+        )
         I_d = hydrogenic_r_exp_integral_dirac(n=1, kappa=-1, Z=1)
         I_nr = _hydrogenic_r_exp_integral(n=1, l=0, Z=1)
         assert I_d == pytest.approx(I_nr, rel=1e-2)
 
     def test_dirac_differs_from_nr_at_heavy_Z(self):
         """For Z=50, the (Zα)² ≈ 0.13 correction gives several % shift."""
-        from atomx.numerics.analytic.hydrogenic_dirac import hydrogenic_r_exp_integral_dirac
         from atomx.corrections.qedmod.shabaev import _hydrogenic_r_exp_integral
+        from atomx.numerics.analytic.hydrogenic_dirac import (
+            hydrogenic_r_exp_integral_dirac,
+        )
         I_d = hydrogenic_r_exp_integral_dirac(n=1, kappa=-1, Z=50)
         I_nr = _hydrogenic_r_exp_integral(n=1, l=0, Z=50)
         # Dirac > non-rel for s-states (density piles up near nucleus)

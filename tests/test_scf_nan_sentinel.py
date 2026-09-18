@@ -186,7 +186,7 @@ def test_he_dhf_result_is_finite(he_result):
     for label, energy in res.orbital_energies.items():
         assert np.isfinite(energy), f"orbital_energies[{label!r}] = {energy}"
     for kappa, orb_list in res.orbitals_raw.items():
-        for idx, (P, Q, occ) in enumerate(orb_list):
+        for idx, (P, Q, _occ) in enumerate(orb_list):
             assert np.all(np.isfinite(P)), f"kappa={kappa}[{idx}]: NaN in P"
             assert np.all(np.isfinite(Q)), f"kappa={kappa}[{idx}]: NaN in Q"
 

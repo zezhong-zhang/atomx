@@ -4,11 +4,11 @@ import numpy as np
 import pytest
 
 from atomx.scattering.charge_exchange import (
-    landau_zener_probability,
-    landau_zener_cross_section,
-    landau_zener_linear_diabatic_probability,
-    landau_zener_linear_diabatic_cross_section,
     cx_cross_section_total_lz,
+    landau_zener_cross_section,
+    landau_zener_linear_diabatic_cross_section,
+    landau_zener_linear_diabatic_probability,
+    landau_zener_probability,
     olson_salop_total_cx,
     quantum_close_coupling_cx,
 )
@@ -81,9 +81,11 @@ def test_olson_salop_universal_scaling():
 def test_olson_salop_q_scaling():
     """At fixed v, σ_OS scales with R_c(q)² ∝ q² (for q ≪ I)."""
     v = np.array([0.1])
-    s1 = olson_salop_total_cx(1, v)[0]
-    s4 = olson_salop_total_cx(4, v)[0]
-    # R_c(q=1) = 1/(0.5−1+0.5) = ... edge case, use higher q
+    # q=1 is the R_c edge case (1/(0.5-1+0.5)) and q=4 is outside the
+    # fitted range: evaluate them so a crash there is still caught, but the
+    # scaling assertion below uses the q=2/3 pair.
+    olson_salop_total_cx(1, v)
+    olson_salop_total_cx(4, v)
     s2 = olson_salop_total_cx(2, v)[0]
     s3 = olson_salop_total_cx(3, v)[0]
     # R_c² ratio (3/2)² ≈ 2.25 — reasonable

@@ -104,7 +104,6 @@ def apply_fac_tail_fix(
     if ihx < 0.0 and csi > 0.0 and N > 1.0:
         n0 = float(N)
         n1 = max(0.0, n0 + ihx * n0)             # crossing charge target
-        n2 = max(0.0, n0 + (1.0 + abs(csi)) * ihx * n0)
 
         # Find j such that q[j] ≤ n1 (FAC: first m where ut[m] ≤ n1,
         # scanning inward from the last "still-growing" point).
@@ -123,8 +122,8 @@ def apply_fac_tail_fix(
                 j = m
                 break
 
-        # And a secondary crossing i at n2 (informational; FAC uses it
-        # when _dsi > 0 to set a width, which we don't enable here).
+        # And a secondary crossing (informational; FAC uses it when
+        # _dsi > 0 to set a width, which we don't enable here).
         # Require j large enough that the 7-point average has data.
         if j >= 10:
             # Local logarithmic decay rate b from a 7-point average at
@@ -136,7 +135,7 @@ def apply_fac_tail_fix(
             samp = 0.0
             cnt = 0.0
             for m in range(j - 3, j + 4):
-                if m == j or m < 0 or m >= n or m == jm:
+                if m in (j, jm) or m < 0 or m >= n:
                     continue
                 dr_mj = r[m] - r[j]
                 if abs(dr_mj) < 1e-30:

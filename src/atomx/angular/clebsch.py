@@ -4,9 +4,10 @@
                                                               (m1  m2 -m3)
 """
 
-import numpy as np
-from atomx.angular.wigner import wigner_3j
 import numba as nb
+import numpy as np
+
+from atomx.angular.wigner import wigner_3j
 
 
 @nb.njit(cache=True)

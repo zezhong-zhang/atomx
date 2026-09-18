@@ -57,7 +57,7 @@ class PotentialModel:
         """Build a numerical potential callable for radial ODE solvers."""
         kind = self.kind.lower()
         if Z is None:
-            Z = float(getattr(scf_result, "Z"))
+            Z = float(scf_result.Z)
         if kind == "bare":
             from atomx.numerics.shooting.scf_potential import bare_nuclear_potential
 

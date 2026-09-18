@@ -4,11 +4,11 @@ from __future__ import annotations
 
 import numpy as np
 
+import atomx.scattering.radiative_recombination as rr_mod
 from atomx import Atom
 from atomx.constants import HARTREE_EV
 from atomx.methods.hydrogenic_cross_sections import milne_rr_cross_section
 from atomx.plasma.rates import maxwellian_rate
-import atomx.scattering.radiative_recombination as rr_mod
 from atomx.scattering.radiative_recombination import (
     RRResult,
     rr_cross_section,

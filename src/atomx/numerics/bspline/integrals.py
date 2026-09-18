@@ -7,8 +7,8 @@ The key function _assemble_integral follows DBSR_HF's ZINTYm convention:
 it accepts (ks1, ks2) and produces an (mm x mm) matrix where mm = max(ns1, ns2).
 """
 
-import numpy as np
 import numba as nb
+import numpy as np
 
 
 @nb.njit(cache=True)

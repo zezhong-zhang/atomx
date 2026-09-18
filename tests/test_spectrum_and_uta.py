@@ -8,7 +8,6 @@ import pytest
 from atomx.spectrum import Spectrum, synthesize_from_transitions
 from atomx.uta import UTAArray, uta_moments, uta_simple_from_levels
 
-
 # ---------------------------------------------------------------------------
 # Spectrum container
 # ---------------------------------------------------------------------------
@@ -185,7 +184,9 @@ class TestCRMSynthesis:
     def _make_crm(self):
         """Minimal CRM: ground + two excited levels, two E1 transitions."""
         from atomx.plasma.crm import (
-            CollisionalRadiativeModel, CRMLevel, CRMTransition,
+            CollisionalRadiativeModel,
+            CRMLevel,
+            CRMTransition,
         )
         levels = [
             CRMLevel(label="ground", energy_eV=0.0, g=1),

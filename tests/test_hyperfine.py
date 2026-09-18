@@ -19,26 +19,22 @@ Reference values:
 
 from __future__ import annotations
 
-import numpy as np
 import pytest
 
+from atomx.methods.dirac_fock import DFSolver, Subshell
 from atomx.properties.hyperfine import (
     DEUTERON_ZEMACH_RADIUS_FM,
     HELIUM3_ZEMACH_RADIUS_FM,
-    NUCLEAR_MOMENTS,
     PROTON_POLARIZABILITY_H1S,
     PROTON_ZEMACH_RADIUS_FM,
     hyperfine_A,
     hyperfine_A_MHz,
     hyperfine_B,
-    hyperfine_B_MHz,
     hyperfine_radial_integral,
     nuclear_moment,
     radial_r_inv_cubed,
 )
 from atomx.results import HyperfineResult
-from atomx.methods.dirac_fock import DFSolver, Subshell
-
 
 # ---------------------------------------------------------------------------
 # Unit-ish tests on the data tables
@@ -89,7 +85,7 @@ class TestHydrogen21cm:
         P, Q, _occ, kappa, _lbl = orb_list[0]
         mom = nuclear_moment(1, 1)
         A = hyperfine_A_MHz(P, Q, result._bsp_data, kappa=kappa, g_I=mom.g_I)
-        assert A == pytest.approx(1420.4, rel=5e-3)  # 0.5 %
+        assert pytest.approx(1420.4, rel=5e-3) == A  # 0.5 %
 
     def test_convenience_method(self, h_1s_result):
         """SCFResult.hyperfine_constants() produces a HyperfineResult
@@ -131,7 +127,7 @@ class TestDeuterium:
         A_H = hyperfine_A_MHz(P, Q, result._bsp_data, kappa=kappa, g_I=mom_H.g_I)
         A_D = hyperfine_A_MHz(P, Q, result._bsp_data, kappa=kappa, g_I=mom_D.g_I)
         expected_ratio = mom_D.g_I / mom_H.g_I
-        assert A_D / A_H == pytest.approx(expected_ratio, rel=1e-10)
+        assert pytest.approx(expected_ratio, rel=1e-10) == A_D / A_H
 
     def test_deuterium_experimental_value(self, h_1s_result):
         """Experimental ²D 1s hyperfine splitting: 327.4 MHz."""
@@ -141,7 +137,7 @@ class TestDeuterium:
         # Scaling: A_H × g_D/g_H ≈ 1420 × 0.1535 ≈ 218 MHz.  This is
         # the Dirac prediction; the experimental 327.4 MHz is the
         # hyperfine *splitting* E(F=3/2) − E(F=1/2) = (3/2)·A, so A ≈ 218.
-        assert A_D == pytest.approx(218.0, rel=1e-2)
+        assert pytest.approx(218.0, rel=1e-2) == A_D
 
 
 # ---------------------------------------------------------------------------
@@ -297,11 +293,11 @@ class TestLadderCorrections:
 class TestPrecisionConstants:
     def test_proton_zemach_radius_matches_codata_2022(self):
         # CODATA 2022 recommended value for proton Zemach radius
-        assert PROTON_ZEMACH_RADIUS_FM == pytest.approx(1.054, abs=0.002)
+        assert pytest.approx(1.054, abs=0.002) == PROTON_ZEMACH_RADIUS_FM
 
     def test_proton_polarizability_carlson_value(self):
         # Carlson-Vanderhaeghen 2011: +1.3(3) × 10⁻⁶ for H 1s
-        assert PROTON_POLARIZABILITY_H1S == pytest.approx(1.3e-6, rel=0.1)
+        assert pytest.approx(1.3e-6, rel=0.1) == PROTON_POLARIZABILITY_H1S
 
     def test_deuteron_zemach_larger_than_proton(self):
         assert DEUTERON_ZEMACH_RADIUS_FM > PROTON_ZEMACH_RADIUS_FM
@@ -341,7 +337,7 @@ class TestQuadrupoleB:
             if abs(kappa) >= 2:
                 B1 = hyperfine_B(P, Q, result._bsp_data, kappa=kappa, Q_nuc_barns=1.0)
                 B2 = hyperfine_B(P, Q, result._bsp_data, kappa=kappa, Q_nuc_barns=2.0)
-                assert B2 == pytest.approx(2.0 * B1, rel=1e-14)
+                assert pytest.approx(2.0 * B1, rel=1e-14) == B2
                 return
         pytest.fail("No |κ| ≥ 2 orbital found in Na fixture.")
 
@@ -408,4 +404,4 @@ class TestRadialIntegral:
         P, Q, _, kappa, _ = orb_list[0]
         A_1 = hyperfine_A(P, Q, result._bsp_data, kappa=kappa, g_I=1.0)
         A_2 = hyperfine_A(P, Q, result._bsp_data, kappa=kappa, g_I=2.0)
-        assert A_2 == pytest.approx(2.0 * A_1, rel=1e-12)
+        assert pytest.approx(2.0 * A_1, rel=1e-12) == A_2

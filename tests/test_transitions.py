@@ -8,17 +8,21 @@ Validates:
 - Single-config transitions via Atom API
 """
 
+from types import SimpleNamespace
+
 import numpy as np
 import pytest
-from types import SimpleNamespace
+
 from atomx.properties.transitions.angular import (
-    selection_rules, angular_eL, angular_mL,
-    allowed_final_kappas, _kappa_to_lj,
+    allowed_final_kappas,
+    angular_eL,
+    selection_rules,
 )
 from atomx.properties.transitions.rates import (
-    einstein_A_eL, oscillator_strength, lifetime, _double_factorial,
+    _double_factorial,
+    lifetime,
+    oscillator_strength,
 )
-
 
 # ===== Angular module tests =====
 

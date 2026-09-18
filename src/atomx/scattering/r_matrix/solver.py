@@ -19,7 +19,6 @@ from typing import Any, Callable, Dict
 import numpy as np
 
 from atomx.constants import BOHR_RADIUS_M, HARTREE_EV
-
 from atomx.scattering.r_matrix.internal_region import assemble_internal_region
 from atomx.scattering.r_matrix.surface import (
     partial_wave_cross_section_au,

@@ -12,8 +12,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from atomx.angular.coefficients import exchange_k_range
-from atomx.angular.coefficients import exchange_lambda
+from atomx.angular.coefficients import exchange_k_range, exchange_lambda
 
 
 @dataclass(frozen=True)
@@ -148,13 +147,13 @@ def one_body_csf_coupling(csf_bra, csf_ket, L: int,
     a destination subshell.  Explicit J-resolved CSFs are additionally filtered
     by many-electron tensor selection rules.
     """
-    if csf_has_explicit_j(csf_bra) and csf_has_explicit_j(csf_ket):
-        if not multipole_allows_state_transition(
-            csf_twice_j(csf_ket), csf_parity(csf_ket),
-            csf_twice_j(csf_bra), csf_parity(csf_bra),
-            L, operator_type,
-        ):
-            return None
+    if (csf_has_explicit_j(csf_bra) and csf_has_explicit_j(csf_ket)
+            and not multipole_allows_state_transition(
+                csf_twice_j(csf_ket), csf_parity(csf_ket),
+                csf_twice_j(csf_bra), csf_parity(csf_bra),
+                L, operator_type,
+            )):
+        return None
 
     occ_bra = {(sh.n, sh.kappa): sh.occupation for sh in csf_bra.subshells}
     occ_ket = {(sh.n, sh.kappa): sh.occupation for sh in csf_ket.subshells}

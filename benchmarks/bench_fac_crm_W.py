@@ -22,13 +22,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
+from fac_runner import parse_e0, parse_levels, parse_transitions, run_sfac  # noqa: E402
+
 from atomx.plasma.crm import (  # noqa: E402
+    CollisionalRadiativeModel,
     CRMLevel,
     CRMTransition,
-    CollisionalRadiativeModel,
     coronal_charge_balance,
 )
-from fac_runner import parse_e0, parse_levels, parse_transitions, run_sfac  # noqa: E402
 
 Z_W = 74
 W_CHARGES = list(range(40, 48))
@@ -232,7 +233,7 @@ def build_w_ion_fixture(charge: int, *, build_atom: bool = False) -> WIonFixture
     idx = 0
     base_cfg = configs[0]
     array_cfg = f"{base_cfg} M/N unresolved array"
-    for i_cfg, cfg in enumerate(configs):
+    for i_cfg, _cfg in enumerate(configs):
         for j in range(3):
             energy = 8.0 * i_cfg + 0.7 * j + 0.45 * (charge - W_CHARGES[0])
             crm_cfg = base_cfg if i_cfg == 0 else array_cfg
@@ -282,7 +283,7 @@ def tungsten_fractional_abundances(
         else _ionization_rate
     )
     abund = coronal_charge_balance(W_CHARGES, Te_eV, ion_rate, _recombination_rate)
-    return dict(zip(W_CHARGES, abund))
+    return dict(zip(W_CHARGES, abund, strict=False))
 
 
 def _load_putterich_2008_digitized_curve() -> list[tuple[float, float]]:
@@ -303,7 +304,7 @@ def putterich_2008_cooling_reference(Te_eV: float) -> float:
     if Te_eV >= curve[-1][0]:
         return curve[-1][1]
     logT = math.log10(Te_eV)
-    for (t0, y0), (t1, y1) in zip(curve, curve[1:]):
+    for (t0, y0), (t1, y1) in zip(curve, curve[1:], strict=False):
         if t0 <= Te_eV <= t1:
             x0 = math.log10(t0)
             x1 = math.log10(t1)

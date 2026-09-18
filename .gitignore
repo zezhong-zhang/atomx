@@ -9,19 +9,30 @@ build/
 *.so
 .claude/
 .serena/
+.code-review-graph/
+.benchmarks/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+nohup.out
+*.orig
+*.rej
 **/.DS_Store
 papers/
 media/
 scripts/output/
 # sfac run outputs (regenerable via extract_AHX.py; large)
-docs/superpowers/plans/2026-04-20-fac-calibration/fac_data/
-benchmarks/*
-!benchmarks/PERFORMANCE.md
-!benchmarks/bench_fac_dw_excitation.py
-!benchmarks/bench_fac_dw_eii.py
-!benchmarks/bench_pyscf_embedding_convergence.py
-!benchmarks/results_fac_dw_excitation.csv
-!benchmarks/results_fac_dw_eii.csv
+docs/plans/2026-04-20-fac-calibration/fac_data/
+# Benchmark/build artefacts.  Only the *generated* outputs are ignored — the
+# reference CSVs and FAC dumps that tests read are tracked, and a blanket
+# ``benchmarks/*`` (the previous rule) made ``git add`` a silent no-op for the
+# 40+ tracked files under benchmarks/.
+benchmarks/*.log
+benchmarks/_*_work/
+benchmarks/fac_dumps/
+
 scripts/wf_txt_compare/
 dataset/
 output/

@@ -86,7 +86,7 @@ def _gauss_legendre_per_cell(
     nodes, weights = np.polynomial.legendre.leggauss(n_gauss)
     pts = []
     wts = []
-    for left, right in zip(breakpoints[:-1], breakpoints[1:]):
+    for left, right in zip(breakpoints[:-1], breakpoints[1:], strict=False):
         if right <= left:
             continue
         half = 0.5 * (right - left)

@@ -4,10 +4,9 @@ Solves the Schrödinger radial equation for R*V(R) = RV0 + RV1*R + RV2*R^2 + RV3
 P is the radial function, Q = dP/dr (derivative).
 """
 
-import numpy as np
-import numba as nb
-import math
 
+import numba as nb
+import numpy as np
 
 OVER = 1.0e15  # Overflow level
 

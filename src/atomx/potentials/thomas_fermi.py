@@ -13,7 +13,7 @@ Reference: Salvat et al., Comp. Phys. Comm. 165, 157 (2005)
 """
 
 import numpy as np
-from atomx.constants import ALPHA
+
 from atomx.numerics.bspline.integrals import _assemble_integral
 
 
@@ -99,10 +99,7 @@ def tfda_potential(Z, N_electrons, r):
     V_tf_raw, V_asym = _tf_raw_and_asym(Z, N_electrons, r)
 
     # Amaldi correction: scale electron-electron by (N-1)/N
-    if N_electrons > 1:
-        amaldi_factor = (N_electrons - 1.0) / N_electrons
-    else:
-        amaldi_factor = 0.0
+    amaldi_factor = (N_electrons - 1.0) / N_electrons if N_electrons > 1 else 0.0
 
     # Separate nuclear and electron parts
     V_nuc = -Z / r_safe

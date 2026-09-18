@@ -12,20 +12,7 @@ into a single "apply to any AtomicResult" call; each backend declares
 the flavours it supports, and unsupported ones are silently skipped
 with provenance captured under ``"_skipped"``.
 """
-from atomx.corrections.breit import compute_breit_energy  # noqa: F401
-from atomx.corrections.qed import (  # noqa: F401
-    compute_qed_corrections,
-    compute_se_energy,
-    compute_vp_energy,
-    uehling_potential,
-)
 from atomx.corrections import qedmod  # noqa: F401
-from atomx.corrections.protocol import Correction, CorrectionResult  # noqa: F401
-from atomx.corrections.stack import (  # noqa: F401
-    CorrectionStack,
-    finalize_with_corrections,
-)
-from atomx.corrections.workspace import make_grid_workspace  # noqa: F401
 from atomx.corrections.adapters import (  # noqa: F401
     BreitCorrection,
     NormalMassShiftCorrection,
@@ -33,3 +20,16 @@ from atomx.corrections.adapters import (  # noqa: F401
     UehlingVPCorrection,
     WichmannKrollVPCorrection,
 )
+from atomx.corrections.breit import compute_breit_energy  # noqa: F401
+from atomx.corrections.protocol import Correction, CorrectionResult  # noqa: F401
+from atomx.corrections.qed import (  # noqa: F401
+    compute_qed_corrections,
+    compute_se_energy,
+    compute_vp_energy,
+    uehling_potential,
+)
+from atomx.corrections.stack import (  # noqa: F401
+    CorrectionStack,
+    finalize_with_corrections,
+)
+from atomx.corrections.workspace import make_grid_workspace  # noqa: F401

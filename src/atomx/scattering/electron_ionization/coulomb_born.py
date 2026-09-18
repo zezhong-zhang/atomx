@@ -41,8 +41,7 @@ from typing import Dict, Optional
 
 import numpy as np
 
-from atomx.constants import HARTREE_EV, BOHR_RADIUS_M
-
+from atomx.constants import BOHR_RADIUS_M, HARTREE_EV
 
 _A0_CM2 = (BOHR_RADIUS_M * 100.0) ** 2  # a₀² in cm²
 
@@ -85,7 +84,7 @@ def bethe_born_ci_cross_section(
         raise ValueError("bethe_born_ci_cross_section: I_eV must be > 0")
     E = np.asarray(energies_eV, dtype=float)
     out = np.zeros_like(E)
-    above = E > I_eV
+    above = I_eV < E
     if not np.any(above):
         return out
     Ee = E[above]
@@ -132,10 +131,10 @@ def coulomb_born_ci_atom(
     dict
         ``{"sigma_total_cm2": np.ndarray, "by_orbital": {label: σ}}``.
     """
-    from atomx.scattering.electron_ionization import (
-        _bound_optical_strength, _build_static_hartree,
-    )
     from atomx.numerics.bspline.convol import ConvolCache
+    from atomx.scattering.electron_ionization import (
+        _bound_optical_strength,
+    )
 
     bsp_data = scf_result._bsp_data
     cache = ConvolCache(bsp_data)

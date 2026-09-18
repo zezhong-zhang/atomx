@@ -21,6 +21,7 @@ Readers return lightweight ``list[dict]`` rows; callers that want a
 
 from __future__ import annotations
 
+import contextlib
 import time
 from pathlib import Path
 from typing import Any, Iterable, Sequence
@@ -102,16 +103,12 @@ def _parse_global_header(lines: Iterable[str]) -> dict[str, Any]:
             tail = line.split("=", 1)[1]
             parts = [p.strip() for p in tail.split(",")]
             if len(parts) >= 2:
-                try:
+                with contextlib.suppress(ValueError):
                     meta["E0_eV"] = float(parts[1])
-                except ValueError:
-                    pass
         elif " Z\t=" in line or " Z =" in line:
             # "<Sym> Z\t=  26.0"
-            try:
+            with contextlib.suppress(ValueError, IndexError):
                 meta["Z"] = int(round(float(line.split("=")[1].strip())))
-            except (ValueError, IndexError):
-                pass
     return meta
 
 
@@ -576,7 +573,7 @@ def write_ce(
             raise ValueError(
                 "energies_eV, collision_strength, sigma_1e20cm2 must share length."
             )
-        for ei, oi, si in zip(energies, omegas, sigmas):
+        for ei, oi, si in zip(energies, omegas, sigmas, strict=False):
             lines.append(f" {float(ei): .8E}  {float(oi): .8E}  {float(si): .8E}")
     lines.append("")
     path.write_text("\n".join(lines))
@@ -602,7 +599,6 @@ def read_ce(path: str | Path) -> list[dict[str, Any]]:
     energies: list[float] = []
     strengths: list[float] = []
     sigmas: list[float] = []
-    nusr = 0
     nparams = 0
     pending_header = False
 
@@ -628,10 +624,6 @@ def read_ce(path: str | Path) -> list[dict[str, Any]]:
             continue
         if line.startswith("NUSR"):
             _close()
-            try:
-                nusr = int(line.split("=")[-1].strip())
-            except ValueError:
-                nusr = 0
             continue
         if line.startswith("NPARAMS"):
             try:

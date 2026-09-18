@@ -6,11 +6,12 @@ Solves the Dirac radial equation for R*V(R) = RV0 + RV1*R + RV2*R^2 + RV3*R^3
 Given boundary conditions (P0, Q0) at RA, computes (P1, Q1) at RB.
 """
 
-import numpy as np
-import numba as nb
 import math
-from atomx.numerics.shooting.constants import SL
 
+import numba as nb
+import numpy as np
+
+from atomx.numerics.shooting.constants import SL
 
 OVER = 1.0e15  # Overflow level
 

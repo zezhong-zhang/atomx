@@ -40,11 +40,9 @@ from typing import Dict
 
 import numpy as np
 
-from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
-from atomx.constants import ALPHA, BOHR_RADIUS_M
+from atomx.constants import BOHR_RADIUS_M
 from atomx.corrections.qedmod.welton import _density_at_origin
 from atomx.properties.hyperfine.dipole import HARTREE_MHZ
-
 
 # 1 Bohr = BOHR_RADIUS_M metres;  1 fm = 1e-15 metres
 # Bohr²/fm² = (BOHR_RADIUS_M × 1e15)²
@@ -113,7 +111,7 @@ def field_shift_factor_per_orbital(
 
     conv_MHz_per_fm2 = HARTREE_MHZ / BOHR2_IN_FM2   # Ha/Bohr² → MHz/fm²
 
-    for P, Q, occ, kappa, label in orbitals:
+    for P, Q, occ, _kappa, label in orbitals:
         # |ψ(0)|² estimator from Welton's density-at-origin helper
         psi0_sq = _density_at_origin(P, Q, bsp_data)
 

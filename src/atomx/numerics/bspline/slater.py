@@ -33,8 +33,8 @@ without duplicating kernels.  The default is always the fast method.
 
 from __future__ import annotations
 
-import numpy as np
 import numba as nb
+import numpy as np
 
 from atomx.numerics.bspline.evaluate import compute_yk
 
@@ -64,10 +64,7 @@ def slater_rk_direct(
         wi = w[i]
         for j in range(n):
             rj = r[j]
-            if ri <= rj:
-                rk_val = ri ** k / rj ** (k + 1)
-            else:
-                rk_val = rj ** k / ri ** (k + 1)
+            rk_val = ri ** k / rj ** (k + 1) if ri <= rj else rj ** k / ri ** (k + 1)
             total += wi * w[j] * rho13_i * rho24[j] * rk_val
     return total
 

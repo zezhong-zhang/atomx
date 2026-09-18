@@ -6,11 +6,12 @@ Reference magnitudes from Desclaux (1973) and DBSR_HF.
 
 import numpy as np
 import pytest
-from atomx.methods.dirac_fock import DFSolver, helium_subshells, neon_subshells
-from atomx.corrections.qed import uehling_potential, compute_se_energy, compute_vp_energy
-from atomx.corrections.breit import compute_breit_energy
-from atomx.constants import ALPHA, C
 
+from atomx.corrections.qed import (
+    compute_se_energy,
+    uehling_potential,
+)
+from atomx.methods.dirac_fock import DFSolver, helium_subshells, neon_subshells
 
 # ---- Shared fixtures ----
 
@@ -19,11 +20,8 @@ def ne_hf_solved():
     """Ne DHF converged result with orbitals accessible."""
     solver = DFSolver(Z=10, subshells=neon_subshells(), ns=50, ks=9, exchange="hf")
     result = solver.solve(max_iter=40, tol=1e-5)
-    orb_list = solver._flatten_orbitals(
-        {sh.kappa: [] for sh in solver.subshells})
-    # Re-flatten from the result — need to re-solve to get orbitals
-    # Actually solve returns orbital_energies but not raw orbitals.
-    # Use include_breit/qed flags instead.
+    # The result carries orbital_energies but not raw orbitals; the
+    # Breit/QED assertions below work through the energy_components dict.
     return solver, result
 
 
@@ -63,14 +61,20 @@ class TestUehlingPotential:
         """VP potential is proportional to Z."""
         V_Z1 = uehling_potential(1.0, Z=1)
         V_Z10 = uehling_potential(1.0, Z=10)
-        assert V_Z10 == pytest.approx(10 * V_Z1, rel=1e-10)
+        assert pytest.approx(10 * V_Z1, rel=1e-10) == V_Z10
 
 
 # ---- Self-energy tests ----
 
 class TestSelfEnergy:
     def test_se_1s_positive_for_low_Z(self):
-        """1s self-energy is positive (increases binding) for low Z."""
+        """1s self-energy shifts the total energy upward for low Z.
+
+        Sign convention: `energy_components["E_SE"]` is a shift *added* to
+        the Dirac-Coulomb total, so a positive value makes the atom **less**
+        bound (the Lamb shift raises s levels).  The reverse was stated here
+        before 2026-09-18.
+        """
         orbs = [(np.zeros(50), np.zeros(50), 2, -1, "1s1/2")]
         E_SE = compute_se_energy(orbs, Z=2)
         # F(Zα) ≈ 10.6 for Z=2, so E_SE should be positive
@@ -139,7 +143,7 @@ class TestBreitQEDIntegration:
         it so sign/magnitude regressions trip instead of only ==0.
         """
         E_VP = ne_full_result.energy_components.get("E_VP", 0)
-        assert E_VP == pytest.approx(-0.002355, rel=0.05), (
+        assert pytest.approx(-0.002355, rel=0.05) == E_VP, (
             f"Ne VP {E_VP:.6f} out of range (expected ~-0.002355)")
 
     def test_ne_has_se(self, ne_full_result):
@@ -148,9 +152,14 @@ class TestBreitQEDIntegration:
         assert E_SE != 0, "SE should be nonzero for Ne"
 
     def test_ne_total_with_corrections(self, ne_full_result):
-        """Ne total with Breit+QED should still be close to DHF value."""
-        # Corrections are small, so total shouldn't change much
-        assert ne_full_result.total_energy == pytest.approx(-128.5, abs=2.0)
+        """Ne total with Breit+QED is pinned (was a 2 Ha band).
+
+        Measured 2026-09-18: Breit +0.050437, VP −0.002355, SE (mohr)
+        +0.030218 ⇒ total −128.6136144 Ha.  The old `abs=2.0` band could not
+        have caught a wrong correction; 0.05 Ha still tolerates the known
+        per-engine spread (bspline vs shooting agree to ~2e-5 Ha).
+        """
+        assert ne_full_result.total_energy == pytest.approx(-128.6136, abs=0.05)
 
     def test_ne_correction_signs(self, ne_full_result):
         """VP is negative (attractive), SE is positive, Breit usually negative."""
@@ -159,3 +168,72 @@ class TestBreitQEDIntegration:
         E_SE = E.get("E_SE", 0)
         assert E_VP < 0, f"VP should be negative: {E_VP}"
         assert E_SE > 0, f"SE should be positive: {E_SE}"
+
+
+# ---- Total QED shift: the previously unpinned quantity ----
+
+class TestQEDTotalShiftPin:
+    """Pin the **total** QED shift a default `Atom(qed=True)` applies.
+
+    Why this class exists (2026-09-18 review, C3): the self-energy is the
+    largest correction atomx applies by default (Ne: +0.0302 Ha, 12x the
+    Uehling VP term) and *no* test pinned the total shift — `test_qed.py`
+    asserted `E_SE != 0`, an order-of-magnitude band for He and, for Ne, only
+    that the total stayed within 2 Ha.  The only external anchor for the
+    self-energy is the analytic hydrogenic Z=1 case
+    (`tests/test_qedmod.py::TestMohrBackwardCompat`); a tabulated many-electron
+    reference is still missing, which `docs/VERIFICATION.md` lists explicitly.
+    These are therefore **self-regression pins**, not external validation:
+    they make a silent change in the default correction stack fail loudly.
+    """
+
+    #: Z -> (label, pinned total shift in Ha, pinned SE, pinned VP)
+    PINS = {
+        10: ("Ne", +0.027862900, +0.030218071, -0.002355171),
+        18: ("Ar", +0.330528077, +0.356042705, -0.025514628),
+    }
+
+    @pytest.mark.parametrize("Z", sorted(PINS))
+    def test_default_qed_shift_is_pinned(self, Z):
+        from atomx import Atom
+
+        label, shift_ref, _se_ref, _vp_ref = self.PINS[Z]
+        base = Atom(Z=Z, numerics="shooting", breit=False, qed=False)
+        base.solve()
+        with_qed = Atom(Z=Z, numerics="shooting", breit=False, qed=True)
+        with_qed.solve()
+        shift = with_qed.total_energy - base.total_energy
+        assert shift == pytest.approx(shift_ref, rel=1e-3), (
+            f"{label}: default QED shift {shift:+.9f} != {shift_ref:+.9f} Ha")
+
+    @pytest.mark.parametrize("Z", sorted(PINS))
+    def test_default_stack_is_self_energy_plus_uehling(self, Z):
+        """The default stack is SE + Uehling VP — Wichmann-Kroll is opt-in.
+
+        Worth pinning: WK is a *separate* adapter and is not included by
+        default, so the default QED shift is smaller than the sum of the
+        three terms by exactly the WK contribution.
+        """
+        from atomx import Atom
+        from atomx.corrections.adapters import (
+            SelfEnergyCorrection,
+            UehlingVPCorrection,
+            WichmannKrollVPCorrection,
+        )
+        from atomx.corrections.qed import resolve_se_method
+
+        label, shift_ref, se_ref, vp_ref = self.PINS[Z]
+        base = Atom(Z=Z, numerics="shooting", breit=False, qed=False)
+        base.solve()
+        result = base.result
+        backend = resolve_se_method("auto", Z)
+        se = SelfEnergyCorrection(backend=backend).evaluate(result).energy_shift
+        vp = UehlingVPCorrection().evaluate(result).energy_shift
+        wk = WichmannKrollVPCorrection().evaluate(result).energy_shift
+        assert backend == "mohr", f"{label}: default SE backend is {backend!r}"
+        assert se == pytest.approx(se_ref, rel=1e-3)
+        assert vp == pytest.approx(vp_ref, rel=1e-3)
+        assert se + vp == pytest.approx(shift_ref, rel=1e-3), (
+            f"{label}: stack is not SE+VP (SE={se:+.6f}, VP={vp:+.6f}, "
+            f"pinned total {shift_ref:+.9f})")
+        assert wk != 0.0, "WK adapter should still compute a value"

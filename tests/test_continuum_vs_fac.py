@@ -17,6 +17,7 @@ Physics pinned by the audit:
 
 from __future__ import annotations
 
+import contextlib
 import re
 import sys
 from pathlib import Path
@@ -42,14 +43,14 @@ CASES = [
 
 def _parse(fn):
     hdr, rows = {}, []
-    for line in open(fn):
+    with open(fn) as handle:
+        lines = handle.readlines()
+    for line in lines:
         if line.startswith("#"):
             m = re.match(r"#\s*(\w+)\s*=\s*(\S+)", line)
             if m:
-                try:
+                with contextlib.suppress(ValueError):
                     hdr[m.group(1)] = float(m.group(2))
-                except ValueError:
-                    pass
             continue
         p = line.split()
         if len(p) >= 6:
@@ -71,11 +72,12 @@ def solved():
 
 @pytest.mark.parametrize("fname,Z", CASES)
 def test_wave_matches_fac(solved, fname, Z):
-    from atomx.numerics.shooting.dirac_continuum import (
-        solve_dirac_continuum_shooting)
     from atomx.numerics.quadrature import p_rel
+    from atomx.numerics.shooting.dirac_continuum import solve_dirac_continuum_shooting
     from atomx.scattering.distorted_wave.solver import (
-        _distorting_potential_fn, _shooting_points)
+        _distorting_potential_fn,
+        _shooting_points,
+    )
 
     hdr, r, P = _parse(FIXDIR / fname)
     E = hdr["energy"] / HEV

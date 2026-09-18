@@ -101,7 +101,7 @@ def find_resonance_seeds(
     in_peak = False
     peak_E = None
     peak_g = -np.inf
-    for E, g, mask in zip(energies_au, grad, above):
+    for E, g, mask in zip(energies_au, grad, above, strict=False):
         if mask:
             if not in_peak or g > peak_g:
                 peak_E = E

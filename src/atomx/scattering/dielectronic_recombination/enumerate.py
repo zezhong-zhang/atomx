@@ -27,7 +27,6 @@ from atomx.methods.mcdhf.config import CSF
 from atomx.properties.transitions.angular import selection_rules
 from atomx.scattering.autoionization.auger import AutoionizationState
 
-
 _L_SYMBOLS = "spdfghiklmno"
 
 
@@ -206,7 +205,7 @@ def _initial_statistical_weight(atom, default: float = 1.0) -> float:
     if core_config:
         try:
             closed = True
-            for n, l, occ in _parse_nr_config(core_config):
+            for _n, l, occ in _parse_nr_config(core_config):
                 cap = 2 * (2 * l + 1)
                 if occ != cap:
                     closed = False

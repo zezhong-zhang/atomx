@@ -32,7 +32,6 @@ from dataclasses import dataclass, field
 from typing import Sequence
 
 import numpy as np
-from scipy.integrate import solve_ivp
 
 from atomx.scattering.r_matrix.angular_cc import direct_terms
 from atomx.scattering.r_matrix.channel_table import Channel
@@ -262,10 +261,9 @@ def _build_long_range_coupling_terms(
                         "Composite target missing two_electron_term"
                     )
                 for a_idx, (l_aj, l_ai) in enumerate(
-                    zip((term_j.l1, term_j.l2), (term_i.l1, term_i.l2)),
+                    zip((term_j.l1, term_j.l2), (term_i.l1, term_i.l2), strict=False),
                     start=1,
                 ):
-                    b_idx = 2 if a_idx == 1 else 1
                     l_bj = term_j.l2 if a_idx == 1 else term_j.l1
                     l_bi = term_i.l2 if a_idx == 1 else term_i.l1
                     if l_bj != l_bi:

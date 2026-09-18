@@ -47,7 +47,6 @@ sys.path.insert(0, str(ROOT / "src"))
 from atomx import Atom  # noqa: E402
 from atomx.scattering.autoionization import auger_rate_csf_average  # noqa: E402
 
-
 FIXTURE_PATH = Path(__file__).parent / "data" / "fe17_kll_auger_fac.json"
 
 # HYP-530 acceptance: 1e5 -> 1e13-1e14 s^-1 magnitude fix.  The

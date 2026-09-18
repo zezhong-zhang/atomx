@@ -31,21 +31,20 @@ import tempfile
 import time
 from pathlib import Path
 
-import numpy as np
-
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "benchmarks"))
 
 from atomx import Atom  # noqa: E402
-from atomx.constants import HARTREE_EV  # noqa: E402
 from atomx.io import (  # noqa: E402
-    read_ce, read_lev, read_tra,
-    write_ce, write_lev, write_tra,
+    read_lev,
+    read_tra,
+    write_lev,
+    write_tra,
 )
 
 try:
-    from fac_runner import run_sfac, parse_levels, parse_transitions  # noqa: E402
+    from fac_runner import run_sfac  # noqa: E402
     HAS_SFAC_RUNNER = True
 except Exception:
     HAS_SFAC_RUNNER = False

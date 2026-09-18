@@ -11,9 +11,9 @@ from atomx.properties.g_factor import (
     GFactorResult,
     g_factor,
     g_factor_dirac_hydrogenic,
+    g_factor_finite_nuclear_size,
     g_factor_orbital,
     g_factor_qed,
-    g_factor_finite_nuclear_size,
 )
 
 

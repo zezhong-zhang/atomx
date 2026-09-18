@@ -17,8 +17,7 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from atomx.spectrum.continuum import (  # noqa: E402
-    free_free_emissivity, gaunt_ff_born)
+from atomx.spectrum.continuum import free_free_emissivity, gaunt_ff_born  # noqa: E402
 
 
 def test_gaunt_born_limits():
@@ -54,8 +53,7 @@ def test_free_free_textbook_magnitude():
 
 
 def test_crm_synthesis_includes_free_free():
-    from atomx.plasma.crm import (CRMLevel, CRMTransition,
-                                  CollisionalRadiativeModel)
+    from atomx.plasma.crm import CollisionalRadiativeModel, CRMLevel, CRMTransition
     from atomx.spectrum.crm_synth import crm_emission_spectrum
 
     levels = [CRMLevel("g", 0.0, g=1), CRMLevel("e", 100.0, g=3)]
@@ -79,8 +77,7 @@ def test_crm_synthesis_includes_free_free():
 
 
 def test_crm_synthesis_requires_zeff():
-    from atomx.plasma.crm import (CRMLevel, CRMTransition,
-                                  CollisionalRadiativeModel)
+    from atomx.plasma.crm import CollisionalRadiativeModel, CRMLevel, CRMTransition
     from atomx.spectrum.crm_synth import crm_emission_spectrum
     crm = CollisionalRadiativeModel(
         [CRMLevel("g", 0.0, g=1), CRMLevel("e", 10.0, g=3)],
@@ -98,8 +95,7 @@ def test_crm_synthesis_includes_rr_continuum():
     """Free-bound edge appears in the synthesized spectrum (He+ 1s)."""
     from atomx import Atom
     from atomx.constants import HARTREE_EV
-    from atomx.plasma.crm import (CRMLevel, CRMTransition,
-                                  CollisionalRadiativeModel)
+    from atomx.plasma.crm import CollisionalRadiativeModel, CRMLevel, CRMTransition
     from atomx.spectrum.crm_synth import crm_emission_spectrum
 
     atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)

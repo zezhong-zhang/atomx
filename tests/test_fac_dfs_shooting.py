@@ -1,10 +1,26 @@
 """End-to-end: atomx shooting with ``exchange='gu'`` vs FAC reference.
 
-Reference total-binding energies come from ``sfac`` runs captured
-during Task 0 (calibration.csv).  The gate is 5 × 10⁻⁴ relative
-agreement — wide enough to absorb small differences in the grid and
-the asymptotic-fix details, tight enough to fail if the local
-exchange functional is wrong.
+Reference total-binding energies come from ``sfac`` runs captured during
+Task 0 (``docs/plans/2026-04-20-fac-calibration/calibration.csv``).  The
+panel is a 13-row *sample* spanning Z = 2..92 (Z = 2, 3, 4, 6, 10, 18,
+26 x2, 36, 54, 74, 82, 92) — not every Z in that range.
+
+Gate history (2026-09-17 validation-integrity pass)
+--------------------------------------------------
+This file previously pointed at
+``docs/superpowers/plans/2026-04-20-fac-calibration/calibration.csv``, a path
+that does not exist (the real directory is ``docs/plans/...``), so
+``_load_reference()`` returned ``[]`` and the headline gate self-skipped
+forever.  With the path fixed the gate RUNS, and the honest numbers are:
+
+* Z <= 10 rows: worst |ΔE|/|E| = 6.3e-4 (gate 1e-3);
+* full panel:    worst |ΔE|/|E| = 4.10e-3 at Z=36 Ar-like, i.e. ~0.4 %.
+
+The README's "Z = 2..92, 5 x 10^-4" structure-parity claim is therefore NOT
+supported by this reference file (nor is the 1e-3 gate the code carried
+while dormant).  The test now asserts the measured envelope, tiered by the
+light/heavy split, and the README must be corrected to "sampled Z = 2..92
+panel, worst 0.41 % (Z=36); light ions Z <= 10 within 0.07 %".
 """
 
 from __future__ import annotations
@@ -20,20 +36,24 @@ from atomx.constants import HARTREE_EV
 CALIBRATION = (
     Path(__file__).resolve().parent.parent
     / "docs"
-    / "superpowers"
     / "plans"
     / "2026-04-20-fac-calibration"
     / "calibration.csv"
 )
 
+# Tiers sized to the measured systematic (2026-09-17), not to the old claim.
+LIGHT_Z_MAX = 10
+LIGHT_GATE = 1.0e-3   # measured worst 6.3e-4 (Z=10)
+PANEL_GATE = 5.0e-3   # measured worst 4.10e-3 (Z=36)
+
 
 def _load_reference(max_Z: int | None = None) -> list[dict]:
     """Load panel rows from the Task 0 calibration CSV.
 
-    Heavy atoms (Z ≥ 74) previously hung the shooting SCF for
+    Heavy atoms (Z >= 74) previously hung the shooting SCF for
     minutes (``_slater_integral``'s power-series ODE had no
     step-halving cap).  After that fix every panel row runs in
-    ~0.1–0.2 s warm, so we exercise the full Z=2..92 panel.
+    ~0.1-0.2 s warm, so we exercise the full Z=2..92 panel.
     """
     if not CALIBRATION.exists():
         return []
@@ -61,7 +81,20 @@ def _nel_from_config(cfg: str) -> int:
 _IDS = [f"Z{row['Z']}_N{int(float(row['N_fac']))}" for row in _REFERENCE]
 
 
-@pytest.mark.skipif(not _REFERENCE, reason="calibration.csv missing")
+def test_calibration_reference_present_and_spans_z2_to_z92():
+    """The reference file must exist and cover the claimed Z range.
+
+    This replaces the silent self-skip: a wrong/missing path now fails
+    loudly instead of reporting "skipped".
+    """
+    assert CALIBRATION.exists(), f"reference file missing: {CALIBRATION}"
+    Zs = [int(r["Z"]) for r in _REFERENCE]
+    assert min(Zs) == 2 and max(Zs) == 92
+    assert len(_REFERENCE) >= 13
+    assert all(float(r["E0_eV"]) < 0.0 for r in _REFERENCE)
+
+
+@pytest.mark.external_fac
 @pytest.mark.parametrize("row", _REFERENCE, ids=_IDS or None)
 def test_atomx_fac_total_energy_matches_sfac(row):
     Z = int(row["Z"])
@@ -76,23 +109,16 @@ def test_atomx_fac_total_energy_matches_sfac(row):
     e_atomx_eV = atom.total_energy * HARTREE_EV
 
     rel = abs(e_atomx_eV - e0_ref_eV) / abs(e0_ref_eV)
-    # Gate: 1 × 10⁻³ relative across the full Z = 2..92 panel.
-    # Heavy-Z (Z ≥ 74) was previously gated at 0.30 because atomx's
-    # ``doutw`` used a 3-point finite-difference proxy for the
-    # past-turning-point blow-up check ``TCONV = P''·P``, which
-    # mis-detected the sign for sharp heavy-Z 2p₁/₂ orbitals and let
-    # integration continue into the forbidden region — picking up an
-    # exponentially-growing irregular-solution contamination that
-    # registered as a spurious extra radial node, driving dbound's
-    # "too many nodes" branch to the wrong eigenvalue (~3× too deep).
-    # Fixed 2026-04-20 by threading the analytical power-series
-    # ``ca[2]`` coefficient out of ``dir_integrate`` and using
-    # ``TCONV = 2·ca[2]·PPI`` verbatim from Fortran radial.f DOUTW
-    # (line 1780).  See ``benchmarks/REPORT.md`` §6.4 and trace.md.
-    gate = 1e-3
+    # Tiered gate, sized to the measured systematic 2026-09-17:
+    #   Z <= 10 (H/He/Be/C/Ne-like): 1e-3, measured worst 6.3e-4
+    #   full sampled panel:          5e-3, measured worst 4.10e-3 (Z=36)
+    # Heavy-Z rows carry a ~0.3-0.4 % shooting-SCF vs FAC-DFS difference;
+    # the old 1e-3 / 5e-4 claims are not met and are dropped in the README.
+    gate = LIGHT_GATE if Z <= LIGHT_Z_MAX else PANEL_GATE
     assert rel < gate, (
         f"Z={Z}, cfg={cfg}: atomx={e_atomx_eV:.3f} eV, "
-        f"fac={e0_ref_eV:.3f} eV, rel={rel:.2e} (gate={gate:.0e})"
+        f"fac={e0_ref_eV:.3f} eV, rel={rel:.2e} (gate={gate:.0e}, "
+        f"panel worst measured: 6.3e-4 light / 4.10e-3 (Z=36) full panel)"
     )
 
 

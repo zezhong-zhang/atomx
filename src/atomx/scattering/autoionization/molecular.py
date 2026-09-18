@@ -1098,7 +1098,7 @@ def _array_stride_span_bytes(array: NDArray[np.float64]) -> int:
         return 0
     low = 0
     high = 0
-    for dimension, stride in zip(array.shape, array.strides):
+    for dimension, stride in zip(array.shape, array.strides, strict=False):
         extent = (dimension - 1) * stride
         low += min(0, extent)
         high += max(0, extent)

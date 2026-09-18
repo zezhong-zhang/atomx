@@ -6,7 +6,6 @@ from atomx.constants import ALPHA
 from atomx.corrections.qedmod.base import get_backend
 from atomx.corrections.qedmod.indelicato import _interpolate_indelicato_f
 
-
 FAC_F = {
     (54, 1, -1): 1.7819343084925525,
     (54, 2, -1): 2.160477504261656,
@@ -75,7 +74,7 @@ def test_indelicato_matches_fac_high_z_ground_level_rows(Z, iso, shells):
         for n, kappa, occupation, label in shells
     )
 
-    assert actual.E_SE == pytest.approx(expected_total, rel=5e-7), iso
+    assert pytest.approx(expected_total, rel=5e-7) == actual.E_SE, iso
     assert actual.per_orbital["1s"] == pytest.approx(_fac_self_energy(Z, 1, -1), rel=5e-7), iso
 
 

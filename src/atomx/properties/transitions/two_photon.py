@@ -49,11 +49,11 @@ References
 
 from __future__ import annotations
 
-import numpy as np
 from math import pi
 
-from atomx.constants import ALPHA, AU_RATE_PER_S
+import numpy as np
 
+from atomx.constants import ALPHA, AU_RATE_PER_S
 
 # Drake 1986 fit constants — exact values used by FAC's ``TwoPhotonRate``
 # (faclib/dbase.c lines 11292-11326).  Keeping them as named constants
@@ -208,11 +208,12 @@ def _hydrogenic_all_states(Z, kappa, ns=80, ks=9, bsp_data=None):
     matrix elements between orbitals solved at different Z on the
     same grid).
     """
-    from atomx.numerics.bspline.knots import make_knots
     from atomx.numerics.bspline.basis import prepare_bspline_data
     from atomx.numerics.bspline.dirac_assembly import (
-        build_dirac_matrices, solve_dirac,
+        build_dirac_matrices,
+        solve_dirac,
     )
+    from atomx.numerics.bspline.knots import make_knots
 
     if bsp_data is None:
         r_min = 1e-5 / Z
@@ -300,7 +301,6 @@ def two_photon_rate_sos_h_like(Z, ns=80, ks=9, n_omega=200):
     kappa_s = -1   # s_{1/2}
     kappa_p12 = 1  # p_{1/2}
     kappa_p32 = -2  # p_{3/2}
-    tj_2s = 1  # 2 × 1/2
 
     # Get 1s and 2s orbitals from κ=-1 block
     E_s, Ps_s, Qs_s, bsp_data = _hydrogenic_all_states(Z, kappa_s, ns, ks)

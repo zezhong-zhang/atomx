@@ -12,6 +12,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from functools import lru_cache
 
+from atomx.angular.clebsch import clebsch_gordan
+from atomx.angular.mscheme import subshell_j_counts_mscheme
 from atomx.angular.rcfp import (
     ReducedSubshellState,
     reduced_annihilation_coeff,
@@ -21,8 +23,6 @@ from atomx.angular.rcfp import (
     reduced_w_coeff,
     reduced_wxw0_coeff,
 )
-from atomx.angular.mscheme import subshell_j_counts_mscheme
-from atomx.angular.clebsch import clebsch_gordan
 from atomx.angular.wigner import wigner_3j, wigner_6j
 
 
@@ -176,7 +176,7 @@ def _chain_spectators_match(
 ) -> bool:
     if len(bra.subshells) != len(ket.subshells):
         return False
-    for i, (b, k) in enumerate(zip(bra.subshells, ket.subshells)):
+    for i, (b, k) in enumerate(zip(bra.subshells, ket.subshells, strict=False)):
         if i != active and b != k:
             return False
     return True
@@ -297,7 +297,7 @@ def chain_wxw_scalar(
     if bra.total_J2 != ket.total_J2 or bra.parity != ket.parity:
         return 0.0
     active = {active_left, active_right}
-    for i, (b, k) in enumerate(zip(bra.subshells, ket.subshells)):
+    for i, (b, k) in enumerate(zip(bra.subshells, ket.subshells, strict=False)):
         if i not in active and b != k:
             return 0.0
 
@@ -444,7 +444,7 @@ def chain_one_body_excitation_reduced(
     if not (0 <= source < n and 0 <= destination < n):
         return 0.0
 
-    for i, (b, k) in enumerate(zip(bra.subshells, ket.subshells)):
+    for i, (b, k) in enumerate(zip(bra.subshells, ket.subshells, strict=False)):
         if i == destination:
             if b.j2 != k.j2 or b.q != k.q + 1:
                 return 0.0
@@ -678,7 +678,7 @@ def classify_recoupled_occupation_change(bra: RecoupledCSFState,
         return CSFOccupationChange(tuple(range(len(ket.subshells))), tuple(range(len(bra.subshells))))
     sources = []
     destinations = []
-    for i, (b, k) in enumerate(zip(bra.subshells, ket.subshells)):
+    for i, (b, k) in enumerate(zip(bra.subshells, ket.subshells, strict=False)):
         dq = b.q - k.q
         if dq < 0:
             sources.extend([i] * abs(dq))
@@ -709,7 +709,7 @@ def two_body_scalar_coefficients_simple(bra: RecoupledCSFState,
     n = len(bra.subshells)
     if not (0 <= active_left < n and 0 <= active_right < n):
         return tuple()
-    for i, (b, k) in enumerate(zip(bra.subshells, ket.subshells)):
+    for i, (b, k) in enumerate(zip(bra.subshells, ket.subshells, strict=False)):
         if i in (active_left, active_right):
             continue
         if b != k:
@@ -856,7 +856,7 @@ def discover_single_excitation_coefficients_simple(
     dest = change.destinations[0]
     if len(bra.subshells) != len(ket.subshells):
         return tuple()
-    for i, (b, k) in enumerate(zip(bra.subshells, ket.subshells)):
+    for i, (b, k) in enumerate(zip(bra.subshells, ket.subshells, strict=False)):
         if i in (source, dest):
             continue
         if b != k:
@@ -907,7 +907,7 @@ def discover_double_excitation_coefficients_simple(
     mixed = len(set(change.sources)) == 2 and len(set(change.destinations)) == 2
     if not (paired or mixed):
         return tuple()
-    for i, (b, k) in enumerate(zip(bra.subshells, ket.subshells)):
+    for i, (b, k) in enumerate(zip(bra.subshells, ket.subshells, strict=False)):
         if i in set(change.sources) | set(change.destinations):
             continue
         if b != k:
@@ -982,7 +982,7 @@ def spectator_subshells_match(bra: RecoupledCSFState,
     """Whether all non-active subshell reduced states are identical."""
     if len(bra.subshells) != len(ket.subshells):
         return False
-    for i, (b, k) in enumerate(zip(bra.subshells, ket.subshells)):
+    for i, (b, k) in enumerate(zip(bra.subshells, ket.subshells, strict=False)):
         if i == active:
             continue
         if b != k:

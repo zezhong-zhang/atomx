@@ -3,9 +3,10 @@
 Translates radial.f SCH (line 1895), SOUTW (line 1598), SINW (line 1655).
 """
 
-import numpy as np
-import numba as nb
 import math
+
+import numba as nb
+
 from atomx.numerics.shooting.schrodinger_power_series import sch0
 
 
@@ -26,10 +27,7 @@ def sch_integrate(e, al, eps, isum, ppi, qqi, ra, rb,
     rsum = 0.0
 
     h = rb - ra
-    if h < 0.0:
-        direct = -1.0
-    else:
-        direct = 1.0
+    direct = -1.0 if h < 0.0 else 1.0
 
     k_ctrl = -2
     nstep = 0

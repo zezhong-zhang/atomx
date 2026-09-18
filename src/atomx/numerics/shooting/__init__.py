@@ -25,4 +25,4 @@ constants : Physical constants in Salvat's RADIAL convention.
 All performance-critical routines are @nb.njit compiled.
 """
 
-from atomx.numerics.shooting.solver import ShootingSolver, ShootingResult
+from atomx.numerics.shooting.solver import ShootingResult, ShootingSolver

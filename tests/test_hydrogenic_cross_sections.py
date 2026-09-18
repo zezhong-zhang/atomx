@@ -1,6 +1,5 @@
 """Closed-form hydrogenic cross sections / rates pinned to NIST + Drake."""
 
-import math
 
 import numpy as np
 import pytest
@@ -100,7 +99,7 @@ def test_milne_rr_invalid_energy():
 def test_lyman_alpha_h():
     """A(2p → 1s, Z=1) = 6.265 × 10⁸ s⁻¹ (NIST)."""
     A = hydrogenic_e1_rate(Z=1, n_upper=2, n_lower=1, l_upper=1, l_lower=0)
-    assert A == pytest.approx(6.27e8, rel=1e-3)
+    assert pytest.approx(6.27e8, rel=1e-3) == A
 
 
 def test_lyman_alpha_z4_scaling():
@@ -108,8 +107,8 @@ def test_lyman_alpha_z4_scaling():
     A1 = hydrogenic_e1_rate(1, 2, 1, 1, 0)
     A2 = hydrogenic_e1_rate(2, 2, 1, 1, 0)
     A26 = hydrogenic_e1_rate(26, 2, 1, 1, 0)
-    assert A2 == pytest.approx(16 * A1, rel=1e-12)
-    assert A26 == pytest.approx(26**4 * A1, rel=1e-12)
+    assert pytest.approx(16 * A1, rel=1e-12) == A2
+    assert pytest.approx(26**4 * A1, rel=1e-12) == A26
 
 
 def test_hydrogenic_e1_unknown_transition():

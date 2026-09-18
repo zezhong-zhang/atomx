@@ -24,7 +24,6 @@ from atomx.constants import ALPHA
 from atomx.corrections.qedmod.base import SEBackend, SEResult, register_backend
 from atomx.corrections.qedmod.mohr import _overlap_ratio
 
-
 # ``TABLE[(n, kappa)][Z] -> F(alpha Z)``.
 # Rows are FAC ``faclib/coulomb.c:_qed_se0`` + ``_qed_se1`` at the
 # tabulated Fermi nuclear radius.  Grid values are every 10 charge units;

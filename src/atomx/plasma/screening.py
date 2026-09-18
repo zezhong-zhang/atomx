@@ -14,9 +14,9 @@ Reference:
 """
 
 import numpy as np
-from atomx.constants import BOHR_RADIUS_M, HARTREE_EV, BOLTZMANN_EV
-from atomx.numerics.bspline.integrals import _assemble_integral
 
+from atomx.constants import BOHR_RADIUS_M, HARTREE_EV
+from atomx.numerics.bspline.integrals import _assemble_integral
 
 # Conversion factors
 CM_TO_BOHR = 1.0 / (BOHR_RADIUS_M * 100)  # 1 cm in Bohr radii

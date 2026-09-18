@@ -7,13 +7,12 @@ import typing
 
 import pytest
 
-from atomx.scattering.two_electron.states import TwoElectronTerm, helike_terms
+from atomx.constants import HARTREE_EV
 from atomx.scattering.r_matrix.target_states import (
     TargetState,
     helike_target_states,
 )
-from atomx.constants import HARTREE_EV
-
+from atomx.scattering.two_electron.states import TwoElectronTerm, helike_terms
 
 # FAC reference: He-like Ne (Z=10) level energies relative to the 1s^2 ground.
 # Generated with FAC 1.1.5, no Breit/QED, structure only.

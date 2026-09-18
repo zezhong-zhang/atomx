@@ -41,11 +41,11 @@ import numpy as np
 from atomx.scattering.autoionization.auger import AutoionizationState
 from atomx.scattering.dielectronic_recombination.enumerate import (
     DRResonanceSpec,
+    _config_string,
+    _initial_statistical_weight,
     build_autoionization_states,
     enumerate_dr_resonances,
     resonance_strength_rows,
-    _config_string,
-    _initial_statistical_weight,
 )
 from atomx.scattering.dielectronic_recombination.widths import (
     has_solved_result,
@@ -382,8 +382,8 @@ def _dr33_manifold_states(initial_atom) -> List[AutoionizationState]:
     from atomx.constants import HARTREE_EV
     from atomx.methods.mbpt import build_virtual_basis
     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
-    from atomx.scattering.autoionization.mscheme_ci import ResonanceManifold
     from atomx.numerics.quadrature import make_fine_grid, p_rel
+    from atomx.scattering.autoionization.mscheme_ci import ResonanceManifold
 
     unsupported = (
         "dr_calculate without width hooks drives the ab-initio "

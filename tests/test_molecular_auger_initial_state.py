@@ -6,7 +6,6 @@ import numpy as np
 import pytest
 
 from atomx.providers.contract import (
-    Capability,
     CapabilityError,
     DensityMatrix,
     ElectronicStructurePayload,
@@ -25,7 +24,6 @@ from atomx.scattering.autoionization.molecular import (
     molecular_auger_final_states,
     molecular_auger_initial_state,
 )
-
 
 _NON_REAL_THRESHOLD_VALUES = (
     True,

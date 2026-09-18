@@ -11,7 +11,6 @@ from atomx.angular.spinor_harmonics import (
 )
 from atomx.results import OrbitalWavefunction, Waves
 
-
 # ---------------------------------------------------------------------------
 # Angular helpers
 # ---------------------------------------------------------------------------

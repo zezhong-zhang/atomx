@@ -28,14 +28,12 @@ References
 
 from __future__ import annotations
 
-import math
 from dataclasses import dataclass
 from typing import List
 
 import numpy as np
 
 from atomx.constants import HARTREE_EV
-
 
 # Atomic-units conversion: 1 a.u. of electric field = 5.14220674763 × 10¹¹ V/m
 _AU_FIELD_VPM = 5.14220674763e11

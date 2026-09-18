@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "atomx"
-version = "0.1.0"
+dynamic = ["version"]
 description = "High-performance relativistic atomic structure calculations using B-spline Dirac-Fock"
 requires-python = ">=3.10"
 dependencies = [
@@ -12,44 +12,106 @@ dependencies = [
     "scipy>=1.10",
     "numba>=0.58",
     "h5py>=3.0",
+    # matplotlib is imported by `import atomx` (atomx.viz.mpl is unconditional),
+    # so it is a genuine runtime requirement.  Everything needed only by a
+    # specific back-end lives in an extra below: manim needs system pangocairo,
+    # and nbformat/ipython/ipykernel are not referenced anywhere in src/.
+    "matplotlib>=3.10.8",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-benchmark",
+    "sympy>=1.12",
+    "pre-commit>=3.0",
+    # Pinned to the version the lint gate and .pre-commit-config.yaml use, so
+    # a local `ruff check` and CI cannot disagree about which rules exist.
+    "ruff==0.15.6",
+]
+units = ["pint>=0.21"]
+# Electronic-structure providers (ADR-0001). Each back-end is an optional
+# extra; the adapter fails with a clear message when its extra is absent.
+pyscf = ["pyscf>=2.3"]
+# Interactive/notebook back-ends (not needed by `import atomx`).
+notebook = ["nbformat>=5.10.4", "ipython>=8.39.0", "ipykernel>=7.2.0"]
+# Visualization back-ends beyond matplotlib.  Floors match or exceed the base
+# dependency they overlap with, so an extra can never lower a requirement.
+viz = ["plotly>=6.7.0"]
+viz-manim = ["manim>=0.19.1"]
+viz-all = ["plotly>=6.7.0", "manim>=0.19.1"]
+all = [
     "plotly>=6.7.0",
     "manim>=0.19.1",
-    "matplotlib>=3.10.8",
+    "pint>=0.21",
     "nbformat>=5.10.4",
     "ipython>=8.39.0",
     "ipykernel>=7.2.0",
 ]
 
-[project.optional-dependencies]
-dev = ["pytest>=7.0", "pytest-benchmark", "sympy>=1.12", "pre-commit>=3.0"]
-units = ["pint>=0.21"]
-# Electronic-structure providers (ADR-0001). Each back-end is an optional
-# extra; the adapter fails with a clear message when its extra is absent.
-pyscf = ["pyscf>=2.3"]
-viz = ["matplotlib>=3.7", "plotly>=5.0"]
-viz-manim = ["manim>=0.18"]
-viz-all = ["matplotlib>=3.7", "plotly>=5.0", "manim>=0.18"]
-all = [
-    "matplotlib>=3.7", "plotly>=5.0", "manim>=0.18",
-    "pint>=0.21",
-]
+[tool.hatch.version]
+# Single source of truth: src/atomx/__init__.py::__version__.
+path = "src/atomx/__init__.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/atomx"]
+
+[tool.hatch.build.targets.sdist]
+# A curated source bundle: tests/ and benchmarks/ are useful downstream, local
+# agent caches and run outputs are not.  Without this, `.code-review-graph/`
+# (an untracked-nested-.gitignore directory holding absolute paths) was
+# packaged into every sdist.
+exclude = [
+    ".code-review-graph",
+    ".claude",
+    ".serena",
+    ".benchmarks",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".git",
+    ".venv",
+    "papers",
+    "media",
+    "output",
+    "dataset",
+    "*.h5",
+]
 
 [tool.ruff]
 line-length = 88
 target-version = "py310"
 
 [tool.ruff.lint]
-select = ["T201"]
-ignore = []
+# Real static analysis.  Previously `select = ["T201"]` (flake8-print) with
+# zero violations, so the lint job could not fail; the F rules alone catch
+# unused imports (F401), undefined names (F821) and shadowing (F811).
+# E501 is deliberately deferred to a separate `ruff format` migration rather
+# than mixed into this change.
+select = ["E4", "E7", "E9", "F", "I", "B", "SIM"]
+# E741 (ambiguous name "l") is not a defect in this domain: `l` is the orbital
+# angular-momentum quantum number and `l1`/`l2` are the standard FAC/DBSR_HF
+# notation used throughout the port.  Renaming them would obscure the physics.
+ignore = ["E741"]
+
+[tool.ruff.lint.per-file-ignores]
+# A package __init__ exists to re-export its subpackage's public names; those
+# imports are the API, not dead code (the modules previously marked each one
+# with `# noqa: F401` by hand — this makes the intent uniform).
+"**/__init__.py" = ["F401"]
+# Tests and scripts put the worktree's src/ on sys.path before importing
+# atomx, so module-level imports legitimately follow executable statements.
+"tests/**" = ["E402"]
+"scripts/**" = ["E402"]
+"benchmarks/**" = ["E402"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+# A typo'd `-m` selector must not silently select nothing.
+addopts = ["--strict-markers"]
 markers = [
     "slow: tests that run expensive atomic-structure calculations",
-    "fac_parity: frozen atomx SELF-regression snapshot (compares atomx to its own frozen atomx_* columns; does NOT assert the fac_* columns — see review doc §V1)",
+    "external_fac: asserts STORED EXTERNAL reference data (clean-room FAC fixtures/dumps); regenerating the reference needs sfac",
+    "snapshot: frozen atomx SELF-regression against its own recorded output; asserts nothing external",
     "book: executable claims from the book (docs/book); a claim that fails to verify fails this gate — run with `pytest -m book`",
 ]
 

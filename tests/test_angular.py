@@ -6,15 +6,19 @@ Our convention: all arguments are TWICE the angular momentum (integer storage).
 
 import numpy as np
 import pytest
+from sympy import Rational as R
 from sympy.physics.wigner import (
-    wigner_3j as sympy_3j,
-    wigner_6j as sympy_6j,
     clebsch_gordan as sympy_cg,
 )
-from sympy import Rational as R
+from sympy.physics.wigner import (
+    wigner_3j as sympy_3j,
+)
+from sympy.physics.wigner import (
+    wigner_6j as sympy_6j,
+)
 
-from atomx.angular.wigner import wigner_3j, wigner_6j, wigner_9j
 from atomx.angular.clebsch import clebsch_gordan
+from atomx.angular.wigner import wigner_3j, wigner_6j
 
 
 def _ref_3j(j1, j2, j3, m1, m2, m3):

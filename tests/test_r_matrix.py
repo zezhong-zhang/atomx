@@ -7,11 +7,14 @@ from atomx.constants import HARTREE_EV, PROTON_ELECTRON_MASS_RATIO
 from atomx.physics.dirac import hydrogenic_dirac_energy
 from atomx.scattering.r_matrix import (
     RMatrixResult,
-    compute,
     compute_single_channel,
 )
 from atomx.scattering.r_matrix.channel_table import enumerate_channels
-from atomx.scattering.r_matrix.target_states import TargetState, helike_target_states, heplus_target_states
+from atomx.scattering.r_matrix.target_states import (
+    TargetState,
+    helike_target_states,
+    heplus_target_states,
+)
 
 # Live ``sfac`` reference values from the codex-review reviewer's pre-run
 # on 2026-05-18 (HYP-172 thread). These are the target-state thresholds

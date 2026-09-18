@@ -29,7 +29,6 @@ from atomx.properties.transitions.two_photon import (
     two_photon_rate_sos_he_like,
 )
 
-
 # ---------------------------------------------------------------------------
 # H-like: SOS vs Drake 1986 / Goldman & Drake
 # ---------------------------------------------------------------------------

@@ -21,12 +21,14 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "benchmarks"))
 
+from fac_runner import SFAC_BIN, run_sfac  # noqa: E402
+
 from atomx import Atom  # noqa: E402
 from atomx.constants import HARTREE_EV  # noqa: E402
 from atomx.io.fac_writer import read_ce  # noqa: E402
-from atomx.scattering.distorted_wave.solver import dw_excitation_cross_section  # noqa: E402
-from fac_runner import SFAC_BIN, run_sfac  # noqa: E402
-
+from atomx.scattering.distorted_wave.solver import (
+    dw_excitation_cross_section,  # noqa: E402
+)
 
 Z_GRID = [10, 26, 54]
 # 1.05 (not 1.0): at exact threshold the scattered energy is 0 and the two
@@ -213,7 +215,7 @@ def main() -> None:
             else:
                 keep = Path(args.keep_fac_dir) if args.keep_fac_dir else None
                 omega_fac, fac_th, note = run_fac(Z, spec, ENERGY_FACTORS, args.timeout, keep)
-            for factor, energy, atomx, fac in zip(ENERGY_FACTORS, energies, omega_atomx, omega_fac):
+            for factor, energy, atomx, fac in zip(ENERGY_FACTORS, energies, omega_atomx, omega_fac, strict=False):
                 rel = ((float(atomx) - float(fac)) / float(fac)) if fac > 0.0 else ""
                 rows.append({
                     "Z": Z,

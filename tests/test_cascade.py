@@ -5,9 +5,9 @@ import pytest
 from atomx.plasma.cascade import (
     CascadeLevel,
     CascadeTransition,
+    auger_yield,
     cascade_yields,
     fluorescence_yield,
-    auger_yield,
 )
 
 

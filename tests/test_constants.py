@@ -30,27 +30,27 @@ def test_default_codata_is_2022():
 
 def test_hartree_ev_codata2022():
     # 1 Ha / 1 eV from CODATA 2022 = 27.211386245981 eV (±1e-10)
-    assert HARTREE_EV == pytest.approx(27.211386245981, rel=2e-10)
+    assert pytest.approx(27.211386245981, rel=2e-10) == HARTREE_EV
 
 
 def test_hartree_cm1_codata2022():
     # 1 Ha in cm^-1  ≈ 219474.6313632
-    assert HARTREE_CM1 == pytest.approx(219474.6313632, rel=1e-9)
+    assert pytest.approx(219474.6313632, rel=1e-9) == HARTREE_CM1
 
 
 def test_fine_structure_constant_codata2022():
     # CODATA 2022: α = 7.2973525643e-3
-    assert FINE_STRUCTURE_CONSTANT == pytest.approx(7.2973525643e-3, rel=1e-10)
+    assert pytest.approx(7.2973525643e-3, rel=1e-10) == FINE_STRUCTURE_CONSTANT
 
 
 def test_speed_of_light_inverse_alpha():
     """c = 1/α in atomic units."""
-    assert SPEED_OF_LIGHT == pytest.approx(1.0 / ALPHA, rel=1e-14)
+    assert pytest.approx(1.0 / ALPHA, rel=1e-14) == SPEED_OF_LIGHT
 
 
 def test_bohr_radius_codata2022():
     # CODATA 2022: a_0 = 5.29177210544 e-11 m
-    assert BOHR_RADIUS_M == pytest.approx(5.29177210544e-11, rel=1e-10)
+    assert pytest.approx(5.29177210544e-11, rel=1e-10) == BOHR_RADIUS_M
 
 
 # ---------------------------------------------------------------------------

@@ -117,7 +117,7 @@ def fe_iso_stage_panel() -> tuple[IonStage, ...]:
             electrons=Z_FE - q,
             configs=_excited_configs(Z_FE - q),
         )
-        for r, q in zip(roman, charges)
+        for r, q in zip(roman, charges, strict=False)
     )
 
 

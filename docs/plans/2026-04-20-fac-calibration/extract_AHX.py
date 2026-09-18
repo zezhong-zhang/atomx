@@ -21,8 +21,9 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 DATA = HERE / "fac_data"
-SFAC = Path("/Users/zhangzz/code/ASAP/fac/bin/bin/sfac")
-DYLD = "/opt/homebrew/Cellar/gcc/14.2.0_1/lib/gcc/current"
+# Reference code location from the environment (no machine-specific default).
+SFAC = Path(os.environ.get("FAC_SFAC_PATH", ""))
+DYLD = os.environ.get("FAC_DYLD_LIB", "")
 
 # Panel: one row per (Z, config). Closed shells are not compressed
 # so we probe a range of N (electron counts) for each Z.

@@ -4,8 +4,8 @@ Piecewise six-point Lagrange integration of a uniformly tabulated function.
 For non-uniform grids, the caller multiplies by the Jacobian DIFR(I) first.
 """
 
-import numpy as np
 import numba as nb
+import numpy as np
 
 
 @nb.njit(cache=True)

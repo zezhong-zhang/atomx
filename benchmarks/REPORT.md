@@ -15,7 +15,7 @@ runs use the current working tree (`src/atomx/`).
 | **Structure** (atomx DHF+QED vs `fac`, He-/Ne-/Ar-like) | Z≤36 : **≤ 0.3 %**; Z=82 : ~1.5 % (QED-model differences) | atomx 1.5–3 × slower |
 | **Li-like 2s-2p** (atomx MCDHF vs `fac`)               | ground E matches to 0.03–0.4 %;  A rate now matches literature for H (fine-structure needs true J-coupled CSFs) | atomx ~3 × slower |
 | **E1 rate, H 2p→1s** (atomx vs NIST / FAC)         | **atomx 6.27 × 10⁸ s⁻¹ = FAC 6.258 × 10⁸ = NIST 6.265 × 10⁸ ✓** | — |
-| **Local-exchange DFS** (`Atom(exchange='fac')` vs sfac, Coulomb-only) | **≤ 1 × 10⁻³** full Z = 2..92 panel after the 2026-04-20 DOUTW TCONV fix (was ≤ 1 × 10⁻⁵ closed-shell but **up to 27 %** at Z ≥ 74 ions) | **atomx 5–14 × faster** than sfac (was 2–5 × before the ``n_grid = 400`` default) |
+| **Local-exchange DFS** (`Atom(exchange='fac')` vs sfac, Coulomb-only) | ⚠️ **the ≤ 1 × 10⁻³ claim is not met.** With the reference path fixed (2026-09-17) the gate runs for the first time and measures worst 6.3e-4 for Z ≤ 10 (H/He/Be/C/Ne-like) and **4.1e-3 at Z = 36** across the 13-row sampled panel — cf. `tests/test_fac_dfs_shooting.py` | **atomx 5–14 × faster** than sfac (was 2–5 × before the ``n_grid = 400`` default) |
 
 Three bugs were found and fixed (see below).  After the fixes:
 - atomx **exactly reproduces** the Fortran DHFS (Salvat 2018) total
@@ -512,7 +512,8 @@ Added 2026-05-13: the FAC tripwire is now frozen in
 with a working copy at [`results_fac_matrix.csv`](results_fac_matrix.csv).
 Run any of the three FAC benchmark scripts with `--matrix` to regenerate the
 Z × iso-electronic panel (`--quick` skips Z=74 and Z=82 for local iteration).
-`tests/test_fac_parity_gates.py` is marked `fac_parity`; it reloads the frozen
+`tests/test_fac_parity_gates.py` is marked `snapshot` (it was named
+`fac_parity`, which claimed a comparison it does not make); it reloads the frozen
 CSV, reruns the atomx-side matrix calculation only, and fails on >1e-3 relative
 energy drift, >5% first-E1 A-rate drift, or >30% per-Z atomx wall-time
 regression.
@@ -628,6 +629,15 @@ regression.
 ---
 
 ## 10. CRM iso panel — Fe
+
+> ⚠️ **Synthetic fixture — not a validation.** The "atomx" columns produced by
+> `bench_fac_crm_Fe.py` are fabricated from a hand-made Gaussian and the
+> Bernitt-2012 reference, not from an atomx CRM solve (see the ⚠️ SYNTHETIC
+> notes in that file). The ≤15 % "gates" listed below therefore asserted the
+> fabrication against itself and are now skipped in
+> `tests/test_crm_Fe_balance.py` / `test_crm_Fe_3C3D.py` with that reason.
+> Treat the numbers in this section as a development note, not as evidence.
+> See `docs/VERIFICATION.md` §"Not verified by anything".
 
 Added the Fe astrophysical CRM gate in
 ``benchmarks/bench_fac_crm_Fe.py`` with a deterministic Fe XVII...Fe XXVI
@@ -869,6 +879,12 @@ hooks (used to feed external, e.g. FAC, widths through the kernel).
 
 ## 9. CRM iso panel — W
 
+> ⚠️ **Partly synthetic — not a validation.** The cooling-curve "atomx" column
+> is `putterich * (1 + 0.18 sin …)` and the balance column is a verbatim copy
+> of the FAC abundance dict (so its rms is identically zero); both are
+> disclosed in `bench_fac_crm_W.py`. The tests that asserted agreement with
+> them are skipped with the reason spelled out. See `docs/VERIFICATION.md`.
+
 Added `benchmarks/bench_fac_crm_W.py` for the tungsten fusion-edge CRM
 panel.  The fixture covers W40+ ... W47+ (Co-like through Se-like ions,
 the open M-/N-shell stages relevant to 1-100 eV divertor/SOL plasmas)
@@ -911,6 +927,12 @@ uv run --extra dev python -m pytest tests/test_W_cooling_curve_vs_putterich2008.
 ---
 
 ## 10. CRM iso panel — Au
+
+> ⚠️ **Synthetic fixture — not a validation.** The ⟨Z⟩ "model" is a ramp
+> tuned to the NLTE-9 reference file (`center = 50 + 7(Te-0.5)/4.5 -
+> 0.18 log10(ne/1e20)`, passing the ±20 % band by construction) and the
+> cooling column is `ref * (1 + 0.08 sin …)`; both are disclosed in
+> `bench_fac_crm_Au.py`. See `docs/VERIFICATION.md`.
 
 `benchmarks/bench_fac_crm_Au.py` is scoped to the Au M-shell ICF hohlraum
 drive panel, covering Au50+ ... Au57+ and the T_e >= 1 keV gate used by the
