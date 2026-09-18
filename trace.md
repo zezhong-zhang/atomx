@@ -628,3 +628,7 @@ on the CI/MCDHF/transitions subset; FAC parity tripwire green; Fe XVII
 gate still conditionally xfailed (wavelength ~16.3 Å pending DODS).
 Both physics items are explicitly multi-day per the original brief — this
 is delivery under the partial-delivery clause, not silent gate-weakening.
+### EARS — Session Start (2026-09-17 18:37)
+<!-- concepts: literature-library, research-workflow, agent-instructions -->
+- Task: Follow the AGENTS.md instructions in /Users/zhangzz/literature_library and conduct research within that local folder.
+- Why: User wants literature research performed under that folder's own agent-defined workflow.
