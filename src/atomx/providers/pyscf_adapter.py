@@ -122,6 +122,23 @@ class PySCFProvider:
         metadata: Optional[dict[str, Any]] = None,
     ) -> None:
         _require_pyscf()
+        # Distinguish "never solved" (mo_coeff is None) from "solved but
+        # unconverged" *before* the convergence gate below: an unsolved
+        # PySCF mean-field has converged=False as well, so the convergence
+        # check alone would mask the more specific "not solved yet" error.
+        # Probe the instance __dict__ instead of the attribute so the check
+        # stays side-effect free — an unconverged mean-field must be
+        # rejected without touching mo_coeff, which may be a guarded or
+        # expensive descriptor.
+        _instance_attrs = getattr(mf, "__dict__", None)
+        if (
+            isinstance(_instance_attrs, dict)
+            and "mo_coeff" in _instance_attrs
+            and _instance_attrs["mo_coeff"] is None
+        ):
+            raise ProviderContractError(
+                "PySCF mean-field is not solved yet — call mf.kernel() first"
+            )
         _require_converged_mean_field(mf, context="input")
         if not hasattr(mf, "mol") or not hasattr(mf, "mo_coeff"):
             raise TypeError(
