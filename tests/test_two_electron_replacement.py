@@ -41,6 +41,7 @@ from scipy.special import eval_genlaguerre
 from atomx.methods.mcdhf.matrix import (
     GridCIWorkspace,
     _rk,
+    _two_diff_element,
     _two_electron_replacement_element,
 )
 from atomx.numerics.bspline.basis import prepare_bspline_data
@@ -216,7 +217,7 @@ def test_pair_channel_matches_oracle(spec_a, spec_b, tag, J2):
     workspace = GridCIWorkspace(r, dr, np.zeros_like(r))
     csf = _csf_for(2 * J2, [(spec_a, 2), (spec_b, 2)])
     got = _two_electron_replacement_element(
-        csf, [(spec_a, 2)], [(spec_b, 2)], orbitals, workspace)
+        csf, csf, [(spec_a, 2)], [(spec_b, 2)], orbitals, workspace)
     # rel=1e-3: the two sides integrate differently (SLAG6 vs the fine-grid
     # trapezoid) and that residual grows with l — 5e-5 for s/p, 3e-4 for
     # d/f here.  A wrong angular coefficient, phase or k-selection is O(1).
@@ -247,7 +248,7 @@ def test_split_channel_matches_oracle(spec_a, spec_c, spec_d, tag, J2):
     workspace = GridCIWorkspace(r, dr, np.zeros_like(r))
     csf = _csf_for(2 * J2, [(spec_a, 2), (spec_c, 1), (spec_d, 1)])
     got = _two_electron_replacement_element(
-        csf, [(spec_a, 2)], [(spec_c, 1), (spec_d, 1)], orbitals, workspace)
+        csf, csf, [(spec_a, 2)], [(spec_c, 1), (spec_d, 1)], orbitals, workspace)
     # rel=1e-3: the two sides integrate differently (SLAG6 vs the fine-grid
     # trapezoid) and that residual grows with l — 5e-5 for s/p, 3e-4 for
     # d/f here.  A wrong angular coefficient, phase or k-selection is O(1).
@@ -382,5 +383,175 @@ def test_spectator_guard_leaves_open_shell_parentage_alone():
         orbitals[key] = (np.exp(-r / 4.0) * r ** (abs(key[1]) - 1),
                          np.zeros_like(r))
     got = _two_electron_replacement_element(
-        csf, [((3, -1), 2)], [((3, -2), 2)], orbitals, workspace)
+        csf, csf, [((3, -1), 2)], [((3, -2), 2)], orbitals, workspace)
     assert got == 0.0
+# ---------------------------------------------------------------------------
+# HYP-1773: occupation guard for over-occupied pattern subshells
+# ---------------------------------------------------------------------------
+
+
+def _real_csf(tJ2, occ):
+    """Real :class:`CSF` (provides ``differs_from``) for ``_two_diff_element``."""
+    from atomx.methods.dirac_fock import Subshell
+    from atomx.methods.mcdhf.config import CSF
+
+    return CSF(
+        subshells=[Subshell(n, k, float(q)) for (n, k), q in occ],
+        total_J2=tJ2, parity=1)
+
+
+# Subshells of the audit probe: c is j = 3/2, d is j = 1/2, b is j = 5/2.
+_C, _D, _B = (3, -2), (4, 1), (4, -3)
+
+
+def _probe_orbitals(keys, r):
+    return {key: _radial(key[0], key[1], 6.0, r) for key in keys}
+
+
+@pytest.mark.parametrize("tJ2", [4, 2])
+def test_overoccupied_split_pattern_returns_zero(tJ2):
+    """HYP-1773: c³d¹ ↔ c²b² must not fabricate a c¹d¹ pair element.
+
+    The bra holds c³ (three electrons in c) but the channel built a
+    two-electron c¹d¹ J-coupled state, silently dropping the third c
+    electron: before the fix the J = 2 element came out as −0.0039238 Ha
+    while the ``ResonanceManifold`` determinant oracle gives +0.0051909 Ha
+    — wrong sign *and* magnitude.  Over-occupied patterns now
+    conservatively return 0 (the pre-372f06b behaviour).  At J = 1 the
+    true coupling is non-zero as well and is likewise dropped rather than
+    miscomputed.
+    """
+    r = make_fine_grid(40.0, 3.0, max_points=20000)
+    workspace = GridCIWorkspace(r, np.gradient(r), np.zeros_like(r))
+    orbitals = _probe_orbitals((_C, _D, _B), r)
+    bra = _real_csf(tJ2, [(_C, 3), (_D, 1)])
+    ket = _real_csf(tJ2, [(_C, 2), (_B, 2)])
+    assert _two_diff_element(bra, ket, orbitals, workspace) == 0.0
+    assert _two_diff_element(ket, bra, orbitals, workspace) == 0.0
+
+
+def test_overoccupied_pair_channel_production_case_returns_zero():
+    """The production CSF pair from HYP-1773 returns 0 (J = 2, even).
+
+    ``enumerate_jj_csfs`` for configs ``["1s2 2s2 2p5 3p1", "1s2 2s2 2p4
+    3d2"]`` generates ``2p½² 2p3/2³ 3p½¹`` and ``2p½² 2p3/2² 3d5/2²``,
+    which share (J = 2, even) blocks — pre-fix the channel returned a
+    wrong non-zero element (−0.0069160 Ha with these probe orbitals) that
+    the CI matrix silently embedded.
+    """
+    p1h, p3h, p3s, d5h = (2, 1), (2, -2), (3, 1), (3, -3)
+    r = make_fine_grid(40.0, 3.0, max_points=20000)
+    workspace = GridCIWorkspace(r, np.gradient(r), np.zeros_like(r))
+    orbitals = _probe_orbitals((p1h, p3h, p3s, d5h), r)
+    bra = _real_csf(4, [(p1h, 2), (p3h, 3), (p3s, 1)])
+    ket = _real_csf(4, [(p1h, 2), (p3h, 2), (d5h, 2)])
+    assert _two_diff_element(bra, ket, orbitals, workspace) == 0.0
+    assert _two_diff_element(ket, bra, orbitals, workspace) == 0.0
+
+
+def test_closed_j52_pattern_returns_zero():
+    """A closed j = 5/2 pattern subshell is NOT a clean J = 0 spectator.
+
+    Unlike j = 3/2, the j = 5/2 closed shell is not a pure J = 0 pair
+    condensate (the pair-removal cfp is not 1 and the remaining c⁴ J = 0
+    state carries a seniority ambiguity), so the c⁶ ↔ c⁴b² element cannot
+    factorise into a two-electron element; the channel must decline.
+    Pre-fix it returned a wrong non-zero value (−0.0770 Ha here).
+    """
+    c6, b2 = (4, -3), (4, -2)   # 4d5/2 (j = 5/2) and 4p3/2
+    r = make_fine_grid(40.0, 3.0, max_points=20000)
+    workspace = GridCIWorkspace(r, np.gradient(r), np.zeros_like(r))
+    orbitals = _probe_orbitals((c6, b2), r)
+    bra = _real_csf(0, [(c6, 6)])
+    ket = _real_csf(0, [(c6, 4), (b2, 2)])
+    assert _two_diff_element(bra, ket, orbitals, workspace) == 0.0
+    assert _two_diff_element(ket, bra, orbitals, workspace) == 0.0
+
+
+def _pair_ops(manifold, key):
+    """Normalised |key²; J = 0, M = 0⟩ creation terms (index pair, coeff)."""
+    from atomx.angular.coefficients import cg
+
+    tj = 2 * abs(key[1]) - 1
+    tms = list(range(-tj, tj + 1, 2))
+    out = []
+    for x, tm_i in enumerate(tms):
+        for tm_j in tms[x + 1:]:
+            if tm_i + tm_j != 0:
+                continue
+            c = (cg(tj, tm_i, tj, tm_j, 0, 0)
+                 - cg(tj, tm_j, tj, tm_i, 0, 0))
+            if c != 0.0:
+                out.append(((_orbital_index(manifold, key, tm_i),
+                             _orbital_index(manifold, key, tm_j)), c))
+    norm = np.sqrt(sum(c * c for _, c in out))
+    assert norm > 1e-12
+    return [(pair, c / norm) for pair, c in out]
+
+
+def _closed_shell_vector(manifold, dets, key):
+    """The unique closed-subshell determinant (all m filled, J = 0)."""
+    idx = {d: i for i, d in enumerate(dets)}
+    tj = 2 * abs(key[1]) - 1
+    mask = 0
+    for tm in range(-tj, tj + 1, 2):
+        i = _orbital_index(manifold, key, tm)
+        assert i is not None
+        mask |= 1 << i
+    vec = np.zeros(len(dets))
+    vec[idx[mask]] = 1.0
+    return vec
+
+
+def _pair_product_vector(manifold, dets, key_c, key_b):
+    """|[c²(J = 0) b²(J = 0)] J = 0⟩ product state over ``dets``."""
+    idx = {d: i for i, d in enumerate(dets)}
+    vec = np.zeros(len(dets))
+    for (i1, i2), ci in _pair_ops(manifold, key_c):
+        for (j1, j2), cj in _pair_ops(manifold, key_b):
+            mask = (1 << i1) | (1 << i2) | (1 << j1) | (1 << j2)
+            vec[idx[mask]] += ci * cj
+    norm = np.linalg.norm(vec)
+    assert norm > 1e-12
+    return vec / norm
+
+
+def test_closed_j32_pattern_subshell_matches_oracle():
+    """The closed j = 3/2 pattern subshell (occ 4) must not regress.
+
+    The occupation guard declines every over-occupied pattern subshell
+    EXCEPT a closed j = 3/2 subshell on a count-2 pattern: the j = 3/2
+    closed shell is a pure J = 0 pair condensate (pair-removal cfp is
+    exactly 1), so the extra pair decouples as a J = 0 spectator and the
+    element stays exact.  Verified against the determinant oracle; the
+    magnitude is compared because the overall sign of an isolated element
+    is the (arbitrary, internally consistent) basis-phase convention of
+    each engine.
+    """
+    C3, B3 = (3, -2), (3, -3)   # 3p3/2 closed (occ 4) vs 3d5/2 pair
+    r = make_fine_grid(40.0, 3.0, max_points=20000)
+    dr = np.gradient(r)
+    orbitals = {C3: _radial(3, -2, 6.0, r), B3: _radial(3, -3, 6.0, r)}
+    manifold = ResonanceManifold(
+        result=None, groups=[([C3], 4), ([B3], 2)],
+        r_fine=r, dr_fine=dr,
+        orbital_map=orbitals,
+        orbital_energies={C3: -0.5, B3: -0.3},
+        configs=[(4, 0), (2, 2)],
+    )
+    dets = manifold.determinants(0)
+    v_bra = _closed_shell_vector(manifold, dets, C3)
+    v_ket = _pair_product_vector(manifold, dets, C3, B3)
+    _j2_check(manifold, dets, v_bra, 0)
+    _j2_check(manifold, dets, v_ket, 0)
+    oracle = float(v_bra @ manifold.hamiltonian(dets) @ v_ket)
+    assert abs(oracle) > 1e-3, "oracle ~0, test would be vacuous"
+
+    workspace = GridCIWorkspace(r, dr, np.zeros_like(r))
+    csf_r = _real_csf(0, [(C3, 4)])
+    csf_s = _real_csf(0, [(C3, 2), (B3, 2)])
+    got = _two_electron_replacement_element(
+        csf_r, csf_s, [(C3, 2)], [(B3, 2)], orbitals, workspace)
+    assert abs(got) == pytest.approx(abs(oracle), rel=1e-3), (
+        f"closed j=3/2 pattern: |element| {abs(got)!r} != "
+        f"|oracle| {abs(oracle)!r}")

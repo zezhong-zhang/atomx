@@ -554,7 +554,34 @@ def _two_electron_state(pattern, tJ, order):
     return {k: v / norm for k, v in vec.items()}
 
 
-def _two_electron_replacement_element(csf_r, pattern_r, pattern_s,
+def _pattern_occupation_ok(occupations, pattern):
+    """True when every pattern subshell holds exactly the pattern's electrons.
+
+    ``occupations`` maps ``(n, kappa) -> q`` for the CSF on one side of the
+    element and ``pattern`` is that side's ``[(key, count)]`` active-pair
+    pattern.  The m-scheme two-electron state accounts for *every* electron
+    in the pattern subshells, so a subshell holding more than ``count``
+    electrons would silently drop the extras (HYP-1773: e.g. bra c³d¹ vs ket
+    c²b² built a c¹d¹ pair state and lost the third c electron).
+
+    The single exact exception is a *closed* j = 3/2 subshell (occupation 4)
+    on a count-2 pattern: the j = 3/2 closed shell is a pure J = 0 pair
+    condensate, so the extra pair decouples as a J = 0 scalar spectator
+    (pair-removal cfp is exactly 1) and the two-electron element stays
+    exact.  No such identity holds for j >= 5/2 closed shells, so those
+    remain guarded.
+    """
+    for key, count in pattern:
+        q = occupations.get(key, 0.0)
+        if abs(q - count) <= 1e-9:
+            continue
+        if count == 2 and abs(key[1]) == 2 and abs(q - 4.0) <= 1e-9:
+            continue  # closed j = 3/2: extra pair is a J = 0 spectator
+        return False
+    return True
+
+
+def _two_electron_replacement_element(csf_r, csf_s, pattern_r, pattern_s,
                                       orbitals_dict, bsp_data):
     """⟨pattern_r| 1/r₁₂ |pattern_s⟩ for two electrons outside closed spectators.
 
@@ -578,10 +605,20 @@ def _two_electron_replacement_element(csf_r, pattern_r, pattern_s,
     integrator and reused for every m pair.
 
     Guards (conservative): the CSF pair must be in the same (J, parity) block
-    (enforced upstream) and every spectator subshell must be closed — otherwise
-    the two active electrons are not in a definite J state and the
-    configuration-average machinery would have to supply the parentage.
+    (enforced upstream), every spectator subshell must be closed, and each
+    pattern subshell must hold exactly the pattern's electrons in its side's
+    CSF (see :func:`_pattern_occupation_ok`) — otherwise the two active
+    electrons are not in a definite J state and the configuration-average
+    machinery would have to supply the parentage.  Spectator occupations
+    are identical on both sides (only pattern subshells differ), so
+    checking them on ``csf_r`` covers ``csf_s`` as well.
     """
+    occ_r = {(sh.n, sh.kappa): sh.occupation for sh in csf_r.subshells}
+    occ_s = {(sh.n, sh.kappa): sh.occupation for sh in csf_s.subshells}
+    if not (_pattern_occupation_ok(occ_r, pattern_r)
+            and _pattern_occupation_ok(occ_s, pattern_s)):
+        return 0.0
+
     if any(abs(sh.occupation - (2 * abs(sh.kappa))) > 1e-9
            for sh in csf_r.subshells
            if (sh.n, sh.kappa) not in {p[0] for p in pattern_r + pattern_s}):
@@ -900,7 +937,7 @@ def _two_diff_element(csf_r, csf_s, orbitals_dict, bsp_data):
     pair_s = _pair_pattern(gained)
     if pair_r is not None and pair_s is not None:
         return _two_electron_replacement_element(
-            csf_r, pair_r, pair_s, orbitals_dict, bsp_data)
+            csf_r, csf_s, pair_r, pair_s, orbitals_dict, bsp_data)
 
     if len(lost) != 2 or len(gained) != 2:
         return 0.0
