@@ -240,14 +240,10 @@ def enumerate_jj_csfs(config_str: str) -> List[CSF]:
         ``parity`` is ``(-1)^(Σ l_i q_i)``.  Closed-shell configurations
         produce exactly one CSF (J=0, parity +1).
     """
-    l_map = {"s": 0, "p": 1, "d": 2, "f": 3, "g": 4, "h": 5}
-    # Parse into (n, l, q) shells
-    nr_shells = []
-    for token in config_str.strip().split():
-        n = int(token[0])
-        l = l_map[token[1]]
-        q = int(token[2:])
-        nr_shells.append((n, l, q))
+    # Parse into validated (n, l, q) shells via the central parser
+    # (HYP-1778): malformed tokens, n=0 and over-occupied shells raise a
+    # clear ValueError here instead of KeyError/int() failures downstream.
+    nr_shells = _parse_nr_shells(config_str)
 
     # Parity = (-1)^Σ l_i q_i (intrinsic parity from orbital ℓ × q)
     parity = 1
@@ -375,17 +371,9 @@ def count_j_resolved_csfs(config_str: str) -> dict[int, int]:
     inside each subshell, and shell angular momenta are convolved across the
     configuration.
     """
-    l_map = {"s": 0, "p": 1, "d": 2, "f": 3, "g": 4, "h": 5}
     total_counts: dict[int, int] = {0: 1}
-    for token in config_str.strip().split():
-        if len(token) < 3:
-            raise ValueError(f"Invalid configuration token {token!r}")
-        n = int(token[0])
-        l_char = token[1]
-        if l_char not in l_map:
-            raise ValueError(f"Unsupported orbital letter {l_char!r}")
-        q = int(token[2:])
-        shell_counts = _nr_shell_j_resolved_counts(n, l_map[l_char], q)
+    for n, l, q in _parse_nr_shells(config_str):
+        shell_counts = _nr_shell_j_resolved_counts(n, l, q)
         total_counts = _couple_j_count_maps(total_counts, shell_counts)
     return dict(sorted(total_counts.items()))
 
@@ -397,25 +385,82 @@ def _csf_parity(subshells: List[Subshell]) -> int:
     return -1 if exponent % 2 else 1
 
 
+# Spectroscopic letters for l = 0..14 (multi-digit n and high-l letters
+# such as "10d3" or "7i1" are supported).
+_L_CHARS = "spdfghiklmno"
+_L_MAP = {ch: i for i, ch in enumerate(_L_CHARS)}
+_CONFIG_TOKEN_RE = re.compile(r"(\d+)([spdfghiklmno])(\d+)")
+
+
+def _parse_nr_shells(config_str):
+    """Parse and validate an NR configuration string into ``(n, l, q)`` shells.
+
+    Central entry validation for configuration strings (HYP-1778).  Every
+    whitespace-separated token must be ``<n><l><q>`` with
+
+    - ``n >= 1`` (principal quantum number),
+    - ``l`` a spectroscopic letter in ``"spdfghiklmno"``,
+    - occupation ``q <= 2*(2l+1)`` (Pauli capacity of the shell).
+
+    Invalid input raises a clear :class:`ValueError` at parse time instead
+    of crashing deep in the SCF/QED kernels (e.g. ``KeyError`` on an
+    unknown shell letter, or ``ZeroDivisionError`` for ``n=0``).
+
+    Parameters
+    ----------
+    config_str : str
+        Non-relativistic configuration, e.g. ``"1s2 2s2 2p6"``.
+
+    Returns
+    -------
+    shells : list of (int, int, int)
+        ``(n, l, q)`` per token, in order.
+    """
+    shells = []
+    for token in config_str.strip().split():
+        m = _CONFIG_TOKEN_RE.fullmatch(token)
+        if m is None:
+            raise ValueError(
+                f"invalid configuration token {token!r} in {config_str!r}: "
+                f"expected '<n><l><occupation>' with n>=1 and l one of "
+                f"'{_L_CHARS}' (e.g. '1s2', '2p6')")
+        n = int(m.group(1))
+        l = _L_MAP[m.group(2)]
+        q = int(m.group(3))
+        if n < 1:
+            raise ValueError(
+                f"invalid configuration token {token!r}: principal quantum "
+                f"number n must be >= 1 (got {n})")
+        max_occ = 2 * (2 * l + 1)
+        if q > max_occ:
+            raise ValueError(
+                f"invalid configuration token {token!r}: occupation {q} "
+                f"exceeds the Pauli capacity 2(2l+1) = {max_occ} of the "
+                f"'{_L_CHARS[l]}' shell")
+        shells.append((n, l, q))
+    return shells
+
+
+def validate_config_string(config_str):
+    """Validate an NR configuration string, raising on invalid input.
+
+    Thin wrapper over :func:`_parse_nr_shells` for entry points (e.g.
+    :class:`atomx.Atom`) that need validation but not the parsed shells.
+    Raises :class:`ValueError` with a clear message for malformed tokens,
+    ``n=0``, or over-occupied shells.
+    """
+    _parse_nr_shells(config_str)
+
+
 def _parse_config_string(config_str):
     """Parse "1s2 2s2 2p6" into list of Subshell objects.
 
     Notation: nl^q where n=principal, l=s/p/d/f, q=occupation.
     For relativistic: each nl expands to nl- (j=l-1/2) and nl+ (j=l+1/2).
     """
-    l_map = {ch: i for i, ch in enumerate("spdfghiklmno")}
     subshells = []
 
-    for token in config_str.strip().split():
-        # Parse nl^q with multi-digit n (e.g. "10d3") and high-l letters.
-        m = re.fullmatch(r"(\d+)([spdfghiklmno])(\d+)", token)
-        if m is None:
-            raise ValueError(f"cannot parse configuration token {token!r}")
-        n = int(m.group(1))
-        l_char = m.group(2)
-        l = l_map[l_char]
-        q = int(m.group(3))
-
+    for n, l, q in _parse_nr_shells(config_str):
         if l == 0:
             # s orbital: only j = l+1/2 = 1/2, kappa = -(l+1) = -1
             subshells.append(Subshell(n=n, kappa=-(l + 1), occupation=q))
