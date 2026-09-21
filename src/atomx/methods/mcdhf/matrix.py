@@ -564,20 +564,21 @@ def _pattern_occupation_ok(occupations, pattern):
     electrons would silently drop the extras (HYP-1773: e.g. bra c³d¹ vs ket
     c²b² built a c¹d¹ pair state and lost the third c electron).
 
-    The single exact exception is a *closed* j = 3/2 subshell (occupation 4)
-    on a count-2 pattern: the j = 3/2 closed shell is a pure J = 0 pair
-    condensate, so the extra pair decouples as a J = 0 scalar spectator
-    (pair-removal cfp is exactly 1) and the two-electron element stays
-    exact.  No such identity holds for j >= 5/2 closed shells, so those
-    remain guarded.
+    There is deliberately no closed-subshell exception.  A fully occupied
+    subshell *is* a pure J = 0 pair condensate (pair-removal cfp of unit
+    magnitude, so the extra pair factorises as a scalar spectator), but the
+    element then still depends on the *opposite* side's residual-subshell
+    parentage: e.g. c⁴ ↔ c²b² at J = 0 has the two rows [(c²)₀(b²)₀] and
+    [(c²)₂(b²)₂] with genuinely different elements, and occupation-only
+    CSFs carry no parentage label to say which row is meant (review of
+    PR #81: oracle gives +0.120679 Ha for the first row and −0.141562 Ha
+    for the second on the same probe data).  The channel therefore declines
+    every over-occupied pattern conservatively.
     """
     for key, count in pattern:
         q = occupations.get(key, 0.0)
-        if abs(q - count) <= 1e-9:
-            continue
-        if count == 2 and abs(key[1]) == 2 and abs(q - 4.0) <= 1e-9:
-            continue  # closed j = 3/2: extra pair is a J = 0 spectator
-        return False
+        if abs(q - count) > 1e-9:
+            return False
     return True
 
 

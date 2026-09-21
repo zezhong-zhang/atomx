@@ -450,13 +450,17 @@ def test_overoccupied_pair_channel_production_case_returns_zero():
 
 
 def test_closed_j52_pattern_returns_zero():
-    """A closed j = 5/2 pattern subshell is NOT a clean J = 0 spectator.
+    """A closed j = 5/2 pattern subshell is guarded like any over-occupation.
 
-    Unlike j = 3/2, the j = 5/2 closed shell is not a pure J = 0 pair
-    condensate (the pair-removal cfp is not 1 and the remaining c⁴ J = 0
-    state carries a seniority ambiguity), so the c⁶ ↔ c⁴b² element cannot
-    factorise into a two-electron element; the channel must decline.
-    Pre-fix it returned a wrong non-zero value (−0.0770 Ha here).
+    The j = 5/2 closed shell IS a pure J = 0 pair condensate (pair-removal
+    cfp of unit magnitude — independently verified in PR #81 review for
+    j = 3/2, 5/2 and 7/2), so for the single [(c⁴)₀(b²)₀] parentage row
+    the pre-fix value (−0.0770 Ha here) was actually exact.  It is guarded
+    anyway because the same (occupation, J, parity) block contains further
+    parentage rows whose true elements differ, and occupation-only CSFs
+    cannot say which row is meant — the channel must decline rather than
+    fabricate one value for all rows (see the j = 3/2 parentage test
+    below).
     """
     c6, b2 = (4, -3), (4, -2)   # 4d5/2 (j = 5/2) and 4p3/2
     r = make_fine_grid(40.0, 3.0, max_points=20000)
@@ -468,25 +472,26 @@ def test_closed_j52_pattern_returns_zero():
     assert _two_diff_element(ket, bra, orbitals, workspace) == 0.0
 
 
-def _pair_ops(manifold, key):
-    """Normalised |key²; J = 0, M = 0⟩ creation terms (index pair, coeff)."""
+def _pair_terms(manifold, key, tJ, tM):
+    """Normalised |key²; tJ tM⟩ creation terms as {2-electron mask: coeff}."""
     from atomx.angular.coefficients import cg
 
     tj = 2 * abs(key[1]) - 1
     tms = list(range(-tj, tj + 1, 2))
-    out = []
+    out = {}
     for x, tm_i in enumerate(tms):
         for tm_j in tms[x + 1:]:
-            if tm_i + tm_j != 0:
+            if tm_i + tm_j != tM:
                 continue
-            c = (cg(tj, tm_i, tj, tm_j, 0, 0)
-                 - cg(tj, tm_j, tj, tm_i, 0, 0))
+            c = (cg(tj, tm_i, tj, tm_j, tJ, tM)
+                 - cg(tj, tm_j, tj, tm_i, tJ, tM))
             if c != 0.0:
-                out.append(((_orbital_index(manifold, key, tm_i),
-                             _orbital_index(manifold, key, tm_j)), c))
-    norm = np.sqrt(sum(c * c for _, c in out))
+                mask = ((1 << _orbital_index(manifold, key, tm_i))
+                        | (1 << _orbital_index(manifold, key, tm_j)))
+                out[mask] = out.get(mask, 0.0) + c
+    norm = np.sqrt(sum(v * v for v in out.values()))
     assert norm > 1e-12
-    return [(pair, c / norm) for pair, c in out]
+    return {m: v / norm for m, v in out.items()}
 
 
 def _closed_shell_vector(manifold, dets, key):
@@ -503,30 +508,44 @@ def _closed_shell_vector(manifold, dets, key):
     return vec
 
 
-def _pair_product_vector(manifold, dets, key_c, key_b):
-    """|[c²(J = 0) b²(J = 0)] J = 0⟩ product state over ``dets``."""
+def _coupled_pair_product(manifold, dets, key_c, key_b, tJ):
+    """|[(c²)_J (b²)_J]; J_total = 0⟩ product state over ``dets``."""
+    from atomx.angular.coefficients import cg
+
     idx = {d: i for i, d in enumerate(dets)}
     vec = np.zeros(len(dets))
-    for (i1, i2), ci in _pair_ops(manifold, key_c):
-        for (j1, j2), cj in _pair_ops(manifold, key_b):
-            mask = (1 << i1) | (1 << i2) | (1 << j1) | (1 << j2)
-            vec[idx[mask]] += ci * cj
+    for tM in range(-tJ, tJ + 1, 2):
+        w = cg(tJ, tM, tJ, -tM, 0, 0)
+        if w == 0.0:
+            continue
+        for m_c, a_c in _pair_terms(manifold, key_c, tJ, tM).items():
+            for m_b, a_b in _pair_terms(manifold, key_b, tJ, -tM).items():
+                if m_c & m_b:
+                    continue
+                vec[idx[m_c | m_b]] += w * a_c * a_b
     norm = np.linalg.norm(vec)
     assert norm > 1e-12
     return vec / norm
 
 
-def test_closed_j32_pattern_subshell_matches_oracle():
-    """The closed j = 3/2 pattern subshell (occ 4) must not regress.
+def test_closed_j32_pattern_is_parentage_dependent_and_guarded():
+    """Closed j = 3/2 (occ 4) pattern: guarded because the element is
+    parentage-dependent and CSFs carry no parentage label.
 
-    The occupation guard declines every over-occupied pattern subshell
-    EXCEPT a closed j = 3/2 subshell on a count-2 pattern: the j = 3/2
-    closed shell is a pure J = 0 pair condensate (pair-removal cfp is
-    exactly 1), so the extra pair decouples as a J = 0 spectator and the
-    element stays exact.  Verified against the determinant oracle; the
-    magnitude is compared because the overall sign of an isolated element
-    is the (arbitrary, internally consistent) basis-phase convention of
-    each engine.
+    PR #81 review (claude) showed the originally-proposed occ-4 exception
+    is exact only for ONE parentage row: for bra c⁴ (closed j = 3/2) vs
+    ket c²b² at J = 0 the determinant oracle gives
+
+        [(c²)₀(b²)₀] row:  +0.120679 Ha   (the row the exception matched)
+        [(c²)₂(b²)₂] row:  −0.141562 Ha   (~15 % different magnitude)
+
+    while the un-guarded code returned the same −0.120667 Ha for both —
+    ``enumerate_jj_csfs`` emits both rows into the same (J = 0, even)
+    block with identical occupations, so no occupation-based guard can
+    distinguish them.  The channel therefore declines every over-occupied
+    pattern, including this one.  This test pins both facts: the oracle
+    rows genuinely differ (parentage dependence), and the channel now
+    returns 0.
     """
     C3, B3 = (3, -2), (3, -3)   # 3p3/2 closed (occ 4) vs 3d5/2 pair
     r = make_fine_grid(40.0, 3.0, max_points=20000)
@@ -541,17 +560,18 @@ def test_closed_j32_pattern_subshell_matches_oracle():
     )
     dets = manifold.determinants(0)
     v_bra = _closed_shell_vector(manifold, dets, C3)
-    v_ket = _pair_product_vector(manifold, dets, C3, B3)
-    _j2_check(manifold, dets, v_bra, 0)
-    _j2_check(manifold, dets, v_ket, 0)
-    oracle = float(v_bra @ manifold.hamiltonian(dets) @ v_ket)
-    assert abs(oracle) > 1e-3, "oracle ~0, test would be vacuous"
+    ham = manifold.hamiltonian(dets)
+    elements = []
+    for tJ in (0, 4):   # residual-pair J = 0 and J = 2 parentage rows
+        v_ket = _coupled_pair_product(manifold, dets, C3, B3, tJ)
+        _j2_check(manifold, dets, v_ket, 0)
+        elements.append(float(v_bra @ ham @ v_ket))
+    assert all(abs(e) > 1e-2 for e in elements), "test would be vacuous"
+    assert abs(elements[0] - elements[1]) > 0.1 * abs(elements[0]), (
+        f"parentage rows must differ: {elements}")
 
     workspace = GridCIWorkspace(r, dr, np.zeros_like(r))
-    csf_r = _real_csf(0, [(C3, 4)])
-    csf_s = _real_csf(0, [(C3, 2), (B3, 2)])
-    got = _two_electron_replacement_element(
-        csf_r, csf_s, [(C3, 2)], [(B3, 2)], orbitals, workspace)
-    assert abs(got) == pytest.approx(abs(oracle), rel=1e-3), (
-        f"closed j=3/2 pattern: |element| {abs(got)!r} != "
-        f"|oracle| {abs(oracle)!r}")
+    bra = _real_csf(0, [(C3, 4)])
+    ket = _real_csf(0, [(C3, 2), (B3, 2)])
+    assert _two_diff_element(bra, ket, orbitals, workspace) == 0.0
+    assert _two_diff_element(ket, bra, orbitals, workspace) == 0.0
