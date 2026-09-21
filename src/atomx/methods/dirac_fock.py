@@ -261,20 +261,33 @@ class SCFResult(SCFObservablesMixin):
             labels = [sh.label for sh in self.subshells]
             sub.create_dataset("label", data=labels)
 
-            # Orbital coefficients (keyed by safe index)
+            # Orbital coefficients (keyed by safe index).  ``orbitals_raw``
+            # per-kappa lists are positionally aligned with the per-kappa
+            # order of ``subshells`` (see ``orbitals_by_subshell``) — NOT by
+            # ``n - 1 - l``, which silently drops orbitals of gapped configs
+            # (e.g. 1s2 3s1) whose quantum-number index exceeds the list.
+            orb_map = self.orbitals_by_subshell()
+            if self.orbitals_raw:
+                missing = [sh.label for sh in self.subshells
+                           if (sh.n, sh.kappa) not in orb_map]
+                if missing:
+                    raise ValueError(
+                        f"orbitals_raw does not cover subshells {missing}; "
+                        "refusing to save an incomplete result (silent "
+                        "orbital loss on restart)")
             orb_grp = f.create_group("orbitals")
             for i, sh in enumerate(self.subshells):
-                orb_list = self.orbitals_raw.get(sh.kappa, [])
-                idx = sh.n - 1 - sh.l
-                if idx < len(orb_list):
-                    P, Q, occ = orb_list[idx]
-                    g = orb_grp.create_group(f"orb_{i}")
-                    g.create_dataset("P", data=P, compression="gzip")
-                    g.create_dataset("Q", data=Q, compression="gzip")
-                    g.attrs["n"] = sh.n
-                    g.attrs["kappa"] = sh.kappa
-                    g.attrs["occupation"] = occ
-                    g.attrs["label"] = sh.label
+                orb = orb_map.get((sh.n, sh.kappa))
+                if orb is None:
+                    continue
+                P, Q, occ = orb
+                g = orb_grp.create_group(f"orb_{i}")
+                g.create_dataset("P", data=P, compression="gzip")
+                g.create_dataset("Q", data=Q, compression="gzip")
+                g.attrs["n"] = sh.n
+                g.attrs["kappa"] = sh.kappa
+                g.attrs["occupation"] = occ
+                g.attrs["label"] = sh.label
 
             # Basis parameters (for grid reconstruction)
             if self._bsp_data:
@@ -334,7 +347,12 @@ class SCFResult(SCFObservablesMixin):
 
             orbitals_raw = {}
             if "orbitals" in f:
-                for key in sorted(f["orbitals"].keys()):
+                # Numeric key order — lexicographic sort would place
+                # "orb_10" before "orb_2" and scramble per-kappa positional
+                # alignment for configs with >9 subshells.
+                orb_keys = sorted(f["orbitals"].keys(),
+                                  key=lambda k: int(k.split("_", 1)[1]))
+                for key in orb_keys:
                     g = f["orbitals"][key]
                     kappa = int(g.attrs["kappa"])
                     P = g["P"][:]
