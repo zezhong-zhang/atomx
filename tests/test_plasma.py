@@ -273,11 +273,12 @@ class TestCRM:
         assert pop[0] > 0.99  # ground state dominant at 1 eV, gap = 100 eV
 
     def test_bound_free_eii_and_three_body_balance(self):
-        """EII and TBR should populate adjacent charge states consistently."""
+        """EII, TBR and RR should populate adjacent charge states consistently."""
         from atomx.plasma.crm import (
             CollisionalRadiativeModel,
             CRMBoundFreeChannel,
             CRMLevel,
+            radiative_recombination_rate_cm3_s,
             saha_ionization_density_cm3,
             three_body_recombination_rate_cm6_s,
         )
@@ -299,12 +300,24 @@ class TestCRM:
         beta = three_body_recombination_rate_cm6_s(
             eii, 15.0, Te, g_bound=2, g_continuum=1,
         )
+        # Spontaneous radiative recombination (review C5) is a second,
+        # n_e * alpha_RR recombination channel; it was missing until
+        # 2026-09, which is why this used to assert R[0, 1] == n_e^2 beta.
+        alpha_rr = radiative_recombination_rate_cm3_s(
+            15.0, Te, g_bound=2, g_continuum=1,
+        )
         assert R[1, 0] == pytest.approx(ne * eii)
-        assert R[0, 1] == pytest.approx(ne * ne * beta)
+        assert R[0, 1] == pytest.approx(ne * ne * beta + ne * alpha_rr)
 
         pop = crm.steady_state(ne, Te)
         saha = saha_ionization_density_cm3(15.0, Te, g_bound=2, g_continuum=1)
-        assert pop[1] / pop[0] == pytest.approx(saha / ne, rel=1e-10)
+        # Three-channel balance: n_c/n_b = R[1,0]/R[0,1].  Electron-impact
+        # ionisation alone would give Saha/n_e (R[0,1] = n_e^2 beta with
+        # beta = S/Saha); RR breaks that exact equality, so the ratio is
+        # compared with the matrix entries rather than with Saha/n_e.
+        assert pop[1] / pop[0] == pytest.approx(
+            (ne * eii) / (ne * ne * beta + ne * alpha_rr), rel=1e-10)
+        assert pop[1] / pop[0] < saha / ne
 
     def test_bound_free_photoionization_planck_couples_channel(self):
         """Planck PI should add a one-way bound-free source term."""

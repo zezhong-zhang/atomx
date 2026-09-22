@@ -2,10 +2,20 @@
 
 import pytest
 
-from atomx.constants import HARTREE_EV, HARTREE_INV_ANGSTROM
+from atomx.constants import HARTREE_EV, HARTREE_INV_ANGSTROM, RYDBERG_EV
 from atomx.plasma.crm import CollisionalRadiativeModel, CRMLevel, CRMTransition
 from atomx.scattering.autoionization import AutoionizationState
 from atomx.spectrum import crm_emission_spectrum
+
+# The DR satellite flux is linear in alpha_DR.  These ratio gates were
+# pinned with the pre-2026-09 prefactor, which was the closed form with kT
+# in Rydberg — RYDBERG_EV**1.5 = 50.186x below the eV convention used by
+# this module (review C5, gate in
+# tests/test_plasma_physics.py::test_dr_prefactor_matches_the_ev_convention_closed_form).
+# The old [0.025, 0.40] band is therefore carried into the corrected
+# convention below; measured 11.05 / 5.34 / 2.63 at 200 / 400 / 800 eV
+# (old convention: 0.220 / 0.106 / 0.052).
+_RATIO_BAND = (0.025 * RYDBERG_EV ** 1.5, 0.40 * RYDBERG_EV ** 1.5)
 
 
 def _energy_from_angstrom(wavelength_A):
@@ -90,7 +100,7 @@ def test_fe17_satellite_to_w_line_ratio(T_e_eV):
     assert spec.metadata["dr_satellite_count"] == 1
     assert w_flux > 0.0
     assert satellite_flux > 0.0
-    assert 0.025 < ratio < 0.40
+    assert _RATIO_BAND[0] < ratio < _RATIO_BAND[1]
 
 
 def test_crm_synth_wires_dr_resonance_channels_without_mutating_input():
@@ -116,4 +126,4 @@ def test_crm_synth_wires_dr_resonance_channels_without_mutating_input():
     assert spec.line_count == 2
     assert w_flux > 0.0
     assert satellite_flux > 0.0
-    assert 0.025 < ratio < 0.40
+    assert _RATIO_BAND[0] < ratio < _RATIO_BAND[1]

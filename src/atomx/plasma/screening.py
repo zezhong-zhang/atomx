@@ -138,16 +138,90 @@ def ion_sphere_potential(Z, Z_ion, ne_cm3):
     return V
 
 
+def stewart_pyatt_screening_length(lam_D, R_IS):
+    """Stewart-Pyatt effective screening length in Bohr radii.
+
+    The Stewart-Pyatt interpolation of the screened potential reduces to
+    the Debye-Huckel form for weak coupling (``u = R_IS/lam_D -> 0``) and
+    to the ion-sphere form for strong coupling (``u -> inf``).  Written as
+    a Yukawa potential ``-Z exp(-r/lam_eff)/r``, the ion-sphere limit
+    requires the continuum shift of that Yukawa, ``Z/lam_eff``, to equal
+    the ion-sphere shift ``3 Z_ion/(2 R_IS)``; for the self-screening case
+    ``Z = Z_ion`` this fixes
+
+        lam_eff(u -> inf) = (2/3) R_IS,
+
+    while ``lam_eff(0) = lam_D``.  The closed form used here,
+
+        lam_eff = lam_D * (2/3) u^3 / ((1 + u^3)^{2/3} - 1),
+
+    is the Stewart-Pyatt interpolation itself: it is monotone in u, has
+    both limits, and is evaluated with ``log1p``/``expm1`` so the small-u
+    cancellation in the denominator never loses significance.
+
+    The previous interpolation factor ``sqrt((1 + u^3)^{2/3} - u^2)``
+    *decreased* like ``u^{-1/2}`` for large u, sending ``lam_eff -> 0``
+    and the potential to 0 instead of the ion-sphere limit — a 247 eV
+    discontinuity at the branch switch.
+
+    Parameters
+    ----------
+    lam_D : float
+        Debye length in Bohr radii.
+    R_IS : float
+        Ion-sphere radius in Bohr radii.
+
+    Returns
+    -------
+    float
+        Effective screening length in Bohr radii (``lam_D`` when either
+        input is non-positive/non-finite).
+    """
+    lam_D = float(lam_D)
+    R_IS = float(R_IS)
+    if not np.isfinite(lam_D) or lam_D <= 0.0:
+        return np.inf
+    if not np.isfinite(R_IS) or R_IS <= 0.0:
+        return lam_D
+    u = R_IS / lam_D
+    if u < 1e-3:
+        # (2/3)u^3 / expm1((2/3)log1p(u^3)) = 1 + u^3/6 + O(u^6)
+        ratio = 1.0 + u ** 3 / 6.0
+    elif u > 1e3:
+        # asymptote: lam_eff -> (2/3) R_IS
+        ratio = (2.0 / 3.0) * u
+    else:
+        ratio = (2.0 / 3.0) * u ** 3 / np.expm1(
+            (2.0 / 3.0) * np.log1p(u ** 3))
+    return lam_D * ratio
+
+
+def _smoothstep(x):
+    """C1 monotone step: 0 for x <= 0, 1 for x >= 1, 3x^2 - 2x^3 between."""
+    x = min(max(float(x), 0.0), 1.0)
+    return x * x * (3.0 - 2.0 * x)
+
+
 def stewart_pyatt_potential(Z, Z_ion, ne_cm3, Te_eV):
     """Stewart-Pyatt screened potential.
 
-    Interpolates between Debye and ion-sphere limits using the
+    Interpolates between the Debye and ion-sphere limits using the
     Stewart-Pyatt model. The transition parameter is:
 
     u = R_IS / lambda_D
 
     When u << 1: Debye limit (weak coupling)
     When u >> 1: ion-sphere limit (strong coupling)
+
+    The interpolation is continuous by construction: the screening length
+    :func:`stewart_pyatt_screening_length` runs from ``lambda_D`` to
+    ``(2/3) R_IS``, and the potential is blended between the Yukawa form
+    and the exact ion-sphere potential with a smooth weight in ``log10 u``
+    that is 0 at ``u = 0.1`` and 1 at ``u = 10``.  The two limits are
+    therefore reproduced exactly — ``V = debye_potential`` for
+    ``u <= 0.1`` and ``V = ion_sphere_potential`` for ``u >= 10`` — with
+    no jump at either switch (the previous three-branch version jumped by
+    ~250 eV at ``u = 10`` because ``lambda_eff`` collapsed to 0).
 
     Parameters
     ----------
@@ -163,29 +237,41 @@ def stewart_pyatt_potential(Z, Z_ion, ne_cm3, Te_eV):
     """
     lam_D = debye_length(ne_cm3, Te_eV)
     R_IS = ion_sphere_radius(Z_ion, ne_cm3)
+    V_ion_sphere = ion_sphere_potential(Z, Z_ion, ne_cm3)
 
-    # Coupling parameter
-    u = R_IS / lam_D if lam_D > 0 else np.inf
+    # Screening length: lambda_D (Debye) -> (2/3) R_IS (ion sphere)
+    lam_sp = stewart_pyatt_screening_length(lam_D, R_IS)
 
-    # Stewart-Pyatt interpolation: effective screening length
-    # lambda_eff = lambda_D * f(u) where f interpolates between
-    # f(0) = 1 (Debye) and f(inf) ~ R_IS/lambda_D (ion-sphere)
-    if u < 0.1:
-        # Debye limit
-        return debye_potential(Z, ne_cm3, Te_eV)
-    elif u > 10:
-        # Ion-sphere limit
-        return ion_sphere_potential(Z, Z_ion, ne_cm3)
+    # Coupling parameter u = R_IS/lambda_D; the interpolation runs over
+    # 0.1 <= u <= 10 (one decade either side of u = 1 in log10 u).
+    if np.isfinite(lam_D) and lam_D > 0.0:
+        u = R_IS / lam_D if np.isfinite(R_IS) else np.inf
     else:
-        # Interpolation: effective lambda
-        # SP formula: lambda_eff = lambda_D * [(1 + u^3)^(2/3) - u^2]^(1/2)
-        lam_eff = lam_D * np.sqrt(max((1 + u ** 3) ** (2.0 / 3.0) - u ** 2, 0.01))
+        u = 0.0  # no screening length: weak-coupling end
+    if not np.isfinite(u):
+        weight = 1.0
+    elif u <= 0.0:
+        weight = 0.0
+    else:
+        weight = _smoothstep((np.log10(u) + 1.0) / 2.0)
 
-        def V(r):
-            r_safe = np.maximum(r, 1e-30)
-            return -Z * np.exp(-r_safe / lam_eff) / r_safe
+    if weight <= 0.0:
+        lam_eff = lam_D
+    elif weight >= 1.0:
+        lam_eff = lam_sp
+    else:
+        lam_eff = (1.0 - weight) * lam_D + weight * lam_sp
 
-        return V
+    def V(r):
+        r_safe = np.maximum(r, 1e-30)
+        yukawa = -Z * np.exp(-r_safe / lam_eff) / r_safe
+        if weight <= 0.0:
+            return yukawa
+        if weight >= 1.0:
+            return V_ion_sphere(r_safe)
+        return (1.0 - weight) * yukawa + weight * V_ion_sphere(r_safe)
+
+    return V
 
 
 def screening_potential_matrix(V_func, Z, bsp_data):
@@ -230,6 +316,62 @@ def screening_potential_matrix(V_func, Z, bsp_data):
     V_QQ = 0.5 * (V_QQ + V_QQ.T)
 
     return V_PP, V_QQ
+
+
+def screening_shift(Z, r, ne_cm3, Te_eV, model="debye", z_ion=None):
+    """Additive screening shift ``delta_V(r) = V_screened(r) - (-Z/r)``.
+
+    This is what an SCF has to add to the *nuclear* potential: the model's
+    own central potential minus the bare ``-Z/r``.  The difference is
+    finite at the origin (the nuclear charge distribution of
+    :mod:`atomx.potentials.nuclear` keeps regularising ``r -> 0``) and
+    tends to ``Z/lambda`` at large ``r`` for the Debye model — the
+    continuum shift that lowers the ionisation energy.  It is evaluated by
+    calling :func:`debye_potential` / :func:`stewart_pyatt_potential`
+    directly, so ``screening_shift(...) == V_model(r) + Z/r`` holds by
+    construction.
+
+    Parameters
+    ----------
+    Z : int
+        Nuclear charge.
+    r : array_like
+        Radii in Bohr.
+    ne_cm3 : float
+        Free-electron density in cm^-3.
+    Te_eV : float
+        Free-electron temperature in eV.
+    model : {"debye", "stewart_pyatt"}
+        Screening model.  ``"debye"`` is the Yukawa (Debye-Huckel) limit;
+        ``"stewart_pyatt"`` interpolates to the ion-sphere limit and needs
+        a positive ``z_ion``.
+    z_ion : int, optional
+        Net ion charge, i.e. the number of free electrons per ion.  Only
+        read by ``"stewart_pyatt"`` (it fixes the ion-sphere radius).
+
+    Returns
+    -------
+    ndarray
+        ``delta_V(r)`` in Hartree on the input grid.
+    """
+    r = np.asarray(r, dtype=float)
+    # ``V_model`` diverges as -Z/r at the origin while the shift stays
+    # finite (Z/lambda for Debye), so the difference is a cancellation of
+    # two large numbers.  1e-9 Bohr is far below the innermost solver grid
+    # point (~1e-7) and keeps the cancellation at the 1e-6 relative level.
+    r_safe = np.maximum(r, 1e-9)
+    if model == "debye":
+        V = debye_potential(Z, ne_cm3, Te_eV)(r_safe)
+    elif model == "stewart_pyatt":
+        if z_ion is None or int(z_ion) <= 0:
+            raise ValueError(
+                "screening model 'stewart_pyatt' needs a positive ion "
+                f"charge for the ion-sphere radius (got z_ion={z_ion!r})")
+        V = stewart_pyatt_potential(Z, int(z_ion), ne_cm3, Te_eV)(r_safe)
+    else:
+        raise ValueError(
+            f"model must be 'debye' or 'stewart_pyatt' (got {model!r})")
+    return V + Z / r_safe
 
 
 def _stewart_pyatt_ipd_au(Z_ion, lam_D, R_IS):
