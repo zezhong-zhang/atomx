@@ -61,7 +61,7 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from atomx import Atom  # noqa: E402
+from atomx import Atom, Correlation  # noqa: E402
 
 #: Hard cross-engine gate on rates / line strengths (machinery observable).
 RATE_RTOL = 2e-3
@@ -110,11 +110,28 @@ def _is_forbidden_m1(tr):
             and _label_suffix(tr.initial_label) == _label_suffix(tr.final_label))
 
 
-def _solve_both(kw, **extra):
-    shooting = Atom(numerics="shooting", exchange="hf",
-                    breit=False, qed=False, **extra, **kw).solve()
-    bspline = Atom(numerics="bspline", exchange="hf",
-                   breit=False, qed=False, **extra, **kw).solve()
+def _solve_both(kw, averaging=None):
+    """Solve on both engines with the same exchange/CI protocol.
+
+    ``averaging`` is a Correlation field: the multi-configuration protocol
+    is carried by the same object as the expansion, so it is passed as
+    ``correlation=Correlation(averaging=...)``.
+    """
+    ci = None if averaging is None else Correlation(averaging=averaging)
+    shooting = Atom(
+                    engine="shooting",
+                    exchange="hf",
+                    corrections="none",
+                    correlation=ci,
+                    **kw,
+               ).solve()
+    bspline = Atom(
+                   engine="bspline",
+                   exchange="hf",
+                   corrections="none",
+                   correlation=ci,
+                   **kw,
+              ).solve()
     assert shooting.converged and bspline.converged
     return shooting, bspline
 
@@ -339,8 +356,8 @@ def test_crm_from_default_atom_matches_bspline(solved):
     bspline-built CRM to 1e-2."""
     from atomx.plasma.crm import CollisionalRadiativeModel
 
-    default_atom = Atom(Z=10, breit=False, qed=False).solve()
-    assert default_atom.provenance.get("numerics") == "shooting"
+    default_atom = Atom(Z=10, corrections="none").solve()
+    assert default_atom.provenance.get("engine") == "shooting"
 
     _, bspline, _, _ = solved["Ne"]
     crm_s = CollisionalRadiativeModel.from_atom(default_atom)

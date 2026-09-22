@@ -46,16 +46,17 @@ class TestNormalMassShift:
         assert ms.method == "virial"
 
     def test_hydrogen_mass_shift_magnitude(self, h_1s_result):
-        """E_NMS = -T/M ≈ -0.5/1836 ≈ -2.72e-4 Ha ≈ -1.79 THz for H-1.
+        """E_NMS = +T/M ≈ +0.5/1836 ≈ +2.72e-4 Ha ≈ +1.79 THz for H-1.
 
-        Equivalent to m_e/m_p × 13.6 eV ≈ 7.4 meV ≈ 1.79 THz.
+        Equivalent to m_e/m_p × 13.6 eV ≈ 7.4 meV ≈ 1.79 THz, with the
+        level *raised* by the finite nuclear mass (H_NMS = +(m_e/M)T_e).
         """
         _, result = h_1s_result
         ms = result.mass_shift_NMS()
-        expected_Ha = -0.5 / 1836.15
+        expected_Ha = +0.5 / 1836.15
         assert ms.E_NMS_Ha == pytest.approx(expected_Ha, rel=1e-3)
-        # -1.7917 THz = -1.7917e6 MHz
-        assert ms.E_NMS_MHz / 1e6 == pytest.approx(-1.7917, abs=0.001)
+        # +1.7917 THz = +1.7917e6 MHz
+        assert ms.E_NMS_MHz / 1e6 == pytest.approx(1.7917, abs=0.001)
 
     def test_nms_linear_in_inverse_mass(self, h_1s_result):
         """Doubling M halves NMS in magnitude."""
@@ -72,7 +73,8 @@ class TestNormalMassShift:
             total_energy=-1.0, mass_me=1000.0, kinetic_energy=2.0,
         )
         assert ms.method == "explicit"
-        assert ms.E_NMS_Ha == pytest.approx(-0.002, rel=1e-12)
+        # +T/M: the NMS operator is H_NMS = +(m_e/M)·T_e.
+        assert ms.E_NMS_Ha == pytest.approx(+0.002, rel=1e-12)
 
     def test_invalid_mass_raises(self):
         with pytest.raises(ValueError, match="mass must be positive"):
@@ -370,16 +372,18 @@ class TestFieldShift:
 
 class TestIsotopeShift:
     def test_h_vs_d_sign_and_ballpark(self, h_1s_result):
-        """H → D: heavier deuteron → smaller |NMS|, so ΔNMS = NMS(H)−NMS(D) < 0.
+        """H → D: heavier deuteron → smaller NMS, so ΔNMS = NMS(H)−NMS(D) > 0.
 
-        Expected ΔNMS ≈ -0.5 × (1/M_H - 1/M_D) × HARTREE_MHZ ≈ -0.895 THz
-        ≈ -8.954e5 MHz.
+        E_NMS = +T/M raises the level, and it raises H (lighter nucleus)
+        more than D, so the level sits higher in H:
+            ΔNMS ≈ +0.5 × (1/M_H − 1/M_D) × HARTREE_MHZ ≈ +0.895 THz
+            ≈ +8.954e5 MHz.
         """
         _, result = h_1s_result
         iso = result.isotope_shift((1, 1), (1, 2))
-        assert iso.E_NMS_MHz < 0
-        # -0.8954 THz = -8.954e5 MHz
-        assert iso.E_NMS_MHz / 1e6 == pytest.approx(-0.8954, abs=0.001)
+        assert iso.E_NMS_MHz > 0
+        # +0.8954 THz = +8.954e5 MHz
+        assert iso.E_NMS_MHz / 1e6 == pytest.approx(+0.8954, abs=0.001)
 
     def test_h_vs_d_dr2(self, h_1s_result):
         """δ⟨r²⟩ = r_rms(H)² − r_rms(D)² < 0 since proton is smaller."""
@@ -390,7 +394,7 @@ class TestIsotopeShift:
         assert iso.delta_r2_fm2 == pytest.approx(-3.82, abs=0.01)
 
     def test_field_shift_contribution_small_for_h(self, h_1s_result):
-        """FS for 1s in H vs D is tiny (~6 MHz) compared to NMS (~-900 GHz)."""
+        """FS for 1s in H vs D is tiny (~6 MHz) compared to NMS (~+900 GHz)."""
         _, result = h_1s_result
         iso = result.isotope_shift((1, 1), (1, 2))
         # F ≈ 1.57 MHz/fm², δr² ≈ -3.8 fm², occ=1 → FS ≈ -6 MHz

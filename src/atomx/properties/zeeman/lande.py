@@ -45,20 +45,23 @@ S. Sturm *et al.*, *Nature* **506**, 467 (2014) — Penning-trap
 from __future__ import annotations
 
 from dataclasses import dataclass
-from math import sqrt
+from math import pi, sqrt
 
 from atomx.angular.coefficients import _l_from_kappa
-from atomx.constants import ALPHA
+from atomx.constants import ALPHA, CODATA, DEFAULT_CODATA_VERSION
 from atomx.properties.hyperfine.dipole import ELECTRON_ANOMALOUS_MOMENT
 
-# Bohr magneton in MHz / Tesla — CODATA 2018 derived:
-#   μ_B = 9.2740100783e-24 J/T,  h = 6.62607015e-34 J·s
-#   μ_B/h = 1.39962449361e10 Hz/T  =  1.39962449361e4 MHz/T
-_H_PLANCK_J_S = 6.62607015e-34
-_BOHR_MAGNETON_J_PER_T = 9.2740100783e-24
+# Bohr magneton in MHz / Tesla, derived from the *active* CODATA table
+# (2022 by default) instead of a frozen CODATA-2018 literal (M12,
+# review 2026-09-19: 9.2740100783e-24 was +1.4e-9 relative off):
+#   μ_B = e·ħ/(2 m_e)  ->  μ_B/h = e/(4π m_e)   [Hz/T]
+_CODATA = CODATA[DEFAULT_CODATA_VERSION]
+_BOHR_MAGNETON_J_PER_T = (
+    _CODATA["_e"] * _CODATA["_hplanck"] / (4.0 * pi * _CODATA["_me"])
+)
 #: ``gJ · m_J · B[Tesla] × BOHR_MAGNETON_MHZ_PER_TESLA``  gives the shift
 #: in MHz.  ≈ 1.3996e4 MHz/T.
-BOHR_MAGNETON_MHZ_PER_TESLA = _BOHR_MAGNETON_J_PER_T / _H_PLANCK_J_S / 1.0e6
+BOHR_MAGNETON_MHZ_PER_TESLA = _BOHR_MAGNETON_J_PER_T / _CODATA["_hplanck"] / 1.0e6
 
 
 @dataclass

@@ -516,10 +516,14 @@ class TestHeliumLikeM1:
 
 def _he_like_ne_m1():
     """Solved He-like Ne (Z=10, H-like core + 2 electrons) for the M1 gate."""
-    from atomx import Atom
+    from atomx import Atom, Basis
 
-    he = Atom(Z=10, charge=8,
-              configs=["1s2", "1s1 2s1", "2s2", "2p2"], ns=60, ks=9)
+    he = Atom(
+              Z=10,
+              charge=8,
+              config=["1s2", "1s1 2s1", "2s2", "2p2"],
+              basis=Basis(ns=60, ks=9),
+         )
     he.solve(max_iter=80, tol=1e-4)
     if not he.converged:
         pytest.skip("He-like Z=10 MCDHF did not converge")
@@ -550,8 +554,8 @@ class TestHeliumLikeE2:
         The hydrogenic E2 3d→1s rate at Z=10 is ~6×10⁸ s⁻¹; the He-like
         rate includes screening corrections and multi-electron coupling.
         """
-        from atomx import Atom
-        he = Atom(Z=10, charge=8, configs=["1s2", "1s1 3d1"], ns=80, ks=9)
+        from atomx import Atom, Basis
+        he = Atom(Z=10, charge=8, config=["1s2", "1s1 3d1"], basis=Basis(ns=80, ks=9))
         he.solve(max_iter=80, tol=1e-4)
         if not he.converged:
             pytest.skip("He-like Z=10 MCDHF did not converge")
@@ -570,8 +574,8 @@ class TestHeliumLikeE2:
     def test_helike_E2_Z10_gauge_ratio(self):
         """He-like E2 at Z=10: gauge ratio for the dominant transition
         should be > 0.9 (single-config MCDHF basis quality check)."""
-        from atomx import Atom
-        he = Atom(Z=10, charge=8, configs=["1s2", "1s1 3d1"], ns=80, ks=9)
+        from atomx import Atom, Basis
+        he = Atom(Z=10, charge=8, config=["1s2", "1s1 3d1"], basis=Basis(ns=80, ks=9))
         he.solve(max_iter=80, tol=1e-4)
         if not he.converged:
             pytest.skip("He-like Z=10 MCDHF did not converge")

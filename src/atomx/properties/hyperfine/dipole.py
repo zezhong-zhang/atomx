@@ -29,19 +29,37 @@ Conventions
 
   **Important — applying only a_e is usually incomplete.**
   The electron-anomaly correction is the first rung of a QED ladder
-  whose other rungs (Breit/relativistic binding corrections, recoil,
-  radiative corrections to the hyperfine operator itself, nuclear
-  structure via Bohr–Weisskopf) tend to *cancel* its contribution for
-  ground-state s-shells.  The canonical H 1s case is explicit:
+  whose other rungs (reduced mass, Breit/relativistic binding
+  corrections, recoil, radiative corrections to the hyperfine operator
+  itself, nuclear structure via Bohr–Weisskopf) tend to *cancel* its
+  contribution for ground-state s-shells.  The canonical H 1s case is
+  explicit (percentages relative to the 1421.27 MHz baseline):
 
-      Dirac-Fock baseline                  : 1421.27 MHz
-      +  Schwinger a_e  (+0.116 %)         : 1422.92 MHz
-      +  higher-order QED + Breit (−0.127 %): ≈ 1420.9 MHz
-      +  nuclear structure (Bohr–Weisskopf): ≈ 1420.4 MHz  (experiment)
+      Dirac-Fock baseline (point nucleus, g_s=2, M=∞)  : 1421.27 MHz
+      + reduced mass  (1 + m_e/m_p)^−3   (−0.163 %)    : 1418.95 MHz
+      +  Schwinger a_e                   (+0.116 %)    : 1420.60 MHz
+      +  higher-order QED + Breit        (≈ −0.010 %)  : 1420.45 MHz
+      +  proton structure (Zemach/Bohr–Weisskopf −0.004 %) : 1420.40 MHz
+                (experiment 1420.405751768 MHz; residual ≈ −6 ppm,
+                 inside the ≈0.1 % accuracy of the DHF baseline)
 
-  Applying only the first correction *worsens* the prediction.
-  atomx therefore defaults to ``include_anomalous_moment=False`` so the
-  bare Dirac-Fock result is reported, with individual rungs opt-in.
+  The **reduced-mass term is the dominant omission** in this module's
+  number: the Dirac–Fock baseline here uses the *free* electron mass and
+  an infinitely heavy point nucleus, while the physical HFS scales as
+  ``(1 + m_e/M)^−3`` (Fermi energy ∝ m_r³, the electron magnetic moment
+  ∝ 1/m_e) — −1632 ppm, i.e. −2.3 MHz for H 1s.  With that single term
+  the 1421.27 MHz baseline lands at 1418.95 MHz, and the observed
+  1420.405751768 MHz is recovered only after the anomaly (above) and the
+  ≈ −40 ppm nuclear-structure term.  Adding ``include_anomalous_moment``
+  *without* the reduced-mass term therefore overshoots by ≈ +0.12 %;
+  atomx defaults to ``include_anomalous_moment=False`` so the bare
+  Dirac-Fock result is reported, with individual rungs opt-in.  The
+  caller-level ladder that *does* apply it is
+  ``SCFResult.hyperfine_constants(include_finite_nuclear_mass=True)``
+  (rung ``(M/(M+m_e))³``, methods/scf_observables.py).
+  See Antognini, Lin & Meißner, arXiv:2208.04025, Eqs. (2) and (7)
+  (E_F(H) = 1418.840082(9) kHz, defined with the reduced mass m_r³);
+  review 2026-09-19 finding M9.
   A future release will bundle the full package as a single flag
   ``include_qed_hyperfine=True``.
 * ``g_I = μ_I / I`` in units of the nuclear magneton μ_N; :mod:`atomx.
@@ -146,6 +164,16 @@ def hyperfine_A(
     Dirac prefactor without ``(1 + a_e)`` follows Johnson, *Atomic
     Structure Theory*, eq. 8.67 (Springer, 2007); the anomaly is the
     Schwinger 1948 correction plus higher QED loops.
+
+    Error budget (review 2026-09-19 finding M9): this function carries
+    **no reduced-mass term** — the radial integral comes from an
+    electron-mass, infinitely heavy point-nucleus wavefunction, whereas
+    the physical HFS scales as ``(1 + m_e/M)^−3`` (−1632 ppm for H,
+    −2.3 MHz; the dominant omitted term).  For H 1s the returned
+    1421.272852 MHz therefore sits +610 ppm above the measured
+    1420.405751768 MHz; see the module docstring for the full ladder
+    (reduced mass −0.163 %, then a_e +0.116 %, then ≈ −0.04 % QED +
+    nuclear structure).
 
     Parameters
     ----------

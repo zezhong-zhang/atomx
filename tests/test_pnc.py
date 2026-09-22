@@ -19,7 +19,7 @@ def test_weak_charge_is_neutron_dominated():
 
 def test_pnc_amplitude_scaffold_raises_on_hydrogen():
     """Low-level PNC amplitude stays loud until the SOS implementation lands."""
-    atom = Atom(Z=1, config="1s1", breit=False, qed=False)
+    atom = Atom(Z=1, config="1s1", corrections="none")
     atom.solve()
     with pytest.raises(NotImplementedError, match="opposite-parity"):
         pnc_amplitude_dirac_only(atom._result, "1s1/2", "1s1/2", N=0)
@@ -29,7 +29,7 @@ def test_compute_pnc_high_level_api_scaffold_raises_not_typeerror():
     """High-level compute_pnc preserves the scaffold raise contract."""
     from atomx.methods.pnc import compute_pnc
 
-    atom = Atom(Z=3, config="1s2 2s1", breit=False, qed=False)
+    atom = Atom(Z=3, config="1s2 2s1", corrections="none")
     atom.solve()
     with pytest.raises(NotImplementedError, match="opposite-parity"):
         compute_pnc(atom, "2s1/2", "1s1/2", N=4)

@@ -197,7 +197,7 @@ class TestAtomTransitions:
     def test_he_has_transitions(self):
         """Helium with 2 configs should produce E1 transitions."""
         from atomx import Atom
-        he = Atom(Z=2, configs=["1s2", "1s1 2p1"])
+        he = Atom(Z=2, config=["1s2", "1s1 2p1"])
         he.solve(max_iter=40, tol=1e-4)
         if not he.converged:
             pytest.skip("He MCDHF did not converge")

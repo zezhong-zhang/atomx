@@ -5,7 +5,7 @@ or MCDHF) with proper angular coupling and radial matrix elements.
 
 Usage:
     from atomx import Atom
-    he = Atom(Z=2, configs=["1s2", "1s1 2p1"]).solve()
+    he = Atom(2, config=["1s2", "1s1 2p1"]).solve()
     results = he.transitions(multipoles=['E1', 'M1'])
 """
 
@@ -254,7 +254,7 @@ class TransitionCalculator:
         strings forming a single-hole pair (e.g. ``["1s2 2s2 2p6",
         "1s2 2s2 2p5 3d1"]``).  The closed-shell ground configuration is
         (re-)solved in the FAC-equivalent local-DFS basis
-        (``numerics='shooting', exchange='gu'``, pure Coulomb) that the
+        (``engine='shooting', exchange='gu'``, pure Coulomb) that the
         CI engine was validated with, and
         :func:`atomx.properties.transitions.ci_lines.ci_line_strengths`
         supplies the exact per-line strengths.
@@ -333,9 +333,14 @@ class TransitionCalculator:
         res = None
         try:
             n_el = sum(_parse_config_tokens(ground_cfg).values())
-            a = Atom(Z=self.Z, charge=int(self.Z) - int(n_el),
-                     config=ground_cfg, numerics='shooting', exchange='gu',
-                     breit=False, qed=False)
+            a = Atom(
+                     Z=self.Z,
+                     charge=int(self.Z) - int(n_el),
+                     config=ground_cfg,
+                     engine='shooting',
+                     exchange='gu',
+                     corrections="none",
+                )
             a.solve()
             if a.converged:
                 res = a._result
@@ -446,6 +451,12 @@ class TransitionCalculator:
         gauge-handling logic.  ``workspace`` is either radial flavour
         (B-spline ``bsp_data`` or radial-grid workspace) — the multipole
         integrals dispatch through the workspace seam.
+
+        The caller only keeps pairs with ``dE = E_f − E_i > 0``, so
+        ``i`` is the **lower** and ``f`` the **upper** state: the
+        spontaneous-emission rate carries the upper-state statistical
+        weight ``2 j_f + 1``, while the absorption oscillator strength
+        keeps the lower-state weight ``2 j_i + 1``.
         """
         ang = angular_eL(k_i, k_f, L) if mp_type == 'E' else angular_mL(k_i, k_f, L)
 
@@ -470,10 +481,14 @@ class TransitionCalculator:
             S = ang ** 2 * rme ** 2
             if S < 1e-30:
                 return (0.0, S)
+            # ``i`` is the lower state here (dE > 0 upstream), so the
+            # spontaneous rate needs the *upper*-state weight 2 j_f + 1 —
+            # matching ``einstein_A_eL``'s "tj_i = 2 j_upper" contract and
+            # the MCDHF (``tj_upper = tj_F``) and CI (``up.two_J``) engines.
             if mp_type == 'E':
-                A = einstein_A_eL(omega, S, L, tj_i)
+                A = einstein_A_eL(omega, S, L, tj_f)
             else:
-                A = einstein_A_mL(omega, S, L, tj_i)
+                A = einstein_A_mL(omega, S, L, tj_f)
             return (A, S)
 
         len_pair = _A_from_rme(rme_length)

@@ -46,7 +46,7 @@ configuration-pair total that the UTA path distributes statistically.
 
 Validation (2026-07-17, live clean-room FAC 1.1.5, SetSE/VP/MS/Breit
 off, OptimizeRadial on the ground config — the exact counterpart of the
-``numerics='shooting', exchange='gu'`` pipeline): Fe XVII 2p5 3s -> 2p6
+``engine='shooting', exchange='gu'`` pipeline): Fe XVII 2p5 3s -> 2p6
 and 2p5 3d -> 2p6 per-line A ratios 0.99-1.03, in-multiplet relative
 line strengths within 3.2% (3C/3D ratio 0.962 of FAC), transition
 energies +2.4 to +2.9 eV of ~730-830 eV.  Reference pinned in
@@ -518,7 +518,7 @@ def ci_line_strengths(result, config_i, config_f, *, multipole="E1",
     ----------
     result
         Solved closed-shell ground result of the ion (``Atom`` accepted
-        and unwrapped).  The ``numerics='shooting', exchange='gu'``
+        and unwrapped).  The ``engine='shooting', exchange='gu'``
         pipeline gives the FAC-equivalent orbital basis (single
         optimized DFS potential, frozen virtuals) — the configuration
         validated against clean-room FAC; B-spline results fall back to

@@ -37,7 +37,7 @@ from typing import Any, Dict, Optional
 
 import numpy as np
 
-from atomx.constants import ALPHA
+from atomx.constants import ALPHA, BOHR_RADIUS_FM
 from atomx.numerics.bspline.evaluate import eval_P, eval_Q
 
 # ---------------------------------------------------------------------------
@@ -123,8 +123,10 @@ def g_factor_finite_nuclear_size(
     """
     if kappa != -1:
         return 0.0
-    a0_fm = 5.29177210903e4
-    R_a0 = R_rms_fm / a0_fm
+    # M12 (review 2026-09-19): was the frozen CODATA-2018 a₀
+    # (5.29177210903e4 fm, 6.8e-10 relative off); take it from
+    # atomx.constants so it tracks the active CODATA table.
+    R_a0 = R_rms_fm / BOHR_RADIUS_FM
     Zalpha = Z * ALPHA
     return -(8.0 / 3.0) * (Zalpha ** 4) * (R_a0 ** 2) * 2.0
 

@@ -113,11 +113,16 @@ NUCLEAR_MOMENTS: Dict[Tuple[int, int], NuclearMoment] = {
     (13, 27): NuclearMoment(Z=13, A=27,  I=2.5, mu_I=+3.641507,   Q=+0.1466,name="Al-27"),
     (15, 31): NuclearMoment(Z=15, A=31,  I=0.5, mu_I=+1.13160,    Q=0.0,    name="P-31"),
     (19, 39): NuclearMoment(Z=19, A=39,  I=1.5, mu_I=+0.3914662,  Q=+0.0585,name="K-39"),
-    (29, 63): NuclearMoment(Z=29, A=63,  I=1.5, mu_I=+2.2273456,  Q=-0.220, name="Cu-63"),
+    # M9 (review 2026-09-19): ⁶³Cu was +1.8e-3 high vs Stone 2019
+    # (μ = +2.2233(3) μ_N).
+    (29, 63): NuclearMoment(Z=29, A=63,  I=1.5, mu_I=+2.2233,     Q=-0.220, name="Cu-63"),
     (37, 85): NuclearMoment(Z=37, A=85,  I=2.5, mu_I=+1.3533515,  Q=+0.2766,name="Rb-85"),
     (37, 87): NuclearMoment(Z=37, A=87,  I=1.5, mu_I=+2.7512932,  Q=+0.1335,name="Rb-87"),
     (47, 107):NuclearMoment(Z=47, A=107, I=0.5, mu_I=-0.11368,    Q=0.0,    name="Ag-107"),
-    (55, 133):NuclearMoment(Z=55, A=133, I=3.5, mu_I=+2.5828327,  Q=-0.00355,name="Cs-133"),
+    # M9 (review 2026-09-19): ¹³³Cs was +3.1e-4 high vs Stone 2019
+    # (μ = +2.58202503(70) μ_N; the previous value matches neither
+    # CODATA 2018 nor 2022).
+    (55, 133):NuclearMoment(Z=55, A=133, I=3.5, mu_I=+2.58202503, Q=-0.00355,name="Cs-133"),
     (79, 197):NuclearMoment(Z=79, A=197, I=1.5, mu_I=+0.148158,   Q=+0.547, name="Au-197"),
     (80, 199):NuclearMoment(Z=80, A=199, I=0.5, mu_I=+0.5058855,  Q=0.0,    name="Hg-199"),
     (81, 205):NuclearMoment(Z=81, A=205, I=0.5, mu_I=+1.638214,   Q=0.0,    name="Tl-205"),
