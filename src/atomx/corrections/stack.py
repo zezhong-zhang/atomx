@@ -174,6 +174,15 @@ def finalize_with_corrections(result: "AtomicResult",
     and the ``Atom`` shooting path, so both engines report corrections
     through identical keys.  Returns ``result`` for chaining;
     ``stack=None`` is a no-op.
+
+    ``E_Breit`` set here is the shift added to ``total_energy`` (the
+    exact Gaunt operator's value), so
+    the reported number and the applied number are the same by
+    construction on this route.  That scalar is 3.03x DBSR_HF for Ne —
+    the adapter's provenance carries the note, and the dict is also
+    stashed under the result's private ``_breit_provenance`` attribute
+    (the key :attr:`MCDHFResult.breit_provenance` reads) so a result
+    class that exposes it can show a reader what was applied.
     """
     if stack is None:
         return result
@@ -186,6 +195,12 @@ def finalize_with_corrections(result: "AtomicResult",
             continue
         if name == "breit":
             comps["E_Breit"] = cr.energy_shift
+            result.__dict__["_breit_provenance"] = dict(
+                cr.provenance,
+                mode="scalar",
+                operator="none",
+                scalar_shift_applied=True,
+            )
         elif name.startswith("self_energy"):
             comps["E_SE"] = cr.energy_shift
             comps["se_method"] = name.split("[", 1)[1].rstrip("]")
@@ -207,4 +222,29 @@ def finalize_with_corrections(result: "AtomicResult",
     return result
 
 
-__all__ = ["CorrectionStack", "finalize_with_corrections"]
+def breit_provenance(result) -> Dict:
+    """Which Breit interaction ``result`` carries, and how good it is.
+
+    The counterpart of :attr:`MCDHFResult.breit_provenance` for the
+    results that have no such property (``SCFResult``, ``ShootingResult``
+    — the single-configuration route).  That route applies the *scalar*
+    removed scalar Breit, which was 3.03x
+    DBSR_HF for Ne, so the returned dict is the only place a reader of
+    such a result can learn that the applied Breit is not externally
+    validated.  It is filled in by :func:`finalize_with_corrections`
+    (``{}`` when Breit was off).
+
+    Returns
+    -------
+    dict
+        ``{"mode", "operator", "scalar_shift_applied",
+        "externally_validated", "note"}`` for the scalar route; the
+        operator route's own dict for ``MCDHFResult``.
+    """
+    prop = getattr(result, "breit_provenance", None)
+    if prop:
+        return dict(prop)
+    return dict(getattr(result, "_breit_provenance", None) or {})
+
+
+__all__ = ["CorrectionStack", "breit_provenance", "finalize_with_corrections"]

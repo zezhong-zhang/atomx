@@ -74,7 +74,7 @@ class MCDHF(Method):
         ``"operator"`` (default) — the Gaunt operator in the CI blocks.
         ``"scalar"`` — the historical comparison path: the
         configuration-average number from
-        :func:`atomx.corrections.breit.compute_breit_energy`, evaluated
+        the exact Gaunt operator, evaluated
         once on the converged Guerra-averaged orbitals and added to
         every CI state identically.  It cannot split levels and exists
         only so the old numbers stay reproducible.

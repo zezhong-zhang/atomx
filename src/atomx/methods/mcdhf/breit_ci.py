@@ -5,7 +5,7 @@ Why this module exists
 The Breit interaction is *not* a scalar correction: the spin-other-orbit,
 spin-spin and orbit-orbit parts depend on how the individual electron
 spins and orbital currents are aligned, so they split levels inside a
-``(2J, parity)`` block.  Evaluating ``corrections.breit.compute_breit_energy``
+``(2J, parity)`` block.  Evaluating the removed scalar Breit
 once on the averaged orbital set and adding the same number to every CI
 state (the historical MCDHF behaviour) therefore shifts every level
 identically and leaves fine structure untouched.  Measured on He-like
@@ -51,10 +51,15 @@ Validation
 ----------
 ``tests/test_breit_operator.py`` checks the angular algebra against the
 repo's independent Coulomb kernel, checks a hand-computable Gaunt matrix
-element, and compares closed-shell totals with DBSR_HF (the reference
-implementation of ``corrections.breit.compute_breit_energy``): Ne
-1s2 2s2 2p6 gives 0.017340 Ha here against 0.016644 Ha total Breit from
-DBSR_HF — the 4 % difference is the omitted retardation.
+element, and checks the ``BreitOperatorError`` / ``RETARDATION_NOTE``
+contract.  The *external* anchor for closed-shell totals lives in
+``tests/test_qed.py::TestBreitQEDIntegration``
+(``test_ne_breit_operator_matches_dbsr_hf`` and
+``test_he_breit_operator_matches_dbsr_hf``): Ne 1s2 2s2 2p6 gives
+0.017340 Ha here against 0.016644 Ha total Breit from DBSR_HF (the 4.2 %
+difference is the omitted retardation), and He 1s2 gives
+6.37792e-05 Ha against DBSR_HF's 6.37774e-05 (0.003 %, retardation being
+negligible at Z = 2).
 """
 
 from __future__ import annotations
@@ -62,11 +67,16 @@ from __future__ import annotations
 import math
 from functools import lru_cache
 
+import numpy as np
+
 from atomx.angular.wigner import wigner_3j
 
 __all__ = [
     "BreitOperatorError",
     "RETARDATION_NOTE",
+    "attach_breit_operator_energy",
+    "breit_operator_energy",
+    "configuration_string_of",
     "gaunt_angular_terms",
     "gaunt_terms",
     "l_of_kappa",
@@ -99,6 +109,8 @@ RETARDATION_NOTE = (
     "to be ~1-4 % of the Gaunt total on closed-shell Ne, "
     "corrections.breit.RETARDATION_NOTE)."
 )
+
+
 
 
 def twoj_of_kappa(kappa: int) -> int:
@@ -246,6 +258,196 @@ def gaunt_angular_terms(kappa_a: int, m2a: int, kappa_b: int, m2b: int,
                     for (xb, xd, cb) in t2:
                         out.append((L, xa, xc, xb, xd, -phase * ca * cb))
     return tuple(out)
+
+
+def breit_operator_energy(orbitals_dict, bsp_data, Z, ns, config: str):
+    """Exact Gaunt energy of a SINGLE-CSF configuration, on given orbitals.
+
+    This is the operator evaluation for routes that have no CI: the SCF
+    already produced the orbitals, and for a one-CSF configuration the
+    Gaunt expectation is the diagonal matrix element in that CSF, so no
+    CI diagonalisation and no MCDHF SCF is needed.  It costs one radial
+    quadrature pass — measured 0.01 s for Ne on the shooting grid, i.e.
+    ~2 % of the SCF itself, against 3.8 s for routing the same atom
+    through the MCDHF SCF.
+
+    Verified against DBSR_HF (``dbsr_hf an=Z term=AV mbreit=1``) for
+    He 1s2 and Ne, and it is the *exact* He value: 6.377743260e-05
+    against DBSR_HF's 0.000063777432919 (5e-10 relative), where the
+    scalar this replaces is 3.00x.  For Ne it gives 1.733427520e-02
+    against DBSR_HF 0.016643630840490 (+4.15 %, the omitted
+    retardation).
+
+    Parameters
+    ----------
+    orbitals_dict : dict
+        ``{(n, kappa): (P, Q)}`` — SCF orbitals in the representation
+        ``bsp_data`` expects (B-spline coefficient vectors or grid
+        arrays).
+    bsp_data : dict or GridCIWorkspace
+        Radial workspace.  Only its grid and integration weights are
+        used (the Gaunt integrals do not touch the nuclear potential),
+        so a ``GridCIWorkspace`` built from a ``ShootingResult`` is
+        enough for the shooting engine — no solver object needed.
+    Z, ns : int
+        Nuclear charge and basis/grid dimension.
+    config : str
+        The configuration, e.g. ``"1s2 2s2 2p6"``.
+
+    Raises
+    ------
+    BreitOperatorError
+        If the configuration is not a single CSF.  For a multi-CSF
+        configuration the Gaunt energy is not one number: it depends on
+        the state, and the SCF average that produced the orbitals has to
+        be matched by the same Guerra/CI averaging.  That is what
+        ``MCDHFSolver`` does; silently returning one CSF's diagonal (or
+        a scalar) instead is the defect this function exists to avoid.
+    """
+    from atomx.methods.mcdhf.config import enumerate_jj_csfs_many
+    from atomx.methods.mcdhf.exact_ci import csf_signature, exact_block_matrix
+    from atomx.methods.mcdhf.matrix import _breit_radial_evaluator
+
+    csfs = enumerate_jj_csfs_many([config])
+    if len(csfs) != 1:
+        raise BreitOperatorError(
+            f"the Gaunt operator energy of {config!r} is not a single "
+            f"number: the configuration has {len(csfs)} jj CSFs, whose "
+            f"Breit matrix elements differ (that is the physics the "
+            f"operator exists to represent).  Route it through the CI "
+            f"(MCDHFSolver, i.e. a list `config=[...]` in Atom) so the "
+            f"state and its SCF averaging are explicit.")
+    ev = _breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns)
+    # A zero Coulomb evaluator leaves the block equal to the Gaunt
+    # matrix alone: ``exact_block_matrix`` adds the Breit determinant
+    # matrix to the Coulomb one before projecting to CSFs.
+    block = exact_block_matrix(
+        [csf_signature(csfs[0])], lambda _key: 0.0,
+        breit_evaluator=ev, verify=False)
+    return float(block[0, 0])
+
+
+def configuration_string_of(subshells) -> str:
+    """``"1s2 2s2 2p6"`` from a result's ``subshells`` (jj partners merged).
+
+    ``Subshell`` objects carry ``(n, kappa, occupation)``; the notation
+    ``enumerate_jj_csfs`` parses is non-relativistic (``nl^q``), so the
+    two jj partners of an ``nl`` shell are summed back together.
+    Fractional occupations are refused: they mean the SCF averaged over
+    configurations, and the ``nl^q`` token would be a silent
+    reinterpretation of that average.
+    """
+    l_char = "spdfghiklmno"
+    order: list = []
+    totals: dict = {}
+    for sh in subshells:
+        kappa = int(sh.kappa)
+        l = kappa if kappa > 0 else -kappa - 1
+        key = (int(sh.n), l)
+        if key not in totals:
+            order.append(key)
+            totals[key] = 0.0
+        totals[key] += float(sh.occupation)
+    parts = []
+    for key in order:
+        q = totals[key]
+        if abs(q - round(q)) > 1e-6:
+            raise BreitOperatorError(
+                f"configuration reconstruction: subshell {key} carries the "
+                f"fractional occupation {q!r}, i.e. the SCF averaged over "
+                f"several configurations, so there is no single "
+                f"configuration whose Breit energy could be reported.")
+        parts.append(f"{key[0]}{l_char[key[1]]}{int(round(q))}")
+    return " ".join(parts)
+
+
+def attach_breit_operator_energy(result, config: str | None = None) -> float:
+    """Compute ``result``'s Gaunt energy and stash it on the result.
+
+    The Breit interaction is applied by the ``CorrectionStack`` (in
+    ``corrections/``), but the operator needs the CI angular machinery
+    (``exact_ci``, ``matrix._breit_radial_evaluator``), which lives in
+    ``methods/mcdhf/``.  ``corrections/`` must not import ``methods/``
+    (layering), so the value travels on the result instead:
+
+        ``result.__dict__["_E_Breit_operator"]``
+
+    exactly like ``_breit_provenance``.  The SCF solvers call this just
+    before finalising their corrections stack; the ``breit`` adapter
+    reads the value and **raises** if it is absent rather than falling
+    back to anything.
+
+    Parameters
+    ----------
+    result : AtomicResult
+        Converged SCF result (B-spline or grid flavour).
+    config : str, optional
+        Configuration string; derived from ``result.subshells`` when not
+        given.
+
+    Returns
+    -------
+    float
+        The Gaunt energy in Hartree, also stored on the result.
+    """
+    if config is None:
+        config = configuration_string_of(result.subshells or [])
+    orbitals_dict, bsp_data, Z, ns = _ci_radial_inputs(result)
+    value = breit_operator_energy(orbitals_dict, bsp_data, Z, ns, config)
+    result.__dict__["_E_Breit_operator"] = float(value)
+    result.__dict__["_E_Breit_operator_config"] = config
+    return float(value)
+
+
+def _ci_radial_inputs(result):
+    """``(orbitals_dict, workspace, Z, ns)`` for a converged SCF result."""
+    from atomx.methods.mcdhf.matrix import GridCIWorkspace
+
+    subshells = list(getattr(result, "subshells", None) or [])
+    if not subshells:
+        raise BreitOperatorError(
+            "the Breit operator needs the result's subshells; this result "
+            "carries none, so its configuration cannot be reconstructed.")
+    Z = getattr(result, "Z", None)
+    if Z is None:
+        raise BreitOperatorError("the Breit operator needs result.Z.")
+
+    raw = getattr(result, "orbitals_raw", None)
+    bsp = getattr(result, "_bsp_data", None)
+    if raw and bsp:
+        orbitals_dict = {}
+        counter: dict = {}
+        for sh in subshells:
+            idx = counter.get(sh.kappa, 0)
+            counter[sh.kappa] = idx + 1
+            orbs = raw.get(sh.kappa, [])
+            if idx < len(orbs):
+                P, Q, _occ = orbs[idx]
+                orbitals_dict[(sh.n, sh.kappa)] = (P, Q)
+        ns = bsp.get("ns") if isinstance(bsp, dict) else None
+        if ns is None:
+            raise BreitOperatorError(
+                "the Breit operator needs the B-spline dimension "
+                "(bsp_data['ns']) to evaluate its radial integrals.")
+        return orbitals_dict, bsp, int(Z), int(ns)
+
+    pa = getattr(result, "_pa", None)
+    grid = getattr(result, "_grid", None)
+    if pa is not None and grid is not None:
+        orbitals_dict = {
+            (sh.n, sh.kappa): (result._pa[i], result._qa[i])
+            for i, sh in enumerate(subshells)}
+        # Only r and difr are read on the Gaunt path (the interaction is
+        # a two-electron kernel; it never touches the nuclear potential),
+        # so the shooting engine needs no solver object here.
+        ws = GridCIWorkspace(grid, result._difr,
+                             np.zeros_like(np.asarray(grid, dtype=float)))
+        return orbitals_dict, ws, int(Z), ws.n
+
+    raise BreitOperatorError(
+        "the Breit operator has no radial workspace for this result: it "
+        "needs either a B-spline workspace with orbitals_raw, or "
+        "grid-tabulated _pa/_qa arrays with _grid/_difr.")
 
 
 def gaunt_terms(ia, ib, ic, id_, coeff, spinor_labels):

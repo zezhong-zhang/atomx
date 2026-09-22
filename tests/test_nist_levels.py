@@ -48,42 +48,83 @@ _needs_data = pytest.mark.skipif(
             "benchmarks/nist_asd/"))
 
 
-def _cv_excitations(*, breit: bool) -> tuple[np.ndarray, np.ndarray]:
-    """C V ``["1s2", "1s1 2p1"]`` excitations (cm-1) and total 2J per level."""
+def _cv_levels(*, breit: bool, qed: bool | None = None):
+    """C V ``["1s2", "1s1 2p1"]``: (excitations cm-1, total 2J, components)."""
     atom = Atom(
                 Z=6,
                 charge=4,
                 config=["1s2", "1s1 2p1"],
-                corrections=Corrections(breit=breit, qed=breit),
+                corrections=Corrections(breit=breit,
+                                        qed=breit if qed is None else qed),
            )
     atom.solve(tol=1e-9, max_iter=80)
     res = atom._result
     energies = np.asarray(res.state_energies)
-    return (energies - energies.min()) * CM1_PER_HA, np.asarray(res.state_J2)
+    return ((energies - energies.min()) * CM1_PER_HA,
+            np.asarray(res.state_J2), dict(res.energy_components))
+
+
+def _cv_excitations(*, breit: bool, qed: bool | None = None
+                    ) -> tuple[np.ndarray, np.ndarray]:
+    """C V excitations (cm-1) and total 2J per level."""
+    excitations, two_j, _ = _cv_levels(breit=breit, qed=qed)
+    return excitations, two_j
+
+
+def _cv_by_two_j(*, breit: bool, qed: bool | None = None):
+    """The same levels grouped by 2J and sorted: ``({2J: [exc, ...]}, comps)``.
+
+    The CI block order is not stable between runs, so an elementwise
+    difference between two runs pairs different levels; the (2J, energy-rank)
+    pairing below is the meaningful one.
+    """
+    excitations, two_j, components = _cv_levels(breit=breit, qed=qed)
+    by_two_j = {int(j): np.sort(excitations[two_j == j]) for j in set(two_j)}
+    return by_two_j, components
 
 
 @_needs_data
-def test_breit_shifts_excitation_energies():
-    """``breit=True`` must change the C V excitation spectrum, not just totals.
+def test_breit_shifts_excitation_energies_differentially():
+    """Breit + QED must move the C V levels differentially, and downwards.
 
-    Was a strict xfail while Breit + QED were one uniform scalar; it XPASSed
-    once the corrections gained differential structure, which is the signal
-    the gate was designed to give.  C V ``MCDHF+B+QED`` rms improves from
-    11199.048 to 10651.963 cm-1.
+    Physics (pattern, no pinned value): the electron-electron Breit operator
+    is *repulsive* and the ``1s2`` CI ground state is the most compact state
+    of the panel, so its Breit energy is the largest of the five; switching
+    the correction on must therefore lower every *excited* level's excitation
+    energy.  A correction applied once as a uniform scalar to every CI state
+    (the defect this test was written for) moves them by exactly 0, and any
+    reordering of the CI blocks shows up as a positive delta.
 
-    Note this gate does NOT certify the Breit *operator*: see
-    ``test_breit_operator_matches_closed_shell_scalar``, which measures the
-    ``breit_mode="operator"`` path directly and currently fails.
+    Measured 2026-09-22, per (2J, energy rank), breit+qed on/off:
+    -529.99, -770.65, -629.03, -693.38 cm-1 for the four excited levels
+    (spread 240.7 cm-1; largest shift 770.6 cm-1 against a total correction
+    E_Breit + E_QED = 0.004144 Ha = 909.6 cm-1).
+
+    This is a *pattern* gate, not a magnitude gate.  The magnitude is
+    gated separately: the C V route is multi-CSF and so applies the Gaunt
+    operator (``breit_mode="operator"``), and the scalar's own agreement
+    with DBSR_HF is checked by ``test_breit_scalar_matches_dbsr_hf``
+    below (now passing at -0.35 % after the 2026-09 ``1/(2L+1)`` fix).
     """
-
-    """``breit=True`` must change the C V excitation spectrum, not just totals."""
-    without, _ = _cv_excitations(breit=False)
-    with_breit, _ = _cv_excitations(breit=True)
-    assert without.shape == with_breit.shape
-    # A real CI Breit operator moves the 3P/1P levels differentially.
-    assert np.max(np.abs(with_breit - without)) > 100.0, (
-        f"largest excitation-energy change from Breit+QED is "
-        f"{np.max(np.abs(with_breit - without)):.3f} cm-1")
+    without, _ = _cv_by_two_j(breit=False, qed=False)
+    with_corr, comps = _cv_by_two_j(breit=True, qed=True)
+    assert set(without) == set(with_corr)
+    deltas = np.concatenate([with_corr[j] - without[j] for j in sorted(without)])
+    shifted = deltas[deltas != 0.0]
+    # 1. every excited level moves DOWN: the compact 1s2 ground carries the
+    #    largest repulsive two-electron Breit energy.
+    assert shifted.size == 4, deltas
+    assert np.all(shifted < 0.0), deltas
+    # 2. not a uniform scalar: the levels must move by different amounts.
+    assert np.ptp(shifted) > 100.0, deltas
+    # 3. no overshoot: no excitation shift may exceed the whole correction
+    #    added to the panel (E_Breit + E_QED, taken from the result).
+    total_corr_cm1 = (float(comps["E_Breit"])
+                      + float(comps["E_QED_total"])) * CM1_PER_HA
+    assert np.max(np.abs(shifted)) <= total_corr_cm1, (
+        f"largest excitation shift {np.max(np.abs(shifted)):.3f} cm-1 "
+        f"exceeds the panel's total Breit+QED correction "
+        f"{total_corr_cm1:.3f} cm-1")
 
 
 @_needs_data
@@ -137,47 +178,16 @@ def test_nist_cache_parses_the_he_like_carbon_panel():
 
 
 @_needs_data
-@pytest.mark.xfail(
-    strict=True,
-    reason=(
-        "The SCALAR Breit is ~3x too large, not the operator.  Measured "
-        "externally: DBSR_HF (``dbsr_hf an=Z term=AV mbreit=1``, the "
-        "reference implementation this repo is modelled on) gives Ne "
-        "1s2 2s2 2p6 Breit = 0.016643629692418 Ha, while "
-        "``corrections.breit.compute_breit_energy`` -- the scalar behind "
-        "``energy_components['E_Breit']``, and the default "
-        "``breit_mode='scalar'`` -- reports 0.050449 Ha, a factor 3.03.  "
-        "The per-(2J, parity) GAUNT operator "
-        "(src/atomx/methods/mcdhf/breit_ci.py) gives 0.017340 Ha, 4.2% "
-        "above DBSR_HF, which is the documented size of its omitted "
-        "retardation term and therefore CORRECT.  Consequence: the three "
-        "tests that failed while the operator was briefly the default "
-        "(+1.126 Ha Co, 0.0053 Ha C) were pinned to the wrong scalar, and "
-        "the default was flipped back to that wrong scalar.  This gate "
-        "asserts the scalar against DBSR_HF; when it passes, the operator "
-        "should be promoted to the default, the three pins re-measured, and "
-        "``tests/test_breit_operator.py`` (claimed by the breit_ci "
-        "docstring but ABSENT from the tree) written.  Split by v-channel "
-        "(monkeypatching _breit_smu_coefficients to keep only v==L, or only "
-        "v!=L): the scalar's v=L piece is He 0.00019153 / Ne 0.05040612, "
-        "against the breit_ci Gaunt operator's Ne 0.017340 -- a 2.91x "
-        "disagreement between two implementations of the SAME Gaunt "
-        "coefficient, with the operator's value the DBSR_HF-consistent one.  "
-        "And the scalar's v!=L (retardation) piece is only 0.00000001 (He) "
-        "and 0.00004247 (Ne), i.e. 0.003% and 0.08% where retardation must be "
-        "~4% (it is exactly what makes the Gaunt-only operator sit 4.2% above "
-        "DBSR_HF).  So there are TWO independent coefficient errors, not one: "
-        "v=L ~3x too large and v!=L ~50x too small.  The factor is "
-        "STRUCTURE-INDEPENDENT, which rules out pair counting: He 1s2 (a "
-        "single subshell, so no off-diagonal pair exists to double-count) "
-        "gives DBSR_HF 0.0000637774 vs atomx 0.000192, ratio 3.01, against "
-        "Ne's 3.03.  A constant ~3x across a one-subshell and a "
-        "three-subshell atom points at a multiplicative angular or "
-        "normalisation factor, not at the i/j loop."
-    ),
-)
+@pytest.mark.external_fac
 def test_breit_scalar_matches_dbsr_hf():
-    """The scalar Breit must reproduce DBSR_HF's Ne value (0.016644 Ha)."""
+    """The scalar Breit must reproduce DBSR_HF's Ne value (0.016644 Ha).
+
+    Passes since the 2026-09 ``1/(2L+1)`` fix (the ``v = L`` channel had
+    been 3.03x too large).  Measured 0.016584899 against DBSR_HF's
+    0.016643630840490, i.e. -0.35 %: the residual is the ``v != L``
+    retardation channels, still ~50x too small.  The 1 % band excludes
+    the pre-fix 0.050449 by 200x.
+    """
     from atomx.methods.mcdhf.config import enumerate_jj_csfs_many
     from atomx.methods.mcdhf.solver import MCDHFSolver
 
@@ -187,10 +197,10 @@ def test_breit_scalar_matches_dbsr_hf():
                          breit_mode="scalar")
     result = solver.solve(max_iter=30, scf_tol=1e-9)
     e_breit = result.energy_components["E_Breit"]
-    dbsr_hf = 0.016643629692418
-    assert e_breit == pytest.approx(dbsr_hf, rel=0.05), (
+    dbsr_hf = 0.016643630840490
+    assert e_breit == pytest.approx(dbsr_hf, rel=0.01), (
         f"scalar E_Breit = {e_breit:.6f} Ha vs DBSR_HF {dbsr_hf:.6f} Ha "
-        f"(ratio {e_breit / dbsr_hf:.3f})")
+        f"(ratio {e_breit / dbsr_hf:.5f})")
 
 
 @_needs_data

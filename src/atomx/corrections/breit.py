@@ -1,4 +1,4 @@
-"""Full Breit interaction energy correction.
+"""Full Breit interaction energy correction (scalar, configuration average).
 
 The Breit operator in the multipole expansion has contributions at
 three ranks v = L-1, L, L+1 for each multipole order L, with 8
@@ -11,6 +11,59 @@ The four types of Breit Slater integrals:
   (and symmetric partners obtained by swapping P↔Q)
 
 Reference: Grant & Pyper, J.Phys.B 9, 761 (1976); DBSR_HF hf_energy_BR.f90.
+
+What this scalar is for, and what it is not
+-------------------------------------------
+This is the **closed-shell / single-CSF total**.  It is *complementary*
+to the exact Gaunt operator of :mod:`atomx.methods.mcdhf.breit_ci`, not
+redundant with it:
+
+* the operator carries the non-scalar (spin-other-orbit, spin-spin,
+  orbit-orbit) content, which is what splits levels inside a
+  ``(2J, parity)`` block — this scalar cannot do that by construction;
+* this scalar carries the ``v != L`` retardation channels, which the
+  operator omits entirely.  Its residual against DBSR_HF is +0.13 %
+  (He), -0.35 % (Ne), +0.63 % (Ar) *after* the fix below, against the
+  operator's +0.000005 %, +4.15 %, +6.2 % — i.e. the scalar's total is
+  the better one for closed shells, the operator's is the better one
+  for anything that needs level splitting.
+
+The two share no angular kernel (DBSR ``SMU`` transcription + ``S^v``
+radial integrals here, 3j-based Racah algebra + Gaunt photon multipoles
+there), so their agreement against DBSR_HF is genuine independent
+evidence.
+
+The ``(2L+1)`` fix (2026-09)
+----------------------------
+The ``v = L`` channel used to be ~3x too large — 3.004x / 3.030x /
+3.098x DBSR_HF for He / Ne / Ar.  Cause: the ``(2L+1)`` multipole
+normalisation that belongs with the Racah-normalised
+``C^L = sqrt(4*pi/(2L+1)) Y_L`` used by the ``S^v`` radial integrals,
+
+    P_L(cos θ12) = (4*pi/(2L+1)) Σ_q Y_L^q(1) Y_L^{q*}(2),
+
+while DBSR's ``SMU`` is written for the unnormalised ``Y_L`` contraction
+(``SMU = -(ka+kc)*(kb+kd)/L/(L+1)``, hf_energy_BR.f90:82).  Dividing the
+``v = L`` coefficients by ``(2L+1)`` gives 1.001 / 0.996 / 1.006 x
+DBSR_HF.  It is not a fudge factor: the 1/(2L+1) is exactly the
+denominator of the addition theorem above, and He 1s2 proves it does
+real work — the 1s2 retardation is nil (the Gaunt-only operator already
+reproduces DBSR_HF to 5e-9 relative there), so there was nothing for a
+wrong factor to cancel.
+
+Two further differences from DBSR remain and are *not* fixed here (they
+are ~1 % effects on closed shells and are reported, not hidden): the
+``v != L`` channels are ~50x too small (Ne 4.25e-05 where retardation
+must supply ~6.96e-04), and ``L`` starts at 0 in ``hf_energy_BR.f90``
+(line 28) and at 1 here.  ``coef(i,j,k)`` (dbsr_lib_zconfjj.f90:4098) is
+replaced by the ``oa*ob/((2j_a+1)(2j_b+1))`` weight.  The residual signs
+above bracket DBSR_HF, which is the signature of these two separate
+small errors.
+
+Acceptance (DBSR_HF, ``dbsr_hf an=Z term=AV mbreit=1``):
+    He 1s2           6.377743e-05      <- measured 6.3857e-05  (+0.13 %)
+    Ne 1s2 2s2 2p6   0.016643630840    <- measured 0.016585      (-0.35 %)
+    Ar 1s2..3p6      0.132364619357    <- measured 0.13320       (+0.63 %)
 
 Radial quadrature (2026-07 fix)
 -------------------------------
@@ -48,9 +101,18 @@ def _breit_smu_coefficients(kappa_a, kappa_b, kappa_c, kappa_d, L):
     Kp = kappa_d - kappa_b
     results = {}
 
-    # v = L: diagonal term
+    # v = L: diagonal term.
+    #
+    # The 1/(2L+1) is the denominator of the addition theorem for the
+    # Racah-normalised spherical harmonics the S^v radial integrals use,
+    #     P_L(cos t12) = (4 pi/(2L+1)) sum_q Y_L^q(1) Y_L^q*(2),
+    # while hf_energy_BR.f90's SMU (line 82) is written for the
+    # unnormalised Y_L contraction.  Without it the whole v = L (Gaunt)
+    # family came out 3.004x / 3.030x / 3.098x DBSR_HF for He / Ne / Ar;
+    # with it, 1.001 / 0.996 / 1.006.  See the module docstring.
     if L > 0:
         smu = -(kappa_a + kappa_c) * (kappa_b + kappa_d) / (L * (L + 1))
+        smu = smu / (2 * L + 1)
         results[L] = [smu] * 8  # all 8 components equal
 
     # v = L-1
@@ -187,3 +249,31 @@ def compute_breit_energy(orbitals, bsp_data, Z):
                     E_Breit -= w_ab * contrib
 
     return 0.5 * E_Breit
+
+
+#: Measured worth of the fixed scalar against DBSR_HF
+#: (``dbsr_hf an=Z term=AV mbreit=1``).  Kept as a constant so callers can
+#: report it instead of restating it.
+SCALAR_BREIT_NOTE = (
+    "Breit: corrections.breit.compute_breit_energy (scalar "
+    "configuration-average Grant-Pyper multipole sum, v=L with the "
+    "1/(2L+1) multipole normalisation).  DBSR_HF agreement: He "
+    "6.3857e-05 vs 0.000063777432919 (+0.13 %), Ne 0.016585 vs "
+    "0.016643630840490 (-0.35 %), Ar 0.13320 vs 0.132364619357042 "
+    "(+0.63 %).  The residual is the v!=L retardation channels, which "
+    "are still ~50x too small; the exact Gaunt operator "
+    "(methods/mcdhf/breit_ci.py) omits retardation entirely and sits "
+    "4-6 % above DBSR_HF at Ne/Ar, so the two are complementary."
+)
+
+
+def scalar_breit_provenance() -> dict:
+    """Provenance dict for a run whose applied Breit is this scalar."""
+    return {
+        "mode": "scalar",
+        "operator": "none",
+        "scalar_shift_applied": True,
+        "externally_validated": True,
+        "validation": SCALAR_BREIT_NOTE,
+        "note": SCALAR_BREIT_NOTE,
+    }

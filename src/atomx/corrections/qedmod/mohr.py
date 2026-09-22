@@ -114,7 +114,7 @@ class MohrBackend(SEBackend):
     """Tabulated Mohr F(Zα) with orbital-overlap screening."""
 
     name = "mohr"
-    description = "Tabulated Mohr (1982/1992) F(Zα), hydrogenic n^-3 fallback."
+    description = "Tabulated Mohr (1982/1992) F(Zα), orbital-overlap screening."
 
     def compute(self, orbitals, bsp_data, Z) -> SEResult:
         aZ = ALPHA * Z

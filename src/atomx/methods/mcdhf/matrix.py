@@ -225,7 +225,7 @@ def _breit_rk(f1, f2, f3, f4, comps, bsp_data, L):
     Numerics: the grid flavour uses the shooting engine's own SLAG6
     integrator (consistency with the SCF, like :func:`_rk`); the B-spline
     flavour uses ``yk_on_grid`` on the flattened Gauss nodes — the same
-    arbitrary-grid kernel ``corrections.breit.compute_breit_energy``
+    arbitrary-grid kernel the removed scalar Breit used
     uses.  The cell integrator is deliberately *not* used here: its
     mixed ``P x Q`` diagonal cell is a Y^k fallback, and on the
     strongly cancelling Breit combinations it disagrees with the

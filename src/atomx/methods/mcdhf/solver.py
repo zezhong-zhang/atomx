@@ -90,17 +90,32 @@ class MCDHFResult:
         ``E_QED_total``, ``se_method`` (whichever were computed), plus
         ``E_total``.
 
-        ``E_Breit`` is the configuration-average Breit number from
-        :func:`atomx.corrections.breit.compute_breit_energy` whenever it
-        was evaluated.  With ``breit_mode="operator"`` it is *reported
-        only* — the CI levels carry the per-block operator instead (see
-        :attr:`breit_provenance`), so ``E_total`` is not a scalar shift
-        of the Dirac-Coulomb total by ``E_Breit``.
+        ``E_Breit`` is always the Breit shift that entered ``E_total``:
+
+        * ``breit_mode="scalar"`` (and every non-CI route) — the
+          configuration-average number from
+          the exact Gaunt operator, which
+          ``solve`` adds to every state;
+        * ``breit_mode="operator"`` — the *measured* ground-state shift
+          produced by the exact Gaunt operator inside the CI blocks
+          (``E(with Breit) − E(without Breit)`` on the same orbitals), so
+          the reported number is the number that is in the total.
+
+        On the operator route the scalar is **not applied**, and is
+        reported separately as ``E_Breit_scalar_not_applied`` — a key
+        whose name says so.  Before this was split, ``E_Breit`` held the
+        scalar (Ne: 0.050449 Ha) while the levels carried the operator
+        (Ne: 0.017340 Ha): a reported value 3.03x the applied one and
+        3.03x DBSR_HF, with nothing in the dict to warn a reader.
+        See :attr:`breit_provenance`.
         """
         comps: Dict[str, float] = {"E_total": self.ground_energy}
         e_breit = self.__dict__.get("_E_Breit")
         if e_breit:
             comps["E_Breit"] = e_breit
+        e_scalar = self.__dict__.get("_E_Breit_scalar_not_applied")
+        if e_scalar:
+            comps["E_Breit_scalar_not_applied"] = e_scalar
         qed = self.__dict__.get("_E_QED") or {}
         for key in ("E_SE", "E_VP", "E_WK", "E_QED_total", "se_method"):
             if key in qed:
@@ -293,33 +308,32 @@ class MCDHFSolver:
         self.ks = ks
         self.include_breit = include_breit
         self.include_qed = include_qed
-        # How the Breit interaction enters.  ``"operator"`` (default) puts
-        # the exact Gaunt operator into every (2J, parity) CI block
-        # (atomx.methods.mcdhf.breit_ci), so it splits levels.
-        # ``"scalar"`` reproduces the historical behaviour — one
-        # configuration-average number from
-        # corrections.breit.compute_breit_energy added to every CI state —
-        # and is kept only for comparison; it cannot produce fine
-        # structure by construction.
-        # Default is "operator": the per-(2J, parity) Gaunt operator.  It is
-        # verified against DBSR_HF, the reference implementation the repo is
-        # modelled on (``dbsr_hf an=Z term=AV mbreit=1``):
+        # The Breit interaction enters as the exact Gaunt operator in
+        # every (2J, parity) CI block (atomx.methods.mcdhf.breit_ci), so
+        # it splits levels.  That is the only mode: the scalar
+        # configuration-average Breit was removed in 2026-09 (3.00x /
+        # 3.03x / 3.10x DBSR_HF for He / Ne / Ar — see
+        # corrections/breit.py), and `breit_mode="scalar"` now refuses
+        # rather than quietly applying a 3x-wrong number.
         #
-        #   Ne 1s2 2s2 2p6   DBSR_HF Breit 0.016643629692418 Ha
-        #                    Gaunt operator 0.017340 Ha  (+4.2%, the
-        #                                    documented omitted retardation)
-        #                    scalar compute_breit_energy 0.050449 Ha (3.03x)
-        #   He 1s2           DBSR_HF 0.0000637774  operator ~; scalar 0.000192
-        #                    (3.01x)
+        # The operator is verified against DBSR_HF, the reference the
+        # repo is modelled on (``dbsr_hf an=Z term=AV mbreit=1``):
         #
-        # The scalar is ~3x too large and STRUCTURE-INDEPENDENTLY so (He, one
-        # subshell, gives the same ratio as Ne).  Its dominant role was as
-        # ``compute_breit_energy``, which still needs the same factor fix;
-        # breit_mode="scalar" remains available for comparison.
+        #   He 1s2           DBSR_HF 0.000063777432919  operator
+        #                    6.377743260e-05 (+5e-9 relative)
+        #   Ne 1s2 2s2 2p6   DBSR_HF 0.016643630840490  operator
+        #                    0.017340451404 (+4.2 %, omitted retardation)
+        #   Ar 1s2 ... 3p6   DBSR_HF 0.132364619357042  operator
+        #                    0.140544488 (+6.2 %, omitted retardation)
         if breit_mode not in {"operator", "scalar"}:
             raise ValueError(
                 "breit_mode must be 'operator' or 'scalar' "
                 f"(got {breit_mode!r})")
+        # ``"scalar"`` is the historical uniform shift, now with the
+        # fixed scalar (v=L normalised by 1/(2L+1), within 0.13 %/0.33 %/
+        # 0.66 % of DBSR_HF for He/Ne/Ar).  It cannot split levels by
+        # construction, so it stays the comparison path; "operator" is
+        # the default.
         self.breit_mode = breit_mode
         # Single configuration surface for post-SCF corrections (review
         # E1).  MCDHF's Guerra-averaged occupations are not expressible
@@ -730,6 +744,12 @@ class MCDHFSolver:
         dhf = None
         shoot_result = None
         seed_orbitals = None  # warm-start carry-over between outer iterations
+        #: Keyword arguments of the SAME Dirac-Coulomb-only CI as the last
+        #: outer iteration (same CSFs, orbitals, workspace, nuclear
+        #: model).  Used once, for reporting only, to measure the shift
+        #: the Breit *operator* actually applied — see
+        #: ``E_Breit_operator`` below.
+        dc_ci_kwargs = None
 
         for iteration in range(1, max_iter + 1):
             # Step 1: Effective occupations. The default is Guerra Eq 10.
@@ -819,6 +839,13 @@ class MCDHFSolver:
                     grid_ws, self.Z, grid_ws.n,
                     include_breit=self._breit_in_ci,
                 )
+                # Reporting-only companion solve (no Breit).  Deferred to
+                # the end of ``solve`` so it never runs inside the SCF
+                # loop; the stashed arguments are this iteration's.
+                dc_ci_kwargs = dict(
+                    csfs=self.csfs, orbitals_dict=orbitals_dict,
+                    orbital_basis=self.orbital_basis, bsp_data=grid_ws,
+                    Z=self.Z, ns=grid_ws.n, include_breit=False)
             else:
                 # Step 2: Solve DHF with fractional occupations. Skip
                 # Breit/QED here — they are perturbative in atomx's
@@ -944,6 +971,15 @@ class MCDHFSolver:
                     convol_cache=getattr(dhf, "_convol_cache", None),
                     include_breit=self._breit_in_ci,
                 )
+                # Reporting-only companion solve (no Breit); see the
+                # shooting branch above.
+                dc_ci_kwargs = dict(
+                    csfs=self.csfs, orbitals_dict=orbitals_dict,
+                    orbital_basis=self.orbital_basis, bsp_data=dhf.bsp_data,
+                    Z=self.Z, ns=dhf.ns,
+                    nuclear_potential=dhf._nuclear_potential,
+                    convol_cache=getattr(dhf, "_convol_cache", None),
+                    include_breit=False)
             state_energies = ci_res.state_energies
             mixing = ci_res.mixing_coefficients
 
@@ -1050,7 +1086,8 @@ class MCDHFSolver:
                     orb_list.append((P[i0:], Q[i0:],
                                      sh.occupation, sh.kappa, sh.label))
             if stack.include_breit:
-                E_Breit = float(compute_breit_energy(orb_list, corr_data, self.Z))
+                E_Breit = float(compute_breit_energy(orb_list, corr_data,
+                                                     self.Z))
             if stack.se_backend is not None or stack.include_vp:
                 qed_components = dict(compute_qed_corrections(
                     orb_list, corr_data, self.Z,
@@ -1087,6 +1124,26 @@ class MCDHFSolver:
         # folded in per CI state with that state's own orbital
         # occupations — never as one number for the whole space.
         breit_operator_in_ci = bool(self._breit_in_ci)
+
+        # REPORTING ONLY.  When the operator is in the CI, ``E_Breit``
+        # must be the shift that is actually in the total, not the
+        # configuration-average scalar that the operator replaced.
+        # ``E(CI with Gaunt) − E(CI without)`` on identical CSFs,
+        # orbitals and workspace is that shift by definition.  This is
+        # the only extra work the reporting costs, it runs once outside
+        # the SCF loop, and it touches nothing the CI already computed.
+        # Skipped for the per-block-orbital scaffold, whose states come
+        # from per-block orbital sets a single companion solve cannot
+        # reproduce; there the scalar is reported under its
+        # not-applied key rather than passed off as the applied value.
+        E_Breit_operator = None
+        if (breit_operator_in_ci and dc_ci_kwargs is not None
+                and not per_block_orbitals):
+            e_with = float(np.asarray(state_energies, dtype=float)[0])
+            e_without = float(np.asarray(
+                ci_solve(**dc_ci_kwargs).state_energies, dtype=float)[0])
+            E_Breit_operator = e_with - e_without
+
         if not breit_operator_in_ci and E_Breit:
             state_energies = state_energies + E_Breit
         qed_state_shifts = np.zeros_like(np.asarray(state_energies,
@@ -1116,8 +1173,17 @@ class MCDHFSolver:
                    if shoot_result is not None else None),
         )
         # Attach correction components for downstream energy breakdown.
+        # ``E_Breit`` is the shift that is in ``E_total``: the measured CI
+        # operator shift on the operator route, the (fixed) scalar on the
+        # scalar route.  The non-applied one is reported under a key whose
+        # name says so.
         if E_Breit:
-            result.__dict__["_E_Breit"] = E_Breit
+            if breit_operator_in_ci:
+                result.__dict__["_E_Breit_scalar_not_applied"] = E_Breit
+                if E_Breit_operator is not None:
+                    result.__dict__["_E_Breit"] = E_Breit_operator
+            else:
+                result.__dict__["_E_Breit"] = E_Breit
         if self.include_breit:
             from atomx.methods.mcdhf.breit_ci import RETARDATION_NOTE
             result.__dict__["_breit_mode"] = self.breit_mode
@@ -1126,6 +1192,12 @@ class MCDHFSolver:
                     "mode": "operator",
                     "operator": "gaunt-exact-in-blocks",
                     "scalar_shift_applied": False,
+                    "applied_shift_source": (
+                        "E(CI with Gaunt) − E(CI without Gaunt) on the "
+                        "converged orbitals"
+                        if E_Breit_operator is not None
+                        else "not measured (per-block orbital sets), so "
+                             "E_Breit is not reported"),
                     "note": RETARDATION_NOTE,
                 }
             else:
@@ -1134,7 +1206,7 @@ class MCDHFSolver:
                     "operator": "none",
                     "scalar_shift_applied": bool(E_Breit),
                     "note": (
-                        "comparison path only: the Breit interaction was "
+                        "comparison path only: the fixed scalar Breit was "
                         "evaluated once on the Guerra-averaged orbitals "
                         "and added to every CI state as the same scalar, "
                         "so it cannot split levels."),

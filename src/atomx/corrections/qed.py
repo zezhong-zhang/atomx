@@ -186,7 +186,7 @@ _DENSE_KERNEL_R_MIN = 1.0e-9
 def _short_range_expectation(orbitals, bsp_data, V_of_r):
     """Σ_a q_a ⟨a|V|a⟩ for a nuclear-range local potential ``V(r)``.
 
-    The Uehling kernel ``K₁(2cr)/r`` lives on the Compton scale
+    The Uehling kernel ``I(2cr)/r`` lives on the Compton scale
     ``r ≲ 1/(2c) ≈ 0.004`` Bohr and diverges like ``1/r²`` toward the
     origin; the SCF basis' own Gauss nodes under-resolve it whenever the
     innermost knots are wide on that scale (He physics grid: 8e-3
