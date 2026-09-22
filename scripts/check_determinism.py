@@ -48,28 +48,33 @@ def _panel(name: str):
     from atomx import Atom
 
     def ne_bspline() -> float:
-        atom = Atom(Z=10, numerics="bspline")
+        atom = Atom(Z=10, engine="bspline")
         atom.solve()
         return float(atom.total_energy)
 
     def ne_shooting() -> float:
-        atom = Atom(Z=10, numerics="shooting")
+        atom = Atom(Z=10, engine="shooting")
         atom.solve()
         return float(atom.total_energy)
 
     def be_mcdhf_ci() -> float:
-        atom = Atom(Z=4, configs=["1s2 2s2", "1s2 2p2"])
+        atom = Atom(Z=4, config=["1s2 2s2", "1s2 2p2"])
         atom.solve()
         return float(atom.total_energy)
 
     def fe17_dfs_local_exchange() -> float:
-        atom = Atom(Z=26, charge=16, config="1s2 2s2 2p6",
-                    numerics="bspline", exchange="gu")
+        atom = Atom(
+                    Z=26,
+                    charge=16,
+                    config="1s2 2s2 2p6",
+                    engine="bspline",
+                    exchange="gu",
+               )
         atom.solve()
         return float(atom.total_energy)
 
     def ne_bspline_breit_qed() -> float:
-        atom = Atom(Z=10, numerics="bspline", breit=True, qed=True)
+        atom = Atom(Z=10, engine="bspline")
         atom.solve()
         return float(atom.total_energy)
 

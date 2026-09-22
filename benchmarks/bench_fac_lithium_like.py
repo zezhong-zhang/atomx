@@ -94,7 +94,7 @@ def run_fac(Z: int):
 
 def run_atomx(Z: int):
     t0 = time.perf_counter()
-    atom = Atom(Z=Z, charge=Z - 3, configs=["1s2 2s1", "1s2 2p1"], breit=False, qed=False)
+    atom = Atom(Z=Z, charge=Z - 3, config=["1s2 2s1", "1s2 2p1"], corrections="none")
     atom.solve()
     trs = atom.transitions(multipoles=["E1"])
     t1 = time.perf_counter()

@@ -19,8 +19,7 @@ def digits_1s(numerics):
     # breit=False, qed=False: the preface claim compares against the
     # PURE point-nucleus Dirac (Sommerfeld) eigenvalue, so the engines
     # must run correction-free (breit/qed default True in Atom).
-    result = Atom(Z=1, nuclear="point", numerics=numerics,
-                  breit=False, qed=False).solve()
+    result = Atom(Z=1, nuclear="point", engine=numerics, corrections="none").solve()
     e = result.orbital_energies["1s1/2"]
     return -np.log10(abs(e / exact - 1.0))
 

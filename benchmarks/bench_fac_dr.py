@@ -69,7 +69,7 @@ RMS_TARGET = 0.35
 
 def run_atomx():
     """Solve Fe XVII and drive the public manifold-backed DR API."""
-    atom = Atom(Z=26, charge=16, configs=["1s2 2s2 2p6"], breit=False, qed=False)
+    atom = Atom(Z=26, charge=16, config=["1s2 2s2 2p6"], corrections="none")
     atom.solve()
     return dr_calculate(atom, "1s2 2s2 2p6 3s1", T_eV=TEMPERATURES_EV)
 

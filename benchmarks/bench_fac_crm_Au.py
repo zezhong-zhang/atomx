@@ -30,7 +30,7 @@ from typing import Iterable
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from atomx import Atom  # noqa: E402
+from atomx import Atom, Correlation  # noqa: E402
 from atomx.plasma.crm import (  # noqa: E402
     CollisionalRadiativeModel,
     CRMLevel,
@@ -145,14 +145,12 @@ def build_au_atom(charge: int) -> Atom:
     # numerics="shooting" with configs=[...] (the defaulted engine
     # yields to bspline automatically).
     atom = Atom(
-        Z=Z_AU,
-        charge=charge,
-        configs=list(au_m_shell_configs(charge)),
-        breit=True,
-        qed=True,
-        exchange="gu",
-        averaging="statistical",
-    )
+                Z=Z_AU,
+                charge=charge,
+                config=list(au_m_shell_configs(charge)),
+                exchange="gu",
+                correlation=Correlation(averaging="statistical"),
+           )
     # Explicit marker used by the benchmark/tests.  Atom itself does not yet
     # own a UTA switch, so the panel fixture forces UTA behavior at this layer.
     atom.uta_mode = True

@@ -144,13 +144,12 @@ def live_eii() -> dict[tuple[int, float], dict]:
 
         charge = Z - int(spec["charge_offset"])
         atom = Atom(
-            Z=Z,
-            config=str(spec["ground"]),
-            charge=charge,
-            numerics="bspline",
-            breit=False,
-            qed=False,
-        )
+                    Z=Z,
+                    config=str(spec["ground"]),
+                    charge=charge,
+                    engine="bspline",
+                    corrections="none",
+               )
         atom.solve()
         threshold = _k_threshold_eV(atom)
         energies = np.asarray([threshold * f for f in EII_FACTORS], dtype=float)

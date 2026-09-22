@@ -38,7 +38,7 @@ from pathlib import Path
 
 import numpy as np
 
-from atomx import Atom
+from atomx import Atom, Corrections
 from atomx.constants import atomic_numbers, element_symbol
 
 LOG = logging.getLogger("energies_gs")
@@ -117,12 +117,11 @@ def solve_one(Z: int, args) -> tuple[float | None, str, float]:
     t0 = time.time()
     try:
         atom = Atom(
-            Z=Z,
-            exchange=args.exchange,
-            nuclear=args.nuclear,
-            breit=args.breit,
-            qed=args.qed,
-        )
+                    Z=Z,
+                    exchange=args.exchange,
+                    nuclear=args.nuclear,
+                    corrections=Corrections(breit=args.breit, qed=args.qed),
+               )
         atom.solve(tol=args.tol, max_iter=args.max_iter)
     except Exception as e:
         LOG.error("Z=%d (%s) solve failed: %s", Z, element_symbol(Z), e)

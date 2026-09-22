@@ -85,7 +85,13 @@ def _k_threshold_eV(atom: Atom) -> float:
 
 def run_atomx(Z: int, spec: dict[str, object], energies_eV: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     charge = Z - int(spec["charge_offset"])
-    atom = Atom(Z=Z, config=str(spec["ground"]), charge=charge, numerics="bspline", breit=False, qed=False)
+    atom = Atom(
+                Z=Z,
+                config=str(spec["ground"]),
+                charge=charge,
+                engine="bspline",
+                corrections="none",
+           )
     atom.solve()
     dw = dw_eii_cross_section(
         atom._result,
@@ -176,7 +182,13 @@ def main() -> None:
         spec = SEQUENCES[sequence]
         for Z in Z_GRID:
             charge = Z - int(spec["charge_offset"])
-            atom = Atom(Z=Z, config=str(spec["ground"]), charge=charge, numerics="bspline", breit=False, qed=False)
+            atom = Atom(
+                        Z=Z,
+                        config=str(spec["ground"]),
+                        charge=charge,
+                        engine="bspline",
+                        corrections="none",
+                   )
             atom.solve()
             threshold = _k_threshold_eV(atom)
             energies = np.asarray([threshold * f for f in ENERGY_FACTORS], dtype=float)

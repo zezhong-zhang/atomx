@@ -44,7 +44,13 @@ CALIBRATION = (
 # Tiers sized to the measured systematic (2026-09-17), not to the old claim.
 LIGHT_Z_MAX = 10
 LIGHT_GATE = 1.0e-3   # measured worst 6.3e-4 (Z=10)
-PANEL_GATE = 5.0e-3   # measured worst 4.10e-3 (Z=36)
+#: Measured 2026-09-19 (after the QED table/kernel fixes) with
+#: ``breit=False``, which is what FAC's default structure run uses.  The
+#: previous 5.0e-3 gate was sized around atomx running with Breit *on*
+#: against a Breit-free FAC reference — the gate was measuring that
+#: mismatch (5.8e-3 at Z=92), not atomx accuracy.  Matched flags give a
+#: 5x better agreement and a gate that can actually fail.
+PANEL_GATE = 2.0e-3   # measured worst 1.01e-3 (Z=74)
 
 
 def _load_reference(max_Z: int | None = None) -> list[dict]:
@@ -103,17 +109,27 @@ def test_atomx_fac_total_energy_matches_sfac(row):
     e0_ref_eV = float(row["E0_eV"])
     charge = max(Z - nel, 0)
 
-    atom = Atom(Z=Z, charge=charge, config=cfg,
-                numerics="shooting", exchange="gu")
+    # FAC's default structure run has QED on and Breit OFF; `Atom`'s
+    # defaults are both on, so pin breit=False for a like-for-like
+    # comparison (see PANEL_GATE above).
+    atom = Atom(
+                Z=Z,
+                charge=charge,
+                config=cfg,
+                engine="shooting",
+                exchange="gu",
+                corrections="qed",
+           )
     atom.solve()
     e_atomx_eV = atom.total_energy * HARTREE_EV
 
     rel = abs(e_atomx_eV - e0_ref_eV) / abs(e0_ref_eV)
-    # Tiered gate, sized to the measured systematic 2026-09-17:
+    # Tiered gate, re-measured 2026-09-19:
     #   Z <= 10 (H/He/Be/C/Ne-like): 1e-3, measured worst 6.3e-4
-    #   full sampled panel:          5e-3, measured worst 4.10e-3 (Z=36)
-    # Heavy-Z rows carry a ~0.3-0.4 % shooting-SCF vs FAC-DFS difference;
-    # the old 1e-3 / 5e-4 claims are not met and are dropped in the README.
+    #   full sampled panel:          2e-3, measured worst 1.01e-3 (Z=74)
+    # The residual is now the DFS local-exchange (``gu``) model itself plus
+    # the shooting-vs-basis engine difference; the QED contribution agrees
+    # with FAC to better than 1e-4 once the Breit flags match.
     gate = LIGHT_GATE if Z <= LIGHT_Z_MAX else PANEL_GATE
     assert rel < gate, (
         f"Z={Z}, cfg={cfg}: atomx={e_atomx_eV:.3f} eV, "
@@ -127,10 +143,14 @@ def test_gu_vs_slater_alpha_values_differ_for_z26():
     different ground-state energies for Fe (Z=26), proving they take
     different SCF paths. If we accidentally wired them to the same
     back-end this assertion flags it."""
-    gu = Atom(Z=26, charge=16, config="1s2 2s2 2p6",
-              numerics="shooting", exchange="gu")
+    gu = Atom(Z=26, charge=16, config="1s2 2s2 2p6", engine="shooting", exchange="gu")
     gu.solve()
-    slater = Atom(Z=26, charge=16, config="1s2 2s2 2p6",
-                  numerics="shooting", exchange="slater")
+    slater = Atom(
+                  Z=26,
+                  charge=16,
+                  config="1s2 2s2 2p6",
+                  engine="shooting",
+                  exchange="slater",
+             )
     slater.solve()
     assert gu.total_energy != pytest.approx(slater.total_energy, rel=1e-6)

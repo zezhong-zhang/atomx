@@ -150,7 +150,7 @@ def run_he_like_fe(workdir: Path) -> List[Dict]:
 
     print("  [AtomX] He-like Fe^{24+} solve ...")
     t0 = time.perf_counter()
-    atom = Atom(Z=Z, config="1s2", breit=False, qed=False)
+    atom = Atom(Z=Z, config="1s2", corrections="none")
     atom.solve()
     res = atom._result
     eps_1s = res.orbital_energies["1s1/2"]
@@ -213,9 +213,9 @@ def run_li_like_fe(workdir: Path) -> List[Dict]:
     # capture artificially inflated the old gap.
     print("  [AtomX] Li-like Fe^{23+} final-state solves ...")
     t0 = time.perf_counter()
-    atom_2s = Atom(Z=Z, config="1s2 2s1", breit=False, qed=False)
+    atom_2s = Atom(Z=Z, config="1s2 2s1", corrections="none")
     atom_2s.solve()
-    atom_2p = Atom(Z=Z, config="1s2 2p1", breit=False, qed=False)
+    atom_2p = Atom(Z=Z, config="1s2 2p1", corrections="none")
     atom_2p.solve()
 
     level_by_ilev = {int(lv["ILEV"]): lv for lv in parse_levels(workdir / "fe23.lev")}

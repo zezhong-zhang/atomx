@@ -125,7 +125,8 @@ def build_atom_for_stage(stage: IonStage, **kwargs):
     """Build ``Atom`` for one stage using the benchmark configuration panel."""
     from atomx import Atom
 
-    params = {"Z": Z_FE, "charge": stage.charge, "configs": list(stage.configs), "breit": False, "qed": False}
+    params = {"Z": Z_FE, "charge": stage.charge, "config": list(stage.configs),
+              "corrections": "none"}
     params.update(kwargs)
     return Atom(**params)
 

@@ -94,13 +94,13 @@ def bench_ce(workdir: Path) -> List[Dict]:
     ce_rows = sorted(ce_rows, key=lambda r: r["DELTA_E_eV"])
 
     print("  [AtomX] solving He-like Fe^{24+} (1s²) ground ...")
-    atom_i = Atom(Z=26, config="1s2", breit=False, qed=False)
+    atom_i = Atom(Z=26, config="1s2", corrections="none")
     atom_i.solve()
 
     out_rows: List[Dict] = []
     print("  [AtomX] solving He-like Fe^{24+} (1s 2p) excited ...")
     try:
-        atom_f = Atom(Z=26, config="1s1 2p1", breit=False, qed=False)
+        atom_f = Atom(Z=26, config="1s1 2p1", corrections="none")
         atom_f.solve()
     except Exception as e:
         print(f"  [AtomX] excitation solve failed: {e}")
@@ -227,7 +227,7 @@ def bench_ci(workdir: Path) -> List[Dict]:
     print(f"  [FAC] parsed {len(ci_rows)} CI transitions")
 
     print("  [AtomX] Fe^{16+} EII ...")
-    atom = Atom(Z=26, config="1s2 2s2 2p6", breit=False, qed=False)
+    atom = Atom(Z=26, config="1s2 2s2 2p6", corrections="none")
     atom.solve()
 
     from atomx.scattering.electron_ionization import eii_cross_section
@@ -372,7 +372,7 @@ def bench_ai(workdir: Path) -> List[Dict]:
     for cfg, source, source2, hole, fac_twoj_f, fac_bound_token in candidates:
         t0 = time.perf_counter()
         if cfg not in atom_cache:
-            atom_cache[cfg] = Atom(Z=34, config=cfg, breit=False, qed=False)
+            atom_cache[cfg] = Atom(Z=34, config=cfg, corrections="none")
             atom_cache[cfg].solve()
         try:
             result = atom_cache[cfg]._result
