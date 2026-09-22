@@ -240,14 +240,15 @@ def enumerate_jj_csfs(config_str: str) -> List[CSF]:
         ``parity`` is ``(-1)^(Σ l_i q_i)``.  Closed-shell configurations
         produce exactly one CSF (J=0, parity +1).
     """
-    l_map = {"s": 0, "p": 1, "d": 2, "f": 3, "g": 4, "h": 5}
-    # Parse into (n, l, q) shells
+    # Same orbital-letter coverage as the central parser _parse_config_string.
+    l_map = {ch: i for i, ch in enumerate("spdfghiklmno")}
+    # Parse into (n, l, q) shells with multi-digit n (e.g. "10s1").
     nr_shells = []
     for token in config_str.strip().split():
-        n = int(token[0])
-        l = l_map[token[1]]
-        q = int(token[2:])
-        nr_shells.append((n, l, q))
+        m = re.fullmatch(r"(\d+)([spdfghiklmno])(\d+)", token)
+        if m is None:
+            raise ValueError(f"cannot parse configuration token {token!r}")
+        nr_shells.append((int(m.group(1)), l_map[m.group(2)], int(m.group(3))))
 
     # Parity = (-1)^Σ l_i q_i (intrinsic parity from orbital ℓ × q)
     parity = 1
