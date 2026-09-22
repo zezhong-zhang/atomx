@@ -5,7 +5,17 @@ The parser previously split each token by single characters
 quantum numbers n >= 10 (Rydberg configurations) and crashed with a cryptic
 ``KeyError``. These tests pin multi-digit-n parsing, clear validation
 errors for malformed tokens, and unchanged behaviour for legacy inputs.
+
+The implementation under test is the shared parser
+(:func:`atomx.config.parsing.parse_nr_shells`, review finding M2), which
+supersedes HYP-1785's inline regex: it additionally accepts an implicit
+unit occupation (``"11s"`` == ``"11s1"``), so the "missing occupation"
+case moved from the malformed list to its own test below.  The error
+contract pinned here is implementation-agnostic — a ``ValueError`` that
+names the offending token, not a ``KeyError``.
 """
+
+import re
 
 import pytest
 
@@ -82,10 +92,15 @@ def test_legacy_config_unchanged():
     assert occ[(2, -2)] == pytest.approx(4.0 / 3.0)
 
 
+def test_implicit_unit_occupation():
+    """A missing occupation means 1 (shared-parser M2 behaviour)."""
+    subshells, _ = generate_jj_average("10s1 11s", averaging="statistical")
+    assert _avg_occ(subshells) == {(10, -1): 1.0, (11, -1): 1.0}
+
+
 @pytest.mark.parametrize(
     "bad_token",
-    ["1s",       # missing occupation
-     "1s2x",     # trailing garbage
+    ["1s2x",     # trailing garbage
      "xs1",      # non-numeric n
      "10x2",     # unknown angular momentum letter
      "1S2",      # case-sensitive: uppercase not accepted
@@ -94,5 +109,5 @@ def test_legacy_config_unchanged():
 )
 def test_malformed_token_raises_clear_value_error(bad_token):
     """Malformed tokens raise ValueError naming the token, not KeyError."""
-    with pytest.raises(ValueError, match="cannot parse configuration token"):
+    with pytest.raises(ValueError, match=re.escape(bad_token)):
         generate_jj_average(f"1s2 {bad_token}")

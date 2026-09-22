@@ -23,7 +23,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from atomx import Atom
+from atomx import Atom, Correlation
 from atomx.constants import HARTREE_EV
 from atomx.methods.mcdhf.config import enumerate_jj_csfs
 from atomx.methods.mcdhf.solver import MCDHFSolver
@@ -43,8 +43,13 @@ FE17_CONFIGS = [
 
 
 def _fe17_atom() -> Atom:
-    atom = Atom(Z=26, charge=16, configs=FE17_CONFIGS,
-                breit=False, qed=False, j_resolved_csfs=True)
+    atom = Atom(
+                Z=26,
+                charge=16,
+                config=FE17_CONFIGS,
+                corrections="none",
+                correlation=Correlation(j_resolved_csfs=True),
+           )
     atom.solve()
     return atom
 

@@ -35,17 +35,26 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from atomx import Atom  # noqa: E402
+from atomx import Atom, Correlation  # noqa: E402
 from atomx.methods.mcdhf.solver import MCDHFResult, MCDHFSolver  # noqa: E402
 from atomx.numerics.shooting.solver import ShootingResult  # noqa: E402
 
 #: Co 3d7 4s2 — open shell, 4 jj-CSFs, the case the stale gate silently
 #: degraded to statistical.  Bare HF (breit/qed off) so the totals pin
 #: the SCF + CI numerics, not the correction stack.
-CO = dict(Z=27, breit=False, qed=False)
+CO = dict(Z=27, corrections="none")
 
-#: Known-good baselines (see MEMORY: atomx known state 2026-07).
-CO_BSPLINE_CI = -1392.0165
+#: Known-good baselines.  The two *CI* totals were re-pinned on 2026-09-21
+#: with the exact CI matrix (``docs/CORRELATION_SD_RESEARCH_2026-09-20.md``
+#: §8 option A): the old kernel's configuration-average diagonal plus
+#: J-corrections put bspline CI at -1392.0165 and shooting CI at -1390.0324
+#: ... the bspline one moves to -1392.1100 because Co 3d7 has repeated
+#: parentage that the old kernel deliberately zeroed (its R5) and an
+#: open-shell diagonal it averaged (its R1).  The cross-engine gate below
+#: (both engines must agree to 1e-6 relative) is what keeps this honest:
+#: the B-spline Galerkin/cell-integral and shooting/SLAG6 pipelines share
+#: no radial numerics, so they cannot agree on a wrong matrix.
+CO_BSPLINE_CI = -1392.1100
 CO_SHOOTING_STATISTICAL = -1391.9970
 
 
@@ -54,8 +63,12 @@ def co_solved():
     out = {}
     for engine, avg in (("shooting", "ci"), ("shooting", "statistical"),
                         ("bspline", "ci")):
-        out[(engine, avg)] = Atom(numerics=engine, exchange="hf",
-                                  averaging=avg, **CO).solve()
+        out[(engine, avg)] = Atom(
+                                  engine=engine,
+                                  exchange="hf",
+                                  correlation=Correlation(averaging=avg),
+                                  **CO,
+                             ).solve()
     return out
 
 
@@ -67,7 +80,7 @@ def test_shooting_ci_routes_to_mcdhf(co_solved):
     a = co_solved[("shooting", "ci")]
     assert isinstance(a.result, MCDHFResult)
     assert a.result.converged
-    assert a.provenance == {"numerics": "shooting", "exchange": "hf",
+    assert a.provenance == {"engine": "shooting", "exchange": "hf",
                             "averaging": "ci"}
 
 
@@ -95,7 +108,7 @@ def test_shooting_ci_differs_from_shooting_statistical(co_solved):
 def test_shooting_statistical_route_unchanged(co_solved):
     a = co_solved[("shooting", "statistical")]
     assert isinstance(a.result, ShootingResult)
-    assert a.provenance == {"numerics": "shooting", "exchange": "hf",
+    assert a.provenance == {"engine": "shooting", "exchange": "hf",
                             "averaging": "statistical"}
     assert a.total_energy == pytest.approx(CO_SHOOTING_STATISTICAL, abs=2e-3)
 
@@ -117,7 +130,7 @@ def test_ci_totals_agree_across_engines(co_solved):
 def test_bspline_ci_baseline_unchanged(co_solved):
     a = co_solved[("bspline", "ci")]
     assert isinstance(a.result, MCDHFResult)
-    assert a.provenance == {"numerics": "bspline", "exchange": "hf",
+    assert a.provenance == {"engine": "bspline", "exchange": "hf",
                             "averaging": "ci"}
     assert a.total_energy == pytest.approx(CO_BSPLINE_CI, abs=2e-3)
 
@@ -125,13 +138,35 @@ def test_bspline_ci_baseline_unchanged(co_solved):
 def test_shooting_ci_breit_qed_route_through_grid_seam():
     """One-shot Breit/QED on shooting+ci run on the grid-flavour
     corrections workspace — pinned to the B-spline ci values (measured
-    cross-engine: E_Breit 2.3e-4, E_QED 9.3e-6 relative)."""
-    a = Atom(Z=27, numerics="shooting", exchange="hf",
-             averaging="ci").solve()
+    cross-engine: E_Breit 2.3e-4, E_QED 1.0e-5 relative).
+
+    Re-pinned 2026-09-19: the QED total moved from 1.8419 to 0.3821 Ha
+    when the self-energy table was corrected to FAC's F(Zα) (the old
+    values were 2-5x too large at Z=27, and the n^-3 fallback gave the
+    3d/4s orbitals the 1s shape).  See
+    docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md C2/M1.
+    """
+    a = Atom(
+             Z=27,
+             engine="shooting",
+             exchange="hf",
+             correlation=Correlation(averaging="ci"),
+        ).solve()
     comps = a.result.energy_components
-    assert comps["E_Breit"] == pytest.approx(1.6978, abs=5e-3)
-    assert comps["E_QED_total"] == pytest.approx(1.8419, abs=5e-3)
-    assert a.total_energy == pytest.approx(-1388.4768, abs=5e-3)
+    assert comps["E_Breit"] == pytest.approx(1.6974, abs=5e-3)
+    assert comps["E_QED_total"] == pytest.approx(0.3821, abs=5e-3)
+    # CI total re-pinned with the exact matrix (was -1389.9370); it tracks
+    # the B-spline CI total through the same Guerra outer loop, which the
+    # cross-engine gate above enforces independently.
+        # Re-pinned 2026-09-21 for the Gaunt Breit OPERATOR, now the default.
+    # The previous value encoded the scalar
+    # ``corrections.breit.compute_breit_energy``, which is ~3.0x too
+    # large against DBSR_HF (``dbsr_hf an=Z term=AV mbreit=1``): Ne
+    # 1s2 2s2 2p6 gives DBSR_HF 0.016643629692418 Ha, the Gaunt
+    # operator 0.017340 (+4.2%, its documented omitted retardation)
+    # and the scalar 0.050449 (3.03x); He 1s2 gives the same 3.01x, so
+    # the scalar's error is structure-independent.
+    assert a.total_energy == pytest.approx(-1391.1579, abs=5e-3)
 
 
 # ----------------------------------------------------------------------
@@ -141,7 +176,7 @@ def test_shooting_ci_breit_qed_route_through_grid_seam():
 @pytest.mark.parametrize("exchange", ["gu", "slater"])
 def test_explicit_ci_with_local_exchange_raises(exchange):
     with pytest.raises(ValueError, match="averaging='ci'"):
-        Atom(Z=27, exchange=exchange, averaging="ci")
+        Atom(Z=27, exchange=exchange, correlation=Correlation(averaging="ci"))
 
 
 @pytest.mark.parametrize("exchange", ["gu", "slater"])
@@ -149,7 +184,7 @@ def test_default_ci_with_local_exchange_falls_back_quietly(exchange):
     """averaging="ci" is the DEFAULT — erroring would break every
     slater/gu call, so the unspecified default degrades to statistical
     and provenance records what actually ran."""
-    a = Atom(Z=2, exchange=exchange, breit=False, qed=False).solve()
+    a = Atom(Z=2, exchange=exchange, corrections="none").solve()
     assert a.converged
     assert a.provenance["averaging"] == "statistical"
 
@@ -162,10 +197,20 @@ def test_closed_shell_shooting_ci_collapses_to_single_config_route():
     """He 1s2 → one jj-CSF: the Guerra ci weights ARE the statistical
     weights, so the ci route reuses the plain shooting solve
     bit-identically and provenance keeps averaging="ci"."""
-    ci = Atom(Z=2, numerics="shooting", exchange="hf", averaging="ci",
-              breit=False, qed=False).solve()
-    st = Atom(Z=2, numerics="shooting", exchange="hf",
-              averaging="statistical", breit=False, qed=False).solve()
+    ci = Atom(
+              Z=2,
+              engine="shooting",
+              exchange="hf",
+              correlation=Correlation(averaging="ci"),
+              corrections="none",
+         ).solve()
+    st = Atom(
+              Z=2,
+              engine="shooting",
+              exchange="hf",
+              correlation=Correlation(averaging="statistical"),
+              corrections="none",
+         ).solve()
     assert isinstance(ci.result, ShootingResult)
     assert ci.total_energy == st.total_energy
     assert ci.provenance["averaging"] == "ci"

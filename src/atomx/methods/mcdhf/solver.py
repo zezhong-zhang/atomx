@@ -18,6 +18,7 @@ from typing import Dict, List
 import numpy as np
 from scipy import linalg
 
+from atomx.corrections.qed import DEFAULT_SE_METHOD
 from atomx.methods.ci import ci_solve
 from atomx.methods.dirac_fock import DFSolver, Subshell
 from atomx.methods.mcdhf.config import CSF, get_shared_orbital_basis
@@ -88,6 +89,13 @@ class MCDHFResult:
         on the MCDHF route: ``E_Breit``, ``E_SE``, ``E_VP``, ``E_WK``,
         ``E_QED_total``, ``se_method`` (whichever were computed), plus
         ``E_total``.
+
+        ``E_Breit`` is the configuration-average Breit number from
+        :func:`atomx.corrections.breit.compute_breit_energy` whenever it
+        was evaluated.  With ``breit_mode="operator"`` it is *reported
+        only* — the CI levels carry the per-block operator instead (see
+        :attr:`breit_provenance`), so ``E_total`` is not a scalar shift
+        of the Dirac-Coulomb total by ``E_Breit``.
         """
         comps: Dict[str, float] = {"E_total": self.ground_energy}
         e_breit = self.__dict__.get("_E_Breit")
@@ -98,6 +106,17 @@ class MCDHFResult:
             if key in qed:
                 comps[key] = qed[key]
         return comps
+
+    @property
+    def breit_provenance(self) -> Dict:
+        """How the Breit interaction entered this result.
+
+        ``{}`` when Breit was off.  Otherwise ``mode`` is ``"operator"``
+        (exact Gaunt operator inside every ``(2J, parity)`` CI block) or
+        ``"scalar"`` (the comparison-only uniform shift), plus what was
+        omitted — see :data:`atomx.methods.mcdhf.breit_ci.RETARDATION_NOTE`.
+        """
+        return dict(self.__dict__.get("_breit_provenance") or {})
 
     @property
     def energy_breakdown(self) -> Dict[str, float]:
@@ -258,12 +277,15 @@ class MCDHFSolver:
 
     def __init__(self, Z, csfs, ns=50, ks=9, r_min=None, r_max=None,
                  include_breit=False, include_qed=False,
+                 qed_se_method=None,
                  correction_stack=None,
                  nuclear="fermi", use_physics_grid=True,
                  starting_potential=None,
                  per_block_orbital_sets=False,
                  radial_optimization="mcdhf",
-                 engine="bspline"):
+                 engine="bspline",
+                 breit_mode="operator",
+                 screening_potential=None):
         self.Z = Z
         self.csfs = csfs
         self.n_csf = len(csfs)
@@ -271,17 +293,51 @@ class MCDHFSolver:
         self.ks = ks
         self.include_breit = include_breit
         self.include_qed = include_qed
+        # How the Breit interaction enters.  ``"operator"`` (default) puts
+        # the exact Gaunt operator into every (2J, parity) CI block
+        # (atomx.methods.mcdhf.breit_ci), so it splits levels.
+        # ``"scalar"`` reproduces the historical behaviour — one
+        # configuration-average number from
+        # corrections.breit.compute_breit_energy added to every CI state —
+        # and is kept only for comparison; it cannot produce fine
+        # structure by construction.
+        # Default is "operator": the per-(2J, parity) Gaunt operator.  It is
+        # verified against DBSR_HF, the reference implementation the repo is
+        # modelled on (``dbsr_hf an=Z term=AV mbreit=1``):
+        #
+        #   Ne 1s2 2s2 2p6   DBSR_HF Breit 0.016643629692418 Ha
+        #                    Gaunt operator 0.017340 Ha  (+4.2%, the
+        #                                    documented omitted retardation)
+        #                    scalar compute_breit_energy 0.050449 Ha (3.03x)
+        #   He 1s2           DBSR_HF 0.0000637774  operator ~; scalar 0.000192
+        #                    (3.01x)
+        #
+        # The scalar is ~3x too large and STRUCTURE-INDEPENDENTLY so (He, one
+        # subshell, gives the same ratio as Ne).  Its dominant role was as
+        # ``compute_breit_energy``, which still needs the same factor fix;
+        # breit_mode="scalar" remains available for comparison.
+        if breit_mode not in {"operator", "scalar"}:
+            raise ValueError(
+                "breit_mode must be 'operator' or 'scalar' "
+                f"(got {breit_mode!r})")
+        self.breit_mode = breit_mode
         # Single configuration surface for post-SCF corrections (review
         # E1).  MCDHF's Guerra-averaged occupations are not expressible
         # through the result-based adapters yet, so the stack is consumed
         # as configuration by _apply_corrections_to_orbitals below.
+        # Self-energy backend for the multi-configuration path.  The
+        # single-configuration routes thread Atom's qed_backend through
+        # DFSolver/ShootingSolver; the MCDHF solver used to resolve
+        # DEFAULT_SE_METHOD here regardless, so an explicit backend was
+        # silently ignored on multi-configuration runs.
+        self.qed_se_method = qed_se_method or DEFAULT_SE_METHOD
         if correction_stack is not None:
             self.correction_stack = correction_stack
         elif include_breit or include_qed:
-            from atomx.corrections.qed import DEFAULT_SE_METHOD, resolve_se_method
+            from atomx.corrections.qed import resolve_se_method
             from atomx.corrections.stack import CorrectionStack
             self.correction_stack = CorrectionStack(
-                se_backend=(resolve_se_method(DEFAULT_SE_METHOD, Z)
+                se_backend=(resolve_se_method(self.qed_se_method, Z)
                             if include_qed else None),
                 include_vp=bool(include_qed),
                 include_wk_vp=False,
@@ -289,6 +345,9 @@ class MCDHFSolver:
             )
         else:
             self.correction_stack = None
+        # Electron-gas (plasma) screening, forwarded to whichever inner
+        # solver the selected engine uses (DFSolver or ShootingHFSolver).
+        self.screening_potential = screening_potential
         self.orbital_basis = get_shared_orbital_basis(csfs)
         self.r_min = r_min
         self.r_max = r_max
@@ -338,6 +397,15 @@ class MCDHFSolver:
                     f"engine='shooting' supports nuclear='point' or "
                     f"'fermi' (got {nuclear!r})")
 
+    @property
+    def _breit_in_ci(self) -> bool:
+        """True when the Breit operator is carried by the CI blocks.
+
+        Only then may the one-shot scalar Breit shift be skipped; with
+        ``breit_mode="scalar"`` the historical uniform shift still runs.
+        """
+        return bool(self.include_breit) and self.breit_mode == "operator"
+
     @staticmethod
     def _floored_occ_map(csf) -> Dict:
         """Per-CSF occupations with the jj-PARTNER floor (``ñ``).
@@ -353,11 +421,19 @@ class MCDHFSolver:
         −95.6 Ha, mislabeled 4p-scale energy).  With the floor,
         ``WW(i, j)/ϖᵢ → q_j`` — the correct neutral-atom mean field.
 
-        The floor is deliberately restricted to jj partners: orbitals
-        from *other* NR shells (pure correlation orbitals, e.g. 2s/2p in
-        a He-like ``1s² + 2s² + 2p²`` expansion) keep hard zeros so their
-        shapes — to which correlation-sensitive observables are tuned —
-        are not re-screened by phantom occupation.
+        The floor is *not* the general cure for that failure mode.  It
+        only keeps the Guerra average defined for an orbital that is
+        genuinely populated somewhere (``ϖᵢ ≥ 0.001 > 0``); an orbital
+        with no population at all in any CSF still has ``WW(i, ·) ≡ 0``
+        and would still be solved against a bare nucleus.  That case is
+        handled by :meth:`_mean_field_matrices`' asymmetric mean field
+        (GRASP's layer protocol: a spectator virtual is solved in the
+        reference configuration's frozen potential), *not* by widening
+        this floor — widening it would re-screen the occupied orbitals
+        with phantom correlation density, which is the opposite error.
+        The floor stays jj-partner-only on purpose: it repairs the
+        numerator/denominator mismatch in ``WW(i, j)/ϖᵢ`` for a partner
+        that is populated in some CSFs, and does nothing else.
         """
         occ = {(sh.n, sh.kappa): float(sh.occupation) for sh in csf.subshells}
         for (n, kappa), q in list(occ.items()):
@@ -366,6 +442,189 @@ class MCDHFSolver:
                 continue  # s₁/₂ has no partner / unoccupied source
             occ.setdefault((n, partner), 0.001)
         return occ
+
+    def _guerra_populations(self, weights) -> Dict:
+        """Raw Guerra populations ``ϖᵢ = Σ_c w_c ñᵢ^c`` (unclamped).
+
+        Same per-CSF occupations (:meth:`_floored_occ_map`) and same
+        summation order as :meth:`_averaged_subshells`, so a population
+        is bit-identical to the value that method would average — but
+        *before* the 0.001 solvability floor is applied.  The distinction
+        matters for the asymmetric mean field: ``ϖᵢ`` is what turns the
+        Guerra product into the conditional average
+        ``WW(i, j)/ϖᵢ = ⟨q_j⟩_{i}``, and a population that is exactly
+        zero means that average does not exist (0/0) — see
+        :meth:`_mean_field_matrices`.
+        """
+        if weights is None:
+            weights = np.ones(self.n_csf) / self.n_csf
+        occ_maps = [self._floored_occ_map(csf) for csf in self.csfs]
+        keys = set()
+        for m in occ_maps:
+            keys.update(m)
+        return {
+            key: sum(w * m.get(key, 0.0)
+                     for w, m in zip(weights, occ_maps, strict=False))
+            for key in keys
+        }
+
+    def _reference_occupations(self) -> Dict:
+        """Occupation map of the FIRST CSF — the layer reference ``q^ref``.
+
+        :meth:`_fac_frozen_subshells` already treats ``self.csfs[0]`` as
+        the reference configuration (optimise it, keep everything else as
+        a tiny-occupation virtual), and the R7 asymmetric mean field uses
+        the same convention so both radial protocols agree on what "the
+        reference" is.  Raw CSF occupations, *without* the jj-partner
+        floor: the floor exists to keep a solved orbital's Guerra average
+        from becoming 0/0, not to invent population in the reference.
+        """
+        ref: Dict = {}
+        if not self.csfs:
+            return ref
+        for sh in self.csfs[0].subshells:
+            ref[(sh.n, sh.kappa)] = float(sh.occupation)
+        return ref
+
+    def _mean_field_matrices(self, avg_subshells, weights, jj_configs):
+        """Asymmetric mean-field coefficients ``(C, normalization)`` — R7.
+
+        The Guerra product ``WW(i, j) = Σ_c w_c ñᵢ^c ñⱼ^c`` is symmetric
+        and can only express one mean field for both directions: the
+        per-electron weight of source ``j`` in target ``i``'s Fock
+        operator is ``WW(i, j)/ϖᵢ`` and it scales with the target's own
+        population ``ϖᵢ``.  When ``ϖᵢ`` collapses the target loses its
+        entire electron-repulsion term and is solved against a bare
+        nucleus (Be ``correlation="s"``: 2p → −2.0005 Ha = the hydrogenic
+        Z=4 2p; 3p/3d likewise), while the reverse — the occupied core
+        being re-screened by phantom correlation density — must *not*
+        happen.  That asymmetry is not expressible as a single symmetric
+        product, so it is passed to :class:`DFSolver` explicitly.
+
+        Returns
+        -------
+        coeffs : ndarray, shape ``(n_orb, n_orb)``
+            Raw coefficient of source ``j`` in target ``i``'s direct and
+            exchange potential (``DFSolver.mean_field_coeffs``).
+        normalization : ndarray, shape ``(n_orb,)``
+            Per-target divisor (``DFSolver.mean_field_normalization``);
+            the physical per-electron weight is ``coeffs[i, j] /
+            normalization[i]``.
+
+        Rules
+        -----
+        * Target ``i`` with a Guerra population (``ϖᵢ > 0``) **or** present
+          in the reference CSF: ``coeffs[i, :] = WW(i, :)`` and
+          ``normalization[i] = qᵢ`` — literally today's arithmetic, so
+          every closed-shell number and every occupied-orbital row is
+          bit-identical to the pre-R7 code.
+        * Target ``i`` with ``ϖᵢ = 0`` that is *not* in the reference: a
+          spectator virtual.  ``normalization[i] = 1`` and
+          ``coeffs[i, j] = min(qⱼ^ref, max_{c ∈ Sᵢ} qⱼ^c)`` for ``j ≠ i``
+          (``coeffs[i, i]`` = the same value − 1) — i.e. the orbital is
+          solved in the **reference configuration's** frozen potential,
+          GRASP's layer protocol ("optimise a new layer in the frozen
+          potential of the previous one"), *bounded by the orbital's own
+          parent configurations* ``Sᵢ = {c : ñᵢ^c > 0}``.
+
+          The bound is not cosmetic: the reference is only a *proxy* for
+          the field the orbital actually lives in, and it over-screens
+          whenever it holds more electrons in some shell than any
+          configuration containing the target does.  He
+          ``1s² + 1s¹2p¹`` is the acute case — the reference is ``1s²``
+          but every CSF containing 2p has ``1s¹``, so the uncapped
+          reference field is exactly *neutral*: it has no bound 2p, and
+          the solver returns a box artefact (⟨r⟩ = 12.8 a₀,
+          G¹(1s,2p) = 1.9e-4 vs the physical ≈ 0.07, and the 1s2p
+          J=1 splitting collapses from 0.0469 Ha to 0.0019 Ha, breaking
+          ``tests/test_ci_analytic_slater_condon.py``).  Capping at the
+          parent maximum restores the physical 1s¹ field: ε(2p) =
+          −0.125 Ha, splitting 0.0469 Ha against the NIST 0.0514 Ha.
+
+          Where the reference *is* a parent-like configuration the cap is
+          inert and the row is exactly ``qⱼ^ref``: Be ``correlation="s"``
+          (parents ``1s²2s2p``/``1s2s²2p``, maxima 2/2 = ``q^ref``) gives
+          2p₁/₂ = −0.228585, 2p₃/₂ = −0.216499 Ha, matching the FAC-frozen
+          layer protocol to 1e-3.  The
+          diagonal keeps the solver's own self-interaction convention
+          ``q − 1`` (the same one every healthy row and every FAC-frozen
+          virtual uses) and is therefore ``−1`` for a virtual absent
+          from the reference: that term is ``−(J_i − K_i)``, the
+          self-interaction removal the DHF radial equation carries at
+          any occupation.  Dropping it (clipping the diagonal at 0)
+          leaves the Be 2p/3p/3d *unbound* — the exact 1s²2s² field is
+          neutral, so a bare test orbital of that field has no bound
+          2p, and the measured orbital table becomes ``UnboundSubshellError``
+          instead of the physical 2p ≈ −0.23 Ha that ``fac_frozen``
+          reproduces (see ``docs/CORRELATION_SD_RESEARCH_2026-09-20.md``
+          §3.7 and the R7 acceptance measurements in the test suite).
+
+        Why the threshold is exactly zero rather than a small positive
+        number: the numerator ``WW(i, j)`` is *unclamped* while the
+        divisor is the solver's floored occupation ``max(ϖᵢ, 0.001)``, so
+        the Guerra average is exact for every ``ϖᵢ ≥ 0.001`` and merely
+        under-scaled (by ``ϖᵢ/0.001``, today's pre-existing behaviour,
+        left untouched) below it.  Only ``ϖᵢ = 0`` makes the average
+        0/0 — and a zero population is structural (the orbital appears
+        only in CSFs that cannot mix with the state, e.g. a different
+        ``(J, parity)`` block), not a numerically noisy quantity, so the
+        branch cannot flicker between outer iterations.
+        """
+        from atomx.config.jj_coupling import compute_WW
+
+        order = [(s.n, s.kappa) for s in avg_subshells]
+        n_orb = len(order)
+        coeffs = np.empty((n_orb, n_orb), dtype=np.float64)
+        for i in range(n_orb):
+            for j in range(n_orb):
+                coeffs[i, j] = compute_WW(i, j, jj_configs)
+        normalization = np.array(
+            [float(s.occupation) for s in avg_subshells], dtype=np.float64)
+
+        populations = self._guerra_populations(weights)
+        ref_occ = self._reference_occupations()
+        occ_maps = [self._floored_occ_map(csf) for csf in self.csfs]
+        for i, key in enumerate(order):
+            if populations.get(key, 0.0) > 0.0:
+                continue  # populated: Guerra mean field (today's numbers)
+            if ref_occ.get(key, 0.0) > 0.0:
+                continue  # an occupied orbital always keeps its own row
+            # Parent configurations: the CSFs in which this orbital is
+            # present at all.  The reference field may not screen the
+            # target with more electrons of a shell than any of them
+            # holds — see the class docstring: uncapped, He's neutral
+            # 1s² reference has no bound 2p.
+            parents = [m for m in occ_maps if m.get(key, 0.0) > 0.0]
+            for j, key_j in enumerate(order):
+                q_ref = ref_occ.get(key_j, 0.0)
+                if parents:
+                    q_ref = min(
+                        q_ref,
+                        max(m.get(key_j, 0.0) for m in parents),
+                    )
+                if j == i:
+                    q_ref = q_ref - 1.0
+                coeffs[i, j] = q_ref
+            normalization[i] = 1.0
+        return coeffs, normalization
+
+    def _collapsed_targets(self, avg_subshells, weights) -> List[str]:
+        """Labels of spectator virtuals with no Guerra population (R7).
+
+        The same condition :meth:`_mean_field_matrices` branches on:
+        ``ϖᵢ = 0`` for an orbital that the reference CSF does not occupy.
+        Such a target's Fock operator has no electron-repulsion term at
+        all under the symmetric Guerra product, so any engine that cannot
+        consume the asymmetric seam must refuse it rather than report
+        hydrogenic orbitals as a converged result.
+        """
+        populations = self._guerra_populations(weights)
+        ref_occ = self._reference_occupations()
+        return [
+            sh.label for sh in avg_subshells
+            if populations.get((sh.n, sh.kappa), 0.0) <= 0.0
+            and ref_occ.get((sh.n, sh.kappa), 0.0) <= 0.0
+        ]
 
     def _averaged_subshells(self, weights=None):
         """Guerra Eq (10): ϖᵢ = Σⱼ cⱼ² ñᵢʲ — fractional occupations.
@@ -382,20 +641,12 @@ class MCDHFSolver:
         CSFs where orbital *i* is absent.  With inconsistent floors the
         ratio under-counts screening and near-phantom jj components dive
         toward hydrogenic energies.
+
+        The raw, unclamped populations are :meth:`_guerra_populations`;
+        the R7 asymmetric mean field (:meth:`_mean_field_matrices`) keys
+        off them to decide which targets have a Guerra average at all.
         """
-        if weights is None:
-            weights = np.ones(self.n_csf) / self.n_csf
-
-        occ_maps = [self._floored_occ_map(csf) for csf in self.csfs]
-        keys = set()
-        for m in occ_maps:
-            keys.update(m)
-
-        avg_occ = {
-            key: sum(w * m.get(key, 0.0)
-                     for w, m in zip(weights, occ_maps, strict=False))
-            for key in keys
-        }
+        avg_occ = self._guerra_populations(weights)
 
         subshells = []
         for (n, kappa), occ in sorted(avg_occ.items(),
@@ -417,11 +668,14 @@ class MCDHFSolver:
         occupations from the first CSF, plus tiny non-zero occupancies for
         every additional orbital needed by the CI basis so DFSolver solves
         those orbitals without relaxing the core toward the excited manifold.
+
+        ``self.csfs[0]`` is the layer reference for both radial protocols:
+        this method takes its occupations directly, and the Guerra
+        protocol's asymmetric mean field (:meth:`_mean_field_matrices`)
+        uses the same map for every orbital whose own Guerra population
+        has collapsed (see :meth:`_reference_occupations`).
         """
-        ref_occ = {}
-        if self.csfs:
-            for sh in self.csfs[0].subshells:
-                ref_occ[(sh.n, sh.kappa)] = float(sh.occupation)
+        ref_occ = self._reference_occupations()
 
         subshells = []
         for n, kappa in sorted(self.orbital_basis, key=lambda x: (x[0], abs(x[1]), x[1])):
@@ -501,10 +755,32 @@ class MCDHFSolver:
                 # so re-solving per outer iteration is acceptable.
                 from atomx.numerics.shooting.hf_shooting import ShootingHFSolver
 
+                # R7 is only fixed on the B-spline path, which is the one
+                # that consumes the asymmetric mean field
+                # (``_mean_field_matrices`` -> ``DFSolver.mean_field_coeffs``).
+                # ShootingHFSolver builds its Fock operator from the same
+                # symmetric Guerra product, so a target with no Guerra
+                # population would still be solved against a bare nucleus
+                # there.  Refuse that case loudly rather than return
+                # hydrogenic correlation orbitals with converged=True.
+                collapsed = self._collapsed_targets(avg_subshells, weights)
+                if collapsed:
+                    raise NotImplementedError(
+                        "MCDHFSolver(engine='shooting'): Guerra population "
+                        "of " + ", ".join(collapsed) + " is exactly zero, "
+                        "i.e. these are spectator virtuals whose Fock "
+                        "operator has no electron-repulsion term at all. "
+                        "The R7 asymmetric mean field that repairs this is "
+                        "implemented for engine='bspline' only; "
+                        "ShootingHFSolver has no coefficient seam and would "
+                        "return hydrogenic, bare-nucleus orbitals for them."
+                    )
+
                 shoot_solver = ShootingHFSolver(
                     Z=self.Z, subshells=avg_subshells,
                     nuclear=self.nuclear,
                     jj_configs=jj_configs,
+                    screening_potential=self.screening_potential,
                 )
                 # tol: the shooting default 1e-7 (per-sweep relative
                 # energy change, 0.5 damping) leaves ~2e-5 Ha SCF
@@ -541,6 +817,7 @@ class MCDHFSolver:
                 ci_res = ci_solve(
                     self.csfs, orbitals_dict, self.orbital_basis,
                     grid_ws, self.Z, grid_ws.n,
+                    include_breit=self._breit_in_ci,
                 )
             else:
                 # Step 2: Solve DHF with fractional occupations. Skip
@@ -566,6 +843,35 @@ class MCDHFSolver:
                 # ``avg_subshells`` directly, matching the FAC-like radial
                 # experiment where excited orbitals are solved but do not
                 # relax the closed core appreciably.
+                #
+                # R7 asymmetric mean field: hand DFSolver the explicit
+                # coefficient matrix (Guerra product, except for targets
+                # whose population has collapsed — those are solved in the
+                # reference configuration's frozen potential).  With
+                # ``jj_configs is None`` (FAC-frozen protocols) the
+                # DFSolver's own q_i*q_j convention already is that frozen
+                # potential, so no seam is supplied.
+                # Supply the asymmetric seam ONLY when a spectator
+                # virtual actually needs it.  With no collapsed target
+                # every row's Guerra arithmetic is already correct, and
+                # handing DFSolver the seam would route those rows through
+                # ``coeffs[i, j] / normalization[i]`` instead of the
+                # historical raw ``WW(i, j)`` — a different normalisation
+                # that cancels for a closed shell (q_i uniform) but does
+                # NOT for an open one.  Measured: He-like
+                # ``Atom(2, config=["1s2", "1s1 2p1"])`` lost three
+                # orders of magnitude of 2p potential that way and the
+                # textbook ``E(1P1) - E(3P1) = 2 G^1(1s,2p)/3`` identity
+                # broke (ratio 1.000 -> 15.054, G^1 0.1405 -> 0.000186 Ha).
+                # Gating on ``_collapsed_targets`` keeps every
+                # non-spectator case bit-identical to the pre-R7 code by
+                # construction rather than by coincidence.
+                mean_field_coeffs = mean_field_norm = None
+                if jj_configs is not None and self._collapsed_targets(
+                        avg_subshells, weights):
+                    mean_field_coeffs, mean_field_norm = (
+                        self._mean_field_matrices(
+                            avg_subshells, weights, jj_configs))
 
                 dhf = DFSolver(
                     Z=self.Z, subshells=avg_subshells,
@@ -576,6 +882,9 @@ class MCDHFSolver:
                     starting_potential=(self.starting_potential
                                         or ("tfda" if self.Z >= 20 else None)),
                     jj_configs=jj_configs,
+                    mean_field_coeffs=mean_field_coeffs,
+                    mean_field_normalization=mean_field_norm,
+                    screening_potential=self.screening_potential,
                     **kwargs,
                 )
 
@@ -633,6 +942,7 @@ class MCDHFSolver:
                     dhf.bsp_data, self.Z, dhf.ns,
                     nuclear_potential=dhf._nuclear_potential,
                     convol_cache=getattr(dhf, "_convol_cache", None),
+                    include_breit=self._breit_in_ci,
                 )
             state_energies = ci_res.state_energies
             mixing = ci_res.mixing_coefficients
@@ -707,6 +1017,8 @@ class MCDHFSolver:
         # the MCDHF outer-iteration count.
         E_Breit = 0.0
         qed_components: Dict[str, float] = {}
+        corr_data = None
+        i0 = 0
         stack = self.correction_stack
         if stack is not None and (dhf is not None or shoot_result is not None):
             from atomx.corrections.breit import compute_breit_energy
@@ -768,15 +1080,22 @@ class MCDHFSolver:
                     convol_cache=getattr(dhf, "_convol_cache", None),
                 )
 
-        # The one-shot corrections are computed from the shared
-        # Guerra-averaged orbital set, so to this order they shift every
-        # CI state by the same scalar.  Fold the shift into
-        # ``state_energies`` as well, preserving the AtomicResult
-        # invariant ``state_energies[0] == total_energy`` (excitation
-        # energies are unchanged by a uniform shift).
-        e_corr = E_Breit + qed_components.get("E_QED_total", 0.0)
-        if e_corr:
-            state_energies = state_energies + e_corr
+        # The one-shot corrections.  Two of them are now genuinely
+        # different objects: the Breit *operator* (when it is in the CI,
+        # the levels are already split and nothing is added here) and the
+        # QED shift, which is a per-orbital monopole correction and is
+        # folded in per CI state with that state's own orbital
+        # occupations — never as one number for the whole space.
+        breit_operator_in_ci = bool(self._breit_in_ci)
+        if not breit_operator_in_ci and E_Breit:
+            state_energies = state_energies + E_Breit
+        qed_state_shifts = np.zeros_like(np.asarray(state_energies,
+                                                   dtype=float))
+        if qed_components and self.include_qed:
+            qed_state_shifts = self._qed_state_shifts(
+                mixing=mixing, orbitals_dict=orbitals_dict,
+                corr_data=corr_data, i0=i0)
+            state_energies = state_energies + qed_state_shifts
 
         result = MCDHFResult(
             converged=converged,
@@ -799,10 +1118,93 @@ class MCDHFSolver:
         # Attach correction components for downstream energy breakdown.
         if E_Breit:
             result.__dict__["_E_Breit"] = E_Breit
+        if self.include_breit:
+            from atomx.methods.mcdhf.breit_ci import RETARDATION_NOTE
+            result.__dict__["_breit_mode"] = self.breit_mode
+            if breit_operator_in_ci:
+                result.__dict__["_breit_provenance"] = {
+                    "mode": "operator",
+                    "operator": "gaunt-exact-in-blocks",
+                    "scalar_shift_applied": False,
+                    "note": RETARDATION_NOTE,
+                }
+            else:
+                result.__dict__["_breit_provenance"] = {
+                    "mode": "scalar",
+                    "operator": "none",
+                    "scalar_shift_applied": bool(E_Breit),
+                    "note": (
+                        "comparison path only: the Breit interaction was "
+                        "evaluated once on the Guerra-averaged orbitals "
+                        "and added to every CI state as the same scalar, "
+                        "so it cannot split levels."),
+                }
         if qed_components:
             result.__dict__["_E_QED"] = qed_components
+            result.__dict__["_qed_state_shifts"] = np.asarray(
+                qed_state_shifts, dtype=float)
         return result
 
+
+    def _qed_state_shifts(self, *, mixing, orbitals_dict, corr_data, i0):
+        """Per-state QED energy from per-orbital shifts and CI occupations.
+
+        QED (self-energy + vacuum polarisation) is a *monopole* correction:
+        to the order atomx evaluates it, each orbital carries its own
+        shift ``eps_i`` and the state's shift is the occupation-weighted
+        sum ``sum_i q_i^(k) eps_i`` with
+
+            ``q_i^(k) = sum_c |c_ck|^2 n_i^c``
+
+        the CI-weighted occupation of orbital ``i`` in state ``k``.  That
+        is why QED stays legtimately scalar *per orbital* but must not be
+        applied as one number for the whole space: two states with
+        different orbital occupancies (e.g. 1s2 vs 1s2p) get different
+        QED shifts.
+
+        The Breit interaction is NOT treated this way — its non-scalar
+        (spin-other-orbit, spin-spin) parts cannot be written as an
+        orbital sum, which is exactly why it needs the CI operator in
+        :mod:`atomx.methods.mcdhf.breit_ci`.
+        """
+        if corr_data is None:
+            return np.zeros(np.asarray(mixing).shape[1])
+        from atomx.corrections.qed import compute_qed_corrections
+
+        stack = self.correction_stack
+        keys = sorted({(int(sh.n), int(sh.kappa))
+                       for csf in self.csfs for sh in csf.subshells})
+        eps = {}
+        for (n, kappa) in keys:
+            cached = orbitals_dict.get((n, kappa))
+            if cached is None:
+                continue
+            P, Q = cached
+            comps = dict(compute_qed_corrections(
+                [(P[i0:], Q[i0:], 1.0, kappa, f"{n}{kappa}")], corr_data,
+                self.Z,
+                se_method=stack.se_backend or "auto",
+                include_wichmann_kroll=stack.include_wk_vp,
+            ))
+            eps[(n, kappa)] = float(comps.get("E_QED_total", 0.0))
+
+        occ_by_csf = []
+        for csf in self.csfs:
+            occ_by_csf.append({(int(sh.n), int(sh.kappa)):
+                               float(sh.occupation) for sh in csf.subshells})
+
+        weights = np.asarray(mixing, dtype=float) ** 2
+        shifts = np.zeros(weights.shape[1])
+        for state in range(weights.shape[1]):
+            q = {key: 0.0 for key in eps}
+            for c, w in enumerate(weights[:, state]):
+                if w == 0.0:
+                    continue
+                for key, val in occ_by_csf[c].items():
+                    if key in q:
+                        q[key] += w * val
+            shifts[state] = sum(q[key] * eps[key] for key in eps)
+        return shifts
 
     def _diagonalize_per_block_ci(self, *, state_energies, mixing,
                                   per_block_orbitals, bsp_data, ns,
@@ -838,6 +1240,7 @@ class MCDHFSolver:
                 ns,
                 nuclear_potential=nuclear_potential,
                 convol_cache=convol_cache,
+                include_breit=self._breit_in_ci,
             )
             vals, vecs = linalg.eigh(H)
             count = min(len(state_indices), len(vals))
@@ -873,8 +1276,16 @@ class MCDHFSolver:
         radiative matrix elements (see
         :mod:`atomx.properties.transitions.calculator`).
 
-        **Current status — scaffold only.**  Returns an empty dict;
-        the caller leaves the shared orbital set in place.
+        **Current status.**  Implemented: each dominant ``(twoJ, parity)``
+        block gets its own Guerra-averaged DHF solve on that block's CSFs
+        (the block's CI weights, renormalised), and the per-block orbital
+        sets are returned for the caller to store on
+        :attr:`MCDHFResult.per_block_orbitals`.  Like the shared-orbital
+        pass, each block solve consumes the R7 asymmetric mean field
+        (:meth:`_mean_field_matrices`), so a block-local correlation
+        orbital with no Guerra population is solved in that block's
+        reference (first-CSF) potential rather than against a bare
+        nucleus.
 
         Parameters
         ----------
@@ -883,8 +1294,9 @@ class MCDHFSolver:
             extract per-block weights ``w^block_i = c_i^state_in_block``.
         shared_orbitals : dict
             ``{(n, kappa): (P, Q)}`` Guerra-averaged orbital set
-            already solved in :meth:`solve`.  Useful as a warm-start
-            seed for the per-block DHF.
+            already solved in :meth:`solve`.  Not consumed: each block
+            re-bootstraps from the solver's own starter (per-block
+            seeding is a follow-up).
         dhf : DFSolver
             The DFSolver instance used in the shared-orbital pass.
             Carries the bsp_data / grid that per-block solves should
@@ -894,7 +1306,7 @@ class MCDHFSolver:
         -------
         dict
             ``{(twoJ, parity): {(n, kappa): (P, Q)}}`` — empty when
-            the implementation is not yet filled in.
+            there is no mixing to block up.
         """
         del shared_orbitals
         if dhf is None or mixing is None or np.asarray(mixing).size == 0:
@@ -925,6 +1337,9 @@ class MCDHFSolver:
             weights /= total
 
             avg_subshells = self._averaged_subshells(weights=weights)
+            block_jj_configs = self._jj_configs(avg_subshells, weights)
+            block_coeffs, block_norm = self._mean_field_matrices(
+                avg_subshells, weights, block_jj_configs)
             kwargs = {}
             if self.r_min is not None:
                 kwargs["r_min"] = self.r_min
@@ -938,7 +1353,10 @@ class MCDHFSolver:
                 nuclear=self.nuclear,
                 starting_potential=(self.starting_potential
                                     or ("tfda" if self.Z >= 20 else None)),
-                jj_configs=self._jj_configs(avg_subshells, weights),
+                jj_configs=block_jj_configs,
+                mean_field_coeffs=block_coeffs,
+                mean_field_normalization=block_norm,
+                screening_potential=self.screening_potential,
                 **kwargs,
             )
             if self.use_physics_grid:

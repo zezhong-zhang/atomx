@@ -9,13 +9,15 @@ For MCDHF, we need multiple CSFs that can mix via CI.
 
 import re
 from dataclasses import dataclass
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 import numpy as np
 
 from atomx.angular.csf_recoupling import allowed_coupled_J2
 from atomx.angular.mscheme import subshell_j_counts_mscheme
+from atomx.config.parsing import parse_nr_shells
 from atomx.methods.dirac_fock import Subshell
+from atomx.methods.mcdhf.exact_ci import coupling_paths
 
 
 @dataclass
@@ -32,11 +34,25 @@ class CSF:
         +1 (even) or -1 (odd).
     label : str
         Human-readable label (e.g., "1s2 2s2 2p6").
+    coupling : tuple of (int, int, int), optional
+        The sequential coupling tree: one ``(cumulative_total_2J,
+        this_subshell_2J, degeneracy_index)`` entry per subshell, in
+        ``subshells`` order, with the last cumulative value equal to
+        ``total_J2``.  ``None`` (the default, and what hand-built CSFs
+        get) means "derive the canonical tree": the first path of
+        :func:`atomx.methods.mcdhf.exact_ci.coupling_paths` that reaches
+        ``total_J2``.  When several paths reach the same total J they span
+        the same block and the canonical choice is just as valid a basis
+        vector as any other; only the *number* of paths matters for the
+        dimension.  The tree is what makes the exact jj matrix element
+        ⟨CSF_r|Ĥ|CSF_s⟩ well defined — ``total_J2`` alone does not
+        determine it.
     """
     subshells: List[Subshell]
     total_J2: int = 0
     parity: int = 1
     label: str = ""
+    coupling: Optional[Tuple[Tuple[int, int, int], ...]] = None
 
     @property
     def n_electrons(self):
@@ -236,18 +252,16 @@ def enumerate_jj_csfs(config_str: str) -> List[CSF]:
     Returns
     -------
     csfs : list of :class:`CSF`
-        One CSF per (jj-split, total_J) tuple.  ``total_J2`` is ``2J``;
-        ``parity`` is ``(-1)^(Σ l_i q_i)``.  Closed-shell configurations
-        produce exactly one CSF (J=0, parity +1).
+        One CSF per *(jj-split, sequential coupling path)*.  ``total_J2``
+        is ``2J``, ``parity`` is ``(-1)^(Σ l_i q_i)`` and ``coupling``
+        records the tree; CSFs sharing a total ``2J`` but differing in an
+        intermediate coupling are distinct, orthogonal basis vectors.
+        Closed-shell configurations produce exactly one CSF (J=0,
+        parity +1).
     """
-    l_map = {"s": 0, "p": 1, "d": 2, "f": 3, "g": 4, "h": 5}
-    # Parse into (n, l, q) shells
-    nr_shells = []
-    for token in config_str.strip().split():
-        n = int(token[0])
-        l = l_map[token[1]]
-        q = int(token[2:])
-        nr_shells.append((n, l, q))
+    # Parse into (n, l, q) shells (shared parser: handles two-digit n and
+    # the implicit unit occupation).
+    nr_shells = parse_nr_shells(config_str)
 
     # Parity = (-1)^Σ l_i q_i (intrinsic parity from orbital ℓ × q)
     parity = 1
@@ -293,6 +307,12 @@ def enumerate_jj_csfs(config_str: str) -> List[CSF]:
 
     csfs: List[CSF] = []
     for combo in product(per_shell_options):
+        subs = []
+        labels = []
+        for n, kappa, occ, _twoj in combo:
+            subs.append(Subshell(n=n, kappa=kappa, occupation=occ))
+            labels.append(f"{subs[-1].label}^{occ}")
+
         # Couple exact antisymmetric subshell-J multiplicities.  This keeps
         # repeated parentage rows with the same total J as distinct CSFs.
         total_counts: dict[int, int] = {0: 1}
@@ -302,21 +322,42 @@ def enumerate_jj_csfs(config_str: str) -> List[CSF]:
                 subshell_j_counts_mscheme(twoj, occ),
             )
 
+        # One CSF per sequential coupling path, each carrying its tree.
+        # ``coupling_paths`` enumerates the same paths ``total_counts``
+        # counts, so the CSF count and the multiset of total 2J values are
+        # unchanged; the tree is what makes the exact matrix element
+        # <CSF_r|H|CSF_s> well defined.  The cross-check below is the
+        # invariant, not a formality: if the two ever disagree the CSF list
+        # is no longer a complete basis of the intended space.
+        order = tuple((int(sh.n), int(sh.kappa), int(sh.occupation))
+                      for sh in subs)
+        paths = coupling_paths(order)
+        path_counts: dict[int, int] = {}
+        for chain in paths:
+            path_counts[chain[-1][0]] = path_counts.get(chain[-1][0], 0) + 1
+        if path_counts != total_counts:
+            raise RuntimeError(
+                f"internal inconsistency for configuration "
+                f"{' '.join(labels)}: coupling paths give {path_counts} but "
+                f"the subshell-2J convolution gives {total_counts}")
+
         for total_J2, count in sorted(total_counts.items()):
-            subs = []
-            labels = []
-            for n, kappa, occ, _twoj in combo:
-                subs.append(Subshell(n=n, kappa=kappa, occupation=occ))
-                labels.append(f"{subs[-1].label}^{occ}")
-            for idx in range(count):
+            idx = 0
+            for chain in paths:
+                if chain[-1][0] != total_J2:
+                    continue
+                idx += 1
                 suffix = f" [J={total_J2}/2]"
                 if count > 1:
-                    suffix += f" #{idx + 1}"
+                    suffix += f" #{idx}"
+                suffix += " tree=" + "-".join(
+                    f"{cum}:{j2}:{deg}" for cum, j2, deg in chain)
                 csfs.append(CSF(
                     subshells=list(subs),
                     total_J2=total_J2,
                     parity=parity,
                     label=" ".join(labels) + suffix,
+                    coupling=chain,
                 ))
     return csfs
 
@@ -325,7 +366,7 @@ def enumerate_jj_csfs_many(config_strings: List[str]) -> List[CSF]:
     """J-resolved enumeration over a list of NR configuration strings.
 
     Equivalent to concatenating :func:`enumerate_jj_csfs` over each
-    config string in order.  Used by the public ``Atom(..., configs=[...])``
+    config string in order.  Used by the public ``Atom(..., config=[...])``
     multi-configuration path so that each NR config contributes its full
     J-multiplet to the CI basis.
     """

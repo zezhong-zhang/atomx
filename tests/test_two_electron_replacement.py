@@ -293,11 +293,11 @@ def test_be_2s2_2p2_pair_couples():
     """Be 2s²/2p²: the ground state mixes with both 2p² jj pairs."""
     from atomx import Atom
 
-    single = Atom(Z=4, configs=["1s2 2s2"])
+    single = Atom(Z=4, config=["1s2 2s2"])
     single.solve()
     e_hf = float(single.result.total_energy)
 
-    both = Atom(Z=4, configs=["1s2 2s2", "1s2 2p2"])
+    both = Atom(Z=4, config=["1s2 2s2", "1s2 2p2"])
     both.solve()
     result = both.result
     m0 = np.asarray(result.mixing_coefficients)[:, 0]
@@ -310,17 +310,38 @@ def test_be_2s2_2p2_pair_couples():
 
     delta = e_hf - float(result.total_energy)
     assert 0.02 < delta < 0.09, f"CI lowering {delta:.4f} Ha outside range"
-    assert float(result.total_energy) == pytest.approx(-14.6139, abs=0.002)
+    # Re-pinned with the exact CI matrix (was -14.6139 with the old
+    # configuration-average kernel, which also put this space 2.6 mHa below
+    # the independent m-scheme oracle on identical orbitals).  The matrix
+    # built here now matches that oracle to 1e-14 at these converged
+    # orbitals, so the value is the exact Dirac-Coulomb CI energy of this
+    # 6-CSF space in these orbitals; the residual difference to the
+    # literature 2-configuration MCHF value (-14.6166, orbitals relaxed for
+    # that space) is an orbital-relaxation effect, not a matrix element.
+    assert float(result.total_energy) == pytest.approx(-14.6115, abs=0.002)
 
 
 def test_j2_pair_channel_moves_a_real_calculation():
     """A J = 2 pair channel: C-like 2p²/3p², where 2p3/2² ↔ 3p3/2² couples."""
     from atomx import Atom
 
-    atom = Atom(Z=6, configs=["1s2 2s2 2p2", "1s2 2s2 3p2"])
+    atom = Atom(Z=6, config=["1s2 2s2 2p2", "1s2 2s2 3p2"])
     atom.solve()
     result = atom.result
-    assert float(result.total_energy) == pytest.approx(-37.7211, abs=0.003)
+    # Re-pinned with the exact CI matrix (was -37.7211 with the old
+    # configuration-average kernel, which is a spurious 26 mHa gain: the
+    # matrix now matches the independent m-scheme oracle to 4e-14 at these
+    # converged orbitals, and the value sits just below the C HF energy as a
+    # single pair-channel admixture should).
+    # Re-pinned 2026-09-21 for the Gaunt Breit OPERATOR, now the default.
+    # The previous value encoded the scalar
+    # ``corrections.breit.compute_breit_energy``, which is ~3.0x too
+    # large against DBSR_HF (``dbsr_hf an=Z term=AV mbreit=1``): Ne
+    # 1s2 2s2 2p6 gives DBSR_HF 0.016643629692418 Ha, the Gaunt
+    # operator 0.017340 (+4.2%, its documented omitted retardation)
+    # and the scalar 0.050449 (3.03x); He 1s2 gives the same 3.01x, so
+    # the scalar's error is structure-independent.
+    assert float(result.total_energy) == pytest.approx(-37.7005, abs=0.003)
     labels = [c.label for c in result.csfs] if result.csfs else []
     assert any("[J=4/2]" in lab for lab in labels), (
         "expected J = 2 CSFs in this space")
@@ -335,16 +356,26 @@ def test_split_channel_moves_a_real_calculation():
     """
     from atomx import Atom
 
-    base = Atom(Z=6, configs=["1s2 2s2 2p2"])
+    base = Atom(Z=6, config=["1s2 2s2 2p2"])
     base.solve()
     e_base = float(base.result.total_energy)
 
-    atom = Atom(Z=6, configs=["1s2 2s2 2p2", "1s2 2s2 3d1 4d1"])
+    atom = Atom(Z=6, config=["1s2 2s2 2p2", "1s2 2s2 3d1 4d1"])
     atom.solve()
     result = atom.result
     e_split = float(result.total_energy)
 
-    assert e_split == pytest.approx(-37.7218, abs=0.003)
+    # Re-pinned with the exact CI matrix (was -37.7218); see the note in
+    # test_j2_pair_channel_moves_a_real_calculation.
+    # Re-pinned 2026-09-21 for the Gaunt Breit OPERATOR, now the default.
+    # The previous value encoded the scalar
+    # ``corrections.breit.compute_breit_energy``, which is ~3.0x too
+    # large against DBSR_HF (``dbsr_hf an=Z term=AV mbreit=1``): Ne
+    # 1s2 2s2 2p6 gives DBSR_HF 0.016643629692418 Ha, the Gaunt
+    # operator 0.017340 (+4.2%, its documented omitted retardation)
+    # and the scalar 0.050449 (3.03x); He 1s2 gives the same 3.01x, so
+    # the scalar's error is structure-independent.
+    assert e_split == pytest.approx(-37.7002, abs=0.003)
     lowering = e_base - e_split
     assert 0.0 < lowering < 0.05, (
         f"3d¹4d¹ admixture moved the energy by {lowering:.5f} Ha")
@@ -360,7 +391,7 @@ def test_pair_channel_does_not_couple_incompatible_parity():
     """A pair move that changes parity must stay uncoupled (block filter)."""
     from atomx import Atom
 
-    both = Atom(Z=4, configs=["1s2 2s2", "1s2 2s1 2p1"])
+    both = Atom(Z=4, config=["1s2 2s2", "1s2 2s1 2p1"])
     both.solve()
     energies = np.asarray(both.result.state_energies)
     assert np.all(np.isfinite(energies))

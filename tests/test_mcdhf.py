@@ -300,13 +300,11 @@ def test_pb_bspline_matches_shooting_bare_hf():
     """
     from atomx.atom import Atom
 
-    ref = Atom(Z=82, exchange="hf", numerics="shooting",
-               breit=False, qed=False)
+    ref = Atom(Z=82, exchange="hf", engine="shooting", corrections="none")
     ref.solve()
     E_shoot = ref.total_energy
 
-    atom = Atom(Z=82, exchange="hf", numerics="bspline",
-                breit=False, qed=False)
+    atom = Atom(Z=82, exchange="hf", engine="bspline", corrections="none")
     atom.solve()
     E_bsp = atom.total_energy
 

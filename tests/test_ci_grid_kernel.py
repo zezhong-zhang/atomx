@@ -240,8 +240,16 @@ def test_one_diff_grid_matrix(hydrogenic_grid):
     assert np.all(np.isfinite(H))
     assert H[0, 1] == H[1, 0]
     h12 = ci_matrix._h_one_body(orb["1s"], Q, orb["2s"], Q, -1, 1, ws, ws.n)
-    assert H[0, 1] == pytest.approx(h12, rel=1.0e-12)
     assert h12 != 0.0
+    # The exact element is NOT h12: the 1s spectator contributes a two-body
+    # exchange term and the CSF normalisation brings a factor sqrt(2).  The
+    # value below is reproduced to 1e-14 by the independent m-scheme oracle
+    # (benchmarks/mscheme_ci_reference.py) on the same determinants, and the
+    # two eigenvalues of this 2x2 block reproduce two of the three oracle
+    # eigenvalues exactly (the third is the J=1 state this CSF list omits).
+    # The test used to assert H[0, 1] == h12, which was the old
+    # configuration-average one-diff formula.
+    assert H[0, 1] == pytest.approx(0.169929196167459, rel=1.0e-12)
 
 
 def test_grid_flavour_rejects_bspline_only_kwargs(hydrogenic_grid):

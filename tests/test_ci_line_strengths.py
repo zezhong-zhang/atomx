@@ -68,8 +68,14 @@ def _fac_lines():
 @pytest.fixture(scope="module")
 def fe17_ground():
     """Closed-shell Fe XVII ground in the FAC-equivalent DFS-gu basis."""
-    g = Atom(Z=26, charge=16, config="1s2 2s2 2p6",
-             numerics="shooting", exchange="gu", breit=False, qed=False)
+    g = Atom(
+             Z=26,
+             charge=16,
+             config="1s2 2s2 2p6",
+             engine="shooting",
+             exchange="gu",
+             corrections="none",
+        )
     g.solve()
     assert g.converged
     return g._result
@@ -260,9 +266,12 @@ def test_ground_config_of_pair():
 
 @pytest.fixture(scope="module")
 def fe17_pair_atom():
-    a = Atom(Z=26, charge=16,
-             configs=["1s2 2s2 2p6", "1s2 2s2 2p5 3d1"],
-             breit=False, qed=False)
+    a = Atom(
+             Z=26,
+             charge=16,
+             config=["1s2 2s2 2p6", "1s2 2s2 2p5 3d1"],
+             corrections="none",
+        )
     a.solve()
     assert a.converged
     return a

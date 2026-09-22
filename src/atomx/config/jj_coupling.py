@@ -14,11 +14,11 @@ for use in the av_energy_coef formula.
 Reference: DBSR_HF hf_def_conf_LS.f90, hf_MOD_energy.f90
 """
 
-import re
 from dataclasses import dataclass
 from math import comb
 from typing import List, Tuple
 
+from atomx.config.parsing import parse_nr_shells
 from atomx.methods.dirac_fock import Subshell
 
 
@@ -54,26 +54,10 @@ def generate_jj_average(config_str: str,
     # 1 = equal, 5 = statistical) used by the enumeration below.
     eal = {"equal": 1, "statistical": 5}[averaging]
 
-    l_map = {'s': 0, 'p': 1, 'd': 2, 'f': 3, 'g': 4, 'h': 5}
-
-    # Parse into non-relativistic shells. Accept multi-digit n (Rydberg
-    # configurations such as "10s1") and reject malformed tokens with a
-    # clear error, mirroring _parse_config_string in
-    # methods/mcdhf/config.py. Single-character slicing (token[0]/token[1])
-    # would mis-split n>=10 and crash with a cryptic KeyError.
-    nr_shells = []
-    for token in config_str.strip().split():
-        m = re.fullmatch(r"(\d+)([spdfgh])(\d+)", token)
-        if m is None:
-            raise ValueError(
-                f"cannot parse configuration token {token!r}: expected "
-                f"'<n><l><q>' with integer n>=1, l in 'spdfgh', integer "
-                f"q>=0 (config_str={config_str!r})"
-            )
-        n = int(m.group(1))
-        l = l_map[m.group(2)]
-        q = int(m.group(3))
-        nr_shells.append((n, l, q))
+    # Parse into non-relativistic shells (shared parser — handles
+    # multi-digit n, implicit unit occupations, and malformed tokens;
+    # subsumes the HYP-1785 inline-regex fix that shipped as #84).
+    nr_shells = parse_nr_shells(config_str)
 
     # For each shell, determine the j-subshell occupations
     # s-orbitals (l=0): only j=1/2, no splitting needed

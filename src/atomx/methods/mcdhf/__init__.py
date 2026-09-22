@@ -52,16 +52,50 @@ class MCDHF(Method):
         - ``Correlation.SINGLES`` — single excitations only.
         - ``Correlation.SINGLES_DOUBLES`` (default) — single + double.
     breit : bool
-        Include Breit interaction in the CI Hamiltonian.
+        Include the Breit interaction **as an operator in the CI
+        Hamiltonian**: the exact Gaunt term
+        (:mod:`atomx.methods.mcdhf.breit_ci`) is built in the m-scheme
+        determinant basis of every ``(2J, parity)`` block, so it shifts
+        levels *differentially* and produces fine structure.  Measured
+        on He-like C V ``["1s2", "1s1 2p1"]``: the 1s2p 3P fine
+        structure moves from the Dirac-Coulomb 13.74 cm-1 to 123.29
+        cm-1 (NIST ASD v5.12 observed: 123.29 cm-1).
     qed : bool
-        Include QED corrections.
+        Include QED corrections (self-energy + vacuum polarisation).
+        QED is a monopole correction and *is* legitimately a per-orbital
+        scalar: each orbital ``i`` carries its own shift ``eps_i`` and
+        state ``k`` receives ``sum_i q_i^(k) eps_i`` with the
+        CI-weighted orbital occupations ``q_i^(k)`` — so states with
+        different occupancies get different QED shifts.  The Breit
+        interaction is *not* treated that way: its spin-other-orbit and
+        spin-spin parts are not an orbital sum, which is why it needs
+        the CI operator above.
+    breit_mode : str
+        ``"operator"`` (default) — the Gaunt operator in the CI blocks.
+        ``"scalar"`` — the historical comparison path: the
+        configuration-average number from
+        :func:`atomx.corrections.breit.compute_breit_energy`, evaluated
+        once on the converged Guerra-averaged orbitals and added to
+        every CI state identically.  It cannot split levels and exists
+        only so the old numbers stay reproducible.
     bspline_order : int
         B-spline polynomial order (default 9).
+
+    Notes
+    -----
+    The frequency-independent **retardation** term (the second half of
+    the Breit interaction, ``+1/2[alpha.alpha/r - (alpha.r)(alpha.r)/r^3]``)
+    is *not* implemented.  It is not silently zeroed: the operator's
+    provenance records it and
+    :data:`atomx.methods.mcdhf.breit_ci.RETARDATION_NOTE` carries its
+    measured size (~1-4 % of the Gaunt total on closed-shell Ne, where
+    DBSR_HF's full Breit is the reference).
     """
 
     correlation: Correlation = Correlation.SINGLES_DOUBLES
     breit: bool = False
     qed: bool = False
+    breit_mode: str = "operator"
     bspline_order: int = 9
 
     @property
@@ -86,6 +120,7 @@ class MCDHF(Method):
         solver = MCDHFSolver(
             Z=Z, csfs=csfs, ns=ns, ks=self.bspline_order,
             include_breit=self.breit, include_qed=self.qed,
+            breit_mode=self.breit_mode,
         )
         return solver.solve(max_iter=max_iter, scf_tol=tol)
 
