@@ -38,7 +38,7 @@ require source edits are reported here instead of being made (§4).  No file und
 | **F8** | `tests/test_ci_levels_vs_nist.py:135` | `abs=3000 cm⁻¹` → `abs=1200 cm⁻¹` on the one protocol that passes | measured residual **1029 cm⁻¹** | `test_singlet_p_excitation_matches_nist` |
 | **F9** | `tests/test_ci_levels_vs_nist.py:115-128` | ordering gate split per protocol: `fac_frozen` plain assertion, default `mcdhf` strict xfail carrying the measured inversion | fac_frozen 13822.5 < 13858.9 < 13930.0 (physical); mcdhf 18044.9 < 18283.9 < 18404.6 (inverted) | `test_three_p_ordering_is_physical_mcdhf` (xfail) |
 | **F10** | `tests/test_ci_J_block.py:64`, `tests/test_csf_J_enum.py:34`, `tests/test_auger_mscheme_ci.py:150`, `tests/test_exact_ci_kernel.py:251` | count/generator tests marked `@pytest.mark.snapshot` | 0 → 4 marked; kept out of the physics count | — |
-| **F11** | 13 files | `@pytest.mark.snapshot` applied to the D-class tests (0 marks in the slice before) | see §2 counts | — |
+| **F11** | 13 files | `@pytest.mark.snapshot` applied to the D-class tests (0 marks in the slice before) | `pytest -m snapshot --collect-only` over the 17 touched slice files: **82 of 214 tests marked** (was 0) | — |
 | **F12** | `tests/test_ci_grid_kernel.py:204-219` | `_rk == _gk` tautology deleted (both are the same SLAG6 expression); replaced by the exact hydrogenic forms of **both** pairings | `_rk(1s,2p,1s,2p,k) = 112/2187` (G¹) vs the wrong pairing's `8/81` (F¹), 60 %/48 % apart | `test_rk_pairs_its_arguments_as_ab_cd` |
 | **F12** | `tests/test_two_electron_replacement.py:258-289` | the delegation assertion `_rk(...) == compute_slater_rk_cell(...)` (identical call, cannot fail) replaced by the pair-role identity `_rk(a,b,a,b) == _gk(a,b)` plus a liveness guard against `_fk` | `_rk == _gk` exactly; `_fk` 18–95× apart for the same orbitals | `test_rk_pairing_convention_bspline` |
 | **F13** | `tests/test_auger_mscheme_ci.py:181` | `max(energy)` misnamed "spread" → `max − min`, compared against the FAC spread derived from the fixture | FAC span 18.04 eV, atomx 22.64 eV (within 30 %) | `test_level_energy_spread` |
@@ -59,7 +59,7 @@ require source edits are reported here instead of being made (§4).  No file und
 | `test_sd_space_variational.py` | 4 passed | **5 passed** (382 s) |
 | `test_mcdhf_ci_silent_zeros.py` | 8 passed | 8 passed |
 | `test_two_electron_replacement.py` + `test_ci_grid_kernel.py` | 25 p / 5 s + 16 p | **42 passed, 5 skipped** (143 s) |
-| `test_ci_matrix_vs_mscheme_reference.py` | 14 passed | 15 collected: **14 passed, 1 xfailed** (see §5 log) |
+| `test_ci_matrix_vs_mscheme_reference.py` | 14 passed | 16 collected: **15 passed, 1 xfailed** (120 s) |
 | `test_averaging_decoupling.py` + `test_mcdhf.py` | 14 + 18 passed | **32 passed** (127 s) |
 | `test_ci_levels_vs_nist.py` + `test_ci.py` | 5 + 2 passed | **5 passed, 3 xfailed** (8 s) |
 | `test_two_electron_states.py` | 9 passed | **5 passed, 4 xfailed** (47 s) |
