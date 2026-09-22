@@ -74,6 +74,14 @@ require source edits are reported here instead of being made (§4).  No file und
 (`tests/_be_reference.py` is a new file; ruff placed it in the third-party import
 block alongside `pytest`, which is its configured behaviour for `tests/`.)
 
+**Re-verified after the Breit migration landed** (`ffd1059`, one operator / no
+scalar): `test_mcdhf.py test_averaging_decoupling.py
+test_two_electron_replacement.py` → **57 passed, 5 skipped** (156 s).  That
+includes the E_Breit synthetic-key contract at `tests/test_mcdhf.py:276-282`
+(untouched, as required) and the three Breit-carrying totals
+(−37.7005 / −37.7002 / −14.6115) plus the Co cross-engine baselines, so none of
+them needed re-pinning in this slice.
+
 ## 3. Tightening exposed three genuine red gates (all converted to strict xfail)
 
 1. **`fac_frozen` breaks the LS identity by 15.3×**
