@@ -39,7 +39,12 @@ def test_beb_peak_around_3U():
 
 def test_argon_eii_order_of_magnitude():
     """Argon σ_total at 100 eV should be ~few × 1e-16 cm² (NIST ~2.8e-16)."""
-    atom = Atom(Z=18, config="1s2 2s2 2p6 3s2 3p6", numerics="bspline", breit=False, qed=False)
+    atom = Atom(
+                Z=18,
+                config="1s2 2s2 2p6 3s2 3p6",
+                engine="bspline",
+                corrections="none",
+           )
     atom.solve()
     res = atom._result
 
@@ -54,7 +59,12 @@ def test_argon_eii_order_of_magnitude():
 def test_argon_eii_dw_near_threshold():
     """Argon σ at 20 eV with first-principles DW Born matches NIST to
     ~15 %.  Threshold-region validation."""
-    atom = Atom(Z=18, config="1s2 2s2 2p6 3s2 3p6", numerics="bspline", breit=False, qed=False)
+    atom = Atom(
+                Z=18,
+                config="1s2 2s2 2p6 3s2 3p6",
+                engine="bspline",
+                corrections="none",
+           )
     atom.solve()
     r = eii_cross_section(
         atom._result, np.array([20.0]),
@@ -73,7 +83,12 @@ def test_argon_eii_dw_mid_energy_with_coulomb_bethe():
     window truncated the soft-ejection region and partially cancelled
     that overshoot.  Current honest ratios: ~1.8 at 50 eV, ~1.5 at
     100 eV — gate them so regressions still trip."""
-    atom = Atom(Z=18, config="1s2 2s2 2p6 3s2 3p6", numerics="bspline", breit=False, qed=False)
+    atom = Atom(
+                Z=18,
+                config="1s2 2s2 2p6 3s2 3p6",
+                engine="bspline",
+                corrections="none",
+           )
     atom.solve()
     r = eii_cross_section(
         atom._result, np.array([50.0, 100.0]),
@@ -95,7 +110,7 @@ def test_he_plus_eii_dw_validates_against_younger():
     well-known post/prior/Peterkop exchange-model spread in EII.  The
     exactness anchor is FAC's pure-DW CI mode, which this code matches
     to a few % at E/th >= 2 (tests/test_fac_dw_benchmarks.py)."""
-    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", engine="bspline", corrections="none")
     atom.solve()
     r = eii_cross_section(
         atom._result, np.array([100.0, 200.0]),
@@ -108,7 +123,12 @@ def test_he_plus_eii_dw_validates_against_younger():
 
 def test_eii_auto_mode():
     """Default 'auto' uses DW near threshold and BEB above 5·I_outer."""
-    atom = Atom(Z=18, config="1s2 2s2 2p6 3s2 3p6", numerics="bspline", breit=False, qed=False)
+    atom = Atom(
+                Z=18,
+                config="1s2 2s2 2p6 3s2 3p6",
+                engine="bspline",
+                corrections="none",
+           )
     atom.solve()
     E = np.array([20.0, 1000.0])
     r = eii_cross_section(atom._result, E, method="auto", kappa_max=3,
@@ -121,7 +141,12 @@ def test_eii_auto_mode():
 
 
 def test_eii_rate_coefficient_positive_and_smooth():
-    atom = Atom(Z=18, config="1s2 2s2 2p6 3s2 3p6", numerics="bspline", breit=False, qed=False)
+    atom = Atom(
+                Z=18,
+                config="1s2 2s2 2p6 3s2 3p6",
+                engine="bspline",
+                corrections="none",
+           )
     atom.solve()
     res = atom._result
 
@@ -140,7 +165,7 @@ def test_eii_dw_runs_for_hydrogenic_ion():
     a positive cross section in the Younger-1981 range (3e-18 cm²
     within an order of magnitude — DW is currently validated only
     near threshold for hydrogenic ions; see module docstring)."""
-    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", engine="bspline", corrections="none")
     atom.solve()
     r = eii_cross_section(
         atom._result, np.array([100.0]),
@@ -160,7 +185,7 @@ def test_dw_no_nan_for_low_kappa_max():
     """DW EII with kappa_max=2 must not produce NaN even for tight
     partial-wave truncation (regression guard for Slater integral NaN
     from cache-reuse edge cases)."""
-    atom = Atom(Z=10, config="1s2", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=10, config="1s2", engine="bspline", corrections="none")
     atom.solve()
     I_1s = -list(atom._result.orbital_energies.values())[0] * 27.211
     E = np.array([1.1 * I_1s, 1.5 * I_1s, 3.0 * I_1s])
@@ -177,7 +202,7 @@ def test_dw_hydrogenic_scaling_with_z():
     hydrogenic ions exercise the high-energy continuum path but are
     not expected to match literature until the B-spline basis is
     adapted for high-energy K-shell continuum waves."""
-    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", engine="bspline", corrections="none")
     atom.solve()
     I = -list(atom._result.orbital_energies.values())[0] * 27.211
     r = eii_cross_section(
@@ -202,7 +227,7 @@ def test_dw_k_shell_high_energy_smooth_no_hybrid(Z):
     pure-DW CI mode to a few % at E/th >= 2).  Here we pin that the
     hybrid is gone and DW stays within a factor ~3 of BEB (a model-level
     sanity band, not a parity statement)."""
-    atom = Atom(Z=Z, config="1s2", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=Z, config="1s2", engine="bspline", corrections="none")
     atom.solve()
     I_eV = -next(iter(atom._result.orbital_energies.values())) * 27.211386245988
     E = np.array([2.0 * I_eV, 5.0 * I_eV])
@@ -222,7 +247,7 @@ def test_dw_k_shell_high_energy_smooth_no_hybrid(Z):
 def test_dw_positive_and_declines_above_peak():
     """DW cross section is positive everywhere above threshold and
     decreases monotonically above the peak."""
-    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", engine="bspline", corrections="none")
     atom.solve()
     I = -list(atom._result.orbital_energies.values())[0] * 27.211
     E = np.geomspace(1.1 * I, 15 * I, 30)
@@ -243,7 +268,12 @@ def test_dw_positive_and_declines_above_peak():
 
 def test_dw_per_orbital_decomposition():
     """DW returns per-orbital contributions that sum to total."""
-    atom = Atom(Z=18, config="1s2 2s2 2p6 3s2 3p6", numerics="bspline", breit=False, qed=False)
+    atom = Atom(
+                Z=18,
+                config="1s2 2s2 2p6 3s2 3p6",
+                engine="bspline",
+                corrections="none",
+           )
     atom.solve()
     E = np.array([50.0])
     r = eii_cross_section(
@@ -255,7 +285,7 @@ def test_dw_per_orbital_decomposition():
 
 def test_dw_method_label_and_provenance():
     """DW result carries correct method label and provenance metadata."""
-    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", engine="bspline", corrections="none")
     atom.solve()
     r = eii_cross_section(
         atom._result, np.array([100.0]),
@@ -273,7 +303,7 @@ def test_dw_kappa_max_convergence():
     """Increasing kappa_max should give convergent cross sections.
     The partial-wave series should stabilize; km=4 and km=5 should
     agree better than km=2 and km=3."""
-    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", engine="bspline", corrections="none")
     atom.solve()
     I = -list(atom._result.orbital_energies.values())[0] * 27.211
     E = np.array([3.0 * I])
@@ -295,7 +325,7 @@ def test_dw_kappa_max_convergence():
 def test_dw_neon_valence_reasonable():
     """Ne valence DW EII at 100 eV should be within an order of magnitude
     of the BEB value (which matches NIST to ~30 %)."""
-    atom = Atom(Z=10, config="1s2 2s2 2p6", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=10, config="1s2 2s2 2p6", engine="bspline", corrections="none")
     atom.solve()
     E = np.array([100.0])
     r_dw = eii_cross_section(atom._result, E, method="DW", kappa_max=4,
@@ -308,7 +338,7 @@ def test_dw_neon_valence_reasonable():
 
 def test_dw_invalid_method_raises():
     """Unknown method raises ValueError."""
-    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", engine="bspline", corrections="none")
     atom.solve()
     with pytest.raises(ValueError, match="Unknown method"):
         eii_cross_section(atom._result, np.array([100.0]), method="bogus")
@@ -401,14 +431,7 @@ def test_dw_k_shell_shooting_mesh_converges_n_grid_and_r_max():
     Convergence is judged by the final change magnitude, not by a guaranteed
     direction of approach, which may vary with valid solver improvements.
     """
-    atom = Atom(
-        Z=26,
-        config="1s2",
-        charge=24,
-        numerics="bspline",
-        breit=False,
-        qed=False,
-    )
+    atom = Atom(Z=26, config="1s2", charge=24, engine="bspline", corrections="none")
     atom.solve()
     threshold = -atom._result.orbital_energies["1s1/2"] * HARTREE_EV
     energy = np.array([2.0 * threshold])

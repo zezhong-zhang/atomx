@@ -81,18 +81,17 @@ def fe17_result(fac_panel):
     are well-defined even though their ground-state occupation is ~0.
     """
     atom = Atom(
-        Z=26,
-        charge=16,
-        configs=[
+                Z=26,
+                charge=16,
+                config=[
             "1s2 2s2 2p6",
             "1s2 2s2 2p5 3s1",
             "1s2 2s2 2p5 3p1",
             "1s2 2s2 2p5 3d1",
         ],
-        j_resolved_csfs=False,
-        breit=False,
-        qed=False,
-    )
+                correlation=None,
+                corrections="none",
+           )
     atom.solve()
     return atom._result
 

@@ -34,6 +34,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
+from atomx.constants import RYDBERG_EV
 from atomx.scattering.autoionization import (
     AutoionizationState,
     dr_calculate,
@@ -45,6 +46,16 @@ RESULTS_CSV = Path(__file__).parent.parent / "benchmarks" / "results_fac_dr.csv"
 KERNEL_TOLERANCE = 0.01  # 1 % parity for the Burgess kernel itself
 RMS_GATE = 0.35          # dominated by the documented 1-MK E_res offset
 RATIO_GATE = (0.8, 1.35)  # per-point gate for T >= 5 MK
+
+# ``fe17_dr_fac.json::alpha_fac_cm3_s`` was produced by combining FAC's
+# AITable+TRTable widths through this same Burgess kernel (see the fixture's
+# ``source`` note), *before* the eV-convention prefactor fix: its values
+# carry the Rydberg-temperature prefactor, RYDBERG_EV**1.5 = 50.186x below
+# the eV convention now used by ``dr_rate_coefficient`` (review C5).  The
+# comparison converts the fixture; the absolute scale is gated independently
+# in tests/test_plasma_physics.py — a same-kernel reference cannot gate the
+# prefactor itself.
+FIXTURE_UNIT_FACTOR = RYDBERG_EV ** 1.5
 
 
 @pytest.fixture(scope="module")
@@ -84,7 +95,8 @@ def test_kernel_parity_with_fac(fac_fixture):
         initial_state_g=fac_fixture.get("initial_state_g", 1.0),
         initial_state_label="Fe XVII 2p6 J=0 (FAC reference)",
     )
-    expected = np.asarray(fac_fixture["alpha_fac_cm3_s"], dtype=float)
+    expected = (np.asarray(fac_fixture["alpha_fac_cm3_s"], dtype=float)
+                * FIXTURE_UNIT_FACTOR)
     np.testing.assert_allclose(
         rc.alpha_cm3_s, expected, rtol=KERNEL_TOLERANCE,
         err_msg=(

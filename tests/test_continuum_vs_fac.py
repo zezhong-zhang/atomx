@@ -64,7 +64,7 @@ def _parse(fn):
 def solved():
     out = {}
     for Z in (26, 54):
-        a = Atom(Z=Z, config="1s2", charge=Z - 2, numerics="bspline", breit=False, qed=False)
+        a = Atom(Z=Z, config="1s2", charge=Z - 2, engine="bspline", corrections="none")
         a.solve()
         out[Z] = a
     return out

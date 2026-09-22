@@ -86,7 +86,7 @@ def manifold_j72():
     from atomx.numerics.quadrature import make_fine_grid, p_rel
     from atomx.scattering.autoionization.mscheme_ci import ResonanceManifold
 
-    g = Atom(Z=26, charge=16, configs=["1s2 2s2 2p6"], breit=False, qed=False)
+    g = Atom(Z=26, charge=16, config=["1s2 2s2 2p6"], corrections="none")
     g.solve()
     res = g._result
     bsp = getattr(res, "_bsp_data", None) or res.bsp_data

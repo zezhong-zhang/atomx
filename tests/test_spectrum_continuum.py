@@ -98,7 +98,7 @@ def test_crm_synthesis_includes_rr_continuum():
     from atomx.plasma.crm import CollisionalRadiativeModel, CRMLevel, CRMTransition
     from atomx.spectrum.crm_synth import crm_emission_spectrum
 
-    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", engine="bspline", corrections="none")
     atom.solve()
     binding = -atom._result.orbital_energies["1s1/2"] * HARTREE_EV  # ~54.4 eV
 

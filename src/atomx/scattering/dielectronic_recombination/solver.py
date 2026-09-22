@@ -19,7 +19,7 @@ The total DR rate coefficient sums over all resonances.  In
 convenient atomic units:
 
     α^DR(T_e) [cm³/s]
-        = 6.603 × 10⁻²⁴  ·  T_e[eV]^{−3/2}
+        = 3.3128 × 10⁻²²  ·  T_e[eV]^{−3/2}
                          ·  Σ_d  ω_d · ⟨Γ⟩_d  ·  exp(−E_d/T_e)        (2)
 
 with  ω_d = g_d / (2 g_i)  and  ⟨Γ⟩_d = Γ_A · Γ_r / (Γ_A + Γ_r).
@@ -38,6 +38,8 @@ from typing import Callable, Dict, List, Sequence
 
 import numpy as np
 
+from atomx.atom_inputs import Basis
+from atomx.constants import AU_TIME_S, ELECTRON_MASS_KG, HARTREE_EV, HARTREE_J
 from atomx.scattering.autoionization.auger import AutoionizationState
 from atomx.scattering.dielectronic_recombination.enumerate import (
     DRResonanceSpec,
@@ -56,18 +58,23 @@ from atomx.scattering.dielectronic_recombination.widths import (
 
 # --- Universal prefactor for eq. (2) -------------------------------------
 #
-# Expression: (h² / (2π m_e k_B))^{3/2}  in units of cm³ · eV^{3/2} · s.
-# CODATA 2018:
-#   h  = 6.62607015e-34  J·s
-#   m_e = 9.1093837015e-31 kg
-#   k_B = 1.380649e-23  J/K
-#   1 eV = 1.602176634e-19 J
-# Gives (numerically, with T in eV rather than K):
-#   Prefactor = 6.60305e-24  cm³/s · eV^{3/2}
+# Expression: (h² / (2π m_e k_B T))^{3/2} with the temperature written in
+# eV, i.e. (h² / (2π m_e · 1 eV))^{3/2}, in cm³ (the 1/s needed to turn
+# the widths Γ into a rate coefficient comes from the branching ratio):
 #
-# See Burgess 1965 eq. (6), or Osterbrock "Astrophysics of Gaseous
-# Nebulae" §5.7.
-_DR_PREFACTOR_CM3_S_EV_32 = 6.60305e-24
+#   α [cm³/s] = P · T_e[eV]^{-3/2} · ω · ⟨Γ⟩[s⁻¹] · exp(−E/T_e)
+#
+# Derived here from :mod:`atomx.constants` so the temperature unit is
+# unambiguous.  Historically this module carried the closed-form value
+# computed with kT in *Rydberg* (6.60305e-24), which is 13.605693^{3/2} =
+# 50.186x too small once T is in eV.  The module's own
+# ``plasma.crm.saha_ionization_density_cm3`` uses the eV convention, so
+# the two must match for DR/RR detailed balance to hold.
+_PLANCK_J_S = AU_TIME_S * 2.0 * np.pi * HARTREE_J          # h = 2π ħ
+_EV_IN_J = HARTREE_J / HARTREE_EV                          # 1 eV in joules
+_DR_PREFACTOR_CM3_S_EV_32 = (
+    _PLANCK_J_S ** 2 / (2.0 * np.pi * ELECTRON_MASS_KG * _EV_IN_J)
+) ** 1.5 * 1.0e6                                           # m³ -> cm³
 
 
 @dataclass
@@ -341,13 +348,12 @@ def _build_mcdhf_result_for_dr(
     )
 
     struct = Atom(
-        Z=Z,
-        charge=charge,
-        configs=configs,
-        exchange="hf",
-        ns=40,
-        ks=7,
-    )
+                  Z=Z,
+                  charge=charge,
+                  config=configs,
+                  exchange="hf",
+                  basis=Basis(ns=40, ks=7),
+             )
     struct.solve()
     return struct.result
 
@@ -414,7 +420,7 @@ def _dr33_manifold_states(initial_atom) -> List[AutoionizationState]:
             + "The atom does not carry a solved MCDHF result with raw "
             "B-spline orbitals (orbitals_raw / bsp_data); solve the "
             "recombining ion first, e.g. "
-            "Atom(Z=26, charge=16, configs=['1s2 2s2 2p6']).solve()."
+            "Atom(26, charge=16, config=['1s2 2s2 2p6']).solve()."
         )
 
     Z = int(getattr(initial_atom, "Z", 0) or getattr(result, "Z", 0))

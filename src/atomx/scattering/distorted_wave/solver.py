@@ -13,6 +13,7 @@ Reference: Gu, Can. J. Phys. 86, 675 (2008) - FAC DW formulation
 """
 
 import math
+import warnings
 from functools import lru_cache
 
 import numpy as np
@@ -285,15 +286,48 @@ def _shooting_points(r_max, p_max, *, max_points=300000):
     return required
 
 
-def _geometric_tail(prof_l, l_last):
+_TAIL_RATIO_CAP = 0.85
+
+
+def _geometric_tail_estimate(prof_l, l_last):
     """Geometric-ratio estimate of the l > l_last partial-wave tail.
 
     FAC's TopUpQk scheme: tail = q(l_last) * r / (1 - r) with
-    r = q(l_last)/q(l_last - 1).  When the profile has not yet entered its
-    geometric decay (r -> 1) the raw formula diverges; the ratio is capped
-    at 0.85 (tail <= 5.7 q_last), which keeps the estimate a lower bound
-    instead of a blow-up.  Callers needing better accuracy should raise
-    kappa_max.
+    r = q(l_last)/q(l_last - 1).  Returns ``(tail, converged)``.
+
+    When the profile has not yet entered its geometric decay (r >= 0.85,
+    including a still-rising profile at ``l_last``, where the raw formula
+    diverges) the ratio is capped at 0.85, which keeps ``tail`` a finite
+    floor (<= 5.7 q_last) instead of a blow-up, and ``converged`` is False:
+    the value is a *floor* on the missing tail, not a measurement.  Callers
+    that blend toward a high-energy limit must read the flag — returning
+    exactly 0.0 there makes the Born completion read "no tail" and never
+    engage (review C6, 2026-09-19).  Callers needing better accuracy should
+    raise kappa_max.
+    """
+    if l_last < 2:
+        return 0.0, True
+    q1 = float(prof_l[l_last])
+    q0 = float(prof_l[l_last - 1])
+    if not (math.isfinite(q1) and math.isfinite(q0)) or q1 <= 0.0 or q0 <= 0.0:
+        # No decay signal to extrapolate from (zero or non-finite top of the
+        # profile): there is nothing to add, and nothing to flag.
+        return 0.0, True
+    ratio = q1 / q0
+    if ratio >= _TAIL_RATIO_CAP:
+        return q1 * _TAIL_RATIO_CAP / (1.0 - _TAIL_RATIO_CAP), False
+    return q1 * ratio / (1.0 - ratio), True
+
+
+def _geometric_tail(prof_l, l_last):
+    """Tail value only, historical contract: 0.0 while the profile is rising.
+
+    The EII integrator *adds* this value to its partial-wave sum, so it keeps
+    the conservative pre-C6 behaviour exactly (0.0 when no decay ratio is
+    available at ``l_last``); both functions return the same number whenever
+    the profile has begun to decay.  Callers that blend toward a high-energy
+    limit — where a still-rising profile means an unresolved truncation, not
+    "no tail" — must use :func:`_geometric_tail_estimate` and read its flag.
     """
     if l_last < 2:
         return 0.0
@@ -301,8 +335,7 @@ def _geometric_tail(prof_l, l_last):
     q0 = float(prof_l[l_last - 1])
     if q0 <= 0.0 or q1 <= 0.0 or q1 >= q0:
         return 0.0
-    ratio = min(q1 / q0, 0.85)
-    return q1 * ratio / (1.0 - ratio)
+    return _geometric_tail_estimate(prof_l, l_last)[0]
 
 
 def _continuum_on_grid(kappa, energy, V_func, Z_res, r_grid, r_max, n_grid):
@@ -379,7 +412,13 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
     exchange : bool
         Include the exchange amplitude (FAC's ``se``).  Default True.
     topup : bool
-        Add the geometric high-l tail per multipole rank.  Default True.
+        Add the geometric high-l tail per multipole rank and blend each
+        energy toward the exact plane-wave Born value with weight
+        w = (tail/Omega)^0.5 (FAC ``_topup=2``).  An energy whose profile
+        has not decayed at ``kappa_max`` has an unresolved truncation: its
+        geometric tail is only a floor, and the floor is raised to the
+        computed partial-wave sum so that w >= 1/sqrt(2) there instead of
+        falling to 0.  Default True.
 
     Returns
     -------
@@ -465,6 +504,12 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
     kappa_list = [k for k in range(-kappa_max - 1, kappa_max + 1)
                   if k != 0 and _l_of(k) <= kappa_max]
 
+    # At E_inc == threshold the outgoing electron has zero kinetic energy and
+    # the DW integral is singular; FAC evaluates the threshold point at a
+    # small finite E_out.  This is a deliberate, documented regularisation —
+    # it was previously an unexplained literal, so the resulting
+    # threshold value cannot be compared with a code that evaluates exactly
+    # at threshold.  See docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md M17.
     E_OUT_MIN = 1.0 / HARTREE_EV  # evaluate the threshold point at E_out = 1 eV
 
     # Exact plane-wave Born (GOS) for the high-energy completion: FAC's
@@ -480,7 +525,19 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
         try:
             born_tr = BornTransition(pair_data, r_fine, dr_fine,
                                      float(np.median(pos)), E_max)
-        except Exception:
+        except Exception as exc:  # noqa: BLE001 - degraded, but never silent
+            # The completion is an accuracy improvement, not a correctness
+            # requirement, so degrade instead of raising — but say so, and
+            # say why.  Previously this was a bare `except Exception` that
+            # silently disabled the high-energy completion, which is exactly
+            # how the "w = 0 at every energy" defect (finding C6) stayed
+            # invisible.
+            warnings.warn(
+                f"DW excitation: plane-wave Born completion unavailable "
+                f"({type(exc).__name__}: {exc}); collision strengths at high "
+                f"incident energy will be underestimated.",
+                RuntimeWarning, stacklevel=2,
+            )
             born_tr = None
 
     sigma_au = np.zeros(n_energies)
@@ -508,7 +565,13 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
                 Z_residual=Z_res, interp_grid=r_fine)
             for (kap, E), pq in raw.items():
                 cont[(int(kap), round(float(E), 12))] = pq
-        except Exception:
+        except Exception as exc:  # noqa: BLE001 - degraded, but never silent
+            warnings.warn(
+                f"DW excitation: batched continuum solve failed "
+                f"({type(exc).__name__}: {exc}); falling back to per-wave "
+                f"solves, which is much slower.",
+                RuntimeWarning, stacklevel=2,
+            )
             cont = {}
 
         def _wave(kappa, E, cont=cont):
@@ -518,7 +581,17 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
                     cont[key] = _continuum_on_grid(
                         int(kappa), float(E), V_func, Z_res,
                         r_fine, r_max_box, n_shoot)
-                except Exception:
+                except Exception as exc:  # noqa: BLE001 - degraded, not silent
+                    # A None wave contributes zero to the partial-wave sum,
+                    # i.e. this (kappa, E) channel is *dropped* from the
+                    # collision strength.  Record it once per channel.
+                    warnings.warn(
+                        f"DW excitation: continuum wave (kappa={int(kappa)}, "
+                        f"E={float(E):.6f} Ha) failed "
+                        f"({type(exc).__name__}: {exc}); that partial wave "
+                        f"is omitted from the sum.",
+                        RuntimeWarning, stacklevel=2,
+                    )
                     cont[key] = None
             return cont[key]
 
@@ -586,9 +659,19 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
                             acc += (tJ + 1) * T * T
                     prof_l[l_in] += pop * acc
 
-        om = float(np.sum(prof_l))
-        tail = _geometric_tail(prof_l, kappa_max) if topup else 0.0
-        om = (om + tail) * 2.0 * math.pi ** 2
+        om_partial = float(np.sum(prof_l))
+        tail, tail_converged = (_geometric_tail_estimate(prof_l, kappa_max)
+                                if topup else (0.0, True))
+        if not tail_converged:
+            # The profile had not decayed at kappa_max, so the geometric
+            # ratio was capped: `tail` is only a floor, and if the truncation
+            # is unresolved the l > kappa_max sum is at least as large as
+            # everything computed.  Saturating the floor at the computed sum
+            # keeps the Born blend weight at or above 1/sqrt(2) even when the
+            # floor itself is small — an unconverged partial-wave sum must not
+            # be reported as the DW answer (review C6).
+            tail = max(tail, om_partial)
+        om = (om_partial + tail) * 2.0 * math.pi ** 2
 
         p_i_sq = 2.0 * E_inc + (E_inc * E_inc) / C_SQ
         omega[idx] = om
@@ -781,39 +864,69 @@ def _get_orbital_by_label(result, label):
     return None, None, None
 
 
-def collision_strength_to_rate(omega_array, energy_eV_array, temperature_eV):
+def collision_strength_to_rate(omega_array, energy_eV_array, temperature_eV,
+                               *, g_i=1):
     """Convert collision strengths to Maxwellian rate coefficients.
 
-    <sigma*v>(T) = (2*pi*a_0^2 / (g_i * sqrt(m_e * kT)))
-                   * integral Omega(E) * exp(-E/kT) dE
+    In atomic units (a_0 = m_e = hbar = 1, energies in Hartree)
+
+        <sigma*v>(T) = a_0^2 * sqrt(2*pi/m_e) / g_i * (kT)^{-3/2}
+                       * Integral Omega(E) exp(-E/kT) dE
+
+    which, in the same units, is just
+
+        <sigma*v>(T) = sqrt(2*pi)/g_i * (kT)^{-3/2}
+                       * Integral Omega(E) exp(-E/kT) dE      [a_0^3/tau]
+
+    and is converted to cm^3/s with a_0^3/tau = (BOHR_RADIUS_M*100)^3 /
+    AU_TIME_S.  In cgs-consistent form (sigma and m_e in cgs, kT and E in
+    erg) the identical expression is
+
+        <sigma*v> = sqrt(2*pi) * hbar^2 / (m_e^{3/2} * g_i) * (kT)^{-3/2}
+                    * Integral Omega(E) exp(-E/kT) dE
+
+    i.e. the cross-section relation sigma(E) = pi*hbar^2*Omega(E)/
+    (2*m_e*E*g_i) used by :func:`dw_excitation_cross_section` (there
+    ``sigma_au = pi/p_i^2 * Omega / g_i``).  For Omega = 1, g_i = 1,
+    kT = 1 eV both forms give 8.011e-8 cm^3/s, in agreement with the
+    8.629e-6*Upsilon/(g_l*sqrt(T_K)) convention of
+    :mod:`atomx.plasma.crm` and with
+    :func:`atomx.plasma.rates.maxwellian_rate`.  The historical prefactor
+    ``2*pi*a_0^2/sqrt(m_e*kT)`` carried cm^2/eV^{1/2} and was ~2e10 too
+    small here (review H0, 2026-09-19).
 
     Parameters
     ----------
     omega_array : ndarray
         Collision strengths at each energy.
     energy_eV_array : ndarray
-        Energies in eV.
+        Energies in eV; the Maxwellian average is taken over this grid.
     temperature_eV : float
         Electron temperature in eV.
+    g_i : int
+        Statistical weight of the initial state.  Default 1.
 
     Returns
     -------
     float
         Rate coefficient in cm^3/s.
     """
-    kT = temperature_eV
-    if kT <= 0:
+    if g_i <= 0:
+        raise ValueError("collision_strength_to_rate: g_i must be > 0")
+    kT_eV = float(temperature_eV)
+    if kT_eV <= 0.0:
         return 0.0
 
-    weights = np.exp(-energy_eV_array / kT)
-    integrand = omega_array * weights
+    from atomx.constants import AU_TIME_S, BOHR_RADIUS_M, HARTREE_EV
+    kT_au = kT_eV / HARTREE_EV
+    E_au = np.asarray(energy_eV_array, dtype=float) / HARTREE_EV
+    integrand = np.asarray(omega_array, dtype=float) * np.exp(-E_au / kT_au)
     _trap = getattr(np, "trapezoid", None) or np.trapz
-    rate = _trap(integrand, energy_eV_array)
+    integral = _trap(integrand, E_au)
 
-    from atomx.constants import BOHR_RADIUS_M, HARTREE_EV
-    a0_cm = BOHR_RADIUS_M * 100
-    prefactor = 2.0 * np.pi * a0_cm ** 2 / np.sqrt(kT / HARTREE_EV)
-    return prefactor * rate
+    a0_cm = BOHR_RADIUS_M * 100.0
+    prefactor = (a0_cm ** 3 / AU_TIME_S) * math.sqrt(2.0 * math.pi) / float(g_i)
+    return prefactor * kT_au ** -1.5 * integral
 
 
 # ---------------------------------------------------------------------------
@@ -826,9 +939,19 @@ def coulomb_bethe_topup(
     energies_eV: np.ndarray,
     dE_eV: float,
     L_truncation: int,
+    *,
+    g_i: float = 1.0,
 ) -> np.ndarray:
     """High-l Coulomb-Bethe (Burgess-Sheorey) top-up for the dipole-
     allowed collision strength.
+
+    ``Omega_topup = (4 g_i f / dE) ln[(k_i + k_f)/(k_i - k_f)]`` with
+    ``dE`` in the same units as the incident energy.  This is the exact
+    Bethe limit of the dipole contribution: for a transition with
+    oscillator strength ``f`` and initial statistical weight
+    ``g_i = 2 J_i + 1`` it is the high-energy behaviour the DW partial-wave
+    sum must approach, so it is a closed-form-checkable quantity (see
+    ``tests/test_dw_born_completion.py``).
 
     Parameters
     ----------
@@ -839,12 +962,26 @@ def coulomb_bethe_topup(
     dE_eV
         Excitation energy E_f - E_i, eV.
     L_truncation
-        l value at which the DW sum was truncated.
+        ``l`` value at which the DW sum was truncated.  Unused by the
+        closed form; accepted so callers can record it with the result.
+    g_i
+        Statistical weight ``2 J_i + 1`` of the *initial* level.  This was
+        previously omitted, making the returned top-up low by exactly
+        ``g_i`` (a factor 2 for the He-like 1s2 1S0 -> 1s2p 1P1 anchor).
+        See ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding M16.
 
     Returns
     -------
     np.ndarray
         Top-up Omega(E) per energy on the same grid as ``energies_eV``.
+
+    Notes
+    -----
+    The previous implementation also multiplied by an undocumented
+    ``1 - 1/(L_truncation + 1)`` "suppression" factor (0.857 at L = 6),
+    which silently broke the closed-form limit.  A caller that wants to
+    model the residual tail beyond ``L_truncation`` should do so
+    explicitly rather than have it folded in here.
     """
     from atomx.constants import HARTREE_EV
     energies_au = np.asarray(energies_eV, dtype=float) / HARTREE_EV
@@ -858,9 +995,9 @@ def coulomb_bethe_topup(
     k_i = np.sqrt(k_i_sq)
     k_f = np.sqrt(k_f_sq)
     log_arg = (k_i + k_f) / np.maximum(k_i - k_f, 1e-30)
-    out[above] = (4.0 * f_ab / omega_au) * np.log(log_arg)
-    suppression = max(0.0, 1.0 - 1.0 / max(L_truncation + 1, 2))
-    return out * suppression
+    out[above] = (4.0 * float(g_i) * f_ab / omega_au) * np.log(log_arg)
+    _ = L_truncation  # accepted for provenance only; the closed form needs it not
+    return out
 
 
 __all__ = [

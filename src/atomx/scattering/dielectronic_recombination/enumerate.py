@@ -427,7 +427,15 @@ def resonance_strength_rows(
         raise ValueError("Temperatures must be positive (eV).")
 
     rows = []
-    prefactor = 6.60305e-24 * T ** (-1.5)
+    # Single source of truth for the prefactor: the same constant
+    # ``dr_rate_coefficient`` uses.  This used to hard-code the
+    # Rydberg-convention value 6.60305e-24, so per-resonance rows here
+    # were 50.17x below the solver's own rate for the same resonance.
+    from atomx.scattering.dielectronic_recombination.solver import (
+        _DR_PREFACTOR_CM3_S_EV_32,
+    )
+
+    prefactor = _DR_PREFACTOR_CM3_S_EV_32 * T ** (-1.5)
     for d in resonances:
         width = d.total_width_per_s
         branch = 0.0 if width <= 0.0 else d.gamma_auger_per_s * d.a_radiative_per_s / width

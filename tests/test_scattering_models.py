@@ -35,7 +35,7 @@ def test_continuum_model_fac_residual_core_shape():
 
 
 def test_fac_residual_core_potential_uses_coulomb_tail():
-    atom = Atom(Z=2, config="1s2", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s2", engine="bspline", corrections="none")
     atom.solve()
     model = PotentialModel.static_hartree_exchange(exchange="fac", n_radial=200, r_max=8.0)
     V = model.build_callable(atom._result)
@@ -47,7 +47,7 @@ def test_fac_residual_core_potential_uses_coulomb_tail():
 
 
 def test_dw_local_exchange_potential_matches_bspline_shape():
-    atom = Atom(Z=2, config="1s2", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s2", engine="bspline", corrections="none")
     atom.solve()
     V_PP, V_QQ = _extract_scf_potential(atom, include_local_exchange=True)
     ns = atom._bsp_data["ns"]
@@ -56,7 +56,7 @@ def test_dw_local_exchange_potential_matches_bspline_shape():
 
 
 def test_eii_accepts_continuum_model_for_dw_exchange():
-    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", engine="bspline", corrections="none")
     atom.solve()
     model = ContinuumModel(
         method="bspline",
@@ -75,7 +75,7 @@ def test_eii_accepts_continuum_model_for_dw_exchange():
 
 
 def test_eii_rejects_nan_inf_inputs():
-    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", engine="bspline", corrections="none")
     atom.solve()
     with pytest.raises(ValueError, match="finite"):
         eii_cross_section(atom._result, np.array([100.0, np.nan]), method="DW")
@@ -84,7 +84,7 @@ def test_eii_rejects_nan_inf_inputs():
 
 
 def test_eii_dw_batch_wave_failure_fails_closed(monkeypatch):
-    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", engine="bspline", corrections="none")
     atom.solve()
 
     def fail_many(requests, *args, **kwargs):
@@ -105,7 +105,7 @@ def test_eii_dw_batch_wave_failure_fails_closed(monkeypatch):
 
 
 def test_eii_dw_diagnostic_mode_reports_skipped_waves(monkeypatch):
-    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", engine="bspline", corrections="none")
     atom.solve()
 
     def fail_many(requests, *args, **kwargs):
@@ -130,7 +130,7 @@ def test_eii_dw_diagnostic_mode_reports_skipped_waves(monkeypatch):
 
 
 def test_eii_dw_uses_shooting_mesh_from_continuum_model():
-    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", engine="bspline", corrections="none")
     atom.solve()
     model = ContinuumModel.shooting(n_grid=700, r_max=35.0)
     out = eii_cross_section(
@@ -158,7 +158,7 @@ def test_shooting_points_cap_hit_raises_resource_error():
 
 
 def test_rr_accepts_continuum_model_without_changing_default_bspline():
-    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", engine="bspline", corrections="none")
     atom.solve()
     model = ContinuumModel.bspline()
     out = rr_cross_section(

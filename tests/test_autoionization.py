@@ -82,16 +82,22 @@ class TestDRRateCoefficient:
 
         Test a simple case: E=10 eV, Γ_A=Γ_r=1e13, J=0.5, g_i=1:
             ω = 2/(2·1) = 1,  branch = 0.5e13 s⁻¹
-        At T=10 eV:  α = 6.603e-24 · 10^{-3/2} · 1 · 5e12 · e^{-1}
-                       ≈ 6.603e-24 · 0.0316 · 5e12 · 0.368
-                       ≈ 3.84e-13  cm³/s
+        At T=10 eV:  α = 3.3128e-22 · 10^{-3/2} · 1 · 5e12 · e^{-1}
+                       ≈ 3.3128e-22 · 0.0316 · 5e12 · 0.368
+                       ≈ 1.927e-11  cm³/s
+
+        The prefactor is (h²/2π m_e kT)^{3/2} with kT in eV.  This pinned
+        3.84e-13 until 2026-09, when the module was still using the same
+        closed form evaluated with kT in Rydberg — RYDBERG_EV**1.5 =
+        50.186x smaller (review C5; gate in
+        tests/test_plasma_physics.py::test_dr_prefactor_matches_the_ev_convention_closed_form).
         """
         d = AutoionizationState(
             label="X", E_resonance_eV=10.0, J=0.5,
             gamma_auger_per_s=1e13, a_radiative_per_s=1e13,
         )
         rc = dr_rate_coefficient([d], T_eV=10.0, initial_state_g=1.0)
-        assert rc.alpha_cm3_s[0] == pytest.approx(3.84e-13, rel=0.02)
+        assert rc.alpha_cm3_s[0] == pytest.approx(1.92696898e-11, rel=0.02)
 
     def test_vectorised_over_T(self):
         d = AutoionizationState(
