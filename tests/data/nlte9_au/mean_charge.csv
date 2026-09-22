@@ -1,16 +1,16 @@
-Te_keV,ne_cm3,mean_charge,workshop_min,workshop_max,canonical,notes
-0.5,1.0e20,4.30e1,4.05e1,4.55e1,False,low-Te edge; M-shell only partially open
-0.5,1.0e21,4.20e1,3.95e1,4.45e1,False,low-Te edge; M-shell only partially open
-0.5,1.0e22,4.05e1,3.80e1,4.30e1,False,low-Te edge; collisional drag pulls Z down
-1.0,1.0e20,5.00e1,4.75e1,5.25e1,False,canonical row at higher density grid
-1.0,1.0e21,4.90e1,4.65e1,5.15e1,True,canonical hohlraum point
-1.0,1.0e22,4.75e1,4.50e1,5.00e1,False,canonical row at higher density grid
-2.0,1.0e20,5.50e1,5.25e1,5.75e1,False,workshop median across NLTE-9 codes
-2.0,1.0e21,5.40e1,5.15e1,5.65e1,True,canonical hohlraum point
-2.0,1.0e22,5.30e1,5.05e1,5.55e1,False,workshop median across NLTE-9 codes
-5.0,1.0e20,6.20e1,5.95e1,6.45e1,False,workshop median; L-shell starts opening
-5.0,1.0e21,6.10e1,5.85e1,6.35e1,True,canonical hohlraum point
-5.0,1.0e22,6.00e1,5.75e1,6.25e1,False,workshop median; L-shell starts opening
-10.0,1.0e20,6.80e1,6.55e1,7.05e1,False,workshop median; deep L-shell stripping
-10.0,1.0e21,6.70e1,6.45e1,6.95e1,True,canonical hohlraum point
-10.0,1.0e22,6.60e1,6.35e1,6.85e1,False,workshop median; deep L-shell stripping
+Te_keV,ne_cm3,mean_charge,workshop_min,workshop_max,canonical,source,notes
+0.5,1.0e20,4.30e1,4.05e1,4.55e1,False,"Fontes & Zhang AIP Conf. Proc. 2007 030001 (2018) Au panel, cited via tests/data/nlte9_au/README.md; transcription NOT verifiable in-repo (no page/table number; workshop_min/max = mean -/+ 2.5 in all 15 rows)",low-Te edge; M-shell only partially open
+0.5,1.0e21,4.20e1,3.95e1,4.45e1,False,"Fontes & Zhang AIP Conf. Proc. 2007 030001 (2018) Au panel, cited via tests/data/nlte9_au/README.md; transcription NOT verifiable in-repo (no page/table number; workshop_min/max = mean -/+ 2.5 in all 15 rows)",low-Te edge; M-shell only partially open
+0.5,1.0e22,4.05e1,3.80e1,4.30e1,False,"Fontes & Zhang AIP Conf. Proc. 2007 030001 (2018) Au panel, cited via tests/data/nlte9_au/README.md; transcription NOT verifiable in-repo (no page/table number; workshop_min/max = mean -/+ 2.5 in all 15 rows)",low-Te edge; collisional drag pulls Z down
+1.0,1.0e20,5.00e1,4.75e1,5.25e1,False,"Fontes & Zhang AIP Conf. Proc. 2007 030001 (2018) Au panel, cited via tests/data/nlte9_au/README.md; transcription NOT verifiable in-repo (no page/table number; workshop_min/max = mean -/+ 2.5 in all 15 rows)",canonical row at higher density grid
+1.0,1.0e21,4.90e1,4.65e1,5.15e1,True,"Fontes & Zhang AIP Conf. Proc. 2007 030001 (2018) Au panel, cited via tests/data/nlte9_au/README.md; transcription NOT verifiable in-repo (no page/table number; workshop_min/max = mean -/+ 2.5 in all 15 rows)",canonical hohlraum point
+1.0,1.0e22,4.75e1,4.50e1,5.00e1,False,"Fontes & Zhang AIP Conf. Proc. 2007 030001 (2018) Au panel, cited via tests/data/nlte9_au/README.md; transcription NOT verifiable in-repo (no page/table number; workshop_min/max = mean -/+ 2.5 in all 15 rows)",canonical row at higher density grid
+2.0,1.0e20,5.50e1,5.25e1,5.75e1,False,"Fontes & Zhang AIP Conf. Proc. 2007 030001 (2018) Au panel, cited via tests/data/nlte9_au/README.md; transcription NOT verifiable in-repo (no page/table number; workshop_min/max = mean -/+ 2.5 in all 15 rows)",workshop median across NLTE-9 codes
+2.0,1.0e21,5.40e1,5.15e1,5.65e1,True,"Fontes & Zhang AIP Conf. Proc. 2007 030001 (2018) Au panel, cited via tests/data/nlte9_au/README.md; transcription NOT verifiable in-repo (no page/table number; workshop_min/max = mean -/+ 2.5 in all 15 rows)",canonical hohlraum point
+2.0,1.0e22,5.30e1,5.05e1,5.55e1,False,"Fontes & Zhang AIP Conf. Proc. 2007 030001 (2018) Au panel, cited via tests/data/nlte9_au/README.md; transcription NOT verifiable in-repo (no page/table number; workshop_min/max = mean -/+ 2.5 in all 15 rows)",workshop median across NLTE-9 codes
+5.0,1.0e20,6.20e1,5.95e1,6.45e1,False,"Fontes & Zhang AIP Conf. Proc. 2007 030001 (2018) Au panel, cited via tests/data/nlte9_au/README.md; transcription NOT verifiable in-repo (no page/table number; workshop_min/max = mean -/+ 2.5 in all 15 rows)",workshop median; L-shell starts opening
+5.0,1.0e21,6.10e1,5.85e1,6.35e1,True,"Fontes & Zhang AIP Conf. Proc. 2007 030001 (2018) Au panel, cited via tests/data/nlte9_au/README.md; transcription NOT verifiable in-repo (no page/table number; workshop_min/max = mean -/+ 2.5 in all 15 rows)",canonical hohlraum point
+5.0,1.0e22,6.00e1,5.75e1,6.25e1,False,"Fontes & Zhang AIP Conf. Proc. 2007 030001 (2018) Au panel, cited via tests/data/nlte9_au/README.md; transcription NOT verifiable in-repo (no page/table number; workshop_min/max = mean -/+ 2.5 in all 15 rows)",workshop median; L-shell starts opening
+10.0,1.0e20,6.80e1,6.55e1,7.05e1,False,"Fontes & Zhang AIP Conf. Proc. 2007 030001 (2018) Au panel, cited via tests/data/nlte9_au/README.md; transcription NOT verifiable in-repo (no page/table number; workshop_min/max = mean -/+ 2.5 in all 15 rows)",workshop median; deep L-shell stripping
+10.0,1.0e21,6.70e1,6.45e1,6.95e1,True,"Fontes & Zhang AIP Conf. Proc. 2007 030001 (2018) Au panel, cited via tests/data/nlte9_au/README.md; transcription NOT verifiable in-repo (no page/table number; workshop_min/max = mean -/+ 2.5 in all 15 rows)",canonical hohlraum point
+10.0,1.0e22,6.60e1,6.35e1,6.85e1,False,"Fontes & Zhang AIP Conf. Proc. 2007 030001 (2018) Au panel, cited via tests/data/nlte9_au/README.md; transcription NOT verifiable in-repo (no page/table number; workshop_min/max = mean -/+ 2.5 in all 15 rows)",workshop median; deep L-shell stripping

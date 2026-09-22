@@ -13,15 +13,35 @@ produced it.
 
 from __future__ import annotations
 
+import importlib.util
+
 import numpy as np
 import pytest
 
 from atomx import Atom
+from atomx.constants import HARTREE_EV
 from atomx.corrections import CorrectionResult, CorrectionStack
 from atomx.methods.dirac_fock import SCFResult
 from atomx.methods.mcdhf.solver import MCDHFResult
 from atomx.numerics.shooting.solver import ShootingResult
 from atomx.results import AtomicResult, Waves
+
+#: Optional-extra guards, declared once and named in the skip reason.  A bare
+#: in-body ``importorskip`` makes the node disappear with no record of which
+#: extra would bring it back; these markers keep the node collected and the
+#: reason explicit.  ``pint>=0.21`` is in the ``dev`` extra; ``plotly>=6.7``
+#: is the ``viz`` extra.
+HAS_PINT = importlib.util.find_spec("pint") is not None
+needs_pint = pytest.mark.skipif(
+    not HAS_PINT,
+    reason="the optional `units` extra is not installed (pint>=0.21); "
+           "install with `pip install -e .[dev]`",
+)
+needs_plotly = pytest.mark.skipif(
+    importlib.util.find_spec("plotly") is None,
+    reason="the optional `viz` extra is not installed (plotly>=6.7); "
+           "install with `pip install -e .[viz]`",
+)
 
 # ---------------------------------------------------------------------------
 # Fixtures: one Atom of each flavor.  Module-scoped so the SCF only runs once.
@@ -85,7 +105,7 @@ def test_basic_protocol_accessors(atom_fixture, request):
     assert atom.iterations > 0
     assert atom.total_energy < 0.0
     assert atom.total_energy_eV == pytest.approx(
-        atom.total_energy * 27.211386245988, rel=1e-6
+        atom.total_energy * HARTREE_EV, rel=1e-12
     )
     assert isinstance(atom.orbital_energies, dict) and atom.orbital_energies
     assert isinstance(atom.energy_breakdown, dict)
@@ -223,14 +243,14 @@ def test_shooting_corrections_run_grid_natively(he_shooting):
 # ---------------------------------------------------------------------------
 
 
+@needs_pint
 def test_total_energy_as_in_eV(he_dhf):
-    pytest.importorskip("pint")
     q = he_dhf.total_energy_as("eV")
     # Just check that pint produced a Quantity with eV-compatible
     # dimensionality and the magnitude matches a hand conversion.
     assert "electron_volt" in str(q.units) or "eV" in str(q.units)
     assert float(q.magnitude) == pytest.approx(
-        he_dhf.total_energy * 27.211386245988, rel=1e-6
+        he_dhf.total_energy * HARTREE_EV, rel=1e-6
     )
 
 
@@ -244,8 +264,8 @@ def test_orbital_energy_as_raises_for_unknown_label(he_dhf):
 # ---------------------------------------------------------------------------
 
 
+@needs_plotly
 def test_plot3d_shortcut(he_dhf):
-    pytest.importorskip("plotly.graph_objects")
     fig = he_dhf.plot3d("1s1/2", n_grid=16)
     assert fig is not None
 
@@ -272,7 +292,22 @@ def test_orbital_lookup_returns_orbitalwavefunction(he_dhf):
     assert orb.P.shape == he_dhf.waves.grid.shape
     assert orb.Q is not None and orb.Q.shape == orb.P.shape
     assert orb.is_relativistic
-    assert orb.expectation_r(he_dhf.waves.grid) == pytest.approx(0.75, abs=0.2)
+    # <r> for a screened 1s: the hydrogenic closed form 3/(2Z) = 0.75 is a
+    # strict LOWER bound (screening makes the orbital expand) and 3/(2(Z-1))
+    # = 1.5 an upper one (one electron can screen at most one unit of
+    # charge).  Measured 0.9272; the previous `0.75 +/- 0.2` window accepted
+    # anything down to 0.55, i.e. 26 % below the physics.
+    assert 0.75 < orb.expectation_r(he_dhf.waves.grid) < 1.5
+
+
+def test_hydrogenic_ion_expectation_r_matches_the_closed_form():
+    """A one-electron ion has an exact <r> = 3/(2 Z) for the 1s, Z = 2."""
+    ion = Atom(Z=2, charge=1, engine="bspline").solve()
+    orb = ion.orbital("1s")
+    # Measured 0.7499549913620823 for the closed form 0.75 (6e-5 relative,
+    # i.e. the finite-nucleus + Dirac correction to the non-relativistic
+    # hydrogenic value).
+    assert orb.expectation_r(ion.waves.grid) == pytest.approx(0.75, rel=1e-3)
 
 
 def test_orbital_lookup_multiple_match_returns_dict(he_dhf):

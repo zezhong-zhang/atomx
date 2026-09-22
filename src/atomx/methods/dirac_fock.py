@@ -2198,7 +2198,18 @@ class DFSolver:
         the shooting path shares.
         """
         from atomx.corrections.stack import finalize_with_corrections
-        return finalize_with_corrections(result, self.correction_stack)
+
+        stack = self.correction_stack
+        if stack is not None and stack.include_breit:
+            # The Breit rung applies the exact Gaunt operator, which needs
+            # the CI angular machinery in methods/mcdhf/; corrections/ must
+            # not import methods/, so it is computed here and read off the
+            # result by the adapter.
+            from atomx.methods.mcdhf.breit_ci import (
+                attach_breit_operator_energy,
+            )
+            attach_breit_operator_energy(result)
+        return finalize_with_corrections(result, stack)
 
 
 def helium_subshells():

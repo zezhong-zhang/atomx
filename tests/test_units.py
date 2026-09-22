@@ -12,9 +12,21 @@ Covers:
 
 from __future__ import annotations
 
+import importlib.util
+
 import pytest
 
-pint = pytest.importorskip("pint")
+#: ``pint`` is an optional extra (``units``).  The guard is a module-level
+#: ``skipif`` (not an import-time ``importorskip``): every node in this file is
+#: the units layer's only coverage, and a bare import-time skip reports it as
+#: one anonymous line.  ``pint>=0.21`` is in the ``dev`` extra, so a fresh
+#: ``pip install -e .[dev]`` (or ``.[units]``) runs all 32 nodes below.
+HAS_PINT = importlib.util.find_spec("pint") is not None
+pytestmark = pytest.mark.skipif(
+    not HAS_PINT,
+    reason="the optional `units` extra is not installed (pint>=0.21); "
+           "install with `pip install -e .[dev]`",
+)
 
 from atomx import codata_version, pint_available, ureg  # noqa: E402
 from atomx.units import (  # noqa: E402

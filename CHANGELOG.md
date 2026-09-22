@@ -410,6 +410,69 @@ now changes the physics; the numbers below are measured by
 * `.pre-commit-config.yaml` runs ruff (same selection as CI) plus the standard
   whitespace/large-file/merge-conflict hooks, not just the perf dashboard.
 
+### Added — a first-principles invariant layer, and an audit of whether the suite can fail
+
+* `tests/test_first_principles_invariants.py` (47 tests) gates physics that
+  holds for *any* correct implementation, with expected values derived without
+  consulting atomx or any other atomic code: the exact Dirac–Coulomb
+  κ-degeneracy `E(n,κ) == E(n,−κ)` (the point-Coulomb spectrum depends on `j`
+  only, which is why the Lamb shift is observable), the independently derived
+  `1s₁/₂` closed form `mc²(√(1−(Zα)²) − 1)` (agrees to 8.7e-13 at Z=1 and
+  1.2e-6 at Z=92), the point-Coulomb critical charge at `Zα = 1`, the textbook
+  H 2p interval **0.365 cm⁻¹ = 10.95 GHz**, the finite-nucleus sign theorem
+  (a finite charge distribution is less attractive inside the nucleus, so
+  `E(finite) > E(point)`; measured +2.07e-8 Ha for He and +4.37e-5 Ha for Ne,
+  with the predicted `Z^{14/3}` scaling) and the Rayleigh–Ritz bound.  The
+  last section is the **Hylleraas–Undheim–MacDonald** ladder:
+  `E(SD) ≤ E(singles) ≤ E(1-CSF)` and `E(SD) > E(exact)`, which is precisely
+  the statement the old configuration-average `build_ci_matrix` violated by
+  0.385 Ha for Be with a green suite.
+* `tests/test_breit_operator.py` (38 tests) — the file
+  `methods/mcdhf/breit_ci.py`'s docstring had been claiming as its validation
+  while it did not exist.  It gates the rank-`L` angular element against the
+  closed-form Racah–Gaunt coefficient (0 mismatches over `l,l' ≤ 3`, `L ≤ 4`),
+  the `σ_μ` Hermiticity pairing and trace orthonormality, the completeness sum
+  rule `Σ_q Σ_{l'm'} |⟨lm|C^L_q|l'm'⟩|² = 1` (3.996e-15), `M` conservation,
+  the multipole triangle ceiling, reality of the coefficients, and the
+  declaration contract that keeps the omitted retardation term from decaying
+  into a silent zero.  It also records that Hermiticity of the assembled CI
+  matrix is gated nowhere, rather than implying otherwise.
+* `docs/test_audit/` — a full audit of the 165 test files against the question
+  *would this test fail if the physics were wrong?*, with a classification
+  vocabulary (`RUBRIC.md`), seven slice reports, a synthesis scorecard and
+  per-slice remediation reports.  Measured A+B (first-principles or external
+  oracle) ranges from **22 %** in the public-API slice to **54 %** in
+  properties; `@pytest.mark.snapshot` was used by exactly **one** test in the
+  whole suite against 120 unmarked frozen self-regression pins.
+
+### Changed — validation honesty
+
+* `xfail_strict = true` repository-wide: an `xfail` that carries a physics
+  claim must fail loudly when the defect is fixed, instead of passing silently
+  either way.
+* Tolerance policy: every gate now states a *measured* residual next to the
+  assertion and the margin it allows.  The audit found gates running 10³–10⁵
+  times looser than the code's own accuracy — 234 523x in
+  `test_fac_parity_gates.py`, 47 600x in `test_atom_numerics_exchange.py`,
+  1 226x/34 000x in `test_dfsolver_slater.py`, 7–8 orders of magnitude in the
+  length/velocity gauge theorem — which is how the defects below survived.
+* Removed or corrected references that were copies of the data or values the
+  code had been tuned to reproduce: a "FAC clean-room" curve that was the data
+  times 1.1, a `atomx_fraction` that was a verbatim copy of FAC with rms
+  identically 0, a DR "kernel parity with FAC" that was a same-kernel
+  round-trip (ratio 0.99970901 at all four temperatures because the prefactor
+  cancels), and a hyperfine preset asserted against the value it was tuned to
+  reproduce.
+
+### Fixed — a test that blocked its own fix
+
+* `tests/test_qed.py` pinned the scalar Breit at `approx(0.0504, rel=0.05)`,
+  a band that **excludes the correct value**.  DBSR_HF's Ne Breit is
+  **0.016643630840490 Ha** (verified by running `dbsr_hf an=10 term=AV
+  mbreit=1`); atomx's reported scalar component is 0.05043710257669187, 3.03x
+  too large.  The test did not merely fail to catch the error — it made the
+  fix look like a regression.
+
 ### Removed
 
 * Leftover empty package trees `src/atomx/prop/` and `src/atomx/analysis/`

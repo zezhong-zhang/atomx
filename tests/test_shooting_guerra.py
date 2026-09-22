@@ -66,8 +66,15 @@ _BASELINE = {
 }
 
 
+@pytest.mark.snapshot
 @pytest.mark.parametrize("name", list(_BASELINE))
-def test_no_jj_configs_bit_identical(name):
+def test_no_jj_configs_matches_recorded_baseline(name):
+    """D-class (``snapshot``): the pins are atomx's own recorded output.
+
+    Renamed from ``test_no_jj_configs_bit_identical`` — the pins are
+    *relative* (1e-13), so "bit identical" described only the same-process
+    repeat check at the end, not the baseline comparison.
+    """
     cfg, Z, e_ref, oe_ref = _BASELINE[name]
     subshells = _statistical_subshells(cfg)
     res = ShootingHFSolver(Z=Z, subshells=subshells, jj_configs=None).solve()

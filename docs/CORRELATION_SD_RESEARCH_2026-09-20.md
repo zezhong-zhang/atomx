@@ -42,7 +42,19 @@ The orbital set is broken too, but that is a *second, independent* defect
 only the CI would leave a bad calculation; fixing only the orbitals would leave
 a non-variational one.
 
-**Correction 2026-09-20 (oracle bug).**  The independent oracle
+**Correction 2026-09-22 (oracle independence).**  The oracle described below as
+"independent" is **not** independent of the implementation: `exact_ci.two_body_angular`
+is a line-by-line transcription of `mscheme_ci_reference._angular_terms`, the
+determinant sign conventions are shared by design, the CSF patterns come from the
+repo's own `enumerate_jj_csfs`, and `_h_one_body` / `_norm_sq` / `_rk` are shared.
+It gates the *assembly* (patterns, fermion signs, CSF orthogonality, the
+`C† H_det C` reduction) faithfully, but it cannot arbitrate the angular algebra.
+The independent evidence for the CI matrix is the Hylleraas–Undheim–MacDonald
+bound, the exact hydrogenic `F^k`/`G^k` rationals, the analytic Slater–Condon
+ratio, and the external NIST/DBSR_HF comparisons.  Every "independent oracle"
+claim below should be read with that qualification.
+
+**Correction 2026-09-20 (oracle bug).**  The oracle
 `benchmarks/mscheme_ci_reference.py` originally read `if v == 0.0: continue`
 on the two-body term, dropping the *exchange* integral whenever the *direct*
 one vanished by angular selection.  Proven wrong by rotational invariance:

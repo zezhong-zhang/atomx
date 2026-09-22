@@ -73,32 +73,59 @@ class TestDefaultGridErrorProfile:
         92: 97.737,
     }
 
+    @pytest.mark.snapshot
     @pytest.mark.parametrize("Z", sorted(MEASURED))
     def test_error_matches_the_recorded_profile(self, Z):
+        """Upper bound only: the default grid must not get *worse*.
+
+        The recorded values are atomx's own output (D-class: this asserts
+        nothing external), so the test is marked ``snapshot``.  It is a
+        one-sided bound ``err(Z) < MEASURED[Z] * 1.25`` — the two-sided 25 %
+        band it replaces would also have accepted an *improvement*, and could
+        not fail for any physics reason beyond the recorded value changing.
+        """
         expected = self.MEASURED[Z]
         got = _h_like_1s_eV(Z)
-        # A 25 % band: tight enough to catch a default-grid change, loose
-        # enough to survive BLAS/scipy drift.
-        assert got == pytest.approx(expected, rel=0.25, abs=1e-9), (
+        assert got < expected * 1.25 + 1e-9, (
             f"Z={Z}: default-grid 1s error is {got:.4g} eV, recorded "
             f"{expected:.4g} eV.  If the default grid changed on purpose, "
             f"re-measure the profile and update C3 of the review."
         )
 
-    def test_error_grows_strongly_with_z(self):
-        errs = [abs(self.MEASURED[Z]) for Z in sorted(self.MEASURED)]
-        assert all(b > a for a, b in zip(errs[:-1], errs[1:], strict=True))
-        # Three orders of magnitude between the middle and the top.
-        assert errs[-1] / errs[3] > 100.0
+
+class TestDefaultGridErrorIsBounded:
+    """First-principles bound on the default grid (A-class).
+
+    The reference is the exact Dirac–Coulomb eigenvalue written out in
+    :func:`_exact_dirac_coulomb`, not an atomx value.  U^91+ 1s on the
+    default grid is measured +97.737 eV too high (see the module docstring
+    and finding C3); the bound below is the previously documented ceiling —
+    it fails if the default grid ever degrades further, and it is the
+    honest replacement for the deleted
+    ``test_error_grows_strongly_with_z`` tautology (which asserted only that
+    the test's own ``MEASURED`` dict was monotone and never called atomx).
+    """
+
+    def test_default_grid_u91_1s_error_stays_below_100_ev(self):
+        err = _h_like_1s_eV(92)
+        assert err < 100.0, (
+            f"Z=92 default-grid 1s error {err:.3f} eV exceeds the documented "
+            f"97.737 eV ceiling (exact Dirac eigenvalue reference)"
+        )
 
 
 class TestGridKnobs:
     def test_grid_hi_refines_the_k_shell(self):
-        """``grid_hi`` is the knob the absence of which made C3 unfixable."""
+        """``grid_hi`` is the knob the absence of which made C3 unfixable.
+
+        Reference is the exact Dirac eigenvalue, so this is A-class.
+        Measured: 97.737 eV -> 0.2416 eV (404x better); the bounds below are
+        2x inside each measurement.
+        """
         coarse = _h_like_1s_eV(92)
         fine = _h_like_1s_eV(92, grid_hi=0.005, grid_he=0.10)
-        assert abs(fine) < 1.0, f"grid_hi=0.005 gives {fine:.3f} eV"
-        assert abs(fine) < abs(coarse) / 50.0
+        assert abs(fine) < 0.5, f"grid_hi=0.005 gives {fine:.3f} eV"
+        assert abs(fine) < abs(coarse) / 200.0
 
     def test_convergence_is_monotone_in_grid_hi(self):
         errs = [abs(_h_like_1s_eV(92, grid_hi=h))

@@ -1,8 +1,24 @@
 """M3 tests: SCF solver — both Slater (local) and HF (non-local) exchange.
 
-Reference values (Desclaux 1973, Dirac-Hartree-Fock):
-- He total energy: -2.862 Hartree
-- Ne total energy: -128.547 Hartree
+Reference values (point nucleus, Dirac-Hartree-Fock, no Breit/QED), with the
+source named per number:
+
+- He DHF total energy: **-2.86181332 Ha** (DBSR_HF, ``benchmarks/
+  EXTERNAL_VERIFICATION.md`` row "Z=2 He"; atomx reproduces it to 2.3e-10).
+  The *non-relativistic* HF limit is a different number, -2.8616800 Ha
+  (Froese Fischer; the value ``tests/test_mbpt2.py`` sandwiches He with).
+- Ne DHF total energy: **-128.69192580 Ha** (DBSR_HF ``an=10 term=AV
+  mbreit=0``, same file; quoted in
+  ``tests/test_atom_surface_equivalence.py:190``), i.e. the classic
+  Desclaux 1973 value -128.6919 to 7 digits
+  (``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md``).
+
+This module previously cited "Desclaux 1973 DHF: Ne total energy -128.547
+Hartree".  -128.5471 is the **non-relativistic HF limit** of Ne, not its DHF
+energy, and it misses the assertion at ``test_neon_hf_total_energy`` by
+0.145 Ha — 145x that test's abs=1e-3 tolerance.  The value the test actually
+gates is atomx's own point-nucleus DHF total, -128.69196949 Ha (3.05e-5 from
+the DBSR_HF reference above; the ns=50 physics grid is what sets that gap).
 
 Ne HF tests share a single solver to avoid repeating the expensive SCF.
 """
@@ -93,13 +109,16 @@ class TestSCFHartreeFock:
         assert he_hf_result.converged
         assert he_hf_result.iterations < 30
 
+    @pytest.mark.snapshot
     def test_helium_hf_total_energy(self, he_hf_result):
         # Tight pin (was ±0.05 Ha ≈ 1.4 eV). Deterministic, basis-converged
-        # He DHF total -2.861813 Ha, consistent with the point-nucleus DHF
-        # reference (~-2.8617). abs=1 mHa catches real regressions.
+        # He DHF total -2.861813 Ha, consistent with the DBSR_HF reference
+        # -2.86181332 (benchmarks/EXTERNAL_VERIFICATION.md). abs=1 mHa
+        # catches real regressions.
         assert he_hf_result.total_energy == pytest.approx(-2.8618, abs=1.0e-3), \
             f"He DHF E={he_hf_result.total_energy:.5f} (expected ~-2.86181)"
 
+    @pytest.mark.snapshot
     def test_helium_hf_1s_energy(self, he_hf_result):
         # Tight pin (was ±0.05). Deterministic 1s eigenvalue -0.917991 Ha.
         E_1s = he_hf_result.orbital_energies["1s1/2"]
@@ -110,19 +129,36 @@ class TestSCFHartreeFock:
             f"Ne: residual={ne_hf_result.residual:.2e}, iter={ne_hf_result.iterations}"
         assert ne_hf_result.iterations < 30
 
+    @pytest.mark.snapshot
     def test_neon_hf_total_energy(self, ne_hf_result):
         # Tight accuracy pin (was ±1.5 Ha, ~useless). atomx's Ne DHF total
         # energy is deterministic and fully basis-converged (identical to 8
-        # digits from ns=50 up to ns=150) at -128.69197 Ha, within the
-        # accepted point-nucleus DHF range (~-128.692). abs=1e-3 catches any
-        # >1 mHa (0.027 eV) accuracy regression while tolerating grid/tol
-        # details. Confirmed bit-identical across fresh processes 2026-07-10.
+        # digits from ns=50 up to ns=150) at -128.69197 Ha, 3.05e-5 Ha from
+        # the DBSR_HF point-nucleus DHF reference -128.69192580 Ha.
+        # abs=1e-3 catches any >1 mHa (0.027 eV) accuracy regression while
+        # tolerating grid/tol details.  Confirmed bit-identical across fresh
+        # processes 2026-07-10.
+        #
+        # The SAME Ne ground state is pinned four ways in this suite; they are
+        # four different physics questions, not four disagreeing answers:
+        #   -128.69197  point nucleus, HF exchange,  B-spline DFSolver  <- here
+        #               (external check: DBSR_HF -128.69192580)
+        #   -128.6299783  FERMI nucleus, HF exchange, B-spline
+        #               (test_atom_surface_equivalence.py:32/105)
+        #   -128.623390   point nucleus, Slater alpha=1.5, shooting
+        #               (test_slater_integral_slag6.py:146; Salvat DHFS.f)
+        #   -128.623437   Fermi nucleus, Slater alpha=1.5, B-spline
+        #               (test_exchange_model_is_honoured.py:9)
+        # The 0.062 Ha jump from the first to the second is the finite
+        # nucleus; the 0.068 Ha from HF to Slater alpha=1.5 is the local
+        # exchange model.
         assert ne_hf_result.total_energy == pytest.approx(-128.6920, abs=1.0e-3), \
             f"Ne DHF E={ne_hf_result.total_energy:.5f} (expected ~-128.69197)"
 
     def test_neon_hf_orbital_ordering(self, ne_hf_result):
         assert ne_hf_result.orbital_energies["1s1/2"] < ne_hf_result.orbital_energies["2s1/2"]
 
+    @pytest.mark.snapshot
     def test_neon_hf_1s_energy(self, ne_hf_result):
         # Tight pin (was ±2.0 Ha). Deterministic converged 1s eigenvalue
         # -32.81748 Ha; abs=1e-2 catches any >10 mHa regression.

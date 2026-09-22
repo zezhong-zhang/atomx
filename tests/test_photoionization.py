@@ -36,11 +36,21 @@ class TestFanoProfile:
         assert F_very_far == pytest.approx(1.0, abs=1e-6)
 
     def test_symmetric_limit(self):
-        """For q=1 the profile evaluated at ±ε is symmetric about 1."""
-        E = np.array([9.9, 10.0, 10.1])
+        """The Fano profile is symmetric about 1: F(+ε) + F(-ε) = 2.
+
+        First principles: with ε = 2(E - E_res)/Γ, F = (q + ε)²/(1 + ε²)
+        expands to 1 + (q² - 1 + 2qε)/(1 + ε²), whose ε-odd part changes sign
+        under ε → -ε, so the pair sums to exactly 2 for ρ² = 1 (the old
+        version of this test asserted only F(0) = q² and never checked the
+        symmetry its name claims).  At ε = 0 the profile is q².
+        """
+        eps = np.array([-2.0, -0.5, 0.5, 2.0, 8.0])
+        E = 10.0 + eps * 0.1 / 2.0
         F = fano_profile(E, 10.0, gamma_eV=0.1, q=1.0)
-        # F at ε=0 should be q² = 1
-        assert F[1] == pytest.approx(1.0)
+        pairs = F[:2][::-1] + F[2:4]
+        np.testing.assert_allclose(pairs, 2.0, rtol=1e-12)
+        assert fano_profile(10.0, 10.0, gamma_eV=0.1, q=1.0) == pytest.approx(1.0)
+        assert fano_profile(10.0, 10.0, gamma_eV=0.1, q=3.0) == pytest.approx(9.0)
 
     def test_rho_sq_partial_coupling(self):
         """With rho_sq < 1, F no longer reaches q² (diluted)."""

@@ -8,6 +8,17 @@ Measured before the fix: `hf`, `slater` and `gu` all gave -128.691926 Ha for
 `configs=["1s2 2s2 2p6"]`, where the single-configuration path gives
 -128.691926 (hf) and -128.623437 (slater).
 
+Note on the Ne numbers: the suite pins the Ne ground state four ways, and
+they are four different physics questions, not four disagreeing answers —
+-128.691926 above is the *point-nucleus HF* single-config value,
+-128.623437 is the *Fermi-nucleus Slater α=1.5 B-spline* value
+(atomx default `nuclear="fermi"`; the point-nucleus Slater B-spline value is
+-128.6234694 and the point-nucleus Slater *shooting* value -128.623390 is the
+Salvat DHFS.f reference in tests/test_slater_integral_slag6.py:146; the
+Fermi-nucleus HF value -128.6299783 is pinned in
+tests/test_atom_surface_equivalence.py:32/105).  See tests/test_scf.py:142
+for the full cross-reference.
+
 The MCDHF/CI solver implements non-local HF exchange only, so the fix is to
 refuse the unsupported combination loudly rather than report a model that did
 not run.  The single-configuration path honours all three and is unaffected.

@@ -7,7 +7,8 @@ Physics pinned by the audit:
 * the pointwise ratio P_atomx/P_FAC is CONSTANT over r (shape/phase
   agreement; 0.001% in the exact-potential comparison, <= 1% here where
   the (N-1)/N potential differs slightly from FAC's optimized one);
-* the ratio equals sqrt(2/pi) at ALL energies (100 eV .. 200 keV):
+* the ratio equals sqrt(2/pi) at the four pinned energies (1 keV, 10 keV,
+  40 keV, 200 keV; the dumps are ``tests/data/facwave/*.txt``):
   FAC's 1/sqrt(k) amplitude convention carries the SAME relativistic
   (E+2c^2) factor as Grant's delta(E) normalization, so the campaign's
   sqrt(pi/2) per-wave conversion is exact at every energy.  The
@@ -70,6 +71,7 @@ def solved():
     return out
 
 
+@pytest.mark.external_fac
 @pytest.mark.parametrize("fname,Z", CASES)
 def test_wave_matches_fac(solved, fname, Z):
     from atomx.numerics.quadrature import p_rel

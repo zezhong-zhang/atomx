@@ -6,14 +6,20 @@ textbook O(N²) direct double sum.  These tests verify:
 
 * both kernels compute the same R^k on physical densities;
 * the default is the fast Poisson method;
-* the Auger public API honours the ``method`` choice.
+* the Auger public API honours the ``method`` choice;
+* one R^k is compared to a **closed form** (hydrogenic 1s, R⁰ = 5Z/8) rather
+  than to the other kernel.
 
-The direct O(N²) result serves as the independent cross-check for the
-Poisson default; the small residual (rank-dependent, ``~1e-3``) is the
-direct method's diagonal (r₁≈r₂) product-quadrature error, which Poisson
-resolves analytically per interval.
+Measured agreement between the two kernels on the Ne 1s×2p / 2s×2p densities
+(2026-09-22): k=0 2.19e-14, k=1 4.68e-14, k=2 2.72e-14, k=3 3.06e-14 —
+machine precision.  The previous gate was rel=5e-2 (and rel=1e-1 on the
+Auger rate) with a comment claiming a "~1e-3 rank-dependent residual from
+the direct method's diagonal (r1≈r2) product-quadrature error"; that comment
+was false — there is no such residual — and a 5 % gate on a 1e-14 agreement
+cannot see a wrong R^k at all.
 """
 
+import numpy as np
 import pytest
 
 from atomx.numerics.bspline.slater import (
@@ -55,15 +61,45 @@ def test_defaults_are_the_fast_method():
 
 @pytest.mark.parametrize("k", [0, 1, 2, 3])
 def test_poisson_matches_direct(ne_grid, k):
+    """The two kernels must agree to machine precision.
+
+    Measured 2026-09-22: k=0 2.19e-14, k=1 4.68e-14, k=2 2.72e-14,
+    k=3 3.06e-14 relative; gate 1e-10 is ~2000x the measurement (the old
+    rel=5e-2 was 5x10^11 times looser and could not fail for a wrong R^k).
+    """
     bsp, rho13, rho24 = ne_grid
     fast = slater_rk(rho13, rho24, bsp, k, method="poisson")
     slow = slater_rk(rho13, rho24, bsp, k, method="direct")
-    # Agreement to a few percent; the residual is the direct method's
-    # diagonal (r₁≈r₂) product-quadrature error, which is larger for sharp
-    # inner-shell densities (here 1s×2p) and grows mildly with rank k.
-    # Poisson is the accurate reference here — it resolves the cusp per
-    # interval — so this bound characterises the *direct* method's error.
-    assert fast == pytest.approx(slow, rel=5e-2)
+    assert fast == pytest.approx(slow, rel=1e-10)
+
+
+@pytest.mark.parametrize("Z", [1, 10, 26])
+def test_r0_of_hydrogenic_1s_is_the_closed_form(ne_grid, Z):
+    """R⁰(1s,1s) = F⁰(1s,1s) = 5Z/8 for a hydrogenic 1s (Slater–Condon).
+
+    The 1s radial function is P(r) = 2 Z^{3/2} r e^{−Zr}, normalised as
+    ∫P²dr = 1, so with ρ₁₁ = P²
+
+        R⁰(1s,1s) = ∫∫ ρ₁₁(r) (r_<⁰/r_>¹) ρ₁₁(r′) dr dr′ = 5Z/8
+
+    (independently re-integrated with scipy: 0.62500004 at Z=1,
+    6.25000013 at Z=10).  Evaluated here on the Ne physics quadrature grid,
+    which is what the rest of this file uses; measured 2.84e-5 relative at
+    Z = 1, 10 and 26 — a *fixed* relative deviation, i.e. the Poisson
+    kernel's quadrature accuracy rather than a peak-resolution effect (a
+    smooth ρ = e^{−r} shows 1.37e-4 on the same grid).  Gate rel=1e-4,
+    3.5x the measurement — and this is the only assertion in the file that
+    would catch a *systematically* wrong R^k, since the two kernels share
+    the Y^k construction.
+    """
+    bsp = ne_grid[0]
+    gr = bsp["gr"]
+    P = 2.0 * Z ** 1.5 * gr * np.exp(-Z * gr)
+    rho11 = P * P
+    got = slater_rk(rho11, rho11, bsp, 0, method="poisson")
+    assert got == pytest.approx(5.0 * Z / 8.0, rel=1e-4), (
+        f"R0(1s,1s) Z={Z}: atomx={got!r}, closed form 5Z/8={5.0*Z/8.0!r}"
+    )
 
 
 def test_dispatch_matches_direct_helpers(ne_grid):
@@ -100,6 +136,7 @@ def test_auger_api_honours_method(ne_grid):
                                    e[0], e[1], method="poisson", **common)
     slow = auger_rate_two_electron(a[0], a[1], b[0], b[1], c[0], c[1],
                                    e[0], e[1], method="direct", **common)
-    # rate ∝ R_k², so tolerance is ~2× the integral tolerance
-    assert fast == pytest.approx(slow, rel=1e-1)
+    # rate ∝ R_k², so the rate tolerance is ~2x the integral tolerance.
+    # Measured agreement 6.86e-14 relative (gate 1e-10; was rel=1e-1).
+    assert fast == pytest.approx(slow, rel=1e-10)
     assert fast > 0.0

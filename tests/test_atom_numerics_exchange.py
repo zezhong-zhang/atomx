@@ -63,6 +63,7 @@ def test_default_numerics_slater_equals_shooting_slater():
     assert explicit.orbital_energies == default.orbital_energies
 
 
+@pytest.mark.snapshot
 def test_gu_defaults_to_shooting_engine():
     """numerics=None + exchange='gu' routes via the shooting engine."""
     default = Atom(**FE17, exchange="gu", corrections="none").solve()
@@ -130,7 +131,18 @@ def test_alpha_x_rejected_for_non_slater():
 
 def test_bspline_gu_matches_shooting_gu():
     """Gu's α_xc(Z, N) model on both engines: same physics, different
-    numerics — Fe XVII total energies agree to < 0.5%."""
+    numerics — Fe XVII total energies must agree to < 1e-5 relative.
+
+    Shared kernel: the α_xc table (``atomx.physics.local_exchange``) and the
+    jj-average angular coefficients.  NOT shared: the radial solver — the
+    B-spline engine builds Galerkin matrices, the shooting engine integrates
+    the Salvat-style ODEs.  Measured 2026-09-22: 1.204e-4 Ha
+    (rel 1.050e-7); the previous gate, rel < 5e-3, was 5.73 Ha = 156 eV and
+    47600x looser.  A sibling gate (``test_atom_surface_equivalence.py``)
+    pins a *non-converged* B-spline gu energy, so the engines are known not
+    to solve identical equations to machine precision; 1e-5 is ~95x the
+    measured agreement.
+    """
     # Local-exchange SCF on the B-spline engine needs ~45 iterations
     # for Fe XVII (just past the default 40 cap).
     bspline = Atom(**FE17, engine="bspline", exchange="gu").solve(
@@ -139,7 +151,10 @@ def test_bspline_gu_matches_shooting_gu():
     assert bspline.converged
     rel = abs(bspline.total_energy - shooting.total_energy) / abs(
         shooting.total_energy)
-    assert rel < 5e-3
+    assert rel < 1e-5, (
+        f"bspline={bspline.total_energy:.9f} shooting="
+        f"{shooting.total_energy:.9f} rel={rel:.3e} (measured 1.050e-7)"
+    )
 
 
 # ----------------------------------------------------------------------

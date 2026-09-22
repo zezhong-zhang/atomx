@@ -31,15 +31,19 @@ def fe17():
     return a
 
 
+@pytest.mark.snapshot
 def test_fe_k_shift_matches_fac_scale(fe17):
     """Fe^16+ 1s QED shift = +3.93 eV/electron (SE 4.28 - Uehling 0.35).
 
-    Re-pinned 2026-09-19.  The previous 7-11 eV window was satisfied by
-    two cancelling errors: the self-energy table was 4.7x too large at
-    Z=26 (20.2 eV instead of 4.28 eV) and ``qed_orbital_shifts`` divided
-    the already per-electron SE by the occupancy (2 for the 1s), halving
-    it.  The self-energy now comes from FAC's F(Zα) and the occupancy
-    division is gone, so this is a real external-scale check.
+    Frozen self-regression, NOT an external gate: the FAC numbers in the
+    line above are prose — the assertion is a 3.5–4.4 eV window on a
+    value (3.9274 eV) that commit 200d657 re-pinned in the same change
+    that fixed the kernel, so it is atomx's own output wearing a band.
+    It does still discriminate the two defect classes it was written for
+    (the 3.9x Uehling kernel error moves it to 2.91 eV, the 4.7x SE
+    table error to ~14 eV), which is why it is kept rather than deleted.
+    To make it a B-class gate, assert the FAC Fe XVII 1s self-energy
+    literal with rel=0.02 — that number is not in the repo yet.
     """
     sh = qed_orbital_shifts(fe17._result)
     ev = sh["1s1/2"] * HARTREE_EV

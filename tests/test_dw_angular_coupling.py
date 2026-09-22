@@ -164,23 +164,34 @@ class TestAllowedK:
 
 
 class TestParityConservation:
-    """Test that parity conservation is enforced in channel selection."""
+    """Parity conservation, asserted through the kernel (S5 finding 19).
 
-    def test_s_to_p_parity_allowed(self):
-        # κ_i=-1 (l=0), κ_f=-2 (l=1), κ_in=-1 (l=0), κ_out=-2 (l=1)
-        # l_i + l_in + l_f + l_out = 0+0+1+1 = 2 (even) → allowed
-        l_i, l_in, l_f, l_out = 0, 0, 1, 1
-        assert (l_i + l_in + l_f + l_out) % 2 == 0
+    The previous two tests did the arithmetic in the test body
+    (``assert (0+0+1+1) % 2 == 0``) and never called atomx; the exchange-phase
+    class was the same.  This one asserts the consequence inside the kernel:
+    for a parity-forbidden multipole the m-summed angular coefficient is
+    *exactly* zero, and for the allowed one it is not.
+    """
 
-    def test_s_to_s_parity_forbidden(self):
-        # κ_i=-1 (l=0), κ_f=-1 (l=0), κ_in=-1 (l=0), κ_out=-1 (l=0)
-        # l_i + l_in + l_f + l_out = 0+0+0+0 = 0 (even) → allowed
-        # But wait, this is elastic scattering, not excitation. For excitation,
-        # κ_i ≠ κ_f. Let me use a case where parity is odd:
-        # κ_i=-1 (l=0), κ_f=1 (l=1), κ_in=-1 (l=0), κ_out=-1 (l=0)
-        # l_i + l_in + l_f + l_out = 0+0+1+0 = 1 (odd) → forbidden
-        l_i, l_in, l_f, l_out = 0, 0, 1, 0
-        assert (l_i + l_in + l_f + l_out) % 2 != 0
+    def test_parity_forbidden_multipole_has_zero_kernel_coefficient(self):
+        from atomx.scattering.distorted_wave.solver import (
+            _allowed_k,
+            _cc_direct,
+            _cc_exchange,
+        )
+
+        # 1s1/2 -> 2p1/2 (kappa -1 -> -2, l = 0 -> 1): l_a + l_b + k even
+        # excludes k = 0, so only the dipole survives.
+        assert _allowed_k(-1, -2) == [1]
+        assert _cc_direct(-2, -2, -1, -1, 2, 0) == 0.0
+        assert _cc_exchange(-2, -2, -1, -1, 2, 0) == 0.0
+        assert _cc_direct(-2, -2, -1, -1, 2, 1) != 0.0
+        assert _cc_exchange(-2, -2, -1, -1, 2, 1) != 0.0
+
+        # s -> s (kappa -1 -> -1) is the complementary case: k = 0 only.
+        assert _allowed_k(-1, -1) == [0]
+        assert _cc_direct(-1, -1, -1, -1, 0, 0) != 0.0
+        assert _cc_direct(-1, -1, -1, -1, 0, 1) == 0.0
 
 
 class TestTargetStateMetadata:
@@ -298,26 +309,6 @@ class TestWigner6jRecoupling:
                 else:
                     assert abs(total) < 1e-10, \
                         f"Orthogonality (off-diag) failed for k1={k1}, k2={k2}: got {total}"
-
-
-class TestExchangePhase:
-    """Test exchange phase factor calculations."""
-
-    def test_direct_phase_half_integer(self):
-        # Phase (-1)^{(j_in + j_f + J)/2} with twice-j values
-        # j_in=1/2 (tj=1), j_f=3/2 (tj=3), J=1 (tJ=2)
-        # exponent = (1+3+2)/2 = 3 → (-1)^3 = -1
-        tj_in, tj_f, tJ = 1, 3, 2
-        exp = (tj_in + tj_f + tJ) // 2
-        assert exp % 2 == 1  # odd → phase = -1
-
-    def test_antisymmetrization_phase(self):
-        # Phase (-1)^{(j_f + j_out - J)/2}
-        # j_f=3/2 (tj=3), j_out=1/2 (tj=1), J=1 (tJ=2)
-        # exponent = (3+1-2)/2 = 1 → (-1)^1 = -1
-        tj_f, tj_out, tJ = 3, 1, 2
-        exp = (tj_f + tj_out - tJ) // 2
-        assert exp % 2 == 1  # odd → phase = -1
 
 
 class TestJITKernel:

@@ -10,8 +10,17 @@ exercises it:
    (2p3/2 hole + 3p3/2/3p1/2 pair) with the J_a = 0 intermediate term
    reproduces the FAC AITable width to 1.7 % (measured 2026-09-17:
    atomx 3.993e14 vs FAC 3.927e14 s^-1);
-3. a smoke/envelope gate over the five panel channels: every rate finite,
-   positive and within a factor 10 of FAC (measured 0.18-3.86x).
+3. an envelope gate over the five panel channels: every rate finite, positive
+   and inside [0.1, 1.1] x FAC (measured 2026-09-20, post-R7:
+   0.097 / 1.007 / 0.236 / 0.361 / 0.795, i.e. a 10.4x spread).  The ceiling
+   was tightened from 10 to 1.1 (a 9x tightening) once the panel's own
+   measurements showed the old band could not see a factor-2 error; the 0.1
+   floor is unchanged, so the one channel that fails it still fails, loudly
+   (``xfail(strict=True)``).
+4. a *differential* gate that does not depend on the angular factor: the
+   per-channel ratio atomx/FAC should be constant across the five rows if the
+   module's only error were a common scale.  Measured spread 10.4x; the
+   honest next milestone (< 2x) is recorded as a strict xfail.
 
 The FAC reference values come from ``tests/data/fe17_kll_auger_fac.json``
 (AITable, provenance inside that file), so the FAC assertions are marked
@@ -132,7 +141,7 @@ def test_ilev71_known_answer_vs_fac(kll_panel, fe17_result):
     strict=True,
 )
 def test_panel_rates_finite_and_within_factor_ten(kll_panel, fe17_result):
-    """Every panel channel: finite, positive, and within 10x of FAC.
+    """Every panel channel: finite, positive, and inside [0.1, 1.1] x FAC.
 
     Measured 2026-09-17 (lowest allowed intermediate J per channel):
     0.18 / 1.02 / 0.24 / 1.33 / 3.86 x FAC.  The J-resolved module is the
@@ -154,7 +163,34 @@ def test_panel_rates_finite_and_within_factor_ten(kll_panel, fe17_result):
             f"atomx={atomx:.3e} FAC={fac:.3e} atomx/FAC={ratio:.2f}"
         )
         assert atomx == atomx and atomx > 0.0, "non-finite/non-positive rate"
-        assert 0.1 <= ratio <= 10.0, (
-            f"ILEV {row['ilev']}: atomx/FAC={ratio:.2f} outside [0.1, 10]; "
+        assert 0.1 <= ratio <= 1.1, (
+            f"ILEV {row['ilev']}: atomx/FAC={ratio:.2f} outside [0.1, 1.1]; "
             "panel:\n" + "\n".join(report)
         )
+
+
+@pytest.mark.external_fac
+@pytest.mark.xfail(
+    strict=True,
+    reason=(
+        "MEASURED panel spread max/min atomx/FAC = 1.007 / 0.097 = 10.4x "
+        "(2026-09-20, per-channel ratios 0.097 / 1.007 / 0.236 / 0.361 / "
+        "0.795 for ILEV 32 / 71 / 72 / 142 / 190).  A pure common-scale error "
+        "would leave this ratio constant across the panel, so the spread is "
+        "the part of the discrepancy the angular factor does NOT explain: it "
+        "needs per-level CI mixing and the orbital basis, not a scale "
+        "correction.  Target < 2x (the honest next milestone); the gate is "
+        "NOT widened to the measured 10.4x."
+    ),
+)
+def test_panel_ratio_spread_is_small(kll_panel, fe17_result):
+    """The per-channel atomx/FAC ratio must be panel-independent (< 2x)."""
+    ratios = []
+    for row in kll_panel["resonances"]:
+        fac = float(row["gamma_auger_per_s"])
+        ratios.append(_rate(fe17_result, row) / fac)
+    spread = max(ratios) / min(ratios)
+    assert spread <= 2.0, (
+        f"per-channel atomx/FAC spread {spread:.2f}x over ratios {ratios} — "
+        "the residual is channel-dependent, not a common scale"
+    )

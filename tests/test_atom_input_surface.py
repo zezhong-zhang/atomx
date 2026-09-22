@@ -1,16 +1,25 @@
-"""The public input surface of :class:`atomx.Atom`.
+"""The public input surface of :class:`atomx.Atom` — surface freeze, no physics.
 
-``Atom.__init__`` answers ten physical questions — one argument each.  Those
-ten names are frozen here so a future addition/removal fails loudly, and
-every keyword this constructor ever accepted *before* the canonical surface
-(28 flat keywords plus the six grouped dataclasses of the interim design) is
-checked to fail with a message that names its replacement.  There are no
-aliases: the old spelling must not bind, and it must not raise a bare
-``TypeError`` either.
+**This file validates no physics.**  Every node in it is class F (plumbing) or
+E (tautology guards) in the audit's rubric: the signature of the canonical
+constructor, the routing of 26 retired keyword names to the replacement keyword
+that now carries them, the frozenness of the value objects, and the resolution
+tables the constructor consults.  It exists because the clean-break migration
+(``3567c5e``) deleted those names, and a stale name that silently binds a
+*different* physical meaning is the one failure mode worth freezing.  Nothing
+here would notice if the SCF, the Breit operator or the plasma screening were
+wrong.
 
-The physics wired behind the grouped objects (plasma screening, the radial
-box, the multi-configuration self-energy backend, the Slater-integral
-backend) is measured in ``tests/test_atom_inputs_wired.py``.
+The physics wired behind the grouped objects (plasma screening, the radial box,
+the multi-configuration self-energy backend, the Slater-integral backend) is
+measured in ``tests/test_atom_inputs_wired.py``; the correction stack is gated
+in ``tests/test_corrections_stack.py``.
+
+Error-message assertions here check the error *type* plus the distinctive token
+that carries the information a user needs (the offending name, or the
+replacement keyword).  Prose in the message ("retired", "MIGRATION",
+"see docs…") is deliberately not asserted: a message rewrite is not a physics
+regression, and freezing prose would fail this gate for the wrong reason.
 """
 
 from __future__ import annotations
@@ -129,14 +138,18 @@ def test_every_argument_is_documented_in_the_class_docstring():
     pytest.param(n, v, t, id=n) for n, (v, t) in RETIRED.items()
 ])
 def test_retired_keyword_names_its_replacement(name, value, tokens):
+    """The error is a ``TypeError`` naming the offending name and its home.
+
+    ``tokens`` is the replacement keyword (``engine=``, ``corrections=``, …),
+    i.e. the one piece of the message a caller must act on.  The message's
+    prose is not asserted — see the module docstring.
+    """
     with pytest.raises(TypeError) as excinfo:
         Atom(10, **{name: value})
     message = str(excinfo.value)
     assert name in message, message
-    assert "retired" in message, message
     for token in tokens:
         assert token in message, f"{name}: {token!r} not in {message!r}"
-    assert "MIGRATION" in message, message
 
 
 def test_unknown_keyword_lists_the_valid_ones():
@@ -273,7 +286,18 @@ def test_string_forms_resolve_to_the_object_forms():
 
 
 def test_correction_presets_map_to_the_booleans():
-    for preset, (breit, qed) in CORRECTION_PRESETS.items():
+    """Literal expectations: the four preset *strings* and their booleans.
+
+    Iterating the module's own ``CORRECTION_PRESETS`` (as this test used to)
+    asserts only that the dict equals itself; the literals below are the
+    documented mapping, so deleting or flipping a preset fails here.
+    """
+    for preset, (breit, qed) in {
+        "none": (False, False),
+        "breit": (True, False),
+        "qed": (False, True),
+        "breit+qed": (True, True),
+    }.items():
         atom = Atom(10, corrections=preset)
         assert (atom.breit, atom.qed) == (breit, qed), preset
     default = Atom(10)

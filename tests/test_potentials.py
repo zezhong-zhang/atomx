@@ -101,10 +101,13 @@ class TestThomasFermi:
         ne.solve()
         assert ne.iterations == 1
 
-    def test_starting_potential_tfda(self):
-        """TFDA starting potential should accelerate HF convergence."""
+    def test_tfda_starting_potential_does_not_change_the_answer(self):
+        """Whatever the start does, the converged fixed point must be the same.
+
+        Measured 2026-09-22: E = -128.6299783505843 Ha bit-identical with
+        ``starting_potential=None`` and ``starting_potential="tfda"``.
+        """
         from atomx import Atom, Basis
-        # Without starting potential
         ne1 = Atom(Z=10, exchange="hf", basis=Basis(ns=50, ks=9))
         ne1.solve(max_iter=60, tol=1e-5)
         ne2 = Atom(
@@ -113,16 +116,39 @@ class TestThomasFermi:
                    basis=Basis(starting_potential="tfda", ns=50, ks=9),
               )
         ne2.solve(max_iter=60, tol=1e-5)
-
-        # The TFDA starting potential must converge at least as fast as the
-        # default start.  This assertion was missing: the two iteration counts
-        # were computed and never used, so the test only checked `converged`.
-        # Measured on Ne (2026-09-18): 12 iterations both ways, so the claim
-        # "not worse" holds with equality.
         assert ne2.converged
-        assert ne2.iterations <= ne1.iterations, (
+        assert ne2.total_energy == ne1.total_energy
+
+    @pytest.mark.xfail(
+        strict=True,
+        reason=(
+            "The TFDA starting potential is silently IGNORED on the "
+            "Atom/Basis route: Ne HF converges in 12 iterations and to the "
+            "bit-identical total energy -128.6299783505843 Ha with "
+            "starting_potential=None, 'tfda' and 'gsz' alike, so it cannot "
+            "accelerate anything.  Named cause: DFSolver consumes "
+            "starting_potential only in its first hydrogenic eigensolve "
+            "(dirac_fock.py:1726-1777), and the MCDHF/Atom route skips that "
+            "branch because it warm-starts from seed_orbitals; the option is "
+            "live only for a directly constructed DFSolver.  The test that "
+            "used to live here asserted `<=` and passed on 12 vs 12."
+        ),
+    )
+    def test_tfda_starting_potential_accelerates_hf_convergence(self):
+        """TFDA starting potential should *strictly* accelerate HF convergence."""
+        from atomx import Atom, Basis
+        ne1 = Atom(Z=10, exchange="hf", basis=Basis(ns=50, ks=9))
+        ne1.solve(max_iter=60, tol=1e-5)
+        ne2 = Atom(
+                   Z=10,
+                   exchange="hf",
+                   basis=Basis(starting_potential="tfda", ns=50, ks=9),
+              )
+        ne2.solve(max_iter=60, tol=1e-5)
+        assert ne2.iterations < ne1.iterations, (
             f"tfda start converged in {ne2.iterations} iterations vs "
-            f"{ne1.iterations} for the default start")
+            f"{ne1.iterations} for the default start"
+        )
 
 
 class TestGSZ:

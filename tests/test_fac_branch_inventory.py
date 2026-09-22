@@ -1,3 +1,21 @@
+"""Inventory snapshots of the FAC angular-coefficient coverage *gaps*.
+
+Every assertion here is a frozen count taken from ``scripts/
+fac_branch_inventory.py`` (D-class): 210 of the 330 Fe XVII rows still have
+no production FAC angular coefficient, 192 branch-9 two-electron rows are
+"pending", 12 one-diff rows use a closed-spectator fallback and 6 use a
+plain unit-coefficient fallback.  These are a **coverage budget for
+unimplemented physics**, not validation of the FAC port — the ported
+branches are gated end-to-end by ``tests/test_fac_dfs_shooting.py``
+(atomx vs the FAC calibration panel) and by the FAC angular-coefficient
+fixtures elsewhere in the suite.  The whole module is marked ``snapshot``
+so ``pytest -m "not snapshot"`` does not count it as physics coverage.
+
+Missing gate the audit asked for (deferred, needs a FAC run or a frozen
+``benchmarks/fac_dumps`` level table): an end-to-end Fe XVII level energy
+for the ``fac-angular`` branches against live ``sfac``.
+"""
+
 from __future__ import annotations
 
 import csv
@@ -5,10 +23,19 @@ import sys
 from collections import Counter
 from pathlib import Path
 
+import pytest
+
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent / "scripts"
 sys.path.insert(0, str(SCRIPTS_DIR))
 
-from fac_branch_inventory import FE17_CONFIGS, BranchRow, inventory_panel, print_summary
+from fac_branch_inventory import (  # noqa: E402
+    FE17_CONFIGS,
+    BranchRow,
+    inventory_panel,
+    print_summary,
+)
+
+pytestmark = pytest.mark.snapshot
 
 
 def test_belike_inventory_marks_supported_branch8_terms():

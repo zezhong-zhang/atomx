@@ -13,11 +13,26 @@ together gave Ne ~2× too-deep binding (–225 Ha vs shooting's –128.62 Ha):
    the potential (not the orbitals) with ``factor = 0.2``; without it,
    the B-spline loop root-swaps between iterations.
 
-These tests pin the closed-shell energies against atomx's own shooting
-backend (Salvat-style ODE DHFS) at 10⁻³ relative.  Shooting is the
-canonical reference for local-exchange atoms in atomx, and the
-matching ``α_x = 1.5`` is the Slater 1951 original value that both
-backends share.
+These tests gate the closed-shell energies two ways:
+
+1. **External oracle (B).** ``test_neon_slater_matches_salvat_dhfs`` compares
+   the B-spline Slater SCF to Salvat's independently written Fortran
+   ``radial/DHFS`` program (α = 1.5, point nucleus, 1000-point grid,
+   R_max = 75 a₀, Ne 1s² 2s² 2p⁶ → −128.623390 Ha).  Run 2026-09-22:
+   ``./DHFS < Z010.in`` gives ``Total binding energy = -1.2862339E+02 Eh``
+   for the point nucleus.  atomx B-spline: −128.6234601, i.e. 7.0e-5 Ha
+   apart.
+2. **Cross-engine (C).** ``test_neon/argon_slater_matches_shooting`` compares
+   the B-spline Galerkin SCF to the shooting ODE solver.  The two engines
+   share the jj-average angular coefficients and the α_x = 1.5 value; they
+   share no radial kernel (Galerkin B-spline matrices vs the Salvat-style
+   ODE integrator), so an error in either kernel shows up.  Gates are
+   absolute, sized at ~2x the measured agreement: Ne 1.049e-4 Ha
+   (rel 8.16e-7), Ar 1.538e-5 Ha (rel 2.91e-8).
+
+The docstring's bug history is a 2x error (−225 vs −128.6 Ha), which is what
+a 1e-3 *relative* gate could catch and nothing finer; the absolute gates
+above are 6000x and 34000x tighter.
 """
 
 import pytest
@@ -81,12 +96,32 @@ class TestBsplineSlaterClosedShell:
 
     def test_neon_slater_matches_shooting(self, ne_shooting_total_energy):
         result = _dfsolver_slater(10, "1s2 2s2 2p6")
-        rel = abs(result.total_energy - ne_shooting_total_energy) / abs(
-            ne_shooting_total_energy
+        diff = abs(result.total_energy - ne_shooting_total_energy)
+        # Measured 1.0492e-4 Ha (rel 8.16e-7) on 2026-09-22; the previous
+        # 1e-3 *relative* gate was 0.129 Ha, i.e. 1226x looser.
+        assert diff < 2.0e-4, (
+            f"Ne Slater B-spline E={result.total_energy:.6f} vs shooting "
+            f"E={ne_shooting_total_energy:.6f} (abs={diff:.3e} Ha)"
         )
-        assert rel < 1e-3, (
-            f"Ne Slater B-spline E={result.total_energy:.4f} vs shooting "
-            f"E={ne_shooting_total_energy:.4f} (rel={rel:.2e})"
+
+    def test_neon_slater_matches_salvat_dhfs(self):
+        """External oracle: Salvat's ``radial/DHFS``, α = 1.5, point nucleus.
+
+        ``~/code/ASAP/radial/DHFS/Z010.in`` (Ne 1s² 2s² 2p⁶, α = 1.5,
+        point nucleus, 1000-point grid, R_max = 75 a₀) prints
+        ``Total binding energy = -1.2862339E+02 Eh``; the same number is
+        recorded in ``benchmarks/results_shooting.csv`` and used by
+        ``tests/test_slater_integral_slag6.py``.  It is a *different code*
+        (independent Fortran implementation of the same DHFS model), not an
+        atomx output.  Measured atomx B-spline Slater: −128.6234601 Ha,
+        7.0e-5 Ha away; gate 1.5e-4 Ha = 2.1x the measurement.
+        """
+        result = _dfsolver_slater(10, "1s2 2s2 2p6")   # point nucleus
+        salvat_point = -128.623390
+        diff = abs(result.total_energy - salvat_point)
+        assert diff < 1.5e-4, (
+            f"Ne Slater B-spline E={result.total_energy:.7f} Ha vs Salvat "
+            f"radial/DHFS {salvat_point:.6f} Ha (abs={diff:.3e} Ha)"
         )
 
     def test_argon_slater_converges(self):
@@ -95,12 +130,11 @@ class TestBsplineSlaterClosedShell:
 
     def test_argon_slater_matches_shooting(self, ar_shooting_total_energy):
         result = _dfsolver_slater(18, "1s2 2s2 2p6 3s2 3p6")
-        rel = abs(result.total_energy - ar_shooting_total_energy) / abs(
-            ar_shooting_total_energy
-        )
-        assert rel < 1e-3, (
-            f"Ar Slater B-spline E={result.total_energy:.4f} vs shooting "
-            f"E={ar_shooting_total_energy:.4f} (rel={rel:.2e})"
+        diff = abs(result.total_energy - ar_shooting_total_energy)
+        # Measured 1.538e-5 Ha (rel 2.91e-8); the replaced gate was 0.529 Ha.
+        assert diff < 5.0e-5, (
+            f"Ar Slater B-spline E={result.total_energy:.6f} vs shooting "
+            f"E={ar_shooting_total_energy:.6f} (abs={diff:.3e} Ha)"
         )
 
     def test_neon_slater_energy_components_signs(self):

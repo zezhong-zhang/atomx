@@ -36,15 +36,59 @@ class TestApplyOnDHF:
             assert isinstance(applied[name], CorrectionResult)
             assert np.isfinite(applied[name].energy_shift)
 
-    def test_total_matches_sum_of_applied(self, ne_result):
+    def test_default_stack_rung_values(self, ne_result):
+        """One anchored value per rung — this is the file that *applies* them.
+
+        Before this test the file checked only ``isfinite`` on the three
+        rungs it exists to exercise, so the 3.03x Breit error and any
+        future one was invisible here (the file's own ``Atom(Z=10)``
+        default route is the single-configuration one, which applies the
+        scalar).
+
+        * self-energy: FAC's F(10) = 4.65413 (``faclib/coulomb.c``
+          ``_qed_se0[0] + _qed_se1[0]``), quoted and gated in
+          ``test_qed_self_energy_table.py``; measured here 0.012119271.
+        * Uehling VP: the fixed ``I(2cr)`` kernel, measured
+          -0.000600937; the pre-fix ``K₁(2cr)`` kernel gave -0.002355
+          (3.9x outside the band).
+        * Breit: the scalar is 3.03x DBSR_HF (0.050437 vs
+          0.016643630840490), so the anchor is a strict xfail; see
+          ``test_qed.py::TestBreitQEDIntegration``.
+        """
         stack = CorrectionStack(
             se_backend="mohr", include_vp=True, include_breit=True,
         )
         applied = stack.apply(ne_result)
-        expected = sum(
-            r.energy_shift for k, r in applied.items() if k != "_skipped"
+        assert applied["self_energy[mohr]"].energy_shift == pytest.approx(
+            0.012119271040653664, rel=1e-3)
+        assert applied["uehling_vp"].energy_shift == pytest.approx(
+            -0.0006009368769866071, rel=1e-3)
+
+    @pytest.mark.external_fac
+    def test_default_stack_breit_rung_matches_dbsr_hf(self, ne_result):
+        """The Breit rung this stack applies must match DBSR_HF (1 %).
+
+        The rung is the scalar configuration-average sum of
+        ``corrections/breit.py``.  Before the 2026-09 ``1/(2L+1)`` fix on
+        its ``v = L`` channel it gave 0.050437103 Ha (3.03x DBSR_HF);
+        it now gives 0.016584899 (-0.35 %), the residual being its
+        ``v != L`` retardation channels, which are still ~50x too small.
+        The 1 % band excludes the pre-fix value by 200x.
+        """
+        stack = CorrectionStack(
+            se_backend="mohr", include_vp=True, include_breit=True,
         )
-        assert stack.total(applied) == pytest.approx(expected, rel=1e-12)
+        applied = stack.apply(ne_result)
+        e_breit = applied["breit"].energy_shift
+        assert e_breit == pytest.approx(0.016643630840490, rel=0.01), (
+            f"stack `breit` rung {e_breit:.9f} Ha vs DBSR_HF "
+            f"0.016643630840490 Ha (ratio {e_breit / 0.016643630840490:.5f})")
+
+    # ``test_total_matches_sum_of_applied`` was deleted here: it asserted
+    # ``stack.total(applied) == sum(r.energy_shift ...)``, which is the
+    # definition of ``CorrectionStack.total`` (``stack.py``:137-142), so it
+    # could not fail for any physics reason (rubric class E — "a test that
+    # re-implements a one-line function and checks it agrees with itself").
 
     def test_disabling_se_removes_it(self, ne_result):
         stack = CorrectionStack(

@@ -1,3 +1,5 @@
+import math
+
 import numpy as np
 import pytest
 
@@ -12,6 +14,29 @@ from atomx.numerics.bspline.local_potential import (
     radial_density_from_orbitals,
     solve_orbitals_in_local_potential,
 )
+
+#: CODATA 2018 fine-structure constant: the closed form below must not depend
+#: on an atomx constant.
+_ALPHA = 1.0 / 137.035999084
+
+
+def _dirac_coulomb(n: int, kappa: int, Z: float) -> float:
+    """Exact point-Coulomb Dirac eigenvalue, in Hartree (see
+    ``tests/test_dirac_hydrogenic.py`` for the derivation):
+
+        gamma = sqrt(kappa^2 - (Z alpha)^2)
+        N     = sqrt((n - |kappa| + gamma)^2 + (Z alpha)^2)
+        E     = m c^2 (sqrt(1 - (Z alpha / N)^2) - 1)
+
+    Used here because a ``-Z/r`` potential makes the solver's eigenvalues
+    hydrogenic *and relativistic*: the Schrodinger value -Z^2/(2n^2) is
+    1.3e-3 relative away at Z=10, so the closed form also proves the
+    relativistic kinematics are wired in.
+    """
+    gamma = math.sqrt(kappa * kappa - (Z * _ALPHA) ** 2)
+    N = math.sqrt((n - abs(kappa) + gamma) ** 2 + (Z * _ALPHA) ** 2)
+    c = 1.0 / _ALPHA
+    return c * c * (math.sqrt(1.0 - (Z * _ALPHA / N) ** 2) - 1.0)
 
 
 def test_local_potential_solver_matches_nuclear_only_dirac_matrix():
@@ -39,6 +64,16 @@ def test_local_potential_solver_matches_nuclear_only_dirac_matrix():
 
     for key in ((1, -1), (2, 1), (2, -2)):
         n, kappa = key
+        # (a) Independent closed form: a pure -Z/r potential *is* the
+        #     hydrogenic problem, so the eigenvalue must be the exact Dirac
+        #     value.  Measured 2.0e-8 / 1.2e-8 / 2.3e-8 relative; gate 1e-7.
+        closed = _dirac_coulomb(n, kappa, Z)
+        assert energies[key] == pytest.approx(closed, rel=1e-7), (
+            f"{key}: atomx={energies[key]!r} Dirac closed form={closed!r}"
+        )
+        assert energies[key] != pytest.approx(-Z * Z / (2.0 * n * n), rel=1e-6)
+        # (b) And the same value as the direct matrix path (this part is the
+        #     C-class indexing check: both sides share build_dirac_matrices).
         H, S = build_dirac_matrices(int(bsp_data["ns"]), kappa, Z, bsp_data)
         direct = solve_dirac(
             H,
@@ -354,6 +389,15 @@ def test_radial_density_from_orbitals_rejects_invalid_physics_inputs():
     assert np.all(rho == 0.0)
 
 def test_local_central_interaction_matrices_project_central_minus_nuclear():
+    """API contract (C-degenerate by construction): this re-runs the
+    source's own ``0.5(A + A^T)`` Galerkin projection of
+    ``central - nuclear`` with ``grw * delta_v``, so it detects an indexing
+    or weighting change, not a physics error.
+
+    The independent statement added here is the closed form for the nuclear
+    channel: for a ``-Z/r`` nucleus that channel *is* ``-Z/r`` exactly on the
+    quadrature grid (measured 1.8e-16 relative, i.e. round-off).
+    """
     from atomx.numerics.bspline.integrals import _assemble_integral
 
     ns = 20
@@ -373,6 +417,9 @@ def test_local_central_interaction_matrices_project_central_minus_nuclear():
         fac_self_interaction_correction=True,
         latter_correction=True,
     )
+
+    # Closed form, independent of the density/exchange model.
+    np.testing.assert_allclose(local["nuclear"], -10.0 / gr, rtol=1.0e-13)
 
     delta_v = np.asarray(local["central"]) - np.asarray(local["nuclear"])
     nv = int(bsp_data["nv"])
@@ -396,6 +443,15 @@ def test_local_central_interaction_matrices_project_central_minus_nuclear():
 
 
 def test_fac_local_potential_from_orbitals_matches_density_builder():
+    """API contract (C-degenerate by construction):
+    ``fac_local_central_potential_from_orbitals`` *is*
+    ``radial_density_from_orbitals`` followed by
+    ``local_central_potential_from_radial_density``
+    (``local_potential.py:294-303``), and the test performs the same two
+    calls — it gates the wrapper's wiring, not new physics.
+
+    The independent closed-form assertion is the nuclear channel = ``-Z/r``.
+    """
     ns = 20
     ks = 6
     bsp_data = prepare_bspline_data(
@@ -435,6 +491,10 @@ def test_fac_local_potential_from_orbitals_matches_density_builder():
     assert from_orbitals["n_total"] == pytest.approx(2.0)
     for key in ("nuclear", "hartree", "exchange", "central"):
         np.testing.assert_allclose(from_orbitals[key], direct[key])
+    # Independent closed form: the nuclear channel is exactly -Z/r.
+    gr = np.asarray(bsp_data["gr"], dtype=float)
+    np.testing.assert_allclose(from_orbitals["nuclear"], -10.0 / gr,
+                               rtol=1.0e-13)
 
 
 def test_fac_local_interaction_matrices_from_orbitals_matches_density_path():

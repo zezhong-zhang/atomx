@@ -142,7 +142,18 @@ def test_slag6_is_default() -> None:
     "Z, config, ref_Eh",
     [
         # Neutral-atom DHFS.f reference totals (point nucleus, Slater α=1.5).
-        # Source: benchmarks/results_shooting.csv
+        # Source: benchmarks/results_shooting.csv — Salvat's independent
+        # Fortran radial/DHFS (Z010.in, α=1.5, 1000-pt grid, R_max=75 a₀;
+        # re-run 2026-09-22 → "Total binding energy = -1.2862339E+02 Eh").
+        # This is one of FOUR pins of the Ne ground state in this suite, each
+        # a different physics question:
+        #   -128.69197   point nucleus, HF exchange,     B-spline DFSolver
+        #                (tests/test_scf.py:142; DBSR_HF -128.69192580)
+        #   -128.6299783 Fermi nucleus, HF exchange,     B-spline
+        #                (tests/test_atom_surface_equivalence.py:32/105)
+        #   -128.623390  point nucleus, Slater α=1.5,    shooting   <- here
+        #   -128.623437  Fermi nucleus, Slater α=1.5,    B-spline
+        #                (tests/test_exchange_model_is_honoured.py:9)
         (10, "1s2 2s2 2p6", -128.623390000),
         (26, "1s2 2s2 2p6 3s2 3p6 3d6 4s2", -1271.199400000),
         (82, "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p2",

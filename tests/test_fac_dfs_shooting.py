@@ -5,22 +5,35 @@ Task 0 (``docs/plans/2026-04-20-fac-calibration/calibration.csv``).  The
 panel is a 13-row *sample* spanning Z = 2..92 (Z = 2, 3, 4, 6, 10, 18,
 26 x2, 36, 54, 74, 82, 92) — not every Z in that range.
 
-Gate history (2026-09-17 validation-integrity pass)
---------------------------------------------------
-This file previously pointed at
-``docs/superpowers/plans/2026-04-20-fac-calibration/calibration.csv``, a path
-that does not exist (the real directory is ``docs/plans/...``), so
-``_load_reference()`` returned ``[]`` and the headline gate self-skipped
-forever.  With the path fixed the gate RUNS, and the honest numbers are:
+Flags must match the reference (2026-09-22 physics-audit remediation)
+--------------------------------------------------------------------
+``extract_AHX.py:56-59`` generated the ``E0_eV`` column with
+``SetSE(0)``, ``SetVP(0)``, ``SetMS(0,0)`` and ``SetBreit(0)`` — i.e. **no
+self-energy, no vacuum polarisation, no Breit**.  The test used to run
+``Atom(..., corrections="qed")`` against that QED-free panel, so part of
+every residual was a flag mismatch rather than an atomx accuracy error:
+the atomx QED shift alone is 370.0 eV at Z=74 and 960.7 eV at Z=92, the
+same size as the gate itself (1e-3 x 494345 eV = 494 eV at Z=92).  The run
+is now ``corrections="none"``, i.e. the same operators as the reference.
 
-* Z <= 10 rows: worst |ΔE|/|E| = 6.3e-4 (gate 1e-3);
-* full panel:    worst |ΔE|/|E| = 4.10e-3 at Z=36 Ar-like, i.e. ~0.4 %.
+The two panels are different physics — ``results_fac_structure.csv`` (used
+by ``test_fac_structure_snapshot.py``) *is* a QED-on/Breit-off FAC run, this
+calibration panel is not.
 
-The README's "Z = 2..92, 5 x 10^-4" structure-parity claim is therefore NOT
-supported by this reference file (nor is the 1e-3 gate the code carried
-while dormant).  The test now asserts the measured envelope, tiered by the
-light/heavy split, and the README must be corrected to "sampled Z = 2..92
-panel, worst 0.41 % (Z=36); light ions Z <= 10 within 0.07 %".
+Gate sizing
+-----------
+``MEASURED_REL`` below records the matched-flag residual |ΔE|/|E| of every
+panel row, measured 2026-09-22.  The gate is **1.5 x the measured value for
+that row**: tight enough that any growth is caught, and strictly tighter
+than the tiered 1e-3 (light) / 2e-3 (panel) gates it replaces on *every*
+row — including Z=92, whose residual is dominated by a non-QED DFS
+local-exchange/screening model difference of 466.8 eV (9.4e-4 relative)
+that matched flags only reduce from 9.99e-4.
+
+The residual is what is left after the flags match: the Gu local-exchange
+model itself, the shooting-vs-FAC numerics, and at Z >= 74 the Latter /
+screening-tail treatment.  It is *not* a self-pin: the reference column is
+FAC 1.1.5's own output.
 """
 
 from __future__ import annotations
@@ -41,16 +54,31 @@ CALIBRATION = (
     / "calibration.csv"
 )
 
-# Tiers sized to the measured systematic (2026-09-17), not to the old claim.
-LIGHT_Z_MAX = 10
-LIGHT_GATE = 1.0e-3   # measured worst 6.3e-4 (Z=10)
-#: Measured 2026-09-19 (after the QED table/kernel fixes) with
-#: ``breit=False``, which is what FAC's default structure run uses.  The
-#: previous 5.0e-3 gate was sized around atomx running with Breit *on*
-#: against a Breit-free FAC reference — the gate was measuring that
-#: mismatch (5.8e-3 at Z=92), not atomx accuracy.  Matched flags give a
-#: 5x better agreement and a gate that can actually fail.
-PANEL_GATE = 2.0e-3   # measured worst 1.01e-3 (Z=74)
+#: Matched-flag residual |ΔE|/|E| per panel row, measured 2026-09-22 with
+#: ``corrections="none"`` — the operators ``extract_AHX.py`` used for the
+#: reference (SetSE/SetVP/SetMS/SetBreit all 0).  Keys are the CSV ``tag``
+#: column, so a row added to the panel fails loudly here instead of silently
+#: re-using another row's gate.
+MEASURED_REL = {
+    "Z002_N02_1s2": 1.3444e-04,
+    "Z003_N03_1s2_2s1": 4.1562e-05,
+    "Z004_N04_1s2_2s2": 5.3180e-05,
+    "Z006_N06_1s2_2s2_2p2": 6.4561e-04,
+    "Z010_N10_1s2_2s2_2p6": 1.2123e-05,
+    "Z018_N18_1s2_2s2_2p6_3s2_3p6": 7.2315e-07,
+    "Z026_N10_1s2_2s2_2p6": 3.2731e-06,
+    "Z026_N12_1s2_2s2_2p6_3s2": 2.9810e-06,
+    "Z036_N18_1s2_2s2_2p6_3s2_3p6": 9.2595e-06,
+    "Z054_N10_1s2_2s2_2p6": 4.6682e-05,
+    "Z074_N10_1s2_2s2_2p6": 2.2248e-04,
+    "Z082_N18_1s2_2s2_2p6_3s2_3p6": 3.6010e-04,
+    "Z092_N10_1s2_2s2_2p6": 9.4426e-04,
+}
+#: Gate = this multiple of the measured residual.  1.5x leaves room for FP
+#: drift while still failing on any real accuracy loss.
+GATE_MARGIN = 1.5
+#: Fallback for a panel row with no recorded measurement (re-measure!).
+UNMEASURED_GATE = 1.0e-3
 
 
 def _load_reference(max_Z: int | None = None) -> list[dict]:
@@ -109,32 +137,30 @@ def test_atomx_fac_total_energy_matches_sfac(row):
     e0_ref_eV = float(row["E0_eV"])
     charge = max(Z - nel, 0)
 
-    # FAC's default structure run has QED on and Breit OFF; `Atom`'s
-    # defaults are both on, so pin breit=False for a like-for-like
-    # comparison (see PANEL_GATE above).
+    # The reference column was produced with SetSE(0)/SetVP(0)/SetMS(0,0)/
+    # SetBreit(0) (extract_AHX.py:56-59), so the atomx run must use the same
+    # operators: corrections="none" (no QED, no Breit).  Running with
+    # corrections="qed" here compared two different physics questions.
     atom = Atom(
                 Z=Z,
                 charge=charge,
                 config=cfg,
                 engine="shooting",
                 exchange="gu",
-                corrections="qed",
+                corrections="none",
            )
     atom.solve()
     e_atomx_eV = atom.total_energy * HARTREE_EV
 
     rel = abs(e_atomx_eV - e0_ref_eV) / abs(e0_ref_eV)
-    # Tiered gate, re-measured 2026-09-19:
-    #   Z <= 10 (H/He/Be/C/Ne-like): 1e-3, measured worst 6.3e-4
-    #   full sampled panel:          2e-3, measured worst 1.01e-3 (Z=74)
-    # The residual is now the DFS local-exchange (``gu``) model itself plus
-    # the shooting-vs-basis engine difference; the QED contribution agrees
-    # with FAC to better than 1e-4 once the Breit flags match.
-    gate = LIGHT_GATE if Z <= LIGHT_Z_MAX else PANEL_GATE
+    measured = MEASURED_REL.get(row["tag"])
+    gate = (GATE_MARGIN * measured) if measured is not None else UNMEASURED_GATE
     assert rel < gate, (
         f"Z={Z}, cfg={cfg}: atomx={e_atomx_eV:.3f} eV, "
-        f"fac={e0_ref_eV:.3f} eV, rel={rel:.2e} (gate={gate:.0e}, "
-        f"panel worst measured: 6.3e-4 light / 4.10e-3 (Z=36) full panel)"
+        f"fac={e0_ref_eV:.3f} eV, rel={rel:.3e} (gate={gate:.3e}"
+        + (f" = 1.5 x measured {measured:.3e}" if measured is not None
+           else ", unmeasured row — re-measure and record it")
+        + ")"
     )
 
 

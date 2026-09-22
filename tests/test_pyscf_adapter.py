@@ -8,6 +8,7 @@ density, occupations, provenance, and the orthonormality consistency.
 
 from __future__ import annotations
 
+import importlib.util
 from types import SimpleNamespace
 
 import numpy as np
@@ -33,9 +34,21 @@ from atomx.scattering.autoionization.molecular import (  # noqa: E402
     molecular_auger_initial_state,
 )
 
+#: PySCF is an optional extra (``pyscf``).  The skip is explicit and names the
+#: extra: 15 of the 18 nodes below build a real RHF/ROHF with
+#: ``pyscf.gto``/``pyscf.scf``, and without a module-level marker they would
+#: vanish from a plain install with nothing but a one-line "could not import
+#: 'pyscf'" in the summary.  ``pyscf>=2.3`` is in the ``dev`` extra, so a fresh
+#: ``pip install -e .[dev]`` (or ``.[pyscf]``) runs every node here.
+HAS_PYSCF = importlib.util.find_spec("pyscf") is not None
+needs_pyscf = pytest.mark.skipif(
+    not HAS_PYSCF,
+    reason="PySCF is an optional dependency (the `pyscf` extra, pyscf>=2.3); "
+           "install with `pip install -e .[dev]`",
+)
+
 
 def _h2(basis="sto-3g"):
-    pytest.importorskip("pyscf")
     from pyscf import gto, scf
 
     mol = gto.M(atom="H 0 0 0; H 0 0 0.74", basis=basis, verbose=0)
@@ -45,7 +58,6 @@ def _h2(basis="sto-3g"):
 
 
 def _h2o(basis="sto-3g"):
-    pytest.importorskip("pyscf")
     from pyscf import gto, scf
 
     mol = gto.M(
@@ -58,6 +70,7 @@ def _h2o(basis="sto-3g"):
     return mol, mf
 
 
+@needs_pyscf
 def test_h2_roundtrip_basic_shapes():
     mol, mf = _h2()
     payload = from_scf(mf)
@@ -71,6 +84,7 @@ def test_h2_roundtrip_basic_shapes():
     np.testing.assert_allclose(payload.orbitals.energies, mf.mo_energy, atol=0)
 
 
+@needs_pyscf
 def test_h2_capabilities_and_provenance():
     _, mf = _h2()
     prov = PySCFProvider(mf)
@@ -87,6 +101,7 @@ def test_h2_capabilities_and_provenance():
     assert payload.provenance.code_version.startswith("pyscf ")
 
 
+@needs_pyscf
 def test_h2_overlap_is_nonorthogonal_but_mos_orthonormal():
     _, mf = _h2()
     payload = from_scf(mf)
@@ -98,12 +113,14 @@ def test_h2_overlap_is_nonorthogonal_but_mos_orthonormal():
     assert payload.orthonormality_residual() == pytest.approx(0.0, abs=1e-8)
 
 
+@needs_pyscf
 def test_h2_density_recovers_electron_count():
     mol, mf = _h2()
     payload = from_scf(mf)
     assert payload.electron_count() == pytest.approx(mol.nelectron, abs=1e-8)
 
 
+@needs_pyscf
 def test_h2_with_eri_exposes_two_electron_integrals():
     mol, mf = _h2()
     payload = from_scf(mf, with_eri=True)
@@ -117,6 +134,7 @@ def test_h2_with_eri_exposes_two_electron_integrals():
     )
 
 
+@needs_pyscf
 def test_h2o_roundtrip_validates():
     mol, mf = _h2o()
     payload = from_scf(mf)
@@ -126,8 +144,8 @@ def test_h2o_roundtrip_validates():
     assert payload.orthonormality_residual() == pytest.approx(0.0, abs=1e-7)
 
 
+@needs_pyscf
 def test_unsolved_meanfield_rejected():
-    pytest.importorskip("pyscf")
     from pyscf import gto, scf
 
     mol = gto.M(atom="H 0 0 0; H 0 0 0.74", basis="sto-3g", verbose=0)
@@ -136,6 +154,7 @@ def test_unsolved_meanfield_rejected():
         PySCFProvider(mf)
 
 
+@needs_pyscf
 def test_unconverged_meanfield_with_orbitals_rejected():
     _, mf = _h2()
     assert mf.mo_coeff is not None
@@ -148,6 +167,7 @@ def test_unconverged_meanfield_with_orbitals_rejected():
         PySCFProvider(mf)
 
 
+@needs_pyscf
 def test_build_payload_revalidates_convergence_before_consuming_orbitals():
     _, mf = _h2()
     provider = PySCFProvider(mf)
@@ -160,8 +180,8 @@ def test_build_payload_revalidates_convergence_before_consuming_orbitals():
         provider.build_payload()
 
 
+@needs_pyscf
 def test_unconverged_meanfield_rejected_before_mo_coeff_probe():
-    pytest.importorskip("pyscf")
 
     class UnconvergedMeanField:
         converged = False
@@ -182,6 +202,7 @@ def test_unconverged_meanfield_rejected_before_mo_coeff_probe():
     assert mf.mo_coeff_accessed is False
 
 
+@needs_pyscf
 def test_meanfield_missing_converged_status_rejected_fail_closed():
     _, mf = _h2()
     no_status = SimpleNamespace(mol=mf.mol, mo_coeff=mf.mo_coeff)
@@ -193,8 +214,8 @@ def test_meanfield_missing_converged_status_rejected_fail_closed():
         PySCFProvider(no_status)
 
 
+@needs_pyscf
 def test_throwing_converged_descriptor_rejected_without_leaking_detail():
-    pytest.importorskip("pyscf")
 
     class ThrowingConvergedMeanField:
         @property
@@ -213,6 +234,7 @@ def test_throwing_converged_descriptor_rejected_without_leaking_detail():
     assert exc_info.value.__suppress_context__ is True
 
 
+@needs_pyscf
 def test_truthy_non_bool_converged_rejected_fail_closed():
     _, mf = _h2()
     truthy_status = SimpleNamespace(converged=1, mol=mf.mol, mo_coeff=mf.mo_coeff)
@@ -224,6 +246,7 @@ def test_truthy_non_bool_converged_rejected_fail_closed():
         PySCFProvider(truthy_status)
 
 
+@needs_pyscf
 def test_core_hole_delta_scf_rejects_unconverged_ground_state():
     _, mf = _h2o()
     assert mf.mo_coeff is not None
@@ -236,10 +259,10 @@ def test_core_hole_delta_scf_rejects_unconverged_ground_state():
         from_core_hole_delta_scf(mf, "O 1s", max_cycle=1)
 
 
+@needs_pyscf
 def test_core_hole_delta_scf_rejects_unconverged_final_state_before_orbitals(
     monkeypatch,
 ):
-    pytest.importorskip("pyscf")
     from pyscf import scf
 
     _, ground_mf = _h2o()
@@ -280,8 +303,8 @@ def test_core_hole_delta_scf_rejects_unconverged_final_state_before_orbitals(
     assert final_states[0].mo_coeff_accessed is False
 
 
+@needs_pyscf
 def test_uhf_rejected_fail_closed():
-    pytest.importorskip("pyscf")
     from pyscf import gto, scf
 
     mol = gto.M(
@@ -361,6 +384,7 @@ def test_mom_core_hole_occ_tracks_orbital_character_after_column_swap():
     assert state.occupation_delta == pytest.approx(-1.0)
 
 
+@needs_pyscf
 def test_h2o_o_1s_core_hole_delta_scf_payload():
     mol, mf = _h2o()
     payload = from_core_hole_delta_scf(mf, "O 1s", max_cycle=80)

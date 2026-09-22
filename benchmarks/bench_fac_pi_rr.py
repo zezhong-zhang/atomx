@@ -35,6 +35,12 @@ from atomx.constants import BOHR_RADIUS_M, HARTREE_EV  # noqa: E402
 from atomx.numerics.bspline.continuum import photoionization_cross_section  # noqa: E402
 from atomx.scattering.radiative_recombination import rr_cross_section  # noqa: E402
 
+# NOTE (S5 finding 3): ``ContinuumModel.fac_residual_core`` is a *shooting*
+# continuum model and ``rr_cross_section`` supports only the E1 multipole on
+# that branch, so the panel is evaluated E1-only.  The SCF solve must be the
+# B-spline engine: the shooting engine leaves ``SCFResult._bsp_data = None``
+# and the RR kernel raises "SCFResult is missing _bsp_data".
+
 A0_CM2_X1E20 = (BOHR_RADIUS_M * 100.0) ** 2 * 1e20  # = 0.28003 (a₀² in 10⁻²⁰ cm²)
 FAC_CONTINUUM = ContinuumModel.fac_residual_core(n_grid=8000)
 
@@ -150,7 +156,7 @@ def run_he_like_fe(workdir: Path) -> List[Dict]:
 
     print("  [AtomX] He-like Fe^{24+} solve ...")
     t0 = time.perf_counter()
-    atom = Atom(Z=Z, config="1s2", corrections="none")
+    atom = Atom(Z=Z, config="1s2", corrections="none", engine="bspline")
     atom.solve()
     res = atom._result
     eps_1s = res.orbital_energies["1s1/2"]
@@ -168,6 +174,7 @@ def run_he_like_fe(workdir: Path) -> List[Dict]:
         rrres = rr_cross_section(
             res, E_eV, g_initial=rr["twoJ_f"] + 1,
             continuum_model=FAC_CONTINUUM,
+            multipoles=("E1",),
         )
         t_atomx = time.perf_counter() - t0
         sigma_atomx_1e20 = rrres.sigma_total_a0_sq * A0_CM2_X1E20
@@ -213,9 +220,9 @@ def run_li_like_fe(workdir: Path) -> List[Dict]:
     # capture artificially inflated the old gap.
     print("  [AtomX] Li-like Fe^{23+} final-state solves ...")
     t0 = time.perf_counter()
-    atom_2s = Atom(Z=Z, config="1s2 2s1", corrections="none")
+    atom_2s = Atom(Z=Z, config="1s2 2s1", corrections="none", engine="bspline")
     atom_2s.solve()
-    atom_2p = Atom(Z=Z, config="1s2 2p1", corrections="none")
+    atom_2p = Atom(Z=Z, config="1s2 2p1", corrections="none", engine="bspline")
     atom_2p.solve()
 
     level_by_ilev = {int(lv["ILEV"]): lv for lv in parse_levels(workdir / "fe23.lev")}
@@ -243,6 +250,7 @@ def run_li_like_fe(workdir: Path) -> List[Dict]:
             res, E_eV, g_initial=rr["twoJ_f"] + 1,
             capture_orbitals=capture_orbitals,
             continuum_model=FAC_CONTINUUM,
+            multipoles=("E1",),
         )
         t_atomx = time.perf_counter() - t0
         sigma_atomx_1e20 = rrres.sigma_total_a0_sq * A0_CM2_X1E20
@@ -288,6 +296,11 @@ def main() -> int:
             traceback.print_exc()
 
     csv_path = out_dir / "results_fac_pi_rr.csv"
+    if not rows:
+        # Never truncate the committed panel: a case that raises (see the
+        # module docstring) used to overwrite the good CSV with a bare header.
+        print("No rows produced — leaving the committed CSV untouched")
+        return 1
     with csv_path.open("w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=["case", "transition", "E_eV",
                                             "sigma_atomx_1e20cm2",

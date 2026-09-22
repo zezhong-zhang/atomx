@@ -15,8 +15,21 @@ g_i = 1, kT = 1 eV it returned 9.18e-16 cm^3/s instead of 8.01e-08.
 
 Gates here:
 
-* 50-200x threshold: Omega rises with energy and sits within 30 % of the
-  pure plane-wave Born value; the blend weights are not zero;
+* 50-200x threshold: Omega rises with energy and sits within 25 % of the
+  pure plane-wave Born value; the blend weights are not zero.  **This is an
+  "is the completion engaged?" gate, not a gate on the distorted-wave sum.**
+  At 50-200x the geometric tail is unresolved, the solver forces
+  ``tail = max(floor, omega_partial)`` (``solver.py``) and
+  ``born_blend_weights`` returns ``w = sqrt(tail/(tail+Omega_partial)) >=
+  1/sqrt(2)``, so the shipped value obeys
+  ``Omega >= (1/sqrt(2)) Omega_Born`` for *any* Omega_DW, i.e.
+  ``|Omega/Omega_Born - 1| <= 1 - 1/sqrt(2) = 0.2929`` by construction.  The
+  band can therefore only trip if a collapse pushes the DW sum below
+  ~2.5 % of Born; the tripwire that actually detects a collapse of the
+  partial-wave sum is ``test_dw_partial_wave_sum_is_pinned`` (0.1 %), and the
+  physics that is *still* violated is
+  ``test_dw_partial_wave_sum_reaches_the_born_limit`` (strict xfail, measured
+  Omega_DW/Omega_Born = 0.109 / 0.034 / 0.009 at 50/100/200x);
 * a still-rising (unresolved) geometric tail is reported as a finite floor
   with ``converged=False``, never as 0.0, and one zero tail cannot zero the
   weights at lower energies;
@@ -63,7 +76,24 @@ Z_NE = 10                      # He-like Ne: the repo's own DW benchmark case
 HIGH_FACTORS = (50.0, 100.0, 200.0)
 L_MAX = 6
 KAPPA_MAX = 10
-BORN_TOL = 0.30                # accepted |Omega/Omega_Born - 1| at 50-200x
+# Accepted |Omega/Omega_Born - 1| at 50-200x.  The Born blend itself floors
+# this at 1 - 1/sqrt(2) = 0.2929 (see the module docstring), so the band is
+# tightened from 0.30 to 0.25 — the only part of the old budget that a
+# partial-wave collapse could ever have reached.  Measured 2026-09-22:
+# 0.2284 / 0.2340 / 0.2322.
+BORN_TOL = 0.25
+# Omega_DW = (Omega_shipped - w*Omega_Born) / (1 - w): the distorted-wave
+# partial-wave sum the blend is allowed to contribute, measured at
+# L_max=6, kappa_max=10 on 2026-09-22.
+OMEGA_DW_PIN = (0.02321127, 0.00958137, 0.00381388)
+OMEGA_DW_PIN_RTOL = 1.0e-3
+# Hydrogenic 1s -> 2p absorption oscillator strength, exact:
+#   f_{1s->np} = 2^8 n^5 (n-1)^{2n-4} / (3 (n+1)^{2n+4})   (n = 2)
+#              = 2^8 * 2^5 / (3 * 3^8) = 8192/19683 = 0.4161960...
+# Bethe & Salpeter, *Quantum Mechanics of One- and Two-Electron Atoms*
+# (1957) Eq. (63.5); the same 0.4162 is used by the Coulomb-Bethe top-up
+# anchor below.  Independent of atomx.
+F_1S_2P_HYDROGENIC = 8192.0 / 19683.0
 
 # CODATA 2022, deliberately independent of atomx.constants: this is a check on
 # the unit conversion itself, not on the constants table.
@@ -173,6 +203,68 @@ def test_dw_omega_rises_and_tracks_born_at_high_energy(high_energy_completion):
     )
 
 
+def _omega_dw_from_fixture(completion: dict) -> np.ndarray:
+    """Invert the Born blend: Omega_DW = (Omega - w Omega_Born)/(1 - w)."""
+    return ((completion["omega"] - completion["weights"] * completion["omega_born"])
+            / (1.0 - completion["weights"]))
+
+
+@pytest.mark.snapshot
+def test_dw_partial_wave_sum_is_pinned(high_energy_completion):
+    """Omega_DW at L_max=6, kappa_max=10 is pinned to atomx's own value.
+
+    ``@pytest.mark.snapshot``: these three numbers are atomx output, not an
+    external or analytic reference (the whole point of finding S5-1 is that
+    the truncated DW sum is 9x/30x/110x *below* the Born limit and so cannot
+    be pinned against it).  They exist so that a *further* collapse of the
+    partial-wave sum — which the 25 % Born band cannot see, because the blend
+    forces ``Omega >= 0.707 Omega_Born`` for any Omega_DW — trips immediately.
+    Measured 2026-09-22 (Ne He-like, threshold 914.0214 eV): 0.023211 /
+    0.009581 / 0.003814; the implied Omega_DW/Omega_Born is 0.109/0.034/0.009.
+    """
+    omega_dw = _omega_dw_from_fixture(high_energy_completion)
+    np.testing.assert_allclose(
+        omega_dw, np.asarray(OMEGA_DW_PIN), rtol=OMEGA_DW_PIN_RTOL,
+        err_msg=(
+            "the DW partial-wave sum at 50-100-200x threshold moved; it was "
+            "0.0232/0.0096/0.0038 (9x/30x/110x below Born) when this pin was "
+            "recorded.  A decrease is a regression in the DW kernel; an "
+            "increase means the kernel finally converges — re-derive the pin "
+            "and tighten test_dw_omega_rises_and_tracks_born_at_high_energy."
+        ),
+    )
+
+
+@pytest.mark.xfail(
+    strict=True,
+    reason=(
+        "MEASURED Omega_DW/Omega_Born = 0.109 / 0.034 / 0.009 at 50/100/200x "
+        "threshold (L_max=6, kappa_max=10; 2026-09-22).  For a dipole-allowed "
+        "transition the DW partial-wave sum must reach the plane-wave Born "
+        "limit at these energies.  It does not, because the high-l tail is "
+        "not summed: the profile is still rising at kappa_max, so "
+        "solver.py::_geometric_tail_estimate returns only a floor, "
+        "solver.py forces tail = max(tail, omega_partial), and the Born blend "
+        "then caps at w = 1/sqrt(2) instead of completing the sum.  With "
+        "kappa_max=16/24 the DW sum rises (0.29/0.10/0.03 and 0.60/0.18/0.07 "
+        "of Born) while the *shipped* value gets worse (-0.21/-0.26/-0.28 and "
+        "-0.19/-0.39/-0.41), i.e. the completion is anti-correlated with the "
+        "kernel.  Closing this needs the analytic Bethe tail for l > "
+        "kappa_max (coulomb_bethe_topup already implements the closed form) "
+        "in place of the geometric floor — not a wider band."
+    ),
+)
+def test_dw_partial_wave_sum_reaches_the_born_limit(high_energy_completion):
+    """The physically required gate: Omega_DW >= 0.7 Omega_Born at 50-200x."""
+    omega_dw = _omega_dw_from_fixture(high_energy_completion)
+    ratio = omega_dw / high_energy_completion["omega_born"]
+    assert np.all(ratio >= 0.7), (
+        f"Omega_DW/Omega_Born = {ratio} at 50/100/200x threshold; the DW sum "
+        "must reach the Born limit where the Born completion is supposed to "
+        "take over"
+    )
+
+
 def test_born_blend_weights_are_not_zero(high_energy_completion):
     """(b) the blend weights engage, and the top energy is not zeroed."""
     weights = high_energy_completion["weights"]
@@ -231,6 +323,87 @@ def test_blend_weights_single_zero_does_not_propagate():
     mid = born_mod.born_blend_weights(
         np.ones(3), np.array([0.01, 0.0, 0.5]))
     assert mid[1] == pytest.approx(mid[2])
+
+
+# ---------------------------------------------------------------------------
+# The Born reference itself, against the exact Bethe closed form
+# ---------------------------------------------------------------------------
+
+BETHE_FACTORS = (20.0, 50.0, 100.0, 200.0, 1000.0)
+
+
+@pytest.fixture(scope="module")
+def born_bethe_scan() -> dict[str, np.ndarray]:
+    """Pure plane-wave Born Omega in the non-relativistic (alpha -> 0) limit.
+
+    ``born.py`` reads its ``ALPHA2`` module global at call time, so setting it
+    to zero *is* the c -> infinity limit in which the exact Bethe logarithm
+    holds; the DW part is still computed and discarded (the blend is forced to
+    w = 1, which returns the raw Born value at every energy).
+    """
+    spec = SEQUENCES["he-like"]
+    threshold = _threshold_eV(Z_NE, spec)
+    energies = np.asarray([threshold * f for f in BETHE_FACTORS], dtype=float)
+    with pytest.MonkeyPatch.context() as mp:
+        mp.setattr(born_mod, "ALPHA2", 0.0)
+        mp.setattr(born_mod, "born_blend_weights",
+                   lambda omega_dw, tail_arr, p_born=0.5: np.ones(len(omega_dw)))
+        omega_born = _dw_omega(energies, threshold)
+    return {"energies_eV": energies, "omega_born": np.asarray(omega_born),
+            "threshold_eV": threshold}
+
+
+def _bethe_log_nr(energies_eV, threshold_eV) -> np.ndarray:
+    """ln[(k_i+k_f)/(k_i-k_f)] with k = sqrt(2E) in atomic units."""
+    from atomx.constants import HARTREE_EV
+    e_au = np.asarray(energies_eV, dtype=float) / HARTREE_EV
+    d_au = float(threshold_eV) / HARTREE_EV
+    ki = np.sqrt(2.0 * e_au)
+    kf = np.sqrt(2.0 * (e_au - d_au))
+    return np.log((ki + kf) / (ki - kf))
+
+
+def test_born_reference_is_the_bethe_logarithm_at_alpha_zero(born_bethe_scan):
+    """Omega_Born -> (4 g_i f / dE) ln[...] as alpha -> 0, from below.
+
+    First principles (Bethe 1930; Bethe & Salpeter 1957, Eq. 63.5): in the
+    non-relativistic plane-wave Born approximation the dipole contribution to
+    the collision strength of a 1s -> 2p transition is *exactly*
+    ``Omega = (4 g_i f / dE_au) ln[(k_i+k_f)/(k_i-k_f)]`` plus terms of lower
+    order in 1/ln E; the oscillator strength is the exact hydrogenic value
+    ``f = 2^8 n^5 (n-1)^{2n-4} / (3 (n+1)^{2n+4}) = 8192/19683`` for n = 2,
+    and the 1s2 1S0 -> 1s2p 1P1 transition this file uses has g_i = 1.  With
+    dE = 914.0214 eV = 33.5897 Ha the closed-form coefficient is
+    ``4 f / dE = 0.049562``.
+
+    So ``Omega_Born(E) / ln[...](E)`` must be a positive, monotonically
+    increasing sequence that stays below that coefficient and approaches it
+    as E -> infinity.  Measured 2026-09-22 (alpha = 0, L_max = 6,
+    kappa_max = 10): 0.03294 / 0.03494 / 0.03608 / 0.03700 / 0.03855 at
+    20/50/100/200/1000x, i.e. 77.8 % of the limit at the top energy.
+    """
+    from atomx.constants import HARTREE_EV
+    omega = born_bethe_scan["omega_born"]
+    threshold = born_bethe_scan["threshold_eV"]
+    log_nr = _bethe_log_nr(born_bethe_scan["energies_eV"], threshold)
+    ratio = omega / log_nr
+    limit = 4.0 * F_1S_2P_HYDROGENIC / (threshold / HARTREE_EV)
+
+    assert np.all(ratio > 0.0), f"Omega_Born must be positive, got {omega}"
+    assert np.all(ratio < limit), (
+        f"Omega_Born/ln[...] = {ratio} exceeds the exact Bethe coefficient "
+        f"{limit:.6f} — in the alpha -> 0 limit the dipole term is the whole "
+        "asymptote and is approached from below"
+    )
+    assert np.all(np.diff(ratio) > 0.0), (
+        f"Omega_Born/ln[...] must increase monotonically toward the Bethe "
+        f"limit as E -> infinity, got {ratio} at E/I = {BETHE_FACTORS}"
+    )
+    assert ratio[-1] >= 0.7 * limit, (
+        f"at E/I = {BETHE_FACTORS[-1]} the Born collision strength is only "
+        f"{ratio[-1] / limit:.1%} of the exact Bethe limit {limit:.6f} "
+        f"(measured 77.8 % at 1000x); the 1/ln E approach has stalled"
+    )
 
 
 # ---------------------------------------------------------------------------

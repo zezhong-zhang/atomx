@@ -31,8 +31,10 @@ from __future__ import annotations
 import numpy as np
 import pytest
 from scipy import constants as sc
+from scipy.special import exp1
 
 from atomx.constants import (
+    ALPHA,
     BOHR_RADIUS_M,
     BOLTZMANN_EV,
     HARTREE_EV,
@@ -44,7 +46,7 @@ from atomx.plasma.crm import (
     CRMBoundFreeChannel,
     CRMLevel,
     CRMTransition,
-    _planck_photoionization_rate_s,
+    _hydrogenic_sigma0_cm2,
     radiative_recombination_rate_cm3_s,
     saha_ionization_density_cm3,
     three_body_recombination_rate_cm6_s,
@@ -117,20 +119,90 @@ def test_crm_lte_limit_recovers_saha():
         assert pytest.approx(1.0, rel=1e-9) == ratios[ne]
 
 
-def test_radiative_recombination_is_milne_inverse_of_photoionization():
-    """alpha_RR(T) * Saha(T) == PI_Planck(T) for the module's own cross-section."""
-    for chi, te, g_b, g_c in (
-        (100.0, 100.0, 1, 2),
-        (13.6, 5.0, 2, 1),
-        (20.0, 10.0, 1, 1),
-    ):
-        saha = saha_ionization_density_cm3(
-            chi, te, g_bound=g_b, g_continuum=g_c)
-        pi_rate = _planck_photoionization_rate_s(chi, te)
-        alpha_rr = radiative_recombination_rate_cm3_s(
-            chi, te, g_bound=g_b, g_continuum=g_c)
-        assert alpha_rr > 0.0
-        assert pytest.approx(pi_rate, rel=1e-12) == alpha_rr * saha
+def test_hydrogenic_sigma0_matches_the_stobbe_threshold_closed_form():
+    """sigma_0 = (2^9 pi^2 / 3) alpha a_0^2 e^{-4} = 6.304318e-18 cm^2.
+
+    ``e`` here is EULER'S NUMBER (``exp(-4)``), NOT the elementary charge:
+    reading it as the charge gives 3.442e-16 cm^2, 54.6x too large.  This
+    is the Kramers/Unsöld hydrogenic threshold cross-section for n = 1
+    (the Stobbe Gaunt factor at threshold is absorbed in the prefactor),
+    written in terms of the fine-structure constant ``alpha`` and the Bohr
+    radius ``a_0``, so it is derivable without atomx.  The sibling module
+    pins the same number against NIST at 1 %
+    (``test_hydrogenic_cross_sections.py:18``).
+
+    Measured: module literal 6.3043e-18 vs closed form 6.304318e-18
+    — 2.87e-6 relative (the literal is rounded to 5 s.f.), which is why the
+    gate is at 2e-5 and not 1 %.
+    """
+    a0_cm = BOHR_RADIUS_M * 100.0
+    sigma0_closed = (2 ** 9 * np.pi ** 2 / 3.0) * ALPHA * a0_cm ** 2 * np.exp(-4.0)
+    assert pytest.approx(6.304318e-18, rel=1e-6, abs=0.0) == sigma0_closed  # the closed form
+    assert pytest.approx(sigma0_closed, rel=2e-5, abs=0.0) == _hydrogenic_sigma0_cm2(RYDBERG_EV)
+
+
+_MILNE_POINTS = (
+    # chi_eV, T_eV, g_bound, g_continuum, rel (see the measured column below)
+    (100.0, 100.0, 1, 2, 1.0e-3),   # measured 3.47e-4
+    (13.6, 13.6, 1, 1, 1.0e-3),    # measured 3.47e-4
+    (20.0, 10.0, 1, 1, 1.0e-3),    # measured 3.91e-4
+    (1.0, 0.5, 1, 1, 1.0e-3),      # measured 3.91e-4
+    (13.6, 5.0, 2, 1, 1.0e-3),     # measured 4.62e-4
+    (100.0, 10.0, 1, 1, 5.0e-3),   # measured 2.84e-3
+    (13.6, 0.86, 1, 1, 1.0e-2),    # measured 6.24e-3
+)
+
+
+@pytest.mark.parametrize("chi, te, g_b, g_c, rel", _MILNE_POINTS)
+def test_radiative_recombination_matches_the_milne_planck_integral(chi, te, g_b, g_c, rel):
+    """alpha_RR = [8 pi sigma_0 chi^3 / (h^3 c^2) * sum_n E1(n chi / kT)] / Saha.
+
+    Derivation, independent of ``radiative_recombination_rate_cm3_s``
+    (which is *defined* as ``PI_Planck / Saha``, so the round trip
+    ``alpha_RR * Saha == PI`` gates nothing — it re-checks one line of
+    ``src/atomx/plasma/crm.py``).  The Planck photoionisation rate is
+
+        PI = Int_chi^inf sigma(E) c n_ph(E) dE,
+        sigma(E) = sigma_0 (chi/E)^3,      (Kramers)
+        n_ph(E) dE = 8 pi E^2 / (h^3 c^3) * dE / (e^{E/kT} - 1),
+
+    i.e. the E^2 of the photon density cancels the (chi/E)^3 above the
+    threshold and leaves
+
+        PI = 8 pi sigma_0 chi^3 / (h^3 c^2) * Int_{chi/kT}^inf dx/(x(e^x-1))
+           = 8 pi sigma_0 chi^3 / (h^3 c^2) * sum_{n>=1} E1(n chi / kT),
+
+    with ``E1`` the exponential integral (the expansion
+    ``1/(e^x-1) = sum_n e^{-nx}``).  chi is in erg, so the prefactor is a
+    rate in s^-1 once divided by a Saha density in cm^-3.
+
+    The residual against the module is the trapezoid error of its 240-point
+    logarithmic energy grid (measured: 3.5e-4 to 6.2e-3, degrading as the
+    grid is asked to resolve e^{-chi/T} at large chi/T), not physics.  The
+    gate still rejects the errors that were invisible before: a wrong
+    prefactor (x2, x0.5), a wrong Kramers exponent (factors of chi/T,
+    i.e. 0.06-1.0 here), a truncated integration range, and a missing
+    stimulated-emission term 1/(e^x-1) -> e^{-x} (20-23 % at these points).
+    """
+    ev_to_erg = sc.e * 1.0e7
+    h_erg_s = sc.h * 1.0e7
+    c_cm_s = sc.c * 100.0
+    # The test's own sigma_0: the same closed form as the test above, with
+    # the hydrogenic Z-scaling of the threshold cross-section
+    # (chi ~ Z^2 Ry => sigma_K(threshold) ~ 1/Z^2 ~ Ry/chi).  Deliberately
+    # NOT ``_hydrogenic_sigma0_cm2``: sharing that helper would hide exactly
+    # the mutation (a wrong prefactor) this gate exists to catch.
+    a0_cm = BOHR_RADIUS_M * 100.0
+    sigma0 = ((2 ** 9 * np.pi ** 2 / 3.0) * ALPHA * a0_cm ** 2 * np.exp(-4.0)
+              * (RYDBERG_EV / chi))
+    series = float(sum(exp1(n * chi / te) for n in range(1, 500)))
+    pi_rate = (8.0 * np.pi * sigma0 * (chi * ev_to_erg) ** 3
+               / (h_erg_s ** 3 * c_cm_s ** 2)) * series
+    saha = saha_ionization_density_cm3(chi, te, g_bound=g_b, g_continuum=g_c)
+    alpha = radiative_recombination_rate_cm3_s(chi, te, g_bound=g_b, g_continuum=g_c)
+
+    assert alpha > 0.0
+    assert pytest.approx(pi_rate / saha, rel=rel, abs=0.0) == alpha
 
 
 def test_crm_rate_matrix_has_a_separate_rr_channel():
@@ -143,12 +215,12 @@ def test_crm_rate_matrix_has_a_separate_rr_channel():
         chi, te, g_bound=G_BOUND, g_continuum=G_CONTINUUM)
 
     matrix = crm._build_rate_matrix(ne, te)
-    assert pytest.approx(ne * ne * beta + ne * alpha_rr, rel=1e-12) == matrix[0, 1]
+    assert pytest.approx(ne * ne * beta + ne * alpha_rr, rel=1e-12, abs=0.0) == matrix[0, 1]
     assert matrix[0, 1] > ne * ne * beta
 
     without_rr = crm._build_rate_matrix(
         ne, te, include_radiative_recombination=False)
-    assert pytest.approx(ne * ne * beta, rel=1e-12) == without_rr[0, 1]
+    assert pytest.approx(ne * ne * beta, rel=1e-12, abs=0.0) == without_rr[0, 1]
 
 
 def test_crm_reaches_a_coronal_balance():
@@ -184,12 +256,12 @@ def test_dr_prefactor_matches_the_ev_convention_closed_form():
     closed_ry = (sc.h ** 2 / (
         2.0 * np.pi * sc.m_e * sc.e * RYDBERG_EV)) ** 1.5 * 1.0e6
 
-    assert pytest.approx(closed_ev, rel=1e-9) == _DR_PREFACTOR_CM3_S_EV_32
-    assert pytest.approx(closed_ry * RYDBERG_EV ** 1.5, rel=1e-9) == (
+    assert pytest.approx(closed_ev, rel=1e-9, abs=0.0) == _DR_PREFACTOR_CM3_S_EV_32
+    assert pytest.approx(closed_ry * RYDBERG_EV ** 1.5, rel=1e-9, abs=0.0) == (
         _DR_PREFACTOR_CM3_S_EV_32)
-    assert pytest.approx(3.312830e-22, rel=1e-6) == _DR_PREFACTOR_CM3_S_EV_32
+    assert pytest.approx(3.312830e-22, rel=1e-6, abs=0.0) == _DR_PREFACTOR_CM3_S_EV_32
     # the historical constant was the Rydberg-convention value
-    assert pytest.approx(6.60305e-24, rel=1e-3) == closed_ry
+    assert pytest.approx(6.60305e-24, rel=1e-3, abs=0.0) == closed_ry
 
 
 def test_dr_prefactor_is_consistent_with_saha_detailed_balance():
@@ -204,7 +276,7 @@ def test_dr_prefactor_is_consistent_with_saha_detailed_balance():
     for chi, te in ((100.0, 100.0), (13.6, 5.0), (20.0, 10.0), (1.0, 0.5)):
         saha = saha_ionization_density_cm3(chi, te)  # g_bound = g_continuum = 1
         prefactor_from_saha = te ** 1.5 * 2.0 * np.exp(-chi / te) / saha
-        assert pytest.approx(prefactor_from_saha, rel=1e-6) == (
+        assert pytest.approx(prefactor_from_saha, rel=1e-6, abs=0.0) == (
             _DR_PREFACTOR_CM3_S_EV_32)
 
 
@@ -223,8 +295,8 @@ def test_dr_rate_coefficient_uses_the_corrected_prefactor():
         [resonance], 10.0, initial_state_g=1.0).alpha_cm3_s[0]
     closed = (_DR_PREFACTOR_CM3_S_EV_32 * 10.0 ** -1.5
               * (2.0 / 2.0) * 0.5e13 * np.exp(-1.0))
-    assert pytest.approx(closed, rel=1e-12) == alpha
-    assert pytest.approx(1.92697e-11, rel=1e-4) == alpha
+    assert pytest.approx(closed, rel=1e-12, abs=0.0) == alpha
+    assert pytest.approx(1.92697e-11, rel=1e-4, abs=0.0) == alpha
 
 
 # ---------------------------------------------------------------------------
@@ -250,8 +322,8 @@ def test_crm_deexcitation_survives_boltzmann_underflow():
     gaunt = max(0.2, 0.276 * (x + 1.0) / (x * (x + 2.0)))
     c_deexc_closed = 1.578e-5 * 1.0 / (1.0 * np.sqrt(te)) * gaunt * (1.0 / 3.0)
 
-    assert pytest.approx(1.176e-6, rel=1e-3) == matrix[0, 1] / ne
-    assert pytest.approx(c_deexc_closed, rel=1e-12) == matrix[0, 1] / ne
+    assert pytest.approx(1.176e-6, rel=1e-3, abs=0.0) == matrix[0, 1] / ne
+    assert pytest.approx(c_deexc_closed, rel=1e-12, abs=0.0) == matrix[0, 1] / ne
     assert matrix[1, 0] == 0.0  # exp(-750) is genuinely zero
 
     populations = crm.steady_state(ne, te)
@@ -271,7 +343,7 @@ def test_crm_collisional_detailed_balance_is_exact_when_finite():
     c_exc = matrix[1, 0] / ne
     c_deexc = matrix[0, 1] / ne
     assert c_exc > 0.0
-    assert pytest.approx(c_exc * (1.0 / 3.0) * np.exp(5.0 / te), rel=1e-12) == c_deexc
+    assert pytest.approx(c_exc * (1.0 / 3.0) * np.exp(5.0 / te), rel=1e-12, abs=0.0) == c_deexc
 
 
 # ---------------------------------------------------------------------------
@@ -423,7 +495,7 @@ def test_effective_collision_rate_uses_kelvin_in_the_8_629e_6_constant():
         rate = effective_collision_rate(
             strengths, energies, te, g_i=1, threshold_eV=0.0)
         closed = 8.629e-6 * omega0 / np.sqrt(te / BOLTZMANN_EV)
-        assert pytest.approx(closed, rel=1e-6) == rate
+        assert pytest.approx(closed, rel=1e-6, abs=0.0) == rate
         # the eV-temperature variant is 107.72x larger
         assert pytest.approx(1.0 / np.sqrt(BOLTZMANN_EV), rel=1e-6) == (
             (8.629e-6 * omega0 / np.sqrt(te)) / rate)
@@ -436,7 +508,7 @@ def test_effective_collision_rate_uses_kelvin_in_the_8_629e_6_constant():
     constant = (np.sqrt(8.0 / (np.pi * m_e_cgs))
                 * np.pi * (BOHR_RADIUS_M * 100.0) ** 2 * ry_erg
                 / np.sqrt(k_b_erg))
-    assert pytest.approx(8.629e-6, rel=1e-4) == constant
+    assert pytest.approx(8.629e-6, rel=1e-4, abs=0.0) == constant
 
 
 def test_effective_collision_rate_matches_maxwellian_average():
@@ -462,7 +534,7 @@ def test_effective_collision_rate_matches_maxwellian_average():
             g_i * incident / RYDBERG_EV)
         from_cross_section = maxwellian_rate(cross_section, incident, te)
 
-        assert pytest.approx(from_cross_section, rel=1e-4) == from_strengths
+        assert pytest.approx(from_cross_section, rel=1e-4, abs=0.0) == from_strengths
 
 
 def test_maxwellian_rate_matches_the_ideal_gas_closed_form():
@@ -474,5 +546,5 @@ def test_maxwellian_rate_matches_the_ideal_gas_closed_form():
         rate = maxwellian_rate(sigma, energies, te)
         kt_erg = te * 1.602_176_634e-12
         closed = sigma0 * np.sqrt(8.0 * kt_erg / (np.pi * 9.109_383_7015e-28))
-        assert pytest.approx(closed, rel=1e-6) == rate
+        assert pytest.approx(closed, rel=1e-6, abs=0.0) == rate
 

@@ -32,8 +32,10 @@ from atomx import Atom, Basis, Corrections, Environment, Sampling  # noqa: E402
 from atomx.plasma.screening import (  # noqa: E402
     debye_length,
     debye_potential,
+    ion_sphere_radius,
     screening_shift,
     stewart_pyatt_potential,
+    stewart_pyatt_screening_length,
 )
 
 NE_PLASMA = dict(plasma_ne=1e22, plasma_Te=100.0)
@@ -96,8 +98,26 @@ def test_plasma_raises_every_orbital_by_the_predicted_amount():
         # Ha for Ne^2+ at ne=1e22 cm^-3, Te=100 eV vs Z/lambda_D = 0.712 Ha).
         assert 0.5 * continuum < shift < 1.05 * continuum, (label, shift)
     # Eight electrons, each lifted by ~0.69 Ha: the ionisation energy drops
-    # by ~5.5 Ha (150 eV) — the ionisation potential depression.
-    assert dense.total_energy - bare.total_energy == pytest.approx(5.5, abs=0.5)
+    # by the first-order sum over the occupied orbitals,
+    #     sum_i w_i <dV>_i     (dV from screening_shift, density and weights
+    #                           from the *unscreened* orbitals),
+    # which is the independent side of the comparison.  Measured
+    # sum_i w_i <dV>_i = 5.566352 Ha vs the SCF 5.566119 Ha — 4.2e-5
+    # relative, so the old "5.5 ± 0.5 Ha" band (±9 %) was ~2000x wider than
+    # the physics it was bounding.
+    assert pytest.approx(_first_order_total(bare, "debye"), rel=1e-3, abs=0.0) == (
+        dense.total_energy - bare.total_energy)
+
+
+def _first_order_total(bare, model):
+    """sum_i w_i <dV>_i over the occupied unscreened orbitals (Hartree)."""
+    r = bare.r
+    dV = screening_shift(10, r, 1e22, 100.0, model, z_ion=2)
+    total = 0.0
+    for orb in bare.orbitals.values():
+        density = np.asarray(orb.P) ** 2 + np.asarray(orb.Q) ** 2
+        total += float(orb.occupation) * float(np.trapezoid(dV * density, r))
+    return total
 
 
 def test_plasma_shift_matches_first_order_theory_from_the_module():
@@ -152,6 +172,20 @@ def test_nuclear_screening_ionizes_a_neutral_atom_at_high_density():
 
 
 def test_stewart_pyatt_and_debye_are_different_models():
+    """The SP shift is the Debye one times the analytic length ratio.
+
+    At n_e = 1e22 cm^-3, T_e = 100 eV the coupling parameter is
+    u = R_IS/lambda_D = 0.488, where the Stewart-Pyatt interpolation length
+    ``stewart_pyatt_screening_length(lambda_D, R_IS) = 14.312 a_0`` is
+    *longer* than ``lambda_D = 14.048 a_0``: SP is the less attractive
+    model (measured first-order sums 4.9762 vs 5.5664 Ha — the audit's
+    expectation that SP exceeds Debye at fixed (n_e, T_e) is wrong here and
+    the sign is asserted from the measured ratio, not assumed).  Both SCF
+    shifts are then checked against first-order theory on the unscreened
+    orbitals, and their ratio against the first-order ratio (measured
+    0.89400 vs 0.89391, 1e-4 relative).
+    """
+    bare = _unscreened()
     debye = Atom(10, charge=2, corrections="none",
                  environment=Environment(screening="debye", **NE_PLASMA)
                  ).solve()
@@ -160,6 +194,23 @@ def test_stewart_pyatt_and_debye_are_different_models():
                                            **NE_PLASMA)).solve()
     assert stewart.total_energy != debye.total_energy
     assert stewart.screening_model == "stewart_pyatt"
+
+    lam_d = debye_length(1e22, 100.0)
+    r_is = ion_sphere_radius(2, 1e22)
+    lam_sp = stewart_pyatt_screening_length(lam_d, r_is)
+    assert pytest.approx(0.48801, rel=1e-3, abs=0.0) == r_is / lam_d
+    assert lam_sp > lam_d  # SP is the weaker screening at this coupling
+
+    shift_debye = debye.total_energy - bare.total_energy
+    shift_stewart = stewart.total_energy - bare.total_energy
+    first_debye = _first_order_total(bare, "debye")
+    first_stewart = _first_order_total(bare, "stewart_pyatt")
+    assert pytest.approx(first_debye, rel=1e-3, abs=0.0) == shift_debye
+    assert pytest.approx(first_stewart, rel=1e-3, abs=0.0) == shift_stewart
+    # the models differ by the first-order ratio: the relaxation cancels
+    assert pytest.approx(first_stewart / first_debye, rel=1e-3, abs=0.0) == (
+        shift_stewart / shift_debye)
+    assert shift_stewart < shift_debye
 
 
 def test_plasma_is_recorded_in_provenance():

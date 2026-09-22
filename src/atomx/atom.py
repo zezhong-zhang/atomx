@@ -1012,6 +1012,13 @@ class Atom:
                 )
             if stack is not None:
                 from atomx.corrections.stack import finalize_with_corrections
+                if stack.include_breit:
+                    # Same seam as DFSolver: the Gaunt operator is computed
+                    # in the method layer and travels on the result.
+                    from atomx.methods.mcdhf.breit_ci import (
+                        attach_breit_operator_energy,
+                    )
+                    attach_breit_operator_energy(self._result)
                 finalize_with_corrections(self._result, stack)
         else:
             # B-spline DHF/DFS backend with user-selected averaging

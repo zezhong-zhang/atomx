@@ -7,10 +7,19 @@
 - [**`correlation="s"` / `correlation="sd"` audit (2026-09-20)**](CORRELATION_SD_RESEARCH_2026-09-20.md)
   — root cause of the open N1 finding: `build_ci_matrix` is not a
   representation of the Hamiltonian on the CSF basis, so the feature is not
-  variational. Includes the independent m-scheme Slater–Condon CI oracle used
-  as arbiter (`benchmarks/mscheme_ci_reference.py`).
+  variational. Includes the m-scheme Slater–Condon CI oracle used as arbiter
+  (`benchmarks/mscheme_ci_reference.py`) — **whose independence was corrected
+  on 2026-09-22**: it shares the angular kernel with the implementation, so it
+  gates the assembly and not the angular algebra. See `VERIFICATION.md`.
 - [Critical review (2026-09-17)](CRITICAL_REVIEW_2026-09-17.md)
 - [FEYNMAN review (2026-07-15)](FEYNMAN_REVIEW_2026-07-15.md)
+- [**Test-suite physics audit (2026-09-22)**](test_audit/README.md) — every one
+  of the 165 test files classified by whether it could detect a wrong physical
+  result (first-principles / external oracle / cross-check / self-regression /
+  tautology / plumbing), with the per-slice scorecard (A+B ranges from 22 % in
+  the public-API slice to 54 % in properties) and the eight cross-cutting
+  failure modes.  Slice reports `test_audit/S1…S7*.md`, remediations
+  `test_audit/S*_remediation.md`.
 
 ## Verification
 

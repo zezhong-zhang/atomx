@@ -204,14 +204,6 @@ class TestManimImportGuard:
         assert hasattr(mod, "SCFConvergenceScene")
         assert hasattr(mod, "DRScene")
 
-    @pytest.mark.skipif(
-        pytest.importorskip("importlib").import_module,   # dummy condition
-        reason="Always tested",
-    )
-    def test_missing_manim_raises_on_instantiation(self):
-        """Skipped guard-test placeholder — exercised interactively."""
-        pass
-
     def test_manim_scene_class_requires_manim_to_instantiate(self):
         from atomx.viz import manim as manim_mod
         # When manim is not installed, instantiation raises.

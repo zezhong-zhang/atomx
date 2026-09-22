@@ -56,8 +56,19 @@ class TestKernelAgainstQuadrature:
     def test_tabulated_values(self, x, expected):
         assert _uehling_kernel(x) == pytest.approx(expected, rel=1e-6)
 
-    def test_matches_adaptive_quadrature(self):
-        """Max relative deviation from ``scipy.integrate.quad`` over 12 decades."""
+    def test_spline_interpolation_is_machine_accurate(self):
+        """Kernel table vs ``_uehling_I_exact`` — an INTERPOLATION check.
+
+        C-degenerate by construction: ``_uehling_kernel`` is a
+        ``CubicSpline`` over 900 nodes of ``_uehling_I_exact``
+        (``qed.py:77-98``), so comparing the two measures interpolation
+        error only (exactly 0 at the nodes) and no longer validates the
+        kernel.  The physics gate is :meth:`test_tabulated_values`, whose
+        five literals are the defining integral
+        ``∫₁^∞ e^{−xt}(1 + 1/2t²)√(t²−1)/t² dt`` (independently
+        reproduced by ``scipy.integrate.quad`` to ≤ 1.2e-7), and
+        :meth:`test_kernel_is_not_bessel_k1`.
+        """
         xs = np.logspace(-9, np.log10(80.0), 60)
         worst = max(
             abs(_uehling_kernel(x) - _uehling_I_exact(x)) / _uehling_I_exact(x)
@@ -156,13 +167,28 @@ class TestPhysicalAnchors:
         E = compute_vp_energy(orbitals, bsp_data, Z=92)
         assert pytest.approx(-97.9, rel=5e-3) == E * HARTREE_EV
 
+    @pytest.mark.snapshot
     def test_vp_monotone_in_Z(self):
-        """|E_VP| must grow with Z (it scales as Z⁴ at fixed shape)."""
+        """|E_VP| must grow with Z (it scales as Z⁴ at fixed shape).
+
+        The monotonicity is first-principles: the Uehling potential is
+        ∝ Z (exact, ``qed.py`` prefactor) and the 1s density shrinks as
+        1/Z³, so each successive Z must increase |E_VP|.
+
+        The ratio below is a *frozen* pin, not a first-principles bound:
+        the ratio is ``92⁴·f(92α)/f(α)`` and at Zα = 0.67 the published
+        two-term expansion ``F = -4/15 + (5π/48)Zα`` (used at :126) gives
+        1.27e7, 8.6x below what the full hydrogenic integral gives — the
+        asymptotic series is not converged there, so no closed form is
+        available at the required accuracy.  Measured 1.099859e8 with
+        the fixed ``I(2cr)`` kernel; the pre-fix ``K₁(2cr)`` kernel gives
+        4.3e8, outside ``rel=0.02``.  The band this replaced was
+        ``1e6 < ratio < 1e9``, which both kernels satisfied.
+        """
         vals = []
         for Z in (1, 10, 26, 54, 92):
             orbitals, bsp_data = self._hydrogenlike_1s(Z)
             vals.append(abs(compute_vp_energy(orbitals, bsp_data, Z=Z)))
         assert np.all(np.diff(vals) > 0.0), vals
-        # Rough Z^4 scaling: the 92/1 ratio must be within an order of
-        # magnitude of 92^4 = 7.2e7 (screening-free hydrogenic, log factor).
-        assert 1e6 < vals[-1] / vals[0] < 1e9
+        assert vals[-1] / vals[0] == pytest.approx(1.0998587063393934e8,
+                                                  rel=0.02)
