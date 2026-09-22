@@ -96,3 +96,55 @@ def test_malformed_token_raises_clear_value_error(bad_token):
     """Malformed tokens raise ValueError naming the token, not KeyError."""
     with pytest.raises(ValueError, match="cannot parse configuration token"):
         generate_jj_average(f"1s2 {bad_token}")
+
+
+@pytest.mark.parametrize(
+    "config_str",
+    ["2p7",        # one electron over the p-shell capacity
+     "1s2 2p9",    # HYP-1790: silently dropped ALL electrons before
+     "3d11",       # one electron over the d-shell capacity
+     "2s3",        # s-shell over-occupation also gets a clear message
+     ],
+)
+def test_over_occupied_shell_raises_clear_value_error(config_str):
+    """Over-occupied shells raise ValueError naming the shell and bounds.
+
+    Before HYP-1790 an over-occupied l>0 shell made the jj distribution
+    enumeration empty, and generate_jj_average returned every subshell
+    with occupation 0.0 — silently dropping even the electrons of
+    perfectly legal companion shells (e.g. 1s2 in "1s2 2p9").
+    """
+    with pytest.raises(ValueError, match="over-occupied shell"):
+        generate_jj_average(config_str)
+
+
+def test_over_occupied_error_names_shell_and_capacity():
+    """The error message carries the offending token and its bounds."""
+    with pytest.raises(ValueError) as excinfo:
+        generate_jj_average("1s2 2p9")
+    msg = str(excinfo.value)
+    assert "2p9" in msg
+    assert "9" in msg
+    assert "6" in msg  # 2(2l+1) capacity of the p shell
+
+
+def test_atom_solve_rejects_over_occupied_config():
+    """Atom.solve() surfaces the validation error, not a cryptic IndexError."""
+    from atomx.atom import Atom
+
+    atom = Atom(Z=8, config="1s2 2p9")
+    with pytest.raises(ValueError, match="over-occupied shell"):
+        atom.solve()
+
+
+@pytest.mark.parametrize(
+    "config_str",
+    ["2p6",        # closed p shell: exactly at capacity
+     "3d10",       # closed d shell
+     "1s2 2s2 2p2",
+     ],
+)
+def test_shell_at_capacity_still_accepted(config_str):
+    """Shells filled exactly to capacity remain valid."""
+    subshells, _ = generate_jj_average(config_str)
+    assert sum(sh.occupation for sh in subshells) > 0

@@ -15,6 +15,7 @@ import numpy as np
 
 from atomx.angular.csf_recoupling import allowed_coupled_J2
 from atomx.angular.mscheme import subshell_j_counts_mscheme
+from atomx.config.jj_coupling import check_nr_shell_capacity
 from atomx.methods.dirac_fock import Subshell
 
 
@@ -247,6 +248,10 @@ def enumerate_jj_csfs(config_str: str) -> List[CSF]:
         n = int(token[0])
         l = l_map[token[1]]
         q = int(token[2:])
+        # Reject over-occupied shells (e.g. "2p9") up front: otherwise the
+        # m-scheme J enumeration below yields zero CSFs and Atom.solve()
+        # crashes with a cryptic IndexError (HYP-1790).
+        check_nr_shell_capacity(n, l, q, token, config_str)
         nr_shells.append((n, l, q))
 
     # Parity = (-1)^Σ l_i q_i (intrinsic parity from orbital ℓ × q)

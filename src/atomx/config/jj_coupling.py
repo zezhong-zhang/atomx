@@ -29,6 +29,47 @@ class JJConfig:
     weight: float              # statistical weight
 
 
+def check_nr_shell_capacity(n: int, l: int, q: int,
+                            token: str, config_str: str) -> None:
+    """Raise a clear ValueError if ``q`` exceeds the capacity of the nl shell.
+
+    A non-relativistic shell nl holds at most 2(2l+1) electrons: for l>0 the
+    jj expansion splits them across the j=l-1/2 subshell (capacity 2l) and
+    the j=l+1/2 subshell (capacity 2l+2); for l=0 the single j=1/2 subshell
+    holds 2.  Without this check an over-occupied l>0 shell (e.g. "2p9")
+    makes the jj distribution enumeration empty, and the expansion silently
+    returns all-zero occupations — the lost electrons then surface
+    downstream as a cryptic IndexError in the SCF solver (HYP-1790).
+
+    Parameters
+    ----------
+    n, l, q : int
+        Principal, orbital-angular-momentum quantum numbers and occupation
+        of the parsed shell.
+    token : str
+        The original configuration token (e.g. "2p9"), for the message.
+    config_str : str
+        The full configuration string, for the message.
+
+    Raises
+    ------
+    ValueError
+        If q > 2(2l+1), naming the shell and the j-subshell bounds.
+    """
+    capacity = 2 * (2 * l + 1)
+    if q > capacity:
+        if l == 0:
+            bounds = "the single j=1/2 subshell holds at most 2"
+        else:
+            bounds = (f"j=l-1/2 holds at most {2 * l}, "
+                      f"j=l+1/2 at most {2 * l + 2}")
+        raise ValueError(
+            f"over-occupied shell {token!r}: occupation {q} exceeds "
+            f"the shell capacity {capacity} = 2(2l+1) for n={n}, l={l}: "
+            f"{bounds} (config_str={config_str!r})"
+        )
+
+
 def generate_jj_average(config_str: str,
                         averaging: str = "statistical") -> Tuple[List[Subshell], List[JJConfig]]:
     """Generate jj-average subshells from a non-relativistic configuration string.
@@ -61,6 +102,15 @@ def generate_jj_average(config_str: str,
     # clear error, mirroring _parse_config_string in
     # methods/mcdhf/config.py. Single-character slicing (token[0]/token[1])
     # would mis-split n>=10 and crash with a cryptic KeyError.
+    #
+    # Validate each occupation against the shell capacity 2(2l+1) here:
+    # without it an over-occupied l>0 shell (e.g. "2p9") makes the
+    # distribution enumeration below produce zero (q_minus, q_plus) pairs,
+    # and the function would silently return all-zero average occupations
+    # (HYP-1790) — the lost electrons then surface downstream as a cryptic
+    # IndexError in the SCF solver. s-shells (l=0) happen to raise later
+    # via Subshell's own capacity check, but the early check gives a
+    # uniform, shell-aware message for every l.
     nr_shells = []
     for token in config_str.strip().split():
         m = re.fullmatch(r"(\d+)([spdfgh])(\d+)", token)
@@ -73,6 +123,7 @@ def generate_jj_average(config_str: str,
         n = int(m.group(1))
         l = l_map[m.group(2)]
         q = int(m.group(3))
+        check_nr_shell_capacity(n, l, q, token, config_str)
         nr_shells.append((n, l, q))
 
     # For each shell, determine the j-subshell occupations
@@ -196,5 +247,3 @@ def compute_WW(i: int, j: int, configs: List[JJConfig]) -> float:
             qj = c.subshells[j].occupation
             ww += c.weight * qi * qj
     return ww
-
-
