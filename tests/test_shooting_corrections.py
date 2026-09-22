@@ -56,10 +56,8 @@ def solved():
     """Each case solved once per engine with Breit + QED enabled."""
     out = {}
     for name, kw in CASES.items():
-        shooting = Atom(numerics="shooting", exchange="hf",
-                        breit=True, qed=True, **kw).solve()
-        bspline = Atom(numerics="bspline", exchange="hf",
-                       breit=True, qed=True, **kw).solve()
+        shooting = Atom(engine="shooting", exchange="hf", **kw).solve()
+        bspline = Atom(engine="bspline", exchange="hf", **kw).solve()
         out[name] = (shooting, bspline)
     return out
 
@@ -113,8 +111,12 @@ def test_corrections_shift_total_energy(solved):
     The invariant is E(breit+qed) == E(bare SCF) + ΔE_Breit + ΔE_SE +
     ΔE_VP, so the baseline must be explicitly correction-free
     (breit/qed default True since the 2026-07 defaults flip)."""
-    shooting_plain = Atom(numerics="shooting", exchange="hf",
-                          breit=False, qed=False, **CASES["Ne"]).solve()
+    shooting_plain = Atom(
+                          engine="shooting",
+                          exchange="hf",
+                          corrections="none",
+                          **CASES["Ne"],
+                     ).solve()
     shooting, _ = solved["Ne"]
     comp = shooting.energy_components
     shift = comp["E_Breit"] + comp["E_SE"] + comp["E_VP"]

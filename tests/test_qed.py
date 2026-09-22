@@ -137,14 +137,16 @@ class TestBreitQEDIntegration:
         )
 
     def test_ne_has_vp(self, ne_full_result):
-        """Ne Uehling VP correction: deterministic -0.002355 Ha (was: nonzero).
+        """Ne Uehling VP correction: deterministic -0.000601 Ha (was: -0.002355).
 
         VP (Uehling vacuum polarization) is negative and small for Ne; pin
-        it so sign/magnitude regressions trip instead of only ==0.
+        it so sign/magnitude regressions trip instead of only ==0.  The
+        value was re-pinned 2026-09-19 when the kernel was corrected from
+        K_1(2cr) to the Uehling integral I(2cr).
         """
         E_VP = ne_full_result.energy_components.get("E_VP", 0)
-        assert pytest.approx(-0.002355, rel=0.05) == E_VP, (
-            f"Ne VP {E_VP:.6f} out of range (expected ~-0.002355)")
+        assert pytest.approx(-0.000601, rel=0.05) == E_VP, (
+            f"Ne VP {E_VP:.6f} out of range (expected ~-0.000601)")
 
     def test_ne_has_se(self, ne_full_result):
         """Ne SE correction should be nonzero."""
@@ -189,8 +191,14 @@ class TestQEDTotalShiftPin:
 
     #: Z -> (label, pinned total shift in Ha, pinned SE, pinned VP)
     PINS = {
-        10: ("Ne", +0.027862900, +0.030218071, -0.002355171),
-        18: ("Ar", +0.330528077, +0.356042705, -0.025514628),
+        # Re-pinned 2026-09-19 twice:
+        #  * C1: the Uehling kernel is I(2cr), not K_1(2cr) (VP was 3.9x
+        #    too large).
+        #  * C2: the self-energy table is FAC's F(Zα), whose Z-dependence
+        #    falls with Z (SE was 2.5x too large at Z=10, 3.3x at Z=18).
+        # See docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md.
+        10: ("Ne", +0.011518334, +0.012119271, -0.000600937),
+        18: ("Ar", +0.093326039, +0.099832889, -0.006506850),
     }
 
     @pytest.mark.parametrize("Z", sorted(PINS))
@@ -198,9 +206,9 @@ class TestQEDTotalShiftPin:
         from atomx import Atom
 
         label, shift_ref, _se_ref, _vp_ref = self.PINS[Z]
-        base = Atom(Z=Z, numerics="shooting", breit=False, qed=False)
+        base = Atom(Z=Z, engine="shooting", corrections="none")
         base.solve()
-        with_qed = Atom(Z=Z, numerics="shooting", breit=False, qed=True)
+        with_qed = Atom(Z=Z, engine="shooting", corrections="qed")
         with_qed.solve()
         shift = with_qed.total_energy - base.total_energy
         assert shift == pytest.approx(shift_ref, rel=1e-3), (
@@ -223,7 +231,7 @@ class TestQEDTotalShiftPin:
         from atomx.corrections.qed import resolve_se_method
 
         label, shift_ref, se_ref, vp_ref = self.PINS[Z]
-        base = Atom(Z=Z, numerics="shooting", breit=False, qed=False)
+        base = Atom(Z=Z, engine="shooting", corrections="none")
         base.solve()
         result = base.result
         backend = resolve_se_method("auto", Z)

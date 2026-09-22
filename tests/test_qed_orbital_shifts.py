@@ -20,17 +20,30 @@ from atomx.corrections.orbital_shifts import (  # noqa: E402
 
 @pytest.fixture(scope="module")
 def fe17():
-    a = Atom(Z=26, config="1s2 2s2 2p6", charge=16, numerics="bspline", breit=False, qed=False)
+    a = Atom(
+             Z=26,
+             config="1s2 2s2 2p6",
+             charge=16,
+             engine="bspline",
+             corrections="none",
+        )
     a.solve()
     return a
 
 
 def test_fe_k_shift_matches_fac_scale(fe17):
-    """Fe 1s QED shift ~ +9 eV/electron (SE - Uehling); this is the
-    documented -8 eV DR resonance-energy offset vs FAC-with-QED."""
+    """Fe^16+ 1s QED shift = +3.93 eV/electron (SE 4.28 - Uehling 0.35).
+
+    Re-pinned 2026-09-19.  The previous 7-11 eV window was satisfied by
+    two cancelling errors: the self-energy table was 4.7x too large at
+    Z=26 (20.2 eV instead of 4.28 eV) and ``qed_orbital_shifts`` divided
+    the already per-electron SE by the occupancy (2 for the 1s), halving
+    it.  The self-energy now comes from FAC's F(Zα) and the occupancy
+    division is gone, so this is a real external-scale check.
+    """
     sh = qed_orbital_shifts(fe17._result)
     ev = sh["1s1/2"] * HARTREE_EV
-    assert 7.0 <= ev <= 11.0
+    assert 3.5 <= ev <= 4.4
     # SE dominance ordering: s-states positive and decreasing with n;
     # p-states near zero.
     assert sh["1s1/2"] > sh["2s1/2"] > abs(sh["2p1/2"])

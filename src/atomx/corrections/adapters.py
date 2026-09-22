@@ -261,13 +261,17 @@ class NormalMassShiftCorrection:
     def evaluate(self, result: "AtomicResult", **_: Any) -> CorrectionResult:
         from atomx.properties.isotope_shift.mass_shift import normal_mass_shift
 
+        # ``normal_mass_shift`` takes the nuclear mass as ``mass_me`` and
+        # returns a ``MassShift`` dataclass; this call previously passed a
+        # nonexistent ``nuclear_mass_me`` keyword and then ran ``float()``
+        # on the dataclass, so it raised TypeError for every caller.
         shift = normal_mass_shift(
             total_energy=result.total_energy,
-            nuclear_mass_me=self._M,
+            mass_me=self._M,
         )
         return CorrectionResult(
             name=self.name,
-            energy_shift=float(shift),
+            energy_shift=float(shift.E_NMS_Ha),
             provenance={
                 "estimator": "virial theorem ⟨T_e⟩ = −E_total",
                 "nuclear_mass_me": self._M,
