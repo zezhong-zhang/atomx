@@ -464,14 +464,54 @@ now changes the physics; the numbers below are measured by
   cancels), and a hyperfine preset asserted against the value it was tuned to
   reproduce.
 
-### Fixed — a test that blocked its own fix
+### Fixed — the scalar Breit's systematic 3x, and a test that blocked its own fix
 
 * `tests/test_qed.py` pinned the scalar Breit at `approx(0.0504, rel=0.05)`,
   a band that **excludes the correct value**.  DBSR_HF's Ne Breit is
   **0.016643630840490 Ha** (verified by running `dbsr_hf an=10 term=AV
-  mbreit=1`); atomx's reported scalar component is 0.05043710257669187, 3.03x
-  too large.  The test did not merely fail to catch the error — it made the
-  fix look like a regression.
+  mbreit=1`); atomx's scalar component was 0.05043710257669187, 3.03x too
+  large.  The test did not merely fail to catch the error — it made the fix
+  look like a regression.
+* **Root cause of the 3x: an omitted `(2L+1)`.**  Not a random error — the
+  ratio creeps 3.003 → 3.030 → 3.098 (He → Ne → Ar), exactly as
+  `2L+1 = 3, 5, 7` predicts once the higher multipoles gain weight with `Z`.
+  In the addition theorem `P_L(cos θ₁₂) = (4π/(2L+1)) Σ_q Y_L^q(1) Y_L^{q*}(2)`
+  the `(2L+1)` sits in the denominator; DBSR's `SMU` coefficients are written
+  for the **unnormalised** `Y_L` contraction, while atomx's radial integrals
+  use the **Racah-normalised** `C^L = √(4π/(2L+1)) Y_L`, which already absorbs
+  it.  Applying one to the other multiplied the `v = L` (Gaunt) channel by
+  `(2L+1)` — 3 for the dominant `L = 1`.  Reading the reference source
+  (`hf_energy_BR.f90:29-32`) shows DBSR multiplies `SMU` by a configuration
+  angular coefficient `coef(i,j,k)` built from the determinant expansion
+  (`dbsr_lib_zconfjj.f90:4098`); `SMU` itself matched atomx bit-for-bit, but
+  atomx used 1 for `coef`.  Fixed by dividing the `v = L` entry by `(2L+1)`:
+
+  | Z | before | after | DBSR_HF | ratio before → after |
+  |---|---|---|---|---|
+  | 2 He | 1.9156e-04 | 6.384971e-05 (+0.11 %) | 6.377743e-05 | 3.004x → 1.001 |
+  | 10 Ne | 5.0437e-02 | 1.658861e-02 (−0.33 %) | 1.664363e-02 | 3.030x → 0.996 |
+  | 18 Ar | 4.1004e-01 | 1.332345e-01 (+0.66 %) | 1.323646e-01 | 3.098x → 1.006 |
+
+* **The scalar is kept, not deleted, and the two implementations are
+  complementary.**  The Gaunt operator omits retardation (its +4.19 %/+6.22 %
+  excess at Ne/Ar); the fixed scalar carries the `v ≠ L` channels even though
+  they remain ~50x too small, so it is the *more accurate closed-shell total*.
+  Every single-CSF run now reports **both** — the scalar is applied and the
+  operator is stashed as `gaunt_operator_cross_check` with
+  `operator_vs_scalar_ratio` (He 0.99877, Ne 1.04533, Ar 1.05519 = the omitted
+  retardation, not a disagreement).  Since the scalar (DBSR `SMU` transcription
+  plus `S^v` radial integrals) and the operator (3j angular algebra plus Gaunt
+  multipoles) **share no angular kernel**, that ratio is genuine independent
+  evidence — which this suite notably lacked, having been found to contain a CI
+  "oracle" that was a transcription of the code it was meant to arbitrate.
+  The pre-existing CSF-count split is retained: single-CSF closed shells take
+  DHF + the correction stack with the fixed scalar, multi-CSF/open shells take
+  the operator through `MCDHFSolver`.  `breit_mode="scalar"` remains available
+  as an explicit comparison mode.
+* Refuted and recorded so it is not retried: no coefficient tweak fixes the
+  `v ≠ L` channels, and dividing the other channels by `(2L+1)` changes nothing
+  because they are already negligible.  A correct scalar for those channels
+  needs DBSR's full `coef` determinant expansion.
 
 ### Removed
 
