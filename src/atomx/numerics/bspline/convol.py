@@ -23,7 +23,26 @@ Convolution modes (icase):
   2: R(a . ; b .)  — contract left pair  → banded result (direct)
   3: R(. a ; b .)  — mixed contraction   → full result   (exchange)
   4: R(a . ; . b)  — mixed contraction   → full result   (exchange)
+
+Fastmath policy: ``fastmath=True`` is kept only where a per-kernel A/B
+measurement (same kernel, identical inputs, compiled with and without the
+flag at ns=113, ks=9, kinetic balance) shows a >1.2× win.  That leaves
+exactly three kernels in this module — ``_convol_case1_t`` (3.4×, the
+batch-DHF hot path), ``_sum_amb_full`` (3.9×) and
+``_accumulate_direct_density_batch`` (1.23×).  Every other site was
+neutral or actively harmful *and* perturbs results bitwise, so the flag
+was removed: ``_convol_case1_mixed`` 0.69×, ``_convol_case1`` 0.77×,
+``_sum_amb_banded`` 0.77×, ``_convol_case4`` 0.78×,
+``_convol_case2_mixed`` 0.79×, ``_convol_case2`` 0.83×, and
+``_convol_case4_t``/``_density_full``/``_banded_to_full_add`` ≈1.0×
+(1.00 = equal speed).  Consequences for numerics are documented at each
+kernel: with the flag gone, ``_convol_case4_t`` now reproduces
+``_convol_case4`` bit-for-bit (verified on Fe-size banks), while
+``_convol_case1_t`` — which keeps the flag for its 3.4× win — differs
+from ``_convol_case1`` by ~5e-15 relative per element.
 """
+
+from collections import OrderedDict
 
 import numba as nb
 import numpy as np
@@ -577,7 +596,7 @@ def _build_rkb_qpqp(bsp_p, bsp_q, gr, grw, tp, tq, nv, ksp, ksq,
 # 4. Density matrices
 # ══════════════════════════════════════════════════════════════════════
 
-@nb.njit(cache=True, fastmath=True)
+@nb.njit(cache=True)
 def _accumulate_density_sym(dd, p1, p2, ns, ks, coeff):
     """Accumulate symmetric banded density into dd: dd += coeff * outer_sym(p1, p2).
 
@@ -600,7 +619,7 @@ def _accumulate_density_sym(dd, p1, p2, ns, ks, coeff):
             dd[i, s] += coeff * v
 
 
-@nb.njit(cache=True, fastmath=True)
+@nb.njit(cache=True)
 def _accumulate_density_full(xx, p1, p2, ns, coeff):
     """Accumulate full density into xx: xx += coeff * outer(p1, p2).
 
@@ -617,6 +636,12 @@ def _accumulate_density_full(xx, p1, p2, ns, coeff):
 @nb.njit(cache=True, fastmath=True)
 def _accumulate_direct_density_batch(dd, comp_stack, coeffs, target_i, ns, ks):
     """Batched symmetric direct density — single numba call per (k, block).
+
+    ``fastmath`` is kept on measured evidence only: 1.23× here (2.28 µs vs
+    2.80 µs at ns=113).  Its two siblings
+    :func:`_accumulate_density_sym` (1.07×) and
+    :func:`_accumulate_exchange_density_batch` (1.07×) do not clear that
+    bar and no longer carry the flag.
 
     Replaces a Python-level loop over sources that called
     :func:`_accumulate_density_sym` once per source. Each call to that
@@ -650,7 +675,7 @@ def _accumulate_direct_density_batch(dd, comp_stack, coeffs, target_i, ns, ks):
                     dd[i, s] += c * (pi * pis + pis * pi)
 
 
-@nb.njit(cache=True, fastmath=True)
+@nb.njit(cache=True)
 def _accumulate_exchange_density_batch(xx, comp_ii_stack, comp_jj_stack,
                                         coeffs, ns):
     """Batched full-outer exchange density — single numba call per (k, block).
@@ -674,7 +699,7 @@ def _accumulate_exchange_density_batch(xx, comp_ii_stack, comp_jj_stack,
                 xx[i, k] += p1i * comp_jj_stack[j, k]
 
 
-@nb.njit(cache=True, fastmath=True)
+@nb.njit(cache=True)
 def _density_sym(p1, p2, ns, ks):
     """Symmetric upper-band density: d[i, s] for s = 0..ks-1.
 
@@ -687,8 +712,17 @@ def _density_sym(p1, p2, ns, ks):
     shorter component is zero-padded — rather than reading out of bounds
     (numba performs no bounds checking; the callers pass ``P[:ns_full]``,
     which is shorter than ``ns_full`` whenever the P/Q orders differ under
-    kinetic balance).  With ``len(p1) == len(p2) == ns`` this is
-    bit-identical to the plain band construction.
+    kinetic balance).
+
+    Numerics: with ``len(p1) == len(p2) == ns`` the guards are inert and
+    the kernel accumulates the plain band construction's two products in
+    the same order, so the two agree bit-for-bit (the leading ``0.0 + x``
+    is exact under IEEE for finite ``x``).  That bit-identity holds only
+    because this kernel carries **no** ``fastmath``: it was removed after
+    measuring fastmath at a 1.06× speedup (plain 0.89 µs vs 0.85 µs at
+    ns=113, ks=9) — not worth the reassociation it licenses.  The same
+    applies to :func:`_density_full`, which fastmath did not speed up at
+    all (0.99×).
     """
     n1 = p1.shape[0]
     n2 = p2.shape[0]
@@ -709,7 +743,7 @@ def _density_sym(p1, p2, ns, ks):
     return d
 
 
-@nb.njit(cache=True, fastmath=True)
+@nb.njit(cache=True)
 def _density_full(p1, p2, ns):
     """Full density matrix: d[i, j] = p1[i] * p2[j].
 
@@ -741,7 +775,7 @@ def _density_full(p1, p2, ns):
 # kernels is ns ≳ 290, beyond any realistic atomic basis.  Do NOT re-add
 # ``prange`` here without re-measuring against the small-ns regime.
 
-@nb.njit(cache=True, fastmath=True)
+@nb.njit(cache=True)
 def _convol_case1(rkb, d, ns, ks):
     """icase=1: R(. a ; . b) — contract right pair (j, jp) with density.
 
@@ -767,7 +801,7 @@ def _convol_case1(rkb, d, ns, ks):
     return a
 
 
-@nb.njit(cache=True, fastmath=True)
+@nb.njit(cache=True)
 def _banded_to_full_add(V, v_banded, ns, ks, coeff):
     """Add banded matrix v_banded(ns, ks) to full matrix V(ns, ns) with coefficient.
 
@@ -781,7 +815,7 @@ def _banded_to_full_add(V, v_banded, ns, ks, coeff):
                 V[i + s, i] += val
 
 
-@nb.njit(cache=True, fastmath=True)
+@nb.njit(cache=True)
 def _convol_case1_mixed(rkb, d_right, ns, ks_left, ks_right):
     """icase=1 for mixed-basis rkb(ns, ns, ks_left, ks_right).
 
@@ -805,7 +839,7 @@ def _convol_case1_mixed(rkb, d_right, ns, ks_left, ks_right):
     return a
 
 
-@nb.njit(cache=True, fastmath=True)
+@nb.njit(cache=True)
 def _convol_case2(rkb, d, ns, ks):
     """icase=2: R(a . ; b .) — contract left pair (i, ip) with density.
 
@@ -830,7 +864,7 @@ def _convol_case2(rkb, d, ns, ks):
     return a
 
 
-@nb.njit(cache=True, fastmath=True)
+@nb.njit(cache=True)
 def _convol_case4(rkb, d, ns, ks):
     """icase=4: R(a . ; . b) — exchange contraction (gather formulation).
 
@@ -912,13 +946,15 @@ def _convol_case4(rkb, d, ns, ks):
 #
 # Numerics: each output element accumulates exactly the same terms in the
 # same source order as the reference kernels (family 1→4 for case 4, jp
-# outer / j inner for case 1).  Under ``fastmath`` LLVM may still fuse or
-# vectorise the two loop structures differently, so results can differ
-# from the reference kernels in the last bits (measured ≤1e-15 relative
-# per element).  Inside the SCF fixed-point iteration this is a pure
-# float-op reordering; converged energies move ≲1e-13 relative.  Callers
-# that must reproduce the reference kernels bit-for-bit (validation
-# paths) should keep using the untransposed kernels.
+# outer / j inner for case 1).  ``_convol_case4_t`` therefore carries no
+# ``fastmath`` and is bit-identical to ``_convol_case4`` — fastmath bought
+# it nothing (0.97×, i.e. 3 % slower) and only licensed reassociation.
+# ``_convol_case1_t`` *keeps* ``fastmath`` because there it is a genuine
+# 3.4× win (104 µs vs 361 µs), and its results are consequently NOT
+# bit-identical to ``_convol_case1``: measured 4.8e-15 relative per
+# element, ≤1e-13 relative in converged energies.  A caller that must
+# reproduce ``_convol_case1`` bit-for-bit (validation paths) has to use
+# the untransposed kernel.
 
 @nb.njit(cache=True, fastmath=True)
 def _convol_case1_t(rkbT, d_right, ns, ks_left, ks_right):
@@ -926,6 +962,9 @@ def _convol_case1_t(rkbT, d_right, ns, ks_left, ks_right):
 
     Handles both the symmetric (ks_left == ks_right) and mixed cases;
     result is banded a(ns, ks_left) like ``_convol_case1(_mixed)``.
+
+    ``fastmath`` is deliberate here (3.4× measured); see the block comment
+    above — results may differ from ``_convol_case1`` in the last bits.
     """
     # Transpose the banded density so the j-reduction is unit-stride in
     # both operands (d_right is small: ns × ks_right).
@@ -946,7 +985,7 @@ def _convol_case1_t(rkbT, d_right, ns, ks_left, ks_right):
     return a
 
 
-@nb.njit(cache=True, fastmath=True)
+@nb.njit(cache=True)
 def _convol_case4_t(rkbT, d, ns, ks):
     """icase=4 on the transposed bank — same gather families as
     ``_convol_case4``, with the output column innermost (unit stride)."""
@@ -1000,7 +1039,7 @@ def _convol_case4_t(rkbT, d, ns, ks):
 # 6. Trace contraction: SUM_AmB
 # ══════════════════════════════════════════════════════════════════════
 
-@nb.njit(cache=True, fastmath=True)
+@nb.njit(cache=True)
 def _convol_case2_mixed(rkb, d_left, ns, ks_left, ks_right):
     """icase=2 for mixed-basis rkb(ns, ns, ks_left, ks_right).
 
@@ -1038,7 +1077,7 @@ def _convol_case2_mixed(rkb, d_left, ns, ks_left, ks_right):
     return a
 
 
-@nb.njit(cache=True, fastmath=True)
+@nb.njit(cache=True)
 def _sum_amb_banded(a, b, ns, ks):
     """Trace contraction of two banded matrices: Σ_{i,s} a[i,s] * b[i,s]."""
     s = 0.0
@@ -1051,7 +1090,14 @@ def _sum_amb_banded(a, b, ns, ks):
 
 @nb.njit(cache=True, fastmath=True)
 def _sum_amb_full(a, b, ns):
-    """Trace contraction of two full matrices: Σ_{i,j} a[i,j] * b[i,j]."""
+    """Trace contraction of two full matrices: Σ_{i,j} a[i,j] * b[i,j].
+
+    ``fastmath`` is a measured 3.9× win (1.9 µs vs 7.2 µs at ns=113): the
+    guard-free contiguous reduction vectorises once reassociation is
+    allowed.  Its banded sibling :func:`_sum_amb_banded` is the opposite —
+    fastmath made it 30 % *slower* (0.89 µs vs 0.69 µs), so it no longer
+    carries the flag.
+    """
     s = 0.0
     for i in range(ns):
         for j in range(ns):
@@ -1063,16 +1109,111 @@ def _sum_amb_full(a, b, ns):
 # 7. High-level interface
 # ══════════════════════════════════════════════════════════════════════
 
+# ── Process-wide bank registry ──────────────────────────────────────
+#
+# The rkb banks depend only on the B-spline *geometry* (knot vector, basis
+# orders, grid) — never on the orbital coefficients or on the solver
+# instance consuming them — so every :class:`ConvolCache` built on an
+# equal-content workspace can share one bank dict.  Keying on object
+# identity is not enough: the MCDHF driver rebuilds the ``bsp_data`` dicts
+# for every outer iteration (fresh objects, bit-identical content), and
+# each DFSolver used to lazily create its own cache, so the same 20 banks
+# were rebuilt once per outer iteration (~14 % of an MCDHF solve, measured
+# 0.40 s of 3.20 s at ns=60 and 1.44 s of 10.40 s at ns=113).  Keying on
+# the grid content makes the banks reusable across those solvers while
+# staying exact: any geometry difference (including a different ``tp``
+# under kinetic balance, or a different Gauss quadrature) changes the key.
+_BANK_CACHE_LIMIT = 4          # distinct grids kept alive (each holds ~20 banks)
+_RKB_BANKS: OrderedDict = OrderedDict()
+
+
+def grid_bank_key(bsp_data):
+    """Content key identifying the rkb banks built on ``bsp_data``.
+
+    The bank content is a pure function of the knot sequences and basis
+    orders.  ``t``/``tp`` are hashed by content (``tobytes``) rather than
+    by ``id()``: the MCDHF driver hands each outer iteration a freshly
+    built — but bit-identical — ``bsp_data`` dict, so an id()-keyed cache
+    would miss every time and rebuild all 20 banks.
+
+    ``gr``/``grw`` are derived from ``(t, ns, ks, n_gauss)``; the
+    quadrature *shape* enters the key so a caller changing ``n_gauss``
+    without changing the knots still gets its own banks.
+    """
+    t = bsp_data.get("t") if isinstance(bsp_data, dict) else None
+    if t is None:
+        raise TypeError(
+            "ConvolCache needs a B-spline workspace dict carrying a 't' "
+            f"knot vector (got {type(bsp_data).__name__})")
+    t = np.ascontiguousarray(t)
+    tp = bsp_data.get("tp")
+    if tp is None or np.array_equal(tp, t):
+        tp_bytes = b""
+    else:
+        tp_bytes = np.ascontiguousarray(tp).tobytes()
+    gr = bsp_data.get("gr")
+    return (
+        int(bsp_data["nv"]),
+        int(bsp_data.get("ks", bsp_data.get("ksq", 0))),
+        int(bsp_data.get("ksp", bsp_data.get("ks", 0))),
+        int(bsp_data.get("ksq", bsp_data.get("ks", 0))),
+        int(bsp_data.get("nsp", bsp_data.get("ns", 0))),
+        int(bsp_data.get("nsq", bsp_data.get("ns", 0))),
+        int(bsp_data.get("ns", 0)),
+        t.shape,
+        t.tobytes(),
+        tp_bytes,
+        None if gr is None else np.shape(gr),
+    )
+
+
+def shared_banks(bsp_data, key=None):
+    """Return the process-wide bank dict for ``bsp_data``'s geometry.
+
+    All caches over an equal-content grid return the *same* dict object,
+    so both the untransposed and the transposed banks are built once per
+    process.  Bounded LRU: at most ``_BANK_CACHE_LIMIT`` grids are
+    retained; eviction is safe because the dict is a pure memo (a live
+    :class:`ConvolCache` keeps its own reference and simply recomputes a
+    bank if it is ever dropped).
+    """
+    if key is None:
+        key = grid_bank_key(bsp_data)
+    banks = _RKB_BANKS.get(key)
+    if banks is None:
+        banks = {}
+        _RKB_BANKS[key] = banks
+        while len(_RKB_BANKS) > _BANK_CACHE_LIMIT:
+            _RKB_BANKS.popitem(last=False)
+    else:
+        _RKB_BANKS.move_to_end(key)
+    return banks
+
+
 class ConvolCache:
     """Cache for cell-based R^k integrals.
 
     Stores pre-computed rkb arrays for each (k, itype) combination.
     Reuses arrays across direct potential, exchange, and energy computation.
+
+    ``_cache`` is shared process-wide between every cache built on an
+    equal-content grid (see :func:`shared_banks`), so an MCDHF solve — which
+    constructs a fresh :class:`~atomx.methods.dirac_fock.DFSolver` per outer
+    iteration — builds each of the 20 banks once instead of once per
+    iteration.  Banks are read-only to every consumer.
     """
 
     def __init__(self, bsp_data):
         self.bsp_data = bsp_data
-        self._cache = {}
+        self.grid_key = grid_bank_key(bsp_data)
+        self._cache = shared_banks(bsp_data, self.grid_key)
+
+    def same_grid(self, bsp_data) -> bool:
+        """True if ``bsp_data`` has the same bank geometry as this cache."""
+        try:
+            return grid_bank_key(bsp_data) == self.grid_key
+        except (KeyError, TypeError):
+            return False
 
     def get_rkb(self, k, itype="pppp"):
         """Get or compute rkb array for multipole order k and integral type."""
@@ -1155,6 +1296,7 @@ class ConvolCache:
         return rkbT, ns, ks
 
     def clear(self):
+        """Drop this grid's banks (shared with every cache on the grid)."""
         self._cache.clear()
 
 
@@ -1392,7 +1534,7 @@ def compute_slater_gk_cell(Pa, Qa, Pb, Qb, bsp_data, k, cache=None):
 # ── Batched Slater integrals: bilinear form in the slot-2/4 orbitals ─
 
 
-@nb.njit(cache=True, fastmath=True)
+@nb.njit(cache=True)
 def _rkb_bilinear(rkb, wa, wb, n_left, n_right, ks_left, ks_right, ns_out):
     """Fold the fixed orbital pair (wa, wb) into one rkb bank.
 

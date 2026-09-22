@@ -100,3 +100,64 @@ def test_relativistic_small_component_suppressed():
     Q_max = float(np.max(np.abs(Q_outer)))
     # Q should be suppressed by ~α relative to P in the non-relativistic limit
     assert Q_max < 0.1 * P_max
+
+
+class TestCoulombPhaseShift:
+    """``delta`` must be a phase shift, not a function of the box radius.
+
+    For a pure Coulomb potential ``-Z/r`` the integrated solution *is* the
+    regular Coulomb function, so the phase extracted against
+
+        ``P(r) ~ A sin(k r - l pi/2 - eta ln(2 k r) + sigma_l + delta)``
+
+    must be zero once the matching radius is asymptotic (``k r >> eta^2``).
+    The fit previously used a plane-wave asymptotic, dropping both the
+    ``-eta ln(2 k r)`` term and the Coulomb phase ``sigma_l``; for
+    ``Z_res = 1, k = 0.271, r_max = 50`` the log term alone is 12.2 rad, so
+    the returned "phase shift" was dominated by the box radius.  See
+    ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding M15.
+    """
+
+    @pytest.mark.parametrize(
+        "Z, k, r_max",
+        [(1.0, 2.0, 200.0), (1.0, 5.0, 200.0), (1.0, 10.0, 100.0),
+         (10.0, 10.0, 200.0)],
+    )
+    def test_pure_coulomb_phase_is_zero(self, Z, k, r_max):
+
+        from atomx.numerics.shooting.dirac_continuum import (
+            solve_dirac_continuum_shooting,
+        )
+
+        E = 0.5 * k * k
+        _r, _P, _Q, delta = solve_dirac_continuum_shooting(
+            E, -1, lambda r: -Z / r, r_max=float(r_max), n_grid=8000,
+            Z_residual=Z,
+        )
+        assert abs(delta) < 0.05, (
+            f"Z={Z}, k={k}: pure-Coulomb delta = {delta:+.4f} rad; the "
+            f"Coulomb log/phase terms are missing from the asymptotic fit"
+        )
+
+    def test_delta_no_longer_scales_with_the_box(self):
+        """The same physical state matched at two radii must agree.
+
+        With the plane-wave fit the two answers differ by
+        ``eta ln(r2/r1)`` — 2.8 rad for Z=1, k=0.5, r: 100 -> 1000.
+        """
+        from atomx.numerics.shooting.dirac_continuum import (
+            solve_dirac_continuum_shooting,
+        )
+
+        Z, k = 1.0, 0.5
+        E = 0.5 * k * k
+        deltas = []
+        for r_max in (200.0, 800.0):
+            _r, _P, _Q, d = solve_dirac_continuum_shooting(
+                E, -1, lambda r: -Z / r, r_max=r_max, n_grid=8000,
+                Z_residual=Z,
+            )
+            deltas.append(d)
+        # eta ln(2 k r) changes by eta*ln(4) = -2.77 rad between these
+        # radii, so a plane-wave fit would show a difference of that order.
+        assert abs(deltas[0] - deltas[1]) < 0.15, deltas

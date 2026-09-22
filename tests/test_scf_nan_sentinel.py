@@ -46,7 +46,7 @@ from atomx.numerics.bspline.dirac_assembly import (
 
 @pytest.fixture(scope="module")
 def he_result():
-    atom = Atom(Z=2, numerics="bspline")
+    atom = Atom(Z=2, engine="bspline")
     atom.solve()
     return atom._result
 
@@ -152,7 +152,7 @@ def test_dhf_solve_recovers_from_transient_nan(monkeypatch):
         return E, comp
 
     monkeypatch.setattr(DFSolver, "_compute_total_energy", flaky_cte)
-    atom = Atom(Z=2, numerics="bspline")
+    atom = Atom(Z=2, engine="bspline")
     atom.solve()
     assert np.isfinite(atom._result.total_energy)
     assert atom._result.converged
@@ -163,7 +163,7 @@ def test_dhf_solve_raises_on_persistent_nan(monkeypatch):
         DFSolver, "_compute_total_energy",
         lambda self, orbitals, orbital_energies=None: (
             float("nan"), {"E_1e": float("nan")}))
-    atom = Atom(Z=2, numerics="bspline")
+    atom = Atom(Z=2, engine="bspline")
     with pytest.raises(FloatingPointError, match="HYP-1590"):
         atom.solve()
 
@@ -328,7 +328,7 @@ def test_dhf_raises_on_poisoned_hydrogenic_seed(monkeypatch):
         return P, Q, E
 
     monkeypatch.setattr(DiracResult, "get_orbital", poison_get_orbital)
-    atom = Atom(Z=2, numerics="bspline")
+    atom = Atom(Z=2, engine="bspline")
     with pytest.raises(FloatingPointError, match="HYP-1590"):
         atom.solve()
 
@@ -347,7 +347,7 @@ def test_tfda_final_energy_uses_tripwire(monkeypatch):
         return E, comp
 
     monkeypatch.setattr(DFSolver, "_compute_total_energy", flaky_cte)
-    atom = Atom(Z=2, numerics="bspline", exchange="tfda")
+    atom = Atom(Z=2, engine="bspline", exchange="tfda")
     atom.solve()
     assert np.isfinite(atom._result.total_energy)
     assert calls["n"] >= 2   # the first NaN evaluation was retried
@@ -358,6 +358,6 @@ def test_tfda_raises_on_persistent_nan(monkeypatch):
         DFSolver, "_compute_total_energy",
         lambda self, orbitals, orbital_energies=None: (
             float("nan"), {"E_1e": float("nan")}))
-    atom = Atom(Z=2, numerics="bspline", exchange="tfda")
+    atom = Atom(Z=2, engine="bspline", exchange="tfda")
     with pytest.raises(FloatingPointError, match="HYP-1590"):
         atom.solve()

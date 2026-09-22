@@ -23,7 +23,7 @@ import io
 import numpy as np
 import pytest
 
-from atomx import Atom, Ladder, LadderRun, Sampling
+from atomx import Atom, Basis, Ladder, LadderRun, Sampling
 from atomx.ladder import RungOutcome
 from atomx.methods import (
     DiracFock,
@@ -62,7 +62,7 @@ def test_sampling_with_creates_modified_copy():
 
 
 def test_sampling_constructor_propagates_to_atom():
-    a = Atom(Z=2, sampling=Sampling.high)
+    a = Atom(Z=2, basis=Basis(sampling=Sampling.high))
     assert a.ks == Sampling.high.ks
     # ``ns=None`` on the tier means "auto" — the Atom uses its physics-grid
     # path, which sets ``_use_physics_grid=True`` and a placeholder ns=113.

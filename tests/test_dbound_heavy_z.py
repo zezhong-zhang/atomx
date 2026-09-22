@@ -148,9 +148,14 @@ def test_heavy_z_ion_shooting_matches_sfac(
     # sfac/Fortran-DHFS reference is pure Dirac-Coulomb — keep the
     # atomx side correction-free (breit/qed default True since the
     # 2026-07 defaults flip).
-    atom = Atom(Z=Z, charge=charge, config=config,
-                numerics="shooting", exchange="slater",
-                breit=False, qed=False)
+    atom = Atom(
+                Z=Z,
+                charge=charge,
+                config=config,
+                engine="shooting",
+                exchange="slater",
+                corrections="none",
+           )
     atom.solve(max_iter=300)
     assert atom.total_energy is not None
     e_eV = atom.total_energy * HARTREE_EV

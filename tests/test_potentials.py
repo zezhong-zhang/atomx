@@ -85,8 +85,8 @@ class TestThomasFermi:
 
     def test_tfda_atom_calculation(self):
         """TFDA exchange mode should produce a converged result with orbital energies."""
-        from atomx import Atom
-        ne = Atom(Z=10, exchange="tfda", ns=50, ks=9)
+        from atomx import Atom, Basis
+        ne = Atom(Z=10, exchange="tfda", basis=Basis(ns=50, ks=9))
         ne.solve()
         assert ne.converged
         # TFDA total energy uses a different formula than HF, so the value
@@ -96,18 +96,22 @@ class TestThomasFermi:
 
     def test_tfda_faster_than_hf(self):
         """TFDA should need only 1 iteration (no SCF)."""
-        from atomx import Atom
-        ne = Atom(Z=10, exchange="tfda", ns=50, ks=9)
+        from atomx import Atom, Basis
+        ne = Atom(Z=10, exchange="tfda", basis=Basis(ns=50, ks=9))
         ne.solve()
         assert ne.iterations == 1
 
     def test_starting_potential_tfda(self):
         """TFDA starting potential should accelerate HF convergence."""
-        from atomx import Atom
+        from atomx import Atom, Basis
         # Without starting potential
-        ne1 = Atom(Z=10, exchange="hf", ns=50, ks=9)
+        ne1 = Atom(Z=10, exchange="hf", basis=Basis(ns=50, ks=9))
         ne1.solve(max_iter=60, tol=1e-5)
-        ne2 = Atom(Z=10, exchange="hf", starting_potential="tfda", ns=50, ks=9)
+        ne2 = Atom(
+                   Z=10,
+                   exchange="hf",
+                   basis=Basis(starting_potential="tfda", ns=50, ks=9),
+              )
         ne2.solve(max_iter=60, tol=1e-5)
 
         # The TFDA starting potential must converge at least as fast as the
@@ -134,8 +138,8 @@ class TestGSZ:
 
     def test_gsz_atom(self):
         """GSZ exchange mode should produce converged result."""
-        from atomx import Atom
-        ne = Atom(Z=10, exchange="gsz", ns=50, ks=9)
+        from atomx import Atom, Basis
+        ne = Atom(Z=10, exchange="gsz", basis=Basis(ns=50, ks=9))
         ne.solve()
         assert ne.converged
         # GSZ is parametric - check orbital energies are bound

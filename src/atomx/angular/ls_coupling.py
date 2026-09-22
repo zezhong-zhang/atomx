@@ -136,9 +136,26 @@ def allowed_terms(l: int, n_electrons: int) -> List[Tuple[int, int]]:
 
 
 def slater_condon_f(k: int, l: int) -> float:
-    """Compute the angular factor c^k(l, l) for Slater-Condon F^k integrals.
+    """Reduced-matrix-element square c^k(l, l) for Slater-Condon F^k integrals.
 
-    c^k(l,l) = <l 0 k 0 | l 0>^2 (Clebsch-Gordan coefficient squared).
+        c^k(l, l) = |<l || C^k || l>|²  =  (2l+1)² · (l k l; 0 0 0)²
+
+    in the non-relativistic orbital convention used throughout atomx
+    (``<l||C^k||l'> = (-1)^l sqrt((2l+1)(2l'+1)) (l k l'; 0 0 0)``; see
+    :func:`atomx.scattering.r_matrix.angular_cc.angular_cc` and the
+    convention note in :func:`atomx.angular.coefficients.reduced_C`).
+
+    This is *not* the plain Clebsch-Gordan square: with
+    ``CG = <l 0 k 0 | l 0> = (-1)^k sqrt(2l+1) (l k l; 0 0 0)`` the two
+    differ by ``2l+1``,
+
+        c^k(l, l) = (2l+1) · CG²    [= (2l+1)³ (l k l; 0 0 0)²],
+
+    and for (k, l) = (2, 1) they are 6/5 and 2/5 respectively (the raw
+    3j square being 2/15).  The three quantities were conflated in the
+    docstring/comment before the 2026-09-19 review (finding M13); the
+    gate ``tests/test_review_m9_m13_gates.py`` pins the
+    reduced-matrix-element-square convention against sympy.
 
     Parameters
     ----------
@@ -156,7 +173,7 @@ def slater_condon_f(k: int, l: int) -> float:
         return 0.0
 
     from atomx.angular.wigner import wigner_3j
-    # c^k(l,l) = (-1)^l * sqrt(2l+1) * (l k l; 0 0 0) * sqrt(2l+1)
-    # = (2l+1) * (l k l; 0 0 0)^2
+    # |<l||C^k||l>|^2 = [(2l+1)(l k l;000)]^2 = (2l+1)^2 * (l k l;000)^2
+    # (the earlier comment dropped one factor of (2l+1)).
     w3j = wigner_3j(2 * l, 2 * k, 2 * l, 0, 0, 0)
     return (2 * l + 1) ** 2 * w3j ** 2

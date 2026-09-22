@@ -92,18 +92,29 @@ def _compute_yk_flat(rho_flat, r_flat, w_flat, n, k):
         rkm[i] = r_flat[i] ** (-(k + 1))
 
     # Outward integral: I_out(r) = int_0^r rho(r') r'^k dr'
+    #
+    # The node at r_i sits in BOTH cumulatives, so adding its full weight
+    # to each double-counts the diagonal cell and biases Y^k by
+    # ``+ w_i rho_i / r_i`` (an O(h) error): measured +1.75 % on
+    # F^0(1s,1s) for Z=10, worth 0.44-4.5 eV on the total energy of the
+    # ``slater``/``gu`` exchange models, which route their Hartree
+    # potential through here.  Each side therefore contributes the half
+    # cell it actually owns.  See
+    # docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding H5.
     i_out = np.empty(n)
     s = 0.0
     for i in range(n):
-        s += w_flat[i] * rho_flat[i] * rk[i]
-        i_out[i] = s
+        diag = w_flat[i] * rho_flat[i] * rk[i]
+        s += diag
+        i_out[i] = s - 0.5 * diag
 
     # Inward integral: I_in(r) = int_r^inf rho(r') r'^{-(k+1)} dr'
     i_in = np.empty(n)
     s = 0.0
     for i in range(n - 1, -1, -1):
-        s += w_flat[i] * rho_flat[i] * rkm[i]
-        i_in[i] = s
+        diag = w_flat[i] * rho_flat[i] * rkm[i]
+        s += diag
+        i_in[i] = s - 0.5 * diag
 
     # Y^k(r) = r^{-(k+1)} I_out + r^k I_in
     yk = np.empty(n)

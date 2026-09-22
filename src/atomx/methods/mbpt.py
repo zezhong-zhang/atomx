@@ -304,7 +304,7 @@ def build_virtual_basis(
     *,
     cache: Optional[ConvolCache] = None,
     e_max: Optional[float] = None,
-    potential_mode: str = "VN-1",
+    potential_mode: str = "VN",
 ) -> Tuple[List[Tuple[np.ndarray, np.ndarray, float]], List[Tuple[np.ndarray, np.ndarray, float]]]:
     """Diagonalise h_κ in the converged B-spline basis.
 
@@ -407,9 +407,27 @@ def mbpt2_energy(
         Default ``None`` → use the full triangle / parity range
         (selection rules typically truncate at ``k ≲ 2·kappa_max``).
     e_virt_max
-        Optional energy ceiling for virtual orbitals (hartree).  Use
-        to drop the highest pseudo-continuum states which contribute
-        negligibly but cost time.
+        Optional energy ceiling for virtual orbitals (hartree).
+
+        **These states are NOT negligible, and the default of ``None``
+        is unsafe.**  The previous text here said they "contribute
+        negligibly but cost time"; measured on Ar I
+        (``1s2 2s2 2p6 3s2 3p6``, one SCF result, varying only this
+        argument):
+
+            default (None)   E2 = -1.057787 Ha
+            e_virt_max=5.0   E2 = -0.366318 Ha
+            e_virt_max=1.0   E2 = -0.124591 Ha
+
+        i.e. the highest pseudo-continuum states carry ~65 % of the
+        uncapped total, and the uncapped value is not a physical
+        second-order energy at all (argon's whole correlation energy is
+        ~ -0.7 Ha).  States near the top of the B-spline box are
+        continuum-like and enter a *bound-state* sum with near-zero
+        energy denominators.  Choosing a bound-space cap is therefore a
+        physics decision, not a performance one, and it is currently the
+        caller's responsibility.  Gated by
+        ``tests/test_nist_levels.py::test_ar_mbpt2_correlation_energy_is_physical``.
     verbose
         If True, log per-pair contributions.
 
@@ -453,11 +471,20 @@ def mbpt2_energy(
     virt_basis: Dict[int, List[Tuple[np.ndarray, np.ndarray, float]]] = {}
 
     for kappa in kappa_list:
+        # V^N for the virtuals: the MBPT(2) denominators
+        # ``ε_a + ε_b − ε_i − ε_j`` must come from ONE one-particle
+        # Hamiltonian.  Building the virtuals in V^{N-1} while taking the
+        # occupied ε from the N-electron SCF mixes two different
+        # Hamiltonians; for He that over-correlates by 19 % (E2 =
+        # −0.049871 Ha against the exact correlation energy −0.042044 and
+        # the literature MP2/CBS −0.0372), driving the total 8 mHa *below*
+        # the exact ground state.  With V^N, E2 = −0.03722 Ha.
+        # See docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding H4/M6.
         occ, virt = build_virtual_basis(scf_result, kappa, cache=cache,
-                                          e_max=e_virt_max)
-        # Sapirstein-Johnson-Blundell prescription: use SCF ε_a for
-        # occupied orbitals (the V^{N-1} eigenvalues differ and would
-        # over-shrink the energy denominator).
+                                          e_max=e_virt_max,
+                                          potential_mode="VN")
+        # Occupied ε from the converged N-electron SCF, consistent with
+        # the virtuals' Hamiltonian (Sapirstein-Johnson-Blundell).
         kappa_subshells = [s for s in scf_result.subshells if s.kappa == kappa]
         occ_with_labels: List[Tuple[np.ndarray, np.ndarray, float, str]] = []
         for i, (P, Q, _eps_v_n1) in enumerate(occ):

@@ -28,7 +28,7 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from atomx import Atom  # noqa: E402
+from atomx import Atom, Exchange  # noqa: E402
 
 TOTAL_RTOL = 1e-4
 ORBITAL_RTOL = 5e-4
@@ -51,10 +51,18 @@ def solved():
     """
     out = {}
     for name, kw in CASES.items():
-        shooting = Atom(numerics="shooting", exchange="hf",
-                        breit=False, qed=False, **kw).solve()
-        bspline = Atom(numerics="bspline", exchange="hf",
-                       breit=False, qed=False, **kw).solve()
+        shooting = Atom(
+                        engine="shooting",
+                        exchange="hf",
+                        corrections="none",
+                        **kw,
+                   ).solve()
+        bspline = Atom(
+                       engine="bspline",
+                       exchange="hf",
+                       corrections="none",
+                       **kw,
+                  ).solve()
         out[name] = (shooting, bspline)
     return out
 
@@ -94,7 +102,7 @@ def test_provenance_and_method_metadata(solved):
     shooting, _ = solved["Ne"]
     # averaging="ci" is the Atom default; Ne is closed-shell (single
     # jj-CSF) so the ci route collapses to this plain solve exactly.
-    assert shooting.provenance == {"numerics": "shooting",
+    assert shooting.provenance == {"engine": "shooting",
                                    "exchange": "hf",
                                    "averaging": "ci"}
     res = shooting.result
@@ -114,14 +122,14 @@ def test_energy_components_consistent(solved):
 def test_exchange_lowers_valence_orbitals_vs_local():
     """Sanity: non-local HF binds Ne valence more deeply than Gu's
     local exchange on the same engine (the known DFS shortfall)."""
-    hf = Atom(Z=10, numerics="shooting", exchange="hf").solve()
-    gu = Atom(Z=10, numerics="shooting", exchange="gu").solve()
+    hf = Atom(Z=10, engine="shooting", exchange="hf").solve()
+    gu = Atom(Z=10, engine="shooting", exchange="gu").solve()
     assert hf.orbital_energies["2p3/2"] < gu.orbital_energies["2p3/2"]
 
 
 def test_alpha_x_still_rejected_for_hf():
     with pytest.raises(ValueError, match="alpha_x"):
-        Atom(Z=10, numerics="shooting", exchange="hf", alpha_x=0.7)
+        Atom(Z=10, engine="shooting", exchange=Exchange(model="hf", alpha_x=0.7))
 
 
 @pytest.mark.parametrize("Z", [27, 82])

@@ -34,8 +34,7 @@ from atomx.numerics.shooting.solver import dfs_frozen_orbital  # noqa: E402
 
 @pytest.fixture(scope="module")
 def fe17_dfs():
-    a = Atom(Z=26, charge=16, config="1s2 2s2 2p6",
-             numerics="shooting", exchange="gu")
+    a = Atom(Z=26, charge=16, config="1s2 2s2 2p6", engine="shooting", exchange="gu")
     a.solve()
     return a._result
 

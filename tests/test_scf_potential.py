@@ -46,7 +46,7 @@ def test_tabulated_potential_validates():
 def test_static_hartree_neutralises_at_large_r():
     """For He (Z=2, 2 electrons in 1s²), V_HF(r→∞) → 0
     (the nucleus is fully screened by the bound electrons)."""
-    atom = Atom(Z=2, config="1s2", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s2", engine="bspline", corrections="none")
     atom.solve()
     V_hf = static_hartree_potential(atom._result)
     # At large r the bound charge is fully enclosed → V_HF ≈ 0
@@ -58,7 +58,7 @@ def test_static_hartree_neutralises_at_large_r():
 def test_static_hartree_excluding_one_electron_gives_minus_one_over_r():
     """For He (Z=2) with exclude='1s1/2', V → -1/r at large r
     (the photoelectron sees one residual electron's worth of nucleus)."""
-    atom = Atom(Z=2, config="1s2", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s2", engine="bspline", corrections="none")
     atom.solve()
     V_hf = static_hartree_potential(atom._result, exclude_label="1s1/2")
     # At r=10 a₀ the residual He+ ion looks like -1/r
@@ -70,7 +70,7 @@ def test_static_hartree_can_include_local_exchange():
     """Local exchange should make the residual-core potential more attractive
     where the bound-electron density is non-negligible, without changing the
     Coulomb tail qualitatively."""
-    atom = Atom(Z=2, config="1s2", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s2", engine="bspline", corrections="none")
     atom.solve()
     V_h = static_hartree_potential(atom._result, exclude_label="1s1/2")
     V_hx = static_hartree_potential(
@@ -85,7 +85,7 @@ def test_static_hartree_inner_region_more_attractive():
     """V_HF(r) is more attractive than V_bare(r) only for small r —
     actually the screening REDUCES the attractive bare -Z/r at large r.
     Sanity: V_HF(r→0) ≈ V_bare(r→0) (no screening at the nucleus)."""
-    atom = Atom(Z=10, config="1s2 2s2 2p6", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=10, config="1s2 2s2 2p6", engine="bspline", corrections="none")
     atom.solve()
     V_hf = static_hartree_potential(atom._result)
     V_bare = bare_nuclear_potential(10)
@@ -98,7 +98,12 @@ def test_static_hartree_inner_region_more_attractive():
 
 def test_static_hartree_for_neutral_argon():
     """For neutral Ar (Z=18, 18 electrons), V_HF(r → ∞) → 0."""
-    atom = Atom(Z=18, config="1s2 2s2 2p6 3s2 3p6", numerics="bspline", breit=False, qed=False)
+    atom = Atom(
+                Z=18,
+                config="1s2 2s2 2p6 3s2 3p6",
+                engine="bspline",
+                corrections="none",
+           )
     atom.solve()
     V_hf = static_hartree_potential(atom._result)
     out = V_hf(np.array([20.0]))[0]

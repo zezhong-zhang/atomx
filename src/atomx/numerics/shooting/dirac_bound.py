@@ -55,6 +55,13 @@ def dbound(e_in, eps, n, k, rg, rvg, va, vb, vc, vd, nvt, rad, ngp):
     pt = np.zeros(nrt)
     qt = np.zeros(nrt)
 
+    #: Normalisation integral, set on the matching stage.  Initialised
+    #: here so the early-exit paths (``ier = 5``, bracket collapse) do not
+    #: read an unbound local: pure Python raised ``UnboundLocalError``
+    #: while the JIT build silently returned a garbage value, so the
+    #: python/numba behaviour differed on exactly the failure path.
+    total_sum = 0.0
+
     # Minimum of effective radial potential (ME-5.1)
     emin = 1.0
     for i in range(1, nrt):

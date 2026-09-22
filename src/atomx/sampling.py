@@ -44,13 +44,13 @@ class Sampling:
         Number of B-spline functions.  ``None`` (default) means
         "auto-select from the DBSR_HF physics grid" — the recommended
         choice for the B-spline engine
-        (``Atom(Z, numerics='bspline').solve()``; the bare default now
+        (``Atom(10, engine='bspline').solve()``; the bare default now
         resolves to the shooting engine).
     ks : int
         B-spline polynomial order.  Default 9, matching DBSR_HF.
     n_grid : int
         Number of radial grid points for the ODE-shooting backend
-        (``Atom(numerics='shooting')`` and the perturbative
+        (``Atom(10, engine='shooting')`` and the perturbative
         Breit-Pauli rung).
     r_max : float
         Outer radius of the radial box, in Bohr.
@@ -147,7 +147,7 @@ publication = Sampling(
 # Expose the tiers as class-level attributes so ``Sampling.standard``
 # is the natural call site:
 #
-#     ne = Atom(Z=10, sampling=Sampling.standard).solve()
+#     ne = Atom(10, basis=Basis(sampling=Sampling.standard)).solve()
 #
 # ``Sampling`` is frozen; assigning to its class is a one-time bootstrap
 # and cannot be re-done by callers.

@@ -49,7 +49,9 @@ from functools import lru_cache
 from typing import Callable, Tuple
 
 import numpy as np
+from scipy.special import gamma as _sp_gamma
 
+from atomx.constants import C_SQ as _C_SQ  # CODATA-2022 c² (M12)
 from atomx.numerics.shooting.dirac_integrator import doutw
 from atomx.numerics.shooting.grid import sgrid
 from atomx.numerics.shooting.spline import vint
@@ -114,7 +116,8 @@ def _solve_prepared(prep, E_au: float, kappa: int, eps_tol: float):
     # nonrelativistic k = sqrt(2E) target left amplitude^2 low by
     # sqrt(1 + E/2c^2) per wave (9% at 200 keV) — visible as a
     # high-energy deficit in Z=54 K-shell cross sections.
-    _C_SQ = 137.0359990836 ** 2
+    # c² comes from atomx.constants (module-level _C_SQ import), M12:
+    # the local literal was the CODATA-2018 1/α², 1.4e-9 low.
     eps_rel = E_au / _C_SQ
     k_inf = math.sqrt(2.0 * E_au * (1.0 + 0.5 * eps_rel))
 
@@ -144,7 +147,20 @@ def _solve_prepared(prep, E_au: float, kappa: int, eps_tol: float):
     phase = math.asin(sin_arg)
     if dP[-1] < 0:
         phase = math.pi - phase
-    delta = phase - k_inf * r[-1] + 0.5 * l * math.pi
+    # Asymptotic matching must use the *Coulomb* wave, not a plane wave:
+    # the outgoing electron still feels the residual ion, so
+    #     P(r) ~ A sin(k r - l pi/2 - eta ln(2 k r) + sigma_l + delta)
+    # with eta = -Z_res/k and sigma_l = arg Gamma(l + 1 + i eta).  Dropping
+    # the two Coulomb terms (the previous behaviour) made `delta` a
+    # function of the box radius rather than a phase shift: -eta ln(2 k r)
+    # alone is 12.2 rad for Z_res = 1, k = 0.271, r_max = 50.
+    # See docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding M15.
+    z_res = -float(rv[-1])          # r*V(r) -> -Z_res as r -> infinity
+    eta = -z_res / k_inf
+    _gam = _sp_gamma(complex(l + 1.0, eta))
+    sigma_l = math.atan2(_gam.imag, _gam.real)
+    delta = (phase - k_inf * r[-1] + 0.5 * l * math.pi
+             + eta * math.log(2.0 * k_inf * r[-1]) - sigma_l)
     delta = (delta + math.pi) % (2 * math.pi) - math.pi
 
     norm = math.sqrt((2.0 + eps_rel) / (math.pi * k_inf)) / A_meas

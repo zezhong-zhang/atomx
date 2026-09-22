@@ -27,7 +27,7 @@ import math
 import numpy as np
 import pytest
 
-from atomx import Atom
+from atomx import Atom, Exchange
 from atomx.constants import HARTREE_EV
 from atomx.numerics.shooting.grid import sgrid
 from atomx.numerics.shooting.solver import (
@@ -99,9 +99,12 @@ def test_slater_method_flag_changes_total_energy_path() -> None:
     results = {}
     for method in ("slag6", "power_series"):
         atom = Atom(
-            Z=10, charge=0, config="1s2 2s2 2p6",
-            numerics="shooting", exchange="gu", slater_method=method,
-        )
+                    Z=10,
+                    charge=0,
+                    config="1s2 2s2 2p6",
+                    engine="shooting",
+                    exchange=Exchange(model="gu", slater_method=method),
+               )
         atom.solve()
         assert atom.total_energy is not None
         results[method] = atom.total_energy * HARTREE_EV
@@ -118,8 +121,12 @@ def test_slater_method_rejects_unknown_value() -> None:
     """Unknown ``slater_method`` values raise ``ValueError`` at
     ``Atom`` construction time — fail fast rather than silently."""
     with pytest.raises(ValueError, match="slater_method"):
-        Atom(Z=10, config="1s2 2s2 2p6", numerics="shooting",
-             exchange="gu", slater_method="nope")
+        Atom(
+             Z=10,
+             config="1s2 2s2 2p6",
+             engine="shooting",
+             exchange=Exchange(model="gu", slater_method="nope"),
+        )
 
 
 def test_slag6_is_default() -> None:
@@ -127,8 +134,7 @@ def test_slag6_is_default() -> None:
     pins that choice so a silent flip back to power-series (which is
     available but no longer the recommended default) would be caught.
     """
-    atom = Atom(Z=10, config="1s2 2s2 2p6",
-                numerics="shooting", exchange="gu")
+    atom = Atom(Z=10, config="1s2 2s2 2p6", engine="shooting", exchange="gu")
     assert atom.slater_method == "slag6"
 
 
