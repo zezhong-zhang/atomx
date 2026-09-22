@@ -168,12 +168,12 @@ def test_fe17_3c_3d_f_ratio_in_bernitt_2012_2sigma_band():
     assert in_band, msg
 
 
-def test_fe17_3c_3d_band_definition_matches_redispatch():
-    """The 2σ band must match Pojo's HYP-175 re-dispatch (3.7 ± 0.4)."""
-    assert pytest.approx(3.7) == BERNITT_2012_F_RATIO_CENTER
-    assert pytest.approx(0.4) == BERNITT_2012_F_RATIO_2SIGMA
-    assert pytest.approx(3.3) == BERNITT_2012_F_RATIO_LOW
-    assert pytest.approx(4.1) == BERNITT_2012_F_RATIO_HIGH
+# Audit S4 finding 23: ``test_fe17_3c_3d_band_definition_matches_redispatch``
+# asserted the band constants equal themselves (3.7 == 3.7, 0.4 == 0.4,
+# 3.3 == 3.3, 4.1 == 4.1) — a tautology with no failure mode.  Deleted;
+# the constants are defined in this module's header and *used* by
+# ``test_fe17_3c_3d_f_ratio_in_bernitt_2012_2sigma_band``, which is the
+# gate that can actually fail.
 
 
 @pytest.mark.parametrize("radial_optimization", ["fac_frozen", "fac_frozen_local"])

@@ -2,6 +2,8 @@
 
 from collections import Counter
 
+import pytest
+
 from atomx.methods.mcdhf.config import enumerate_jj_csfs
 
 
@@ -31,7 +33,10 @@ def test_closed_shell_stays_single_J0_csf():
     assert csfs[0].parity == 1
 
 
+@pytest.mark.snapshot
 def test_fe17_benchmark_config_is_J_resolved():
+    # Generator count against Grant App. A (audit F10): pins the enumeration,
+    # no Hamiltonian content.
     configs = [
         "1s2 2s2 2p6",
         "1s2 2s2 2p5 3s1",

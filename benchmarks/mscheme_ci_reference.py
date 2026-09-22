@@ -1,30 +1,63 @@
-"""Independent m-scheme (Slater-Condon) relativistic CI — a CI oracle.
+"""An m-scheme (Slater-Condon) relativistic CI oracle for the atomx CI matrix.
 
 Purpose
 -------
 ``atomx.methods.mcdhf.matrix.build_ci_matrix`` evaluates CSF matrix
-elements through a hand-rolled jj-coupled angular kernel with a
-configuration-averaged diagonal plus two "J-correction" patches.  That
-kernel has no independent check: every existing test either exercises it
-against itself or compares final level energies with a tolerance loose
-enough (200 eV in ``tests/test_ci_J_block.py``) to hide a broken
-Hamiltonian.
+elements through a jj-coupled angular kernel.  This module rebuilds the CI
+in the **m-scheme determinant basis** so that the *assembly* of that matrix
+has an independent check.
 
-This module rebuilds the *same* CI from first principles, deliberately
-sharing **no angular code** with the repo:
+What this oracle is, and is not (2026-09 audit, finding F3)
+-----------------------------------------------------------
+It is:
 
-* two-electron elements come from the Wigner-Eckart theorem with every
-  3j symbol taken from :mod:`sympy.physics.wigner`;
-* ``H`` is assembled in the **m-scheme determinant basis** by explicit
-  Slater-Condon rules, then restricted to the same determinant space the
-  atomx CSF list spans;
-* only the *radial* integrals (``matrix._h_one_body`` / ``matrix._rk``)
-  and the orbitals are shared — those are independently validated by the
-  FAC / DBSR_HF / Salvat harnesses in ``benchmarks/``.
+* an independent **assembly**: ``H`` is built from explicit Slater-Condon
+  rules over determinants, restricted to the determinant space the atomx
+  CSF list spans, and diagonalised — no coefficients of fractional
+  parentage, no coupling trees, no CSF projection;
+* an independent **algebra table**: every 3j symbol comes from
+  :mod:`sympy.physics.wigner` (exact rationals), and ``ck_red``/``_w3j``
+  are written here rather than imported;
+* a check on the **CSF-to-determinant map**: the sorted spectrum of
+  ``build_ci_matrix`` and of this construction must coincide.
 
-The m-scheme route needs no coefficients of fractional parentage and no
-coupling trees, so it is exact by construction for any CSF list.  The
-convention it implements is
+It is NOT independent of the angular *formula* it certifies, and this
+docstring used to claim otherwise:
+
+* ``exact_ci.two_body_angular`` is a line-by-line transcription of
+  ``_angular_terms`` below — the same ``q2 % 2`` guard, the same ``kmax``,
+  the same ``(-1)**((2j_a-2m_a)/2 + (2j_b-2m_b)/2 + q)`` phase, the same
+  term order.  A sign or factor error in that formula is invisible to the
+  comparison;
+* the determinant sign convention is shared by design
+  (``exact_ci._ops_sign`` vs ``_apply_ops`` here);
+* the occupation patterns come from the repo's own ``enumerate_jj_csfs``
+  (:func:`patterns_from_configs`), and ``matrix._h_one_body``,
+  ``_norm_sq`` and ``_rk`` are shared — so the *radial* integrals are the
+  same numbers on both sides by construction.
+
+Provenance, for anyone reading the history: this file does not exist at the
+fix commit ``04cd274`` (``git ls-tree 04cd274 benchmarks/``) although the
+tests that commit added import it; its only commit is ``2007d36``, a
+descendant.  It was written in the same working session as the fix it
+certifies, so its agreement is not pre-existing external evidence.
+
+The genuinely independent evidence for the CI Hamiltonian lives in
+``tests/test_ci_grid_kernel.py`` (exact Condon-Shortley hydrogenic
+``F^k``/``G^k`` closed forms), ``tests/test_ci_analytic_slater_condon.py``
+(the orbital-free ``E(1P1) - E(3P1) = 2 G^1/3`` identity), the
+variational/Hylleraas-Undheim-MacDonald ladder in
+``tests/test_first_principles_invariants.py``, and the NIST/DBSR_HF level
+comparisons.
+
+What the m-scheme route does need is the same one-electron basis, the same
+radial integrals and the same **nuclear potential**: the one-body blocks are
+memoised per ``(ns, kappa, Z)`` and take the potential from
+``matrix._SLATER_MEMO["_nuclear_potential"]``, so a caller comparing against
+a finite-nucleus CI must set that key (at Z = 26 the point-nucleus
+difference is 4.4 mHa, four orders above the 1e-8 tolerances used).
+
+The convention implemented here is
 
     <ab|r12^-1|cd> = sum_k R^k(ac,bd)
         * (-1)^(j_a-m_a+j_b-m_b) * sum_q (-1)^q

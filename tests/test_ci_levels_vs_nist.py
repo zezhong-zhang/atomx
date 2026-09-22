@@ -46,11 +46,15 @@ contributes 1s^2 2s^1 (the physical field of that configuration).  The
 ``3P``-``1P`` separation is ``2 G^1(2s,2p)``, which is set by the 2p
 radial extent this protocol gives (-0.59 Ha, i.e. more compact than the
 state-optimised MCHF 2p): the computed separation is 33.6 kcm-1 against
-the NIST 20.6 kcm-1.  The fine-structure ordering is also still inverted,
-because the two jj components are solved as independent radial functions
-in the frozen field; the ordering test below is therefore written on the
-``fac_frozen`` fixture, where the jj pair is solved together with the tiny
-virtual occupations and the ordering does come out physical.
+the NIST 20.6 kcm-1.  The fine-structure ordering is also still inverted in
+the default protocol, because the two jj components are solved as independent
+radial functions in the frozen field — measured there 3P2 18044.9 < 3P1
+18283.9 < 3P0 18404.6 cm-1 against the physical 3P0 < 3P1 < 3P2.  The
+ordering claim is therefore gated **twice**: ``fac_frozen`` (where it holds:
+13822.5 < 13858.9 < 13930.0) as a plain assertion, and the default ``mcdhf``
+protocol as a strict xfail carrying those measured numbers (audit finding
+F9 — the claim used to live only in this docstring, while the single
+ordering test ran on the protocol where it passes).
 
 Both residuals are *orbital* (the same levels agree with the m-scheme
 oracle to 1e-14 on the very orbitals used here), and both gates are
@@ -62,6 +66,7 @@ from __future__ import annotations
 
 import numpy as np
 import pytest
+from _be_reference import BE_HF_1CSF
 
 from atomx import Atom, Correlation
 from atomx.constants import HARTREE_CM1
@@ -88,10 +93,9 @@ def _solve(protocol):
     return atom
 
 
-@pytest.fixture(scope="module")
-def fac_frozen_levels():
-    """``(cm-1 excitation energies by 2J, ground Ha)`` for the FAC protocol."""
-    atom = _solve("fac_frozen")
+def _levels(protocol):
+    """``(cm-1 excitation energies by 2J, ground Ha)`` for one radial protocol."""
+    atom = _solve(protocol)
     result = atom._result
     energies = np.asarray(result.state_energies)
     two_j = np.asarray([
@@ -107,17 +111,35 @@ def fac_frozen_levels():
     return {j2: sorted(v) for j2, v in excit.items()}, ground
 
 
+@pytest.fixture(scope="module")
+def fac_frozen_levels():
+    """``(cm-1 excitation energies by 2J, ground Ha)`` for the FAC protocol."""
+    return _levels("fac_frozen")
+
+
+@pytest.fixture(scope="module")
+def mcdhf_levels():
+    """The same for the default ``mcdhf`` protocol (audit finding F9)."""
+    return _levels("mcdhf")
+
+
+@pytest.mark.snapshot
 def test_ground_state_is_the_reference_configuration(fac_frozen_levels):
+    """atomx's own 1-CSF fixed point for this protocol (self-regression)."""
     _excit, ground = fac_frozen_levels
-    assert ground == pytest.approx(-14.5759, abs=2e-3)
+    assert ground == pytest.approx(BE_HF_1CSF, abs=2e-3)
 
 
-def test_three_p_ordering_is_physical(fac_frozen_levels):
-    """3P0 < 3P1 < 3P2 < 1P1 must come out in that order.
+def test_three_p_ordering_is_physical_fac_frozen(fac_frozen_levels):
+    """``fac_frozen`` protocol: 3P0 < 3P1 < 3P2 < 1P1 come out in that order.
 
-    The old kernel produced five scrambled levels with a "ground state"
-    0.042 Ha below the exact Be ground state; the ordering gate is the
-    cheapest statement that the J-block structure is now physical.
+    This gate covers the **fac_frozen** protocol only (the name says so):
+    the jj pair is solved together there, with tiny virtual occupations, and
+    the ordering is physical.  The default ``mcdhf`` protocol does *not*
+    reproduce it; that fact is gated by
+    ``test_three_p_ordering_is_physical_mcdhf`` as a strict xfail rather than
+    left in a docstring, so a reader of this file cannot mistake "the solver
+    produces physical fine structure" for a general claim.
     """
     excit, _ground = fac_frozen_levels
     assert sorted(excit) == [0, 2, 4]
@@ -128,11 +150,37 @@ def test_three_p_ordering_is_physical(fac_frozen_levels):
     assert p0 < j1[0] < p2 < j1[1], (p0, j1, p2)
 
 
+@pytest.mark.xfail(strict=True, reason=(
+    "MEASURED in the default ``mcdhf`` protocol: 3P2 18044.9 < 3P1 18283.9 < "
+    "3P0 18404.6 cm-1 — the fine structure is inverted (FAC/NIST order is "
+    "3P0 < 3P1 < 3P2, and this file's fac_frozen fixture gets it right at "
+    "13822.5 / 13858.9 / 13930.0).  Cause: the two jj components are solved "
+    "as independent radial functions in the averaged field, so their "
+    "spin-orbit splitting has the wrong sign; the R7 asymmetric mean field "
+    "fixed the Guerra branch, not the fine structure.  The CI matrix is not "
+    "the cause (the same levels agree with the m-scheme oracle to 1e-14 on "
+    "these orbitals).  Strict xfail: the gate must stay red."))
+def test_three_p_ordering_is_physical_mcdhf(mcdhf_levels):
+    """The same ordering claim, in the protocol where it does not hold."""
+    excit, _ground = mcdhf_levels
+    assert sorted(excit) == [0, 2, 4]
+    p0 = excit[0][0]
+    j1 = sorted(excit[2])
+    p2 = excit[4][0]
+    assert len(j1) == 2
+    assert p0 < j1[0] < p2 < j1[1], (p0, j1, p2)
+
+
 def test_singlet_p_excitation_matches_nist(fac_frozen_levels):
-    """The 1P1 level, the least orbital-sensitive of the four."""
+    """The 1P1 level, the least orbital-sensitive of the four.
+
+    Tolerance is the measured residual, not a round number: 43594.4 vs NIST
+    42565.45 cm-1 is 1029 cm-1, so the gate is 1200 cm-1 (the old 3000 cm-1
+    was three times the residual it was gating — audit finding F8).
+    """
     excit, _ground = fac_frozen_levels
     singlet = max(excit[2])
-    assert singlet == pytest.approx(NIST_CM1["1P1"], abs=3000.0)
+    assert singlet == pytest.approx(NIST_CM1["1P1"], abs=1200.0)
 
 
 @pytest.mark.xfail(strict=True, reason=(

@@ -201,22 +201,41 @@ def test_hydrogenic_slater_integrals(hydrogenic_grid, kind, a, b, k, exact):
         f"(rel {rel:.2e})")
 
 
-def test_rk_pairing_matches_gk(hydrogenic_grid):
-    """``_rk`` pairs its first two orbitals and its last two: ``R^k(ab, cd)``.
+@pytest.mark.parametrize("k,gk_exact,fk_exact", [
+    (0, 176.0 / 2187.0, 59.0 / 243.0),
+    (1, 112.0 / 2187.0, 8.0 / 81.0),
+])
+def test_rk_pairs_its_arguments_as_ab_cd(hydrogenic_grid, k, gk_exact, fk_exact):
+    """``_rk(a, b, c, d)`` is ``R^k(ab, cd)``, pinned against exact closed forms.
 
     Callers pass the roles explicitly — ``_rk(Pa, Pc, Pb, Pd)`` asks for
-    ``R^k(ac, bd)``.  Passing ``(1s, 2s, 1s, 2s)`` therefore gives
-    ``R^0(1s 2s, 1s 2s) = G^0(1s, 2s)``.  The previous version of this test
-    asserted the pairs were ``(a, c)`` and ``(b, d)``, which the grid branch
-    implemented but no caller used; that mismatch made the grid-flavour CI
-    evaluate different integrals from the B-spline one.
+    ``R^k(ac, bd)``.  The previous version of this test asserted
+    ``_rk(1s, 2s, 1s, 2s) == _gk(1s, 2s)``, which **could not fail**: on the
+    grid path both are the same ``_slater_integral_slag6`` expression over
+    the same two pair densities (``matrix.py``).  The discriminating
+    statement is against the *wrong* pairing's value:
+
+    * correct reading of ``_rk(1s, 2p, 1s, 2p, k)``: ``R^k(1s1p, 1s2p)``
+      with equal pairs, i.e. the exchange integral ``G^k(1s,2p)``;
+    * the (a,c)(b,d) reading would give ``R^k(1s1s, 2p2p) = F^k(1s,2p)``.
+
+    Both are exact Condon-Shortley hydrogenic values (independently verified
+    with sympy for the analytic 1s/2p functions): ``G^0 = 176/2187``,
+    ``G^1 = 112/2187``, ``F^0 = 59/243``, ``F^1 = 8/81``.  They differ by
+    60 % / 48 %, so the pairing cannot pass silently.
     """
     ws, orb, Q = hydrogenic_grid
     ci_matrix._SLATER_MEMO.clear()
-    rk = ci_matrix._rk(orb["1s"], Q, orb["2s"], Q,
-                       orb["1s"], Q, orb["2s"], Q, ws, 0)
-    gk = ci_matrix._gk(orb["1s"], Q, orb["2s"], Q, ws, 0)
-    assert rk == pytest.approx(gk, rel=1.0e-12)
+    got = ci_matrix._rk(orb["1s"], Q, orb["2p"], Q,
+                        orb["1s"], Q, orb["2p"], Q, ws, k)
+    assert got == pytest.approx(gk_exact, rel=SLATER_RTOL), (
+        f"R^{k}(1s 2p, 1s 2p) = {got!r}, expected G^{k}(1s,2p) = {gk_exact!r}")
+    ci_matrix._SLATER_MEMO.clear()
+    alt = ci_matrix._fk(orb["1s"], Q, orb["2p"], Q, ws, k)
+    assert alt == pytest.approx(fk_exact, rel=SLATER_RTOL)
+    assert abs(got - alt) > 0.1 * alt, (
+        f"the (a,c)(b,d) reading F^{k} = {alt!r} is not distinguishable from "
+        f"_rk = {got!r}; the assertion above is then vacuous")
 
 
 # ---------------------------------------------------------------------------
@@ -224,9 +243,15 @@ def test_rk_pairing_matches_gk(hydrogenic_grid):
 # ---------------------------------------------------------------------------
 
 
+@pytest.mark.snapshot
 def test_one_diff_grid_matrix(hydrogenic_grid):
     """Two-CSF 1s2 / 1s1 2s1 build on grid orbitals: symmetric, and the
-    1-diff element reduces to <1s|h_D|2s> (no spectators, sqrt factor 1)."""
+    1-diff element reduces to <1s|h_D|2s> (no spectators, sqrt factor 1).
+
+    The pinned element (0.169929196167459 Ha) is atomx's own recorded
+    value, so the test carries the ``snapshot`` marker; the structural
+    assertions (symmetry, non-zero) are the part that does not depend on it.
+    """
     ws, orb, Q = hydrogenic_grid
     orbitals = {(1, -1): (orb["1s"], Q), (2, -1): (orb["2s"], Q)}
     csfs = [

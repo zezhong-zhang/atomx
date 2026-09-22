@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import numpy as np
 import pytest
+from _be_reference import BE_DC_LOWER_BOUND
 
 from atomx import Atom
 from atomx.methods.ci import ci_solve
@@ -161,3 +162,10 @@ class TestCorrelationIsNotSilentlyDropped:
         # must recover correlation energy.  Before M7 this could silently
         # come back as exactly the 1-CSF energy when 2p was never solved.
         assert two.total_energy < single.total_energy - 1.0e-3
+        # Two-sided: the old one-sided form was satisfied by the -15.05 Ha
+        # non-variational regression it was written to catch, because any
+        # collapse below the reference is "lower" too.
+        assert two.total_energy > BE_DC_LOWER_BOUND, (
+            f"two-CSF CI = {two.total_energy:.6f} Ha is below the "
+            f"finite-nucleus Dirac-Coulomb Be ground state "
+            f"{BE_DC_LOWER_BOUND} Ha — non-variational")

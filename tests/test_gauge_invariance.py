@@ -53,39 +53,46 @@ def _hydrogenic_e1_gauge_ratio(n_lo: int, k_lo: int,
 
 
 # ---------------------------------------------------------------------------
-# 1. Hydrogenic — gauge invariance at numerical precision (≤ 1e-3).
+# 1. Hydrogenic — gauge invariance at numerical precision (<= 1e-9).
 # ---------------------------------------------------------------------------
 # These exercise the canonical s_{1/2} ↔ p_{1/2} E1 channel for which
 # ``radial_eL_velocity`` implements the FAC-normalised derivative-free
-# form.  The H 2p_{1/2} → 1s case is the explicit ≤ 1e-3 acceptance.
+# form.  Measured at ns=120/ks=9: 2.08e-11 (Z=1), 3.84e-12 (Z=2),
+# 1.09e-12 (Z=3), 3.37e-12 (Z=5), 3.55e-11 (Z=8); the gate is 1e-9.
 
 class TestHydrogenicGaugeInvariance:
 
     def test_H_2p12_to_1s_at_numerical_precision(self):
-        """H 2p_{1/2} → 1s_{1/2}: gauge ratio at numerical precision."""
+        """H 2p_{1/2} → 1s_{1/2}: gauge ratio at numerical precision.
+
+        Measured A_l = 6.268313e8 s^-1 (5.4e-4 above NIST) and
+        |A_v/A_l - 1| = 2.08e-11.  The old gates (1e-2 on NIST, 1e-3 on
+        the ratio) were 7-8 orders looser than the theorem holds.
+        """
         A_l, A_v, dev = _hydrogenic_e1_gauge_ratio(1, -1, 2, 1, Z=1)
         assert A_l > 0 and A_v > 0
-        # NIST: A(H 2p -> 1s) ≈ 6.2649 x 10^8 s^-1 — sanity-check the
+        # NIST: A(H 2p -> 1s) = 6.2649e8 s^-1 — sanity-check the
         # length-gauge value before comparing the two gauges.
-        assert abs(A_l - 6.2649e8) / 6.2649e8 < 1e-2
-        assert dev < 1e-3, f"hydrogenic gauge deviation {dev:.3e} exceeds 1e-3"
+        assert abs(A_l - 6.2649e8) / 6.2649e8 < 1e-3
+        assert dev < 1e-9, f"hydrogenic gauge deviation {dev:.3e} exceeds 1e-9"
 
     def test_He_plus_2p12_to_1s_at_numerical_precision(self):
         """He+ (Z=2) hydrogenic: gauge ratio at numerical precision."""
         _, _, dev = _hydrogenic_e1_gauge_ratio(1, -1, 2, 1, Z=2)
-        assert dev < 1e-3
+        assert dev < 1e-9
 
     @pytest.mark.parametrize("Z", [3, 5, 8])
     def test_higher_Z_hydrogenic(self, Z):
-        """Hydrogenic 2p_{1/2} → 1s for low-to-moderate Z: still ≤ 5e-3.
+        """Hydrogenic 2p_{1/2} → 1s for low-to-moderate Z: <= 1e-9.
 
-        At Z ≳ 10 the simple derivative-free form starts to pick up
-        O(Zα)² residuals from the basis truncation; the bound here is
-        comfortably above the actual ~few×10⁻⁴ but well below the
-        Gu 2008 ``ground-state E1`` threshold of 0.10.
+        Measured 1.09e-12 (Z=3), 3.37e-12 (Z=5), 3.55e-11 (Z=8) at
+        ns=120/ks=9, so the gate is ~30x the worst point.  (The old bound
+        was 5e-3, and its docstring guessed "~few×10⁻⁴" — both far above
+        what the derivative-free Grant reduction actually achieves here,
+        and far below the Gu 2008 ground-state E1 threshold of 0.10.)
         """
         _, _, dev = _hydrogenic_e1_gauge_ratio(1, -1, 2, 1, Z=Z)
-        assert dev < 5e-3
+        assert dev < 1e-9
 
 
 # ---------------------------------------------------------------------------
@@ -161,7 +168,8 @@ class TestHeLikeGroundTransitionGaugeRatio:
 
     @pytest.mark.xfail(strict=True, reason=(
         "OPEN, orbital (docs/CORRELATION_SD_RESEARCH_2026-09-20.md section "
-        "3.7): measured |A_v/A_l - 1| = 0.389 with the exact CI matrix, "
+        "3.7): measured |A_v/A_l - 1| = 0.234 at this test's parameters "
+        "(ns=60/ks=9, 2026-09-25; 0.389 with the protocol of that section), "
         "against 0.0833 with the old configuration-average kernel.  The "
         "ground state is a pure 1s2 (mixing [1,0,0,0,0]) either way, so the "
         "change is in the J=1 eigenvectors, which the old kernel split by "
@@ -214,8 +222,14 @@ class TestHeLikeGroundTransitionGaugeRatio:
 
         strongest = max(e1s, key=lambda t: t.A_length)
         ratio_dev = abs(strongest.A_velocity / strongest.A_length - 1.0)
-        assert ratio_dev < 0.20, (
-            f"He-like Z=10: strongest E1 |A_v/A_l - 1| = {ratio_dev:.3f}"
+        # The module docstring's threshold: Gu 2008 §3.2 ground-state E1,
+        # |A_v/A_l - 1| <= 0.10.  Keeping 0.20 here (the old value) let a
+        # 2x regression through silently.  Measured at this test's
+        # parameters: 0.0369 (2.7x margin), so the literature threshold is
+        # reachable for Z=10 even though the Z=2 case above is not.
+        assert ratio_dev < 0.10, (
+            f"He-like Z=10: strongest E1 |A_v/A_l - 1| = {ratio_dev:.4f} "
+            f"exceeds the Gu 2008 ground-state E1 threshold 0.10"
         )
 
 

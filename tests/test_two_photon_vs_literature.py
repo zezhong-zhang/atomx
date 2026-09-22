@@ -11,10 +11,15 @@ References
 * L. Spitzer & J. Greenstein, *Astrophys. J.* **114**, 407 (1951)
 * M. F. Gu, *Astrophys. J.* **582**, 1241 (2003) — FAC TwoPhotonRate
 
-Tolerances
-----------
-H-like SOS vs Drake 1986 fit:  ≤ 1 %  (B-spline + quadrature)
-He-like SOS vs Drake 1986 fit: ≤ 10 % (screened hydrogenic model)
+Tolerances (per Z, measured 2026-09-25 at ns=60/ks=9/n_omega=100)
+------------------------------------------------------------------
+H-like SOS vs Drake 1986 fit:  Z=1 3.8e-5, Z=2 1.2e-4, Z=3 2.6e-4,
+                               Z=5 7.1e-4, Z=10 2.7e-3.  The gate is
+                               2-3x each measured point (1e-4 … 2e-3)
+                               instead of the flat 1 % the file used.
+He-like SOS vs Drake 1986 fit: ≤ 10 % (screened hydrogenic model;
+                               measured 7.1 % at Z=2, 3.5 % at Z=4,
+                               2.2 % at Z=6 — already at the 10 % claim)
 Z⁶ scaling recovery:           ≤ 0.5 % (low-Z non-relativistic)
 """
 
@@ -33,16 +38,27 @@ from atomx.properties.transitions.two_photon import (
 # H-like: SOS vs Drake 1986 / Goldman & Drake
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("Z", [1, 2, 3, 5])
-def test_sos_h_like_matches_drake(Z):
-    """H-like SOS rate matches Drake 1986 fit within 1%."""
+@pytest.mark.parametrize("Z,tol", [
+    (1, 1e-4),   # measured 3.772e-05  (sos 8.228832 vs drake 8.229142)
+    (2, 3e-4),   # measured 1.226e-04
+    (3, 6e-4),   # measured 2.631e-04
+    (5, 2e-3),   # measured 7.064e-04
+])
+def test_sos_h_like_matches_drake(Z, tol):
+    """H-like SOS rate matches the Drake 1986 fit at the measured level.
+
+    The SOS path is a genuine independent method (B-spline Dirac
+    sum-over-states, ``two_photon.py:263-357``) and the Drake fit is
+    external, so this is a real B-class gate; the flat 1 % it used to
+    carry was 10-500x looser than the agreement it actually achieves.
+    """
     sos = two_photon_rate_sos_h_like(Z, ns=60, ks=9, n_omega=100)
     drake = two_photon_rate_h_like(Z)
     assert sos > 0, f"Z={Z}: SOS rate must be positive"
     rel = abs(sos / drake - 1.0)
-    assert rel < 0.01, (
+    assert rel < tol, (
         f"Z={Z}: SOS {sos:.4f} vs Drake {drake:.4f} "
-        f"(rel {rel:.4f} > 1%)"
+        f"(rel {rel:.3e} > {tol:.0e})"
     )
 
 
@@ -54,7 +70,9 @@ def test_sos_h_like_hydrogen_goldman_drake():
     """
     val = two_photon_rate_sos_h_like(1, ns=60, ks=9, n_omega=100)
     assert math.isfinite(val) and val > 0
-    assert val == pytest.approx(8.229, rel=0.01)
+    # Measured: SOS 8.228832 s^-1 vs the Drake 1986 fit 8.229142 s^-1
+    # (rel 3.8e-5); the literature value is quoted as 8.229.
+    assert val == pytest.approx(8.229, rel=2e-4)
 
 
 def test_sos_h_like_z6_scaling():
@@ -88,12 +106,6 @@ def test_sos_he_like_matches_drake(Z):
         f"Z={Z}: He-like SOS {sos:.4f} vs Drake {drake:.4f} "
         f"(rel {rel:.4f} > 10%)"
     )
-
-
-def test_sos_he_like_helium_order_of_magnitude():
-    """He (Z=2) He-like 2γ rate is O(10) s⁻¹."""
-    val = two_photon_rate_sos_he_like(2, ns=60, ks=9, n_omega=100)
-    assert 10.0 < val < 200.0, f"He He-like 2γ rate {val:.2f} out of range"
 
 
 def test_sos_he_like_z_scaling():

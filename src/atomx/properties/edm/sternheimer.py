@@ -41,7 +41,14 @@ the field kernel is taken as ``E(r) = Z/r²`` from the bare Coulomb potential
 screening of the field and finite-nuclear-size regularisation are not yet
 folded in; together with the single-configuration (Dirac–Fock) reference
 this places the calculation at the usual ~factor-of-2 accuracy of the
-scaling formulas in :mod:`atomx.properties.edm.scaling`.  ``R_e`` is returned
+scaling formulas in :mod:`atomx.properties.edm.scaling` **for the heavy
+atoms those formulas were calibrated on**.  It does *not* hold for light
+atoms: for H 1s the SOS gives ``R_e = 0.0304260`` against the closed form's
+``7.10018e-4``, a ratio of 42.85 (measured at ``kappa_max=4,
+n_virt_max=20``; see
+``tests/test_sternheimer_edm.py::test_sandars_comparison_present``).  The
+closed form is a heavy-atom ``Z³`` scaling law with no light-atom validity,
+so the two numbers are not expected to agree at Z=1.  ``R_e`` is returned
 unsigned-magnitude-correct; the overall sign is convention/phase dependent
 (see Sandars scaling, which is also unsigned).
 

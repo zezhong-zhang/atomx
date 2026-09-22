@@ -1,10 +1,46 @@
-"""Gate ``build_ci_matrix`` against an independent m-scheme CI oracle.
+"""Gate ``build_ci_matrix`` against an m-scheme CI oracle.
 
 ``benchmarks/mscheme_ci_reference.py`` rebuilds the CI from the
 Wigner-Eckart theorem with sympy 3j symbols and explicit Slater-Condon
-rules in the m-scheme determinant basis.  It shares no angular code with
-``atomx.methods.mcdhf.matrix`` — only the radial integrals and the
-orbitals — so agreement between the two is a genuine cross-check.
+rules in the m-scheme determinant basis.
+
+**What this file does and does not establish** (2026-09 audit, finding F3,
+which corrected an overclaim here).  The oracle is *not* independent of the
+angular kernel it certifies:
+
+* ``exact_ci.two_body_angular`` is a line-by-line transcription of the
+  oracle's ``_angular_terms`` — same ``q2 % 2`` guard, same ``kmax``, same
+  ``(-1)**((2j_a-2m_a)/2 + (2j_b-2m_b)/2 + q)`` phase, same term order;
+* the determinant sign convention is shared by design
+  (``exact_ci._ops_sign`` mirrors the oracle's ``_apply_ops``);
+* the occupation patterns come from the repo's own ``enumerate_jj_csfs``,
+  and ``_h_one_body`` / ``_norm_sq`` / ``_rk`` are shared;
+* provenance: the oracle file does not exist at the fix commit ``04cd274``
+  (``git ls-tree 04cd274 benchmarks/``) even though the tests that commit
+  added import it; its only commit is ``2007d36``, a descendant.  It was
+  written in the same session as the fix, so its agreement cannot be read
+  as pre-existing external evidence.
+
+What the comparison *does* establish, and establishes well, is the
+**assembly**: that the CSF patterns and their fermion signs are enumerated
+correctly, that each CSF is expanded into the determinant space it claims,
+that the projection ``H = C^T H_det C`` is carried out correctly, that the
+matrix is symmetric and block-diagonal in ``(2J, parity)``, that the radial
+integrals are called with the right argument roles, and that the whole
+spectrum — not just the ground state — comes out right.  A wrong *formula*
+shared by both sides is invisible here.
+
+The genuinely independent evidence for the CI Hamiltonian is elsewhere and
+should be read as the primary evidence:
+
+* ``tests/test_ci_grid_kernel.py::test_hydrogenic_slater_integrals`` —
+  exact Condon-Shortley hydrogenic ``F^k``/``G^k`` closed forms;
+* ``tests/test_ci_analytic_slater_condon.py`` — the orbital-free identity
+  ``E(1P1) - E(3P1) = 2 G^1(1s,2p)/3`` (Gaunt ``A_1 = 1/3``);
+* the variational / Hylleraas-Undheim-MacDonald ladder in
+  ``tests/test_first_principles_invariants.py``;
+* the NIST and DBSR_HF level comparisons in
+  ``tests/test_ci_levels_vs_nist.py`` and ``tests/test_nist_levels.py``.
 
 Every test here is now a plain assertion: the N1 defect described in
 ``docs/CORRELATION_SD_RESEARCH_2026-09-20.md`` is fixed.  ``build_ci_matrix``
@@ -36,6 +72,7 @@ import pytest
 BENCH_DIR = Path(__file__).resolve().parent.parent / "benchmarks"
 sys.path.insert(0, str(BENCH_DIR))
 
+from _be_reference import BE_DC_LOWER_BOUND  # noqa: E402
 from mscheme_ci_reference import (  # noqa: E402
     mscheme_levels,
     patterns_from_configs,
@@ -44,11 +81,6 @@ from mscheme_ci_reference import (  # noqa: E402
 import atomx.methods.mcdhf.solver as _solver_mod  # noqa: E402
 from atomx.methods.mcdhf.config import enumerate_jj_csfs  # noqa: E402
 from atomx.methods.mcdhf.solver import MCDHFSolver  # noqa: E402
-
-# Exact non-relativistic ground state of Be (Drake).  The Dirac-Coulomb
-# value with a finite Fermi nucleus is ~2.5 mHa lower.
-BE_EXACT_NR = -14.66736
-BE_DC_LOWER_BOUND = BE_EXACT_NR - 0.005
 
 
 def _run_capturing_ci(config_strings, Z=4, **kwargs):
@@ -375,10 +407,15 @@ def test_ci_matrix_is_deterministic_and_has_no_cross_block_noise():
 def test_he_like_1s2p_levels_match_oracle(protocol):
     """He-like ``1s2p``: all five levels, both radial protocols.
 
-    The two J=1 levels are the ``3P1`` / ``1P1`` pair, separated by
-    ``2 G^1(1s,2p)`` in the LS limit; the oracle reproduces the same five
-    levels, so the LS-limit structure of the angular algebra is pinned
-    here rather than through a hand-derived Clebsch-Gordan factor.
+    The two J=1 levels are the ``3P1`` / ``1P1`` pair.  In the LS limit
+    their splitting is ``2 G^1(1s,2p)/3`` — not ``2 G^1`` (that was this
+    docstring's error until the 2026-09 audit): the Gaunt coefficient for
+    the exchange is ``A_1 = 4pi/3 |G(0,1,1;0)|^2 = 1/3``, giving
+    ``E(3P) = F^0 - G^1/3`` and ``E(1P) = F^0 + G^1/3``.  The oracle
+    agreement below pins the assembly for both protocols; the quantitative
+    identity is a separate test
+    (:func:`test_he_like_1s2p_j1_splitting_matches_two_thirds_g1`) because
+    it holds in one of them.
     """
     cfgs = ["1s2", "1s1 2p1"]
     result, _csfs, cap = _run_capturing_ci(
@@ -389,8 +426,49 @@ def test_he_like_1s2p_levels_match_oracle(protocol):
     assert np.abs(np.sort(np.linalg.eigvalsh(H)) - evals).max() < 1e-10
     two_j1 = [i for i, csf in enumerate(cap["csfs"]) if csf.total_J2 == 2]
     assert len(two_j1) == 2
-    splitting = abs(float(H[two_j1[0], two_j1[0]] - H[two_j1[1], two_j1[1]]))
-    # The diagonal J=1 elements already differ; the exact eigenvalues differ
-    # by the same 2 G^1 scale (both are checked against the oracle above).
-    assert splitting > 0.0
+    j1_levels = np.linalg.eigvalsh(H[np.ix_(two_j1, two_j1)])
+    assert float(j1_levels[-1] - j1_levels[0]) > 0.0
     assert result.total_energy == pytest.approx(float(evals[0]), abs=1e-9)
+
+
+@pytest.mark.parametrize("protocol", ["fac_frozen", "mcdhf"])
+def test_he_like_1s2p_j1_splitting_matches_two_thirds_g1(protocol, request):
+    """The LS-limit identity ``E(1P1) - E(3P1) = 2 G^1(1s,2p)/3``, quantitatively.
+
+    The identity requires *one* radial 2p for both J=1 CSFs.  In the
+    ``mcdhf`` protocol that holds and the ratio is 1.00 (measured); in
+    ``fac_frozen`` the two jj components are separate 0.001-occupation
+    radial functions in the frozen reference potential, so no single
+    ``G^1`` describes the pair and the measured splitting is a factor 15
+    away from ``2 G^1(2p3/2)/3`` — the same protocol defect that inverts the
+    fine structure in ``tests/test_ci_levels_vs_nist.py``.  That case is a
+    strict xfail carrying the measurement, not a widened tolerance.
+    """
+    cfgs = ["1s2", "1s1 2p1"]
+    result, _csfs, cap = _run_capturing_ci(
+        cfgs, Z=2, radial_optimization=protocol)
+    H = _build(cap)
+    two_j1 = [i for i, csf in enumerate(cap["csfs"]) if csf.total_J2 == 2]
+    j1_levels = np.linalg.eigvalsh(H[np.ix_(two_j1, two_j1)])
+    splitting = float(j1_levels[-1] - j1_levels[0])
+    P1s, Q1s = cap["orbitals_dict"][(1, -1)]
+    P2p, Q2p = cap["orbitals_dict"][(2, -2)]
+    from atomx.methods.mcdhf.matrix import _gk
+    g1 = _gk(P1s, Q1s, P2p, Q2p, cap["bsp_data"], 1)
+    predicted = 2.0 * g1 / 3.0
+    assert g1 > 0.0, "G^1(1s,2p) must be positive"
+    if protocol == "fac_frozen":
+        request.node.add_marker(pytest.mark.xfail(strict=True, reason=(
+            "MEASURED: J=1 splitting 0.00187569 Ha against "
+            "2 G^1(1s,2p)/3 = 0.00012293 Ha on the same orbitals (factor "
+            "15.3).  The LS-limit identity needs a common radial 2p for the "
+            "3P1 and 1P1 CSFs; ``fac_frozen`` gives 2p1/2 and 2p3/2 "
+            "independent 0.001-occupation radial functions in the frozen "
+            "reference potential, so the pair has no single G^1 — the same "
+            "protocol limitation that inverts the fine structure "
+            "(tests/test_ci_levels_vs_nist.py).  Strict xfail: if a future "
+            "protocol change restores a common 2p this turns green and the "
+            "marker must be removed.")))
+    assert splitting == pytest.approx(predicted, rel=0.02), (
+        f"{protocol}: J=1 splitting {splitting:.8f} Ha vs 2 G^1/3 = "
+        f"{predicted:.8f} Ha")

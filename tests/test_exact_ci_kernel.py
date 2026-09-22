@@ -248,7 +248,10 @@ def test_csfs_differing_in_intermediate_coupling_are_orthogonal():
     assert pairs > 0, "no repeated-parentage pair found in the probe config"
 
 
+@pytest.mark.snapshot
 def test_csf_count_and_j_multiset_unchanged():
+    # Generator count (audit F10): the per-2J multiset cross-check is the
+    # physics-free part; the total == 29 is a frozen count.
     """One CSF per coupling path must not change the space's dimension.
 
     ``count_j_resolved_csfs`` is an independent counter (it convolves

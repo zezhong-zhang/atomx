@@ -203,6 +203,7 @@ def test_sum_rule_e2_cross_config(fe17_ground):
     assert e1.trace == 0.0 and not e1.lines
 
 
+@pytest.mark.snapshot
 def test_one_electron_consistency(linesets):
     """One hole + one electron: CI multiplet total == the jj one-electron
     channel strengths |<kappa_h||C^1||kappa_e>|^2 R^2 exactly (1e-10),
@@ -210,9 +211,14 @@ def test_one_electron_consistency(linesets):
     up to sign) and the same fine-grid radial integrals.
 
     Per line the CI values differ from the pure channels by the physical
-    2p1/2/2p3/2 hole-channel mixing (measured: CI/pure = 0.820 for the
-    2p3/2-hole line, 1.397 for the 2p1/2-hole line) — the redistribution
-    FAC shares, pinned per line by the external_fac gates above."""
+    2p1/2/2p3/2 hole-channel mixing.  Those weights are atomx's own measured
+    numbers, so the test is snapshot-marked; what it must NOT do is accept
+    the *no-mixing* value 1.0, which is what the previous brackets
+    (``0.7 <= w <= 1.0`` and ``1.0 <= w <= 1.7``) both contained — audit
+    finding F15.  The pins below are 0.05 wide around the measured 0.820 /
+    1.397, five times closer than the old bracket ends to the value they
+    were supposed to exclude.
+    """
     from atomx.angular.coefficients import reduced_C
     from atomx.properties.transitions.angular import angular_eL
 
@@ -229,11 +235,13 @@ def test_one_electron_consistency(linesets):
     # exact multiplet-total identity
     assert ls.S_sum == pytest.approx(sum(channels.values()), rel=1e-10)
 
-    # per-line: bracketed by the pure channels, redistributed by mixing
+    # per-line: redistributed by the hole-channel mixing (measured weights)
     lines = sorted(ls.lines, key=lambda ln: ln.omega_au)
     S_2p32_line, S_2p12_line = lines[0].S, lines[1].S
-    assert 0.7 <= S_2p32_line / channels[-2] <= 1.0   # measured 0.820
-    assert 1.0 <= S_2p12_line / channels[1] <= 1.7    # measured 1.397
+    w_32 = S_2p32_line / channels[-2]
+    w_12 = S_2p12_line / channels[1]
+    assert w_32 == pytest.approx(0.820, abs=0.05), w_32
+    assert w_12 == pytest.approx(1.397, abs=0.05), w_12
     # the redistribution is strength-conserving
     assert S_2p32_line + S_2p12_line == pytest.approx(
         channels[-2] + channels[1], rel=1e-10)

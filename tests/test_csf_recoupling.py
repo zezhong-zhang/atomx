@@ -1,4 +1,29 @@
-"""Tests for multi-subshell CSF recoupling helpers."""
+"""Tests for multi-subshell CSF recoupling helpers.
+
+**Scope note (2026-09 audit, finding F14).**  Every helper exercised here —
+``chain_wxw_scalar``, ``chain_one_body_excitation_reduced``,
+``discover_*_coefficients_*``, ``classify_recoupled_occupation_change``,
+``two_body_scalar_coefficients_simple``, ``chain_two_body_scalar_coefficients``,
+``chain_state_from_simple_csf_auto``, ``scalar_w_subshell_coeff``,
+``two_subshell_*_w_reduced`` — is reachable only from within
+``atomx.angular.csf_recoupling`` itself and the ``angular/__init__``
+re-exports; the only consumers in ``src/`` are the unreachable legacy
+``matrix._branch9_*`` helpers.  The single recoupling function on a live path
+is ``allowed_coupled_J2`` (used by ``exact_ci`` and ``config``), which this
+file does not test.
+
+The numeric literals below (``1/sqrt(8)``, ``-(3/2)**0.5``, ``-sqrt(3)/2``,
+``sqrt(3)``, ``-1.0``, ``0.5``) were introduced without a cited source, so
+the module carries ``pytest.mark.snapshot``: these are frozen atomx
+self-regressions that assert nothing external.  Two tests are stronger than
+that in kind — ``test_chain_one_body_excitation_tracks_global_fock_phase_convention``
+and its spectator variant compare the production value against
+``_exact_global_one_body_reduced``, a from-scratch determinant-space
+evaluation written in this file — but that anchor is still internal to the
+repository, so the marker stays accurate.  Converting the remaining literals
+to that pattern (or wiring the library into a production path) is the
+follow-up.
+"""
 
 import pytest
 
@@ -36,6 +61,11 @@ from atomx.angular.rcfp import reduced_subshell_states
 from atomx.angular.wigner import wigner_3j
 from atomx.methods.dirac_fock import Subshell
 from atomx.methods.mcdhf.config import CSF
+
+#: Frozen atomx self-regressions over a library with no production caller
+#: (see the module docstring): the marker records that nothing here is
+#: checked against an external number.
+pytestmark = pytest.mark.snapshot
 
 
 def test_scalar_w_subshell_coeff_matches_single_subshell_primitive():

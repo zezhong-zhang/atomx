@@ -1,4 +1,17 @@
-"""Cross-engine uniformity gates for the radiative-transition machinery.
+"""Cross-engine uniformity gates for the two SCF ORBITAL SETS.
+
+WHAT THIS FILE GATES (audit S4 finding 21 — C-degenerate for the
+machinery claim).  ``src/atomx/properties/transitions/multipole.py:35``
+states "One implementation of each radial kernel serves both engines":
+``radial_eL``/``radial_mL`` are called once, on orbitals that the
+workspace seam has already evaluated from either flavour.  The <= 2e-3
+rate/line-strength agreement below therefore measures the two *SCF
+solvers* (Galerkin B-splines vs Salvat power-series ODE shooting) — how
+well they produce the same orbitals — and is blind to any error *inside*
+``radial_eL``/``radial_mL`` (the exact class of error the pre-fix M1/E2
+prefactor bug, commit 621fe99, was).  The kernels themselves are gated
+by ``test_radial_eL_matches_hydrogenic_closed_forms`` at the end of this
+file, which uses only closed-form hydrogenic moments.
 
 The transition pipeline (``compute_transitions`` → ``radial_eL`` /
 ``radial_eL_velocity`` / ``radial_mL`` → Einstein rates, both gauges)
@@ -398,3 +411,37 @@ def test_schrodinger_shooting_transitions_raise():
     calc = TransitionCalculator(atom)
     with pytest.raises(NotImplementedError, match="radial workspace"):
         calc.compute_all(multipoles=["E1"])
+
+
+# ---------------------------------------------------------------------------
+# Independent kernel oracle (not routed through the cross-engine comparison)
+# ---------------------------------------------------------------------------
+
+def test_radial_eL_matches_hydrogenic_closed_forms():
+    """``radial_eL`` against exact hydrogenic moments — no engine involved.
+
+    A-class oracle: the kernel is defined as
+    ``∫[P_f P_i + Q_f Q_i] r^L dr``, so for a normalised orbital with
+    itself it must return the closed-form hydrogenic moments (Bethe &
+    Salpeter; non-relativistic values, which the Dirac orbital approaches
+    as O((Z alpha)^2) at Z=1):
+
+        <r>   = (3n² − l(l+1)) / (2Z)                = 1.5   (1s), 6.0  (2s)
+        <r²>  = n²(5n² + 1 − 3l(l+1)) / (2Z²)        = 3.0   (1s), 42.0 (2s)
+
+    Measured (ns=80/ks=9): 1.4999734 / 2.9999068 (1s) and 5.9998835 /
+    41.998496 (2s), i.e. −1.8e-5 … −3.6e-5 as expected.  Neither engine's
+    SCF enters here, so this is the file's only gate on the kernel
+    *formula* rather than on orbital agreement.
+    """
+    from atomx.numerics.analytic.hydrogenic_dirac import (
+        hydrogenic_dirac_wavefunction,
+    )
+    from atomx.properties.transitions.multipole import radial_eL
+
+    for n, r_exp, r2_exp in ((1, 1.5, 3.0), (2, 6.0, 42.0)):
+        P, Q, bsp, _E = hydrogenic_dirac_wavefunction(n, -1, 1, ns=80, ks=9)
+        r1 = radial_eL(P, Q, P, Q, bsp, 1)
+        r2 = radial_eL(P, Q, P, Q, bsp, 2)
+        assert pytest.approx(r_exp, rel=1e-3) == r1, f"<r>({n}s) = {r1!r}"
+        assert pytest.approx(r2_exp, rel=1e-3) == r2, f"<r^2>({n}s) = {r2!r}"

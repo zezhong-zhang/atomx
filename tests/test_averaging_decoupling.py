@@ -50,10 +50,20 @@ CO = dict(Z=27, corrections="none")
 #: J-corrections put bspline CI at -1392.0165 and shooting CI at -1390.0324
 #: ... the bspline one moves to -1392.1100 because Co 3d7 has repeated
 #: parentage that the old kernel deliberately zeroed (its R5) and an
-#: open-shell diagonal it averaged (its R1).  The cross-engine gate below
-#: (both engines must agree to 1e-6 relative) is what keeps this honest:
-#: the B-spline Galerkin/cell-integral and shooting/SLAG6 pipelines share
-#: no radial numerics, so they cannot agree on a wrong matrix.
+#: open-shell diagonal it averaged (its R1).
+#:
+#: What the cross-engine gate below establishes, precisely: the two engines
+#: share no *radial* numerics (B-spline Galerkin/cell-integral vs shooting
+#: SLAG6), so agreement to 7.3e-8 relative validates the radial integral
+#: implementations and the SCF fixed point.  It does **not** validate the CI
+#: matrix: both engines call the same ``matrix.build_ci_matrix`` ->
+#: ``exact_block_matrix`` assembly, so a wrong angular kernel or a wrong
+#: assembly would move both totals *identically* and this gate would not
+#: notice (audit finding F4 — the docstring here used to claim the opposite).
+#: The CI matrix itself is gated behind the m-scheme assembly comparison and
+#: the analytic Slater-Condon identities; the Breit/QED numbers below are
+#: being migrated from the scalar to the Gaunt operator, and the orchestrator
+#: owns re-pinning any that move.
 CO_BSPLINE_CI = -1392.1100
 CO_SHOOTING_STATISTICAL = -1391.9970
 
@@ -105,6 +115,7 @@ def test_shooting_ci_differs_from_shooting_statistical(co_solved):
     assert e_ci - e_st < -1e-3
 
 
+@pytest.mark.snapshot
 def test_shooting_statistical_route_unchanged(co_solved):
     a = co_solved[("shooting", "statistical")]
     assert isinstance(a.result, ShootingResult)
@@ -121,12 +132,19 @@ def test_ci_totals_agree_across_engines(co_solved):
     """Engine-generic MCDHF: same Guerra outer loop, disjoint radial
     numerics.  Measured 7.3e-8 relative at the time of writing; the
     1e-6 gate leaves slack for grid/basis retunes while staying far
-    below the 1.4e-5 relative ci-vs-statistical physics signal."""
+    below the 1.4e-5 relative ci-vs-statistical physics signal.
+
+    Scope: this is a *radial-integral* gate.  Both engines build the CI with
+    the same ``build_ci_matrix`` assembly, so agreement here says nothing
+    about the angular algebra or the matrix elements — a wrong matrix would
+    move both totals by the same amount.  See the note on ``CO_BSPLINE_CI``.
+    """
     e_shoot = co_solved[("shooting", "ci")].total_energy
     e_bspl = co_solved[("bspline", "ci")].total_energy
     assert abs(e_shoot - e_bspl) / abs(e_bspl) < 1e-6
 
 
+@pytest.mark.snapshot
 def test_bspline_ci_baseline_unchanged(co_solved):
     a = co_solved[("bspline", "ci")]
     assert isinstance(a.result, MCDHFResult)
@@ -135,6 +153,7 @@ def test_bspline_ci_baseline_unchanged(co_solved):
     assert a.total_energy == pytest.approx(CO_BSPLINE_CI, abs=2e-3)
 
 
+@pytest.mark.snapshot
 def test_shooting_ci_breit_qed_route_through_grid_seam():
     """One-shot Breit/QED on shooting+ci run on the grid-flavour
     corrections workspace — pinned to the B-spline ci values (measured
@@ -153,7 +172,14 @@ def test_shooting_ci_breit_qed_route_through_grid_seam():
              correlation=Correlation(averaging="ci"),
         ).solve()
     comps = a.result.energy_components
-    assert comps["E_Breit"] == pytest.approx(1.6974, abs=5e-3)
+    # Re-pinned 2026-09: this route is multi-CSF, so it applies the exact
+    # Gaunt operator in its CI blocks, and `E_Breit` is the shift that is
+    # in the total (it used to report 1.6974, the scalar that was never
+    # applied).  DBSR_HF `an=27 term=AV mbreit=1` on the same 3d7 4s2
+    # average of configuration gives Breit = 0.532518297380245, so the
+    # measured 0.5698939033522947 sits +7.0 % above it — the documented
+    # omitted retardation, the same sign and size as Ne/Ar (+4.2/+6.2 %).
+    assert comps["E_Breit"] == pytest.approx(0.532518297380245, rel=0.08)
     assert comps["E_QED_total"] == pytest.approx(0.3821, abs=5e-3)
     # CI total re-pinned with the exact matrix (was -1389.9370); it tracks
     # the B-spline CI total through the same Guerra outer loop, which the

@@ -24,23 +24,27 @@ configuration-average kernel:
 2. **Be 2s^2/2p^2 near degeneracy.**  The two-configuration MCHF value
    is -14.6166 Ha (literature, state-optimised).  atomx optimises the
    Guerra average over all six CSFs of the two configurations, which is a
-   *different protocol*, so the gate is written as two physics assertions
-   rather than a tight literature match: the result must respect the
-   variational bound, and it must actually capture the near degeneracy
-   (>= 0.03 Ha below the 1-CSF HF value -14.5734).
+   *different protocol* and sits ~5 mHa above it (measured -14.6115), so
+   the literature comparison keeps a 6 mHa band; the physics gates are the
+   variational sandwich (below the exact bound, below atomx's own live
+   1-CSF reference) and a >= 0.03 Ha gain over that reference.  The 1-CSF
+   reference is *measured in-test* (``_be_reference.be_1csf_energy``), not
+   typed: the old hardcoded -14.5734 was 2.5 mHa away from the produced
+   -14.575892, and the textbook Hartree-Fock *limit* (-14.573023) is a
+   further 2.9 mHa below atomx's finite basis.
 """
 
 from __future__ import annotations
 
 import numpy as np
 import pytest
+from _be_reference import BE_DC_LOWER_BOUND, be_1csf_energy
 
 import atomx.methods.mcdhf.matrix as MAT
 import atomx.methods.mcdhf.solver as SOLVER
 from atomx import Atom
 
 BE_2CONFIG_MCHF = -14.6166
-BE_EXACT_NR = -14.66736
 
 
 def _solve_capturing_orbitals(Z, configs, **kwargs):
@@ -92,12 +96,16 @@ def test_be_two_configuration_near_degeneracy():
     result, _orbitals, _bsp = _solve_capturing_orbitals(
         4, ["1s2 2s2", "1s2 2p2"])
     energy = result.total_energy
-    assert energy >= BE_EXACT_NR, (
-        f"{energy} is below the exact non-relativistic Be ground state "
-        f"{BE_EXACT_NR}")
-    assert energy <= -14.60, (
+    assert energy >= BE_DC_LOWER_BOUND, (
+        f"{energy} is below the finite-nucleus Dirac-Coulomb Be ground state "
+        f"{BE_DC_LOWER_BOUND}")
+    e_ref = be_1csf_energy()   # atomx's own 1s2 2s2 solve, measured live
+    assert energy < e_ref, (
+        f"{energy}: the 2s^2/2p^2 space contains the 1-CSF reference "
+        f"({e_ref}) and cannot sit above it")
+    assert energy <= e_ref - 0.03, (
         f"{energy}: the 2s^2/2p^2 near degeneracy must lower the energy by "
-        f">= 0.03 Ha from the 1-CSF HF value -14.5734")
+        f">= 0.03 Ha from the live 1-CSF reference {e_ref}")
     # The literature state-optimised 2-configuration MCHF value; atomx's
-    # Guerra-average protocol sits a couple of mHa above it.
+    # Guerra-average protocol sits ~5 mHa above it (measured -14.6115).
     assert energy == pytest.approx(BE_2CONFIG_MCHF, abs=6e-3)
