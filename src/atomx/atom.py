@@ -4,35 +4,49 @@ Simple interface for common atomic structure calculations:
 
     from atomx import Atom
 
-    ne = Atom(Z=10)                    # Neon
+    ne = Atom(10)                       # Neon
     ne.solve()                          # Run DHF SCF (Breit + QED on by default)
     print(ne.total_energy)              # -128.61 Hartree
     print(ne.orbital_energies)          # {1s: -32.6, 2s: -1.6, ...}
 
     # Correction-free (pure Dirac-Coulomb) comparison runs:
-    ne = Atom(Z=10, breit=False, qed=False)
+    ne = Atom(10, corrections="none")
     ne.solve()
 
     # Multi-configuration:
-    be = Atom(Z=4, configs=["1s2 2s2", "1s2 2p2"])
+    be = Atom(4, config=["1s2 2s2", "1s2 2p2"])
     be.solve()
     print(be.state_energies)
 """
 
+from dataclasses import fields as _dataclass_fields
 from typing import Optional
 
 import numpy as np
 
+from atomx.atom_inputs import (
+    Basis,
+    Corrections,
+    Correlation,
+    Environment,
+    Exchange,
+    resolve_corrections,
+)
 from atomx.config import ground_state_config
 from atomx.constants import HARTREE_CM1, HARTREE_EV
 from atomx.methods.dirac_fock import DFSolver
+from atomx.sampling import Sampling
 
-#: Radial ENGINES (numerics) and exchange MODELS the Atom facade accepts.
-_NUMERICS_ENGINES = ("bspline", "shooting")
-_EXCHANGE_MODELS = ("hf", "slater", "gu")
-#: Parametric-potential pass-throughs handled by DFSolver (B-spline only).
-_BSPLINE_ONLY_MODELS = ("tfda", "gsz")
-#: Removed legacy spellings → the canonical (numerics, exchange) pair
+#: Radial ENGINES the Atom facade accepts.
+_ENGINES = ("bspline", "shooting")
+
+#: Documented schema defaults of the accuracy tiers (:class:`Sampling`).  A
+#: tier field still at its schema default means "not asked for", so the
+#: engine keeps its own tuned value (auto radial box; n_grid=1000 for HF /
+#: 400 for the local models).
+_TIER_DEFAULTS = {f.name: f.default for f in _dataclass_fields(Sampling)}
+
+#: Removed legacy spellings → the canonical (engine, exchange model) pair
 #: that reproduces them bit-identically.  Kept only to build a helpful
 #: ValueError; the strings themselves are no longer accepted.
 _REMOVED_EXCHANGE = {
@@ -40,93 +54,259 @@ _REMOVED_EXCHANGE = {
     "shooting": ("shooting", "slater"),
 }
 
+#: Retired constructor keywords → the replacement spelling.  The value is
+#: used only in the message, so it stays a plain string.
+_RETIRED_INPUTS = {
+    "configs": "config= now takes the list directly: "
+               "config=[\"1s2 2s2\", \"1s2 2p2\"]",
+    "numerics": "engine= selects the radial engine: engine=\"shooting\"",
+    "breit": "corrections= carries the Breit switch: "
+             "corrections=Corrections(breit=False) or corrections=\"qed\"",
+    "qed": "corrections= carries the QED switch: "
+           "corrections=Corrections(qed=False) or corrections=\"breit\"",
+    "qed_backend": "corrections=Corrections(qed_backend=...) carries the "
+                   "self-energy backend",
+    "correction_stack": "corrections=Corrections(stack=...) carries the "
+                        "explicit correction bundle",
+    "alpha_x": "exchange=Exchange(model=\"slater\", alpha_x=...) carries the "
+               "Slater coefficient",
+    "slater_method": "exchange=Exchange(model=\"slater\"|\"gu\", "
+                     "slater_method=...) carries the Slater-integral backend",
+    "ns": "basis=Basis(ns=...) carries the B-spline count",
+    "ks": "basis=Basis(ks=...) carries the B-spline order",
+    "r_max": "basis=Basis(r_max=...) carries the radial box",
+    "grid_hi": "basis=Basis(grid_hi=...) carries the knot-grid override",
+    "grid_he": "basis=Basis(grid_he=...) carries the knot-grid override",
+    "grid_hmax": "basis=Basis(grid_hmax=...) carries the knot-grid override",
+    "starting_potential": "basis=Basis(starting_potential=...) carries the "
+                          "SCF initial guess",
+    "sampling": "basis=Basis(sampling=...) carries the accuracy tier "
+                "(solve(sampling=...) is unchanged)",
+    "averaging": "correlation=Correlation(averaging=...) carries the CSF "
+                 "weights",
+    "radial_optimization": "correlation=Correlation(radial_optimization=...) "
+                           "carries the MCDHF protocol",
+    "j_resolved_csfs": "correlation=Correlation(j_resolved_csfs=...) carries "
+                       "the CSF enumeration mode",
+    "per_block_orbital_sets": "correlation=Correlation("
+                              "per_block_orbital_sets=...) carries the "
+                              "per-block orbital sets",
+    "plasma_ne": "environment=Environment(plasma_ne=..., plasma_Te=...) "
+                 "carries the plasma",
+    "plasma_Te": "environment=Environment(plasma_ne=..., plasma_Te=...) "
+                 "carries the plasma",
+    "system": "the System group was removed: charge= and nuclear= are "
+              "top-level arguments",
+    "electronic": "the ElectronicStructure group was removed: config= now "
+                  "takes the configuration or the list of configurations",
+    "interaction": "the Interaction group was removed: exchange= and "
+                   "corrections= replace it",
+    "ci": "the CIProtocol group was removed: correlation=Correlation(...) "
+          "replaces it",
+}
 
-def _resolve_numerics_exchange(numerics, exchange):
-    """Resolve user-facing ``(numerics, exchange)`` to the canonical
-    (engine, model) pair.
+#: Valid keywords, for the "unknown argument" message.
+_KNOWN_INPUTS = ("Z, config, charge, nuclear, exchange, corrections, "
+                 "correlation, engine, basis, environment")
 
-    ``numerics=None`` defaults to the shooting engine for every model it
-    supports (hf/slater/gu — it is both the fastest engine and an
-    independent cross-check of the B-spline results); the parametric
-    B-spline-only potentials (tfda/gsz) resolve to bspline.  Multi-
-    configuration input overrides to bspline in ``solve()`` — CI needs
-    the B-spline MCDHF machinery.
-    """
-    # Accept atomx.types.Exchange enum members (documented equivalence).
-    exchange = getattr(exchange, "value", exchange)
-    if numerics is not None and numerics not in _NUMERICS_ENGINES:
-        raise ValueError(
-            f"numerics must be None, 'bspline', or 'shooting' "
-            f"(got {numerics!r})")
-    if exchange in _REMOVED_EXCHANGE:
-        engine, model = _REMOVED_EXCHANGE[exchange]
-        raise ValueError(
-            f"exchange={exchange!r} was removed; use "
-            f"numerics={engine!r}, exchange={model!r} instead "
-            f"(bit-identical)")
-    if exchange in _EXCHANGE_MODELS or exchange in _BSPLINE_ONLY_MODELS:
-        model = exchange
-        if numerics is not None:
-            engine = numerics
+
+def _reject_retired(retired):
+    """Raise a message naming the replacement for each retired keyword."""
+    if not retired:
+        return
+    lines = []
+    for name, value in retired.items():
+        replacement = _RETIRED_INPUTS.get(name)
+        if replacement is None:
+            lines.append(
+                f"  {name}={value!r} is not an Atom argument; "
+                f"valid arguments are {_KNOWN_INPUTS}")
         else:
-            engine = ("bspline" if model in _BSPLINE_ONLY_MODELS
-                      else "shooting")
-    else:
+            lines.append(f"  {name}= was retired; {replacement}")
+    raise TypeError(
+        "Atom() got " + ("an unexpected keyword argument"
+                         if len(retired) == 1 else "unexpected keyword arguments")
+        + ":\n" + "\n".join(lines)
+        + "\nSee docs/MIGRATION.md for the full old -> new table.")
+
+
+def _coerce_exchange(exchange):
+    """Normalise the ``exchange=`` argument to an :class:`Exchange`."""
+    value = getattr(exchange, "value", exchange)  # atomx.types.Exchange members
+    if isinstance(value, Exchange):
+        return value
+    if isinstance(value, str):
+        if value in _REMOVED_EXCHANGE:
+            engine, model = _REMOVED_EXCHANGE[value]
+            raise ValueError(
+                f"exchange={value!r} was removed; use "
+                f"engine={engine!r}, exchange={model!r} instead "
+                f"(bit-identical)")
+        if value not in ("hf", "slater", "gu", "tfda", "gsz"):
+            raise ValueError(
+                f"exchange must be one of 'hf', 'slater', 'gu' "
+                f"(or the B-spline-only 'tfda', 'gsz'); got {value!r}")
+        return Exchange(model=value)
+    raise TypeError(
+        f"exchange must be a model name or an Exchange instance "
+        f"(got {type(exchange).__name__}); construct it with "
+        f"Exchange(model='slater', alpha_x=1.0) — see help(atomx.Exchange)")
+
+
+def _coerce_correlation(correlation):
+    """Normalise the ``correlation=`` argument to a :class:`Correlation`."""
+    if correlation is None:
+        return Correlation()
+    value = getattr(correlation, "value", correlation)  # types.Correlation
+    if isinstance(value, Correlation):
+        return value
+    if isinstance(value, str):
+        return Correlation(expansion=value)
+    raise TypeError(
+        f"correlation must be None, 's', 'sd', or a Correlation instance "
+        f"(got {type(correlation).__name__}); construct it with "
+        f"Correlation(expansion='sd', averaging='statistical') — see "
+        f"help(atomx.Correlation)")
+
+
+def _resolve_engine_exchange(engine, exchange: Exchange):
+    """Resolve the user-facing ``engine`` × ``exchange`` pair.
+
+    ``engine=None`` defaults to the shooting engine for every exchange
+    model it supports (hf/slater/gu — it is both the fastest engine and an
+    independent cross-check of the B-spline results); the parametric
+    B-spline-only potentials (tfda/gsz) resolve to bspline.
+    Multi-configuration input overrides to bspline in ``__init__`` — CI
+    needs the B-spline MCDHF machinery.
+    """
+    if engine is not None and engine not in _ENGINES:
         raise ValueError(
-            f"exchange must be one of 'hf', 'slater', 'gu' "
-            f"(or the B-spline-only 'tfda', 'gsz'); got {exchange!r}")
-    if engine == "shooting" and model in _BSPLINE_ONLY_MODELS:
+            f"engine must be None, 'bspline', or 'shooting' (got {engine!r})")
+    if engine is None:
+        engine = "bspline" if exchange.is_parametric else "shooting"
+    if engine == "shooting" and exchange.is_parametric:
         raise ValueError(
-            f"exchange={model!r} is a parametric B-spline potential; "
-            f"it requires numerics='bspline'")
-    return engine, model
+            f"exchange={exchange.model!r} is a parametric B-spline "
+            f"potential; it requires engine='bspline'")
+    return engine
 
 
 class Atom:
     """High-level interface for atomic structure calculations.
 
+    Ten arguments, one per physical question.  Five of them accept either a
+    plain value (the common case) or a self-describing object from
+    :mod:`atomx.atom_inputs`::
+
+        from atomx import Atom, Basis, Corrections, Correlation, Environment
+
+        ne = Atom(10)                          # neutral Ne, DHF + Breit + QED
+        ne.solve()
+
+        # The same atom, everything spelled out:
+        ne = Atom(
+            10,
+            config="1s2 2s2 2p6",
+            charge=0,
+            nuclear="fermi",
+            exchange="hf",
+            corrections="breit+qed",
+            correlation=None,
+            engine="bspline",
+            basis=Basis(ns=200, ks=9, r_max=90.0),
+            environment=Environment(plasma_ne=1e22, plasma_Te=100.0),
+        )
+
+    Use :attr:`resolved_inputs` to see what the constructor actually chose
+    (the engine behind ``engine=None``, the knot grid behind ``ns=None``,
+    the corrections behind a stack, the SCF/CI protocol).
+
     Parameters
     ----------
     Z : int
-        Nuclear charge.
-    config : str, optional
-        Electron configuration (e.g., "1s2 2s2 2p6").
-        Default: ground state from built-in table.
-    configs : list of str, optional
-        Multiple configurations for MCDHF.
-    charge : int, optional
-        Ion charge (0=neutral, 1=singly ionized, etc.). Default: 0.
-    ns : int
-        Number of B-splines. None = auto (DBSR_HF semi-exponential grid).
-    ks : int
-        B-spline order.
-    nuclear : str
-        Nuclear model: "fermi" (default, DBSR_HF), "point", or "uniform".
-    breit : bool
-        Include Breit (Gaunt) interaction.  Default ``True`` — pass
-        ``breit=False`` for pure Dirac-Coulomb reference runs.
-    qed : bool
-        Include QED (VP + SE) corrections.  Default ``True`` — pass
-        ``qed=False`` for pure Dirac-Coulomb reference runs.
-    qed_backend : str
-        Self-energy backend: ``"auto"`` (default), ``"mss"``/``"mohr"``,
-        or ``"indelicato"``.  ``"auto"`` uses MSS/Mohr for Z <= 36 and
-        Indelicato for Z >= 37.
-    numerics : str or None
+        Nuclear charge (proton number, 1-118).  Required first positional
+        argument: it is the atom's identity and sets the nuclear potential
+        ``-Z alpha / r``, the hydrogenic energy scale, and — through the
+        electron number ``N = Z - charge`` — the default configuration.
+    config : str or list of str, optional
+        One non-relativistic configuration (``"1s2 2s2 2p6"``) or an
+        explicit multi-configuration list for the MCDHF/CI machinery
+        (``["1s2 2s2", "1s2 2p2"]``).  Default ``None`` takes the built-in
+        ground state of ``Z - charge`` electrons
+        (:func:`atomx.config.ground_state_config`).  A *list* selects the
+        multi-configuration path: it forces the B-spline MCDHF engine (an
+        explicit ``engine="shooting"`` raises) and forces
+        ``exchange="hf"``.  The single string is also the reference
+        configuration that ``correlation=Correlation(expansion=...)``
+        expands.
+    charge : int, default 0
+        Net ion charge in units of the elementary charge: 0 = neutral,
+        1 = singly ionized (one electron removed), -1 = singly charged
+        anion.  Fixes ``N = Z - charge``, hence the default configuration
+        and every occupation sum downstream.
+    nuclear : {"fermi", "point", "uniform"}, default "fermi"
+        Nuclear charge distribution used to build the potential.
+
+        - ``"fermi"`` — two-parameter Fermi distribution.  The DBSR_HF
+          standard; it also regularises the origin for the B-spline basis
+          (a point nucleus needs the ``r^gamma`` Dirac cusp, which
+          B-splines cannot represent).
+        - ``"point"`` — point nucleus (exact Dirac-Coulomb).  Use it for
+          hydrogen-like benchmarks; otherwise the finite-size shift is
+          missing.
+        - ``"uniform"`` — uniformly charged sphere.  B-spline engine only:
+          the shooting engine raises rather than silently solving a
+          different nuclear model.
+    exchange : {"hf", "slater", "gu", "tfda", "gsz"} or Exchange, default "hf"
+        Exchange model (see :class:`atomx.atom_inputs.Exchange`):
+
+        - ``"hf"``     — non-local Hartree-Fock exchange (default).
+        - ``"slater"`` — local Slater rho^(1/3) exchange; its coefficient
+          ``alpha_x`` lives on the :class:`~atomx.atom_inputs.Exchange`
+          object, since only this model has one.
+        - ``"gu"``     — Gu's empirical Z- and N-dependent alpha_xc(Z, N)
+          (FAC's local-exchange model; Gu 2008).
+        - ``"tfda"``/``"gsz"`` — parametric potentials; B-spline only.
+
+        Multi-configuration runs support ``"hf"`` only.  The numerical
+        backend of the local-exchange Slater integrals
+        (``slater_method``) is a field of the same object because it is
+        meaningful only for those models.
+    corrections : None, str, or Corrections, default None
+        Post-SCF relativistic corrections (see
+        :class:`atomx.atom_inputs.Corrections`).  ``None`` applies both
+        (Breit + QED).  The presets ``"none"``, ``"breit"``, ``"qed"`` and
+        ``"breit+qed"`` cover the common cases; ``Corrections(...)``
+        carries the self-energy backend and an explicit
+        ``CorrectionStack``.  ``Corrections(qed_backend=...)`` reaches
+        every engine, including the multi-configuration MCDHF path.
+    correlation : None, {"s", "sd"}, or Correlation, default None
+        Electron correlation: which CSFs enter, and the CI/SCF protocol
+        (see :class:`atomx.atom_inputs.Correlation`).  ``"s"``/``"sd"``
+        auto-generate singles / singles+doubles excitations from the
+        reference configuration; the object also carries ``averaging``
+        (how the jj-CSFs of a partially filled shell are weighted in the
+        Guerra-averaged Fock operator), ``radial_optimization``,
+        ``j_resolved_csfs`` and ``per_block_orbital_sets`` — the
+        multi-configuration protocol, which is only meaningful when a
+        multi-configuration expansion exists.
+
+        Note this is a different axis from ``config=[...]``: the list says
+        *which* configurations, this says *how* the expansion is solved.
+    engine : {"bspline", "shooting"}, optional
         Radial ENGINE, decoupled from the exchange MODEL:
 
         - ``"bspline"``  — Galerkin B-spline :class:`DFSolver`.
         - ``"shooting"`` — ODE shooting :class:`ShootingSolver`
           (Salvat/Radial method).
-        - ``None`` (default) — resolves to ``"shooting"`` for every
-          model it supports (``"hf"``/``"slater"``/``"gu"``); the
-          B-spline-only parametric potentials (``"tfda"``/``"gsz"``)
-          resolve to ``"bspline"``.  Multi-configuration input
-          (``configs=[...]`` or ``correlation=``) yields to
-          ``"bspline"`` (MCDHF); combining it with an EXPLICIT
-          ``numerics="shooting"`` raises.
+        - ``None`` (default) — resolves to ``"shooting"`` for every model
+          it supports (``"hf"``/``"slater"``/``"gu"``); the B-spline-only
+          parametric potentials (``"tfda"``/``"gsz"``) resolve to
+          ``"bspline"``.  Multi-configuration input (``config=[...]`` or
+          ``correlation="s"/"sd"``) yields to ``"bspline"`` (MCDHF);
+          combining it with an EXPLICIT ``engine="shooting"`` raises.
 
-        Support matrix (engine × model)::
+        Support matrix (engine x model)::
 
                         hf      slater   gu
             bspline     yes     yes      yes
@@ -136,133 +316,171 @@ class Atom:
         equations with the Froese-Fischer inhomogeneous-equation
         (variation-of-parameters) method
         (:class:`atomx.numerics.shooting.hf_shooting.ShootingHFSolver`);
-        validated against the B-spline DHF to ≤ 1e-4 relative on total
+        validated against the B-spline DHF to <= 1e-4 relative on total
         energies (He, Ne, Fe XVII).
-    exchange : str
-        Exchange MODEL:
+    basis : Basis, optional
+        Radial basis and discretisation
+        (:class:`atomx.atom_inputs.Basis`): ``ns``/``ks`` (B-spline count
+        and order), ``r_max`` (radial box), ``grid_hi``/``grid_he``/
+        ``grid_hmax`` (DBSR_HF knot-shape overrides), ``starting_potential``
+        (SCF initial guess — a convergence aid with no effect on a
+        converged solution) and ``sampling`` (a named accuracy tier that
+        presets those fields plus the shooting grid and
+        :meth:`solve`'s ``tol``/``max_iter``).  ``None`` (default) uses
+        the DBSR_HF defaults for every one of them.
+    environment : Environment, optional
+        The surrounding plasma
+        (:class:`atomx.atom_inputs.Environment`): ``plasma_ne`` (cm^-3)
+        and ``plasma_Te`` (eV) define the screening length
+        ``lambda_D = sqrt(kT / (4 pi n_e))``, and the screening potential
+        is added to the nuclear potential inside the SCF — it raises the
+        continuum and lowers the ionisation energy.  Both are required
+        together, and the model (``"debye"`` or ``"stewart_pyatt"``) is a
+        field of the same object because neither alone defines a screening
+        length.
 
-        - ``"hf"``     — non-local Hartree-Fock exchange (default).
-        - ``"slater"`` — local Slater ρ^(1/3) exchange with coefficient
-          ``alpha_x``.
-        - ``"gu"``     — Gu's empirical Z- and N-dependent α_xc(Z, N)
-          (FAC's local-exchange model; Gu 2008; see
-          :func:`atomx.physics.local_exchange.get_hxs`).
+    Examples
+    --------
+    ::
 
-        ``"tfda"``/``"gsz"`` are B-spline-only parametric potentials.
-    alpha_x : float, optional
-        Slater exchange coefficient (only with ``exchange="slater"``).
-        Defaults to ``3/2`` for both numerical engines, corresponding to
-        the original Slater exchange potential in atomx's convention
-        ``V_x = -alpha_x (3 rho / pi)^(1/3)``.
+        ne = Atom(10)                          # Ne, shooting engine, Breit+QED
+        ne.solve()
+        print(ne.total_energy)                 # -128.61 Hartree
+        print(ne.resolved_inputs)              # engine/grid/Breit actually used
+
+        # Correction-free B-spline run with a refined K-shell grid
+        ne = Atom(10, config="1s2 2s2 2p6",
+                  engine="bspline",
+                  basis=Basis(grid_hi=0.02, grid_he=0.10),
+                  corrections="none")
+        ne.solve()
+
+        # FAC-style local exchange; alpha_x only exists for slater
+        fe17 = Atom(26, charge=16, config="1s2 2s2 2p6",
+                    exchange=Exchange(model="slater", alpha_x=2/3))
+        fe17.solve()
+
+        # Strongly coupled plasma: Stewart-Pyatt screening of the nucleus
+        dense = Atom(26, charge=16, config="1s2 2s2 2p6",
+                     environment=Environment(plasma_ne=1e23, plasma_Te=50.0,
+                                             screening="stewart_pyatt"))
+        dense.solve()
     """
 
-    def __init__(self, Z, config=None, configs=None, charge=0,
-                 ns=None, ks=9, nuclear="fermi",
-                 breit=True, qed=True, exchange="hf",
-                 numerics=None, alpha_x=None,
-                 qed_backend="auto",
-                 correction_stack=None,
-                 correlation=None, starting_potential=None,
-                 plasma_ne=None, plasma_Te=None,
-                 averaging=None, slater_method="slag6",
-                 sampling=None, j_resolved_csfs=False,
-                 per_block_orbital_sets=False,
-                 radial_optimization="mcdhf"):
-        """
-        Parameters
-        ----------
-        nuclear : str
-            Nuclear model: "fermi" (default, matches DBSR_HF), "point", "uniform".
-        correction_stack : CorrectionStack or None
-            Explicit post-SCF corrections bundle
-            (:class:`atomx.corrections.stack.CorrectionStack`).  When
-            given it OVERRIDES the ``breit``/``qed`` booleans, which are
-            sugar building the equivalent default stack.
-        correlation : str or None
-            None = single-config DHF (default).
-            "sd" = add singles+doubles excitations (MCDHF with correlation).
-            "s" = singles only.
-        exchange : str
-            Exchange model: "hf" (non-local Hartree-Fock), "slater"
-            (local ρ^(1/3) with ``alpha_x``), "gu" (Gu's empirical
-            α_xc(Z, N)), plus the B-spline-only "tfda"
-            (Thomas-Fermi-Dirac-Amaldi, no SCF) and "gsz"
-            (Green-Sellin-Zachor) parametric potentials.
-            See the class docstring for the ``numerics`` × ``exchange``
-            support matrix.
-        numerics : str or None
-            Radial engine: "bspline", "shooting", or None (resolve
-            from ``exchange`` — see class docstring).
-        alpha_x : float, optional
-            Slater coefficient for ``exchange="slater"``.  ``None`` uses
-            ``3/2`` for both B-spline and shooting numerics.
-        starting_potential : str or None
-            "tfda" or "gsz" for faster SCF convergence.
-        plasma_ne : float, optional
-            Electron density (cm^-3) for plasma screening.
-        plasma_Te : float, optional
-            Electron temperature (eV) for plasma screening.
-        averaging : {"ci", "statistical", "equal", "fractional"} or None
-            How to weight the CSFs that span a partially-filled NR shell when
-            building the Guerra-averaged Fock operator
+    def __init__(self, Z, config=None, *, charge=0, nuclear="fermi",
+                 exchange="hf", corrections=None, correlation=None,
+                 engine=None, basis=None, environment=None, **retired):
+        # Every parameter is documented in the class docstring; the retired
+        # spellings are rejected with a message naming their replacement
+        # (this is a clean break — there are no aliases).
+        _reject_retired(retired)
 
-                ϖᵢⱼ = Σⱼ cⱼ² nᵢʲ nⱼʲ  (Guerra Eq 10)
+        # --- Input objects -------------------------------------------
+        # Each grouped argument is a plain value object: it validates
+        # itself, and Atom resolves it into the flat state the solvers
+        # consume.  Nothing here is merged from a second spelling.
+        if basis is None:
+            basis = Basis()
+        elif not isinstance(basis, Basis):
+            raise TypeError(
+                f"basis must be a Basis instance (got {type(basis).__name__}); "
+                f"construct it with Basis(ns=200, r_max=90.0) — see "
+                f"help(atomx.Basis)")
+        if environment is None:
+            environment = Environment()
+        elif not isinstance(environment, Environment):
+            raise TypeError(
+                f"environment must be an Environment instance (got "
+                f"{type(environment).__name__}); construct it with "
+                f"Environment(plasma_ne=1e22, plasma_Te=100.0) — see "
+                f"help(atomx.Environment)")
+        if corrections is not None and not isinstance(corrections,
+                                                      (str, Corrections)):
+            raise TypeError(
+                f"corrections must be None, a preset string, or a "
+                f"Corrections instance (got {type(corrections).__name__}); "
+                f"see help(atomx.Corrections)")
+        exchange_spec = _coerce_exchange(exchange)
+        correlation_spec = _coerce_correlation(correlation)
 
-            An orthogonal axis to ``numerics`` × ``exchange``: ``"ci"``
-            routes through the MCDHF outer loop on EITHER engine
-            (B-spline DFSolver + cell-integral CI kernel, or
-            ShootingHFSolver + grid-flavour CI kernel).  It requires
-            ``exchange="hf"``: the local-exchange models (slater/gu)
-            have no per-pair Slater-integral structure to CI-average, so
-            the unspecified default falls back quietly to
-            ``"statistical"`` while an EXPLICIT ``averaging="ci"``
-            raises.
-
-            - ``"ci"`` (default) — cⱼ are the ground-state mixing amplitudes
-              obtained by diagonalising the CI Hamiltonian over all jj-CSFs
-              of the NR configuration. Physically correct
-              averaged-monoconfiguration; reduces to plain DHF for closed
-              shells (single CSF).
-            - ``"statistical"`` — cⱼ² ∝ C(2j⁻+1, q⁻)·C(2j⁺+1, q⁺),
-              i.e. number of M_J sublevels in each jj-split (matches
-              DBSR_HF ``term=AV``). Fastest open-shell option.
-            - ``"equal"`` — uniform 1/N over jj-CSFs.
-            - ``"fractional"`` — naive ϖᵢ(ϖᵢ−1) using the statistical
-              averaged occupations. Back-compat with pre-refactor behaviour.
-
-            Closed-shell atoms (Ne, Ar, Kr, Xe, Hg, …) are unaffected by
-            this choice — there is only one jj-CSF.
-        """
-        # Track whether averaging was EXPLICITLY passed (mirrors the
-        # ``_numerics_explicit`` pattern): the explicit/default
-        # distinction drives the slater/gu × ci contradiction check
-        # below — explicit contradictions raise, the mere default falls
-        # back quietly.
-        self._averaging_explicit = averaging is not None
-        if averaging is None:
-            averaging = "ci"
-        if averaging not in {"ci", "statistical", "equal", "fractional"}:
-            raise ValueError(
-                f"averaging must be one of 'ci', 'statistical', 'equal', "
-                f"'fractional' (got {averaging!r})")
-        if slater_method not in {"slag6", "power_series"}:
-            raise ValueError(
-                f"slater_method must be 'slag6' or 'power_series' "
-                f"(got {slater_method!r})")
-        # ``sampling`` (a Sampling tier or custom Sampling object) provides
-        # defaults for ns/ks/starting_potential. Explicit kwargs still win
-        # so existing call sites are unaffected.
+        # ``sampling`` is a preset tier, not a second spelling: it fills in
+        # the basis fields the caller left open (ns/ks/r_max) and the
+        # shooting grid, and Atom.solve() takes tol/max_iter from it too.
+        # An explicit Basis field always wins.
+        sampling = basis.sampling
+        self._sampling = sampling
+        ns = basis.ns
+        ks = basis.ks
+        r_max = basis.r_max
+        starting_potential = basis.starting_potential
         if sampling is not None:
             if ns is None:
                 ns = sampling.ns
-            if ks == 9:  # default — only override if caller didn't ask
+            if ks == 9:  # Basis default — only override if caller didn't ask
                 ks = sampling.ks
             if starting_potential is None:
                 starting_potential = sampling.starting_potential
-        self._sampling = sampling
-        self.slater_method = slater_method
+            # ``Sampling`` carries the radial box and the shooting grid
+            # size as well; both reach the solvers now.  A tier field left
+            # at its schema default counts as "not asked for", so
+            # ``Sampling.standard`` keeps the engine's own tuned defaults
+            # (auto box; n_grid=1000 for HF / 400 for local exchange).
+            if r_max is None and sampling.r_max != _TIER_DEFAULTS["r_max"]:
+                r_max = float(sampling.r_max)
+        self._n_grid = None
+        if sampling is not None and sampling.n_grid != _TIER_DEFAULTS["n_grid"]:
+            self._n_grid = int(sampling.n_grid)
+
+        # --- Validation ----------------------------------------------
+        try:
+            Z_int = int(Z)
+        except (TypeError, ValueError):
+            raise ValueError(f"Z must be an integer (got {Z!r})") from None
+        if Z_int != Z:
+            raise ValueError(f"Z must be an integer (got {Z!r})")
+        if Z_int < 1:
+            raise ValueError(f"Z must be >= 1 (got {Z!r})")
+        Z = Z_int
+        if nuclear not in ("fermi", "point", "uniform"):
+            raise ValueError(
+                f"nuclear must be 'fermi', 'point', or 'uniform' "
+                f"(got {nuclear!r})")
+        if config is not None and not isinstance(config, (str, list, tuple)):
+            raise TypeError(
+                f"config must be a configuration string or a list of "
+                f"strings (got {type(config).__name__})")
+        if isinstance(config, (list, tuple)):
+            config = list(config)
+            if not config or not all(isinstance(c, str) for c in config):
+                raise TypeError(
+                    f"config must be a non-empty list of configuration "
+                    f"strings (got {config!r})")
+        if (isinstance(config, list)
+                and correlation_spec.expansion is not None):
+            raise ValueError(
+                f"config={config!r} already lists the configurations and "
+                f"correlation=Correlation(expansion="
+                f"{correlation_spec.expansion!r}) would generate another "
+                f"expansion from the reference configuration.  Pass either "
+                f"the explicit list (config=[...], correlation=Correlation("
+                f"averaging=...)) or the expansion "
+                f"(config=\"<reference>\", correlation="
+                f"{correlation_spec.expansion!r}).")
+
+        # Track whether averaging was EXPLICITLY passed: the explicit/
+        # default distinction drives the slater/gu x ci contradiction check
+        # below — explicit contradictions raise, the mere default falls
+        # back quietly.
+        self._averaging_explicit = correlation_spec.averaging is not None
+        averaging = (correlation_spec.averaging
+                     if correlation_spec.averaging is not None else "ci")
+
+        # Resolved value (what the shooting engine would use); the
+        # explicit/None distinction is what the B-spline rejection
+        # below keys on.
+        self.slater_method = exchange_spec.slater_method or "slag6"
         self.Z = Z
-        self.charge = charge
+        self.charge = int(charge)
         self.nuclear = nuclear
         # Unified physics-based grid for all Z
         self._use_physics_grid = (ns is None)
@@ -270,36 +488,79 @@ class Atom:
             ns = 113  # will be overridden by physics grid
         self.ns = ns
         self.ks = ks
-        self.breit = breit
-        self.qed = qed
-        if qed_backend not in {"auto", "mss", "mohr", "indelicato", "welton",
-                               "flambaum_ginges", "shabaev_local", "shabaev"}:
-            raise ValueError(
-                "qed_backend must be one of 'auto', 'mss', 'mohr', "
-                "'indelicato', 'welton', 'flambaum_ginges', "
-                "'shabaev_local', or 'shabaev'"
-            )
-        self.qed_backend = qed_backend
-        self.correction_stack = correction_stack
-        self.exchange = exchange
-        # Decoupled ENGINE (numerics) × MODEL (exchange) pair.
-        self._numerics_explicit = numerics is not None
-        self.numerics, self.exchange_model = _resolve_numerics_exchange(
-            numerics, exchange)
-        if alpha_x is not None and self.exchange_model != "slater":
-            raise ValueError(
-                f"alpha_x only applies to exchange='slater' "
-                f"(got exchange={self.exchange_model!r})")
+        #: Radial box (Bohr) for both engines.  ``None`` picks a value that
+        #: contains every requested orbital: the shooting default of 75
+        #: only resolves states up to ``n <~ sqrt(32.6 Z)``, so an
+        #: explicitly requested Rydberg state used to be silently clamped
+        #: to the bracketing ceiling (``Atom(Z=1, config="6s1")`` returned
+        #: ``-Z/r_max`` with a 4 % error).  See
+        #: docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding C4.
+        self.r_max = r_max
+        #: DBSR_HF grid-shape overrides for the automatic B-spline knot
+        #: sequence (``numerics/bspline/knots.py::make_physics_knots``):
+        #: ``hi`` sets the innermost step (``hs = hi/Z`` for a point
+        #: nucleus), ``he`` the exponential growth factor and ``hmax`` the
+        #: outer constant step.  ``None`` keeps the DBSR_HF defaults
+        #: (0.25 / 0.25 / 1.0).  These exist because the default cannot
+        #: resolve a high-Z K shell: the hydrogen-like U^91+ 1s eigenvalue
+        #: is +97.7 eV off at the default grid, +0.8 eV at ns=400, and is
+        #: only brought under 0.3 eV by raising the B-spline order or
+        #: refining ``hi``.  See
+        #: docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding C3.
+        self.grid_hi = basis.grid_hi
+        self.grid_he = basis.grid_he
+        self.grid_hmax = basis.grid_hmax
+        resolved = resolve_corrections(corrections)
+        self.breit = resolved.breit
+        self.qed = resolved.qed
+        self.qed_backend = resolved.qed_backend
+        self.correction_stack = resolved.stack
+        self.exchange = exchange_spec.model
+        # Decoupled ENGINE x MODEL pair.
+        self._engine_explicit = engine is not None
+        self.engine = _resolve_engine_exchange(engine, exchange_spec)
+        self.exchange_model = exchange_spec.model
         # ``alpha_x`` selects exchange PHYSICS, so its default must not
         # depend on the numerical engine.  The low-level DFSolver retains
         # its historical 2/3 default for direct callers, but Atom always
         # passes the canonical Slater value explicitly.
-        self.alpha_x = (1.5 if alpha_x is None
-                        and self.exchange_model == "slater" else alpha_x)
-        self.correlation = correlation
+        self.alpha_x = (1.5 if exchange_spec.alpha_x is None
+                        and self.exchange_model == "slater"
+                        else exchange_spec.alpha_x)
+        # The B-spline Galerkin path evaluates its local-exchange Slater
+        # integrals with its own quadrature; ``slater_method`` selects the
+        # shooting backend.  Accepting it there would be a knob that does
+        # nothing, so it raises.
+        if exchange_spec.slater_method is not None and self.engine == "bspline":
+            raise ValueError(
+                f"slater_method={self.slater_method!r} selects the numerical "
+                f"backend of the SHOOTING engine's local-exchange Slater "
+                f"integrals; the B-spline Galerkin path evaluates them with "
+                f"its own quadrature and would ignore it.  Drop "
+                f"slater_method (the default 'slag6' is used where it "
+                f"applies) or pass engine='shooting'.")
+        self.correlation = correlation_spec.expansion
         self.starting_potential = starting_potential
-        self.plasma_ne = plasma_ne
-        self.plasma_Te = plasma_Te
+        self.plasma_ne = environment.plasma_ne
+        self.plasma_Te = environment.plasma_Te
+        self.screening_model = environment.screening
+        # Density and temperature are two halves of one screening length,
+        # lambda_D = sqrt(kT / (4 pi n_e)); either one alone is meaningless
+        # (the check lives on Environment, which is where the pair is
+        # declared).
+        # The ion-sphere radius R_IS = (3 Z_ion / 4 pi n_e)^(1/3) needs a
+        # positive net charge: with Z_ion = 0 it diverges and the model
+        # silently degenerates to an unscreened nucleus.
+        if (self.plasma_ne is not None
+                and environment.screening == "stewart_pyatt"
+                and self.charge <= 0):
+            raise ValueError(
+                f"environment=Environment(screening='stewart_pyatt') "
+                f"needs a positive net charge to define the ion-sphere "
+                f"radius R_IS = (3 Z_ion / (4 pi n_e))^(1/3), but "
+                f"charge={self.charge}.  Use the default "
+                f"screening='debye' (defined for every charge state), "
+                f"or pass charge>0.")
         self.averaging = averaging
         # CI averaging needs the non-local HF two-electron structure —
         # the local-exchange models (slater/gu) carry no per-pair Slater
@@ -315,23 +576,40 @@ class Atom:
                 f"needs the HF two-electron structure; exchange="
                 f"{self.exchange_model!r} is a local-exchange model). "
                 f"Drop averaging='ci' or use exchange='hf'.")
-        if radial_optimization not in {"mcdhf", "fac_frozen", "fac_frozen_local"}:
-            raise ValueError(
-                "radial_optimization must be 'mcdhf', 'fac_frozen', or 'fac_frozen_local' "
-                f"(got {radial_optimization!r})"
-            )
-        self.j_resolved_csfs = bool(j_resolved_csfs)
-        self.per_block_orbital_sets = bool(per_block_orbital_sets)
-        self.radial_optimization = radial_optimization
+        self.j_resolved_csfs = bool(correlation_spec.j_resolved_csfs)
+        self.per_block_orbital_sets = bool(
+            correlation_spec.per_block_orbital_sets)
+        self.radial_optimization = correlation_spec.radial_optimization
+        # Both flags are read only by the multi-configuration branch of
+        # solve(); with a single configuration they have nothing to act on
+        # and used to be dropped in silence.
+        if config is None and correlation_spec.expansion is None:
+            if self.j_resolved_csfs:
+                raise ValueError(
+                    "j_resolved_csfs=True requires a multi-configuration "
+                    "input: it selects how the jj-CSFs of a "
+                    "config=[...] (or correlation='sd') expansion are "
+                    "enumerated, and a single-configuration run has only "
+                    "the CSFs of that one configuration.  Pass "
+                    "config=[...] (or correlation='sd'), or drop "
+                    "j_resolved_csfs=True.")
+            if self.per_block_orbital_sets:
+                raise ValueError(
+                    "per_block_orbital_sets=True requires a "
+                    "multi-configuration input: it builds one orbital set "
+                    "per (J, parity) block of the CI expansion, which does "
+                    "not exist for a single configuration.  Pass "
+                    "config=[...] (or correlation='sd'), or drop "
+                    "per_block_orbital_sets=True.")
 
         # Determine configuration(s)
-        if configs is not None:
+        if isinstance(config, list):
             self._multi_config = True
-            self._config_strings = configs
-        elif correlation is not None:
+            self._config_strings = list(config)
+        elif correlation_spec.expansion is not None:
             # Auto-generate correlation CSFs
             self._multi_config = True
-            N_electrons = Z - charge
+            N_electrons = Z - self.charge
             try:
                 base_config = config or ground_state_config(N_electrons)
             except ValueError:
@@ -342,7 +620,7 @@ class Atom:
                 suggest_virtual_orbitals,
             )
             virtuals = suggest_virtual_orbitals(Z, n_virtual=1)
-            max_exc = 2 if correlation == "sd" else 1
+            max_exc = 2 if correlation_spec.expansion == "sd" else 1
             # Freeze core for Z > 10
             core = None
             if Z > 10:
@@ -350,32 +628,123 @@ class Atom:
             elif Z > 4:
                 core = ["1s"]
             self._config_strings = generate_sd_excitations(
-                base_config, virtuals, core_orbitals=core, max_excitations=max_exc)
+                base_config, virtuals, core_orbitals=core,
+                max_excitations=max_exc)
         else:
             self._multi_config = False
             if config is None:
-                N_electrons = Z - charge
+                N_electrons = Z - self.charge
                 config = ground_state_config(N_electrons)
             self._config_strings = [config]
 
         # Multi-configuration input needs the B-spline MCDHF CI
         # machinery: the defaulted shooting engine silently yields to
         # bspline (provenance stays truthful); an EXPLICIT
-        # numerics='shooting' with configs=[...] is a contradiction and
+        # engine='shooting' with config=[...] is a contradiction and
         # raises instead of being ignored.
-        if self._multi_config and self.numerics == "shooting":
-            if self._numerics_explicit:
+        if self._multi_config and self.engine == "shooting":
+            if self._engine_explicit:
                 raise ValueError(
                     "multi-configuration input requires the B-spline "
-                    "MCDHF machinery; drop numerics='shooting' or pass "
-                    "numerics='bspline'")
-            self.numerics = "bspline"
+                    "MCDHF machinery; drop engine='shooting' or pass "
+                    "engine='bspline'")
+            self.engine = "bspline"
+
+        # The grid-shape overrides exist only for the automatic B-spline
+        # knot sequence (numerics/bspline/knots.py::make_physics_knots).
+        # Name the engine that ignores them, or the explicit ``ns`` that
+        # replaces the grid they would shape, instead of dropping them in
+        # silence.  Resolved AFTER the multi-configuration yield above, so
+        # a multi-configuration run that legitimately moves to bspline
+        # still accepts them.
+        grid_given = [(name, value) for name, value in
+                      (("grid_hi", self.grid_hi), ("grid_he", self.grid_he),
+                       ("grid_hmax", self.grid_hmax))
+                      if value is not None]
+        if grid_given and self.engine != "bspline":
+            names = ", ".join(name for name, _ in grid_given)
+            first_name, first_value = grid_given[0]
+            which = f" (with {names})" if len(grid_given) > 1 else ""
+            why = ("" if self._engine_explicit else
+                   f" (engine=None resolves to the shooting engine for "
+                   f"exchange={self.exchange_model!r})")
+            raise ValueError(
+                f"{first_name}={first_value!r}{which} shapes the "
+                f"automatic B-spline knot sequence, but engine resolved "
+                f"to {self.engine!r}{why}; the shooting engine "
+                f"integrates on its own adaptive radial grid and ignores "
+                f"{names}.  Pass engine='bspline' or drop {names}.")
+        if grid_given and not self._use_physics_grid:
+            names = ", ".join(name for name, _ in grid_given)
+            first_name, first_value = grid_given[0]
+            source = ("the sampling tier" if (
+                self._sampling is not None
+                and getattr(self._sampling, "ns", None) == self.ns)
+                else "an explicit ns")
+            raise ValueError(
+                f"{first_name}={first_value!r} shapes the automatic "
+                f"DBSR_HF knot sequence, which {source} (ns={self.ns}) "
+                f"replaces: the grid then follows from ns/ks/r_max and "
+                f"{names} is never read.  Drop ns={self.ns} — recommended, "
+                f"it keeps the DBSR_HF grid with your overrides — or drop "
+                f"{names}.")
 
         # Result (populated after solve()).  ``self._result`` may be
         # any :class:`atomx.results.AtomicResult` flavor (SCFResult,
         # MCDHFResult, ShootingResult, …).  All accessors below
         # delegate to it uniformly.
         self._result = None
+
+
+    def _resolve_r_max(self, subshells) -> float:
+        """Radial box for the requested subshells (Bohr).
+
+        Explicit ``r_max`` wins.  Otherwise keep the historical 75 Bohr
+        unless a requested orbital is too diffuse to fit: the classical
+        extent is ``<r> ~ 1.5 n^2 / Z`` and shooting resolves a state
+        only while ``|E| >~ 1.15 Z/r_max``, so ``5 n_max^2 / Z`` is a
+        safe container (a 6s orbital of hydrogen needs ~180 Bohr).
+        """
+        if self.r_max is not None:
+            return float(self.r_max)
+        n_max = max((getattr(sh, "n", 1) for sh in subshells), default=1)
+        return max(75.0, 5.0 * n_max ** 2 / max(self.Z, 1))
+
+    def _screening_shift(self):
+        """Additive plasma screening ``delta_V(r)`` for the SCF, or ``None``.
+
+        ``delta_V(r) = V_screened(r) - (-Z/r)``: the difference between
+        the plasma model's central potential and the bare nuclear one, so
+        the finite nuclear size is untouched and the shift vanishes at the
+        origin (it tends to ``Z/lambda`` at large r — the continuum shift
+        that lowers the ionisation energy).  It is built by calling
+        :func:`atomx.plasma.screening.screening_shift` directly, so the
+        SCF and a hand evaluation of the same model agree by construction.
+        """
+        if self.plasma_ne is None:
+            return None
+        from atomx.plasma.screening import screening_shift
+        Z = self.Z
+        ne_cm3 = float(self.plasma_ne)
+        Te_eV = float(self.plasma_Te)
+        model = self.screening_model
+        z_ion = int(self.charge)
+
+        def shift(r):
+            return screening_shift(Z, r, ne_cm3, Te_eV, model=model,
+                                   z_ion=z_ion)
+
+        return shift
+
+    def _shooting_n_grid(self, default: int) -> int:
+        """Radial grid size for the shooting engine.
+
+        ``default`` is the engine's own tuned value (1000 for the HF
+        Green-function quadratures, 400 for the local-exchange SCF); an
+        accuracy tier that *sets* ``n_grid`` — e.g.
+        ``Basis(sampling=Sampling(n_grid=2000))`` — wins.
+        """
+        return int(self._n_grid) if self._n_grid else int(default)
 
     def solve(self, method=None, tol=1e-5, max_iter=40, log=None,
               sampling=None):
@@ -422,7 +791,7 @@ class Atom:
         # Route "ci" averaging (Guerra with Hamiltonian-diagonalisation c_k²)
         # through the MCDHF solver on the jj-CSF enumeration of the base
         # configuration — on EITHER engine (averaging is an orthogonal
-        # axis: numerics × exchange × averaging; MCDHFSolver runs the
+        # axis: engine × exchange × averaging; MCDHFSolver runs the
         # shooting engine via ShootingHFSolver + the grid-flavour CI
         # kernel).  For closed-shell atoms the enumeration yields a
         # single CSF, so the MCDHF loop collapses to one DHF solve.
@@ -430,6 +799,26 @@ class Atom:
         # (an explicit averaging="ci" already raised in __init__): "ci"
         # is the constructor default, so erroring here would break
         # every slater/gu call.
+        # The MCDHF/CI solver implements non-local (HF) exchange only.
+        # A local model requested on a multi-configuration run used to be
+        # dropped in silence while `provenance` still reported it — i.e.
+        # `Atom(config=[...], exchange="slater")` claimed Slater exchange
+        # and returned a Hartree-Fock energy.  Fail loudly instead; the
+        # single-configuration path (which does honour slater/gu) is
+        # unaffected, and the documented "defaulted ci degrades quietly"
+        # behaviour is preserved by the `use_ci_avg` gate below.
+        if (self._multi_config or self.correlation) and (
+                self.exchange_model not in ("hf",)):
+            raise ValueError(
+                f"exchange={self.exchange_model!r} is not implemented for "
+                f"multi-configuration runs (config=[...] or correlation=...); "
+                f"the MCDHF/CI solver uses non-local Hartree-Fock exchange "
+                f"only.  Use exchange='hf', or run the single-configuration "
+                f"path (config=...) which supports the local models.  "
+                f"Previously the argument was ignored while `provenance` "
+                f"reported it."
+            )
+
         use_ci_avg = (
             not self._multi_config
             and self.averaging == "ci"
@@ -450,13 +839,15 @@ class Atom:
                 solver = MCDHFSolver(
                     Z=self.Z, csfs=csfs, ns=self.ns, ks=self.ks,
                     include_breit=self.breit, include_qed=self.qed,
+                    qed_se_method=self.qed_backend,
                     correction_stack=self.correction_stack,
                     nuclear=self.nuclear,
                     use_physics_grid=self._use_physics_grid,
                     starting_potential=self.starting_potential,
                     per_block_orbital_sets=self.per_block_orbital_sets,
                     radial_optimization=self.radial_optimization,
-                    engine=self.numerics,
+                    engine=self.engine,
+                    screening_potential=self._screening_shift(),
                 )
                 self._result = solver.solve(max_iter=max_iter, scf_tol=tol)
 
@@ -477,15 +868,18 @@ class Atom:
             solver = MCDHFSolver(
                 Z=self.Z, csfs=csfs, ns=self.ns, ks=self.ks,
                 include_breit=self.breit, include_qed=self.qed,
+                qed_se_method=self.qed_backend,
                 correction_stack=self.correction_stack,
                 nuclear=self.nuclear,
                 use_physics_grid=self._use_physics_grid,
                 starting_potential=self.starting_potential,
                 per_block_orbital_sets=self.per_block_orbital_sets,
                 radial_optimization=self.radial_optimization,
+                engine=self.engine,
+                screening_potential=self._screening_shift(),
             )
             self._result = solver.solve(max_iter=max_iter, scf_tol=tol)
-        elif self.numerics == "shooting":
+        elif self.engine == "shooting":
             # ODE shooting engine — three exchange models:
             #   ``exchange='hf'`` → non-local Dirac-Hartree-Fock via the
             #     Froese-Fischer inhomogeneous-equation method
@@ -504,11 +898,11 @@ class Atom:
             # Both produce a ``ShootingResult`` (AtomicResult-compatible).
             #
             # The B-spline ``DFSolver`` also accepts Gu's model
-            # (``numerics='bspline', exchange='gu'``) and wires α_xc in
+            # (``engine='bspline', exchange='gu'``) and wires α_xc in
             # the same place the pre-existing ``'slater'`` path uses
             # ``alpha_x`` (see Task 4 in
             # ``docs/superpowers/plans/2026-04-20-fac-calculator.md``).
-            # ``exchange='gu'`` with the default ``numerics=None``
+            # ``exchange='gu'`` with the default ``engine=None``
             # routes via shooting because the shooting path is already
             # validated against sfac to 10⁻⁴ relative across Z=2..92.
             from atomx.numerics.shooting.solver import ShootingSolver
@@ -555,12 +949,14 @@ class Atom:
                 # silently solving a different model.
                 if self.nuclear not in ("point", "fermi"):
                     raise ValueError(
-                        f"numerics='shooting' supports nuclear='point' or "
+                        f"engine='shooting' supports nuclear='point' or "
                         f"'fermi' (got {self.nuclear!r})")
                 solver = ShootingHFSolver(
                     Z=self.Z, subshells=subshells,
-                    n_grid=1000, r_max=75.0,
+                    n_grid=self._shooting_n_grid(1000),
+                    r_max=self._resolve_r_max(subshells),
                     nuclear=self.nuclear,
+                    screening_potential=self._screening_shift(),
                 )
                 # HF sweeps are Gauss-Seidel with 0.5 damping — give
                 # them headroom beyond Atom's default max_iter=40.
@@ -576,18 +972,22 @@ class Atom:
                 subshells = [sh for sh in subshells if sh.occupation > 1e-10]
                 solver = ShootingSolver(
                     Z=self.Z, subshells=subshells,
-                    n_grid=400, r_max=75.0,
+                    n_grid=self._shooting_n_grid(400),
+                    r_max=self._resolve_r_max(subshells),
                     exchange="gu", fac_ihx=-1.0, fac_hxs=1.0,
-                    slater_method=self.slater_method,
+                    slater_method=self.slater_method or "slag6",
+                    screening_potential=self._screening_shift(),
                 )
             else:
                 from atomx.methods.mcdhf.config import _parse_config_string
                 subshells = _parse_config_string(self._config_strings[0])
                 solver = ShootingSolver(
                     Z=self.Z, subshells=subshells,
-                    n_grid=400, r_max=75.0,
+                    n_grid=self._shooting_n_grid(400),
+                    r_max=self._resolve_r_max(subshells),
                     alpha_x=self.alpha_x,
-                    slater_method=self.slater_method,
+                    slater_method=self.slater_method or "slag6",
+                    screening_potential=self._screening_shift(),
                 )
             if solver is not None:
                 self._result = solver.solve(max_iter=max_iter, tol=tol)
@@ -643,6 +1043,7 @@ class Atom:
                               correction_stack=self.correction_stack,
                               nuclear=self.nuclear,
                               starting_potential=self.starting_potential or ('tfda' if self.Z >= 20 else None),
+                              screening_potential=self._screening_shift(),
                               jj_configs=jj_arg)
 
             # DBSR_HF-style semi-exponential grid (matched to nuclear model)
@@ -650,7 +1051,9 @@ class Atom:
                 from atomx.numerics.bspline.basis import prepare_bspline_data
                 from atomx.numerics.bspline.knots import make_physics_knots
                 t_phys, ns_phys = make_physics_knots(
-                    ks=self.ks, Z=self.Z, nuclear=self.nuclear)
+                    ks=self.ks, Z=self.Z, nuclear=self.nuclear,
+                    r_max=self.r_max, hi=self.grid_hi, he=self.grid_he,
+                    hmax=self.grid_hmax)
                 data = prepare_bspline_data(t_phys, ns_phys, self.ks,
                                             kinetic_balance=True)
                 solver.t = t_phys
@@ -684,11 +1087,18 @@ class Atom:
             elif self.exchange_model in ("slater", "gu"):
                 if self.averaging == "ci":
                     averaging_ran = "statistical"
-            elif self.numerics == "shooting" and self.averaging != "ci":
+            elif self.engine == "shooting" and self.averaging != "ci":
                 averaging_ran = "statistical"
-            self._result.provenance = {"numerics": self.numerics,
-                                       "exchange": self.exchange_model,
-                                       "averaging": averaging_ran}
+            provenance = {"engine": self.engine,
+                          "exchange": self.exchange_model,
+                          "averaging": averaging_ran}
+            if self.plasma_ne is not None:
+                provenance["plasma"] = {
+                    "plasma_ne": float(self.plasma_ne),
+                    "plasma_Te": float(self.plasma_Te),
+                    "screening": self.screening_model,
+                }
+            self._result.provenance = provenance
 
         return self
 
@@ -776,9 +1186,80 @@ class Atom:
 
     @property
     def provenance(self) -> dict:
-        """``{'numerics': engine, 'exchange': model}`` of the solved
-        result (empty before :meth:`solve`)."""
+        """What actually ran: ``{'engine': ..., 'exchange': ...,
+        'averaging': ...}``, plus ``'plasma'`` when the atom sits in one
+        (empty before :meth:`solve`)."""
         return dict(getattr(self._result, "provenance", None) or {})
+
+    @property
+    def resolved_inputs(self) -> str:
+        """One-line summary of the constructor inputs ACTUALLY in force.
+
+        Resolves what the constructor left open: the radial engine behind
+        ``engine=None``, the knot grid behind ``ns=None``/``grid_*``, the
+        corrections behind a stack, and the SCF/CI protocol choices.
+        Useful for logging a run and for checking that a grouped object
+        took effect.
+
+        Examples
+        --------
+        >>> Atom(10, config="1s2 2s2 2p6").resolved_inputs
+        'Z=10 charge=0 fermi | 1s2 2s2 2p6 | engine=shooting exchange=hf
+        averaging=ci | breit=on qed=on(auto) | radial=shooting(n_grid=1000)
+        r_max=auto'
+        """
+        if len(self._config_strings) == 1:
+            config = self._config_strings[0]
+        else:
+            config = f"{len(self._config_strings)} configs"
+        if self.correction_stack is not None:
+            corrections = f"stack({type(self.correction_stack).__name__})"
+        else:
+            corrections = (f"breit={'on' if self.breit else 'off'} "
+                           f"qed={'on' if self.qed else 'off'}"
+                           f"({self.qed_backend})")
+        if self.engine == "shooting":
+            # Shooting integrates on its own adaptive grid; the B-spline
+            # node count/order below would be noise.
+            n_grid = self._shooting_n_grid(
+                1000 if self.exchange_model == "hf" else 400)
+            radial = f"radial=shooting(n_grid={n_grid})"
+        else:
+            # ``self.ns`` is only the nominal 113 when the DBSR_HF physics
+            # grid is in charge; the real node count comes out of
+            # make_physics_knots at solve time.
+            ns_str = ("auto(DBSR_HF)" if self._use_physics_grid
+                      else str(self.ns))
+            if not self._use_physics_grid:
+                grid = "fixed"
+            elif (self.grid_hi is None and self.grid_he is None
+                    and self.grid_hmax is None):
+                grid = "DBSR_HF-default"
+            else:
+                grid = (f"DBSR_HF(hi={self.grid_hi}, he={self.grid_he}, "
+                        f"hmax={self.grid_hmax})")
+            radial = f"radial=bspline(ns={ns_str}, ks={self.ks}, grid={grid})"
+        parts = [f"Z={self.Z} charge={self.charge} {self.nuclear}",
+                 config,
+                 f"engine={self.engine} exchange={self.exchange_model} "
+                 f"averaging={self.averaging}",
+                 corrections,
+                 f"{radial} "
+                 f"r_max={'auto' if self.r_max is None else self.r_max}"]
+        if self.starting_potential is not None:
+            parts.append(f"start={self.starting_potential}")
+        if getattr(self._sampling, "label", None):
+            parts.append(f"sampling={self._sampling.label}")
+        if self.radial_optimization != "mcdhf":
+            parts.append(f"radial={self.radial_optimization}")
+        if self.j_resolved_csfs:
+            parts.append("j_resolved_csfs")
+        if self.per_block_orbital_sets:
+            parts.append("per_block_orbital_sets")
+        if self.plasma_ne is not None:
+            parts.append(f"plasma(ne={self.plasma_ne}, Te={self.plasma_Te}, "
+                         f"{self.screening_model})")
+        return " | ".join(parts)
 
     @property
     def _mcdhf_result(self):
@@ -1322,6 +1803,7 @@ class Atom:
         print(f"  {sym} (Z={self.Z})  AtomX DHF Calculation")  # noqa: T201
         print(f"{'='*50}")  # noqa: T201
         print(f"  Config: {self._config_strings[0]}")  # noqa: T201
+        print(f"  Resolved: {self.resolved_inputs}")  # noqa: T201
         print(f"  Converged: {self.converged} ({self.iterations} iterations)")  # noqa: T201
         print(f"  Total energy: {self.total_energy:.6f} Ha"  # noqa: T201
               f" ({self.total_energy_eV:.2f} eV)")

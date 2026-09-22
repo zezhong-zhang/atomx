@@ -2,7 +2,7 @@
 
 import pytest
 
-from atomx import Atom
+from atomx import Atom, Basis
 
 
 class TestAtomAPI:
@@ -37,7 +37,7 @@ class TestAtomAPI:
 
     def test_with_qed(self):
         """QED corrections included."""
-        he = Atom(Z=2, qed=True)
+        he = Atom(Z=2)
         he.solve()
         assert "E_VP" in he.energy_components
         assert "E_SE" in he.energy_components
@@ -52,7 +52,7 @@ class TestAtomAPI:
         Public ``Atom(configs=[...])`` now uses the J-resolved
         enumeration and block-diagonalises CI by (J, parity).
         """
-        be = Atom(Z=4, configs=["1s2 2s2", "1s2 2p2"])
+        be = Atom(Z=4, config=["1s2 2s2", "1s2 2p2"])
         be.solve()
         assert be.converged
         # 1 + 5 = 6 J-resolved CSFs
@@ -95,7 +95,7 @@ class TestAtomAPI:
 
     def test_iron(self):
         """Fe (Z=26) — key for spectroscopy. Should converge."""
-        fe = Atom(Z=26, ns=60, ks=9)
+        fe = Atom(Z=26, basis=Basis(ns=60, ks=9))
         fe.solve(tol=1e-4)
         assert fe.converged
         assert fe.total_energy < 0

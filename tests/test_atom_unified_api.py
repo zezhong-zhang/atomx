@@ -32,17 +32,17 @@ from atomx.results import AtomicResult, Waves
 def he_dhf():
     # Explicit engine pin: this fixture IS the SCFResult flavor (the
     # bare default now resolves to the shooting engine).
-    return Atom(Z=2, numerics="bspline").solve()
+    return Atom(Z=2, engine="bspline").solve()
 
 
 @pytest.fixture(scope="module")
 def he_shooting():
-    return Atom(Z=2, numerics="shooting", exchange="slater").solve()
+    return Atom(Z=2, engine="shooting", exchange="slater").solve()
 
 
 @pytest.fixture(scope="module")
 def be_mcdhf():
-    return Atom(Z=4, configs=["1s2 2s2", "1s2 2p2"]).solve()
+    return Atom(Z=4, config=["1s2 2s2", "1s2 2p2"]).solve()
 
 
 # ---------------------------------------------------------------------------
