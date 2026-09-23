@@ -111,3 +111,54 @@ def test_malformed_token_raises_clear_value_error(bad_token):
     """Malformed tokens raise ValueError naming the token, not KeyError."""
     with pytest.raises(ValueError, match=re.escape(bad_token)):
         generate_jj_average(f"1s2 {bad_token}")
+
+
+# ---------------------------------------------------------------------------
+# Over-occupied shells (HYP-1790).  Ported from PR #86, whose code change is
+# subsumed by the shared parser's capacity check: the contract pinned here
+# is a ValueError naming the shell and its electron capacity — not the
+# silent all-zeros occupation vector the distribution loop used to return
+# (which even dropped the legal companion shells, and crashed Atom.solve
+# with a cryptic IndexError downstream).
+# ---------------------------------------------------------------------------
+
+@pytest.mark.parametrize(
+    "config_str",
+    ["2p7",        # one electron over the p-shell capacity
+     "1s2 2p9",    # HYP-1790 headline: silently dropped ALL electrons before
+     "3d11",       # one electron over the d-shell capacity
+     "2s3",        # s-shell over-occupation also gets a clear message
+     ],
+)
+def test_over_occupied_shell_raises_clear_value_error(config_str):
+    """Over-occupied shells raise ValueError naming the shell and bounds."""
+    with pytest.raises(ValueError) as excinfo:
+        generate_jj_average(config_str)
+    msg = str(excinfo.value)
+    bad_token = config_str.split()[-1]
+    assert bad_token in msg
+    # the capacity number appears in the message (6 for p, 10 for d, 2 for s)
+    capacity = {"2p7": "6", "1s2 2p9": "6", "3d11": "10", "2s3": "2"}[config_str]
+    assert capacity in msg
+
+
+def test_atom_solve_rejects_over_occupied_config():
+    """Atom.solve() surfaces the validation error, not a cryptic IndexError."""
+    from atomx import Atom
+
+    atom = Atom(Z=8, config="1s2 2p9")
+    with pytest.raises(ValueError, match="2p9"):
+        atom.solve()
+
+
+@pytest.mark.parametrize(
+    "config_str",
+    ["2p6",        # closed p shell: exactly at capacity
+     "3d10",       # closed d shell
+     "1s2 2s2 2p2",
+     ],
+)
+def test_shell_at_capacity_still_accepted(config_str):
+    """Shells filled exactly to capacity remain valid."""
+    subshells, _ = generate_jj_average(config_str)
+    assert sum(sh.occupation for sh in subshells) > 0
