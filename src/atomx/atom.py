@@ -637,6 +637,17 @@ class Atom:
                 config = ground_state_config(N_electrons)
             self._config_strings = [config]
 
+        # Central config-string validation (HYP-1778): reject malformed
+        # shell tokens ("2x2", trailing junk), n = 0 and over-occupied
+        # shells (q > 2(2l+1)) here at the entry with a clear ValueError
+        # naming the token, instead of letting them surface one solver
+        # frame deep.  The shared parser also accepts what the solvers
+        # accept (implicit unit occupations, s..i letters), so this
+        # cannot reject anything that would have solved.
+        from atomx.config.parsing import validate_config_string
+        for cfg in self._config_strings:
+            validate_config_string(cfg)
+
         # Multi-configuration input needs the B-spline MCDHF CI
         # machinery: the defaulted shooting engine silently yields to
         # bspline (provenance stays truthful); an EXPLICIT

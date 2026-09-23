@@ -72,4 +72,18 @@ def parse_nr_shells(config_str: str) -> List[Tuple[int, int, int]]:
     return shells
 
 
-__all__ = ["L_MAP", "parse_nr_shells"]
+def validate_config_string(config_str: str) -> None:
+    """Validate a configuration string, raising :class:`ValueError` if bad.
+
+    Thin wrapper over :func:`parse_nr_shells` for entry points that only
+    want the rejection side (Multica HYP-1778): malformed shell tokens
+    (``"2x2"``, trailing junk), ``n = 0`` and over-occupied shells
+    (``q > 2(2l+1)``) raise a clear ``ValueError`` naming the token here,
+    instead of crashing deep in the SCF/QED kernels.  Valid strings
+    (including implicit unit occupations, ``"11s"`` == ``"11s1"``) pass
+    silently.
+    """
+    parse_nr_shells(config_str)
+
+
+__all__ = ["L_MAP", "parse_nr_shells", "validate_config_string"]

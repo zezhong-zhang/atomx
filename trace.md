@@ -789,3 +789,23 @@ noise from resolving inside a rebase stop.  NOTE for recovery: this
 rebase's `git rebase --continue` refused with a spurious "unmerged
 conflicts" message even with zero unmerged entries; the working escape
 was `git commit -C <original>` then continue.
+
+### EARS — Progress (2026-09-23 13:53)
+<!-- concepts: pr-triage, config-parsing -->
+
+PR handling continued: #83 and #81 branches refreshed by merging main in
+(force-push blocked by preflight hook; merge+squash-flow makes branch
+shape moot — both tested green: #83 5/5, #81 30 passed 5 skipped) and
+pushed.  Both now await the user's merge go-ahead (auto-mode classifier
+refused merge-without-review).  #82 evaluation: its cryptic-crash defect
+class is already fixed on main (clear ValueError from the shared parser,
+both engines) but validation fires at solve(), and count_j_resolved_csfs
+still had raw single-char slicing the audit missed.  Porting the
+remaining value to main on a fresh commit: validate_config_string
+wrapper + Atom entry hook + count_j_resolved_csfs migration to
+parse_nr_shells + adapted regression tests (implicit "2s" stays VALID
+per main's reviewed M2 semantics, unlike #82's regex).
+
+(Not-stuck note: the repeated test_jj_coupling.py edits are one planned
+sequence — rebase conflict resolution, then the HYP-1790 test port, then
+this entry-validation timing update.  No obstacle.)

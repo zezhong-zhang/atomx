@@ -143,12 +143,15 @@ def test_over_occupied_shell_raises_clear_value_error(config_str):
 
 
 def test_atom_solve_rejects_over_occupied_config():
-    """Atom.solve() surfaces the validation error, not a cryptic IndexError."""
+    """Atom surfaces the validation error, not a cryptic IndexError.
+
+    Since HYP-1778 the rejection fires at ``Atom(...)`` construction
+    (central entry validation), before any solver machinery runs.
+    """
     from atomx import Atom
 
-    atom = Atom(Z=8, config="1s2 2p9")
     with pytest.raises(ValueError, match="2p9"):
-        atom.solve()
+        Atom(Z=8, config="1s2 2p9")
 
 
 @pytest.mark.parametrize(

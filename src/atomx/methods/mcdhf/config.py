@@ -416,17 +416,9 @@ def count_j_resolved_csfs(config_str: str) -> dict[int, int]:
     inside each subshell, and shell angular momenta are convolved across the
     configuration.
     """
-    l_map = {"s": 0, "p": 1, "d": 2, "f": 3, "g": 4, "h": 5}
     total_counts: dict[int, int] = {0: 1}
-    for token in config_str.strip().split():
-        if len(token) < 3:
-            raise ValueError(f"Invalid configuration token {token!r}")
-        n = int(token[0])
-        l_char = token[1]
-        if l_char not in l_map:
-            raise ValueError(f"Unsupported orbital letter {l_char!r}")
-        q = int(token[2:])
-        shell_counts = _nr_shell_j_resolved_counts(n, l_map[l_char], q)
+    for n, l, q in parse_nr_shells(config_str):
+        shell_counts = _nr_shell_j_resolved_counts(n, l, q)
         total_counts = _couple_j_count_maps(total_counts, shell_counts)
     return dict(sorted(total_counts.items()))
 
