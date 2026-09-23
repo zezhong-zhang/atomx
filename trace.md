@@ -665,3 +665,18 @@ quadrature.py feeding breit, shooting-grid consumers), so a single-chain refacto
 means choosing a common representation first; the physics-value item is the
 quadrature.py trapezoid bias, which unification behind the interpolatory rule
 would fix for free, at the cost of an API change across all compute_yk consumers.
+
+### EARS — Progress (2026-09-23 10:50)
+<!-- concepts: mbpt-virtual-sum, antisymmetry, kept-side-verification -->
+
+Ar MBPT(2) double-count landed and verified: cross-kappa virtual pairs were
+summed twice (|A(sr)|^2 = |A(rs)|^2, antisymmetry). Kept-side reconstruction
+proves it: same-kappa -0.306761 + 2x cross-kappa -0.375513 = -1.057787 Ha =
+recorded pre-fix value to 6 digits. E2 now -0.682274 Ha (~97% of Ar total
+correlation, conventional MP2 overshoot). Two discipline catches: (1) the
+mbpt.py docstring referenced docs/test_audit/PHYSICS_ar_mbpt2.md which the
+dead agent never created - wrote it now; (2) the xfail reason described the
+pre-fix anomaly as still-open - updated to RESOLVED with the reconstruction
+numbers, kept xfail (gate |E2|<0.35 is the heuristic, not a defect; moving
+the bound is a later-pass decision). Y^k fix committed as 1e96a83 earlier:
+suite 7 failed = pre-fix baseline set exactly, FAC CSV columns byte-identical.

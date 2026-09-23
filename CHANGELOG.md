@@ -132,6 +132,25 @@ now changes the physics; the numbers below are measured by
 
 ### Fixed — physics
 
+* **`mbpt2_energy` summed every cross-κ virtual pair twice, doubling that
+  channel of the MP2 sum.**  The virtual double loop iterated the full
+  Cartesian product over κ blocks; the antisymmetrised amplitude obeys
+  |A_J(ab;sr)|² = |A_J(ab;rs)|² with Δε symmetric, so the ordered channels
+  (κ_r,κ_s) and (κ_s,κ_r) contribute identically.  Only κ_s at or after
+  κ_r in the block list is now summed (same-κ blocks keep their
+  `orb_r_idx ≤ orb_s_idx` guard).  Measured on Ar I: E2 −1.057787 →
+  −0.682274 Ha — verified by kept-side reconstruction (same-κ −0.306761 +
+  2× cross-κ −0.375513 = −1.057787 Ha exactly, matching the recorded
+  pre-fix number to all six digits).  −0.682 Ha is ~97 % of argon's
+  ~−0.7 Ha total correlation, a conventional MP2-overshoot-scale term.
+  The `|E2| < 0.35` gate in
+  `tests/test_nist_levels.py::test_ar_mbpt2_correlation_energy_is_physical`
+  stays `xfail` — the heuristic itself now predates the fix and replacing
+  it is left to a later pass.  A `term_recorder` diagnostic hook was added
+  so any second-order sum can be attributed to its dominant channels; see
+  `docs/test_audit/PHYSICS_ar_mbpt2.md`.  Side benefit: the virtual-channel
+  loop work is halved (3.2 M of the 4.0 M pre-fix terms were duplicates).
+
 * **`build_ci_matrix` now evaluates exact `⟨CSF_r|Ĥ|CSF_s⟩`.**  The
   configuration-average diagonal plus two ad-hoc "J-correction" patches are
   gone; the CI matrix is built by an exact m-scheme determinant construction

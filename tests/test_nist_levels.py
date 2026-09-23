@@ -275,7 +275,17 @@ def test_h1_mcdhf_orbitals_are_screened():
         "CBS limit; truncating it merely shrinks the correlation energy.  So "
         "Ar I's -1.058 Ha is a system-specific anomaly (candidate: a "
         "near-degeneracy in its 3p/3d virtual manifold), not a generic "
-        "high-virtual artefact, and it needs its own diagnosis."
+        "high-virtual artefact, and it needs its own diagnosis.  "
+        "RESOLVED 2026-09-23: the cause was the virtual SUM, not the "
+        "virtual space - cross-kappa pairs (k_r,k_s) and (k_s,k_r) were "
+        "both summed (|A(sr)|^2 = |A(rs)|^2 by antisymmetry), doubling "
+        "every cross-kappa channel; E2 -1.057787 -> -0.682274 Ha.  That "
+        "is ~97% of argon's ~-0.7 Ha total correlation, a conventional "
+        "MP2-overshoot-scale term, so the remaining gate failure is the "
+        "0.35 heuristic itself (it predates the fix); kept xfail rather "
+        "than moving the bound.  Verified by kept-side reconstruction: "
+        "same-kappa -0.306761 + 2x cross-kappa -0.375513 = -1.057787 Ha "
+        "exactly.  See docs/test_audit/PHYSICS_ar_mbpt2.md."
     ),
 )
 def test_ar_mbpt2_correlation_energy_is_physical():

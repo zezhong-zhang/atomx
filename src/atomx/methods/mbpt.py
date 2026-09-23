@@ -386,6 +386,7 @@ def mbpt2_energy(
     multipole_max: Optional[int] = None,
     e_virt_max: Optional[float] = None,
     verbose: bool = False,
+    term_recorder: Optional[Any] = None,
 ) -> MBPT2Result:
     """Compute the second-order MBPT correlation energy on a closed-shell
     DHF reference.
@@ -430,6 +431,15 @@ def mbpt2_energy(
         ``tests/test_nist_levels.py::test_ar_mbpt2_correlation_energy_is_physical``.
     verbose
         If True, log per-pair contributions.
+    term_recorder
+        Optional callable invoked once per virtual pair ``(r, s)`` of
+        every occupied pair with a dict holding the diagnosis of that
+        term: ``a``/``b`` labels, ``kappa_r``/``kappa_s``, ``i_r``/
+        ``i_s`` (index within the κ block), ``eps_r``/``eps_s``,
+        ``delta_eps``, ``numerator`` (= Σ_J (2J+1)|V_J|²) and
+        ``contribution``.  Used to attribute a second-order sum to its
+        dominant channels; see
+        ``docs/test_audit/PHYSICS_ar_mbpt2.md``.
 
     Returns
     -------
@@ -519,6 +529,8 @@ def mbpt2_energy(
                     inner_iter_b = enumerate(occ_basis[kappa_b])
                 for orb_b_idx, (Pb, Qb, eps_b, lab_b) in inner_iter_b:
                     same_ab = (kappa_a == kappa_b and orb_a_idx == orb_b_idx)
+                    rec = (None if term_recorder is None
+                           else _label_recorder(term_recorder, lab_a, lab_b))
                     pair_E = _mbpt2_pair_contribution(
                         Pa, Qa, eps_a, kappa_a,
                         Pb, Qb, eps_b, kappa_b,
@@ -526,6 +538,7 @@ def mbpt2_energy(
                         bsp_data, cache,
                         multipole_max=multipole_max,
                         same_ab=same_ab,
+                        term_recorder=rec,
                     )
                     E_corr += pair_E
                     pair_contribs[(lab_a, lab_b)] = pair_E
@@ -556,6 +569,17 @@ def mbpt2_energy(
 # ---------------------------------------------------------------------------
 
 
+def _label_recorder(recorder, lab_a: str, lab_b: str):
+    """Bind the occupied-pair labels onto a term recorder callback."""
+
+    def _cb(record: dict) -> None:
+        record["a"] = lab_a
+        record["b"] = lab_b
+        recorder(record)
+
+    return _cb
+
+
 def _mbpt2_pair_contribution(
     Pa, Qa, eps_a, kappa_a,
     Pb, Qb, eps_b, kappa_b,
@@ -566,6 +590,7 @@ def _mbpt2_pair_contribution(
     *,
     multipole_max: Optional[int],
     same_ab: bool,
+    term_recorder: Optional[Any] = None,
 ) -> float:
     """Sum over (r,s) virtuals for one occupied pair (a,b)."""
     tj_a = _twoj_from_kappa(kappa_a)
@@ -602,14 +627,21 @@ def _mbpt2_pair_contribution(
             virt_stacks[kappa] = st
         return st
 
-    for kappa_r in kappa_list:
+    for ka_r, kappa_r in enumerate(kappa_list):
         # Triangle on (j_a, k, j_r) for at least one k ⇒ skip if range empty
         if not _allowed_k_range(kappa_a, kappa_r) and \
            not _allowed_k_range(kappa_b, kappa_r):
             continue
         tj_r = _twoj_from_kappa(kappa_r)
 
-        for kappa_s in kappa_list:
+        # Unordered virtual channels only: the antisymmetrised amplitude
+        # obeys A_J(ab; sr) = −(−1)^{j_r+j_s−J} A_J(ab; rs), so
+        # |A_J(sr)|² = |A_J(rs)|² and Δε is symmetric.  Summing both
+        # ordered channels (κ_r,κ_s) and (κ_s,κ_r) therefore counts
+        # every cross-κ virtual pair TWICE.  Only κ_s ≥ κ_r in the
+        # κ_list ordering is summed; the κ_r == κ_s channel keeps the
+        # orb_r_idx ≤ orb_s_idx guard below.
+        for kappa_s in kappa_list[ka_r:]:
             tj_s = _twoj_from_kappa(kappa_s)
             # J-pair triangle on (j_r, j_s, J) must overlap (j_a, j_b, J)
             tJ_rs_min = abs(tj_r - tj_s)
@@ -727,6 +759,20 @@ def _mbpt2_pair_contribution(
                         J_sum += (tJ + 1) * amp * amp
 
                     pair_E += -J_sum / (norm_ab * norm_rs * delta_eps)
+
+                    if term_recorder is not None:
+                        term_recorder({
+                            "kappa_a": kappa_a, "kappa_b": kappa_b,
+                            "kappa_r": kappa_r, "kappa_s": kappa_s,
+                            "i_r": orb_r_idx, "i_s": orb_s_idx,
+                            "eps_a": eps_a, "eps_b": eps_b,
+                            "eps_r": eps_r, "eps_s": eps_s,
+                            "delta_eps": delta_eps,
+                            "numerator": J_sum,
+                            "norm": norm_ab * norm_rs,
+                            "contribution": -J_sum
+                            / (norm_ab * norm_rs * delta_eps),
+                        })
 
     return pair_E
 
