@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import pytest
 
+from atomx.constants import PROTON_ELECTRON_MASS_RATIO
 from atomx.methods.dirac_fock import DFSolver, Subshell
 from atomx.properties.hyperfine import (
     DEUTERON_ZEMACH_RADIUS_FM,
@@ -258,14 +259,18 @@ class TestLadderCorrections:
         # the a_e-only value.
         assert abs(A_full - 1421.3) < abs(A_ae - 1421.3)
 
+    @pytest.mark.snapshot
     def test_h1s_preset_ladder(self, h_1s_result):
-        """Karshenboim-tuned h1s preset reproduces the theoretical value
-        at sub-ppm precision.
+        """FROZEN SELF-REGRESSION of the *fitted* h1s preset.
 
-        The preset coefficients are tuned against the atomx DHF basis to
-        match Karshenboim 2005 theoretical H 1s ν_HFS = 1420.403 MHz,
-        which is itself 2 ppm from the experimental 1420.4057 MHz
-        (the residual being proton-structure uncertainty).
+        ``src/atomx/data/hyperfine_presets.py:31-36`` states that the
+        ``h1s`` coefficients are *empirically tuned* to reproduce the
+        Karshenboim 2005 total 1420.403 MHz against this very DHF baseline,
+        so asserting 1420.403 +- 0.002 here cannot fail for a physics
+        reason: it is a change-detector on the fitted constants, not a
+        comparison with theory.  The untuned physics is gated in
+        ``test_reduced_mass_rung_is_first_principles`` below and in
+        ``tests/test_review_m9_m13_gates.py::TestM9HyperfineErrorBudget``.
         """
         _, result = h_1s_result
         hf = result.hyperfine_constants(preset="h1s")
@@ -275,11 +280,10 @@ class TestLadderCorrections:
         ]
         assert hf.ladder == expected
         A_final = hf.A_MHz["1s1/2"]
-        # <1 ppm from Karshenboim theory
+        # Frozen: the preset was fitted to land here (NOT a theory check).
         assert A_final == pytest.approx(1420.403, abs=0.002), (
-            f"H 1s with preset = {A_final:.3f} MHz, Karshenboim 1420.403 MHz"
+            f"H 1s with preset = {A_final:.3f} MHz, tuned target 1420.403 MHz"
         )
-        # <5 ppm from experiment
         assert A_final == pytest.approx(1420.4057, abs=0.01), (
             f"H 1s with preset = {A_final:.3f} MHz, experiment 1420.4057 MHz"
         )
@@ -308,6 +312,48 @@ class TestPrecisionConstants:
 
 
 class TestQuadrupoleB:
+    def test_barn_to_bohr2_unit_identity(self):
+        """BARN_BOHR2 is the exact unit conversion (never referenced before).
+
+        1 barn = 1e-28 m^2 and 1 Bohr = BOHR_RADIUS_M, both shipped
+        CODATA, so BARN_BOHR2 = 1e-28 / BOHR_RADIUS_M^2 exactly.
+        """
+        from atomx.constants import BOHR_RADIUS_M
+        from atomx.properties.hyperfine.quadrupole import BARN_BOHR2
+
+        assert pytest.approx(1e-28 / BOHR_RADIUS_M ** 2, rel=1e-12) == BARN_BOHR2
+
+    def test_B_matches_hydrogenic_closed_form(self):
+        """B for a H-like 2p3/2 orbital against the analytic value.
+
+        B = -(2j-1)/(2j+2) · Q · <r^-3> with the *exact* non-relativistic
+        hydrogenic <r^-3> = Z^3 / (n^3 l(l+1/2)(l+1)) = 1/24 a0^-3 for
+        Z=1, n=2, l=1 (Bethe & Salpeter, Eq. 3.16).  At Z=1 the Dirac
+        orbital's <r^-3> exceeds it by 2.9e-5 = O((Z alpha)^2); measured
+        <r^-3> = 0.041667869 a0^-3 and B(Q=1 b) = -5.951946e-10 Ha vs the
+        closed form -5.951775e-10 Ha.  This pins the (2j-1)/(2j+2) = 2/5
+        prefactor, the sign, the barn conversion and the radial integral —
+        none of which any previous test constrained.
+        """
+        from atomx.numerics.analytic.hydrogenic_dirac import (
+            hydrogenic_dirac_wavefunction,
+        )
+        from atomx.properties.hyperfine import radial_r_inv_cubed
+        from atomx.properties.hyperfine.quadrupole import BARN_BOHR2
+
+        P, Q, bsp, _E = hydrogenic_dirac_wavefunction(2, -2, 1, ns=80, ks=9)
+        r_m3 = radial_r_inv_cubed(P, Q, bsp)
+        r_m3_nr = 1.0 / 24.0
+        assert pytest.approx(r_m3_nr, rel=1e-3) == r_m3, (
+            f"<r^-3>(2p3/2, Z=1) = {r_m3:.10f} vs exact {r_m3_nr:.10f}")
+
+        B = hyperfine_B(P, Q, bsp, kappa=-2, Q_nuc_barns=1.0)
+        assert B < 0.0, "positive Q with a positive <r^-3> must give B < 0"
+        closed_form = -(2.0 * 1.5 - 1.0) / (2.0 * 1.5 + 2.0) * (
+            1.0 * BARN_BOHR2) * r_m3_nr
+        assert pytest.approx(closed_form, rel=1e-3) == B, (
+            f"B(2p3/2, Q=1 b) = {B:.6e} Ha vs closed form {closed_form:.6e}")
+
     def test_B_vanishes_for_j_half(self, h_1s_result):
         """B must vanish identically for j = 1/2 (κ = ±1) orbitals."""
         solver, result = h_1s_result
@@ -361,6 +407,33 @@ class TestQuadrupoleB:
 
 
 class TestFiniteNuclearMass:
+    def test_reduced_mass_rung_is_first_principles(self, h_1s_result):
+        """The FNM rung is the one untuned, first-principles step.
+
+        (1 + m_e/m_p)^-3 = -1632.073 ppm evaluated from the *shipped*
+        CODATA proton/electron mass ratio, and it is the dominant single
+        term behind the raw DHF value's +610.46 ppm gap from the measured
+        1420.405751768 MHz (Ramsey 1956; the 1632 ppm term is 2.7x the
+        whole gap).  Nothing here is fitted: the identity
+        A_FNM = (M/(M+m_e))^3 * A_DHF is exact for the classical recoil
+        factor.  Measured: A_DHF = 1421.2728518 MHz,
+        A_FNM = 1418.9532307 MHz.
+        """
+        _, result = h_1s_result
+        hf = result.hyperfine_constants(include_finite_nuclear_mass=True)
+        rungs = hf.A_MHz_ladder["1s1/2"]
+        factor = (1.0 + 1.0 / PROTON_ELECTRON_MASS_RATIO) ** -3
+
+        assert pytest.approx(-1632.1, abs=0.5) == (factor - 1.0) * 1e6
+        assert pytest.approx(rungs["dhf"] * factor, rel=1e-12) == (
+            rungs["finite_nuclear_mass"]), "FNM rung is not (M/(M+m_e))^3"
+        assert pytest.approx(1418.9532, abs=2e-3) == rungs["finite_nuclear_mass"]
+        # The raw DHF value sits +610.46 ppm above the measured 21-cm line.
+        gap_ppm = (rungs["dhf"] / 1420.405751768 - 1.0) * 1e6
+        assert pytest.approx(610.46, abs=0.05) == gap_ppm
+        # ... and the -1632 ppm reduced-mass term dominates that budget.
+        assert abs((factor - 1.0) * 1e6) > 2.0 * gap_ppm
+
     def test_fnm_rung_shifts_h_1s_to_textbook_dirac(self, h_1s_result):
         """(M/(M+me))^3 applied to H 1s → ~1418.95 MHz (textbook Dirac)."""
         _, result = h_1s_result
@@ -372,8 +445,14 @@ class TestFiniteNuclearMass:
         # Also, fnm < dhf (smaller due to reduced-mass factor)
         assert A_fnm < hf.A_MHz_ladder["1s1/2"]["dhf"]
 
+    @pytest.mark.snapshot
     def test_preset_h1s_pulls_close_to_experiment(self, h_1s_result):
-        """With tuned preset, H 1s lands within ~5 ppm of experiment."""
+        """The fitted preset lands within 10 ppm of experiment.
+
+        Frozen self-regression: the same preset is tuned to do exactly
+        this, so the number is atomx's own (see the class docstring of
+        ``src/atomx/data/hyperfine_presets.py``).
+        """
         _, result = h_1s_result
         hf = result.hyperfine_constants(preset="h1s")
         A = hf.A_MHz["1s1/2"]

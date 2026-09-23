@@ -71,7 +71,7 @@ def main() -> None:
     rows: list[dict[str, object]] = []
     n_grids = [int(x) for x in args.n_grids.split(",") if x.strip()]
     r_maxes = [float(x) for x in args.r_maxes.split(",") if x.strip()]
-    atom = Atom(Z=26, config="1s2", charge=24, numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=26, config="1s2", charge=24, engine="bspline", corrections="none")
     atom.solve()
 
     for n_grid in n_grids:

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>NIST ASD Output: Lines</title>
+<link rel="stylesheet" type="text/css" href="https://physics.nist.gov/PhysRefData/ASD/Scripts/1.css" />
+<!-- Google Analtyics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9SLN1VEEJ2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9SLN1VEEJ2');
+</script>
+<!-- End of Google Analytics 4 -->
+<SCRIPT async id="_fed_an_ua_tag" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-46&amp;yt=false&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c" type="text/javascript"></script>
+<script type="text/javascript">//<![CDATA[
+
+    function selectById(id) {
+      var url = "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ar VIII&limits_type=0&unit=1&submit=Retrieve Data&de=0&format=1&line_out=0&remove_js=on&en_unit=0&output=0&bibrefs=1&page_size=15&show_obs_wl=1&show_calc_wl=1&unc_out=1&order_out=0&show_av=3&tsb_value=0&A_out=0&allowed_out=1&forbid_out=1&conf_out=on&term_out=on&enrg_out=on&J_out=on\&" + "level_id=" + id;
+      var newwindow = window.open(url,"lin_lev");
+      if (window.focus) {newwindow.focus()}
+      return true;
+    }
+    function setMOn(x) {
+      x.style.backgroundColor = "LightGray";
+    }
+    function setMOff(x) {
+      x.style.backgroundColor = "transparent";
+    }
+  
+//]]></script>
+<script src="/js/clickjack.js" type="text/javascript"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body style="margin-top:0">
+<span>
+<a href="#start"><img src="/Images/dot_t.gif" width="1" height="1" style="border:0;margin-top:0;margin-bottom:0" alt="[skip navigation]" /></a>
+</span>
+<table style="width:100%; border:0; margin-top:0">
+<tr><td style="text-align:left"><a href="https://physics.nist.gov/PhysRefData/ASD/index.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/ASD-sm.gif" style="border:0" width="100" height="47"
+alt="[ASD Home]" title="ASD Home"></a><a href="https://physics.nist.gov/PhysRefData/ASD/lines_form.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/Lines.gif" style="border:0" width="70" height="47"
+alt="[Lines Query]" title="Lines Query"></a><a href="https://physics.nist.gov/PhysRefData/ASD/levels_form.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/Levels.gif" style="border:0" width="79" height="47"
+alt="[Levels Query]" title="Levels Query"></a><a href="https://www.nist.gov/pml/atomic-spectra-database-contents"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/List.gif" style="border:0" width="77" height="47"
+alt="[List of Spectra]" title="List of Spectra"></a><a href="https://physics.nist.gov/PhysRefData/ASD/ionEnergy.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/GS-IE.gif" style="border:0" width="124" height="47"
+alt="[Ground States and Ionization Energies]" title="Ground States and Ionization Energies"></a><a
+href="https://physics.nist.gov/PhysRefData/ASBib1/index.html"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/Bib.gif" style="border:0"
+width="98" height="47" alt="[Bibliography]" title="Bibliography"></a><a
+href="https://physics.nist.gov/PhysRefData/ASD/Html/help.html"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/Help.gif" style="border:0"
+width="55" height="47" alt="[Help]" title="Help"/></a></td>
+<td style="text-align:right"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/nist-pl-black.gif" style="border:0" width="136" height="68"
+usemap="#NIST-PL" alt="NIST Physical Measurement Laboratory"/></td>
+</tr></table>
+
+<map name="NIST-PL" id="NIST-PL">
+  <area shape="rect" coords="1,1,135,48" href="https://www.nist.gov" alt="National Institute of Standards and Technology" title="National Institute of Standards and Technology"/>
+  <area shape="rect" coords="1,50,135,67" href="https://www.nist.gov/pml" alt="NIST Physical Measurement Laboratory" title="NIST Physical Measurement Laboratory"/>
+</map>
+<a id="start"><!-- filler --></a>
+<script type="text/javascript">
+<!-- //
+var newwindow
+//var n
+function popdef(n){
+newwindow = window.open(n,"data1","toolbar=no,location=no,alwaysRaised=yes,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,copyhistory=no,width=600,height=450");
+if (window.focus) {newwindow.focus()}
+return true;
+}
+function popbib(n){
+newwindow = window.open(n,"data2","toolbar=no,location=no,alwaysRaised=yes,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,copyhistory=no,width=950,height=800");
+if (window.focus) {newwindow.focus()}
+return true;
+}
+function popded(n){
+//newwindow = window.open(n,"data3","toolbar=no,location=no,alwaysRaised=yes,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,copyhistory=no,width=640,height=250");
+newwindow = window.open(n,"data3","toolbar=no,location=no,alwaysRaised=yes,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,copyhistory=no,width=800,height=320");if (window.focus) {newwindow.focus()}
+return true;
+}
+function popdiag(n){
+newwindow = window.open(n,"data3","toolbar=no,location=no,alwaysRaised=yes,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,copyhistory=no,width=800,height=1000");if (window.focus) {newwindow.focus()}
+return true;
+}
+// -->
+</script>
+
+<table style="width:100%">
+  <tr>
+    <td style="color:#223388; font-size:150%; vertical-align:middle"><span style="color:black; font-weight:600">NIST Atomic Spectra Database Lines Data</span><p>
+      <u>Ar VIII</u>: 141 Lines of Data Found<br />
+<span style="font-size:larger; font-weight:bold"><i>Z</i> = 18, Na isoelectronic sequence</span><span style="font-size=300%">&nbsp;</span></p>
+    </td>
+    <td style="text-align:right; vertical-align:middle">
+<div class='ref'>
+<b>Example of how to reference these results:</b><br />
+
+Kramida,&nbsp;A., Ralchenko,&nbsp;Yu., Reader,&nbsp;J., and NIST ASD Team (2024).
+  <i>NIST Atomic Spectra Database</i> (ver.&nbsp;5.12),
+  [Online]. Available: <span style="color:#0000cc;">https://physics.nist.gov/asd</span>
+  [2025, March 22].
+  National Institute of Standards and Technology, Gaithersburg, MD.
+    DOI: <span style="color:#0000cc;">https://doi.org/10.18434/T4W30F</span>
+<br />
+<div style="text-align: right; font-size: x-small">
+<a href="javascript:void(0)" onclick="popdef('/cgi-bin/ASD/bibtex.pl?y=2025&amp;m=March&amp;d=22');return true" target="_top">BibTex Citation</a> (new window)
+</div>
+</div>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" style="color:#655665; font-family: helvetica,arial; font-size:80%"><b><u><i>&lambda;</i> in</u>: <span style="color:darkred">vacuum</span> <span style="color:navy"></span><br />
+<u>Highest relative intensity</u>: 69</b></td>
+  </tr>
+</table>
+
+<p>
+<table style="background-color:black; width:75%; border-spacing:1px" >
+  <tr>
+    <td colspan="3" style="color:white; font-size:10pt; width:70%; background-color:#224477; text-align:center">
+      <b>Primary data sources</b>
+    </td>
+    <td rowspan="4">
+    </td>
+    <td style="white-space:nowrap; color:white; font-size:10pt; background-color:#446655; text-align:center">
+      <table style="border:thin hidden;text-align:center;width:100%">
+        <tr>
+          <td style="text-align:center; white-space:nowrap">Query NIST Bibliographic Databases for</td>
+        </tr>
+        <tr>
+          <td style="text-align:center"><b>Ar  VIII</b> (new window)</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class='brt1'>
+      Energy Levels:
+    </td>
+    <td class='bcn'>
+      &nbsp;<a onmouseover="self.status='Bibliographic Reference for Ar VIII';return true;" onmouseout="self.status='';return true;" target="_blank" href="javascript:void(0)" onclick="popded('https://physics.nist.gov/cgi-bin/ASBib1/get_ASBib_ref.cgi?db=el&amp;db_id=15349&amp;comment_code=&amp;element=Ar&amp;spectr_charge=8&amp;type=E');return false">Saloman 2010</a>&nbsp;
+    </td>
+    <td class='blf'>
+      
+    </td>
+    <td class='bcn1'>
+      <a href="javascript:void(0)" onclick="popbib('https://physics.nist.gov/cgi-bin/ASBib1/Elevbib/make_query.cgi?spectra=Ar%20VIII&amp;method=EL&amp;method=TE&amp;method=ND&amp;method=IP&amp;method=SF&amp;method=QF&amp;order=1');return false"
+        onmouseover="self.status='Ar  VIII: bibliography energy levels query';return true;"
+        onmouseout="self.status=''; return true;" target="_blank">Ar  VIII Energy Levels</a>
+    </td>
+  </tr>
+  <tr>
+    <td class='brt1'>
+      Lines:
+    </td>
+    <td class='bcn'>
+      &nbsp;<a onmouseover="self.status='Bibliographic Reference for Ar VIII';return true;" onmouseout="self.status='';return true;" target="_blank" href="javascript:void(0)" onclick="popded('https://physics.nist.gov/cgi-bin/ASBib1/get_ASBib_ref.cgi?db=el&amp;db_id=15349&amp;comment_code=&amp;element=Ar&amp;spectr_charge=8&amp;type=L');return false">Saloman 2010</a>&nbsp;
+    </td>
+    <td class='blf'>
+      
+    </td>
+    <td class='bcn1'>
+      <a href="javascript:void(0)" onclick="popbib('https://physics.nist.gov/cgi-bin/ASBib1/Elevbib/make_query.cgi?spectra=Ar%20VIII&amp;method=W&amp;method=CL&amp;order=1');return false"
+        onmouseover="self.status='Ar  VIII: bibliography wavelengths query';return true;"
+        onmouseout="self.status=''; return true;" target="_blank">Ar  VIII Line Wavelengths and Classification</a>
+    </td>
+  </tr>
+  <tr>
+    <td class='brt1'>
+      Transition Probabilities:
+    </td>
+    <td class='bcn'>
+      &nbsp;<a onmouseover="self.status='Bibliographic Reference for Ar VIII';return true;" onmouseout="self.status='';return true;" target="_blank" href="javascript:void(0)" onclick="popded('https://physics.nist.gov/cgi-bin/ASBib1/get_ASBib_ref.cgi?db=tp&amp;db_id=1619&amp;comment_code=&amp;element=Ar&amp;spectr_charge=8&amp;type=T');return false">Wiese et al. 1969</a>&nbsp;
+    </td>
+    <td class='blf'>
+      
+    </td>
+    <td class='bcn1'>
+      <a href="javascript:void(0)" onclick="popbib('https://physics.nist.gov/cgi-bin/ASBib1/Fvalbib/make_query.cgi?spectra=Ar%20VIII&amp;order=1');return false"
+        onmouseover="self.status='Ar  VIII: bibliography transition probability query';return true;"
+        onmouseout="self.status=''; return true;" target="_blank">Ar  VIII Transition Probabilities</a>
+    </td>
+  </tr>
+</table>
+    <p>
+<hr class="noshade" />
+
+<pre>
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     Observed     |  Unc.   |       Ritz       |   Unc.    |    Aki     | Acc. |      Ei           Ek      |      Lower level      |      Upper level      |Type|            TP  |    Line  |
+    Wavelength    |   (nm)  |    Wavelength    |    (nm)   |   (s^-1)   |      |    (cm-1)       (cm-1)    |-----------------------|-----------------------|    |           Ref. |    Ref.  |
+     Vac (nm)     |         |     Vac (nm)     |           |            |      |                           | Conf.   | Term | J    | Conf.   | Term | J    |    |                |          |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+         9.1295   |  0.0003 |         9.1295   |  0.0003   |            |      |        0.0  -   1095350   | 2p6.3s  | 2S   | 1/2  | 2p6.11p | 2P*  | 3/2  |    |                |   L4421  |
+         9.2436   |  0.0003 |         9.24376  |  0.00003  |            |      |        0.0  -   1081811.  | 2p6.3s  | 2S   | 1/2  | 2p6.10p | 2P*  | 3/2  |    |                |   L4421  |
+         9.4035   |  0.0003 |         9.403688 |  0.000019 |            |      |        0.0  -   1063412.6 | 2p6.3s  | 2S   | 1/2  | 2p6.9p  | 2P*  | 3/2  |    |                |   L4421  |
+         9.6435   |  0.0003 |         9.6435   |  0.0003   |            |      |        0.0  -   1036968   | 2p6.3s  | 2S   | 1/2  | 2p6.8p  | 2P*  | 3/2  |    |                |   L4421  |
+        10.0142   |  0.0003 |        10.0142   |  0.0003   |            |      |        0.0  -    998582   | 2p6.3s  | 2S   | 1/2  | 2p6.7p  | 2P*  | 3/2  |    |                |   L4421  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+        10.3666   |  0.0003 |        10.36660  |  0.00005  |            |      |   142808.2  -   1107445.  | 2p6.3p  | 2P*  | 3/2  | 2p6.12d | 2D   | 5/2  |    |                |   L4421  |
+        10.4683   |  0.0003 |        10.4683   |  0.0003   |            |      |   142808.2  -   1098073   | 2p6.3p  | 2P*  | 3/2  | 2p6.11d | 2D   | 5/2  |    |                |   L4421  |
+        10.5780   |  0.0003 |        10.5780   |  0.0003   |            |      |   140095.   -   1085453   | 2p6.3p  | 2P*  | 1/2  | 2p6.10d | 2D   | 3/2  |    |                |   L4421  |
+        10.6080   |  0.0003 |        10.6080   |  0.0003   |            |      |   142808.2  -   1085493   | 2p6.3p  | 2P*  | 3/2  | 2p6.10d | 2D   | 5/2  |    |                |   L4421  |
+        10.6663   |  0.0003 |        10.66644  |  0.00013  |            |      |        0.0  -    937520.  | 2p6.3s  | 2S   | 1/2  | 2p6.6p  | 2P*  | 3/2  |    |                |   L4421  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+        10.6790   |  0.0003 |        10.6790   |  0.0003   |            |      |   142808.2  -   1079225   | 2p6.3p  | 2P*  | 3/2  | 2p6.10s | 2S   | 1/2  |    |                |   L4421  |
+        10.7715   |  0.0003 |        10.7715   |  0.0003   |            |      |   140095.   -   1068471   | 2p6.3p  | 2P*  | 1/2  | 2p6.9d  | 2D   | 3/2  |    |                |   L4421  |
+        10.8026   |  0.0003 |        10.8026   |  0.0003   |            |      |   142808.2  -   1068511   | 2p6.3p  | 2P*  | 3/2  | 2p6.9d  | 2D   | 5/2  |    |                |   L4421  |
+        10.8769   |  0.0003 |        10.87523  |  0.00006  |            |      |   140095.   -   1059616.  | 2p6.3p  | 2P*  | 1/2  | 2p6.9s  | 2S   | 1/2  |    |                |   L4421  |
+        10.9070   |  0.0003 |        10.90741  |  0.00006  |            |      |   142808.2  -   1059616.  | 2p6.3p  | 2P*  | 3/2  | 2p6.9s  | 2S   | 1/2  |    |                |   L4421  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+        11.0547   |  0.0003 |        11.05547  |  0.00007  |            |      |   140095.   -   1044625.  | 2p6.3p  | 2P*  | 1/2  | 2p6.8d  | 2D   | 3/2  |    |                |   L4421  |
+        11.0879   |  0.0003 |        11.08848  |  0.00003  |            |      |   142808.2  -   1044645.1 | 2p6.3p  | 2P*  | 3/2  | 2p6.8d  | 2D   | 5/2  |    |                |   L4421  |
+        11.2164   |  0.0003 |        11.21553  |  0.00007  |            |      |   140095.   -   1031716.  | 2p6.3p  | 2P*  | 1/2  | 2p6.8s  | 2S   | 1/2  |    |                |   L4421  |
+        11.2494   |  0.0003 |        11.24976  |  0.00007  |            |      |   142808.2  -   1031716.  | 2p6.3p  | 2P*  | 3/2  | 2p6.8s  | 2S   | 1/2  |    |                |   L4421  |
+        11.4988   |  0.0003 |        11.4988   |  0.0003   |            |      |   140095.   -   1009751   | 2p6.3p  | 2P*  | 1/2  | 2p6.7d  | 2D   | 3/2  |    |                |   L4421  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+        11.5346   |  0.0003 |        11.53477  |  0.00007  |            |      |   142808.2  -   1009752.  | 2p6.3p  | 2P*  | 3/2  | 2p6.7d  | 2D   | 5/2  |    |                |   L4421  |
+        11.7651   |  0.0003 |        11.76501  |  0.00022  |            |      |   140095.   -    990073.  | 2p6.3p  | 2P*  | 1/2  | 2p6.7s  | 2S   | 1/2  |    |                |   L4421  |
+        11.8026   |  0.0003 |        11.80269  |  0.00022  |            |      |   142808.2  -    990073.  | 2p6.3p  | 2P*  | 3/2  | 2p6.7s  | 2S   | 1/2  |    |                |   L4421  |
+        12.0076   |  0.0003 |        12.00842  |  0.00009  | 6.1e+09    | D    |        0.0  -    832749.  | 2p6.3s  | 2S   | 1/2  | 2p6.5p  | 2P*  | 3/2  |    | T1619interp,LS |   L4421  |
+        12.0151   |  0.0003 |        12.01546  |  0.00009  | 5.8e+09    | D    |        0.0  -    832261.  | 2p6.3s  | 2S   | 1/2  | 2p6.5p  | 2P*  | 1/2  |    | T1619interp,LS |   L4421  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+        12.2611   |  0.0003 |        12.2611   |  0.0003   |            |      |   140095.   -    955682   | 2p6.3p  | 2P*  | 1/2  | 2p6.6d  | 2D   | 3/2  |    |                |   L4421  |
+        12.3022   |  0.0003 |        12.3030   |  0.0008   |            |      |   142808.2  -    955618   | 2p6.3p  | 2P*  | 3/2  | 2p6.6d  | 2D   | 5/2  |    |                |   L4421  |
+        12.7656   |  0.0003 |        12.7653   |  0.0003   |            |      |   140095.   -    923471.  | 2p6.3p  | 2P*  | 1/2  | 2p6.6s  | 2S   | 1/2  |    |                |   L4421  |
+        12.8093   |  0.0003 |        12.8096   |  0.0003   |            |      |   142808.2  -    923471.  | 2p6.3p  | 2P*  | 3/2  | 2p6.6s  | 2S   | 1/2  |    |                |   L4421  |
+        12.8956   |  0.0003 |        12.8956   |  0.0003   |            |      |   332754.   -   1108212.  | 2p6.3d  | 2D   | 5/2  | 2p6.12f | 2F*  | 7/2  |    |                |   L4421  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+        13.0500   |  0.0003 |        13.04992  |  0.00008  |            |      |   332754.   -   1099042.  | 2p6.3d  | 2D   | 5/2  | 2p6.11f | 2F*  | 7/2  |    |                |   L4421  |
+        13.2635   |  0.0003 |        13.2635   |  0.0003   |            |      |   332754.   -   1086703.  | 2p6.3d  | 2D   | 5/2  | 2p6.10f | 2F*  | 7/2  |    |                |   L4421  |
+        13.5591   |  0.0003 |        13.55890  |  0.00007  |            |      |   332754.   -   1070277.  | 2p6.3d  | 2D   | 5/2  | 2p6.9f  | 2F*  | 7/2  |    |                |   L4421  |
+        13.7898   |  0.0003 |        13.78970  |  0.00014  |            |      |   140095.   -    865274.  | 2p6.3p  | 2P*  | 1/2  | 2p6.5d  | 2D   | 3/2  |    |                |   L4421  |
+        13.8415   |  0.0003 |        13.84141  |  0.00014  |            |      |   142808.2  -    865278.  | 2p6.3p  | 2P*  | 3/2  | 2p6.5d  | 2D   | 5/2  |    |                |   L4421  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+        13.9984   |  0.0003 |        13.99850  |  0.00007  |            |      |   332754.   -   1047116.  | 2p6.3d  | 2D   | 5/2  | 2p6.8f  | 2F*  | 7/2  |    |                |   L4421  |
+        14.6914   |  0.0003 |        14.6914   |  0.0003   |            |      |   332754.   -   1013424.  | 2p6.3d  | 2D   | 5/2  | 2p6.7f  | 2F*  | 7/2  |    |                |   L4421  |
+        14.9877   |  0.0003 |        14.98776  |  0.00023  |            |      |   140095.   -    807306.  | 2p6.3p  | 2P*  | 1/2  | 2p6.5s  | 2S   | 1/2  |    |                |   L4421  |
+        15.0490   |  0.0003 |        15.04896  |  0.00023  |            |      |   142808.2  -    807306.  | 2p6.3p  | 2P*  | 3/2  | 2p6.5s  | 2S   | 1/2  |    |                |   L4421  |
+        15.8925   |  0.0003 |        15.89211  |  0.00011  | 1.1e+10    | C    |        0.0  -    629243.  | 2p6.3s  | 2S   | 1/2  | 2p6.4p  | 2P*  | 3/2  |    | T1619interp,LS |   L4421  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+        15.9049   |  0.0003 |        15.9049   |  0.0003   |            |      |   332754.   -    961492.  | 2p6.3d  | 2D   | 5/2  | 2p6.6f  | 2F*  | 7/2  |    |                |   L4421  |
+        15.9180   |  0.0003 |        15.91746  |  0.00011  | 1.11e+10   | C    |        0.0  -    628241.  | 2p6.3s  | 2S   | 1/2  | 2p6.4p  | 2P*  | 1/2  |    |          T8043 |   L4421  |
+        16.5354   |  0.0003 |        16.5353   |  0.0003   |            |      |   332754.   -    937520.  | 2p6.3d  | 2D   | 5/2  | 2p6.6p  | 2P*  | 3/2  |    |                |   L4421  |
+        17.9393   |  0.0003 |        17.9392   |  0.0003   |            |      |   140095.   -    697532.  | 2p6.3p  | 2P*  | 1/2  | 2p6.4d  | 2D   | 3/2  |    |                |   L4421  |
+        18.0248   |  0.0003 |        18.0241   |  0.0004   |            |      |   142808.2  -    697621.  | 2p6.3p  | 2P*  | 3/2  | 2p6.4d  | 2D   | 5/2  |    |                |   L4421  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+        18.4258   |  0.0003 |        18.4257   |  0.0003   | 2.2e+10    | C'   |   332609.   -    875329.  | 2p6.3d  | 2D   | 3/2  | 2p6.5f  | 2F*  | 5/2  |    |    T1619interp |   L4421  |
+        18.4302   |  0.0003 |        18.4300   |  0.0003   | 2.4e+10    | C'   |   332754.   -    875349.  | 2p6.3d  | 2D   | 5/2  | 2p6.5f  | 2F*  | 7/2  |    |    T1619interp |   L4421  |
+                  |         |        18.4306   |  0.0003   | 1.6e+09    | C'   |   332754.   -    875329.  | 2p6.3d  | 2D   | 5/2  | 2p6.5f  | 2F*  | 5/2  |    |    T1619interp |          |
+        19.8      |  0.05   |        19.76859  |  0.00023  |            |      |   575958.   -   1081811.  | 2p6.4s  | 2S   | 1/2  | 2p6.10p | 2P*  | 3/2  |    |                |  L16083  |
+        19.8      |  0.05   |        19.7705   |  0.0003   |            |      |   575958.   -   1081761.  | 2p6.4s  | 2S   | 1/2  | 2p6.10p | 2P*  | 1/2  |    |                |  L16083  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+        20.0003   |  0.0003 |        20.0002   |  0.0003   |            |      |   332754.   -    832749.  | 2p6.3d  | 2D   | 5/2  | 2p6.5p  | 2P*  | 3/2  |    |                |   L4421  |
+        20.0141   |  0.0003 |        20.0139   |  0.0003   |            |      |   332609.   -    832261.  | 2p6.3d  | 2D   | 3/2  | 2p6.5p  | 2P*  | 1/2  |    |                |   L4421  |
+        20.5      |  0.05   |        20.51473  |  0.00022  |            |      |   575958.   -   1063412.6 | 2p6.4s  | 2S   | 1/2  | 2p6.9p  | 2P*  | 3/2  |    |                |  L16083  |
+        20.5      |  0.05   |        20.5180   |  0.0003   |            |      |   575958.   -   1063335.  | 2p6.4s  | 2S   | 1/2  | 2p6.9p  | 2P*  | 1/2  |    |                |  L16083  |
+        21.9      |  0.05   |        21.8717   |  0.0013   |            |      |   628241.   -   1085453   | 2p6.4p  | 2P*  | 1/2  | 2p6.10d | 2D   | 3/2  |    |                |  L16083  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+        21.9      |  0.05   |        21.9178   |  0.0013   |            |      |   629243.   -   1085493   | 2p6.4p  | 2P*  | 3/2  | 2p6.10d | 2D   | 5/2  |    |                |  L16083  |
+        22.2      |  0.05   |        22.1737   |  0.0013   |            |      |   628241.   -   1079225   | 2p6.4p  | 2P*  | 1/2  | 2p6.10s | 2S   | 1/2  |    |                |  L16083  |
+        22.2      |  0.05   |        22.2231   |  0.0013   |            |      |   629243.   -   1079225   | 2p6.4p  | 2P*  | 3/2  | 2p6.10s | 2S   | 1/2  |    |                |  L16083  |
+        22.9427   |  0.0003 |        22.9430   |  0.0003   | 1.12e+10   | C    |   140095.   -    575958.  | 2p6.3p  | 2P*  | 1/2  | 2p6.4s  | 2S   | 1/2  |    |          T8043 |   L4421  |
+        23.0869   |  0.0003 |        23.0867   |  0.0003   | 2.21e+10   | C    |   142808.2  -    575958.  | 2p6.3p  | 2P*  | 3/2  | 2p6.4s  | 2S   | 1/2  |    |          T8043 |   L4421  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+        26.0245   |  0.0007 |        26.0252   |  0.0010   | 6.10e+10   | C+'  |   332609.   -    716852.  | 2p6.3d  | 2D   | 3/2  | 2p6.4f  | 2F*  | 5/2  |    |    T1619interp |   L6973  |
+        26.0327   |  0.0007 |        26.0335   |  0.0011   | 6.50e+10   | C+'  |   332754.   -    716875.  | 2p6.3d  | 2D   | 5/2  | 2p6.4f  | 2F*  | 7/2  |    |    T1619interp |   L6973  |
+                  |         |        26.0350   |  0.0010   | 4.3e+09    | C+'  |   332754.   -    716852.  | 2p6.3d  | 2D   | 5/2  | 2p6.4f  | 2F*  | 5/2  |    |    T1619interp |          |
+        27.6      |  0.1    |        27.6371   |  0.0013   |            |      |   628241.   -    990073.  | 2p6.4p  | 2P*  | 1/2  | 2p6.7s  | 2S   | 1/2  |    |                |  L16122  |
+        28.3      |  0.05   |        28.2863   |  0.0014   |            |      |   716852.   -   1070380.  | 2p6.4f  | 2F*  | 5/2  | 2p6.9g  | 2G   | 7/2  |    |                |  L16083  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+        28.3      |  0.05   |        28.2881   |  0.0015   |            |      |   716875.   -   1070380.  | 2p6.4f  | 2F*  | 7/2  | 2p6.9g  | 2G   | 9/2  |    |                |  L16083  |
+        31.8      |  0.1    |        31.6653   |  0.0018   |            |      |   697621.   -   1013424.  | 2p6.4d  | 2D   | 5/2  | 2p6.7f  | 2F*  | 7/2  |    |                |  L16122  |
+                  |         |        33.7116   |  0.0005   | 1.2e+09    | D    |   332609.   -    629243.  | 2p6.3d  | 2D   | 3/2  | 2p6.4p  | 2P*  | 3/2  |    | T1619interp,LS |          |
+        33.7280   |  0.0003 |        33.7281   |  0.0005   | 1.0e+10    | C    |   332754.   -    629243.  | 2p6.3d  | 2D   | 5/2  | 2p6.4p  | 2P*  | 3/2  |    | T1619interp,LS |   L4421  |
+        33.8260   |  0.0003 |        33.8258   |  0.0005   | 1.1e+10    | C    |   332609.   -    628241.  | 2p6.3d  | 2D   | 3/2  | 2p6.4p  | 2P*  | 1/2  |    | T1619interp,LS |   L4421  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+        36.2      |  0.2    |        36.4039   |  0.0010   |            |      |   832749.   -   1107445.  | 2p6.5p  | 2P*  | 3/2  | 2p6.12d | 2D   | 5/2  |    |                |  L16111  |
+        36.2      |  0.2    |        36.4292   |  0.0014   |            |      |   807306.   -   1081811.  | 2p6.5s  | 2S   | 1/2  | 2p6.10p | 2P*  | 3/2  |    |                |  L16111  |
+        36.2      |  0.2    |        36.4358   |  0.0014   |            |      |   807306.   -   1081761.  | 2p6.5s  | 2S   | 1/2  | 2p6.10p | 2P*  | 1/2  |    |                |  L16111  |
+        37.9      |  0.05   |        37.8973   |  0.0023   |            |      |   697621.   -    961492.  | 2p6.4d  | 2D   | 5/2  | 2p6.6f  | 2F*  | 7/2  |    |                |  L16083  |
+        38.943    |  0.004  |        38.9422   |  0.0012   |            |      |   575958.   -    832749.  | 2p6.4s  | 2S   | 1/2  | 2p6.5p  | 2P*  | 3/2  |    |                |   L1650  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+        39.012    |  0.004  |        39.0163   |  0.0012   |            |      |   575958.   -    832261.  | 2p6.4s  | 2S   | 1/2  | 2p6.5p  | 2P*  | 1/2  |    |                |   L1650  |
+        40.787    |  0.005  |        40.802    |  0.003    |            |      |   716852.   -    961941.  | 2p6.4f  | 2F*  | 5/2  | 2p6.6g  | 2G   | 7/2  |    |                |  L16086  |
+        40.787    |  0.005  |        40.802    |  0.003    |            |      |   716875.   -    961963.  | 2p6.4f  | 2F*  | 7/2  | 2p6.6g  | 2G   | 9/2  |    |                |  L16086  |
+        42.2      |  0.1    |        42.1882   |  0.0014   |            |      |   628241.   -    865274.  | 2p6.4p  | 2P*  | 1/2  | 2p6.5d  | 2D   | 3/2  |    |                |  L16093  |
+        51.2      |  0.05   |        51.269    |  0.003    |            |      |   875329.   -   1070380.  | 2p6.5f  | 2F*  | 5/2  | 2p6.9g  | 2G   | 7/2  |    |                |  L16083  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+        51.2      |  0.05   |        51.274    |  0.004    |            |      |   875349.   -   1070380.  | 2p6.5f  | 2F*  | 7/2  | 2p6.9g  | 2G   | 9/2  |    |                |  L16083  |
+        51.4      |  0.05   |        51.478    |  0.004    |            |      |   876019.   -   1070277.  | 2p6.5g  | 2G   | 9/2  | 2p6.9f  | 2F*  | 7/2  |    |                |  L16083  |
+        51.9436   |  0.0007 |        51.9443   |  0.0008   | 6.3e+09    | C    |   140095.   -    332609.  | 2p6.3p  | 2P*  | 1/2  | 2p6.3d  | 2D   | 3/2  |    |       T1002,LS |   L6973  |
+        52.6466   |  0.0007 |        52.6466   |  0.0007   | 7.2e+09    | C    |   142808.2  -    332754.  | 2p6.3p  | 2P*  | 3/2  | 2p6.3d  | 2D   | 5/2  |    |       T1002,LS |   L6973  |
+        52.6870   |  0.0007 |        52.6868   |  0.0007   | 1.2e+09    | D    |   142808.2  -    332609.  | 2p6.3p  | 2P*  | 3/2  | 2p6.3d  | 2D   | 3/2  |    |       T1002,LS |   L6973  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+                  |         |        55.846    |  0.003    | 3.6e+09    | C    |   628241.   -    807306.  | 2p6.4p  | 2P*  | 1/2  | 2p6.5s  | 2S   | 1/2  |    | T1619interp,LS |          |
+                  |         |        56.160    |  0.003    | 6.8e+09    | C    |   629243.   -    807306.  | 2p6.4p  | 2P*  | 3/2  | 2p6.5s  | 2S   | 1/2  |    | T1619interp,LS |          |
+        56.246    |  0.005  |        56.244    |  0.004    |            |      |   697532.   -    875329.  | 2p6.4d  | 2D   | 3/2  | 2p6.5f  | 2F*  | 5/2  |    |                |   L1650  |
+        56.261    |  0.005  |        56.266    |  0.004    |            |      |   697621.   -    875349.  | 2p6.4d  | 2D   | 5/2  | 2p6.5f  | 2F*  | 7/2  |    |                |   L1650  |
+        58.4      |  0.05   |        58.446    |  0.005    |            |      |   876019.   -   1047116.  | 2p6.5g  | 2G   | 9/2  | 2p6.8f  | 2F*  | 7/2  |    |                |  L16083  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+        62.83     |  0.01   |        62.833    |  0.008    |            |      |   716852.   -    876005.  | 2p6.4f  | 2F*  | 5/2  | 2p6.5g  | 2G   | 7/2  |    |                |   L5617  |
+        62.83     |  0.01   |        62.836    |  0.009    |            |      |   716875.   -    876019.  | 2p6.4f  | 2F*  | 7/2  | 2p6.5g  | 2G   | 9/2  |    |                |   L5617  |
+        67.3      |  0.1    |        67.375    |  0.008    |            |      |   716852.   -    865274.  | 2p6.4f  | 2F*  | 5/2  | 2p6.5d  | 2D   | 3/2  |    |                |  L16093  |
+        67.3      |  0.1    |        67.384    |  0.008    |            |      |   716875.   -    865278.  | 2p6.4f  | 2F*  | 7/2  | 2p6.5d  | 2D   | 5/2  |    |                |  L16093  |
+        70.024    |  0.001  |        70.0240   |  0.0013   | 2.55e+09   | C    |        0.0  -    142808.2 | 2p6.3s  | 2S   | 1/2  | 2p6.3p  | 2P*  | 3/2  |    |          T8043 |   L8601  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+        71.3802   |  0.0007 |        71.3801   |  0.0014   | 2.4e+09    | C    |        0.0  -    140095.  | 2p6.3s  | 2S   | 1/2  | 2p6.3p  | 2P*  | 1/2  |    |          T8043 |   L6973  |
+        72.58     |  0.02   |        72.582    |  0.010    |            |      |   876005.   -   1013780.  | 2p6.5g  | 2G   | 7/2  | 2p6.7h  | 2H*  | 9/2  |    |                |   L5617  |
+        72.58     |  0.02   |        72.589    |  0.010    |            |      |   876019.   -   1013780.  | 2p6.5g  | 2G   | 9/2  | 2p6.7h  | 2H*  | 11/2 |    |                |   L5617  |
+        73.96     |  0.02   |        73.955    |  0.005    |            |      |   697532.   -    832749.  | 2p6.4d  | 2D   | 3/2  | 2p6.5p  | 2P*  | 3/2  |    |                |   L5617  |
+        74.011    |  0.001  |        74.004    |  0.007    |            |      |   697621.   -    832749.  | 2p6.4d  | 2D   | 5/2  | 2p6.5p  | 2P*  | 3/2  |    |                |   L8601  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+        74.25     |  0.05   |        74.223    |  0.006    |            |      |   697532.   -    832261.  | 2p6.4d  | 2D   | 3/2  | 2p6.5p  | 2P*  | 1/2  |    |                |   L1650  |
+        81.47     |  0.02   |        81.39     |  0.04     |            |      |   832749.   -    955618   | 2p6.5p  | 2P*  | 3/2  | 2p6.6d  | 2D   | 5/2  |    |                |   L5617  |
+       103.92     |  0.05   |       103.935    |  0.015    |            |      |   865278.   -    961492.  | 2p6.5d  | 2D   | 5/2  | 2p6.6f  | 2F*  | 7/2  |    |                |   L5617  |
+       115.47     |  0.01   |       115.455    |  0.020    |            |      |   875349.   -    961963.  | 2p6.5f  | 2F*  | 7/2  | 2p6.6g  | 2G   | 9/2  |    |                |  L16107  |
+       115.47     |  0.01   |       115.457    |  0.018    |            |      |   875329.   -    961941.  | 2p6.5f  | 2F*  | 5/2  | 2p6.6g  | 2G   | 7/2  |    |                |  L16107  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+       116.39     |  0.01   |       116.39     |  0.03     |            |      |   876019.   -    961937.  | 2p6.5g  | 2G   | 9/2  | 2p6.6h  | 2H*  | 11/2 |    |                |  L16107  |
+       116.39     |  0.01   |       116.39     |  0.03     |            |      |   876005.   -    961923.  | 2p6.5g  | 2G   | 7/2  | 2p6.6h  | 2H*  | 9/2  |    |                |  L16107  |
+       117.14     |  0.03   |       117.14     |  0.04     |            |      |   961923.   -   1047291   | 2p6.6h  | 2H*  | 9/2  | 2p6.8i  | 2I   | 11/2 |    |                |   L5617  |
+       117.14     |  0.03   |       117.14     |  0.04     |            |      |   961937.   -   1047304   | 2p6.6h  | 2H*  | 11/2 | 2p6.8i  | 2I   | 13/2 |    |                |   L5617  |
+       144.4      |  0.1    |       144.319    |  0.019    | 1.5e+09    | C    |   628241.   -    697532.  | 2p6.4p  | 2P*  | 1/2  | 2p6.4d  | 2D   | 3/2  |    | T1619interp,LS |   L4580  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+       146.3      |  0.1    |       146.25     |  0.03     | 1.7e+09    | C    |   629243.   -    697621.  | 2p6.4p  | 2P*  | 3/2  | 2p6.4d  | 2D   | 5/2  |    | T1619interp,LS |  L16084  |
+                  |         |       146.436    |  0.019    | 2.7e+08    | D    |   629243.   -    697532.  | 2p6.4p  | 2P*  | 3/2  | 2p6.4d  | 2D   | 3/2  |    | T1619interp,LS |          |
+                  |         |       187.670    |  0.023    | 5.1e+08    | C    |   575958.   -    629243.  | 2p6.4s  | 2S   | 1/2  | 2p6.4p  | 2P*  | 3/2  |    | T1619interp,LS |          |
+                  |         |       191.267    |  0.023    | 4.8e+08    | C    |   575958.   -    628241.  | 2p6.4s  | 2S   | 1/2  | 2p6.4p  | 2P*  | 1/2  |    | T1619interp,LS |          |
+       192.94     |  0.02   |       192.90     |  0.06     |            |      |   961941.   -   1013780.  | 2p6.6g  | 2G   | 7/2  | 2p6.7h  | 2H*  | 9/2  |    |                |  L13101  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+       192.94     |  0.02   |       192.99     |  0.07     |            |      |   961963.   -   1013780.  | 2p6.6g  | 2G   | 9/2  | 2p6.7h  | 2H*  | 11/2 |    |                |  L13101  |
+       227.10     |  0.03   |       227.105    |  0.021    |            |      |  1063412.6  -   1107445.  | 2p6.9p  | 2P*  | 3/2  | 2p6.12d | 2D   | 5/2  |    |                |  L16099  |
+       251.63     |  0.03   |       251.61     |  0.07     |            |      |  1047116.   -   1086860.  | 2p6.8f  | 2F*  | 7/2  | 2p6.10g | 2G   | 9/2  |    |                |  L11180  |
+       263.23     |  0.03   |       263.23     |  0.10     |            |      |  1070380.   -   1108370.  | 2p6.9g  | 2G   | 9/2  | 2p6.12h | 2H*  | 11/2 |    |                |  L16099  |
+       263.23     |  0.03   |       263.23     |  0.10     |            |      |  1070380.   -   1108370.  | 2p6.9g  | 2G   | 7/2  | 2p6.12h | 2H*  | 9/2  |    |                |  L16099  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+       267.64     |  0.03   |       267.64     |  0.04     |            |      |  1009752.   -   1047116.  | 2p6.7d  | 2D   | 5/2  | 2p6.8f  | 2F*  | 7/2  |    |                |  L11180  |
+       269.05     |  0.03   |       269.05     |  0.04     |            |      |  1070277.   -   1107445.  | 2p6.9f  | 2F*  | 7/2  | 2p6.12d | 2D   | 5/2  |    |                |  L16099  |
+       269.05     |  0.03   |       269.064    |  0.023    |            |      |  1044645.1  -   1081811.  | 2p6.8d  | 2D   | 5/2  | 2p6.10p | 2P*  | 3/2  |    |                |  L16099  |
+       269.30     |  0.03   |       269.28     |  0.05     |            |      |  1044625.   -   1081761.  | 2p6.8d  | 2D   | 3/2  | 2p6.10p | 2P*  | 1/2  |    |                |  L16099  |
+       300.75     |  0.03   |       300.74     |  0.07     |            |      |   998465.   -   1031716.  | 2p6.7p  | 2P*  | 1/2  | 2p6.8s  | 2S   | 1/2  |    |                |  L11180  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+       302.90     |  0.04   |       302.91     |  0.08     |            |      |   832261.   -    865274.  | 2p6.5p  | 2P*  | 1/2  | 2p6.5d  | 2D   | 3/2  |    |                |  L13101  |
+       307.41     |  0.04   |       307.42     |  0.09     |            |      |   832749.   -    865278.  | 2p6.5p  | 2P*  | 3/2  | 2p6.5d  | 2D   | 5/2  |    |                |  L13101  |
+       315.50     |  0.04   |       315.49     |  0.05     |            |      |  1031716.   -   1063412.6 | 2p6.8s  | 2S   | 1/2  | 2p6.9p  | 2P*  | 3/2  |    |                |  L13101  |
+       329.86     |  0.04   |       329.84     |  0.06     |            |      |  1081761.   -   1112079.  | 2p6.10p | 2P*  | 1/2  | 2p6.13s | 2S   | 1/2  |    |                |  L16099  |
+       330.37     |  0.04   |       330.38     |  0.05     |            |      |  1081811.   -   1112079.  | 2p6.10p | 2P*  | 3/2  | 2p6.13s | 2S   | 1/2  |    |                |  L16099  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+       334.65     |  0.04   |       334.68     |  0.07     |            |      |  1063335.   -   1093214.  | 2p6.9p  | 2P*  | 1/2  | 2p6.11s | 2S   | 1/2  |    |                |  L16099  |
+       335.58     |  0.04   |       335.55     |  0.05     |            |      |  1063412.6  -   1093214.  | 2p6.9p  | 2P*  | 3/2  | 2p6.11s | 2S   | 1/2  |    |                |  L16099  |
+       348.86     |  0.04   |       348.89     |  0.13     |            |      |  1070380.   -   1099042.  | 2p6.9g  | 2G   | 9/2  | 2p6.11f | 2F*  | 7/2  |    |                |  L11180  |
+       429.88     |  0.04   |       429.85     |  0.19     |            |      |  1047116.   -   1070380.  | 2p6.8f  | 2F*  | 7/2  | 2p6.9g  | 2G   | 9/2  |    |                |  L11180  |
+       450.60     |  0.04   |       450.55     |  0.12     |            |      |  1059616.   -   1081811.  | 2p6.9s  | 2S   | 1/2  | 2p6.10p | 2P*  | 3/2  |    |                |  L11180  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+       463.21     |  0.04   |       463.2      |  0.5      |            |      |  1086703.   -   1108291.  | 2p6.10f | 2F*  | 7/2  | 2p6.12g | 2G   | 9/2  |    |                |  L16099  |
+       464.93     |  0.04   |       464.9      |  0.3      |            |      |  1086860.   -   1108370.  | 2p6.10g | 2G   | 7/2  | 2p6.12h | 2H*  | 9/2  |    |                |  L16099  |
+       464.93     |  0.04   |       464.9      |  0.3      |            |      |  1086860.   -   1108370.  | 2p6.10g | 2G   | 9/2  | 2p6.12h | 2H*  | 11/2 |    |                |  L16099  |
+       532.838    |  0.008  |       532.84     |  0.04     |            |      |  1044645.1  -   1063412.6 | 2p6.8d  | 2D   | 5/2  | 2p6.9p  | 2P*  | 3/2  |    |                |   L7203  |
+       534.35     |  0.04   |       534.47     |  0.20     |            |      |  1044625.   -   1063335.  | 2p6.8d  | 2D   | 3/2  | 2p6.9p  | 2P*  | 1/2  |    |                |  L11180  |
+                  |         |                  |           |            |      |                           |         |      |      |         |      |      |    |                |          |
+       603.15     |  0.08   |       603.0      |  0.4      |            |      |  1070277.   -   1086860.  | 2p6.9f  | 2F*  | 7/2  | 2p6.10g | 2G   | 9/2  |    |                |  L16099  |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</pre>
+
+<p style="color:black; font-family: helvetica,arial; font-weight:bold">If you did not find the data you need, please <a href="/cdn-cgi/l/email-protection#3d5c5158455c5359584f13564f5c5054595c7d53544e49135a524b024e485f57585e490070544e4e54535a180f0d595c495c180f0d5453180f0d7c6e791b5c504d065f525944007c4f180f0d6b747474180f0d51584b58514e">inform the ASD Team</a>.</p><table style="width:100%; border:0; margin-top:0">
+<tr><td style="text-align:left"><a href="https://physics.nist.gov/PhysRefData/ASD/index.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/ASD-sm.gif" style="border:0" width="100" height="47"
+alt="[ASD Home]" title="ASD Home"></a><a href="https://physics.nist.gov/PhysRefData/ASD/lines_form.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/Lines.gif" style="border:0" width="70" height="47"
+alt="[Lines Query]" title="Lines Query"></a><a href="https://physics.nist.gov/PhysRefData/ASD/levels_form.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/Levels.gif" style="border:0" width="79" height="47"
+alt="[Levels Query]" title="Levels Query"></a><a href="https://www.nist.gov/pml/atomic-spectra-database-contents"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/List.gif" style="border:0" width="77" height="47"
+alt="[List of Spectra]" title="List of Spectra"></a><a href="https://physics.nist.gov/PhysRefData/ASD/ionEnergy.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/GS-IE.gif" style="border:0" width="124" height="47"
+alt="[Ground States and Ionization Energies]" title="Ground States and Ionization Energies"></a><a
+href="https://physics.nist.gov/PhysRefData/ASBib1/index.html"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/Bib.gif" style="border:0"
+width="98" height="47" alt="[Bibliography]" title="Bibliography"></a><a
+href="https://physics.nist.gov/PhysRefData/ASD/Html/help.html"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/Help.gif" style="border:0"
+width="55" height="47" alt="[Help]" title="Help"/></a></td>
+<td style="text-align:right"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/nist-pl-black.gif" style="border:0" width="136" height="68"
+usemap="#NIST-PL" alt="NIST Physical Measurement Laboratory"/></td>
+</tr></table>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>

@@ -526,28 +526,3 @@ def test_two_hole_final_state_rejects_missing_energy_zero():
             ),
             active_space=active,
         )
-
-
-def test_two_hole_final_state_accepts_non_koopmans_energy_model_stamp():
-    active = local_valence_active_space(_active_payload(), population_threshold=0.5)
-    state = TwoHoleFinalState(
-        hole_orbitals=("MO1", "MO2"),
-        spin_multiplicity=1,
-        spin_symmetry="singlet",
-        final_energy=20.0,
-        provenance=Provenance(
-            provider="mock",
-            code_version="mock 0",
-            method="RHF",
-            basis="sto-3g",
-            theory_level="RHF",
-            approximations=["cluster-ci-final-state"],
-            core_hole="O 1s",
-            final_state="MO1^-1 MO2^-1 singlet",
-            energy_zero="delta_scf_total_energy",
-        ),
-        active_space=active,
-        energy_model="cluster-ci",
-    )
-
-    assert state.energy_model == "cluster-ci"

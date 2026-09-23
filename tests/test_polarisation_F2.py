@@ -52,9 +52,25 @@ def test_F2_J_u_zero_returns_zero():
     assert steffen_alder_F2(0.0, 1.0, L=1) == 0.0
 
 
-def test_F2_e2_finite():
-    """E2 (L=2) F_2 is finite for allowed transitions."""
-    # J_u = 2 → J_l = 0: triangle |2−0|=2 ≤ 2 ≤ 2+0, allowed
+def test_F2_e2_exact_value():
+    """E2 (L=2) J_u=2 → J_l=0 has the exact value 2/√10.
+
+    A-class: the Steffen-Alder E2 alignment coefficient for the stretched
+    J=2 → J=0 channel is the closed form 2/√10 = 0.6324555320 (Steffen &
+    Alder, *At. Data Nucl. Data Tables* (1965); the E1 rows of the same
+    table are gated in ``test_F2_J1_known_values``).  Measured
+    0.6324555320336752, i.e. machine precision.  The old test asserted
+    only ``val != 0`` and ``isfinite``.
+    """
     val = steffen_alder_F2(2.0, 0.0, L=2)
-    assert val != 0.0
+    assert pytest.approx(2.0 / math.sqrt(10.0), rel=1e-12) == val, (
+        f"F_2(2→0, E2) = {val!r}, exact 2/sqrt(10)")
+    # J_u = 0 has no orientation to align: F_2 = 0 for any L (same principle
+    # as test_F2_J_u_zero_returns_zero for E1).
+    assert steffen_alder_F2(0.0, 2.0, L=2) == 0.0
+
+
+def test_F2_e2_finite():
+    """E2 (L=2) F_2 is finite for all allowed/inelastic channels."""
+    val = steffen_alder_F2(2.0, 1.0, L=2)
     assert math.isfinite(val)

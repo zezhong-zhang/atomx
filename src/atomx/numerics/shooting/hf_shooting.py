@@ -60,7 +60,7 @@ by Schmidt orthogonalisation each sweep — exact for closed shells
 for open shells.
 
 Validation: He, Ne, Fe XVII total energies agree with the B-spline
-``DFSolver`` (``Atom(numerics='bspline', exchange='hf')``) to <= 1e-4
+``DFSolver`` (``Atom(10, engine='bspline', exchange='hf')``) to <= 1e-4
 relative and orbital energies to <= 5e-4 relative
 (``tests/test_shooting_hf.py``).
 """
@@ -368,13 +368,17 @@ class ShootingHFSolver:
     def __init__(self, Z, subshells: Sequence, n_grid: int = 1000,
                  r_max: float = 75.0, aw: float = 0.0,
                  nuclear: Optional[str] = None,
-                 jj_configs: Optional[List] = None):
+                 jj_configs: Optional[List] = None,
+                 screening_potential=None):
         self.Z = Z
         self.subshells = list(subshells)
         self.n_grid = n_grid
         self.r_max = r_max
         self.aw = aw
         self.nuclear = nuclear
+        #: delta_V(r) of the surrounding plasma (Hartree), added to the
+        #: nuclear potential inside the SCF.  ``None`` = no screening.
+        self.screening_potential = screening_potential
         if jj_configs is not None:
             for cfg in jj_configs:
                 if (len(cfg.subshells) != len(self.subshells)
@@ -562,6 +566,7 @@ class ShootingHFSolver:
         base = ShootingSolver(
             self.Z, self.subshells, n_grid=self.n_grid, r_max=self.r_max,
             exchange='gu', aw=self.aw, nuclear=self.nuclear,
+            screening_potential=self.screening_potential,
         ).solve(max_iter=300, tol=1.0e-9)
         r = base._grid
         difr = base._difr
@@ -572,8 +577,9 @@ class ShootingHFSolver:
                        for sh in self.subshells])
         ind = np.arange(np_, dtype=np.int64)
 
-        # Nuclear potential in r*V form.
-        rvnuc = self._nuclear_rv(r, difr, np_)
+        # Nuclear potential in r*V form, plus the plasma screening shift
+        # dV(r) = V_screened(r) - (-Z/r) sampled on the same grid.
+        rvnuc = self.nuclear_rv_screened(r, difr, np_)
 
         intra, exch, direct0 = self._angular_tables()
         # kappa groups for Schmidt orthogonalisation (ascending n).
@@ -714,6 +720,20 @@ class ShootingHFSolver:
             _difr=difr, _pa=pa_arr, _qa=qa_arr,
             _model="hf",
         )
+
+    def nuclear_rv_screened(self, r, difr, np_):
+        """``r*V_nuc`` including the plasma screening shift, if any.
+
+        Single source of truth for the nuclear potential the SCF solves
+        AND the CI one-electron blocks are built from: a screened SCF with
+        an unscreened CI kernel would return orbital energies that move
+        with the plasma while the total energy does not.
+        """
+        rvnuc = self._nuclear_rv(r, difr, np_)
+        if self.screening_potential is not None:
+            rvnuc = rvnuc + r * np.asarray(self.screening_potential(r),
+                                           dtype=float)
+        return rvnuc
 
     def _nuclear_rv(self, r, difr, np_):
         """r*V_nuc on the grid: point nucleus or Fermi distribution.

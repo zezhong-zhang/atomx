@@ -22,19 +22,44 @@ class TestScreening:
     """Test plasma screening models."""
 
     def test_debye_length(self):
-        """Debye length should be finite and positive."""
+        """lambda_D = sqrt(kT/(4 pi n_e)) in a.u. = 743.4 sqrt(T_eV/n_e) cm.
+
+        First-principles closed form (Gaussian units, kT in erg, e in esu);
+        the 743.4 coefficient is *derived* below from cgs constants rather
+        than quoted.  Measured: 140.481 a_0 = 7.4339e-7 cm at
+        n_e = 1e20 cm^-3, T_e = 100 eV.  (Pre-2026-09 this test asserted
+        only ``0 < lam < 1e10`` — 13 orders of magnitude of slack.)
+        """
         from atomx.plasma.screening import debye_length
-        lam = debye_length(ne_cm3=1e20, Te_eV=100.0)
-        assert lam > 0
-        assert lam < 1e10
+
+        ne, Te = 1e20, 100.0
+        lam = debye_length(ne_cm3=ne, Te_eV=Te)
+        ne_au = ne * (BOHR_RADIUS_M * 100.0) ** 3
+        kT_au = Te / HARTREE_EV
+        assert lam == pytest.approx(np.sqrt(kT_au / (4.0 * np.pi * ne_au)),
+                                    rel=1e-12, abs=0.0)
+
+        # same number from the cgs definition: lam_D = sqrt(kT/(4 pi n e^2))
+        k_b_erg = 1.380649e-16
+        e_esu = 4.803204712570263e-10
+        lam_cm = np.sqrt(k_b_erg * (Te * 1.602176634e-12 / k_b_erg)
+                         / (4.0 * np.pi * ne * e_esu ** 2))
+        assert lam * (BOHR_RADIUS_M * 100.0) == pytest.approx(lam_cm, rel=1e-9, abs=0.0)
+        assert pytest.approx(140.481, rel=1e-4, abs=0.0) == lam
 
     def test_ion_sphere_radius(self):
-        """Ion-sphere radius should scale with (Z/ne)^(1/3)."""
+        """R_IS = (3 Z_ion / 4 pi n_e)^{1/3}, exact ne^{-1/3} scaling."""
         from atomx.plasma.screening import ion_sphere_radius
+
         R1 = ion_sphere_radius(Z_ion=1, ne_cm3=1e20)
         R2 = ion_sphere_radius(Z_ion=1, ne_cm3=8e20)
-        # R ~ ne^(-1/3), so doubling ne should give R2/R1 = 2^(-1/3) ~ 0.5
-        assert 0.4 < R2 / R1 < 0.6
+        ne_au = 1e20 * (BOHR_RADIUS_M * 100.0) ** 3
+        assert pytest.approx((3.0 / (4.0 * np.pi * ne_au)) ** (1.0 / 3.0),
+                             rel=1e-12, abs=0.0) == R1
+        assert pytest.approx(25.2563, rel=1e-5, abs=0.0) == R1
+        # an 8x density increase is an exact factor 8^{-1/3} = 1/2
+        assert pytest.approx(8.0 ** (-1.0 / 3.0), rel=1e-12, abs=0.0) == R2 / R1
+        assert pytest.approx(0.5, rel=1e-12, abs=0.0) == R2 / R1
 
     def test_debye_potential_reduces_to_coulomb(self):
         """At low density, Debye potential should approach bare Coulomb."""
@@ -52,18 +77,35 @@ class TestScreening:
         assert ipd2 > ipd1
 
     def test_stewart_pyatt_interpolates(self):
-        """Stewart-Pyatt should give intermediate result."""
+        """SP must sit between its Debye and ion-sphere limits.
+
+        The interpolation is what the name claims: at each coupling
+        parameter u = R_IS/lambda_D the Stewart-Pyatt potential is bracketed
+        by the two analytic limits, V_IS <= V_SP <= V_Debye (all three are
+        negative — more negative is more attractive).  Measured at
+        Z = 10, Z_ion = 1, n_e = 1e22, r = 5 a_0:
+        u = 0.55 -> -1.802 <= -1.395 <= -1.209 Ha,
+        u = 1.73 -> -1.802 <= -1.410 <= -0.407 Ha.
+        (Pre-2026-09 this asserted only ``V(r) < 0``.)
+        """
         from atomx.plasma.screening import (
+            debye_length,
+            debye_potential,
+            ion_sphere_potential,
+            ion_sphere_radius,
             stewart_pyatt_potential,
         )
         ne = 1e22
-        Te = 50.0
         Z = 10
-        V_sp = stewart_pyatt_potential(Z, Z_ion=1, ne_cm3=ne, Te_eV=Te)
+        Z_ion = 1
         r = 5.0
-        # Should be between Debye and ion-sphere limits
-        V_val = V_sp(r)
-        assert V_val < 0  # attractive
+        for Te, u_expected in ((50.0, 0.548), (5.0, 1.732)):
+            u = ion_sphere_radius(Z_ion, ne) / debye_length(ne, Te)
+            assert u == pytest.approx(u_expected, rel=1e-3, abs=0.0)
+            v_debye = debye_potential(Z, ne, Te)(r)
+            v_sp = stewart_pyatt_potential(Z, Z_ion, ne, Te)(r)
+            v_is = ion_sphere_potential(Z, Z_ion, ne)(r)
+            assert v_is <= v_sp <= v_debye, (Te, v_is, v_sp, v_debye)
 
     def test_stewart_pyatt_ipd_matches_limits(self):
         """SP IPD should recover Debye and ion-sphere analytic limits."""
@@ -240,7 +282,24 @@ class TestCRM:
         assert abs(pop.sum() - 1.0) < 1e-10
 
     def test_high_density_approaches_boltzmann(self):
-        """At high ne, CRM should approach LTE (Boltzmann distribution)."""
+        """At high ne the CRM steady state must converge to Boltzmann (LTE).
+
+        First-principles limit: the collisional rates are built in detailed
+        balance (``C_deexc = C_exc (g_l/g_u) e^{+dE/kT}``,
+        ``src/atomx/plasma/crm.py:354``), so for a two-level system
+
+            n1/n0 = ne Ce / (ne Cd + A)  ->  (g1/g0) e^{-dE/kT}   (ne -> inf),
+
+        i.e. the radiative decay A becomes negligible against collisional
+        de-excitation and the *dynamics* must reproduce the analytic
+        Boltzmann ratio.  The limit is independent of the collision strength
+        (which cancels between the two directions).
+
+        Measured max|pop/boltzmann - 1|: 1.540e-4 at 1e18, 1.541e-7 at
+        1e21, 1.5e-11 at 1e25 — falling as 1/ne, the residual being
+        A/(ne C_deexc).  The old body asserted only ``pop[1] > 0``, which a
+        model with no collisional channel at all also satisfies.
+        """
         from atomx.plasma.crm import CollisionalRadiativeModel, CRMLevel, CRMTransition
         Te = 10.0  # eV
         levels = [
@@ -251,14 +310,22 @@ class TestCRM:
             CRMTransition(upper=1, lower=0, A_rate=1e8, gf=1.0),
         ]
         crm = CollisionalRadiativeModel(levels, transitions)
+        boltzmann = crm.boltzmann_populations(Te)
 
-        # High density -> collisional rates dominate -> LTE
-        pop_crm = crm.steady_state(ne_cm3=1e25, Te_eV=Te)
-        crm.boltzmann_populations(Te)  # must not raise; not compared below
+        deviations = []
+        for ne in (1e18, 1e21, 1e25):
+            pop = crm.steady_state(ne_cm3=ne, Te_eV=Te)
+            deviations.append(float(np.max(np.abs(pop / boltzmann - 1.0))))
 
-        # Should be reasonably close at high density
-        # (may not be exact due to simplified collisional rates)
-        assert pop_crm[1] > 0  # excited state should be populated
+        # monotone convergence in ne, and dense enough to be LTE
+        assert deviations[0] > deviations[1] > deviations[2]
+        assert deviations[2] < 1e-9
+        assert 0.0 < deviations[0] < 1e-3
+
+        # ... and the ratio itself is the analytic Boltzmann ratio
+        pop = crm.steady_state(ne_cm3=1e25, Te_eV=Te)
+        assert pop[1] / pop[0] == pytest.approx(
+            (3.0 / 1.0) * np.exp(-5.0 / Te), rel=1e-9, abs=0.0)
 
     def test_boltzmann_ground_dominant_at_low_T(self):
         """At low T, Boltzmann should put most population in ground state."""
@@ -273,11 +340,12 @@ class TestCRM:
         assert pop[0] > 0.99  # ground state dominant at 1 eV, gap = 100 eV
 
     def test_bound_free_eii_and_three_body_balance(self):
-        """EII and TBR should populate adjacent charge states consistently."""
+        """EII, TBR and RR should populate adjacent charge states consistently."""
         from atomx.plasma.crm import (
             CollisionalRadiativeModel,
             CRMBoundFreeChannel,
             CRMLevel,
+            radiative_recombination_rate_cm3_s,
             saha_ionization_density_cm3,
             three_body_recombination_rate_cm6_s,
         )
@@ -299,12 +367,24 @@ class TestCRM:
         beta = three_body_recombination_rate_cm6_s(
             eii, 15.0, Te, g_bound=2, g_continuum=1,
         )
+        # Spontaneous radiative recombination (review C5) is a second,
+        # n_e * alpha_RR recombination channel; it was missing until
+        # 2026-09, which is why this used to assert R[0, 1] == n_e^2 beta.
+        alpha_rr = radiative_recombination_rate_cm3_s(
+            15.0, Te, g_bound=2, g_continuum=1,
+        )
         assert R[1, 0] == pytest.approx(ne * eii)
-        assert R[0, 1] == pytest.approx(ne * ne * beta)
+        assert R[0, 1] == pytest.approx(ne * ne * beta + ne * alpha_rr)
 
         pop = crm.steady_state(ne, Te)
         saha = saha_ionization_density_cm3(15.0, Te, g_bound=2, g_continuum=1)
-        assert pop[1] / pop[0] == pytest.approx(saha / ne, rel=1e-10)
+        # Three-channel balance: n_c/n_b = R[1,0]/R[0,1].  Electron-impact
+        # ionisation alone would give Saha/n_e (R[0,1] = n_e^2 beta with
+        # beta = S/Saha); RR breaks that exact equality, so the ratio is
+        # compared with the matrix entries rather than with Saha/n_e.
+        assert pop[1] / pop[0] == pytest.approx(
+            (ne * eii) / (ne * ne * beta + ne * alpha_rr), rel=1e-10)
+        assert pop[1] / pop[0] < saha / ne
 
     def test_bound_free_photoionization_planck_couples_channel(self):
         """Planck PI should add a one-way bound-free source term."""

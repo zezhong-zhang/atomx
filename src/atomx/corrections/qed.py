@@ -4,9 +4,18 @@ Both computed perturbatively from converged DHF orbitals.
 
 Vacuum polarization
 -------------------
-``V_VP(r) = -(2Zα)/(3π) K_1(2cr) / r`` — Uehling potential for a point
-nucleus.  Higher-order vacuum-polarization (Wichmann–Kroll, Källén–Sabry)
-will be added alongside this; see the roadmap.
+``V_VP(r) = -(2Zα)/(3π) I(2cr) / r`` with the Uehling kernel
+
+    ``I(x) = ∫_1^∞ e^{-xt} (1 + 1/(2t²)) √(t²-1)/t² dt``
+
+for a point nucleus.  ``I`` is **not** ``K_1``: K_1 is only the large-x
+asymptote up to an O(1) factor, and using it inflates ``V_VP`` by a
+factor rising to 160 at small x (see :func:`_uehling_kernel`).  The
+kernel is tabulated once by adaptive quadrature and evaluated by a
+spline in ``log I``; relative accuracy is verified against
+``scipy.integrate.quad`` in ``tests/test_qed_uehling.py``.
+Higher-order vacuum-polarization (Wichmann–Kroll, Källén–Sabry) is
+handled by :func:`wichmann_kroll_potential`; see the roadmap.
 
 Self-energy
 -----------
@@ -25,6 +34,8 @@ multiple interchangeable backends:
 See :mod:`atomx.corrections.qedmod` for details and references.
 """
 
+from functools import lru_cache
+
 import numpy as np
 from scipy.special import k1 as bessel_k1
 
@@ -35,12 +46,101 @@ from atomx.corrections.qedmod import get_backend
 # Vacuum Polarization (Uehling potential, 2nd order)
 # ---------------------------------------------------------------------------
 
+#: Upper end of the tabulated Uehling kernel.  ``I(80) ≈ 4e-37`` and the
+#: prefactor supplies another ``1/r``, so everything beyond this is far
+#: below double-precision relevance for any atomic orbital; the
+#: large-``x`` branch below is used instead of the table there.
+_UEHLING_X_MAX = 80.0
+
+#: Lower end of the tabulated kernel.  ``x = 2 c r``, so this corresponds
+#: to ``r ≈ 4e-11`` Bohr — eight decades below the innermost knot of any
+#: grid the package builds.
+_UEHLING_X_MIN = 1.0e-10
+
+
+def _uehling_integrand(t, x):
+    """Uehling kernel integrand ``e^{-xt}(1 + 1/(2t²))√(t²-1)/t²``."""
+    return np.exp(-x * t) * (1.0 + 0.5 / (t * t)) * np.sqrt(t * t - 1.0) / (t * t)
+
+
+def _uehling_I_exact(x):
+    """Reference ``I(x)`` by adaptive quadrature (used to build the table)."""
+    from scipy.integrate import quad
+
+    value, _err = quad(
+        _uehling_integrand, 1.0, np.inf, args=(float(x),),
+        epsabs=1e-300, epsrel=1e-13, limit=200,
+    )
+    return value
+
+
+@lru_cache(maxsize=1)
+def _uehling_kernel_spline():
+    """Cached cubic spline of ``log I(x) + x`` against ``log x``.
+
+    ``I`` falls from ``≈ 23`` at ``x = 1e-10`` to ``≈ 4e-37`` at
+    ``x = 80``, i.e. over 37 decades.  Splining ``log I`` directly would
+    need a very fine grid at large ``x`` (there ``log I ≈ −x``, unit
+    slope); factoring out the exponential leaves
+    ``g(u) = log I(e^u) + e^u``, which varies only from ``≈ 3.1`` to
+    ``≈ −31`` across the whole range and is smooth in ``u = log x``, so
+    ~900 nodes give near machine precision everywhere.
+
+    Building the table costs ~0.5 s once per process.
+    """
+    from scipy.interpolate import CubicSpline
+
+    log_x = np.linspace(np.log(_UEHLING_X_MIN), np.log(_UEHLING_X_MAX), 900)
+    xs = np.exp(log_x)
+    vals = np.array([_uehling_I_exact(x) for x in xs])
+    if not np.all(np.isfinite(vals)) or np.any(vals <= 0.0):
+        raise RuntimeError("Uehling kernel table failed to build")
+    return CubicSpline(log_x, np.log(vals) + xs)
+
+
+def _uehling_kernel(x):
+    """Uehling kernel ``I(x)`` for ``x = 2cr`` (scalar or ndarray).
+
+    ``I`` is the Bickley–Naylor combination
+    ``(1 + x²/12)K_0 − x(5/6 + x²/12)K_1 + x(3/4 + x²/12)Ki_1``; here it
+    is evaluated from a spline table validated against
+    ``scipy.integrate.quad`` (see ``tests/test_qed_uehling.py``).
+
+    Below ``x = _UEHLING_X_MIN`` the kernel is extrapolated from the
+    table's innermost node; ``I`` varies only logarithmically there and
+    the ``1/r`` prefactor drives the potential to zero, so the
+    extrapolation error is physically irrelevant.  Above
+    ``x = _UEHLING_X_MAX`` the leading large-``x`` behaviour
+    ``I(x) → (3/2)K_1(x)/x`` is used (``I < 1e-37`` there).
+    """
+    x_arr = np.asarray(x, dtype=float)
+    scalar = x_arr.ndim == 0
+    xf = np.atleast_1d(x_arr).astype(float)
+
+    out = np.zeros_like(xf)
+    big = xf > _UEHLING_X_MAX
+    mid = ~big
+
+    if np.any(mid):
+        spline = _uehling_kernel_spline()
+        xm = np.clip(xf[mid], _UEHLING_X_MIN, _UEHLING_X_MAX)
+        out[mid] = np.exp(spline(np.log(xm)) - xm)
+    if np.any(big):
+        xb = xf[big]
+        out[big] = 1.5 * bessel_k1(xb) / xb
+
+    return float(out[0]) if scalar else out
+
+    return float(out[0]) if scalar else out
+
+
 def uehling_potential(r, Z):
     """Uehling vacuum polarization potential V_VP(r) for a point nucleus.
 
-    V_VP(r) = -(2Zα)/(3π) * (1/r) * K_1(2cr)
+    ``V_VP(r) = -(2Zα)/(3π) · I(2cr) / r``
 
-    where c = 1/α ≈ 137.036 and K_1 is the modified Bessel function.
+    where ``c = 1/α ≈ 137.036`` and ``I`` is the Uehling kernel
+    (see :func:`_uehling_kernel`).
 
     Parameters
     ----------
@@ -53,23 +153,26 @@ def uehling_potential(r, Z):
     -------
     V : float or ndarray
         VP potential in Hartree.
+
+    Notes
+    -----
+    The kernel is *positive*, so ``V_VP`` is attractive (it increases the
+    binding).  Its range is the (reduced) Compton scale
+    ``1/(2c) ≈ 0.0036`` Bohr; beyond ``r ≳ 0.3`` Bohr the potential is
+    below ``1e-30`` Ha.
     """
-    x = 2.0 * C * np.asarray(r, dtype=float)
     r_arr = np.asarray(r, dtype=float)
     prefactor = -2.0 * Z * ALPHA / (3.0 * np.pi)
+    x = 2.0 * C * r_arr
+
+    with np.errstate(divide="ignore", invalid="ignore"):
+        V = prefactor * _uehling_kernel(x) / r_arr
 
     if r_arr.ndim == 0:
-        if x < 0.01:
-            return prefactor / (r_arr * x) if r_arr > 0 else 0.0
-        return prefactor / r_arr * bessel_k1(float(x))
-    else:
-        V = np.zeros_like(r_arr)
-        large = x > 0.01
-        V[large] = prefactor / r_arr[large] * bessel_k1(x[large])
-        small = (~large) & (r_arr > 0)
-        if np.any(small):
-            V[small] = prefactor / (r_arr[small] * x[small])
-        return V
+        return float(V) if r_arr > 0 else 0.0
+    V = np.asarray(V, dtype=float)
+    V[r_arr <= 0] = 0.0
+    return V
 
 
 #: Dense auxiliary log-grid used to integrate nuclear-range kernels
@@ -83,7 +186,7 @@ _DENSE_KERNEL_R_MIN = 1.0e-9
 def _short_range_expectation(orbitals, bsp_data, V_of_r):
     """Σ_a q_a ⟨a|V|a⟩ for a nuclear-range local potential ``V(r)``.
 
-    The Uehling kernel ``K₁(2cr)/r`` lives on the Compton scale
+    The Uehling kernel ``I(2cr)/r`` lives on the Compton scale
     ``r ≲ 1/(2c) ≈ 0.004`` Bohr and diverges like ``1/r²`` toward the
     origin; the SCF basis' own Gauss nodes under-resolve it whenever the
     innermost knots are wide on that scale (He physics grid: 8e-3

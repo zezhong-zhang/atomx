@@ -5,7 +5,9 @@ Tests CSF parsing, CI matrix construction, and MCDHF solver.
 
 import numpy as np
 import pytest
+from _be_reference import BE_DC_LOWER_BOUND
 
+from atomx.constants import HARTREE_CM1
 from atomx.methods.dirac_fock import Subshell
 from atomx.methods.mcdhf.config import (
     _parse_config_string,
@@ -68,20 +70,40 @@ class TestMCDHFSolver:
         csfs = make_csf_list(2, ["1s2"])
         solver = MCDHFSolver(Z=2, csfs=csfs, ns=40, ks=9)
         result = solver.solve(max_iter=5, scf_tol=1e-4, ci_tol=1e-6)
-        # Single CSF → ground energy = DHF energy
+        # Single CSF → ground energy = DHF energy.  External anchor:
+        # DBSR_HF ``an=2 term=AV mbreit=0`` gives He Coulomb -2.86181332 Ha
+        # (benchmarks/EXTERNAL_VERIFICATION.md §1; the non-relativistic HF
+        # limit is -2.8616799956, Froese Fischer).  The old gate here was
+        # -2.86 +- 0.1 Ha (3.5 %), which accepts the uncorrelated
+        # hydrogenic value -2.8477 as readily as the DF solution; the
+        # measured deviation is 1e-12 Ha.
         assert result.n_states == 1
-        assert result.ground_energy == pytest.approx(-2.86, abs=0.1)
+        assert result.ground_energy == pytest.approx(-2.86181332, abs=1e-6)
 
     def test_two_config_be(self):
-        """Be with 2 CSFs: 1s2 2s2 + 1s2 2p2 (2s-2p near-degeneracy)."""
+        """Be with 2 CSFs: 1s2 2s2 + 1s2 2p2 (2s-2p near-degeneracy).
+
+        Two-sided variational gate: the enlarged space must gain on the
+        1-CSF reference of the same protocol and must stay above the exact
+        finite-nucleus Dirac-Coulomb ground state.
+        """
         csfs = make_csf_list(4, ["1s2 2s2", "1s2 2p2"])
         solver = MCDHFSolver(Z=4, csfs=csfs, ns=40, ks=9)
         result = solver.solve(max_iter=10, scf_tol=1e-4, ci_tol=1e-6)
         assert result.n_states == 2
-        # Ground state should be lower than either diagonal element
+        # Ground state should be lower than the excited state
         assert result.state_energies[0] < result.state_energies[1]
-        # Both states should be bound
-        assert result.ground_energy < 0
+        # Every level of a variational CI is above the exact ground state.
+        assert np.all(result.state_energies > BE_DC_LOWER_BOUND), (
+            f"levels {result.state_energies!r} are below the exact Be "
+            f"ground state {BE_DC_LOWER_BOUND} Ha — non-variational")
+
+        ref_csfs = make_csf_list(4, ["1s2 2s2"])
+        ref = MCDHFSolver(Z=4, csfs=ref_csfs, ns=40, ks=9)
+        e_ref = ref.solve(max_iter=10, scf_tol=1e-4, ci_tol=1e-6).ground_energy
+        assert result.ground_energy < e_ref, (
+            f"2-CSF CI {result.ground_energy!r} Ha is not below its own "
+            f"1-CSF reference {e_ref!r} Ha — the 2p² admixture gained nothing")
 
 
     def test_per_block_orbital_sets_are_populated_when_enabled(self):
@@ -103,12 +125,21 @@ class TestMCDHFSolver:
         assert all(result.per_block_orbitals[block] for block in result.per_block_orbitals)
 
     def test_excitation_energies(self):
-        """Excitation energies should be positive."""
+        """Excitation energies: unit identity and a positive first excitation.
+
+        ``de[0] == 0`` is definitional; what this now gates is the SI to
+        cm-1 conversion (a real silent-failure mode: the wrong constant is
+        invisible without a cross-unit comparison) and the sign of the
+        first excitation.
+        """
         csfs = make_csf_list(4, ["1s2 2s2", "1s2 2p2"])
         solver = MCDHFSolver(Z=4, csfs=csfs, ns=40, ks=9)
         result = solver.solve(max_iter=10, scf_tol=1e-4, ci_tol=1e-6)
         de = result.excitation_energies(unit="cm-1")
+        de_ha = result.excitation_energies()
         assert de[0] == 0.0  # ground state
+        for cm1, ha in zip(de, de_ha, strict=True):
+            assert cm1 == pytest.approx(float(ha) * HARTREE_CM1, rel=1e-12)
         if len(de) > 1:
             assert de[1] > 0  # excited states above ground
 
@@ -300,13 +331,11 @@ def test_pb_bspline_matches_shooting_bare_hf():
     """
     from atomx.atom import Atom
 
-    ref = Atom(Z=82, exchange="hf", numerics="shooting",
-               breit=False, qed=False)
+    ref = Atom(Z=82, exchange="hf", engine="shooting", corrections="none")
     ref.solve()
     E_shoot = ref.total_energy
 
-    atom = Atom(Z=82, exchange="hf", numerics="bspline",
-                breit=False, qed=False)
+    atom = Atom(Z=82, exchange="hf", engine="bspline", corrections="none")
     atom.solve()
     E_bsp = atom.total_energy
 

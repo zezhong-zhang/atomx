@@ -30,12 +30,13 @@ print(atom.total_energy)       # -128.61 Hartree
 print(atom.orbital_energies)   # {'1s1/2': -32.82, '2s1/2': -1.94, '2p1/2': -0.85, ...}
 
 # Correction-free (pure Dirac-Coulomb) reference run
-atom = Atom(Z=10, breit=False, qed=False)
+atom = Atom(Z=10, corrections="none")
 atom.solve()
 
 # Multi-configuration CI, including two-electron replacements.  1s2 and
 # 1s1 2s1 are both 1S0 (J=0, even) and couple through the Hamiltonian.
-atom = Atom(Z=2, configs=["1s2", "1s1 2s1"])
+# A *list* of configurations selects the MCDHF/CI path.
+atom = Atom(Z=2, config=["1s2", "1s1 2s1"])
 atom.solve()
 print(atom.total_energy)                        # -2.8629 Hartree (HF: -2.8617)
 print(atom.result.mixing_coefficients[:, 0])    # [-0.999, 0.042, 0.0]
@@ -43,19 +44,89 @@ print(atom.result.mixing_coefficients[:, 0])    # [-0.999, 0.042, 0.0]
 # Same-symmetry *double* replacements couple too (the 2s²/2p²
 # near-degeneracy pair): the ground state mixes 2s² with both 2p² jj pairs
 # and drops 0.041 Ha below the single-configuration HF energy.
-atom = Atom(Z=4, configs=["1s2 2s2", "1s2 2p2"])
+atom = Atom(Z=4, config=["1s2 2s2", "1s2 2p2"])
 atom.solve()
 print(atom.total_energy)                        # -14.6139 Hartree
 print(atom.result.mixing_coefficients[:, 0])    # [0.944, 0.282, 0.0, 0.0, 0.0, 0.171]
 
-# Numerics engine and exchange model are independent choices:
+# The radial ENGINE and the exchange MODEL are independent choices.  A
+# knob that only exists for one model (alpha_x, slater_method) travels
+# with that model on the Exchange object.
+from atomx import Exchange
+
 atom = Atom(Z=26, charge=16, config="1s2 2s2 2p6",
-          numerics="shooting", exchange="gu")     # FAC-style local DFS
+            engine="shooting", exchange="gu")     # FAC-style local DFS
 atom = Atom(Z=26, charge=16, config="1s2 2s2 2p6",
-          numerics="bspline", exchange="slater", alpha_x=2/3)
+            engine="bspline",
+            exchange=Exchange(model="slater", alpha_x=2/3))
 atom.solve()
-print(atom.provenance)   # {'numerics': 'bspline', 'exchange': 'slater', 'averaging': 'statistical'}
+print(atom.provenance)   # {'engine': 'bspline', 'exchange': 'slater', 'averaging': 'statistical'}
 ```
+
+### The ten constructor arguments
+
+`Atom` takes ten arguments, one per physical question.  Five of them accept
+either a plain value (the common case) or a frozen dataclass from
+`atomx.atom_inputs` when there is more to say:
+
+| Argument | Plain form | Object form | What it decides |
+|----------|-----------|-------------|-----------------|
+| `Z` | `10` | — | nuclear charge (required, positional) |
+| `config` | `"1s2 2s2 2p6"` | `["1s2 2s2", "1s2 2p2"]` for CI | which configurations enter |
+| `charge` | `0` | — | net ion charge, so `N = Z - charge` |
+| `nuclear` | `"fermi"` | — | nuclear charge distribution |
+| `exchange` | `"hf"` / `"slater"` / `"gu"` | `Exchange(model=..., alpha_x=..., slater_method=...)` | exchange model + the knobs only it reads |
+| `corrections` | `"none"` / `"breit"` / `"qed"` / `"breit+qed"` | `Corrections(breit=..., qed=..., qed_backend=..., stack=...)` | Breit + QED, and the self-energy backend |
+| `correlation` | `"s"` / `"sd"` | `Correlation(expansion=..., averaging=..., radial_optimization=..., j_resolved_csfs=..., per_block_orbital_sets=...)` | correlation expansion + CI/SCF protocol |
+| `engine` | `"bspline"` / `"shooting"` | — | radial engine (was `numerics=`) |
+| `basis` | — | `Basis(ns=..., ks=..., r_max=..., grid_hi=..., grid_he=..., grid_hmax=..., starting_potential=..., sampling=Sampling.high)` | radial basis, box, knot grid, accuracy tier |
+| `environment` | — | `Environment(plasma_ne=..., plasma_Te=..., screening="debye"\|"stewart_pyatt")` | the surrounding plasma, screened inside the SCF |
+
+There is exactly one spelling per question — the old flat keywords are gone,
+and each one raises a message naming its replacement (see
+[`docs/MIGRATION.md`](docs/MIGRATION.md)).
+
+```python
+from atomx import Atom, Basis, Corrections, Correlation, Environment
+
+# Ne^2+ in a dense plasma (every argument spelled out)
+atom = Atom(
+    10,                                       # Z
+    config="1s2 2s2",                         # reference configuration
+    charge=2,                                 # net ion charge
+    nuclear="fermi",                          # finite-size nucleus
+    exchange="hf",                            # non-local HF exchange
+    corrections=Corrections(breit=True, qed=True, qed_backend="auto"),
+    correlation=Correlation(averaging="ci"),  # Guerra CI averaging
+    engine="bspline",                         # Galerkin B-spline SCF
+    basis=Basis(ns=200, ks=9, r_max=90.0),    # 200 B-splines, 90 Bohr box
+    environment=Environment(plasma_ne=1e22, plasma_Te=100.0,
+                            screening="debye"),   # free-electron sea
+)
+atom.solve()
+print(atom.resolved_inputs)
+# Z=10 charge=2 fermi | 1s2 2s2 | engine=bspline exchange=hf averaging=ci
+# | breit=on qed=on(auto) | radial=bspline(ns=200, ks=9, grid=fixed)
+#   r_max=90.0 | plasma(ne=1e+22, Te=100.0, debye)
+```
+
+The plasma is not decoration: `plasma_ne`/`plasma_Te` define the Debye length
+`lambda_D = sqrt(kT / 4 pi n_e)` and the screened potential
+`-Z exp(-r/lambda_D)/r` is added to the nuclear potential *inside* the SCF,
+so every orbital moves up by ~`Z/lambda_D` (the ionisation potential
+depression).  A neutral atom has no net charge to screen, so at these
+densities the model predicts complete pressure ionisation and the solver
+says so instead of returning an unscreened atom.
+
+`atom.resolved_inputs` is a one-line summary of what was actually chosen:
+which engine `engine=None` resolved to, whether Breit and QED are on, which
+grid the run used, and whether the atom sits in a plasma.  Physically
+impossible combinations raise with the argument named and the alternative
+spelled out: `alpha_x` outside `Exchange(model="slater")`, `grid_*` with the
+shooting engine (or with an explicit `ns`), `plasma_Te` without
+`plasma_ne`, `j_resolved_csfs` without a multi-configuration input, or a
+`Corrections(stack=...)` that contradicts an explicit `breit`/`qed`.  See
+`docs/gallery/atom_inputs_example.py` for a runnable tour.
 
 ### Theory ladder
 
@@ -180,10 +251,14 @@ only a recorded result, is listed per row in [`docs/VERIFICATION.md`](docs/VERIF
 Two further caveats that the numbers above do not convey:
 
 * **Structure vs FAC** (`benchmarks/bench_fac_structure.py`) is reported
-  relative to *total* energy, which hides large absolute disagreements — the
-  committed run differs from FAC by 7 keV at Z=82 (1.6 %) — and it runs atomx
-  with `breit=False, qed=False` by default while FAC's default has QED on, so
-  it is not a like-for-like comparison.
+  relative to *total* energy, which hides absolute disagreements.  Re-measured
+  2026-09-19 with the flags matched to FAC's default (`breit=False, qed=True`,
+  which is now the driver's default): the whole Z = 10…82 panel agrees to
+  **≤ 9.6e-4 (0.096 %)**, the worst absolute row being **426 eV at Z = 82**
+  (Ar-like Pb).  The previously documented "7 keV at Z=82 (1.6 %)" came from an
+  atomx column that had gone stale for five months *and* an unmatched
+  `qed=False`; see `docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md` finding H1.
+  `tests/test_fac_structure_snapshot.py` now gates the recorded column.
 * **The CRM/plasma benchmarks** (`bench_fac_crm_*.py`: Au/Fe/W cooling,
   charge-state balance, NLTE-9 ⟨Z⟩) are **synthetic placeholders**, disclosed
   in each file; the tests that asserted agreement with them are skipped with

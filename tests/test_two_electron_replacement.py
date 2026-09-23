@@ -14,14 +14,22 @@ three patterns:
 
 Three kinds of check:
 
-1. **Element level.**  `matrix._two_electron_replacement_element` is compared
-   against the FAC-ported m-scheme determinant machinery
-   (`ResonanceManifold`, the engine validated against FAC AITable) on
-   *identical* radial data and the same grid — two independently assembled
-   implementations, so agreement pins the angular algebra (coefficients,
-   phases, k-selection and the J-dependence).
+1. **Element level — DEAD CODE, coverage of a diagnostic path only.**
+   ``matrix._two_electron_replacement_element`` is reachable only through
+   ``_two_diff_element`` -> ``_ci_matrix_element`` ->
+   ``_build_ci_matrix_approximate``, and that legacy kernel has **no caller
+   anywhere** in ``src/``, ``tests/``, ``benchmarks/`` or ``scripts/``
+   (audit finding F5).  The comparison itself is real — the helper is
+   checked against the FAC-ported m-scheme determinant machinery
+   (``ResonanceManifold``, the engine validated against FAC AITable) on
+   *identical* radial data — but it says nothing about the production CI
+   Hamiltonian, so every test that only reaches the helper carries
+   ``@pytest.mark.snapshot`` and this note.  The production two-electron
+   coupling is covered by ``test_be_2s2_2p2_pair_couples`` /
+   ``test_j2_pair_channel_moves_a_real_calculation`` below and by the
+   exact-matrix gates in ``test_ci_matrix_vs_mscheme_reference.py``.
 
-2. **Pairing convention.**  `matrix._rk` must pair its arguments as
+2. **Pairing convention.**  ``matrix._rk`` must pair its arguments as
    ``R^k(a c, b d)`` in *both* engine flavours.  The B-spline branch used to
    hand the orbitals to ``compute_slater_rk_cell`` in the ``(a, b, c, d)``
    order, which that routine reads as the pairs ``(a, b)`` and ``(c, d)``, so
@@ -38,13 +46,15 @@ import numpy as np
 import pytest
 from scipy.special import eval_genlaguerre
 
+from atomx.angular.csf_recoupling import allowed_coupled_J2
 from atomx.methods.mcdhf.matrix import (
     GridCIWorkspace,
+    _fk,
+    _gk,
     _rk,
     _two_electron_replacement_element,
 )
 from atomx.numerics.bspline.basis import prepare_bspline_data
-from atomx.numerics.bspline.convol import compute_slater_rk_cell
 from atomx.numerics.quadrature import make_fine_grid
 from atomx.scattering.autoionization.mscheme_ci import ResonanceManifold
 
@@ -201,16 +211,41 @@ PAIR_CASES = [   # ((n, kappa)_a, (n, kappa)_b, label)
 ]
 
 
+def _equivalent_J2_allowed(kappa: int, J2: int) -> bool:
+    """Can a *closed* ``j^2`` pair couple to ``J2``?
+
+    Two equivalent electrons couple antisymmetrically, so only even ``J``
+    up to ``2j - 1`` survive: ``j = 1/2`` gives ``J = 0`` only, ``j = 3/2``
+    gives ``0, 2``, ``j = 5/2`` gives ``0, 2, 4``.
+    """
+    return J2 % 2 == 0 and 2 * abs(kappa) - 2 >= J2
+
+
+def _split_J2_allowed(kappa_c: int, kappa_d: int, J2: int) -> bool:
+    """Triangle rule for two electrons in *different* subshells."""
+    return J2 in allowed_coupled_J2(2 * abs(kappa_c) - 1,
+                                    2 * abs(kappa_d) - 1)
+
+
+@pytest.mark.snapshot
 @pytest.mark.parametrize("spec_a,spec_b,tag", PAIR_CASES)
 @pytest.mark.parametrize("J2", [0, 2])
 def test_pair_channel_matches_oracle(spec_a, spec_b, tag, J2):
-    """a² ↔ b²: CSF element == FAC-ported determinant element (same grid)."""
+    """a² ↔ b²: CSF element == FAC-ported determinant element (same grid).
+
+    Snapshot-marked dead-code coverage: the helper under test lives only on
+    the unreachable ``_build_ci_matrix_approximate`` chain (module
+    docstring, audit F5).  The skip for an impossible ``J`` is decided from
+    the coupling rule *up front* — the old ``except AssertionError:
+    pytest.skip`` also swallowed ``_j2_check``, the oracle's own
+    ``<J^2> = J(J+1)`` self-check, turning a broken state construction into
+    green skips.
+    """
+    if not _equivalent_J2_allowed(spec_a[1], J2):
+        pytest.skip(f"{tag}: j^2 cannot couple to J={J2}")
     r = make_fine_grid(40.0, 3.0, max_points=20000)
     dr = np.gradient(r)
-    try:
-        oracle, orbitals = _oracle_pair(r, dr, spec_a, spec_b, J2)
-    except AssertionError:
-        pytest.skip(f"{tag}: J={J2} not allowed for this pair")
+    oracle, orbitals = _oracle_pair(r, dr, spec_a, spec_b, J2)
     assert abs(oracle) > 1e-6, f"{tag}: oracle ~0, test would be vacuous"
 
     workspace = GridCIWorkspace(r, dr, np.zeros_like(r))
@@ -232,16 +267,19 @@ SPLIT_CASES = [   # ((n, kappa)_a, (n, kappa)_c, (n, kappa)_d, label)
 ]
 
 
+@pytest.mark.snapshot
 @pytest.mark.parametrize("spec_a,spec_c,spec_d,tag", SPLIT_CASES)
 @pytest.mark.parametrize("J2", [0, 2])
 def test_split_channel_matches_oracle(spec_a, spec_c, spec_d, tag, J2):
-    """a² ↔ c¹d¹: CSF element == FAC-ported determinant element."""
+    """a² ↔ c¹d¹: CSF element == FAC-ported determinant element.
+
+    Snapshot-marked dead-code coverage, as above.
+    """
+    if not _equivalent_J2_allowed(spec_a[1], J2):
+        pytest.skip(f"{tag}: a^2 cannot couple to J={J2}")
     r = make_fine_grid(40.0, 3.0, max_points=20000)
     dr = np.gradient(r)
-    try:
-        oracle, orbitals = _oracle_split(r, dr, spec_a, spec_c, spec_d, J2)
-    except AssertionError:
-        pytest.skip(f"{tag}: J={J2} not allowed")
+    oracle, orbitals = _oracle_split(r, dr, spec_a, spec_c, spec_d, J2)
     assert abs(oracle) > 1e-6, f"{tag}: oracle ~0, test would be vacuous"
 
     workspace = GridCIWorkspace(r, dr, np.zeros_like(r))
@@ -262,10 +300,19 @@ def test_rk_pairing_convention_bspline():
     ``R^k(ac, bd)``.  The grid branch used to pair (arg1, arg3) and
     (arg2, arg4) instead, so the two engines evaluated different integrals
     for the same call and the grid-flavour CI was wrong wherever an
-    off-diagonal element went through it.  Distinguishable random orbitals
-    make the two readings numerically different, so a regression cannot pass
-    silently (tests/test_ci_grid_kernel.py::test_rk_pairing_matches_gk pins
-    the grid side).
+    off-diagonal element went through it.
+
+    On the B-spline branch ``_rk`` *is* ``compute_slater_rk_cell(a, b, c, d)``
+    (``matrix._rk``), so comparing exactly those two calls is a delegation
+    check that cannot fail — the previous version of this test did that, and
+    that assertion is deleted.  The content is the pair-role identity:
+    ``_rk(a, b, a, b) = R^k(ab, ab) = G^k(a, b)``, whereas the (a, c)(b, d)
+    reading would give ``R^k(aa, bb) = F^k(a, b)``.  Both are evaluated
+    below (through the *different* ``_gk``/``_fk`` entry points, which pass
+    the orbitals to the kernel in a different order) and are 18-95x apart
+    for these orbitals, so the pairing cannot pass silently.  The grid
+    flavour of the same identity, against exact hydrogenic closed forms, is
+    in ``tests/test_ci_grid_kernel.py::test_rk_pairs_its_arguments_as_ab_cd``.
     """
     t = np.linspace(0.0, 40.0, 80)
     bsp = prepare_bspline_data(t, 30, 9)
@@ -273,78 +320,83 @@ def test_rk_pairing_convention_bspline():
     rng = np.random.default_rng(7)
     A = (rng.normal(size=ns), rng.normal(size=ns) * 0.02)
     B = (rng.normal(size=ns), rng.normal(size=ns) * 0.02)
-    C = (rng.normal(size=ns), rng.normal(size=ns) * 0.02)
-    D = (rng.normal(size=ns), rng.normal(size=ns) * 0.02)
 
     for k in (0, 1, 2):
-        got = _rk(A[0], A[1], B[0], B[1], C[0], C[1], D[0], D[1], bsp, k)
-        want = compute_slater_rk_cell(
-            A[0], A[1], B[0], B[1], C[0], C[1], D[0], D[1], bsp, k)
-        transposed = compute_slater_rk_cell(
-            A[0], A[1], C[0], C[1], B[0], B[1], D[0], D[1], bsp, k)
-        assert got == pytest.approx(want, rel=1e-12), (
-            f"k={k}: _rk does not pair (a,b)/(c,d)")
-        assert abs(got - transposed) > 1e-6 * max(1.0, abs(want)), (
-            f"k={k}: distinguishable orbitals did not separate the "
-            f"conventions")
+        got = _rk(A[0], A[1], B[0], B[1], A[0], A[1], B[0], B[1], bsp, k)
+        gk = _gk(A[0], A[1], B[0], B[1], bsp, k)
+        fk = _fk(A[0], A[1], B[0], B[1], bsp, k)
+        assert got == pytest.approx(gk, rel=1e-12), (
+            f"k={k}: _rk(a,b,a,b) = {got!r} is not R^k(ab,ab) = G^k = {gk!r}")
+        assert abs(got - fk) > 1e-6 * max(1.0, abs(gk)), (
+            f"k={k}: the (a,c)(b,d) reading F^k = {fk!r} is indistinguishable "
+            f"from _rk = {got!r}; the identity above is then vacuous")
 
 
-def test_be_2s2_2p2_pair_couples():
-    """Be 2s²/2p²: the ground state mixes with both 2p² jj pairs."""
-    from atomx import Atom
-
-    single = Atom(Z=4, configs=["1s2 2s2"])
-    single.solve()
-    e_hf = float(single.result.total_energy)
-
-    both = Atom(Z=4, configs=["1s2 2s2", "1s2 2p2"])
-    both.solve()
-    result = both.result
-    m0 = np.asarray(result.mixing_coefficients)[:, 0]
-
-    p_weight = float(np.sum(m0[1:] ** 2))
-    assert abs(m0[0]) == pytest.approx(0.944, abs=0.03), m0
-    assert p_weight == pytest.approx(0.108, abs=0.03), (
-        f"2p² admixture {p_weight:.4f} — pair channel not coupling")
-    assert float(np.sum(m0 ** 2)) == pytest.approx(1.0, abs=1e-8)
-
-    delta = e_hf - float(result.total_energy)
-    assert 0.02 < delta < 0.09, f"CI lowering {delta:.4f} Ha outside range"
-    assert float(result.total_energy) == pytest.approx(-14.6139, abs=0.002)
-
-
+@pytest.mark.snapshot
 def test_j2_pair_channel_moves_a_real_calculation():
-    """A J = 2 pair channel: C-like 2p²/3p², where 2p3/2² ↔ 3p3/2² couples."""
+    """A J = 2 pair channel: C-like 2p²/3p², where 2p3/2² ↔ 3p3/2² couples.
+
+    Snapshot-marked: the total energy is atomx's own recorded value
+    (including the Breit operator, which the 2026-09 audit's Breit-operator
+    migration is changing — the orchestrator owns that re-pin, not this
+    test).  The structural assertion (J = 2 CSFs present) is the part that
+    holds regardless.
+    """
     from atomx import Atom
 
-    atom = Atom(Z=6, configs=["1s2 2s2 2p2", "1s2 2s2 3p2"])
+    atom = Atom(Z=6, config=["1s2 2s2 2p2", "1s2 2s2 3p2"])
     atom.solve()
     result = atom.result
-    assert float(result.total_energy) == pytest.approx(-37.7211, abs=0.003)
+    # Re-pinned with the exact CI matrix (was -37.7211 with the old
+    # configuration-average kernel, which is a spurious 26 mHa gain: the
+    # matrix now matches the independent m-scheme oracle to 4e-14 at these
+    # converged orbitals, and the value sits just below the C HF energy as a
+    # single pair-channel admixture should).
+    # Re-pinned 2026-09-21 for the Gaunt Breit OPERATOR, now the default.
+    # The previous value encoded the scalar
+    # ``corrections.breit.compute_breit_energy``, which is ~3.0x too
+    # large against DBSR_HF (``dbsr_hf an=Z term=AV mbreit=1``): Ne
+    # 1s2 2s2 2p6 gives DBSR_HF 0.016643629692418 Ha, the Gaunt
+    # operator 0.017340 (+4.2%, its documented omitted retardation)
+    # and the scalar 0.050449 (3.03x); He 1s2 gives the same 3.01x, so
+    # the scalar's error is structure-independent.
+    assert float(result.total_energy) == pytest.approx(-37.7005, abs=0.003)
     labels = [c.label for c in result.csfs] if result.csfs else []
     assert any("[J=4/2]" in lab for lab in labels), (
         "expected J = 2 CSFs in this space")
 
 
+@pytest.mark.snapshot
 def test_split_channel_moves_a_real_calculation():
     """The a² ↔ c¹d¹ channel: C 2p² vs C 2p² + 3d¹4d¹.
 
     Both runs differ in orbital relaxation as well, so this is an
     "is the channel doing something physical and bounded" gate; the exact
-    angular algebra is pinned by the oracle comparisons above.
+    angular algebra is pinned by the oracle comparisons above.  The total
+    energy is snapshot-marked (atomx's own value, Breit included).
     """
     from atomx import Atom
 
-    base = Atom(Z=6, configs=["1s2 2s2 2p2"])
+    base = Atom(Z=6, config=["1s2 2s2 2p2"])
     base.solve()
     e_base = float(base.result.total_energy)
 
-    atom = Atom(Z=6, configs=["1s2 2s2 2p2", "1s2 2s2 3d1 4d1"])
+    atom = Atom(Z=6, config=["1s2 2s2 2p2", "1s2 2s2 3d1 4d1"])
     atom.solve()
     result = atom.result
     e_split = float(result.total_energy)
 
-    assert e_split == pytest.approx(-37.7218, abs=0.003)
+    # Re-pinned with the exact CI matrix (was -37.7218); see the note in
+    # test_j2_pair_channel_moves_a_real_calculation.
+    # Re-pinned 2026-09-21 for the Gaunt Breit OPERATOR, now the default.
+    # The previous value encoded the scalar
+    # ``corrections.breit.compute_breit_energy``, which is ~3.0x too
+    # large against DBSR_HF (``dbsr_hf an=Z term=AV mbreit=1``): Ne
+    # 1s2 2s2 2p6 gives DBSR_HF 0.016643629692418 Ha, the Gaunt
+    # operator 0.017340 (+4.2%, its documented omitted retardation)
+    # and the scalar 0.050449 (3.03x); He 1s2 gives the same 3.01x, so
+    # the scalar's error is structure-independent.
+    assert e_split == pytest.approx(-37.7002, abs=0.003)
     lowering = e_base - e_split
     assert 0.0 < lowering < 0.05, (
         f"3d¹4d¹ admixture moved the energy by {lowering:.5f} Ha")
@@ -357,20 +409,81 @@ def test_split_channel_moves_a_real_calculation():
 
 
 def test_pair_channel_does_not_couple_incompatible_parity():
-    """A pair move that changes parity must stay uncoupled (block filter)."""
+    """A pair move that changes parity must be *exactly* uncoupled.
+
+    ``1s2 2s2`` (even) and ``1s2 2s1 2p1`` (odd) are connected by a
+    one-electron move that flips parity, which is a selection rule: the CI
+    matrix element must be identically zero.  The assertion here used to be
+    ``np.all(np.isfinite(energies))``, which would pass with the parity
+    filter deleted as long as nothing returned NaN.
+    """
+    from atomx import Atom
+    from atomx.methods.mcdhf.matrix import build_ci_matrix
+
+    both = Atom(Z=4, config=["1s2 2s2", "1s2 2s1 2p1"])
+    both.solve()
+    result = both.result
+    H = build_ci_matrix(result.csfs, result.orbitals_dict, None,
+                        result.bsp_data, result.Z, result.bsp_data["ns"])
+    csfs = result.csfs
+    cross = [(i, j) for i, a in enumerate(csfs) for j, b in enumerate(csfs)
+             if a.parity != b.parity]
+    assert cross, "fixture must contain CSFs of both parities"
+    worst = max(abs(float(H[i, j])) for i, j in cross)
+    assert worst == 0.0, (
+        f"parity-forbidden CI element is {worst!r}, not exactly zero")
+
+
+@pytest.mark.snapshot
+def test_be_2s2_2p2_pair_couples():
+    """Be 2s²/2p²: the ground state mixes with both 2p² jj pairs.
+
+    Snapshot-marked: the mixing weights (0.944 / 0.108) and the total
+    energy are atomx's own recorded output, not external numbers.  The
+    physics content is the *coupling* — a non-zero 2p² admixture, and a
+    lowering bounded away from zero — which the assertions below bracket.
+    """
     from atomx import Atom
 
-    both = Atom(Z=4, configs=["1s2 2s2", "1s2 2s1 2p1"])
+    single = Atom(Z=4, config=["1s2 2s2"])
+    single.solve()
+    e_hf = float(single.result.total_energy)
+
+    both = Atom(Z=4, config=["1s2 2s2", "1s2 2p2"])
     both.solve()
-    energies = np.asarray(both.result.state_energies)
-    assert np.all(np.isfinite(energies))
+    result = both.result
+    m0 = np.asarray(result.mixing_coefficients)[:, 0]
+
+    p_weight = float(np.sum(m0[1:] ** 2))
+    assert abs(m0[0]) == pytest.approx(0.944, abs=0.03), m0
+    assert p_weight == pytest.approx(0.108, abs=0.03), (
+        f"2p² admixture {p_weight:.4f} — pair channel not coupling")
+    assert float(np.sum(m0 ** 2)) == pytest.approx(1.0, abs=1e-8)
+
+    delta = e_hf - float(result.total_energy)
+    assert 0.02 < delta < 0.09, f"CI lowering {delta:.4f} Ha outside range"
+    # Re-pinned with the exact CI matrix (was -14.6139 with the old
+    # configuration-average kernel, which also put this space 2.6 mHa below
+    # the independent m-scheme oracle on identical orbitals).  The matrix
+    # built here now matches that oracle to 1e-14 at these converged
+    # orbitals, so the value is the exact Dirac-Coulomb CI energy of this
+    # 6-CSF space in these orbitals; the residual difference to the
+    # literature 2-configuration MCHF value (-14.6166, orbitals relaxed for
+    # that space) is an orbital-relaxation effect, not a matrix element.
+    # NOTE (2026-09 audit + Breit-operator migration): this total energy
+    # includes the Breit correction; if the Breit implementation changes,
+    # the orchestrator owns re-pinning this literal, not this test.
+    assert float(result.total_energy) == pytest.approx(-14.6115, abs=0.002)
 
 
+@pytest.mark.snapshot
 def test_spectator_guard_leaves_open_shell_parentage_alone():
     """With open spectators the active pair has no definite J.
 
     The element helper must decline (return 0) rather than apply the
-    closed-spectator formula where the parentage is unknown.
+    closed-spectator formula where the parentage is unknown.  Snapshot
+    marker: like the element-level tests above, this only reaches
+    ``_two_electron_replacement_element`` on the unreachable legacy chain.
     """
     csf = _CSF(total_J2=0, subshells=[_Sh(1, -1, 2.0), _Sh(2, -1, 1.0),
                                       _Sh(2, 1, 1.0), _Sh(3, -1, 2.0),

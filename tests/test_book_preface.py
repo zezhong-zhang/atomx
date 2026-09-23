@@ -37,7 +37,7 @@ def test_hydrogen_dirac_1s_eleven_digits():
     # state to eleven digits has no business computing tungsten."
     # Both engines must deliver the point-nucleus H 1s eigenvalue to 1e-11
     # relative against the Sommerfeld formula.
-    from atomx import Atom, Sampling
+    from atomx import Atom, Basis, Sampling
     from atomx.constants import ALPHA, C
 
     exact = C ** 2 * (np.sqrt(1.0 - ALPHA ** 2) - 1.0)  # -0.5000066565953 Eh
@@ -47,9 +47,13 @@ def test_hydrogen_dirac_1s_eleven_digits():
         # a publication-precision claim, not a default-grid smoke test:
         # keep the assertion engine-facing while selecting the documented
         # high-accuracy sampling tier explicitly.
-        result = Atom(Z=1, nuclear="point", numerics=numerics,
-                      breit=False, qed=False,
-                      sampling=Sampling.publication).solve()
+        result = Atom(
+                      Z=1,
+                      nuclear="point",
+                      engine=numerics,
+                      corrections="none",
+                      basis=Basis(sampling=Sampling.publication),
+                 ).solve()
         e = result.orbital_energies["1s1/2"]
         assert abs(e / exact - 1.0) < 1e-11, numerics
 
@@ -77,7 +81,7 @@ def test_bound_g_factor_atomx_vs_sturm2011():
     lit_rel = abs(g_exp - g_theory) / g_theory
     assert 1e-10 < lit_rel < 1e-9
 
-    atom = Atom(Z=14, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=14, config="1s1", engine="bspline", corrections="none")
     atom.solve()
     # Si nuclear rms charge radius ~3.12 fm (IAEA/CODATA-adjacent value).
     g_atomx = g_factor(atom._result, "1s1/2", R_rms_fm=3.12, include_fns=True).g_total

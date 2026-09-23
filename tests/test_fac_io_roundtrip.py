@@ -19,7 +19,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from atomx import Atom
+from atomx import Atom, Correlation
 from atomx.constants import HARTREE_EV
 from atomx.io import (
     read_ce,
@@ -111,8 +111,13 @@ def test_read_tra_he_plus():
 @pytest.fixture(scope="module")
 def li_like_atom():
     """Small Li-like atom that exercises both LEV and TR writers cheaply."""
-    a = Atom(Z=3, charge=0, configs=["1s2 2s1", "1s2 2p1"],
-             breit=False, qed=False, j_resolved_csfs=True)
+    a = Atom(
+             Z=3,
+             charge=0,
+             config=["1s2 2s1", "1s2 2p1"],
+             corrections="none",
+             correlation=Correlation(j_resolved_csfs=True),
+        )
     a.solve()
     return a
 
@@ -158,8 +163,13 @@ def fe17_atom():
         "1s2 2s1 2p6 3p1",
         "1s2 2s1 2p6 3d1",
     ]
-    a = Atom(Z=26, charge=16, configs=cfgs,
-             breit=False, qed=False, j_resolved_csfs=True)
+    a = Atom(
+             Z=26,
+             charge=16,
+             config=cfgs,
+             corrections="none",
+             correlation=Correlation(j_resolved_csfs=True),
+        )
     a.solve()
     return a
 

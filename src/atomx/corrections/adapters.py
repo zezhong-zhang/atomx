@@ -132,10 +132,18 @@ def _dirac_orbital_payload(result: "AtomicResult"):
 # ---------------------------------------------------------------------------
 
 class UehlingVPCorrection:
-    """Second-order Uehling vacuum-polarisation energy shift."""
+    """Second-order Uehling vacuum-polarisation energy shift.
+
+    ``description`` (a user-facing string) said ``K₁(2cr)`` until
+    2026-09 — the exact kernel defect fixed in ``200d657``, which made
+    the VP 3.9x too large.  The history is kept *here* rather than in
+    the string so that grepping the description for the kernel name
+    cannot turn up the wrong one; ``tests/test_qed.py`` gates it.
+    """
 
     name = "uehling_vp"
-    description = "Uehling VP  ⟨a|V_VP|a⟩ with V_VP = −(2Zα/3π)/r · K₁(2cr)."
+    description = ("Uehling VP  ⟨a|V_VP|a⟩ with V_VP = −(2Zα/3π)/r · I(2cr), "
+                   "I = the Uehling integral (kernel fixed in 200d657).")
 
     def supports(self, result: "AtomicResult") -> bool:
         return _has_bspline_dirac_data(result) or _has_radial_grid_data(result)
@@ -217,24 +225,68 @@ class SelfEnergyCorrection:
 # Breit interaction
 # ---------------------------------------------------------------------------
 
+class BreitCorrectionError(RuntimeError):
+    """The Breit correction was requested but cannot be applied.
+
+    Raised rather than substituting anything: the scalar
+    configuration-average Breit was removed in 2026-09 (3.03x DBSR_HF for
+    Ne), so there is no fallback left to fall back to.
+    """
+
+
 class BreitCorrection:
-    """Full Breit interaction energy (Grant–Pyper multipole expansion)."""
+    """The Breit interaction: fixed scalar here, Gaunt operator cross-check.
+
+    Both implementations are live and they are **complementary** (see
+    ``corrections/breit.py``):
+
+    * this rung *applies* ``corrections.breit.compute_breit_energy``, the
+      scalar configuration-average sum — the better closed-shell total
+      (He/Ne/Ar within 0.13 %/0.33 %/0.66 % of DBSR_HF) because it keeps
+      the ``v != L`` retardation channels;
+    * the method layer also stashes the exact Gaunt operator's value for
+      the same orbitals (``breit_ci.attach_breit_operator_energy`` ->
+      ``result._E_Breit_operator``), which is what the MCDHF route uses
+      because it carries the non-scalar content that splits levels.  It
+      is reported here as a cross-check: the two share no angular kernel,
+      so their agreement is independent evidence, and their difference
+      should be the documented omitted retardation (4-6 % at Ne/Ar).
+
+    Neither is silently substituted for the other.
+    """
 
     name = "breit"
-    description = "Full Breit interaction (magnetic + retardation)."
+    description = ("Breit interaction: scalar configuration-average "
+                   "Grant-Pyper sum (v=L with 1/(2L+1)); Gaunt operator "
+                   "cross-check on the same orbitals.")
 
     def supports(self, result: "AtomicResult") -> bool:
         return _has_bspline_dirac_data(result) or _has_radial_grid_data(result)
 
     def evaluate(self, result: "AtomicResult", **_: Any) -> CorrectionResult:
-        from atomx.corrections.breit import compute_breit_energy
+        from atomx.corrections.breit import (
+            SCALAR_BREIT_NOTE,
+            compute_breit_energy,
+        )
 
         orbitals, workspace = _dirac_orbital_payload(result)
         E = float(compute_breit_energy(orbitals, workspace, result.Z))
+        operator = result.__dict__.get("_E_Breit_operator")
+        provenance = {
+            "reference": "Grant & Pyper, J.Phys.B 9, 761 (1976)",
+            "implementation": "corrections/breit.py scalar AOC "
+                              "(v=L normalised by 1/(2L+1))",
+            "externally_validated": True,
+            "validation": SCALAR_BREIT_NOTE,
+        }
+        if operator is not None:
+            provenance["gaunt_operator_cross_check"] = float(operator)
+            provenance["operator_vs_scalar_ratio"] = (
+                float(operator) / E if E else None)
         return CorrectionResult(
             name=self.name,
             energy_shift=E,
-            provenance={"reference": "Grant & Pyper, J.Phys.B 9, 761 (1976)"},
+            provenance=provenance,
         )
 
 
@@ -246,7 +298,8 @@ class NormalMassShiftCorrection:
     """Breit–Salpeter normal mass-shift correction."""
 
     name = "nms"
-    description = "Normal mass shift  ΔE = −(m_e/M)·⟨T_e⟩ (virial estimator)."
+    description = ("Normal mass shift  ΔE = +⟨T_e⟩/M = −E_total/M "
+                   "(virial estimator, M in electron masses).")
 
     def __init__(self, nuclear_mass_me: float):
         if nuclear_mass_me <= 0.0:
@@ -261,13 +314,17 @@ class NormalMassShiftCorrection:
     def evaluate(self, result: "AtomicResult", **_: Any) -> CorrectionResult:
         from atomx.properties.isotope_shift.mass_shift import normal_mass_shift
 
+        # ``normal_mass_shift`` takes the nuclear mass as ``mass_me`` and
+        # returns a ``MassShift`` dataclass; this call previously passed a
+        # nonexistent ``nuclear_mass_me`` keyword and then ran ``float()``
+        # on the dataclass, so it raised TypeError for every caller.
         shift = normal_mass_shift(
             total_energy=result.total_energy,
-            nuclear_mass_me=self._M,
+            mass_me=self._M,
         )
         return CorrectionResult(
             name=self.name,
-            energy_shift=float(shift),
+            energy_shift=float(shift.E_NMS_Ha),
             provenance={
                 "estimator": "virial theorem ⟨T_e⟩ = −E_total",
                 "nuclear_mass_me": self._M,
@@ -276,6 +333,7 @@ class NormalMassShiftCorrection:
 
 
 __all__ = [
+    "BreitCorrectionError",
     "UehlingVPCorrection",
     "WichmannKrollVPCorrection",
     "SelfEnergyCorrection",

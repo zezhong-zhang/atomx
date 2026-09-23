@@ -18,6 +18,7 @@ from dataclasses import dataclass
 from math import comb
 from typing import List, Tuple
 
+from atomx.config.parsing import parse_nr_shells
 from atomx.methods.dirac_fock import Subshell
 
 
@@ -53,16 +54,10 @@ def generate_jj_average(config_str: str,
     # 1 = equal, 5 = statistical) used by the enumeration below.
     eal = {"equal": 1, "statistical": 5}[averaging]
 
-    l_map = {'s': 0, 'p': 1, 'd': 2, 'f': 3, 'g': 4, 'h': 5}
-
-    # Parse into non-relativistic shells
-    nr_shells = []
-    for token in config_str.strip().split():
-        n = int(token[0])
-        l_char = token[1]
-        l = l_map[l_char]
-        q = int(token[2:])
-        nr_shells.append((n, l, q))
+    # Parse into non-relativistic shells (shared parser — handles
+    # multi-digit n, implicit unit occupations, and malformed tokens;
+    # subsumes the HYP-1785 inline-regex fix that shipped as #84).
+    nr_shells = parse_nr_shells(config_str)
 
     # For each shell, determine the j-subshell occupations
     # s-orbitals (l=0): only j=1/2, no splitting needed

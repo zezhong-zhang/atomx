@@ -36,7 +36,7 @@ def test_hydrogen_total_g_close_to_experiment():
 def test_he_plus_scf_matches_hydrogenic():
     """SCF orbital g-factor for hydrogen-like He⁺ matches the
     closed-form Breit-Margolis value."""
-    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", engine="bspline", corrections="none")
     atom.solve()
     g_orb = g_factor_orbital(atom._result, "1s1/2")
     g_hyd = g_factor_dirac_hydrogenic(2, 1, -1)
@@ -44,7 +44,7 @@ def test_he_plus_scf_matches_hydrogenic():
 
 
 def test_g_factor_top_level():
-    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", engine="bspline", corrections="none")
     atom.solve()
     r = g_factor(atom._result, "1s1/2", R_rms_fm=1.6, include_fns=True)
     assert isinstance(r, GFactorResult)
@@ -60,14 +60,14 @@ def test_fns_zero_for_p_states():
 
 
 def test_g_factor_unknown_label_raises():
-    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", engine="bspline", corrections="none")
     atom.solve()
     with pytest.raises(KeyError):
         g_factor(atom._result, "99x9/2", R_rms_fm=1.6)
 
 
 def test_g_factor_fns_requires_radius():
-    atom = Atom(Z=2, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s1", engine="bspline", corrections="none")
     atom.solve()
     with pytest.raises(ValueError, match="R_rms_fm"):
         g_factor(atom._result, "1s1/2", include_fns=True)

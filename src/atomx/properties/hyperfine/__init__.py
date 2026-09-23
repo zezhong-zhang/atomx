@@ -3,7 +3,12 @@
 For a single Dirac orbital with quantum number κ, j the magnetic-dipole
 hyperfine constant is
 
-    A_nj = 2 α g_I (m_e/m_p) · [κ / j(j+1)] · ⟨P Q / r²⟩     [Hartree]
+    A_nj = α g_I (m_e/m_p) · [κ / j(j+1)] · ⟨P Q / r²⟩     [Hartree]
+
+(with no factor 2: for I = j = 1/2 this A *is* the F=1 ↔ F=0 splitting,
+ΔE_HFS = A.  A factor 2 belongs only to the H = 2A I·J convention;
+atomx uses H = A I·J — see
+:mod:`atomx.properties.hyperfine.dipole`, review 2026-09-19 finding M9.)
 
 with ``⟨P Q / r²⟩ = ∫ P(r) Q(r) / r² dr`` the hyperfine radial integral
 over the large (P) and small (Q) Dirac components, and ``g_I = μ_I / I``

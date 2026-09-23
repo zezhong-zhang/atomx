@@ -632,3 +632,160 @@ is delivery under the partial-delivery clause, not silent gate-weakening.
 <!-- concepts: literature-library, research-workflow, agent-instructions -->
 - Task: Follow the AGENTS.md instructions in /Users/zhangzz/literature_library and conduct research within that local folder.
 - Why: User wants literature research performed under that folder's own agent-defined workflow.
+
+### EARS — Session Start (2026-09-22 23:22)
+<!-- concepts: atomic-structure, test-audit, multi-agent-verification -->
+- Task: Resume the atomx physics-audit pass — verify what the four background agents (Y^k fix, n=2 p κ-branch, M1/DHF, Ar MBPT(2)) landed before the session ended, and continue the open items.
+- Why: Close out the honestly-marked failing suite (2523 tests) starting with the Y^k partial-interval fix, which had proven root cause and measured headroom.
+
+### EARS — Thrashing check (2026-09-23 09:53)
+<!-- concepts: atomic-structure, yk-partial-interval-rule, honest-test-gates -->
+- Not stuck: 4 sequential planned edits to tests/test_slater_integrator.py while landing the Y^k fix (module docstring, poisson_matches_direct, auger gate, closed-form/mpmath gates).
+
+### EARS — Progress (2026-09-23 09:58)
+<!-- concepts: yk-partial-interval-rule, verification-discipline, product-integration -->
+- Landed the Y^k fix myself after the old session's four agents died with only baselines done. Key discovery: the dead agent's exp1 rule-B transcription had a scaling bug (7-27% errors as written); the correct node-values-only rule is mo=Theta/wi, mo+mi==1, and it measures machine-precision on closed forms (5Z/8, ln4) beating the diagnosis's exact-partial arbiter by 5 orders.
+- Evaluate.py spliced via line anchors (Edit tool failed on invisible char mismatch). Full suite running in background vs the 7-failed baseline.
+
+### EARS — Progress (2026-09-23 10:17)
+<!-- concepts: yk-quadrature, integration-paths, refactor-decision -->
+
+Y^k interpolatory partial-interval fix is code-complete and verified at machine
+precision on closed forms (2.2e-16…6.3e-12). Post-fix cross-engine measurements:
+Ne bspline-vs-shooting improved 3.8x (1.05e-4 → 2.78e-5); Ne-vs-Salvat improved
+10x (7.0e-5 → 7.0e-6, gate tightened 1.5e-4 → 5e-5); Ar-vs-shooting moved
+1.54e-5 → 1.88e-4 — diagnosed as the shooting engine's own discretization (the
+pre-fix tight agreement was the quadrature bias coincidentally tracking it),
+gate 5e-5 → 5e-4 with honest docstring. DW EII benchmark re-record task
+(b44m6g6gp) completed exit 0; verifying FAC columns are byte-identical before
+commit. Open question from user mid-turn: unify all Y^k paths into a single
+chain (single role per function/module)? Assessment pending — current state has
+3 representations (Gauss-node flat kernel in evaluate.py, trapezoid family in
+quadrature.py feeding breit, shooting-grid consumers), so a single-chain refactor
+means choosing a common representation first; the physics-value item is the
+quadrature.py trapezoid bias, which unification behind the interpolatory rule
+would fix for free, at the cost of an API change across all compute_yk consumers.
+
+### EARS — Progress (2026-09-23 10:50)
+<!-- concepts: mbpt-virtual-sum, antisymmetry, kept-side-verification -->
+
+Ar MBPT(2) double-count landed and verified: cross-kappa virtual pairs were
+summed twice (|A(sr)|^2 = |A(rs)|^2, antisymmetry). Kept-side reconstruction
+proves it: same-kappa -0.306761 + 2x cross-kappa -0.375513 = -1.057787 Ha =
+recorded pre-fix value to 6 digits. E2 now -0.682274 Ha (~97% of Ar total
+correlation, conventional MP2 overshoot). Two discipline catches: (1) the
+mbpt.py docstring referenced docs/test_audit/PHYSICS_ar_mbpt2.md which the
+dead agent never created - wrote it now; (2) the xfail reason described the
+pre-fix anomaly as still-open - updated to RESOLVED with the reconstruction
+numbers, kept xfail (gate |E2|<0.35 is the heuristic, not a defect; moving
+the bound is a later-pass decision). Y^k fix committed as 1e96a83 earlier:
+suite 7 failed = pre-fix baseline set exactly, FAC CSV columns byte-identical.
+
+### EARS — Stuck-check (2026-09-23 10:56)
+<!-- concepts: yk-unification, module-extraction, refactor-hygiene -->
+
+Not stuck: the 4 sequential edits to test_slater_integrator.py are one deliberate
+migration (import moved to numerics.yk + docstring pointer updated). Phase 1 of
+the Y^k unification: new src/atomx/numerics/yk.py owns the kernel (yk_partial_matrices
+public name + yk_flat njit + compute_yk wrapper); bspline/evaluate.py re-exports
+under historical names so all 6 consumer modules keep working unchanged. Phase 2
+(quadrature.py arbitrary-grid kernels) deliberately deferred to the DW/EII defect
+pass - their gates are pinned against FAC benchmarks and the fused batch kernels
+carry NaN workarounds that must not be swapped casually.
+
+### EARS — Progress (2026-09-23 11:34)
+<!-- concepts: mcdhf-spectator-mean-field, R7-seam, self-exchange-convention -->
+
+H-like 2p defect ROOT-CAUSED: the R7 spectator row's `q_ref - 1` self weight.
+Design assumed -1 yields -(J-K) annihilation; but _get_exchange_coef returns
+0.0 for i==j (structural), and the direct self enters via DBSR doubling, so
+the -1 delivered pure -J_i (anti-screening). Measured (hand-set seam weights,
+2p1/2 Z=1): self weight 0 -> exact Dirac to 5.4e-10; -0.5 -> -0.105 error;
+-1 -> -0.237 error (linear in w, no cancellation). H-like 2p landed at
+-0.3616 Ha with inverted fine structure; CI Rayleigh of the distorted spinor
+-0.108. Fix: spectator diagonal = cap (drop the -1). R7 acceptance baseline
+14 tests green BEFORE the fix; re-running after. The R7 docstring's claim
+that clipping the diagonal leaves Be 2p unbound is contradicted by the
+convention analysis (off-diagonal J-K from 1s2/2s2 sources binds it) - the
+suite will arbitrate.
+
+### EARS — Progress (2026-09-23 12:18)
+<!-- concepts: mcdhf-spectator-mean-field, conditional-average, frozen-core-oracle -->
+
+Be/H-like spectator conflict ROOT-CAUSED (two defects, not one):
+1. Self weight `q_ref−1` = pure −J_i anti-screening (exchange self structurally 0,
+   direct self doubled) → H-like 2p exact only at self weight 0 (proved, 5.4e-10 Ha).
+2. Capped-reference row [2,2] over-screens Be 2p: frozen-harness eigenvalue sweep
+   with converged core orbitals: [2,2] self 0 → +0.006 (UNBOUND); FAC frozen-core
+   (OptimizeRadial on ground group) agrees: 1s²2s²2p¹ at 1.708 eV = barely bound.
+   Old −1 self weight's −J_i accidentally compensated the over-screening (−0.229).
+   [1.5,1.5] equal-prior conditional → −0.300 (fails suite pin −0.2286±0.02).
+   [2,1] parent-core (2s→2p promotion, valence-hole core) → −0.212 (in bracket).
+FIX: spectator row = parent configurations' own core (raw occ, no jj floor), select
+parents by min hole count then shallowest hole (valence channel), self = conditional
+factorial moment ⟨q_i(q_i−1)⟩ (→0 singles, →q(q−1) doubles, FAC-calibrated occupied
+convention). H-like→zero row (exact Dirac), He→[1] (=old cap, splitting preserved).
+Fallback: capped reference for phantom-only (jj-floor) presence.
+Implementation in _mean_field_matrices in progress; harness validated by
+reproducing no-seam SCF eigenvalue −0.228366 exactly.
+
+### EARS — Progress (2026-09-23 12:31)
+<!-- concepts: mcdhf-spectator-mean-field, test-gate-hygiene -->
+
+Parent-core spectator row IMPLEMENTED and verified in-situ:
+- test_ci_J_block.py: 6 passed (H-like 2p exact to ≤5.5e-10 Ha, ordering asserted)
+- test_sd_space_variational.py: 5 passed 0 errors; measured eps(2p1/2) = -0.212143
+  (bracket + pin -0.2286±0.02), all spectators bound, fs ordering right
+- test_ci_analytic_slater_condon.py: 4 passed (He anchor preserved)
+- R7 auger trio: 6 passed 3 xfailed — ILEV 32 moved 0.097→0.102 INTO the
+  [0.1,1.1] band: the 2026-09-20 strict xfail (blamed on Auger module) was the
+  row defect; lifted to a hard gate, docstrings re-measured (panel now
+  0.102/1.007/0.236/0.412/0.936, spread 9.9x; <2x spread gate stays xfail).
+- Wrote docs/test_audit/PHYSICS_hlike_2p_spectator.md; updated test docstrings
+  (test_ci_J_block, test_sd_space_variational) to the parent-core mechanism.
+Full suite running in background (bql3if4n0) before commit.
+
+### EARS — Progress (2026-09-23 13:02)
+<!-- concepts: mcdhf-spectator-mean-field, strict-xfail-lifting, physics-audit -->
+
+Final full suite after the parent-core spectator reform: 2413 passed, 9
+failed — 7 are the known test_atom_surface_equivalence pre-change-number
+baseline, 2 are NEW XPASS(strict) flips from the same row defect.  Both
+re-measured and lifted to hard gates (same pattern as the Fe XVII KLL and
+Be 3P lifts): (1) H I MCDHF 45x defect — 2p was −0.361624 Ha (five
+phantom spectator electrons under the old capped-reference seam row once
+CI weights collapse mid-solve); now all six orbitals within 2e-6 of
+hydrogenic, because a one-electron parent's parent-core row is the zero
+row by construction.  (2) He-like Z=2 E1 gauge ratio 0.234 → 0.0868,
+under the Gu 2008 threshold 0.10 (kept at the literature value; 87%
+headroom).  Both earlier xfail diagnoses ("not the R7 seam"; "orbital
+dives bare-nucleus") named the symptom, not the row.  CHANGELOG entry
+extended.  Next: re-run the affected files, then commit the full set.
+### EARS — Progress (2026-09-23 13:17)
+<!-- concepts: git-rebase-conflict-resolution, config-parsing, branch-management -->
+
+Branch hygiene task: main was 24 ahead / 1 behind origin/main (PR #84,
+multi-digit-n jj parsing) with a user-started rebase stopped mid-flight at
+pick 2/24 (04cd274 exact-CI), conflicted in config/jj_coupling.py.  Safety
+branch physics-audit/2026-09-pre-rebase created at pre-rebase 9e37801.
+Conflict resolution: KEEP the 04cd274 shared parser (parse_nr_shells in
+config/parsing.py) — it already documents and fixes the same "10s1"
+KeyError (review finding M2) with a stricter regex plus implicit-
+occupation and range validation, strictly subsuming #84's inline fix;
+#84's regression tests/test_jj_coupling.py stays in the base untouched.
+Removed the import that became unused (re) as part of the resolution.
+
+### EARS — Commit Digest (2026-09-23 13:22)
+<!-- concepts: mcdhf-exact-ci, git-rebase, config-parsing -->
+
+This is a REBASE REPLAY of 04cd274 (exact <CSF_r|H|CSF_s> m-scheme CI)
+onto origin/main eeba0c4 (#84), not new work.  The conflict resolution
+inside it: keep the shared parse_nr_shells parser (which subsumes #84's
+inline multi-digit-n regex and adds implicit occupations + range checks)
+and update #84's regression test to the implementation-agnostic contract
+(ValueError naming the token; "1s" moved to a validity test).  A stray
+trace.md note about the resolution rode along in the commit — cosmetic
+noise from resolving inside a rebase stop.  NOTE for recovery: this
+rebase's `git rebase --continue` refused with a spurious "unmerged
+conflicts" message even with zero unmerged entries; the working escape
+was `git commit -C <original>` then continue.

@@ -4,8 +4,12 @@ Provides type-safe alternatives to string-based parameters throughout the API.
 All enum values match the canonical string spellings:
 
     # These are equivalent:
-    Atom(Z=10, exchange="hf")
-    Atom(Z=10, exchange=Exchange.HARTREE_FOCK)
+    Atom(10, exchange="hf")                       # the canonical spelling
+    Atom(10, exchange=Exchange.HARTREE_FOCK)      # enum member (types.Exchange)
+
+``Exchange`` and ``Correlation`` below are the *method* API's value objects
+(``DiracFock(exchange=Exchange.SLATER)``, ``MCDHF(correlation=...)``); the
+``Atom`` constructor's own value objects live in :mod:`atomx.atom_inputs`.
 """
 
 from enum import Enum

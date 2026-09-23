@@ -34,7 +34,7 @@ from functools import lru_cache
 import numba as nb
 import numpy as np
 
-C_SQ = 137.0359990836 ** 2
+from atomx.constants import C_SQ  # CODATA-2022 c² (was a stale 2018 literal)
 
 
 class GridResourceError(RuntimeError):

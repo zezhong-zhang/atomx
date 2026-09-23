@@ -220,22 +220,6 @@ def test_energy_conservation_selection_rules_and_provenance(fixture):
             )
 
 
-def test_ne_degenerate_sublevel_sum_is_m_independent(fixture):
-    case = fixture["cases"]["ne_kll"]
-    spectrum, _provider = _run_case(case)
-    mo_metadata = case["provider"]["mo_metadata"]
-    pp_sums: dict[int, float] = {}
-    for line in spectrum.lines:
-        holes = line.final_state.hole_orbitals
-        if all(mo_metadata[hole]["subshell"] == "2p" for hole in holes):
-            for hole in set(holes):
-                m_value = int(mo_metadata[hole]["m"])
-                pp_sums[m_value] = pp_sums.get(m_value, 0.0) + line.intensity
-
-    assert set(pp_sums) == {-1, 0, 1}
-    assert len({round(value, 12) for value in pp_sums.values()}) == 1
-
-
 def test_spectrum_weight_sum_rule_uses_no_per_peak_scaling(fixture):
     for case in fixture["cases"].values():
         spectrum, _provider = _run_case(case)

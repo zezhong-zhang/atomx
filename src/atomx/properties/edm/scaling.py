@@ -61,8 +61,13 @@ def electron_edm_enhancement_sandars(
         R_e ≈ 10 · α² · Z³ · n_eff / (J·(J+1)·(2 L + 1))
 
     For a Cs-like alkali (Z=55, n_eff ≈ 1.9, J=1/2, L=0) this gives
-    R_e ≈ 80 — comparable to the modern MBPT value of 120 within
-    the documented factor-of-2 accuracy of this formula.
+    R_e = 224.45 (10 α² Z³ n_eff / (J(J+1)(2L+1)) with the shipped
+    CODATA α) — 1.87x the modern MBPT value of 120 (Liu & Kelly 1992),
+    i.e. inside the documented factor-of-2 accuracy of this formula.
+    (This docstring printed "R_e ≈ 80" until 2026-09-25: 80 is what the
+    wrong denominator 2J+1 = 2 instead of J(J+1) = 0.75 produces,
+    224.45 × 0.75/2 = 84.2.  The code and the formula above were
+    consistent with each other; only the worked example was wrong.)
 
     Parameters
     ----------

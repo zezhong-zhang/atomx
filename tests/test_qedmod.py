@@ -52,11 +52,17 @@ class TestBackendRegistry:
 
 class TestMohrBackwardCompat:
     def test_hydrogenic_1s_matches_reference(self):
-        """F(Zα=α) × α(Zα)^4/(πn^3 α²)  with F=10.3169 for Z=1."""
+        """F(Zα=α) × α(Zα)^4/(πn^3 α²)  with F=10.31679 for Z=1.
+
+        ``10.31679`` is FAC ``_qed_se0[0][0]`` — the point-nucleus 1s
+        self-energy function at Z=1, independently reproduced by the
+        published Zα expansion (see tests/test_qed_uehling.py and
+        docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md C2).
+        """
         orbs = [(np.zeros(10), np.zeros(10), 1, -1, "1s1/2")]
         E = compute_se_energy(orbs, Z=1, method="mohr")
-        # Analytic: α³ × 10.3169 / π
-        expected = ALPHA ** 3 * 10.3169 / np.pi
+        # Analytic: α³ × 10.31679 / π
+        expected = ALPHA ** 3 * 10.31679 / np.pi
         assert pytest.approx(expected, rel=1e-10) == E
 
     def test_default_method_is_mohr(self):
@@ -333,13 +339,26 @@ class TestHydrogenicDiracReference:
 
 
 class TestMohrN3Table:
-    def test_n3_s_state_interpolated(self):
-        """New Mohr table entries for n=3 s-state: Z=10 should give
-        F ≈ 11.79 (between 1s=11.68 and 2s=11.87)."""
+    def test_n3_s_state_matches_fac_sd_table(self):
+        """3s at Z=10: F = 4.9524 (FAC ``_sd`` row ``3s+``, node Z=10).
+
+        The n=3..5 rows now come from FAC's ``_sd`` table, which carries
+        the full ``l``/``j`` dependence.  The old code returned
+        ``F(1s)/n³ = 11.68/27 = 0.43`` here and 11.79 for the
+        (non-existent) n=3 1s-scaled entry — off by 2 orders of magnitude
+        and with entirely the wrong Z-dependence.
+        """
         from atomx.corrections.qedmod.mohr import _interpolate_se_f
+        F_1s = _interpolate_se_f(10, 1, -1)
+        F_2s = _interpolate_se_f(10, 2, -1)
         F_3s = _interpolate_se_f(10, 3, -1)
-        # Our tabulated value at Z=10 for 3s
-        assert 11.0 < F_3s < 13.0
+        assert F_3s == pytest.approx(4.9524, rel=1e-3)
+        # F itself grows with n (the n^-3 in the prefactor dominates),
+        # but the *shift* n^-3 F must fall.
+        assert F_1s < F_2s < F_3s
+        assert F_1s / 1 ** 3 > F_2s / 2 ** 3 > F_3s / 3 ** 3
+        # And F must fall with Z at fixed n.
+        assert _interpolate_se_f(54, 3, -1) < _interpolate_se_f(10, 3, -1)
 
     def test_n3_p_states_small(self):
         """3p1/2 and 3p3/2 SE is small, of the right sign."""

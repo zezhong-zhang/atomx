@@ -80,7 +80,7 @@ EXC_RMS = 0.05
 EII_PER_POINT = 0.06
 EII_RMS = 0.035
 # Live-recompute reproducibility of the recorded atomx columns.
-EXC_ATOMX_REPRO = 0.05   # measured <= 2.6% (Z=54 snapshot drift)
+EXC_ATOMX_REPRO = 0.03   # tightened from 0.05; measured <= 2.6% (Z=54 drift)
 EII_ATOMX_REPRO = 1.0e-6  # measured <= 2e-8 (same-machine rerun)
 THRESHOLD_REPRO = 1.0e-3  # measured <= 1.2e-4
 
@@ -144,13 +144,12 @@ def live_eii() -> dict[tuple[int, float], dict]:
 
         charge = Z - int(spec["charge_offset"])
         atom = Atom(
-            Z=Z,
-            config=str(spec["ground"]),
-            charge=charge,
-            numerics="bspline",
-            breit=False,
-            qed=False,
-        )
+                    Z=Z,
+                    config=str(spec["ground"]),
+                    charge=charge,
+                    engine="bspline",
+                    corrections="none",
+               )
         atom.solve()
         threshold = _k_threshold_eV(atom)
         energies = np.asarray([threshold * f for f in EII_FACTORS], dtype=float)
@@ -195,11 +194,15 @@ def test_dw_eii_recorded_panel_structure(eii_csv):
 # live recompute: DW excitation
 # ---------------------------------------------------------------------------
 
-@pytest.mark.external_fac
+@pytest.mark.snapshot
 def test_dw_excitation_live_atomx_reproduces_recorded_columns(
     excitation_csv, live_excitation
 ):
     """Live atomx (bench settings) vs the recorded atomx + threshold columns.
+
+    ``snapshot`` (not ``external_fac``): the right-hand side is atomx's own
+    recorded output, not external data — the external FAC gate is
+    ``test_dw_excitation_fac_rms_gate`` below.
 
     Gate: per-point ≤ 5 % against the recorded ``omega_atomx`` (measured
     ≤ 2.6 %; the Z=54 snapshot is 2.2-2.6 % above the live value) and the
@@ -255,9 +258,12 @@ def test_dw_excitation_fac_rms_gate(excitation_csv, live_excitation):
 # live recompute: DW EII
 # ---------------------------------------------------------------------------
 
-@pytest.mark.external_fac
+@pytest.mark.snapshot
 def test_dw_eii_live_atomx_reproduces_recorded_columns(eii_csv, live_eii):
     """Live atomx (bench settings) vs the recorded atomx + threshold columns.
+
+    ``snapshot`` (not ``external_fac``): the right-hand side is atomx's own
+    recorded output; the external FAC gate is ``test_dw_eii_fac_rms_gate``.
 
     Gate: per-point ≤ 1e-6 against the recorded ``sigma_atomx_cm2`` (measured
     ≤ 2e-8) and the threshold within 0.1 % (measured ≤ 1.5e-8).

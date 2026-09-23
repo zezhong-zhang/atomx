@@ -22,14 +22,21 @@ References
   contribution.
 * Grant, I. P. (2007), *Relativistic Quantum Theory of Atoms and
   Molecules*, §8.4 — multipole rate formulas and gauge conventions.
-* Lin, C. D., Johnson, W. R., & Dalgarno, A. (1977), *Phys. Rev. A*
-  **15**, 154 — He-like M1 rates for ``2^3S_1 -> 1^1S_0``.
+* Crespo López-Urrutia, J. R., Beiersdorfer, P., Widmann, K., &
+  Savin, D. W. (1998), *Phys. Rev. A* **58**, 238 — measured lifetime
+  of the He-like O⁶⁺ 1s2s ³S₁ level, 956 (+5/−4) μs, i.e.
+  ``A(2^3S_1 -> 1^1S_0, M1) = 1046 (+4/−5) s^-1``.  This is the anchor
+  used for the He-like M1 benchmark below; the Lin-Johnson-Dalgarno
+  value of 7.0e6 s⁻¹ quoted here previously is inconsistent with that
+  measurement by ~700x and is no longer used.
 
 Bug context: pre-fix the M1 pipeline carried a stray /c in ``radial_mL``
 plus a missing /(2L+1) in ``angular_mL``, producing rates that were
 ~ c^2 / (2L+1)^2 = ~ 2000× too small at L=1. The fix here matches the
 Grant (2007) Eq. 8.4.17 / FAC ``TRRateMultipole`` convention.
 """
+
+import functools
 
 import numpy as np
 import pytest
@@ -50,6 +57,14 @@ from atomx.properties.transitions.multipole import (
     radial_mL,
 )
 from atomx.properties.transitions.rates import einstein_A_eL, einstein_A_mL
+
+#: Measured M1 rate of the He-like intercombination line
+#: (Crespo López-Urrutia et al., Phys. Rev. A 58, 238 (1998)):
+#: lifetime 956 (+5/-4) us -> A(O6+ 1s2s 3S1 -> 1s^2 1S0) = 1046 (+4/-5) s^-1.
+O6PLUS_M1_RATE_PER_S = 1046.0
+#: The same measured rate taken to Z=10 by the M1 Z^10 law,
+#: 1046 * (10/8)^10 = 9.74e3 s^-1 (clean-room FAC 1.1.5 gives 9458.4).
+NE9_M1_RATE_FROM_O6PLUS = O6PLUS_M1_RATE_PER_S * (10.0 / 8.0) ** 10
 
 
 def _solve_hlike(Z, kappa, n_idx, ns=80, ks=9, r_max=None, kb=True):
@@ -374,17 +389,13 @@ class TestM1FineStructure:
     order for M1 within the same shell.
     """
 
-    @pytest.mark.parametrize("Z", [2, 5, 10])
-    def test_M1_fs_rate_positive(self, Z):
-        """M1 2p₃/₂→2p₁/₂ rate is positive and physically reasonable."""
-        P_lo, Q_lo, bsp, E_lo = hydrogenic_dirac_wavefunction(2, 1, Z)
-        P_up, Q_up, _, E_up = hydrogenic_dirac_wavefunction(2, -2, Z)
-        omega = abs(E_up - E_lo)
-        R = radial_mL(P_up, Q_up, P_lo, Q_lo, bsp, L=1)
-        ang = angular_mL(-2, 1, L=1)
-        S = (ang * R) ** 2
-        A = einstein_A_mL(omega, S, L=1, tj_i=3)
-        assert A > 0
+    # Audit S4 finding 24: ``test_M1_fs_rate_positive`` (Z=2, 5, 10) asserted
+    # only ``A > 0`` — which the pre-fix M1 rate, 2000x too small (see the
+    # module docstring), also satisfied.  Deleted rather than re-asserted:
+    # the absolute scale of this channel's machinery is pinned by
+    # ``test_M1_hlike_2s_to_1s_drake`` (Drake 1971, B-class) and by
+    # ``test_M1_fs_Z12_scaling`` below, whose 5x Z-ratio test no scale
+    # error can fake.
 
     def test_M1_fs_Z12_scaling(self):
         """Rate scales as ~Z^12 for the fine-structure transition."""
@@ -453,76 +464,151 @@ class TestE2AdditionalChannels:
 class TestHeliumLikeM1:
     """He-like 1s2s → 1s² M1 benchmark via MCDHF.
 
-    The M1 transition 2³S₁ → 1¹S₀ in He-like ions is well-studied.
-    The single-config jj-coupling machinery does not produce proper
-    LS-coupled triplet/singlet states, but the MCDHF mixing coefficients
-    and one-body CSF coupling capture the multi-electron angular structure
-    well enough for a benchmark at the ~10 % level.
+    THE ANCHOR (re-derived 2026-09-25).  The measured rate for this
+    transition in the isoelectronic neighbour O⁶⁺ is
+    **A(1s2s ³S₁ → 1s² ¹S₀) = 1046 (+4/−5) s⁻¹**, from the measured
+    lifetime 956 (+5/−4) μs (Crespo López-Urrutia, Beiersdorfer, Widmann
+    & Savin, *Phys. Rev. A* **58**, 238 (1998)).  The M1 Z¹⁰ law puts that
+    at **9.74e3 s⁻¹ for Ne IX** (Z=10); an independent clean-room
+    FAC 1.1.5 run of the same config set gives **9458.4 s⁻¹** at
+    903.91 eV, and FAC's own M1 kernel reproduces the H-like
+    2s₁/₂ → 1s₁/₂ rate 2.4943e4 s⁻¹ (= Drake 1971's 2.5e-6 Z¹⁰) to
+    0.03 %, so the ~9.5e3 scale is not in doubt.
 
-    Reference: Lin, Johnson & Dalgarno (1977), Phys. Rev. A 15, 154.
-    At Z=10 (Ne IX): A(M1, 2³S₁ → 1¹S₀) ≈ 7.0 × 10⁶ s⁻¹ at 904.7 eV.
+    The class used to cite "Lin, Johnson & Dalgarno (1977) … A ≈ 7.0e6 s⁻¹
+    at Z=10".  That number is inconsistent with the 1998 measurement by
+    ~700x and is not used as an anchor here; the docstring that carried it
+    also claimed the tracer "has been at 3.94e6 all along", which the
+    measurements below contradict.
 
-    **Correction (2026-09-18).**  This class used to take the *largest* M1
-    rate in the CI space as "the" benchmark value.  In this CSF set the
-    largest rate belongs to a different transition near 1010 eV, so the
-    quoted "6.19e6 = 0.88 × Lin" was never the 2³S₁ → 1¹S₀ line.  Selected by
-    transition energy instead, the tracer sits at 3.94e6 s⁻¹ = **0.56 × Lin**,
-    and it has been at that value all along: 3.970e6 before the 2s²/2p²
-    configurations were added, 3.940e6 after (the pair channel changes it by
-    <1 %).  The literature comparison is therefore an explicit ``xfail``, and
-    the passing gate is a regression pin on the energy-selected tracer.
+    WHAT ATOMX GIVES.  The energy-selected tracer is 148x the anchor at
+    Z=10 (1.3997e6 vs 9.74e3), 355x at Z=8 (3.7178e5 vs the *measured*
+    1046) and 2441x at Z=6 (9.169e4 vs FAC 37.55), with the wrong
+    Z-dependence (atomx Ne/O = 3.77 against 9.31 from Z¹⁰ and 10.9 from
+    FAC).  The one-electron limit is sound — atomx reproduces Drake's
+    H-like 2s → 1s M1 rate to 0.2 % — so the defect is in the many-body M1
+    line strength of the jj-coupled CSF basis, not in the operator.
+
+    HISTORY.  The 3.94e6 this class pinned until 2026-09-25 (and the 6.19e6
+    before it) were outputs of the pre-``04cd274`` ``build_ci_matrix``,
+    which never evaluated ``<CSF_r|H|CSF_s>`` at all (configuration-average
+    diagonal plus ad-hoc J patches).  Re-pinning to 1.3997e6 would be
+    pinning the current, equally unvalidated output.  Both external gates
+    below are therefore ``xfail(strict=True)``: the He-like M1 rate is not
+    currently computable by atomx, and this is the loud record of that.
+
+    MECHANISM (measured, read-only diagnosis 2026-09-25).  The M1
+    amplitude is an (αZ)²-order cancellation residue of two ~2e-3 radial
+    integrals — ∫P_2s Q_1s r dr = −2.102121e-3 vs ∫Q_2s P_1s r dr =
+    +1.937630e-3.  The (1s, 2s) spinors the MCDHF hands to the kernel
+    cancel only to 7.83 % (residual −1.644909e-4) where the exact
+    hydrogenic Z=10 pair cancels to 0.598 % (−1.222498e-5, which through
+    the *same* kernel gives 2.5101e4 s⁻¹ = Drake's 2.5e-6 Z¹⁰), and the
+    residual is Z-independent (−2.217e-4 / −1.737e-4 / −1.645e-4 at
+    Z=6/8/10) where the physics requires R ∝ Z².  Two further defects sit
+    in the same path: ``calculator.py:693`` gives the
+    closed-shell-J=0 → one-electron-promoted channel a recoupling factor
+    √(2/3) where an independent m-scheme CG/3j check gives exactly 1 (1.5x
+    in the rate), and ``angular/csf.py:170-183`` builds the population
+    factor from the *initial* occupation, so the two-electron change
+    2s² → 1s2s gets a spurious 1.704971e6 s⁻¹ "M1" line at 1004.43 eV.
     """
 
     @pytest.mark.slow
-    def test_helike_M1_Z10(self):
-        """He-like M1 at Z=10 (Ne IX): pin the 2³S₁ → 1¹S₀ tracer.
+    @pytest.mark.xfail(strict=True, reason=(
+        "Ne IX 2^3S1 -> 1^1S0 M1: atomx gives 1.3997e6 s^-1 for the "
+        "energy-selected tracer (906.004 eV) against the external anchor "
+        "9.74e3 s^-1 (measured O6+ rate 1046 (+4/-5) s^-1, lifetime "
+        "956 (+5/-4) us, Crespo Lopez-Urrutia et al., PRA 58, 238 (1998), "
+        "scaled by the M1 Z^10 law; an independent clean-room FAC 1.1.5 run "
+        "gives 9458.4 s^-1 at 903.91 eV).  148x too large, and the "
+        "Z-dependence is wrong too (atomx Ne/O = 3.77 vs 9.31 for Z^10 and "
+        "10.9 for FAC).  The one-electron M1 limit is correct (atomx "
+        "reproduces Drake's H-like 2s1/2->1s1/2 2.5e-6 Z^10 to 0.2 %), so "
+        "the defect is the many-body M1 line strength of the jj-coupled "
+        "CSF basis, not the operator or prefactor.  The 3.94e6 previously "
+        "pinned here was the output of the pre-04cd274 configuration-"
+        "average CI matrix and is NOT restored (it is 400x the anchor)."))
+    def test_helike_M1_Z10_vs_measured_anchor(self):
+        """Ne IX tracer within 15 % of the measured-sequence M1 rate.
 
-        The transition is selected by *energy* (904.7 eV per Lin et al.), not
-        by ``max(A)`` — see the class docstring for why that mattered.
+        The transition is selected by energy (903.91 eV per FAC; the
+        measurement-derived value is ~904 eV), not by ``max(A)``.
         """
         he = _he_like_ne_m1()
         trs = [t for t in he.transitions(multipoles=["M1"])
                if t.A_rate_per_s > 1e4]
         assert trs, "Expected at least one strong M1 transition"
 
-        tracer = min(trs, key=lambda t: abs(t.energy_eV - 904.7))
-        assert abs(tracer.energy_eV - 904.7) < 10.0, (
+        tracer = min(trs, key=lambda t: abs(t.energy_eV - 903.91))
+        assert abs(tracer.energy_eV - 903.91) < 10.0, (
             f"no M1 transition near the 2³S₁ → 1¹S₀ energy: nearest is "
             f"{tracer.energy_eV:.1f} eV")
-        # Regression pin on atomx's own value (0.56 × Lin et al.).
-        assert tracer.A_rate_per_s == pytest.approx(3.94e6, rel=0.05), (
-            f"He-like M1 Z=10 tracer A={tracer.A_rate_per_s:.4e} "
-            f"(pinned 3.94e6, = {tracer.A_rate_per_s / 7.0e6:.3f} × Lin)")
+        assert pytest.approx(NE9_M1_RATE_FROM_O6PLUS, rel=0.15) == (
+            tracer.A_rate_per_s), (
+            f"Ne IX M1 tracer A = {tracer.A_rate_per_s:.4e} s^-1 vs the "
+            f"measured-sequence anchor {NE9_M1_RATE_FROM_O6PLUS:.4e} s^-1 "
+            f"({tracer.A_rate_per_s / NE9_M1_RATE_FROM_O6PLUS:.1f}x)")
 
     @pytest.mark.slow
-    @pytest.mark.xfail(
-        strict=False,
-        reason="atomx's jj-coupled MCDHF gives 0.56 × Lin et al. for the "
-               "2³S₁ → 1¹S₀ line (3.94e6 vs 7.0e6 s⁻¹); closing it needs the "
-               "full LS-coupled Breit–Pauli M1 operator. The previously "
-               "reported 0.88 × was a different transition (see class "
-               "docstring).",
-    )
-    def test_helike_M1_Z10_vs_lin(self):
-        """Literature gate: tracer within 15 % of Lin et al. (currently 44 %)."""
-        he = _he_like_ne_m1()
+    @pytest.mark.xfail(strict=True, reason=(
+        "O VII 2^3S1 -> 1^1S0 M1, the one point in this isoelectronic "
+        "sequence with a direct measurement: A = 1046 (+4/-5) s^-1 "
+        "(lifetime 956 (+5/-4) us, Crespo Lopez-Urrutia et al., PRA 58, 238 "
+        "(1998)).  atomx gives 3.7178e5 s^-1 for the energy-selected tracer "
+        "at 561.851 eV (FAC 1.1.5: 870.09 s^-1 at 559.94 eV) — 355x too "
+        "large.  Same root cause as the Z=10 case: the many-body M1 line "
+        "strength of the jj-coupled CSF basis (the one-electron M1 kernel "
+        "is validated against Drake 1971)."))
+    def test_helike_M1_O7_vs_measured_o6plus(self):
+        """O VII tracer against the *measured* O⁶⁺ M1 rate (no Z-scaling)."""
+        he = _he_like_o_m1()
         trs = [t for t in he.transitions(multipoles=["M1"])
-               if t.A_rate_per_s > 1e4]
-        tracer = min(trs, key=lambda t: abs(t.energy_eV - 904.7))
-        assert tracer.A_rate_per_s == pytest.approx(7.0e6, rel=0.15), (
-            f"A={tracer.A_rate_per_s:.4e} vs Lin 7.0e6 "
-            f"(ratio {tracer.A_rate_per_s / 7.0e6:.3f})")
+               if t.A_rate_per_s > 1e2]
+        assert trs, "Expected at least one M1 transition"
+
+        tracer = min(trs, key=lambda t: abs(t.energy_eV - 559.94))
+        assert abs(tracer.energy_eV - 559.94) < 10.0, (
+            f"no M1 transition near the 2³S₁ → 1¹S₀ energy: nearest is "
+            f"{tracer.energy_eV:.1f} eV")
+        assert pytest.approx(O6PLUS_M1_RATE_PER_S, rel=0.15) == (
+            tracer.A_rate_per_s), (
+            f"O VII M1 tracer A = {tracer.A_rate_per_s:.4e} s^-1 vs the "
+            f"measured O6+ {O6PLUS_M1_RATE_PER_S:.1f} s^-1 "
+            f"({tracer.A_rate_per_s / O6PLUS_M1_RATE_PER_S:.0f}x)")
 
 
+@functools.lru_cache(maxsize=1)
 def _he_like_ne_m1():
-    """Solved He-like Ne (Z=10, H-like core + 2 electrons) for the M1 gate."""
-    from atomx import Atom
+    """Solved He-like Ne (Z=10, charge=8) for the M1 gate."""
+    from atomx import Atom, Basis
 
-    he = Atom(Z=10, charge=8,
-              configs=["1s2", "1s1 2s1", "2s2", "2p2"], ns=60, ks=9)
+    he = Atom(
+              Z=10,
+              charge=8,
+              config=["1s2", "1s1 2s1", "2s2", "2p2"],
+              basis=Basis(ns=60, ks=9),
+         )
     he.solve(max_iter=80, tol=1e-4)
     if not he.converged:
         pytest.skip("He-like Z=10 MCDHF did not converge")
+    return he
+
+
+@functools.lru_cache(maxsize=1)
+def _he_like_o_m1():
+    """Solved He-like O (Z=8, charge=6) — the measured point of the sequence."""
+    from atomx import Atom, Basis
+
+    he = Atom(
+              Z=8,
+              charge=6,
+              config=["1s2", "1s1 2s1", "2s2", "2p2"],
+              basis=Basis(ns=60, ks=9),
+         )
+    he.solve(max_iter=80, tol=1e-4)
+    if not he.converged:
+        pytest.skip("He-like Z=8 MCDHF did not converge")
     return he
 
 
@@ -539,8 +625,9 @@ class TestHeliumLikeE2:
 
     Limitation: the jj-coupled MCDHF states do not correspond to clean
     LS terms (³D₂ vs ¹D₂), so the benchmark verifies the total E2 rate
-    is of the correct order and the gauge ratio is reasonable (>0.9 for
-    the strong channels).
+    is of the correct order and that the gauge ratio is within 10 % of
+    unity for the strong channels (the old one-sided ``> 0.9`` accepted a
+    velocity rate 1000x the length rate).
     """
 
     @pytest.mark.slow
@@ -550,8 +637,8 @@ class TestHeliumLikeE2:
         The hydrogenic E2 3d→1s rate at Z=10 is ~6×10⁸ s⁻¹; the He-like
         rate includes screening corrections and multi-electron coupling.
         """
-        from atomx import Atom
-        he = Atom(Z=10, charge=8, configs=["1s2", "1s1 3d1"], ns=80, ks=9)
+        from atomx import Atom, Basis
+        he = Atom(Z=10, charge=8, config=["1s2", "1s1 3d1"], basis=Basis(ns=80, ks=9))
         he.solve(max_iter=80, tol=1e-4)
         if not he.converged:
             pytest.skip("He-like Z=10 MCDHF did not converge")
@@ -569,9 +656,15 @@ class TestHeliumLikeE2:
     @pytest.mark.slow
     def test_helike_E2_Z10_gauge_ratio(self):
         """He-like E2 at Z=10: gauge ratio for the dominant transition
-        should be > 0.9 (single-config MCDHF basis quality check)."""
-        from atomx import Atom
-        he = Atom(Z=10, charge=8, configs=["1s2", "1s1 3d1"], ns=80, ks=9)
+        must be within 10 % of unity (single-config MCDHF basis quality
+        check).
+
+        ``gauge_ratio`` is ``A_velocity / A_length``
+        (``src/atomx/properties/transitions/calculator.py:103``); the old
+        gate ``> 0.90`` accepted a velocity rate 1000x the length rate.
+        """
+        from atomx import Atom, Basis
+        he = Atom(Z=10, charge=8, config=["1s2", "1s1 3d1"], basis=Basis(ns=80, ks=9))
         he.solve(max_iter=80, tol=1e-4)
         if not he.converged:
             pytest.skip("He-like Z=10 MCDHF did not converge")
@@ -581,6 +674,6 @@ class TestHeliumLikeE2:
         assert len(strong) >= 1
 
         for t in strong:
-            assert t.gauge_ratio > 0.90, (
-                f"E2 gauge ratio too low: {t.gauge_ratio:.4f} "
-                f"for {t.initial_label}->{t.final_label}")
+            assert abs(t.gauge_ratio - 1.0) < 0.10, (
+                f"E2 gauge ratio {t.gauge_ratio:.4f} more than 10 % from "
+                f"unity for {t.initial_label}->{t.final_label}")

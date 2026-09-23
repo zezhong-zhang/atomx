@@ -3,17 +3,29 @@
 from __future__ import annotations
 
 
-def test_mohr_table_values_are_stable():
-    """Mohr F(Zα) table values that were hard-coded in atomx ≤ 0.2
-    continue to match their original data module."""
-    from atomx.data.mohr_se import TABLE, Z_GRID
+def test_mohr_table_values_match_fac():
+    """``F(Zα)`` spot values against FAC ``faclib/coulomb.c``.
 
-    # Spot-check the endpoints and a few interior values.
-    assert TABLE[(1, -1)][1] == 10.3169
-    assert TABLE[(1, -1)][92] == 21.6412
-    assert TABLE[(2, -1)][10] == 11.8666
-    assert TABLE[(3, -3)][92] == -0.038
-    assert Z_GRID == (1, 2, 5, 10, 20, 30, 40, 50, 60, 70, 80, 92)
+    This module used to pin the atomx <= 0.2 literals (``10.3169``,
+    ``21.6412``, ...).  Those agreed with the published hydrogenic
+    self-energy function only at Z=1 and had the wrong Z-dependence
+    everywhere else (2.5x at Z=10, 14.7x at Z=92), so "stability" here
+    meant "stays wrong".  The values are now FAC's, and the physics
+    gates live in ``tests/test_qed_self_energy_table.py``.
+    """
+    from atomx.data.mohr_se import SD_ROWS, SD_TABLE, SD_Z_GRID, TABLE, Z_GRID
+
+    assert TABLE[(1, -1)][1] == 10.31679          # FAC _qed_se0[0][0]
+    assert TABLE[(1, -1)][92] == 1.47251          # FAC _qed_se0[0][91]+se1
+    assert TABLE[(2, -1)][10] == 4.89439
+    assert len(Z_GRID) == 112 and Z_GRID[0] == 1 and Z_GRID[-1] == 120
+    # n=3..5 rows come from FAC _sd; 3d5/2 is positive, 3d3/2 negative.
+    i52 = SD_ROWS.index((3, -3))
+    i32 = SD_ROWS.index((3, 2))
+    assert SD_TABLE[i52][0] == 0.04
+    assert SD_TABLE[i32][0] == -0.044
+    assert SD_Z_GRID == (1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
+                         110, 115, 120)
 
 
 def test_mohr_interpolator_matches_table_values():

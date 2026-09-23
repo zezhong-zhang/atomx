@@ -35,6 +35,18 @@ from atomx.numerics.bspline.integrals import (
     overlap_matrix,
 )
 
+#: Lower edge of the negative-energy continuum, ``-m_e c²``.
+#:
+#: Bound Dirac-Coulomb states satisfy ``-m_e c² < E < 0``; everything at
+#: or below ``-m_e c²`` is the negative-energy sea, not an atomic orbital.
+#: This used to be ``-2 m_e c²``, which let basis-set states that have
+#: collapsed towards the sea (measured at ``-1.99996 m_e c²``) pass as
+#: "bound": a requested d/f subshell with no genuine bound state then
+#: silently returned a sea state, giving total energies off by ~10^4 Ha
+#: with ``converged=True``.  See
+#: ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding C4.
+NEGATIVE_CONTINUUM_EDGE = -C_SQ
+
 
 def build_dirac_matrices(ns, kappa, Z, bspline_data, nuclear_potential_func=None):
     """Assemble the Dirac Hamiltonian and overlap matrices.
@@ -144,7 +156,7 @@ class DiracResult:
         where ns_full = max(nsp, nsq) = self.ns.
         Returns P, Q both zero-padded to length ns_full.
         """
-        bound_mask = (self.eigenvalues > -2.0 * C_SQ) & (self.eigenvalues < 0)
+        bound_mask = (self.eigenvalues > NEGATIVE_CONTINUUM_EDGE) & (self.eigenvalues < 0)
         bound_indices = np.where(bound_mask)[0]
         sorted_order = np.argsort(self.eigenvalues[bound_indices])
         eigvec_idx = bound_indices[sorted_order[idx]]
@@ -306,7 +318,7 @@ def solve_dirac(H, S, ns, kappa, n_remove_boundary=1, nsp=None, nsq=None):
     # full-matrix scan that scipy otherwise does on every call.
     eigenvalues, eigenvectors = _eigh_finite(H_red, S_red)
 
-    sea_threshold = -2.0 * C_SQ
+    sea_threshold = NEGATIVE_CONTINUUM_EDGE
     physical_mask = eigenvalues > sea_threshold
     physical_eigenvalues = eigenvalues[physical_mask]
 

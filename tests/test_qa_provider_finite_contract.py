@@ -209,7 +209,7 @@ def test_payload_orbital_energies_mapping_nonfinite_fails_at_construction(bad):
 @pytest.mark.xfail(
     reason="HYP-1380 QA residue: UnitError from the orbital_energies "
     "mapping does not name the offending key — only the value type",
-    strict=False,
+    strict=True,
 )
 def test_payload_orbital_energies_error_names_offending_key():
     with pytest.raises(UnitError, match="MO1"):
@@ -603,7 +603,7 @@ def test_provenance_uncertainty_summary_nonfinite_rejected(bad):
     reason="HYP-1380 QA residue: ElectronicStructurePayload.metadata "
     "nested numeric values are not finite-gated (fail-open); see the "
     "HYP-1380 QA report for severity discussion",
-    strict=False,
+    strict=True,
 )
 def test_payload_metadata_nested_nonfinite_rejected():
     payload = _real_payload(

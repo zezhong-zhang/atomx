@@ -132,13 +132,33 @@ class TestEdgeCases:
         assert out.shape == r.shape
 
     def test_disabled_envelope_when_N_too_small(self):
-        """N ≤ 1 → envelope disabled, only Latter."""
+        """N ≤ 1 → envelope disabled, only Latter's clip.
+
+        The old assertion, ``out[-1] == approx(min(rv[-1], -5.0))``, held
+        whether or not the envelope ran (both give ≈ −5 asymptotically), so
+        it could not detect the code path it named.  Two assertions that
+        can:
+
+        * with ``rv = -Z e^{-r/1.5}`` (never below ``rv_inf``), the N=1
+          result is the *pure clamp*: every point is exactly −5, whereas a
+          running envelope would blend the interior;
+        * the same synthetic ``rv`` with ``N=2`` must give a *different*
+          answer — ``rv_inf = -(5-2+1) = -4`` and the envelope is on — so
+          the N ≤ 1 branch is exercised, not just documented.
+        """
         r = np.geomspace(1e-5, 100.0, 1000)
         rv = _realistic_rv(r, Z=5)
         q = _running_charge(r, N=1)
         out = apply_fac_tail_fix(
             r=r, rv=rv, running_charge=q, Z=5, N=1, ihx=-0.05, csi=0.55,
         )
-        # rv_inf = -(5-1+1) = -5; all too-weak points clip to -5
-        # (here: nothing clips because rv is always ≤ -5? Let's check.)
-        assert out[-1] == pytest.approx(min(rv[-1], -5.0), abs=1e-9)
+        # rv_inf = -(Z - N + 1) = -5; rv >= -5 everywhere, so the Latter
+        # clip alone puts the whole curve on -5.
+        np.testing.assert_allclose(out, -5.0, rtol=0.0, atol=1e-12)
+
+        q2 = _running_charge(r, N=2)
+        out_n2 = apply_fac_tail_fix(
+            r=r, rv=rv, running_charge=q2, Z=5, N=2, ihx=-0.05, csi=0.55,
+        )
+        assert out_n2[-1] == pytest.approx(-4.0, abs=0.01)
+        assert not np.allclose(out, out_n2)

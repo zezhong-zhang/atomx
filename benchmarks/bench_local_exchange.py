@@ -116,8 +116,13 @@ def run_atomx(Z: int, cfg: str, flavour: str) -> tuple[float | None, float]:
         # Clean-room parity: the sfac deck runs SetSE(0)/SetVP(0)/
         # SetMS(0,0)/SetBreit(0), so the atomx side must be
         # correction-free too (breit/qed default True in Atom).
-        atom = Atom(Z=Z, charge=charge, config=cfg, exchange=flavour,
-                    breit=False, qed=False)
+        atom = Atom(
+                    Z=Z,
+                    charge=charge,
+                    config=cfg,
+                    exchange=flavour,
+                    corrections="none",
+               )
         atom.solve()
         return atom.total_energy * HARTREE_EV, time.perf_counter() - t0
     except Exception as e:  # noqa: BLE001

@@ -843,7 +843,7 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
     Two orbital-basis pipelines, selected by the solve that produced
     ``result``:
 
-    * **FAC-like local-DFS basis** (``numerics="shooting"``,
+    * **FAC-like local-DFS basis** (``engine="shooting"``,
       ``exchange="gu"`` — the result carries the converged ``_rv``
       potential): every orbital, occupied or virtual, is an eigenstate
       of the one optimized central potential (FAC's ``OptimizeRadial``

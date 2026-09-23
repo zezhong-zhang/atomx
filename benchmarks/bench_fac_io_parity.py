@@ -35,7 +35,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "benchmarks"))
 
-from atomx import Atom  # noqa: E402
+from atomx import Atom, Correlation  # noqa: E402
 from atomx.io import (  # noqa: E402
     read_lev,
     read_tra,
@@ -162,8 +162,13 @@ def _run_atomx(spec: IonSpec, outdir: Path) -> dict:
     Returns ``{lev: rows, tr: rows, t: seconds}``.
     """
     t0 = time.perf_counter()
-    atom = Atom(Z=spec.Z, charge=spec.charge, configs=spec.configs,
-                breit=False, qed=False, j_resolved_csfs=True).solve()
+    atom = Atom(
+                Z=spec.Z,
+                charge=spec.charge,
+                config=spec.configs,
+                corrections="none",
+                correlation=Correlation(j_resolved_csfs=True),
+           ).solve()
     write_lev(atom, outdir / "atomx.lev")
     write_tra(atom, outdir / "atomx.tr", multipole="E1")
     elapsed = time.perf_counter() - t0

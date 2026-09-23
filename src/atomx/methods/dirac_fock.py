@@ -387,6 +387,56 @@ class SCFResult(SCFObservablesMixin):
         )
 
 
+#: Largest tolerated |<a|b>| between orbitals sharing kappa before the
+#: result is flagged not-converged.  The solver omits the off-diagonal
+#: Lagrange multipliers that enforce this exactly; measured values are
+#: 7e-6 (Ne), 4.7e-5 (Kr), 2.7e-4 (Na), 5.7e-4 (Li), so 1e-3 separates
+#: the benign cases from the open-shell ones where the shooting engine
+#: disagrees by ~1e-4 Ha.
+_SAME_KAPPA_OVERLAP_TOL = 1.0e-3
+
+
+def _max_same_kappa_overlap(orbitals, bsp_data) -> float:
+    """Largest |<a|b>| over distinct orbitals sharing a kappa.
+
+    Returns 0.0 when nothing can be compared (no B-spline workspace, or
+    no kappa with two orbitals).
+    """
+    if bsp_data is None:
+        return 0.0
+    worst = 0.0
+    for _kappa, orb_list in orbitals.items():
+        for i in range(len(orb_list)):
+            for j in range(i + 1, len(orb_list)):
+                Pa, Qa = orb_list[i][0], orb_list[i][1]
+                Pb, Qb = orb_list[j][0], orb_list[j][1]
+                worst = max(worst, abs(_orbital_overlap(Pa, Qa, Pb, Qb, bsp_data)))
+    return float(worst)
+
+
+def _orbital_overlap(Pa, Qa, Pb, Qb, bsp_data) -> float:
+    """``<a|b> = int (P_a P_b + Q_a Q_b) dr`` on the B-spline Gauss grid."""
+    fa = _eval_bspline_on_grid(Pa, bsp_data, "p")
+    fb = _eval_bspline_on_grid(Pb, bsp_data, "p")
+    qa = _eval_bspline_on_grid(Qa, bsp_data, "q")
+    qb = _eval_bspline_on_grid(Qb, bsp_data, "q")
+    grw = np.asarray(bsp_data["grw"]).ravel()
+    return float(np.sum(grw * (fa * fb + qa * qb).ravel()))
+
+
+class UnboundSubshellError(RuntimeError):
+    """A requested subshell has no bound state in the converged potential.
+
+    Raised instead of silently returning a zero orbital.  Before this
+    guard, requesting an unbound (virtual) orbital — e.g. a ``3d`` in
+    Ne, or any Rydberg state outside the box — produced a total energy
+    of ``0.0`` Ha (or, when the basis collapsed towards the negative
+    energy continuum, ``-2 m_e c²`` times the occupancy) with
+    ``converged=True``.  See
+    ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding C4.
+    """
+
+
 def _eval_bspline_on_grid(coeffs, bsp_data, component="p"):
     """Evaluate a B-spline expansion on the quadrature grid, flattened.
 
@@ -433,6 +483,20 @@ class DFSolver:
     fac_ihx, fac_hxs : float
         Forwarded to ``get_hxs`` when ``exchange='gu'``; defaults
         match FAC's own defaults (``ihx = -1``, ``hxs = 1``).
+    mean_field_coeffs : ndarray, optional
+        Asymmetric mean-field seam (R7).  ``(n_orb, n_orb)`` matrix
+        replacing the internally derived Guerra product ``WW(i, j)``:
+        entry ``[i, j]`` is the *unnormalised* coefficient of source
+        orbital ``j`` in target ``i``'s direct and exchange potential.
+        See :meth:`_mean_field_weight` for the exact convention.
+    mean_field_normalization : ndarray, optional
+        ``(n_orb,)`` per-target divisor replacing
+        ``subshells[i].occupation``; the effective per-electron weight
+        of source ``j`` in target ``i``'s potential is
+        ``mean_field_coeffs[i, j] / mean_field_normalization[i]``.
+        Required alongside ``mean_field_coeffs`` (no implicit default —
+        a silent mismatch between numerator and divisor is exactly the
+        convention bug this seam exists to remove).
     """
 
     def __init__(self, Z, subshells, ns=50, ks=9, r_min=None, r_max=None,
@@ -445,7 +509,10 @@ class DFSolver:
                  nuclear="point",
                  starting_potential=None,
                  jj_configs=None,
+                 mean_field_coeffs=None,
+                 mean_field_normalization=None,
                  kinetic_balance=False,
+                 screening_potential=None,
                  log=None):
         """
         Parameters
@@ -471,6 +538,20 @@ class DFSolver:
             Multi-configuration jj-coupled configurations with weights.
             Used for WW-based energy coefficients (DBSR_HF av_energy_coef).
             If None, uses simple q*(q-1)/2 and q_a*q_b formulas.
+        mean_field_coeffs, mean_field_normalization : ndarray, optional
+            Asymmetric mean-field seam (R7).  ``mean_field_coeffs[i, j]``
+            replaces ``WW(i, j)`` as the raw direct/exchange coefficient
+            of source ``j`` acting on target ``i``, and
+            ``mean_field_normalization[i]`` replaces ``q_i`` (the target's
+            occupation) as the divisor that turns it into the per-electron
+            weight of the target's Fock operator.  The symmetric Guerra
+            product cannot express a mean field in which a virtual
+            correlation orbital is screened by the occupied electrons
+            while those occupied orbitals are *not* screened by the
+            empty orbital — the asymmetry a multi-configuration layer
+            protocol requires.  ``None`` (default) keeps the internally
+            derived ``WW(i, j) / subshells[i].occupation`` convention
+            used by every non-MCDHF caller.
         kinetic_balance : bool, optional
             Use restricted kinetic balance (RKB): the P (large) component is
             expanded in order ``ks-1`` B-splines and Q (small) in order ``ks``.
@@ -485,6 +566,77 @@ class DFSolver:
         self.Z = Z
         self.subshells = subshells
         self.jj_configs = jj_configs
+        # Asymmetric mean-field seam (R7).  ``None`` ⇒ every consumer
+        # falls back to the internally derived Guerra product and the
+        # target's own occupation, i.e. the pre-seam behaviour
+        # bit-for-bit.  A supplied pair is validated here so a shape or
+        # finiteness mistake fails at construction rather than silently
+        # shifting a Fock coefficient.
+        #
+        # History (2026-09-20): an intermediate version of this seam was
+        # briefly hard-disabled here after a He ``1s² + 1s¹2p¹`` regression,
+        # on the reading that "the Guerra arithmetic was already right at
+        # zero population".  That reading was wrong on both counts:
+        #
+        # * The He 2p *did* have zero Guerra population (its CSFs are odd
+        #   parity and carry exactly zero amplitude in the even ground
+        #   state), so it *was* the R7 case — the pre-seam arithmetic gave
+        #   the bare-nucleus 2p (ε = −0.5000 Ha, the hydrogenic Z=2 2p).
+        #   That passes ``E(¹P₁) − E(³P₁) = 2G¹(1s,2p)/3`` because the
+        #   identity is a CI-consistency check on whatever orbitals are
+        #   used; it does not make the orbital physical.  The absolute
+        #   splitting was 0.0937 Ha against the NIST 0.0514 Ha.
+        # * The regression came from the *anchor*, not from having a seam:
+        #   anchoring on the raw reference occupations over-screens
+        #   whenever the reference holds more electrons in a shell than
+        #   any configuration containing the target does (He: reference
+        #   1s², every 2p parent 1s¹ → the 1s² field is neutral and binds
+        #   no 2p at all).  ``MCDHFSolver._mean_field_matrices`` now caps
+        #   the anchor at the parent configurations' maxima, which gives
+        #   He 1s¹ (ε(2p) = −0.125 Ha, splitting 0.0469 Ha vs NIST 0.0514)
+        #   and leaves Be unchanged (parents 1s²2s2p / 1s2s²2p, maxima
+        #   2/2 = the reference occupations → 2p₁/₂ = −0.2286 Ha).
+        # ------------------------------------------------------------------
+        if mean_field_coeffs is None:
+            if mean_field_normalization is not None:
+                raise ValueError(
+                    "mean_field_normalization was supplied without "
+                    "mean_field_coeffs; the divisor has no numerator to "
+                    "normalise (R7 seam)")
+            self.mean_field_coeffs = None
+            self.mean_field_normalization = None
+        else:
+            coeffs = np.asarray(mean_field_coeffs, dtype=np.float64)
+            n_orb = len(subshells)
+            if coeffs.shape != (n_orb, n_orb):
+                raise ValueError(
+                    "mean_field_coeffs must have shape "
+                    f"({n_orb}, {n_orb}) to match subshells "
+                    f"(got {coeffs.shape})")
+            if not np.all(np.isfinite(coeffs)):
+                raise ValueError(
+                    "mean_field_coeffs contains non-finite entries")
+            if mean_field_normalization is None:
+                raise ValueError(
+                    "mean_field_coeffs requires mean_field_normalization: "
+                    "the per-target divisor that converts the raw "
+                    "coefficient into the per-electron weight of the "
+                    "target's Fock operator (R7 seam)")
+            norm = np.asarray(mean_field_normalization, dtype=np.float64)
+            if norm.shape != (n_orb,):
+                raise ValueError(
+                    "mean_field_normalization must have shape "
+                    f"({n_orb},) to match subshells (got {norm.shape})")
+            if not np.all(np.isfinite(norm)):
+                raise ValueError(
+                    "mean_field_normalization contains non-finite entries")
+            if np.any(norm <= 0.0):
+                raise ValueError(
+                    "mean_field_normalization must be strictly positive; "
+                    "a zero divisor would drop the two-electron term of "
+                    "the target's Fock operator silently (R7 seam)")
+            self.mean_field_coeffs = coeffs
+            self.mean_field_normalization = norm
         self.ns = ns
         self.ks = ks
         self.r_min = r_min if r_min is not None else 0.05 / Z
@@ -549,6 +701,23 @@ class DFSolver:
         # Nuclear potential function (None = point nucleus -Z/r)
         from atomx.potentials.nuclear import make_nuclear_potential
         self._nuclear_potential = make_nuclear_potential(Z, nuclear)
+        # Electron-gas (plasma) screening: add delta_V(r) to the nuclear
+        # potential everywhere it is sampled — the Galerkin Hamiltonian
+        # (build_dirac_matrices) and the local-exchange density path
+        # (_local_potential_*).  Keeping the nuclear model intact (the
+        # shift is finite at the origin) is what lets the Fermi/uniform
+        # charge distribution keep regularising the r -> 0 region.
+        self.screening_potential = screening_potential
+        if screening_potential is not None:
+            base = self._nuclear_potential
+            Z_f = float(Z)
+
+            def _screened(r, _base=base, _shift=screening_potential,
+                          _Z=Z_f):
+                v = -_Z / r if _base is None else _base(r)
+                return v + _shift(r)
+
+            self._nuclear_potential = _screened
 
         self.t = make_knots(ns, ks, self.r_min, self.r_max)
         self.kinetic_balance = kinetic_balance
@@ -610,6 +779,71 @@ class DFSolver:
         qj = self.subshells[j].occupation
         return qi * qj
 
+    def _mean_field_weight(self, i, j):
+        """Raw coefficient of source ``j`` in target ``i``'s potential (R7).
+
+        Returns ``mean_field_coeffs[i, j]`` when the asymmetric seam was
+        supplied, else :meth:`_get_WW` — the Guerra product
+        ``WW(i, j) = Σ_c w_c ñ_c(i) ñ_c(j)``.
+
+        The returned number is *unnormalised*: the direct and exchange
+        builders divide the assembled target potential by
+        :meth:`_mean_field_divisor`, so the physical per-electron weight
+        of source ``j`` in target ``i``'s Fock operator is
+        ``_mean_field_weight(i, j) / _mean_field_divisor(i)``.  For the
+        Guerra default that ratio is ``WW(i, j)/q_i`` — the q_i-weighted
+        average of ``q_j``, which is the correct mean field only while
+        the target has a Guerra population.  A target with none has
+        ``WW(i, ·) ≡ 0`` and would otherwise be solved against a bare
+        nucleus, which is the R7 defect the seam exists to fix.
+        """
+        if self.mean_field_coeffs is not None:
+            return float(self.mean_field_coeffs[i, j])
+        return self._get_WW(i, j)
+
+    def _mean_field_divisor(self, i):
+        """Per-target divisor for the raw mean-field coefficient (R7).
+
+        ``mean_field_normalization[i]`` when the seam was supplied, else
+        ``subshells[i].occupation`` — the pre-seam convention.
+        """
+        if self.mean_field_normalization is not None:
+            return float(self.mean_field_normalization[i])
+        return float(self.subshells[i].occupation)
+
+    def _flat_orbital_index(self, kappa, orb_idx):
+        """Flat index of ``(kappa, orb_idx)`` in ``self.subshells``.
+
+        Mirrors the ``kappa_counter`` bookkeeping used by the SCF loops
+        (the ``orb_idx``-th entry of ``orbitals[kappa]`` is the
+        ``orb_idx``-th subshell with that ``kappa``).  Returns ``-1``
+        when the orbital is not one of ``self.subshells``.
+        """
+        seen = -1
+        for idx, sh in enumerate(self.subshells):
+            if sh.kappa == kappa:
+                seen += 1
+                if seen == orb_idx:
+                    return idx
+        return -1
+
+    def _effective_mean_field_weight(self, i, j):
+        """Per-electron weight of source ``j`` in target ``i`` (R7 seam).
+
+        The quantity that multiplies ``(J_j - K_j)`` in target ``i``'s
+        Fock operator.  Raises when asked for an orbital that is not in
+        ``self.subshells`` — with an explicit seam in play there is no
+        honest fallback coefficient to substitute.
+        """
+        for role, idx in (("target", i), ("source", j)):
+            if idx < 0 or idx >= len(self.subshells):
+                raise ValueError(
+                    f"mean-field seam requested for {role} orbital index "
+                    f"{idx}, outside self.subshells "
+                    f"(n_orb={len(self.subshells)}); the supplied "
+                    "coefficient matrix has no row/column for it (R7 seam)")
+        return self._mean_field_weight(i, j) / self._mean_field_divisor(i)
+
     def _eval_P_on_grid(self, coeffs):
         """Evaluate P-component (large) orbital on grid using ksp-order basis."""
         ksp = self.bsp_data.get("ksp", self.ks)
@@ -656,6 +890,11 @@ class DFSolver:
         Uses rkb convolution for each orbital's F^0 contribution to the direct
         potential matrix. Self-consistent with cell-based energy computation.
 
+        With a target, the weight of source ``j`` is the *effective* mean
+        field ``_mean_field_weight(target, j) / _mean_field_divisor(target)``
+        — ``WW(target, j)/q_target`` on the pre-seam path, and the R7
+        asymmetric coefficient when the seam is supplied.
+
         Falls back to Y^k for DFS (Slater local exchange) mode, which doesn't
         benefit from cell algorithm precision.
         """
@@ -688,7 +927,7 @@ class DFSolver:
         dd_P = np.zeros((ns_full, ksp))  # accumulated P-density for all orbitals
         dd_Q = np.zeros((ns_full, ksq))  # accumulated Q-density
 
-        # Build flat index map for WW coefficients
+        # Build flat index map for the mean-field coefficients
         flat_idx = {}
         kappa_counter = {}
         for idx, sh in enumerate(self.subshells):
@@ -697,13 +936,13 @@ class DFSolver:
             flat_idx[(sh.kappa, k_idx)] = idx
 
         target_flat = flat_idx.get((target_kappa, target_idx), -1) if target_kappa is not None else -1
-        target_q = self.subshells[target_flat].occupation if target_flat >= 0 else 1.0
+        target_q = self._mean_field_divisor(target_flat) if target_flat >= 0 else 1.0
 
         for kappa, orb_list in orbitals.items():
             for orb_i, (P_b, Q_b, occ_b) in enumerate(orb_list):
                 j_flat = flat_idx.get((kappa, orb_i), -1)
                 if target_flat >= 0 and j_flat >= 0:
-                    coeff = self._get_WW(target_flat, j_flat) / target_q
+                    coeff = self._mean_field_weight(target_flat, j_flat) / target_q
                 else:
                     coeff = occ_b
                     if target_kappa == kappa and target_idx == orb_i:
@@ -784,6 +1023,15 @@ class DFSolver:
 
         exchange_cache key: (kappa_b, orb_i, k, block_type) -> matrix
         This gives ~N_target speedup since each source convolution is done once.
+
+        Source weights: ``occ_b`` (the source's occupation from the
+        orbital list) by default — the pre-seam convention of this path,
+        which equals ``WW(target, b)/q_target`` for a closed shell.  When
+        the R7 asymmetric seam is supplied both the direct potential and
+        this exchange term are built from the same effective weight
+        ``_mean_field_weight(target, b) / _mean_field_divisor(target)``,
+        so a collapsed target really does see the reference
+        configuration's field (and only that field).
         """
         from atomx.angular.coefficients import exchange_lambda
         from atomx.numerics.bspline.convol import _convol_case4, _density_full
@@ -801,6 +1049,9 @@ class DFSolver:
         if exchange_cache is None:
             exchange_cache = {}
 
+        use_seam = self.mean_field_coeffs is not None
+        target_flat = self._flat_orbital_index(target_kappa, target_idx) if use_seam else -1
+
         tj_a = 2 * abs(target_kappa) - 1
         K_PP = np.zeros((ns_full, ns_full))
         K_QQ = np.zeros((ns_full, ns_full))
@@ -812,12 +1063,19 @@ class DFSolver:
             for orb_i, (P_b, Q_b, occ_b) in enumerate(orb_list):
                 if kappa_b == target_kappa and orb_i == target_idx:
                     continue
+                if use_seam:
+                    weight = self._effective_mean_field_weight(
+                        target_flat, self._flat_orbital_index(kappa_b, orb_i))
+                    if abs(weight) < 1e-15:
+                        continue
+                else:
+                    weight = occ_b
                 k_values = exchange_k_range(target_kappa, kappa_b)
                 for k in k_values:
                     lam = exchange_lambda(target_kappa, kappa_b, k)
                     if lam < 1e-15:
                         continue
-                    c_k = occ_b * lam / ((tj_a + 1.0) * (tj_b + 1.0))
+                    c_k = weight * lam / ((tj_a + 1.0) * (tj_b + 1.0))
 
                     # Cache key: convolution result depends only on source + k
                     cache_key = (kappa_b, orb_i, k)
@@ -927,14 +1185,22 @@ class DFSolver:
           2. Accumulate exchange density: xx = sum_j b(i,j,k) * density(i_comp,j_comp)
           3. ONE convolution each for direct and exchange accumulated density.
 
+        The angular coefficients carry the occupation weights; the
+        assembled result is divided by ``_mean_field_divisor(target_i)``
+        below ("hfm = hfm / qsum(i)"), so the per-electron weight of
+        source ``j`` in target ``i``'s Fock operator is
+        ``_mean_field_weight(i, j) / _mean_field_divisor(i)``.  Without
+        the R7 seam that is ``WW(i, j)/q_i`` (the Guerra mean field);
+        with it, a target whose Guerra weight has collapsed gets the
+        reference configuration's potential instead of the bare nucleus.
+
         Parameters
         ----------
         target_i : int
             Flat index of target orbital in self.subshells.
         orbitals : dict
             kappa -> [(P, Q, occ), ...]
-        skip_pq_exchange : bool
-            When True, skip the pqpq exchange contraction and return
+        skip_pq_exchange : bool            When True, skip the pqpq exchange contraction and return
             ``hfm_PQ = 0``.  The batch SCF loop adds ``hfm_PQ`` only to the
             strictly upper-right (P, Q) block of H, and ``solve_dirac``
             calls ``scipy.linalg.eigh`` with the default ``lower=True`` —
@@ -965,8 +1231,11 @@ class DFSolver:
         if not hasattr(self, '_convol_cache'):
             self._convol_cache = ConvolCache(bd)
 
-        target_sh = self.subshells[target_i]
-        q_i = target_sh.occupation
+        # R7 seam: the divisor that turns the raw angular coefficients
+        # (``_mean_field_weight``) into per-electron weights.  Identical
+        # to ``subshells[target_i].occupation`` for every caller that has
+        # not supplied ``mean_field_normalization``.
+        norm_i = self._mean_field_divisor(target_i)
 
         # Stack orbital coefficients into contiguous (n_orb, ns_full) arrays
         # so the batched numba kernels below can iterate sources without any
@@ -1059,11 +1328,11 @@ class DFSolver:
         hfm_QP = 0.5 * (hfm_QP + hfm_QP.T)
 
         # DBSR_HF: hfm = hfm / qsum(i)
-        if q_i > 1e-15:
-            hfm_PP /= q_i
-            hfm_QQ /= q_i
-            hfm_PQ /= q_i
-            hfm_QP /= q_i
+        if norm_i > 1e-15:
+            hfm_PP /= norm_i
+            hfm_QQ /= norm_i
+            hfm_PQ /= norm_i
+            hfm_QP /= norm_i
 
         return hfm_PP, hfm_QQ, hfm_PQ, hfm_QP
 
@@ -1071,6 +1340,12 @@ class DFSolver:
         """Direct angular coefficient a(i,j,k) — DBSR_HF av_energy_coef.
 
         coef(max(i,j), min(i,j), k) for even k, within triangle rule.
+
+        The occupation product is :meth:`_mean_field_weight` — ``WW(i,j)``
+        for every caller that has not supplied the R7 asymmetric seam,
+        so the closed-shell DBSR_HF agreement is untouched.  The
+        assembled potential is divided by :meth:`_mean_field_divisor` in
+        :meth:`_build_hf_matrix_dbsr` / :meth:`_build_direct_potential`.
         """
         from atomx.angular.coefficients import exchange_lambda
         tj_i = 2 * abs(kappa_i) - 1
@@ -1082,8 +1357,9 @@ class DFSolver:
             return 0.0
 
         if i == j:
-            # Same shell: coef = WW(i,i)/2
-            c = self._get_WW(i, j) / 2.0
+            # Same shell: coef = C(i,i)/2 (the density accumulator
+            # doubles the target's own contribution).
+            c = self._mean_field_weight(i, j) / 2.0
             if k == 0:
                 return c
             # k > 0: same-shell F^k
@@ -1095,12 +1371,14 @@ class DFSolver:
             # Cross-shell: only k=0 for direct
             if k != 0:
                 return 0.0
-            return self._get_WW(i, j)
+            return self._mean_field_weight(i, j)
 
     def _get_exchange_coef(self, i, j, k, kappa_i, kappa_j):
         """Exchange angular coefficient b(i,j,k) — DBSR_HF av_energy_coef.
 
-        coef(min(i,j), max(i,j), k), zero for i==j.
+        coef(min(i,j), max(i,j), k), zero for i==j.  The occupation
+        product is :meth:`_mean_field_weight` (see
+        :meth:`_get_direct_coef`).
         """
         from atomx.angular.coefficients import exchange_lambda
         if i == j:
@@ -1118,7 +1396,7 @@ class DFSolver:
         if k > (tj_i + tj_j) // 2:
             return 0.0
 
-        ww = self._get_WW(i, j)
+        ww = self._mean_field_weight(i, j)
         if abs(ww) < 1e-15:
             return 0.0
         lam = exchange_lambda(kappa_i, kappa_j, k)
@@ -1213,6 +1491,13 @@ class DFSolver:
         For j>=1 (p3/2, d, f, ...), adds the intra-shell potential:
             coeff = -(q-1) * Lambda(k) / (2j * (2j+1))
 
+        ``q - 1`` is the target's self-interaction-removed occupation,
+        i.e. ``_mean_field_weight(i, i) / _mean_field_divisor(i)`` on the
+        pre-seam path.  With the R7 seam it is taken from the supplied
+        coefficient matrix, so a collapsed target whose reference
+        occupation is zero carries no intra-shell field at all (a
+        spectator virtual in a frozen potential).
+
         Uses cell-based convolution (rkb + icase=1) for consistency with
         the direct potential and exchange, avoiding Y^k/cell mismatch.
         """
@@ -1238,8 +1523,15 @@ class DFSolver:
             return Vi_PP, Vi_QQ
 
         P_a, Q_a, q_a = orb_list_t[target_idx]
-        if q_a * (q_a - 1.0) < 1e-15:
-            return Vi_PP, Vi_QQ
+        if self.mean_field_coeffs is None:
+            if q_a * (q_a - 1.0) < 1e-15:
+                return Vi_PP, Vi_QQ
+            c_ii = q_a - 1.0
+        else:
+            i = self._flat_orbital_index(target_kappa, target_idx)
+            c_ii = self._effective_mean_field_weight(i, i)
+            if c_ii <= 0.0:
+                return Vi_PP, Vi_QQ
 
         ksp = bd.get("ksp", bd["ks"])
         ksq = bd.get("ksq", bd["ks"])
@@ -1254,7 +1546,7 @@ class DFSolver:
             lam = exchange_lambda(target_kappa, target_kappa, k)
             if lam < 1e-15:
                 continue
-            coeff = -(q_a - 1.0) * lam / (tj_a * (tj_a + 1.0))
+            coeff = -c_ii * lam / (tj_a * (tj_a + 1.0))
 
             rkb_pp, _, _ = self._convol_cache.get_rkb(k, "pppp")
             d_P = _density_sym(P_a[:ns_full], P_a[:ns_full], ns_full, ksp)
@@ -1275,6 +1567,15 @@ class DFSolver:
         where E_2e uses DBSR_HF av_energy_coef formulas:
           same-shell:  q(q-1)/2 * [F^0(a,a) - Σ_{k>0} Lambda(k)/(2j*(2j+1)) * F^k(a,a)]
           cross-shell: q_a*q_b * [F^0(a,b) - Σ_k Lambda(k)/((2j_a+1)(2j_b+1)) * G^k(a,b)]
+
+        The coefficients come from :meth:`_get_WW`, *not* from the R7
+        asymmetric seam: this is the average-level energy functional
+        (DBSR_HF ``av_energy_coef``), a single symmetric functional of
+        the occupations.  The seam describes a per-target radial
+        optimisation field, which is not the gradient of one functional
+        — MCDHF takes its energies from the CI matrix over these
+        orbitals, never from this number, so mixing the two conventions
+        here would only corrupt the SCF's own energy bookkeeping.
         """
         from atomx.angular.coefficients import exchange_lambda
 
@@ -1541,6 +1842,11 @@ class DFSolver:
         converged = False
         E_old = 0.0
         residual = 1.0
+        #: Subshells for which the *current* iteration found no bound state.
+        #: Cleared each sweep; a non-empty set after the last sweep means the
+        #: requested configuration is not bound in this potential and the
+        #: result must not be reported as converged (finding C4).
+        missing_shells: set[str] = set()
         has_kb = self.bsp_data.get("ksp", self.ks) != self.bsp_data.get("ksq", self.ks)
         nsp = self.bsp_data.get("nsp", ns)
         nsq = self.bsp_data.get("nsq", ns)
@@ -1572,6 +1878,7 @@ class DFSolver:
         diis_err_history = []   # list of error vectors (orbital change)
 
         for iteration in range(1, max_iter + 1):
+            missing_shells.clear()
             max_orb_change = 0.0
 
             if mode == "batch" and self.exchange == "hf":
@@ -1606,6 +1913,11 @@ class DFSolver:
                     if kappa > 0 and not has_kb:
                         eig_idx += 1
                     if eig_idx >= result.n_bound:
+                        # No genuine bound state for this subshell in this
+                        # potential.  Record it: appending zeros here (as
+                        # the other branch does) would silently produce an
+                        # empty, zero-energy "converged" result.
+                        missing_shells.add(sh.label)
                         continue
 
                     P_new, Q_new, E_new = result.get_orbital(eig_idx)
@@ -1820,7 +2132,9 @@ class DFSolver:
                             orb_list.append((P_new, Q_new, sh.occupation))
                             orbital_energies[sh.label] = E_new
                         else:
-                            orb_list.append((np.zeros(ns_full), np.zeros(ns_full), sh.occupation))
+                            missing_shells.add(sh.label)
+                            orb_list.append(
+                                (np.zeros(ns_full), np.zeros(ns_full), sh.occupation))
                     orbitals[kappa] = orb_list
 
             # Check convergence
@@ -1843,9 +2157,42 @@ class DFSolver:
                 converged = True
                 break
 
+        if missing_shells:
+            raise UnboundSubshellError(
+                "no bound state for subshell(s) "
+                + ", ".join(sorted(missing_shells))
+                + f" in Z={self.Z} with the requested configuration "
+                + ", ".join(sh.label for sh in self.subshells)
+                + ". The configuration is not bound in this potential — "
+                "returning a zero-orbital, zero-energy result as converged "
+                "would be silently wrong."
+            )
+
         # Compute total energy (with a transient-NaN tripwire, HYP-1590)
         total_energy, energy_components = self._final_energy_checked(
             orbitals, orbital_energies)
+
+        # Same-kappa orthogonality diagnostic.  The DHF equations carry
+        # off-diagonal Lagrange multipliers that enforce <a|b> = 0 between
+        # orbitals sharing kappa; this solver (like DBSR_HF's hf_matrix
+        # path) omits them, so the fixed point is only approximately
+        # orthogonal and the reported energy can sit ~1e-4 Ha above the
+        # shooting engine's Schmidt-orthogonalised solution (Li:
+        # 5.69e-4 overlap, 1.8e-4 Ha).  The defect is a known limitation,
+        # not a crash, but it was completely invisible; record it and
+        # downgrade `converged` when it is large enough to matter.
+        # See docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding H4.
+        max_overlap = _max_same_kappa_overlap(orbitals, self.bsp_data)
+        energy_components["max_same_kappa_overlap"] = max_overlap
+        if max_overlap > _SAME_KAPPA_OVERLAP_TOL:
+            converged = False
+            energy_components["orthogonality_warning"] = (
+                f"same-kappa overlap {max_overlap:.2e} exceeds "
+                f"{_SAME_KAPPA_OVERLAP_TOL:.0e}; the SCF omits the "
+                f"off-diagonal Lagrange multipliers, so orbitals sharing "
+                f"kappa are not orthogonal and the energy may be a few "
+                f"1e-4 Ha above the constrained solution"
+            )
 
         # Post-SCF corrections via the injected CorrectionStack (E1 seam)
         return self._finalize_with_corrections(SCFResult(
@@ -1869,7 +2216,18 @@ class DFSolver:
         the shooting path shares.
         """
         from atomx.corrections.stack import finalize_with_corrections
-        return finalize_with_corrections(result, self.correction_stack)
+
+        stack = self.correction_stack
+        if stack is not None and stack.include_breit:
+            # The Breit rung applies the exact Gaunt operator, which needs
+            # the CI angular machinery in methods/mcdhf/; corrections/ must
+            # not import methods/, so it is computed here and read off the
+            # result by the adapter.
+            from atomx.methods.mcdhf.breit_ci import (
+                attach_breit_operator_energy,
+            )
+            attach_breit_operator_energy(result)
+        return finalize_with_corrections(result, stack)
 
 
 def helium_subshells():

@@ -9,6 +9,11 @@ Quick start:
 Method-based API:
     from atomx import Atom, DiracFock, Exchange
     result = Atom(Z=10).solve(DiracFock(breit=True))
+
+Self-describing constructor inputs (same physics, grouped by concern):
+    from atomx import Atom, Basis, Corrections
+    ne = Atom(10, engine="bspline", basis=Basis(ns=200),
+              corrections=Corrections(breit=False, qed=False))
 """
 
 __version__ = "0.2.0"
@@ -24,6 +29,13 @@ from atomx import (
     viz,  # noqa: F401
 )
 from atomx.atom import Atom
+from atomx.atom_inputs import (
+    Basis,
+    Corrections,
+    Correlation,
+    Environment,
+    Exchange,
+)
 from atomx.compare import compare, theory_ladder, what_changed
 from atomx.ladder import Ladder, LadderRun, RungOutcome
 from atomx.methods import (
@@ -44,10 +56,8 @@ from atomx.results import (
 from atomx.sampling import Sampling
 from atomx.scattering.models import ContinuumModel, PotentialModel
 from atomx.types import (
-    Correlation,
     CouplingScheme,
     EnergyUnit,
-    Exchange,
     Gauge,
     Multipole,
     NuclearModel,

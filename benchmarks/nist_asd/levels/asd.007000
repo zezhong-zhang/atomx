@@ -1,0 +1,759 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>NIST ASD Levels Output</title>
+<link href="https://physics.nist.gov/PhysRefData/ASD" rel="start" title="ASD 5.0" />
+<link href="https://physics.nist.gov/PhysRefData/ASD" rel="ASD 4" title="ASD 4.0" />
+<link href="https://physics.nist.gov/PhysRefData/ASD" rel="ASD 3" title="ASD 3.0" />
+<link href="https://physics.nist.gov/PhysRefData/ASD" rel="ASD 2" title="ASD 2.0" />
+<link href="https://physics.nist.gov/PhysRefData/ASD" rel="ASD 1" title="ASD 1.3" />
+<link href="https://physics.nist.gov/PhysRefData/ASD" rel="Author" title="Yuri Ralchenko" />
+<link href="https://physics.nist.gov/PhysRefData/ASD" rel="Author" title="Alexander Kramida" />
+<link href="https://physics.nist.gov/PhysRefData/ASD" rel="Author" title="Joseph Reader" />
+<link href="https://physics.nist.gov/PhysRefData/ASD/Html/verhist.shtml" rel="Version" title="Version History" />
+<link href="https://www.nist.gov/" rel="bookmark" title="NIST Main Page" />
+<link href="https://physics.nist.gov/" rel="bookmark" title="NIST Physical Measurement Lab" />
+<link href="https://pml.nist.gov/data " rel="bookmark" title="Physical Reference Data" />
+<meta content="text/javascript" http-equiv="Content-Script-Type" />
+<link rel="stylesheet" type="text/css" href="https://physics.nist.gov/PhysRefData/ASD/Scripts/1.css" />
+<!-- Google Analtyics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9SLN1VEEJ2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9SLN1VEEJ2');
+</script>
+<!-- End of Google Analytics 4 -->
+<SCRIPT async id="_fed_an_ua_tag" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-46&amp;yt=false&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c" type="text/javascript"></script>
+<script type="text/javascript">//<![CDATA[
+
+function setFocus() {
+  var de = document.getElementById("de");
+  var idsSp = document.getElementById("ids_sp");
+  var dom = document.domain;
+  var href = document.location.href;
+  if ( href.match(/^http:\/\/ekron\.nist\.gov\/ASD\/DataEntry\/.*/i) ) {
+    de.value = 1;
+  }
+  if ( dom.match(/^ekron\.nist\.gov$/i) ) {
+    idsSp.style.display="inline";
+  }
+  document.levels.spectrum.disabled = true;
+}
+function submit_update() {
+  var submitRetrieve = document.getElementById("submit_retrieve");
+  var spCrit = document.getElementById("spectrum_crit");
+  if ( (spCrit != null) && (submitRetrieve != null) ) {
+    var spPrev = spCrit.innerHTML;
+    spPrev = spPrev.toLowerCase().replace(/  /gm,"");
+    spPrev = spPrev.replace(/<b>/gm,"");
+    spPrev = spPrev.replace(/<\/b>/gm,"");
+    var sp = document.getElementById("spectrum").value;
+    sp = sp.toLowerCase().replace(/  /gm,"");
+    if ( sp != spPrev ) {
+      submitRetrieve.value = "Update Criteria";
+    } else {
+        document.levels.spectrum.disabled = false;
+      submitRetrieve.value = "Retrieve Data";
+    }
+  }
+  return true;
+}
+
+//]]></script>
+<script src="/js/clickjack.js" type="text/javascript"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body bgcolor="white" onload="setFocus()">
+<script type="text/javascript" src="https://physics.nist.gov/PhysRefData/ASD/Scripts/balloon.js"></script>
+<script type="text/javascript" src="https://physics.nist.gov/PhysRefData/ASD/Scripts/setup.js"></script>
+<script type="text/javascript" src="https://physics.nist.gov/PhysRefData/ASD/Scripts/go.js"></script>
+<span>
+<a href="#start"><img src="/Images/dot_t.gif" width="1" height="1" style="border:0;margin-top:0;margin-bottom:0" alt="[skip navigation]" /></a>
+</span>
+<table style="width:100%; border:0; margin-top:0">
+<tr><td style="text-align:left"><a href="https://physics.nist.gov/PhysRefData/ASD/index.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/ASD-sm.gif" style="border:0" width="100" height="47"
+alt="[ASD Home]" title="ASD Home"></a><a href="https://physics.nist.gov/PhysRefData/ASD/lines_form.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/Lines.gif" style="border:0" width="70" height="47"
+alt="[Lines Query]" title="Lines Query"></a><a href="https://physics.nist.gov/PhysRefData/ASD/levels_form.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/Levels.gif" style="border:0" width="79" height="47"
+alt="[Levels Query]" title="Levels Query"></a><a href="https://www.nist.gov/pml/atomic-spectra-database-contents"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/List.gif" style="border:0" width="77" height="47"
+alt="[List of Spectra]" title="List of Spectra"></a><a href="https://physics.nist.gov/PhysRefData/ASD/ionEnergy.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/GS-IE.gif" style="border:0" width="124" height="47"
+alt="[Ground States and Ionization Energies]" title="Ground States and Ionization Energies"></a><a
+href="https://physics.nist.gov/PhysRefData/ASBib1/index.html"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/Bib.gif" style="border:0"
+width="98" height="47" alt="[Bibliography]" title="Bibliography"></a><a
+href="https://physics.nist.gov/PhysRefData/ASD/Html/help.html"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/Help.gif" style="border:0"
+width="55" height="47" alt="[Help]" title="Help"/></a></td>
+<td style="text-align:right"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/nist-pl-black.gif" style="border:0" width="136" height="68"
+usemap="#NIST-PL" alt="NIST Physical Measurement Laboratory"/></td>
+</tr></table>
+
+<map name="NIST-PL" id="NIST-PL">
+  <area shape="rect" coords="1,1,135,48" href="https://www.nist.gov" alt="National Institute of Standards and Technology" title="National Institute of Standards and Technology"/>
+  <area shape="rect" coords="1,50,135,67" href="https://www.nist.gov/pml" alt="NIST Physical Measurement Laboratory" title="NIST Physical Measurement Laboratory"/>
+</map>
+<a id="start"><!-- filler --></a>
+<script type="text/javascript">
+<!-- //
+var newwindow
+//var n
+function popdef(n){
+newwindow = window.open(n,"data1","toolbar=no,location=no,alwaysRaised=yes,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,copyhistory=no,width=600,height=450");
+if (window.focus) {newwindow.focus()}
+return true;
+}
+function popbib(n){
+newwindow = window.open(n,"data2","toolbar=no,location=no,alwaysRaised=yes,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,copyhistory=no,width=950,height=800");
+if (window.focus) {newwindow.focus()}
+return true;
+}
+function popded(n){
+//newwindow = window.open(n,"data3","toolbar=no,location=no,alwaysRaised=yes,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,copyhistory=no,width=640,height=250");
+newwindow = window.open(n,"data3","toolbar=no,location=no,alwaysRaised=yes,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,copyhistory=no,width=800,height=320");if (window.focus) {newwindow.focus()}
+return true;
+}
+function popdiag(n){
+newwindow = window.open(n,"data3","toolbar=no,location=no,alwaysRaised=yes,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,copyhistory=no,width=800,height=1000");if (window.focus) {newwindow.focus()}
+return true;
+}
+// -->
+</script>
+
+<table style="width:100%">
+  <tr>
+    <td style="color:#223388; font-size:150%; vertical-align:middle"><span style="color:black; font-weight:600">NIST Atomic Spectra Database Levels Data</span><p>
+      <sup></sup>N  I &nbsp;&nbsp;381 Levels Found<br />
+<b><font size="+1"><i>Z</i> = 7, N isoelectronic sequence</font></b><span style="font-size=300%">&nbsp;</span></p>
+    </td>
+    <td style="text-align:right; vertical-align:middle">
+<div class='ref'>
+<b>Example of how to reference these results:</b><br />
+
+Kramida,&nbsp;A., Ralchenko,&nbsp;Yu., Reader,&nbsp;J., and NIST ASD Team (2024).
+  <i>NIST Atomic Spectra Database</i> (ver.&nbsp;5.12),
+  [Online]. Available: <span style="color:#0000cc;">https://physics.nist.gov/asd</span>
+  [2025, March 21].
+  National Institute of Standards and Technology, Gaithersburg, MD.
+    DOI: <span style="color:#0000cc;">https://doi.org/10.18434/T4W30F</span>
+<br />
+<div style="text-align: right; font-size: x-small">
+<a href="javascript:void(0)" onclick="popdef('/cgi-bin/ASD/bibtex.pl?y=2025&amp;m=March&amp;d=21');return true" target="_top">BibTex Citation</a> (new window)
+</div>
+</div>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" style="color:#655665; font-family: helvetica,arial; font-size:80%"><b>
+Data on  Land&eacute; factors and  level compositions  are not available for this ion in ASD
+<p/><span class="hnd">Some data for neutral and singly-charged ions are available in the <a href="/PhysRefData/Handbook/index.html" target="_new">Handbook of Basic Atomic Spectroscopic Data</a></span>
+</b></td>
+  </tr>
+</table>
+
+<P/>
+<table style="background-color:#004400">
+  <tr>
+    <td colspan="2" style="color: white; text-align:center">
+      &nbsp;&nbsp;Primary data source&nbsp;&nbsp;
+    </td>
+    <td style="color: white; text-align:center">
+      Query NIST Bibliographic Database for <b>N  I</b> (new window)
+    </td>
+  </tr>
+  <tr>
+<!--    <td style="text-align:center; background-color:#DDDDBB">-->
+    <td class='brt2'>
+      &nbsp;<a onmouseover="self.status='Bibliographic Reference for N I';return true;" onmouseout="self.status='';return true;" target="_blank" href="javascript:void(0)" onclick="popded('https://physics.nist.gov/cgi-bin/ASBib1/get_ASBib_ref.cgi?db=el&amp;db_id=7288&amp;comment_code=&amp;element=N&amp;spectr_charge=1&amp;type=E');return false">Moore 1993</a>&nbsp;
+    </td>
+    <td class='blf2'>
+      
+    </td>
+    <td class='bcn2'>
+      <A HREF="javascript:void(0)" ONCLICK="popbib('https://physics.nist.gov/cgi-bin/ASBib1/Elevbib/make_query.cgi?spectra=N%20I&amp;method=EL&amp;method=TE&amp;method=ND&amp;method=IP&amp;method=SF&amp;method=QF&order=1');return false"
+        ONMOUSEOVER="self.status='N  I: bibliography energy levels query';return true;"
+        ONMOUSEOUT="self.status=''; return true;" TARGET=_blank>Literature on N  I Energy Levels</A>
+    </td>
+  </tr>
+</table>
+  <br>
+<PRE>
+-----------------------------------------------------------------------------------------------
+Configuration      | Term   |    J |         Level (cm-1)     | Uncertainty (cm-1) | Reference
+-------------------|--------|------|--------------------------|--------------------|-----------
+                   |        |      |                          |                    |           
+2s2.2p3            | 4S*    |  3/2 |             0.000        |               0    |     <a class='bib' ONMOUSEOVER="self.status='EL Bibliographic Reference for N I'; return true;" ONMOUSEOUT="self.status='';return true;" TARGET="_blank"  HREF="javascript:void(0)" ONCLICK="popded('https://physics.nist.gov/cgi-bin/ASBib1/get_ASBib_ref.cgi?db=el&db_id=7288&comment_code=&amp;element=N&amp;spectr_charge=1&amp;ref=7288&amp;type=E');return false">L7288</a>
+                   |        |      |                          |                    |           
+2s2.2p3            | 2D*    |  5/2 |         19224.464        |                    |          
+                   |        |  3/2 |         19233.177        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p3            | 2P*    |  1/2 |         28838.920        |                    |          
+                   |        |  3/2 |         28839.306        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).3s    | 4P     |  1/2 |         83284.070        |                    |          
+                   |        |  3/2 |         83317.830        |                    |          
+                   |        |  5/2 |         83364.620        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).3s    | 2P     |  1/2 |         86137.350        |                    |          
+                   |        |  3/2 |         86220.510        |                    |          
+                   |        |      |                          |                    |           
+2s.2p4             | 4P     |  5/2 |         88107.260        |                    |          
+                   |        |  3/2 |         88151.170        |                    |          
+                   |        |  1/2 |         88170.570        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).3p    | 2S*    |  1/2 |         93581.550        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).3p    | 4D*    |  1/2 |         94770.880        |                    |          
+                   |        |  3/2 |         94793.490        |                    |          
+                   |        |  5/2 |         94830.890        |                    |          
+                   |        |  7/2 |         94881.820        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).3p    | 4P*    |  1/2 |         95475.310        |                    |          
+                   |        |  3/2 |         95493.690        |                    |          
+                   |        |  5/2 |         95532.150        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).3p    | 4S*    |  3/2 |         96750.840        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).3p    | 2D*    |  3/2 |         96787.680        |                    |          
+                   |        |  5/2 |         96864.050        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).3p    | 2P*    |  1/2 |         97770.180        |                    |          
+                   |        |  3/2 |         97805.840        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(1D).3s    | 2D     |  5/2 |         99663.427        |                    |          
+                   |        |  3/2 |         99663.912        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4s    | 4P     |  1/2 |        103622.51         |                    |          
+                   |        |  3/2 |        103667.16         |                    |          
+                   |        |  5/2 |        103735.48         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4s    | 2P     |  1/2 |        104144.820        |                    |          
+                   |        |  3/2 |        104221.630        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).3d    | 2P     |  3/2 |        104615.470        |                    |          
+                   |        |  1/2 |        104654.030        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).3d    | 4F     |  3/2 |        104664.130        |                    |          
+                   |        |  5/2 |        104683.060        |                    |          
+                   |        |  7/2 |        104716.950        |                    |          
+                   |        |  9/2 |        104765.77         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).3d    | 2F     |  5/2 |        104810.360        |                    |          
+                   |        |  7/2 |        104881.350        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).3d    | 4P     |  5/2 |        104825.110        |                    |          
+                   |        |  3/2 |        104859.73         |                    |          
+                   |        |  1/2 |        104886.10         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).3d    | 4D     |  1/2 |        104984.37         |                    |          
+                   |        |  3/2 |        104996.27         |                    |          
+                   |        |  5/2 |        105008.55         |                    |          
+                   |        |  7/2 |        105017.600        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).3d    | 2D     |  3/2 |        105119.880        |                    |          
+                   |        |  5/2 |        105143.710        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4p    | 2S*    |  1/2 |        106477.800        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4p    | 4D*    |  1/2 |        106758.731        |                    |          
+                   |        |  3/2 |        106778.337        |                    |          
+                   |        |  5/2 |        106814.459        |                    |          
+                   |        |  7/2 |        106868.635        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4p    | 4P*    |  1/2 |        106980.480        |                    |          
+                   |        |  3/2 |        106996.032        |                    |          
+                   |        |  5/2 |        107037.069        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4p    | 2D*    |  3/2 |        107182.788        |                    |          
+                   |        |  5/2 |        107253.106        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4p    | 4S*    |  3/2 |        107445.622        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4p    | 2P*    |  1/2 |        107588.469        |                    |          
+                   |        |  3/2 |        107628.283        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).5s    | 4P     |  1/2 |        109812.233        |                    |          
+                   |        |  3/2 |        109856.520        |                    |          
+                   |        |  5/2 |        109926.661        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).5s    | 2P     |  1/2 |        110035.720        |                    |          
+                   |        |  3/2 |        110103.834        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4d    | 4F     |  3/2 |        110194.654        |                    |          
+                   |        |  5/2 |        110212.396        |                    |          
+                   |        |  7/2 |        110247.288        |                    |          
+                   |        |  9/2 |        110303.233        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4d    | 2P     |  3/2 |        110220.107        |                    |          
+                   |        |  1/2 |        110245.183        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4d    | 2F     |  5/2 |        110286.305        |                    |          
+                   |        |  7/2 |        110362.462        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4d    | 4P     |  5/2 |        110299.974        |                    |          
+                   |        |  3/2 |        110322.721        |                    |          
+                   |        |  1/2 |        110350.014        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4f D  | 2[3]*  |  5/2 |        110349.09         |                    |          
+                   |        |  7/2 |        110349.17         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4f G  | 2[3]*  |  5/2 |        110385.29         |                    |          
+                   |        |  7/2 |        110385.36         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4d    | 4D     |  1/2 |        110385.795        |                    |          
+                   |        |  3/2 |        110395.463        |                    |          
+                   |        |  5/2 |        110401.356        |                    |          
+                   |        |  7/2 |        110403.220        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4f G  | 2[4]*  |  9/2 |        110402.09         |                    |          
+                   |        |  7/2 |        110402.18         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4f D  | 2[2]*  |  3/2 |        110404.50         |                    |          
+                   |        |  5/2 |        110404.55         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4d    | 2D     |  3/2 |        110447.032        |                    |          
+                   |        |  5/2 |        110470.244        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4f D  | 2[1]*  |  1/2 |        110459.79         |                    |          
+                   |        |  3/2 |        110459.79         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4f G  | 2[5]*  | 11/2 |        110473.09         |                    |          
+                   |        |  9/2 |        110473.24         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4f F  | 2[2]*  |  3/2 |        110485.96         |                    |          
+                   |        |  5/2 |        110486.04         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4f F  | 2[3]*  |  7/2 |        110498.42         |                    |          
+                   |        |  5/2 |        110498.43         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).4f F  | 2[4]*  |  9/2 |        110501.68         |                    |          
+                   |        |  7/2 |        110501.83         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(1D).3p    | 2D*    |  3/2 |        110521.050        |                    |          
+                   |        |  5/2 |        110544.850        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(1D).3p    | 2F*    |  5/2 |        110710.739        |                    |          
+                   |        |  7/2 |        110715.152        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).5p    | 2S*    |  1/2 |        111060.905        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).5p    | 4D*    |  1/2 |        111143.567        |                    |          
+                   |        |  3/2 |        111165.158        |                    |          
+                   |        |  5/2 |        111204.016        |                    |          
+                   |        |  7/2 |        111260.873        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).5p    | 2P*    |  1/2 |        111198.848        |                    |          
+                   |        |  3/2 |        111213.271        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).5p    | 4P*    |  1/2 |        111271.596        |                    |          
+                   |        |  3/2 |        111285.644        |                    |          
+                   |        |  5/2 |        111326.798        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).5p    | 4S*    |  3/2 |        111501.368        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).5p    | 2D*    |  3/2 |        111853.061        |                    |          
+                   |        |  5/2 |        111905.609        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(1D).3p    | 2P*    |  1/2 |        112294.007        |                    |          
+                   |        |  3/2 |        112319.805        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).6s    | 4P     |  1/2 |        112565.470        |                    |          
+                   |        |  3/2 |        112609.612        |                    |          
+                   |        |  5/2 |        112681.389        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).6s    | 2P     |  1/2 |        112691.96         |                    |          
+                   |        |  3/2 |        112736.961        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).5d    | 4F     |  3/2 |        112759.966        |                    |          
+                   |        |  5/2 |        112760.325        |                    |          
+                   |        |  7/2 |        112797.725        |                    |          
+                   |        |  9/2 |        112861.348        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).5d    | 2P     |  3/2 |        112801.031        |                    |          
+                   |        |  1/2 |        112807.567        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).5d    | 2F     |  5/2 |        112812.518        |                    |          
+                   |        |  7/2 |        112891.238        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).5d    | 4P     |  5/2 |        112824.459        |                    |          
+                   |        |  3/2 |        112838.02         |                    |          
+                   |        |  1/2 |        112870.27         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P<0>).5f | 2[3]*  |  5/2 |       <a class='bal' href="javascript:void(toggleBalloon(''))" onmouseover="showBalloon('',event);self.status='Help';return true" onmouseout="hideBalloon('',event);self.status='';return true">[</a>112826.94<a class='bal' href="javascript:void(toggleBalloon(']'))" onmouseover="showBalloon(']',event);self.status='Help';return true" onmouseout="hideBalloon(']',event);self.status='';return true">]</a>        |                    |          
+                   |        |  7/2 |       <a class='bal' href="javascript:void(toggleBalloon(''))" onmouseover="showBalloon('',event);self.status='Help';return true" onmouseout="hideBalloon('',event);self.status='';return true">[</a>112826.94<a class='bal' href="javascript:void(toggleBalloon(']'))" onmouseover="showBalloon(']',event);self.status='Help';return true" onmouseout="hideBalloon(']',event);self.status='';return true">]</a>        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P<1>).5f | 2[3]*  |  5/2 |                          |                    |          
+                   |        |  7/2 |        112868.73         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P<1>).5f | 2[4]*  |  9/2 |        112877.91         |                    |          
+                   |        |  7/2 |        112877.92         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P<1>).5f | 2[2]*  |  3/2 |        112880.1          |                    |          
+                   |        |  5/2 |        112880.53         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).5d    | 4D     |  1/2 |        112904.5          |                    |          
+                   |        |  3/2 |        112909.076        |                    |          
+                   |        |  5/2 |        112910.630        |                    |          
+                   |        |  7/2 |        112911.079        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).5d    | 2D     |  3/2 |        112927.055        |                    |          
+                   |        |  5/2 |        112945.809        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P<2>).5f | 2[1]*  |  1/2 |        112946.62         |                    |          
+                   |        |  3/2 |        112946.62         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P<2>).5f | 2[5]*  | 11/2 |        112953.43         |                    |          
+                   |        |  9/2 |        112953.53         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P<2>).5f | 2[2]*  |  3/2 |       <a class='bal' href="javascript:void(toggleBalloon(''))" onmouseover="showBalloon('',event);self.status='Help';return true" onmouseout="hideBalloon('',event);self.status='';return true">[</a>112957.77<a class='bal' href="javascript:void(toggleBalloon(']'))" onmouseover="showBalloon(']',event);self.status='Help';return true" onmouseout="hideBalloon(']',event);self.status='';return true">]</a>        |                    |          
+                   |        |  5/2 |       <a class='bal' href="javascript:void(toggleBalloon(''))" onmouseover="showBalloon('',event);self.status='Help';return true" onmouseout="hideBalloon('',event);self.status='';return true">[</a>112957.77<a class='bal' href="javascript:void(toggleBalloon(']'))" onmouseover="showBalloon(']',event);self.status='Help';return true" onmouseout="hideBalloon(']',event);self.status='';return true">]</a>        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P<2>).5f | 2[3]*  |  5/2 |                          |                    |          
+                   |        |  7/2 |        112965.36         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P<2>).5f | 2[4]*  |  9/2 |        112967.09         |                    |          
+                   |        |  7/2 |        112967.20         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).6p    | 4D*    |  1/2 |                          |                    |          
+                   |        |  3/2 |                          |                    |          
+                   |        |  5/2 |        113307.5          |                    |          
+                   |        |  7/2 |        113370.5          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).6p    | 4P*    |  1/2 |                          |                    |          
+                   |        |  3/2 |        113349.8          |                    |          
+                   |        |  5/2 |        113402.4          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).7s    | 4P     |  1/2 |        114026.654        |                    |          
+                   |        |  3/2 |        114071.153        |                    |          
+                   |        |  5/2 |        114146.525        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).7s    | 2P     |  1/2 |        114112.1          |                    |          
+                   |        |  3/2 |        114206.1          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).6d    | 4F     |  3/2 |        114124.2          |                    |          
+                   |        |  5/2 |        114132.7          |                    |          
+                   |        |  7/2 |        114175.736        |                    |          
+                   |        |  9/2 |        114245.309        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).6d    | 2P     |  3/2 |        114170.4          |                    |          
+                   |        |  1/2 |        114183.5          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P<0>).6f | 2[3]*  |  5/2 |        114171.98         |                    |          
+                   |        |  7/2 |        114171.98         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).6d    | 2F     |  5/2 |        114182.7          |                    |          
+                   |        |  7/2 |        114262.1          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).6d    | 4P     |  5/2 |        114191.6          |                    |          
+                   |        |  3/2 |        114200.0          |                    |          
+                   |        |  1/2 |        114249.5          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P<1>).6f | 2[3]*  |  5/2 |        114216.70         |                    |          
+                   |        |  7/2 |        114216.70         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P<1>).6f | 2[4]*  |  7/2 |        114222.08         |                    |          
+                   |        |  9/2 |        114222.08         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P<1>).6f | 2[2]*  |  3/2 |        114223.88         |                    |          
+                   |        |  5/2 |        114223.88         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).6d    | 4D     |  1/2 |        114271.8          |                    |          
+                   |        |  3/2 |        114272.6          |                    |          
+                   |        |  5/2 |        114274.0          |                    |          
+                   |        |  7/2 |        114274.1          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).6d    | 2D     |  3/2 |        114277.0          |                    |          
+                   |        |  5/2 |        114293.5          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P<2>).6f | 2[1]*  |  1/2 |       <a class='bal' href="javascript:void(toggleBalloon(''))" onmouseover="showBalloon('',event);self.status='Help';return true" onmouseout="hideBalloon('',event);self.status='';return true">[</a>114296.19<a class='bal' href="javascript:void(toggleBalloon(']'))" onmouseover="showBalloon(']',event);self.status='Help';return true" onmouseout="hideBalloon(']',event);self.status='';return true">]</a>        |                    |          
+                   |        |  3/2 |       <a class='bal' href="javascript:void(toggleBalloon(''))" onmouseover="showBalloon('',event);self.status='Help';return true" onmouseout="hideBalloon('',event);self.status='';return true">[</a>114296.19<a class='bal' href="javascript:void(toggleBalloon(']'))" onmouseover="showBalloon(']',event);self.status='Help';return true" onmouseout="hideBalloon(']',event);self.status='';return true">]</a>        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P<2>).6f | 2[5]*  |  9/2 |        114300.110        |                    |          
+                   |        | 11/2 |        114300.110        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P<2>).6f | 2[2]*  |  3/2 |        114302.02         |                    |          
+                   |        |  5/2 |        114302.02         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P<2>).6f | 2[3]*  |  5/2 |        114306.69         |                    |          
+                   |        |  7/2 |        114306.69         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P<2>).6f | 2[4]*  |  7/2 |        114307.79         |                    |          
+                   |        |  9/2 |        114307.79         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).7p    | 4D*    |  1/2 |                          |                    |          
+                   |        |  3/2 |                          |                    |          
+                   |        |  5/2 |                          |                    |          
+                   |        |  7/2 |        114545.6          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).8s    | 4P     |  1/2 |        114894.0          |                    |          
+                   |        |  3/2 |        114939.1          |                    |          
+                   |        |  5/2 |        115021.3          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).7d    | 4F     |  3/2 |        114952.5          |                    |          
+                   |        |  5/2 |        114959.0          |                    |          
+                   |        |  7/2 |        115003.6          |                    |          
+                   |        |  9/2 |        115077.2          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).8s    | 2P     |  1/2 |        114963.1          |                    |          
+                   |        |  3/2 |        115033.4          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).7d    | 2P     |  3/2 |        114992.8          |                    |          
+                   |        |  1/2 |        115009.9          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).7d    | 2F     |  5/2 |        115003.0          |                    |          
+                   |        |  7/2 |        115086.9          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).7d    | 4P     |  1/2 |                          |                    |          
+                   |        |  5/2 |        115011.0          |                    |          
+                   |        |  3/2 |        115018.7          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).7d    | 4D     |  1/2 |        115093.3          |                    |          
+                   |        |  7/2 |        115094.4          |                    |          
+                   |        |  3/2 |        115094.5          |                    |          
+                   |        |  5/2 |        115094.6          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).7d    | 2D     |  3/2 |        115100.0          |                    |          
+                   |        |  5/2 |        115106.2          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).9s    | 4P     |  1/2 |        115449.5          |                    |          
+                   |        |  3/2 |        115495.5          |                    |          
+                   |        |  5/2 |        115576.6          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).9s    | 2P     |  1/2 |        115480            |                    |          
+                   |        |  3/2 |        115480            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).8d    | 4F     |  3/2 |                          |                    |          
+                   |        |  5/2 |        115495.5          |                    |          
+                   |        |  7/2 |        115537.8          |                    |          
+                   |        |  9/2 |        115613.3          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).8d    | 2P     |  1/2 |        115530            |                    |          
+                   |        |  3/2 |        115535.4          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).8d    | 2F     |  5/2 |        115538.4          |                    |          
+                   |        |  7/2 |        115620.6          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).8d    | 2D     |  3/2 |        115597            |                    |          
+                   |        |  5/2 |        115633.5          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).8d    | 4P     |  1/2 |        115618            |                    |          
+                   |        |  3/2 |        115618            |                    |          
+                   |        |  5/2 |        115618            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).8d    | 4D     |  1/2 |        115624.5          |                    |          
+                   |        |  3/2 |        115626.9          |                    |          
+                   |        |  5/2 |        115626.9          |                    |          
+                   |        |  7/2 |        115627.7          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).10s   | 4P     |  1/2 |        115829.3          |                    |          
+                   |        |  3/2 |        115876.5          |                    |          
+                   |        |  5/2 |        115955.2          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).10s   | 2P     |  1/2 |        115842            |                    |          
+                   |        |  3/2 |        115842            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).9d    | 4D     |  1/2 |        115887            |                    |          
+                   |        |  3/2 |        115887            |                    |          
+                   |        |  5/2 |        115887            |                    |          
+                   |        |  7/2 |        115887            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).9d    | 2P     |  1/2 |        115889            |                    |          
+                   |        |  3/2 |        115889            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).9d    | 2F     |  5/2 |        115902            |                    |          
+                   |        |  7/2 |        115902            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).9d    | 2D     |  3/2 |        115973            |                    |          
+                   |        |  5/2 |        115991            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).9d    | 4P     |  1/2 |        115990            |                    |          
+                   |        |  3/2 |        115990            |                    |          
+                   |        |  5/2 |        115990            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).11s   | 2P     |  1/2 |        116107            |                    |          
+                   |        |  3/2 |        116107            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).11s   | 4P     |  1/2 |        116124            |                    |          
+                   |        |  3/2 |        116124            |                    |          
+                   |        |  5/2 |        116124            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).10d   | 2P     |  1/2 |        116155            |                    |          
+                   |        |  3/2 |        116155            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).10d   | 2F     |  5/2 |        116159            |                    |          
+                   |        |  7/2 |        116159            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).10d   | 4D     |  1/2 |        116164            |                    |          
+                   |        |  3/2 |        116164            |                    |          
+                   |        |  5/2 |        116164            |                    |          
+                   |        |  7/2 |        116164            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).10d   | 2D     |  3/2 |        116240            |                    |          
+                   |        |  5/2 |        116240            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).10d   | 4P     |  1/2 |        116259            |                    |          
+                   |        |  3/2 |        116259            |                    |          
+                   |        |  5/2 |        116259            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(1S).3s    | 2S     |  1/2 |        116278.558        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).12s   | 2P     |  1/2 |        116305            |                    |          
+                   |        |  3/2 |        116305            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).12s   | 4P     |  1/2 |        116312            |                    |          
+                   |        |  3/2 |        116312            |                    |          
+                   |        |  5/2 |        116312            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).11d   | 2P     |  1/2 |        116351            |                    |          
+                   |        |  3/2 |        116351            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).11d   | 2F     |  5/2 |        116359            |                    |          
+                   |        |  7/2 |        116359            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).11d   | 4D     |  1/2 |        116367            |                    |          
+                   |        |  3/2 |        116367            |                    |          
+                   |        |  5/2 |        116367            |                    |          
+                   |        |  7/2 |        116367            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).11d   | 2D     |  3/2 |        116436            |                    |          
+                   |        |  5/2 |        116436            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).11d   | 4P     |  1/2 |        116441            |                    |          
+                   |        |  3/2 |        116441            |                    |          
+                   |        |  5/2 |        116441            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).13s   | 2P     |  1/2 |        116467            |                    |          
+                   |        |  3/2 |        116467            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).12d   | 2P     |  1/2 |        116502            |                    |          
+                   |        |  3/2 |        116502            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).12d   | 4P     |  1/2 |        116581            |                    |          
+                   |        |  3/2 |        116581            |                    |          
+                   |        |  5/2 |        116581            |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(3P).12d   | 2D     |  3/2 |        116625            |                    |          
+                   |        |  5/2 |        116625            |                    |          
+-------------------|--------|------|--------------------------|--------------------|-----------
+-------------------|--------|------|--------------------------|--------------------|-----------
+N II (2p2 3P<0>)   | Limit  |  --- |        117225.7          |               0.3  |     <a class='bib' ONMOUSEOVER="self.status='EL Bibliographic Reference for N I'; return true;" ONMOUSEOUT="self.status='';return true;" TARGET="_blank"  HREF="javascript:void(0)" ONCLICK="popded('https://physics.nist.gov/cgi-bin/ASBib1/get_ASBib_ref.cgi?db=el&db_id=1411&comment_code=&amp;element=N&amp;spectr_charge=1&amp;ref=1411&amp;type=E');return false">L1411</a>
+-------------------|--------|------|--------------------------|--------------------|-----------
+-------------------|--------|------|--------------------------|--------------------|-----------
+N II (2p2 3P<1>)   | Limit  |  --- |        117274.4          |                    |          
+-------------------|--------|------|--------------------------|--------------------|-----------
+-------------------|--------|------|--------------------------|--------------------|-----------
+N II (2p2 3P<2>)   | Limit  |  --- |        117356.46         |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(1D).4s    | 2D     |  3/2 |        119210.0          |                    |          
+                   |        |  5/2 |        119210.0          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(1D).3d    | 2F     |  5/2 |                          |                    |          
+                   |        |  7/2 |        119812.9          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(1D).3d    | 2G     |  9/2 |        120149.238        |                    |          
+                   |        |  7/2 |        120149.325        |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(1D).3d    | 2D     |  5/2 |        120150.1          |                    |          
+                   |        |  3/2 |        120155.8          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(1D).3d    | 2P     |  3/2 |        120309.6          |                    |          
+                   |        |  1/2 |        120311.2          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(1D).3d    | 2S     |  1/2 |        120566.0          |                    |          
+                   |        |      |                          |                    |           
+2s.2p4             | 2D     |  3/2 |                          |                    |          
+                   |        |  5/2 |        121200.5          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(1D).4p    | 2F*    |  5/2 |        122246.4          |                    |          
+                   |        |  7/2 |        122246.4          |                    |          
+                   |        |      |                          |                    |           
+2s2.2p2.(1D).4f H  | 2[5]*  |  9/2 |        125688.07         |                    |          
+                   |        | 11/2 |        125688.07         |                    |          
+                   |        |      |                          |                    |           
+2s.2p3.(5S*).3s    | 6S*    |  5/2 |       <a class='bal' href="javascript:void(toggleBalloon(''))" onmouseover="showBalloon('',event);self.status='Help';return true" onmouseout="hideBalloon('',event);self.status='';return true">[</a>131000.00<a class='bal' href="javascript:void(toggleBalloon(']'))" onmouseover="showBalloon(']',event);self.status='Help';return true" onmouseout="hideBalloon(']',event);self.status='';return true">]</a><a class='bal' href="javascript:void(toggleBalloon('+'))" onmouseover="showBalloon('+',event);self.status='Help';return true" onmouseout="hideBalloon('+',event);self.status='';return true">+x</a>      |                    |          
+                   |        |      |                          |                    |           
+2s.2p3.(5S*).3p    | 6P     |  3/2 |        142080.75<a class='bal' href="javascript:void(toggleBalloon('+'))" onmouseover="showBalloon('+',event);self.status='Help';return true" onmouseout="hideBalloon('+',event);self.status='';return true">+x</a>       |                    |          
+                   |        |  5/2 |        142081.91<a class='bal' href="javascript:void(toggleBalloon('+'))" onmouseover="showBalloon('+',event);self.status='Help';return true" onmouseout="hideBalloon('+',event);self.status='';return true">+x</a>       |                    |          
+                   |        |  7/2 |        142084.13<a class='bal' href="javascript:void(toggleBalloon('+'))" onmouseover="showBalloon('+',event);self.status='Help';return true" onmouseout="hideBalloon('+',event);self.status='';return true">+x</a>       |                    |          
+                   |        |      |                          |                    |           
+2s.2p3.(5S*).3p    | 4P     |  1/2 |        144360            |                    |          
+                   |        |  3/2 |        144360            |                    |          
+                   |        |  5/2 |        144360            |                    |          
+                   |        |      |                          |                    |           
+2s.2p3.(5S*).4p    | 4P     |  1/2 |        154439            |                    |          
+                   |        |  3/2 |        154439            |                    |          
+                   |        |  5/2 |        154439            |                    |          
+                   |        |      |                          |                    |           
+2s.2p3.(5S*).5p    | 4P     |  1/2 |        158322            |                    |          
+                   |        |  3/2 |        158322            |                    |          
+                   |        |  5/2 |        158322            |                    |          
+                   |        |      |                          |                    |           
+2s.2p3.(5S*).6p    | 4P     |  1/2 |        160241            |                    |          
+                   |        |  3/2 |        160241            |                    |          
+                   |        |  5/2 |        160241            |                    |          
+                   |        |      |                          |                    |           
+2s.2p3.(5S*).7p    | 4P     |  1/2 |        161330            |                    |          
+                   |        |  3/2 |        161330            |                    |          
+                   |        |  5/2 |        161330            |                    |          
+                   |        |      |                          |                    |           
+2s.2p3.(5S*).8p    | 4P     |  1/2 |        162005            |                    |          
+                   |        |  3/2 |        162005            |                    |          
+                   |        |  5/2 |        162005            |                    |          
+                   |        |      |                          |                    |           
+2s.2p3.(5S*).9p    | 4P     |  1/2 |       <a class='bal' href="javascript:void(toggleBalloon(''))" onmouseover="showBalloon('',event);self.status='Help';return true" onmouseout="hideBalloon('',event);self.status='';return true">[</a>162436<a class='bal' href="javascript:void(toggleBalloon(']'))" onmouseover="showBalloon(']',event);self.status='Help';return true" onmouseout="hideBalloon(']',event);self.status='';return true">]</a>           |                    |          
+                   |        |  3/2 |       <a class='bal' href="javascript:void(toggleBalloon(''))" onmouseover="showBalloon('',event);self.status='Help';return true" onmouseout="hideBalloon('',event);self.status='';return true">[</a>162436<a class='bal' href="javascript:void(toggleBalloon(']'))" onmouseover="showBalloon(']',event);self.status='Help';return true" onmouseout="hideBalloon(']',event);self.status='';return true">]</a>           |                    |          
+                   |        |  5/2 |       <a class='bal' href="javascript:void(toggleBalloon(''))" onmouseover="showBalloon('',event);self.status='Help';return true" onmouseout="hideBalloon('',event);self.status='';return true">[</a>162436<a class='bal' href="javascript:void(toggleBalloon(']'))" onmouseover="showBalloon(']',event);self.status='Help';return true" onmouseout="hideBalloon(']',event);self.status='';return true">]</a>           |                    |          
+                   |        |      |                          |                    |           
+2s.2p3.(5S*).10p   | 4P     |  1/2 |        162770            |                    |          
+                   |        |  3/2 |        162770            |                    |          
+                   |        |  5/2 |        162770            |                    |          
+                   |        |      |                          |                    |           
+2s.2p3.(5S*).11p   | 4P     |  1/2 |        162999            |                    |          
+                   |        |  3/2 |        162999            |                    |          
+                   |        |  5/2 |        162999            |                    |          
+                   |        |      |                          |                    |           
+2s.2p3.(5S*).12p   | 4P     |  1/2 |        163163            |                    |          
+                   |        |  3/2 |        163163            |                    |          
+                   |        |  5/2 |        163163            |                    |          
+                   |        |      |                          |                    |           
+2s.2p3.(5S*).13p   | 4P     |  1/2 |        163298            |                    |          
+                   |        |  3/2 |        163298            |                    |          
+                   |        |  5/2 |        163298            |                    |          
+                   |        |      |                          |                    |           
+2s.2p3.(5S*).14p   | 4P     |  1/2 |        163399            |                    |          
+                   |        |  3/2 |        163399            |                    |          
+                   |        |  5/2 |        163399            |                    |          
+-----------------------------------------------------------------------------------------------
+</PRE>
+
+<p style="color:black; font-family: helvetica,arial; font-weight:bold">If you did not find the data you need, please <a href="/cdn-cgi/l/email-protection#5938353c2138373d3c2b77322b3834303d381937302a2d773e362f662a2c3b333c3a2d6414302a2a30373e7c6b693d382d387c6b6930377c6b69180a1d7f383429623b363d2064177c6b69107c6b69353c2f3c352a">inform the ASD Team</a>.</p><table style="width:100%; border:0; margin-top:0">
+<tr><td style="text-align:left"><a href="https://physics.nist.gov/PhysRefData/ASD/index.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/ASD-sm.gif" style="border:0" width="100" height="47"
+alt="[ASD Home]" title="ASD Home"></a><a href="https://physics.nist.gov/PhysRefData/ASD/lines_form.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/Lines.gif" style="border:0" width="70" height="47"
+alt="[Lines Query]" title="Lines Query"></a><a href="https://physics.nist.gov/PhysRefData/ASD/levels_form.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/Levels.gif" style="border:0" width="79" height="47"
+alt="[Levels Query]" title="Levels Query"></a><a href="https://www.nist.gov/pml/atomic-spectra-database-contents"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/List.gif" style="border:0" width="77" height="47"
+alt="[List of Spectra]" title="List of Spectra"></a><a href="https://physics.nist.gov/PhysRefData/ASD/ionEnergy.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/GS-IE.gif" style="border:0" width="124" height="47"
+alt="[Ground States and Ionization Energies]" title="Ground States and Ionization Energies"></a><a
+href="https://physics.nist.gov/PhysRefData/ASBib1/index.html"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/Bib.gif" style="border:0"
+width="98" height="47" alt="[Bibliography]" title="Bibliography"></a><a
+href="https://physics.nist.gov/PhysRefData/ASD/Html/help.html"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/Help.gif" style="border:0"
+width="55" height="47" alt="[Help]" title="Help"/></a></td>
+<td style="text-align:right"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/nist-pl-black.gif" style="border:0" width="136" height="68"
+usemap="#NIST-PL" alt="NIST Physical Measurement Laboratory"/></td>
+</tr></table>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>NIST ASD Levels Output</title>
+<link href="https://physics.nist.gov/PhysRefData/ASD" rel="start" title="ASD 5.0" />
+<link href="https://physics.nist.gov/PhysRefData/ASD" rel="ASD 4" title="ASD 4.0" />
+<link href="https://physics.nist.gov/PhysRefData/ASD" rel="ASD 3" title="ASD 3.0" />
+<link href="https://physics.nist.gov/PhysRefData/ASD" rel="ASD 2" title="ASD 2.0" />
+<link href="https://physics.nist.gov/PhysRefData/ASD" rel="ASD 1" title="ASD 1.3" />
+<link href="https://physics.nist.gov/PhysRefData/ASD" rel="Author" title="Yuri Ralchenko" />
+<link href="https://physics.nist.gov/PhysRefData/ASD" rel="Author" title="Alexander Kramida" />
+<link href="https://physics.nist.gov/PhysRefData/ASD" rel="Author" title="Joseph Reader" />
+<link href="https://physics.nist.gov/PhysRefData/ASD/Html/verhist.shtml" rel="Version" title="Version History" />
+<link href="https://www.nist.gov/" rel="bookmark" title="NIST Main Page" />
+<link href="https://physics.nist.gov/" rel="bookmark" title="NIST Physical Measurement Lab" />
+<link href="https://pml.nist.gov/data " rel="bookmark" title="Physical Reference Data" />
+<meta content="text/javascript" http-equiv="Content-Script-Type" />
+<link rel="stylesheet" type="text/css" href="https://physics.nist.gov/PhysRefData/ASD/Scripts/1.css" />
+<!-- Google Analtyics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9SLN1VEEJ2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9SLN1VEEJ2');
+</script>
+<!-- End of Google Analytics 4 -->
+<SCRIPT async id="_fed_an_ua_tag" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-46&amp;yt=false&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c" type="text/javascript"></script>
+<script type="text/javascript">//<![CDATA[
+
+function setFocus() {
+  var de = document.getElementById("de");
+  var idsSp = document.getElementById("ids_sp");
+  var dom = document.domain;
+  var href = document.location.href;
+  if ( href.match(/^http:\/\/ekron\.nist\.gov\/ASD\/DataEntry\/.*/i) ) {
+    de.value = 1;
+  }
+  if ( dom.match(/^ekron\.nist\.gov$/i) ) {
+    idsSp.style.display="inline";
+  }
+  document.levels.spectrum.disabled = true;
+}
+function submit_update() {
+  var submitRetrieve = document.getElementById("submit_retrieve");
+  var spCrit = document.getElementById("spectrum_crit");
+  if ( (spCrit != null) && (submitRetrieve != null) ) {
+    var spPrev = spCrit.innerHTML;
+    spPrev = spPrev.toLowerCase().replace(/  /gm,"");
+    spPrev = spPrev.replace(/<b>/gm,"");
+    spPrev = spPrev.replace(/<\/b>/gm,"");
+    var sp = document.getElementById("spectrum").value;
+    sp = sp.toLowerCase().replace(/  /gm,"");
+    if ( sp != spPrev ) {
+      submitRetrieve.value = "Update Criteria";
+    } else {
+        document.levels.spectrum.disabled = false;
+      submitRetrieve.value = "Retrieve Data";
+    }
+  }
+  return true;
+}
+
+//]]></script>
+<script src="/js/clickjack.js" type="text/javascript"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body bgcolor="white" onload="setFocus()">
+<script type="text/javascript" src="https://physics.nist.gov/PhysRefData/ASD/Scripts/balloon.js"></script>
+<script type="text/javascript" src="https://physics.nist.gov/PhysRefData/ASD/Scripts/setup.js"></script>
+<script type="text/javascript" src="https://physics.nist.gov/PhysRefData/ASD/Scripts/go.js"></script>
+<span>
+<a href="#start"><img src="/Images/dot_t.gif" width="1" height="1" style="border:0;margin-top:0;margin-bottom:0" alt="[skip navigation]" /></a>
+</span>
+<table style="width:100%; border:0; margin-top:0">
+<tr><td style="text-align:left"><a href="https://physics.nist.gov/PhysRefData/ASD/index.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/ASD-sm.gif" style="border:0" width="100" height="47"
+alt="[ASD Home]" title="ASD Home"></a><a href="https://physics.nist.gov/PhysRefData/ASD/lines_form.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/Lines.gif" style="border:0" width="70" height="47"
+alt="[Lines Query]" title="Lines Query"></a><a href="https://physics.nist.gov/PhysRefData/ASD/levels_form.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/Levels.gif" style="border:0" width="79" height="47"
+alt="[Levels Query]" title="Levels Query"></a><a href="https://www.nist.gov/pml/atomic-spectra-database-contents"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/List.gif" style="border:0" width="77" height="47"
+alt="[List of Spectra]" title="List of Spectra"></a><a href="https://physics.nist.gov/PhysRefData/ASD/ionEnergy.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/GS-IE.gif" style="border:0" width="124" height="47"
+alt="[Ground States and Ionization Energies]" title="Ground States and Ionization Energies"></a><a
+href="https://physics.nist.gov/PhysRefData/ASBib1/index.html"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/Bib.gif" style="border:0"
+width="98" height="47" alt="[Bibliography]" title="Bibliography"></a><a
+href="https://physics.nist.gov/PhysRefData/ASD/Html/help.html"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/Help.gif" style="border:0"
+width="55" height="47" alt="[Help]" title="Help"/></a></td>
+<td style="text-align:right"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/nist-pl-black.gif" style="border:0" width="136" height="68"
+usemap="#NIST-PL" alt="NIST Physical Measurement Laboratory"/></td>
+</tr></table>
+
+<map name="NIST-PL" id="NIST-PL">
+  <area shape="rect" coords="1,1,135,48" href="https://www.nist.gov" alt="National Institute of Standards and Technology" title="National Institute of Standards and Technology"/>
+  <area shape="rect" coords="1,50,135,67" href="https://www.nist.gov/pml" alt="NIST Physical Measurement Laboratory" title="NIST Physical Measurement Laboratory"/>
+</map>
+<a id="start"><!-- filler --></a>
+<script type="text/javascript">
+<!-- //
+var newwindow
+//var n
+function popdef(n){
+newwindow = window.open(n,"data1","toolbar=no,location=no,alwaysRaised=yes,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,copyhistory=no,width=600,height=450");
+if (window.focus) {newwindow.focus()}
+return true;
+}
+function popbib(n){
+newwindow = window.open(n,"data2","toolbar=no,location=no,alwaysRaised=yes,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,copyhistory=no,width=950,height=800");
+if (window.focus) {newwindow.focus()}
+return true;
+}
+function popded(n){
+//newwindow = window.open(n,"data3","toolbar=no,location=no,alwaysRaised=yes,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,copyhistory=no,width=640,height=250");
+newwindow = window.open(n,"data3","toolbar=no,location=no,alwaysRaised=yes,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,copyhistory=no,width=800,height=320");if (window.focus) {newwindow.focus()}
+return true;
+}
+function popdiag(n){
+newwindow = window.open(n,"data3","toolbar=no,location=no,alwaysRaised=yes,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,copyhistory=no,width=800,height=1000");if (window.focus) {newwindow.focus()}
+return true;
+}
+// -->
+</script>
+
+<table style="width:100%">
+  <tr>
+    <td style="color:#223388; font-size:150%; vertical-align:middle"><span style="color:black; font-weight:600">NIST Atomic Spectra Database Levels Data</span><p>
+      <sup></sup>Fe  XVII &nbsp;&nbsp;67 Levels Found<br />
+<b><font size="+1"><i>Z</i> = 26, Ne isoelectronic sequence</font></b><span style="font-size=300%">&nbsp;</span></p>
+    </td>
+    <td style="text-align:right; vertical-align:middle">
+<div class='ref'>
+<b>Example of how to reference these results:</b><br />
+
+Kramida,&nbsp;A., Ralchenko,&nbsp;Yu., Reader,&nbsp;J., and NIST ASD Team (2024).
+  <i>NIST Atomic Spectra Database</i> (ver.&nbsp;5.12),
+  [Online]. Available: <span style="color:#0000cc;">https://physics.nist.gov/asd</span>
+  [2025, March 21].
+  National Institute of Standards and Technology, Gaithersburg, MD.
+    DOI: <span style="color:#0000cc;">https://doi.org/10.18434/T4W30F</span>
+<br />
+<div style="text-align: right; font-size: x-small">
+<a href="javascript:void(0)" onclick="popdef('/cgi-bin/ASD/bibtex.pl?y=2025&amp;m=March&amp;d=21');return true" target="_top">BibTex Citation</a> (new window)
+</div>
+</div>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" style="color:#655665; font-family: helvetica,arial; font-size:80%"><b>
+Data on  Land&eacute; factors are not available for this ion in ASD
+</b></td>
+  </tr>
+</table>
+
+<P/>
+<table style="background-color:#004400">
+  <tr>
+    <td colspan="2" style="color: white; text-align:center">
+      &nbsp;&nbsp;Primary data source&nbsp;&nbsp;
+    </td>
+    <td style="color: white; text-align:center">
+      Query NIST Bibliographic Database for <b>Fe  XVII</b> (new window)
+    </td>
+  </tr>
+  <tr>
+<!--    <td style="text-align:center; background-color:#DDDDBB">-->
+    <td class='brt2'>
+      &nbsp;<a onmouseover="self.status='Bibliographic Reference for Fe XVII';return true;" onmouseout="self.status='';return true;" target="_blank" href="javascript:void(0)" onclick="popded('https://physics.nist.gov/cgi-bin/ASBib1/get_ASBib_ref.cgi?db=el&amp;db_id=7185&amp;comment_code=&amp;element=Fe&amp;spectr_charge=17&amp;type=E');return false">Sugar and Corliss 1985</a>; <a onmouseover="self.status='Bibliographic Reference for Fe XVII';return true;" onmouseout="self.status='';return true;" target="_blank" href="javascript:void(0)" onclick="popded('https://physics.nist.gov/cgi-bin/ASBib1/get_ASBib_ref.cgi?db=el&amp;db_id=11926&amp;comment_code=&amp;element=Fe&amp;spectr_charge=17&amp;type=E');return false">Shirai et al. 2000</a>&nbsp;
+    </td>
+    <td class='blf2'>
+      
+    </td>
+    <td class='bcn2'>
+      <A HREF="javascript:void(0)" ONCLICK="popbib('https://physics.nist.gov/cgi-bin/ASBib1/Elevbib/make_query.cgi?spectra=Fe%20XVII&amp;method=EL&amp;method=TE&amp;method=ND&amp;method=IP&amp;method=SF&amp;method=QF&order=1');return false"
+        ONMOUSEOVER="self.status='Fe  XVII: bibliography energy levels query';return true;"
+        ONMOUSEOUT="self.status=''; return true;" TARGET=_blank>Literature on Fe  XVII Energy Levels</A>
+    </td>
+  </tr>
+</table>
+  <br>
+<PRE>
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+Configuration           | Term        |   J |     Level (cm-1)   | Uncertainty (cm-1) | Leading percentages                                       | Reference
+------------------------|-------------|-----|--------------------|--------------------|-----------------------------------------------------------|-----------
+                        |             |     |                    |                    |                                                           |           
+2s2.2p6                 | 1S          |   0 |         0          |             3000   |                                                           |     <a class='bib' ONMOUSEOVER="self.status='EL Bibliographic Reference for Fe XVII'; return true;" ONMOUSEOUT="self.status='';return true;" TARGET="_blank"  HREF="javascript:void(0)" ONCLICK="popded('https://physics.nist.gov/cgi-bin/ASBib1/get_ASBib_ref.cgi?db=el&db_id=7185&comment_code=&amp;element=Fe&amp;spectr_charge=17&amp;ref=7185&amp;type=E');return false">L7185</a>
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<3/2>).3s   | (3/2,1/2)*  |   2 |   5849490          |               50   | <b>100</b>                                                       |          
+                        |             |   1 |   5864770          |               50   | <b> 98</b>             :   <b>  2</b>  2s2.2p5.(2P*<3/2>).3s (1/2,1/2)* |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<1/2>).3s   | (1/2,1/2)*  |   0 |   5951210          |               50   | <b>100</b>                                                       |          
+                        |             |   1 |   5960870          |               50   | <b> 98</b>             :   <b>  2</b>  2s2.2p5.(2P*<1/2>).3s (3/2,1/2)* |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.3p              | 3S          |   1 |   6093450          |               50   | <b> 82</b>             :   <b> 17</b>  2s2.2p5.3p            3P         |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.3p              | 3D          |   2 |   6121690          |               50   | <b> 59</b>             :   <b> 28</b>  2s2.2p5.3p            1D         |          
+                        |             |   3 |   6134730          |               50   | <b>100</b>                                                       |          
+                        |             |   1 |   6219030          |               50   | <b> 67</b>             :   <b> 31</b>  2s2.2p5.3p            1P         |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.3p              | 1P          |   1 |   6143850          |               50   | <b> 50</b>             :   <b> 26</b>  2s2.2p5.3p            3D         |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.3p              | 3P          |   2 |   6158470          |               50   | <b> 67</b>             :   <b> 33</b>  2s2.2p5.3p            1D         |          
+                        |             |   0 |   6202250          |               50   | <b> 94</b>             :   <b>  6</b>  2s2.2p5.3p            1S         |          
+                        |             |   1 |   6245210          |               50   | <b> 63</b>             :   <b> 18</b>  2s2.2p5.3p            1P         |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.3p              | 1D          |   2 |   6248260          |               50   | <b> 41</b>  3D         :   <b> 39</b>  2s2.2p5.3p            1D         |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.3p              | 1S          |   0 |   6353410          |               50   | <b> 94</b>             :   <b>  6</b>  2s2.2p5.3p            3P         |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.3d              | 3P*         |   0 |   6463980          |               50   | <b>100</b>                                                       |          
+                        |             |   1 |   6471800          |               50   | <b> 92</b>             :   <b>  8</b>  2s2.2p5.3d            3D*        |          
+                        |             |   2 |   6486400          |               50   | <b> 72</b>             :   <b> 20</b>  2s2.2p5.3d            3D*        |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.3d              | 3F*         |   4 |   6486830          |               50   | <b>100</b>                                                       |          
+                        |             |   3 |   6493030          |               50   | <b> 65</b>             :   <b> 29</b>  2s2.2p5.3d            1F*        |          
+                        |             |   2 |   6594360          |               50   | <b> 64</b>             :   <b> 27</b>  2s2.2p5.3d            1D*        |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.3d              | 1D*         |   2 |   6506700          |               50   | <b> 41</b>             :   <b> 35</b>  2s2.2p5.3d            3F*        |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.3d              | 3D*         |   3 |   6515350          |               50   | <b> 64</b>             :   <b> 34</b>  2s2.2p5.3d            1F*        |          
+                        |             |   1 |   6552200          |               50   | <b> 73</b>             :   <b> 22</b>  2s2.2p5.3d            1P*        |          
+                        |             |   2 |   6600950          |               50   | <b> 48</b>             :   <b> 27</b>  2s2.2p5.3d            3P*        |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.3d              | 1F*         |   3 |   6605150          |               50   | <b> 37</b>  1F*        :   <b> 33</b>  2s2.2p5.3d            3F*        |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.3d              | 1P*         |   1 |   6660000          |             3000   | <b> 77</b>             :   <b> 19</b>  2s2.2p5.3d            3D*        |          
+                        |             |     |                    |                    |                                                           |           
+2s.2p6.3s               | 1S          |   0 |   7010000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s.2p6.3p               | 3P*         |   1 |   7198900          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s.2p6.3p               | 1P*         |   1 |   7234300          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<3/2>).4s   | (3/2,1/2)*  |   2 |   7879000          |             3000   |                                                           |          
+                        |             |   1 |   7885800          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<1/2>).4s   | (1/2,1/2)*  |   1 |   7983000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.4d              | 3P*         |   1 |   8116000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.4d              | 3F*         |   4 |   8123600          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.4d              | 3D*         |   3 |   8125800          |             3000   |                                                           |          
+                        |             |   1 |   8154000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.4d              | 1D*         |   2 |   8151700          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<1/2>).4f   | 2[7/2]      |   4 |   8180000          |             3000   |                                                           |          
+                        |             |   3 |   8204000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<3/2>).4f   | 2[3/2]      |   2 |   8188000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<3/2>).4f   | 2[9/2]      |   5 |   8188000          |             3000   |                                                           |          
+                        |             |   4 |   8210000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<3/2>).4f   | 2[5/2]      |   3 |   8192000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<3/2>).4f   | 2[7/2]      |   4 |   8193000          |             3000   |                                                           |          
+                        |             |   3 |   8289000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.4d              | 1P*         |   1 |   8249000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<1/2>).4f   | 2[5/2]      |   3 |   8289000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<3/2>).5s   | (3/2,1/2)*  |   1 |   8757000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.5d              | 3P*         |   1 |   8860000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<1/2>).5s   | (1/2,1/2)*  |   1 |   8860000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.5d              | 3D*         |   1 |   8887000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<3/2>).5f   | 2[9/2]      |   5 |   8903000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.5d              | 1P*         |   1 |   8982000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s.2p6.4p               | 3P*         |   1 |   9056000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s.2p6.4p               | 1P*         |   1 |   9072000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<3/2>).6s   | (3/2,1/2)*  |   1 |   9216000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<3/2>).6d   | 2[3/2]*     |   1 |   9285000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<1/2>).6d   | 2[3/2]*     |   1 |   9383000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<3/2>).7s   | (3/2,1/2)*  |   1 |   9479000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<3/2>).7d   | 2[3/2]*     |   1 |   9524000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<1/2>).7d   | 2[3/2]*     |   1 |   9628000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<3/2>).8d   | 2[3/2]*     |   1 |   9690000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s2.2p5.(2P*<1/2>).8d   | 2[3/2]*     |   1 |   9784000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s.2p6.5p               | 1P*         |   1 |   9878000          |             3000   |                                                           |          
+                        |             |     |                    |                    |                                                           |           
+2s.2p6.5p               | 3P*         |   1 |   9878000          |             3000   |                                                           |          
+------------------------|-------------|-----|--------------------|--------------------|-----------------------------------------------------------|-----------
+------------------------|-------------|-----|--------------------|--------------------|-----------------------------------------------------------|-----------
+Fe XVIII (2p5 2P*<3/2>) | Limit       | --- | <a class='bal' href="javascript:void(toggleBalloon(''))" onmouseover="showBalloon('',event);self.status='Help';return true" onmouseout="hideBalloon('',event);self.status='';return true">[</a>10184000<a class='bal' href="javascript:void(toggleBalloon(']'))" onmouseover="showBalloon(']',event);self.status='Help';return true" onmouseout="hideBalloon(']',event);self.status='';return true">]</a>         |             5300   |                                                           |    <a class='bib' ONMOUSEOVER="self.status='EL Bibliographic Reference for Fe XVII'; return true;" ONMOUSEOUT="self.status='';return true;" TARGET="_blank"  HREF="javascript:void(0)" ONCLICK="popded('https://physics.nist.gov/cgi-bin/ASBib1/get_ASBib_ref.cgi?db=el&db_id=11770&comment_code=&amp;element=Fe&amp;spectr_charge=17&amp;ref=11770&amp;type=E');return false">L11770</a>
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+</PRE>
+
+<p style="color:black; font-family: helvetica,arial; font-weight:bold">If you did not find the data you need, please <a href="/cdn-cgi/l/email-protection#c6a7aaa3bea7a8a2a3b4e8adb4a7abafa2a786a8afb5b2e8a1a9b0f9b5b3a4aca3a5b2fb8bafb5b5afa8a1e3f4f6a2a7b2a7e3f4f6afa8e3f4f6879582e0a7abb6fda4a9a2bffb80a3e3f4f69e908f8fe3f4f6aaa3b0a3aab5">inform the ASD Team</a>.</p><table style="width:100%; border:0; margin-top:0">
+<tr><td style="text-align:left"><a href="https://physics.nist.gov/PhysRefData/ASD/index.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/ASD-sm.gif" style="border:0" width="100" height="47"
+alt="[ASD Home]" title="ASD Home"></a><a href="https://physics.nist.gov/PhysRefData/ASD/lines_form.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/Lines.gif" style="border:0" width="70" height="47"
+alt="[Lines Query]" title="Lines Query"></a><a href="https://physics.nist.gov/PhysRefData/ASD/levels_form.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/Levels.gif" style="border:0" width="79" height="47"
+alt="[Levels Query]" title="Levels Query"></a><a href="https://www.nist.gov/pml/atomic-spectra-database-contents"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/List.gif" style="border:0" width="77" height="47"
+alt="[List of Spectra]" title="List of Spectra"></a><a href="https://physics.nist.gov/PhysRefData/ASD/ionEnergy.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/GS-IE.gif" style="border:0" width="124" height="47"
+alt="[Ground States and Ionization Energies]" title="Ground States and Ionization Energies"></a><a
+href="https://physics.nist.gov/PhysRefData/ASBib1/index.html"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/Bib.gif" style="border:0"
+width="98" height="47" alt="[Bibliography]" title="Bibliography"></a><a
+href="https://physics.nist.gov/PhysRefData/ASD/Html/help.html"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/Help.gif" style="border:0"
+width="55" height="47" alt="[Help]" title="Help"/></a></td>
+<td style="text-align:right"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/nist-pl-black.gif" style="border:0" width="136" height="68"
+usemap="#NIST-PL" alt="NIST Physical Measurement Laboratory"/></td>
+</tr></table>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>

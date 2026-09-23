@@ -3,9 +3,13 @@
 Validates:
 - Angular selection rules
 - Radial matrix elements
-- E1 A-coefficient for H 2p->1s (exact value: 6.2649e8 s^-1)
-- Gauge consistency (length vs velocity)
+- E1 A-coefficient for H 2p->1s (NIST value: 6.2649e8 s^-1) — the gate
+  ``docs/VERIFICATION.md:29`` names for this file
 - Single-config transitions via Atom API
+
+(The gauge consistency this module used to claim is gated in
+``tests/test_gauge_invariance.py`` and
+``tests/test_velocity_gauge_full_order.py``.)
 """
 
 from types import SimpleNamespace
@@ -13,16 +17,27 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 
+from atomx.numerics.analytic.hydrogenic_dirac import hydrogenic_dirac_wavefunction
 from atomx.properties.transitions.angular import (
     allowed_final_kappas,
     angular_eL,
     selection_rules,
 )
+from atomx.properties.transitions.multipole import radial_eL
 from atomx.properties.transitions.rates import (
     _double_factorial,
+    einstein_A_eL,
     lifetime,
     oscillator_strength,
 )
+
+#: NIST ASD / standard Ly-alpha A-coefficient: A(H 2p -> 1s) = 6.2649e8 s^-1.
+LY_ALPHA_A_NIST_PER_S = 6.2649e8
+#: The value this file used to pass with (HYP-144 pre-fix defect, commit
+#: 621fe99): the *lower* state degeneracy 2j_l+1 was used in place of
+#: 2j_u+1, giving 2.0000x the correct rate.  Named here so the regression
+#: is detectably excluded rather than merely implied by the NIST band.
+LY_ALPHA_A_PREFIX_BUG_PER_S = 1.253677e9
 
 # ===== Angular module tests =====
 
@@ -81,13 +96,20 @@ class TestSelectionRules:
         (parity: l_i=1, l_f=3; 1+3+3=7 odd → M parity OK)."""
         assert selection_rules(-2, -4, 3, 'M') is True
 
-    def test_m3_s_to_d_forbidden_by_parity(self):
-        """M3: s1/2 -> d5/2 fails parity for magnetic multipole
-        (l_i=0, l_f=2, L=3 → 0+2+3=5 odd ✓ for magnetic, triangle 2≤3≤3 ✓)."""
-        # Actually this is allowed by both — replace with a true M-forbidden:
-        # M3 p3/2 -> p3/2: parity l_i+l_f+L = 1+1+3=5 odd ✓ for M; but triangle 0≤3≤3 ✓
-        # M3 s1/2 -> s1/2: parity 0+0+3=3 odd ✓, but triangle 0≤3≤1 FAILS ✓
+    def test_m3_s_to_s_forbidden_by_triangle(self):
+        """M3: s1/2 -> s1/2 fails the TRIANGLE rule, not parity.
+
+        Parity is satisfied for a magnetic multipole (l_i+l_f+L = 0+0+3
+        is odd), but the angular momenta cannot couple: |1/2 − 1/2| = 0
+        and j_i + j_f = 1 < L = 3.  (This test used to be named
+        ``test_m3_s_to_d_forbidden_by_parity`` while its own comment said
+        "Actually this is allowed by both" — s1/2 → d5/2 IS allowed for
+        M3, and is asserted below.)
+        """
         assert selection_rules(-1, -1, 3, 'M') is False
+        # The allowed M3 case the old name described: s1/2 → d5/2
+        # (parity 0+2+3 odd, triangle 2 ≤ 3 ≤ 3).
+        assert selection_rules(-1, -3, 3, 'M') is True
 
     def test_angular_e3_nonzero_for_allowed(self):
         """Angular factor for allowed E3 should be nonzero."""
@@ -189,6 +211,65 @@ class TestRates:
         assert gf > 0
 
 
+# ===== NIST-anchored E1 gate (the one VERIFICATION.md:29 names) =====
+
+class TestHydrogenicLyAlpha:
+    """H 2p -> 1s E1 A-coefficient against the NIST/standard value.
+
+    ``docs/VERIFICATION.md:29`` names this file as the gate for the
+    "Hydrogen 2p->1s A coefficient".  Before this class the file's
+    strongest A-rate assertion was ``A > 0`` (``test_neon_transitions``),
+    which the pre-fix buggy rate 1.253677e9 s^-1 also satisfied.
+    """
+
+    _NS = 80
+    _KS = 9
+
+    def _ly_alpha_A(self, kappa_up: int) -> tuple[float, float]:
+        """Return (A [s^-1], omega [Ha]) for H 2p_{kappa_up} -> 1s_{1/2}."""
+        P_1s, Q_1s, bsp, E_1s = hydrogenic_dirac_wavefunction(
+            1, -1, 1, ns=self._NS, ks=self._KS)
+        P_2p, Q_2p, _, E_2p = hydrogenic_dirac_wavefunction(
+            2, kappa_up, 1, ns=self._NS, ks=self._KS)
+        omega = abs(E_2p - E_1s)
+        rme = radial_eL(P_2p, Q_2p, P_1s, Q_1s, bsp, 1)
+        ang = angular_eL(kappa_up, -1, 1)
+        return einstein_A_eL(omega, (ang * rme) ** 2, 1, 2 * abs(kappa_up) - 1), omega
+
+    @pytest.mark.parametrize("kappa_up", [1, -2], ids=["2p1/2", "2p3/2"])
+    def test_h_2p_to_1s_matches_nist(self, kappa_up):
+        """Both fine-structure components agree with NIST to 0.2 %.
+
+        Measured: A(2p1/2) = 6.268313e8, A(2p3/2) = 6.268384e8 s^-1 at
+        ns=80/ks=9 — 5.6e-4 above the NIST 6.2649e8 (the residual is the
+        finite-nuclear-mass / radiative correction absent from the
+        point-nucleus Dirac value, not a numerical error).
+        """
+        A, _ = self._ly_alpha_A(kappa_up)
+        assert pytest.approx(LY_ALPHA_A_NIST_PER_S, rel=2e-3) == A, (
+            f"H 2p_{kappa_up} -> 1s A = {A:.6e} s^-1 vs NIST "
+            f"{LY_ALPHA_A_NIST_PER_S:.4e}")
+        # The pre-fix value must stay detectably excluded (it is 2.00x NIST).
+        assert abs(A / LY_ALPHA_A_PREFIX_BUG_PER_S - 1.0) > 0.5, (
+            f"A = {A:.6e} s^-1 is within 50 % of the pre-fix buggy rate "
+            f"{LY_ALPHA_A_PREFIX_BUG_PER_S:.6e} (wrong state degeneracy)")
+
+    def test_ly_alpha_components_are_degenerate(self):
+        """The two Ly-alpha components have equal A to the O(alpha^2) level.
+
+        A = (4/3) alpha^3 omega^3 S/(2j_u+1) with S_3/2 = 2 S_1/2 and
+        omega_3/2 = omega_1/2 to fine structure, so A_3/2/A_1/2 = 1 exactly
+        (measured 1.0000114, the omega^3 fine-structure splitting).  The
+        pre-fix bug used 2j_l+1 for the 2p3/2 row and gave ratio 2.0000.
+        """
+        A_12, w_12 = self._ly_alpha_A(1)
+        A_32, w_32 = self._ly_alpha_A(-2)
+        assert pytest.approx(1.0, rel=1e-4) == A_32 / A_12, (
+            f"A(2p3/2)/A(2p1/2) = {A_32 / A_12:.6f} (pre-fix bug: 2.0000)")
+        # The residual is exactly the omega^3 fine-structure factor.
+        assert pytest.approx((w_32 / w_12) ** 3, rel=1e-4) == A_32 / A_12
+
+
 # ===== Integration test with Atom =====
 
 class TestAtomTransitions:
@@ -197,7 +278,7 @@ class TestAtomTransitions:
     def test_he_has_transitions(self):
         """Helium with 2 configs should produce E1 transitions."""
         from atomx import Atom
-        he = Atom(Z=2, configs=["1s2", "1s1 2p1"])
+        he = Atom(Z=2, config=["1s2", "1s1 2p1"])
         he.solve(max_iter=40, tol=1e-4)
         if not he.converged:
             pytest.skip("He MCDHF did not converge")

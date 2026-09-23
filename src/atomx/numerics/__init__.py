@@ -16,4 +16,9 @@ Sub-packages
 
 :mod:`atomx.numerics.analytic`
     Closed-form solutions for point-nucleus hydrogenic systems.
+
+:mod:`atomx.numerics.yk`
+    Shared Y^k potential mathematics — the single home for the
+    interpolatory partial-interval construction used by the dense
+    Gauss-node (B-spline Galerkin) path.
 """

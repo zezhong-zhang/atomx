@@ -25,6 +25,15 @@ eight orders of magnitude below FAC.  Root cause (HYP-530):
 Together these bring the per-pair KLL Auger width into the 1e14-1e16 s⁻¹
 range, matching the FAC order of magnitude.
 
+De-duplication (S5 finding 17): the live panel, its magnitude band
+(``[1e13, 1e17]`` s^-1) and the per-resonance ratio band now live in
+``tests/test_auger_fac_panel.py``, which computes the same five widths from
+the same ``Atom(Z=26, charge=16, config=[...])`` solve and additionally
+cross-checks the panel against the independent AITable record.  The
+duplicated magnitude test was deleted here; the 10 % gate is kept (it is the
+second, independent statement of the same aspirational claim) and is now a
+*loud* strict xfail.
+
 The strict 10 % per-resonance gate stays ``xfail`` because the
 average-of-configuration angular factor ``exchange_lambda`` over-counts
 magnetic substates that do not contribute to a specific J-resolved
@@ -49,19 +58,14 @@ from atomx.scattering.autoionization import auger_rate_csf_average  # noqa: E402
 
 FIXTURE_PATH = Path(__file__).parent / "data" / "fe17_kll_auger_fac.json"
 
-# HYP-530 acceptance: 1e5 -> 1e13-1e14 s^-1 magnitude fix.  The
-# post-calibration per-pair rates land in [1e14, 1e17] s^-1 — nine to
-# twelve orders of magnitude above the pre-fix ~1e5, and the right order
-# of magnitude vs FAC's ~3e14.  The upper bound leaves headroom for the
-# known ~10-100x over-estimate on the high-J / k=0-monopole channels
-# (notably ILEV 190, 3d-3d -> 2p+eps at J=3.5).
-MAGNITUDE_FLOOR = 1.0e13
-MAGNITUDE_CEIL = 1.0e17
-
 # Aspirational per-resonance tolerance.  Currently xfailed because the
 # average-of-configuration angular factor over-counts magnetic substates
-# vs the J-resolved FAC rate.
+# vs the J-resolved FAC rate.  RE-MEASURED 2026-09-22 on the five panel
+# resonances (the R7 asymmetric-mean-field fix moved them): atomx/FAC =
+# 0.50 / 1.20 / 5.13 / 1.38 / 0.81, so the worst |atomx/FAC - 1| is 4.13
+# (the 1.13-14.82 quoted here on 2026-09-17 is stale).
 STRICT_TOLERANCE = 0.10
+MEASURED_WORST_RATIO_DEVIATION = 4.13
 
 
 @pytest.fixture(scope="module")
@@ -81,18 +85,17 @@ def fe17_result(fac_panel):
     are well-defined even though their ground-state occupation is ~0.
     """
     atom = Atom(
-        Z=26,
-        charge=16,
-        configs=[
+                Z=26,
+                charge=16,
+                config=[
             "1s2 2s2 2p6",
             "1s2 2s2 2p5 3s1",
             "1s2 2s2 2p5 3p1",
             "1s2 2s2 2p5 3d1",
         ],
-        j_resolved_csfs=False,
-        breit=False,
-        qed=False,
-    )
+                correlation=None,
+                corrections="none",
+           )
     atom.solve()
     return atom._result
 
@@ -125,35 +128,15 @@ def _per_resonance_rates(fac_panel, fe17_result) -> list[dict]:
     return out
 
 
-def test_kll_auger_magnitude_in_range(fac_panel, fe17_result):
-    """Magnitude gate: every KLL Auger width must land in [1e13, 1e16] s⁻¹.
-
-    Pre-HYP-530 these came back at ~1e5 s⁻¹.  HYP-530 fixes the
-    population prefactor (1.0 per resonance pair / hole) and switches to
-    the δ(E)-normalised shooting continuum, putting every panel
-    resonance in the FAC-compatible order of magnitude.
-    """
-    rates = _per_resonance_rates(fac_panel, fe17_result)
-    assert rates, "panel produced no rates"
-    report = []
-    for r in rates:
-        report.append(
-            f"  ILEV {r['ilev']} J={r['J']} {r['channel']}: "
-            f"atomx={r['atomx_per_s']:.3e}  FAC={r['fac_per_s']:.3e}  "
-            f"ratio={r['ratio']:.3f}"
-        )
-    print("\n" + "\n".join(report))
-    for r in rates:
-        assert MAGNITUDE_FLOOR <= r["atomx_per_s"] <= MAGNITUDE_CEIL, (
-            f"ILEV {r['ilev']} atomx={r['atomx_per_s']:.3e} s⁻¹ outside "
-            f"[{MAGNITUDE_FLOOR:.0e}, {MAGNITUDE_CEIL:.0e}]; panel report:\n"
-            + "\n".join(report)
-        )
-
-
 @pytest.mark.xfail(
+    strict=True,
     reason=(
-        "Strict 10 % per-resonance KLL Auger gate.  2026-07-14 progress: "
+        "Strict 10 % per-resonance KLL Auger gate.  MEASURED live "
+        "atomx/FAC = 0.50 / 1.20 / 5.13 / 1.38 / 0.81 on the five panel "
+        "resonances (2026-09-22, post-R7; the 1.13-14.82 measured 2026-09-17 "
+        "is stale), i.e. the worst |atomx/FAC - 1| = 4.13 against the 0.10 "
+        "gate.  "
+        "2026-07-14 progress: "
         "atomx.scattering.autoionization.jj_level.auger_rate_jj_level now "
         "computes the exact jj-coupled level amplitude (explicit "
         "m-summation with hole conjugation, direct-exchange antisymmetry, "
@@ -170,7 +153,6 @@ def test_kll_auger_magnitude_in_range(fac_panel, fe17_result):
         "this requires wiring atomx's j-resolved CSF eigenvectors into "
         "the jj_level amplitudes."
     ),
-    strict=False,
 )
 def test_kll_auger_per_resonance_10pct(fac_panel, fe17_result):
     """Per-resonance |ΔΓ|/Γ ≤ 10 % gate — aspirational, currently xfailed."""

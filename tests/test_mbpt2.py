@@ -55,7 +55,7 @@ def test_mbpt2_helium_negative_and_decreasing_with_basis():
 
     Marked slow because each evaluation builds a virtual basis per κ.
     """
-    atom = Atom(Z=2, config="1s2", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=2, config="1s2", engine="bspline", corrections="none")
     atom.solve()
     res = atom._result
 
@@ -65,15 +65,52 @@ def test_mbpt2_helium_negative_and_decreasing_with_basis():
     assert isinstance(r_small, MBPT2Result)
     assert r_small.correlation_energy < 0.0
     assert r_large.correlation_energy < r_small.correlation_energy  # more negative
-    # Sanity bound: He MP2 must be > -0.05 Ha for any reasonable basis
-    assert r_large.correlation_energy > -0.05
-    # And the partial-wave tail is at most a few times the converged value
-    assert r_large.correlation_energy < -0.005
+    # Physical ceiling: MP2 on a HF reference cannot over-correlate past the
+    # exact correlation energy (-0.042044 Ha for He) — the total must stay
+    # above the exact ground state (-2.903724 Ha).
+    assert r_large.correlation_energy > -0.042044, (
+        "MBPT(2) correlation exceeds the exact He correlation energy of "
+        "-0.042044 Ha; the energy denominator is mixing two Hamiltonians"
+    )
+    # This truncated basis (kappa_max=3, 25 virtuals/kappa) recovers a few
+    # mHa of the converged -0.036968 Ha; re-pinned 2026-09-19 when the
+    # virtuals moved from V^{N-1} to V^N (see mbpt.build_virtual_basis).
+    assert r_large.correlation_energy < -0.003
+
+
+@pytest.mark.slow
+def test_mbpt2_helium_matches_the_literature_value():
+    """He MBPT(2) must reproduce the accepted correlation energy.
+
+    Reviewed 2026-09-19: the virtuals were built in the V^{N-1} potential
+    while the occupied ε came from the N-electron SCF, so the energy
+    denominator mixed two Hamiltonians.  That gave E2 = -0.0496 Ha — 118 %
+    of the exact correlation energy -0.042044 Ha — and a total energy
+    8 mHa *below* the exact ground state, which is impossible for MP2 on a
+    HF reference.  With V^N virtuals E2 = -0.036968 Ha, within 0.7 % of the
+    literature MP2/CBS value (-0.0372 Ha; JCP 102, 6168 (1995);
+    JCP 112, 10746 (2000)) and correctly bracketed by
+    HF (-2.861680) < E_tot < exact (-2.903724).
+
+    See docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding H4/M6.
+    """
+    atom = Atom(Z=2, config="1s2", engine="bspline", corrections="none")
+    atom.solve()
+    res = atom._result
+    r = mbpt2_energy(res, kappa_max=4)
+
+    assert r.correlation_energy == pytest.approx(-0.036968, abs=5e-4)
+    e_tot = res.total_energy + r.correlation_energy
+    assert -2.903724 < e_tot < -2.861680, (
+        f"MBPT(2) total {e_tot:.6f} Ha is outside the HF/exact bracket"
+    )
+    # Not merely inside the bracket: within 1 % of the literature value.
+    assert r.correlation_energy == pytest.approx(-0.0372, rel=0.01)
 
 
 def test_mbpt2_open_shell_rejected():
     """Open-shell references trigger a clear error."""
-    atom = Atom(Z=3, config="1s2 2s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=3, config="1s2 2s1", engine="bspline", corrections="none")
     atom.solve()
     res = atom._result
     with pytest.raises(ValueError, match="closed-shell"):
