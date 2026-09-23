@@ -48,8 +48,14 @@ def test_ci_solve_returns_ciresult_and_ground_energy_is_minimum():
     assert isinstance(ci, CIResult)
     assert ci.state_energies.shape == (len(csfs),)
     assert ci.mixing_coefficients.shape == (len(csfs), len(csfs))
-    # Ground state is the minimum eigenvalue.
-    assert ci.ground_energy == pytest.approx(float(ci.state_energies.min()), rel=1e-12)
+    # The space is the single 1s2 determinant, so the CI ground state IS the
+    # DHF total energy: the CI's one- and two-body assembly must reproduce
+    # the SCF's own energy functional on its own orbitals (same statement as
+    # tests/test_ci_grid_kernel.py::test_closed_shell_ci_total_matches_shooting
+    # for the shooting engine).  ``ground == min(eigenvalues)`` alone is true
+    # of any ``eigh`` call and carries no information.
+    assert ci.ground_energy == pytest.approx(dhf_result.total_energy, rel=1e-6), (
+        f"CI {ci.ground_energy!r} vs DHF {dhf_result.total_energy!r}")
     # Provenance records the CSF count.
     assert ci.provenance["n_csf"] == len(csfs)
 

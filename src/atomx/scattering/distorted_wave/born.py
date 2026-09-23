@@ -37,7 +37,7 @@ import math
 
 import numpy as np
 
-from atomx.constants import BOHR_RADIUS_M, HARTREE_EV
+from atomx.constants import ALPHA_SQ, BOHR_RADIUS_M, HARTREE_EV
 
 _A0_CM2 = (BOHR_RADIUS_M * 100.0) ** 2  # a₀² in cm²
 
@@ -159,7 +159,9 @@ def born_excitation_forbidden(
 
 from scipy.special import spherical_jn  # noqa: E402
 
-ALPHA2 = 1.0 / 137.0359990836 ** 2
+# M12 (review 2026-09-19): was 1/137.0359990836² (CODATA-2018 1/α²,
+# 1.4e-9 relative off); take α² from the active CODATA table instead.
+ALPHA2 = ALPHA_SQ
 
 _N_Q_MASTER = 256
 _N_Q_INT = 128
@@ -270,11 +272,18 @@ class BornTransition:
 def born_blend_weights(omega_dw, tails, p_born=0.5):
     """FAC's _topup = 2 Born blend weight per energy.
 
-    w = (tail / Omega)^p_born, clamped monotone non-decreasing with
-    energy by processing energies in descending order and capping each
-    weight at the value found for the next-higher energy
+    w = (tail / Omega)^p_born, clamped to [0, 1] and required to be monotone
+    non-decreasing with energy: processing energies in descending order, each
+    weight is capped at the value found for the next-higher energy
     (excitation.c:1331-1333, with the descending-ie loop of
     CERadialQkTable).  Arrays must be sorted by ascending energy.
+
+    Only *computed* weights (finite, positive tail and Omega) feed the
+    running cap.  An energy with no tail signal inherits the cap from the
+    higher energies instead of resetting it, so one zero — e.g. a still-rising
+    partial-wave profile at the top of the grid, which the geometric tail
+    estimator reports as unresolved — cannot zero the completion everywhere
+    (review C6, 2026-09-19).
     """
     omega_dw = np.asarray(omega_dw, dtype=float)
     tails = np.asarray(tails, dtype=float)
@@ -282,14 +291,17 @@ def born_blend_weights(omega_dw, tails, p_born=0.5):
     w = np.zeros(n)
     cap = None
     for i in range(n - 1, -1, -1):
-        if omega_dw[i] > 0.0 and tails[i] > 0.0:
-            s = min(abs(tails[i] / omega_dw[i]) ** p_born, 1.0)
-        else:
-            s = 0.0
-        if cap is not None and s > cap:
-            s = cap
-        else:
+        om = float(omega_dw[i])
+        tl = float(tails[i])
+        if math.isfinite(om) and om > 0.0 and math.isfinite(tl) and tl > 0.0:
+            s = min((tl / om) ** p_born, 1.0)
+            if cap is not None and s > cap:
+                s = cap
             cap = s
+        else:
+            # No tail at this energy: hold the higher-energy weight.  A zero
+            # here must not propagate downward (it used to zero every energy).
+            s = cap if cap is not None else 0.0
         w[i] = s
     return w
 

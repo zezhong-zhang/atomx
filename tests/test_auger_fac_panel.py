@@ -62,11 +62,15 @@ STRICT_TOLERANCE = 0.10
 # low); every live panel value must sit in the physical Auger band.
 MAGNITUDE_FLOOR = 1.0e13
 MAGNITUDE_CEIL = 1.0e17
-# Honest current-accuracy band vs FAC (measured 1.13-14.82, i.e. atomx
-# over-counts the configuration-average angular factor).  This is deliberately
-# NOT a parity claim; it only catches order-of-magnitude regressions.
-RATIO_FLOOR = 0.1
-RATIO_CEIL = 30.0
+# Honest current-accuracy band vs FAC, tightened (2026-09-22) from the old
+# [0.1, 30] to 20-25 % outside the *current* measured envelope.
+# Re-measured 2026-09-22 (the R7 asymmetric-mean-field fix moved the panel):
+# atomx/FAC = 0.50 / 1.20 / 5.13 / 1.38 / 0.81 for ILEV 32 / 71 / 72 / 142 /
+# 190, i.e. a 10.3x spread — the 1.13-14.82 quoted when this file was written
+# (2026-09-17, pre-R7) is stale.  The old [0.1, 30] band let a factor-2 error
+# through in both directions; [0.40, 6.5] does not.
+RATIO_FLOOR = 0.40
+RATIO_CEIL = 6.5
 
 # ILEVs present in the AITable fixture with no honest live computation.
 RECORDED_ONLY_ILEV = (24, 62, 135, 150)
@@ -101,18 +105,17 @@ def fe17_result():
     setup as ``test_auger_kll_vs_fac.py``.
     """
     atom = Atom(
-        Z=26,
-        charge=16,
-        configs=[
+                Z=26,
+                charge=16,
+                config=[
             "1s2 2s2 2p6",
             "1s2 2s2 2p5 3s1",
             "1s2 2s2 2p5 3p1",
             "1s2 2s2 2p5 3d1",
         ],
-        j_resolved_csfs=False,
-        breit=False,
-        qed=False,
-    )
+                correlation=None,
+                corrections="none",
+           )
     atom.solve()
     return atom._result
 
@@ -195,12 +198,14 @@ def test_kll_auger_magnitude_gate(live_rates):
 
 @pytest.mark.external_fac
 def test_kll_auger_within_order_of_magnitude_of_fac(live_rates):
-    """Honest current accuracy: live atomx/FAC in [0.1, 30] per resonance.
+    """Honest current accuracy: live atomx/FAC in [0.40, 6.5] per resonance.
 
-    Measured 2026-09-17: 1.13 / 1.38 / 5.96 / 7.11 / 14.82.  This documents
-    the real state ("right order of magnitude, over-counted by the
-    average-of-configuration angular factor"), it is NOT the README's
-    per-level accuracy claim.
+    Measured 2026-09-22: 0.50 / 1.20 / 5.13 / 1.38 / 0.81 for ILEV 32 / 71 /
+    72 / 142 / 190 (the 2026-09-17 numbers 1.13-14.82 predate the R7
+    asymmetric-mean-field fix).  This documents the real state ("the
+    average-of-configuration angular factor over-counts by up to 5x and
+    under-counts the ILEV 32 channel 2x"), it is NOT the README's per-level
+    accuracy claim, and it now catches a factor-2 error in either direction.
     """
     for r in live_rates:
         assert RATIO_FLOOR <= r["ratio"] <= RATIO_CEIL, (
@@ -211,15 +216,16 @@ def test_kll_auger_within_order_of_magnitude_of_fac(live_rates):
 
 @pytest.mark.external_fac
 @pytest.mark.xfail(
-    strict=False,
+    strict=True,
     reason=(
         "Aspirational 10% per-resonance KLL parity.  The configuration-average "
         "angular factor over-counts magnetic substates for a J-resolved "
-        "resonance: measured live atomx/FAC = 1.13 / 1.38 / 5.96 / 7.11 / 14.82 "
-        "on 2026-09-17.  The J-resolved jj_level path reaches 0.18-3.9x on the "
-        "same panel and 1.02x for ILEV 71 "
-        "(tests/test_jj_level_auger.py); closing the remaining gap needs "
-        "j-resolved CSF eigenvectors wired into the jj_level amplitudes."
+        "resonance: MEASURED live atomx/FAC = 0.50 / 1.20 / 5.13 / 1.38 / 0.81 "
+        "for ILEV 32 / 71 / 72 / 142 / 190 (2026-09-22, post-R7), i.e. the "
+        "worst |atomx/FAC - 1| = 4.13 against the 0.10 gate.  The J-resolved "
+        "jj_level path reaches 0.10-1.01x on the same panel and 1.007x for "
+        "ILEV 71 (tests/test_jj_level_auger.py); closing the remaining gap "
+        "needs j-resolved CSF eigenvectors wired into the jj_level amplitudes."
     ),
 )
 def test_kll_auger_per_resonance_10pct_vs_fac(live_rates):

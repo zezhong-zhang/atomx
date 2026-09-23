@@ -6,14 +6,14 @@ emission), the individual lines are rarely resolvable and one instead
 characterises the *array* by its statistical moments: total strength,
 centre-of-gravity wavelength, variance.
 
-This module ships the leading-order Bauche-Arnoult expressions for
-
-    <σ>                — centroid transition energy
-    (Δσ)²              — variance (second central moment)
-
-given the radial Slater integrals and the two configurations.  Higher
-moments (third = skewness, fourth = kurtosis) follow but are less
-commonly used.
+This module ships the statistical moments of an explicit line list
+(:func:`uta_moments` — exact weighted centroid/variance), plus a
+level-list convenience (:func:`uta_simple_from_levels`) that is exact
+when the caller supplies per-pair line strengths via ``strengths=`` and
+otherwise returns the *Unsöld-limit*, degeneracy-weighted estimate — see
+its docstring (review 2026-09-19, finding M5).  Higher moments
+(skewness, kurtosis) and the closed-form Bauche-Arnoult expressions in
+terms of Slater integrals are not implemented here.
 
 Reference
 ---------
@@ -24,17 +24,14 @@ C. Bauche-Arnoult, J. Bauche, M. Klapisch,
 
 Public API
 ----------
->>> from atomx.uta import uta_moments
->>> moments = uta_moments(
-...     config_upper="4d^9 5p",
-...     config_lower="4d^10",
-...     E_upper_Ha=..., E_lower_Ha=...,
-...     slater_Fk=...,
+>>> from atomx.uta import uta_moments, uta_simple_from_levels
+>>> moments = uta_moments([(800.0, 0.1), (820.0, 0.4)])   # (E_eV, S)
+>>> moments.centroid_eV, moments.std_eV
+>>> moments = uta_simple_from_levels(
+...     [800.0, 820.0], [0.0], strengths={(0, 0): 0.1, (1, 0): 0.4},
 ... )
->>> moments.centroid_nm, moments.fwhm_nm
 
-The heavy-lifting closed-form coefficients are implemented in
-:mod:`atomx.uta.moments`; callers typically only see :class:`UTAArray`.
+Both entry points return :class:`UTAArray`.
 """
 
 from atomx.uta.moments import (

@@ -138,12 +138,38 @@ def dipole_polarizability(
     Returns
     -------
     PolarizabilityResult
+
+    Raises
+    ------
+    ValueError
+        If ``scf_result`` is not converged, or if it was produced by an
+        engine without a B-spline workspace (e.g. ``engine="shooting"``
+        — the SOS virtual basis needs the B-spline Fock matrix, so
+        re-solve with ``engine="bspline"``).
     """
     import time
     t0 = time.time()
 
     if not scf_result.converged:
         raise ValueError("SCFResult must be converged.")
+
+    # M10 (review 2026-09-19): the sum-over-states virtual basis is built
+    # by re-diagonalising the Fock matrix in the *converged B-spline*
+    # basis (properties/_sos_basis.py -> methods/mbpt.build_virtual_basis,
+    # which reads bsp_data["ns"]).  A shooting SCFResult carries
+    # ``_bsp_data = None``, so the old code died deep inside the basis
+    # builder with an opaque TypeError.  Fail here, naming the engine.
+    if getattr(scf_result, "_bsp_data", None) is None:
+        engine = getattr(scf_result, "method", None) or getattr(
+            scf_result, "method_name", "unknown")
+        raise ValueError(
+            "dipole_polarizability needs a B-spline SCF result: the "
+            "sum-over-states virtual basis is built by diagonalising the "
+            "converged B-spline Fock matrix, but this result carries no "
+            f"B-spline workspace (engine={engine!r}).  Re-solve with "
+            'engine="bspline", e.g. '
+            "Atom(10, config='1s2 2s2 2p6', engine=\"bspline\").solve()."
+        )
     # Allow open subshells; the SOS form below sums explicit
     # occupations weight q_a / (2j_a+1) to handle hydrogenic and
     # alkali-like cases too.

@@ -27,7 +27,7 @@ sys.path.insert(0, str(ROOT / "benchmarks"))
 from fac_matrix import print_matrix_summary, run_matrix, write_matrix_csv  # noqa: E402
 from fac_runner import parse_levels, parse_transitions, run_sfac  # noqa: E402
 
-from atomx import Atom  # noqa: E402
+from atomx import Atom, Correlation  # noqa: E402
 from atomx.constants import HARTREE_EV  # noqa: E402
 
 # Canonical FAC demo script
@@ -84,13 +84,12 @@ def run_atomx_fe17():
         "1s2 2s1 2p6 3d1",
     ]
     atom = Atom(
-        Z=26,
-        charge=16,
-        configs=configs,
-        breit=False,
-        qed=False,
-        j_resolved_csfs=True,
-    )
+                Z=26,
+                charge=16,
+                config=configs,
+                corrections="none",
+                correlation=Correlation(j_resolved_csfs=True),
+           )
     atom.solve()
     trs = atom.transitions(multipoles=["E1"])
     t1 = time.perf_counter()

@@ -46,7 +46,10 @@ def test_highest_weight_states_use_canonical_determinant_phase():
         assert first > 0.0
 
 
+@pytest.mark.snapshot
 def test_creation_matrix_element_for_empty_to_one_electron():
+    # The +-sqrt(2) values are atomx's own reduced-matrix-element convention,
+    # recorded rather than derived here (audit finding F11).
     ket = highest_weight_states(1, 0)[0]
     bra = highest_weight_states(1, 1)[0]
 
@@ -88,7 +91,10 @@ def test_axw_and_wxa_block_invalid_occupation_change():
     assert reduced_wxa_matrix_element(state, state, K2=0, R2=1) == 0.0
 
 
+@pytest.mark.snapshot
 def test_pair_creation_and_annihilation_j_half_closed_shell():
+    # The +-sqrt(2) values are atomx's own pair-operator normalisation,
+    # recorded rather than derived here (audit finding F11).
     vac = highest_weight_states(1, 0)[0]
     closed = highest_weight_states(1, 2)[0]
     assert coupled_pair_creation_matrix_element(closed, vac, K2=0, Q2=0) == pytest.approx(

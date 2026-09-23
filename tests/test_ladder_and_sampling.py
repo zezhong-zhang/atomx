@@ -23,7 +23,7 @@ import io
 import numpy as np
 import pytest
 
-from atomx import Atom, Ladder, LadderRun, Sampling
+from atomx import Atom, Basis, Ladder, LadderRun, Sampling
 from atomx.ladder import RungOutcome
 from atomx.methods import (
     DiracFock,
@@ -62,7 +62,7 @@ def test_sampling_with_creates_modified_copy():
 
 
 def test_sampling_constructor_propagates_to_atom():
-    a = Atom(Z=2, sampling=Sampling.high)
+    a = Atom(Z=2, basis=Basis(sampling=Sampling.high))
     assert a.ks == Sampling.high.ks
     # ``ns=None`` on the tier means "auto" — the Atom uses its physics-grid
     # path, which sets ``_use_physics_grid=True`` and a placeholder ns=113.
@@ -164,16 +164,55 @@ def test_climb_records_failures_without_raising():
     assert len(run.results) == 2
 
 
-def test_climb_total_energies_decrease_monotonically_on_he():
+def test_climb_rungs_reproduce_the_he_reference_energies():
+    """The ladder's *interacting* rungs must land on the He references.
+
+    Measured on 2026-09-22 (``Sampling.quick``, ``through=DiracFock()``):
+
+        HydrogenicSchrodinger  -4.0                (non-interacting: -Z^2)
+        HydrogenicDirac        -4.000213028105679  (same, + relativity)
+        HartreeFock            -2.8616799953898364
+        BreitPauli             -2.861893000807627
+        DiracFock              -2.861813320655833
+
+    Three first-principles statements:
+
+    1. the HartreeFock rung pins the non-relativistic HF limit of He,
+       -2.8616799956 Ha (Froese Fischer; the value ``tests/test_mbpt2.py``
+       sandwiches He with) — measured 2.1e-10 away, gate 1e-6;
+    2. the DiracFock rung adds relativity, so it must lie strictly below that
+       non-relativistic limit (measured 1.33e-4 Ha below) and strictly above
+       the exact non-relativistic energy -2.903724 Ha;
+    3. the two hydrogenic rungs are *non-interacting* (no electron-electron
+       repulsion) and therefore sit ~1.14 Ha below the interacting ones.
+
+    The old test was named
+    ``test_climb_total_energies_decrease_monotonically_on_he`` but asserted
+    only ``E < 0`` and ``isfinite`` for each rung, with a comment abandoning
+    monotonicity — and indeed the measured list above is not monotone
+    (-4.0 -> -4.000213 -> -2.861680).  It is renamed to what it now gates.
+    """
     he = Atom(Z=2)
     run = he.climb(through=DiracFock(), sampling=Sampling.quick)
-    energies = [o.total_energy for o in run if o.ok]
-    # Schrödinger 1e is non-interacting, so it is *less* bound than the
-    # DHF many-electron solution.  The interesting check is that after the
-    # first rung, energies are negative and finite.
-    for E in energies:
-        assert E < 0
-        assert np.isfinite(E)
+    by_rung = {type(o.rung).__name__: o.total_energy for o in run if o.ok}
+    assert set(by_rung) == {
+        "HydrogenicSchrodinger", "HydrogenicDirac", "HartreeFock",
+        "BreitPauli", "DiracFock",
+    }
+
+    # 1. Non-relativistic HF limit of He (Froese Fischer).
+    assert by_rung["HartreeFock"] == pytest.approx(-2.8616799956, abs=1e-6)
+    # 2. Variational sandwich for the relativistic rung.
+    e_dhf = by_rung["DiracFock"]
+    assert e_dhf < by_rung["HartreeFock"], (
+        "relativity must lower the He ground state: "
+        f"{e_dhf} vs HF {by_rung['HartreeFock']}"
+    )
+    assert -2.903724 < e_dhf < -2.8616799956
+    # 3. Hydrogenic rungs are non-interacting: -Z^2 = -4 (plus relativity).
+    assert by_rung["HydrogenicSchrodinger"] == pytest.approx(-4.0, abs=1e-9)
+    assert by_rung["HydrogenicDirac"] == pytest.approx(-4.0, abs=1e-3)
+    assert by_rung["HydrogenicDirac"] < by_rung["HydrogenicSchrodinger"]
 
 
 def test_ladder_run_show_does_not_raise():

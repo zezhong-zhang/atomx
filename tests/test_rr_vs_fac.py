@@ -1,4 +1,14 @@
-"""Fe K-shell RR comparison against a hydrogenic benchmark fallback.
+"""Fe K-shell RR comparison against a HYDROGENIC benchmark (no FAC data).
+
+NOTE (S5 finding 3): despite the module name, **nothing here is compared
+against FAC**.  The reference is atomx's own closed-form Stobbe + Milne
+hydrogenic chain, absolutely anchored by the Storey & Hummer (1995) H 1s RR
+rate in ``test_hydrogenic_cross_sections`` — a legitimate class-C
+cross-check between two atomx paths (B-spline RR kernel vs the analytic
+hydrogenic chain) whose kernels differ.  The real sfac PI/RR panel
+(``benchmarks/results_fac_pi_rr.csv``) is gated in
+``tests/test_pi_rr_vs_fac.py``; this file used to be cited as the RR-vs-FAC
+gate while consuming no FAC data at all.
 
 Benchmark provenance (HYP-1645)
 -------------------------------
@@ -58,7 +68,7 @@ from atomx.scattering.radiative_recombination import (
 
 @pytest.mark.slow
 def test_fe26_k_shell_rr_hydrogenic_benchmark_within_15_percent():
-    atom = Atom(Z=26, config="1s1", numerics="bspline", breit=False, qed=False)
+    atom = Atom(Z=26, config="1s1", engine="bspline", corrections="none")
     atom.solve()
 
     temperatures = np.array([100.0, 500.0, 1000.0, 5000.0, 10000.0])

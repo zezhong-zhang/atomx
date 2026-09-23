@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>NIST ASD Output: Lines</title>
+<link rel="stylesheet" type="text/css" href="https://physics.nist.gov/PhysRefData/ASD/Scripts/1.css" />
+<!-- Google Analtyics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9SLN1VEEJ2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9SLN1VEEJ2');
+</script>
+<!-- End of Google Analytics 4 -->
+<SCRIPT async id="_fed_an_ua_tag" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-46&amp;yt=false&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c" type="text/javascript"></script>
+<script type="text/javascript">//<![CDATA[
+
+    function selectById(id) {
+      var url = "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ne X&limits_type=0&unit=1&submit=Retrieve Data&de=0&format=1&line_out=0&remove_js=on&en_unit=0&output=0&bibrefs=1&page_size=15&show_obs_wl=1&show_calc_wl=1&unc_out=1&order_out=0&show_av=3&tsb_value=0&A_out=0&allowed_out=1&forbid_out=1&conf_out=on&term_out=on&enrg_out=on&J_out=on\&" + "level_id=" + id;
+      var newwindow = window.open(url,"lin_lev");
+      if (window.focus) {newwindow.focus()}
+      return true;
+    }
+    function setMOn(x) {
+      x.style.backgroundColor = "LightGray";
+    }
+    function setMOff(x) {
+      x.style.backgroundColor = "transparent";
+    }
+  
+//]]></script>
+<script src="/js/clickjack.js" type="text/javascript"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body style="margin-top:0">
+<span>
+<a href="#start"><img src="/Images/dot_t.gif" width="1" height="1" style="border:0;margin-top:0;margin-bottom:0" alt="[skip navigation]" /></a>
+</span>
+<table style="width:100%; border:0; margin-top:0">
+<tr><td style="text-align:left"><a href="https://physics.nist.gov/PhysRefData/ASD/index.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/ASD-sm.gif" style="border:0" width="100" height="47"
+alt="[ASD Home]" title="ASD Home"></a><a href="https://physics.nist.gov/PhysRefData/ASD/lines_form.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/Lines.gif" style="border:0" width="70" height="47"
+alt="[Lines Query]" title="Lines Query"></a><a href="https://physics.nist.gov/PhysRefData/ASD/levels_form.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/Levels.gif" style="border:0" width="79" height="47"
+alt="[Levels Query]" title="Levels Query"></a><a href="https://www.nist.gov/pml/atomic-spectra-database-contents"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/List.gif" style="border:0" width="77" height="47"
+alt="[List of Spectra]" title="List of Spectra"></a><a href="https://physics.nist.gov/PhysRefData/ASD/ionEnergy.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/GS-IE.gif" style="border:0" width="124" height="47"
+alt="[Ground States and Ionization Energies]" title="Ground States and Ionization Energies"></a><a
+href="https://physics.nist.gov/PhysRefData/ASBib1/index.html"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/Bib.gif" style="border:0"
+width="98" height="47" alt="[Bibliography]" title="Bibliography"></a><a
+href="https://physics.nist.gov/PhysRefData/ASD/Html/help.html"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/Help.gif" style="border:0"
+width="55" height="47" alt="[Help]" title="Help"/></a></td>
+<td style="text-align:right"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/nist-pl-black.gif" style="border:0" width="136" height="68"
+usemap="#NIST-PL" alt="NIST Physical Measurement Laboratory"/></td>
+</tr></table>
+
+<map name="NIST-PL" id="NIST-PL">
+  <area shape="rect" coords="1,1,135,48" href="https://www.nist.gov" alt="National Institute of Standards and Technology" title="National Institute of Standards and Technology"/>
+  <area shape="rect" coords="1,50,135,67" href="https://www.nist.gov/pml" alt="NIST Physical Measurement Laboratory" title="NIST Physical Measurement Laboratory"/>
+</map>
+<a id="start"><!-- filler --></a>
+<script type="text/javascript">
+<!-- //
+var newwindow
+//var n
+function popdef(n){
+newwindow = window.open(n,"data1","toolbar=no,location=no,alwaysRaised=yes,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,copyhistory=no,width=600,height=450");
+if (window.focus) {newwindow.focus()}
+return true;
+}
+function popbib(n){
+newwindow = window.open(n,"data2","toolbar=no,location=no,alwaysRaised=yes,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,copyhistory=no,width=950,height=800");
+if (window.focus) {newwindow.focus()}
+return true;
+}
+function popded(n){
+//newwindow = window.open(n,"data3","toolbar=no,location=no,alwaysRaised=yes,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,copyhistory=no,width=640,height=250");
+newwindow = window.open(n,"data3","toolbar=no,location=no,alwaysRaised=yes,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,copyhistory=no,width=800,height=320");if (window.focus) {newwindow.focus()}
+return true;
+}
+function popdiag(n){
+newwindow = window.open(n,"data3","toolbar=no,location=no,alwaysRaised=yes,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,copyhistory=no,width=800,height=1000");if (window.focus) {newwindow.focus()}
+return true;
+}
+// -->
+</script>
+
+<table style="width:100%">
+  <tr>
+    <td style="color:#223388; font-size:150%; vertical-align:middle"><span style="color:black; font-weight:600">NIST Atomic Spectra Database Lines Data</span><p>
+      <u>Ne X</u>: 137 Lines of Data Found<br />
+<span style="font-size:larger; font-weight:bold"><i>Z</i> = 10, H isoelectronic sequence</span><span style="font-size=300%">&nbsp;</span></p>
+    </td>
+    <td style="text-align:right; vertical-align:middle">
+<div class='ref'>
+<b>Example of how to reference these results:</b><br />
+
+Kramida,&nbsp;A., Ralchenko,&nbsp;Yu., Reader,&nbsp;J., and NIST ASD Team (2024).
+  <i>NIST Atomic Spectra Database</i> (ver.&nbsp;5.12),
+  [Online]. Available: <span style="color:#0000cc;">https://physics.nist.gov/asd</span>
+  [2025, March 22].
+  National Institute of Standards and Technology, Gaithersburg, MD.
+    DOI: <span style="color:#0000cc;">https://doi.org/10.18434/T4W30F</span>
+<br />
+<div style="text-align: right; font-size: x-small">
+<a href="javascript:void(0)" onclick="popdef('/cgi-bin/ASD/bibtex.pl?y=2025&amp;m=March&amp;d=22');return true" target="_top">BibTex Citation</a> (new window)
+</div>
+</div>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" style="color:#655665; font-family: helvetica,arial; font-size:80%"><b><u><i>&lambda;</i> in</u>: <span style="color:darkred">vacuum</span> <span style="color:navy"></span></b></td>
+  </tr>
+</table>
+
+<p>
+<table style="background-color:black; width:75%; border-spacing:1px" >
+  <tr>
+    <td colspan="3" style="color:white; font-size:10pt; width:70%; background-color:#224477; text-align:center">
+      <b>Primary data sources</b>
+    </td>
+    <td rowspan="4">
+    </td>
+    <td style="white-space:nowrap; color:white; font-size:10pt; background-color:#446655; text-align:center">
+      <table style="border:thin hidden;text-align:center;width:100%">
+        <tr>
+          <td style="text-align:center; white-space:nowrap">Query NIST Bibliographic Databases for</td>
+        </tr>
+        <tr>
+          <td style="text-align:center"><b>Ne  X</b> (new window)</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class='brt1'>
+      Energy Levels:
+    </td>
+    <td class='bcn'>
+      &nbsp;<a onmouseover="self.status='Bibliographic Reference for Ne X';return true;" onmouseout="self.status='';return true;" target="_blank" href="javascript:void(0)" onclick="popded('https://physics.nist.gov/cgi-bin/ASBib1/get_ASBib_ref.cgi?db=el&amp;db_id=19200&amp;comment_code=&amp;element=Ne&amp;spectr_charge=10&amp;type=E');return false">Yerokhin&nbsp;&&nbsp;Shabaev&nbsp;2015</a>, <a onmouseover="self.status='Bibliographic Reference for Ne X';return true;" onmouseout="self.status='';return true;" target="_blank" href="javascript:void(0)" onclick="popded('https://physics.nist.gov/cgi-bin/ASBib1/get_ASBib_ref.cgi?db=el&amp;db_id=3620&amp;comment_code=&amp;element=Ne&amp;spectr_charge=10&amp;type=E');return false">Erickson&nbsp;1977</a>&nbsp;
+    </td>
+    <td class='blf'>
+      &nbsp;&nbsp;&nbsp;The data refer to the isotope <sup>20</sup>Ne. Erickson's theoretical values of ionization energies were scaled to the <a target="_blank" href="https://physics.nist.gov/constants">CODATA-2018 values of the fundamental constants</a> and then subtracted from the ground-state ionization energy given by <a onmouseover="self.status='Bibliographic Reference for Ne X';return true;" onmouseout="self.status='';return true;" target="_blank" href="javascript:void(0)" onclick="popded('https://physics.nist.gov/cgi-bin/ASBib1/get_ASBib_ref.cgi?db=el&amp;db_id=19200&amp;comment_code=&amp;element=Ne&amp;spectr_charge=10&amp;type=E');return false">Yerokhin&nbsp;&&nbsp;Shabaev&nbsp;2015 </a>. Additional corrections were applied to the <i>n</i>S levels, as described by <a onmouseover="self.status='Bibliographic Reference for Ne X';return true;" onmouseout="self.status='';return true;" target="_blank" href="javascript:void(0)" onclick="popded('https://physics.nist.gov/cgi-bin/ASBib1/get_ASBib_ref.cgi?db=el&amp;db_id=12548&amp;comment_code=&amp;element=Ne&amp;spectr_charge=10&amp;type=E');return false">Kramida&nbsp;et&nbsp;al.&nbsp;2008 </a>. The <i>n</i>&nbsp;=&nbsp;2 energy levels were taken directly from <a onmouseover="self.status='Bibliographic Reference for Ne X';return true;" onmouseout="self.status='';return true;" target="_blank" href="javascript:void(0)" onclick="popded('https://physics.nist.gov/cgi-bin/ASBib1/get_ASBib_ref.cgi?db=el&amp;db_id=19200&amp;comment_code=&amp;element=Ne&amp;spectr_charge=10&amp;type=E');return false">Yerokhin&nbsp;&&nbsp;Shabaev&nbsp;2015 </a>. Their uncertainties are given for excitation energies from the ground state; for the rest of the levels, uncertainties are given for separations from the ionization limit. The present data set was prepared by A. Kramida (unpublished) for the release of ASD v. 5.10 in September 2022.
+    </td>
+    <td class='bcn1'>
+      <a href="javascript:void(0)" onclick="popbib('https://physics.nist.gov/cgi-bin/ASBib1/Elevbib/make_query.cgi?spectra=Ne%20X&amp;method=EL&amp;method=TE&amp;method=ND&amp;method=IP&amp;method=SF&amp;method=QF&amp;order=1');return false"
+        onmouseover="self.status='Ne  X: bibliography energy levels query';return true;"
+        onmouseout="self.status=''; return true;" target="_blank">Ne  X Energy Levels</a>
+    </td>
+  </tr>
+  <tr>
+    <td class='brt1'>
+      Lines:
+    </td>
+    <td class='bcn'>
+      &nbsp;<a onmouseover="self.status='Bibliographic Reference for Ne X';return true;" onmouseout="self.status='';return true;" target="_blank" href="javascript:void(0)" onclick="popded('https://physics.nist.gov/cgi-bin/ASBib1/get_ASBib_ref.cgi?db=el&amp;db_id=19200&amp;comment_code=&amp;element=Ne&amp;spectr_charge=10&amp;type=L');return false">Yerokhin&nbsp;&&nbsp;Shabaev&nbsp;2015</a>, <a onmouseover="self.status='Bibliographic Reference for Ne X';return true;" onmouseout="self.status='';return true;" target="_blank" href="javascript:void(0)" onclick="popded('https://physics.nist.gov/cgi-bin/ASBib1/get_ASBib_ref.cgi?db=el&amp;db_id=3620&amp;comment_code=&amp;element=Ne&amp;spectr_charge=10&amp;type=L');return false">Erickson&nbsp;1977</a>&nbsp;
+    </td>
+    <td class='blf'>
+      
+    </td>
+    <td class='bcn1'>
+      <a href="javascript:void(0)" onclick="popbib('https://physics.nist.gov/cgi-bin/ASBib1/Elevbib/make_query.cgi?spectra=Ne%20X&amp;method=W&amp;method=CL&amp;order=1');return false"
+        onmouseover="self.status='Ne  X: bibliography wavelengths query';return true;"
+        onmouseout="self.status=''; return true;" target="_blank">Ne  X Line Wavelengths and Classification</a>
+    </td>
+  </tr>
+  <tr>
+    <td class='brt1'>
+      Transition Probabilities:
+    </td>
+    <td class='bcn'>
+      &nbsp;<a onmouseover="self.status='Bibliographic Reference for Ne X';return true;" onmouseout="self.status='';return true;" target="_blank" href="javascript:void(0)" onclick="popded('https://physics.nist.gov/cgi-bin/ASBib1/get_ASBib_ref.cgi?db=tp&amp;db_id=7771&amp;comment_code=&amp;element=Ne&amp;spectr_charge=10&amp;type=T');return false">Jitrik&nbsp;&&nbsp;Bunge&nbsp;2004</a>&nbsp;
+    </td>
+    <td class='blf'>
+      &nbsp;&nbsp;&nbsp;The data of <a onmouseover="self.status='Bibliographic Reference for Ne X';return true;" onmouseout="self.status='';return true;" target="_blank" href="javascript:void(0)" onclick="popded('https://physics.nist.gov/cgi-bin/ASBib1/get_ASBib_ref.cgi?db=tp&amp;db_id=7771&amp;comment_code=&amp;element=Ne&amp;spectr_charge=10&amp;type=T');return false">Jitrik&nbsp;&&nbsp;Bunge&nbsp;2004 </a> have been scaled to the <a target="_blank" href="https://physics.nist.gov/constants">CODATA-2018 values of the fundamental constants</a> by A. Kramida for the release of ASD v. 5.10 in October 2022.
+    </td>
+    <td class='bcn1'>
+      <a href="javascript:void(0)" onclick="popbib('https://physics.nist.gov/cgi-bin/ASBib1/Fvalbib/make_query.cgi?spectra=Ne%20X&amp;order=1');return false"
+        onmouseover="self.status='Ne  X: bibliography transition probability query';return true;"
+        onmouseout="self.status=''; return true;" target="_blank">Ne  X Transition Probabilities</a>
+    </td>
+  </tr>
+</table>
+    <p>
+<hr class="noshade" />
+
+<pre>
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        Observed        |          Ritz          |     Unc.     |     Aki      | Acc. |            Ei           Ek             |     Lower level     |     Upper level      |Type|    TP  | Line  |
+       Wavelength       |       Wavelength       |     (nm)     |    (s^-1)    |      |          (cm-1)       (cm-1)           |---------------------|----------------------|    |   Ref. | Ref.  |
+        Vac (nm)        |        Vac (nm)        |              |              |      |                                        | Conf.  | Term | J   | Conf.  | Term | J    |    |        |       |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |            0.936157861 |  0.000000003 | 1.9731e+11   | AA   |          0.00     -   (10681959.1156)  | 1s     | 2S   | 1/2 | 6p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |            0.936169779 |  0.000000003 | 1.9698e+11   | AA   |          0.00     -   (10681823.127)   | 1s     | 2S   | 1/2 | 6p     | 2P*  | 1/2  |    |  T7771 |       |
+                        |            0.948067037 |  0.000000003 | 3.4381e+11   | AA   |          0.00     -   (10547777.331)   | 1s     | 2S   | 1/2 | 5p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |            0.948088161 |  0.000000003 | 3.4331e+11   | AA   |          0.00     -   (10547542.316)   | 1s     | 2S   | 1/2 | 5p     | 2P*  | 1/2  |    |  T7771 |       |
+                        |            0.970802754 |  0.000000003 | 6.8198e+11   | AA   |          0.00     -   (10300753.643)   | 1s     | 2S   | 1/2 | 4p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |            0.970846021 |  0.000000003 | 6.8127e+11   | AA   |          0.00     -   (10300294.573)   | 1s     | 2S   | 1/2 | 4p     | 2P*  | 1/2  |    |  T7771 |       |
+                        |            1.023848727 |  0.000000004 | 1.6726e+12   | AA   |          0.00     -    (9767067.862)   | 1s     | 2S   | 1/2 | 3p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |            1.023962821 |  0.000000004 | 1.6722e+12   | AA   |          0.00     -    (9765979.58)    | 1s     | 2S   | 1/2 | 3p     | 2P*  | 1/2  |    |  T7771 |       |
+                        |            1.213207793 |  0.000000006 | 6.2608e+12   | AA   |          0.00     -    (8242611.0852)  | 1s     | 2S   | 1/2 | 2p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |            1.213748609 |  0.000000006 | 6.2725e+12   | AA   |          0.00     -    (8238938.384)   | 1s     | 2S   | 1/2 | 2p     | 2P*  | 1/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |            4.09329354  |  0.00000005  | 4.3098e+10   | AA   |   (8238938.384)   -   (10681958.8786)  | 2p     | 2P*  | 1/2 | 6d     | 2D   | 3/2  |    |  T7771 |       |
+                        |            4.09351082  |  0.00000005  | 2.4598e+09   | AA   |   (8238938.384)   -   (10681829.203)   | 2p     | 2P*  | 1/2 | 6s     | 2S   | 1/2  |    |  T7771 |       |
+                        |            4.09356477  |  0.00000005  | 2.8616e+10   | AA   |   (8239100.49)    -   (10681959.1156)  | 2s     | 2S   | 1/2 | 6p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |            4.09379266  |  0.00000005  | 2.8671e+10   | AA   |   (8239100.49)    -   (10681823.127)   | 2s     | 2S   | 1/2 | 6p     | 2P*  | 1/2  |    |  T7771 |       |
+                        |            4.09938040  |  0.00000004  | 5.1501e+10   | AA   |   (8242611.0852)  -   (10682004.1186)  | 2p     | 2P*  | 3/2 | 6d     | 2D   | 5/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |            4.09945643  |  0.00000004  | 8.5696e+09   | AA   |   (8242611.0852)  -   (10681958.8786)  | 2p     | 2P*  | 3/2 | 6d     | 2D   | 3/2  |    |  T7771 |       |
+                        |            4.09967437  |  0.00000005  | 4.9696e+09   | AA   |   (8242611.0852)  -   (10681829.203)   | 2p     | 2P*  | 3/2 | 6s     | 2S   | 1/2  |    |  T7771 |       |
+                        |            4.33118203  |  0.00000005  | 7.8940e+10   | AA   |   (8238938.384)   -   (10547776.924)   | 2p     | 2P*  | 1/2 | 5d     | 2D   | 3/2  |    |  T7771 |       |
+                        |            4.33148539  |  0.00000006  | 4.9531e+10   | AA   |   (8239100.49)    -   (10547777.331)   | 2s     | 2S   | 1/2 | 5p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |            4.33160249  |  0.00000005  | 4.3132e+09   | AA   |   (8238938.384)   -   (10547552.809)   | 2p     | 2P*  | 1/2 | 5s     | 2S   | 1/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |            4.33192636  |  0.00000006  | 4.9646e+10   | AA   |   (8239100.49)    -   (10547542.316)   | 2s     | 2S   | 1/2 | 5p     | 2P*  | 1/2  |    |  T7771 |       |
+                        |            4.33793557  |  0.00000005  | 9.4349e+10   | AA   |   (8242611.0852)  -   (10547855.100)   | 2p     | 2P*  | 3/2 | 5d     | 2D   | 5/2  |    |  T7771 |       |
+                        |            4.33808268  |  0.00000005  | 1.5703e+10   | AA   |   (8242611.0852)  -   (10547776.924)   | 2p     | 2P*  | 3/2 | 5d     | 2D   | 3/2  |    |  T7771 |       |
+                        |            4.33850448  |  0.00000005  | 8.7145e+09   | AA   |   (8242611.0852)  -   (10547552.809)   | 2p     | 2P*  | 3/2 | 5s     | 2S   | 1/2  |    |  T7771 |       |
+                        |            4.85009691  |  0.00000007  | 1.7267e+11   | AA   |   (8238938.384)   -   (10300752.854)   | 2p     | 2P*  | 1/2 | 4d     | 2D   | 3/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |            4.85047642  |  0.00000007  | 9.6741e+10   | AA   |   (8239100.49)    -   (10300753.643)   | 2s     | 2S   | 1/2 | 4p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |            4.85112705  |  0.00000008  | 8.6308e+09   | AA   |   (8238938.384)   -   (10300315.030)   | 2p     | 2P*  | 1/2 | 4s     | 2S   | 1/2  |    |  T7771 |       |
+                        |            4.85155672  |  0.00000007  | 9.7037e+10   | AA   |   (8239100.49)    -   (10300294.573)   | 2s     | 2S   | 1/2 | 4p     | 2P*  | 1/2  |    |  T7771 |       |
+                        |            4.85839136  |  0.00000006  | 2.0646e+11   | AA   |   (8242611.0852)  -   (10300905.539)   | 2p     | 2P*  | 3/2 | 4d     | 2D   | 5/2  |    |  T7771 |       |
+                        |            4.85875179  |  0.00000006  | 3.4374e+10   | AA   |   (8242611.0852)  -   (10300752.854)   | 2p     | 2P*  | 3/2 | 4d     | 2D   | 3/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |            4.85978560  |  0.00000008  | 1.7441e+10   | AA   |   (8242611.0852)  -   (10300315.030)   | 2p     | 2P*  | 3/2 | 4s     | 2S   | 1/2  |    |  T7771 |       |
+                        |            6.54395599  |  0.00000012  | 5.4051e+11   | AA   |   (8238938.384)   -    (9767066.0207)  | 2p     | 2P*  | 1/2 | 3d     | 2D   | 3/2  |    |  T7771 |       |
+                        |            6.54464237  |  0.00000015  | 2.2434e+11   | AA   |   (8239100.49)    -    (9767067.862)   | 2s     | 2S   | 1/2 | 3p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |            6.54840459  |  0.00000021  | 2.1140e+10   | AA   |   (8238938.384)   -    (9766027.90)    | 2p     | 2P*  | 1/2 | 3s     | 2S   | 1/2  |    |  T7771 |       |
+                        |            6.54930706  |  0.00000018  | 2.2544e+11   | AA   |   (8239100.49)    -    (9765979.58)    | 2s     | 2S   | 1/2 | 3p     | 2P*  | 1/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |            6.55816482  |  0.00000011  | 6.4701e+11   | AA   |   (8242611.0852)  -    (9767427.9002)  | 2p     | 2P*  | 3/2 | 3d     | 2D   | 5/2  |    |  T7771 |       |
+                        |            6.55972162  |  0.00000011  | 1.0782e+11   | AA   |   (8242611.0852)  -    (9767066.0207)  | 2p     | 2P*  | 3/2 | 3d     | 2D   | 3/2  |    |  T7771 |       |
+                        |            6.56419169  |  0.00000021  | 4.2748e+10   | AA   |   (8242611.0852)  -    (9766027.90)    | 2p     | 2P*  | 3/2 | 3s     | 2S   | 1/2  |    |  T7771 |       |
+                        |           10.9172773   |  0.0000004   | 1.5698e+10   | AA   |   (9765979.58)    -   (10681958.8786)  | 3p     | 2P*  | 1/2 | 6d     | 2D   | 3/2  |    |  T7771 |       |
+                        |           10.9178504   |  0.0000005   | 9.5500e+09   | AA   |   (9766027.90)    -   (10681959.1156)  | 3s     | 2S   | 1/2 | 6p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |           10.9188231   |  0.0000004   | 1.6965e+09   | AA   |   (9765979.58)    -   (10681829.203)   | 3p     | 2P*  | 1/2 | 6s     | 2S   | 1/2  |    |  T7771 |       |
+                        |           10.9194716   |  0.0000005   | 9.5826e+09   | AA   |   (9766027.90)    -   (10681823.127)   | 3s     | 2S   | 1/2 | 6p     | 2P*  | 1/2  |    |  T7771 |       |
+                        |           10.92970216  |  0.00000003  | 2.0074e+10   | AA   |   (9767066.0207)  -   (10682004.0356)  | 3d     | 2D   | 3/2 | 6f     | 2F*  | 5/2  |    |  T7771 |       |
+                        |           10.92972317  |  0.00000024  | 1.8804e+10   | AA   |   (9767067.862)   -   (10682004.1186)  | 3p     | 2P*  | 3/2 | 6d     | 2D   | 5/2  |    |  T7771 |       |
+                        |           10.93023880  |  0.00000003  | 7.8419e+07   | AA   |   (9767066.0207)  -   (10681959.1156)  | 3d     | 2D   | 3/2 | 6p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |           10.93026363  |  0.00000024  | 3.1333e+09   | AA   |   (9767067.862)   -   (10681958.8786)  | 3p     | 2P*  | 3/2 | 6d     | 2D   | 3/2  |    |  T7771 |       |
+                        |           10.93181309  |  0.00000025  | 3.4237e+09   | AA   |   (9767067.862)   -   (10681829.203)   | 3p     | 2P*  | 3/2 | 6s     | 2S   | 1/2  |    |  T7771 |       |
+                        |           10.93186369  |  0.00000005  | 7.9586e+08   | AA   |   (9767066.0207)  -   (10681823.127)   | 3d     | 2D   | 3/2 | 6p     | 2P*  | 1/2  |    |  T7771 |       |
+                        |           10.93375655  |  0.00000003  | 2.1483e+10   | AA   |   (9767427.9002)  -   (10682026.6436)  | 3d     | 2D   | 5/2 | 6f     | 2F*  | 7/2  |    |  T7771 |       |
+                        |           10.93402683  |  0.00000003  | 1.4307e+09   | AA   |   (9767427.9002)  -   (10682004.0356)  | 3d     | 2D   | 5/2 | 6f     | 2F*  | 5/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |           10.93456389  |  0.00000003  | 7.0890e+08   | AA   |   (9767427.9002)  -   (10681959.1156)  | 3d     | 2D   | 5/2 | 6p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |           12.7910386   |  0.0000005   | 2.8337e+10   | AA   |   (9765979.58)    -   (10547776.924)   | 3p     | 2P*  | 1/2 | 5d     | 2D   | 3/2  |    |  T7771 |       |
+                        |           12.7918226   |  0.0000007   | 1.6368e+10   | AA   |   (9766027.90)    -   (10547777.331)   | 3s     | 2S   | 1/2 | 5p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |           12.7947064   |  0.0000005   | 3.0265e+09   | AA   |   (9765979.58)    -   (10547552.809)   | 3p     | 2P*  | 1/2 | 5s     | 2S   | 1/2  |    |  T7771 |       |
+                        |           12.7956693   |  0.0000007   | 1.6435e+10   | AA   |   (9766027.90)    -   (10547542.316)   | 3s     | 2S   | 1/2 | 5p     | 2P*  | 1/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |           12.80755851  |  0.00000004  | 4.2482e+10   | AA   |   (9767066.0207)  -   (10547854.9581)  | 3d     | 2D   | 3/2 | 5f     | 2F*  | 5/2  |    |  T7771 |       |
+                        |           12.8075864   |  0.0000003   | 3.3959e+10   | AA   |   (9767067.862)   -   (10547855.100)   | 3p     | 2P*  | 3/2 | 5d     | 2D   | 5/2  |    |  T7771 |       |
+                        |           12.80883198  |  0.00000007  | 1.4986e+08   | AA   |   (9767066.0207)  -   (10547777.331)   | 3d     | 2D   | 3/2 | 5p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |           12.8088689   |  0.0000003   | 5.6604e+09   | AA   |   (9767067.862)   -   (10547776.924)   | 3p     | 2P*  | 3/2 | 5d     | 2D   | 3/2  |    |  T7771 |       |
+                        |           12.8125469   |  0.0000004   | 6.1094e+09   | AA   |   (9767067.862)   -   (10547552.809)   | 3p     | 2P*  | 3/2 | 5s     | 2S   | 1/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |           12.81268894  |  0.00000012  | 1.5211e+09   | AA   |   (9767066.0207)  -   (10547542.316)   | 3d     | 2D   | 3/2 | 5p     | 2P*  | 1/2  |    |  T7771 |       |
+                        |           12.81285593  |  0.00000004  | 4.5468e+10   | AA   |   (9767427.9002)  -   (10547894.0241)  | 3d     | 2D   | 5/2 | 5f     | 2F*  | 7/2  |    |  T7771 |       |
+                        |           12.81349730  |  0.00000004  | 3.0289e+09   | AA   |   (9767427.9002)  -   (10547854.9581)  | 3d     | 2D   | 5/2 | 5f     | 2F*  | 5/2  |    |  T7771 |       |
+                        |           12.81477195  |  0.00000007  | 1.3548e+09   | AA   |   (9767427.9002)  -   (10547777.331)   | 3d     | 2D   | 5/2 | 5p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |           18.6995134   |  0.0000011   | 5.8709e+10   | AA   |   (9765979.58)    -   (10300752.854)   | 3p     | 2P*  | 1/2 | 4d     | 2D   | 3/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |           18.7011756   |  0.0000014   | 3.0591e+10   | AA   |   (9766027.90)    -   (10300753.643)   | 3s     | 2S   | 1/2 | 4p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |           18.7148354   |  0.0000013   | 6.1416e+09   | AA   |   (9765979.58)    -   (10300315.030)   | 3p     | 2P*  | 1/2 | 4s     | 2S   | 1/2  |    |  T7771 |       |
+                        |           18.7172446   |  0.0000014   | 3.0770e+10   | AA   |   (9766027.90)    -   (10300294.573)   | 3s     | 2S   | 1/2 | 4p     | 2P*  | 1/2  |    |  T7771 |       |
+                        |           18.73223097  |  0.00000008  | 1.2890e+11   | AA   |   (9767066.0207)  -   (10300905.2636)  | 3d     | 2D   | 3/2 | 4f     | 2F*  | 5/2  |    |  T7771 |       |
+                        |           18.7322859   |  0.0000007   | 7.0439e+10   | AA   |   (9767067.862)   -   (10300905.539)   | 3p     | 2P*  | 3/2 | 4d     | 2D   | 5/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |           18.73755280  |  0.00000025  | 3.4826e+08   | AA   |   (9767066.0207)  -   (10300753.643)   | 3d     | 2D   | 3/2 | 4p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |           18.7376451   |  0.0000007   | 1.1750e+10   | AA   |   (9767067.862)   -   (10300752.854)   | 3p     | 2P*  | 3/2 | 4d     | 2D   | 3/2  |    |  T7771 |       |
+                        |           18.74225736  |  0.00000008  | 1.3801e+11   | AA   |   (9767427.9002)  -   (10300981.5596)  | 3d     | 2D   | 5/2 | 4f     | 2F*  | 7/2  |    |  T7771 |       |
+                        |           18.74493781  |  0.00000008  | 9.1985e+09   | AA   |   (9767427.9002)  -   (10300905.2636)  | 3d     | 2D   | 5/2 | 4f     | 2F*  | 5/2  |    |  T7771 |       |
+                        |           18.75026686  |  0.00000025  | 3.1485e+09   | AA   |   (9767427.9002)  -   (10300753.643)   | 3d     | 2D   | 5/2 | 4p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |           18.7530297   |  0.0000010   | 1.2406e+10   | AA   |   (9767067.862)   -   (10300315.030)   | 3p     | 2P*  | 3/2 | 4s     | 2S   | 1/2  |    |  T7771 |       |
+                        |           18.7536844   |  0.0000004   | 3.5358e+09   | AA   |   (9767066.0207)  -   (10300294.573)   | 3d     | 2D   | 3/2 | 4p     | 2P*  | 1/2  |    |  T7771 |       |
+                        |           26.2010354   |  0.0000007   | 7.1934e+09   | AA   |  (10300294.573)   -   (10681958.8786)  | 4p     | 2P*  | 1/2 | 6d     | 2D   | 3/2  |    |  T7771 |       |
+                        |           26.2024236   |  0.0000014   | 4.4498e+09   | AA   |  (10300315.030)   -   (10681959.1156)  | 4s     | 2S   | 1/2 | 6p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |           26.2099406   |  0.0000008   | 1.1980e+09   | AA   |  (10300294.573)   -   (10681829.203)   | 4p     | 2P*  | 1/2 | 6s     | 2S   | 1/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |           26.2117635   |  0.0000014   | 4.4705e+09   | AA   |  (10300315.030)   -   (10681823.127)   | 4s     | 2S   | 1/2 | 6p     | 2P*  | 1/2  |    |  T7771 |       |
+                        |           26.2294755   |  0.0000005   | 8.6312e+09   | AA   |  (10300753.643)   -   (10682004.1186)  | 4p     | 2P*  | 3/2 | 6d     | 2D   | 5/2  |    |  T7771 |       |
+                        |           26.2325177   |  0.0000004   | 9.4353e+07   | AA   |  (10300752.854)   -   (10681959.1156)  | 4d     | 2D   | 3/2 | 6p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |           26.2325883   |  0.0000005   | 1.4394e+09   | AA   |  (10300753.643)   -   (10681958.8786)  | 4p     | 2P*  | 3/2 | 6d     | 2D   | 3/2  |    |  T7771 |       |
+                        |           26.23836302  |  0.00000014  | 1.3258e+10   | AA   |  (10300905.2636)  -   (10682026.6008)  | 4f     | 2F*  | 5/2 | 6g     | 2G   | 7/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |           26.23991090  |  0.00000019  | 1.0231e+07   | AA   |  (10300905.2636)  -   (10682004.1186)  | 4f     | 2F*  | 5/2 | 6d     | 2D   | 5/2  |    |  T7771 |       |
+                        |           26.2415149   |  0.0000006   | 2.4167e+09   | AA   |  (10300753.643)   -   (10681829.203)   | 4p     | 2P*  | 3/2 | 6s     | 2S   | 1/2  |    |  T7771 |       |
+                        |           26.2418790   |  0.0000005   | 9.5579e+08   | AA   |  (10300752.854)   -   (10681823.127)   | 4d     | 2D   | 3/2 | 6p     | 2P*  | 1/2  |    |  T7771 |       |
+                        |           26.24268268  |  0.00000014  | 1.3742e+10   | AA   |  (10300981.5596)  -   (10682040.1626)  | 4f     | 2F*  | 7/2 | 6g     | 2G   | 9/2  |    |  T7771 |       |
+                        |           26.24302619  |  0.00000019  | 2.1603e+08   | AA   |  (10300905.2636)  -   (10681958.8786)  | 4f     | 2F*  | 5/2 | 6d     | 2D   | 3/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |           26.2430288   |  0.0000004   | 8.5250e+08   | AA   |  (10300905.539)   -   (10681959.1156)  | 4d     | 2D   | 5/2 | 6p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |           26.24361668  |  0.00000014  | 4.9051e+08   | AA   |  (10300981.5596)  -   (10682026.6008)  | 4f     | 2F*  | 7/2 | 6g     | 2G   | 7/2  |    |  T7771 |       |
+                        |           26.24516518  |  0.00000019  | 2.0514e+08   | AA   |  (10300981.5596)  -   (10682004.1186)  | 4f     | 2F*  | 7/2 | 6d     | 2D   | 5/2  |    |  T7771 |       |
+                        |           40.4069218   |  0.0000018   | 1.2376e+10   | AA   |  (10300294.573)   -   (10547776.924)   | 4p     | 2P*  | 1/2 | 5d     | 2D   | 3/2  |    |  T7771 |       |
+                        |           40.410196    |  0.000003    | 7.3506e+09   | AA   |  (10300315.030)   -   (10547777.331)   | 4s     | 2S   | 1/2 | 5p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |           40.4435466   |  0.0000022   | 2.1575e+09   | AA   |  (10300294.573)   -   (10547552.809)   | 4p     | 2P*  | 1/2 | 5s     | 2S   | 1/2  |    |  T7771 |       |
+                        |           40.448610    |  0.000003    | 7.3967e+09   | AA   |  (10300315.030)   -   (10547542.316)   | 4s     | 2S   | 1/2 | 5p     | 2P*  | 1/2  |    |  T7771 |       |
+                        |           40.4691010   |  0.0000010   | 2.4152e+10   | AA   |  (10300752.854)   -   (10547854.9581)  | 4d     | 2D   | 3/2 | 5f     | 2F*  | 5/2  |    |  T7771 |       |
+                        |           40.4692069   |  0.0000013   | 1.4867e+10   | AA   |  (10300753.643)   -   (10547855.100)   | 4p     | 2P*  | 3/2 | 5d     | 2D   | 5/2  |    |  T7771 |       |
+                        |           40.4818183   |  0.0000012   | 1.8882e+08   | AA   |  (10300752.854)   -   (10547777.331)   | 4d     | 2D   | 3/2 | 5p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |           40.4820143   |  0.0000013   | 2.4810e+09   | AA   |  (10300753.643)   -   (10547776.924)   | 4p     | 2P*  | 3/2 | 5d     | 2D   | 3/2  |    |  T7771 |       |
+                        |           40.4876845   |  0.0000003   | 4.1075e+10   | AA   |  (10300905.2636)  -   (10547893.9497)  | 4f     | 2F*  | 5/2 | 5g     | 2G   | 7/2  |    |  T7771 |       |
+                        |           40.4877175   |  0.0000010   | 2.5871e+10   | AA   |  (10300905.539)   -   (10547894.0241)  | 4d     | 2D   | 5/2 | 5f     | 2F*  | 7/2  |    |  T7771 |       |
+                        |           40.4940540   |  0.0000007   | 2.4074e+07   | AA   |  (10300905.2636)  -   (10547855.100)   | 4f     | 2F*  | 5/2 | 5d     | 2D   | 5/2  |    |  T7771 |       |
+                        |           40.4941224   |  0.0000010   | 1.7250e+09   | AA   |  (10300905.539)   -   (10547854.9581)  | 4d     | 2D   | 5/2 | 5f     | 2F*  | 5/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |           40.4963518   |  0.0000003   | 4.2584e+10   | AA   |  (10300981.5596)  -   (10547917.3836)  | 4f     | 2F*  | 7/2 | 5g     | 2G   | 9/2  |    |  T7771 |       |
+                        |           40.5001952   |  0.0000003   | 1.5205e+09   | AA   |  (10300981.5596)  -   (10547893.9497)  | 4f     | 2F*  | 7/2 | 5g     | 2G   | 7/2  |    |  T7771 |       |
+                        |           40.5065686   |  0.0000007   | 4.8268e+08   | AA   |  (10300981.5596)  -   (10547855.100)   | 4f     | 2F*  | 7/2 | 5d     | 2D   | 5/2  |    |  T7771 |       |
+                        |           40.5068555   |  0.0000012   | 1.7062e+09   | AA   |  (10300905.539)   -   (10547777.331)   | 4d     | 2D   | 5/2 | 5p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |           40.5068771   |  0.0000007   | 5.0829e+08   | AA   |  (10300905.2636)  -   (10547776.924)   | 4f     | 2F*  | 5/2 | 5d     | 2D   | 3/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |           40.5187755   |  0.0000019   | 4.3563e+09   | AA   |  (10300753.643)   -   (10547552.809)   | 4p     | 2P*  | 3/2 | 5s     | 2S   | 1/2  |    |  T7771 |       |
+                        |           40.5203687   |  0.0000015   | 1.9137e+09   | AA   |  (10300752.854)   -   (10547542.316)   | 4d     | 2D   | 3/2 | 5p     | 2P*  | 1/2  |    |  T7771 |       |
+                        |           74.395594    |  0.000004    | 3.7402e+09   | AA   |  (10547542.316)   -   (10681958.8786)  | 5p     | 2P*  | 1/2 | 6d     | 2D   | 3/2  |    |  T7771 |       |
+                        |           74.401271    |  0.000005    | 2.4209e+09   | AA   |  (10547552.809)   -   (10681959.1156)  | 5s     | 2S   | 1/2 | 6p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |           74.467435    |  0.000005    | 8.9667e+08   | AA   |  (10547542.316)   -   (10681829.203)   | 5p     | 2P*  | 1/2 | 6s     | 2S   | 1/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |           74.476624    |  0.000005    | 2.4368e+09   | AA   |  (10547552.809)   -   (10681823.127)   | 5s     | 2S   | 1/2 | 6p     | 2P*  | 1/2  |    |  T7771 |       |
+                        |           74.5005974   |  0.0000025   | 6.7564e+09   | AA   |  (10547776.924)   -   (10682004.0356)  | 5d     | 2D   | 3/2 | 6f     | 2F*  | 5/2  |    |  T7771 |       |
+                        |           74.5007772   |  0.0000025   | 4.4963e+09   | AA   |  (10547777.331)   -   (10682004.1186)  | 5p     | 2P*  | 3/2 | 6d     | 2D   | 5/2  |    |  T7771 |       |
+                        |           74.5255379   |  0.0000025   | 9.6107e+07   | AA   |  (10547776.924)   -   (10681959.1156)  | 5d     | 2D   | 3/2 | 6p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |           74.5258955   |  0.0000025   | 7.5055e+08   | AA   |  (10547777.331)   -   (10681958.8786)  | 5p     | 2P*  | 3/2 | 6d     | 2D   | 3/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |           74.5313972   |  0.0000011   | 1.0674e+10   | AA   |  (10547854.9581)  -   (10682026.6008)  | 5f     | 2F*  | 5/2 | 6g     | 2G   | 7/2  |    |  T7771 |       |
+                        |           74.5314523   |  0.0000025   | 7.2394e+09   | AA   |  (10547855.100)   -   (10682026.6436)  | 5d     | 2D   | 5/2 | 6f     | 2F*  | 7/2  |    |  T7771 |       |
+                        |           74.5438880   |  0.0000016   | 1.8637e+07   | AA   |  (10547854.9581)  -   (10682004.1186)  | 5f     | 2F*  | 5/2 | 6d     | 2D   | 5/2  |    |  T7771 |       |
+                        |           74.5440130   |  0.0000025   | 4.8284e+08   | AA   |  (10547855.100)   -   (10682004.0356)  | 5d     | 2D   | 5/2 | 6f     | 2F*  | 5/2  |    |  T7771 |       |
+                        |           74.5455407   |  0.0000003   | 1.6101e+10   | AA   |  (10547893.9497)  -   (10682040.13610) | 5g     | 2G   | 7/2 | 6h     | 2H*  | 9/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |           74.5455673   |  0.0000011   | 1.1068e+10   | AA   |  (10547894.0241)  -   (10682040.1626)  | 5f     | 2F*  | 7/2 | 6g     | 2G   | 9/2  |    |  T7771 |       |
+                        |           74.5530393   |  0.0000011   | 3.1634e+06   | AA   |  (10547893.9497)  -   (10682026.6436)  | 5g     | 2G   | 7/2 | 6f     | 2F*  | 7/2  |    |  T7771 |       |
+                        |           74.5531044   |  0.0000011   | 3.9531e+08   | AA   |  (10547894.0241)  -   (10682026.6008)  | 5f     | 2F*  | 7/2 | 6g     | 2G   | 7/2  |    |  T7771 |       |
+                        |           74.5535403   |  0.0000003   | 1.6465e+10   | AA   |  (10547917.3836)  -   (10682049.17610) | 5g     | 2G   | 9/2 | 6h     | 2H*  | 11/2 |    |  T7771 |       |
+                        |           74.5585653   |  0.0000003   | 3.6583e+08   | AA   |  (10547917.3836)  -   (10682040.13610) | 5g     | 2G   | 9/2 | 6h     | 2H*  | 9/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |           74.5656025   |  0.0000016   | 3.7357e+08   | AA   |  (10547894.0241)  -   (10682004.1186)  | 5f     | 2F*  | 7/2 | 6d     | 2D   | 5/2  |    |  T7771 |       |
+                        |           74.5656073   |  0.0000011   | 1.1421e+08   | AA   |  (10547893.9497)  -   (10682004.0356)  | 5g     | 2G   | 7/2 | 6f     | 2F*  | 5/2  |    |  T7771 |       |
+                        |           74.5660665   |  0.0000011   | 1.1089e+08   | AA   |  (10547917.3836)  -   (10682026.6436)  | 5g     | 2G   | 9/2 | 6f     | 2F*  | 7/2  |    |  T7771 |       |
+                        |           74.5689826   |  0.0000025   | 8.6822e+08   | AA   |  (10547855.100)   -   (10681959.1156)  | 5d     | 2D   | 5/2 | 6p     | 2P*  | 3/2  |    |  T7771 |       |
+                        |           74.5690354   |  0.0000016   | 3.9327e+08   | AA   |  (10547854.9581)  -   (10681958.8786)  | 5f     | 2F*  | 5/2 | 6d     | 2D   | 3/2  |    |  T7771 |       |
+                        |                        |              |              |      |                                        |        |      |     |        |      |      |    |        |       |
+                        |           74.597988    |  0.000004    | 1.8098e+09   | AA   |  (10547777.331)   -   (10681829.203)   | 5p     | 2P*  | 3/2 | 6s     | 2S   | 1/2  |    |  T7771 |       |
+                        |           74.601143    |  0.000003    | 9.7300e+08   | AA   |  (10547776.924)   -   (10681823.127)   | 5d     | 2D   | 3/2 | 6p     | 2P*  | 1/2  |    |  T7771 |       |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</pre>
+
+<p style="color:black; font-family: helvetica,arial; font-weight:bold">If you did not find the data you need, please <a href="/cdn-cgi/l/email-protection#77161b120f1619131205591c05161a1e131637191e040359101801480402151d1214034a3a1e04041e1910524547131603165245471e1952454736243351161a074c1518130e4a39125245472f5245471b1201121b04">inform the ASD Team</a>.</p><table style="width:100%; border:0; margin-top:0">
+<tr><td style="text-align:left"><a href="https://physics.nist.gov/PhysRefData/ASD/index.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/ASD-sm.gif" style="border:0" width="100" height="47"
+alt="[ASD Home]" title="ASD Home"></a><a href="https://physics.nist.gov/PhysRefData/ASD/lines_form.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/Lines.gif" style="border:0" width="70" height="47"
+alt="[Lines Query]" title="Lines Query"></a><a href="https://physics.nist.gov/PhysRefData/ASD/levels_form.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/Levels.gif" style="border:0" width="79" height="47"
+alt="[Levels Query]" title="Levels Query"></a><a href="https://www.nist.gov/pml/atomic-spectra-database-contents"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/List.gif" style="border:0" width="77" height="47"
+alt="[List of Spectra]" title="List of Spectra"></a><a href="https://physics.nist.gov/PhysRefData/ASD/ionEnergy.html"><img
+src="https://physics.nist.gov/PhysRefData/ASD/Images/GS-IE.gif" style="border:0" width="124" height="47"
+alt="[Ground States and Ionization Energies]" title="Ground States and Ionization Energies"></a><a
+href="https://physics.nist.gov/PhysRefData/ASBib1/index.html"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/Bib.gif" style="border:0"
+width="98" height="47" alt="[Bibliography]" title="Bibliography"></a><a
+href="https://physics.nist.gov/PhysRefData/ASD/Html/help.html"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/Help.gif" style="border:0"
+width="55" height="47" alt="[Help]" title="Help"/></a></td>
+<td style="text-align:right"><img src="https://physics.nist.gov/PhysRefData/ASD/Images/nist-pl-black.gif" style="border:0" width="136" height="68"
+usemap="#NIST-PL" alt="NIST Physical Measurement Laboratory"/></td>
+</tr></table>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>

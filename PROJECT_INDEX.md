@@ -70,7 +70,7 @@ atomx/
 ## 🚀 Entry Points
 
 - **Public API** — `src/atomx/__init__.py` — `Atom`, `HydrogenicSchrodinger`, `HydrogenicDirac`, `HartreeFock`, `BreitPauli`, `DiracFock`, `MCDHF`, `compare`, `theory_ladder`, `what_changed`, `ureg`.
-- **High-level facade** — `src/atomx/atom.py` — `Atom(Z, config=..., breit=..., qed=..., exchange=..., correlation=..., nuclear=..., plasma_ne=..., Te=...).solve(Method?)`.
+- **High-level facade** — `src/atomx/atom.py` — `Atom(Z, config=..., charge=..., nuclear=..., exchange=..., corrections=..., correlation=..., engine=..., basis=..., environment=...).solve(Method?)`; ten arguments, one per physical question (`docs/MIGRATION.md`).
 - **Primary SCF engine** — `src/atomx/methods/dirac_fock.py` (2363 lines) — B-spline Dirac-Fock with Breit + QED.
 - **FAC-compatible local DFS** — `src/atomx/numerics/local_dfs/` — asymptotic turning-point logic + HXS local-exchange tables.
 - **Benchmarks** — `benchmarks/bench_fac_{structure,lithium_like,levels_transitions}.py`, `bench_local_exchange.py`, `bench_shooting_vs_radial.py`, `fac_runner.py`; `scripts/benchmark_energies.py`, `scripts/compare_energies.py`, `scripts/generate_density_gs.py`.
@@ -80,7 +80,7 @@ atomx/
 ## 📦 Core Modules
 
 ### `atomx.atom` — `src/atomx/atom.py`
-High-level `Atom` class. Knobs: `Z`, `config`/`configs`, `charge`, `ns`/`ks` (B-spline count/order), `nuclear` ∈ {fermi, point, uniform}, `breit`, `qed`, `exchange` ∈ {hf, slater, shooting, fac, tfda, gsz}, `correlation` ∈ {None, s, sd}, `plasma_ne`/`Te`, `slater_method` ∈ {slag6 (default), power_series}. Drives a `Method` (default `DiracFock`) and returns `AtomicResult`.
+High-level `Atom` class — ten arguments, one per physical question: `Z` (required, positional), `config` (string, or a list for the MCDHF/CI path), `charge`, `nuclear` ∈ {fermi, point, uniform}, `exchange` ∈ {hf, slater, gu, tfda, gsz} or `Exchange(model=..., alpha_x=..., slater_method=...)`, `corrections` (preset "none"/"breit"/"qed"/"breit+qed" or `Corrections(breit=, qed=, qed_backend=, stack=)`), `correlation` ("s"/"sd" or `Correlation(expansion=, averaging=, radial_optimization=, j_resolved_csfs=, per_block_orbital_sets=)`), `engine` ∈ {bspline, shooting} (decoupled from the exchange model), `basis` (`Basis(ns=, ks=, r_max=, grid_hi=, grid_he=, grid_hmax=, starting_potential=, sampling=)`), `environment` (`Environment(plasma_ne=, plasma_Te=, screening=)`, applied inside the SCF). `Atom.resolved_inputs` reports what the defaults resolved to; retired spellings raise with their replacement (`docs/MIGRATION.md`). Drives a `Method` (default `DiracFock`) and returns `AtomicResult`.
 
 ### `atomx.methods`
 Method objects encode theory level and are mutually comparable via `theory_ladder`:
@@ -155,7 +155,7 @@ pip install -e ".[dev,units]"
 # Minimal example
 python -c "
 from atomx import Atom
-ne = Atom(Z=10); ne.solve(); ne.summary()
+ne = Atom(10); ne.solve(); ne.summary()
 "
 
 # Theory ladder on the same system

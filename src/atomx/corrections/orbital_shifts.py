@@ -48,9 +48,12 @@ def qed_orbital_shifts(result, *, Z=None, se_method: str = "auto",
     method = resolve_se_method(se_method, Z)
     backend = qedmod.get_backend(method)
     se = backend.compute(orbitals, bsp, Z)
+    # ``SEResult.per_orbital`` is already *per electron* — every backend
+    # forms ``E_SE += occ * E_a``.  Dividing by ``occ`` here halved the
+    # 1s shift of any two-electron subshell (Fe^16+ 1s: 4.28 eV -> 2.14 eV).
     for (_P, _Q, occ, _kappa, label) in orbitals:
         if occ > 0 and label in se.per_orbital:
-            shifts[label] = se.per_orbital[label] / occ
+            shifts[label] = se.per_orbital[label]
 
     if include_vp:
         nv, ns = bsp["nv"], bsp["ns"]

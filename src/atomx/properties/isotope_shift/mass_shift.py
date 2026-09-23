@@ -5,12 +5,13 @@ Normal mass shift
 The Breit–Salpeter one-body mass-shift operator in the non-relativistic
 limit is
 
-    H_NMS = − (m_e / M) · Σ_i (p_i² / 2 m_e) = − (m_e / M) · T_e,
+    H_NMS = + (m_e / M) · Σ_i (p_i² / 2 m_e) = + (m_e / M) · T_e,
 
 where M is the *nuclear* mass (atomic mass minus Z electron masses) and
-T_e is the total electron kinetic energy.  The expectation value gives
+T_e is the total electron kinetic energy.  A finite nuclear mass makes a
+bound level *less* bound, so the level rises and the shift is positive:
 
-    ΔE_NMS = − (m_e / M) · ⟨T_e⟩.                                 (1)
+    ΔE_NMS = + (m_e / M) · ⟨T_e⟩ > 0.                              (1)
 
 For a Coulomb-bound system the virial theorem states ⟨T_e⟩ = −E_total
 (non-relativistic) with a small relativistic correction of order
@@ -71,8 +72,9 @@ class MassShift:
     Attributes
     ----------
     E_NMS_Ha : float
-        NMS shift in Hartree:  ``E_NMS = −(m_e/M) · ⟨T_e⟩``.  Negative
-        for bound states (T > 0, M > 0 → −1/M × T < 0).
+        NMS shift in Hartree:  ``E_NMS = +(m_e/M) · ⟨T_e⟩``.  Positive
+        for bound states (T > 0, M > 0 → +1/M × T > 0): a finite nuclear
+        mass raises the level.
     E_NMS_MHz : float
         Same, converted to MHz via :data:`atomx.properties.hyperfine.HARTREE_MHZ`.
     kinetic_energy_au : float
@@ -133,7 +135,7 @@ def normal_mass_shift(
         kinetic = kinetic_energy
         method = "explicit"
 
-    E_NMS_Ha = -kinetic / mass_me
+    E_NMS_Ha = kinetic / mass_me
     return MassShift(
         E_NMS_Ha=E_NMS_Ha,
         E_NMS_MHz=E_NMS_Ha * HARTREE_MHZ,

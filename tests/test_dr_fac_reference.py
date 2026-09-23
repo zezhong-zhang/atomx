@@ -32,6 +32,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "tests"))
 
+from atomx.constants import RYDBERG_EV  # noqa: E402
 from atomx.scattering.autoionization import dr_calculate  # noqa: E402
 from atomx.scattering.dielectronic_recombination.fac_reference import (  # noqa: E402
     _parse_fac_configuration,
@@ -39,6 +40,15 @@ from atomx.scattering.dielectronic_recombination.fac_reference import (  # noqa:
 )
 
 FIXTURE = Path(__file__).parent / "data" / "fe17_dr_fac.json"
+
+# The fixture's ``alpha_fac_cm3_s`` was combined through this same Burgess
+# kernel before the eV-convention prefactor fix (review C5), so it carries
+# the Rydberg-temperature prefactor — RYDBERG_EV**1.5 = 50.186x below the
+# eV convention now used by the kernel.  The ratio below is kernel-vs-kernel
+# so the factor cancels; it is applied anyway so the comparison is stated in
+# the module's current units.  The absolute scale is gated independently in
+# tests/test_plasma_physics.py.
+FIXTURE_UNIT_FACTOR = RYDBERG_EV ** 1.5
 
 # Atom-like input for the enumeration only (same lightweight stub used by
 # tests/test_dr_vs_fac.py); the widths and energies come from the adapter.
@@ -151,7 +161,8 @@ def test_adapter_reproduces_fac_alpha_dr(fixture_data, width_fns):
         energy_fn=width_fns.energy_fn,
     )
     assert len(rc.resonances) > 100
-    expected = np.asarray(fixture_data["alpha_fac_cm3_s"], dtype=float)
+    expected = (np.asarray(fixture_data["alpha_fac_cm3_s"], dtype=float)
+                * FIXTURE_UNIT_FACTOR)
     ratios = np.asarray(rc.alpha_cm3_s, dtype=float) / expected
     for T, ratio in zip(fixture_data["T_MK"], ratios, strict=False):
         assert 0.80 <= ratio <= 1.05, (

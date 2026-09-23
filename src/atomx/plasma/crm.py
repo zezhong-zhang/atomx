@@ -10,6 +10,9 @@ where R_{ij} includes:
 - Collisional de-excitation: n_e * C_{ij}^deexc (i > j)
 - Electron-impact ionisation: n_e * S_i
 - Three-body recombination: n_e^2 * beta_i, detailed-balanced to EII
+- Spontaneous radiative recombination: n_e * alpha_RR_i, the Milne
+  inverse of this module's own photoionisation cross-section
+  (``alpha_RR(T) = PI_Planck(T) / Saha(T)``)
 - Photoionisation: gamma_i from a Planck or user-supplied radiation field
 
 In steady state: R * n = 0, with normalization sum(n) = n_total.
@@ -291,6 +294,7 @@ class CollisionalRadiativeModel:
         include_eii: bool = True,
         include_three_body: bool = True,
         include_photoionization: bool = True,
+        include_radiative_recombination: bool = True,
         radiation_temperature_eV: Optional[float] = None,
         radiation_field: Optional[Callable[[float], float]] = None,
     ):
@@ -324,31 +328,43 @@ class CollisionalRadiativeModel:
             # Collisional excitation: lower -> upper.  Tabulated DW
             # collision strengths (FAC-verified machinery) when present;
             # van Regemorter (E1-only, ~20-40%) as labelled fallback.
+            #
+            # Both directions are built from the *reduced* rate (the
+            # prefactor without the Boltzmann weight of the excitation
+            # direction) so that the de-excitation survives the
+            # exp(-dE/kT) underflow that sets in for dE/kT >~ 745: the
+            # excitation rate is then correctly ~0 while C_deexc stays
+            # finite.
             dE_eV = self.levels[u].energy_eV - self.levels[l].energy_eV
             C_exc = 0.0
+            C_deexc = 0.0
             if dE_eV > 0 and kT > 0:
                 g_l = max(self.levels[l].g, 1)
+                g_u = max(self.levels[u].g, 1)
+                x = dE_eV / kT
                 if tr.omega is not None and tr.omega_E_eV is not None:
                     ups = effective_collision_strength(
                         np.asarray(tr.omega_E_eV, dtype=float),
                         np.asarray(tr.omega, dtype=float), dE_eV, kT)
                     # C = 8.629e-6 / (g_l sqrt(T_K)) * Upsilon * exp(-dE/kT)
                     T_K = kT / BOLTZMANN_EV
-                    C_exc = (8.6291e-6 * ups / (g_l * np.sqrt(T_K))
-                             * np.exp(-dE_eV / kT))
+                    C_exc_reduced = 8.6291e-6 * ups / (g_l * np.sqrt(T_K))
+                    C_exc = C_exc_reduced * np.exp(-x)
+                    # Detailed balance: C_deexc = C_exc (g_l/g_u) exp(+x)
+                    C_deexc = C_exc_reduced * (g_l / g_u)
                 elif tr.gf > 0:
-                    # van Regemorter approximation for excitation rate
-                    gaunt = max(0.2, 0.276 * np.exp(dE_eV / kT)
-                                * _E1_integral(dE_eV / kT))
-                    C_exc = (1.578e-5 * tr.gf * gaunt
-                             / (g_l * np.sqrt(kT)) * np.exp(-dE_eV / kT))
+                    # van Regemorter approximation for excitation rate,
+                    # written so that neither exp(+x) nor exp(-x) is ever
+                    # formed on its own: the effective Gaunt factor is
+                    # gaunt = max(0.2, 0.276 exp(x) E1(x)) with
+                    # exp(x) E1(x) -> (x+1)/(x(x+2)) for x > 1.
+                    gaunt = max(0.2, 0.276 * _e1_times_exp(x))
+                    base = 1.578e-5 * tr.gf / (g_l * np.sqrt(kT))
+                    C_exc = base * gaunt * np.exp(-x)
+                    C_deexc = base * gaunt * (g_l / g_u)
             if C_exc > 0.0:
-                g_l = max(self.levels[l].g, 1)
                 R[u, l] += ne_cm3 * C_exc
-
-                # Collisional de-excitation (detailed balance)
-                g_u = max(self.levels[u].g, 1)
-                C_deexc = C_exc * (g_l / g_u) * np.exp(dE_eV / kT)
+            if C_deexc > 0.0:
                 R[l, u] += ne_cm3 * C_deexc
 
         for src in self.dr_satellite_sources:
@@ -388,6 +404,23 @@ class CollisionalRadiativeModel:
                             g_continuum=ch.g_continuum or self.levels[c].g,
                         )
                         R[b, c] += ne_cm3 * ne_cm3 * beta
+
+            if include_radiative_recombination:
+                # Spontaneous radiative recombination (Milne inverse of the
+                # module's own photoionisation cross-section).  Unlike
+                # three-body recombination this channel survives in the
+                # coronal limit (rate n_e alpha_RR, not n_e^2 beta), so it
+                # is what makes a coronal ionisation balance reachable and
+                # what cancels a Planck radiation field at T_rad = T_e.
+                alpha_rr = radiative_recombination_rate_cm3_s(
+                    ch.ionization_potential_eV,
+                    Te_eV,
+                    g_bound=ch.g_bound or self.levels[b].g,
+                    g_continuum=ch.g_continuum or self.levels[c].g,
+                    sigma0_cm2=ch.sigma0_cm2,
+                )
+                if alpha_rr > 0.0:
+                    R[b, c] += ne_cm3 * alpha_rr
 
             if include_photoionization:
                 pi_rate = _channel_photoionization_rate_s(
@@ -610,6 +643,66 @@ def three_body_recombination_rate_cm6_s(
     return max(float(eii_rate_cm3_s), 0.0) / saha
 
 
+def radiative_recombination_rate_cm3_s(
+    ionization_potential_eV: float,
+    Te_eV: float,
+    *,
+    g_bound: float = 1.0,
+    g_continuum: float = 1.0,
+    sigma0_cm2: Optional[float] = None,
+) -> float:
+    """Spontaneous radiative-recombination rate coefficient in cm^3/s.
+
+    Milne's relation ties the spontaneous RR coefficient of an ion to its
+    photoionisation cross-section through a Planck field at the *same*
+    temperature; with this module's own Planck-averaged photoionisation
+    rate :func:`_planck_photoionization_rate_s` and its own Saha function
+    :func:`saha_ionization_density_cm3` that reads
+
+        alpha_RR(T) = PI_Planck(T) / Saha(T),
+
+    because at Saha populations ``n_c n_e / n_b = Saha`` the recombination
+    rate ``n_c n_e alpha_RR`` must cancel the photoionisation rate
+    ``n_b PI_Planck`` exactly (LTE).  Using one cross-section for both
+    directions makes that cancellation exact rather than approximate.
+
+    Parameters
+    ----------
+    ionization_potential_eV : float
+        Threshold energy of the bound-free channel.
+    Te_eV : float
+        Electron temperature in eV (the temperature that enters both the
+        Planck average and the Saha factor).
+    g_bound, g_continuum : float
+        Statistical weights used in the Saha factor; they must match the
+        ones used for the EII/three-body pair of the same channel.
+    sigma0_cm2 : float, optional
+        Kramers cross-section at threshold; defaults to the hydrogenic
+        value used by the photoionisation term.
+
+    Returns
+    -------
+    float
+        alpha_RR in cm^3/s (0 for non-positive inputs).
+    """
+    if Te_eV <= 0.0 or ionization_potential_eV <= 0.0:
+        return 0.0
+    saha = saha_ionization_density_cm3(
+        ionization_potential_eV,
+        Te_eV,
+        g_bound=g_bound,
+        g_continuum=g_continuum,
+    )
+    if not saha > 0.0:
+        return 0.0
+    pi_rate = _planck_photoionization_rate_s(
+        ionization_potential_eV,
+        Te_eV,
+        sigma0_cm2=sigma0_cm2,
+    )
+    return max(float(pi_rate) / float(saha), 0.0)
+
+
 def _dr_capture_rate_coefficient_fn(resonance, *, initial_state_g: float):
     from atomx.scattering.dielectronic_recombination.solver import dr_rate_coefficient
 
@@ -778,6 +871,22 @@ def _E1_integral(x):
         return -np.log(x) - 0.5772 + x - x ** 2 / 4
     else:
         return np.exp(-x) / x * (x + 1) / (x + 2)
+
+
+def _e1_times_exp(x):
+    """``exp(x) * E1(x)`` — the effective-Gaunt combination, overflow free.
+
+    The van Regemorter effective Gaunt factor is
+    ``0.276 * exp(x) * E1(x)``.  Evaluating the two factors separately
+    overflows for ``x >~ 709`` (and gives ``inf * 0 = nan``), so for
+    ``x >= 1`` the product is used directly:
+    ``exp(x) E1(x) = (x + 1) / (x (x + 2))``, which decays like ``1/x``.
+    """
+    if not np.isfinite(x) or x <= 0:
+        return 0.0
+    if x < 1:
+        return float(np.exp(x) * _E1_integral(x))
+    return (x + 1.0) / (x * (x + 2.0))
 
 
 @dataclass(frozen=True)

@@ -11,6 +11,7 @@ matplotlib.use("Agg")
 
 import numpy as np
 import pytest
+from scipy import constants as sc
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
@@ -68,9 +69,39 @@ def test_dr_resonances_and_rate():
         plot_dr_resonances(res, weight="bogus")
     rc = dr_rate_coefficient(res, np.geomspace(10, 5000, 25),
                              initial_state_g=1.0)
-    fig2 = plot_dr_rate(rc, references={
-        "FAC clean-room": (rc.T_eV, rc.alpha_cm3_s * 1.1)})
+    # Independent overlay: the Burgess closed form re-derived here,
+    #     alpha(T) = P T^{-3/2} sum_r (2J_r+1)/(2 g_i)
+    #                            * Ga_r Gr_r/(Ga_r+Gr_r) e^{-E_r/T},
+    #     P = (h^2 / 2 pi m_e kT_eV)^{3/2}  [cm^3]
+    # (the prefactor closed form is gated in tests/test_plasma_physics.py).
+    # Previously this overlay was ``rc.alpha_cm3_s * 1.1`` labelled
+    # "FAC clean-room" — a reference fabricated from the data it was
+    # compared against, so it could never disagree with it.
+    # The committed tests/data/fe17_dr_fac.json curve is not usable here:
+    # it belongs to the 194-resonance FAC dr33 set and carries the pre-fix
+    # Rydberg prefactor (RYDBERG_EV**1.5 = 50.186x), so it is not an overlay
+    # for this 9-resonance synthetic set.
+    prefactor = (sc.h ** 2 / (2.0 * np.pi * sc.m_e * sc.e)) ** 1.5 * 1.0e6
+    closed = np.array([
+        prefactor * T ** -1.5 * sum(
+            (2.0 * r.J + 1.0) / 2.0
+            * r.gamma_auger_per_s * r.a_radiative_per_s
+            / (r.gamma_auger_per_s + r.a_radiative_per_s)
+            * np.exp(-r.E_resonance_eV / T)
+            for r in res
+        )
+        for T in rc.T_eV
+    ])
+
+    fig2 = plot_dr_rate(rc, references={"Burgess closed form": (rc.T_eV, closed)})
     assert fig2.axes[0].get_xscale() == "log"
+    # the plotted overlay is the independently computed curve ...
+    assert np.array_equal(
+        np.asarray(fig2.axes[0].lines[1].get_ydata(), dtype=float), closed)
+    # ... and the plotted atomx curve reproduces that closed form (measured
+    # agreement 1e-15 relative; the overlay is no longer a scaled copy of
+    # the data, so this comparison can fail)
+    assert np.allclose(closed, rc.alpha_cm3_s, rtol=1e-9, atol=0.0)
 
 
 def test_spectrum_channels():

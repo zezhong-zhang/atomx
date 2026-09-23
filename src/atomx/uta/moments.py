@@ -25,7 +25,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from math import sqrt
-from typing import Optional, Sequence, Tuple
+from typing import Mapping, Optional, Sequence, Tuple
 
 import numpy as np
 
@@ -37,8 +37,12 @@ class UTAArray:
     Attributes
     ----------
     total_strength : float
-        ``Σ S_ij`` — total line strength (arbitrary units; typically
-        the sum of A-coefficients weighted by statistical weight).
+        ``Σ S_ij`` — total line strength, *in whatever units the caller
+        supplied as the weights*.  For :func:`uta_moments` that is the
+        caller's own strength unit; for
+        :func:`uta_simple_from_levels` **without** ``strengths=`` it is
+        a degeneracy product ``Σ (2J_u+1)(2J_l+1)`` — a dimensionless
+        weight sum, *not* a line strength (review 2026-09-19, M5).
     centroid_eV : float
         Centroid transition energy ``<E>``, eV.
     variance_eV2 : float
@@ -118,13 +122,36 @@ def uta_simple_from_levels(
     *,
     g_upper: Optional[Sequence[float]] = None,
     g_lower: Optional[Sequence[float]] = None,
+    strengths: Optional[Mapping[Tuple[int, int], float]] = None,
 ) -> UTAArray:
     """Convenience: UTA from two level lists (with optional g-weights).
 
-    All transitions upper[i] → lower[j] are considered, each with
-    strength ``g_upper[i] · g_lower[j]`` (or 1.0 if omitted).  Suitable
-    for quick "statistical-weights-only" UTA estimates when line
-    strengths have not been computed line-by-line.
+    Two modes:
+
+    ``strengths`` given (exact)
+        ``strengths[(i, j)]`` is the line strength of level pair
+        ``upper[i] → lower[j]`` (e.g. the reduced-matrix-element square
+        from the CI or FAC engine).  Pairs absent from the mapping are
+        treated as forbidden (zero strength) and skipped, as are
+        non-positive ``ΔE`` and non-positive strengths.  The moments are
+        then identical to ``uta_moments`` on the same lines.
+
+    ``strengths`` omitted (statistical weights only)
+        Every level pair is given the weight ``g_upper[i]·g_lower[j]``
+        (default 1.0), i.e. the number of Zeeman sub-level pairs.  This
+        is the standard *Unsöld-limit* (degeneracy-weighted) UTA
+        estimate of the array moments.  It is **not** the
+        line-strength-weighted moment of the real array, and it cannot
+        be: the relative strength of two lines with the same J's is
+        invisible to a weights-only reduction.  Measured on the
+        committed Fe XVII FAC array (tests/data/fe17_tr_fac_cleanroom.json,
+        2p⁵3d → 2p⁶, three J=1 upper levels with g_u = 3, g_l = 1):
+        centroid 813.795 eV vs the strength-weighted 823.690 eV
+        (−1.20 %), σ 9.9998 eV vs 5.9306 eV (+68.6 %), and the merged
+        3s+3d total weight 15 vs Σ S = 0.1614 (92.9×).  Pass
+        ``strengths=`` (or call :func:`uta_moments` on a real line list)
+        when the true array moments are needed; review 2026-09-19
+        finding M5.
 
     Parameters
     ----------
@@ -132,6 +159,9 @@ def uta_simple_from_levels(
         Level energies in eV.  Transition energies are ``E_upper − E_lower``.
     g_upper, g_lower : sequence of float, optional
         Statistical weights of the upper / lower levels.  Default = 1.
+        Ignored when ``strengths`` is given.
+    strengths : mapping {(i, j): float}, optional
+        Per-pair line strengths, keyed by (upper index, lower index).
 
     Returns
     -------
@@ -139,6 +169,24 @@ def uta_simple_from_levels(
     """
     n_u = len(E_upper_levels_eV)
     n_l = len(E_lower_levels_eV)
+
+    if strengths is not None:
+        # Exact path: the caller supplies the physics; no degeneracy proxy.
+        lines = []
+        for (i, j), S in strengths.items():
+            if not (0 <= i < n_u and 0 <= j < n_l):
+                raise IndexError(
+                    f"strengths key {(i, j)} outside the "
+                    f"{n_u}×{n_l} level grid.")
+            dE = float(E_upper_levels_eV[i]) - float(E_lower_levels_eV[j])
+            if dE <= 0 or float(S) <= 0:
+                continue
+            lines.append((dE, float(S)))
+        if not lines:
+            raise ValueError("No valid (positive-energy, positive-strength) "
+                             "transitions found.")
+        return uta_moments(lines)
+
     if g_upper is None:
         g_upper = [1.0] * n_u
     if g_lower is None:

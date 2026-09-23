@@ -60,7 +60,7 @@ def panel_profiles(ax):
 # ---------------------------------------------------------------- B
 def panel_ab_initio_lines(ax):
     """He I MCDHF (1s2 + 1s2p) transitions rendered as an emission spectrum."""
-    he = Atom(Z=2, configs=["1s2", "1s1 2p1"])
+    he = Atom(Z=2, config=["1s2", "1s1 2p1"])
     he.solve(max_iter=40, tol=1e-4)
     trs = he.transitions(multipoles=["E1"])
     spec = synthesize_from_transitions(
@@ -215,11 +215,13 @@ def panel_auger(ax):
         (Path(__file__).resolve().parent.parent
          / "tests" / "data" / "fe17_kll_auger_fac.json").read_text())
     atom = Atom(
-        Z=26, charge=16,
-        configs=["1s2 2s2 2p6", "1s2 2s2 2p5 3s1",
+                Z=26,
+                charge=16,
+                config=["1s2 2s2 2p6", "1s2 2s2 2p5 3s1",
                  "1s2 2s2 2p5 3p1", "1s2 2s2 2p5 3d1"],
-        j_resolved_csfs=False, breit=False, qed=False,
-    )
+                correlation=None,
+                corrections="none",
+           )
     atom.solve()
 
     E_res = [row["E_resonance_eV"] for row in fixture["resonances"]]

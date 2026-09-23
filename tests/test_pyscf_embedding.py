@@ -10,15 +10,25 @@ and embedding-charge sensitivity, and fail-closed contract violations.
 
 from __future__ import annotations
 
+import importlib.util
+
 import numpy as np
 import pytest
 
-pytest.importorskip(
-    "pyscf",
-    reason="PySCF is an optional dependency (atomx[pyscf]); the whole module "
-    "is skipped on the minimal dependency set",
+#: PySCF is an optional extra (``pyscf``).  A module-level ``skipif`` (not an
+#: import-time ``importorskip``): the 14 nodes below are still *collected*, so
+#: the summary reports 14 explicit skips naming the extra instead of one
+#: anonymous module-level skip, and ``-m "not pyscf"``-style selection stays
+#: possible.  ``pyscf>=2.3`` is in the ``dev`` extra, so a fresh
+#: ``pip install -e .[dev]`` (or ``.[pyscf]``) runs them all.
+HAS_PYSCF = importlib.util.find_spec("pyscf") is not None
+pytestmark = pytest.mark.skipif(
+    not HAS_PYSCF,
+    reason="PySCF is an optional dependency (the `pyscf` extra, pyscf>=2.3); "
+           "install with `pip install -e .[dev]`",
 )
 
+from atomx.constants import HARTREE_EV as HARTREE_TO_EV  # noqa: E402
 from atomx.providers.contract import (  # noqa: E402
     Capability,
     ProviderContractError,
@@ -33,12 +43,10 @@ from atomx.providers.pyscf_embedding import (  # noqa: E402
     study_cluster_convergence,
 )
 
-HARTREE_TO_EV = 27.211386245988
 MGO_NN_ANGSTROM = 2.106  # rock-salt MgO nearest-neighbor distance
 
 
 def _isolated_mg(basis="sto-3g"):
-    pytest.importorskip("pyscf")
     from pyscf import gto, scf
 
     mol = gto.M(atom="Mg 0 0 0", basis=basis, verbose=0)
@@ -48,7 +56,6 @@ def _isolated_mg(basis="sto-3g"):
 
 
 def _mgo_model(quantum_shells=0, mm_shells=1, evjen=True):
-    pytest.importorskip("pyscf")
     return rocksalt_embedding(
         "Mg",
         "O",
@@ -145,7 +152,6 @@ def test_bridge_fail_closed_on_mismatched_identity():
 def test_three_way_environment_comparison_isolated_molecule_embedded():
     # Acceptance: the same named core orbital is comparable across the
     # isolated atom, a molecule, and the embedded cluster.
-    pytest.importorskip("pyscf")
     from pyscf import gto, scf
 
     _, iso_mf = _isolated_mg()

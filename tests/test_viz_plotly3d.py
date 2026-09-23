@@ -1,67 +1,19 @@
-"""Tests for the 3-D orbital viz and the spinor-harmonic helpers."""
+"""Smoke tests for the plotly 3-D orbital viz.
+
+The angular-normalisation gates that used to live here (``Integral |Y_lm|^2
+dOmega = 1`` and the spinor-density normalisation) were moved to
+``tests/test_angular_harmonics.py``: they need nothing from plotly, but sat
+below this module's ``importorskip``, so they skipped silently wherever the
+optional ``viz`` extra was absent.  Everything left in this file is a plotly
+layout/render smoke test.
+"""
 
 from __future__ import annotations
 
 import numpy as np
 import pytest
 
-from atomx.angular.spinor_harmonics import (
-    real_spherical_harmonic,
-    spinor_density,
-)
 from atomx.results import OrbitalWavefunction, Waves
-
-# ---------------------------------------------------------------------------
-# Angular helpers
-# ---------------------------------------------------------------------------
-
-
-def _grid():
-    theta = np.linspace(1e-3, np.pi - 1e-3, 200)
-    phi = np.linspace(0.0, 2 * np.pi, 200, endpoint=False)
-    T, P = np.meshgrid(theta, phi, indexing="ij")
-    return theta, phi, T, P
-
-
-def _sphere_integral(f, theta, phi, T):
-    return float(np.trapezoid(np.trapezoid(f * np.sin(T), theta, axis=0), phi))
-
-
-class TestSphericalHarmonics:
-    @pytest.mark.parametrize("l,m", [(0, 0), (1, 0), (1, 1), (2, -1)])
-    def test_real_spherical_harmonic_normalised(self, l, m):
-        theta, phi, T, P = _grid()
-        Y = real_spherical_harmonic(l, m, T, P)
-        norm = _sphere_integral(Y * Y, theta, phi, T)
-        # Discretisation error ~1%
-        assert norm == pytest.approx(1.0, abs=5e-2)
-
-    def test_real_spherical_harmonic_rejects_out_of_range_m(self):
-        theta, phi, T, P = _grid()
-        with pytest.raises(ValueError):
-            real_spherical_harmonic(1, 2, T, P)
-
-
-class TestSpinorDensity:
-    @pytest.mark.parametrize("kappa,mu", [(-1, 0.5), (-1, -0.5), (+1, 0.5), (-2, 1.5)])
-    def test_spinor_density_normalised(self, kappa, mu):
-        theta, phi, T, P = _grid()
-        rho = spinor_density(kappa, mu, T, P)
-        assert (rho >= 0.0).all()
-        norm = _sphere_integral(rho, theta, phi, T)
-        assert norm == pytest.approx(1.0, abs=5e-2)
-
-    def test_spinor_density_rejects_out_of_range_mu(self):
-        theta, phi, T, P = _grid()
-        with pytest.raises(ValueError):
-            # j = 1/2 for kappa = -1, so |mu| ≤ 1/2
-            spinor_density(-1, 1.5, T, P)
-
-
-# ---------------------------------------------------------------------------
-# plot_orbital_3d smoke tests
-# ---------------------------------------------------------------------------
-
 
 plotly = pytest.importorskip("plotly.graph_objects")
 

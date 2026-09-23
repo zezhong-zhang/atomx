@@ -168,10 +168,20 @@ def two_photon_spectrum(
         ψ(y) = 1.66 · (Σ_n f_n(y))² · y(1−y) · [3·(y² + (1−y)²) + 2·y(1−y)·c]
     is well-approximated by the symmetric polynomial fit
         ψ(y) ≈ A · y(1−y) · (1 − 4·y(1−y))   (symmetric in y ↔ 1−y)
-    with the normalisation A chosen so ∫ψ(y) dy = 2.  The fit is
-    accurate to ≤ 5 % across [0.05, 0.95] — sufficient for line-blend
-    modelling.  For accurate spectra near the edges (y → 0 or 1)
-    use Drake's full table.
+    with the normalisation A chosen so ∫ψ(y) dy = 2.
+
+    MEASURED DEFECT (2026-09-25): this polynomial fit has a **node at the
+    centre** of the spectrum — ψ(1/2) = 0 exactly, with twin maxima 0.0625
+    at y = 0.1464 / 0.8536 — whereas the exact non-relativistic
+    2s_{1/2} → 1s_{1/2} distribution (Spitzer & Greenstein 1951; Drake
+    1986) is single-peaked at y = 1/2.  The "accurate to ≤ 5 % across
+    [0.05, 0.95]" claim this docstring used to carry is therefore false by
+    100 % at the centre.  The total rate (the quantity the rest of the
+    module and its tests use) is unaffected — ∫ψ dy = 2Γ either way — but
+    the *shape* must not be used for line-blend modelling.  Gated by
+    ``tests/test_two_photon.py::
+    test_two_photon_spectrum_shape_is_not_the_literature_psi``
+    (``xfail(strict=True)``).
     """
     y = np.asarray(y, dtype=float)
     if np.any((y <= 0.0) | (y >= 1.0)):

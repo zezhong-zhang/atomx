@@ -157,3 +157,72 @@ class TestCowanGrantAugerCoefficient:
         from atomx.angular.coefficients import cowan_grant_auger_B
 
         assert cowan_grant_auger_B(-1, 1, 1, 1, 1, J_res=0.5, J_final=0.0) == 0.0
+
+
+class TestWignerEckartConventionIsPinned:
+    """Grant's phase convention is deliberate; pin it so it cannot drift.
+
+    ``reduced_C`` carries ``(-1)^(j_a+1/2)`` (Grant & Pyper 1976, GRASP
+    ``rkint``), so the ``k = 0`` element is ``-sqrt(2j+1)`` and the
+    m-resolved identity is ``-1`` rather than ``+1``.  Every consumer in
+    atomx (CI/DFS, distorted wave, Auger) uses this same layer, and the FAC
+    parity gates reproduce FAC, so the sign cancels in squared observables.
+
+    The historical hazard was not the sign but the *mixture*: the
+    non-relativistic layer (`scattering/r_matrix/angular_cc.py`) uses
+    ``(-1)^l``, and nothing recorded which layer a given matrix element came
+    from.  See docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md H6.
+    """
+
+    def test_reduced_C_k0_is_negative_sqrt_2j_plus_1(self):
+        import math
+
+        from atomx.angular.coefficients import reduced_C
+
+        for kappa, tj in ((-1, 1), (1, 1), (-2, 3), (2, 3), (-3, 5), (3, 5)):
+            assert reduced_C(kappa, kappa, 0) == pytest.approx(
+                -math.sqrt(tj + 1), rel=1e-12
+            ), f"kappa={kappa}: Grant's phase must make <j||C^0||j> negative"
+
+    def test_ckm_identity_sign_pins_grant_convention(self):
+        from atomx.angular.coefficients import _twoj_from_kappa, ckm
+
+        for kappa in (-1, 1, -2, 2, -3):
+            tj = _twoj_from_kappa(kappa)
+            for tm in range(-tj, tj + 1, 2):
+                assert ckm(kappa, tm, kappa, tm, 0, 0) == pytest.approx(-1.0)
+
+    def test_ckm_obeys_the_wigner_eckart_sum_rule(self):
+        """A convention-independent check of the *magnitudes*.
+
+        ``sum_{m_a, q} |<j_c m_c|C^k_q|j_a m_a>|^2 = |<j_c||C^k||j_a>|^2 /
+        (2j_c+1)`` holds for any phase convention, so it separates a genuine
+        magnitude error from the (deliberate) Grant sign.
+        """
+        from atomx.angular.coefficients import (
+            _twoj_from_kappa,
+            ckm,
+            reduced_C,
+        )
+
+        worst = 0.0
+        checked = 0
+        for kc in (-1, -2, 1, 2, -3):
+            for ka in (-1, -2, 1, 2, -3):
+                tjc, tja = _twoj_from_kappa(kc), _twoj_from_kappa(ka)
+                for k in (0, 1, 2):
+                    red = reduced_C(kc, ka, k)
+                    if red == 0.0:
+                        continue
+                    for tmc in range(-tjc, tjc + 1, 2):
+                        acc = 0.0
+                        for tq in range(-2 * k, 2 * k + 1, 2):
+                            tma = tmc - tq
+                            if abs(tma) > tja:
+                                continue
+                            acc += ckm(kc, tmc, ka, tma, k, tq) ** 2
+                        target = red * red / (tjc + 1)
+                        worst = max(worst, abs(acc - target) / target)
+                        checked += 1
+        assert checked > 50
+        assert worst < 1e-12, f"Wigner-Eckart sum rule violated by {worst:.2e}"

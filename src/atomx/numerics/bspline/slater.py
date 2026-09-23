@@ -45,7 +45,7 @@ DEFAULT_METHOD = "poisson"
 AVAILABLE_METHODS = ("poisson", "direct")
 
 
-@nb.njit(cache=True, fastmath=True)
+@nb.njit(cache=True)
 def slater_rk_direct(
     rho13: np.ndarray, rho24: np.ndarray,
     r: np.ndarray, w: np.ndarray, k: int,
@@ -55,6 +55,10 @@ def slater_rk_direct(
     Computes ``Σ_{i,j} w_i w_j ρ₁₃(r_i) ρ₂₄(r_j) · r_<^k / r_>^{k+1}`` over
     the flattened Gauss grid.  ``rho13``, ``rho24``, ``r`` and ``w`` are all
     1-D arrays of equal length.
+
+    No ``fastmath``: on production grids it measured a 1.03× speedup
+    (2213 µs vs 2275 µs for n=1130) — inside the noise — so the flag was
+    dropped rather than licensing a bitwise-different accumulation order.
     """
     n = r.shape[0]
     total = 0.0

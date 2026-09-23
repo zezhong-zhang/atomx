@@ -35,7 +35,7 @@ from pathlib import Path
 import h5py
 import numpy as np
 
-from atomx import Atom
+from atomx import Atom, Corrections
 from atomx.config import ground_state_config
 from atomx.config.jj_coupling import generate_jj_average
 from atomx.constants import atomic_numbers, element_symbol
@@ -212,10 +212,13 @@ def generate(Z: int, out_path: Path, args) -> bool:
     try:
         config_str = ground_state_config(Z)
         if args.correlation:
-            atom = Atom(Z=Z, breit=args.breit, qed=args.qed,
-                        correlation=args.correlation)
+            atom = Atom(
+                        Z=Z,
+                        corrections=Corrections(breit=args.breit, qed=args.qed),
+                        correlation=args.correlation,
+                   )
         else:
-            atom = Atom(Z=Z, breit=args.breit, qed=args.qed)
+            atom = Atom(Z=Z, corrections=Corrections(breit=args.breit, qed=args.qed))
         atom.solve(tol=args.tol, max_iter=args.max_iter)
     except Exception as e:
         LOG.error("[FAIL] %s Z=%d solve error: %s", symbol, Z, e)

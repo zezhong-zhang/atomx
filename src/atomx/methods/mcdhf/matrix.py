@@ -33,6 +33,11 @@ from atomx.angular.csf_recoupling import (
 )
 from atomx.angular.rcfp import ReducedSubshellState
 from atomx.angular.wigner import wigner_6j
+from atomx.methods.mcdhf.exact_ci import (
+    MAX_BLOCK_DETERMINANTS,
+    csf_signature,
+    exact_block_matrix,
+)
 from atomx.numerics.bspline.convol import (
     ConvolCache,
     compute_slater_fk_cell,
@@ -113,11 +118,14 @@ def _context_cache(bsp_data) -> ConvolCache:
 
     Standalone helper calls (unit tests poking ``_diagonal_element`` etc.
     without going through :func:`build_ci_matrix`) get a fresh cache bound
-    to their ``bsp_data``; the identity check evicts a stale cache when the
-    grid changes between direct calls.
+    to their ``bsp_data``; the *content* check evicts a stale cache when the
+    grid changes between direct calls (an identity check would needlessly
+    rebuild the banks for a rebuilt — but bit-identical — workspace dict;
+    with the process-wide bank registry the rebuilt cache is free either
+    way).
     """
     cache = _SLATER_MEMO.get("_convol_cache")
-    if cache is None or cache.bsp_data is not bsp_data:
+    if cache is None or not cache.same_grid(bsp_data):
         cache = ConvolCache(bsp_data)
         _SLATER_MEMO["_convol_cache"] = cache
     return cache
@@ -198,6 +206,64 @@ def _dirac_blocks(ns, kappa, Z, bsp_data):
     return v
 
 
+def _breit_rk(f1, f2, f3, f4, comps, bsp_data, L):
+    """``int int f1 f3 (r_<^L/r_>^{L+1}) f2 f4`` — flavour dispatched.
+
+    The Breit (Gaunt) operator needs *component-resolved* Slater
+    integrals: the density on electron 1 is ``f1*f3`` (one Dirac component
+    of the bra orbital times one of the ket orbital) and on electron 2
+    ``f2*f4``.  The Coulomb path never needs this — it always uses the
+    summed density ``P_aP_c + Q_aQ_c`` inside :func:`_rk` — so this is a
+    separate integrator rather than a mode of ``_rk``.
+
+    ``f1..f4`` are expansion coefficient vectors (B-spline flavour) or
+    tabulated arrays (grid flavour) and ``comps`` says which Dirac
+    component each one is: the B-spline large and small components live
+    in *different* bases, so evaluating a small-component vector through
+    the large-component table would silently mix them.
+
+    Numerics: the grid flavour uses the shooting engine's own SLAG6
+    integrator (consistency with the SCF, like :func:`_rk`); the B-spline
+    flavour uses ``yk_on_grid`` on the flattened Gauss nodes — the same
+    arbitrary-grid kernel the removed scalar Breit used
+    uses.  The cell integrator is deliberately *not* used here: its
+    mixed ``P x Q`` diagonal cell is a Y^k fallback, and on the
+    strongly cancelling Breit combinations it disagrees with the
+    arbitrary-grid kernel by ~4 % (measured on He-like Ne 1s2 against
+    DBSR_HF), where the kernel agrees to 0.04 %.
+    """
+    _memo_context(bsp_data)
+    key = ("br", L, id(f1), id(f2), id(f3), id(f4)) + tuple(comps)
+    v = _SLATER_MEMO.get(key)
+    if v is None:
+        _pin(f1, f2, f3, f4, bsp_data)
+        if isinstance(bsp_data, GridCIWorkspace):
+            v = float(_slater_integral_slag6(
+                f1 * f3, f2 * f4, L, bsp_data.r, bsp_data.difr, bsp_data.n))
+        else:
+            from atomx.corrections.workspace import (
+                eval_orbital_pair,
+                workspace_arrays,
+            )
+            from atomx.numerics.quadrature import yk_on_grid
+
+            gr, grw = workspace_arrays(bsp_data)
+            r_flat = np.ravel(gr)
+            w_flat = np.ravel(grw)
+
+            def _eval(coeff, comp):
+                zeros = np.zeros_like(coeff)
+                pair = ((coeff, zeros) if comp == "P" else (zeros, coeff))
+                return np.ravel(eval_orbital_pair(*pair, bsp_data)[
+                    0 if comp == "P" else 1])
+
+            rho1 = _eval(f1, comps[0]) * _eval(f3, comps[2])
+            rho2 = _eval(f2, comps[1]) * _eval(f4, comps[3])
+            v = float(np.sum(w_flat * rho1 * yk_on_grid(rho2, r_flat, L)))
+        _SLATER_MEMO[key] = v
+    return v
+
+
 # ---------------------------------------------------------------------------
 # Grid (shooting-engine) flavour of the radial workspace
 # ---------------------------------------------------------------------------
@@ -265,11 +331,12 @@ class GridCIWorkspace:
 
         Rebuilds ``r·V_nuc`` through the solver's own
         ``_nuclear_rv`` so the CI one-electron blocks use the identical
-        nuclear model (point/Fermi) the SCF solved with.
+        nuclear model (point/Fermi) — and the identical plasma screening
+        (``nuclear_rv_screened``) — the SCF solved with.
         """
         r = result._grid
         difr = result._difr
-        return cls(r, difr, hf_solver._nuclear_rv(r, difr, len(r)))
+        return cls(r, difr, hf_solver.nuclear_rv_screened(r, difr, len(r)))
 
 
 # 8th-order first-derivative stencils on the uniform-s index grid.
@@ -399,8 +466,26 @@ def _norm_sq(P, Q, kappa, Z, bsp_data, ns):
 
 
 def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
-                    nuclear_potential=None, convol_cache=None):
-    """Build the CI Hamiltonian matrix H_{rs} in the CSF basis.
+                    nuclear_potential=None, convol_cache=None,
+                    max_determinants=None, include_breit=False):
+    """Build the exact CI Hamiltonian matrix H_{rs} in the CSF basis.
+
+    ``H[r, s]`` is the true expectation value ``<CSF_r|H|CSF_s>`` of the
+    Dirac-Coulomb Hamiltonian in the jj-coupled CSF basis: each CSF is
+    expanded as a vector over the Slater determinants of its own
+    configuration at ``2M = 2J``, the determinant Hamiltonian is built by
+    explicit Slater-Condon rules, and the CSF matrix is the projection
+    ``H = C^T H_det C`` (see :mod:`atomx.methods.mcdhf.exact_ci` and
+    ``benchmarks/mscheme_ci_reference.py``, the independent oracle it is
+    gated against).  The result is variational and symmetric, and elements
+    between different ``(2J, parity)`` are exactly ``0.0``.
+
+    The previous kernel — a configuration-average diagonal plus two
+    "J-correction" patches — is still reachable as
+    :func:`_build_ci_matrix_approximate` for comparison, but is *not* on
+    the production path: it is not a representation of the Hamiltonian
+    (Be ``correlation="sd"`` came out 0.39 Ha below the exact ground
+    state).  There is no fallback to it.
 
     Parameters
     ----------
@@ -423,11 +508,32 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
         Reuse an existing cell-integral rkb cache built on ``bsp_data``
         (e.g. ``DFSolver._convol_cache``) — the tables depend only on the
         B-spline geometry, so sharing them avoids an O(seconds) rebuild
-        per CI construction.  A cache built on different ``bsp_data`` is
+        per CI construction.  A cache built on a *different* grid is
         ignored and a fresh one created.  B-spline flavour only.
+    max_determinants : int or None
+        Cap on the raw determinant dimension of one ``(2J, parity)``
+        block (default :data:`atomx.methods.mcdhf.exact_ci.MAX_BLOCK_DETERMINANTS`).  The determinant space at ``2M = 2J`` also
+        contains the lower-M members of higher-J multiplets, so it can be
+        much larger than the CSF space; exceeding the cap raises
+        ``ExactCISpaceError`` naming the configuration and both sizes
+        rather than hanging.
+    include_breit : bool
+        Add the Breit interaction to each ``(2J, parity)`` block as an
+        operator (exact Gaunt term, see
+        :mod:`atomx.methods.mcdhf.breit_ci`), so it splits levels instead
+        of shifting them uniformly.  Off by default: the extra integrals
+        are only paid for when asked.  The frequency-independent
+        retardation term is *not* included and is not silently dropped —
+        see :data:`atomx.methods.mcdhf.breit_ci.RETARDATION_NOTE`.
     """
+    # ``_reset_memo`` drops every memoised integral, including the CI's
+    # stashed rkb cache — carry it across the reset so a cache handed in by
+    # the caller (or left by a previous element of this solve) survives.
+    stashed_cache = _SLATER_MEMO.get("_convol_cache")
     _reset_memo()
     _memo_context(bsp_data)
+    if stashed_cache is not None:
+        _SLATER_MEMO["_convol_cache"] = stashed_cache
     if isinstance(bsp_data, GridCIWorkspace):
         if nuclear_potential is not None:
             raise ValueError(
@@ -441,9 +547,157 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
                 f"grid-flavour CI needs ns == len(r) "
                 f"(got ns={ns}, grid size {bsp_data.n})")
     else:
-        if convol_cache is not None and convol_cache.bsp_data is bsp_data:
+        if convol_cache is not None and convol_cache.same_grid(bsp_data):
             _SLATER_MEMO["_convol_cache"] = convol_cache
         _SLATER_MEMO["_nuclear_potential"] = nuclear_potential
+    _check_orbitals_present(csfs, orbitals_dict)
+    n_csf = len(csfs)
+    H = np.zeros((n_csf, n_csf))
+    if n_csf == 0:
+        return H
+    if max_determinants is None:
+        max_determinants = MAX_BLOCK_DETERMINANTS
+    evaluate = _radial_evaluator(orbitals_dict, bsp_data, Z, ns)
+    breit_evaluate = (_breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns)
+                      if include_breit else None)
+    for _key, idx in _group_csf_indices(csfs):
+        signatures = [csf_signature(csfs[i]) for i in idx]
+        h_block = exact_block_matrix(signatures, evaluate,
+                                     max_determinants=max_determinants,
+                                     breit_evaluator=breit_evaluate)
+        H[np.ix_(idx, idx)] = h_block
+    # Elements between different (2J, parity) blocks were never written and
+    # are exactly 0.0 — J and parity are exact symmetries, and the old
+    # kernel's non-zero cross-J elements (Be 1s2 2s1 2p1: -14.479 Ha between
+    # J=0 and J=1) are gone rather than merely masked by ci._solve_blocked.
+    return H
+
+
+def _group_csf_indices(csfs):
+    """Group CSF indices by ``(2J, parity)``, lowest J first.
+
+    Stable and deterministic; the order only fixes the order in which
+    blocks are built (and therefore which caches warm first), never the
+    matrix values.
+    """
+    groups: dict = {}
+    for i, csf in enumerate(csfs):
+        key = (int(getattr(csf, "total_J2", 0)), int(getattr(csf, "parity", 1)))
+        groups.setdefault(key, []).append(i)
+    return sorted(groups.items(), key=lambda kv: (kv[0][0], -kv[0][1]))
+
+
+def _radial_evaluator(orbitals_dict, bsp_data, Z, ns):
+    """Map an exact-CI radial key to its numeric value.
+
+    Two key shapes, both evaluated with the *same* helpers the rest of the
+    module (and hence the SCF energy functional) uses:
+
+    * ``("h", n_a, kappa, n_c)``  — ``<a|h_D|c> / <c|c>``, the
+      normalisation convention the oracle uses;
+    * ``("r", k, (n_a,kappa_a), (n_c,kappa_c), (n_b,kappa_b),
+      (n_d,kappa_d))`` — ``R^k(ac, bd)``, i.e. ``_rk`` called with its
+      four orbitals in the role order ``Pa, Pc, Pb, Pd``.
+    """
+    def evaluate(key):
+        if key[0] == "h":
+            _, n_a, kappa, n_c = key
+            Pa, Qa = _get_orb((n_a, kappa), orbitals_dict, ns)
+            Pc, Qc = _get_orb((n_c, kappa), orbitals_dict, ns)
+            h = _h_one_body(Pa, Qa, Pc, Qc, kappa, Z, bsp_data, ns)
+            norm_sq = _norm_sq(Pc, Qc, kappa, Z, bsp_data, ns)
+            if norm_sq > 0.0:
+                return h / norm_sq
+            # A zero-norm "orbital" is not a wavefunction and h/0 is
+            # undefined.  Report a non-finite element instead of dropping
+            # it: the old kernel's ``norm_sq > 1e-20`` guard silently
+            # returned 0 here, which is one of the silent-zero failure
+            # modes MissingOrbitalError exists to stop.
+            return float("nan")
+        _, k, key_a, key_c, key_b, key_d = key
+        Pa, Qa = _get_orb(key_a, orbitals_dict, ns)
+        Pc, Qc = _get_orb(key_c, orbitals_dict, ns)
+        Pb, Qb = _get_orb(key_b, orbitals_dict, ns)
+        Pd, Qd = _get_orb(key_d, orbitals_dict, ns)
+        return _rk(Pa, Qa, Pc, Qc, Pb, Qb, Pd, Qd, bsp_data, k)
+
+    return evaluate
+
+
+def _breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns):
+    """Map a Breit (Gaunt) radial key to its numeric value.
+
+    Key shape (see :func:`atomx.methods.mcdhf.breit_ci.gaunt_terms`)::
+
+        ("g", L, (X_a, n_a, kappa_a), (X_c, n_c, kappa_c),
+                 (X_b, n_b, kappa_b), (X_d, n_d, kappa_d))
+
+    with ``X`` in ``{"P", "Q"}`` selecting the large/small Dirac
+    component of that orbital.  The value is
+
+        ``int int f_a(r1) f_c(r1) [r_<^L / r_>^{L+1}] f_b(r2) f_d(r2)``
+
+    evaluated with the *same* radial workspace and integrator the
+    Coulomb elements use (:func:`_rk`'s conventions), so the two
+    operators are built on identical numerics.
+    """
+    def evaluate(key):
+        _, L, key_a, key_c, key_b, key_d = key
+        coeffs = []
+        comps = []
+        for (comp, n, kappa) in (key_a, key_c, key_b, key_d):
+            P, Q = _get_orb((n, kappa), orbitals_dict, ns)
+            coeffs.append(P if comp == "P" else Q)
+            comps.append(comp)
+        return _breit_rk(coeffs[0], coeffs[2], coeffs[1], coeffs[3],
+                         (comps[0], comps[2], comps[1], comps[3]),
+                         bsp_data, L)
+
+    return evaluate
+
+
+def _build_ci_matrix_approximate(csfs, orbitals_dict, orbital_basis, bsp_data,
+                                 Z, ns, nuclear_potential=None,
+                                 convol_cache=None):
+    """Legacy approximate CI kernel — kept for comparison, never used in
+    production.
+
+    This is the pre-fix assembly: ``_diagonal_element`` (a
+    configuration-average diagonal) plus the ``_diagonal_J_correction`` /
+    ``_off_diagonal_J_correction`` patches for the one- and two-electron
+    differences.  It is *not* a representation of the Hamiltonian — Be
+    ``correlation="sd"`` came out 0.39 Ha below the exact ground state, and
+    it returns non-zero elements between different total J — so
+    :func:`build_ci_matrix` does not fall back to it.  It survives because
+    the diagnostics in `docs/CORRELATION_SD_RESEARCH_2026-09-20.md`
+    (and anyone re-measuring the old numbers) need the old assembly
+    reachable.
+    """
+    # ``_reset_memo`` drops every memoised integral, including the CI's
+    # stashed rkb cache — carry it across the reset so a cache handed in by
+    # the caller (or left by a previous element of this solve) survives.
+    stashed_cache = _SLATER_MEMO.get("_convol_cache")
+    _reset_memo()
+    _memo_context(bsp_data)
+    if stashed_cache is not None:
+        _SLATER_MEMO["_convol_cache"] = stashed_cache
+    if isinstance(bsp_data, GridCIWorkspace):
+        if nuclear_potential is not None:
+            raise ValueError(
+                "grid-flavour CI takes its nuclear potential from "
+                "GridCIWorkspace.rv_nuc; nuclear_potential= is "
+                "bspline-only")
+        if convol_cache is not None:
+            raise ValueError("convol_cache= is bspline-only")
+        if ns != bsp_data.n:
+            raise ValueError(
+                f"grid-flavour CI needs ns == len(r) "
+                f"(got ns={ns}, grid size {bsp_data.n})")
+    else:
+        if convol_cache is not None and convol_cache.same_grid(bsp_data):
+            _SLATER_MEMO["_convol_cache"] = convol_cache
+        _SLATER_MEMO["_nuclear_potential"] = nuclear_potential
+    _check_orbitals_present(csfs, orbitals_dict)
     n_csf = len(csfs)
     H = np.zeros((n_csf, n_csf))
     for r in range(n_csf):
@@ -708,11 +962,75 @@ def _diagonal_with_J(csf, orbitals_dict, bsp_data, Z, ns):
     return base + _diagonal_J_correction(csf, orbitals_dict, bsp_data, ns)
 
 
+class MissingOrbitalError(ValueError):
+    """A CI element needed a radial orbital the SCF never solved.
+
+    The old behaviour zero-filled the absent orbital, which silently
+    deleted every matrix element involving it: a multi-CSF run whose
+    correlation orbital was not part of the radial set came back as the
+    single-configuration energy (the review's Be ``["1s2", "1s2 2p2"]``
+    measurement: E(2 CSF) == E(1 CSF)) with no diagnostic at all.  A CI
+    spanning orbitals that were never solved is a broken calculation, so
+    it now raises instead.
+    """
+
+
 def _get_orb(key, orbitals_dict, ns):
-    """Get orbital (P, Q) or zeros if not found."""
+    """Get orbital ``(P, Q)``; raise if the CI needs an unsolved orbital.
+
+    Two kinds of caller reach this helper:
+
+    * **production** — everything under :func:`build_ci_matrix`, where the
+      radial workspace is populated by the SCF and a missing key means an
+      orbital the CSF list needs was never solved.  Zero-filling it (the
+      previous behaviour) turned every element involving it into a silent
+      zero — see :class:`MissingOrbitalError` — so it raises.
+    * **angular-only unit-radial probes** — the J-coupling scaffolding is
+      exercised directly with no radial data at all, e.g.
+      ``_off_diagonal_J_correction(alpha, beta, orbitals_dict={},
+      bsp_data={}, ns=1)`` in
+      ``tests/test_off_diagonal_j_ci_helike_1s2p.py``, which substitutes
+      ``radial = 1.0`` for every Slater integral.  An *entirely empty*
+      map therefore means "no radial data supplied" and yields zeros, so
+      the angular body stays independently testable.  Production never
+      sees an empty map: :func:`_check_orbitals_present` rejects it at
+      the entry point.
+    """
     if key in orbitals_dict:
         return orbitals_dict[key]
-    return np.zeros(ns), np.zeros(ns)
+    if not orbitals_dict:
+        return np.zeros(ns), np.zeros(ns)
+    raise MissingOrbitalError(
+        f"CI matrix needs orbital (n={key[0]}, kappa={key[1]}), which was "
+        f"not solved; available orbitals: {sorted(orbitals_dict)}. "
+        "Include every orbital used by the CSF list in the radial "
+        "optimisation (the MCDHF driver solves all of them when they "
+        "appear in `configs`).")
+
+
+def _check_orbitals_present(csfs, orbitals_dict) -> None:
+    """Fail up front if any CSF needs an orbital absent from the workspace.
+
+    Cheaper and far clearer than discovering it element-by-element inside
+    :func:`_get_orb`: reports every missing ``(n, kappa)`` at once.  This
+    is the *production* gate — an empty ``orbitals_dict`` (which
+    :func:`_get_orb` tolerates for the angular-only unit-radial probes)
+    is rejected here, because a CI build with no radial data at all is
+    exactly the silent-zero failure this guard exists to stop.
+    """
+    missing = sorted({
+        (sh.n, sh.kappa)
+        for csf in csfs
+        for sh in csf.subshells
+        if (sh.n, sh.kappa) not in orbitals_dict
+    })
+    if missing:
+        raise MissingOrbitalError(
+            f"CI build needs {len(missing)} orbital(s) that were never "
+            f"solved: {missing}; available: {sorted(orbitals_dict)}. "
+            "The CSF list must not reference orbitals outside the radial "
+            "set — otherwise their matrix elements silently vanish and the "
+            "CI returns the uncorrelated energy.")
 
 
 def _diagonal_element(csf, orbitals_dict, bsp_data, Z, ns):
@@ -1418,7 +1736,7 @@ def _open_subshells(csf):
 
 def _off_diagonal_J_correction(csf_r, csf_s, orbitals_dict, bsp_data, ns,
                                  *, n_diff):
-    """J-coupled off-diagonal CI correction (Grant §8.3) — scaffold.
+    """J-coupled off-diagonal CI correction (Grant §8.3) — LANDED, UNVALIDATED.
 
     HYP-184 follow-up.  The configuration-averaged 1-diff/2-diff
     matrix elements computed by :func:`_one_diff_element` and
@@ -1467,9 +1785,36 @@ def _off_diagonal_J_correction(csf_r, csf_s, orbitals_dict, bsp_data, ns,
     :func:`atomx.angular.coefficients.exchange_lambda` (square root,
     with sign managed by the 6j phase).
 
-    **Current status — scaffold only.**  The off-diagonal correction
-    is *not* applied yet (returns ``0.0``).  A correct implementation
-    requires:
+    **Current status — body landed, correctness not established.**  This
+    docstring previously said the function "returns ``0.0``", which is
+    no longer true and was actively misleading: the body was landed
+    without updating the contract text.  What the body does today:
+
+    * it returns a populated correction for the unique-parentage,
+      same-``(J, parity)`` envelope described above;
+    * that correction is **quantitatively wrong**.  For the He-like
+      1s2p J=1 anchor it contributes ``+0.431282`` on a base
+      :func:`_one_diff_element` of ``-0.193857``, moving the J=1 level
+      to -14.711459 Ha where an independent m-scheme Slater-Condon CI
+      on the *same orbitals* gives -14.490933 Ha.  The "verify against
+      a He-like 1s2p analytic test" step below was therefore never
+      satisfied;
+    * outside the envelope nothing is returned, so the diagonal and
+      off-diagonal elements are drawn from two different physical
+      approximations depending on the CSF shape.
+
+    The structural reason an exact element is not available here is
+    that :class:`~atomx.methods.mcdhf.config.CSF` carries only
+    ``total_J2`` and an occupation list — no coupling tree (parentage) —
+    so the Grant §8.3 recoupling chain cannot be inferred from the
+    objects this function receives.
+
+    Measured consequences, the independent oracle used to measure them,
+    and the fix options are in
+    ``docs/CORRELATION_SD_RESEARCH_2026-09-20.md``; the regression gates
+    are in ``tests/test_ci_matrix_vs_mscheme_reference.py``.
+
+    Any future body must satisfy, at minimum:
 
     1. Identifying the unique-parentage subset (each open subshell is
        a single electron or single hole) on **both** ``csf_r`` and
@@ -1480,10 +1825,11 @@ def _off_diagonal_J_correction(csf_r, csf_s, orbitals_dict, bsp_data, ns,
        using the module-level ``_rk`` (cell-algorithm integrator).
     4. Composing the 6j-weighted angular factor and accumulating the
        additive correction.
-    5. Verifying against a He-like 1s2p ¹P₁/³P₁ analytic test (the
-       two J=1 CSFs ``|1s 2p_{1/2}; J=1⟩`` and ``|1s 2p_{3/2}; J=1⟩``
-       should diagonalise to the singlet/triplet states with the
-       2·G¹(1s,2p) splitting).
+    5. Verifying against the He-like 1s2p J=1 anchor: the two CSFs
+       ``|1s 2p_{1/2}; J=1⟩`` and ``|1s 2p_{3/2}; J=1⟩`` must
+       diagonalise to the singlet/triplet states with the
+       ``2·G¹(1s,2p)`` splitting **and** agree with
+       ``benchmarks/mscheme_ci_reference.py`` on the same orbitals.
 
     Parameters
     ----------
@@ -1498,14 +1844,16 @@ def _off_diagonal_J_correction(csf_r, csf_s, orbitals_dict, bsp_data, ns,
         Number of B-spline coefficients per orbital (for orbital lookup).
     n_diff : int
         Number of subshell differences (1 or 2).  Used to dispatch on
-        the 1-diff vs 2-diff sub-formula; not used in the no-op
-        scaffold.
+        the 1-diff vs 2-diff sub-formula; not used when the envelope
+        check above rejects the pair.
 
     Returns
     -------
     float
         Additive correction to be added to the base 1-diff / 2-diff
-        matrix element.  Always ``0.0`` in the current scaffold.
+        matrix element, or ``0.0`` when the pair is outside the
+        unique-parentage same-``(J, parity)`` envelope.  The non-zero
+        branch is **not yet correct** — see the status note above.
     """
     # Only apply when both CSFs carry explicit J/parity metadata and
     # sit in the same (J, parity) block.  The block filter in

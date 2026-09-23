@@ -74,6 +74,8 @@ def fac_j72() -> dict:
         "manifold_rows": manifold,
         "trace": sum(float(r["gamma_auger_per_s"]) for r in manifold),
         "top": max(float(r["gamma_auger_per_s"]) for r in manifold),
+        "spread_ev": (max(float(r["E_resonance_eV"]) for r in manifold)
+                      - min(float(r["E_resonance_eV"]) for r in manifold)),
         "broader_rows": broader,
         "broader_trace": sum(float(r["gamma_auger_per_s"]) for r in broader),
     }
@@ -86,7 +88,7 @@ def manifold_j72():
     from atomx.numerics.quadrature import make_fine_grid, p_rel
     from atomx.scattering.autoionization.mscheme_ci import ResonanceManifold
 
-    g = Atom(Z=26, charge=16, configs=["1s2 2s2 2p6"], breit=False, qed=False)
+    g = Atom(Z=26, charge=16, config=["1s2 2s2 2p6"], corrections="none")
     g.solve()
     res = g._result
     bsp = getattr(res, "_bsp_data", None) or res.bsp_data
@@ -145,8 +147,10 @@ def test_fac_reference_subset_is_the_2p5_3d2_manifold(fac_j72):
 
 
 @pytest.mark.external_fac
+@pytest.mark.snapshot
 def test_manifold_dimension(manifold_j72):
     # 2p^5 3d^2 supports exactly 9 J=7/2 basis states.
+    # A dimension count: legitimate generator coverage, no physics.
     assert len(manifold_j72) == 9
 
 
@@ -164,19 +168,30 @@ def test_trace_matches_fac(manifold_j72, fac_j72):
 
 @pytest.mark.external_fac
 def test_strongest_level_matches_fac(manifold_j72, fac_j72):
-    """Strongest J=7/2 level width vs the fixture's strongest (<= 35 %).
+    """Strongest J=7/2 level width vs the fixture's strongest (10 %).
 
-    Measured 2026-09-17: atomx 2.950e14 / fixture 3.081e14 = 0.958.  The
-    residual is the orbital-basis difference between atomx's V^{N-1} virtuals
-    and FAC's optimized DFS potential, plus dr34/2s-hole mixing outside the
-    manifold.
+    Measured: atomx 2.9369e14 / fixture 3.0806e14 = 0.953, i.e. 4.7 % out, so
+    the old 35 % band (audit finding F8) was seven times wider than the
+    residual it was gating.  The residual is the orbital-basis difference
+    between atomx's V^{N-1} virtuals and FAC's optimized DFS potential, plus
+    dr34/2s-hole mixing outside the manifold.
     """
     top = max(L.gamma_auger_per_s for L in manifold_j72)
-    assert top == pytest.approx(fac_j72["top"], rel=0.35)
+    assert top == pytest.approx(fac_j72["top"], rel=0.10)
 
 
 @pytest.mark.external_fac
-def test_level_energy_spread(manifold_j72):
-    """The manifold spans ~18 eV in FAC; atomx within a factor ~1.6."""
-    spread = max(L.energy_au for L in manifold_j72) * HARTREE_EV
-    assert 10.0 <= spread <= 32.0
+def test_level_energy_spread(manifold_j72, fac_j72):
+    """The manifold spans 18.0 eV in FAC; atomx within 30 % (measured 22.64).
+
+    The old body computed ``max(energy) * HARTREE_EV`` and called it a
+    "spread" (audit finding F13): a fully degenerate manifold would have
+    passed it.  The reference spread is now derived from the fixture's own
+    ``E_resonance_eV`` column rather than typed, and the atomx side is a
+    genuine ``max - min``.
+    """
+    energies_ev = [L.energy_au * HARTREE_EV for L in manifold_j72]
+    spread = max(energies_ev) - min(energies_ev)
+    assert spread == pytest.approx(fac_j72["spread_ev"], rel=0.30), (
+        f"atomx manifold spans {spread:.2f} eV, FAC "
+        f"{fac_j72['spread_ev']:.2f} eV")

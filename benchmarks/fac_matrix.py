@@ -15,7 +15,7 @@ from pathlib import Path
 
 from fac_runner import parse_e0, parse_levels, parse_transitions, run_sfac
 
-from atomx import Atom
+from atomx import Atom, Basis
 from atomx.constants import HARTREE_EV
 from atomx.physics.dirac import hydrogenic_dirac_energy
 from atomx.properties.transitions.rates import einstein_A_eL
@@ -159,17 +159,13 @@ def run_atomx_matrix_cell(Z: int, iso: str) -> dict[str, float | int | str]:
     spec = ISO_SPECS[iso]
     t0 = time.perf_counter()
     atom = Atom(
-        Z=Z,
-        charge=Z - spec.nel,
-        config=spec.ground,
-        # Pinned engine + corrections-off: the frozen golden CSV was
-        # produced on the B-spline DHF, and _gauge_ratio_max rides on
-        # the B-spline-only transitions path.
-        numerics="bspline",
-        breit=False,
-        qed=False,
-        sampling=Sampling.quick,
-    )
+                Z=Z,
+                charge=Z - spec.nel,
+                config=spec.ground,
+                engine="bspline",
+                corrections="none",
+                basis=Basis(sampling=Sampling.quick),
+           )
     atom.solve()
     first_e1_eV, first_A_s = atomx_e1_proxy(Z, iso)
     gauge_ratio_max = _gauge_ratio_max(atom)

@@ -9,9 +9,10 @@ radial-grid branch (``_has_radial_grid_data``): the same physics
 evaluated directly from the shooting grid orbitals ``(r, difr, P, Q)``
 through the :mod:`atomx.corrections.workspace` seam.
 
-Cross-engine gates (independent radial numerics — Galerkin B-splines vs
-Salvat power-series ODE shooting — same physics, same Fermi nuclear
-model on both sides):
+Cross-engine check (independent radial numerics — Galerkin B-splines vs
+Salvat power-series ODE shooting — SAME correction kernels, same Fermi
+nuclear model on both sides).  It is a grid/quadrature check, not a
+validation of the physics: see the block comment above the gates.
 
     |shooting_corr / bspline_corr − 1| <= 2e-3   per component,
                                                  He / Ne / Fe XVII.
@@ -56,10 +57,8 @@ def solved():
     """Each case solved once per engine with Breit + QED enabled."""
     out = {}
     for name, kw in CASES.items():
-        shooting = Atom(numerics="shooting", exchange="hf",
-                        breit=True, qed=True, **kw).solve()
-        bspline = Atom(numerics="bspline", exchange="hf",
-                       breit=True, qed=True, **kw).solve()
+        shooting = Atom(engine="shooting", exchange="hf", **kw).solve()
+        bspline = Atom(engine="bspline", exchange="hf", **kw).solve()
         out[name] = (shooting, bspline)
     return out
 
@@ -113,8 +112,12 @@ def test_corrections_shift_total_energy(solved):
     The invariant is E(breit+qed) == E(bare SCF) + ΔE_Breit + ΔE_SE +
     ΔE_VP, so the baseline must be explicitly correction-free
     (breit/qed default True since the 2026-07 defaults flip)."""
-    shooting_plain = Atom(numerics="shooting", exchange="hf",
-                          breit=False, qed=False, **CASES["Ne"]).solve()
+    shooting_plain = Atom(
+                          engine="shooting",
+                          exchange="hf",
+                          corrections="none",
+                          **CASES["Ne"],
+                     ).solve()
     shooting, _ = solved["Ne"]
     comp = shooting.energy_components
     shift = comp["E_Breit"] + comp["E_SE"] + comp["E_VP"]
@@ -123,13 +126,37 @@ def test_corrections_shift_total_energy(solved):
 
 
 # ---------------------------------------------------------------------------
-# Cross-engine validation gates (the point of the exercise)
+# Cross-engine check — RADIAL NUMERICS ONLY, not a physics validation
+#
+# Both engines route every correction through the SAME kernels:
+# ``corrections/adapters.py`` -> ``corrections/breit.py`` (Breit),
+# ``corrections/qed.py`` (Uehling VP), ``corrections/qedmod/`` (SE); only
+# the radial representation differs (``_flatten_scf_orbitals`` on B-spline
+# Gauss nodes vs ``_flatten_grid_orbitals`` on Salvat's SGRID).  So
+# agreement here proves the quadrature, NOT the physics: the two engines
+# agree to 2.3e-4 on Ne ``E_Breit`` = 0.050437 while both are 3.03x
+# DBSR_HF (0.016643630840490, ``dbsr_hf an=10 term=AV mbreit=1``).  No
+# value here may be cited as external validation; the external Breit
+# gates are in ``test_qed.py::TestBreitRouteReporting`` (operator route)
+# and its ``xfail(strict=True)`` scalar gates.
 # ---------------------------------------------------------------------------
 
 
 @pytest.mark.parametrize("name", list(CASES))
 @pytest.mark.parametrize("component", COMPONENTS)
-def test_cross_engine_agreement(solved, name, component):
+def test_cross_engine_radial_numerics(solved, name, component):
+    """The two radial representations must fold the SAME kernel identically.
+
+    Class C (internal cross-check), and a *degenerate* one at that: the
+    kernels are shared, not re-implemented — see the block comment above.
+    An earlier name (``test_cross_engine_agreement``) and commit
+    ``d064cdc`` ("the shooting engine independently gives 0.050437")
+    presented this as external confirmation of the Breit value; it is
+    not, and it certified the 3.03x scalar.  Kept because the two
+    orbital representations genuinely can disagree (the point-nucleus
+    B-spline cusp error is 3.8e-3 on VP, whence the Fermi nucleus), so
+    it still guards the grid seam.
+    """
     shooting, bspline = solved[name]
     s = shooting.energy_components[component]
     b = bspline.energy_components[component]

@@ -121,16 +121,32 @@ def generate_sd_excitations(ref_config_str, virtual_orbitals,
                             continue
 
                         new_occ = dict(ref_occ)
+                        # Remove exactly TWO source electrons.  ``i == j``
+                        # means both come from the same subshell (a² → b²
+                        # or a² → b¹c¹): decrementing src1 twice was
+                        # previously done *on top of* the unconditional
+                        # decrements of src1 and src2 (== src1), taking
+                        # three electrons out of a doubly-occupied shell,
+                        # so the negative occupation was rejected by the
+                        # validation below and every same-subshell double
+                        # was silently dropped — ``generate_sd_excitations
+                        # ("1s2", ...)`` returned ZERO doubles and
+                        # ``correlation="sd"`` under-recovered.
                         new_occ[src1] = new_occ[src1] - 1
-                        new_occ[src2] = new_occ.get(src2, new_occ.get(src2, 0)) - 1
                         if i == j:
-                            new_occ[src1] -= 1  # take 2 from same orbital
+                            new_occ[src1] -= 1  # 2nd electron from same shell
+                        else:
+                            new_occ[src2] = new_occ[src2] - 1
                         new_occ[virt1] = new_occ.get(virt1, 0) + 1
                         new_occ[virt2] = new_occ.get(virt2, 0) + 1
 
                         # Validate
                         if any(v < 0 for v in new_occ.values()):
-                            continue
+                            raise ValueError(
+                                f"double excitation {ref_config_str!r} → "
+                                f"({src1},{src2})→({virt1},{virt2}) removed "
+                                f"more electrons than the reference holds: "
+                                f"{new_occ}")
                         l_check = {k: l_map[_split_nl(k)[1]] for k in new_occ}
                         if any(new_occ[k] > 2 * (2 * l_check[k] + 1) for k in new_occ if new_occ[k] > 0):
                             continue

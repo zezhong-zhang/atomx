@@ -35,10 +35,28 @@ def _twoj(value: float | int) -> int:
 def reduced_C(kappa_a: int, kappa_b: int, k: int) -> float:
     """Reduced matrix element ``<kappa_a || C^k || kappa_b>``.
 
-    Uses Grant's relativistic convention:
+    Uses **Grant's relativistic convention** (Grant & Pyper, J. Phys. B 9,
+    761 (1976); GRASP ``rkint``), which carries an extra
+    ``(-1)^(j_a+1/2)`` relative to the non-relativistic orbital convention
+    ``(-1)^l sqrt((2l+1)(2l'+1))(l k l'; 0 0 0)`` used in
+    :mod:`atomx.scattering.r_matrix.angular_cc`:
 
     ``(-1)^(j_a+1/2) sqrt((2j_a+1)(2j_b+1))
       (j_a k j_b; -1/2 0 1/2)``.
+
+    Consequence, and the reason this is spelled out: with Grant's phase the
+    ``k = 0`` element is ``-sqrt(2j+1)`` rather than ``+sqrt(2j+1)``, so the
+    m-resolved identity ``ckm(k, m, k, m, 0, 0)`` is ``-1`` instead of ``+1``.
+    That is a *convention*, not an error: every consumer in atomx
+    (:func:`ckm`, the CI/DFS matrix elements, the distorted-wave and Auger
+    codes) uses this same convention and the FAC parity gates reproduce FAC's
+    numbers, so the sign cancels in every squared observable.  It is pinned by
+    ``test_ckm_identity_sign_pins_grant_convention`` so it cannot drift; do not
+    "fix" it to the textbook sign without re-deriving the whole chain, and do
+    not mix it with the non-relativistic ``angular_cc`` convention in one
+    matrix element.
+
+    See ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding H6.
 
     (lru_cached; pure function of small integers.)
     """
@@ -265,6 +283,13 @@ def ckm(kappa_c: int, tmc: int, kappa_a: int, tma: int, k: int, tq: int) -> floa
     the angular layer so the scattering (continuum/DW) and CI codes share one
     implementation; ``atomx.scattering.distorted_wave.solver`` imports it as
     ``_ck_m``.
+
+    The Wigner–Eckart step here is the textbook one,
+    ``(-1)^(j_c-m_c) (j_c k j_a; -m_c q m_a)``, but ``reduced_C`` carries
+    *Grant's* phase, so the product is Grant's coefficient, not the textbook
+    one — in particular ``ckm(k, m, k, m, 0, 0) == -1`` for every ``k``/``m``
+    (see :func:`reduced_C`).  That is deliberate and pinned by
+    ``test_ckm_identity_sign_pins_grant_convention``.
     """
     red = reduced_C(kappa_c, kappa_a, k)
     if red == 0.0:

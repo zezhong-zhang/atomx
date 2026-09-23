@@ -29,7 +29,20 @@ Z_GRID = [10, 26, 54]
 # sigma(E) -> 0 at exact threshold for ionization; start the panel above it
 # so both codes are compared at well-defined matched reduced energies.
 ENERGY_FACTORS = [1.5, 2.0, 5.0]
+# Extended panel (S5 finding 6/12): 1.05I is the near-threshold shape row the
+# EII gate used to skip for lack of data, and 20I is past the E/I <= 5
+# Born-completion window of the excitation panel, where the distorted-wave
+# partial-wave sum collapses.  It is written to its OWN CSV because FAC's
+# reported sigma at a fixed E/I depends on the requested grid as a whole
+# (measured: Ne 1.5I is 1.6114e-20 in the committed 3-point panel, 1.5856e-20
+# with 20I/50I appended and 1.5636e-20 with 1.05I/20I appended), so folding
+# these rows into results_fac_dw_eii.csv would silently move the recorded FAC
+# column that tests/test_fac_dw_benchmarks.py already gates at 3.5 % rms.
+# 50I is not reachable for Z=54: the shooting-continuum radial grid needs
+# 3.4e5 points (cap 3.0e5) at p = 664 a.u. (GridResourceError).
+EXTENDED_ENERGY_FACTORS = [1.05, 1.5, 20.0]
 OUT = ROOT / "benchmarks" / "results_fac_dw_eii.csv"
+OUT_EXTENDED = ROOT / "benchmarks" / "results_fac_dw_eii_extended.csv"
 
 SYMBOLS = {
     10: "Ne",
@@ -85,7 +98,13 @@ def _k_threshold_eV(atom: Atom) -> float:
 
 def run_atomx(Z: int, spec: dict[str, object], energies_eV: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     charge = Z - int(spec["charge_offset"])
-    atom = Atom(Z=Z, config=str(spec["ground"]), charge=charge, numerics="bspline", breit=False, qed=False)
+    atom = Atom(
+                Z=Z,
+                config=str(spec["ground"]),
+                charge=charge,
+                engine="bspline",
+                corrections="none",
+           )
     atom.solve()
     dw = dw_eii_cross_section(
         atom._result,
@@ -163,12 +182,20 @@ def rms_relative(rows: list[dict[str, object]]) -> float:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--out", default=str(OUT))
+    parser.add_argument("--out", default=None)
+    parser.add_argument(
+        "--extended", action="store_true",
+        help="write the extended panel (EXTENDED_ENERGY_FACTORS) to "
+             "results_fac_dw_eii_extended.csv",
+    )
     parser.add_argument("--timeout", type=float, default=300.0)
     parser.add_argument("--skip-fac", action="store_true")
     parser.add_argument("--keep-fac-dir", default=None)
     parser.add_argument("--sequence", choices=["all", *SEQUENCES.keys()], default="he-like")
     args = parser.parse_args()
+    factors = EXTENDED_ENERGY_FACTORS if args.extended else ENERGY_FACTORS
+    if args.out is None:
+        args.out = str(OUT_EXTENDED if args.extended else OUT)
 
     rows: list[dict[str, object]] = []
     sequence_names = list(SEQUENCES) if args.sequence == "all" else [args.sequence]
@@ -176,10 +203,16 @@ def main() -> None:
         spec = SEQUENCES[sequence]
         for Z in Z_GRID:
             charge = Z - int(spec["charge_offset"])
-            atom = Atom(Z=Z, config=str(spec["ground"]), charge=charge, numerics="bspline", breit=False, qed=False)
+            atom = Atom(
+                        Z=Z,
+                        config=str(spec["ground"]),
+                        charge=charge,
+                        engine="bspline",
+                        corrections="none",
+                   )
             atom.solve()
             threshold = _k_threshold_eV(atom)
-            energies = np.asarray([threshold * f for f in ENERGY_FACTORS], dtype=float)
+            energies = np.asarray([threshold * f for f in factors], dtype=float)
             sigma_atomx, sigma_cb = run_atomx(Z, spec, energies)
             fac_th = 0.0
             if args.skip_fac:
@@ -187,9 +220,9 @@ def main() -> None:
                 note = "FAC skipped (--skip-fac)"
             else:
                 keep = Path(args.keep_fac_dir) if args.keep_fac_dir else None
-                sigma_fac, fac_th, note = run_fac(Z, spec, ENERGY_FACTORS, args.timeout, keep,
+                sigma_fac, fac_th, note = run_fac(Z, spec, factors, args.timeout, keep,
                                                   threshold_eV=threshold)
-            for factor, energy, atomx, fac, cb in zip(ENERGY_FACTORS, energies, sigma_atomx, sigma_fac, sigma_cb, strict=False):
+            for factor, energy, atomx, fac, cb in zip(factors, energies, sigma_atomx, sigma_fac, sigma_cb, strict=False):
                 rel = ((float(atomx) - float(fac)) / float(fac)) if fac > 0.0 else ""
                 rows.append({
                     "Z": Z,

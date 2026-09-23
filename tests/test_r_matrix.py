@@ -16,17 +16,23 @@ from atomx.scattering.r_matrix.target_states import (
     heplus_target_states,
 )
 
-# Live ``sfac`` reference values from the codex-review reviewer's pre-run
-# on 2026-05-18 (HYP-172 thread). These are the target-state thresholds
-# the R-matrix solver must agree with before any partial-wave channel
-# coupling is meaningful.
-FAC_H_E0_eV = -13.59842390
-FAC_HEPLUS_E0_eV = -54.41777820
+# NIST ASD ionisation energies (H I 13.598434599702 eV, He II 54.417760 eV).
+# These were attributed to a live ``sfac`` pre-run until the S5 audit: the
+# literals actually sit 8e-7 (H) and 3.3e-7 (He II) from NIST, i.e. they are
+# the NIST values rounded to 8 decimals, not FAC output — and atomx's own
+# reduced-mass hydrogenic energy reproduces NIST to 2.5e-6 (H) and 8.3e-6
+# (He II).  The 5e-4 gate was ~60x looser than the agreement it claimed and
+# would have accepted an infinite-nuclear-mass He II (1.45e-4 off, see
+# ``test_heplus_threshold_gate_needs_the_reduced_mass``).
+NIST_H_IONIZATION_EV = 13.598434599702
+NIST_HEPLUS_IONIZATION_EV = 54.417760
 # Mass ratios used for the finite-nuclear-mass correction. The proton
 # ratio is already exposed by atomx.constants; the 4He nucleus mass
 # ratio (alpha particle / electron) is from CODATA 2018.
 M_ALPHA_OVER_E = 7294.29954136
-FAC_THRESHOLD_RELTOL = 5.0e-4
+# Measured agreement with NIST: 2.5e-6 (H, 1s) and 8.3e-6 (He II, 1s); the
+# gate is a factor 1.2 above the *worst* measured value.
+FAC_THRESHOLD_RELTOL = 1.0e-5
 
 
 def _V_zero(r):
@@ -149,24 +155,53 @@ def _atomx_hydrogenic_target_eV(Z: int, M_over_me: float) -> float:
     return E_inf * _reduced_mass_factor(M_over_me)
 
 
-def test_hydrogen_target_threshold_pins_to_FAC():
-    """atomx H 1s threshold must match the FAC reference within 5e-4."""
-    E_atomx = _atomx_hydrogenic_target_eV(Z=1, M_over_me=PROTON_ELECTRON_MASS_RATIO)
-    relerr = abs(E_atomx - FAC_H_E0_eV) / abs(FAC_H_E0_eV)
+def test_hydrogen_target_threshold_matches_nist():
+    """atomx H 1s threshold (reduced mass) must match NIST to 1e-5.
+
+    Measured 2026-09-22: atomx 13.59846830 eV vs NIST 13.598434599702 eV,
+    relerr 2.5e-6.
+    """
+    E_atomx = -_atomx_hydrogenic_target_eV(
+        Z=1, M_over_me=PROTON_ELECTRON_MASS_RATIO)
+    relerr = abs(E_atomx - NIST_H_IONIZATION_EV) / NIST_H_IONIZATION_EV
     assert relerr <= FAC_THRESHOLD_RELTOL, (
-        f"H 1s: atomx={E_atomx:.8f} eV  FAC={FAC_H_E0_eV:.8f} eV  "
+        f"H 1s: atomx={E_atomx:.8f} eV  NIST={NIST_H_IONIZATION_EV:.8f} eV  "
         f"relerr={relerr:.3e} (gate {FAC_THRESHOLD_RELTOL:.0e})"
     )
 
 
-def test_heplus_target_threshold_pins_to_FAC():
-    """atomx He+ 1s threshold must match the FAC reference within 5e-4."""
-    E_atomx = _atomx_hydrogenic_target_eV(Z=2, M_over_me=M_ALPHA_OVER_E)
-    relerr = abs(E_atomx - FAC_HEPLUS_E0_eV) / abs(FAC_HEPLUS_E0_eV)
+def test_heplus_target_threshold_matches_nist():
+    """atomx He+ 1s threshold (reduced mass) must match NIST to 1e-5.
+
+    Measured 2026-09-22: atomx 54.41821051 eV vs NIST 54.417760 eV,
+    relerr 8.3e-6 (the residual is the hydrogenic-Dirac vs NIST QED
+    difference at Z=2).
+    """
+    E_atomx = -_atomx_hydrogenic_target_eV(Z=2, M_over_me=M_ALPHA_OVER_E)
+    relerr = abs(E_atomx - NIST_HEPLUS_IONIZATION_EV) / NIST_HEPLUS_IONIZATION_EV
     assert relerr <= FAC_THRESHOLD_RELTOL, (
-        f"He+ 1s: atomx={E_atomx:.8f} eV  FAC={FAC_HEPLUS_E0_eV:.8f} eV  "
-        f"relerr={relerr:.3e} (gate {FAC_THRESHOLD_RELTOL:.0e})"
+        f"He+ 1s: atomx={E_atomx:.8f} eV  NIST={NIST_HEPLUS_IONIZATION_EV:.8f}"
+        f" eV  relerr={relerr:.3e} (gate {FAC_THRESHOLD_RELTOL:.0e})"
     )
+
+
+def test_heplus_threshold_gate_needs_the_reduced_mass():
+    """The tightened gate is sensitive to the finite-nuclear-mass factor.
+
+    atomx's infinite-mass hydrogenic He+ 1s energy is 54.42567089 eV, i.e.
+    1.45e-4 from NIST — 14x the gate.  Without the reduced-mass factor this
+    test would fail, so the threshold agreement above is not an artefact of a
+    loose band.  (Both H, 5.1e-4 off, and He II fail at infinite mass; only H
+    failed the old 5e-4 gate, which is exactly the hole the S5 audit found.)
+    """
+    E_inf = -hydrogenic_dirac_energy(n=1, kappa=-1, Z=2) * HARTREE_EV
+    relerr = abs(E_inf - NIST_HEPLUS_IONIZATION_EV) / NIST_HEPLUS_IONIZATION_EV
+    assert relerr > FAC_THRESHOLD_RELTOL, (
+        f"the infinite-mass He+ threshold {E_inf:.8f} eV is {relerr:.2e} from "
+        f"NIST — inside the {FAC_THRESHOLD_RELTOL:.0e} gate, so the gate no "
+        "longer tests the reduced-mass correction"
+    )
+    assert relerr == pytest.approx(1.45e-4, rel=0.05)
 
 
 def test_r_matrix_carries_target_thresholds_into_kinematics():
@@ -178,10 +213,10 @@ def test_r_matrix_carries_target_thresholds_into_kinematics():
     E_kin = np.array([0.1, 1.0, 10.0])
     res = compute_single_channel(_V_zero, E_kin, a_au=12.0, n_basis=60, l=0)
     # Total energy of the (e + H) system in the elastic 1s channel:
-    total_E = res.energies_eV + FAC_H_E0_eV
-    # All total energies should remain above the H threshold (= FAC_H_E0_eV);
-    # equivalently, kinetic energy is strictly positive.
-    assert np.all(total_E > FAC_H_E0_eV)
+    total_E = res.energies_eV - NIST_H_IONIZATION_EV
+    # All total energies must stay above the H 1s threshold
+    # (= -NIST_H_IONIZATION_EV); equivalently the kinetic energy is positive.
+    assert np.all(total_E > -NIST_H_IONIZATION_EV)
     assert np.all(res.cross_section_cm2 >= 0)
 
 

@@ -69,6 +69,7 @@ def ci_solve(
     max_iter: int = 200,
     nuclear_potential=None,
     convol_cache=None,
+    include_breit=False,
 ) -> CIResult:
     """Build the CI matrix and diagonalise it.
 
@@ -117,6 +118,12 @@ def ci_solve(
         Optional pre-built cell-integral cache on ``bsp_data`` (see
         :func:`atomx.methods.mcdhf.matrix.build_ci_matrix`).  B-spline
         flavour only.
+    include_breit
+        Add the Breit interaction (exact Gaunt term) to every
+        ``(2J, parity)`` block of the CI matrix, so it shifts levels
+        differentially.  Off by default; the frequency-independent
+        retardation term is not included (see
+        :mod:`atomx.methods.mcdhf.breit_ci`).
 
     Returns
     -------
@@ -126,7 +133,8 @@ def ci_solve(
 
     H_ci = build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
                            nuclear_potential=nuclear_potential,
-                           convol_cache=convol_cache)
+                           convol_cache=convol_cache,
+                           include_breit=include_breit)
     n = H_ci.shape[0]
     # FAC diagonalises independent J/pi symmetry blocks.  Keep the dense
     # matrix representation for simplicity, but remove numerically generated
@@ -165,6 +173,10 @@ def ci_solve(
             "n_blocks": len(blocks),
             "block_sizes": [len(idx) for _, idx in blocks],
         }
+        if include_breit:
+            from atomx.methods.mcdhf.breit_ci import RETARDATION_NOTE
+            provenance["breit"] = "gaunt-exact-in-blocks"
+            provenance["breit_note"] = RETARDATION_NOTE
     elif solver == "dense":
         state_energies, mixing = linalg.eigh(H_ci)
         if n_states is not None:

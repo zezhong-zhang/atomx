@@ -9,6 +9,7 @@ Covers:
 
 from __future__ import annotations
 
+import numpy as np
 import pytest
 
 from atomx.methods.dirac_fock import DFSolver, Subshell
@@ -46,16 +47,17 @@ class TestNormalMassShift:
         assert ms.method == "virial"
 
     def test_hydrogen_mass_shift_magnitude(self, h_1s_result):
-        """E_NMS = -T/M ≈ -0.5/1836 ≈ -2.72e-4 Ha ≈ -1.79 THz for H-1.
+        """E_NMS = +T/M ≈ +0.5/1836 ≈ +2.72e-4 Ha ≈ +1.79 THz for H-1.
 
-        Equivalent to m_e/m_p × 13.6 eV ≈ 7.4 meV ≈ 1.79 THz.
+        Equivalent to m_e/m_p × 13.6 eV ≈ 7.4 meV ≈ 1.79 THz, with the
+        level *raised* by the finite nuclear mass (H_NMS = +(m_e/M)T_e).
         """
         _, result = h_1s_result
         ms = result.mass_shift_NMS()
-        expected_Ha = -0.5 / 1836.15
+        expected_Ha = +0.5 / 1836.15
         assert ms.E_NMS_Ha == pytest.approx(expected_Ha, rel=1e-3)
-        # -1.7917 THz = -1.7917e6 MHz
-        assert ms.E_NMS_MHz / 1e6 == pytest.approx(-1.7917, abs=0.001)
+        # +1.7917 THz = +1.7917e6 MHz
+        assert ms.E_NMS_MHz / 1e6 == pytest.approx(1.7917, abs=0.001)
 
     def test_nms_linear_in_inverse_mass(self, h_1s_result):
         """Doubling M halves NMS in magnitude."""
@@ -72,7 +74,8 @@ class TestNormalMassShift:
             total_energy=-1.0, mass_me=1000.0, kinetic_energy=2.0,
         )
         assert ms.method == "explicit"
-        assert ms.E_NMS_Ha == pytest.approx(-0.002, rel=1e-12)
+        # +T/M: the NMS operator is H_NMS = +(m_e/M)·T_e.
+        assert ms.E_NMS_Ha == pytest.approx(+0.002, rel=1e-12)
 
     def test_invalid_mass_raises(self):
         with pytest.raises(ValueError, match="mass must be positive"):
@@ -217,11 +220,11 @@ class TestAbInitioSMSAllSClosedShell:
 class TestAbInitioSMSNoble:
     """Ne and Ar: real closed-shell atoms with non-trivial SMS."""
 
-    def _ne(self):
+    def _ne(self, ns=50):
         from atomx.methods.dirac_fock import DFSolver, neon_subshells
         from atomx.properties.isotope_shift import compute_sms_abinitio
         solver = DFSolver(Z=10, subshells=neon_subshells(),
-                          ns=50, ks=9, exchange="hf")
+                          ns=ns, ks=9, exchange="hf")
         result = solver.solve(max_iter=40, tol=1e-5)
         orbs = solver._flatten_orbitals(result.orbitals_raw)
         return compute_sms_abinitio(orbs, result._bsp_data, result.orbital_energies)
@@ -231,19 +234,39 @@ class TestAbInitioSMSNoble:
         assert sms.K_SMS_au != 0.0
         assert sms.n_pairs == 4   # 1s-2p1/2, 1s-2p3/2, 2s-2p1/2, 2s-2p3/2
 
+    @pytest.mark.snapshot
     def test_Ne_mean_field_magnitude(self):
-        """Corrected R_p = ω·⟨r⟩ operator (∇ = -[H,r]).
+        """The converged DHF K_SMS(Ne) is pinned, not banded.
 
-        The mean-field DHF K_SMS for Ne is O(100) a.u. and negative,
-        dominated by the inner 1s–2p momentum correlation (the 1s electron
-        carries momentum ~Z).  This is the momentum-operator scale; the old
-        ~1e-7 "ballpark" was an artifact of the defective fallback operator
-        (off by ~4 orders of magnitude — see review §A2).  Correlation
-        (not in this single-determinant value) shifts the physical number.
+        Corrected R_p = ω·⟨r⟩ operator (∇ = -[H,r]); the mean-field DHF
+        K_SMS for Ne is negative and O(100) a.u., dominated by the inner
+        1s–2p momentum correlation (the 1s electron carries momentum ~Z).
+        Measured at ns=50: K_SMS = −117.8527221416 a.u., unchanged to
+        1e-12 relative at ns=70 and ns=90 (see
+        ``test_Ne_SMS_is_basis_converged``).  The number is atomx's own
+        (no external K_SMS(Ne) reference is available at this level), so
+        the literal is a frozen self-regression; the old gate
+        ``50 < |K| < 300`` could not see a factor-6 error, and the
+        "~1e-7 ballpark" it replaced was an artifact of the defective
+        fallback operator (review §A2).
         """
         sms = self._ne()
         assert sms.K_SMS_au < 0.0
-        assert 50.0 < abs(sms.K_SMS_au) < 300.0
+        assert pytest.approx(-117.852722, rel=1e-6) == sms.K_SMS_au, (
+            f"K_SMS(Ne, ns=50) = {sms.K_SMS_au!r}, measured -117.852722")
+
+    def test_Ne_SMS_is_basis_converged(self):
+        """K_SMS(Ne) is converged in the B-spline basis.
+
+        A-class statement about the calculation, not the value: the
+        momentum matrix element must stop moving once the basis is
+        saturated.  Measured: -117.8527221416 (ns=50), -117.8527221418
+        (ns=70), -117.8527221420 (ns=90).
+        """
+        k50 = self._ne(50).K_SMS_au
+        k70 = self._ne(70).K_SMS_au
+        assert pytest.approx(k50, rel=1e-9) == k70, (
+            f"K_SMS(Ne) not converged: ns=50 {k50!r} vs ns=70 {k70!r}")
 
     def test_Ne_inner_1s_2p_dominant(self):
         """Inner 1s–2p pair dominates (1s carries the largest momentum).
@@ -287,7 +310,12 @@ class TestAbInitioSMSNoble:
             b[0], b[1], a[0], a[1], bsp, L=1,
             kappa_i=b[3], kappa_f=a[3], omega=w,
         )
-        assert Rp_len == pytest.approx(Rp_vel, rel=0.1)
+        # Measured residual |Rp_len/Rp_vel - 1| = 7.26e-2 (basis-independent:
+        # identical at ns=50/70/90), so the gate is 0.08 — the previous 0.1
+        # was 38 % above the residual it was supposed to bound.
+        assert abs(Rp_len / Rp_vel - 1.0) < 0.08, (
+            f"momentum-gauge residual {abs(Rp_len / Rp_vel - 1.0):.3e} "
+            f"(measured 7.26e-2)")
 
     def test_Ar_larger_than_Ne(self):
         """Ar has 12 allowed pairs vs Ne's 4 → |K_SMS| significantly bigger."""
@@ -334,9 +362,21 @@ class TestFieldShift:
 
         Converting: F_MHz_per_fm² ≈ 1.57 MHz/fm²  (well-known result).
         """
+        from atomx.constants import AU_RATE_PER_S, BOHR_RADIUS_FM
         _, result = h_1s_result
         fs = result.field_shift_parameter()
+        # The derivation's own units: F = (2π/3)·|ψ(0)|² = 2/3 Ha/Bohr².
+        # Measured 0.666994592 (4.9e-4 above 2/3, the finite-basis
+        # |ψ(0)|²); the old gate was 1.57 ± 0.02 MHz/fm², i.e. 1.3 %.
+        assert pytest.approx(2.0 / 3.0, rel=1e-3) == fs.F_Ha_per_Bohr2["1s1/2"]
+        # Explicit unit round-trip for the MHz/fm² conversion:
+        #   Ha/Bohr² → MHz/fm²  is  ×(Ha→MHz) / (Bohr→fm)².
+        hartree_mhz = AU_RATE_PER_S / (2.0 * np.pi) / 1e6
+        expected_mhz = (fs.F_Ha_per_Bohr2["1s1/2"] * hartree_mhz
+                        / BOHR_RADIUS_FM ** 2)
         F_1s = fs.F_MHz_per_fm2["1s1/2"]
+        assert pytest.approx(expected_mhz, rel=1e-12) == F_1s
+        # The literature "well-known" value is 1.57 MHz/fm².
         assert F_1s == pytest.approx(1.57, abs=0.02)
 
     def test_seltzer_helper_scales_with_Z(self):
@@ -370,16 +410,18 @@ class TestFieldShift:
 
 class TestIsotopeShift:
     def test_h_vs_d_sign_and_ballpark(self, h_1s_result):
-        """H → D: heavier deuteron → smaller |NMS|, so ΔNMS = NMS(H)−NMS(D) < 0.
+        """H → D: heavier deuteron → smaller NMS, so ΔNMS = NMS(H)−NMS(D) > 0.
 
-        Expected ΔNMS ≈ -0.5 × (1/M_H - 1/M_D) × HARTREE_MHZ ≈ -0.895 THz
-        ≈ -8.954e5 MHz.
+        E_NMS = +T/M raises the level, and it raises H (lighter nucleus)
+        more than D, so the level sits higher in H:
+            ΔNMS ≈ +0.5 × (1/M_H − 1/M_D) × HARTREE_MHZ ≈ +0.895 THz
+            ≈ +8.954e5 MHz.
         """
         _, result = h_1s_result
         iso = result.isotope_shift((1, 1), (1, 2))
-        assert iso.E_NMS_MHz < 0
-        # -0.8954 THz = -8.954e5 MHz
-        assert iso.E_NMS_MHz / 1e6 == pytest.approx(-0.8954, abs=0.001)
+        assert iso.E_NMS_MHz > 0
+        # +0.8954 THz = +8.954e5 MHz
+        assert iso.E_NMS_MHz / 1e6 == pytest.approx(+0.8954, abs=0.001)
 
     def test_h_vs_d_dr2(self, h_1s_result):
         """δ⟨r²⟩ = r_rms(H)² − r_rms(D)² < 0 since proton is smaller."""
@@ -390,7 +432,7 @@ class TestIsotopeShift:
         assert iso.delta_r2_fm2 == pytest.approx(-3.82, abs=0.01)
 
     def test_field_shift_contribution_small_for_h(self, h_1s_result):
-        """FS for 1s in H vs D is tiny (~6 MHz) compared to NMS (~-900 GHz)."""
+        """FS for 1s in H vs D is tiny (~6 MHz) compared to NMS (~+900 GHz)."""
         _, result = h_1s_result
         iso = result.isotope_shift((1, 1), (1, 2))
         # F ≈ 1.57 MHz/fm², δr² ≈ -3.8 fm², occ=1 → FS ≈ -6 MHz

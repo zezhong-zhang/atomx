@@ -85,8 +85,8 @@ class TestThomasFermi:
 
     def test_tfda_atom_calculation(self):
         """TFDA exchange mode should produce a converged result with orbital energies."""
-        from atomx import Atom
-        ne = Atom(Z=10, exchange="tfda", ns=50, ks=9)
+        from atomx import Atom, Basis
+        ne = Atom(Z=10, exchange="tfda", basis=Basis(ns=50, ks=9))
         ne.solve()
         assert ne.converged
         # TFDA total energy uses a different formula than HF, so the value
@@ -96,29 +96,59 @@ class TestThomasFermi:
 
     def test_tfda_faster_than_hf(self):
         """TFDA should need only 1 iteration (no SCF)."""
-        from atomx import Atom
-        ne = Atom(Z=10, exchange="tfda", ns=50, ks=9)
+        from atomx import Atom, Basis
+        ne = Atom(Z=10, exchange="tfda", basis=Basis(ns=50, ks=9))
         ne.solve()
         assert ne.iterations == 1
 
-    def test_starting_potential_tfda(self):
-        """TFDA starting potential should accelerate HF convergence."""
-        from atomx import Atom
-        # Without starting potential
-        ne1 = Atom(Z=10, exchange="hf", ns=50, ks=9)
-        ne1.solve(max_iter=60, tol=1e-5)
-        ne2 = Atom(Z=10, exchange="hf", starting_potential="tfda", ns=50, ks=9)
-        ne2.solve(max_iter=60, tol=1e-5)
+    def test_tfda_starting_potential_does_not_change_the_answer(self):
+        """Whatever the start does, the converged fixed point must be the same.
 
-        # The TFDA starting potential must converge at least as fast as the
-        # default start.  This assertion was missing: the two iteration counts
-        # were computed and never used, so the test only checked `converged`.
-        # Measured on Ne (2026-09-18): 12 iterations both ways, so the claim
-        # "not worse" holds with equality.
+        Measured 2026-09-22: E = -128.6299783505843 Ha bit-identical with
+        ``starting_potential=None`` and ``starting_potential="tfda"``.
+        """
+        from atomx import Atom, Basis
+        ne1 = Atom(Z=10, exchange="hf", basis=Basis(ns=50, ks=9))
+        ne1.solve(max_iter=60, tol=1e-5)
+        ne2 = Atom(
+                   Z=10,
+                   exchange="hf",
+                   basis=Basis(starting_potential="tfda", ns=50, ks=9),
+              )
+        ne2.solve(max_iter=60, tol=1e-5)
         assert ne2.converged
-        assert ne2.iterations <= ne1.iterations, (
+        assert ne2.total_energy == ne1.total_energy
+
+    @pytest.mark.xfail(
+        strict=True,
+        reason=(
+            "The TFDA starting potential is silently IGNORED on the "
+            "Atom/Basis route: Ne HF converges in 12 iterations and to the "
+            "bit-identical total energy -128.6299783505843 Ha with "
+            "starting_potential=None, 'tfda' and 'gsz' alike, so it cannot "
+            "accelerate anything.  Named cause: DFSolver consumes "
+            "starting_potential only in its first hydrogenic eigensolve "
+            "(dirac_fock.py:1726-1777), and the MCDHF/Atom route skips that "
+            "branch because it warm-starts from seed_orbitals; the option is "
+            "live only for a directly constructed DFSolver.  The test that "
+            "used to live here asserted `<=` and passed on 12 vs 12."
+        ),
+    )
+    def test_tfda_starting_potential_accelerates_hf_convergence(self):
+        """TFDA starting potential should *strictly* accelerate HF convergence."""
+        from atomx import Atom, Basis
+        ne1 = Atom(Z=10, exchange="hf", basis=Basis(ns=50, ks=9))
+        ne1.solve(max_iter=60, tol=1e-5)
+        ne2 = Atom(
+                   Z=10,
+                   exchange="hf",
+                   basis=Basis(starting_potential="tfda", ns=50, ks=9),
+              )
+        ne2.solve(max_iter=60, tol=1e-5)
+        assert ne2.iterations < ne1.iterations, (
             f"tfda start converged in {ne2.iterations} iterations vs "
-            f"{ne1.iterations} for the default start")
+            f"{ne1.iterations} for the default start"
+        )
 
 
 class TestGSZ:
@@ -134,8 +164,8 @@ class TestGSZ:
 
     def test_gsz_atom(self):
         """GSZ exchange mode should produce converged result."""
-        from atomx import Atom
-        ne = Atom(Z=10, exchange="gsz", ns=50, ks=9)
+        from atomx import Atom, Basis
+        ne = Atom(Z=10, exchange="gsz", basis=Basis(ns=50, ks=9))
         ne.solve()
         assert ne.converged
         # GSZ is parametric - check orbital energies are bound

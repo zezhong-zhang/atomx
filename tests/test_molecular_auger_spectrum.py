@@ -299,11 +299,24 @@ def test_direct_exchange_combined_at_amplitude_level_not_rate_level():
     assert amplitude.exchange == pytest.approx(1.0)
     assert amplitude.amplitude == pytest.approx(2.0)
     assert amplitude.coherent_intensity == pytest.approx(4.0)
-    assert amplitude.rate_sum_intensity == pytest.approx(10.0)
-    assert amplitude.coherent_intensity != pytest.approx(amplitude.rate_sum_intensity)
+    # ADR-0001 I3 counter-example (annex F12): the incoherent rate sum would be
+    # 3^2 + 1^2 = 10 — it is deliberately NOT asserted (the property is
+    # documented as "incorrect, exposed only for tests/audits" and is used by
+    # no production path).  The coherent value above already fails if the
+    # kernel ever switches to |d|^2 + |e|^2.
 
 
-def test_triplet_two_hole_state_is_spin_forbidden_zero_amplitude():
+def test_triplet_two_hole_state_amplitude_not_yet_implemented():
+    """Capability gap, not a selection rule (annex F3).
+
+    The initial state is a 2S core hole; a two-hole triplet (S=1) couples with
+    the eps(1/2) continuum spin to total S=1/2, so it is *allowed* — the 3P KLL
+    lines are among the strongest in the Ne KLL spectrum.  The kernel returns
+    zero amplitude and stamps ``spin-forbidden-non-soc-v1``, which is a frozen
+    v1 decision; the name and this docstring say so instead of presenting it
+    as physics (Koerber & Mehlhorn 1966; Schmidt, *Electron Spectrometry of
+    Atoms using Synchrotron Radiation*, Ne 1s Auger chapter).
+    """
     eri = np.zeros((4, 4, 4, 4))
     eri[0, 3, 1, 2] = 3.0
     eri[0, 3, 2, 1] = 1.0

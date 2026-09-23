@@ -6,6 +6,8 @@ integration over Maxwellian electron energy distributions.
 
 import numpy as np
 
+from atomx.constants import BOLTZMANN_EV
+
 
 def maxwellian_rate(cross_section_cm2, energies_eV, temperature_eV):
     """Maxwellian-averaged rate coefficient <sigma*v>.
@@ -55,12 +57,23 @@ def effective_collision_rate(collision_strengths, energies_eV, temperature_eV,
                               g_i=1, threshold_eV=0.0):
     """Rate coefficient from collision strengths.
 
-    q(T) = (8.629e-6 / (g_i * sqrt(T))) * integral Omega * exp(-E/kT) dE/kT
+    q(T) = (8.629e-6 / (g_i * sqrt(T_K))) * exp(-dE/kT) * Upsilon(T),
+    Upsilon = integral Omega(E_f) exp(-E_f/kT) d(E_f/kT),
+
+    with the tabulated ``energies_eV`` being the FINAL (post-collision)
+    electron energies above threshold, so the threshold enters only
+    through ``exp(-threshold_eV/kT)``.
+
+    The 8.629e-6 constant absorbs ``sqrt(8 k_B/(pi m_e)) pi a_0^2 Ry`` in
+    cgs and is defined for T in KELVIN, not eV: the previous code passed
+    ``sqrt(temperature_eV)``, which is a constant
+    ``sqrt(1/BOLTZMANN_EV) = 107.72`` times too large at every
+    temperature.
 
     Parameters
     ----------
     collision_strengths : ndarray
-        Dimensionless collision strengths Omega(E).
+        Dimensionless collision strengths Omega(E_f).
     energies_eV : ndarray
         Electron energies above threshold in eV.
     temperature_eV : float
@@ -79,12 +92,14 @@ def effective_collision_rate(collision_strengths, energies_eV, temperature_eV,
         return 0.0
 
     # Upsilon: effective collision strength
-    # Upsilon = integral Omega(E) * exp(-E/kT) d(E/kT)
+    # Upsilon = integral Omega(E_f) * exp(-E_f/kT) d(E_f/kT)
     x = energies_eV / kT  # dimensionless energy
     integrand = collision_strengths * np.exp(-x)
-    upsilon = np.trapz(integrand, x)
+    _trap = getattr(np, "trapezoid", None) or np.trapz  # type: ignore[attr-defined]
+    upsilon = _trap(integrand, x)
 
-    # Rate: q = 8.629e-6 / (g_i * sqrt(T_eV)) * exp(-E_thresh/kT) * Upsilon
-    rate = (8.629e-6 / (g_i * np.sqrt(kT))
+    # Rate: q = 8.629e-6 / (g_i * sqrt(T_K)) * exp(-dE/kT) * Upsilon
+    T_K = kT / BOLTZMANN_EV
+    rate = (8.629e-6 / (g_i * np.sqrt(T_K))
             * np.exp(-threshold_eV / kT) * upsilon)
     return rate

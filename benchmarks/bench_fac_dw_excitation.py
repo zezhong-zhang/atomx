@@ -88,8 +88,20 @@ SEQUENCES = {
 
 def _threshold_eV(Z: int, spec: dict[str, object]) -> float:
     charge = Z - int(spec["charge_offset"])
-    ground = Atom(Z=Z, config=str(spec["ground"]), charge=charge, numerics="bspline", breit=False, qed=False)
-    excited = Atom(Z=Z, config=str(spec["excited"]), charge=charge, numerics="bspline", breit=False, qed=False)
+    ground = Atom(
+                  Z=Z,
+                  config=str(spec["ground"]),
+                  charge=charge,
+                  engine="bspline",
+                  corrections="none",
+             )
+    excited = Atom(
+                   Z=Z,
+                   config=str(spec["excited"]),
+                   charge=charge,
+                   engine="bspline",
+                   corrections="none",
+              )
     ground.solve()
     excited.solve()
     return float((excited._result.total_energy - ground._result.total_energy) * HARTREE_EV)
@@ -102,8 +114,20 @@ def run_atomx(
     threshold_eV: float,
 ) -> tuple[np.ndarray, bool]:
     charge = Z - int(spec["charge_offset"])
-    ground = Atom(Z=Z, config=str(spec["ground"]), charge=charge, numerics="bspline", breit=False, qed=False)
-    excited = Atom(Z=Z, config=str(spec["excited"]), charge=charge, numerics="bspline", breit=False, qed=False)
+    ground = Atom(
+                  Z=Z,
+                  config=str(spec["ground"]),
+                  charge=charge,
+                  engine="bspline",
+                  corrections="none",
+             )
+    excited = Atom(
+                   Z=Z,
+                   config=str(spec["excited"]),
+                   charge=charge,
+                   engine="bspline",
+                   corrections="none",
+              )
     ground.solve()
     excited.solve()
     _sigma, omega = dw_excitation_cross_section(

@@ -534,7 +534,7 @@ def _expval(nshell, shell_kappa, shell_occ, shell_2j,
 @nb.njit(cache=True)
 def _dhfs_scf(z, nshell, shell_n, shell_kappa, shell_occ, shell_l, shell_2j,
               np_, rn, r2, drn, alpha, max_iter, epsc, aw, equation,
-              slater_method):
+              slater_method, vscr):
     """Full DHFS SCF loop — DHFS.f lines 700-888.
 
     Parameters:
@@ -544,6 +544,10 @@ def _dhfs_scf(z, nshell, shell_n, shell_kappa, shell_occ, shell_l, shell_2j,
             :func:`_slater_integral_slag6`).  Only affects the
             post-SCF ``_expval`` total-energy assembly — the SCF
             itself does not call ``_slater_integral``.
+        vscr: r*delta_V(r) of the plasma screening on the SAME SGRID this
+            function builds (empty array = no screening).  It is added to
+            the nuclear potential, so the SCF solves the screened
+            Hamiltonian rather than an unscreened one.
     """
     eps = 1.0e-11  # Internal solver tolerance (DHFS.f:739)
     qelec = 0.0
@@ -580,6 +584,16 @@ def _dhfs_scf(z, nshell, shell_n, shell_kappa, shell_occ, shell_l, shell_2j,
         fnorm = z / fwd_nuc[np_ - 1] if abs(fwd_nuc[np_ - 1]) > 1.0e-30 else z
         for i in range(np_):
             vnuc[i] = -fnorm * (fwd_nuc[i] + bwd_nuc[np_ - 1 - i] * r[i])
+
+    # Plasma screening: the caller sampled r*delta_V(r) on this same SGRID
+    # (sgrid(rn, r2, drn, np_) is deterministic), so a length mismatch is a
+    # programming error and must not degrade into "no screening".
+    if vscr.shape[0] != 0:
+        if vscr.shape[0] != np_:
+            raise ValueError(
+                "plasma screening grid does not match the SCF grid")
+        for i in range(np_):
+            vnuc[i] += vscr[i]
 
     # Thomas-Fermi-Moliere starting density (DHFS.f:377-393)
     rtf = 0.88534 / z ** 0.33333333333
@@ -622,6 +636,12 @@ def _dhfs_scf(z, nshell, shell_n, shell_kappa, shell_occ, shell_l, shell_2j,
     chi = 1.0
     chiant = 1.0e30
     converged = False
+    #: Worst (largest) ``dbound``/``sbound`` status code seen.  0 = ok,
+    #: 5 = the eigenvalue bracket collapsed, i.e. the shooting box is too
+    #: small for the requested state and the returned eigenvalue is the
+    #: bracketing ceiling rather than a solved state.  DHFS.f discards
+    #: this; we surface it so ``converged`` cannot be True on a failure.
+    ier_max = 0
     iteration = 0
 
     for it in range(1, max_iter + 1):
@@ -660,6 +680,8 @@ def _dhfs_scf(z, nshell, shell_n, shell_kappa, shell_occ, shell_l, shell_2j,
                     e_guess, eps, nnn, kkk,
                     rg, rvg, va, vb_arr, vc, vd, np_,
                     r, np_)
+                if ier > ier_max:
+                    ier_max = ier
             else:
                 # Schrödinger
                 lll = shell_l[s]
@@ -667,6 +689,8 @@ def _dhfs_scf(z, nshell, shell_n, shell_kappa, shell_occ, shell_l, shell_2j,
                     e_guess, eps, nnn, lll,
                     rg, rvg, va, vb_arr, vc, vd, np_,
                     r, np_)
+                if ier > ier_max:
+                    ier_max = ier
 
             # Renormalize with SLAG6 (DHFS.f:810-818)
             # Schrödinger: norm = ∫P² dr; Dirac: norm = ∫(P²+Q²) dr
@@ -735,6 +759,8 @@ def _dhfs_scf(z, nshell, shell_n, shell_kappa, shell_occ, shell_l, shell_2j,
             e_val, ier, p_sol, q_sol, ilast = sbound(
                 e_guess, eps, nnn, lll,
                 rg, rvg, va, vb_arr, vc, vd, np_, r, np_)
+        if ier > ier_max:
+            ier_max = ier
 
         f1 = np.zeros(np_)
         for i in range(np_):
@@ -765,7 +791,7 @@ def _dhfs_scf(z, nshell, shell_n, shell_kappa, shell_occ, shell_l, shell_2j,
         pa, qa, ev, rv, vnuc, r, difr, np_, equation,
         slater_method)
 
-    return ev, e_total, converged, iteration, r, difr, np_, rv, pa, qa
+    return ev, e_total, converged, iteration, ier_max, r, difr, np_, rv, pa, qa
 
 
 @dataclass
@@ -931,7 +957,8 @@ class ShootingSolver:
                  aw=0.0, equation='dirac',
                  exchange='slater', fac_ihx=-1.0, fac_hxs=1.0,
                  slater_method='slag6',
-                 exchange_alpha_fn=None, nuclear=None):
+                 exchange_alpha_fn=None, nuclear=None,
+                 screening_potential=None):
         if slater_method not in ('slag6', 'power_series'):
             raise ValueError(
                 f"slater_method must be 'slag6' or 'power_series' "
@@ -972,6 +999,9 @@ class ShootingSolver:
         self.fac_ihx = fac_ihx
         self.fac_hxs = fac_hxs
         self.slater_method = slater_method
+        #: delta_V(r) of the surrounding plasma (Hartree), added to the
+        #: nuclear potential inside the SCF.  ``None`` = no screening.
+        self.screening_potential = screening_potential
 
     def _effective_alpha(self) -> float:
         """Resolve the Slater α passed into the JIT'd SCF.
@@ -1046,17 +1076,72 @@ class ShootingSolver:
         alpha_eff = self._effective_alpha()
         slater_flag = 1 if self.slater_method == 'slag6' else 0
 
-        (orb_E, E_total, converged, iters, r, difr, np_actual,
+        # Plasma screening, sampled on the SAME SGRID _dhfs_scf builds
+        # below (sgrid is deterministic), in the r*V form the SCF works in.
+        vscr = np.zeros(0)
+        if self.screening_potential is not None:
+            r_scr, _difr_scr, np_scr = sgrid(self.r_max, r2, drn,
+                                             self.n_grid)
+            vscr = (r_scr * np.asarray(self.screening_potential(r_scr),
+                                       dtype=float))
+            if vscr.shape[0] != np_scr:
+                raise ValueError(
+                    "plasma screening potential returned "
+                    f"{vscr.shape[0]} values for an {np_scr}-point grid")
+
+        (orb_E, E_total, converged, iters, ier_max, r, difr, np_actual,
          rv_conv, pa_conv, qa_conv) = _dhfs_scf(
             float(self.Z), n_shells, shell_n, shell_kappa, shell_occ,
             shell_l, shell_2j,
             self.n_grid, self.r_max, r2, drn,
             alpha_eff, max_iter, tol, self.aw, eq_flag,
-            slater_flag)
+            slater_flag, vscr)
 
         oe = {}
         for i, sh in enumerate(self.subshells):
             oe[sh.label] = orb_E[i]
+
+        # Bound-state sanity gate.  ``dbound`` brackets the eigenvalue
+        # between the potential minimum and the effective potential at the
+        # outer grid point, ``esup = V(r_max) + l(l+1)/r_max²``.  When the
+        # state does not fit in the box the bracket collapses and the
+        # returned eigenvalue is the *ceiling*, not a solved state.
+        # DHFS.f discards the status code, so ``Atom(Z=1, config="6s1",
+        # numerics="shooting")`` used to return the ceiling with a 4 %
+        # error and ``converged=True`` (31 % for 7s, and the whole Na I
+        # Rydberg series 9s..13s pinned to one value).  See
+        # docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding C4.
+        #
+        # The ceiling must come from the *converged potential*, not from
+        # ``-Z/r_max``: for a neutral heavy atom the screened potential at
+        # the box edge is ~-1/75 Ha rather than -82/75, so the bare-Z form
+        # would flag perfectly well resolved core orbitals (Pb 5d).
+        v_edge = float(rv_conv[-1]) / float(r[-1])
+        abs_ceiling = abs(min(v_edge, 0.0))
+        unbound = []
+        if abs_ceiling > 0.0:
+            for sh in self.subshells:
+                e_orb = oe[sh.label]
+                # A pinned state lands within ~1e-10 of the ceiling; a
+                # genuinely resolved one sits measurably below it.
+                if abs(e_orb) > abs_ceiling * (1.0 + 1e-6):
+                    continue
+                unbound.append((sh.label, e_orb))
+
+        if ier_max >= 5 or unbound:
+            from atomx.numerics.shooting.hf_shooting import _OrbitalSolveError
+
+            detail = ", ".join(
+                f"{lab}={e_orb:+.6f}" for lab, e_orb in unbound
+            ) or "bracket collapsed (ier=5)"
+            raise _OrbitalSolveError(
+                f"shooting box too small for Z={self.Z}: the effective "
+                f"potential at r_max is {v_edge:+.6f} Ha and {detail}. "
+                f"Raise r_max (currently {self.r_max}); the default box "
+                f"resolves states up to n <~ sqrt(32.6 Z)."
+            )
+        if ier_max != 0:
+            converged = False
 
         # _dhfs_scf currently returns only energies + the radial grid
         # (the per-orbital P, Q arrays live inside the JIT-compiled

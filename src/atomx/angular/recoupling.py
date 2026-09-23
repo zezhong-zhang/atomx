@@ -43,6 +43,29 @@ def ls_jj_transformation(l1: int, l2: int, J2: int) -> np.ndarray:
     np.ndarray
         Transformation matrix T[jj_idx, ls_idx].
         Rows: jj-coupled states, columns: LS-coupled states.
+
+    Notes
+    -----
+    ``J2`` is **twice** J.  Passing J instead of 2J (e.g. 1 for a J = 1
+    block) silently yields rectangular matrices, because the LS
+    enumeration (integer 2L, 2S) then no longer matches the jj one —
+    that is how the 2026-09-19 review's "22 of 45 non-square blocks"
+    figure arises (finding M11).
+
+    No parity guard is missing, and neither of the two guards the review
+    suggested would change anything: with every argument doubled, both
+    ``(2j1 + 2j2 + J2) % 2`` and ``(2L + 2S + J2) % 2`` are identically
+    even (every 2j is odd, every 2L/2S/2J is even), i.e. vacuous.  Both
+    bases enumerate the same J-subspace of (l1 ⊗ l2) ⊗ (s1 ⊗ s2), so
+    with the documented 2J convention ``n_jj == n_ls`` and
+    ``T @ T.T == I`` for every (l1, l2, J) — measured |dev| ≤ 4e-15 for
+    all 33 non-empty blocks with l1, l2 ≤ 2, J ≤ 4 (12 blocks are empty
+    because J < |l1 − l2|); gated in
+    ``tests/test_review_m9_m13_gates.py``.
+
+    For two *equivalent* electrons the Pauli-allowed subspace is the
+    L + S even (equivalently, for j1 = j2, ``(-1)^(2j-J) = -1``)
+    sub-block; restricting *both* bases to it keeps T unitary.
     """
     s2 = 1  # 2*s = 1 for each electron
 

@@ -91,10 +91,27 @@ class TestLandeDirac:
             lande_gJ_hydrogenic(kappa=-1, Z=140)
 
     def test_p3_2_falls_back_to_nr(self):
-        """κ = −2 (p3/2) uses LS value for now (generic Dirac
-        correction not yet verified against tables)."""
-        g = lande_gJ_hydrogenic(kappa=-2, Z=1)
-        assert g == pytest.approx(4.0 / 3.0, rel=1e-14)
+        """|κ| ≥ 2 silently returns the non-relativistic LS value.
+
+        ``src/atomx/properties/zeeman/lande.py:166,171`` fall back to
+        ``lande_gJ_nr`` for |κ| ≥ 2, so ``LandeFactor.dirac`` is NOT a
+        Dirac value there — the name is misleading (audit S4 finding 20).
+        This test records the omission at a Z where it matters: the one
+        channel that *is* implemented (κ = −1) sits 17.3 % below its own
+        NR value at Z=92 (measured 1.654846), and the same order of
+        relativistic correction is simply absent for p3/2/d3/2.  If the
+        fallback is ever replaced by a real Dirac formula this test fails
+        loudly, which is the point.
+        """
+        assert lande_gJ_hydrogenic(kappa=-2, Z=1) == pytest.approx(
+            4.0 / 3.0, rel=1e-14)
+        assert lande_gJ_hydrogenic(kappa=-2, Z=92) == pytest.approx(
+            4.0 / 3.0, rel=1e-14), "p3/2 no longer returns the NR fallback"
+        assert lande_gJ_hydrogenic(kappa=2, Z=92) == pytest.approx(0.8, rel=1e-14)
+        # Size of what the fallback drops, from the implemented channel:
+        g_s = lande_gJ_hydrogenic(kappa=-1, Z=92)
+        assert pytest.approx(1.654846, rel=1e-6) == g_s
+        assert abs(g_s - 2.0) / 2.0 > 0.15
 
 
 # ---------------------------------------------------------------------------

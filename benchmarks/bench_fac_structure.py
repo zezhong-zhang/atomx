@@ -5,11 +5,22 @@ For each (Z, N_el) pair we run:
     atomx:  Atom(Z=Z, charge=Z-N_el).solve()
     FAC:    SetAtom; Closed(...); Config(...); OptimizeRadial; Structure; PrintTable
 
-Both use non-relativistic configurations filled in jj-coupling order; both
-include Breit/QED off by default.  Compares:
+Both use non-relativistic configurations filled in jj-coupling order.  Compares:
     - ground-level energy (FAC's "E0" absolute binding energy, eV)
     - atomx DiracFock total energy (Hartree, converted to eV)
     - wall time
+
+Flag matching (2026-09-19)
+--------------------------
+FAC's *default* structure run includes QED and has no Breit, so a like-for-like
+comparison needs ``atomx breit=False, qed=True``.  The historical CSV was
+generated with ``qed=False, breit=False`` and its atomx column was additionally
+left to go stale for five months, which is where the README's "7 keV / 1.6 % at
+Z=82" limitation came from: with matched flags today the same row agrees to
+873 eV (0.20 %).  ``--breit/--qed`` default to that matched pair; pass
+``--no-qed`` to reproduce the old, unmatched convention.
+
+See ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding H1.
 """
 
 from __future__ import annotations
@@ -27,7 +38,7 @@ sys.path.insert(0, str(ROOT / "benchmarks"))
 from fac_matrix import print_matrix_summary, run_matrix, write_matrix_csv  # noqa: E402
 from fac_runner import parse_e0, parse_levels, run_sfac  # noqa: E402
 
-from atomx import Atom  # noqa: E402
+from atomx import Atom, Corrections  # noqa: E402
 from atomx.constants import HARTREE_EV  # noqa: E402
 
 EV_PER_HARTREE = HARTREE_EV
@@ -133,8 +144,13 @@ def run_atomx(Z: int, iso: str, breit: bool = False, qed: bool = False):
     t0 = time.perf_counter()
     # Engine pinned to the B-spline DHF: the FAC-parity CSVs/gates were
     # produced on it (the bare default now resolves to shooting).
-    atom = Atom(Z=Z, charge=charge, config=cfg, breit=breit, qed=qed,
-                numerics="bspline")
+    atom = Atom(
+                Z=Z,
+                charge=charge,
+                config=cfg,
+                corrections=Corrections(breit=breit, qed=qed),
+                engine="bspline",
+           )
     atom.solve()
     t1 = time.perf_counter()
     return atom.total_energy, t1 - t0, atom.converged
@@ -144,8 +160,12 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--z", nargs="+", type=int, default=DEFAULT_Z_PANEL)
     p.add_argument("--iso", nargs="+", default=DEFAULT_ISO_PANEL)
-    p.add_argument("--breit", action="store_true")
-    p.add_argument("--qed", action="store_true")
+    # Matched to FAC's default structure run (QED on, Breit off).
+    p.add_argument("--breit", action="store_true",
+                   help="include the Breit interaction (FAC's default does not)")
+    p.add_argument("--no-qed", dest="qed", action="store_false",
+                   help="disable QED (FAC's default has it on)")
+    p.set_defaults(qed=True)
     p.add_argument("--out", default=str(ROOT / "benchmarks" / "results_fac_structure.csv"))
     p.add_argument("--matrix", action="store_true", help="run the full Z x iso FAC-parity matrix")
     p.add_argument("--quick", action="store_true", help="with --matrix, skip Z=74 and Z=82")

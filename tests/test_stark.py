@@ -1,8 +1,21 @@
-"""External-field perturbative Stark + Stark-Zeeman tests."""
+"""External-field perturbative Stark + Stark-Zeeman tests.
+
+Unit conversions are derived from the shipped CODATA table instead of
+retyping literals (review M12 class):
+
+* ``AU_FIELD_VPM = HARTREE_EV / BOHR_RADIUS_M`` — the atomic unit of
+  electric field is ``E_h / (e a_0)`` in V/m;
+* ``HARTREE_MHZ = AU_RATE_PER_S / (2 pi) / 1e6`` — ``nu = E/h``, and
+  ``AU_RATE_PER_S = 1/tau_0 = E_h/hbar``.
+
+Only the *measured* field (1e7 V/m) and the literature polarisability
+(alpha(H 1s) = 4.5 a_0^3, exact) stay as literals.
+"""
 
 import numpy as np
 import pytest
 
+from atomx.constants import AU_RATE_PER_S, BOHR_RADIUS_M, HARTREE_EV
 from atomx.properties.stark import (
     StarkZeemanShift,
     linear_stark_shift_hydrogenic,
@@ -10,15 +23,20 @@ from atomx.properties.stark import (
     stark_zeeman_table,
 )
 
+#: 1 a.u. of electric field, V/m (E_h / (e a_0)).
+AU_FIELD_VPM = HARTREE_EV / BOHR_RADIUS_M
+#: 1 hartree expressed as a frequency, MHz (nu = E/h).
+HARTREE_MHZ = AU_RATE_PER_S / (2.0 * np.pi) / 1e6
+
 
 def test_linear_stark_h_n2_textbook():
     """H n=2 splitting at F=1e7 V/m: ΔE = (3/2)·n·k·F·a₀ → ±384 GHz."""
     dE_plus = linear_stark_shift_hydrogenic(n=2, k=+1, F_Vpm=1e7, Z=1)
     dE_minus = linear_stark_shift_hydrogenic(n=2, k=-1, F_Vpm=1e7, Z=1)
     assert dE_plus == pytest.approx(-dE_minus, rel=1e-12)
-    # 3/2·2·1·1e7/(5.142e11) Hartree → eV → MHz
-    expected = 1.5 * 2 * 1 * 1e7 / 5.14220674763e11 * 27.211 * 2.41798934e8
-    assert dE_plus == pytest.approx(expected, rel=1e-3)
+    # 3/2·2·1·1e7 V/m, converted to atomic units and then to MHz.
+    expected = 1.5 * 2 * 1 * (1e7 / AU_FIELD_VPM) * HARTREE_MHZ
+    assert dE_plus == pytest.approx(expected, rel=1e-6)
 
 
 def test_linear_stark_zero_at_k_zero():
@@ -47,9 +65,28 @@ def test_quadratic_stark_negative_for_alpha_pos():
 
 
 def test_quadratic_stark_h_ground():
-    """H 1s polarizability is ~4.5 a₀³; shift at F=1e7 V/m of order MHz."""
+    """H 1s quadratic Stark shift is exactly −½·α·F² in MHz.
+
+    α(H 1s) = 4.5 a₀³ is the exact hydrogenic value (the same number gated
+    first-principles in ``test_review_m9_m13_gates.py``), so the shift is
+    fixed by the closed form with no fit:
+
+        ΔE = −½ · 4.5 · (1e7 V/m / 5.14220674763e11 V/m)² Ha
+           = −5.5987 MHz.
+
+    Measured 2026-09-25 at HEAD: −5.59871678619299 MHz.  The gate is the
+    closed form at rel=1e-6; the residual 4.2e-8 is the two CODATA-2018
+    conversion literals still hard-coded in ``stark.py`` (``_AU_FIELD_VPM``
+    = 5.14220674763e11, ``2.41798934e8`` MHz/eV) against the shipped
+    CODATA-2022 defaults.  The previous gate was ``−10 < dE < 0``, which
+    admitted any small number (including −1e-9).
+    """
     dE = quadratic_stark_shift(alpha_a0_cubed=4.5, F_Vpm=1e7)
-    assert -10.0 < dE < 0  # ~few MHz negative
+    F_au = 1e7 / AU_FIELD_VPM
+    expected = -0.5 * 4.5 * F_au * F_au * HARTREE_MHZ
+    assert pytest.approx(expected, rel=1e-6) == dE, (
+        f"quadratic Stark: measured {dE!r} MHz vs exact -alpha F^2/2 "
+        f"{expected!r} MHz")
 
 
 def test_quadratic_stark_F_squared_scaling():

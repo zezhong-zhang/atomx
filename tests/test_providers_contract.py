@@ -8,6 +8,7 @@ any external back-end.
 
 from __future__ import annotations
 
+import importlib.util
 import warnings
 from types import SimpleNamespace
 
@@ -15,6 +16,7 @@ import numpy as np
 import pytest
 
 import atomx.providers.contract as contract_module
+from atomx.constants import HARTREE_EV
 from atomx.providers.contract import (
     Capability,
     CapabilityError,
@@ -32,6 +34,16 @@ from atomx.providers.contract import (
     ensure_hartree,
 )
 from atomx.scattering.protocols import AtomicResultLike
+
+#: ``pint`` is an optional extra (``units``): the two unit-coercion nodes are
+#: the only coverage of ``ensure_hartree`` on a Quantity.  An explicit marker
+#: names the extra instead of dropping the nodes with a bare in-body skip.
+#: ``pint>=0.21`` is in the ``dev`` extra.
+needs_pint = pytest.mark.skipif(
+    importlib.util.find_spec("pint") is None,
+    reason="the optional `units` extra is not installed (pint>=0.21); "
+           "install with `pip install -e .[dev]`",
+)
 
 # ── helpers ────────────────────────────────────────────────────────────
 
@@ -78,20 +90,20 @@ def test_ensure_hartree_passes_floats_through():
     assert ensure_hartree(-0.5) == -0.5
 
 
+@needs_pint
 def test_ensure_hartree_converts_pint_quantity():
-    pytest.importorskip("pint")
     from atomx.units import ureg
 
-    q = 27.211386245988 * ureg.electron_volt
+    q = HARTREE_EV * ureg.electron_volt
     assert ensure_hartree(q) == pytest.approx(1.0, rel=1e-6)
 
 
+@needs_pint
 def test_orbital_energies_coerced_at_construction():
-    pytest.importorskip("pint")
     from atomx.units import ureg
 
     payload = _minimal_payload(
-        orbital_energies={"MO0": 27.211386245988 * ureg.electron_volt}
+        orbital_energies={"MO0": HARTREE_EV * ureg.electron_volt}
     )
     assert payload.orbital_energies["MO0"] == pytest.approx(1.0, rel=1e-6)
 
