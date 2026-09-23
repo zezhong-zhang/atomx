@@ -132,6 +132,42 @@ now changes the physics; the numbers below are measured by
 
 ### Fixed — physics
 
+* **MCDHF spectator virtuals were solved in the wrong mean field — two
+  compounding defects in the R7 row.**  (1) The diagonal was
+  `q_ref − 1`, which under the solver's angular conventions is a pure
+  `−J_i` anti-screening term: self-exchange is structurally zero for
+  `i == j` and the direct self density is doubled (DBSR_HF `c = c + c`),
+  so a self weight `w` contributes `w × (+J_i)` with nothing to cancel
+  it.  Measured on H-like Z=1 2p with hand-set seam rows: self weight 0
+  reproduces the Dirac closed form to 5.4e-10 Ha, −1 over-binds by
+  0.237 Ha (−0.3616 Ha, fine-structure ordering inverted).  (2) Even
+  with the diagonal at 0, the capped-reference off-diagonal
+  `min(q_ref_j, max_parent q_j)` over-screens a valence spectator: the
+  neutral 1s²2s² core leaves Be `correlation="s"` 2p at +0.006 Ha
+  (unbound in the box; FAC's own frozen-core protocol gives the same
+  barely-bound state at 1.708 eV), because the configurations the
+  spectator actually appears in have promoted a 2s electron away.  The
+  row is now the **parent configurations' own core**: raw-occupation
+  parents, fewest-holes then shallowest-hole selection (the
+  valence-promotion channel), off-diagonal `⟨q_j^c⟩`, self
+  `⟨q_i^c(q_i^c − 1)⟩` (same-shell partner count — 0 for single,
+  `q(q−1)` for double occupancy), capped-reference fallback only when
+  no raw parent exists.  Measured: H-like 2p exact to ≤5.5e-10 Ha;
+  Be 2p₁/₂ −0.212143 Ha (bracket + pin); He 1s2p splitting unchanged
+  (0.0469 Ha).  The correction also moved the Fe XVII KLL Auger panel's
+  ILEV 32 channel from 0.097 to 0.102 × FAC — inside the [0.1, 1.1]
+  band it had missed by 3.4 % under the capped row — resolving the
+  2026-09-20 strict xfail without touching the band.  The same reform
+  lifted three more strict xfails whose documented causes turned out to
+  be this row: the Be 1s²2s2p fine-structure ordering is now physical
+  (13 872.9 / 13 874.7 / 13 878.3 cm⁻¹, gated in
+  `tests/test_ci_levels_vs_nist.py`); H I MCDHF — 45× worse than DHF,
+  2p at −0.361624 Ha from five phantom spectator electrons — now
+  matches hydrogenic to 2e-6 on all six orbitals (the parent-core row of
+  a one-electron parent is the zero row); and the He-like Z=2 E1 gauge
+  ratio moved from 0.234 to 0.0868, under the Gu 2008 §3.2 threshold of
+  0.10.  See `docs/test_audit/PHYSICS_hlike_2p_spectator.md`.
+
 * **`mbpt2_energy` summed every cross-κ virtual pair twice, doubling that
   channel of the MP2 sum.**  The virtual double loop iterated the full
   Cartesian product over κ blocks; the antisymmetrised amplitude obeys

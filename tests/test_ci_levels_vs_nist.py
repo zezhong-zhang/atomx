@@ -26,7 +26,8 @@ energies above the 1s2 2s2 ground state:
 protocol                    3P*0          3P*1          1P*1
 ===========================  ============  ============  ===========
 ``fac_frozen``              13822.5       13858.9       43594.4
-``mcdhf`` (default)         18404.6       18283.9       51880.9
+``mcdhf`` (default, 09-23)  13872.9       13874.7       43575.1
+``mcdhf`` (default, 09-20)  18404.6       18283.9       51880.9
 ``mcdhf`` before R7         118643.6      118592.8      139877.5
 ===========================  ============  ============  ===========
 
@@ -34,32 +35,34 @@ The 2p of this space is a spectator virtual: its CSFs are the odd-parity
 ``1s2 2s1 2p1`` ones, which carry exactly zero amplitude in the even
 ground state, so its Guerra population is zero and the pre-R7 solver gave
 it a *bare-nucleus* 2p (ε = −2.0 Ha, the hydrogenic Z=4 value) — hence the
-118000 cm-1 row.  The R7 asymmetric mean field (GRASP's layer protocol,
-``MCDHFSolver._mean_field_matrices``) solves it in the reference
-configuration's potential instead, which brings the manifold down to
-18.0–18.4 kcm-1 for the triplets.
+118000 cm-1 row.  The asymmetric spectator mean field
+(``MCDHFSolver._mean_field_matrices``) solves it in a parent
+configuration's potential instead.  The 2026-09-23 parent-core reform
+(the parent's own occupations, fewest-holes then shallowest-hole
+selection; see ``docs/test_audit/PHYSICS_hlike_2p_spectator.md``) brought
+the manifold to 13.9 kcm-1 and made the fine-structure ordering physical
+(3P0 < 3P1 < 3P2, gated in
+``test_three_p_ordering_is_physical_mcdhf``); the 18.0–18.4 kcm-1 row is
+the pre-reform capped-reference measurement.
 
 What is left is the *averaged-level* residual, not a CI error: the
 orbitals are optimised for the ground configuration, while this space's
-2p only ever appears in ``1s2 2s1 2p1``, and the parent-capped anchor
+2p only ever appears in ``1s2 2s1 2p1``, and the parent-core anchor
 contributes 1s^2 2s^1 (the physical field of that configuration).  The
 ``3P``-``1P`` separation is ``2 G^1(2s,2p)``, which is set by the 2p
-radial extent this protocol gives (-0.59 Ha, i.e. more compact than the
-state-optimised MCHF 2p): the computed separation is 33.6 kcm-1 against
-the NIST 20.6 kcm-1.  The fine-structure ordering is also still inverted in
-the default protocol, because the two jj components are solved as independent
-radial functions in the frozen field — measured there 3P2 18044.9 < 3P1
-18283.9 < 3P0 18404.6 cm-1 against the physical 3P0 < 3P1 < 3P2.  The
-ordering claim is therefore gated **twice**: ``fac_frozen`` (where it holds:
-13822.5 < 13858.9 < 13930.0) as a plain assertion, and the default ``mcdhf``
-protocol as a strict xfail carrying those measured numbers (audit finding
-F9 — the claim used to live only in this docstring, while the single
-ordering test ran on the protocol where it passes).
+radial extent this protocol gives (more compact than the state-optimised
+MCHF 2p): the computed separation is ~29.7 kcm-1 against the NIST
+20.6 kcm-1, and the triplet manifold sits ~8.1 kcm-1 below NIST in
+absolute terms.  The ordering claim is gated **twice**: ``fac_frozen``
+(where it holds: 13822.5 < 13858.9 < 13930.0) and the default ``mcdhf``
+protocol (13872.9 < 13874.7 < 13878.3, since 2026-09-23 a plain
+assertion; was a strict xfail carrying the pre-reform inverted numbers,
+audit finding F9).
 
-Both residuals are *orbital* (the same levels agree with the m-scheme
-oracle to 1e-14 on the very orbitals used here), and both gates are
-recorded as strict xfails carrying the measured numbers rather than being
-widened into meaningless tolerances.
+The absolute-excitation residuals are *orbital* (the same levels agree
+with the m-scheme oracle to 1e-14 on the very orbitals used here), and
+those gates are recorded as strict xfails carrying the measured numbers
+rather than being widened into meaningless tolerances.
 """
 
 from __future__ import annotations
@@ -150,18 +153,20 @@ def test_three_p_ordering_is_physical_fac_frozen(fac_frozen_levels):
     assert p0 < j1[0] < p2 < j1[1], (p0, j1, p2)
 
 
-@pytest.mark.xfail(strict=True, reason=(
-    "MEASURED in the default ``mcdhf`` protocol: 3P2 18044.9 < 3P1 18283.9 < "
-    "3P0 18404.6 cm-1 — the fine structure is inverted (FAC/NIST order is "
-    "3P0 < 3P1 < 3P2, and this file's fac_frozen fixture gets it right at "
-    "13822.5 / 13858.9 / 13930.0).  Cause: the two jj components are solved "
-    "as independent radial functions in the averaged field, so their "
-    "spin-orbit splitting has the wrong sign; the R7 asymmetric mean field "
-    "fixed the Guerra branch, not the fine structure.  The CI matrix is not "
-    "the cause (the same levels agree with the m-scheme oracle to 1e-14 on "
-    "these orbitals).  Strict xfail: the gate must stay red."))
 def test_three_p_ordering_is_physical_mcdhf(mcdhf_levels):
-    """The same ordering claim, in the protocol where it does not hold."""
+    """The same ordering claim, in the default ``mcdhf`` protocol.
+
+    Was a strict xfail (2026-09-22): the mcdhf protocol inverted the
+    manifold (3P2 18044.9 < 3P1 18283.9 < 3P0 18404.6 cm-1), blamed on the
+    jj pair being solved as independent radial functions.  Re-measured
+    2026-09-23 after the spectator mean-field correction (parent-core
+    conditional rows, see
+    :meth:`atomx.methods.mcdhf.solver.MCDHFSolver._mean_field_matrices`):
+    13872.9 / 13874.7 / 13878.3 cm-1 — the ordering is physical and tracks
+    the fac_frozen fixture (13822.5 / 13858.9 / 13930.0).  The row, not
+    the radial protocol, was the residual defect; the gate is a hard
+    assertion again.
+    """
     excit, _ground = mcdhf_levels
     assert sorted(excit) == [0, 2, 4]
     p0 = excit[0][0]
@@ -192,7 +197,7 @@ def test_singlet_p_excitation_matches_nist(fac_frozen_levels):
     "(measured 13822.5 vs NIST 21978.31 cm-1); the 1P1 level is within "
     "1100 cm-1.  The R7 asymmetric mean field fixes the Guerra branch, not "
     "this protocol: ``fac_frozen`` is unchanged by design, and the same "
-    "parent-capping that fixed the mcdhf branch is not applied here "
+    "parent-core anchoring that fixed the mcdhf branch is not applied here "
     "because the protocol *is* 'frozen reference potential'.  The matrix is "
     "not the cause: the same five levels agree with the independent "
     "m-scheme oracle to 1e-14 on these orbitals."))
@@ -203,19 +208,18 @@ def test_triplet_p_excitation_matches_nist(fac_frozen_levels):
 
 @pytest.mark.xfail(strict=True, reason=(
     "OPEN, orbital protocol: R7 (the asymmetric mean field) removed the "
-    "bare-nucleus 2p here — the manifold moved from 118000 cm-1 to 18.0-18.4 "
-    "kcm-1 — and the 3P1 level is now 3695 cm-1 below NIST (measured "
-    "18283.9 vs 21978.925, gate tolerance 3000), so the gate is still "
-    "strictly red rather than passing on a widened tolerance.  The residual "
-    "is the averaged-level protocol itself: the Guerra orbitals are "
-    "optimised for the 1s2 2s2 ground configuration while this space's 2p "
-    "only appears in 1s2 2s1 2p1, and the parent-capped anchor gives that "
-    "configuration's field (1s^2 2s^1).  The 2p that comes out is more "
-    "compact than a state-optimised MCHF 2p (ε = −0.59 Ha), so the "
-    "3P-1P separation is 33.6 kcm-1 against NIST 20.6 kcm-1 and the fine "
-    "structure is inverted (the two jj components are independent radial "
-    "functions in the frozen field).  The CI matrix is exact on those "
-    "orbitals (oracle agreement 2e-15); the orbitals are."))
+    "bare-nucleus 2p here, and the 2026-09-23 parent-core rows corrected "
+    "the fine-structure ordering (3P manifold now 13872.9 / 13874.7 / "
+    "13878.3 cm-1, ordering physical).  The residual is the absolute "
+    "offset: 3P1 sits 8096 cm-1 below NIST (measured 13874.7 vs "
+    "21978.925, gate tolerance 3000).  That residual is the "
+    "averaged-level protocol itself: the Guerra orbitals are optimised for "
+    "the 1s2 2s2 ground configuration while this space's 2p only appears "
+    "in 1s2 2s1 2p1, and the parent-core anchor gives that configuration's "
+    "field (1s^2 2s^1).  The 2p that comes out is more compact than a "
+    "state-optimised MCHF 2p, so the 3P-1P separation is ~29.7 kcm-1 "
+    "against NIST 20.6 kcm-1.  The CI matrix is exact on those orbitals "
+    "(oracle agreement 2e-15); the orbitals are not."))
 def test_levels_match_nist_in_default_protocol():
     atom = _solve("mcdhf")
     result = atom._result

@@ -204,28 +204,26 @@ def test_breit_scalar_matches_dbsr_hf():
 
 
 @_needs_data
-@pytest.mark.xfail(
-    strict=True,
-    reason=(
-        "MCDHF is 45x worse than DHF for the simplest atom in the panel "
-        "(NIST rms 2132 vs 47.5 cm-1 over 9 levels), because the Guerra "
-        "average is applied to MUTUALLY EXCLUSIVE one-electron "
-        "configurations as if they were coexisting fractional occupations: "
-        "for ['1s1','2s1','2p1','3s1','3p1','3d1'] every orbital gets "
-        "w = 1/9 and each orbital's mean field is built from the other eight "
-        "at 1/9 each, though a one-electron atom has no electron-electron "
-        "interaction to average.  Signature: the s orbitals come out exact "
-        "(1s -0.500007, 2s -0.125002, 3s -0.055556 vs hydrogenic to 1e-6) "
-        "while every l>0 orbital is far too DEEP -- 2p -0.361624, 3d -0.163935 "
-        "against -0.125 and -0.055556, i.e. the 2p implies Z_eff ~ 1.7 in "
-        "NEUTRAL hydrogen.  _collapsed_targets is empty here, so this is not "
-        "the R7 seam.  The l>0 selectivity is unexplained: the occupations "
-        "are uniform, so it must come from the angular structure of the "
-        "direct/exchange coefficients."
-    ),
-)
 def test_h1_mcdhf_orbitals_are_screened():
-    """One-electron atoms: a virtual must not be attracted more than the bare nucleus."""
+    """One-electron atoms: a virtual must not be attracted more than the bare nucleus.
+
+    Was a strict xfail (2026-09-22): the l>0 orbitals came out far too deep
+    (2p -0.361624, 3d -0.163935 against hydrogenic -0.125 and -0.055556,
+    i.e. Z_eff ~ 1.7 in neutral hydrogen, NIST rms 2132 vs 47.5 cm-1 for
+    DHF) and the note blamed the Guerra average over mutually exclusive
+    one-electron configurations.  Re-measured 2026-09-23 after the
+    parent-core spectator-row reform (see
+    ``docs/test_audit/PHYSICS_hlike_2p_spectator.md``): all six orbitals
+    are within 2e-6 of hydrogenic (2p1/2 -0.12500208, 3d3/2 -0.05555580).
+    The earlier "_collapsed_targets is empty, so this is not the R7 seam"
+    snapshot was taken at an iteration where no orbital had collapsed; once
+    CI weights collapse mid-solve, a one-electron orbital lands in the
+    seam branch, and the OLD seam row handed it the capped reference — the
+    full +J of every other orbital in the model, five phantom electrons
+    for hydrogen.  The parent-core row for a one-electron parent is the
+    zero row by construction (the parent has no other electrons), so the
+    mean field vanishes exactly as it must for a one-electron atom.
+    """
     atom = Atom(
                 Z=1,
                 config=["1s1", "2s1", "2p1", "3s1", "3p1", "3d1"],

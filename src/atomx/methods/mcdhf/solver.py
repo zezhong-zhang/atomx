@@ -441,8 +441,9 @@ class MCDHFSolver:
         with no population at all in any CSF still has ``WW(i, ·) ≡ 0``
         and would still be solved against a bare nucleus.  That case is
         handled by :meth:`_mean_field_matrices`' asymmetric mean field
-        (GRASP's layer protocol: a spectator virtual is solved in the
-        reference configuration's frozen potential), *not* by widening
+        (a spectator virtual is solved in its parent configurations'
+        core — GRASP's layer intuition: an excited layer sees the core
+        left behind by the electron it replaced), *not* by widening
         this floor — widening it would re-screen the occupied orbitals
         with phantom correlation density, which is the opposite error.
         The floor stays jj-partner-only on purpose: it repairs the
@@ -533,45 +534,59 @@ class MCDHFSolver:
           every closed-shell number and every occupied-orbital row is
           bit-identical to the pre-R7 code.
         * Target ``i`` with ``ϖᵢ = 0`` that is *not* in the reference: a
-          spectator virtual.  ``normalization[i] = 1`` and
-          ``coeffs[i, j] = min(qⱼ^ref, max_{c ∈ Sᵢ} qⱼ^c)`` for ``j ≠ i``
-          (``coeffs[i, i]`` = the same value − 1) — i.e. the orbital is
-          solved in the **reference configuration's** frozen potential,
-          GRASP's layer protocol ("optimise a new layer in the frozen
-          potential of the previous one"), *bounded by the orbital's own
-          parent configurations* ``Sᵢ = {c : ñᵢ^c > 0}``.
+          spectator virtual, solved in the field of the **parent
+          configurations' own core** — the parent's occupations with the
+          spectator removed — not the reference's.  Concretely: let
+          ``Sᵢ = {c : qᵢ^c > 0}`` (raw occupations, no jj-partner floor)
+          and let the holes of parent ``c`` be the shells where
+          ``q_c < q^ref``.  Among parents with the fewest holes, keep
+          those whose deepest hole is shallowest (a removed shell's
+          ``(n, l)`` — the valence-promotion channel dominates); the row
+          is the mean over that set:
 
-          The bound is not cosmetic: the reference is only a *proxy* for
-          the field the orbital actually lives in, and it over-screens
-          whenever it holds more electrons in some shell than any
-          configuration containing the target does.  He
-          ``1s² + 1s¹2p¹`` is the acute case — the reference is ``1s²``
-          but every CSF containing 2p has ``1s¹``, so the uncapped
-          reference field is exactly *neutral*: it has no bound 2p, and
-          the solver returns a box artefact (⟨r⟩ = 12.8 a₀,
-          G¹(1s,2p) = 1.9e-4 vs the physical ≈ 0.07, and the 1s2p
-          J=1 splitting collapses from 0.0469 Ha to 0.0019 Ha, breaking
-          ``tests/test_ci_analytic_slater_condon.py``).  Capping at the
-          parent maximum restores the physical 1s¹ field: ε(2p) =
-          −0.125 Ha, splitting 0.0469 Ha against the NIST 0.0514 Ha.
+          ``coeffs[i, j] = ⟨q_j^c⟩_c`` for ``j ≠ i``, ``coeffs[i, i] =
+          ⟨qᵢ^c (qᵢ^c − 1)⟩_c`` (same-shell partner count),
+          ``normalization[i] = 1``.
 
-          Where the reference *is* a parent-like configuration the cap is
-          inert and the row is exactly ``qⱼ^ref``: Be ``correlation="s"``
-          (parents ``1s²2s2p``/``1s2s²2p``, maxima 2/2 = ``q^ref``) gives
-          2p₁/₂ = −0.228585, 2p₃/₂ = −0.216499 Ha, matching the FAC-frozen
-          layer protocol to 1e-3.  The
-          diagonal keeps the solver's own self-interaction convention
-          ``q − 1`` (the same one every healthy row and every FAC-frozen
-          virtual uses) and is therefore ``−1`` for a virtual absent
-          from the reference: that term is ``−(J_i − K_i)``, the
-          self-interaction removal the DHF radial equation carries at
-          any occupation.  Dropping it (clipping the diagonal at 0)
-          leaves the Be 2p/3p/3d *unbound* — the exact 1s²2s² field is
-          neutral, so a bare test orbital of that field has no bound
-          2p, and the measured orbital table becomes ``UnboundSubshellError``
-          instead of the physical 2p ≈ −0.23 Ha that ``fac_frozen``
-          reproduces (see ``docs/CORRELATION_SD_RESEARCH_2026-09-20.md``
-          §3.7 and the R7 acceptance measurements in the test suite).
+          The parent core is the conditional field the orbital actually
+          lives in.  The R7 predecessor used the capped reference
+          ``min(q^ref_j, max_{c∈Sᵢ} q_j^c)`` and a ``q_ref − 1``
+          diagonal, and both carry defects under this codebase's
+          angular conventions.  (1) ``DFSolver._get_exchange_coef``
+          returns 0.0 for ``i == j`` structurally and the direct self
+          density is doubled (DBSR_HF ``c = c + c`` at ``j ==
+          target_i``), so a self weight ``w`` contributes ``w × (+J_i)``
+          with no compensating ``+K_i``: the historical ``q_ref − 1``
+          delivered pure ``−J_i`` anti-screening.  Measured on H-like
+          Z=1 2p with hand-set seam rows: self weight 0 reproduces the
+          Dirac closed form to 5.4e-10 Ha; −0.5 shifts the level by
+          −0.105 Ha; −1 by −0.237 Ha, landing 2p₁/₂ at −0.3616 Ha with
+          the fine-structure ordering inverted.  (2) Even with the
+          diagonal at 0 the capped *reference* over-screens a valence
+          spectator: the reference holds electrons in shells that the
+          parents — the configurations the spectator actually appears
+          in — have promoted away.  Measured on Be ``correlation="s"``
+          with the converged 1s²2s² core frozen: the capped row
+          ``[2, 2]`` puts 2p₁/₂ at +0.006 Ha (unbound in the box;
+          FAC's own frozen-core protocol — ``OptimizeRadial`` on the
+          ground group — puts 1s²2s²2p₁ at 1.708 eV, the same
+          barely-bound state), while the parent core ``[2, 1]`` (the
+          2s→2p parents 1s²2s¹2p¹, a 2s hole) puts it at −0.212 Ha,
+          inside the suite's bracket and next to the relaxed value.
+          GRASP's layer intuition agrees: an excited layer sees the
+          core left behind by the electron it replaced.
+
+          The two historical anchor cases are recovered as limits:
+          H-like (parent ``2p¹``: hole at 1s, core ``[]``) gives the
+          zero row — exact Dirac, no self term; He (parent ``1s¹2p¹``:
+          core ``[1]``) reproduces the R7 cap's ``ε(2p) = −0.125`` and
+          the 0.0469 Ha 1s2p splitting.  The self term is the
+          conditional factorial moment, reducing to the FAC-calibrated
+          occupied-shell value ``q(q−1)`` for parents that doubly
+          occupy the spectator's shell, and to 0 for single-occupancy
+          parents.  Orbitals present only through the jj-partner floor
+          (no raw parent) keep the capped-reference fallback — no
+          conditional distribution exists for them.
 
         Why the threshold is exactly zero rather than a small positive
         number: the numerator ``WW(i, j)`` is *unclamped* while the
@@ -598,28 +613,69 @@ class MCDHFSolver:
         populations = self._guerra_populations(weights)
         ref_occ = self._reference_occupations()
         occ_maps = [self._floored_occ_map(csf) for csf in self.csfs]
+        raw_maps = [
+            {(sh.n, sh.kappa): float(sh.occupation) for sh in csf.subshells}
+            for csf in self.csfs
+        ]
         for i, key in enumerate(order):
             if populations.get(key, 0.0) > 0.0:
                 continue  # populated: Guerra mean field (today's numbers)
             if ref_occ.get(key, 0.0) > 0.0:
                 continue  # an occupied orbital always keeps its own row
-            # Parent configurations: the CSFs in which this orbital is
-            # present at all.  The reference field may not screen the
-            # target with more electrons of a shell than any of them
-            # holds — see the class docstring: uncapped, He's neutral
-            # 1s² reference has no bound 2p.
-            parents = [m for m in occ_maps if m.get(key, 0.0) > 0.0]
-            for j, key_j in enumerate(order):
-                q_ref = ref_occ.get(key_j, 0.0)
-                if parents:
-                    q_ref = min(
-                        q_ref,
-                        max(m.get(key_j, 0.0) for m in parents),
-                    )
-                if j == i:
-                    q_ref = q_ref - 1.0
-                coeffs[i, j] = q_ref
             normalization[i] = 1.0
+            # Parent configurations (RAW occupations — the jj-partner
+            # floor would invent phantom parents whose core mirrors the
+            # reference and drags the row back toward over-screening).
+            # The spectator is solved in the mean core of the
+            # configurations it actually appears in: row[j] = <q_j^c>,
+            # self = <q_i^c (q_i^c - 1)> (same-shell partner count).
+            raw_parents = [m for m in raw_maps if m.get(key, 0.0) > 0.0]
+            if not raw_parents:
+                # Present only through the jj-partner floor: no
+                # conditional distribution exists; keep the R7
+                # capped-reference fallback.
+                parents = [m for m in occ_maps if m.get(key, 0.0) > 0.0]
+                for j, key_j in enumerate(order):
+                    q_ref = ref_occ.get(key_j, 0.0)
+                    if parents:
+                        q_ref = min(
+                            q_ref,
+                            max(m.get(key_j, 0.0) for m in parents),
+                        )
+                    coeffs[i, j] = q_ref
+                continue
+
+            def _holes(m):
+                return [
+                    (nj, ref_occ.get(nj, 0.0) - m.get(nj, 0.0))
+                    for nj in ref_occ
+                    if m.get(nj, 0.0) < ref_occ.get(nj, 0.0) - 1e-12
+                ]
+
+            def _shell_nl(nk):
+                n, kappa = nk
+                return (n, kappa if kappa > 0 else -kappa - 1)
+
+            # Valence-promotion channel: fewest holes, then shallowest
+            # deepest hole (a removed shell's (n, l)).  Ties average.
+            min_holes = min(len(_holes(m)) for m in raw_parents)
+            cand = [m for m in raw_parents if len(_holes(m)) == min_holes]
+            deepest = {
+                id(m): min(_shell_nl(nk) for nk in _holes(m)) for m in cand
+            }
+            best = max(deepest.values())
+            sel = [m for m in cand if deepest[id(m)] == best]
+            n_sel = float(len(sel))
+            for j, key_j in enumerate(order):
+                if key_j == key:
+                    coeffs[i, j] = sum(
+                        m.get(key_j, 0.0) * (m.get(key_j, 0.0) - 1.0)
+                        for m in sel
+                    ) / n_sel
+                else:
+                    coeffs[i, j] = sum(
+                        m.get(key_j, 0.0) for m in sel
+                    ) / n_sel
         return coeffs, normalization
 
     def _collapsed_targets(self, avg_subshells, weights) -> List[str]:

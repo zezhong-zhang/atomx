@@ -125,21 +125,6 @@ def test_ilev71_known_answer_vs_fac(kll_panel, fe17_result):
 
 
 @pytest.mark.external_fac
-@pytest.mark.xfail(
-    reason=(
-        "OPEN, one channel row, caused by the R7 orbital fix.  With R7's "
-        "asymmetric mean field the panel is 0.097 / 1.007 / 0.236 / 0.361 / "
-        "0.795 x FAC for ILEV 32 / 71 / 72 / 142 / 190; the ILEV 32 row sits "
-        "at 0.0966 against this band's floor of 0.1, i.e. 3.4 % outside.  "
-        "Isolated by A/B: forcing the R7 seam off makes this test pass 3/3.  "
-        "The gate's bound is NOT moved: the panel's spread actually improved "
-        "with R7 (max/min 3.86/0.18 = 21x before, 1.007/0.097 = 10.4x now), "
-        "so the 0.1 floor was calibrated to the older, worse envelope.  "
-        "Re-adjudicating it needs the Auger module's own accuracy work "
-        "(per-level CI mixing, orbital basis), not a wider band."
-    ),
-    strict=True,
-)
 def test_panel_rates_finite_and_within_factor_ten(kll_panel, fe17_result):
     """Every panel channel: finite, positive, and inside [0.1, 1.1] x FAC.
 
@@ -150,8 +135,15 @@ def test_panel_rates_finite_and_within_factor_ten(kll_panel, fe17_result):
 
     Re-measured 2026-09-20 with the exact CI matrix and the R7 asymmetric
     mean field: 0.097 / 1.007 / 0.236 / 0.361 / 0.795 x FAC.  The spread
-    halved; only ILEV 32 falls outside the band, by 3.4 %.  See the xfail
-    reason above for the A/B isolation.
+    halved; only ILEV 32 fell outside the band, by 3.4 %.
+
+    Re-measured 2026-09-23 after the spectator mean-field correction
+    (parent-core conditional rows replace the capped reference; see
+    :meth:`atomx.methods.mcdhf.solver.MCDHFSolver._mean_field_matrices`):
+    0.102 / 1.007 / 0.236 / 0.412 / 0.936 x FAC.  ILEV 32 moved into the
+    band (0.097 -> 0.102) — the row was the residual defect the 2026-09-20
+    xfail blamed on the Auger module's per-level mixing, so the strict
+    xfail is lifted and the band becomes a hard gate again.
     """
     report = []
     for row in kll_panel["resonances"]:
@@ -173,14 +165,16 @@ def test_panel_rates_finite_and_within_factor_ten(kll_panel, fe17_result):
 @pytest.mark.xfail(
     strict=True,
     reason=(
-        "MEASURED panel spread max/min atomx/FAC = 1.007 / 0.097 = 10.4x "
-        "(2026-09-20, per-channel ratios 0.097 / 1.007 / 0.236 / 0.361 / "
-        "0.795 for ILEV 32 / 71 / 72 / 142 / 190).  A pure common-scale error "
-        "would leave this ratio constant across the panel, so the spread is "
-        "the part of the discrepancy the angular factor does NOT explain: it "
-        "needs per-level CI mixing and the orbital basis, not a scale "
-        "correction.  Target < 2x (the honest next milestone); the gate is "
-        "NOT widened to the measured 10.4x."
+        "MEASURED panel spread max/min atomx/FAC = 1.007 / 0.102 = 9.9x "
+        "(2026-09-23, parent-core spectator rows; per-channel ratios 0.102 / "
+        "1.007 / 0.236 / 0.412 / 0.936 for ILEV 32 / 71 / 72 / 142 / 190, "
+        "2026-09-20 with the R7 capped reference: 0.097 / 1.007 / 0.236 / "
+        "0.361 / 0.795 = 10.4x).  A pure common-scale error would leave this "
+        "ratio constant across the panel, so the spread is the part of the "
+        "discrepancy the angular factor does NOT explain: it needs per-level "
+        "CI mixing and the orbital basis, not a scale correction.  Target "
+        "< 2x (the honest next milestone); the gate is NOT widened to the "
+        "measured 9.9x."
     ),
 )
 def test_panel_ratio_spread_is_small(kll_panel, fe17_result):

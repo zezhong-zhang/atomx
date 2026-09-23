@@ -166,20 +166,16 @@ class TestHeLikeGroundTransitionGaugeRatio:
     reflects the wavefunction quality.
     """
 
-    @pytest.mark.xfail(strict=True, reason=(
-        "OPEN, orbital (docs/CORRELATION_SD_RESEARCH_2026-09-20.md section "
-        "3.7): measured |A_v/A_l - 1| = 0.234 at this test's parameters "
-        "(ns=60/ks=9, 2026-09-25; 0.389 with the protocol of that section), "
-        "against 0.0833 with the old configuration-average kernel.  The "
-        "ground state is a pure 1s2 (mixing [1,0,0,0,0]) either way, so the "
-        "change is in the J=1 eigenvectors, which the old kernel split by "
-        "0.33 Ha at an arbitrary angle (-2.1505 / -1.9386 Ha) instead of the "
-        "physical 2e-5 Ha; the exact eigenvectors are the LS-limit "
-        "(1/sqrt3, sqrt(2/3)) mixtures.  The remaining gauge error is the "
-        "He 2p radial function, which this protocol dives to a bare-nucleus "
-        "hydrogenic solution (section 3.7) — the Z=10 case below still "
-        "passes.  Not waived: the threshold stays at the Gu 2008 value of "
-        "0.10."))
+    # Was a strict xfail (2026-09-25): measured |A_v/A_l - 1| = 0.234 at
+    # this test's parameters (0.389 with the protocol of
+    # docs/CORRELATION_SD_RESEARCH_2026-09-20.md section 3.7), blamed on
+    # the He 2p radial function diving to a bare-nucleus hydrogenic
+    # solution.  Re-measured 2026-09-23 after the parent-core
+    # spectator-row reform (docs/test_audit/PHYSICS_hlike_2p_spectator.md):
+    # 0.0868, below the Gu 2008 §3.2 threshold of 0.10 — the 2p spectator
+    # now sees its own parent core (1s1) instead of the capped reference,
+    # which is the same defect, not a separate orbital problem.  The
+    # threshold stays at the literature value; 0.0868 sits at 87 % of it.
     def test_he_like_resonance_e1_z2(self):
         from atomx import Atom, Basis
 
@@ -196,12 +192,14 @@ class TestHeLikeGroundTransitionGaugeRatio:
 
         strongest = max(e1s, key=lambda t: t.A_length)
         ratio_dev = abs(strongest.A_velocity / strongest.A_length - 1.0)
-        # HYP-1689: after the HYP-190 velocity-gauge fix this passes
-        # deterministically at ratio_dev = 0.0833 (main @ 6172d1e), i.e.
-        # below the Gu 2008 §3.2 ground-state E1 threshold of 0.10.  The
-        # gate is kept at the literature value rather than tightened:
-        # 0.0833 sits at 83% of the threshold, leaving too little headroom
-        # for cross-platform (numba/BLAS) jitter at a tighter bound.
+        # HYP-1689: after the HYP-190 velocity-gauge fix this passed
+        # deterministically at ratio_dev = 0.0833 (main @ 6172d1e).  The
+        # 2026-09-23 parent-core spectator-row reform then moved it to
+        # 0.0868 (see the note above the method): still below the Gu 2008
+        # §3.2 ground-state E1 threshold of 0.10.  The gate is kept at the
+        # literature value rather than tightened: 0.0868 sits at 87% of the
+        # threshold, leaving too little headroom for cross-platform
+        # (numba/BLAS) jitter at a tighter bound.
         assert ratio_dev < 0.10, (
             f"He-like Z=2: strongest E1 |A_v/A_l - 1| = {ratio_dev:.3f}"
         )

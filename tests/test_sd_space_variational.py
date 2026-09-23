@@ -179,13 +179,14 @@ class TestVariationalSanity:
         Was a strict xfail until 2026-09-20: the 2p sat at the hydrogenic
         Z=4 value -2.0005 Ha, i.e. it felt no electron screening at all
         (``docs/CORRELATION_SD_RESEARCH_2026-09-20.md`` §3.7).  The
-        parent-capped asymmetric mean field (R7) repairs it.
+        asymmetric spectator mean field (R7, reformed 2026-09-23 to the
+        parent-core conditional row) repairs it.
 
         Two independent statements: a *closed-form* bracket between the two
         hydrogenic endpoints (bare Z=4 and fully screened Z_eff=1), which is
         what makes this a physics gate rather than a pin, and the measured
-        value of the R7 field, which is atomx's own number and is labelled
-        as such.
+        value of the parent-core field, which is atomx's own number and is
+        labelled as such.
         """
         eps_2p = be_singles.orbital_energies.get("2p1/2")
         assert eps_2p is not None
@@ -193,9 +194,14 @@ class TestVariationalSanity:
             f"2p1/2 = {eps_2p:.6f} Ha is outside the hydrogenic bracket "
             f"({BE_HYDROGENIC_2P}, {BE_FULLY_SCREENED_2P}) — it is either "
             f"unscreened (bare Z=4) or bound by less than a bare proton")
-        # atomx's own R7 value, measured on this machine; the audit found the
-        # old gate (eps_2p > -1.50047) satisfied by a half-collapsed virtual
-        # at -1.4 Ha, 1.3 Ha away from the produced -0.228585.
+        # atomx's own parent-core value, measured 2026-09-23 on this
+        # machine (-0.212143; the R7 capped reference with the corrected
+        # zero self term leaves the 2p unbound at +0.006 Ha — the neutral
+        # 1s²2s² core over-screens it, see
+        # docs/test_audit/PHYSICS_hlike_2p_spectator.md).  The pin centre
+        # stays at the historical -0.2286 within its ±0.02 band, which
+        # both the corrected capped row's accidental value and the
+        # parent-core value satisfy.
         assert eps_2p == pytest.approx(-0.2286, abs=0.02), (
-            f"2p1/2 = {eps_2p:.6f} Ha is not the parent-capped mean-field "
-            f"value -0.2286 Ha")
+            f"2p1/2 = {eps_2p:.6f} Ha is not the parent-core mean-field "
+            f"value ~-0.21..-0.23 Ha")

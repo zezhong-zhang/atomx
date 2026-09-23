@@ -366,6 +366,23 @@ def _hlike_solved():
     return solver.solve(max_iter=3, scf_tol=1e-4, ci_tol=1e-6)
 
 
+def _by_dominant_label(res):
+    """Map each CSF label to its state's energy via dominant eigenvector
+    component — the same pairing ``MCDHFResult.state_dominant_J2`` uses.
+
+    Position-wise zipping of ``csfs`` with sorted ``state_energies`` is
+    WRONG here: ``enumerate_jj_csfs`` orders the 2p3/2 CSF before 2p1/2,
+    while the sorted eigenvalues place the more-bound 2p1/2 first, and
+    2s1/2 sits 5e-10 Ha from 2p1/2 (Dirac degeneracy at discretisation
+    accuracy).  Only the dominant-component pairing is invariant.
+    """
+    out = {}
+    for k in range(res.n_states):
+        dom = int(np.argmax(np.abs(res.mixing_coefficients[k])))
+        out[res.csfs[dom].label.split()[0]] = float(res.state_energies[k])
+    return out
+
+
 def test_J_block_lift_h2plus_n2_p_states():
     """H-like Z=1: the J-block lift is identically zero for one-electron CSFs.
 
@@ -375,40 +392,41 @@ def test_J_block_lift_h2plus_n2_p_states():
     against the closed form (``alpha`` from ``atomx.constants``):
     1s -0.500006656596 (1.2e-12 Ha), 2s -0.125002080739 (5.5e-10 Ha).
 
-    The 2p levels of the same solve do NOT meet the closed form; that is a
-    separate, reproducible defect and is gated by
-    ``test_one_electron_2p_levels_match_the_dirac_closed_form`` below.
+    History: the 2p levels of this solve used to miss the closed form by
+    ~0.017 Ha with the fine-structure ordering inverted — a spectator
+    mean-field defect (R7 self weight −J_i), fixed 2026-09-23 and gated
+    by ``test_one_electron_2p_levels_match_the_dirac_closed_form`` below.
     """
     res = _hlike_solved()
     assert res.n_states == 4
     assert len(res.csfs) == 4
-    energies = np.asarray(res.state_energies)
-    labels = [csf.label.split()[0] for csf in res.csfs]
-    by_label = dict(zip(labels, energies, strict=True))
+    by_label = _by_dominant_label(res)
     assert by_label["1s1/2^1"] == pytest.approx(
         _dirac_hydrogenic(1, -1), abs=1e-8)
     assert by_label["2s1/2^1"] == pytest.approx(
         _dirac_hydrogenic(2, -1), abs=1e-8)
 
 
-@pytest.mark.xfail(strict=True, reason=(
-    "MEASURED, reproducible for max_iter = 3, 10 and 40 (so not an SCF "
-    "convergence cap): the H-like Z=1 2p levels come out at -0.10805594 "
-    "(2p3/2) and -0.10675280 (2p1/2) Ha against the closed-form Dirac "
-    "-0.12500042 / -0.12500208 Ha, i.e. 0.0169 / 0.0182 Ha high, and the "
-    "fine-structure ordering is inverted (Dirac: 2p3/2 above 2p1/2 by "
-    "1.66e-6 Ha).  The same solve reproduces the 1s and 2s Dirac energies "
-    "to 1.2e-12 / 5.5e-10 Ha, so the angular kernel is not the cause; the "
-    "2p orbital energy reported by the SCF (-0.361613 Ha) also disagrees "
-    "with the CI eigenvalue of the same spinor by 0.25 Ha, which points at "
-    "the n = 2 p radial path in the one-electron solve.  Strict xfail so "
-    "the defect stays visible instead of the gate being relaxed."))
 def test_one_electron_2p_levels_match_the_dirac_closed_form():
-    """H-like 2p must reproduce the closed-form Dirac energy (it does not)."""
+    """H-like 2p must reproduce the closed-form Dirac energy.
+
+    Fixed 2026-09-23: the R7 spectator mean field carried a self weight
+    of ``q_ref − 1`` (−1 for a virtual absent from the reference), which
+    under this codebase's angular conventions is a pure ``−J_i``
+    anti-screening term (self-exchange is structurally zero for i == j,
+    so nothing cancels it).  H-like 2p was over-bound to −0.3616 Ha with
+    the ordering inverted.  The row is now the parent configurations'
+    own core: for H-like the 2p parent's core is empty (hole at 1s), so
+    the spectator sees the bare-nucleus field and all four n ≤ 2 levels
+    match the closed form to ≤ 5.5e-10 Ha
+    (``docs/test_audit/PHYSICS_hlike_2p_spectator.md``).
+    """
     res = _hlike_solved()
-    labels = [csf.label.split()[0] for csf in res.csfs]
-    by_label = dict(zip(labels, np.asarray(res.state_energies), strict=True))
+    by_label = _by_dominant_label(res)
     assert by_label["2p3/2^1"] == pytest.approx(
         _dirac_hydrogenic(2, -2), abs=1e-6)
     assert by_label["2p1/2^1"] == pytest.approx(
         _dirac_hydrogenic(2, 1), abs=1e-6)
+    # The physical ordering: 2p3/2 sits ABOVE 2p1/2 by the fine-structure
+    # splitting (1.66e-6 Ha at Z=1).
+    assert by_label["2p3/2^1"] > by_label["2p1/2^1"]

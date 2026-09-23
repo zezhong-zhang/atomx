@@ -692,3 +692,72 @@ under historical names so all 6 consumer modules keep working unchanged. Phase 2
 (quadrature.py arbitrary-grid kernels) deliberately deferred to the DW/EII defect
 pass - their gates are pinned against FAC benchmarks and the fused batch kernels
 carry NaN workarounds that must not be swapped casually.
+
+### EARS — Progress (2026-09-23 11:34)
+<!-- concepts: mcdhf-spectator-mean-field, R7-seam, self-exchange-convention -->
+
+H-like 2p defect ROOT-CAUSED: the R7 spectator row's `q_ref - 1` self weight.
+Design assumed -1 yields -(J-K) annihilation; but _get_exchange_coef returns
+0.0 for i==j (structural), and the direct self enters via DBSR doubling, so
+the -1 delivered pure -J_i (anti-screening). Measured (hand-set seam weights,
+2p1/2 Z=1): self weight 0 -> exact Dirac to 5.4e-10; -0.5 -> -0.105 error;
+-1 -> -0.237 error (linear in w, no cancellation). H-like 2p landed at
+-0.3616 Ha with inverted fine structure; CI Rayleigh of the distorted spinor
+-0.108. Fix: spectator diagonal = cap (drop the -1). R7 acceptance baseline
+14 tests green BEFORE the fix; re-running after. The R7 docstring's claim
+that clipping the diagonal leaves Be 2p unbound is contradicted by the
+convention analysis (off-diagonal J-K from 1s2/2s2 sources binds it) - the
+suite will arbitrate.
+
+### EARS — Progress (2026-09-23 12:18)
+<!-- concepts: mcdhf-spectator-mean-field, conditional-average, frozen-core-oracle -->
+
+Be/H-like spectator conflict ROOT-CAUSED (two defects, not one):
+1. Self weight `q_ref−1` = pure −J_i anti-screening (exchange self structurally 0,
+   direct self doubled) → H-like 2p exact only at self weight 0 (proved, 5.4e-10 Ha).
+2. Capped-reference row [2,2] over-screens Be 2p: frozen-harness eigenvalue sweep
+   with converged core orbitals: [2,2] self 0 → +0.006 (UNBOUND); FAC frozen-core
+   (OptimizeRadial on ground group) agrees: 1s²2s²2p¹ at 1.708 eV = barely bound.
+   Old −1 self weight's −J_i accidentally compensated the over-screening (−0.229).
+   [1.5,1.5] equal-prior conditional → −0.300 (fails suite pin −0.2286±0.02).
+   [2,1] parent-core (2s→2p promotion, valence-hole core) → −0.212 (in bracket).
+FIX: spectator row = parent configurations' own core (raw occ, no jj floor), select
+parents by min hole count then shallowest hole (valence channel), self = conditional
+factorial moment ⟨q_i(q_i−1)⟩ (→0 singles, →q(q−1) doubles, FAC-calibrated occupied
+convention). H-like→zero row (exact Dirac), He→[1] (=old cap, splitting preserved).
+Fallback: capped reference for phantom-only (jj-floor) presence.
+Implementation in _mean_field_matrices in progress; harness validated by
+reproducing no-seam SCF eigenvalue −0.228366 exactly.
+
+### EARS — Progress (2026-09-23 12:31)
+<!-- concepts: mcdhf-spectator-mean-field, test-gate-hygiene -->
+
+Parent-core spectator row IMPLEMENTED and verified in-situ:
+- test_ci_J_block.py: 6 passed (H-like 2p exact to ≤5.5e-10 Ha, ordering asserted)
+- test_sd_space_variational.py: 5 passed 0 errors; measured eps(2p1/2) = -0.212143
+  (bracket + pin -0.2286±0.02), all spectators bound, fs ordering right
+- test_ci_analytic_slater_condon.py: 4 passed (He anchor preserved)
+- R7 auger trio: 6 passed 3 xfailed — ILEV 32 moved 0.097→0.102 INTO the
+  [0.1,1.1] band: the 2026-09-20 strict xfail (blamed on Auger module) was the
+  row defect; lifted to a hard gate, docstrings re-measured (panel now
+  0.102/1.007/0.236/0.412/0.936, spread 9.9x; <2x spread gate stays xfail).
+- Wrote docs/test_audit/PHYSICS_hlike_2p_spectator.md; updated test docstrings
+  (test_ci_J_block, test_sd_space_variational) to the parent-core mechanism.
+Full suite running in background (bql3if4n0) before commit.
+
+### EARS — Progress (2026-09-23 13:02)
+<!-- concepts: mcdhf-spectator-mean-field, strict-xfail-lifting, physics-audit -->
+
+Final full suite after the parent-core spectator reform: 2413 passed, 9
+failed — 7 are the known test_atom_surface_equivalence pre-change-number
+baseline, 2 are NEW XPASS(strict) flips from the same row defect.  Both
+re-measured and lifted to hard gates (same pattern as the Fe XVII KLL and
+Be 3P lifts): (1) H I MCDHF 45x defect — 2p was −0.361624 Ha (five
+phantom spectator electrons under the old capped-reference seam row once
+CI weights collapse mid-solve); now all six orbitals within 2e-6 of
+hydrogenic, because a one-electron parent's parent-core row is the zero
+row by construction.  (2) He-like Z=2 E1 gauge ratio 0.234 → 0.0868,
+under the Gu 2008 threshold 0.10 (kept at the literature value; 87%
+headroom).  Both earlier xfail diagnoses ("not the R7 seam"; "orbital
+dives bare-nucleus") named the symptom, not the row.  CHANGELOG entry
+extended.  Next: re-run the affected files, then commit the full set.
