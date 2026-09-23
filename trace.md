@@ -761,3 +761,31 @@ under the Gu 2008 threshold 0.10 (kept at the literature value; 87%
 headroom).  Both earlier xfail diagnoses ("not the R7 seam"; "orbital
 dives bare-nucleus") named the symptom, not the row.  CHANGELOG entry
 extended.  Next: re-run the affected files, then commit the full set.
+### EARS — Progress (2026-09-23 13:17)
+<!-- concepts: git-rebase-conflict-resolution, config-parsing, branch-management -->
+
+Branch hygiene task: main was 24 ahead / 1 behind origin/main (PR #84,
+multi-digit-n jj parsing) with a user-started rebase stopped mid-flight at
+pick 2/24 (04cd274 exact-CI), conflicted in config/jj_coupling.py.  Safety
+branch physics-audit/2026-09-pre-rebase created at pre-rebase 9e37801.
+Conflict resolution: KEEP the 04cd274 shared parser (parse_nr_shells in
+config/parsing.py) — it already documents and fixes the same "10s1"
+KeyError (review finding M2) with a stricter regex plus implicit-
+occupation and range validation, strictly subsuming #84's inline fix;
+#84's regression tests/test_jj_coupling.py stays in the base untouched.
+Removed the import that became unused (re) as part of the resolution.
+
+### EARS — Commit Digest (2026-09-23 13:22)
+<!-- concepts: mcdhf-exact-ci, git-rebase, config-parsing -->
+
+This is a REBASE REPLAY of 04cd274 (exact <CSF_r|H|CSF_s> m-scheme CI)
+onto origin/main eeba0c4 (#84), not new work.  The conflict resolution
+inside it: keep the shared parse_nr_shells parser (which subsumes #84's
+inline multi-digit-n regex and adds implicit occupations + range checks)
+and update #84's regression test to the implementation-agnostic contract
+(ValueError naming the token; "1s" moved to a validity test).  A stray
+trace.md note about the resolution rode along in the commit — cosmetic
+noise from resolving inside a rebase stop.  NOTE for recovery: this
+rebase's `git rebase --continue` refused with a spurious "unmerged
+conflicts" message even with zero unmerged entries; the working escape
+was `git commit -C <original>` then continue.
