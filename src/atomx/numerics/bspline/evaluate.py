@@ -59,12 +59,50 @@ The exchange matrix kernel remains in ``scf/slater.py``.
 import numba as nb
 import numpy as np
 
+from atomx.numerics.bspline.basis import gauss_legendre_points
+
 # ---------------------------------------------------------------------------
 # Y^k potential: outward/inward cumulative integration (Numba)
 # ---------------------------------------------------------------------------
 
+# Interpolatory partial-interval matrices, keyed by n_gauss.  mo[i, j] and
+# mi[i, j] reproduce the truncated integrals of the degree-n_gauss-1
+# interpolant of the node values on the straddled knot interval, normalised
+# so they act directly on the weighted node values g_j = w_j f_j:
+#     int_a^{r_i} f dr  =  sum_j g_j mo[i, j]      (same cell as r_i)
+#     int_{r_i}^b f dr  =  sum_j g_j mi[i, j]
+# They depend only on the Gauss nodes, so they are built once per n_gauss.
+_YK_PARTIAL_MATRICES = {}
+
+
+def _yk_partial_matrices(n_gauss):
+    """Return ``(mo, mi)`` for the interpolatory partial-interval rule."""
+    mats = _YK_PARTIAL_MATRICES.get(n_gauss)
+    if mats is None:
+        from numpy.polynomial import Polynomial
+
+        xi, wi = gauss_legendre_points(n_gauss)
+        theta = np.empty((n_gauss, n_gauss))
+        psi = np.empty((n_gauss, n_gauss))
+        for j in range(n_gauss):
+            # Lagrange basis polynomial L_j on the Gauss nodes, followed by
+            # its indefinite integral with constant zero.
+            poly = Polynomial([1.0])
+            for ell in range(n_gauss):
+                if ell != j:
+                    poly = poly * Polynomial([-xi[ell], 1.0]) / (xi[j] - xi[ell])
+            anti = poly.integ()
+            theta[:, j] = anti(xi) - anti(-1.0)
+            psi[:, j] = anti(1.0) - anti(xi)
+        # g_j = h wi_j f_j and the partial of the interpolant is
+        # h sum_j f_j Theta[i, j], hence mo = Theta / wi column-wise.
+        mats = (theta / wi[None, :], psi / wi[None, :])
+        _YK_PARTIAL_MATRICES[n_gauss] = mats
+    return mats
+
+
 @nb.njit(cache=True)
-def _compute_yk_flat(rho_flat, r_flat, w_flat, n, k):
+def _compute_yk_flat(rho_flat, r_flat, w_flat, n, k, nv, ng, mo, mi):
     """Compute Y^k potential on a flattened (1D) radial grid.
 
     Parameters
@@ -76,9 +114,13 @@ def _compute_yk_flat(rho_flat, r_flat, w_flat, n, k):
     w_flat : ndarray, shape (n,)
         Quadrature weights.
     n : int
-        Total number of grid points (nv * n_gauss).
+        Total number of grid points (nv * ng).
     k : int
         Multipole order (k=0 for Coulomb, k>0 for exchange).
+    nv, ng : int
+        Number of knot intervals and Gauss points per interval.
+    mo, mi : ndarray, shape (ng, ng)
+        Partial-interval matrices from :func:`_yk_partial_matrices`.
 
     Returns
     -------
@@ -91,30 +133,44 @@ def _compute_yk_flat(rho_flat, r_flat, w_flat, n, k):
         rk[i] = r_flat[i] ** k
         rkm[i] = r_flat[i] ** (-(k + 1))
 
-    # Outward integral: I_out(r) = int_0^r rho(r') r'^k dr'
-    #
-    # The node at r_i sits in BOTH cumulatives, so adding its full weight
-    # to each double-counts the diagonal cell and biases Y^k by
-    # ``+ w_i rho_i / r_i`` (an O(h) error): measured +1.75 % on
-    # F^0(1s,1s) for Z=10, worth 0.44-4.5 eV on the total energy of the
-    # ``slater``/``gu`` exchange models, which route their Hartree
-    # potential through here.  Each side therefore contributes the half
-    # cell it actually owns.  See
-    # docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding H5.
+    # Outward integral I_out(r) = int_0^r rho(r') r'^k dr', built cell by
+    # cell: completed cells contribute their exact full-cell Gauss sums and
+    # each node gets the interpolatory partial integral of its own straddled
+    # cell (degree ng-1 interpolant of the node values of rho*r^k).  The
+    # previous "half weight of the straddling node" estimator was a
+    # first-order stand-in for that partial integral; the B-spline density
+    # is a degree 2*ks-2 polynomial per interval, so the partial integral
+    # is not determined by the node data the half-weight uses.  That left a
+    # systematic O((dr/r)^2) bias in every Y^k node value (2.8e-5 relative
+    # on R^0(1s,1s), growing as (k+1)(3k+2)/2 in k).  Measured against
+    # closed forms and 40-digit mpmath references, the interpolatory rule
+    # recovers machine precision on the same grid, nodes and weights
+    # (2026-09-23); see tests/test_slater_integrator.py.
     i_out = np.empty(n)
-    s = 0.0
-    for i in range(n):
-        diag = w_flat[i] * rho_flat[i] * rk[i]
-        s += diag
-        i_out[i] = s - 0.5 * diag
+    base = 0.0
+    for m in range(nv):
+        off = m * ng
+        for i in range(ng):
+            s = base
+            for j in range(ng):
+                s += w_flat[off + j] * rho_flat[off + j] * rk[off + j] * mo[i, j]
+            i_out[off + i] = s
+        for j in range(ng):
+            base += w_flat[off + j] * rho_flat[off + j] * rk[off + j]
 
-    # Inward integral: I_in(r) = int_r^inf rho(r') r'^{-(k+1)} dr'
+    # Inward integral I_in(r) = int_r^inf rho(r') r'^{-(k+1)} dr', same
+    # construction with the inward matrices and reverse cell order.
     i_in = np.empty(n)
-    s = 0.0
-    for i in range(n - 1, -1, -1):
-        diag = w_flat[i] * rho_flat[i] * rkm[i]
-        s += diag
-        i_in[i] = s - 0.5 * diag
+    base = 0.0
+    for m in range(nv - 1, -1, -1):
+        off = m * ng
+        for i in range(ng):
+            s = base
+            for j in range(ng):
+                s += w_flat[off + j] * rho_flat[off + j] * rkm[off + j] * mi[i, j]
+            i_in[off + i] = s
+        for j in range(ng):
+            base += w_flat[off + j] * rho_flat[off + j] * rkm[off + j]
 
     # Y^k(r) = r^{-(k+1)} I_out + r^k I_in
     yk = np.empty(n)
@@ -144,14 +200,17 @@ def compute_yk(rho, gr, grw, nv, n_gauss, k):
     ndarray, shape (nv, n_gauss)
         Y^k(r) on the grid.
     """
-    yk_flat = _compute_yk_flat(rho.ravel(), gr.ravel(), grw.ravel(),
-                                nv * n_gauss, k)
+    mo, mi = _yk_partial_matrices(n_gauss)
+    yk_flat = _compute_yk_flat(
+        rho.ravel(), gr.ravel(), grw.ravel(), nv * n_gauss, k, nv, n_gauss, mo, mi
+    )
     return yk_flat.reshape(nv, n_gauss)
 
 
 # ---------------------------------------------------------------------------
 # Orbital evaluation on grid
 # ---------------------------------------------------------------------------
+
 
 def eval_orbital_on_grid(coeffs, bsp, nv, ks, ns):
     """Evaluate a B-spline expansion on the quadrature grid.
@@ -179,7 +238,7 @@ def eval_orbital_on_grid(coeffs, bsp, nv, ks, ns):
     gi = np.arange(nv)[:, None] + np.arange(ks)[None, :]  # (nv, ks)
     gi_safe = np.clip(gi, 0, ns - 1)
     c = np.where(gi < ns, coeffs[gi_safe], 0.0)  # (nv, ks)
-    return np.einsum('is,ims->im', c, bsp)
+    return np.einsum("is,ims->im", c, bsp)
 
 
 def eval_P(coeffs, bsp_data):
@@ -189,8 +248,7 @@ def eval_P(coeffs, bsp_data):
     """
     ksp = bsp_data.get("ksp", bsp_data["ks"])
     nsp = bsp_data.get("nsp", bsp_data["ns"])
-    return eval_orbital_on_grid(coeffs, bsp_data["bsp_p"],
-                                 bsp_data["nv"], ksp, nsp)
+    return eval_orbital_on_grid(coeffs, bsp_data["bsp_p"], bsp_data["nv"], ksp, nsp)
 
 
 def eval_Q(coeffs, bsp_data):
@@ -202,5 +260,3 @@ def eval_Q(coeffs, bsp_data):
     nsq = bsp_data.get("nsq", bsp_data["ns"])
     bsp_q = bsp_data.get("bsp_q", bsp_data["bsp_p"])
     return eval_orbital_on_grid(coeffs, bsp_q, bsp_data["nv"], ksq, nsq)
-
-

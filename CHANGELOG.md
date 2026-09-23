@@ -235,6 +235,46 @@ now changes the physics; the numbers below are measured by
 
 ### Fixed — numerics
 
+* **The `Y^k` Poisson cumulatives used a half-weight estimator for the
+  straddled knot interval, biasing every `Y^k` node value.**  The outward/
+  inward truncated integrals in `evaluate._compute_yk_flat` added "full Gauss
+  weight for every node strictly inside the limit, plus half the weight of
+  the node at the limit" — a first-order stand-in for the partial-interval
+  integral, which for a degree-`2ks-2` B-spline density sampled at
+  `n_gauss = ks` nodes is not determined by the data the rule uses.  The
+  bias was systematic, `O((dr/r)^2)`, and was the whole of the observed
+  ~3e-5…6e-4 Slater error (root-cause diagnosis preserved in
+  `docs/test_audit/PHYSICS_yk_node_values.md`).  Replaced by the
+  **interpolatory partial-interval rule** (`evaluate._yk_partial_matrices`):
+  within each knot interval the truncated integrals are those of the
+  degree-`n_gauss-1` interpolant of the node values (precomputed `ng×ng`
+  matrices, built once per `n_gauss`), across intervals the exact full-cell
+  Gauss sums — same grid, same nodes, same weights, so no snapshot is
+  re-pinned by the rule change itself.  Measured on the same grid:
+
+  | case | before | after |
+  |---|---|---|
+  | hydrogenic 1s, k=0, Z = 1/10/26 (closed form 5Z/8) | 2.84e-5 | ≤2.2e-16 |
+  | ρ = e⁻ʳ, k = 0…3 (mpmath 40-digit / ln 4) | 1.37e-4 … 4.17e-3 | ≤6.3e-12 |
+  | Ne DHF 1s–1s, k = 0…3 (fine-grid reference) | 2.80e-5 … 6.27e-4 | 3.2e-8 … 1.2e-7 |
+
+  The last row equals the exact-partial arbiter of the diagnosis (§7) to
+  all its digits — the residual is the fine-grid reference's own error.
+  All `compute_yk` consumers (DHF Hartree potential, Slater integrals,
+  distorted-wave, autoionization, local potentials) shift at the
+  1e-5…1e-4 level; that shift is the defect leaving.  The poisson-vs-direct
+  agreement is no longer machine-tight — the direct double sum keeps its
+  own 2D-quadrature error, now measured at 1.2e-5…5.0e-4 on the Ne fixture —
+  so the cross-kernel gate drops to rel=1e-3 and the absolute anchor moves
+  to non-shared gates: the hydrogenic closed form tightened from rel=1e-4
+  to rel=1e-8, plus a new 40-digit mpmath gate for ρ = e⁻ʳ k = 0…3 and
+  matrix-construction invariants, all in
+  `tests/test_slater_integrator.py`.  Kernel cost rises ~9× inside the
+  partial loops (O(nv·ng²) vs O(n)) but the measured end-to-end effect is
+  noise: a full Ne DHF solve takes 0.220 s with the fix vs 0.214 s without.
+  The `numerics/quadrature.py` trapezoid family (`yk_on_grid`,
+  `_yk_kernel_rho`, `_slater_rk_kernel`) shares the rule class and is
+  deliberately left for a follow-up.
 * **Out-of-bounds reads in the B-spline cell integrals** (the cause of the
   intermittent `NaN`).  `_convol_case2_mixed` contracted a density with
   `ns = max(nsp, nsq)` rows while the density only had `nsp` (or `nsq`) rows,

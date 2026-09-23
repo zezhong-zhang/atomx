@@ -1,5 +1,21 @@
 # Slater `R^k` / `Y^k` accuracy defect — root-cause diagnosis
 
+> **Status: fixed 2026-09-23.**  The fix is the interpolatory
+> partial-interval rule in `src/atomx/numerics/bspline/evaluate.py`
+> (`_yk_partial_matrices` + rewritten `_compute_yk_flat`), i.e. fix
+> direction 1 below, but computed from the node values alone (degree
+> `n_gauss-1` interpolant on the straddled cell) rather than from the exact
+> B-spline density — the production kernel only receives node values.  On
+> the analytic cases of §1 the corrected rule measures at machine precision
+> (2.2e-16…6.3e-12), five orders of magnitude *better* than the ≤1.2e-7
+> headroom demonstrated here with exact partials; on the physical Ne case
+> (§6) it reproduces the exact-partial arbiter to all its digits.  Gates
+> and the full before/after table: `CHANGELOG.md` (Unreleased → Fixed —
+> numerics) and `tests/test_slater_integrator.py`.  Note: the rule-B
+> transcription in the scratch `exp1_rule.py` (`halfv * (g @ Th.T)`) has a
+> scaling error and measures 7–27 % wrong — do not copy it; the correct
+> normalisation is `mo = Theta / wi` (see `_yk_partial_matrices`).
+
 Scope: read-only diagnosis of the S1 follow-up ("the Slater kernel is externally
 accurate to only ~3e-5 … systematic in the `Y^k` construction, not peak
 resolution"). No file under `src/atomx/`, `tests/`, `docs/` was modified.

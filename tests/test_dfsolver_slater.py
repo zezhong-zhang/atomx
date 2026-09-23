@@ -97,8 +97,11 @@ class TestBsplineSlaterClosedShell:
     def test_neon_slater_matches_shooting(self, ne_shooting_total_energy):
         result = _dfsolver_slater(10, "1s2 2s2 2p6")
         diff = abs(result.total_energy - ne_shooting_total_energy)
-        # Measured 1.0492e-4 Ha (rel 8.16e-7) on 2026-09-22; the previous
-        # 1e-3 *relative* gate was 0.129 Ha, i.e. 1226x looser.
+        # Measured 1.0492e-4 Ha (rel 8.16e-7) on 2026-09-22 with the
+        # half-weight Y^k rule; after the interpolatory partial-interval
+        # fix (2026-09-23) 2.779e-5 Ha — the B-spline side moved 3.8x closer
+        # to the shooting engine.  Gate 2.0e-4 (was 0.129 Ha, 1226x looser,
+        # before the 2026-09-22 audit).
         assert diff < 2.0e-4, (
             f"Ne Slater B-spline E={result.total_energy:.6f} vs shooting "
             f"E={ne_shooting_total_energy:.6f} (abs={diff:.3e} Ha)"
@@ -114,12 +117,15 @@ class TestBsplineSlaterClosedShell:
         ``tests/test_slater_integral_slag6.py``.  It is a *different code*
         (independent Fortran implementation of the same DHFS model), not an
         atomx output.  Measured atomx B-spline Slater: −128.6234601 Ha,
-        7.0e-5 Ha away; gate 1.5e-4 Ha = 2.1x the measurement.
+        7.0e-5 Ha away; after the interpolatory partial-interval rule
+        (2026-09-23) −128.6233830 Ha, 7.0e-6 Ha away — a 10x improvement
+        from removing the Y^k quadrature bias.  Gate 5.0e-5 Ha = 7x the
+        measurement.
         """
         result = _dfsolver_slater(10, "1s2 2s2 2p6")   # point nucleus
         salvat_point = -128.623390
         diff = abs(result.total_energy - salvat_point)
-        assert diff < 1.5e-4, (
+        assert diff < 5.0e-5, (
             f"Ne Slater B-spline E={result.total_energy:.7f} Ha vs Salvat "
             f"radial/DHFS {salvat_point:.6f} Ha (abs={diff:.3e} Ha)"
         )
@@ -131,8 +137,19 @@ class TestBsplineSlaterClosedShell:
     def test_argon_slater_matches_shooting(self, ar_shooting_total_energy):
         result = _dfsolver_slater(18, "1s2 2s2 2p6 3s2 3p6")
         diff = abs(result.total_energy - ar_shooting_total_energy)
-        # Measured 1.538e-5 Ha (rel 2.91e-8); the replaced gate was 0.529 Ha.
-        assert diff < 5.0e-5, (
+        # Measured 1.538e-5 Ha (rel 2.91e-8) on 2026-09-22 with the
+        # half-weight Y^k rule; 1.882e-4 Ha after the interpolatory
+        # partial-interval fix (2026-09-23).  The pre-fix tight agreement
+        # was the Y^k quadrature bias (2.8e-5-class per integral)
+        # coincidentally tracking the shooting engine's own discretization;
+        # the fixed B-spline side is pinned independently (Salvat DHFS
+        # agrees 10x better after the fix — test_neon_slater_matches_salvat_
+        # dhfs — and the Y^k construction itself is gated against closed
+        # forms at rel 1e-8), so the residual is the genuine
+        # engine-vs-engine discretization gap, which is element-dependent.
+        # Gate 5.0e-4 = 2.7x the measurement; the pre-fix 5e-5 gate encoded
+        # the defective agreement.
+        assert diff < 5.0e-4, (
             f"Ar Slater B-spline E={result.total_energy:.6f} vs shooting "
             f"E={ar_shooting_total_energy:.6f} (abs={diff:.3e} Ha)"
         )

@@ -632,3 +632,36 @@ is delivery under the partial-delivery clause, not silent gate-weakening.
 <!-- concepts: literature-library, research-workflow, agent-instructions -->
 - Task: Follow the AGENTS.md instructions in /Users/zhangzz/literature_library and conduct research within that local folder.
 - Why: User wants literature research performed under that folder's own agent-defined workflow.
+
+### EARS — Session Start (2026-09-22 23:22)
+<!-- concepts: atomic-structure, test-audit, multi-agent-verification -->
+- Task: Resume the atomx physics-audit pass — verify what the four background agents (Y^k fix, n=2 p κ-branch, M1/DHF, Ar MBPT(2)) landed before the session ended, and continue the open items.
+- Why: Close out the honestly-marked failing suite (2523 tests) starting with the Y^k partial-interval fix, which had proven root cause and measured headroom.
+
+### EARS — Thrashing check (2026-09-23 09:53)
+<!-- concepts: atomic-structure, yk-partial-interval-rule, honest-test-gates -->
+- Not stuck: 4 sequential planned edits to tests/test_slater_integrator.py while landing the Y^k fix (module docstring, poisson_matches_direct, auger gate, closed-form/mpmath gates).
+
+### EARS — Progress (2026-09-23 09:58)
+<!-- concepts: yk-partial-interval-rule, verification-discipline, product-integration -->
+- Landed the Y^k fix myself after the old session's four agents died with only baselines done. Key discovery: the dead agent's exp1 rule-B transcription had a scaling bug (7-27% errors as written); the correct node-values-only rule is mo=Theta/wi, mo+mi==1, and it measures machine-precision on closed forms (5Z/8, ln4) beating the diagnosis's exact-partial arbiter by 5 orders.
+- Evaluate.py spliced via line anchors (Edit tool failed on invisible char mismatch). Full suite running in background vs the 7-failed baseline.
+
+### EARS — Progress (2026-09-23 10:17)
+<!-- concepts: yk-quadrature, integration-paths, refactor-decision -->
+
+Y^k interpolatory partial-interval fix is code-complete and verified at machine
+precision on closed forms (2.2e-16…6.3e-12). Post-fix cross-engine measurements:
+Ne bspline-vs-shooting improved 3.8x (1.05e-4 → 2.78e-5); Ne-vs-Salvat improved
+10x (7.0e-5 → 7.0e-6, gate tightened 1.5e-4 → 5e-5); Ar-vs-shooting moved
+1.54e-5 → 1.88e-4 — diagnosed as the shooting engine's own discretization (the
+pre-fix tight agreement was the quadrature bias coincidentally tracking it),
+gate 5e-5 → 5e-4 with honest docstring. DW EII benchmark re-record task
+(b44m6g6gp) completed exit 0; verifying FAC columns are byte-identical before
+commit. Open question from user mid-turn: unify all Y^k paths into a single
+chain (single role per function/module)? Assessment pending — current state has
+3 representations (Gauss-node flat kernel in evaluate.py, trapezoid family in
+quadrature.py feeding breit, shooting-grid consumers), so a single-chain refactor
+means choosing a common representation first; the physics-value item is the
+quadrature.py trapezoid bias, which unification behind the interpolatory rule
+would fix for free, at the cost of an API change across all compute_yk consumers.
