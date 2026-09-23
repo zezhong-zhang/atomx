@@ -680,3 +680,15 @@ pre-fix anomaly as still-open - updated to RESOLVED with the reconstruction
 numbers, kept xfail (gate |E2|<0.35 is the heuristic, not a defect; moving
 the bound is a later-pass decision). Y^k fix committed as 1e96a83 earlier:
 suite 7 failed = pre-fix baseline set exactly, FAC CSV columns byte-identical.
+
+### EARS — Stuck-check (2026-09-23 10:56)
+<!-- concepts: yk-unification, module-extraction, refactor-hygiene -->
+
+Not stuck: the 4 sequential edits to test_slater_integrator.py are one deliberate
+migration (import moved to numerics.yk + docstring pointer updated). Phase 1 of
+the Y^k unification: new src/atomx/numerics/yk.py owns the kernel (yk_partial_matrices
+public name + yk_flat njit + compute_yk wrapper); bspline/evaluate.py re-exports
+under historical names so all 6 consumer modules keep working unchanged. Phase 2
+(quadrature.py arbitrary-grid kernels) deliberately deferred to the DW/EII defect
+pass - their gates are pinned against FAC benchmarks and the fused batch kernels
+carry NaN workarounds that must not be swapped casually.

@@ -76,9 +76,9 @@ grid).  The previous implementation used the B-spline SCF helper
 diagonal cell (r' = r) — the exact O(h) bias class documented in
 ``numerics/quadrature.py`` from the Auger verification campaign.
 (``compute_yk`` itself was later given an interpolatory partial-interval
-rule on 2026-09-23, ``evaluate._yk_partial_matrices``; this module's
-choice of ``yk_on_grid`` is unchanged, and the trapezoid bias class
-below still applies to it.)  For
+rule on 2026-09-23, ``atomx.numerics.yk.yk_partial_matrices``; this
+module's choice of ``yk_on_grid`` is unchanged, and the trapezoid bias
+class below still applies to it.)  For
 the strongly cancelling Breit combinations that bias inflated the total
 by ~3%: Ne I (point nucleus) gave 0.05197 Ha where the dense-grid
 converged value is 0.050429 Ha (cubic-spline resampling of the same

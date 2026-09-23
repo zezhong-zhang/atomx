@@ -336,6 +336,20 @@ now changes the physics; the numbers below are measured by
   the bounds-check gate and a 12-process determinism check; none of these ran
   in any automation before.
 
+### Changed — structure
+
+* **The Y^k mathematics has a single home, `atomx.numerics.yk`.**
+  `yk_partial_matrices` (the interpolatory partial-interval rule),
+  the numba kernel `yk_flat`, and the `compute_yk` grid wrapper moved
+  out of `bspline.evaluate`, which now re-exports them under their
+  historical names — no importer changes, no numerics changes (pure
+  code motion; the slater/dfsolver/DW test gates pass unchanged).
+  The arbitrary-grid trapezoid kernels in `numerics/quadrature.py`
+  (scattering/DW/EII) are deliberately NOT migrated: their gates are
+  pinned against FAC benchmarks, their fused batch kernels carry
+  numerics-sensitive workarounds, and the swap belongs with the open
+  DW/EII defect pass.
+
 ### Changed — performance
 
 * **The B-spline RKB banks are built once per solve instead of five times.**

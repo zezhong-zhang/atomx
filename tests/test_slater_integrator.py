@@ -108,9 +108,11 @@ def test_r0_of_hydrogenic_1s_is_the_closed_form(ne_grid, Z):
     10 and 26 (a smooth ρ = e^{−r} showed 1.37e-4 on the same grid) — the
     systematic quadrature bias diagnosed on 2026-09-22 and repaired on
     2026-09-23 by the interpolatory partial-interval rule in
-    ``evaluate._yk_partial_matrices`` (degree n_gauss−1 interpolant of the
-    node values on the straddled cell; exact full-cell Gauss sums across
-    cells).  After the fix this measures ~1e-16.  Gate rel=1e-8 sits 7
+    ``atomx.numerics.yk.yk_partial_matrices`` (degree n_gauss−1
+    interpolant of the node values on the straddled cell; exact
+    full-cell Gauss sums across cells; the kernel moved from
+    ``bspline.evaluate`` to ``numerics.yk`` the same day).  After the
+    fix this measures ~1e-16.  Gate rel=1e-8 sits 7
     orders of magnitude inside the old defect and 8 above machine roundoff.
     """
     bsp = ne_grid[0]
@@ -176,10 +178,10 @@ def test_yk_partial_interval_matrices(n_gauss):
       polynomial integral to machine precision.
     """
     from atomx.numerics.bspline.basis import gauss_legendre_points
-    from atomx.numerics.bspline.evaluate import _yk_partial_matrices
+    from atomx.numerics.yk import yk_partial_matrices
 
     xi, wi = gauss_legendre_points(n_gauss)
-    mo, mi = _yk_partial_matrices(n_gauss)
+    mo, mi = yk_partial_matrices(n_gauss)
     assert np.allclose(mo + mi, 1.0, atol=1e-15)
     assert np.allclose(mo @ wi, 1.0 + xi, atol=1e-15)
     assert np.allclose(mi @ wi, 1.0 - xi, atol=1e-15)
