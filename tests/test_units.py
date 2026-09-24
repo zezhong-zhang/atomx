@@ -214,14 +214,15 @@ class TestIsotopeShiftUnits:
     def test_total_as_THz(self, h_1s_result):
         iso = h_1s_result.isotope_shift((1, 1), (1, 2))
         q = iso.total_as("THz")
-        # Mostly NMS, expected ~ -0.895 THz
-        assert q.magnitude == pytest.approx(-0.895, abs=0.01)
+        # Mostly NMS, expected ~ +0.895 THz (H level sits higher than D:
+        # E_NMS = +(m_e/M)·⟨T_e⟩ raises the lighter-isotope level more)
+        assert q.magnitude == pytest.approx(+0.895, abs=0.01)
 
     def test_NMS_as_GHz(self, h_1s_result):
         iso = h_1s_result.isotope_shift((1, 1), (1, 2))
         q = iso.NMS_as("GHz")
-        # ~ -895 GHz
-        assert q.magnitude == pytest.approx(-895.4, abs=1.0)
+        # ~ +895 GHz, sign per the 6f59415 NMS convention
+        assert q.magnitude == pytest.approx(+895.4, abs=1.0)
 
     def test_SMS_default_is_zero(self, h_1s_result):
         iso = h_1s_result.isotope_shift((1, 1), (1, 2))
