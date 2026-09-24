@@ -10,24 +10,25 @@ Two linearly independent solutions are needed at the matching radius
 ``rho_a = k a`` to extract the K-matrix from the boundary R-matrix:
 the regular ``F_l`` and irregular ``G_l``.
 
-Implementation
---------------
-* ``F_l`` is integrated outward by Numerov from a small-rho ascending
-  series anchor.
-* ``G_l`` is taken from the large-rho asymptotic expansion
-  (Abramowitz & Stegun 14.5). Validated against the zero-charge limit
-  ``F_l = rho * j_l(rho)``, ``G_l = -rho * y_l(rho)``.
+The neutral limit uses exact Riccati–Bessel functions. Charged references
+start from a converged outgoing-wave asymptotic series and, when needed,
+are propagated inward with adaptive DOP853 integration. In a forbidden
+region the regular solution is integrated outward separately to avoid
+loss of its small amplitude by cancellation. The Wronskian is checked
+before a bounded cache stores the reference pair. Closed-channel radial
+propagation uses a compiled Numerov recurrence.
 
-The implementation targets the modest energy / partial-wave regime of
-phase-2 (``k <= 2 a_0^{-1}``, ``l <= 3``, ``rho_a >= 25``).
 """
 
 from __future__ import annotations
 
 import math
+from functools import lru_cache
 
 import numpy as np
-from scipy.special import gammaln, loggamma
+from numba import njit
+from scipy.integrate import solve_ivp
+from scipy.special import gammaln, loggamma, spherical_jn, spherical_yn
 
 
 def _coulomb_C_l(l: int, eta: float) -> float:
@@ -94,36 +95,36 @@ def coulomb_sigma_l(l: int, eta: float) -> float:
 def _asymptotic_FG(
     l: int, eta: float, rho: float
 ) -> tuple[float, float, float, float]:
-    """``F_l, dF_l/drho, G_l, dG_l/drho`` from the large-rho expansion.
+    """Coulomb waves from the outgoing-wave series (DLMF 33.11.1).
 
-    Uses the standard A&S 14.5.5 / 14.5.6 expansion with the leading
-    1/rho and 1/rho^2 correction terms; sufficient for ``rho >= 25``.
+    Substitution of H+=exp(i theta) sum_n a_n/rho^n into the radial
+    equation gives a_(n+1)/a_n = [(n+i eta)(n+1+i eta)-l(l+1)]/[2i(n+1)].
+    An asymptotic series must be truncated before its least term. Refuse
+    if that term is too large; the caller moves the anchor out and
+    propagates inward instead of accepting an inaccurate expansion.
     """
     sigma_l = coulomb_sigma_l(l, eta)
     theta = rho - eta * math.log(2.0 * rho) - 0.5 * l * math.pi + sigma_l
     dth = 1.0 - eta / rho
 
-    L = l * (l + 1)
-    eta2 = eta * eta
-    # f, g and their rho-derivatives — leading two terms each. The full
-    # A&S 14.5 recursion would push these to higher order, but for the
-    # matching radii used here (rho_a >= 25) the residual is below 1e-4.
-    a2 = -(L - eta2) / 2.0
-    f = 1.0 + a2 / (rho * rho)
-    df = -2.0 * a2 / (rho ** 3)
-    b1 = eta
-    b3 = eta * (L - eta2 - 1.0) / 2.0
-    g = b1 / rho + b3 / (rho ** 3)
-    dg = -b1 / (rho * rho) - 3.0 * b3 / (rho ** 4)
-
-    sin_t = math.sin(theta)
-    cos_t = math.cos(theta)
-
-    F = f * sin_t + g * cos_t
-    G = f * cos_t - g * sin_t
-    dF = df * sin_t + dg * cos_t + (f * cos_t - g * sin_t) * dth
-    dG = df * cos_t - dg * sin_t - (f * sin_t + g * cos_t) * dth
-    return F, dF, G, dG
+    term = total = complex(1.0)
+    derivative = complex(0.0)
+    for n in range(160):
+        following = term * ((n + 1j * eta) * (n + 1 + 1j * eta) - l * (l + 1))
+        following /= 2j * (n + 1) * rho
+        if abs(following) < 2e-15 * abs(total):
+            total += following
+            derivative -= (n + 1) * following / rho
+            phase = complex(math.cos(theta), math.sin(theta))
+            value = phase * total
+            slope = phase * (derivative + 1j * dth * total)
+            return value.imag, slope.imag, value.real, slope.real
+        if n > 0 and abs(following) > abs(term):
+            break
+        total += following
+        derivative -= (n + 1) * following / rho
+        term = following
+    raise ArithmeticError("Coulomb asymptotic series needs a larger radius")
 
 
 def _numerov_outward(
@@ -137,11 +138,20 @@ def _numerov_outward(
     if not np.allclose(np.diff(rho_grid), h):
         raise ValueError("rho_grid must be uniform")
     f_vals = f_func(rho_grid)
+    return _numerov_values(f_vals, h, y0, dy0)
+
+
+@njit(cache=True)
+def _numerov_values(f_vals, h, y0, dy0):
+    n = len(f_vals)
     h2 = h * h / 12.0
     y = np.empty(n)
     y[0] = y0
-    # Taylor-expand to second order for the second sample.
-    y[1] = y0 + h * dy0 + 0.5 * h * h * f_vals[0] * y0
+    fp = (-3 * f_vals[0] + 4 * f_vals[1] - f_vals[2]) / (2 * h)
+    fpp = (f_vals[0] - 2 * f_vals[1] + f_vals[2]) / h**2
+    y[1] = (y0 + h * dy0 + 0.5 * h**2 * f_vals[0] * y0
+            + h**3 / 6 * (fp * y0 + f_vals[0] * dy0)
+            + h**4 / 24 * ((fpp + f_vals[0]**2) * y0 + 2 * fp * dy0))
     for i in range(1, n - 1):
         # Numerov for y'' = f(x) y :
         #   y_{n+1}(1 - h^2 f_{n+1}/12)
@@ -155,6 +165,7 @@ def _numerov_outward(
     return y
 
 
+@lru_cache(maxsize=8192)
 def coulomb_FG(
     l: int, eta: float, rho_a: float, h: float = 0.01
 ) -> tuple[float, float, float, float]:
@@ -171,28 +182,55 @@ def coulomb_FG(
     rho_a :
         Match-radius times wavenumber, ``rho_a = k a``.
     h :
-        Numerov step size in ``rho``. Default 0.01 is overkill for the
-        modest accuracy needed but is cheap (~3000 steps to rho_a ~ 30).
+        Maximum rho step for adaptive inward propagation, if the
+        asymptotic series cannot attain accuracy at the requested point.
+        Zero-charge waves use exact spherical Bessel functions. Most
+        asymptotic-radius calls require no ODE integration at all.
     """
     if rho_a <= 0:
         raise ValueError(f"rho_a must be positive, got {rho_a}")
     if l < 0:
         raise ValueError(f"l must be >= 0, got {l}")
+    if h <= 0 or not np.isfinite([eta, rho_a, h]).all():
+        raise ValueError("Coulomb parameters must be finite and h positive")
+    if eta == 0.0:
+        j, y = spherical_jn(l, rho_a), spherical_yn(l, rho_a)
+        return (rho_a * j, j + rho_a * spherical_jn(l, rho_a, derivative=True),
+                -rho_a * y, -y - rho_a * spherical_yn(l, rho_a, derivative=True))
+    anchor = rho_a
+    for _ in range(24):
+        try:
+            initial = _asymptotic_FG(l, eta, anchor)
+            break
+        except ArithmeticError:
+            anchor = max(32.0, 2.0 * anchor)
+    else:
+        raise ArithmeticError("could not establish an accurate Coulomb asymptote")
+    if anchor == rho_a:
+        return initial
 
-    def coul_f(rho):
-        return -(1.0 - 2.0 * eta / rho - l * (l + 1) / (rho * rho))
+    def rhs(rho, v):
+        f = -(1.0 - 2.0 * eta / rho - l * (l + 1) / rho**2)
+        return np.array([v[1], f * v[0], v[3], f * v[2]])
 
-    rho_start = min(0.05, rho_a * 0.05)
-    F0, dF0 = _series_F(l, eta, rho_start)
-    n_steps = max(int((rho_a - rho_start) / h) + 2, 200)
-    rho_grid = np.linspace(rho_start, rho_a, n_steps)
-    F_grid = _numerov_outward(coul_f, rho_grid, F0, dF0)
-    F = float(F_grid[-1])
-    h_eff = rho_grid[1] - rho_grid[0]
-    # Central-difference derivative at the boundary; Numerov O(h^4)
-    # accuracy is preserved with the simple 2nd-order finite difference.
-    dF = float((F_grid[-1] - F_grid[-3]) / (2.0 * h_eff))
-
-    # G_l and its derivative from the large-rho expansion at rho_a.
-    _, _, G, dG = _asymptotic_FG(l, eta, rho_a)
-    return F, dF, G, dG
+    result = solve_ivp(rhs, (anchor, rho_a), initial, method="DOP853",
+                       rtol=3e-12, atol=3e-14, max_step=h, t_eval=[rho_a])
+    if not result.success:
+        raise ArithmeticError(f"Coulomb inward integration failed: {result.message}")
+    F, dF, G, dG = result.y[:, -1]
+    # In a centrifugal/Coulomb forbidden region, contamination by the
+    # irregular solution spoils the tiny F during inward propagation.
+    # The regular power series has its own absolute normalization.
+    if 1 - 2 * eta / rho_a - l * (l + 1) / rho_a**2 < 0:
+        start = min(0.01, rho_a * 0.01, 0.01 / max(abs(eta), 1))
+        regular = solve_ivp(lambda r, v: rhs(r, [*v, 0., 0.])[:2],
+                            (start, rho_a), _series_F(l, eta, start),
+                            method="DOP853", rtol=3e-12, atol=1e-30,
+                            max_step=h, t_eval=[rho_a])
+        if not regular.success:
+            raise ArithmeticError("Coulomb regular integration failed")
+        F, dF = regular.y[:, -1]
+    wronskian = dF * G - F * dG
+    if abs(wronskian - 1) > 1e-8:
+        raise ArithmeticError(f"Coulomb Wronskian defect: {wronskian - 1:.3e}")
+    return float(F), float(dF), float(G), float(dG)

@@ -142,25 +142,20 @@ def test_hydrogenic_sigma0_matches_the_stobbe_threshold_closed_form():
 
 
 _MILNE_POINTS = (
-    # chi_eV, T_eV, g_bound, g_continuum, rel (see the measured column below)
-    (100.0, 100.0, 1, 2, 1.0e-3),   # measured 3.47e-4
-    (13.6, 13.6, 1, 1, 1.0e-3),    # measured 3.47e-4
-    (20.0, 10.0, 1, 1, 1.0e-3),    # measured 3.91e-4
-    (1.0, 0.5, 1, 1, 1.0e-3),      # measured 3.91e-4
-    (13.6, 5.0, 2, 1, 1.0e-3),     # measured 4.62e-4
-    (100.0, 10.0, 1, 1, 5.0e-3),   # measured 2.84e-3
-    (13.6, 0.86, 1, 1, 1.0e-2),    # measured 6.24e-3
+    # chi_eV, T_eV, g_bound, g_continuum
+    (100.0, 100.0, 1, 2), (13.6, 13.6, 1, 1), (20.0, 10.0, 1, 1),
+    (1.0, 0.5, 1, 1), (13.6, 5.0, 2, 1), (100.0, 10.0, 1, 1),
+    (13.6, 0.86, 1, 1),
 )
 
 
-@pytest.mark.parametrize("chi, te, g_b, g_c, rel", _MILNE_POINTS)
-def test_radiative_recombination_matches_the_milne_planck_integral(chi, te, g_b, g_c, rel):
-    """alpha_RR = [8 pi sigma_0 chi^3 / (h^3 c^2) * sum_n E1(n chi / kT)] / Saha.
+@pytest.mark.parametrize("chi, te, g_b, g_c", _MILNE_POINTS)
+def test_total_recombination_in_planck_bath_matches_integral(chi, te, g_b, g_c):
+    """Spontaneous + stimulated RR = PI_Planck / Saha in an explicit bath.
 
-    Derivation, independent of ``radiative_recombination_rate_cm3_s``
-    (which is *defined* as ``PI_Planck / Saha``, so the round trip
-    ``alpha_RR * Saha == PI`` gates nothing — it re-checks one line of
-    ``src/atomx/plasma/crm.py``).  The Planck photoionisation rate is
+    The production rate integrates the spontaneous/stimulated Milne
+    cross section. This independent check derives PI in a Planck field
+    and divides by the Saha density:
 
         PI = Int_chi^inf sigma(E) c n_ph(E) dE,
         sigma(E) = sigma_0 (chi/E)^3,      (Kramers)
@@ -176,13 +171,9 @@ def test_radiative_recombination_matches_the_milne_planck_integral(chi, te, g_b,
     ``1/(e^x-1) = sum_n e^{-nx}``).  chi is in erg, so the prefactor is a
     rate in s^-1 once divided by a Saha density in cm^-3.
 
-    The residual against the module is the trapezoid error of its 240-point
-    logarithmic energy grid (measured: 3.5e-4 to 6.2e-3, degrading as the
-    grid is asked to resolve e^{-chi/T} at large chi/T), not physics.  The
-    gate still rejects the errors that were invisible before: a wrong
-    prefactor (x2, x0.5), a wrong Kramers exponent (factors of chi/T,
-    i.e. 0.06-1.0 here), a truncated integration range, and a missing
-    stimulated-emission term 1/(e^x-1) -> e^{-x} (20-23 % at these points).
+    The two derivations must agree in normalization, degeneracies and
+    stimulated emission. Adaptive integration makes a tight numerical
+    comparison possible even when chi/T is large.
     """
     ev_to_erg = sc.e * 1.0e7
     h_erg_s = sc.h * 1.0e7
@@ -199,10 +190,11 @@ def test_radiative_recombination_matches_the_milne_planck_integral(chi, te, g_b,
     pi_rate = (8.0 * np.pi * sigma0 * (chi * ev_to_erg) ** 3
                / (h_erg_s ** 3 * c_cm_s ** 2)) * series
     saha = saha_ionization_density_cm3(chi, te, g_bound=g_b, g_continuum=g_c)
-    alpha = radiative_recombination_rate_cm3_s(chi, te, g_bound=g_b, g_continuum=g_c)
+    alpha = radiative_recombination_rate_cm3_s(
+        chi, te, g_bound=g_b, g_continuum=g_c, radiation_temperature_eV=te)
 
     assert alpha > 0.0
-    assert pytest.approx(pi_rate / saha, rel=rel, abs=0.0) == alpha
+    assert pytest.approx(pi_rate / saha, rel=2e-10, abs=0.0) == alpha
 
 
 def test_crm_rate_matrix_has_a_separate_rr_channel():
@@ -547,4 +539,3 @@ def test_maxwellian_rate_matches_the_ideal_gas_closed_form():
         kt_erg = te * 1.602_176_634e-12
         closed = sigma0 * np.sqrt(8.0 * kt_erg / (np.pi * 9.109_383_7015e-28))
         assert pytest.approx(closed, rel=1e-6, abs=0.0) == rate
-

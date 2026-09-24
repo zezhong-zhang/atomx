@@ -10,9 +10,9 @@ where R_{ij} includes:
 - Collisional de-excitation: n_e * C_{ij}^deexc (i > j)
 - Electron-impact ionisation: n_e * S_i
 - Three-body recombination: n_e^2 * beta_i, detailed-balanced to EII
-- Spontaneous radiative recombination: n_e * alpha_RR_i, the Milne
-  inverse of this module's own photoionisation cross-section
-  (``alpha_RR(T) = PI_Planck(T) / Saha(T)``)
+- Spontaneous radiative recombination: n_e * alpha_RR_i, the Maxwellian
+  Milne inverse of this module's photoionisation cross-section
+- Stimulated recombination when an explicit radiation field is present
 - Photoionisation: gamma_i from a Planck or user-supplied radiation field
 
 In steady state: R * n = 0, with normalization sum(n) = n_total.
@@ -25,9 +25,17 @@ from typing import Callable, Mapping, Optional, Sequence
 
 import numpy as np
 from scipy import linalg
-from scipy.integrate import solve_ivp
+from scipy.integrate import quad, solve_ivp
+from scipy.special import exp1
 
-from atomx.constants import BOLTZMANN_EV, HARTREE_EV, RYDBERG_EV
+from atomx.constants import (
+    ALPHA,
+    BOHR_RADIUS_M,
+    BOLTZMANN_EV,
+    ELECTRON_MASS_KG,
+    HARTREE_EV,
+    RYDBERG_EV,
+)
 
 
 @dataclass
@@ -248,29 +256,39 @@ class CollisionalRadiativeModel:
         # Build levels from orbital energies or CI states
         levels = []
         if atom._mcdhf_result is not None:
+            result = atom._mcdhf_result
             for i, E in enumerate(atom.state_energies):
+                # CI is block diagonal in J and parity. The dominant CSF
+                # supplies the exact block label, not an estimated degeneracy.
+                dominant = int(np.argmax(np.abs(result.mixing_coefficients[:, i])))
+                two_j = int(result.csfs[dominant].total_J2)
                 levels.append(CRMLevel(
                     label=f"State_{i}",
                     energy_eV=E * HARTREE_EV,
-                    g=1,  # placeholder
+                    g=two_j + 1,
                 ))
         else:
+            orbital_g = {sh.label: 2 * abs(sh.kappa) for sh in atom._result.subshells}
             # Single-config: use orbital energies as levels
             for label, E in sorted(atom.orbital_energies.items(),
                                     key=lambda x: x[1]):
                 levels.append(CRMLevel(
                     label=label,
                     energy_eV=E * HARTREE_EV,
-                    g=1,
+                    g=orbital_g[label],
                 ))
 
         # Build transitions
         transitions = []
         label_to_idx = {lev.label: i for i, lev in enumerate(levels)}
         for tr in tr_results:
-            i_upper = label_to_idx.get(tr.initial_label)
-            i_lower = label_to_idx.get(tr.final_label)
-            if i_upper is not None and i_lower is not None:
+            first = label_to_idx.get(tr.initial_label)
+            second = label_to_idx.get(tr.final_label)
+            if first is not None and second is not None:
+                i_lower, i_upper = sorted(
+                    (first, second), key=lambda idx: levels[idx].energy_eV)
+                if levels[i_upper].energy_eV <= levels[i_lower].energy_eV:
+                    raise ValueError("radiative CRM transition must have positive energy")
                 transitions.append(CRMTransition(
                     upper=i_upper,
                     lower=i_lower,
@@ -418,6 +436,8 @@ class CollisionalRadiativeModel:
                     g_bound=ch.g_bound or self.levels[b].g,
                     g_continuum=ch.g_continuum or self.levels[c].g,
                     sigma0_cm2=ch.sigma0_cm2,
+                    radiation_temperature_eV=radiation_temperature_eV,
+                    radiation_field=radiation_field,
                 )
                 if alpha_rr > 0.0:
                     R[b, c] += ne_cm3 * alpha_rr
@@ -594,7 +614,7 @@ class CollisionalRadiativeModel:
         return weights / weights.sum()
 
 
-_ELECTRON_MASS_G = 9.109_383_7015e-28
+_ELECTRON_MASS_G = ELECTRON_MASS_KG * 1000.0
 _BOLTZMANN_ERG_PER_EV = 1.602_176_634e-12
 _PLANCK_ERG_S = 6.626_070_15e-27
 _LIGHT_CM_S = 2.997_924_58e10
@@ -650,57 +670,62 @@ def radiative_recombination_rate_cm3_s(
     g_bound: float = 1.0,
     g_continuum: float = 1.0,
     sigma0_cm2: Optional[float] = None,
+    radiation_temperature_eV: Optional[float] = None,
+    radiation_field: Optional[Callable[[float], float]] = None,
 ) -> float:
-    """Spontaneous radiative-recombination rate coefficient in cm^3/s.
+    """Maxwellian Milne RR coefficient (cm³/s), spontaneous by default.
 
-    Milne's relation ties the spontaneous RR coefficient of an ion to its
-    photoionisation cross-section through a Planck field at the *same*
-    temperature; with this module's own Planck-averaged photoionisation
-    rate :func:`_planck_photoionization_rate_s` and its own Saha function
-    :func:`saha_ionization_density_cm3` that reads
-
-        alpha_RR(T) = PI_Planck(T) / Saha(T),
-
-    because at Saha populations ``n_c n_e / n_b = Saha`` the recombination
-    rate ``n_c n_e alpha_RR`` must cancel the photoionisation rate
-    ``n_b PI_Planck`` exactly (LTE).  Using one cross-section for both
-    directions makes that cancellation exact rather than approximate.
-
-    Parameters
-    ----------
-    ionization_potential_eV : float
-        Threshold energy of the bound-free channel.
-    Te_eV : float
-        Electron temperature in eV (the temperature that enters both the
-        Planck average and the Saha factor).
-    g_bound, g_continuum : float
-        Statistical weights used in the Saha factor; they must match the
-        ones used for the EII/three-body pair of the same channel.
-    sigma0_cm2 : float, optional
-        Kramers cross-section at threshold; defaults to the hydrogenic
-        value used by the photoionisation term.
-
-    Returns
-    -------
-    float
-        alpha_RR in cm^3/s (0 for non-positive inputs).
+    For the Kramers PI cross section the spontaneous integral reduces to
+    ``exp(x) E1(x)``, x=I/T. It has no activation Boltzmann factor and
+    remains finite when the Saha density underflows. Stimulated capture
+    multiplies the integrand by the photon occupation, only when a field
+    is supplied. ``radiation_field`` is the angle-integrated photon number
+    flux in photons cm⁻² s⁻¹ eV⁻¹, as in the PI channel; it takes precedence
+    over ``radiation_temperature_eV``. With a Planck field at T_rad=T_e,
+    spontaneous + stimulated RR obey Saha detailed balance with PI.
     """
     if Te_eV <= 0.0 or ionization_potential_eV <= 0.0:
         return 0.0
-    saha = saha_ionization_density_cm3(
-        ionization_potential_eV,
-        Te_eV,
-        g_bound=g_bound,
-        g_continuum=g_continuum,
-    )
-    if not saha > 0.0:
-        return 0.0
-    pi_rate = _planck_photoionization_rate_s(
-        ionization_potential_eV,
-        Te_eV,
-        sigma0_cm2=sigma0_cm2,
-    )
-    return max(float(pi_rate) / float(saha), 0.0)
+    if g_bound <= 0 or g_continuum <= 0:
+        raise ValueError("statistical weights must be positive")
+    I, T = float(ionization_potential_eV), float(Te_eV)
+    sigma0 = _hydrogenic_sigma0_cm2(I) if sigma0_cm2 is None else float(sigma0_cm2)
+    x = I / T
+    if x <= 50.0:
+        integral = float(np.exp(x) * exp1(x))
+    else:
+        # Alternating asymptotic expansion; x>=50 keeps all retained
+        # terms decreasing, including far below the Saha underflow limit.
+        term = 1.0 / x
+        integral = term
+        for n in range(1, 18):
+            term *= -n / x
+            integral += term
+            if abs(term) < 2e-16 * abs(integral):
+                break
+    if radiation_field is not None or (
+            radiation_temperature_eV is not None and radiation_temperature_eV > 0):
+        def stimulated(y):
+            omega = I * np.exp(y)
+            if radiation_field is not None:
+                flux = max(float(radiation_field(float(omega))), 0.0)
+                occupation = flux / _photon_flux_prefactor(omega)
+            else:
+                z = omega / radiation_temperature_eV
+                occupation = np.exp(-z) / (-np.expm1(-z))
+            return np.exp(-x * np.expm1(y)) * occupation
+
+        integral += quad(stimulated, 0.0, np.log1p(50.0 / x),
+                         epsabs=1e-13, epsrel=2e-11)[0]
+    me, ev, c = _ELECTRON_MASS_G, _EV_TO_ERG, _LIGHT_CM_S
+    prefactor = (np.sqrt(8.0 / (np.pi * me)) * (T * ev) ** -1.5 * ev**2
+                 * (g_bound / g_continuum) * sigma0 * I**3 * ev / (2 * me * c**2))
+    return float(prefactor * integral)
+
+
+def _photon_flux_prefactor(energy_eV):
+    """Angle-integrated photon number flux per unit occupation and per eV."""
+    return 8 * np.pi * energy_eV**2 * _EV_TO_ERG**3 / (_PLANCK_ERG_S**3 * _LIGHT_CM_S**2)
 
 
 def _dr_capture_rate_coefficient_fn(resonance, *, initial_state_g: float):
@@ -758,14 +783,14 @@ def _channel_photoionization_rate_s(
         return max(float(value), 0.0)
     if radiation_field is not None:
         threshold = ch.ionization_potential_eV
-        sigma0 = ch.sigma0_cm2 or _hydrogenic_sigma0_cm2(threshold)
-        energies = np.geomspace(threshold * (1.0 + 1e-6), 100.0 * threshold, 180)
-        sigma = _kramers_photoionization_sigma_cm2(energies, threshold, sigma0)
-        photons = np.array([
-            max(float(radiation_field(float(E))), 0.0) for E in energies
-        ])
-        _trap = getattr(np, "trapezoid", None) or np.trapz
-        return max(float(_trap(sigma * photons, energies)), 0.0)
+        sigma0 = (_hydrogenic_sigma0_cm2(threshold) if ch.sigma0_cm2 is None else ch.sigma0_cm2)
+
+        def integrand(t):
+            # t=I/E maps the entire physical spectrum to (0,1], so
+            # custom fields are not silently cut off at E=100 I.
+            return t * max(float(radiation_field(float(threshold / t))), 0.0)
+
+        return float(sigma0 * threshold * quad(integrand, 0., 1., epsabs=0., epsrel=2e-10)[0])
     if radiation_temperature_eV is None or radiation_temperature_eV <= 0.0:
         return 0.0
     return _planck_photoionization_rate_s(
@@ -776,7 +801,8 @@ def _channel_photoionization_rate_s(
 
 
 def _hydrogenic_sigma0_cm2(ionization_potential_eV: float) -> float:
-    return 6.3043e-18 * (RYDBERG_EV / ionization_potential_eV)
+    sigma_h = (512 * np.pi**2 / 3) * ALPHA * (100 * BOHR_RADIUS_M)**2 * np.exp(-4)
+    return sigma_h * (RYDBERG_EV / ionization_potential_eV)
 
 
 def _kramers_photoionization_sigma_cm2(
@@ -797,20 +823,20 @@ def _planck_photoionization_rate_s(
     *,
     sigma0_cm2: Optional[float] = None,
 ) -> float:
-    sigma0 = sigma0_cm2 or _hydrogenic_sigma0_cm2(threshold_eV)
-    upper = max(100.0 * radiation_temperature_eV, 40.0 * threshold_eV)
-    energies = np.geomspace(threshold_eV * (1.0 + 1e-6), upper, 240)
-    sigma = _kramers_photoionization_sigma_cm2(energies, threshold_eV, sigma0)
-    x = np.clip(energies / radiation_temperature_eV, 1e-12, 700.0)
-    photon_density_per_eV_cm3 = (
-        8.0 * np.pi * (energies * _EV_TO_ERG) ** 2
-        / (_PLANCK_ERG_S ** 3 * _LIGHT_CM_S ** 3)
-        * _EV_TO_ERG
-        / np.expm1(x)
-    )
-    _trap = getattr(np, "trapezoid", None) or np.trapz
-    rate = _trap(sigma * _LIGHT_CM_S * photon_density_per_eV_cm3, energies)
-    return max(float(rate), 0.0)
+    if radiation_temperature_eV <= 0 or threshold_eV <= 0:
+        return 0.0
+    sigma0 = (_hydrogenic_sigma0_cm2(threshold_eV)
+              if sigma0_cm2 is None else sigma0_cm2)
+    x = threshold_eV / radiation_temperature_eV
+    # y=log(omega/I). The threshold is resolved at every I/T, and
+    # exp(-I/T) underflows only when the physical PI rate does.
+    def kernel(y):
+        z = x * np.exp(y)
+        return np.exp(-x * np.expm1(y)) / (-np.expm1(-z))
+    integral = quad(kernel, 0.0, np.log1p(50.0 / x),
+                    epsabs=1e-13, epsrel=2e-11)[0]
+    return float(sigma0 * threshold_eV * _photon_flux_prefactor(threshold_eV)
+                 * np.exp(-x) * integral)
 
 
 def effective_collision_strength(E_eV, omega, dE_eV, Te_eV):

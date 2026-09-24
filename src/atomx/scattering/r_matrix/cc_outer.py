@@ -18,10 +18,10 @@ with the channel-radial functions taking the asymptotic form
 electron in the residual +1 ion). Imposing ``A = I, B = K`` yields the
 real symmetric K-matrix
 
-    K = ( F - R_oo  D_k  F' )^{-1} ( R_oo D_k G' - G )
+    K = ( G - a R_oo G_r' )^{-1} ( a R_oo F_r' - F )
 
-where ``F, G, F', G'`` are diagonal channel-wise and
-``D_k = diag(a * k_i)``. Eigenphases ``delta_alpha = arctan(K_alpha)``
+where the diagonal reference waves are flux normalized by ``1/sqrt(k_i)``
+and derivatives are with respect to r. Eigenphases ``delta_alpha = arctan(K_alpha)``
 follow by diagonalising ``K``.
 """
 
@@ -115,7 +115,7 @@ def _partial_wave_cross_section_factor(
     partial wave l_i, the LS-coupling partial-wave cross section is
 
         σ_{ij}^{LSπ} = (π / k_i²) * (2L+1)(2S+1)
-                       / [(2L_t+1)(2S_t+1)(2l_i+1)] * |T_ij^{LSπ}|²
+                       / [2 (2L_t+1)(2S_t+1)] * |T_ij^{LSπ}|²
 
     (Burke 2011, eq. 5.2.8).  The target spin is assumed the same for
     all channels (e.g. S_t = 1/2 for a one-electron target).
@@ -123,10 +123,9 @@ def _partial_wave_cross_section_factor(
     two_L_t = 2 * channel.target.l + 1
     # For composite targets the target spin is stored on the channel.
     two_S_t = int(round(2 * channel.target.S_t + 1))
-    two_l_i = 2 * channel.l_c + 1
     return (
         (2 * L_total + 1) * (2 * S_total + 1)
-        / (two_L_t * two_S_t * two_l_i)
+        / (2 * two_L_t * two_S_t)
     )
 
 
@@ -165,10 +164,10 @@ def scattering_matrices_and_cross_sections(
             Tij2 = abs(T[i_idx, j_idx]) ** 2
             sigma[i_idx, j_idx] = prefactor * Tij2
             # Collision strength contribution for this partial wave:
-            # Ω_{ij}^{LSπ} = (2L+1)(2S+1) / (2l_i+1) |T_{ij}|².
-            two_l_i = 2 * ch_i.l_c + 1
+            # Average over the projectile's two spin states, not over
+            # its orbital partial wave. This preserves reciprocity.
             omega[i_idx, j_idx] = (
-                (2 * L_total + 1) * (2 * S_total + 1) / two_l_i * Tij2
+                (2 * L_total + 1) * (2 * S_total + 1) / 2.0 * Tij2
             )
     return S, T, sigma, omega
 
@@ -445,7 +444,9 @@ def _closed_channel_log_derivative(
     # u_far = r_far^{Z_res/kappa_c} exp(-kappa_c r_far),
     # du/dr at r_far = (Z_res/(kappa_c r_far) - kappa_c) * u_far
     # du/ds = -du/dr
-    u_far = (r_far ** (Z_res / kappa_c)) * math.exp(-kappa_c * r_far)
+    # Only u'/u matters. An arbitrary unit starting amplitude avoids
+    # overflow/underflow of r**(Z/kappa) exp(-kappa*r) near threshold.
+    u_far = 1.0
     du_dr_far = (Z_res / (kappa_c * r_far) - kappa_c) * u_far
     du_ds_far = -du_dr_far
 
@@ -460,8 +461,10 @@ def _closed_channel_log_derivative(
     u_grid = _numerov_outward(f_func, s_grid, u_far, du_ds_far)
     h = s_grid[1] - s_grid[0]
     u_at_a = u_grid[-1]
-    # du/ds at s_end ≈ (u[-1] - u[-3]) / (2h); du/dr = -du/ds.
-    du_ds_a = (u_grid[-1] - u_grid[-3]) / (2.0 * h)
+    # Backward derivative AT the boundary (the old difference was
+    # centered one grid point before it and only first order here).
+    du_ds_a = (25*u_grid[-1] - 48*u_grid[-2] + 36*u_grid[-3]
+               - 16*u_grid[-4] + 3*u_grid[-5]) / (12.0 * h)
     du_dr_a = -du_ds_a
     return du_dr_a / u_at_a
 
@@ -577,26 +580,30 @@ def match_K_matrix(
         eta = -Z_res / k
         rho = k * r_match
         F, dF, G, dG = coulomb_FG(ch.l_c, eta, rho)
-        F_diag[j] = F
-        G_diag[j] = G
-        Fp_diag[j] = dF
-        Gp_diag[j] = dG
+        # Unit radial flux: W_r(F/sqrt(k), G/sqrt(k)) = -1 in
+        # every channel, including channels with different thresholds.
+        F_diag[j] = F / np.sqrt(k)
+        G_diag[j] = G / np.sqrt(k)
+        Fp_diag[j] = np.sqrt(k) * dF
+        Gp_diag[j] = np.sqrt(k) * dG
         k_diag[j] = k
 
-    aK = r_match * k_diag                       # diag(r_match k_i)
-
-    # K = ( F - R_oo diag(a k) F' )^{-1} ( R_oo diag(a k) G' - G )
+    # F + G K = a R (F_r' + G_r' K).
     F_mat = np.diag(F_diag)
     G_mat = np.diag(G_diag)
     Fp_mat = np.diag(Fp_diag)
     Gp_mat = np.diag(Gp_diag)
-    aK_mat = np.diag(aK)
-
-    M_left = F_mat - R_open @ aK_mat @ Fp_mat
-    M_right = R_open @ aK_mat @ Gp_mat - G_mat
+    M_left = G_mat - r_match * R_open @ Gp_mat
+    M_right = r_match * R_open @ Fp_mat - F_mat
 
     K = np.linalg.solve(M_left, M_right)
-    K = 0.5 * (K + K.T)
+    asymmetry = np.linalg.norm(K - K.T, ord=np.inf)
+    scale = max(1.0, np.linalg.norm(K, ord=np.inf))
+    if asymmetry > 1e-8 * scale:
+        raise ArithmeticError(
+            f"flux-normalized K matrix is not symmetric: relative defect "
+            f"{asymmetry / scale:.3e}; check propagation and reference waves")
+    K = 0.5 * (K + K.T)  # remove roundoff only, after the reciprocity check
 
     eigvals_K = np.linalg.eigvalsh(K)
     eigenphases = np.arctan(eigvals_K)
