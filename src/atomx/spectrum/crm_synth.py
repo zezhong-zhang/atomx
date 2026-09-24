@@ -106,6 +106,17 @@ def crm_emission_spectrum(
         also accepted. The input CRM is copied before synthetic satellite
         levels are added, so the caller's CRM is not mutated.
     """
+    if line_resolution not in {"uta", "ci"}:
+        raise ValueError("line_resolution must be 'uta' or 'ci'")
+    if profile not in {"gaussian", "lorentzian", "voigt"}:
+        raise ValueError("profile must be 'gaussian', 'lorentzian', or 'voigt'")
+    if stark_hwhm_nm is not None and (not np.isfinite(stark_hwhm_nm) or stark_hwhm_nm < 0):
+        raise ValueError("stark_hwhm_nm must be finite and nonnegative")
+    if line_resolution == "ci":
+        ci_source = getattr(ci_result, "_result", ci_result)
+        if ci_source is None or not hasattr(ci_source, "subshells"):
+            raise ValueError("line_resolution='ci' requires a solved closed-shell ci_result")
+
     n_dr_satellites = 0
     if dr_satellites is not None:
         crm, n_dr_satellites = _crm_with_dr_satellites(
@@ -142,25 +153,47 @@ def crm_emission_spectrum(
         "profile": profile,
         "uta_threshold": uta_threshold,
         "uta_arrays": [],
+        "ci_groups": [],
+        "ci_fallbacks": [],
+        "line_resolution": line_resolution,
         "include_eii": include_eii,
         "include_three_body": include_three_body,
         "include_photoionization": include_photoionization,
         "radiation_temperature_eV": radiation_temperature_eV,
         "dr_satellite_count": n_dr_satellites,
     }
-    grid_step_nm = (lam_max_nm - lam_min_nm) / max(n_points - 1, 1)
+    total_decay = np.zeros(len(crm.levels))
+    for i, level in enumerate(crm.levels):
+        total_decay[i] += max(float(getattr(level, "autoionization_rate_s", 0.0)), 0.0)
+    for tr in crm.transitions:
+        if tr.A_rate > 0:
+            total_decay[tr.upper] += tr.A_rate
+    # Autoionizing synthetic levels carry the nonradiative contribution.
+    for upper, rate in getattr(crm, "autoionization_rates", {}).items():
+        total_decay[int(upper)] += float(rate)
 
+    consumed: set[int] = set()
+    if line_resolution == "ci":
+        # J-resolved CRMs (including from_atom) already carry individual
+        # transition rates.  Their levels have no configuration labels: a
+        # statistical redistribution would discard their solved populations.
+        for i_tr, tr in enumerate(crm.transitions):
+            if tr.A_rate > 0 and _array_key(crm, tr) is None:
+                spec.metadata["ci_fallbacks"].append({
+                    "transition_index": i_tr,
+                    "reason": "missing configuration labels; retained CRM transition",
+                })
+        consumed = _add_ci_groups(
+            spec, crm, populations, ci_source,
+            ci_e_max_eV=ci_e_max_eV, ci_det_cap=ci_det_cap,
+            lam_min_nm=lam_min_nm, lam_max_nm=lam_max_nm,
+            T_ion_K=T_ion_K, ion_mass_amu=ion_mass_amu,
+            profile=profile, stark_hwhm_nm=stark_hwhm_nm)
     if _use_uta_bridge(crm, force_uta=force_uta):
-        consumed = _add_uta_arrays(
-            spec,
-            crm,
-            populations,
-            lam_min_nm=lam_min_nm,
-            lam_max_nm=lam_max_nm,
-            uta_threshold=uta_threshold,
-        )
-    else:
-        consumed = set()
+        consumed |= _add_uta_arrays(
+            spec, crm, populations,
+            lam_min_nm=lam_min_nm, lam_max_nm=lam_max_nm,
+            uta_threshold=uta_threshold, excluded=consumed)
 
     for i_tr, tr in enumerate(crm.transitions):
         if i_tr in consumed:
@@ -168,41 +201,15 @@ def crm_emission_spectrum(
         n_upper = populations[tr.upper]
         if n_upper <= 0 or tr.A_rate <= 0:
             continue
-
         dE_eV = crm.levels[tr.upper].energy_eV - crm.levels[tr.lower].energy_eV
         if dE_eV <= 0:
             continue
-
-        lam_A = _hartree_to_angstrom(dE_eV / HARTREE_EV)
-        lam_nm = lam_A / 10.0
+        lam_nm = _hartree_to_angstrom(dE_eV / HARTREE_EV) / 10.0
         if lam_nm < lam_min_nm or lam_nm > lam_max_nm:
             continue
-
-        sigma_nm = doppler_width(lam_nm, T_ion_K, ion_mass_amu)
-        sigma_nm = max(sigma_nm, grid_step_nm)
-
-        gamma_nu_Hz = natural_width(tr.A_rate)
-        c_nm_per_s = 2.99792458e17
-        gamma_nm = (lam_nm ** 2 / c_nm_per_s) * gamma_nu_Hz
-
-        if stark_hwhm_nm is not None:
-            gamma_nm = np.hypot(gamma_nm, stark_hwhm_nm)
-        gamma_nm = max(gamma_nm, grid_step_nm)
-
-        intensity = n_upper * tr.A_rate * dE_eV
-
-        if profile == "gaussian":
-            spec.add_line(lam_nm, intensity, sigma_nm=sigma_nm)
-        elif profile == "lorentzian":
-            spec.add_line(lam_nm, intensity, gamma_nm=gamma_nm)
-        elif profile == "voigt":
-            spec.add_line(lam_nm, intensity,
-                          sigma_nm=sigma_nm, gamma_nm=gamma_nm)
-        else:
-            raise ValueError(
-                f"Unknown profile {profile!r}; use 'gaussian', "
-                f"'lorentzian', or 'voigt'."
-            )
+        _render_line(spec, lam_nm, n_upper * tr.A_rate * dE_eV,
+                     total_decay[tr.upper] + total_decay[tr.lower],
+                     T_ion_K, ion_mass_amu, profile, stark_hwhm_nm)
 
     # Continuum channels, rendered on the same wavelength grid.  Photon
     # energy E(eV) = 1239.8419843320026 / lambda(nm); the per-eV
@@ -306,9 +313,12 @@ def _add_uta_arrays(
     lam_min_nm: float,
     lam_max_nm: float,
     uta_threshold: int,
+    excluded: set[int] | None = None,
 ) -> set[int]:
     grouped: dict[tuple[str, str], list[tuple[int, object, float, float]]] = defaultdict(list)
     for i_tr, tr in enumerate(crm.transitions):
+        if excluded and i_tr in excluded:
+            continue
         key = _array_key(crm, tr)
         if key is None:
             continue
@@ -339,4 +349,85 @@ def _add_uta_arrays(
             "fwhm_eV": rendered.fwhm_eV,
             "total_strength": rendered.total_strength,
         })
+    return consumed
+
+
+def _render_line(spec, lam_nm, intensity, decay_rate, T_ion_K,
+                 ion_mass_amu, profile, stark_hwhm_nm):
+    sigma = doppler_width(lam_nm, T_ion_K, ion_mass_amu)
+    gamma = lam_nm**2 / 2.99792458e17 * natural_width(decay_rate)
+    if stark_hwhm_nm is not None:
+        # This option models an additional Lorentzian HWHM; a true
+        # quasi-static microfield distribution needs its full kernel.
+        gamma += stark_hwhm_nm
+    if profile == "gaussian":
+        spec.add_line(lam_nm, intensity, sigma_nm=sigma)
+    elif profile == "lorentzian":
+        spec.add_line(lam_nm, intensity, gamma_nm=gamma)
+    else:
+        spec.add_line(lam_nm, intensity, sigma_nm=sigma, gamma_nm=gamma)
+
+
+def _add_ci_groups(spec, crm, populations, ci_result, *, ci_e_max_eV,
+                   ci_det_cap, lam_min_nm, lam_max_nm, T_ion_K,
+                   ion_mass_amu, profile, stark_hwhm_nm):
+    from atomx.properties.transitions.ci_lines import CISizeError, ci_line_strengths
+
+    grouped = defaultdict(list)
+    for i, tr in enumerate(crm.transitions):
+        key = _array_key(crm, tr)
+        if key is not None and tr.A_rate > 0:
+            grouped[key].append(i)
+    consumed = set()
+    resolved = []
+    ci_decay = defaultdict(float)
+    for (upper_cfg, lower_cfg), indices in grouped.items():
+        try:
+            line_set = ci_line_strengths(
+                ci_result, upper_cfg, lower_cfg, e_max_eV=ci_e_max_eV,
+                det_cap=ci_det_cap)
+        except (ValueError, NotImplementedError, CISizeError) as exc:
+            spec.metadata["ci_fallbacks"].append({"upper_config": upper_cfg,
+                "lower_config": lower_cfg, "reason": str(exc)})
+            continue
+        upper_levels = [level for level in line_set.levels_i
+                        if level.config == upper_cfg]
+        if not upper_levels:
+            spec.metadata["ci_fallbacks"].append({"upper_config": upper_cfg,
+                "lower_config": lower_cfg, "reason": "No upper CI levels"})
+            continue
+        upper_population = sum(float(populations[i]) for i, level in enumerate(crm.levels)
+                               if getattr(level, "config", None) == upper_cfg)
+        statistical_sum = sum(level.two_J+1 for level in upper_levels)
+        for line in line_set.lines:
+            ci_decay[(line.upper.config, line.upper.index)] += line.A_per_s
+        resolved.append((upper_cfg, lower_cfg, indices, line_set,
+                         upper_population, statistical_sum))
+
+    # Collect every supported branch before rendering. A CI level's
+    # lifetime is the sum over all its radiative exits, not just the pair
+    # currently being written into the spectrum.
+    for upper_cfg, lower_cfg, indices, line_set, upper_population, statistical_sum in resolved:
+        line_records = []
+        for line in line_set.lines:
+            if line.upper.config != upper_cfg or line.lower.config != lower_cfg:
+                continue
+            lam_nm = line.wavelength_angstrom/10
+            if not lam_min_nm <= lam_nm <= lam_max_nm:
+                continue
+            population = upper_population*(line.upper.two_J+1)/statistical_sum
+            intensity = population*line.A_per_s*line.omega_au*HARTREE_EV
+            _render_line(spec, lam_nm, intensity,
+                         ci_decay[(line.upper.config, line.upper.index)]
+                         + ci_decay[(line.lower.config, line.lower.index)],
+                         T_ion_K, ion_mass_amu, profile, stark_hwhm_nm)
+            line_records.append({"wavelength_nm": lam_nm,
+                "upper_J": line.upper.two_J/2,
+                "lower_J": line.lower.two_J/2,
+                "A_per_s": line.A_per_s, "population": population,
+                "intensity": intensity})
+        spec.metadata["ci_groups"].append({"engine": "ci",
+            "upper_config": upper_cfg, "lower_config": lower_cfg,
+            "n_lines": len(line_records), "lines": line_records})
+        consumed.update(indices)
     return consumed

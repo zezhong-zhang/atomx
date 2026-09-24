@@ -45,6 +45,7 @@ class CRMLevel:
     energy_eV: float
     g: int = 1  # statistical weight (2J+1)
     config: Optional[str] = None
+    autoionization_rate_s: float = 0.0
 
 
 @dataclass
@@ -211,6 +212,7 @@ class CollisionalRadiativeModel:
                     + float(resonance.E_resonance_eV),
                     g=max(int(round(float(getattr(resonance, "g", 1.0)))), 1),
                     config=f"{label_prefix} satellite",
+                    autoionization_rate_s=float(resonance.gamma_auger_per_s),
                 )
             )
             self.n_levels += 1

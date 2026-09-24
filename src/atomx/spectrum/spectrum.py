@@ -4,8 +4,8 @@ A :class:`Spectrum` is a lightweight wrapper around a wavelength array
 and a same-length intensity array.  It provides:
 
 * factory constructors (linear / log / fromlist),
-* a general-purpose :meth:`Spectrum.add_line` that delegates to the
-  primitive profiles in :mod:`atomx.lineshapes`,
+* a general-purpose :meth:`Spectrum.add_line` that deposits normalized
+  Gaussian, Lorentzian, and Voigt profiles on the wavelength grid,
 * a convenience :func:`synthesize_from_transitions` that takes a list
   of ``(wavelength, intensity)`` pairs (optionally with widths) and
   returns the rendered spectrum in one call.
@@ -17,8 +17,10 @@ from dataclasses import dataclass, field
 from typing import Iterable
 
 import numpy as np
+from scipy.integrate import quad
+from scipy.special import ndtr
 
-from atomx.lineshapes.profiles import gaussian, lorentzian, voigt
+from atomx.lineshapes.profiles import voigt
 
 
 @dataclass
@@ -28,7 +30,8 @@ class Spectrum:
     Attributes
     ----------
     wavelength_nm : np.ndarray
-        Wavelength axis in nanometres, length ``N``.
+        Increasing wavelength axis in nanometres, length ``N``. Treat the
+        grid as immutable after adding a line because bin geometry is cached.
     values : np.ndarray
         Per-wavelength intensity (emissivity, opacity, or other),
         length ``N``.  Starts as zeros; lines accumulate via
@@ -45,6 +48,9 @@ class Spectrum:
     unit: str = "emissivity (arb.)"
     line_count: int = 0
     metadata: dict = field(default_factory=dict)
+    _bin_edges: np.ndarray | None = field(default=None, init=False, repr=False)
+    _bin_widths: np.ndarray | None = field(default=None, init=False, repr=False)
+    _min_step: float | None = field(default=None, init=False, repr=False)
 
     # ------------------------------------------------------------------
     # Factories
@@ -121,15 +127,52 @@ class Spectrum:
             return
 
         wl = self.wavelength_nm
-
-        if sigma_nm is not None and gamma_nm is not None:
-            profile = voigt(wl, lam0_nm, sigma_nm, gamma_nm)
-        elif sigma_nm is not None:
-            profile = gaussian(wl, lam0_nm, sigma_nm)
+        if wl.ndim != 1 or len(wl) < 2:
+            raise ValueError("spectrum grid must contain at least two increasing points")
+        if not np.isfinite(lam0_nm) or not np.isfinite(intensity):
+            raise ValueError("line center and intensity must be finite")
+        if sigma_nm is not None and (not np.isfinite(sigma_nm) or sigma_nm < 0):
+            raise ValueError("Gaussian width must be finite and nonnegative")
+        if gamma_nm is not None and (not np.isfinite(gamma_nm) or gamma_nm < 0):
+            raise ValueError("Lorentzian width must be finite and nonnegative")
+        sigma = float(sigma_nm or 0.0)
+        gamma = float(gamma_nm or 0.0)
+        if self._bin_edges is None:
+            steps = np.diff(wl)
+            if np.any(steps <= 0):
+                raise ValueError("spectrum grid must be increasing")
+            self._min_step = float(np.min(steps))
+            self._bin_edges = np.r_[wl[0], (wl[:-1]+wl[1:])/2, wl[-1]]
+            self._bin_widths = np.diff(self._bin_edges)
+        edges = self._bin_edges
+        cell_width = self._bin_widths
+        if sigma == 0 and gamma == 0:
+            # Unresolved delta: its finite-volume cell carries the full area.
+            idx = int(np.argmin(np.abs(wl-lam0_nm)))
+            self.values[idx] += intensity/cell_width[idx]
+        elif gamma == 0:
+            # Gaussian tails beyond 8 sigma contain < 1.3e-15 of the area.
+            lo = max(0, int(np.searchsorted(edges, lam0_nm-8*sigma)-1))
+            hi = min(len(wl), int(np.searchsorted(edges, lam0_nm+8*sigma)+1))
+            masses = ndtr((edges[lo+1:hi+1]-lam0_nm)/sigma) - ndtr((edges[lo:hi]-lam0_nm)/sigma)
+            self.values[lo:hi] += intensity*masses/cell_width[lo:hi]
+        elif sigma == 0:
+            masses = (np.arctan((edges[1:]-lam0_nm)/gamma)
+                      - np.arctan((edges[:-1]-lam0_nm)/gamma))/np.pi
+            self.values += intensity*masses/cell_width
         else:
-            profile = lorentzian(wl, lam0_nm, gamma_nm)
-
-        self.values += intensity * profile
+            spacing = self._min_step
+            if max(sigma, gamma) < 2*spacing:
+                # Center cells need actual Voigt integrals; midpoint sampling
+                # misses arbitrarily narrow profiles. Wings vary smoothly.
+                mass = voigt(wl, lam0_nm, sigma, gamma)*cell_width
+                near = np.flatnonzero(np.abs(wl-lam0_nm) < max(8*spacing, 6*sigma, 6*gamma))
+                for i in near:
+                    mass[i] = quad(lambda x: float(voigt(x, lam0_nm, sigma, gamma)),
+                                   edges[i], edges[i+1], epsabs=1e-10)[0]
+                self.values += intensity*mass/cell_width
+            else:
+                self.values += intensity*voigt(wl, lam0_nm, sigma, gamma)
         self.line_count += 1
 
     def add_delta(self, lam0_nm: float, intensity: float) -> None:

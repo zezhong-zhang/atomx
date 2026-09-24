@@ -36,7 +36,7 @@ units as the line spectrum.
 from __future__ import annotations
 
 import numpy as np
-from scipy.special import k0
+from scipy.special import k0e
 
 from atomx.constants import BOLTZMANN_EV
 
@@ -57,7 +57,9 @@ def gaunt_ff_born(x: np.ndarray) -> np.ndarray:
     x -> inf.
     """
     x = np.asarray(x, dtype=float)
-    out = np.sqrt(3.0) / np.pi * np.exp(0.5 * x) * k0(0.5 * x)
+    if np.any(~np.isfinite(x)) or np.any(x <= 0):
+        raise ValueError("photon energy / temperature must be finite and positive")
+    out = np.sqrt(3.0) / np.pi * k0e(0.5 * x)
     return out
 
 

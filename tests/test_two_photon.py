@@ -118,17 +118,7 @@ def test_two_photon_spectrum_invalid_y():
         two_photon_spectrum(np.array([0.5, 1.0]), Z=1)
 
 
-@pytest.mark.xfail(strict=True, reason=(
-    "The implemented spectral shape y(1-y)(1-4y(1-y)) has a NODE at the "
-    "centre of the spectrum: measured psi(y=0.5) = 0.0 exactly, with twin "
-    "maxima 0.0625 (x 60 x Gamma = 30.9 s^-1) at y = 0.1464 / 0.8536.  The "
-    "exact non-relativistic 2s1/2 -> 1s1/2 distribution (Spitzer & "
-    "Greenstein 1951; Drake 1986) is single-peaked at y = 1/2 and has no "
-    "interior node, so two_photon.py:168-174's claim of being 'accurate to "
-    "<= 5 % across [0.05, 0.95]' is false by 100 % at the centre of the "
-    "spectrum.  Loud by design: fixing the shape (or the claim) flips this "
-    "to XPASS and strict mode fails."))
-def test_two_photon_spectrum_shape_is_not_the_literature_psi():
+def test_two_photon_spectrum_is_positive_and_center_peaked():
     """The spectral shape must be the Spitzer-Greenstein ψ(y).
 
     A-class structural properties of the exact non-relativistic

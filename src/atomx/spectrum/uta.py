@@ -26,8 +26,7 @@ def add_uta_array_to_spectrum(
         return None
     intensity = moments.total_strength * moments.centroid_eV
     sigma_nm = _uta_sigma_nm(moments.centroid_eV, moments.std_eV)
-    grid_step_nm = (lam_max_nm - lam_min_nm) / max(len(spectrum) - 1, 1)
-    spectrum.add_line(lam_nm, intensity, sigma_nm=max(sigma_nm, grid_step_nm))
+    spectrum.add_line(lam_nm, intensity, sigma_nm=sigma_nm)
     return moments
 
 

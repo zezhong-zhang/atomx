@@ -164,24 +164,10 @@ def two_photon_spectrum(
 
     Notes
     -----
-    Spitzer-Greenstein 1951 hydrogenic spectral shape
-        ψ(y) = 1.66 · (Σ_n f_n(y))² · y(1−y) · [3·(y² + (1−y)²) + 2·y(1−y)·c]
-    is well-approximated by the symmetric polynomial fit
-        ψ(y) ≈ A · y(1−y) · (1 − 4·y(1−y))   (symmetric in y ↔ 1−y)
-    with the normalisation A chosen so ∫ψ(y) dy = 2.
-
-    MEASURED DEFECT (2026-09-25): this polynomial fit has a **node at the
-    centre** of the spectrum — ψ(1/2) = 0 exactly, with twin maxima 0.0625
-    at y = 0.1464 / 0.8536 — whereas the exact non-relativistic
-    2s_{1/2} → 1s_{1/2} distribution (Spitzer & Greenstein 1951; Drake
-    1986) is single-peaked at y = 1/2.  The "accurate to ≤ 5 % across
-    [0.05, 0.95]" claim this docstring used to carry is therefore false by
-    100 % at the centre.  The total rate (the quantity the rest of the
-    module and its tests use) is unaffected — ∫ψ dy = 2Γ either way — but
-    the *shape* must not be used for line-blend modelling.  Gated by
-    ``tests/test_two_photon.py::
-    test_two_photon_spectrum_shape_is_not_the_literature_psi``
-    (``xfail(strict=True)``).
+    The shape uses the same Dirac B-spline intermediate-state sum as
+    ``two_photon_rate_sos_h_like``; its integral is normalized to twice
+    the FAC/Drake total-rate fit. The He-like shape uses a screened
+    hydrogenic charge and is therefore an approximation.
     """
     y = np.asarray(y, dtype=float)
     if np.any((y <= 0.0) | (y >= 1.0)):
@@ -197,10 +183,10 @@ def two_photon_spectrum(
             f"got {state!r}"
         )
 
-    # Symmetric polynomial spectral shape — area = 2 by construction.
-    psi = y * (1.0 - y) * (1.0 - 4.0 * y * (1.0 - y))
-    norm = 2.0 / (1.0 / 30.0)   # ∫₀¹ y(1−y)(1−4y(1−y)) dy = 1/30
-    return gamma_total * norm * psi
+    z_shape = Z if state.lower() == "h-like" else Z - _DRAKE_HE_LIKE_SIGMA
+    shape = two_photon_rate_sos_h_like(
+        z_shape, ns=60, ks=9, n_omega=100, _shape_y=y)
+    return gamma_total * shape
 
 
 # ---------------------------------------------------------------------------
@@ -270,7 +256,7 @@ def _two_photon_amplitude(omega, E_1s, E_2s, E_n, Z_1s_n, Z_n_2s):
     return Z_1s_n * Z_n_2s * (1.0 / denom1 + 1.0 / denom2)
 
 
-def two_photon_rate_sos_h_like(Z, ns=80, ks=9, n_omega=200):
+def two_photon_rate_sos_h_like(Z, ns=80, ks=9, n_omega=200, *, _shape_y=None):
     """Two-photon E1E1 2s→1s rate via sum-over-states (H-like, Dirac).
 
     Computes the second-order perturbation theory sum over all
@@ -364,6 +350,17 @@ def two_photon_rate_sos_h_like(Z, ns=80, ks=9, n_omega=200):
             S += _two_photon_amplitude(w1, E_1s, E_2s, E_n, Z_1s_n, Z_n_2s)
         integral += w_omega[k] * w1**3 * w2**3 * S**2
 
+    if _shape_y is not None:
+        # d(rate)/dy = omega_0 * d(rate)/domega. Count both photons.
+        shape = np.empty_like(_shape_y, dtype=float)
+        for idx, yi in np.ndenumerate(np.asarray(_shape_y)):
+            w1 = float(yi)*omega_0
+            w2 = omega_0-w1
+            amplitude = sum(_two_photon_amplitude(
+                w1, E_1s, E_2s, E_n, z1, z2)
+                for E_n, z1, z2 in intermediates)
+            shape[idx] = 2*omega_0*w1**3*w2**3*amplitude**2/integral
+        return shape
     return prefactor * integral * AU_RATE_PER_S
 
 
