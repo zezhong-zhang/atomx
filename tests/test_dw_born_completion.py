@@ -85,7 +85,8 @@ BORN_TOL = 0.25
 # Omega_DW = (Omega_shipped - w*Omega_Born) / (1 - w): the distorted-wave
 # partial-wave sum the blend is allowed to contribute, measured at
 # L_max=6, kappa_max=10 on 2026-09-22.
-OMEGA_DW_PIN = (0.02321127, 0.00958137, 0.00381388)
+# Refreshed after constrained radial orbitals / mixed exchange (2026-09-23).
+OMEGA_DW_PIN = (0.023404070005053092, 0.009665422864138467, 0.0038482068471169754)
 OMEGA_DW_PIN_RTOL = 1.0e-3
 # Hydrogenic 1s -> 2p absorption oscillator strength, exact:
 #   f_{1s->np} = 2^8 n^5 (n-1)^{2n-4} / (3 (n+1)^{2n+4})   (n = 2)
