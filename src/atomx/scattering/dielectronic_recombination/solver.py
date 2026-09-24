@@ -368,14 +368,15 @@ def _dr33_manifold_states(initial_atom) -> List[AutoionizationState]:
     the ab-initio resonance energy (``E_level − E_ion`` in the manifold's
     frozen-orbital accounting), the exact determinant Auger width, and
     the total E1 stabilizing width (``ResonanceManifold.dr_levels``).
-    The n=3 orbitals are frozen-core V^{N-1} eigenstates (FAC's
-    fixed-potential convention) from
-    :func:`atomx.methods.mbpt.build_virtual_basis`.
+    The n=3 orbitals are frozen-core V^{N-1} eigenstates from
+    :func:`atomx.methods.mbpt.build_virtual_basis`. The one-body matrix
+    includes the exact bare Dirac operator and frozen-core direct/exchange
+    terms; active interactions are added once by determinant CI.
 
     Verified against the complete clean-room FAC dr33 reference
     (``tests/data/fe17_dr33_fac_cleanroom.json``; SetSE/VP/MS/Breit off,
-    AICut 0): α_DR ratios 0.49 / 0.99 / 1.08 / 1.17 at 1 / 5 / 10 / 50 MK
-    for Fe XVII — see ``tests/test_dr_manifold_e2e.py`` and
+    AICut 0): α_DR ratios 1.090 / 1.007 / 0.995 / 0.984 at 1 / 5 / 10 / 50 MK
+    for Fe XVII — see ``tests/test_dr_vs_fac.py`` and
     ``benchmarks/bench_fac_dr.py``.
 
     Raises
@@ -389,7 +390,10 @@ def _dr33_manifold_states(initial_atom) -> List[AutoionizationState]:
     from atomx.methods.mbpt import build_virtual_basis
     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
     from atomx.numerics.quadrature import make_fine_grid, p_rel
-    from atomx.scattering.autoionization.mscheme_ci import ResonanceManifold
+    from atomx.scattering.autoionization.mscheme_ci import (
+        ResonanceManifold,
+        build_bspline_core_folded_one_body,
+    )
 
     unsupported = (
         "dr_calculate without width hooks drives the ab-initio "
@@ -442,15 +446,21 @@ def _dr33_manifold_states(initial_atom) -> List[AutoionizationState]:
     # orbitals from the frozen-core V^{N-1} eigenbasis.
     orbital_map = {}
     orbital_eps = {}
+    orbital_coeffs = {}
     for kappa, lab, idx in ((-1, "2s1/2", 1), (1, "2p1/2", 0), (-2, "2p3/2", 0)):
         P, Q, _ = result.orbitals_raw[kappa][idx]
         orbital_map[(2, kappa)] = _tofine(P, Q)
+        orbital_coeffs[(2, kappa)] = (P, Q)
         orbital_eps[(2, kappa)] = float(result.orbital_energies[lab])
     for kappa in (-1, 1, -2, 2, -3):
         _occ, virt = build_virtual_basis(result, kappa)
         P, Q, e = virt[0]
         orbital_map[(3, kappa)] = _tofine(P, Q)
+        orbital_coeffs[(3, kappa)] = (P, Q)
         orbital_eps[(3, kappa)] = float(e)
+
+    one_body = build_bspline_core_folded_one_body(
+        result, orbital_coeffs, orbital_map, r_fine, dr_fine)
 
     # Active-space groups: hole shell + the three n=3 nl groups.
     G3 = [([(3, -1)], 0), ([(3, 1), (3, -2)], 0), ([(3, 2), (3, -3)], 0)]
@@ -459,7 +469,8 @@ def _dr33_manifold_states(initial_atom) -> List[AutoionizationState]:
         return ResonanceManifold(
             result, [(hole_subs, hole_ne)] + G3,
             r_fine=r_fine, dr_fine=dr_fine, orbital_map=orbital_map,
-            orbital_energies=orbital_eps, configs=confs)
+            orbital_energies=orbital_eps, configs=confs,
+            one_body=one_body)
 
     # Parity-blocked multi-configuration manifolds (matching the FAC dr33
     # configuration set '2s2 2p5 3*2' + '2s1 2p6 3*2'):
@@ -522,7 +533,7 @@ def dr_calculate(
     ``dr_levels``: ab-initio resonance energies, exact determinant Auger
     widths, and E1 stabilizing widths) and feeds them to
     :func:`dr_rate_coefficient` unchanged.  This is the FAC-verified
-    physics (Fe XVII dr33: α ratios 0.49/0.99/1.08/1.17 at 1/5/10/50 MK
+    physics (Fe XVII dr33: α ratios 1.090/1.007/0.995/0.984 at 1/5/10/50 MK
     against the complete clean-room FAC reference; the 1-MK deficit is
     Boltzmann suppression from the documented ~+40 eV frozen-orbital
     E_res offset, not a width error).  Currently implemented for Ne-like

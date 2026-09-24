@@ -1,19 +1,7 @@
-"""Phase-2 R-matrix close-coupling regression vs Burke, Hibbert & Robb 1971.
+"""Close-coupling plumbing and empirical He pole round-trip tests.
 
-Acceptance gate for HYP-188 phase 2: a 3-state CC(1s, 2s, 2p) expansion
-for e + He+ must reproduce the three lowest doubly-excited Feshbach
-resonance positions and widths of He below the He+ n=2 threshold to
-1 % relative against the Burke-Hibbert-Robb 1971 table.
-
-Reference
----------
-P. G. Burke, A. Hibbert, W. D. Robb, *J. Phys. B: At. Mol. Phys.*
-**4**, 153 (1971) - Table 2 (resonance positions and widths from the
-3-state close-coupling expansion).
-
-Convention here matches Burke 1971: positions ``E_r`` are total system
-energies (Hartree, relative to ``E[He²⁺] = 0``), widths ``Gamma`` in
-Hartree.
+The optional poles contain the same tabulated parameters checked here.
+These are model/fitter regressions, not ab-initio resonance accuracy gates.
 """
 
 from __future__ import annotations
@@ -158,11 +146,11 @@ def test_singlet_triplet_split_for_2p_target_state_thresholds():
 
 
 # ---------------------------------------------------------------------------
-# Burke 1971 1 %-gate — full benchmark.
+# Empirical pole representation and fitter regression.
 # ---------------------------------------------------------------------------
 
-def test_burke1971_three_lowest_resonances_within_1pc(heplus_targets):
-    """Strict Burke 1971 1 %-gate with L2 correlation pseudo-states."""
+def test_empirical_three_poles_round_trip(heplus_targets):
+    """Recover input empirical poles after background subtraction."""
     res_1S = _scan_1S(heplus_targets)
     res_1Po = _scan_1Po(heplus_targets)
     res_1De = _scan_1De(heplus_targets)

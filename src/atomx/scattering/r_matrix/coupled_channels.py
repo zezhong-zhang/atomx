@@ -39,6 +39,7 @@ from atomx.scattering.r_matrix.cc_outer import (
     channel_R_matrix,
     eigenphase_sum_unwrapped,
     match_K_matrix,
+    scattering_matrices_and_cross_sections,
 )
 from atomx.scattering.r_matrix.channel_table import (
     Channel,
@@ -105,8 +106,7 @@ def compute_multichannel(
         Target nuclear charge (default He, Z=2).
     a_au :
         R-matrix boundary radius. Burke 1971 used ``a ~ 15`` a₀ with a
-        tighter inner basis; ``a = 25`` with a denser B-spline grid is
-        equivalent for the 1 %-level resonance test.
+        tighter inner basis. Convergence must be tested for each observable.
     n_basis :
         Number of clamped B-splines per channel on ``[0, a]``.
     k_spline_order :
@@ -117,8 +117,8 @@ def compute_multichannel(
         Cutoff on the projectile partial wave (typically 2 for ¹S, ¹D
         and 2 for ¹P; raise to 3 to include εf in the ¹D block).
     include_l2_pseudostates :
-        Include the square-integrable He correlation pseudo-state model
-        needed by the Burke 1971 1 %-level benchmark. The correction is
+        Add empirical Breit-Wigner poles with tabulated He parameters.
+        This is not an ab-initio correlation calculation. The correction is
         opt-in and only active for the He+ {1s, 2s, 2p} singlet LSπ
         blocks below the n=2 threshold.
     """
@@ -181,6 +181,11 @@ def compute_multichannel(
             match.K_matrix[0, 0] = np.tan(delta)
             match.eigenphases[0] = delta
             match.eigenphase_sum = delta
+            (match.S_matrix, match.T_matrix, match.cross_section_matrix_a0,
+             match.collision_strength_matrix) = scattering_matrices_and_cross_sections(
+                channels, match.open_indices, match.k_diag, match.K_matrix,
+                L_total, S_total)
+
         matchings.append(match)
         eigsum[k] = match.eigenphase_sum
 
@@ -196,7 +201,9 @@ def compute_multichannel(
         eigenphase_sum=eigsum,
         provenance={
             "module": "atomx.scattering.r_matrix.coupled_channels",
-            "method": "close_coupling_R_matrix",
+            "method": ("close_coupling_with_empirical_poles" if l2_states
+                       else "close_coupling_R_matrix"),
+            "resonance_model": "empirical" if l2_states else "ab_initio",
             "Z": Z,
             "n_basis": n_basis,
             "n_gauss": n_gauss,

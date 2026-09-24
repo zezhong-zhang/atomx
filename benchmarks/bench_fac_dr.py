@@ -17,23 +17,21 @@ single-threaded sfac, captured 2026-07-15 with provenance in the
 fixture).  Both sides run through the same Burgess kernel, so the CSV
 compares width/energy *physics* only.
 
-Expected numbers (2026-07-15/16 audit, see tests/test_dr_manifold_e2e.py):
+Measured after core-folded one-body correction (2026-09-24):
 
     T_MK   alpha_atomx/alpha_FAC   rel_diff
-    1      0.49                    -0.51
-    5      0.99                    -0.01
-    10     1.08                    +0.08
-    50     1.17                    +0.17
-    rms |rel_diff| ~ 0.27          target <= 0.35
+    1      1.09046                 +0.09046
+    5      1.00740                 +0.00740
+    10     0.99458                 -0.00542
+    50     0.98400                 -0.01600
+    rms |rel_diff| = 0.0462       target <= 0.10
 
-The 1-MK point dominates the rms: it is Boltzmann suppression from the
-documented ~+40 eV frozen-orbital E_res offset entering exp(-E/kT) at
-kT ~ 86 eV — not a width error — which is why the rms target is 0.35
-rather than the generic 0.20 parity gate.
+The FAC reference column is unchanged. The old dressed-eigenvalue
+Hamiltonian double-counted active interactions and gave rms ~0.27.
 
 Writes ``benchmarks/results_fac_dr.csv`` (gated by
 ``tests/test_dr_vs_fac.py``).  The manifold build is the slow part
-(~1-2 min).
+(a few seconds on the reference workstation).
 """
 
 from __future__ import annotations
@@ -61,10 +59,9 @@ TEMPERATURES_EV = [T * 1.0e6 * K_B_EV_PER_K for T in TEMPERATURES_MK]
 
 FIXTURE_CLEAN = ROOT / "tests" / "data" / "fe17_dr33_fac_cleanroom.json"
 
-# The 1-MK point carries the documented ~+40 eV frozen-orbital E_res
-# offset through exp(-E/kT) (kT ~ 86 eV), giving alpha ratio ~0.49 there
-# while T >= 5 MK agrees to <= 17%.  Hence 0.35, not the generic 0.20.
-RMS_TARGET = 0.35
+# The core-folded one-body repair reduces the measured FAC RMS error
+# to 0.0462 across 1/5/10/50 MK; leave room for numerical variation.
+RMS_TARGET = 0.10
 
 
 def run_atomx():
@@ -150,8 +147,7 @@ def main():
             "rel_diff": "" if math.isnan(rms) else f"{rms:.4f}",
             "note": (
                 f"target |rel| rms <= {RMS_TARGET:.2f} "
-                "(1 MK dominated by +40 eV frozen-orbital E_res offset "
-                "in exp(-E/kT); T>=5 MK within 17%)"
+                "(core-folded B-spline one-body; FAC reference unchanged)"
             ),
         })
 

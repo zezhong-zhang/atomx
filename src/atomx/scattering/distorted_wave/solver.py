@@ -482,15 +482,13 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
                else _shooting_points(r_max_box, p_max))
 
     # Bound orbitals interpolated onto the fine grid (smooth: safe).
-    gr_flat = bsp_data["gr"].ravel()
-    _o = np.argsort(gr_flat)
-    gr_sorted = gr_flat[_o]
-
     def _bound_to_fine(coef_P, coef_Q, src_bsp):
-        Pg = eval_P(coef_P, src_bsp).ravel()[_o]
-        Qg = eval_Q(coef_Q, src_bsp).ravel()[_o]
-        return (np.interp(r_fine, gr_sorted, Pg),
-                np.interp(r_fine, gr_sorted, Qg))
+        source_r = src_bsp["gr"].ravel()
+        order = np.argsort(source_r)
+        Pg = eval_P(coef_P, src_bsp).ravel()[order]
+        Qg = eval_Q(coef_Q, src_bsp).ravel()[order]
+        return (np.interp(r_fine, source_r[order], Pg, left=0.0, right=0.0),
+                np.interp(r_fine, source_r[order], Qg, left=0.0, right=0.0))
 
     bsp_f = atom_final._bsp_data
     pair_data = []

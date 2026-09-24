@@ -127,10 +127,9 @@ class ResonanceManifold:
         self.V_func = V_func
         #: Optional core-folded one-body matrix t[(n,kappa),(n',kappa)]
         #: = <a| h + V_core |b> (same kappa; off-diagonals included).
-        #: With dressed mean-field eigenvalues as the default one-body
-        #: energies the active-active interactions are double-counted;
-        #: supplying the exact t makes the manifold a proper active-space
-        #: CI.  See scripts using ``build_core_folded_one_body``.
+        #: High-level constructors supply the core-folded matrix. Direct
+        #: construction without one_body uses dressed eigenvalues and is
+        #: an explicitly approximate active-space Hamiltonian.
         self.one_body = one_body
         if one_body is not None:
             # per-orbital-index matrix (m-independent, same-kappa only)
@@ -199,27 +198,45 @@ class ResonanceManifold:
 
     # ---- determinant basis ---------------------------------------------
     def determinants(self, tM: int) -> list[int]:
-        """All configuration-restricted determinants with total 2M = tM,
-        unioned over ``self.configs``."""
+        """Configuration determinants with total 2M, pruning impossible branches.
+
+        The orbital combinations remain exact. Bounds on the remaining
+        magnetic projections avoid materializing the full Cartesian product.
+        """
         dets: set[int] = set()
         for config in self.configs:
-            per_group_choices = []
+            groups = []
+            lower = []
+            upper = []
             for mask, ne in zip(self.group_bits, config, strict=False):
                 bits = [i for i in range(self.n_orb) if mask & (1 << i)]
-                per_group_choices.append(list(combinations(bits, ne)))
-            def _recurse(gi, occ_bits,
-                         per_group_choices=per_group_choices):
-                if gi == len(per_group_choices):
-                    tm = sum(self.orbitals[i].tm for i in occ_bits)
-                    if tm == tM:
-                        m = 0
-                        for i in occ_bits:
-                            m |= 1 << i
-                        dets.add(m)
+                groups.append((bits, ne))
+                values = sorted(self.orbitals[i].tm for i in bits)
+                lower.append(sum(values[:ne]))
+                upper.append(sum(values[len(values)-ne:]) if ne else 0)
+            remain_lo = [0]*(len(groups)+1)
+            remain_hi = [0]*(len(groups)+1)
+            for i in range(len(groups)-1, -1, -1):
+                remain_lo[i] = remain_lo[i+1]+lower[i]
+                remain_hi[i] = remain_hi[i+1]+upper[i]
+
+            def visit(gi, mask, tm, groups=groups,
+                      remain_lo=remain_lo, remain_hi=remain_hi):
+                if tm+remain_lo[gi] > tM or tm+remain_hi[gi] < tM:
                     return
-                for choice in per_group_choices[gi]:
-                    _recurse(gi + 1, occ_bits + list(choice))
-            _recurse(0, [])
+                if gi == len(groups):
+                    dets.add(mask)
+                    return
+                bits, ne = groups[gi]
+                for choice in combinations(bits, ne):
+                    cmask = mask
+                    ctm = tm
+                    for i in choice:
+                        cmask |= 1 << i
+                        ctm += self.orbitals[i].tm
+                    visit(gi+1, cmask, ctm)
+
+            visit(0, 0, 0)
         return sorted(dets)
 
     @staticmethod
@@ -427,8 +444,10 @@ class ResonanceManifold:
                         kappa_f, E_res_au, V_func, Z_res,
                         self.r_fine, r_max_box, n_shoot)
                     out = (kappa_f, (Pf, Qf))
-                except Exception:
-                    out = None
+                except Exception as exc:
+                    raise RuntimeError(
+                        f"Auger continuum failed: kappa={kappa_f}, "
+                        f"E={E_res_au} Ha, Z_res={Z_res}") from exc
             _cont_cache[par_res] = out
             return out
 
@@ -691,7 +710,8 @@ class ResonanceManifold:
         return " ".join(parts)
 
 
-def build_core_folded_one_body(active, core, V_screen, r_fine, dr_fine):
+def build_core_folded_one_body(active, core, V_screen, r_fine, dr_fine,
+                               *, bare_one_body=None):
     """Exact active-space one-body matrix t_ab = <a| h + V_core |b>.
 
     ``active``: dict ``(n, kappa) -> (P, Q, eps)`` — eigenstates of the
@@ -700,7 +720,9 @@ def build_core_folded_one_body(active, core, V_screen, r_fine, dr_fine):
     orbitals.  ``V_screen``: the screening part of the solve potential
     (V_solve + Z/r) on the fine grid.
 
-    Uses the eigenstate identity  h|b> = eps_b |b> - V_screen |b>  (no
+    With ``bare_one_body``, use supplied exact nuclear Dirac matrix
+    elements (appropriate for B-spline orbitals in a nonlocal HF field).
+    Otherwise use the eigenstate identity  h|b> = eps_b |b> - V_screen |b>  (no
     derivatives), so
 
         t_ab = eps_b delta_ab - <a|V_screen|b> + <a|J_core|b> - <a|K_core|b>
@@ -751,13 +773,73 @@ def build_core_folded_one_body(active, core, V_screen, r_fine, dr_fine):
             if kb != ka:
                 continue
             Pb, Qb, eb = active[(nb, kb)]
-            val = -_local(Pa, Qa, Pb, Qb, V_screen)
-            if (na, ka) == (nb, kb):
-                val += eb
+            if bare_one_body is None:
+                val = -_local(Pa, Qa, Pb, Qb, V_screen)
+                if (na, ka) == (nb, kb):
+                    val += eb
+            else:
+                val = bare_one_body[((na, ka), (nb, kb))]
             val += _local(Pa, Qa, Pb, Qb, J_core)
             val -= _k_core(Pa, Qa, ka, Pb, Qb, kb)
             t[((na, ka), (nb, kb))] = val
     return t
+
+
+def build_bspline_core_folded_one_body(result, active_coeffs, active_radial,
+                                        r_fine, dr_fine):
+    """Exact frozen-core one-body Hamiltonian for B-spline HF orbitals.
+
+    Uses the bare nuclear Dirac matrix in the original B-spline basis and
+    adds only inactive-core direct/exchange terms. Active interactions are
+    then included once by the determinant Hamiltonian.
+    """
+    from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
+    from atomx.numerics.bspline.evaluate import eval_P, eval_Q
+
+    bsp = getattr(result, "_bsp_data", None) or result.bsp_data
+    ns_full = max(bsp["nsp"], bsp["nsq"])
+    nsp = bsp.get("nsp", ns_full)
+    nsq = bsp.get("nsq", ns_full)
+    gr = bsp["gr"].ravel()
+    order = np.argsort(gr)
+    gr_sorted = gr[order]
+
+    def on_grid(P, Q):
+        return (np.interp(r_fine, gr_sorted, eval_P(P, bsp).ravel()[order]),
+                np.interp(r_fine, gr_sorted, eval_Q(Q, bsp).ravel()[order]))
+
+    core = []
+    active_keys = set(active_coeffs)
+    for kappa in {sh.kappa for sh in result.subshells}:
+        same = [sh for sh in result.subshells if sh.kappa == kappa]
+        for i, sh in enumerate(same):
+            if (sh.n, sh.kappa) in active_keys or sh.occupation <= 0:
+                continue
+            P, Q, _ = result.orbitals_raw[kappa][i]
+            Pc, Qc = on_grid(P, Q)
+            core.append((Pc, Qc, float(sh.occupation), kappa))
+
+    def vector(P, Q):
+        v = np.zeros(2*ns_full)
+        v[:nsp] = P[:nsp]
+        v[ns_full:ns_full+nsq] = Q[:nsq]
+        return v
+
+    bare = {}
+    by_kappa = {}
+    for key in active_coeffs:
+        by_kappa.setdefault(key[1], []).append(key)
+    for kappa, keys in by_kappa.items():
+        H0, _ = build_dirac_matrices(
+            ns_full, kappa, int(result.Z), bsp,
+            getattr(result, "_nuclear_potential", None))
+        vecs = {key: vector(*active_coeffs[key]) for key in keys}
+        for ka in keys:
+            for kb in keys:
+                bare[(ka, kb)] = float(vecs[ka] @ H0 @ vecs[kb])
+    active = {key: (*active_radial[key], 0.0) for key in active_coeffs}
+    return build_core_folded_one_body(
+        active, core, None, r_fine, dr_fine, bare_one_body=bare)
 
 
 # ---------------------------------------------------------------------------
@@ -854,12 +936,11 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
       potential.  This is the configuration validated against FAC
       AITable per-level widths.
     * **B-spline V^(N-1) basis** (MCDHF results): hole orbitals from the
-      solved result, virtuals from
-      :func:`atomx.methods.mbpt.build_virtual_basis`, dressed mean-field
-      eigenvalues as one-body energies.  Faster, but the dressed
-      eigenvalues double-count part of the active-active interaction,
-      so multi-configuration level placement (and hence mixing) is less
-      accurate — prefer the DFS pipeline for quantitative widths.
+      solved result and virtuals from the frozen-core basis. The one-body
+      matrix is reconstructed from the bare Dirac Hamiltonian and frozen
+      core direct/exchange integrals, so active interactions are counted
+      exactly once. The FAC-like DFS basis is still the matched reference
+      for quantitative comparisons.
 
     Returns ``(manifold, bsp_data)`` ready for
     :meth:`ResonanceManifold.dr_levels` / :meth:`~ResonanceManifold.auger_widths`.
@@ -994,11 +1075,13 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
             Qg = eval_Q(Q, bsp).ravel()[order]
             return np.interp(r_fine, grs, Pg), np.interp(r_fine, grs, Qg)
 
+        orbital_coeffs = {}
         for kappa in hole_kappas:
             same = [sh for sh in result.subshells if sh.kappa == kappa]
             idx = next(i for i, sh in enumerate(same) if sh.n == n_h)
             P, Q = result.orbitals_raw[kappa][idx][:2]
             orbital_map[(n_h, kappa)] = _tofine(P, Q)
+            orbital_coeffs[(n_h, kappa)] = (P, Q)
             orbital_eps[(n_h, kappa)] = float(
                 result.orbital_energies[_orbital_label(n_h, kappa)])
 
@@ -1015,7 +1098,12 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
                         f"in the V^(N-1) basis (index {vi} of {len(virt)})")
                 P, Q, eps = virt[vi]
                 orbital_map[(n_e, kappa)] = _tofine(P, Q)
+                orbital_coeffs[(n_e, kappa)] = (P, Q)
                 orbital_eps[(n_e, kappa)] = float(eps)
+
+        if one_body is None:
+            one_body = build_bspline_core_folded_one_body(
+                result, orbital_coeffs, orbital_map, r_fine, dr_fine)
 
     groups = [([(n_h, k) for k in hole_kappas],
                2 * (2 * l_h + 1) - 1)]
@@ -1095,4 +1183,5 @@ def auger_levels(result, configs, *, two_J=None, e_max_eV: float = 1000.0,
 
 
 __all__ = ["ResonanceManifold", "ManifoldLevel", "auger_levels",
-           "build_core_folded_one_body", "manifold_from_configs"]
+           "build_core_folded_one_body", "build_bspline_core_folded_one_body",
+           "manifold_from_configs"]

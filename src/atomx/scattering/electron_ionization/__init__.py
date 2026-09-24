@@ -166,29 +166,20 @@ def eii_cross_section(
     energies_eV
         Incident electron energy grid in eV.
     method
-        - ``"BEB"`` (default — Kim-Rudd 1994 semi-empirical, ~30 %
-          accurate for valence ionisation; matches NIST Argon σ(100 eV)
-          to 25 %).
-        - ``"BED"`` — per-orbital Q from ``Q_per_orbital``.
-        - ``"DW"`` — first-principles distorted-wave Born with
-          delta-energy-normalised continuum waves, partial-wave-summed
-          J-coupled Slater integrals.  **Status: validated near
-          threshold for hydrogenic ions** (σ(He⁺, 100 eV) = 2.5e-18 cm²
-          vs Younger 1981 ~3e-18, 13 % gap from basis truncation).
-          **Underestimates badly for many-electron neutrals** because
-          the projectile/outgoing waves use the bare-nuclear potential
-          rather than the SCF mean field; **and at high E** because the
-          B-spline pseudo-continuum DOS estimate degrades.  Use BEB for
-          production routine use until DW is upgraded with a Bethe-
-          Born high-E patch and SCF-distorted projectile waves.
+        ``"auto"`` (default) uses DW near threshold, a smooth model blend
+        over 0.8 to 1 times ``dw_energy_cutoff_per_I * I_outer``, and BEB
+        above. This hybrid is approximate, not FAC's DW/Born completion.
+        ``"DW"`` selects screened, energy-normalized continuum partial waves;
+        converge kappa_max and outgoing-energy quadrature for the target.
+        ``"BEB"`` and ``"BED"`` select the explicit binary-encounter models.
     Q_per_orbital, avgT_per_orbital_eV
         Only used by BEB/BED; see below.
     kappa_max
         DW-only: largest |κ| in the partial-wave expansion of the
-        projectile and outgoing electrons.  Default 4 covers s..g.
+        projectile and outgoing electrons.  Default 5 covers s..h.
     n_outgoing_energies
         DW-only: number of E_1 quadrature nodes for the integral
-        over the outgoing-electron energy share.  Default 8.
+        over the outgoing-electron energy share. Default 6.
 
     Returns
     -------
@@ -210,55 +201,53 @@ def eii_cross_section(
             continuum_failure_mode=failure_mode,
         )
     if method_u == "AUTO":
-        # Hybrid: DW for E < cutoff·I_outermost (where partial-wave
-        # convergence is feasible), BEB above (Kim-Rudd extends across
-        # the full energy range with O(30 %) accuracy).  This matches
-        # what FAC effectively does with its DW + Bethe-Born blend.
-        # OUTERMOST = least-bound = ε closest to zero from below.
-        # max() of negative numbers picks the largest (closest to 0).
+        # Explicit DW/BEB model interpolation, not FAC's Born completion.
+        # A C1 blend over [0.8 cutoff, cutoff] removes the artificial step
+        # while retaining pure DW near threshold and BEB at high energy.
+        if not np.isfinite(dw_energy_cutoff_per_I) or dw_energy_cutoff_per_I <= 1.25:
+            raise ValueError("dw_energy_cutoff_per_I must be finite and > 1.25")
         eps_outer = max(
             (e for e in scf_result.orbital_energies.values() if e < 0.0),
             default=-1.0,
         )
-        I_outer_eV = -eps_outer * HARTREE_EV
-        cutoff_eV = dw_energy_cutoff_per_I * I_outer_eV
-        dw_mask = energies_arr <= cutoff_eV
+        cutoff_eV = dw_energy_cutoff_per_I * (-eps_outer * HARTREE_EV)
+        start_eV = 0.8 * cutoff_eV
+        x = np.clip((energies_arr-start_eV)/(cutoff_eV-start_eV), 0, 1)
+        weight_beb = x*x*(3-2*x)
+        dw_mask = weight_beb < 1
+        beb_mask = weight_beb > 0
         sigma_total = np.zeros_like(energies_arr)
         sigma_by_orbital: Dict[str, np.ndarray] = {}
-        prov: Dict[str, Any] = {"hybrid": True, "DW_E_max_eV": float(cutoff_eV)}
+        prov: Dict[str, Any] = {
+            "hybrid": True, "DW_E_max_eV": float(cutoff_eV),
+            "blend_start_eV": float(start_eV), "blend": "C1 smoothstep DW/BEB",
+            "approximation": "model interpolation; not a Born partial-wave completion",
+        }
         if np.any(dw_mask):
             r_dw = _eii_dw_total(
-                scf_result, energies_arr[dw_mask],
-                kappa_max=kappa_max,
+                scf_result, energies_arr[dw_mask], kappa_max=kappa_max,
                 n_outgoing_energies=n_outgoing_energies,
-                continuum_model=continuum_model,
-                continuum_failure_mode=failure_mode,
+                continuum_model=continuum_model, continuum_failure_mode=failure_mode,
             )
-            sigma_total[dw_mask] = r_dw.sigma_total_cm2
-            for k, v in r_dw.sigma_by_orbital.items():
-                sigma_by_orbital.setdefault(k,
-                    np.zeros_like(energies_arr))
-                sigma_by_orbital[k][dw_mask] = v
+            wd = 1-weight_beb[dw_mask]
+            sigma_total[dw_mask] += wd*r_dw.sigma_total_cm2
+            for key, values in r_dw.sigma_by_orbital.items():
+                sigma_by_orbital.setdefault(key, np.zeros_like(energies_arr))[dw_mask] += wd*values
             prov["DW_provenance"] = r_dw.provenance
-        if not np.all(dw_mask):
+        if np.any(beb_mask):
             r_beb = eii_cross_section(
-                scf_result, energies_arr[~dw_mask], method="BEB",
+                scf_result, energies_arr[beb_mask], method="BEB",
                 Q_per_orbital=Q_per_orbital,
                 avgT_per_orbital_eV=avgT_per_orbital_eV,
             )
-            sigma_total[~dw_mask] = r_beb.sigma_total_cm2
-            for k, v in r_beb.sigma_by_orbital.items():
-                sigma_by_orbital.setdefault(k,
-                    np.zeros_like(energies_arr))
-                sigma_by_orbital[k][~dw_mask] = v
+            wb = weight_beb[beb_mask]
+            sigma_total[beb_mask] += wb*r_beb.sigma_total_cm2
+            for key, values in r_beb.sigma_by_orbital.items():
+                sigma_by_orbital.setdefault(key, np.zeros_like(energies_arr))[beb_mask] += wb*values
             prov["BEB_provenance"] = r_beb.provenance
-        return EIIResult(
-            energies_eV=energies_arr,
-            sigma_total_cm2=sigma_total,
-            sigma_by_orbital=sigma_by_orbital,
-            method="auto (DW+BEB)",
-            provenance=prov,
-        )
+        return EIIResult(energies_eV=energies_arr, sigma_total_cm2=sigma_total,
+                         sigma_by_orbital=sigma_by_orbital, method="auto (DW+BEB)",
+                         provenance=prov)
     if method_u not in ("BEB", "BED"):
         raise ValueError(
             f"Unknown method {method!r}; expected 'auto', 'DW', "

@@ -259,8 +259,10 @@ def _coarse_auger_rate(
                             Q_eps_g = np.interp(gr.ravel(), r_eps, Q_eps_r).reshape(
                                 gr.shape
                             )
-                        except Exception:
-                            continue
+                        except Exception as exc:
+                            raise RuntimeError(
+                                f"Auger continuum failed: kappa={kappa_eps}, "
+                                f"E={E_ha} Ha") from exc
                     else:
                         try:
                             P_eps, Q_eps, _ = solve_continuum(
@@ -270,8 +272,10 @@ def _coarse_auger_rate(
                                 bsp_data,
                                 energy_normalized=True,
                             )
-                        except Exception:
-                            continue
+                        except Exception as exc:
+                            raise RuntimeError(
+                                f"Auger continuum failed: kappa={kappa_eps}, "
+                                f"E={E_ha} Ha") from exc
                     direct_ks = set(exchange_k_range(source_key[1], hole_key[1]))
                     direct_ks &= set(exchange_k_range(source2_key[1], kappa_eps))
                     exchange_ks = set(exchange_k_range(source2_key[1], hole_key[1]))

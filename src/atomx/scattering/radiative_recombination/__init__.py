@@ -489,11 +489,12 @@ def rr_cross_section(
         # Statistical-weight ratio
         g_n = g_final if g_final is not None else (2 * abs(sh.kappa))
         # Milne factor in atomic units:
-        # σ_RR/σ_PI = (g_n/g_ion) · α²·ω²/(2 E_e).
+        # σ_RR/σ_PI = (g_n/g_ion) · α²·ω²/p_e²,
+        # p_e² = E_e (2 + α² E_e), including relativistic phase space.
         # The free-electron spin degeneracy cancels the two photon
         # polarisations in detailed balance; the 1/2 in ω²/(2 E_e)
         # comes from E_e = p²/(2 m_e) (Gu 2003, ApJ 589, 1085, eq. 1).
-        milne = (ALPHA ** 2) * (photon_au ** 2) / (2.0 * energies_au)
+        milne = (ALPHA ** 2) * (photon_au ** 2) / (energies_au * (2.0 + ALPHA ** 2 * energies_au))
         sigma_RR_partials = {
             label: (g_n / g_initial) * milne * sigma_PI
             for label, sigma_PI in sigma_PI_partials.items()
@@ -708,7 +709,7 @@ def rr_cross_section_rydberg(
                 V_scf_PP=potential_pp, V_scf_QQ=potential_qq,
             )
             g_n = vacancies
-            milne = (ALPHA ** 2) * (photon_au ** 2) / (2.0 * energies_au)
+            milne = (ALPHA ** 2) * (photon_au ** 2) / (energies_au * (2.0 + ALPHA ** 2 * energies_au))
             sigma_RR = (g_n / g_initial) * milne * sigma_PI
 
             by_state[label] = sigma_RR

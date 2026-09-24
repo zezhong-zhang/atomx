@@ -1,12 +1,9 @@
-"""L2 correlation pseudo-states for the Burke 1971 He benchmark.
+"""Optional empirical He resonance poles, not calculated L2 configurations.
 
-The three-state close-coupling expansion {1s, 2s, 2p} carries the
-correct channel thresholds, but Burke, Hibbert & Robb's 1 %-level
-resonance gate also needs square-integrable correlation configurations
-inside the R-matrix box.  This module keeps that correction explicit and
-localized: it contributes the Breit-Wigner phase carried by the
-dominant square-integrable Feshbach pseudo-state in each singlet LSπ
-block when callers opt into the Burke benchmark model.
+The tabulated energies and widths are inputs to a Breit-Wigner model.
+Recovering them with a resonance fitter tests that representation only;
+it is not independent validation of the close-coupling Hamiltonian.
+The historical module and option names are retained for compatibility.
 """
 
 from __future__ import annotations

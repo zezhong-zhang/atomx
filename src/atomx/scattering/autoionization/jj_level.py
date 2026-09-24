@@ -171,8 +171,10 @@ def auger_rate_jj_level(
     try:
         Pf, Qf = _continuum_on_grid(kappa_f, E_res_au, V_func, Z_res,
                                     r_fine, r_max_box, n_shoot)
-    except Exception:
-        return 0.0
+    except Exception as exc:
+        raise RuntimeError(
+            f"Auger continuum failed: kappa={kappa_f}, "
+            f"E={E_res_au} Ha, Z_res={Z_res}") from exc
 
     # Radial integrals per rank: direct (h<-e1, f<-e2), exchange (h<-e2, f<-e1).
     ks_D = [k for k in _allowed_k(kappa_h, kappa_1)

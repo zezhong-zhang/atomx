@@ -1,44 +1,8 @@
-"""Polarisation of line emission from electron-impact excitation.
+"""Alignment and electric-dipole emission for axially symmetric populations.
 
-When an atom is excited by a unidirectional electron beam, the
-emitted line radiation is partially polarised because not all
-magnetic substates ``M_J`` of the upper level are equally populated.
-The degree of linear polarisation P (perpendicular to the beam
-direction) is related to the alignment parameter A_2 of the upper
-level:
-
-    P = -3 A_2 / (h(2,J) − A_2)
-
-with the level-anisotropy coefficient
-
-    h(2, J) = 1 + (3/2)·δ_{J,1/2}·... ≃ 1   for J ≥ 1.
-
-The alignment parameter A_2 is given by (Inal & Dubau 1989):
-
-    A_2(J_u) = √(2/3) · Σ_{M_J} ⟨J_u M_J | T^2_0 | J_u M_J⟩
-                                   · σ_{M_J}(J_u) / σ_total(J_u)
-
-where σ_{M_J}(J_u) is the M-resolved excitation cross section.
-
-This module provides:
-
-- :func:`linear_polarisation` — convert alignment A_2 → P.
-- :func:`alignment_from_msublevel_cross_sections` — compute A_2
-  from a list of M-resolved cross sections.
-- :func:`polarised_emission_intensity` — Stokes parameters for an
-  observation geometry.
-
-The M-sublevel cross sections themselves require an extension of
-the distorted-wave CE solver (FAC ``CETableMSub``); a full
-implementation is on the to-do list.
-
-References
-----------
-- I. P. Grant, *Relativistic Quantum Theory of Atoms and Molecules*
-  (Springer, 2007), §10.5.
-- M. K. Inal, J. Dubau, *J. Phys. B* **20**, 4221 (1987); **22**,
-  3329 (1989).
-- D. L. Moores, M. S. Pindzola, *Phys. Rev. A* **41**, 3603 (1990).
+Cross sections at |M| include both signs. P=(I_parallel-I_perpendicular)/I
+at 90 degrees to the symmetry axis. Higher multipoles need higher-rank
+statistical tensors and are not inferred from alignment alone.
 """
 
 from __future__ import annotations
@@ -47,7 +11,7 @@ from typing import Sequence
 
 import numpy as np
 
-from atomx.angular.wigner import wigner_6j
+from atomx.angular.wigner import wigner_3j, wigner_6j
 
 
 def _twice_j(value: float) -> int:
@@ -86,106 +50,82 @@ def steffen_alder_F2(J_u: float, J_l: float, L: int = 1) -> float:
     return float(phase * norm * six)
 
 
-def linear_polarisation(alignment: float, J: float) -> float:
-    """Linear polarisation P from alignment parameter A_2.
+def _m_values(J):
+    if not np.isfinite(J) or J < 0 or abs(2*J-round(2*J)) > 1e-10:
+        raise ValueError("J must be a nonnegative integer or half integer")
+    return np.arange(int(2*J) % 2 / 2, J + 0.1, 1.0)
 
-    P = -3 A_2 / (h(2, J) − A_2)
 
-    where h(2, J) ≈ 1 for J ≥ 1; for J = 1/2 the polarisation
-    vanishes by symmetry (no anisotropy possible).
+def _alignment_prefactor(J):
+    return np.sqrt(5.0 / (3*J*(J+1)*(2*J-1)*(2*J+3)))
+
+
+def linear_polarisation(alignment: float, J: float, J_lower: float = 0.0,
+                        *, L: int = 1) -> float:
+    """E1 polarization at 90 degrees from upper-level alignment.
+
+    Supply the lower J explicitly except for decays to J_lower=0.
+    The response is derived from dipole 3j probabilities; the alignment
+    normalization is exactly that of alignment_from_msublevel_cross_sections.
     """
-    if J <= 0.5 + 1e-9:
+    M = _m_values(J)
+    _m_values(J_lower)
+    if L != 1:
+        raise NotImplementedError("Higher multipoles require higher-rank tensors")
+    if abs(J-J_lower) > 1 or J+J_lower < 1 or (2*J-2*J_lower) % 2:
+        raise ValueError("Forbidden electric-dipole angular momentum triangle")
+    if not np.isfinite(alignment):
+        raise ValueError("alignment must be finite")
+    if J < 1:
+        if abs(alignment) > 1e-12:
+            raise ValueError("J < 1 cannot support rank-two alignment")
         return 0.0
-    h2 = 1.0
-    return -3.0 * alignment / (h2 - alignment)
+    pref = _alignment_prefactor(J)
+    moments = 3*M*M-J*(J+1)
+    avg = alignment / pref
+    if avg < moments.min()-1e-10 or avg > moments.max()+1e-10:
+        raise ValueError("alignment is incompatible with nonnegative populations")
+    # q=0 dipole probability at stretched M=J. For E1 it is affine in M².
+    w_stretched = (2*J+1)*wigner_3j(
+        int(2*J_lower), 2, int(2*J), -int(2*J), 0, int(2*J))**2
+    slope = (w_stretched-1/3) / (J*(2*J-1))
+    w0 = 1/3 + slope*avg
+    return float((3*w0-1)/(1+w0))
 
 
-def alignment_from_msublevel_cross_sections(
-    sigma_M: Sequence[float],
-    J: float,
-) -> float:
-    """Alignment parameter A_2 from M-sublevel cross sections.
+def alignment_from_msublevel_cross_sections(sigma_M: Sequence[float], J: float) -> float:
+    """Rank-two alignment from combined ±M cross sections in ascending |M|.
 
-    A_2 = Σ_M (3 M² − J(J+1)) σ_M / (J(J+1) Σ_M σ_M)
-         · normalisation factor √(2/3)·…
-
-    Inal-Dubau form:
-
-    A_2(J) = √(5/(3 J (J+1) (2J−1)(2J+3))) · Σ_M (3M² − J(J+1)) σ_M / Σ_M σ_M
-
-    Parameters
-    ----------
-    sigma_M
-        Cross sections σ_{|M|} for ``|M| = 0, 1, …, J`` (length J+1
-        for integer J, J+1/2 entries for half-integer J).  Each entry
-        already accounts for ±M degeneracy.
-    J
-        Upper-level total angular momentum.
-
-    Returns
-    -------
-    float
-        Dimensionless alignment A_2.
+    A = sqrt(5/[3J(J+1)(2J-1)(2J+3)]) <3M²-J(J+1)>.
+    For integer J an isotropic population is proportional to [1,2,...,2].
     """
-    sigma_M = np.asarray(sigma_M, dtype=float)
-    if J <= 0.5 + 1e-9:
+    M = _m_values(J)
+    sigma = np.asarray(sigma_M, dtype=float)
+    if sigma.shape != M.shape:
+        raise ValueError(f"sigma_M length must match the {len(M)} |M| values for J={J}")
+    if np.any(~np.isfinite(sigma)) or np.any(sigma < 0):
+        raise ValueError("cross sections must be finite and nonnegative")
+    total = float(sigma.sum())
+    if J < 1 or total == 0:
         return 0.0
-    n_M = len(sigma_M)
-    expected_n = int(round(J + 0.5)) if (2 * J) % 2 == 1 else int(J + 1)
-    if n_M != expected_n:
-        raise ValueError(
-            f"sigma_M length {n_M} does not match J={J} "
-            f"(expected {expected_n} entries for |M|=0…{J})."
-        )
-
-    # Build M values
-    if (2 * J) % 2 == 0:  # integer J
-        M_vals = np.arange(0, int(J) + 1)
-        # Each entry counts ±M except M=0
-        deg = np.where(M_vals == 0, 1.0, 2.0)
-    else:  # half-integer J
-        M_vals = np.arange(0, int(J + 1)) + 0.5
-        deg = np.full_like(M_vals, 2.0)
-
-    sigma_total = float(np.sum(sigma_M * deg))
-    if sigma_total <= 0:
-        return 0.0
-    weighting = (3.0 * M_vals ** 2 - J * (J + 1.0))
-    avg = float(np.sum(weighting * sigma_M * deg) / sigma_total)
-    pref = np.sqrt(5.0 / (3.0 * J * (J + 1.0) *
-                          (2.0 * J - 1.0) * (2.0 * J + 3.0)))
-    return pref * avg
+    return float(_alignment_prefactor(J) * np.dot(3*M*M-J*(J+1), sigma)/total)
 
 
-def polarised_emission_intensity(
-    polarisation: float,
-    observation_angle_rad: float,
-) -> tuple[float, float]:
-    """Intensity for parallel and perpendicular polariser orientations.
+def polarised_emission_intensity(polarisation: float, observation_angle_rad: float) -> tuple[float, float]:
+    """E1 analyzer intensities for an axially symmetric ensemble.
 
-    For a transition with linear polarisation degree ``P`` at 90° to
-    the beam, the angular-dependent intensity in directions parallel
-    and perpendicular to the beam is
-
-        I_||(θ) ∝ 1 − P · cos²θ
-        I_⊥(θ) ∝ 1
-
-    with θ the polar angle from beam axis.
-
-    Returns
-    -------
-    (I_parallel, I_perpendicular)
-        Relative intensities (normalised to perpendicular = 1).
+    P is (I_parallel-I_perpendicular)/(I_parallel+I_perpendicular) at
+    90 degrees. Intensities are normalized to unit total at that angle.
+    On the axis the two analyzers agree; a pure axial dipole is dark there.
     """
-    cos2 = np.cos(observation_angle_rad) ** 2
-    I_par = 1.0 - polarisation * cos2
-    I_perp = 1.0
-    return float(I_par), float(I_perp)
+    if not np.isfinite(polarisation) or abs(polarisation) > 1:
+        raise ValueError("polarisation must lie in [-1,1]")
+    if not np.isfinite(observation_angle_rad):
+        raise ValueError("observation angle must be finite")
+    transverse = (1-polarisation)/2
+    parallel = transverse*np.cos(observation_angle_rad)**2 + (1+polarisation)/2*np.sin(observation_angle_rad)**2
+    return float(parallel), float(transverse)
 
 
-__all__ = [
-    "steffen_alder_F2",
-    "linear_polarisation",
-    "alignment_from_msublevel_cross_sections",
-    "polarised_emission_intensity",
-]
+__all__ = ["steffen_alder_F2", "linear_polarisation",
+           "alignment_from_msublevel_cross_sections", "polarised_emission_intensity"]

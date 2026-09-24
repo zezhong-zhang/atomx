@@ -18,25 +18,11 @@ the fast gates plus one live recompute:
    ``tests/test_eii_ea.py::test_detailed_balance_capture_flux_is_shared_by_dr_and_re``
    against the Saha coefficient.
 
-2. ``test_benchmark_csv_gate`` — gate the committed
-   ``benchmarks/results_fac_dr.csv`` produced by
-   ``benchmarks/bench_fac_dr.py`` (manifold pipeline vs the clean-room
-   FAC dr33 reference ``tests/data/fe17_dr33_fac_cleanroom.json``:
-   SetSE/VP/MS/Breit off, AICut 0).  Gates: rms |rel_diff| <= 0.35 and
-   every T >= 5 MK point within alpha ratio [0.8, 1.35].  The 1-MK point
-   (ratio ~0.49) is Boltzmann suppression from the documented ~+40 eV
-   frozen-orbital E_res offset, not a width error — it dominates the rms
-   and is why the target is 0.35 rather than the generic 0.20.
-
-   The CSV was re-recorded on 2026-09-22 (both columns, same FAC
-   fixture): its ``alpha_fac_cm3_s`` and ``alpha_atomx_cm3_s`` had been
-   frozen on 2026-07-16, before the R7 asymmetric-mean-field fix and the
-   DR prefactor fix.  Because *both* columns of this file are produced by
-   the same kernel from the same external fixture, the prefactor change
-   scales both by RYDBERG_EV**1.5 = 50.186 and leaves ``rel_diff``
-   unchanged (0.2723 -> 0.2718); no external FAC number was touched.
-   ``test_live_atomx_dr_matches_the_recorded_panel`` recomputes the atomx
-   column here so a physics regression trips even if the CSV is stale.
+2. ``test_benchmark_csv_gate`` compares the corrected default manifold
+   pipeline with the unchanged clean-room FAC dr33 reference. The frozen
+   core-folded one-body repair removes active-interaction double counting:
+   measured atomx/FAC ratios are 1.090/1.007/0.995/0.984 at 1/5/10/50 MK,
+   with rms relative error 0.0462. The CSV atomx column is recomputed live.
 
 3. ``test_dr_fixture_pair_discrepancy_is_documented`` — the two
    FAC-derived Fe XVII fixtures in ``tests/data/`` disagree by up to 3.9x
@@ -76,8 +62,8 @@ RESULTS_CSV = Path(__file__).parent.parent / "benchmarks" / "results_fac_dr.csv"
 # residual 1 - 0.99970901 = 2.9e-4 at every temperature, so 1e-3 is 3.4x
 # the measurement (the old 1 % gate was 34x it).
 KERNEL_TOLERANCE = 1.0e-3
-RMS_GATE = 0.35          # dominated by the documented 1-MK E_res offset
-RATIO_GATE = (0.8, 1.35)  # per-point gate for T >= 5 MK
+RMS_GATE = 0.10
+RATIO_GATE = (0.85, 1.15)  # all four temperatures
 
 # ``fe17_dr_fac.json::alpha_fac_cm3_s`` was produced by combining FAC's
 # AITable+TRTable widths through this same Burgess kernel (see the fixture's
@@ -205,40 +191,14 @@ def _load_results_csv():
 
 @pytest.mark.external_fac
 def test_benchmark_csv_gate():
-    """rms <= 0.35 and every T >= 5 MK point within alpha ratio [0.8, 1.35].
-
-    Measured 2026-07-16 (manifold pipeline vs clean-room FAC dr33):
-    ratios 0.49 / 0.99 / 1.08 / 1.17 at 1 / 5 / 10 / 50 MK, rms ~0.27.
-    The 1-MK point carries the documented ~+40 eV frozen-orbital E_res
-    offset through exp(-E/kT) and is excluded from the per-point gate.
-    """
+    """The unchanged FAC column bounds all corrected DR temperatures."""
     data_rows, rms_row = _load_results_csv()
     assert len(data_rows) == 4
-
-    rms = float(rms_row["rel_diff"])
-    assert rms <= RMS_GATE, (
-        f"DR benchmark rms |rel_diff| = {rms:.4f} exceeds {RMS_GATE} — "
-        "regression in the manifold pipeline or the Burgess kernel"
-    )
-
+    assert float(rms_row["rel_diff"]) <= RMS_GATE
     lo, hi = RATIO_GATE
     for row in data_rows:
-        T_mk = float(row["T_MK"])
-        alpha_atomx = float(row["alpha_atomx_cm3_s"])
-        alpha_fac = float(row["alpha_fac_cm3_s"])
-        assert alpha_fac > 0.0
-        ratio = alpha_atomx / alpha_fac
-        if T_mk >= 5.0:
-            assert lo <= ratio <= hi, (
-                f"T = {T_mk} MK: alpha_atomx/alpha_FAC = {ratio:.3f} "
-                f"outside [{lo}, {hi}]"
-            )
-        else:
-            # 1 MK: frozen-orbital E_res offset — sanity-band only.
-            assert 0.3 <= ratio <= 1.0, (
-                f"T = {T_mk} MK: alpha ratio {ratio:.3f} outside the "
-                "documented offset band [0.3, 1.0]"
-            )
+        ratio = float(row["alpha_atomx_cm3_s"])/float(row["alpha_fac_cm3_s"])
+        assert lo <= ratio <= hi, row
 
 
 @pytest.mark.external_fac
@@ -250,19 +210,15 @@ def test_benchmark_csv_reference_is_cleanroom():
         "FAC reference — was the benchmark regenerated with a different "
         "reference?"
     )
-    assert "0.35" in rms_row["note"]
+    assert "0.10" in rms_row["note"]
 
 
 @pytest.mark.external_fac
 def test_live_atomx_dr_matches_the_recorded_panel():
     """Recompute the manifold pipeline live and gate it against the panel.
 
-    Live-vs-recorded atomx <= 1e-4 (same code path as
-    ``benchmarks/bench_fac_dr.py``, so this is reproducibility), and the live
-    alpha_DR vs the recorded *external* FAC column within 10 % of the values
-    measured on 2026-09-22 (0.486 / 0.978 / 1.074 / 1.158 at 1 / 5 / 10 /
-    50 MK).  Before this test the CSV's own ``rel_diff`` column was the only
-    gate, so deleting the manifold pipeline could not fail anything.
+    Live atomx agrees with the updated snapshot and the unchanged FAC
+    column stays within the measured corrected error envelope.
     """
     import bench_fac_dr
 
@@ -270,7 +226,7 @@ def test_live_atomx_dr_matches_the_recorded_panel():
     rc = bench_fac_dr.run_atomx()
     live = np.asarray(rc.alpha_cm3_s, dtype=float)
     assert live.shape == (len(data_rows),)
-    measured = {1.0: 0.486, 5.0: 0.978, 10.0: 1.074, 50.0: 1.158}
+    measured = {1.0: 1.09046, 5.0: 1.00740, 10.0: 0.99458, 50.0: 0.98400}
     rels = []
     for row, value in zip(data_rows, live, strict=True):
         T_mk = float(row["T_MK"])
@@ -284,9 +240,9 @@ def test_live_atomx_dr_matches_the_recorded_panel():
         ratio = value / fac
         rels.append((value - fac) / fac)
         centre = measured[T_mk]
-        assert abs(ratio - centre) <= 0.10 * centre, (
+        assert abs(ratio - centre) <= 0.05 * centre, (
             f"T = {T_mk} MK: live alpha_atomx/alpha_FAC = {ratio:.3f}, "
-            f"measured {centre:.3f} ± 10 %"
+            f"measured {centre:.3f} ± 5 %"
         )
     rms = float(np.sqrt(np.mean(np.square(rels))))
     assert rms <= RMS_GATE, f"live-vs-FAC rms {rms:.4f} exceeds {RMS_GATE}"
