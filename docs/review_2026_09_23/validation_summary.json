@@ -1,0 +1,38 @@
+{
+  "broad_non_slow": {
+    "summary": "3 failed, 2498 passed, 78 skipped, 24 deselected, 20 xfailed, 2 warnings in 813.38s (0:13:33)",
+    "note": "The process loaded three old self-energy snapshot expectations before their refresh. All three were rerun successfully in final_affected_structure on the final files. Counts overlap; do not add them.",
+    "failures": [
+      "test_two_electron_replacement.py::test_j2_pair_channel_moves_a_real_calculation",
+      "test_two_electron_replacement.py::test_split_channel_moves_a_real_calculation",
+      "test_two_electron_replacement.py::test_be_2s2_2p2_pair_couples"
+    ]
+  },
+  "final_affected_structure": {
+    "summary": "77 passed, 5 skipped, 1 deselected in 106.20s (0:01:46)"
+  },
+  "new_review_gates": {
+    "summary": "35 passed in 11.61s"
+  },
+  "virtual_basis_and_properties": {
+    "summary": "42 passed, 6 deselected, 1 xfailed, 1 warning in 83.04s (0:01:23)"
+  },
+  "dr_auger_consumers": {
+    "summary": "19 passed, 3 xfailed in 14.51s"
+  },
+  "tl_and_split_correlation": {
+    "summary": "13 passed in 109.25s (0:01:49)"
+  },
+  "surface_potential_transitions": {
+    "summary": "45 passed in 33.62s"
+  },
+  "rr_and_tl": {
+    "summary": "16 passed in 43.48s"
+  },
+  "checks": {
+    "ruff_changed_python": "passed",
+    "git_diff_check": "passed",
+    "external_fac_columns": "unchanged versus reviewed HEAD",
+    "independent_probes": "10 modes, all exit 0; stringent helium stationarity explicitly remains false at tol=1e-10"
+  }
+}

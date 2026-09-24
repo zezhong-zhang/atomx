@@ -1,0 +1,31 @@
+{
+  "benchmarks/results_fac_structure.csv": {
+    "rows": 20,
+    "preserved_external_columns": [
+      "E_fac_eV",
+      "t_fac_s"
+    ]
+  },
+  "benchmarks/results_fac_dr.csv": {
+    "rows": 5,
+    "preserved_external_columns": [
+      "alpha_fac_cm3_s"
+    ]
+  },
+  "benchmarks/results_fac_pi_rr.csv": {
+    "rows": 24,
+    "preserved_external_columns": [
+      "sigma_fac_1e20cm2",
+      "t_fac_s"
+    ]
+  },
+  "benchmarks/reference/fac_matrix_2026-05-26.csv": {
+    "rows": 34,
+    "preserved_external_columns": [
+      "fac_E_eV",
+      "fac_first_E1_eV",
+      "fac_first_A_s",
+      "t_sfac"
+    ]
+  }
+}

@@ -1,0 +1,58 @@
+
+MODE orthogonality
+orbital_gram {"gram": [[0.9999999999999992, 0.0530301712317086], [0.0530301712317086, 1.0000000000000009]], "converged": true, "energy": -2.8679911116757744, "last_inner": {"converged": false, "overlap": 0.05303017123170857, "warning": "same-kappa overlap 5.30e-02 exceeds 1e-03; the SCF omits the off-diagonal Lagrange multipliers, so orbitals sharing kappa are not orthogonal and the energy may be a few 1e-4 Ha above the constrained solution"}}
+gram_schmidt_same_span -2.861812326318437
+
+MODE lines
+line_oracle {"initial": 0, "final": 4, "code_S": 0.1605222073394912, "exact_S_same_orbitals": 0.7221183042930721, "code_A": 589349907.5039567, "exact_A_same_orbitals": 2651224169.5129995}
+line_oracle {"initial": 0, "final": 2, "code_S": 1.283714407592307, "exact_S_same_orbitals": 3.1728278156596347e-09, "code_A": 4366278104.266154, "exact_A_same_orbitals": 10.791690533492066}
+
+MODE matching
+matching {"delta": 0.1, "expected_K": 0.10033467208545055, "code_K": [[9.094799429793284]], "code_phase": [1.4612832906892408]}
+matching {"delta": 0.3, "expected_K": 0.3093362496096232, "code_K": [[3.13834534980475]], "code_phase": [1.2623282241594678]}
+matching_exact_FG {"delta": 0.1, "expected_K": 0.10033467208545055, "code_K": [[9.966644423259096]], "code_phase": [1.4707963267948951]}
+matching_exact_FG {"delta": 0.3, "expected_K": 0.3093362496096232, "code_K": [[3.2327281437658195]], "code_phase": [1.2707963267948958]}
+
+MODE reciprocity
+reciprocity {"omega": [[0.034234386916363026, 0.1355817303618337], [0.4067451910855011, 0.9161935429200913]], "ratio": 0.33333333333333337, "S_symmetry_error": 2.7755575615628914e-17, "S_unitarity_error": 2.233665547747667e-16}
+
+MODE crm
+crm_rr {"T": 0.01, "code": 0.0, "spontaneous": 7.633227747412706e-13, "ratio": 0.0}
+crm_rr {"T": 1.0, "code": 7.179913480750831e-14, "spontaneous": 7.145508128078831e-14, "ratio": 1.0048149623589122}
+crm_rr {"T": 13.6, "code": 1.615365580019984e-14, "spontaneous": 1.2352562260610553e-14, "ratio": 1.3077170112074716}
+crm_rr {"T": 136.0, "code": 5.9461305754769044e-15, "spontaneous": 1.319640847112684e-15, "ratio": 4.505870357443675}
+crm_rr {"T": 1360.0, "code": 2.0323409841790494e-15, "spontaneous": 8.448107549204618e-17, "ratio": 24.05676031397579}
+transitions [{"initial": "State_0", "final": "State_4", "A": 589349904.2977425}, {"initial": "State_0", "final": "State_2", "A": 4366278060.426923}]
+crm_levels [{"label": "State_0", "energy_eV": -77.87390763226038, "g": 1, "config": null}, {"label": "State_1", "energy_eV": -56.62198185503627, "g": 1, "config": null}, {"label": "State_2", "energy_eV": -56.62195368716158, "g": 1, "config": null}, {"label": "State_3", "energy_eV": -56.62189734543445, "g": 1, "config": null}, {"label": "State_4", "energy_eV": -56.07353556979137, "g": 1, "config": null}]
+crm_transitions [{"upper": 0, "lower": 4, "A_rate": 589349904.2977425, "gf": 0.08573479454589986, "omega_E_eV": null, "omega": null}, {"upper": 0, "lower": 2, "A_rate": 4366278060.426923, "gf": 0.6683829503153768, "omega_E_eV": null, "omega": null}]
+crm_zero_density {"pop": [2.292388010095123e-20, 0.24999999999999997, 0.25000000000000006, 0.25000000000000006, 0.25000000000000006], "rates": [[-4955627964.724666, 0.0, 0.0, 0.0, 0.0], [0.0, -0.0, 0.0, 0.0, 0.0], [4366278060.426923, 0.0, -0.0, 0.0, 0.0], [0.0, 0.0, 0.0, -0.0, 0.0], [589349904.2977425, 0.0, 0.0, 0.0, -0.0]]}
+
+MODE grid
+grid {"config": "1s1", "basis": "Basis(ns=None, ks=9, r_max=None, grid_hi=None, grid_he=None, grid_hmax=None, starting_potential=None, sampling=None)", "energy": -4857.606126070829, "ns": 88, "last_knot": 50.28728752837506, "converged": true}
+grid {"config": "1s1", "basis": "Basis(ns=None, ks=9, r_max=30.0, grid_hi=0.005, grid_he=0.1, grid_hmax=None, starting_potential=None, sampling=None)", "energy": -4861.189023899477, "ns": 157, "last_knot": 30.800550136055573, "converged": true}
+grid {"config": ["1s1"], "basis": "Basis(ns=None, ks=9, r_max=None, grid_hi=None, grid_he=None, grid_hmax=None, starting_potential=None, sampling=None)", "energy": -4857.606126070831, "ns": 88, "last_knot": 50.28728752837506, "converged": true}
+grid {"config": ["1s1"], "basis": "Basis(ns=None, ks=9, r_max=30.0, grid_hi=0.005, grid_he=0.1, grid_hmax=None, starting_potential=None, sampling=None)", "energy": -4857.606126070831, "ns": 88, "last_knot": 50.28728752837506, "converged": true}
+
+MODE rr
+rr {"model": "None", "E_eV": [1.0, 10.0, 100.0], "ratio_to_stobbe": [0.8664316439572901, 0.9705049933352875, 0.9737416315322863], "time": 0.14395373896695673}
+rr {"model": "ContinuumModel(method='shooting', potential=PotentialModel(kind='bare', include_exchange=False, exchange='fac', alpha_x=0.6666666666666666, fac_ihx=-1.0, fac_hxs=1.0, fac_csi=0.55, fac_self_interaction_correction=True, latter_correction=True, n_radial=4000, r_max=None), shooting_n_grid=4000, shooting_r_max=None)", "E_eV": [1.0, 10.0, 100.0], "ratio_to_stobbe": [2.0023198875684516, 2.0004298854486886, 2.0021164738528205], "time": 0.04101288691163063}
+
+MODE occupations
+occupations {"config": ["1s2", "1s1 2p1"], "occupations": "{(1, -1): 2.0, (2, 1): 0.001, (2, -2): 0.001}", "total": 2.002}
+occupations {"config": ["1s2 2s2", "1s2 2p2"], "occupations": "{(1, -1): 2.0, (2, -1): 1.8079935785437493, (2, 1): 0.06323640400435135, (2, -2): 0.12886602066262762}", "total": 4.000096003210729}
+
+MODE perf_rr
+rr_perf {"cached": false, "time": 3.8737585470080376, "calls": 160, "diagonalizations": 160, "ns": 278}
+rr_perf {"cached": true, "time": 0.6246384410187602, "calls": 160, "diagonalizations": 2, "ns": 278}
+rr_perf {"cached": false, "time": 3.8247788859298453, "calls": 160, "diagonalizations": 160, "ns": 278}
+rr_perf {"cached": true, "time": 0.6688944249181077, "calls": 160, "diagonalizations": 2, "ns": 278}
+rr_perf {"cached": false, "time": 3.8096525201108307, "calls": 160, "diagonalizations": 160, "ns": 278}
+rr_perf {"cached": true, "time": 0.6295544480672106, "calls": 160, "diagonalizations": 2, "ns": 278}
+rr_cache_equal true
+
+MODE cap
+cap_error "exact CI block (2J = 0) needs a raw determinant space of 21718 determinants over 1 configuration(s), above the cap of 1.  Per-configuration sizes: ((4, -4, 4), (4, 3, 3), (5, -5, 5)): 21718.  Reduce the configuration list, or raise the cap explicitly (build_ci_matrix(..., max_determinants=N)) if the memory and time are acceptable."
+cap_cost {"time": 0.43423653894569725, "total_determinants": 352800, "peak_rss_increase_KiB": 68992}
+
+MODE davidson
+davidson_dispatch {"provenance": {"n_csf": 4, "n_orbitals": 0, "solver": "dense-blocked", "n_blocks": 2, "block_sizes": [2, 2]}, "dense_shapes": [[2, 2], [2, 2]], "returned_states": 1}

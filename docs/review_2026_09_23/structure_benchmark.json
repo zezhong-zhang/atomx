@@ -1,0 +1,78 @@
+{
+  "40": {
+    "initializer_seconds": 10.741413434967399,
+    "optimizer_seconds": 3.818649419932626,
+    "stationarity": {
+      "converged": true,
+      "iterations": 19,
+      "gradient_norm": 0.00023119822768169024,
+      "orbital_residual": 6.647721098165955e-06,
+      "orbital_tolerance": 1e-05,
+      "estimated_energy_error": 1.602746847570324e-10,
+      "energy_tolerance": 1e-08,
+      "functional": "correlated Dirac-Coulomb CI",
+      "target": "ground-state energy (equal ensemble at exact degeneracy)",
+      "radial_labels": "correlation-orbital labels; not guaranteed spectroscopic excited states",
+      "projector": "fixed positive-energy nuclear Dirac B-spline subspace",
+      "excited_shell_constraints": "lower nuclear-Dirac roots below each symmetry's first active shell are excluded",
+      "preconditioner": "screened Fock spectral gaps",
+      "breit_qed": "subsequent RCI / perturbative corrections"
+    },
+    "total_seconds": 14.560592281981371,
+    "energy": -20913.909583610315
+  },
+  "full": {
+    "initializer_seconds": 71.7147447320167,
+    "optimizer_seconds": 26.165416048956104,
+    "stationarity": {
+      "converged": true,
+      "iterations": 19,
+      "gradient_norm": 6.809447535947738e-05,
+      "orbital_residual": 8.008805671140805e-06,
+      "orbital_tolerance": 1e-05,
+      "estimated_energy_error": 5.68472150184698e-11,
+      "energy_tolerance": 1e-08,
+      "functional": "correlated Dirac-Coulomb CI",
+      "target": "ground-state energy (equal ensemble at exact degeneracy)",
+      "radial_labels": "correlation-orbital labels; not guaranteed spectroscopic excited states",
+      "projector": "fixed positive-energy nuclear Dirac B-spline subspace",
+      "excited_shell_constraints": "lower nuclear-Dirac roots below each symmetry's first active shell are excluded",
+      "preconditioner": "screened Fock spectral gaps",
+      "breit_qed": "subsequent RCI / perturbative corrections"
+    },
+    "total_seconds": 97.88069182203617,
+    "energy": -20913.797768480083
+  },
+  "gradient_check_40": {
+    "energy": -20913.88120683023,
+    "analytic": 0.05346976280440474,
+    "five_point": 0.05346976346724356,
+    "error": 6.628388185547784e-10
+  },
+  "final_default_recheck": {
+    "Z": 82,
+    "requested_ns": null,
+    "initializer_seconds": 91.87153227603994,
+    "ns": 113,
+    "optimizer_seconds": 31.854562295018695,
+    "stationarity": {
+      "converged": true,
+      "iterations": 19,
+      "gradient_norm": 6.976593198311315e-05,
+      "orbital_residual": 8.274149555351158e-06,
+      "orbital_tolerance": 1e-05,
+      "estimated_energy_error": 6.260208666417809e-11,
+      "energy_tolerance": 1e-08,
+      "functional": "correlated Dirac-Coulomb CI",
+      "target": "ground-state energy (equal ensemble at exact degeneracy)",
+      "radial_labels": "correlation-orbital labels; not guaranteed spectroscopic excited states",
+      "projector": "fixed positive-energy nuclear Dirac B-spline subspace",
+      "excited_shell_constraints": "lower nuclear-Dirac roots below each symmetry's first active shell are excluded",
+      "preconditioner": "screened Fock spectral gaps",
+      "breit_qed": "subsequent RCI / perturbative corrections"
+    },
+    "total_seconds": 123.72668126598,
+    "energy": -20913.79776848005,
+    "converged": true
+  }
+}

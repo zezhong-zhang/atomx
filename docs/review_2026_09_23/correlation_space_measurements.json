@@ -1,0 +1,48 @@
+{
+  "carbon_2p2_3p2": {
+    "energy": -37.70479579481018,
+    "converged": true,
+    "seconds": 25.382869067951106,
+    "initializer_seconds": 16.742625628015958,
+    "optimizer_seconds": 7.4659015639917925,
+    "diagnostics": {
+      "converged": true,
+      "iterations": 60,
+      "gradient_norm": 1.6007538068391345e-06,
+      "orbital_residual": 8.167279239555678e-06,
+      "orbital_tolerance": 1e-05,
+      "estimated_energy_error": 3.3969899895772073e-12,
+      "energy_tolerance": 1e-08,
+      "functional": "correlated Dirac-Coulomb CI",
+      "target": "ground-state energy (equal ensemble at exact degeneracy)",
+      "radial_labels": "correlation-orbital labels; not guaranteed spectroscopic excited states",
+      "projector": "fixed positive-energy nuclear Dirac B-spline subspace",
+      "excited_shell_constraints": "lower nuclear-Dirac roots below each symmetry's first active shell are excluded",
+      "preconditioner": "screened Fock spectral gaps",
+      "breit_qed": "subsequent RCI / perturbative corrections"
+    }
+  },
+  "carbon_2p2_3d4d": {
+    "energy": -37.70563288196323,
+    "converged": true,
+    "seconds": 61.49735382699873,
+    "initializer_seconds": 23.98012043000199,
+    "optimizer_seconds": 36.12195178295951,
+    "diagnostics": {
+      "converged": true,
+      "iterations": 189,
+      "gradient_norm": 5.358088349012609e-06,
+      "orbital_residual": 7.813427327104815e-06,
+      "orbital_tolerance": 1e-05,
+      "estimated_energy_error": 1.435261831809503e-11,
+      "energy_tolerance": 1e-08,
+      "functional": "correlated Dirac-Coulomb CI",
+      "target": "ground-state energy (equal ensemble at exact degeneracy)",
+      "radial_labels": "correlation-orbital labels; not guaranteed spectroscopic excited states",
+      "projector": "fixed positive-energy nuclear Dirac B-spline subspace",
+      "excited_shell_constraints": "lower nuclear-Dirac roots below each symmetry's first active shell are excluded",
+      "preconditioner": "screened Fock spectral gaps",
+      "breit_qed": "subsequent RCI / perturbative corrections"
+    }
+  }
+}
