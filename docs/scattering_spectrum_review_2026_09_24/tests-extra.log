@@ -1,0 +1,14 @@
+........................................................................ [ 57%]
+............................x.........................                   [100%]
+============================= slowest 10 durations =============================
+6.51s call     tests/test_transitions.py::TestAtomTransitions::test_he_has_transitions
+3.93s setup    tests/test_transitions_engine_uniform.py::test_excited_2p_3s_e1_cross_engine
+1.78s setup    tests/test_transitions_engine_uniform.py::test_e1_rates_cross_engine[Ne]
+1.00s call     tests/test_mbpt_transitions.py::test_single_occupied_orbital_returns_zero
+0.48s call     tests/test_mbpt_transitions.py::test_invalid_orbital_label
+0.48s call     tests/test_mbpt_transitions.py::test_transition_energy_is_exactly_zero_for_a_single_orbital_reference
+0.47s call     tests/test_mbpt_transitions.py::test_transition_energy_returns_dict_with_all_keys
+0.21s call     tests/test_transitions.py::TestAtomTransitions::test_neon_transitions
+0.20s call     tests/test_transitions_engine_uniform.py::test_crm_from_default_atom_matches_bspline
+0.13s call     tests/test_transitions.py::TestSelectionRules::test_angular_e3_nonzero_for_allowed
+125 passed, 4 deselected, 1 xfailed in 16.44s

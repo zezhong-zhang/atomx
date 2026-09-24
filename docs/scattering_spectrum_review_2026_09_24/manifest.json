@@ -1,0 +1,14 @@
+{
+  "atomx_commit": "f8e2827f864cb523c5de85b812ddd7bed1fcadb7",
+  "fac_source_commit": "35f9846c1d93d5b6eb3b47ce66038388aeb6b70c",
+  "fac_binary_sha256": "d364e867895460efb8924dbb80eccf6addae5d842c08002aff0fc58f3cc21deb",
+  "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.43",
+  "scipy": "1.15.3",
+  "numba": "0.65.0",
+  "test_selection": "not slow",
+  "thread_environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1"
+  },
+  "note": "Source commit identifies local FAC checkout; binary was not rebuilt during review. FAC output reports version 1.1.5."
+}

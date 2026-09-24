@@ -1,0 +1,36 @@
+Selected 42 files
+...xx..................................................s.s...s..ss...... [ 14%]
+.......................................x................................ [ 29%]
+............x...........................x.......................ss...... [ 44%]
+........................................................................ [ 59%]
+........................................................................ [ 74%]
+........................................................................ [ 89%]
+....................................................                     [100%]
+=============================== warnings summary ===============================
+tests/test_viz_scattering.py::test_cross_section_with_reference_and_ratio
+  /data/code/atomx/src/atomx/viz/scattering.py:135: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+    fig.tight_layout()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+============================= slowest 20 durations =============================
+11.54s setup    tests/test_fac_dw_benchmarks.py::test_dw_eii_live_atomx_reproduces_recorded_columns
+5.42s call     tests/test_review_scattering_kinetics.py::test_atom_crm_spontaneous_ground_stability_and_degeneracies
+3.42s call     tests/test_eii.py::test_argon_eii_dw_mid_energy_with_coulomb_bethe
+3.36s setup    tests/test_fac_dw_benchmarks.py::test_dw_excitation_live_atomx_reproduces_recorded_columns
+3.35s call     tests/test_eii.py::test_dw_per_orbital_decomposition
+3.30s call     tests/test_eii.py::test_eii_auto_mode
+3.24s call     tests/test_eii.py::test_argon_eii_dw_near_threshold
+3.14s call     tests/test_eii.py::test_eii_rate_coefficient_of_argon_beb_is_bracketed_and_quadrature_exact
+3.13s call     tests/test_eii.py::test_argon_eii_order_of_magnitude
+3.12s call     tests/test_eii.py::test_eii_rate_coefficient_positive_and_smooth
+2.97s call     tests/test_eii_ea.py::test_three_open_shell_solve_physical
+2.53s setup    tests/test_auger_fac_panel.py::test_kll_auger_magnitude_gate
+2.23s call     tests/test_eii.py::test_dw_positive_and_declines_above_peak
+2.09s setup    tests/test_dw_born_completion.py::test_dw_omega_rises_and_tracks_born_at_high_energy
+2.03s call     tests/test_r_matrix.py::test_target_residual_charge
+2.02s setup    tests/test_dw_born_completion.py::test_born_reference_is_the_bethe_logarithm_at_alpha_zero
+1.93s setup    tests/test_jj_level_auger.py::test_ilev71_known_answer_vs_fac
+1.91s setup    tests/test_auger_kll_vs_fac.py::test_kll_auger_per_resonance_10pct
+1.21s setup    tests/test_dr_manifold_e2e.py::test_resonance_count_and_energy_window
+1.16s call     tests/test_r_matrix_phase2_vs_burke1971.py::test_burke1971_three_lowest_resonances_within_1pc
+472 passed, 7 skipped, 2 deselected, 5 xfailed, 1 warning in 76.11s (0:01:16)

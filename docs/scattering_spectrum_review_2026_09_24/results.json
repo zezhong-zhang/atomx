@@ -1,0 +1,266 @@
+{
+  "python": "3.10.21 (main, Aug 14 2026, 15:33:52) [Clang 22.1.3 ]",
+  "numpy": "2.2.6",
+  "spectrum": {
+    "ci_resolution": {
+      "ci_equals_uta": true,
+      "invalid_equals_uta": true,
+      "ci_groups_present": false
+    },
+    "widths": {
+      "branches": [
+        {
+          "center_nm": 100.00000000056261,
+          "sigma_nm": 9.999999999999431e-05,
+          "gamma_nm": 0.002654418729467941
+        },
+        {
+          "center_nm": 100.00000000056261,
+          "sigma_nm": 9.999999999999431e-05,
+          "gamma_nm": 0.023889768565211463
+        }
+      ],
+      "expected_both_natural_gamma_nm": 0.026544187294679406,
+      "with_stark": [
+        {
+          "center_nm": 100.00000000056261,
+          "sigma_nm": 9.999999999999431e-05,
+          "gamma_nm": 0.010346300729794693
+        }
+      ],
+      "expected_single_branch_plus_stark_nm": 0.012654418729467942,
+      "grid_201": [
+        {
+          "center_nm": 100.00000000056261,
+          "sigma_nm": 0.0009999999999999432,
+          "gamma_nm": 0.0009999999999999432
+        }
+      ],
+      "grid_2001": [
+        {
+          "center_nm": 100.00000000056261,
+          "sigma_nm": 9.999999999999431e-05,
+          "gamma_nm": 9.999999999999431e-05
+        }
+      ]
+    },
+    "polarisation": {
+      "pure_M0_alignment": -0.816496580927726,
+      "pure_M0_P": 1.348469228349534,
+      "isotropic_combined_M_alignment": 0.16329931618554522,
+      "I_90_for_P_half": [
+        1.0,
+        1.0
+      ],
+      "msub_J0_to_J1": {
+        "0.0": 0.0,
+        "1.0": 1.0
+      }
+    },
+    "free_free": {
+      "x": [
+        100.0,
+        1500.0,
+        2000.0
+      ],
+      "gaunt": [
+        0.09747889394154513,
+        null,
+        null
+      ],
+      "scaled_bessel_gaunt": [
+        0.09747889394154514,
+        0.0252271231488757,
+        0.021848238775563366
+      ],
+      "emissivity": [
+        3.4759181391221425e-58,
+        null,
+        null
+      ]
+    },
+    "known_two_photon_shape": {
+      "y": [
+        0.25,
+        0.5,
+        0.75
+      ],
+      "values": [
+        23.14446205259035,
+        0.0,
+        23.14446205259035
+      ]
+    },
+    "elapsed_seconds": 0.6506753780413419
+  },
+  "scattering": {
+    "mixed_bound_grids": {
+      "error": "IndexError",
+      "message": "index 198 is out of bounds for axis 0 with size 198"
+    },
+    "eii_auto_seam": {
+      "energy_eV": [
+        272.1280823054562,
+        272.12862656216504
+      ],
+      "sigma_cm2": [
+        5.230507714333517e-18,
+        4.097530098350607e-18
+      ],
+      "jump_ratio": 0.7833905085584457
+    },
+    "rr_milne": {
+      "energy_eV": [
+        10000.0,
+        100000.0,
+        500000.0
+      ],
+      "implemented_factor": [
+        0.019783108249722275,
+        0.1959081928186121,
+        0.9786886187998365
+      ],
+      "relativistic_factor": [
+        0.019591411074534326,
+        0.17844753691407653,
+        0.6571741745607539
+      ],
+      "ratio": [
+        1.0097847559044444,
+        1.0978475590444432,
+        1.4892377952222156
+      ],
+      "probe": "PI set to unit cross section to isolate phase-space factor"
+    },
+    "r_matrix": {
+      "energy_au": [
+        -0.8,
+        -0.78
+      ],
+      "S_K_max_abs_mismatch": [
+        0.2274524104593025,
+        1.6107592086070324
+      ],
+      "injected_poles": [
+        {
+          "label": "1Se_(2s2)",
+          "configuration": "2s2",
+          "E_r_au": -0.77816,
+          "Gamma_au": 0.005
+        }
+      ]
+    }
+  },
+  "auger_failure": {
+    "normal_widths_per_s": [
+      533821980705.31006,
+      576496922278.9067,
+      1040442477101.6404,
+      66157195886069.66,
+      11679213660868.775,
+      56721028217869.71,
+      3234583728.3662043,
+      46079563565128.336,
+      293543246508862.3
+    ],
+    "failed_widths_per_s": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "injected_failures": 1,
+    "warnings": [],
+    "elapsed_seconds": 1.7533924710005522
+  },
+  "performance": {
+    "n_grid": 10001,
+    "n_lines": 2000,
+    "sigma_nm": 0.02,
+    "median_seconds": {
+      "full_grid": 0.09645118401385844,
+      "eight_sigma_window": 0.007116844062693417
+    },
+    "speedup": 13.552521758830816,
+    "max_error_relative_to_peak": 4.1641808461819775e-15,
+    "integrated_relative_error": 1.2354981775165994e-15,
+    "scope": "Gaussian only; Lorentzian/Voigt tails require a different error budget",
+    "elapsed_seconds": 0.6216849080519751
+  },
+  "live_fac_comparison": {
+    "10": {
+      "omega": [
+        0.029000569103705374,
+        0.0431331243781532,
+        0.07849116371217976
+      ],
+      "threshold_eV": 921.52,
+      "note": "",
+      "seconds": 2.7179953559534624,
+      "atomx_omega": [
+        0.030221865039110497,
+        0.04479116448699691,
+        0.08276649817782941
+      ],
+      "atomx_threshold_eV": 913.9904813515834,
+      "atomx_converged": true,
+      "atomx_seconds": 1.1751734159188345,
+      "relative_error": [
+        0.042112826511707224,
+        0.038440065094925036,
+        0.05446899069208522
+      ]
+    },
+    "26": {
+      "omega": [
+        0.004378704876554334,
+        0.006635960593662059,
+        0.012523163074709976
+      ],
+      "threshold_eV": 6699.7,
+      "note": "",
+      "seconds": 2.72636958793737,
+      "atomx_omega": [
+        0.004474123907693365,
+        0.006668365373920624,
+        0.012741261290043063
+      ],
+      "atomx_threshold_eV": 6671.951946281129,
+      "atomx_converged": true,
+      "atomx_seconds": 1.0578511940548196,
+      "relative_error": [
+        0.021791610494223956,
+        0.004883208663040373,
+        0.0174155853462874
+      ]
+    },
+    "54": {
+      "omega": [
+        0.0009985945543803374,
+        0.0016106037000106002,
+        0.0035662450711447776
+      ],
+      "threshold_eV": 30628.0,
+      "note": "",
+      "seconds": 2.8976026710588485,
+      "atomx_omega": [
+        0.0010350401861971513,
+        0.0015850895419682078,
+        0.003464650776672357
+      ],
+      "atomx_threshold_eV": 30289.069734046057,
+      "atomx_converged": true,
+      "atomx_seconds": 1.1624657919164747,
+      "relative_error": [
+        0.03649692626195988,
+        -0.01584136311261708,
+        -0.028487749003690443
+      ]
+    }
+  }
+}
