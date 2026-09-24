@@ -343,6 +343,7 @@ def _continuum_on_grid(kappa, energy, V_func, Z_res, r_grid, r_max, n_grid):
     r_s, P_s, Q_s, _phase = solve_dirac_continuum_shooting(
         float(energy), int(kappa), V_func,
         r_max=r_max, n_grid=int(n_grid), Z_residual=float(Z_res),
+        match_phase=False,
     )
     P_g = np.interp(r_grid, r_s, P_s)
     Q_g = np.interp(r_grid, r_s, Q_s)

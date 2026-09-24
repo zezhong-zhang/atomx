@@ -279,7 +279,7 @@ def _shooting_photoionization_cross_section(
 ) -> np.ndarray:
     """PI cross section using direct shooting continuum from a model."""
     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
-    from atomx.numerics.shooting.dirac_continuum import solve_dirac_continuum_shooting
+    from atomx.numerics.shooting.dirac_continuum import solve_dirac_continuum_many
 
     bsp_data = scf_result._bsp_data
     if bsp_data is None:
@@ -293,27 +293,40 @@ def _shooting_photoionization_cross_section(
     V_func, z_residual = _rr_potential(scf_result, sh, continuum_model)
 
     sigma = np.zeros_like(photon_au, dtype=float)
-    for idx, omega in enumerate(photon_au):
-        electron_energy = float(omega + scf_result.orbital_energies[sh.label])
-        if electron_energy <= 0.0:
-            continue
-        for kf in _final_e1_kappas(sh.kappa):
-            angular_factor = line_strength_factor(sh.kappa, kf, 1, "E") / (2 * abs(sh.kappa))
-            if angular_factor == 0.0:
-                continue
-            r, P_cont, Q_cont, _delta = solve_dirac_continuum_shooting(
-                electron_energy,
-                kf,
-                V_func,
-                n_grid=continuum_model.shooting_n_grid,
-                r_max=continuum_model.shooting_r_max or 50.0,
-                Z_residual=z_residual,
-            )
-            Pb = np.interp(r, gr_sorted, Pb_grid, left=0.0, right=0.0)
-            Qb = np.interp(r, gr_sorted, Qb_grid, left=0.0, right=0.0)
-            dme = np.trapezoid((P_cont * Pb + Q_cont * Qb) * r, r)
+    channels = [(kf, line_strength_factor(sh.kappa, kf, 1, "E") / (2 * abs(sh.kappa)))
+                for kf in _final_e1_kappas(sh.kappa)]
+    channels = [(kf, factor) for kf, factor in channels if factor != 0.0]
+    active = [(idx, float(omega), float(omega + scf_result.orbital_energies[sh.label]))
+              for idx, omega in enumerate(photon_au)
+              if omega + scf_result.orbital_energies[sh.label] > 0.0]
+    if not active or not channels:
+        return sigma
+
+    # All energies and partial waves share one potential spline and radial
+    # grid.  Prepare once, solve independent waves in parallel, and sample
+    # the bound orbital only once on that common grid.
+    requests = [(kf, energy) for _idx, _omega, energy in active
+                for kf, _factor in channels]
+    r, waves = solve_dirac_continuum_many(
+        requests, V_func,
+        n_grid=continuum_model.shooting_n_grid,
+        r_max=continuum_model.shooting_r_max or 50.0,
+        Z_residual=z_residual,
+    )
+    Pb = np.interp(r, gr_sorted, Pb_grid, left=0.0, right=0.0)
+    Qb = np.interp(r, gr_sorted, Qb_grid, left=0.0, right=0.0)
+    radial_weight_P = Pb * r
+    radial_weight_Q = Qb * r
+    for idx, omega, electron_energy in active:
+        for kf, angular_factor in channels:
+            wave = waves[(kf, electron_energy)]
+            if wave is None:
+                raise RuntimeError(
+                    f"shooting PI continuum failed at E={electron_energy} Ha, kappa={kf}")
+            P_cont, Q_cont = wave
+            dme = np.trapezoid(P_cont * radial_weight_P + Q_cont * radial_weight_Q, r)
             sigma[idx] += (
-                4.0 * np.pi ** 2 * ALPHA * float(omega) / 3.0
+                4.0 * np.pi ** 2 * ALPHA * omega / 3.0
                 * dme ** 2 * angular_factor
             )
     return sigma

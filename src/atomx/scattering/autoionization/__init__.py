@@ -252,6 +252,7 @@ def _coarse_auger_rate(
                                 r_max=float(bsp_data["t"][-1]),
                                 n_grid=int(shooting_n_grid),
                                 Z_residual=float(getattr(result, "Z", 0)),
+                                match_phase=False,
                             )
                             P_eps_g = np.interp(gr.ravel(), r_eps, P_eps_r).reshape(
                                 gr.shape

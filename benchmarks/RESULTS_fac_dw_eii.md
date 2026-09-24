@@ -1,5 +1,7 @@
 # FAC DW-EII Gate Results
 
+This is a historical EII panel. The measurements below predate the 2026-09-24 continuum matching-derivative correction. Current atomx values are in [results_fac_dw_eii.csv](results_fac_dw_eii.csv); their nine-point RMS difference from the unchanged FAC column is 0.585%. The [continuum FAC and performance report](../docs/CONTINUUM_FAC_PERFORMANCE_2026-09-24.md) records the change and live wave comparison.
+
 Fresh FAC DW-EII gate run for HYP-832, rerun on 2026-07-22 after the
 HYP-862 integrity changes were present on PR #41.
 

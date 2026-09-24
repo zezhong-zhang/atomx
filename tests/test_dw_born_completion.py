@@ -86,7 +86,7 @@ BORN_TOL = 0.25
 # partial-wave sum the blend is allowed to contribute, measured at
 # L_max=6, kappa_max=10 on 2026-09-22.
 # Refreshed after constrained radial orbitals / mixed exchange (2026-09-23).
-OMEGA_DW_PIN = (0.023404070005053092, 0.009665422864138467, 0.0038482068471169754)
+OMEGA_DW_PIN = (0.023307841194157325, 0.009582412509053196, 0.0037768198990892677)
 OMEGA_DW_PIN_RTOL = 1.0e-3
 # Hydrogenic 1s -> 2p absorption oscillator strength, exact:
 #   f_{1s->np} = 2^8 n^5 (n-1)^{2n-4} / (3 (n+1)^{2n+4})   (n = 2)
@@ -220,15 +220,16 @@ def test_dw_partial_wave_sum_is_pinned(high_energy_completion):
     be pinned against it).  They exist so that a *further* collapse of the
     partial-wave sum — which the 25 % Born band cannot see, because the blend
     forces ``Omega >= 0.707 Omega_Born`` for any Omega_DW — trips immediately.
-    Measured 2026-09-22 (Ne He-like, threshold 914.0214 eV): 0.023211 /
-    0.009581 / 0.003814; the implied Omega_DW/Omega_Born is 0.109/0.034/0.009.
+    Refreshed after using the radial Dirac equation for the continuum
+    matching derivative: 0.023308 / 0.009582 / 0.003777. These are still
+    implementation snapshots, not FAC or asymptotic Born references.
     """
     omega_dw = _omega_dw_from_fixture(high_energy_completion)
     np.testing.assert_allclose(
         omega_dw, np.asarray(OMEGA_DW_PIN), rtol=OMEGA_DW_PIN_RTOL,
         err_msg=(
             "the DW partial-wave sum at 50-100-200x threshold moved; it was "
-            "0.0232/0.0096/0.0038 (9x/30x/110x below Born) when this pin was "
+            "0.0233/0.0096/0.0038 (9x/30x/110x below Born) when this pin was "
             "recorded.  A decrease is a regression in the DW kernel; an "
             "increase means the kernel finally converges — re-derive the pin "
             "and tighten test_dw_omega_rises_and_tracks_born_at_high_energy."

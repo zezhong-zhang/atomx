@@ -226,7 +226,7 @@ def test_live_atomx_dr_matches_the_recorded_panel():
     rc = bench_fac_dr.run_atomx()
     live = np.asarray(rc.alpha_cm3_s, dtype=float)
     assert live.shape == (len(data_rows),)
-    measured = {1.0: 1.09046, 5.0: 1.00740, 10.0: 0.99458, 50.0: 0.98400}
+    measured = {1.0: 1.08807, 5.0: 1.00520, 10.0: 0.99241, 50.0: 0.98185}
     rels = []
     for row, value in zip(data_rows, live, strict=True):
         T_mk = float(row["T_MK"])

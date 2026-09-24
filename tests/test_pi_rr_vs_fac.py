@@ -25,7 +25,8 @@ field separate from interpolated screening. The residual-core exchange
 model no longer removes a second electron's self-field. Each Li-like
 final level has its own occupied jj orbital. The external FAC column and
 accuracy bands are unchanged: K-shell errors are about 4%, Li-like 2s
-errors below 5%, and 2p errors below 17% on this panel. These are different
+errors up to about 12%, and 2p errors up to about 23% on this panel after
+the exact Dirac-derivative continuum normalization. These are different
 local-exchange/HF models, so this comparison is not an exact identity.
 """
 
