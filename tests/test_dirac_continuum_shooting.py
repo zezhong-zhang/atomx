@@ -6,8 +6,10 @@ import numpy as np
 import pytest
 
 from atomx.numerics.shooting.dirac_continuum import (
+    solve_dirac_continuum_many,
     solve_dirac_continuum_shooting,
 )
+from atomx.numerics.shooting.grid import sgrid
 
 
 def _V_hydrogen(r):
@@ -58,8 +60,11 @@ def test_high_energy_coulomb_envelope_converges_with_grid_refinement():
         measured = math.sqrt(2.0 * float(np.mean(outer ** 2)))
         relative_errors.append(abs(measured / expected - 1.0))
 
-    assert np.all(np.diff(relative_errors) < 0.0), relative_errors
-    assert relative_errors[-1] < 2.0e-2, relative_errors
+    # A finite outer-window RMS oscillates slightly with the number of
+    # included cycles; monotone error at every grid size is not an ODE
+    # convergence requirement. The finer grids agree within 0.2%.
+    assert relative_errors[0] < 1.0e-2, relative_errors
+    assert max(relative_errors[1:]) < 2.0e-3, relative_errors
 
 
 def test_phase_shift_finite():
@@ -83,6 +88,69 @@ def test_invalid_inputs():
         solve_dirac_continuum_shooting(E_au=-1.0, kappa=-1, V_func=_V_zero)
     with pytest.raises(ValueError):
         solve_dirac_continuum_shooting(E_au=1.0, kappa=0, V_func=_V_zero)
+    with pytest.raises(ValueError, match="finite"):
+        solve_dirac_continuum_shooting(E_au=float("nan"), kappa=-1, V_func=_V_zero)
+
+
+def test_fast_continuum_grid_matches_salvat_bisection():
+    args = (50.0, 1e-3/25, 0.5, 20000)
+    reference, _, n_ref = sgrid(*args)
+    fast, _, n_fast = sgrid(*args, fast=True)
+    assert n_fast == n_ref
+    np.testing.assert_allclose(fast, reference, rtol=4e-12, atol=4e-13)
+
+
+def test_mutating_potential_invalidates_prepared_spline():
+    class Coulomb:
+        def __init__(self, charge):
+            self.charge = charge
+
+        def __call__(self, r):
+            return -self.charge/r
+
+    potential = Coulomb(1.0)
+    args = dict(r_max=30., n_grid=3000, Z_residual=1.)
+    _, first, _, _ = solve_dirac_continuum_shooting(2., -1, potential, **args)
+    potential.charge = 2.0
+    _, changed, _, _ = solve_dirac_continuum_shooting(2., -1, potential, **args)
+    _, fresh, _, _ = solve_dirac_continuum_shooting(2., -1, Coulomb(2.), **args)
+    assert not np.allclose(first, changed)
+    np.testing.assert_allclose(changed, fresh, rtol=1e-12, atol=1e-12)
+
+
+def test_relativistic_coulomb_phase_stable_with_matching_radius():
+    energy = 200000. / 27.211386245988
+
+    def potential(r):
+        return -54./r
+    phases = [solve_dirac_continuum_shooting(
+        energy, -1, potential, r_max=radius, n_grid=points,
+        Z_residual=54.)[3]
+        for radius, points in ((20., 26515), (40., 53030))]
+    assert abs(phases[0]-phases[1]) < .02
+    with pytest.raises(RuntimeError, match="unconverged"):
+        solve_dirac_continuum_shooting(
+            energy, -1, potential, r_max=20., n_grid=20000,
+            Z_residual=54.)
+
+
+def test_batch_deduplicates_waves_and_matches_scalar():
+    requests = [(-1, 1.), (-1, 1.), (1, 2.)]
+    r, waves = solve_dirac_continuum_many(
+        requests, _V_hydrogen, r_max=30., n_grid=3000,
+        Z_residual=1., workers=2)
+    assert len(waves) == 2
+    for kappa, energy in set(requests):
+        scalar_r, scalar_P, scalar_Q, _ = solve_dirac_continuum_shooting(
+            energy, kappa, _V_hydrogen, r_max=30., n_grid=3000,
+            Z_residual=1.)
+        np.testing.assert_array_equal(r, scalar_r)
+        np.testing.assert_allclose(waves[(kappa, energy)][0], scalar_P,
+                                   rtol=1e-13, atol=1e-13)
+        np.testing.assert_allclose(waves[(kappa, energy)][1], scalar_Q,
+                                   rtol=1e-13, atol=1e-13)
+    with pytest.raises(ValueError, match="positive energy"):
+        solve_dirac_continuum_many([(-1, 0.)], _V_hydrogen)
 
 
 def test_relativistic_small_component_suppressed():

@@ -95,7 +95,7 @@ def test_wave_matches_fac(solved, fname, Z):
     ratio = Pi[m] / P[m]
     med = float(np.median(ratio))
     rms = float(np.std(ratio) / abs(med))
-    # normalization: sqrt(2/pi) within 1.5% (potential-difference level)
-    assert med == pytest.approx(np.sqrt(2.0 / np.pi), rel=0.015)
-    # shape: pointwise-constant ratio within 1.5%
-    assert rms < 0.015
+    # Exact Dirac-equation derivatives remove the old ~0.7% matching bias.
+    # Potential differences still limit a pointwise wave-shape comparison.
+    assert med == pytest.approx(np.sqrt(2.0 / np.pi), rel=0.002)
+    assert rms < 0.01

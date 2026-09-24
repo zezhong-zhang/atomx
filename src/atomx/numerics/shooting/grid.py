@@ -11,7 +11,7 @@ import numpy as np
 
 
 @nb.njit(cache=True)
-def sgrid(rn, r2, drn, n):
+def sgrid(rn, r2, drn, n, fast=False):
     """Generate Salvat's non-uniform radial grid.
 
     Parameters:
@@ -19,6 +19,8 @@ def sgrid(rn, r2, drn, n):
         r2:   approximate value of R(2) (controls small-r spacing)
         drn:  R(N)-R(N-1) (controls large-r spacing)
         n:    tentative number of grid points
+        fast: use safeguarded local Newton inversion for continuum grids;
+              the default retains the original bisection sequence
 
     Returns:
         r:    radial grid points r(0:n-1), r[0]=0, r[n-1]=rn
@@ -123,19 +125,50 @@ def sgrid(rn, r2, drn, n):
 
     rr = 1.0e-35
     for i in range(1, nr):
-        rl = rr
-        ru = rrn
-        # Bisection: find rr such that a*rr + b*log(rr+c) + d = i+1
         target = float(i + 1)  # Fortran uses 1-based index
-        for _ in range(200):
-            rr = 0.5 * (ru + rl)
+        if fast:
+            # The previous root plus its local Jacobian is already very
+            # close to the next root. Newton needs only a few iterations,
+            # while independent bisection takes ~50 per grid point.
+            rl = r[i - 1]
+            ru = rrn
+            rr = min(ru, rl + dr_arr[i - 1])
+            for _ in range(16):
+                fr = a * rr + b * math.log(rr + c) + d - target
+                if abs(fr) <= 2.0e-13:
+                    break
+                if fr > 0.0:
+                    ru = rr
+                else:
+                    rl = rr
+                trial = rr - fr / (a + b / (rr + c))
+                rr = 0.5 * (rl + ru) if trial <= rl or trial >= ru else trial
+            # Pathological near-linear parameters may need more iterations;
+            # keep the original monotone bracket as the accuracy fallback.
             fr = a * rr + b * math.log(rr + c) + d - target
-            if fr > 0.0:
-                ru = rr
-            else:
-                rl = rr
-            if ru - rl <= 1.0e-15 * rr:
-                break
+            if abs(fr) > 2.0e-12:
+                for _ in range(100):
+                    rr = 0.5 * (rl + ru)
+                    fr = a * rr + b * math.log(rr + c) + d - target
+                    if fr > 0.0:
+                        ru = rr
+                    else:
+                        rl = rr
+                    if abs(fr) <= 2.0e-13:
+                        break
+        else:
+            rl = rr
+            ru = rrn
+            # Original Salvat/Fortran bisection for structure grids.
+            for _ in range(200):
+                rr = 0.5 * (ru + rl)
+                fr = a * rr + b * math.log(rr + c) + d - target
+                if fr > 0.0:
+                    ru = rr
+                else:
+                    rl = rr
+                if ru - rl <= 1.0e-15 * rr:
+                    break
         r[i] = rr
         dr_arr[i] = (rr + c) / (a * (rr + c) + b)
 

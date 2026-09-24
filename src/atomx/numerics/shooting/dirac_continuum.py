@@ -18,10 +18,10 @@ Approach
    and ``dir_integrate`` per interval) all the way to ``r_max``.
    The integrator is the same adaptive-Numerov-like step-doubling
    kernel that FAC and Salvat use — no eigenvalue selection.
-4. Match the outer-region wavefunction to the asymptotic
-   free-particle / Coulomb form
+4. Match the outer-region wavefunction to the relativistic-energy
+   normalized Coulomb form with asymptotic amplitude
 
-       P(r → ∞)  →  √(2 / (π k))·sin(k r − l π/2 + δ)
+       A² = (2 + E/c²) / (π k),
 
    on the outermost ~10 % of the grid to extract the phase shift δ
    and renormalise the wave to the standard delta-energy convention.
@@ -59,10 +59,12 @@ from atomx.numerics.shooting.spline import vint
 
 @lru_cache(maxsize=64)
 def _sgrid_cached(rn: float, r2: float, drn: float, n: int):
-    """Cache the Salvat grid: construction is ~15x the cost of the actual
-    Dirac integration, and every partial wave / energy in a scattering run
-    shares the same grid parameters.  Arrays are marked read-only."""
-    r, dr, n_out = sgrid(rn=rn, r2=r2, drn=drn, n=n)
+    """Cache the fast-inverted Salvat grid shared by partial waves/energies.
+
+    Arrays are read-only; the original bisection remains the default for
+    bound-state grids, while the continuum uses the equivalent Newton grid.
+    """
+    r, dr, n_out = sgrid(rn=rn, r2=r2, drn=drn, n=n, fast=True)
     r = np.ascontiguousarray(r[:n_out])
     r.setflags(write=False)
     return r, n_out
@@ -71,20 +73,23 @@ def _sgrid_cached(rn: float, r2: float, drn: float, n: int):
 def _prepare_potential(V_func, r_max: float, n_grid: int, Z_residual: float):
     """Grid + potential spline shared by every partial wave and energy.
 
-    The spline of r*V(r) is independent of (kappa, E); rebuilding it per
-    solve cost ~30% of each call.  Cached on the ``V_func`` object itself
-    so all solves against the same potential reuse it.
+    The spline of r*V(r) is independent of (kappa, E). Check its sampled
+    values on every call: a callable may close over a mutable potential,
+    and reusing its former spline would silently solve the wrong atom.
     """
     key = (float(r_max), int(n_grid), float(Z_residual))
-    cache = getattr(V_func, "_contsolve_prep", None)
-    if cache is not None and cache.get("key") == key:
-        return cache["prep"]
     Z_eff = max(Z_residual, 1.0)
     r2 = 1.0e-3 / Z_eff
     drn = max(0.5, r_max / max(n_grid, 200))
     r, n_out = _sgrid_cached(float(r_max), float(r2), float(drn), int(n_grid))
     r_eval = np.where(r > 0, r, 1.0e-30)
-    rv = r_eval * np.asarray(V_func(r_eval), dtype=float)
+    rv = np.ascontiguousarray(r_eval * np.asarray(V_func(r_eval), dtype=float))
+    if rv.shape != r.shape or not np.all(np.isfinite(rv)):
+        raise ValueError("continuum potential must be finite on the shooting grid")
+    cache = getattr(V_func, "_contsolve_prep", None)
+    if (cache is not None and cache.get("key") == key
+            and np.array_equal(cache["prep"][-1], rv)):
+        return cache["prep"]
     rg, rvg, va, vb, vc, vd, nvt = vint(r, rv, n_out)
     ind = np.clip(
         np.searchsorted(rg[:nvt], r, side="right") - 1, 0, nvt - 2
@@ -92,7 +97,6 @@ def _prepare_potential(V_func, r_max: float, n_grid: int, Z_residual: float):
     for arr in (va, vb, vc, vd, ind):
         with contextlib.suppress(Exception):
             arr.setflags(write=False)
-    rv = np.ascontiguousarray(rv)
     rv.setflags(write=False)
     prep = (r, n_out, va, vb, vc, vd, ind, rv)
     with contextlib.suppress(AttributeError, TypeError):
@@ -100,7 +104,8 @@ def _prepare_potential(V_func, r_max: float, n_grid: int, Z_residual: float):
     return prep
 
 
-def _solve_prepared(prep, E_au: float, kappa: int, eps_tol: float):
+def _solve_prepared(prep, E_au: float, kappa: int, eps_tol: float,
+                    *, match_phase: bool = True):
     """One partial-wave solve against a prepared potential (thread-safe)."""
     r, n_out, va, vb, vc, vd, ind, rv = prep
     P = np.zeros(n_out)
@@ -124,7 +129,7 @@ def _solve_prepared(prep, E_au: float, kappa: int, eps_tol: float):
     n_match = max(20, n_out // 5)
     r_match = r[-n_match:]
     P_match = P[-n_match:]
-    dP = np.gradient(P_match, r_match)
+    Q_match = Q[-n_match:]
     # WKB envelope: for a slow wave over a residual ion the box edge is
     # far from asymptotic (Z_res/(k r) can exceed 1 at high Z), where the
     # local momentum k(r) >> k_inf.  The invariant is amplitude^2 * k:
@@ -135,18 +140,20 @@ def _solve_prepared(prep, E_au: float, kappa: int, eps_tol: float):
     # cross sections (Xe K-shell +80% at 1.5x threshold).
     V_m = rv[-n_match:] / r_match
     b_loc = E_au - V_m
+    # The radial Dirac equation gives dP/dr exactly from the integrated
+    # pair (P,Q). Finite differences damp an oscillatory derivative when
+    # the wavelength is only moderately sampled and bias the continuum
+    # normalization by about 0.7% in the FAC high-energy wave panel.
+    dP = (-kappa * P_match / r_match
+          + (b_loc + 2.0 * _C_SQ) / math.sqrt(_C_SQ) * Q_match)
     k_loc2 = (2.0 * b_loc * (1.0 + 0.5 * b_loc / _C_SQ)
               - l * (l + 1.0) / (r_match * r_match))
     k_loc = np.sqrt(np.maximum(k_loc2, k_inf * k_inf))
     A_sq_arr = (P_match ** 2 + (dP / k_loc) ** 2) * (k_loc / k_inf)
     A_meas = math.sqrt(float(np.median(A_sq_arr)))
     if A_meas <= 0 or not math.isfinite(A_meas):
-        return r, P, Q, 0.0
+        raise RuntimeError("continuum matching failed: nonfinite or zero asymptotic amplitude")
 
-    sin_arg = max(-1.0, min(1.0, P[-1] / A_meas))
-    phase = math.asin(sin_arg)
-    if dP[-1] < 0:
-        phase = math.pi - phase
     # Asymptotic matching must use the *Coulomb* wave, not a plane wave:
     # the outgoing electron still feels the residual ion, so
     #     P(r) ~ A sin(k r - l pi/2 - eta ln(2 k r) + sigma_l + delta)
@@ -156,12 +163,25 @@ def _solve_prepared(prep, E_au: float, kappa: int, eps_tol: float):
     # alone is 12.2 rad for Z_res = 1, k = 0.271, r_max = 50.
     # See docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding M15.
     z_res = -float(rv[-1])          # r*V(r) -> -Z_res as r -> infinity
-    eta = -z_res / k_inf
-    _gam = _sp_gamma(complex(l + 1.0, eta))
-    sigma_l = math.atan2(_gam.imag, _gam.real)
-    delta = (phase - k_inf * r[-1] + 0.5 * l * math.pi
-             + eta * math.log(2.0 * k_inf * r[-1]) - sigma_l)
-    delta = (delta + math.pi) % (2 * math.pi) - math.pi
+    delta = 0.0
+    if match_phase:
+        # FAC radial.c uses y=(1+alpha² E) Z/k for the relativistic
+        # Coulomb logarithm. Match across the whole asymptotic window;
+        # a single endpoint arcsin is ill-conditioned at extrema.
+        eta = -(1.0 + eps_rel) * z_res / k_inf
+        _gam = _sp_gamma(complex(l + 1.0, eta))
+        sigma_l = math.atan2(_gam.imag, _gam.real)
+        sample = np.linspace(0, n_match - 1, min(512, n_match), dtype=int)
+        rs = r_match[sample]
+        phase = np.arctan2(P_match[sample], dP[sample] / k_loc[sample])
+        reference = (k_inf * rs - 0.5 * l * math.pi
+                     - eta * np.log(2.0 * k_inf * rs) + sigma_l)
+        circle = np.mean(np.exp(1j * (phase - reference)))
+        if not np.isfinite(circle) or abs(circle) < 0.99:
+            raise RuntimeError(
+                "continuum phase matching is unconverged; refine the radial "
+                "grid or increase the asymptotic matching radius")
+        delta = float(np.angle(circle))
 
     norm = math.sqrt((2.0 + eps_rel) / (math.pi * k_inf)) / A_meas
     P = P * norm
@@ -178,26 +198,40 @@ def solve_dirac_continuum_shooting(
     n_grid: int = 1000,
     eps_tol: float = 1.0e-10,
     Z_residual: float = 0.0,
+    match_phase: bool = True,
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, float]:
     """Adaptive-Numerov Dirac continuum at exact energy ``E_au``.
 
     Solves the radial Dirac equations for the large (P) and small (Q)
     components on a Salvat-style non-uniform grid, then phase-matches to
-    the free-particle asymptote in the outer region and renormalises to
-    the delta-energy convention
+    the Coulomb asymptote and renormalises to the delta-energy convention.
+    The squared large-component asymptotic amplitude is
+    ``(2 + E/c²)/(pi*k)``; the nonrelativistic limit is ``2/(pi*k)``.
 
-        P(r -> inf)  ->  sqrt(2 / (pi k)) * sin(k r - l pi/2 + delta).
+    ``delta`` is referenced to the Coulomb logarithm with relativistic
+    Sommerfeld parameter and the conventional ``arg Gamma(l+1+i*eta)``
+    constant. FAC's ``PhaseRDependent`` uses a different constant, so its
+    printed phase is not directly comparable. An unconverged radial phase
+    fit raises; the batch API omits the phase fit for wave-only consumers.
+    Callers that only use P/Q may pass ``match_phase=False``; the returned
+    phase is then NaN rather than a falsely precise number.
 
     Returns ``(r, P, Q, delta)``.  The grid and the r*V(r) spline are
     shared across partial waves and energies (cached on ``V_func``); see
     :func:`solve_dirac_continuum_many` for the thread-parallel batch API.
     """
-    if E_au <= 0:
-        raise ValueError("solve_dirac_continuum_shooting: E_au must be > 0")
+    if not math.isfinite(E_au) or E_au <= 0:
+        raise ValueError("solve_dirac_continuum_shooting: E_au must be finite and > 0")
     if kappa == 0:
         raise ValueError("kappa must be non-zero")
+    if not math.isfinite(r_max) or r_max <= 0 or n_grid < 20:
+        raise ValueError("continuum shooting requires r_max > 0 and n_grid >= 20")
+    if not math.isfinite(eps_tol) or eps_tol <= 0:
+        raise ValueError("eps_tol must be finite and positive")
     prep = _prepare_potential(V_func, r_max, n_grid, Z_residual)
-    return _solve_prepared(prep, E_au, int(kappa), eps_tol)
+    r, P, Q, delta = _solve_prepared(
+        prep, E_au, int(kappa), eps_tol, match_phase=match_phase)
+    return r, P, Q, delta if match_phase else float("nan")
 
 
 def solve_dirac_continuum_many(
@@ -225,14 +259,25 @@ def solve_dirac_continuum_many(
 
     prep = _prepare_potential(V_func, r_max, n_grid, Z_residual)
     r = prep[0]
-    reqs = [(int(k), float(E)) for (k, E) in requests]
+    reqs = list(dict.fromkeys((int(k), float(E)) for (k, E) in requests))
+    if any(k == 0 or not math.isfinite(E) or E <= 0.0 for k, E in reqs):
+        raise ValueError("continuum requests require nonzero kappa and finite positive energy")
+    if not reqs:
+        return r, {}
     if workers is None:
-        workers = min(len(reqs), os.cpu_count() or 1, 16)
+        # A dozen tiny radial solves do not repay 12–16 worker startups.
+        # The measured 24-wave panel was fastest with 2–4 workers; leave
+        # eight for larger batches where each thread has enough work.
+        workers = min(len(reqs), os.cpu_count() or 1,
+                      4 if len(reqs) < 32 else 8)
+    if workers < 1:
+        raise ValueError("workers must be positive")
 
     def _run(req):
         kappa, E = req
         try:
-            _r, P, Q, _d = _solve_prepared(prep, E, kappa, eps_tol)
+            _r, P, Q, _d = _solve_prepared(
+                prep, E, kappa, eps_tol, match_phase=False)
             if interp_grid is not None:
                 return req, (np.interp(interp_grid, r, P),
                              np.interp(interp_grid, r, Q))
