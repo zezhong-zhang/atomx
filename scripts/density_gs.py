@@ -1,14 +1,19 @@
 #!/usr/bin/env python3
 """Ground-state density: generate per-element HDF5 and compare with WF_TXT.
 
-For each requested Z, runs B-spline Dirac-Hartree-Fock (jj-averaged
-DBSR_HF-style, ``term=AV``) with Breit + QED and writes an HDF5 file
+For each requested Z, runs B-spline CI-averaged MCDHF by default, with
+Gaunt (Breit) + QED corrections, and writes an HDF5 file
 with one group per occupied relativistic subshell (datasets ``r``,
 ``density``, ``density_large``, ``density_small``, ``wave_large``,
 ``wave_small``; attrs ``n``, ``l``, ``spin``, ``orbital``, ``nq``,
 ``small_component_ratio``, ``speed``). The radial density convention
 is ``int_0^inf rho(r) dr = nq`` per subshell, so the total atomic
 density ``sum_i rho_i(r)`` integrates to Z.
+``--averaging statistical`` selects configuration-average DHF (DBSR_HF-style
+``term=AV``), with post-SCF Gaunt + QED energy corrections.
+``--correlation s/sd`` expands the default CI configuration space.
+BLAS defaults to one thread for these small matrices; explicit environment
+settings (e.g. ``OPENBLAS_NUM_THREADS``) take precedence.
 
 Then, if ``$ATOMX_WF_TXT_DIR/<Z>.txt`` (default ``./dataset/WF_TXT``) exists,
 compares the summed atomx density against the WF_TXT reference (which has a
@@ -22,6 +27,7 @@ Examples
     python scripts/density_gs.py H-Ne Cu Ag --force -v
     python scripts/density_gs.py --all --out /tmp/density
     python scripts/density_gs.py 79 92 103 108 --no-compare   # generate only
+    python scripts/density_gs.py 92 --averaging statistical --force
 """
 from __future__ import annotations
 
@@ -32,10 +38,17 @@ import sys
 import time
 from pathlib import Path
 
+# The radial matrices are small; large BLAS thread pools cost much more
+# synchronization than arithmetic. Set defaults before importing NumPy/SciPy,
+# while preserving explicit settings for users benchmarking other machines.
+os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+os.environ.setdefault("MKL_NUM_THREADS", "1")
+
 import h5py
 import numpy as np
 
-from atomx import Atom, Corrections
+from atomx import Atom, Corrections, Correlation
 from atomx.config import ground_state_config
 from atomx.config.jj_coupling import generate_jj_average
 from atomx.constants import atomic_numbers, element_symbol
@@ -172,7 +185,8 @@ def build_orbital_payload(orb, nq: float, grid: np.ndarray) -> dict:
     }
 
 
-def write_h5(path: Path, Z: int, symbol: str, config_str: str, payloads: list) -> None:
+def write_h5(path: Path, Z: int, symbol: str, config_str: str, payloads: list,
+             *, calculation: dict | None = None) -> None:
     """Atomic write via tmp file + os.replace."""
     tmp = path.with_suffix(path.suffix + ".tmp")
     try:
@@ -184,6 +198,8 @@ def write_h5(path: Path, Z: int, symbol: str, config_str: str, payloads: list) -
             meta.attrs["core_hole"] = np.bool_(False)
             meta.attrs["oxidation"] = np.int64(0)
             meta.attrs["electron_configuration"] = config_str
+            if calculation:
+                meta.attrs.update(calculation)
 
             for i, payload in enumerate(payloads):
                 g = f.create_group(str(i))
@@ -211,14 +227,13 @@ def generate(Z: int, out_path: Path, args) -> bool:
     t0 = time.time()
     try:
         config_str = ground_state_config(Z)
-        if args.correlation:
-            atom = Atom(
-                        Z=Z,
-                        corrections=Corrections(breit=args.breit, qed=args.qed),
-                        correlation=args.correlation,
-                   )
-        else:
-            atom = Atom(Z=Z, corrections=Corrections(breit=args.breit, qed=args.qed))
+        correlation = Correlation(expansion=args.correlation,
+                                  averaging=args.averaging)
+        atom = Atom(Z=Z, engine="bspline",
+                    corrections=Corrections(breit=args.breit, qed=args.qed),
+                    correlation=correlation)
+        LOG.info("[SCF] %s Z=%d | B-spline %s", symbol, Z,
+                 "CI" if args.averaging == "ci" else "statistical DHF")
         atom.solve(tol=args.tol, max_iter=args.max_iter)
     except Exception as e:
         LOG.error("[FAIL] %s Z=%d solve error: %s", symbol, Z, e)
@@ -234,7 +249,11 @@ def generate(Z: int, out_path: Path, args) -> bool:
                  for o in atom.result.waves.orbitals.values()}
 
     payloads = []
-    for (n, kappa, nq, label) in reference_subshells(Z):
+    # CI occupations need not equal statistical jj occupations, even without
+    # a singles/doubles expansion. Always export the solved density.
+    subshells = [(sh.n, sh.kappa, sh.occupation, sh.label)
+                 for sh in atom.result.subshells if sh.occupation > 1e-10]
+    for (n, kappa, nq, label) in subshells:
         orb = orb_by_nk.get((n, kappa))
         if orb is None:
             LOG.error("[FAIL] %s: no orbital for (n=%d, kappa=%d, %s)",
@@ -243,7 +262,15 @@ def generate(Z: int, out_path: Path, args) -> bool:
         payloads.append(build_orbital_payload(orb, nq, grid))
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    write_h5(out_path, Z, symbol, config_str, payloads)
+    write_h5(out_path, Z, symbol, config_str, payloads, calculation={
+        "engine": atom.engine,
+        "averaging": atom.averaging,
+        "correlation": args.correlation or "none",
+        "breit": bool(args.breit),
+        "qed": bool(args.qed),
+        "scf_tolerance": float(args.tol),
+        "iterations": int(atom.iterations),
+    })
 
     LOG.info("[OK] %s Z=%d | %d orbitals | iters=%d | %.1fs",
              symbol, Z, len(payloads), atom.iterations, time.time() - t0)
@@ -393,8 +420,10 @@ def main(argv=None) -> int:
     ap.add_argument("--plots-dir", default=None, type=Path,
                     help="Where to write PNGs + REPORT.md. "
                          "Default: <out>/wf_txt_compare/.")
-    ap.add_argument("--correlation", default=None, choices=[None, "s", "sd"],
-                    help="None (default, jj-averaged DHF) | 's' | 'sd' (slow).")
+    ap.add_argument("--averaging", default="ci", choices=["ci", "statistical"],
+                    help="CI (default) or statistical configuration-average DHF.")
+    ap.add_argument("--correlation", default=None, choices=["s", "sd"],
+                    help="Expand the CI space with singles or singles+doubles.")
     ap.add_argument("--breit", action=argparse.BooleanOptionalAction, default=True)
     ap.add_argument("--qed", action=argparse.BooleanOptionalAction, default=True)
     ap.add_argument("--max-iter", type=int, default=300)
@@ -406,6 +435,8 @@ def main(argv=None) -> int:
     ap.add_argument("-v", "--verbose", action="count", default=0,
                     help="-v for INFO, -vv for DEBUG.")
     args = ap.parse_args(argv)
+    if args.averaging == "statistical" and args.correlation:
+        ap.error("--correlation requires --averaging ci")
 
     level = (logging.DEBUG if args.verbose >= 2
              else logging.INFO if args.verbose == 1
@@ -428,7 +459,16 @@ def main(argv=None) -> int:
     for Z in Zs:
         symbol = element_symbol(Z)
         h5_path = args.out / f"{symbol}.h5"
-        if h5_path.exists() and not args.force:
+        reuse = h5_path.exists() and not args.force
+        if reuse:
+            with h5py.File(h5_path, "r") as f:
+                meta = f["metadata"].attrs
+                reuse = (meta.get("averaging") == args.averaging
+                         and meta.get("correlation") == (args.correlation or "none")
+                         and meta.get("engine") == "bspline")
+            if not reuse:
+                LOG.info("[REBUILD] %s: cached calculation uses a different model", symbol)
+        if reuse:
             LOG.info("[SKIP] %s Z=%d (h5 exists at %s)", symbol, Z, h5_path)
         elif not generate(Z, h5_path, args):
             fails.append(Z)

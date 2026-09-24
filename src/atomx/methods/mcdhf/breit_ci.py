@@ -75,6 +75,7 @@ __all__ = [
     "BreitOperatorError",
     "RETARDATION_NOTE",
     "attach_breit_operator_energy",
+    "breit_configuration_average",
     "breit_operator_energy",
     "configuration_string_of",
     "gaunt_angular_terms",
@@ -361,7 +362,69 @@ def configuration_string_of(subshells) -> str:
     return " ".join(parts)
 
 
-def attach_breit_operator_energy(result, config: str | None = None) -> float:
+def breit_configuration_average(orbitals_dict, bsp_data, Z, ns, jj_configs):
+    """Gaunt expectation in an explicit, spherical jj-configuration ensemble.
+
+    Within each integer-occupation jj configuration all magnetic determinants
+    have equal probability. A distinct spinor pair in shell i has probability
+    q_i(q_i-1)/(g_i(g_i-1)); in different shells it is q_i*q_j/(g_i*g_j).
+    Contract these probabilities with <ab|G|ab>-<ab|G|ba>. This is the trace
+    of the same two-body operator used by CI, without constructing any CSFs
+    or determinant matrices. Configuration weights retain correlations
+    between the occupations of jj partners (products of mean occupations
+    would be incorrect).
+    """
+    from collections import defaultdict
+
+    from atomx.methods.mcdhf.matrix import _breit_radial_evaluator
+
+    configs = list(jj_configs)
+    if not configs:
+        raise BreitOperatorError("the Gaunt ensemble needs jj configurations")
+    shells = configs[0].subshells
+    keys = [(sh.n, sh.kappa) for sh in shells]
+    weights = np.asarray([cfg.weight for cfg in configs], dtype=float)
+    if (not np.all(np.isfinite(weights)) or np.any(weights < 0)
+            or not np.isclose(weights.sum(), 1.0, rtol=0, atol=1e-12)):
+        raise BreitOperatorError("Gaunt ensemble weights must sum to one")
+    degeneracy = np.asarray([2 * abs(sh.kappa) for sh in shells])
+    pair_counts = np.zeros((len(shells), len(shells)))
+    for cfg in configs:
+        if [(sh.n, sh.kappa) for sh in cfg.subshells] != keys:
+            raise BreitOperatorError("Gaunt ensemble subshells must be aligned")
+        q = np.asarray([sh.occupation for sh in cfg.subshells], dtype=float)
+        if (not np.all(np.isfinite(q)) or np.any(q < 0)
+                or np.any(q > degeneracy) or np.any(q != np.rint(q))):
+            raise BreitOperatorError("Gaunt ensemble needs integer occupations")
+        counts = np.outer(q, q)
+        counts[np.diag_indices_from(counts)] -= q
+        pair_counts += cfg.weight * counts
+    denominator = np.outer(degeneracy, degeneracy)
+    denominator[np.diag_indices_from(denominator)] -= degeneracy
+    probabilities = pair_counts / denominator
+
+    labels = []
+    shell_indices = []
+    for i, (n, kappa) in enumerate(keys):
+        for m2 in range(-twoj_of_kappa(kappa), twoj_of_kappa(kappa) + 1, 2):
+            labels.append((n, kappa, m2))
+            shell_indices.append(i)
+    coefficients = defaultdict(float)
+    for a, i in enumerate(shell_indices):
+        for b in range(a):
+            probability = probabilities[i, shell_indices[b]]
+            if probability == 0:
+                continue
+            for c, d, sign in ((a, b, 1.0), (b, a, -1.0)):
+                for key, coeff in gaunt_terms(a, b, c, d, sign, labels):
+                    coefficients[key] += probability * coeff
+    evaluate = _breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns)
+    return math.fsum(coeff * evaluate(key) for key, coeff in coefficients.items()
+                     if coeff != 0.0)
+
+
+def attach_breit_operator_energy(result, config: str | None = None,
+                                *, jj_configs=None) -> float:
     """Compute ``result``'s Gaunt energy and stash it on the result.
 
     The Breit interaction is applied by the ``CorrectionStack`` (in
@@ -384,16 +447,24 @@ def attach_breit_operator_energy(result, config: str | None = None) -> float:
     config : str, optional
         Configuration string; derived from ``result.subshells`` when not
         given.
+    jj_configs : sequence of JJConfig, optional
+        Explicit spherical configuration ensemble used by the SCF. Evaluate
+        its Gaunt trace directly; no state-specific CI is implied.
 
     Returns
     -------
     float
         The Gaunt energy in Hartree, also stored on the result.
     """
-    if config is None:
+    if config is None and jj_configs is None:
         config = configuration_string_of(result.subshells or [])
     orbitals_dict, bsp_data, Z, ns = _ci_radial_inputs(result)
-    value = breit_operator_energy(orbitals_dict, bsp_data, Z, ns, config)
+    if jj_configs is None:
+        value = breit_operator_energy(orbitals_dict, bsp_data, Z, ns, config)
+    else:
+        value = breit_configuration_average(
+            orbitals_dict, bsp_data, Z, ns, jj_configs)
+        result.__dict__["_E_Breit_operator_averaging"] = "jj_configuration_ensemble"
     result.__dict__["_E_Breit_operator"] = float(value)
     result.__dict__["_E_Breit_operator_config"] = config
     return float(value)

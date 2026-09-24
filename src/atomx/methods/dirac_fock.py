@@ -2389,7 +2389,7 @@ class DFSolver:
             from atomx.methods.mcdhf.breit_ci import (
                 attach_breit_operator_energy,
             )
-            attach_breit_operator_energy(result)
+            attach_breit_operator_energy(result, jj_configs=self.jj_configs)
         return finalize_with_corrections(result, stack)
 
 
