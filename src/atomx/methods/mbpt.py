@@ -29,13 +29,12 @@ where π is the parity selector; the angular sum in V_J vanishes if
 the parity rule is violated for either pair.
 
 The virtual orbitals are obtained by diagonalising the closed-shell
-DHF Fock matrix for each κ in the converged B-spline basis.  This is
-the "V^N-1 frozen-core" virtual basis (each virtual sees the same
-average potential the occupied orbitals saw at convergence) and is
-the standard choice in atomic MBPT (Johnson, Sapirstein, Blundell,
-1988).  All physical eigenstates above the negative-energy continuum
-are kept, including the high-lying B-spline pseudo-continuum, which
-provides a near-complete representation of positive-energy states.
+DHF Fock matrix for each κ in the converged B-spline basis. Closed-shell
+MBPT uses the full V^N field so occupied and virtual energies come from
+one reference Hamiltonian. The virtual-basis helper also supports an
+explicit V^(N-1) field with one outer electron removed. Bound virtuals
+and positive-energy box states are retained; basis size, angular cutoff
+and continuum-energy cutoff require separate convergence checks.
 
 References
 ----------
@@ -178,15 +177,11 @@ def _build_closed_shell_fock(
     Parameters
     ----------
     potential_mode : {"VN-1", "VN"}
-        ``"VN-1"`` (default, standard for atomic MBPT, Sapirstein-
-        Johnson-Blundell 1988): the virtual orbital with quantum
-        number κ sees N-1 electrons.  Implemented by subtracting 1
-        from the occupation of any occupied subshell whose κ matches
-        the target.  Gives bound Rydberg-like virtuals.
-        ``"VN"``: full N-electron mean field.  Cheaper and matches
-        the SCF Fock exactly, but the virtuals are essentially
-        unbound (electron-affinity-like) and produce a poor MBPT
-        expansion.
+        ``"VN-1"`` removes one electron from the outermost occupied
+        subshell, using the same residual-core occupation for every κ.
+        ``"VN"`` retains the full N-electron reference Fock field.
+        The public closed-shell MBPT routines use V^N so their occupied
+        and virtual energies share a reference Hamiltonian.
 
     Parameters
     ----------
@@ -213,8 +208,9 @@ def _build_closed_shell_fock(
         raise ValueError("SCFResult is missing Z.")
 
     ns_full = bsp_data["ns"]
-    nuclear_potential_func = scf_result.provenance.get("nuclear_potential_func") \
-        if hasattr(scf_result, "provenance") else None
+    nuclear_potential_func = getattr(scf_result, "_nuclear_potential", None)
+    if nuclear_potential_func is None and hasattr(scf_result, "provenance"):
+        nuclear_potential_func = scf_result.provenance.get("nuclear_potential_func")
 
     # One-electron H₀ + S
     H, S = build_dirac_matrices(ns_full, kappa, Z, bsp_data, nuclear_potential_func)
@@ -333,6 +329,13 @@ def build_virtual_basis(
         physical_mask &= res.eigenvalues < e_max
     phys_idx = np.where(physical_mask)[0]
     phys_idx = phys_idx[np.argsort(res.eigenvalues[phys_idx])]
+    has_kinetic_balance = (bsp_data.get("ksp", bsp_data["ks"])
+                          != bsp_data.get("ksq", bsp_data["ks"]))
+    if kappa > 0 and not has_kinetic_balance:
+        # Equal-order P/Q bases carry an extra lowest positive-kappa root
+        # (a spurious 1p, 2d, ... state). Use the same physical-root
+        # convention as the occupied and Rydberg solvers.
+        phys_idx = phys_idx[1:]
 
     # Split eigenvectors into (P, Q) per the DiracResult layout
     states: List[Tuple[np.ndarray, np.ndarray, float]] = []
@@ -357,7 +360,9 @@ def build_virtual_basis(
         return float(a @ (S_full @ b)) if S_full is not None else float(a @ b)
 
     occupied_indices = set()
-    for (P_occ, Q_occ, _) in occ_orbs:
+    for (P_occ, Q_occ, occupation) in occ_orbs:
+        if occupation <= 0:
+            continue
         best, best_idx = -1.0, -1
         for i, (P_v, Q_v, _) in enumerate(states):
             if i in occupied_indices:
@@ -410,25 +415,14 @@ def mbpt2_energy(
     e_virt_max
         Optional energy ceiling for virtual orbitals (hartree).
 
-        **These states are NOT negligible, and the default of ``None``
-        is unsafe.**  The previous text here said they "contribute
-        negligibly but cost time"; measured on Ar I
-        (``1s2 2s2 2p6 3s2 3p6``, one SCF result, varying only this
-        argument):
-
-            default (None)   E2 = -1.057787 Ha
-            e_virt_max=5.0   E2 = -0.366318 Ha
-            e_virt_max=1.0   E2 = -0.124591 Ha
-
-        i.e. the highest pseudo-continuum states carry ~65 % of the
-        uncapped total, and the uncapped value is not a physical
-        second-order energy at all (argon's whole correlation energy is
-        ~ -0.7 Ha).  States near the top of the B-spline box are
-        continuum-like and enter a *bound-state* sum with near-zero
-        energy denominators.  Choosing a bound-space cap is therefore a
-        physics decision, not a performance one, and it is currently the
-        caller's responsibility.  Gated by
-        ``tests/test_nist_levels.py::test_ar_mbpt2_correlation_energy_is_physical``.
+        High-energy virtual states can contribute materially to the
+        correlation energy. A finite ceiling defines a truncated sum;
+        increase it together with the radial and angular basis to check
+        convergence. Large positive virtual energies make the excitation
+        denominators large, not near zero. Second-order perturbation
+        theory is not variational, so a correction larger than the exact
+        correlation energy alone does not establish an implementation
+        error or a rigorous energy bound.
     verbose
         If True, log per-pair contributions.
     term_recorder

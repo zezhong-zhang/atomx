@@ -27,7 +27,7 @@ from __future__ import annotations
 
 import numpy as np
 import pytest
-from _be_reference import BE_DC_LOWER_BOUND
+from _be_reference import BE_DC_SANITY_FLOOR
 
 from atomx import Atom
 from atomx.methods.ci import ci_solve
@@ -137,13 +137,7 @@ class TestMissingOrbitalGuard:
                 Subshell(n=2, kappa=-1, occupation=-2.0 + 4.0)]
         dhf = DFSolver(Z=4, subshells=subs, ns=40, ks=7)
         result = dhf.solve(max_iter=40, tol=1e-5)
-        orbitals = {}
-        for sh in subs:
-            idx = 0
-            orbs = result.orbitals_raw.get(sh.kappa, [])
-            if idx < len(orbs):
-                P, Q, _ = orbs[idx]
-                orbitals[(sh.n, sh.kappa)] = (P, Q)
+        orbitals = {key: (p, q) for key, (p, q, _) in result.orbitals_by_subshell().items()}
         csfs = make_csf_list(Z=4, config_strings=["1s2 2s2"])
         basis = get_shared_orbital_basis(csfs)
         ci = ci_solve(csfs, orbitals, basis, dhf.bsp_data, Z=4, ns=dhf.ns)
@@ -165,7 +159,7 @@ class TestCorrelationIsNotSilentlyDropped:
         # Two-sided: the old one-sided form was satisfied by the -15.05 Ha
         # non-variational regression it was written to catch, because any
         # collapse below the reference is "lower" too.
-        assert two.total_energy > BE_DC_LOWER_BOUND, (
+        assert two.total_energy > BE_DC_SANITY_FLOOR, (
             f"two-CSF CI = {two.total_energy:.6f} Ha is below the "
-            f"finite-nucleus Dirac-Coulomb Be ground state "
-            f"{BE_DC_LOWER_BOUND} Ha — non-variational")
+            f"diagnostic Be energy floor "
+            f"{BE_DC_SANITY_FLOOR} Ha")

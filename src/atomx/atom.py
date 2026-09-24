@@ -849,6 +849,8 @@ class Atom:
             else:
                 solver = MCDHFSolver(
                     Z=self.Z, csfs=csfs, ns=self.ns, ks=self.ks,
+                    r_max=self.r_max, grid_hi=self.grid_hi,
+                    grid_he=self.grid_he, grid_hmax=self.grid_hmax,
                     include_breit=self.breit, include_qed=self.qed,
                     qed_se_method=self.qed_backend,
                     correction_stack=self.correction_stack,
@@ -878,6 +880,8 @@ class Atom:
                 csfs = enumerate_jj_csfs_many(self._config_strings)
             solver = MCDHFSolver(
                 Z=self.Z, csfs=csfs, ns=self.ns, ks=self.ks,
+                r_max=self.r_max, grid_hi=self.grid_hi,
+                grid_he=self.grid_he, grid_hmax=self.grid_hmax,
                 include_breit=self.breit, include_qed=self.qed,
                 qed_se_method=self.qed_backend,
                 correction_stack=self.correction_stack,
@@ -1580,6 +1584,23 @@ class Atom:
         interpolate = r is not None
         r_eval = np.asarray(r, dtype=float) if interpolate else native_grid
         rho = np.zeros_like(r_eval, dtype=float)
+
+        if self._mcdhf_result is not None:
+            keys, density = self._mcdhf_result.one_body_density_matrix()
+            sampled = {(orb.n, orb.kappa): orb for orb in w.orbitals.values()}
+            p, q = [], []
+            for key in keys:
+                orb = sampled[key]
+                P = np.asarray(orb.P, dtype=float)
+                Q = np.zeros_like(P) if orb.Q is None else np.asarray(orb.Q, dtype=float)
+                if interpolate:
+                    P = np.interp(r_eval, native_grid, P, left=0.0, right=0.0)
+                    Q = np.interp(r_eval, native_grid, Q, left=0.0, right=0.0)
+                p.append(P)
+                q.append(Q)
+            p, q = np.asarray(p), np.asarray(q)
+            return np.einsum("ab,ar,br->r", density, p, p, optimize=True) + np.einsum(
+                "ab,ar,br->r", density, q, q, optimize=True)
 
         for orb in w.orbitals.values():
             P = np.asarray(orb.P, dtype=float)

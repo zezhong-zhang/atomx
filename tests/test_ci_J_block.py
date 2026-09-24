@@ -378,7 +378,7 @@ def _by_dominant_label(res):
     """
     out = {}
     for k in range(res.n_states):
-        dom = int(np.argmax(np.abs(res.mixing_coefficients[k])))
+        dom = int(np.argmax(np.abs(res.mixing_coefficients[:, k])))
         out[res.csfs[dom].label.split()[0]] = float(res.state_energies[k])
     return out
 

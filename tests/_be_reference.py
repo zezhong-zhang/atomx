@@ -13,12 +13,11 @@ The three quantities are *different physics* and are now named as such:
     Hylleraas-variation value).  This is the lower bound every
     non-relativistic variational calculation must stay above.
 
-``BE_DC_LOWER_BOUND``
-    The same bound lowered by the finite-nucleus Dirac-Coulomb shift.
-    Relativity plus the finite (Fermi) nuclear size move the ground state
-    **down** by ~2.5 mHa at Z = 4; 5 mHa of margin is kept so that a
-    variational gate written against it cannot be tripped by the nuclear
-    model.  It is a bound, not a measurement.
+``BE_DC_SANITY_FLOOR``
+    A loose diagnostic floor, 5 mHa below the nonrelativistic value.
+    This is not a rigorous Dirac–Coulomb bound: the Hamiltonian, nuclear
+    model and no-pair projector differ. Variational tests must instead
+    compare nested spaces of one fixed Hamiltonian.
 
 ``BE_HF_1CSF``
     **atomx's own** single-configuration ``1s2 2s2`` energy in this suite's
@@ -30,7 +29,8 @@ The three quantities are *different physics* and are now named as such:
 
 For orientation, the numerical Hartree-Fock **limit** for Be is
 ``-14.573023`` Ha (the textbook value): atomx's finite B-spline basis sits
-2.9 mHa above it, i.e. its 1-CSF energy is not converged to the HF limit.
+2.9 mHa below that nonrelativistic value. Relativistic and nonrelativistic
+energies cannot diagnose basis convergence by direct subtraction.
 """
 
 from __future__ import annotations
@@ -42,11 +42,8 @@ from functools import lru_cache
 #: calculation must land above this.
 BE_EXACT_NR = -14.66736
 
-#: Finite-nucleus Dirac-Coulomb variant of the same bound: the physical
-#: ground state is ~2.5 mHa *below* ``BE_EXACT_NR`` (relativistic
-#: contraction plus the Fermi nuclear size at Z = 4), so a bound with 5 mHa
-#: of margin is used wherever a relativistic solve is being gated.
-BE_DC_LOWER_BOUND = BE_EXACT_NR - 0.005
+#: Diagnostic energy scale only, not a rigorous relativistic lower bound.
+BE_DC_SANITY_FLOOR = BE_EXACT_NR - 0.005
 
 #: Textbook numerical Hartree-Fock limit for Be (external, not atomx).
 BE_HF_LIMIT = -14.573023

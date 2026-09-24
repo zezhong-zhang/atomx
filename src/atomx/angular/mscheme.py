@@ -41,7 +41,7 @@ def _popcount(mask: int) -> int:
     return int(mask.bit_count())
 
 
-@lru_cache(maxsize=None)
+@lru_cache(maxsize=512)
 def determinants_by_m(j2: int, q: int, M2: int) -> tuple[int, ...]:
     """Return determinant bitmasks for ``j^q`` with total ``2M == M2``."""
     m2 = _m2_values(j2)
@@ -109,7 +109,7 @@ def jplus_matrix(j2: int, q: int, M2: int) -> np.ndarray:
     return mat
 
 
-@lru_cache(maxsize=None)
+@lru_cache(maxsize=512)
 def highest_weight_states(j2: int, q: int) -> tuple[SubshellTermState, ...]:
     """Return all highest-weight J states for a relativistic subshell."""
     if q < 0 or q > j2 + 1:

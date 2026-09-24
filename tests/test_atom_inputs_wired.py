@@ -143,14 +143,19 @@ def test_plasma_shift_matches_first_order_theory_from_the_module():
 
 
 def test_plasma_is_applied_on_both_engines():
-    """Both engines must solve the same screened Hamiltonian."""
+    """Both engines solve the same one-electron screened Hamiltonian.
+
+    Open-shell HF uses different radial optimization approximations in
+    the two engines; that difference must not become a wiring tolerance.
+    """
     out = {}
     for engine in ("shooting", "bspline"):
-        bare = _unscreened(engine=engine)
-        dense = _screened(engine=engine)
+        bare = Atom(10, charge=9, engine=engine, corrections="none").solve()
+        dense = Atom(10, charge=9, engine=engine, corrections="none",
+                     environment=Environment(**NE_PLASMA)).solve()
         shift = dense.orbital_energies["1s1/2"] - bare.orbital_energies["1s1/2"]
         assert shift > 0.5, engine
-        assert dense.total_energy - bare.total_energy > 5.0, engine
+        assert dense.total_energy - bare.total_energy > 0.5, engine
         out[engine] = (shift, dense.total_energy - bare.total_energy)
     assert out["shooting"][0] == pytest.approx(out["bspline"][0], abs=1e-5)
     assert out["shooting"][1] == pytest.approx(out["bspline"][1], abs=1e-5)

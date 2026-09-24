@@ -14,12 +14,12 @@ from typing import Optional
 
 import numpy as np
 
+from atomx.angular.coefficients import reduced_C
 from atomx.angular.csf import (
     csf_has_explicit_j,
     csf_parity,
     csf_twice_j,
     multipole_allows_state_transition,
-    one_body_csf_coupling,
 )
 from atomx.constants import (
     HARTREE_CM1,
@@ -31,6 +31,11 @@ from atomx.corrections.adapters import (
     _grid_workspace_of,
     _has_bspline_dirac_data,
     _has_radial_grid_data,
+)
+from atomx.methods.mcdhf.exact_ci import (
+    csf_signature,
+    nonorthogonal_tensor_terms,
+    one_body_tensor_terms,
 )
 from atomx.properties.transitions.angular import (
     _kappa_to_lj,
@@ -194,16 +199,12 @@ class TransitionCalculator:
         multipoles : list of str, optional
             Multipole types to compute. Default: ``['E1']``.
         line_resolution : {'uta', 'ci'}
-            ``'uta'`` (default) — the statistical machinery: exact
-            multiplet totals distributed with FAC's UTA population
-            factor.  ``'ci'`` — exact J-resolved determinant-CI line
-            strengths (:mod:`atomx.properties.transitions.ci_lines`)
-            for single-configuration-pair atoms within the ``ci_det_cap``
-            size cap; anything the CI engine cannot handle (more than
-            two configurations, multi-hole configs, blocks above the
-            cap, velocity gauge, magnetic multipoles) falls back to the
-            UTA path.  Each :class:`TransitionResult` records the engine
-            that produced it in ``resolution``.
+            MCDHF states always use exact CSF one-body tensors, with the
+            Hamiltonian's coupling and phase conventions, and report
+            ``resolution='ci'``. For other result types, ``'uta'`` selects
+            statistical multiplet strengths and ``'ci'`` requests the
+            determinant-CI engine where supported; each row records the
+            engine actually used in ``resolution``.
         ci_det_cap : int
             Maximum determinants per (J, M) block for the CI engine.
         gauge : {'length', 'velocity', 'both'}
@@ -539,6 +540,7 @@ class TransitionCalculator:
         per_block_orbitals = getattr(mcdhf, "per_block_orbitals", {}) or {}
         n_states = len(state_energies)
         results = []
+        self._csf_radial_cache = {}
 
         for I in range(n_states):
             for F in range(n_states):
@@ -642,6 +644,7 @@ class TransitionCalculator:
                         f_value=f_val,
                         line_strength=S_primary,
                         gauge=reported_gauge,
+                        resolution="ci",
                         A_length=A_length,
                         A_velocity=A_velocity,
                     ))
@@ -651,61 +654,49 @@ class TransitionCalculator:
     def _csf_transition_me(self, csf_r, csf_s, orbitals_dict, bsp_data,
                             L, mp_type, gauge, *, omega=None,
                             source_orbitals=None, destination_orbitals=None):
-        """Transition matrix element between two CSFs.
-
-        For CSFs differing by one orbital (a -> b), the ME is the
-        single-particle transition ME times a phase/coupling factor.
-        For CSFs differing by more than one orbital, the ME is zero
-        for one-body operators.
-        """
-        coupling = one_body_csf_coupling(csf_r, csf_s, L, mp_type)
-        if coupling is None:
-            return 0.0
-
-        n_i, k_i = coupling.source
-        n_f, k_f = coupling.destination
-
+        """Exact reduced one-body tensor in the CI coupling convention."""
         source_orbitals = source_orbitals or orbitals_dict
         destination_orbitals = destination_orbitals or orbitals_dict
-        if (n_i, k_i) not in source_orbitals or (n_f, k_f) not in destination_orbitals:
-            return 0.0
-
-        P_i, Q_i = source_orbitals[(n_i, k_i)]
-        P_f, Q_f = destination_orbitals[(n_f, k_f)]
-
-        if not selection_rules(k_i, k_f, L, mp_type):
-            return 0.0
-
-        recoupling = 1.0
-        if (csf_has_explicit_j(csf_r) and csf_has_explicit_j(csf_s)
-                and csf_twice_j(csf_s) == 0):
-            # FAC's Babushkin E1 radial operator includes a sqrt(2)
-            # normalization relative to AtomX's long-wavelength radial_eL
-            # convention.  For closed-shell J=0 -> explicit particle-hole
-            # E1 CSFs, AngularZMix supplies the many-electron coefficient and
-            # MultipoleRadialFRGrid supplies that one-electron normalization.
-            # The previous sqrt((2j_particle+1)/(2J+1)) happened to match
-            # sqrt(2) for 3d5/2 but underweighted the 3d3/2 branches by
-            # sqrt(4/3)/sqrt(2), producing the residual Fe XVII 3C/3D split.
-            if mp_type == 'E' and L == 1:
-                recoupling = float(np.sqrt(2.0))
-            else:
-                recoupling = float(np.sqrt((2 * abs(k_f)) / (csf_twice_j(csf_r) + 1.0)))
-
-        # Radial matrix element
-        if mp_type == 'E':
-            if gauge == 'velocity':
-                rme = radial_eL_velocity(P_i, Q_i, P_f, Q_f, bsp_data, L,
-                                          kappa_i=k_i, kappa_f=k_f,
-                                          omega=omega)
-            else:
-                rme = radial_eL(P_i, Q_i, P_f, Q_f, bsp_data, L)
-            ang = angular_eL(k_i, k_f, L)
+        total = 0.0
+        bra, ket = csf_signature(csf_r), csf_signature(csf_s)
+        if source_orbitals is destination_orbitals:
+            terms = one_body_tensor_terms(bra, ket, L)
         else:
-            rme = radial_mL(P_i, Q_i, P_f, Q_f, bsp_data, L)
-            ang = angular_mL(k_i, k_f, L)
+            from atomx.methods.dirac_fock import _orbital_overlap
 
-        return recoupling * coupling.population_factor * ang * rme
+            def overlap(a, b):
+                return _orbital_overlap(*destination_orbitals[a], *source_orbitals[b], bsp_data)
+
+            terms = nonorthogonal_tensor_terms(bra, ket, L, overlap)
+        for destination, source, coefficient in terms:
+            if source not in source_orbitals or destination not in destination_orbitals:
+                continue
+            k_i, k_f = source[1], destination[1]
+            if not selection_rules(k_i, k_f, L, mp_type):
+                continue
+            # Radial integrals repeat across many CSF pairs in a state pair.
+            cache_key = (source, destination, L, mp_type, gauge, omega,
+                         id(source_orbitals), id(destination_orbitals))
+            cache = getattr(self, "_csf_radial_cache", None)
+            if cache is None:
+                cache = self._csf_radial_cache = {}
+            if cache_key not in cache:
+                P_i, Q_i = source_orbitals[source]
+                P_f, Q_f = destination_orbitals[destination]
+                if mp_type == 'E':
+                    if gauge == 'velocity':
+                        radial = radial_eL_velocity(
+                            P_i, Q_i, P_f, Q_f, bsp_data, L,
+                            kappa_i=k_i, kappa_f=k_f, omega=omega)
+                    else:
+                        radial = radial_eL(P_i, Q_i, P_f, Q_f, bsp_data, L)
+                    angular = reduced_C(k_f, k_i, L)
+                else:
+                    radial = radial_mL(P_i, Q_i, P_f, Q_f, bsp_data, L)
+                    angular = reduced_C(-k_f, k_i, L) * (k_i + k_f) / (2 * L + 1)
+                cache[cache_key] = angular * radial
+            total += coefficient * cache[cache_key]
+        return total
 
 
 def compute_transitions(atom, multipoles=None, gauge='length',
@@ -721,11 +712,10 @@ def compute_transitions(atom, multipoles=None, gauge='length',
     gauge : str
         'length' or 'velocity'.
     line_resolution : {'uta', 'ci'}
-        ``'ci'`` uses the exact J-resolved determinant-CI engine for
-        single-configuration-pair atoms (falls back to the statistical
-        UTA machinery otherwise); each returned row records the engine
-        in ``TransitionResult.resolution``.  Default ``'uta'``
-        (unchanged behaviour).
+        MCDHF states use exact CSF tensors for either setting. For other
+        result types, ``'uta'`` selects statistical strengths and ``'ci'``
+        requests the determinant-CI engine where supported. Each row's
+        ``resolution`` records the actual engine.
     ci_det_cap : int
         Determinant-per-block cap for the CI engine.
 

@@ -865,7 +865,7 @@ def _convol_case2(rkb, d, ns, ks):
 
 
 @nb.njit(cache=True)
-def _convol_case4(rkb, d, ns, ks):
+def _convol_case4(rkb, d, ns, ks, ks_right=None):
     """icase=4: R(a . ; . b) — exchange contraction (gather formulation).
 
     Computes: a[row, col] by gathering all (i,j,ip,jp) contributions
@@ -882,6 +882,8 @@ def _convol_case4(rkb, d, ns, ks):
     a register and writes once. Keep the gather; do not "optimise" to scatter
     without an in-context full-solve measurement.
     """
+    if ks_right is None:
+        ks_right = ks
     a = np.zeros((ns, ns))
     for row in range(ns):
         for col in range(ns):
@@ -890,7 +892,7 @@ def _convol_case4(rkb, d, ns, ks):
                 i = row - ip
                 if i < 0:
                     continue
-                for jp in range(ks):
+                for jp in range(ks_right):
                     j_val = col  # a[row, col] ← a[ii, j] with ii=i+ip=row, j=col
                     jj = j_val + jp
                     if jj >= ns:
@@ -903,14 +905,14 @@ def _convol_case4(rkb, d, ns, ks):
                 ii = row + ip
                 if ii >= ns:
                     continue
-                for jp in range(ks):
+                for jp in range(ks_right):
                     j_val = col
                     jj = j_val + jp
                     if jj >= ns:
                         continue
                     c = rkb[row, j_val, ip, jp]
                     s += c * d[ii, jj]
-            for jp in range(1, ks):
+            for jp in range(1, ks_right):
                 # a[ii, jj] += c * d[i, j]  → row=ii=i+ip, col=jj=j+jp
                 j_val = col - jp
                 if j_val < 0:
@@ -922,7 +924,7 @@ def _convol_case4(rkb, d, ns, ks):
                     c = rkb[i, j_val, ip, jp]
                     s += c * d[i, j_val]
             for ip in range(1, ks):
-                for jp in range(1, ks):
+                for jp in range(1, ks_right):
                     # a[i, jj] += c * d[ii, j]  → row=i, col=jj=j+jp
                     j_val = col - jp
                     if j_val < 0:
@@ -986,9 +988,11 @@ def _convol_case1_t(rkbT, d_right, ns, ks_left, ks_right):
 
 
 @nb.njit(cache=True)
-def _convol_case4_t(rkbT, d, ns, ks):
+def _convol_case4_t(rkbT, d, ns, ks, ks_right=None):
     """icase=4 on the transposed bank — same gather families as
     ``_convol_case4``, with the output column innermost (unit stride)."""
+    if ks_right is None:
+        ks_right = ks
     a = np.zeros((ns, ns))
     for row in range(ns):
         buf = a[row]
@@ -997,7 +1001,7 @@ def _convol_case4_t(rkbT, d, ns, ks):
             i = row - ip
             if i < 0:
                 continue
-            for jp in range(ks):
+            for jp in range(ks_right):
                 bank = rkbT[ip, jp, i]
                 drow = d[i]
                 for col in range(ns - jp):
@@ -1007,13 +1011,13 @@ def _convol_case4_t(rkbT, d, ns, ks):
             ii = row + ip
             if ii >= ns:
                 continue
-            for jp in range(ks):
+            for jp in range(ks_right):
                 bank = rkbT[ip, jp, row]
                 drow = d[ii]
                 for col in range(ns - jp):
                     buf[col] += bank[col] * drow[col + jp]
         # family 3: a[row, col] += rkb[row-ip, col-jp, ip, jp] * d[row-ip, col-jp]
-        for jp in range(1, ks):
+        for jp in range(1, ks_right):
             for ip in range(ks):
                 i = row - ip
                 if i < 0:
@@ -1027,7 +1031,7 @@ def _convol_case4_t(rkbT, d, ns, ks):
             ii = row + ip
             if ii >= ns:
                 continue
-            for jp in range(1, ks):
+            for jp in range(1, ks_right):
                 bank = rkbT[ip, jp, row]
                 drow = d[ii]
                 for col in range(jp, ns):

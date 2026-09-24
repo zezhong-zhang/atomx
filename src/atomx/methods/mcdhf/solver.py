@@ -1,15 +1,10 @@
-"""MCDHF solver: Average-Level orbital optimization + CI diagonalization.
+"""MCDHF structure with constrained radial orbitals and exact jj CI.
 
-Implements the Guerra averaged monoconfiguration approach:
-  Eq (9):  ρ(r) = Σᵢ ϖᵢ (Pᵢ² + Qᵢ²)
-  Eq (10): ϖᵢ = Σⱼ cⱼ² nᵢʲ
-
-Algorithm:
-1. Compute effective occupations ϖᵢ from CI mixing coefficients cⱼ
-2. Solve DHF with fractional occupations (averaged monoconfig)
-3. Build CI matrix using converged shared orbitals
-4. Diagonalize CI → state energies + new cⱼ
-5. Iterate until energy converges
+The configuration-average DHF iteration supplies an initial orbital set.
+For multiconfiguration B-spline calculations, the final optimization uses
+analytic derivatives of the correlated Dirac–Coulomb CI functional in a
+fixed positive-energy subspace. Explicit frozen-orbital protocols retain
+that choice; the shooting route currently uses the averaged initializer.
 """
 
 from dataclasses import dataclass, field
@@ -123,6 +118,20 @@ class MCDHFResult:
         return comps
 
     @property
+    def orbital_optimization(self) -> Dict:
+        """Model and stationarity diagnostics for the radial optimization."""
+        variational = self.__dict__.get("_variational_diagnostics")
+        if variational is not None:
+            return dict(variational, initializer_converged=self.__dict__.get("_inner_converged"))
+        return {
+            "model": self.__dict__.get("_radial_optimization", "unspecified"),
+            "functional": "configuration-average / frozen-orbital Dirac-Fock",
+            "full_correlated_orbital_gradient": False,
+            "inner_converged": self.__dict__.get("_inner_converged"),
+            "inner_residual": self.__dict__.get("_inner_residual"),
+        }
+
+    @property
     def breit_provenance(self) -> Dict:
         """How the Breit interaction entered this result.
 
@@ -223,6 +232,33 @@ class MCDHFResult:
             return de * HARTREE_CM1
         return de
 
+    def one_body_density_matrix(self, state=None):
+        """Spherically averaged radial one-body density, including coherence.
+
+        Returns ``(orbital_keys, density)`` with trace equal to the electron
+        number. By default average exactly degenerate ground states, as for
+        the reported occupations; an integer selects a particular state.
+        """
+        from atomx.methods.mcdhf.exact_ci import csf_signature, one_body_tensor_terms
+
+        keys = tuple(sorted(self.orbitals_dict))
+        index = {key: i for i, key in enumerate(keys)}
+        density = np.zeros((len(keys), len(keys)))
+        states = (np.flatnonzero(abs(self.state_energies - self.state_energies[0]) < 1e-10)
+                  if state is None else [state])
+        signatures = [csf_signature(csf) for csf in self.csfs]
+        for st in states:
+            mixing = self.mixing_coefficients[:, st]
+            active = np.flatnonzero(abs(mixing) > 1e-15)
+            for r in active:
+                for s in active:
+                    weight = mixing[r] * mixing[s] / len(states)
+                    for a, b, angular in one_body_tensor_terms(signatures[r], signatures[s], 0):
+                        if a[1] == b[1]:
+                            density[index[a], index[b]] += weight * angular * np.sqrt(
+                                2 * abs(a[1]) / (signatures[r].total_J2 + 1))
+        return keys, 0.5 * (density + density.T)
+
     @property
     def state_J2(self) -> np.ndarray:
         """For each eigenstate, the ``2J`` of its dominant CSF (jj-CSF only).
@@ -300,7 +336,8 @@ class MCDHFSolver:
                  radial_optimization="mcdhf",
                  engine="bspline",
                  breit_mode="operator",
-                 screening_potential=None):
+                 screening_potential=None,
+                 grid_hi=None, grid_he=None, grid_hmax=None):
         self.Z = Z
         self.csfs = csfs
         self.n_csf = len(csfs)
@@ -365,6 +402,9 @@ class MCDHFSolver:
         self.orbital_basis = get_shared_orbital_basis(csfs)
         self.r_min = r_min
         self.r_max = r_max
+        self.grid_hi = grid_hi
+        self.grid_he = grid_he
+        self.grid_hmax = grid_hmax
         self.nuclear = nuclear
         self.use_physics_grid = use_physics_grid
         self.starting_potential = starting_potential
@@ -451,6 +491,11 @@ class MCDHFSolver:
         that is populated in some CSFs, and does nothing else.
         """
         occ = {(sh.n, sh.kappa): float(sh.occupation) for sh in csf.subshells}
+        if sum(occ.values()) <= 1:
+            # An auxiliary jj partner must never create electron repulsion
+            # in a one-electron Hamiltonian. Zero-population target fields
+            # are already supplied by the parent-core construction below.
+            return occ
         for (n, kappa), q in list(occ.items()):
             partner = -kappa - 1
             if partner == 0 or q <= 0.0:
@@ -729,6 +774,17 @@ class MCDHFSolver:
 
         return subshells
 
+    def _physical_subshells(self, weights):
+        """CSF number-operator expectations, including exactly empty virtuals."""
+        occupations = dict.fromkeys(self.orbital_basis, 0.0)
+        for weight, csf in zip(weights, self.csfs, strict=True):
+            for sh in csf.subshells:
+                key = (sh.n, sh.kappa)
+                occupations[key] = occupations.get(key, 0.0) + weight * sh.occupation
+        return [Subshell(n=n, kappa=k, occupation=q)
+                for (n, k), q in sorted(occupations.items(),
+                                       key=lambda item: (item[0][0], abs(item[0][1])))]
+
     def _fac_frozen_subshells(self):
         """FAC-like radial set: optimise the first CSF and keep virtuals tiny.
 
@@ -792,6 +848,8 @@ class MCDHFSolver:
         w_prev = None
         frozen_weights = None
         converged = False
+        inner_converged = False
+        inner_residual = float("inf")
         orbital_energies: Dict[str, float] = {}
         mixing = np.eye(self.n_csf)
         state_energies = np.zeros(self.n_csf)
@@ -807,7 +865,14 @@ class MCDHFSolver:
         #: ``E_Breit_operator`` below.
         dc_ci_kwargs = None
 
-        for iteration in range(1, max_iter + 1):
+        # Configuration-average iterations only supply an orbital seed for
+        # the full correlated functional below. Converging that different
+        # fixed point can spend hundreds of diagonalizations on spectator
+        # orbitals without improving the eventual variational solution.
+        use_correlated_gradient = (self.radial_optimization == "mcdhf"
+                                   and self.engine == "bspline" and self.n_csf > 1)
+        initializer_iterations = min(max_iter, 3) if use_correlated_gradient else max_iter
+        for iteration in range(1, initializer_iterations + 1):
             # Step 1: Effective occupations. The default is Guerra Eq 10.
             # ``fac_frozen`` intentionally follows FAC's structure protocol:
             # optimise the first/ground configuration and keep excited
@@ -979,7 +1044,9 @@ class MCDHFSolver:
                     from atomx.numerics.bspline.basis import prepare_bspline_data
                     from atomx.numerics.bspline.knots import make_physics_knots
                     t_phys, ns_phys = make_physics_knots(
-                        ks=self.ks, Z=self.Z, nuclear=self.nuclear)
+                        ks=self.ks, Z=self.Z, nuclear=self.nuclear,
+                        r_max=self.r_max, hi=self.grid_hi, he=self.grid_he,
+                        hmax=self.grid_hmax)
                     data = prepare_bspline_data(t_phys, ns_phys, self.ks,
                                                 kinetic_balance=True)
                     dhf.t = t_phys
@@ -994,7 +1061,13 @@ class MCDHFSolver:
                 if seed_orbitals is not None:
                     dhf.seed_orbitals = seed_orbitals
 
+                if self.radial_optimization in {"fac_frozen", "fac_frozen_local"}:
+                    reference_occupations = self._reference_occupations()
+                    dhf.virtual_orbital_keys = {key for key in self.orbital_basis
+                                               if reference_occupations.get(key, 0.0) == 0.0}
                 dhf_result = dhf.solve(max_iter=scf_max_iter, tol=scf_tol)
+                inner_converged = bool(dhf_result.converged)
+                inner_residual = float(dhf_result.residual)
                 orbital_energies = dhf_result.orbital_energies
                 # Stash for the next outer iteration
                 seed_orbitals = dhf_result.orbitals_raw
@@ -1036,6 +1109,9 @@ class MCDHFSolver:
                     nuclear_potential=dhf._nuclear_potential,
                     convol_cache=getattr(dhf, "_convol_cache", None),
                     include_breit=False)
+            if shoot_result is not None:
+                inner_converged = bool(shoot_result.converged)
+                inner_residual = float(getattr(shoot_result, "residual", float("nan")))
             state_energies = ci_res.state_energies
             mixing = ci_res.mixing_coefficients
 
@@ -1064,12 +1140,12 @@ class MCDHFSolver:
             if frozen_weights is not None:
                 # final pass on the cycle-averaged weights: accept.
                 E_old = E_new
-                converged = True
+                converged = inner_converged
                 break
 
-            if iteration > 1 and energy_change < ci_tol:
+            if iteration > 1 and energy_change < ci_tol and inner_converged:
                 E_old = E_new
-                converged = True
+                converged = inner_converged
                 break
 
             # Period-2 limit-cycle detection: open-shell configurations
@@ -1094,12 +1170,71 @@ class MCDHFSolver:
             w_prev = w_new
             E_old = E_new
 
+        variational_diagnostics = None
+        if use_correlated_gradient and orbitals_dict:
+            from atomx.methods.mcdhf.variational import (
+                CorrelatedOrbitalFunctional,
+                optimize_orbitals,
+            )
+            functional = CorrelatedOrbitalFunctional(
+                self.csfs, dhf.bsp_data, self.Z, dhf._nuclear_potential,
+                getattr(dhf, "_convol_cache", None))
+            # The nuclear spectrum is a poor Hessian approximation for a
+            # screened heavy-atom valence shell. Project the initializer's
+            # actual Fock fields into the fixed no-pair space instead.
+            preconditioners = {}
+            for flat_i, sh in enumerate(dhf.subshells):
+                if (sh.n, sh.kappa) not in functional.keys:
+                    continue
+                pp, qq, _, qp = dhf._build_hf_matrix_dbsr(
+                    flat_i, dhf_result.orbitals_raw, skip_pq_exchange=True)
+                h = functional.one_body[sh.kappa].copy()
+                ns = functional.ns
+                h[:ns, :ns] += pp
+                h[ns:, ns:] += qq
+                h[ns:, :ns] += qp
+                preconditioners[sh.n, sh.kappa] = np.tril(h) + np.tril(h, -1).T
+            orbitals_dict, dc_ci, variational_diagnostics = optimize_orbitals(
+                functional, orbitals_dict, max_iter=8 * max_iter,
+                tolerance=scf_tol, energy_tolerance=ci_tol,
+                preconditioner_matrices=preconditioners)
+            # The initializer's convergence is separately reported. The
+            # final CI/orbital stationarity decides the variational result.
+            converged = bool(variational_diagnostics["converged"])
+            dc_ci_kwargs["orbitals_dict"] = orbitals_dict
+            if self._breit_in_ci:
+                ci_kwargs = dict(dc_ci_kwargs, include_breit=True)
+                final_ci = ci_solve(**ci_kwargs)
+            else:
+                final_ci = dc_ci
+            state_energies = final_ci.state_energies
+            mixing = final_ci.mixing_coefficients
+            degenerate = abs(dc_ci.state_energies - dc_ci.state_energies[0]) < 1e-10
+            occupations_for_energy = self._physical_subshells(
+                np.mean(dc_ci.mixing_coefficients[:, degenerate] ** 2, axis=1))
+            one_electron = sum(s.occupation for s in self.csfs[0].subshells) == 1
+            for sh in occupations_for_energy:
+                key = (sh.n, sh.kappa)
+                if one_electron:
+                    vector = np.concatenate(orbitals_dict[key])
+                    orbital_energies[sh.label] = float(vector @ functional.one_body[sh.kappa] @ vector)
+                elif sh.occupation > 1e-10:
+                    vector = np.concatenate(orbitals_dict[key])
+                    orbital_energies[sh.label] = float(
+                        vector @ functional.last_gradient[key] / (2 * sh.occupation))
+            variational_diagnostics["orbital_energies"] = (
+                "one-electron nuclear eigenvalues" if one_electron else
+                "diagonal Lagrange multipliers divided by occupation")
+
         # Compute ground-state Guerra-averaged effective occupations,
         # so MCDHFResult.waves can carry physically meaningful
         # per-orbital occupations (used by Atom.density, etc.).
-        ground_weights = mixing[:, 0] ** 2
+        degenerate = abs(state_energies - state_energies[0]) < 1e-10
+        ground_weights = np.mean(mixing[:, degenerate] ** 2, axis=1)
         ground_weights = ground_weights / ground_weights.sum()
-        ground_subshells = self._averaged_subshells(weights=ground_weights)
+        # Physical number-operator expectations. The artificial populations
+        # used to keep virtual orbitals solvable never belong in a result.
+        ground_subshells = self._physical_subshells(ground_weights)
         occupations = {(sh.n, sh.kappa): float(sh.occupation) for sh in ground_subshells}
 
         # One-shot perturbative Breit + QED on the final converged orbitals.
@@ -1210,6 +1345,25 @@ class MCDHFSolver:
                 corr_data=corr_data, i0=i0)
             state_energies = state_energies + qed_state_shifts
 
+        # Perturbative corrections or separately optimized blocks can
+        # reorder close levels. Keep energies, amplitudes and shifts paired,
+        # then report occupations of the actual final ground-state ensemble.
+        order = np.argsort(state_energies, kind="stable")
+        state_energies = np.asarray(state_energies)[order]
+        mixing = mixing[:, order]
+        qed_state_shifts = qed_state_shifts[order]
+        degenerate = abs(state_energies - state_energies[0]) < 1e-10
+        final_weights = np.mean(mixing[:, degenerate] ** 2, axis=1)
+        final_subshells = self._physical_subshells(final_weights)
+        occupations = {(sh.n, sh.kappa): float(sh.occupation) for sh in final_subshells}
+        if qed_components and not np.allclose(final_weights, ground_weights, atol=1e-12, rtol=0.):
+            final_orbitals = [(orbitals_dict[sh.n, sh.kappa][0][i0:],
+                               orbitals_dict[sh.n, sh.kappa][1][i0:],
+                               sh.occupation, sh.kappa, sh.label) for sh in final_subshells]
+            qed_components = dict(compute_qed_corrections(
+                final_orbitals, corr_data, self.Z,
+                se_method=stack.se_backend or "auto", include_wichmann_kroll=stack.include_wk_vp))
+
         result = MCDHFResult(
             converged=converged,
             iterations=iteration,
@@ -1228,6 +1382,11 @@ class MCDHFSolver:
             _difr=(np.asarray(shoot_result._difr)
                    if shoot_result is not None else None),
         )
+        result._nuclear_potential = dhf._nuclear_potential if dhf is not None else None
+        result.__dict__["_variational_diagnostics"] = variational_diagnostics
+        result.__dict__["_radial_optimization"] = self.radial_optimization
+        result.__dict__["_inner_converged"] = inner_converged
+        result.__dict__["_inner_residual"] = inner_residual
         # Attach correction components for downstream energy breakdown.
         # ``E_Breit`` is the shift that is in ``E_total``: the measured CI
         # operator shift on the operator route, the (fixed) scalar on the

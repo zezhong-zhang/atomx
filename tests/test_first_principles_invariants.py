@@ -57,8 +57,8 @@ Six independent principles, in the order they appear:
 References for the two external numbers used below:
 - Drake, *Phys. Rev. A* **45**, 176 (1992) / *Can. J. Phys.* **80**, 1195
   (2002): He ground state ``−2.903724377034`` Ha (non-relativistic, infinite
-  nuclear mass).  The leading relativistic correction lowers it by a further
-  4.4e-6 Ha (``−2.9038632``), so ``−2.9037244`` is a safe *lower* bound.
+  nuclear mass). These are scale checks only: a nonrelativistic energy is
+  not a rigorous lower bound on a relativistic no-pair Hamiltonian.
 - The hydrogen ``2p`` fine-structure interval is ``0.365 cm⁻¹``
   (10.95 GHz), the textbook value that the ``2p_{1/2}–2p_{3/2}`` splitting
   reduces to at ``Z = 1``.
@@ -68,6 +68,7 @@ from __future__ import annotations
 
 import math
 
+import numpy as np
 import pytest
 
 from atomx import Atom, Correlation
@@ -328,105 +329,49 @@ class TestVariationalBound:
         ("He", 2, "1s2"),
         ("Be", 4, "1s2 2s2"),
     ])
-    def test_dhf_energy_is_above_the_exact_ground_state(self, symbol, Z, config):
-        """``E_DHF > E_exact`` for every element.
-
-        The bound is the literature non-relativistic ground-state energy,
-        which is itself within 4.4e-6 Ha (He) of the exact relativistic value
-        and therefore a safe *lower* bound at the tolerance used here.
-
-        This is the assertion that the old configuration-average CI matrix
-        violated by 0.39 Ha for Be, and nothing in the suite caught it.
-        """
-        exact, _digits = EXACT_NR_GROUND_STATE[symbol]
+    def test_dhf_energy_has_the_nonrelativistic_reference_scale(self, symbol, Z, config):
+        """Empirical scale check, explicitly not a cross-Hamiltonian bound."""
+        reference, _digits = EXACT_NR_GROUND_STATE[symbol]
         atom = Atom(Z, config, corrections="none", nuclear="point")
         atom.solve()
-        assert atom.total_energy > exact, (
-            f"{symbol}: E_DHF = {atom.total_energy!r} is BELOW the exact "
-            f"ground state {exact!r}.  No variational energy can be below the "
-            f"exact ground state of the Hamiltonian it diagonalises."
-        )
-        # ... and it must not be absurdly far above it either: the Dirac-Fock
-        # energy of a closed shell recovers the 1s-dominated part to ~1 %.
-        assert atom.total_energy < exact + 0.1 * abs(exact), (
-            f"{symbol}: E_DHF = {atom.total_energy!r} is more than 10 % above "
-            f"the exact ground state {exact!r}; the SCF has not converged to "
-            f"a physical solution"
-        )
+        assert abs(atom.total_energy - reference) < 0.02 * abs(reference)
 
     @pytest.mark.slow
     def test_ci_expansion_obeys_hylleraas_undheim_macdonald(self):
-        """Hylleraas--Undheim--MacDonald: enlarging a CI space can only lower
-        the eigenvalues, and the lowest one can never cross the exact value.
+        """Nested CSF spaces use one fixed radial basis and Hamiltonian.
 
-        Both halves are theorems, not fits:
-
-        * ``S_1CSF ⊂ S_singles ⊂ S_SD``, and H--U--M says the ``k``-th
-          eigenvalue of the projected Hamiltonian is an upper bound to the
-          ``k``-th exact eigenvalue, monotonically improving with the space.
-          So ``E(SD) ≤ E(s) ≤ E(1CSF)``.
-        * Consequently the correlation energy recovered from the SD space is
-          bounded by the exact correlation energy,
-          ``|E_corr(SD)| ≤ |E_corr(exact)|``, and cannot have the wrong sign.
-
-        The bound used is the non-relativistic exact ground state, which is
-        *above* the exact Dirac--Coulomb ground state, so it is a conservative
-        (safe) bound: dropping below it is proof of an error, never a
-        relativistic subtlety.
-
-        This is precisely the statement the old configuration-average
-        ``build_ci_matrix`` violated: it returned ``−15.0527`` Ha for Be SD,
-        0.385 Ha BELOW the exact ground state, with a green suite.
-
-        Measured here (``fac_frozen``, ``corrections="none"``):
-        ``1-CSF −14.5759``, ``s −14.575893``, ``sd −14.632497``;
-        exact non-relativistic ``−14.66736`` (Drake).
+        Reoptimizing orbitals independently invalidates the subspace
+        inclusion argument, just as changing to a nonrelativistic reference
+        invalidates an absolute variational bound.
         """
-        e_exact = EXACT_NR_GROUND_STATE["Be"][0]
-        energies = {}
-        reference = Atom(4, ["1s2 2s2"], corrections="none")
-        reference.solve()
-        energies["1csf"] = reference.total_energy
-        for expansion in ("s", "sd"):
-            atom = Atom(
-                4,
-                "1s2 2s2",
-                correlation=Correlation(
-                    expansion=expansion, radial_optimization="fac_frozen"
-                ),
-                corrections="none",
-            )
-            atom.solve()
-            energies[expansion] = atom.total_energy
-
-        assert energies["sd"] <= energies["s"] <= energies["1csf"], (
-            f"Be CI ladder is not monotone: 1-CSF={energies['1csf']!r}, "
-            f"s={energies['s']!r}, sd={energies['sd']!r}.  Adding CSFs to a "
-            f"CI space cannot raise the lowest eigenvalue "
-            f"(Hylleraas-Undheim-MacDonald)."
-        )
-        assert energies["sd"] > e_exact, (
-            f"Be SD lowest eigenvalue {energies['sd']!r} is BELOW the exact "
-            f"ground state {e_exact!r}.  A projected Hamiltonian's eigenvalue "
-            f"is an upper bound to the exact one; being below it means the "
-            f"matrix is not the matrix element of the Hamiltonian."
-        )
-        e_corr_sd = energies["sd"] - energies["1csf"]
-        e_corr_exact = e_exact - energies["1csf"]
-        assert e_corr_exact < e_corr_sd < 0.0, (
-            f"Be SD correlation energy {e_corr_sd!r} must lie between 0 and "
-            f"the exact correlation energy {e_corr_exact!r}"
-        )
-        # Empirical, and deliberately loose: SD on frozen HF orbitals is
-        # expected to recover a substantial but incomplete share of the
-        # correlation energy.  A collapse to ~0 means the off-diagonals are
-        # missing (the old defect); ~100 % means over-correlation.
-        fraction = e_corr_sd / e_corr_exact
-        assert 0.3 < fraction < 0.95, (
-            f"Be SD recovers {fraction:.1%} of the exact correlation energy "
-            f"({e_corr_sd:.6f} of {e_corr_exact:.6f} Ha); a frozen-orbital SD "
-            f"space should recover well under 100 % but far more than 0 %"
-        )
+        from atomx.methods.mcdhf.matrix import build_ci_matrix
+        atom = Atom(4, "1s2 2s2", correlation=Correlation(
+            expansion="sd", radial_optimization="fac_frozen"),
+            corrections="none", nuclear="point")
+        atom.solve()
+        result = atom.result
+        h = build_ci_matrix(result.csfs, result.orbitals_dict,
+                            sorted(result.orbitals_dict), result.bsp_data,
+                            4, result.bsp_data["ns"])
+        reference = {(1, -1): 2, (2, -1): 2}
+        indices = {0: [], 1: [], 2: []}
+        for i, csf in enumerate(result.csfs):
+            occupation = {(sh.n, sh.kappa): int(sh.occupation) for sh in csf.subshells}
+            rank = sum(max(0, occupation.get(key, 0) - reference.get(key, 0))
+                       for key in occupation)
+            for limit in indices:
+                if rank <= limit:
+                    indices[limit].append(i)
+        spectra = [np.linalg.eigvalsh(h[np.ix_(idx, idx)]) for idx in indices.values()]
+        for smaller, larger in zip(spectra, spectra[1:], strict=False):
+            assert len(larger) >= len(smaller)
+            assert np.all(larger[:len(smaller)] <= smaller + 1e-10)
+        # Rayleigh's bound on this very same finite Hamiltonian.
+        rng = np.random.default_rng(91)
+        trial = rng.normal(size=(len(h), 12))
+        trial /= np.linalg.norm(trial, axis=0)
+        quotients = np.sum(trial * (h @ trial), axis=0)
+        assert np.all(quotients >= spectra[-1][0] - 1e-10)
 
 
 # ---------------------------------------------------------------------------

@@ -241,7 +241,8 @@ class TestAbInitioSMSNoble:
         Corrected R_p = ω·⟨r⟩ operator (∇ = -[H,r]); the mean-field DHF
         K_SMS for Ne is negative and O(100) a.u., dominated by the inner
         1s–2p momentum correlation (the 1s electron carries momentum ~Z).
-        Measured at ns=50: K_SMS = −117.8527221416 a.u., unchanged to
+        After the constrained-orbital and mixed-exchange fixes (2026-09-23),
+        measured at ns=50: K_SMS = −117.8387043831 a.u., unchanged to
         1e-12 relative at ns=70 and ns=90 (see
         ``test_Ne_SMS_is_basis_converged``).  The number is atomx's own
         (no external K_SMS(Ne) reference is available at this level), so
@@ -252,16 +253,16 @@ class TestAbInitioSMSNoble:
         """
         sms = self._ne()
         assert sms.K_SMS_au < 0.0
-        assert pytest.approx(-117.852722, rel=1e-6) == sms.K_SMS_au, (
-            f"K_SMS(Ne, ns=50) = {sms.K_SMS_au!r}, measured -117.852722")
+        assert pytest.approx(-117.838704, rel=1e-6) == sms.K_SMS_au, (
+            f"K_SMS(Ne, ns=50) = {sms.K_SMS_au!r}, measured -117.838704")
 
     def test_Ne_SMS_is_basis_converged(self):
         """K_SMS(Ne) is converged in the B-spline basis.
 
         A-class statement about the calculation, not the value: the
         momentum matrix element must stop moving once the basis is
-        saturated.  Measured: -117.8527221416 (ns=50), -117.8527221418
-        (ns=70), -117.8527221420 (ns=90).
+        saturated.  Measured: -117.8387043831 (ns=50), -117.8387043844
+        (ns=70), -117.8387043840 (ns=90).
         """
         k50 = self._ne(50).K_SMS_au
         k70 = self._ne(70).K_SMS_au

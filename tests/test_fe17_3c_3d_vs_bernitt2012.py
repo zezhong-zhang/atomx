@@ -147,21 +147,6 @@ except Exception as exc:  # pragma: no cover - defensive
     _IN_BAND, _F_RATIO, _STATUS_MSG = False, None, f"atomx solve failed: {exc!r}"
 
 
-@pytest.mark.xfail(strict=True, reason=(
-    "OPEN, orbital (docs/CORRELATION_SD_RESEARCH_2026-09-20.md sections 3.7 "
-    "and R8): measured f(3C)=4.125 @ 14.952 A, f(3D)=1.639 @ 15.405 A, "
-    "ratio 2.517, outside the Bernitt 2sigma band [3.30, 4.10].  The CI "
-    "matrix is not the cause: this 37-CSF space is exactly reproduced by the "
-    "independent m-scheme oracle on the same orbitals (max spectrum "
-    "difference 3e-12), and the fac_frozen radial set does not depend on "
-    "the CI (old-kernel and exact-kernel runs capture bit-identical "
-    "orbitals).  What changed is the within-block Hamiltonian: on those "
-    "identical orbitals the old kernel returned ratio 3.673 — in band — "
-    "together with a ground state 1.12 Ha too low and off-block elements of "
-    "up to 1121 Ha.  Closing this needs physical 3s/3p/3d correlation "
-    "orbitals (currently solved with 0.001 occupations in the ground-state "
-    "potential), not a different matrix.  Not waived: the band stays at the "
-    "Bernitt value."))
 def test_fe17_3c_3d_f_ratio_in_bernitt_2012_2sigma_band():
     """FAC-parity f(3C)/f(3D) must land inside Bernitt 2012's 2sigma band."""
     in_band, ratio, msg = _band_status()
@@ -177,16 +162,6 @@ def test_fe17_3c_3d_f_ratio_in_bernitt_2012_2sigma_band():
 
 
 @pytest.mark.parametrize("radial_optimization", ["fac_frozen", "fac_frozen_local"])
-@pytest.mark.xfail(strict=True, reason=(
-    "OPEN, orbital — same cause as the ratio gate above.  With the exact CI "
-    "matrix the 14.2-15.5 A window holds three bright lines "
-    "(fac_frozen: f = 4.125, 1.639, 0.259 at 14.952 / 15.405 / 15.212 A; "
-    "fac_frozen_local: 4.224, 1.789, 0.269), where FAC has two bright lines "
-    "plus a weak J=1 line (f ~ 0.01).  The matrix reproduces the oracle to "
-    "3e-12 on these orbitals; the residual strength distribution is set by "
-    "the correlation orbitals, which are 0.001-occupation virtuals of the "
-    "ground-state potential (sections 3.7 / R8).  The old kernel passed this "
-    "gate with a ground state 1.12 Ha too low."))
 def test_fe17_fac_frozen_places_bright_3d_lines_in_fac_window(radial_optimization):
     """FAC-frozen radial modes should recover the Fe XVII 15 A line bundle.
 
@@ -196,7 +171,7 @@ def test_fe17_fac_frozen_places_bright_3d_lines_in_fac_window(radial_optimizatio
     the FAC Babushkin E1 normalization fix, FAC-vector/AtomX-radial hybrids
     match the FAC fixture; the remaining production gap is CI mixing, which
     can over-concentrate the same basis strength in the top AtomX eigenline.
-    The xfailed ratio gate above covers that unresolved Hamiltonian issue.
+    The ratio gate above independently checks the observed intensity ratio.
     """
     from atomx import Atom, Correlation
 

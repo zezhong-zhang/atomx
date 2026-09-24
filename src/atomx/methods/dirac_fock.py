@@ -387,13 +387,8 @@ class SCFResult(SCFObservablesMixin):
         )
 
 
-#: Largest tolerated |<a|b>| between orbitals sharing kappa before the
-#: result is flagged not-converged.  The solver omits the off-diagonal
-#: Lagrange multipliers that enforce this exactly; measured values are
-#: 7e-6 (Ne), 4.7e-5 (Kr), 2.7e-4 (Na), 5.7e-4 (Li), so 1e-3 separates
-#: the benign cases from the open-shell ones where the shooting engine
-#: disagrees by ~1e-4 Ha.
-_SAME_KAPPA_OVERLAP_TOL = 1.0e-3
+#: Orthogonality is a constraint, not an energy-dependent tolerance.
+_SAME_KAPPA_OVERLAP_TOL = 1.0e-9
 
 
 def _max_same_kappa_overlap(orbitals, bsp_data) -> float:
@@ -1091,12 +1086,12 @@ class DFSolver:
                         Kk_QQ = _convol_case4(rkb_qq, d_Q, nsq, ksq)
 
                         rkb_pq, _, _ = self._convol_cache.get_rkb(k, "pqpq")
-                        d_PQ = _density_full(P_b[:nsp], Q_b[:nsq], max(nsp, nsq))
-                        Kk_PQ = _convol_case4(rkb_pq, d_PQ, ns_full, ksp)
+                        d_PQ = _density_full(P_b, Q_b, ns_full)
+                        Kk_PQ = _convol_case4(rkb_pq, d_PQ, ns_full, ksp, ksq)
 
                         rkb_qp, _, _ = self._convol_cache.get_rkb(k, "qpqp")
-                        d_QP = _density_full(Q_b[:nsq], P_b[:nsp], max(nsp, nsq))
-                        Kk_QP = _convol_case4(rkb_qp, d_QP, ns_full, ksq)
+                        d_QP = _density_full(Q_b, P_b, ns_full)
+                        Kk_QP = _convol_case4(rkb_qp, d_QP, ns_full, ksq, ksp)
 
                         exchange_cache[cache_key] = (Kk_PP, Kk_QQ, Kk_PQ, Kk_QP)
 
@@ -1112,8 +1107,8 @@ class DFSolver:
 
         K_PP = 0.5 * (K_PP + K_PP.T)
         K_QQ = 0.5 * (K_QQ + K_QQ.T)
-        K_PQ = 0.5 * (K_PQ + K_PQ.T)
-        K_QP = 0.5 * (K_QP + K_QP.T)
+        K_PQ = 0.5 * (K_PQ + K_QP.T)
+        K_QP = K_PQ.T.copy()
         return K_PP, K_QQ, K_PQ, K_QP
 
     def _precompute_angular_coefficients(self, orbital_schedule):
@@ -1311,7 +1306,7 @@ class DFSolver:
                     xx = np.zeros((ns_full, ns_full))
                     _accumulate_exchange_density_batch(
                         xx, comp_ii_stack, comp_jj_stack, b_exchange, ns_full)
-                    Kk = _convol_case4_t(rkbT, xx, ns_full, min(ks_bra, ks_ket))
+                    Kk = _convol_case4_t(rkbT, xx, ns_full, ks_bra, ks_ket)
                     if ii == 1 and jj == 1:
                         hfm_PP[:ns_full, :ns_full] += Kk[:ns_full, :ns_full]
                     elif ii == 1 and jj == 2:
@@ -1324,8 +1319,11 @@ class DFSolver:
         # Symmetrize
         hfm_PP = 0.5 * (hfm_PP + hfm_PP.T)
         hfm_QQ = 0.5 * (hfm_QQ + hfm_QQ.T)
-        hfm_PQ = 0.5 * (hfm_PQ + hfm_PQ.T)
-        hfm_QP = 0.5 * (hfm_QP + hfm_QP.T)
+        if skip_pq_exchange:
+            hfm_PQ = hfm_QP.T.copy()
+        else:
+            hfm_PQ = 0.5 * (hfm_PQ + hfm_QP.T)
+            hfm_QP = hfm_PQ.T.copy()
 
         # DBSR_HF: hfm = hfm / qsum(i)
         if norm_i > 1e-15:
@@ -1559,7 +1557,7 @@ class DFSolver:
             _banded_to_full_add(Vi_QQ, v, ns_full, ksq, coeff)
         return Vi_PP, Vi_QQ
 
-    def _compute_total_energy(self, orbitals, orbital_energies=None):
+    def _compute_total_energy(self, orbitals, orbital_energies=None, *, active_indices=None):
         """Compute total energy using direct Slater integral formula (DBSR_HF style).
 
         E = Σ_a q_a <a|h|a> + E_2e
@@ -1593,8 +1591,10 @@ class DFSolver:
         # One-electron: Σ q_a <a|h|a>
         ns_e = bsp_data.get("ns", self.ns)  # max(nsp, nsq)
         E_1e = 0.0
-        h0_memo = {}  # kappa -> (H0, S0); orbitals sharing kappa reuse the build
-        for P, Q, occ, kappa, _label in orb_list:
+        h0_memo = dict(getattr(self, "_energy_h0_matrices", {}))
+        for index, (P, Q, occ, kappa, _label) in enumerate(orb_list):
+            if active_indices is not None and index not in active_indices:
+                continue
             if kappa not in h0_memo:
                 h0_memo[kappa] = build_dirac_matrices(
                     ns_e, kappa, self.Z, bsp_data, self._nuclear_potential)
@@ -1630,6 +1630,8 @@ class DFSolver:
             l_a = ka if ka > 0 else -ka - 1
             for j, (Pb, Qb, _ob, kb, _lb) in enumerate(orb_list):
                 if j > i:
+                    continue
+                if active_indices is not None and i not in active_indices and j not in active_indices:
                     continue
                 tj_b = 2 * abs(kb) - 1
 
@@ -1691,6 +1693,109 @@ class DFSolver:
             f"(components={last}) — transient numerical corruption did "
             "not recover (HYP-1590)."
         )
+
+    @staticmethod
+    def _orthonormalize_orbitals(orbitals, metrics):
+        """Symmetric metric retraction after seed loading or extrapolation."""
+        for kappa, shells in orbitals.items():
+            if not shells:
+                continue
+            vectors = np.column_stack([np.concatenate((p, q)) for p, q, _ in shells])
+            gram = vectors.T @ metrics[kappa] @ vectors
+            eigenvalues, rotations = np.linalg.eigh(gram)
+            if np.min(eigenvalues) < 1e-12:
+                raise ValueError("same-kappa orbitals are linearly dependent")
+            vectors = vectors @ ((rotations / np.sqrt(eigenvalues)) @ rotations.T)
+            ns = len(shells[0][0])
+            orbitals[kappa] = [(vectors[:ns, i].copy(), vectors[ns:, i].copy(), occ)
+                               for i, (_, _, occ) in enumerate(shells)]
+
+    def _canonicalize_closed_subshells(self, orbitals, orbital_energies, kappa_groups):
+        """Fix the occupied-subspace gauge without changing its determinant."""
+        ns_full = self.bsp_data["ns"]
+        for kappa, shells in orbitals.items():
+            closed = [i for i, (_, _, q) in enumerate(shells)
+                      if abs(q - 2 * abs(kappa)) < 1e-12]
+            if len(closed) < 2:
+                continue
+            coefficients = np.column_stack([np.concatenate(shells[i][:2]) for i in closed])
+            lagrange = np.zeros((len(closed), len(closed)))
+            for j, shell_index in enumerate(closed):
+                flat_j = self._flat_orbital_index(kappa, shell_index)
+                pp, qq, _, qp = self._build_hf_matrix_dbsr(
+                    flat_j, orbitals, skip_pq_exchange=True)
+                fock = self._energy_h0_matrices[kappa][0].copy()
+                fock[:ns_full, :ns_full] += pp
+                fock[ns_full:, ns_full:] += qq
+                fock[ns_full:, :ns_full] += qp
+                fock = np.tril(fock) + np.tril(fock, -1).T
+                lagrange[:, j] = coefficients.T @ (fock @ coefficients[:, j])
+            eps, rotation = np.linalg.eigh(0.5 * (lagrange + lagrange.T))
+            coefficients = coefficients @ rotation
+            for j, shell_index in enumerate(closed):
+                shells[shell_index] = (coefficients[:ns_full, j], coefficients[ns_full:, j], shells[shell_index][2])
+                orbital_energies[kappa_groups[kappa][shell_index].label] = float(eps[j])
+
+    def _optimize_same_kappa_rotations(self, orbitals):
+        """Minimize each occupied-pair rotation of the HF energy exactly.
+
+        A two-orbital rotation makes a quartic trigonometric polynomial.
+        Four analytic derivatives determine its nonconstant coefficients;
+        the stationary points follow from a quartic in exp(2j*theta).
+        Accumulated Fock contractions avoid repeated Slater-integral sums.
+        Every derivative uses the current orbitals, including the trial
+        rotation. The mixed exchange blocks must be mutual transposes.
+        """
+        maximum = 0.0
+        virtual_keys = getattr(self, "virtual_orbital_keys", set())
+        angles = np.arange(4) * (np.pi / 8)
+        design = np.column_stack((-2*np.sin(2*angles), 2*np.cos(2*angles),
+                                  -4*np.sin(4*angles), 4*np.cos(4*angles)))
+        for kappa, shells in orbitals.items():
+            for i in range(len(shells)):
+                for j in range(i):
+                    pi, qi, ni = shells[i]
+                    pj, qj, nj = shells[j]
+                    capacity = 2 * abs(kappa)
+                    if abs(ni - capacity) < 1e-12 and abs(nj - capacity) < 1e-12:
+                        continue
+                    if ((self.subshells[self._flat_orbital_index(kappa, i)].n, kappa) in virtual_keys
+                            or (self.subshells[self._flat_orbital_index(kappa, j)].n, kappa) in virtual_keys):
+                        continue
+
+                    def rotate(angle, shells=shells, i=i, j=j, pi=pi, qi=qi,
+                               pj=pj, qj=qj, ni=ni, nj=nj):
+                        c, t = np.cos(angle), np.sin(angle)
+                        shells[i] = (c*pi + t*pj, c*qi + t*qj, ni)
+                        shells[j] = (c*pj - t*pi, c*qj - t*qi, nj)
+
+                    def derivative(angle, rotate=rotate, shells=shells, i=i,
+                                   j=j, kappa=kappa, ni=ni, nj=nj):
+                        rotate(angle)
+                        vi, vj = (np.concatenate(shells[index][:2]) for index in (i, j))
+                        fields = []
+                        for index in (i, j):
+                            pp, qq, _, qp = self._build_hf_matrix_dbsr(
+                                self._flat_orbital_index(kappa, index), orbitals,
+                                skip_pq_exchange=True)
+                            h = self._energy_h0_matrices[kappa][0].copy()
+                            n = self.bsp_data["ns"]
+                            h[:n, :n] += pp
+                            h[n:, n:] += qq
+                            h[n:, :n] += qp
+                            fields.append(np.tril(h) + np.tril(h, -1).T)
+                        return 2 * (ni * (vj @ fields[0] @ vi) - nj * (vi @ fields[1] @ vj))
+
+                    c1, c2, c3, c4 = np.linalg.solve(design, [derivative(t) for t in angles])
+                    roots = np.roots([c4 + 1j*c3, (c2 + 1j*c1)/2,
+                                      0, (c2 - 1j*c1)/2, c4 - 1j*c3])
+                    candidates = np.r_[0., np.angle(roots[abs(abs(roots)-1) < 1e-6])/2]
+                    values = (c1*np.cos(2*candidates) + c2*np.sin(2*candidates)
+                              + c3*np.cos(4*candidates) + c4*np.sin(4*candidates))
+                    angle = float(candidates[np.argmin(values)])
+                    rotate(angle)
+                    maximum = max(maximum, abs(angle))
+        return maximum
 
     def solve(self, max_iter=100, tol=1e-6, damping=None,
               mode="batch"):
@@ -1860,6 +1965,9 @@ class DFSolver:
             H0_cache[kappa] = H0
             S0_cache[kappa] = S0
 
+        self._energy_h0_matrices = {k: (H0_cache[k], S0_cache[k]) for k in H0_cache}
+        self._orthonormalize_orbitals(orbitals, S0_cache)
+
         # Precompute angular coefficients — these depend only on kappa values
         # and never change during SCF iteration.  Build a lookup table once.
         if self.exchange == "hf":
@@ -1876,6 +1984,9 @@ class DFSolver:
         diis_max = 8
         diis_orb_history = []   # list of orbital snapshots (flat vectors)
         diis_err_history = []   # list of error vectors (orbital change)
+        noninteracting = (mode == "batch" and self.exchange == "hf"
+                          and not np.any(self._angular_direct)
+                          and not np.any(self._angular_exchange))
 
         for iteration in range(1, max_iter + 1):
             missing_shells.clear()
@@ -1905,13 +2016,33 @@ class DFSolver:
                     H[:n_pq, ns_full:ns_full+n_pq] += V_PQ[:n_pq, :n_pq]
                     H[ns_full:ns_full+n_pq, :n_pq] += V_QP[:n_pq, :n_pq]
 
+                    virtual_keys = getattr(self, "virtual_orbital_keys", set())
+                    target_virtual = (sh.n, kappa) in virtual_keys
+                    other_orbitals = [np.concatenate((P, Q))
+                                      for j, (P, Q, _) in enumerate(orbitals.get(kappa, []))
+                                      if j != orb_idx and (target_virtual or
+                                          (kappa_groups[kappa][j].n, kappa) not in virtual_keys)]
+                    constraints = (np.column_stack(other_orbitals)
+                                   if other_orbitals and not noninteracting else None)
                     result = solve_dirac(H, S_full, ns_full, kappa,
                                           nsp=nsp if has_kb else None,
-                                          nsq=nsq if has_kb else None)
+                                          nsq=nsq if has_kb else None,
+                                          orthogonal_to=constraints)
 
                     eig_idx = sh.n - sh.l - 1
                     if kappa > 0 and not has_kb:
                         eig_idx += 1
+                    if constraints is not None:
+                        # Lower principal roots are already represented by
+                        # the constrained orbitals. Follow the requested
+                        # node/root index in the remaining spectrum; maximum
+                        # overlap can lock a diffuse valence electron onto
+                        # a higher excited root during the initial screening.
+                        removed_lower = sum(
+                            other.n < sh.n and (target_virtual or
+                                (other.n, kappa) not in virtual_keys)
+                            for other in kappa_groups[kappa])
+                        eig_idx = max(0, eig_idx - removed_lower)
                     if eig_idx >= result.n_bound:
                         # No genuine bound state for this subshell in this
                         # potential.  Record it: appending zeros here (as
@@ -1989,8 +2120,20 @@ class DFSolver:
                             and 1e-3 < max_orb_change < 0.3):
                         diis_vec = diis_extrapolate(diis_orb_history, diis_err_history)
                         if diis_vec is not None:
+                            trial = {k: list(shells) for k, shells in orbitals.items()}
                             self._unflatten_orbital_vector(
-                                diis_vec, orbitals, orbital_schedule, ns_full)
+                                diis_vec, trial, orbital_schedule, ns_full)
+                            try:
+                                self._orthonormalize_orbitals(dict(trial), S0_cache)
+                            except (ValueError, np.linalg.LinAlgError):
+                                # DIIS can extrapolate outside the independent
+                                # orbital manifold. Keep the valid sweep and
+                                # restart its history instead of accepting a
+                                # rank-deficient radial basis into CI.
+                                diis_orb_history.clear()
+                                diis_err_history.clear()
+                            else:
+                                orbitals = trial
 
             elif mode == "orbital" and self.exchange == "hf":
                 # ============================================================
@@ -2018,12 +2161,32 @@ class DFSolver:
                     H[:n_pq, ns_full:ns_full+n_pq] -= K_PQ[:n_pq, :n_pq]
                     H[ns_full:ns_full+n_pq, :n_pq] -= K_QP[:n_pq, :n_pq]
 
+                    virtual_keys = getattr(self, "virtual_orbital_keys", set())
+                    target_virtual = (sh.n, kappa) in virtual_keys
+                    other_orbitals = [np.concatenate((P, Q))
+                                      for j, (P, Q, _) in enumerate(orbitals.get(kappa, []))
+                                      if j != orb_idx and (target_virtual or
+                                          (kappa_groups[kappa][j].n, kappa) not in virtual_keys)]
+                    constraints = np.column_stack(other_orbitals) if other_orbitals else None
                     result = solve_dirac(H, S_full, ns_full, kappa,
                                           nsp=nsp if has_kb else None,
-                                          nsq=nsq if has_kb else None)
+                                          nsq=nsq if has_kb else None,
+                                          orthogonal_to=constraints)
+
                     eig_idx = sh.n - sh.l - 1
                     if kappa > 0 and not has_kb:
                         eig_idx += 1
+                    if constraints is not None:
+                        # Lower principal roots are already represented by
+                        # the constrained orbitals. Follow the requested
+                        # node/root index in the remaining spectrum; maximum
+                        # overlap can lock a diffuse valence electron onto
+                        # a higher excited root during the initial screening.
+                        removed_lower = sum(
+                            other.n < sh.n and (target_virtual or
+                                (other.n, kappa) not in virtual_keys)
+                            for other in kappa_groups[kappa])
+                        eig_idx = max(0, eig_idx - removed_lower)
                     n_phys = len(result.eigenvalues)
                     actual_idx = min(eig_idx, n_phys - 1)
                     if actual_idx >= 0 and actual_idx < n_phys:
@@ -2137,6 +2300,13 @@ class DFSolver:
                                 (np.zeros(ns_full), np.zeros(ns_full), sh.occupation))
                     orbitals[kappa] = orb_list
 
+            self._orthonormalize_orbitals(orbitals, S0_cache)
+            if self.exchange == "hf" and self.mean_field_coeffs is None:
+                self._canonicalize_closed_subshells(orbitals, orbital_energies, kappa_groups)
+            if (self.exchange == "hf" and self.mean_field_coeffs is None
+                    and max_orb_change < 0.1):
+                max_orb_change = max(max_orb_change, self._optimize_same_kappa_rotations(orbitals))
+
             # Check convergence
             E_total_quick = sum(
                 sh.occupation * orbital_energies.get(sh.label, 0.0)
@@ -2153,8 +2323,10 @@ class DFSolver:
             E_old = E_total_quick
             residual = max_orb_change
 
-            if max_orb_change < tol and energy_change < tol * 0.01:
+            if noninteracting or (max_orb_change < tol and energy_change < tol * 0.01):
                 converged = True
+                if noninteracting:
+                    residual = 0.0
                 break
 
         if missing_shells:
@@ -2168,31 +2340,21 @@ class DFSolver:
                 "would be silently wrong."
             )
 
+        if self.exchange == "hf" and self.mean_field_coeffs is None:
+            self._canonicalize_closed_subshells(orbitals, orbital_energies, kappa_groups)
+
         # Compute total energy (with a transient-NaN tripwire, HYP-1590)
         total_energy, energy_components = self._final_energy_checked(
             orbitals, orbital_energies)
 
-        # Same-kappa orthogonality diagnostic.  The DHF equations carry
-        # off-diagonal Lagrange multipliers that enforce <a|b> = 0 between
-        # orbitals sharing kappa; this solver (like DBSR_HF's hf_matrix
-        # path) omits them, so the fixed point is only approximately
-        # orthogonal and the reported energy can sit ~1e-4 Ha above the
-        # shooting engine's Schmidt-orthogonalised solution (Li:
-        # 5.69e-4 overlap, 1.8e-4 Ha).  The defect is a known limitation,
-        # not a crash, but it was completely invisible; record it and
-        # downgrade `converged` when it is large enough to matter.
-        # See docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding H4.
+        # Verify the constrained metric after damping/DIIS as well.
         max_overlap = _max_same_kappa_overlap(orbitals, self.bsp_data)
         energy_components["max_same_kappa_overlap"] = max_overlap
         if max_overlap > _SAME_KAPPA_OVERLAP_TOL:
             converged = False
             energy_components["orthogonality_warning"] = (
                 f"same-kappa overlap {max_overlap:.2e} exceeds "
-                f"{_SAME_KAPPA_OVERLAP_TOL:.0e}; the SCF omits the "
-                f"off-diagonal Lagrange multipliers, so orbitals sharing "
-                f"kappa are not orthogonal and the energy may be a few "
-                f"1e-4 Ha above the constrained solution"
-            )
+                f"the constraint tolerance {_SAME_KAPPA_OVERLAP_TOL:.0e}")
 
         # Post-SCF corrections via the injected CorrectionStack (E1 seam)
         return self._finalize_with_corrections(SCFResult(
@@ -2217,6 +2379,7 @@ class DFSolver:
         """
         from atomx.corrections.stack import finalize_with_corrections
 
+        result._nuclear_potential = self._nuclear_potential
         stack = self.correction_stack
         if stack is not None and stack.include_breit:
             # The Breit rung applies the exact Gaunt operator, which needs

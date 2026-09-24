@@ -262,7 +262,8 @@ def _eigh_finite(H_red, S_red, max_retries=2):
     )
 
 
-def solve_dirac(H, S, ns, kappa, n_remove_boundary=1, nsp=None, nsq=None):
+def solve_dirac(H, S, ns, kappa, n_remove_boundary=1, nsp=None, nsq=None,
+                orthogonal_to=None):
     """Solve the generalized Dirac eigenvalue problem.
 
     Handles both symmetric (nsp=nsq=ns) and RKB (nsp < nsq) cases.
@@ -316,7 +317,23 @@ def solve_dirac(H, S, ns, kappa, n_remove_boundary=1, nsp=None, nsq=None):
     # (bisection + inverse iteration) by 2–3× — subset drivers only win
     # for banded or much larger problems. ``check_finite=False`` skips a
     # full-matrix scan that scipy otherwise does on every call.
-    eigenvalues, eigenvectors = _eigh_finite(H_red, S_red)
+    if orthogonal_to is not None and np.size(orthogonal_to):
+        constraints = np.asarray(orthogonal_to)[keep, :]
+        normals = S_red @ constraints
+        basis, triangular = linalg.qr(normals, mode="full", check_finite=False)
+        count = constraints.shape[1]
+        if np.any(np.abs(np.diag(triangular[:count])) < 1e-13):
+            raise ValueError("linearly dependent orbital orthogonality constraints")
+        complement = basis[:, count:]
+        # As in eigh(lower=True), the lower triangle defines H. Some
+        # exchange builders intentionally omit the unused upper block.
+        symmetric_h = np.tril(H_red) + np.tril(H_red, -1).T
+        constrained_h = complement.T @ (symmetric_h @ complement)
+        constrained_s = complement.T @ (S_red @ complement)
+        eigenvalues, vectors = _eigh_finite(constrained_h, constrained_s)
+        eigenvectors = complement @ vectors
+    else:
+        eigenvalues, eigenvectors = _eigh_finite(H_red, S_red)
 
     sea_threshold = NEGATIVE_CONTINUUM_EDGE
     physical_mask = eigenvalues > sea_threshold

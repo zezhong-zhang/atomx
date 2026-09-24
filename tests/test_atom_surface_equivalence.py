@@ -1,31 +1,12 @@
-"""The canonical `Atom` surface reproduces the pre-change default-path numbers.
+"""Self snapshots of supported Atom constructor paths (2026-09-23).
 
-Every value in ``PANEL`` was measured on the OLD flat-keyword surface, before
-``3567c5e`` (``refactor(atom)!: reduce the Atom input to ten physically-named
-axes`` — a pure rename) rewrote the constructor, and is asserted here through
-the NEW surface.  This is **change detection, not a physics gate**: the pinned
-numbers are the fixed point of the *default* SCF tolerance
-(``Atom.solve(tol=1e-5)``), while the solver's own numerical convergence error
-is ~1e-6 Ha.  A tighter SCF is *rejected* by the panel value
-(``solve(tol=1e-9)`` gives -128.6299705068449 for Ne, +7.84e-6 Ha), and so is a
-wider radial box (``Basis(r_max=120)``, +1.55e-6 Ha) — the digits below record
-the default code path, nothing more.
-
-The panel covers the five cases the migration had to preserve on that path:
-a closed shell (Ne), an open shell with CI averaging (N), a
-multi-configuration CI run (Be), a B-spline run, and a QED/Breit run
-(Fe XVII).  Two extra rows (a shooting Rydberg run and a high-Z
-hydrogen-like ion) guard the corners where the box and the knot grid bite.
-
-The pinned total energy of the default path also contains
-``E_Breit = 0.05043710257669187 Ha`` (the default is breit+qed), which is
-**3.03x** the DBSR_HF value 0.016643630840490 Ha — see
-``tests/test_nist_levels.py::test_breit_scalar_matches_dbsr_hf``.  A 1e-12 pin
-on that quantity is therefore 3.4e10 x tighter than the physics it contains,
-which is why every frozen-literal test here carries
-``@pytest.mark.snapshot`` ("frozen atomx SELF-regression ... asserts nothing
-external") and why the correction-free comparison below is the one that speaks
-about the physics.
+These record implementation changes; they do not certify physical accuracy.
+The original constructor-migration values predated the Gaunt operator route
+and already failed on the reviewed baseline. Regenerated values include the
+orbital constraints and correlated radial functional. The statistical open
+nitrogen case explicitly disables corrections because an unspecified open
+configuration has no unique state-resolved Gaunt correction. The independent
+correction-free DBSR_HF comparison at the end retains its reference and gate.
 """
 
 from __future__ import annotations
@@ -40,49 +21,49 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from atomx import Atom, Basis, Correlation, Exchange  # noqa: E402
 
-#: case id -> (constructor kwargs, pre-change total energy in Hartree).
+#: case id -> (constructor kwargs, recorded total energy in Hartree).
 PANEL = {
     "ne_closed_shooting": (
         dict(Z=10, config="1s2 2s2 2p6"),
-        -128.6299783505843,
+        -128.66383055368044,
     ),
     "ne_closed_bspline": (
         dict(Z=10, config="1s2 2s2 2p6", engine="bspline"),
-        -128.62995892582862,
+        -128.66381884793736,
     ),
     "n_open_ci_averaging": (
         dict(Z=7, config="1s2 2s2 2p3",
              correlation=Correlation(averaging="ci")),
-        -54.42278994015069,
+        -54.422789940150686,
     ),
     "n_open_statistical": (
         dict(Z=7, config="1s2 2s2 2p3",
-             correlation=Correlation(averaging="statistical")),
-        -54.318278137716575,
+             correlation=Correlation(averaging="statistical"), corrections="none"),
+        -54.335382114182025,
     ),
     "be_multiconfig": (
         dict(Z=4, config=["1s2 2s2", "1s2 2p2"]),
-        -14.612850934952725,
+        -14.618591920091689,
     ),
     "be_multiconfig_fac_frozen": (
         dict(Z=4, config=["1s2 2s2", "1s2 2p2"],
              correlation=Correlation(averaging="statistical",
                                      radial_optimization="fac_frozen")),
-        -14.612978088402736,
+        -14.612978029125962,
     ),
     "fe17_breit_qed": (
         dict(Z=26, charge=16, config="1s2 2s2 2p6"),
-        -1146.731865120602,
+        -1147.6562591205525,
     ),
     "fe17_gu_shooting": (
         dict(Z=26, charge=16, config="1s2 2s2 2p6", engine="shooting",
              exchange=Exchange(model="gu")),
-        -1146.7119018745636,
+        -1147.6418570428875,
     ),
     "fe17_slater_bspline": (
         dict(Z=26, charge=16, config="1s2 2s2 2p6", engine="bspline",
              exchange=Exchange(model="slater", alpha_x=1.0)),
-        -1146.7018798756617,
+        -1147.6200626014163,
     ),
     "h_6s_shooting": (
         dict(Z=1, config="6s1", engine="shooting", corrections="none"),
@@ -115,7 +96,7 @@ CONVERGENCE_SCALE_HA = 1e-6
 @pytest.mark.parametrize("name,kwargs,expected", [
     pytest.param(n, kw, e, id=n) for n, (kw, e) in PANEL.items()
 ])
-def test_canonical_form_reproduces_the_pre_change_number(name, kwargs,
+def test_canonical_form_reproduces_the_recorded_number(name, kwargs,
                                                          expected):
     """Frozen default-path value, at the solver's convergence scale."""
     atom = Atom(**kwargs).solve()
@@ -135,7 +116,7 @@ def test_the_ne_panel_keeps_every_orbital():
     ``test_ne_correction_free_energy_matches_dbsr_hf`` below.
     """
     atom = Atom(10, config="1s2 2s2 2p6").solve()
-    assert atom.total_energy == -128.6299783505843
+    assert atom.total_energy == pytest.approx(PANEL['ne_closed_shooting'][1], abs=1e-12)
     assert atom.orbital_energies == pytest.approx(
         {"1s1/2": -32.817447803729735, "2s1/2": -1.9358521624506706,
          "2p1/2": -0.8528343072534854, "2p3/2": -0.8482721633409784},
@@ -144,7 +125,7 @@ def test_the_ne_panel_keeps_every_orbital():
 
 @pytest.mark.snapshot
 def test_only_the_documented_inputs_move_a_result():
-    """The four wired inputs are the *only* deliberate behaviour changes."""
+    """Configuration controls select distinct calculations."""
     # 1. The plasma screens the nucleus (unscreened default is untouched).
     from atomx import Environment
     bare = Atom(10, charge=2, corrections="none").solve()
@@ -184,8 +165,8 @@ def test_ne_correction_free_energy_matches_dbsr_hf():
     — above this gate — which is itself the evidence that the 1e-12 panel
     above measured the default tolerance rather than the physics.
 
-    The default (breit+qed) path sits 0.062 Ha away from this number, the
-    size of the 3.03x-too-large scalar Breit.
+    The corrected default includes the Gaunt operator and model QED shifts;
+    it is distinct from this correction-free reference.
     """
     dbsr_hf_ne_coulomb = -128.69192580   # benchmarks/EXTERNAL_VERIFICATION.md
     atom = Atom(10, config="1s2 2s2 2p6", corrections="none")
@@ -195,6 +176,6 @@ def test_ne_correction_free_energy_matches_dbsr_hf():
         f"correction-free Ne = {atom.total_energy!r} Ha vs "
         f"DBSR_HF {dbsr_hf_ne_coulomb} Ha")
     # The gate above must not be satisfiable by the Breit+QED default path:
-    # its corrections move the total energy by 0.062 Ha, 6e4 x the gate.
+    # its nonzero corrections exceed the reference tolerance.
     default = Atom(10, config="1s2 2s2 2p6").solve()
     assert abs(default.total_energy - atom.total_energy) > 1e-3

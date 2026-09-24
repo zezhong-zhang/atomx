@@ -148,8 +148,8 @@ class TestAngularFactors:
         assert abs(ang) < 1e-15
 
 
-def test_closed_shell_e1_particle_hole_uses_fac_babushkin_normalization(monkeypatch):
-    """Closed J=0 -> p-hole d3/2 E1 uses FAC's sqrt(2) radial convention."""
+def test_closed_shell_e1_particle_hole_obeys_one_electron_sum_rule(monkeypatch):
+    """A filled shell has unit total strength per occupied magnetic spinor."""
     from atomx.methods.dirac_fock import Subshell
     from atomx.methods.mcdhf.config import CSF
     from atomx.properties.transitions import calculator as calc_mod
@@ -181,7 +181,10 @@ def test_closed_shell_e1_particle_hole_uses_fac_babushkin_normalization(monkeypa
         upper, lower, orbitals, {}, 1, "E", "length", omega=1.0,
     )
 
-    assert me == pytest.approx(np.sqrt(2.0) * angular_eL(-2, 2, 1))
+    # Summing |<j_f m_f|C^1_q|j_i m_i>|² over the filled initial shell
+    # and all final m,q gives |<j_f||C^1||j_i>|², without a sqrt(2).
+    from atomx.angular.coefficients import reduced_C
+    assert me ** 2 == pytest.approx(reduced_C(2, -2, 1) ** 2)
 
 
 # ===== Rates module tests =====

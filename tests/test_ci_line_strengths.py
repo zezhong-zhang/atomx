@@ -299,14 +299,14 @@ def test_compute_transitions_ci_wiring(fe17_pair_atom, linesets):
         assert row.gf_value == pytest.approx(ln.gf, rel=1e-6)
 
 
-def test_default_stays_uta(fe17_pair_atom):
-    """The default line_resolution remains the UTA path (flip deferred)."""
+def test_mcdhf_default_uses_exact_csf_transitions(fe17_pair_atom):
+    """MCDHF wavefunctions always use exact CSF transition tensors."""
     rows = fe17_pair_atom.transitions(multipoles=["E1"])
-    assert rows and all(r.resolution == "uta" for r in rows)
+    assert rows and all(r.resolution == "ci" for r in rows)
 
 
-def test_ci_falls_back_for_velocity_gauge(fe17_pair_atom):
-    """The CI engine is length-gauge; velocity requests fall back to UTA."""
+def test_mcdhf_velocity_gauge_uses_exact_csf_transitions(fe17_pair_atom):
+    """Velocity radial integrals use the same exact CSF tensor algebra."""
     rows = fe17_pair_atom.transitions(multipoles=["E1"], gauge="velocity",
                                       line_resolution="ci")
-    assert rows and all(r.resolution == "uta" for r in rows)
+    assert rows and all(r.resolution == "ci" for r in rows)

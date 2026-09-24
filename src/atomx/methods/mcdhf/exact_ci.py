@@ -70,6 +70,7 @@ from functools import lru_cache
 
 import numpy as np
 from scipy.sparse import csr_matrix
+from scipy.sparse.linalg import LinearOperator
 
 from atomx.angular.clebsch import clebsch_gordan
 from atomx.angular.coefficients import reduced_C
@@ -175,7 +176,7 @@ class PatternLayout:
     """
 
     __slots__ = ("pattern", "pattern_keys", "spinors", "offsets", "blocks",
-                 "masks", "by_m2", "index")
+                 "by_m2",)
 
     def __init__(self, pattern):
         self.pattern = tuple(sorted(tuple(p) for p in pattern))
@@ -202,33 +203,82 @@ class PatternLayout:
         self.blocks = tuple((offsets[i], widths[i], twojs[i])
                             for i in range(len(offsets)))
 
-        choices = []
-        for (sub_off, width, _tj), q in zip(
-                self.blocks, (p[2] for p in self.pattern), strict=True):
-            local = []
-            for combo in itertools.combinations(range(width), int(q)):
-                m = 0
-                for i in combo:
-                    m |= 1 << i
-                local.append(m << sub_off)
-            choices.append(local)
+        self.by_m2 = _SectorMasks(self.pattern, self.offsets)
+
+    @property
+    def masks(self):
+        """All sectors, materialized only for explicit diagnostic callers."""
+        return tuple(sorted(m for sector, _ in pattern_m_counts(self.pattern)
+                            for m in self.by_m2[sector]))
+
+    @property
+    def index(self):
+        return {m: i for i, m in enumerate(self.masks)}
+
+
+@lru_cache(maxsize=512)
+def _subshell_m_counts(tj, q):
+    """Count fixed-M determinants by integer dynamic programming."""
+    if q < 0 or q > tj + 1:
+        raise ExactCISpaceError(f"occupation {q} out of range for 2j={tj}")
+    counts = {(0, 0): 1}
+    for m in _m2_values(tj):
+        updated = dict(counts)
+        for (number, total), count in counts.items():
+            if number < q:
+                key = (number + 1, total + m)
+                updated[key] = updated.get(key, 0) + count
+        counts = updated
+    return tuple(sorted((m, count) for (number, m), count in counts.items()
+                        if number == q))
+
+
+@lru_cache(maxsize=1024)
+def pattern_m_counts(pattern):
+    counts = {0: 1}
+    for _, k, q in pattern:
+        new = {}
+        for m, count in counts.items():
+            for shell_m, shell_count in _subshell_m_counts(twoj(k), q):
+                key = m + shell_m
+                new[key] = new.get(key, 0) + count * shell_count
+        counts = new
+    return tuple(sorted(counts.items()))
+
+
+class _SectorMasks(dict):
+    """Lazy fixed-M enumeration; never form the all-M Cartesian product."""
+    def __init__(self, pattern, offsets):
+        self.pattern = pattern
+        self.offsets = offsets
+        self.suffix = [dict(pattern_m_counts(pattern[i:])) for i in range(len(pattern) + 1)]
+
+    def __missing__(self, M2):
         masks = []
-        for combo in itertools.product(*choices):
-            g = 0
-            for m in combo:
-                g |= m
-            masks.append(g)
-        masks.sort()
-        self.masks = tuple(masks)
-        m2_of_bit = tuple(s[2] for s in self.spinors)
-        by_m2: dict[int, list[int]] = {}
-        for m in self.masks:
-            by_m2.setdefault(_mask_m2(m, m2_of_bit), []).append(m)
-        self.by_m2 = {k: tuple(v) for k, v in by_m2.items()}
-        self.index = {m: i for i, m in enumerate(self.masks)}
+
+        def visit(i, remaining, mask):
+            if remaining not in self.suffix[i]:
+                return
+            if i == len(self.pattern):
+                masks.append(mask)
+                return
+            _, k, q = self.pattern[i]
+            for m, _ in _subshell_m_counts(twoj(k), q):
+                if remaining - m not in self.suffix[i + 1]:
+                    continue
+                for local in determinants_by_m(twoj(k), q, m):
+                    visit(i + 1, remaining - m, mask | (local << self.offsets[i]))
+
+        visit(0, M2, 0)
+        value = tuple(sorted(masks))
+        self[M2] = value
+        return value
+
+    def get(self, key, default=None):
+        return self[key] or default
 
 
-@lru_cache(maxsize=None)
+@lru_cache(maxsize=256)
 def pattern_layout(pattern) -> PatternLayout:
     """Cached :class:`PatternLayout` for an occupation pattern."""
     return PatternLayout(tuple(tuple(p) for p in pattern))
@@ -264,7 +314,7 @@ def _remap(mask: int, lay: PatternLayout, offsets: dict) -> int:
 # The J^2 operator in a pattern's determinant basis
 # ---------------------------------------------------------------------------
 
-@lru_cache(maxsize=None)
+@lru_cache(maxsize=256)
 def _jplus_block(pattern: tuple, M2: int) -> np.ndarray:
     """Total ``J_+`` matrix from the pattern's ``2M`` to its ``2M+2`` space."""
     lay = pattern_layout(pattern)
@@ -437,7 +487,7 @@ def csf_signature(csf) -> CSFSignature:
 # CSF vectors in the determinant basis
 # ---------------------------------------------------------------------------
 
-@lru_cache(maxsize=None)
+@lru_cache(maxsize=256)
 def _subshell_series(tj: int, q: int, J2: int, deg: int):
     """``|j^q, J, M>`` for every ``M``, as ``(2M, ((mask, amp), ...))``.
 
@@ -491,7 +541,7 @@ def _subshell_series(tj: int, q: int, J2: int, deg: int):
     return tuple(series)
 
 
-@lru_cache(maxsize=None)
+@lru_cache(maxsize=256)
 def _csf_local_vector(subshells: tuple, total_J2: int, coupling: tuple):
     """CSF amplitudes over per-subshell local masks, in CSF order.
 
@@ -561,6 +611,134 @@ def _permutation_sign(subshells, order_index) -> float:
     return float(sign)
 
 
+@lru_cache(maxsize=4096)
+def one_body_tensor_terms(bra, ket, rank: int):
+    """Reduced CSF tensor as ``(destination, source, coefficient)`` terms.
+
+    Multiply each coefficient by the corresponding one-electron reduced
+    matrix element. The determinant phases and coupling trees are exactly
+    those of the CI Hamiltonian. Evaluating the highest-weight component
+    and dividing by its Wigner 3j gives the many-electron reduced element;
+    no occupation-average or closed-shell normalization is involved.
+    """
+    jf, ji = bra.total_J2, ket.total_J2
+    q2 = jf - ji
+    if abs(q2) > 2 * rank or jf + ji < 2 * rank or q2 % 2:
+        return ()
+    if sum(p[2] for p in bra.pattern) != sum(p[2] for p in ket.pattern):
+        return ()
+    occupations = {(n, k): q for n, k, q in bra.pattern}
+    for n, k, q in ket.pattern:
+        occupations[n, k] = occupations.get((n, k), 0) - q
+    if sum(abs(q) for q in occupations.values()) > 2:
+        return ()
+    denominator = wigner_3j(jf, 2 * rank, ji, -jf, q2, ji)
+    if denominator == 0.0:
+        return ()
+    offsets = dict(_union_offsets((bra.pattern, ket.pattern)))
+    order = {key: i for i, key in enumerate(offsets)}
+
+    def vector(sig):
+        sign = _permutation_sign(sig.subshells, order)
+        result = {}
+        for masks, amplitude in _csf_local_vector(
+                sig.subshells, sig.total_J2, sig.coupling):
+            determinant = 0
+            for (n, k, _), mask in zip(sig.subshells, masks, strict=True):
+                determinant |= mask << offsets[n, k]
+            result[determinant] = sign * amplitude
+        return result
+
+    vf, vi = vector(bra), vector(ket)
+    spinors = [(n, k, m) for n, k in offsets
+               for m in _m2_values(twoj(k))]
+    destinations = {}
+    for ia, (n, k, m) in enumerate(spinors):
+        destinations.setdefault(m, []).append((ia, (n, k), twoj(k)))
+    terms = {}
+    for determinant, amplitude in vi.items():
+        for ib in _bits(determinant):
+            nb, kb, mb = spinors[ib]
+            removed = determinant ^ (1 << ib)
+            sign_b = -1 if (determinant & ((1 << ib) - 1)).bit_count() % 2 else 1
+            for ia, key_a, ja in destinations.get(mb + q2, ()):
+                if removed & (1 << ia):
+                    continue
+                amplitude_f = vf.get(removed | (1 << ia), 0.0)
+                if amplitude_f == 0.0:
+                    continue
+                sign_a = -1 if (removed & ((1 << ia) - 1)).bit_count() % 2 else 1
+                phase = -1 if ((ja - mb - q2) // 2) % 2 else 1
+                angular = phase * wigner_3j(
+                    ja, 2 * rank, twoj(kb), -mb - q2, q2, mb)
+                key = (key_a, (nb, kb))
+                terms[key] = terms.get(key, 0.0) + (
+                    amplitude_f * amplitude * sign_a * sign_b * angular / denominator)
+    return tuple((a, b, coefficient) for (a, b), coefficient in sorted(terms.items())
+                 if abs(coefficient) > 1e-14)
+
+
+def nonorthogonal_tensor_terms(bra, ket, rank, overlap):
+    """One-body tensor coefficients between independently optimized bases.
+
+    The generalized Slater–Condon expression uses overlap cofactors,
+    including singular overlap matrices (where an inverse is invalid).
+    ``overlap(a, b)`` is the radial bra/ket overlap for two same-kappa
+    orbitals. This path is needed only for distinct radial orbital sets.
+    """
+    jf, ji = bra.total_J2, ket.total_J2
+    q2 = jf - ji
+    denominator = wigner_3j(jf, 2 * rank, ji, -jf, q2, ji)
+    if denominator == 0.0 or sum(p[2] for p in bra.pattern) != sum(p[2] for p in ket.pattern):
+        return ()
+    offsets = dict(_union_offsets((bra.pattern, ket.pattern)))
+    order = {key: i for i, key in enumerate(offsets)}
+    spinors = [(n, k, m) for n, k in offsets for m in _m2_values(twoj(k))]
+
+    def determinants(sig):
+        sign = _permutation_sign(sig.subshells, order)
+        out = []
+        for masks, amplitude in _csf_local_vector(sig.subshells, sig.total_J2, sig.coupling):
+            mask = 0
+            for (n, k, _), local in zip(sig.subshells, masks, strict=True):
+                mask |= local << offsets[n, k]
+            out.append((tuple(_bits(mask)), sign * amplitude))
+        return out
+
+    terms = {}
+    radial_overlaps = {}
+    for occupied_f, amplitude_f in determinants(bra):
+        for occupied_i, amplitude_i in determinants(ket):
+            number = len(occupied_f)
+            metric = np.zeros((number, number))
+            for row, ia in enumerate(occupied_f):
+                na, ka, ma = spinors[ia]
+                for col, ib in enumerate(occupied_i):
+                    nb, kb, mb = spinors[ib]
+                    if ka == kb and ma == mb:
+                        pair = ((na, ka), (nb, kb))
+                        if pair not in radial_overlaps:
+                            radial_overlaps[pair] = overlap(*pair)
+                        metric[row, col] = radial_overlaps[pair]
+            for row, ia in enumerate(occupied_f):
+                na, ka, ma = spinors[ia]
+                for col, ib in enumerate(occupied_i):
+                    nb, kb, mb = spinors[ib]
+                    if ma - mb != q2:
+                        continue
+                    angular = wigner_3j(twoj(ka), 2 * rank, twoj(kb), -ma, q2, mb)
+                    if angular == 0.0:
+                        continue
+                    minor = np.delete(np.delete(metric, row, axis=0), col, axis=1)
+                    cofactor = np.linalg.det(minor) if number > 1 else 1.0
+                    exponent = row + col + (twoj(ka) - ma) // 2
+                    weight = (-1.0 if exponent % 2 else 1.0) * cofactor
+                    pair = ((na, ka), (nb, kb))
+                    terms[pair] = terms.get(pair, 0.0) + (
+                        amplitude_f * amplitude_i * weight * angular / denominator)
+    return tuple((a, b, value) for (a, b), value in sorted(terms.items()) if abs(value) > 1e-14)
+
+
 def csf_matrix(signatures, pattern, offsets=None) -> np.ndarray:
     """Determinant-space coefficient matrix ``C`` of a CSFSignature list.
 
@@ -606,7 +784,7 @@ def csf_matrix(signatures, pattern, offsets=None) -> np.ndarray:
 # Angular kernel: <ab|1/r12|cd>, the oracle's convention
 # ---------------------------------------------------------------------------
 
-@lru_cache(maxsize=None)
+@lru_cache(maxsize=32768)
 def two_body_angular(ka: int, m2a: int, kb: int, m2b: int,
                      kc: int, m2c: int, kd: int, m2d: int):
     """``(k, angular)`` terms of ``<ab|1/r12|cd>`` for spinor labels.
@@ -781,14 +959,67 @@ def _pair_terms(mask_a: int, mask_b: int, spinor_labels, term_fn=None):
 # Block structure: determinants + the sparse Slater-Condon table
 # ---------------------------------------------------------------------------
 
+def _connected_pairs(dets):
+    """Slater–Condon connections from common N-2 spectator determinants.
+
+    Removing up to two occupied spinors indexes every possible one-/two-
+    body connection without scanning all determinant pairs. Duplicate
+    single-excitation connections are collapsed before angular work.
+    """
+    spectators = {}
+    frozen = dets[0] if dets else 0
+    for mask in dets:
+        frozen &= mask
+    for index, mask in enumerate(dets):
+        # Spinors occupied in every determinant never participate in a
+        # replacement. Removing frozen-core electrons only generates
+        # duplicate singleton buckets and can dominate heavy-atom work.
+        occupied = tuple(_bits(mask ^ frozen))
+        remove = min(2, len(occupied))
+        for bits in itertools.combinations(occupied, remove):
+            spectator = mask
+            for bit in bits:
+                spectator ^= 1 << bit
+            spectators.setdefault(spectator, []).append(index)
+    pairs = set()
+    for indices in spectators.values():
+        for row in indices:
+            for col in indices:
+                pairs.add((row, col))
+    return sorted(pairs)
+
+
+def _coefficient_table(dets, labels, term_fn=None):
+    keys, key_index = [], {}
+    rows, cols, data, pairs = [], [], [], []
+    for row, col in _connected_pairs(dets):
+        terms = (_pair_terms(dets[row], dets[col], labels) if term_fn is None
+                 else _pair_terms(dets[row], dets[col], labels, term_fn=term_fn))
+        terms = tuple(terms)
+        if not terms:
+            continue
+        pair_index = len(pairs)
+        pairs.append((row, col))
+        for key, coefficient in terms:
+            if key not in key_index:
+                key_index[key] = len(keys)
+                keys.append(key)
+            rows.append(pair_index)
+            cols.append(key_index[key])
+            data.append(coefficient)
+    table = csr_matrix((data, (rows, cols)), shape=(len(pairs), max(len(keys), 1)))
+    coordinates = np.asarray(pairs, dtype=np.int64).reshape(-1, 2)
+    return tuple(keys), table, coordinates
+
+
 class BlockStructure:
     """Orbital-independent structure of one (2J, parity) block."""
 
     __slots__ = ("patterns", "j2", "dets", "slices", "keys", "table",
-                 "spinor_labels")
+                 "spinor_labels", "pairs")
 
     def __init__(self, patterns, j2, dets, slices, keys, table,
-                 spinor_labels):
+                 spinor_labels, pairs):
         self.patterns = patterns
         self.j2 = j2
         self.dets = dets
@@ -796,12 +1027,22 @@ class BlockStructure:
         self.keys = keys
         self.table = table
         self.spinor_labels = spinor_labels
+        self.pairs = pairs
 
 
-@lru_cache(maxsize=None)
+@lru_cache(maxsize=32)
 def _block_structure(patterns: tuple, j2: int,
                      max_determinants: int) -> BlockStructure:
     patterns = tuple(sorted(tuple(sorted(p)) for p in patterns))
+    dimensions = [dict(pattern_m_counts(p)).get(j2, 0) for p in patterns]
+    dimension = sum(dimensions)
+    if dimension > max_determinants:
+        sizes = ", ".join(f"{p}: {dim}" for p, dim in zip(patterns, dimensions, strict=True))
+        raise ExactCISpaceError(
+            f"exact CI block (2J = {j2}) needs a raw determinant space of "
+            f"{dimension} determinants over {len(patterns)} configuration(s), "
+            f"above the cap of {max_determinants}. Per-configuration sizes: {sizes}. "
+            "Reduce the configuration list or raise max_determinants explicitly.")
     layouts = [pattern_layout(p) for p in patterns]
     offsets = dict(_union_offsets(patterns))
     dets: list[int] = []
@@ -810,45 +1051,14 @@ def _block_structure(patterns: tuple, j2: int,
         start = len(dets)
         dets.extend(_remap(m, lay, offsets) for m in lay.by_m2.get(j2, ()))
         slices.append((start, len(dets)))
-    if len(dets) > max_determinants:
-        sizes = ", ".join(f"{p}: {end - start}"
-                          for p, (start, end) in zip(patterns, slices, strict=True))
-        raise ExactCISpaceError(
-            f"exact CI block (2J = {j2}) needs a raw determinant space of "
-            f"{len(dets)} determinants over {len(patterns)} "
-            f"configuration(s), above the cap of {max_determinants}.  "
-            f"Per-configuration sizes: {sizes}.  Reduce the configuration "
-            f"list, or raise the cap explicitly "
-            f"(build_ci_matrix(..., max_determinants=N)) if the memory and "
-            f"time are acceptable.")
-    n = len(dets)
     union_keys = [key for key, _off in _union_offsets(patterns)]
     spinor_labels: list[tuple[int, int, int]] = []
     for key in union_keys:
         spinor_labels.extend((key[0], key[1], m)
                              for m in _m2_values(twoj(key[1])))
-    keys: list[tuple] = []
-    key_index: dict[tuple, int] = {}
-    rows: list[int] = []
-    cols: list[int] = []
-    data: list[float] = []
-    for row, mask_a in enumerate(dets):
-        for col, mask_b in enumerate(dets):
-            for key, coef in _pair_terms(mask_a, mask_b, spinor_labels):
-                k = key_index.get(key)
-                if k is None:
-                    k = len(keys)
-                    key_index[key] = k
-                    keys.append(key)
-                rows.append(row * n + col)
-                cols.append(k)
-                data.append(coef)
-    table = csr_matrix(
-        (np.asarray(data), (np.asarray(rows, dtype=np.int64),
-                            np.asarray(cols, dtype=np.int64))),
-        shape=(n * n, max(len(keys), 1)))
+    keys, table, pairs = _coefficient_table(dets, spinor_labels)
     return BlockStructure(patterns, j2, tuple(dets), tuple(slices),
-                          tuple(keys), table, tuple(spinor_labels))
+                          keys, table, tuple(spinor_labels), pairs)
 
 
 def block_terms(patterns, j2, max_determinants=MAX_BLOCK_DETERMINANTS):
@@ -863,15 +1073,16 @@ class BreitBlockStructure:
     the two matrices add directly in the determinant basis.
     """
 
-    __slots__ = ("dets", "keys", "table")
+    __slots__ = ("dets", "keys", "table", "pairs")
 
-    def __init__(self, dets, keys, table):
+    def __init__(self, dets, keys, table, pairs):
         self.dets = dets
         self.keys = keys
         self.table = table
+        self.pairs = pairs
 
 
-@lru_cache(maxsize=None)
+@lru_cache(maxsize=32)
 def _breit_block_table(patterns: tuple, j2: int, max_determinants: int):
     """Cached Gaunt table of a block, keyed like the Coulomb structure."""
     from atomx.methods.mcdhf.breit_ci import gaunt_terms
@@ -879,29 +1090,8 @@ def _breit_block_table(patterns: tuple, j2: int, max_determinants: int):
     structure = block_terms(patterns, j2, max_determinants)
     dets = structure.dets
     spinor_labels = structure.spinor_labels
-    n = len(dets)
-    keys: list[tuple] = []
-    key_index: dict[tuple, int] = {}
-    rows: list[int] = []
-    cols: list[int] = []
-    data: list[float] = []
-    for row, mask_a in enumerate(dets):
-        for col, mask_b in enumerate(dets):
-            for key, coef in _pair_terms(mask_a, mask_b, spinor_labels,
-                                         term_fn=gaunt_terms):
-                k = key_index.get(key)
-                if k is None:
-                    k = len(keys)
-                    key_index[key] = k
-                    keys.append(key)
-                rows.append(row * n + col)
-                cols.append(k)
-                data.append(coef)
-    table = csr_matrix(
-        (np.asarray(data), (np.asarray(rows, dtype=np.int64),
-                            np.asarray(cols, dtype=np.int64))),
-        shape=(n * n, max(len(keys), 1)))
-    return BreitBlockStructure(dets, tuple(keys), table)
+    keys, table, pairs = _coefficient_table(dets, spinor_labels, gaunt_terms)
+    return BreitBlockStructure(dets, keys, table, pairs)
 
 
 def breit_block_terms(patterns, j2, max_determinants=MAX_BLOCK_DETERMINANTS):
@@ -910,23 +1100,25 @@ def breit_block_terms(patterns, j2, max_determinants=MAX_BLOCK_DETERMINANTS):
                               int(max_determinants))
 
 
-def evaluate_block(structure: BlockStructure, evaluate_integral) -> np.ndarray:
-    """Numeric ``H_det`` of a block from a radial-key evaluator."""
+def evaluate_block(structure: BlockStructure, evaluate_integral, *, sparse=False):
+    """Numeric determinant Hamiltonian from the connected-entry table."""
     n = len(structure.dets)
     if structure.keys:
         rvec = np.fromiter((evaluate_integral(k) for k in structure.keys),
-                           float, len(structure.keys))
-        flat = structure.table @ rvec
+                          float, len(structure.keys))
+        values = structure.table @ rvec
     else:
-        flat = np.zeros(n * n)
-    return flat.reshape(n, n)
+        values = np.zeros(len(structure.pairs))
+    matrix = csr_matrix((values, (structure.pairs[:, 0], structure.pairs[:, 1])),
+                        shape=(n, n))
+    return matrix if sparse else matrix.toarray()
 
 
 # ---------------------------------------------------------------------------
 # Block CSF matrix and its span checks
 # ---------------------------------------------------------------------------
 
-@lru_cache(maxsize=None)
+@lru_cache(maxsize=16)
 def _block_csf_matrix(patterns: tuple, j2: int, sig_groups: tuple):
     pairs = sorted(((tuple(sorted(tuple(p) for p in pat)), tuple(g))
                     for pat, g in zip(patterns, sig_groups, strict=True)),
@@ -957,7 +1149,7 @@ def csf_block_matrix(patterns, j2, sig_groups):
         tuple(tuple(g) for g in sig_groups))
 
 
-@lru_cache(maxsize=None)
+@lru_cache(maxsize=256)
 def _verify_cached(patterns: tuple, j2: int, sig_groups: tuple) -> bool:
     """Cache :func:`verify_csf_span` keyed like the matrix it checks.
 
@@ -1006,10 +1198,8 @@ def verify_csf_span(patterns, j2, csf_mat: np.ndarray) -> None:
         n_here = int((np.abs(block).sum(axis=0) > 1e-12).sum())
         if n_here == 0:
             continue
-        evals, evecs = np.linalg.eigh(j2_matrix(lay.pattern, j2))
-        target = 0.25 * j2 * (j2 + 2)
-        mask = np.abs(evals - target) < 1e-8
-        dim_target = int(mask.sum())
+        counts = dict(pattern_m_counts(lay.pattern))
+        dim_target = counts.get(j2, 0) - counts.get(j2 + 2, 0)
         if dim_target != n_here:
             raise ExactCISpaceError(
                 f"configuration {lay.pattern} has {n_here} CSF(s) with "
@@ -1017,8 +1207,8 @@ def verify_csf_span(patterns, j2, csf_mat: np.ndarray) -> None:
                 f"2M = {j2} contains {dim_target} state(s) with "
                 f"J = {j2 / 2:g}.  The CSF list is not a complete basis of "
                 f"the intended J-block.")
-        proj = evecs[:, mask] @ (evecs[:, mask].T @ block)
-        leak = float(np.abs(proj - block).max())
+        raised = _jplus_block(lay.pattern, j2) @ block
+        leak = float(np.max(np.abs(raised), initial=0.0))
         if leak > 1e-8:
             raise ExactCISpaceError(
                 f"a CSF of configuration {lay.pattern} with 2J = {j2} is not "
@@ -1033,7 +1223,7 @@ def verify_csf_span(patterns, j2, csf_mat: np.ndarray) -> None:
 def exact_block_matrix(signatures, evaluate_integral, *,
                        max_determinants: int = MAX_BLOCK_DETERMINANTS,
                        verify: bool = True,
-                       breit_evaluator=None) -> np.ndarray:
+                       breit_evaluator=None, as_operator=False):
     """Exact ``H`` of one ``(2J, parity)`` block in the CSF basis.
 
     Parameters
@@ -1099,11 +1289,25 @@ def exact_block_matrix(signatures, evaluate_integral, *,
     csf_mat = csf_block_matrix(structure.patterns, j2, sig_groups)
     if verify:
         _verify_cached(structure.patterns, j2, sig_groups)
-    h_det = evaluate_block(structure, evaluate_integral)
+    h_det = evaluate_block(structure, evaluate_integral, sparse=True)
     if breit_evaluator is not None:
         b_struct = breit_block_terms(structure.patterns, j2,
                                      max_determinants)
-        h_det = h_det + evaluate_block(b_struct, breit_evaluator)
-    h = csf_mat.T @ h_det @ csf_mat
+        h_det = h_det + evaluate_block(b_struct, breit_evaluator, sparse=True)
+    if as_operator:
+        projection = csr_matrix(csf_mat[:, perm])
+        # Symmetry removes accumulation roundoff only; no dense determinant
+        # or CSF Hamiltonian is formed on this execution path.
+        h_det = 0.5 * (h_det + h_det.T)
+        diagonal = np.asarray(projection.multiply(h_det @ projection).sum(axis=0)).ravel()
+
+        def apply(v):
+            return projection.T @ (h_det @ (projection @ v))
+
+        operator = LinearOperator((len(perm), len(perm)), matvec=apply,
+                                  matmat=apply, rmatvec=apply, dtype=float)
+        operator.diagonal = lambda: diagonal.copy()
+        return operator
+    h = csf_mat.T @ (h_det @ csf_mat)
     h = h[np.ix_(perm, perm)]
     return 0.5 * (h + h.T)

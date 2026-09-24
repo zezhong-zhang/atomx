@@ -38,7 +38,7 @@ from __future__ import annotations
 
 import numpy as np
 import pytest
-from _be_reference import BE_DC_LOWER_BOUND, be_1csf_energy
+from _be_reference import BE_DC_SANITY_FLOOR, be_1csf_energy
 
 import atomx.methods.mcdhf.matrix as MAT
 import atomx.methods.mcdhf.solver as SOLVER
@@ -96,9 +96,9 @@ def test_be_two_configuration_near_degeneracy():
     result, _orbitals, _bsp = _solve_capturing_orbitals(
         4, ["1s2 2s2", "1s2 2p2"])
     energy = result.total_energy
-    assert energy >= BE_DC_LOWER_BOUND, (
-        f"{energy} is below the finite-nucleus Dirac-Coulomb Be ground state "
-        f"{BE_DC_LOWER_BOUND}")
+    assert energy >= BE_DC_SANITY_FLOOR, (
+        f"{energy} is below the diagnostic Be energy floor "
+        f"{BE_DC_SANITY_FLOOR}")
     e_ref = be_1csf_energy()   # atomx's own 1s2 2s2 solve, measured live
     assert energy < e_ref, (
         f"{energy}: the 2s^2/2p^2 space contains the 1-CSF reference "

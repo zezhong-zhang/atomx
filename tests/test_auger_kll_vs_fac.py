@@ -53,7 +53,7 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from atomx import Atom  # noqa: E402
+from atomx import Atom, Correlation  # noqa: E402
 from atomx.scattering.autoionization import auger_rate_csf_average  # noqa: E402
 
 FIXTURE_PATH = Path(__file__).parent / "data" / "fe17_kll_auger_fac.json"
@@ -84,6 +84,8 @@ def fe17_result(fac_panel):
     doubly-excited configs added is sufficient — the 3l virtual orbitals
     are well-defined even though their ground-state occupation is ~0.
     """
+    # Use spectroscopic virtuals of the frozen ground-state field.
+    # Ground-state optimized correlation orbitals are not excited 3l states.
     atom = Atom(
                 Z=26,
                 charge=16,
@@ -93,7 +95,7 @@ def fe17_result(fac_panel):
             "1s2 2s2 2p5 3p1",
             "1s2 2s2 2p5 3d1",
         ],
-                correlation=None,
+                correlation=Correlation(radial_optimization="fac_frozen"),
                 corrections="none",
            )
     atom.solve()

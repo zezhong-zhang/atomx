@@ -15,8 +15,10 @@ Atoms and Molecules* (2007) §8.3.
 """
 
 import math
+from functools import lru_cache
 
 import numpy as np
+from scipy.sparse.linalg import LinearOperator
 
 from atomx.angular.clebsch import clebsch_gordan
 from atomx.angular.coefficients import (
@@ -40,6 +42,9 @@ from atomx.methods.mcdhf.exact_ci import (
 )
 from atomx.numerics.bspline.convol import (
     ConvolCache,
+    _convol_case1_t,
+    _density_sym,
+    _sum_amb_banded,
     compute_slater_fk_cell,
     compute_slater_gk_cell,
     compute_slater_rk_cell,
@@ -467,7 +472,7 @@ def _norm_sq(P, Q, kappa, Z, bsp_data, ns):
 
 def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
                     nuclear_potential=None, convol_cache=None,
-                    max_determinants=None, include_breit=False):
+                    max_determinants=None, include_breit=False, as_operator=False):
     """Build the exact CI Hamiltonian matrix H_{rs} in the CSF basis.
 
     ``H[r, s]`` is the true expectation value ``<CSF_r|H|CSF_s>`` of the
@@ -551,21 +556,41 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
             _SLATER_MEMO["_convol_cache"] = convol_cache
         _SLATER_MEMO["_nuclear_potential"] = nuclear_potential
     _check_orbitals_present(csfs, orbitals_dict)
+    _check_orbital_metric(csfs, orbitals_dict, bsp_data, Z, ns)
     n_csf = len(csfs)
-    H = np.zeros((n_csf, n_csf))
+    H = None if as_operator else np.zeros((n_csf, n_csf))
     if n_csf == 0:
-        return H
+        return np.zeros((0, 0))
     if max_determinants is None:
         max_determinants = MAX_BLOCK_DETERMINANTS
     evaluate = _radial_evaluator(orbitals_dict, bsp_data, Z, ns)
     breit_evaluate = (_breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns)
                       if include_breit else None)
+    operator_blocks = []
     for _key, idx in _group_csf_indices(csfs):
         signatures = [csf_signature(csfs[i]) for i in idx]
         h_block = exact_block_matrix(signatures, evaluate,
                                      max_determinants=max_determinants,
-                                     breit_evaluator=breit_evaluate)
-        H[np.ix_(idx, idx)] = h_block
+                                     breit_evaluator=breit_evaluate,
+                                     as_operator=as_operator)
+        if as_operator:
+            operator_blocks.append((np.asarray(idx), h_block))
+        else:
+            H[np.ix_(idx, idx)] = h_block
+    if as_operator:
+        def apply(v):
+            out = np.zeros_like(v, dtype=float)
+            for idx, block in operator_blocks:
+                out[idx] = block @ v[idx]
+            return out
+
+        diagonal = np.zeros(n_csf)
+        for idx, block in operator_blocks:
+            diagonal[idx] = block.diagonal()
+        H = LinearOperator((n_csf, n_csf), matvec=apply, matmat=apply,
+                           rmatvec=apply, dtype=float)
+        H.diagonal = lambda: diagonal.copy()
+        H.blocks = operator_blocks
     # Elements between different (2J, parity) blocks were never written and
     # are exactly 0.0 — J and parity are exact symmetries, and the old
     # kernel's non-zero cross-J elements (Be 1s2 2s1 2p1: -14.479 Ha between
@@ -599,6 +624,30 @@ def _radial_evaluator(orbitals_dict, bsp_data, Z, ns):
       (n_d,kappa_d))`` — ``R^k(ac, bd)``, i.e. ``_rk`` called with its
       four orbitals in the role order ``Pa, Pc, Pb, Pd``.
     """
+    is_grid = isinstance(bsp_data, GridCIWorkspace)
+    if not is_grid:
+        orders = (bsp_data.get("ksp", bsp_data["ks"]),
+                  bsp_data.get("ksq", bsp_data["ks"]))
+        cache = _context_cache(bsp_data)
+
+    @lru_cache(maxsize=512)
+    def density(a, b):
+        return tuple(_density_sym(x, y, ns, order)
+                     for x, y, order in zip(orbitals_dict[a], orbitals_dict[b], orders, strict=True))
+
+    @lru_cache(maxsize=1024)
+    def pair_potential(rank, a, b):
+        source = density(a, b)
+        potentials = []
+        for left, label_left in enumerate(("p", "q")):
+            value = np.zeros((ns, orders[left]))
+            for right, label_right in enumerate(("p", "q")):
+                bank, extent, _ = cache.get_rkb_t(rank, label_left + label_right + label_left + label_right)
+                value += _convol_case1_t(bank, source[right], extent, orders[left], orders[right])
+            potentials.append(value)
+        return tuple(potentials)
+
+    @lru_cache(maxsize=8192)
     def evaluate(key):
         if key[0] == "h":
             _, n_a, kappa, n_c = key
@@ -615,6 +664,18 @@ def _radial_evaluator(orbitals_dict, bsp_data, Z, ns):
             # modes MissingOrbitalError exists to stop.
             return float("nan")
         _, k, key_a, key_c, key_b, key_d = key
+        if not is_grid:
+            # Many R^k integrals share a pair density. Contract its cell
+            # kernel once; subsequent integrals are banded dot products.
+            # Both caches belong to this immutable CI build and are bounded.
+            source = tuple(sorted((key_b, key_d)))
+            target = tuple(sorted((key_a, key_c)))
+            value = sum(_sum_amb_banded(v, d, ns, order)
+                        for v, d, order in zip(pair_potential(k, *source),
+                                               density(*target), orders, strict=True))
+            if not np.isfinite(value):
+                raise FloatingPointError(f"non-finite Slater integral {key}")
+            return value
         Pa, Qa = _get_orb(key_a, orbitals_dict, ns)
         Pc, Qc = _get_orb(key_c, orbitals_dict, ns)
         Pb, Qb = _get_orb(key_b, orbitals_dict, ns)
@@ -1031,6 +1092,37 @@ def _check_orbitals_present(csfs, orbitals_dict) -> None:
             "The CSF list must not reference orbitals outside the radial "
             "set — otherwise their matrix elements silently vanish and the "
             "CI returns the uncorrelated energy.")
+
+
+def _check_orbital_metric(csfs, orbitals, workspace, Z, ns, tolerance=1e-7):
+    """Slater–Condon projection requires orthonormal radial spinors.
+
+    Validate the actual integration metric rather than assuming that
+    individually normalized eigenvectors of different Fock operators are
+    mutually orthogonal. Nonorthogonal CI requires an overlap-aware
+    determinant formulation and cannot use this kernel.
+    """
+    groups = {}
+    for n, kappa in sorted({(sh.n, sh.kappa) for csf in csfs for sh in csf.subshells}):
+        groups.setdefault(kappa, []).append((n, kappa))
+    for kappa, keys in groups.items():
+        if isinstance(workspace, GridCIWorkspace):
+            gram = np.empty((len(keys), len(keys)))
+            for i, a in enumerate(keys):
+                pa, qa = orbitals[a]
+                for j, b in enumerate(keys):
+                    pb, qb = orbitals[b]
+                    gram[i, j] = slag6(1.0, (pa * pb + qa * qb) * workspace.difr, ns)[-1]
+        else:
+            _, metric = _dirac_blocks(ns, kappa, Z, workspace)
+            coefficients = np.column_stack([np.concatenate(orbitals[key]) for key in keys])
+            gram = coefficients.T @ metric @ coefficients
+        defect = float(np.max(np.abs(gram - np.eye(len(keys)))))
+        if not np.isfinite(defect) or defect > tolerance:
+            raise ValueError(
+                f"CI requires orthonormal orbitals; kappa={kappa}, orbitals={keys}, "
+                f"max |overlap - identity|={defect:.3e} exceeds {tolerance:.0e}. "
+                "Solve with orbital constraints before constructing the CI Hamiltonian.")
 
 
 def _diagonal_element(csf, orbitals_dict, bsp_data, Z, ns):

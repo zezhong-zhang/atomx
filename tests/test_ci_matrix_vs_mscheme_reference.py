@@ -72,7 +72,7 @@ import pytest
 BENCH_DIR = Path(__file__).resolve().parent.parent / "benchmarks"
 sys.path.insert(0, str(BENCH_DIR))
 
-from _be_reference import BE_DC_LOWER_BOUND  # noqa: E402
+from _be_reference import BE_DC_SANITY_FLOOR  # noqa: E402
 from mscheme_ci_reference import (  # noqa: E402
     mscheme_levels,
     patterns_from_configs,
@@ -264,7 +264,7 @@ def test_singles_correlation_is_variational():
     ]
     result, _csfs, cap = _run_capturing_ci(configs,
                                            radial_optimization="fac_frozen")
-    assert result.total_energy >= BE_DC_LOWER_BOUND
+    assert result.total_energy >= BE_DC_SANITY_FLOOR
     evals, _ = _reference_levels(cap, configs)
     assert result.total_energy == pytest.approx(float(evals[0]), abs=1e-6)
 
@@ -305,7 +305,7 @@ def test_sd_correlation_is_variational():
         max_excitations=2)
     result, _csfs, cap = _run_capturing_ci(configs,
                                            radial_optimization="fac_frozen")
-    assert result.total_energy >= BE_DC_LOWER_BOUND
+    assert result.total_energy >= BE_DC_SANITY_FLOOR
     evals, n_det = _reference_levels(cap, configs)
     assert n_det == len(cap["csfs"])
     assert result.total_energy == pytest.approx(float(evals[0]), abs=1e-6)
@@ -378,9 +378,16 @@ def test_singles_expansion_gains_nothing_on_hf_orbitals():
     ]
     reference, _csfs, _cap = _run_capturing_ci(
         ["1s2 2s2"], radial_optimization="fac_frozen")
-    singles, _csfs, _cap = _run_capturing_ci(
+    singles, _csfs, captured = _run_capturing_ci(
         configs, radial_optimization="fac_frozen")
-    assert singles.total_energy <= reference.total_energy
+    # The variational inclusion is exact only on the same radial basis.
+    # The independent reference solve differs by finite SCF tolerance.
+    h = _build(captured)
+    reference_index = next(i for i, csf in enumerate(captured["csfs"])
+                           if {(s.n, s.kappa, int(s.occupation)) for s in csf.subshells}
+                           == {(1, -1, 2), (2, -1, 2)})
+    assert singles.total_energy <= h[reference_index, reference_index] + 1e-12
+    assert abs(h[reference_index, reference_index] - reference.total_energy) < 1e-5
     # The gain must be correlation-free to within the (small) orbital
     # relaxation of the frozen-virtual protocol.
     assert singles.total_energy - reference.total_energy > -5e-4, (

@@ -38,7 +38,7 @@ DBSR_HF_BREIT_HE = 0.000063777432919
 #: multipoles, no retardation) on the same closed shells, measured
 #: through ``Atom(..., config=[...], corrections=Corrections(breit=True))``
 #: minus ``corrections="none"``.
-GAUNT_OPERATOR_NE = 0.017340451403924817
+GAUNT_OPERATOR_NE = 0.017340483489249436  # constrained orbitals, 2026-09-23
 GAUNT_OPERATOR_HE = 6.377915809485657e-05
 
 # ---- Shared fixtures ----

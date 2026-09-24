@@ -17,7 +17,6 @@ from __future__ import annotations
 
 import collections
 
-import numpy as np
 import pytest
 
 from atomx.methods.dirac_fock import DFSolver, Subshell
@@ -121,8 +120,11 @@ def test_ci_build_keeps_the_stashed_cache(bank_builds):
     # of 1s2 2s1 can reach (a 2s electron carries J = 1/2).  The exact CI
     # needs a CSF of definite J, so declare it: 1s2 2s1 is 2S_1/2.
     csfs[0].total_J2 = 1
-    orbitals = {(1, -1): (np.zeros(dhf.ns), np.zeros(dhf.ns)),
-                (2, -1): (np.zeros(dhf.ns), np.zeros(dhf.ns))}
+    from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices, solve_dirac
+    h, s = build_dirac_matrices(dhf.ns, -1, 3, dhf.bsp_data)
+    roots = solve_dirac(h, s, dhf.ns, -1,
+                        nsp=dhf.bsp_data.get("nsp"), nsq=dhf.bsp_data.get("nsq"))
+    orbitals = {(n, -1): roots.get_orbital(n - 1)[:2] for n in (1, 2)}
     basis = get_shared_orbital_basis(csfs)
 
     build_ci_matrix(csfs, orbitals, basis, dhf.bsp_data, Z=3,

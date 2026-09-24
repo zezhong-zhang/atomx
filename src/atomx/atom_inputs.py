@@ -318,8 +318,13 @@ class Correlation:
         ``"statistical"`` while an *explicit* ``averaging="ci"`` raises.
     radial_optimization : {"mcdhf", "fac_frozen", "fac_frozen_local"}
         How the multi-configuration outer loop treats the radial shapes:
-        ``"mcdhf"`` (default) re-optimises all orbitals together with the
-        CI coefficients; ``"fac_frozen"`` freezes the reference orbitals
+        ``"mcdhf"`` (default) re-optimises orbitals and CI coefficients
+        for the ground state. On the B-spline engine this minimizes the
+        correlated Dirac–Coulomb functional in a fixed positive-energy
+        nuclear Dirac subspace. Correlation orbitals (for example a compact
+        ``3p``) need not represent spectroscopic excited orbitals; use a
+        suitable state space or the frozen-core protocol for such channels.
+        ``"fac_frozen"`` freezes the reference orbitals
         and optimises only the CI coefficients (FAC-style, cheap);
         ``"fac_frozen_local"`` is the same with the local-exchange radial
         flavour.  B-spline engine only.
