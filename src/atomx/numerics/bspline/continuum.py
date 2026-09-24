@@ -16,10 +16,13 @@ where |f> is the continuum state, |i> the bound orbital, and the
 matrix element involves the dipole operator.
 """
 
+from collections import OrderedDict
+from hashlib import blake2b
+
 import numpy as np
 from scipy import linalg
 
-from atomx.constants import ALPHA, C_SQ
+from atomx.constants import ALPHA
 from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
 
 # NOTE: ``line_strength_factor`` (a pure angular quantity in the properties
@@ -111,6 +114,76 @@ def _continuum_energy_normalization_from_spectrum(
     return float(np.sqrt(density))
 
 
+def _continuum_spectrum(kappa, Z, bsp_data, V_scf_PP, V_scf_QQ):
+    """Energy-independent eigensystem, owned by the radial workspace.
+
+    Content fingerprints include every input to Hamiltonian assembly, so
+    in-place potential or grid edits invalidate it. At most eight partial
+    waves/potential combinations survive, and deleting the workspace frees
+    its spectra. Returned arrays are internal read-only cache data.
+    """
+    digest = blake2b(digest_size=20)
+    for key in ("ns", "nv", "ks", "ksp", "ksq", "nsp", "nsq", "t",
+                "gr", "grw", "bsp_p", "bsp_q", "bsp_p_d", "bsp_q_d"):
+        value = bsp_data.get(key)
+        digest.update(key.encode())
+        if isinstance(value, np.ndarray):
+            array = np.ascontiguousarray(value)
+            digest.update(str((array.shape, array.dtype.str)).encode())
+            digest.update(array.tobytes())
+        else:
+            digest.update(repr(value).encode())
+    geometry = digest.digest()
+    for value in (V_scf_PP, V_scf_QQ):
+        if value is None:
+            digest.update(b"None")
+        else:
+            array = np.ascontiguousarray(value)
+            digest.update(str((array.shape, array.dtype.str)).encode())
+            digest.update(array.tobytes())
+    key = (int(kappa), float(Z), digest.digest())
+    cache = bsp_data.setdefault("_continuum_spectra", OrderedDict())
+    if bsp_data.get("_continuum_geometry") != geometry:
+        cache.clear()
+        bsp_data["_continuum_geometry"] = geometry
+    if key in cache:
+        cache.move_to_end(key)
+        return cache[key]
+    ns = bsp_data["ns"]
+    ms = 2 * ns
+
+    H, S = build_dirac_matrices(ns, kappa, Z, bsp_data)
+
+    # Add SCF potential if provided
+    if V_scf_PP is not None:
+        H[:ns, :ns] += V_scf_PP
+    if V_scf_QQ is not None:
+        H[ns:, ns:] += V_scf_QQ
+
+    # Solve full eigenvalue problem (including both bound and continuum)
+    nb = 1  # boundary removal
+    keep_p = list(range(nb, ns - nb))
+    keep_q = list(range(ns + nb, ms - nb))
+    keep = keep_p + keep_q
+
+    H_red = H[np.ix_(keep, keep)]
+    S_red = S[np.ix_(keep, keep)]
+
+    eigenvalues, eigenvectors = linalg.eigh(H_red, S_red)
+
+    positive = eigenvalues > 0.0
+    energies = eigenvalues[positive]
+    vectors = eigenvectors[:, positive]
+    if len(energies) == 0:
+        raise ValueError("no positive-energy continuum pseudo-states found")
+    energies.flags.writeable = vectors.flags.writeable = False
+    result = (energies, vectors, keep_p, keep_q)
+    cache[key] = result
+    while len(cache) > 8:
+        cache.popitem(last=False)
+    return result
+
+
 def solve_continuum(kappa, energy, Z, bsp_data, V_scf_PP=None, V_scf_QQ=None,
                     energy_normalized=False):
     """Find the continuum wavefunction at given positive energy.
@@ -146,39 +219,11 @@ def solve_continuum(kappa, energy, Z, bsp_data, V_scf_PP=None, V_scf_QQ=None,
     E_actual : float
         Nearest discretized eigenvalue to target energy.
     """
+    if not np.isfinite(energy) or energy <= 0:
+        raise ValueError("continuum energy must be finite and positive")
     ns = bsp_data["ns"]
-    ms = 2 * ns
-
-    H, S = build_dirac_matrices(ns, kappa, Z, bsp_data)
-
-    # Add SCF potential if provided
-    if V_scf_PP is not None:
-        H[:ns, :ns] += V_scf_PP
-    if V_scf_QQ is not None:
-        H[ns:, ns:] += V_scf_QQ
-
-    # Solve full eigenvalue problem (including both bound and continuum)
-    nb = 1  # boundary removal
-    keep_p = list(range(nb, ns - nb))
-    keep_q = list(range(ns + nb, ms - nb))
-    keep = keep_p + keep_q
-
-    H_red = H[np.ix_(keep, keep)]
-    S_red = S[np.ix_(keep, keep)]
-
-    eigenvalues, eigenvectors = linalg.eigh(H_red, S_red)
-
-    # Find eigenvalue closest to target energy (in the continuum, E > 0)
-    # Exclude Dirac sea (E < -2c²)
-    sea_threshold = -2.0 * C_SQ
-    physical_mask = eigenvalues > sea_threshold
-    phys_evals = eigenvalues[physical_mask]
-    phys_evecs = eigenvectors[:, physical_mask]
-    positive_indices = np.flatnonzero(phys_evals > 0.0)
-    positive_evals = phys_evals[positive_indices]
-    positive_evecs = phys_evecs[:, positive_indices]
-    if len(positive_evals) == 0:
-        raise ValueError("no positive-energy continuum pseudo-states found")
+    positive_evals, positive_evecs, keep_p, keep_q = _continuum_spectrum(
+        kappa, Z, bsp_data, V_scf_PP, V_scf_QQ)
 
     # Find closest positive-energy pseudo-state to the target continuum energy.
     idx = int(np.argmin(np.abs(positive_evals - energy)))

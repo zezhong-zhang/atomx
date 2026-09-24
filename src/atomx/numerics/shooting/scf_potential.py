@@ -146,7 +146,7 @@ def static_hartree_potential(
         V_d(b)(r) = ∫_0^∞ ρ_b(r') / max(r, r') dr'
 
     where ρ_b(r) = P_b²(r) + Q_b²(r) is the radial density of orbital
-    b.  Numerically integrated on a dense uniform grid.
+    b.  Integrated using the bound solver's native radial quadrature.
 
     Parameters
     ----------
@@ -160,7 +160,7 @@ def static_hartree_potential(
         of one less electron of orbital ``a`` (the orbital that's
         being ionised).  Default: V^N (full SCF potential).
     n_radial : int
-        Number of radial-grid points for tabulating V (default 4000).
+        Number of logarithmic radial-grid points for tabulating screening (default 4000).
     r_max : float, optional
         Outer radius (a₀).  Default: pick from the SCF result's
         B-spline knot vector if available, else 50 a₀.
@@ -182,7 +182,7 @@ def static_hartree_potential(
     V_func : callable
         ``V_func(r)`` evaluates V_HF(r) on any input r.
     """
-    from atomx.scattering.protocols import grid_data, list_occupied_orbitals
+    from atomx.scattering.protocols import grid_data
     Z = float(scf_result.Z)
 
     # Determine outer radius
@@ -193,56 +193,64 @@ def static_hartree_potential(
         else:
             r_max = 50.0
 
-    # Build a uniform radial grid (skip r = 0 to avoid the 1/r blow-up)
-    r_h = np.linspace(r_max / n_radial, r_max, n_radial)
-
-    # Evaluate each occupied orbital's radial density on r_h
-    # We use the existing eval_P / eval_Q helpers if a B-spline grid
-    # is available; otherwise interpolate from the orbital's stored
-    # (P, Q) arrays directly.
-    rho = np.zeros_like(r_h)
-    occ_list = list_occupied_orbitals(scf_result)
+    if n_radial < 16 or r_max <= 0:
+        raise ValueError("potential tabulation needs n_radial >= 16 and r_max > 0")
+    # Integrate on the bound solver's native mesh. A uniform mesh starting
+    # at R/n misses high-Z core charge and flattens the nuclear singularity.
     N_eff = 0.0
-    if bsp_data is not None and "gr" in bsp_data and "bsp_p" in bsp_data:
-        from atomx.numerics.bspline.evaluate import eval_P, eval_Q
-        gr_b = bsp_data["gr"].ravel()
-        for (label, kappa, _eps, q) in occ_list:
-            sh = next(s for s in scf_result.subshells if s.label == label)
-            same_kappa = [s for s in scf_result.subshells if s.kappa == kappa]
-            P_b, Q_b, _ = scf_result.orbitals_raw[kappa][same_kappa.index(sh)]
-            P_grid = eval_P(P_b, bsp_data).ravel()
-            Q_grid = eval_Q(Q_b, bsp_data).ravel()
-            rho_b_b = P_grid ** 2 + Q_grid ** 2
-            # Interpolate the bound density onto our uniform grid
-            sort_idx = np.argsort(gr_b)
-            rho_on_h = np.interp(r_h, gr_b[sort_idx], rho_b_b[sort_idx])
-            q_eff = q
-            if exclude_label is not None and label == exclude_label:
-                q_eff = max(q - 1.0, 0.0)
-            N_eff += q_eff
-            rho += q_eff * rho_on_h
+    if bsp_data is not None and "bsp_p" in bsp_data:
+        from atomx.numerics.bspline.evaluate import compute_yk, eval_P, eval_Q
+        gr = bsp_data["gr"]
+        density = np.zeros_like(gr)
+        sampled = {}
+        for sh in scf_result.subshells:
+            key = (sh.n, sh.kappa)
+            if hasattr(scf_result, "orbitals_dict"):
+                p, q = scf_result.orbitals_dict[key]
+            else:
+                same = [s for s in scf_result.subshells if s.kappa == sh.kappa]
+                p, q, _ = scf_result.orbitals_raw[sh.kappa][same.index(sh)]
+            p, q = eval_P(p, bsp_data), eval_Q(q, bsp_data)
+            sampled[key] = (p, q)
+            population = max(0., sh.occupation - float(sh.label == exclude_label))
+            density += population * (p*p + q*q)
+            N_eff += population
+        if hasattr(scf_result, "one_body_density_matrix"):
+            keys, matrix = scf_result.one_body_density_matrix()
+            for i, key in enumerate(keys):
+                for j in range(i):
+                    other = keys[j]
+                    if key[1] == other[1]:
+                        p, q = sampled[key]
+                        u, v = sampled[other]
+                        density += 2 * matrix[i, j] * (p*u + q*v)
+        direct = compute_yk(density, gr, bsp_data["grw"],
+                            bsp_data["nv"], gr.shape[1], 0).ravel()
+        radius, density = gr.ravel(), density.ravel()
+    elif getattr(scf_result, "_grid", None) is not None:
+        from atomx.numerics.shooting.solver import _yk_over_r
+        radius = scf_result._grid
+        density = np.zeros_like(radius)
+        for i, sh in enumerate(scf_result.subshells):
+            population = max(0., sh.occupation - float(sh.label == exclude_label))
+            density += population * (scf_result._pa[i]**2 + scf_result._qa[i]**2)
+            N_eff += population
+        direct = _yk_over_r(density, 0, radius, scf_result._difr, len(radius))
+        positive = radius > 0
+        radius, density, direct = radius[positive], density[positive], direct[positive]
     else:
-        # Tabulated-orbital path (e.g. ShootingResult); orbital arrays
-        # are already on a radial grid.  Loop and interpolate.
-        # Skipped: not all backends carry the same grid metadata yet.
-        # For now, fall back to bare nuclear if grid missing.
-        return bare_nuclear_potential(Z)
+        raise ValueError("static Hartree potential requires bound radial orbitals and their mesh")
 
-    # Integrate the monopole Hartree potential
-    #     V_H(r) = ∫_0^∞ ρ(r') / max(r, r') dr'
-    #            = ∫_0^r ρ(r')/r dr'  +  ∫_r^∞ ρ(r')/r' dr'
-    # using cumulative trapezoidal sums (vectorised over the grid).
-    h = r_h[1] - r_h[0]
-    # Inner: cumulative trapezoidal of ρ(r'), divided by r at each point
-    inner_cum = np.cumsum(rho * h)
-    inner_cum = np.maximum(inner_cum - 0.5 * rho * h, 0.0)  # trapezoid
-    inner_term = inner_cum / r_h
-    # Outer: ∫_r^∞ ρ(r')/r' dr' via reverse cumulative
-    rho_over_r = rho / r_h
-    outer_cum = np.cumsum(rho_over_r[::-1])[::-1] * h
-    outer_term = outer_cum
-    V_H = inner_term + outer_term
-    V_total = -Z / r_h + V_H
+    r_h = np.geomspace(min(radius[0], 1e-8 / max(Z, 1.)), r_max, n_radial)
+    rho = np.interp(r_h, radius, density, left=0., right=0.)
+    # Interpolate the screening charge, which tends to an exact constant,
+    # rather than interpolating 1/r in the empty exterior region.
+    screening = np.interp(r_h, radius, radius * direct, right=N_eff)
+    V_H = np.where(r_h < radius[0], direct[0], screening / r_h)
+    nuclear = getattr(scf_result, "_nuclear_potential", None)
+    nuclear_value = (bare_nuclear_potential(Z) if nuclear is None else
+                     np.vectorize(nuclear, otypes=[float]))
+    correction = V_H.copy()
     use_latter_tail = False
     if include_exchange:
         rho_vol = rho / (4.0 * np.pi * r_h ** 2)
@@ -253,9 +261,9 @@ def static_hartree_potential(
                 rho_vol, r_h, Z=Z, N_total=N_eff,
                 ihx=fac_ihx, hxs=fac_hxs, slater_alpha=alpha_x,
             )
-            V_total = V_total + V_x
+            correction = correction + V_x
             use_latter_tail = True
-            if fac_self_interaction_correction:
+            if fac_self_interaction_correction and exclude_label is None:
                 from atomx.numerics.bspline.local_potential import (
                     _fac_csi_screening_correction,
                 )
@@ -264,34 +272,30 @@ def static_hartree_potential(
                 corrected = _fac_csi_screening_correction(
                     r_h, screening, n_total=N_eff, ihx=fac_ihx, csi=fac_csi,
                 )
-                V_total = -Z / r_h + corrected / r_h
+                correction = corrected / r_h
         elif exchange_l == "slater":
             from atomx.physics.local_exchange import slater_exchange
-            V_total = V_total + slater_exchange(rho_vol, r_h, alpha=alpha_x)
+            correction = correction + slater_exchange(rho_vol, r_h, alpha=alpha_x)
         else:
             raise ValueError("exchange must be 'fac' or 'slater'")
 
+    # A hole has already removed the electron's Hartree self-field.
+    # Applying the bound-orbital N -> N-1 correction again gives the wrong
+    # ionic charge. With no hole, preserve the explicit bound FAC model.
+    self_hole = float(exclude_label is None and latter_correction and use_latter_tail)
+    residual_charge = Z - N_eff + self_hole
     if latter_correction and use_latter_tail:
-        rvinf = -(1.0 + Z - N_eff)
-        V_total = np.where(r_h * V_total > rvinf, rvinf / r_h, V_total)
-        tail_residue = np.abs(r_h * V_total - rvinf) < 1.0e-6 * max(1.0, abs(rvinf))
-        V_total = np.where(tail_residue, np.nextafter(rvinf, 0.0) / r_h, V_total)
-
-    # Wrap as an interpolating callable, with the Coulomb residual-core tail
-    # outside the tabulated interval instead of a constant endpoint value.
-    residual_charge = (1.0 + Z - N_eff) if (latter_correction and use_latter_tail) else (Z - N_eff)
+        correction = np.minimum(correction, (N_eff - self_hole) / r_h)
 
     def V_func(r: np.ndarray) -> np.ndarray:
         r_arr = np.asarray(r, dtype=float)
-        r_safe = np.where(r_arr > 0.0, r_arr, 1.0e-30)
-        interp = np.interp(r_safe, r_h, V_total, left=V_total[0], right=np.nan)
-        tail = -residual_charge / r_safe
-        out = np.where(np.isnan(interp), tail, interp)
-        tail_residue = np.abs(r_safe * out + residual_charge) < (
-            1.0e-6 * max(1.0, residual_charge)
-        )
-        tail_limit = np.nextafter(-residual_charge, 0.0) / r_safe
-        return np.where(tail_residue, tail_limit, out)
+        r_safe = np.where(r_arr > 0., r_arr, 1e-30)
+        charge = np.interp(r_safe, r_h, r_h * correction,
+                           right=N_eff - self_hole)
+        field = np.where(r_safe < r_h[0], correction[0], charge / r_safe)
+        return nuclear_value(r_safe) + field
+
+    V_func.residual_charge = residual_charge
 
     return V_func
 

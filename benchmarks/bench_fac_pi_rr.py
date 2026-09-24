@@ -45,6 +45,22 @@ A0_CM2_X1E20 = (BOHR_RADIUS_M * 100.0) ** 2 * 1e20  # = 0.28003 (a₀² in 10⁻
 FAC_CONTINUUM = ContinuumModel.fac_residual_core(n_grid=8000)
 
 
+def atomx_li_capture_results():
+    """Optimize each Li-like final level with its actual jj occupation.
+
+    A ground-state CI solve of ``1s2 2p1`` leaves the 2p3/2 occupation
+    zero. Its spectator orbital is not the relaxed 2P3/2 capture state.
+    """
+    from atomx.methods.dirac_fock import DiracFock, Subshell
+    results = {}
+    for kappa in (-1, 1, -2):
+        results[kappa] = DiracFock().solve(
+            Z=26, subshells=[Subshell(1, -1, 2), Subshell(2, kappa, 1)])
+        if not results[kappa].converged:
+            raise RuntimeError(f"Li-like final kappa={kappa} did not converge")
+    return results
+
+
 # ---------------------------------------------------------------------------
 # FAC-side script template
 # ---------------------------------------------------------------------------
@@ -196,7 +212,6 @@ def run_he_like_fe(workdir: Path) -> List[Dict]:
 def run_li_like_fe(workdir: Path) -> List[Dict]:
     """Li-like Fe^{23+} (1s² 2s) RR — port of FAC fe24_pirr demo."""
     element = "Fe"
-    Z = 26
     sfac_path = write_fac_script(
         workdir, element, "fe23",
         closed=[],
@@ -220,10 +235,7 @@ def run_li_like_fe(workdir: Path) -> List[Dict]:
     # capture artificially inflated the old gap.
     print("  [AtomX] Li-like Fe^{23+} final-state solves ...")
     t0 = time.perf_counter()
-    atom_2s = Atom(Z=Z, config="1s2 2s1", corrections="none", engine="bspline")
-    atom_2s.solve()
-    atom_2p = Atom(Z=Z, config="1s2 2p1", corrections="none", engine="bspline")
-    atom_2p.solve()
+    capture_results = atomx_li_capture_results()
 
     level_by_ilev = {int(lv["ILEV"]): lv for lv in parse_levels(workdir / "fe23.lev")}
 
@@ -232,11 +244,11 @@ def run_li_like_fe(workdir: Path) -> List[Dict]:
         cfg = str(lv.get("config", ""))
         twoJ = int(lv.get("TWOJ", -1))
         if "2s1" in cfg:
-            return atom_2s._result, ["2s1/2"]
+            return capture_results[-1], ["2s1/2"]
         if "2p1" in cfg and twoJ == 1:
-            return atom_2p._result, ["2p1/2"]
+            return capture_results[1], ["2p1/2"]
         if "2p1" in cfg and twoJ == 3:
-            return atom_2p._result, ["2p3/2"]
+            return capture_results[-2], ["2p3/2"]
         return None, []
 
     out = []

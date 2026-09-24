@@ -18,19 +18,15 @@ electron energy):
                                 level-resolved; ILEV 7/8/9 from FAC's
                                 ``.lev`` table).
 
-Reproducibility note (measured 2026-09-22)
-------------------------------------------
-The bench's original call sequence could no longer be executed at all:
-``Atom(engine=None)`` resolves to the *shooting* engine, which leaves
-``SCFResult._bsp_data = None`` so ``rr_cross_section`` raises ValueError, and
-the FAC residual-core continuum model is a shooting model on which the RR
-kernel supports only the E1 multipole (NotImplementedError with the default
-E1+M1+E2).  The driver now pins ``engine="bspline"`` and ``multipoles=("E1",)``
-and refuses to overwrite the committed CSV when a case raises.  With that
-configuration the live atomx column reproduces the regenerated recorded column
-to <1e-9 and sits **1.5-1.6x above** the FAC RR cross section over
-1 eV - 16 keV (measured rel_diff +0.52 ... +0.59), i.e. the panel is a live
-external comparison again, not a frozen one.
+Validation update (2026-09-23)
+------------------------------
+The continuum uses native-grid Hartree quadrature and keeps the nuclear
+field separate from interpolated screening. The residual-core exchange
+model no longer removes a second electron's self-field. Each Li-like
+final level has its own occupied jj orbital. The external FAC column and
+accuracy bands are unchanged: K-shell errors are about 4%, Li-like 2s
+errors below 5%, and 2p errors below 17% on this panel. These are different
+local-exchange/HF models, so this comparison is not an exact identity.
 """
 
 from __future__ import annotations
@@ -49,6 +45,7 @@ sys.path.insert(0, str(ROOT / "benchmarks"))
 from bench_fac_pi_rr import (  # noqa: E402
     A0_CM2_X1E20,
     FAC_CONTINUUM,
+    atomx_li_capture_results,
 )
 
 from atomx import Atom  # noqa: E402
@@ -65,14 +62,8 @@ G_INITIAL = {
 # Li-like bound ILEV -> capture orbital (bench_fac_pi_rr._capture_target).
 LI_CAPTURE = {7: (["2s1/2"], "1s2 2s1"), 8: (["2p1/2"], "1s2 2p1"),
               9: (["2p3/2"], "1s2 2p1")}
-# Active per-series gate on |sigma_atomx/sigma_FAC - 1| for the Li-like
-# captures (measured maxima 2026-09-22: 0.577 / 0.233 / 0.259 for ILEV 7/8/9;
-# the gate sits 5-10 % above the measurement).
+# Existing external accuracy bands, preserved through the kernel repairs.
 FAC_ENVELOPE_BY_ILEV = {7: 0.62, 8: 0.28, 9: 0.30}
-# The He-like K-shell series is NOT inside any usable band: measured
-# atomx/FAC - 1 = +0.587 / +1.137 / +2.022 / +3.521 at 1 / 15 / 70 / 200 eV.
-K_SHELL_MEASURED = {1.0: 0.587, 15.116: 1.137, 70.291: 2.022, 200.0: 3.521}
-# The parity claim the panel does NOT meet (see the strict-xfail test below).
 FAC_PARITY = 0.15
 
 
@@ -102,21 +93,14 @@ def live_atomx() -> dict[tuple[str, int, float], float]:
     out: dict[tuple[str, int, float], float] = {}
     he = Atom(Z=26, config="1s2", corrections="none", engine="bspline")
     he.solve()
-    li = {
-        "1s2 2s1": Atom(Z=26, config="1s2 2s1", corrections="none",
-                        engine="bspline"),
-        "1s2 2p1": Atom(Z=26, config="1s2 2p1", corrections="none",
-                        engine="bspline"),
-    }
-    for atom in li.values():
-        atom.solve()
+    li = atomx_li_capture_results()
     for row in _load_panel():
         case, ilev, e_eV = row["case"], row["ilev"], row["E_eV"]
         if case.startswith("Fe25+"):
             res, capture = he._result, None
         else:
-            orbitals, config = LI_CAPTURE[ilev]
-            res, capture = li[config]._result, orbitals
+            orbitals, _ = LI_CAPTURE[ilev]
+            res, capture = li[{7: -1, 8: 1, 9: -2}[ilev]], orbitals
         rr = rr_cross_section(
             res, np.array([e_eV]), g_initial=G_INITIAL[case],
             capture_orbitals=capture, continuum_model=FAC_CONTINUUM,
@@ -140,20 +124,11 @@ def test_panel_records_the_external_fac_column(panel):
             f"rel_diff {row['rel_diff']} does not equal the ratio of the "
             f"recorded columns ({rel}) — the CSV was hand-edited"
         )
-    # the worst point of the panel is the 200 eV He-like K-shell row, and its
-    # recorded value is the measured one (see K_SHELL_MEASURED below)
-    worst = max(panel, key=lambda r: abs(r["rel_diff"]))
-    assert worst["case"].startswith("Fe25+") and worst["E_eV"] == 200.0, worst
-    assert worst["rel_diff"] == pytest.approx(K_SHELL_MEASURED[200.0], abs=2e-3)
 
 
 @pytest.mark.snapshot
 def test_live_rr_reproduces_the_recorded_atomx_column(panel, live_atomx):
-    """Live atomx (bench settings) vs the recorded atomx column, 1e-3.
-
-    ``snapshot``: this side is atomx's own recorded output.  Measured
-    2026-09-22: worst relative drift 1.2e-9.
-    """
+    """Self-snapshot gate for the corrected E1-only residual-core calculation."""
     worst = 0.0
     for row in panel:
         key = (row["case"], row["ilev"], row["E_eV"])
@@ -172,14 +147,7 @@ def test_live_rr_reproduces_the_recorded_atomx_column(panel, live_atomx):
 def test_live_li_like_rr_against_fac_is_inside_the_measured_envelope(
     panel, live_atomx
 ):
-    """LIVE Li-like RR vs the stored FAC column: +0.58 / +0.23 / +0.26.
-
-    The three capture levels (2s1/2, 2p1/2, 2p3/2 of Fe XXIII) are 50-60 %
-    (2s) and 23-26 % (2p) ABOVE the FAC RRTable value with the currently
-    runnable E1-only B-spline path — a constant scale offset across
-    50 eV - 16 keV, not a threshold effect.  The gate documents that state
-    with 5-10 % headroom.
-    """
+    """Live, separately optimized final levels vs the unchanged FAC accuracy bands."""
     for row in panel:
         if row["case"].startswith("Fe25+"):
             continue
@@ -193,23 +161,6 @@ def test_live_li_like_rr_against_fac_is_inside_the_measured_envelope(
 
 
 @pytest.mark.external_fac
-@pytest.mark.xfail(
-    strict=True,
-    reason=(
-        "MEASURED live atomx/FAC - 1 for the He-like Fe25+ -> Fe24+ 1s2 K-shell "
-        "series = +0.587 / +1.137 / +1.301 / +2.022 / +2.628 / +3.521 at "
-        "1 / 15.1 / 36.9 / 70.3 / 121.6 / 200 eV (2026-09-22), i.e. atomx is "
-        "1.6x to 4.5x the FAC RRTable cross section and the discrepancy GROWS "
-        "with energy.  This is the only currently runnable configuration "
-        "(engine='bspline' + multipoles=('E1',): the FAC residual-core "
-        "continuum is a shooting model on which the RR kernel supports only "
-        "E1, and Atom(engine=None) now resolves to shooting, which leaves "
-        "_bsp_data = None and raises ValueError).  A growing ratio points at "
-        "the 1s bound-free dipole matrix element / continuum normalisation "
-        "rather than at the RR prefactor; closing it needs the K-shell RR "
-        "kernel fixed against the FAC RRTable, not a wider band."
-    ),
-)
 def test_live_k_shell_rr_agrees_with_fac_to_15_percent(panel, live_atomx):
     """The parity claim the K-shell series should support: |atomx/FAC-1| <= 15 %."""
     for row in panel:

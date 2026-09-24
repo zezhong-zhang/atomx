@@ -146,6 +146,78 @@ def _radial_multipole(P_bound, Q_bound, P_cont, Q_cont, bsp_data, kind: str, L: 
     return radial_eL(P_bound, Q_bound, P_cont, Q_cont, bsp_data, L=L)
 
 
+def _residual_hartree_potential(result, capture_label):
+    """Frozen V^(N-1) direct field on the bound-state quadrature grid.
+
+    Removing one captured electron preserves the core screening and its
+    Coulomb tail. This local channel approximation omits core relaxation
+    and nonlocal exchange; it is recorded in the result provenance.
+    """
+    from atomx.numerics.bspline.evaluate import compute_yk, eval_P, eval_Q
+    data = result._bsp_data
+    radius = data["gr"]
+    density = np.zeros_like(radius)
+    number = 0.0
+    if hasattr(result, "orbitals_by_subshell"):
+        orbitals = result.orbitals_by_subshell()
+    else:
+        orbitals = {(sh.n, sh.kappa): (*result.orbitals_dict[sh.n, sh.kappa], sh.occupation)
+                    for sh in result.subshells}
+    for key, (p, q, occupation) in orbitals.items():
+        sh = next(sh for sh in result.subshells if (sh.n, sh.kappa) == key)
+        weight = max(0.0, occupation - (1.0 if sh.label == capture_label else 0.0))
+        if weight:
+            density += weight * (eval_P(p, data) ** 2 + eval_Q(q, data) ** 2)
+            number += weight
+    if hasattr(result, "one_body_density_matrix"):
+        keys, one_body = result.one_body_density_matrix()
+        # The diagonal contributions above already include the hole.
+        # Retain configuration interference in the frozen residual density.
+        sampled = {key: (eval_P(orbitals[key][0], data), eval_Q(orbitals[key][1], data))
+                   for key in keys}
+        for i, a in enumerate(keys):
+            for j in range(i):
+                b = keys[j]
+                if a[1] == b[1]:
+                    pa, qa = sampled[a]
+                    pb, qb = sampled[b]
+                    density += 2 * one_body[i, j] * (pa * pb + qa * qb)
+    hartree = compute_yk(density, radius, data["grw"], data["nv"], radius.shape[1], 0)
+    nuclear = getattr(result, "_nuclear_potential", None)
+
+    def potential(r):
+        r = np.asarray(r)
+        direct = np.interp(r, radius.ravel(), hartree.ravel(), left=float(hartree.flat[0]), right=0.0)
+        direct = np.where(r > radius.flat[-1], number / r, direct)
+        return (-result.Z / r if nuclear is None else np.vectorize(nuclear, otypes=[float])(r)) + direct
+
+    return potential, float(result.Z) - number
+
+
+def _rr_potential(result, sh, model):
+    if model is None or model.potential is None:
+        return _residual_hartree_potential(result, sh.label)
+    potential = model.potential.build_callable(result, exclude_label=sh.label)
+    residual = (float(result.Z) if model.potential.kind == "bare" else
+                float(result.Z) - sum(s.occupation for s in result.subshells) + min(1.0, sh.occupation))
+    return potential, residual
+
+
+def _rr_potential_matrices(result, sh, model):
+    from atomx.numerics.bspline.integrals import _assemble_integral
+    data = result._bsp_data
+    potential, _ = _rr_potential(result, sh, model)
+    # solve_continuum already contains the point nuclear Hamiltonian.
+    extra = potential(data["gr"]) + result.Z / data["gr"]
+    weights = data["grw"] * extra
+    matrices = []
+    for component in ("p", "q"):
+        order = data.get("ks" + component, data["ks"])
+        basis = data["bsp_" + component]
+        matrices.append(_assemble_integral(data["nv"], order, order, data["ns"], basis, basis, weights))
+    return tuple(matrices)
+
+
 def _bound_free_multipole_cross_sections(
     bound_P,
     bound_Q,
@@ -155,6 +227,7 @@ def _bound_free_multipole_cross_sections(
     Z: int,
     bsp_data,
     multipoles,
+    V_scf_PP=None, V_scf_QQ=None,
 ) -> Dict[str, np.ndarray]:
     """Photoionization partial cross sections for E/M multipoles."""
     partials = {
@@ -179,7 +252,7 @@ def _bound_free_multipole_cross_sections(
                     continue
                 if kf not in continuum_cache:
                     Pf, Qf, _E_actual = solve_continuum(
-                        kf, electron_energy, Z, bsp_data,
+                        kf, electron_energy, Z, bsp_data, V_scf_PP, V_scf_QQ,
                         energy_normalized=True,
                     )
                     continuum_cache[kf] = (Pf, Qf)
@@ -217,17 +290,7 @@ def _shooting_photoionization_cross_section(
     Pb_grid = eval_P(P_bound, bsp_data).ravel()[sort_idx]
     Qb_grid = eval_Q(Q_bound, bsp_data).ravel()[sort_idx]
 
-    potential_model = continuum_model.potential
-    if potential_model is None:
-        from atomx.scattering.models import PotentialModel
-        potential_model = PotentialModel.bare()
-    V_func = potential_model.build_callable(
-        scf_result,
-        Z=float(scf_result.Z),
-        exclude_label=sh.label,
-    )
-    n_electrons = sum(float(s.occupation) for s in scf_result.subshells)
-    z_residual = max(float(scf_result.Z) - n_electrons + 1.0, 1.0)
+    V_func, z_residual = _rr_potential(scf_result, sh, continuum_model)
 
     sigma = np.zeros_like(photon_au, dtype=float)
     for idx, omega in enumerate(photon_au):
@@ -235,7 +298,7 @@ def _shooting_photoionization_cross_section(
         if electron_energy <= 0.0:
             continue
         for kf in _final_e1_kappas(sh.kappa):
-            angular_factor = line_strength_factor(sh.kappa, kf, 1, "E") / abs(sh.kappa)
+            angular_factor = line_strength_factor(sh.kappa, kf, 1, "E") / (2 * abs(sh.kappa))
             if angular_factor == 0.0:
                 continue
             r, P_cont, Q_cont, _delta = solve_dirac_continuum_shooting(
@@ -243,6 +306,7 @@ def _shooting_photoionization_cross_section(
                 kf,
                 V_func,
                 n_grid=continuum_model.shooting_n_grid,
+                r_max=continuum_model.shooting_r_max or 50.0,
                 Z_residual=z_residual,
             )
             Pb = np.interp(r, gr_sorted, Pb_grid, left=0.0, right=0.0)
@@ -329,9 +393,10 @@ def rr_cross_section(
         Default: ``2j_n + 1`` of the captured electron's subshell —
         appropriate for closed-shell (N-1)-cores.
     continuum_model
-        Optional compatibility hook for benchmark callers.  The current
-        implementation uses the continuum data already attached to
-        ``scf_result``.
+        Optional explicit local potential model. By default, construct the
+        frozen residual Hartree core after removing one captured electron.
+        Nonlocal exchange and relaxation of the residual core are omitted
+        and this approximation is recorded in the result provenance.
     multipoles
         Iterable of multipoles to include, e.g. ``("E1", "M1", "E2")``
         or ``(("E", 1), ("M", 1))``.  Default includes E1, M1, and E2.
@@ -366,6 +431,8 @@ def rr_cross_section(
     for sh in scf_result.subshells:
         if capture_orbitals is not None and sh.label not in capture_orbitals:
             continue
+        if sh.occupation <= 0:
+            continue
         eps_n = scf_result.orbital_energies.get(sh.label)
         if eps_n is None or eps_n >= 0.0:
             continue
@@ -383,6 +450,13 @@ def rr_cross_section(
             continue
         P_b, Q_b, _ = orb_list[idx_in_kappa]
 
+        if continuum_model is not None and not isinstance(continuum_model, ContinuumModel):
+            raise TypeError("continuum_model must be a ContinuumModel")
+        if continuum_model is not None and continuum_model.method.lower() not in {"shooting", "bspline"}:
+            raise ValueError("unknown continuum numerical method")
+        potentials = (None, None)
+        if continuum_model is None or continuum_model.method.lower() == "bspline":
+            potentials = _rr_potential_matrices(scf_result, sh, continuum_model)
         if (
             isinstance(continuum_model, ContinuumModel)
             and continuum_model.method.lower() == "shooting"
@@ -404,12 +478,12 @@ def rr_cross_section(
         elif multipoles == (("E", 1),):
             sigma_PI_partials = {
                 "E1": photoionization_cross_section(
-                    P_b, Q_b, sh.kappa, eps_n, photon_au, Z, bsp_data,
+                    P_b, Q_b, sh.kappa, eps_n, photon_au, Z, bsp_data, *potentials,
                 )
             }
         else:
             sigma_PI_partials = _bound_free_multipole_cross_sections(
-                P_b, Q_b, sh.kappa, eps_n, photon_au, Z, bsp_data, multipoles
+                P_b, Q_b, sh.kappa, eps_n, photon_au, Z, bsp_data, multipoles, *potentials
             )
 
         # Statistical-weight ratio
@@ -447,6 +521,9 @@ def rr_cross_section(
             "Z": Z,
             "g_initial": g_initial,
             "continuum_model": continuum_model,
+            "continuum_potential": ("frozen V^(N-1) Hartree; no nonlocal exchange or core relaxation"
+                                    if continuum_model is None or continuum_model.potential is None
+                                    else continuum_model.potential.kind),
             "multipoles": [_multipole_label(kind, L) for kind, L in multipoles],
             "per_orbital": prov_per_orb,
         },
@@ -540,8 +617,7 @@ def rr_cross_section_rydberg(
     kappa_max: int = 4,
     g_initial: int = 1,
 ) -> RRResult:
-    """First-principles RR including capture into the full Rydberg
-    series.
+    """Independent-particle RR into a truncated Rydberg series.
 
     Unlike :func:`rr_cross_section` (which sums only over occupied
     subshells of the SCF result), this function builds the V^{N-1}
@@ -568,8 +644,8 @@ def rr_cross_section_rydberg(
     -------
     RRResult
     """
-    from atomx.methods.mbpt import _l_from_kappa, build_virtual_basis
-    from atomx.numerics.bspline.convol import ConvolCache
+    from atomx.methods.mbpt import _l_from_kappa
+    from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices, solve_dirac
 
     energies = np.asarray(energies_eV, dtype=float)
     energies_au = energies / HARTREE_EV
@@ -580,7 +656,13 @@ def rr_cross_section_rydberg(
     if bsp_data is None:
         raise ValueError("SCFResult is missing _bsp_data — re-run solve().")
     Z = scf_result.Z
-    cache = ConvolCache(bsp_data)
+    occupied = [sh for sh in scf_result.subshells if sh.occupation > 0]
+    if not occupied:
+        raise ValueError("the recombined system must contain a captured electron")
+    outer = max(occupied, key=lambda sh: (sh.n, _l_from_kappa(sh.kappa), -abs(sh.kappa)))
+    potential_pp, potential_qq = _rr_potential_matrices(scf_result, outer, None)
+    core_occupations = {(sh.n, sh.kappa): max(0., sh.occupation - (sh is outer))
+                        for sh in occupied}
 
     # Enumerate κ list
     kappa_list = []
@@ -594,11 +676,19 @@ def rr_cross_section_rydberg(
     prov: Dict[str, Dict[str, float]] = {}
 
     for kappa in kappa_list:
-        occ, virt = build_virtual_basis(scf_result, kappa, cache=cache,
-                                          potential_mode="VN-1")
+        # Use one local residual-core Hamiltonian for bound and continuum
+        # states. Mixing HF bound states with bare-nuclear continuum waves
+        # is not a consistent independent-particle recombination model.
+        ns = bsp_data["ns"]
+        h, s = build_dirac_matrices(ns, kappa, Z, bsp_data)
+        h[:ns, :ns] += potential_pp
+        h[ns:, ns:] += potential_qq
+        basis = solve_dirac(h, s, ns, kappa, nsp=bsp_data.get("nsp"), nsq=bsp_data.get("nsq"))
         # Each bound state at energy < 0 is a capture target
-        bound_states = [(P, Q, eps) for (P, Q, eps) in (list(occ) + list(virt))
-                         if eps < 0.0]
+        has_kb = bsp_data.get("ksp", bsp_data["ks"]) != bsp_data.get("ksq", bsp_data["ks"])
+        first_physical = int(kappa > 0 and not has_kb)
+        bound_states = [basis.get_orbital(i) for i, eps in enumerate(basis.eigenvalues)
+                        if eps < 0.0 and i >= first_physical]
         bound_states.sort(key=lambda t: t[2])
         bound_states = bound_states[:n_max_per_kappa]
 
@@ -606,14 +696,18 @@ def rr_cross_section_rydberg(
         j2 = 2 * abs(kappa) - 1
         for n_idx, (P_n, Q_n, eps_n) in enumerate(bound_states):
             n_principal = l + 1 + n_idx  # rough mapping (shifts can occur)
+            vacancies = max(0., j2 + 1 - core_occupations.get((n_principal, kappa), 0.))
+            if vacancies < 1e-12:
+                continue
             label = f"{n_principal}{'spdfghi'[l] if l<7 else f'l{l}'}{j2}/2"
 
             I_n_au = -eps_n
             photon_au = energies_au + I_n_au
             sigma_PI = photoionization_cross_section(
                 P_n, Q_n, kappa, eps_n, photon_au, Z, bsp_data,
+                V_scf_PP=potential_pp, V_scf_QQ=potential_qq,
             )
-            g_n = j2 + 1
+            g_n = vacancies
             milne = (ALPHA ** 2) * (photon_au ** 2) / (2.0 * energies_au)
             sigma_RR = (g_n / g_initial) * milne * sigma_PI
 
@@ -624,6 +718,7 @@ def rr_cross_section_rydberg(
                 "kappa": kappa,
                 "n_principal_estimate": n_principal,
                 "eps_n_au": float(eps_n),
+                "vacancies": vacancies,
             }
 
     return RRResult(
@@ -633,7 +728,8 @@ def rr_cross_section_rydberg(
         provenance={
             "Z": Z,
             "g_initial": g_initial,
-            "method": "Rydberg sum over V^{N-1} bound states",
+            "method": "Rydberg sum in a common frozen residual Hartree potential",
+            "approximation": "local independent particles; statistical Pauli vacancies; no nonlocal exchange/core relaxation",
             "n_max_per_kappa": n_max_per_kappa,
             "kappa_max": kappa_max,
             "per_state": prov,
