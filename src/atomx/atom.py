@@ -1175,7 +1175,9 @@ class Atom:
             ]
             result = method.solve(
                 self.Z, subshells, tol=tol, max_iter=max_iter,
-                jj_configs=jj_configs, log=calc_log)
+                jj_configs=jj_configs, log=calc_log,
+                r_max=self.r_max, grid_hi=self.grid_hi,
+                grid_he=self.grid_he, grid_hmax=self.grid_hmax)
             if calc_log:
                 calc_log.converged(result)
                 calc_log.close()

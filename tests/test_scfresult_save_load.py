@@ -13,6 +13,8 @@ import numpy as np
 import pytest
 
 from atomx.methods.dirac_fock import SCFResult, Subshell
+from atomx import Atom
+from atomx.methods.dirac_fock import DiracFock
 
 
 def _make_result(subshells, orbitals_raw):
@@ -80,6 +82,13 @@ def test_gapped_config_save_load_roundtrip(tmp_path):
     # The documented accessor sees both (n, kappa) entries.
     by_subshell = loaded.orbitals_by_subshell()
     assert set(by_subshell) == {(1, -1), (3, -1)}
+
+
+def test_gapped_configuration_exposes_both_radial_waves():
+    result = Atom(Z=3, config="1s2 3s1").solve(DiracFock())
+    assert result.converged
+    assert set(result.waves.orbitals) == {"1s1/2", "3s1/2"}
+    assert result.waves.orbitals["3s1/2"].P.size == result.waves.grid.size
 
 
 def test_save_load_roundtrip_many_same_kappa_subshells(tmp_path):

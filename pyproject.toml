@@ -23,6 +23,8 @@ dependencies = [
 dev = [
     "pytest>=7.0",
     "pytest-benchmark",
+    "pytest-timeout>=2.4",
+    "threadpoolctl>=3.0",
     "sympy>=1.12",
     "pre-commit>=3.0",
     # Pinned to the version the lint gate and .pre-commit-config.yaml use, so
@@ -127,6 +129,14 @@ markers = [
     "snapshot: frozen atomx SELF-regression against its own recorded output; asserts nothing external",
     "book: executable claims from the book (docs/book); a claim that fails to verify fails this gate — run with `pytest -m book`",
 ]
+# Per-test timeout: a single LAPACK call on a thrashed box must fail loudly
+# as a test timeout, not wedge the whole suite (critical review F1; the
+# He single-config test exceeded 60 s inside one eigh at load avg ~168).
+# 600 s is generous for the slowest unmarked tests under load; the thread
+# method can interrupt C-level BLAS calls that the default signal method
+# would wait out.
+timeout = 600
+timeout_method = "thread"
 
 [tool.atomx.performance_dashboard]
 output = "benchmarks/PERFORMANCE.md"

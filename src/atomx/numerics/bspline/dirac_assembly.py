@@ -250,7 +250,13 @@ def _eigh_finite(H_red, S_red, max_retries=2):
     """
     last_w = None
     for _attempt in range(max_retries + 1):
-        w, v = linalg.eigh(H_red, S_red, check_finite=False)
+        # driver="gvd" (divide-and-conquer) on the advice of measurement
+        # (critical review F2, 2026-09-27): at the 220–550-dim sizes atomx
+        # produces it is tied with "gv" single-threaded and up to 1.7x faster
+        # multi-threaded (549x549: 47 ms vs 80 ms at 4 threads), with
+        # bit-identical eigenvalues (max |w_gvd - w_gv| = 0.0 on the real
+        # Ne ns=113 matrices).  Subset drivers stay rejected, see solve_dirac.
+        w, v = linalg.eigh(H_red, S_red, driver="gvd", check_finite=False)
         if np.all(np.isfinite(w)):
             return w, v
         last_w = w
@@ -296,7 +302,13 @@ def solve_dirac(H, S, ns, kappa, n_remove_boundary=1, nsp=None, nsq=None,
     were investigated and rejected: for the ~200–500-dim matrices atomx
     produces, LAPACK's ``dsygv`` (full spectrum) beats ``dsygvx`` (subset
     via bisection + inverse iteration) by 2–3×. The subset drivers only
-    pay off for banded or much larger problems.
+    pay off for banded or much larger problems.  (They are also
+    structurally unusable here: callers take the *whole* physical branch
+    above the Dirac-sea edge as the positive-energy projector, not the
+    lowest k roots.)  Within full-spectrum drivers, ``gvd``
+    (divide-and-conquer) is used on measured grounds — tied with ``gv``
+    at one thread, up to 1.7× faster at four, bit-identical eigenvalues
+    (critical review F2, 2026-09-27).
     """
     if nsp is None:
         nsp = ns

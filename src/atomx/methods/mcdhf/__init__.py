@@ -1,7 +1,9 @@
 """Multi-Configuration Dirac-Hartree-Fock (MCDHF).
 
-Average-Level MCDHF: shared orbitals optimised for the weighted
-average of configurations, then CI diagonalisation for state energies.
+The B-spline route starts from Guerra-averaged DHF orbitals, then minimizes
+the ground-state correlated CI energy in its shared active space. Excited
+states are diagonalized on that same orbital set; their principal labels
+are not guaranteed to remain spectroscopic after ground-state optimization.
 
 This package holds
     - :class:`MCDHF` — the user-facing :class:`~atomx.methods.Method`
@@ -39,8 +41,8 @@ class MCDHF(Method):
     Generates CSFs from a reference configuration via single and/or
     double excitations into virtual orbitals, then iteratively:
 
-    1. Optimises shared orbitals for the weighted average of all
-       states (Guerra average-level approach).
+    1. Builds a Guerra average-level DHF orbital seed, then optimises
+       shared orbitals for the correlated ground-state CI energy.
     2. Diagonalises the CI matrix to get state energies and mixing
        coefficients (via :func:`atomx.methods.ci.ci_solve`).
 

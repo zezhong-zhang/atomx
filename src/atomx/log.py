@@ -20,6 +20,7 @@ when ``log=True`` or ``log="path/to/file.log"`` is passed.
 from __future__ import annotations
 
 import datetime
+from numbers import Real
 from typing import Optional
 
 from atomx.constants import HARTREE_CM1, HARTREE_EV
@@ -123,9 +124,11 @@ class CalculationLog:
         if bd:
             self._write("  Energy components:")
             for key, val in sorted(bd.items()):
-                if abs(val) > 1e-15:
+                if isinstance(val, Real) and abs(val) > 1e-15:
                     self._write(f"    {key:20s}: {val:18.10f} Ha"
                                  f"  ({val * HARTREE_CM1:14.2f} cm-1)")
+                elif not isinstance(val, Real):
+                    self._write(f"    {key:20s}: {val}")
             self._write()
 
         # Orbital energies

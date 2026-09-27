@@ -104,6 +104,36 @@ class TestMCDHFSolver:
             f"2-CSF CI {result.ground_energy!r} Ha is not below its own "
             f"1-CSF reference {e_ref!r} Ha — the 2p² admixture gained nothing")
 
+    def test_variational_projector_fock_matches_nuclear_on_light_atom(self):
+        """F3 gate: the Fock-built no-pair space reproduces the nuclear one
+        where screening is negligible, and diagnostics report leakage.
+
+        The no-pair projector used to be nuclear-spectrum-only, with the
+        screened-Fock idea patched into the *preconditioner* alone
+        (critical review F3, 2026-09-27).  For Be the valence shell sees
+        an almost-unscreened core, so both boundaries must agree tightly;
+        a large disagreement here would mean the two projectors disagree
+        even in the light-atom limit and the default could not be trusted.
+        """
+        energies = {}
+        leaks = {}
+        for projector in ("nuclear", "fock"):
+            csfs = make_csf_list(4, ["1s2 2s2", "1s2 2p2"])
+            solver = MCDHFSolver(Z=4, csfs=csfs, ns=30, ks=9,
+                                 variational_projector=projector)
+            result = solver.solve(max_iter=8, scf_tol=1e-4, ci_tol=1e-6)
+            energies[projector] = result.ground_energy
+            diag = dict(result._variational_diagnostics)
+            leaks[projector] = diag["no_pair_projector_leakage"]
+        assert abs(energies["nuclear"] - energies["fock"]) < 1e-6, (
+            f"no-pair projector choice moved the Be energy by "
+            f"{abs(energies['nuclear'] - energies['fock']):.3e} Ha — the "
+            "nuclear and Fock boundaries should coincide for a light atom")
+        for projector, leak in leaks.items():
+            assert set(leak) == {-1, 1}, (
+                f"projector={projector}: leakage diagnostic missing kappa "
+                f"blocks, got {leak!r}")
+            assert all(0.0 <= v <= 1.0 for v in leak.values())
 
     def test_per_block_orbital_sets_are_populated_when_enabled(self):
         """Opt-in DODS/EOL scaffold produces block-keyed orbital sets."""
