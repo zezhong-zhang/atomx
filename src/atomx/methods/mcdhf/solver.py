@@ -1207,7 +1207,7 @@ class MCDHFSolver:
                 h[ns:, :ns] += qp
                 preconditioners[sh.n, sh.kappa] = np.tril(h) + np.tril(h, -1).T
             orbitals_dict, dc_ci, variational_diagnostics = optimize_orbitals(
-                functional, orbitals_dict, max_iter=8 * max_iter,
+                functional, orbitals_dict, max_iter=32 * max_iter,
                 tolerance=scf_tol, energy_tolerance=ci_tol,
                 preconditioner_matrices=preconditioners,
                 projector_source=self.variational_projector)
