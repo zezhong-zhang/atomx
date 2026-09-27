@@ -15,6 +15,7 @@ Atoms and Molecules* (2007) §8.3.
 """
 
 import math
+import os
 from functools import lru_cache
 
 import numpy as np
@@ -60,8 +61,11 @@ from atomx.numerics.shooting.solver import _slater_integral_slag6
 # CI rebuilt them ~300k times per MCDHF outer iteration (7600 elements x
 # ~40 integrals each) where only a few hundred are distinct.  Keys use
 # id() of the orbital coefficient arrays, which orbitals_dict keeps alive
-# for the duration of the build; build_ci_matrix clears the memo on entry
-# so nothing leaks across outer iterations (whose orbitals differ).
+# for the duration of the build; build_ci_matrix clears the id()-keyed
+# entries on entry so nothing leaks across builds whose orbitals differ.
+# The one exception is the ("h0", ns, kappa, Z) one-body Dirac blocks,
+# which carry no id() and are kept across builds of the same workspace
+# under the same nuclear model — see _reset_memo_for_ci_build.
 #
 # An id()-keyed cache is only sound while the keyed arrays are alive:
 # CPython recycles an id() as soon as the object is freed, so a later array
@@ -97,6 +101,55 @@ def _reset_memo() -> None:
     _SLATER_MEMO.clear()
     _MEMO_KEEPALIVE.clear()
     _MEMO_CONTEXT = None
+
+
+def _reset_memo_for_ci_build(bsp_data, nuclear_potential):
+    """Entry-point reset for the CI builders: wipe orbital-dependent
+    integrals, carry what is orbital-independent.
+
+    Every id()-keyed Slater integral is wiped, as before — orbital
+    coefficients change between builds and the id-recycling argument in
+    the module docstring requires it.  But the ``("h0", ns, kappa, Z)``
+    one-body Dirac blocks from :func:`_dirac_blocks` are rebuilt from
+    (basis geometry, symmetry, Z, nuclear model) alone; they contain no
+    id() and are bit-identical on every rebuild.  Rebuilding them once
+    per ``build_ci_matrix`` call cost ~16 % of a variational MCDHF solve
+    (measured on Fe XVII j-resolved; docs/HPC_NUMERICS_RESEARCH_2026-09-27.md
+    §2.2), with ~3800 redundant builds per solve.
+
+    The carry is sound only when BOTH guards hold, and is applied only
+    then:
+
+    - the radial workspace is the identical object (``_memo_context``
+      resets on any workspace change — the MCDHF driver rebuilds
+      ``bsp_data`` fresh every outer iteration, so a new basis still
+      triggers a full rebuild once per iteration), and
+    - the nuclear-potential object is identical (``build_dirac_matrices``
+      takes the potential as an argument; a different finite-nucleus
+      model must not read blocks built for the previous one).
+
+    The stashed ``_convol_cache`` (rkb tables, grid-only) is carried
+    exactly as before.
+    """
+    stashed_cache = _SLATER_MEMO.get("_convol_cache")
+    prev_potential = _SLATER_MEMO.get("_nuclear_potential")
+    carry_h0 = (
+        not isinstance(bsp_data, GridCIWorkspace)
+        and _MEMO_CONTEXT is bsp_data
+        and prev_potential is nuclear_potential
+        and "_nuclear_potential" in _SLATER_MEMO
+    )
+    carried = (
+        {k: v for k, v in _SLATER_MEMO.items()
+         if isinstance(k, tuple) and k[0] == "h0"}
+        if carry_h0 else None
+    )
+    _reset_memo()
+    _memo_context(bsp_data)
+    if stashed_cache is not None:
+        _SLATER_MEMO["_convol_cache"] = stashed_cache
+    if carried:
+        _SLATER_MEMO.update(carried)
 
 
 def _memo_context(bsp_data):
@@ -532,13 +585,10 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
         see :data:`atomx.methods.mcdhf.breit_ci.RETARDATION_NOTE`.
     """
     # ``_reset_memo`` drops every memoised integral, including the CI's
-    # stashed rkb cache — carry it across the reset so a cache handed in by
-    # the caller (or left by a previous element of this solve) survives.
-    stashed_cache = _SLATER_MEMO.get("_convol_cache")
-    _reset_memo()
-    _memo_context(bsp_data)
-    if stashed_cache is not None:
-        _SLATER_MEMO["_convol_cache"] = stashed_cache
+    # stashed rkb cache and the orbital-independent h0 blocks.  The
+    # entry-point reset carries the rkb cache (as before) and, when the
+    # workspace and nuclear model are unchanged, the h0 blocks too.
+    _reset_memo_for_ci_build(bsp_data, nuclear_potential)
     if isinstance(bsp_data, GridCIWorkspace):
         if nuclear_potential is not None:
             raise ValueError(
@@ -556,7 +606,8 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
             _SLATER_MEMO["_convol_cache"] = convol_cache
         _SLATER_MEMO["_nuclear_potential"] = nuclear_potential
     _check_orbitals_present(csfs, orbitals_dict)
-    _check_orbital_metric(csfs, orbitals_dict, bsp_data, Z, ns)
+    if _metric_check_due(bsp_data):
+        _check_orbital_metric(csfs, orbitals_dict, bsp_data, Z, ns)
     n_csf = len(csfs)
     H = None if as_operator else np.zeros((n_csf, n_csf))
     if n_csf == 0:
@@ -735,13 +786,10 @@ def _build_ci_matrix_approximate(csfs, orbitals_dict, orbital_basis, bsp_data,
     reachable.
     """
     # ``_reset_memo`` drops every memoised integral, including the CI's
-    # stashed rkb cache — carry it across the reset so a cache handed in by
-    # the caller (or left by a previous element of this solve) survives.
-    stashed_cache = _SLATER_MEMO.get("_convol_cache")
-    _reset_memo()
-    _memo_context(bsp_data)
-    if stashed_cache is not None:
-        _SLATER_MEMO["_convol_cache"] = stashed_cache
+    # stashed rkb cache and the orbital-independent h0 blocks.  The
+    # entry-point reset carries the rkb cache (as before) and, when the
+    # workspace and nuclear model are unchanged, the h0 blocks too.
+    _reset_memo_for_ci_build(bsp_data, nuclear_potential)
     if isinstance(bsp_data, GridCIWorkspace):
         if nuclear_potential is not None:
             raise ValueError(
@@ -1092,6 +1140,45 @@ def _check_orbitals_present(csfs, orbitals_dict) -> None:
             "The CSF list must not reference orbitals outside the radial "
             "set — otherwise their matrix elements silently vanish and the "
             "CI returns the uncorrelated energy.")
+
+
+# Cadence of the orbital-metric tripwire (see _metric_check_due).
+# 1 = check on every CI build (the historical behaviour); N > 1 = check on
+# the first build of each radial workspace and then every N builds of the
+# same workspace; 0 = first build of each workspace only.
+_METRIC_CHECK_EVERY = int(os.environ.get("ATOMX_CI_METRIC_CHECK_EVERY", "20"))
+
+# Per-workspace state for _metric_check_due: the last workspace object the
+# cadence was evaluated against and how many builds of it have passed.
+_METRIC_CHECK_STATE = {"context": None, "count": 0}
+
+
+def _metric_check_due(workspace) -> bool:
+    """Decide whether this CI build pays the orbital-metric audit.
+
+    The audit is a tripwire, not a calculation input: it guards against a
+    solver handing the CI a non-orthonormal orbital set, and a persistent
+    violation is caught by the *next* audit of the same workspace.  Yet it
+    cost ~27 ms per call and ran on every build_ci_matrix call — ~20 % of
+    a variational MCDHF solve is the line-search rebuilding the same Gram
+    matrices for near-identical trial orbitals (measured; see
+    docs/HPC_NUMERICS_RESEARCH_2026-09-27.md §2.3).  The first build of
+    every new radial workspace is always audited (a freshly solved orbital
+    set is exactly where a violation can appear); subsequent builds of the
+    same workspace are audited every ``_METRIC_CHECK_EVERY`` builds.
+    Set ``ATOMX_CI_METRIC_CHECK_EVERY=1`` to restore per-build auditing.
+    """
+    state = _METRIC_CHECK_STATE
+    if state["context"] is not workspace:
+        state["context"] = workspace
+        state["count"] = 0
+        return True
+    state["count"] += 1
+    if _METRIC_CHECK_EVERY <= 0:
+        return False
+    if _METRIC_CHECK_EVERY == 1:
+        return True
+    return state["count"] % _METRIC_CHECK_EVERY == 0
 
 
 def _check_orbital_metric(csfs, orbitals, workspace, Z, ns, tolerance=1e-7):
