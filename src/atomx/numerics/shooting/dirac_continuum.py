@@ -57,10 +57,29 @@ from atomx.numerics.shooting.grid import sgrid
 from atomx.numerics.shooting.spline import vint
 
 #: Wide-step Coulomb-tail continuation for e > 0 (doutw_coulomb_tail).
-#: The tail of a frozen-core potential is exactly r*V = -Z_res, so the
-#: continuation is physics-exact; disabling this falls back to the
-#: per-grid-interval integration (kept as the reference path for tests).
+#: The tail of a frozen-core potential approaches r*V = -Z_res, so the
+#: continuation replaces the spline by the exact asymptote; disabling this
+#: falls back to the per-grid-interval integration (kept as the reference
+#: path for tests).
 _TAIL_WALKER = True
+
+#: Phase budget of the Coulomb-tail continuation (radians).  The tail
+#: start i_c(k) is chosen so the integrated deviation of the sampled
+#: potential from the -Z_res/r asymptote contributes at most this phase
+#: (and a comparable relative amplitude error) — two orders of magnitude
+#: inside the 1.5 % FAC-parity gate.  The criterion is per-wave: slow
+#: waves (small k) feel a given deviation more, so their i_c moves out.
+_TAIL_PHASE_BUDGET = 1.0e-4
+
+#: Pointwise guard on the tail start: no grid point in the walked region
+#: may deviate from the Coulomb asymptote by more than this *relative*
+#: amount.  This keeps single sharp features (which the constant-
+#: coefficient wide steps would step over) on the spline-integrated path.
+_TAIL_DEV_TOL = 1.0e-4
+
+#: Minimum number of tail grid points for the continuation to engage;
+#: shorter tails stay on the reference path.
+_TAIL_MIN_POINTS = 32
 
 
 @lru_cache(maxsize=64)
@@ -83,13 +102,15 @@ def _prepare_potential(V_func, r_max: float, n_grid: int, Z_residual: float):
     values on every call: a callable may close over a mutable potential,
     and reusing its former spline would silently solve the wrong atom.
 
-    Also locates the Coulomb-tail start ``i_c``: the grid index past which
-    ``|r*V(r) + Z_res|`` stays below ``1e-8 * max(|Z_res|, 1)`` through
-    the box edge.  Beyond it the frozen-core potential is exactly
-    ``-Z_res/r`` (the code carries no polarization model), which is what
-    the wide-step analytic continuation in :func:`doutw_coulomb_tail`
-    exploits.  ``i_c = -1`` marks potentials with no usable Coulomb tail
-    (those take the historical per-interval path).
+    Also precomputes the Coulomb-tail criterion arrays.  The sampled
+    deviation ``dev = |r*V + Z_res|`` of the asymptote and its cumulative
+    action ``S[j] = ∫_{r[j]}^{r_max} dev/r' dr'`` let each wave pick the
+    tail start ``i_c(k)``: the smallest radius past which the deviation
+    stays pointwise below ``_TAIL_DEV_TOL * |Z_res|`` *and* its integrated
+    action stays below ``_TAIL_PHASE_BUDGET * k`` — i.e. the continuation's
+    phase error is bounded by ``_TAIL_PHASE_BUDGET`` radians, two orders
+    inside the FAC-parity gate.  Potentials with no usable tail yield
+    ``i_c = -1`` and take the historical per-interval path.
     """
     key = (float(r_max), int(n_grid), float(Z_residual))
     Z_eff = max(Z_residual, 1.0)
@@ -113,26 +134,53 @@ def _prepare_potential(V_func, r_max: float, n_grid: int, Z_residual: float):
             arr.setflags(write=False)
     rv.setflags(write=False)
     z_res = -float(rv[-1])
-    i_c = _coulomb_tail_start(rv, z_res, n_out)
-    prep = (r, n_out, va, vb, vc, vd, ind, rv, z_res, i_c)
+    dev_mask, dev_action = _coulomb_tail_criteria(r, rv, z_res)
+    prep = (r, n_out, va, vb, vc, vd, ind, rv, z_res, dev_mask, dev_action)
     with contextlib.suppress(AttributeError, TypeError):
         V_func._contsolve_prep = {"key": key, "prep": prep}
     return prep
 
 
-def _coulomb_tail_start(rv, z_res: float, n_out: int) -> int:
-    """First grid index of the exact-Coulomb tail, or -1 if unusable.
+def _coulomb_tail_criteria(r, rv, z_res: float):
+    """Pointwise mask and cumulative action of the Coulomb deviation.
 
-    ``i_c`` is placed past the *last* grid point whose deviation from the
-    Coulomb asymptote exceeds tolerance (plus one grid-cell margin), so by
-    construction the deviation stays below tolerance from ``i_c`` through
-    the last point.  Requiring a minimum tail length keeps degenerate
-    cases (steep outer potentials, tiny boxes) on the reference path.
+    ``mask[j]`` is True where ``|r*V + Z_res| <= _TAIL_DEV_TOL * max(|Z_res|, 1)``
+    and ``action[j] = ∫_{r[j]}^{r_max} |r*V + Z_res| / r' dr'`` (trapezoid).
+    Both are length-n arrays; the walker region must satisfy the mask
+    everywhere and ``action <= _TAIL_PHASE_BUDGET * k``.
     """
-    tol = 1.0e-8 * max(abs(z_res), 1.0)
-    viol = np.nonzero(np.abs(rv + z_res) > tol)[0]
-    i_c = int(viol[-1]) + 2 if len(viol) else 2
-    if n_out - i_c < 32:
+    dev = np.abs(rv + z_res)
+    tol = _TAIL_DEV_TOL * max(abs(z_res), 1.0)
+    mask = dev <= tol
+    # The walked region must satisfy the mask everywhere (the caller takes
+    # the last violator), so only masked deviation enters the action —
+    # this also keeps near-origin singularities of exotic model potentials
+    # (r*V diverging like a power of 1/r) out of the trapezoid integral.
+    dev_m = np.where(mask, dev, 0.0)
+    d_v = dev_m / np.maximum(r, 1.0)
+    seg = 0.5 * (d_v[:-1] + d_v[1:]) * np.diff(r)
+    cum = np.concatenate(([0.0], np.cumsum(seg)))
+    total = cum[-1]
+    action = total - cum
+    with contextlib.suppress(Exception):
+        mask.setflags(write=False)
+        action.setflags(write=False)
+    return mask, action
+
+
+def _coulomb_tail_start(prep, k_inf: float) -> int:
+    """Tail start index for one wave, or -1 to keep the reference path.
+
+    The combined validity (mask everywhere, action within the phase
+    budget) must hold from ``i_c`` through the last point, so ``i_c`` sits
+    past the *last* violating point (plus one grid-cell margin).
+    """
+    _, n_out, _, _, _, _, _, _, _, mask, action = prep
+    budget = _TAIL_PHASE_BUDGET * k_inf
+    valid = mask & (action <= budget)
+    bad = np.nonzero(~valid)[0]
+    i_c = int(bad[-1]) + 2 if len(bad) else 2
+    if n_out - i_c < _TAIL_MIN_POINTS:
         return -1
     return i_c
 
@@ -140,21 +188,29 @@ def _coulomb_tail_start(rv, z_res: float, n_out: int) -> int:
 def _solve_prepared(prep, E_au: float, kappa: int, eps_tol: float,
                     *, match_phase: bool = True):
     """One partial-wave solve against a prepared potential (thread-safe)."""
-    r, n_out, va, vb, vc, vd, ind, rv, z_res, i_c = prep
+    r, n_out, va, vb, vc, vd, ind, rv, z_res, _mask, _action = prep
     P = np.zeros(n_out)
     Q = np.zeros(n_out)
-    if E_au > 0.0 and _TAIL_WALKER and i_c > 0:
-        # Core: per-interval integration to the Coulomb-tail start (index
-        # i_c, filled by doutw's loop).  Tail: wide-step analytic
-        # continuation with the converged power series as dense output —
-        # exact Dirac-Coulomb propagation, same eps, same grid.
+    eps_rel = E_au / _C_SQ
+    k_inf = math.sqrt(2.0 * E_au * (1.0 + 0.5 * eps_rel))
+    if E_au > 0.0:
+        i_c = _coulomb_tail_start(prep, k_inf) if _TAIL_WALKER else -1
+    else:
+        i_c = -1
+    if i_c > 0:
+        # Core: per-interval integration through the Coulomb-tail start.
+        # doutw's loop fills pt[0:iotp_in], so iotp_in = i_c + 1 leaves
+        # pt[i_c] as the walker's seed.  Tail: wide-step continuation with
+        # the converged power series as dense output — bounded phase
+        # error (_TAIL_PHASE_BUDGET), same grid, same normalization.
         doutw(
-            E_au, eps_tol, float(kappa), 100, i_c, 0,
+            E_au, eps_tol, float(kappa), 100, i_c + 1, 0,
             r, ind, n_out, va, vb, vc, vd, P, Q,
         )
-        doutw_coulomb_tail(
-            E_au, eps_tol, float(kappa), r, i_c, n_out, z_res, P, Q,
-        )
+        if P[i_c] != 0.0 or Q[i_c] != 0.0:
+            doutw_coulomb_tail(
+                E_au, eps_tol, float(kappa), r, i_c, n_out, z_res, P, Q,
+            )
     else:
         doutw(
             E_au, eps_tol, float(kappa), 100, n_out, 0,
@@ -169,8 +225,7 @@ def _solve_prepared(prep, E_au: float, kappa: int, eps_tol: float,
     # high-energy deficit in Z=54 K-shell cross sections.
     # c² comes from atomx.constants (module-level _C_SQ import), M12:
     # the local literal was the CODATA-2018 1/α², 1.4e-9 low.
-    eps_rel = E_au / _C_SQ
-    k_inf = math.sqrt(2.0 * E_au * (1.0 + 0.5 * eps_rel))
+    # (eps_rel and k_inf were computed above for the tail-start budget.)
 
     n_match = max(20, n_out // 5)
     r_match = r[-n_match:]

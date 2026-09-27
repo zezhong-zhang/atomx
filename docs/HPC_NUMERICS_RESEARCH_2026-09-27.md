@@ -121,15 +121,24 @@ For e > 0, `solve_dirac_continuum_shooting` is **not a shooting problem**: there
 
 (My batch measurement, warm: 240 waves × (E ≤ 8 a.u., r_max = 200, n_grid = 8000) = 30 ms total; Python-side cost is thread-pool bookkeeping, numerics fully inside nogil numba. FAC-parity panels: 0.44–5.31 ms/wave warm, docs/CONTINUUM_FAC_PERFORMANCE_2026-09-24.md.)
 
-### 3.2 P1 (physics-exact): Coulomb-tail analytic continuation
+### 3.2 P1 (physics-exact): Coulomb-tail analytic continuation — IMPLEMENTED 2026-09-27
 
-**Observation.** The matching code already *assumes* the tail is Coulombic: it takes η from `rv[-1]` (r·V → −Z_res, dirac_continuum.py:172) and fits `P ~ A·sin(k r − lπ/2 − η ln 2kr + σ_l + δ)` in the outer window. For the frozen-core potentials used in RR/PI/CE/EII, that assumption is **exact beyond the core charge radius r_c**: the Dirac-Fock/SCF potential of a compact core is −Z_res/r up to the outermost orbital's exponential tail (the code carries no polarization model that would spoil this). And a solution in a pure Coulomb field is a known linear combination of regular/irregular Coulomb functions F_λ(η, kr), G_λ(η, kr).
+**Observation.** The matching code already *assumes* the tail is Coulombic: it takes η from `rv[-1]` (r·V → −Z_res, dirac_continuum.py:172) and fits `P ~ A·sin(k r − lπ/2 − η ln 2kr + σ_l + δ)` in the outer window. For the frozen-core potentials used in RR/PI/CE/EII, that assumption is **exact beyond the core charge radius r_c**: the Dirac-Fock/SCF potential of a compact core is −Z_res/r up to the outermost orbital's exponential tail (the code carries no polarization model that would spoil this).
 
-**Design.** Integrate 0 → r_c on the fine grid (r_c a small multiple of the core extent, e.g. where |r·V(r) + Z_res| / Z_res < 1e-8 — computable once per potential). At r_c match P, P' to αF + βG (P' from the Dirac relation, already used at line 148). Continue to r_max *analytically* — scipy's Coulomb functions vectorized over r at fixed (η, k) — for the A_inf/δ window, or simply declare the box r_max = r_c + a few wavelengths and extract invariants there (the existing local-k WKB envelope correction already tolerates non-asymptotic boxes).
+**Design correction (measured).** Two premises of the original sketch failed on contact with production potentials; the implemented design resolves both without Coulomb special functions:
 
-**Payoff.** Cost is currently O(r_max) per wave with r_max = 50–200 vs r_c ≈ 5–20 for mid-Z targets: **2–10× on the outer propagation**, growing with box size — i.e. precisely on the high-energy, heavy-target waves that dominate DW/EII runtimes (Xe 200 keV ≈ 5.31 ms warm is the expensive end). The physics error is *zero by construction* in the Coulomb region; the only numerical risk is choosing r_c too small, which is checkable from the potential array itself.
+1. *The "exact beyond r_c" premise is optimistic for production screening models.* On the real FAC-screened Fe/Xe SCF bench the sampled r·V deviates from −Z_res by ~1e-4·Z_res, decaying only ~r^−2.4 all the way to the box edge — a Thomas-Fermi/DH-style screen never lands the strict 1e-8 mask the sketch proposed (measured: r_c never engages, bit-identical output, 1.0× speedup). Production potentials need a *budgeted* tail start, not an *exact* one.
+2. *No scipy Coulomb functions are needed.* The tail IVP is propagated by a wide-step walker (`doutw_coulomb_tail`, dirac_integrator.py) reusing the production adaptive power-series controller (`dir_integrate` semantics: accept 15<nsum<60, halve below / double above) with the *exact* Coulomb coefficients (−Z_res, 0, 0, 0). The same `dir0` series that yields the endpoint value also yields every interior grid point, so the dense output is filled by the identical physics — continuation costs tens of wide steps instead of tens of thousands of per-interval calls. (The uv env's scipy 1.15.3 also lacks `coulombF`/`coulombG`, added in 1.16 — moot now.)
 
-This subsumes the grid-sizing tension (`10·r_max·p_max` up to 300k points, distorted_wave/solver.py:270): with analytic continuation the fine grid only needs to cover [0, r_c] plus one matching cell.
+**Tail-start criterion (accuracy-first).** i_c(k) requires BOTH: pointwise mask |rV+Z_res| ≤ 1e-4·max(|Z_res|,1) AND action integral ∫|rV+Z_res|/r dr ≤ 1e-4·k — the phase error committed by switching at i_c is ≤1e-4 rad, ~100× inside the 1.5% FAC-parity gate. The action term makes the start per-wave: slower waves (smaller k) integrate the same deviation more strongly and start further out (synthetic 1/r³ screen: fast wave mask-bound at r≈48.5, slow wave pushed to r≈82). Deviation-free potentials (hydrogenic, free particle) engage from the second grid cell.
+
+**Measured economics** (branch `perf/continuum-coulomb-tail`):
+- Real Fe/Xe SCF bench: **1.19× / 1.65× / 1.28× / 1.70×** (Fe 1 keV, Fe 40 keV, Fe κ=−5, Xe 200 keV). Synthetic 8k panels: 1.47–1.70×. 300k-point DW grid: **3.63×** (tail share of the IVP 77–85% at that sizing).
+- Accuracy vs the spline-integrated reference path: amplitude moves ≤1.1e-8, phase ≤6e-5 rad — both ~100× inside the FAC gate.
+- Bonus error elimination: the old path carried the *spline's* outer-box error (measured up to 6.7e-3 in r·V on the Fe synthetic; the Xe synthetic's 1.95 shows the old window was non-asymptotic anyway — pre-existing, unfit as a regression fixture). The walker is exact by construction, so continuation also removes that error; the apparent walker "drift" investigated mid-implementation (eps-independent plateau 1.27e-3) was proven to be the spline, not the walker (walker exact to 1.1e-10 vs a per-interval exact-Coulomb reference).
+- Tripwire semantics: with deviation-free potentials the walker's exact point-charge wave coheres with the Coulomb reference at any box size, so the small-box "unconverged" raise no longer fires (phase radius-stable to 3e-5; constant Dirac-vs-Schrödinger reference offset 0.1103 rad at Z=54). The regression test monkeypatches the walker off to keep exercising the reference-path tripwire.
+
+This subsumes the grid-sizing tension (`10·r_max·p_max` up to 300k points, distorted_wave/solver.py:270): the walker's tail cost is O(1) per grid point regardless of box size, so the fine grid still covers the whole box but only [0, i_c] pays per-interval integration.
 
 ### 3.3 P2: restructure the batch loop — cells outer, energies inner
 
@@ -187,7 +196,7 @@ The 8σ local-window Gaussian deposition prototype measured **13.55×** (96.45 m
 | P0 | §2.3 metric-check cadence | −20 % more | none (bit-identical shown) | **yes, this session** |
 | P0 | §5.1 production thread pinning | measurement validity | none | mechanism exists (conftest) |
 | P1 | §2.4 frozen-CI microiterations | 2–4× optimizer-dominated cases | medium — exact-CI refresh cadence; keep e7f4b68 gate semantics | no |
-| P1 | §3.2 Coulomb-tail continuation | 2–10× large-box continuum | low-medium — physics-exact; r_c auto-check | no |
+| P1 | §3.2 Coulomb-tail continuation — **done 2026-09-27** (`perf/continuum-coulomb-tail`) | 2–10× large-box continuum → **measured 1.2–1.7× real SCF bench, 3.6× 300k DW** | budgeted tail start (phase ≤1e-4 rad); walker exact by construction | no |
 | P1 | §4.1 threshold-aware spectrum grids | 20–100× continuum share of renders | medium — interpolation vs Wigner cusps | no |
 | P1 | §4.4 local-window deposition | 13.5× rendering | low | prototype measured |
 | P2 | §2.5 Cauchy–Schwarz integral screening | 2–5× coefficient eval | low | no |

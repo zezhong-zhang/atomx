@@ -294,6 +294,8 @@ def doutw_coulomb_tail(e, eps, ak, r, i_start, n_out, z_res, pt, qt):
                     break  # accept
                 h = 0.5 * h
                 k_ctrl = -4
+                if h < 1.0e-30:
+                    break  # degenerate seed: stop rather than spin
                 continue
             if k_ctrl < 0:
                 break  # accept, no doubling yet

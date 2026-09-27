@@ -118,7 +118,7 @@ def test_mutating_potential_invalidates_prepared_spline():
     np.testing.assert_allclose(changed, fresh, rtol=1e-12, atol=1e-12)
 
 
-def test_relativistic_coulomb_phase_stable_with_matching_radius():
+def test_relativistic_coulomb_phase_stable_with_matching_radius(monkeypatch):
     energy = 200000. / 27.211386245988
 
     def potential(r):
@@ -128,6 +128,17 @@ def test_relativistic_coulomb_phase_stable_with_matching_radius():
         Z_residual=54.)[3]
         for radius, points in ((20., 26515), (40., 53030))]
     assert abs(phases[0]-phases[1]) < .02
+    # The under-resolved-box tripwire below guards the spline-integrated
+    # path: its wave in a non-asymptotic window decoheres from the
+    # Coulomb reference and raises.  The Coulomb-tail walker's wave is
+    # the exact point-charge solution (the deviation-free potential here
+    # engages it from i_c=2), so its phase fit stays coherent regardless
+    # of box size — and the phase is not garbage: radius-independent to
+    # 3e-5 rad, modulo the constant Dirac-vs-Schrodinger Coulomb
+    # reference offset.  Disable the walker to keep exercising the
+    # reference-path tripwire.
+    import atomx.numerics.shooting.dirac_continuum as _dc
+    monkeypatch.setattr(_dc, "_TAIL_WALKER", False)
     with pytest.raises(RuntimeError, match="unconverged"):
         solve_dirac_continuum_shooting(
             energy, -1, potential, r_max=20., n_grid=20000,
