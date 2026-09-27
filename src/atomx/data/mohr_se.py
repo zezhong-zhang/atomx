@@ -302,13 +302,22 @@ def klamaq_f(n: int, kappa: int) -> float:
     carries the correct ``l`` and ``kappa`` dependence.
     """
     l = kappa if kappa > 0 else -kappa - 1
-    loc = (n * n - n) // 2 + l + 1
-    if not (1 <= loc <= len(BETHE_LOG)):
+    if l < 0 or l >= n:
         raise ValueError(f"Klamaq: no Bethe logarithm for n={n}, kappa={kappa}")
-    term = -BETHE_LOG[loc - 1]
+    if n <= 8:
+        loc = (n * n - n) // 2 + l + 1
+        term = -BETHE_LOG[loc - 1]
+    else:
+        # FAC's short _bethe array ends at n=8.  NIST Technical Note 1467
+        # supplies the hydrogenic values through n=200, avoiding both a
+        # missing-data failure and a fabricated low-n substitution.
+        from atomx.data.nist_bethe_log import BETHE_LOG_NIST
+        row = BETHE_LOG_NIST.get(n)
+        if row is None or l >= len(row):
+            raise ValueError(f"Klamaq: no Bethe logarithm for n={n}, kappa={kappa}")
+        term = -row[l]
     if kappa > 0:
         term -= (3.0 / 8.0) / (l * (2 * l + 1))
     else:
         term += (3.0 / 8.0) / ((l + 1) * (2 * l + 1))
     return (4.0 / 3.0) * term
-

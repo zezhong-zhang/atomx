@@ -29,8 +29,9 @@ import pytest
 
 from atomx.constants import ALPHA
 from atomx.corrections.qedmod.indelicato import _interpolate_indelicato_f
-from atomx.corrections.qedmod.mohr import _interpolate_se_f
+from atomx.corrections.qedmod.mohr import MohrBackend, _interpolate_se_f
 from atomx.data.mohr_se import SD_ROWS, SD_TABLE, SD_Z_GRID, klamaq_f
+from atomx.data.nist_bethe_log import BETHE_LOG_NIST
 
 HARTREE_EV = 27.211386245988
 
@@ -164,6 +165,19 @@ class TestCoverageAndLdependence:
         assert klamaq_f(6, -1) != klamaq_f(7, -1)
         # Klamaq is O(1), unlike the old F(1s)/n^3 (= 0.03..10).
         assert abs(klamaq_f(6, -1)) < 20.0
+
+    def test_nist_rydberg_values_cover_high_n(self):
+        assert len(BETHE_LOG_NIST) == 200
+        assert sum(map(len, BETHE_LOG_NIST.values())) == 1572
+        assert BETHE_LOG_NIST[9][0] == pytest.approx(2.72875117)
+        assert BETHE_LOG_NIST[59][1] == pytest.approx(-0.0489983824)
+        assert klamaq_f(9, -1) != klamaq_f(10, -1)
+
+    def test_multidigit_orbital_label_uses_full_principal_number(self):
+        result = MohrBackend().compute(
+            [(np.zeros(1), np.zeros(1), 1.0, -1, "10s1/2")], None, 1)
+        expected = ALPHA**3 / (np.pi * 10**3) * klamaq_f(10, -1)
+        assert result.per_orbital["10s1/2"] == pytest.approx(expected)
 
 
 class TestPhysicalAnchors:

@@ -11,7 +11,8 @@ Coverage follows FAC's ``HydrogenicSelfEnergy`` exactly:
   ``Z`` grid of ``faclib/coulomb.c:_qed_se0 + _qed_se1``;
 * ``3 <= n <= 5`` with ``|kappa| <= 3`` — FAC's ``_sd`` table, which
   carries the full ``l``/``j`` dependence;
-* anything else — FAC's ``Klamaq`` analytic Bethe-logarithm estimate.
+* anything else — FAC's ``Klamaq`` analytic estimate, using its Bethe-log
+  constants through ``n=8`` and NIST TN 1467 values for ``9 <= n <= 200``.
 
 The previous implementation fell back to ``F(1s)/n³`` outside the ``n <= 3``
 table, which discards the ``l`` and ``j`` dependence entirely (a ``4f5/2``
@@ -22,6 +23,7 @@ for high-``l`` states.  See
 
 from __future__ import annotations
 
+import re
 import numpy as np
 
 from atomx.constants import ALPHA
@@ -123,7 +125,10 @@ class MohrBackend(SEBackend):
         per_orbital: dict = {}
         E_SE = 0.0
         for P, Q, occ, kappa, label in orbitals:
-            n = int(label[0])
+            match = re.match(r"(\d+)", label)
+            if match is None:
+                raise ValueError(f"self-energy orbital has no principal n: {label!r}")
+            n = int(match.group(1))
             F_val = _interpolate_se_f(Z, n, kappa)
 
             # E_SE (per electron) = (α/π)(Zα)^4/n^3 × F × mc²

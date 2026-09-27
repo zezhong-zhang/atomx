@@ -323,7 +323,8 @@ class MCDHFResult:
 class MCDHFSolver:
     """Multi-Configuration Dirac-Hartree-Fock solver.
 
-    Uses Average-Level (AL) approach with Guerra effective occupations.
+    Uses Guerra average-level occupations for the DHF orbital seed. The
+    B-spline correlated orbital step targets the ground-state CI energy.
     """
 
     def __init__(self, Z, csfs, ns=50, ks=9, r_min=None, r_max=None,

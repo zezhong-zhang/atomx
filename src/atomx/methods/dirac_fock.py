@@ -187,11 +187,11 @@ class SCFResult(SCFObservablesMixin):
         grid = gr.ravel()
 
         orbitals = {}
+        by_subshell = self.orbitals_by_subshell()
         for sh in self.subshells:
-            orb_list = self.orbitals_raw.get(sh.kappa, [])
-            idx = sh.n - 1 - sh.l  # index within this kappa group
-            if idx < len(orb_list):
-                P_coeffs, Q_coeffs, occ = orb_list[idx]
+            orbital = by_subshell.get((sh.n, sh.kappa))
+            if orbital is not None:
+                P_coeffs, Q_coeffs, occ = orbital
                 # Evaluate B-spline on grid
                 P_grid = _eval_bspline_on_grid(P_coeffs, bsp_data, "p")
                 Q_grid = _eval_bspline_on_grid(Q_coeffs, bsp_data, "q")
@@ -1759,6 +1759,18 @@ class DFSolver:
                     capacity = 2 * abs(kappa)
                     if abs(ni - capacity) < 1e-12 and abs(nj - capacity) < 1e-12:
                         continue
+                    # A vacancy in the lower-n subshell makes this a
+                    # constrained excited configuration.  Global pair-energy
+                    # minimization can exchange radial identities even when
+                    # both subshells have equal occupation (He 1s1 4s1),
+                    # leaving labels on the wrong roots or oscillating.
+                    # Ground-state pairs with a filled lower subshell retain
+                    # their variational rotation.
+                    n_i = self.subshells[self._flat_orbital_index(kappa, i)].n
+                    n_j = self.subshells[self._flat_orbital_index(kappa, j)].n
+                    lower_occupation = ni if n_i < n_j else nj
+                    if n_i != n_j and lower_occupation < capacity - 1e-12:
+                        continue
                     if ((self.subshells[self._flat_orbital_index(kappa, i)].n, kappa) in virtual_keys
                             or (self.subshells[self._flat_orbital_index(kappa, j)].n, kappa) in virtual_keys):
                         continue
@@ -1798,7 +1810,7 @@ class DFSolver:
         return maximum
 
     def solve(self, max_iter=100, tol=1e-6, damping=None,
-              mode="batch"):
+              mode="batch", damping_release_residual=1e-2):
         """Run the SCF iteration.
 
         Parameters
@@ -1809,6 +1821,10 @@ class DFSolver:
         damping : float or None
             Orbital damping factor (0 = full replacement, 0.5 = heavy).
             None = auto (0.3 for f-electrons, 0.0 otherwise).
+        damping_release_residual : float
+            Residual below which an explicitly damped update switches back
+            to full replacement. Lower values can stabilize difficult SCF
+            branches near convergence.
         mode : str
             "batch" (default): DBSR_HF hf_matrix algorithm — for each orbital,
             accumulate density across ALL sources before convolution (one convol
@@ -2079,7 +2095,7 @@ class DFSolver:
                     if damping > 0 and iteration > 1 and p_max > 1e-15:
                         alpha = 1.0 - damping
                         # Reduce damping as convergence progresses
-                        if residual < 1e-2:
+                        if residual < damping_release_residual:
                             alpha = 1.0  # no damping: let it converge freely
                         elif residual < 1e-1:
                             alpha = min(1.0, alpha + 0.2)
@@ -2223,7 +2239,7 @@ class DFSolver:
                             alpha = 1.0 - damping
                             if residual < 0.1:
                                 alpha = min(1.0, alpha + 0.3)
-                            if residual < 0.01:
+                            if residual < damping_release_residual:
                                 alpha = 1.0
                             P_mixed = alpha * P_new + (1.0 - alpha) * P_old
                             Q_mixed = alpha * Q_new + (1.0 - alpha) * Q_old
@@ -2434,12 +2450,30 @@ class DiracFock(Method):
         B-spline polynomial order (default 9).
     starting_potential : str or None
         "tfda" or "gsz" for faster SCF convergence.  Auto-selects for Z>=20.
+    nuclear_mass_me : float or None
+        Nuclear mass in electron masses. If supplied, include the leading
+        normal mass shift in every configuration energy. The two-electron
+        specific mass shift and relativistic recoil are not included.
+    scf_damping : float or None
+        Fraction of the previous orbital retained during SCF mixing.
+        None uses the solver's automatic choice.
+    scf_damping_release_residual : float
+        Residual below which explicit damping is released. Defaults to 1e-2;
+        a smaller value retains damping closer to convergence.
+    seed_orbitals : dict or None
+        Occupied B-spline orbitals from a calculation on the same radial
+        basis. Useful for continuing a difficult HF solve from a converged
+        local-exchange state; the HF equations are still solved anew.
     """
     exchange: Exchange = Exchange.HARTREE_FOCK
     breit: bool = False
     qed: bool = False
     basis_order: int = 9
     starting_potential: str = None
+    nuclear_mass_me: float | None = None
+    scf_damping: float | None = None
+    seed_orbitals: Dict | None = field(default=None, repr=False)
+    scf_damping_release_residual: float = 1e-2
 
     @property
     def theory_level(self) -> TheoryLevel:
@@ -2453,13 +2487,30 @@ class DiracFock(Method):
 
     def solve(self, Z, subshells, tol=1e-5, max_iter=40,
               jj_configs=None, use_physics_grid=True, ns=113,
-              log=None, **kwargs):
+              log=None, r_max=None, grid_hi=None, grid_he=None,
+              grid_hmax=None, **kwargs):
         """Run Dirac-Fock SCF calculation."""
         # DFSolver is defined above in this module.
+
+        if self.scf_damping is not None and not 0 <= self.scf_damping < 1:
+            raise ValueError("scf_damping must be in [0, 1)")
+        if not 0 < self.scf_damping_release_residual < 1:
+            raise ValueError("scf_damping_release_residual must be in (0, 1)")
 
         starting = self.starting_potential
         if starting is None and Z >= 20:
             starting = "tfda"
+
+        correction_stack = None
+        if self.nuclear_mass_me is not None:
+            from atomx.corrections.qed import resolve_se_method
+            from atomx.corrections.stack import CorrectionStack
+            correction_stack = CorrectionStack(
+                se_backend=(resolve_se_method("auto", Z) if self.qed else None),
+                include_vp=self.qed,
+                include_breit=self.breit,
+                nuclear_mass_me=self.nuclear_mass_me,
+            )
 
         solver = DFSolver(
             Z=Z, subshells=subshells,
@@ -2467,16 +2518,19 @@ class DiracFock(Method):
             exchange=self.exchange.value,
             include_breit=self.breit,
             include_qed=self.qed,
+            correction_stack=correction_stack,
             nuclear=self.nuclear.value,
             starting_potential=starting,
             jj_configs=jj_configs,
             log=log)
+        solver.seed_orbitals = self.seed_orbitals
 
         if use_physics_grid:
             from atomx.numerics.bspline.basis import prepare_bspline_data
             from atomx.numerics.bspline.knots import make_physics_knots
             t_phys, ns_phys = make_physics_knots(
-                ks=self.basis_order, Z=Z, nuclear=self.nuclear.value)
+                ks=self.basis_order, Z=Z, nuclear=self.nuclear.value,
+                r_max=r_max, hi=grid_hi, he=grid_he, hmax=grid_hmax)
             data = prepare_bspline_data(
                 t_phys, ns_phys, self.basis_order, kinetic_balance=True)
             solver.t = t_phys
@@ -2486,7 +2540,9 @@ class DiracFock(Method):
             if log:
                 log.basis_info(data)
 
-        result = solver.solve(max_iter=max_iter, tol=tol)
+        result = solver.solve(max_iter=max_iter, tol=tol,
+                              damping=self.scf_damping,
+                              damping_release_residual=self.scf_damping_release_residual)
         result._theory_level = self.theory_level.value
         result._method_name = self.name
         if not result._bsp_data:
