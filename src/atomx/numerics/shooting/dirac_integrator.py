@@ -6,6 +6,7 @@ Translates radial.f DIR (line 2118), DOUTW (line 1733), DINW (line 1808).
 import math
 
 import numba as nb
+import numpy as np
 
 from atomx.numerics.shooting.constants import SL
 from atomx.numerics.shooting.dirac_power_series import dir0
@@ -223,6 +224,122 @@ def doutw(e, eps, ak, nr, iotp_in, isum,
                 sumout = sumout + rsum_val
 
     return nzero, sumout, iotp, nzmax
+
+
+@nb.njit(cache=True, nogil=True)
+def doutw_coulomb_tail(e, eps, ak, r, i_start, n_out, z_res, pt, qt):
+    """Coulomb-tail continuation for e > 0 — wide steps + dense series fill.
+
+    Beyond the core charge radius the frozen-core potential is exactly
+    ``r*V(r) = -z_res`` (no polarization model is carried), so the tail of
+    the radial Dirac equation is the point-charge Coulomb problem with
+    *constant* spline coefficients.  This function propagates it with the
+    same adaptive power-series controller as :func:`dir_integrate`, but
+    freed from the per-grid-interval step constraint: the controller
+    doubles the step until the series needs ~15-60 terms, which in the
+    smooth tail lands at k*h ~ 1-3 (tens of steps per box) instead of one
+    ``dir0`` call per fine-grid interval (tens of thousands).
+
+    Every accepted step returns its converged Taylor coefficients
+    ``ca``, ``cb`` (same series :func:`dir0` uses for its endpoint value,
+    so the accuracy contract is identical), and the fine-grid points
+    inside the step are filled by evaluating that same series — the
+    physics is exact by construction, with no Coulomb special functions
+    and no change to the returned grid.
+
+    Parameters:
+        e:       kinetic energy (a.u., > 0)
+        eps:     series tolerance (same as the rest of the integrator)
+        ak:      kappa (float)
+        r:       full shooting grid (read-only); r[i_start] seeds the walk
+        i_start: index of the last point integrated grid-interval-wise
+        n_out:   number of grid points
+        z_res:   residual charge: r*V(r) = -z_res in the tail
+        pt, qt:  large/small components; pt[i_start], qt[i_start] seeded,
+                 tail points filled on return
+
+    The renormalization policy mirrors ``doutw`` (rescale when the running
+    amplitude exceeds 1e2, applying the factor to everything written so
+    far); for an oscillatory e > 0 solution the trigger is rare.
+    """
+    r_end = r[n_out - 1]
+    r0 = r[i_start]
+    p0 = pt[i_start]
+    q0 = qt[i_start]
+    h = r[i_start + 1] - r0
+    k_ctrl = -2
+    j = i_start + 1
+    fill_chunk = 8192
+    xs = np.empty(fill_chunk)
+    pv = np.empty(fill_chunk)
+    qv = np.empty(fill_chunk)
+    pw = np.empty(fill_chunk)
+
+    while j < n_out:
+        iout = 0
+        while True:
+            r1 = r0 + h
+            if r_end - r1 < 1.0e-1 * h:
+                r1 = r_end
+                h = r1 - r0
+                iout = 1
+
+            p1, q1, ca, cb, s, t, nsum = dir0(
+                e, ak, eps, p0, q0, r0, r1, -z_res, 0.0, 0.0, 0.0)
+            hp = h
+
+            k_ctrl += 1
+            if nsum > 15:
+                if nsum < 60:
+                    break  # accept
+                h = 0.5 * h
+                k_ctrl = -4
+                continue
+            if k_ctrl < 0:
+                break  # accept, no doubling yet
+            h = h + h
+            k_ctrl = 0
+            break
+
+        # Dense fill of the fine-grid points inside the accepted step.
+        # x = (r - r0)/hp stays in (0, 1] and the series is converged, so
+        # the power form is as accurate as the endpoint evaluation.
+        while j < n_out and r[j] <= r1:
+            m = 0
+            j0 = j
+            while j < n_out and r[j] <= r1 and m < fill_chunk:
+                xs[m] = (r[j] - r0) / hp
+                m += 1
+                j += 1
+            for mm in range(m):
+                pv[mm] = ca[0]
+                qv[mm] = cb[0]
+                pw[mm] = xs[mm]
+            for i in range(1, nsum):
+                cai = ca[i]
+                cbi = cb[i]
+                for mm in range(m):
+                    pv[mm] += cai * pw[mm]
+                    qv[mm] += cbi * pw[mm]
+                    pw[mm] *= xs[mm]
+            for mm in range(m):
+                pt[j0 + mm] = pv[mm]
+                qt[j0 + mm] = qv[mm]
+
+        tst_amp = abs(p1)
+        if tst_amp > 1.0e2:
+            fact = 1.0 / tst_amp
+            for mm in range(j):
+                pt[mm] *= fact
+                qt[mm] *= fact
+            p1 *= fact
+            q1 *= fact
+
+        if iout != 0:
+            break
+        r0 = r1
+        p0 = p1
+        q0 = q1
 
 
 @nb.njit(cache=True, nogil=True)

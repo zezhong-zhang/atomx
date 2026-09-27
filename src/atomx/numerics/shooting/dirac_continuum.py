@@ -52,9 +52,15 @@ import numpy as np
 from scipy.special import gamma as _sp_gamma
 
 from atomx.constants import C_SQ as _C_SQ  # CODATA-2022 c² (M12)
-from atomx.numerics.shooting.dirac_integrator import doutw
+from atomx.numerics.shooting.dirac_integrator import doutw, doutw_coulomb_tail
 from atomx.numerics.shooting.grid import sgrid
 from atomx.numerics.shooting.spline import vint
+
+#: Wide-step Coulomb-tail continuation for e > 0 (doutw_coulomb_tail).
+#: The tail of a frozen-core potential is exactly r*V = -Z_res, so the
+#: continuation is physics-exact; disabling this falls back to the
+#: per-grid-interval integration (kept as the reference path for tests).
+_TAIL_WALKER = True
 
 
 @lru_cache(maxsize=64)
@@ -76,6 +82,14 @@ def _prepare_potential(V_func, r_max: float, n_grid: int, Z_residual: float):
     The spline of r*V(r) is independent of (kappa, E). Check its sampled
     values on every call: a callable may close over a mutable potential,
     and reusing its former spline would silently solve the wrong atom.
+
+    Also locates the Coulomb-tail start ``i_c``: the grid index past which
+    ``|r*V(r) + Z_res|`` stays below ``1e-8 * max(|Z_res|, 1)`` through
+    the box edge.  Beyond it the frozen-core potential is exactly
+    ``-Z_res/r`` (the code carries no polarization model), which is what
+    the wide-step analytic continuation in :func:`doutw_coulomb_tail`
+    exploits.  ``i_c = -1`` marks potentials with no usable Coulomb tail
+    (those take the historical per-interval path).
     """
     key = (float(r_max), int(n_grid), float(Z_residual))
     Z_eff = max(Z_residual, 1.0)
@@ -88,7 +102,7 @@ def _prepare_potential(V_func, r_max: float, n_grid: int, Z_residual: float):
         raise ValueError("continuum potential must be finite on the shooting grid")
     cache = getattr(V_func, "_contsolve_prep", None)
     if (cache is not None and cache.get("key") == key
-            and np.array_equal(cache["prep"][-1], rv)):
+            and np.array_equal(cache["prep"][7], rv)):
         return cache["prep"]
     rg, rvg, va, vb, vc, vd, nvt = vint(r, rv, n_out)
     ind = np.clip(
@@ -98,22 +112,54 @@ def _prepare_potential(V_func, r_max: float, n_grid: int, Z_residual: float):
         with contextlib.suppress(Exception):
             arr.setflags(write=False)
     rv.setflags(write=False)
-    prep = (r, n_out, va, vb, vc, vd, ind, rv)
+    z_res = -float(rv[-1])
+    i_c = _coulomb_tail_start(rv, z_res, n_out)
+    prep = (r, n_out, va, vb, vc, vd, ind, rv, z_res, i_c)
     with contextlib.suppress(AttributeError, TypeError):
         V_func._contsolve_prep = {"key": key, "prep": prep}
     return prep
 
 
+def _coulomb_tail_start(rv, z_res: float, n_out: int) -> int:
+    """First grid index of the exact-Coulomb tail, or -1 if unusable.
+
+    ``i_c`` is placed past the *last* grid point whose deviation from the
+    Coulomb asymptote exceeds tolerance (plus one grid-cell margin), so by
+    construction the deviation stays below tolerance from ``i_c`` through
+    the last point.  Requiring a minimum tail length keeps degenerate
+    cases (steep outer potentials, tiny boxes) on the reference path.
+    """
+    tol = 1.0e-8 * max(abs(z_res), 1.0)
+    viol = np.nonzero(np.abs(rv + z_res) > tol)[0]
+    i_c = int(viol[-1]) + 2 if len(viol) else 2
+    if n_out - i_c < 32:
+        return -1
+    return i_c
+
+
 def _solve_prepared(prep, E_au: float, kappa: int, eps_tol: float,
                     *, match_phase: bool = True):
     """One partial-wave solve against a prepared potential (thread-safe)."""
-    r, n_out, va, vb, vc, vd, ind, rv = prep
+    r, n_out, va, vb, vc, vd, ind, rv, z_res, i_c = prep
     P = np.zeros(n_out)
     Q = np.zeros(n_out)
-    doutw(
-        E_au, eps_tol, float(kappa), 100, n_out, 0,
-        r, ind, n_out, va, vb, vc, vd, P, Q,
-    )
+    if E_au > 0.0 and _TAIL_WALKER and i_c > 0:
+        # Core: per-interval integration to the Coulomb-tail start (index
+        # i_c, filled by doutw's loop).  Tail: wide-step analytic
+        # continuation with the converged power series as dense output —
+        # exact Dirac-Coulomb propagation, same eps, same grid.
+        doutw(
+            E_au, eps_tol, float(kappa), 100, i_c, 0,
+            r, ind, n_out, va, vb, vc, vd, P, Q,
+        )
+        doutw_coulomb_tail(
+            E_au, eps_tol, float(kappa), r, i_c, n_out, z_res, P, Q,
+        )
+    else:
+        doutw(
+            E_au, eps_tol, float(kappa), 100, n_out, 0,
+            r, ind, n_out, va, vb, vc, vd, P, Q,
+        )
 
     l = kappa if kappa > 0 else -kappa - 1
     # relativistic momentum and Grant's delta(E)-normalized amplitude:
