@@ -337,7 +337,8 @@ class MCDHFSolver:
                  engine="bspline",
                  breit_mode="operator",
                  screening_potential=None,
-                 grid_hi=None, grid_he=None, grid_hmax=None):
+                 grid_hi=None, grid_he=None, grid_hmax=None,
+                 variational_projector="nuclear"):
         self.Z = Z
         self.csfs = csfs
         self.n_csf = len(csfs)
@@ -414,6 +415,11 @@ class MCDHFSolver:
                 f"(got {radial_optimization!r})"
             )
         self.radial_optimization = radial_optimization
+        if variational_projector not in ("nuclear", "fock"):
+            raise ValueError(
+                "variational_projector must be 'nuclear' or 'fock', "
+                f"got {variational_projector!r}")
+        self.variational_projector = variational_projector
         # DODS / EOL per-(J, parity)-block orbital optimisation toggle —
         # HYP-184 scaffold.  When True, ``solve()`` will (eventually)
         # run a separate Guerra-averaged DHF per (J, parity) block on
@@ -1180,8 +1186,13 @@ class MCDHFSolver:
                 self.csfs, dhf.bsp_data, self.Z, dhf._nuclear_potential,
                 getattr(dhf, "_convol_cache", None))
             # The nuclear spectrum is a poor Hessian approximation for a
-            # screened heavy-atom valence shell. Project the initializer's
-            # actual Fock fields into the fixed no-pair space instead.
+            # screened heavy-atom valence shell, and — unless
+            # variational_projector="fock" — it is also the fixed no-pair
+            # boundary itself (critical review F3: the projector used to be
+            # nuclear unconditionally, with only the preconditioner patched).
+            # Project the initializer's actual Fock fields into the no-pair
+            # space; optimize_orbitals reports no_pair_projector_leakage in
+            # its diagnostics so the two boundaries can be compared.
             preconditioners = {}
             for flat_i, sh in enumerate(dhf.subshells):
                 if (sh.n, sh.kappa) not in functional.keys:
@@ -1197,7 +1208,8 @@ class MCDHFSolver:
             orbitals_dict, dc_ci, variational_diagnostics = optimize_orbitals(
                 functional, orbitals_dict, max_iter=8 * max_iter,
                 tolerance=scf_tol, energy_tolerance=ci_tol,
-                preconditioner_matrices=preconditioners)
+                preconditioner_matrices=preconditioners,
+                projector_source=self.variational_projector)
             # The initializer's convergence is separately reported. The
             # final CI/orbital stationarity decides the variational result.
             converged = bool(variational_diagnostics["converged"])

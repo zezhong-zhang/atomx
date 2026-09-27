@@ -487,7 +487,8 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
 
     The previous kernel — a configuration-average diagonal plus two
     "J-correction" patches — is still reachable as
-    :func:`_build_ci_matrix_approximate` for comparison, but is *not* on
+    :func:`_legacy_build_ci_matrix_approximate` for comparison (explicit
+    ``allow_legacy_incorrect_physics=True`` opt-in), but is *not* on
     the production path: it is not a representation of the Hamiltonian
     (Be ``correlation="sd"`` came out 0.39 Ha below the exact ground
     state).  There is no fallback to it.
@@ -717,11 +718,12 @@ def _breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns):
     return evaluate
 
 
-def _build_ci_matrix_approximate(csfs, orbitals_dict, orbital_basis, bsp_data,
-                                 Z, ns, nuclear_potential=None,
-                                 convol_cache=None):
-    """Legacy approximate CI kernel — kept for comparison, never used in
-    production.
+def _legacy_build_ci_matrix_approximate(csfs, orbitals_dict, orbital_basis,
+                                        bsp_data, Z, ns,
+                                        nuclear_potential=None,
+                                        convol_cache=None, *,
+                                        allow_legacy_incorrect_physics=False):
+    """LEGACY approximate CI kernel — physically wrong, opt-in only.
 
     This is the pre-fix assembly: ``_diagonal_element`` (a
     configuration-average diagonal) plus the ``_diagonal_J_correction`` /
@@ -733,7 +735,20 @@ def _build_ci_matrix_approximate(csfs, orbitals_dict, orbital_basis, bsp_data,
     the diagnostics in `docs/CORRELATION_SD_RESEARCH_2026-09-20.md`
     (and anyone re-measuring the old numbers) need the old assembly
     reachable.
+
+    The ``_legacy_`` name and the explicit ``allow_legacy_incorrect_physics``
+    flag are the guard (critical review F4): an agent or grepping user must
+    read this docstring — which documents the measured defects — before the
+    kernel will run.  Production and test paths never pass the flag.
     """
+    if not allow_legacy_incorrect_physics:
+        raise RuntimeError(
+            "_legacy_build_ci_matrix_approximate is NOT a Hamiltonian: "
+            "Be correlation='sd' came out 0.39 Ha below the exact ground "
+            "state and it produces non-zero inter-J elements. Pass "
+            "allow_legacy_incorrect_physics=True only to re-measure those "
+            "legacy diagnostics (docs/CORRELATION_SD_RESEARCH_2026-09-20.md)."
+        )
     # ``_reset_memo`` drops every memoised integral, including the CI's
     # stashed rkb cache — carry it across the reset so a cache handed in by
     # the caller (or left by a previous element of this solve) survives.
