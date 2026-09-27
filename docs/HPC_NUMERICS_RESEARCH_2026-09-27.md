@@ -96,6 +96,13 @@ Expected: removes most of the remaining 53 % `ci_solve` share during steady stre
 
 Risk controls: convergence gate must remain the *exact-CI* stationarity (as e7f4b68 established — do not regress to DHF-only convergence); final macroiteration always exact. The failed refresh-preconditioner experiment (2026-09-27) is *not* a counterexample: that mutated the Hessian model; this mutates only the CI-state cadence, and the exact CI is reasserted every K steps.
 
+**Correction after implementation (2026-09-27, PR #91).** The frozen-CI surrogate was implemented (line-search trials only, with an exact-acceptance re-verification guard) and measured on Fe XVII:
+
+- A surrogate energy evaluation costs **0.19× a CI solve** (16.4 ms vs 86.6 ms; ~0.27× once §2.2/§2.3 land). 55 % of the ground-state integral keys carry weights < 1e-4×max, but screening them saves less than the batching overheads at this size.
+- The win requires **≥ ~1.4 line-search trials/iteration**; the target workload accepts the first L-BFGS step almost always (measured **~1.03 trials/iter**), and the historical exact-trial path *reuses the accepted trial's amplitudes for the gradient*, saving one solve per iteration. End-to-end A/B: surrogate-on was a **10 % regression** (112.4 s vs 101.6 s), exactly reproduced by the cost model at T ≈ 1.03.
+
+Conclusion: frozen-CI ships **opt-in** (`frozen_line_search=False` default; exact path bit-identical) and is profitable only for problems with hard line searches (frequent rejections). The 2–4× projection above was wrong for this workload because it ignored the accepted-trial reuse and the near-always-accept line search. The next real lever on the `ci_solve` mass is §2.5 (screening inside the *exact* build), which helps every solve, not just trials.
+
 ### 2.5 P2: integral screening in the CI coefficient evaluation
 
 `evaluate_block`'s `np.fromiter` over 219 900 distinct radial keys (33.8 s) includes integrals whose orbital-pair densities are below any meaningful threshold — virtual shells with ~0 occupation entering CSFs with 1e-6 amplitude weight. Screen the coefficient table by `|c_r · c_s| × max|angular| × density-norm` before radial evaluation; evaluate the survivors. Physics grounding: an integral's contribution to a matrix element is bounded by the product of the CSF amplitudes and the density overlap — a Cauchy–Schwarz screen, exact and safe with a conservative threshold (start 1e-12, tighten by measurement). Expect 2–5× on the coefficient-evaluation row; synergizes with §2.4 (fewer exact CI builds × cheaper builds).
