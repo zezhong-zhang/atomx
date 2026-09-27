@@ -85,7 +85,7 @@ _MEDIUM_RE = re.compile(r"<i>&lambda;</i>\s*in</u>:\s*"
 #: Tokens of a NIST configuration string: ``2s2``, ``3d``, ``5g``, ``10p``.
 _SUBSHELL_RE = re.compile(r"(?P<n>\d{1,2})(?P<l>[spdfghik])(?P<occ>\d*)")
 _L_VALUE = {"s": 0, "p": 1, "d": 2, "f": 3, "g": 4, "h": 5, "i": 6, "k": 7}
-_NUMBER_RE = re.compile(r"[-+]?\d+(?:\.\d+)?")
+_NUMBER_RE = re.compile(r"[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?")
 
 
 # ---------------------------------------------------------------------------
@@ -101,7 +101,7 @@ def _clean(cell: str) -> str:
 
 
 def _to_float(text: str) -> float | None:
-    match = _NUMBER_RE.fullmatch(text.strip())
+    match = _NUMBER_RE.fullmatch(text.strip().strip("[]()?"))
     return float(match.group()) if match else None
 
 
@@ -238,6 +238,10 @@ class Level:
     reference: str
     flags: tuple[str, ...]
     bracketed: bool
+    energy_raw: str = ""
+    energy_kind: str = "missing"
+    lande_g_raw: str = ""
+    leading_percentages: str = ""
 
     @property
     def n_electrons(self) -> int:
@@ -419,6 +423,9 @@ def parse_levels_text(text: str, *, ion: str, z: int, charge: int,
         level_raw = _clean(cells[i_level])
         flags: list[str] = []
         bracketed = level_raw.startswith("[") and "]" in level_raw
+        energy_kind = ("semiempirical" if bracketed else
+                       "theoretical" if level_raw.startswith("(") else
+                       "evaluated" if level_raw else "missing")
         core = level_raw
         if bracketed:
             core = core[core.index("[") + 1:core.rindex("]")]
@@ -442,6 +449,12 @@ def parse_levels_text(text: str, *, ion: str, z: int, charge: int,
 
         if bracketed:
             flags.append("bracketed")
+        elif energy_kind == "theoretical":
+            flags.append("theoretical")
+        i_lande = next((i for i, n in enumerate(names)
+                        if n.startswith("Landé")), None)
+        i_leading = next((i for i, n in enumerate(names)
+                          if n.startswith("Leading percentages")), None)
         levels.append(Level(
             ion=ion, z=z, charge=charge, index=len(levels), row=row,
             configuration=normalise_configuration(config),
@@ -454,6 +467,11 @@ def parse_levels_text(text: str, *, ion: str, z: int, charge: int,
             if "Reference" in names else "",
             flags=tuple(flags),
             bracketed=bracketed,
+            energy_raw=level_raw,
+            energy_kind=energy_kind,
+            lande_g_raw=_clean(cells[i_lande]) if i_lande is not None else "",
+            leading_percentages=_clean(cells[i_leading])
+            if i_leading is not None else "",
         ))
     return levels, problems
 
@@ -463,14 +481,16 @@ def _flat_header(header: list[str]) -> list[str]:
 
     ``['Observed', 'Unc.', 'Ritz', 'Unc.', 'Aki', 'Acc.', 'Ei ...']`` →
     ``['observed', 'observed_unc', 'ritz', 'ritz_unc', 'aki', 'acc']``.
-    The ``Unc.`` cell names the uncertainty of the column before it.
+    The ``Unc.`` cell is a separate data column belonging to the preceding
+    wavelength.  Keeping its index is essential: otherwise the wavelengths
+    are lost and the Aki field is read from the wrong column.
     """
     flat: list[str] = []
     for cell in header:
         name = _clean(cell)
         if name == "Unc.":
             if flat:
-                flat[-1] = flat[-1] + "_unc"
+                flat.append(flat[-1] + "_unc")
             continue
         if name.startswith("Ei"):
             break
@@ -503,24 +523,25 @@ def parse_lines_text(text: str, *, ion: str, z: int, charge: int,
     problems: list[str] = []
     for header_rows, cells, row in _read_table(
             text, lambda line: ("Observed" in line and "Aki" in line)):
-        if not header_rows or not any('Conf.' in _clean(c)
-                                      for c in header_rows[-1]):
-            problems.append(f"{source}:{row}: no level-subcolumn "
-                            f"header")
+        if not header_rows:
+            problems.append(f"{source}:{row}: no line table header")
             continue
         header = header_rows[-1]
         names = [_clean(cell) for cell in header]
-        try:
-            i_lower = names.index("Conf.")
-        except ValueError:
-            problems.append(f"{source}:{row}: unrecognised header {names}")
-            continue
-        if names[i_lower:i_lower + 6] != ["Conf.", "Term", "J",
-                                          "Conf.", "Term", "J"]:
-            problems.append(
-                f"{source}:{row}: unexpected level columns "
-                f"{names[i_lower:i_lower + 6]}")
-            continue
+        i_lower = names.index("Conf.") if "Conf." in names else None
+        level_width = 0
+        if i_lower is not None:
+            if names[i_lower:i_lower + 6] == [
+                    "Conf.", "Term", "J", "Conf.", "Term", "J"]:
+                level_width = 6
+            elif names[i_lower:i_lower + 4] == [
+                    "Conf.", "Term", "Conf.", "Term"]:
+                level_width = 4
+            else:
+                problems.append(
+                    f"{source}:{row}: unexpected level columns "
+                    f"{names[i_lower:i_lower + 6]}")
+                continue
         # The number of *data* columns preceding the level block varies
         # between ions (N I has no observed-wavelength uncertainty and no
         # Ritz uncertainty, Li I has no observed uncertainty, He I has
@@ -536,6 +557,16 @@ def parse_lines_text(text: str, *, ion: str, z: int, charge: int,
         # ``flat`` names data fields 0..len(flat)-1 one-to-one; the next
         # data field is the combined "Ei  Ek" cell.
         i_eiek = len(flat)
+        # NIST also publishes unclassified observed line lists.  These have
+        # no lower/upper configuration columns: after Ei/Ek come Type, TP
+        # Ref., and Line Ref.  Keep those rows rather than reporting a false
+        # parse failure or silently discarding the wavelengths.
+        i_type = i_lower + level_width if i_lower is not None else i_eiek + 1
+        i_tp = i_type + 1
+        i_line = i_type + 2
+        if len(cells) <= i_line:
+            problems.append(f"{source}:{row}: incomplete line columns")
+            continue
         i_obs = flat.index("observed") if "observed" in flat else None
         i_obs_unc = (flat.index("observed_unc")
                      if "observed_unc" in flat else None)
@@ -556,16 +587,18 @@ def parse_lines_text(text: str, *, ion: str, z: int, charge: int,
             acc=_clean(cells[i_acc]) if i_acc is not None else "",
             ei_cm1=ei, ek_cm1=ek,
             lower_configuration=normalise_configuration(
-                _clean(cells[i_lower])),
-            lower_term=_clean(cells[i_lower + 1]),
-            lower_j_text=_clean(cells[i_lower + 2]),
+                _clean(cells[i_lower])) if i_lower is not None else "",
+            lower_term=_clean(cells[i_lower + 1]) if i_lower is not None else "",
+            lower_j_text=_clean(cells[i_lower + 2]) if level_width == 6 else "",
             upper_configuration=normalise_configuration(
-                _clean(cells[i_lower + 3])),
-            upper_term=_clean(cells[i_lower + 4]),
-            upper_j_text=_clean(cells[i_lower + 5]),
-            transition_type=_clean(cells[i_lower + 6]),
-            tp_reference=_clean(cells[i_lower + 7]),
-            line_reference=_clean(cells[i_lower + 8]),
+                _clean(cells[i_lower + (3 if level_width == 6 else 2)]))
+                if i_lower is not None else "",
+            upper_term=_clean(cells[i_lower + (4 if level_width == 6 else 3)])
+                if i_lower is not None else "",
+            upper_j_text=_clean(cells[i_lower + 5]) if level_width == 6 else "",
+            transition_type=_clean(cells[i_type]),
+            tp_reference=_clean(cells[i_tp]),
+            line_reference=_clean(cells[i_line]),
         ))
     return rows, problems
 

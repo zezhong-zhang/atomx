@@ -83,6 +83,7 @@ import benchmarks.nist_asd as nist  # noqa: E402
 from atomx import Atom, Corrections  # noqa: E402
 from atomx.methods import DiracFock, mbpt2_energy  # noqa: E402
 from atomx.methods.mcdhf.config import enumerate_jj_csfs  # noqa: E402
+from atomx.physics.dirac import hydrogenic_dirac_energy  # noqa: E402
 
 WORK_DIR = REPO_ROOT / "benchmarks" / "_nist_work"
 CACHE_PATH = WORK_DIR / "cache.json"
@@ -282,7 +283,7 @@ class Cache:
 
     def ci(self, z: int, model: tuple[str, ...], breit: bool, qed: bool):
         key = f"ci|{z}|{','.join(model)}|{int(breit)}|{int(qed)}"
-        if key in self.data:
+        if key in self.data and self.data[key].get("converged") is True:
             self.hits += 1
             return self.data[key]
         self.misses += 1
@@ -303,6 +304,11 @@ class Cache:
             "two_j": [int(j) for j in result.state_J2],
             "parity": [int(p) for p in result.state_parity],
             "dominant": dominant,
+            "converged": bool(result.converged),
+            "iterations": int(result.iterations),
+            "orbital_residual": (float(result.orbital_optimization["orbital_residual"])
+                                 if result.orbital_optimization.get("orbital_residual") is not None
+                                 else None),
         }
         self.data[key] = payload
         return payload
@@ -496,6 +502,12 @@ def compare_ci_rung(case: Case, ion: nist.Ion, rung: str, model, payload,
                     wall: float) -> RungResult:
     """Block-by-block comparison for a CI rung."""
     energies = np.asarray(payload["energies"])
+    physical_error = ci_model_physical_error(case, energies)
+    if physical_error:
+        return RungResult(system=case.label, rung=rung, model=tuple(model),
+                          n_levels=0, n_excluded_blocks=1,
+                          n_nist_available=0, residuals_cm1=[],
+                          wall_seconds=wall, error=physical_error)
     two_j = np.asarray(payload["two_j"])
     parity = np.asarray(payload["parity"])
     if energies.size:
@@ -584,6 +596,28 @@ def compare_ci_rung(case: Case, ion: nist.Ion, rung: str, model, payload,
                       n_levels=len(residuals), n_excluded_blocks=excluded,
                       n_nist_available=n_available, residuals_cm1=residuals,
                       blocks=blocks, wall_seconds=wall)
+
+
+def ci_model_physical_error(case: Case, energies) -> str:
+    """Reject a He-like bound-state panel with a gross continuum pseudostate.
+
+    Its one-electron ion has an analytic Dirac 1s threshold. A predicted
+    1s-nl level well above that threshold cannot be paired with the bound
+    NIST 1s-nl series, even when its dominant CSF has the requested name.
+    The 0.1 Ha allowance exceeds the small nuclear/recoil threshold shift
+    in the Z<=26 He-like panels while catching the observed multi-Ha roots.
+    """
+    if case.ground != "1s2" or not 2 <= case.z <= 26:
+        return ""
+    values = np.asarray(energies, dtype=float)
+    if not values.size:
+        return ""
+    threshold = hydrogenic_dirac_energy(1, -1, case.z)
+    excess = float(np.max(values) - threshold)
+    if excess > 0.1:
+        return (f"CI bound-state model contains a continuum pseudostate "
+                f"{excess:.3f} Ha above the one-electron threshold")
+    return ""
 
 
 def _owner(configuration: str, model, *, nist_style: bool = False) -> str:

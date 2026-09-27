@@ -17,6 +17,8 @@ atomx is a Python library for computing atomic energy levels, wavefunctions, tra
 - **QED corrections** — vacuum polarization, self-energy (Mohr, Welton, Indelicato, Shabaev-local, Flambaum-Ginges backends), pluggable `CorrectionStack`
 - **Visualization** — matplotlib, Plotly, and Manim backends for energy levels, radial orbitals, Grotrian diagrams, spectra, cross sections with reference-ratio panels, DR resonance spectra
 
+The [NIST spectrum atlas](docs/NIST_SPECTRUM_ATLAS.md) builds an auditable line and level catalog, interactive periodic table and ion viewer. Its [theory comparison](docs/THEORY_NIST_COMPARISON.md) shows calculated versus NIST wavelengths, ionization energies, and complete evaluated configuration centroids on separate coverage-aware periodic maps.
+
 ## Quick start
 
 ```python
