@@ -53,9 +53,11 @@ def test_ensemble_matches_degeneracy_weighted_csf_trace(monkeypatch, config, ave
 
 def test_open_shell_scf_corrections_preserve_density():
     from atomx import Atom, Corrections, Correlation
+    from atomx.corrections.stack import CorrectionStack
 
     atom = Atom(6, engine="bspline", correlation=Correlation(averaging="statistical"),
-                corrections=Corrections(breit=True, qed=True)).solve(tol=1e-6)
+                corrections=Corrections(stack=CorrectionStack(
+                    breit_mode="operator"))).solve(tol=1e-6)
     assert atom.converged
     assert np.isfinite(atom.total_energy)
     assert atom.result.__dict__["_E_Breit_operator"] != 0.0

@@ -66,23 +66,33 @@ class TestApplyOnDHF:
 
     @pytest.mark.external_fac
     def test_default_stack_breit_rung_matches_dbsr_hf(self, ne_result):
-        """The Breit rung this stack applies must match DBSR_HF (1 %).
-
-        The rung is the scalar configuration-average sum of
-        ``corrections/breit.py``.  Before the 2026-09 ``1/(2L+1)`` fix on
-        its ``v = L`` channel it gave 0.050437103 Ha (3.03x DBSR_HF);
-        it now gives 0.016584899 (-0.35 %), the residual being its
-        ``v != L`` retardation channels, which are still ~50x too small.
-        The 1 % band excludes the pre-fix value by 200x.
-        """
+        """Default DHF Breit is the DBSR_HF full static average."""
         stack = CorrectionStack(
             se_backend="mohr", include_vp=True, include_breit=True,
         )
         applied = stack.apply(ne_result)
         e_breit = applied["breit"].energy_shift
-        assert e_breit == pytest.approx(0.016643630840490, rel=0.01), (
-            f"stack `breit` rung {e_breit:.9f} Ha vs DBSR_HF "
-            f"0.016643630840490 Ha (ratio {e_breit / 0.016643630840490:.5f})")
+        assert e_breit == pytest.approx(0.016643630840490, rel=1e-3)
+        assert applied["breit"].provenance["mode"] == "dbsr_hf"
+        assert applied["breit"].provenance["retardation_included"] is True
+        gaunt_stack = CorrectionStack(
+            se_backend=None, include_vp=False, include_breit=True,
+            breit_mode="operator")
+        from atomx.corrections.adapters import BreitCorrectionError
+        from atomx.methods.mcdhf.breit_ci import attach_breit_operator_energy
+
+        with pytest.raises(BreitCorrectionError, match="absent"):
+            gaunt_stack.apply(ne_result)
+        attach_breit_operator_energy(ne_result)
+        gaunt = gaunt_stack.apply(ne_result)["breit"]
+        assert gaunt.energy_shift == pytest.approx(
+            ne_result.__dict__["_E_Breit_operator"], rel=1e-12)
+        assert gaunt.provenance["retardation_included"] is False
+        legacy = CorrectionStack(
+            se_backend=None, include_vp=False, include_breit=True,
+            breit_mode="scalar_legacy").apply(ne_result)["breit"]
+        assert legacy.energy_shift == pytest.approx(
+            0.016643630840490, rel=0.01)
 
     # ``test_total_matches_sum_of_applied`` was deleted here: it asserted
     # ``stack.total(applied) == sum(r.energy_shift ...)``, which is the

@@ -25,15 +25,17 @@ from atomx import Atom, Basis, Correlation, Exchange  # noqa: E402
 PANEL = {
     "ne_closed_shooting": (
         dict(Z=10, config="1s2 2s2 2p6"),
-        -128.66383055368044,
+        -128.66377231938978,
     ),
     "ne_closed_bspline": (
         dict(Z=10, config="1s2 2s2 2p6", engine="bspline"),
-        -128.66381884793736,
+        -128.6637650908719,
     ),
     "n_open_ci_averaging": (
         dict(Z=7, config="1s2 2s2 2p3",
              correlation=Correlation(averaging="ci")),
+        # Canonical 2p labels make the applied Mohr shift match the reported
+        # QED components; the old per-state label "21" was read as n=21.
         -54.422789940150686,
     ),
     "n_open_statistical": (
@@ -53,17 +55,17 @@ PANEL = {
     ),
     "fe17_breit_qed": (
         dict(Z=26, charge=16, config="1s2 2s2 2p6"),
-        -1147.6562591205525,
+        -1147.6626233193062,
     ),
     "fe17_gu_shooting": (
         dict(Z=26, charge=16, config="1s2 2s2 2p6", engine="shooting",
              exchange=Exchange(model="gu")),
-        -1147.6418570428875,
+        -1147.6493596472556,
     ),
     "fe17_slater_bspline": (
         dict(Z=26, charge=16, config="1s2 2s2 2p6", engine="bspline",
              exchange=Exchange(model="slater", alpha_x=1.0)),
-        -1147.6200626014163,
+        -1147.6265690579844,
     ),
     "h_6s_shooting": (
         dict(Z=1, config="6s1", engine="shooting", corrections="none"),

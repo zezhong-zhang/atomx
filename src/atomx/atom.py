@@ -940,13 +940,19 @@ class Atom:
             # EPS tolerance, so reducing the static grid just drops
             # redundant outer-region points.  Exposed via ``n_grid``
             # for power users who need the tighter neutral-atom bound.
+            correction_jj_configs = None
             if self.exchange_model == "hf":
-                from atomx.config.jj_coupling import generate_jj_average
+                from atomx.config.jj_coupling import JJConfig, generate_jj_average
                 from atomx.numerics.shooting.hf_shooting import ShootingHFSolver
-                subshells, _ = generate_jj_average(
+                subshells, correction_jj_configs = generate_jj_average(
                     self._config_strings[0], averaging="statistical",
                 )
-                subshells = [sh for sh in subshells if sh.occupation > 1e-10]
+                kept_indices = [i for i, sh in enumerate(subshells)
+                                if sh.occupation > 1e-10]
+                subshells = [subshells[i] for i in kept_indices]
+                correction_jj_configs = [JJConfig(
+                    subshells=[cfg.subshells[i] for i in kept_indices],
+                    weight=cfg.weight) for cfg in correction_jj_configs]
                 # n_grid=1000 (not the local-exchange 400): the HF
                 # Green-function quadratures ride on SLAG6 cumulative
                 # integrals whose error IS the orbital error, so the
@@ -979,12 +985,17 @@ class Atom:
                     max_iter=max(max_iter, 60), tol=tol)
                 solver = None  # solved above; skip the local-model call
             elif self.exchange_model == "gu":
-                from atomx.config.jj_coupling import generate_jj_average
-                subshells, _ = generate_jj_average(
+                from atomx.config.jj_coupling import JJConfig, generate_jj_average
+                subshells, correction_jj_configs = generate_jj_average(
                     self._config_strings[0], averaging="statistical",
                 )
                 # Drop zero-occupation subshells (they only slow SCF)
-                subshells = [sh for sh in subshells if sh.occupation > 1e-10]
+                kept_indices = [i for i, sh in enumerate(subshells)
+                                if sh.occupation > 1e-10]
+                subshells = [subshells[i] for i in kept_indices]
+                correction_jj_configs = [JJConfig(
+                    subshells=[cfg.subshells[i] for i in kept_indices],
+                    weight=cfg.weight) for cfg in correction_jj_configs]
                 solver = ShootingSolver(
                     Z=self.Z, subshells=subshells,
                     n_grid=self._shooting_n_grid(400),
@@ -1027,13 +1038,16 @@ class Atom:
                 )
             if stack is not None:
                 from atomx.corrections.stack import finalize_with_corrections
-                if stack.include_breit:
-                    # Same seam as DFSolver: the Gaunt operator is computed
-                    # in the method layer and travels on the result.
+                self._result.__dict__["_jj_configs"] = correction_jj_configs
+                if stack.include_breit and stack.breit_mode == "operator":
+                    # The explicit Gaunt mode computes its CI matrix
+                    # element here; the DBSR_HF default needs no such
+                    # additional contraction.
                     from atomx.methods.mcdhf.breit_ci import (
                         attach_breit_operator_energy,
                     )
-                    attach_breit_operator_energy(self._result)
+                    attach_breit_operator_energy(
+                        self._result, jj_configs=correction_jj_configs)
                 finalize_with_corrections(self._result, stack)
         else:
             # B-spline DHF/DFS backend with user-selected averaging

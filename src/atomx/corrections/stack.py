@@ -28,8 +28,10 @@ from typing import TYPE_CHECKING, Dict, List, Optional
 
 from atomx.corrections.adapters import (
     BreitCorrection,
+    HydrogenicMassRemainderCorrection,
     NormalMassShiftCorrection,
     SelfEnergyCorrection,
+    SpecificMassShiftCorrection,
     UehlingVPCorrection,
     WichmannKrollVPCorrection,
 )
@@ -59,10 +61,27 @@ class CorrectionStack:
     include_wk_vp
         Include Wichmann–Kroll higher-order VP.
     include_breit
-        Include the full Breit interaction.
+        Include the static Breit interaction.
+    breit_mode
+        ``"dbsr_hf"`` (default) applies the full static Breit
+        configuration average; ``"operator"`` applies the Gaunt matrix
+        element without retardation;
+        ``"scalar_legacy"`` opts into the approximate configuration
+        average used by earlier DHF ledgers.
     nuclear_mass_me
         If set, apply the normal-mass-shift correction with the given
         nuclear mass in units of the electron mass.
+    nms_mode
+        ``"operator"`` (default) evaluates the one-body Breit recoil
+        operator. ``"virial"`` explicitly selects the historical estimate.
+    include_sms
+        Add first-order two-electron Breit recoil. Requires nuclear_mass_me;
+        disabled by default while the all-element generation is revalidated.
+    include_hydrogenic_mass_remainder
+        Add the exact nonrelativistic one-electron reduced-mass remainder
+        beyond first order. Requires operator NMS and a nuclear mass.
+        Zero for multielectron DHF; unsupported for MCDHF correlation labels.
+        Does not supply higher-order relativistic or radiative recoil.
     """
 
     se_backend: Optional[str] = "shabaev_local"
@@ -70,10 +89,21 @@ class CorrectionStack:
     include_wk_vp: bool = False
     include_breit: bool = True
     nuclear_mass_me: Optional[float] = None
+    breit_mode: str = "dbsr_hf"
+    nms_mode: str = "operator"
+    include_sms: bool = False
+    include_hydrogenic_mass_remainder: bool = False
 
     _custom: List[Correction] = field(default_factory=list, repr=False)
 
     # ------------------------------------------------------------------
+
+    def __post_init__(self):
+        if self.include_sms and self.nuclear_mass_me is None:
+            raise ValueError("include_sms requires nuclear_mass_me")
+        if self.include_hydrogenic_mass_remainder and (
+                self.nuclear_mass_me is None or self.nms_mode != 'operator'):
+            raise ValueError('hydrogenic mass remainder requires nuclear_mass_me and operator NMS')
 
     def add(self, correction: Correction) -> "CorrectionStack":
         """Append an ad-hoc user-supplied :class:`Correction`.
@@ -97,9 +127,13 @@ class CorrectionStack:
         if self.include_wk_vp:
             backends.append(WichmannKrollVPCorrection())
         if self.include_breit:
-            backends.append(BreitCorrection())
+            backends.append(BreitCorrection(mode=self.breit_mode))
         if self.nuclear_mass_me is not None:
-            backends.append(NormalMassShiftCorrection(self.nuclear_mass_me))
+            backends.append(NormalMassShiftCorrection(self.nuclear_mass_me, self.nms_mode))
+        if self.include_sms:
+            backends.append(SpecificMassShiftCorrection(self.nuclear_mass_me))
+        if self.include_hydrogenic_mass_remainder:
+            backends.append(HydrogenicMassRemainderCorrection(self.nuclear_mass_me))
         backends.extend(self._custom)
         return backends
 
@@ -175,14 +209,9 @@ def finalize_with_corrections(result: "AtomicResult",
     through identical keys.  Returns ``result`` for chaining;
     ``stack=None`` is a no-op.
 
-    ``E_Breit`` set here is the shift added to ``total_energy`` (the
-    exact Gaunt operator's value), so
-    the reported number and the applied number are the same by
-    construction on this route.  That scalar is 3.03x DBSR_HF for Ne —
-    the adapter's provenance carries the note, and the dict is also
-    stashed under the result's private ``_breit_provenance`` attribute
-    (the key :attr:`MCDHFResult.breit_provenance` reads) so a result
-    class that exposes it can show a reader what was applied.
+    ``E_Breit`` is the shift actually added to ``total_energy``. Its
+    provenance records whether DBSR_HF average Breit, Gaunt, or a legacy
+    scalar was applied.
     """
     if stack is None:
         return result
@@ -195,15 +224,12 @@ def finalize_with_corrections(result: "AtomicResult",
             continue
         if name == "breit":
             comps["E_Breit"] = cr.energy_shift
-            result.__dict__["_breit_provenance"] = dict(
-                cr.provenance,
-                mode="scalar",
-                operator="none",
-                scalar_shift_applied=True,
-            )
+            result.__dict__["_breit_provenance"] = dict(cr.provenance)
         elif name.startswith("self_energy"):
             comps["E_SE"] = cr.energy_shift
             comps["se_method"] = name.split("[", 1)[1].rstrip("]")
+            if comps["se_method"] == "mohr":
+                comps["_mohr_high_ns_policy"] = "codata_a41_a40_v1"
             e_qed += cr.energy_shift
             has_qed = True
         elif name == "uehling_vp":
@@ -214,6 +240,9 @@ def finalize_with_corrections(result: "AtomicResult",
             comps["E_WK"] = cr.energy_shift
             e_qed += cr.energy_shift
             has_qed = True
+        elif name in ("nms", "sms", "hydrogenic_mass_remainder"):
+            comps[name] = cr.energy_shift
+            result.__dict__[f"_{name}_provenance"] = dict(cr.provenance)
         else:
             comps[name] = cr.energy_shift
         result.total_energy += cr.energy_shift

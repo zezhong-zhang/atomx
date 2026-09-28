@@ -152,7 +152,7 @@ def _breit_smu_coefficients(kappa_a, kappa_b, kappa_c, kappa_d, L):
     return results
 
 
-def compute_breit_energy(orbitals, bsp_data, Z):
+def compute_breit_energy(orbitals, bsp_data, Z, *, jj_configs=None):
     """Compute full Breit interaction energy.
 
     Includes all 8 angular components at each multipole L,
@@ -171,7 +171,20 @@ def compute_breit_energy(orbitals, bsp_data, Z):
         :func:`atomx.corrections.workspace.make_grid_workspace`
         (``P``/``Q`` are grid arrays) — e.g. the ODE-shooting engine.
     Z : int
+    jj_configs : sequence of JJConfig, optional
+        Explicit ensemble of integer jj occupations. When supplied, use
+        its exact two-electron pair probabilities instead of products of
+        mean occupations. This fixes the particle-number and jj-partner
+        correlations of the scalar estimate; it does not make the scalar
+        angular kernel a resolved Breit operator.
     """
+    # Breit is a two-electron operator. The configuration-average angular
+    # sum below otherwise gives a spurious self-pair for a singly occupied
+    # orbital (and for fractional jj occupations of one nl electron).
+    # This exact particle-number constraint holds on every radial grid.
+    if sum(float(orbital[2]) for orbital in orbitals) <= 1.0 + 1e-10:
+        return 0.0
+
     gr, grw = workspace_arrays(bsp_data)
     # Flatten to 1D grid order for the arbitrary-grid Y^v kernel
     # (B-spline workspaces carry (nv, n_gauss) arrays; the flattened
@@ -185,6 +198,28 @@ def compute_breit_energy(orbitals, bsp_data, Z):
         fP, fQ = eval_orbital_pair(Pa, Qa, bsp_data)
         evaluated.append((np.ravel(fP), np.ravel(fQ), oa, ka, la))
 
+    pair_probability = None
+    if jj_configs is not None:
+        from atomx.config.jj_coupling import compute_WW
+
+        configs = list(jj_configs)
+        if not configs:
+            raise ValueError("Breit jj configuration ensemble is empty")
+        if len(configs[0].subshells) != len(evaluated):
+            raise ValueError("Breit jj configurations do not match orbitals")
+        if abs(sum(c.weight for c in configs) - 1.0) > 1e-10:
+            raise ValueError("Breit jj configuration weights must sum to one")
+        pair_probability = np.zeros((len(evaluated), len(evaluated)))
+        for i, (_, _, _, kappa_i, label_i) in enumerate(evaluated):
+            gi = 2 * abs(kappa_i)
+            for j, (_, _, _, kappa_j, label_j) in enumerate(evaluated):
+                gj = 2 * abs(kappa_j)
+                if any(c.subshells[i].label != label_i or
+                       c.subshells[j].label != label_j for c in configs):
+                    raise ValueError("Breit jj subshell order does not match orbitals")
+                denominator = gi * gj - (gi if i == j else 0)
+                pair_probability[i, j] = compute_WW(i, j, configs) / denominator
+
     E_Breit = 0.0
 
     for _i, (fa_P, fa_Q, oa, ka, _la) in enumerate(evaluated):
@@ -194,7 +229,10 @@ def compute_breit_energy(orbitals, bsp_data, Z):
             tj_b = 2 * abs(kb) - 1
 
             # Weight for average-of-configuration
-            w_ab = oa * ob / ((tj_a + 1.0) * (tj_b + 1.0))
+            w_ab = (pair_probability[_i, _j] if pair_probability is not None
+                    else oa * ob / ((tj_a + 1.0) * (tj_b + 1.0)))
+            if w_ab == 0:
+                continue
 
             # The four cross densities are L/v-independent.
             rho_PP = fa_P * fb_P
@@ -277,7 +315,7 @@ def scalar_breit_provenance() -> dict:
         "mode": "scalar",
         "operator": "none",
         "scalar_shift_applied": True,
-        "externally_validated": True,
+        "externally_validated": False,
         "validation": SCALAR_BREIT_NOTE,
         "note": SCALAR_BREIT_NOTE,
     }

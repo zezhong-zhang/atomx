@@ -508,7 +508,7 @@ class DFSolver:
                  mean_field_normalization=None,
                  kinetic_balance=False,
                  screening_potential=None,
-                 log=None):
+                 log=None, nuclear_mass_number=None):
         """
         Parameters
         ----------
@@ -694,8 +694,9 @@ class DFSolver:
         self._log = log  # CalculationLog instance or None
 
         # Nuclear potential function (None = point nucleus -Z/r)
-        from atomx.potentials.nuclear import make_nuclear_potential
-        self._nuclear_potential = make_nuclear_potential(Z, nuclear)
+        from atomx.potentials.nuclear import make_nuclear_potential, nuclear_profile
+        self.nuclear_profile = nuclear_profile(Z, nuclear, nuclear_mass_number)
+        self._nuclear_potential = make_nuclear_potential(Z, nuclear, nuclear_mass_number)
         # Electron-gas (plasma) screening: add delta_V(r) to the nuclear
         # potential everywhere it is sampled — the Galerkin Hamiltonian
         # (build_dirac_matrices) and the local-exchange density path
@@ -2427,6 +2428,7 @@ class DFSolver:
         energy_components["_eigensolver_refinement_policy"] = (
             "requested_bound_index_plus_l_ge10_newton_v2")
         energy_components["_diis_residual_policy"] = "actual_sweep_input_v1"
+        energy_components["_nuclear_profile"] = self.nuclear_profile
 
         # Verify the constrained metric after damping/DIIS as well.
         max_overlap = _max_same_kappa_overlap(orbitals, self.bsp_data)
@@ -2461,12 +2463,14 @@ class DFSolver:
         from atomx.corrections.stack import finalize_with_corrections
 
         result._nuclear_potential = self._nuclear_potential
+        result.__dict__["_jj_configs"] = self.jj_configs
         stack = self.correction_stack
-        if stack is not None and stack.include_breit:
-            # The Breit rung applies the exact Gaunt operator, which needs
-            # the CI angular machinery in methods/mcdhf/; corrections/ must
-            # not import methods/, so it is computed here and read off the
-            # result by the adapter.
+        if (stack is not None and stack.include_breit
+                and stack.breit_mode == "operator"):
+            # The explicit operator mode needs CI angular machinery in
+            # methods/mcdhf/. The default DBSR_HF average is evaluated
+            # directly by its correction backend and avoids this extra
+            # m-scheme contraction.
             from atomx.methods.mcdhf.breit_ci import (
                 attach_breit_operator_energy,
             )
@@ -2516,9 +2520,17 @@ class DiracFock(Method):
     starting_potential : str or None
         "tfda" or "gsz" for faster SCF convergence.  Auto-selects for Z>=20.
     nuclear_mass_me : float or None
-        Nuclear mass in electron masses. If supplied, include the leading
-        normal mass shift in every configuration energy. The two-electron
-        specific mass shift and relativistic recoil are not included.
+        Nuclear mass in electron masses. If supplied, include the one-body
+        Breit recoil operator. Two-body, finite-size, and radiative recoil
+        are not included.
+    nms_mode : str
+        ``"operator"`` (default), or ``"virial"`` to reproduce historical
+        normal mass shifts estimated from the total energy.
+    nuclear_mass_number : int or None
+        Mass number used by the finite nuclear charge model. Independent of
+        the recoil mass; None preserves the historical element defaults.
+        Heavy-element radii remain empirical, and light-element reference
+        radii are not isotope-resolved. Recorded in energy components.
     scf_damping : float or None
         Fraction of the previous orbital retained during SCF mixing.
         None uses the solver's automatic choice.
@@ -2540,10 +2552,15 @@ class DiracFock(Method):
     basis_order: int = 9
     starting_potential: str = None
     nuclear_mass_me: float | None = None
+    nuclear_mass_number: int | None = None
     scf_damping: float | None = None
     seed_orbitals: Dict | None = field(default=None, repr=False)
-    core_hole_stationary: bool = True
     scf_damping_release_residual: float = 1e-2
+    breit_mode: str = "dbsr_hf"
+    nms_mode: str = "operator"
+    include_sms: bool = False
+    include_hydrogenic_mass_remainder: bool = False
+    core_hole_stationary: bool = True
 
     @property
     def theory_level(self) -> TheoryLevel:
@@ -2564,6 +2581,11 @@ class DiracFock(Method):
 
         if self.scf_damping is not None and not 0 <= self.scf_damping < 1:
             raise ValueError("scf_damping must be in [0, 1)")
+        if self.breit_mode not in {
+                "dbsr_hf", "operator", "scalar_pairs", "scalar_legacy"}:
+            raise ValueError(
+                "breit_mode must be 'dbsr_hf', 'operator', 'scalar_pairs', "
+                "or 'scalar_legacy'")
         if not 0 < self.scf_damping_release_residual < 1:
             raise ValueError("scf_damping_release_residual must be in (0, 1)")
 
@@ -2572,14 +2594,19 @@ class DiracFock(Method):
             starting = "tfda"
 
         correction_stack = None
-        if self.nuclear_mass_me is not None:
+        if (self.nuclear_mass_me is not None or self.breit or self.qed
+                or self.include_sms or self.include_hydrogenic_mass_remainder):
             from atomx.corrections.qed import resolve_se_method
             from atomx.corrections.stack import CorrectionStack
             correction_stack = CorrectionStack(
                 se_backend=(resolve_se_method("auto", Z) if self.qed else None),
                 include_vp=self.qed,
                 include_breit=self.breit,
+                breit_mode=self.breit_mode,
                 nuclear_mass_me=self.nuclear_mass_me,
+                nms_mode=self.nms_mode,
+                include_sms=self.include_sms,
+                include_hydrogenic_mass_remainder=self.include_hydrogenic_mass_remainder,
             )
 
         solver = DFSolver(
@@ -2590,6 +2617,7 @@ class DiracFock(Method):
             include_qed=self.qed,
             correction_stack=correction_stack,
             nuclear=self.nuclear.value,
+            nuclear_mass_number=self.nuclear_mass_number,
             starting_potential=starting,
             jj_configs=jj_configs,
             log=log)

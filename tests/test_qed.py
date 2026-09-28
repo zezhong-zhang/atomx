@@ -355,21 +355,12 @@ class TestBreitRouteReporting:
 
     @pytest.mark.external_fac
     def test_breit_spellings_are_two_implementations_both_anchored(self):
-        """String (scalar) and list (operator) both match DBSR_HF.
-
-        They are *not* expected to be equal: for a closed shell the
-        string route applies the scalar configuration-average sum, whose
-        ``v != L`` retardation channels make it the better total
-        (-0.33 % at Ne), while the list route applies the Gaunt operator,
-        which omits retardation (+4.19 % at Ne) but carries the
-        non-scalar content that splits levels.  Before the 2026-09 fix
-        the string route was 3.03x DBSR_HF; this gate excludes that by
-        300x.
-        """
+        """DHF defaults to DBSR_HF average; MCDHF uses Gaunt in CI."""
         from atomx import Atom, Corrections
+        from atomx.corrections.stack import CorrectionStack
 
         applied = {}
-        for label, config in (("scalar/string", "1s2 2s2 2p6"),
+        for label, config in (("dbsr/string", "1s2 2s2 2p6"),
                               ("operator/list", ["1s2 2s2 2p6"])):
             base = Atom(Z=10, config=config, corrections="none")
             base.solve()
@@ -377,18 +368,23 @@ class TestBreitRouteReporting:
                       corrections=Corrections(breit=True, qed=False))
             on.solve()
             applied[label] = on.total_energy - base.total_energy
-        assert applied["scalar/string"] == pytest.approx(
-            DBSR_HF_BREIT_NE, rel=0.01), (
-            f"scalar route {applied['scalar/string']!r} vs DBSR_HF "
-            f"{DBSR_HF_BREIT_NE!r} (pre-fix: 3.03x)")
+        assert applied["dbsr/string"] == pytest.approx(
+            DBSR_HF_BREIT_NE, rel=1e-3)
         assert applied["operator/list"] == pytest.approx(
             DBSR_HF_BREIT_NE, rel=0.07), (
             f"operator route {applied['operator/list']!r} vs DBSR_HF "
             f"{DBSR_HF_BREIT_NE!r}")
-        ratio = applied["operator/list"] / applied["scalar/string"]
-        assert 1.02 < ratio < 1.07, (
-            f"operator/scalar = {ratio:.4f}; it must be the documented "
-            f"omitted retardation (4-6 %), not a 3x disagreement")
+        assert applied["operator/list"] > applied["dbsr/string"]
+        legacy = Atom(
+            Z=10, config="1s2 2s2 2p6",
+            corrections=Corrections(stack=CorrectionStack(
+                se_backend=None, include_vp=False, include_breit=True,
+                breit_mode="scalar_legacy")))
+        legacy.solve()
+        bare = Atom(Z=10, config="1s2 2s2 2p6", corrections="none")
+        bare.solve()
+        assert legacy.total_energy - bare.total_energy == pytest.approx(
+            DBSR_HF_BREIT_NE, rel=0.01)
 
     def test_routes_report_the_implementation_that_ran(self):
         """Each route's provenance names the Breit that is in the total."""
@@ -400,15 +396,16 @@ class TestBreitRouteReporting:
         atom.solve()
         res = atom.result
         prov = BreitCorrection().evaluate(res).provenance
-        assert prov["externally_validated"] is True
-        assert "0.000063777432919" in prov["validation"]
-        # The cross-check runs on the *shooting* orbitals, so it differs
-        # from the B-spline GAUNT_OPERATOR_NE by the radial
-        # representation (3.6e-4 relative) — not by anything angular.
-        assert prov["gaunt_operator_cross_check"] == pytest.approx(
-            GAUNT_OPERATOR_NE, rel=1e-3)
+        assert prov["mode"] == "dbsr_hf"
+        assert prov["retardation_included"] is True
+        assert res.energy_components["E_Breit"] == pytest.approx(
+            DBSR_HF_BREIT_NE, rel=1e-3)
+        legacy = BreitCorrection(mode="scalar_legacy").evaluate(res)
+        assert legacy.provenance["mode"] == "scalar_legacy"
+        assert legacy.energy_shift == pytest.approx(
+            DBSR_HF_BREIT_NE, rel=0.01)
         stashed = breit_provenance(res)
-        assert stashed["mode"] == "scalar"
+        assert stashed["mode"] == "dbsr_hf"
         assert stashed["scalar_shift_applied"] is True
 
 

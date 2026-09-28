@@ -115,6 +115,12 @@ class MCDHFResult:
         for key in ("E_SE", "E_VP", "E_WK", "E_QED_total", "se_method"):
             if key in qed:
                 comps[key] = qed[key]
+        nms = self.__dict__.get("_nms_state_shifts")
+        if nms is not None:
+            comps["nms"] = float(nms[0])
+        sms = self.__dict__.get("_sms_state_shifts")
+        if sms is not None:
+            comps["sms"] = float(sms[0])
         return comps
 
     @property
@@ -146,6 +152,11 @@ class MCDHFResult:
     def energy_breakdown(self) -> Dict[str, float]:
         """Alias for :attr:`energy_components` (AtomicResult protocol)."""
         return self.energy_components
+
+    @property
+    def qed_provenance(self) -> Dict:
+        """Operator content and remaining approximations of applied QED."""
+        return dict(self.__dict__.get("_qed_provenance") or {})
 
     @property
     def subshells(self) -> List[Subshell]:
@@ -398,6 +409,15 @@ class MCDHFSolver:
             )
         else:
             self.correction_stack = None
+        if self.correction_stack is not None:
+            if self.correction_stack.include_hydrogenic_mass_remainder:
+                raise NotImplementedError(
+                    'Hydrogenic mass remainder requires spectroscopic principal-shell '
+                    'identity; MCDHF correlation-orbital labels cannot supply it')
+            self.include_breit = bool(self.correction_stack.include_breit)
+            self.include_qed = bool(self.correction_stack.se_backend is not None
+                                    or self.correction_stack.include_vp
+                                    or self.correction_stack.include_wk_vp)
         # Electron-gas (plasma) screening, forwarded to whichever inner
         # solver the selected engine uses (DFSolver or ShootingHFSolver).
         self.screening_potential = screening_potential
@@ -1262,7 +1282,6 @@ class MCDHFSolver:
         stack = self.correction_stack
         if stack is not None and (dhf is not None or shoot_result is not None):
             from atomx.corrections.breit import compute_breit_energy
-            from atomx.corrections.qed import compute_qed_corrections
             # The correction functions are engine-uniform through the
             # atomx.corrections.workspace seam: B-spline results pass the
             # solver's bsp_data, shooting results a radial-grid workspace.
@@ -1292,12 +1311,6 @@ class MCDHFSolver:
             if stack.include_breit:
                 E_Breit = float(compute_breit_energy(orb_list, corr_data,
                                                      self.Z))
-            if stack.se_backend is not None or stack.include_vp:
-                qed_components = dict(compute_qed_corrections(
-                    orb_list, corr_data, self.Z,
-                    se_method=stack.se_backend or "auto",
-                    include_wichmann_kroll=stack.include_wk_vp,
-                ))
 
         # DODS / EOL per-(J, parity)-block orbital relaxation (HYP-184
         # scaffold).  When ``per_block_orbital_sets=True``, build a
@@ -1324,9 +1337,8 @@ class MCDHFSolver:
         # The one-shot corrections.  Two of them are now genuinely
         # different objects: the Breit *operator* (when it is in the CI,
         # the levels are already split and nothing is added here) and the
-        # QED shift, which is a per-orbital monopole correction and is
-        # folded in per CI state with that state's own orbital
-        # occupations — never as one number for the whole space.
+        # QED shift: full one-body coherence for local VP, diagonal
+        # orbital self-energy for the current model-SE backend.
         breit_operator_in_ci = bool(self._breit_in_ci)
 
         # REPORTING ONLY.  When the operator is in the CI, ``E_Breit``
@@ -1352,11 +1364,60 @@ class MCDHFSolver:
             state_energies = state_energies + E_Breit
         qed_state_shifts = np.zeros_like(np.asarray(state_energies,
                                                    dtype=float))
-        if qed_components and self.include_qed:
-            qed_state_shifts = self._qed_state_shifts(
+        qed_state_components = {}
+        if self.include_qed:
+            qed_state_components = self._qed_state_components(
                 mixing=mixing, orbitals_dict=orbitals_dict,
-                corr_data=corr_data, i0=i0)
+                corr_data=corr_data, i0=i0, per_block_orbitals=per_block_orbitals)
+            qed_state_shifts = sum(qed_state_components.values(), qed_state_shifts)
             state_energies = state_energies + qed_state_shifts
+
+        nms_state_shifts = np.zeros_like(np.asarray(state_energies, dtype=float))
+        nms_provenance = None
+        if stack is not None and stack.nuclear_mass_me is not None:
+            from atomx.corrections.adapters import NormalMassShiftCorrection
+            from atomx.corrections.recoil import (
+                recoil_provenance,
+                recoil_state_parameters,
+            )
+            # Validate the same mass/mode contract as the DHF adapter.
+            NormalMassShiftCorrection(stack.nuclear_mass_me, stack.nms_mode)
+            if stack.nms_mode == "virial":
+                nms_state_shifts = -np.asarray(state_energies) / stack.nuclear_mass_me
+                nms_provenance = {"estimator": "virial theorem ⟨T_e⟩ = −E_total",
+                                  "nuclear_mass_me": stack.nuclear_mass_me}
+            else:
+                if self.per_block_orbital_sets:
+                    raise NotImplementedError("recoil with per-block orbital sets is not implemented")
+                if corr_data is None:
+                    raise ValueError("one-body recoil requires retained radial orbitals")
+                radial_orbitals = {key: (p[i0:], q[i0:])
+                                   for key, (p, q) in orbitals_dict.items()}
+                nms_state_shifts = recoil_state_parameters(
+                    self.csfs, mixing, radial_orbitals, corr_data, self.Z
+                ) / stack.nuclear_mass_me
+                nms_provenance = recoil_provenance(stack.nuclear_mass_me)
+                nms_provenance["evaluation"] = "first-order CI state expectation including radial coherence"
+            state_energies = state_energies + nms_state_shifts
+
+        sms_state_shifts = np.zeros_like(np.asarray(state_energies, dtype=float))
+        sms_provenance = None
+        if stack is not None and stack.include_sms:
+            from atomx.corrections.specific_recoil import (
+                momentum_recoil_parameters,
+                specific_recoil_provenance,
+            )
+            if self.per_block_orbital_sets:
+                raise NotImplementedError("two-body recoil with per-block orbitals is not implemented")
+            if corr_data is None:
+                raise ValueError("two-body recoil requires retained radial orbitals")
+            radial_orbitals = {key: (p[i0:], q[i0:])
+                               for key, (p, q) in orbitals_dict.items()}
+            sms_state_shifts = momentum_recoil_parameters(
+                self.csfs, mixing, radial_orbitals, corr_data, Z=self.Z
+            ) / stack.nuclear_mass_me
+            sms_provenance = specific_recoil_provenance(stack.nuclear_mass_me)
+            state_energies = state_energies + sms_state_shifts
 
         # Perturbative corrections or separately optimized blocks can
         # reorder close levels. Keep energies, amplitudes and shifts paired,
@@ -1365,17 +1426,19 @@ class MCDHFSolver:
         state_energies = np.asarray(state_energies)[order]
         mixing = mixing[:, order]
         qed_state_shifts = qed_state_shifts[order]
+        qed_state_components = {key: value[order] for key, value in qed_state_components.items()}
+        nms_state_shifts = nms_state_shifts[order]
+        sms_state_shifts = sms_state_shifts[order]
         degenerate = abs(state_energies - state_energies[0]) < 1e-10
         final_weights = np.mean(mixing[:, degenerate] ** 2, axis=1)
         final_subshells = self._physical_subshells(final_weights)
         occupations = {(sh.n, sh.kappa): float(sh.occupation) for sh in final_subshells}
-        if qed_components and not np.allclose(final_weights, ground_weights, atol=1e-12, rtol=0.):
-            final_orbitals = [(orbitals_dict[sh.n, sh.kappa][0][i0:],
-                               orbitals_dict[sh.n, sh.kappa][1][i0:],
-                               sh.occupation, sh.kappa, sh.label) for sh in final_subshells]
-            qed_components = dict(compute_qed_corrections(
-                final_orbitals, corr_data, self.Z,
-                se_method=stack.se_backend or "auto", include_wichmann_kroll=stack.include_wk_vp))
+        if qed_state_components:
+            qed_components = {key: float(value[0]) for key, value in qed_state_components.items()}
+            qed_components["E_QED_total"] = float(qed_state_shifts[0])
+            if stack.se_backend is not None:
+                from atomx.corrections.qed import resolve_se_method
+                qed_components["se_method"] = resolve_se_method(stack.se_backend, self.Z)
 
         result = MCDHFResult(
             converged=converged,
@@ -1441,70 +1504,87 @@ class MCDHFSolver:
                 }
         if qed_components:
             result.__dict__["_E_QED"] = qed_components
+            result.__dict__["_qed_state_components"] = qed_state_components
+            result.__dict__["_qed_provenance"] = {
+                "vacuum_polarization": "full radial one-body matrix; first-order CI expectation",
+                "self_energy": ("full radial local-model matrix; nonlocal SE absent"
+                                if self.correction_stack.se_backend == "shabaev_local"
+                                else "diagonal orbital model; off-diagonal self-energy absent"),
+                "degeneracy": "correction not diagonalized within degenerate manifolds",
+            }
             result.__dict__["_qed_state_shifts"] = np.asarray(
                 qed_state_shifts, dtype=float)
+        if sms_provenance is not None:
+            result.__dict__["_sms_state_shifts"] = sms_state_shifts
+            result.__dict__["_sms_provenance"] = sms_provenance
+        if nms_provenance is not None:
+            result.__dict__["_nms_state_shifts"] = nms_state_shifts
+            result.__dict__["_nms_provenance"] = nms_provenance
         return result
 
 
-    def _qed_state_shifts(self, *, mixing, orbitals_dict, corr_data, i0):
-        """Per-state QED energy from per-orbital shifts and CI occupations.
+    def _qed_state_components(self, *, mixing, orbitals_dict, corr_data, i0,
+                              per_block_orbitals=None):
+        """First-order QED components with full local-VP radial coherence.
 
-        QED (self-energy + vacuum polarisation) is a *monopole* correction:
-        to the order atomx evaluates it, each orbital carries its own
-        shift ``eps_i`` and the state's shift is the occupation-weighted
-        sum ``sum_i q_i^(k) eps_i`` with
-
-            ``q_i^(k) = sum_c |c_ck|^2 n_i^c``
-
-        the CI-weighted occupation of orbital ``i`` in state ``k``.  That
-        is why QED stays legtimately scalar *per orbital* but must not be
-        applied as one number for the whole space: two states with
-        different orbital occupancies (e.g. 1s2 vs 1s2p) get different
-        QED shifts.
-
-        The Breit interaction is NOT treated this way — its non-scalar
-        (spin-other-orbit, spin-spin) parts cannot be written as an
-        orbital sum, which is exactly why it needs the CI operator in
-        :mod:`atomx.methods.mcdhf.breit_ci`.
+        A central potential preserves kappa, but is generally not diagonal
+        in principal/radial orbital labels. The local Uehling and model WK
+        potentials therefore use the full one-body CSF matrix. The current
+        self-energy backend supplies a full matrix when available and diagonal
+        orbital shifts otherwise; provenance distinguishes these cases.
         """
-        if corr_data is None:
-            return np.zeros(np.asarray(mixing).shape[1])
-        from atomx.corrections.qed import compute_qed_corrections
+        from atomx.corrections.qed import (
+            self_energy_radial_matrix,
+            short_range_radial_matrix,
+            uehling_potential,
+        )
+        from atomx.methods.mcdhf.one_body import scalar_one_body_expectations
 
         stack = self.correction_stack
-        keys = sorted({(int(sh.n), int(sh.kappa))
-                       for csf in self.csfs for sh in csf.subshells})
-        eps = {}
-        for (n, kappa) in keys:
-            cached = orbitals_dict.get((n, kappa))
-            if cached is None:
-                continue
-            P, Q = cached
-            comps = dict(compute_qed_corrections(
-                [(P[i0:], Q[i0:], 1.0, kappa, f"{n}{kappa}")], corr_data,
-                self.Z,
-                se_method=stack.se_backend or "auto",
-                include_wichmann_kroll=stack.include_wk_vp,
-            ))
-            eps[(n, kappa)] = float(comps.get("E_QED_total", 0.0))
+        if stack is None or corr_data is None:
+            return {}
+        if per_block_orbitals:
+            groups = {}
+            for state, dominant in enumerate(np.argmax(abs(mixing), axis=0)):
+                csf = self.csfs[dominant]
+                groups.setdefault((csf.total_J2, csf.parity), []).append(state)
+            result = {}
+            for block, states in groups.items():
+                local = dict(orbitals_dict)
+                local.update(per_block_orbitals.get(block, {}))
+                components = self._qed_state_components(
+                    mixing=mixing[:, states], orbitals_dict=local,
+                    corr_data=corr_data, i0=i0)
+                for name, values in components.items():
+                    result.setdefault(name, np.zeros(mixing.shape[1]))[states] = values
+            return result
+        keys = tuple(sorted(orbitals_dict))
+        orbitals = [(p[i0:], q[i0:], key[1])
+                    for key in keys for p, q in [orbitals_dict[key]]]
+        result = {}
+        potentials = {}
+        if stack.include_vp:
+            potentials["E_VP"] = lambda r: uehling_potential(r, self.Z)
+        if stack.include_wk_vp:
+            from atomx.corrections.qedmod.flambaum_ginges import V_wichmann_kroll
+            potentials["E_WK"] = lambda r: V_wichmann_kroll(r, self.Z)
+        for name, potential in potentials.items():
+            radial = short_range_radial_matrix(orbitals, corr_data, potential)
+            result[name] = scalar_one_body_expectations(self.csfs, mixing, keys, radial)
+        if stack.se_backend is not None:
+            radial = self_energy_radial_matrix(
+                [(p, q, kappa, Subshell(n, kappa, 1.).label)
+                 for (n, kappa), (p, q, _) in zip(keys, orbitals, strict=True)],
+                self.Z, corr_data, method=stack.se_backend)
+            result["E_SE"] = scalar_one_body_expectations(
+                self.csfs, mixing, keys, radial)
+        return result
 
-        occ_by_csf = []
-        for csf in self.csfs:
-            occ_by_csf.append({(int(sh.n), int(sh.kappa)):
-                               float(sh.occupation) for sh in csf.subshells})
-
-        weights = np.asarray(mixing, dtype=float) ** 2
-        shifts = np.zeros(weights.shape[1])
-        for state in range(weights.shape[1]):
-            q = {key: 0.0 for key in eps}
-            for c, w in enumerate(weights[:, state]):
-                if w == 0.0:
-                    continue
-                for key, val in occ_by_csf[c].items():
-                    if key in q:
-                        q[key] += w * val
-            shifts[state] = sum(q[key] * eps[key] for key in eps)
-        return shifts
+    def _qed_state_shifts(self, *, mixing, orbitals_dict, corr_data, i0):
+        """Sum the separately inspectable first-order QED components."""
+        components = self._qed_state_components(
+            mixing=mixing, orbitals_dict=orbitals_dict, corr_data=corr_data, i0=i0)
+        return sum(components.values(), np.zeros(np.asarray(mixing).shape[1]))
 
     def _diagonalize_per_block_ci(self, *, state_energies, mixing,
                                   per_block_orbitals, bsp_data, ns,

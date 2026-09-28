@@ -183,11 +183,11 @@ _DENSE_KERNEL_POINTS = 25_000
 _DENSE_KERNEL_R_MIN = 1.0e-9
 
 
-def _short_range_expectation(orbitals, bsp_data, V_of_r):
-    """Σ_a q_a ⟨a|V|a⟩ for a nuclear-range local potential ``V(r)``.
+def short_range_radial_matrix(orbitals, bsp_data, V_of_r, *, diagonal_only=False):
+    """Full <a|V|b> matrix for ``(P,Q,kappa)`` orbitals and local V(r).
 
     The Uehling kernel ``I(2cr)/r`` lives on the Compton scale
-    ``r ≲ 1/(2c) ≈ 0.004`` Bohr and diverges like ``1/r²`` toward the
+    ``r ≲ 1/(2c) ≈ 0.004`` Bohr and behaves like ``log(r)/r`` toward the
     origin; the SCF basis' own Gauss nodes under-resolve it whenever the
     innermost knots are wide on that scale (He physics grid: 8e-3
     relative error on E_VP).  For B-spline workspaces we therefore
@@ -202,17 +202,16 @@ def _short_range_expectation(orbitals, bsp_data, V_of_r):
         workspace_arrays,
     )
 
+    if not orbitals:
+        return np.zeros(0) if diagonal_only else np.zeros((0, 0))
     gr, grw = workspace_arrays(bsp_data)
-
     if is_grid_workspace(bsp_data) or "t" not in bsp_data:
-        # Grid flavour — or a legacy B-spline workspace without its knot
-        # vector, where the Gauss-node sum is the only option.
-        V = V_of_r(gr)
-        E = 0.0
-        for P, Q, occ, _kappa, _label in orbitals:
+        values = []
+        for P, Q, _kappa in orbitals:
             fP, fQ = eval_orbital_pair(P, Q, bsp_data)
-            E += occ * float(np.sum(grw * (fP * fP + fQ * fQ) * V))
-        return E
+            values.append((fP.ravel(), fQ.ravel()))
+        return _local_radial_contraction(
+            orbitals, values, (grw * V_of_r(gr)).ravel(), diagonal_only)
 
     # B-spline flavour: exact spline evaluation on a dense log grid.
     from scipy.interpolate import BSpline
@@ -231,18 +230,34 @@ def _short_range_expectation(orbitals, bsp_data, V_of_r):
     w[1:-1] = 0.5 * (r[2:] - r[:-2])
     w[0] = 0.5 * (r[1] - r[0])
     w[-1] = 0.5 * (r[-1] - r[-2])
-    V = V_of_r(r)
-
-    E = 0.0
-    for P, Q, occ, _kappa, _label in orbitals:
+    values = []
+    for P, Q, _kappa in orbitals:
         splP = BSpline(tp, np.asarray(P[:nsp], dtype=float), ksp - 1,
                        extrapolate=False)
         splQ = BSpline(t, np.asarray(Q[:nsq], dtype=float), ksq - 1,
                        extrapolate=False)
         fP = np.nan_to_num(splP(r))
         fQ = np.nan_to_num(splQ(r))
-        E += occ * float(np.sum(w * (fP * fP + fQ * fQ) * V))
-    return E
+        values.append((fP, fQ))
+    return _local_radial_contraction(orbitals, values, w * V_of_r(r), diagonal_only)
+
+
+def _local_radial_contraction(orbitals, values, weights, diagonal_only):
+    p = np.asarray([pq[0] for pq in values])
+    q = np.asarray([pq[1] for pq in values])
+    if diagonal_only:
+        return np.sum(weights * (p*p + q*q), axis=1)
+    matrix = (p * weights) @ p.T + (q * weights) @ q.T
+    kappas = np.asarray([orb[2] for orb in orbitals])
+    matrix[kappas[:, None] != kappas[None, :]] = 0.0
+    return 0.5 * (matrix + matrix.T)
+
+
+def _short_range_expectation(orbitals, bsp_data, V_of_r):
+    """Occupation-weighted diagonal for a determinant or incoherent ensemble."""
+    diagonal = short_range_radial_matrix(
+        [(p, q, k) for p, q, _, k, _ in orbitals], bsp_data, V_of_r, diagonal_only=True)
+    return float(np.dot([occ for _, _, occ, _, _ in orbitals], diagonal))
 
 
 def compute_vp_energy(orbitals, bsp_data, Z):
@@ -282,6 +297,17 @@ def resolve_se_method(method: str, Z: int) -> str:
     if method == "mss":
         return "mohr"
     return method
+
+
+def self_energy_radial_matrix(orbitals, Z, bsp_data, *, method=DEFAULT_SE_METHOD):
+    """Matrix for (P,Q,kappa,label) orbitals; diagonal fallback for table models."""
+    backend = get_backend(resolve_se_method(method, Z))
+    matrix_builder = getattr(backend, "radial_matrix", None)
+    if callable(matrix_builder):
+        return matrix_builder([(p, q, k) for p, q, k, _ in orbitals], bsp_data, Z)
+    diagonal = [backend.compute([(p, q, 1., k, label)], bsp_data, Z).E_SE
+                for p, q, k, label in orbitals]
+    return np.diag(diagonal)
 
 
 def compute_se_energy(orbitals, Z, bsp_data=None, *, method=DEFAULT_SE_METHOD):
@@ -348,6 +374,7 @@ def compute_qed_corrections(
     *,
     se_method=DEFAULT_SE_METHOD,
     include_wichmann_kroll=False,
+    include_vp=True,
 ):
     """Compute all QED corrections (VP + SE), optionally with higher-order VP.
 
@@ -358,7 +385,10 @@ def compute_qed_corrections(
     Z : int
     se_method : str, keyword-only
         Self-energy backend.  Default ``"mohr"`` (atomx ≤ 0.2 behaviour).
-        See :mod:`atomx.corrections.qedmod` for alternatives.
+        See :mod:`atomx.corrections.qedmod` for alternatives. ``None``
+        disables self-energy.
+    include_vp : bool, keyword-only
+        Include the Uehling term (default True), independently of SE/WK.
     include_wichmann_kroll : bool, keyword-only
         When ``True``, add the simplified Wichmann–Kroll higher-order VP
         term (Flambaum–Ginges eq. 12) to the VP budget and return it as
@@ -366,21 +396,21 @@ def compute_qed_corrections(
 
     Returns
     -------
-    dict with keys: ``E_VP``, ``E_SE``, ``E_QED_total``, ``se_method``,
-    and ``E_WK`` when ``include_wichmann_kroll=True``.
+    dict with ``E_QED_total`` and only the enabled component keys:
+    ``E_VP``, ``E_SE``/``se_method``, and ``E_WK``.
     """
-    E_VP = compute_vp_energy(orbitals, bsp_data, Z)
-    resolved_se_method = resolve_se_method(se_method, Z)
-    E_SE = compute_se_energy(orbitals, Z, bsp_data=bsp_data, method=resolved_se_method)
-
-    result = {
-        "E_VP": E_VP,
-        "E_SE": E_SE,
-        "se_method": resolved_se_method,
-        "qed_backend": se_method,
-    }
-
-    total = E_VP + E_SE
+    result = {}
+    total = 0.0
+    if include_vp:
+        result["E_VP"] = compute_vp_energy(orbitals, bsp_data, Z)
+        total += result["E_VP"]
+    if se_method is not None:
+        resolved_se_method = resolve_se_method(se_method, Z)
+        result["E_SE"] = compute_se_energy(
+            orbitals, Z, bsp_data=bsp_data, method=resolved_se_method)
+        result["se_method"] = resolved_se_method
+        result["qed_backend"] = se_method
+        total += result["E_SE"]
     if include_wichmann_kroll:
         E_WK = compute_wk_vp_energy(orbitals, bsp_data, Z)
         result["E_WK"] = E_WK

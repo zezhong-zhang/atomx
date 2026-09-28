@@ -52,6 +52,39 @@ def _get_mass(Z, A=None):
     return _MASS_TABLE.get(Z, int(round(2.5 * max(Z, 1))))
 
 
+def nuclear_profile(Z, nuclear="fermi", A=None):
+    """Describe the actual charge model separately from the recoil mass.
+
+    A selects an empirical radius, not an isotope measurement. Light-element
+    Fermi models retain their element reference radius and historical clamp.
+    """
+    if A is not None and (isinstance(A, bool) or int(A) != A or A < Z):
+        raise ValueError("nuclear mass number must be an integer A >= Z")
+    if nuclear == "point":
+        return dict(model="point", radius_mass_number=None,
+                    requested_mass_number=A, rms_radius_fm=0.0,
+                    radius_source="point_nucleus")
+    if nuclear not in {"fermi", "uniform"}:
+        raise ValueError(f"Unknown nuclear model: {nuclear!r}")
+    if nuclear == "uniform":
+        mass_number = A if A is not None else int(round(2.5 * max(Z, 1)))
+        reference = 0.836 * mass_number ** (1.0 / 3.0) + 0.570
+    else:
+        mass_number = _get_mass(Z, A)
+        reference = _get_rrms_fm(Z, mass_number)
+    effective = max(2.0, reference) if nuclear == "fermi" else reference
+    profile = dict(model=nuclear, radius_mass_number=mass_number,
+                   requested_mass_number=A, rms_radius_fm=effective,
+                   reference_rms_radius_fm=reference,
+                   radius_source=("element_reference" if nuclear == "fermi" and Z in _RRMS_TABLE_FM
+                                  else "empirical_0.836_A_cuberoot_plus_0.570_fm"),
+                   radius_clamped=effective != reference)
+    if nuclear == "fermi":
+        a, c = fermi_params(Z, A)
+        profile.update(diffuseness_bohr=float(a), half_density_radius_bohr=float(c))
+    return profile
+
+
 # ── Shared Fermi parameters (used by both grid and potential) ────────
 
 def fermi_params(Z, A=None):
@@ -278,5 +311,4 @@ def _make_uniform_potential(Z, A=None):
         return -Z / r
 
     return V_func
-
 

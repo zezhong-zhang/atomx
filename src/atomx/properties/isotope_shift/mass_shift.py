@@ -23,7 +23,7 @@ Specific mass shift
 -------------------
 The SMS comes from the two-body piece of the mass-shift operator,
 
-    H_SMS = −(1/M) · Σ_{i<j} p_i · p_j,
+    H_SMS = +(1/M) · Σ_{i<j} p_i · p_j,
 
 and is sensitive to electron-electron correlations.  A full ab-initio
 SMS evaluation on an SCF determinant requires two-electron momentum
@@ -48,8 +48,10 @@ becomes (Shabaev 1985, 1988)
 
 and the model-operator expansion of Anisimova–Shabaev *et al.* (2023)
 provides κ-dependent local + non-local potentials that give the full
-QED result.  The virial-theorem result here reproduces the leading
-non-relativistic piece; higher-order pieces are a TODO.
+QED result. The virial-theorem helper here reproduces the leading
+non-relativistic piece. The solver correction stack instead uses the
+one-body Breit recoil radial operator in ``atomx.corrections.recoil``
+by default; two-body and radiative recoil remain absent there.
 
 Reference
 ---------

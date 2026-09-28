@@ -286,6 +286,29 @@ class ShabaevLocalBackend(SEBackend):
         "Non-local projector term deferred."
     )
 
+    def radial_matrix(self, orbitals, bsp_data, Z):
+        """Full local-model matrix for (P,Q,kappa) orbitals.
+
+        Uses the same quadrature and calibration as ``compute``. The
+        nonlocal part of the Shabaev operator remains absent.
+        """
+        from atomx.corrections.workspace import eval_orbital_pair, workspace_arrays
+
+        gr, grw = workspace_arrays(bsp_data)
+        weights = (grw * gr * np.exp(-C * gr)).ravel()
+        waves = [eval_orbital_pair(p, q, bsp_data) for p, q, _ in orbitals]
+        matrix = np.zeros((len(orbitals), len(orbitals)))
+        for kappa in {orbital[2] for orbital in orbitals}:
+            indices = [i for i, orbital in enumerate(orbitals) if orbital[2] == kappa]
+            amplitude = _amplitude_A_kappa(Z, kappa)
+            if amplitude == 0.:
+                continue
+            p = np.array([waves[i][0].ravel() for i in indices])
+            q = np.array([waves[i][1].ravel() for i in indices])
+            matrix[np.ix_(indices, indices)] = amplitude * (
+                (p * weights) @ p.T + (q * weights) @ q.T)
+        return (matrix + matrix.T) / 2
+
     def compute(self, orbitals, bsp_data, Z) -> SEResult:
         if bsp_data is None:
             raise ValueError(
