@@ -1211,10 +1211,16 @@ class DFSolver:
             Combined direct + exchange Fock matrix blocks.
         """
         from atomx.numerics.bspline.convol import (
+            SEMISEPARABLE_DIRECT_NS,
+            SEMISEPARABLE_EXCHANGE_NS,
+            SEMISEPARABLE_MIXED_EXCHANGE_NS,
             _accumulate_direct_density_batch,
             _accumulate_exchange_density_batch,
             _banded_to_full_add,
+            _convol_case1_semiseparable_t,
             _convol_case1_t,
+            _convol_case4_semiseparable_mixed_t,
+            _convol_case4_semiseparable_t,
             _convol_case4_t,
         )
 
@@ -1281,7 +1287,6 @@ class DFSolver:
             comp_ii_stack = Q_stack if ii == 2 else P_stack
 
             for k in all_k_set:
-                rkbT, _, _ = self._convol_cache.get_rkb_t(k, block)
                 a_direct = angular_direct[target_i, :, k]     # length n_orb
                 b_exchange = angular_exchange[target_i, :, k] # length n_orb
 
@@ -1290,7 +1295,15 @@ class DFSolver:
                     dd = np.zeros((ns_full, ks_ket))
                     _accumulate_direct_density_batch(
                         dd, comp_jj_stack, a_direct, target_i, ns_full, ks_ket)
-                    v = _convol_case1_t(rkbT, dd, ns_full, ks_bra, ks_ket)
+                    if ns_full >= SEMISEPARABLE_DIRECT_NS:
+                        factors = self._convol_cache.get_coulomb_factors(
+                            k, block)
+                        v = _convol_case1_semiseparable_t(
+                            *factors, dd, ns_full, ks_bra, ks_ket)
+                    else:
+                        rkbT, _, _ = self._convol_cache.get_rkb_t(k, block)
+                        v = _convol_case1_t(
+                            rkbT, dd, ns_full, ks_bra, ks_ket)
                     if ii == 1:
                         _banded_to_full_add(hfm_PP, v, ns_full, ks_bra, 1.0)
                     else:
@@ -1306,7 +1319,22 @@ class DFSolver:
                     xx = np.zeros((ns_full, ns_full))
                     _accumulate_exchange_density_batch(
                         xx, comp_ii_stack, comp_jj_stack, b_exchange, ns_full)
-                    Kk = _convol_case4_t(rkbT, xx, ns_full, ks_bra, ks_ket)
+                    if ii == jj and ns_full >= SEMISEPARABLE_EXCHANGE_NS:
+                        near, rising, falling = (
+                            self._convol_cache.get_symmetric_exchange_factors(
+                                k, block))
+                        Kk = _convol_case4_semiseparable_t(
+                            near, rising, falling, xx, ns_full, ks_bra)
+                    elif ii != jj and ns_full >= SEMISEPARABLE_MIXED_EXCHANGE_NS:
+                        factors = self._convol_cache.get_coulomb_factors(
+                            k, block)
+                        Kk = _convol_case4_semiseparable_mixed_t(
+                            *factors, xx, ns_full, ks_bra, ks_ket)
+                    else:
+                        rkbT, _, _ = self._convol_cache.get_rkb_t(k, block)
+                        Kk = _convol_case4_t(
+                            rkbT, xx, ns_full, ks_bra, ks_ket,
+                            symmetric_output=(ii == jj))
                     if ii == 1 and jj == 1:
                         hfm_PP[:ns_full, :ns_full] += Kk[:ns_full, :ns_full]
                     elif ii == 1 and jj == 2:

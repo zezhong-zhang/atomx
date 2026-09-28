@@ -988,14 +988,20 @@ def _convol_case1_t(rkbT, d_right, ns, ks_left, ks_right):
 
 
 @nb.njit(cache=True)
-def _convol_case4_t(rkbT, d, ns, ks, ks_right=None):
-    """icase=4 on the transposed bank — same gather families as
-    ``_convol_case4``, with the output column innermost (unit stride)."""
+def _convol_case4_t(rkbT, d, ns, ks, ks_right=None, symmetric_output=False):
+    """icase=4 on the transposed bank with unit-stride output columns.
+
+    For equal-component Coulomb exchange, both the density and Coulomb
+    kernel are symmetric. ``symmetric_output`` computes the lower triangle
+    only and mirrors it, saving nearly half of this contraction. Mixed
+    large/small-component blocks still require the complete matrix.
+    """
     if ks_right is None:
         ks_right = ks
     a = np.zeros((ns, ns))
     for row in range(ns):
         buf = a[row]
+        col_limit = row + 1 if symmetric_output else ns
         # family 1: a[row, col] += rkb[row-ip, col, ip, jp] * d[row-ip, col+jp]
         for ip in range(ks):
             i = row - ip
@@ -1004,7 +1010,7 @@ def _convol_case4_t(rkbT, d, ns, ks, ks_right=None):
             for jp in range(ks_right):
                 bank = rkbT[ip, jp, i]
                 drow = d[i]
-                for col in range(ns - jp):
+                for col in range(min(ns - jp, col_limit)):
                     buf[col] += bank[col] * drow[col + jp]
         # family 2: a[row, col] += rkb[row, col, ip, jp] * d[row+ip, col+jp]
         for ip in range(1, ks):
@@ -1014,7 +1020,7 @@ def _convol_case4_t(rkbT, d, ns, ks, ks_right=None):
             for jp in range(ks_right):
                 bank = rkbT[ip, jp, row]
                 drow = d[ii]
-                for col in range(ns - jp):
+                for col in range(min(ns - jp, col_limit)):
                     buf[col] += bank[col] * drow[col + jp]
         # family 3: a[row, col] += rkb[row-ip, col-jp, ip, jp] * d[row-ip, col-jp]
         for jp in range(1, ks_right):
@@ -1024,7 +1030,7 @@ def _convol_case4_t(rkbT, d, ns, ks, ks_right=None):
                     continue
                 bank = rkbT[ip, jp, i]
                 drow = d[i]
-                for col in range(jp, ns):
+                for col in range(jp, col_limit):
                     buf[col] += bank[col - jp] * drow[col - jp]
         # family 4: a[row, col] += rkb[row, col-jp, ip, jp] * d[row+ip, col-jp]
         for ip in range(1, ks):
@@ -1034,9 +1040,257 @@ def _convol_case4_t(rkbT, d, ns, ks, ks_right=None):
             for jp in range(1, ks_right):
                 bank = rkbT[ip, jp, row]
                 drow = d[ii]
-                for col in range(jp, ns):
+                for col in range(jp, col_limit):
                     buf[col] += bank[col - jp] * drow[col - jp]
+        if symmetric_output:
+            for col in range(row):
+                a[col, row] = buf[col]
     return a
+
+
+@nb.njit(cache=True)
+def _global_pair_moments(local, nv, ks, ns):
+    """Sum cell moments for each global upper-band B-spline pair."""
+    moments = np.zeros((ks, ns))
+    for iv in range(nv):
+        local_pair = 0
+        for first in range(ks):
+            i = iv + first
+            for second in range(first, ks):
+                offset = second - first
+                if i + offset < ns:
+                    moments[offset, i] += local[local_pair, iv]
+                local_pair += 1
+    return moments
+
+
+@nb.njit(cache=True)
+def _assemble_near_rkb(rising_left, falling_right, rising_right,
+                       falling_left, diagonal, nv, ks_left, ks_right, ns):
+    """Assemble only Coulomb pair integrals with overlapping supports.
+
+    The full cell builder visits every pair of radial cells. Here a pair
+    of global B-spline products can overlap only in a strip of at most
+    ``ks_left + ks_right - 1`` second-pair indices. Bound the first-cell
+    loop accordingly while preserving the original cell summation order.
+    """
+    near = np.zeros((ks_left, ks_right, ns,
+                     ks_left + ks_right - 1))
+    for jv in range(nv):
+        right_local = 0
+        for jh in range(ks_right):
+            j = jv + jh
+            for jhp in range(jh, ks_right):
+                jp = jhp - jh
+                if j < ns:
+                    # For some left pair offset ip, overlap requires
+                    # j-ks_right+jp+1 <= i <= j+ks_left-ip-1.
+                    # Since i=iv+ih, ih<ks_left, these bounds cover every
+                    # contributing first-cell index without a global scan.
+                    iv_start = max(0, j - ks_right + jp - ks_left + 2)
+                    iv_stop = min(nv, j + ks_left)
+                    for iv in range(iv_start, iv_stop):
+                        left_local = 0
+                        for ih in range(ks_left):
+                            i = iv + ih
+                            for ihp in range(ih, ks_left):
+                                ip = ihp - ih
+                                first_j = i + ip - ks_left + 1
+                                last_j = i + ks_right - jp - 1
+                                if (i < ns and first_j <= j <= last_j):
+                                    if iv < jv:
+                                        value = (rising_left[left_local, iv]
+                                                 * falling_right[right_local, jv])
+                                    elif iv > jv:
+                                        value = (rising_right[right_local, jv]
+                                                 * falling_left[left_local, iv])
+                                    else:
+                                        value = diagonal[left_local, right_local, iv]
+                                    near[ip, jp, i, j - first_j] += value
+                                left_local += 1
+                right_local += 1
+    return near
+
+
+@nb.njit(cache=True)
+def _convol_case1_semiseparable_t(near, rising_left, falling_left,
+                                  rising_right, falling_right, density,
+                                  ns, ks_left, ks_right):
+    """Direct Coulomb contraction using exact prefix/suffix pair moments.
+
+    Outside the overlapping B-spline support strip, the Coulomb kernel
+    separates into two radial moments. Prefix and suffix sums contract all
+    distant right-hand pairs in O(ns*ks_right), leaving only the local
+    overlap strip to visit for each left-hand pair. A suffix is accumulated
+    directly to avoid subtracting nearly equal cumulative sums in the tail.
+    """
+    prefix = np.zeros((ks_right, ns + 1))
+    suffix = np.zeros((ks_right, ns + 1))
+    for jp in range(ks_right):
+        end = ns - jp
+        for j in range(end):
+            prefix[jp, j + 1] = (prefix[jp, j]
+                                   + rising_right[jp, j] * density[j, jp])
+        for j in range(end - 1, -1, -1):
+            suffix[jp, j] = (suffix[jp, j + 1]
+                             + falling_right[jp, j] * density[j, jp])
+    result = np.zeros((ns, ks_left))
+    for ip in range(ks_left):
+        for i in range(ns - ip):
+            first_near = i + ip - ks_left + 1
+            value = 0.0
+            for jp in range(ks_right):
+                end = ns - jp
+                before = min(end, max(0, first_near))
+                after = min(end, max(0, i + ks_right - jp))
+                value += falling_left[ip, i] * prefix[jp, before]
+                value += rising_left[ip, i] * suffix[jp, after]
+                for j in range(max(0, first_near), after):
+                    value += (near[ip, jp, i, j - first_near]
+                              * density[j, jp])
+            result[i, ip] = value
+    return result
+
+
+@nb.njit(cache=True, inline="always")
+def _add_semiseparable_exchange_row(buf, density_row, near, rising,
+                                    falling, i, ip, jp, ks, j_stop,
+                                    output_shift, density_shift):
+    """Stream the two factored radial regions and the exact overlap strip."""
+    first_near = i + ip - ks + 1
+    last_near = i + ks - jp - 1
+    first_end = min(j_stop, first_near)
+    inside = falling[ip, i]
+    for j in range(first_end):
+        buf[j + output_shift] += (
+            inside * rising[jp, j] * density_row[j + density_shift])
+    for j in range(max(0, first_near), min(j_stop, last_near + 1)):
+        buf[j + output_shift] += (
+            near[ip, jp, i, j - first_near]
+            * density_row[j + density_shift])
+    outside = rising[ip, i]
+    for j in range(max(0, last_near + 1), j_stop):
+        buf[j + output_shift] += (
+            outside * falling[jp, j] * density_row[j + density_shift])
+
+
+@nb.njit(cache=True)
+def _convol_case4_semiseparable_t(near, rising, falling, density, ns, ks):
+    """Exact symmetric exchange from Coulomb pair moments and local cells.
+
+    For disjoint radial supports, ``r_<^k/r_>^(k+1)`` is a product of
+    two one-dimensional pair moments. Only pairs whose B-spline supports
+    overlap need the original cell integral. This computes one matrix
+    triangle and mirrors it, like ``_convol_case4_t(..., True)``.
+    """
+    result = np.zeros((ns, ns))
+    for row in range(ns):
+        buf = result[row]
+        limit = row + 1
+        for ip in range(ks):
+            i = row - ip
+            if i < 0:
+                continue
+            for jp in range(ks):
+                _add_semiseparable_exchange_row(
+                    buf, density[i], near, rising, falling, i, ip, jp,
+                    ks, min(ns - jp, limit), 0, jp)
+        for ip in range(1, ks):
+            other = row + ip
+            if other >= ns:
+                continue
+            for jp in range(ks):
+                _add_semiseparable_exchange_row(
+                    buf, density[other], near, rising, falling, row,
+                    ip, jp, ks, min(ns - jp, limit), 0, jp)
+        for jp in range(1, ks):
+            for ip in range(ks):
+                i = row - ip
+                if i < 0:
+                    continue
+                _add_semiseparable_exchange_row(
+                    buf, density[i], near, rising, falling, i, ip, jp,
+                    ks, limit - jp, jp, 0)
+        for ip in range(1, ks):
+            other = row + ip
+            if other >= ns:
+                continue
+            for jp in range(1, ks):
+                _add_semiseparable_exchange_row(
+                    buf, density[other], near, rising, falling, row,
+                    ip, jp, ks, limit - jp, jp, 0)
+        for col in range(row):
+            result[col, row] = buf[col]
+    return result
+
+
+@nb.njit(cache=True, inline="always")
+def _add_semiseparable_mixed_row(buf, density_row, near, rising_left,
+                                  falling_left, rising_right, falling_right,
+                                  i, ip, jp, ks_left, ks_right, j_stop,
+                                  output_shift, density_shift):
+    """Stream one mixed-component exchange row in radial order."""
+    first_near = i + ip - ks_left + 1
+    last_near = i + ks_right - jp - 1
+    for j in range(min(j_stop, first_near)):
+        buf[j + output_shift] += (
+            falling_left[ip, i] * rising_right[jp, j]
+            * density_row[j + density_shift])
+    for j in range(max(0, first_near), min(j_stop, last_near + 1)):
+        buf[j + output_shift] += (
+            near[ip, jp, i, j - first_near]
+            * density_row[j + density_shift])
+    for j in range(max(0, last_near + 1), j_stop):
+        buf[j + output_shift] += (
+            rising_left[ip, i] * falling_right[jp, j]
+            * density_row[j + density_shift])
+
+
+@nb.njit(cache=True)
+def _convol_case4_semiseparable_mixed_t(
+        near, rising_left, falling_left, rising_right, falling_right,
+        density, ns, ks_left, ks_right):
+    """Exact nonsymmetric P/Q exchange without a full Coulomb bank."""
+    result = np.zeros((ns, ns))
+    for row in range(ns):
+        buf = result[row]
+        for ip in range(ks_left):
+            i = row - ip
+            if i < 0:
+                continue
+            for jp in range(ks_right):
+                _add_semiseparable_mixed_row(
+                    buf, density[i], near, rising_left, falling_left,
+                    rising_right, falling_right, i, ip, jp, ks_left,
+                    ks_right, ns - jp, 0, jp)
+        for ip in range(1, ks_left):
+            other = row + ip
+            if other >= ns:
+                continue
+            for jp in range(ks_right):
+                _add_semiseparable_mixed_row(
+                    buf, density[other], near, rising_left, falling_left,
+                    rising_right, falling_right, row, ip, jp, ks_left,
+                    ks_right, ns - jp, 0, jp)
+        for jp in range(1, ks_right):
+            for ip in range(ks_left):
+                i = row - ip
+                if i < 0:
+                    continue
+                _add_semiseparable_mixed_row(
+                    buf, density[i], near, rising_left, falling_left,
+                    rising_right, falling_right, i, ip, jp, ks_left,
+                    ks_right, ns - jp, jp, 0)
+        for ip in range(1, ks_left):
+            other = row + ip
+            if other >= ns:
+                continue
+            for jp in range(1, ks_right):
+                _add_semiseparable_mixed_row(
+                    buf, density[other], near, rising_left, falling_left,
+                    rising_right, falling_right, row, ip, jp, ks_left,
+                    ks_right, ns - jp, jp, 0)
+    return result
 
 
 # ══════════════════════════════════════════════════════════════════════
@@ -1128,6 +1382,19 @@ def _sum_amb_full(a, b, ns):
 # staying exact: any geometry difference (including a different ``tp``
 # under kinetic balance, or a different Gauss quadrature) changes the key.
 _BANK_CACHE_LIMIT = 4          # distinct grids kept alive (each holds ~20 banks)
+# At a large radial box, one R^k bank can occupy hundreds of megabytes.
+# SCF uses the transposed layout; its original layout can be a zero-copy view
+# when the final-energy Slater contractions need it. Avoid retaining two full
+# copies per bank for the diffuse/Rydberg bases used by the NIST run.
+_TRANSPOSE_ONLY_NS = 256
+# The factored symmetric exchange overtakes the contiguous full bank once
+# the latter ceases to fit comfortably in cache. Smaller bases keep the
+# simpler bank contraction, which remains faster there.
+SEMISEPARABLE_EXCHANGE_NS = 320
+# Mixed exchange is slightly slower per warm contraction at 333 splines,
+# but avoids the last O(ns^2) full banks and improves cold-start/RSS.
+SEMISEPARABLE_MIXED_EXCHANGE_NS = 320
+SEMISEPARABLE_DIRECT_NS = 256
 _RKB_BANKS: OrderedDict = OrderedDict()
 
 
@@ -1224,6 +1491,10 @@ class ConvolCache:
         key = (k, itype)
         if key in self._cache:
             return self._cache[key]
+        transposed = self._cache.get((k, itype, "T"))
+        if transposed is not None:
+            rkbT, ns, ks = transposed
+            return rkbT.transpose(2, 3, 0, 1), ns, ks
 
         bd = self.bsp_data
         nv = bd["nv"]
@@ -1284,11 +1555,12 @@ class ConvolCache:
         """Transposed rkb bank for the ``_convol_case*_t`` kernels.
 
         Layout: rkbT[ip, jp, i, j] = rkb[i, j, ip, jp], C-contiguous so the
-        kernels' innermost j/col loops are unit-stride.  Cached alongside
-        the untransposed bank (which other consumers — case2, bilinear,
-        total-energy — still read), roughly doubling per-(k, itype) cache
-        memory; the one-time transpose (~1 ms) is amortised over the SCF
-        iterations.
+        kernels' innermost j/col loops are unit-stride. For compact bases,
+        it is cached alongside the original bank. For bases with at least
+        ``_TRANSPOSE_ONLY_NS`` splines, the original copy is discarded and
+        :meth:`get_rkb` supplies a zero-copy transposed view to the less
+        frequent final-energy consumers. The one-time transpose is
+        amortised over the SCF iterations.
         """
         key = (k, itype, "T")
         cached = self._cache.get(key)
@@ -1297,7 +1569,82 @@ class ConvolCache:
         rkb, ns, ks = self.get_rkb(k, itype)
         rkbT = np.ascontiguousarray(rkb.transpose(2, 3, 0, 1))
         self._cache[key] = (rkbT, ns, ks)
+        if self.bsp_data["ns"] >= _TRANSPOSE_ONLY_NS:
+            self._cache.pop((k, itype), None)
         return rkbT, ns, ks
+
+    def _component_pair_moments(self, k, component):
+        """Return local and global moments shared by every Coulomb block."""
+        key = (k, component, "pair_moments")
+        cached = self._cache.get(key)
+        if cached is not None:
+            return cached
+        bd = self.bsp_data
+        ks = bd.get("ksp" if component == "p" else "ksq", bd["ks"])
+        bsp = (bd["bsp_p"] if component == "p"
+               else bd.get("bsp_q", bd["bsp_p"]))
+        local_rising = _compute_moments_sym(
+            bsp, bd["gr"], bd["grw"], bd["nv"], ks, k)
+        local_falling = _compute_moments_sym(
+            bsp, bd["gr"], bd["grw"], bd["nv"], ks, -(k + 1))
+        rising = _global_pair_moments(local_rising, bd["nv"], ks, bd["ns"])
+        falling = _global_pair_moments(local_falling, bd["nv"], ks, bd["ns"])
+        self._cache[key] = (local_rising, local_falling, rising, falling)
+        return self._cache[key]
+
+    def get_coulomb_factors(self, k, itype="pppp"):
+        """Cache exact overlapping cells and factored distant pair moments.
+
+        For disjoint radial supports, the Coulomb kernel separates into
+        ``r^k`` and ``r^(-k-1)`` moments. This identity applies to equal
+        and mixed P/Q component pairs. Build the overlap strip directly
+        from cell moments, without allocating the full four-index bank.
+        """
+        components = {"pppp": ("p", "p"), "qqqq": ("q", "q"),
+                      "pqpq": ("p", "q"), "qpqp": ("q", "p")}
+        if itype not in components:
+            raise ValueError(f"Unknown integral type: {itype}")
+        key = (k, itype, "semiseparable")
+        cached = self._cache.get(key)
+        if cached is not None:
+            return cached
+        left, right = components[itype]
+        bd = self.bsp_data
+        ns, nv = bd["ns"], bd["nv"]
+        local_rising_left, local_falling_left, rising_left, falling_left = (
+            self._component_pair_moments(k, left))
+        local_rising_right, local_falling_right, rising_right, falling_right = (
+            self._component_pair_moments(k, right))
+        ks_left = rising_left.shape[0]
+        ks_right = rising_right.shape[0]
+        bsp_left = (bd["bsp_p"] if left == "p"
+                    else bd.get("bsp_q", bd["bsp_p"]))
+        knots_left = bd.get("tp", bd["t"]) if left == "p" else bd["t"]
+        if left == right:
+            diagonal = _triang_sym(
+                bsp_left, bd["gr"], bd["grw"], knots_left, nv,
+                ks_left, ns, k)
+        else:
+            bsp_right = (bd["bsp_p"] if right == "p"
+                         else bd.get("bsp_q", bd["bsp_p"]))
+            knots_right = (bd.get("tp", bd["t"])
+                           if right == "p" else bd["t"])
+            diagonal = _triang_pqpq(
+                bsp_left, bsp_right, bd["gr"], bd["grw"],
+                knots_left, knots_right, nv, ks_left, ks_right, ns, k)
+        near = _assemble_near_rkb(
+            local_rising_left, local_falling_right, local_rising_right,
+            local_falling_left, diagonal, nv, ks_left, ks_right, ns)
+        self._cache[key] = (near, rising_left, falling_left,
+                            rising_right, falling_right)
+        return self._cache[key]
+
+    def get_symmetric_exchange_factors(self, k, itype="pppp"):
+        """Return the same-component subset needed by symmetric exchange."""
+        if itype not in ("pppp", "qqqq"):
+            raise ValueError("symmetric exchange factors need equal components")
+        near, rising, falling, _, _ = self.get_coulomb_factors(k, itype)
+        return near, rising, falling
 
     def clear(self):
         """Drop this grid's banks (shared with every cache on the grid)."""
@@ -1424,8 +1771,8 @@ def compute_slater_rk_cell(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd, bsp_data, k,
 
     where ρ_ab = P_a·P_b + Q_a·Q_b.
 
-    Uses all 4 component types: pppp + qqqq + pqpq + qpqp.
-    Currently pppp and qqqq are exact cell algorithm; pqpq/qpqp use Y^k fallback.
+    Uses the exact cell algorithm for all four component types:
+    pppp + qqqq + pqpq + qpqp.
 
     The evaluation is wrapped in a transient-NaN tripwire (HYP-1590): under
     extreme CPU oversubscription a single serial kernel call has been
@@ -1456,6 +1803,28 @@ def _compute_slater_rk_cell_once(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd, bsp_data, k,
     nsp = bd.get("nsp", bd["ns"])
     ksq = bd.get("ksq", bd["ks"])
     nsq = bd.get("nsq", bd["ns"])
+
+    if bd["ns"] >= SEMISEPARABLE_DIRECT_NS:
+        if cache is None:
+            cache = ConvolCache(bd)
+        ns = bd["ns"]
+        left_p = _density_sym(Pa, Pb, ns, ksp)
+        left_q = _density_sym(Qa, Qb, ns, ksq)
+        right_p = _density_sym(Pc, Pd, ns, ksp)
+        right_q = _density_sym(Qc, Qd, ns, ksq)
+        value = 0.0
+        for itype, left, right in (
+                ("pppp", left_p, right_p),
+                ("qqqq", left_q, right_q),
+                ("pqpq", left_p, right_q),
+                ("qpqp", left_q, right_p)):
+            factors = cache.get_coulomb_factors(k, itype)
+            contracted = _convol_case1_semiseparable_t(
+                *factors, right, ns, factors[1].shape[0],
+                factors[3].shape[0])
+            value += _sum_amb_banded(
+                contracted, left, ns, factors[1].shape[0])
+        return value
 
     result = 0.0
 

@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import collections
 
+import numpy as np
 import pytest
 
 from atomx.methods.dirac_fock import DFSolver, Subshell
@@ -71,6 +72,23 @@ def test_transposed_banks_are_shared_too(bank_builds):
     bank_t, _, _ = cache_a.get_rkb_t(1, "pppp")
     other_t, _, _ = cache_b.get_rkb_t(1, "pppp")
     assert bank_t is other_t
+    assert bank_builds["_build_rkb_sym"] == 1
+
+
+def test_large_basis_keeps_one_bank_copy_and_preserves_raw_integrals(
+        bank_builds, monkeypatch):
+    # Force the large-basis policy on a small workspace so this checks the
+    # memory layout without allocating a Rydberg-sized integral bank.
+    monkeypatch.setattr(convol, "_TRANSPOSE_ONLY_NS", 30)
+    cache = ConvolCache(_workspace(ns=30).bsp_data)
+    raw, ns, ks = cache.get_rkb(0, "pppp")
+    reference = raw.copy()
+    transposed, _, _ = cache.get_rkb_t(0, "pppp")
+    recovered, _, _ = cache.get_rkb(0, "pppp")
+
+    assert (0, "pppp") not in cache._cache
+    assert np.shares_memory(recovered, transposed)
+    np.testing.assert_array_equal(recovered, reference)
     assert bank_builds["_build_rkb_sym"] == 1
 
 

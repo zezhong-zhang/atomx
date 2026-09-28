@@ -11,14 +11,21 @@ Verifies:
 import numpy as np
 import pytest
 
+import atomx.numerics.bspline.convol as convol
 from atomx.numerics.bspline.basis import (
     prepare_bspline_data,
 )
 from atomx.numerics.bspline.convol import (
+    ConvolCache,
     _build_rkb_sym,
     _compute_moments_sym,
     _convol_case1,
+    _convol_case1_semiseparable_t,
+    _convol_case1_t,
     _convol_case2,
+    _convol_case4_semiseparable_mixed_t,
+    _convol_case4_semiseparable_t,
+    _convol_case4_t,
     _density_sym,
     _triang_sym,
     compute_slater_fk_cell,
@@ -141,6 +148,139 @@ class TestRkb:
         rkb = _build_rkb_sym(d["bsp_p"], d["gr"], d["grw"], d["t"],
                               d["nv"], ks, ns, 0)
         assert rkb.shape == (ns, ns, ks, ks)
+
+    def test_symmetric_exchange_contraction_matches_full(self, he_setup):
+        """Coulomb pair symmetry permits a half-matrix exchange build."""
+        data = he_setup["data"]
+        ns = data["ns"]
+        bank, _, ks = ConvolCache(data).get_rkb_t(0, "pppp")
+        p = he_setup["P_1s"]
+        density = np.outer(p, p)
+        full = _convol_case4_t(bank, density, ns, ks, ks)
+        half = _convol_case4_t(bank, density, ns, ks, ks, True)
+        np.testing.assert_allclose(full, half, atol=1e-12, rtol=1e-12)
+        np.testing.assert_array_equal(half, half.T)
+
+    @pytest.mark.parametrize("ns,component,k", [
+        (50, "pppp", 2), (256, "pppp", 0), (256, "qqqq", 0),
+    ])
+    def test_factored_exchange_matches_cell_bank(self, ns, component, k):
+        """Separated Coulomb tails plus exact overlap cells retain exchange."""
+        ks = 9
+        data = prepare_bspline_data(
+            make_knots(ns, ks, 0.0125, 50.0), ns, ks,
+            kinetic_balance=True)
+        cache = ConvolCache(data)
+        bank, _, order = cache.get_rkb_t(k, component)
+        near, rising, falling = cache.get_symmetric_exchange_factors(
+            k, component)
+        rng = np.random.default_rng(103 + ns + k)
+        occupied = rng.normal(size=(3, ns))
+        density = occupied.T @ occupied
+        reference = _convol_case4_t(
+            bank, density, ns, order, order, symmetric_output=True)
+        factored = _convol_case4_semiseparable_t(
+            near, rising, falling, density, ns, order)
+        np.testing.assert_allclose(factored, reference, rtol=2e-13,
+                                   atol=2e-12)
+        np.testing.assert_array_equal(factored, factored.T)
+
+    @pytest.mark.parametrize("ns,component,k", [
+        (50, "pqpq", 1), (50, "qpqp", 6),
+        (256, "pqpq", 0), (256, "qpqp", 0),
+    ])
+    def test_factored_mixed_exchange_matches_cell_bank(
+            self, ns, component, k):
+        data = prepare_bspline_data(
+            make_knots(ns, 9, 0.0125, 50.0), ns, 9,
+            kinetic_balance=True)
+        cache = ConvolCache(data)
+        factors = cache.get_coulomb_factors(k, component)
+        assert (k, component, "T") not in cache._cache
+        bank, _, ks_left = cache.get_rkb_t(k, component)
+        ks_right = bank.shape[1]
+        rng = np.random.default_rng(1301 + ns + k)
+        density = np.outer(rng.normal(size=ns), rng.normal(size=ns))
+        reference = _convol_case4_t(
+            bank, density, ns, ks_left, ks_right)
+        factored = _convol_case4_semiseparable_mixed_t(
+            *factors, density, ns, ks_left, ks_right)
+        np.testing.assert_allclose(factored, reference, rtol=2e-12,
+                                   atol=2e-12)
+
+    @pytest.mark.parametrize("component", ["pppp", "qqqq", "pqpq", "qpqp"])
+    @pytest.mark.parametrize("k", [0, 1, 6])
+    def test_overlap_strip_matches_independent_full_bank(self, component, k):
+        """Cell assembly retains every overlap integral without a full bank."""
+        ns = 50
+        data = prepare_bspline_data(
+            make_knots(ns, 9, 0.0125, 50.0), ns, 9,
+            kinetic_balance=True)
+        compact_cache = ConvolCache(data)
+        compact_cache.clear()
+        near, *_ = compact_cache.get_coulomb_factors(k, component)
+        assert (k, component) not in compact_cache._cache
+        assert (k, component, "T") not in compact_cache._cache
+        bank, _, ks_left = compact_cache.get_rkb_t(k, component)
+        ks_right = bank.shape[1]
+        for ip in range(ks_left):
+            for jp in range(ks_right):
+                for i in range(ns):
+                    first_j = i + ip - ks_left + 1
+                    last_j = i + ks_right - jp - 1
+                    for j in range(max(0, first_j), min(ns, last_j + 1)):
+                        np.testing.assert_allclose(
+                            near[ip, jp, i, j - first_j],
+                            bank[ip, jp, i, j], rtol=2e-12, atol=1e-14)
+
+    @pytest.mark.parametrize("component", ["pppp", "qqqq", "pqpq", "qpqp"])
+    @pytest.mark.parametrize("ns,k", [(50, 1), (50, 6), (256, 0)])
+    def test_factored_direct_matches_full_cell_bank(self, ns, k, component):
+        """Prefix/suffix Coulomb moments preserve mixed and equal blocks."""
+        ks = 9
+        data = prepare_bspline_data(
+            make_knots(ns, ks, 0.0125, 50.0), ns, ks,
+            kinetic_balance=True)
+        cache = ConvolCache(data)
+        bank, _, order_left = cache.get_rkb_t(k, component)
+        factors = cache.get_coulomb_factors(k, component)
+        order_right = factors[3].shape[0]
+        rng = np.random.default_rng(701 + ns + k)
+        orbital = rng.normal(size=ns)
+        density = np.zeros((ns, order_right))
+        for offset in range(order_right):
+            density[:ns - offset, offset] = (
+                orbital[:ns - offset] * orbital[offset:]
+                * (2 if offset else 1))
+        reference = _convol_case1_t(
+            bank, density, ns, order_left, order_right)
+        factored = _convol_case1_semiseparable_t(
+            *factors, density, ns, order_left, order_right)
+        np.testing.assert_allclose(factored, reference, rtol=2e-12,
+                                   atol=1e-12)
+
+    @pytest.mark.parametrize("k", [0, 1, 6])
+    def test_factored_slater_matches_all_four_cell_blocks(self, monkeypatch, k):
+        """Final-energy scalar contractions retain mixed P/Q terms."""
+        ns = 256
+        data = prepare_bspline_data(
+            make_knots(ns, 9, 0.0125, 50.0), ns, 9,
+            kinetic_balance=True)
+        cache = ConvolCache(data)
+        rng = np.random.default_rng(919 + k)
+        orbitals = [
+            (rng.normal(size=data["nsp"]), rng.normal(size=data["nsq"]))
+            for _ in range(4)
+        ]
+        args = tuple(component for orbital in orbitals for component in orbital)
+        monkeypatch.setattr(convol, "SEMISEPARABLE_DIRECT_NS", 10**9)
+        reference = convol.compute_slater_rk_cell(
+            *args, data, k, cache=cache)
+        monkeypatch.setattr(convol, "SEMISEPARABLE_DIRECT_NS", 256)
+        factored = convol.compute_slater_rk_cell(
+            *args, data, k, cache=cache)
+        np.testing.assert_allclose(factored, reference, rtol=2e-12,
+                                   atol=1e-10)
 
 
 class TestSlaterIntegrals:
