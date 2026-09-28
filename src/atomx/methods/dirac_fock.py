@@ -1764,15 +1764,17 @@ class DFSolver:
                 shells[shell_index] = (coefficients[:ns_full, j], coefficients[ns_full:, j], shells[shell_index][2])
                 orbital_energies[kappa_groups[kappa][shell_index].label] = float(eps[j])
 
-    def _optimize_same_kappa_rotations(self, orbitals):
+    def _optimize_same_kappa_rotations(self, orbitals, *, core_hole_stationary=True):
         """Minimize each occupied-pair rotation of the HF energy exactly.
 
         A two-orbital rotation makes a quartic trigonometric polynomial.
         Four analytic derivatives determine its nonconstant coefficients;
         the stationary points follow from a quartic in exp(2j*theta).
-        Accumulated Fock contractions avoid repeated Slater-integral sums.
-        Every derivative uses the current orbitals, including the trial
-        rotation. The mixed exchange blocks must be mutual transposes.
+        Each Fock matrix is linear in the one-particle density and hence
+        contains only constant, cos(2*theta), and sin(2*theta) terms. Three
+        Fock samples per target determine all four derivatives. Projecting
+        onto the original orbital pair before interpolation keeps the work
+        in 2x2 matrices. The mixed exchange blocks are mutual transposes.
         """
         maximum = 0.0
         virtual_keys = getattr(self, "virtual_orbital_keys", set())
@@ -1797,7 +1799,8 @@ class DFSolver:
                     n_i = self.subshells[self._flat_orbital_index(kappa, i)].n
                     n_j = self.subshells[self._flat_orbital_index(kappa, j)].n
                     lower_occupation = ni if n_i < n_j else nj
-                    if n_i != n_j and lower_occupation < capacity - 1e-12:
+                    core_hole = n_i != n_j and lower_occupation < capacity - 1e-12
+                    if core_hole and not core_hole_stationary:
                         continue
                     if ((self.subshells[self._flat_orbital_index(kappa, i)].n, kappa) in virtual_keys
                             or (self.subshells[self._flat_orbital_index(kappa, j)].n, kappa) in virtual_keys):
@@ -1809,30 +1812,55 @@ class DFSolver:
                         shells[i] = (c*pi + t*pj, c*qi + t*qj, ni)
                         shells[j] = (c*pj - t*pi, c*qj - t*qi, nj)
 
-                    def derivative(angle, rotate=rotate, shells=shells, i=i,
-                                   j=j, kappa=kappa, ni=ni, nj=nj):
-                        rotate(angle)
-                        vi, vj = (np.concatenate(shells[index][:2]) for index in (i, j))
-                        fields = []
-                        for index in (i, j):
+                    pair_basis = np.column_stack((
+                        np.concatenate((pi, qi)), np.concatenate((pj, qj))))
+                    n = self.bsp_data["ns"]
+                    large, small = pair_basis[:n], pair_basis[n:]
+                    h0_projected = pair_basis.T @ (
+                        self._energy_h0_matrices[kappa][0] @ pair_basis)
+                    samples = np.empty((2, 3, 2, 2))
+                    for sample_i, sample_angle in enumerate((0.0, np.pi / 4,
+                                                              np.pi / 2)):
+                        rotate(sample_angle)
+                        for target_i, index in enumerate((i, j)):
                             pp, qq, _, qp = self._build_hf_matrix_dbsr(
                                 self._flat_orbital_index(kappa, index), orbitals,
                                 skip_pq_exchange=True)
-                            h = self._energy_h0_matrices[kappa][0].copy()
-                            n = self.bsp_data["ns"]
-                            h[:n, :n] += pp
-                            h[n:, n:] += qq
-                            h[n:, :n] += qp
-                            fields.append(np.tril(h) + np.tril(h, -1).T)
-                        return 2 * (ni * (vj @ fields[0] @ vi) - nj * (vi @ fields[1] @ vj))
+                            cross = small.T @ (qp @ large)
+                            samples[target_i, sample_i] = (
+                                h0_projected + large.T @ (pp @ large)
+                                + small.T @ (qq @ small) + cross + cross.T)
+
+                    constant = 0.5 * (samples[:, 0] + samples[:, 2])
+                    cosine = 0.5 * (samples[:, 0] - samples[:, 2])
+                    sine = samples[:, 1] - constant
+
+                    def derivative(angle, constant=constant, cosine=cosine,
+                                   sine=sine, ni=ni, nj=nj):
+                        c, s = np.cos(angle), np.sin(angle)
+                        vi = np.array((c, s))
+                        vj = np.array((-s, c))
+                        fields = (constant + cosine * np.cos(2 * angle)
+                                  + sine * np.sin(2 * angle))
+                        return 2 * (ni * (vj @ fields[0] @ vi)
+                                    - nj * (vi @ fields[1] @ vj))
 
                     c1, c2, c3, c4 = np.linalg.solve(design, [derivative(t) for t in angles])
                     roots = np.roots([c4 + 1j*c3, (c2 + 1j*c1)/2,
                                       0, (c2 - 1j*c1)/2, c4 - 1j*c3])
-                    candidates = np.r_[0., np.angle(roots[abs(abs(roots)-1) < 1e-6])/2]
+                    stationary = np.angle(roots[abs(abs(roots)-1) < 1e-6])/2
+                    candidates = np.r_[0., stationary]
                     values = (c1*np.cos(2*candidates) + c2*np.sin(2*candidates)
                               + c3*np.cos(4*candidates) + c4*np.sin(4*candidates))
-                    angle = float(candidates[np.argmin(values)])
+                    if core_hole:
+                        # Experimental local stationarity for excited states:
+                        # follow the nearest stationary point, including a
+                        # saddle, rather than globally exchanging radial roots.
+                        # The trust radius prevents a single large label swap.
+                        angle = (float(np.clip(stationary[np.argmin(abs(stationary))],
+                                               -0.1, 0.1)) if stationary.size else 0.0)
+                    else:
+                        angle = float(candidates[np.argmin(values)])
                     rotate(angle)
                     maximum = max(maximum, abs(angle))
         return maximum
@@ -2040,6 +2068,9 @@ class DFSolver:
                 # ============================================================
                 # DBSR_HF hf_matrix algorithm with DIIS acceleration.
                 # ============================================================
+                use_diis = len(orbital_schedule) >= 5 and iteration >= 4
+                sweep_input = (self._flatten_orbital_vector(
+                    orbitals, orbital_schedule, ns_full) if use_diis else None)
                 for flat_i, (sh, kappa, orb_idx) in enumerate(orbital_schedule):
                     # Build DBSR_HF-style Fock matrix for orbital i.
                     # skip_pq_exchange: V_PQ lands in the strictly-upper
@@ -2145,14 +2176,12 @@ class DFSolver:
                 # Accelerate convergence via Pulay DIIS on orbital vectors.
                 # Collect history always (for 5+ orbital systems after iter 4),
                 # but only extrapolate when residual is in a useful range.
-                n_orb = len(orbital_schedule)
-                use_diis = n_orb >= 5 and iteration >= 4
                 if use_diis:
                     orb_vec = self._flatten_orbital_vector(orbitals, orbital_schedule, ns_full)
-                    if len(diis_orb_history) > 0:
-                        err_vec = orb_vec - diis_orb_history[-1]
-                    else:
-                        err_vec = np.zeros_like(orb_vec)
+                    # The previous stored output is not this sweep's input:
+                    # DIIS, orthonormalization, and pair rotations can all
+                    # change it. Use F(x)-x, including the first history entry.
+                    err_vec = orb_vec - sweep_input
                     diis_orb_history.append(orb_vec.copy())
                     diis_err_history.append(err_vec.copy())
                     if len(diis_orb_history) > diis_max:
@@ -2349,7 +2378,8 @@ class DFSolver:
                 self._canonicalize_closed_subshells(orbitals, orbital_energies, kappa_groups)
             if (self.exchange == "hf" and self.mean_field_coeffs is None
                     and max_orb_change < 0.1):
-                max_orb_change = max(max_orb_change, self._optimize_same_kappa_rotations(orbitals))
+                max_orb_change = max(max_orb_change, self._optimize_same_kappa_rotations(
+                    orbitals, core_hole_stationary=getattr(self, 'core_hole_stationary', True)))
 
             # Check convergence
             E_total_quick = sum(
@@ -2390,6 +2420,13 @@ class DFSolver:
         # Compute total energy (with a transient-NaN tripwire, HYP-1590)
         total_energy, energy_components = self._final_energy_checked(
             orbitals, orbital_energies)
+
+        energy_components["_core_hole_rotation_mode"] = (
+            "local_stationary_v1" if getattr(self, "core_hole_stationary", True)
+            else "frozen")
+        energy_components["_eigensolver_refinement_policy"] = (
+            "requested_bound_index_plus_l_ge10_newton_v2")
+        energy_components["_diis_residual_policy"] = "actual_sweep_input_v1"
 
         # Verify the constrained metric after damping/DIIS as well.
         max_overlap = _max_same_kappa_overlap(orbitals, self.bsp_data)
@@ -2492,6 +2529,10 @@ class DiracFock(Method):
         Occupied B-spline orbitals from a calculation on the same radial
         basis. Useful for continuing a difficult HF solve from a converged
         local-exchange state; the HF equations are still solved anew.
+    core_hole_stationary : bool
+        Local stationary rotations between occupied same-kappa orbitals
+        with a vacancy in the lower shell. Defaults to True. False reproduces
+        historical frozen rotations, which can report false stationarity.
     """
     exchange: Exchange = Exchange.HARTREE_FOCK
     breit: bool = False
@@ -2501,6 +2542,7 @@ class DiracFock(Method):
     nuclear_mass_me: float | None = None
     scf_damping: float | None = None
     seed_orbitals: Dict | None = field(default=None, repr=False)
+    core_hole_stationary: bool = True
     scf_damping_release_residual: float = 1e-2
 
     @property
@@ -2552,6 +2594,7 @@ class DiracFock(Method):
             jj_configs=jj_configs,
             log=log)
         solver.seed_orbitals = self.seed_orbitals
+        solver.core_hole_stationary = self.core_hole_stationary
 
         if use_physics_grid:
             from atomx.numerics.bspline.basis import prepare_bspline_data

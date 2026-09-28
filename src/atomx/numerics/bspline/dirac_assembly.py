@@ -141,6 +141,8 @@ class DiracResult:
     nsp: int = 0                  # P-component dimension
     nsq: int = 0                  # Q-component dimension
     n_bound: int = field(init=False)
+    _refine_orbital: object = field(default=None, repr=False)
+    _refined_indices: set = field(default_factory=set, repr=False)
 
     def __post_init__(self):
         self.n_bound = len(self.bound_energies)
@@ -160,6 +162,21 @@ class DiracResult:
         bound_indices = np.where(bound_mask)[0]
         sorted_order = np.argsort(self.eigenvalues[bound_indices])
         eigvec_idx = bound_indices[sorted_order[idx]]
+
+        # Diffuse high roots can have eigenvector errors far above SCF tolerance
+        # despite a backward-stable full-spectrum solve. Refine only requested
+        # roots; refining all unused continuum states would dominate runtime.
+        # Angular momentum also makes low-index roots diffuse: He 16i has
+        # index 9 and l=6. Counting radial roots alone missed its inaccurate
+        # eigenvector and prevented SCF convergence. For an unconstrained
+        # channel, idx+l+1 is the principal quantum number.
+        ell = self.kappa if self.kappa > 0 else -self.kappa - 1
+        if idx + ell >= 10 and self._refine_orbital is not None and eigvec_idx not in self._refined_indices:
+            energy, vector = self._refine_orbital(eigvec_idx)
+            self.eigenvalues[eigvec_idx] = energy
+            self.bound_energies[idx] = energy
+            self.coefficients[:, eigvec_idx] = vector
+            self._refined_indices.add(eigvec_idx)
 
         vec = self.coefficients[:, eigvec_idx]
         ns_full = self.ns  # = max(nsp, nsq)
@@ -268,8 +285,46 @@ def _eigh_finite(H_red, S_red, max_retries=2):
     )
 
 
+def _refine_eigenpair(H, S, energy, vector, gap):
+    """Bordered Newton refinement in the actual constrained eigenbasis.
+
+    The border enforces S-normalization and removes the eigenvector's null
+    direction. No shift, potential approximation, or change of root is used.
+    """
+    h = np.tril(H) + np.tril(H, -1).T
+    s = np.tril(S) + np.tril(S, -1).T
+    original = vector.copy()
+    x = original.copy()
+    initial_energy = float(energy)
+    best = (float(linalg.norm(h @ x - energy * (s @ x))), energy, x.copy())
+    for _ in range(2):
+        sx = s @ x
+        residual = h @ x - energy * sx
+        if not np.any(residual):
+            break
+        augmented = np.block([[h-energy*s, -sx[:, None]],
+                              [-sx[None, :], np.zeros((1, 1))]])
+        delta = linalg.solve(augmented, np.r_[-residual, 0.],
+                             assume_a='sym', check_finite=True)
+        x += delta[:-1]
+        norm = float(x @ s @ x)
+        if not np.isfinite(norm) or norm <= 0:
+            raise linalg.LinAlgError('invalid refined orbital norm')
+        x /= np.sqrt(norm)
+        extended = x.astype(np.longdouble)
+        energy = float(extended @ h.astype(np.longdouble) @ extended /
+                       (extended @ s.astype(np.longdouble) @ extended))
+        if (abs(energy-initial_energy) > 0.25 * gap
+                or abs(original @ s @ x) < 0.99):
+            raise linalg.LinAlgError('eigenvector refinement left the selected root')
+        error = float(linalg.norm(h @ x - energy * (s @ x)))
+        if error < best[0]:
+            best = (error, energy, x.copy())
+    return best[1], best[2]
+
+
 def solve_dirac(H, S, ns, kappa, n_remove_boundary=1, nsp=None, nsq=None,
-                orthogonal_to=None):
+                orthogonal_to=None, refine_rydberg=True):
     """Solve the generalized Dirac eigenvalue problem.
 
     Handles both symmetric (nsp=nsq=ns) and RKB (nsp < nsq) cases.
@@ -322,6 +377,7 @@ def solve_dirac(H, S, ns, kappa, n_remove_boundary=1, nsp=None, nsq=None,
     keep, grid = _get_keep_grid(ns_full, nsp, nsq, nb, ibzero)
     H_red = H[grid]
     S_red = S[grid]
+    complement = None
 
     # Solve the full generalised eigenproblem. Empirically for the matrix
     # sizes produced by atomx (~200–500), LAPACK ``dsygv`` /
@@ -346,6 +402,8 @@ def solve_dirac(H, S, ns, kappa, n_remove_boundary=1, nsp=None, nsq=None,
         eigenvectors = complement @ vectors
     else:
         eigenvalues, eigenvectors = _eigh_finite(H_red, S_red)
+        constrained_h, constrained_s = H_red, S_red
+        vectors = eigenvectors
 
     sea_threshold = NEGATIVE_CONTINUUM_EDGE
     physical_mask = eigenvalues > sea_threshold
@@ -359,6 +417,17 @@ def solve_dirac(H, S, ns, kappa, n_remove_boundary=1, nsp=None, nsq=None,
     bound_mask = (eigenvalues > sea_threshold) & (eigenvalues < 0)
     bound_energies = np.sort(eigenvalues[bound_mask])
 
+    def refine(index):
+        full_index = np.flatnonzero(physical_mask)[index]
+        gaps = np.abs(eigenvalues - eigenvalues[full_index])
+        gaps[full_index] = np.inf
+        energy, vector = _refine_eigenpair(
+            constrained_h, constrained_s, eigenvalues[full_index],
+            vectors[:, full_index], float(np.min(gaps)))
+        embedded = np.zeros(ms)
+        embedded[keep] = complement @ vector if complement is not None else vector
+        return energy, embedded
+
     return DiracResult(
         kappa=kappa,
         eigenvalues=physical_eigenvalues,
@@ -367,4 +436,5 @@ def solve_dirac(H, S, ns, kappa, n_remove_boundary=1, nsp=None, nsq=None,
         ns=ns_full,
         nsp=nsp,
         nsq=nsq,
+        _refine_orbital=refine if refine_rydberg else None,
     )
