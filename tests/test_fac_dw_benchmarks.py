@@ -267,21 +267,38 @@ def test_dw_eii_live_atomx_reproduces_recorded_columns(eii_csv, live_eii):
 
     Gate: per-point ≤ 1e-6 against the recorded ``sigma_atomx_cm2`` (measured
     ≤ 2e-8) and the threshold within 0.1 % (measured ≤ 1.5e-8).
+
+    Failures report every offending row at full precision (%.17e): the
+    recorded column is re-baselined from a CI log, and the cross sections
+    at this grid are sensitive to SCF orbital noise at the 1e-4 level
+    (measured: identical code diverges local-vs-CI far above the gate),
+    so only CI-environment values are ledger-worthy.
     """
     data = _data(eii_csv)
+    failures = []
+    th_failures = []
     for row in data:
         key = (int(row["Z"]), float(row["E_over_threshold"]))
         live = live_eii[key]
         recorded = float(row["sigma_atomx_cm2"])
         rel = abs(live["sigma"] - recorded) / recorded
-        assert rel <= EII_ATOMX_REPRO, (
-            f"{key}: live sigma_atomx={live['sigma']:.6e} vs recorded "
-            f"{recorded:.6e} (rel={rel:.2e} > {EII_ATOMX_REPRO:.0e})"
-        )
+        if rel > EII_ATOMX_REPRO:
+            failures.append(
+                f"{key}: live={live['sigma']:.17e} recorded={recorded:.17e} "
+                f"rel={rel:.3e}"
+            )
         th = abs(live["threshold_eV"] - float(row["threshold_eV"])) / float(
             row["threshold_eV"]
         )
-        assert th <= THRESHOLD_REPRO, f"{key}: threshold rel={th:.2e}"
+        if th > THRESHOLD_REPRO:
+            th_failures.append(f"{key}: threshold rel={th:.2e}")
+    assert not th_failures, "; ".join(th_failures)
+    assert not failures, (
+        f"{len(failures)} row(s) moved beyond {EII_ATOMX_REPRO:.0e} — if the "
+        "change is a verified accuracy fix, re-baseline the recorded column "
+        "from this CI log; otherwise the kernel regressed:\n"
+        + "\n".join(failures)
+    )
 
 
 @pytest.mark.external_fac
