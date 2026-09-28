@@ -83,8 +83,8 @@ _SEQ_RE = re.compile(
 _MEDIUM_RE = re.compile(r"<i>&lambda;</i>\s*in</u>:\s*"
                         r"<span[^>]*>(?P<medium>\w+)</span>")
 #: Tokens of a NIST configuration string: ``2s2``, ``3d``, ``5g``, ``10p``.
-_SUBSHELL_RE = re.compile(r"(?P<n>\d{1,2})(?P<l>[spdfghik])(?P<occ>\d*)")
-_L_VALUE = {"s": 0, "p": 1, "d": 2, "f": 3, "g": 4, "h": 5, "i": 6, "k": 7}
+_SUBSHELL_RE = re.compile(r"(?P<n>\d+)(?P<l>[spdfghiklmnoqrtuvwxyz])(?P<occ>\d*)")
+_L_VALUE = {letter: ell for ell, letter in enumerate("spdfghiklmnoqrtuvwxyz")}
 _NUMBER_RE = re.compile(r"[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?")
 
 
@@ -139,7 +139,7 @@ def normalise_configuration(text: str) -> str:
     while "(" in text and ")" in text:          # drop (...(2P*<3/2>)...) groups
         start = text.index("(")
         end = text.index(")", start)
-        text = text[:start] + text[end + 1:]
+        text = text[:start] + "." + text[end + 1:]
     subshells: list[tuple[int, int, int]] = []
     for token in re.split(r"[.\s]+", text):
         match = _SUBSHELL_RE.fullmatch(token.strip().replace("*", "")
@@ -150,7 +150,7 @@ def normalise_configuration(text: str) -> str:
         subshells.append((int(match.group("n")),
                           _L_VALUE[match.group("l")], occupation))
     subshells.sort()
-    return " ".join(f"{n}{'spdfghik'[l]}{occ}" for n, l, occ in subshells)
+    return " ".join(f"{n}{'spdfghiklmnoqrtuvwxyz'[l]}{occ}" for n, l, occ in subshells)
 
 
 def configuration_map(text: str) -> dict[tuple[int, int], int]:
@@ -159,8 +159,8 @@ def configuration_map(text: str) -> dict[tuple[int, int], int]:
     for token in normalise_configuration(text).split():
         match = _SUBSHELL_RE.fullmatch(token)
         if match is not None:
-            out[(int(match.group("n")), _L_VALUE[match.group("l")])] = int(
-                match.group("occ"))
+            key = (int(match.group("n")), _L_VALUE[match.group("l")])
+            out[key] = out.get(key, 0) + int(match.group("occ"))
     return out
 
 

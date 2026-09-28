@@ -105,7 +105,7 @@ def expand_nist_config(text: str, electrons: int) -> str | None:
             deficit -= occupancy
     if deficit:
         return None
-    letters = "spdfghik"
+    letters = "spdfghiklmnoqrtuvwxyz"
     config = " ".join(f"{n}{letters[l]}{q}" for (n, l), q in sorted(full.items()))
     try:
         parsed = parse_nr_shells(config)
@@ -286,7 +286,7 @@ def radial_box_unresolved(charge: int, configuration: str,
     Coulomb outer turning radius is approximately 2 n**2 / (charge + 1).
     This is a conservative domain check, not a fitted accuracy cutoff.
     """
-    ns = re.findall(r"\b(\d+)[spdfghik]", configuration)
+    ns = re.findall(r"\b(\d+)[spdfghiklmnoqrtuvwxyz]", configuration)
     return bool(ns) and 2 * max(map(int, ns)) ** 2 > r_max_bohr * (charge + 1)
 
 
@@ -298,7 +298,7 @@ def basis_for_job(z: int, charge: int, configuration: str) -> tuple[Basis, float
     """Contain the Coulomb outer turning point with a scalable outer grid."""
     from atomx.numerics.bspline.knots import make_physics_knots
 
-    ns = re.findall(r"\b(\d+)[spdfghik]", configuration)
+    ns = re.findall(r"\b(\d+)[spdfghiklmnoqrtuvwxyz]", configuration)
     n_max = max(map(int, ns)) if ns else 1
     # A one-electron orbital needs a box beyond its classical outer turning
     # point to preserve the exponential tail. The analytic Dirac check found
@@ -327,7 +327,7 @@ def pending_job_priority(job: tuple[int, int, str, float, int]
     first; the original element order breaks ties in radial cost.
     """
     z, charge, configuration, _, is_ground = job
-    n_max = max(map(int, re.findall(r"\b(\d+)[spdfghik]", configuration)),
+    n_max = max(map(int, re.findall(r"\b(\d+)[spdfghiklmnoqrtuvwxyz]", configuration)),
                 default=1)
     radial_cost = n_max * n_max / (charge + 1)
     return (-is_ground, radial_cost, z, charge, len(configuration), configuration)
@@ -595,7 +595,7 @@ def prepare(archive: Path, output: Path, isotopes_path: Path,
             for z, charge, config, status in db.execute(
                     """SELECT z,charge,configuration,status FROM config_jobs
                        WHERE status IN ('done','failed','running')""").fetchall():
-                ns = re.findall(r"\b(\d+)[spdfghik]", config)
+                ns = re.findall(r"\b(\d+)[spdfghiklmnoqrtuvwxyz]", config)
                 if ns and max(map(int, ns)) >= 9:
                     db.execute("""UPDATE config_jobs SET status='pending',
                         energy_ha=NULL,nms_ha=NULL,converged=NULL,error=NULL

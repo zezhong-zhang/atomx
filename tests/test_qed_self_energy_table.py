@@ -168,7 +168,8 @@ class TestCoverageAndLdependence:
 
     def test_nist_rydberg_values_cover_high_n(self):
         assert len(BETHE_LOG_NIST) == 200
-        assert sum(map(len, BETHE_LOG_NIST.values())) == 1572
+        assert sum(map(len, BETHE_LOG_NIST.values())) == 20100
+        assert all(len(BETHE_LOG_NIST[n]) == n for n in range(1, 201))
         assert BETHE_LOG_NIST[9][0] == pytest.approx(2.72875117)
         assert BETHE_LOG_NIST[59][1] == pytest.approx(-0.0489983824)
         assert klamaq_f(9, -1) != klamaq_f(10, -1)
@@ -176,8 +177,17 @@ class TestCoverageAndLdependence:
     def test_multidigit_orbital_label_uses_full_principal_number(self):
         result = MohrBackend().compute(
             [(np.zeros(1), np.zeros(1), 1.0, -1, "10s1/2")], None, 1)
-        expected = ALPHA**3 / (np.pi * 10**3) * klamaq_f(10, -1)
+        expected_f = -(4/3)*BETHE_LOG_NIST[10][0] + 10/9 + (4/3)*np.log(ALPHA**-2)
+        expected = ALPHA**3 / (np.pi * 10**3) * expected_f
         assert result.per_orbital["10s1/2"] == pytest.approx(expected)
+
+    def test_high_ns_contains_codata_log_and_constant(self):
+        for n in (6, 8, 10, 30):
+            for z in (1, 2, 10, 36):
+                expected = (4/3)*np.log((z*ALPHA)**-2) + 10/9 - (4/3)*BETHE_LOG_NIST[n][0]
+                assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+            assert _interpolate_se_f(1, n, -1) > 0
+            assert _interpolate_se_f(1, n, -2) == klamaq_f(n, -2)
 
 
 class TestPhysicalAnchors:

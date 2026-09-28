@@ -436,19 +436,9 @@ def _parse_config_string(config_str):
     Notation: nl^q where n=principal, l=s/p/d/f, q=occupation.
     For relativistic: each nl expands to nl- (j=l-1/2) and nl+ (j=l+1/2).
     """
-    l_map = {ch: i for i, ch in enumerate("spdfghiklmno")}
     subshells = []
 
-    for token in config_str.strip().split():
-        # Parse nl^q with multi-digit n (e.g. "10d3") and high-l letters.
-        m = re.fullmatch(r"(\d+)([spdfghiklmno])(\d+)", token)
-        if m is None:
-            raise ValueError(f"cannot parse configuration token {token!r}")
-        n = int(m.group(1))
-        l_char = m.group(2)
-        l = l_map[l_char]
-        q = int(m.group(3))
-
+    for n, l, q in parse_nr_shells(config_str):
         if l == 0:
             # s orbital: only j = l+1/2 = 1/2, kappa = -(l+1) = -1
             subshells.append(Subshell(n=n, kappa=-(l + 1), occupation=q))

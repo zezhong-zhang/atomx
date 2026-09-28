@@ -15,6 +15,8 @@ source of truth is :mod:`atomx.data.mohr_se`.
 
 from __future__ import annotations
 
+import re
+
 import numpy as np
 
 from atomx.constants import ALPHA
@@ -67,7 +69,10 @@ class IndelicatoBackend(SEBackend):
         per_orbital: dict = {}
         E_SE = 0.0
         for P, Q, occ, kappa, label in orbitals:
-            n = int(label[0])
+            match = re.match(r"(\d+)", label)
+            if match is None:
+                raise ValueError(f"self-energy orbital has no principal n: {label!r}")
+            n = int(match.group(1))
             F_val = _interpolate_indelicato_f(Z, n, kappa)
             E_a = aZ ** 4 / (np.pi * ALPHA * n ** 3) * F_val
 

@@ -71,6 +71,19 @@ def test_mohr_and_indelicato_tables_are_the_same_function(Z):
     assert f_high < f_low
 
 
+@pytest.mark.parametrize("n,kappa,label", [
+    (10, 1, "10p1/2"),
+    (12, -2, "12p3/2"),
+])
+def test_indelicato_reads_full_multi_digit_principal_n(n, kappa, label):
+    backend = get_backend("indelicato")
+    actual = backend.compute([(None, None, 1.0, kappa, label)],
+                             bsp_data=None, Z=42)
+    expected = ((ALPHA * 42) ** 4 / (math.pi * ALPHA * n ** 3)
+                * _interpolate_indelicato_f(42, n, kappa))
+    assert actual.per_orbital[label] == pytest.approx(expected, rel=1e-12)
+
+
 @pytest.mark.parametrize("Z, iso, shells", GROUND_LEVELS)
 def test_indelicato_matches_fac_high_z_ground_level_rows(Z, iso, shells):
     backend = get_backend("indelicato")

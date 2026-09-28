@@ -59,7 +59,7 @@ class Subshell:
         if self.occupation > max_occ + 0.01:
             raise ValueError(f"Occupation {self.occupation} exceeds max {max_occ} for kappa={self.kappa}")
         if not self.label:
-            l_char = "spdfghiklmno"[l] if l < 12 else f"l{l}"
+            l_char = "spdfghiklmnoqrtuvwxyz"[l] if l < 21 else f"l{l}"
             self.label = f"{self.n}{l_char}{j2}/2"
 
     @property

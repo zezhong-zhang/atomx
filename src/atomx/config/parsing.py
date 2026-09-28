@@ -19,10 +19,10 @@ import re
 from typing import List, Tuple
 
 #: Spectroscopic letter -> orbital angular momentum.
-L_MAP: dict[str, int] = {"s": 0, "p": 1, "d": 2, "f": 3, "g": 4, "h": 5, "i": 6}
+L_MAP: dict[str, int] = {letter: ell for ell, letter in enumerate("spdfghiklmnoqrtuvwxyz")}
 
 #: ``<n><letter><occupation?>`` — occupation defaults to 1.
-_SHELL_RE = re.compile(r"^(\d+)([spdfghi])(\d*)$")
+_SHELL_RE = re.compile(r"^(\d+)([spdfghiklmnoqrtuvwxyz])(\d*)$")
 
 
 def parse_nr_shells(config_str: str) -> List[Tuple[int, int, int]]:
@@ -55,7 +55,7 @@ def parse_nr_shells(config_str: str) -> List[Tuple[int, int, int]]:
         if match is None:
             raise ValueError(
                 f"invalid shell {token!r} in configuration "
-                f"{config_str!r}: expected <n><s|p|d|f|g|h|i><occupation?>, "
+                f"{config_str!r}: expected <n><s|p|d|f|g|h|i|k|l|m|n|o|q|r|t|u|v|w|x|y|z><occupation?>, "
                 f"e.g. '2p6' or '3s' (occupation defaults to 1)"
             )
         n = int(match.group(1))
@@ -63,6 +63,8 @@ def parse_nr_shells(config_str: str) -> List[Tuple[int, int, int]]:
         q = int(match.group(3)) if match.group(3) else 1
         if n < 1:
             raise ValueError(f"invalid shell {token!r}: n must be >= 1")
+        if l >= n:
+            raise ValueError(f"invalid shell {token!r}: require 0 <= l < n")
         if q < 0 or q > 2 * (2 * l + 1):
             raise ValueError(
                 f"invalid shell {token!r}: occupation {q} exceeds the "

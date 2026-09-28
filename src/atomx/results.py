@@ -89,7 +89,7 @@ class OrbitalWavefunction:
     def l_symbol(self) -> str:
         """Spectroscopic letter for the orbital angular momentum
         (``s``, ``p``, ``d``, …)."""
-        return "spdfghiklmno"[self.l] if self.l < 12 else f"l{self.l}"
+        return "spdfghiklmnoqrtuvwxyz"[self.l] if self.l < 21 else f"l{self.l}"
 
     def to_dict(self) -> dict:
         """Compact ``{quantum_number → value}`` summary for ``Atom.summary()``

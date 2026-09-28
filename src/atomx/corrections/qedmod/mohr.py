@@ -5,7 +5,7 @@ citations; this module owns only the interpolation logic and the
 SCF-vs-hydrogenic overlap screening that convert that table into a
 per-orbital self-energy shift.
 
-Coverage follows FAC's ``HydrogenicSelfEnergy`` exactly:
+Table selection follows FAC's ``HydrogenicSelfEnergy``:
 
 * ``n <= 2`` (``1s1/2``, ``2s1/2``, ``2p1/2``, ``2p3/2``) — the fine
   ``Z`` grid of ``faclib/coulomb.c:_qed_se0 + _qed_se1``;
@@ -13,6 +13,9 @@ Coverage follows FAC's ``HydrogenicSelfEnergy`` exactly:
   carries the full ``l``/``j`` dependence;
 * anything else — FAC's ``Klamaq`` analytic estimate, using its Bethe-log
   constants through ``n=8`` and NIST TN 1467 values for ``9 <= n <= 200``.
+  For s states, use NIST Bethe logs and restore the CODATA leading logarithm
+  and s-state constant (A41 and A40); the FAC expression omits these terms.
+  This fallback still omits higher powers of Zα and is not precision QED.
 
 The previous implementation fell back to ``F(1s)/n³`` outside the ``n <= 3``
 table, which discards the ``l`` and ``j`` dependence entirely (a ``4f5/2``
@@ -87,7 +90,15 @@ def _interpolate_se_f(Z: float, n: int, kappa: int) -> float:
         return _interp_table(Z_GRID, [_SE_TABLE[key][z] for z in Z_GRID], Z)
     if key in SD_ROWS:
         return _interp_table(SD_Z_GRID, SD_TABLE[SD_ROWS.index(key)], Z)
-    return float(klamaq_f(n, kappa))
+    value = float(klamaq_f(n, kappa))
+    if kappa == -1:
+        # CODATA 2018, Eqs. (14)-(15): s states have A41=4/3 and
+        # A40=10/9-(4/3)ln k0. FAC's Klamaq expression instead supplies
+        # -(4/3)ln k0+1/2, extending the non-s magnetic formula to l=0.
+        # This restores the leading terms, not an all-order QED result.
+        from atomx.data.nist_bethe_log import BETHE_LOG_NIST
+        value = (4.0/3.0)*np.log((ALPHA*Z)**-2) + 10.0/9.0 - (4.0/3.0)*BETHE_LOG_NIST[n][0]
+    return value
 
 
 def _overlap_ratio(P, Q, kappa, Z, n, bsp_data):
