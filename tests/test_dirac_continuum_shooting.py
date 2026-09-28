@@ -128,20 +128,28 @@ def test_relativistic_coulomb_phase_stable_with_matching_radius(monkeypatch):
         Z_residual=54.)[3]
         for radius, points in ((20., 26515), (40., 53030))]
     assert abs(phases[0]-phases[1]) < .02
-    # The under-resolved-box tripwire below guards the spline-integrated
-    # path: its wave in a non-asymptotic window decoheres from the
-    # Coulomb reference and raises.  The Coulomb-tail walker's wave is
-    # the exact point-charge solution (the deviation-free potential here
-    # engages it from i_c=2), so its phase fit stays coherent regardless
-    # of box size — and the phase is not garbage: radius-independent to
-    # 3e-5 rad, modulo the constant Dirac-vs-Schrodinger Coulomb
-    # reference offset.  Disable the walker to keep exercising the
-    # reference-path tripwire.
+    # The tripwire below guards the spline-integrated path: a wave whose
+    # matching window is not asymptotic decoheres from the Coulomb
+    # reference and raises.  Deviation-free potentials integrate as the
+    # exact point-charge problem on both paths (and, after the outer-box
+    # spline fix, the reference path does so too), so pure -54/r coheres
+    # at any box size
+    # - the phase is radius-independent to 3e-5 rad, modulo the constant
+    # Dirac-vs-Schrodinger reference offset.  Exercise the tripwire with
+    # a genuinely non-asymptotic case instead: a slowly screened Z=54
+    # ion at low energy in a small box, where the true local momentum in
+    # the window sits several percent off k_inf against an eta ~ -30
+    # Coulomb reference.
     import atomx.numerics.shooting.dirac_continuum as _dc
     monkeypatch.setattr(_dc, "_TAIL_WALKER", False)
+
+    def screened(r):
+        r = np.asarray(r, dtype=float)
+        return -54.0 * np.exp(-r / 51.0) / np.maximum(r, 1e-30)
+
     with pytest.raises(RuntimeError, match="unconverged"):
         solve_dirac_continuum_shooting(
-            energy, -1, potential, r_max=20., n_grid=20000,
+            0.5, -1, screened, r_max=30., n_grid=20000,
             Z_residual=54.)
 
 

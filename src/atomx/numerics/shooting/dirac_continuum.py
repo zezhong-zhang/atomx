@@ -81,6 +81,28 @@ _TAIL_DEV_TOL = 1.0e-4
 #: shorter tails stay on the reference path.
 _TAIL_MIN_POINTS = 32
 
+#: Fitted spline intervals whose cubic misses the callable at the four
+#: Gauss-Lobatto nodes by more than this *relative* amount (times
+#: max(|Z_res|, 1)) are re-interpolated.  Natural-spline cubics deviate
+#: between widely spaced outer knots — measured up to ~7e-3 in r*V on
+#: the Fe SCF bench, where the tail never satisfies vint's freeze
+#: tolerance — while the four-node interpolant of a smooth tail is exact
+#: to roundoff, so the threshold only ever fires where the spline is
+#: genuinely off.
+_SPLINE_FIX_TOL = 1.0e-8
+
+#: Gauss-Lobatto 4 nodes on [0, 1] (endpoint-inclusive, so adjacent
+#: interval interpolants meet exactly at the shared knot) and Gauss 2
+#: nodes (fresh check points for the strict-improvement guard).
+_LOBATTO4 = np.array([0.0, 0.5 - 0.5 / np.sqrt(3.0),
+                      0.5 + 0.5 / np.sqrt(3.0), 1.0])
+_GAUSS2 = np.array([0.5 - 0.5 / np.sqrt(3.0), 0.5 + 0.5 / np.sqrt(3.0)])
+
+#: Inverse Vandermonde of _LOBATTO4 with ascending power columns
+#: (1, u, u^2, u^3): coefficients of the interpolating cubic in
+#: u = (r - r_a)/h, as c = values @ _V4INV.T.
+_V4INV = np.linalg.inv(np.vander(_LOBATTO4, 4)[:, ::-1])
+
 
 @lru_cache(maxsize=64)
 def _sgrid_cached(rn: float, r2: float, drn: float, n: int):
@@ -93,6 +115,80 @@ def _sgrid_cached(rn: float, r2: float, drn: float, n: int):
     r = np.ascontiguousarray(r[:n_out])
     r.setflags(write=False)
     return r, n_out
+
+
+def _refit_deviating_intervals(V_func, r, rv, va, vb, vc, vd, ind, nvt):
+    """Replace fitted-interval cubics that miss the callable at the four
+    Gauss-Lobatto nodes by more than ``_SPLINE_FIX_TOL * max(|Z_res|, 1)``.
+
+    The natural spline from :func:`vint` interpolates the tabulated r·V,
+    but between widely spaced outer knots its cubics can deviate from the
+    true callable (measured up to ~7e-3 in r·V on the Fe SCF bench) — a
+    real error of the reference path, independent of the Coulomb-tail
+    walker.  Each offending *fitted* interval (``ind < nvt-1``) is
+    re-interpolated by the cubic through the four Lobatto nodes, which for
+    smooth tails is exact to roundoff; adjacent intervals meet exactly at
+    the shared knot because the node set includes both endpoints.
+
+    The replacement is applied only when it is *strictly better* at the
+    two Gauss nodes (a fresh check set, not the fit points), so a
+    tabulated or noisy callable keeps the global spline.  Intervals in
+    vint's frozen constant tail (``ind == nvt-1``) are exact by design
+    and are never touched.
+    """
+    m = len(r) - 1
+    h = np.diff(r)
+    nodes = r[:m, None] + h[:, None] * _LOBATTO4[None, :]
+    rn = np.where(nodes > 0.0, nodes, 1.0e-30)
+    rvn = rn * np.asarray(V_func(rn), dtype=float)
+    a = va[ind[:m]][:, None]
+    b = vb[ind[:m]][:, None]
+    c = vc[ind[:m]][:, None]
+    d = vd[ind[:m]][:, None]
+    sp = a + nodes * (b + nodes * (c + nodes * d))
+    dev = np.abs(sp - rvn).max(axis=1)
+    z_eff = max(abs(rv[-1]), 1.0)
+    fitted = ind[:m] < nvt - 1
+    # Safety valve: the refit is for the smooth outer tail.  Intervals
+    # with non-finite or divergently large r*V (exotic model cores where
+    # no cubic is a faithful representation and the historical spline is
+    # the reference behaviour anyway) are left untouched.
+    calm = np.isfinite(rvn).all(axis=1) \
+        & (np.abs(rvn).max(axis=1) <= 1.0e6 * z_eff)
+    bad = np.where(fitted & calm & np.isfinite(dev)
+                   & (dev > _SPLINE_FIX_TOL * z_eff))[0]
+    if bad.size == 0:
+        return va, vb, vc, vd
+    # coefficients of the interpolant in u = (r - r_a)/h (shared 4x4 solve)
+    c0, c1, c2, c3 = (rvn[bad] @ _V4INV.T).T
+    ra = r[bad]
+    hh = h[bad]
+    ih = 1.0 / hh
+    ih2 = ih * ih
+    ih3 = ih2 * ih
+    # change of variables u = (x - r_a)/h to power form in x
+    ra2 = ra * ra
+    ra3 = ra2 * ra
+    nA = c0 - c1 * ra * ih + c2 * ra2 * ih2 - c3 * ra3 * ih3
+    nB = c1 * ih - 2.0 * c2 * ra * ih2 + 3.0 * c3 * ra2 * ih3
+    nC = c2 * ih2 - 3.0 * c3 * ra * ih3
+    nD = c3 * ih3
+    # strict-improvement guard at fresh Gauss nodes
+    g = ra[:, None] + hh[:, None] * _GAUSS2[None, :]
+    rg_ = np.where(g > 0.0, g, 1.0e-30)
+    rv_g = rg_ * np.asarray(V_func(rg_), dtype=float)
+    sp_old = a[bad] + g * (b[bad] + g * (c[bad] + g * d[bad]))
+    sp_new = nA[:, None] + g * (nB[:, None] + g * (nC[:, None] + g * nD[:, None]))
+    improve = (np.abs(sp_new - rv_g).max(axis=1)
+               < np.abs(sp_old - rv_g).max(axis=1))
+    if not np.any(improve):
+        return va, vb, vc, vd
+    ib = ind[bad[improve]]
+    va[ib] = nA[improve]
+    vb[ib] = nB[improve]
+    vc[ib] = nC[improve]
+    vd[ib] = nD[improve]
+    return va, vb, vc, vd
 
 
 def _prepare_potential(V_func, r_max: float, n_grid: int, Z_residual: float):
@@ -129,6 +225,14 @@ def _prepare_potential(V_func, r_max: float, n_grid: int, Z_residual: float):
     ind = np.clip(
         np.searchsorted(rg[:nvt], r, side="right") - 1, 0, nvt - 2
     ).astype(np.int64)
+    # Grid points past vint's last fitted knot belong to the frozen
+    # constant-asymptote entry (va = zinf, vb = vc = vd = 0), built for
+    # exactly this region.  The clipped mapping above would instead
+    # extrapolate the last fitted cubic over the whole outer box — the
+    # measured ~5e-4..7e-3 drift of the reference path's implied r*V.
+    ind[r > rg[nvt - 1]] = nvt - 1
+    va, vb, vc, vd = _refit_deviating_intervals(
+        V_func, r, rv, va, vb, vc, vd, ind, nvt)
     for arr in (va, vb, vc, vd, ind):
         with contextlib.suppress(Exception):
             arr.setflags(write=False)

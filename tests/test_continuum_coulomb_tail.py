@@ -104,6 +104,64 @@ def test_no_coulomb_tail_falls_back_bit_identical():
     assert np.array_equal(P_a, P_b)
 
 
+def test_constant_tail_entry_used_past_last_knot():
+    """vint freezes near-asymptotic tails; grid points past the last fitted
+    knot must use the constant-asymptote entry, not extrapolate the last
+    fitted cubic (the old mapping drifted ~5e-4 from -Z_res by mid-box)."""
+    def V(r):
+        r = np.asarray(r, dtype=float)
+        return (-1.0 - 25.0 * np.exp(-r / 2.0)) / np.maximum(r, 1e-30)
+
+    prep = dc._prepare_potential(V, 200.0, 8000, 1.0)
+    r, n_out, va, vb, vc, vd, ind, rv, z_res = prep[:9]
+    j = int(np.searchsorted(r, 150.0))
+    i = ind[j]
+    # exact constant asymptote: power form collapses to va == -z_res
+    assert vb[i] == 0.0 and vc[i] == 0.0 and vd[i] == 0.0
+    implied = va[i] + r[j] * (vb[i] + r[j] * (vc[i] + r[j] * vd[i]))
+    assert implied == -z_res
+
+
+def test_deviating_intervals_reinterpolated_to_track_callable():
+    """Where the tail never freezes (production screened potentials), the
+    per-interval cubic must still track V: deviations beyond the fix
+    tolerance are re-interpolated, verified at fresh Gauss nodes."""
+    def V(r):
+        r = np.asarray(r, dtype=float)
+        return (-1.0 - 0.05 * np.sin(2.0 * r) / np.maximum(r, 1.0)
+                - 0.5 / np.maximum(r, 1.0) ** 2) / np.maximum(r, 1e-30)
+
+    from atomx.numerics.shooting.spline import vint
+
+    prep = dc._prepare_potential(V, 200.0, 600, 1.0)
+    r, n_out, va, vb, vc, vd, ind, rv, z_res = prep[:9]
+    m = n_out - 1
+    h = np.diff(r)
+    g = np.array([0.5 - 0.5 / np.sqrt(3.0), 0.5 + 0.5 / np.sqrt(3.0)])
+    nodes = r[:m, None] + h[:, None] * g[None, :]
+    rn = np.where(nodes > 0.0, nodes, 1.0e-30)
+    rvn = rn * V(rn)
+    a = va[ind[:m]][:, None]
+    b = vb[ind[:m]][:, None]
+    c = vc[ind[:m]][:, None]
+    d = vd[ind[:m]][:, None]
+    implied = a + nodes * (b + nodes * (c + nodes * d))
+    dev = np.abs(implied - rvn).max()
+    # after the fix the implied potential tracks the callable to
+    # interpolation accuracy everywhere, far inside the fix tolerance
+    assert dev < 1.0e-8 * max(abs(z_res), 1.0)
+    # and the fix really engaged: the plain natural spline misses V by
+    # far more on this coarse grid / structured tail
+    rg, rvg, va0, vb0, vc0, vd0, nvt = vint(r, rv, n_out)
+    ind0 = np.clip(np.searchsorted(rg[:nvt], r, side="right") - 1, 0, nvt - 2)
+    a0 = va0[ind0[:m]][:, None]
+    b0 = vb0[ind0[:m]][:, None]
+    c0 = vc0[ind0[:m]][:, None]
+    d0 = vd0[ind0[:m]][:, None]
+    old = a0 + nodes * (b0 + nodes * (c0 + nodes * d0))
+    assert np.abs(old - rvn).max() > 10.0 * dev
+
+
 def test_deviation_free_potentials_engage_from_origin():
     """Hydrogenic and free-particle tails are exact-Coulomb everywhere."""
     def V_hydrogen(r):
