@@ -57,13 +57,14 @@ class CorrelatedOrbitalFunctional:
             columns = [j_indices[original[sig]] for group in grouped for sig in group]
             self.blocks.append((structure, projection, columns))
 
-    def _hellmann_feynman_weights(self, result):
-        """Contract CI amplitudes with the angular table: E = sum w_k I_k.
-
-        Averaged over the (near-)degenerate ground multiplet, matching the
-        equal-weight ensemble gradient documented on the class.
-        """
+    def evaluate(self, orbitals, *, gradient=True, ci_result=None):
+        result = ci_result
+        if result is None:
+            result = ci_solve(self.csfs, orbitals, self.keys, self.data, self.Z, self.ns,
+                              nuclear_potential=self.nuclear_potential, convol_cache=self.cache)
         energy = float(result.ground_energy)
+        if not gradient:
+            return energy, result
         ground = abs(result.state_energies - energy) < 1e-10
         weights = {}
         for structure, projection, columns in self.blocks:
@@ -74,33 +75,6 @@ class CorrelatedOrbitalFunctional:
             for key, coefficient in zip(structure.keys, coefficients, strict=True):
                 if abs(coefficient) > 1e-15:
                     weights[key] = weights.get(key, 0.0) + coefficient
-        return weights
-
-    def freeze(self, ci_result, *, screen_tol=1e-12):
-        """Snapshot the exact-CI state for variational surrogate evaluations.
-
-        Returns a :class:`FrozenCI` whose energy/gradient evaluations need
-        only the radial integral pass — no CI Hamiltonian assembly, no
-        diagonalization.  At the freeze point the surrogate equals the
-        exact ground energy and its Hellmann–Feynman gradient; it is a
-        variational upper bound elsewhere (orbital rotations preserve the
-        norm of the fixed determinant amplitudes), which is what makes
-        Armijo trials on it sound.  ``screen_tol`` is relative to the
-        largest weight; dropped keys shift the surrogate energy by far
-        less than any convergence tolerance in use.
-        """
-        weights = self._hellmann_feynman_weights(ci_result)
-        return FrozenCI(self, weights, screen_tol=screen_tol)
-
-    def evaluate(self, orbitals, *, gradient=True, ci_result=None):
-        result = ci_result
-        if result is None:
-            result = ci_solve(self.csfs, orbitals, self.keys, self.data, self.Z, self.ns,
-                              nuclear_potential=self.nuclear_potential, convol_cache=self.cache)
-        energy = float(result.ground_energy)
-        if not gradient:
-            return energy, result
-        weights = self._hellmann_feynman_weights(result)
         gradient = {key: np.zeros(2 * self.ns) for key in self.keys}
         self.last_occupations = {key: max(0., weights.get(("h", key[0], key[1], key[0]), 0.))
                                  for key in self.keys}
@@ -147,89 +121,8 @@ class CorrelatedOrbitalFunctional:
         return tuple(output)
 
 
-class FrozenCI:
-    """Variational surrogate of the CI ground state with frozen amplitudes.
-
-    ``energy(orbitals)`` and ``evaluate(orbitals)`` reproduce the exact
-    ground-state energy and Hellmann–Feynman gradient at the freeze point
-    (where the amplitudes solve the exact CI) and stay a variational upper
-    bound in a neighbourhood: orbital rotations are unitary, so the fixed
-    determinant amplitudes keep their norm.  Used for line-search trials,
-    where each evaluation costs one radial integral pass instead of a full
-    CI Hamiltonian assembly plus diagonalization.
-    """
-
-    def __init__(self, functional, weights, *, screen_tol=1e-12):
-        self.functional = functional
-        scale = max(abs(w) for w in weights.values())
-        self.weights = {k: w for k, w in weights.items()
-                        if abs(w) > screen_tol * scale}
-        self._one_body = {}
-        # Energy counts each unordered integral once; the gradient needs
-        # both (a,b|c,d) and (c,d|a,b) orderings because each places the
-        # orbital in a different gradient slot.  Both term lists share one
-        # pair-potential pass per (rank, source pair) batch.
-        self._energy_terms = {}
-        self._gradient_terms = {}
-        for key, weight in self.weights.items():
-            if key[0] == "h":
-                self._one_body[key] = weight
-                continue
-            _, rank, a, b, c, d = key
-            self._energy_terms.setdefault(
-                (rank, *sorted((c, d))), []).append(((a, b), weight))
-            for left, right, source_a, source_b in ((a, b, c, d), (c, d, a, b)):
-                self._gradient_terms.setdefault(
-                    (rank, *sorted((source_a, source_b))),
-                    []).append(((left, right), weight))
-
-    def _energy_and_gradient(self, orbitals, gradient):
-        functional = self.functional
-        ns = functional.ns
-        energy = 0.0
-        vectors = {key: np.concatenate(orbitals[key]) for key in functional.keys}
-        grad = {key: np.zeros(2 * ns) for key in functional.keys} if gradient else None
-        for key, weight in self._one_body.items():
-            _, na, kappa, nb = key
-            h = functional.one_body[kappa]
-            a, b = (na, kappa), (nb, kappa)
-            va, vb = vectors[a], vectors[b]
-            energy += weight * float(va @ (h @ vb))
-            if gradient:
-                grad[a] += weight * (h @ vb)
-                grad[b] += weight * (h @ va)
-        batches = sorted(set(self._energy_terms) | set(self._gradient_terms))
-        for batch in batches:
-            pp, qq = functional._pair_potential(
-                rank=batch[0], orbital_a=orbitals[batch[1]],
-                orbital_b=orbitals[batch[2]])
-            for (left, right), weight in self._energy_terms.get(batch, ()):
-                pl, ql = orbitals[left]
-                pr, qr = orbitals[right]
-                energy += weight * (float(pl @ (pp @ pr)) + float(ql @ (qq @ qr)))
-            if gradient:
-                for (left, right), weight in self._gradient_terms.get(batch, ()):
-                    pl, ql = orbitals[left]
-                    pr, qr = orbitals[right]
-                    grad[left][:ns] += weight * (pp @ pr)
-                    grad[left][ns:] += weight * (qq @ qr)
-                    grad[right][:ns] += weight * (pp @ pl)
-                    grad[right][ns:] += weight * (qq @ ql)
-        return energy, grad
-
-    def energy(self, orbitals):
-        """Frozen surrogate energy — one radial integral pass, no CI solve."""
-        energy, _ = self._energy_and_gradient(orbitals, False)
-        return energy
-
-    def evaluate(self, orbitals):
-        """Frozen surrogate energy and Hellmann–Feynman gradient."""
-        return self._energy_and_gradient(orbitals, True)
-
-
 def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
-                      energy_tolerance=1e-10, preconditioner_matrices=None,
-                      frozen_line_search=False):
+                      energy_tolerance=1e-10, preconditioner_matrices=None):
     """Minimize the correlated energy in a fixed positive-energy subspace.
 
     A nuclear Dirac projector fixes the finite-basis no-pair Hamiltonian.
@@ -238,29 +131,6 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
     full CI Hellmann–Feynman derivative, not a configuration average.
     Limited-memory secant updates and orbital-energy preconditioning avoid
     forming the orbital Hessian.
-
-    With ``frozen_line_search=True`` (opt-in), Armijo trials evaluate a
-    variational surrogate — the exact CI state frozen at the current
-    point — instead of solving the CI Hamiltonian at every trial.  The
-    surrogate matches the exact energy and slope at the freeze point
-    (Hellmann–Feynman) and remains an upper bound along the trial
-    direction.  Measured economics (Fe XVII j-resolved, pinned threads):
-    a surrogate evaluation costs ~0.2-0.3 of a CI solve, so the option
-    pays only when the line search rejects often (break-even around 1.4
-    trials/iteration) — well-preconditioned problems accept the first
-    step ~always and are faster on the historical exact-trial path, which
-    also reuses the accepted trial's amplitudes for the gradient.  The
-    default therefore stays ``False``.
-
-    Accuracy guard: because the surrogate's acceptance is only
-    first-order exact, a candidate it accepts is re-verified on the exact
-    functional before the step is committed (one exact solve, whose
-    amplitudes then feed the Hellmann–Feynman gradient — the same reuse
-    the exact-trial path has always had); a mis-accepted candidate falls
-    back to exact trials for the rest of that line search.  Monotone
-    descent on the exact energy and the convergence gate are preserved
-    unchanged: the accepted point is always re-evaluated with the exact
-    CI, which alone feeds the gradient, the secant pairs, and the gate.
     """
     from atomx.numerics.bspline.dirac_assembly import solve_dirac
 
@@ -359,7 +229,6 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
         return energy, tangent(point, g), ci
 
     energy, g, ci = evaluate(x)
-    frozen = functional.freeze(ci) if frozen_line_search else None
     # The orbital Hessian scales with its occupation. Omitting this factor
     # makes a nearly empty correlation orbital converge orders of magnitude
     # more slowly than the closed core. Keep a finite floor for null-density
@@ -409,42 +278,20 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
             derivative = float(g @ direction)
         step = 1.0
         accepted = False
-        use_frozen = frozen is not None
-        verified_ci = None
-        trial_ci = None
-        while True:
-            for _ in range(28):
-                candidate = retract(x + step * direction)
-                if use_frozen:
-                    trial_energy = frozen.energy(unpack(candidate))
-                else:
-                    trial_energy, trial_ci = evaluate(candidate, gradient=False)
-                if trial_energy <= energy + 1e-4 * step * derivative:
-                    accepted = True
-                    break
-                step *= 0.5
-            if not accepted or not use_frozen:
+        for _ in range(28):
+            candidate = retract(x + step * direction)
+            trial_energy, trial_ci = evaluate(candidate, gradient=False)
+            if trial_energy <= energy + 1e-4 * step * derivative:
+                accepted = True
                 break
-            # Accuracy guard: the surrogate accepted this candidate, but its
-            # acceptance is only first-order exact.  Verify on the exact
-            # functional (same Armijo test — the slopes agree to first
-            # order) before committing; the solved amplitudes are reused for
-            # the gradient below.  A failure disables the surrogate for the
-            # rest of this line search, restoring the historical path.
-            _exact_trial, verified_ci = evaluate(candidate, gradient=False)
-            if _exact_trial <= energy + 1e-4 * step * derivative:
-                break
-            use_frozen = False
-            verified_ci = None
             step *= 0.5
         if not accepted:
             break
         old_x, old_g = x, g
         x = candidate
-        energy, g, ci = evaluate(x, ci_result=verified_ci
-                                 if verified_ci is not None else trial_ci)
-        if frozen is not None:
-            frozen = functional.freeze(ci)
+        # The accepted line-search trial already solved this exact CI
+        # Hamiltonian. Reuse its amplitudes in the Hellmann–Feynman gradient.
+        energy, g, ci = evaluate(x, ci_result=trial_ci)
         energies.append(energy)
         # Vector transport keeps all secant pairs in the current tangent
         # space. Ambient gradient differences otherwise contain changing
