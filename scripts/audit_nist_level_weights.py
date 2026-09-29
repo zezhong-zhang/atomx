@@ -16,6 +16,7 @@ import sqlite3
 from collections import Counter
 from fractions import Fraction
 from pathlib import Path
+from atomx.reference_data.matching import weight_from_j
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUT = ROOT / "output/nist_spectra"
@@ -24,15 +25,6 @@ FIELDS = ("z", "charge", "row_index", "configuration", "term", "j_text",
           "official_source_url")
 LINE_FIELDS = ("z", "charge", "row_index", "side", "j_text", "nist_g_raw",
                "derived_2j_plus_1", "official_source_url")
-
-
-def weight_from_j(j_text: str | None) -> int | None:
-    try:
-        j = Fraction((j_text or "").strip())
-    except (ValueError, ZeroDivisionError):
-        return None
-    g = 2 * j + 1
-    return int(g) if j >= 0 and g.denominator == 1 else None
 
 
 def audit(archive: Path, out: Path) -> dict:

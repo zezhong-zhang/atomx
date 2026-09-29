@@ -12,8 +12,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from scripts.generate_full_dhf_nist import (  # noqa: E402
-    ARCHIVE, OUTPUT, expand_nist_config, ground_configuration_for_species)
+from scripts.generate_full_dhf_nist import ARCHIVE, OUTPUT, ground_configuration_for_species
+from atomx.reference_data.matching import expand_nist_config
 
 REPORT = ROOT / "output/nist_spectra/dhf_nearby_ionic_candidates.json"
 

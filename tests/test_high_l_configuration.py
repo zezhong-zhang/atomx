@@ -7,7 +7,7 @@ from atomx.config.parsing import parse_nr_shells
 from atomx.methods.dirac_fock import DiracFock
 from atomx.physics.dirac import hydrogenic_dirac_energy
 from atomx.types import NuclearModel
-from scripts.generate_full_dhf_nist import expand_nist_config
+from atomx.reference_data.matching import expand_nist_config
 
 
 def test_k_configuration_expansion_and_statistical_jj_weights():
@@ -48,7 +48,7 @@ def test_complete_bethe_log_reference_includes_l_states():
 def test_generic_l_placeholder_is_not_a_physical_orbital():
     import pytest
     from atomx.config.parsing import parse_nr_shells
-    from scripts.generate_full_dhf_nist import expand_nist_config
+    from atomx.reference_data.matching import expand_nist_config
 
     with pytest.raises(ValueError, match='l < n'):
         parse_nr_shells('4l1')

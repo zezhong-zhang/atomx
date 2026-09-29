@@ -17,7 +17,7 @@ from pathlib import Path
 
 from atomx.constants import HARTREE_CM1
 from atomx.physics.dirac import hydrogenic_dirac_energy
-from scripts.generate_full_dhf_nist import expand_nist_config, configuration_has_single_level
+from atomx.reference_data.matching import expand_nist_config, configuration_has_single_level
 
 
 def number(raw: str | None) -> float | None:

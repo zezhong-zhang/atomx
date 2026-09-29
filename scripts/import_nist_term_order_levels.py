@@ -21,7 +21,7 @@ from pathlib import Path
 from build_nist_spectra import ion_label
 from import_nist_level_details import (BASE_URL, PARAMETERS,
                                        _energy as parse_energy)
-from nist_asd import _to_float, normalise_configuration
+from atomx.reference_data.nist import _to_float, normalise_configuration
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUT = ROOT / "output/nist_spectra"

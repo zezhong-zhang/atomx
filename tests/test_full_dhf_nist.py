@@ -12,22 +12,41 @@ from atomx.constants import PROTON_ELECTRON_MASS_RATIO
 from atomx.methods.dirac_fock import DiracFock
 from atomx.physics.dirac import hydrogenic_dirac_energy
 from atomx.types import Exchange
-from scripts.compare_full_dhf_nist import collect as collect_full_dhf
 from scripts.apply_dhf_damping_probe import apply as apply_damping_probe
+from scripts.compare_full_dhf_nist import collect as collect_full_dhf
 from scripts.generate_full_dhf_nist import (
-    SCHEMA, RadialBasisLimitError, backfill_nist_level_ids, basis_for_job,
-    expand_nist_config,
-    configuration_has_single_level, has_core_hole, observed_vacuum_nm, one_electron_basis_valid,
-    ground_configuration_for_species, ground_configuration_with_dhf_candidates,
-    orbital_node_valid, orbital_order_valid, pending_job_priority, prepare,
+    SCHEMA,
+    RadialBasisLimitError,
+    backfill_nist_level_ids,
+    basis_for_job,
+    ground_configuration_for_species,
+    ground_configuration_with_dhf_candidates,
+    has_core_hole,
+    one_electron_basis_valid,
+    orbital_node_valid,
+    orbital_order_valid,
+    pending_job_priority,
+    prepare,
     process_start_ticks,
     radial_box_unresolved,
-    refractive_index_air, run, solve_configuration, update_lines)
-from scripts.repair_dhf_ground_selection import repair as repair_ground_selection
+    run,
+    solve_configuration,
+    update_lines,
+)
+from atomx.reference_data.matching import (
+    configuration_has_single_level,
+    expand_nist_config,
+    observed_vacuum_nm,
+    refractive_index_air,
+)
 from scripts.import_nist_isotopes import parse_isotopes
-from scripts.supervise_first20_dhf import (
-    recover_abandoned_claims, running_ground_count, stage_failed_jobs)
 from scripts.repair_dhf_ground import repair_ground
+from scripts.repair_dhf_ground_selection import repair as repair_ground_selection
+from scripts.supervise_first20_dhf import (
+    recover_abandoned_claims,
+    running_ground_count,
+    stage_failed_jobs,
+)
 
 
 def test_pending_queue_favors_compact_ion_over_diffuse_neutral():
@@ -327,10 +346,10 @@ def test_sc_iv_core_p_node_guard_rejects_wrong_converged_branch():
     config = "1s2 2s2 2p6 3s2 3p5 4p1"
     mass = 81928.6
     bad = Atom(Z=21, config=config, engine="bspline", basis=Basis()).solve(
-        DiracFock(breit=True, qed=True, nuclear_mass_me=mass,
+        DiracFock(core_hole_stationary=False, breit=True, qed=True, nuclear_mass_me=mass,
                   starting_potential="gsz"), max_iter=100)
     good = Atom(Z=21, config=config, engine="bspline", basis=Basis()).solve(
-        DiracFock(breit=True, qed=True, nuclear_mass_me=mass,
+        DiracFock(core_hole_stationary=False, breit=True, qed=True, nuclear_mass_me=mass,
                   starting_potential="tfda"), max_iter=100)
     assert bad.converged and good.converged
     assert orbital_order_valid(bad) and orbital_order_valid(good)
@@ -343,10 +362,10 @@ def test_kr_xxvii_core_p_node_guard_rejects_wrong_converged_branch():
     config = "1s2 2s2 2p5 3p1"
     mass = 157000.0
     bad = Atom(Z=36, config=config, engine="bspline", basis=Basis()).solve(
-        DiracFock(breit=True, qed=True, nuclear_mass_me=mass,
+        DiracFock(core_hole_stationary=False, breit=True, qed=True, nuclear_mass_me=mass,
                   starting_potential="gsz"), max_iter=100)
     good = Atom(Z=36, config=config, engine="bspline", basis=Basis()).solve(
-        DiracFock(breit=True, qed=True, nuclear_mass_me=mass,
+        DiracFock(core_hole_stationary=False, breit=True, qed=True, nuclear_mass_me=mass,
                   starting_potential="tfda"), max_iter=100)
     assert bad.converged and good.converged
     assert orbital_order_valid(bad) and orbital_order_valid(good)
@@ -363,10 +382,10 @@ def test_heavy_core_p_node_guard_rejects_reproduced_gsz_branch(
         z, mass, min_drop):
     config = "1s2 2s2 2p5 3p1"
     bad = Atom(Z=z, config=config, engine="bspline", basis=Basis()).solve(
-        DiracFock(breit=True, qed=True, nuclear_mass_me=mass,
+        DiracFock(core_hole_stationary=False, breit=True, qed=True, nuclear_mass_me=mass,
                   starting_potential="gsz"), max_iter=160)
     good = Atom(Z=z, config=config, engine="bspline", basis=Basis()).solve(
-        DiracFock(breit=True, qed=True, nuclear_mass_me=mass,
+        DiracFock(core_hole_stationary=False, breit=True, qed=True, nuclear_mass_me=mass,
                   starting_potential="tfda"), max_iter=160)
     assert bad.converged and good.converged
     assert orbital_order_valid(bad) and orbital_order_valid(good)
@@ -376,13 +395,14 @@ def test_heavy_core_p_node_guard_rejects_reproduced_gsz_branch(
 
 
 def test_sc_x_core_p_node_guard_accepts_higher_energy_named_branch():
+    # Reproduce the historical frozen-rotation branch for this guard regression.
     config = "1s2 2s2 2p6 3p1 4p1"
     mass = 81928.60759399581
     bad = Atom(Z=21, config=config, engine="bspline", basis=Basis()).solve(
-        DiracFock(breit=True, qed=True, nuclear_mass_me=mass,
+        DiracFock(core_hole_stationary=False, breit=True, qed=True, nuclear_mass_me=mass,
                   starting_potential="gsz"), max_iter=100)
     good = Atom(Z=21, config=config, engine="bspline", basis=Basis()).solve(
-        DiracFock(breit=True, qed=True, nuclear_mass_me=mass,
+        DiracFock(core_hole_stationary=False, breit=True, qed=True, nuclear_mass_me=mass,
                   starting_potential="tfda"), max_iter=100)
     assert bad.converged and good.converged
     assert orbital_order_valid(bad) and orbital_order_valid(good)

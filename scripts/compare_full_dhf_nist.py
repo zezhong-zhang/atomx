@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from scripts.generate_full_dhf_nist import configuration_has_single_level  # noqa: E402
+from atomx.reference_data.matching import configuration_has_single_level
 
 
 def collect(archive_path: Path, ledger_path: Path,

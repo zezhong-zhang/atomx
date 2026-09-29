@@ -12,10 +12,9 @@ from pathlib import Path
 from atomx.constants import HARTREE_CM1, HARTREE_EV
 from atomx.config.parsing import parse_nr_shells
 
-from scripts.generate_full_dhf_nist import (configuration_has_single_level,
-                                             expand_nist_config,
-                                             ground_configuration_with_dhf_candidates)
-from scripts.audit_nist_level_weights import weight_from_j
+from scripts.generate_full_dhf_nist import ground_configuration_with_dhf_candidates
+from atomx.reference_data.matching import configuration_has_single_level, expand_nist_config
+from atomx.reference_data.matching import weight_from_j
 
 
 def reference_kind(raw: str | None) -> str:

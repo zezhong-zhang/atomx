@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "benchmarks"))
 sys.path.insert(0, str(ROOT / "scripts"))
 import build_nist_spectra as catalog  # noqa: E402
-import nist_asd  # noqa: E402
+from atomx.reference_data import nist as nist_asd  # noqa: E402
 
 SAMPLES = ((1, 0), (2, 0), (3, 0), (6, 4), (10, 7), (11, 0),
            (12, 0), (12, 1), (18, 7), (19, 0), (19, 1),

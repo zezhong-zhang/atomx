@@ -7,7 +7,8 @@ import pytest
 from atomx.constants import HARTREE_EV
 from scripts.compare_ionization_dhf_nist import (collect, ground_centroids,
                                                 reference_kind)
-from scripts.generate_full_dhf_nist import SCHEMA, expand_nist_config
+from scripts.generate_full_dhf_nist import SCHEMA
+from atomx.reference_data.matching import expand_nist_config
 
 
 def test_ionization_uses_adjacent_ground_total_energies(tmp_path):

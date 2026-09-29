@@ -4,7 +4,8 @@ import sqlite3
 
 import pytest
 
-from scripts.compare_configuration_centroids_nist import collect, level_centroids
+from scripts.compare_configuration_centroids_nist import collect
+from atomx.reference_data.matching import level_centroids
 
 
 def test_centroid_uses_complete_j_weights_and_evaluated_energies():
@@ -24,6 +25,10 @@ def test_centroid_uses_complete_j_weights_and_evaluated_energies():
     assert result["expected_weight"] == result["listed_weight"] == 6
     assert result["centroid_cm1"] == pytest.approx((2 * 14900 + 4 * 14903) / 6)
     assert result["nist_g_disagreements"] == 1
+
+    source.execute('ALTER TABLE levels ADD COLUMN term TEXT')
+    source.execute("INSERT INTO levels VALUES (3,0,'1s2 2p1',NULL,43487,'evaluated',NULL,'Limit')")
+    assert level_centroids(source,jobs,3)[key]['status']=='evaluated_complete'
 
     source.execute("""UPDATE levels SET energy_kind='theoretical'
         WHERE configuration='1s2 2p1' AND j_text='3/2'""")
@@ -58,3 +63,16 @@ def test_candidate_queue_is_waiting_in_centroid_audit(tmp_path):
     excited = next(row for row in rows if row["configuration"] == "1s2 2p1")
     assert excited["comparison_status"] == "waiting_for_theory"
     assert summary["statuses"]["waiting_for_theory"] == 1
+
+
+def test_centroid_prefers_retained_nist_configuration_over_lossy_normalization():
+    with sqlite3.connect(':memory:') as source:
+        source.execute('''CREATE TABLE levels(z,charge,configuration,configuration_nist,
+                          j_text,energy_cm1,energy_kind,statistical_weight_raw)''')
+        source.executemany('INSERT INTO levels VALUES(10,7,?,?,?,?,?,?)',[
+            ('1s2','1s2.9l','15/2',100.,'evaluated','16'),
+            ('1s2','1s2.9l','17/2',102.,'evaluated','18')])
+        key=(10,7,'1s2 9l1')
+        result=level_centroids(source,{key},20)[key]
+        assert result['status']=='evaluated_complete'
+        assert result['centroid_cm1']==pytest.approx((16*100+18*102)/34)

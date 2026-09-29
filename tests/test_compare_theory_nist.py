@@ -7,7 +7,6 @@ from pathlib import Path
 
 import pytest
 
-
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts/compare_theory_nist.py"
 spec = importlib.util.spec_from_file_location("compare_theory_nist", SCRIPT)
 module = importlib.util.module_from_spec(spec)

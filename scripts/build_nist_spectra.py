@@ -34,7 +34,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "benchmarks"))
 sys.path.insert(0, str(ROOT / "src"))
-import nist_asd  # noqa: E402
+from atomx.reference_data import nist as nist_asd  # noqa: E402
 
 from atomx.constants import HARTREE_CM1, HARTREE_EV, atomic_numbers, element_symbol  # noqa: E402
 

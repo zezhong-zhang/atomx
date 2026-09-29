@@ -18,7 +18,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from benchmarks.nist_asd import HA_CM1
+from atomx.reference_data.nist import HA_CM1
 from scripts.generate_full_dhf_nist import OUTPUT
 
 COMPARISON = ROOT / "output/nist_spectra/theory_comparison"

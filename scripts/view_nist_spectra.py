@@ -24,7 +24,7 @@ from urllib.parse import parse_qs, urlparse
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
-from benchmarks.nist_asd import normalise_configuration  # noqa: E402
+from atomx.reference_data.nist import normalise_configuration  # noqa: E402
 from atomx.constants import HARTREE_CM1, HARTREE_EV  # noqa: E402
 from scripts.audit_nist_line_wavenumbers import discrepancy  # noqa: E402
 DEFAULT_OUT = ROOT / "output" / "nist_spectra"

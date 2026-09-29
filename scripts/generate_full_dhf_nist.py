@@ -28,7 +28,6 @@ import subprocess
 import sys
 import time
 from collections import Counter
-from functools import lru_cache
 from pathlib import Path
 
 import numpy as np
@@ -40,10 +39,16 @@ from atomx import Atom, Basis  # noqa: E402
 from atomx.config import ground_state_config  # noqa: E402
 from atomx.config.parsing import parse_nr_shells  # noqa: E402
 from atomx.constants import HARTREE_CM1  # noqa: E402
+from atomx.reference_data.matching import (
+    configuration_has_single_level,
+    expand_nist_config,
+    observed_vacuum_nm,
+    refractive_index_air,
+)
 from atomx.methods.dirac_fock import DiracFock  # noqa: E402
 from atomx.types import Exchange  # noqa: E402
 from atomx.physics.dirac import hydrogenic_dirac_energy  # noqa: E402
-from nist_asd import _filled, configuration_map  # noqa: E402
+from atomx.reference_data.nist import _filled  # noqa: E402
 
 ARCHIVE = ROOT / "output/nist_spectra/spectra.sqlite"
 OUTPUT = ROOT / "output/nist_spectra/full_dhf.sqlite"
@@ -83,35 +88,6 @@ CREATE TABLE IF NOT EXISTS config_state_counts (
  n_states INTEGER NOT NULL, PRIMARY KEY(z,charge,configuration));
 CREATE TABLE IF NOT EXISTS metadata(key TEXT PRIMARY KEY,value TEXT NOT NULL);
 """
-
-
-def expand_nist_config(text: str, electrons: int) -> str | None:
-    """Restore only closed inner subshells omitted by NIST's notation."""
-    if not text.strip() or not 1 <= electrons <= 118:
-        return None
-    shown = configuration_map(text)
-    if not shown or any(q <= 0 or q > _filled(*key)
-                        for key, q in shown.items()):
-        return None
-    deficit = electrons - sum(shown.values())
-    if deficit < 0:
-        return None
-    full = dict(shown)
-    reference = configuration_map(ground_state_config(electrons))
-    for key in sorted(reference):
-        occupancy = reference[key]
-        if key not in full and occupancy == _filled(*key) and occupancy <= deficit:
-            full[key] = occupancy
-            deficit -= occupancy
-    if deficit:
-        return None
-    letters = "spdfghiklmnoqrtuvwxyz"
-    config = " ".join(f"{n}{letters[l]}{q}" for (n, l), q in sorted(full.items()))
-    try:
-        parsed = parse_nr_shells(config)
-    except ValueError:
-        return None
-    return config if sum(q for _, _, q in parsed) == electrons else None
 
 
 def ground_configuration_for_species(source: sqlite3.Connection, z: int,
@@ -405,25 +381,6 @@ def has_core_hole(configuration: str) -> bool:
                for n, ell, occupation in shells[:-1])
 
 
-@lru_cache(maxsize=None)
-def configuration_has_single_level(configuration: str) -> bool:
-    """Whether a nonrelativistic configuration has only one term/J level.
-
-    A closed-shell core plus one s electron has J=1/2.  Any open p, d, or
-    higher shell, or multiple open shells, produces a multiplet.  NIST may
-    list only one member of a multiplet, so archive row count alone cannot
-    establish physical uniqueness for a configuration-average DHF energy.
-    """
-    try:
-        open_shells = [(ell, occupation) for n, ell, occupation
-                       in parse_nr_shells(configuration)
-                       if occupation != _filled(n, ell)]
-    except ValueError:
-        return False
-    return (not open_shells or
-            len(open_shells) == 1 and open_shells[0] == (0, 1))
-
-
 def solve_configuration(z: int, configuration: str, mass: float,
                         basis: Basis, *, retry_only: bool = False):
     """Retry a distinct SCF start only when convergence or orbital order fails."""
@@ -526,25 +483,6 @@ def solve_configuration(z: int, configuration: str, mass: float,
         except Exception as exc:
             failures.append(f"{label}: {type(exc).__name__}: {exc}")
     raise RuntimeError("; ".join(failures))
-
-
-def refractive_index_air(vacuum_nm: float) -> float:
-    """Peck–Reeder standard-air index used for the NIST air comparison."""
-    wavelength_um = vacuum_nm / 1000.0
-    inv_square = wavelength_um ** -2
-    return (1 + 8.06051e-5 + 2.480990e-2 / (132.274 - inv_square)
-            + 1.74557e-4 / (39.32957 - inv_square))
-
-
-def observed_vacuum_nm(wavelength_nm: float, medium: str) -> float | None:
-    if medium == "vacuum":
-        return wavelength_nm
-    if medium != "air":
-        return None
-    vacuum = wavelength_nm * 1.00028
-    for _ in range(5):
-        vacuum = wavelength_nm * refractive_index_air(vacuum)
-    return vacuum
 
 
 def prepare(archive: Path, output: Path, isotopes_path: Path,

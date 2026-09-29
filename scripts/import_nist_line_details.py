@@ -25,7 +25,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "benchmarks"))
 sys.path.insert(0, str(ROOT / "scripts"))
-from nist_asd import _to_float  # noqa: E402
+from atomx.reference_data.nist import _to_float  # noqa: E402
 from build_nist_spectra import ion_label  # noqa: E402
 
 DEFAULT_OUT = ROOT / "output/nist_spectra"

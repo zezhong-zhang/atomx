@@ -15,86 +15,20 @@ import math
 import os
 import sqlite3
 import sys
-from collections import Counter, defaultdict
-from fractions import Fraction
-from math import comb
+from collections import Counter
 from pathlib import Path
 from statistics import median
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from atomx.config.parsing import parse_nr_shells
 from atomx.constants import HARTREE_CM1
-
-from scripts.audit_nist_level_weights import weight_from_j
-from scripts.generate_full_dhf_nist import expand_nist_config
+from atomx.reference_data.matching import level_centroids
 
 ARCHIVE = ROOT / "output/nist_spectra/spectra.sqlite"
 LEDGER = ROOT / "output/nist_spectra/full_dhf.sqlite"
 CSV_OUT = ROOT / "output/nist_spectra/theory_comparison/configuration_centroids_dhf_nist.csv"
 JSON_OUT = ROOT / "output/nist_spectra/theory_comparison/configuration_centroids_summary.json"
-
-
-def expected_weight(configuration: str) -> int:
-    weight = 1
-    for _n, ell, occupation in parse_nr_shells(configuration):
-        weight *= comb(4 * ell + 2, occupation)
-    return weight
-
-
-def level_centroids(source: sqlite3.Connection, jobs: set[tuple[int, int, str]],
-                    max_z: int) -> dict[tuple[int, int, str], dict]:
-    groups: dict[tuple[int, int, str], dict] = defaultdict(lambda: dict(
-        level_rows=0, weighted_energy=0.0, weight_sum=0,
-        missing_energy_or_j=0, non_evaluated=0, g_disagreements=0))
-    for z, charge, config, j_text, energy, kind, g_raw in source.execute(
-            """SELECT z,charge,configuration,j_text,energy_cm1,energy_kind,
-                      statistical_weight_raw FROM levels WHERE z<=?""",
-            (max_z,)):
-        if not config:
-            continue
-        full = expand_nist_config(config, z - charge)
-        key = (z, charge, full)
-        if full is None or key not in jobs:
-            continue
-        group = groups[key]
-        group["level_rows"] += 1
-        g = weight_from_j(j_text)
-        if g is None or energy is None or not math.isfinite(energy):
-            group["missing_energy_or_j"] += 1
-            continue
-        group["weight_sum"] += g
-        group["weighted_energy"] += g * energy
-        if kind != "evaluated":
-            group["non_evaluated"] += 1
-        try:
-            if g_raw and Fraction(g_raw.strip()) != g:
-                group["g_disagreements"] += 1
-        except (ValueError, ZeroDivisionError):
-            pass
-    result = {}
-    for key in jobs:
-        group = groups.get(key)
-        expected = expected_weight(key[2])
-        complete = (group is not None and group["level_rows"] > 0
-                    and group["missing_energy_or_j"] == 0
-                    and group["weight_sum"] == expected)
-        status = ("missing_nist_levels" if group is None else
-                  "incomplete_manifold" if not complete else
-                  "nonexperimental_complete" if group["non_evaluated"] else
-                  "evaluated_complete")
-        result[key] = {
-            "status": status,
-            "centroid_cm1": group["weighted_energy"] / expected if complete else None,
-            "expected_weight": expected,
-            "listed_weight": group["weight_sum"] if group else 0,
-            "level_rows": group["level_rows"] if group else 0,
-            "missing_energy_or_j": group["missing_energy_or_j"] if group else 0,
-            "non_evaluated_levels": group["non_evaluated"] if group else 0,
-            "nist_g_disagreements": group["g_disagreements"] if group else 0,
-        }
-    return result
 
 
 def collect(archive: Path = ARCHIVE, ledger: Path = LEDGER,
