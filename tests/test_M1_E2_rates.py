@@ -43,7 +43,7 @@ import pytest
 
 from atomx.angular.wigner import wigner_3j
 from atomx.constants import ALPHA, AU_RATE_PER_S
-from atomx.numerics.analytic.hydrogenic_dirac import hydrogenic_dirac_wavefunction
+from atomx.methods.hydrogenic_reference import hydrogenic_dirac_wavefunction
 from atomx.numerics.bspline.basis import prepare_bspline_data
 from atomx.numerics.bspline.dirac_assembly import (
     build_dirac_matrices,

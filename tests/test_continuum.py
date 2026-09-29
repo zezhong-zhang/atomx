@@ -10,9 +10,9 @@ from atomx.numerics.bspline.continuum import (
     _continuum_energy_normalization_from_spectrum,
     continuum_energy_normalization_factor,
     dipole_matrix_element,
-    photoionization_cross_section,
     solve_continuum,
 )
+from atomx.scattering.photoionization import photoionization_cross_section
 from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices, solve_dirac
 from atomx.numerics.bspline.knots import make_knots
 from atomx.physics import Dirac, Schrodinger

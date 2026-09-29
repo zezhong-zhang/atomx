@@ -1,11 +1,10 @@
 """R-matrix close-coupling scattering.
 
-Phase 1 of HYP-172 ships the single-channel Wigner R-matrix driver
-:func:`compute_single_channel` on a B-spline internal-region basis with
-a symmetric Bloch operator (``b = 0``) and surface matching against the
-Riccati-Bessel functions. The multi-channel close-coupling driver
-:func:`compute` remains a scaffold and raises ``NotImplementedError``
-until Phase 2 lands.
+The single-channel driver :func:`compute_single_channel` uses a B-spline
+internal-region basis with a symmetric Bloch operator (``b = 0``) and
+Riccati–Bessel surface matching. :func:`compute` delegates to the implemented
+multichannel driver :func:`compute_multichannel`; its supported target and
+channel models are documented in that module.
 
 References
 ----------

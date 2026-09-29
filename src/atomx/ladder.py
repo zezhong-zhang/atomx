@@ -30,9 +30,9 @@ from typing import List, Optional, Sequence
 from atomx.constants import HARTREE_CM1, HARTREE_EV
 from atomx.methods.base import Method
 from atomx.methods.dirac_fock import DiracFock
-from atomx.methods.hartree_fock import HartreeFock
+from atomx.methods.hartree_fock_slater import HartreeFockSlater
 from atomx.methods.hydrogenic import HydrogenicDirac, HydrogenicSchrodinger
-from atomx.methods.relativistic_hf import BreitPauli
+from atomx.methods.breit_pauli import BreitPauli
 from atomx.types import Exchange, TheoryLevel
 
 # ---------------------------------------------------------------------------
@@ -204,7 +204,7 @@ class Ladder:
             rungs=[
                 HydrogenicSchrodinger(),
                 HydrogenicDirac(),
-                HartreeFock(),
+                HartreeFockSlater(),
                 BreitPauli(),
                 DiracFock(),
                 DiracFock(breit=True),
@@ -235,7 +235,7 @@ class Ladder:
         return cls(
             rungs=[
                 HydrogenicSchrodinger(),
-                HartreeFock(),
+                HartreeFockSlater(),
                 BreitPauli(),
                 DiracFock(),
             ],
@@ -343,7 +343,7 @@ def _rung_eq(a: Method, b: Method) -> bool:
 _RUNG_CONTRIBUTION = {
     "HydrogenicSchrodinger": "exact 1-electron, no e–e interaction",
     "HydrogenicDirac": "fine structure (Sommerfeld)",
-    "HartreeFock": "mean-field e–e + (local Slater) exchange",
+    "HartreeFockSlater": "mean-field e–e + (local Slater) exchange",
     "BreitPauli": "perturbative relativity (mass-vel + Darwin + L·S)",
     "DiracFockSlater": "variational relativity, local Slater exchange",
     "DiracFock": "variational relativity, non-local HF exchange",

@@ -18,7 +18,7 @@ from __future__ import annotations
 
 import pytest
 
-from atomx.numerics.analytic.hydrogenic_dirac import hydrogenic_dirac_wavefunction
+from atomx.methods.hydrogenic_reference import hydrogenic_dirac_wavefunction
 from atomx.properties.transitions.angular import angular_eL
 from atomx.properties.transitions.multipole import radial_eL, radial_eL_velocity
 from atomx.properties.transitions.rates import einstein_A_eL
@@ -168,7 +168,7 @@ class TestHeLikeGroundTransitionGaugeRatio:
 
     # Was a strict xfail (2026-09-25): measured |A_v/A_l - 1| = 0.234 at
     # this test's parameters (0.389 with the protocol of
-    # docs/CORRELATION_SD_RESEARCH_2026-09-20.md section 3.7), blamed on
+    # docs/archive/2026-09/CORRELATION_SD_RESEARCH_2026-09-20.md section 3.7), blamed on
     # the He 2p radial function diving to a bare-nucleus hydrogenic
     # solution.  Re-measured 2026-09-23 after the parent-core
     # spectator-row reform (docs/test_audit/PHYSICS_hlike_2p_spectator.md):

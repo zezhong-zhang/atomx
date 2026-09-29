@@ -20,7 +20,7 @@ where
 
 The full cross section is the sum of independent resonance
 contributions on the smooth background provided by e.g.
-:func:`atomx.numerics.bspline.continuum.photoionization_cross_section`.
+:func:`atomx.scattering.photoionization.direct.photoionization_cross_section`.
 
 Parameter conventions
 ---------------------

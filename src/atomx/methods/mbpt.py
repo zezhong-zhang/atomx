@@ -483,7 +483,7 @@ def mbpt2_energy(
         # −0.049871 Ha against the exact correlation energy −0.042044 and
         # the literature MP2/CBS −0.0372), driving the total 8 mHa *below*
         # the exact ground state.  With V^N, E2 = −0.03722 Ha.
-        # See docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding H4/M6.
+        # See docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding H4/M6.
         occ, virt = build_virtual_basis(scf_result, kappa, cache=cache,
                                           e_max=e_virt_max,
                                           potential_mode="VN")

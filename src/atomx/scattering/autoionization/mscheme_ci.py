@@ -929,7 +929,7 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
       ``exchange="gu"`` — the result carries the converged ``_rv``
       potential): every orbital, occupied or virtual, is an eigenstate
       of the one optimized central potential (FAC's ``OptimizeRadial``
-      scheme, via :func:`~atomx.numerics.shooting.solver.dfs_frozen_orbital`),
+      scheme, via :func:`~atomx.numerics.shooting.local.dfs_frozen_orbital`),
       the exact core-folded one-body matrix
       (:func:`build_core_folded_one_body`) makes the manifold a proper
       active-space CI, and the Auger continuum runs in the same
@@ -998,7 +998,7 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
 
     if rv is not None:
         # ---- FAC-like basis: converged local-DFS potential ---------------
-        from atomx.numerics.shooting.solver import dfs_frozen_orbital
+        from atomx.numerics.shooting.local import dfs_frozen_orbital
 
         grid = result._grid
         Z = int(result.Z)

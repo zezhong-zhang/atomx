@@ -3,7 +3,7 @@
 This module is the user-facing entry point for the spin-independent
 PNC E1 amplitude between two s_{1/2} atomic states.  It adapts the
 low-level sum-over-states calculation in :mod:`atomx.properties.pnc` to the
-:class:`~atomx.Atom` high-level API: pass either a (possibly unsolved)
+:class:`~atomx.Atom` high-level API: pass either a previously solved
 ``Atom`` or a converged ``SCFResult`` and the weak-interaction E1
 amplitude is returned as a :class:`~atomx.properties.pnc.PNCResult`.
 
@@ -64,8 +64,7 @@ def compute_pnc(
     Parameters
     ----------
     atom_or_result
-        Either a solved :class:`~atomx.Atom` (``.solve()`` is invoked
-        automatically if it has not been solved yet) or a converged
+        Either an explicitly solved :class:`~atomx.Atom` or a converged
         ``SCFResult``.
     initial_label, final_label
         Subshell labels of the two s_{1/2} states (e.g. ``"6s1/2"``,
@@ -118,5 +117,3 @@ def compute_pnc(
         e_intermediate_max=e_intermediate_max,
         potential_mode=potential_mode,
     )
-
-

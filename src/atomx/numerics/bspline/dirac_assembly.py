@@ -44,7 +44,7 @@ from atomx.numerics.bspline.integrals import (
 #: "bound": a requested d/f subshell with no genuine bound state then
 #: silently returned a sea state, giving total energies off by ~10^4 Ha
 #: with ``converged=True``.  See
-#: ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding C4.
+#: ``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding C4.
 NEGATIVE_CONTINUUM_EDGE = -C_SQ
 
 

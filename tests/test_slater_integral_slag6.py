@@ -30,7 +30,7 @@ import pytest
 from atomx import Atom, Exchange
 from atomx.constants import HARTREE_EV
 from atomx.numerics.shooting.grid import sgrid
-from atomx.numerics.shooting.solver import (
+from atomx.numerics.shooting.coulomb import (
     _slater_integral,
     _slater_integral_slag6,
 )
@@ -172,7 +172,7 @@ def test_both_backends_match_dhfs_fortran_for_neutral_atoms(
     platform FP drift.
     """
     from atomx.methods.mcdhf.config import _parse_config_string
-    from atomx.numerics.shooting.solver import ShootingSolver
+    from atomx.numerics.shooting.local import ShootingSolver
 
     subs = _parse_config_string(config)
     solver = ShootingSolver(

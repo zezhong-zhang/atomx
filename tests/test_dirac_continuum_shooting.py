@@ -183,7 +183,7 @@ class TestCoulombPhaseShift:
     ``-eta ln(2 k r)`` term and the Coulomb phase ``sigma_l``; for
     ``Z_res = 1, k = 0.271, r_max = 50`` the log term alone is 12.2 rad, so
     the returned "phase shift" was dominated by the box radius.  See
-    ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding M15.
+    ``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding M15.
     """
 
     @pytest.mark.parametrize(

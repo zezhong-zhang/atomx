@@ -55,7 +55,7 @@ def _density_at_origin(P, Q, bsp_data) -> float:
     where ``R_P = P/r``, ``R_Q = Q/r`` are the radial wavefunctions and the
     ``1/(4π)`` factor comes from the ``|Y_00|²`` angular piece.
     """
-    from atomx.corrections.workspace import eval_orbital_pair, workspace_arrays
+    from atomx.numerics.radial_workspace import eval_orbital_pair, workspace_arrays
 
     gr, _ = workspace_arrays(bsp_data)
     fP, fQ = eval_orbital_pair(P, Q, bsp_data)

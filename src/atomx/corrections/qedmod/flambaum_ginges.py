@@ -237,7 +237,7 @@ class FlambaumGingesBackend(SEBackend):
                 "⟨a|V_FG|a⟩ on the radial grid."
             )
 
-        from atomx.corrections.workspace import eval_orbital_pair, workspace_arrays
+        from atomx.numerics.radial_workspace import eval_orbital_pair, workspace_arrays
 
         gr, grw = workspace_arrays(bsp_data)
 

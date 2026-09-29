@@ -92,7 +92,7 @@ def test_mbpt2_helium_matches_the_literature_value():
     JCP 112, 10746 (2000)) and correctly bracketed by
     HF (-2.861680) < E_tot < exact (-2.903724).
 
-    See docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding H4/M6.
+    See docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding H4/M6.
     """
     atom = Atom(Z=2, config="1s2", engine="bspline", corrections="none")
     atom.solve()

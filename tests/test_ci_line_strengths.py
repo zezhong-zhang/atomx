@@ -285,11 +285,11 @@ def fe17_pair_atom():
     return a
 
 
-def test_compute_transitions_ci_wiring(fe17_pair_atom, linesets):
+def test_compute_transitions_ci_wiring(fe17_pair_atom, linesets, fe17_ground):
     """line_resolution='ci' routes a 2-config atom through the CI engine
     and each row records resolution='ci' with the engine's values."""
     rows = fe17_pair_atom.transitions(multipoles=["E1"],
-                                      line_resolution="ci")
+                                      line_resolution="ci", ci_reference=fe17_ground)
     assert len(rows) == 3
     assert all(r.resolution == "ci" for r in rows)
     engine = sorted(linesets["2p5 3d1"].lines, key=lambda ln: ln.omega_au)

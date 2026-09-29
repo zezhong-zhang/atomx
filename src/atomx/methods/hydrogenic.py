@@ -48,7 +48,16 @@ class HydrogenicSchrodinger(Method):
             for sh in subshells)
 
         from atomx.methods.dirac_fock import SCFResult
+        from atomx.calculation_spec import CalculationSpec
+        equation = 'dirac' if isinstance(self, HydrogenicDirac) else 'schrodinger'
+        spec = CalculationSpec(float(Z), self.name, 'analytic',
+            dict(equation=equation, nuclear='point', exchange='none',
+                 rest_energy='subtracted', units='atomic'),
+            dict(subshells=tuple((s.n, s.kappa, float(s.occupation)) for s in subshells)),
+            {}, {})
         return SCFResult(
+            calculation_spec=spec,
+            Z=Z,
             converged=True, iterations=0, residual=0.0,
             total_energy=total_energy,
             orbital_energies=orbital_energies,
@@ -100,7 +109,16 @@ class HydrogenicDirac(Method):
             total_energy += sh.occupation * E
 
         from atomx.methods.dirac_fock import SCFResult
+        from atomx.calculation_spec import CalculationSpec
+        equation = 'dirac' if isinstance(self, HydrogenicDirac) else 'schrodinger'
+        spec = CalculationSpec(float(Z), self.name, 'analytic',
+            dict(equation=equation, nuclear='point', exchange='none',
+                 rest_energy='subtracted', units='atomic'),
+            dict(subshells=tuple((s.n, s.kappa, float(s.occupation)) for s in subshells)),
+            {}, {})
         return SCFResult(
+            calculation_spec=spec,
+            Z=Z,
             converged=True, iterations=0, residual=0.0,
             total_energy=total_energy,
             orbital_energies=orbital_energies,

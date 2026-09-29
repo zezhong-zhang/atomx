@@ -52,7 +52,7 @@ from atomx.numerics.bspline.convol import (
 from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
 from atomx.numerics.shooting.constants import SL
 from atomx.numerics.shooting.quadrature import slag6
-from atomx.numerics.shooting.solver import _slater_integral_slag6
+from atomx.numerics.shooting.coulomb import _slater_integral_slag6
 
 # Build-scoped memo for Slater integrals and Dirac H0/S0 blocks: every CSF
 # in a CI build shares ONE orbital basis, so the same (orbitals, k)
@@ -227,15 +227,9 @@ def _breit_rk(f1, f2, f3, f4, comps, bsp_data, L):
     in *different* bases, so evaluating a small-component vector through
     the large-component table would silently mix them.
 
-    Numerics: the grid flavour uses the shooting engine's own SLAG6
-    integrator (consistency with the SCF, like :func:`_rk`); the B-spline
-    flavour uses ``yk_on_grid`` on the flattened Gauss nodes — the same
-    arbitrary-grid kernel the removed scalar Breit used
-    uses.  The cell integrator is deliberately *not* used here: its
-    mixed ``P x Q`` diagonal cell is a Y^k fallback, and on the
-    strongly cancelling Breit combinations it disagrees with the
-    arbitrary-grid kernel by ~4 % (measured on He-like Ne 1s2 against
-    DBSR_HF), where the kernel agrees to 0.04 %.
+    The B-spline path uses interpolatory within-cell partial integrals
+    and Gauss sums across cells. The grid path retains SLAG6. Symmetric
+    electron interchange is enforced at quadrature level.
     """
     _memo_context(bsp_data)
     key = ("br", L, id(f1), id(f2), id(f3), id(f4)) + tuple(comps)
@@ -246,11 +240,11 @@ def _breit_rk(f1, f2, f3, f4, comps, bsp_data, L):
             v = float(_slater_integral_slag6(
                 f1 * f3, f2 * f4, L, bsp_data.r, bsp_data.difr, bsp_data.n))
         else:
-            from atomx.corrections.workspace import (
+            from atomx.numerics.radial_workspace import (
                 eval_orbital_pair,
                 workspace_arrays,
             )
-            from atomx.numerics.quadrature import yk_on_grid
+            from atomx.numerics.yk import compute_yk
 
             gr, grw = workspace_arrays(bsp_data)
             r_flat = np.ravel(gr)
@@ -264,7 +258,10 @@ def _breit_rk(f1, f2, f3, f4, comps, bsp_data, L):
 
             rho1 = _eval(f1, comps[0]) * _eval(f3, comps[2])
             rho2 = _eval(f2, comps[1]) * _eval(f4, comps[3])
-            v = float(np.sum(w_flat * rho1 * yk_on_grid(rho2, r_flat, L)))
+            v = float(0.5 * np.sum(grw * (rho1.reshape(gr.shape) *
+                compute_yk(rho2.reshape(gr.shape), gr, grw, *gr.shape, L) +
+                rho2.reshape(gr.shape) *
+                compute_yk(rho1.reshape(gr.shape), gr, grw, *gr.shape, L))))
         _SLATER_MEMO[key] = v
     return v
 
@@ -273,14 +270,14 @@ def _breit_rk(f1, f2, f3, f4, comps, bsp_data, L):
 # Grid (shooting-engine) flavour of the radial workspace
 # ---------------------------------------------------------------------------
 #
-# Same seam idea as atomx.corrections.workspace: ONE physics implementation
+# Same seam idea as atomx.numerics.radial_workspace: ONE physics implementation
 # of the CI matrix elements serves both orbital representations.  Dispatch is
 # on the workspace object (``isinstance(bsp_data, GridCIWorkspace)``), never
 # on array shapes.  The consistency principle that fixed the +74 Ha Pb bug
 # applies verbatim here: the grid flavour evaluates every matrix element with
 # the shooting engine's OWN numerics — Slater integrals through
 # ``_slater_integral_slag6`` (the same integrator
-# ``ShootingHFSolver._two_electron_energy`` uses) and one-electron Dirac
+# ``RadialHartreeFock.two_electron_energy`` uses) and one-electron Dirac
 # blocks with the solver's own nuclear potential array — so a single-CSF CI
 # total on converged shooting orbitals reproduces ``ShootingResult
 # .total_energy``.
@@ -348,41 +345,9 @@ class GridCIWorkspace:
 # Central: antisymmetric weights for offsets ±1..±4; edge rows i=0..3 are
 # the one-sided/offset 8th-order weights on nodes 0..8 (right edge uses the
 # mirrored negated rows — first-derivative parity).
-_FD_CENTRAL = (4.0 / 5.0, -1.0 / 5.0, 4.0 / 105.0, -1.0 / 280.0)
-
-
-def _build_fd_edge_weights():
-    W = np.empty((4, 9))
-    nodes = np.arange(9, dtype=float)
-    rhs = np.zeros(9)
-    rhs[1] = 1.0  # Σ_j w_j x_j^m = m! δ_{m,1}
-    for i in range(4):
-        x = nodes - float(i)
-        A = np.vander(x, 9, increasing=True).T
-        W[i] = np.linalg.solve(A, rhs)
-    return W
-
-
-_FD_EDGE = _build_fd_edge_weights()
-
-
-def _ds_derivative(y):
-    """dy/ds on the uniform-s grid (unit index spacing), 8th order."""
-    n = y.shape[0]
-    if n < 9:
-        raise ValueError(f"grid too small for 8th-order stencils (n={n})")
-    c1, c2, c3, c4 = _FD_CENTRAL
-    d = np.empty_like(y)
-    d[4:n - 4] = (c1 * (y[5:n - 3] - y[3:n - 5])
-                  + c2 * (y[6:n - 2] - y[2:n - 6])
-                  + c3 * (y[7:n - 1] - y[1:n - 7])
-                  + c4 * (y[8:n] - y[0:n - 8]))
-    head = y[:9]
-    tail = y[n - 9:][::-1]
-    for i in range(4):
-        d[i] = _FD_EDGE[i] @ head
-        d[n - 1 - i] = -(_FD_EDGE[i] @ tail)
-    return d
+from atomx.numerics.shooting.operators import (
+    _FD_CENTRAL, _FD_EDGE, _ds_derivative,
+)
 
 
 def _grid_ds(y):
@@ -525,11 +490,10 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
         rather than hanging.
     include_breit : bool
         Add the Breit interaction to each ``(2J, parity)`` block as an
-        operator (exact Gaunt term, see
+        operator (Gaunt plus static retardation, see
         :mod:`atomx.methods.mcdhf.breit_ci`), so it splits levels instead
         of shifting them uniformly.  Off by default: the extra integrals
-        are only paid for when asked.  The frequency-independent
-        retardation term is *not* included and is not silently dropped —
+        are only paid for when asked.  Frequency-dependent transverse exchange is not included —
         see :data:`atomx.methods.mcdhf.breit_ci.RETARDATION_NOTE`.
     """
     # ``_reset_memo`` drops every memoised integral, including the CI's
@@ -687,7 +651,7 @@ def _radial_evaluator(orbitals_dict, bsp_data, Z, ns):
 
 
 def _breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns):
-    """Map a Breit (Gaunt) radial key to its numeric value.
+    """Map a static Breit (Gaunt or retardation) radial key to its numeric value.
 
     Key shape (see :func:`atomx.methods.mcdhf.breit_ci.gaunt_terms`)::
 
@@ -703,7 +667,11 @@ def _breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns):
     Coulomb elements use (:func:`_rk`'s conventions), so the two
     operators are built on identical numerics.
     """
+    from atomx.methods.mcdhf.retardation import radial_evaluator
+    evaluate_retardation = radial_evaluator(orbitals_dict, bsp_data)
     def evaluate(key):
+        if key[0] == "t":
+            return evaluate_retardation(key)
         _, L, key_a, key_c, key_b, key_d = key
         coeffs = []
         comps = []
@@ -732,7 +700,7 @@ def _legacy_build_ci_matrix_approximate(csfs, orbitals_dict, orbital_basis,
     ``correlation="sd"`` came out 0.39 Ha below the exact ground state, and
     it returns non-zero elements between different total J — so
     :func:`build_ci_matrix` does not fall back to it.  It survives because
-    the diagnostics in `docs/CORRELATION_SD_RESEARCH_2026-09-20.md`
+    the diagnostics in `docs/archive/2026-09/CORRELATION_SD_RESEARCH_2026-09-20.md`
     (and anyone re-measuring the old numbers) need the old assembly
     reachable.
 
@@ -747,7 +715,7 @@ def _legacy_build_ci_matrix_approximate(csfs, orbitals_dict, orbital_basis,
             "Be correlation='sd' came out 0.39 Ha below the exact ground "
             "state and it produces non-zero inter-J elements. Pass "
             "allow_legacy_incorrect_physics=True only to re-measure those "
-            "legacy diagnostics (docs/CORRELATION_SD_RESEARCH_2026-09-20.md)."
+            "legacy diagnostics (docs/archive/2026-09/CORRELATION_SD_RESEARCH_2026-09-20.md)."
         )
     # ``_reset_memo`` drops every memoised integral, including the CI's
     # stashed rkb cache — carry it across the reset so a cache handed in by
@@ -1918,7 +1886,7 @@ def _off_diagonal_J_correction(csf_r, csf_s, orbitals_dict, bsp_data, ns,
 
     Measured consequences, the independent oracle used to measure them,
     and the fix options are in
-    ``docs/CORRELATION_SD_RESEARCH_2026-09-20.md``; the regression gates
+    ``docs/archive/2026-09/CORRELATION_SD_RESEARCH_2026-09-20.md``; the regression gates
     are in ``tests/test_ci_matrix_vs_mscheme_reference.py``.
 
     Any future body must satisfy, at minimum:

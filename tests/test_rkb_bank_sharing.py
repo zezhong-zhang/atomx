@@ -9,7 +9,7 @@ the wall time at ns=60 and 13.8 % at ns=113.  Keying the registry on grid
 *content* (never on ``id()``: the five ``bsp_data`` dicts are distinct
 objects with bit-identical content) drops that to 20.
 
-See ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` (performance item C7 /
+See ``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` (performance item C7 /
 TASK 1 of the remediation).
 """
 

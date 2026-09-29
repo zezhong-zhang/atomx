@@ -57,7 +57,7 @@ measured numbers spelled out (NOT silently loosened):
 The open-shell excited pair (Ne 1s2 2s2 2p5 3s1) uses statistical
 jj-average coefficients on both engines. Shooting uses sequential Schmidt
 orthogonalization, an explicitly approximate treatment of the open-shell
-Lagrange multipliers (hf_shooting.py); B-splines now optimize occupied
+Lagrange multipliers (numerics/shooting/hartree_fock.py); B-splines now optimize occupied
 rotations under the metric constraints. All open-shell rates therefore
 use the existing 3e-2 model-comparison band. The previous special 2e-3
 claim for the 2p3/2 -> 3s1/2 rate is no longer justified: the measured
@@ -394,7 +394,7 @@ def test_schrodinger_shooting_transitions_raise():
     from types import SimpleNamespace
 
     from atomx.methods.dirac_fock import Subshell
-    from atomx.numerics.shooting.solver import ShootingSolver
+    from atomx.numerics.shooting.local import ShootingSolver
     from atomx.properties.transitions.calculator import TransitionCalculator
 
     res = ShootingSolver(
@@ -428,7 +428,7 @@ def test_radial_eL_matches_hydrogenic_closed_forms():
     SCF enters here, so this is the file's only gate on the kernel
     *formula* rather than on orbital agreement.
     """
-    from atomx.numerics.analytic.hydrogenic_dirac import (
+    from atomx.methods.hydrogenic_reference import (
         hydrogenic_dirac_wavefunction,
     )
     from atomx.properties.transitions.multipole import radial_eL

@@ -336,8 +336,7 @@ def test_slater_method_only_exists_where_it_is_read():
 def test_multi_configuration_list_yields_to_bspline():
     atom = Atom(4, config=["1s2 2s2", "1s2 2p2"])
     assert atom.engine == "bspline"
-    with pytest.raises(ValueError, match="multi-configuration"):
-        Atom(4, config=["1s2 2s2", "1s2 2p2"], engine="shooting")
+    assert Atom(4, config=["1s2 2s2", "1s2 2p2"], engine="shooting").engine == "shooting"
     # A local exchange model on the multi-configuration path is caught
     # when the MCDHF solver is selected (solve(), not construction).
     with pytest.raises(ValueError, match="multi-configuration"):

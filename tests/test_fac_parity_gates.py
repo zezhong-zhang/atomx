@@ -9,7 +9,7 @@ in places (e.g. Z=10 Ne-like ``atomx_first_A_s`` = 3.59e6 vs ``fac_first_A_s`` =
 6.85e-3), reflecting an unreconciled units/definition mismatch, so asserting
 them here would be meaningless without first fixing that.  Treat a green run as
 "atomx is self-consistent with its snapshot", **not** "atomx agrees with FAC".
-See ``docs/CRITICAL_REVIEW_2026-07-09.md`` §V1.  Marker: ``snapshot``
+See ``docs/archive/2026-07/CRITICAL_REVIEW_2026-07-09.md`` §V1.  Marker: ``snapshot``
 (2026-09-17: renamed from the old ``fac_parity`` name, which claimed a parity
 this file does not test).
 """

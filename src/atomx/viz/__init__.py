@@ -27,26 +27,18 @@ helpers.  The ``manim`` backend additionally exposes *Scene* classes
 that subclass ``manim.Scene`` and are run with the manim CLI.
 """
 
-from atomx.viz import (
-    mpl,  # noqa: F401  always safe (matplotlib is core dep-light)
-    scattering,  # noqa: F401  cross sections / DR / synthesis
-)
+from importlib import import_module as _import_module
 
-# plotly and manim are optional — guarded so import atomx.viz never fails
-try:  # pragma: no cover — exercised on systems with plotly installed
-    from atomx.viz import plotly  # noqa: F401
-except ImportError:
-    plotly = None  # type: ignore[assignment]
-
-try:  # pragma: no cover — exercised on systems with manim installed
-    from atomx.viz import manim  # noqa: F401
-except ImportError:
-    manim = None  # type: ignore[assignment]
+__all__ = ['mpl', 'scattering', 'plotly', 'plotly3d', 'manim']
 
 
-__all__ = [
-    "mpl",
-    "scattering",
-    "plotly",
-    "manim",
-]
+def __getattr__(name):
+    if name in __all__:
+        module = _import_module(f'{__name__}.{name}')
+        globals()[name] = module
+        return module
+    raise AttributeError(f'module {__name__!r} has no attribute {name!r}')
+
+
+def __dir__():
+    return sorted(set(globals()) | set(__all__))

@@ -19,7 +19,7 @@ Every gate here compares against something that is not this package:
   (Gumberidze et al., PRL 94, 223001 (2005)) — the *self-energy alone*
   cannot exceed it.
 
-See ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` findings C2 and M1.
+See ``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` findings C2 and M1.
 """
 
 from __future__ import annotations

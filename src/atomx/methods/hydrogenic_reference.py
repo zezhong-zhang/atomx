@@ -26,7 +26,7 @@ import numpy as np
 
 def _subshell_for_hydrogenic(n: int, kappa: int):
     """Build a Subshell instance with a single electron in (n, κ)."""
-    from atomx.methods.dirac_fock import Subshell
+    from atomx.config.subshell import Subshell
     return Subshell(n=n, kappa=kappa, occupation=1.0)
 
 

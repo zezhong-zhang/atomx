@@ -11,7 +11,7 @@ source named per number:
   mbreit=0``, same file; quoted in
   ``tests/test_atom_surface_equivalence.py:190``), i.e. the classic
   Desclaux 1973 value -128.6919 to 7 digits
-  (``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md``).
+  (``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md``).
 
 This module previously cited "Desclaux 1973 DHF: Ne total energy -128.547
 Hartree".  -128.5471 is the **non-relativistic HF limit** of Ne, not its DHF

@@ -7,7 +7,7 @@ Why this module exists
 patches.  That matrix is not a representation of the Hamiltonian, so the
 CI was not variational: for Be ``correlation="sd"`` it returned
 -15.05 Ha, 0.39 Ha below the exact non-relativistic ground state
-(-14.66736 Ha).  See ``docs/CORRELATION_SD_RESEARCH_2026-09-20.md``.
+(-14.66736 Ha).  See ``docs/archive/2026-09/CORRELATION_SD_RESEARCH_2026-09-20.md``.
 
 A CSF in jj-coupling is a *coupling tree*, not just
 ``(subshells, total_J2)``, so the exact matrix element cannot be written
@@ -1067,7 +1067,7 @@ def block_terms(patterns, j2, max_determinants=MAX_BLOCK_DETERMINANTS):
 
 
 class BreitBlockStructure:
-    """Sparse table of one block's *Breit* (Gaunt) determinant elements.
+    """Sparse table of one block's *Breit* (Gaunt plus retardation) determinant elements.
 
     Same determinant ordering as the block's :class:`BlockStructure`, so
     the two matrices add directly in the determinant basis.
@@ -1085,17 +1085,17 @@ class BreitBlockStructure:
 @lru_cache(maxsize=32)
 def _breit_block_table(patterns: tuple, j2: int, max_determinants: int):
     """Cached Gaunt table of a block, keyed like the Coulomb structure."""
-    from atomx.methods.mcdhf.breit_ci import gaunt_terms
+    from atomx.methods.mcdhf.breit_ci import breit_terms
 
     structure = block_terms(patterns, j2, max_determinants)
     dets = structure.dets
     spinor_labels = structure.spinor_labels
-    keys, table, pairs = _coefficient_table(dets, spinor_labels, gaunt_terms)
+    keys, table, pairs = _coefficient_table(dets, spinor_labels, breit_terms)
     return BreitBlockStructure(dets, keys, table, pairs)
 
 
 def breit_block_terms(patterns, j2, max_determinants=MAX_BLOCK_DETERMINANTS):
-    """Cached Breit (Gaunt) determinant table of a block."""
+    """Cached static Breit determinant table of a block."""
     return _breit_block_table(tuple(patterns), int(j2),
                               int(max_determinants))
 
@@ -1240,7 +1240,7 @@ def exact_block_matrix(signatures, evaluate_integral, *,
         Run the orthonormality and ``J^2`` span checks (default on; the
         cost is one ``eigh`` per configuration, cached across calls).
     breit_evaluator : callable or None
-        Maps a Breit (Gaunt) radial key to its numeric value (see
+        Maps a static Breit radial key to its numeric value (see
         :func:`atomx.methods.mcdhf.breit_ci.gaunt_terms` for the key
         shape).  When given, the Breit operator's determinant matrix is
         added to ``H_det`` before projection, so it enters the CI matrix

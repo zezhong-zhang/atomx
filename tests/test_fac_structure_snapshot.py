@@ -13,7 +13,7 @@ compares it against the committed values, so drift is detected instead of
 being quoted.  The FAC column is an external record and is **not** recomputed
 (that needs ``sfac``).
 
-See ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding H1.
+See ``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding H1.
 """
 
 from __future__ import annotations

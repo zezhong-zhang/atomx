@@ -34,12 +34,10 @@ from atomx.methods.dirac_fock import DFSolver, helium_subshells, neon_subshells
 DBSR_HF_BREIT_NE = 0.016643630840490
 DBSR_HF_BREIT_HE = 0.000063777432919
 
-#: The repo's Gaunt operator (``methods/mcdhf/breit_ci.py``, all photon
-#: multipoles, no retardation) on the same closed shells, measured
-#: through ``Atom(..., config=[...], corrections=Corrections(breit=True))``
-#: minus ``corrections="none"``.
-GAUNT_OPERATOR_NE = 0.017340483489249436  # constrained orbitals, 2026-09-23
-GAUNT_OPERATOR_HE = 6.377915809485657e-05
+#: Independent full static Breit anchors for the resolved CI path.
+#: The previous Gaunt-only snapshots also lacked an allowed photon rank.
+STATIC_BREIT_NE = DBSR_HF_BREIT_NE  # independent full-operator anchor
+STATIC_BREIT_HE = DBSR_HF_BREIT_HE
 
 # ---- Shared fixtures ----
 
@@ -236,7 +234,8 @@ class TestBreitQEDIntegration:
         this pins the many-electron assembly on top of it.
         """
         e_se = ne_full_result.energy_components.get("E_SE", 0)
-        assert e_se == pytest.approx(0.012119287081604155, rel=1e-3), (
+        # 2026-09-29: normalize screening by the exact Dirac expectation.
+        assert e_se == pytest.approx(0.0120863, rel=1e-3), (
             f"Ne E_SE {e_se:.9f} out of the frozen band")
 
     def test_ne_total_with_corrections(self, ne_hf_solved, ne_full_result):
@@ -298,7 +297,7 @@ class TestBreitRouteReporting:
         assert applied == pytest.approx(DBSR_HF_BREIT_NE, rel=0.05), (
             f"applied Ne Breit {applied:.9f} Ha vs DBSR_HF "
             f"{DBSR_HF_BREIT_NE:.9f} Ha")
-        assert applied == pytest.approx(GAUNT_OPERATOR_NE, rel=1e-6)
+        assert applied == pytest.approx(STATIC_BREIT_NE, rel=1e-6)
 
     @pytest.mark.external_fac
     def test_he_breit_operator_matches_dbsr_hf(self):
@@ -312,7 +311,7 @@ class TestBreitRouteReporting:
         with_breit.solve()
         applied = with_breit.total_energy - base.total_energy
         assert applied == pytest.approx(DBSR_HF_BREIT_HE, rel=0.05)
-        assert applied == pytest.approx(GAUNT_OPERATOR_HE, rel=1e-6)
+        assert applied == pytest.approx(STATIC_BREIT_HE, rel=1e-6)
 
     @pytest.mark.parametrize("route", ["mcdhf", "shooting"])
     def test_reported_breit_is_the_applied_shift(self, route):
@@ -344,7 +343,7 @@ class TestBreitRouteReporting:
         assert prov["mode"] == "operator"
         assert prov["scalar_shift_applied"] is False
         assert comps["E_Breit"] == pytest.approx(
-            GAUNT_OPERATOR_NE, rel=1e-6), "E_Breit must be the applied shift"
+            STATIC_BREIT_NE, rel=1e-6), "E_Breit must be the applied shift"
         scalar = comps["E_Breit_scalar_not_applied"]
         # The fixed scalar is now DBSR_HF-consistent (-0.33 % at Ne): the
         # key is about provenance, not about the scalar being wrong.
@@ -374,7 +373,7 @@ class TestBreitRouteReporting:
             DBSR_HF_BREIT_NE, rel=0.07), (
             f"operator route {applied['operator/list']!r} vs DBSR_HF "
             f"{DBSR_HF_BREIT_NE!r}")
-        assert applied["operator/list"] > applied["dbsr/string"]
+        assert applied["operator/list"] == pytest.approx(applied["dbsr/string"], rel=1e-3)
         legacy = Atom(
             Z=10, config="1s2 2s2 2p6",
             corrections=Corrections(stack=CorrectionStack(
@@ -521,9 +520,11 @@ class TestQEDTotalShiftPin:
         #    too large).
         #  * C2: the self-energy table is FAC's F(Zα), whose Z-dependence
         #    falls with Z (SE was 2.5x too large at Z=10, 3.3x at Z=18).
-        # See docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md.
-        10: ("Ne", +0.011518334, +0.012119271, -0.000600937),
-        18: ("Ar", +0.093326039, +0.099832889, -0.006506850),
+        # See docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md.
+        # 2026-09-29: exact Dirac-Coulomb screening denominator; independent
+        # one-electron limits are gated in test_mohr_dirac_reference.py.
+        10: ("Ne", +0.011485358, +0.012086295, -0.000600937),
+        18: ("Ar", +0.092445843, +0.098952693, -0.006506850),
     }
 
     @pytest.mark.snapshot

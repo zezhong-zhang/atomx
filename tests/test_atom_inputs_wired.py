@@ -298,9 +298,12 @@ def test_sampling_tier_n_grid_reaches_the_shooting_grid():
     assert coarse._n_grid == 500
     assert fine._n_grid is None
     assert "n_grid=500" in coarse.resolved_inputs
-    # The SGRID really changed: the quadrature moves the total energy at
-    # the 1e-8 Ha level (measured 1.39e-8 Ha for He at n_grid 500 vs 1000).
-    assert abs(coarse.total_energy - fine.total_energy) > 1e-9
+    # Verify the actual discretization. Improved quadrature must not
+    # fail this wiring gate merely because the energies agree more closely.
+    assert len(coarse.result._grid) == 500
+    assert len(fine.result._grid) == 1000
+    assert coarse.calculation_spec.numerics['n_grid'] == 500
+    assert abs(coarse.total_energy - fine.total_energy) < 1e-7
 
 
 def test_solve_time_sampling_still_only_carries_tol_and_max_iter():

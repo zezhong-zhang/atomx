@@ -9,7 +9,7 @@ Usage:
     results = he.transitions(multipoles=['E1', 'M1'])
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Optional
 
 import numpy as np
@@ -79,6 +79,7 @@ class TransitionResult:
     # value, regardless of which one ``A_rate_per_s`` reports.
     A_length: Optional[float] = None
     A_velocity: Optional[float] = None
+    provenance: dict = field(default_factory=dict)
 
     @property
     def wavelength_nm(self):
@@ -191,7 +192,8 @@ class TransitionCalculator:
         self.Z = atom.Z
 
     def compute_all(self, multipoles=None, gauge='length',
-                    line_resolution='uta', ci_det_cap=2000):
+                    line_resolution='uta', ci_det_cap=2000, *,
+                    fallback='error', ci_reference=None):
         """Compute all allowed transitions.
 
         Parameters
@@ -205,6 +207,13 @@ class TransitionCalculator:
             statistical multiplet strengths and ``'ci'`` requests the
             determinant-CI engine where supported; each row records the
             engine actually used in ``resolution``.
+        fallback : {'error', 'uta'}
+            Unsupported determinant-CI requests raise by default. Explicit
+            'uta' permits statistical fallback and records the reason.
+        ci_reference : solved result, optional
+            Explicit closed-shell orbital reference for determinant CI. This
+            path constructs a Dirac–Coulomb CI Hamiltonian; it does not inherit
+            post-SCF corrections from the reference or run a replacement SCF.
         ci_det_cap : int
             Maximum determinants per (J, M) block for the CI engine.
         gauge : {'length', 'velocity', 'both'}
@@ -236,119 +245,77 @@ class TransitionCalculator:
             raise ValueError(
                 f"line_resolution must be 'uta' or 'ci' (got {line_resolution!r})")
 
-        if line_resolution == 'ci':
-            ci_results = self._compute_ci_transitions(
-                multipoles, gauge, ci_det_cap)
-            if ci_results is not None:
-                return ci_results
-            # CI path not applicable — statistical fallback below.
-
-        if self.atom._mcdhf_result is not None:
+        if fallback not in {'error', 'uta'}:
+            raise ValueError("fallback must be 'error' or 'uta'")
+        if ci_reference is not None and line_resolution != 'ci':
+            raise ValueError("ci_reference requires line_resolution='ci'")
+        # Already computed correlated states define their own Hamiltonian and
+        # tensor operators. Never replace them with a separately solved atom.
+        if self.atom._mcdhf_result is not None and ci_reference is None:
             return self._compute_mcdhf_transitions(multipoles, gauge)
-        else:
-            return self._compute_single_config_transitions(multipoles, gauge)
+        if line_resolution == 'ci':
+            from atomx.properties.transitions.ci_lines import CISizeError
+            try:
+                return self._compute_ci_transitions(multipoles, gauge, ci_det_cap,
+                                                    ci_reference)
+            except (NotImplementedError, CISizeError) as exc:
+                if fallback == 'error':
+                    raise
+                rows = self._compute_single_config_transitions(multipoles, gauge)
+                for row in rows:
+                    row.provenance.update(requested_resolution='ci', actual_resolution=row.resolution,
+                        fallback_reason=str(exc), fallback_exception=type(exc).__name__)
+                return rows
+        return self._compute_single_config_transitions(multipoles, gauge)
 
-    def _compute_ci_transitions(self, multipoles, gauge, det_cap):
-        """Exact J-resolved lines via the determinant-CI engine.
+    def _compute_ci_transitions(self, multipoles, gauge, det_cap, reference):
+        """Evaluate determinant CI using an explicitly supplied orbital reference.
 
-        Applies when the atom was built from exactly two configuration
-        strings forming a single-hole pair (e.g. ``["1s2 2s2 2p6",
-        "1s2 2s2 2p5 3d1"]``).  The closed-shell ground configuration is
-        (re-)solved in the FAC-equivalent local-DFS basis
-        (``engine='shooting', exchange='gu'``, pure Coulomb) that the
-        CI engine was validated with, and
-        :func:`atomx.properties.transitions.ci_lines.ci_line_strengths`
-        supplies the exact per-line strengths.
-
-        Returns ``None`` whenever the CI path does not apply — the
-        caller then falls back to the statistical (UTA) machinery.
-        Magnetic multipoles in ``multipoles`` are not implemented in the
-        CI engine; they are computed with the UTA machinery and marked
-        ``resolution='uta'`` alongside the CI electric-multipole rows.
+        This engine builds a Dirac–Coulomb CI Hamiltonian. The reference's
+        orbital model is retained in provenance; no additional SCF is performed.
         """
         if gauge != 'length':
-            return None
+            raise NotImplementedError('determinant-CI transitions support length gauge only')
         cfgs = list(getattr(self.atom, '_config_strings', None) or [])
         if len(cfgs) != 2:
-            return None
-
-        from atomx.properties.transitions.ci_lines import (
-            CISizeError,
-            ci_line_strengths,
-            ground_config_of_pair,
-        )
-
-        try:
-            ground_cfg = ground_config_of_pair(cfgs[0], cfgs[1])
-        except ValueError:
-            return None
-        ground = self._ci_ground_result(ground_cfg)
-        if ground is None:
-            return None
-
-        e_poles = [mp for mp in (multipoles or ['E1']) if mp[0] == 'E']
-        m_poles = [mp for mp in (multipoles or ['E1']) if mp[0] != 'E']
+            raise NotImplementedError('determinant-CI transitions require two configurations')
+        if any(mp[0] != 'E' for mp in multipoles):
+            raise NotImplementedError('determinant-CI magnetic multipoles are unsupported')
+        if reference is None:
+            raise NotImplementedError('determinant-CI transitions require an explicit solved '
+                                      'ci_reference; no replacement atom is calculated')
+        from atomx.properties.transitions.ci_lines import ci_line_strengths, ground_config_of_pair
+        from atomx.scattering.autoionization.mscheme_ci import _parse_config_tokens
+        ground_cfg = ground_config_of_pair(cfgs[0], cfgs[1])
+        result = getattr(reference, '_result', reference)
+        if result is None or not result.converged:
+            raise ValueError('ci_reference must be solved and converged')
+        if result.Z != self.Z:
+            raise ValueError('ci_reference nuclear charge differs from the requested atom')
+        occupations = {}
+        for sh in result.subshells:
+            occupations[sh.n, sh.l] = occupations.get((sh.n, sh.l), 0.) + sh.occupation
+        if occupations != _parse_config_tokens(ground_cfg):
+            raise ValueError('ci_reference is not the closed-shell reference for this pair')
+        spec = getattr(result, 'calculation_spec', None)
+        requested = getattr(self.atom._result, 'calculation_spec', None)
+        provenance = dict(ci_hamiltonian='Dirac-Coulomb', reference_selection='explicit',
+            orbital_reference=spec.to_dict() if spec else None,
+            requested_calculation=requested.to_dict() if requested else None)
         results = []
-        for mp in e_poles:
-            try:
-                lineset = ci_line_strengths(
-                    ground, cfgs[1], cfgs[0], multipole=mp, det_cap=det_cap)
-            except (CISizeError, ValueError, NotImplementedError):
-                return None
+        for mp in multipoles:
+            lineset = ci_line_strengths(result, cfgs[1], cfgs[0],
+                                       multipole=mp, det_cap=det_cap)
             for ln in lineset.lines:
                 results.append(TransitionResult(
-                    initial_label=ln.lower.label,
-                    final_label=ln.upper.label,
+                    initial_label=ln.lower.label, final_label=ln.upper.label,
                     energy_diff_hartree=ln.omega_au,
                     wavelength_angstrom=ln.wavelength_angstrom,
-                    multipole=ln.multipole,
-                    A_rate_per_s=ln.A_per_s,
-                    gf_value=ln.gf,
-                    f_value=ln.f_value,
-                    line_strength=ln.S,
-                    gauge='length',
-                    A_length=ln.A_per_s,
-                    A_velocity=None,
-                    resolution='ci',
-                ))
-        if m_poles:
-            if self.atom._mcdhf_result is not None:
-                results.extend(self._compute_mcdhf_transitions(m_poles, gauge))
-            else:
-                results.extend(
-                    self._compute_single_config_transitions(m_poles, gauge))
+                    multipole=ln.multipole, A_rate_per_s=ln.A_per_s,
+                    gf_value=ln.gf, f_value=ln.f_value, line_strength=ln.S,
+                    gauge='length', A_length=ln.A_per_s, resolution='ci',
+                    provenance=dict(provenance)))
         return sorted(results, key=lambda r: r.wavelength_angstrom)
-
-    def _ci_ground_result(self, ground_cfg):
-        """Solved pure-Coulomb closed-shell ground in the DFS-gu basis.
-
-        Cached per configuration string.  Returns ``None`` when the
-        solve fails (caller falls back to the UTA path)."""
-        cache = getattr(self, '_ci_ground_cache', None)
-        if cache is None:
-            cache = self._ci_ground_cache = {}
-        if ground_cfg in cache:
-            return cache[ground_cfg]
-        from atomx.atom import Atom
-        from atomx.scattering.autoionization.mscheme_ci import _parse_config_tokens
-        res = None
-        try:
-            n_el = sum(_parse_config_tokens(ground_cfg).values())
-            a = Atom(
-                     Z=self.Z,
-                     charge=int(self.Z) - int(n_el),
-                     config=ground_cfg,
-                     engine='shooting',
-                     exchange='gu',
-                     corrections="none",
-                )
-            a.solve()
-            if a.converged:
-                res = a._result
-        except Exception:
-            res = None
-        cache[ground_cfg] = res
-        return res
 
     def _single_config_payload(self):
         """``(orbitals, workspace)`` for whichever radial flavour the
@@ -359,10 +326,10 @@ class TransitionCalculator:
         coefficient vectors and ``workspace`` is the B-spline
         ``bsp_data`` dict; for the radial-grid (ODE shooting) flavour
         they are grid-tabulated waves and ``workspace`` is a
-        :func:`atomx.corrections.workspace.make_grid_workspace` dict.
+        :func:`atomx.numerics.radial_workspace.make_grid_workspace` dict.
         Either payload feeds the same radial integrals in
         :mod:`~atomx.properties.transitions.multipole` through the
-        :mod:`atomx.corrections.workspace` seam.
+        :mod:`atomx.numerics.radial_workspace` seam.
         """
         result = self.atom._result
 
@@ -700,7 +667,8 @@ class TransitionCalculator:
 
 
 def compute_transitions(atom, multipoles=None, gauge='length',
-                        line_resolution='uta', ci_det_cap=2000):
+                        line_resolution='uta', ci_det_cap=2000, *,
+                    fallback='error', ci_reference=None):
     """Convenience function to compute transitions for a solved Atom.
 
     Parameters
@@ -726,4 +694,5 @@ def compute_transitions(atom, multipoles=None, gauge='length',
     calc = TransitionCalculator(atom)
     return calc.compute_all(multipoles, gauge,
                             line_resolution=line_resolution,
-                            ci_det_cap=ci_det_cap)
+                            ci_det_cap=ci_det_cap, fallback=fallback,
+                            ci_reference=ci_reference)

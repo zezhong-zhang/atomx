@@ -42,12 +42,12 @@ Everything asserted below is *derivable*, and the derivations are stated:
 
 5. **Selection rules of the two-body operator.**  ``M = Σ 2m`` is conserved
    and the multipole is bounded by both triangle conditions,
-   ``L ≤ min((2j_a+2j_c)/2, (2j_b+2j_d)/2)``.
+   ``L ≤ min(j_a+j_c, j_b+j_d)+1``.
 
-6. **The omission is declared, never silent.**  Retardation is not
-   implemented; asking for it must raise, and the provenance note must say
-   so.  This is the gate that keeps "we left a term out" from decaying into
-   "we forgot a term".
+6. **Retardation is included.** The complete static operator contains
+   Gaunt plus retardation; frequency-dependent transverse exchange remains
+   outside this Hamiltonian. Independent radial/operator tests are in
+   ``test_static_breit_retardation.py``.
 
 Two properties were probed and are deliberately **not** asserted here,
 because they are not true as coefficient-level statements: the term list of
@@ -58,17 +58,8 @@ matrix element has those properties, and it can only be formed once the radial
 integrals are supplied.  Asserting them against the decomposition would be
 asserting something false, so they are not asserted here at all.
 
-Where the element-level statements are gated, and where they are not:
-
-* Closed-shell Gaunt totals against DBSR_HF — ``tests/test_nist_levels.py``
-  (``test_breit_scalar_matches_dbsr_hf``), which is currently a **strict
-  xfail** carrying the measured 3.03x discrepancy between atomx's scalar
-  Breit and DBSR_HF's Ne value of 0.016644 Ha.  So the external anchor exists
-  but is red, not green.
-* Hermiticity of the assembled CI matrix — **gated nowhere**.  This file does
-  not gate it and neither does ``tests/test_exact_ci_kernel.py`` (which
-  contains no hermiticity assertion).  That is a known hole, recorded here
-  rather than papered over.
+Full static Breit closed-shell totals are checked against independent
+DBSR_HF references in ``test_static_breit_retardation.py``.
 """
 
 from __future__ import annotations
@@ -361,11 +352,10 @@ class TestTwoBodySelectionRules:
         )
 
     def test_multipole_ceiling_is_the_triangle_bound(self):
-        """``L ≤ min((2j_a+2j_c)/2, (2j_b+2j_d)/2)`` on every term.
+        """``L ≤ min(j_a+j_c, j_b+j_d)+1`` on every term.
 
-        Each ``C^L`` in the expansion ``1/r₁₂ = Σ_L r_<^L/r_>^{L+1} C^L·C^L``
-        couples its own pair, so the multipole is bounded by both pair
-        triangles.  The expansion is also *complete*: the ceiling must be
+        The rank-1 alpha matrix multiplies ``C^L`` in the expansion ``1/r₁₂ = Σ_L r_<^L/r_>^{L+1} C^L·C^L``
+        allows photon L one larger than the electronic pair triangle.  The expansion is also *complete*: the ceiling must be
         actually reached for at least one term, otherwise an allowed
         multipole is being truncated away.
         """
@@ -378,6 +368,7 @@ class TestTwoBodySelectionRules:
                 (twoj_of_kappa(ka) + twoj_of_kappa(kc)) // 2,
                 (twoj_of_kappa(kb) + twoj_of_kappa(kd)) // 2,
             )
+            ceiling += 1  # alpha rank 1 permits photon L = j_a+j_c+1
             ls = {L for (L, *_rest) in terms}
             global_max = max(global_max, max(ls))
             global_ceiling = max(global_ceiling, ceiling)
@@ -389,9 +380,9 @@ class TestTwoBodySelectionRules:
         )
         # The bound need not be attained by every element -- for s shells the
         # parity factor kills every L > 0 -- but across the whole parameter set
-        # the largest triangle bound (f-f: L = 5) must actually appear, or the
+        # the largest allowed photon rank (L = 6) must actually appear, or the
         # sum over L is being truncated below the selection-rule maximum.
-        assert global_max == global_ceiling == 5, (
+        assert global_max == global_ceiling == 6, (
             f"the largest multipole that appears anywhere is L = {global_max} "
             f"while the largest triangle bound in this parameter set is "
             f"{global_ceiling}; the photon-multipole sum is being truncated"
@@ -419,32 +410,17 @@ class TestTwoBodySelectionRules:
 # ---------------------------------------------------------------------------
 
 
-class TestOmissionsAreDeclared:
-    """An omitted Breit term must raise, and the note must say it is omitted."""
+class TestStaticBreitContent:
+    """Static retardation is present and dynamic exchange is declared absent."""
 
-    def test_retardation_raises_rather_than_returning_zero(self):
-        with pytest.raises(BreitOperatorError) as excinfo:
-            retardation_terms(-1, 1, -1, 1, -1, 1, -1, 1)
-        message = str(excinfo.value)
-        assert "retardation" in message.lower()
-        # the message must name the mechanism, not merely report a failure
-        assert "not implemented" in message.lower()
-        assert "RETARDATION_NOTE" in message
-
-    def test_provenance_note_states_the_omission_and_its_size(self):
-        """The note must both name the omission and quantify it.
-
-        ``RETARDATION_NOTE`` is what a user sees when they ask what the Breit
-        number contains.  A note that only said "Gaunt" would not tell them
-        how much was left out, and a note that said "approximate Breit" would
-        not tell them what was left out.
-        """
-        note = RETARDATION_NOTE
-        assert isinstance(note, str) and len(note) > 40
-        assert "NOT included" in note or "not included" in note, note
-        assert "Gaunt" in note, note
-        # it must carry the measured size of the omission, in per cent
-        assert "%" in note, note
+    def test_retardation_is_included_and_dynamic_exchange_is_declared(self):
+        from atomx.methods.mcdhf.breit_ci import breit_terms, gaunt_terms
+        labels = [(1,-1,1),(1,-1,-1),(2,1,1),(2,1,-1)]
+        terms = retardation_terms(0,1,2,3,1.,labels)
+        assert terms and all(key[0] == 't' for key,_ in terms)
+        assert breit_terms(0,1,2,3,1.,labels) == gaunt_terms(0,1,2,3,1.,labels)+terms
+        assert 'Gaunt plus frequency-independent retardation' in RETARDATION_NOTE
+        assert 'Frequency-dependent transverse exchange is not included' in RETARDATION_NOTE
 
     def test_gaunt_terms_are_available_for_the_same_arguments(self):
         """The implemented path must actually produce terms.

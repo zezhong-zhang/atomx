@@ -56,7 +56,7 @@ def reduced_C(kappa_a: int, kappa_b: int, k: int) -> float:
     not mix it with the non-relativistic ``angular_cc`` convention in one
     matrix element.
 
-    See ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding H6.
+    See ``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding H6.
 
     (lru_cached; pure function of small integers.)
     """

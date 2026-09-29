@@ -40,37 +40,7 @@ from atomx.numerics.diis import diis_extrapolate
 from atomx.types import Exchange, TheoryLevel
 
 
-@dataclass
-class Subshell:
-    """An atomic subshell (n, kappa) with occupation.
-
-    Supports fractional occupations for averaged monoconfiguration mode
-    (Guerra Eq 10: ϖᵢ = Σⱼ cⱼ² nᵢʲ).
-    """
-    n: int
-    kappa: int
-    occupation: float  # float to support fractional (Guerra averaged monoconfig)
-    label: str = ""
-
-    def __post_init__(self):
-        l = self.kappa if self.kappa > 0 else -self.kappa - 1
-        j2 = 2 * abs(self.kappa) - 1
-        max_occ = j2 + 1
-        if self.occupation > max_occ + 0.01:
-            raise ValueError(f"Occupation {self.occupation} exceeds max {max_occ} for kappa={self.kappa}")
-        if not self.label:
-            l_char = "spdfghiklmnoqrtuvwxyz"[l] if l < 21 else f"l{l}"
-            self.label = f"{self.n}{l_char}{j2}/2"
-
-    @property
-    def l(self):  # noqa: E743 — `l` is the orbital angular-momentum quantum
-        # number and part of the public API (`Subshell.l`), as in the FAC/
-        # DBSR_HF sources this module ports.
-        return self.kappa if self.kappa > 0 else -self.kappa - 1
-
-    @property
-    def j2(self):
-        return 2 * abs(self.kappa) - 1
+from atomx.config.subshell import Subshell
 
 
 def _canonicalized_orbitals_raw(orbitals):
@@ -102,6 +72,7 @@ class SCFResult(SCFObservablesMixin):
     _theory_level: Optional[int] = field(default=None, repr=False)
     _method_name: Optional[str] = field(default=None, repr=False)
     _bsp_data: Optional[Dict] = field(default=None, repr=False)
+    calculation_spec: object = None
 
     @property
     def energy_breakdown(self) -> Dict[str, float]:
@@ -176,9 +147,17 @@ class SCFResult(SCFObservablesMixin):
         return _as_quantity(self.orbital_energies[label], "hartree", unit)
 
     @property
+    def radial_state(self):
+        """Owned native radial snapshot for correction and analysis consumers."""
+        from atomx.radial_state import radial_state_of
+        if '_radial_state' not in self.__dict__:
+            self.__dict__['_radial_state'] = radial_state_of(self)
+        return self.__dict__['_radial_state']
+
+    @property
     def waves(self):
         """Build :class:`atomx.results.Waves` container from B-spline coefficients."""
-        from atomx.results import OrbitalWavefunction, Waves
+        from atomx.results import OrbitalWavefunction, Waves, RadialMetric
         if not self.orbitals_raw or not self._bsp_data:
             return Waves(grid=np.array([]))
 
@@ -201,190 +180,21 @@ class SCFResult(SCFObservablesMixin):
                     occupation=sh.occupation,
                     energy=self.orbital_energies.get(sh.label, 0.0),
                     label=sh.label)
-        return Waves(grid=grid, orbitals=orbitals, basis_type="bspline")
+        return Waves(grid=grid, orbitals=orbitals, basis_type="bspline",
+                     metric=RadialMetric.bspline(bsp_data))
 
 
 
     def save(self, path: str):
-        """Save result to HDF5 for restart or analysis.
-
-        Creates ``{path}.h5`` containing orbital coefficients, grid
-        parameters, energies, and all metadata in a self-describing format.
-
-        The file structure is::
-
-            /metadata/           — convergence, method, theory level
-            /energies/           — total, orbital, components
-            /subshells/          — (n, kappa, occupation, label) for each
-            /orbitals/{label}/P  — large component coefficients
-            /orbitals/{label}/Q  — small component coefficients
-            /basis/t             — knot sequence (for grid reconstruction)
-
-        Parameters
-        ----------
-        path : str
-            Output path (without extension; ``.h5`` is appended).
-        """
-        import h5py
-
-        filepath = f"{path}.h5" if not path.endswith(".h5") else path
-        with h5py.File(filepath, "w") as f:
-            f.attrs["atomx_version"] = "0.2.0"
-            f.attrs["format"] = "SCFResult"
-
-            # Metadata
-            meta = f.create_group("metadata")
-            meta.attrs["converged"] = self.converged
-            meta.attrs["iterations"] = self.iterations
-            meta.attrs["residual"] = self.residual
-            if self._theory_level is not None:
-                meta.attrs["theory_level"] = self._theory_level
-            if self._method_name is not None:
-                meta.attrs["method_name"] = self._method_name
-
-            # Energies
-            eng = f.create_group("energies")
-            eng.attrs["total_energy_hartree"] = self.total_energy
-            for label, E in self.orbital_energies.items():
-                eng.attrs[f"orbital_{label}"] = E
-            comp = eng.create_group("components")
-            for key, val in self.energy_components.items():
-                comp.attrs[key] = val
-
-            # Subshells (use safe keys — labels like "2p3/2" contain "/")
-            sub = f.create_group("subshells")
-            n_sub = len(self.subshells)
-            sub.attrs["count"] = n_sub
-            sub.create_dataset("n", data=[sh.n for sh in self.subshells])
-            sub.create_dataset("kappa", data=[sh.kappa for sh in self.subshells])
-            sub.create_dataset("occupation", data=[sh.occupation for sh in self.subshells])
-            labels = [sh.label for sh in self.subshells]
-            sub.create_dataset("label", data=labels)
-
-            # Orbital coefficients (keyed by safe index).  ``orbitals_raw``
-            # per-kappa lists are positionally aligned with the per-kappa
-            # order of ``subshells`` (see ``orbitals_by_subshell``) — NOT by
-            # ``n - 1 - l``, which silently drops orbitals of gapped configs
-            # (e.g. 1s2 3s1) whose quantum-number index exceeds the list.
-            orb_map = self.orbitals_by_subshell()
-            if self.orbitals_raw:
-                missing = [sh.label for sh in self.subshells
-                           if (sh.n, sh.kappa) not in orb_map]
-                if missing:
-                    raise ValueError(
-                        f"orbitals_raw does not cover subshells {missing}; "
-                        "refusing to save an incomplete result (silent "
-                        "orbital loss on restart)")
-            orb_grp = f.create_group("orbitals")
-            for i, sh in enumerate(self.subshells):
-                orb = orb_map.get((sh.n, sh.kappa))
-                if orb is None:
-                    continue
-                P, Q, occ = orb
-                g = orb_grp.create_group(f"orb_{i}")
-                g.create_dataset("P", data=P, compression="gzip")
-                g.create_dataset("Q", data=Q, compression="gzip")
-                g.attrs["n"] = sh.n
-                g.attrs["kappa"] = sh.kappa
-                g.attrs["occupation"] = occ
-                g.attrs["label"] = sh.label
-
-            # Basis parameters (for grid reconstruction)
-            if self._bsp_data:
-                basis = f.create_group("basis")
-                basis.create_dataset("t", data=self._bsp_data["t"])
-                basis.attrs["ks"] = int(self._bsp_data["ks"])
-                basis.attrs["ksp"] = int(self._bsp_data.get("ksp",
-                                         self._bsp_data["ks"]))
-                if "tp" in self._bsp_data:
-                    basis.create_dataset("tp", data=self._bsp_data["tp"])
+        """Save a versioned native result, including physical provenance."""
+        from atomx.io.results import save_scf_result
+        save_scf_result(self, path)
 
     @classmethod
     def load(cls, path: str) -> "SCFResult":
-        """Load a previously saved HDF5 result.
-
-        Parameters
-        ----------
-        path : str
-            Path to ``.h5`` file (extension optional).
-
-        Returns
-        -------
-        SCFResult
-            Fully reconstructed result with bsp_data for downstream use.
-        """
-        import h5py
-
-        filepath = f"{path}.h5" if not path.endswith(".h5") else path
-        with h5py.File(filepath, "r") as f:
-            meta = f["metadata"]
-            converged = bool(meta.attrs["converged"])
-            iterations = int(meta.attrs["iterations"])
-            residual = float(meta.attrs["residual"])
-            theory_level = meta.attrs.get("theory_level")
-            method_name = meta.attrs.get("method_name")
-
-            eng = f["energies"]
-            total_energy = float(eng.attrs["total_energy_hartree"])
-            orbital_energies = {
-                k.replace("orbital_", ""): float(v)
-                for k, v in eng.attrs.items()
-                if k.startswith("orbital_")
-            }
-            energy_components = dict(eng["components"].attrs) if "components" in eng else {}
-
-            sub_grp = f["subshells"]
-            n_arr = sub_grp["n"][:]
-            kappa_arr = sub_grp["kappa"][:]
-            occ_arr = sub_grp["occupation"][:]
-            label_arr = [s.decode() if isinstance(s, bytes) else s
-                         for s in sub_grp["label"][:]]
-            subshells = [
-                Subshell(n=int(n_arr[i]), kappa=int(kappa_arr[i]),
-                         occupation=float(occ_arr[i]), label=label_arr[i])
-                for i in range(len(n_arr))
-            ]
-
-            orbitals_raw = {}
-            if "orbitals" in f:
-                # Numeric key order — lexicographic sort would place
-                # "orb_10" before "orb_2" and scramble per-kappa positional
-                # alignment for configs with >9 subshells.
-                orb_keys = sorted(f["orbitals"].keys(),
-                                  key=lambda k: int(k.split("_", 1)[1]))
-                for key in orb_keys:
-                    g = f["orbitals"][key]
-                    kappa = int(g.attrs["kappa"])
-                    P = g["P"][:]
-                    Q = g["Q"][:]
-                    occ = float(g.attrs["occupation"])
-                    if kappa not in orbitals_raw:
-                        orbitals_raw[kappa] = []
-                    orbitals_raw[kappa].append((P, Q, occ))
-
-            bsp_data = None
-            if "basis" in f:
-                from atomx.numerics.bspline.basis import prepare_bspline_data
-                t = f["basis"]["t"][:]
-                ks = int(f["basis"].attrs["ks"])
-                ksp = int(f["basis"].attrs.get("ksp", ks))
-                ns = len(t) - ks
-                bsp_data = prepare_bspline_data(
-                    t, ns, ks, kinetic_balance=(ksp != ks))
-
-        return cls(
-            converged=converged,
-            iterations=iterations,
-            residual=residual,
-            total_energy=total_energy,
-            orbital_energies=orbital_energies,
-            subshells=subshells,
-            energy_components=energy_components,
-            orbitals_raw=orbitals_raw,
-            _theory_level=theory_level,
-            _method_name=method_name,
-            _bsp_data=bsp_data,
-        )
+        """Load a native result; old files retain explicit missing metadata."""
+        from atomx.io.results import load_scf_result
+        return load_scf_result(path, result_type=cls)
 
 
 #: Orthogonality is a constraint, not an energy-dependent tolerance.
@@ -428,7 +238,7 @@ class UnboundSubshellError(RuntimeError):
     of ``0.0`` Ha (or, when the basis collapsed towards the negative
     energy continuum, ``-2 m_e c²`` times the occupancy) with
     ``converged=True``.  See
-    ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding C4.
+    ``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding C4.
     """
 
 
@@ -634,7 +444,10 @@ class DFSolver:
             self.mean_field_normalization = norm
         self.ns = ns
         self.ks = ks
-        self.r_min = r_min if r_min is not None else 0.05 / Z
+        # Point-Coulomb spinors have a noninteger r**gamma cusp. A
+        # larger first cell leaves a basis error that increasing ns at
+        # fixed first knot does not remove (K/Co cross-engine control).
+        self.r_min = r_min if r_min is not None else (0.0004 if nuclear == 'point' else 0.05) / Z
         self.r_max = r_max if r_max is not None else max(40.0, 60.0 / Z)
         if exchange not in ("hf", "slater", "gu", "tfda", "gsz"):
             raise ValueError(
@@ -655,7 +468,7 @@ class DFSolver:
         # ``_build_exchange_matrix_slater``). The two differ by a
         # constant factor ``(4π² / 3)^(1/3) ≈ 2.3609`` — multiply
         # FAC's ahx by this factor to recover the equivalent Slater
-        # α.  See ``atomx.numerics.shooting.solver.ShootingSolver._effective_alpha``
+        # α.  See ``atomx.numerics.shooting.local.ShootingSolver._effective_alpha``
         # for the derivation.
         if exchange == "gu":
             import numpy as _np
@@ -1891,6 +1704,8 @@ class DFSolver:
             "orbital": Per-orbital mode with per-orbital self-interaction
             subtraction and cached exchange convolutions.
         """
+        self._calculation_controls = dict(max_iter=max_iter, tolerance=tol,
+            damping=damping, mode=mode, damping_release_residual=damping_release_residual)
         if damping is None:
             has_f = any(sh.l >= 3 for sh in self.subshells)
             # f-electrons need damping to avoid oscillation
@@ -2462,6 +2277,9 @@ class DFSolver:
         """
         from atomx.corrections.stack import finalize_with_corrections
 
+        from atomx.calculation_spec import resolved_solver_spec
+        result.calculation_spec = resolved_solver_spec(self, method='DHF' if self.exchange == 'hf' else 'DFS', engine='bspline',
+            controls=getattr(self, '_calculation_controls', {}))
         result._nuclear_potential = self._nuclear_potential
         result.__dict__["_jj_configs"] = self.jj_configs
         stack = self.correction_stack
@@ -2575,9 +2393,12 @@ class DiracFock(Method):
     def solve(self, Z, subshells, tol=1e-5, max_iter=40,
               jj_configs=None, use_physics_grid=True, ns=113,
               log=None, r_max=None, grid_hi=None, grid_he=None,
-              grid_hmax=None, **kwargs):
+              grid_hmax=None, screening_potential=None):
         """Run Dirac-Fock SCF calculation."""
         # DFSolver is defined above in this module.
+        if not use_physics_grid and any(
+                value is not None for value in (grid_hi, grid_he, grid_hmax)):
+            raise ValueError('grid shape controls require use_physics_grid=True')
 
         if self.scf_damping is not None and not 0 <= self.scf_damping < 1:
             raise ValueError("scf_damping must be in [0, 1)")
@@ -2618,6 +2439,7 @@ class DiracFock(Method):
             correction_stack=correction_stack,
             nuclear=self.nuclear.value,
             nuclear_mass_number=self.nuclear_mass_number,
+            r_max=r_max, screening_potential=screening_potential,
             starting_potential=starting,
             jj_configs=jj_configs,
             log=log)
@@ -2635,6 +2457,8 @@ class DiracFock(Method):
             solver.t = t_phys
             solver.bsp_data = data
             solver.ns = ns_phys
+            solver.r_max = float(t_phys[-1])
+            solver.kinetic_balance = True
             solver._precompute()
             if log:
                 log.basis_info(data)

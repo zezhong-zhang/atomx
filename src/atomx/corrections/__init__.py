@@ -16,6 +16,7 @@ from atomx.corrections import qedmod  # noqa: F401
 from atomx.corrections.adapters import (  # noqa: F401
     BreitCorrection,
     NormalMassShiftCorrection,
+    HydrogenicRadiativeMassLeadingCorrection,
     SelfEnergyCorrection,
     UehlingVPCorrection,
     WichmannKrollVPCorrection,
@@ -32,4 +33,4 @@ from atomx.corrections.stack import (  # noqa: F401
     CorrectionStack,
     finalize_with_corrections,
 )
-from atomx.corrections.workspace import make_grid_workspace  # noqa: F401
+from atomx.numerics.radial_workspace import make_grid_workspace  # noqa: F401

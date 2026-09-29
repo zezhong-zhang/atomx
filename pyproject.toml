@@ -12,10 +12,8 @@ dependencies = [
     "scipy>=1.10",
     "numba>=0.58",
     "h5py>=3.0",
-    # matplotlib is imported by `import atomx` (atomx.viz.mpl is unconditional),
-    # so it is a genuine runtime requirement.  Everything needed only by a
-    # specific back-end lives in an extra below: manim needs system pangocairo,
-    # and nbformat/ipython/ipykernel are not referenced anywhere in src/.
+    # Rendering is loaded on demand. Keep Matplotlib in the base installation
+    # for compatibility with existing plotting users; other backends use extras.
     "matplotlib>=3.10.8",
 ]
 

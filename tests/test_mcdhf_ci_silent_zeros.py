@@ -1,6 +1,6 @@
 """Guards against silently-uncorrelated CI builds and dropped SD doubles.
 
-Two Medium findings in ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md``:
+Two Medium findings in ``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md``:
 
 **M7 — missing orbital silently yields the uncorrelated energy.**
 ``methods/mcdhf/matrix.py`` zero-filled the orbital a CI element asked

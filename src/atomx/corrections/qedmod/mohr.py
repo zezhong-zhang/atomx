@@ -21,7 +21,7 @@ The previous implementation fell back to ``F(1s)/n³`` outside the ``n <= 3``
 table, which discards the ``l`` and ``j`` dependence entirely (a ``4f5/2``
 and a ``4d3/2`` orbital received *identical* shifts) and has the wrong sign
 for high-``l`` states.  See
-``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` findings C2 and M1.
+``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` findings C2 and M1.
 """
 
 from __future__ import annotations
@@ -30,6 +30,7 @@ import re
 import numpy as np
 
 from atomx.constants import ALPHA
+from atomx.physics.dirac import hydrogenic_dirac_coulomb_expectation
 from atomx.corrections.qedmod.base import SEBackend, SEResult, register_backend
 from atomx.data.mohr_se import (
     SD_ROWS,
@@ -102,16 +103,19 @@ def _interpolate_se_f(Z: float, n: int, kappa: int) -> float:
 
 
 def _overlap_ratio(P, Q, kappa, Z, n, bsp_data):
-    """⟨ψ_SCF|-Z/r|ψ_SCF⟩ / ⟨ψ_hydro|-Z/r|ψ_hydro⟩ with the hydrogenic value
-    taken as -Z^2/n^2 (point-nucleus leading term)."""
-    from atomx.corrections.workspace import eval_orbital_pair, workspace_arrays
+    """SCF nuclear attraction divided by its exact Dirac-Coulomb reference.
+
+    Using −Z²/n² here spuriously screens even an unscreened relativistic
+    one-electron orbital and double-counts its relativistic contraction.
+    """
+    from atomx.numerics.radial_workspace import eval_orbital_pair, workspace_arrays
 
     gr, grw = workspace_arrays(bsp_data)
     fP, fQ = eval_orbital_pair(P, Q, bsp_data)
     rho = fP * fP + fQ * fQ
 
     vnuc_scf = np.sum(grw * rho * (-Z / gr))
-    vnuc_hydro = -Z * Z / (n * n)
+    vnuc_hydro = hydrogenic_dirac_coulomb_expectation(n, kappa, Z)
 
     if abs(vnuc_hydro) < _NUCLEAR_ATTRACTION_FLOOR:
         return 1.0

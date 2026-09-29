@@ -315,7 +315,7 @@ class Atom:
         (*) ``shooting`` + ``"hf"`` solves the non-local Dirac-HF
         equations with the Froese-Fischer inhomogeneous-equation
         (variation-of-parameters) method
-        (:class:`atomx.numerics.shooting.hf_shooting.ShootingHFSolver`);
+        (:class:`atomx.numerics.shooting.hartree_fock.ShootingHFSolver`);
         validated against the B-spline DHF to <= 1e-4 relative on total
         energies (He, Ne, Fe XVII).
     basis : Basis, optional
@@ -412,6 +412,7 @@ class Atom:
         ns = basis.ns
         ks = basis.ks
         r_max = basis.r_max
+        self.shooting_space = basis.shooting_space
         starting_potential = basis.starting_potential
         if sampling is not None:
             if ns is None:
@@ -494,7 +495,7 @@ class Atom:
         #: explicitly requested Rydberg state used to be silently clamped
         #: to the bracketing ceiling (``Atom(Z=1, config="6s1")`` returned
         #: ``-Z/r_max`` with a 4 % error).  See
-        #: docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding C4.
+        #: docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding C4.
         self.r_max = r_max
         #: DBSR_HF grid-shape overrides for the automatic B-spline knot
         #: sequence (``numerics/bspline/knots.py::make_physics_knots``):
@@ -506,7 +507,7 @@ class Atom:
         #: is +97.7 eV off at the default grid, +0.8 eV at ns=400, and is
         #: only brought under 0.3 eV by raising the B-spline order or
         #: refining ``hi``.  See
-        #: docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding C3.
+        #: docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding C3.
         self.grid_hi = basis.grid_hi
         self.grid_he = basis.grid_he
         self.grid_hmax = basis.grid_hmax
@@ -580,6 +581,7 @@ class Atom:
         self.per_block_orbital_sets = bool(
             correlation_spec.per_block_orbital_sets)
         self.radial_optimization = correlation_spec.radial_optimization
+        self.orbital_preconditioner = correlation_spec.orbital_preconditioner
         # Both flags are read only by the multi-configuration branch of
         # solve(); with a single configuration they have nothing to act on
         # and used to be dropped in silence.
@@ -648,18 +650,17 @@ class Atom:
         for cfg in self._config_strings:
             validate_config_string(cfg)
 
-        # Multi-configuration input needs the B-spline MCDHF CI
-        # machinery: the defaulted shooting engine silently yields to
-        # bspline (provenance stays truthful); an EXPLICIT
-        # engine='shooting' with config=[...] is a contradiction and
-        # raises instead of being ignored.
-        if self._multi_config and self.engine == "shooting":
-            if self._engine_explicit:
-                raise ValueError(
-                    "multi-configuration input requires the B-spline "
-                    "MCDHF machinery; drop engine='shooting' or pass "
-                    "engine='bspline'")
-            self.engine = "bspline"
+        # Preserve the established automatic choice; explicit shooting now
+        # runs the full CI-gradient optimizer in its declared electron space.
+        if self._multi_config and self.engine == 'shooting' and not self._engine_explicit:
+            self.engine = 'bspline'
+        if self.shooting_space is not None and not (
+                self._multi_config and self.engine == 'shooting'):
+            raise ValueError('shooting_space requires a multi-configuration shooting calculation')
+
+        if self.orbital_preconditioner == "shooting" and (
+                not self._multi_config or self.engine != "bspline"):
+            raise ValueError("shooting orbital preconditioning requires a multi-configuration B-spline calculation")
 
         # The grid-shape overrides exist only for the automatic B-spline
         # knot sequence (numerics/bspline/knots.py::make_physics_knots).
@@ -859,6 +860,7 @@ class Atom:
                     starting_potential=self.starting_potential,
                     per_block_orbital_sets=self.per_block_orbital_sets,
                     radial_optimization=self.radial_optimization,
+                    orbital_preconditioner=self.orbital_preconditioner,
                     engine=self.engine,
                     screening_potential=self._screening_shift(),
                 )
@@ -890,7 +892,9 @@ class Atom:
                 starting_potential=self.starting_potential,
                 per_block_orbital_sets=self.per_block_orbital_sets,
                 radial_optimization=self.radial_optimization,
+                orbital_preconditioner=self.orbital_preconditioner,
                 engine=self.engine,
+                shooting_space=self.shooting_space,
                 screening_potential=self._screening_shift(),
             )
             self._result = solver.solve(max_iter=max_iter, scf_tol=tol)
@@ -920,7 +924,7 @@ class Atom:
             # ``exchange='gu'`` with the default ``engine=None``
             # routes via shooting because the shooting path is already
             # validated against sfac to 10⁻⁴ relative across Z=2..92.
-            from atomx.numerics.shooting.solver import ShootingSolver
+            from atomx.numerics.shooting.local import ShootingSolver
             # Open-shell subshells need statistical (spherically-
             # averaged) j-splitting so the density is physically
             # correct — a raw ``_parse_config_string`` fills the
@@ -943,9 +947,10 @@ class Atom:
             correction_jj_configs = None
             if self.exchange_model == "hf":
                 from atomx.config.jj_coupling import JJConfig, generate_jj_average
-                from atomx.numerics.shooting.hf_shooting import ShootingHFSolver
+                from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
                 subshells, correction_jj_configs = generate_jj_average(
-                    self._config_strings[0], averaging="statistical",
+                    self._config_strings[0],
+                    averaging="equal" if self.averaging == "equal" else "statistical",
                 )
                 kept_indices = [i for i, sh in enumerate(subshells)
                                 if sh.occupation > 1e-10]
@@ -953,6 +958,8 @@ class Atom:
                 correction_jj_configs = [JJConfig(
                     subshells=[cfg.subshells[i] for i in kept_indices],
                     weight=cfg.weight) for cfg in correction_jj_configs]
+                if self.averaging == "fractional":
+                    correction_jj_configs = None
                 # n_grid=1000 (not the local-exchange 400): the HF
                 # Green-function quadratures ride on SLAG6 cumulative
                 # integrals whose error IS the orbital error, so the
@@ -977,6 +984,7 @@ class Atom:
                     n_grid=self._shooting_n_grid(1000),
                     r_max=self._resolve_r_max(subshells),
                     nuclear=self.nuclear,
+                    jj_configs=correction_jj_configs,
                     screening_potential=self._screening_shift(),
                 )
                 # HF sweeps are Gauss-Seidel with 0.5 damping — give
@@ -1095,6 +1103,8 @@ class Atom:
                 solver.t = t_phys
                 solver.bsp_data = data
                 solver.ns = ns_phys
+                solver.r_max = float(t_phys[-1])
+                solver.kinetic_balance = True
                 solver._precompute()
 
             # f-electron systems (lanthanides/actinides) need more iterations
@@ -1113,8 +1123,8 @@ class Atom:
             # ``averaging`` records what actually ran, not what was
             # requested: multi-config MCDHF is inherently Guerra-CI;
             # slater/gu default-ci fell back to statistical (see the
-            # gate above); the shooting single-config statistical route
-            # ignores equal/fractional.  The closed-shell ci collapse
+            # gate above). The HF shooting route preserves the requested
+            # statistical/equal/fractional weighting. The closed-shell ci collapse
             # keeps "ci" — for a single CSF the Guerra ci weights ARE
             # the statistical weights, so "ci" was delivered exactly.
             averaging_ran = self.averaging
@@ -1123,8 +1133,6 @@ class Atom:
             elif self.exchange_model in ("slater", "gu"):
                 if self.averaging == "ci":
                     averaging_ran = "statistical"
-            elif self.engine == "shooting" and self.averaging != "ci":
-                averaging_ran = "statistical"
             provenance = {"engine": self.engine,
                           "exchange": self.exchange_model,
                           "averaging": averaging_ran}
@@ -1144,7 +1152,7 @@ class Atom:
         from atomx.methods.hartree_fock import HartreeFock
         from atomx.methods.hydrogenic import HydrogenicDirac, HydrogenicSchrodinger
         from atomx.methods.mcdhf import MCDHF
-        from atomx.methods.relativistic_hf import BreitPauli
+        from atomx.methods.breit_pauli import BreitPauli
 
         # Set up logging
         calc_log = None
@@ -1174,7 +1182,10 @@ class Atom:
 
         if isinstance(method, (HartreeFock, BreitPauli)):
             return method.solve(self.Z, subshells_raw,
-                                tol=tol, max_iter=max_iter)
+                                tol=tol, max_iter=max_iter,
+                                n_grid=self._shooting_n_grid(1000),
+                                r_max=self.r_max if self.r_max is not None else 75.0,
+                                screening_potential=self._screening_shift())
 
         if isinstance(method, DiracFock):
             # Use jj-average with statistical weights
@@ -1190,6 +1201,8 @@ class Atom:
             result = method.solve(
                 self.Z, subshells, tol=tol, max_iter=max_iter,
                 jj_configs=jj_configs, log=calc_log,
+                ns=self.ns, use_physics_grid=self._use_physics_grid,
+                screening_potential=self._screening_shift(),
                 r_max=self.r_max, grid_hi=self.grid_hi,
                 grid_he=self.grid_he, grid_hmax=self.grid_hmax)
             if calc_log:
@@ -1200,7 +1213,11 @@ class Atom:
         if isinstance(method, MCDHF):
             return method.solve(
                 self.Z, self._config_strings,
-                tol=tol, max_iter=max_iter)
+                tol=tol, max_iter=max_iter, ns=self.ns,
+                use_physics_grid=self._use_physics_grid,
+                r_max=self.r_max, grid_hi=self.grid_hi,
+                grid_he=self.grid_he, grid_hmax=self.grid_hmax,
+                screening_potential=self._screening_shift())
 
         raise TypeError(f"Unknown method type: {type(method).__name__}")
 
@@ -1221,6 +1238,13 @@ class Atom:
         if self._result is None:
             raise RuntimeError("call solve() first")
         return self._result.subshells
+
+    @property
+    def calculation_spec(self):
+        """Immutable model, state, discretization and correction specification."""
+        if self._result is None:
+            raise RuntimeError('call solve() first to resolve the actual calculation')
+        return self._result.calculation_spec
 
     @property
     def provenance(self) -> dict:
@@ -1695,7 +1719,8 @@ class Atom:
         return run
 
     def transitions(self, multipoles=None, gauge='length',
-                    line_resolution='uta', ci_det_cap=2000):
+                    line_resolution='uta', ci_det_cap=2000, *,
+                    fallback='error', ci_reference=None):
         """Compute radiative transitions between atomic states.
 
         Parameters
@@ -1706,8 +1731,8 @@ class Atom:
             ``'ci'`` switches single-configuration-pair atoms to the
             exact J-resolved determinant-CI line engine
             (:mod:`atomx.properties.transitions.ci_lines`, FAC-verified
-            per line); everything else falls back to the statistical
-            UTA machinery.  Each result row records its engine in
+            per line), using an explicit solved ci_reference. Unsupported
+            requests raise unless fallback='uta' is explicitly selected.  Each result row records its engine in
             ``TransitionResult.resolution``.  Default ``'uta'``.
         ci_det_cap : int
             Determinant-per-block cap for the CI engine.
@@ -1730,7 +1755,8 @@ class Atom:
         calc = TransitionCalculator(self)
         return calc.compute_all(multipoles, gauge,
                                 line_resolution=line_resolution,
-                                ci_det_cap=ci_det_cap)
+                                ci_det_cap=ci_det_cap, fallback=fallback,
+                                ci_reference=ci_reference)
 
     def hyperfine_constants(self, *args, **kwargs):
         """Magnetic-dipole and electric-quadrupole hyperfine constants.

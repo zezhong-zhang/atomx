@@ -57,7 +57,7 @@ class TestMohrBackwardCompat:
         ``10.31679`` is FAC ``_qed_se0[0][0]`` — the point-nucleus 1s
         self-energy function at Z=1, independently reproduced by the
         published Zα expansion (see tests/test_qed_uehling.py and
-        docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md C2).
+        docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md C2).
         """
         orbs = [(np.zeros(10), np.zeros(10), 1, -1, "1s1/2")]
         E = compute_se_energy(orbs, Z=1, method="mohr")
@@ -290,7 +290,7 @@ class TestHydrogenicDiracReference:
     def test_hydrogenic_solve_returns_valid_wavefunction(self):
         import numpy as np
 
-        from atomx.numerics.analytic.hydrogenic_dirac import (
+        from atomx.methods.hydrogenic_reference import (
             hydrogenic_dirac_wavefunction,
         )
         P, Q, bsp_data, E = hydrogenic_dirac_wavefunction(
@@ -317,7 +317,7 @@ class TestHydrogenicDiracReference:
     def test_r_exp_integral_dirac_matches_nr_at_low_Z(self):
         """For Z=1 the Dirac and non-rel integrals agree to ~0.1 %."""
         from atomx.corrections.qedmod.shabaev import _hydrogenic_r_exp_integral
-        from atomx.numerics.analytic.hydrogenic_dirac import (
+        from atomx.methods.hydrogenic_reference import (
             hydrogenic_r_exp_integral_dirac,
         )
         I_d = hydrogenic_r_exp_integral_dirac(n=1, kappa=-1, Z=1)
@@ -327,7 +327,7 @@ class TestHydrogenicDiracReference:
     def test_dirac_differs_from_nr_at_heavy_Z(self):
         """For Z=50, the (Zα)² ≈ 0.13 correction gives several % shift."""
         from atomx.corrections.qedmod.shabaev import _hydrogenic_r_exp_integral
-        from atomx.numerics.analytic.hydrogenic_dirac import (
+        from atomx.methods.hydrogenic_reference import (
             hydrogenic_r_exp_integral_dirac,
         )
         I_d = hydrogenic_r_exp_integral_dirac(n=1, kappa=-1, Z=50)

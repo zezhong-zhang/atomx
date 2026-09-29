@@ -23,7 +23,7 @@ from atomx.constants import HARTREE_EV
 from atomx.corrections import CorrectionResult, CorrectionStack
 from atomx.methods.dirac_fock import SCFResult
 from atomx.methods.mcdhf.solver import MCDHFResult
-from atomx.numerics.shooting.solver import ShootingResult
+from atomx.results import ShootingResult
 from atomx.results import AtomicResult, Waves
 
 #: Optional-extra guards, declared once and named in the skip reason.  A bare

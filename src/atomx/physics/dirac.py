@@ -14,7 +14,7 @@ every numerical Dirac solver in atomx.
 This module owns the equation *object* plus the analytic
 hydrogenic-Dirac energy expressions.  B-spline matrix assembly lives
 in :mod:`atomx.numerics.bspline.dirac_assembly`; hydrogenic radial
-wavefunctions live in :mod:`atomx.numerics.analytic.hydrogenic_dirac`.
+wavefunctions live in :mod:`atomx.methods.hydrogenic_reference`.
 """
 
 from __future__ import annotations
@@ -67,6 +67,22 @@ class Dirac:
 # ---------------------------------------------------------------------------
 
 
+def hydrogenic_dirac_coulomb_expectation(n: int, kappa: int, Z: float) -> float:
+    """Exact point-Coulomb <−Z/r> in Hartree, from Z*dE_Dirac/dZ.
+
+    With a=Z*alpha, gamma=sqrt(kappa²−a²), and N=n−|kappa|+gamma,
+    the Hellmann–Feynman derivative is −Z²*(N+a²/gamma)/(N²+a²)^(3/2).
+    In particular, 1s gives −Z²/gamma rather than its nonrelativistic limit.
+    """
+    ell = kappa if kappa > 0 else -kappa-1
+    if kappa == 0 or n <= ell or not math.isfinite(Z) or Z <= 0 or ALPHA*Z >= abs(kappa):
+        raise ValueError('invalid bound point-Coulomb state')
+    a2=(ALPHA*Z)**2
+    gamma=math.sqrt(kappa*kappa-a2)
+    principal=n-abs(kappa)+gamma
+    return -Z*Z*(principal+a2/gamma)/(principal*principal+a2)**1.5
+
+
 def hydrogenic_dirac_energy(n: int, kappa: int, Z: int) -> float:
     """Exact Dirac energy eigenvalue for a hydrogenic ion.
 
@@ -104,7 +120,10 @@ def hydrogenic_dirac_energy(n: int, kappa: int, Z: int) -> float:
         )
 
     denom = n_r + gamma
-    return C_SQ * (1.0 / np.sqrt(1.0 + (aZ / denom) ** 2) - 1.0)
+    ratio_sq = (aZ / denom) ** 2
+    root = np.sqrt(1.0 + ratio_sq)
+    # Rationalize the rest-energy subtraction, especially for weak binding.
+    return -C_SQ * ratio_sq / (root * (root + 1.0))
 
 
 def list_hydrogenic_states(n_max: int, Z: int):

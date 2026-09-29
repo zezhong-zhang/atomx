@@ -24,6 +24,7 @@ Example
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import math
 from typing import TYPE_CHECKING, Dict, List, Optional
 
 from atomx.corrections.adapters import (
@@ -35,7 +36,7 @@ from atomx.corrections.adapters import (
     UehlingVPCorrection,
     WichmannKrollVPCorrection,
 )
-from atomx.corrections.protocol import Correction, CorrectionResult
+from atomx.corrections.protocol import Correction, CorrectionResult, CorrectionApplication
 
 if TYPE_CHECKING:
     from atomx.results import AtomicResult
@@ -64,8 +65,8 @@ class CorrectionStack:
         Include the static Breit interaction.
     breit_mode
         ``"dbsr_hf"`` (default) applies the full static Breit
-        configuration average; ``"operator"`` applies the Gaunt matrix
-        element without retardation;
+        configuration average; ``"operator"`` applies the full static Breit matrix
+        element including static retardation;
         ``"scalar_legacy"`` opts into the approximate configuration
         average used by earlier DHF ledgers.
     nuclear_mass_me
@@ -82,6 +83,10 @@ class CorrectionStack:
         beyond first order. Requires operator NMS and a nuclear mass.
         Zero for multielectron DHF; unsupported for MCDHF correlation labels.
         Does not supply higher-order relativistic or radiative recoil.
+    strict
+        Require every requested correction to support the result before
+        evaluating any. Defaults to False for existing exploratory callers;
+        production calculations can require complete correction coverage.
     """
 
     se_backend: Optional[str] = "shabaev_local"
@@ -93,6 +98,7 @@ class CorrectionStack:
     nms_mode: str = "operator"
     include_sms: bool = False
     include_hydrogenic_mass_remainder: bool = False
+    strict: bool = False
 
     _custom: List[Correction] = field(default_factory=list, repr=False)
 
@@ -135,27 +141,70 @@ class CorrectionStack:
         if self.include_hydrogenic_mass_remainder:
             backends.append(HydrogenicMassRemainderCorrection(self.nuclear_mass_me))
         backends.extend(self._custom)
+        names = [backend.name for backend in backends]
+        if any(not isinstance(name, str) or not name or name.startswith('_') for name in names):
+            raise ValueError('correction names must be nonempty and cannot start with an underscore')
+        if len(names) != len(set(names)):
+            raise ValueError('duplicate correction names would overwrite an energy contribution')
         return backends
 
     # ------------------------------------------------------------------
 
-    def apply(self, result: "AtomicResult") -> Dict[str, CorrectionResult]:
+    def validate_addition(self, result):
+        """Reject operators already present before adding anything to energies.
+
+        ``apply`` remains a read-only evaluator for diagnostic comparisons.
+        Finalization uses this gate before calling any correction backend.
+        """
+        backends = self.build()
+        operators = [corr.name.split('[', 1)[0] for corr in backends]
+        repeated = sorted({name for name in operators if operators.count(name) > 1})
+        if repeated:
+            raise ValueError('overlapping operator requests: ' + ', '.join(repeated))
+        # A different evaluator for the same operator is still an overlap.
+        # Only explicit application records establish inclusion; requested
+        # correction flags and zero-valued energy components do not.
+        included = dict(getattr(result, 'operator_stages', ()))
+        ledger = getattr(result, 'correction_application', None)
+        if ledger is not None:
+            included.update((name.split('[', 1)[0], ledger.stage)
+                            for name, _ in ledger.shifts)
+        overlaps = [(corr.name, included[corr.name.split('[', 1)[0]])
+                    for corr in backends if corr.name.split('[', 1)[0] in included]
+        if overlaps:
+            raise ValueError('requested operators already included: ' + '; '.join(
+                f'{name} at {stage}' for name, stage in overlaps))
+
+    def apply(self, result: "AtomicResult", *, strict: Optional[bool] = None) -> Dict[str, CorrectionResult]:
         """Run every supported :class:`Correction` on ``result``.
 
         Returns a dict keyed on ``correction.name`` with one
         :class:`CorrectionResult` per backend that passed
         :meth:`Correction.supports`.  Skipped backends are recorded
-        via the special key ``"_skipped"`` whose value is a
-        ``{name: reason}`` dict, so a caller can see why a backend was
-        silently omitted.
+        via the special key ``"_skipped"`` whose CorrectionResult.provenance
+        contains ``{name: reason}``. With strict=True (or self.strict), all
+        requested backends must be supported before any is evaluated.
         """
         applied: Dict[str, CorrectionResult] = {}
         skipped: Dict[str, str] = {}
-        for corr in self.build():
+        supported = []
+        backends = self.build()
+        for corr in backends:
             if not corr.supports(result):
                 skipped[corr.name] = self._explain_skip(corr, result)
                 continue
-            applied[corr.name] = corr.evaluate(result)
+            supported.append(corr)
+        if (self.strict if strict is None else strict) and skipped:
+            raise ValueError('unsupported requested corrections: ' + '; '.join(
+                f'{name}: {reason}' for name, reason in skipped.items()))
+        for corr in supported:
+            value = corr.evaluate(result)
+            if not isinstance(value, CorrectionResult) or value.name != corr.name:
+                raise ValueError(f'{corr.name} returned an inconsistent correction result')
+            if (not math.isfinite(value.energy_shift)
+                    or any(not math.isfinite(v) for v in value.per_orbital.values())):
+                raise ValueError(f'{corr.name} returned a non-finite energy correction')
+            applied[corr.name] = value
 
         if skipped:
             applied["_skipped"] = CorrectionResult(
@@ -201,8 +250,8 @@ def finalize_with_corrections(result: "AtomicResult",
     ``result.total_energy``, with the legacy ``energy_components`` keys
     (``E_Breit``, ``E_SE``, ``E_VP``, ``E_WK``, ``E_QED_total``,
     ``se_method``) preserved for backward compatibility.  Skipped
-    backends leave no component keys (their reasons stay inspectable
-    through ``stack.apply(result)["_skipped"]``).
+    backends leave no component keys (their reasons remain in
+    ``result._correction_results["_skipped"].provenance``).
 
     Shared by :meth:`DFSolver._finalize_with_corrections` (B-spline)
     and the ``Atom`` shooting path, so both engines report corrections
@@ -210,12 +259,35 @@ def finalize_with_corrections(result: "AtomicResult",
     ``stack=None`` is a no-op.
 
     ``E_Breit`` is the shift actually added to ``total_energy``. Its
-    provenance records whether DBSR_HF average Breit, Gaunt, or a legacy
+    provenance records whether DBSR_HF average Breit, full static Breit, or a legacy
     scalar was applied.
     """
     if stack is None:
         return result
+    if "_correction_results" in result.__dict__:
+        raise ValueError("corrections already finalized; use an uncorrected result")
+    stack.validate_addition(result)
     applied = stack.apply(result)
+    if getattr(result, 'calculation_spec', None) is not None:
+        from dataclasses import replace
+        from atomx.calculation_spec import resolved_correction_spec
+        result.calculation_spec = replace(result.calculation_spec,
+            corrections=resolved_correction_spec(stack))
+    ledger = CorrectionApplication(
+        base_energy=float(result.total_energy),
+        shifts=tuple((name, float(cr.energy_shift)) for name, cr in applied.items()
+                     if not name.startswith('_')),
+        skipped=tuple((str(name), str(reason))
+                      for name, reason in applied.get('_skipped',
+                          CorrectionResult('_skipped', 0.)).provenance.items()))
+    # Preserve the actual evaluation and skipped reasons. Re-running a
+    # potentially expensive backend is not a provenance retrieval mechanism.
+    result.__dict__['_correction_results'] = applied
+    result.__dict__["correction_application"] = ledger
+    result.__dict__["operator_stages"] = (
+        *getattr(result, 'operator_stages', ()),
+        *((name.split('[', 1)[0], ledger.stage) for name, _ in ledger.shifts),
+    )
     comps = result.energy_components
     e_qed = 0.0
     has_qed = False
@@ -238,6 +310,10 @@ def finalize_with_corrections(result: "AtomicResult",
             has_qed = True
         elif name == "wichmann_kroll_vp":
             comps["E_WK"] = cr.energy_shift
+            e_qed += cr.energy_shift
+            has_qed = True
+        elif name == 'hydrogenic_radiative_mass_leading':
+            comps[name] = cr.energy_shift
             e_qed += cr.energy_shift
             has_qed = True
         elif name in ("nms", "sms", "hydrogenic_mass_remainder"):

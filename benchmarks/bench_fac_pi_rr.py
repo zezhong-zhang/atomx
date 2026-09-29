@@ -32,7 +32,7 @@ from fac_runner import parse_levels, parse_rr, run_sfac  # noqa: E402
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 from atomx import Atom, ContinuumModel  # noqa: E402
 from atomx.constants import BOHR_RADIUS_M, HARTREE_EV  # noqa: E402
-from atomx.numerics.bspline.continuum import photoionization_cross_section  # noqa: E402
+from atomx.scattering.photoionization import photoionization_cross_section  # noqa: E402
 from atomx.scattering.radiative_recombination import rr_cross_section  # noqa: E402
 
 # NOTE (S5 finding 3): ``ContinuumModel.fac_residual_core`` is a *shooting*

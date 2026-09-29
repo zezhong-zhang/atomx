@@ -97,3 +97,29 @@ def test_non_atomic_result_rejected():
 
     with pytest.raises(TypeError):
         NativeProvider(object())
+
+
+def test_zero_q_is_not_a_relativistic_declaration():
+    result = _make()
+    result.orbitals_raw = {k: [(p, np.zeros_like(p), occ) for p, q, occ in rows]
+                           for k, rows in result.orbitals_raw.items()}
+    result._equation = 'schrodinger'
+    payload = NativeProvider(result).build_payload()
+    assert payload.spin is None
+    assert payload.metadata['equation_source'] == 'declared'
+    del result._equation
+    payload = NativeProvider(result).build_payload()
+    assert payload.spin is None
+    assert payload.metadata['equation_source'] == 'legacy_Q_heuristic'
+
+
+def test_provider_preserves_declared_physics_and_basis():
+    from atomx.calculation_spec import CalculationSpec
+    result = _make(relativistic=False)
+    result.calculation_spec = CalculationSpec(10, 'DHF', 'bspline',
+        {'equation': 'dirac', 'exchange': 'hf'}, {}, {}, {'include_breit': True})
+    result._bsp_data = {'ks': 9}
+    payload = NativeProvider(result).build_payload()
+    assert payload.spin.soc
+    assert payload.provenance.basis == 'atomx-bspline'
+    assert payload.metadata['calculation_spec'] == result.calculation_spec.to_dict()

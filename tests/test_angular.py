@@ -171,7 +171,7 @@ class TestWignerEckartConventionIsPinned:
     The historical hazard was not the sign but the *mixture*: the
     non-relativistic layer (`scattering/r_matrix/angular_cc.py`) uses
     ``(-1)^l``, and nothing recorded which layer a given matrix element came
-    from.  See docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md H6.
+    from.  See docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md H6.
     """
 
     def test_reduced_C_k0_is_negative_sqrt_2j_plus_1(self):

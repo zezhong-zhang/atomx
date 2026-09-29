@@ -47,7 +47,8 @@ class TestApplyOnDHF:
 
         * self-energy: FAC's F(10) = 4.65413 (``faclib/coulomb.c``
           ``_qed_se0[0] + _qed_se1[0]``), quoted and gated in
-          ``test_qed_self_energy_table.py``; measured here 0.012119271.
+          ``test_qed_self_energy_table.py``; measured here 0.012086295
+          after exact Dirac-Coulomb screening normalization (2026-09-29).
         * Uehling VP: the fixed ``I(2cr)`` kernel, measured
           -0.000600937; the pre-fix ``K₁(2cr)`` kernel gave -0.002355
           (3.9x outside the band).
@@ -60,7 +61,7 @@ class TestApplyOnDHF:
         )
         applied = stack.apply(ne_result)
         assert applied["self_energy[mohr]"].energy_shift == pytest.approx(
-            0.012119271040653664, rel=1e-3)
+            0.012086294683934152, rel=1e-3)
         assert applied["uehling_vp"].energy_shift == pytest.approx(
             -0.0006009368769866071, rel=1e-3)
 
@@ -87,7 +88,8 @@ class TestApplyOnDHF:
         gaunt = gaunt_stack.apply(ne_result)["breit"]
         assert gaunt.energy_shift == pytest.approx(
             ne_result.__dict__["_E_Breit_operator"], rel=1e-12)
-        assert gaunt.provenance["retardation_included"] is False
+        assert gaunt.provenance["retardation_included"] is True
+        assert gaunt.provenance["operator"] == "Gaunt plus static retardation"
         legacy = CorrectionStack(
             se_backend=None, include_vp=False, include_breit=True,
             breit_mode="scalar_legacy").apply(ne_result)["breit"]

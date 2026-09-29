@@ -336,6 +336,10 @@ class Correlation:
         Build one orbital set per ``(J, parity)`` block — the DODS/EOL
         scaffold for extended-optimised-level MCDHF.  Requires a
         multi-configuration input.
+    orbital_preconditioner : {"spectral", "shooting"}
+        Numerical update for the B-spline correlated optimizer. Experimental
+        ``"shooting"`` uses a two-sided radial kinetic Green inverse; the
+        full CI functional and spectral convergence test are unchanged.
     """
 
     expansion: Optional[str] = None
@@ -343,8 +347,13 @@ class Correlation:
     radial_optimization: str = "mcdhf"
     j_resolved_csfs: bool = False
     per_block_orbital_sets: bool = False
+    orbital_preconditioner: str = "spectral"
 
     def __post_init__(self):
+        if self.orbital_preconditioner not in ("spectral", "shooting"):
+            raise ValueError("orbital_preconditioner must be 'spectral' or 'shooting'")
+        if self.orbital_preconditioner == "shooting" and self.radial_optimization != "mcdhf":
+            raise ValueError("shooting preconditioning requires radial_optimization='mcdhf'")
         if self.expansion not in (None, "s", "sd"):
             raise ValueError(
                 f"expansion must be None, 's', or 'sd' "
@@ -416,8 +425,13 @@ class Basis:
     grid_hmax: Optional[float] = None
     starting_potential: Optional[str] = None
     sampling: Optional[Any] = None
+    shooting_space: Optional[Any] = None
 
     def __post_init__(self):
+        if self.shooting_space is not None:
+            from atomx.numerics.shooting.electron_space import ShootingSpace
+            if not isinstance(self.shooting_space, ShootingSpace):
+                raise TypeError('shooting_space must be ShootingSpace')
         if self.starting_potential not in (None, "tfda", "gsz"):
             raise ValueError(
                 f"starting_potential must be None, 'tfda', or 'gsz' "

@@ -196,7 +196,7 @@ def short_range_radial_matrix(orbitals, bsp_data, V_of_r, *, diagonal_only=False
     native ``sum(f · difr)`` sum — Salvat's SGRID is exponentially dense
     at the origin and self-converged to ~1e-7 on this integral.
     """
-    from atomx.corrections.workspace import (
+    from atomx.numerics.radial_workspace import (
         eval_orbital_pair,
         is_grid_workspace,
         workspace_arrays,
@@ -271,7 +271,7 @@ def compute_vp_energy(orbitals, bsp_data, Z):
     orbitals : list of (P, Q, occ, kappa, label) tuples
     bsp_data : dict
         B-spline workspace, or a radial-grid workspace from
-        :func:`atomx.corrections.workspace.make_grid_workspace`
+        :func:`atomx.numerics.radial_workspace.make_grid_workspace`
         (in which case ``P``/``Q`` are grid arrays).
     Z : int
 

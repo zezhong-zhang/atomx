@@ -132,3 +132,65 @@ def test_save_load_roundtrip_without_orbitals(tmp_path):
     assert loaded.orbitals_raw == {}
     assert loaded.total_energy == pytest.approx(result.total_energy)
     assert [sh.label for sh in loaded.subshells] == ["1s1/2"]
+
+
+def test_physical_identity_and_correction_accounting_roundtrip(tmp_path):
+    from atomx.calculation_spec import CalculationSpec
+    from atomx.corrections.protocol import CorrectionApplication, CorrectionResult
+    from atomx.corrections.stack import CorrectionStack, finalize_with_corrections
+
+    result = _gapped_result()
+    result.Z = 3
+    result._equation = 'dirac'
+    result.calculation_spec = CalculationSpec(3, 'DHF', 'bspline',
+        {'equation': 'dirac', 'nuclear': 'point'}, {'isotope': 'Li-7'},
+        {'ns': 100}, {'include_breit': True})
+    result.provenance = {'reference': 'test model'}
+    result.solver_diagnostics = {'residual': 1e-9}
+    result.correction_application = CorrectionApplication(-100.6, (('breit', .1),))
+    result._correction_results = {'breit': CorrectionResult('breit', .1,
+        provenance={'operator': 'static Breit'})}
+    path = tmp_path / 'physical.h5'
+    result.save(path)
+    loaded = SCFResult.load(path)
+    assert loaded.Z == 3
+    assert loaded._equation == 'dirac'
+    assert loaded.calculation_spec.to_dict() == result.calculation_spec.to_dict()
+    assert loaded.provenance == result.provenance
+    assert loaded.solver_diagnostics == result.solver_diagnostics
+    assert loaded.correction_application == result.correction_application
+    assert loaded._correction_results == result._correction_results
+    assert loaded.persistence_metadata['missing'] == []
+    with pytest.raises(ValueError, match='already finalized'):
+        finalize_with_corrections(loaded, CorrectionStack())
+
+
+def test_old_archive_reports_missing_model_identity(tmp_path):
+    path = tmp_path / 'legacy.h5'
+    _gapped_result().save(path)
+    with h5py.File(path, 'a') as archive:
+        del archive.attrs['schema_version']
+        del archive['physical_metadata']
+    result = SCFResult.load(path)
+    assert result.Z is None
+    assert result.calculation_spec is None
+    assert result.persistence_metadata == {
+        'schema_version': 1, 'missing': ['Z', 'calculation_spec']}
+
+
+def test_unknown_archive_schema_is_rejected(tmp_path):
+    path = tmp_path / 'future.h5'
+    _gapped_result().save(path)
+    with h5py.File(path, 'a') as archive:
+        archive.attrs['schema_version'] = 999
+    with pytest.raises(ValueError, match='unsupported SCFResult schema'):
+        SCFResult.load(path)
+
+
+def test_structured_energy_provenance_roundtrip(tmp_path):
+    result = _gapped_result()
+    result.energy_components['_nuclear_profile'] = {
+        'model': 'fermi', 'radius': np.float64(.001), 'optional': None}
+    result.save(tmp_path/'structured')
+    loaded = SCFResult.load(tmp_path/'structured')
+    assert loaded.energy_components == result.energy_components

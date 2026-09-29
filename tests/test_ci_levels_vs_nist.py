@@ -189,7 +189,7 @@ def test_singlet_p_excitation_matches_nist(fac_frozen_levels):
 
 
 @pytest.mark.xfail(strict=True, reason=(
-    "OPEN, orbital protocol (docs/CORRELATION_SD_RESEARCH_2026-09-20.md "
+    "OPEN, orbital protocol (docs/archive/2026-09/CORRELATION_SD_RESEARCH_2026-09-20.md "
     "section 3.7): ``fac_frozen`` optimises the first CSF and keeps every "
     "other orbital as a 0.001-occupation virtual in that frozen potential, "
     "which for this space anchors the 2p on 1s2 2s2 rather than on its own "

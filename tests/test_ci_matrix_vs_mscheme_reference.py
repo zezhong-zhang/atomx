@@ -43,7 +43,7 @@ should be read as the primary evidence:
   ``tests/test_ci_levels_vs_nist.py`` and ``tests/test_nist_levels.py``.
 
 Every test here is now a plain assertion: the N1 defect described in
-``docs/CORRELATION_SD_RESEARCH_2026-09-20.md`` is fixed.  ``build_ci_matrix``
+``docs/archive/2026-09/CORRELATION_SD_RESEARCH_2026-09-20.md`` is fixed.  ``build_ci_matrix``
 expands each CSF over the Slater determinants of its configuration and
 projects the exact determinant Hamiltonian, so the CSF matrix *is*
 ``<CSF_r|H|CSF_s>``.

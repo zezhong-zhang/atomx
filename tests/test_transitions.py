@@ -17,7 +17,7 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 
-from atomx.numerics.analytic.hydrogenic_dirac import hydrogenic_dirac_wavefunction
+from atomx.methods.hydrogenic_reference import hydrogenic_dirac_wavefunction
 from atomx.properties.transitions.angular import (
     allowed_final_kappas,
     angular_eL,

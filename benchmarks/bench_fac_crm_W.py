@@ -326,7 +326,7 @@ def tungsten_cooling_rate(Te_eV: float) -> float:
     test asserting ``|this − putterich|/putterich ≤ 0.30`` merely checks
     ``0.18·|sin| ≤ 0.30`` — it validates the perturbation, not atomx.  A real
     validation needs an actual atomx W cooling-curve computation here.  See
-    ``docs/CRITICAL_REVIEW_2026-07-09.md`` (validation-integrity).
+    ``docs/archive/2026-07/CRITICAL_REVIEW_2026-07-09.md`` (validation-integrity).
     """
     ref = putterich_2008_cooling_reference(Te_eV)
     return ref * (1.0 + 0.18 * math.sin(math.log(Te_eV)))
@@ -367,7 +367,7 @@ def write_results_csv(
             # ⚠️ SYNTHETIC: the "atomx" abundance is a verbatim COPY of the FAC
             # abundance, so any atomx-vs-fac RMS is identically zero. This is a
             # placeholder — a real atomx W coronal balance must replace it.
-            # See docs/CRITICAL_REVIEW_2026-07-09.md (validation-integrity).
+            # See docs/archive/2026-07/CRITICAL_REVIEW_2026-07-09.md (validation-integrity).
             abund = dict(fac_abund)
             Lw = tungsten_cooling_rate(Te)
             fac_Lw = fac_cooling_rate(Te, fac_ref)

@@ -1,6 +1,6 @@
 """Photoionization cross sections, with resonance decoration.
 
-:mod:`atomx.numerics.bspline.continuum` ships the smooth non-resonant Dirac
+:mod:`atomx.scattering.photoionization.direct` ships the smooth non-resonant Dirac
 single-channel cross section ``σ_bg(ω)``.  This companion module
 layers autoionization resonances on top of that background using the
 Fano (Beutler-Fano) profile:
@@ -36,7 +36,10 @@ from atomx.scattering.photoionization.fano import (
     fano_profile,
 )
 
+from atomx.scattering.photoionization.direct import photoionization_cross_section
+
 __all__ = [
+    "photoionization_cross_section",
     "FanoResonance",
     "apply_resonances",
     "fano_profile",

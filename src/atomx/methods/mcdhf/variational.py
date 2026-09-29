@@ -10,7 +10,6 @@ from __future__ import annotations
 import numpy as np
 
 from atomx.methods.ci import ci_solve
-from atomx.methods.mcdhf import exact_ci, matrix
 from atomx.numerics.bspline.convol import (
     ConvolCache,
     _banded_to_full_add,
@@ -48,19 +47,9 @@ class CorrelatedOrbitalFunctional:
             h, s = build_dirac_matrices(self.ns, kappa, Z, bsp_data, nuclear_potential)
             self.one_body[kappa] = np.tril(h) + np.tril(h, -1).T
             self.metric[kappa] = s
-        self.blocks = []
-        for (_, j_indices) in matrix._group_csf_indices(csfs):
-            signatures = [exact_ci.csf_signature(csfs[i]) for i in j_indices]
-            groups = {}
-            for sig in signatures:
-                groups.setdefault(sig.pattern, []).append(sig)
-            structure = exact_ci.block_terms(tuple(groups), signatures[0].total_J2)
-            grouped = tuple(tuple(groups[p]) for p in structure.patterns)
-            projection = exact_ci.csf_block_matrix(structure.patterns, structure.j2, grouped)
-            # Columns of projection are grouped by canonical pattern.
-            original = {sig: i for i, sig in enumerate(signatures)}
-            columns = [j_indices[original[sig]] for group in grouped for sig in group]
-            self.blocks.append((structure, projection, columns))
+        from atomx.methods.mcdhf.radial_density import CIRadialDensity
+        self.radial_density = CIRadialDensity(csfs)
+        self.blocks = self.radial_density.blocks
 
     def evaluate(self, orbitals, *, gradient=True, ci_result=None):
         result = ci_result
@@ -70,16 +59,7 @@ class CorrelatedOrbitalFunctional:
         energy = float(result.ground_energy)
         if not gradient:
             return energy, result
-        ground = abs(result.state_energies - energy) < 1e-10
-        weights = {}
-        for structure, projection, columns in self.blocks:
-            amplitudes = projection @ result.mixing_coefficients[columns][:, ground]
-            values = np.mean(amplitudes[structure.pairs[:, 0]] *
-                             amplitudes[structure.pairs[:, 1]], axis=1)
-            coefficients = np.asarray(structure.table.T @ values).ravel()
-            for key, coefficient in zip(structure.keys, coefficients, strict=True):
-                if abs(coefficient) > 1e-15:
-                    weights[key] = weights.get(key, 0.0) + coefficient
+        weights = self.radial_density.contract(result)
         gradient = {key: np.zeros(2 * self.ns) for key in self.keys}
         self.last_occupations = {key: max(0., weights.get(("h", key[0], key[1], key[0]), 0.))
                                  for key in self.keys}
@@ -130,7 +110,8 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
                       energy_tolerance=1e-10, preconditioner_matrices=None,
                       preconditioner_factory=None, refresh_patience=15,
                       refresh_min_ratio=0.25, max_refreshes=4,
-                      projector_source="nuclear"):
+                      projector_source="nuclear", occupation_floor=0.05,
+                      progress_callback=None, orbital_preconditioner="spectral"):
     """Minimize the correlated energy in a fixed positive-energy subspace.
 
     A nuclear Dirac projector fixes the finite-basis no-pair Hamiltonian.
@@ -139,6 +120,12 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
     full CI Hellmann–Feynman derivative, not a configuration average.
     Limited-memory secant updates and orbital-energy preconditioning avoid
     forming the orbital Hessian.
+
+    ``orbital_preconditioner='shooting'`` uses a two-sided positive radial
+    Green solve for update directions. The Hamiltonian, no-pair space,
+    orthogonality constraints, and spectral convergence diagnostic are
+    unchanged. A failed search or less than twofold residual reduction over
+    20 iterations switches back to the spectral inverse and clears history.
 
     Robustness extensions over the plain Riemannian L-BFGS:
 
@@ -182,6 +169,10 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
     """
     from atomx.numerics.bspline.dirac_assembly import solve_dirac
 
+    if orbital_preconditioner not in ("spectral", "shooting"):
+        raise ValueError("orbital_preconditioner must be 'spectral' or 'shooting'")
+    if not np.isfinite(occupation_floor) or occupation_floor <= 0:
+        raise ValueError("occupation_floor must be finite and positive")
     if projector_source not in ("nuclear", "fock"):
         raise ValueError(
             f"projector_source must be 'nuclear' or 'fock', got {projector_source!r}")
@@ -315,14 +306,11 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
     def scale_blocks(blocks_out):
         """Apply the occupation-weight scaling shared by init and refresh."""
         for group, (keys, _, _shape, _where) in enumerate(layout):
-            populations = np.array([max(functional.last_occupations.get(key, 0.05), 0.05)
+            populations = np.array([max(functional.last_occupations.get(key, occupation_floor), occupation_floor)
                                     for key in keys])
             blocks_out[group] = [block / population for block, population
                                  in zip(blocks_out[group], populations, strict=True)]
         return blocks_out
-
-    if preconditioner_matrices is not None:
-        inverse_blocks = scale_blocks(build_blocks(preconditioner_matrices, x))
 
     def retract(point):
         result = point.copy()
@@ -368,12 +356,12 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
     # more slowly than the closed core. Keep a finite floor for null-density
     # directions, whose radial form is not defined by a ground-state target.
     for _group, (keys, _, shape, where) in enumerate(layout):
-        populations = np.array([max(functional.last_occupations.get(key, 0.05), 0.05) for key in keys])
+        populations = np.array([max(functional.last_occupations.get(key, occupation_floor), occupation_floor) for key in keys])
         inverse_diagonal[where] /= np.broadcast_to(populations, shape).ravel()
     if preconditioner_matrices is not None:
         inverse_blocks = scale_blocks(build_blocks(preconditioner_matrices, x))
 
-    def precondition(vector):
+    def spectral_precondition(vector):
         if not inverse_blocks:
             return inverse_diagonal * vector
         result = np.zeros_like(vector)
@@ -382,18 +370,47 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
             result[where] = np.column_stack([block @ matrix[:, i]
                                             for i, block in enumerate(blocks)]).ravel()
         return result
+    precondition = spectral_precondition
+    if orbital_preconditioner == "shooting":
+        from atomx.numerics.shooting.preconditioner import ShootingPreconditioner
+        precondition = ShootingPreconditioner(functional, layout, occupation_floor,
+                                              x, preconditioner_matrices)
     energies = [energy]
     history = []
     converged = False
+    termination_reason = "maximum_iterations"
+    line_search_fallbacks = 0
+    shooting_active = orbital_preconditioner == "shooting"
+    shooting_iterations = 0
+    shooting_fallback_reason = None
+    checkpoint_residual = None
     for iteration in range(max_iter + 1):
-        preconditioned_gradient = tangent(x, precondition(g))
+        # Convergence must not depend on how small the proposed update is.
+        # Keep exactly the same residual yardstick for both numerical paths.
+        preconditioned_gradient = tangent(x, spectral_precondition(g))
         residual = float(np.linalg.norm(preconditioned_gradient))
         energy_error = 0.5 * abs(float(g @ preconditioned_gradient))
+        if progress_callback is not None:
+            progress_callback(iteration, unpack(x), ci, {"energy_ha": energy,
+                "orbital_residual": residual, "estimated_energy_error": energy_error})
         if residual < tolerance and energy_error < energy_tolerance:
             converged = True
+            termination_reason = "converged"
             break
         if iteration == max_iter:
             break
+        if shooting_active:
+            if checkpoint_residual is None:
+                checkpoint_residual = residual
+            elif iteration % 20 == 0:
+                if residual > .5 * checkpoint_residual:
+                    precondition = spectral_precondition
+                    shooting_active = False
+                    shooting_fallback_reason = "spectral residual stalled over 20 iterations"
+                    history.clear()
+                checkpoint_residual = residual
+            if shooting_active:
+                shooting_iterations += 1
         q = g.copy()
         alphas = []
         for s, y, rho in reversed(history):
@@ -407,18 +424,39 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
         derivative = float(g @ direction)
         if derivative >= 0:
             history.clear()
-            direction = -tangent(x, precondition(g))
+            direction = -preconditioned_gradient
             derivative = float(g @ direction)
         step = 1.0
         accepted = False
-        for _ in range(28):
-            candidate = retract(x + step * direction)
-            trial_energy, trial_ci = evaluate(candidate, gradient=False)
-            if trial_energy <= energy + 1e-4 * step * derivative:
-                accepted = True
+        for attempt in range(2):
+            if attempt:
+                # Secant curvature can become unreliable near the energy
+                # resolution limit. Retry the physical gradient before
+                # declaring failure, without relaxing either tolerance.
+                history.clear()
+                if shooting_active:
+                    shooting_active = False
+                    precondition = spectral_precondition
+                    shooting_fallback_reason = "shooting/secant line search exhausted"
+                line_search_fallbacks += 1
+                direction = -preconditioned_gradient
+                derivative = float(g @ direction)
+                step = 1.0
+            for _ in range(28):
+                try:
+                    candidate = retract(x + step * direction)
+                    trial_energy, trial_ci = evaluate(candidate, gradient=False)
+                except (ValueError, FloatingPointError):
+                    step *= 0.5
+                    continue
+                if np.isfinite(trial_energy) and trial_energy <= energy + 1e-4 * step * derivative:
+                    accepted = True
+                    break
+                step *= 0.5
+            if accepted:
                 break
-            step *= 0.5
         if not accepted:
+            termination_reason = "line_search_failed"
             break
         old_x, old_g = x, g
         x = candidate
@@ -444,6 +482,9 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
             history = history[-10:]
     return unpack(x), ci, {
         "converged": converged, "iterations": iteration,
+        "termination_reason": termination_reason,
+        "line_search_fallbacks": line_search_fallbacks,
+        "occupation_floor": occupation_floor,
         "gradient_norm": float(np.linalg.norm(g)),
         "orbital_residual": residual, "orbital_tolerance": tolerance,
         "estimated_energy_error": energy_error, "energy_tolerance": energy_tolerance,
@@ -459,5 +500,11 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
         "no_pair_projector_leakage": no_pair_leakage,
         "excited_shell_constraints": "lower reference roots below each symmetry's first active shell are excluded",
         "preconditioner": "screened Fock spectral gaps" if inverse_blocks else "nuclear Dirac spectral gaps",
+        "update_preconditioner": orbital_preconditioner,
+        "shooting_iterations": shooting_iterations,
+        "shooting_fallback_reason": shooting_fallback_reason,
+        "shooting_operator": (
+            "positive radial kinetic resolvent; full correlated CI gradient source"
+            if orbital_preconditioner == "shooting" else None),
         "breit_qed": "subsequent RCI / perturbative corrections",
     }

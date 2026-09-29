@@ -180,7 +180,7 @@ def compute_sms_abinitio(
     gauge relation.  (History: earlier code called ``radial_eL_velocity``
     *without* ``omega``, hitting a fallback branch that returned the
     O(α)-suppressed photon element — wrong by ~4 orders of magnitude on Ne.
-    See ``docs/CRITICAL_REVIEW_2026-07-09.md`` §A2.)
+    See ``docs/archive/2026-07/CRITICAL_REVIEW_2026-07-09.md`` §A2.)
 
     .. note::
        **Mean-field scope.**  This is the closed-shell Dirac–Fock (single

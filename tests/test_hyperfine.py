@@ -335,7 +335,7 @@ class TestQuadrupoleB:
         prefactor, the sign, the barn conversion and the radial integral —
         none of which any previous test constrained.
         """
-        from atomx.numerics.analytic.hydrogenic_dirac import (
+        from atomx.methods.hydrogenic_reference import (
             hydrogenic_dirac_wavefunction,
         )
         from atomx.properties.hyperfine import radial_r_inv_cubed

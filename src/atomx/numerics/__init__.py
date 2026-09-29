@@ -1,6 +1,6 @@
 """Numerical representations for radial atomic problems.
 
-The three back-ends here are interchangeable choices for *how* the
+The back-ends here are interchangeable choices for *how* the
 radial Schrödinger or Dirac problem is discretised; they are
 independent of *what* equation is being solved (which lives in
 :mod:`atomx.physics`) and of *which* variational level is applied
@@ -13,9 +13,6 @@ Sub-packages
 
 :mod:`atomx.numerics.shooting`
     ODE shooting on a non-uniform grid (Salvat RADIAL / DHFS style).
-
-:mod:`atomx.numerics.analytic`
-    Closed-form solutions for point-nucleus hydrogenic systems.
 
 :mod:`atomx.numerics.yk`
     Shared Y^k potential mathematics — the single home for the

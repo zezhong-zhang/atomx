@@ -13,6 +13,7 @@ from typing import Dict, Optional, Protocol, runtime_checkable
 import numpy as np
 
 from atomx.types import CouplingScheme, TheoryLevel
+from atomx.numerics.radial_metric import RadialMetric
 
 
 @dataclass
@@ -60,12 +61,17 @@ class OrbitalWavefunction:
     occupation: float
     energy: float
     label: str = ""
+    metric: Optional[RadialMetric] = field(default=None, repr=False)
 
     def expectation_r(self, grid: np.ndarray) -> float:
         """Compute <r> = integral(P^2 * r) dr [+ integral(Q^2 * r) dr]."""
         integrand = self.P ** 2 * grid
         if self.Q is not None:
             integrand = integrand + self.Q ** 2 * grid
+        if self.metric is not None:
+            if not np.array_equal(grid, self.metric.radius):
+                raise ValueError("grid differs from the orbital native metric")
+            return float(self.metric.integrate(integrand))
         return np.trapezoid(integrand, grid)
 
     @property
@@ -129,6 +135,14 @@ class Waves:
     grid: np.ndarray
     orbitals: Dict[str, OrbitalWavefunction] = field(default_factory=dict)
     basis_type: str = "bspline"
+    metric: Optional[RadialMetric] = field(default=None, repr=False)
+
+    def __post_init__(self):
+        if self.metric is not None:
+            if not np.array_equal(self.grid, self.metric.radius):
+                raise ValueError("waves grid differs from radial metric")
+            for orbital in self.orbitals.values():
+                orbital.metric = self.metric
 
     def __repr__(self) -> str:
         n_pts = len(self.grid) if self.grid is not None else 0
@@ -397,6 +411,133 @@ class Waves:
             opacity=kwargs.get("opacity", 0.55),
         )
 
+
+@dataclass
+class ShootingResult:
+    """Result of an ODE shooting calculation.
+
+    Satisfies the ``AtomicResult`` protocol from ``atomx.results``.
+    """
+    converged: bool
+    iterations: int
+    total_energy: float
+    orbital_energies: Dict[str, float]
+    method: str = "shooting"
+    energy_components: Dict[str, float] = field(default_factory=dict)
+    Z: int = 0
+    #: Solved subshells (n, kappa, occupation, label) in ``_pa``/``_qa``
+    #: row order — the metadata the post-SCF correction adapters need to
+    #: pair grid orbitals with occupations and angular quantum numbers.
+    subshells: Optional[list] = None
+    #: Configuration ensemble defining fractional-occupation pair moments.
+    _jj_configs: Optional[list] = field(default=None, repr=False)
+    _grid: Optional[np.ndarray] = field(default=None, repr=False)
+    _orbital_data: Optional[Dict] = field(default=None, repr=False)
+    #: Converged r*V(r) (total local DFS potential), integration weights,
+    #: and per-shell (P, Q) waves on ``_grid`` — surfaced so frozen-orbital
+    #: solvers (scattering/DR orbital bases) can reuse the FAC-style
+    #: optimized potential.  See :func:`atomx.numerics.shooting.local.dfs_frozen_orbital`.
+    _rv: Optional[np.ndarray] = field(default=None, repr=False)
+    _difr: Optional[np.ndarray] = field(default=None, repr=False)
+    _pa: Optional[np.ndarray] = field(default=None, repr=False)
+    _qa: Optional[np.ndarray] = field(default=None, repr=False)
+    _equation: str = field(default="dirac", repr=False)
+    #: Shooting carries no B-spline workspace; kept as an attribute so
+    #: callers that inspect ``result._bsp_data`` uniformly get ``None``
+    #: instead of an AttributeError.
+    _bsp_data: Optional[Dict] = field(default=None, repr=False)
+    #: Exchange MODEL that produced the orbitals: "dfs" for the local
+    #: Slater/Gu solvers, "hf" for the non-local
+    #: Hartree-Fock solver (:mod:`atomx.numerics.shooting.hartree_fock`).
+    _model: str = field(default="dfs", repr=False)
+    solver_diagnostics: Dict = field(default_factory=dict)
+    calculation_spec: object = None
+
+    def save(self, path):
+        """Save native orbitals and physical metadata through the I/O layer."""
+        from atomx.io.results import save_shooting_result
+        return save_shooting_result(self, path)
+
+    @classmethod
+    def load(cls, path):
+        """Restore a native shooting result, including its correction ledger."""
+        from atomx.io.results import load_shooting_result
+        return load_shooting_result(path)
+
+    @property
+    def energy_breakdown(self) -> Dict[str, float]:
+        return self.energy_components
+
+    @property
+    def theory_level(self):
+        if self.method == "BreitPauli":
+            return TheoryLevel.BREIT_PAULI
+        if self._equation == "schrodinger":
+            return TheoryLevel.HARTREE_FOCK
+        if self._model == "hf":
+            return TheoryLevel.DIRAC_HARTREE_FOCK
+        return TheoryLevel.DIRAC_FOCK_SLATER
+
+    @property
+    def method_name(self) -> str:
+        if self.method == "BreitPauli":
+            return "Breit-Pauli (hydrogenic shifts on HF-Slater orbitals)"
+        if self._equation != "schrodinger" and self._model == "hf":
+            return "Dirac-Hartree-Fock (shooting)"
+        eq = "Schrodinger" if self._equation == "schrodinger" else "Dirac"
+        return f"{eq}-Fock-Slater (shooting)"
+
+    @property
+    def coupling_scheme(self):
+        if self._equation == "schrodinger":
+            return CouplingScheme.LS
+        return CouplingScheme.JJ
+
+    @property
+    def radial_state(self):
+        """Owned native radial snapshot for correction and analysis consumers."""
+        from atomx.radial_state import radial_state_of
+        if '_radial_state' not in self.__dict__:
+            self.__dict__['_radial_state'] = radial_state_of(self)
+        return self.__dict__['_radial_state']
+
+    @property
+    def waves(self):
+        if self._grid is None:
+            return Waves(grid=np.array([]), basis_type="grid")
+
+        orbitals = {}
+        if self._orbital_data is not None:
+            for label, data in self._orbital_data.items():
+                orbitals[label] = OrbitalWavefunction(
+                    P=data["P"], Q=data.get("Q"),
+                    n=data["n"], l=data["l"],
+                    kappa=data.get("kappa"),
+                    occupation=data["occupation"],
+                    energy=self.orbital_energies.get(label, 0.0),
+                    label=label)
+        elif self._pa is not None and self.subshells:
+            # The SCF solvers surface the converged grid orbitals as the
+            # raw ``_pa``/``_qa`` arrays (row order == ``subshells``
+            # order) rather than an ``_orbital_data`` dict — build the
+            # protocol Waves from them so ``Atom.waves`` / ``.density()``
+            # / ``.r_uniform()`` work uniformly across engines.
+            for i, sh in enumerate(self.subshells):
+                Q = None
+                if self._equation != "schrodinger" and self._qa is not None:
+                    Q = np.asarray(self._qa[i])
+                orbitals[sh.label] = OrbitalWavefunction(
+                    P=np.asarray(self._pa[i]), Q=Q,
+                    n=sh.n, l=sh.l, kappa=sh.kappa,
+                    occupation=float(sh.occupation),
+                    energy=self.orbital_energies.get(sh.label, 0.0),
+                    label=sh.label)
+        if not orbitals:
+            return Waves(grid=np.array([]), basis_type="grid")
+        return Waves(
+            grid=self._grid, orbitals=orbitals, basis_type="grid",
+            metric=(RadialMetric.shooting(self._grid, self._difr)
+                    if self._difr is not None else None))
 
 @dataclass
 class HyperfineResult:

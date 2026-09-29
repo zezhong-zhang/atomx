@@ -23,12 +23,12 @@ algebraic structure of the magnetic operator (Grant Eq. 8.4.17).
 Workspace flavours
 ------------------
 Every integral here is of the form ``∫ f(P_a, Q_a, P_b, Q_b, r) dr`` and
-is evaluated through the :mod:`atomx.corrections.workspace` seam, so the
+is evaluated through the :mod:`atomx.numerics.radial_workspace` seam, so the
 ``bsp_data`` argument accepts either radial flavour:
 
 * the B-spline workspace dict (``prepare_bspline_data``) with orbital
   arguments as expansion **coefficient vectors** (``orbitals_raw``); or
-* a raw radial-grid workspace (:func:`atomx.corrections.workspace
+* a raw radial-grid workspace (:func:`atomx.numerics.radial_workspace
   .make_grid_workspace` over the shooting engine's ``(r, difr)``) with
   orbital arguments as **grid-tabulated** ``P(r)``/``Q(r)`` arrays.
 
@@ -42,7 +42,7 @@ from atomx.constants import C
 # One radial-integral implementation serves both engines: the workspace
 # seam evaluates B-spline coefficient vectors through the (kinetic-
 # balance-aware) basis tables and passes grid-tabulated orbitals through.
-from atomx.corrections.workspace import eval_orbital_pair, workspace_arrays
+from atomx.numerics.radial_workspace import eval_orbital_pair, workspace_arrays
 
 
 def radial_eL(P_i, Q_i, P_f, Q_f, bsp_data, L=1):
@@ -62,7 +62,7 @@ def radial_eL(P_i, Q_i, P_f, Q_f, bsp_data, L=1):
         Final-state components (same flavour as the initial state).
     bsp_data : dict
         B-spline workspace or radial-grid workspace
-        (:func:`atomx.corrections.workspace.make_grid_workspace`).
+        (:func:`atomx.numerics.radial_workspace.make_grid_workspace`).
     L : int
         Multipole rank (1=dipole, 2=quadrupole, ...).
 

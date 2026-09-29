@@ -16,7 +16,7 @@ import numpy as np
 from atomx.angular.csf_recoupling import allowed_coupled_J2
 from atomx.angular.mscheme import subshell_j_counts_mscheme
 from atomx.config.parsing import parse_nr_shells
-from atomx.methods.dirac_fock import Subshell
+from atomx.config.subshell import Subshell
 from atomx.methods.mcdhf.exact_ci import coupling_paths
 
 

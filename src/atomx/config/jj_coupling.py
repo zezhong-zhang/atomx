@@ -19,7 +19,24 @@ from math import comb
 from typing import List, Tuple
 
 from atomx.config.parsing import parse_nr_shells
-from atomx.methods.dirac_fock import Subshell
+from atomx.config.subshell import Subshell
+
+
+def resolve_one_electron_subshell(config_str: str, two_j: int) -> Subshell:
+    """Resolve a one-electron configuration and exact J to its Dirac kappa."""
+    shells = parse_nr_shells(config_str)
+    if len(shells) != 1 or shells[0][2] != 1:
+        raise ValueError('J resolution requires a single one-electron shell')
+    n, ell, _ = shells[0]
+    if isinstance(two_j, bool) or not isinstance(two_j, int) or two_j < 1:
+        raise ValueError('two_j must be a positive integer')
+    if two_j == 2*ell+1:
+        kappa = -ell-1
+    elif ell > 0 and two_j == 2*ell-1:
+        kappa = ell
+    else:
+        raise ValueError('J is incompatible with the one-electron orbital angular momentum')
+    return Subshell(n=n, kappa=kappa, occupation=1)
 
 
 @dataclass
@@ -180,5 +197,3 @@ def compute_WW(i: int, j: int, configs: List[JJConfig]) -> float:
             qj = c.subshells[j].occupation
             ww += c.weight * qi * qj
     return ww
-
-

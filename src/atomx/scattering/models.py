@@ -59,11 +59,11 @@ class PotentialModel:
         if Z is None:
             Z = float(scf_result.Z)
         if kind == "bare":
-            from atomx.numerics.shooting.scf_potential import bare_nuclear_potential
+            from atomx.potentials.static_field import bare_nuclear_potential
 
             return bare_nuclear_potential(float(Z))
         if kind in {"static_hartree", "hartree", "vn", "vn-1"}:
-            from atomx.numerics.shooting.scf_potential import static_hartree_potential
+            from atomx.potentials.static_field import static_hartree_potential
 
             return static_hartree_potential(
                 scf_result,

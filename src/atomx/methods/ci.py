@@ -119,10 +119,10 @@ def ci_solve(
         :func:`atomx.methods.mcdhf.matrix.build_ci_matrix`).  B-spline
         flavour only.
     include_breit
-        Add the Breit interaction (exact Gaunt term) to every
+        Add the static Breit interaction (Gaunt plus retardation) to every
         ``(2J, parity)`` block of the CI matrix, so it shifts levels
-        differentially.  Off by default; the frequency-independent
-        retardation term is not included (see
+        differentially. Off by default; frequency-dependent transverse
+        exchange is not included (see
         :mod:`atomx.methods.mcdhf.breit_ci`).
 
     Returns
@@ -179,7 +179,7 @@ def ci_solve(
         provenance.update(n_iter=max(iterations), block_iterations=iterations, tol=tol)
     if include_breit:
         from atomx.methods.mcdhf.breit_ci import RETARDATION_NOTE
-        provenance.update(breit="gaunt-exact-in-blocks", breit_note=RETARDATION_NOTE)
+        provenance.update(breit="static-breit-gaunt-retardation-in-blocks", breit_note=RETARDATION_NOTE)
 
     return CIResult(
         state_energies=np.asarray(state_energies),

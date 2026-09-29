@@ -34,32 +34,17 @@ sums over the ``(l, m_l) x (1/2, m_s)`` decomposition of the spinor
 spherical harmonics, so no reduced-matrix-element table is needed and no
 convention can drift.
 
-What is included and what is not
---------------------------------
-* ``gaunt_terms`` — the **complete Gaunt interaction**, all photon
-  multipoles L (the sum terminates by angular selection rules).  This is
-  the dominant part of the Breit interaction and carries all of its
-  non-scalar content.
-* The **retardation** term is *not* implemented here.  It is not
-  approximated by zero: callers that ask for it get an explicit
-  :class:`BreitOperatorError` (see ``breit_provenance``), because an
-  omitted Breit term folded in silently is exactly the defect this
-  module replaces.  Its measured size is recorded in
-  :data:`RETARDATION_NOTE`.
+The complete static operator
+----------------------------
+``breit_terms`` combines the complete Gaunt multipoles with retardation
+from transition-current divergences (see ``retardation.py``). The vector
+alpha permits photon L up to j_a+j_c+1, not just j_a+j_c. All terms enter
+the determinant matrix before projection to J-coupled CSFs, including
+configuration interference. This is the frequency-independent Breit
+approximation; frequency-dependent transverse exchange is not included.
 
-Validation
-----------
-``tests/test_breit_operator.py`` checks the angular algebra against the
-repo's independent Coulomb kernel, checks a hand-computable Gaunt matrix
-element, and checks the ``BreitOperatorError`` / ``RETARDATION_NOTE``
-contract.  The *external* anchor for closed-shell totals lives in
-``tests/test_qed.py::TestBreitQEDIntegration``
-(``test_ne_breit_operator_matches_dbsr_hf`` and
-``test_he_breit_operator_matches_dbsr_hf``): Ne 1s2 2s2 2p6 gives
-0.017340 Ha here against 0.016644 Ha total Breit from DBSR_HF (the 4.2 %
-difference is the omitted retardation), and He 1s2 gives
-6.37792e-05 Ha against DBSR_HF's 6.37774e-05 (0.003 %, retardation being
-negligible at Z = 2).
+Validation includes independent DBSR_HF closed-shell totals, GRASP RCI,
+and analytic multipole/current identities.
 """
 
 from __future__ import annotations
@@ -80,6 +65,8 @@ __all__ = [
     "configuration_string_of",
     "gaunt_angular_terms",
     "gaunt_terms",
+    "breit_terms",
+    "retardation_terms",
     "l_of_kappa",
     "twoj_of_kappa",
 ]
@@ -93,24 +80,11 @@ class BreitOperatorError(ValueError):
     """
 
 
-#: Measured size of the omitted retardation term, from DBSR_HF runs on
-#: the same closed-shell systems (full Breit vs the Gaunt operator
-#: implemented here):
-#:
-#:   Ne 1s2            0.012110 (DBSR) vs 0.012114 (Gaunt)   -0.04 %
-#:   Ne 1s2 2s2        0.013869 (DBSR) vs 0.014074 (Gaunt)   -1.5 %
-#:   Ne 1s2 2s2 2p6    0.016644 (DBSR) vs 0.017340 (Gaunt)   -4.2 %
-#:
-#: i.e. the retardation *reduces* the Gaunt total by a few per cent for
-#: light/medium Z.  For fine structure the relevant comparison is the
-#: C V 3P splitting reported by ``MCDHF`` provenance.
 RETARDATION_NOTE = (
-    "Breit: exact Gaunt operator in the (2J, parity) CI blocks; the "
-    "frequency-independent retardation term is NOT included (measured "
-    "to be ~1-4 % of the Gaunt total on closed-shell Ne, "
-    "corrections.breit.RETARDATION_NOTE)."
+    "Breit: complete Gaunt plus frequency-independent retardation in "
+    "the (2J, parity) CI blocks, evaluated on Dirac-Coulomb optimized "
+    "orbitals. Frequency-dependent transverse exchange is not included."
 )
-
 
 
 
@@ -241,7 +215,8 @@ def gaunt_angular_terms(kappa_a: int, m2a: int, kappa_b: int, m2b: int,
     j2b = twoj_of_kappa(kappa_b)
     j2c = twoj_of_kappa(kappa_c)
     j2d = twoj_of_kappa(kappa_d)
-    l_max = min((j2a + j2c) // 2, (j2b + j2d) // 2)
+    # alpha is rank 1: a photon L can couple to electronic rank L-1.
+    l_max = min((j2a + j2c) // 2, (j2b + j2d) // 2) + 1
     out = []
     for L in range(l_max + 1):
         qs = range(-2 * L, 2 * L + 1, 2) if L else (0,)
@@ -262,22 +237,20 @@ def gaunt_angular_terms(kappa_a: int, m2a: int, kappa_b: int, m2b: int,
 
 
 def breit_operator_energy(orbitals_dict, bsp_data, Z, ns, config: str):
-    """Exact Gaunt energy of a SINGLE-CSF configuration, on given orbitals.
+    """Full static Breit energy of a SINGLE-CSF configuration, on given orbitals.
 
     This is the operator evaluation for routes that have no CI: the SCF
     already produced the orbitals, and for a one-CSF configuration the
-    Gaunt expectation is the diagonal matrix element in that CSF, so no
+    static Breit expectation is the diagonal matrix element in that CSF, so no
     CI diagonalisation and no MCDHF SCF is needed.  It costs one radial
     quadrature pass — measured 0.01 s for Ne on the shooting grid, i.e.
     ~2 % of the SCF itself, against 3.8 s for routing the same atom
     through the MCDHF SCF.
 
-    Verified against DBSR_HF (``dbsr_hf an=Z term=AV mbreit=1``) for
-    He 1s2 and Ne, and it is the *exact* He value: 6.377743260e-05
-    against DBSR_HF's 0.000063777432919 (5e-10 relative), where the
-    scalar this replaces is 3.00x.  For Ne it gives 1.733427520e-02
-    against DBSR_HF 0.016643630840490 (+4.15 %, the omitted
-    retardation).
+    Independent DBSR_HF closed-shell references are checked in
+    ``tests/test_static_breit_retardation.py`` for He, Ne and Ar.
+    The Ne value includes static retardation (~0.016643631 Ha), rather
+    than the older incomplete Gaunt-only result.
 
     Parameters
     ----------
@@ -287,7 +260,7 @@ def breit_operator_energy(orbitals_dict, bsp_data, Z, ns, config: str):
         arrays).
     bsp_data : dict or GridCIWorkspace
         Radial workspace.  Only its grid and integration weights are
-        used (the Gaunt integrals do not touch the nuclear potential),
+        used (the static Breit integrals do not touch the nuclear potential),
         so a ``GridCIWorkspace`` built from a ``ShootingResult`` is
         enough for the shooting engine — no solver object needed.
     Z, ns : int
@@ -299,7 +272,7 @@ def breit_operator_energy(orbitals_dict, bsp_data, Z, ns, config: str):
     ------
     BreitOperatorError
         If the configuration is not a single CSF.  For a multi-CSF
-        configuration the Gaunt energy is not one number: it depends on
+        configuration the static Breit energy is not one number: it depends on
         the state, and the SCF average that produced the orbitals has to
         be matched by the same Guerra/CI averaging.  That is what
         ``MCDHFSolver`` does; silently returning one CSF's diagonal (or
@@ -312,14 +285,14 @@ def breit_operator_energy(orbitals_dict, bsp_data, Z, ns, config: str):
     csfs = enumerate_jj_csfs_many([config])
     if len(csfs) != 1:
         raise BreitOperatorError(
-            f"the Gaunt operator energy of {config!r} is not a single "
+            f"the static Breit operator energy of {config!r} is not a single "
             f"number: the configuration has {len(csfs)} jj CSFs, whose "
             f"Breit matrix elements differ (that is the physics the "
             f"operator exists to represent).  Route it through the CI "
             f"(MCDHFSolver, i.e. a list `config=[...]` in Atom) so the "
             f"state and its SCF averaging are explicit.")
     ev = _breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns)
-    # A zero Coulomb evaluator leaves the block equal to the Gaunt
+    # A zero Coulomb evaluator leaves the block equal to the static Breit
     # matrix alone: ``exact_block_matrix`` adds the Breit determinant
     # matrix to the Coulomb one before projecting to CSFs.
     block = exact_block_matrix(
@@ -363,7 +336,7 @@ def configuration_string_of(subshells) -> str:
 
 
 def breit_configuration_average(orbitals_dict, bsp_data, Z, ns, jj_configs):
-    """Gaunt expectation in an explicit, spherical jj-configuration ensemble.
+    """Static Breit expectation in an explicit, spherical jj-configuration ensemble.
 
     Within each integer-occupation jj configuration all magnetic determinants
     have equal probability. A distinct spinor pair in shell i has probability
@@ -380,22 +353,22 @@ def breit_configuration_average(orbitals_dict, bsp_data, Z, ns, jj_configs):
 
     configs = list(jj_configs)
     if not configs:
-        raise BreitOperatorError("the Gaunt ensemble needs jj configurations")
+        raise BreitOperatorError("the static Breit ensemble needs jj configurations")
     shells = configs[0].subshells
     keys = [(sh.n, sh.kappa) for sh in shells]
     weights = np.asarray([cfg.weight for cfg in configs], dtype=float)
     if (not np.all(np.isfinite(weights)) or np.any(weights < 0)
             or not np.isclose(weights.sum(), 1.0, rtol=0, atol=1e-12)):
-        raise BreitOperatorError("Gaunt ensemble weights must sum to one")
+        raise BreitOperatorError("static Breit ensemble weights must sum to one")
     degeneracy = np.asarray([2 * abs(sh.kappa) for sh in shells])
     pair_counts = np.zeros((len(shells), len(shells)))
     for cfg in configs:
         if [(sh.n, sh.kappa) for sh in cfg.subshells] != keys:
-            raise BreitOperatorError("Gaunt ensemble subshells must be aligned")
+            raise BreitOperatorError("static Breit ensemble subshells must be aligned")
         q = np.asarray([sh.occupation for sh in cfg.subshells], dtype=float)
         if (not np.all(np.isfinite(q)) or np.any(q < 0)
                 or np.any(q > degeneracy) or np.any(q != np.rint(q))):
-            raise BreitOperatorError("Gaunt ensemble needs integer occupations")
+            raise BreitOperatorError("static Breit ensemble needs integer occupations")
         counts = np.outer(q, q)
         counts[np.diag_indices_from(counts)] -= q
         pair_counts += cfg.weight * counts
@@ -416,7 +389,7 @@ def breit_configuration_average(orbitals_dict, bsp_data, Z, ns, jj_configs):
             if probability == 0:
                 continue
             for c, d, sign in ((a, b, 1.0), (b, a, -1.0)):
-                for key, coeff in gaunt_terms(a, b, c, d, sign, labels):
+                for key, coeff in breit_terms(a, b, c, d, sign, labels):
                     coefficients[key] += probability * coeff
     evaluate = _breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns)
     return math.fsum(coeff * evaluate(key) for key, coeff in coefficients.items()
@@ -425,7 +398,7 @@ def breit_configuration_average(orbitals_dict, bsp_data, Z, ns, jj_configs):
 
 def attach_breit_operator_energy(result, config: str | None = None,
                                 *, jj_configs=None) -> float:
-    """Compute ``result``'s Gaunt energy and stash it on the result.
+    """Compute ``result``'s static Breit energy and stash it on the result.
 
     The Breit interaction is applied by the ``CorrectionStack`` (in
     ``corrections/``), but the operator needs the CI angular machinery
@@ -449,12 +422,12 @@ def attach_breit_operator_energy(result, config: str | None = None,
         given.
     jj_configs : sequence of JJConfig, optional
         Explicit spherical configuration ensemble used by the SCF. Evaluate
-        its Gaunt trace directly; no state-specific CI is implied.
+        its static Breit trace directly; no state-specific CI is implied.
 
     Returns
     -------
     float
-        The Gaunt energy in Hartree, also stored on the result.
+        The static Breit energy in Hartree, also stored on the result.
     """
     if config is None and jj_configs is None:
         config = configuration_string_of(result.subshells or [])
@@ -508,7 +481,7 @@ def _ci_radial_inputs(result):
         orbitals_dict = {
             (sh.n, sh.kappa): (result._pa[i], result._qa[i])
             for i, sh in enumerate(subshells)}
-        # Only r and difr are read on the Gaunt path (the interaction is
+        # Only r and difr are read on the static Breit path (the interaction is
         # a two-electron kernel; it never touches the nuclear potential),
         # so the shooting engine needs no solver object here.
         ws = GridCIWorkspace(grid, result._difr,
@@ -547,12 +520,12 @@ def gaunt_terms(ia, ib, ic, id_, coeff, spinor_labels):
         for (L, xa, xc, xb, xd, ang) in terms)
 
 
-def retardation_terms(*_args, **_kwargs):
-    """Not implemented — the omitted Breit term, refused explicitly."""
-    raise BreitOperatorError(
-        "the frequency-independent retardation term of the Breit "
-        "interaction is not implemented; only the exact Gaunt operator is "
-        "available.  It must not be silently dropped: request it and this "
-        "raises instead of returning zero.  See "
-        "atomx.methods.mcdhf.breit_ci.RETARDATION_NOTE for the measured "
-        "size of the omission.")
+def retardation_terms(*args, **kwargs):
+    """Static Breit retardation terms in the same determinant layout as Gaunt."""
+    from atomx.methods.mcdhf.retardation import retardation_terms as terms
+    return terms(*args, **kwargs)
+
+
+def breit_terms(*args, **kwargs):
+    """Complete frequency-independent Breit: Gaunt plus retardation."""
+    return gaunt_terms(*args, **kwargs) + retardation_terms(*args, **kwargs)

@@ -10,7 +10,7 @@ which fails for a two-digit principal quantum number (``"10s1"`` parses
 ``token[1] == "0"`` and raises ``KeyError: '0'``) and for the implicit
 unit occupation (``"1s2 2s"`` reads ``token[2:] == ""`` and raises
 ``ValueError: invalid literal for int()``).  See
-``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding M2.
+``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding M2.
 """
 
 from __future__ import annotations

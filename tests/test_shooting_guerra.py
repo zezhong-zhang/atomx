@@ -32,7 +32,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from atomx.config.jj_coupling import JJConfig, generate_jj_average  # noqa: E402
 from atomx.methods.dirac_fock import DFSolver, Subshell  # noqa: E402
-from atomx.numerics.shooting.hf_shooting import ShootingHFSolver  # noqa: E402
+from atomx.numerics.shooting.hartree_fock import ShootingHFSolver  # noqa: E402
 
 
 def _statistical_subshells(config_str):
@@ -77,7 +77,8 @@ def test_no_jj_configs_matches_recorded_baseline(name):
     """
     cfg, Z, e_ref, oe_ref = _BASELINE[name]
     subshells = _statistical_subshells(cfg)
-    res = ShootingHFSolver(Z=Z, subshells=subshells, jj_configs=None).solve()
+    res = ShootingHFSolver(Z=Z, subshells=subshells, jj_configs=None,
+                           constraint_mode="schmidt_legacy").solve()
     assert res.converged
     assert res.total_energy == pytest.approx(e_ref, rel=_PIN_REL), (
         f"{name}: statistical path changed: "
@@ -90,7 +91,8 @@ def test_no_jj_configs_matches_recorded_baseline(name):
 
     # The seam's actual contract — repeating the solve in this process must
     # reproduce the very same bits (no global state leaking between solves).
-    repeat = ShootingHFSolver(Z=Z, subshells=subshells, jj_configs=None).solve()
+    repeat = ShootingHFSolver(Z=Z, subshells=subshells, jj_configs=None,
+                           constraint_mode="schmidt_legacy").solve()
     assert repeat.total_energy == res.total_energy
     for label in res.orbital_energies:
         assert repeat.orbital_energies[label] == res.orbital_energies[label]

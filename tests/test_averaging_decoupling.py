@@ -37,7 +37,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from atomx import Atom, Correlation  # noqa: E402
 from atomx.methods.mcdhf.solver import MCDHFResult, MCDHFSolver  # noqa: E402
-from atomx.numerics.shooting.solver import ShootingResult  # noqa: E402
+from atomx.results import ShootingResult  # noqa: E402
 
 #: Co 3d7 4s2 — open shell, 4 jj-CSFs, the case the stale gate silently
 #: degraded to statistical.  Bare HF (breit/qed off) so the totals pin
@@ -45,7 +45,7 @@ from atomx.numerics.shooting.solver import ShootingResult  # noqa: E402
 CO = dict(Z=27, corrections="none")
 
 #: Known-good baselines.  The two *CI* totals were re-pinned on 2026-09-21
-#: with the exact CI matrix (``docs/CORRELATION_SD_RESEARCH_2026-09-20.md``
+#: with the exact CI matrix (``docs/archive/2026-09/CORRELATION_SD_RESEARCH_2026-09-20.md``
 #: §8 option A): the old kernel's configuration-average diagonal plus
 #: J-corrections put bspline CI at -1392.0165 and shooting CI at -1390.0324
 #: ... the bspline one moves to -1392.1100 because Co 3d7 has repeated
@@ -163,7 +163,7 @@ def test_shooting_ci_breit_qed_route_through_grid_seam():
     when the self-energy table was corrected to FAC's F(Zα) (the old
     values were 2-5x too large at Z=27, and the n^-3 fallback gave the
     3d/4s orbitals the 1s shape).  See
-    docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md C2/M1.
+    docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md C2/M1.
     """
     a = Atom(
              Z=27,

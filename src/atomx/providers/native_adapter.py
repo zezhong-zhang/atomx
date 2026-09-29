@@ -23,17 +23,26 @@ from atomx.providers.contract import (
     Provenance,
     SpinBlock,
 )
-from atomx.scattering.protocols import AtomicResultLike
+from atomx.state_protocols import AtomicResultLike
 
 __all__ = ["NativeProvider", "from_atomic_result"]
 
 
 def _looks_relativistic(result: AtomicResultLike) -> bool:
-    """True if any orbital carries a non-trivial small component ``Q``."""
+    """Use declared physics; retain a nonzero-Q heuristic for legacy inputs."""
+    spec = getattr(result, "calculation_spec", None)
+    equation = (spec.physics.get("equation") if spec is not None else None)
+    equation = equation or getattr(result, "_equation", None)
+    if equation is not None:
+        if equation not in ("dirac", "schrodinger"):
+            raise ValueError(f"unsupported native equation {equation!r}")
+        return equation == "dirac"
+    import numpy as np
+
     for orbs in getattr(result, "orbitals_raw", {}).values():
         for entry in orbs:
             Q = entry[1] if len(entry) > 1 else None
-            if Q is not None:
+            if Q is not None and np.any(np.asarray(Q) != 0):
                 return True
     return False
 
@@ -71,7 +80,7 @@ class NativeProvider:
             )
         self.result = result
         self._method = method
-        self._theory_level = theory_level or method
+        self._theory_level = theory_level
         self._core_hole = core_hole
         self._final_state = final_state
 
@@ -89,13 +98,24 @@ class NativeProvider:
         method = self._method
         if method == "atomx-native":
             method = getattr(r, "method_name", "atomx-native") or "atomx-native"
+        spec = getattr(r, "calculation_spec", None)
+        equation_declared = (spec is not None and spec.physics.get("equation") is not None
+                             or getattr(r, "_equation", None) is not None)
+        basis = ("atomx-bspline" if getattr(r, "_bsp_data", None)
+                 else "atomx-radial-grid" if getattr(r, "_grid", None) is not None
+                 else "atomx-native-unspecified")
+        metadata = {"native_result_type": type(r).__name__,
+                    "equation_source": "declared" if equation_declared else "legacy_Q_heuristic"}
+        if spec is not None:
+            metadata["calculation_spec"] = spec.to_dict()
         prov = Provenance(
             provider="atomx-native",
             code_version=f"atomx {_atomx_version}",
             method=method,
-            basis="atomx-radial-grid",
-            theory_level=self._theory_level,
-            approximations=[],
+            basis=basis,
+            theory_level=self._theory_level or method,
+            approximations=(["Physical model and operator scope recorded in calculation_spec"]
+                            if spec is not None else ["Legacy physical-model provenance unavailable"]),
             core_hole=self._core_hole,
             final_state=self._final_state,
             energy_zero="orbital_energies",
@@ -113,7 +133,7 @@ class NativeProvider:
             spin=SpinBlock(collinear=True, soc=relativistic, coupling="jj")
             if relativistic
             else None,
-            metadata={"native_result_type": type(r).__name__},
+            metadata=metadata,
         )
         return payload.validate()
 

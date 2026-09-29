@@ -161,7 +161,7 @@ def _solve_prepared(prep, E_au: float, kappa: int, eps_tol: float,
     # the two Coulomb terms (the previous behaviour) made `delta` a
     # function of the box radius rather than a phase shift: -eta ln(2 k r)
     # alone is 12.2 rad for Z_res = 1, k = 0.271, r_max = 50.
-    # See docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding M15.
+    # See docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding M15.
     z_res = -float(rv[-1])          # r*V(r) -> -Z_res as r -> infinity
     delta = 0.0
     if match_phase:

@@ -5,7 +5,7 @@ point-nucleus Coulomb problem (plus FAC's tabulated finite-Fermi-radius
 correction).  It replaces an earlier table whose values agreed with the
 published function only at ``Z = 1`` and diverged with the wrong
 ``Z``-dependence thereafter — by 2.5x at ``Z = 10`` and 14.7x at ``Z = 92``.
-See ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding C2.
+See ``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding C2.
 
 Citations
 ---------

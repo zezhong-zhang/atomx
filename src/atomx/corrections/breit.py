@@ -1,4 +1,9 @@
-"""Full Breit interaction energy correction (scalar, configuration average).
+"""Legacy scalar Breit approximation retained for explicit comparison runs.
+
+Historical audit below describes the pre-retardation CI implementation.
+Current resolved CI includes complete static Gaunt plus retardation; the
+DHF default is the independent ``dbsr_breit.py`` implementation. Neither
+uses this legacy approximation as its default.
 
 The Breit operator in the multipole expansion has contributions at
 three ranks v = L-1, L, L+1 for each multipole order L, with 8
@@ -88,7 +93,7 @@ independently reproduced at 0.05044 Ha by the ODE-shooting engine).
 
 import numpy as np
 
-from atomx.corrections.workspace import (
+from atomx.numerics.radial_workspace import (
     eval_orbital_pair,
     workspace_arrays,
 )
@@ -168,7 +173,7 @@ def compute_breit_energy(orbitals, bsp_data, Z, *, jj_configs=None):
     bsp_data : dict
         B-spline workspace (``P``/``Q`` are coefficient vectors), or a
         radial-grid workspace from
-        :func:`atomx.corrections.workspace.make_grid_workspace`
+        :func:`atomx.numerics.radial_workspace.make_grid_workspace`
         (``P``/``Q`` are grid arrays) — e.g. the ODE-shooting engine.
     Z : int
     jj_configs : sequence of JJConfig, optional

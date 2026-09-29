@@ -105,14 +105,11 @@ def test_bad_engine_raises():
         Atom(**FE17, engine="finite-difference")
 
 
-def test_multi_config_yields_to_bspline_but_explicit_shooting_raises():
-    """config=[...] needs the B-spline MCDHF machinery: the defaulted
-    shooting engine silently yields to bspline, while an EXPLICIT
-    engine='shooting' is a contradiction and raises."""
+def test_multi_config_defaults_to_bspline_and_accepts_explicit_full_shooting():
     a = Atom(Z=4, config=["1s2 2s2", "1s2 2p2"])
     assert a.engine == "bspline"
-    with pytest.raises(ValueError, match="multi-configuration"):
-        Atom(Z=4, config=["1s2 2s2", "1s2 2p2"], engine="shooting")
+    a = Atom(Z=4, config=["1s2 2s2", "1s2 2p2"], engine="shooting")
+    assert a.engine == "shooting"
 
 
 def test_bad_exchange_raises():

@@ -1,8 +1,10 @@
 """ODE shooting solver for bound-state atomic orbitals.
 
 An independent solver that integrates the radial Schrodinger or Dirac
-equation directly on a numerical grid (no basis set expansion).  This
-approach matches Salvat's RADIAL/DHFS Fortran package exactly.
+equation directly on a numerical grid (no basis set expansion). The radial
+kernels follow Salvat's RADIAL routines.
+Physical field/energy operators live in ``atomx.physics``, method
+orchestration in ``atomx.methods``, and result types in ``atomx.results``.
 
 This module is self-contained — it does NOT depend on the B-spline
 pipeline (bspline/, dirac/, scf/).  It has its own grid, spline
@@ -10,7 +12,11 @@ interpolation, and quadrature routines.
 
 Submodules
 ----------
-solver : ShootingSolver SCF loop with local Slater exchange.
+local : Local-potential SCF and frozen-orbital drivers.
+hartree_fock : Nonlocal HF shooting driver.
+electron_space : Fixed electron-space construction and numerical controls.
+scf : Nonlocal orbital iteration for a supplied functional.
+local_scf : Local-potential orbital iteration for a supplied field.
 grid : Non-uniform radial grid via SGRID formula: A*R + B*log(R+C) + D = I.
 spline : Natural cubic spline interpolation for potentials.
 quadrature : 6-point Lagrange piecewise integration (SLAG6).
@@ -24,5 +30,3 @@ constants : Physical constants in Salvat's RADIAL convention.
 
 All performance-critical routines are @nb.njit compiled.
 """
-
-from atomx.numerics.shooting.solver import ShootingResult, ShootingSolver

@@ -2,7 +2,7 @@
 
 The B-spline ``DFSolver`` computes the jj-averaged Dirac-Hartree-Fock
 equations exactly (Galerkin, DBSR_HF algorithm); the shooting engine
-(:mod:`atomx.numerics.shooting.hf_shooting`) solves the SAME equations
+(:mod:`atomx.numerics.shooting.hartree_fock`) solves the SAME equations
 — same ``exchange_lambda`` jj-average angular coefficients — with the
 Froese-Fischer inhomogeneous-equation method on Salvat's SGRID:
 exchange enters as a Y^k source term, and each orbital is the
@@ -151,7 +151,7 @@ def test_fermi_nuclear_model_matches_bspline_engine(Z):
 
     from atomx.methods.dirac_fock import Subshell
     from atomx.numerics.shooting.grid import sgrid
-    from atomx.numerics.shooting.hf_shooting import ShootingHFSolver
+    from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
     from atomx.potentials.nuclear import make_nuclear_potential
 
     r, difr, n = sgrid(75.0, 1.0e-7, 0.5, 1000)

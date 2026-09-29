@@ -59,6 +59,19 @@ class CorrectionResult:
     provenance: Dict[str, Any] = field(default_factory=dict)
 
 
+@dataclass(frozen=True)
+class CorrectionApplication:
+    """Immutable accounting for one post-SCF correction stage."""
+    base_energy: float
+    shifts: tuple[tuple[str, float], ...]
+    skipped: tuple[tuple[str, str], ...] = ()
+    stage: str = 'post_scf'
+
+    @property
+    def total_energy(self):
+        return self.base_energy + sum(shift for _, shift in self.shifts)
+
+
 @runtime_checkable
 class Correction(Protocol):
     """Common interface for a single named physics correction.
@@ -105,4 +118,4 @@ class Correction(Protocol):
         """
 
 
-__all__ = ["Correction", "CorrectionResult"]
+__all__ = ["Correction", "CorrectionResult", "CorrectionApplication"]

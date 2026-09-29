@@ -29,7 +29,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
 from atomx import Atom  # noqa: E402
-from atomx.numerics.shooting.solver import dfs_frozen_orbital  # noqa: E402
+from atomx.numerics.shooting.local import dfs_frozen_orbital  # noqa: E402
 
 
 @pytest.fixture(scope="module")

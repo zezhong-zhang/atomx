@@ -14,7 +14,7 @@ fix it.  ``Atom(grid_hi=..., grid_he=..., grid_hmax=...)`` now forwards to
 :func:`atomx.numerics.bspline.knots.make_physics_knots`; ``hi=0.005,
 he=0.10`` brings the same eigenvalue to **0.24 eV**.
 
-See ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding C3.
+See ``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding C3.
 """
 
 from __future__ import annotations

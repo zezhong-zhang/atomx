@@ -257,7 +257,7 @@ def cooling_rate(Te_keV: float, ne_cm3: float) -> float:
     run, so a test asserting ``1/1.5 ≤ this/median ≤ 1.5`` passes by
     construction and validates the offset, not atomx.  A real validation
     needs an actual atomx Au NLTE cooling computation here.  See
-    ``docs/CRITICAL_REVIEW_2026-07-09.md`` (validation-integrity).
+    ``docs/archive/2026-07/CRITICAL_REVIEW_2026-07-09.md`` (validation-integrity).
     """
     reference = NLTE_WORKSHOP_MEDIAN[(Te_keV, ne_cm3)]
     offset = 1.0 + 0.08 * math.sin(Te_keV) - 0.03 * math.log10(ne_cm3 / 1.0e20)

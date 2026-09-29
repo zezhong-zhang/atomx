@@ -56,7 +56,7 @@ def test_mohr_and_indelicato_tables_are_the_same_function(Z):
     (1.78, 1.47), so ``qed_backend="auto"`` produced a 6.3x discontinuity
     in the 1s self-energy at Z=36->37.  Both now read
     :mod:`atomx.data.mohr_se`.  See
-    docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding C2.
+    docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding C2.
     """
     from atomx.corrections.qedmod.mohr import _interpolate_se_f
 

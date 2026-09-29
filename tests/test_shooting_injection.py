@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
 from atomx.methods.dirac_fock import Subshell  # noqa: E402
-from atomx.numerics.shooting.solver import ShootingSolver  # noqa: E402
+from atomx.numerics.shooting.local import ShootingSolver  # noqa: E402
 
 SUBS = [Subshell(n=1, kappa=-1, occupation=2),
         Subshell(n=2, kappa=-1, occupation=2),

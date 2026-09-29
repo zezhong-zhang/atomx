@@ -15,7 +15,7 @@ compares against a value that does **not** come from this package:
 * the U^91+ 1s shift against an independent evaluation of the same
   integral.
 
-See ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding C1.
+See ``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding C1.
 """
 
 from __future__ import annotations
@@ -125,7 +125,7 @@ class TestPhysicalAnchors:
     """End-to-end shifts against published values."""
 
     def _hydrogenlike_1s(self, Z):
-        from atomx.numerics.analytic.hydrogenic_dirac import (
+        from atomx.methods.hydrogenic_reference import (
             hydrogenic_dirac_wavefunction,
         )
 

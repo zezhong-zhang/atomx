@@ -13,7 +13,7 @@ Before these guards the package could return a *plausible* number with
   ceiling ``-Z/r_max`` (4 % error for H 6s, 31 % for 7s, and the whole
   Na I Rydberg series 9s..13s pinned to a single value).
 
-See ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding C4.
+See ``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding C4.
 """
 
 from __future__ import annotations

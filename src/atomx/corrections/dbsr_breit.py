@@ -16,7 +16,7 @@ from functools import lru_cache
 import numpy as np
 
 from atomx.angular.wigner import wigner_3j
-from atomx.corrections.workspace import eval_orbital_pair, workspace_arrays
+from atomx.numerics.radial_workspace import eval_orbital_pair, workspace_arrays
 
 
 @lru_cache(maxsize=None)
@@ -107,8 +107,8 @@ def compute_dbsr_breit_energy(orbitals, workspace, *, jj_configs=None):
     """Evaluate the DBSR_HF Breit average-energy expression in Hartree.
 
     ``orbitals`` has ``(P,Q,occupation,kappa,label)`` tuples on a B-spline
-    or radial-grid workspace. The radial integrals use atomx's common
-    arbitrary-grid Y^k evaluator; angular and occupation factors match
+    or radial-grid workspace. Ordered radial triangles use native SLAG6 or
+    Gauss-cell partial integrals when available; angular and occupation factors match
     the DBSR_HF Fortran source.
     """
     if sum(float(orb[2]) for orb in orbitals) <= 1 + 1e-10:
@@ -141,11 +141,8 @@ def compute_dbsr_breit_energy(orbitals, workspace, *, jj_configs=None):
         key = (a, b, rank)
         if key not in inner_cache:
             source = density(a, b) * r**rank
-            cumulative = np.empty_like(source)
-            cumulative[0] = 0.0
-            cumulative[1:] = np.cumsum(
-                (source[1:] + source[:-1]) * np.diff(r) / 2)
-            inner_cache[key] = cumulative
+            from atomx.numerics.radial_integration import cumulative_radial_integral
+            inner_cache[key] = cumulative_radial_integral(source, workspace).ravel()
             if len(inner_cache) > 256:
                 inner_cache.popitem(last=False)
         else:

@@ -20,7 +20,7 @@ Z=82" limitation came from: with matched flags today the same row agrees to
 873 eV (0.20 %).  ``--breit/--qed`` default to that matched pair; pass
 ``--no-qed`` to reproduce the old, unmatched convention.
 
-See ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding H1.
+See ``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding H1.
 """
 
 from __future__ import annotations

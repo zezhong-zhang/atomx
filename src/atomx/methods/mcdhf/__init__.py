@@ -31,6 +31,7 @@ from atomx.methods.mcdhf.config import (
 )
 from atomx.methods.mcdhf.matrix import build_ci_matrix
 from atomx.methods.mcdhf.solver import MCDHFResult, MCDHFSolver
+from atomx.numerics.shooting.electron_space import ShootingSpace
 from atomx.types import Correlation, TheoryLevel
 
 
@@ -82,16 +83,16 @@ class MCDHF(Method):
         only so the old numbers stay reproducible.
     bspline_order : int
         B-spline polynomial order (default 9).
+    orbital_preconditioner : {"spectral", "shooting"}
+        Experimental shooting uses radial Green solves to precondition the
+        full correlated gradient, retaining B-spline energy and constraint
+        checks. It does not select the configuration-average shooting engine.
 
     Notes
     -----
-    The frequency-independent **retardation** term (the second half of
-    the Breit interaction, ``+1/2[alpha.alpha/r - (alpha.r)(alpha.r)/r^3]``)
-    is *not* implemented.  It is not silently zeroed: the operator's
-    provenance records it and
-    :data:`atomx.methods.mcdhf.breit_ci.RETARDATION_NOTE` carries its
-    measured size (~1-4 % of the Gaunt total on closed-shell Ne, where
-    DBSR_HF's full Breit is the reference).
+    Full static Breit (Gaunt plus frequency-independent retardation) is
+    applied in RCI after Dirac-Coulomb orbital optimization. Frequency-
+    dependent transverse exchange is not included.
     """
 
     correlation: Correlation = Correlation.SINGLES_DOUBLES
@@ -99,12 +100,17 @@ class MCDHF(Method):
     qed: bool = False
     breit_mode: str = "operator"
     bspline_order: int = 9
+    orbital_preconditioner: str = "spectral"
+    engine: str = "bspline"
+    shooting_space: ShootingSpace | None = None
 
     @property
     def theory_level(self) -> TheoryLevel:
         return TheoryLevel.MCDHF
 
-    def solve(self, Z, config_strings, tol=1e-5, max_iter=40, ns=113, **kwargs):
+    def solve(self, Z, config_strings, tol=1e-5, max_iter=40, ns=113, *,
+              r_max=None, use_physics_grid=True, grid_hi=None, grid_he=None,
+              grid_hmax=None, screening_potential=None):
         """Run MCDHF calculation.
 
         Parameters
@@ -118,11 +124,20 @@ class MCDHF(Method):
         max_iter : int
             Maximum number of MCDHF macro-iterations.
         """
+        if not use_physics_grid and any(
+                value is not None for value in (grid_hi, grid_he, grid_hmax)):
+            raise ValueError('grid shape controls require use_physics_grid=True')
         csfs = make_csf_list(Z, config_strings)
         solver = MCDHFSolver(
             Z=Z, csfs=csfs, ns=ns, ks=self.bspline_order,
             include_breit=self.breit, include_qed=self.qed,
             breit_mode=self.breit_mode,
+            orbital_preconditioner=self.orbital_preconditioner,
+            engine=self.engine, shooting_space=self.shooting_space,
+            nuclear=self.nuclear.value,
+            r_max=r_max, use_physics_grid=use_physics_grid,
+            grid_hi=grid_hi, grid_he=grid_he, grid_hmax=grid_hmax,
+            screening_potential=screening_potential,
         )
         return solver.solve(max_iter=max_iter, scf_tol=tol)
 

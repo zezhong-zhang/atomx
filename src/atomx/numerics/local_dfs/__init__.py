@@ -1,7 +1,7 @@
 """Local Dirac-Fock-Slater SCF support.
 
 Shared glue for :class:`atomx.methods.dirac_fock.DFSolver` and
-:class:`atomx.numerics.shooting.solver.ShootingSolver` when the caller
+:class:`atomx.numerics.shooting.local.ShootingSolver` when the caller
 picks a local-exchange flavour (``exchange='slater'`` or
 ``exchange='gu'``). The core functional lives in
 :mod:`atomx.physics.local_exchange`; this sub-package holds the

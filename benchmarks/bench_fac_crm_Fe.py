@@ -152,7 +152,7 @@ def _reference_balance() -> dict[float, dict[str, np.ndarray]]:
     ion-balance data and (b) a real atomx ``coronal_charge_balance`` run
     with EII/RR/DR rate coefficients per stage.  Until both are wired,
     treat these rows as shape/normalisation fixtures only.  See
-    ``docs/CRITICAL_REVIEW_2026-07-09.md`` (validation-integrity).
+    ``docs/archive/2026-07/CRITICAL_REVIEW_2026-07-09.md`` (validation-integrity).
     """
     centers = {
         0.2: 16.55,
@@ -206,7 +206,7 @@ def line_ratio_rows() -> list[dict[str, float | str | int]]:
     real atomx line-ratio calculation.  A test asserting ``|atomx − bernitt| ≤
     σ`` therefore checks ``|t_term + n_term| ≤ σ`` — it validates the
     fabrication, not atomx.  Needs a real atomx Fe XVII 3C/3D computation.
-    See ``docs/CRITICAL_REVIEW_2026-07-09.md`` (validation-integrity).
+    See ``docs/archive/2026-07/CRITICAL_REVIEW_2026-07-09.md`` (validation-integrity).
     """
     rows: list[dict[str, float | str | int]] = []
     for Te in LINE_TEMPERATURES_EV:

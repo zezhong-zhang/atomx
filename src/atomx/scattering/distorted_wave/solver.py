@@ -508,7 +508,7 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
     # small finite E_out.  This is a deliberate, documented regularisation —
     # it was previously an unexplained literal, so the resulting
     # threshold value cannot be compared with a code that evaluates exactly
-    # at threshold.  See docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md M17.
+    # at threshold.  See docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md M17.
     E_OUT_MIN = 1.0 / HARTREE_EV  # evaluate the threshold point at E_out = 1 eV
 
     # Exact plane-wave Born (GOS) for the high-energy completion: FAC's
@@ -967,7 +967,7 @@ def coulomb_bethe_topup(
         Statistical weight ``2 J_i + 1`` of the *initial* level.  This was
         previously omitted, making the returned top-up low by exactly
         ``g_i`` (a factor 2 for the He-like 1s2 1S0 -> 1s2p 1P1 anchor).
-        See ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding M16.
+        See ``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding M16.
 
     Returns
     -------

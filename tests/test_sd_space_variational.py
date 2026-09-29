@@ -15,7 +15,7 @@ resulting energy moved from already-unphysical to further unphysical:
 The exact non-relativistic ground state of Be is -14.66736 Ha (Drake), so the
 pre-fix SD space sat 0.386 Ha *below* it — impossible for a variational CI in
 a space that contains the singles space.  The exact CI matrix
-(``docs/CORRELATION_SD_RESEARCH_2026-09-20.md`` §8 option A) removed that
+(``docs/archive/2026-09/CORRELATION_SD_RESEARCH_2026-09-20.md`` §8 option A) removed that
 signature: the space now lands 0.048 Ha above the exact bound.
 
 The same fix also removed the *spurious* 84 mHa "correlation" the old kernel
@@ -49,7 +49,7 @@ gate is what let a 0.18 Ha drift in the recorded SD number stay invisible
 (the docstring recorded -14.4369 Ha while the code produced -14.619159 Ha,
 and both satisfy ``E > -14.6674``).
 
-See ``docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` §"Found during
+See ``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` §"Found during
 remediation" and ``docs/test_audit/S2_ci_mcdhf_correlation.md`` F2/F8.
 """
 
@@ -136,7 +136,7 @@ class TestVariationalSanity:
 
         Was a strict xfail: the space returned -15.0536 Ha, 0.386 Ha BELOW
         the exact non-relativistic ground state -14.66736 Ha.  With the
-        exact CI matrix (``docs/CORRELATION_SD_RESEARCH_2026-09-20.md`` §8,
+        exact CI matrix (``docs/archive/2026-09/CORRELATION_SD_RESEARCH_2026-09-20.md`` §8,
         option A) it lands at -14.619159 Ha, inside the window.  The window
         is two-sided: the assertion below fails both for a non-variational
         collapse and for a space that fails to gain anything over the
@@ -175,7 +175,7 @@ class TestVariationalSanity:
 
         Was a strict xfail until 2026-09-20: the 2p sat at the hydrogenic
         Z=4 value -2.0005 Ha, i.e. it felt no electron screening at all
-        (``docs/CORRELATION_SD_RESEARCH_2026-09-20.md`` §3.7).  The
+        (``docs/archive/2026-09/CORRELATION_SD_RESEARCH_2026-09-20.md`` §3.7).  The
         asymmetric spectator mean field (R7, reformed 2026-09-23 to the
         parent-core conditional row) repairs it.
 

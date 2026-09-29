@@ -186,7 +186,7 @@ def test_correction_signs(solved, name):
 def test_schrodinger_shooting_still_skips():
     """Dirac-only corrections must not run on Schrödinger orbitals."""
     from atomx.methods.dirac_fock import Subshell
-    from atomx.numerics.shooting.solver import ShootingSolver
+    from atomx.numerics.shooting.local import ShootingSolver
 
     res = ShootingSolver(
         Z=2, subshells=[Subshell(n=1, kappa=-1, occupation=2)],

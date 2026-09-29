@@ -17,21 +17,18 @@ def to_scf_result(atom_or_result, *, caller: str):
     Parameters
     ----------
     atom_or_result
-        A (possibly unsolved) ``atomx.Atom`` or a converged ``SCFResult``.
+        An explicitly solved ``atomx.Atom`` or a converged ``SCFResult``.
     caller
         Name of the public entry point, used in error messages
         (e.g. ``"compute_pnc()"``).
     """
-    # atomx.Atom high-level wrapper: solve on demand.
+    # Coercion never starts a calculation or chooses its physical model.
     if hasattr(atom_or_result, "_result"):
         if atom_or_result._result is None:
-            if not hasattr(atom_or_result, "solve"):
-                raise TypeError(
-                    f"{caller} expects a solved atomx.Atom or an "
-                    f"SCFResult, got {type(atom_or_result).__name__!r}."
-                )
-            atom_or_result.solve()
-        return atom_or_result._result
+            raise ValueError(f"{caller} requires a solved Atom; call .solve() explicitly first.")
+        atom_or_result = atom_or_result._result
+    if hasattr(atom_or_result, "converged") and not atom_or_result.converged:
+        raise ValueError(f"{caller} requires a converged result.")
     # Bare converged SCFResult.
     if hasattr(atom_or_result, "converged") and hasattr(atom_or_result, "_bsp_data"):
         return atom_or_result

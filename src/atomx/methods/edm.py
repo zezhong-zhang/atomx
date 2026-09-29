@@ -56,8 +56,7 @@ def compute_edm_enhancement(
     Parameters
     ----------
     atom_or_result
-        Either a solved :class:`~atomx.Atom` (``.solve()`` is invoked
-        automatically if it has not been solved yet) or a converged
+        Either an explicitly solved :class:`~atomx.Atom` or a converged
         ``SCFResult``.
     target_subshell
         Subshell label (e.g. ``"6p1/2"``) for which to compute ``R_e``.
@@ -98,5 +97,3 @@ def compute_edm_enhancement(
         e_virt_max=e_virt_max,
         potential_mode=potential_mode,
     )
-
-

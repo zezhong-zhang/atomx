@@ -1,10 +1,10 @@
 """MCDHF structure with constrained radial orbitals and exact jj CI.
 
 The configuration-average DHF iteration supplies an initial orbital set.
-For multiconfiguration B-spline calculations, the final optimization uses
-analytic derivatives of the correlated Dirac–Coulomb CI functional in a
-fixed positive-energy subspace. Explicit frozen-orbital protocols retain
-that choice; the shooting route currently uses the averaged initializer.
+Both radial engines optimize the correlated Dirac–Coulomb CI functional
+in a declared fixed positive-energy subspace. Shooting uses the full grid
+CI derivative and a continuum-enriched electron basis, with no averaged-HF
+initializer. Explicit frozen-orbital protocols remain B-spline options.
 """
 
 from dataclasses import dataclass, field
@@ -15,7 +15,8 @@ from scipy import linalg
 
 from atomx.corrections.qed import DEFAULT_SE_METHOD
 from atomx.methods.ci import ci_solve
-from atomx.methods.dirac_fock import DFSolver, Subshell
+from atomx.methods.dirac_fock import DFSolver
+from atomx.config.subshell import Subshell
 from atomx.methods.mcdhf.config import CSF, get_shared_orbital_basis
 from atomx.methods.mcdhf.matrix import GridCIWorkspace, build_ci_matrix
 from atomx.numerics.bspline.dirac_assembly import canonicalize_radial_phase
@@ -142,7 +143,7 @@ class MCDHFResult:
         """How the Breit interaction entered this result.
 
         ``{}`` when Breit was off.  Otherwise ``mode`` is ``"operator"``
-        (exact Gaunt operator inside every ``(2J, parity)`` CI block) or
+        (full static Breit operator inside every ``(2J, parity)`` CI block) or
         ``"scalar"`` (the comparison-only uniform shift), plus what was
         omitted — see :data:`atomx.methods.mcdhf.breit_ci.RETARDATION_NOTE`.
         """
@@ -195,10 +196,18 @@ class MCDHFResult:
         return CouplingScheme.JJ
 
     @property
+    def radial_state(self):
+        """Owned native radial snapshot for correction and analysis consumers."""
+        from atomx.radial_state import radial_state_of
+        if '_radial_state' not in self.__dict__:
+            self.__dict__['_radial_state'] = radial_state_of(self)
+        return self.__dict__['_radial_state']
+
+    @property
     def waves(self):
         """Build :class:`atomx.results.Waves` for either radial engine."""
         from atomx.methods.dirac_fock import _eval_bspline_on_grid
-        from atomx.results import OrbitalWavefunction, Waves
+        from atomx.results import OrbitalWavefunction, Waves, RadialMetric
         if not self.orbitals_dict:
             return Waves(grid=np.array([]))
 
@@ -232,7 +241,10 @@ class MCDHFResult:
                 occupation=float(self.occupations.get((n, kappa), 0.0)),
                 energy=self.orbital_energies.get(label, 0.0),
                 label=label)
-        return Waves(grid=grid, orbitals=orbitals, basis_type=basis_type)
+        return Waves(grid=grid, orbitals=orbitals, basis_type=basis_type,
+                     metric=(RadialMetric.bspline(self.bsp_data) if self.bsp_data
+                             else RadialMetric.shooting(grid, self._difr)
+                             if self._difr is not None else None))
 
     def excitation_energies(self, unit="hartree"):
         from atomx.constants import HARTREE_CM1, HARTREE_EV
@@ -350,7 +362,8 @@ class MCDHFSolver:
                  breit_mode="operator",
                  screening_potential=None,
                  grid_hi=None, grid_he=None, grid_hmax=None,
-                 variational_projector="nuclear"):
+                 variational_projector="nuclear",
+                 orbital_preconditioner="spectral", shooting_space=None):
         self.Z = Z
         self.csfs = csfs
         self.n_csf = len(csfs)
@@ -441,6 +454,12 @@ class MCDHFSolver:
                 "variational_projector must be 'nuclear' or 'fock', "
                 f"got {variational_projector!r}")
         self.variational_projector = variational_projector
+        if orbital_preconditioner not in ("spectral", "shooting"):
+            raise ValueError("orbital_preconditioner must be 'spectral' or 'shooting'")
+        if orbital_preconditioner == "shooting" and (
+                engine != "bspline" or radial_optimization != "mcdhf"):
+            raise ValueError("shooting preconditioning requires the B-spline correlated optimizer")
+        self.orbital_preconditioner = orbital_preconditioner
         # DODS / EOL per-(J, parity)-block orbital optimisation toggle —
         # HYP-184 scaffold.  When True, ``solve()`` will (eventually)
         # run a separate Guerra-averaged DHF per (J, parity) block on
@@ -463,7 +482,15 @@ class MCDHFSolver:
             raise ValueError(
                 f"engine must be 'bspline' or 'shooting' (got {engine!r})")
         self.engine = engine
+        from atomx.numerics.shooting.electron_space import ShootingSpace
+        if shooting_space is not None and not isinstance(shooting_space, ShootingSpace):
+            raise TypeError('shooting_space must be ShootingSpace')
+        if shooting_space is not None and engine != 'shooting':
+            raise ValueError('shooting_space requires the shooting engine')
+        self.shooting_space = shooting_space or ShootingSpace()
         if engine == "shooting":
+            if variational_projector != 'nuclear':
+                raise ValueError('full shooting MCDHF currently requires the nuclear no-pair projector')
             if self.radial_optimization != "mcdhf":
                 raise ValueError(
                     "radial_optimization='fac_frozen'/'fac_frozen_local' "
@@ -869,6 +896,9 @@ class MCDHFSolver:
         The key improvement: directly uses converged DHF orbitals from
         SCFResult.orbitals_raw, avoiding monkey-patching.
         """
+        if (max_iter < 1 or scf_max_iter < 1 or not np.isfinite(scf_tol)
+                or not np.isfinite(ci_tol) or scf_tol <= 0 or ci_tol <= 0):
+            raise ValueError('iteration limits and convergence tolerances must be positive')
         weights = np.ones(self.n_csf) / self.n_csf
         E_old = 0.0
         E_hist: list = []
@@ -898,7 +928,9 @@ class MCDHFSolver:
         # orbitals without improving the eventual variational solution.
         use_correlated_gradient = (self.radial_optimization == "mcdhf"
                                    and self.engine == "bspline" and self.n_csf > 1)
-        initializer_iterations = min(max_iter, 3) if use_correlated_gradient else max_iter
+        full_grid_gradient = self.engine == 'shooting'
+        initializer_iterations = (0 if full_grid_gradient else
+                                  min(max_iter, 3) if use_correlated_gradient else max_iter)
         for iteration in range(1, initializer_iterations + 1):
             # Step 1: Effective occupations. The default is Guerra Eq 10.
             # ``fac_frozen`` intentionally follows FAC's structure protocol:
@@ -911,234 +943,149 @@ class MCDHFSolver:
                 avg_subshells = self._averaged_subshells(weights)
                 jj_configs = self._jj_configs(avg_subshells, weights)
 
-            if self.engine == "shooting":
-                # Step 2 (shooting): Froese-Fischer non-local HF on the
-                # shooting grid with the SAME fractional occupations and
-                # the Guerra jj_configs pair weights (ShootingHFSolver
-                # mirrors DFSolver's WW(a,b)/q_a Fock conventions).  No
-                # warm-start between outer iterations: the solver exposes
-                # no orbital-seed input — every solve() bootstraps from
-                # its own local-exchange (Gu) starter on a fresh SGRID —
-                # and one inner solve is cheap next to the B-spline path,
-                # so re-solving per outer iteration is acceptable.
-                from atomx.numerics.shooting.hf_shooting import ShootingHFSolver
+            # Step 2: Solve DHF with fractional occupations. Skip
+            # Breit/QED here — they are perturbative in atomx's
+            # DFSolver (do not enter the Fock matrix), so they only
+            # affect the final energy. We compute them ONCE after the
+            # MCDHF outer loop converges.
+            exchange_model = "hf"
+            if self.radial_optimization == "fac_frozen_local":
+                exchange_model = "gu"
 
-                # R7 is only fixed on the B-spline path, which is the one
-                # that consumes the asymmetric mean field
-                # (``_mean_field_matrices`` -> ``DFSolver.mean_field_coeffs``).
-                # ShootingHFSolver builds its Fock operator from the same
-                # symmetric Guerra product, so a target with no Guerra
-                # population would still be solved against a bare nucleus
-                # there.  Refuse that case loudly rather than return
-                # hydrogenic correlation orbitals with converged=True.
-                collapsed = self._collapsed_targets(avg_subshells, weights)
-                if collapsed:
-                    raise NotImplementedError(
-                        "MCDHFSolver(engine='shooting'): Guerra population "
-                        "of " + ", ".join(collapsed) + " is exactly zero, "
-                        "i.e. these are spectator virtuals whose Fock "
-                        "operator has no electron-repulsion term at all. "
-                        "The R7 asymmetric mean field that repairs this is "
-                        "implemented for engine='bspline' only; "
-                        "ShootingHFSolver has no coefficient seam and would "
-                        "return hydrogenic, bare-nucleus orbitals for them."
-                    )
+            kwargs = {}
+            if self.r_min is not None:
+                kwargs["r_min"] = self.r_min
+            if self.r_max is not None:
+                kwargs["r_max"] = self.r_max
 
-                shoot_solver = ShootingHFSolver(
-                    Z=self.Z, subshells=avg_subshells,
-                    nuclear=self.nuclear,
-                    jj_configs=jj_configs,
-                    screening_potential=self.screening_potential,
-                )
-                # tol: the shooting default 1e-7 (per-sweep relative
-                # energy change, 0.5 damping) leaves ~2e-5 Ha SCF
-                # residual — enough to dominate ci-vs-statistical
-                # deltas.  1e-9 keeps the inner functional converged
-                # well below ci_tol.
-                shoot_result = shoot_solver.solve(
-                    max_iter=max(scf_max_iter, 60),
-                    tol=min(scf_tol, 1.0e-9))
-                orbital_energies = shoot_result.orbital_energies
+            # Build Guerra-weighted JJConfig list so DFSolver.compute_WW
+            # realises ϖᵢⱼ = Σⱼ cⱼ² nᵢʲ nⱼʲ — the correct
+            # averaged-monoconfiguration Fock operator (Guerra Eq 10).
+            # In FAC-frozen mode ``jj_configs`` is intentionally ``None``:
+            # DFSolver then uses the tiny virtual occupations in
+            # ``avg_subshells`` directly, matching the FAC-like radial
+            # experiment where excited orbitals are solved but do not
+            # relax the closed core appreciably.
+            #
+            # R7 asymmetric mean field: hand DFSolver the explicit
+            # coefficient matrix (Guerra product, except for targets
+            # whose population has collapsed — those are solved in the
+            # reference configuration's frozen potential).  With
+            # ``jj_configs is None`` (FAC-frozen protocols) the
+            # DFSolver's own q_i*q_j convention already is that frozen
+            # potential, so no seam is supplied.
+            # Supply the asymmetric seam ONLY when a spectator
+            # virtual actually needs it.  With no collapsed target
+            # every row's Guerra arithmetic is already correct, and
+            # handing DFSolver the seam would route those rows through
+            # ``coeffs[i, j] / normalization[i]`` instead of the
+            # historical raw ``WW(i, j)`` — a different normalisation
+            # that cancels for a closed shell (q_i uniform) but does
+            # NOT for an open one.  Measured: He-like
+            # ``Atom(2, config=["1s2", "1s1 2p1"])`` lost three
+            # orders of magnitude of 2p potential that way and the
+            # textbook ``E(1P1) - E(3P1) = 2 G^1(1s,2p)/3`` identity
+            # broke (ratio 1.000 -> 15.054, G^1 0.1405 -> 0.000186 Ha).
+            # Gating on ``_collapsed_targets`` keeps every
+            # non-spectator case bit-identical to the pre-R7 code by
+            # construction rather than by coincidence.
+            mean_field_coeffs = mean_field_norm = None
+            if jj_configs is not None and self._collapsed_targets(
+                    avg_subshells, weights):
+                mean_field_coeffs, mean_field_norm = (
+                    self._mean_field_matrices(
+                        avg_subshells, weights, jj_configs))
 
-                # Step 3: grid orbitals keyed (n, kappa); rows of
-                # _pa/_qa follow the solver's subshell order.  Phase
-                # canonicalisation applies to grid arrays exactly as to
-                # B-spline coefficient vectors (largest-|P| lobe sign).
-                orbitals_dict = {}
-                for i, sh in enumerate(shoot_solver.subshells):
-                    P, Q = canonicalize_radial_phase(
-                        shoot_result._pa[i], shoot_result._qa[i])
-                    orbitals_dict[(sh.n, sh.kappa)] = (P, Q)
+            dhf = DFSolver(
+                Z=self.Z, subshells=avg_subshells,
+                ns=self.ns, ks=self.ks,
+                exchange=exchange_model,
+                include_breit=False, include_qed=False,
+                nuclear=self.nuclear,
+                starting_potential=(self.starting_potential
+                                    or ("tfda" if self.Z >= 20 else None)),
+                jj_configs=jj_configs,
+                mean_field_coeffs=mean_field_coeffs,
+                mean_field_normalization=mean_field_norm,
+                screening_potential=self.screening_potential,
+                **kwargs,
+            )
 
-                if not orbitals_dict:
-                    break  # no orbitals found
+            # Install the DBSR-HF-style semi-exponential physics grid
+            # before _precompute(), so the inner DHF matches the
+            # DFSolver path used for averaging in
+            # {"statistical","equal","fractional"}.
+            if self.use_physics_grid:
+                from atomx.numerics.bspline.basis import prepare_bspline_data
+                from atomx.numerics.bspline.knots import make_physics_knots
+                t_phys, ns_phys = make_physics_knots(
+                    ks=self.ks, Z=self.Z, nuclear=self.nuclear,
+                    r_max=self.r_max, hi=self.grid_hi, he=self.grid_he,
+                    hmax=self.grid_hmax)
+                data = prepare_bspline_data(t_phys, ns_phys, self.ks,
+                                            kinetic_balance=True)
+                dhf.t = t_phys
+                dhf.bsp_data = data
+                dhf.ns = ns_phys
+                dhf.r_max = float(t_phys[-1])
+                dhf.kinetic_balance = True
+                dhf._precompute()
 
-                # Steps 4 + 5: grid-flavour CI.  The workspace carries
-                # the shooting solver's own r*V_nuc and SLAG6 grid, so
-                # the CI kernel evaluates matrix elements with the SAME
-                # numerics as the inner SCF energy functional (the
-                # consistency principle noted in the bspline branch
-                # below).  nuclear_potential/convol_cache stay None —
-                # the workspace owns both roles.
-                grid_ws = GridCIWorkspace.from_shooting(
-                    shoot_solver, shoot_result)
-                ci_res = ci_solve(
-                    self.csfs, orbitals_dict, self.orbital_basis,
-                    grid_ws, self.Z, grid_ws.n,
-                    include_breit=self._breit_in_ci,
-                )
-                # Reporting-only companion solve (no Breit).  Deferred to
-                # the end of ``solve`` so it never runs inside the SCF
-                # loop; the stashed arguments are this iteration's.
-                dc_ci_kwargs = dict(
-                    csfs=self.csfs, orbitals_dict=orbitals_dict,
-                    orbital_basis=self.orbital_basis, bsp_data=grid_ws,
-                    Z=self.Z, ns=grid_ws.n, include_breit=False)
-            else:
-                # Step 2: Solve DHF with fractional occupations. Skip
-                # Breit/QED here — they are perturbative in atomx's
-                # DFSolver (do not enter the Fock matrix), so they only
-                # affect the final energy. We compute them ONCE after the
-                # MCDHF outer loop converges.
-                exchange_model = "hf"
-                if self.radial_optimization == "fac_frozen_local":
-                    exchange_model = "gu"
+            # Warm-start from the previous outer iteration's converged
+            # orbitals. Only applied when the basis dimension matches;
+            # the grid is rebuilt identically each outer iter, so it
+            # does.
+            if seed_orbitals is not None:
+                dhf.seed_orbitals = seed_orbitals
 
-                kwargs = {}
-                if self.r_min is not None:
-                    kwargs["r_min"] = self.r_min
-                if self.r_max is not None:
-                    kwargs["r_max"] = self.r_max
+            if self.radial_optimization in {"fac_frozen", "fac_frozen_local"}:
+                reference_occupations = self._reference_occupations()
+                dhf.virtual_orbital_keys = {key for key in self.orbital_basis
+                                           if reference_occupations.get(key, 0.0) == 0.0}
+            dhf_result = dhf.solve(max_iter=scf_max_iter, tol=scf_tol)
+            inner_converged = bool(dhf_result.converged)
+            inner_residual = float(dhf_result.residual)
+            orbital_energies = dhf_result.orbital_energies
+            # Stash for the next outer iteration
+            seed_orbitals = dhf_result.orbitals_raw
 
-                # Build Guerra-weighted JJConfig list so DFSolver.compute_WW
-                # realises ϖᵢⱼ = Σⱼ cⱼ² nᵢʲ nⱼʲ — the correct
-                # averaged-monoconfiguration Fock operator (Guerra Eq 10).
-                # In FAC-frozen mode ``jj_configs`` is intentionally ``None``:
-                # DFSolver then uses the tiny virtual occupations in
-                # ``avg_subshells`` directly, matching the FAC-like radial
-                # experiment where excited orbitals are solved but do not
-                # relax the closed core appreciably.
-                #
-                # R7 asymmetric mean field: hand DFSolver the explicit
-                # coefficient matrix (Guerra product, except for targets
-                # whose population has collapsed — those are solved in the
-                # reference configuration's frozen potential).  With
-                # ``jj_configs is None`` (FAC-frozen protocols) the
-                # DFSolver's own q_i*q_j convention already is that frozen
-                # potential, so no seam is supplied.
-                # Supply the asymmetric seam ONLY when a spectator
-                # virtual actually needs it.  With no collapsed target
-                # every row's Guerra arithmetic is already correct, and
-                # handing DFSolver the seam would route those rows through
-                # ``coeffs[i, j] / normalization[i]`` instead of the
-                # historical raw ``WW(i, j)`` — a different normalisation
-                # that cancels for a closed shell (q_i uniform) but does
-                # NOT for an open one.  Measured: He-like
-                # ``Atom(2, config=["1s2", "1s1 2p1"])`` lost three
-                # orders of magnitude of 2p potential that way and the
-                # textbook ``E(1P1) - E(3P1) = 2 G^1(1s,2p)/3`` identity
-                # broke (ratio 1.000 -> 15.054, G^1 0.1405 -> 0.000186 Ha).
-                # Gating on ``_collapsed_targets`` keeps every
-                # non-spectator case bit-identical to the pre-R7 code by
-                # construction rather than by coincidence.
-                mean_field_coeffs = mean_field_norm = None
-                if jj_configs is not None and self._collapsed_targets(
-                        avg_subshells, weights):
-                    mean_field_coeffs, mean_field_norm = (
-                        self._mean_field_matrices(
-                            avg_subshells, weights, jj_configs))
+            # Step 3: Extract converged orbitals from SCFResult, keyed
+            # by (n, kappa) via the result's own subshell bookkeeping —
+            # never by positional per-kappa counters (see
+            # SCFResult.orbitals_by_subshell).
+            orbitals_dict = {}
+            for (n, kappa), (P, Q, _occ) in (
+                    dhf_result.orbitals_by_subshell().items()):
+                P, Q = canonicalize_radial_phase(P, Q)
+                orbitals_dict[(n, kappa)] = (P, Q)
 
-                dhf = DFSolver(
-                    Z=self.Z, subshells=avg_subshells,
-                    ns=self.ns, ks=self.ks,
-                    exchange=exchange_model,
-                    include_breit=False, include_qed=False,
-                    nuclear=self.nuclear,
-                    starting_potential=(self.starting_potential
-                                        or ("tfda" if self.Z >= 20 else None)),
-                    jj_configs=jj_configs,
-                    mean_field_coeffs=mean_field_coeffs,
-                    mean_field_normalization=mean_field_norm,
-                    screening_potential=self.screening_potential,
-                    **kwargs,
-                )
+            if not orbitals_dict:
+                break  # no orbitals found
 
-                # Install the DBSR-HF-style semi-exponential physics grid
-                # before _precompute(), so the inner DHF matches the
-                # DFSolver path used for averaging in
-                # {"statistical","equal","fractional"}.
-                if self.use_physics_grid:
-                    from atomx.numerics.bspline.basis import prepare_bspline_data
-                    from atomx.numerics.bspline.knots import make_physics_knots
-                    t_phys, ns_phys = make_physics_knots(
-                        ks=self.ks, Z=self.Z, nuclear=self.nuclear,
-                        r_max=self.r_max, hi=self.grid_hi, he=self.grid_he,
-                        hmax=self.grid_hmax)
-                    data = prepare_bspline_data(t_phys, ns_phys, self.ks,
-                                                kinetic_balance=True)
-                    dhf.t = t_phys
-                    dhf.bsp_data = data
-                    dhf.ns = ns_phys
-                    dhf._precompute()
-
-                # Warm-start from the previous outer iteration's converged
-                # orbitals. Only applied when the basis dimension matches;
-                # the grid is rebuilt identically each outer iter, so it
-                # does.
-                if seed_orbitals is not None:
-                    dhf.seed_orbitals = seed_orbitals
-
-                if self.radial_optimization in {"fac_frozen", "fac_frozen_local"}:
-                    reference_occupations = self._reference_occupations()
-                    dhf.virtual_orbital_keys = {key for key in self.orbital_basis
-                                               if reference_occupations.get(key, 0.0) == 0.0}
-                dhf_result = dhf.solve(max_iter=scf_max_iter, tol=scf_tol)
-                inner_converged = bool(dhf_result.converged)
-                inner_residual = float(dhf_result.residual)
-                orbital_energies = dhf_result.orbital_energies
-                # Stash for the next outer iteration
-                seed_orbitals = dhf_result.orbitals_raw
-
-                # Step 3: Extract converged orbitals from SCFResult, keyed
-                # by (n, kappa) via the result's own subshell bookkeeping —
-                # never by positional per-kappa counters (see
-                # SCFResult.orbitals_by_subshell).
-                orbitals_dict = {}
-                for (n, kappa), (P, Q, _occ) in (
-                        dhf_result.orbitals_by_subshell().items()):
-                    P, Q = canonicalize_radial_phase(P, Q)
-                    orbitals_dict[(n, kappa)] = (P, Q)
-
-                if not orbitals_dict:
-                    break  # no orbitals found
-
-                # Steps 4 + 5: CI matrix build + diagonalise via methods/ci.
-                # Share the inner solver's nuclear potential and
-                # cell-integral cache: CI matrix elements must be evaluated
-                # with the SAME finite-nucleus model and the SAME
-                # (cell-algorithm) Slater integrator as the SCF energy
-                # functional, or the CI total drifts from the DHF total on
-                # identical orbitals (74 Ha at Z=82 with the old
-                # point-nucleus + Y^k-quadrature kernel).
-                ci_res = ci_solve(
-                    self.csfs, orbitals_dict, self.orbital_basis,
-                    dhf.bsp_data, self.Z, dhf.ns,
-                    nuclear_potential=dhf._nuclear_potential,
-                    convol_cache=getattr(dhf, "_convol_cache", None),
-                    include_breit=self._breit_in_ci,
-                )
-                # Reporting-only companion solve (no Breit); see the
-                # shooting branch above.
-                dc_ci_kwargs = dict(
-                    csfs=self.csfs, orbitals_dict=orbitals_dict,
-                    orbital_basis=self.orbital_basis, bsp_data=dhf.bsp_data,
-                    Z=self.Z, ns=dhf.ns,
-                    nuclear_potential=dhf._nuclear_potential,
-                    convol_cache=getattr(dhf, "_convol_cache", None),
-                    include_breit=False)
-            if shoot_result is not None:
-                inner_converged = bool(shoot_result.converged)
-                inner_residual = float(getattr(shoot_result, "residual", float("nan")))
+            # Steps 4 + 5: CI matrix build + diagonalise via methods/ci.
+            # Share the inner solver's nuclear potential and
+            # cell-integral cache: CI matrix elements must be evaluated
+            # with the SAME finite-nucleus model and the SAME
+            # (cell-algorithm) Slater integrator as the SCF energy
+            # functional, or the CI total drifts from the DHF total on
+            # identical orbitals (74 Ha at Z=82 with the old
+            # point-nucleus + Y^k-quadrature kernel).
+            ci_res = ci_solve(
+                self.csfs, orbitals_dict, self.orbital_basis,
+                dhf.bsp_data, self.Z, dhf.ns,
+                nuclear_potential=dhf._nuclear_potential,
+                convol_cache=getattr(dhf, "_convol_cache", None),
+                include_breit=self._breit_in_ci,
+            )
+            # Reporting-only companion solve (no Breit); see the
+            # shooting branch above.
+            dc_ci_kwargs = dict(
+                csfs=self.csfs, orbitals_dict=orbitals_dict,
+                orbital_basis=self.orbital_basis, bsp_data=dhf.bsp_data,
+                Z=self.Z, ns=dhf.ns,
+                nuclear_potential=dhf._nuclear_potential,
+                convol_cache=getattr(dhf, "_convol_cache", None),
+                include_breit=False)
             state_energies = ci_res.state_energies
             mixing = ci_res.mixing_coefficients
 
@@ -1198,6 +1145,21 @@ class MCDHFSolver:
             E_old = E_new
 
         variational_diagnostics = None
+        if full_grid_gradient:
+            from atomx.methods.mcdhf.grid_solver import solve_correlated_shooting
+            orbitals_dict, dc_ci, grid_ws, shoot_result, variational_diagnostics = (
+                solve_correlated_shooting(self, max_iter=32*max_iter, tolerance=scf_tol))
+            converged = bool(variational_diagnostics['converged'])
+            iteration = variational_diagnostics['iterations']
+            inner_converged = None  # no averaged-HF initializer
+            inner_residual = None
+            orbital_energies = shoot_result.orbital_energies
+            dc_ci_kwargs = dict(csfs=self.csfs, orbitals_dict=orbitals_dict,
+                orbital_basis=self.orbital_basis, bsp_data=grid_ws, Z=self.Z,
+                ns=grid_ws.n, include_breit=False)
+            final_ci = (ci_solve(**dict(dc_ci_kwargs, include_breit=True))
+                        if self._breit_in_ci else dc_ci)
+            state_energies, mixing = final_ci.state_energies, final_ci.mixing_coefficients
         if use_correlated_gradient and orbitals_dict:
             from atomx.methods.mcdhf.variational import (
                 CorrelatedOrbitalFunctional,
@@ -1230,7 +1192,8 @@ class MCDHFSolver:
                 functional, orbitals_dict, max_iter=32 * max_iter,
                 tolerance=scf_tol, energy_tolerance=ci_tol,
                 preconditioner_matrices=preconditioners,
-                projector_source=self.variational_projector)
+                projector_source=self.variational_projector,
+                orbital_preconditioner=self.orbital_preconditioner)
             # The initializer's convergence is separately reported. The
             # final CI/orbital stationarity decides the variational result.
             converged = bool(variational_diagnostics["converged"])
@@ -1283,17 +1246,19 @@ class MCDHFSolver:
         if stack is not None and (dhf is not None or shoot_result is not None):
             from atomx.corrections.breit import compute_breit_energy
             # The correction functions are engine-uniform through the
-            # atomx.corrections.workspace seam: B-spline results pass the
+            # atomx.numerics.radial_workspace seam: B-spline results pass the
             # solver's bsp_data, shooting results a radial-grid workspace.
             # The grid flavour slices off the r = 0 origin node (exactly
             # like corrections.adapters._grid_workspace_of) so -Z/r,
             # Uehling and Y^k/r^{k+1} potentials stay finite.
             if self.engine == "shooting":
-                from atomx.corrections.workspace import make_grid_workspace
+                from atomx.numerics.radial_workspace import make_grid_workspace
+                from atomx.numerics.shooting.quadrature import slag6_weights
                 i0 = int(np.searchsorted(shoot_result._grid, 0.0,
                                          side="right"))
                 corr_data = make_grid_workspace(
-                    shoot_result._grid[i0:], shoot_result._difr[i0:])
+                    shoot_result._grid[i0:],
+                    slag6_weights(len(shoot_result._grid))[i0:]*shoot_result._difr[i0:])
             else:
                 i0 = 0
                 corr_data = dhf.bsp_data
@@ -1458,6 +1423,10 @@ class MCDHFSolver:
             _difr=(np.asarray(shoot_result._difr)
                    if shoot_result is not None else None),
         )
+        from atomx.calculation_spec import resolved_solver_spec
+        result.calculation_spec = resolved_solver_spec(self, method='MCDHF', engine=self.engine,
+            controls=dict(max_iter=max_iter, scf_tolerance=scf_tol, ci_tolerance=ci_tol,
+                          scf_max_iter=scf_max_iter))
         result._nuclear_potential = dhf._nuclear_potential if dhf is not None else None
         result.__dict__["_variational_diagnostics"] = variational_diagnostics
         result.__dict__["_radial_optimization"] = self.radial_optimization
@@ -1481,10 +1450,10 @@ class MCDHFSolver:
             if breit_operator_in_ci:
                 result.__dict__["_breit_provenance"] = {
                     "mode": "operator",
-                    "operator": "gaunt-exact-in-blocks",
+                    "operator": "static-breit-gaunt-retardation-in-blocks",
                     "scalar_shift_applied": False,
                     "applied_shift_source": (
-                        "E(CI with Gaunt) − E(CI without Gaunt) on the "
+                        "E(CI with static Breit) − E(CI without Breit) on the "
                         "converged orbitals"
                         if E_Breit_operator is not None
                         else "not measured (per-block orbital sets), so "
@@ -1520,6 +1489,21 @@ class MCDHFSolver:
         if nms_provenance is not None:
             result.__dict__["_nms_state_shifts"] = nms_state_shifts
             result.__dict__["_nms_provenance"] = nms_provenance
+        # Explicit inclusion stages prevent downstream post-SCF stacks from
+        # adding an interaction already present in these state energies.
+        operator_stages = []
+        if self.include_breit:
+            operator_stages.append(('breit', 'ci_hamiltonian' if breit_operator_in_ci
+                                     else 'post_ci_scalar'))
+        for component, operator in (('E_SE', 'self_energy'), ('E_VP', 'uehling_vp'),
+                                    ('E_WK', 'wichmann_kroll_vp')):
+            if component in qed_components:
+                operator_stages.append((operator, 'post_ci_expectation'))
+        if nms_provenance is not None:
+            operator_stages.append(('nms', 'post_ci_expectation'))
+        if sms_provenance is not None:
+            operator_stages.append(('sms', 'post_ci_expectation'))
+        result.operator_stages = tuple(operator_stages)
         return result
 
 
@@ -1743,12 +1727,16 @@ class MCDHFSolver:
                 from atomx.numerics.bspline.basis import prepare_bspline_data
                 from atomx.numerics.bspline.knots import make_physics_knots
                 t_phys, ns_phys = make_physics_knots(
-                    ks=self.ks, Z=self.Z, nuclear=self.nuclear)
+                    ks=self.ks, Z=self.Z, nuclear=self.nuclear,
+                    r_max=self.r_max, hi=self.grid_hi, he=self.grid_he,
+                    hmax=self.grid_hmax)
                 data = prepare_bspline_data(t_phys, ns_phys, self.ks,
                                             kinetic_balance=True)
                 block_dhf.t = t_phys
                 block_dhf.bsp_data = data
                 block_dhf.ns = ns_phys
+                block_dhf.r_max = float(t_phys[-1])
+                block_dhf.kinetic_balance = True
                 block_dhf._precompute()
 
             block_result = block_dhf.solve(max_iter=20, tol=1.0e-5)

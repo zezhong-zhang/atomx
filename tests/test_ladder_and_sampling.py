@@ -98,7 +98,7 @@ def test_ladder_standard_is_nonempty():
 def test_ladder_relativistic_excludes_nonrel_rungs():
     l = Ladder.relativistic()
     types = [type(r).__name__ for r in l]
-    assert "HartreeFock" not in types
+    assert "HartreeFockSlater" not in types
     assert "BreitPauli" not in types
     assert "DiracFock" in types
 
@@ -196,17 +196,17 @@ def test_climb_rungs_reproduce_the_he_reference_energies():
     run = he.climb(through=DiracFock(), sampling=Sampling.quick)
     by_rung = {type(o.rung).__name__: o.total_energy for o in run if o.ok}
     assert set(by_rung) == {
-        "HydrogenicSchrodinger", "HydrogenicDirac", "HartreeFock",
+        "HydrogenicSchrodinger", "HydrogenicDirac", "HartreeFockSlater",
         "BreitPauli", "DiracFock",
     }
 
     # 1. Non-relativistic HF limit of He (Froese Fischer).
-    assert by_rung["HartreeFock"] == pytest.approx(-2.8616799956, abs=1e-6)
+    assert by_rung["HartreeFockSlater"] == pytest.approx(-2.8616799956, abs=1e-6)
     # 2. Variational sandwich for the relativistic rung.
     e_dhf = by_rung["DiracFock"]
-    assert e_dhf < by_rung["HartreeFock"], (
+    assert e_dhf < by_rung["HartreeFockSlater"], (
         "relativity must lower the He ground state: "
-        f"{e_dhf} vs HF {by_rung['HartreeFock']}"
+        f"{e_dhf} vs HF {by_rung['HartreeFockSlater']}"
     )
     assert -2.903724 < e_dhf < -2.8616799956
     # 3. Hydrogenic rungs are non-interacting: -Z^2 = -4 (plus relativity).

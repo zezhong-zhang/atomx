@@ -19,7 +19,7 @@ calculation.  The formulae are the ones tabulated in Cowan,
 Using per-orbital expectation values requires ``Z_eff`` (an effective
 charge screened by the other electrons).  Cowan recommends using the
 nuclear Z unless running a fully relativistic follow-up — see the
-module docstring of :mod:`atomx.methods.relativistic_hf` for the
+module docstring of :mod:`atomx.methods.breit_pauli` for the
 precise choice atomx makes.
 """
 

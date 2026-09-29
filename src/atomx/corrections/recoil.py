@@ -13,7 +13,7 @@ from __future__ import annotations
 import numpy as np
 
 from atomx.constants import C
-from atomx.corrections.workspace import eval_orbital_pair, is_grid_workspace
+from atomx.numerics.radial_workspace import eval_orbital_pair, is_grid_workspace
 
 
 def hydrogenic_mass_remainder(Z: int, n: int, mass: float) -> float:

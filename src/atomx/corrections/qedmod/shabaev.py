@@ -214,7 +214,7 @@ def _hydrogenic_r_exp_integral_dirac_cached(n: int, kappa: int, Z: int) -> float
     Dirac solve on the B-spline basis (first-principles, includes all
     (Zα)² relativistic corrections to the reference density).
     """
-    from atomx.numerics.analytic.hydrogenic_dirac import hydrogenic_r_exp_integral_dirac
+    from atomx.methods.hydrogenic_reference import hydrogenic_r_exp_integral_dirac
     try:
         return hydrogenic_r_exp_integral_dirac(n, kappa, Z)
     except Exception:
@@ -292,7 +292,7 @@ class ShabaevLocalBackend(SEBackend):
         Uses the same quadrature and calibration as ``compute``. The
         nonlocal part of the Shabaev operator remains absent.
         """
-        from atomx.corrections.workspace import eval_orbital_pair, workspace_arrays
+        from atomx.numerics.radial_workspace import eval_orbital_pair, workspace_arrays
 
         gr, grw = workspace_arrays(bsp_data)
         weights = (grw * gr * np.exp(-C * gr)).ravel()
@@ -316,7 +316,7 @@ class ShabaevLocalBackend(SEBackend):
                 "⟨a|r·exp(-r/λ_C)|a⟩ on the radial grid."
             )
 
-        from atomx.corrections.workspace import eval_orbital_pair, workspace_arrays
+        from atomx.numerics.radial_workspace import eval_orbital_pair, workspace_arrays
 
         gr, grw = workspace_arrays(bsp_data)
 

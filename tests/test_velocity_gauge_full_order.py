@@ -22,7 +22,7 @@ from __future__ import annotations
 
 import pytest
 
-from atomx.numerics.analytic.hydrogenic_dirac import hydrogenic_dirac_wavefunction
+from atomx.methods.hydrogenic_reference import hydrogenic_dirac_wavefunction
 from atomx.properties.transitions.angular import angular_eL
 from atomx.properties.transitions.multipole import radial_eL, radial_eL_velocity
 from atomx.properties.transitions.rates import einstein_A_eL

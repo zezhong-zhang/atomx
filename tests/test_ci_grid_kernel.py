@@ -29,7 +29,7 @@ from atomx.methods.mcdhf import matrix as ci_matrix
 from atomx.methods.mcdhf.config import CSF, get_shared_orbital_basis
 from atomx.methods.mcdhf.matrix import GridCIWorkspace, build_ci_matrix
 from atomx.numerics.shooting.grid import sgrid
-from atomx.numerics.shooting.hf_shooting import ShootingHFSolver
+from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
 
 TOTAL_RTOL = 1.0e-6      # gate (a)
 EIGEN_RTOL = 1.0e-5      # gate (b)
@@ -98,7 +98,7 @@ def test_two_electron_assembly_matches_solver(solved):
             *orbitals[(sh.n, sh.kappa)], *orbitals[(sh.n, sh.kappa)],
             sh.kappa, Z, ws, ws.n)
         for sh in subshells)
-    e_j, e_k = solver._two_electron_energy(res._pa, res._qa,
+    e_j, e_k = solver.functional.two_electron_energy(res._pa, res._qa,
                                            ws.r, ws.difr, ws.n)
     e_2e_ci = ci.ground_energy - h_sum
     assert abs(e_2e_ci - (e_j - e_k)) <= 1.0e-8 * abs(e_j - e_k)
