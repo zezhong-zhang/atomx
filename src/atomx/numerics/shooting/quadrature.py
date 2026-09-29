@@ -55,3 +55,40 @@ def slag6(h, y, n):
     s[n - 1] = s[n - 2] + hr * (475.0 * y6 + 1427.0 * y5 - 798.0 * y4
                                   + 482.0 * y3 - 173.0 * y2 + 27.0 * y1)
     return s
+
+
+@nb.njit(cache=True)
+def slag6_adjoint(h, source, n):
+    """Transpose of the *cumulative* SLAG6 map, in O(n) work/storage.
+
+    If C y = slag6(h, y, n), this returns C.T source. The discrete
+    transpose is required when differentiating a quadrature-defined energy;
+    swapping inner/outer densities is not exactly equivalent on the grid.
+    """
+    out = np.zeros(n)
+    tail = np.zeros(n)
+    for i in range(n-1, 0, -1):
+        tail[i] = source[i] + (tail[i+1] if i+1 < n else 0.)
+    if n < 6:
+        for i in range(1, n):
+            out[i-1] += .5*h*tail[i]
+            out[i] += .5*h*tail[i]
+        return out
+    edge1 = np.array([475., 1427., -798., 482., -173., 27.])
+    edge2 = np.array([-27., 637., 1022., -258., 77., -11.])
+    center = np.array([11., -93., 802., 802., -93., 11.])
+    scale = h/1440.
+    for j in range(6):
+        out[j] += scale*(tail[1]*edge1[j] + tail[2]*edge2[j])
+        out[n-1-j] += scale*(tail[n-1]*edge1[j] + tail[n-2]*edge2[j])
+    for i in range(3, n-2):
+        for j in range(6):
+            out[i-3+j] += scale*tail[i]*center[j]
+    return out
+
+
+def slag6_weights(n):
+    """Weights for the final integral, excluding any radial Jacobian."""
+    last = np.zeros(n)
+    last[-1] = 1.
+    return slag6_adjoint(1., last, n)
