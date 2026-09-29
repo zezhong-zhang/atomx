@@ -6,6 +6,54 @@ per-version summary.
 
 ## Unreleased
 
+### Shooting engines and result ownership
+
+Update downstream callers using this table. Repository source, scripts,
+benchmarks and tests now use the canonical paths. No forwarding modules remain
+at the removed locations. Physical contractions previously accessed through HF
+solver private methods now live under `solver.functional`, for example
+`solver.functional.two_electron_energy(...)`.
+
+| Previous import (under `atomx`) | Canonical import |
+|---|---|
+| `methods.shooting_local.ShootingSolver`, `numerics.shooting.solver.ShootingSolver`, or the shooting package export | `atomx.numerics.shooting.local.ShootingSolver` |
+| `methods.shooting_hf.ShootingHFSolver` or `numerics.shooting.hf_shooting.ShootingHFSolver` | `atomx.numerics.shooting.hartree_fock.ShootingHFSolver` |
+| `ShootingResult` through a shooting solver or package | `atomx.results.ShootingResult` |
+| `dfs_frozen_orbital` through the old shooting solver | `atomx.numerics.shooting.local.dfs_frozen_orbital` |
+| Slater integrals and `_yk_over_r` through the shooting solver | `atomx.numerics.shooting.coulomb` |
+| Inhomogeneous orbital helpers through `hf_shooting` | `atomx.numerics.shooting.dirac_orbital` |
+| Homogeneous pair and Green solve through `hf_shooting` | `atomx.numerics.shooting.dirac_green` |
+| `methods.mcdhf.grid_shooting` electron-space builders | `atomx.numerics.shooting.electron_space` |
+| `methods.mcdhf.grid_shooting.optimize_grid_shooting` | `atomx.numerics.shooting.orbital_optimization.optimize_grid_shooting` |
+| `methods.mcdhf.grid_shooting.occupied_1s2_reference_potential` | `atomx.methods.mcdhf.grid_functional.occupied_1s2_reference_potential` |
+| `methods.mcdhf.shooting_preconditioner` | `atomx.numerics.shooting.preconditioner` |
+| `methods.mcdhf.shooting_solver.ShootingSpace` | `atomx.numerics.shooting.electron_space.ShootingSpace` (public `atomx.ShootingSpace` is unchanged) |
+| `methods.mcdhf.shooting_solver.solve_correlated_shooting` | `atomx.methods.mcdhf.grid_solver.solve_correlated_shooting` |
+| `numerics.analytic[.hydrogenic_dirac]` hydrogenic helpers | `atomx.methods.hydrogenic_reference` |
+| `numerics.bspline.continuum.photoionization_cross_section` | `atomx.scattering.photoionization.photoionization_cross_section` |
+
+The old `numerics/analytic` namespace contained numerical B-spline reference
+calculations, not closed-form wavefunctions. Its forwarding files are removed.
+Historical design and audit documents may retain the old paths as evidence of
+the tree they reviewed.
+
+#### Saved results
+
+`ShootingResult` retains its fields, native arrays, metric and physical metadata.
+Schema-1 shooting HDF5 files use a format identifier rather than a Python module
+path, so they require no rewrite. Python pickle import compatibility is not
+provided by this change; the versioned archive is the supported persistence path.
+
+Local Slater results explicitly have no jj configuration ensemble. The archive
+writer and validator now accept that `None` value and preserve it as JSON null;
+previously they attempted to iterate it. Nonlocal HF ensembles continue to be
+validated and preserved for open-shell correction replay.
+
+
+Numerical modules now reject upward imports without compatibility exceptions.
+See [migration verification](archive/2026-09/NUMERICAL_BOUNDARY_MIGRATION_2026-09-29.md).
+
+
 ### The `Atom` constructor is ten arguments (breaking — every call site changes)
 
 `Atom.__init__` used to take 28 flat keyword arguments mixing six unrelated

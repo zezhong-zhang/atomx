@@ -1,6 +1,6 @@
 # Physics and numerical remediation — completed
 
-All twelve reproduced findings in the [baseline review](../PHYSICS_NUMERICS_REVIEW_2026-09-23.md)
+All twelve reproduced findings in the [baseline review](../archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-23.md)
 have been addressed. Independent identities, broad regression coverage and
 measured performance support the changes. The retained model approximations
 and validation boundaries are explicit in [MODEL_LIMITATIONS.md](MODEL_LIMITATIONS.md).

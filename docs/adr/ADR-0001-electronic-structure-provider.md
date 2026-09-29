@@ -6,6 +6,8 @@
 - **Epic:** HYP-902 · **This issue:** HYP-921 (总体设计 + 动态任务图)
 - **Companion:** HYP-905 carries the *field-level* dataclass contract; this ADR is the *systems-level* boundary + capability + DAG layer. HYP-903 (reuse audit) and HYP-906/HYP-922 (research) feed the capability/tolerance tables here — this ADR does **not** duplicate their inventory work, it consumes their conclusions.
 
+> **Implementation status (2026-09-29):** The native provider, shared payload/capability contracts and optional PySCF adapter now exist. The proposed debate/ratification status above is historical governance metadata, not a claim that these interfaces are absent. ABACUS, DeePTB and the complete proposed task graph are not established by these implementations. See [current capabilities](../ARCHITECTURE_CAPABILITIES.md).
+
 > **Scope discipline.** This document is design-only. No business code is written here. All signatures below that reference existing atomx symbols are anchors for the debate, not new API. Where a signature is *proposed*, it is marked **(NEW)**.
 
 ---

@@ -259,7 +259,7 @@ Two further caveats that the numbers above do not convey:
   **≤ 9.6e-4 (0.096 %)**, the worst absolute row being **426 eV at Z = 82**
   (Ar-like Pb).  The previously documented "7 keV at Z=82 (1.6 %)" came from an
   atomx column that had gone stale for five months *and* an unmatched
-  `qed=False`; see `docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md` finding H1.
+  `qed=False`; see `docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md` finding H1.
   `tests/test_fac_structure_snapshot.py` now gates the recorded column.
 * **The CRM/plasma benchmarks** (`bench_fac_crm_*.py`: Au/Fe/W cooling,
   charge-state balance, NLTE-9 ⟨Z⟩) are **synthetic placeholders**, disclosed

@@ -273,7 +273,7 @@ Because the file is honestly named and marked, this is S2 (a tolerance that
 cannot distinguish the physics at issue) rather than S1 — but anyone counting
 this file as FAC coverage is misled. Remediation: E → 1e-6 (0.45 eV),
 A/gauge → 1e-4, `TIMING_MULT` → 1.5 or delete the timing assert, and assert
-`fac_*` once the units/definition mismatch in `docs/CRITICAL_REVIEW_2026-07-09.md`
+`fac_*` once the units/definition mismatch in `docs/archive/2026-07/CRITICAL_REVIEW_2026-07-09.md`
 §V1 is settled.
 
 **12. The advertised Fe XVII 1e-6 A-rate gate is a length check.**

@@ -244,7 +244,7 @@ Measured (reproduced for this audit):
 2.85e-04 (s→g9/2)` against a flat gate of `1e-2` (`:48-110`).  The source
 docstring (`src/atomx/properties/transitions/multipole.py:88-90`) says the two
 forms "produce the *same* Einstein A-coefficient", and the review
-(`docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md:811-813`) quotes −4.7e-11 /
+(`docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md:811-813`) quotes −4.7e-11 /
 +1.1e-10 / −7.0e-7 as the demonstrated level — none of those numbers appear in
 the tests.
 *Remediation:* tighten to `1e-8` for L≤2 and `1e-3` at L=4, with the measured

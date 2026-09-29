@@ -1,58 +1,29 @@
-# atomx Documentation
+# Atomx documentation
 
-## Reviews and audits
+## Current guides
 
-- [Physics & numerics review (2026-09-19)](PHYSICS_NUMERICS_REVIEW_2026-09-19.md)
-  and its [remediation report](PHYSICS_NUMERICS_REVIEW_2026-09-19_FIXES.md)
-- [**`correlation="s"` / `correlation="sd"` audit (2026-09-20)**](CORRELATION_SD_RESEARCH_2026-09-20.md)
-  — root cause of the open N1 finding: `build_ci_matrix` is not a
-  representation of the Hamiltonian on the CSF basis, so the feature is not
-  variational. Includes the m-scheme Slater–Condon CI oracle used as arbiter
-  (`benchmarks/mscheme_ci_reference.py`) — **whose independence was corrected
-  on 2026-09-22**: it shares the angular kernel with the implementation, so it
-  gates the assembly and not the angular algebra. See `VERIFICATION.md`.
-- [Critical review (2026-09-17)](CRITICAL_REVIEW_2026-09-17.md)
-- [FEYNMAN review (2026-07-15)](FEYNMAN_REVIEW_2026-07-15.md)
-- [**Test-suite physics audit (2026-09-22)**](test_audit/README.md) — every one
-  of the 165 test files classified by whether it could detect a wrong physical
-  result (first-principles / external oracle / cross-check / self-regression /
-  tautology / plumbing), with the per-slice scorecard (A+B ranges from 22 % in
-  the public-API slice to 54 % in properties) and the eight cross-cutting
-  failure modes.  Slice reports `test_audit/S1…S7*.md`, remediations
-  `test_audit/S*_remediation.md`.
+- [Architecture](ARCHITECTURE_DESIGN.md): ownership, dependency direction and remaining work.
+- [Capabilities and limits](ARCHITECTURE_CAPABILITIES.md): implemented physics and supported interfaces.
+- [Migration notes](MIGRATION.md): breaking imports, public API changes and saved-data compatibility.
+- [Verification](VERIFICATION.md): scientific claims, reference sources and test gates.
+- [Testing](TESTING.md): test organization and commands.
+- [Repository commands](../scripts/README.md): archive, comparison and ledger tools.
+- [NIST atlas](NIST_SPECTRUM_ATLAS.md): build, inspect and serve the local source archive.
+- [Theory–NIST comparison](THEORY_NIST_COMPARISON.md): state matching, uncertainty and interpretation.
 
-## Verification
+## Design records and evidence
 
-- [Verification claim → gate table](VERIFICATION.md)
-- `benchmarks/EXTERNAL_VERIFICATION.md` — live cross-verification against the
-  codes in `~/code/ASAP`
+- [Electronic-structure provider contract](adr/ADR-0001-electronic-structure-provider.md).
+- [Historical reports](archive/README.md): dated physics investigations and campaign evidence.
+- [Test physics audit](test_audit/README.md): reference independence and coverage assessment.
+- [FAC benchmark report](../benchmarks/REPORT.md).
+- [External verification](../benchmarks/EXTERNAL_VERIFICATION.md).
 
-## Guides
+## Development references
 
-- [Migration Notes](MIGRATION.md) — Version migration notes (e.g., QED backend defaults)
+- [FAC parity plan](plans/FAC_PARITY_IMPLEMENTATION_PLAN.md).
+- [Feature gaps](plans/gaps.md).
+- [Book plan](book/PLAN.md).
 
-## Gallery
-
-Runnable example scripts in `gallery/`:
-
-| Example | Description | Run command |
-|---------|-------------|-------------|
-| [atom_inputs_example.py](gallery/atom_inputs_example.py) | The ten canonical `Atom` arguments, `resolved_inputs`, plasma screening, and the validation errors | `python docs/gallery/atom_inputs_example.py` |
-| [ladder_example.py](gallery/ladder_example.py) | Climb the theory ladder rung-by-rung for Ne | `python docs/gallery/ladder_example.py` |
-| [local_exchange_comparison.py](gallery/local_exchange_comparison.py) | Compare HF vs Slater vs FAC/Gu exchange for Ne | `python docs/gallery/local_exchange_comparison.py` |
-| [radial_orbital_example.py](gallery/radial_orbital_example.py) | Animate Ne 2p3/2 radial wavefunction | `manim -pqh docs/gallery/radial_orbital_example.py NeRadial2p` |
-| [grotrian_example.py](gallery/grotrian_example.py) | Grotrian energy-level diagram with transitions | `manim -pqh docs/gallery/grotrian_example.py HydrogenGrotrian` |
-| [spectrum_example.py](gallery/spectrum_example.py) | Synthetic spectrum build-up animation | `manim -pqh docs/gallery/spectrum_example.py NeSpectrum` |
-
-## Plans
-
-Development and implementation plans:
-
-- [FAC Parity Implementation Plan](plans/FAC_PARITY_IMPLEMENTATION_PLAN.md) — Roadmap for FAC-equivalent physics
-- [FAC Calculator Plan](plans/2026-04-20-fac-calculator.md) — Detailed FAC calculator design
-- [FAC Calibration Findings](plans/2026-04-20-fac-calibration/FINDINGS.md) — Calibration results against FAC reference data
-- [Feature Gaps](plans/gaps.md) — Feature gap analysis
-
-## Benchmarks
-
-See `benchmarks/REPORT.md` for the full FAC parity benchmark report.
+Current guides describe supported code. Historical reports retain the state of
+older source snapshots; their commands and database counts may no longer apply.

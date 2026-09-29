@@ -228,7 +228,7 @@ The practical recipe common to all of them is: constrain the orbital (nodes/mult
 ## 9. Consequences for the atomx review
 
 atomx's `correlation="sd"` returns E = −15.0536 Ha for Be against an exact −14.6674 Ha
-(`docs/PHYSICS_NUMERICS_REVIEW_2026-09-19.md` §N1).
+(`docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md` §N1).
 
 > **Superseded by direct measurement (parent, this session).** My earlier rank-deficiency hypothesis is **ruled
 > out**: the 399 CSFs were counted exhaustively per configuration and are a complete minimal basis of the intended
