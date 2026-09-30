@@ -18,6 +18,8 @@ dedicated job (see ``.github/workflows/test.yml``).
 
 from __future__ import annotations
 
+import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -25,27 +27,66 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
-SCRIPT = ROOT / "scripts" / "check_determinism.py"
+PANEL = """
+import hashlib
+import json
+import sys
+import numpy as np
+from atomx import Atom, Basis, Correlation
+
+cases = [
+    dict(Z=6, engine='shooting'),
+    dict(Z=10, engine='bspline'),
+    dict(Z=4, config=['1s2 2s2', '1s2 2p2'], engine='bspline',
+         correlation=Correlation(averaging='ci'), basis=Basis(ns=45)),
+]
+if sys.argv[1] == 'full':
+    cases += [dict(Z=98, engine='shooting')]
+records = []
+for settings in cases:
+    atom = Atom(**settings).solve()
+    assert atom.converged
+    assert np.isfinite(atom.total_energy)
+    assert all(np.isfinite(value) for value in atom.orbital_energies.values())
+    digest = hashlib.sha256()
+    for label, orbital in sorted(atom.orbitals.items()):
+        digest.update(label.encode())
+        for array in (orbital.P, orbital.Q):
+            if array is not None:
+                assert np.all(np.isfinite(array))
+                digest.update(np.asarray(array).tobytes())
+    records.append(dict(z=atom.Z, result=type(atom.result).__name__,
+        energy=atom.total_energy, orbitals=atom.orbital_energies,
+        wave_sha256=digest.hexdigest()))
+print(json.dumps(records, sort_keys=True))
+"""
 
 
-def _run(*args: str) -> subprocess.CompletedProcess:
-    return subprocess.run(
-        [sys.executable, str(SCRIPT), *args],
-        capture_output=True, text=True, cwd=str(ROOT), timeout=1800,
-    )
+def _run(panel, cache, *, boundscheck=False):
+    env = os.environ.copy()
+    env.update(PYTHONPATH=str(ROOT/'src'), NUMBA_CACHE_DIR=str(cache),
+               NUMBA_BOUNDSCHECK=str(int(boundscheck)),
+               NUMBA_DISABLE_JIT='0', NUMBA_NUM_THREADS='1',
+               OPENBLAS_NUM_THREADS='1', OMP_NUM_THREADS='1', MKL_NUM_THREADS='1')
+    process = subprocess.run([sys.executable, '-c', PANEL, panel],
+        capture_output=True, text=True, cwd=ROOT, env=env, timeout=1800)
+    assert process.returncode == 0, (
+        f'numerical panel failed ({process.returncode}):\n'
+        f'{process.stdout}\n{process.stderr}')
+    return json.loads(process.stdout)
 
 
-def test_panel_is_deterministic_across_processes():
+def test_panel_is_deterministic_across_processes(tmp_path):
     """Identical input must give bit-identical output in fresh processes."""
-    proc = _run("--repeat", "3", "--panel", "quick")
-    assert proc.returncode == 0, (
-        f"determinism gate failed (exit {proc.returncode}):\n"
-        f"{proc.stdout}\n{proc.stderr}"
-    )
+    panel = os.environ.get('ATOMX_TEST_DETERMINISM_PANEL', 'quick')
+    repeats = int(os.environ.get('ATOMX_TEST_DETERMINISM_REPEATS', '3'))
+    assert panel in ('quick', 'full') and repeats >= 2
+    results = [_run(panel, tmp_path/'numba') for _ in range(repeats)]
+    assert all(result == results[0] for result in results[1:])
 
 
 @pytest.mark.slow
-def test_panel_has_no_out_of_bounds_reads():
+def test_panel_has_no_out_of_bounds_reads(tmp_path):
     """Run the panel with NUMBA_BOUNDSCHECK=1 — catches OOB kernel reads.
 
     With bounds checking off such a read returns heap garbage: harmless when
@@ -53,8 +94,4 @@ def test_panel_has_no_out_of_bounds_reads():
     and a poisoned ``nan`` integral otherwise, which is exactly how the
     nondeterministic-NaN bug stayed invisible.
     """
-    proc = _run("--repeat", "1", "--panel", "full", "--boundscheck")
-    assert proc.returncode == 0, (
-        f"bounds-check gate failed (exit {proc.returncode}):\n"
-        f"{proc.stdout}\n{proc.stderr}"
-    )
+    assert len(_run('full', tmp_path/'numba-bounds', boundscheck=True)) == 4

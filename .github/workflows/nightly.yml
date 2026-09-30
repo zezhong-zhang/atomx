@@ -44,6 +44,9 @@ jobs:
       - name: Out-of-bounds read gate (NUMBA_BOUNDSCHECK=1)
         # Deterministic IndexError instead of heap garbage: this is the gate
         # that turns the "nondeterministic NaN" class into a hard failure.
-        run: uv run --python 3.13 python scripts/check_determinism.py --repeat 1 --panel full --boundscheck
+        run: uv run --python 3.13 pytest tests/test_determinism.py::test_panel_has_no_out_of_bounds_reads -q
       - name: Determinism across fresh processes
-        run: uv run --python 3.13 python scripts/check_determinism.py --repeat 12 --panel full
+        env:
+          ATOMX_TEST_DETERMINISM_PANEL: full
+          ATOMX_TEST_DETERMINISM_REPEATS: "12"
+        run: uv run --python 3.13 pytest tests/test_determinism.py::test_panel_is_deterministic_across_processes -q

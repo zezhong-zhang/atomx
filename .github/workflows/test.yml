@@ -57,5 +57,7 @@ jobs:
           NUMBA_NUM_THREADS: "1"
         run: uv run --python ${{ matrix.python-version }} pytest -m "not slow" -q
       - name: Determinism gate (fresh processes, bit-identical results)
-        run: uv run --python ${{ matrix.python-version }} python scripts/check_determinism.py --repeat 4 --panel full
-
+        env:
+          ATOMX_TEST_DETERMINISM_PANEL: full
+          ATOMX_TEST_DETERMINISM_REPEATS: "4"
+        run: uv run --python ${{ matrix.python-version }} pytest tests/test_determinism.py::test_panel_is_deterministic_across_processes -q
