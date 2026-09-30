@@ -6,10 +6,11 @@ HF tail convention is retained as an explicit green_solve option.
 """
 import numpy as np
 from numba import njit
+
 from .constants import SL
-from .dirac_integrator import dinw, doutw, dir_integrate
+from .dirac_integrator import _dir_integrate_into, dinw, doutw
+from .exponential_quadrature import apply_exponential_prefix, exponential_prefix_weights
 from .quadrature import slag6
-from .exponential_quadrature import exponential_prefix_weights, apply_exponential_prefix
 
 _EPS_ODE = 1.e-11
 _BIG = 10**9
@@ -110,10 +111,11 @@ def box_inward(energy, kappa, r, va, vb, vc, vd):
     n = len(r)
     p, q = np.zeros(n), np.zeros(n)
     q[-1] = 1.
+    ca, cb = np.empty(60), np.empty(60)
     for i in range(n-2, 0, -1):
-        pp, qq, log_scale, _, _, _, _ = dir_integrate(
+        pp, qq, log_scale, _, _, _, _ = _dir_integrate_into(
             energy, float(kappa), 1e-11, 0, p[i+1], q[i+1], r[i+1], r[i],
-            va[i], vb[i], vc[i], vd[i])
+            va[i], vb[i], vc[i], vd[i], ca, cb)
         if log_scale > 0:
             factor = np.exp(-log_scale)
             p[i+1:] *= factor
@@ -149,19 +151,20 @@ def scaled_box_pair(energy, kappa, r, va, vb, vc, vd):
     regular, inward = np.zeros((2, n)), np.zeros((2, n))
     lr, li = np.zeros(n), np.zeros(n)
     nodes = 0
+    ca, cb = np.empty(60), np.empty(60)
     for i in range(n-1):
-        p, q, logscale, _, _, count, _ = dir_integrate(energy, float(kappa),
+        p, q, logscale, _, _, count, _ = _dir_integrate_into(energy, float(kappa),
             1e-11, 0, regular[0, i], regular[1, i], r[i], r[i+1],
-            va[i], vb[i], vc[i], vd[i])
+            va[i], vb[i], vc[i], vd[i], ca, cb)
         norm = np.hypot(p, q)
         regular[0, i+1], regular[1, i+1] = p/norm, q/norm
         lr[i+1] = lr[i]+logscale+np.log(norm)
         nodes += count
     inward[1, -1] = 1.
     for i in range(n-2, 0, -1):
-        p, q, logscale, _, _, _, _ = dir_integrate(energy, float(kappa),
+        p, q, logscale, _, _, _, _ = _dir_integrate_into(energy, float(kappa),
             1e-11, 0, inward[0, i+1], inward[1, i+1], r[i+1], r[i],
-            va[i], vb[i], vc[i], vd[i])
+            va[i], vb[i], vc[i], vd[i], ca, cb)
         norm = np.hypot(p, q)
         inward[0, i], inward[1, i] = p/norm, q/norm
         li[i] = li[i+1]+logscale+np.log(norm)

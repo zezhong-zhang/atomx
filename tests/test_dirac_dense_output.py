@@ -160,6 +160,13 @@ def test_zero_middle_interval_is_not_confused_with_regular_origin_boundary():
     assert not ca.any() and not cb.any()
     result = dir_integrate(1., -65., 1e-10, 0, 0., 0., 1., 2., -2., 0., 0., 0.)
     assert result[0] == result[1] == 0. and result[4] == 1
+    # A sweep reuses its series workspace. Earlier coefficients must not
+    # contaminate the zero-state norm or the turning-point coefficient.
+    from atomx.numerics.shooting.dirac_integrator import _dir_integrate_into
+    scratch_p, scratch_q = np.full(60, 17.), np.full(60, float('nan'))
+    reused = _dir_integrate_into(1., -65., 1e-10, 1, 0., 0., 1., 2.,
+                                 -2., 0., 0., 0., scratch_p, scratch_q)
+    assert reused == (0., 0., 0., 0., 1, 0, 0.)
     # P(0)=Q(0)=0 selects a nonzero regular Frobenius solution at the origin.
     assert dir0(*args, 0., 1e-7, -2., 0., 0., 0.)[0] != 0.
 

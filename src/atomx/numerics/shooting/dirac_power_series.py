@@ -36,6 +36,20 @@ def dir0(e, ak, eps, p0, q0, r0, r1, rv0, rv1, rv2, rv3):
     """
     ca = np.zeros(60)
     cb = np.zeros(60)
+    p1, q1, s, t, nsum = _dir0_into(
+        e, ak, eps, p0, q0, r0, r1, rv0, rv1, rv2, rv3, ca, cb)
+    return p1, q1, ca, cb, s, t, nsum
+
+
+@nb.njit(cache=True, nogil=True)
+def _dir0_into(e, ak, eps, p0, q0, r0, r1, rv0, rv1, rv2, rv3, ca, cb):
+    """Write the active series prefix into caller-owned scratch arrays.
+
+    Only coefficients below nsum are valid. Every recurrence coefficient is
+    written before use; the zero-state branch also resets ca[2] for DOUTW's
+    turning-point check. Buffers belong to one propagation call, never a
+    process-global workspace.
+    """
 
     isig = 1
     if ak > 0.0:
@@ -54,7 +68,8 @@ def dir0(e, ak, eps, p0, q0, r0, r1, rv0, rv1, rv2, rv3):
         # report nonconvergence forever. The origin branch remains distinct:
         # it constructs the nonzero regular Frobenius solution from P(0)=Q(0)=0.
         if p0 == 0.0 and q0 == 0.0:
-            return 0.0, 0.0, ca, cb, s, t, 1
+            ca[0], cb[0], ca[2] = 0.0, 0.0, 0.0
+            return 0.0, 0.0, s, t, 1
         rho = h / r0
         u0 = (rv0 + r0 * (rve + r0 * (rv2 + r0 * rv3))) / SL
         u1 = (rve + r0 * (2.0 * rv2 + r0 * 3.0 * rv3)) * h / SL
@@ -105,7 +120,7 @@ def dir0(e, ak, eps, p0, q0, r0, r1, rv0, rv1, rv2, rv3):
             tst = max(abs(p1), abs(q1), abs(pp1), abs(qp1))
             if tst > OVER:
                 nsum = 100
-                return p1, q1, ca, cb, s, t, nsum
+                return p1, q1, s, t, nsum
 
             # Convergence check (Fortran residuals)
             t1a = abs(r1 * pp1 + h * (ak * p1 + uq * q1))
@@ -115,10 +130,10 @@ def dir0(e, ak, eps, p0, q0, r0, r1, rv0, rv1, rv2, rv3):
             tst_conv = eps * max(abs(p1), abs(q1))
             if t1 < tst_conv and t2 < tst_conv:
                 nsum = k + 1
-                return p1, q1, ca, cb, s, t, nsum
+                return p1, q1, s, t, nsum
 
         nsum = 60
-        return p1, q1, ca, cb, s, t, nsum
+        return p1, q1, s, t, nsum
 
     # ===== First interval (r0 < 1e-10) =====
     u0v = rv0 / SL
@@ -175,7 +190,7 @@ def dir0(e, ak, eps, p0, q0, r0, r1, rv0, rv1, rv2, rv3):
             tst = max(abs(p1), abs(q1), abs(pp1), abs(qp1))
             if tst > OVER:
                 nsum = 100
-                return p1, q1, ca, cb, s, t, nsum
+                return p1, q1, s, t, nsum
 
             t1a = abs(r1 * pp1 + h * (ak * p1 + uq * q1))
             t1b = abs(r1 * qp1 - h * (ak * q1 + ut * p1))
@@ -187,12 +202,12 @@ def dir0(e, ak, eps, p0, q0, r0, r1, rv0, rv1, rv2, rv3):
                 # Renormalize (ME-4.39)
                 q1 = q1 / abs(p1)
                 p1 = p1 / abs(p1)
-                return p1, q1, ca, cb, s, t, nsum
+                return p1, q1, s, t, nsum
 
         nsum = 60
         q1 = q1 / abs(p1)
         p1 = p1 / abs(p1)
-        return p1, q1, ca, cb, s, t, nsum
+        return p1, q1, s, t, nsum
 
     # U0 == 0
     if isig > 0:
@@ -235,7 +250,7 @@ def dir0(e, ak, eps, p0, q0, r0, r1, rv0, rv1, rv2, rv3):
             tst = max(abs(p1), abs(q1), abs(pp1), abs(qp1))
             if tst > OVER:
                 nsum = 100
-                return p1, q1, ca, cb, s, t, nsum
+                return p1, q1, s, t, nsum
 
             t1a = abs(r1 * pp1 + h * (ak * p1 + uq * q1))
             t1b = abs(r1 * qp1 - h * (ak * q1 + ut * p1))
@@ -246,12 +261,12 @@ def dir0(e, ak, eps, p0, q0, r0, r1, rv0, rv1, rv2, rv3):
                 nsum = k + 1
                 q1 = q1 / abs(p1)
                 p1 = p1 / abs(p1)
-                return p1, q1, ca, cb, s, t, nsum
+                return p1, q1, s, t, nsum
 
         nsum = 60
         q1 = q1 / abs(p1)
         p1 = p1 / abs(p1)
-        return p1, q1, ca, cb, s, t, nsum
+        return p1, q1, s, t, nsum
 
     else:
         # ===== Case C: U0=0, SIG=-1 (kappa>0) (ME-4.37, ME-4.38) =====
@@ -296,7 +311,7 @@ def dir0(e, ak, eps, p0, q0, r0, r1, rv0, rv1, rv2, rv3):
             tst = max(abs(p1), abs(q1), abs(pp1), abs(qp1))
             if tst > OVER:
                 nsum = 100
-                return p1, q1, ca, cb, s, t, nsum
+                return p1, q1, s, t, nsum
 
             t1a = abs(r1 * pp1 + h * (ak * p1 + uq * q1))
             t1b = abs(r1 * qp1 - h * (ak * q1 + ut * p1))
@@ -307,9 +322,9 @@ def dir0(e, ak, eps, p0, q0, r0, r1, rv0, rv1, rv2, rv3):
                 nsum = k + 1
                 q1 = q1 / abs(p1)
                 p1 = p1 / abs(p1)
-                return p1, q1, ca, cb, s, t, nsum
+                return p1, q1, s, t, nsum
 
         nsum = 60
         q1 = q1 / abs(p1)
         p1 = p1 / abs(p1)
-        return p1, q1, ca, cb, s, t, nsum
+        return p1, q1, s, t, nsum

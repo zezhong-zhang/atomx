@@ -6,9 +6,10 @@ Translates radial.f DIR (line 2118), DOUTW (line 1733), DINW (line 1808).
 import math
 
 import numba as nb
+import numpy as np
 
 from atomx.numerics.shooting.constants import SL
-from atomx.numerics.shooting.dirac_power_series import dir0
+from atomx.numerics.shooting.dirac_power_series import _dir0_into
 
 
 @nb.njit(cache=True, nogil=True)
@@ -33,6 +34,15 @@ def dir_integrate(e, ak, eps, isum, ppi, qqi, ra, rb,
                 heavy-Z 1s / 2p₁/₂ orbitals where successive grid values are
                 very close in magnitude).
     """
+    ca, cb = np.empty(60), np.empty(60)
+    return _dir_integrate_into(e, ak, eps, isum, ppi, qqi, ra, rb,
+                               rv0, rv1, rv2, rv3, ca, cb)
+
+
+@nb.njit(cache=True, nogil=True)
+def _dir_integrate_into(e, ak, eps, isum, ppi, qqi, ra, rb,
+                        rv0, rv1, rv2, rv3, ca, cb):
+    """Adaptive DIR propagation using buffers owned by its radial sweep."""
     nchs = 0
     rln = 0.0
     rsum = 0.0
@@ -63,8 +73,8 @@ def dir_integrate(e, ak, eps, isum, ppi, qqi, ra, rb,
             if r1 == r0 and rb != r0:
                 raise FloatingPointError('Dirac integration step cannot advance at machine precision')
 
-            p1, q1, ca, cb, s, t, nsum = dir0(
-                e, ak, eps, p0, q0, r0, r1, rv0, rv1, rv2, rv3)
+            p1, q1, s, t, nsum = _dir0_into(
+                e, ak, eps, p0, q0, r0, r1, rv0, rv1, rv2, rv3, ca, cb)
             hp = h
 
             k_ctrl += 1
@@ -158,6 +168,7 @@ def doutw(e, eps, ak, nr, iotp_in, isum,
     qt[0] = 0.0
     sumout = 0.0
 
+    ca, cb = np.empty(60), np.empty(60)
     for i in range(n1 - 1):
         ra = r[i]
         rb = r[i + 1]
@@ -169,8 +180,8 @@ def doutw(e, eps, ak, nr, iotp_in, isum,
         ppi = pt[i]
         qqi = qt[i]
 
-        pf, qf, rln_val, rsum_val, nstep, nchs, ca2 = dir_integrate(
-            e, ak, eps, isum, ppi, qqi, ra, rb, rv0, rv1, rv2, rv3)
+        pf, qf, rln_val, rsum_val, nstep, nchs, ca2 = _dir_integrate_into(
+            e, ak, eps, isum, ppi, qqi, ra, rb, rv0, rv1, rv2, rv3, ca, cb)
 
         nzero += nchs
         if nchs > nzmax:
@@ -286,6 +297,7 @@ def dinw(e, eps, ak, iotp, isum,
     sumin = 0.0
     n1_range = ilast - iotp
 
+    ca, cb = np.empty(60), np.empty(60)
     for j in range(1, n1_range + 1):
         i = ilast - j  # Goes from ilast-1 down to iotp
         i1 = i + 1
@@ -299,8 +311,8 @@ def dinw(e, eps, ak, iotp, isum,
         ppi = pt[i1]
         qqi = qt[i1]
 
-        pf, qf, rln_val, rsum_val, nstep, nchs, ca2 = dir_integrate(
-            e, ak, eps, isum, ppi, qqi, ra, rb, rv0, rv1, rv2, rv3)
+        pf, qf, rln_val, rsum_val, nstep, nchs, ca2 = _dir_integrate_into(
+            e, ak, eps, isum, ppi, qqi, ra, rb, rv0, rv1, rv2, rv3, ca, cb)
 
         pt[i] = pf
         qt[i] = qf
