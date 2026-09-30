@@ -24,6 +24,7 @@ exist; removed campaigns do not leave skipped or failing test placeholders.
 | Public requests and physical identity | `test_architecture_scientific_fidelity.py`, `test_method_request_controls.py` |
 | Shooting HF, open shells and constraints | `test_shooting_hf.py`, `test_shooting_guerra.py`, `test_shooting_open_shell_constraints.py` |
 | Radial branch identity | `test_dhf_radial_identity.py`, `test_shooting_core_hole_stationarity.py` |
+| Dirac radial operator accuracy | `test_shooting_radial_operators.py`: analytic moments, boundary stencils, symmetry and refinement |
 | Electron projector and correlated gradient | `test_shooting_electron_reference.py`, `test_shooting_correlated_grid.py` |
 | Projection between radial representations | `test_shooting_seed.py` |
 | Checkpoints and correction replay | `test_shooting_result_persistence.py`, `test_scfresult_save_load.py`, `test_correction_application_contract.py` |

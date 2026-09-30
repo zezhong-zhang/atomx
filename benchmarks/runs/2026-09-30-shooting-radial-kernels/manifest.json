@@ -1,0 +1,35 @@
+{
+  "baseline_commit": "94d7592",
+  "source_sha256": {
+    "src/atomx/numerics/shooting/operators.py": "50f2028120d07efc80b26f127f12cff6720a6510dcbd5d99b3457ac125a0934d",
+    "src/atomx/numerics/shooting/dirac_green.py": "ae6cccfed933f099cc8af2b3f306a28a5d385bcce6755ccab1f3697d9ddb364b",
+    "tests/test_shooting_radial_operators.py": "477fafe08bddb724899de8737639fbe1c297fd104603a6c856ff47b0afb3621a",
+    "benchmarks/bench_df_solver.py": "e42e1d447d03294f6efba0f4e3e09c7c31bb17899be98c6b2daa9a8a13db23a8",
+    "benchmarks/bench_shooting_radial_kernels.py": "61aa8e508e8109f015d936bf688caaddfd425996de8a61583bb41b9e46b4ece3",
+    "benchmarks/bench_shooting_observables.py": "d521c237f4afd3df0db561181b5924679218895be054e4fc977349c5d9b256b7",
+    "benchmarks/runs/2026-09-30-shooting-radial-kernels/summarize.py": "7853fdc33dd5c12a78a6fbc54b1c9afa3f2868e641ef80f12efa6ff2e7fabc02"
+  },
+  "raw_sha256": {
+    "raw/determinism.log": "61b7c9aa0a0b8437c74ac5370d5edb8c2e7bc90e6a2bd64c5b331f90c42f0968",
+    "raw/determinism.xml": "b8be8c4063ea773657ab2f73e08613df916f9c29fe791e199a7e4e60f1407944",
+    "raw/df-after-0/results.json": "2ce3fe4fe444ba150ad073f4eb16ca7d4e83231311f232dcdd95748ad6b815dd",
+    "raw/df-after-1/results.json": "c51c69aeaa9a44a854b58ae6e3515d4ac82d9d951cb16a15c0941d7d104dbcfd",
+    "raw/df-before-0/results.json": "c42fa984499f807194648cd3afe4cbb804ef652750b0415fd9bed8cf8f7d4846",
+    "raw/df-before-1/results.json": "75742d3b63447834cc559b58fa00986ca8b107f221cc1f7a794e465880b6d052",
+    "raw/kernels-after/outputs.npz": "f5815070f3b1d7b57687a36d6b1fdd6cda1bcf740cd38e8da443b3ee7e379535",
+    "raw/kernels-after/results.json": "908518ca3c47160f995305bec98882b54883dfa014113b681262a5a15a987dbc",
+    "raw/kernels-before/outputs.npz": "200706039212eab3ac55244dd846d66206b27fa0eeb2d5cdc871227aefea875a",
+    "raw/kernels-before/results.json": "4f6340459d67eaff883b4eb8a665ba2bcd42ba4d9b19a44483f88fbfcb3bf072",
+    "raw/numerics.log": "51c43ba7562ea4694b3487367ada76640ee7e5c925d55b71aeb540f31587077e",
+    "raw/numerics.xml": "906139258647efd48953658c79d066d5bf50db1e858a69bff65d4d7807b21e37",
+    "raw/observables-after/arrays.npz": "542fca80dfa14bd35e6bf6d3899b0765613758bc3d125b51aca089f57e70c585",
+    "raw/observables-after/results.json": "ca18b901ac1fadc7548d3be27c6952e4f40f28d76e28295ad0062b5a0a6c092e",
+    "raw/observables-before/arrays.npz": "542fca80dfa14bd35e6bf6d3899b0765613758bc3d125b51aca089f57e70c585",
+    "raw/observables-before/results.json": "5876d2098462ee3a153ac77e8bea18ee6039b491cfcef8c0164c8c0c3e137735",
+    "raw/profile-before/Z10-0.prof": "5d09b29380b6a38a1525e2c5d4c685fd6a9957f2f85279ee483544e40ec8a77b",
+    "raw/profile-before/Z10-1.prof": "12eb023e6cd77f2dfd1b4ac80ae205999197b8f97e125b227cc6307f2acf64cb",
+    "raw/profile-before/Z98-0.prof": "3b09dd1de344698e6235473a343741869917c6e348daa1dc8e61031a6c49ac55",
+    "raw/profile-before/Z98-1.prof": "aab6a0f09a98a3e3694daccd607c9bbaa29ee6cbee7bf9f2cc90284b8dfb382d",
+    "raw/profile-before/results.json": "eebc7ba201e9561ce48453b0aad770055493617c34c50cce45d00612474f5ced"
+  }
+}

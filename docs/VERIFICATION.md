@@ -1342,3 +1342,25 @@ are retained in
 [`2026-09-30-shooting-moments`](../benchmarks/runs/2026-09-30-shooting-moments/README.md).
 The [controls documentation](DF_SOLVER_CONTROLS.md#analytic-exponential-moments-in-shooting-source-integration)
 separates performance measurements from remaining physics and API gaps.
+
+## Compiled shooting radial operators (30 September 2026)
+
+The derivative stencils, symmetric Dirac energy contraction and prepared
+full-box Green action now execute through compiled numerical kernels.
+Arithmetic order, SLAG6 integration, physical corrections and root stopping
+criteria are retained. The measured warm C/Ne/Xe/Cf solve reductions are
+8–11%, with identical total/orbital energies and iteration counts. These
+measurements exclude imports, constructors and each process's first solve.
+
+The final focused verification passes 271 numerical/physics/architecture
+tests plus two full-panel reproducibility/bounds tests. New independent
+analytic controls check boundary stencils, Dirac radial moments and refinement.
+All 26 saved observable arrays, continuum phases and seven photon-transition
+records are bit-identical to the baseline. Collision controls use explicitly
+selected B-spline bound states and shooting continua; they do not establish
+native bound-state collision API support or channel-space convergence.
+
+See [the radial operator review](../benchmarks/runs/2026-09-30-shooting-radial-kernels/README.md)
+for matched timings, source/output hashes, profiling evidence and requirements
+for safe sparse contraction and field reuse. This is focused verification;
+the existing full-suite issues reported above were not re-audited.
