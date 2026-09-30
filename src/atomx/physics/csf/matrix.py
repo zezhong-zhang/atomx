@@ -487,7 +487,7 @@ def _norm_sq(P, Q, kappa, Z, bsp_data, ns):
 def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
                     nuclear_potential=None, convol_cache=None,
                     max_determinants=None, include_breit=False, as_operator=False,
-                    *, breit_orbital_energies=None):
+                    *, breit_orbital_energies=None, one_body_shifts=None):
     """Build the exact CI Hamiltonian matrix H_{rs} in the CSF basis.
 
     ``H[r, s]`` is the true expectation value ``<CSF_r|H|CSF_s>`` of the
@@ -586,6 +586,22 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
         max_determinants = MAX_BLOCK_DETERMINANTS
     evaluate = _radial_evaluator(orbitals_dict, bsp_data, Z, ns,
                                  nuclear_potential=nuclear_potential)
+    if one_body_shifts:
+        # CI+MBPT Σ⁽¹⁾ injection: add a diagonal effective one-body shift
+        # <a|h_D + Σ₁|a> = <a|h_D|a> + Δε_a for each listed orbital.  The
+        # determinant/CSF projection machinery then places the shift on
+        # every occupied occurrence of the orbital with the correct
+        # one-body density weights, including between-CSF elements.
+        _base_evaluate = evaluate
+
+        def evaluate(key):  # noqa: F811 — deliberate narrow shadow
+            value = _base_evaluate(key)
+            if key[0] == "h":
+                _, n_a, kappa, n_c = key
+                if n_a == n_c and (n_a, kappa) in one_body_shifts:
+                    value = value + one_body_shifts[(n_a, kappa)]
+            return value
+
     breit_evaluate = (_breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns,
                                            orbital_energies=breit_orbital_energies)
                       if include_breit else None)

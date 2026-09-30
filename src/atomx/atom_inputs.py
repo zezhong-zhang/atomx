@@ -380,6 +380,12 @@ class Correlation:
         Numerical update for the B-spline correlated optimizer. Experimental
         ``"shooting"`` uses a two-sided radial kinetic Green inverse; the
         full CI functional and spectral convergence test are unchanged.
+    max_determinants : int, optional
+        Cap on the raw determinant dimension of each ``(2J, parity)``
+        exact-CI block.  ``None`` (default) keeps the conservative
+        built-in cap (2000); raise it when a valence-correlation
+        expansion (e.g. lanthanide ``4f`` + singles) legitimately
+        exceeds it.  Block build cost grows ~quadratically.
     """
 
     expansion: Optional[str] = None
@@ -388,6 +394,7 @@ class Correlation:
     j_resolved_csfs: bool = False
     per_block_orbital_sets: bool = False
     orbital_preconditioner: str = "spectral"
+    max_determinants: Optional[int] = None
 
     def __post_init__(self):
         if self.orbital_preconditioner not in ("spectral", "shooting"):

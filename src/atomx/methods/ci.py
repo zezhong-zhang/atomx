@@ -71,6 +71,8 @@ def ci_solve(
     convol_cache=None,
     include_breit=False,
     breit_orbital_energies=None,
+    max_determinants: int | None = None,
+    one_body_shifts: dict | None = None,
 ) -> CIResult:
     """Build the CI matrix and diagonalise it.
 
@@ -129,6 +131,13 @@ def ci_solve(
         finite-frequency transverse operator, averaging the two vertex
         frequencies. These orbital energies stay fixed during CI;
         assigning them to correlation orbitals is a model choice.
+    max_determinants
+        Cap on the raw determinant dimension of each ``(2J, parity)``
+        CI block (default ``None`` = :data:`MAX_BLOCK_DETERMINANTS`,
+        2000).  Raise it for valence-correlation spaces whose exact
+        determinant expansion exceeds the conservative default; the
+        block build cost grows ~quadratically in the number of
+        determinant pairs.
 
     Returns
     -------
@@ -149,6 +158,8 @@ def ci_solve(
                            convol_cache=convol_cache,
                            include_breit=include_breit,
                            breit_orbital_energies=breit_orbital_energies,
+                           max_determinants=max_determinants,
+                           one_body_shifts=one_body_shifts,
                            as_operator=(solver == "davidson"))
     groups = _group_csfs_by_J_parity(csfs) or [((0, 1), list(range(n)))]
     if hasattr(H_ci, "blocks"):

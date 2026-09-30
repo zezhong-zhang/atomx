@@ -581,6 +581,7 @@ class Atom:
             correlation_spec.per_block_orbital_sets)
         self.radial_optimization = correlation_spec.radial_optimization
         self.orbital_preconditioner = correlation_spec.orbital_preconditioner
+        self.max_determinants = correlation_spec.max_determinants
         # Both flags are read only by the multi-configuration branch of
         # solve(); with a single configuration they have nothing to act on
         # and used to be dropped in silence.
@@ -944,6 +945,7 @@ class Atom:
                 per_block_orbital_sets=self.per_block_orbital_sets,
                 radial_optimization=self.radial_optimization,
                 orbital_preconditioner=self.orbital_preconditioner,
+                max_determinants=self.max_determinants,
                 engine=self.engine,
                 shooting_space=self.shooting_space,
                 screening_potential=self._screening_shift(),

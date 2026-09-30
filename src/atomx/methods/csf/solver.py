@@ -405,7 +405,8 @@ class VariationalCSFSolver:
                  screening_potential=None,
                  grid_hi=None, grid_he=None, grid_hmax=None,
                  variational_projector="nuclear",
-                 orbital_preconditioner="spectral", shooting_space=None):
+                 orbital_preconditioner="spectral", shooting_space=None,
+                 max_determinants=None):
         self.Z = Z
         self.csfs = csfs
         self.n_csf = len(csfs)
@@ -459,6 +460,10 @@ class VariationalCSFSolver:
         self.screening_potential = screening_potential
         self.orbital_basis = get_shared_orbital_basis(csfs)
         self.breit_orbital_energies = None
+        # Exact-CI determinant cap per (2J, parity) block.  None keeps
+        # the conservative MAX_BLOCK_DETERMINANTS default; raise it for
+        # valence-correlation spaces (e.g. lanthanide 4f^n + singles).
+        self.max_determinants = max_determinants
         if (self.correction_stack is not None
                 and self.correction_stack.breit_frequency == 'orbital_differences'):
             if self.breit_mode != 'operator':
@@ -1118,6 +1123,7 @@ class VariationalCSFSolver:
                 convol_cache=getattr(dhf, "_convol_cache", None),
                 include_breit=self._breit_in_ci,
                 breit_orbital_energies=self.breit_orbital_energies,
+                max_determinants=self.max_determinants,
             )
             # Reporting-only companion solve (no Breit); see the
             # shooting branch above.
@@ -1127,7 +1133,8 @@ class VariationalCSFSolver:
                 Z=self.Z, ns=dhf.ns,
                 nuclear_potential=dhf._nuclear_potential,
                 convol_cache=getattr(dhf, "_convol_cache", None),
-                include_breit=False)
+                include_breit=False,
+                max_determinants=self.max_determinants)
             state_energies = ci_res.state_energies
             mixing = ci_res.mixing_coefficients
 
@@ -1649,6 +1656,7 @@ class VariationalCSFSolver:
                 convol_cache=convol_cache,
                 include_breit=self._breit_in_ci,
                 breit_orbital_energies=self.breit_orbital_energies,
+                max_determinants=self.max_determinants,
             )
             vals, vecs = linalg.eigh(H)
             count = min(len(state_indices), len(vals))
