@@ -3,8 +3,9 @@ import numpy as np
 import pytest
 
 from atomx.numerics.shooting.preconditioner import RadialGreen
-from atomx.methods.mcdhf.variational import CorrelatedOrbitalFunctional, optimize_orbitals
-from atomx.methods.mcdhf.config import enumerate_jj_csfs
+from atomx.numerics.bspline.orbital_optimization import optimize_orbitals
+from atomx.methods.csf.variational import CSFOrbitalFunctional
+from atomx.config.csf import enumerate_jj_csfs
 from atomx.numerics.bspline.basis import prepare_bspline_data
 from atomx.numerics.bspline.knots import make_knots
 from atomx.numerics.bspline.dirac_assembly import solve_dirac
@@ -85,7 +86,7 @@ def helium_problem():
     data = prepare_bspline_data(make_knots(35, 9, .005, 30), 35, 9)
     csfs = [c for cfg in ('1s2', '2s2', '2p2')
             for c in enumerate_jj_csfs(cfg) if c.total_J2 == 0 and c.parity == 1]
-    functional = CorrelatedOrbitalFunctional(csfs, data, 2)
+    functional = CSFOrbitalFunctional(csfs, data, 2)
     orbitals = {}
     for kappa in functional.metric:
         spec = solve_dirac(functional.one_body[kappa], functional.metric[kappa], 35, kappa)

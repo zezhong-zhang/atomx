@@ -20,6 +20,11 @@ def optimize_grid_shooting(functional, orbitals, electron_space, response_energi
     requires a measured decrease of the projected gradient norm; the final
     residual tolerance is never relaxed. Such steps are recorded explicitly.
 
+    Secants, constraints, and line searches use orthonormal electron-basis
+    coefficients. Only physical functional and Green evaluations use radial
+    arrays. This is algebraically the same fixed-space minimization and
+    prevents floating-point secant amplification outside the electron space.
+
     This is an experimental building block, not the default public engine.
     It needs a supplied, independently validated electron space; constructing
     a sufficiently complete all-element space is not implemented here.
@@ -33,23 +38,62 @@ def optimize_grid_shooting(functional, orbitals, electron_space, response_energi
         raise ValueError('electron space is missing an active kappa')
     if set(response_energies) != set(keys):
         raise ValueError('provide one response energy for every active orbital')
-    waves = functional.retract({k: electron_space.project(np.asarray(orbitals[k]), k[1]) for k in keys})
+    groups = {kappa: [k for k in keys if k[1] == kappa] for kappa in {k[1] for k in keys}}
+
+    def analyze(vectors):
+        result = {}
+        for kappa, group in groups.items():
+            block = electron_space.analyze(np.array([vectors[k] for k in group]), kappa)
+            result.update(zip(group, block, strict=True))
+        return result
+
+    def expand(coefficients):
+        result = {}
+        for kappa, group in groups.items():
+            block = electron_space.synthesize(np.array([coefficients[k] for k in group]), kappa)
+            result.update(zip(group, block, strict=True))
+        return result
+
+    def retract(coefficients):
+        result = {}
+        for group in groups.values():
+            block = np.array([coefficients[k] for k in group])
+            values, vectors = np.linalg.eigh(block @ block.T)
+            if values.min() <= 1e-14:
+                raise ValueError('rank-deficient electron-space orbital trial')
+            block = ((vectors/np.sqrt(values)) @ vectors.T) @ block
+            result.update(zip(group, block, strict=True))
+        return result
+
+    def tangent(point, vector):
+        result = {}
+        for group in groups.values():
+            x = np.array([point[k] for k in group])
+            g = np.array([vector[k] for k in group])
+            cross = g @ x.T
+            block = g-.5*(cross+cross.T) @ x
+            result.update(zip(group, block, strict=True))
+        return result
+
+    def gradient_at(point, derivative):
+        # dE/d(radial samples) is a coordinate derivative. Analyze its
+        # Riesz representative once; all secants and constraint operations
+        # then stay in the orthonormal electron basis by construction.
+        return tangent(point, analyze({k: derivative[k]/weight for k in keys}))
+
+    point = retract(analyze(orbitals))
+    waves = expand(point)
     reference_rv = getattr(electron_space, 'reference_rv', ws.rv_nuc)
     response_problem = ShootingRadialProblem(ws.r, ws.difr, reference_rv)
-    responses = {k: DiracResponse(response_energies[k], k[1], response_problem,
+    responses = {k: DiracResponse(response_energies[k], k[1],
+                                  response_problem,
                                   boundary='box')
                  for k in keys}
-    groups = {kappa: [k for k in keys if k[1] == kappa] for kappa in {k[1] for k in keys}}
     history, fallbacks = [], []
     secants = []
-    previous_waves = previous_gradient = None
+    previous_point = previous_gradient = None
     def dot(a, b):
-        return sum(float(np.sum(a[k]*b[k]*weight)) for k in keys)
-    def tangent(point, vector):
-        # Transport/large secant coefficients can amplify roundoff outside
-        # the fixed no-pair range. Re-project before every tangent action.
-        return functional.constrained_residual(point, {
-            k: electron_space.project(vector[k], k[1])*weight for k in keys})[0]
+        return sum(float(a[k] @ b[k]) for k in keys)
     energy, derivative, ci = functional.evaluate(waves)
     history.append(energy)
     converged = False
@@ -58,9 +102,8 @@ def optimize_grid_shooting(functional, orbitals, electron_space, response_energi
     worst_constraint = 0.
     roundoff_acceptances = 0
     for iteration in range(max_iter+1):
-        projected = {k: electron_space.project(derivative[k]/weight, k[1])*weight for k in keys}
-        gradient, multipliers = functional.constrained_residual(waves, projected)
-        residual = float(np.sqrt(sum(np.sum(g*g*weight) for g in gradient.values())))
+        gradient = gradient_at(point, derivative)
+        residual = float(np.sqrt(dot(gradient, gradient)))
         if progress_callback is not None:
             progress_callback(iteration, waves, ci, {'energy_ha': energy, 'orbital_residual': residual})
         if residual < tolerance:
@@ -68,16 +111,16 @@ def optimize_grid_shooting(functional, orbitals, electron_space, response_energi
             break
         if iteration == max_iter:
             break
-        if previous_waves is not None:
+        if previous_point is not None:
             transported = []
             for s, y, _ in secants:
-                s, y = tangent(waves, s), tangent(waves, y)
+                s, y = tangent(point, s), tangent(point, y)
                 sy = dot(s, y)
                 if sy > 1e-12*np.sqrt(dot(s, s)*dot(y, y)):
                     transported.append((s, y, 1./sy))
             secants = transported
-            s = tangent(waves, {k: waves[k]-previous_waves[k] for k in keys})
-            old_gradient = tangent(waves, previous_gradient)
+            s = tangent(point, {k: point[k]-previous_point[k] for k in keys})
+            old_gradient = tangent(point, previous_gradient)
             y = {k: gradient[k]-old_gradient[k] for k in keys}
             sy = dot(s, y)
             if sy > 1e-12*np.sqrt(dot(s, s)*dot(y, y)):
@@ -98,23 +141,23 @@ def optimize_grid_shooting(functional, orbitals, electron_space, response_energi
                 # freezing all active-active rotations would change MCDHF.
                 for key in group:
                     g = search_gradient[key]
-                    rotation_coeff = np.einsum('iar,r,ar->i', constraints, weight, g)
-                    rotation = np.einsum('i,iar->ar', rotation_coeff, constraints)
-                    response, _, diagnostics = responses[key].solve(-(g-rotation), constraints)
+                    active = np.array([point[k] for k in group])
+                    rotation = (active @ g) @ active
+                    source = electron_space.synthesize(-(g-rotation), kappa)
+                    response, _, diagnostics = responses[key].solve(source, constraints)
                     worst_constraint = max(worst_constraint, diagnostics['constraint_residual'])
                     scale = 1./(2*max(abs(response_energies[key]), .5))
-                    direction[key] = electron_space.project(response, kappa)-scale*rotation
+                    direction[key] = electron_space.analyze(response, kappa)-scale*rotation
             # Projection and numerical integration can introduce tiny
             # constraint normals; use the symmetric tangent projection.
             inverse_q = {k: -direction[k] for k in keys}
             for (s, y, rho), alpha in zip(secants, reversed(alphas), strict=True):
                 beta = rho*dot(y, inverse_q)
                 inverse_q = {k: inverse_q[k]+s[k]*(alpha-beta) for k in keys}
-            direction = tangent(waves, {k: -inverse_q[k] for k in keys})
+            direction = tangent(point, {k: -inverse_q[k] for k in keys})
         except (ValueError, FloatingPointError, np.linalg.LinAlgError) as exc:
             failure = str(exc)
-        slope = (sum(np.sum(derivative[k]*direction[k]) for k in keys)
-                 if failure is None else np.inf)
+        slope = dot(gradient, direction) if failure is None else np.inf
         if not np.isfinite(slope) or slope >= 0:
             failure = failure or 'Dirac response is not a descent direction in the supplied electron space'
         accepted = False
@@ -124,7 +167,7 @@ def optimize_grid_shooting(functional, orbitals, electron_space, response_energi
                 fallbacks.append({'iteration': iteration, 'reason': failure or 'line search exhausted'})
                 scale = 1./(2*max(functional.Z**2, 1.))
                 direction = {k: -scale*gradient[k] for k in keys}
-                slope = sum(np.sum(derivative[k]*direction[k]) for k in keys)
+                slope = dot(gradient, direction)
                 failure = None
                 # The fallback has a different scale; carrying a tiny
                 # rejected quasi-Newton step into it can freeze the solve.
@@ -133,8 +176,8 @@ def optimize_grid_shooting(functional, orbitals, electron_space, response_energi
             for _ in range(24):
                 trial_derivative = None
                 try:
-                    trial = functional.retract({k: electron_space.project(
-                        waves[k]+step*direction[k], k[1]) for k in keys})
+                    trial_point = retract({k: point[k]+step*direction[k] for k in keys})
+                    trial = expand(trial_point)
                     trial_energy, trial_ci = functional.evaluate(trial, gradient=False)
                 except (ValueError, FloatingPointError):
                     step *= .5
@@ -150,8 +193,7 @@ def optimize_grid_shooting(functional, orbitals, electron_space, response_energi
                 if (np.isfinite(trial_energy) and -1e-4*step*slope <= resolution
                         and abs(trial_energy-energy) <= resolution):
                     _, trial_derivative, _ = functional.evaluate(trial, ci_result=trial_ci)
-                    pg = {k: electron_space.project(trial_derivative[k]/weight, k[1])*weight for k in keys}
-                    tg, _ = functional.constrained_residual(trial, pg)
+                    tg = gradient_at(trial_point, trial_derivative)
                     trial_residual = np.sqrt(dot(tg, tg))
                     if trial_residual < (1.-1e-4*step)*residual:
                         roundoff_acceptances += 1
@@ -166,8 +208,8 @@ def optimize_grid_shooting(functional, orbitals, electron_space, response_energi
         if not accepted:
             reason = 'line_search_failed'
             break
-        previous_waves, previous_gradient = waves, gradient
-        waves = trial
+        previous_point, previous_gradient = point, gradient
+        point, waves = trial_point, trial
         if trial_derivative is None:
             energy, derivative, ci = functional.evaluate(waves, ci_result=trial_ci)
         else:
@@ -194,5 +236,6 @@ def optimize_grid_shooting(functional, orbitals, electron_space, response_energi
         'electron_space_dimensions': {k: len(v) for k, v in electron_space.basis.items()},
         'update': 'constrained inhomogeneous Dirac shooting plus active-orbital rotations',
         'acceleration': 'transported Riemannian L-BFGS (8 secant pairs)',
+        'optimizer_coordinates': 'orthonormal electron-basis coefficients',
         'scope': 'experimental; supplied finite electron space; no all-element completeness claim',
     }

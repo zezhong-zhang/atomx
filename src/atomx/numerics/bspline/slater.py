@@ -12,17 +12,16 @@ Methods
 -------
 ``"poisson"`` (default) — **O(N)**.
     Builds the multipole potential ``Y^k[ρ₂₄](r)`` by the two-pass Poisson
-    recursion (:func:`atomx.numerics.bspline.evaluate.compute_yk`) and
+    recursion (:func:`atomx.numerics.yk.compute_yk`) and
     contracts it once with ρ₁₃.  Resolves the ``r₁ = r₂`` kernel cusp
     analytically inside each knot interval, so it is both faster *and*
     more accurate than the direct product quadrature.
 
 ``"direct"`` — **O(N²)**.
-    Explicit double sum over the Gauss grid with the bare
-    ``r_<^k / r_>^{k+1}`` kernel.  Textbook form, kept as an independent
-    cross-check; its diagonal (``r₁ ≈ r₂``) is only as good as the product
-    Gauss rule there.  On physical closed-shell densities the two agree to
-    ``~1e-3`` (rank-3), the residual being this diagonal quadrature error.
+    Independent double quadrature with the bare ``r_<^k / r_>^{k+1}``
+    kernel. Coincident cells are split into triangles along r₁=r₂,
+    resolving the cusp before quadrature. This is an accuracy reference;
+    the fast Poisson recurrence remains the production default.
 
 Design
 ------
@@ -33,10 +32,12 @@ without duplicating kernels.  The default is always the fast method.
 
 from __future__ import annotations
 
+from functools import lru_cache
+
 import numba as nb
 import numpy as np
 
-from atomx.numerics.bspline.evaluate import compute_yk
+from atomx.numerics.yk import compute_yk
 
 #: Integrator used when the caller does not specify one.
 DEFAULT_METHOD = "poisson"
@@ -46,31 +47,70 @@ AVAILABLE_METHODS = ("poisson", "direct")
 
 
 @nb.njit(cache=True)
-def slater_rk_direct(
-    rho13: np.ndarray, rho24: np.ndarray,
-    r: np.ndarray, w: np.ndarray, k: int,
-) -> float:
-    """Direct O(N²) Slater integral.
-
-    Computes ``Σ_{i,j} w_i w_j ρ₁₃(r_i) ρ₂₄(r_j) · r_<^k / r_>^{k+1}`` over
-    the flattened Gauss grid.  ``rho13``, ``rho24``, ``r`` and ``w`` are all
-    1-D arrays of equal length.
-
-    No ``fastmath``: on production grids it measured a 1.03× speedup
-    (2213 µs vs 2275 µs for n=1130) — inside the noise — so the flag was
-    dropped rather than licensing a bitwise-different accumulation order.
-    """
-    n = r.shape[0]
-    total = 0.0
-    for i in range(n):
-        ri = r[i]
-        rho13_i = rho13[i]
-        wi = w[i]
-        for j in range(n):
-            rj = r[j]
-            rk_val = ri ** k / rj ** (k + 1) if ri <= rj else rj ** k / ri ** (k + 1)
-            total += wi * w[j] * rho13_i * rho24[j] * rk_val
+def _disjoint_cell_integral(rho13, rho24, r, w, k, n_gauss):
+    """Product quadrature only where the multipole kernel is smooth."""
+    total = 0.
+    for i in range(len(r)):
+        # Both triangular cell orderings, without a coincident-cell cusp.
+        for j in range((i//n_gauss+1)*n_gauss, len(r)):
+            kernel = (r[i]/r[j])**k/r[j]
+            total += w[i]*w[j]*kernel*(rho13[i]*rho24[j]+rho13[j]*rho24[i])
     return total
+
+
+@lru_cache(maxsize=16)
+def _cell_triangle_rule(n_gauss, order):
+    """Gauss nodes and density interpolation for a split square cell.
+
+    On its lower triangle, r=a+h*x and s=a+h*x*y, x,y in (0,1).
+    The Jacobian h²*x cancels the integrable Coulomb corner at a=0.
+    This rule does not use the Poisson partial-interval matrices.
+    """
+    from numpy.polynomial.legendre import leggauss, legvander
+    nodes, _ = leggauss(n_gauss)
+    x, w = leggauss(order)
+    x, w = (x+1)/2, w/2
+    inverse = np.linalg.solve(legvander(nodes, n_gauss-1), np.eye(n_gauss))
+    outer = legvander(2*x-1, n_gauss-1) @ inverse
+    inner = legvander(2*x[:,None]*x[None,:]-1, n_gauss-1) @ inverse
+    return nodes, x, w, outer, inner
+
+
+def slater_rk_direct(rho13, rho24, gr, grw, k):
+    """Independent double quadrature, split along each cell's r=s cusp.
+
+    Grid and weights must be shaped (n_cells, n_gauss). Densities can be
+    flat or have the grid shape. Disjoint cells use the ordinary product
+    rule; coincident cells integrate both triangles with at least 2*n_gauss
+    nodes per coordinate, increasing the order for high multipole ranks.
+    Densities are evaluated from their cell interpolants.
+    """
+    gr, grw = np.asarray(gr), np.asarray(grw)
+    if gr.ndim != 2 or gr.shape != grw.shape:
+        raise ValueError('direct Slater integration requires a 2-D cell Gauss grid and weights')
+    if k < 0 or int(k) != k:
+        raise ValueError('Slater multipole rank must be a nonnegative integer')
+    k = int(k)
+    rho13 = np.asarray(rho13).reshape(gr.shape)
+    rho24 = np.asarray(rho24).reshape(gr.shape)
+    n_gauss = gr.shape[1]
+    off_diagonal = _disjoint_cell_integral(rho13.ravel(), rho24.ravel(),
+                                          gr.ravel(), grw.ravel(), k, n_gauss)
+    # At the origin the inner-coordinate polynomial has degree at most
+    # k+n_gauss-1. Retain its exact Gauss order even for unusually high k.
+    order = max(2*n_gauss, (k+n_gauss+1)//2)
+    nodes, x, w, outer, inner = _cell_triangle_rule(n_gauss, order)
+    h = grw.sum(axis=1)
+    a = gr[:,0]-h*(1+nodes[0])/2
+    r = a[:,None,None]+h[:,None,None]*x[None,:,None]
+    s = a[:,None,None]+h[:,None,None]*x[None,:,None]*x[None,None,:]
+    kernel_jacobian = (s/r)**k/r*h[:,None,None]**2*x[None,:,None]
+    f_outer, g_outer = rho13 @ outer.T, rho24 @ outer.T
+    f_inner = np.einsum('cj,xyj->cxy', rho13, inner)
+    g_inner = np.einsum('cj,xyj->cxy', rho24, inner)
+    density = f_outer[:,:,None]*g_inner+g_outer[:,:,None]*f_inner
+    diagonal = np.sum(density*kernel_jacobian*w[None,:,None]*w[None,None,:])
+    return float(off_diagonal+diagonal)
 
 
 def slater_rk_poisson(
@@ -121,9 +161,7 @@ def slater_rk(
         return slater_rk_poisson(rho13, rho24, gr, grw, nv, n_gauss, k)
     if method == "direct":
         return slater_rk_direct(
-            np.ascontiguousarray(rho13).ravel(),
-            np.ascontiguousarray(rho24).ravel(),
-            gr.ravel(), grw.ravel(), k,
+            rho13, rho24, gr, grw, k,
         )
     raise ValueError(
         f"unknown Slater integrator {method!r}; choose from {AVAILABLE_METHODS}"

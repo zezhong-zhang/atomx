@@ -6,10 +6,10 @@ from atomx.numerics.shooting.grid import sgrid
 from atomx.numerics.shooting.quadrature import slag6, slag6_adjoint, slag6_weights
 from atomx.numerics.shooting.constants import SL
 from atomx.numerics.shooting.coulomb import _yk_over_r
-from atomx.methods.mcdhf import matrix
-from atomx.methods.mcdhf.grid_functional import (
-    GridCorrelatedFunctional, derivative_adjoint, coulomb_adjoint)
-from atomx.methods.mcdhf.config import enumerate_jj_csfs_many
+from atomx.physics.csf import matrix
+from atomx.methods.csf.grid_functional import (
+    GridCSFFunctional, derivative_adjoint, coulomb_adjoint)
+from atomx.config.csf import enumerate_jj_csfs_many
 from atomx.numerics.shooting.dirac_response import DiracResponse
 
 
@@ -45,7 +45,7 @@ def correlated_problem():
     ws = workspace()
     csfs = [c for c in enumerate_jj_csfs_many(['1s2', '1s1 2s1', '2s2', '2p2'])
             if c.total_J2 == 0 and c.parity == 1]
-    functional = GridCorrelatedFunctional(csfs, ws, 2)
+    functional = GridCSFFunctional(csfs, ws, 2)
     orbitals = {}
     r = ws.r
     for n, kappa in functional.keys:
@@ -157,7 +157,7 @@ def shooting_electron_problem(z=2, nuclear='point'):
     ws = matrix.GridCIWorkspace(r, difr, ShootingHFSolver(z, [], nuclear=nuclear)._nuclear_rv(r, difr, n))
     csfs = [c for c in enumerate_jj_csfs_many(['1s2', '2s2', '2p2'])
             if c.total_J2 == 0 and c.parity == 1]
-    functional = GridCorrelatedFunctional(csfs, ws, z)
+    functional = GridCSFFunctional(csfs, ws, z)
     space, orbitals = bound_electron_space(functional, n_roots=3)
     return functional, orbitals, space
 

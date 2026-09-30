@@ -9,11 +9,11 @@ from atomx.numerics.shooting.electron_space import continuum_enriched_electron_s
 from atomx.numerics.shooting.orbital_optimization import optimize_grid_shooting
 import pytest
 
-from atomx.methods.mcdhf.config import enumerate_jj_csfs_many
-from atomx.methods.mcdhf.grid_functional import GridCorrelatedFunctional
+from atomx.config.csf import enumerate_jj_csfs_many
+from atomx.methods.csf.grid_functional import GridCSFFunctional
 from atomx.numerics.shooting.electron_space import bound_electron_space
-from atomx.methods.mcdhf.grid_functional import occupied_1s2_reference_potential
-from atomx.methods.mcdhf.matrix import GridCIWorkspace
+from atomx.methods.csf.grid_functional import occupied_1s2_reference_potential
+from atomx.physics.csf.matrix import GridCIWorkspace
 from atomx.numerics.shooting.grid import sgrid
 
 
@@ -24,7 +24,7 @@ def compare_reference(z, *, grid=4000, continuum=160, nuclear="fermi"):
     if not ref.converged:
         raise RuntimeError("HF reference did not converge")
     csfs = enumerate_jj_csfs_many(["1s2"])
-    original = GridCorrelatedFunctional(
+    original = GridCSFFunctional(
         csfs,
         GridCIWorkspace(
             ref._grid, ref._difr, hf._nuclear_rv(ref._grid, ref._difr, len(ref._grid))
@@ -37,7 +37,7 @@ def compare_reference(z, *, grid=4000, continuum=160, nuclear="fermi"):
     radius = 120.0 / z
     r, dr, n = sgrid(radius, 1e-7, radius / 2400, grid)
     rv = hf._nuclear_rv(r, dr, n)
-    f = GridCorrelatedFunctional(csfs, GridCIWorkspace(r, dr, rv), z)
+    f = GridCSFFunctional(csfs, GridCIWorkspace(r, dr, rv), z)
     phi = np.array([CubicSpline(ref._grid, x)(r) for x in (ref._pa[0], ref._qa[0])])
     phi /= np.sqrt(np.sum(phi * phi * f.weights))
     interpolated_energy, _ = f.evaluate({(1, -1): phi}, gradient=False)
@@ -111,7 +111,7 @@ def test_matched_projector_recovers_hf_without_changing_hamiltonian(z):
 def test_reference_changes_projector_only_and_preserves_provenance():
     r, dr, n = sgrid(60.0, 1e-7, 0.1, 1000)
     rv = np.full(n, -2.0)
-    f = GridCorrelatedFunctional(
+    f = GridCSFFunctional(
         enumerate_jj_csfs_many(["1s2"]), GridCIWorkspace(r, dr, rv), 2
     )
     phi = np.array([r * np.exp(-2 * r), -0.001 * r * np.exp(-2 * r)])
@@ -140,6 +140,6 @@ def test_reference_changes_projector_only_and_preserves_provenance():
         )
     with pytest.raises(ValueError, match="normalized"):
         occupied_1s2_reference_potential(f, phi * 2)
-    other = GridCorrelatedFunctional(enumerate_jj_csfs_many(["1s1"]), f.data, 2)
+    other = GridCSFFunctional(enumerate_jj_csfs_many(["1s1"]), f.data, 2)
     with pytest.raises(ValueError, match="two-electron"):
         occupied_1s2_reference_potential(other, phi)

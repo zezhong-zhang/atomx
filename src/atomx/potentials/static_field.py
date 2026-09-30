@@ -77,6 +77,7 @@ def bare_nuclear_potential(Z: float) -> Callable[[np.ndarray], np.ndarray]:
         r_arr = np.asarray(r, dtype=float)
         return -Z_f / np.where(r_arr > 0, r_arr, 1.0e-30)
 
+    V.residual_charge = Z_f
     return V
 
 
@@ -117,10 +118,43 @@ def tabulated_potential(
     return V
 
 
+def _nuclear_field(result):
+    """Retain the nucleus/environment field of the solved radial model."""
+    nuclear = getattr(result, '_nuclear_potential', None)
+    if nuclear is not None:
+        # A solved field is fixed. Cache its last requested mesh so a batch
+        # of continuum energies does not repeat scalar Fermi evaluations.
+        cache = None
+        def evaluate(r):
+            nonlocal cache
+            previous = cache
+            if previous is not None and np.array_equal(previous[0], r):
+                return previous[1]
+            radius = np.array(r, dtype=float, copy=True)
+            value = np.vectorize(nuclear, otypes=[float])(radius)
+            value.setflags(write=False)
+            cache = radius, value
+            return value
+        return evaluate
+    rv = getattr(result, '_rv_nuc', None)
+    if rv is not None:
+        from scipy.interpolate import CubicSpline
+        radius = np.asarray(result._grid, dtype=float)
+        spline = CubicSpline(radius, np.asarray(rv, dtype=float), bc_type='natural')
+        def evaluate(r):
+            return spline(np.clip(r, radius[0], radius[-1]))/r
+        return evaluate
+    profile = getattr(result, 'energy_components', {}).get('_nuclear_profile', {})
+    if profile.get('model', 'point') != 'point':
+        raise ValueError('finite-nucleus field is missing; solve again with radial field data')
+    return bare_nuclear_potential(float(result.Z))
+
+
 def static_hartree_potential(
     scf_result,
     *,
     exclude_label: Optional[str] = None,
+    screening: str = "full",
     n_radial: int = 4000,
     r_max: Optional[float] = None,
     include_exchange: bool = False,
@@ -159,6 +193,12 @@ def static_hartree_potential(
         prescription for the photoelectron seeing the residual ion
         of one less electron of orbital ``a`` (the orbital that's
         being ionised).  Default: V^N (full SCF potential).
+    screening : {"full", "mean"}
+        ``"mean"`` scales the complete target density by (N-1)/N, the
+        average direct screening convention used in the collision model.
+        This is a local Hartree field, not full nonlocal exchange or the
+        complete FAC optimized potential. Mutually exclusive with a
+        subshell-specific ``exclude_label``.
     n_radial : int
         Number of logarithmic radial-grid points for tabulating screening (default 4000).
     r_max : float, optional
@@ -184,6 +224,24 @@ def static_hartree_potential(
     """
     from atomx.state_protocols import grid_data
     Z = float(scf_result.Z)
+    if screening not in ('full', 'mean'):
+        raise ValueError("screening must be 'full' or 'mean'")
+    if screening == 'mean' and exclude_label is not None:
+        raise ValueError('mean screening and a subshell hole would remove an electron twice')
+    number = sum(float(sh.occupation) for sh in scf_result.subshells)
+    if screening == 'mean' and 0 < number < 1:
+        raise ValueError('mean screening requires N >= 1 or a bare nucleus')
+    density_scale = (max(number-1, 0.)/number if number else 0.) if screening == 'mean' else 1.
+    nuclear_value = _nuclear_field(scf_result)
+    if screening == 'mean' and density_scale == 0 and not include_exchange:
+        # The one-electron mean field has no electronic screening. Avoid
+        # radial interpolation or integration of an identically zero source.
+        def V_func(r):
+            radius = np.asarray(r, dtype=float)
+            return nuclear_value(np.where(radius > 0., radius, 1e-30))
+        V_func.residual_charge = Z
+        V_func.screening = screening
+        return V_func
 
     # Determine outer radius
     bsp_data = grid_data(scf_result)
@@ -201,7 +259,8 @@ def static_hartree_potential(
     # at R/n misses high-Z core charge and flattens the nuclear singularity.
     N_eff = 0.0
     if bsp_data is not None and "bsp_p" in bsp_data:
-        from atomx.numerics.bspline.evaluate import compute_yk, eval_P, eval_Q
+        from atomx.numerics.yk import compute_yk
+        from atomx.numerics.bspline.evaluate import eval_P, eval_Q
         gr = bsp_data["gr"]
         density = np.zeros_like(gr)
         sampled = {}
@@ -214,7 +273,7 @@ def static_hartree_potential(
                 p, q, _ = scf_result.orbitals_raw[sh.kappa][same.index(sh)]
             p, q = eval_P(p, bsp_data), eval_Q(q, bsp_data)
             sampled[key] = (p, q)
-            population = max(0., sh.occupation - float(sh.label == exclude_label))
+            population = density_scale*max(0., sh.occupation - float(sh.label == exclude_label))
             density += population * (p*p + q*q)
             N_eff += population
         if hasattr(scf_result, "one_body_density_matrix"):
@@ -225,7 +284,7 @@ def static_hartree_potential(
                     if key[1] == other[1]:
                         p, q = sampled[key]
                         u, v = sampled[other]
-                        density += 2 * matrix[i, j] * (p*u + q*v)
+                        density += 2 * density_scale * matrix[i, j] * (p*u + q*v)
         direct = compute_yk(density, gr, bsp_data["grw"],
                             bsp_data["nv"], gr.shape[1], 0).ravel()
         radius, density = gr.ravel(), density.ravel()
@@ -234,7 +293,7 @@ def static_hartree_potential(
         radius = scf_result._grid
         density = np.zeros_like(radius)
         for i, sh in enumerate(scf_result.subshells):
-            population = max(0., sh.occupation - float(sh.label == exclude_label))
+            population = density_scale*max(0., sh.occupation - float(sh.label == exclude_label))
             density += population * (scf_result._pa[i]**2 + scf_result._qa[i]**2)
             N_eff += population
         direct = _yk_over_r(density, 0, radius, scf_result._difr, len(radius))
@@ -247,11 +306,8 @@ def static_hartree_potential(
     rho = np.interp(r_h, radius, density, left=0., right=0.)
     # Interpolate the screening charge, which tends to an exact constant,
     # rather than interpolating 1/r in the empty exterior region.
-    screening = np.interp(r_h, radius, radius * direct, right=N_eff)
-    V_H = np.where(r_h < radius[0], direct[0], screening / r_h)
-    nuclear = getattr(scf_result, "_nuclear_potential", None)
-    nuclear_value = (bare_nuclear_potential(Z) if nuclear is None else
-                     np.vectorize(nuclear, otypes=[float]))
+    screening_charge = np.interp(r_h, radius, radius * direct, right=N_eff)
+    V_H = np.where(r_h < radius[0], direct[0], screening_charge / r_h)
     correction = V_H.copy()
     use_latter_tail = False
     if include_exchange:
@@ -265,14 +321,14 @@ def static_hartree_potential(
             )
             correction = correction + V_x
             use_latter_tail = True
-            if fac_self_interaction_correction and exclude_label is None:
+            if fac_self_interaction_correction and exclude_label is None and screening == 'full':
                 from atomx.numerics.bspline.local_potential import (
                     _fac_csi_screening_correction,
                 )
 
-                screening = r_h * (V_H + V_x)
+                screening_charge = r_h * (V_H + V_x)
                 corrected = _fac_csi_screening_correction(
-                    r_h, screening, n_total=N_eff, ihx=fac_ihx, csi=fac_csi,
+                    r_h, screening_charge, n_total=N_eff, ihx=fac_ihx, csi=fac_csi,
                 )
                 correction = corrected / r_h
         elif exchange_l == "slater":
@@ -284,7 +340,7 @@ def static_hartree_potential(
     # A hole has already removed the electron's Hartree self-field.
     # Applying the bound-orbital N -> N-1 correction again gives the wrong
     # ionic charge. With no hole, preserve the explicit bound FAC model.
-    self_hole = float(exclude_label is None and latter_correction and use_latter_tail)
+    self_hole = float(exclude_label is None and screening == 'full' and latter_correction and use_latter_tail)
     residual_charge = Z - N_eff + self_hole
     if latter_correction and use_latter_tail:
         correction = np.minimum(correction, (N_eff - self_hole) / r_h)
@@ -298,6 +354,7 @@ def static_hartree_potential(
         return nuclear_value(r_safe) + field
 
     V_func.residual_charge = residual_charge
+    V_func.screening = screening
 
     return V_func
 

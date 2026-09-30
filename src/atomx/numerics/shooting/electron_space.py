@@ -45,10 +45,25 @@ class FixedElectronSpace:
             self.basis[kappa] = (((vectors/np.sqrt(values))@vectors.T) @ flat).reshape(x.shape)
 
     def project(self, spinor, kappa):
+        return self.synthesize(self.analyze(spinor, kappa), kappa)
+
+    def analyze(self, spinors, kappa):
+        """Metric coefficients of one spinor or a batch of spinors."""
+        spinors = np.asarray(spinors)
         basis = self.basis[kappa]
+        if spinors.shape[-2:] != (2, len(self.weights)):
+            raise ValueError('spinors must end in (2, radial_points)')
         flat = basis.reshape(len(basis), -1)
-        coeff = flat @ (spinor*self.weights).ravel()
-        return (coeff @ flat).reshape(2, len(self.weights))
+        return (spinors*self.weights).reshape(*spinors.shape[:-2], -1) @ flat.T
+
+    def synthesize(self, coefficients, kappa):
+        """Expand electron coefficients; no projection or approximation."""
+        coefficients = np.asarray(coefficients)
+        basis = self.basis[kappa]
+        if coefficients.shape[-1] != len(basis):
+            raise ValueError('coefficient count does not match the electron space')
+        return (coefficients @ basis.reshape(len(basis), -1)).reshape(
+            *coefficients.shape[:-1], 2, len(self.weights))
 
 
 def _electron_reference(functional, reference_rv, reference_label):

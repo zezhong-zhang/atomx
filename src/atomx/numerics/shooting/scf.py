@@ -31,25 +31,30 @@ class SCFIteration:
     stagnation_promotions: int = 0
 
 
-def validate_scf_controls(max_iter, tolerance, damping):
+def validate_scf_controls(max_iter, tolerance, damping, *, orbital_tolerance=None):
     """Validate numerical controls before initializing any physical state."""
     if max_iter < 1 or not np.isfinite(tolerance) or tolerance <= 0:
         raise ValueError('max_iter must be positive and tol finite and positive')
     if not np.isfinite(damping) or not 0 <= damping < 1:
         raise ValueError('damping must lie in [0, 1)')
+    if orbital_tolerance is not None and (not np.isfinite(orbital_tolerance) or orbital_tolerance <= 0):
+        raise ValueError('orbital_tolerance must be finite and positive')
 
 
 def iterate_nonlocal_orbitals(pa, qa, ev, *, ns, kappas, groups, r, difr,
                              initial_energy, max_iter, tolerance, damping,
                              constraint_mode, first_sweep, field, evaluate,
-                             stationarity, exchange_action=None, orbital_solver="adaptive"):
+                             stationarity, exchange_action=None, orbital_solver="adaptive",
+                             state_update=None, orbital_tolerance=None):
     """Update owned iteration buffers and return the numerical SCF outcome.
 
     Field/evaluation callbacks may update the supplied buffers in place
     (e.g. occupied-space rotations). The caller owns state identity and
-    final physical result construction.
+    final physical result construction. An explicit orbital_tolerance bounds
+    the undamped wavefunction update independently of the energy threshold;
+    this is needed for observables with first-order orbital errors.
     """
-    validate_scf_controls(max_iter, tolerance, damping)
+    validate_scf_controls(max_iter, tolerance, damping, orbital_tolerance=orbital_tolerance)
     if orbital_solver not in ('adaptive', 'nonlocal_resolvent'):
         raise ValueError('unknown shooting orbital solver')
     if orbital_solver == 'nonlocal_resolvent' and (constraint_mode != 'coupled' or exchange_action is None):
@@ -58,6 +63,7 @@ def iterate_nonlocal_orbitals(pa, qa, ev, *, ns, kappas, groups, r, difr,
     np_ = len(r)
     ind = np.arange(np_, dtype=np.int64)
     tol_e = min(tolerance, 1.0e-7)
+    tol_orbital = math.sqrt(tol_e) if orbital_tolerance is None else orbital_tolerance
     e_total_prev = None
     e_total = initial_energy
     converged = False
@@ -74,6 +80,9 @@ def iterate_nonlocal_orbitals(pa, qa, ev, *, ns, kappas, groups, r, difr,
 
     for it in range(1, max_iter + 1):
         iterations = it
+        state_residual = 0.0
+        if state_update is not None:
+            state_residual = float(state_update(pa, qa) or 0.0)
         orbital_update_norm = 0.0
         for a in range(nsh):
             rv_loc, chi_p, chi_q = field(a, pa, qa)
@@ -179,12 +188,12 @@ def iterate_nonlocal_orbitals(pa, qa, ev, *, ns, kappas, groups, r, difr,
 
         if e_total_prev is not None and abs(
                 e_total - e_total_prev) <= tol_e * max(1.0, abs(e_total)):
-            rotation_ok = True
+            rotation_ok = (orbital_tolerance is None or orbital_update_norm <= tol_orbital)
             if constraint_mode == 'coupled':
                 defect = stationarity(pa, qa)
-                rotation_ok = (defect <= max(1e-8, math.sqrt(tol_e))
-                               and orbital_update_norm <= math.sqrt(tol_e))
-            if rotation_ok:
+                rotation_ok = (defect <= max(1e-8, tol_orbital)
+                               and orbital_update_norm <= tol_orbital)
+            if rotation_ok and state_residual <= tol_orbital:
                 converged = True
                 break
             # A frozen exchange source can reach an energy plateau while its
@@ -195,7 +204,7 @@ def iterate_nonlocal_orbitals(pa, qa, ev, *, ns, kappas, groups, r, difr,
                 for a, history in enumerate(update_history):
                     if (a not in nonlocal_orbitals and len(groups[kappas[a]]) == 1
                             and len(history) == 12
-                            and min(history) > math.sqrt(tol_e)
+                            and min(history) > tol_orbital
                             and min(history) >= .8 * history[0]):
                         nonlocal_orbitals.add(a)
                         stagnation_promotions += 1

@@ -1,4 +1,4 @@
-"""Angular coefficients for the Dirac-Fock equations.
+"""Shared one- and two-electron angular coefficients.
 
 For the average-of-configuration Dirac-Fock, the two-electron interaction
 between subshells a and b at multipole order k requires angular coefficients:
@@ -33,32 +33,21 @@ def _twoj(value: float | int) -> int:
 
 @lru_cache(maxsize=None)
 def reduced_C(kappa_a: int, kappa_b: int, k: int) -> float:
-    """Reduced matrix element ``<kappa_a || C^k || kappa_b>``.
+    """Legacy reduced C tensor used by Atomx's CI angular machinery.
 
-    Uses **Grant's relativistic convention** (Grant & Pyper, J. Phys. B 9,
-    761 (1976); GRASP ``rkint``), which carries an extra
-    ``(-1)^(j_a+1/2)`` relative to the non-relativistic orbital convention
-    ``(-1)^l sqrt((2l+1)(2l'+1))(l k l'; 0 0 0)`` used in
-    :mod:`atomx.scattering.r_matrix.angular_cc`:
+    Its phase is (-1)^(j_a+1/2) multiplying the 3j projections
+    (-1/2, 0, +1/2). GRASP CRE and FAC ReducedCL instead use
+    (+1/2, 0, -1/2), as implemented by :func:`reduced_cl_j2`.
+    The two conventions differ by (-1)^(j_a+j_b+k); their squared
+    coefficients agree, but mixed operators need explicit conversion.
 
-    ``(-1)^(j_a+1/2) sqrt((2j_a+1)(2j_b+1))
-      (j_a k j_b; -1/2 0 1/2)``.
+    In particular this function gives -sqrt(2j+1) at k=0. Do not combine
+    it directly with a standard reduced Pauli spin tensor: the recoil
+    SMS2/CRE ratio must use C and sigma in the same convention. Existing
+    CI angular contractions retain this convention consistently; changing
+    the common tensor requires migrating that entire contraction chain.
 
-    Consequence, and the reason this is spelled out: with Grant's phase the
-    ``k = 0`` element is ``-sqrt(2j+1)`` rather than ``+sqrt(2j+1)``, so the
-    m-resolved identity ``ckm(k, m, k, m, 0, 0)`` is ``-1`` instead of ``+1``.
-    That is a *convention*, not an error: every consumer in atomx
-    (:func:`ckm`, the CI/DFS matrix elements, the distorted-wave and Auger
-    codes) uses this same convention and the FAC parity gates reproduce FAC's
-    numbers, so the sign cancels in every squared observable.  It is pinned by
-    ``test_ckm_identity_sign_pins_grant_convention`` so it cannot drift; do not
-    "fix" it to the textbook sign without re-deriving the whole chain, and do
-    not mix it with the non-relativistic ``angular_cc`` convention in one
-    matrix element.
-
-    See ``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding H6.
-
-    (lru_cached; pure function of small integers.)
+    Cached as a pure function of the integer angular quantum numbers.
     """
     l_a = _l_from_kappa(kappa_a)
     l_b = _l_from_kappa(kappa_b)
@@ -281,8 +270,7 @@ def ckm(kappa_c: int, tmc: int, kappa_a: int, tma: int, k: int, tq: int) -> floa
     This is FAC's ``ckm`` — the m-resolved angular factor multiplying the
     Slater integral ``R^k`` in every two-electron matrix element.  It lives in
     the angular layer so the scattering (continuum/DW) and CI codes share one
-    implementation; ``atomx.scattering.distorted_wave.solver`` imports it as
-    ``_ck_m``.
+    implementation.
 
     The Wigner–Eckart step here is the textbook one,
     ``(-1)^(j_c-m_c) (j_c k j_a; -m_c q m_a)``, but ``reduced_C`` carries
@@ -300,3 +288,46 @@ def ckm(kappa_c: int, tmc: int, kappa_a: int, tma: int, k: int, tq: int) -> floa
         return 0.0
     phase = 1.0 if ((tjc - tmc) // 2) % 2 == 0 else -1.0
     return phase * w * red
+
+
+@lru_cache(maxsize=131072)
+def coupled_coulomb_direct(kappa_c, kappa_d, kappa_a, kappa_b, tJ, k):
+    """Angular factor of ``<(c d) JM | C^k(1)·C^k(2) | (a b) JM>``.
+
+    ``tJ`` is twice the total angular momentum; ``k`` is the integer tensor
+    rank. The spin-angular orbitals use :func:`reduced_C`'s phase convention.
+    Racah recoupling eliminates the magnetic-sublevel sums exactly:
+
+    ``(-1)^(j_a+j_d+J) {j_c j_d J; j_b j_a k} <c||C^k||a><d||C^k||b>``.
+
+    The radial Slater integral and antisymmetrization are excluded. This
+    coefficient applies equally to bound and continuum orbitals and is
+    independent of M. Forbidden triangles or parities give zero.
+
+    Bound the memo: a large continuum channel space otherwise retains
+    millions of coefficients after its packed channel table is constructed.
+    """
+    ca = reduced_C(kappa_c, kappa_a, k)
+    db = reduced_C(kappa_d, kappa_b, k)
+    if ca == 0.0 or db == 0.0:
+        return 0.0
+    tja, tjb = _twoj_of(kappa_a), _twoj_of(kappa_b)
+    tjc, tjd = _twoj_of(kappa_c), _twoj_of(kappa_d)
+    sixj = wigner_6j(tjc, tjd, tJ, tjb, tja, 2 * k)
+    phase = -1.0 if ((tja + tjd + tJ) // 2) % 2 else 1.0
+    return phase * sixj * ca * db
+
+
+@lru_cache(maxsize=131072)
+def coupled_coulomb_exchange(kappa_c, kappa_d, kappa_a, kappa_b, tJ, k):
+    """Exchange angular factor with vertices ``d <- a`` and ``c <- b``.
+
+    Uses the same ordered bra/ket couplings as :func:`coupled_coulomb_direct`.
+    Swapping the coupled bra contributes ``(-1)^(j_c+j_d-J)``. This is the
+    permutation phase, not the fermionic minus sign: the antisymmetrized
+    amplitude is ``D*R_direct - E*R_exchange``.
+    """
+    tjc, tjd = _twoj_of(kappa_c), _twoj_of(kappa_d)
+    phase = -1.0 if ((tjc + tjd - tJ) // 2) % 2 else 1.0
+    return phase * coupled_coulomb_direct(
+        kappa_d, kappa_c, kappa_a, kappa_b, tJ, k)

@@ -179,10 +179,17 @@ def test_he_dhf_result_is_finite(he_result):
     assert res.converged
     assert np.isfinite(res.total_energy)
     assert res.energy_components is not None
-    for name, value in res.energy_components.items():
+    def check(value, path):
         if value is None or isinstance(value, str):
-            continue
-        assert np.isfinite(value), f"energy_components[{name!r}] = {value}"
+            return
+        if isinstance(value, dict):
+            for name, entry in value.items():
+                check(entry, f'{path}.{name}')
+        else:
+            assert np.all(np.isfinite(value)), f'{path} = {value}'
+    # Nuclear-profile metadata is nested; its numeric fields must also be
+    # finite rather than being skipped or passed as an object to isfinite.
+    check(res.energy_components, 'energy_components')
     for label, energy in res.orbital_energies.items():
         assert np.isfinite(energy), f"orbital_energies[{label!r}] = {energy}"
     for kappa, orb_list in res.orbitals_raw.items():
@@ -319,8 +326,8 @@ def test_dhf_raises_on_poisoned_hydrogenic_seed(monkeypatch):
     real_get = DiracResult.get_orbital
     poisoned = {"done": False}
 
-    def poison_get_orbital(self, idx):
-        P, Q, E = real_get(self, idx)
+    def poison_get_orbital(self, idx, **kwargs):
+        P, Q, E = real_get(self, idx, **kwargs)
         if not poisoned["done"]:
             poisoned["done"] = True
             P = P.copy()

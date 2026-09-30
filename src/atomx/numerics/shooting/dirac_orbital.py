@@ -51,6 +51,10 @@ class OrbitalSolveError(RuntimeError):
     pass
 
 
+class RadialBoxError(OrbitalSolveError):
+    """A requested bound state does not fit in the radial box."""
+
+
 class FrozenSourceConvergenceError(OrbitalSolveError):
     """The frozen-source solve cannot resolve the requested normalized root."""
 

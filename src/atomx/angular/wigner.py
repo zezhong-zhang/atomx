@@ -1,20 +1,91 @@
 """Wigner 3j, 6j, and 9j symbols via Racah formula.
 
-Uses log-factorial caching for numerical stability at high angular momenta.
+Short Racah sums use cached log-factorials. Longer alternating sums use
+exact integer arithmetic before the final square root to avoid cancellation.
 All angular momentum arguments are twice the physical value (integer storage):
   j=1/2 → tj=1, j=1 → tj=2, j=3/2 → tj=3, etc.
 
 The "t" prefix means "twice j" throughout this module.
 """
 
+from functools import lru_cache
+import math
+
 import numba as nb
 import numpy as np
 
-# Pre-compute log-factorials up to 300! (sufficient for most atomic physics)
+# Pre-compute log-factorials for the short-sum numerical path.
 _MAX_FACT = 500
 _LOG_FACT = np.zeros(_MAX_FACT + 1)
 for _i in range(2, _MAX_FACT + 1):
     _LOG_FACT[_i] = _LOG_FACT[_i - 1] + np.log(_i)
+
+
+@lru_cache(maxsize=4096)
+def _factorial(n):
+    return math.factorial(n)
+
+
+def _triangle_ratio(a, b, c):
+    """Exact numerator/denominator of Delta(a/2,b/2,c/2)^2."""
+    return (_factorial((a+b-c)//2) * _factorial((a-b+c)//2)
+            * _factorial((-a+b+c)//2), _factorial((a+b+c)//2+1))
+
+
+def _sqrt_ratio(num, den):
+    """Square root of a positive integer ratio without squaring-range limits."""
+    exponent = (num.bit_length() - den.bit_length()) // 2
+    # Normalize the squared value before float conversion, so a representable
+    # tiny Wigner symbol survives even when its square would underflow.
+    ratio = (num / (den << (2*exponent)) if exponent >= 0
+             else (num << (-2*exponent)) / den)
+    return math.ldexp(math.sqrt(ratio), exponent)
+
+
+@lru_cache(maxsize=32768)
+def _wigner_3j_exact(j1, j2, j3, m1, m2, m3):
+    """Racah sum of integer binomial products; selection rules checked upstream."""
+    s1, s2, s3 = (j1+j2-j3)//2, (j1-m1)//2, (j2+m2)//2
+    b, c = (j2-j3-m1)//2, (j1-j3+m2)//2
+    lo, hi = max(0, b, c), min(s1, s2, s3)
+    # Pair the six denominator factorials into three binomial coefficients.
+    total = sum((-1 if t % 2 else 1) * math.comb(s1, t)
+                * math.comb(s2-b, s2-t) * math.comb(s3-c, s3-t)
+                for t in range(lo, hi+1))
+    if total == 0:
+        return 0.0
+    num, den = _triangle_ratio(j1, j2, j3)
+    for j, m in ((j1, m1), (j2, m2), (j3, m3)):
+        num *= _factorial((j+m)//2) * _factorial((j-m)//2)
+    common = _factorial(s1) * _factorial(s2-b) * _factorial(s3-c)
+    # Combine BEFORE conversion: individual factorials may exceed float range.
+    value = _sqrt_ratio(num * total * total, den * common * common)
+    return (-value if total < 0 else value) * (-1 if ((j1-j2-m3)//2) % 2 else 1)
+
+
+@lru_cache(maxsize=32768)
+def _wigner_6j_exact(j1, j2, j3, l1, l2, l3):
+    """Integer Racah terms times an exact rational square root."""
+    triangles = ((j1, j2, j3), (j1, l2, l3), (l1, j2, l3), (l1, l2, j3))
+    ss = [sum(tri)//2 for tri in triangles]
+    rr = [(j1+j2+l1+l2)//2, (j2+j3+l2+l3)//2, (j3+j1+l3+l1)//2]
+    total = 0
+    for t in range(max(ss), min(rr)+1):
+        den = math.prod(_factorial(t-s) for s in ss)
+        den *= math.prod(_factorial(r-t) for r in rr)
+        # The denominator indices sum to t, so each term is an integer
+        # multinomial coefficient times (t+1).
+        term = _factorial(t+1) // den
+        total += -term if t % 2 else term
+    if total == 0:
+        return 0.0
+    num, den = total * total, 1
+    for tri in triangles:
+        n, d = _triangle_ratio(*tri)
+        num *= n
+        den *= d
+    value = _sqrt_ratio(num, den)
+    return -value if total < 0 else value
 
 
 @nb.njit(cache=True)
@@ -23,13 +94,8 @@ def _log_factorial(n):
     if n < 0:
         return -1e30  # sentinel for invalid
     if n <= 500:
-        # Inline the precomputed table
-        result = 0.0
-        for i in range(2, n + 1):
-            result += np.log(i)
-        return result
-    # Stirling's approximation for very large n
-    return n * np.log(n) - n + 0.5 * np.log(2.0 * np.pi * n)
+        return _LOG_FACT[n]
+    return math.lgamma(n + 1.0)
 
 
 @nb.njit(cache=True)
@@ -84,35 +150,23 @@ def wigner_3j(tj1, tj2, tj3, tm1, tm2, tm3):
     if not valid:
         return 0.0
 
-    # Racah formula summation
-
-    # For half-integer j, we work with twice-j directly
-    # The sum index t runs over integer values satisfying:
-    #   t >= max(0, j2-j3-m1, j1-j3+m2) (using twice-values)
-    #   t <= min(j1+j2-j3, j1-m1, j2+m2)  (using twice-values)
-
-    # Using twice-values throughout:
+    # Racah bounds; each factorial argument is an integer after selection.
     s1 = (tj1 + tj2 - tj3) // 2
     s2 = (tj1 - tm1) // 2
     s3 = (tj2 + tm2) // 2
-    s4 = (tj2 - tj3 - tm1) // 2  # can be negative
-    s5 = (tj1 - tj3 + tm2) // 2  # can be negative
-
-    t_min = max(0, max(-s4, -s5))
-    # Clamp s4, s5 for t_min calculation:
-    # t >= 0, t >= -(j2-j3) + m1/2 ... let's use the standard formula
-    # t_min = max(0, j2-j3-m1, j1-j3+m2) — but these use half-integers
-    # With twice-values:
-    t_min_a = 0
-    t_min_b = (tj2 - tj3 - tm1) // 2  # = j2 - j3 - m1 (can be half-int → but j+m is always int)
+    t_min_b = (tj2 - tj3 - tm1) // 2
     t_min_c = (tj1 - tj3 + tm2) // 2
-    # Hmm, these should all be integers since j±m is always integer
-    t_min = max(t_min_a, max(t_min_b, t_min_c))
+    t_min = max(0, max(t_min_b, t_min_c))
 
     t_max = min(s1, min(s2, s3))
 
     if t_min > t_max:
         return 0.0
+
+    if t_max - t_min > 4 or tj1 + tj2 + tj3 > 2 * _MAX_FACT - 2:
+        with nb.objmode(exact='float64'):
+            exact = _wigner_3j_exact(tj1, tj2, tj3, tm1, tm2, tm3)
+        return exact
 
     # Prefactor
     log_pre = 0.5 * log_delta_sq
@@ -121,13 +175,20 @@ def wigner_3j(tj1, tj2, tj3, tm1, tm2, tm3):
                        + _log_factorial((tj3 + tm3) // 2) + _log_factorial((tj3 - tm3) // 2))
 
     # Sum over t: sign per term is (-1)^t only
-    result = 0.0
+    result, magnitude = 0.0, 0.0
     for t in range(t_min, t_max + 1):
         log_term = (_log_factorial(t) + _log_factorial(s1 - t)
                     + _log_factorial(s2 - t) + _log_factorial(s3 - t)
                     + _log_factorial(t - t_min_b) + _log_factorial(t - t_min_c))
         sign = 1.0 if t % 2 == 0 else -1.0
-        result += sign * np.exp(log_pre - log_term)
+        term = np.exp(log_pre - log_term)
+        result += sign * term
+        magnitude += term
+
+    if magnitude > 16.0 * abs(result):
+        with nb.objmode(exact='float64'):
+            exact = _wigner_3j_exact(tj1, tj2, tj3, tm1, tm2, tm3)
+        return exact
 
     # Overall phase: (-1)^(j1-j2-m3)
     phase_exp = (tj1 - tj2 - tm3) // 2
@@ -149,18 +210,14 @@ def wigner_6j(tj1, tj2, tj3, tl1, tl2, tl3):
     -------
     float
     """
-    # Check four triangle conditions
-    _, v1 = _triangle_coefficient(tj1, tj2, tj3)
-    _, v2 = _triangle_coefficient(tj1, tl2, tl3)
-    _, v3 = _triangle_coefficient(tl1, tj2, tl3)
-    _, v4 = _triangle_coefficient(tl1, tl2, tj3)
+    # Check and evaluate each triangle once.
+    ld1, v1 = _triangle_coefficient(tj1, tj2, tj3)
+    ld2, v2 = _triangle_coefficient(tj1, tl2, tl3)
+    ld3, v3 = _triangle_coefficient(tl1, tj2, tl3)
+    ld4, v4 = _triangle_coefficient(tl1, tl2, tj3)
     if not (v1 and v2 and v3 and v4):
         return 0.0
 
-    ld1, _ = _triangle_coefficient(tj1, tj2, tj3)
-    ld2, _ = _triangle_coefficient(tj1, tl2, tl3)
-    ld3, _ = _triangle_coefficient(tl1, tj2, tl3)
-    ld4, _ = _triangle_coefficient(tl1, tl2, tj3)
     log_delta = 0.5 * (ld1 + ld2 + ld3 + ld4)
 
     # Summation bounds
@@ -178,7 +235,12 @@ def wigner_6j(tj1, tj2, tj3, tl1, tl2, tl3):
     if t_min > t_max:
         return 0.0
 
-    result = 0.0
+    if t_max - t_min > 4 or t_max + 1 > _MAX_FACT:
+        with nb.objmode(exact='float64'):
+            exact = _wigner_6j_exact(tj1, tj2, tj3, tl1, tl2, tl3)
+        return exact
+
+    result, magnitude = 0.0, 0.0
     for t in range(t_min, t_max + 1):
         log_num = _log_factorial(t + 1)
         log_den = (_log_factorial(t - s1) + _log_factorial(t - s2)
@@ -186,7 +248,14 @@ def wigner_6j(tj1, tj2, tj3, tl1, tl2, tl3):
                    + _log_factorial(r1 - t) + _log_factorial(r2 - t)
                    + _log_factorial(r3 - t))
         sign = 1.0 if t % 2 == 0 else -1.0
-        result += sign * np.exp(log_num - log_den + log_delta)
+        term = np.exp(log_num - log_den + log_delta)
+        result += sign * term
+        magnitude += term
+
+    if magnitude > 16.0 * abs(result):
+        with nb.objmode(exact='float64'):
+            exact = _wigner_6j_exact(tj1, tj2, tj3, tl1, tl2, tl3)
+        return exact
 
     return result
 

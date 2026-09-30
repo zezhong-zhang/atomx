@@ -60,6 +60,9 @@ def dir_integrate(e, ak, eps, isum, ppi, qqi, ra, rb,
                 h = rb - r0
                 iout = 1
 
+            if r1 == r0 and rb != r0:
+                raise FloatingPointError('Dirac integration step cannot advance at machine precision')
+
             p1, q1, ca, cb, s, t, nsum = dir0(
                 e, ak, eps, p0, q0, r0, r1, rv0, rv1, rv2, rv3)
             hp = h

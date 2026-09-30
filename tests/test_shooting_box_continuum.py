@@ -67,13 +67,13 @@ def test_grid_refinement_and_underresolved_rejection():
 
 def test_enrichment_contains_original_space_and_is_nested():
     from atomx.numerics.shooting.electron_space import continuum_enriched_electron_space
-    from atomx.methods.mcdhf.grid_functional import GridCorrelatedFunctional
-    from atomx.methods.mcdhf.matrix import GridCIWorkspace
-    from atomx.methods.mcdhf.config import enumerate_jj_csfs_many
+    from atomx.methods.csf.grid_functional import GridCSFFunctional
+    from atomx.physics.csf.matrix import GridCIWorkspace
+    from atomx.config.csf import enumerate_jj_csfs_many
     r, dr, n = sgrid(100., 1e-7, .2, 1000)
     csfs = [c for c in enumerate_jj_csfs_many(['1s2', '2s2', '2p2'])
             if c.total_J2 == 0 and c.parity == 1]
-    f = GridCorrelatedFunctional(csfs, GridCIWorkspace(r, dr, np.full(n, -2.)), 2)
+    f = GridCSFFunctional(csfs, GridCIWorkspace(r, dr, np.full(n, -2.)), 2)
     small, orbitals = continuum_enriched_electron_space(f, n_bound=3, n_continuum=3)
     larger, _ = continuum_enriched_electron_space(f, n_bound=3, n_continuum=6)
     for kappa, basis in small.basis.items():
@@ -108,13 +108,13 @@ def test_diffuse_negative_box_roots_match_bound_limit_and_boundary():
 def test_continuum_carbon_converges_without_noise_selected_step_stall():
     from atomx.numerics.shooting.electron_space import continuum_enriched_electron_space
     from atomx.numerics.shooting.orbital_optimization import optimize_grid_shooting
-    from atomx.methods.mcdhf.grid_functional import GridCorrelatedFunctional
-    from atomx.methods.mcdhf.matrix import GridCIWorkspace
-    from atomx.methods.mcdhf.config import enumerate_jj_csfs_many
+    from atomx.methods.csf.grid_functional import GridCSFFunctional
+    from atomx.physics.csf.matrix import GridCIWorkspace
+    from atomx.config.csf import enumerate_jj_csfs_many
     from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
     r, dr, n = sgrid(20., 1e-7, 20/2400, 4000)
     nucleus = ShootingHFSolver(6, [], nuclear='fermi')
-    f = GridCorrelatedFunctional(enumerate_jj_csfs_many(['1s2']),
+    f = GridCSFFunctional(enumerate_jj_csfs_many(['1s2']),
         GridCIWorkspace(r, dr, nucleus._nuclear_rv(r, dr, n)), 6)
     space, waves = continuum_enriched_electron_space(f, n_continuum=48)
     _, ci, report = optimize_grid_shooting(f, waves, space,
@@ -123,3 +123,27 @@ def test_continuum_carbon_converges_without_noise_selected_step_stall():
     assert report['orbital_residual'] < 1e-6
     assert report['electron_space_leakage'] < 1e-12
     assert ci.ground_energy == pytest.approx(-32.37305034815837, abs=1e-9)
+
+
+def test_heavy_negative_box_matching_preserves_core_amplitude():
+    """Z=98, R=75 spans >1000 tail log units; global rescaling lost the core."""
+    from atomx.numerics.shooting.dirac_bound import dbound
+    from atomx.physics.dirac import hydrogenic_dirac_energy
+    from atomx.potentials.radial_nucleus import nuclear_rv
+    r, dr, n = sgrid(75., 1e-7, 75./2400, 6000)
+    rv = nuclear_rv(98, r, dr, n, nuclear='fermi')
+    solver = BoxDiracContinuum(r, dr, rv)
+    cutoff = .99*hydrogenic_dirac_energy(7, -1, 98)
+    energies, waves, report = solver.negative_roots_above(-1, cutoff, expected_below=7)
+    # Independent boundary condition: dbound uses the decaying infinite-domain
+    # tail, while negative_roots_above matches P(R)=0 in the full finite box.
+    bound, error, *_ = dbound(-80., 1e-11, 8, -1, r, rv,
+                              *solver.potential, n, r, n)
+    assert error == 0
+    assert energies[0] == pytest.approx(bound, abs=1e-8)
+    assert report['matched_negative_roots'] == 70
+    assert report['maximum_matching_defect'] < 1e-9
+    assert np.all(np.isfinite(waves))
+    np.testing.assert_allclose(waves[:, 0, -1], 0., atol=1e-15)
+    gram = np.einsum('iar,r,jar->ij', waves, solver.weights, waves)
+    np.testing.assert_allclose(gram, np.eye(len(waves)), atol=1e-8)

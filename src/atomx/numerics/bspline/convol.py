@@ -1394,7 +1394,11 @@ SEMISEPARABLE_EXCHANGE_NS = 320
 # Mixed exchange is slightly slower per warm contraction at 333 splines,
 # but avoids the last O(ns^2) full banks and improves cold-start/RSS.
 SEMISEPARABLE_MIXED_EXCHANGE_NS = 320
-SEMISEPARABLE_DIRECT_NS = 256
+# Direct/Slater contractions benefit earlier than exchange: on the standard
+# 113-spline grid the four-component scalar contraction is 13--30x faster
+# with factors (ranks 0, 2, 6), with agreement within 2e-12 relative. Keep
+# the separately measured exchange thresholds above unchanged.
+SEMISEPARABLE_DIRECT_NS = 96
 _RKB_BANKS: OrderedDict = OrderedDict()
 
 
@@ -1662,103 +1666,63 @@ def _build_rkb_sym(bsp, gr, grw, t, nv, ks, ns, k):
 # ── Direct potential via convolution ────────────────────────────────
 
 def compute_direct_potential_cell(orb_P, orb_Q, bsp_data, k, cache=None):
-    """Direct (Coulomb) potential matrix V^k via cell algorithm.
+    """Direct matrices from the complete density P²+Q² in either component.
 
-    V^k_{ij} = Σ_{kl} R^k(ij, kl) * ρ_{kl}
-
-    where ρ_{kl} = P_a[k]*P_a[l] + Q_a[k]*Q_a[l] is the orbital density.
-
-    Returns V_PP (nsp×nsp) and V_QQ (nsq×nsq) diagonal-block contributions.
+    Both output blocks feel both source components. In particular the
+    QQ block contains the dominant P² source, and the PP block contains
+    the relativistic Q² contribution. The matrices use the padded
+    ``bsp_data['ns']`` layout of the Dirac eigenproblem.
     """
     bd = bsp_data
-    ksp = bd.get("ksp", bd["ks"])
-    nsp = bd.get("nsp", bd["ns"])
-    ksq = bd.get("ksq", bd["ks"])
-    nsq = bd.get("nsq", bd["ns"])
-
-    # PP block: rkb_pppp contracted with P-density
-    if cache is not None:
-        rkb_pp, _, _ = cache.get_rkb(k, "pppp")
-    else:
-        rkb_pp, _, _ = _build_rkb_sym(
-            bd["bsp_p"], bd["gr"], bd["grw"], bd["t"],
-            bd["nv"], ksp, nsp, k), nsp, ksp
-
-    d_P = _density_sym(orb_P, orb_P, nsp, ksp)
-    v_PP_banded = _convol_case1(rkb_pp, d_P, nsp, ksp)
-
-    # Convert banded → full matrix
-    V_PP = np.zeros((nsp, nsp))
-    for i in range(nsp):
-        for s in range(ksp):
-            if i + s < nsp:
-                V_PP[i, i + s] += v_PP_banded[i, s]
-                if s > 0:
-                    V_PP[i + s, i] += v_PP_banded[i, s]
-
-    # QQ block: rkb_qqqq contracted with Q-density
-    if cache is not None:
-        rkb_qq, _, _ = cache.get_rkb(k, "qqqq")
-    else:
-        bsp_q = bd.get("bsp_q", bd["bsp_p"])
-        rkb_qq = _build_rkb_sym(
-            bsp_q, bd["gr"], bd["grw"], bd["t"],
-            bd["nv"], ksq, nsq, k)
-
-    d_Q = _density_sym(orb_Q, orb_Q, nsq, ksq)
-    v_QQ_banded = _convol_case1(rkb_qq, d_Q, nsq, ksq)
-
-    V_QQ = np.zeros((nsq, nsq))
-    for i in range(nsq):
-        for s in range(ksq):
-            if i + s < nsq:
-                V_QQ[i, i + s] += v_QQ_banded[i, s]
-                if s > 0:
-                    V_QQ[i + s, i] += v_QQ_banded[i, s]
-
-    return V_PP, V_QQ
+    ns = bd["ns"]
+    orders = {"p": bd.get("ksp", bd["ks"]), "q": bd.get("ksq", bd["ks"])}
+    if cache is None:
+        cache = ConvolCache(bd)
+    densities = {c: _density_sym(v, v, ns, orders[c])
+                 for c, v in (("p", orb_P), ("q", orb_Q))}
+    blocks = []
+    for a in ("p", "q"):
+        banded = np.zeros((ns, orders[a]))
+        for b in ("p", "q"):
+            bank, _, _ = cache.get_rkb_t(k, a+b+a+b)
+            banded += _convol_case1_t(bank, densities[b], ns, orders[a], orders[b])
+        full = np.zeros((ns, ns))
+        _banded_to_full_add(full, banded, ns, orders[a], 1.)
+        blocks.append(full)
+    return tuple(blocks)
 
 
 # ── Exchange matrix via convolution ─────────────────────────────────
 
 def compute_exchange_matrix_cell(orb_a_P, orb_a_Q, orb_b_P, orb_b_Q,
                                   bsp_data, k, cache=None):
-    """Non-local exchange matrix K^k via cell algorithm.
+    """All four Dirac exchange blocks, in order PP, QQ, PQ, QP.
 
-    K^k_{ij} comes from R^k(a·, ·b) contracted with cross-density.
-
-    Returns K_PP (nsp×nsp) and K_QQ (nsq×nsq).
+    Coulomb exchange acts on the complete spinor pair density. Its mixed
+    blocks P(r)Q(s) and Q(r)P(s) are required even though the *direct*
+    Coulomb field is diagonal in Dirac components. Dropping them changes
+    the Fock Hamiltonian and destroys occupied/virtual orthogonality.
+    Coefficients and returned blocks use the padded ``bsp_data['ns']``
+    layout of the generalized Dirac eigenproblem.
     """
     bd = bsp_data
-    ksp = bd.get("ksp", bd["ks"])
-    nsp = bd.get("nsp", bd["ns"])
-    ksq = bd.get("ksq", bd["ks"])
-    nsq = bd.get("nsq", bd["ns"])
-
-    # PP block
-    if cache is not None:
-        rkb_pp, _, _ = cache.get_rkb(k, "pppp")
-    else:
-        rkb_pp = _build_rkb_sym(
-            bd["bsp_p"], bd["gr"], bd["grw"], bd["t"],
-            bd["nv"], ksp, nsp, k)
-
-    d_P = _density_full(orb_a_P, orb_b_P, nsp)
-    K_PP = _convol_case4(rkb_pp, d_P, nsp, ksp)
-
-    # QQ block
-    if cache is not None:
-        rkb_qq, _, _ = cache.get_rkb(k, "qqqq")
-    else:
-        bsp_q = bd.get("bsp_q", bd["bsp_p"])
-        rkb_qq = _build_rkb_sym(
-            bsp_q, bd["gr"], bd["grw"], bd["t"],
-            bd["nv"], ksq, nsq, k)
-
-    d_Q = _density_full(orb_a_Q, orb_b_Q, nsq)
-    K_QQ = _convol_case4(rkb_qq, d_Q, nsq, ksq)
-
-    return K_PP, K_QQ
+    ns = bd["ns"]
+    orders = {"p": bd.get("ksp", bd["ks"]), "q": bd.get("ksq", bd["ks"])}
+    left = {"p": orb_a_P, "q": orb_a_Q}
+    right = {"p": orb_b_P, "q": orb_b_Q}
+    if cache is None:
+        cache = ConvolCache(bd)
+    diagonal = orb_a_P is orb_b_P and orb_a_Q is orb_b_Q
+    blocks = {}
+    for a, b in (("p", "p"), ("q", "q"), ("p", "q"), ("q", "p")):
+        if diagonal and (a, b) == ("q", "p"):
+            blocks[a, b] = blocks["p", "q"].T.copy()
+            continue
+        bank, _, _ = cache.get_rkb_t(k, a+b+a+b)
+        density = _density_full(left[a], right[b], ns)
+        blocks[a, b] = _convol_case4_t(bank, density, ns, orders[a], orders[b],
+                                      symmetric_output=diagonal and a == b)
+    return tuple(blocks[key] for key in (("p", "p"), ("q", "q"), ("p", "q"), ("q", "p")))
 
 
 # ── Slater integrals via cell algorithm ────────────────────────────

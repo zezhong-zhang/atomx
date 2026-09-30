@@ -19,10 +19,8 @@ removed.
 import numba as nb
 import numpy as np
 
-from atomx.numerics.bspline.evaluate import (
-    compute_yk,
-    eval_orbital_on_grid,
-)
+from atomx.numerics.yk import compute_yk
+from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 from atomx.numerics.bspline.evaluate import (
     eval_P as _eval_P,
 )

@@ -16,15 +16,14 @@ Approach
 3. Integrate the radial Dirac equation outward from r → 0 (using
    the existing ``dir0`` short-distance power series for the seed
    and ``dir_integrate`` per interval) all the way to ``r_max``.
-   The integrator is the same adaptive-Numerov-like step-doubling
-   kernel that FAC and Salvat use — no eigenvalue selection.
-4. Match the outer-region wavefunction to the relativistic-energy
-   normalized Coulomb form with asymptotic amplitude
+   Salvat's power-series integrator adapts its substeps to series
+   convergence. This initial-value solve requires no eigenvalue search.
+4. Match the integrated (P,Q) pair to regular/irregular Dirac–Coulomb
+   solutions in the constant-rV tail. Their exact two-component determinant
+   fixes amplitude and phase, without a WKB or plane-wave approximation.
+   Normalize the large-component amplitude at infinity to
 
-       A² = (2 + E/c²) / (π k),
-
-   on the outermost ~10 % of the grid to extract the phase shift δ
-   and renormalise the wave to the standard delta-energy convention.
+       A² = (2 + E/c²) / (π k).
 
 Public API
 ----------
@@ -49,10 +48,11 @@ from functools import lru_cache
 from typing import Callable, Tuple
 
 import numpy as np
-from scipy.special import gamma as _sp_gamma
 
 from atomx.constants import C_SQ as _C_SQ  # CODATA-2022 c² (M12)
+from atomx.numerics.shooting.dirac_coulomb import dirac_coulomb_outgoing
 from atomx.numerics.shooting.dirac_integrator import doutw
+from atomx.numerics.shooting.dirac_sampling import sample_dirac_solution, validate_output_grid
 from atomx.numerics.shooting.grid import sgrid
 from atomx.numerics.shooting.spline import vint
 
@@ -91,8 +91,12 @@ def _prepare_potential(V_func, r_max: float, n_grid: int, Z_residual: float):
             and np.array_equal(cache["prep"][-1], rv)):
         return cache["prep"]
     rg, rvg, va, vb, vc, vd, nvt = vint(r, rv, n_out)
+    # VINT's final entry is the constant-rV Coulomb tail, valid beyond
+    # its final knot. Clipping to nvt-2 extrapolates the preceding cubic
+    # through the entire outer box, changing the field and forcing tiny
+    # integration steps in an artificial rapidly growing potential.
     ind = np.clip(
-        np.searchsorted(rg[:nvt], r, side="right") - 1, 0, nvt - 2
+        np.searchsorted(rg[:nvt], r, side="right") - 1, 0, nvt - 1
     ).astype(np.int64)
     for arr in (va, vb, vc, vd, ind):
         with contextlib.suppress(Exception):
@@ -115,75 +119,30 @@ def _solve_prepared(prep, E_au: float, kappa: int, eps_tol: float,
         r, ind, n_out, va, vb, vc, vd, P, Q,
     )
 
-    l = kappa if kappa > 0 else -kappa - 1
-    # relativistic momentum and Grant's delta(E)-normalized amplitude:
-    # A^2 = (E + 2c^2)/(pi c^2 k) -> 2/(pi k) as E/c^2 -> 0.  The old
-    # nonrelativistic k = sqrt(2E) target left amplitude^2 low by
-    # sqrt(1 + E/2c^2) per wave (9% at 200 keV) — visible as a
-    # high-energy deficit in Z=54 K-shell cross sections.
-    # c² comes from atomx.constants (module-level _C_SQ import), M12:
-    # the local literal was the CODATA-2018 1/α², 1.4e-9 low.
     eps_rel = E_au / _C_SQ
-    k_inf = math.sqrt(2.0 * E_au * (1.0 + 0.5 * eps_rel))
-
-    n_match = max(20, n_out // 5)
-    r_match = r[-n_match:]
-    P_match = P[-n_match:]
-    Q_match = Q[-n_match:]
-    # WKB envelope: for a slow wave over a residual ion the box edge is
-    # far from asymptotic (Z_res/(k r) can exceed 1 at high Z), where the
-    # local momentum k(r) >> k_inf.  The invariant is amplitude^2 * k:
-    #     P = A_inf sqrt(k_inf/k(r)) sin(Int k dr)
-    # so A_inf^2 = (P^2 + (P'/k(r))^2) * k(r)/k_inf.  Estimating with
-    # k_inf instead under-measured A_inf for slow ejected waves in deep
-    # potentials — a Z- and threshold-dependent overshoot of ionization
-    # cross sections (Xe K-shell +80% at 1.5x threshold).
-    V_m = rv[-n_match:] / r_match
-    b_loc = E_au - V_m
-    # The radial Dirac equation gives dP/dr exactly from the integrated
-    # pair (P,Q). Finite differences damp an oscillatory derivative when
-    # the wavelength is only moderately sampled and bias the continuum
-    # normalization by about 0.7% in the FAC high-energy wave panel.
-    dP = (-kappa * P_match / r_match
-          + (b_loc + 2.0 * _C_SQ) / math.sqrt(_C_SQ) * Q_match)
-    k_loc2 = (2.0 * b_loc * (1.0 + 0.5 * b_loc / _C_SQ)
-              - l * (l + 1.0) / (r_match * r_match))
-    k_loc = np.sqrt(np.maximum(k_loc2, k_inf * k_inf))
-    A_sq_arr = (P_match ** 2 + (dP / k_loc) ** 2) * (k_loc / k_inf)
-    A_meas = math.sqrt(float(np.median(A_sq_arr)))
-    if A_meas <= 0 or not math.isfinite(A_meas):
-        raise RuntimeError("continuum matching failed: nonfinite or zero asymptotic amplitude")
-
-    # Asymptotic matching must use the *Coulomb* wave, not a plane wave:
-    # the outgoing electron still feels the residual ion, so
-    #     P(r) ~ A sin(k r - l pi/2 - eta ln(2 k r) + sigma_l + delta)
-    # with eta = -Z_res/k and sigma_l = arg Gamma(l + 1 + i eta).  Dropping
-    # the two Coulomb terms (the previous behaviour) made `delta` a
-    # function of the box radius rather than a phase shift: -eta ln(2 k r)
-    # alone is 12.2 rad for Z_res = 1, k = 0.271, r_max = 50.
-    # See docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md finding M15.
-    z_res = -float(rv[-1])          # r*V(r) -> -Z_res as r -> infinity
-    delta = 0.0
-    if match_phase:
-        # FAC radial.c uses y=(1+alpha² E) Z/k for the relativistic
-        # Coulomb logarithm. Match across the whole asymptotic window;
-        # a single endpoint arcsin is ill-conditioned at extrema.
-        eta = -(1.0 + eps_rel) * z_res / k_inf
-        _gam = _sp_gamma(complex(l + 1.0, eta))
-        sigma_l = math.atan2(_gam.imag, _gam.real)
-        sample = np.linspace(0, n_match - 1, min(512, n_match), dtype=int)
-        rs = r_match[sample]
-        phase = np.arctan2(P_match[sample], dP[sample] / k_loc[sample])
-        reference = (k_inf * rs - 0.5 * l * math.pi
-                     - eta * np.log(2.0 * k_inf * rs) + sigma_l)
-        circle = np.mean(np.exp(1j * (phase - reference)))
-        if not np.isfinite(circle) or abs(circle) < 0.99:
-            raise RuntimeError(
-                "continuum phase matching is unconverged; refine the radial "
-                "grid or increase the asymptotic matching radius")
-        delta = float(np.angle(circle))
-
-    norm = math.sqrt((2.0 + eps_rel) / (math.pi * k_inf)) / A_meas
+    momentum = math.sqrt(E_au*(2.0+eps_rel))
+    small_ratio = math.sqrt(E_au/(E_au+2.0*_C_SQ))
+    charge = -float(va[-1])
+    tail = np.flatnonzero(ind == len(va)-1)
+    if not len(tail):
+        raise RuntimeError('continuum grid does not reach its Coulomb tail')
+    checks = sorted({max(int(tail[0]), n_out-max(2, n_out//10)), n_out-1})
+    coefficients = []
+    for index in checks:
+        reference = dirac_coulomb_outgoing(E_au, kappa, charge, float(r[index]))
+        regular, irregular = reference.imag, reference.real
+        # The exact Dirac determinant F_P G_Q - F_Q G_P is -small_ratio.
+        coefficients.append(np.array([
+            (P[index]*irregular[1]-Q[index]*irregular[0])/(-small_ratio),
+            (regular[0]*Q[index]-regular[1]*P[index])/(-small_ratio)]))
+    amplitude = float(np.linalg.norm(coefficients[-1]))
+    if not math.isfinite(amplitude) or amplitude <= 0:
+        raise RuntimeError('continuum matching failed: nonfinite or zero amplitude')
+    if (len(coefficients) > 1 and np.linalg.norm(coefficients[0]-coefficients[-1])
+            > max(100*eps_tol, 1e-8)*amplitude):
+        raise RuntimeError('continuum Coulomb matching is unconverged; refine the potential/grid')
+    delta = math.atan2(coefficients[-1][1], coefficients[-1][0]) if match_phase else float('nan')
+    norm = math.sqrt((2.0+eps_rel)/(math.pi*momentum))/amplitude
     P = P * norm
     Q = Q * norm
     return r, P, Q, delta
@@ -199,8 +158,9 @@ def solve_dirac_continuum_shooting(
     eps_tol: float = 1.0e-10,
     Z_residual: float = 0.0,
     match_phase: bool = True,
+    interp_grid=None,
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, float]:
-    """Adaptive-Numerov Dirac continuum at exact energy ``E_au``.
+    """Adaptive power-series Dirac continuum at exact energy ``E_au``.
 
     Solves the radial Dirac equations for the large (P) and small (Q)
     components on a Salvat-style non-uniform grid, then phase-matches to
@@ -208,17 +168,19 @@ def solve_dirac_continuum_shooting(
     The squared large-component asymptotic amplitude is
     ``(2 + E/c²)/(pi*k)``; the nonrelativistic limit is ``2/(pi*k)``.
 
-    ``delta`` is referenced to the Coulomb logarithm with relativistic
-    Sommerfeld parameter and the conventional ``arg Gamma(l+1+i*eta)``
-    constant. FAC's ``PhaseRDependent`` uses a different constant, so its
-    printed phase is not directly comparable. An unconverged radial phase
-    fit raises; the batch API omits the phase fit for wave-only consumers.
+    ``delta`` is relative to the regular Dirac–Coulomb solution in Salvat's
+    DCOULF convention. It is zero for a pure attractive Coulomb potential,
+    up to an overall real wavefunction sign. Matching coefficients are
+    checked at two points in the Coulomb tail when available. This replaces
+    the former WKB amplitude and nonrelativistic gamma-function phase.
     Callers that only use P/Q may pass ``match_phase=False``; the returned
-    phase is then NaN rather than a falsely precise number.
+    phase is then NaN. Normalization uses the same Coulomb reference either way.
 
     Returns ``(r, P, Q, delta)``.  The grid and the r*V(r) spline are
     shared across partial waves and energies (cached on ``V_func``); see
     :func:`solve_dirac_continuum_many` for the thread-parallel batch API.
+    ``interp_grid`` requests dense power-series output at those radii,
+    within the solved interval; the returned grid is then that output grid.
     """
     if not math.isfinite(E_au) or E_au <= 0:
         raise ValueError("solve_dirac_continuum_shooting: E_au must be finite and > 0")
@@ -229,9 +191,66 @@ def solve_dirac_continuum_shooting(
     if not math.isfinite(eps_tol) or eps_tol <= 0:
         raise ValueError("eps_tol must be finite and positive")
     prep = _prepare_potential(V_func, r_max, n_grid, Z_residual)
+    target = None if interp_grid is None else validate_output_grid(interp_grid, prep[0])
     r, P, Q, delta = _solve_prepared(
         prep, E_au, int(kappa), eps_tol, match_phase=match_phase)
+    if target is not None:
+        _, _, va, vb, vc, vd, ind, _ = prep
+        P, Q = sample_dirac_solution(target, r, P, Q, ind, va, vb, vc, vd,
+                                    E_au, int(kappa), eps_tol)
+        r = target
     return r, P, Q, delta if match_phase else float("nan")
+
+
+class DiracContinuumBatch:
+    """Own numerical controls and reusable workers for successive wave batches.
+
+    Use as a context manager. Wave results are owned by the caller and are
+    not retained here. The potential is checked on each call, just as in the
+    standalone batch solver, so a mutated callable cannot reuse a stale field.
+    """
+
+    def __init__(self, V_func, *, r_max=50., n_grid=1000, eps_tol=1e-10,
+                 Z_residual=0., workers=None, interp_grid=None):
+        self._potential = V_func
+        self._controls = dict(r_max=r_max, n_grid=n_grid, eps_tol=eps_tol,
+                              Z_residual=Z_residual, workers=workers,
+                              interp_grid=interp_grid)
+        self._executor = None
+        self._workers = None
+        self._closed = False
+
+    def __enter__(self):
+        if self._closed:
+            raise RuntimeError('continuum batch context is closed')
+        return self
+
+    def __exit__(self, *exception):
+        self.close()
+
+    def close(self):
+        """Finish submitted work and release this context's worker threads."""
+        if self._executor is not None:
+            self._executor.shutdown(wait=True)
+            self._executor = None
+        self._closed = True
+
+    def _pool(self, workers):
+        from concurrent.futures import ThreadPoolExecutor
+        # Preserve the standalone solver's batch-size-dependent worker count.
+        if self._executor is None or self._workers != workers:
+            if self._executor is not None:
+                self._executor.shutdown(wait=True)
+            self._executor = ThreadPoolExecutor(max_workers=workers)
+            self._workers = workers
+        return self._executor
+
+    def solve_many(self, requests):
+        """Return the same grid and wave mapping as the standalone solver."""
+        if self._closed:
+            raise RuntimeError('continuum batch context is closed')
+        return solve_dirac_continuum_many(
+            requests, self._potential, **self._controls, _batch=self)
 
 
 def solve_dirac_continuum_many(
@@ -244,6 +263,7 @@ def solve_dirac_continuum_many(
     Z_residual: float = 0.0,
     workers: int | None = None,
     interp_grid=None,
+    _batch=None,
 ):
     """Batch of partial-wave solves ``requests = [(kappa, E_au), ...]``.
 
@@ -251,19 +271,23 @@ def solve_dirac_continuum_many(
     of numerics — the right granularity for threads (unlike the tiny
     per-row SCF kernels where fork/join dominates).  Returns
     ``(r, waves)`` with ``waves[(kappa, E_au)] = (P, Q)``.  When
-    ``interp_grid`` is given, the waves are linearly interpolated onto it
-    inside the worker threads (np.interp releases the GIL).
+    ``interp_grid`` is given, the waves are evaluated there using the same
+    Dirac power series as the propagator (nogil). The returned grid matches
+    the wave arrays. Extrapolation outside the solved box is rejected.
+    A failed wave raises with its energy/kappa and original exception;
+    failure is not represented by a missing or zero partial-wave amplitude.
     """
     import os
     from concurrent.futures import ThreadPoolExecutor
 
     prep = _prepare_potential(V_func, r_max, n_grid, Z_residual)
     r = prep[0]
+    target = None if interp_grid is None else validate_output_grid(interp_grid, r)
     reqs = list(dict.fromkeys((int(k), float(E)) for (k, E) in requests))
     if any(k == 0 or not math.isfinite(E) or E <= 0.0 for k, E in reqs):
         raise ValueError("continuum requests require nonzero kappa and finite positive energy")
     if not reqs:
-        return r, {}
+        return r if target is None else target, {}
     if workers is None:
         # A dozen tiny radial solves do not repay 12–16 worker startups.
         # The measured 24-wave panel was fastest with 2–4 workers; leave
@@ -278,23 +302,28 @@ def solve_dirac_continuum_many(
         try:
             _r, P, Q, _d = _solve_prepared(
                 prep, E, kappa, eps_tol, match_phase=False)
-            if interp_grid is not None:
-                return req, (np.interp(interp_grid, r, P),
-                             np.interp(interp_grid, r, Q))
+            if target is not None:
+                _, _, va, vb, vc, vd, ind, _ = prep
+                return req, sample_dirac_solution(target, r, P, Q, ind, va, vb, vc, vd,
+                                                 E, kappa, eps_tol)
             return req, (P, Q)
-        except Exception:
-            return req, None
+        except Exception as exc:
+            raise RuntimeError(
+                f'continuum batch wave failed: kappa={kappa}, E={E} Ha') from exc
 
     waves = {}
     if workers <= 1 or len(reqs) <= 2:
         for req in reqs:
             key, val = _run(req)
             waves[key] = val
+    elif _batch is not None:
+        for key, val in _batch._pool(workers).map(_run, reqs):
+            waves[key] = val
     else:
         with ThreadPoolExecutor(max_workers=workers) as pool:
             for key, val in pool.map(_run, reqs):
                 waves[key] = val
-    return r, waves
+    return r if target is None else target, waves
 
 
-__all__ = ["solve_dirac_continuum_shooting", "solve_dirac_continuum_many"]
+__all__ = ["solve_dirac_continuum_shooting", "solve_dirac_continuum_many", "DiracContinuumBatch"]

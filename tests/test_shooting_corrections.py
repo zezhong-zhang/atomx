@@ -7,7 +7,7 @@ reported NO correction components.  The adapters now carry a
 radial-grid branch (``_has_radial_grid_data``): the same physics
 (Uehling VP, Mohr/Shabaev self-energy, full Grant–Pyper Breit) is
 evaluated directly from the shooting grid orbitals ``(r, difr, P, Q)``
-through the :mod:`atomx.corrections.workspace` seam.
+through the :mod:`atomx.numerics.radial_workspace` seam.
 
 Cross-engine check (independent radial numerics — Galerkin B-splines vs
 Salvat power-series ODE shooting — SAME correction kernels, same Fermi

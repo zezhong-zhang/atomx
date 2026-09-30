@@ -141,7 +141,7 @@ class BoxDiracContinuum:
         matching: outward integration alone loses the decaying tail near
         a bound eigenvalue, even when its energy is accurately bracketed.
         """
-        from .dirac_green import box_inward as _box_inward
+        from .dirac_green import scaled_box_pair
         if (not isinstance(kappa, (int, np.integer)) or kappa == 0
                 or not isinstance(expected_below, (int, np.integer)) or expected_below < 0
                 or not np.isfinite(lower_energy) or not -SL**2 < lower_energy < 0):
@@ -174,19 +174,23 @@ class BoxDiracContinuum:
             index = int(np.clip(allowed[-1] if len(allowed) else len(self.r)//2,
                                 2, len(self.r)-3))
             def match(energy, reconstruct=False):
-                _, _, outward = self._shoot(energy, kappa)
-                inward = np.array(_box_inward(energy, kappa, self.r, *self.potential))
-                a, b = np.linalg.norm(outward[:, index]), np.linalg.norm(inward[:, index])
-                if not np.isfinite(a*b) or min(a, b) < np.finfo(float).tiny:
-                    raise FloatingPointError('negative box matching dynamic range exhausted')
-                outward, inward = outward/a, inward/b
+                # Match directions, not globally scaled amplitudes. A heavy
+                # nucleus in a large box can span thousands of exponential
+                # log units: rescaling an entire shooting history erases the
+                # regular solution at the match point before normalization.
+                outward, inward, log_out, log_in, _, _ = scaled_box_pair(
+                    energy, kappa, self.r, *self.potential)
                 u, v = outward[:, index], inward[:, index]
                 determinant = u[0]*v[1]-u[1]*v[0]
                 if not reconstruct:
                     return determinant
-                inward *= u@v
                 wave = outward.copy()
-                wave[:, index+1:] = inward[:, index+1:]
+                wave[:, index+1:] = (u@v)*inward[:, index+1:]
+                amplitude = np.concatenate((log_out[:index+1]-log_out[index],
+                                            log_in[index+1:]-log_in[index]))
+                # One common offset preserves matching and normalization;
+                # only physically negligible tails can underflow to zero.
+                wave *= np.exp(amplitude-np.max(amplitude))
                 norm = float(np.sum(wave*wave*self.weights))
                 if not np.isfinite(norm) or norm <= 0:
                     raise FloatingPointError('invalid matched box norm')

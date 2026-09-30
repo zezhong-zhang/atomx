@@ -98,17 +98,17 @@ class ShootingHFSolver:
         ``'point'`` (default) or ``'fermi'`` — same convention as
         :class:`ShootingSolver`.
     jj_configs : list of JJConfig, optional
-        Multi-configuration jj-coupled configurations with c_j^2 weights
-        (the structure ``MCDHFSolver._jj_configs`` builds).  When given,
-        the pair coefficients become the Guerra Eq (10) weighted averages
+        Integer jj occupation patterns with explicit ensemble weights.
+        These define a configuration-average functional. The pair moments
         ``WW(a,b) = Σ_j c_j² n_a^j n_b^j`` (``WW(a,a) = Σ_j c_j² n_a^j
         (n_a^j − 1)``) via :func:`atomx.config.jj_coupling.compute_WW`,
-        and the per-electron Fock coefficients are ``WW(a,b)/q_a`` —
+        give per-electron Fock coefficients ``WW(a,b)/q_a`` —
         exactly the B-spline ``DFSolver`` convention.  Each config's
         ``subshells`` must align positionally with ``subshells`` (same
         ``(n, kappa)`` order), and every ``q_a`` must be positive (the
-        MCDHF driver floors occupations at 0.001).  When ``None``, the
-        statistical products below are used, bit-identical to the
+        caller must omit unoccupied shells). This interface does not include
+        off-diagonal CSF interference and is not Hamiltonian DF. When ``None``,
+        the fractional products below are used, bit-identical to the
         historical behaviour.
 
     Notes
@@ -164,57 +164,21 @@ class ShootingHFSolver:
     def _rotate_occupied(self, pa, qa, groups, r, difr, rv):
         """Enforce stationarity of the HF functional along same-kappa rotations.
 
-        A two-orbital rotation has Fourier degree four. Five functional
-        samples determine it, avoiding repeated radial integrals during
-        the scalar minimization. This restores the occupied-occupied
-        stationarity condition lost in individually constrained solves.
+        A two-orbital rotation has Fourier degree four. Configuration
+        averages have only even harmonics (five samples); coherent CSF
+        states can have odd harmonics too (nine samples). The functional
+        declares its harmonic content. This restores occupied-space
+        stationarity lost in individually constrained solves.
         """
-        from scipy.optimize import minimize_scalar
-        def energy():
-            return self.functional.total_energy(pa, qa, r, difr, rv)
-
-        for a, b, core_hole in self.functional.rotation_pairs(groups):
-            ap, aq, bp, bq = (v.copy() for v in (pa[a], qa[a], pa[b], qa[b]))
-            def rotate(t):
-                c, s = np.cos(t), np.sin(t)
-                pa[a], qa[a] = c*ap+s*bp, c*aq+s*bq
-                pa[b], qa[b] = c*bp-s*ap, c*bq-s*aq
-            angles = np.arange(5)*np.pi/5
-            values = []
-            for t in angles:
-                rotate(t)
-                values.append(energy())
-            def row(t):
-                return np.array([1., np.cos(2*t), np.sin(2*t),
-                                 np.cos(4*t), np.sin(4*t)])
-            coef = np.linalg.solve(np.array([row(t) for t in angles]), values)
-            # Evaluate E(t)-E(0) without subtracting nearly equal
-            # cosine terms. This resolves rotations far below the
-            # total-energy ulp (e.g. a deep K core/valence pair).
-            def fit(t):
-                return float(-2*coef[1]*np.sin(t)**2 + coef[2]*np.sin(2*t)
-                    -2*coef[3]*np.sin(2*t)**2 + coef[4]*np.sin(4*t))
-            if core_hole:
-                # A constrained excited configuration may be a saddle.
-                # Minimization can exchange radial identities and fill
-                # the core hole. Follow the nearest stationary rotation,
-                # just as the B-spline method does, including maxima.
-                a1,b1,a2,b2 = coef[1:]
-                roots = np.roots([2*b2+2j*a2,b1+1j*a1,0.,
-                                  b1-1j*a1,2*b2-2j*a2])
-                stationary = np.angle(roots[abs(abs(roots)-1)<1e-6])/2
-                angle = (float(np.clip(stationary[np.argmin(abs(stationary))],
-                                       -.1,.1)) if stationary.size else 0.)
-                rotate(angle)
-            else:
-                optimum = minimize_scalar(fit, bounds=(-.15, .15), method='bounded',
-                                           options={'xatol': 1e-11})
-                rotate(optimum.x if fit(optimum.x) < fit(0.) else 0.)
-        return energy()
+        from atomx.numerics.orbital_rotations import rotate_occupied
+        return rotate_occupied(pa, qa, self.functional.rotation_pairs(groups),
+            lambda: self.functional.total_energy(pa, qa, r, difr, rv),
+            pair_energy=lambda a, b: self.functional.rotation_energy(pa, qa, r, difr, rv, a, b),
+            harmonics=getattr(self.functional, 'rotation_harmonics', (2, 4)))
 
     def solve(self, max_iter: int = 60, tol: float = 1.0e-7,
               damping: float = 0.5, *, seed: Optional[ShootingResult] = None,
-              orbital_solver: str = "adaptive") -> ShootingResult:
+              orbital_solver: str = "adaptive", orbital_tolerance=None) -> ShootingResult:
         """Run the DHF SCF.
 
         Parameters
@@ -229,6 +193,11 @@ class ShootingHFSolver:
         damping : float
             Old-orbital fraction in the update mix (0.5 = directed
             default; 0 = full replacement).
+        orbital_tolerance : float, optional
+            Independent bound on the undamped radial L2 update. The default
+            sqrt(min(tol, 1e-7)) targets variational energy accuracy. A property
+            calculation can demand tighter orbitals without requesting energy
+            differences below floating-point resolution.
         orbital_solver : str
             'adaptive' retains the nonlocal resolvent after a frozen-source
             failure. 'nonlocal_resolvent' uses it for every unconstrained
@@ -241,7 +210,7 @@ class ShootingHFSolver:
             invalid or incompatible seeds are rejected explicitly.
         """
         from atomx.numerics.shooting.scf import validate_scf_controls
-        validate_scf_controls(max_iter, tol, damping)
+        validate_scf_controls(max_iter, tol, damping, orbital_tolerance=orbital_tolerance)
         if orbital_solver not in ('adaptive', 'nonlocal_resolvent'):
             raise ValueError('unknown shooting orbital solver')
         if orbital_solver == 'nonlocal_resolvent' and self.constraint_mode != 'coupled':
@@ -253,12 +222,15 @@ class ShootingHFSolver:
 
         # 1. Local-exchange starter (Gu alpha_xc — the closest local
         #    model to HF) on the SAME grid.
+        # It is a different approximate model, so it need not meet the
+        # final SCF tolerance. The nonlocal equations retain independent
+        # energy, update and stationarity checks below.
         if seed is None:
             base = ShootingSolver(
                 self.Z, self.subshells, n_grid=self.n_grid, r_max=self.r_max,
                 exchange='gu', aw=self.aw, nuclear=self.nuclear, r_inner=self.r_inner,
                 screening_potential=self.screening_potential,
-            ).solve(max_iter=300, tol=1.0e-9)
+            ).solve(max_iter=300, tol=1.0e-5)
             seed_rows = list(range(nsh))
         else:
             from atomx.numerics.shooting.grid import sgrid
@@ -352,7 +324,8 @@ class ShootingHFSolver:
             constraint_mode=self.constraint_mode, first_sweep=seed is None,
             field=field, evaluate=evaluate, stationarity=stationarity,
             exchange_action=lambda a, trial, pa, qa: self.functional.exchange_action(
-                a, trial, pa, qa, r, difr, exch), orbital_solver=orbital_solver)
+                a, trial, pa, qa, r, difr, exch), orbital_solver=orbital_solver,
+            state_update=getattr(self, 'state_update', None), orbital_tolerance=orbital_tolerance)
         converged, iterations, e_total = outcome.converged, outcome.iterations, outcome.energy
         e_j, e_k, e_2e = outcome.components
 
@@ -372,7 +345,7 @@ class ShootingHFSolver:
         from atomx.calculation_spec import resolved_solver_spec
         spec = resolved_solver_spec(self, method='DHF', engine='shooting',
             controls=dict(max_iter=max_iter, tolerance=tol, damping=damping,
-                          orbital_solver=orbital_solver,
+                          orbital_solver=orbital_solver, orbital_tolerance=orbital_tolerance,
                           stable_green_tail=self.constraint_mode == 'coupled'))
         return ShootingResult(
             calculation_spec=spec,
@@ -389,9 +362,13 @@ class ShootingHFSolver:
             },
             _grid=r,
             _equation="dirac",
-            _difr=difr, _pa=pa_arr, _qa=qa_arr,
+            _difr=difr, _pa=pa_arr, _qa=qa_arr, _rv_nuc=rvnuc,
             _model="hf",
             solver_diagnostics={
+                "initializer": "local_gu" if seed is None else "supplied_orbitals",
+                "initializer_iterations": base.iterations,
+                "initializer_converged": base.converged,
+                "initializer_tolerance": 1e-5 if seed is None else None,
                 "constraint_mode": self.constraint_mode,
                 "orbital_solver": orbital_solver,
                 "nonlocal_resolvent_scope": "unconstrained_kappa_channels",
@@ -409,11 +386,14 @@ class ShootingHFSolver:
                 "exchange_continuation_min_overlap": outcome.continuation_min_overlap,
                 "exchange_continuation_max_residual": outcome.continuation_max_residual,
                 "nonlocal_resolvent_residual_form": "shifted_green_identity",
-                "orbital_update_tolerance": math.sqrt(min(tol, 1e-7)),
+                "orbital_update_tolerance": (math.sqrt(min(tol, 1e-7))
+                    if orbital_tolerance is None else orbital_tolerance),
                 "closed_shell_canonicalized": self.constraint_mode == 'coupled',
                 "core_hole_rotation": "nearest_stationary_point",
                 "convergence_criterion": ("energy_change_and_occupied_rotation_and_orbital_update"
-                    if self.constraint_mode == "coupled" else "relative_total_energy_change"),
+                    if self.constraint_mode == "coupled" else
+                    "energy_change_and_orbital_update" if orbital_tolerance is not None else
+                    "relative_total_energy_change"),
             },
         )
 

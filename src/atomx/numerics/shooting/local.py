@@ -52,7 +52,7 @@ def _dhfs_scf(z, nshell, shell_n, shell_kappa, shell_occ, shell_l, shell_2j,
         pa, qa, ev, rv, vnuc, r, difr, np_, equation,
         slater_method)
 
-    return ev, e_total, converged, iteration, ier_max, r, difr, np_, rv, pa, qa
+    return ev, e_total, converged, iteration, ier_max, r, difr, np_, rv, pa, qa, vnuc
 
 
 def dfs_frozen_orbital(result, n: int, kappa: int, e_guess: float = -1.0):
@@ -215,7 +215,7 @@ class ShootingSolver:
                     f"{vscr.shape[0]} values for an {np_scr}-point grid")
 
         (orb_E, E_total, converged, iters, ier_max, r, difr, np_actual,
-         rv_conv, pa_conv, qa_conv) = _dhfs_scf(
+         rv_conv, pa_conv, qa_conv, rv_nuc) = _dhfs_scf(
             float(self.Z), n_shells, shell_n, shell_kappa, shell_occ,
             shell_l, shell_2j,
             self.n_grid, self.r_max, r2, drn,
@@ -253,13 +253,16 @@ class ShootingSolver:
                     continue
                 unbound.append((sh.label, e_orb))
 
-        if ier_max >= 5 or unbound:
+        if ier_max >= 6:
             from atomx.numerics.shooting.dirac_orbital import OrbitalSolveError
+            raise OrbitalSolveError(f'bound orbital integration failed (ier={ier_max})')
+        if ier_max in (3, 5) or unbound:
+            from atomx.numerics.shooting.dirac_orbital import RadialBoxError
 
             detail = ", ".join(
                 f"{lab}={e_orb:+.6f}" for lab, e_orb in unbound
-            ) or "bracket collapsed (ier=5)"
-            raise OrbitalSolveError(
+            ) or f"outer turning point or eigenvalue bracket unresolved (ier={ier_max})"
+            raise RadialBoxError(
                 f"shooting box too small for Z={self.Z}: the effective "
                 f"potential at r_max is {v_edge:+.6f} Ha and {detail}. "
                 f"Raise r_max (currently {self.r_max}); the default box "
@@ -280,5 +283,5 @@ class ShootingSolver:
             subshells=list(self.subshells),
             _grid=r,
             _equation=self.equation,
-            _rv=rv_conv, _difr=difr, _pa=pa_conv, _qa=qa_conv,
+            _rv=rv_conv, _rv_nuc=rv_nuc, _difr=difr, _pa=pa_conv, _qa=qa_conv,
         )

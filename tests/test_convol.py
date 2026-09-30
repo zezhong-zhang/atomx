@@ -234,7 +234,7 @@ class TestRkb:
                             bank[ip, jp, i, j], rtol=2e-12, atol=1e-14)
 
     @pytest.mark.parametrize("component", ["pppp", "qqqq", "pqpq", "qpqp"])
-    @pytest.mark.parametrize("ns,k", [(50, 1), (50, 6), (256, 0)])
+    @pytest.mark.parametrize("ns,k", [(50, 1), (50, 6), (113, 2), (256, 0)])
     def test_factored_direct_matches_full_cell_bank(self, ns, k, component):
         """Prefix/suffix Coulomb moments preserve mixed and equal blocks."""
         ks = 9
@@ -400,3 +400,27 @@ class TestSCFIntegration:
         be = Atom(Z=4, config="1s2 2s2", exchange="hf").solve()
         # DBSR_HF Be ground state: -14.5730 Ha
         assert be.total_energy == pytest.approx(-14.573, abs=0.01)
+
+
+@pytest.mark.parametrize('rank', [0, 1, 2])
+def test_full_dirac_direct_and_exchange_blocks_contract_to_slater(he_setup, rank):
+    """Mixed spinor components are required in both J and K contractions."""
+    from atomx.numerics.bspline.convol import (
+        compute_direct_potential_cell, compute_exchange_matrix_cell,
+        compute_slater_rk_cell)
+    bsp, ns = he_setup['data'], he_setup['ns']
+    rng = np.random.default_rng(713)
+    # Comparable P/Q amplitudes expose missing relativistic terms; random
+    # bra/ket coefficients test the whole matrix, not just diagonal energy.
+    a, b, c = [tuple(rng.normal(size=ns) for _ in range(2)) for _ in range(3)]
+    cache = ConvolCache(bsp)
+    jpp, jqq = compute_direct_potential_cell(*c, bsp, rank, cache=cache)
+    kpp, kqq, kpq, kqp = compute_exchange_matrix_cell(*c, *c, bsp, rank, cache=cache)
+    direct = a[0] @ jpp @ b[0]+a[1] @ jqq @ b[1]
+    exchange = (a[0] @ kpp @ b[0]+a[1] @ kqq @ b[1]
+                +a[0] @ kpq @ b[1]+a[1] @ kqp @ b[0])
+    expected_j = compute_slater_rk_cell(*a, *b, *c, *c, bsp, rank, cache=cache)
+    expected_k = compute_slater_rk_cell(*a, *c, *c, *b, bsp, rank, cache=cache)
+    assert direct == pytest.approx(expected_j, rel=3e-13, abs=1e-11)
+    assert exchange == pytest.approx(expected_k, rel=3e-13, abs=1e-11)
+    np.testing.assert_array_equal(kpq, kqp.T)

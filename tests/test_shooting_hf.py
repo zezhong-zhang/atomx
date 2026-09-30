@@ -100,11 +100,10 @@ def test_orbital_energies_match_bspline(solved, name):
 
 def test_provenance_and_method_metadata(solved):
     shooting, _ = solved["Ne"]
-    # averaging="ci" is the Atom default; Ne is closed-shell (single
-    # jj-CSF) so the ci route collapses to this plain solve exactly.
+    # Hamiltonian averaging is explicit even for the closed-shell limit.
     assert shooting.provenance == {"engine": "shooting",
                                    "exchange": "hf",
-                                   "averaging": "ci"}
+                                   "averaging": "hamiltonian"}
     res = shooting.result
     assert res.method_name == "Dirac-Hartree-Fock (shooting)"
     assert res.theory_level.name == "DIRAC_HARTREE_FOCK"

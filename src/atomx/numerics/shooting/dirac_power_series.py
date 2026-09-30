@@ -49,6 +49,12 @@ def dir0(e, ak, eps, p0, q0, r0, r1, rv0, rv1, rv2, rv3):
         # ===== Middle region (ME-4.23 to ME-4.27) =====
         s = 0.0
         t = 0.0
+        # The homogeneous system preserves an exactly zero initial state.
+        # A relative residual test would otherwise require 0 < eps*0 and
+        # report nonconvergence forever. The origin branch remains distinct:
+        # it constructs the nonzero regular Frobenius solution from P(0)=Q(0)=0.
+        if p0 == 0.0 and q0 == 0.0:
+            return 0.0, 0.0, ca, cb, s, t, 1
         rho = h / r0
         u0 = (rv0 + r0 * (rve + r0 * (rv2 + r0 * rv3))) / SL
         u1 = (rve + r0 * (2.0 * rv2 + r0 * 3.0 * rv3)) * h / SL

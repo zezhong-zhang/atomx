@@ -118,6 +118,51 @@ def test_mutating_potential_invalidates_prepared_spline():
     np.testing.assert_allclose(changed, fresh, rtol=1e-12, atol=1e-12)
 
 
+def test_screened_potential_uses_the_coulomb_tail_interval():
+    from atomx.numerics.shooting.dirac_continuum import _prepare_potential
+
+    def potential(r):
+        return (-17. - 9.*np.maximum(1.-r, 0.)**4)/r
+
+    r, _, a, b, c, d, index, rv = _prepare_potential(potential, 75., 4000, 17.)
+    reconstructed = a[index]+r*(b[index]+r*(c[index]+r*d[index]))
+    # VINT stores a dedicated constant-rV interval after its last knot.
+    # Extrapolating the preceding cubic creates an unphysical growing field.
+    np.testing.assert_allclose(reconstructed[r > 2.], -17., atol=1e-12, rtol=0)
+
+
+@pytest.mark.parametrize('kappa', [-1, 1, -3])
+def test_screened_continuum_against_independent_ode(kappa):
+    from scipy.integrate import solve_ivp
+    from atomx.constants import C
+
+    def potential(r):
+        return (-17.-9.*np.maximum(1.-r, 0.)**4)/r
+
+    energy = 10.
+    r, p, q, _ = solve_dirac_continuum_shooting(
+        energy, kappa, potential, r_max=40., n_grid=5000,
+        Z_residual=17., match_phase=False)
+
+    def equation(x, y):
+        kinetic = energy-potential(x)
+        return [-kappa*y[0]/x+(2*C+kinetic/C)*y[1],
+                kappa*y[1]/x-kinetic/C*y[0]]
+
+    # Independent point-Coulomb Frobenius ratio, propagated directly in V.
+    gamma = math.sqrt(kappa*kappa-(26/C)**2)
+    reference = solve_ivp(equation, (1e-9, 40.),
+        [1., (gamma+kappa)*C/26.], t_eval=r[1:], method='DOP853',
+        rtol=2e-11, atol=2e-12)
+    assert reference.success
+    wave = reference.y/np.max(np.abs(reference.y))
+    native = np.array([p[1:], q[1:]])
+    # This tests the regular radial solution up to its arbitrary scale;
+    # energy normalization has separate asymptotic-envelope tests.
+    scale = np.vdot(wave, native)/np.vdot(wave, wave)
+    assert np.linalg.norm(scale*wave-native)/np.linalg.norm(native) < 2e-8
+
+
 def test_relativistic_coulomb_phase_stable_with_matching_radius():
     energy = 200000. / 27.211386245988
 
@@ -127,11 +172,13 @@ def test_relativistic_coulomb_phase_stable_with_matching_radius():
         energy, -1, potential, r_max=radius, n_grid=points,
         Z_residual=54.)[3]
         for radius, points in ((20., 26515), (40., 53030))]
-    assert abs(phases[0]-phases[1]) < .02
-    with pytest.raises(RuntimeError, match="unconverged"):
-        solve_dirac_continuum_shooting(
-            energy, -1, potential, r_max=20., n_grid=20000,
-            Z_residual=54.)
+    assert abs(phases[0]-phases[1]) < 2e-9
+    # This grid used to fail because a roundoff-sized terminal cubic was
+    # extrapolated beyond VINT's Coulomb-tail knot, not from under-resolution.
+    coarse = solve_dirac_continuum_shooting(
+        energy, -1, potential, r_max=20., n_grid=20000,
+        Z_residual=54.)[3]
+    assert abs(coarse-phases[0]) < 2e-9
 
 
 def test_batch_deduplicates_waves_and_matches_scalar():
@@ -171,20 +218,7 @@ def test_relativistic_small_component_suppressed():
 
 
 class TestCoulombPhaseShift:
-    """``delta`` must be a phase shift, not a function of the box radius.
-
-    For a pure Coulomb potential ``-Z/r`` the integrated solution *is* the
-    regular Coulomb function, so the phase extracted against
-
-        ``P(r) ~ A sin(k r - l pi/2 - eta ln(2 k r) + sigma_l + delta)``
-
-    must be zero once the matching radius is asymptotic (``k r >> eta^2``).
-    The fit previously used a plane-wave asymptotic, dropping both the
-    ``-eta ln(2 k r)`` term and the Coulomb phase ``sigma_l``; for
-    ``Z_res = 1, k = 0.271, r_max = 50`` the log term alone is 12.2 rad, so
-    the returned "phase shift" was dominated by the box radius.  See
-    ``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding M15.
-    """
+    """The exact Dirac–Coulomb reference removes Coulomb phase and box bias."""
 
     @pytest.mark.parametrize(
         "Z, k, r_max",
@@ -202,9 +236,9 @@ class TestCoulombPhaseShift:
             E, -1, lambda r: -Z / r, r_max=float(r_max), n_grid=8000,
             Z_residual=Z,
         )
-        assert abs(delta) < 0.05, (
+        assert abs(delta) < 2e-9, (
             f"Z={Z}, k={k}: pure-Coulomb delta = {delta:+.4f} rad; the "
-            f"Coulomb log/phase terms are missing from the asymptotic fit"
+            f"regular Dirac–Coulomb reference should give zero phase"
         )
 
     def test_delta_no_longer_scales_with_the_box(self):
@@ -228,4 +262,4 @@ class TestCoulombPhaseShift:
             deltas.append(d)
         # eta ln(2 k r) changes by eta*ln(4) = -2.77 rad between these
         # radii, so a plane-wave fit would show a difference of that order.
-        assert abs(deltas[0] - deltas[1]) < 0.15, deltas
+        assert abs(deltas[0] - deltas[1]) < 2e-9, deltas

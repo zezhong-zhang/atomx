@@ -3,25 +3,12 @@
 A :class:`Sampling` object collects every "how do we discretize this?"
 knob into one place — basis size, radial grid, SCF tolerance, max
 iterations.  It is *orthogonal* to the physics rung: the same
-``Sampling`` can drive ``HartreeFock`` or ``DiracFock(breit=True, qed=True)``.
+``Sampling`` can drive ``HartreeFockSlater`` or ``DiracFock(breit=True, qed=True)``.
 
-Four named tiers cover most use cases:
-
-============= =============================================================
-Tier          What it guarantees
-============= =============================================================
-``quick``     Fast scoping pass.  ε_1s within ~0.5 eV of ``standard`` for
-              Z ≤ 92, ~10× faster.  Use to iterate on configuration, not
-              for publication numbers.
-``standard``  Default.  Matches DBSR_HF / Fortran DHFS to ~3·10⁻⁷ relative
-              on the Z = 2..92 calibration panel (neutral atoms).  The
-              B-spline backend uses the auto-selected DBSR_HF physics
-              grid (``ns=None``).
-``high``      Total-energy convergence to 10⁻⁷ on Z = 2..92.  ~3× slower
-              than ``standard``.
-``publication`` Tight tolerance for results that must be defended in
-              writing.  ~10× slower than ``standard``.
-============= =============================================================
+Four named tiers provide progressively finer discretization settings:
+``quick``, ``standard``, ``high``, and ``publication``. They are input presets,
+not error bounds. Check radial box/grid/basis refinement separately from SCF
+stationarity and from the completeness of the chosen physical model.
 
 For full control, drop into the constructor::
 
@@ -32,6 +19,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass, replace
 from typing import Optional
+import math
+from atomx.numerics.shooting.adaptive import RadialRefinement
 
 
 @dataclass(frozen=True)
@@ -55,12 +44,13 @@ class Sampling:
     r_max : float
         Outer radius of the radial box, in Bohr.
     tol : float
-        SCF convergence tolerance — the maximum allowed change in any
-        orbital eigenvalue between successive iterations, in Hartree.
+        Solver stopping tolerance. Direct DF combines relative energy
+        change with orbital-update and occupied-stationarity checks;
+        this is not a bound on total-energy or experimental error.
     max_iter : int
-        SCF iteration cap.  Lanthanides / actinides automatically get
-        an internal floor of 120 in the current B-spline solver (see
-        ``atomx/atom.py``); this is the cap used everywhere else.
+        SCF iteration cap. Direct Hamiltonian DF applies it separately
+        to initialization and coherent radial sweeps. Legacy fixed-ensemble
+        B-spline calculations with f shells retain a floor of 120.
     starting_potential : {None, "tfda", "gsz"}
         Approximate potential for the SCF initial guess.  ``None``
         (default) lets the solver pick — TFDA is auto-selected for
@@ -68,6 +58,18 @@ class Sampling:
     label : str
         Free-form name carried through for logging / debugging.
         Set automatically on the named tiers.
+    radial_refinement : RadialRefinement or None
+        Explicit grid/box convergence checks for single-configuration
+        shooting. With a policy, ``n_grid`` is the starting size and
+        additional full SCF solves compare total, orbital and excitation
+        energies. Automatic boxes can grow; explicitly set boxes stay fixed.
+        The default ``None`` performs one calculation at the selected size.
+    orbital_tolerance : float or None
+        Independent dimensionless L2 orbital-update threshold for iterative DF.
+        Supported by HF shooting and iterative B-spline DF, including
+        Hamiltonian averaging. Other methods reject it. ``None`` retains
+        each solver's existing stopping criteria. This is not an orbital
+        error bound; radial refinement must be checked separately.
     """
 
     ns: Optional[int] = None
@@ -78,8 +80,15 @@ class Sampling:
     max_iter: int = 40
     starting_potential: Optional[str] = None
     label: str = "custom"
+    radial_refinement: Optional[RadialRefinement] = None
+    orbital_tolerance: Optional[float] = None
 
     def __post_init__(self):
+        if self.orbital_tolerance is not None and (
+                not math.isfinite(self.orbital_tolerance) or self.orbital_tolerance <= 0):
+            raise ValueError('orbital_tolerance must be finite and positive')
+        if self.radial_refinement is not None and not isinstance(self.radial_refinement, RadialRefinement):
+            raise TypeError('radial_refinement must be RadialRefinement or None')
         if self.starting_potential not in (None, "tfda", "gsz"):
             raise ValueError(
                 f"starting_potential must be None, 'tfda', or 'gsz' "

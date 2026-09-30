@@ -151,12 +151,17 @@ class DiracResult:
         if self.nsq == 0:
             self.nsq = self.ns
 
-    def get_orbital(self, idx):
+    def get_orbital(self, idx, *, tolerance=None):
         """Get P and Q coefficients for the idx-th bound state.
 
         Layout: P in vec[0:nsp], Q in vec[ns_full:ns_full+nsq]
         where ns_full = max(nsp, nsq) = self.ns.
         Returns P, Q both zero-padded to length ns_full.
+
+        ``tolerance`` requests an inner eigenpair accuracy check. A spectral
+        residual estimates the S-norm orbital error and relative energy
+        error; only an inaccurate requested root is Newton-refined.
+        This is an algebraic check, not a radial basis error estimate.
         """
         bound_mask = (self.eigenvalues > NEGATIVE_CONTINUUM_EDGE) & (self.eigenvalues < 0)
         bound_indices = np.where(bound_mask)[0]
@@ -171,12 +176,16 @@ class DiracResult:
         # eigenvector and prevented SCF convergence. For an unconstrained
         # channel, idx+l+1 is the principal quantum number.
         ell = self.kappa if self.kappa > 0 else -self.kappa - 1
-        if idx + ell >= 10 and self._refine_orbital is not None and eigvec_idx not in self._refined_indices:
-            energy, vector = self._refine_orbital(eigvec_idx)
+        if tolerance is not None and (not np.isfinite(tolerance) or tolerance <= 0):
+            raise ValueError('eigenpair tolerance must be finite and positive')
+        if tolerance is not None and self._refine_orbital is None:
+            raise ValueError('eigenpair accuracy requested with refinement disabled')
+        if (self._refine_orbital is not None and
+                (tolerance is not None or (idx + ell >= 10 and eigvec_idx not in self._refined_indices))):
+            energy, vector = self._refine_orbital(eigvec_idx, tolerance)
             self.eigenvalues[eigvec_idx] = energy
             self.bound_energies[idx] = energy
             self.coefficients[:, eigvec_idx] = vector
-            self._refined_indices.add(eigvec_idx)
 
         vec = self.coefficients[:, eigvec_idx]
         ns_full = self.ns  # = max(nsp, nsq)
@@ -417,13 +426,38 @@ def solve_dirac(H, S, ns, kappa, n_remove_boundary=1, nsp=None, nsq=None,
     bound_mask = (eigenvalues > sea_threshold) & (eigenvalues < 0)
     bound_energies = np.sort(eigenvalues[bound_mask])
 
-    def refine(index):
+    refined_indices = set()
+
+    def refine(index, tolerance=None):
         full_index = np.flatnonzero(physical_mask)[index]
         gaps = np.abs(eigenvalues - eigenvalues[full_index])
         gaps[full_index] = np.inf
-        energy, vector = _refine_eigenpair(
-            constrained_h, constrained_s, eigenvalues[full_index],
-            vectors[:, full_index], float(np.min(gaps)))
+        energy, vector = eigenvalues[full_index], vectors[:, full_index]
+        needed = True
+        if tolerance is not None:
+            # In an S-orthonormal basis, v_j^T(H-eS)x/(e_j-e) estimates
+            # the unwanted mode amplitudes. Retain negative-energy modes
+            # as well: they also contribute to small-component errors.
+            h = np.tril(constrained_h) + np.tril(constrained_h, -1).T
+            s = np.tril(constrained_s) + np.tril(constrained_s, -1).T
+            extended = vector.astype(np.longdouble)
+            residual = np.asarray(h.astype(np.longdouble) @ extended
+                - np.longdouble(energy) * (s.astype(np.longdouble) @ extended), dtype=float)
+            projected = vectors.T @ residual
+            orbital_error = linalg.norm(np.divide(projected, gaps,
+                out=np.zeros_like(projected), where=gaps > 0))
+            energy_error = abs(float(vector @ residual)) / max(abs(energy), np.finfo(float).tiny)
+            needed = orbital_error > tolerance or energy_error > tolerance
+            if not needed:
+                # Keep the original GEMM embedding bit-for-bit. Recomputing
+                # one constrained column with GEMV can change summation noise.
+                return float(energy), full_vecs[:, index]
+        if needed:
+            energy, vector = _refine_eigenpair(
+                constrained_h, constrained_s, energy, vector, float(np.min(gaps)))
+            eigenvalues[full_index] = energy
+            vectors[:, full_index] = vector
+            refined_indices.add(index)
         embedded = np.zeros(ms)
         embedded[keep] = complement @ vector if complement is not None else vector
         return energy, embedded
@@ -437,4 +471,5 @@ def solve_dirac(H, S, ns, kappa, n_remove_boundary=1, nsp=None, nsq=None,
         nsp=nsp,
         nsq=nsq,
         _refine_orbital=refine if refine_rydberg else None,
+        _refined_indices=refined_indices,
     )

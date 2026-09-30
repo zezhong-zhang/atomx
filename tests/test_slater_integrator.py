@@ -1,33 +1,9 @@
-"""Slater R^k integrator: method choice, agreement, and defaults.
+"""Independent radial Coulomb quadratures, including the coincident-cell cusp.
 
-The numerics integrator (:mod:`atomx.numerics.bspline.slater`) offers two
-interchangeable kernels — the fast O(N) Poisson method (default) and the
-textbook O(N²) direct double sum.  These tests verify:
-
-* both kernels compute the same R^k on physical densities;
-* the default is the fast Poisson method;
-* the Auger public API honours the ``method`` choice;
-* one R^k is compared to a **closed form** (hydrogenic 1s, R⁰ = 5Z/8) and
-  one to a 40-digit **mpmath** reference (ρ = e^{−r}, k = 0…3, k = 0 being
-  the closed form ln 4), rather than to the other kernel — these are the
-  only assertions that can catch a *systematically* wrong Y^k, since the
-  two kernels share the Y^k construction (see below).
-
-Measured agreement between the two kernels on the Ne 1s×2p / 2s×2p densities
-before the Y^k partial-interval fix (2026-09-22): k=0 2.19e-14, k=1 4.68e-14,
-k=2 2.72e-14, k=3 3.06e-14 — machine precision.  That agreement was vacuous
-as a correctness check: with the then-shared "half weight of the straddling
-node" estimator the two paths are algebraically one quadrature rule (see
-below), and a 5 % gate on a 1e-14 agreement cannot see a wrong R^k at all.
-After the interpolatory partial-interval rule (2026-09-23) the poisson path
-is anchored to ~1e-16 by the closed-form and mpmath gates below, while the
-direct double sum keeps its own O((dr/r)^2) 2D-quadrature error (sampling
-the r_<^k r_>^{-(k+1)} kernel at coincident nodes); the kernels now
-disagree by 1.22e-5 / 8.34e-5 / 2.41e-4 / 4.99e-4 at k = 0…3 — the
-(k+1)(3k+2)/2 signature of the old shared defect, now confined to the
-direct side.  The agreement tests below gate at 1e-3: still ~2000× tighter
-than the pre-audit 5 % gate, sensitive to any wiring break, but no longer
-mistaken for a correctness proof.
+The default O(N) Poisson recursion is checked against a direct double
+integral that splits each coincident cell into two triangles. Both are
+also checked against closed-form and high-precision integral values, so
+agreement between implementations alone is never the accuracy argument.
 """
 
 import numpy as np
@@ -69,24 +45,25 @@ def test_defaults_are_the_fast_method():
     assert set(AVAILABLE_METHODS) == {"poisson", "direct"}
 
 
-@pytest.mark.parametrize("k", [0, 1, 2, 3])
-def test_poisson_matches_direct(ne_grid, k):
-    """The two kernels agree at the direct method's quadrature-error scale.
+@pytest.mark.parametrize('n_gauss,p,q', [(2,0,0), (5,2,3), (9,4,6)])
+@pytest.mark.parametrize('rank', [0,3,12])
+def test_direct_origin_cell_against_monomial_integral(n_gauss, p, q, rank):
+    """Analytic double integral probes the cusp, corner and multipole order."""
+    x, w = np.polynomial.legendre.leggauss(n_gauss)
+    radius = .7
+    r, weights = (radius*(x+1)/2)[None,:], (radius*w/2)[None,:]
+    expected = radius**(p+q+1)/(p+q+1)*(1/(p+rank+1)+1/(q+rank+1))
+    assert slater_rk_direct(r**p, r**q, r, weights, rank) == pytest.approx(expected, rel=2e-13)
+    assert slater_rk_direct(r**q, r**p, r, weights, rank) == pytest.approx(expected, rel=2e-13)
 
-    Measured disagreement after the Y^k partial-interval fix (2026-09-23):
-    k=0 1.22e-5, k=1 8.34e-5, k=2 2.41e-4, k=3 4.99e-4 relative — the
-    (k+1)(3k+2)/2 growth signature of the defect the poisson path used to
-    share, now confined to the direct side (the poisson path is anchored
-    to ~1e-16 by the closed-form / mpmath gates in this file).  Gate
-    rel=1e-3: ~2000× tighter than the pre-audit 5 % gate and sensitive to
-    any wiring break, but not mistaken for a correctness proof — before
-    the fix this same test read 1e-14 while both kernels were wrong by
-    2.8e-5 in exactly the same way.
-    """
+
+@pytest.mark.parametrize("k", range(7))
+def test_poisson_matches_direct(ne_grid, k):
+    """Independent integration paths agree after resolving the r=s cusp."""
     bsp, rho13, rho24 = ne_grid
     fast = slater_rk(rho13, rho24, bsp, k, method="poisson")
     slow = slater_rk(rho13, rho24, bsp, k, method="direct")
-    assert fast == pytest.approx(slow, rel=1e-3)
+    assert fast == pytest.approx(slow, rel=2e-12, abs=1e-14)
 
 
 @pytest.mark.parametrize("Z", [1, 10, 26])
@@ -98,31 +75,16 @@ def test_r0_of_hydrogenic_1s_is_the_closed_form(ne_grid, Z):
 
         R⁰(1s,1s) = ∫∫ ρ₁₁(r) (r_<⁰/r_>¹) ρ₁₁(r′) dr dr′ = 5Z/8
 
-    This is the file's only gate that is *not* shared with the production
-    kernel: the poisson/direct cross-checks above compare two paths that
-    are algebraically one quadrature rule (see the module docstring), so
-    only an external closed form can catch a systematically wrong Y^k.
-
-    History: with the "half weight of the straddling node" partial-interval
-    estimator, this measured a fixed 2.84e-5 relative deviation at Z = 1,
-    10 and 26 (a smooth ρ = e^{−r} showed 1.37e-4 on the same grid) — the
-    systematic quadrature bias diagnosed on 2026-09-22 and repaired on
-    2026-09-23 by the interpolatory partial-interval rule in
-    ``atomx.numerics.yk.yk_partial_matrices`` (degree n_gauss−1
-    interpolant of the node values on the straddled cell; exact
-    full-cell Gauss sums across cells; the kernel moved from
-    ``bspline.evaluate`` to ``numerics.yk`` the same day).  After the
-    fix this measures ~1e-16.  Gate rel=1e-8 sits 7
-    orders of magnitude inside the old defect and 8 above machine roundoff.
+    This analytic value validates each independent kernel, including the
+    near-origin triangle where the Coulomb kernel itself is unbounded.
     """
     bsp = ne_grid[0]
     gr = bsp["gr"]
     P = 2.0 * Z**1.5 * gr * np.exp(-Z * gr)
     rho11 = P * P
-    got = slater_rk(rho11, rho11, bsp, 0, method="poisson")
-    assert got == pytest.approx(5.0 * Z / 8.0, rel=1e-8), (
-        f"R0(1s,1s) Z={Z}: atomx={got!r}, closed form 5Z/8={5.0 * Z / 8.0!r}"
-    )
+    for method in AVAILABLE_METHODS:
+        got = slater_rk(rho11, rho11, bsp, 0, method=method)
+        assert got == pytest.approx(5.0 * Z / 8.0, rel=1e-8), (method, Z, got)
 
 
 @pytest.mark.parametrize("k", [0, 1, 2, 3])
@@ -156,10 +118,9 @@ def test_rk_of_exponential_density_against_mpmath(ne_grid, k):
     bsp = ne_grid[0]
     gr = bsp["gr"]
     rho = np.exp(-gr)
-    got = slater_rk(rho, rho, bsp, k, method="poisson")
-    assert got == pytest.approx(ref, rel=1e-8), (
-        f"R^k(e^-r,e^-r) k={k}: atomx={got!r}, mpmath40={ref!r}"
-    )
+    for method in AVAILABLE_METHODS:
+        got = slater_rk(rho, rho, bsp, k, method=method)
+        assert got == pytest.approx(ref, rel=1e-8), (method, k, got, ref)
 
 
 @pytest.mark.parametrize("n_gauss", [5, 9, 17])
@@ -202,7 +163,7 @@ def test_dispatch_matches_direct_helpers(ne_grid):
         slater_rk_poisson(rho13, rho24, gr, grw, nv, n_gauss, 1), rel=1e-12
     )
     assert slater_rk(rho13, rho24, bsp, 1, method="direct") == pytest.approx(
-        slater_rk_direct(rho13.ravel(), rho24.ravel(), gr.ravel(), grw.ravel(), 1),
+        slater_rk_direct(rho13, rho24, gr, grw, 1),
         rel=1e-12,
     )
 
@@ -235,5 +196,5 @@ def test_auger_api_honours_method(ne_grid):
     # error the poisson path used to share.  Gate 1e-3, ~600x the
     # measurement; the absolute correctness of the poisson path is pinned
     # by the closed-form / mpmath gates above.
-    assert fast == pytest.approx(slow, rel=1e-3)
+    assert fast == pytest.approx(slow, rel=2e-12, abs=1e-14)
     assert fast > 0.0

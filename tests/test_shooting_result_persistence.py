@@ -30,6 +30,8 @@ def test_local_checkpoint_loads_without_importing_methods(tmp_path, equation):
     assert restored.theory_level == state.theory_level
     np.testing.assert_array_equal(restored._pa, state._pa)
     np.testing.assert_array_equal(restored._qa, state._qa)
+    np.testing.assert_array_equal(restored._rv_nuc, state._rv_nuc)
+    assert state._rv_nuc is not None
     source = Path(__file__).resolve().parents[1] / 'src'
     code = '''
 import importlib.abc
@@ -63,7 +65,7 @@ def test_open_shell_roundtrip_preserves_metric_corrections_and_restart(tmp_path)
     restored = ShootingResult.load(state.save(tmp_path/'bare'))
     assert restored.calculation_spec.to_dict() == state.calculation_spec.to_dict()
     assert [asdict(c) for c in restored._jj_configs] == [asdict(c) for c in configs]
-    for name in ('_grid', '_difr', '_pa', '_qa'):
+    for name in ('_grid', '_difr', '_pa', '_qa', '_rv_nuc'):
         np.testing.assert_array_equal(getattr(restored,name),getattr(state,name))
     np.testing.assert_array_equal(restored.radial_state.metric.weights,
                                   state.radial_state.metric.weights)

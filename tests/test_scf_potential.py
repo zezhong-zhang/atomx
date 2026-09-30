@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 
 from atomx import Atom
-from atomx.numerics.shooting.scf_potential import (
+from atomx.potentials.static_field import (
     bare_nuclear_potential,
     static_hartree_potential,
     tabulated_potential,

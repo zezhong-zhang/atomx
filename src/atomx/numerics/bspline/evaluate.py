@@ -1,4 +1,4 @@
-"""Evaluate B-spline orbital expansions and Y^k potentials on the radial grid.
+"""Evaluate B-spline orbital expansions on the radial quadrature grid.
 
 This module provides the shared utilities for converting B-spline coefficient
 vectors into function values on the quadrature grid.  Used by scf, mcdhf,
@@ -52,35 +52,16 @@ in ``bspline.basis``.  Fields:
     ns : int
         max(nsp, nsq) for matrix allocation compatibility.
 
-Performance: the Y^k kernel ``yk_flat`` in ``atomx.numerics.yk`` is
-@nb.njit compiled; this module re-exports it under its historical name
-``_compute_yk_flat``.  The exchange matrix kernel remains in
-``scf/slater.py``.
+Multipole potentials are provided directly by :mod:`atomx.numerics.yk`.
 """
 
 import numpy as np
 
-from atomx.numerics.yk import compute_yk
-from atomx.numerics.yk import yk_flat as _compute_yk_flat
-from atomx.numerics.yk import yk_partial_matrices as _yk_partial_matrices
-
 __all__ = [
-    "_compute_yk_flat",
-    "_yk_partial_matrices",
-    "compute_yk",
     "eval_orbital_on_grid",
     "eval_P",
     "eval_Q",
 ]
-
-# ---------------------------------------------------------------------------
-# Y^k potential
-# ---------------------------------------------------------------------------
-# The Y^k mathematics (interpolatory partial-interval rule, numba kernel)
-# lives in atomx.numerics.yk, the single home for the Y^k construction;
-# it is re-exported here under its historical names so existing importers
-# of this module keep working unchanged.
-
 
 # ---------------------------------------------------------------------------
 # Orbital evaluation on grid
@@ -116,22 +97,41 @@ def eval_orbital_on_grid(coeffs, bsp, nv, ks, ns):
     return np.einsum("is,ims->im", c, bsp)
 
 
-def eval_P(coeffs, bsp_data):
-    """Evaluate the large (P) radial component on the grid.
+def _eval_at_radii(coeffs, knots, order, size, radii):
+    """Evaluate the native expansion without interpolation or extrapolation."""
+    from scipy.interpolate import BSpline
+
+    radii = np.asarray(radii, dtype=float)
+    if (not np.isfinite(radii).all() or
+            np.any(radii < knots[order - 1]) or np.any(radii > knots[size])):
+        raise ValueError('orbital sampling radii must be finite and inside the B-spline box')
+    return BSpline(knots, np.asarray(coeffs)[:size], order - 1,
+                   extrapolate=False)(radii)
+
+
+def eval_P(coeffs, bsp_data, radii=None):
+    """Evaluate the large (P) radial component on native or supplied radii.
 
     Kinetic-balance aware: uses ksp-order B-splines for the P component.
+    If ``radii`` is omitted, use the cached Gauss-grid basis values.
+    Otherwise evaluate the expansion directly, including its endpoints.
     """
     ksp = bsp_data.get("ksp", bsp_data["ks"])
     nsp = bsp_data.get("nsp", bsp_data["ns"])
+    if radii is not None:
+        return _eval_at_radii(coeffs, bsp_data.get("tp", bsp_data["t"]),
+                              ksp, nsp, radii)
     return eval_orbital_on_grid(coeffs, bsp_data["bsp_p"], bsp_data["nv"], ksp, nsp)
 
 
-def eval_Q(coeffs, bsp_data):
-    """Evaluate the small (Q) radial component on the grid.
+def eval_Q(coeffs, bsp_data, radii=None):
+    """Evaluate the small (Q) radial component on native or supplied radii.
 
     Kinetic-balance aware: uses ksq-order B-splines for the Q component.
     """
     ksq = bsp_data.get("ksq", bsp_data["ks"])
     nsq = bsp_data.get("nsq", bsp_data["ns"])
+    if radii is not None:
+        return _eval_at_radii(coeffs, bsp_data["t"], ksq, nsq, radii)
     bsp_q = bsp_data.get("bsp_q", bsp_data["bsp_p"])
     return eval_orbital_on_grid(coeffs, bsp_q, bsp_data["nv"], ksq, nsq)

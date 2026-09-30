@@ -132,7 +132,7 @@ def local_central_potential_from_radial_density(
     default ``_csi`` self-interaction screening correction is enabled by
     default for FAC exchange and can be disabled for raw component tests.
     """
-    from atomx.numerics.bspline.evaluate import compute_yk
+    from atomx.numerics.yk import compute_yk
     from atomx.physics.local_exchange import fac_gu_exchange, slater_exchange
 
     Z_f = float(Z)

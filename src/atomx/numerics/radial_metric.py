@@ -3,6 +3,24 @@ from dataclasses import dataclass
 import numpy as np
 
 
+def orbital_distance(left, right, metric):
+    """Phase-aligned L2 distance of normalized spinors in their own metric.
+
+    ``metric`` is an overlap matrix for coefficients or diagonal quadrature
+    weights for samples. Subtract vectors before forming the norm so nearly
+    identical states do not lose precision through ``2 - 2*overlap``.
+    """
+    left, right = np.asarray(left), np.asarray(right)
+    metric = np.asarray(metric)
+    action = (lambda x: metric*x) if metric.ndim == 1 else (lambda x: metric @ x)
+    sign = -1. if float(left @ action(right)) < 0 else 1.
+    delta = left-sign*right
+    norm_squared = float(delta @ action(delta))
+    if not np.isfinite(norm_squared):
+        raise FloatingPointError('nonfinite orbital update norm')
+    return float(np.sqrt(max(0., norm_squared)))
+
+
 @dataclass(frozen=True, eq=False)
 class RadialMetric:
     radius: np.ndarray
@@ -19,6 +37,18 @@ class RadialMetric:
         w.setflags(write=False)
         object.__setattr__(self, 'radius', r)
         object.__setattr__(self, 'weights', w)
+
+    @classmethod
+    def trapezoid(cls, radius):
+        """Composite trapezoid on an arbitrary grid, including half endpoints."""
+        r = np.asarray(radius, dtype=float)
+        if r.ndim != 1 or r.size < 2:
+            raise ValueError('trapezoidal radial quadrature needs at least two radii')
+        intervals = np.diff(r)
+        weights = np.empty_like(r)
+        weights[0], weights[-1] = .5*intervals[0], .5*intervals[-1]
+        weights[1:-1] = .5*(intervals[:-1]+intervals[1:])
+        return cls(r, weights, 'trapezoid')
 
     @classmethod
     def shooting(cls, radius, jacobian):
