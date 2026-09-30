@@ -69,6 +69,9 @@ def generate_jj_average(config_str: str,
     """
     # Map averaging parameter to the internal eal flag (FAC convention:
     # 1 = equal, 5 = statistical) used by the enumeration below.
+    if averaging not in ("equal", "statistical"):
+        raise ValueError("fixed jj averages require 'equal' or 'statistical'; "
+                         "Hamiltonian weights require a variational state solve")
     eal = {"equal": 1, "statistical": 5}[averaging]
 
     # Parse into non-relativistic shells (shared parser — handles

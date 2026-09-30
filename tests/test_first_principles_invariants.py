@@ -344,7 +344,7 @@ class TestVariationalBound:
         inclusion argument, just as changing to a nonrelativistic reference
         invalidates an absolute variational bound.
         """
-        from atomx.methods.mcdhf.matrix import build_ci_matrix
+        from atomx.physics.csf.matrix import build_ci_matrix
         atom = Atom(4, "1s2 2s2", correlation=Correlation(
             expansion="sd", radial_optimization="fac_frozen"),
             corrections="none", nuclear="point")

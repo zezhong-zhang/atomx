@@ -81,7 +81,7 @@ def csf_has_explicit_j(csf) -> bool:
     Accepts either a non-default ``total_J2`` attribute or a label
     containing ``J=`` in either the legacy form ``... J=2/2`` or the
     bracketed form ``... [J=2/2]`` emitted by
-    :func:`atomx.methods.mcdhf.config.enumerate_jj_csfs`.  The bracketed
+    :func:`atomx.config.csf.enumerate_jj_csfs`.  The bracketed
     form is essential for closed-shell J=0 CSFs whose ``total_J2`` is
     zero — without this they were silently bypassing the many-electron
     multipole selection-rule filter in the MCDHF transition path.

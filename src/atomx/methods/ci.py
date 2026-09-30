@@ -70,13 +70,14 @@ def ci_solve(
     nuclear_potential=None,
     convol_cache=None,
     include_breit=False,
+    breit_orbital_energies=None,
 ) -> CIResult:
     """Build the CI matrix and diagonalise it.
 
     Parameters
     ----------
     csfs
-        List of :class:`~atomx.methods.mcdhf.config.CSF` objects.
+        List of :class:`~atomx.config.csf.CSF` objects.
     orbitals_dict
         ``{(n, kappa): (P, Q)}`` — converged radial orbitals in the
         representation matching ``bsp_data``: B-spline coefficient
@@ -86,7 +87,7 @@ def ci_solve(
         Shared orbital basis descriptor.
     bsp_data
         B-spline workspace (grid, weights, basis) or a
-        :class:`~atomx.methods.mcdhf.matrix.GridCIWorkspace` wrapping
+        :class:`~atomx.physics.csf.matrix.GridCIWorkspace` wrapping
         the shooting grid ``(r, difr, r·V_nuc)``.  The grid flavour
         evaluates every matrix element with the shooting engine's own
         numerics (SLAG6 Slater integrals, the solver's nuclear
@@ -116,20 +117,24 @@ def ci_solve(
         B-spline flavour only — the grid workspace carries ``rv_nuc``.
     convol_cache
         Optional pre-built cell-integral cache on ``bsp_data`` (see
-        :func:`atomx.methods.mcdhf.matrix.build_ci_matrix`).  B-spline
+        :func:`atomx.physics.csf.matrix.build_ci_matrix`).  B-spline
         flavour only.
     include_breit
         Add the static Breit interaction (Gaunt plus retardation) to every
         ``(2J, parity)`` block of the CI matrix, so it shifts levels
-        differentially. Off by default; frequency-dependent transverse
-        exchange is not included (see
-        :mod:`atomx.methods.mcdhf.breit_ci`).
+        differentially. Off by default.
+    breit_orbital_energies
+        Optional explicit ``{(n, kappa): energy_in_Hartree}`` mapping.
+        With ``include_breit=True``, replace static Breit by the real
+        finite-frequency transverse operator, averaging the two vertex
+        frequencies. These orbital energies stay fixed during CI;
+        assigning them to correlation orbitals is a model choice.
 
     Returns
     -------
     :class:`CIResult`
     """
-    from atomx.methods.mcdhf.matrix import build_ci_matrix
+    from atomx.physics.csf.matrix import build_ci_matrix
 
     n = len(csfs)
     if solver not in ("dense", "davidson", "auto"):
@@ -143,6 +148,7 @@ def ci_solve(
                            nuclear_potential=nuclear_potential,
                            convol_cache=convol_cache,
                            include_breit=include_breit,
+                           breit_orbital_energies=breit_orbital_energies,
                            as_operator=(solver == "davidson"))
     groups = _group_csfs_by_J_parity(csfs) or [((0, 1), list(range(n)))]
     if hasattr(H_ci, "blocks"):
@@ -178,8 +184,16 @@ def ci_solve(
     if iterations:
         provenance.update(n_iter=max(iterations), block_iterations=iterations, tol=tol)
     if include_breit:
-        from atomx.methods.mcdhf.breit_ci import RETARDATION_NOTE
-        provenance.update(breit="static-breit-gaunt-retardation-in-blocks", breit_note=RETARDATION_NOTE)
+        if breit_orbital_energies is None:
+            from atomx.physics.csf.breit_ci import RETARDATION_NOTE
+            provenance.update(breit="static-breit-gaunt-retardation-in-blocks", breit_note=RETARDATION_NOTE)
+        else:
+            from atomx.physics.csf.transverse import frequency_provenance
+            frequency = frequency_provenance({key: breit_orbital_energies[key]
+                                               for key in orbitals_dict})
+            provenance.update(
+                breit="finite-frequency-transverse-in-blocks",
+                **{'breit_'+key: value for key, value in frequency.items()})
 
     return CIResult(
         state_energies=np.asarray(state_energies),

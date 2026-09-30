@@ -14,7 +14,7 @@ correlation energy (~95% for atoms).
 
 import re
 
-from atomx.methods.mcdhf.config import _parse_config_string
+from atomx.config.csf import _parse_config_string
 
 # Orbital-label letters, index == l (shared with config parsing).
 _L_SYMBOLS = "spdfghiklmno"

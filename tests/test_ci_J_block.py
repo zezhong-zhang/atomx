@@ -53,8 +53,8 @@ import pytest
 
 from atomx import Atom, Correlation
 from atomx.constants import ALPHA, HARTREE_EV
-from atomx.methods.mcdhf import matrix
-from atomx.methods.mcdhf.config import enumerate_jj_csfs
+from atomx.physics.csf import matrix
+from atomx.config.csf import enumerate_jj_csfs
 from atomx.methods.mcdhf.solver import MCDHFSolver
 
 BENCH_DIR = Path(__file__).resolve().parent.parent / "benchmarks"

@@ -69,6 +69,53 @@ def _create(mask: int, orbital: int) -> tuple[int, int] | None:
     return phase, mask | (1 << orbital)
 
 
+@lru_cache(maxsize=128)
+def _one_body_links(bra, ket, pairs):
+    """Determinant incidence and fermion signs, independent of radial values."""
+    index = {det: i for i, det in enumerate(bra)}
+    partners = {}
+    for pair_index, (a, b) in enumerate(pairs):
+        partners.setdefault(b, []).append((a, pair_index))
+    rows, columns, entries, signs = [], [], [], []
+    for column, det in enumerate(ket):
+        for b, destinations in partners.items():
+            removed = _annihilate(det, b)
+            if removed is None:
+                continue
+            sign_b, intermediate = removed
+            for a, entry in destinations:
+                created = _create(intermediate, a)
+                if created is None:
+                    continue
+                sign_a, final = created
+                row = index.get(final)
+                if row is not None:
+                    rows.append(row); columns.append(column)
+                    entries.append(entry); signs.append(sign_a*sign_b)
+    arrays = tuple(np.asarray(x, dtype=int) for x in (rows, columns, entries, signs))
+    for array in arrays:
+        array.setflags(write=False)
+    return arrays
+
+
+def one_body_action(dets_bra, dets_ket, weights, elements):
+    """Project ``sum_ab t_ab a†_a a_b |ket>`` into a determinant basis.
+
+    ``elements[(a,b)]`` holds orbital matrix elements in a common spin-orbital
+    ordering. All amplitudes are retained, including weak interfering terms.
+    The cached incidence table is independent of the operator's frequency.
+    """
+    weights = np.asarray(weights)
+    if weights.shape != (len(dets_ket),):
+        raise ValueError('one-body action requires one amplitude per ket determinant')
+    values = np.asarray(list(elements.values()))
+    rows, columns, entries, signs = _one_body_links(
+        tuple(dets_bra), tuple(dets_ket), tuple(elements))
+    result = np.zeros(len(dets_bra), dtype=np.result_type(weights, values, float))
+    np.add.at(result, rows, signs*values[entries]*weights[columns])
+    return result
+
+
 def _jplus_single_coeff(j2: int, m2: int) -> float:
     """Coefficient for ``j_+ |j,m>`` in twice-integer notation."""
     return 0.5 * sqrt((j2 - m2) * (j2 + m2 + 2))

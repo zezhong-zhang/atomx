@@ -47,7 +47,7 @@ import pytest
 from scipy.special import eval_genlaguerre
 
 from atomx.angular.csf_recoupling import allowed_coupled_J2
-from atomx.methods.mcdhf.matrix import (
+from atomx.physics.csf.matrix import (
     GridCIWorkspace,
     _fk,
     _gk,
@@ -404,7 +404,7 @@ def test_pair_channel_does_not_couple_incompatible_parity():
     filter deleted as long as nothing returned NaN.
     """
     from atomx import Atom
-    from atomx.methods.mcdhf.matrix import build_ci_matrix
+    from atomx.physics.csf.matrix import build_ci_matrix
 
     both = Atom(Z=4, config=["1s2 2s2", "1s2 2s1 2p1"])
     both.solve()
@@ -483,7 +483,7 @@ def test_spectator_guard_leaves_open_shell_parentage_alone():
 def _real_csf(tJ2, occ):
     """Real :class:`CSF` (provides ``differs_from``) for ``_two_diff_element``."""
     from atomx.methods.dirac_fock import Subshell
-    from atomx.methods.mcdhf.config import CSF
+    from atomx.config.csf import CSF
 
     return CSF(
         subshells=[Subshell(n, k, float(q)) for (n, k), q in occ],

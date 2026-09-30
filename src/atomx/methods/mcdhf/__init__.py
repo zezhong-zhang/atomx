@@ -24,12 +24,12 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from atomx.methods.base import Method
-from atomx.methods.mcdhf.config import (
+from atomx.config.csf import (
     CSF,
     count_j_resolved_csfs,
     make_csf_list,
 )
-from atomx.methods.mcdhf.matrix import build_ci_matrix
+from atomx.physics.csf.matrix import build_ci_matrix
 from atomx.methods.mcdhf.solver import MCDHFResult, MCDHFSolver
 from atomx.numerics.shooting.electron_space import ShootingSpace
 from atomx.types import Correlation, TheoryLevel
@@ -57,7 +57,7 @@ class MCDHF(Method):
     breit : bool
         Include the Breit interaction **as an operator in the CI
         Hamiltonian**: the exact Gaunt term
-        (:mod:`atomx.methods.mcdhf.breit_ci`) is built in the m-scheme
+        (:mod:`atomx.physics.csf.breit_ci`) is built in the m-scheme
         determinant basis of every ``(2J, parity)`` block, so it shifts
         levels *differentially* and produces fine structure.  Measured
         on He-like C V ``["1s2", "1s1 2p1"]``: the 1s2p 3P fine
@@ -90,15 +90,18 @@ class MCDHF(Method):
 
     Notes
     -----
-    Full static Breit (Gaunt plus frequency-independent retardation) is
-    applied in RCI after Dirac-Coulomb orbital optimization. Frequency-
-    dependent transverse exchange is not included.
+    Static Breit is the default. ``breit_frequency="orbital_differences"``
+    with an explicit ``breit_orbital_energies`` map selects real transverse
+    exchange in RCI after Dirac-Coulomb orbital optimization. The energy
+    map is fixed; finite-frequency orbital relaxation is not included.
     """
 
     correlation: Correlation = Correlation.SINGLES_DOUBLES
     breit: bool = False
     qed: bool = False
     breit_mode: str = "operator"
+    breit_frequency: str = "static"
+    breit_orbital_energies: dict | None = None
     bspline_order: int = 9
     orbital_preconditioner: str = "spectral"
     engine: str = "bspline"
@@ -128,10 +131,20 @@ class MCDHF(Method):
                 value is not None for value in (grid_hi, grid_he, grid_hmax)):
             raise ValueError('grid shape controls require use_physics_grid=True')
         csfs = make_csf_list(Z, config_strings)
+        stack = None
+        if self.breit_frequency != 'static' or self.breit_orbital_energies is not None:
+            from atomx.corrections.stack import CorrectionStack
+            from atomx.corrections.qed import resolve_se_method
+            stack = CorrectionStack(
+                include_breit=self.breit, breit_frequency=self.breit_frequency,
+                breit_orbital_energies=self.breit_orbital_energies,
+                se_backend=resolve_se_method('auto', Z) if self.qed else None,
+                include_vp=self.qed)
         solver = MCDHFSolver(
             Z=Z, csfs=csfs, ns=ns, ks=self.bspline_order,
             include_breit=self.breit, include_qed=self.qed,
             breit_mode=self.breit_mode,
+            correction_stack=stack,
             orbital_preconditioner=self.orbital_preconditioner,
             engine=self.engine, shooting_space=self.shooting_space,
             nuclear=self.nuclear.value,

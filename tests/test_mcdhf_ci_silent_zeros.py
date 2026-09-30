@@ -3,7 +3,7 @@
 Two Medium findings in ``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md``:
 
 **M7 — missing orbital silently yields the uncorrelated energy.**
-``methods/mcdhf/matrix.py`` zero-filled the orbital a CI element asked
+``physics/csf/matrix.py`` zero-filled the orbital a CI element asked
 for when it was absent from the radial workspace, so a multi-CSF run
 whose correlation orbital had never been solved came back as the
 single-configuration energy with no diagnostic at all (the review
@@ -32,12 +32,12 @@ from _be_reference import BE_DC_SANITY_FLOOR
 from atomx import Atom
 from atomx.methods.ci import ci_solve
 from atomx.methods.dirac_fock import DFSolver, Subshell
-from atomx.methods.mcdhf.config import get_shared_orbital_basis, make_csf_list
+from atomx.config.csf import get_shared_orbital_basis, make_csf_list
 from atomx.methods.mcdhf.excitations import (
     generate_sd_excitations,
     suggest_virtual_orbitals,
 )
-from atomx.methods.mcdhf.matrix import MissingOrbitalError, build_ci_matrix
+from atomx.physics.csf.matrix import MissingOrbitalError, build_ci_matrix
 
 
 def _sparse_workspace(ns=40, ks=7):

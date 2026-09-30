@@ -9,7 +9,7 @@ from _be_reference import BE_DC_SANITY_FLOOR
 
 from atomx.constants import HARTREE_CM1
 from atomx.methods.dirac_fock import Subshell
-from atomx.methods.mcdhf.config import (
+from atomx.config.csf import (
     _parse_config_string,
     enumerate_jj_csfs,
     get_shared_orbital_basis,
@@ -183,7 +183,7 @@ class TestMCDHFSolver:
 
 
 def test_fac_frozen_radial_optimization_keeps_virtual_occupations_tiny():
-    from atomx.methods.mcdhf.config import enumerate_jj_csfs
+    from atomx.config.csf import enumerate_jj_csfs
 
     csfs = []
     for cfg in ["1s2 2s2 2p6", "1s2 2s2 2p5 3d1"]:
@@ -207,7 +207,7 @@ def test_fac_frozen_radial_optimization_keeps_virtual_occupations_tiny():
 
 
 def test_fac_frozen_local_radial_optimization_solves_with_frozen_occupations():
-    from atomx.methods.mcdhf.config import enumerate_jj_csfs
+    from atomx.config.csf import enumerate_jj_csfs
 
     csfs = []
     for cfg in ["1s2", "1s1 2p1"]:
@@ -235,7 +235,7 @@ class TestManySameKappaBookkeeping:
     Hamiltonian, drifting ~74 Ha from the (cell-integral + Fermi-nucleus)
     SCF functional at Z=82; (b) orbital extraction used positional
     per-kappa counters, fragile with many same-kappa shells (Pb has six
-    ns and five np shells).  See methods/mcdhf/matrix.py and
+    ns and five np shells).  See physics/csf/matrix.py and
     SCFResult.orbitals_by_subshell.
     """
 

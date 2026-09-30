@@ -278,13 +278,15 @@ def _build_closed_shell_fock(
             #         = − Λ^k / (2j_κ+1)   when q_b = 2j_b+1.
             coef_x = - q_b * lam / ((tj_kappa + 1) * (tj_b + 1))
 
-            K_PP, K_QQ = compute_exchange_matrix_cell(
+            K_PP, K_QQ, K_PQ, K_QP = compute_exchange_matrix_cell(
                 Pb, Qb, Pb, Qb, bsp_data, k, cache=cache
             )
             nsp_k = K_PP.shape[0]
             nsq_k = K_QQ.shape[0]
             H[:nsp_k, :nsp_k] += coef_x * K_PP
             H[ns_full:ns_full + nsq_k, ns_full:ns_full + nsq_k] += coef_x * K_QQ
+            H[:ns_full, ns_full:] += coef_x * K_PQ
+            H[ns_full:, :ns_full] += coef_x * K_QP
 
     return H, S
 

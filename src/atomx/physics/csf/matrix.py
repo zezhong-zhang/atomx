@@ -1,17 +1,13 @@
-"""CI Hamiltonian matrix construction for MCDHF.
+"""CI Hamiltonian construction from exact jj-coupled CSFs.
 
-Slater-Condon rules:
-- 0-diff (diagonal): full 1e + 2e energy of the configuration
-- 1-diff (a→b):   <a|h|b> + Σ_c q_c [R^0(ac,bc) - Σ_k c^k R^k(ac,cb)]
-- 2-diff (ab→cd): Σ_k [direct R^k(ac,bd) - exchange R^k(ac,db)]
-- 3+ diff:        0  (orthogonality)
+One- and two-electron operators connect determinants differing by at most
+two electron replacements. The angular kernel applies the Slater–Condon
+rules before projection onto the coupled CSF basis.
 
-For CSFs with explicit J-resolution (``total_J2`` set, intermediate
-parentage inferable), a J-coupled angular correction is added on top of
-the subshell-occupation kernel so that distinct (J, parity) blocks
-acquire physically meaningful J-dependent splittings.  See
-``_diagonal_J_correction`` and Grant, *Relativistic Quantum Theory of
-Atoms and Molecules* (2007) §8.3.
+The production builder contracts exact angular coefficients in each
+J/parity block with one-body Dirac and two-body radial integrals. CSF
+parentage and fermion phases belong to ``angular.csf_hamiltonian``;
+radial integration uses the supplied grid or B-spline representation.
 """
 
 import math
@@ -36,7 +32,7 @@ from atomx.angular.csf_recoupling import (
 )
 from atomx.angular.rcfp import ReducedSubshellState
 from atomx.angular.wigner import wigner_6j
-from atomx.methods.mcdhf.exact_ci import (
+from atomx.angular.csf_hamiltonian import (
     MAX_BLOCK_DETERMINANTS,
     csf_signature,
     exact_block_matrix,
@@ -52,8 +48,8 @@ from atomx.numerics.bspline.convol import (
 )
 from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
 from atomx.numerics.shooting.constants import SL
-from atomx.numerics.shooting.quadrature import slag6
-from atomx.numerics.shooting.coulomb import _slater_integral_slag6
+from atomx.numerics.shooting.quadrature import slag6, slag6_weights
+from atomx.numerics.shooting.coulomb import _slater_integral_slag6, _yk_over_r
 
 # Build-scoped memo for Slater integrals and Dirac H0/S0 blocks: every CSF
 # in a CI build shares ONE orbital basis, so the same (orbitals, k)
@@ -490,7 +486,8 @@ def _norm_sq(P, Q, kappa, Z, bsp_data, ns):
 
 def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
                     nuclear_potential=None, convol_cache=None,
-                    max_determinants=None, include_breit=False, as_operator=False):
+                    max_determinants=None, include_breit=False, as_operator=False,
+                    *, breit_orbital_energies=None):
     """Build the exact CI Hamiltonian matrix H_{rs} in the CSF basis.
 
     ``H[r, s]`` is the true expectation value ``<CSF_r|H|CSF_s>`` of the
@@ -498,7 +495,7 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
     expanded as a vector over the Slater determinants of its own
     configuration at ``2M = 2J``, the determinant Hamiltonian is built by
     explicit Slater-Condon rules, and the CSF matrix is the projection
-    ``H = C^T H_det C`` (see :mod:`atomx.methods.mcdhf.exact_ci` and
+    ``H = C^T H_det C`` (see :mod:`atomx.angular.csf_hamiltonian` and
     ``benchmarks/mscheme_ci_reference.py``, the independent oracle it is
     gated against).  The result is variational and symmetric, and elements
     between different ``(2J, parity)`` are exactly ``0.0``.
@@ -536,7 +533,7 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
         ignored and a fresh one created.  B-spline flavour only.
     max_determinants : int or None
         Cap on the raw determinant dimension of one ``(2J, parity)``
-        block (default :data:`atomx.methods.mcdhf.exact_ci.MAX_BLOCK_DETERMINANTS`).  The determinant space at ``2M = 2J`` also
+        block (default :data:`atomx.angular.csf_hamiltonian.MAX_BLOCK_DETERMINANTS`).  The determinant space at ``2M = 2J`` also
         contains the lower-M members of higher-J multiplets, so it can be
         much larger than the CSF space; exceeding the cap raises
         ``ExactCISpaceError`` naming the configuration and both sizes
@@ -544,11 +541,19 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
     include_breit : bool
         Add the Breit interaction to each ``(2J, parity)`` block as an
         operator (Gaunt plus static retardation, see
-        :mod:`atomx.methods.mcdhf.breit_ci`), so it splits levels instead
+        :mod:`atomx.physics.csf.breit_ci`), so it splits levels instead
         of shifting them uniformly.  Off by default: the extra integrals
-        are only paid for when asked.  Frequency-dependent transverse exchange is not included —
-        see :data:`atomx.methods.mcdhf.breit_ci.RETARDATION_NOTE`.
+        are only paid for when asked. Static unless explicit orbital energies
+        are supplied below.
+    breit_orbital_energies : mapping or None
+        Explicit ``{(n, kappa): energy_in_Hartree}`` for finite-frequency
+        transverse exchange. Requires ``include_breit=True``. Uses the
+        symmetric average at the two electron-pair energy transfers, with
+        energies held fixed during CI. Replaces static Breit; does not add
+        a second Breit interaction or imply full bound-state QED.
     """
+    if breit_orbital_energies is not None and not include_breit:
+        raise ValueError("breit_orbital_energies requires include_breit=True")
     # ``_reset_memo`` drops every memoised integral, including the CI's
     # stashed rkb cache and the orbital-independent h0 blocks.  The
     # entry-point reset carries the rkb cache (as before) and, when the
@@ -579,8 +584,10 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
         return np.zeros((0, 0))
     if max_determinants is None:
         max_determinants = MAX_BLOCK_DETERMINANTS
-    evaluate = _radial_evaluator(orbitals_dict, bsp_data, Z, ns)
-    breit_evaluate = (_breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns)
+    evaluate = _radial_evaluator(orbitals_dict, bsp_data, Z, ns,
+                                 nuclear_potential=nuclear_potential)
+    breit_evaluate = (_breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns,
+                                           orbital_energies=breit_orbital_energies)
                       if include_breit else None)
     operator_blocks = []
     for _key, idx in _group_csf_indices(csfs):
@@ -628,11 +635,12 @@ def _group_csf_indices(csfs):
     return sorted(groups.items(), key=lambda kv: (kv[0][0], -kv[0][1]))
 
 
-def _radial_evaluator(orbitals_dict, bsp_data, Z, ns):
+def _radial_evaluator(orbitals_dict, bsp_data, Z, ns, *, nuclear_potential=None):
     """Map an exact-CI radial key to its numeric value.
 
-    Two key shapes, both evaluated with the *same* helpers the rest of the
-    module (and hence the SCF energy functional) uses:
+    Two key shapes, evaluated with the same radial kernels as the SCF
+    energy functional. Densities and pair potentials are shared within
+    this build; orbitals must remain unchanged for the evaluator's lifetime.
 
     * ``("h", n_a, kappa, n_c)``  — ``<a|h_D|c> / <c|c>``, the
       normalisation convention the oracle uses;
@@ -641,19 +649,37 @@ def _radial_evaluator(orbitals_dict, bsp_data, Z, ns):
       four orbitals in the role order ``Pa, Pc, Pb, Pd``.
     """
     is_grid = isinstance(bsp_data, GridCIWorkspace)
-    if not is_grid:
+    if is_grid:
+        weights = slag6_weights(bsp_data.n) * bsp_data.difr
+    else:
+        # Capture the one-body blocks with this operator's physical model.
+        # Evaluators can outlive/interleave CI builds with another nucleus;
+        # consulting the process memo later would silently change h_D.
+        _memo_context(bsp_data)
+        if _SLATER_MEMO.get('_nuclear_potential') is not nuclear_potential:
+            _reset_memo_for_ci_build(bsp_data, nuclear_potential)
+        _SLATER_MEMO['_nuclear_potential'] = nuclear_potential
+        one_body_blocks = {kappa: _dirac_blocks(ns, kappa, Z, bsp_data)
+                           for _, kappa in orbitals_dict}
         orders = (bsp_data.get("ksp", bsp_data["ks"]),
                   bsp_data.get("ksq", bsp_data["ks"]))
         cache = _context_cache(bsp_data)
 
     @lru_cache(maxsize=512)
     def density(a, b):
+        if is_grid:
+            pa, qa = _get_orb(a, orbitals_dict, ns)
+            pb, qb = _get_orb(b, orbitals_dict, ns)
+            return pa*pb+qa*qb
         return tuple(_density_sym(x, y, ns, order)
                      for x, y, order in zip(orbitals_dict[a], orbitals_dict[b], orders, strict=True))
 
-    @lru_cache(maxsize=1024)
+    @lru_cache(maxsize=256 if is_grid else 1024)
     def pair_potential(rank, a, b):
         source = density(a, b)
+        if is_grid:
+            return weights * _yk_over_r(source, rank, bsp_data.r,
+                                        bsp_data.difr, bsp_data.n)
         potentials = []
         for left, label_left in enumerate(("p", "q")):
             value = np.zeros((ns, orders[left]))
@@ -669,8 +695,14 @@ def _radial_evaluator(orbitals_dict, bsp_data, Z, ns):
             _, n_a, kappa, n_c = key
             Pa, Qa = _get_orb((n_a, kappa), orbitals_dict, ns)
             Pc, Qc = _get_orb((n_c, kappa), orbitals_dict, ns)
-            h = _h_one_body(Pa, Qa, Pc, Qc, kappa, Z, bsp_data, ns)
-            norm_sq = _norm_sq(Pc, Qc, kappa, Z, bsp_data, ns)
+            if is_grid:
+                h = _h_one_body(Pa, Qa, Pc, Qc, kappa, Z, bsp_data, ns)
+                norm_sq = _norm_sq(Pc, Qc, kappa, Z, bsp_data, ns)
+            else:
+                h0, overlap = one_body_blocks[kappa]
+                bra, ket = np.concatenate((Pa, Qa)), np.concatenate((Pc, Qc))
+                h = bra @ h0 @ ket
+                norm_sq = ket @ overlap @ ket
             if norm_sq > 0.0:
                 return h / norm_sq
             # A zero-norm "orbital" is not a wavefunction and h/0 is
@@ -692,19 +724,23 @@ def _radial_evaluator(orbitals_dict, bsp_data, Z, ns):
             if not np.isfinite(value):
                 raise FloatingPointError(f"non-finite Slater integral {key}")
             return value
-        Pa, Qa = _get_orb(key_a, orbitals_dict, ns)
-        Pc, Qc = _get_orb(key_c, orbitals_dict, ns)
-        Pb, Qb = _get_orb(key_b, orbitals_dict, ns)
-        Pd, Qd = _get_orb(key_d, orbitals_dict, ns)
-        return _rk(Pa, Qa, Pc, Qc, Pb, Qb, Pd, Qd, bsp_data, k)
+        # Keep the original SLAG6 source/target order: its discrete kernel
+        # is not exactly symmetric. Reuse only identical pair potentials;
+        # exchanging the two electron densities would change quadrature.
+        source = tuple(sorted((key_a, key_c)))
+        target = tuple(sorted((key_b, key_d)))
+        return float(np.dot(pair_potential(k, *source), density(*target)))
 
     return evaluate
 
 
-def _breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns):
-    """Map a static Breit (Gaunt or retardation) radial key to its numeric value.
+def _breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns, *, orbital_energies=None):
+    """Map a Breit (Gaunt or retardation) radial key to its numeric value.
 
-    Key shape (see :func:`atomx.methods.mcdhf.breit_ci.gaunt_terms`)::
+    Explicit ``orbital_energies`` selects finite-frequency transverse
+    exchange. With no mapping the existing static integrators are used.
+
+    Key shape (see :func:`atomx.physics.csf.breit_ci.gaunt_terms`)::
 
         ("g", L, (X_a, n_a, kappa_a), (X_c, n_c, kappa_c),
                  (X_b, n_b, kappa_b), (X_d, n_d, kappa_d))
@@ -718,7 +754,10 @@ def _breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns):
     Coulomb elements use (:func:`_rk`'s conventions), so the two
     operators are built on identical numerics.
     """
-    from atomx.methods.mcdhf.retardation import radial_evaluator
+    if orbital_energies is not None:
+        from atomx.physics.csf.transverse import radial_evaluator
+        return radial_evaluator(orbitals_dict, bsp_data, orbital_energies)
+    from atomx.physics.csf.retardation import radial_evaluator
     evaluate_retardation = radial_evaluator(orbitals_dict, bsp_data)
     def evaluate(key):
         if key[0] == "t":
@@ -1961,7 +2000,7 @@ def _off_diagonal_J_correction(csf_r, csf_s, orbitals_dict, bsp_data, ns,
       approximations depending on the CSF shape.
 
     The structural reason an exact element is not available here is
-    that :class:`~atomx.methods.mcdhf.config.CSF` carries only
+    that :class:`~atomx.config.csf.CSF` carries only
     ``total_J2`` and an occupation list — no coupling tree (parentage) —
     so the Grant §8.3 recoupling chain cannot be inferred from the
     objects this function receives.

@@ -29,7 +29,8 @@ from atomx.numerics.bspline.dirac_assembly import (
     canonicalize_radial_phase,
     solve_dirac,
 )
-from atomx.numerics.bspline.evaluate import compute_yk, eval_orbital_on_grid
+from atomx.numerics.yk import compute_yk
+from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 from atomx.numerics.bspline.integrals import (
     _assemble_integral,
     nuclear_matrix,
@@ -73,6 +74,7 @@ class SCFResult(SCFObservablesMixin):
     _method_name: Optional[str] = field(default=None, repr=False)
     _bsp_data: Optional[Dict] = field(default=None, repr=False)
     calculation_spec: object = None
+    solver_diagnostics: Dict = field(default_factory=dict)
 
     @property
     def energy_breakdown(self) -> Dict[str, float]:
@@ -447,7 +449,17 @@ class DFSolver:
         # Point-Coulomb spinors have a noninteger r**gamma cusp. A
         # larger first cell leaves a basis error that increasing ns at
         # fixed first knot does not remove (K/Co cross-engine control).
-        self.r_min = r_min if r_min is not None else (0.0004 if nuclear == 'point' else 0.05) / Z
+        if r_min is not None:
+            self.r_min = r_min
+        elif nuclear == 'fermi':
+            # A fixed spline count must still resolve the nuclear surface.
+            # The former 0.05/Z first knot spanned the entire light nucleus;
+            # increasing ns did not refine that first cell and gave false
+            # basis convergence of finite-size shifts.
+            from atomx.potentials.nuclear import fermi_grid_step
+            self.r_min = fermi_grid_step(Z)
+        else:
+            self.r_min = (0.0004 if nuclear == 'point' else 0.05) / Z
         self.r_max = r_max if r_max is not None else max(40.0, 60.0 / Z)
         if exchange not in ("hf", "slater", "gu", "tfda", "gsz"):
             raise ValueError(
@@ -1680,7 +1692,7 @@ class DFSolver:
         return maximum
 
     def solve(self, max_iter=100, tol=1e-6, damping=None,
-              mode="batch", damping_release_residual=1e-2):
+              mode="batch", damping_release_residual=1e-2, orbital_tolerance=None):
         """Run the SCF iteration.
 
         Parameters
@@ -1688,6 +1700,9 @@ class DFSolver:
         max_iter : int
         tol : float
             Convergence tolerance on orbital change (relative).
+        orbital_tolerance : float or None
+            Additional L2 threshold on both the undamped orbital proposal
+            and complete sweep update, using the Dirac overlap metric.
         damping : float or None
             Orbital damping factor (0 = full replacement, 0.5 = heavy).
             None = auto (0.3 for f-electrons, 0.0 otherwise).
@@ -1706,6 +1721,21 @@ class DFSolver:
         """
         self._calculation_controls = dict(max_iter=max_iter, tolerance=tol,
             damping=damping, mode=mode, damping_release_residual=damping_release_residual)
+        if max_iter < 1 or not np.isfinite(tol) or tol <= 0:
+            raise ValueError('max_iter and tol must be positive; tol must be finite')
+        if orbital_tolerance is not None:
+            if not np.isfinite(orbital_tolerance) or orbital_tolerance <= 0:
+                raise ValueError('orbital_tolerance must be finite and positive')
+            if self.exchange in ('tfda', 'gsz'):
+                raise ValueError('orbital_tolerance requires an iterative mean-field solve')
+        self._calculation_controls['orbital_tolerance'] = orbital_tolerance
+        # Energy changes must be below 0.01*tol. Budget another factor of
+        # ten for the inner eigenproblem, independently of radial basis error.
+        eigenpair_tolerance = max(tol * 0.001, np.finfo(float).tiny)
+        if orbital_tolerance is not None:
+            eigenpair_tolerance = max(np.finfo(float).tiny,
+                min(eigenpair_tolerance, orbital_tolerance * 0.1))
+        self._calculation_controls['eigenpair_tolerance'] = eigenpair_tolerance
         if damping is None:
             has_f = any(sh.l >= 3 for sh in self.subshells)
             # f-electrons need damping to avoid oscillation
@@ -1879,6 +1909,11 @@ class DFSolver:
         for iteration in range(1, max_iter + 1):
             missing_shells.clear()
             max_orb_change = 0.0
+            orbital_update = applied_update = 0.0
+            if orbital_tolerance is not None:
+                from atomx.numerics.radial_metric import orbital_distance
+                before_sweep = {(k, i): np.concatenate(orbitals[k][i][:2]).copy()
+                                for _, k, i in orbital_schedule}
 
             if mode == "batch" and self.exchange == "hf":
                 # ============================================================
@@ -1942,7 +1977,9 @@ class DFSolver:
                         missing_shells.add(sh.label)
                         continue
 
-                    P_new, Q_new, E_new = result.get_orbital(eig_idx)
+                    # Keep the inner algebraic error below the outer energy
+                    # and orbital stopping criteria, including low roots.
+                    P_new, Q_new, E_new = result.get_orbital(eig_idx, tolerance=eigenpair_tolerance)
                     if (np.isnan(E_new) or np.any(np.isnan(P_new))
                             or np.any(np.isnan(Q_new))):
                         # HYP-1590: a NaN eigenvector with a finite
@@ -1955,6 +1992,9 @@ class DFSolver:
                     while orb_idx >= len(orb_list):
                         orb_list.append((np.zeros(ns_full), np.zeros(ns_full), sh.occupation))
                     P_old, Q_old, _ = orb_list[orb_idx]
+                    if orbital_tolerance is not None:
+                        orbital_update = max(orbital_update, orbital_distance(
+                            np.concatenate((P_new, Q_new)), np.concatenate((P_old, Q_old)), S_full))
                     p_max = np.max(np.abs(P_old))
                     if p_max > 1e-15:
                         # DBSR_HF sign convention: match sign of largest component
@@ -2076,27 +2116,22 @@ class DFSolver:
                                 (other.n, kappa) not in virtual_keys)
                             for other in kappa_groups[kappa])
                         eig_idx = max(0, eig_idx - removed_lower)
-                    n_phys = len(result.eigenvalues)
-                    actual_idx = min(eig_idx, n_phys - 1)
-                    if actual_idx >= 0 and actual_idx < n_phys:
-                        sorted_idx = np.argsort(result.eigenvalues)
-                        phys_idx = sorted_idx[actual_idx]
-                        vec = result.coefficients[:, phys_idx]
-                        P_new = np.zeros(ns_full)
-                        Q_new = np.zeros(ns_full)
-                        nsp_loc = result.nsp if hasattr(result, 'nsp') else ns_full
-                        nsq_loc = result.nsq if hasattr(result, 'nsq') else ns_full
-                        P_new[:nsp_loc] = vec[:nsp_loc]
-                        Q_new[:nsq_loc] = vec[ns_full:ns_full + nsq_loc]
-                        P_new, Q_new = canonicalize_radial_phase(P_new, Q_new)
-                        E_new = result.eigenvalues[phys_idx]
-                        if np.isnan(E_new) or np.any(np.isnan(vec)):
+                    if eig_idx >= result.n_bound:
+                        missing_shells.add(sh.label)
+                        continue
+                    if eig_idx >= 0:
+                        P_new, Q_new, E_new = result.get_orbital(eig_idx, tolerance=eigenpair_tolerance)
+                        if not (np.isfinite(E_new) and np.all(np.isfinite(P_new))
+                                and np.all(np.isfinite(Q_new))):
                             continue
                         orb_list = orbitals.get(kappa, [])
                         while orb_idx >= len(orb_list):
                             orb_list.append((np.zeros(ns_full), np.zeros(ns_full), sh.occupation))
 
                         P_old, Q_old, _ = orb_list[orb_idx]
+                        if orbital_tolerance is not None:
+                            orbital_update = max(orbital_update, orbital_distance(
+                                np.concatenate((P_new, Q_new)), np.concatenate((P_old, Q_old)), S_full))
                         p_max = np.max(np.abs(P_old))
                         if p_max > 1e-15:
                             # Fix sign: ensure new orbital has same sign convention
@@ -2166,16 +2201,37 @@ class DFSolver:
                     result = solve_dirac(H, S_full, ns_full, kappa,
                                           nsp=nsp if has_kb else None,
                                           nsq=nsq if has_kb else None)
+                    undamped_result = result
+                    if orbital_tolerance is not None and iteration > 1:
+                        # Local exchange mixes potentials. Its undamped fixed
+                        # point must be checked against the field built from
+                        # this sweep's input density, not the mixed field.
+                        H_undamped = H.copy()
+                        H_undamped[:n, :n] += Pot_PP_new[:n, :n]-Pot_PP[:n, :n]
+                        H_undamped[ns_full:ns_full+n, ns_full:ns_full+n] += (
+                            Pot_QQ_new[:n, :n]-Pot_QQ[:n, :n])
+                        undamped_result = solve_dirac(H_undamped, S_full, ns_full, kappa,
+                            nsp=nsp if has_kb else None, nsq=nsq if has_kb else None)
                     orb_list = []
                     for sh in shells:
                         eig_idx = sh.n - sh.l - 1
                         if kappa > 0 and not has_kb:
                             eig_idx += 1
                         if eig_idx < result.n_bound:
-                            P_new, Q_new, E_new = result.get_orbital(eig_idx)
+                            P_new, Q_new, E_new = result.get_orbital(eig_idx, tolerance=eigenpair_tolerance)
                             old_list = orbitals.get(kappa, [])
                             idx = len(orb_list)
                             if idx < len(old_list):
+                                if orbital_tolerance is not None:
+                                    if eig_idx >= undamped_result.n_bound:
+                                        missing_shells.add(sh.label)
+                                        orb_list.append(old_list[idx])
+                                        continue
+                                    P_trial, Q_trial, _ = undamped_result.get_orbital(
+                                        eig_idx, tolerance=eigenpair_tolerance)
+                                    orbital_update = max(orbital_update, orbital_distance(
+                                        np.concatenate((P_trial, Q_trial)),
+                                        np.concatenate(old_list[idx][:2]), S0_cache[kappa]))
                                 P_old = old_list[idx][0]
                                 p_max = np.max(np.abs(P_old))
                                 if p_max > 1e-15:
@@ -2213,7 +2269,13 @@ class DFSolver:
             E_old = E_total_quick
             residual = max_orb_change
 
-            if noninteracting or (max_orb_change < tol and energy_change < tol * 0.01):
+            if orbital_tolerance is not None:
+                applied_update = max(orbital_distance(
+                    np.concatenate(orbitals[k][i][:2]), before_sweep[k, i], S0_cache[k])
+                    for _, k, i in orbital_schedule)
+            orbital_ok = (orbital_tolerance is None or
+                          max(orbital_update, applied_update) <= orbital_tolerance)
+            if (noninteracting or (max_orb_change < tol and energy_change < tol * 0.01)) and orbital_ok:
                 converged = True
                 if noninteracting:
                     residual = 0.0
@@ -2241,7 +2303,7 @@ class DFSolver:
             "local_stationary_v1" if getattr(self, "core_hole_stationary", True)
             else "frozen")
         energy_components["_eigensolver_refinement_policy"] = (
-            "requested_bound_index_plus_l_ge10_newton_v2")
+            "requested_root_spectral_residual_newton_v3")
         energy_components["_diis_residual_policy"] = "actual_sweep_input_v1"
         energy_components["_nuclear_profile"] = self.nuclear_profile
 
@@ -2266,6 +2328,12 @@ class DFSolver:
             orbitals_raw=_canonicalized_orbitals_raw(orbitals),
             Z=self.Z,
             _bsp_data=self.bsp_data,
+            solver_diagnostics=dict(
+                orbital_update_tolerance=orbital_tolerance,
+                undamped_orbital_update_norm=orbital_update if orbital_tolerance is not None else None,
+                applied_orbital_update_norm=applied_update if orbital_tolerance is not None else None,
+                orbital_update_metric='Dirac overlap matrix',
+                eigenpair_tolerance=eigenpair_tolerance),
         ))
 
     def _finalize_with_corrections(self, result):
@@ -2284,12 +2352,12 @@ class DFSolver:
         result.__dict__["_jj_configs"] = self.jj_configs
         stack = self.correction_stack
         if (stack is not None and stack.include_breit
-                and stack.breit_mode == "operator"):
+                and stack.breit_mode == "operator" and stack.breit_frequency == 'static'):
             # The explicit operator mode needs CI angular machinery in
             # methods/mcdhf/. The default DBSR_HF average is evaluated
             # directly by its correction backend and avoids this extra
             # m-scheme contraction.
-            from atomx.methods.mcdhf.breit_ci import (
+            from atomx.physics.csf.breit_ci import (
                 attach_breit_operator_energy,
             )
             attach_breit_operator_energy(result, jj_configs=self.jj_configs)
@@ -2375,6 +2443,8 @@ class DiracFock(Method):
     seed_orbitals: Dict | None = field(default=None, repr=False)
     scf_damping_release_residual: float = 1e-2
     breit_mode: str = "dbsr_hf"
+    breit_frequency: str = "static"
+    breit_orbital_energies: dict | None = None
     nms_mode: str = "operator"
     include_sms: bool = False
     include_hydrogenic_mass_remainder: bool = False
@@ -2393,7 +2463,7 @@ class DiracFock(Method):
     def solve(self, Z, subshells, tol=1e-5, max_iter=40,
               jj_configs=None, use_physics_grid=True, ns=113,
               log=None, r_max=None, grid_hi=None, grid_he=None,
-              grid_hmax=None, screening_potential=None):
+              grid_hmax=None, screening_potential=None, *, orbital_tolerance=None):
         """Run Dirac-Fock SCF calculation."""
         # DFSolver is defined above in this module.
         if not use_physics_grid and any(
@@ -2416,7 +2486,8 @@ class DiracFock(Method):
 
         correction_stack = None
         if (self.nuclear_mass_me is not None or self.breit or self.qed
-                or self.include_sms or self.include_hydrogenic_mass_remainder):
+                or self.include_sms or self.include_hydrogenic_mass_remainder
+                or self.breit_frequency != 'static' or self.breit_orbital_energies is not None):
             from atomx.corrections.qed import resolve_se_method
             from atomx.corrections.stack import CorrectionStack
             correction_stack = CorrectionStack(
@@ -2424,6 +2495,8 @@ class DiracFock(Method):
                 include_vp=self.qed,
                 include_breit=self.breit,
                 breit_mode=self.breit_mode,
+                breit_frequency=self.breit_frequency,
+                breit_orbital_energies=self.breit_orbital_energies,
                 nuclear_mass_me=self.nuclear_mass_me,
                 nms_mode=self.nms_mode,
                 include_sms=self.include_sms,
@@ -2465,7 +2538,8 @@ class DiracFock(Method):
 
         result = solver.solve(max_iter=max_iter, tol=tol,
                               damping=self.scf_damping,
-                              damping_release_residual=self.scf_damping_release_residual)
+                              damping_release_residual=self.scf_damping_release_residual,
+                              orbital_tolerance=orbital_tolerance)
         result._theory_level = self.theory_level.value
         result._method_name = self.name
         if not result._bsp_data:

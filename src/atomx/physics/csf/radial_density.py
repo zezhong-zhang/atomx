@@ -1,6 +1,7 @@
 """Full CI radial integral weights, shared by both radial representations."""
 import numpy as np
-from atomx.methods.mcdhf import exact_ci, matrix
+from atomx.angular import csf_hamiltonian as exact_ci
+from atomx.physics.csf import matrix
 
 
 class CIRadialDensity:

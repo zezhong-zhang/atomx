@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from atomx.methods.mcdhf.exact_ci import csf_signature, one_body_tensor_terms
+from atomx.angular.csf_hamiltonian import csf_signature, one_body_tensor_terms
 
 
 def scalar_one_body_matrix(csfs, keys, radial):

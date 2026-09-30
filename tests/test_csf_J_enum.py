@@ -14,7 +14,7 @@ from collections import Counter
 
 import pytest
 
-from atomx.methods.mcdhf.config import enumerate_jj_csfs
+from atomx.config.csf import enumerate_jj_csfs
 
 
 def _J2_multiset(config):

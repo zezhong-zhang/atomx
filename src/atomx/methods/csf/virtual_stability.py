@@ -21,11 +21,11 @@ def populate_weak_virtuals(functional, orbitals, *, occupation_threshold=1e-7,
     are used only if a fresh CI evaluation verifies energy equivalence.
     The current implementation requires the nuclear no-pair projector.
     """
-    from atomx.methods.mcdhf.solver import MCDHFResult
+    from atomx.methods.csf.solver import VariationalCSFResult
     current = dict(orbitals)
     energy, ci = functional.evaluate(current, gradient=False)
     initial_energy = energy
-    model = MCDHFResult(True, 0, ci.state_energies, ci.mixing_coefficients,
+    model = VariationalCSFResult(True, 0, ci.state_energies, ci.mixing_coefficients,
                         ci.ground_energy, {}, functional.csfs,
                         orbitals_dict=current, bsp_data=functional.data, Z=functional.Z)
     keys, density = model.one_body_density_matrix()

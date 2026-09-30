@@ -1,4 +1,4 @@
-"""Kernel-level gates for the exact jj CI (``atomx.methods.mcdhf.exact_ci``).
+"""Kernel-level gates for the exact jj CI (``atomx.angular.csf_hamiltonian``).
 
 The end-to-end gates in ``test_ci_matrix_vs_mscheme_reference.py`` compare
 whole spectra against the independent oracle.  These tests pin the pieces
@@ -33,10 +33,10 @@ sys.path.insert(0, str(BENCH_DIR))
 
 from mscheme_ci_reference import _angular_terms, mscheme_levels  # noqa: E402
 
-import atomx.methods.mcdhf.matrix as MAT  # noqa: E402
+import atomx.physics.csf.matrix as MAT  # noqa: E402
 from atomx.methods.dirac_fock import Subshell  # noqa: E402
-from atomx.methods.mcdhf import exact_ci  # noqa: E402
-from atomx.methods.mcdhf.config import (  # noqa: E402
+from atomx.angular import csf_hamiltonian as exact_ci  # noqa: E402
+from atomx.config.csf import (  # noqa: E402
     CSF,
     count_j_resolved_csfs,
     enumerate_jj_csfs,

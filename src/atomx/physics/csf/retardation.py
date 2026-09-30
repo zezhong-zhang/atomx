@@ -17,7 +17,7 @@ from functools import lru_cache
 import numpy as np
 from scipy.interpolate import CubicSpline
 
-from atomx.methods.mcdhf.breit_ci import _clm, _spinor_coeffs, twoj_of_kappa
+from atomx.physics.csf.breit_ci import _clm, _spinor_coeffs, twoj_of_kappa
 from atomx.numerics.yk import yk_partial_matrices
 
 
@@ -67,9 +67,15 @@ def distance_potential(rho, r, weights, L):
     return channel(L+2,-L-1)/(2*L+3)-channel(L,1-L)/(2*L-1)
 
 
-def radial_evaluator(orbitals, workspace):
-    """Create a solve-local evaluator with analytic B-spline derivatives."""
-    from atomx.methods.mcdhf.matrix import GridCIWorkspace
+def transition_current_fields(orbitals, workspace):
+    """Shared Gauss cells, spinors and exact transition-current divergences.
+
+    Return ``r, weights, wave(key), divergence(a, c)``. B-spline spinors
+    use analytic derivatives; shooting spinors use the same cubic
+    interpolant for both values and derivatives. Caches belong to this
+    orbital set and are never shared between solves.
+    """
+    from atomx.physics.csf.matrix import GridCIWorkspace
     from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
     grid=isinstance(workspace,GridCIWorkspace)
     if grid:
@@ -82,7 +88,7 @@ def radial_evaluator(orbitals, workspace):
         weights=half*w
     else:
         r=workspace['gr']; weights=workspace['grw']
-    waves={}; densities={}; potentials={}; values={}
+    waves={}; densities={}
 
     def wave(key):
         if key not in waves:
@@ -108,6 +114,14 @@ def radial_evaluator(orbitals, workspace):
                 pa,qa,dpa,dqa=wave(a);pc,qc,dpc,dqc=wave(c)
                 densities[a,c]=dqa*pc+qa*dpc-dpa*qc-pa*dqc+(c[1]-a[1])*(qa*pc+pa*qc)/r
         return densities[a,c]
+
+    return r, weights, wave, density
+
+
+def radial_evaluator(orbitals, workspace):
+    """Create a solve-local evaluator with analytic B-spline derivatives."""
+    r, weights, _, density = transition_current_fields(orbitals, workspace)
+    potentials={}; values={}
 
     def potential(L,a,c):
         if (L,a,c) not in potentials:

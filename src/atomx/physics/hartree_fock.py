@@ -119,52 +119,58 @@ class RadialHartreeFock:
                        for a in range(nsh)]
         return intra, exch, direct0
 
+    def coulomb_energy_terms(self):
+        """Yield (exchange, coefficient, rank, a, b, c, d) for R^k(ab,cd).
+
+        The chosen occupation ensemble defines these physical coefficients. Radial
+        quadrature and reuse of unchanged density pairs belong to numerics.
+        """
+        from atomx.angular.coefficients import exchange_k_range, exchange_lambda
+        for a, shell in enumerate(self.subshells):
+            tj_a = 2*abs(shell.kappa)-1
+            for b in range(a, len(self.subshells)):
+                other = self.subshells[b]
+                if a == b:
+                    c = self.get_WW(a, a)/2.
+                    if abs(c) < 1e-15:
+                        continue
+                    yield False, c, 0, a, a, a, a
+                    for rank in range(2, tj_a+1, 2):
+                        lam = exchange_lambda(shell.kappa, shell.kappa, rank)
+                        if lam >= 1e-15:
+                            yield True, c*lam/(tj_a*(tj_a+1.)), rank, a, a, a, a
+                else:
+                    ww = self.get_WW(a, b)
+                    if abs(ww) < 1e-15:
+                        continue
+                    yield False, ww, 0, a, a, b, b
+                    for rank in exchange_k_range(shell.kappa, other.kappa):
+                        lam = exchange_lambda(shell.kappa, other.kappa, rank)
+                        if lam >= 1e-15:
+                            c = ww*lam/(4.*abs(shell.kappa)*abs(other.kappa))
+                            yield True, c, rank, a, b, a, b
+
     def two_electron_energy(self, pa, qa, r, difr, np_):
         """(E_J, E_K): direct and exchange two-electron energies."""
-        from atomx.angular.coefficients import exchange_k_range, exchange_lambda
+        densities = {}
+        energies = [0., 0.]
+        for exchange, coefficient, rank, a, b, c, d in self.coulomb_energy_terms():
+            for pair in ((a,b), (c,d)):
+                if pair not in densities:
+                    i, j = pair
+                    densities[pair] = pa[i]*pa[j]+qa[i]*qa[j]
+            energies[exchange] += coefficient*_slater_integral_slag6(
+                densities[a,b], densities[c,d], rank, r, difr, np_)
+        return tuple(energies)
 
-        nsh = len(self.subshells)
-        kappas = [sh.kappa for sh in self.subshells]
-        tj = [2 * abs(k) - 1 for k in kappas]
-
-        dens = [pa[s] ** 2 + qa[s] ** 2 for s in range(nsh)]
-        e_j = 0.0
-        e_k = 0.0
-        for a in range(nsh):
-            la = _l_of_kappa(kappas[a])
-            for b in range(a, nsh):
-                if a == b:
-                    # WW(a,a)/2 — statistically q(q-1)/2, bit-identical.
-                    c = self.get_WW(a, a) / 2.0
-                    if abs(c) < 1.0e-15:
-                        continue
-                    e_j += c * _slater_integral_slag6(
-                        dens[a], dens[a], 0, r, difr, np_)
-                    for k in range(1, tj[a] + 1):
-                        if (k + 2 * la) % 2 != 0:
-                            continue
-                        lam = exchange_lambda(kappas[a], kappas[a], k)
-                        if lam < 1.0e-15:
-                            continue
-                        fk = _slater_integral_slag6(
-                            dens[a], dens[a], k, r, difr, np_)
-                        e_k += c * lam / (tj[a] * (tj[a] + 1.0)) * fk
-                else:
-                    # WW(a,b) — statistically q_a q_b, bit-identical.
-                    ww = self.get_WW(a, b)
-                    if abs(ww) < 1.0e-15:
-                        continue
-                    e_j += ww * _slater_integral_slag6(
-                        dens[a], dens[b], 0, r, difr, np_)
-                    f_ab = pa[a] * pa[b] + qa[a] * qa[b]
-                    for k in exchange_k_range(kappas[a], kappas[b]):
-                        lam = exchange_lambda(kappas[a], kappas[b], k)
-                        if lam < 1.0e-15:
-                            continue
-                        gk = _slater_integral_slag6(
-                            f_ab, f_ab, k, r, difr, np_)
-                        e_k += ww * lam / ((tj[a] + 1.0) * (tj[b] + 1.0)) * gk
-        return e_j, e_k
+    def rotation_energy(self, pa, qa, r, difr, rv, a, b):
+        """Fixed-state energy callback valid while only orbitals a,b change."""
+        from atomx.numerics.shooting.energy import radial_rotation_energy
+        terms = [(coefficient*(-1 if exchange else 1), rank, i, j, k, l)
+                 for exchange, coefficient, rank, i, j, k, l
+                 in self.coulomb_energy_terms()]
+        return radial_rotation_energy(pa, qa, r, difr, rv,
+            [(sh.occupation, sh.kappa) for sh in self.subshells], terms, (a,b))
 
     def orbital_field(self, a, pa, qa, r, difr, rvnuc, angular):
         """One definition of the local field and full nonlocal exchange."""

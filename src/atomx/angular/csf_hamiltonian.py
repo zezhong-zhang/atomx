@@ -2,7 +2,7 @@
 
 Why this module exists
 ----------------------
-:func:`atomx.methods.mcdhf.matrix.build_ci_matrix` used to evaluate a
+:func:`atomx.physics.csf.matrix.build_ci_matrix` used to evaluate a
 *configuration-average* diagonal plus two hand-rolled "J-correction"
 patches.  That matrix is not a representation of the Hamiltonian, so the
 CI was not variational: for Be ``correlation="sd"`` it returned
@@ -11,7 +11,7 @@ CI was not variational: for Be ``correlation="sd"`` it returned
 
 A CSF in jj-coupling is a *coupling tree*, not just
 ``(subshells, total_J2)``, so the exact matrix element cannot be written
-down from the old :class:`~atomx.methods.mcdhf.config.CSF` object.  This
+down from the old :class:`~atomx.config.csf.CSF` object.  This
 module sidesteps parentage entirely, the way DIRAC's ``krci`` and Cowan's
 code do: every CSF is expanded as an explicit vector over Slater
 determinants, the Hamiltonian is built in that determinant basis by
@@ -364,7 +364,7 @@ def coupling_paths(order):
     ``(cumulative_total_2J_after_this_subshell, this_subshell_2J,
     degeneracy_index)`` entries.  The enumeration order and the
     multiplicities match
-    :func:`atomx.methods.mcdhf.config._couple_j_count_maps`, which is what
+    :func:`atomx.config.csf._couple_j_count_maps`, which is what
     fixes the CSF count and the total-``2J`` multiset per configuration;
     both are independent of the coupling order.
     """
@@ -462,7 +462,7 @@ class CSFSignature:
 
 def csf_signature(csf) -> CSFSignature:
     """Build the :class:`CSFSignature` of a
-    :class:`~atomx.methods.mcdhf.config.CSF`.
+    :class:`~atomx.config.csf.CSF`.
 
     Subshell occupations are rounded to integers and validated: a
     fractional occupation is a configuration-average concept and has no
@@ -867,7 +867,7 @@ def _radial_terms(ia, ib, ic, id_, coeff, spinor_labels):
     """Radial keys of ``coeff * <ia ib|1/r12|ic id>``.
 
     The key is ``("r", k, key_a, key_c, key_b, key_d)`` — the role order
-    ``R^k(ac, bd)`` that :func:`atomx.methods.mcdhf.matrix._rk` takes as
+    ``R^k(ac, bd)`` that :func:`atomx.physics.csf.matrix._rk` takes as
     ``_rk(Pa, Qa, Pc, Qc, Pb, Qb, Pd, Qd, bsp_data, k)``.
     """
     na, ka, ma = spinor_labels[ia]
@@ -990,12 +990,20 @@ def _connected_pairs(dets):
 
 
 def _coefficient_table(dets, labels, term_fn=None):
+    # Normal order against spinors occupied in every determinant. Their
+    # core-core energy and core-active one-body field are identical across
+    # the block; recomputing all N(N-1)/2 pairs for each diagonal determinant
+    # is particularly expensive for heavy atoms. This is an exact contraction,
+    # not frozen radial orbitals: every radial integral remains in the table
+    # and is differentiated when the orbitals change.
+    frozen = dets[0] if dets else 0
+    for mask in dets:
+        frozen &= mask
+    pair_terms = _core_contracted_pair_terms(frozen, labels, term_fn)
     keys, key_index = [], {}
     rows, cols, data, pairs = [], [], [], []
     for row, col in _connected_pairs(dets):
-        terms = (_pair_terms(dets[row], dets[col], labels) if term_fn is None
-                 else _pair_terms(dets[row], dets[col], labels, term_fn=term_fn))
-        terms = tuple(terms)
+        terms = pair_terms(dets[row], dets[col])
         if not terms:
             continue
         pair_index = len(pairs)
@@ -1010,6 +1018,55 @@ def _coefficient_table(dets, labels, term_fn=None):
     table = csr_matrix((data, (rows, cols)), shape=(len(pairs), max(len(keys), 1)))
     coordinates = np.asarray(pairs, dtype=np.int64).reshape(-1, 2)
     return tuple(keys), table, coordinates
+
+
+def _core_contracted_pair_terms(frozen, labels, term_fn=None):
+    """Exact Slater–Condon contractions with a common occupied determinant."""
+    operator = _radial_terms if term_fn is None else term_fn
+
+    def collect(terms):
+        combined = {}
+        for key, value in terms:
+            combined[key] = combined.get(key, 0.) + value
+        return tuple((key, value) for key, value in combined.items() if value != 0.)
+
+    core = collect(_pair_terms(frozen, frozen, labels, term_fn=operator))
+    fields = {}
+
+    def field(p, q):
+        if (p, q) not in fields:
+            terms = []
+            for i in _bits(frozen):
+                pa, pb = sorted((p, i))
+                qa, qb = sorted((q, i))
+                order_sign = -1. if (p > i) != (q > i) else 1.
+                terms.extend(operator(pa, pb, qa, qb, order_sign, labels))
+                terms.extend(operator(pa, pb, qb, qa, -order_sign, labels))
+            fields[p, q] = collect(terms)
+        return fields[p, q]
+
+    def pair(mask_a, mask_b):
+        active_a, active_b = mask_a ^ frozen, mask_b ^ frozen
+        difference = mask_a ^ mask_b
+        count = difference.bit_count()
+        if count == 0:
+            terms = list(core)
+            terms.extend(_pair_terms(active_a, active_b, labels, term_fn=operator))
+            for p in _bits(active_a):
+                terms.extend(field(p, p))
+            return collect(terms)
+        if count == 2:
+            p, q = next(_bits(mask_a & difference)), next(_bits(mask_b & difference))
+            sign = _ops_sign(mask_b, [(p, True), (q, False)])
+            active_sign = _ops_sign(active_b, [(p, True), (q, False)])
+            # Removing common core bits may change determinant ordering.
+            terms = [(key, sign * active_sign * value) for key, value in
+                     _pair_terms(active_a, active_b, labels, term_fn=operator)]
+            terms.extend((key, sign * value) for key, value in field(p, q))
+            return collect(terms)
+        return collect(_pair_terms(mask_a, mask_b, labels, term_fn=operator))
+
+    return pair
 
 
 class BlockStructure:
@@ -1085,7 +1142,7 @@ class BreitBlockStructure:
 @lru_cache(maxsize=32)
 def _breit_block_table(patterns: tuple, j2: int, max_determinants: int):
     """Cached Gaunt table of a block, keyed like the Coulomb structure."""
-    from atomx.methods.mcdhf.breit_ci import breit_terms
+    from atomx.physics.csf.breit_ci import breit_terms
 
     structure = block_terms(patterns, j2, max_determinants)
     dets = structure.dets
@@ -1233,7 +1290,7 @@ def exact_block_matrix(signatures, evaluate_integral, *,
         rows and columns.
     evaluate_integral : callable
         Maps a radial key to its numeric value; see
-        :func:`atomx.methods.mcdhf.matrix._radial_evaluator`.
+        :func:`atomx.physics.csf.matrix._radial_evaluator`.
     max_determinants : int
         Cap on the raw determinant dimension of the block.
     verify : bool
@@ -1241,7 +1298,7 @@ def exact_block_matrix(signatures, evaluate_integral, *,
         cost is one ``eigh`` per configuration, cached across calls).
     breit_evaluator : callable or None
         Maps a static Breit radial key to its numeric value (see
-        :func:`atomx.methods.mcdhf.breit_ci.gaunt_terms` for the key
+        :func:`atomx.physics.csf.breit_ci.gaunt_terms` for the key
         shape).  When given, the Breit operator's determinant matrix is
         added to ``H_det`` before projection, so it enters the CI matrix
         block-by-block and shifts levels differentially.  ``None`` (the

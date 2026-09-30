@@ -13,7 +13,7 @@ from atomx.angular.csf import (
     two_body_csf_coupling,
 )
 from atomx.methods.dirac_fock import Subshell
-from atomx.methods.mcdhf.config import CSF
+from atomx.config.csf import CSF
 
 
 def test_explicit_j_zero_is_preserved():

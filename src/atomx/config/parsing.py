@@ -1,7 +1,7 @@
 """Non-relativistic configuration-string parsing.
 
 One parser, used by both the MCDHF CSF enumerator
-(:mod:`atomx.methods.mcdhf.config`) and the jj-averaging layer
+(:mod:`atomx.config.csf`) and the jj-averaging layer
 (:mod:`atomx.config.jj_coupling`).  Both previously did
 
     ``n = int(token[0]); l = l_map[token[1]]; q = int(token[2:])``

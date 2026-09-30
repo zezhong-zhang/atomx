@@ -2,12 +2,10 @@
 import numpy as np
 
 from atomx import Atom
-from atomx.methods.mcdhf.config import enumerate_jj_csfs
-from atomx.methods.mcdhf.variational import (
-    CorrelatedOrbitalFunctional,
-    optimize_orbitals,
-)
-from atomx.methods.mcdhf.virtual_stability import populate_weak_virtuals
+from atomx.config.csf import enumerate_jj_csfs
+from atomx.numerics.bspline.orbital_optimization import optimize_orbitals
+from atomx.methods.csf.variational import CSFOrbitalFunctional
+from atomx.methods.csf.virtual_stability import populate_weak_virtuals
 from atomx.numerics.bspline.dirac_assembly import solve_dirac
 from atomx.potentials.nuclear import make_nuclear_potential
 
@@ -16,7 +14,7 @@ def test_compact_empty_f_trials_lower_original_energy_without_projector_leakage(
     base = Atom(Z=2, config='1s2', engine='bspline', corrections='none').solve().result
     csfs = [c for cfg in ('1s2', '4f2') for c in enumerate_jj_csfs(cfg)
             if c.total_J2 == 0 and c.parity == 1]
-    functional = CorrelatedOrbitalFunctional(csfs, base._bsp_data, 2,
+    functional = CSFOrbitalFunctional(csfs, base._bsp_data, 2,
                                            make_nuclear_potential(2, 'fermi'))
     orbitals, projectors = {}, {}
     for key in functional.keys:

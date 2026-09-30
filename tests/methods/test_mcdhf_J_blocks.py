@@ -20,7 +20,7 @@ from __future__ import annotations
 
 import pytest
 
-from atomx.methods.mcdhf.config import (
+from atomx.config.csf import (
     CSF,
     couple_J2_list,
     enumerate_jj_csfs,

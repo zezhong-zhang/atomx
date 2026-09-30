@@ -60,7 +60,7 @@ from atomx.angular.csf_recoupling import (
 from atomx.angular.rcfp import reduced_subshell_states
 from atomx.angular.wigner import wigner_3j
 from atomx.methods.dirac_fock import Subshell
-from atomx.methods.mcdhf.config import CSF
+from atomx.config.csf import CSF
 
 #: Frozen atomx self-regressions over a library with no production caller
 #: (see the module docstring): the marker records that nothing here is

@@ -33,6 +33,8 @@ shared by both sides is invisible here.
 The genuinely independent evidence for the CI Hamiltonian is elsewhere and
 should be read as the primary evidence:
 
+* ``tests/test_fac_ci_operator.py`` — independent FAC CI matrices for
+  192 levels, using shared radial integrals and then shared source spinors;
 * ``tests/test_ci_grid_kernel.py::test_hydrogenic_slater_integrals`` —
   exact Condon-Shortley hydrogenic ``F^k``/``G^k`` closed forms;
 * ``tests/test_ci_analytic_slater_condon.py`` — the orbital-free identity
@@ -78,8 +80,8 @@ from mscheme_ci_reference import (  # noqa: E402
     patterns_from_configs,
 )
 
-import atomx.methods.mcdhf.solver as _solver_mod  # noqa: E402
-from atomx.methods.mcdhf.config import enumerate_jj_csfs  # noqa: E402
+import atomx.methods.csf.solver as _solver_mod  # noqa: E402
+from atomx.config.csf import enumerate_jj_csfs  # noqa: E402
 from atomx.methods.mcdhf.solver import MCDHFSolver  # noqa: E402
 
 
@@ -87,7 +89,7 @@ def _run_capturing_ci(config_strings, Z=4, **kwargs):
     """Solve and return (result, csfs, ci_solve arguments).
 
     The CI call is captured by wrapping
-    ``atomx.methods.mcdhf.solver.ci_solve`` — the solver imports the name
+    ``atomx.methods.csf.solver.ci_solve`` — the solver imports the name
     into its own module, so patching the module attribute is enough.
     """
     captured = {}
@@ -120,7 +122,7 @@ def _build(captured):
     reproduces the finite-nucleus CI to ~1e-8 Ha at Z = 4, which is the
     same order as the tolerances used here.
     """
-    from atomx.methods.mcdhf.matrix import build_ci_matrix
+    from atomx.physics.csf.matrix import build_ci_matrix
 
     return build_ci_matrix(
         captured["csfs"], captured["orbitals_dict"], None, captured["bsp_data"],
@@ -460,7 +462,7 @@ def test_he_like_1s2p_j1_splitting_matches_two_thirds_g1(protocol, request):
     splitting = float(j1_levels[-1] - j1_levels[0])
     P1s, Q1s = cap["orbitals_dict"][(1, -1)]
     P2p, Q2p = cap["orbitals_dict"][(2, -2)]
-    from atomx.methods.mcdhf.matrix import _gk
+    from atomx.physics.csf.matrix import _gk
     g1 = _gk(P1s, Q1s, P2p, Q2p, cap["bsp_data"], 1)
     predicted = 2.0 * g1 / 3.0
     assert g1 > 0.0, "G^1(1s,2p) must be positive"

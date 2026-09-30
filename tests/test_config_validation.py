@@ -15,7 +15,7 @@ import pytest
 
 from atomx import Atom
 from atomx.config.parsing import validate_config_string
-from atomx.methods.mcdhf.config import (
+from atomx.config.csf import (
     count_j_resolved_csfs,
     enumerate_jj_csfs,
 )

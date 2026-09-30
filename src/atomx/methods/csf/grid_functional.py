@@ -11,8 +11,8 @@ from __future__ import annotations
 import numpy as np
 
 from atomx.methods.ci import ci_solve
-from atomx.methods.mcdhf import matrix
-from atomx.methods.mcdhf.radial_density import CIRadialDensity
+from atomx.physics.csf import matrix
+from atomx.physics.csf.radial_density import CIRadialDensity
 from atomx.numerics.shooting.constants import SL
 from atomx.numerics.shooting.quadrature import slag6_adjoint, slag6_weights
 from atomx.numerics.shooting.coulomb import _yk_over_r
@@ -49,7 +49,7 @@ def coulomb_adjoint(source, rank, workspace):
     return forward+backward
 
 
-class GridCorrelatedFunctional:
+class GridCSFFunctional:
     """Ground-state Dirac–Coulomb CI functional on tabulated radial spinors.
 
     ``evaluate`` returns coordinate derivatives dE/dP_i,dE/dQ_i. Divide

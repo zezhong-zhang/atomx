@@ -20,9 +20,9 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-import atomx.methods.mcdhf.matrix as matrix
+import atomx.physics.csf.matrix as matrix
 import tests.test_ci_matrix_vs_mscheme_reference as _ref
-from atomx.methods.mcdhf.matrix import build_ci_matrix
+from atomx.physics.csf.matrix import build_ci_matrix
 
 
 def _h0_entries():
@@ -76,6 +76,20 @@ def _build(captured, **overrides):
 
 
 class TestH0Carry:
+    def test_live_evaluators_keep_their_nuclear_model(self, cap, fresh_memo):
+        """Delayed h_D evaluation must not inherit a later build's nucleus."""
+        args = (cap['orbitals_dict'], cap['bsp_data'], cap['Z'], cap['ns'])
+        point = matrix._radial_evaluator(*args)
+        smooth = matrix._radial_evaluator(*args,
+            nuclear_potential=lambda r: -cap['Z']/np.sqrt(r*r+1e-4))
+        key = ('h', 1, -1, 1)
+        # Neither closure has evaluated h yet; another context is active.
+        hs = smooth(key)
+        hp = point(key)
+        expected = matrix._radial_evaluator(*args)(key)
+        assert hp == expected
+        assert abs(hp-hs) > 1e-3
+
     def test_h0_blocks_survive_entry_reset_same_workspace(self, cap, fresh_memo):
         h1 = _build(cap)
         h0_after_first = _h0_entries()

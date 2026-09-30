@@ -24,18 +24,10 @@ def test_local_methods_preserve_sampling_nucleus_and_radial_payload(method):
         assert 'hydrogenic' in result.method_name
 
 
-def test_shared_subshell_and_legacy_method_imports_are_identical():
-    from atomx.methods.dirac_fock import Subshell as LegacySubshell
-    from atomx.methods.hartree_fock import HartreeFock
-    from atomx.methods.relativistic_hf import BreitPauli as LegacyBreitPauli
-    assert LegacySubshell is Subshell
-    assert HartreeFock is HartreeFockSlater
-    assert LegacyBreitPauli is BreitPauli
-
 
 def calculator():
     return TransitionCalculator(SimpleNamespace(converged=True, Z=2,
-        _mcdhf_result=None, _result=None, _config_strings=['1s2', '1s1 2p1']))
+        _csf_result=None, _result=None, _config_strings=['1s2', '1s1 2p1']))
 
 
 def test_ci_request_cannot_silently_run_replacement_or_fallback():
@@ -64,7 +56,7 @@ def test_invalid_calculations_are_not_converted_into_fallback(monkeypatch):
 
 def test_mcdhf_reuses_its_existing_states(monkeypatch):
     calc = calculator()
-    calc.atom._mcdhf_result = object()
+    calc.atom._csf_result = object()
     sentinel = object()
     monkeypatch.setattr(calc, '_compute_mcdhf_transitions', lambda *args: sentinel)
     assert calc.compute_all(line_resolution='ci') is sentinel

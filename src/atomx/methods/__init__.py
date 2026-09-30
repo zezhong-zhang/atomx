@@ -14,7 +14,6 @@ from atomx.methods.base import Method
 from atomx.methods.dirac_fock import DiracFock
 from atomx.methods.hartree_fock_slater import HartreeFockSlater
 
-HartreeFock = HartreeFockSlater  # Historical public spelling.
 from atomx.methods.hydrogenic import HydrogenicDirac, HydrogenicSchrodinger
 from atomx.methods.mbpt import MBPT2Result, mbpt2_energy
 from atomx.methods.mcdhf import MCDHF
@@ -24,7 +23,6 @@ __all__ = [
     "Method",
     "HydrogenicSchrodinger",
     "HydrogenicDirac",
-    "HartreeFock",
     "HartreeFockSlater",
     "BreitPauli",
     "DiracFock",

@@ -6,13 +6,13 @@ MCDHF route. Radial cutoff convergence is reported separately from stationarity.
 import numpy as np
 
 
-def solve_correlated_shooting(solver, *, max_iter, tolerance):
+def solve_variational_shooting(solver, *, max_iter, tolerance):
     """Return the optimized orbitals, CI and native radial context."""
     from atomx.numerics.shooting.grid import sgrid
     from atomx.potentials.radial_nucleus import screened_nuclear_rv
     from atomx.results import ShootingResult
-    from .matrix import GridCIWorkspace
-    from .grid_functional import GridCorrelatedFunctional
+    from atomx.physics.csf.matrix import GridCIWorkspace
+    from .grid_functional import GridCSFFunctional
     from atomx.numerics.shooting.electron_space import continuum_enriched_electron_space
     from atomx.numerics.shooting.orbital_optimization import optimize_grid_shooting
 
@@ -24,9 +24,11 @@ def solve_correlated_shooting(solver, *, max_iter, tolerance):
     rv = screened_nuclear_rv(solver.Z, r, jacobian, n, nuclear=solver.nuclear,
                               screening_potential=solver.screening_potential)
     workspace = GridCIWorkspace(r, jacobian, rv)
-    functional = GridCorrelatedFunctional(solver.csfs, workspace, solver.Z)
+    functional = GridCSFFunctional(solver.csfs, workspace, solver.Z)
     space, initial = continuum_enriched_electron_space(functional,
         n_bound=n_bound, n_continuum=controls.continuum_roots)
+    initializer = 'nuclear eigenfunctions'
+    initializer_converged = None
     shifts = {key: 1.1*min(space.root_energies[key[1]]) for key in functional.keys}
     orbitals, ci, diagnostics = optimize_grid_shooting(functional, initial, space,
         shifts, max_iter=max_iter, tolerance=tolerance)
@@ -51,6 +53,8 @@ def solve_correlated_shooting(solver, *, max_iter, tolerance):
         if occupation > 1e-12:
             energies[label] = float((.5*np.sum(orbitals[key]*derivative[key])+normal[key])/occupation)
     diagnostics.update(
+        initializer=initializer,
+        seed_converged=initializer_converged,
         full_correlated_orbital_gradient=True,
         model='fixed nuclear no-pair Dirac-Coulomb MCDHF',
         scope='stationarity in the declared finite shooting electron space',

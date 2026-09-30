@@ -217,11 +217,14 @@ def gaunt_angular_terms(kappa_a: int, m2a: int, kappa_b: int, m2b: int,
     j2d = twoj_of_kappa(kappa_d)
     # alpha is rank 1: a photon L can couple to electronic rank L-1.
     l_max = min((j2a + j2c) // 2, (j2b + j2d) // 2) + 1
-    out = []
+    out = {}
     for L in range(l_max + 1):
-        qs = range(-2 * L, 2 * L + 1, 2) if L else (0,)
-        for q2 in qs:
-            for mu in (-1, 0, 1):
+        # The vector-spinor matrix element conserves m_a-m_c=q+mu.
+        # Only three (q,mu) pairs can contribute, independently of L.
+        # Descending mu retains the original ascending-q summation order.
+        for mu in (1, 0, -1):
+            q2 = m2a - m2c - 2 * mu
+            if abs(q2) <= 2 * L:
                 phase = -1.0 if (mu + q2 // 2) % 2 else 1.0
                 t1 = _one_body_terms(kappa_a, m2a, kappa_c, m2c, L, q2, mu)
                 if not t1:
@@ -232,11 +235,17 @@ def gaunt_angular_terms(kappa_a: int, m2a: int, kappa_b: int, m2b: int,
                     continue
                 for (xa, xc, ca) in t1:
                     for (xb, xd, cb) in t2:
-                        out.append((L, xa, xc, xb, xd, -phase * ca * cb))
-    return tuple(out)
+                        key = (L, xa, xc, xb, xd)
+                        out[key] = out.get(key, 0j) - phase * ca * cb
+    # All q,mu contributions with this key multiply the same radial
+    # integral. Contract once in angular space, before principal quantum
+    # numbers and determinant signs duplicate the terms across CI blocks.
+    # Only exact zeros are removed: no angular or radial cutoff is added.
+    return tuple((*key, value) for key, value in out.items() if value != 0.)
 
 
-def breit_operator_energy(orbitals_dict, bsp_data, Z, ns, config: str):
+def breit_operator_energy(orbitals_dict, bsp_data, Z, ns, config: str, *,
+                          orbital_energies=None):
     """Full static Breit energy of a SINGLE-CSF configuration, on given orbitals.
 
     This is the operator evaluation for routes that have no CI: the SCF
@@ -267,6 +276,9 @@ def breit_operator_energy(orbitals_dict, bsp_data, Z, ns, config: str):
         Nuclear charge and basis/grid dimension.
     config : str
         The configuration, e.g. ``"1s2 2s2 2p6"``.
+    orbital_energies : mapping, optional
+        With a complete ``(n, kappa) -> Hartree`` map, replace static Breit
+        by real finite-frequency transverse exchange on these spinors.
 
     Raises
     ------
@@ -278,9 +290,9 @@ def breit_operator_energy(orbitals_dict, bsp_data, Z, ns, config: str):
         ``MCDHFSolver`` does; silently returning one CSF's diagonal (or
         a scalar) instead is the defect this function exists to avoid.
     """
-    from atomx.methods.mcdhf.config import enumerate_jj_csfs_many
-    from atomx.methods.mcdhf.exact_ci import csf_signature, exact_block_matrix
-    from atomx.methods.mcdhf.matrix import _breit_radial_evaluator
+    from atomx.config.csf import enumerate_jj_csfs_many
+    from atomx.angular.csf_hamiltonian import csf_signature, exact_block_matrix
+    from atomx.physics.csf.matrix import _breit_radial_evaluator
 
     csfs = enumerate_jj_csfs_many([config])
     if len(csfs) != 1:
@@ -291,7 +303,11 @@ def breit_operator_energy(orbitals_dict, bsp_data, Z, ns, config: str):
             f"operator exists to represent).  Route it through the CI "
             f"(MCDHFSolver, i.e. a list `config=[...]` in Atom) so the "
             f"state and its SCF averaging are explicit.")
-    ev = _breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns)
+    if orbital_energies is None:
+        ev = _breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns)
+    else:
+        from atomx.physics.csf.transverse import radial_evaluator
+        ev = radial_evaluator(orbitals_dict, bsp_data, orbital_energies)
     # A zero Coulomb evaluator leaves the block equal to the static Breit
     # matrix alone: ``exact_block_matrix`` adds the Breit determinant
     # matrix to the Coulomb one before projecting to CSFs.
@@ -335,8 +351,12 @@ def configuration_string_of(subshells) -> str:
     return " ".join(parts)
 
 
-def breit_configuration_average(orbitals_dict, bsp_data, Z, ns, jj_configs):
-    """Static Breit expectation in an explicit, spherical jj-configuration ensemble.
+def breit_configuration_average(orbitals_dict, bsp_data, Z, ns, jj_configs, *,
+                                orbital_energies=None):
+    """Transverse expectation in an explicit, spherical jj-configuration ensemble.
+
+    With an orbital-energy mapping use the finite-frequency operator;
+    otherwise use full static Breit. The ensemble contraction is shared.
 
     Within each integer-occupation jj configuration all magnetic determinants
     have equal probability. A distinct spinor pair in shell i has probability
@@ -349,7 +369,7 @@ def breit_configuration_average(orbitals_dict, bsp_data, Z, ns, jj_configs):
     """
     from collections import defaultdict
 
-    from atomx.methods.mcdhf.matrix import _breit_radial_evaluator
+    from atomx.physics.csf.matrix import _breit_radial_evaluator
 
     configs = list(jj_configs)
     if not configs:
@@ -391,7 +411,11 @@ def breit_configuration_average(orbitals_dict, bsp_data, Z, ns, jj_configs):
             for c, d, sign in ((a, b, 1.0), (b, a, -1.0)):
                 for key, coeff in breit_terms(a, b, c, d, sign, labels):
                     coefficients[key] += probability * coeff
-    evaluate = _breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns)
+    if orbital_energies is None:
+        evaluate = _breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns)
+    else:
+        from atomx.physics.csf.transverse import radial_evaluator
+        evaluate = radial_evaluator(orbitals_dict, bsp_data, orbital_energies)
     return math.fsum(coeff * evaluate(key) for key, coeff in coefficients.items()
                      if coeff != 0.0)
 
@@ -400,11 +424,10 @@ def attach_breit_operator_energy(result, config: str | None = None,
                                 *, jj_configs=None) -> float:
     """Compute ``result``'s static Breit energy and stash it on the result.
 
-    The Breit interaction is applied by the ``CorrectionStack`` (in
-    ``corrections/``), but the operator needs the CI angular machinery
-    (``exact_ci``, ``matrix._breit_radial_evaluator``), which lives in
-    ``methods/mcdhf/``.  ``corrections/`` must not import ``methods/``
-    (layering), so the value travels on the result instead:
+    The static operator backend of ``CorrectionStack`` reads a precomputed
+    expectation. Angular contractions live in ``angular/`` and radial
+    operators in ``physics/csf/``; no numerical or correction module imports
+    an SCF method. The expectation is stored as:
 
         ``result.__dict__["_E_Breit_operator"]``
 
@@ -445,7 +468,7 @@ def attach_breit_operator_energy(result, config: str | None = None,
 
 def _ci_radial_inputs(result):
     """``(orbitals_dict, workspace, Z, ns)`` for a converged SCF result."""
-    from atomx.methods.mcdhf.matrix import GridCIWorkspace
+    from atomx.physics.csf.matrix import GridCIWorkspace
 
     subshells = list(getattr(result, "subshells", None) or [])
     if not subshells:
@@ -498,7 +521,7 @@ def gaunt_terms(ia, ib, ic, id_, coeff, spinor_labels):
     """Radial-key terms of ``coeff * <ia ib|G|ic id>`` for the exact CI.
 
     ``spinor_labels`` maps a determinant bit index to ``(n, kappa, 2m)``
-    (the layout :mod:`atomx.methods.mcdhf.exact_ci` uses).  Keys have the
+    (the layout :mod:`atomx.angular.csf_hamiltonian` uses).  Keys have the
     shape ``("g", L, (X_a, n_a, kappa_a), (X_c, n_c, kappa_c),
     (X_b, n_b, kappa_b), (X_d, n_d, kappa_d))``.
     """
@@ -522,7 +545,7 @@ def gaunt_terms(ia, ib, ic, id_, coeff, spinor_labels):
 
 def retardation_terms(*args, **kwargs):
     """Static Breit retardation terms in the same determinant layout as Gaunt."""
-    from atomx.methods.mcdhf.retardation import retardation_terms as terms
+    from atomx.physics.csf.retardation import retardation_terms as terms
     return terms(*args, **kwargs)
 
 

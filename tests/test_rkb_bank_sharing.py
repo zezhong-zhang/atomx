@@ -125,11 +125,11 @@ def test_ci_build_keeps_the_stashed_cache(bank_builds):
     a rebuilt-but-identical workspace still matches by content, so a
     second build over the same grid rebuilds no bank.
     """
-    from atomx.methods.mcdhf.config import (
+    from atomx.config.csf import (
         get_shared_orbital_basis,
         make_csf_list,
     )
-    from atomx.methods.mcdhf.matrix import build_ci_matrix
+    from atomx.physics.csf.matrix import build_ci_matrix
 
     dhf = _workspace()
     cache = ConvolCache(dhf.bsp_data)

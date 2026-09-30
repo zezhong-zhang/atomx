@@ -15,7 +15,7 @@ import pytest
 from atomx.methods.ci import CIResult, ci_solve
 from atomx.methods.dirac_fock import DFSolver
 from atomx.methods.mcdhf import MCDHFSolver, make_csf_list
-from atomx.methods.mcdhf.config import get_shared_orbital_basis
+from atomx.config.csf import get_shared_orbital_basis
 
 
 def _he_csfs():
@@ -29,7 +29,8 @@ def test_ci_solve_returns_ciresult_and_ground_energy_is_minimum():
     # Run only the first macro iteration manually so we have frozen DHF
     # orbitals + matching bsp_data.
     avg = solver._averaged_subshells()
-    dhf = DFSolver(Z=2, subshells=avg, ns=solver.ns, ks=solver.ks, exchange="hf")
+    dhf = DFSolver(Z=2, subshells=avg, ns=solver.ns, ks=solver.ks,
+                   exchange="hf", nuclear=solver.nuclear)
     dhf_result = dhf.solve(max_iter=40, tol=1e-5)
 
     orbitals_dict = {}
@@ -43,7 +44,8 @@ def test_ci_solve_returns_ciresult_and_ground_energy_is_minimum():
             orbitals_dict[(sh.n, sh.kappa)] = (P, Q)
 
     basis = get_shared_orbital_basis(csfs)
-    ci = ci_solve(csfs, orbitals_dict, basis, dhf.bsp_data, Z=2, ns=dhf.ns)
+    ci = ci_solve(csfs, orbitals_dict, basis, dhf.bsp_data, Z=2, ns=dhf.ns,
+                  nuclear_potential=dhf._nuclear_potential)
 
     assert isinstance(ci, CIResult)
     assert ci.state_energies.shape == (len(csfs),)
@@ -77,7 +79,8 @@ def test_ci_solve_matches_first_mcdhf_macroiteration():
 
     # Now reproduce the CI part standalone.
     avg = solver._averaged_subshells(weights=np.ones(len(csfs)) / len(csfs))
-    dhf = DFSolver(Z=2, subshells=avg, ns=solver.ns, ks=solver.ks, exchange="hf")
+    dhf = DFSolver(Z=2, subshells=avg, ns=solver.ns, ks=solver.ks,
+                   exchange="hf", nuclear=solver.nuclear)
     dhf_result = dhf.solve(max_iter=40, tol=1e-5)
     orbitals_dict = {}
     kappa_counter = {}
@@ -90,7 +93,8 @@ def test_ci_solve_matches_first_mcdhf_macroiteration():
             orbitals_dict[(sh.n, sh.kappa)] = (P, Q)
 
     basis = get_shared_orbital_basis(csfs)
-    ci = ci_solve(csfs, orbitals_dict, basis, dhf.bsp_data, Z=2, ns=dhf.ns)
+    ci = ci_solve(csfs, orbitals_dict, basis, dhf.bsp_data, Z=2, ns=dhf.ns,
+                  nuclear_potential=dhf._nuclear_potential)
 
     # Ground energies from ci_solve and MCDHF must agree to full tolerance.
     assert ci.ground_energy == pytest.approx(mcdhf_result.ground_energy, rel=1e-10, abs=1e-12)

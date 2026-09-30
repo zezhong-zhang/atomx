@@ -17,7 +17,7 @@ from atomx.angular.csf_recoupling import allowed_coupled_J2
 from atomx.angular.mscheme import subshell_j_counts_mscheme
 from atomx.config.parsing import parse_nr_shells
 from atomx.config.subshell import Subshell
-from atomx.methods.mcdhf.exact_ci import coupling_paths
+from atomx.angular.csf_hamiltonian import coupling_paths
 
 
 @dataclass
@@ -40,7 +40,7 @@ class CSF:
         ``subshells`` order, with the last cumulative value equal to
         ``total_J2``.  ``None`` (the default, and what hand-built CSFs
         get) means "derive the canonical tree": the first path of
-        :func:`atomx.methods.mcdhf.exact_ci.coupling_paths` that reaches
+        :func:`atomx.angular.csf_hamiltonian.coupling_paths` that reaches
         ``total_J2``.  When several paths reach the same total J they span
         the same block and the canonical choice is just as valid a basis
         vector as any other; only the *number* of paths matters for the

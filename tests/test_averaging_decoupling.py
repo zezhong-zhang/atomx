@@ -1,269 +1,197 @@
-"""``averaging`` as an orthogonal axis: numerics × exchange × averaging.
-
-Before this change the ``use_ci_avg`` gate in ``Atom.solve`` required
-``numerics != "shooting"``, so ``averaging="ci"`` was SILENTLY ignored
-on the shooting engine (Co shooting ci vs statistical came out
-bit-identical).  These tests pin the decoupling:
-
-- shooting × hf × ci routes through the MCDHF outer loop (Guerra
-  jj_configs pair weights in ShootingHFSolver + the grid-flavour CI
-  kernel) and actually differs from shooting × hf × statistical on an
-  open shell (Co 3d7 4s2);
-- the CI-averaged totals agree across engines (the engines share no
-  radial numerics — B-spline Galerkin + cell integrals vs ODE shooting
-  + SLAG6 — so this validates the whole engine-generic pipeline;
-  measured 7.3e-8 relative on Co);
-- explicit ``averaging="ci"`` with a local-exchange model raises;
-- the DEFAULT ``averaging="ci"`` with slater/gu falls back quietly to
-  statistical (erroring would break every slater/gu call);
-- provenance records the averaging that actually ran;
-- the closed-shell fast path (single jj-CSF) still collapses to the
-  plain single-config route, bit-identically.
-
-Note the two engines' "statistical" baselines legitimately differ on
-open shells: the shooting single-config route uses the fractional
-``q(q-1)`` products (``ShootingHFSolver`` with ``jj_configs=None``)
-while the bspline route passes statistical Guerra jj_configs — so the
-cross-engine gate is on the CI totals, not the ci-vs-statistical delta.
-"""
-
-import sys
-from pathlib import Path
-
+"""Hamiltonian DF: intermediate coupling, coherent energy, and Eq. 10 density."""
+import numpy as np
 import pytest
 
-ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / "src"))
-
-from atomx import Atom, Correlation  # noqa: E402
-from atomx.methods.mcdhf.solver import MCDHFResult, MCDHFSolver  # noqa: E402
-from atomx.results import ShootingResult  # noqa: E402
-
-#: Co 3d7 4s2 — open shell, 4 jj-CSFs, the case the stale gate silently
-#: degraded to statistical.  Bare HF (breit/qed off) so the totals pin
-#: the SCF + CI numerics, not the correction stack.
-CO = dict(Z=27, corrections="none")
-
-#: Known-good baselines.  The two *CI* totals were re-pinned on 2026-09-21
-#: with the exact CI matrix (``docs/archive/2026-09/CORRELATION_SD_RESEARCH_2026-09-20.md``
-#: §8 option A): the old kernel's configuration-average diagonal plus
-#: J-corrections put bspline CI at -1392.0165 and shooting CI at -1390.0324
-#: ... the bspline one moves to -1392.1100 because Co 3d7 has repeated
-#: parentage that the old kernel deliberately zeroed (its R5) and an
-#: open-shell diagonal it averaged (its R1).
-#:
-#: What the cross-engine gate below establishes, precisely: the two engines
-#: share no *radial* numerics (B-spline Galerkin/cell-integral vs shooting
-#: SLAG6), so agreement to 7.3e-8 relative validates the radial integral
-#: implementations and the SCF fixed point.  It does **not** validate the CI
-#: matrix: both engines call the same ``matrix.build_ci_matrix`` ->
-#: ``exact_block_matrix`` assembly, so a wrong angular kernel or a wrong
-#: assembly would move both totals *identically* and this gate would not
-#: notice (audit finding F4 — the docstring here used to claim the opposite).
-#: The CI matrix itself is gated behind the m-scheme assembly comparison and
-#: the analytic Slater-Condon identities; the Breit/QED numbers below are
-#: being migrated from the scalar to the Gaunt operator, and the orchestrator
-#: owns re-pinning any that move.
-CO_BSPLINE_CI = -1392.1100
-CO_SHOOTING_STATISTICAL = -1391.9970
+from atomx import Atom, Correlation
+from atomx.config.jj_coupling import compute_WW, generate_jj_average
+from atomx.methods.dirac_fock import SCFResult
+from atomx.methods.mcdhf.solver import MCDHFSolver
+from atomx.results import ShootingResult
 
 
-@pytest.fixture(scope="module")
-def co_solved():
-    out = {}
-    for engine, avg in (("shooting", "ci"), ("shooting", "statistical"),
-                        ("bspline", "ci")):
-        out[(engine, avg)] = Atom(
-                                  engine=engine,
-                                  exchange="hf",
-                                  correlation=Correlation(averaging=avg),
-                                  **CO,
-                             ).solve()
-    return out
+@pytest.mark.parametrize('configuration,ell,electrons', [
+    ('2p1', 1, 1), ('2p2', 1, 2), ('3d7', 2, 7), ('5f10', 3, 10),
+])
+def test_statistical_pair_moments_match_integer_configuration_trace(
+        configuration, ell, electrons):
+    shells, ensemble = generate_jj_average(configuration, averaging='statistical')
+    capacity = 4*ell+2
+    degeneracies = [2*ell, 2*ell+2]
+    for i in range(2):
+        assert shells[i].occupation == pytest.approx(electrons*degeneracies[i]/capacity)
+        for j in range(2):
+            # Select two distinct electrons from a uniformly filled LS shell.
+            expected = (electrons*(electrons-1)*degeneracies[i]
+                        *(degeneracies[j]-(i == j))/(capacity*(capacity-1)))
+            assert compute_WW(i, j, ensemble) == pytest.approx(expected, abs=1e-14)
+    assert sum(compute_WW(i, j, ensemble) for i in range(2) for j in range(2)) == pytest.approx(electrons*(electrons-1))
+    # In particular a one-electron shell has no two-electron self interaction.
+    if electrons == 1:
+        assert compute_WW(0, 1, ensemble) == 0
+        assert shells[0].occupation*shells[1].occupation > 0
 
 
-# ----------------------------------------------------------------------
-# shooting × hf × ci routes through MCDHF and actually differs
-# ----------------------------------------------------------------------
-
-def test_shooting_ci_routes_to_mcdhf(co_solved):
-    a = co_solved[("shooting", "ci")]
-    assert isinstance(a.result, MCDHFResult)
-    assert a.result.converged
-    assert a.provenance == {"engine": "shooting", "exchange": "hf",
-                            "averaging": "ci"}
+@pytest.fixture(scope='module', params=['bspline', 'shooting'])
+def carbon(request):
+    return Atom(6, engine=request.param, corrections='none').solve()
 
 
-def test_shooting_ci_exposes_grid_waves(co_solved):
-    """The grid-flavour MCDHF result must not require B-spline metadata."""
-    a = co_solved[("shooting", "ci")]
-    waves = a.waves
-    assert waves.basis_type == "grid"
-    assert waves.grid.size > 0
-    assert waves.orbitals
-    assert waves.resolve_all("1s") == ["1s1/2"]
-    assert waves.orbitals["1s1/2"].P.shape == waves.grid.shape
+def test_hamiltonian_occupations_come_from_eigenvectors(carbon):
+    from atomx.methods.hamiltonian_df import HamiltonianDFResult
+    result = carbon.result
+    assert carbon.converged
+    assert isinstance(result, HamiltonianDFResult)
+    assert not isinstance(result, MCDHFSolver.result_type)
+    assert carbon._csf_result is result
+    assert result.method_name == carbon.calculation_spec.method == 'DHF'
+    assert carbon.provenance['averaging'] == 'hamiltonian'
+    assert carbon.calculation_spec.state['averaging']['weights'] == 'hamiltonian_eigenvectors'
+    assert carbon.calculation_spec.state['configuration_expansion'] is False
+    keys = tuple(result.occupations)
+    q = np.array([c.occupation_vector(keys) for c in result.csfs])
+    ground = abs(result.state_energies-result.ground_energy) < 1e-10
+    weights = np.mean(abs(result.mixing_coefficients[:, ground])**2, axis=1)
+    np.testing.assert_allclose(q.T@weights, list(result.occupations.values()), atol=1e-13)
+    assert sum(result.occupations.values()) == pytest.approx(6)
+    # Nonrelativistic 3P0 recoupling predicts 4/3, 2/3, not the statistical
+    # 2/3, 4/3. Small relativistic departures are expected for carbon.
+    assert result.occupations[2, 1] == pytest.approx(4/3, abs=.01)
+    assert result.occupations[2, -2] == pytest.approx(2/3, abs=.01)
+    for csf in result.csfs:
+        nr = {}
+        for sh in csf.subshells:
+            nr[sh.n, sh.l] = nr.get((sh.n, sh.l), 0)+sh.occupation
+        assert nr == {(1, 0): 2, (2, 0): 2, (2, 1): 2}
+    diagnostics = result.orbital_optimization
+    assert diagnostics['orbital_residual'] < diagnostics['orbital_tolerance']
+    assert np.max(np.diff(diagnostics['energy_history'])) < 1e-10
 
 
-def test_shooting_ci_differs_from_shooting_statistical(co_solved):
-    """The old gate made these bit-identical; now the Guerra CI weights
-    actually reach the shooting Fock operator (measured delta
-    -0.0196 Ha — ground-state weighting binds deeper than the
-    fractional statistical average)."""
-    e_ci = co_solved[("shooting", "ci")].total_energy
-    e_st = co_solved[("shooting", "statistical")].total_energy
-    assert e_ci - e_st < -1e-3
+def test_hamiltonian_state_differs_from_statistical_ensemble(carbon):
+    statistical = Atom(6, engine=carbon.engine, corrections='none',
+                       correlation=Correlation(averaging='statistical')).solve()
+    assert carbon.total_energy < statistical.total_energy-.01
+    assert statistical.calculation_spec.state['averaging']['method'] == 'configuration_average'
 
 
-@pytest.mark.snapshot
-def test_shooting_statistical_route_unchanged(co_solved):
-    a = co_solved[("shooting", "statistical")]
-    assert isinstance(a.result, ShootingResult)
-    assert a.provenance == {"engine": "shooting", "exchange": "hf",
-                            "averaging": "statistical"}
-    assert a.total_energy == pytest.approx(CO_SHOOTING_STATISTICAL, abs=2e-3)
+def test_hamiltonian_keeps_two_body_coherence(carbon):
+    from atomx.physics.csf.matrix import build_ci_matrix, GridCIWorkspace
+    result = carbon.result
+    keys = tuple(result.occupations)
+    if carbon.engine == 'shooting':
+        from atomx.potentials.radial_nucleus import screened_nuclear_rv
+        r, difr = result._grid, result._difr
+        rv = screened_nuclear_rv(6, r, difr, len(r), nuclear='fermi')
+        data = GridCIWorkspace(r, difr, rv)
+        ns = len(r)
+        extra = {}
+    else:
+        data = result.bsp_data
+        ns = data['ns']
+        extra = dict(nuclear_potential=result._nuclear_potential)
+    h = build_ci_matrix(result.csfs, result.orbitals_dict, keys, data, 6, ns, **extra)
+    c = result.mixing_coefficients[:, 0]
+    coherent = float(c@h@c)
+    incoherent = float(abs(c)**2@np.diag(h))
+    assert coherent == pytest.approx(result.ground_energy, abs=1e-9)
+    assert incoherent-coherent > .01
 
 
-# ----------------------------------------------------------------------
-# Cross-engine agreement of the CI-averaged totals + bspline unchanged
-# ----------------------------------------------------------------------
-
-def test_ci_totals_agree_across_engines(co_solved):
-    """Engine-generic MCDHF: same Guerra outer loop, disjoint radial
-    numerics.  Measured 7.3e-8 relative at the time of writing; the
-    1e-6 gate leaves slack for grid/basis retunes while staying far
-    below the 1.4e-5 relative ci-vs-statistical physics signal.
-
-    Scope: this is a *radial-integral* gate.  Both engines build the CI with
-    the same ``build_ci_matrix`` assembly, so agreement here says nothing
-    about the angular algebra or the matrix elements — a wrong matrix would
-    move both totals by the same amount.  See the note on ``CO_BSPLINE_CI``.
-    """
-    e_shoot = co_solved[("shooting", "ci")].total_energy
-    e_bspl = co_solved[("bspline", "ci")].total_energy
-    assert abs(e_shoot - e_bspl) / abs(e_bspl) < 1e-6
+def test_explicit_hamiltonian_uses_shared_kernel_without_mcdhf_dispatch(monkeypatch):
+    def reject(*args, **kwargs):
+        raise AssertionError('monoconfiguration DF entered the MCDHF entry point')
+    monkeypatch.setattr(MCDHFSolver, 'solve', reject)
+    atom = Atom(6, engine='bspline', correlation=Correlation(averaging='hamiltonian')).solve()
+    assert atom.converged
+    assert atom.calculation_spec.method == 'DHF'
+    assert np.isfinite(atom.result.energy_components['E_Breit'])
+    assert np.isfinite(atom.result.energy_components['E_QED_total'])
 
 
-@pytest.mark.snapshot
-def test_bspline_ci_baseline_unchanged(co_solved):
-    a = co_solved[("bspline", "ci")]
-    assert isinstance(a.result, MCDHFResult)
-    assert a.provenance == {"engine": "bspline", "exchange": "hf",
-                            "averaging": "ci"}
-    assert a.total_energy == pytest.approx(CO_BSPLINE_CI, abs=2e-3)
+@pytest.mark.parametrize('engine', ['shooting', 'bspline'])
+def test_unique_csf_keeps_fast_dhf_equations(engine):
+    options = dict(Z=10, engine=engine, corrections='none')
+    default = Atom(**options).solve()
+    statistical = Atom(**options, correlation=Correlation(averaging='statistical')).solve()
+    assert default.total_energy == statistical.total_energy
+    assert isinstance(default.result, ShootingResult if engine == 'shooting' else SCFResult)
 
 
-@pytest.mark.snapshot
-def test_shooting_ci_breit_qed_route_through_grid_seam():
-    """One-shot Breit/QED on shooting+ci run on the grid-flavour
-    corrections workspace — pinned to the B-spline ci values (measured
-    cross-engine: E_Breit 2.3e-4, E_QED 1.0e-5 relative).
-
-    Re-pinned 2026-09-19: the QED total moved from 1.8419 to 0.3821 Ha
-    when the self-energy table was corrected to FAC's F(Zα) (the old
-    values were 2-5x too large at Z=27, and the n^-3 fallback gave the
-    3d/4s orbitals the 1s shape).  See
-    docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md C2/M1.
-    """
-    a = Atom(
-             Z=27,
-             engine="shooting",
-             exchange="hf",
-             correlation=Correlation(averaging="ci"),
-        ).solve()
-    comps = a.result.energy_components
-    # Re-pinned 2026-09: this route is multi-CSF, so it applies the exact
-    # Gaunt operator in its CI blocks, and `E_Breit` is the shift that is
-    # in the total (it used to report 1.6974, the scalar that was never
-    # applied).  DBSR_HF `an=27 term=AV mbreit=1` on the same 3d7 4s2
-    # average of configuration gives Breit = 0.532518297380245, so the
-    # measured 0.5698939033522947 sits +7.0 % above it — the documented
-    # omitted retardation, the same sign and size as Ne/Ar (+4.2/+6.2 %).
-    assert comps["E_Breit"] == pytest.approx(0.532518297380245, rel=0.08)
-    assert comps["E_QED_total"] == pytest.approx(0.3821, abs=5e-3)
-    # CI total re-pinned with the exact matrix (was -1389.9370); it tracks
-    # the B-spline CI total through the same Guerra outer loop, which the
-    # cross-engine gate above enforces independently.
-        # Re-pinned 2026-09-21 for the Gaunt Breit OPERATOR, now the default.
-    # The previous value encoded the scalar
-    # ``corrections.breit.compute_breit_energy``, which is ~3.0x too
-    # large against DBSR_HF (``dbsr_hf an=Z term=AV mbreit=1``): Ne
-    # 1s2 2s2 2p6 gives DBSR_HF 0.016643629692418 Ha, the Gaunt
-    # operator 0.017340 (+4.2%, its documented omitted retardation)
-    # and the scalar 0.050449 (3.03x); He 1s2 gives the same 3.01x, so
-    # the scalar's error is structure-independent.
-    assert a.total_energy == pytest.approx(-1391.1579, abs=5e-3)
+def test_fractional_occupation_products_remain_explicitly_different():
+    statistical = Atom(6, corrections='none', correlation=Correlation(averaging='statistical')).solve()
+    fractional = Atom(6, corrections='none', correlation=Correlation(averaging='fractional')).solve()
+    assert abs(statistical.total_energy-fractional.total_energy) > 1e-3
+    assert fractional.result._jj_configs is None
+    assert fractional.calculation_spec.state['averaging']['method'] == 'fractional_occupation'
 
 
-# ----------------------------------------------------------------------
-# ci × local-exchange: explicit raises, default falls back quietly
-# ----------------------------------------------------------------------
-
-@pytest.mark.parametrize("exchange", ["gu", "slater"])
-def test_explicit_ci_with_local_exchange_raises(exchange):
-    with pytest.raises(ValueError, match="averaging='ci'"):
-        Atom(Z=27, exchange=exchange, correlation=Correlation(averaging="ci"))
+def test_fixed_ensemble_helper_rejects_hamiltonian_alias():
+    with pytest.raises(ValueError, match='variational state'):
+        generate_jj_average('2p2', averaging='hamiltonian')
 
 
-@pytest.mark.parametrize("exchange", ["gu", "slater"])
-def test_default_ci_with_local_exchange_falls_back_quietly(exchange):
-    """averaging="ci" is the DEFAULT — erroring would break every
-    slater/gu call, so the unspecified default degrades to statistical
-    and provenance records what actually ran."""
-    a = Atom(Z=2, exchange=exchange, corrections="none").solve()
-    assert a.converged
-    assert a.provenance["averaging"] == "statistical"
+def test_single_configuration_ci_request_has_explicit_migration_error():
+    with pytest.raises(ValueError, match="averaging='hamiltonian'"):
+        Atom(98, correlation=Correlation(averaging='ci'))
 
 
-# ----------------------------------------------------------------------
-# Closed shell: the ci fast path still collapses to plain DHF
-# ----------------------------------------------------------------------
-
-def test_closed_shell_shooting_ci_collapses_to_single_config_route():
-    """He 1s2 → one jj-CSF: the Guerra ci weights ARE the statistical
-    weights, so the ci route reuses the plain shooting solve
-    bit-identically and provenance keeps averaging="ci"."""
-    ci = Atom(
-              Z=2,
-              engine="shooting",
-              exchange="hf",
-              correlation=Correlation(averaging="ci"),
-              corrections="none",
-         ).solve()
-    st = Atom(
-              Z=2,
-              engine="shooting",
-              exchange="hf",
-              correlation=Correlation(averaging="statistical"),
-              corrections="none",
-         ).solve()
-    assert isinstance(ci.result, ShootingResult)
-    assert ci.total_energy == st.total_energy
-    assert ci.provenance["averaging"] == "ci"
-    assert st.provenance["averaging"] == "statistical"
+def test_explicit_configuration_list_keeps_mcdhf(monkeypatch):
+    calls = []
+    class Result:
+        pass
+    def record(solver, **kwargs):
+        calls.append(solver)
+        return Result()
+    monkeypatch.setattr(MCDHFSolver, 'solve', record)
+    atom = Atom(4, config=['1s2 2s2', '1s2 2p2'], engine='shooting').solve()
+    assert len(calls) == 1
+    assert calls[0].engine == 'shooting'
+    assert atom.provenance['averaging'] == 'ci'
 
 
-# ----------------------------------------------------------------------
-# MCDHFSolver engine validation
-# ----------------------------------------------------------------------
+@pytest.mark.parametrize('exchange', ['gu', 'slater'])
+def test_local_exchange_has_explicit_separate_default(exchange):
+    with pytest.raises(ValueError, match="requires exchange='hf'"):
+        Atom(6, exchange=exchange, correlation=Correlation(averaging='hamiltonian'))
+    atom = Atom(2, exchange=exchange, corrections='none').solve()
+    assert atom.converged
+    assert atom.provenance['averaging'] == 'statistical'
+
 
 def _co_csfs():
-    from atomx.methods.mcdhf.config import enumerate_jj_csfs
-    return enumerate_jj_csfs("1s2 2s2 2p6 3s2 3p6 3d7 4s2")
+    from atomx.config.csf import enumerate_jj_csfs
+    return enumerate_jj_csfs('1s2 2s2 2p6 3s2 3p6 3d7 4s2')
 
 
 def test_mcdhf_engine_validates():
-    with pytest.raises(ValueError, match="engine"):
-        MCDHFSolver(Z=27, csfs=_co_csfs(), engine="finite-difference")
+    with pytest.raises(ValueError, match='engine'):
+        MCDHFSolver(Z=27, csfs=_co_csfs(), engine='finite-difference')
 
 
 def test_mcdhf_shooting_engine_rejects_bspline_only_options():
     csfs = _co_csfs()
-    with pytest.raises(ValueError, match="radial_optimization"):
-        MCDHFSolver(Z=27, csfs=csfs, engine="shooting",
-                    radial_optimization="fac_frozen")
-    with pytest.raises(ValueError, match="per_block_orbital_sets"):
-        MCDHFSolver(Z=27, csfs=csfs, engine="shooting",
-                    per_block_orbital_sets=True)
-    with pytest.raises(ValueError, match="nuclear"):
-        MCDHFSolver(Z=27, csfs=csfs, engine="shooting", nuclear="uniform")
+    with pytest.raises(ValueError, match='radial_optimization'):
+        MCDHFSolver(Z=27, csfs=csfs, engine='shooting', radial_optimization='fac_frozen')
+    with pytest.raises(ValueError, match='per_block_orbital_sets'):
+        MCDHFSolver(Z=27, csfs=csfs, engine='shooting', per_block_orbital_sets=True)
+    with pytest.raises(ValueError, match='nuclear'):
+        MCDHFSolver(Z=27, csfs=csfs, engine='shooting', nuclear='uniform')
+
+
+def test_californium_dispatch_has_one_nr_configuration_and_no_mc_entry(monkeypatch):
+    from types import SimpleNamespace
+    from atomx.methods.hamiltonian_df import HamiltonianDFSolver
+    calls = []
+    def forbid(*args, **kwargs):
+        raise AssertionError('implicit MCDHF expansion')
+    def record(solver, **kwargs):
+        calls.append(solver)
+        return SimpleNamespace()
+    monkeypatch.setattr(MCDHFSolver, 'solve', forbid)
+    monkeypatch.setattr(HamiltonianDFSolver, 'solve', record)
+    atom = Atom(98, engine='shooting').solve()
+    assert len(calls) == 1 and len(calls[0].csfs) == 107
+    assert calls[0].configuration == atom._config_strings[0]
+    assert len(atom._config_strings) == 1
+    assert not atom._multi_config
+    assert atom.provenance['averaging'] == 'hamiltonian'
