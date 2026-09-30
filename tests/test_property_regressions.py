@@ -75,7 +75,7 @@ class _SolvedAtomView:
         self._result = result
         self.converged = True
         self.Z = Z
-        self._mcdhf_result = None
+        self._csf_result = None
 
 
 @pytest.fixture(scope="module")

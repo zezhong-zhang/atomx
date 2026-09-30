@@ -1,6 +1,6 @@
 """First-principles gates on the Gaunt (Breit) operator's angular algebra.
 
-`atomx.methods.mcdhf.breit_ci` claims in its module docstring that its
+`atomx.physics.csf.breit_ci` claims in its module docstring that its
 angular algebra is checked here.  This file is that check.
 
 The Gaunt operator is the piece of the Breit interaction that carries all of
@@ -49,14 +49,10 @@ Everything asserted below is *derivable*, and the derivations are stated:
    outside this Hamiltonian. Independent radial/operator tests are in
    ``test_static_breit_retardation.py``.
 
-Two properties were probed and are deliberately **not** asserted here,
-because they are not true as coefficient-level statements: the term list of
-``gaunt_angular_terms`` is decomposed over ``(L, q, μ)`` and the individual
-``(L, X_a, X_c, X_b, X_d)`` terms are not separately parity-even, nor does the
-term multiset of ``⟨cd|G|ab⟩`` equal that of ``⟨ab|G|cd⟩``.  Only the *summed*
-matrix element has those properties, and it can only be formed once the radial
-integrals are supplied.  Asserting them against the decomposition would be
-asserting something false, so they are not asserted here at all.
+The q, μ sum is contracted before constructing radial keys. An explicit
+unrestricted magnetic sum checks this contraction, including its magnetic
+selection rule. Hermiticity of the complete radial operator is tested in
+``test_static_breit_retardation.py``.
 
 Full static Breit closed-shell totals are checked against independent
 DBSR_HF references in ``test_static_breit_retardation.py``.
@@ -70,11 +66,12 @@ import math
 import pytest
 
 from atomx.angular.wigner import wigner_3j
-from atomx.methods.mcdhf.breit_ci import (
+from atomx.physics.csf.breit_ci import (
     RETARDATION_NOTE,
     BreitOperatorError,
     _clm,
     _sigma_mu,
+    _one_body_terms,
     gaunt_angular_terms,
     l_of_kappa,
     retardation_terms,
@@ -322,6 +319,34 @@ class TestTwoBodySelectionRules:
     #: fine-structure partners on every leg.
     _KAPPAS = (-1, 1, -2, 2, -3, 3)
 
+    @pytest.mark.parametrize('kappas', [
+        (-1, -1, -1, -1), (-1, -1, 1, 1), (-2, 1, -1, 2),
+        (2, -3, -3, 2), (-4, 3, 3, -4), (-5, -1, 4, 1),
+    ])
+    def test_contracted_terms_match_unrestricted_magnetic_sum(self, kappas):
+        ka, kb, kc, kd = kappas
+        spins = [range(-twoj_of_kappa(k), twoj_of_kappa(k)+1, 2)
+                 for k in kappas]
+        ceiling = min((twoj_of_kappa(ka)+twoj_of_kappa(kc))//2,
+                      (twoj_of_kappa(kb)+twoj_of_kappa(kd))//2)+1
+        for ma, mb, mc, md in itertools.product(*spins):
+            expected = {}
+            for L in range(ceiling+1):
+                for q2 in range(-2*L, 2*L+1, 2):
+                    for mu in (-1, 0, 1):
+                        left = _one_body_terms(ka, ma, kc, mc, L, q2, mu)
+                        right = _one_body_terms(kb, mb, kd, md, L, -q2, -mu)
+                        for xa, xc, a in left:
+                            for xb, xd, b in right:
+                                key = (L, xa, xc, xb, xd)
+                                value = -(-1.)**(mu+q2//2)*a*b
+                                expected[key] = expected.get(key, 0j)+value
+            terms = gaunt_angular_terms(ka, ma, kb, mb, kc, mc, kd, md)
+            actual = {tuple(term[:-1]): term[-1] for term in terms}
+            assert len(actual) == len(terms)
+            for key in expected.keys() | actual.keys():
+                assert actual.get(key, 0j) == pytest.approx(expected.get(key, 0j), abs=2e-15)
+
     def _all_terms(self):
         for ka, kb, kc, kd in itertools.product(self._KAPPAS, repeat=4):
             for m2a in range(-twoj_of_kappa(ka), twoj_of_kappa(ka) + 1, 2):
@@ -414,7 +439,7 @@ class TestStaticBreitContent:
     """Static retardation is present and dynamic exchange is declared absent."""
 
     def test_retardation_is_included_and_dynamic_exchange_is_declared(self):
-        from atomx.methods.mcdhf.breit_ci import breit_terms, gaunt_terms
+        from atomx.physics.csf.breit_ci import breit_terms, gaunt_terms
         labels = [(1,-1,1),(1,-1,-1),(2,1,1),(2,1,-1)]
         terms = retardation_terms(0,1,2,3,1.,labels)
         assert terms and all(key[0] == 't' for key,_ in terms)

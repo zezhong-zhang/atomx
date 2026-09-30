@@ -97,7 +97,7 @@ def recoil_provenance(mass):
 
 def recoil_state_parameters(csfs, mixing, orbitals_dict, workspace, Z):
     """First-order K expectation of every CI state, including coherence."""
-    from atomx.methods.mcdhf.one_body import scalar_one_body_expectations
+    from atomx.physics.csf.one_body import scalar_one_body_expectations
     keys = tuple(sorted(orbitals_dict))
     radial = recoil_radial_matrix(
         [(*orbitals_dict[key], key[1]) for key in keys], workspace, Z)

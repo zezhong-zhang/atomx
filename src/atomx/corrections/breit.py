@@ -20,7 +20,7 @@ Reference: Grant & Pyper, J.Phys.B 9, 761 (1976); DBSR_HF hf_energy_BR.f90.
 What this scalar is for, and what it is not
 -------------------------------------------
 This is the **closed-shell / single-CSF total**.  It is *complementary*
-to the exact Gaunt operator of :mod:`atomx.methods.mcdhf.breit_ci`, not
+to the exact Gaunt operator of :mod:`atomx.physics.csf.breit_ci`, not
 redundant with it:
 
 * the operator carries the non-scalar (spin-other-orbit, spin-spin,
@@ -309,7 +309,7 @@ SCALAR_BREIT_NOTE = (
     "0.016643630840490 (-0.35 %), Ar 0.13320 vs 0.132364619357042 "
     "(+0.63 %).  The residual is the v!=L retardation channels, which "
     "are still ~50x too small; the exact Gaunt operator "
-    "(methods/mcdhf/breit_ci.py) omits retardation entirely and sits "
+    "(physics/csf/breit_ci.py) omits retardation entirely and sits "
     "4-6 % above DBSR_HF at Ne/Ar, so the two are complementary."
 )
 

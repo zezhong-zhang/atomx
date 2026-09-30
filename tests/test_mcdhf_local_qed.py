@@ -6,8 +6,8 @@ import pytest
 from atomx.constants import C
 from atomx.corrections.qed import short_range_radial_matrix, uehling_potential
 from atomx.corrections.stack import CorrectionStack
-from atomx.corrections.workspace import make_grid_workspace
-from atomx.methods.mcdhf.config import enumerate_jj_csfs
+from atomx.numerics.radial_workspace import make_grid_workspace
+from atomx.config.csf import enumerate_jj_csfs
 from atomx.methods.mcdhf.solver import MCDHFSolver
 
 

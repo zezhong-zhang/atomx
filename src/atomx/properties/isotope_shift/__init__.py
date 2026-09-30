@@ -9,11 +9,10 @@ field-shift piece (proportional to δ⟨r²⟩ of the nuclear charge):
 
 This module implements the **Normal Mass Shift** (NMS) via the virial
 theorem and the **Field Shift** via the first-order Seltzer formula.
-The **Specific Mass Shift** (SMS) is a two-body operator involving
-``Σ_{i<j} p_i · p_j`` — postponed to a later iteration together with
-the full model-operator approach of Anisimova *et al.* (2023)
-(arXiv:2301.04132) that captures both mass-shift pieces to all orders
-in Zα.
+The **Specific Mass Shift** (SMS) is evaluated by direct Vinti momentum
+integrals, with optional point-Coulomb Breit recoil terms. This shares the
+radial implementation with the recoil correction stack. A user-supplied
+SMS coefficient remains available for external or correlated results.
 
 Public API
 ----------

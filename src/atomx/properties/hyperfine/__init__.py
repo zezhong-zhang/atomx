@@ -38,14 +38,7 @@ from atomx.properties.hyperfine.nuclear_moments import (
     g_factor,
     nuclear_moment,
 )
-from atomx.properties.hyperfine.qed_corrections import (
-    DEUTERON_POLARIZABILITY_D1S,
-    DEUTERON_ZEMACH_RADIUS_FM,
-    HELIUM3_POLARIZABILITY,
-    HELIUM3_ZEMACH_RADIUS_FM,
-    PROTON_POLARIZABILITY_H1S,
-    PROTON_ZEMACH_RADIUS_FM,
-)
+
 from atomx.properties.hyperfine.quadrupole import (
     BARN_BOHR2,
     hyperfine_B,
@@ -65,13 +58,6 @@ __all__ = [
     "hyperfine_B",
     "hyperfine_B_MHz",
     "radial_r_inv_cubed",
-    # QED corrections to hyperfine operator — precision constants
-    "DEUTERON_POLARIZABILITY_D1S",
-    "DEUTERON_ZEMACH_RADIUS_FM",
-    "HELIUM3_POLARIZABILITY",
-    "HELIUM3_ZEMACH_RADIUS_FM",
-    "PROTON_POLARIZABILITY_H1S",
-    "PROTON_ZEMACH_RADIUS_FM",
     # nuclear data
     "NUCLEAR_MOMENTS",
     "NuclearMoment",

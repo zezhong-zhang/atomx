@@ -25,12 +25,11 @@ The SMS comes from the two-body piece of the mass-shift operator,
 
     H_SMS = +(1/M) · Σ_{i<j} p_i · p_j,
 
-and is sensitive to electron-electron correlations.  A full ab-initio
-SMS evaluation on an SCF determinant requires two-electron momentum
-integrals and is non-trivial in the Dirac-Fock basis; atomx does not
-yet implement it automatically.
+and is sensitive to electron-electron correlations. Direct determinant
+and CSF recoil operators are implemented in ``corrections.specific_recoil``;
+the closed-shell property API is ``compute_sms_abinitio``.
 
-Instead, this module exposes an **SMS parameter** ``K_SMS`` (in atomic
+This module also exposes an externally supplied **SMS parameter** ``K_SMS`` (in atomic
 units of ``h / (M_e · a_0²)``) that users can supply externally — for
 example from the Anisimova *et al.* 2023 model-QED recoil tables
 (``papers/2301.04132v1.pdf``) or from an MBPT calculation in a

@@ -86,12 +86,13 @@ def einstein_A_mL(omega, line_strength, L, tj_i):
     Same Grant (2007) Eq. 8.4.10 prefactor as the electric multipole
     case.  The alpha-suppression of magnetic vs electric rates is
     encoded in ``S_ML``, which uses the magnetic radial integral
-    ``R_ML = ∫(P_f Q_i + Q_f P_i) r^L dr`` (no explicit 1/c — the
+    ``R_ML = ∫(P_f Q_i + Q_f P_i) F_L(omega,r) dr`` (no explicit 1/c — the
     suppression comes from Q ~ alpha Z P) combined with the kappa
-    angular factor ``(kappa_i + kappa_f)/(2L+1)`` from
+    angular factor ``(kappa_i + kappa_f)/(L+1)`` from
     :func:`~atomx.properties.transitions.angular.angular_mL`.
 
-    Reference validation: H-like ``2s_{1/2} -> 1s_{1/2}`` M1 rate
+    Reference validation: with the finite-frequency radial kernel, the
+    H-like ``2s_{1/2} -> 1s_{1/2}`` M1 rate
     matches Drake (1971) ``2.5e-6 Z^10 s^-1`` to <1 % for Z <= 10 and
     to ~5 % at Z = 26 (mild drift from relativistic corrections beyond
     the leading Z^10 term).  See ``tests/test_M1_E2_rates.py``.
@@ -109,10 +110,19 @@ def einstein_A_mL(omega, line_strength, L, tj_i):
 
 
 def oscillator_strength(omega, line_strength, L, tj_i, tj_f):
-    """Absorption oscillator strength f_{i->f} for electric multipole.
+    """Absorption oscillator strength for the normalized multipole strength.
 
-    gf = (2*omega) / (2L+1) * S_EL    (weighted oscillator strength)
-    f = gf / (tj_i + 1)
+    The radiation/absorption relation is independent of multipole rank::
+
+        gf = (2*j_upper+1) A_au / (2 alpha^3 omega^2)
+        f = gf / (2*j_lower+1)
+
+    Combining it with ``einstein_A_eL`` gives ``gf = 2 omega S / 3``
+    for E1. Higher ranks include ``(alpha*omega)^(2L-2)`` and the
+    multipole normalization. Magnetic strengths use the same formula
+    in this module's convention (small-component suppression is in S).
+    For forbidden lines this is a generalized oscillator strength, as
+    reported by FAC; NIST normally reports A and S for those lines.
 
     Parameters
     ----------
@@ -121,7 +131,8 @@ def oscillator_strength(omega, line_strength, L, tj_i, tj_f):
     line_strength : float
     L : int
     tj_i, tj_f : int
-        Twice the angular momenta.
+        Twice the lower and upper angular momenta. The upper weight
+        cancels in gf; the lower weight sets the absorption f value.
 
     Returns
     -------
@@ -133,7 +144,8 @@ def oscillator_strength(omega, line_strength, L, tj_i, tj_f):
     if omega <= 0 or line_strength <= 0:
         return 0.0, 0.0
 
-    gf = (2.0 * omega / (2 * L + 1)) * line_strength
+    prefactor = ((L+1)*(2*L+1) / (L*_double_factorial(2*L+1)**2))
+    gf = prefactor * ALPHA**(2*L-2) * omega**(2*L-1) * line_strength
     f = gf / (tj_i + 1)
     return f, gf
 

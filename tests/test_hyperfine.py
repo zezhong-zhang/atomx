@@ -21,13 +21,10 @@ from __future__ import annotations
 
 import pytest
 
+from atomx.data.nuclear_structure import TABLE as NUCLEAR_STRUCTURE
 from atomx.constants import PROTON_ELECTRON_MASS_RATIO
 from atomx.methods.dirac_fock import DFSolver, Subshell
 from atomx.properties.hyperfine import (
-    DEUTERON_ZEMACH_RADIUS_FM,
-    HELIUM3_ZEMACH_RADIUS_FM,
-    PROTON_POLARIZABILITY_H1S,
-    PROTON_ZEMACH_RADIUS_FM,
     hyperfine_A,
     hyperfine_A_MHz,
     hyperfine_B,
@@ -297,18 +294,18 @@ class TestLadderCorrections:
 class TestPrecisionConstants:
     def test_proton_zemach_radius_matches_codata_2022(self):
         # CODATA 2022 recommended value for proton Zemach radius
-        assert pytest.approx(1.054, abs=0.002) == PROTON_ZEMACH_RADIUS_FM
+        assert pytest.approx(1.054, abs=0.002) == NUCLEAR_STRUCTURE["h1s"].zemach_radius_fm
 
     def test_proton_polarizability_carlson_value(self):
         # Carlson-Vanderhaeghen 2011: +1.3(3) × 10⁻⁶ for H 1s
-        assert pytest.approx(1.3e-6, rel=0.1) == PROTON_POLARIZABILITY_H1S
+        assert pytest.approx(1.3e-6, rel=0.1) == NUCLEAR_STRUCTURE["h1s"].polarisability_fraction
 
     def test_deuteron_zemach_larger_than_proton(self):
-        assert DEUTERON_ZEMACH_RADIUS_FM > PROTON_ZEMACH_RADIUS_FM
+        assert NUCLEAR_STRUCTURE["d1s"].zemach_radius_fm > NUCLEAR_STRUCTURE["h1s"].zemach_radius_fm
 
     def test_helium3_zemach_sensible_range(self):
         # Friar 2013: ~2.5 fm
-        assert 2.0 < HELIUM3_ZEMACH_RADIUS_FM < 3.0
+        assert 2.0 < NUCLEAR_STRUCTURE["he3_1s"].zemach_radius_fm < 3.0
 
 
 class TestQuadrupoleB:

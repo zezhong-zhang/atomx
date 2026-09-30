@@ -243,22 +243,60 @@ class BreitCorrection:
     retardation. It remains a configuration average, so it does not split
     levels. ``operator`` applies the level-capable static Breit matrix element,
     including Gaunt and retardation. ``scalar_legacy`` reproduces historical ledgers.
+    ``frequency="orbital_differences"`` replaces static Breit by the real
+    transverse expectation, using the same single-CSF/ensemble density.
     """
 
     name = "breit"
     description = "DBSR_HF Breit average, including static retardation."
 
-    def __init__(self, mode: str = "dbsr_hf") -> None:
+    def __init__(self, mode: str = "dbsr_hf", *, frequency="static",
+                 orbital_energies=None) -> None:
         if mode not in {"dbsr_hf", "operator", "scalar_pairs", "scalar_legacy"}:
             raise ValueError(
                 "Breit mode must be 'dbsr_hf', 'operator', 'scalar_pairs', "
                 "or 'scalar_legacy'")
         self.mode = mode
+        if frequency not in ('static', 'orbital_differences'):
+            raise ValueError("Breit frequency must be 'static' or 'orbital_differences'")
+        if frequency != 'static' and mode not in ('dbsr_hf', 'operator'):
+            raise ValueError('finite-frequency Breit cannot use a legacy scalar mode')
+        if frequency == 'static' and orbital_energies is not None:
+            raise ValueError('orbital energies require finite-frequency Breit')
+        self.frequency = frequency
+        self.orbital_energies = orbital_energies
 
     def supports(self, result: "AtomicResult") -> bool:
+        if self.frequency != 'static' and _has_correlated_radial_data(result):
+            return False  # correlated states need the operator inside their CI Hamiltonian
         return _has_bspline_dirac_data(result) or _has_radial_grid_data(result)
 
     def evaluate(self, result: "AtomicResult", **_: Any) -> CorrectionResult:
+        if self.frequency == 'orbital_differences':
+            from atomx.physics.csf.breit_ci import (
+                _ci_radial_inputs, breit_configuration_average,
+                breit_operator_energy, configuration_string_of)
+            from atomx.physics.csf.transverse import (
+                validate_orbital_energies, frequency_provenance)
+            orbitals, workspace, Z, ns = _ci_radial_inputs(result)
+            energies = self.orbital_energies
+            if energies is None:
+                energies = {(s.n, s.kappa): result.orbital_energies[s.label]
+                            for s in result.subshells}
+            energies = validate_orbital_energies(orbitals, energies)
+            configs = result.__dict__.get('_jj_configs')
+            if configs is None:
+                energy = breit_operator_energy(orbitals, workspace, Z, ns,
+                    configuration_string_of(result.subshells), orbital_energies=energies)
+            else:
+                energy = breit_configuration_average(orbitals, workspace, Z, ns,
+                    configs, orbital_energies=energies)
+            return CorrectionResult(name=self.name, energy_shift=float(energy), provenance={
+                'mode': 'operator', 'operator': 'finite-frequency-transverse',
+                'stage': 'post_scf_expectation', 'retardation_included': True,
+                'averaging': 'single_csf' if configs is None else 'jj_configuration_ensemble',
+                'energy_source': 'converged_orbital_energies' if self.orbital_energies is None else 'explicit',
+                **frequency_provenance(energies)})
         from atomx.corrections.breit import (
             SCALAR_BREIT_NOTE,
             compute_breit_energy,
@@ -305,7 +343,7 @@ class BreitCorrection:
                     "scalar_shift_applied": False,
                     "retardation_included": True,
                     "reference": "two-electron static Breit operator in MCDHF CI basis",
-                    "implementation": "methods/mcdhf/breit_ci.py",
+                    "implementation": "physics/csf/breit_ci.py",
                     "note": "Complete frequency-independent Breit operator in the "
                             "selected orbital/configuration space. Frequency-dependent "
                             "transverse exchange is not included.",

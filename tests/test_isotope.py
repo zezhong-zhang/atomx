@@ -195,7 +195,7 @@ class TestAbInitioSMSAllSClosedShell:
         )
         result = solver.solve(max_iter=60, tol=1e-6)
         orbs = solver._flatten_orbitals(result.orbitals_raw)
-        sms = compute_sms_abinitio(orbs, result._bsp_data, result.orbital_energies)
+        sms = compute_sms_abinitio(orbs, result._bsp_data)
         assert sms.K_SMS_au == 0.0
         assert sms.n_pairs == 0
 
@@ -213,7 +213,7 @@ class TestAbInitioSMSAllSClosedShell:
         )
         result = solver.solve(max_iter=60, tol=1e-6)
         orbs = solver._flatten_orbitals(result.orbitals_raw)
-        sms = compute_sms_abinitio(orbs, result._bsp_data, result.orbital_energies)
+        sms = compute_sms_abinitio(orbs, result._bsp_data)
         assert sms.K_SMS_au == 0.0
 
 
@@ -225,55 +225,35 @@ class TestAbInitioSMSNoble:
         from atomx.properties.isotope_shift import compute_sms_abinitio
         solver = DFSolver(Z=10, subshells=neon_subshells(),
                           ns=ns, ks=9, exchange="hf")
-        result = solver.solve(max_iter=40, tol=1e-5)
+        result = solver.solve(max_iter=100, tol=1e-8)
+        assert result.converged
         orbs = solver._flatten_orbitals(result.orbitals_raw)
-        return compute_sms_abinitio(orbs, result._bsp_data, result.orbital_energies)
+        return compute_sms_abinitio(orbs, result._bsp_data)
 
     def test_Ne_nonzero(self):
         sms = self._ne()
         assert sms.K_SMS_au != 0.0
         assert sms.n_pairs == 4   # 1s-2p1/2, 1s-2p3/2, 2s-2p1/2, 2s-2p3/2
 
-    @pytest.mark.snapshot
-    def test_Ne_mean_field_magnitude(self):
-        """The converged DHF K_SMS(Ne) is pinned, not banded.
-
-        Corrected R_p = ω·⟨r⟩ operator (∇ = -[H,r]); the mean-field DHF
-        K_SMS for Ne is negative and O(100) a.u., dominated by the inner
-        1s–2p momentum correlation (the 1s electron carries momentum ~Z).
-        After the constrained-orbital and mixed-exchange fixes (2026-09-23),
-        measured at ns=50: K_SMS = −117.8387043831 a.u., unchanged to
-        1e-12 relative at ns=70 and ns=90 (see
-        ``test_Ne_SMS_is_basis_converged``).  The number is atomx's own
-        (no external K_SMS(Ne) reference is available at this level), so
-        the literal is a frozen self-regression; the old gate
-        ``50 < |K| < 300`` could not see a factor-6 error, and the
-        "~1e-7 ballpark" it replaced was an artifact of the defective
-        fallback operator (review §A2).
-        """
+    def test_Ne_pair_decomposition(self):
+        """Closed-shell exchange is negative and pairs sum to the total."""
         sms = self._ne()
-        assert sms.K_SMS_au < 0.0
-        assert pytest.approx(-117.838704, rel=1e-6) == sms.K_SMS_au, (
-            f"K_SMS(Ne, ns=50) = {sms.K_SMS_au!r}, measured -117.838704")
+        assert all(value < 0 for value in sms.pair_contributions.values())
+        assert sms.K_SMS_au == pytest.approx(sum(sms.pair_contributions.values()), rel=1e-14)
 
     def test_Ne_SMS_is_basis_converged(self):
-        """K_SMS(Ne) is converged in the B-spline basis.
-
-        A-class statement about the calculation, not the value: the
-        momentum matrix element must stop moving once the basis is
-        saturated.  Measured: -117.8387043831 (ns=50), -117.8387043844
-        (ns=70), -117.8387043840 (ns=90).
-        """
+        """Refine the basis at fixed tight SCF tolerance, using direct momentum."""
         k50 = self._ne(50).K_SMS_au
         k70 = self._ne(70).K_SMS_au
-        assert pytest.approx(k50, rel=1e-9) == k70, (
-            f"K_SMS(Ne) not converged: ns=50 {k50!r} vs ns=70 {k70!r}")
+        k90 = self._ne(90).K_SMS_au
+        assert abs(k90-k70) < .1*abs(k70-k50)
+        assert k90 == pytest.approx(k70, rel=1e-9)
 
     def test_Ne_inner_1s_2p_dominant(self):
         """Inner 1s–2p pair dominates (1s carries the largest momentum).
 
-        With correct occupation weighting the 1s–2p3/2 pair (occ 2×4)
-        dominates over 1s–2p1/2 (occ 2×2) at near-equal ω.
+        The reduced angular factor includes magnetic-substate degeneracy;
+        the 1s–2p3/2 pair dominates the other direct momentum integrals.
         """
         sms = self._ne()
         largest_label_pair = max(
@@ -283,40 +263,19 @@ class TestAbInitioSMSNoble:
         assert largest_label_pair[0] == "1s1/2"
         assert largest_label_pair[1].startswith("2p")
 
-    def test_Ne_momentum_gauge_consistency(self):
-        """Independent validation of R_p = ω·⟨r⟩ (no magic number).
-
-        The SMS momentum matrix element must be gauge-consistent: the
-        length form ω·radial_eL(⟨r⟩) and the velocity/Coulomb form
-        ω·radial_eL_velocity(ω) are equal for exact eigenstates of one
-        Hamiltonian, differing only by finite-basis gauge error.  If the
-        operator were wrong (e.g. the old fallback), these would disagree
-        by orders of magnitude, not percent.
-        """
+    def test_Ne_property_matches_recoil_operator(self):
+        """Property and energy-correction entry points evaluate one operator."""
         from atomx.methods.dirac_fock import DFSolver, neon_subshells
-        from atomx.properties.transitions.multipole import (
-            radial_eL,
-            radial_eL_velocity,
-        )
-        solver = DFSolver(Z=10, subshells=neon_subshells(),
-                          ns=50, ks=9, exchange="hf")
-        result = solver.solve(max_iter=60, tol=1e-7)
-        orbs = {o[4]: o for o in solver._flatten_orbitals(result.orbitals_raw)}
-        bsp = result._bsp_data
-        E = result.orbital_energies
-        a, b = orbs["1s1/2"], orbs["2p1/2"]
-        w = abs(E["1s1/2"] - E["2p1/2"])
-        Rp_len = w * radial_eL(a[0], a[1], b[0], b[1], bsp, L=1)
-        Rp_vel = w * radial_eL_velocity(
-            b[0], b[1], a[0], a[1], bsp, L=1,
-            kappa_i=b[3], kappa_f=a[3], omega=w,
-        )
-        # Measured residual |Rp_len/Rp_vel - 1| = 7.26e-2 (basis-independent:
-        # identical at ns=50/70/90), so the gate is 0.08 — the previous 0.1
-        # was 38 % above the residual it was supposed to bound.
-        assert abs(Rp_len / Rp_vel - 1.0) < 0.08, (
-            f"momentum-gauge residual {abs(Rp_len / Rp_vel - 1.0):.3e} "
-            f"(measured 7.26e-2)")
+        from atomx.properties.isotope_shift import compute_sms_abinitio
+        from atomx.corrections.specific_recoil import configuration_average_recoil
+        solver = DFSolver(Z=10, subshells=neon_subshells(), ns=70, ks=9, exchange="hf")
+        result = solver.solve(max_iter=100, tol=1e-8)
+        assert result.converged
+        orbs = solver._flatten_orbitals(result.orbitals_raw)
+        for z in (None, 10):
+            sms = compute_sms_abinitio(orbs, result._bsp_data, Z=z)
+            expected = configuration_average_recoil(orbs, result._bsp_data, Z=z)
+            assert sms.K_SMS_au == pytest.approx(expected, rel=1e-14)
 
     def test_Ar_larger_than_Ne(self):
         """Ar has 12 allowed pairs vs Ne's 4 → |K_SMS| significantly bigger."""
@@ -336,7 +295,7 @@ class TestAbInitioSMSNoble:
                           ns=60, ks=9, exchange="hf")
         result = solver.solve(max_iter=80, tol=1e-6)
         orbs = solver._flatten_orbitals(result.orbitals_raw)
-        sms_ar = compute_sms_abinitio(orbs, result._bsp_data, result.orbital_energies)
+        sms_ar = compute_sms_abinitio(orbs, result._bsp_data)
         sms_ne = self._ne()
         assert sms_ar.n_pairs > sms_ne.n_pairs
         assert abs(sms_ar.K_SMS_au) > abs(sms_ne.K_SMS_au)

@@ -151,7 +151,7 @@ class TestAngularFactors:
 def test_closed_shell_e1_particle_hole_obeys_one_electron_sum_rule(monkeypatch):
     """A filled shell has unit total strength per occupied magnetic spinor."""
     from atomx.methods.dirac_fock import Subshell
-    from atomx.methods.mcdhf.config import CSF
+    from atomx.config.csf import CSF
     from atomx.properties.transitions import calculator as calc_mod
     from atomx.properties.transitions.calculator import TransitionCalculator
 
@@ -294,7 +294,7 @@ class TestAtomTransitions:
         from atomx import Atom
         # H atom: single 1s electron — default engine (shooting); the
         # transition machinery consumes grid orbitals through the
-        # corrections.workspace seam (see test_transitions_engine_uniform).
+        # numerics.radial_workspace seam (see test_transitions_engine_uniform).
         h = Atom(Z=1, config="1s1")
         h.solve(max_iter=40)
         if not h.converged:

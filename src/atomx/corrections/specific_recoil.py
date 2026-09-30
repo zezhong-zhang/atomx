@@ -15,13 +15,15 @@ from atomx.corrections.recoil import _radial_values
 
 def vinti_matrix(orbitals, workspace):
     """V(a,c) in GRASP convention, before reduced rank-one angular factors."""
-    r, w = workspace['gr'], workspace['grw']
-    waves = [_radial_values(p, q, workspace) for p, q, _ in orbitals]
-    values = np.zeros((len(orbitals), len(orbitals)))
-    for a, (_, _, ka) in enumerate(orbitals):
+    return recoil_radial_matrices(orbitals, workspace)[0]
+
+
+def _vinti_from_waves(waves, kappas, r, w):
+    values = np.zeros((len(kappas), len(kappas)))
+    for a, ka in enumerate(kappas):
         pa, qa, _, _ = waves[a]
         la = ka if ka > 0 else -ka-1
-        for c, (_, _, kc) in enumerate(orbitals):
+        for c, kc in enumerate(kappas):
             lc = kc if kc > 0 else -kc-1
             if (la+lc) % 2 != 1 or abs(abs(ka)-abs(kc)) > 1:
                 continue
@@ -50,16 +52,37 @@ def relativistic_vinti_matrix(orbitals, workspace, Z):
     Point-Coulomb Breit recoil, excluding radiative and finite-size recoil.
     Only rank-one allowed angular pairs are evaluated; forbidden pairs are zero.
     """
-    from atomx.angular.coefficients import reduced_C
+    return recoil_radial_matrices(orbitals, workspace, Z=Z)[1]
+
+
+def recoil_radial_matrices(orbitals, workspace, *, Z=None):
+    """Return (VINTI, VINT2), evaluating spinors and derivatives only once.
+
+    With no Z, both entries refer to the leading momentum matrix. Supplying
+    Z adds point-Coulomb Breit recoil to a separate second matrix.
+    """
     r, w = workspace['gr'], workspace['grw']
-    values = vinti_matrix(orbitals, workspace)
+    kappas = [orb[2] for orb in orbitals]
     waves = [_radial_values(p, q, workspace) for p, q, _ in orbitals]
-    for a, (_, _, ka) in enumerate(orbitals):
+    leading = _vinti_from_waves(waves, kappas, r, w)
+    if Z is None:
+        return leading, leading
+    return leading, _breit_vinti_from_waves(waves, kappas, r, w, Z, leading.copy())
+
+
+def _breit_vinti_from_waves(waves, kappas, r, w, Z, values):
+    from atomx.angular.coefficients import reduced_C, reduced_cl_j2
+    for a, ka in enumerate(kappas):
         pa, qa, _, _ = waves[a]
-        for c, (_, _, kc) in enumerate(orbitals):
-            angular = reduced_C(ka, kc, 1)
-            if abs(angular) < 1e-14:
+        for c, kc in enumerate(kappas):
+            if abs(reduced_C(ka, kc, 1)) < 1e-14:
                 continue
+            # SIGMA_1/2 use the standard Wigner-Eckart convention. Divide
+            # by GRASP CRE / FAC ReducedCL in that same convention. The
+            # legacy reduced_C uses reversed 3j projections and differs in
+            # sign for unequal-j rank-one channels; mixing these conventions
+            # reverses SMS2 relative to the momentum and SMS3 terms.
+            angular = reduced_cl_j2(2*abs(ka)-1, 2, 2*abs(kc)-1)
             pc, qc, _, _ = waves[c]
             sms2 = -Z/C*np.sum(w*(reduced_sigma(-ka, kc)*qa*pc
                                   - reduced_sigma(ka, -kc)*pa*qc)/r)
@@ -70,12 +93,11 @@ def relativistic_vinti_matrix(orbitals, workspace, Z):
 
 def momentum_recoil_matrix(csfs, orbitals_dict, workspace, *, Z=None):
     """CSF matrix K/M; supply Z to include GRASP SMS2/SMS3 Breit terms."""
-    from atomx.methods.mcdhf.exact_ci import csf_signature, exact_block_matrix
+    from atomx.angular.csf_hamiltonian import csf_signature, exact_block_matrix
     keys = tuple(sorted(orbitals_dict))
     index = {key: i for i, key in enumerate(keys)}
     orbitals = [(*orbitals_dict[k], k[1]) for k in keys]
-    vinti = vinti_matrix(orbitals, workspace)
-    corrected = vinti if Z is None else relativistic_vinti_matrix(orbitals, workspace, Z)
+    vinti, corrected = recoil_radial_matrices(orbitals, workspace, Z=Z)
 
     def integral(key):
         if key[0] != 'r' or key[1] != 1:
@@ -108,15 +130,26 @@ def configuration_average_recoil(orbitals, workspace, *, Z=None, jj_configs=None
     then required); its pair occupations are averaged explicitly. The rank-one direct term vanishes
     by parity; only exchange between opposite-parity shells contributes.
     """
+    return float(sum(configuration_average_recoil_contributions(
+        orbitals, workspace, Z=Z, jj_configs=jj_configs).values()))
+
+
+def configuration_average_recoil_contributions(orbitals, workspace, *, Z=None, jj_configs=None):
+    """Return {(orbital_index_a, orbital_index_b): K_ab} for allowed pairs.
+
+    Occupations are electron counts. Reduced angular matrix elements already
+    sum over magnetic substates, so pair weights contain occupation fractions
+    q_a/(2j_a+1), not another factor of each full subshell degeneracy.
+    This is the same operator used by the correction stack and properties.
+    """
     from atomx.angular.coefficients import reduced_C
     moments = None
     if jj_configs is not None:
         from atomx.corrections.dbsr_breit import _pair_moments
         moments = _pair_moments(orbitals, jj_configs)
     waves = [(orb[0], orb[1], orb[3]) for orb in orbitals]
-    v = vinti_matrix(waves, workspace)
-    vr = v if Z is None else relativistic_vinti_matrix(waves, workspace, Z)
-    value = 0.
+    v, vr = recoil_radial_matrices(waves, workspace, Z=Z)
+    contributions = {}
     for a, orbital in enumerate(orbitals):
         _, _, qa, ka = orbital[:4]
         fa = qa/(2*abs(ka))
@@ -125,8 +158,10 @@ def configuration_average_recoil(orbitals, workspace, *, Z=None, jj_configs=None
             fb = qb/(2*abs(kb))
             pair_weight = fa*fb if moments is None else moments[a, b]/(4*abs(ka*kb))
             angular = reduced_C(ka, kb, 1)
-            value += pair_weight*angular**2*(vr[a, b]*v[b, a]+vr[b, a]*v[a, b])/2
-    return float(value)
+            if angular != 0. and pair_weight != 0.:
+                contributions[a, b] = float(pair_weight*angular**2*
+                    (vr[a, b]*v[b, a]+vr[b, a]*v[a, b])/2)
+    return contributions
 
 
 def specific_recoil_provenance(mass):

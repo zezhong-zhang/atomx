@@ -32,7 +32,7 @@ from atomx.corrections.adapters import (
     _has_bspline_dirac_data,
     _has_radial_grid_data,
 )
-from atomx.methods.mcdhf.exact_ci import (
+from atomx.angular.csf_hamiltonian import (
     csf_signature,
     nonorthogonal_tensor_terms,
     one_body_tensor_terms,
@@ -68,6 +68,7 @@ class TransitionResult:
     f_value: float           # absorption oscillator strength
     line_strength: float     # in atomic units
     gauge: str = "length"    # 'length' or 'velocity'
+    photon_approximation: str = "long_wavelength"
     # Which line-resolution engine produced this row:
     #   'uta' — statistical/configuration-average machinery (single-config
     #           orbital pairs or the MCDHF UTA population-factor path);
@@ -130,7 +131,7 @@ def _csf_twice_J(csf):
 
     Accurate for CSFs with zero or one partially-filled relativistic
     subshell (the common case enumerated by
-    :func:`atomx.methods.mcdhf.config.enumerate_jj_csfs`):
+    :func:`atomx.config.csf.enumerate_jj_csfs`):
 
     * closed CSF → J = 0 (returns 0)
     * one electron or one hole in ``(n, kappa)`` → J = j_kappa (returns
@@ -142,7 +143,7 @@ def _csf_twice_J(csf):
     attribute that takes precedence — including the J=0 case, which is
     recognised either from a non-default attribute *or* from the
     bracketed ``[J=0/2]`` label tag emitted by
-    :func:`atomx.methods.mcdhf.config.enumerate_jj_csfs`.
+    :func:`atomx.config.csf.enumerate_jj_csfs`.
     """
     # Honour explicit total_J2 if somebody populated it.  The closed-shell
     # J=0 CSF carries ``total_J2=0`` (default int) but its label tags it
@@ -217,19 +218,18 @@ class TransitionCalculator:
         ci_det_cap : int
             Maximum determinants per (J, M) block for the CI engine.
         gauge : {'length', 'velocity', 'both'}
-            ``'length'`` (Babushkin) — default; preserves the historical
-            ``A_rate_per_s`` value for all existing callers.
+            ``'length'`` (Babushkin) — default; uses the finite-frequency
+            electric operator at the transition energy.
             ``'velocity'`` (Coulomb) — reports velocity-gauge rates only.
             ``'both'`` — reports the length-gauge value in
             ``A_rate_per_s`` and populates the ``A_length`` and
             ``A_velocity`` fields so the gauge-ratio diagnostic
             (Gu 2008 §3.2) can be evaluated per transition.
 
-            Velocity-gauge support for higher multipoles (EL with L ≥ 2,
-            ML with L ≥ 1) currently uses the leading-order formula;
-            production-quality higher-multipole gauges are tracked
-            separately. Length gauge remains the only value the default
-            ``A_rate_per_s`` ever reports.
+            Both electric gauges retain all spherical-Bessel photon orders.
+            Magnetic multipoles use the same finite-frequency operator in
+            both entries; their gauge ratio is not an independent diagnostic.
+            The determinant-CI engine currently supports length gauge only.
 
         Returns
         -------
@@ -251,7 +251,7 @@ class TransitionCalculator:
             raise ValueError("ci_reference requires line_resolution='ci'")
         # Already computed correlated states define their own Hamiltonian and
         # tensor operators. Never replace them with a separately solved atom.
-        if self.atom._mcdhf_result is not None and ci_reference is None:
+        if self.atom._csf_result is not None and ci_reference is None:
             return self._compute_mcdhf_transitions(multipoles, gauge)
         if line_resolution == 'ci':
             from atomx.properties.transitions.ci_lines import CISizeError
@@ -314,6 +314,7 @@ class TransitionCalculator:
                     multipole=ln.multipole, A_rate_per_s=ln.A_per_s,
                     gf_value=ln.gf, f_value=ln.f_value, line_strength=ln.S,
                     gauge='length', A_length=ln.A_per_s, resolution='ci',
+                    photon_approximation=lineset.photon_approximation,
                     provenance=dict(provenance)))
         return sorted(results, key=lambda r: r.wavelength_angstrom)
 
@@ -431,7 +432,8 @@ class TransitionCalculator:
         rme_length = rme_velocity = None
         if mp_type == 'E':
             if gauge in ('length', 'both'):
-                rme_length = radial_eL(P_i, Q_i, P_f, Q_f, workspace, L)
+                rme_length = radial_eL(P_i, Q_i, P_f, Q_f, workspace, L,
+                    kappa_i=k_i, kappa_f=k_f, omega=omega)
             if gauge in ('velocity', 'both'):
                 rme_velocity = radial_eL_velocity(
                     P_i, Q_i, P_f, Q_f, workspace, L,
@@ -441,7 +443,7 @@ class TransitionCalculator:
             # surface today.  Treat it as identical for length/velocity
             # so callers can still use ``gauge='both'`` uniformly.
             rme_length = rme_velocity = radial_mL(
-                P_i, Q_i, P_f, Q_f, workspace, L)
+                P_i, Q_i, P_f, Q_f, workspace, L, omega=omega)
 
         def _A_from_rme(rme):
             if rme is None:
@@ -486,6 +488,7 @@ class TransitionCalculator:
             f_value=f_val,
             line_strength=S_primary,
             gauge=reported_gauge,
+            photon_approximation='finite_wavelength',
             A_length=A_length,
             A_velocity=A_velocity,
         )
@@ -498,7 +501,7 @@ class TransitionCalculator:
 
         where c_r^F are the CI mixing coefficients.
         """
-        mcdhf = self.atom._mcdhf_result
+        mcdhf = self.atom._csf_result
         bsp_data = mcdhf.bsp_data
         csfs = mcdhf.csfs
         mixing = mcdhf.mixing_coefficients
@@ -611,6 +614,7 @@ class TransitionCalculator:
                         f_value=f_val,
                         line_strength=S_primary,
                         gauge=reported_gauge,
+                        photon_approximation='finite_wavelength',
                         resolution="ci",
                         A_length=A_length,
                         A_velocity=A_velocity,
@@ -656,11 +660,12 @@ class TransitionCalculator:
                             P_i, Q_i, P_f, Q_f, bsp_data, L,
                             kappa_i=k_i, kappa_f=k_f, omega=omega)
                     else:
-                        radial = radial_eL(P_i, Q_i, P_f, Q_f, bsp_data, L)
+                        radial = radial_eL(P_i, Q_i, P_f, Q_f, bsp_data, L,
+                            kappa_i=k_i, kappa_f=k_f, omega=omega)
                     angular = reduced_C(k_f, k_i, L)
                 else:
-                    radial = radial_mL(P_i, Q_i, P_f, Q_f, bsp_data, L)
-                    angular = reduced_C(-k_f, k_i, L) * (k_i + k_f) / (2 * L + 1)
+                    radial = radial_mL(P_i, Q_i, P_f, Q_f, bsp_data, L, omega=omega)
+                    angular = reduced_C(-k_f, k_i, L) * (k_i + k_f) / (L + 1)
                 cache[cache_key] = angular * radial
             total += coefficient * cache[cache_key]
         return total

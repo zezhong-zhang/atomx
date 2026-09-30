@@ -4,10 +4,10 @@ import pytest
 from scipy.integrate import quad
 from scipy.special import eval_legendre
 from atomx import Atom
-from atomx.methods.mcdhf.breit_ci import (
+from atomx.physics.csf.breit_ci import (
     _ci_radial_inputs, breit_operator_energy, gaunt_angular_terms,
 )
-from atomx.methods.mcdhf.retardation import distance_potential, radial_evaluator
+from atomx.physics.csf.retardation import distance_potential, radial_evaluator
 
 
 @pytest.mark.parametrize('L',range(5))

@@ -12,7 +12,7 @@ too small).  The gates for it here are therefore ``xfail(strict=True)``
 against the DBSR_HF values, with the measurement and the named cause in
 the reason — they XPASS the moment the scalar is made right.  The
 validated implementation of the same physics is the Gaunt operator of
-``methods/mcdhf/breit_ci.py``, and *that* is gated here as a passing
+``physics/csf/breit_ci.py``, and *that* is gated here as a passing
 external check on the MCDHF route (He +0.003 %, Ne +4.2 % of DBSR_HF,
 the 4.2 % being its documented omitted retardation).
 """
@@ -446,8 +446,8 @@ class TestBreitOperatorOnSCFOrbitals:
         and could never pass.
         """
         from atomx import Atom
-        from atomx.methods.mcdhf.breit_ci import breit_operator_energy
-        from atomx.methods.mcdhf.matrix import GridCIWorkspace
+        from atomx.physics.csf.breit_ci import breit_operator_energy
+        from atomx.physics.csf.matrix import GridCIWorkspace
 
         atom = Atom(Z=Z, config=config, corrections="none")
         atom.solve()
@@ -463,7 +463,7 @@ class TestBreitOperatorOnSCFOrbitals:
     def test_multi_csf_configuration_is_refused_not_guessed(self):
         """An ambiguous configuration must raise, never return a number."""
         from atomx import Atom
-        from atomx.methods.mcdhf.breit_ci import (
+        from atomx.physics.csf.breit_ci import (
             BreitOperatorError,
             breit_operator_energy,
         )

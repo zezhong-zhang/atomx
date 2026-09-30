@@ -52,7 +52,7 @@ def test_multielectron_and_correlation_labels_are_not_treated_as_hydrogenic():
 
 
 def test_mcdhf_rejects_requested_remainder_instead_of_ignoring_it():
-    from atomx.methods.mcdhf.config import enumerate_jj_csfs
+    from atomx.config.csf import enumerate_jj_csfs
     from atomx.methods.mcdhf.solver import MCDHFSolver
     with pytest.raises(NotImplementedError, match='principal-shell'):
         MCDHFSolver(Z=1, csfs=enumerate_jj_csfs('1s1'), correction_stack=CorrectionStack(

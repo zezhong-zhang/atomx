@@ -17,7 +17,7 @@ The transition pipeline (``compute_transitions`` → ``radial_eL`` /
 ``radial_eL_velocity`` / ``radial_mL`` → Einstein rates, both gauges)
 historically consumed B-spline coefficient vectors + ``bsp_data`` only.
 It now runs on ShootingResult grid orbitals through the
-:mod:`atomx.corrections.workspace` seam — the SAME radial-integral
+:mod:`atomx.numerics.radial_workspace` seam — the SAME radial-integral
 implementations serve both flavours (see
 ``atomx/properties/transitions/multipole.py`` and
 ``TransitionCalculator._single_config_payload``).
@@ -401,7 +401,7 @@ def test_schrodinger_shooting_transitions_raise():
         Z=2, subshells=[Subshell(n=1, kappa=-1, occupation=2)],
         n_grid=400, equation="schrodinger").solve()
     atom = SimpleNamespace(converged=True, Z=2, _result=res,
-                           _mcdhf_result=None, _bsp_data=None)
+                           _csf_result=None, _bsp_data=None)
     calc = TransitionCalculator(atom)
     with pytest.raises(NotImplementedError, match="radial workspace"):
         calc.compute_all(multipoles=["E1"])

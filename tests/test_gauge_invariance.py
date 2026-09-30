@@ -39,9 +39,10 @@ def _hydrogenic_e1_gauge_ratio(n_lo: int, k_lo: int,
     P_up, Q_up, _, E_up = hydrogenic_dirac_wavefunction(n_up, k_up, Z, ns=ns, ks=ks)
 
     omega = abs(E_up - E_lo)
-    rme_l = radial_eL(P_up, Q_up, P_lo, Q_lo, bsp, 1)
+    rme_l = radial_eL(P_up, Q_up, P_lo, Q_lo, bsp, 1,
+                      kappa_i=k_up, kappa_f=k_lo, omega=-omega)
     rme_v = radial_eL_velocity(P_up, Q_up, P_lo, Q_lo, bsp, 1,
-                                kappa_i=k_up, kappa_f=k_lo, omega=omega)
+                                kappa_i=k_up, kappa_f=k_lo, omega=-omega)
     ang = angular_eL(k_up, k_lo, 1)
     tj_up = 2 * abs(k_up) - 1
 

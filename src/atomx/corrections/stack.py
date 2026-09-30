@@ -62,13 +62,22 @@ class CorrectionStack:
     include_wk_vp
         Include Wichmann–Kroll higher-order VP.
     include_breit
-        Include the static Breit interaction.
+        Include static Breit or the selected finite-frequency interaction.
     breit_mode
         ``"dbsr_hf"`` (default) applies the full static Breit
         configuration average; ``"operator"`` applies the full static Breit matrix
         element including static retardation;
         ``"scalar_legacy"`` opts into the approximate configuration
         average used by earlier DHF ledgers.
+    breit_frequency
+        ``"static"`` (default) or ``"orbital_differences"``. The latter
+        replaces static Breit with the real transverse operator averaged at
+        the two vertex energy differences, retaining the same ensemble/CI
+        objective. Legacy scalar modes cannot supply this operator.
+    breit_orbital_energies
+        Optional ``(n, kappa) -> Hartree`` mapping. Ordinary DHF can use its
+        converged orbital energies; CSF methods require an explicit map.
+        Frequencies are fixed during CI; orbital relaxation is not included.
     nuclear_mass_me
         If set, apply the normal-mass-shift correction with the given
         nuclear mass in units of the electron mass.
@@ -95,6 +104,8 @@ class CorrectionStack:
     include_breit: bool = True
     nuclear_mass_me: Optional[float] = None
     breit_mode: str = "dbsr_hf"
+    breit_frequency: str = "static"
+    breit_orbital_energies: Optional[dict] = None
     nms_mode: str = "operator"
     include_sms: bool = False
     include_hydrogenic_mass_remainder: bool = False
@@ -105,6 +116,19 @@ class CorrectionStack:
     # ------------------------------------------------------------------
 
     def __post_init__(self):
+        if self.breit_frequency not in ('static', 'orbital_differences'):
+            raise ValueError("breit_frequency must be 'static' or 'orbital_differences'")
+        if self.breit_frequency != 'static':
+            if not self.include_breit:
+                raise ValueError('finite-frequency Breit requires include_breit=True')
+            if self.breit_mode not in ('dbsr_hf', 'operator'):
+                raise ValueError('finite-frequency Breit cannot use a legacy scalar mode')
+        if self.breit_orbital_energies is not None:
+            if self.breit_frequency == 'static':
+                raise ValueError('breit_orbital_energies requires orbital_differences frequency')
+            from atomx.physics.csf.transverse import validate_orbital_energies
+            self.breit_orbital_energies = validate_orbital_energies(
+                self.breit_orbital_energies, self.breit_orbital_energies)
         if self.include_sms and self.nuclear_mass_me is None:
             raise ValueError("include_sms requires nuclear_mass_me")
         if self.include_hydrogenic_mass_remainder and (
@@ -133,7 +157,8 @@ class CorrectionStack:
         if self.include_wk_vp:
             backends.append(WichmannKrollVPCorrection())
         if self.include_breit:
-            backends.append(BreitCorrection(mode=self.breit_mode))
+            backends.append(BreitCorrection(mode=self.breit_mode,
+                frequency=self.breit_frequency, orbital_energies=self.breit_orbital_energies))
         if self.nuclear_mass_me is not None:
             backends.append(NormalMassShiftCorrection(self.nuclear_mass_me, self.nms_mode))
         if self.include_sms:

@@ -1,21 +1,8 @@
-"""Full-order velocity gauge for EL (L >= 1) — Grant 2007 §8.4 validation.
+"""Finite-frequency Babushkin/Coulomb identity for common local Dirac states.
 
-Exercises the derivative-free velocity-gauge radial integral
-:func:`~atomx.properties.transitions.multipole.radial_eL_velocity` for all
-multipole ranks L = 1…4, covering every (κ_i, κ_f) channel accessible in
-hydrogenic Dirac–Coulomb states.  For exact eigenstates of the common
-Hamiltonian the velocity gauge must reproduce the length gauge to numerical
-precision.  The tolerance is per multipole rank (measured at the default
-ns=60/ks=9, 2026-09-25):
-
-    L=1  |A_v/A_l − 1| ≤ 4.2e-10   -> gate 1e-8   (worst: p_{3/2}→d_{3/2})
-    L=2  |A_v/A_l − 1| ≤ 2.9e-10   -> gate 1e-8
-    L=3  |A_v/A_l − 1| ≤ 4.3e-07   -> gate 1e-5
-    L=4  |A_v/A_l − 1| ≤ 3.7e-04   -> gate 1e-3
-
-The old file used a flat 1e-2, which is 7 orders looser than the theorem
-holds at L=1.  The J-dependence is the O((ω r)²) truncation of the
-long-wavelength reduction, so the gate grows with L.
+Both gauges retain all spherical-Bessel photon orders. The rank-dependent
+bounds reflect the accuracy of the B-spline reference orbitals, not a photon
+expansion error. High-Z shooting tests independently test both gauges.
 """
 
 from __future__ import annotations
@@ -33,11 +20,12 @@ GAUGE_TOL = {1: 1e-8, 2: 1e-8, 3: 1e-5, 4: 1e-3}
 
 def _gauge_ratio(n_lo: int, k_lo: int, n_up: int, k_up: int,
                  Z: int, L: int = 1) -> float:
-    P_lo, Q_lo, bsp, E_lo = hydrogenic_dirac_wavefunction(n_lo, k_lo, Z)
-    P_up, Q_up, _, E_up = hydrogenic_dirac_wavefunction(n_up, k_up, Z)
+    P_lo, Q_lo, bsp, E_lo = hydrogenic_dirac_wavefunction(n_lo, k_lo, Z, ns=90)
+    P_up, Q_up, _, E_up = hydrogenic_dirac_wavefunction(n_up, k_up, Z, ns=90)
 
-    omega = abs(E_up - E_lo)
-    rme_l = radial_eL(P_up, Q_up, P_lo, Q_lo, bsp, L)
+    omega = E_lo - E_up
+    rme_l = radial_eL(P_up, Q_up, P_lo, Q_lo, bsp, L,
+                      kappa_i=k_up, kappa_f=k_lo, omega=omega)
     rme_v = radial_eL_velocity(P_up, Q_up, P_lo, Q_lo, bsp, L,
                                 kappa_i=k_up, kappa_f=k_lo, omega=omega)
     ang = angular_eL(k_up, k_lo, L)
@@ -45,8 +33,8 @@ def _gauge_ratio(n_lo: int, k_lo: int, n_up: int, k_up: int,
 
     S_l = (ang * rme_l) ** 2
     S_v = (ang * rme_v) ** 2
-    A_l = einstein_A_eL(omega, S_l, L, tj_up)
-    A_v = einstein_A_eL(omega, S_v, L, tj_up)
+    A_l = einstein_A_eL(abs(omega), S_l, L, tj_up)
+    A_v = einstein_A_eL(abs(omega), S_v, L, tj_up)
     dev = abs(A_v / A_l - 1.0)
     tol = GAUGE_TOL[L]
     assert dev < tol, (

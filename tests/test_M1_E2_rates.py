@@ -30,10 +30,12 @@ References
   value of 7.0e6 s⁻¹ quoted here previously is inconsistent with that
   measurement by ~700x and is no longer used.
 
-Bug context: pre-fix the M1 pipeline carried a stray /c in ``radial_mL``
-plus a missing /(2L+1) in ``angular_mL``, producing rates that were
-~ c^2 / (2L+1)^2 = ~ 2000× too small at L=1. The fix here matches the
-Grant (2007) Eq. 8.4.17 / FAC ``TRRateMultipole`` convention.
+The magnetic angular factor is (kappa_i+kappa_f)/(L+1), in the common
+E/M rate normalization. Finite-frequency Bessel factors are retained in
+physical M1 rates. The old /(2L+1) choice happened to compensate the omitted
+retardation in inhibited 2s->1s M1; that cancellation does not validate other
+magnetic transitions. Live FAC M2-M4 comparisons independently test the factor.
+
 """
 
 import functools
@@ -89,7 +91,7 @@ def _hlike_A_M1_2s_1s(Z, ns=80, r_max=None):
     P_2s, Q_2s, E_2s, data = _solve_hlike(Z, -1, 1, ns=ns, r_max=r_max)
     P_1s, Q_1s, E_1s, _ = _solve_hlike(Z, -1, 0, ns=ns, r_max=r_max)
     omega = E_2s - E_1s
-    R = radial_mL(P_2s, Q_2s, P_1s, Q_1s, data, L=1)
+    R = radial_mL(P_2s, Q_2s, P_1s, Q_1s, data, L=1, omega=omega)
     ang = angular_mL(-1, -1, L=1)
     S = (ang * R) ** 2
     return einstein_A_mL(omega, S, L=1, tj_i=1)
@@ -122,8 +124,7 @@ def test_M1_hlike_2s_to_1s_drake(Z, A_ref):
     ``2.5e-6 Z^10 s^-1`` to within 1 % across Z = 1, 2, 10.
 
     This pins both the magnetic prefactor and the
-    ``(kappa_i+kappa_f)/(2L+1)`` algebraic factor — pre-fix the rate was
-    ~ 2000× too small at all Z.
+    ``(kappa_i+kappa_f)/(L+1)`` factor and photon retardation.
     """
     A = _hlike_A_M1_2s_1s(Z)
     assert pytest.approx(A_ref, rel=0.01) == A, (
@@ -205,9 +206,10 @@ def _hlike_E2_gauge_ratio(Z, k_up, k_lo, n_up, n_lo):
     P_lo, Q_lo, bsp, E_lo = hydrogenic_dirac_wavefunction(n_lo, k_lo, Z)
     P_up, Q_up, _, E_up = hydrogenic_dirac_wavefunction(n_up, k_up, Z)
     omega = abs(E_up - E_lo)
-    rme_l = radial_eL(P_up, Q_up, P_lo, Q_lo, bsp, L=2)
+    rme_l = radial_eL(P_up, Q_up, P_lo, Q_lo, bsp, L=2,
+                      kappa_i=k_up, kappa_f=k_lo, omega=-omega)
     rme_v = radial_eL_velocity(P_up, Q_up, P_lo, Q_lo, bsp, L=2,
-                                kappa_i=k_up, kappa_f=k_lo, omega=omega)
+                                kappa_i=k_up, kappa_f=k_lo, omega=-omega)
     ang = angular_eL(k_up, k_lo, 2)
     tj_up = 2 * abs(k_up) - 1
     S_l = (ang * rme_l) ** 2
@@ -222,40 +224,40 @@ def _hlike_E2_gauge_ratio(Z, k_up, k_lo, n_up, n_lo):
 # ======================================================================
 
 class TestM1AngularPrefactor:
-    """Verify the ``(kappa_i + kappa_f) / (2L+1)`` kappa-factor in
+    """Verify the ``(kappa_i + kappa_f) / (L+1)`` kappa-factor in
     :func:`angular_mL` against hand-assembled 3j-symbol values.
 
     The M1 angular factor is (Grant 2007 Eq. 8.4.17):
 
-        angular_mL = base_angular × (κ_i + κ_f) / (2L+1)
+        angular_mL = base_angular × (κ_i + κ_f) / (L+1)
 
     where ``base_angular`` is the same phase × sqrt × 3j structure shared
     with :func:`angular_eL`.
     """
 
     def test_M1_2s_to_1s_kappa_factor(self):
-        """M1 2s₁/₂→1s₁/₂ (κ=-1,-1): kappa_factor = -2/3."""
+        """M1 2s₁/₂→1s₁/₂ (κ=-1,-1): kappa_factor = -1."""
         tj_i, tj_f, tL = 1, 1, 2  # 2×j=1, 2×L=2
         base = _base_angular(tj_i, tL, tj_f)
-        kappa_factor = (-1 + (-1)) / 3.0
+        kappa_factor = (-1 + (-1)) / 2.0
         expected = base * kappa_factor
         actual = angular_mL(-1, -1, 1)
         assert actual == pytest.approx(expected, abs=1e-12)
 
     def test_M1_p32_to_p12_kappa_factor(self):
-        """M1 2p₃/₂→2p₁/₂ (κ=-2,1): kappa_factor = -1/3."""
+        """M1 2p₃/₂→2p₁/₂ (κ=-2,1): kappa_factor = -1/2."""
         tj_i, tj_f, tL = 3, 1, 2
         base = _base_angular(tj_i, tL, tj_f)
-        kappa_factor = (-2 + 1) / 3.0
+        kappa_factor = (-2 + 1) / 2.0
         expected = base * kappa_factor
         actual = angular_mL(-2, 1, 1)
         assert actual == pytest.approx(expected, abs=1e-12)
 
     def test_M1_p12_to_p32_kappa_factor(self):
-        """M1 2p₁/₂→2p₃/₂ (κ=1,-2): kappa_factor = -1/3, sign flip from tj_f."""
+        """M1 2p₁/₂→2p₃/₂ (κ=1,-2): kappa_factor = -1/2, sign flip from tj_f."""
         tj_i, tj_f, tL = 1, 3, 2
         base = _base_angular(tj_i, tL, tj_f)
-        kappa_factor = (1 + (-2)) / 3.0
+        kappa_factor = (1 + (-2)) / 2.0
         expected = base * kappa_factor
         actual = angular_mL(1, -2, 1)
         assert actual == pytest.approx(expected, abs=1e-12)
@@ -380,8 +382,8 @@ class TestE2GaugeAgreement:
 class TestM1FineStructure:
     """M1 fine-structure transition 2p₃/₂ → 2p₁/₂ in hydrogenic ions.
 
-    This transition has κ_i = -2, κ_f = 1, giving kappa_factor = -1/3
-    (different from the 2s→1s value of -2/3), providing an independent
+    This transition has κ_i = -2, κ_f = 1, giving kappa_factor = -1/2
+    (different from the 2s→1s value of -1), providing an independent
     cross-check on the kappa-factor implementation.
 
     The rate scales approximately as Z^12 because ω ∝ Z⁴ (fine-structure
@@ -404,7 +406,7 @@ class TestM1FineStructure:
             P_lo, Q_lo, bsp, E_lo = hydrogenic_dirac_wavefunction(2, 1, Z)
             P_up, Q_up, _, E_up = hydrogenic_dirac_wavefunction(2, -2, Z)
             omega = abs(E_up - E_lo)
-            R = radial_mL(P_up, Q_up, P_lo, Q_lo, bsp, L=1)
+            R = radial_mL(P_up, Q_up, P_lo, Q_lo, bsp, L=1, omega=omega)
             ang = angular_mL(-2, 1, L=1)
             S = (ang * R) ** 2
             rates[Z] = einstein_A_mL(omega, S, L=1, tj_i=3)
