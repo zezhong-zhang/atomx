@@ -171,9 +171,12 @@ class ShootingHFSolver:
         stationarity lost in individually constrained solves.
         """
         from atomx.numerics.orbital_rotations import rotate_occupied
-        return rotate_occupied(pa, qa, self.functional.rotation_pairs(groups),
+        pairs = tuple(self.functional.rotation_pairs(groups))
+        if not pairs:
+            return self.functional.total_energy(pa, qa, r, difr, rv)
+        return rotate_occupied(pa, qa, pairs,
             lambda: self.functional.total_energy(pa, qa, r, difr, rv),
-            pair_energy=lambda a, b: self.functional.rotation_energy(pa, qa, r, difr, rv, a, b),
+            pair_energy=self.functional.rotation_energy_factory(pa, qa, r, difr, rv),
             harmonics=getattr(self.functional, 'rotation_harmonics', (2, 4)))
 
     def solve(self, max_iter: int = 60, tol: float = 1.0e-7,
@@ -256,8 +259,10 @@ class ShootingHFSolver:
         r = base._grid
         difr = base._difr
         np_ = len(r)
-        pa = [base._pa[s].copy() for s in seed_rows]
-        qa = [base._qa[s].copy() for s in seed_rows]
+        # Own dense orbital buffers, shared by the field and rotation kernels.
+        # Row updates stay in place; no per-energy list-to-array copy is needed.
+        pa = np.array([base._pa[s] for s in seed_rows])
+        qa = np.array([base._qa[s] for s in seed_rows])
         ev = np.array([base.orbital_energies[sh.label]
                        for sh in self.subshells])
         if seed is not None:
@@ -292,7 +297,7 @@ class ShootingHFSolver:
                     raise ValueError('linearly dependent same-kappa seed orbitals')
                 transform = (vectors / np.sqrt(values)) @ vectors.T
                 block = np.einsum('ij,jar->iar', transform, block)
-                for a, wave in zip(group, block):
+                for a, wave in zip(group, block, strict=True):
                     pa[a], qa[a] = wave
 
         from atomx.numerics.shooting.scf import iterate_nonlocal_orbitals
@@ -308,7 +313,7 @@ class ShootingHFSolver:
             variational_energy = None
             if self.constraint_mode == 'coupled':
                 variational_energy = self._rotate_occupied(pa, qa, groups, r, difr, rvnuc)
-            e_j, e_k = self.functional.two_electron_energy(np.array(pa), np.array(qa), r, difr, np_)
+            e_j, e_k = self.functional.two_electron_energy(pa, qa, r, difr, np_)
             e_2e = e_j - e_k
             energy = (float(np.dot(occ, ev) - e_2e) if variational_energy is None
                       else variational_energy)
@@ -339,7 +344,6 @@ class ShootingHFSolver:
               for i, sh in enumerate(self.subshells)}
         pa_arr = np.array(pa)
         qa_arr = np.array(qa)
-        e_sum_eps = float(np.dot(occ, ev))
         from copy import deepcopy
 
         from atomx.calculation_spec import resolved_solver_spec

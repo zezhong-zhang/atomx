@@ -163,14 +163,14 @@ class RadialHartreeFock:
                 densities[a,b], densities[c,d], rank, r, difr, np_)
         return tuple(energies)
 
-    def rotation_energy(self, pa, qa, r, difr, rv, a, b):
-        """Fixed-state energy callback valid while only orbitals a,b change."""
-        from atomx.numerics.shooting.energy import radial_rotation_energy
+    def rotation_energy_factory(self, pa, qa, r, difr, rv):
+        """One frozen Hamiltonian graph for a complete occupied rotation sweep."""
+        from atomx.numerics.shooting.energy import RadialRotationEnergy
         terms = [(coefficient*(-1 if exchange else 1), rank, i, j, k, l)
                  for exchange, coefficient, rank, i, j, k, l
                  in self.coulomb_energy_terms()]
-        return radial_rotation_energy(pa, qa, r, difr, rv,
-            [(sh.occupation, sh.kappa) for sh in self.subshells], terms, (a,b))
+        return RadialRotationEnergy(pa, qa, r, difr, rv,
+            [(sh.occupation, sh.kappa) for sh in self.subshells], terms).for_pair
 
     def orbital_field(self, a, pa, qa, r, difr, rvnuc, angular):
         """One definition of the local field and full nonlocal exchange."""

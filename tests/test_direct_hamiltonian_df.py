@@ -1,8 +1,10 @@
 """Direct DF routing, independent radial discretizations, and coherent fields."""
 from copy import deepcopy
+
 import numpy as np
 import pytest
-from atomx import Atom, Basis, Correlation
+
+from atomx import Atom, Basis
 from atomx.sampling import Sampling
 
 
@@ -13,8 +15,8 @@ def carbon():
 
 
 def test_direct_shooting_avoids_continuum_optimizer(monkeypatch):
-    from atomx.methods.mcdhf.solver import MCDHFSolver
     from atomx.methods.csf import grid_solver
+    from atomx.methods.mcdhf.solver import MCDHFSolver
     def rejected(*args, **kwargs):
         raise AssertionError('single-configuration DF entered the continuum optimizer')
     monkeypatch.setattr(MCDHFSolver, 'solve', rejected)
@@ -60,9 +62,9 @@ def test_explicit_basis_size_keeps_physical_positive_kappa_branch(carbon, ns):
 
 def test_coherent_coulomb_field_is_energy_derivative(carbon):
     from atomx.config.jj_coupling import generate_jj_average
-    from atomx.physics.hartree_fock import RadialHartreeFock
-    from atomx.physics.csf.radial_fock import CSFRadialFock
     from atomx.physics.csf.matrix import GridCIWorkspace
+    from atomx.physics.csf.radial_fock import CSFRadialFock
+    from atomx.physics.hartree_fock import RadialHartreeFock
     from atomx.potentials.radial_nucleus import screened_nuclear_rv
     result = carbon.result
     r, difr = result._grid, result._difr
@@ -85,9 +87,9 @@ def test_coherent_coulomb_field_is_energy_derivative(carbon):
 
 def test_rotation_energy_preserves_ensemble_and_coherent_functionals(carbon):
     from atomx.config.jj_coupling import generate_jj_average
-    from atomx.physics.hartree_fock import RadialHartreeFock
-    from atomx.physics.csf.radial_fock import CSFRadialFock
     from atomx.physics.csf.matrix import GridCIWorkspace
+    from atomx.physics.csf.radial_fock import CSFRadialFock
+    from atomx.physics.hartree_fock import RadialHartreeFock
     from atomx.potentials.radial_nucleus import screened_nuclear_rv
     result = carbon.result
     r, difr = result._grid, result._difr
@@ -100,10 +102,11 @@ def test_rotation_energy_preserves_ensemble_and_coherent_functionals(carbon):
     p0, q0 = np.array([result.orbitals_dict[k] for k in coherent.keys]).transpose(1,0,2)
     for field in (average, RadialHartreeFock(deepcopy(shells)), coherent):
         p, q = p0.copy(), q0.copy()
+        factory = field.rotation_energy_factory(p, q, r, difr, rv)
         for a, b in ((0, 1), (1, 0)):
             # The second callback starts after the first rotation has changed
             # the orbital set: no fixed contributions may leak between pairs.
-            fast = field.rotation_energy(p, q, r, difr, rv, a, b)
+            fast = factory(a, b)
             pa, pb, qa, qb = p[a].copy(), p[b].copy(), q[a].copy(), q[b].copy()
             for angle in (-.31, 0., .17, .9):
                 c, s = np.cos(angle), np.sin(angle)
