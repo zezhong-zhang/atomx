@@ -389,6 +389,101 @@ if _NB is not None:
             return srow[a]
         return -1
 
+
+    @_NB.njit(cache=True, parallel=True)
+    def _assemble_kernel_parallel(mlo, mhi, occ, nspin, m2arr,
+                                  h1_keys, h1_vals,
+                                  pgrp, pflat, pstart, plen,
+                                  bflat, bstart, blen, msum_shift,
+                                  vb_keys, vb_vals,
+                                  shi, slo, srow,
+                                  rows_b, cols_b, vals_b, diag_b, chunk):
+        """Block-partitioned prange twin of _assemble_kernel.
+
+        Determinant ``col`` belongs to block ``col // chunk`` and writes
+        only into that block's COO slice and diag row — no cross-block
+        state, so prange is race-free.
+        """
+        n = mlo.shape[0]
+        nblocks = rows_b.shape[0]
+        counts = np.empty(nblocks, dtype=np.int64)
+        for blk in _NB.prange(nblocks):
+            cap = rows_b.shape[1]
+            count = 0
+            col_start = blk * chunk
+            col_end = min(col_start + chunk, n)
+            for col in range(col_start, col_end):
+                lo = mlo[col]
+                hi = mhi[col]
+                ne = occ.shape[1]
+                for ei in range(ne):
+                    c = occ[col, ei]
+                    g = pgrp[c]
+                    for pi in range(pstart[g], pstart[g] + plen[g]):
+                        a = pflat[pi]
+                        key = a * nspin + c
+                        lo_i, hi_i = 0, h1_keys.shape[0]
+                        while lo_i < hi_i:
+                            mid = (lo_i + hi_i) // 2
+                            if h1_keys[mid] < key:
+                                lo_i = mid + 1
+                            else:
+                                hi_i = mid
+                        if lo_i >= h1_keys.shape[0] or h1_keys[lo_i] != key:
+                            continue
+                        h = h1_vals[lo_i]
+                        if a == c:
+                            diag_b[blk, col] += h
+                            continue
+                        tlo, thi = _clr(lo, hi, c)
+                        tlo, thi = _set(tlo, thi, a)
+                        row = _find_row(shi, slo, srow, tlo, thi)
+                        if row < 0:
+                            continue
+                        sg = _sign_1e(lo, hi, a, c)
+                        if sg == 0:
+                            continue
+                        if count < cap:
+                            rows_b[blk, count] = row
+                            cols_b[blk, count] = col
+                            vals_b[blk, count] = sg * h
+                            count += 1
+                for ei in range(ne):
+                    c = occ[col, ei]
+                    for fj in range(ei + 1, ne):
+                        d = occ[col, fj]
+                        ms = m2arr[c] + m2arr[d] + msum_shift
+                        for bi in range(bstart[ms], bstart[ms] + blen[ms]):
+                            a = bflat[2 * bi]
+                            b = bflat[2 * bi + 1]
+                            tlo, thi = _clr(lo, hi, c)
+                            tlo, thi = _clr(tlo, thi, d)
+                            tlo, thi = _set(tlo, thi, a)
+                            tlo, thi = _set(tlo, thi, b)
+                            row = _find_row(shi, slo, srow, tlo, thi)
+                            if row < 0:
+                                continue
+                            key = ((a * nspin + b) * nspin + c) * nspin + d
+                            lo_i, hi_i = 0, vb_keys.shape[0]
+                            while lo_i < hi_i:
+                                mid = (lo_i + hi_i) // 2
+                                if vb_keys[mid] < key:
+                                    lo_i = mid + 1
+                                else:
+                                    hi_i = mid
+                            if lo_i >= vb_keys.shape[0] or vb_keys[lo_i] != key:
+                                continue
+                            sg = _sign_2e(lo, hi, a, b, c, d)
+                            if sg == 0:
+                                continue
+                            if count < cap:
+                                rows_b[blk, count] = row
+                                cols_b[blk, count] = col
+                                vals_b[blk, count] = sg * vb_vals[lo_i]
+                                count += 1
+            counts[blk] = count
+        return counts
+
     @_NB.njit(cache=True)
     def _assemble_kernel(mlo, mhi, occ, nspin, m2arr,
                          h1_keys, h1_vals,
@@ -627,29 +722,70 @@ def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns):
     srow = np.asarray(order, dtype=np.int64)
 
     m2arr = np.array(m2arr_py, dtype=np.int64)
-    cap_per_det = 2048
-    while True:
-        cap = n * cap_per_det
-        rows = np.empty(cap, dtype=np.int64)
-        cols = np.empty(cap, dtype=np.int64)
-        vals = np.empty(cap, dtype=np.float64)
-        diag = np.zeros(n)
-        count = _assemble_kernel(
-            mlo, mhi, occ, nspin, m2arr,
-            h1_keys, h1_vals,
-            pgrp, np.array(pflat, dtype=np.int64),
-            np.array(pstart, dtype=np.int64), np.array(plen, dtype=np.int64),
-            np.array(bflat, dtype=np.int64),
-            np.array(bstart, dtype=np.int64), np.array(blen, dtype=np.int64),
-            msum_shift,
-            vb_keys, vb_vals,
-            shi, slo, srow,
-            rows, cols, vals, diag)
-        if count < cap:
-            break
-        cap_per_det *= 8  # rare: dense row — regrow
-    H = sp.coo_matrix((vals[:count], (rows[:count], (cols[:count]))),
-                      shape=(n, n)).tocsr()
+    pflat_a = np.array(pflat, dtype=np.int64)
+    pstart_a = np.array(pstart, dtype=np.int64)
+    plen_a = np.array(plen, dtype=np.int64)
+    bflat_a = np.array(bflat, dtype=np.int64)
+    bstart_a = np.array(bstart, dtype=np.int64)
+    blen_a = np.array(blen, dtype=np.int64)
+
+    use_parallel = n >= 2000 and _assemble_kernel_parallel is not None
+    if use_parallel:
+        nblocks = min(n, max(1, _NB.get_num_threads() * 4 if hasattr(_NB, "get_num_threads") else 16))
+        chunk = (n + nblocks - 1) // nblocks
+        nblocks = (n + chunk - 1) // chunk
+        cap_per_det = 768
+        while True:
+            capb = max(1, chunk * cap_per_det)
+            rows_b = np.zeros((nblocks, capb), dtype=np.int64)
+            cols_b = np.zeros((nblocks, capb), dtype=np.int64)
+            vals_b = np.zeros((nblocks, capb), dtype=np.float64)
+            diag_b = np.zeros((nblocks, n))
+            counts = _assemble_kernel_parallel(
+                mlo, mhi, occ, nspin, m2arr,
+                h1_keys, h1_vals,
+                pgrp, pflat_a, pstart_a, plen_a,
+                bflat_a, bstart_a, blen_a, msum_shift,
+                vb_keys, vb_vals,
+                shi, slo, srow,
+                rows_b, cols_b, vals_b, diag_b, chunk)
+            if int(counts.max()) < capb:
+                break
+            cap_per_det *= 8
+        keep = int(counts.sum())
+        rows = np.empty(keep, dtype=np.int64)
+        cols = np.empty(keep, dtype=np.int64)
+        vals = np.empty(keep, dtype=np.float64)
+        pos = 0
+        for blk in range(nblocks):
+            c = int(counts[blk])
+            rows[pos:pos + c] = rows_b[blk, :c]
+            cols[pos:pos + c] = cols_b[blk, :c]
+            vals[pos:pos + c] = vals_b[blk, :c]
+            pos += c
+        diag = diag_b.sum(axis=0)
+    else:
+        cap_per_det = 2048
+        while True:
+            cap = n * cap_per_det
+            rows = np.empty(cap, dtype=np.int64)
+            cols = np.empty(cap, dtype=np.int64)
+            vals = np.empty(cap, dtype=np.float64)
+            diag = np.zeros(n)
+            count = _assemble_kernel(
+                mlo, mhi, occ, nspin, m2arr,
+                h1_keys, h1_vals,
+                pgrp, pflat_a, pstart_a, plen_a,
+                bflat_a, bstart_a, blen_a, msum_shift,
+                vb_keys, vb_vals,
+                shi, slo, srow,
+                rows, cols, vals, diag)
+            if count < cap:
+                rows, cols, vals = rows[:count], cols[:count], vals[:count]
+                break
+            cap_per_det *= 8  # rare: dense row — regrow
+    H = sp.coo_matrix((vals, (rows, cols)), shape=(n, n)).tocsr()
     H = H + sp.diags(diag)
     H.sum_duplicates()
+    H.sort_indices()
     return H
