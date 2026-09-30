@@ -1,0 +1,976 @@
+{
+  "scope": "FAC photon operators at exact line frequencies, with shared/independent spinors.\n\nThe diagnostic frontend calls unmodified MultipoleRadialFR and exports the\nradial orbitals. Each call clears the photon cache and installs one exact\nfrequency, isolating the operator from transition-table interpolation.\n",
+  "points": 16000,
+  "fac_grid_density": 8.0,
+  "fac_energy_tolerance": 1e-12,
+  "reference": {
+    "path": "/tmp/atomx-fac-photon/sfac",
+    "sha256": "ca3e1c35a05896ab3ab5e0a7d2c12a09f04b894c94e9f6feb9cf05311a1e5c18",
+    "observed_files_sha256": {
+      "libfac.a": "b15cbe8420fc20b3f87412a0dc16f8370f95ac8c5e5fadebf024f504c0aaac6b",
+      "faclib/radial.c": "c1a020c5b693cf9cadb74d71cc6052377c916c808cb0879104914e11fb793d3c",
+      "faclib/orbital.c": "cd4c3bc80248fdddf48452fcc93e5e85135cbccc0ac20368864da0725bd5b153",
+      "faclib/transition.c": "06ab9cecfd2f02410fb5269ae85a9f98c82424b3b972e4dec340ff806a177709",
+      "faclib/dbase.c": "aae1eb60e5dcf4d4922c50f1b2cf4fe440eb45fd4c76ad8d6199016b740ccc47"
+    },
+    "frontend_sha256": "8503d9e4e8d3357058561fccd96187de39788ca3cfd2238042ffb1c268de4fe9"
+  },
+  "source_artifact": "benchmarks/runs/2026-09-29-photon-certified-panel",
+  "cases": [
+    {
+      "z": 1,
+      "orbitals": [
+        {
+          "n": 1,
+          "kappa": -1,
+          "array": "Z1_1_-1",
+          "raw_sha256": "4122567b051731aa5a6a6b461189334c046ba654683b2272bca09aaec7d8a052",
+          "header": "# n=1 kappa=-1 energy_Ha=-0.50000665658458909 ilast=2379 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 2,
+          "kappa": -2,
+          "array": "Z1_2_-2",
+          "raw_sha256": "bc8b12988ab181a64bab82c03f2a3c16c1ad2f7dd0e7f35d43c47715a78c688f",
+          "header": "# n=2 kappa=-2 energy_Ha=-0.12500041602923012 ilast=2895 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 2,
+          "kappa": -1,
+          "array": "Z1_2_-1",
+          "raw_sha256": "6c0632e8b3046d0b65deee6e2d5b564b218d77f308fefc5fd3a865799e58a2b1",
+          "header": "# n=2 kappa=-1 energy_Ha=-0.12500208018874071 ilast=2909 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 2,
+          "kappa": 1,
+          "array": "Z1_2_1",
+          "raw_sha256": "3bf7359c59ee5fb3d92e47fbd1330d6dab244ae03b32cf5cf63cab76aaea5982",
+          "header": "# n=2 kappa=1 energy_Ha=-0.12500208018945 ilast=2895 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 3,
+          "kappa": -3,
+          "array": "Z1_3_-3",
+          "raw_sha256": "66e43f4d41fb2c30c681c83a28705e3a5242427077d46ef5f246b2e515d55308",
+          "header": "# n=3 kappa=-3 energy_Ha=-0.05555563773387695 ilast=3315 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 3,
+          "kappa": 2,
+          "array": "Z1_3_2",
+          "raw_sha256": "f91e2981e54991a785848e2ea0b32173327ae51e206ddc2456b13ebf38297f1d",
+          "header": "# n=3 kappa=2 energy_Ha=-0.055555802091414586 ilast=3315 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 4,
+          "kappa": -4,
+          "array": "Z1_4_-4",
+          "raw_sha256": "367e463623272bbfc9c87581f6743cbebcc085ce0b687b7ab80fbec61d54c0e7",
+          "header": "# n=4 kappa=-4 energy_Ha=-0.031250026001700626 ilast=3689 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 4,
+          "kappa": 3,
+          "array": "Z1_4_3",
+          "raw_sha256": "fcdcad12cc024cfa1e3c1faf18cfd02cfb31d1fa35bed9dbe7b8b0fda7eb71a9",
+          "header": "# n=4 kappa=3 energy_Ha=-0.031250060670700061 ilast=3689 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 5,
+          "kappa": -5,
+          "array": "Z1_5_-5",
+          "raw_sha256": "a063a66cf1a87226b4d04bb19ef7dd14a06f7ae4e92c9e06e83bc47ad7b13970",
+          "header": "# n=5 kappa=-5 energy_Ha=-0.02000001065029142 ilast=4035 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 5,
+          "kappa": 4,
+          "array": "Z1_5_4",
+          "raw_sha256": "2feb43e87b670e9d6eec80873340b28934732345b0d878aff15231c18631e3cc",
+          "header": "# n=5 kappa=4 energy_Ha=-0.020000021300587738 ilast=4035 alpha=0.0072973525663999998"
+        }
+      ],
+      "rows": [
+        {
+          "upper": [
+            2,
+            1
+          ],
+          "multipole": -1,
+          "gauge": 1,
+          "omega_Ha": 0.37500457639513907,
+          "fac_amplitude": -1.4898484962457381,
+          "fac_gf": 0.27745945371697656,
+          "fac_A_per_s": 626835450.0814846
+        },
+        {
+          "upper": [
+            2,
+            1
+          ],
+          "multipole": -1,
+          "gauge": 2,
+          "omega_Ha": 0.37500457639513907,
+          "fac_amplitude": -1.4898484777589172,
+          "fac_gf": 0.277459446831252,
+          "fac_A_per_s": 626835434.5252793
+        },
+        {
+          "upper": [
+            2,
+            -2
+          ],
+          "multipole": -1,
+          "gauge": 1,
+          "omega_Ha": 0.37500624055535897,
+          "fac_amplitude": -2.106930291277552,
+          "fac_gf": 0.5549036408025635,
+          "fac_A_per_s": 626823768.2034417
+        },
+        {
+          "upper": [
+            2,
+            -2
+          ],
+          "multipole": -1,
+          "gauge": 2,
+          "omega_Ha": 0.37500624055535897,
+          "fac_amplitude": -2.1069303436472895,
+          "fac_gf": 0.5549036683878694,
+          "fac_A_per_s": 626823799.3640326
+        },
+        {
+          "upper": [
+            2,
+            -1
+          ],
+          "multipole": 1,
+          "gauge": 2,
+          "omega_Ha": 0.3750045763958484,
+          "fac_amplitude": 9.416209753295006e-08,
+          "fac_gf": 1.1083261020144631e-15,
+          "fac_A_per_s": 2.5039265438206747e-06
+        },
+        {
+          "upper": [
+            3,
+            2
+          ],
+          "multipole": -2,
+          "gauge": 1,
+          "omega_Ha": 0.4444508544931745,
+          "fac_amplitude": 0.6327845026322245,
+          "fac_gf": 3.7440665514335373e-07,
+          "fac_A_per_s": 594.0759107270278
+        },
+        {
+          "upper": [
+            3,
+            2
+          ],
+          "multipole": -2,
+          "gauge": 2,
+          "omega_Ha": 0.4444508544931745,
+          "fac_amplitude": 0.6327845019952447,
+          "fac_gf": 3.744066543895758e-07,
+          "fac_A_per_s": 594.0759095309987
+        },
+        {
+          "upper": [
+            3,
+            -3
+          ],
+          "multipole": -2,
+          "gauge": 1,
+          "omega_Ha": 0.44445101885071214,
+          "fac_amplitude": 0.7749884962523492,
+          "fac_gf": 5.61594550266779e-07,
+          "fac_A_per_s": 594.0600255149302
+        },
+        {
+          "upper": [
+            3,
+            -3
+          ],
+          "multipole": -2,
+          "gauge": 2,
+          "omega_Ha": 0.44445101885071214,
+          "fac_amplitude": 0.7749884961973903,
+          "fac_gf": 5.615945501871271e-07,
+          "fac_A_per_s": 594.0600254306737
+        },
+        {
+          "upper": [
+            2,
+            -2
+          ],
+          "multipole": 2,
+          "gauge": 2,
+          "omega_Ha": 0.37500624055535897,
+          "fac_amplitude": 0.00859486823079007,
+          "fac_gf": 4.149106524030395e-11,
+          "fac_A_per_s": 0.046868652407987606
+        },
+        {
+          "upper": [
+            4,
+            3
+          ],
+          "multipole": -3,
+          "gauge": 1,
+          "omega_Ha": 0.468756595913889,
+          "fac_amplitude": -0.16976191552232928,
+          "fac_gf": 2.6422917597126943e-13,
+          "fac_A_per_s": 0.00031091035491273344
+        },
+        {
+          "upper": [
+            4,
+            3
+          ],
+          "multipole": -3,
+          "gauge": 2,
+          "omega_Ha": 0.468756595913889,
+          "fac_amplitude": -0.16976189495100313,
+          "fac_gf": 2.6422911193400633e-13,
+          "fac_A_per_s": 0.00031091027956205305
+        },
+        {
+          "upper": [
+            4,
+            -4
+          ],
+          "multipole": -3,
+          "gauge": 1,
+          "omega_Ha": 0.46875663058288847,
+          "fac_amplitude": -0.19602147889891092,
+          "fac_gf": 3.5229600624197916e-13,
+          "fac_A_per_s": 0.0003109019626646242
+        },
+        {
+          "upper": [
+            4,
+            -4
+          ],
+          "multipole": -3,
+          "gauge": 2,
+          "omega_Ha": 0.46875663058288847,
+          "fac_amplitude": -0.19602146135831225,
+          "fac_gf": 3.5229594319294364e-13,
+          "fac_A_per_s": 0.00031090190702371843
+        },
+        {
+          "upper": [
+            3,
+            -3
+          ],
+          "multipole": 3,
+          "gauge": 2,
+          "omega_Ha": 0.44445101885071214,
+          "fac_amplitude": -0.0031544209975850747,
+          "fac_gf": 6.990723386583366e-17,
+          "fac_A_per_s": 7.39485330017669e-08
+        },
+        {
+          "upper": [
+            5,
+            4
+          ],
+          "multipole": -4,
+          "gauge": 1,
+          "omega_Ha": 0.48000663528400134,
+          "fac_amplitude": 0.033334839053192136,
+          "fac_gf": 1.0946540236986817e-19,
+          "fac_A_per_s": 1.0129599048445565e-10
+        },
+        {
+          "upper": [
+            5,
+            4
+          ],
+          "multipole": -4,
+          "gauge": 2,
+          "omega_Ha": 0.48000663528400134,
+          "fac_amplitude": 0.033334700804343795,
+          "fac_gf": 1.0946449440481663e-19,
+          "fac_A_per_s": 1.0129515028090978e-10
+        },
+        {
+          "upper": [
+            5,
+            -5
+          ],
+          "multipole": -4,
+          "gauge": 1,
+          "omega_Ha": 0.48000664593429765,
+          "fac_amplitude": 0.03726893583154851,
+          "fac_gf": 1.3682775595670148e-19,
+          "fac_A_per_s": 1.0129303601237443e-10
+        },
+        {
+          "upper": [
+            5,
+            -5
+          ],
+          "multipole": -4,
+          "gauge": 2,
+          "omega_Ha": 0.48000664593429765,
+          "fac_amplitude": 0.03726882679322884,
+          "fac_gf": 1.3682695531957914e-19,
+          "fac_A_per_s": 1.0129244330394112e-10
+        },
+        {
+          "upper": [
+            4,
+            -4
+          ],
+          "multipole": 4,
+          "gauge": 2,
+          "omega_Ha": 0.46875663058288847,
+          "fac_amplitude": 0.0007852343741444054,
+          "fac_gf": 5.144936747745343e-23,
+          "fac_A_per_s": 4.54041744532491e-14
+        }
+      ],
+      "photon_output_sha256": "a1fc21a35481b1eb8c8c35e2f0151857470e0377c1365a5433499634f8beb5cd"
+    },
+    {
+      "z": 10,
+      "orbitals": [
+        {
+          "n": 1,
+          "kappa": -1,
+          "array": "Z10_1_-1",
+          "raw_sha256": "49425bd9c6a9509769cf68ec8af2c08143e0cb049e19eaa2017961f223879ffe",
+          "header": "# n=1 kappa=-1 energy_Ha=-50.066742017034429 ilast=2403 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 2,
+          "kappa": -2,
+          "array": "Z10_2_-2",
+          "raw_sha256": "b4798368e213db49946994a943ac5c0225aa76666b8195894b96b5684f5aa095",
+          "header": "# n=2 kappa=-2 energy_Ha=-12.504163033653066 ilast=2927 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 2,
+          "kappa": -1,
+          "array": "Z10_2_-1",
+          "raw_sha256": "cc2843d09bfb83ad6deec84391f681e5442e39e5297f8e721e7c5314ba8875c3",
+          "header": "# n=2 kappa=-1 energy_Ha=-12.520859663071267 ilast=2939 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 2,
+          "kappa": 1,
+          "array": "Z10_2_1",
+          "raw_sha256": "3adc1215c74c105e84be5e050a6c01c1214484387a77ee00079dfda8ca8dcdd2",
+          "header": "# n=2 kappa=1 energy_Ha=-12.520859662960493 ilast=2925 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 3,
+          "kappa": -3,
+          "array": "Z10_3_-3",
+          "raw_sha256": "2796f1935356f8c4f05cbc2e5688002cef2dab9a40dcbe076e8a3f3281fc6a9b",
+          "header": "# n=3 kappa=-3 energy_Ha=-5.556377578930138 ilast=3353 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 3,
+          "kappa": 2,
+          "array": "Z10_3_2",
+          "raw_sha256": "5b3e112363e81875420f31b7eb2100dd788b1b0465dd902de831d9abc875a402",
+          "header": "# n=3 kappa=2 energy_Ha=-5.5580226601573406 ilast=3353 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 4,
+          "kappa": -4,
+          "array": "Z10_4_-4",
+          "raw_sha256": "71aabafe468d6d938b81cd41527b7e8b2c4064ddbf07c72d6d1fe9192bce0d10",
+          "header": "# n=4 kappa=-4 energy_Ha=-3.1252600596597127 ilast=3731 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 4,
+          "kappa": 3,
+          "array": "Z10_4_3",
+          "raw_sha256": "2aa67d3f302471c841891e9248b9c515e0a2c3a3b7cc2e966f2f399a91ca37fa",
+          "header": "# n=4 kappa=3 energy_Ha=-3.1256068956654373 ilast=3731 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 5,
+          "kappa": -5,
+          "array": "Z10_5_-5",
+          "raw_sha256": "7e95a4b3c761c32a026c9486c1ed3b075cc1ecd166b9c9b069458b9260e480ed",
+          "header": "# n=5 kappa=-5 energy_Ha=-2.0001065140541439 ilast=4083 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 5,
+          "kappa": 4,
+          "array": "Z10_5_4",
+          "raw_sha256": "57af96631e82915cb2bb5738a3d94b1d1e7d3c41fcf63bda42c2f5928d99f40d",
+          "header": "# n=5 kappa=4 energy_Ha=-2.0002130426454161 ilast=4083 alpha=0.0072973525663999998"
+        }
+      ],
+      "rows": [
+        {
+          "upper": [
+            2,
+            1
+          ],
+          "multipole": -1,
+          "gauge": 1,
+          "omega_Ha": 37.54588235407394,
+          "fac_amplitude": -0.14876075815908885,
+          "fac_gf": 0.2769604948105864,
+          "fac_A_per_s": 6272249762939.838
+        },
+        {
+          "upper": [
+            2,
+            1
+          ],
+          "multipole": -1,
+          "gauge": 2,
+          "omega_Ha": 37.54588235407394,
+          "fac_amplitude": -0.14876075628520422,
+          "fac_gf": 0.27696048783304716,
+          "fac_A_per_s": 6272249604921.387
+        },
+        {
+          "upper": [
+            2,
+            -2
+          ],
+          "multipole": -1,
+          "gauge": 1,
+          "omega_Ha": 37.562578983381364,
+          "fac_amplitude": -0.21004385971999365,
+          "fac_gf": 0.5524005829292743,
+          "fac_A_per_s": 6260598098138.383
+        },
+        {
+          "upper": [
+            2,
+            -2
+          ],
+          "multipole": -1,
+          "gauge": 2,
+          "omega_Ha": 37.562578983381364,
+          "fac_amplitude": -0.21004386498589944,
+          "fac_gf": 0.5524006106271986,
+          "fac_A_per_s": 6260598412051.107
+        },
+        {
+          "upper": [
+            2,
+            -1
+          ],
+          "multipole": 1,
+          "gauge": 2,
+          "omega_Ha": 37.545882353963165,
+          "fac_amplitude": 9.41074660102684e-06,
+          "fac_gf": 1.1083813748548725e-09,
+          "fac_A_per_s": 25101.214598832572
+        },
+        {
+          "upper": [
+            3,
+            2
+          ],
+          "multipole": -2,
+          "gauge": 1,
+          "omega_Ha": 44.50871935687709,
+          "fac_amplitude": 0.0063001307530772405,
+          "fac_gf": 3.7273062363705034e-05,
+          "fac_A_per_s": 593111254.157649
+        },
+        {
+          "upper": [
+            3,
+            2
+          ],
+          "multipole": -2,
+          "gauge": 2,
+          "omega_Ha": 44.50871935687709,
+          "fac_amplitude": 0.006300130750874585,
+          "fac_gf": 3.7273062337642176e-05,
+          "fac_A_per_s": 593111253.7429212
+        },
+        {
+          "upper": [
+            3,
+            -3
+          ],
+          "multipole": -2,
+          "gauge": 1,
+          "omega_Ha": 44.51036443810429,
+          "fac_amplitude": 0.007705016159435461,
+          "fac_gf": 5.57559490729898e-05,
+          "fac_A_per_s": 591525056.4928374
+        },
+        {
+          "upper": [
+            3,
+            -3
+          ],
+          "multipole": -2,
+          "gauge": 2,
+          "omega_Ha": 44.51036443810429,
+          "fac_amplitude": 0.007705016164110136,
+          "fac_gf": 5.575594914064468e-05,
+          "fac_A_per_s": 591525057.2106005
+        },
+        {
+          "upper": [
+            2,
+            -2
+          ],
+          "multipole": 2,
+          "gauge": 2,
+          "omega_Ha": 37.562578983381364,
+          "fac_amplitude": 0.0008565841455536974,
+          "fac_gf": 4.1415883058329456e-07,
+          "fac_A_per_s": 4693843.683740221
+        },
+        {
+          "upper": [
+            4,
+            3
+          ],
+          "multipole": -3,
+          "gauge": 1,
+          "omega_Ha": 46.941135121368994,
+          "fac_amplitude": -0.0001686176814796124,
+          "fac_gf": 2.62504916252048e-09,
+          "fac_A_per_s": 30974.496022344276
+        },
+        {
+          "upper": [
+            4,
+            3
+          ],
+          "multipole": -3,
+          "gauge": 2,
+          "omega_Ha": 46.941135121368994,
+          "fac_amplitude": -0.00016861767535021388,
+          "fac_gf": 2.6250489716748694e-09,
+          "fac_A_per_s": 30974.493770444886
+        },
+        {
+          "upper": [
+            4,
+            -4
+          ],
+          "multipole": -3,
+          "gauge": 1,
+          "omega_Ha": 46.94148195737472,
+          "fac_amplitude": -0.0001944355321883214,
+          "fac_gf": 3.490587469140985e-09,
+          "fac_A_per_s": 30891.07442959054
+        },
+        {
+          "upper": [
+            4,
+            -4
+          ],
+          "multipole": -3,
+          "gauge": 2,
+          "omega_Ha": 46.94148195737472,
+          "fac_amplitude": -0.00019443552701405055,
+          "fac_gf": 3.4905872833596676e-09,
+          "fac_A_per_s": 30891.072785459124
+        },
+        {
+          "upper": [
+            3,
+            -3
+          ],
+          "multipole": 3,
+          "gauge": 2,
+          "omega_Ha": 44.51036443810429,
+          "fac_amplitude": -3.1370344924903174e-05,
+          "fac_gf": 6.964783424290481e-11,
+          "fac_A_per_s": 738.9066058440761
+        },
+        {
+          "upper": [
+            5,
+            4
+          ],
+          "multipole": -4,
+          "gauge": 1,
+          "omega_Ha": 48.066528974389016,
+          "fac_amplitude": 3.3040466185319447e-06,
+          "fac_gf": 1.0857782323807617e-13,
+          "fac_A_per_s": 1.0075057881341865
+        },
+        {
+          "upper": [
+            5,
+            4
+          ],
+          "multipole": -4,
+          "gauge": 2,
+          "omega_Ha": 48.066528974389016,
+          "fac_amplitude": 3.3040418369203616e-06,
+          "fac_gf": 1.085775089709598e-13,
+          "fac_A_per_s": 1.0075028720143995
+        },
+        {
+          "upper": [
+            5,
+            -5
+          ],
+          "multipole": -4,
+          "gauge": 1,
+          "omega_Ha": 48.06663550298028,
+          "fac_amplitude": 3.689058077731858e-06,
+          "fac_gf": 1.3535880777723805e-13,
+          "fac_A_per_s": 1.0048120894807813
+        },
+        {
+          "upper": [
+            5,
+            -5
+          ],
+          "multipole": -4,
+          "gauge": 2,
+          "omega_Ha": 48.06663550298028,
+          "fac_amplitude": 3.689054263740373e-06,
+          "fac_gf": 1.3535852789166156e-13,
+          "fac_A_per_s": 1.004810011799871
+        },
+        {
+          "upper": [
+            4,
+            -4
+          ],
+          "multipole": 4,
+          "gauge": 2,
+          "omega_Ha": 46.94148195737472,
+          "fac_amplitude": 7.793190433849882e-07,
+          "fac_gf": 5.117732930776989e-15,
+          "fac_A_per_s": 0.0452910205726213
+        }
+      ],
+      "photon_output_sha256": "e878b26b1adcca993602183ada9f0ffde95a6e32b5811fb2c8c9c3470e930fb2"
+    },
+    {
+      "z": 82,
+      "orbitals": [
+        {
+          "n": 1,
+          "kappa": -1,
+          "array": "Z82_1_-1",
+          "raw_sha256": "1573c46a23227186134e6efffdf6613afe37a6417788b3a5365a4f7a40e1a46c",
+          "header": "# n=1 kappa=-1 energy_Ha=-3733.0455649621867 ilast=2413 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 2,
+          "kappa": -2,
+          "array": "Z82_2_-2",
+          "raw_sha256": "e7df524d6fb0416b8a715c3159099aa15ffa1abbc26acd553f4a39dd4dbb27b4",
+          "header": "# n=2 kappa=-2 energy_Ha=-860.20158373113622 ilast=2949 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 2,
+          "kappa": -1,
+          "array": "Z82_2_-1",
+          "raw_sha256": "474c9e169e45ec79b9a17303de3510ba51d19cca408986cde34fcc6153ed4924",
+          "header": "# n=2 kappa=-1 energy_Ha=-957.68121947316627 ilast=2913 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 2,
+          "kappa": 1,
+          "array": "Z82_2_1",
+          "raw_sha256": "eacc99e93620570d230beba216d3cdcdee4a8edf859364309c4ef340361436e9",
+          "header": "# n=2 kappa=1 energy_Ha=-957.68121946187011 ilast=2899 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 3,
+          "kappa": -3,
+          "array": "Z82_3_-3",
+          "raw_sha256": "55d3b46ae822b6217fc3432dce5fa6cf717f0ec68a841b684b7854d5f8e5b699",
+          "header": "# n=3 kappa=-3 energy_Ha=-377.34680195172132 ilast=3381 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 3,
+          "kappa": 2,
+          "array": "Z82_3_2",
+          "raw_sha256": "e4996b22a1abfd3e6c23f75ba444a6949813c71d68f70c6e5e7d43e7d421c3b9",
+          "header": "# n=3 kappa=2 energy_Ha=-385.27082371115421 ilast=3369 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 4,
+          "kappa": -4,
+          "array": "Z82_4_-4",
+          "raw_sha256": "d545dea2b9ef757dd2b384f4900e68f62183f0ee921c3ac215f901a15ed2401e",
+          "header": "# n=4 kappa=-4 energy_Ha=-211.31393174892634 ilast=3767 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 4,
+          "kappa": 3,
+          "array": "Z82_4_3",
+          "raw_sha256": "87d38cdc3e4a377ee568978a6f405710a9abfce3bf1c58bba1a03b6b4037864c",
+          "header": "# n=4 kappa=3 energy_Ha=-212.92754279348776 ilast=3761 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 5,
+          "kappa": -5,
+          "array": "Z82_5_-5",
+          "raw_sha256": "275b51a7a252c62401652a2ffc69de7d271972e0fac78aa558aa1a94ff7bc509",
+          "header": "# n=5 kappa=-5 energy_Ha=-134.96500139774025 ilast=4121 alpha=0.0072973525663999998"
+        },
+        {
+          "n": 5,
+          "kappa": 4,
+          "array": "Z82_5_4",
+          "raw_sha256": "54e2a6ee44ec4241b5e54302540b022d35accc4aa1a2a06d6cf88cd2deb56976",
+          "header": "# n=5 kappa=4 energy_Ha=-135.45452249073307 ilast=4119 alpha=0.0072973525663999998"
+        }
+      ],
+      "rows": [
+        {
+          "upper": [
+            2,
+            1
+          ],
+          "multipole": -1,
+          "gauge": 1,
+          "omega_Ha": 2775.3643455003166,
+          "fac_amplitude": -0.01606564151543141,
+          "fac_gf": 0.23877832095003715,
+          "fac_A_per_s": 2.9547163184393732e+16
+        },
+        {
+          "upper": [
+            2,
+            1
+          ],
+          "multipole": -1,
+          "gauge": 2,
+          "omega_Ha": 2775.3643455003166,
+          "fac_amplitude": -0.016065641270881028,
+          "fac_gf": 0.2387783136806942,
+          "fac_A_per_s": 2.95471622848629e+16
+        },
+        {
+          "upper": [
+            2,
+            -2
+          ],
+          "multipole": -1,
+          "gauge": 1,
+          "omega_Ha": 2872.8439812310507,
+          "fac_amplitude": -0.02009385838188222,
+          "fac_gf": 0.3866495066704672,
+          "fac_A_per_s": 2.5632586633317884e+16
+        },
+        {
+          "upper": [
+            2,
+            -2
+          ],
+          "multipole": -1,
+          "gauge": 2,
+          "omega_Ha": 2872.8439812310507,
+          "fac_amplitude": -0.020093858708137978,
+          "fac_gf": 0.38664951922620705,
+          "fac_A_per_s": 2.5632587465689544e+16
+        },
+        {
+          "upper": [
+            2,
+            -1
+          ],
+          "multipole": 1,
+          "gauge": 2,
+          "omega_Ha": 2775.3643454890207,
+          "fac_amplitude": 0.0006833639816652996,
+          "fac_gf": 0.00043201907136740755,
+          "fac_A_per_s": 53459367456688.45
+        },
+        {
+          "upper": [
+            3,
+            2
+          ],
+          "multipole": -2,
+          "gauge": 1,
+          "omega_Ha": 3347.7747412510325,
+          "fac_amplitude": 6.624346409395929e-05,
+          "fac_gf": 0.0017535389201443396,
+          "fac_A_per_s": 157862420618388.44
+        },
+        {
+          "upper": [
+            3,
+            2
+          ],
+          "multipole": -2,
+          "gauge": 2,
+          "omega_Ha": 3347.7747412510325,
+          "fac_amplitude": 6.624346409016874e-05,
+          "fac_gf": 0.0017535389199436595,
+          "fac_A_per_s": 157862420600322.16
+        },
+        {
+          "upper": [
+            3,
+            -3
+          ],
+          "multipole": -2,
+          "gauge": 1,
+          "omega_Ha": 3355.6987630104654,
+          "fac_amplitude": 7.288323583057188e-05,
+          "fac_gf": 0.002137789057859322,
+          "fac_A_per_s": 128911130815679.61
+        },
+        {
+          "upper": [
+            3,
+            -3
+          ],
+          "multipole": -2,
+          "gauge": 2,
+          "omega_Ha": 3355.6987630104654,
+          "fac_amplitude": 7.288323669419926e-05,
+          "fac_gf": 0.0021377891085226372,
+          "fac_A_per_s": 128911133870735.58
+        },
+        {
+          "upper": [
+            2,
+            -2
+          ],
+          "multipole": 2,
+          "gauge": 2,
+          "omega_Ha": 2872.8439812310507,
+          "fac_amplitude": 8.011980830178652e-05,
+          "fac_gf": 0.0016209759829244246,
+          "fac_A_per_s": 107461167274292.97
+        },
+        {
+          "upper": [
+            4,
+            3
+          ],
+          "multipole": -3,
+          "gauge": 1,
+          "omega_Ha": 3520.118022168699,
+          "fac_amplitude": -1.8015877234702208e-07,
+          "fac_gf": 7.1065731156503e-06,
+          "fac_A_per_s": 471557124359.66583
+        },
+        {
+          "upper": [
+            4,
+            3
+          ],
+          "multipole": -3,
+          "gauge": 2,
+          "omega_Ha": 3520.118022168699,
+          "fac_amplitude": -1.8015877237243714e-07,
+          "fac_gf": 7.106573117655355e-06,
+          "fac_A_per_s": 471557124492.7114
+        },
+        {
+          "upper": [
+            4,
+            -4
+          ],
+          "multipole": -3,
+          "gauge": 1,
+          "omega_Ha": 3521.7316332132605,
+          "fac_amplitude": -1.8768333463120492e-07,
+          "fac_gf": 7.73029364229764e-06,
+          "fac_A_per_s": 385060884367.7048
+        },
+        {
+          "upper": [
+            4,
+            -4
+          ],
+          "multipole": -3,
+          "gauge": 2,
+          "omega_Ha": 3521.7316332132605,
+          "fac_amplitude": -1.8768333727025383e-07,
+          "fac_gf": 7.730293859691723e-06,
+          "fac_A_per_s": 385060895196.5247
+        },
+        {
+          "upper": [
+            3,
+            -3
+          ],
+          "multipole": 3,
+          "gauge": 2,
+          "omega_Ha": 3355.6987630104654,
+          "fac_amplitude": -3.031410091557219e-07,
+          "fac_gf": 1.584044947976359e-05,
+          "fac_A_per_s": 955197262123.5782
+        },
+        {
+          "upper": [
+            5,
+            4
+          ],
+          "multipole": -4,
+          "gauge": 1,
+          "omega_Ha": 3597.591042471454,
+          "fac_amplitude": 3.6629511982224565e-10,
+          "fac_gf": 1.755877786342669e-08,
+          "fac_A_per_s": 912722521.7762724
+        },
+        {
+          "upper": [
+            5,
+            4
+          ],
+          "multipole": -4,
+          "gauge": 2,
+          "omega_Ha": 3597.591042471454,
+          "fac_amplitude": 3.6629512376832736e-10,
+          "fac_gf": 1.755877824174662e-08,
+          "fac_A_per_s": 912722541.4417139
+        },
+        {
+          "upper": [
+            5,
+            -5
+          ],
+          "multipole": -4,
+          "gauge": 1,
+          "omega_Ha": 3598.0805635644465,
+          "fac_amplitude": 3.700003134395425e-10,
+          "fac_gf": 1.793287138759776e-08,
+          "fac_A_per_s": 745937573.2475712
+        },
+        {
+          "upper": [
+            5,
+            -5
+          ],
+          "multipole": -4,
+          "gauge": 2,
+          "omega_Ha": 3598.0805635644465,
+          "fac_amplitude": 3.700003220140752e-10,
+          "fac_gf": 1.7932872218764587e-08,
+          "fac_A_per_s": 745937607.8208725
+        },
+        {
+          "upper": [
+            4,
+            -4
+          ],
+          "multipole": 4,
+          "gauge": 2,
+          "omega_Ha": 3521.7316332132605,
+          "fac_amplitude": 7.853458626554387e-10,
+          "fac_gf": 6.95288738738978e-08,
+          "fac_A_per_s": 3463367745.370164
+        }
+      ],
+      "photon_output_sha256": "95f20c05a349ed1dd7e4c813a9bcc5cfba6f2ef3b874fb1db7f375597ae1554e"
+    }
+  ],
+  "spinors_sha256": "19c592cc49045a7006e2fcc2843bd0243e19f24021ee127a5e3545a4fbf91efe"
+}

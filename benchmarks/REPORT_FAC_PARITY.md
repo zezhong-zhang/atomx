@@ -1,5 +1,10 @@
 # AtomX ↔ FAC parity audit (spectrum / scattering / ionisation)
 
+Historical results: the 2026-09-29 live audit corrected FAC A/gA column
+interpretation and magnetic multipole normalization. Radiative comparisons
+using the old conversion require regeneration. Current evidence and limits
+are in `docs/VERIFICATION.md`; these older tables are not current validation.
+
 First generated 2026-05-03.  Updated 2026-05-04 after fixes landed.
 Companion to `benchmarks/REPORT.md` (structure / DHF parity).
 
@@ -672,7 +677,7 @@ New module `numerics/shooting/scf_potential.py` with three callable
 factories:
 
 ```python
-from atomx.numerics.shooting.scf_potential import (
+from atomx.potentials.static_field import (
     bare_nuclear_potential,        # V(r) = -Z/r
     static_hartree_potential,      # V(r) = -Z/r + Σ_b q_b · V_d^{(0)}(b)(r)
     tabulated_potential,           # wrap any (r, V) table as a callable

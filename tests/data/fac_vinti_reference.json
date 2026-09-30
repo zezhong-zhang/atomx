@@ -1,0 +1,667 @@
+{
+  "scope": "point-Coulomb one-electron radial momentum and first-order Breit recoil",
+  "reference": {
+    "executable": "/tmp/atomx-fac-vinti/sfac",
+    "sha256": "e9d0e07e40dc8c6b0d066adf16cad9c0d9ffa0e004f870ff9e060eac7f1f4ce5"
+  },
+  "points": 2000,
+  "diagnostic": "sfac adds a read-only DumpVinti command; unchanged libfac.a evaluates all integrals",
+  "source_hashes": {
+    "/home/zzhang/code/fac/libfac.a": "b15cbe8420fc20b3f87412a0dc16f8370f95ac8c5e5fadebf024f504c0aaac6b",
+    "/home/zzhang/code/fac/faclib/radial.c": "c1a020c5b693cf9cadb74d71cc6052377c916c808cb0879104914e11fb793d3c",
+    "/home/zzhang/code/grasp/src/appl/ris4/rint_sms2.f90": "b84f47991d3c40225236a6bb9171dcc45a956d35dea2555b6e179c6538bc85aa",
+    "/home/zzhang/code/grasp/src/lib/lib9290/cre.f90": "b0fa7f843a3d02046020c9380ed39d1c83545fc72c7245eb7f2545182d8b911c"
+  },
+  "cases": [
+    {
+      "z": 10,
+      "rows": [
+        {
+          "bra": [
+            1,
+            -1
+          ],
+          "ket": [
+            2,
+            1
+          ],
+          "fac_terms": [
+            4.854841241640654,
+            -0.027458829898186442,
+            -0.01778769810379292
+          ],
+          "atomx_leading": 4.854841663444598,
+          "atomx_breit": 4.809595132523777,
+          "leading_magnitude_ratio": 1.0000000868831593,
+          "breit_magnitude_ratio": 1.0000000870936383,
+          "correction_fraction_difference": 2.085174099358822e-10
+        },
+        {
+          "bra": [
+            2,
+            1
+          ],
+          "ket": [
+            1,
+            -1
+          ],
+          "fac_terms": [
+            -4.854833482949455,
+            0.027458829898186442,
+            0.01778769810379292
+          ],
+          "atomx_leading": -4.854841664448257,
+          "atomx_breit": -4.809595133527435,
+          "leading_magnitude_ratio": 1.0000016852274811,
+          "breit_magnitude_ratio": 1.0000017004744974,
+          "correction_fraction_difference": 1.5104890170244967e-08
+        },
+        {
+          "bra": [
+            1,
+            -1
+          ],
+          "ket": [
+            2,
+            -2
+          ],
+          "fac_terms": [
+            4.841967641249945,
+            -0.012896290050714304,
+            -0.003227297845129541
+          ],
+          "atomx_leading": 4.841965677597936,
+          "atomx_breit": 4.825841993757963,
+          "leading_magnitude_ratio": 0.9999995944516455,
+          "breit_magnitude_ratio": 0.9999995732153556,
+          "correction_fraction_difference": -2.116558252187456e-08
+        },
+        {
+          "bra": [
+            2,
+            -2
+          ],
+          "ket": [
+            1,
+            -1
+          ],
+          "fac_terms": [
+            -4.841957421773729,
+            0.012896290050714304,
+            0.003227297845129541
+          ],
+          "atomx_leading": -4.841965678601089,
+          "atomx_breit": -4.825841994761116,
+          "leading_magnitude_ratio": 1.000001705266412,
+          "breit_magnitude_ratio": 1.000001691082518,
+          "correction_fraction_difference": -1.4136638142210611e-08
+        },
+        {
+          "bra": [
+            2,
+            1
+          ],
+          "ket": [
+            3,
+            2
+          ],
+          "fac_terms": [
+            3.299422318369734,
+            -0.004152244905483169,
+            -0.0017103892431317672
+          ],
+          "atomx_leading": 3.2994222654761147,
+          "atomx_breit": 3.293559631124076,
+          "leading_magnitude_ratio": 0.9999999839688242,
+          "breit_magnitude_ratio": 0.9999999838785241,
+          "correction_fraction_difference": -9.013969431981295e-11
+        },
+        {
+          "bra": [
+            3,
+            2
+          ],
+          "ket": [
+            2,
+            1
+          ],
+          "fac_terms": [
+            -3.2994222283717005,
+            0.004152244905483169,
+            0.0017103892431317672
+          ],
+          "atomx_leading": -3.2994222660707675,
+          "atomx_breit": -3.2935596317187286,
+          "leading_magnitude_ratio": 1.0000000114259602,
+          "breit_magnitude_ratio": 1.0000000113845346,
+          "correction_fraction_difference": -4.135201859753468e-11
+        },
+        {
+          "bra": [
+            2,
+            -2
+          ],
+          "ket": [
+            3,
+            2
+          ],
+          "fac_terms": [
+            3.300044357019576,
+            -0.005978179323074083,
+            -0.003539487535950818
+          ],
+          "atomx_leading": 3.300044295224638,
+          "atomx_breit": 3.2905266252892957,
+          "leading_magnitude_ratio": 0.9999999812745128,
+          "breit_magnitude_ratio": 0.9999999802854492,
+          "correction_fraction_difference": -9.862110455539919e-10
+        },
+        {
+          "bra": [
+            3,
+            2
+          ],
+          "ket": [
+            2,
+            -2
+          ],
+          "fac_terms": [
+            -3.300046056739291,
+            0.005978179323074083,
+            0.003539487535950818
+          ],
+          "atomx_leading": -3.3000442958171132,
+          "atomx_breit": -3.290526625881771,
+          "leading_magnitude_ratio": 0.9999994663946662,
+          "breit_magnitude_ratio": 0.9999994639163422,
+          "correction_fraction_difference": -2.471177431954963e-09
+        },
+        {
+          "bra": [
+            2,
+            -2
+          ],
+          "ket": [
+            3,
+            -3
+          ],
+          "fac_terms": [
+            3.2982480201803077,
+            -0.0029274491222333002,
+            -0.0004880473944412797
+          ],
+          "atomx_leading": 3.298325365864759,
+          "atomx_breit": 3.2949098309833285,
+          "leading_magnitude_ratio": 1.0000234505361567,
+          "breit_magnitude_ratio": 1.000023463201586,
+          "correction_fraction_difference": 1.2652016966431881e-08
+        },
+        {
+          "bra": [
+            3,
+            -3
+          ],
+          "ket": [
+            2,
+            -2
+          ],
+          "fac_terms": [
+            -3.2983270026043514,
+            0.0029274491222333002,
+            0.0004880473944412797
+          ],
+          "atomx_leading": -3.298325366457856,
+          "atomx_breit": -3.294909831576425,
+          "leading_magnitude_ratio": 0.9999995039465479,
+          "breit_magnitude_ratio": 0.9999994917887024,
+          "correction_fraction_difference": -1.2145261748131714e-08
+        },
+        {
+          "bra": [
+            3,
+            2
+          ],
+          "ket": [
+            4,
+            3
+          ],
+          "fac_terms": [
+            2.4873719615004273,
+            -0.0014260202445236768,
+            -0.0004600457487997725
+          ],
+          "atomx_leading": 2.4873719710055986,
+          "atomx_breit": 2.485485904977197,
+          "leading_magnitude_ratio": 1.000000003821371,
+          "breit_magnitude_ratio": 1.0000000038101577,
+          "correction_fraction_difference": -1.1204951463200663e-11
+        },
+        {
+          "bra": [
+            4,
+            3
+          ],
+          "ket": [
+            3,
+            2
+          ],
+          "fac_terms": [
+            -2.487371934332432,
+            0.0014260202445236768,
+            0.0004600457487997725
+          ],
+          "atomx_leading": -2.4873719711401097,
+          "atomx_breit": -2.485485905111708,
+          "leading_magnitude_ratio": 1.0000000147978183,
+          "breit_magnitude_ratio": 1.0000000147949342,
+          "correction_fraction_difference": -2.8819889183462344e-12
+        },
+        {
+          "bra": [
+            3,
+            -3
+          ],
+          "ket": [
+            4,
+            3
+          ],
+          "fac_terms": [
+            2.4874562645916853,
+            -0.0022302885295966183,
+            -0.0012648698719479102
+          ],
+          "atomx_leading": 2.4874562659580284,
+          "atomx_breit": 2.4839610855476497,
+          "leading_magnitude_ratio": 1.0000000005492933,
+          "breit_magnitude_ratio": 0.9999999916896882,
+          "correction_fraction_difference": -8.847156256729105e-09
+        },
+        {
+          "bra": [
+            4,
+            3
+          ],
+          "ket": [
+            3,
+            -3
+          ],
+          "fac_terms": [
+            -2.4874692039608703,
+            0.0022302885295966183,
+            0.0012648698719479102
+          ],
+          "atomx_leading": -2.4874562660918778,
+          "atomx_breit": -2.483961085681499,
+          "leading_magnitude_ratio": 0.9999947987822434,
+          "breit_magnitude_ratio": 0.9999947826033649,
+          "correction_fraction_difference": -1.6156229406616776e-08
+        },
+        {
+          "bra": [
+            3,
+            -3
+          ],
+          "ket": [
+            4,
+            -4
+          ],
+          "fac_terms": [
+            2.486892666996199,
+            -0.0011036526451089286,
+            -0.0001379590618462023
+          ],
+          "atomx_leading": 2.4869932596102458,
+          "atomx_breit": 2.4857516360886462,
+          "leading_magnitude_ratio": 1.0000404491176407,
+          "breit_magnitude_ratio": 1.0000404645693082,
+          "correction_fraction_difference": 1.5443328392678903e-08
+        },
+        {
+          "bra": [
+            4,
+            -4
+          ],
+          "ket": [
+            3,
+            -3
+          ],
+          "fac_terms": [
+            -2.487006652223833,
+            0.0011036526451089286,
+            0.0001379590618462023
+          ],
+          "atomx_leading": -2.4869932597443247,
+          "atomx_breit": -2.485751636222725,
+          "leading_magnitude_ratio": 0.9999946150206327,
+          "breit_magnitude_ratio": 0.9999946075779752,
+          "correction_fraction_difference": -7.438981883723002e-09
+        }
+      ]
+    },
+    {
+      "z": 82,
+      "rows": [
+        {
+          "bra": [
+            1,
+            -1
+          ],
+          "ket": [
+            2,
+            1
+          ],
+          "fac_terms": [
+            52.0608849808922,
+            -19.304261550718163,
+            -13.623441838255628
+          ],
+          "atomx_leading": 52.06088246919791,
+          "atomx_breit": 19.133204190457633,
+          "leading_magnitude_ratio": 0.9999999517546755,
+          "breit_magnitude_ratio": 1.0000011811176894,
+          "correction_fraction_difference": 4.5180997065852324e-07
+        },
+        {
+          "bra": [
+            2,
+            1
+          ],
+          "ket": [
+            1,
+            -1
+          ],
+          "fac_terms": [
+            -52.060810012791464,
+            19.304261550718163,
+            13.623441838255628
+          ],
+          "atomx_leading": -52.060882472340616,
+          "atomx_breit": -19.133204193600342,
+          "leading_magnitude_ratio": 1.0000013918252355,
+          "breit_magnitude_ratio": 1.0000050995264174,
+          "correction_fraction_difference": 1.3626323387416761e-06
+        },
+        {
+          "bra": [
+            1,
+            -1
+          ],
+          "ket": [
+            2,
+            -2
+          ],
+          "fac_terms": [
+            41.48033228848715,
+            -7.641949404567601,
+            -2.0600619545673697
+          ],
+          "atomx_leading": 41.48019748980508,
+          "atomx_breit": 31.778166845482733,
+          "leading_magnitude_ratio": 0.9999967502988855,
+          "breit_magnitude_ratio": 0.9999951512897806,
+          "correction_fraction_difference": -1.2250140447034319e-06
+        },
+        {
+          "bra": [
+            2,
+            -2
+          ],
+          "ket": [
+            1,
+            -1
+          ],
+          "fac_terms": [
+            -41.480144300524834,
+            7.641949404567601,
+            2.0600619545673697
+          ],
+          "atomx_leading": -41.480197492684844,
+          "atomx_breit": -31.7781668483625,
+          "leading_magnitude_ratio": 1.0000012823523377,
+          "breit_magnitude_ratio": 1.0000010669907102,
+          "correction_fraction_difference": -1.649893404953584e-07
+        },
+        {
+          "bra": [
+            2,
+            1
+          ],
+          "ket": [
+            3,
+            2
+          ],
+          "fac_terms": [
+            28.113452651436386,
+            -2.551897994405925,
+            -1.0822661735709582
+          ],
+          "atomx_leading": 28.11345264771213,
+          "atomx_breit": 24.47928837637074,
+          "leading_magnitude_ratio": 0.9999999998675276,
+          "breit_magnitude_ratio": 0.9999999956253317,
+          "correction_fraction_difference": -3.6938164471589374e-09
+        },
+        {
+          "bra": [
+            3,
+            2
+          ],
+          "ket": [
+            2,
+            1
+          ],
+          "fac_terms": [
+            -28.11345230302416,
+            2.551897994405925,
+            1.0822661735709582
+          ],
+          "atomx_leading": -28.11345265059055,
+          "atomx_breit": -24.47928837924916,
+          "leading_magnitude_ratio": 1.0000000123629922,
+          "breit_magnitude_ratio": 1.0000000099758573,
+          "correction_fraction_difference": -2.0785552445889977e-09
+        },
+        {
+          "bra": [
+            2,
+            -2
+          ],
+          "ket": [
+            3,
+            2
+          ],
+          "fac_terms": [
+            28.706788630128283,
+            -3.434438032516901,
+            -2.0880232402952825
+          ],
+          "atomx_leading": 28.706788311279926,
+          "atomx_breit": 23.184327022159493,
+          "leading_magnitude_ratio": 0.9999999888929284,
+          "breit_magnitude_ratio": 0.9999999855438287,
+          "correction_fraction_difference": -2.7048174533472746e-09
+        },
+        {
+          "bra": [
+            3,
+            2
+          ],
+          "ket": [
+            2,
+            -2
+          ],
+          "fac_terms": [
+            -28.706791031140426,
+            3.434438032516901,
+            2.0880232402952825
+          ],
+          "atomx_leading": -28.706788313702692,
+          "atomx_breit": -23.18432702458226,
+          "leading_magnitude_ratio": 0.9999999053381574,
+          "breit_magnitude_ratio": 0.9999998820864777,
+          "correction_fraction_difference": -1.877864577726207e-08
+        },
+        {
+          "bra": [
+            2,
+            -2
+          ],
+          "ket": [
+            3,
+            -3
+          ],
+          "fac_terms": [
+            27.66205594149349,
+            -1.6552136817847318,
+            -0.28301250430154345
+          ],
+          "atomx_leading": 27.66265139703926,
+          "atomx_breit": 25.72440321290274,
+          "leading_magnitude_ratio": 1.0000215260769854,
+          "breit_magnitude_ratio": 1.0000222928506748,
+          "correction_fraction_difference": 7.130320072989971e-07
+        },
+        {
+          "bra": [
+            3,
+            -3
+          ],
+          "ket": [
+            2,
+            -2
+          ],
+          "fac_terms": [
+            -27.662669552661743,
+            1.6552136817847318,
+            0.28301250430154345
+          ],
+          "atomx_leading": -27.662651399634022,
+          "atomx_breit": -25.724403215497503,
+          "leading_magnitude_ratio": 0.99999934377166,
+          "breit_magnitude_ratio": 0.9999984391857428,
+          "correction_fraction_difference": -8.412053082162974e-07
+        },
+        {
+          "bra": [
+            3,
+            2
+          ],
+          "ket": [
+            4,
+            3
+          ],
+          "fac_terms": [
+            20.86099525650974,
+            -0.8149997425285103,
+            -0.26449901529736397
+          ],
+          "atomx_leading": 20.86099489342384,
+          "atomx_breit": 19.781496140513312,
+          "leading_magnitude_ratio": 0.9999999825949868,
+          "breit_magnitude_ratio": 0.9999999818936574,
+          "correction_fraction_difference": -6.650374972938522e-10
+        },
+        {
+          "bra": [
+            4,
+            3
+          ],
+          "ket": [
+            3,
+            2
+          ],
+          "fac_terms": [
+            -20.860995041813464,
+            0.8149997425285103,
+            0.26449901529736397
+          ],
+          "atomx_leading": -20.860994894312846,
+          "atomx_breit": -19.781496141402318,
+          "leading_magnitude_ratio": 0.9999999929293585,
+          "breit_magnitude_ratio": 0.9999999927919876,
+          "correction_fraction_difference": -1.3026236339586106e-10
+        },
+        {
+          "bra": [
+            3,
+            -3
+          ],
+          "ket": [
+            4,
+            3
+          ],
+          "fac_terms": [
+            20.914474823391974,
+            -1.2475510010871829,
+            -0.7170499870221944
+          ],
+          "atomx_leading": 20.914474963243734,
+          "atomx_breit": 18.94986199915859,
+          "leading_magnitude_ratio": 1.0000000066868406,
+          "breit_magnitude_ratio": 0.9999993753982684,
+          "correction_fraction_difference": -5.719884823701671e-07
+        },
+        {
+          "bra": [
+            4,
+            3
+          ],
+          "ket": [
+            3,
+            -3
+          ],
+          "fac_terms": [
+            -20.914574664927922,
+            1.2475510010871829,
+            0.7170499870221944
+          ],
+          "atomx_leading": -20.91447496393068,
+          "atomx_breit": -18.949861999845535,
+          "leading_magnitude_ratio": 0.9999952329416764,
+          "breit_magnitude_ratio": 0.9999941067478553,
+          "correction_fraction_difference": -1.0204101846961189e-06
+        },
+        {
+          "bra": [
+            3,
+            -3
+          ],
+          "ket": [
+            4,
+            -4
+          ],
+          "fac_terms": [
+            20.64704795273178,
+            -0.6165012023373209,
+            -0.07807771267581119
+          ],
+          "atomx_leading": 20.647831347299938,
+          "atomx_breit": 19.95324579509531,
+          "leading_magnitude_ratio": 1.0000379422070387,
+          "breit_magnitude_ratio": 1.0000389303887751,
+          "correction_fraction_difference": 9.549024868465983e-07
+        },
+        {
+          "bra": [
+            4,
+            -4
+          ],
+          "ket": [
+            3,
+            -3
+          ],
+          "fac_terms": [
+            -20.647936621246405,
+            0.6165012023373209,
+            0.07807771267581119
+          ],
+          "atomx_leading": -20.647831348058734,
+          "atomx_breit": -19.953245795854105,
+          "leading_magnitude_ratio": 0.999994901515362,
+          "breit_magnitude_ratio": 0.9999943914011459,
+          "correction_fraction_difference": -4.92956923815735e-07
+        }
+      ]
+    }
+  ]
+}

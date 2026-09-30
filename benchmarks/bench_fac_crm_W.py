@@ -187,7 +187,7 @@ def run_fac_ion_reference(charge: int, *, timeout: float = 120.0) -> FACIonRefer
         if charge in W_CHARGES and not transitions:
             raise RuntimeError(f"FAC W{charge}+ run did not produce parseable transitions")
         transition_power = sum(
-            max(row["gA_per_s"], 0.0) * max(row["DELTA_E_eV"], 0.0)
+            max(row["A_per_s"], 0.0) * max(row["DELTA_E_eV"], 0.0)
             for row in transitions
         )
         return FACIonReference(

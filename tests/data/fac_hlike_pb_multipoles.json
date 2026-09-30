@@ -1,0 +1,12 @@
+{
+  "reference": {
+    "path": "/data/code/fac/sfac/sfac",
+    "sha256": "d364e867895460efb8924dbb80eccf6addae5d842c08002aff0fc58f3cc21deb"
+  },
+  "scope": "one-electron point-nucleus, infinite mass, no corrections; E1-E4/M1-M4",
+  "Z": 82,
+  "command": "sfac run.sf",
+  "input": "SetAtom('Pb',82,-1,0)\nSetBreit(0)\nSetSE(0)\nSetVP(0)\nSetMS(0,0)\nSetRadialGrid(2000,-1,-1,-1)\nSetTransitionCut(0)\nConfig('g','1s1')\nConfig('s','2s1')\nConfig('p','2p1')\nConfig('d','3d1')\nConfig('f','4f1')\nConfig('q','5g1')\nOptimizeRadial(['g'])\nStructure('levels.b',['g','s','p','d','f','q'])\nMemENTable('levels.b')\nPrintTable('levels.b','levels.txt',1)\nSetTransitionOptions(2,1)\nTransitionTable('lines.b',['g'],['p'],-1)\nTransitionTable('lines.b',['g'],['d'],-2)\nTransitionTable('lines.b',['g'],['p'],2)\nTransitionTable('lines.b',['g'],['f'],-3)\nTransitionTable('lines.b',['g'],['d'],3)\nTransitionTable('lines.b',['g'],['q'],-4)\nTransitionTable('lines.b',['g'],['f'],4)\nSetTransitionOptions(2,0)\nTransitionTable('lines.b',['g'],['p'],-1)\nTransitionTable('lines.b',['g'],['s'],1)\nTransitionTable('lines.b',['g'],['d'],-2)\nTransitionTable('lines.b',['g'],['p'],2)\nTransitionTable('lines.b',['g'],['f'],-3)\nTransitionTable('lines.b',['g'],['d'],3)\nTransitionTable('lines.b',['g'],['q'],-4)\nTransitionTable('lines.b',['g'],['f'],4)\nPrintTable('lines.b','lines.txt',1)\n",
+  "raw_sha256": "00240171f370601bd7791a8d5cd3a3b00b6eda92a0bc192895923ad8be1e244d",
+  "source": "supplied ~/code/fac build, live 2026-09-29"
+}

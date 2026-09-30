@@ -20,11 +20,10 @@ References used
                    1997 columns) of relativistic neutral ground-state
                    energies.
 
-Not runnable here (recorded so the coverage is honest): ``grasp-rci-qed``
-needs a pre-built GRASP (``$GRASP``) that is not in the collection;
-``pCI-main`` requires the Intel Fortran compiler; ``Cowan`` ships as
-unpacked-but-unbuilt Fortran with unresolved ``.rej`` patches;
-``radial/demorad`` is a Linux x86-64 binary and this host is macOS/arm64.
+This legacy report runner retains historical ASAP layouts. For auditable
+state-, nucleus- and constant-matched current calculations, use
+``bench_reference_structure.py``; reference availability is established by
+actual execution, not by this module's historical host assumptions.
 
 Usage
 -----
@@ -47,12 +46,12 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "benchmarks"))
 
 ASAP = Path(os.environ.get("ASAP_ROOT", Path.home() / "code" / "ASAP"))
-DBSR_BIN = ASAP / "dbsr_hf" / "DBSR_HF" / "dbsr_hf"
+DBSR_BIN = Path(os.environ.get("DBSR_HF_BIN", ASAP / "dbsr_hf" / "DBSR_HF" / "dbsr_hf"))
 SALVAT_TABS = ASAP / "radial" / "DHFS"
 WF_TXT = ASAP / "WF_TXT"
 TABLE_S12 = ASAP / "energy_level.csv"
 
-from atomx import Atom, Exchange  # noqa: E402
+from atomx import Atom, Correlation, Exchange  # noqa: E402
 from atomx.constants import (
     HARTREE_EV,  # noqa: E402
     chemical_symbols,  # noqa: E402
@@ -61,7 +60,7 @@ from atomx.constants import (
 #: Closed-shell / average-level panel.  Each is a neutral atom whose
 #: DBSR_HF default configuration is a closed shell, so the average-level
 #: DFS coincides with the restricted Dirac-Fock atomx runs.
-DBSR_PANEL = [2, 4, 10, 12, 18, 20, 30, 36, 54, 74, 86]
+DBSR_PANEL = [2, 4, 10, 12, 18, 20, 30, 36, 54, 86]
 #: He-like ions for the FAC comparison (1s2, 1s2s, 1s2p are one-electron
 #: excitations FAC and atomx both handle).
 FAC_PANEL = [(10, "He-like"), (18, "He-like"), (26, "He-like"),
@@ -73,25 +72,11 @@ FAC_PANEL = [(10, "He-like"), (18, "He-like"), (26, "He-like"),
 # parsing helpers
 # ---------------------------------------------------------------------------
 
-_RE_ETOTAL = re.compile(r"Etotal\s*=\s*(-?\d+\.\d+)")
-_RE_ORB = re.compile(
-    r"^\s*(\d+[spdf])([-+]?)\s+(-?\d+\.\d+)\s+\d+\.\d+D[-+]\d+", re.M
-)
-
-
 def parse_dbsr_log(text: str):
     """Return ``(total_energy_Ha, {orbital_label: eps_Ha})`` from a DBSR log."""
-    totals = _RE_ETOTAL.findall(text)
-    if not totals:
-        return None, {}
-    total = float(totals[-1])
-    eps: dict[str, float] = {}
-    # Only the final summary table is wanted; it follows "nl e(nl) dmp ns".
-    tail = text.rsplit("nl         e(nl)", 1)[-1]
-    for m in _RE_ORB.finditer(tail):
-        label = m.group(1) + m.group(2)
-        eps[label] = float(m.group(3))
-    return total, eps
+    from atomx.reference_data.structure_outputs import parse_dbsr_summary
+    result = parse_dbsr_summary(text)
+    return result['total_energy_Ha'], result['orbital_energies_Ha']
 
 
 def run_dbsr(z: int, *, timeout: float = 300.0):
@@ -117,6 +102,7 @@ def atomx_closed_shell(z: int, charge: int = 0, *, exchange: str = "hf"):
                 charge=charge,
                 engine="bspline",
                 exchange=exchange,
+                correlation=Correlation(averaging="statistical"),
                 corrections="none",
            )
     atom.solve()
@@ -141,21 +127,11 @@ def compare_dbsr(rows: list[dict], quick: bool) -> None:
         # Orbital energies: match on the (n, l, j) label DBSR prints.
         worst_orb, worst_lab = 0.0, ""
         for lab, e_r in eps_ref.items():
-            m = re.match(r"(\d+)([spdf])([-+]?)", lab)
-            if not m:
-                continue
-            n, letter, sign = int(m.group(1)), m.group(2), m.group(3)
-            kappa = {"s": -1, "p": -2 if sign == "" else 1,
-                     "d": -3 if sign == "" else 2}.get(letter)
-            if kappa is None:
-                continue
-            at_lab = f"{n}{letter}{'1/2' if abs(kappa) == 1 else '3/2'}"
-            e_at_orb = atom.orbital_energies.get(at_lab)
-            if e_at_orb is None:
-                continue
-            d = abs(e_at_orb - e_r)
+            if lab not in atom.orbital_energies:
+                raise ValueError(f"missing Atomx orbital {lab} for DBSR comparison")
+            d = abs(atom.orbital_energies[lab] - e_r)
             if d > worst_orb:
-                worst_orb, worst_lab = d, f"{lab} vs {at_lab}"
+                worst_orb, worst_lab = d, lab
         rows.append({
             "ref": "dbsr_hf", "system": f"Z={z} {chemical_symbols[z]}",
             "status": "ok",

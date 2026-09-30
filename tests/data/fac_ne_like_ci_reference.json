@@ -1,0 +1,1384 @@
+{
+  "scope": "Live Ne-like frozen-configuration CI levels and E1 rates against FAC.\n\nBoth codes mix all jj states within each 2p5 3s / 2p5 3d configuration,\nseparately. They optimize their own local ground-state potentials: this\ncompares physical models, not identical radial inputs or full MCDHF.\nPoint nuclei, infinite mass and Dirac-Coulomb energies isolate that difference.\nStatic and finite-wavelength photons are compared independently. Every FAC\ntransition call contains a single upper level, avoiding frequency averaging.\n",
+  "controls": {
+    "out": "benchmarks/runs/2026-09-30-fe17-transition-audit/frozen",
+    "fac": "/tmp/atomx-fac-photon/sfac",
+    "z": [
+      18,
+      26,
+      54,
+      82
+    ],
+    "fac_points": 16000,
+    "fac_density": 8.0,
+    "atomx_points": 4000,
+    "repeats": 1,
+    "fac_configuration_shifts": false,
+    "fixture": "tests/data/fac_ne_like_ci_reference.json"
+  },
+  "fac_sha256": "ca3e1c35a05896ab3ab5e0a7d2c12a09f04b894c94e9f6feb9cf05311a1e5c18",
+  "runner_sha256": "5e735263df17c2c42268bbbff48f772623c021ea09afeb6412c23ef85e85ecd1",
+  "amplitude_convention": "E1 S = reduced_matrix_element**2 / 2; printed rate is A, not gA",
+  "cases": [
+    {
+      "z": 18,
+      "levels": {
+        "2p5 3s1": [
+          {
+            "ILEV": 1,
+            "IBASE": -1,
+            "ENERGY_eV": 252.823096,
+            "P": 1,
+            "VNL": "300",
+            "TWOJ": 4,
+            "config": "2*7.3*1 2p5.3s1 2p+3(3)3.3s+1(1)4"
+          },
+          {
+            "ILEV": 2,
+            "IBASE": -1,
+            "ENERGY_eV": 253.707271,
+            "P": 1,
+            "VNL": "300",
+            "TWOJ": 2,
+            "config": "2*7.3*1 2p5.3s1 2p+3(3)3.3s+1(1)2"
+          },
+          {
+            "ILEV": 3,
+            "IBASE": -1,
+            "ENERGY_eV": 255.172845,
+            "P": 1,
+            "VNL": "300",
+            "TWOJ": 0,
+            "config": "2*7.3*1 2p5.3s1 2p-1(1)1.3s+1(1)0"
+          },
+          {
+            "ILEV": 4,
+            "IBASE": -1,
+            "ENERGY_eV": 256.188519,
+            "P": 1,
+            "VNL": "300",
+            "TWOJ": 2,
+            "config": "2*7.3*1 2p5.3s1 2p-1(1)1.3s+1(1)2"
+          }
+        ],
+        "2p5 3d1": [
+          {
+            "ILEV": 5,
+            "IBASE": -1,
+            "ENERGY_eV": 293.434792,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 0,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d-1(3)0"
+          },
+          {
+            "ILEV": 6,
+            "IBASE": -1,
+            "ENERGY_eV": 293.694344,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 2,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d-1(3)2"
+          },
+          {
+            "ILEV": 7,
+            "IBASE": -1,
+            "ENERGY_eV": 294.209403,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 4,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d+1(5)4"
+          },
+          {
+            "ILEV": 8,
+            "IBASE": -1,
+            "ENERGY_eV": 294.432194,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 8,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d+1(5)8"
+          },
+          {
+            "ILEV": 9,
+            "IBASE": -1,
+            "ENERGY_eV": 294.814274,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 6,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d-1(3)6"
+          },
+          {
+            "ILEV": 10,
+            "IBASE": -1,
+            "ENERGY_eV": 295.442494,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 4,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d-1(3)4"
+          },
+          {
+            "ILEV": 11,
+            "IBASE": -1,
+            "ENERGY_eV": 295.894146,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 6,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d+1(5)6"
+          },
+          {
+            "ILEV": 12,
+            "IBASE": -1,
+            "ENERGY_eV": 297.183051,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 2,
+            "config": "2*7.3*1 2p5.3d1 2p-1(1)1.3d-1(3)2"
+          },
+          {
+            "ILEV": 13,
+            "IBASE": -1,
+            "ENERGY_eV": 297.444449,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 4,
+            "config": "2*7.3*1 2p5.3d1 2p-1(1)1.3d-1(3)4"
+          },
+          {
+            "ILEV": 14,
+            "IBASE": -1,
+            "ENERGY_eV": 297.753562,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 6,
+            "config": "2*7.3*1 2p5.3d1 2p-1(1)1.3d+1(5)6"
+          },
+          {
+            "ILEV": 15,
+            "IBASE": -1,
+            "ENERGY_eV": 297.779102,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 4,
+            "config": "2*7.3*1 2p5.3d1 2p-1(1)1.3d+1(5)4"
+          },
+          {
+            "ILEV": 16,
+            "IBASE": -1,
+            "ENERGY_eV": 301.629789,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 2,
+            "config": "2*7.3*1 2p5.3d1 2p-1(1)1.3d-1(3)2"
+          }
+        ]
+      },
+      "lines": {
+        "long_wavelength": [
+          {
+            "upper": 2,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 253.7073,
+            "gf": 0.0470368,
+            "A_per_s": 43791710000.0,
+            "reduced_matrix_element": -0.1230236,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 1,
+            "gauge": "length",
+            "Z": 18,
+            "mult": -1
+          },
+          {
+            "upper": 4,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 256.1885,
+            "gf": 0.1192926,
+            "A_per_s": 113245600000.0,
+            "reduced_matrix_element": 0.1949678,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 1,
+            "gauge": "length",
+            "Z": 18,
+            "mult": -1
+          },
+          {
+            "upper": 6,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 293.6943,
+            "gf": 0.00535616,
+            "A_per_s": 6682408000.0,
+            "reduced_matrix_element": -0.03858468,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 1,
+            "gauge": "length",
+            "Z": 18,
+            "mult": -1
+          },
+          {
+            "upper": 12,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 297.1831,
+            "gf": 0.1326398,
+            "A_per_s": 169437700000.0,
+            "reduced_matrix_element": 0.1908802,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 1,
+            "gauge": "length",
+            "Z": 18,
+            "mult": -1
+          },
+          {
+            "upper": 16,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 301.6298,
+            "gf": 2.180933,
+            "A_per_s": 2869982000000.0,
+            "reduced_matrix_element": -0.7682809,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 1,
+            "gauge": "length",
+            "Z": 18,
+            "mult": -1
+          }
+        ],
+        "finite_wavelength": [
+          {
+            "upper": 2,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 253.7073,
+            "gf": 0.0470489,
+            "A_per_s": 43802970000.0,
+            "reduced_matrix_element": -0.1230394,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 0,
+            "gauge": "length",
+            "Z": 18,
+            "mult": -1
+          },
+          {
+            "upper": 4,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 256.1885,
+            "gf": 0.1192298,
+            "A_per_s": 113186000000.0,
+            "reduced_matrix_element": 0.1949165,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 0,
+            "gauge": "length",
+            "Z": 18,
+            "mult": -1
+          },
+          {
+            "upper": 6,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 293.6943,
+            "gf": 0.005308494,
+            "A_per_s": 6622940000.0,
+            "reduced_matrix_element": -0.03841261,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 0,
+            "gauge": "length",
+            "Z": 18,
+            "mult": -1
+          },
+          {
+            "upper": 12,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 297.1831,
+            "gf": 0.1325111,
+            "A_per_s": 169273400000.0,
+            "reduced_matrix_element": 0.1907876,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 0,
+            "gauge": "length",
+            "Z": 18,
+            "mult": -1
+          },
+          {
+            "upper": 16,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 301.6298,
+            "gf": 2.179459,
+            "A_per_s": 2868041000000.0,
+            "reduced_matrix_element": -0.7680211,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 0,
+            "gauge": "length",
+            "Z": 18,
+            "mult": -1
+          }
+        ]
+      },
+      "raw_sha256": {
+        "process.json": "5614cfaf2d8692a2a4eb5595ba587a461218b80b3ef434a15645b8f256186764",
+        "stdout.txt": "11fa5a5db8a7b51d1b815336728ec20e2cf9010b60fd2efee188d897c3c91624",
+        "levels.b": "9e5da5d4eca764fd058722d1d4b0f2b798a415ef0659cd2eca05ea27560dfb9d",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "levels.txt": "b9c1602fd495eaac98302ea537e904f7b27db7c413fe6c65b2017f94a55b6ad7",
+        "lines.b": "a0f3a4f203381e0a4161bc60a50827c6e8ce60b4ba8e598dd6d2771332ffef87",
+        "lines.txt": "7e7f3968c5bc27f0d9d1633b92279a2123f9a7d42fc7b2ed1216790f3a1ed232",
+        "command.json": "b704e894de4ea9a9320f645311a7857af0e4c900ee663e25165f51fc9935384a",
+        "run.sf": "cbd15f8f21dba6456a49526d7a44b0a435f025ba315ec518202ae920be88e657"
+      }
+    },
+    {
+      "z": 26,
+      "levels": {
+        "2p5 3s1": [
+          {
+            "ILEV": 1,
+            "IBASE": -1,
+            "ENERGY_eV": 727.241507,
+            "P": 1,
+            "VNL": "300",
+            "TWOJ": 4,
+            "config": "2*7.3*1 2p5.3s1 2p+3(3)3.3s+1(1)4"
+          },
+          {
+            "ILEV": 2,
+            "IBASE": -1,
+            "ENERGY_eV": 729.267015,
+            "P": 1,
+            "VNL": "300",
+            "TWOJ": 2,
+            "config": "2*7.3*1 2p5.3s1 2p+3(3)3.3s+1(1)2"
+          },
+          {
+            "ILEV": 3,
+            "IBASE": -1,
+            "ENERGY_eV": 740.284015,
+            "P": 1,
+            "VNL": "300",
+            "TWOJ": 0,
+            "config": "2*7.3*1 2p5.3s1 2p-1(1)1.3s+1(1)0"
+          },
+          {
+            "ILEV": 4,
+            "IBASE": -1,
+            "ENERGY_eV": 741.608342,
+            "P": 1,
+            "VNL": "300",
+            "TWOJ": 2,
+            "config": "2*7.3*1 2p5.3s1 2p-1(1)1.3s+1(1)2"
+          }
+        ],
+        "2p5 3d1": [
+          {
+            "ILEV": 5,
+            "IBASE": -1,
+            "ENERGY_eV": 804.162289,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 0,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d-1(3)0"
+          },
+          {
+            "ILEV": 6,
+            "IBASE": -1,
+            "ENERGY_eV": 805.149962,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 2,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d-1(3)2"
+          },
+          {
+            "ILEV": 7,
+            "IBASE": -1,
+            "ENERGY_eV": 806.802904,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 8,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d+1(5)8"
+          },
+          {
+            "ILEV": 8,
+            "IBASE": -1,
+            "ENERGY_eV": 806.928529,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 4,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d+1(5)4"
+          },
+          {
+            "ILEV": 9,
+            "IBASE": -1,
+            "ENERGY_eV": 807.529205,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 6,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d-1(3)6"
+          },
+          {
+            "ILEV": 10,
+            "IBASE": -1,
+            "ENERGY_eV": 809.16904,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 4,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d-1(3)4"
+          },
+          {
+            "ILEV": 11,
+            "IBASE": -1,
+            "ENERGY_eV": 810.256218,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 6,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d+1(5)6"
+          },
+          {
+            "ILEV": 12,
+            "IBASE": -1,
+            "ENERGY_eV": 815.115051,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 2,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d+1(5)2"
+          },
+          {
+            "ILEV": 13,
+            "IBASE": -1,
+            "ENERGY_eV": 820.488677,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 4,
+            "config": "2*7.3*1 2p5.3d1 2p-1(1)1.3d-1(3)4"
+          },
+          {
+            "ILEV": 14,
+            "IBASE": -1,
+            "ENERGY_eV": 821.369976,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 4,
+            "config": "2*7.3*1 2p5.3d1 2p-1(1)1.3d+1(5)4"
+          },
+          {
+            "ILEV": 15,
+            "IBASE": -1,
+            "ENERGY_eV": 821.857095,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 6,
+            "config": "2*7.3*1 2p5.3d1 2p-1(1)1.3d+1(5)6"
+          },
+          {
+            "ILEV": 16,
+            "IBASE": -1,
+            "ENERGY_eV": 829.547453,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 2,
+            "config": "2*7.3*1 2p5.3d1 2p-1(1)1.3d-1(3)2"
+          }
+        ]
+      },
+      "lines": {
+        "long_wavelength": [
+          {
+            "upper": 2,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 729.267,
+            "gf": 0.078199,
+            "A_per_s": 601537400000.0,
+            "reduced_matrix_element": -0.09356066,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 1,
+            "gauge": "length",
+            "Z": 26,
+            "mult": -1
+          },
+          {
+            "upper": 4,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 741.6083,
+            "gf": 0.06153543,
+            "A_per_s": 489511300000.0,
+            "reduced_matrix_element": 0.08230217,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 1,
+            "gauge": "length",
+            "Z": 26,
+            "mult": -1
+          },
+          {
+            "upper": 6,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 805.15,
+            "gf": 0.01025362,
+            "A_per_s": 96143350000.0,
+            "reduced_matrix_element": -0.03224306,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 1,
+            "gauge": "length",
+            "Z": 26,
+            "mult": -1
+          },
+          {
+            "upper": 12,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 815.1151,
+            "gf": 0.6344942,
+            "A_per_s": 6097528000000.0,
+            "reduced_matrix_element": 0.2520811,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 1,
+            "gauge": "length",
+            "Z": 26,
+            "mult": -1
+          },
+          {
+            "upper": 16,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 829.5475,
+            "gf": 2.463564,
+            "A_per_s": 24520800000000.0,
+            "reduced_matrix_element": -0.4923765,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 1,
+            "gauge": "length",
+            "Z": 26,
+            "mult": -1
+          }
+        ],
+        "finite_wavelength": [
+          {
+            "upper": 2,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 729.267,
+            "gf": 0.07819326,
+            "A_per_s": 601493200000.0,
+            "reduced_matrix_element": -0.09355722,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 0,
+            "gauge": "length",
+            "Z": 26,
+            "mult": -1
+          },
+          {
+            "upper": 4,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 741.6083,
+            "gf": 0.06140301,
+            "A_per_s": 488457900000.0,
+            "reduced_matrix_element": 0.08221357,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 0,
+            "gauge": "length",
+            "Z": 26,
+            "mult": -1
+          },
+          {
+            "upper": 6,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 805.15,
+            "gf": 0.01004815,
+            "A_per_s": 94216680000.0,
+            "reduced_matrix_element": -0.03191836,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 0,
+            "gauge": "length",
+            "Z": 26,
+            "mult": -1
+          },
+          {
+            "upper": 12,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 815.1151,
+            "gf": 0.6329767,
+            "A_per_s": 6082944000000.0,
+            "reduced_matrix_element": 0.2517795,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 0,
+            "gauge": "length",
+            "Z": 26,
+            "mult": -1
+          },
+          {
+            "upper": 16,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 829.5475,
+            "gf": 2.459577,
+            "A_per_s": 24481120000000.0,
+            "reduced_matrix_element": -0.4919779,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 0,
+            "gauge": "length",
+            "Z": 26,
+            "mult": -1
+          }
+        ]
+      },
+      "raw_sha256": {
+        "process.json": "451608d0491e0b1a1a93935f064b82044a8fa0ff24f1f231d7f762ca11d0835d",
+        "stdout.txt": "77e280caa48cbf2e9df1f2220f1fba89d67dea726b26575a6e9c95bd60a7a5d3",
+        "levels.b": "c8b2b094902293d49f01c7a13d1f37d4afea649d2095a75376feee5879010c30",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "levels.txt": "a6c0406105be2ee677818b66edb7c4ed0562908ffaaa546c9a5b440364aee255",
+        "lines.b": "360e3ea435fd43e2ed7800e50cfd75d1fee0070a693232a058968fcf25e865e5",
+        "lines.txt": "4506761c9a83e675efe295df642ceefa6fa7bc6e690fe8613896cb2416bb4bb3",
+        "command.json": "b704e894de4ea9a9320f645311a7857af0e4c900ee663e25165f51fc9935384a",
+        "run.sf": "18259ff607e36ee19d53f68ee7edbafa036448c3323b4c32a1b5bd31a7a86555"
+      }
+    },
+    {
+      "z": 54,
+      "levels": {
+        "2p5 3s1": [
+          {
+            "ILEV": 1,
+            "IBASE": -1,
+            "ENERGY_eV": 4217.90958,
+            "P": 1,
+            "VNL": "300",
+            "TWOJ": 4,
+            "config": "2*7.3*1 2p5.3s1 2p+3(3)3.3s+1(1)4"
+          },
+          {
+            "ILEV": 2,
+            "IBASE": -1,
+            "ENERGY_eV": 4223.4719,
+            "P": 1,
+            "VNL": "300",
+            "TWOJ": 2,
+            "config": "2*7.3*1 2p5.3s1 2p+3(3)3.3s+1(1)2"
+          },
+          {
+            "ILEV": 3,
+            "IBASE": -1,
+            "ENERGY_eV": 4556.72593,
+            "P": 1,
+            "VNL": "300",
+            "TWOJ": 0,
+            "config": "2*7.3*1 2p5.3s1 2p-1(1)1.3s+1(1)0"
+          },
+          {
+            "ILEV": 4,
+            "IBASE": -1,
+            "ENERGY_eV": 4559.62087,
+            "P": 1,
+            "VNL": "300",
+            "TWOJ": 2,
+            "config": "2*7.3*1 2p5.3s1 2p-1(1)1.3s+1(1)2"
+          }
+        ],
+        "2p5 3d1": [
+          {
+            "ILEV": 5,
+            "IBASE": -1,
+            "ENERGY_eV": 4506.90631,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 0,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d-1(3)0"
+          },
+          {
+            "ILEV": 6,
+            "IBASE": -1,
+            "ENERGY_eV": 4513.40071,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 2,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d-1(3)2"
+          },
+          {
+            "ILEV": 7,
+            "IBASE": -1,
+            "ENERGY_eV": 4517.50994,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 6,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d-1(3)6"
+          },
+          {
+            "ILEV": 8,
+            "IBASE": -1,
+            "ENERGY_eV": 4520.72312,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 4,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d-1(3)4"
+          },
+          {
+            "ILEV": 9,
+            "IBASE": -1,
+            "ENERGY_eV": 4534.8196,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 8,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d+1(5)8"
+          },
+          {
+            "ILEV": 10,
+            "IBASE": -1,
+            "ENERGY_eV": 4538.41034,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 4,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d+1(5)4"
+          },
+          {
+            "ILEV": 11,
+            "IBASE": -1,
+            "ENERGY_eV": 4545.10186,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 6,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d+1(5)6"
+          },
+          {
+            "ILEV": 12,
+            "IBASE": -1,
+            "ENERGY_eV": 4566.6928,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 2,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d+1(5)2"
+          },
+          {
+            "ILEV": 13,
+            "IBASE": -1,
+            "ENERGY_eV": 4855.11764,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 4,
+            "config": "2*7.3*1 2p5.3d1 2p-1(1)1.3d-1(3)4"
+          },
+          {
+            "ILEV": 14,
+            "IBASE": -1,
+            "ENERGY_eV": 4873.87322,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 2,
+            "config": "2*7.3*1 2p5.3d1 2p-1(1)1.3d-1(3)2"
+          },
+          {
+            "ILEV": 15,
+            "IBASE": -1,
+            "ENERGY_eV": 4876.79794,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 4,
+            "config": "2*7.3*1 2p5.3d1 2p-1(1)1.3d+1(5)4"
+          },
+          {
+            "ILEV": 16,
+            "IBASE": -1,
+            "ENERGY_eV": 4879.33683,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 6,
+            "config": "2*7.3*1 2p5.3d1 2p-1(1)1.3d+1(5)6"
+          }
+        ]
+      },
+      "lines": {
+        "long_wavelength": [
+          {
+            "upper": 2,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 4223.472,
+            "gf": 0.1001278,
+            "A_per_s": 25833440000000.0,
+            "reduced_matrix_element": -0.04399249,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 1,
+            "gauge": "length",
+            "Z": 54,
+            "mult": -1
+          },
+          {
+            "upper": 4,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 4559.621,
+            "gf": 0.03609122,
+            "A_per_s": 10852940000000.0,
+            "reduced_matrix_element": 0.02541981,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 1,
+            "gauge": "length",
+            "Z": 54,
+            "mult": -1
+          },
+          {
+            "upper": 6,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 4513.401,
+            "gf": 0.004373558,
+            "A_per_s": 1288638000000.0,
+            "reduced_matrix_element": -0.008894089,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 1,
+            "gauge": "length",
+            "Z": 54,
+            "mult": -1
+          },
+          {
+            "upper": 12,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 4566.693,
+            "gf": 2.261084,
+            "A_per_s": 682038000000000.0,
+            "reduced_matrix_element": -0.2010451,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 1,
+            "gauge": "length",
+            "Z": 54,
+            "mult": -1
+          },
+          {
+            "upper": 14,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 4873.873,
+            "gf": 1.366815,
+            "A_per_s": 469619700000000.0,
+            "reduced_matrix_element": -0.1513051,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 1,
+            "gauge": "length",
+            "Z": 54,
+            "mult": -1
+          }
+        ],
+        "finite_wavelength": [
+          {
+            "upper": 2,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 4223.472,
+            "gf": 0.09999773,
+            "A_per_s": 25799880000000.0,
+            "reduced_matrix_element": -0.0439639,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 0,
+            "gauge": "length",
+            "Z": 54,
+            "mult": -1
+          },
+          {
+            "upper": 4,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 4559.621,
+            "gf": 0.03551251,
+            "A_per_s": 10678920000000.0,
+            "reduced_matrix_element": 0.02521519,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 0,
+            "gauge": "length",
+            "Z": 54,
+            "mult": -1
+          },
+          {
+            "upper": 6,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 4513.401,
+            "gf": 0.005036908,
+            "A_per_s": 1484090000000.0,
+            "reduced_matrix_element": -0.009544782,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 0,
+            "gauge": "length",
+            "Z": 54,
+            "mult": -1
+          },
+          {
+            "upper": 12,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 4566.693,
+            "gf": 2.233342,
+            "A_per_s": 673669800000000.0,
+            "reduced_matrix_element": -0.1998079,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 0,
+            "gauge": "length",
+            "Z": 54,
+            "mult": -1
+          },
+          {
+            "upper": 14,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 4873.873,
+            "gf": 1.35813,
+            "A_per_s": 466635800000000.0,
+            "reduced_matrix_element": -0.1508237,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 0,
+            "gauge": "length",
+            "Z": 54,
+            "mult": -1
+          }
+        ]
+      },
+      "raw_sha256": {
+        "process.json": "05f8528c1790eeac70131d7c8be3d27d0a89b10cd2bd46704287146b86a9f4c9",
+        "stdout.txt": "7db8558fb88717cfd01afedde1ca8a11696ec93a4dadfa577fc5c97d20471d3b",
+        "levels.b": "a228a7f1b19e894bdaaad7825d966ce9f0a4d5e4b4c451d7af02e845741c6fcf",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "levels.txt": "7960a2fa4e1ca9480fb4d6933362b9c7f2f3dc20f6022387729da6b63599db49",
+        "lines.b": "84549a4a6be857879cad8284f61605a5b24b17678cca37fc98f62bf603e1c9cf",
+        "lines.txt": "04440193fcb52bcef937d6de1795ccf404cb4c1f18f8a92e574880dcd57b7c07",
+        "command.json": "b704e894de4ea9a9320f645311a7857af0e4c900ee663e25165f51fc9935384a",
+        "run.sf": "604a3c91d8fb55234915429ad0fa2a316b2265a5e79051730167de553f2d6bab"
+      }
+    },
+    {
+      "z": 82,
+      "levels": {
+        "2p5 3s1": [
+          {
+            "ILEV": 1,
+            "IBASE": -1,
+            "ENERGY_eV": 10265.2048,
+            "P": 1,
+            "VNL": "300",
+            "TWOJ": 4,
+            "config": "2*7.3*1 2p5.3s1 2p+3(3)3.3s+1(1)4"
+          },
+          {
+            "ILEV": 2,
+            "IBASE": -1,
+            "ENERGY_eV": 10274.6111,
+            "P": 1,
+            "VNL": "300",
+            "TWOJ": 2,
+            "config": "2*7.3*1 2p5.3s1 2p+3(3)3.3s+1(1)2"
+          },
+          {
+            "ILEV": 3,
+            "IBASE": -1,
+            "ENERGY_eV": 12531.7177,
+            "P": 1,
+            "VNL": "300",
+            "TWOJ": 0,
+            "config": "2*7.3*1 2p5.3s1 2p-1(1)1.3s+1(1)0"
+          },
+          {
+            "ILEV": 4,
+            "IBASE": -1,
+            "ENERGY_eV": 12536.5814,
+            "P": 1,
+            "VNL": "300",
+            "TWOJ": 2,
+            "config": "2*7.3*1 2p5.3s1 2p-1(1)1.3s+1(1)2"
+          }
+        ],
+        "2p5 3d1": [
+          {
+            "ILEV": 5,
+            "IBASE": -1,
+            "ENERGY_eV": 11250.4042,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 0,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d-1(3)0"
+          },
+          {
+            "ILEV": 6,
+            "IBASE": -1,
+            "ENERGY_eV": 11265.6426,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 2,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d-1(3)2"
+          },
+          {
+            "ILEV": 7,
+            "IBASE": -1,
+            "ENERGY_eV": 11268.4867,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 6,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d-1(3)6"
+          },
+          {
+            "ILEV": 8,
+            "IBASE": -1,
+            "ENERGY_eV": 11274.5431,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 4,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d-1(3)4"
+          },
+          {
+            "ILEV": 9,
+            "IBASE": -1,
+            "ENERGY_eV": 11407.1318,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 8,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d+1(5)8"
+          },
+          {
+            "ILEV": 10,
+            "IBASE": -1,
+            "ENERGY_eV": 11412.8784,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 4,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d+1(5)4"
+          },
+          {
+            "ILEV": 11,
+            "IBASE": -1,
+            "ENERGY_eV": 11424.1335,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 6,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d+1(5)6"
+          },
+          {
+            "ILEV": 12,
+            "IBASE": -1,
+            "ENERGY_eV": 11458.1283,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 2,
+            "config": "2*7.3*1 2p5.3d1 2p+3(3)3.3d+1(5)2"
+          },
+          {
+            "ILEV": 13,
+            "IBASE": -1,
+            "ENERGY_eV": 13534.6331,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 4,
+            "config": "2*7.3*1 2p5.3d1 2p-1(1)1.3d-1(3)4"
+          },
+          {
+            "ILEV": 14,
+            "IBASE": -1,
+            "ENERGY_eV": 13561.6591,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 2,
+            "config": "2*7.3*1 2p5.3d1 2p-1(1)1.3d-1(3)2"
+          },
+          {
+            "ILEV": 15,
+            "IBASE": -1,
+            "ENERGY_eV": 13680.7979,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 4,
+            "config": "2*7.3*1 2p5.3d1 2p-1(1)1.3d+1(5)4"
+          },
+          {
+            "ILEV": 16,
+            "IBASE": -1,
+            "ENERGY_eV": 13684.549,
+            "P": 1,
+            "VNL": "302",
+            "TWOJ": 6,
+            "config": "2*7.3*1 2p5.3d1 2p-1(1)1.3d+1(5)6"
+          }
+        ]
+      },
+      "lines": {
+        "long_wavelength": [
+          {
+            "upper": 2,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 10274.61,
+            "gf": 0.1528874,
+            "A_per_s": 233448300000000.0,
+            "reduced_matrix_element": -0.03485291,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 1,
+            "gauge": "length",
+            "Z": 82,
+            "mult": -1
+          },
+          {
+            "upper": 4,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 12536.58,
+            "gf": 0.03267678,
+            "A_per_s": 74282370000000.0,
+            "reduced_matrix_element": 0.014587,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 1,
+            "gauge": "length",
+            "Z": 82,
+            "mult": -1
+          },
+          {
+            "upper": 6,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 11265.64,
+            "gf": 0.09060917,
+            "A_per_s": 166330700000000.0,
+            "reduced_matrix_element": -0.02562383,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 1,
+            "gauge": "length",
+            "Z": 82,
+            "mult": -1
+          },
+          {
+            "upper": 12,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 11458.13,
+            "gf": 2.388905,
+            "A_per_s": 4536434000000000.0,
+            "reduced_matrix_element": -0.1304604,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 1,
+            "gauge": "length",
+            "Z": 82,
+            "mult": -1
+          },
+          {
+            "upper": 14,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 13561.66,
+            "gf": 1.074265,
+            "A_per_s": 2857757000000000.0,
+            "reduced_matrix_element": -0.08041465,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 1,
+            "gauge": "length",
+            "Z": 82,
+            "mult": -1
+          }
+        ],
+        "finite_wavelength": [
+          {
+            "upper": 2,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 10274.61,
+            "gf": 0.1530302,
+            "A_per_s": 233666400000000.0,
+            "reduced_matrix_element": -0.03486919,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 0,
+            "gauge": "length",
+            "Z": 82,
+            "mult": -1
+          },
+          {
+            "upper": 4,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 12536.58,
+            "gf": 0.03125712,
+            "A_per_s": 71055150000000.0,
+            "reduced_matrix_element": 0.01426661,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 0,
+            "gauge": "length",
+            "Z": 82,
+            "mult": -1
+          },
+          {
+            "upper": 6,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 11265.64,
+            "gf": 0.09578128,
+            "A_per_s": 175825100000000.0,
+            "reduced_matrix_element": -0.02634501,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 0,
+            "gauge": "length",
+            "Z": 82,
+            "mult": -1
+          },
+          {
+            "upper": 12,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 11458.13,
+            "gf": 2.312286,
+            "A_per_s": 4390937000000000.0,
+            "reduced_matrix_element": -0.1283512,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 0,
+            "gauge": "length",
+            "Z": 82,
+            "mult": -1
+          },
+          {
+            "upper": 14,
+            "twoj_upper": 2,
+            "lower": 0,
+            "twoj_lower": 0,
+            "DELTA_E_eV": 13561.66,
+            "gf": 1.057311,
+            "A_per_s": 2812656000000000.0,
+            "reduced_matrix_element": -0.07977758,
+            "aggregate_gf": null,
+            "multipole": "E1",
+            "multipole_code": -1,
+            "mode": 0,
+            "gauge": "length",
+            "Z": 82,
+            "mult": -1
+          }
+        ]
+      },
+      "raw_sha256": {
+        "process.json": "7306f8162730320045635a71ffb96022198290774c10927654abfb9ec2e7870f",
+        "stdout.txt": "e412147a0922f82fd8d8d69ebf0c9bb69817cb1cb8efea554b8ffc55649aac7b",
+        "levels.b": "0e8ee72484e3aecaa08bb72ca73a0b67fafb1e4d002deb93b17c6f9efe2c97df",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "levels.txt": "515959f4050ac733409a97ff3af464bfe5944415328a72cad3e53e2427da5174",
+        "lines.b": "6a13ed7a3502f6733ed429bf88d14de9df9925409e983b72ea7853d78156e1bc",
+        "lines.txt": "4a838b6ed9e3e4bc33d03f94c95d761ac522234c5ba779b624c7dde6ffc706ce",
+        "command.json": "b704e894de4ea9a9320f645311a7857af0e4c900ee663e25165f51fc9935384a",
+        "run.sf": "8bd43b20fb62bc20bbe3acb3fe5358b3dbb01a9ad7133a61ef2ec023c350f5ed"
+      }
+    }
+  ]
+}

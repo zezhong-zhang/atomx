@@ -29,7 +29,7 @@
       "Clean-room protocol of docs/scattering_fac_verification_2026-07.md:",
       "QED/Breit off, radial basis optimized on the closed-shell ground,",
       "each configuration Structure'd separately (no 3s-3d interconfig",
-      "mixing) — the exact counterpart of atomx's",
+      "mixing), using a similar local orbital model to atomx's",
       "numerics='shooting'/exchange='gu' + manifold_from_configs pipeline.",
       "PrintTable(verbose=1) on TR tables segfaults in this build; the",
       "verbose=0 table stores the multipole reduced matrix element 'rme'.",
@@ -37,7 +37,10 @@
       "  gf = omega_au * rme^2 / 3   (E1)",
       "  A  = 2 * alpha^3 * omega_au^2 * gf / (2J_u + 1)   [a.u. -> *AU_RATE_PER_S]",
       "  S_standard = rme^2 / 2      (atomx line-strength convention,",
-      "                               A = (4/3) alpha^3 omega^3 S / (2J_u+1))"
+      "                               A = (4/3) alpha^3 omega^3 S / (2J_u+1))",
+      "2026-09-30 audit: this historical deck enables FAC configuration relaxation shifts via ConfigEnergy(0/1), absent from Atomx frozen CI.",
+      "The stored transitions are MODE=1 (long wavelength). They must not be compared as finite-frequency reference rates.",
+      "Values retained for historical UTA arithmetic tests. Current matched frozen-CI references: fac_ne_like_ci_reference.json."
     ]
   },
   "ground": {"ilev": 0, "E_eV": 0.0, "two_J": 0, "config": "2p6"},

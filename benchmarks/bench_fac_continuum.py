@@ -18,6 +18,8 @@ from time import perf_counter
 
 import numpy as np
 
+from atomx.potentials.static_field import static_hartree_potential
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from fac_runner import run_sfac  # noqa: E402
 
@@ -29,7 +31,6 @@ from atomx.numerics.shooting.dirac_continuum import (  # noqa: E402
     solve_dirac_continuum_shooting,
 )
 from atomx.scattering.distorted_wave.solver import (  # noqa: E402
-    _distorting_potential_fn,
     _shooting_points,
 )
 
@@ -80,8 +81,7 @@ def run_panel(workdir: Path):
         atom.solve()
         if not atom.converged:
             raise RuntimeError(f"atomx {element} structure did not converge")
-        potential = _distorting_potential_fn(
-            atom._result, atom._bsp_data, Z, screening="fac")
+        potential = static_hartree_potential(atom._result, screening="mean")
         radius = float(atom._bsp_data["t"][-1])
         for kappa, energy_eV in cases:
             name = f"{element}_k{kappa}_e{int(energy_eV)}.wav"

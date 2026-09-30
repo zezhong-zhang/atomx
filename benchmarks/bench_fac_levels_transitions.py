@@ -9,6 +9,12 @@ Compares:
     1. energy separations of the 37 L-shell states  (FAC .lev)
        vs the corresponding atomx MCDHF eigenvalues.
     2. E1 A-coefficients for the 2p→3l lines.
+
+Both calculations use point nuclei with SE/VP/mass/Breit corrections off.
+FAC configuration relaxation shifts are disabled. FAC freezes ground-optimized
+local orbitals; Atomx performs MCDHF orbital optimization. Their residual
+differences therefore do not isolate CI operators. Use
+bench_reference_ci_transitions.py for the retained frozen-CI comparison.
 """
 
 from __future__ import annotations
@@ -30,19 +36,23 @@ from fac_runner import parse_levels, parse_transitions, run_sfac  # noqa: E402
 from atomx import Atom, Correlation  # noqa: E402
 from atomx.constants import HARTREE_EV  # noqa: E402
 
-# Canonical FAC demo script
-FAC_SCRIPT_FE17 = """SetAtom('Fe')
+# Common configuration space; orbital optimization still differs from MCDHF.
+FAC_SCRIPT_FE17 = """SetAtom('Fe',26,-1,0)
+SetSE(0)
+SetVP(0)
+SetMS(0,0)
+SetBreit(0)
+SetConfigEnergyMode(-1)
 Closed('1s')
 Config('2*8', group='n2')
 Config('n3', '2*7 3*1')
-ConfigEnergy(0)
 OptimizeRadial(['n2'])
-ConfigEnergy(1)
 Structure('fe17.lev.b', ['n2', 'n3'])
 MemENTable('fe17.lev.b')
 PrintTable('fe17.lev.b', 'fe17.lev', 1)
 
-TransitionTable('fe17.tr.b', ['n2'], ['n3'])
+SetTransitionOptions(2,0)
+TransitionTable('fe17.tr.b', ['n2'], ['n3'], -1)
 PrintTable('fe17.tr.b', 'fe17.tr', 1)
 """
 
@@ -88,9 +98,12 @@ def run_atomx_fe17():
                 charge=16,
                 config=configs,
                 corrections="none",
+                nuclear="point",
                 correlation=Correlation(j_resolved_csfs=True),
            )
     atom.solve()
+    if not atom.converged:
+        raise RuntimeError('MCDHF did not converge; cannot report an accuracy comparison')
     trs = atom.transitions(multipoles=["E1"])
     t1 = time.perf_counter()
 
@@ -236,11 +249,10 @@ def main():
         "strong_median_factor": 0.0,
     }
     with tr_csv.open("w") as f:
-        f.write("upper,lower,DeltaE_fac_eV,DeltaE_atomx_eV,gA_fac,A_fac,A_atomx,"
+        f.write("upper,lower,DeltaE_fac_eV,DeltaE_atomx_eV,A_fac,A_atomx,"
                 "ratio_A,mult\n")
-        fac_e1 = [t for t in fac_trans if t["mult"] == 0 or t["mult"] is None]
+        fac_e1 = [t for t in fac_trans if t["mult"] == -1]
         fac_e1_sorted = sorted(fac_e1, key=lambda d: d["DELTA_E_eV"])
-        fac_levels_by_ilev = {int(lv["ILEV"]): lv for lv in fac_lev}
         fac_to_atomx = {
             int(fac_lev[i]["ILEV"]): j
             for i, j in _match_levels_by_jpi(fac_lev, ax_lev)
@@ -271,10 +283,7 @@ def main():
         for i, (f_t, a_t) in enumerate(rows):
             dE_fac = f_t["DELTA_E_eV"]
             dE_ax = a_t.energy_diff_hartree * HARTREE_EV
-            gA_fac = f_t["gA_per_s"]
-            upper_level = fac_levels_by_ilev.get(int(f_t["upper"]))
-            g_upper = int(upper_level["TWOJ"]) + 1 if upper_level is not None else 1
-            A_fac = gA_fac / g_upper if g_upper > 0 else gA_fac
+            A_fac = f_t["A_per_s"]
             A_ax = a_t.A_rate_per_s
             ratio = A_ax / A_fac if A_fac else 0.0
             if ratio > 0.0:
@@ -282,7 +291,7 @@ def main():
             if i < 10:
                 print(f"{i:>3}  {dE_fac:9.2f}  {dE_ax:9.2f}  {A_fac:12.3e}  {A_ax:12.3e}  {ratio:8.2f}")
             f.write(f"{f_t['upper']},{f_t['lower']},{dE_fac:.3f},{dE_ax:.3f},"
-                    f"{gA_fac:.4e},{A_fac:.4e},{A_ax:.4e},{ratio:.3f},{f_t['mult']}\n")
+                    f"{A_fac:.4e},{A_ax:.4e},{ratio:.3f},{f_t['mult']}\n")
         if len(rows) > 10:
             print(f"  ... ({len(rows) - 10} more rows in {tr_csv})")
         factors.sort()

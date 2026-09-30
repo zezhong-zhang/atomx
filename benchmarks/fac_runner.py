@@ -21,6 +21,40 @@ import numpy as np
 _DEFAULT_SFAC_BIN = None  # no machine-specific guess: configure via env/PATH
 _DEFAULT_DYLD_LIB = ""  # macOS gcc runtime dir; set FAC_DYLD_LIB if needed
 
+
+def radial_grid_command(points: int, *, density_scale: float = 1.0) -> str:
+    """FAC grid with explicit near-origin and asymptotic spacing controls.
+
+    Increasing ``points`` alone mostly extends the outer box: it does not
+    refine the inner ratio or the asymptotic points-per-wavelength setting.
+    Scale those independently of the allocation, starting from the supplied
+    FAC defaults ratio=1.1 and asymp=50. Increase points proportionally when
+    increasing density_scale to retain comparable radial coverage.
+    """
+    if not isinstance(points, (int, np.integer)) or points <= 0 or points % 2:
+        raise ValueError("FAC radial point count must be a positive even integer")
+    if not np.isfinite(density_scale) or density_scale <= 0:
+        raise ValueError("FAC grid density_scale must be positive and finite")
+    ratio = np.exp(np.log(1.1) / density_scale)
+    if not np.isfinite(ratio) or ratio <= 1:
+        raise ValueError("FAC grid density_scale gives an unrepresentable log spacing")
+    return f"SetRadialGrid({points},{ratio:.17g},{50*density_scale:.17g},-1)"
+
+
+def orbital_accuracy_commands(tolerance: float | None) -> list[str]:
+    """Set all three FAC orbital-energy convergence controls explicitly.
+
+    None retains FAC defaults. Its EneTol uses both relative thresholds
+    and an absolute threshold (Hartree); changing only the SCF tolerance
+    does not tighten this inner orbital solve.
+    """
+    if tolerance is None:
+        return []
+    if not np.isfinite(tolerance) or tolerance <= 0:
+        raise ValueError("FAC orbital energy tolerance must be positive and finite")
+    return [f"SetOption('orbital:{name}',{tolerance:.17g})"
+            for name in ('enerelerr', 'enerelerr1', 'eneabserr')]
+
 #: Substrings meaning "the binary could not be loaded at all" rather than
 #: "the physics run failed" (macOS dyld, Linux ld.so).
 _LOAD_FAILURE_MARKERS = (
@@ -317,42 +351,13 @@ def parse_debug_hamiltonian_log(log_file: Path) -> list[dict]:
 
 
 def parse_transitions(tr_file: Path) -> list[dict]:
-    """Parse a FAC .tr file written by PrintTable(..., 1).
+    """Read resolved FAC transitions with the production column contract.
 
-    Yields dicts with upper/lower level indices, Δ E in eV, gA rate in s⁻¹, gf.
-
-    File format (after headers):
-      upper  p_up  lower  p_lo   Delta_E_eV   gf   gA_per_s   gf_alt
+    The printed rate is A, not gA; adjacent integers are twice J, not parity.
+    ``mult`` retains the signed FAC multipole code used by these benchmarks.
     """
-    rows = []
-    current = None
-    for line in Path(tr_file).read_text().splitlines():
-        ls = line.strip()
-        if ls.startswith("MULTIP"):
-            try:
-                current = int(ls.split("=")[1].strip().split()[0])
-            except (ValueError, IndexError):
-                current = None
-            continue
-        parts = ls.split()
-        if len(parts) < 7:
-            continue
-        try:
-            up = int(parts[0])
-            p_up = int(parts[1])
-            lo = int(parts[2])
-            p_lo = int(parts[3])
-            delta_e = float(parts[4])
-            gf = float(parts[5])
-            ga = float(parts[6])
-        except (ValueError, IndexError):
-            continue
-        rows.append({
-            "mult": current, "upper": up, "lower": lo,
-            "DELTA_E_eV": delta_e, "gf": gf, "gA_per_s": ga,
-            "p_up": p_up, "p_lo": p_lo,
-        })
-    return rows
+    from atomx.io.fac_writer import read_tra
+    return [dict(row, mult=row["multipole_code"]) for row in read_tra(tr_file)]
 
 
 def parse_rr(rr_file: Path) -> list[dict]:

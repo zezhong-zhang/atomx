@@ -46,7 +46,7 @@ ConfigEnergy(1)
 Structure('lilike.lev.b', ['gnd', 'exc'])
 MemENTable('lilike.lev.b')
 PrintTable('lilike.lev.b', 'lilike.lev', 1)
-TransitionTable('lilike.tr.b', ['gnd'], ['exc'])
+TransitionTable('lilike.tr.b', ['gnd'], ['exc'], -1)
 PrintTable('lilike.tr.b', 'lilike.tr', 1)
 """
 
@@ -78,17 +78,16 @@ def run_fac(Z: int):
                 de_2p12 = L["ENERGY_eV"]
             if "2p" in L["config"] and L["TWOJ"] == 3:
                 de_2p32 = L["ENERGY_eV"]
-        # 2 E1 transitions; .tr gives gA. g = 2j_upper + 1.
+        # FAC prints the unweighted spontaneous A coefficient.
         A_2p12 = A_2p32 = None
         for T in trans:
             up_lev = next((L for L in lev if L["ILEV"] == T["upper"]), None)
             if up_lev is None:
                 continue
-            g_up = up_lev["TWOJ"] + 1
             if up_lev["TWOJ"] == 1 and "2p" in up_lev["config"]:
-                A_2p12 = T["gA_per_s"] / g_up
+                A_2p12 = T["A_per_s"]
             elif up_lev["TWOJ"] == 3 and "2p" in up_lev["config"]:
-                A_2p32 = T["gA_per_s"] / g_up
+                A_2p32 = T["A_per_s"]
         return e_gnd_abs, de_2p12, de_2p32, A_2p12, A_2p32, elapsed, None
 
 

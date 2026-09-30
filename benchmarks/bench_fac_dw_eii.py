@@ -56,13 +56,20 @@ SEQUENCES = {
     "ne-like": {"charge_offset": 10, "ground": "1s2 2s2 2p6", "ion": "1s1 2s2 2p6"},
 }
 
-# SetCIQkMode('dw'): pure distorted-wave, matching atomx's method exactly.
+# SetCIQkMode('dw'): pure distorted-wave. Partial-wave/multipole spaces
+# still differ from Atomx; the stored panel is a broad regression gate.
 # FAC's default CI mode is QK_BED (binary-encounter-dipole scaled), a
 # different model that suppresses the DW result by ~10-30% at E/th <= 5.
-# SetCIPWOptions(tol, max_kl, max_eject, qr) with qr=36 forces EXACT
-# (mode-1) Slater integrals for every partial wave: FAC's default
-# phase-amplitude mode (IONLQR=0) is 4-14% low (Z=26..54), while atomx
-# evaluates all integrals exactly — exact-to-exact is the honest gate.
+# This legacy panel uses SetCIPWOptions(tol, max_kl, max_eject, qr), qr=36.
+# Full separate Dirac branches are retained only below qr. At and above qr,
+# FAC can replace positive kappa by its negative partner; the fast outgoing
+# wave can also exceed the incident cutoff. Thus qr=36 is not an all-Dirac
+# reference. Use qr=-1 for that comparison. Both radial integrations and
+# partial-wave spaces still need refinement; preserve this deck to reproduce
+# the stored broad regression panel.
+# The legacy reference used IONMAXK=6 (FAC's doubled convention: rank 3).
+# Make that choice explicit for reproduction. The fresh Coulomb panel in
+# 2026-09-30-eii-quadrature separately raises rank and ejected-wave cutoffs.
 # SetCIEGrid pins the INTERNAL grid too: FAC computes DW only on its
 # internal egrid and evaluates user points through the 4-parameter
 # CIRadialQkFromFit form — near threshold that fit mis-stated sigma by
@@ -84,6 +91,7 @@ Structure('{stem}.lev.b', ['g', 'ion'])
 MemENTable('{stem}.lev.b')
 SetCIQkMode('dw')
 SetCIPWOptions(1e-3, 36, 4, 36)
+SetOption('ionization:maxk', 6)
 SetCIEGrid({usr_grid})
 SetUsrCIEGrid({usr_grid})
 CITable('{stem}.ci.b', ['g'], ['ion'])
@@ -109,7 +117,9 @@ def run_atomx(Z: int, spec: dict[str, object], energies_eV: np.ndarray) -> tuple
     dw = dw_eii_cross_section(
         atom._result,
         energies_eV,
-        kappa_max=10,
+        # The default is now an explicit sum. Increase the former cutoff 10
+        # instead of replacing its omitted waves by an unverified tail.
+        kappa_max=16,
         n_outgoing_energies=25,
     )
     cb = coulomb_born_ci_atom(atom._result, energies_eV)["sigma_total_cm2"]

@@ -1,0 +1,103 @@
+{
+  "Z": 10,
+  "mass_number": 20,
+  "nuclear": "fermi",
+  "speed_of_light": 137.03599917759013,
+  "ns": 218,
+  "ks": 9,
+  "ksp": 8,
+  "ksq": 9,
+  "configuration": "1s2 2s2 2p6",
+  "reference": {
+    "total_energy_Ha": -128.69192584304,
+    "printed_energy_rounding_Ha": 5e-16,
+    "orbital_energies_Ha": {
+      "1s1/2": -32.81745207,
+      "2s1/2": -1.93584489,
+      "2p1/2": -0.85282963,
+      "2p3/2": -0.84826694
+    },
+    "orbital_mean_radius_bohr": {
+      "1s1/2": 0.157,
+      "2s1/2": 0.891,
+      "2p1/2": 0.963,
+      "2p3/2": 0.966
+    },
+    "printed_radius_rounding_bohr": {
+      "1s1/2": 0.0005,
+      "2s1/2": 0.0005,
+      "2p1/2": 0.0005,
+      "2p3/2": 0.0005
+    },
+    "orbital_fock_expectations_Ha": {
+      "1s1/2": -32.81745257450313,
+      "2s1/2": -1.935844900828587,
+      "2p1/2": -0.852829640088771,
+      "2p3/2": -0.848266954127506
+    },
+    "residuals": {
+      "orbital": 0.0,
+      "energy": 0.0
+    }
+  },
+  "components": {
+    "E_1e": -182.7785296387289,
+    "E_2e": 54.08660379568892
+  },
+  "unmodified_angular_reference": {
+    "total_energy_Ha": -128.6919257973423,
+    "printed_energy_rounding_Ha": 5e-16,
+    "orbital_energies_Ha": {
+      "1s1/2": -32.81745207,
+      "2s1/2": -1.93584489,
+      "2p1/2": -0.85282963,
+      "2p3/2": -0.84826694
+    },
+    "orbital_mean_radius_bohr": {
+      "1s1/2": 0.157,
+      "2s1/2": 0.891,
+      "2p1/2": 0.963,
+      "2p3/2": 0.966
+    },
+    "printed_radius_rounding_bohr": {
+      "1s1/2": 0.0005,
+      "2s1/2": 0.0005,
+      "2p1/2": 0.0005,
+      "2p3/2": 0.0005
+    },
+    "orbital_fock_expectations_Ha": {
+      "1s1/2": -32.817452571177455,
+      "2s1/2": -1.935844887159879,
+      "2p1/2": -0.852829634234319,
+      "2p3/2": -0.848266942703081
+    },
+    "residuals": {
+      "orbital": 9.63e-10,
+      "energy": 0.0
+    }
+  },
+  "reference_scope": "Fixed original DBSR spinors. Matched c/alpha, Cjkj prefactor sqrt in double precision, final-Fock read-only diagnostic. No SCF in this evaluation.",
+  "source_directory": "/data/code/atomx/benchmarks/runs/2026-09-30-dbsr-orbital-accuracy",
+  "build": {
+    "base_build": "/tmp/atomx-reference-build/dbsr_hf-codata2022",
+    "original_source_root": "/home/zzhang/code/dbsr_hf/DBSR_HF",
+    "base_binary_sha256": "7b6fa1fdb86936307774e948c10c2cee255e730d1572a5f451a8a1519d4ee525",
+    "corrected_binary_sha256": "be2a9b496173ac049779aa154c8e7eebd1cd9cd43be340cf0e0bb9adcf136b87",
+    "base_file_sha256": "a63844d23ac8b99fa191ee70db6dacdfe8e53c57b450f5f07e07b72fbf982687",
+    "corrected_file_sha256": "9ad034a7ab702f61c6eedef6f850e14790c04d7fd8af247edfc3d600c65feacf",
+    "build_command": [
+      "make",
+      "FC=/tmp/atomx-reference-build/root/usr/bin/x86_64-linux-gnu-gfortran-15 -B/tmp/atomx-reference-build/root/usr/lib/gcc/x86_64-linux-gnu/15 -B/usr/lib/gcc/x86_64-linux-gnu/15",
+      "comp=-c -O2 -fallow-argument-mismatch",
+      "link=-O2 -fno-use-linker-plugin -L/tmp/atomx-reference-build/root/usr/lib/x86_64-linux-gnu",
+      "LAPACK=/tmp/atomx-reference-build/root/usr/lib/x86_64-linux-gnu/lapack/liblapack.so",
+      "BLAS=/tmp/atomx-reference-build/root/usr/lib/x86_64-linux-gnu/blas/libblas.so"
+    ],
+    "scope": "Existing matched c/alpha and read-only final-Fock diagnostic; only Cjkj sqrt REAL kind changed to 8. Original source and prior binaries preserved."
+  },
+  "sha256": {
+    "/data/code/atomx/benchmarks/runs/2026-09-30-dbsr-orbital-accuracy/ne-fermi-consistent-tail/Ne.bsw": "1a64d41cd26b43571463dfc042d07a2acb7d28809c0b91bf5e72d37fdf78dbf6",
+    "/data/code/atomx/benchmarks/runs/2026-09-30-dbsr-orbital-accuracy/ne-fermi-angular64-frozen/Ne.log": "0315746d705fa05e4094ce67b498197bda8aaa28ba87f3c87e615e026f697cd3",
+    "tests/data/dbsr_ne_spinors.npz": "1b662ef479bda11e69b23670c1799d9293c95ef305277447e0ed24b0a119b63d"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "source": "Live supplied FAC 1.1.5; point nucleus, infinite mass, Breit/SE/VP off",
+  "command": "sfac run.sf",
+  "script": "SetAtom('Ne',10,-1,0)\nSetBreit(0)\nSetSE(0)\nSetVP(0)\nSetMS(0,0)\nSetRadialGrid(2000,-1,-1,-1)\nSetTransitionCut(0)\nConfig('g','1s1')\nConfig('p','2p1')\nConfig('d','3d1')\nOptimizeRadial(['g'])\nStructure('levels.b',['g','p','d'])\nMemENTable('levels.b')\nPrintTable('levels.b','levels.txt',1)\nSetTransitionOptions(2,1)\nTransitionTable('lines.b',['g'],['p'],-1)\nTransitionTable('lines.b',['g'],['d'],-2)\nPrintTable('lines.b','lines.txt',1)\n",
+  "executable_sha256": "d364e867895460efb8924dbb80eccf6addae5d842c08002aff0fc58f3cc21deb",
+  "columns": "upper, twice J upper, lower, twice J lower, eV, gf, A per s, reduced multipole amplitude"
+}

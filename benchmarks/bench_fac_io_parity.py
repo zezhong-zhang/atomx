@@ -84,7 +84,7 @@ ConfigEnergy(1)
 Structure('out.lev.b', ['gnd', 'exc'])
 MemENTable('out.lev.b')
 PrintTable('out.lev.b', 'out.lev', 1)
-TransitionTable('out.tr.b', ['gnd'], ['exc'])
+TransitionTable('out.tr.b', ['gnd'], ['exc'], -1)
 PrintTable('out.tr.b', 'out.tr', 1)
 """,
     ),
@@ -101,7 +101,7 @@ ConfigEnergy(1)
 Structure('out.lev.b', ['gnd', 'exc'])
 MemENTable('out.lev.b')
 PrintTable('out.lev.b', 'out.lev', 1)
-TransitionTable('out.tr.b', ['gnd'], ['exc'])
+TransitionTable('out.tr.b', ['gnd'], ['exc'], -1)
 PrintTable('out.tr.b', 'out.tr', 1)
 """,
     ),
@@ -120,7 +120,7 @@ ConfigEnergy(1)
 Structure('out.lev.b', ['gnd', 'exc1', 'exc2'])
 MemENTable('out.lev.b')
 PrintTable('out.lev.b', 'out.lev', 1)
-TransitionTable('out.tr.b', ['gnd', 'exc1'], ['exc1', 'exc2'])
+TransitionTable('out.tr.b', ['gnd', 'exc1'], ['exc1', 'exc2'], -1)
 PrintTable('out.tr.b', 'out.tr', 1)
 """,
     ),
@@ -145,7 +145,7 @@ ConfigEnergy(1)
 Structure('out.lev.b', ['gnd', 'e3s', 'e3p', 'e3d'])
 MemENTable('out.lev.b')
 PrintTable('out.lev.b', 'out.lev', 1)
-TransitionTable('out.tr.b', ['gnd'], ['e3s', 'e3p', 'e3d'])
+TransitionTable('out.tr.b', ['gnd'], ['e3s', 'e3p', 'e3d'], -1)
 PrintTable('out.tr.b', 'out.tr', 1)
 """,
     ),
@@ -207,7 +207,7 @@ def _diff_levels(ax_rows: list[dict], fac_rows: list[dict]) -> list[tuple]:
 
 
 def _diff_transitions(ax_rows: list[dict], fac_rows: list[dict]) -> list[tuple]:
-    """Pair transitions by closest ΔE and report (ΔE_ax, ΔE_fac, gA_ax, gA_fac)."""
+    """Pair transitions by closest ΔE and report (ΔE_ax, ΔE_fac, A_ax, A_fac)."""
     if not ax_rows or not fac_rows:
         return []
     fac_by_dE = sorted(fac_rows, key=lambda r: r["DELTA_E_eV"])
@@ -215,7 +215,7 @@ def _diff_transitions(ax_rows: list[dict], fac_rows: list[dict]) -> list[tuple]:
     for ax in sorted(ax_rows, key=lambda r: r["DELTA_E_eV"]):
         f = min(fac_by_dE, key=lambda r: abs(r["DELTA_E_eV"] - ax["DELTA_E_eV"]))
         out.append((ax["DELTA_E_eV"], f["DELTA_E_eV"],
-                    ax["gA_per_s"], f["gA_per_s"]))
+                    ax["A_per_s"], f["A_per_s"]))
     return out
 
 
@@ -240,7 +240,7 @@ def _print_report(spec: IonSpec, ax: dict, fac: dict | None) -> None:
         print(f"  {idx:>3}  {a:12.4f}  {f:12.4f}  {d:10.4f}")
 
     print("\n  E1 transitions (paired by closest ΔE):")
-    print(f"  {'ΔE_ax':>10}  {'ΔE_fac':>10}  {'gA_ax':>11}  {'gA_fac':>11}  {'A_ratio':>8}")
+    print(f"  {'ΔE_ax':>10}  {'ΔE_fac':>10}  {'A_ax':>11}  {'A_fac':>11}  {'A_ratio':>8}")
     for de_ax, de_fa, ga_ax, ga_fa in _diff_transitions(ax["tr"], fac["tr"]):
         ratio = ga_ax / ga_fa if ga_fa else float("nan")
         print(f"  {de_ax:10.3f}  {de_fa:10.3f}  {ga_ax:11.3e}  {ga_fa:11.3e}  {ratio:8.3f}")

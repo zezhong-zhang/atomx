@@ -30,7 +30,7 @@ Matching computed states to NIST levels
 ---------------------------------------
 The model space is a list of configurations; the (2J, parity) block
 dimensions it implies are counted from
-:func:`atomx.methods.mcdhf.config.enumerate_jj_csfs_many` (summed over
+:func:`atomx.config.csf.enumerate_jj_csfs_many` (summed over
 the configurations), and the NIST levels of the *same* configurations,
 with a single printed J and a printed energy, are grouped the same way.
 Within a block the two energy-ordered lists are paired positionally.
@@ -82,7 +82,7 @@ import numpy as np  # noqa: E402
 import benchmarks.nist_asd as nist  # noqa: E402
 from atomx import Atom, Corrections  # noqa: E402
 from atomx.methods import DiracFock, mbpt2_energy  # noqa: E402
-from atomx.methods.mcdhf.config import enumerate_jj_csfs  # noqa: E402
+from atomx.config.csf import enumerate_jj_csfs  # noqa: E402
 from atomx.physics.dirac import hydrogenic_dirac_energy  # noqa: E402
 
 WORK_DIR = REPO_ROOT / "benchmarks" / "_nist_work"

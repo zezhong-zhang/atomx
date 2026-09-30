@@ -529,7 +529,7 @@ def bench_higher_multipoles(workdir: Path) -> List[Dict]:
                 "case": f"He-like Fe transitions, multipole {m}",
                 "transition": f"FAC ILEV {t['lower']}->{t['upper']}",
                 "DELTA_E_eV": t["DELTA_E_eV"],
-                "gA_fac_per_s": t["gA_per_s"],
+                "A_fac_per_s": t["A_per_s"],
                 "gf_fac": t["gf"],
             })
     return out_rows
@@ -587,7 +587,7 @@ def main() -> int:
           "t_fac_s", "t_atomx_s"]),
         ("Higher multipoles He-like Fe", bench_higher_multipoles,
          "results_fac_higher_multipoles.csv",
-         ["case", "transition", "DELTA_E_eV", "gA_fac_per_s", "gf_fac"]),
+         ["case", "transition", "DELTA_E_eV", "A_fac_per_s", "gf_fac"]),
     ]
     summary: Dict[str, str] = {}
     metric_rows: List[Dict[str, str]] = []

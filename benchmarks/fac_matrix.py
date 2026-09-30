@@ -95,7 +95,7 @@ ConfigEnergy(1)
 Structure('matrix.lev.b', ['gnd', 'exc'])
 MemENTable('matrix.lev.b')
 PrintTable('matrix.lev.b', 'matrix.lev', 1)
-TransitionTable('matrix.tr.b', ['gnd'], ['exc'])
+TransitionTable('matrix.tr.b', ['gnd'], ['exc'], -1)
 PrintTable('matrix.tr.b', 'matrix.tr', 1)
 """
 
@@ -196,13 +196,11 @@ def _build_fac_script(Z: int, iso: str) -> str:
 
 
 def _first_fac_e1(levels: list[dict], transitions: list[dict]) -> tuple[float, float]:
-    e1 = [tr for tr in transitions if tr["mult"] in (0, None)]
+    e1 = [tr for tr in transitions if tr["mult"] in (-1, 0)]
     if not e1:
         return 0.0, 0.0
     first = min(e1, key=lambda tr: tr["DELTA_E_eV"])
-    up_level = next((lv for lv in levels if lv["ILEV"] == first["upper"]), None)
-    g_up = (up_level["TWOJ"] + 1) if up_level is not None else 1
-    return first["DELTA_E_eV"], first["gA_per_s"] / g_up
+    return first["DELTA_E_eV"], first["A_per_s"]
 
 
 def run_fac_matrix_cell(Z: int, iso: str, timeout: float = 300.0) -> dict[str, float]:

@@ -14,7 +14,22 @@ from fac_runner import (  # noqa: E402
     require_sfac_bin,
     resolve_sfac_bin,
     run_sfac,
+    radial_grid_command,
 )
+
+
+def test_fac_grid_refinement_changes_density_not_only_allocation():
+    import ast
+    def settings(points, density):
+        call = ast.parse(radial_grid_command(points, density_scale=density), mode='eval').body
+        return [ast.literal_eval(arg) for arg in call.args]
+    base = settings(2000, 1.)
+    larger = settings(4000, 1.)
+    refined = settings(4000, 2.)
+    assert larger[1:] == base[1:]
+    assert np.log(refined[1]) == pytest.approx(np.log(base[1])/2)
+    assert refined[2] == 2*base[2]
+    assert refined[3] == base[3]  # same nuclear-scaled inner radius
 
 
 def test_parse_ci_uses_third_column_as_cross_section(tmp_path):

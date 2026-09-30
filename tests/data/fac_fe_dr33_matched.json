@@ -1,0 +1,1952 @@
+{
+  "source": "benchmarks/runs/2026-09-30-dr-radiative/complete-fe-fixed",
+  "scope": "Independent FAC Ne-like Fe dr33, separate hole/parity CI spaces, ground-channel Auger and E1 stabilization to all n=3 final levels; point nucleus, infinite mass, corrections off, no configuration relaxation shifts, no coefficient cuts. Each transition is evaluated separately at its own photon energy.",
+  "fac_sha256": "ca3e1c35a05896ab3ab5e0a7d2c12a09f04b894c94e9f6feb9cf05311a1e5c18",
+  "raw_sha256": {
+    "process.json": "aaf109e1ab1e74f1bd2bc01124fa6e80f9572507478411140ae958e0c61a2362",
+    "stdout.txt": "77e280caa48cbf2e9df1f2220f1fba89d67dea726b26575a6e9c95bd60a7a5d3",
+    "auger.b": "e9935989893f11843cbda3130abe1e96cf18f36dc869b61d1ba0b4c8be0fc88d",
+    "levels.b": "7c685ea51cab5bcad188b8161e2322c412abc41e3d9006745fc9d7ab4ce980e3",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "levels.txt": "5e2abc2bfedb4e76d0b4551dad434059d20c389d9c24e7b800079387d1c568f8",
+    "lines.b": "8d46fd2e2ac6f476bc47f6eaa25cbbb463d91030ca37f40135939e9637dc3dd7",
+    "auger.txt": "ab572076c93aa7cf2f9329d3a45909d53c7ef8a9a11f71ad2a766873d83d7bb6",
+    "lines.txt": "35031821cb00b9bc3b556ec2c21ca6be09af86dbed5bcf300b8e06a30c2d918e",
+    "command.json": "b704e894de4ea9a9320f645311a7857af0e4c900ee663e25165f51fc9935384a",
+    "run.sf": "9cad8d24497d27a148e3039f5d269c4f71f9cad93a6263c56e0440d1e428236d"
+  },
+  "controls": {
+    "out": "benchmarks/runs/2026-09-30-dr-radiative/complete-fe-fixed",
+    "fac": "/tmp/atomx-fac-photon/sfac",
+    "z": [
+      26
+    ],
+    "fac_points": 16000,
+    "fac_density": 8.0,
+    "atomx_points": 4000,
+    "common_spinors": false,
+    "include_auger": true,
+    "fixture": null,
+    "fac_prune_mixtures": false
+  },
+  "configs": {
+    "p_even": [
+      "2p5 3s1 3p1",
+      "2p5 3p1 3d1"
+    ],
+    "p_odd": [
+      "2p5 3s2",
+      "2p5 3p2",
+      "2p5 3d2",
+      "2p5 3s1 3d1"
+    ],
+    "s_even": [
+      "2s1 3s2",
+      "2s1 3p2",
+      "2s1 3d2",
+      "2s1 3s1 3d1"
+    ],
+    "s_odd": [
+      "2s1 3s1 3p1",
+      "2s1 3p1 3d1"
+    ]
+  },
+  "resonances": [
+    {
+      "group": "p_even",
+      "ilev": 6,
+      "two_J": 3,
+      "energy_eV": 250.01928700000002,
+      "auger_per_s": 15126000.0,
+      "radiative_per_s": 12516170000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 7,
+      "two_J": 5,
+      "energy_eV": 253.53929799999997,
+      "auger_per_s": 80024000000.0,
+      "radiative_per_s": 97353220000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 8,
+      "two_J": 7,
+      "energy_eV": 254.25279500000005,
+      "auger_per_s": 11.566,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_even",
+      "ilev": 9,
+      "two_J": 3,
+      "energy_eV": 254.410725,
+      "auger_per_s": 363060000000.0,
+      "radiative_per_s": 458984104810.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 10,
+      "two_J": 1,
+      "energy_eV": 256.18078299999996,
+      "auger_per_s": 1270700000.0,
+      "radiative_per_s": 434636910000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 11,
+      "two_J": 5,
+      "energy_eV": 257.690709,
+      "auger_per_s": 302470000000.0,
+      "radiative_per_s": 324004000000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 12,
+      "two_J": 3,
+      "energy_eV": 257.76076100000006,
+      "auger_per_s": 422290000000.0,
+      "radiative_per_s": 605530000000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 13,
+      "two_J": 1,
+      "energy_eV": 260.65234000000004,
+      "auger_per_s": 42901000000.0,
+      "radiative_per_s": 612937530000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 14,
+      "two_J": 1,
+      "energy_eV": 265.92539600000003,
+      "auger_per_s": 20946000000.0,
+      "radiative_per_s": 202592350000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 15,
+      "two_J": 3,
+      "energy_eV": 267.27882200000005,
+      "auger_per_s": 245500000000.0,
+      "radiative_per_s": 355971644000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 16,
+      "two_J": 1,
+      "energy_eV": 267.47749100000004,
+      "auger_per_s": 22445000000000.0,
+      "radiative_per_s": 482276770000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 17,
+      "two_J": 5,
+      "energy_eV": 268.86311400000005,
+      "auger_per_s": 1078500000000.0,
+      "radiative_per_s": 82291380000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 18,
+      "two_J": 3,
+      "energy_eV": 268.97815099999997,
+      "auger_per_s": 52508000000.0,
+      "radiative_per_s": 96116033500.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 19,
+      "two_J": 5,
+      "energy_eV": 270.025418,
+      "auger_per_s": 1427900000000.0,
+      "radiative_per_s": 855851700000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 20,
+      "two_J": 3,
+      "energy_eV": 270.832873,
+      "auger_per_s": 344810000000.0,
+      "radiative_per_s": 872269800000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 21,
+      "two_J": 1,
+      "energy_eV": 280.229715,
+      "auger_per_s": 38618000000000.0,
+      "radiative_per_s": 875319660000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 22,
+      "two_J": 3,
+      "energy_eV": 282.331694,
+      "auger_per_s": 1475200000000.0,
+      "radiative_per_s": 408053030000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 23,
+      "two_J": 1,
+      "energy_eV": 290.52049400000004,
+      "auger_per_s": 441150000000000.0,
+      "radiative_per_s": 751378800000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 24,
+      "two_J": 1,
+      "energy_eV": 331.38131400000003,
+      "auger_per_s": 197650000.0,
+      "radiative_per_s": 2039242200.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 25,
+      "two_J": 3,
+      "energy_eV": 332.41551699999997,
+      "auger_per_s": 69928000000.0,
+      "radiative_per_s": 33141850000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 26,
+      "two_J": 5,
+      "energy_eV": 334.028617,
+      "auger_per_s": 87745000000.0,
+      "radiative_per_s": 41536470000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 27,
+      "two_J": 7,
+      "energy_eV": 335.7484,
+      "auger_per_s": 30864000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_even",
+      "ilev": 28,
+      "two_J": 9,
+      "energy_eV": 336.09960300000006,
+      "auger_per_s": 173320000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_even",
+      "ilev": 29,
+      "two_J": 7,
+      "energy_eV": 336.19016500000004,
+      "auger_per_s": 7980000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_even",
+      "ilev": 30,
+      "two_J": 11,
+      "energy_eV": 336.636097,
+      "auger_per_s": 0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_even",
+      "ilev": 31,
+      "two_J": 5,
+      "energy_eV": 336.98829600000005,
+      "auger_per_s": 508870000000.0,
+      "radiative_per_s": 90852640000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 32,
+      "two_J": 3,
+      "energy_eV": 337.535452,
+      "auger_per_s": 383750000000.0,
+      "radiative_per_s": 294746110000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 33,
+      "two_J": 7,
+      "energy_eV": 338.478002,
+      "auger_per_s": 1016700000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_even",
+      "ilev": 34,
+      "two_J": 5,
+      "energy_eV": 338.541259,
+      "auger_per_s": 183420000000.0,
+      "radiative_per_s": 24357750000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 35,
+      "two_J": 1,
+      "energy_eV": 339.171126,
+      "auger_per_s": 14976000000.0,
+      "radiative_per_s": 523559640000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 36,
+      "two_J": 7,
+      "energy_eV": 340.169109,
+      "auger_per_s": 1183700000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_even",
+      "ilev": 37,
+      "two_J": 1,
+      "energy_eV": 340.90444900000006,
+      "auger_per_s": 472260000000.0,
+      "radiative_per_s": 246292105000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 38,
+      "two_J": 3,
+      "energy_eV": 341.40089400000005,
+      "auger_per_s": 589210000.0,
+      "radiative_per_s": 26928716000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 39,
+      "two_J": 9,
+      "energy_eV": 341.54398399999997,
+      "auger_per_s": 20791000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_even",
+      "ilev": 40,
+      "two_J": 3,
+      "energy_eV": 342.05308700000006,
+      "auger_per_s": 841530000000.0,
+      "radiative_per_s": 690716890000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 41,
+      "two_J": 7,
+      "energy_eV": 342.26125099999996,
+      "auger_per_s": 2402800000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_even",
+      "ilev": 42,
+      "two_J": 5,
+      "energy_eV": 342.53913300000005,
+      "auger_per_s": 57629000000.0,
+      "radiative_per_s": 8436710000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 43,
+      "two_J": 5,
+      "energy_eV": 342.634749,
+      "auger_per_s": 621480000000.0,
+      "radiative_per_s": 203357200000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 44,
+      "two_J": 3,
+      "energy_eV": 343.42063,
+      "auger_per_s": 2386500000000.0,
+      "radiative_per_s": 1526799300000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 45,
+      "two_J": 9,
+      "energy_eV": 344.027004,
+      "auger_per_s": 155350000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_even",
+      "ilev": 46,
+      "two_J": 3,
+      "energy_eV": 344.06939800000004,
+      "auger_per_s": 70695000000.0,
+      "radiative_per_s": 99300030000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 47,
+      "two_J": 5,
+      "energy_eV": 344.83991199999997,
+      "auger_per_s": 747400000000.0,
+      "radiative_per_s": 533630200000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 48,
+      "two_J": 7,
+      "energy_eV": 345.161902,
+      "auger_per_s": 479150000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_even",
+      "ilev": 49,
+      "two_J": 5,
+      "energy_eV": 345.509566,
+      "auger_per_s": 399630000000.0,
+      "radiative_per_s": 237015400000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 50,
+      "two_J": 7,
+      "energy_eV": 345.751776,
+      "auger_per_s": 13112000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_even",
+      "ilev": 51,
+      "two_J": 1,
+      "energy_eV": 346.049367,
+      "auger_per_s": 193930000000.0,
+      "radiative_per_s": 726408350000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 52,
+      "two_J": 3,
+      "energy_eV": 347.11271800000003,
+      "auger_per_s": 118560000000.0,
+      "radiative_per_s": 411264130000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 53,
+      "two_J": 5,
+      "energy_eV": 347.40160299999997,
+      "auger_per_s": 1920300000000.0,
+      "radiative_per_s": 1585273000000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 54,
+      "two_J": 3,
+      "energy_eV": 348.010881,
+      "auger_per_s": 53765000000.0,
+      "radiative_per_s": 112444970000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 55,
+      "two_J": 5,
+      "energy_eV": 348.210665,
+      "auger_per_s": 92951000000.0,
+      "radiative_per_s": 52429510000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 56,
+      "two_J": 5,
+      "energy_eV": 349.451758,
+      "auger_per_s": 1760300000.0,
+      "radiative_per_s": 207987600000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 57,
+      "two_J": 1,
+      "energy_eV": 349.459004,
+      "auger_per_s": 2476900000000.0,
+      "radiative_per_s": 5321732700000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 58,
+      "two_J": 3,
+      "energy_eV": 350.33384000000007,
+      "auger_per_s": 57747000000.0,
+      "radiative_per_s": 900434700000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 59,
+      "two_J": 1,
+      "energy_eV": 350.43961700000006,
+      "auger_per_s": 3300300000000.0,
+      "radiative_per_s": 2235175588000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 60,
+      "two_J": 7,
+      "energy_eV": 350.75509600000004,
+      "auger_per_s": 38452000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_even",
+      "ilev": 61,
+      "two_J": 5,
+      "energy_eV": 351.41899400000005,
+      "auger_per_s": 691120000000.0,
+      "radiative_per_s": 326029300000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 62,
+      "two_J": 7,
+      "energy_eV": 352.62826,
+      "auger_per_s": 20383000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_even",
+      "ilev": 63,
+      "two_J": 9,
+      "energy_eV": 353.02508200000005,
+      "auger_per_s": 666680000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_even",
+      "ilev": 64,
+      "two_J": 3,
+      "energy_eV": 353.166485,
+      "auger_per_s": 1198200000000.0,
+      "radiative_per_s": 3800200400000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 65,
+      "two_J": 9,
+      "energy_eV": 354.08429400000006,
+      "auger_per_s": 25559000000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_even",
+      "ilev": 66,
+      "two_J": 3,
+      "energy_eV": 354.622906,
+      "auger_per_s": 24679000000000.0,
+      "radiative_per_s": 179105890000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 67,
+      "two_J": 5,
+      "energy_eV": 355.650291,
+      "auger_per_s": 47347000000000.0,
+      "radiative_per_s": 1060526000000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 68,
+      "two_J": 5,
+      "energy_eV": 356.693786,
+      "auger_per_s": 13375000000000.0,
+      "radiative_per_s": 1840703000000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 69,
+      "two_J": 1,
+      "energy_eV": 356.861961,
+      "auger_per_s": 7054600000000.0,
+      "radiative_per_s": 1403623500000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 70,
+      "two_J": 7,
+      "energy_eV": 356.892994,
+      "auger_per_s": 9431400000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_even",
+      "ilev": 71,
+      "two_J": 3,
+      "energy_eV": 357.39463800000004,
+      "auger_per_s": 287190000000.0,
+      "radiative_per_s": 705123300000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 72,
+      "two_J": 5,
+      "energy_eV": 357.72091300000005,
+      "auger_per_s": 1165500000000.0,
+      "radiative_per_s": 495729100000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 73,
+      "two_J": 3,
+      "energy_eV": 358.26016899999996,
+      "auger_per_s": 4946200000.0,
+      "radiative_per_s": 93074550000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 74,
+      "two_J": 1,
+      "energy_eV": 358.28755600000005,
+      "auger_per_s": 199550000000.0,
+      "radiative_per_s": 51736769000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 75,
+      "two_J": 7,
+      "energy_eV": 358.57689,
+      "auger_per_s": 1207500000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_even",
+      "ilev": 76,
+      "two_J": 5,
+      "energy_eV": 358.849436,
+      "auger_per_s": 11455000000.0,
+      "radiative_per_s": 120189600000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 77,
+      "two_J": 3,
+      "energy_eV": 359.01075,
+      "auger_per_s": 24392000000000.0,
+      "radiative_per_s": 2605560600000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 78,
+      "two_J": 3,
+      "energy_eV": 362.172981,
+      "auger_per_s": 145580000000000.0,
+      "radiative_per_s": 22039978100000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 79,
+      "two_J": 5,
+      "energy_eV": 362.34663000000006,
+      "auger_per_s": 51997000000000.0,
+      "radiative_per_s": 9818026000000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 80,
+      "two_J": 1,
+      "energy_eV": 362.937242,
+      "auger_per_s": 14774000000000.0,
+      "radiative_per_s": 14679078290000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 81,
+      "two_J": 3,
+      "energy_eV": 365.494476,
+      "auger_per_s": 141220000000.0,
+      "radiative_per_s": 17431001100000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 82,
+      "two_J": 1,
+      "energy_eV": 368.13270000000006,
+      "auger_per_s": 39150000000000.0,
+      "radiative_per_s": 22245424600000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 83,
+      "two_J": 7,
+      "energy_eV": 368.49134499999997,
+      "auger_per_s": 14210000000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_even",
+      "ilev": 84,
+      "two_J": 5,
+      "energy_eV": 369.88958600000007,
+      "auger_per_s": 530670000000.0,
+      "radiative_per_s": 11569480000000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 85,
+      "two_J": 3,
+      "energy_eV": 370.38859800000006,
+      "auger_per_s": 45709000000000.0,
+      "radiative_per_s": 5536128300000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 86,
+      "two_J": 1,
+      "energy_eV": 372.70212699999996,
+      "auger_per_s": 31833000000000.0,
+      "radiative_per_s": 9924455000000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 87,
+      "two_J": 3,
+      "energy_eV": 375.414966,
+      "auger_per_s": 246030000000000.0,
+      "radiative_per_s": 1117028000000.0
+    },
+    {
+      "group": "p_even",
+      "ilev": 88,
+      "two_J": 5,
+      "energy_eV": 376.416444,
+      "auger_per_s": 370470000000000.0,
+      "radiative_per_s": 596898500000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 89,
+      "two_J": 3,
+      "energy_eV": 226.18192200000004,
+      "auger_per_s": 1869700000000.0,
+      "radiative_per_s": 683829487960.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 90,
+      "two_J": 1,
+      "energy_eV": 239.118085,
+      "auger_per_s": 1584200000000.0,
+      "radiative_per_s": 700533499400.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 91,
+      "two_J": 3,
+      "energy_eV": 290.202028,
+      "auger_per_s": 4417500000000.0,
+      "radiative_per_s": 89613134000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 92,
+      "two_J": 1,
+      "energy_eV": 290.429182,
+      "auger_per_s": 13942000000000.0,
+      "radiative_per_s": 334738780000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 93,
+      "two_J": 5,
+      "energy_eV": 291.17201300000005,
+      "auger_per_s": 12043000000.0,
+      "radiative_per_s": 1188469800.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 94,
+      "two_J": 7,
+      "energy_eV": 291.80299900000006,
+      "auger_per_s": 827750000000.0,
+      "radiative_per_s": 63441610000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 95,
+      "two_J": 3,
+      "energy_eV": 292.608761,
+      "auger_per_s": 8060900000000.0,
+      "radiative_per_s": 158789052000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 96,
+      "two_J": 5,
+      "energy_eV": 294.56565700000004,
+      "auger_per_s": 180140000000.0,
+      "radiative_per_s": 41206370000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 97,
+      "two_J": 3,
+      "energy_eV": 294.743399,
+      "auger_per_s": 384970000000.0,
+      "radiative_per_s": 7509630520.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 98,
+      "two_J": 1,
+      "energy_eV": 294.958552,
+      "auger_per_s": 9878000000000.0,
+      "radiative_per_s": 119006740000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 99,
+      "two_J": 7,
+      "energy_eV": 295.223763,
+      "auger_per_s": 68514000000.0,
+      "radiative_per_s": 12798870000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 100,
+      "two_J": 5,
+      "energy_eV": 295.52153100000004,
+      "auger_per_s": 87080000000.0,
+      "radiative_per_s": 10883388530.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 101,
+      "two_J": 1,
+      "energy_eV": 301.46997400000004,
+      "auger_per_s": 34717000000000.0,
+      "radiative_per_s": 115057570000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 102,
+      "two_J": 3,
+      "energy_eV": 302.220852,
+      "auger_per_s": 17247000000000.0,
+      "radiative_per_s": 77211620000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 103,
+      "two_J": 1,
+      "energy_eV": 302.87098,
+      "auger_per_s": 185550000000.0,
+      "radiative_per_s": 46735700000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 104,
+      "two_J": 3,
+      "energy_eV": 303.83712099999997,
+      "auger_per_s": 1105200000.0,
+      "radiative_per_s": 117673390000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 105,
+      "two_J": 9,
+      "energy_eV": 305.15552600000007,
+      "auger_per_s": 12.966,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 106,
+      "two_J": 3,
+      "energy_eV": 305.25051,
+      "auger_per_s": 16316000000000.0,
+      "radiative_per_s": 30133230300.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 107,
+      "two_J": 5,
+      "energy_eV": 305.378077,
+      "auger_per_s": 270810000000.0,
+      "radiative_per_s": 39123941000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 108,
+      "two_J": 5,
+      "energy_eV": 305.564776,
+      "auger_per_s": 191430000000.0,
+      "radiative_per_s": 64026233000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 109,
+      "two_J": 7,
+      "energy_eV": 306.034468,
+      "auger_per_s": 406800000000.0,
+      "radiative_per_s": 111826000000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 110,
+      "two_J": 1,
+      "energy_eV": 306.223041,
+      "auger_per_s": 752790000000.0,
+      "radiative_per_s": 1349079670.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 111,
+      "two_J": 5,
+      "energy_eV": 307.15999200000005,
+      "auger_per_s": 724720000000.0,
+      "radiative_per_s": 331918510000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 112,
+      "two_J": 3,
+      "energy_eV": 307.28416999999996,
+      "auger_per_s": 17011000000000.0,
+      "radiative_per_s": 61310021000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 113,
+      "two_J": 3,
+      "energy_eV": 308.45312700000005,
+      "auger_per_s": 92674000000.0,
+      "radiative_per_s": 291178791650.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 114,
+      "two_J": 3,
+      "energy_eV": 309.134163,
+      "auger_per_s": 44050000000.0,
+      "radiative_per_s": 268629250000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 115,
+      "two_J": 7,
+      "energy_eV": 309.230712,
+      "auger_per_s": 1040400000000.0,
+      "radiative_per_s": 307414600000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 116,
+      "two_J": 5,
+      "energy_eV": 309.433604,
+      "auger_per_s": 71068000000.0,
+      "radiative_per_s": 38973540000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 117,
+      "two_J": 5,
+      "energy_eV": 309.726194,
+      "auger_per_s": 1452400000000.0,
+      "radiative_per_s": 701258900000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 118,
+      "two_J": 1,
+      "energy_eV": 310.058072,
+      "auger_per_s": 18505000000000.0,
+      "radiative_per_s": 1328332700000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 119,
+      "two_J": 3,
+      "energy_eV": 312.44775,
+      "auger_per_s": 5395400000000.0,
+      "radiative_per_s": 3637745045000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 120,
+      "two_J": 1,
+      "energy_eV": 313.98333400000007,
+      "auger_per_s": 85308000000000.0,
+      "radiative_per_s": 3425594390000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 121,
+      "two_J": 3,
+      "energy_eV": 317.61843200000004,
+      "auger_per_s": 80326000000000.0,
+      "radiative_per_s": 1907791850000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 122,
+      "two_J": 7,
+      "energy_eV": 318.29487,
+      "auger_per_s": 2914200000000.0,
+      "radiative_per_s": 193338000000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 123,
+      "two_J": 3,
+      "energy_eV": 319.609674,
+      "auger_per_s": 13271000000000.0,
+      "radiative_per_s": 664812810000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 124,
+      "two_J": 5,
+      "energy_eV": 319.870753,
+      "auger_per_s": 98996000000.0,
+      "radiative_per_s": 166239880000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 125,
+      "two_J": 5,
+      "energy_eV": 319.924831,
+      "auger_per_s": 1470200000000.0,
+      "radiative_per_s": 19863856000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 126,
+      "two_J": 1,
+      "energy_eV": 320.513704,
+      "auger_per_s": 11689000000000.0,
+      "radiative_per_s": 238266270000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 127,
+      "two_J": 7,
+      "energy_eV": 321.295641,
+      "auger_per_s": 1433700000000.0,
+      "radiative_per_s": 555747500000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 128,
+      "two_J": 5,
+      "energy_eV": 321.46447500000005,
+      "auger_per_s": 46505000000.0,
+      "radiative_per_s": 1207444300000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 129,
+      "two_J": 1,
+      "energy_eV": 322.7829550000001,
+      "auger_per_s": 423340000000000.0,
+      "radiative_per_s": 142487370000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 130,
+      "two_J": 3,
+      "energy_eV": 324.569864,
+      "auger_per_s": 343790000000000.0,
+      "radiative_per_s": 574966220000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 131,
+      "two_J": 3,
+      "energy_eV": 326.59991900000006,
+      "auger_per_s": 19446000000000.0,
+      "radiative_per_s": 14427941769800.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 132,
+      "two_J": 1,
+      "energy_eV": 330.446084,
+      "auger_per_s": 12732000000000.0,
+      "radiative_per_s": 24793314200000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 133,
+      "two_J": 5,
+      "energy_eV": 332.054012,
+      "auger_per_s": 1658900000000.0,
+      "radiative_per_s": 368279430000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 134,
+      "two_J": 3,
+      "energy_eV": 336.05647300000004,
+      "auger_per_s": 78124000000000.0,
+      "radiative_per_s": 9990836910000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 135,
+      "two_J": 1,
+      "energy_eV": 385.93124100000006,
+      "auger_per_s": 3516100000.0,
+      "radiative_per_s": 21104534283.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 136,
+      "two_J": 3,
+      "energy_eV": 386.205948,
+      "auger_per_s": 4627000000.0,
+      "radiative_per_s": 29948151376.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 137,
+      "two_J": 5,
+      "energy_eV": 386.66345200000006,
+      "auger_per_s": 7819500000.0,
+      "radiative_per_s": 26460585000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 138,
+      "two_J": 7,
+      "energy_eV": 387.509797,
+      "auger_per_s": 171150000000.0,
+      "radiative_per_s": 49700120000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 139,
+      "two_J": 11,
+      "energy_eV": 388.039054,
+      "auger_per_s": 8510400000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 140,
+      "two_J": 9,
+      "energy_eV": 388.36794100000003,
+      "auger_per_s": 1200200000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 141,
+      "two_J": 7,
+      "energy_eV": 389.234497,
+      "auger_per_s": 101980000000.0,
+      "radiative_per_s": 140451800000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 142,
+      "two_J": 5,
+      "energy_eV": 389.505333,
+      "auger_per_s": 6646200000000.0,
+      "radiative_per_s": 71292382820.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 143,
+      "two_J": 9,
+      "energy_eV": 390.418889,
+      "auger_per_s": 1193000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 144,
+      "two_J": 5,
+      "energy_eV": 390.726507,
+      "auger_per_s": 260080000000.0,
+      "radiative_per_s": 46831538000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 145,
+      "two_J": 7,
+      "energy_eV": 390.795909,
+      "auger_per_s": 416130000000.0,
+      "radiative_per_s": 63841250000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 146,
+      "two_J": 3,
+      "energy_eV": 391.310173,
+      "auger_per_s": 709510000000.0,
+      "radiative_per_s": 807179005000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 147,
+      "two_J": 5,
+      "energy_eV": 391.926535,
+      "auger_per_s": 467420000000.0,
+      "radiative_per_s": 538935400000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 148,
+      "two_J": 3,
+      "energy_eV": 392.26369900000003,
+      "auger_per_s": 41340000000.0,
+      "radiative_per_s": 474117098910.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 149,
+      "two_J": 1,
+      "energy_eV": 393.21330200000006,
+      "auger_per_s": 604700000000.0,
+      "radiative_per_s": 46267650000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 150,
+      "two_J": 11,
+      "energy_eV": 393.49806900000004,
+      "auger_per_s": 7932500000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 151,
+      "two_J": 7,
+      "energy_eV": 394.07133500000003,
+      "auger_per_s": 61517000000000.0,
+      "radiative_per_s": 575134100000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 152,
+      "two_J": 5,
+      "energy_eV": 394.244928,
+      "auger_per_s": 49146000000000.0,
+      "radiative_per_s": 957286400000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 153,
+      "two_J": 7,
+      "energy_eV": 394.472648,
+      "auger_per_s": 44720000000000.0,
+      "radiative_per_s": 791923400000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 154,
+      "two_J": 3,
+      "energy_eV": 394.588184,
+      "auger_per_s": 1309500000000.0,
+      "radiative_per_s": 436568310000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 155,
+      "two_J": 1,
+      "energy_eV": 394.66192100000006,
+      "auger_per_s": 1751400000000.0,
+      "radiative_per_s": 103216020000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 156,
+      "two_J": 9,
+      "energy_eV": 396.83602,
+      "auger_per_s": 3616000000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 157,
+      "two_J": 5,
+      "energy_eV": 397.151455,
+      "auger_per_s": 126480000000000.0,
+      "radiative_per_s": 3963879000000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 158,
+      "two_J": 3,
+      "energy_eV": 397.678294,
+      "auger_per_s": 89363000000.0,
+      "radiative_per_s": 2390241620000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 159,
+      "two_J": 7,
+      "energy_eV": 398.66476900000004,
+      "auger_per_s": 75255000000000.0,
+      "radiative_per_s": 2607909000000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 160,
+      "two_J": 5,
+      "energy_eV": 399.409882,
+      "auger_per_s": 12091000000000.0,
+      "radiative_per_s": 3451688000000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 161,
+      "two_J": 3,
+      "energy_eV": 400.313197,
+      "auger_per_s": 1856700000000.0,
+      "radiative_per_s": 2788999103000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 162,
+      "two_J": 7,
+      "energy_eV": 402.10632400000003,
+      "auger_per_s": 87357000000.0,
+      "radiative_per_s": 17273530000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 163,
+      "two_J": 1,
+      "energy_eV": 402.25270300000005,
+      "auger_per_s": 10803000000000.0,
+      "radiative_per_s": 6931923390000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 164,
+      "two_J": 9,
+      "energy_eV": 403.16188500000004,
+      "auger_per_s": 140450000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 165,
+      "two_J": 3,
+      "energy_eV": 404.96286100000003,
+      "auger_per_s": 7368200000000.0,
+      "radiative_per_s": 2183707310000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 166,
+      "two_J": 7,
+      "energy_eV": 405.043157,
+      "auger_per_s": 37965000000000.0,
+      "radiative_per_s": 2595567000000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 167,
+      "two_J": 5,
+      "energy_eV": 405.28854200000006,
+      "auger_per_s": 25269000000000.0,
+      "radiative_per_s": 5518646000000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 168,
+      "two_J": 5,
+      "energy_eV": 406.22748100000007,
+      "auger_per_s": 329100000000000.0,
+      "radiative_per_s": 11811039800000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 169,
+      "two_J": 1,
+      "energy_eV": 407.12207900000004,
+      "auger_per_s": 133660000000.0,
+      "radiative_per_s": 106005030600.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 170,
+      "two_J": 3,
+      "energy_eV": 407.159375,
+      "auger_per_s": 1021100000000.0,
+      "radiative_per_s": 308592826890.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 171,
+      "two_J": 5,
+      "energy_eV": 408.299558,
+      "auger_per_s": 2443300000000.0,
+      "radiative_per_s": 545513350000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 172,
+      "two_J": 9,
+      "energy_eV": 408.45806699999997,
+      "auger_per_s": 4066000000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 173,
+      "two_J": 3,
+      "energy_eV": 408.975569,
+      "auger_per_s": 884080000000.0,
+      "radiative_per_s": 1419286545000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 174,
+      "two_J": 1,
+      "energy_eV": 412.067512,
+      "auger_per_s": 15122000000000.0,
+      "radiative_per_s": 13634683850000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 175,
+      "two_J": 7,
+      "energy_eV": 413.09465400000005,
+      "auger_per_s": 326810000000000.0,
+      "radiative_per_s": 13136010000000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 176,
+      "two_J": 5,
+      "energy_eV": 414.085353,
+      "auger_per_s": 4795200000000.0,
+      "radiative_per_s": 25862519900000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 177,
+      "two_J": 3,
+      "energy_eV": 415.06727200000006,
+      "auger_per_s": 5117100000000.0,
+      "radiative_per_s": 26036956468000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 178,
+      "two_J": 3,
+      "energy_eV": 416.28657100000004,
+      "auger_per_s": 28901000000000.0,
+      "radiative_per_s": 23771045460000.0
+    },
+    {
+      "group": "p_odd",
+      "ilev": 179,
+      "two_J": 1,
+      "energy_eV": 421.269076,
+      "auger_per_s": 18686000000000.0,
+      "radiative_per_s": 6797242164000.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 180,
+      "two_J": 1,
+      "energy_eV": 363.869081,
+      "auger_per_s": 67655000000000.0,
+      "radiative_per_s": 66805130000.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 181,
+      "two_J": 1,
+      "energy_eV": 427.552069,
+      "auger_per_s": 483500000000.0,
+      "radiative_per_s": 259114144900.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 182,
+      "two_J": 3,
+      "energy_eV": 428.604076,
+      "auger_per_s": 1713700000000.0,
+      "radiative_per_s": 465556600000.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 183,
+      "two_J": 5,
+      "energy_eV": 428.69328,
+      "auger_per_s": 5323700000000.0,
+      "radiative_per_s": 1591626000000.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 184,
+      "two_J": 3,
+      "energy_eV": 429.40849399999996,
+      "auger_per_s": 7194200000000.0,
+      "radiative_per_s": 2216472690000.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 185,
+      "two_J": 5,
+      "energy_eV": 431.20020000000005,
+      "auger_per_s": 3579300000000.0,
+      "radiative_per_s": 659808200000.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 186,
+      "two_J": 1,
+      "energy_eV": 432.14787900000005,
+      "auger_per_s": 326030000000.0,
+      "radiative_per_s": 8410221000000.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 187,
+      "two_J": 3,
+      "energy_eV": 434.42889400000007,
+      "auger_per_s": 777190000000.0,
+      "radiative_per_s": 8100016800000.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 188,
+      "two_J": 1,
+      "energy_eV": 440.43641299999996,
+      "auger_per_s": 2047000.0,
+      "radiative_per_s": 19280694.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 189,
+      "two_J": 3,
+      "energy_eV": 440.52543700000007,
+      "auger_per_s": 81802000.0,
+      "radiative_per_s": 410220700.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 190,
+      "two_J": 5,
+      "energy_eV": 440.67520300000007,
+      "auger_per_s": 255140000.0,
+      "radiative_per_s": 667290200.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 191,
+      "two_J": 7,
+      "energy_eV": 440.88796199999996,
+      "auger_per_s": 0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "s_even",
+      "ilev": 192,
+      "two_J": 1,
+      "energy_eV": 442.92214500000006,
+      "auger_per_s": 25019000000000.0,
+      "radiative_per_s": 2847822700000.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 193,
+      "two_J": 3,
+      "energy_eV": 450.04772900000006,
+      "auger_per_s": 11037000000000.0,
+      "radiative_per_s": 36350150000.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 194,
+      "two_J": 5,
+      "energy_eV": 450.25256800000005,
+      "auger_per_s": 8135300000000.0,
+      "radiative_per_s": 57076870000.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 195,
+      "two_J": 3,
+      "energy_eV": 455.79391300000003,
+      "auger_per_s": 89720000000000.0,
+      "radiative_per_s": 627939000000.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 196,
+      "two_J": 5,
+      "energy_eV": 455.89806100000004,
+      "auger_per_s": 92528000000000.0,
+      "radiative_per_s": 631553300000.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 197,
+      "two_J": 3,
+      "energy_eV": 522.249716,
+      "auger_per_s": 590110000.0,
+      "radiative_per_s": 43374485.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 198,
+      "two_J": 5,
+      "energy_eV": 522.402016,
+      "auger_per_s": 291180000.0,
+      "radiative_per_s": 21774010.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 199,
+      "two_J": 7,
+      "energy_eV": 522.614196,
+      "auger_per_s": 7585800000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "s_even",
+      "ilev": 200,
+      "two_J": 9,
+      "energy_eV": 522.883026,
+      "auger_per_s": 34803000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "s_even",
+      "ilev": 201,
+      "two_J": 1,
+      "energy_eV": 527.1408260000001,
+      "auger_per_s": 8276700000.0,
+      "radiative_per_s": 94393080.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 202,
+      "two_J": 3,
+      "energy_eV": 527.233536,
+      "auger_per_s": 517520000.0,
+      "radiative_per_s": 55504060.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 203,
+      "two_J": 5,
+      "energy_eV": 527.3584559999999,
+      "auger_per_s": 3786800000.0,
+      "radiative_per_s": 360167300.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 204,
+      "two_J": 5,
+      "energy_eV": 529.596186,
+      "auger_per_s": 130700000000.0,
+      "radiative_per_s": 11763610000.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 205,
+      "two_J": 3,
+      "energy_eV": 529.8069760000001,
+      "auger_per_s": 317960000000.0,
+      "radiative_per_s": 28403761000.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 206,
+      "two_J": 5,
+      "energy_eV": 530.0039160000001,
+      "auger_per_s": 201750000000.0,
+      "radiative_per_s": 17563810000.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 207,
+      "two_J": 7,
+      "energy_eV": 530.127706,
+      "auger_per_s": 5143800000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "s_even",
+      "ilev": 208,
+      "two_J": 9,
+      "energy_eV": 530.6735960000001,
+      "auger_per_s": 66605000000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "s_even",
+      "ilev": 209,
+      "two_J": 7,
+      "energy_eV": 530.706696,
+      "auger_per_s": 61588000000000.0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "s_even",
+      "ilev": 210,
+      "two_J": 1,
+      "energy_eV": 534.5317359999999,
+      "auger_per_s": 15464000000.0,
+      "radiative_per_s": 52417520000.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 211,
+      "two_J": 3,
+      "energy_eV": 534.7260060000001,
+      "auger_per_s": 187780000.0,
+      "radiative_per_s": 52953192000.0
+    },
+    {
+      "group": "s_even",
+      "ilev": 212,
+      "two_J": 1,
+      "energy_eV": 541.9456260000002,
+      "auger_per_s": 9890200000000.0,
+      "radiative_per_s": 106067030000.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 213,
+      "two_J": 1,
+      "energy_eV": 387.97630799999996,
+      "auger_per_s": 17559000000.0,
+      "radiative_per_s": 36726511479.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 214,
+      "two_J": 3,
+      "energy_eV": 388.797251,
+      "auger_per_s": 23386000000.0,
+      "radiative_per_s": 108598742159.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 215,
+      "two_J": 5,
+      "energy_eV": 390.51624899999996,
+      "auger_per_s": 173.63,
+      "radiative_per_s": 6434696.3
+    },
+    {
+      "group": "s_odd",
+      "ilev": 216,
+      "two_J": 1,
+      "energy_eV": 396.23145300000004,
+      "auger_per_s": 59415000000000.0,
+      "radiative_per_s": 4871926844000.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 217,
+      "two_J": 3,
+      "energy_eV": 397.43003300000004,
+      "auger_per_s": 34046000000000.0,
+      "radiative_per_s": 5356154878900.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 218,
+      "two_J": 1,
+      "energy_eV": 406.35355,
+      "auger_per_s": 88851000000000.0,
+      "radiative_per_s": 891474350000.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 219,
+      "two_J": 3,
+      "energy_eV": 407.12283900000006,
+      "auger_per_s": 112570000000000.0,
+      "radiative_per_s": 335096895000.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 220,
+      "two_J": 3,
+      "energy_eV": 470.329191,
+      "auger_per_s": 344160000.0,
+      "radiative_per_s": 155273040054.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 221,
+      "two_J": 5,
+      "energy_eV": 470.94586799999996,
+      "auger_per_s": 41545000000.0,
+      "radiative_per_s": 204795080000.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 222,
+      "two_J": 7,
+      "energy_eV": 471.945088,
+      "auger_per_s": 91240000000.0,
+      "radiative_per_s": 101571900000.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 223,
+      "two_J": 9,
+      "energy_eV": 473.26620900000006,
+      "auger_per_s": 0,
+      "radiative_per_s": 0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 224,
+      "two_J": 5,
+      "energy_eV": 474.27706600000005,
+      "auger_per_s": 13957000000.0,
+      "radiative_per_s": 1775104100000.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 225,
+      "two_J": 3,
+      "energy_eV": 474.68043400000005,
+      "auger_per_s": 20613000000.0,
+      "radiative_per_s": 1675974183300.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 226,
+      "two_J": 5,
+      "energy_eV": 476.82459,
+      "auger_per_s": 242080000000.0,
+      "radiative_per_s": 4073141500000.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 227,
+      "two_J": 1,
+      "energy_eV": 477.75374800000003,
+      "auger_per_s": 20117000000.0,
+      "radiative_per_s": 128431019830.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 228,
+      "two_J": 3,
+      "energy_eV": 477.7826850000001,
+      "auger_per_s": 3234600000.0,
+      "radiative_per_s": 59728591500.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 229,
+      "two_J": 5,
+      "energy_eV": 478.039736,
+      "auger_per_s": 47368000000.0,
+      "radiative_per_s": 346963600000.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 230,
+      "two_J": 7,
+      "energy_eV": 478.318745,
+      "auger_per_s": 467330000.0,
+      "radiative_per_s": 4015212000000.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 231,
+      "two_J": 7,
+      "energy_eV": 479.41246100000006,
+      "auger_per_s": 129160000000.0,
+      "radiative_per_s": 656795800000.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 232,
+      "two_J": 1,
+      "energy_eV": 479.464856,
+      "auger_per_s": 14941000.0,
+      "radiative_per_s": 63473881.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 233,
+      "two_J": 3,
+      "energy_eV": 479.49391299999996,
+      "auger_per_s": 460400000.0,
+      "radiative_per_s": 2591990910.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 234,
+      "two_J": 5,
+      "energy_eV": 479.50094200000007,
+      "auger_per_s": 14472000000.0,
+      "radiative_per_s": 12622148600.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 235,
+      "two_J": 3,
+      "energy_eV": 483.276128,
+      "auger_per_s": 1112700000000.0,
+      "radiative_per_s": 4307017780000.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 236,
+      "two_J": 1,
+      "energy_eV": 484.712199,
+      "auger_per_s": 2543600000000.0,
+      "radiative_per_s": 5035710860000.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 237,
+      "two_J": 5,
+      "energy_eV": 484.86082200000004,
+      "auger_per_s": 196560000000.0,
+      "radiative_per_s": 3827354000000.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 238,
+      "two_J": 3,
+      "energy_eV": 485.03787100000005,
+      "auger_per_s": 1570400000000.0,
+      "radiative_per_s": 4314741504000.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 239,
+      "two_J": 5,
+      "energy_eV": 491.24474000000004,
+      "auger_per_s": 15784000000000.0,
+      "radiative_per_s": 1319757900000.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 240,
+      "two_J": 7,
+      "energy_eV": 491.35100400000005,
+      "auger_per_s": 16676000000000.0,
+      "radiative_per_s": 1001238000000.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 241,
+      "two_J": 3,
+      "energy_eV": 493.2044,
+      "auger_per_s": 10865000000.0,
+      "radiative_per_s": 1163312420000.0
+    },
+    {
+      "group": "s_odd",
+      "ilev": 242,
+      "two_J": 1,
+      "energy_eV": 493.39245999999997,
+      "auger_per_s": 7197300000.0,
+      "radiative_per_s": 722591600000.0
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 Purpose
 -------
-``atomx.methods.mcdhf.matrix.build_ci_matrix`` evaluates CSF matrix
+``atomx.physics.csf.matrix.build_ci_matrix`` evaluates CSF matrix
 elements through a jj-coupled angular kernel.  This module rebuilds the CI
 in the **m-scheme determinant basis** so that the *assembly* of that matrix
 has an independent check.
@@ -227,7 +227,7 @@ def patterns_from_configs(config_strings):
     Returns a list of ``((n, kappa, q), ...)`` tuples — the per-configuration
     determinant spaces whose union is the CI space.
     """
-    from atomx.methods.mcdhf.config import enumerate_jj_csfs
+    from atomx.config.csf import enumerate_jj_csfs
 
     pats = []
     for cfg in config_strings:
@@ -257,7 +257,7 @@ def mscheme_levels(orbitals_dict, bsp_data, Z, ns, patterns, M2=0):
     (eigenvalues, n_determinants)
         Ascending eigenvalues and the determinant-space dimension.
     """
-    import atomx.methods.mcdhf.matrix as MAT
+    import atomx.physics.csf.matrix as MAT
 
     spinors = _spinors(orbitals_dict)
     owner = [(n, kappa) for (n, kappa, _m2) in spinors]
@@ -335,7 +335,7 @@ def mscheme_levels(orbitals_dict, bsp_data, Z, ns, patterns, M2=0):
 
 def _v_element(a, b, c, d, orbitals_dict, bsp_data, Z, ns):
     """``<a b|1/r12|c d>`` for spinor tuples ``(n, kappa, 2m)``."""
-    import atomx.methods.mcdhf.matrix as MAT
+    import atomx.physics.csf.matrix as MAT
 
     na, ka, m2a = a
     nb, kb, m2b = b

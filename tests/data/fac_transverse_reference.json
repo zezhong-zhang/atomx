@@ -1,0 +1,485 @@
+{
+  "scope": "Live FAC transverse exchange on independent point-Coulomb spinors.\n\nCompare the exchange energy between two completely occupied subshells.\nFAC contracts its reduced Breit integrals with Wigner 3j coefficients;\nAtomx independently sums uncoupled magnetic-substate matrix elements.\nThis is an operator test on fixed spinors, not a many-electron SCF result.\nEach FAC mode runs in a fresh process because its Breit cache omits mode.\n",
+  "reference": {
+    "executable": "/tmp/atomx-fac-common-spinors/sfac",
+    "sha256": "38e2dab70f30792508738e496816d5d26da13011e993d85441931d7b393c4e11",
+    "library_sha256": "b15cbe8420fc20b3f87412a0dc16f8370f95ac8c5e5fadebf024f504c0aaac6b"
+  },
+  "points": 16000,
+  "fac_grid_density": 8.0,
+  "fac_breit_small_x": 0.001,
+  "fac_energy_tolerance": 1e-12,
+  "source_artifact": "benchmarks/runs/2026-09-29-transverse-precision-panel",
+  "cases": [
+    {
+      "z": 10,
+      "pairs": [
+        {
+          "a": [
+            1,
+            -1
+          ],
+          "b": [
+            2,
+            -1
+          ],
+          "fac_static_Ha": 0.00263590063296859,
+          "fac_finite_Ha": 0.002636774764235592
+        },
+        {
+          "a": [
+            1,
+            -1
+          ],
+          "b": [
+            2,
+            1
+          ],
+          "fac_static_Ha": 0.005436284283676058,
+          "fac_finite_Ha": 0.0054354630029613315
+        },
+        {
+          "a": [
+            1,
+            -1
+          ],
+          "b": [
+            2,
+            -2
+          ],
+          "fac_static_Ha": 0.005001181297696448,
+          "fac_finite_Ha": 0.004985904989905256
+        },
+        {
+          "a": [
+            2,
+            1
+          ],
+          "b": [
+            2,
+            -2
+          ],
+          "fac_static_Ha": 0.0008783016780275967,
+          "fac_finite_Ha": 0.0008783016782877811
+        },
+        {
+          "a": [
+            2,
+            -2
+          ],
+          "b": [
+            3,
+            2
+          ],
+          "fac_static_Ha": 0.0008326506643473095,
+          "fac_finite_Ha": 0.000832706938122168
+        },
+        {
+          "a": [
+            2,
+            -2
+          ],
+          "b": [
+            3,
+            -3
+          ],
+          "fac_static_Ha": 0.001717704635803353,
+          "fac_finite_Ha": 0.0017165247728059274
+        }
+      ],
+      "off_diagonal": [
+        {
+          "spinors": [
+            [
+              1,
+              -1,
+              1
+            ],
+            [
+              1,
+              -1,
+              -1
+            ],
+            [
+              2,
+              -1,
+              1
+            ],
+            [
+              3,
+              -1,
+              -1
+            ]
+          ],
+          "fac_static_Ha": 0.00023498400349592248,
+          "fac_finite_Ha": 0.0002350735492660074
+        },
+        {
+          "spinors": [
+            [
+              1,
+              -1,
+              1
+            ],
+            [
+              2,
+              -1,
+              -1
+            ],
+            [
+              2,
+              1,
+              1
+            ],
+            [
+              3,
+              1,
+              -1
+            ]
+          ],
+          "fac_static_Ha": -0.00015611354299237132,
+          "fac_finite_Ha": -0.00015581208510406777
+        },
+        {
+          "spinors": [
+            [
+              1,
+              -1,
+              1
+            ],
+            [
+              2,
+              -2,
+              -1
+            ],
+            [
+              2,
+              -1,
+              1
+            ],
+            [
+              3,
+              -2,
+              -1
+            ]
+          ],
+          "fac_static_Ha": 1.9677521138189014e-05,
+          "fac_finite_Ha": 1.9692473344977137e-05
+        },
+        {
+          "spinors": [
+            [
+              2,
+              -1,
+              1
+            ],
+            [
+              3,
+              -1,
+              -1
+            ],
+            [
+              1,
+              -1,
+              1
+            ],
+            [
+              1,
+              -1,
+              -1
+            ]
+          ],
+          "fac_static_Ha": 0.0002349840035356399,
+          "fac_finite_Ha": 0.00023507354926116078
+        },
+        {
+          "spinors": [
+            [
+              2,
+              1,
+              1
+            ],
+            [
+              3,
+              1,
+              -1
+            ],
+            [
+              1,
+              -1,
+              1
+            ],
+            [
+              2,
+              -1,
+              -1
+            ]
+          ],
+          "fac_static_Ha": -0.0001561135430956666,
+          "fac_finite_Ha": -0.00015581208510040444
+        },
+        {
+          "spinors": [
+            [
+              2,
+              -1,
+              1
+            ],
+            [
+              3,
+              -2,
+              -1
+            ],
+            [
+              1,
+              -1,
+              1
+            ],
+            [
+              2,
+              -2,
+              -1
+            ]
+          ],
+          "fac_static_Ha": 1.967752113263708e-05,
+          "fac_finite_Ha": 1.9692473342278975e-05
+        }
+      ]
+    },
+    {
+      "z": 82,
+      "pairs": [
+        {
+          "a": [
+            1,
+            -1
+          ],
+          "b": [
+            2,
+            -1
+          ],
+          "fac_static_Ha": 1.7536951039573996,
+          "fac_finite_Ha": 1.7828231107430956
+        },
+        {
+          "a": [
+            1,
+            -1
+          ],
+          "b": [
+            2,
+            1
+          ],
+          "fac_static_Ha": 3.682606109655599,
+          "fac_finite_Ha": 3.6856454774277347
+        },
+        {
+          "a": [
+            1,
+            -1
+          ],
+          "b": [
+            2,
+            -2
+          ],
+          "fac_static_Ha": 2.7808649644524195,
+          "fac_finite_Ha": 2.2212076804493712
+        },
+        {
+          "a": [
+            2,
+            1
+          ],
+          "b": [
+            2,
+            -2
+          ],
+          "fac_static_Ha": 0.47580867927406956,
+          "fac_finite_Ha": 0.4759320695732092
+        },
+        {
+          "a": [
+            2,
+            -2
+          ],
+          "b": [
+            3,
+            2
+          ],
+          "fac_static_Ha": 0.4793276571579862,
+          "fac_finite_Ha": 0.48164562884776796
+        },
+        {
+          "a": [
+            2,
+            -2
+          ],
+          "b": [
+            3,
+            -3
+          ],
+          "fac_static_Ha": 0.9563028717010128,
+          "fac_finite_Ha": 0.9125053942425296
+        }
+      ],
+      "off_diagonal": [
+        {
+          "spinors": [
+            [
+              1,
+              -1,
+              1
+            ],
+            [
+              1,
+              -1,
+              -1
+            ],
+            [
+              2,
+              -1,
+              1
+            ],
+            [
+              3,
+              -1,
+              -1
+            ]
+          ],
+          "fac_static_Ha": 0.1532862556697738,
+          "fac_finite_Ha": 0.15619225918111826
+        },
+        {
+          "spinors": [
+            [
+              1,
+              -1,
+              1
+            ],
+            [
+              2,
+              -1,
+              -1
+            ],
+            [
+              2,
+              1,
+              1
+            ],
+            [
+              3,
+              1,
+              -1
+            ]
+          ],
+          "fac_static_Ha": -0.10910220860599842,
+          "fac_finite_Ha": -0.09526441831722722
+        },
+        {
+          "spinors": [
+            [
+              1,
+              -1,
+              1
+            ],
+            [
+              2,
+              -2,
+              -1
+            ],
+            [
+              2,
+              -1,
+              1
+            ],
+            [
+              3,
+              -2,
+              -1
+            ]
+          ],
+          "fac_static_Ha": 0.007078125684815554,
+          "fac_finite_Ha": 0.007263644259882051
+        },
+        {
+          "spinors": [
+            [
+              2,
+              -1,
+              1
+            ],
+            [
+              3,
+              -1,
+              -1
+            ],
+            [
+              1,
+              -1,
+              1
+            ],
+            [
+              1,
+              -1,
+              -1
+            ]
+          ],
+          "fac_static_Ha": 0.1532862556754259,
+          "fac_finite_Ha": 0.1561922591745761
+        },
+        {
+          "spinors": [
+            [
+              2,
+              1,
+              1
+            ],
+            [
+              3,
+              1,
+              -1
+            ],
+            [
+              1,
+              -1,
+              1
+            ],
+            [
+              2,
+              -1,
+              -1
+            ]
+          ],
+          "fac_static_Ha": -0.10910220866140381,
+          "fac_finite_Ha": -0.09526441834707235
+        },
+        {
+          "spinors": [
+            [
+              2,
+              -1,
+              1
+            ],
+            [
+              3,
+              -2,
+              -1
+            ],
+            [
+              1,
+              -1,
+              1
+            ],
+            [
+              2,
+              -2,
+              -1
+            ]
+          ],
+          "fac_static_Ha": 0.007078125685085801,
+          "fac_finite_Ha": 0.007263644259916277
+        }
+      ]
+    }
+  ]
+}

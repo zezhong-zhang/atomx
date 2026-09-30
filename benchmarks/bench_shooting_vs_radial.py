@@ -8,7 +8,8 @@ For each Z in a chosen panel:
   2. run the Fortran ``radial/DHFS`` program on that input, parse
      ``dhfs.dat`` for its higher-precision total-binding energy.
   3. run atomx's ``ShootingSolver`` **with the same numerical setup**
-     (aw, alpha_x, r_max, n_grid, subshells) — pure apples-to-apples.
+     (alpha_x, r_max, n_grid, subshells). Point nuclei match; finite
+     Fermi profiles differ between the codes and are not an accuracy gate.
   4. compare total-binding energy and wall time (cold + warm).
 """
 
@@ -95,7 +96,7 @@ def run_dhfs_binary(inp: DhfsInput) -> tuple[Optional[float], float]:
         (Path(tmp) / "input.in").write_text(inp.raw)
         t0 = time.perf_counter()
         try:
-            subprocess.run(
+            proc = subprocess.run(
                 ["./DHFS"],
                 cwd=tmp,
                 input=inp.raw,
@@ -105,6 +106,8 @@ def run_dhfs_binary(inp: DhfsInput) -> tuple[Optional[float], float]:
             )
         except subprocess.TimeoutExpired:
             return None, 600.0
+        if proc.returncode:
+            raise RuntimeError(f"DHFS failed ({proc.returncode}): {proc.stderr}")
         t1 = time.perf_counter()
         dhfs_dat = Path(tmp) / "dhfs.dat"
         if not dhfs_dat.exists():
@@ -163,7 +166,7 @@ def main():
     p.add_argument("--out", default=str(ROOT / "benchmarks" / "results_shooting.csv"))
     p.add_argument("--warm-reps", type=int, default=2,
                    help="Number of warm reps after the cold JIT run.")
-    p.add_argument("--nuclear", choices=["point", "fermi", "both"], default="both",
+    p.add_argument("--nuclear", choices=["point", "fermi", "both"], default="point",
                    help="Nuclear model: point (aw=0), fermi (default from .in), or both.")
     args = p.parse_args()
 
@@ -173,7 +176,10 @@ def main():
             "directory containing the DHFS executable and the Z{NNN}.in "
             f"inputs (looked in {RADIAL_DIR or '<unset>'}).")
 
-    models = ["point", "fermi"] if args.nuclear == "both" else [args.nuclear]
+    if args.nuclear != "point":
+        p.error("finite profiles differ: RADIAL uses c=1.07*A**(1/3) fm and a=0.546 fm; "
+                "Atomx uses DBSR parameters. Use --nuclear point for a matched benchmark.")
+    models = ["point"]
 
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
