@@ -98,3 +98,27 @@ def test_sparse_matches_mscheme_oracle(be):
                                             m2_total=0, n_states=100)
     assert n_sparse == n_oracle
     assert np.allclose(w_sparse, w_oracle, atol=1e-10)
+
+
+def test_sparse_j_levels_match_exact_csf_blocks(be):
+    """spec(J) = spec(M=J) - spec(M=J+2) must reproduce the exact engine's
+    per-(2J, parity) CSF-block eigenvalues on the Be space: J=0 (3 states),
+    J=1 (1 state), J=2 (2 states)."""
+    from atomx.physics.csf.sparse_ci import sparse_j_levels
+    dhf, od, csfs = be
+    pats = patterns_from_csfs(csfs)
+    from atomx.physics.csf.matrix import _group_csf_indices
+    basis = get_shared_orbital_basis(csfs)
+    for j2, expected_n in ((0, 3), (2, 1), (4, 2)):
+        w, _, _ = sparse_j_levels(od, dhf.bsp_data, 4, dhf.ns, pats,
+                                  j2=j2, n_states=100)
+        exact = []
+        for key, idx in _group_csf_indices(csfs):
+            if key[0] != j2:
+                continue
+            sub = [csfs[i] for i in idx]
+            H = build_ci_matrix(sub, od, basis, dhf.bsp_data, 4, dhf.ns)
+            exact.extend(np.linalg.eigvalsh(np.asarray(H)))
+        exact = np.sort(exact)
+        assert len(w) == expected_n == len(exact), (j2, len(w), len(exact))
+        assert np.allclose(w, exact, atol=1e-9), (j2, w, exact)

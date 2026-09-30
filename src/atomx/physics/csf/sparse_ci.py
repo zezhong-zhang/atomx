@@ -226,3 +226,40 @@ def sparse_ci_spectrum(orbitals_dict, bsp_data, Z, ns, patterns,
         return w[:max(0, n_states)], n
     w = eigsh(H, k=n_states, which="SA", return_eigenvectors=False)
     return np.sort(w), n
+
+
+def _multiset_subtract(low: np.ndarray, high: np.ndarray, tol: float):
+    """Remove every element of ``high`` from ``low`` (nearest-match first).
+
+    ``spec(M=J)`` contains, with multiplicity, every state of every
+    manifold with ``J' >= J``; subtracting ``spec(M=J+2)`` leaves exactly
+    the ``J`` manifold.  Degeneracies are handled by matching each
+    high-sector level to its nearest remaining low-sector level.
+    """
+    remaining = list(map(float, low))
+    for h in np.sort(high):
+        if not remaining:
+            break
+        best = min(range(len(remaining)), key=lambda i: abs(remaining[i] - h))
+        if abs(remaining[best] - h) <= tol:
+            remaining.pop(best)
+    return np.sort(np.array(remaining)) if remaining else np.array([])
+
+
+def sparse_j_levels(orbitals_dict, bsp_data, Z, ns, patterns,
+                    j2: int, n_states: int = 10, tol: float = 1e-8):
+    """Energies of the pure ``2J`` manifold from M-sector subtraction.
+
+    ``spec(J) = spec(M=J) − spec(M=J+2)`` as multisets: every eigenvalue of
+    the ``2M = 2J`` determinant sector belongs to some manifold with
+    ``J' >= J``, and the ``2M = 2J + 2`` sector contains exactly those with
+    ``J' >= J + 1``.  Works for integer and half-integer ``j2`` alike —
+    pass a pattern set of one parity for parity-pure manifolds.
+
+    Returns ``(energies, n_dets_mj, n_dets_mj_plus2)``.
+    """
+    w_j, n_j = sparse_ci_spectrum(orbitals_dict, bsp_data, Z, ns, patterns,
+                                  m2_total=j2, n_states=n_states)
+    w_hi, n_hi = sparse_ci_spectrum(orbitals_dict, bsp_data, Z, ns, patterns,
+                                    m2_total=j2 + 2, n_states=n_states)
+    return _multiset_subtract(w_j, w_hi, tol), n_j, n_hi
