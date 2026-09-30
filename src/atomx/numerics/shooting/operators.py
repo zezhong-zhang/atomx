@@ -1,5 +1,7 @@
 """Pure radial Dirac operators in the native SLAG6 metric."""
 import numpy as np
+from numba import njit
+
 from .constants import SL
 from .quadrature import slag6
 
@@ -21,30 +23,63 @@ def _build_fd_edge_weights():
 _FD_EDGE = _build_fd_edge_weights()
 
 
+@njit(inline='always')
+def _central_derivative(y, i):
+    c1, c2, c3, c4 = _FD_CENTRAL
+    return (c1*(y[i+1]-y[i-1]) + c2*(y[i+2]-y[i-2])
+            + c3*(y[i+3]-y[i-3]) + c4*(y[i+4]-y[i-4]))
+
+
+@njit(cache=True)
 def _ds_derivative(y):
     """dy/ds on the uniform-s grid (unit index spacing), 8th order."""
     n = y.shape[0]
     if n < 9:
         raise ValueError(f"grid too small for 8th-order stencils (n={n})")
-    c1, c2, c3, c4 = _FD_CENTRAL
     d = np.empty_like(y)
-    d[4:n - 4] = (c1 * (y[5:n - 3] - y[3:n - 5])
-                  + c2 * (y[6:n - 2] - y[2:n - 6])
-                  + c3 * (y[7:n - 1] - y[1:n - 7])
-                  + c4 * (y[8:n] - y[0:n - 8]))
-    head = y[:9]
-    tail = y[n - 9:][::-1]
+    # Read four independent stencils before storing their outputs. This
+    # permits SIMD packing without floating-point reassociation or fastmath;
+    # interleaving scalar loads and stores inhibits it in the generic loop.
+    stop = 4+4*((n-8)//4)
+    for i in range(4, stop, 4):
+        d0 = _central_derivative(y, i)
+        d1 = _central_derivative(y, i+1)
+        d2 = _central_derivative(y, i+2)
+        d3 = _central_derivative(y, i+3)
+        d[i], d[i+1], d[i+2], d[i+3] = d0, d1, d2, d3
+    for i in range(stop, n-4):
+        d[i] = _central_derivative(y, i)
     for i in range(4):
-        d[i] = _FD_EDGE[i] @ head
-        d[n - 1 - i] = -(_FD_EDGE[i] @ tail)
+        head, tail = 0., 0.
+        for j in range(9):
+            head += _FD_EDGE[i, j]*y[j]
+            tail += _FD_EDGE[i, j]*y[n-1-j]
+        d[i] = head
+        d[n - 1 - i] = -tail
     return d
 
 
+@njit(cache=True)
 def one_body_element(Pa, Qa, Pb, Qb, kappa, r, difr, rv):
-    """Symmetric rest-mass-subtracted Dirac matrix element."""
-    inv_r = np.divide(1., r, out=np.zeros_like(r), where=r > 0)
-    kin = .5*SL*((Qa*_ds_derivative(Pb)+Qb*_ds_derivative(Pa))
-                  -(Pa*_ds_derivative(Qb)+Pb*_ds_derivative(Qa)))
-    local = ((SL*kappa*(Pa*Qb+Qa*Pb)+rv*(Pa*Pb+Qa*Qb))*inv_r
-             -2*SL*SL*Qa*Qb)
-    return float(slag6(1., kin+local*difr, len(r))[-1])
+    """Symmetric rest-mass-subtracted Dirac matrix element.
+
+    Fuse pointwise contractions without reassociating arithmetic. Diagonal
+    elements reuse derivatives only for identical array views; equal values
+    do not imply shared storage. The derivative stencil and SLAG6 summation
+    are unchanged, including boundary terms and the origin convention.
+    """
+    dPb, dQb = _ds_derivative(Pb), _ds_derivative(Qb)
+    dPa = (dPb if Pa.ctypes.data == Pb.ctypes.data and Pa.strides == Pb.strides
+           else _ds_derivative(Pa))
+    dQa = (dQb if Qa.ctypes.data == Qb.ctypes.data and Qa.strides == Qb.strides
+           else _ds_derivative(Qa))
+    integrand = np.empty(len(r))
+    for i in range(len(r)):
+        inv_r = 1./r[i] if r[i] > 0 else 0.
+        kin = .5*SL*((Qa[i]*dPb[i]+Qb[i]*dPa[i])
+                     -(Pa[i]*dQb[i]+Pb[i]*dQa[i]))
+        local = ((SL*kappa*(Pa[i]*Qb[i]+Qa[i]*Pb[i])
+                  + rv[i]*(Pa[i]*Pb[i]+Qa[i]*Qb[i]))*inv_r
+                 - 2*SL*SL*Qa[i]*Qb[i])
+        integrand[i] = kin+local*difr[i]
+    return float(slag6(1., integrand, len(r))[-1])
