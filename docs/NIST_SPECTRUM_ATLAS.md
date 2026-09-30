@@ -1,61 +1,37 @@
-# NIST spectrum atlas
+# NIST reference data and atlas status
 
-The atlas is a local archive and interactive viewer for NIST line, level,
-isotope and ionization records. Coverage is determined by stored source manifests
-and audit results; an element's presence in the periodic table does not imply
-that every ionization stage has experimental data.
+## Supported package interfaces
 
-## Build and serve
+`atomx.reference_data` parses caller-supplied NIST text and normalizes reference
+records without implicit network access. Its modules provide:
 
-From the repository root, using an environment with Atomx installed:
+- `nist`: levels, lines, configurations, classifications and units.
+- `matching`: state identity, complete configuration centroids and wavelength media.
+- `bibliography`, `annotations`, `spectrum_notes`: source citations and comments.
+- `cowan`, `structure_outputs`: reference calculation output parsing.
 
-```bash
-python scripts/build_nist_spectra.py --help
-python scripts/build_nist_spectra.py --out output/nist_spectra
-python scripts/view_nist_spectra.py --out output/nist_spectra --port 8765
-```
+Native campaign comparisons live in `atomx.workflows.nist_comparison`; see
+[comparison conventions](THEORY_NIST_COMPARISON.md). These interfaces consume
+caller-selected records and databases. They do not download a complete archive.
 
-Open `http://127.0.0.1:8765`. The build downloads source records when necessary.
-Use `--offline` to reuse available sources. The viewer reads the local database
-and serves it on localhost by default.
+## Retired atlas commands
 
-The output contains `spectra.sqlite`, source manifests, coverage reports and raw
-source files. Keep raw responses and hashes with the database for reproducibility.
-A base build and supplementary imports are distinct operations; do not infer
-supplementary coverage from the base build alone.
+The legacy NIST archive builder, supplementary importers, interactive viewer
+and campaign CLI scripts were removed during repository cleanup. There is
+currently no supported website launch command or HTTP API in this checkout.
+The retained parsing and comparison APIs do not establish archive completeness.
 
-## Supplementary imports and checks
+Historical viewer features, source manifests and campaign counts are documented
+in [the atlas build history](archive/2026-09/ATLAS_BUILD_HISTORY_2026-09-29.md).
+Their script contracts are preserved in
+[the retired test archive](archive/2026-09/retired_script_tests/README.md).
+These records describe previous snapshots and are not current run instructions.
 
-The supported scripts expose their controls through `--help`:
+## Reference interpretation
 
-- `import_nist_ionization.py`: ground-state and ionization-energy records.
-- `import_nist_level_details.py`, `import_nist_line_details.py`: extended source fields.
-- `import_nist_term_order_levels.py`, `import_nist_line_only_levels.py`: source records missing from the base energy-ordered level table.
-- `import_nist_isotope_records.py`, `import_nist_isotopes.py`: isotope-specific records and masses.
-- `import_nist_weighted_a.py`: weighted transition probabilities.
-- `audit_nist_archive_integrity.py`: archive integrity.
-- `audit_nist_level_weights.py`, `audit_nist_line_wavenumbers.py`: source consistency checks.
-- `verify_nist_live_samples.py`: selected live-source comparisons.
-
-Inspect `parse_errors`, source-file errors and coverage reports after importing.
-A missing energy or angular assignment remains missing; a line endpoint used as
-a level placeholder does not become a measured level.
-
-## Interface
-
-The viewer provides a periodic-table selector, charge-state coverage, line
-spectra, per-ion details and paged records. Supported data endpoints include:
-
-- `/api/ion?z=26&charge=0`
-- `/api/records?kind=lines&z=26&charge=0&page=1`
-- `/api/export?kind=lines&z=26&charge=0`
-
-Observed and Ritz wavelengths remain distinct. Theory CSV uploads are matched
-by state information, not nearest wavelength. See [comparison conventions](THEORY_NIST_COMPARISON.md).
-
-## Historical coverage
-
-Dated counts, live verification samples and previous campaign output are retained
-in the [archive](archive/README.md). They describe those source snapshots and do
-not certify the current local database. Retired campaign tools and routes are
-not current usage instructions.
+Keep raw responses, hashes and source manifests with any externally maintained
+archive. Distinguish observed from Ritz wavelengths, experimental uncertainty
+from numerical refinement, and resolved levels from configuration averages.
+Missing records, ambiguous assignments and failed calculations remain visible.
+An element's presence in a periodic table does not certify experimental data
+for every ionization stage or completeness of a database.

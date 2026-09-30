@@ -793,6 +793,11 @@ def _legacy_build_ci_matrix_approximate(csfs, orbitals_dict, orbital_basis,
     the diagnostics in `docs/archive/2026-09/CORRELATION_SD_RESEARCH_2026-09-20.md`
     (and anyone re-measuring the old numbers) need the old assembly
     reachable.
+
+    The ``_legacy_`` name and the explicit ``allow_legacy_incorrect_physics``
+    flag are the guard (critical review F4): an agent or grepping user must
+    read this docstring — which documents the measured defects — before the
+    kernel will run.  Production and test paths never pass the flag.
     """
     if not allow_legacy_incorrect_physics:
         raise RuntimeError(

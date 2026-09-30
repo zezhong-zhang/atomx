@@ -137,11 +137,3 @@ markers = [
 # would wait out.
 timeout = 600
 timeout_method = "thread"
-
-[tool.atomx.performance_dashboard]
-output = "benchmarks/PERFORMANCE.md"
-check_command = "python scripts/perf_dashboard.py --check"
-affected_paths = [
-    "benchmarks/*.csv",
-    "scripts/perf_dashboard.py",
-]

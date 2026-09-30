@@ -1,7 +1,7 @@
 # Pre-commit hooks.  Install once with `pre-commit install`.  The ruff hook
 # uses the same rule selection as CI (.github/workflows/lint.yml) so a local
 # pass implies a green lint job; previously the only hook was the performance
-# dashboard, and it was not installed.
+# dashboard, and it was not installed. The dashboard command is now retired.
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.15.6
@@ -18,12 +18,3 @@ repos:
       - id: check-merge-conflict
       - id: check-added-large-files
         args: ["--maxkb=2048"]
-
-  - repo: local
-    hooks:
-      - id: atomx-performance-dashboard
-        name: Refresh benchmark performance dashboard
-        entry: python scripts/perf_dashboard.py --check
-        language: system
-        pass_filenames: false
-        files: ^(benchmarks/.*\.csv|scripts/perf_dashboard\.py)$

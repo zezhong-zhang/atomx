@@ -27,9 +27,12 @@ exist; removed campaigns do not leave skipped or failing test placeholders.
 | Electron projector and correlated gradient | `test_shooting_electron_reference.py`, `test_shooting_correlated_grid.py` |
 | Projection between radial representations | `test_shooting_seed.py` |
 | Checkpoints and correction replay | `test_shooting_result_persistence.py`, `test_scfresult_save_load.py`, `test_correction_application_contract.py` |
-| NIST matching and uncertainty semantics | `test_nist_comparison_workflow.py`, `test_shooting_ionization_comparison.py`, `test_configuration_centroids_nist.py` |
+| NIST matching and uncertainty semantics | `test_nist_comparison_workflow.py`, `test_shooting_ionization_comparison.py` |
 | Source parsers | `test_nist_bibliography.py`, `test_nist_spectrum_notes.py`, `test_nist_reference_annotations.py` |
-| Retained archive/CLI behavior | `test_nist_spectra_api.py`, `test_nist_spectra_catalog.py`, `test_full_dhf_nist.py` |
+
+Tests of retired archive importers, campaign commands and HTTP routes are
+preserved in [the historical test archive](archive/2026-09/retired_script_tests/README.md),
+outside the current test collection.
 
 A source parser test does not establish that a removed importer or HTTP route is
 still available. CLI schemas and options follow the retained command versions.

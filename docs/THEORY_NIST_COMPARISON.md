@@ -41,21 +41,17 @@ instead of inferring the Hamiltonian from a short plot label.
 
 ## Supported entry points
 
-Build and inspect the [NIST atlas](NIST_SPECTRUM_ATLAS.md) first. The remaining
-comparison scripts describe their inputs and output locations with `--help`:
-
-```bash
-python scripts/compare_theory_nist.py --help
-python scripts/compare_full_dhf_nist.py --help
-python scripts/compare_configuration_centroids_nist.py --help
-python scripts/compare_ionization_dhf_nist.py --help
-python scripts/compare_isotope_records_nist.py --help
-```
-
 Shared parsing and matching live in `atomx.reference_data`; native-result
 comparison services live in `atomx.workflows.nist_comparison`. Their tests call
-those packages directly. A retained historical ledger must carry its original
-model identity; it is not upgraded by changing today's solver defaults.
+those packages directly. The archive builder, viewer and campaign comparison
+scripts have been retired; see [NIST reference data](NIST_SPECTRUM_ATLAS.md).
+
+`completed_pair` checks calculation identity across two radial grids; `interval`
+checks shared endpoint Hamiltonians and returns the energy difference and grid
+change. `collect(campaign, archive)` reads caller-selected SQLite databases
+containing the campaign, line queue and NIST schemas. It does not create those
+databases or calculate new states. Retained historical ledgers must carry their
+original model identity; they are not upgraded by changing today's defaults.
 
 ## Reporting
 

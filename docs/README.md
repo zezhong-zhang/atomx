@@ -7,8 +7,7 @@
 - [Migration notes](MIGRATION.md): breaking imports, public API changes and saved-data compatibility.
 - [Verification](VERIFICATION.md): scientific claims, reference sources and test gates.
 - [Testing](TESTING.md): test organization and commands.
-- [Repository commands](../scripts/README.md): archive, comparison and ledger tools.
-- [NIST atlas](NIST_SPECTRUM_ATLAS.md): build, inspect and serve the local source archive.
+- [NIST reference data](NIST_SPECTRUM_ATLAS.md): supported parsing and the status of the retired atlas tools.
 - [Theory–NIST comparison](THEORY_NIST_COMPARISON.md): state matching, uncertainty and interpretation.
 
 ## Design records and evidence
