@@ -93,11 +93,11 @@ independently reproduced at 0.05044 Ha by the ODE-shooting engine).
 
 import numpy as np
 
+from atomx.numerics.quadrature import yk_on_grid
 from atomx.numerics.radial_workspace import (
     eval_orbital_pair,
     workspace_arrays,
 )
-from atomx.numerics.quadrature import yk_on_grid
 
 
 def _breit_smu_coefficients(kappa_a, kappa_b, kappa_c, kappa_d, L):
@@ -194,7 +194,11 @@ def compute_breit_energy(orbitals, bsp_data, Z, *, jj_configs=None):
     # Flatten to 1D grid order for the arbitrary-grid Y^v kernel
     # (B-spline workspaces carry (nv, n_gauss) arrays; the flattened
     # Gauss nodes are strictly increasing).
-    r_flat = np.ravel(gr)
+    # This evaluation owns a fixed mesh. An immutable copy lets the radial
+    # kernel reuse its bounded geometry cache across densities and ranks,
+    # without assuming that the caller's workspace cannot change.
+    r_flat = np.array(gr, copy=True).reshape(-1)
+    r_flat.setflags(write=False)
     w_flat = np.ravel(grw)
 
     # Evaluate every orbital on the radial nodes once.
