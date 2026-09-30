@@ -219,16 +219,35 @@ def prepare_scaled_green(pair):
 
 def scaled_green_solve(chi_p, chi_q, pair, jacobian, quadrature=None):
     """Full-box Green action, independent of fundamental-solution scale."""
-    regular, inward, lr, li, _, _ = pair
     if quadrature is None:
         quadrature = prepare_scaled_green(pair)
-    u = (regular[0]*chi_p+regular[1]*chi_q)*jacobian
-    v = (inward[0]*chi_p+inward[1]*chi_q)*jacobian
-    prefix = apply_exponential_prefix(u, *quadrature[0])
-    suffix = apply_exponential_prefix(v[::-1].copy(), *quadrature[1])[::-1]
-    wronskian = regular[0]*inward[1]-regular[1]*inward[0]
-    if np.any(abs(wronskian[1:]) < 1e-20):
-        raise FloatingPointError('singular scaled Dirac Green operator')
-    result = np.zeros_like(regular)
-    result[:, 1:] = -(regular[:, 1:]*suffix[1:] + inward[:, 1:]*prefix[1:])/(SL*wronskian[1:])
-    return result[0], result[1]
+    return _scaled_green_action(chi_p, chi_q, pair[0], pair[1], jacobian,
+                                *quadrature[0], *quadrature[1])
+
+
+@njit(cache=True)
+def _scaled_green_action(chi_p, chi_q, regular, inward, jacobian,
+                         outward_decay, outward_weights,
+                         inward_decay, inward_weights):
+    """Apply a factored Green map with two compiled prefix integrations.
+
+    Source projection and spinor reconstruction use the existing arithmetic
+    order. Store the inward source reversed directly, avoiding a full-grid
+    copy. All scratch belongs to this call; no orbitals or constraints are
+    cached across changing energies or potentials.
+    """
+    n = len(jacobian)
+    u, v = np.empty(n), np.empty(n)
+    for i in range(n):
+        u[i] = (regular[0, i]*chi_p[i]+regular[1, i]*chi_q[i])*jacobian[i]
+        v[n-1-i] = (inward[0, i]*chi_p[i]+inward[1, i]*chi_q[i])*jacobian[i]
+    prefix = apply_exponential_prefix(u, outward_decay, outward_weights)
+    suffix = apply_exponential_prefix(v, inward_decay, inward_weights)
+    p, q = np.zeros(n), np.zeros(n)
+    for i in range(1, n):
+        wronskian = regular[0, i]*inward[1, i]-regular[1, i]*inward[0, i]
+        if abs(wronskian) < 1e-20:
+            raise FloatingPointError('singular scaled Dirac Green operator')
+        p[i] = -(regular[0, i]*suffix[n-1-i]+inward[0, i]*prefix[i])/(SL*wronskian)
+        q[i] = -(regular[1, i]*suffix[n-1-i]+inward[1, i]*prefix[i])/(SL*wronskian)
+    return p, q
