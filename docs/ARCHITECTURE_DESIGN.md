@@ -38,9 +38,10 @@ The engine performs the rotation search. `physics/slater.py` supplies local
 exchange and energy expressions. Neither physical operator launches an SCF solve.
 
 DF and MCDHF share state assembly in `methods/csf/solver.py`, with their
-configuration-space policies defined by their method entry points. Physical
-energy and gradient contractions live in `physics/csf/grid_functional.py`.
-The drivers call numerical electron-space and optimization routines.
+configuration-space policies defined by their method entry points. State
+energy and gradient assembly remains in `methods/csf/grid_functional.py`,
+composing the physical contractions in `physics/csf`. The drivers call
+numerical electron-space and optimization routines.
 `ShootingResult` belongs to `results.py`; loading it requires no method
 implementation.
 

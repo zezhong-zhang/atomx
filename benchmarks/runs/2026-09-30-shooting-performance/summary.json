@@ -1,0 +1,72 @@
+{
+  "baseline_commit": "0a1685e",
+  "scope": "Local screened/point DBOUND and DFREE fields; default Hamiltonian DF for Ne/Cf. Not full-table certification.",
+  "bound": {
+    "cases": 27,
+    "energies_and_wave_hashes_identical": true,
+    "native_before_median_s": 0.00116697341989493,
+    "native_after_median_s": 0.0011037953800405375,
+    "radial_cpu_median_s": 0.0011500199999999999,
+    "summed_case_time_reduction": 0.09287507780927329,
+    "max_abs_energy_difference_Ha": 2.2737367544323206e-13,
+    "max_wave_error_over_peak": 1.4557707449956181e-15
+  },
+  "df": {
+    "10": {
+      "warm_times_s": {
+        "before": [
+          0.1763751379912719,
+          0.17578233100357465,
+          0.16883346800750587,
+          0.16879339300794527
+        ],
+        "after": [
+          0.17161654199298937,
+          0.16522384600830264,
+          0.1664140989887528,
+          0.1640529099968262
+        ]
+      },
+      "medians_s": {
+        "before": 0.17230789950554026,
+        "after": 0.16581897249852773
+      },
+      "reduction": 0.03765890609561917,
+      "energies_orbitals_iterations_identical": true,
+      "iterations": 8
+    },
+    "98": {
+      "warm_times_s": {
+        "before": [
+          4.428773071995238,
+          4.480503752987715,
+          4.292977484001312,
+          4.309257228989736
+        ],
+        "after": [
+          3.828393791001872,
+          3.839636625009007,
+          3.8467542059952393,
+          3.8342066439945484
+        ]
+      },
+      "medians_s": {
+        "before": 4.369015150492487,
+        "after": 3.8369216345017776
+      },
+      "reduction": 0.12178797684661968,
+      "energies_orbitals_iterations_identical": true,
+      "iterations": 7
+    }
+  },
+  "continuum": {
+    "cases": 36,
+    "phase_and_errors_identical": true,
+    "max_wave_error_over_asymptotic_amplitude": 1.2215478182794892e-08,
+    "max_phase_error_mod_pi": 1.2216167299961e-08,
+    "median_before_s": 0.0005851324967807159,
+    "median_after_s": 0.0005462089975480922,
+    "summed_case_time_reduction": 0.004062637470188646
+  },
+  "timing_limits": "Warm native wall time; Fortran CPU time inside DBOUND/DFREE, process startup excluded. Fields and constants match. First calls and profiling excluded from DF final timings. Some other diagnostic processes ran concurrently; these are workload measurements."
+}

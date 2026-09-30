@@ -141,6 +141,70 @@ limits, SCF failure, analytic hydrogen energy, coherent C states and saved
 refinement metadata. Logs are in the same measurement directory. This is a
 focused suite, not a claim that every repository test passes.
 
+## Propagation buffers and fixed integration geometry (2026-09-30)
+
+DIR0 coefficient arrays now belong to one radial sweep and are reused by
+adaptive DIR propagation, DOUTW/DINW and the scaled box Green solver. Each
+call owns its buffers; concurrent solves share no scratch arrays. The
+recurrence, adaptive step rules, normalization and acceptance tolerances
+are unchanged. Only the active coefficient prefix is consumed, and a zero
+middle-region solution resets its turning-point coefficient explicitly.
+
+The Breit configuration-average evaluation owns an immutable copy of its
+radial mesh. This permits reuse of bounded Coulomb integration geometry
+without changing or freezing a caller's mutable workspace. Densities and
+physical matrix elements are recomputed for each evaluation.
+
+Four alternating fresh processes (after/before/after/before), with two warm
+solves per element in each process, give the following medians. The baseline
+is commit `0a1685e`; the settings are default shooting HF, Hamiltonian
+averaging, Breit/QED, one OpenBLAS/OMP thread. First calls are excluded.
+
+| Complete solve | Before | After | Time reduction |
+|---|---:|---:|---:|
+| Ne | 0.1723 s | 0.1658 s | 3.8% |
+| Cf | 4.3690 s | 3.8369 s | 12.2% |
+
+Every measured total energy, orbital energy and iteration count is identical.
+These are scoped measurements: other diagnostic processes were active during
+part of the panel. The preceding six-process propagation-only panel gives a
+smaller full-Cf benefit, about 2%; geometry reuse accounts for most of the
+combined improvement.
+
+A live Salvat RADIAL DBOUND panel covers 27 bound states, through n=3, on
+matched point/screened local fields at Z=2,26,98. Both codes receive the same
+1000-point potential/output grid, initial energy, tolerance 1e-11 and speed
+of light. Potential preparation and startup are excluded from kernel timings.
+Maximum energy difference is **2.27e-13 Ha**; maximum P/Q error relative to the
+reference peak is **1.46e-15**. Native before/after wave hashes are identical.
+Median native kernel time falls from **1.167 to 1.104 ms**; the sum of the
+per-case medians falls by **9.3%**. RADIAL's median CPU time is **1.150 ms**.
+Native wall time and reference CPU time are different measurements, so this
+does not establish a general Atomx/RADIAL throughput ratio.
+
+The live 36-case DFREE panel at radius 200 Bohr and 3000 source points retains
+identical errors: **1.22e-8** relative to asymptotic amplitude and **1.22e-8 rad**
+modulo pi. Its summed per-case time changes by only about 0.4%; special-function
+matching dominates some cases. A short neutral box failed the existing
+matching check and is retained as a failed attempt, rather than counted as
+agreement. Automatic continuum box selection remains unfinished.
+
+Focused suites pass 155, 123 and 113 tests (overlapping selections), including
+poisoned scratch-buffer reuse, heavy bound states, sourced orbitals, adaptive
+grids and Breit operators. The earlier grouped-change gate passed 681 tests;
+the current full suite collects 3817 tests. These are not a full-suite pass.
+
+Use `benchmarks/bench_radial_bound_kernels.py --probe <DBOUND-probe>
+--radial-source <matched-radial.f> --out <new-directory>` for the frozen-field
+comparison, and `benchmarks/bench_df_solver.py` for the complete DF measurement.
+The DBOUND probe source is `benchmarks/reference_probes/radial_bound.f90`.
+Raw runs, profiles, source hashes and the audited summary are retained under
+`benchmarks/runs/2026-09-30-shooting-performance/`.
+
+Remaining costs include the local initializer, constrained Green-response
+assembly, nonlocal exchange contractions and occupied rotations. RADIAL's
+local-field solve does not include these nonlocal Hamiltonian DF operations.
+
 ## Earlier optimization measurements (2026-09-29)
 
 Two changes reduce repeated work without relaxing the physical operator or

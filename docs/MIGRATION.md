@@ -770,3 +770,16 @@ does not retain returned waves. Closing releases workers, including after
 exceptions. The standalone `solve_dirac_continuum_many` entry remains
 available for individual batches. EII now uses one context per incident
 energy and reuses its outgoing P/Q buffers between sharing nodes.
+
+## Shooting propagation workspace
+
+Public DIR0 and DIR integration calls retain their signatures. Radial sweeps
+use internal kernels accepting caller-owned coefficient buffers; the buffers
+are reused within that sweep and are not global state. The zero-state path
+clears the active coefficients and the turning-point coefficient. Adaptive
+grid checks and numerical tolerances remain independent of this allocation
+change. See `DF_SOLVER_CONTROLS.md` for live Salvat RADIAL comparisons.
+
+The Breit configuration-average evaluator copies its radial mesh before
+marking that copy immutable for geometry reuse. Caller-owned grids remain
+mutable and cannot silently stale the integration geometry.
