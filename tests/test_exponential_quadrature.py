@@ -1,10 +1,55 @@
 """Analytic stiff-source controls independent of atomic energy snapshots."""
 import numpy as np
 import pytest
+from mpmath import mp
 
 from atomx.numerics.shooting.exponential_quadrature import (
-    apply_exponential_prefix, exponential_prefix_weights,
+    apply_exponential_prefix,
+    exponential_prefix_weights,
 )
+
+
+@pytest.mark.parametrize('slope', [0., 1e-12, .01, .1, .5, 2., 5.,
+                                  7.999999, 8., 8.000001, 20., 100.])
+def test_cell_polynomial_moments_against_high_precision(slope):
+    """All five boundary/interior stencils reproduce independently integrated sources."""
+    context = mp.clone()
+    context.dps = 60
+    scale = context.mpf(float(slope))
+    exact = np.array([float(context.quad(
+        lambda x, degree=degree: x**degree*context.exp(scale*x), [-1, 0]))
+        for degree in range(6)])
+    n = 8  # visits every distinct stencil, including both box boundaries
+    _, weights = exponential_prefix_weights(slope*np.arange(n))
+    for i in range(1, n):
+        start = max(0, min(i-3, n-6))
+        nodes = np.arange(start, start+6)-i
+        actual = np.array([weights[i] @ nodes**degree for degree in range(6)])
+        # At an end stencil x**5 reaches 3125 while its integral can be tiny.
+        # Account for cancellation in this dot product, separately from the
+        # integration error; a relative-only check would test its conditioning.
+        roundoff = np.array([8*np.finfo(float).eps
+                            *np.sum(abs(weights[i]*nodes**degree))
+                            for degree in range(6)])
+        assert np.all(abs(actual-exact) <= 2e-14+2e-12*abs(exact)+roundoff)
+
+
+@pytest.mark.parametrize('slope', [0., .1, 8., 100.])
+def test_individual_stencil_weights_against_high_precision(slope):
+    context = mp.clone()
+    context.dps = 60
+    _, weights = exponential_prefix_weights(slope*np.arange(6.))
+    for i in range(1, 6):
+        nodes = np.arange(6)-i
+        for j in range(6):
+            def integrand(x, j=j, nodes=nodes):
+                value = context.exp(context.mpf(slope)*x)
+                for k in range(6):
+                    if k != j:
+                        value *= (x-int(nodes[k]))/int(nodes[j]-nodes[k])
+                return value
+            exact = float(context.quad(integrand, [-1, 0]))
+            assert weights[i, j] == pytest.approx(exact, rel=2e-12, abs=2e-15)
 
 
 @pytest.mark.parametrize('slope', [.01, .1, 1., 2., 5., 20., 100.])

@@ -2,7 +2,7 @@
 
 On each unit-index cell, factor out a supplied exponential rate. Interpolate
 the remaining source with six neighbouring nodes and integrate its product
-with the exponential using subdivided Gauss quadrature. Keeping sampled log
+with the exponential using analytic polynomial moments. Keeping sampled log
 amplitudes in the residual source preserves cancellations with a normalized
 spinor's direction at nodes and boundaries. This remains a sixth-order source
 interpolation, not exact source integration; refinement is required.
@@ -12,29 +12,48 @@ from numba import njit
 
 
 def _tables():
-    nodes, weights = np.polynomial.legendre.leggauss(16)
-    # The Green kernel currently permits at most 100 log units per cell.
-    basis = np.zeros((14, 5, 13*16, 6))
-    quadrature = np.zeros((14, 13*16))
-    for panels in range(1, 14):
-        points = (-1 + (np.arange(panels)[:, None] + .5 + .5*nodes)/panels).ravel()
-        quadrature[panels, :len(points)] = np.tile(weights*.5/panels, panels)
-        for shift in range(1, 6):
-            stencil = np.arange(6)-shift
-            for j in range(6):
-                values = np.ones_like(points)
-                for k in range(6):
-                    if j != k:
-                        values *= (points-stencil[k])/(stencil[j]-stencil[k])
-                basis[panels, shift-1, :len(points), j] = values
-    basis.setflags(write=False)
-    quadrature.setflags(write=False)
-    return basis, quadrature
+    coefficients = np.empty((5, 6, 6))
+    for shift in range(1, 6):
+        stencil = np.arange(6)-shift
+        for j in range(6):
+            others = np.delete(stencil, j)
+            coefficients[shift-1, j] = (
+                np.polynomial.polynomial.polyfromroots(others)
+                / np.prod(stencil[j]-others))
+    coefficients.setflags(write=False)
+    return coefficients
 
 
-_BASIS, _QUADRATURE = _tables()
-_NODES = np.polynomial.legendre.leggauss(16)[0]
-_NODES.setflags(write=False)
+_COEFFICIENTS = _tables()
+
+
+@njit(cache=True)
+def _exponential_moments(slope, moments):
+    """Integrals of x**m exp(slope*x) on [-1, 0], m = 0,...,5.
+
+    Upward recurrence cancels near zero. There, evaluate the highest moment
+    with a positive series and recurse downward, adding only positive terms.
+    Above eight the upward recurrence is well conditioned. No moment depends
+    on the source, so the resulting Green map remains linear.
+    """
+    tail = np.exp(-slope)
+    if slope < 8.:
+        term = tail/6.
+        value = term
+        for k in range(1, 128):
+            term *= slope/(6+k)
+            value += term
+            if term <= 1e-16*value:
+                break
+        moments[5] = value
+        for m in range(5, 0, -1):
+            moments[m-1] = (slope*moments[m]+tail)/m
+    else:
+        moments[0] = -np.expm1(-slope)/slope
+        for m in range(1, 6):
+            moments[m] = (m*moments[m-1]-tail)/slope
+    for m in range(1, 6, 2):
+        moments[m] = -moments[m]
 
 
 @njit(cache=True)
@@ -56,6 +75,7 @@ def exponential_prefix_weights(logs, rates=None):
         raise ValueError('scaled integration needs matching nonnegative finite rates')
     weights = np.zeros((n, 6))
     decay = np.ones(n)
+    moments = np.empty(6)
     for i in range(1, n):
         step = logs[i]-logs[i-1]
         slope = rates[i]
@@ -64,13 +84,10 @@ def exponential_prefix_weights(logs, rates=None):
         decay[i] = np.exp(-step)
         start = max(0, min(i-3, n-6))
         shift = i-start-1
-        panels = max(1, int(np.ceil(slope/8)))
-        for k in range(16*panels):
-            point = -1+(k//16+.5+.5*_NODES[k % 16])/panels
-            factor = _QUADRATURE[panels, k]*np.exp(slope*point)
-            for j in range(6):
-                weights[i, j] += factor*_BASIS[panels, shift, k, j]
+        _exponential_moments(slope, moments)
         for j in range(6):
+            for m in range(6):
+                weights[i, j] += _COEFFICIENTS[shift, j, m]*moments[m]
             weights[i, j] *= np.exp(logs[start+j]-logs[i]-slope*(start+j-i))
     if not np.all(np.isfinite(weights)):
         raise ValueError('non-finite scaled integration weights; refine radial grid')
