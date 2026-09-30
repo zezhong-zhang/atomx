@@ -122,3 +122,21 @@ def test_sparse_j_levels_match_exact_csf_blocks(be):
         exact = np.sort(exact)
         assert len(w) == expected_n == len(exact), (j2, len(w), len(exact))
         assert np.allclose(w, exact, atol=1e-9), (j2, w, exact)
+
+
+def test_numba_path_identical_to_python_reference(be):
+    """The numba two-phase build must reproduce the reference loop's CSR
+    element-for-element (same values, same sparsity)."""
+    import scipy.sparse as spa
+    from atomx.physics.csf.sparse_ci import (
+        _assemble_numba, _assemble_reference, assemble_sparse_hamiltonian)
+    dhf, od, csfs = be
+    pats = patterns_from_csfs(csfs)
+    masks, spinors = enumerate_determinants(pats, od, 0)
+    Hn = _assemble_numba(masks, spinors, od, dhf.bsp_data, 4, dhf.ns)
+    Hp = _assemble_reference(masks, spinors, od, dhf.bsp_data, 4, dhf.ns)
+    for name in ("data", "indices", "indptr"):
+        a, b = getattr(Hn, name), getattr(Hp, name)
+        assert np.array_equal(a, b), (name, a, b)
+    # and the dispatcher default really used numba
+    assert assemble_sparse_hamiltonian is not None

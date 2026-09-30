@@ -45,6 +45,12 @@ from typing import Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
 import scipy.sparse as sp
+
+try:
+    import numba as _NB_MOD
+except ImportError:  # pragma: no cover - numba is a hard dep, guarded anyway
+    _NB_MOD = None
+_NB = _NB_MOD
 from scipy.sparse.linalg import eigsh
 
 from atomx.angular.csf_hamiltonian import _m2_values, _ops_sign, two_body_angular, twoj
@@ -121,7 +127,23 @@ def enumerate_determinants(patterns, orbitals_dict, m2_total: int = 0):
     return masks, spinors
 
 
-def assemble_sparse_hamiltonian(masks, spinors, orbitals_dict, bsp_data, Z, ns):
+def assemble_sparse_hamiltonian(masks, spinors, orbitals_dict, bsp_data, Z, ns,
+                                *, method="numba"):
+    """CSR Hamiltonian over the determinant masks (Dirac-Coulomb).
+
+    ``method="numba"`` (default): two-phase build — every distinct
+    one-/two-body value is computed once in Python (phase 1), then a
+    numba kernel walks the determinants doing pure bit arithmetic
+    (phase 2).  ``method="python"`` keeps the reference loop; the two
+    paths are asserted element-identical in the test suite.
+    """
+    if method == "python" or _NB is None:
+        return _assemble_reference(masks, spinors, orbitals_dict,
+                                   bsp_data, Z, ns)
+    return _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns)
+
+
+def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns):
     """CSR Hamiltonian over the determinant masks (Dirac-Coulomb)."""
     index = {mask: i for i, mask in enumerate(masks)}
     n = len(masks)
@@ -219,8 +241,10 @@ def sparse_ci_spectrum(orbitals_dict, bsp_data, Z, ns, patterns,
     Returns ``(eigenvalues, n_determinants)`` with eigenvalues ascending.
     """
     masks, spinors = enumerate_determinants(patterns, orbitals_dict, m2_total)
-    H = assemble_sparse_hamiltonian(masks, spinors, orbitals_dict, bsp_data, Z, ns)
     n = len(masks)
+    if n == 0:
+        return np.array([]), 0
+    H = assemble_sparse_hamiltonian(masks, spinors, orbitals_dict, bsp_data, Z, ns)
     if n_states >= n - 1:
         w = np.linalg.eigvalsh(H.toarray())
         return w[:max(0, n_states)], n
@@ -263,3 +287,369 @@ def sparse_j_levels(orbitals_dict, bsp_data, Z, ns, patterns,
     w_hi, n_hi = sparse_ci_spectrum(orbitals_dict, bsp_data, Z, ns, patterns,
                                     m2_total=j2 + 2, n_states=n_states)
     return _multiset_subtract(w_j, w_hi, tol), n_j, n_hi
+
+
+# ---------------------------------------------------------------------------
+# Numba phase-2 kernel: pure bit arithmetic over determinant masks.
+# ---------------------------------------------------------------------------
+
+if _NB is not None:
+    @_NB.njit(cache=True)
+    def _popcnt64(x):  # uint64 SWAR popcount
+        m1 = np.uint64(0x5555555555555555)
+        m2 = np.uint64(0x3333333333333333)
+        m4 = np.uint64(0x0F0F0F0F0F0F0F0F)
+        h  = np.uint64(0x0101010101010101)
+        x = x - ((x >> np.uint64(1)) & m1)
+        x = (x & m2) + ((x >> np.uint64(2)) & m2)
+        x = (x + (x >> np.uint64(4))) & m4
+        return (x * h) >> np.uint64(56)
+
+    @_NB.njit(cache=True)
+    def _bit(lo, hi, idx):
+        if idx < 64:
+            return (lo >> np.uint64(idx)) & np.uint64(1)
+        return (hi >> np.uint64(idx - 64)) & np.uint64(1)
+
+    @_NB.njit(cache=True)
+    def _below(lo, hi, idx):
+        """popcount of bits strictly below idx (the sign parity input)."""
+        if idx == 0:
+            return 0
+        if idx <= 64:
+            return np.int64(_popcnt64(lo & ((np.uint64(1) << np.uint64(idx)) - np.uint64(1))))
+        return np.int64(_popcnt64(lo)) + np.int64(_popcnt64(
+            hi & ((np.uint64(1) << np.uint64(idx - 64)) - np.uint64(1))))
+
+    @_NB.njit(cache=True)
+    def _clr(lo, hi, idx):
+        if idx < 64:
+            return lo & ~(np.uint64(1) << np.uint64(idx)), hi
+        return lo, hi & ~(np.uint64(1) << np.uint64(idx - 64))
+
+    @_NB.njit(cache=True)
+    def _set(lo, hi, idx):
+        if idx < 64:
+            return lo | (np.uint64(1) << np.uint64(idx)), hi
+        return lo, hi | (np.uint64(1) << np.uint64(idx - 64))
+
+    @_NB.njit(cache=True)
+    def _sign_1e(lo, hi, a, c):
+        """Sign of a+_a a_c |det>, the _ops_sign convention."""
+        sign = 1
+        if _bit(lo, hi, c) == 0:
+            return 0
+        if _below(lo, hi, c) & 1:
+            sign = -sign
+        lo, hi = _clr(lo, hi, c)
+        if _bit(lo, hi, a) != 0:
+            return 0
+        if _below(lo, hi, a) & 1:
+            sign = -sign
+        return sign
+
+    @_NB.njit(cache=True)
+    def _sign_2e(lo, hi, a, b, c, d):
+        """Sign of a+_a a+_b a_d a_c |det> (right-to-left: c, d, b, a)."""
+        sign = 1
+        if _bit(lo, hi, c) == 0:
+            return 0
+        if _below(lo, hi, c) & 1:
+            sign = -sign
+        lo, hi = _clr(lo, hi, c)
+        if _bit(lo, hi, d) == 0:
+            return 0
+        if _below(lo, hi, d) & 1:
+            sign = -sign
+        lo, hi = _clr(lo, hi, d)
+        if _bit(lo, hi, b) != 0:
+            return 0
+        if _below(lo, hi, b) & 1:
+            sign = -sign
+        lo, hi = _set(lo, hi, b)
+        if _bit(lo, hi, a) != 0:
+            return 0
+        if _below(lo, hi, a) & 1:
+            sign = -sign
+        return sign
+
+
+    @_NB.njit(cache=True)
+    def _find_row(shi, slo, srow, tlo, thi):
+        """Binary search of (thi, tlo) in the lexsorted det table."""
+        a = np.searchsorted(shi, thi)
+        b = np.searchsorted(shi, thi, side='right')
+        while a < b:
+            mid = (a + b) // 2
+            if slo[mid] < tlo:
+                a = mid + 1
+            else:
+                b = mid
+        if a < shi.shape[0] and shi[a] == thi and slo[a] == tlo:
+            return srow[a]
+        return -1
+
+    @_NB.njit(cache=True)
+    def _assemble_kernel(mlo, mhi, occ, nspin, m2arr,
+                         h1_keys, h1_vals,
+                         pgrp, pflat, pstart, plen,
+                         bflat, bstart, blen, msum_shift,
+                         vb_keys, vb_vals,
+                         shi, slo, srow,
+                         rows, cols, vals, diag):
+        """Emit the COO triplets of H over all determinants (col-major)."""
+        n = mlo.shape[0]
+        count = 0
+        cap = rows.shape[0]
+        for col in range(n):
+            lo = mlo[col]
+            hi = mhi[col]
+            ne = occ.shape[1]
+            # ---- one-body ----
+            for ei in range(ne):
+                c = occ[col, ei]
+                g = pgrp[c]
+                for pi in range(pstart[g], pstart[g] + plen[g]):
+                    a = pflat[pi]
+                    key = a * nspin + c
+                    # binary search h1
+                    lo_i, hi_i = 0, h1_keys.shape[0]
+                    while lo_i < hi_i:
+                        mid = (lo_i + hi_i) // 2
+                        if h1_keys[mid] < key:
+                            lo_i = mid + 1
+                        else:
+                            hi_i = mid
+                    if lo_i >= h1_keys.shape[0] or h1_keys[lo_i] != key:
+                        continue
+                    h = h1_vals[lo_i]
+                    if a == c:
+                        diag[col] += h
+                        continue
+                    tlo, thi = _clr(lo, hi, c)
+                    tlo, thi = _set(tlo, thi, a)
+                    row = _find_row(shi, slo, srow, tlo, thi)
+                    if row < 0:
+                        continue
+                    sg = _sign_1e(lo, hi, a, c)
+                    if sg == 0:
+                        continue
+                    if count < cap:
+                        rows[count] = row
+                        cols[count] = col
+                        vals[count] = sg * h
+                        count += 1
+            # ---- two-body ----
+            for ei in range(ne):
+                c = occ[col, ei]
+                for fj in range(ei + 1, ne):
+                    d = occ[col, fj]
+                    ms = m2arr[c] + m2arr[d] + msum_shift
+                    for bi in range(bstart[ms], bstart[ms] + blen[ms]):
+                        a = bflat[2 * bi]
+                        b = bflat[2 * bi + 1]
+                        tlo, thi = _clr(lo, hi, c)
+                        tlo, thi = _clr(tlo, thi, d)
+                        tlo, thi = _set(tlo, thi, a)
+                        tlo, thi = _set(tlo, thi, b)
+                        row = _find_row(shi, slo, srow, tlo, thi)
+                        if row < 0:
+                            continue
+                        key = ((a * nspin + b) * nspin + c) * nspin + d
+                        lo_i, hi_i = 0, vb_keys.shape[0]
+                        while lo_i < hi_i:
+                            mid = (lo_i + hi_i) // 2
+                            if vb_keys[mid] < key:
+                                lo_i = mid + 1
+                            else:
+                                hi_i = mid
+                        if lo_i >= vb_keys.shape[0] or vb_keys[lo_i] != key:
+                            continue
+                        sg = _sign_2e(lo, hi, a, b, c, d)
+                        if sg == 0:
+                            continue
+                        if count < cap:
+                            rows[count] = row
+                            cols[count] = col
+                            vals[count] = sg * vb_vals[lo_i]
+                            count += 1
+        return count
+
+
+def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns):
+    """Phase 1 (Python, once per distinct value) + phase 2 (numba)."""
+    from functools import lru_cache
+
+    n = len(masks)
+    if n == 0:
+        return sp.csr_matrix((0, 0))
+    nspin = len(spinors)
+    nelec = bin(masks[0]).count("1")
+
+    @lru_cache(maxsize=None)
+    def _one_body(a_key, c_key):
+        Pa, Qa = orbitals_dict[a_key]
+        Pc, Qc = orbitals_dict[c_key]
+        h = MAT._h_one_body(Pa, Qa, Pc, Qc, a_key[1], Z, bsp_data, ns)
+        return h / MAT._norm_sq(Pc, Qc, c_key[1], Z, bsp_data, ns)
+
+    @lru_cache(maxsize=None)
+    def _v(ia, ib, ic, id_):
+        a, b, c, d = spinors[ia], spinors[ib], spinors[ic], spinors[id_]
+        terms = two_body_angular(a[1], a[2], b[1], b[2], c[1], c[2], d[1], d[2])
+        if not terms:
+            return 0.0
+        Pa, Qa = orbitals_dict[(a[0], a[1])]
+        Pc, Qc = orbitals_dict[(c[0], c[1])]
+        Pb, Qb = orbitals_dict[(b[0], b[1])]
+        Pd, Qd = orbitals_dict[(d[0], d[1])]
+        total = 0.0
+        for k, coef in terms:
+            total += coef * MAT._rk(Pa, Qa, Pc, Qc, Pb, Qb, Pd, Qd,
+                                    bsp_data, k)
+        return total
+
+    # ---- phase 1a: one-body table over (kappa, m) partner pairs ----
+    km_groups: Dict[Tuple[int, int], List[int]] = {}
+    for si, (_n, kappa, m2) in enumerate(spinors):
+        km_groups.setdefault((kappa, m2), []).append(si)
+    h1 = {}
+    pgrp = np.empty(nspin, dtype=np.int64)
+    gid = {}
+    pflat: List[int] = []
+    pstart: List[int] = []
+    plen: List[int] = []
+    for g, members in km_groups.items():
+        g_id = len(pstart)
+        gid[g] = g_id
+        pstart.append(len(pflat))
+        for si in members:
+            pgrp[si] = g_id
+            pflat.append(si)
+        plen.append(len(members))
+        for c in members:
+            for a in members:
+                h1[a * nspin + c] = _one_body(
+                    (spinors[a][0], spinors[a][1]), (spinors[c][0], spinors[c][1]))
+    h1_keys = np.array(sorted(h1), dtype=np.int64)
+    h1_vals = np.array([h1[k] for k in h1_keys], dtype=np.float64)
+
+    # ---- phase 1b: two-body value table over m-matched quadruples ----
+    # A spin-orbital set in every determinant mask is frozen (closed core):
+    # every target determinant must still occupy it, so removing {c, d}
+    # and adding {a, b} must restore each frozen member — a frozen c (or
+    # d) has to reappear as a or b (spectator terms count).  Quadruples
+    # violating this can never connect two determinants of the space.
+    frozen = set(range(nspin))
+    for mask in masks:
+        frozen &= {si for si in range(nspin) if (mask >> si) & 1}
+    open_spinors = frozenset(set(range(nspin)) - frozen)
+
+    m2arr_py = [s_[2] for s_ in spinors]
+    m2min = min(m2arr_py)
+    msum_shift = -2 * m2min  # bucket index >= 0
+    nbuckets = 2 * (max(m2arr_py) - m2min) + 1
+    buckets: Dict[int, list] = {}
+    for ia, ib in itertools.combinations(range(nspin), 2):
+        buckets.setdefault(m2arr_py[ia] + m2arr_py[ib] + msum_shift,
+                           []).append((ia, ib))
+
+    def _key(a, b, c, d):
+        return ((a * nspin + b) * nspin + c) * nspin + d
+
+    # Candidate (a, b) lists classified by the frozen/open status of the
+    # annihilated pair: when (c, d) are both open, the created pair may be
+    # any pair of OPEN spinors in the same m bucket (creations onto frozen
+    # slots are Pauli-blocked); when c or d is frozen, the created pair
+    # must restore it, so only pairs containing that spinor are visited.
+    open_pairs: Dict[int, list] = {}
+    for ms, ab_list in buckets.items():
+        open_pairs[ms] = [(a, b) for (a, b) in ab_list
+                          if a in open_spinors and b in open_spinors]
+    pairs_with: Dict[Tuple[int, int], list] = {}
+    for ms, ab_list in buckets.items():
+        for (a, b) in ab_list:
+            for si in (a, b):
+                pairs_with.setdefault((si, ms), []).append((a, b))
+
+    vb: Dict[int, float] = {}
+    for ms, ab_list in buckets.items():
+        cand_open = open_pairs[ms]
+        for (c, d) in ab_list:
+            c_open = c in open_spinors
+            d_open = d in open_spinors
+            if c_open and d_open:
+                ab_cands = cand_open
+            elif c_open:
+                ab_cands = pairs_with.get((d, ms), [])
+            elif d_open:
+                ab_cands = pairs_with.get((c, ms), [])
+            else:
+                ab_cands = [(a, b) for (a, b) in pairs_with.get((c, ms), [])
+                            if a == d or b == d]
+            for (a, b) in ab_cands:
+                key = _key(a, b, c, d)
+                if key in vb:
+                    continue
+                v = _v(a, b, c, d)
+                v2 = _v(a, b, d, c)
+                if v == 0.0 and v2 == 0.0:
+                    continue
+                vb[key] = v - v2
+
+    vb_keys = np.array(sorted(vb), dtype=np.int64)
+    vb_vals = np.array([vb[k] for k in vb_keys], dtype=np.float64)
+
+    bflat: List[int] = []
+    bstart = [0] * nbuckets
+    blen = [0] * nbuckets
+    for ms in range(nbuckets):
+        pairs = buckets.get(ms, [])
+        bstart[ms] = len(bflat) // 2
+        for (a, b) in pairs:
+            bflat.append(a)
+            bflat.append(b)
+        blen[ms] = len(pairs)
+
+    # ---- determinant structures ----
+    occ = np.empty((n, nelec), dtype=np.int64)
+    mlo = np.empty(n, dtype=np.uint64)
+    mhi = np.empty(n, dtype=np.uint64)
+    for i, mask in enumerate(masks):
+        bits = [si for si in range(nspin) if (mask >> si) & 1]
+        for e, si in enumerate(bits):
+            occ[i, e] = si
+        mlo[i] = np.uint64(mask & ((1 << 64) - 1))
+        mhi[i] = np.uint64(mask >> 64)
+    order = np.lexsort((mlo, mhi))
+    shi = mhi[order]
+    slo = mlo[order]
+    srow = np.asarray(order, dtype=np.int64)
+
+    m2arr = np.array(m2arr_py, dtype=np.int64)
+    cap_per_det = 2048
+    while True:
+        cap = n * cap_per_det
+        rows = np.empty(cap, dtype=np.int64)
+        cols = np.empty(cap, dtype=np.int64)
+        vals = np.empty(cap, dtype=np.float64)
+        diag = np.zeros(n)
+        count = _assemble_kernel(
+            mlo, mhi, occ, nspin, m2arr,
+            h1_keys, h1_vals,
+            pgrp, np.array(pflat, dtype=np.int64),
+            np.array(pstart, dtype=np.int64), np.array(plen, dtype=np.int64),
+            np.array(bflat, dtype=np.int64),
+            np.array(bstart, dtype=np.int64), np.array(blen, dtype=np.int64),
+            msum_shift,
+            vb_keys, vb_vals,
+            shi, slo, srow,
+            rows, cols, vals, diag)
+        if count < cap:
+            break
+        cap_per_det *= 8  # rare: dense row — regrow
+    H = sp.coo_matrix((vals[:count], (rows[:count], (cols[:count]))),
+                      shape=(n, n)).tocsr()
+    H = H + sp.diags(diag)
+    H.sum_duplicates()
+    return H
