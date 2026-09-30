@@ -178,7 +178,7 @@ elif sys.argv[1] == "davidson":
     from types import SimpleNamespace
 
     import atomx.methods.ci as ci
-    import atomx.methods.mcdhf.matrix as matrix
+    import atomx.physics.csf.matrix as matrix
 
     matrix.build_ci_matrix = lambda *args, **kwargs: np.diag([1.0, 2.0, 3.0, 4.0])
     calls = []
@@ -203,7 +203,7 @@ elif sys.argv[1] == "davidson":
 elif sys.argv[1] == "cap":
     import resource
 
-    from atomx.methods.mcdhf.exact_ci import (
+    from atomx.angular.csf_hamiltonian import (
         ExactCISpaceError,
         block_terms,
         pattern_layout,
@@ -228,7 +228,7 @@ elif sys.argv[1] == "cap":
 
 elif sys.argv[1] == "orthogonality":
     from atomx.methods.dirac_fock import DFSolver
-    from atomx.methods.mcdhf.matrix import build_ci_matrix
+    from atomx.physics.csf.matrix import build_ci_matrix
     from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
 
     original_solve = DFSolver.solve
@@ -282,7 +282,7 @@ elif sys.argv[1] == "orthogonality":
 elif sys.argv[1] == "lines":
     from atomx.angular.coefficients import reduced_C
     from atomx.angular.wigner import wigner_3j
-    from atomx.methods.mcdhf.exact_ci import (
+    from atomx.angular.csf_hamiltonian import (
         _remap,
         _union_offsets,
         csf_matrix,

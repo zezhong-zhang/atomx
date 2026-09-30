@@ -1,17 +1,14 @@
 #!/usr/bin/env python3
 """Ground-state density: generate per-element HDF5 and compare with WF_TXT.
 
-For each requested Z, runs B-spline CI-averaged MCDHF by default, with
-Gaunt (Breit) + QED corrections, and writes an HDF5 file
-with one group per occupied relativistic subshell (datasets ``r``,
-``density``, ``density_large``, ``density_small``, ``wave_large``,
-``wave_small``; attrs ``n``, ``l``, ``spin``, ``orbital``, ``nq``,
-``small_component_ratio``, ``speed``). The radial density convention
-is ``int_0^inf rho(r) dr = nq`` per subshell, so the total atomic
-density ``sum_i rho_i(r)`` integrates to Z.
-``--averaging statistical`` selects configuration-average DHF (DBSR_HF-style
-``term=AV``), with post-SCF Gaunt + QED energy corrections.
-``--correlation s/sd`` expands the default CI configuration space.
+For each requested Z, runs B-spline DF with Hamiltonian intermediate coupling,
+Breit + QED corrections, and writes an HDF5 file with one group per occupied
+relativistic subshell. Densities use the convention integral rho(r) dr = nq,
+so their sum integrates to Z. Occupations follow Guerra Eq. 10, with mixing
+coefficients from the Hamiltonian within the requested configuration.
+``--averaging equal`` selects equal integer-configuration weights;
+``--averaging statistical`` instead selects fixed degeneracy weights.
+``--correlation s/sd`` explicitly selects an MCDHF configuration expansion.
 BLAS defaults to one thread for these small matrices; explicit environment
 settings (e.g. ``OPENBLAS_NUM_THREADS``) take precedence.
 
@@ -233,7 +230,7 @@ def generate(Z: int, out_path: Path, args) -> bool:
                     corrections=Corrections(breit=args.breit, qed=args.qed),
                     correlation=correlation)
         LOG.info("[SCF] %s Z=%d | B-spline %s", symbol, Z,
-                 "CI" if args.averaging == "ci" else "statistical DHF")
+                 "MCDHF" if args.averaging == "ci" else f"DHF ({args.averaging})")
         atom.solve(tol=args.tol, max_iter=args.max_iter)
     except Exception as e:
         LOG.error("[FAIL] %s Z=%d solve error: %s", symbol, Z, e)
@@ -420,8 +417,10 @@ def main(argv=None) -> int:
     ap.add_argument("--plots-dir", default=None, type=Path,
                     help="Where to write PNGs + REPORT.md. "
                          "Default: <out>/wf_txt_compare/.")
-    ap.add_argument("--averaging", default="ci", choices=["ci", "statistical"],
-                    help="CI (default) or statistical configuration-average DHF.")
+    ap.add_argument("--averaging", default=None,
+                    choices=["hamiltonian", "statistical", "equal", "fractional", "ci"],
+                    help="DHF: hamiltonian (default), statistical, equal or fractional; "
+                         "CI requires an explicit --correlation expansion.")
     ap.add_argument("--correlation", default=None, choices=["s", "sd"],
                     help="Expand the CI space with singles or singles+doubles.")
     ap.add_argument("--breit", action=argparse.BooleanOptionalAction, default=True)
@@ -435,8 +434,12 @@ def main(argv=None) -> int:
     ap.add_argument("-v", "--verbose", action="count", default=0,
                     help="-v for INFO, -vv for DEBUG.")
     args = ap.parse_args(argv)
-    if args.averaging == "statistical" and args.correlation:
+    if args.averaging is None:
+        args.averaging = "ci" if args.correlation else "hamiltonian"
+    if args.correlation and args.averaging != "ci":
         ap.error("--correlation requires --averaging ci")
+    if args.averaging == "ci" and not args.correlation:
+        ap.error("--averaging ci requires --correlation; use hamiltonian for DHF")
 
     level = (logging.DEBUG if args.verbose >= 2
              else logging.INFO if args.verbose == 1

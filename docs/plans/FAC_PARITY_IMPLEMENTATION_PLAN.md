@@ -250,8 +250,10 @@ Acceptance:
     J/pi-aware level matching.
   - Fe XVII transition benchmark now maps FAC upper levels through the level
     matcher instead of rank-sorting unrelated transitions.
-  - Fe XVII transition benchmark now compares AtomX `A` against FAC
-    `gA/(2J_upper+1)` and reports the de-weighted FAC rate in the CSV.
+  - Corrected 2026-09-29: FAC prints `A` directly. The former
+    `gA/(2J_upper+1)` interpretation was wrong; current callers compare
+    `A_per_s` without another weight division and explicitly request E1.
+    Historical numbers need regeneration; see `docs/VERIFICATION.md`.
   - Quick/full parity runner includes RCFP primitive and J-resolved CSF
     benchmarks.
   - Benchmark-facing FAC parsers for RR, CE, CI, and AI ASCII tables are

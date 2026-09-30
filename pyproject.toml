@@ -11,6 +11,8 @@ dependencies = [
     "numpy>=1.24",
     "scipy>=1.10",
     "numba>=0.58",
+    # Exact Coulomb reference when an outer asymptotic series cannot converge.
+    "mpmath>=1.3",
     "h5py>=3.0",
     # Rendering is loaded on demand. Keep Matplotlib in the base installation
     # for compatibility with existing plotting users; other backends use extras.

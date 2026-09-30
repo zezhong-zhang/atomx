@@ -51,10 +51,10 @@ def main() -> None:
     # when iterating on configuration before paying for the relativistic
     # rungs.
     print()
-    print("Stopping early at HartreeFock for a quick sanity check:")
+    print("Stopping early at HartreeFockSlater for a quick sanity check:")
     print()
-    from atomx.methods import HartreeFock
-    ne.climb(through=HartreeFock(),
+    from atomx.methods import HartreeFockSlater
+    ne.climb(through=HartreeFockSlater(),
              sampling=Sampling.quick).show(unit="eV")
 
 

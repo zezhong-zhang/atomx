@@ -274,6 +274,13 @@ cancel per term — no phase matching across M blocks).  Exact sum rule
 pinned at 1e-10: Σ_lines S = Σ_{det_i,det_f,q} |⟨det_f|d_q|det_i⟩|², the
 mixing-invariant configuration-pair total.
 
+**2026-09-30 audit:** The following numbers are historical. This deck's
+`ConfigEnergy(0/1)` adds FAC configuration relaxation shifts absent from
+Atomx frozen CI, and its photon operator is long wavelength (`MODE=1`).
+The current matched comparison disables these shifts and compares both
+photon modes separately; see [verification status](VERIFICATION.md#frozen-ci-levels-and-e1-transitions).
+The historical fixture remains useful for UTA moment arithmetic.
+
 Validation vs live clean-room FAC 1.1.5 TRTable (same protocol; TR
 PrintTable verbose=1 segfaults — verbose=0 stores the rme with
 gf = ω·rme²/3, A = 2α³ω²gf/g_u, S_std = rme²/2, verified exact in the

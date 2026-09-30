@@ -55,7 +55,7 @@ if __name__ == "__main__":
                exchange="hf",
                corrections=Corrections(breit=True, qed=True,
                                        qed_backend="auto"),
-               correlation=Correlation(averaging="ci"),
+               correlation=Correlation(averaging="hamiltonian"),
                engine="bspline",
                basis=Basis(ns=None, ks=9, r_max=75.0,
                            grid_hi=0.02, grid_he=0.10),

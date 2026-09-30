@@ -37,10 +37,12 @@ pair moments, angular weights, Fock action, energy and allowed rotation policy.
 The engine performs the rotation search. `physics/slater.py` supplies local
 exchange and energy expressions. Neither physical operator launches an SCF solve.
 
-MCDHF retains CI and state assembly in `methods/mcdhf/grid_solver.py` and the
-energy/gradient in `grid_functional.py`. It calls numerical electron-space and
-optimization routines. `ShootingResult` belongs to `results.py`; loading it
-requires no method implementation.
+DF and MCDHF share state assembly in `methods/csf/solver.py`, with their
+configuration-space policies defined by their method entry points. Physical
+energy and gradient contractions live in `physics/csf/grid_functional.py`.
+The drivers call numerical electron-space and optimization routines.
+`ShootingResult` belongs to `results.py`; loading it requires no method
+implementation.
 
 ## Dependencies
 
@@ -57,6 +59,24 @@ requires no method implementation.
    optional electronic-structure backends.
 
 ## Scientific contracts
+
+Single-configuration DHF defaults to explicit `averaging="hamiltonian"`
+(Hamiltonian-derived intermediate coupling within one NR configuration).
+Ground-state occupations follow Guerra Eq. 10, while orbital variation retains
+the full coherent state energy. Fixed statistical averages are a separate model.
+Dynamical correlation requires an explicit configuration expansion. Hamiltonian
+DF follows direct stationary radial equations on the self-consistent electron
+branch for both engines; it does not construct a fixed continuum basis.
+MCDHF retains its explicit variational electron-space controls. See
+[DF solver controls](DF_SOLVER_CONTROLS.md) for the argument/mechanism table.
+
+The shared method driver and state functionals live in `methods/csf`; DF and
+MCDHF entry points define the configuration space. CSF definitions belong to
+`config/csf.py`, angular Hamiltonian tables to `angular/csf_hamiltonian.py`,
+and matrix elements/density contractions to `physics/csf`. Constrained radial
+optimization algorithms belong to `numerics/{bspline,shooting}`; occupied
+rotation algebra is shared in `numerics/orbital_rotations.py`. Physical
+operators must not depend on either DF or MCDHF method entry points.
 
 - Keep configuration averages, term/level energies, orbital energies and
   transition energies distinct. Preserve occupations, coupling and state identity.
