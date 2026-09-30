@@ -1,0 +1,36 @@
+{
+  "baseline_commit": "af6128b",
+  "source_sha256": {
+    "src/atomx/numerics/shooting/energy.py": "b4ae425e3bf05e3a55142be933d191a1372e428f98be425004ae8f81720d0338",
+    "src/atomx/numerics/shooting/hartree_fock.py": "6e27294dfdf6eb42271a14bfaafed05a18696f58be790bfe3e2459fc60b2fa3e",
+    "src/atomx/physics/hartree_fock.py": "ead76e66faf831d535c0bab3245e3c1dea117ac168c8e390a98e991dc6010f70",
+    "tests/test_shooting_rotation_energy.py": "aa7b25929e2bbe3bab4583205202b6966f4348bd7366cc6c819c0f22b3de4d34",
+    "tests/test_direct_hamiltonian_df.py": "84cf0263331563fb44bb25fb9aa2aa1ae71f6b25b4d6218cad88357fcdeb1db1",
+    "benchmarks/bench_df_solver.py": "e42e1d447d03294f6efba0f4e3e09c7c31bb17899be98c6b2daa9a8a13db23a8",
+    "benchmarks/bench_shooting_rotation_energy.py": "129ea6115a8f782303b7eb85054657c1c9d7f267f7e01644a803327d9fd302af",
+    "benchmarks/bench_shooting_observables.py": "d521c237f4afd3df0db561181b5924679218895be054e4fc977349c5d9b256b7",
+    "benchmarks/runs/2026-09-30-shooting-rotation-plan/summarize.py": "5b9c783d2ddf25753d892321653c5819d2efa5415d98b3dc3eadcb418abdc096"
+  },
+  "raw_sha256": {
+    "raw/determinism.xml": "df0b2a3349aa136ce9dd9b553ae2ccdec9576419ba53d033fd23709019b7b598",
+    "raw/df-after-0/results.json": "53040ed0d5527c43cce335b61b5aed68e1f1b95aedcda7ee86da7b5a8731557b",
+    "raw/df-after-1/results.json": "ae1cc1ba253452b37fa7e3d0c9e87f3dd9e5f8b6cb0d19e1058a9a4ba0577244",
+    "raw/df-before-0/results.json": "78aab9ec169d13a446357ce21871947d77624df343f6f8e0778b44cec6d20564",
+    "raw/df-before-1/results.json": "160bd6967b3ecf761d5fd7ab1172eb1e9599f0ca58b7608164df84ea3737d933",
+    "raw/kernels-after/outputs.npz": "9dbe927a7e5ad50c86796dc34351786f4f3613f3a5b464bda453a73dadae87e2",
+    "raw/kernels-after/results.json": "933f079741caa61fb439d616f0f9fd61cd6ea4a90d1f3de54c817e4525ed65b6",
+    "raw/kernels-before/outputs.npz": "9dbe927a7e5ad50c86796dc34351786f4f3613f3a5b464bda453a73dadae87e2",
+    "raw/kernels-before/results.json": "71ec87ed7712fbe5a2b2d5d966605bbddbd45e5cb08c6d2da01ab27e63ca37b5",
+    "raw/numerics.xml": "1a6ed68c27ea74b08a3c94d1470fe054674f8902f1b14c182839d84fe4159e24",
+    "raw/observables-after/arrays.npz": "542fca80dfa14bd35e6bf6d3899b0765613758bc3d125b51aca089f57e70c585",
+    "raw/observables-after/results.json": "19f59a5b03b58ac9a4028316abcb528ea47020d172019b569259de6a34b8df03",
+    "raw/observables-before/arrays.npz": "542fca80dfa14bd35e6bf6d3899b0765613758bc3d125b51aca089f57e70c585",
+    "raw/observables-before/results.json": "0385101148fe917f72b10c550f7ed3d28ad753f1d5c65b719a2c66f035e7935d",
+    "raw/profile-after/Z98-0.prof": "f535c28e83e1b73f12daac8881c0441e604aadf7cac1a3074ccfc5a6155cb2cf",
+    "raw/profile-after/Z98-1.prof": "7f739a96724b5936e08ac8092923330c637f995e89e335cafc6eb001ced36716",
+    "raw/profile-after/results.json": "758d846e6b7d6263861f525162deee4f97ecbe576538983476c949d28904d31c",
+    "raw/profile-before/Z98-0.prof": "6c666cc0077529fcc4bbdd7e4714807ec45e24e6544da812f92654488c2ac146",
+    "raw/profile-before/Z98-1.prof": "4f1cfcbdeafcf6bce9a107686d221fd6a3a74f58842a547b5650ccc5dd1df31b",
+    "raw/profile-before/results.json": "922f589b5589112ee291130b77ec6c94a4ac402d7ed7d9dedae4fbca305d5db2"
+  }
+}

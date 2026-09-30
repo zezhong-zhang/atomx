@@ -1,0 +1,496 @@
+{
+  "before": {
+    "scope": "warm Cf; instrumentation overhead, not a latency claim",
+    "total_calls": 4754722,
+    "seconds": 4.093089836,
+    "rows": [
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/numerics/shooting/local.py",
+        "line": 21,
+        "function": "_dhfs_scf",
+        "calls": 1,
+        "self_seconds": 0.695456425,
+        "cumulative_seconds": 0.6954842800000001
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/numerics/shooting/dirac_orbital.py",
+        "line": 108,
+        "function": "solve_inhomogeneous_orbital",
+        "calls": 486,
+        "self_seconds": 0.41910860600000005,
+        "cumulative_seconds": 0.817609692
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/physics/csf/radial_fock.py",
+        "line": 62,
+        "function": "_two_body_action",
+        "calls": 405,
+        "self_seconds": 0.301106162,
+        "cumulative_seconds": 0.34094843900000005
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/numerics/shooting/energy.py",
+        "line": 29,
+        "function": "potential",
+        "calls": 64078,
+        "self_seconds": 0.245740806,
+        "cumulative_seconds": 0.28338989200000003
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/physics/hartree_fock.py",
+        "line": 189,
+        "function": "exchange_action",
+        "calls": 567,
+        "self_seconds": 0.181832766,
+        "cumulative_seconds": 0.18411399
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/numerics/shooting/dirac_green.py",
+        "line": 212,
+        "function": "prepare_scaled_green",
+        "calls": 1529,
+        "self_seconds": 0.158287575,
+        "cumulative_seconds": 0.16026773400000002
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/physics/hartree_fock.py",
+        "line": 153,
+        "function": "two_electron_energy",
+        "calls": 22,
+        "self_seconds": 0.127892895,
+        "cumulative_seconds": 0.15653982900000002
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/physics/csf/retardation.py",
+        "line": 53,
+        "function": "channel",
+        "calls": 2188,
+        "self_seconds": 0.11946690800000001,
+        "cumulative_seconds": 0.18770022800000002
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/numerics/shooting/energy.py",
+        "line": 52,
+        "function": "energy",
+        "calls": 236,
+        "self_seconds": 0.100469424,
+        "cumulative_seconds": 0.284885447
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/physics/hartree_fock.py",
+        "line": 175,
+        "function": "orbital_field",
+        "calls": 567,
+        "self_seconds": 0.100392221,
+        "cumulative_seconds": 0.286812404
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/numerics/shooting/dirac_green.py",
+        "line": 220,
+        "function": "scaled_green_solve",
+        "calls": 8498,
+        "self_seconds": 0.095608855,
+        "cumulative_seconds": 0.097346815
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/physics/csf/matrix.py",
+        "line": 762,
+        "function": "evaluate",
+        "calls": 63364,
+        "self_seconds": 0.08589695500000001,
+        "cumulative_seconds": 0.45212102400000004
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/numerics/shooting/energy.py",
+        "line": 11,
+        "function": "radial_rotation_energy",
+        "calls": 36,
+        "self_seconds": 0.08226019700000001,
+        "cumulative_seconds": 0.213099332
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/physics/csf/radial_fock.py",
+        "line": 106,
+        "function": "two_electron_energy",
+        "calls": 14,
+        "self_seconds": 0.07340216000000001,
+        "cumulative_seconds": 0.076399334
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/physics/csf/radial_fock.py",
+        "line": 82,
+        "function": "orbital_field",
+        "calls": 405,
+        "self_seconds": 0.073271659,
+        "cumulative_seconds": 0.416532895
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/physics/csf/matrix.py",
+        "line": 263,
+        "function": "_breit_rk",
+        "calls": 56310,
+        "self_seconds": 0.072870051,
+        "cumulative_seconds": 0.09676074300000001
+      },
+      {
+        "file": "~",
+        "line": 0,
+        "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+        "calls": 30754,
+        "self_seconds": 0.06385027900000001,
+        "cumulative_seconds": 0.06385027900000001
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/angular/csf_hamiltonian.py",
+        "line": 1164,
+        "function": "<genexpr>",
+        "calls": 202998,
+        "self_seconds": 0.049624006000000005,
+        "cumulative_seconds": 0.577848149
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/numerics/quadrature.py",
+        "line": 205,
+        "function": "yk_on_grid",
+        "calls": 19208,
+        "self_seconds": 0.048990311,
+        "cumulative_seconds": 0.068828475
+      },
+      {
+        "file": "~",
+        "line": 0,
+        "function": "<built-in method numpy._core._multiarray_umath.c_einsum>",
+        "calls": 7679,
+        "self_seconds": 0.041788835,
+        "cumulative_seconds": 0.041788835
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/numerics/shooting/energy.py",
+        "line": 23,
+        "function": "density",
+        "calls": 102422,
+        "self_seconds": 0.040824073,
+        "cumulative_seconds": 0.040824073
+      },
+      {
+        "file": "~",
+        "line": 0,
+        "function": "<built-in method numpy.array>",
+        "calls": 62400,
+        "self_seconds": 0.040214179,
+        "cumulative_seconds": 0.040508328
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/physics/csf/matrix.py",
+        "line": 677,
+        "function": "pair_potential",
+        "calls": 5940,
+        "self_seconds": 0.039344313000000006,
+        "cumulative_seconds": 0.047069229000000004
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/numerics/shooting/scf.py",
+        "line": 44,
+        "function": "iterate_nonlocal_orbitals",
+        "calls": 2,
+        "self_seconds": 0.039196719000000005,
+        "cumulative_seconds": 2.4897107430000003
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/corrections/breit.py",
+        "line": 160,
+        "function": "compute_breit_energy",
+        "calls": 1,
+        "self_seconds": 0.032630150000000004,
+        "cumulative_seconds": 0.134879079
+      },
+      {
+        "file": "~",
+        "line": 0,
+        "function": "<method 'append' of 'list' objects>",
+        "calls": 542229,
+        "self_seconds": 0.030444469000000002,
+        "cumulative_seconds": 0.030444469000000002
+      },
+      {
+        "file": "/home/zzhang/miniconda3/lib/python3.14/site-packages/numba/core/serialize.py",
+        "line": 30,
+        "function": "_numba_unpickle",
+        "calls": 247306,
+        "self_seconds": 0.026488376,
+        "cumulative_seconds": 0.026488376
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/calculation_spec.py",
+        "line": 15,
+        "function": "_freeze",
+        "calls": 37036,
+        "self_seconds": 0.025081253,
+        "cumulative_seconds": 0.062873867
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/angular/csf_hamiltonian.py",
+        "line": 417,
+        "function": "__init__",
+        "calls": 1498,
+        "self_seconds": 0.024816429,
+        "cumulative_seconds": 0.11030779700000001
+      },
+      {
+        "file": "/tmp/atomx-rotation-plan-baseline/src/atomx/angular/mscheme.py",
+        "line": 200,
+        "function": "subshell_j_counts_mscheme",
+        "calls": 40986,
+        "self_seconds": 0.023097432,
+        "cumulative_seconds": 0.033504372000000004
+      }
+    ]
+  },
+  "after": {
+    "scope": "warm Cf; instrumentation overhead, not a latency claim",
+    "total_calls": 4486823,
+    "seconds": 3.9561360389999964,
+    "rows": [
+      {
+        "file": "/data/code/atomx/src/atomx/numerics/shooting/local.py",
+        "line": 21,
+        "function": "_dhfs_scf",
+        "calls": 1,
+        "self_seconds": 0.690587352,
+        "cumulative_seconds": 0.690625043
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/numerics/shooting/dirac_orbital.py",
+        "line": 108,
+        "function": "solve_inhomogeneous_orbital",
+        "calls": 486,
+        "self_seconds": 0.415981376,
+        "cumulative_seconds": 0.8090540500000001
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/physics/csf/radial_fock.py",
+        "line": 62,
+        "function": "_two_body_action",
+        "calls": 405,
+        "self_seconds": 0.308691529,
+        "cumulative_seconds": 0.34801197300000003
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/numerics/shooting/energy.py",
+        "line": 134,
+        "function": "energy",
+        "calls": 236,
+        "self_seconds": 0.19820863000000002,
+        "cumulative_seconds": 0.19820863000000002
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/physics/hartree_fock.py",
+        "line": 189,
+        "function": "exchange_action",
+        "calls": 567,
+        "self_seconds": 0.184098114,
+        "cumulative_seconds": 0.1863343
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/numerics/shooting/dirac_green.py",
+        "line": 212,
+        "function": "prepare_scaled_green",
+        "calls": 1529,
+        "self_seconds": 0.157338057,
+        "cumulative_seconds": 0.159345239
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/numerics/shooting/energy.py",
+        "line": 103,
+        "function": "for_pair",
+        "calls": 36,
+        "self_seconds": 0.132362207,
+        "cumulative_seconds": 0.132900438
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/physics/hartree_fock.py",
+        "line": 153,
+        "function": "two_electron_energy",
+        "calls": 22,
+        "self_seconds": 0.12893558700000002,
+        "cumulative_seconds": 0.157125557
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/physics/csf/retardation.py",
+        "line": 53,
+        "function": "channel",
+        "calls": 2188,
+        "self_seconds": 0.11928202900000001,
+        "cumulative_seconds": 0.186906173
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/physics/hartree_fock.py",
+        "line": 175,
+        "function": "orbital_field",
+        "calls": 567,
+        "self_seconds": 0.10234788600000001,
+        "cumulative_seconds": 0.290902233
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/numerics/shooting/dirac_green.py",
+        "line": 220,
+        "function": "scaled_green_solve",
+        "calls": 8498,
+        "self_seconds": 0.09505680200000001,
+        "cumulative_seconds": 0.09679720800000001
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/physics/csf/matrix.py",
+        "line": 762,
+        "function": "evaluate",
+        "calls": 63364,
+        "self_seconds": 0.08541842100000001,
+        "cumulative_seconds": 0.44963038400000005
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/physics/csf/radial_fock.py",
+        "line": 82,
+        "function": "orbital_field",
+        "calls": 405,
+        "self_seconds": 0.074550457,
+        "cumulative_seconds": 0.424853605
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/physics/csf/radial_fock.py",
+        "line": 106,
+        "function": "two_electron_energy",
+        "calls": 14,
+        "self_seconds": 0.073523093,
+        "cumulative_seconds": 0.076487002
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/physics/csf/matrix.py",
+        "line": 263,
+        "function": "_breit_rk",
+        "calls": 56310,
+        "self_seconds": 0.072997434,
+        "cumulative_seconds": 0.096525831
+      },
+      {
+        "file": "~",
+        "line": 0,
+        "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+        "calls": 30790,
+        "self_seconds": 0.06348318600000001,
+        "cumulative_seconds": 0.06348318600000001
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/numerics/quadrature.py",
+        "line": 205,
+        "function": "yk_on_grid",
+        "calls": 19208,
+        "self_seconds": 0.049055738,
+        "cumulative_seconds": 0.06900466000000001
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/angular/csf_hamiltonian.py",
+        "line": 1164,
+        "function": "<genexpr>",
+        "calls": 202998,
+        "self_seconds": 0.048777794000000006,
+        "cumulative_seconds": 0.5737340980000001
+      },
+      {
+        "file": "~",
+        "line": 0,
+        "function": "<built-in method numpy.array>",
+        "calls": 62476,
+        "self_seconds": 0.042084651,
+        "cumulative_seconds": 0.042372412000000005
+      },
+      {
+        "file": "~",
+        "line": 0,
+        "function": "<built-in method numpy._core._multiarray_umath.c_einsum>",
+        "calls": 7679,
+        "self_seconds": 0.041043227,
+        "cumulative_seconds": 0.041043227
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/numerics/shooting/scf.py",
+        "line": 44,
+        "function": "iterate_nonlocal_orbitals",
+        "calls": 2,
+        "self_seconds": 0.039182376000000005,
+        "cumulative_seconds": 2.357011845
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/physics/csf/matrix.py",
+        "line": 677,
+        "function": "pair_potential",
+        "calls": 5940,
+        "self_seconds": 0.039034456,
+        "cumulative_seconds": 0.046638338
+      },
+      {
+        "file": "~",
+        "line": 0,
+        "function": "<method 'append' of 'list' objects>",
+        "calls": 584853,
+        "self_seconds": 0.033059626,
+        "cumulative_seconds": 0.033059626
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/corrections/breit.py",
+        "line": 160,
+        "function": "compute_breit_energy",
+        "calls": 1,
+        "self_seconds": 0.032864892,
+        "cumulative_seconds": 0.13533374
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/calculation_spec.py",
+        "line": 15,
+        "function": "_freeze",
+        "calls": 37036,
+        "self_seconds": 0.025650897000000002,
+        "cumulative_seconds": 0.063996417
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/angular/csf_hamiltonian.py",
+        "line": 417,
+        "function": "__init__",
+        "calls": 1498,
+        "self_seconds": 0.024821567000000003,
+        "cumulative_seconds": 0.11032119400000001
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/numerics/shooting/energy.py",
+        "line": 67,
+        "function": "__init__",
+        "calls": 18,
+        "self_seconds": 0.024797705000000003,
+        "cumulative_seconds": 0.055601257
+      },
+      {
+        "file": "~",
+        "line": 0,
+        "function": "<built-in method builtins.isinstance>",
+        "calls": 351247,
+        "self_seconds": 0.024034009000000002,
+        "cumulative_seconds": 0.031985715000000005
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/angular/mscheme.py",
+        "line": 200,
+        "function": "subshell_j_counts_mscheme",
+        "calls": 40986,
+        "self_seconds": 0.022871306,
+        "cumulative_seconds": 0.033276025
+      },
+      {
+        "file": "/data/code/atomx/src/atomx/physics/hartree_fock.py",
+        "line": 243,
+        "function": "occupied_fock_matrix",
+        "calls": 18,
+        "self_seconds": 0.02145967,
+        "cumulative_seconds": 0.384199732
+      }
+    ]
+  }
+}
