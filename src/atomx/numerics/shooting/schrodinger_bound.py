@@ -10,6 +10,7 @@ import numba as nb
 import numpy as np
 
 from atomx.numerics.shooting.schrodinger_integrator import sinw, soutw
+from atomx.numerics.shooting.schrodinger_power_series import sch0
 from atomx.numerics.shooting.spline import merge_grids as _merge_grids_s
 
 
@@ -90,7 +91,12 @@ def sbound(e_in, eps, n, l, rg, rvg, va, vb, vc, vd, nvt, rad, ngp):
             break
 
         # Outer turning point (ME-5.2)
-        iotp = nrt - 1
+        # A bracket-search trial can lie below the effective-potential
+        # minimum. Then there is no classical turning point: match near
+        # the origin and let the derivative correction move the energy
+        # back into the spectrum, as SBOUND does. Choosing the outer edge
+        # instead falsely reports a small box and abandons a valid root.
+        iotp = 1
         for jj in range(1, nrt):
             idx = nrt - 1 - jj
             rn = r[idx]
@@ -199,6 +205,13 @@ def sbound(e_in, eps, n, l, rg, rvg, va, vb, vc, vd, nvt, rad, ngp):
         e = ep
         if min(abs(de), abs(e - eo)) <= abs(e * dell):
             break
+    else:
+        ier = 7  # eigenvalue refinement exhausted its iteration limit
+
+    if ier != 0:
+        # An error can precede inward integration, so ilast need not exist.
+        # Failed roots carry no normalized orbital payload.
+        return e, ier, np.zeros(ngp), np.zeros(ngp), 0
 
     # Normalization
     if total_sum > 1.0e-30:
@@ -214,6 +227,17 @@ def sbound(e_in, eps, n, l, rg, rvg, va, vb, vc, vd, nvt, rad, ngp):
     for i in range(ilast + 1, nrt):
         pt[i] = 0.0
         qt[i] = 0.0
+
+    if l == 0 and r[0] == 0.0:
+        # SOUTW's Q(0)=0 initializes the regular solution. It is not its
+        # physical derivative: an s wave has P(r)=A*r+O(r²). Recover A
+        # from the same origin series and the normalized first sample.
+        first = ind[0]
+        _, _, coefficients, _, terms = sch0(e, al, eps, 0., 0., 0., r[1],
+            va[first], vb[first], vc[first], vd[first])
+        if terms >= 60:
+            return e, 8, np.zeros(ngp), np.zeros(ngp), 0
+        qt[0] = pt[1]/(r[1]*np.sum(coefficients[:terms]))
 
     # Extract to user grid
     p_out = np.zeros(ngp)

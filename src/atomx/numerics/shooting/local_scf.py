@@ -10,11 +10,13 @@ Callbacks must have stable module ownership (for example ``physics.slater``);
 moving one requires rebuilding this module's Numba cache as well.
 """
 import math
+
 import numba as nb
 import numpy as np
+
 from .dirac_bound import dbound
-from .schrodinger_bound import sbound
 from .quadrature import slag6
+from .schrodinger_bound import sbound
 from .spline import splin0
 
 
@@ -52,11 +54,10 @@ def iterate_local_orbitals(r, difr, vnuc, rden, shell_n, shell_kappa,
     chi = 1.0
     chiant = 1.0e30
     converged = False
-    #: Worst (largest) ``dbound``/``sbound`` status code seen.  0 = ok,
-    #: 5 = the eigenvalue bracket collapsed, i.e. the shooting box is too
-    #: small for the requested state and the returned eigenvalue is the
-    #: bracketing ceiling rather than a solved state.  DHFS.f discards
-    #: this; we surface it so ``converged`` cannot be True on a failure.
+    #: Worst (largest) ``dbound``/``sbound`` status code seen. A nonzero
+    #: code never denotes a valid normalized orbital. SBOUND recovers trial
+    #: energies below the effective-potential minimum internally; a remaining
+    #: error must propagate even if the later SCF energy change is small.
     ier_max = 0
     iteration = 0
 
