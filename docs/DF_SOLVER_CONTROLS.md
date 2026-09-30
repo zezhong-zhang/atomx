@@ -500,3 +500,100 @@ This repairs the B-spline failure retained in the public-API artifact. It
 does not make the engines' historical scalar `tol` semantics identical;
 the public independent orbital control described above addresses direct DF.
 Other physical methods and the old API energy snapshots remain separate audits.
+
+## Analytic exponential moments in shooting source integration
+
+The six-node Green-source interpolation now uses analytic exponential
+moments instead of repeated subdivided Gauss quadrature. This changes the
+integration of the interpolating polynomial, retaining the same source
+interpolation, evanescent rates, log-amplitude cancellation, stencil and
+coarse-grid rejection. Radial refinement remains necessary for the actual
+source. This does not change the Hamiltonian or the SCF accuracy controls.
+
+For a cell with rate `s >= 0`, the moments are
+`M_m = (-1)^m integral_0^1 u^m exp(-s*u) du`, for `m=0,...,5`.
+Above `s=8`, integration by parts gives a stable upward recurrence. Below
+eight, the highest moment is computed with a positive convergent series,
+followed by downward recurrence using positive additions. This avoids
+subtracting nearly equal quantities near zero. The six moments and 180
+fixed polynomial coefficients replace the large Gauss basis table. Scratch
+belongs to each preparation call; no mutable global workspace is introduced.
+
+The [retained measurements](../benchmarks/runs/2026-09-30-shooting-moments/)
+use baseline `eb7bdae`. Four fresh processes run in before/after/after/before
+order, with four solves per element per process; the first solve is excluded.
+All runs retain default Breit + QED and Hamiltonian averaging.
+
+| Element | Previous warm median, s | Current warm median, s | Change |
+|---|---:|---:|---:|
+| H | 0.00599 | 0.00620 | +3.5% |
+| C | 0.23504 | 0.21767 | -7.4% |
+| Ne | 0.16545 | 0.15857 | -4.2% |
+| Cf | 3.87274 | 3.77270 | -2.6% |
+
+These are workload measurements, with six warm samples per implementation
+per element. H does not use the optimized nonlocal source integration;
+its small timing change is not evidence of a changed bound solver. Iteration
+counts and convergence are unchanged. Total energies change by at most
+`4.4e-11` Ha and occupied orbital energies by `1.2e-11` Ha in this panel.
+
+On a 2000-node kernel control, source-weight preparation is 1.6–4.1 times
+faster at slopes 0–20 and 21.7 times faster at slope 100. A complete local
+Dirac response, including preparation and application, improves from
+0.821 to 0.592 ms. These isolated measurements use one process per
+implementation, 30 kernel samples and 20 response samples after warmup.
+They do not predict equal improvements in complete atomic calculations.
+
+Before/after checks cover native Ne orbitals, E1/M1/E2 transitions in both
+gauges, response, screened continuum waves and phase shifts, plus CE, EII,
+PI and RR using shooting continua. The latter coefficient APIs explicitly
+use B-spline bound states: plain `ShootingResult` bound states are currently
+unsupported by those entry points. No replacement calculation is hidden.
+Their sampled cross sections, continuum waves and phases are identical.
+AI/DR, other properties and correlated methods are included in the full
+repository audit; its failures are recorded separately from focused numerical
+checks. Existing reference values and acceptance bands are unchanged.
+
+The remaining warm Cf profile is led by the local initializer, sourced-orbital
+iteration, Fock actions, derivative evaluation and occupied rotations.
+Analytic moments reduce Green-map preparation but do not eliminate the
+nonlocal exchange or variational constraints that dominate a complete solve.
+
+The full audit after the moments change, before the Schrödinger follow-up,
+reports **3746 passed, 53 failed, 2 setup errors, 11 skipped, 21 expected
+failures**. All 55 failures/errors reproduce on baseline `eb7bdae`. They
+include old energy/RR snapshots, a removed determinism script, configuration
+API assumptions and independent physics/property checks; they are not all
+classified as harmless snapshots. Existing gates and references are retained.
+
+### Schrödinger matching and failed-root recovery
+
+The audit exposed six Breit–Pauli failures caused by the nonrelativistic
+shooting root solver. A trial energy below the effective-potential minimum
+has no classical turning point. Salvat SBOUND matches near the origin and
+uses the derivative mismatch to recover the energy. Atomx incorrectly
+selected the outer edge and reported an insufficient box. The fallback now
+matches RADIAL. Twelve live p/d controls at varied initial energies change
+from seven failed roots to twelve successes, with bit-identical reference
+energies and waves. This is a correctness repair, not a new speed claim.
+
+Failed roots and iteration exhaustion return no orbital payload. For s waves,
+the returned Schrödinger Q=dP/dr at the origin is reconstructed from the
+regular series; the zero used to start outward propagation is not the
+physical derivative. Independent hydrogenic P/dP/dr and normalization controls
+cover Z=1,2,10, multiple angular momenta and starting energies. The compiled
+local-SCF caller is updated with the callee so its cache is rebuilt.
+
+The final focused numerical suite passes **161 tests**, including all six
+repaired Breit–Pauli failures. Final H/C/Ne/Cf Dirac calculations retain
+exactly the moments-panel energies and iteration counts. The other full-audit
+baseline failures remain separate work; the complete repository is not
+certified by the focused numerical gate.
+
+Two additional safety gates now exercise the current Atom API directly,
+replacing calls to the retired determinism CLI. Three fresh full-panel
+processes return identical energies and wave hashes; a separate fresh
+compilation passes Numba bounds checking. The panel covers shooting,
+B-splines, explicit MCDHF and Cf. Test and nightly workflows retain their
+full-panel repeat counts through the new tests. Together with the numerical
+suite, **163 checks pass**, repairing eight failures from the initial audit.

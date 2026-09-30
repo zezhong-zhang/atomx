@@ -1294,3 +1294,51 @@ verification of the current worktree. Existing `external_fac` markers can refer
 to stored data; only a retained executable run establishes live regeneration.
 See [DF solver controls](DF_SOLVER_CONTROLS.md) for the current optimization
 measurements and [migration notes](MIGRATION.md) for removed import aliases.
+
+## Shooting source integration and complete test audit (2026-09-30)
+
+Analytic exponential moments replace per-cell Gauss quadrature for the same
+six-node Green-source interpolation. Independent high-precision controls
+cover all boundary stencils, weak/stiff rates, signed sources, log shifts,
+linearity, reciprocity and energy response. The measured warm DF improvements
+are 4.2% for Ne and 2.6% for Cf; iterations are unchanged and total energies
+change by at most 4.4e-11 Ha. These are selected workloads, not full-table
+performance or experimental-accuracy claims.
+
+Live Salvat panels retain 27 DBOUND and 36 screened DFREE cases. The largest
+energy difference is 2.3e-13 Ha and continuum phase difference 1.2e-8 radians.
+Native Ne E1/M1/E2 transitions agree with the baseline within 1e-11 relative.
+CE/EII/PI/RR regression cross sections and screened continuum waves are
+identical. These reaction tests explicitly use B-spline bound states and
+shooting continua; their coefficient APIs do not yet accept plain native
+shooting bound states. They retain limited partial-wave spaces and do not
+certify scattering convergence or nonlocal continuum exchange.
+
+The full repository run after the moments optimization completes with
+3746 passes, 53 failures, 2 setup errors, 11 skips and 21 expected failures.
+Every failure/error reproduces on archived baseline `eb7bdae`. These include
+old snapshots, missing retired-script consumers, configuration API assumptions
+and physics/property checks; references and tolerances were not changed to
+make the audit pass.
+
+The subsequent Schrödinger repair fixes six of those failures: a below-minimum
+trial energy now uses RADIAL's inner matching fallback instead of a false box
+failure. Failed/unconverged roots return no orbitals, and physical s-wave
+origin derivatives replace the outward seed placeholder. All twelve live
+varied-start p/d cases now exactly match RADIAL, including seven previously
+failed native roots. Analytic P/dP/dr and normalization controls verify s waves
+and other angular momenta independently. The final numerical suite passes
+161 tests; final H/C/Ne/Cf Dirac energies, orbital energies and iteration counts
+are identical to the moments panel. A green full-suite result is not claimed.
+
+The two retired-script reproducibility/bounds tests have also been migrated
+to direct Atom API subprocesses and pass on the full panel, including Cf and
+explicit MCDHF. CI and nightly workflows now use these tests, retaining their
+existing full-panel repeat counts. The final numerical and safety gates total
+163 passes and repair eight failures identified by the full audit.
+
+Inputs, outputs, source hashes, baseline failure reproductions and profiles
+are retained in
+[`2026-09-30-shooting-moments`](../benchmarks/runs/2026-09-30-shooting-moments/README.md).
+The [controls documentation](DF_SOLVER_CONTROLS.md#analytic-exponential-moments-in-shooting-source-integration)
+separates performance measurements from remaining physics and API gaps.

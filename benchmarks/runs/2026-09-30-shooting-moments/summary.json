@@ -1,0 +1,591 @@
+{
+  "baseline_commit": "eb7bdae",
+  "scope": "Analytic exponential moments; interpolation, physics and tolerances unchanged.",
+  "timing_scope": "Warm single-thread native wall time; four fresh DF processes in before/after/after/before order, six warm samples per element. First solves excluded. Observable kernel timing is one process per implementation; live RADIAL timings are not used for speed claims.",
+  "df": {
+    "1": {
+      "medians_s": {
+        "before": 0.005987566495605279,
+        "after": 0.0061996415024623275
+      },
+      "reduction": -0.035419232005641454,
+      "max_total_energy_difference_Ha": 0.0,
+      "max_orbital_energy_difference_Ha": 0.0,
+      "iterations": 2,
+      "all_converged": true
+    },
+    "6": {
+      "medians_s": {
+        "before": 0.2350447545031784,
+        "after": 0.21766964649577858
+      },
+      "reduction": 0.07392255166096406,
+      "max_total_energy_difference_Ha": 1.4210854715202004e-14,
+      "max_orbital_energy_difference_Ha": 7.993605777301127e-15,
+      "iterations": 7,
+      "all_converged": true
+    },
+    "10": {
+      "medians_s": {
+        "before": 0.16545112049061572,
+        "after": 0.15856611750496086
+      },
+      "reduction": 0.0416135168213948,
+      "max_total_energy_difference_Ha": 2.842170943040401e-14,
+      "max_orbital_energy_difference_Ha": 1.4210854715202004e-14,
+      "iterations": 8,
+      "all_converged": true
+    },
+    "98": {
+      "medians_s": {
+        "before": 3.872741119499551,
+        "after": 3.772702580499754
+      },
+      "reduction": 0.02583145526978181,
+      "max_total_energy_difference_Ha": 4.3655745685100555e-11,
+      "max_orbital_energy_difference_Ha": 1.1823431123048067e-11,
+      "iterations": 7,
+      "all_converged": true
+    }
+  },
+  "arrays": {
+    "response": {
+      "max_absolute_difference": 5.551115123125783e-17,
+      "identical": false
+    },
+    "bound_10_1s2 2s2 2p6_1s1/2": {
+      "max_absolute_difference": 1.1679546219056647e-13,
+      "identical": false
+    },
+    "bound_10_1s2 2s2 2p6_2s1/2": {
+      "max_absolute_difference": 4.135580766728708e-15,
+      "identical": false
+    },
+    "bound_10_1s2 2s2 2p6_2p1/2": {
+      "max_absolute_difference": 2.9976021664879227e-15,
+      "identical": false
+    },
+    "bound_10_1s2 2s2 2p6_2p3/2": {
+      "max_absolute_difference": 4.440892098500626e-15,
+      "identical": false
+    },
+    "bound_2_1s2_1s1/2": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    },
+    "bound_2_1s1 2p1_1s1/2": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    },
+    "bound_2_1s1 2p1_2p3/2": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    },
+    "bound_2_1s1 2p1_2p1/2": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    },
+    "ce_sigma_cm2": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    },
+    "ce_omega": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    },
+    "eii_sigma_cm2": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    },
+    "rr_sigma_a0_sq": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    },
+    "pi_sigma_a0_sq": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    },
+    "continuum_0.01_-1": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    },
+    "continuum_0.01_1": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    },
+    "continuum_0.01_-3": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    },
+    "continuum_0.01_5": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    },
+    "continuum_10.0_-1": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    },
+    "continuum_10.0_1": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    },
+    "continuum_10.0_-3": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    },
+    "continuum_10.0_5": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    },
+    "continuum_150.0_-1": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    },
+    "continuum_150.0_1": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    },
+    "continuum_150.0_-3": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    },
+    "continuum_150.0_5": {
+      "max_absolute_difference": 0.0,
+      "identical": true
+    }
+  },
+  "kernels": {
+    "prefix_slope_0.0": {
+      "medians_s": {
+        "before": 0.00016611300088698044,
+        "after": 8.121300197672099e-05
+      },
+      "speedup": 2.045399096743097
+    },
+    "prefix_slope_0.1": {
+      "medians_s": {
+        "before": 0.00022447799710789695,
+        "after": 0.00010565899719949812
+      },
+      "speedup": 2.1245516525587775
+    },
+    "prefix_slope_2.0": {
+      "medians_s": {
+        "before": 0.00020692999532911927,
+        "after": 0.00011612399976002052
+      },
+      "speedup": 1.7819744045740462
+    },
+    "prefix_slope_8.0": {
+      "medians_s": {
+        "before": 0.00020651899831136689,
+        "after": 0.00012868799967691302
+      },
+      "speedup": 1.60480385762354
+    },
+    "prefix_slope_20.0": {
+      "medians_s": {
+        "before": 0.0005311155036906712,
+        "after": 0.00012975950085092336
+      },
+      "speedup": 4.093076038423215
+    },
+    "prefix_slope_100.0": {
+      "medians_s": {
+        "before": 0.002112505004333798,
+        "after": 9.724349365569651e-05
+      },
+      "speedup": 21.72386989522818
+    },
+    "response": {
+      "medians_s": {
+        "before": 0.0008211870008381084,
+        "after": 0.0005920004987274297
+      },
+      "speedup": 1.3871390355301056
+    }
+  },
+  "df_after_schrodinger_fix": "energies, orbitals, iterations unchanged",
+  "observable_settings": {
+    "engine": "shooting",
+    "exchange": "hf",
+    "averaging": "hamiltonian",
+    "corrections": "none",
+    "scf_tol": 1e-09,
+    "scattering_bound_engine": "bspline",
+    "native_bound_scattering": "not supported by these coefficient APIs",
+    "collision_kappa_max": 3,
+    "sharing_nodes": 4,
+    "radial_refinement": 2,
+    "ce_topup": false,
+    "continuum_radius": 75,
+    "continuum_points": 1200
+  },
+  "transitions": {
+    "count": 7,
+    "max_relative_difference": 9.734213435308448e-12
+  },
+  "live_RADIAL": {
+    "bound_cases": 27,
+    "continuum_cases": 36,
+    "max_energy_difference_Ha": 2.2737367544323206e-13,
+    "max_bound_wave_error_over_peak": 1.4557707449956181e-15,
+    "max_continuum_wave_error_over_asymptotic_amplitude": 1.2215478182794892e-08,
+    "max_phase_difference_rad_mod_pi": 1.2216167299961e-08
+  },
+  "tests": {
+    "cases": 3833,
+    "scope": "Full audit after moments optimization, before Schrodinger repair; final focused suite verifies the subsequent repair.",
+    "passed": 3746,
+    "failed": 53,
+    "errors": 2,
+    "skipped": 11,
+    "expected_failures": 21,
+    "baseline_audit": [
+      {
+        "test": "tests.test_atom_surface_equivalence::test_canonical_form_reproduces_the_recorded_number[ne_closed_shooting]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_atom_surface_equivalence::test_canonical_form_reproduces_the_recorded_number[ne_closed_bspline]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_atom_surface_equivalence::test_canonical_form_reproduces_the_recorded_number[n_open_ci_averaging]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_atom_surface_equivalence::test_canonical_form_reproduces_the_recorded_number[n_open_statistical]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_atom_surface_equivalence::test_canonical_form_reproduces_the_recorded_number[be_multiconfig]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_atom_surface_equivalence::test_canonical_form_reproduces_the_recorded_number[be_multiconfig_fac_frozen]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_atom_surface_equivalence::test_canonical_form_reproduces_the_recorded_number[fe17_breit_qed]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_atom_surface_equivalence::test_canonical_form_reproduces_the_recorded_number[fe17_gu_shooting]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_atom_surface_equivalence::test_canonical_form_reproduces_the_recorded_number[fe17_slater_bspline]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_atom_surface_equivalence::test_the_ne_panel_keeps_every_orbital",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_atom_surface_equivalence::test_only_the_documented_inputs_move_a_result",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_breit_pauli.TestBreitPauliSolve::test_hydrogen_2p1_sommerfeld_splitting_end_to_end",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "passed"
+      },
+      {
+        "test": "tests.test_breit_pauli.TestBreitPauliSolve::test_jj_split_subshells_sharing_nl",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "passed"
+      },
+      {
+        "test": "tests.test_breit_pauli.TestBreitPauliSpinOrbitTotalEnergy::test_single_2p1_electron_so_correction_nonzero",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "passed"
+      },
+      {
+        "test": "tests.test_breit_pauli.TestBreitPauliSpinOrbitTotalEnergy::test_full_shell_so_correction_vanishes",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "passed"
+      },
+      {
+        "test": "tests.test_breit_pauli.TestBreitPauliSpinOrbitTotalEnergy::test_partial_statistical_occupation_weighted_by_member",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "passed"
+      },
+      {
+        "test": "tests.test_breit_pauli.TestBreitPauliCustomLabel::test_custom_label_leaves_no_stale_nr_key",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "passed"
+      },
+      {
+        "test": "tests.test_ci_J_block::test_J_block_lift_h2plus_n2_p_states",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_ci_J_block::test_one_electron_2p_levels_match_the_dirac_closed_form",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_continuum.TestPhotoionization::test_hydrogen_1s_e1_channel_sum_nonzero_for_both_p_waves",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_crm_Au_band::test_au_iso_panel_covers_requested_charge_states",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_crm_Au_band::test_au_mband_transitions_stay_in_icf_window",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_crm_Au_cooling::test_au_benchmark_rows_cover_full_temperature_density_panel",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_determinism::test_panel_is_deterministic_across_processes",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "passed"
+      },
+      {
+        "test": "tests.test_determinism::test_panel_has_no_out_of_bounds_reads",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "passed"
+      },
+      {
+        "test": "tests.test_eii_ea::test_ea_threshold_and_shape",
+        "full_audit": "error",
+        "baseline": "error",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_eii_ea::test_ea_branching_scaling",
+        "full_audit": "error",
+        "baseline": "error",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z18-He-like]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z18-Ne-like]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z18-Ar-like]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z26-He-like]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z26-Ne-like]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z26-Ar-like]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z36-He-like]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z36-Ne-like]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z36-Ar-like]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z54-He-like]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z54-Ne-like]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z54-Ar-like]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z74-He-like]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z74-Ne-like]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z74-Ar-like]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z82-He-like]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z82-Ne-like]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z82-Ar-like]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_hyperfine.TestFiniteNuclearMass::test_reduced_mass_rung_is_first_principles",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_pi_rr_vs_fac::test_live_rr_reproduces_the_recorded_atomx_column",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_public_api_ladder_and_compare::test_ladder_dirac_fock_rung_matches_dbsr_hf",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_sd_space_variational.TestVariationalSanity::test_orbitals_are_screened",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_shooting_guerra::test_no_jj_configs_matches_recorded_baseline[Ne]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_shooting_guerra::test_no_jj_configs_matches_recorded_baseline[Co]",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_sternheimer_edm.TestSternheimerEDM::test_rel_scaling_with_z",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_sternheimer_edm.TestSternheimerEDM::test_fast_smoke_z_scaling",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_two_electron_replacement::test_j2_pair_channel_moves_a_real_calculation",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      },
+      {
+        "test": "tests.test_two_electron_replacement::test_split_channel_moves_a_real_calculation",
+        "full_audit": "failure",
+        "baseline": "failure",
+        "final_focused_status": "not rerun"
+      }
+    ]
+  },
+  "final_tests": {
+    "passed": 163,
+    "numerics": 161,
+    "reproducibility_and_bounds": 2,
+    "fixed_full_audit_failures": 8
+  },
+  "schrodinger": {
+    "cases": 12,
+    "failed_before": 7,
+    "failed_after": 0,
+    "max_energy_difference_Ha": 0.0,
+    "max_wave_difference": 0.0,
+    "scope": "Coulomb p/d roots at varied guesses, matching live RADIAL; s-wave derivative/normalization separately verified analytically"
+  }
+}

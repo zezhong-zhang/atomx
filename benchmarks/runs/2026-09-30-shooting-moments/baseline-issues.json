@@ -1,0 +1,387 @@
+[
+  {
+    "test": "tests.test_breit_pauli.TestBreitPauliSolve::test_hydrogen_2p1_sommerfeld_splitting_end_to_end",
+    "kind": "failure",
+    "message": "atomx.numerics.shooting.dirac_orbital.RadialBoxError: shooting box too small for Z=1: the effective potential at r_max is -0.013333 Ha and outer turning point or eigenvalue bracket unresolved (ier=3). Raise r_max (currently 75.0); the default box resolves states up to n <~ sqrt(32.6 Z).",
+    "baseline_artifact": "baseline-failures-final.xml",
+    "final_focused_status": "passed"
+  },
+  {
+    "test": "tests.test_breit_pauli.TestBreitPauliSolve::test_jj_split_subshells_sharing_nl",
+    "kind": "failure",
+    "message": "atomx.numerics.shooting.dirac_orbital.RadialBoxError: shooting box too small for Z=10: the effective potential at r_max is -0.040000 Ha and outer turning point or eigenvalue bracket unresolved (ier=3). Raise r_max (currently 75.0); the default box resolves states up to n <~ sqrt(32.6 Z).",
+    "baseline_artifact": "baseline-failures-final.xml",
+    "final_focused_status": "passed"
+  },
+  {
+    "test": "tests.test_breit_pauli.TestBreitPauliSpinOrbitTotalEnergy::test_single_2p1_electron_so_correction_nonzero",
+    "kind": "failure",
+    "message": "atomx.numerics.shooting.dirac_orbital.RadialBoxError: shooting box too small for Z=1: the effective potential at r_max is -0.013333 Ha and outer turning point or eigenvalue bracket unresolved (ier=3). Raise r_max (currently 75.0); the default box resolves states up to n <~ sqrt(32.6 Z).",
+    "baseline_artifact": "baseline-failures-final.xml",
+    "final_focused_status": "passed"
+  },
+  {
+    "test": "tests.test_breit_pauli.TestBreitPauliSpinOrbitTotalEnergy::test_full_shell_so_correction_vanishes",
+    "kind": "failure",
+    "message": "atomx.numerics.shooting.dirac_orbital.RadialBoxError: shooting box too small for Z=10: the effective potential at r_max is -0.013333 Ha and outer turning point or eigenvalue bracket unresolved (ier=3). Raise r_max (currently 75.0); the default box resolves states up to n <~ sqrt(32.6 Z).",
+    "baseline_artifact": "baseline-failures-final.xml",
+    "final_focused_status": "passed"
+  },
+  {
+    "test": "tests.test_breit_pauli.TestBreitPauliSpinOrbitTotalEnergy::test_partial_statistical_occupation_weighted_by_member",
+    "kind": "failure",
+    "message": "atomx.numerics.shooting.dirac_orbital.RadialBoxError: shooting box too small for Z=1: the effective potential at r_max is -0.013333 Ha and outer turning point or eigenvalue bracket unresolved (ier=3). Raise r_max (currently 75.0); the default box resolves states up to n <~ sqrt(32.6 Z).",
+    "baseline_artifact": "baseline-failures-final.xml",
+    "final_focused_status": "passed"
+  },
+  {
+    "test": "tests.test_breit_pauli.TestBreitPauliCustomLabel::test_custom_label_leaves_no_stale_nr_key",
+    "kind": "failure",
+    "message": "atomx.numerics.shooting.dirac_orbital.RadialBoxError: shooting box too small for Z=1: the effective potential at r_max is -0.013333 Ha and outer turning point or eigenvalue bracket unresolved (ier=3). Raise r_max (currently 75.0); the default box resolves states up to n <~ sqrt(32.6 Z).",
+    "baseline_artifact": "baseline-failures-final.xml",
+    "final_focused_status": "passed"
+  },
+  {
+    "test": "tests.test_atom_surface_equivalence::test_canonical_form_reproduces_the_recorded_number[ne_closed_shooting]",
+    "kind": "failure",
+    "message": "AssertionError: ne_closed_shooting\nassert -128.66379630264294 == -128.66377231938978 \u00b1 1.0e-06\n  \n  comparison failed\n  Obtained: -128.66379630264294\n  Expected: -128.66377231938978 \u00b1 1.0e-06",
+    "baseline_artifact": "baseline-failures-final.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_atom_surface_equivalence::test_canonical_form_reproduces_the_recorded_number[ne_closed_bspline]",
+    "kind": "failure",
+    "message": "AssertionError: ne_closed_bspline\nassert np.float64(-1...6379673326318) == -128.6637650908719 \u00b1 1.0e-06\n  \n  comparison failed\n  Obtained: -128.66379673326318\n  Expected: -128.6637650908719 \u00b1 1.0e-06",
+    "baseline_artifact": "baseline-failures-final.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_atom_surface_equivalence::test_canonical_form_reproduces_the_recorded_number[n_open_ci_averaging]",
+    "kind": "failure",
+    "message": "AssertionError: n_open_ci_averaging\nassert np.float64(-54.4245287529606) == -54.422789940150686 \u00b1 1.0e-06\n  \n  comparison failed\n  Obtained: -54.4245287529606\n  Expected: -54.422789940150686 \u00b1 1.0e-06",
+    "baseline_artifact": "baseline-failures-final.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_atom_surface_equivalence::test_canonical_form_reproduces_the_recorded_number[n_open_statistical]",
+    "kind": "failure",
+    "message": "AssertionError: n_open_statistical\nassert -54.32772197031715 == -54.335382114182025 \u00b1 1.0e-06\n  \n  comparison failed\n  Obtained: -54.32772197031715\n  Expected: -54.335382114182025 \u00b1 1.0e-06",
+    "baseline_artifact": "baseline-failures-final.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_atom_surface_equivalence::test_canonical_form_reproduces_the_recorded_number[be_multiconfig]",
+    "kind": "failure",
+    "message": "AssertionError: be_multiconfig\nassert np.float64(-1...8596180945822) == -14.618591920091689 \u00b1 1.0e-06\n  \n  comparison failed\n  Obtained: -14.618596180945822\n  Expected: -14.618591920091689 \u00b1 1.0e-06",
+    "baseline_artifact": "baseline-failures-final.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_atom_surface_equivalence::test_canonical_form_reproduces_the_recorded_number[be_multiconfig_fac_frozen]",
+    "kind": "failure",
+    "message": "ValueError: configuration lists/expansions require averaging='ci'; averaging='hamiltonian' is for one configuration",
+    "baseline_artifact": "baseline-failures-final.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_atom_surface_equivalence::test_canonical_form_reproduces_the_recorded_number[fe17_breit_qed]",
+    "kind": "failure",
+    "message": "AssertionError: fe17_breit_qed\nassert -1147.6692313526792 == -1147.6626233193062 \u00b1 1.0e-06\n  \n  comparison failed\n  Obtained: -1147.6692313526792\n  Expected: -1147.6626233193062 \u00b1 1.0e-06",
+    "baseline_artifact": "baseline-failures-final.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_atom_surface_equivalence::test_canonical_form_reproduces_the_recorded_number[fe17_gu_shooting]",
+    "kind": "failure",
+    "message": "AssertionError: fe17_gu_shooting\nassert -1147.6557630119237 == -1147.6493596472556 \u00b1 1.0e-06\n  \n  comparison failed\n  Obtained: -1147.6557630119237\n  Expected: -1147.6493596472556 \u00b1 1.0e-06",
+    "baseline_artifact": "baseline-failures-final.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_atom_surface_equivalence::test_canonical_form_reproduces_the_recorded_number[fe17_slater_bspline]",
+    "kind": "failure",
+    "message": "AssertionError: fe17_slater_bspline\nassert np.float64(-1147.633085343737) == -1147.6265690579844 \u00b1 1.0e-06\n  \n  comparison failed\n  Obtained: -1147.633085343737\n  Expected: -1147.6265690579844 \u00b1 1.0e-06",
+    "baseline_artifact": "baseline-failures-final.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_atom_surface_equivalence::test_the_ne_panel_keeps_every_orbital",
+    "kind": "failure",
+    "message": "assert -128.66379630264294 == -128.66377231938978 \u00b1 1.0e-12\n  \n  comparison failed\n  Obtained: -128.66379630264294\n  Expected: -128.66377231938978 \u00b1 1.0e-12",
+    "baseline_artifact": "baseline-failures-final.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_atom_surface_equivalence::test_only_the_documented_inputs_move_a_result",
+    "kind": "failure",
+    "message": "assert np.float64(-1...1991188019643) == -126.51974272 \u00b1 1.0e-07\n  \n  comparison failed\n  Obtained: -126.51991188019643\n  Expected: -126.51974272 \u00b1 1.0e-07",
+    "baseline_artifact": "baseline-failures-final.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_ci_J_block::test_J_block_lift_h2plus_n2_p_states",
+    "kind": "failure",
+    "message": "assert -0.49994860992361223 == -0.5000066565973892 \u00b1 1.0e-08\n  \n  comparison failed\n  Obtained: -0.49994860992361223\n  Expected: -0.5000066565973892 \u00b1 1.0e-08",
+    "baseline_artifact": "baseline-failures-final.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_ci_J_block::test_one_electron_2p_levels_match_the_dirac_closed_form",
+    "kind": "failure",
+    "message": "assert -0.12495854596459073 == -0.12500041602823495 \u00b1 1.0e-06\n  \n  comparison failed\n  Obtained: -0.12495854596459073\n  Expected: -0.12500041602823495 \u00b1 1.0e-06",
+    "baseline_artifact": "baseline-failures-final.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_continuum.TestPhotoionization::test_hydrogen_1s_e1_channel_sum_nonzero_for_both_p_waves",
+    "kind": "failure",
+    "message": "assert np.float64(0....0411790007265) == 0.06980367066841191 \u00b1 7.0e-08\n  \n  comparison failed\n  Obtained: 0.06980411790007265\n  Expected: 0.06980367066841191 \u00b1 7.0e-08",
+    "baseline_artifact": "baseline-failures-final.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_crm_Au_band::test_au_iso_panel_covers_requested_charge_states",
+    "kind": "failure",
+    "message": "ValueError: configuration lists/expansions require averaging='ci'; averaging='hamiltonian' is for one configuration",
+    "baseline_artifact": "baseline-additional.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_crm_Au_band::test_au_mband_transitions_stay_in_icf_window",
+    "kind": "failure",
+    "message": "ValueError: configuration lists/expansions require averaging='ci'; averaging='hamiltonian' is for one configuration",
+    "baseline_artifact": "baseline-additional.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_crm_Au_cooling::test_au_benchmark_rows_cover_full_temperature_density_panel",
+    "kind": "failure",
+    "message": "ValueError: configuration lists/expansions require averaging='ci'; averaging='hamiltonian' is for one configuration",
+    "baseline_artifact": "baseline-additional.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_determinism::test_panel_is_deterministic_across_processes",
+    "kind": "failure",
+    "message": "AssertionError: determinism gate failed (exit 2):\n  \n  /home/zzhang/miniconda3/bin/python: can't open file '/tmp/atomx-shooting-moments-baseline/scripts/check_determinism.py': [Errno 2] No such file or directory\n  \nassert 2 == 0\n +  where 2 = CompletedProcess(args=['/home/zzhang/miniconda3/bin/python', '/tmp/atomx-shooting-moments-baseline/scripts/check_deter... open file '/tmp/atomx-shooting-moments-baseline/scripts/check_determinism.py': [Errno 2] No such file or directory\\n\").returncode",
+    "baseline_artifact": "baseline-additional.xml",
+    "final_focused_status": "passed"
+  },
+  {
+    "test": "tests.test_determinism::test_panel_has_no_out_of_bounds_reads",
+    "kind": "failure",
+    "message": "AssertionError: bounds-check gate failed (exit 2):\n  \n  /home/zzhang/miniconda3/bin/python: can't open file '/tmp/atomx-shooting-moments-baseline/scripts/check_determinism.py': [Errno 2] No such file or directory\n  \nassert 2 == 0\n +  where 2 = CompletedProcess(args=['/home/zzhang/miniconda3/bin/python', '/tmp/atomx-shooting-moments-baseline/scripts/check_deter... open file '/tmp/atomx-shooting-moments-baseline/scripts/check_determinism.py': [Errno 2] No such file or directory\\n\").returncode",
+    "baseline_artifact": "baseline-additional.xml",
+    "final_focused_status": "passed"
+  },
+  {
+    "test": "tests.test_eii_ea::test_ea_threshold_and_shape",
+    "kind": "error",
+    "message": "failed on setup with \"ValueError: f(a) and f(b) must have different signs\"",
+    "baseline_artifact": "baseline-additional.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_eii_ea::test_ea_branching_scaling",
+    "kind": "error",
+    "message": "failed on setup with \"ValueError: f(a) and f(b) must have different signs\"",
+    "baseline_artifact": "baseline-additional.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z18-He-like]",
+    "kind": "failure",
+    "message": "assert -8547.556163 == -8547.5770609...7 \u00b1 0.00854758\n  \n  comparison failed\n  Obtained: -8547.556163\n  Expected: -8547.577060951897 \u00b1 0.00854758",
+    "baseline_artifact": "baseline-snapshots-properties.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z18-Ne-like]",
+    "kind": "failure",
+    "message": "assert -13815.408234 == -13815.431791...55 \u00b1 0.0138154\n  \n  comparison failed\n  Obtained: -13815.408234\n  Expected: -13815.431791552855 \u00b1 0.0138154",
+    "baseline_artifact": "baseline-snapshots-properties.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z18-Ar-like]",
+    "kind": "failure",
+    "message": "assert -14383.677269 == -14383.70120846956 \u00b1 0.0143837\n  \n  comparison failed\n  Obtained: -14383.677269\n  Expected: -14383.70120846956 \u00b1 0.0143837",
+    "baseline_artifact": "baseline-snapshots-properties.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z26-He-like]",
+    "kind": "failure",
+    "message": "assert -18110.41121 == -18110.56768790784 \u00b1 0.0181106\n  \n  comparison failed\n  Obtained: -18110.41121\n  Expected: -18110.56768790784 \u00b1 0.0181106",
+    "baseline_artifact": "baseline-snapshots-properties.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z26-Ne-like]",
+    "kind": "failure",
+    "message": "assert -31241.381823 == -31241.56055350596 \u00b1 0.0312416\n  \n  comparison failed\n  Obtained: -31241.381823\n  Expected: -31241.56055350596 \u00b1 0.0312416",
+    "baseline_artifact": "baseline-snapshots-properties.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z26-Ar-like]",
+    "kind": "failure",
+    "message": "assert -34041.425119 == -34041.60775106862 \u00b1 0.0340416\n  \n  comparison failed\n  Obtained: -34041.425119\n  Expected: -34041.60775106862 \u00b1 0.0340416",
+    "baseline_artifact": "baseline-snapshots-properties.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z36-He-like]",
+    "kind": "failure",
+    "message": "assert -35246.620811 == -35247.55042936329 \u00b1 0.0352476\n  \n  comparison failed\n  Obtained: -35246.620811\n  Expected: -35247.55042936329 \u00b1 0.0352476",
+    "baseline_artifact": "baseline-snapshots-properties.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z36-Ne-like]",
+    "kind": "failure",
+    "message": "assert -63279.528387 == -63280.60368016223 \u00b1 0.0632806\n  \n  comparison failed\n  Obtained: -63279.528387\n  Expected: -63280.60368016223 \u00b1 0.0632806",
+    "baseline_artifact": "baseline-snapshots-properties.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z36-Ar-like]",
+    "kind": "failure",
+    "message": "assert -71116.523171 == -71117.62706716459 \u00b1 0.0711176\n  \n  comparison failed\n  Obtained: -71116.523171\n  Expected: -71117.62706716459 \u00b1 0.0711176",
+    "baseline_artifact": "baseline-snapshots-properties.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z54-He-like]",
+    "kind": "failure",
+    "message": "assert -81618.483632 == -81627.40397975667 \u00b1 0.0816274\n  \n  comparison failed\n  Obtained: -81618.483632\n  Expected: -81627.40397975667 \u00b1 0.0816274",
+    "baseline_artifact": "baseline-snapshots-properties.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z54-Ne-like]",
+    "kind": "failure",
+    "message": "assert -151361.774745 == -151372.3211810906 \u00b1 0.151372\n  \n  comparison failed\n  Obtained: -151361.774745\n  Expected: -151372.3211810906 \u00b1 0.151372",
+    "baseline_artifact": "baseline-snapshots-properties.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z54-Ar-like]",
+    "kind": "failure",
+    "message": "assert -174726.773945 == -174737.66852339465 \u00b1 0.174738\n  \n  comparison failed\n  Obtained: -174726.773945\n  Expected: -174737.66852339465 \u00b1 0.174738",
+    "baseline_artifact": "baseline-snapshots-properties.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z74-He-like]",
+    "kind": "failure",
+    "message": "AssertionError: Z=74 He-like: live atomx -5883.378100 Ha vs recorded -5881.255043 (rel=3.61e-04).  If the physics changed on purpose, regenerate the atomx column with `python benchmarks/bench_fac_structure.py`; do NOT regenerate the FAC column without sfac.\nassert np.float64(0.00036098704547093415) < 0.0002",
+    "baseline_artifact": "baseline-snapshots-properties.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z74-Ne-like]",
+    "kind": "failure",
+    "message": "AssertionError: Z=74 Ne-like: live atomx -11062.464010 Ha vs recorded -11059.878265 (rel=2.34e-04).  If the physics changed on purpose, regenerate the atomx column with `python benchmarks/bench_fac_structure.py`; do NOT regenerate the FAC column without sfac.\nassert np.float64(0.00023379504169629019) < 0.0002",
+    "baseline_artifact": "baseline-snapshots-properties.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z74-Ar-like]",
+    "kind": "failure",
+    "message": "AssertionError: Z=74 Ar-like: live atomx -12941.960071 Ha vs recorded -12939.271327 (rel=2.08e-04).  If the physics changed on purpose, regenerate the atomx column with `python benchmarks/bench_fac_structure.py`; do NOT regenerate the FAC column without sfac.\nassert np.float64(0.0002077972093614561) < 0.0002",
+    "baseline_artifact": "baseline-snapshots-properties.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z82-He-like]",
+    "kind": "failure",
+    "message": "AssertionError: Z=82 He-like: live atomx -7388.450976 Ha vs recorded -7384.352795 (rel=5.55e-04).  If the physics changed on purpose, regenerate the atomx column with `python benchmarks/bench_fac_structure.py`; do NOT regenerate the FAC column without sfac.\nassert np.float64(0.0005549816983306538) < 0.0002",
+    "baseline_artifact": "baseline-snapshots-properties.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z82-Ne-like]",
+    "kind": "failure",
+    "message": "AssertionError: Z=82 Ne-like: live atomx -13923.789789 Ha vs recorded -13918.724830 (rel=3.64e-04).  If the physics changed on purpose, regenerate the atomx column with `python benchmarks/bench_fac_structure.py`; do NOT regenerate the FAC column without sfac.\nassert np.float64(0.0003638953415372295) < 0.0002",
+    "baseline_artifact": "baseline-snapshots-properties.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_fac_structure_snapshot::test_atomx_column_is_not_stale[Z82-Ar-like]",
+    "kind": "failure",
+    "message": "AssertionError: Z=82 Ar-like: live atomx -16338.983280 Ha vs recorded -16333.703062 (rel=3.23e-04).  If the physics changed on purpose, regenerate the atomx column with `python benchmarks/bench_fac_structure.py`; do NOT regenerate the FAC column without sfac.\nassert np.float64(0.0003232713731222706) < 0.0002",
+    "baseline_artifact": "baseline-snapshots-properties.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_hyperfine.TestFiniteNuclearMass::test_reduced_mass_rung_is_first_principles",
+    "kind": "failure",
+    "message": "assert 610.46 \u00b1 0.05 == 610.6041571223298\n  \n  comparison failed\n  Obtained: 610.6041571223298\n  Expected: 610.46 \u00b1 0.05",
+    "baseline_artifact": "baseline-snapshots-properties.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_pi_rr_vs_fac::test_live_rr_reproduces_the_recorded_atomx_column",
+    "kind": "failure",
+    "message": "AssertionError: ('Fe25+ -> Fe24+(1s\u00b2) RR', 1, 1.0): live sigma_RR=7.130268e+01 vs recorded 7.180451e+01 (rel=6.99e-03) \u2014 the RR kernel or the panel's engine/multipole settings changed\nassert 0.006988908474047741 <= 0.001",
+    "baseline_artifact": "baseline-reactions.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_public_api_ladder_and_compare::test_ladder_dirac_fock_rung_matches_dbsr_hf",
+    "kind": "failure",
+    "message": "AssertionError: Ne\nassert <CouplingScheme.JJ: 'jj'> is <CouplingScheme.LS: 'LS'>\n +  where <CouplingScheme.JJ: 'jj'> = SCFResult(converged=True, iterations=14, residual=np.float64(5.824780228455099e-07), total_energy=np.float64(-128.6919...e, 'applied_orbital_update_norm': None, 'orbital_update_metric': 'Dirac overlap matrix', 'eigenpair_tolerance': 1e-08}).coupling_scheme\n +  and   <CouplingScheme.LS: 'LS'> = CouplingScheme.LS",
+    "baseline_artifact": "baseline-reactions.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_sd_space_variational.TestVariationalSanity::test_orbitals_are_screened",
+    "kind": "failure",
+    "message": "AssertionError: 2p1/2 = -0.082783 Ha is outside the hydrogenic bracket (-2.00047, -0.125) \u2014 it is either unscreened (bare Z=4) or bound by less than a bare proton\nassert np.float64(-0.08278323150905445) < -0.125",
+    "baseline_artifact": "baseline-late.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_shooting_guerra::test_no_jj_configs_matches_recorded_baseline[Ne]",
+    "kind": "failure",
+    "message": "AssertionError: Ne: statistical path changed: -128.69197743877024 != -128.69197743882302\nassert -128.69197743877024 == -128.69197743882302 \u00b1 1.3e-11\n  \n  comparison failed\n  Obtained: -128.69197743877024\n  Expected: -128.69197743882302 \u00b1 1.3e-11",
+    "baseline_artifact": "baseline-late.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_shooting_guerra::test_no_jj_configs_matches_recorded_baseline[Co]",
+    "kind": "failure",
+    "message": "AssertionError: Co: statistical path changed: -1392.0024688190515 != -1392.0024688180542\nassert -1392.0024688190515 == -1392.0024688180542 \u00b1 1.4e-10\n  \n  comparison failed\n  Obtained: -1392.0024688190515\n  Expected: -1392.0024688180542 \u00b1 1.4e-10",
+    "baseline_artifact": "baseline-late.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_sternheimer_edm.TestSternheimerEDM::test_rel_scaling_with_z",
+    "kind": "failure",
+    "message": "AssertionError: assert (True and False)\n +  where True = SCFResult(converged=True, iterations=9, residual=np.float64(1.4643597862331252e-08), total_energy=np.float64(-7.433533...e, 'applied_orbital_update_norm': None, 'orbital_update_metric': 'Dirac overlap matrix', 'eigenpair_tolerance': 1e-08}).converged\n +  and   False = SCFResult(converged=False, iterations=40, residual=np.float64(0.003994091720234834), total_energy=np.float64(-162.0780...e, 'applied_orbital_update_norm': None, 'orbital_update_metric': 'Dirac overlap matrix', 'eigenpair_tolerance': 1e-08}).converged",
+    "baseline_artifact": "baseline-last.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_sternheimer_edm.TestSternheimerEDM::test_fast_smoke_z_scaling",
+    "kind": "failure",
+    "message": "AssertionError: assert (True and False)\n +  where True = SCFResult(converged=True, iterations=9, residual=np.float64(1.4643597862331252e-08), total_energy=np.float64(-7.433533...e, 'applied_orbital_update_norm': None, 'orbital_update_metric': 'Dirac overlap matrix', 'eigenpair_tolerance': 1e-08}).converged\n +  and   False = SCFResult(converged=False, iterations=40, residual=np.float64(0.003994091720234834), total_energy=np.float64(-162.0780...e, 'applied_orbital_update_norm': None, 'orbital_update_metric': 'Dirac overlap matrix', 'eigenpair_tolerance': 1e-08}).converged",
+    "baseline_artifact": "baseline-last.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_two_electron_replacement::test_j2_pair_channel_moves_a_real_calculation",
+    "kind": "failure",
+    "message": "assert -37.7048442592679 == -37.70479579 \u00b1 1.0e-05\n  \n  comparison failed\n  Obtained: -37.7048442592679\n  Expected: -37.70479579 \u00b1 1.0e-05",
+    "baseline_artifact": "baseline-last.xml",
+    "final_focused_status": "not rerun"
+  },
+  {
+    "test": "tests.test_two_electron_replacement::test_split_channel_moves_a_real_calculation",
+    "kind": "failure",
+    "message": "assert -37.70568011522918 == -37.70563288 \u00b1 1.0e-05\n  \n  comparison failed\n  Obtained: -37.70568011522918\n  Expected: -37.70563288 \u00b1 1.0e-05",
+    "baseline_artifact": "baseline-last.xml",
+    "final_focused_status": "not rerun"
+  }
+]
