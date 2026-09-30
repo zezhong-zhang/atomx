@@ -10,7 +10,7 @@ import numpy as np
 import pytest
 
 
-@pytest.mark.parametrize("averaging", ["ci", "statistical"])
+@pytest.mark.parametrize("averaging", ["hamiltonian", "statistical"])
 def test_open_shell_cli_exports_solved_density(tmp_path, averaging):
     root = Path(__file__).resolve().parents[1]
     env = os.environ.copy()
@@ -19,11 +19,11 @@ def test_open_shell_cli_exports_solved_density(tmp_path, averaging):
     # Switching model must rebuild an existing output even without --force.
     with h5py.File(tmp_path / "C.h5", "w") as f:
         meta = f.create_group("metadata").attrs
-        meta["averaging"] = "statistical" if averaging == "ci" else "ci"
+        meta["averaging"] = "statistical" if averaging == "hamiltonian" else "ci"
         meta["correlation"] = "none"
         meta["engine"] = "bspline"
-    # No averaging flag for CI: this also gates the default model.
-    options = [] if averaging == "ci" else ["--averaging", averaging]
+    # No averaging flag for Hamiltonian averaging: gate the default model.
+    options = [] if averaging == "hamiltonian" else ["--averaging", averaging]
     completed = subprocess.run(
         [sys.executable, str(root / "scripts/density_gs.py"), "6",
          "--out", str(tmp_path), "--no-compare", *options],
@@ -40,8 +40,8 @@ def test_open_shell_cli_exports_solved_density(tmp_path, averaging):
         if averaging == "statistical":
             assert sorted(occupations.values()) == pytest.approx([2/3, 4/3, 2, 2])
         else:
-            # The default must retain CI's state-specific occupations.
-            assert not np.allclose(sorted(occupations.values()), [2/3, 4/3, 2, 2])
+            assert occupations['2p1/2'] == pytest.approx(4/3, abs=.01)
+            assert occupations['2p3/2'] == pytest.approx(2/3, abs=.01)
         count = sum(np.trapezoid(g["density"][:], g["r"][:]) for g in groups)
         assert count == pytest.approx(6, abs=2e-3)
 

@@ -21,6 +21,10 @@ class PotentialModel:
     ``kind="bare"`` is the nuclear Coulomb field.  ``kind="static_hartree"``
     builds the residual-core V^N/V^{N-1} potential from an atomic result and
     can optionally include FAC/Gu or Slater local exchange.
+    ``screening="mean"`` scales the entire Hartree density by ``(N-1)/N``;
+    ``"full"`` retains it, with optional removal of a named orbital electron
+    through ``build_callable(exclude_label=...)``. Mean screening and named
+    removal are mutually exclusive.
     """
 
     kind: str = "bare"
@@ -34,6 +38,7 @@ class PotentialModel:
     latter_correction: bool = True
     n_radial: int = 4000
     r_max: Optional[float] = None
+    screening: str = "full"
 
     @classmethod
     def bare(cls) -> "PotentialModel":
@@ -60,7 +65,8 @@ class PotentialModel:
             Z = float(scf_result.Z)
         if kind == "bare":
             from atomx.potentials.static_field import bare_nuclear_potential
-
+            if self.include_exchange:
+                raise ValueError('a bare Coulomb field cannot include local exchange')
             return bare_nuclear_potential(float(Z))
         if kind in {"static_hartree", "hartree", "vn", "vn-1"}:
             from atomx.potentials.static_field import static_hartree_potential
@@ -68,6 +74,7 @@ class PotentialModel:
             return static_hartree_potential(
                 scf_result,
                 exclude_label=exclude_label,
+                screening=self.screening,
                 n_radial=self.n_radial,
                 r_max=self.r_max,
                 include_exchange=self.include_exchange,

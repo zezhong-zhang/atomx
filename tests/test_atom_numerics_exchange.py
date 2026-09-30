@@ -94,7 +94,7 @@ def test_shooting_hf_solves():
     bspline = Atom(**FE17, engine="bspline", exchange="hf").solve()
     assert shooting.converged
     assert shooting.provenance == {"engine": "shooting", "exchange": "hf",
-                                   "averaging": "ci"}
+                                   "averaging": "hamiltonian"}
     rel = abs(shooting.total_energy - bspline.total_energy) / abs(
         bspline.total_energy)
     assert rel < 1e-4
@@ -204,15 +204,10 @@ def test_slater_default_is_engine_independent():
 # ----------------------------------------------------------------------
 
 @pytest.mark.parametrize("kwargs,expected", [
-    # averaging records what ACTUALLY ran: the defaulted "ci" stays
-    # "ci" for hf (Fe XVII is closed-shell — the single-CSF collapse
-    # delivers ci exactly), and falls back to "statistical" for the
-    # local-exchange models (no HF two-electron structure to
-    # CI-average; explicit averaging="ci" with slater/gu raises — see
-    # tests/test_averaging_decoupling.py).
-    (dict(exchange="hf"), ("shooting", "hf", "ci")),
+    # The DHF Hamiltonian average and local-potential models remain distinct.
+    (dict(exchange="hf"), ("shooting", "hf", "hamiltonian")),
     (dict(exchange="slater"), ("shooting", "slater", "statistical")),
-    (dict(engine="bspline", exchange="hf"), ("bspline", "hf", "ci")),
+    (dict(engine="bspline", exchange="hf"), ("bspline", "hf", "hamiltonian")),
     (dict(engine="shooting", exchange="gu"),
      ("shooting", "gu", "statistical")),
     (dict(engine="shooting", exchange="slater"),

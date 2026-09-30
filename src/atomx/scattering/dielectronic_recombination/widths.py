@@ -134,7 +134,8 @@ def make_abinitio_radiative_rate_fn(
 
         P_source, Q_source = orbitals[source_key]
         P_dest, Q_dest = orbitals[dest_key]
-        rme = radial_eL(P_source, Q_source, P_dest, Q_dest, bsp_data, 1)
+        rme = radial_eL(P_source, Q_source, P_dest, Q_dest, bsp_data, 1,
+                        kappa_i=source.kappa, kappa_f=dest.kappa, omega=-omega)
         angular = angular_eL(source.kappa, dest.kappa, 1)
         line_strength = float((angular * rme) ** 2)
         if line_strength <= 1e-30:

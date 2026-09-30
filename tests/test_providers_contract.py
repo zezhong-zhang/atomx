@@ -33,7 +33,7 @@ from atomx.providers.contract import (
     UnitError,
     ensure_hartree,
 )
-from atomx.scattering.protocols import AtomicResultLike
+from atomx.state_protocols import AtomicResultLike
 
 #: ``pint`` is an optional extra (``units``): the two unit-coercion nodes are
 #: the only coverage of ``ensure_hartree`` on a Quantity.  An explicit marker

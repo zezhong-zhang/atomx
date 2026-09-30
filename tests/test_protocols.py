@@ -6,7 +6,7 @@ from typing import Dict, List, Tuple
 import numpy as np
 import pytest
 
-from atomx.scattering.protocols import (
+from atomx.state_protocols import (
     AtomicResultLike,
     SubshellLike,
     get_orbital,

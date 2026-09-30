@@ -1,7 +1,7 @@
-"""m-scheme CI for autoionizing resonance manifolds + exact Auger widths.
+"""m-scheme CI and coherent Auger widths for autoionizing manifolds.
 
 Small determinant-basis CI over the active space of a one-hole /
-two-excited-electron resonance configuration (e.g. Fe XVII KLL:
+two-excited-electron resonance configuration (e.g. Ne-like Fe LMM capture:
 2p^5 3l 3l').  Everything — Hamiltonian, J^2 classification, and the
 Auger decay amplitude to the closed-shell ion + free electron — is
 evaluated over the SAME bitmask determinants with Slater-Condon rules,
@@ -9,13 +9,12 @@ so all fermionic signs are consistent by construction (no coupled-scheme
 phase conventions anywhere).
 
 Physics:
-- H restricted to the manifold: one-body orbital energies (from the
-  solved ground-config result; excited orbitals from the frozen-core
-  V^{N-1} eigenbasis, matching FAC's fixed central potential) plus all
-  active-active two-electron Coulomb interactions.  Core-active
-  interactions are inside the orbital energies; cross-configuration
-  mixing (e.g. with 2s-hole configs) is outside the manifold and
-  neglected.
+- H restricted to the manifold: bare nuclear/environment Dirac matrix
+  elements plus the direct and exchange contraction of the inactive closed
+  core, plus all active-active Coulomb terms. Bound integrals use the native
+  radial representation; continuum integrals use the scattering grid.
+  A direct low-level construction without one_body explicitly retains the
+  approximate dressed-eigenvalue model used by historical diagnostics.
 - Eigenvectors of H at fixed M carry sharp J (H is rotationally
   invariant); J is identified via <J^2>.
 - Auger width of an eigenlevel |L> = sum_d w_d |det_d>:
@@ -25,25 +24,30 @@ Physics:
   terms.  This equals FAC's ``4 sum p^2/(2J+1)`` under FAC's
   1/sqrt(k)-amplitude wave convention.
 
-Validated against FAC AITable/level tables for the Fe XVII KLL panel
-(see tests/test_auger_kll_vs_fac.py).
+The matched Ne-like Fe dr33 panel compares complete level inventories,
+aggregate widths and thermal rates with FAC (tests/test_dr_manifold_e2e.py).
+Individual widths remain sensitive to the orbital and mixing model.
 """
 
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from itertools import combinations
 
 import numpy as np
 
+from atomx.numerics.radial_metric import RadialMetric
+
+from atomx.angular.coefficients import ckm
+
+from atomx.potentials.static_field import static_hartree_potential
+
 from atomx.constants import AU_RATE_PER_S, HARTREE_EV
-from atomx.numerics.quadrature import grid_slater_rk, p_rel, yk_on_grid
+from atomx.numerics.quadrature import grid_slater_rk, p_rel
 from atomx.scattering.distorted_wave.solver import (
     _allowed_k,
-    _ck_m,
     _continuum_on_grid,
-    _distorting_potential_fn,
     _l_of,
     _shooting_points,
     _tj_of,
@@ -72,6 +76,20 @@ class ManifoldLevel:
     E_res_au: float = 0.0     # absolute energy above the closed-shell ion
     a_radiative_per_s: float = 0.0
     parity: int = 0           # +1 / -1 relative to the closed-shell ion
+    radiative_channels: list[RadiativeChannel] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
+class RadiativeChannel:
+    """E1 decay to one bound final CI level, summed over its magnetic substates."""
+
+    final_kappa: int
+    final_index: int
+    final_energy_au: float
+    omega_au: float
+    A_per_s: float
+    dominant: tuple[int, int]
+    photon_approximation: str
 
 
 class ResonanceManifold:
@@ -86,7 +104,8 @@ class ResonanceManifold:
 
     def __init__(self, result, groups, *, r_fine, dr_fine, orbital_map,
                  orbital_energies, configs=None, V_func=None,
-                 one_body=None):
+                 one_body=None, bound_radial=None, bound_orbitals=None,
+                 bound_workspace=None):
         """``groups``: list of (subshell_list, n_electrons) with
         subshell_list = [(n, kappa), ...] (the jj components of one nl
         shell); ``orbital_map[(n, kappa)] = (P_fine, Q_fine)``;
@@ -95,11 +114,26 @@ class ResonanceManifold:
         ``configs``: optional list of per-group electron-count tuples for
         a multi-configuration manifold (union of determinant sets, e.g.
         [(5,1,1,0), (5,0,1,1)] for 2p^5{3s3p + 3p3d}).  When omitted the
-        single configuration from ``groups`` is used."""
+        single configuration from ``groups`` is used.
+
+        ``bound_radial`` evaluates the full-CI radial-key convention.
+        ``bound_orbitals`` and ``bound_workspace`` provide the native bound
+        representation for photon integrals. High-level constructors supply
+        these; ``orbital_map`` remains the separate continuum-grid sampling.
+        """
         self.result = result
         self.r_fine = r_fine
         self.dr_fine = dr_fine
         self.groups = groups
+        self.bound_radial = bound_radial
+        if (bound_orbitals is None) != (bound_workspace is None):
+            raise ValueError('bound orbitals and their native workspace must be supplied together')
+        if bound_orbitals is None:
+            from atomx.numerics.radial_workspace import make_grid_workspace
+            bound_orbitals = orbital_map
+            bound_workspace = make_grid_workspace(r_fine, dr_fine)
+        self.bound_orbitals = bound_orbitals
+        self.bound_workspace = bound_workspace
         self.orbitals: list[ActiveOrbital] = []
         self.group_bits: list[int] = []
         self.group_ne: list[int] = []
@@ -145,6 +179,7 @@ class ResonanceManifold:
             self._t = None
         self._rk_cache: dict = {}
         self._v_cache: dict = {}
+        self._radiative_final_cache = None
 
     # ---- radial + m-resolved two-body elements -------------------------
     def _rk(self, a, b, c, d, k):
@@ -160,8 +195,11 @@ class ResonanceManifold:
             Pb, Qb = _pq(b)
             Pc, Qc = _pq(c)
             Pd, Qd = _pq(d)
-            val = grid_slater_rk(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd,
-                                 self.r_fine, k)
+            if self.bound_radial is not None:
+                val = self.bound_radial(("r", k, _key(a), _key(c), _key(b), _key(d)))
+            else:
+                val = grid_slater_rk(Pa, Qa, Pb, Qb, Pc, Qc, Pd, Qd,
+                                     self.r_fine, k)
             self._rk_cache[key] = val
         return val
 
@@ -182,10 +220,10 @@ class ResonanceManifold:
                 continue
             if abs(tq) > 2 * k:
                 continue
-            e1 = _ck_m(a.kappa, a.tm, c.kappa, c.tm, k, tq)
+            e1 = ckm(a.kappa, a.tm, c.kappa, c.tm, k, tq)
             if e1 == 0.0:
                 continue
-            e2 = _ck_m(b.kappa, b.tm, d.kappa, d.tm, k, -tq)
+            e2 = ckm(b.kappa, b.tm, d.kappa, d.tm, k, -tq)
             if e2 == 0.0:
                 continue
             phase = 1.0 if (tq // 2) % 2 == 0 else -1.0
@@ -416,8 +454,7 @@ class ResonanceManifold:
         E_res_au = float(resonance_energy_eV) / HARTREE_EV
         V_func = self.V_func
         if V_func is None:
-            V_func = _distorting_potential_fn(self.result, bsp_data,
-                                              Z, screening="fac")
+            V_func = static_hartree_potential(self.result, screening="mean")
         N_bound = sum(float(sh.occupation) for sh in self.result.subshells)
         Z_res = max(float(Z) - N_bound + 1.0, 1.0)
         r_max_box = float(bsp_data["t"][-1])
@@ -427,6 +464,10 @@ class ResonanceManifold:
         tj_f = tM
 
         _cont_cache: dict = {}
+        # All levels in this call use one continuum energy and potential.
+        # Keep its radial integrals local: the manifold's persistent bound
+        # cache must never retain integrals from another electron energy.
+        continuum_radial: dict = {}
 
         def _cont_for_parity(par_res):
             """(kappa_f, (Pf, Qf)) for this parity, or None if forbidden."""
@@ -485,8 +526,8 @@ class ResonanceManifold:
             if nocc % 2:
                 ph = -ph
             # antisymmetrized: direct (nu<-e1)(f<-e2) minus exchange
-            tot = self._v_cont(o_nu, cont, kappa_f, tm_f, o1, o2)
-            tot -= self._v_cont(o_nu, cont, kappa_f, tm_f, o2, o1)
+            tot = self._v_cont(o_nu, cont, kappa_f, tm_f, o1, o2, continuum_radial)
+            tot -= self._v_cont(o_nu, cont, kappa_f, tm_f, o2, o1, continuum_radial)
             return ph * tot
 
         levels_out = []
@@ -522,7 +563,7 @@ class ResonanceManifold:
             ))
         return levels_out
 
-    def _v_cont(self, o_nu, cont, kappa_f, tm_f, oc, od):
+    def _v_cont(self, o_nu, cont, kappa_f, tm_f, oc, od, radial_cache):
         """<nu(1) f(2)| 1/r12 |c(1) d(2)> with f the continuum orbital."""
         tq = o_nu.tm - oc.tm
         if tq != od.tm - tm_f:
@@ -534,21 +575,21 @@ class ResonanceManifold:
                 continue
             if abs(tq) > 2 * k:
                 continue
-            e1 = _ck_m(o_nu.kappa, o_nu.tm, oc.kappa, oc.tm, k, tq)
+            e1 = ckm(o_nu.kappa, o_nu.tm, oc.kappa, oc.tm, k, tq)
             if e1 == 0.0:
                 continue
-            e2 = _ck_m(kappa_f, tm_f, od.kappa, od.tm, k, -tq)
+            e2 = ckm(kappa_f, tm_f, od.kappa, od.tm, k, -tq)
             if e2 == 0.0:
                 continue
             phase = 1.0 if (tq // 2) % 2 == 0 else -1.0
-            key = ("cont", (o_nu.n, o_nu.kappa), (oc.n, oc.kappa),
+            key = ((o_nu.n, o_nu.kappa), (oc.n, oc.kappa),
                    (od.n, od.kappa), kappa_f, k)
-            val = self._rk_cache.get(key)
+            val = radial_cache.get(key)
             if val is None:
                 val = grid_slater_rk(o_nu.P, o_nu.Q, Pf, Qf,
                                      oc.P, oc.Q, od.P, od.Q,
                                      self.r_fine, k)
-                self._rk_cache[key] = val
+                radial_cache[key] = val
             tot += val * phase * e1 * e2
         return tot
 
@@ -559,100 +600,131 @@ class ResonanceManifold:
         full = self.group_bits[0]
         return float(self.hamiltonian([full])[0, 0])
 
-    def _rdip(self, o_a, o_b):
-        """Length-gauge radial dipole integral (P_a P_b + Q_a Q_b) r dr."""
-        key = ("dip", (o_a.n, o_a.kappa), (o_b.n, o_b.kappa))
-        val = self._rk_cache.get(key)
-        if val is None:
-            rho = o_a.P * o_b.P + o_a.Q * o_b.Q
-            val = float(np.sum(rho * self.r_fine * self.dr_fine))
-            self._rk_cache[key] = val
-        return val
+    def electric_radial(self, bra, ket, rank, omega=None):
+        """Bound electric multipole on the native radial representation.
 
-    def _radiative_width(self, dets, w, E_level: float,
-                         e_ion: float | None = None) -> float:
-        """Total E1 stabilizing width of a CI level (fills the hole).
-
-        Final states: closed hole group + one spectator electron e'.
-        One-orbital-difference Slater-Condon: the dipole moves one excited
-        electron into the single hole; the other must match e'.
-
-            A = (4/3) alpha^3 sum_f w_f^3 sum_q |<f| d_q |level>|^2
-
-        Transition energy: the determinant diagonal <f|H|f> is NOT a
-        valid final-state energy — the manifold Hamiltonian is only
-        consistent on the resonance sector, and using it put omega at
-        ~450-550 eV where the physical Fe 3l -> 2p energies are 700-900
-        eV (a uniform ~5x deficit in omega^3 against FAC's clean-room
-        TRTable).  The physical decomposition sidesteps it:
-
-            omega = (E_level - E_ion) - eps_spectator
-                  = E_res + binding(spectator)
-
-        with E_res validated against FAC AITable (0.1-6 eV) and the
-        V^{N-1} spectator energies validated against FAC WaveFuncTable
-        (0.1-0.4%).
+        ``omega`` is the signed many-electron E_bra - E_ket in Hartree.
+        Omit it only for an explicit static-operator diagnostic.
         """
+        from atomx.properties.transitions.multipole import radial_eL
+
+        a, b = (bra.n, bra.kappa), (ket.n, ket.kappa)
+        key = ("electric", rank, omega, a, b)
+        value = self._rk_cache.get(key)
+        if value is None:
+            value = radial_eL(*self.bound_orbitals[b], *self.bound_orbitals[a],
+                              self.bound_workspace, rank,
+                              kappa_i=b[1], kappa_f=a[1], omega=omega)
+            self._rk_cache[key] = value
+        return value
+
+    def _rdip(self, o_a, o_b):
+        """Static dipole for the mixing-invariant trace diagnostic."""
+        return self.electric_radial(o_a, o_b, 1)
+
+    def _radiative_final_blocks(self):
+        """Closed hole shell plus one electron, including same-kappa radial CI.
+
+        Each block has J=j_spectator and identical radial mixing for all M.
+        Diagonalize it once at M=-J, then reuse that mixing for each magnetic
+        projection in the photon sum. The inactive-core constant cancels.
+        """
+        if self.one_body is None:
+            raise ValueError('radiative final-state CI requires the bare plus frozen-core '
+                             'one-body Hamiltonian; dressed orbital energies are insufficient')
+        if self._radiative_final_cache is not None:
+            return self._radiative_final_cache
+        full = self.group_bits[0]
+        spectators = {}
+        for i, orb in enumerate(self.orbitals):
+            if not full & (1 << i):
+                spectators.setdefault(orb.kappa, {}).setdefault(orb.tm, []).append(i)
+        blocks = []
+        for kappa, by_m in sorted(spectators.items()):
+            tm = min(by_m)
+            indices = by_m[tm]
+            dets = [full | (1 << i) for i in indices]
+            energies, mixing = np.linalg.eigh(self.hamiltonian(dets))
+            blocks.append((kappa, by_m, energies, mixing))
+        self._radiative_final_cache = blocks
+        return blocks
+
+    def radiative_channels(self, dets, weights, energy_au, *,
+                           photon_approximation="finite_wavelength"):
+        """E1 stabilization into closed-hole plus spectator CI eigenstates.
+
+        Initial and final energies come from the same frozen-core Hamiltonian.
+        Every orbital pair in a line uses its signed many-electron photon
+        frequency. Amplitudes are contracted coherently before summing final
+        magnetic substates. The initial vector may have any fixed M; no extra
+        statistical division is needed for this sum over photon polarizations.
+        Only final levels below the closed-shell ion threshold stabilize.
+        """
+        from atomx.angular.mscheme import one_body_action
         from atomx.constants import ALPHA
 
+        if photon_approximation not in ('finite_wavelength', 'long_wavelength'):
+            raise ValueError('unknown photon approximation')
         full = self.group_bits[0]
-        # coherent amplitudes keyed by (spectator orbital index, 2q)
-        amps: dict = {}
-        efinal: dict = {}
-        for d_idx, det in enumerate(dets):
-            wd = w[d_idx]
-            if abs(wd) < 1e-12:
-                continue
-            missing = full & ~det
-            if bin(missing).count("1") != 1:
-                continue
-            nu = missing.bit_length() - 1
-            occ_exc = [i for i in self._occ_list(det)
-                       if not (full & (1 << i))]
-            if len(occ_exc) != 2:
-                continue
-            o_nu = self.orbitals[nu]
-            for e_i, spect in ((occ_exc[0], occ_exc[1]),
-                               (occ_exc[1], occ_exc[0])):
-                o_e = self.orbitals[e_i]
-                tq = o_nu.tm - o_e.tm
-                if abs(tq) > 2:
+        if any((full & ~d).bit_count() != 1 or (d & ~full).bit_count() != 2 for d in dets):
+            raise ValueError('E1 stabilization requires one hole and two excited electrons')
+        projections = {sum(self.orbitals[i].tm for i in self._occ_list(d)) for d in dets}
+        if len(projections) != 1:
+            raise ValueError('initial CI vector must have a single magnetic projection')
+        tm_initial = projections.pop()
+        threshold = self.ion_energy()
+        angular = {}
+        for a in self._occ_list(full):
+            oa = self.orbitals[a]
+            for b, ob in enumerate(self.orbitals):
+                if full & (1 << b):
                     continue
-                ang = _ck_m(o_nu.kappa, o_nu.tm, o_e.kappa, o_e.tm, 1, tq)
-                if ang == 0.0:
+                q = oa.tm-ob.tm
+                if abs(q) <= 2:
+                    value = ckm(oa.kappa, oa.tm, ob.kappa, ob.tm, 1, q)
+                    if value:
+                        angular[a, b] = value
+        channels = []
+        for kappa, by_m, energies, mixing in self._radiative_final_blocks():
+            for level, final_energy in enumerate(energies):
+                omega = float(energy_au-final_energy)
+                if omega <= 0 or final_energy >= threshold:
                     continue
-                # SC one-body sign: remove e_i, create at nu.
-                ph = self._phase_remove(det, e_i)
-                mid = det & ~(1 << e_i)
-                ph *= self._phase_remove(mid, nu)
-                amp = wd * ph * ang * self._rdip(o_nu, o_e)
-                key = (spect, tq)
-                amps[key] = amps.get(key, 0.0) + amp
-                if spect not in efinal:
-                    eps_s = float(self.eps[spect])
-                    if e_ion is not None:
-                        efinal[spect] = float(e_ion) + eps_s
-                    else:
-                        fdet = full | (1 << spect)
-                        efinal[spect] = float(
-                            self.hamiltonian([fdet])[0, 0])
-        a_r = 0.0
-        for (spect, _tq), amp in amps.items():
-            omega = E_level - efinal[spect]
-            if omega <= 0.0:
-                continue
-            a_r += (4.0 / 3.0) * (ALPHA ** 3) * omega ** 3 * amp * amp
-        return a_r * AU_RATE_PER_S
+                frequency = -omega if photon_approximation == 'finite_wavelength' else None
+                elements = {pair: coefficient*self.electric_radial(
+                    self.orbitals[pair[0]], self.orbitals[pair[1]], 1, frequency)
+                    for pair, coefficient in angular.items()}
+                strength = 0.
+                for tm, indices in by_m.items():
+                    if abs(tm-tm_initial) > 2:
+                        continue
+                    final_dets = [full | (1 << i) for i in indices]
+                    amplitude = np.vdot(mixing[:, level],
+                        one_body_action(final_dets, dets, weights, elements))
+                    strength += float(abs(amplitude)**2)
+                dominant_index = by_m[min(by_m)][int(np.argmax(abs(mixing[:, level])))]
+                dominant = self.orbitals[dominant_index]
+                channels.append(RadiativeChannel(kappa, level, float(final_energy), omega,
+                    (4./3.)*ALPHA**3*omega**3*strength*AU_RATE_PER_S,
+                    (dominant.n, dominant.kappa), photon_approximation))
+        return channels
 
     def dr_levels(self, tM: int, *, Z, bsp_data, shooting_n_grid=None,
-                  L_max: int = 6, e_ion: float | None = None):
+                  L_max: int = 6, e_ion: float | None = None,
+                  photon_approximation="finite_wavelength"):
         """Manifold levels with ab-initio resonance energies, Auger and
         E1 stabilizing widths — everything a DR calculation needs.
 
         Like :meth:`auger_widths` but the Auger-electron energy is the
         level's own ``E_level - E_ion`` (no external resonance energy),
-        and each level also carries its total radiative width.
+        and each level also carries its E1 stabilization channels and sum.
+        The final bound states use the same CI Hamiltonian. An explicit
+        ``e_ion`` changes the Auger threshold only, not photon frequencies.
+        ``photon_approximation='long_wavelength'`` is an explicit diagnostic;
+        the default keeps the finite-frequency photon operator.
         """
+        if photon_approximation not in ('finite_wavelength', 'long_wavelength'):
+            raise ValueError('unknown photon approximation')
         dets = self.determinants(tM)
         if not dets:
             return []
@@ -678,8 +750,9 @@ class ResonanceManifold:
                 shooting_n_grid=shooting_n_grid, L_max=L_max,
                 _only_level=li, _precomputed=(dets, H, J2, evals, evecs))
             gam_a = lv[0].gamma_auger_per_s if lv else 0.0
-            a_r = self._radiative_width(dets, wvec, float(evals[li]),
-                                        e_ion=float(e_ion))
+            radiative = self.radiative_channels(dets, wvec, float(evals[li]),
+                                                photon_approximation=photon_approximation)
+            a_r = sum(channel.A_per_s for channel in radiative)
             imax = int(np.argmax(np.abs(wvec)))
             out.append(ManifoldLevel(
                 two_J=tM,
@@ -689,6 +762,7 @@ class ResonanceManifold:
                 dominant=self._det_label(dets[imax]),
                 E_res_au=E_res,
                 a_radiative_per_s=float(a_r),
+                radiative_channels=radiative,
                 parity=(lv[0].parity if lv
                         else self.parity_of_det(dets[imax])),
             ))
@@ -710,136 +784,29 @@ class ResonanceManifold:
         return " ".join(parts)
 
 
-def build_core_folded_one_body(active, core, V_screen, r_fine, dr_fine,
-                               *, bare_one_body=None):
-    """Exact active-space one-body matrix t_ab = <a| h + V_core |b>.
+def bspline_bound_integrals(result, active_coeffs):
+    """Native Coulomb callback and complete coefficient map for a bound space.
 
-    ``active``: dict ``(n, kappa) -> (P, Q, eps)`` — eigenstates of the
-    SAME local potential (converged DFS), fine-grid arrays, with their
-    eigenvalues.  ``core``: list of ``(P, Q, occ, kappa)`` frozen core
-    orbitals.  ``V_screen``: the screening part of the solve potential
-    (V_solve + Z/r) on the fine grid.
-
-    With ``bare_one_body``, use supplied exact nuclear Dirac matrix
-    elements (appropriate for B-spline orbitals in a nonlocal HF field).
-    Otherwise use the eigenstate identity  h|b> = eps_b |b> - V_screen |b>  (no
-    derivatives), so
-
-        t_ab = eps_b delta_ab - <a|V_screen|b> + <a|J_core|b> - <a|K_core|b>
-
-    J_core is local (closed shells: only k=0 survives); K_core is the
-    closed-shell exchange, evaluated by explicit m-summation over each
-    core subshell (convention-safe).  Same-kappa pairs only.
+    Occupied core spinors and virtuals retain their original B-spline
+    representation. The radial evaluator owns its nuclear Dirac blocks, so
+    subsequent manifolds or CI builds cannot change this Hamiltonian.
     """
-    # local pieces
-    J_core = np.zeros_like(r_fine)
-    for (Pc, Qc, occ, _kc) in core:
-        rho = Pc * Pc + Qc * Qc
-        J_core = J_core + float(occ) * yk_on_grid(rho, r_fine, 0)
-
-    def _local(Pa, Qa, Pb, Qb, f):
-        return float(np.sum((Pa * Pb + Qa * Qb) * f * dr_fine))
-
-    def _k_core(Pa, Qa, ka, Pb, Qb, kb, ):
-        """<a m|K_core|b m> for same kappa (m-independent; use m = -j)."""
-        tja = _tj_of(ka)
-        tm = -tja
-        tot = 0.0
-        for (Pc, Qc, _occ, kc) in core:
-            tjc = _tj_of(kc)
-            # occ must equal 2j_c+1 (closed) for this reduction
-            for tmc in range(-tjc, tjc + 1, 2):
-                tq = tm - tmc
-                for k in _allowed_k(ka, kc):
-                    if abs(tq) > 2 * k:
-                        continue
-                    e1 = _ck_m(ka, tm, kc, tmc, k, tq)
-                    if e1 == 0.0:
-                        continue
-                    e2 = _ck_m(kc, tmc, kb, tm, k, -tq)
-                    if e2 == 0.0:
-                        continue
-                    phase = 1.0 if (tq // 2) % 2 == 0 else -1.0
-                    Rk = grid_slater_rk(Pa, Qa, Pc, Qc, Pc, Qc, Pb, Qb,
-                                        r_fine, k)
-                    tot += phase * e1 * e2 * Rk
-        return tot
-
-    t = {}
-    keys = sorted(active.keys())
-    for (na, ka) in keys:
-        Pa, Qa, ea = active[(na, ka)]
-        for (nb, kb) in keys:
-            if kb != ka:
-                continue
-            Pb, Qb, eb = active[(nb, kb)]
-            if bare_one_body is None:
-                val = -_local(Pa, Qa, Pb, Qb, V_screen)
-                if (na, ka) == (nb, kb):
-                    val += eb
-            else:
-                val = bare_one_body[((na, ka), (nb, kb))]
-            val += _local(Pa, Qa, Pb, Qb, J_core)
-            val -= _k_core(Pa, Qa, ka, Pb, Qb, kb)
-            t[((na, ka), (nb, kb))] = val
-    return t
-
-
-def build_bspline_core_folded_one_body(result, active_coeffs, active_radial,
-                                        r_fine, dr_fine):
-    """Exact frozen-core one-body Hamiltonian for B-spline HF orbitals.
-
-    Uses the bare nuclear Dirac matrix in the original B-spline basis and
-    adds only inactive-core direct/exchange terms. Active interactions are
-    then included once by the determinant Hamiltonian.
-    """
-    from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
-    from atomx.numerics.bspline.evaluate import eval_P, eval_Q
+    from atomx.physics.csf.matrix import _radial_evaluator
 
     bsp = getattr(result, "_bsp_data", None) or result.bsp_data
-    ns_full = max(bsp["nsp"], bsp["nsq"])
-    nsp = bsp.get("nsp", ns_full)
-    nsq = bsp.get("nsq", ns_full)
-    gr = bsp["gr"].ravel()
-    order = np.argsort(gr)
-    gr_sorted = gr[order]
-
-    def on_grid(P, Q):
-        return (np.interp(r_fine, gr_sorted, eval_P(P, bsp).ravel()[order]),
-                np.interp(r_fine, gr_sorted, eval_Q(Q, bsp).ravel()[order]))
-
-    core = []
-    active_keys = set(active_coeffs)
-    for kappa in {sh.kappa for sh in result.subshells}:
-        same = [sh for sh in result.subshells if sh.kappa == kappa]
-        for i, sh in enumerate(same):
-            if (sh.n, sh.kappa) in active_keys or sh.occupation <= 0:
-                continue
-            P, Q, _ = result.orbitals_raw[kappa][i]
-            Pc, Qc = on_grid(P, Q)
-            core.append((Pc, Qc, float(sh.occupation), kappa))
-
-    def vector(P, Q):
-        v = np.zeros(2*ns_full)
-        v[:nsp] = P[:nsp]
-        v[ns_full:ns_full+nsq] = Q[:nsq]
-        return v
-
-    bare = {}
-    by_kappa = {}
-    for key in active_coeffs:
-        by_kappa.setdefault(key[1], []).append(key)
-    for kappa, keys in by_kappa.items():
-        H0, _ = build_dirac_matrices(
-            ns_full, kappa, int(result.Z), bsp,
-            getattr(result, "_nuclear_potential", None))
-        vecs = {key: vector(*active_coeffs[key]) for key in keys}
-        for ka in keys:
-            for kb in keys:
-                bare[(ka, kb)] = float(vecs[ka] @ H0 @ vecs[kb])
-    active = {key: (*active_radial[key], 0.0) for key in active_coeffs}
-    return build_core_folded_one_body(
-        active, core, None, r_fine, dr_fine, bare_one_body=bare)
+    ns = max(bsp["nsp"], bsp["nsq"])
+    orbitals = {}
+    counts = {}
+    for sh in result.subshells:
+        index = counts.get(sh.kappa, 0)
+        orbitals[sh.n, sh.kappa] = result.orbitals_raw[sh.kappa][index][:2]
+        counts[sh.kappa] = index + 1
+    orbitals.update(active_coeffs)
+    orbitals = {key: tuple(np.pad(v, (0, ns-len(v))) for v in pair)
+                for key, pair in orbitals.items()}
+    radial = _radial_evaluator(orbitals, bsp, int(result.Z), ns,
+                              nuclear_potential=getattr(result, "_nuclear_potential", None))
+    return radial, orbitals
 
 
 # ---------------------------------------------------------------------------
@@ -915,7 +882,7 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
     """Build a :class:`ResonanceManifold` from non-relativistic config strings.
 
     ``result`` is the solved closed-shell ground configuration of the
-    recombined ion; ``configs`` are strings like ``"2p5 3s1 3p1"`` naming
+    recombining ion; ``configs`` are strings like ``"2p5 3s1 3p1"`` naming
     one or more resonance configurations of the SAME hole subshell
     (closed-core tokens such as ``1s2 2s2`` may be included and are
     ignored).  All configurations are unioned into a single CI manifold,
@@ -931,11 +898,11 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
       of the one optimized central potential (FAC's ``OptimizeRadial``
       scheme, via :func:`~atomx.numerics.shooting.local.dfs_frozen_orbital`),
       the exact core-folded one-body matrix
-      (:func:`build_core_folded_one_body`) makes the manifold a proper
+      (:func:`atomx.physics.csf.frozen_core.closed_core_one_body`) makes the manifold a proper
       active-space CI, and the Auger continuum runs in the same
       potential.  This is the configuration validated against FAC
       AITable per-level widths.
-    * **B-spline V^(N-1) basis** (MCDHF results): hole orbitals from the
+    * **B-spline V^N basis** (results with native coefficients): hole orbitals from the
       solved result and virtuals from the frozen-core basis. The one-body
       matrix is reconstructed from the bare Dirac Hamiltonian and frozen
       core direct/exchange integrals, so active interactions are counted
@@ -945,6 +912,22 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
     Returns ``(manifold, bsp_data)`` ready for
     :meth:`ResonanceManifold.dr_levels` / :meth:`~ResonanceManifold.auger_widths`.
     """
+    from atomx.physics.csf.frozen_core import closed_core_one_body
+    from atomx.radial_state import radial_workspace_of
+
+    if not np.isfinite(e_max_eV) or e_max_eV <= 0:
+        raise ValueError('continuum grid energy must be finite and positive')
+    if getattr(result, '_equation', 'dirac') != 'dirac':
+        raise NotImplementedError('resonance CI requires Dirac spinors')
+    if (getattr(result, '_grid', None) is not None
+            and getattr(result, '_rv', None) is None):
+        raise NotImplementedError(
+            'resonance virtuals for nonlocal shooting HF are not implemented; '
+            'supply a solved local-potential shooting result or a native '
+            'B-spline result. The orbital model is not converted automatically.')
+    if (getattr(result, '_rv', None) is None
+            and not (getattr(result, '_bsp_data', None) or getattr(result, 'bsp_data', None))):
+        raise NotImplementedError('resonance manifold requires solved native radial data')
     meta = _subshell_meta(result)
 
     # ---- classify tokens against the ground configuration ---------------
@@ -1003,8 +986,8 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
         grid = result._grid
         Z = int(result.Z)
         r_max = float(grid[-1])
-        r_fine = make_fine_grid(r_max, p_rel(float(e_max_eV) / HARTREE_EV))
-        dr_fine = np.gradient(r_fine)
+        r_fine = make_fine_grid(r_max, p_rel(float(e_max_eV) / HARTREE_EV), z_inner=int(result.Z))
+        dr_fine = RadialMetric.trapezoid(r_fine).weights
         N_bound = sum(occ for (_n, _k, occ) in meta)
         Z_res = max(Z - N_bound + 1.0, 1.0)
 
@@ -1013,15 +996,16 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
                     np.interp(r_fine, grid, Q))
 
         active_set = set(active_nks)
-        core = []
+        core = {}
+        native_orbitals = {}
         occupied_fine = {}
         for i, (n, kappa, occ) in enumerate(meta):
             PQ = _tofine(result._pa[i], result._qa[i])
             occupied_fine[(n, kappa)] = PQ
-            if (n, kappa) not in active_set:
-                core.append((PQ[0], PQ[1], occ, kappa))
+            native_orbitals[n, kappa] = (result._pa[i], result._qa[i])
+            if (n, kappa) not in active_set and occ:
+                core[n, kappa] = occ
 
-        active = {}
         for (n, kappa) in active_nks:
             if (n, kappa) in occupied_fine:
                 P, Q = occupied_fine[(n, kappa)]
@@ -1041,15 +1025,38 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
                         f"dfs_frozen_orbital failed for "
                         f"{_orbital_label(n, kappa)}")
                 P, Q = _tofine(P_g, Q_g)
-            active[(n, kappa)] = (P, Q, float(eps))
+                native_orbitals[n, kappa] = (P_g, Q_g)
             orbital_map[(n, kappa)] = (P, Q)
             orbital_eps[(n, kappa)] = float(eps)
 
+        from atomx.physics.csf.matrix import GridCIWorkspace, _radial_evaluator
+        from atomx.numerics.shooting.quadrature import slag6_weights
+
+        rv_nuc = getattr(result, "_rv_nuc", None)
+        if rv_nuc is None:
+            raise ValueError('bound CI requires the nuclear/environment field used by '
+                             'the shooting solve; solve again to retain _rv_nuc')
+        workspace = GridCIWorkspace(grid, result._difr, rv_nuc)
+        bound_radial = _radial_evaluator(native_orbitals, workspace, Z, len(grid))
+        property_workspace, offset = radial_workspace_of(result)
+        bound_orbitals = {key: (p[offset:], q[offset:])
+                          for key, (p, q) in native_orbitals.items()}
         if one_body is None:
-            V_screen = np.interp(
-                r_fine, grid, (rv + Z) / np.maximum(grid, 1e-30))
-            one_body = build_core_folded_one_body(
-                active, core, V_screen, r_fine, dr_fine)
+            weights = slag6_weights(len(grid))*result._difr
+            screen = (rv-rv_nuc)*workspace.inv_r
+            bare = {}
+            for a in active_nks:
+                for b in active_nks:
+                    if a[1] != b[1]:
+                        continue
+                    pa, qa = native_orbitals[a]
+                    pb, qb = native_orbitals[b]
+                    density = pa*pb+qa*qb
+                    # Symmetric eigenstate identity in the common local field.
+                    bare[a, b] = float(np.sum(weights*density*(
+                        .5*(orbital_eps[a]+orbital_eps[b])-screen)))
+            one_body = closed_core_one_body(active_nks, core, bound_radial,
+                                             bare_one_body=bare)
         if V_func is None:
             def V_func(r, _grid=grid, _rv=rv):
                 r = np.asarray(r, dtype=float)
@@ -1057,15 +1064,15 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
         target = _ClosedShellTarget(Z, meta)
         bsp = {"t": np.asarray(grid)}
     else:
-        # ---- B-spline basis: solved orbitals + V^(N-1) virtuals ----------
+        # ---- B-spline basis: solved orbitals + V^N virtuals ----------
         from atomx.methods.mbpt import build_virtual_basis
         from atomx.numerics.bspline.evaluate import eval_P, eval_Q
 
         bsp = getattr(result, "_bsp_data", None) or result.bsp_data
         target = result
         r_max = float(bsp["t"][-1])
-        r_fine = make_fine_grid(r_max, p_rel(float(e_max_eV) / HARTREE_EV))
-        dr_fine = np.gradient(r_fine)
+        r_fine = make_fine_grid(r_max, p_rel(float(e_max_eV) / HARTREE_EV), z_inner=int(result.Z))
+        dr_fine = RadialMetric.trapezoid(r_fine).weights
         gr = bsp["gr"].ravel()
         order = np.argsort(gr)
         grs = gr[order]
@@ -1095,15 +1102,18 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
                 if vi < 0 or vi >= len(virt):
                     raise ValueError(
                         f"virtual orbital {_orbital_label(n_e, kappa)} not "
-                        f"in the V^(N-1) basis (index {vi} of {len(virt)})")
+                        f"in the V^N basis (index {vi} of {len(virt)})")
                 P, Q, eps = virt[vi]
                 orbital_map[(n_e, kappa)] = _tofine(P, Q)
                 orbital_coeffs[(n_e, kappa)] = (P, Q)
                 orbital_eps[(n_e, kappa)] = float(eps)
 
+        bound_radial, bound_orbitals = bspline_bound_integrals(result, orbital_coeffs)
+        property_workspace = bsp
         if one_body is None:
-            one_body = build_bspline_core_folded_one_body(
-                result, orbital_coeffs, orbital_map, r_fine, dr_fine)
+            core = {(n, k): occ for n, k, occ in meta
+                    if (n, k) not in active_nks and occ}
+            one_body = closed_core_one_body(active_nks, core, bound_radial)
 
     groups = [([(n_h, k) for k in hole_kappas],
                2 * (2 * l_h + 1) - 1)]
@@ -1120,7 +1130,9 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
     manifold = ResonanceManifold(
         target, groups, r_fine=r_fine, dr_fine=dr_fine,
         orbital_map=orbital_map, orbital_energies=orbital_eps,
-        configs=config_tuples, V_func=V_func, one_body=one_body)
+        configs=config_tuples, V_func=V_func, one_body=one_body,
+        bound_radial=bound_radial, bound_orbitals=bound_orbitals,
+        bound_workspace=property_workspace)
     return manifold, bsp
 
 
@@ -1182,6 +1194,6 @@ def auger_levels(result, configs, *, two_J=None, e_max_eV: float = 1000.0,
     return levels
 
 
-__all__ = ["ResonanceManifold", "ManifoldLevel", "auger_levels",
-           "build_core_folded_one_body", "build_bspline_core_folded_one_body",
+__all__ = ["ResonanceManifold", "ManifoldLevel", "RadiativeChannel", "auger_levels",
+           "bspline_bound_integrals",
            "manifold_from_configs"]

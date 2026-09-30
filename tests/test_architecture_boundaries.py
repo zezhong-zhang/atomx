@@ -29,12 +29,6 @@ def test_result_coercion_requires_convergence_and_preserves_identity():
     assert to_scf_result(result, caller='property') is result
 
 
-def test_legacy_protocol_exports_preserve_identity():
-    from atomx import state_protocols
-    from atomx.scattering import protocols
-    for name in protocols.__all__:
-        assert getattr(protocols, name) is getattr(state_protocols, name)
-
 
 def test_grid_accessor_preserves_native_shooting_quadrature():
     from atomx.numerics.shooting.grid import sgrid
@@ -81,12 +75,6 @@ assert callable(atomx.compare) and callable(what_changed) and callable(theory_la
                    capture_output=True, text=True)
 
 
-def test_radial_workspace_compatibility_exports_preserve_identity():
-    from atomx.corrections import workspace as legacy
-    from atomx.numerics import radial_workspace
-    for name in legacy.__all__:
-        assert getattr(legacy, name) is getattr(radial_workspace, name)
-
 
 def test_shooting_drivers_run_without_method_imports():
     """Numerical drivers and physical operators cannot reach into methods."""
@@ -120,10 +108,15 @@ def test_photoionization_public_entry_and_integer_energy_grid(monkeypatch):
     from atomx.scattering.photoionization import photoionization_cross_section
     monkeypatch.setattr(direct, 'solve_continuum',
                         lambda *args, **kwargs: (np.ones(2), np.zeros(2), 1.))
-    monkeypatch.setattr(direct, 'dipole_matrix_element', lambda *args: 1.)
+    frequencies = []
+    def photon_element(*args, **kwargs):
+        frequencies.append(kwargs['omega'])
+        return 1.
+    monkeypatch.setattr(direct, 'radial_eL', photon_element)
     args = (np.ones(2), np.zeros(2), -1, -.5)
     expected = direct.photoionization_cross_section(*args, np.array([1., 2.]), 1, {})
     actual = photoionization_cross_section(*args, [1, 2], 1, {})
     np.testing.assert_array_equal(actual, expected)
     assert np.all(actual > 0)
     assert actual.dtype.kind == 'f'
+    assert set(frequencies) == {1., 2.}

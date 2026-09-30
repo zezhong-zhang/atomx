@@ -32,7 +32,7 @@ PANEL = {
         -128.6637650908719,
     ),
     "n_open_ci_averaging": (
-        dict(Z=7, config="1s2 2s2 2p3",
+        dict(Z=7, config=["1s2 2s2 2p3"],
              correlation=Correlation(averaging="ci")),
         # Canonical 2p labels make the applied Mohr shift match the reported
         # QED components; the old per-state label "21" was read as n=21.

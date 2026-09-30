@@ -13,7 +13,7 @@ spectrum synthesis).  It defines:
   :class:`UncertaintyBlock`).
 * :class:`ElectronicStructurePayload` — the single object every adapter
   emits; it is *structurally* an
-  :class:`~atomx.scattering.protocols.AtomicResultLike` (so the native
+  :class:`~atomx.state_protocols.AtomicResultLike` (so the native
   atomx solvers remain the reference provider for free) and carries the
   extra AO/MO surface the molecular/periodic back-ends need.
 * :class:`ElectronicStructureProvider` — the ``runtime_checkable``
@@ -764,7 +764,7 @@ class UncertaintyBlock:
 class ElectronicStructurePayload:
     """Single object every adapter emits (ADR-0001 §6.1).
 
-    Structurally an :class:`~atomx.scattering.protocols.AtomicResultLike`
+    Structurally an :class:`~atomx.state_protocols.AtomicResultLike`
     (``Z``, ``subshells``, ``orbital_energies``, ``orbitals_raw`` are always
     present) so native atomx solvers are the reference provider for free.
     Molecular/periodic back-ends leave ``orbitals_raw`` empty and supply the

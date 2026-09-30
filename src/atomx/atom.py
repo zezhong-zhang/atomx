@@ -286,7 +286,7 @@ class Atom:
         auto-generate singles / singles+doubles excitations from the
         reference configuration; the object also carries ``averaging``
         (how the jj-CSFs of a partially filled shell are weighted in the
-        Guerra-averaged Fock operator), ``radial_optimization``,
+        Hamiltonian state or fixed configuration ensemble), ``radial_optimization``,
         ``j_resolved_csfs`` and ``per_block_orbital_sets`` — the
         multi-configuration protocol, which is only meaningful when a
         multi-configuration expansion exists.
@@ -468,13 +468,13 @@ class Atom:
                 f"(config=\"<reference>\", correlation="
                 f"{correlation_spec.expansion!r}).")
 
-        # Track whether averaging was EXPLICITLY passed: the explicit/
-        # default distinction drives the slater/gu x ci contradiction check
-        # below — explicit contradictions raise, the mere default falls
-        # back quietly.
+        # Hamiltonian DF mixes only the CSFs of one NR configuration.
+        # An explicit configuration expansion instead selects MCDHF.
         self._averaging_explicit = correlation_spec.averaging is not None
-        averaging = (correlation_spec.averaging
-                     if correlation_spec.averaging is not None else "ci")
+        correlated = isinstance(config, list) or correlation_spec.expansion is not None
+        default_average = ("ci" if correlated else
+                           "hamiltonian" if exchange_spec.model == "hf" else "statistical")
+        averaging = correlation_spec.averaging or default_average
 
         # Resolved value (what the shooting engine would use); the
         # explicit/None distinction is what the B-spline rejection
@@ -516,6 +516,14 @@ class Atom:
         self.qed = resolved.qed
         self.qed_backend = resolved.qed_backend
         self.correction_stack = resolved.stack
+        if self.correction_stack is None and resolved.breit_frequency != 'static':
+            from atomx.corrections.qed import resolve_se_method
+            from atomx.corrections.stack import CorrectionStack
+            self.correction_stack = CorrectionStack(
+                se_backend=resolve_se_method(self.qed_backend, self.Z) if self.qed else None,
+                include_vp=self.qed, include_breit=self.breit,
+                breit_frequency=resolved.breit_frequency,
+                breit_orbital_energies=resolved.breit_orbital_energies)
         self.exchange = exchange_spec.model
         # Decoupled ENGINE x MODEL pair.
         self._engine_explicit = engine is not None
@@ -563,20 +571,11 @@ class Atom:
                 f"screening='debye' (defined for every charge state), "
                 f"or pass charge>0.")
         self.averaging = averaging
-        # CI averaging needs the non-local HF two-electron structure —
-        # the local-exchange models (slater/gu) carry no per-pair Slater
-        # integrals for the CI kernel to average.  Because "ci" is the
-        # constructor DEFAULT, an unspecified averaging falls back
-        # quietly to statistical in solve() (erroring would break every
-        # slater/gu call); an EXPLICIT averaging="ci" is a contradiction
-        # and raises here instead of being silently ignored.
-        if (self._averaging_explicit and self.averaging == "ci"
-                and self.exchange_model in ("slater", "gu")):
+        if (self._averaging_explicit and self.averaging in ("ci", "hamiltonian")
+                and self.exchange_model != "hf"):
             raise ValueError(
-                f"averaging='ci' requires exchange='hf' (CI averaging "
-                f"needs the HF two-electron structure; exchange="
-                f"{self.exchange_model!r} is a local-exchange model). "
-                f"Drop averaging='ci' or use exchange='hf'.")
+                f"averaging={self.averaging!r} requires exchange='hf'; "
+                f"exchange={self.exchange_model!r} is a local-potential model.")
         self.j_resolved_csfs = bool(correlation_spec.j_resolved_csfs)
         self.per_block_orbital_sets = bool(
             correlation_spec.per_block_orbital_sets)
@@ -639,6 +638,15 @@ class Atom:
                 config = ground_state_config(N_electrons)
             self._config_strings = [config]
 
+        if not self._multi_config and self.averaging == "ci":
+            raise ValueError(
+                "averaging='ci' no longer selects MCDHF for a single configuration. "
+                "Use Correlation(averaging='hamiltonian') for intermediate-coupling "
+                "DHF, or pass config=[...] / a correlation expansion for MCDHF.")
+        if self._multi_config and self.averaging != "ci":
+            raise ValueError("configuration lists/expansions require averaging='ci'; "
+                             "averaging='hamiltonian' is for one configuration")
+
         # Central config-string validation (HYP-1778): reject malformed
         # shell tokens ("2x2", trailing junk), n = 0 and over-occupied
         # shells (q > 2(2l+1)) here at the entry with a clear ValueError
@@ -656,11 +664,11 @@ class Atom:
             self.engine = 'bspline'
         if self.shooting_space is not None and not (
                 self._multi_config and self.engine == 'shooting'):
-            raise ValueError('shooting_space requires a multi-configuration shooting calculation')
+            raise ValueError('shooting_space requires explicit MCDHF with the shooting engine; use Sampling.n_grid for DF')
 
         if self.orbital_preconditioner == "shooting" and (
                 not self._multi_config or self.engine != "bspline"):
-            raise ValueError("shooting orbital preconditioning requires a multi-configuration B-spline calculation")
+            raise ValueError("shooting orbital preconditioning requires explicit multi-configuration MCDHF with the B-spline engine")
 
         # The grid-shape overrides exist only for the automatic B-spline
         # knot sequence (numerics/bspline/knots.py::make_physics_knots).
@@ -759,34 +767,97 @@ class Atom:
         return int(self._n_grid) if self._n_grid else int(default)
 
     def solve(self, method=None, tol=1e-5, max_iter=40, log=None,
-              sampling=None):
-        """Run an atomic structure calculation.
+              sampling=None, *, orbital_tolerance=None):
+        """Solve the requested atomic state, optionally checking radial refinement.
+
+        ``Basis(sampling=Sampling(radial_refinement=RadialRefinement(...)))``
+        enables grid and automatic-box refinement for single-configuration
+        shooting. Explicit boxes stay fixed. See ``result.radial_convergence``
+        for measured changes and limits. Refinement rebuilds the full state and
+        corrections on each grid; it does not assert physical-model accuracy.
 
         Parameters
         ----------
         method : Method, optional
-            Theory-level method object (e.g. ``DiracFock(breit=True)``).
-            If None, uses legacy parameter-based dispatch.
+            Explicit theory-level method. Returns its AtomicResult; otherwise
+            dispatches from the Atom inputs and returns self for chaining.
         tol : float
-            Convergence tolerance.  Overridden by ``sampling.tol`` when
-            ``sampling`` is supplied (unless the caller passes ``tol``
-            explicitly).
+            SCF tolerance. Its default is replaced by the sampling tolerance.
+            Adaptive refinement may tighten it further, as recorded in the
+            calculation specification.
         max_iter : int
-            Maximum SCF iterations.  Same precedence as ``tol``.
-        log : str or bool or None
-            Calculation log output.  If a string, writes to that file path.
-            If True, writes to ``"{element}_{method}.log"``.
-            If None/False, no log file.
+            SCF iteration cap; the sampling cap replaces the default value.
+        log : str, bool or None
+            Calculation log path; True selects the default filename.
         sampling : Sampling, optional
-            Numerical-discretization tier (e.g. ``Sampling.standard``).
-            When supplied, ``tol`` and ``max_iter`` default to the
-            sampling values.  ``ns``/``ks`` for the B-spline backend
-            must be set on the :class:`Atom` constructor.
-
-        Returns
-        -------
-        self (for chaining), or AtomicResult if method is provided.
+            Override solve controls (tolerance, iteration cap and refinement
+            policy). Discretization sizes are set through Basis at construction.
+        orbital_tolerance : float, optional
+            Independent phase-aligned L2 orbital-update threshold for iterative
+            DF. Overrides Sampling.orbital_tolerance. It controls SCF updates,
+            not radial discretization or physical-model error. Unsupported
+            methods reject this request rather than reinterpret it.
         """
+        selected = sampling if sampling is not None else self._sampling
+        if orbital_tolerance is None and selected is not None:
+            orbital_tolerance = selected.orbital_tolerance
+        if orbital_tolerance is not None and (
+                not np.isfinite(orbital_tolerance) or orbital_tolerance <= 0):
+            raise ValueError('orbital_tolerance must be finite and positive')
+        policy = selected.radial_refinement if selected is not None else None
+        if policy is None:
+            return self._solve_fixed(method, tol, max_iter, log, sampling,
+                                     orbital_tolerance=orbital_tolerance)
+        if method is not None or self.engine != 'shooting' or self._multi_config:
+            raise ValueError('radial_refinement requires single-configuration shooting via Atom.solve()')
+        from dataclasses import replace
+        from atomx.numerics.shooting.adaptive import RadialSample, refine_radial_grid
+        from atomx.radial_state import native_radial_state
+        from atomx.config.csf import _parse_config_string
+
+        requested_box, requested_points = self.r_max, self._n_grid
+        shells = _parse_config_string(self._config_strings[0])
+        initial_box = self._resolve_r_max(shells)
+        initial_points = self._shooting_n_grid(1000 if self.exchange_model == 'hf' else 400)
+        resolved_tol = selected.tol if tol == 1e-5 else tol
+        resolved_tol = min(resolved_tol, policy.scf_tol)
+
+        def sample(n_grid, r_max):
+            self._n_grid, self.r_max = n_grid, r_max
+            self._solve_fixed(None, resolved_tol, max_iter, log, selected,
+                              orbital_tolerance=orbital_tolerance)
+            result = self._result
+            state = native_radial_state(result)
+            densities = np.asarray([p*p+q*q for p, q in state.orbitals.values()])
+            energies = np.asarray(getattr(result, 'state_energies', []), dtype=float)
+            excitation = energies-energies.min() if energies.size else energies
+            return RadialSample(result, float(result.total_energy),
+                dict(result.orbital_energies), state.metric.radius,
+                state.metric.weights, densities, result.converged, excitation)
+
+        try:
+            final, audit = refine_radial_grid(sample, n_grid=initial_points,
+                r_max=initial_box, policy=policy, vary_box=requested_box is None)
+        except Exception:
+            self._result = None
+            raise
+        finally:
+            self.r_max, self._n_grid = requested_box, requested_points
+        self._result = final.value
+        self._result.radial_convergence = audit
+        self._result.converged = bool(final.converged and audit['converged'])
+        if hasattr(self._result, '_variational_diagnostics'):
+            self._result._variational_diagnostics.update(
+                radial_space_converged=audit['radial_space_converged'],
+                radial_space_convergence_reason=audit['termination_reason'])
+        spec = self._result.calculation_spec
+        self._result.calculation_spec = replace(spec, numerics={**spec.numerics,
+            'radial_refinement': policy, 'refinement_scf_tolerance': resolved_tol})
+        return self
+
+    def _solve_fixed(self, method=None, tol=1e-5, max_iter=40, log=None,
+                     sampling=None, *, orbital_tolerance=None):
+        """Dispatch one complete calculation at the resolved discretization."""
         # ``sampling`` falls back to whatever was attached to the atom at
         # construction time, so ``Atom(Z=10, sampling=Sampling.high).solve()``
         # picks up the high tolerance without re-passing it.
@@ -798,27 +869,34 @@ class Atom:
                 max_iter = sampling.max_iter
 
         if method is not None:
-            return self._solve_method(method, tol, max_iter, log=log)
+            return self._solve_method(method, tol, max_iter, log=log,
+                                      orbital_tolerance=orbital_tolerance)
 
-        # Route "ci" averaging (Guerra with Hamiltonian-diagonalisation c_k²)
-        # through the MCDHF solver on the jj-CSF enumeration of the base
-        # configuration — on EITHER engine (averaging is an orthogonal
-        # axis: engine × exchange × averaging; MCDHFSolver runs the
-        # shooting engine via ShootingHFSolver + the grid-flavour CI
-        # kernel).  For closed-shell atoms the enumeration yields a
-        # single CSF, so the MCDHF loop collapses to one DHF solve.
-        # slater/gu are excluded QUIETLY only for the defaulted "ci"
-        # (an explicit averaging="ci" already raised in __init__): "ci"
-        # is the constructor default, so erroring here would break
-        # every slater/gu call.
-        # The MCDHF/CI solver implements non-local (HF) exchange only.
-        # A local model requested on a multi-configuration run used to be
-        # dropped in silence while `provenance` still reported it — i.e.
-        # `Atom(config=[...], exchange="slater")` claimed Slater exchange
-        # and returned a Hartree-Fock energy.  Fail loudly instead; the
-        # single-configuration path (which does honour slater/gu) is
-        # unaffected, and the documented "defaulted ci degrades quietly"
-        # behaviour is preserved by the `use_ci_avg` gate below.
+        orbital_controls = {} if orbital_tolerance is None else dict(
+            orbital_tolerance=orbital_tolerance)
+        if orbital_controls:
+            if self._multi_config:
+                raise ValueError('orbital_tolerance is an L2 DF update threshold; '
+                                 'MCDHF uses variational gradient convergence')
+            if self.engine == 'shooting' and self.exchange_model != 'hf':
+                raise ValueError('orbital_tolerance is not implemented for local-exchange shooting')
+            if self.exchange_model in ('tfda', 'gsz'):
+                raise ValueError('orbital_tolerance requires an iterative mean-field solve')
+
+        # Hamiltonian intermediate coupling needs the full CSF functional.
+        # With one CSF the ordinary DHF equations are already equivalent.
+        hamiltonian_csfs = None
+        if not self._multi_config and self.averaging == "hamiltonian":
+            from atomx.config.csf import enumerate_jj_csfs
+            hamiltonian_csfs = enumerate_jj_csfs(self._config_strings[0])
+        use_hamiltonian_df = hamiltonian_csfs is not None and len(hamiltonian_csfs) > 1
+        if self.averaging == 'hamiltonian':
+            if self.radial_optimization != 'mcdhf' or self.per_block_orbital_sets:
+                raise ValueError('Hamiltonian DF requires variational ground-state orbitals; '
+                                 'frozen/per-block protocols require an explicit MCDHF request')
+            if not use_hamiltonian_df and self.shooting_space is not None:
+                raise ValueError('a single-CSF DHF calculation uses native shooting; '
+                                 'shooting_space is only used by variational CSF calculations')
         if (self._multi_config or self.correlation) and (
                 self.exchange_model not in ("hf",)):
             raise ValueError(
@@ -831,57 +909,30 @@ class Atom:
                 f"reported it."
             )
 
-        use_ci_avg = (
-            not self._multi_config
-            and self.averaging == "ci"
-            and self.exchange_model not in ("slater", "gu")
-        )
-
-        if use_ci_avg:
-            from atomx.methods.mcdhf.config import enumerate_jj_csfs
-            from atomx.methods.mcdhf.solver import MCDHFSolver
-            csfs = enumerate_jj_csfs(self._config_strings[0])
-            if len(csfs) == 1:
-                # Closed-shell fast path: no CI mixing needed — fall back to
-                # the direct single-config route below for speed + identical
-                # numerics (for one CSF the Guerra ci weights ARE the
-                # statistical weights, so provenance keeps averaging="ci").
-                use_ci_avg = False
-            else:
-                solver = MCDHFSolver(
-                    Z=self.Z, csfs=csfs, ns=self.ns, ks=self.ks,
-                    r_max=self.r_max, grid_hi=self.grid_hi,
-                    grid_he=self.grid_he, grid_hmax=self.grid_hmax,
-                    include_breit=self.breit, include_qed=self.qed,
-                    qed_se_method=self.qed_backend,
-                    correction_stack=self.correction_stack,
-                    nuclear=self.nuclear,
-                    use_physics_grid=self._use_physics_grid,
-                    starting_potential=self.starting_potential,
-                    per_block_orbital_sets=self.per_block_orbital_sets,
-                    radial_optimization=self.radial_optimization,
-                    orbital_preconditioner=self.orbital_preconditioner,
-                    engine=self.engine,
-                    screening_potential=self._screening_shift(),
-                )
-                self._result = solver.solve(max_iter=max_iter, scf_tol=tol)
-
-        if use_ci_avg:
-            pass  # handled above
-        elif self._multi_config:
-            from atomx.methods.mcdhf.config import (
+        if self._multi_config or use_hamiltonian_df:
+            from atomx.config.csf import (
                 enumerate_jj_csfs,
                 enumerate_jj_csfs_many,
             )
-            from atomx.methods.mcdhf.solver import MCDHFSolver
-            if self.j_resolved_csfs:
+            if use_hamiltonian_df:
+                from atomx.methods.hamiltonian_df import HamiltonianDFSolver
+                solver_type = HamiltonianDFSolver
+                state_kwargs = dict(configuration=self._config_strings[0],
+                                    n_grid=self._shooting_n_grid(1000))
+            elif self.j_resolved_csfs:
+                from atomx.methods.mcdhf.solver import MCDHFSolver
+                solver_type = MCDHFSolver
                 csfs = []
                 for cfg in self._config_strings:
                     csfs.extend(enumerate_jj_csfs(cfg))
+                state_kwargs = dict(csfs=csfs)
             else:
+                from atomx.methods.mcdhf.solver import MCDHFSolver
+                solver_type = MCDHFSolver
                 csfs = enumerate_jj_csfs_many(self._config_strings)
-            solver = MCDHFSolver(
-                Z=self.Z, csfs=csfs, ns=self.ns, ks=self.ks,
+                state_kwargs = dict(csfs=csfs)
+            solver = solver_type(
+                Z=self.Z, **state_kwargs, ns=self.ns, ks=self.ks,
                 r_max=self.r_max, grid_hi=self.grid_hi,
                 grid_he=self.grid_he, grid_hmax=self.grid_hmax,
                 include_breit=self.breit, include_qed=self.qed,
@@ -897,7 +948,15 @@ class Atom:
                 shooting_space=self.shooting_space,
                 screening_potential=self._screening_shift(),
             )
-            self._result = solver.solve(max_iter=max_iter, scf_tol=tol)
+            if self._multi_config and self.engine == 'shooting' and self._n_grid is not None:
+                if self.shooting_space is not None and self._n_grid != self.shooting_space.n_grid:
+                    raise ValueError('Sampling.n_grid and ShootingSpace.n_grid disagree')
+                from dataclasses import replace
+                solver.shooting_space = replace(solver.shooting_space,
+                    n_grid=self._n_grid,
+                    outer_intervals=min(solver.shooting_space.outer_intervals,
+                                        self._n_grid * 2 // 3))
+            self._result = solver.solve(max_iter=max_iter, scf_tol=tol, **orbital_controls)
         elif self.engine == "shooting":
             # ODE shooting engine — three exchange models:
             #   ``exchange='hf'`` → non-local Dirac-Hartree-Fock via the
@@ -990,7 +1049,7 @@ class Atom:
                 # HF sweeps are Gauss-Seidel with 0.5 damping — give
                 # them headroom beyond Atom's default max_iter=40.
                 self._result = solver.solve(
-                    max_iter=max(max_iter, 60), tol=tol)
+                    max_iter=max(max_iter, 60), tol=tol, **orbital_controls)
                 solver = None  # solved above; skip the local-model call
             elif self.exchange_model == "gu":
                 from atomx.config.jj_coupling import JJConfig, generate_jj_average
@@ -1013,7 +1072,7 @@ class Atom:
                     screening_potential=self._screening_shift(),
                 )
             else:
-                from atomx.methods.mcdhf.config import _parse_config_string
+                from atomx.config.csf import _parse_config_string
                 subshells = _parse_config_string(self._config_strings[0])
                 solver = ShootingSolver(
                     Z=self.Z, subshells=subshells,
@@ -1030,7 +1089,7 @@ class Atom:
             # a user-supplied CorrectionStack wins; otherwise the
             # breit/qed booleans are sugar building the equivalent
             # stack.  The adapters evaluate directly on the shooting
-            # grid orbitals (corrections.workspace grid flavour), so
+            # grid orbitals (numerics.radial_workspace grid flavour), so
             # Breit/SE/VP here are the same physics as the B-spline
             # engine (cross-validated to <= 2e-3 in
             # tests/test_shooting_corrections.py).
@@ -1047,11 +1106,12 @@ class Atom:
             if stack is not None:
                 from atomx.corrections.stack import finalize_with_corrections
                 self._result.__dict__["_jj_configs"] = correction_jj_configs
-                if stack.include_breit and stack.breit_mode == "operator":
+                if (stack.include_breit and stack.breit_mode == "operator"
+                        and stack.breit_frequency == 'static'):
                     # The explicit Gaunt mode computes its CI matrix
                     # element here; the DBSR_HF default needs no such
                     # additional contraction.
-                    from atomx.methods.mcdhf.breit_ci import (
+                    from atomx.physics.csf.breit_ci import (
                         attach_breit_operator_energy,
                     )
                     attach_breit_operator_energy(
@@ -1059,8 +1119,8 @@ class Atom:
                 finalize_with_corrections(self._result, stack)
         else:
             # B-spline DHF/DFS backend with user-selected averaging
-            # (statistical | equal | fractional). The CI default is handled
-            # above via MCDHFSolver; "fractional" skips jj_configs to use
+            # (Guerra/statistical | equal | fractional).
+            # "fractional" skips jj_configs to use
             # the q*(q-1) fallback inside _get_WW.
             from atomx.config.jj_coupling import JJConfig, generate_jj_average
             avg_key = "equal" if self.averaging == "equal" else "statistical"
@@ -1110,7 +1170,7 @@ class Atom:
             # f-electron systems (lanthanides/actinides) need more iterations
             has_f = any(sh.l >= 3 for sh in subshells)
             effective_max_iter = max(max_iter, 120) if has_f else max_iter
-            self._result = solver.solve(max_iter=effective_max_iter, tol=tol)
+            self._result = solver.solve(max_iter=effective_max_iter, tol=tol, **orbital_controls)
             # SCFResult retains its own _bsp_data; nothing else to wire.
 
         # Provenance: record which (engine, model, averaging) triple
@@ -1120,19 +1180,7 @@ class Atom:
         # broke them — provenance lives on result.provenance /
         # Atom.provenance only.
         if self._result is not None:
-            # ``averaging`` records what actually ran, not what was
-            # requested: multi-config MCDHF is inherently Guerra-CI;
-            # slater/gu default-ci fell back to statistical (see the
-            # gate above). The HF shooting route preserves the requested
-            # statistical/equal/fractional weighting. The closed-shell ci collapse
-            # keeps "ci" — for a single CSF the Guerra ci weights ARE
-            # the statistical weights, so "ci" was delivered exactly.
-            averaging_ran = self.averaging
-            if self._multi_config:
-                averaging_ran = "ci"
-            elif self.exchange_model in ("slater", "gu"):
-                if self.averaging == "ci":
-                    averaging_ran = "statistical"
+            averaging_ran = "ci" if self._multi_config else self.averaging
             provenance = {"engine": self.engine,
                           "exchange": self.exchange_model,
                           "averaging": averaging_ran}
@@ -1143,16 +1191,38 @@ class Atom:
                     "screening": self.screening_model,
                 }
             self._result.provenance = provenance
+            spec = getattr(self._result, 'calculation_spec', None)
+            if spec is not None:
+                from dataclasses import replace
+                method = ('correlated_ci' if self._multi_config else
+                          'local_potential' if self.exchange_model != 'hf' else
+                          'fractional_occupation' if self.averaging == 'fractional' else
+                          'hamiltonian' if self.averaging == 'hamiltonian' else
+                          'configuration_average')
+                weights = ('variational_ci' if self._multi_config else
+                           'hamiltonian_eigenvectors' if self.averaging == 'hamiltonian' else
+                           'equal' if self.averaging == 'equal' else
+                           'products_of_means' if self.averaging == 'fractional' else
+                           'integer_configuration_degeneracy')
+                self._result.calculation_spec = replace(spec, state={
+                    **spec.state, 'averaging': dict(selection=averaging_ran,
+                        method=method, weights=weights)})
 
         return self
 
-    def _solve_method(self, method, tol, max_iter, log=None):
+    def _solve_method(self, method, tol, max_iter, log=None, *, orbital_tolerance=None):
         """Dispatch to a theory-level method object."""
         from atomx.methods.dirac_fock import DiracFock
-        from atomx.methods.hartree_fock import HartreeFock
+        from atomx.methods.hartree_fock_slater import HartreeFockSlater
         from atomx.methods.hydrogenic import HydrogenicDirac, HydrogenicSchrodinger
         from atomx.methods.mcdhf import MCDHF
         from atomx.methods.breit_pauli import BreitPauli
+
+        if orbital_tolerance is not None and not isinstance(method, DiracFock):
+            raise ValueError('orbital_tolerance is an L2 DF update threshold; '
+                             f'unsupported by {type(method).__name__}')
+        orbital_controls = {} if orbital_tolerance is None else dict(
+            orbital_tolerance=orbital_tolerance)
 
         # Set up logging
         calc_log = None
@@ -1172,7 +1242,7 @@ class Atom:
             )
 
         # Parse configuration into subshells
-        from atomx.methods.mcdhf.config import _parse_config_string
+        from atomx.config.csf import _parse_config_string
         config_str = self._config_strings[0]
         subshells_raw = _parse_config_string(config_str)
 
@@ -1180,7 +1250,7 @@ class Atom:
             return method.solve(self.Z, subshells_raw,
                                 tol=tol, max_iter=max_iter)
 
-        if isinstance(method, (HartreeFock, BreitPauli)):
+        if isinstance(method, (HartreeFockSlater, BreitPauli)):
             return method.solve(self.Z, subshells_raw,
                                 tol=tol, max_iter=max_iter,
                                 n_grid=self._shooting_n_grid(1000),
@@ -1204,7 +1274,7 @@ class Atom:
                 ns=self.ns, use_physics_grid=self._use_physics_grid,
                 screening_potential=self._screening_shift(),
                 r_max=self.r_max, grid_hi=self.grid_hi,
-                grid_he=self.grid_he, grid_hmax=self.grid_hmax)
+                grid_he=self.grid_he, grid_hmax=self.grid_hmax, **orbital_controls)
             if calc_log:
                 calc_log.converged(result)
                 calc_log.close()
@@ -1267,7 +1337,7 @@ class Atom:
         --------
         >>> Atom(10, config="1s2 2s2 2p6").resolved_inputs
         'Z=10 charge=0 fermi | 1s2 2s2 2p6 | engine=shooting exchange=hf
-        averaging=ci | breit=on qed=on(auto) | radial=shooting(n_grid=1000)
+        averaging=hamiltonian | breit=on qed=on(auto) | radial=shooting(n_grid=1000)
         r_max=auto'
         """
         if len(self._config_strings) == 1:
@@ -1283,9 +1353,16 @@ class Atom:
         if self.engine == "shooting":
             # Shooting integrates on its own adaptive grid; the B-spline
             # node count/order below would be noise.
-            n_grid = self._shooting_n_grid(
-                1000 if self.exchange_model == "hf" else 400)
-            radial = f"radial=shooting(n_grid={n_grid})"
+            if self._multi_config:
+                from atomx.numerics.shooting.electron_space import ShootingSpace
+                space = self.shooting_space or ShootingSpace()
+                n_grid = self._n_grid if self._n_grid is not None else space.n_grid
+                radial = (f"radial=shooting(n_grid={n_grid}, "
+                          f"continuum_roots={space.continuum_roots})")
+            else:
+                n_grid = self._shooting_n_grid(
+                    1000 if self.exchange_model == "hf" else 400)
+                radial = f"radial=shooting(n_grid={n_grid})"
         else:
             # ``self.ns`` is only the nominal 113 when the DBSR_HF physics
             # grid is in charge; the real node count comes out of
@@ -1324,15 +1401,10 @@ class Atom:
         return " | ".join(parts)
 
     @property
-    def _mcdhf_result(self):
-        """Back-compat alias: returns ``self._result`` when it is an
-        :class:`MCDHFResult`, ``None`` otherwise.
-
-        Existing internal callers (transitions, plasma, scattering) still
-        read ``atom._mcdhf_result``; this alias preserves that contract
-        without forcing every caller to import the MCDHF type."""
-        from atomx.methods.mcdhf.solver import MCDHFResult
-        return self._result if isinstance(self._result, MCDHFResult) else None
+    def _csf_result(self):
+        """State-resolved DF/MCDHF result, or None for a configuration average."""
+        from atomx.methods.csf.solver import VariationalCSFResult
+        return self._result if isinstance(self._result, VariationalCSFResult) else None
 
     @property
     def _bsp_data(self):
@@ -1625,8 +1697,8 @@ class Atom:
         r_eval = np.asarray(r, dtype=float) if interpolate else native_grid
         rho = np.zeros_like(r_eval, dtype=float)
 
-        if self._mcdhf_result is not None:
-            keys, density = self._mcdhf_result.one_body_density_matrix()
+        if self._csf_result is not None:
+            keys, density = self._csf_result.one_body_density_matrix()
             sampled = {(orb.n, orb.kappa): orb for orb in w.orbitals.values()}
             p, q = [], []
             for key in keys:
@@ -1901,7 +1973,7 @@ class Atom:
                     print(f"    {key:8s}: {ec[key]:12.2e} Ha"  # noqa: T201
                           f" ({ec[key]*HARTREE_CM1:10.1f} cm-1)")
 
-        if self._multi_config and self._mcdhf_result:
+        if self._multi_config and self._csf_result:
             print("\n  CI States:")  # noqa: T201
             for i, E in enumerate(self.state_energies):
                 de = (E - self.state_energies[0]) * HARTREE_CM1

@@ -2,7 +2,7 @@
 
 The native relativistic solvers (``SCFResult``, ``MCDHFResult``,
 ``ShootingResult``) already satisfy
-:class:`~atomx.scattering.protocols.AtomicResultLike`.  This adapter wraps
+:class:`~atomx.state_protocols.AtomicResultLike`.  This adapter wraps
 one of them into an :class:`ElectronicStructurePayload`, so the existing
 atomx path becomes the *reference provider* and every current benchmark
 keeps guarding regressions throughout the epic.

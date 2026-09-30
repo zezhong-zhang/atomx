@@ -64,7 +64,7 @@ def test_read_tra_li_like_fe():
     assert t["upper"] == 1 and t["lower"] == 0
     assert t["twoj_upper"] == 1 and t["twoj_lower"] == 1
     np.testing.assert_allclose(t["DELTA_E_eV"], 48.71707, rtol=1e-6)
-    np.testing.assert_allclose(t["gA_per_s"], 1.808914e9, rtol=1e-6)
+    np.testing.assert_allclose(t["A_per_s"], 1.808914e9, rtol=1e-6)
     # FAC's TR file is "GAUGE = 2" → length / Babushkin by default.
     assert t["gauge"] == "length"
 
@@ -100,7 +100,7 @@ def test_read_tra_he_plus():
     for r in rows:
         assert r["lower"] == 0
     # 2p → 1s in He+ is in the ~10^9 / s range per fine-structure component.
-    total_A = sum(r["gA_per_s"] / (r["twoj_upper"] + 1) for r in rows)
+    total_A = sum(r["A_per_s"] for r in rows)
     assert 1e9 < total_A < 1e11
 
 
@@ -147,11 +147,10 @@ def test_tr_roundtrip_li(li_like_atom, tmp_path):
     assert rows, "expected at least one E1 transition for Li"
     # Recompute reference in-process.
     ref = atom.transitions(multipoles=["E1"])
-    ref_gA = sorted(t.A_rate_per_s for t in ref if t.A_rate_per_s > 0)
-    # The writer emits g*A and the reader returns g*A; convert back to A
-    # using twoj_upper for direct comparison with TransitionResult.A.
-    back_A = sorted(r["gA_per_s"] / (r["twoj_upper"] + 1) for r in rows)
-    np.testing.assert_allclose(back_A, ref_gA, rtol=1e-6)
+    ref_A = sorted(t.A_rate_per_s for t in ref if t.A_rate_per_s > 0)
+    # FAC prints A directly, with no statistical-weight conversion.
+    back_A = sorted(r["A_per_s"] for r in rows)
+    np.testing.assert_allclose(back_A, ref_A, rtol=1e-6)
 
 
 @pytest.fixture(scope="module")
@@ -191,7 +190,7 @@ def test_fe17_lev_tr_roundtrip_1e6(fe17_atom, tmp_path):
     rel = np.abs(back_E - ref_E) / np.maximum(np.abs(back_E), 1.0)
     assert np.max(rel) < 1e-6, f"LEV max rel err {np.max(rel):.2e}"
 
-    # TR round-trip — compare sorted gA arrays.
+    # TR round-trip — compare sorted A arrays.
     rows_tr = read_tra(tr_path)
     ref_trs = atom.transitions(multipoles=["E1"])
     assert len(rows_tr) == len(ref_trs)

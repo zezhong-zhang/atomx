@@ -8,6 +8,7 @@ of what physics each correction adds.
 from __future__ import annotations
 
 import contextlib
+from numbers import Real
 
 from atomx.constants import HARTREE_CM1, HARTREE_EV
 from atomx.types import EnergyUnit, RelativisticCorrection, TheoryLevel
@@ -28,7 +29,7 @@ def compare(*results, unit: EnergyUnit = EnergyUnit.HARTREE):
 
     Example
     -------
-    >>> r1 = atom.solve(HartreeFock())
+    >>> r1 = atom.solve(HartreeFockSlater())
     >>> r2 = atom.solve(DiracFock())
     >>> compare(r1, r2)
     """
@@ -101,10 +102,10 @@ def compare(*results, unit: EnergyUnit = EnergyUnit.HARTREE):
             print(row)  # noqa: T201
 
     # Energy breakdown
-    all_keys = set()
-    for r in results:
-        bd = _get_breakdown(r)
-        all_keys.update(bd.keys())
+    breakdowns = [{key: value for key, value in _get_breakdown(r).items()
+                   if not key.startswith('_') and isinstance(value, Real)
+                   and not isinstance(value, bool)} for r in results]
+    all_keys = set().union(*(bd.keys() for bd in breakdowns))
     correction_keys = [k for k in sorted(all_keys)
                        if k not in ("E_1e", "E_total", "E_QED_total")]
 
@@ -113,13 +114,8 @@ def compare(*results, unit: EnergyUnit = EnergyUnit.HARTREE):
         print(f"{'Energy breakdown (' + unit_str + ')':>25s}")  # noqa: T201
         for key in correction_keys:
             row = f"  {key:>23s}"
-            for r in results:
-                bd = _get_breakdown(r)
+            for bd in breakdowns:
                 val = bd.get(key)
-                # breakdowns can carry string provenance (e.g. the QED
-                # se_method backend name) — only numbers are rows
-                if isinstance(val, str):
-                    val = None
                 if val is not None and abs(val) > 1e-15:
                     row += f"  {val * conv:>{col_w}.6f}"
                 else:
@@ -136,7 +132,7 @@ def theory_ladder(Z: int, config: str = None) -> list:
 
     Automatically selects methods appropriate for the given Z:
     - Z=1: HydrogenicSchrodinger, HydrogenicDirac
-    - Z>1: HartreeFock, BreitPauli(scalar),
+    - Z>1: HartreeFockSlater, BreitPauli(scalar),
             BreitPauli(all), DiracFock
     - Z>=20: adds DiracFock(breit=True)
     - Z>=36: adds DiracFock(breit=True, qed=True)
@@ -157,7 +153,7 @@ def theory_ladder(Z: int, config: str = None) -> list:
     from atomx.methods import (
         BreitPauli,
         DiracFock,
-        HartreeFock,
+        HartreeFockSlater,
         HydrogenicDirac,
         HydrogenicSchrodinger,
     )
@@ -171,7 +167,7 @@ def theory_ladder(Z: int, config: str = None) -> list:
     else:
         # Non-relativistic HF
         with contextlib.suppress(Exception):
-            results.append(atom.solve(HartreeFock()))
+            results.append(atom.solve(HartreeFockSlater()))
 
         # Scalar relativistic corrections
         with contextlib.suppress(Exception):

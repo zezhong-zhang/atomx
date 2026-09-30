@@ -108,7 +108,8 @@ def resolved_solver_spec(solver, *, method, engine, controls):
         'use_physics_grid', 'kinetic_balance', 'constraint_mode', 'orbital_preconditioner')
         if hasattr(solver, name)}
     if engine == 'shooting' and hasattr(solver, 'shooting_space'):
-        numerics['electron_space'] = solver.shooting_space
+        if solver.shooting_space is not None:
+            numerics['electron_space'] = solver.shooting_space
         for unused in ('ns', 'ks', 'r_min', 'use_physics_grid', 'grid_hi', 'grid_he', 'grid_hmax'):
             numerics.pop(unused, None)
     if engine == 'bspline' and getattr(solver, 'bsp_data', None):

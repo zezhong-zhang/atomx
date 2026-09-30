@@ -6,8 +6,8 @@ import numpy as np
 import pytest
 
 from atomx import Atom
-from atomx.methods.mcdhf import exact_ci
-from atomx.methods.mcdhf.config import enumerate_jj_csfs
+from atomx.angular import csf_hamiltonian as exact_ci
+from atomx.config.csf import enumerate_jj_csfs
 
 
 def test_rank_deficient_diis_trial_keeps_valid_orbitals(monkeypatch):
@@ -85,7 +85,7 @@ def test_projected_operator_matches_dense_without_dense_hamiltonian():
 
 def test_ci_low_states_honor_solver_in_every_symmetry_block(monkeypatch):
     from atomx.methods import ci
-    from atomx.methods.mcdhf import matrix
+    from atomx.physics.csf import matrix
     rng = np.random.default_rng(38)
     h = np.zeros((60, 60))
     for start in (0, 30):
@@ -171,13 +171,13 @@ def test_one_electron_tensor_reduces_to_single_particle():
 
 
 def test_correlated_radial_gradient_matches_directional_derivative():
-    from atomx.methods.mcdhf.variational import CorrelatedOrbitalFunctional
+    from atomx.methods.csf.variational import CSFOrbitalFunctional
     from atomx.numerics.bspline.basis import prepare_bspline_data
     from atomx.numerics.bspline.dirac_assembly import solve_dirac
     from atomx.numerics.bspline.knots import make_knots
     data = prepare_bspline_data(make_knots(35, 9, 0.005, 30), 35, 9)
     csfs = sum([enumerate_jj_csfs(config) for config in ("1s2", "2s2", "2p2")], [])
-    functional = CorrelatedOrbitalFunctional(csfs, data, 4)
+    functional = CSFOrbitalFunctional(csfs, data, 4)
     orbitals = {}
     for kappa in functional.metric:
         result = solve_dirac(functional.one_body[kappa], functional.metric[kappa], 35, kappa)

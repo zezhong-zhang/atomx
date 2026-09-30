@@ -129,10 +129,13 @@ def test_eii_dw_diagnostic_mode_reports_skipped_waves(monkeypatch):
     assert {"kappa", "energy_eV", "r_max_a0", "shooting_n_grid"} <= failures[0].keys()
 
 
-def test_eii_dw_uses_shooting_mesh_from_continuum_model():
+@pytest.mark.parametrize("radius", [35., 100.])
+def test_eii_dw_uses_shooting_mesh_from_continuum_model(radius):
     atom = Atom(Z=2, config="1s1", engine="bspline", corrections="none")
     atom.solve()
-    model = ContinuumModel.shooting(n_grid=700, r_max=35.0)
+    knots = atom._result._bsp_data["t"].copy()
+    orbital_energy = dict(atom.orbital_energies)
+    model = ContinuumModel.shooting(n_grid=700, r_max=radius)
     out = eii_cross_section(
         atom._result,
         np.array([100.0]),
@@ -140,10 +143,17 @@ def test_eii_dw_uses_shooting_mesh_from_continuum_model():
         kappa_max=2,
         n_outgoing_energies=3,
         continuum_model=model,
+        radial_refinement=2,
     )
     orb_info = next(iter(out.provenance["per_orbital"].values()))
     assert orb_info["shooting_n_grid"] == 700
-    assert orb_info["shooting_r_max_a0"] == 35.0
+    assert orb_info["shooting_r_max_a0"] == radius
+    assert orb_info["bound_r_max_a0"] == knots[-1]
+    np.testing.assert_array_equal(atom._result._bsp_data["t"], knots)
+    assert atom.orbital_energies == orbital_energy
+    assert orb_info["radial_refinement"] == 2
+    assert out.provenance["collision_operator"] == "instantaneous_coulomb"
+    assert out.provenance["transverse_exchange"] is False
     assert out.sigma_total_cm2[0] > 0.0
 
 

@@ -18,11 +18,15 @@ from functools import lru_cache
 
 import numpy as np
 
-from atomx.angular.coefficients import cg, ckm
+from atomx.numerics.radial_metric import RadialMetric
+
+from atomx.angular.coefficients import coupled_coulomb_direct, coupled_coulomb_exchange
 from atomx.angular.csf import csf_parity, csf_twice_j, one_body_csf_coupling
 from atomx.constants import BOHR_RADIUS_M, C_SQ, HARTREE_EV
-from atomx.methods.mcdhf.config import CSF
-from atomx.numerics.bspline.evaluate import compute_yk, eval_P, eval_Q
+from atomx.potentials.static_field import static_hartree_potential
+from atomx.numerics.extrapolation import geometric_tail_estimate
+from atomx.config.csf import CSF
+from atomx.numerics.bspline.evaluate import eval_P, eval_Q
 from atomx.numerics.quadrature import (  # canonical kernels (E5)
     grid_slater_rk,
     make_fine_grid,
@@ -57,95 +61,6 @@ def _allowed_k(kappa_a, kappa_b):
     kmin = abs(tja - tjb) // 2
     kmax = (tja + tjb) // 2
     return [k for k in range(kmin, kmax + 1) if (k + la + lb) % 2 == 0]
-
-
-# The m-resolved angular coefficient and Clebsch-Gordan helper live in the
-# angular layer (single implementation, shared with the CI matrix elements in
-# atomx.methods.mcdhf.matrix); these aliases keep the local call sites and the
-# ``_ck_m`` / ``_cg2`` names used by atomx.scattering.autoionization.mscheme_ci.
-_cg2 = cg
-_ck_m = ckm
-
-
-@lru_cache(maxsize=None)
-def _cc_direct(kappa_c, kappa_d, kappa_a, kappa_b, tJ, k):
-    """<(c d) J | C^k(1)·C^k(2) | (a b) J> by explicit m-summation.
-
-    Slot pairing (c<-a, d<-b): the direct channel of the scattering
-    matrix element (a=target_i, b=projectile_in, c=target_f,
-    d=projectile_out).  Radial factor excluded.
-    """
-    tja, tjb = _tj_of(kappa_a), _tj_of(kappa_b)
-    tjc, tjd = _tj_of(kappa_c), _tj_of(kappa_d)
-    tM = min(tJ, tja + tjb, tjc + tjd)
-    tot = 0.0
-    for tma in range(-tja, tja + 1, 2):
-        tmb = tM - tma
-        if abs(tmb) > tjb:
-            continue
-        c1 = _cg2(tja, tma, tjb, tmb, tJ, tM)
-        if abs(c1) < 1e-15:
-            continue
-        for tmc in range(-tjc, tjc + 1, 2):
-            tmd = tM - tmc
-            if abs(tmd) > tjd:
-                continue
-            c2 = _cg2(tjc, tmc, tjd, tmd, tJ, tM)
-            if abs(c2) < 1e-15:
-                continue
-            tq = tmc - tma
-            if abs(tq) > 2 * k:
-                continue
-            e1 = _ck_m(kappa_c, tmc, kappa_a, tma, k, tq)
-            if e1 == 0.0:
-                continue
-            e2 = _ck_m(kappa_d, tmd, kappa_b, tmb, k, -tq)
-            if e2 == 0.0:
-                continue
-            phase = 1.0 if (tq // 2) % 2 == 0 else -1.0
-            tot += c1 * c2 * phase * e1 * e2
-    return tot
-
-
-@lru_cache(maxsize=None)
-def _cc_exchange(kappa_c, kappa_d, kappa_a, kappa_b, tJ, t):
-    """Exchange coupled matrix element by explicit m-summation.
-
-    Same bra/ket couplings as :func:`_cc_direct` but with the one-electron
-    operators pairing (d<-a, c<-b) — the antisymmetrization term
-    <(c d) J | C^t·C^t | (a b) J>_exch.  The antisymmetrized amplitude is
-    ``T_J = D_J - E_J`` (radial factors excluded here).
-    """
-    tja, tjb = _tj_of(kappa_a), _tj_of(kappa_b)
-    tjc, tjd = _tj_of(kappa_c), _tj_of(kappa_d)
-    tM = min(tJ, tja + tjb, tjc + tjd)
-    tot = 0.0
-    for tma in range(-tja, tja + 1, 2):
-        tmb = tM - tma
-        if abs(tmb) > tjb:
-            continue
-        c1 = _cg2(tja, tma, tjb, tmb, tJ, tM)
-        if abs(c1) < 1e-15:
-            continue
-        for tmc in range(-tjc, tjc + 1, 2):
-            tmd = tM - tmc
-            if abs(tmd) > tjd:
-                continue
-            c2 = _cg2(tjc, tmc, tjd, tmd, tJ, tM)
-            if abs(c2) < 1e-15:
-                continue
-            tq = tmd - tma  # slot 1 transfers a -> d
-            if abs(tq) > 2 * t:
-                continue
-            e1 = _ck_m(kappa_d, tmd, kappa_a, tma, t, tq)
-            if e1 == 0.0:
-                continue
-            e2 = _ck_m(kappa_c, tmc, kappa_b, tmb, t, -tq)
-            if e2 == 0.0:
-                continue
-            phase = 1.0 if (tq // 2) % 2 == 0 else -1.0
-            tot += c1 * c2 * phase * e1 * e2
-    return tot
 
 
 def _dominant_csf(result):
@@ -218,55 +133,6 @@ def _target_transition_population(csf_i, csf_f, k, kappa_i, kappa_f):
 PI_A0_SQ_CM2 = np.pi * (BOHR_RADIUS_M * 100) ** 2
 
 
-def _distorting_potential_fn(result, bsp_data, Z, screening="fac"):
-    """Local distorting potential of the target for the projectile electron.
-
-    ``screening="fac"`` (default) reproduces FAC's convention: the continuum
-    electron moves in the same mean central potential as the bound electrons,
-    V(r) = -Z/r + ((N-1)/N)·V_Hartree(r), asymptotic charge Z-N+1.  For a
-    one-electron target this is the bare -Z/r, exactly as FAC.
-    ``screening="full"`` uses the full N-electron Hartree potential
-    (asymptotic charge Z-N).
-    """
-    gr = bsp_data["gr"]
-    grw = bsp_data["grw"]
-    nv = bsp_data["nv"]
-    ng = gr.shape[1]
-    rho = np.zeros_like(gr)
-    n_bound = 0.0
-    # orbitals_raw: kappa -> [(P, Q, occ), ...]
-    for _kappa, orb_list in result.orbitals_raw.items():
-        for P, Q, occ in orb_list:
-            if occ <= 0.0:
-                continue
-            Pg = eval_P(P, bsp_data)
-            Qg = eval_Q(Q, bsp_data)
-            rho += float(occ) * (Pg * Pg + Qg * Qg)
-            n_bound += float(occ)
-    scale = 1.0
-    if screening == "fac" and n_bound > 0.0:
-        scale = (n_bound - 1.0) / n_bound
-    V_H = compute_yk(rho, gr, grw, nv, ng, 0)  # Hartree Y^0(r) potential
-    V_gr = -float(Z) / np.maximum(gr, 1e-30) + scale * V_H
-    r_flat = gr.ravel()
-    order = np.argsort(r_flat)
-    r_sorted = r_flat[order]
-    V_sorted = V_gr.ravel()[order]
-    # Coulombic extrapolation beyond the B-spline box: V -> -Z_asym/r.
-    r_last = float(r_sorted[-1])
-    z_asym = -float(V_sorted[-1]) * r_last
-
-    def V_func(r_query):
-        r_query = np.asarray(r_query, dtype=float)
-        v = np.interp(r_query, r_sorted, V_sorted)
-        beyond = r_query > r_last
-        if np.any(beyond):
-            v = np.where(beyond, -z_asym / np.maximum(r_query, 1e-30), v)
-        return v
-
-    return V_func
-
-
 def _shooting_points(r_max, p_max, *, max_points=300000):
     """Shooting-solver grid size for <1% amplitude accuracy: h·p <= 0.1."""
     if not (math.isfinite(float(r_max)) and float(r_max) > 0.0):
@@ -286,68 +152,14 @@ def _shooting_points(r_max, p_max, *, max_points=300000):
     return required
 
 
-_TAIL_RATIO_CAP = 0.85
-
-
-def _geometric_tail_estimate(prof_l, l_last):
-    """Geometric-ratio estimate of the l > l_last partial-wave tail.
-
-    FAC's TopUpQk scheme: tail = q(l_last) * r / (1 - r) with
-    r = q(l_last)/q(l_last - 1).  Returns ``(tail, converged)``.
-
-    When the profile has not yet entered its geometric decay (r >= 0.85,
-    including a still-rising profile at ``l_last``, where the raw formula
-    diverges) the ratio is capped at 0.85, which keeps ``tail`` a finite
-    floor (<= 5.7 q_last) instead of a blow-up, and ``converged`` is False:
-    the value is a *floor* on the missing tail, not a measurement.  Callers
-    that blend toward a high-energy limit must read the flag — returning
-    exactly 0.0 there makes the Born completion read "no tail" and never
-    engage (review C6, 2026-09-19).  Callers needing better accuracy should
-    raise kappa_max.
-    """
-    if l_last < 2:
-        return 0.0, True
-    q1 = float(prof_l[l_last])
-    q0 = float(prof_l[l_last - 1])
-    if not (math.isfinite(q1) and math.isfinite(q0)) or q1 <= 0.0 or q0 <= 0.0:
-        # No decay signal to extrapolate from (zero or non-finite top of the
-        # profile): there is nothing to add, and nothing to flag.
-        return 0.0, True
-    ratio = q1 / q0
-    if ratio >= _TAIL_RATIO_CAP:
-        return q1 * _TAIL_RATIO_CAP / (1.0 - _TAIL_RATIO_CAP), False
-    return q1 * ratio / (1.0 - ratio), True
-
-
-def _geometric_tail(prof_l, l_last):
-    """Tail value only, historical contract: 0.0 while the profile is rising.
-
-    The EII integrator *adds* this value to its partial-wave sum, so it keeps
-    the conservative pre-C6 behaviour exactly (0.0 when no decay ratio is
-    available at ``l_last``); both functions return the same number whenever
-    the profile has begun to decay.  Callers that blend toward a high-energy
-    limit — where a still-rising profile means an unresolved truncation, not
-    "no tail" — must use :func:`_geometric_tail_estimate` and read its flag.
-    """
-    if l_last < 2:
-        return 0.0
-    q1 = float(prof_l[l_last])
-    q0 = float(prof_l[l_last - 1])
-    if q0 <= 0.0 or q1 <= 0.0 or q1 >= q0:
-        return 0.0
-    return _geometric_tail_estimate(prof_l, l_last)[0]
-
-
 def _continuum_on_grid(kappa, energy, V_func, Z_res, r_grid, r_max, n_grid):
     """δ(E)-normalized shooting continuum (P, Q) sampled on ``r_grid``."""
     r_s, P_s, Q_s, _phase = solve_dirac_continuum_shooting(
         float(energy), int(kappa), V_func,
         r_max=r_max, n_grid=int(n_grid), Z_residual=float(Z_res),
-        match_phase=False,
+        match_phase=False, interp_grid=r_grid,
     )
-    P_g = np.interp(r_grid, r_s, P_s)
-    Q_g = np.interp(r_grid, r_s, Q_s)
-    return P_g, Q_g
+    return P_s, Q_s
 
 
 def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
@@ -356,7 +168,7 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
                                  continuum_method="shooting",
                                  shooting_n_grid=None,
                                  exchange=True,
-                                 topup=True):
+                                 topup=True, radial_refinement=1):
     """Electron-impact excitation cross-section sigma(E) and collision strength.
 
     Relativistic distorted-wave implementation following FAC exactly
@@ -421,6 +233,10 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
         computed partial-wave sum so that w >= 1/sqrt(2) there instead of
         falling to 0.  Default True.
 
+    radial_refinement : int
+        Positive integer subdivision of the radial integration mesh,
+        independent of shooting_n_grid (default 1).
+
     Returns
     -------
     sigma : ndarray
@@ -471,25 +287,26 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
     # shooting continuum solver.
     N_bound = sum(float(sh.occupation) for sh in result_i.subshells)
     Z_res = max(float(Z) - N_bound + 1.0, 1.0)
-    V_func = _distorting_potential_fn(result_i, bsp_data, Z, screening="fac")
+    V_func = static_hartree_potential(result_i, screening="mean")
     r_max_box = float(bsp_data["t"][-1])
 
     # Fine integration grid sized to the fastest wave on the panel.
     E_max = float(np.max(E_inc_hartree))
     p_max = p_rel(max(E_max, 1.0))
-    r_fine = make_fine_grid(r_max_box, p_max, z_inner=float(Z))
-    dr_fine = np.gradient(r_fine)
+    r_fine = make_fine_grid(r_max_box, p_max, z_inner=float(Z),
+                            refinement=radial_refinement)
+    dr_fine = RadialMetric.trapezoid(r_fine).weights
     n_shoot = (int(shooting_n_grid) if shooting_n_grid
                else _shooting_points(r_max_box, p_max))
 
-    # Bound orbitals interpolated onto the fine grid (smooth: safe).
+    # Evaluate each native expansion on its own box. Distinct initial/final
+    # boxes are allowed; a box-confined orbital is zero outside its domain.
     def _bound_to_fine(coef_P, coef_Q, src_bsp):
-        source_r = src_bsp["gr"].ravel()
-        order = np.argsort(source_r)
-        Pg = eval_P(coef_P, src_bsp).ravel()[order]
-        Qg = eval_Q(coef_Q, src_bsp).ravel()[order]
-        return (np.interp(r_fine, source_r[order], Pg, left=0.0, right=0.0),
-                np.interp(r_fine, source_r[order], Qg, left=0.0, right=0.0))
+        inside = (r_fine >= src_bsp['t'][0]) & (r_fine <= src_bsp['t'][-1])
+        p, q = np.zeros_like(r_fine), np.zeros_like(r_fine)
+        p[inside] = eval_P(coef_P, src_bsp, r_fine[inside])
+        q[inside] = eval_Q(coef_Q, src_bsp, r_fine[inside])
+        return p, q
 
     bsp_f = atom_final._bsp_data
     pair_data = []
@@ -636,20 +453,20 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
                         r_fine, t) for t in ts}
                     # Explicit total-J sum: T_J = D_J - E_J with the coupled
                     # scalar-product matrix elements evaluated by exact
-                    # m-summation (no 6j phase-convention risk).
+                    # Racah recoupling in the shared angular convention.
                     tJ_lo = max(abs(tja - tj_in), abs(tjb - tj_out))
                     tJ_hi = min(tja + tj_in, tjb + tj_out)
                     acc = 0.0
                     for tJ in range(tJ_lo, tJ_hi + 1, 2):
                         D = 0.0
                         for k in ks:
-                            ang = _cc_direct(kb, kappa_out, ka, kappa_in,
+                            ang = coupled_coulomb_direct(kb, kappa_out, ka, kappa_in,
                                              tJ, k)
                             if ang != 0.0:
                                 D += Rd[k] * ang
                         E_ = 0.0
                         for t in ts:
-                            ang = _cc_exchange(kb, kappa_out, ka, kappa_in,
+                            ang = coupled_coulomb_exchange(kb, kappa_out, ka, kappa_in,
                                                tJ, t)
                             if ang != 0.0:
                                 E_ += Re[t] * ang
@@ -659,7 +476,7 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
                     prof_l[l_in] += pop * acc
 
         om_partial = float(np.sum(prof_l))
-        tail, tail_converged = (_geometric_tail_estimate(prof_l, kappa_max)
+        tail, tail_converged = (geometric_tail_estimate(prof_l, kappa_max)
                                 if topup else (0.0, True))
         if not tail_converged:
             # The profile had not decayed at kappa_max, so the geometric

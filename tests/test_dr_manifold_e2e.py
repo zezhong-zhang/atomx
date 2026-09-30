@@ -1,186 +1,121 @@
-"""Ab-initio DR end-to-end from determinant-CI manifolds vs FAC (Fe XVII).
+"""Matched Fe dr33 frozen-CI calculation: native orbitals, continua and photons.
 
-Builds every 2p- and 2s-hole dr33 resonance manifold (2s2 2p5 3l3l' and
-2s1 2p6 3l3l') with :class:`ResonanceManifold.dr_levels` — ab-initio
-resonance energies, Auger widths, and E1 stabilizing widths — and runs
-the Burgess kernel.  The reference is FAC's AITable+TRTable restricted to
-the same dr33 configuration set (tests/data/fe17_dr_fac.json).
-
-History: the old ``dr_calculate`` end-to-end path overshot FAC by
-~10^3-10^4 (hydrogenic width placeholders).  2026-07-15: the A_r audit
-against a clean-room FAC TRTable found the E1 stabilizing widths a
-uniform ~3.3x low — ``_radiative_width`` took the final-state energy
-from the determinant diagonal <f|H|f>, which is only consistent on the
-resonance sector (omega came out 450-550 eV where the physical Fe
-3l -> 2p energies are 700-900 eV).  With the physical decomposition
-omega = E_res + binding(spectator), per-level A_r sits at 1.09-1.27 of
-FAC and alpha_DR(T >= 5 MK) agrees to <= 17% against the complete
-clean-room reference (fe17_dr33_fac_cleanroom.json: SetSE/VP/MS/Breit
-off, AICut 0, both 2p- and 2s-hole manifolds, single-threaded sfac).
-Remaining low-T deficit (0.49 at 1 MK) is the documented ~+40 eV
-frozen-orbital E_res offset entering exp(-E/kT).
+The independent FAC reference has the same separate hole/parity CI spaces,
+point nucleus, infinite mass and corrections disabled. Both codes optimize
+local ground potentials independently. Aggregate gates are centered on FAC,
+not on historical Atomx biases; individual weak widths remain model-sensitive.
 """
-
 from __future__ import annotations
 
 import json
-import sys
+from collections import Counter
 from pathlib import Path
 
 import numpy as np
 import pytest
 
-ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / "src"))
+from atomx import Atom, Basis, Sampling
+from atomx.constants import HARTREE_EV
+from atomx.scattering.autoionization import dr_calculate, dr_rate_coefficient
+from atomx.scattering.autoionization.auger import AutoionizationState
+from atomx.scattering.autoionization.mscheme_ci import manifold_from_configs
 
-from atomx import Atom  # noqa: E402
-from atomx.constants import HARTREE_EV  # noqa: E402
-
-FIXTURE = Path(__file__).parent / "data" / "fe17_dr_fac.json"
-FIXTURE_CLEAN = Path(__file__).parent / "data" / "fe17_dr33_fac_cleanroom.json"
-K_B = 8.617333262e-5
-T_MK = (1.0, 5.0, 10.0, 50.0)
+REFERENCE = json.loads((Path(__file__).parent/'data/fac_fe_dr33_matched.json').read_text())
+T_MK = np.array([1., 5., 10., 50.])
 
 
-@pytest.fixture(scope="module")
-def dr_states():
-    from atomx.methods.mbpt import build_virtual_basis
-    from atomx.numerics.bspline.evaluate import eval_P, eval_Q
-    from atomx.numerics.quadrature import make_fine_grid, p_rel
-    from atomx.scattering.autoionization.auger import AutoionizationState
-    from atomx.scattering.autoionization.mscheme_ci import ResonanceManifold
+def state(row):
+    return AutoionizationState(
+        label=str(row['ilev']), E_resonance_eV=row['energy_eV'],
+        J=row['two_J']/2, gamma_auger_per_s=row['auger_per_s'],
+        a_radiative_per_s=row['radiative_per_s'])
 
-    g = Atom(Z=26, charge=16, config=["1s2 2s2 2p6"], corrections="none")
-    g.solve()
-    res = g._result
-    bsp = getattr(res, "_bsp_data", None) or res.bsp_data
-    r_fine = make_fine_grid(float(bsp["t"][-1]), p_rel(500.0 / HARTREE_EV))
-    dr_fine = np.gradient(r_fine)
-    gr = bsp["gr"].ravel()
-    order = np.argsort(gr)
-    grs = gr[order]
 
-    def tofine(P, Q):
-        Pg = eval_P(P, bsp).ravel()[order]
-        Qg = eval_Q(Q, bsp).ravel()[order]
-        return np.interp(r_fine, grs, Pg), np.interp(r_fine, grs, Qg)
+@pytest.fixture(scope='module')
+def dr_atom():
+    atom = Atom(26, charge=16, config='1s2 2s2 2p6', engine='shooting',
+        exchange='gu', corrections='none', nuclear='point',
+        basis=Basis(sampling=Sampling(n_grid=4000)))
+    atom.solve(tol=1e-10, max_iter=150)
+    assert atom.converged
+    return atom
 
-    orbital_map = {}
-    orbital_eps = {}
-    for kappa, lab, idx in ((-1, "2s1/2", 1), (1, "2p1/2", 0), (-2, "2p3/2", 0)):
-        P, Q, _ = res.orbitals_raw[kappa][idx]
-        orbital_map[(2, kappa)] = tofine(P, Q)
-        orbital_eps[(2, kappa)] = float(res.orbital_energies[lab])
-    for kappa in (-1, 1, -2, 2, -3):
-        _occ, virt = build_virtual_basis(res, kappa)
-        P, Q, e = virt[0]
-        orbital_map[(3, kappa)] = tofine(P, Q)
-        orbital_eps[(3, kappa)] = float(e)
 
-    G3 = [([(3, -1)], 0), ([(3, 1), (3, -2)], 0), ([(3, 2), (3, -3)], 0)]
-
-    def make(hole_subs, hole_ne, confs):
-        return ResonanceManifold(
-            res, [(hole_subs, hole_ne)] + G3,
-            r_fine=r_fine, dr_fine=dr_fine, orbital_map=orbital_map,
-            orbital_energies=orbital_eps, configs=confs)
-
-    manifolds = [
-        make([(2, 1), (2, -2)], 5, [(5, 1, 1, 0), (5, 0, 1, 1)]),
-        make([(2, 1), (2, -2)], 5,
-             [(5, 1, 0, 1), (5, 0, 2, 0), (5, 0, 0, 2), (5, 2, 0, 0)]),
-        make([(2, -1)], 1,
-             [(1, 2, 0, 0), (1, 1, 0, 1), (1, 0, 2, 0), (1, 0, 0, 2)]),
-        make([(2, -1)], 1, [(1, 1, 1, 0), (1, 0, 1, 1)]),
-    ]
-    states = []
-    for M in manifolds:
-        e_ion = M.ion_energy()
-        for tM in range(1, 13, 2):
-            for L in M.dr_levels(tM, Z=26, bsp_data=bsp, e_ion=e_ion):
-                states.append(AutoionizationState(
-                    label=L.dominant[:48],
-                    E_resonance_eV=L.E_res_au * HARTREE_EV,
-                    J=tM / 2.0,
-                    gamma_auger_per_s=L.gamma_auger_per_s,
-                    a_radiative_per_s=L.a_radiative_per_s))
-    return states
+@pytest.fixture(scope='module')
+def dr_states(dr_atom):
+    atom = dr_atom
+    rows = []
+    for group, configs in REFERENCE['configs'].items():
+        manifold, workspace = manifold_from_configs(atom.result, configs)
+        tm = 1
+        while manifold.determinants(tm):
+            for level in manifold.dr_levels(tm, Z=26, bsp_data=workspace):
+                assert level.radiative_channels
+                assert all(c.photon_approximation == 'finite_wavelength'
+                           for c in level.radiative_channels)
+                assert level.a_radiative_per_s == sum(
+                    c.A_per_s for c in level.radiative_channels)
+                rows.append(dict(group=group, ilev=len(rows), two_J=tm,
+                    energy_eV=level.E_res_au*HARTREE_EV,
+                    auger_per_s=level.gamma_auger_per_s,
+                    radiative_per_s=level.a_radiative_per_s))
+            tm += 2
+    return rows
 
 
 @pytest.mark.external_fac
-def test_resonance_count_and_energy_window(dr_states):
-    # dr33 supports ~237 resonances; energies in the physical window.
-    assert 200 <= len(dr_states) <= 260
-    Es = [s.E_resonance_eV for s in dr_states]
-    assert 200.0 <= min(Es) <= 320.0
-    assert 450.0 <= max(Es) <= 750.0
+def test_public_driver_preserves_native_model_and_resolved_rates(dr_atom, dr_states, monkeypatch):
+    result = dr_atom._result
+    original = result._pa.copy()
+    def unexpected_solve(*args, **kwargs):
+        pytest.fail('DR must reuse the solved orbital model')
+    monkeypatch.setattr(dr_atom, 'solve', unexpected_solve)
+    temperatures = T_MK*1e6*8.617333262e-5
+    public = dr_calculate(dr_atom, '1s2 2s2 2p6 3s1', T_eV=temperatures)
+    expected = dr_rate_coefficient([state(r) for r in dr_states], temperatures,
+                                   initial_state_g=1.)
+    assert dr_atom._result is result
+    np.testing.assert_array_equal(result._pa, original)
+    assert len(public.resonances) == 237
+    assert len({r.label for r in public.resonances}) == 237
+    np.testing.assert_allclose(public.alpha_cm3_s, expected.alpha_cm3_s, rtol=2e-12)
+    np.testing.assert_allclose(sum(public.per_resonance.values()), public.alpha_cm3_s,
+                               rtol=1e-14)
+    assert all(r.channels == {'ground': r.gamma_auger_per_s} for r in public.resonances)
+
+
+def test_nonlocal_shooting_is_not_replaced_by_a_local_model():
+    from types import SimpleNamespace
+    result = SimpleNamespace(_grid=np.array([0., 1.]), _rv=None, _model='hf')
+    with pytest.raises(NotImplementedError, match='nonlocal shooting HF'):
+        manifold_from_configs(result, ['2p5 3s2'])
 
 
 @pytest.mark.external_fac
-def test_alpha_dr_vs_fac_dr33(dr_states):
-    """Burgess alpha_DR(T) against the COMPLETE clean-room FAC dr33 set.
-
-    Reference: fe17_dr33_fac_cleanroom.json (AICut 0, SetSE/VP/MS/Breit
-    off, both hole manifolds, E1 TR to 2s2 2p6 3l — apples-to-apples
-    with this pipeline).
-
-    Gates (reconciled 2026-09-17 with the measurement): each ratio must lie
-    within **±10 % of the measured value** — measured atomx/FAC =
-    0.487 / 0.983 / 1.079 / 1.164 at 1 / 5 / 10 / 50 MK, i.e. a worst
-    deviation of 16.4 % from FAC at T >= 5 MK (the "<= 17 %" in the module
-    docstring).  The previous bands reached 0.35-1.45, which could not have
-    caught a 40 % regression.  The 1-MK ratio is Boltzmann suppression from
-    the ~+40 eV frozen-orbital E_res offset, not a width error; its ±10 %
-    band (0.438-0.536) still tolerates that documented systematic.
-    """
-    from atomx.scattering.autoionization import dr_rate_coefficient
-    from atomx.scattering.autoionization.auger import AutoionizationState
-
-    fac = json.loads(FIXTURE_CLEAN.read_text())
-    fac_states = [AutoionizationState(
-        label=str(r["ilev"]), E_resonance_eV=r["E_resonance_eV"], J=r["J"],
-        gamma_auger_per_s=r["gamma_auger_per_s"],
-        a_radiative_per_s=r["a_radiative_per_s"])
-        for r in fac["resonances"]]
-    assert len(fac_states) > 200
-
-    T_eV = [T * 1.0e6 * K_B for T in T_MK]
-    rc = dr_rate_coefficient(dr_states, T_eV, initial_state_g=1.0)
-    rcf = dr_rate_coefficient(fac_states, T_eV, initial_state_g=1.0)
-    measured = {1.0: 0.487, 5.0: 0.983, 10.0: 1.079, 50.0: 1.164}
-    band = 0.10
-    for i, T in enumerate(T_MK):
-        ratio = float(rc.alpha_cm3_s[i]) / float(rcf.alpha_cm3_s[i])
-        centre = measured[T]
-        lo, hi = centre * (1.0 - band), centre * (1.0 + band)
-        assert lo <= ratio <= hi, (
-            f"T={T} MK: alpha ratio {ratio:.3f} outside [{lo:.3f}, {hi:.3f}] "
-            f"(measured {centre:.3f} ± {band:.0%})"
-        )
+def test_complete_symmetry_inventory_and_energies(dr_states):
+    reference = REFERENCE['resonances']
+    assert len(dr_states) == len(reference) == 237
+    inventory = lambda rows: Counter((r['group'], r['two_J']) for r in rows)
+    assert inventory(dr_states) == inventory(reference)
+    key = lambda r: (r['group'], r['two_J'], r['energy_eV'])
+    for actual, expected in zip(sorted(dr_states, key=key), sorted(reference, key=key), strict=True):
+        assert abs(actual['energy_eV']-expected['energy_eV']) < .5
 
 
 @pytest.mark.external_fac
-def test_total_radiative_width_vs_fac(dr_states):
-    """Sum of E1 stabilizing widths within ±10 % of the measured 1.24 of FAC.
-
-    Per-level A_r audited 2026-07-15: block sums 1.20-1.27, cleanest
-    single level 1.09; the excess is the +40 eV E_res offset in omega^3
-    plus V^{N-1}-vs-optimized-potential dipole differences.  Measured
-    2026-09-17: sum ratio 1.242; gate 1.242 ± 10 % = [1.118, 1.366]
-    (the previous [1.0, 1.45] could not catch a 25 % regression).
-    """
-    fac = json.loads(FIXTURE_CLEAN.read_text())
-    s_fac = sum(r["a_radiative_per_s"] for r in fac["resonances"])
-    s_ax = sum(s.a_radiative_per_s for s in dr_states)
-    ratio = s_ax / s_fac
-    assert 1.12 <= ratio <= 1.37, ratio
+def test_alpha_dr_vs_matched_fac(dr_states):
+    temperatures = T_MK*1e6*8.617333262e-5
+    calculated = dr_rate_coefficient([state(r) for r in dr_states], temperatures,
+                                     initial_state_g=1.)
+    reference = dr_rate_coefficient([state(r) for r in REFERENCE['resonances']],
+                                    temperatures, initial_state_g=1.)
+    np.testing.assert_allclose(calculated.alpha_cm3_s, reference.alpha_cm3_s, rtol=.02, atol=0)
 
 
 @pytest.mark.external_fac
-def test_widths_magnitudes(dr_states):
-    strongest = max(dr_states, key=lambda s: s.gamma_auger_per_s)
-    # Strong KLL-type Auger widths are a few 1e14 s^-1 in FAC.
-    assert 1.0e14 <= strongest.gamma_auger_per_s <= 1.0e15
-    ar = [s.a_radiative_per_s for s in dr_states if s.a_radiative_per_s > 0]
-    # Strong stabilizing widths are ~1e12-1e13 s^-1.
-    assert 5.0e11 <= max(ar) <= 5.0e13
+@pytest.mark.parametrize('field', ['auger_per_s', 'radiative_per_s'])
+def test_total_widths_vs_matched_fac(dr_states, field):
+    assert all(np.isfinite(row[field]) and row[field] >= 0 for row in dr_states)
+    calculated = sum(row[field] for row in dr_states)
+    reference = sum(row[field] for row in REFERENCE['resonances'])
+    assert calculated == pytest.approx(reference, rel=.02)

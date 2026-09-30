@@ -80,7 +80,7 @@ class TestApplyOnDHF:
             se_backend=None, include_vp=False, include_breit=True,
             breit_mode="operator")
         from atomx.corrections.adapters import BreitCorrectionError
-        from atomx.methods.mcdhf.breit_ci import attach_breit_operator_energy
+        from atomx.physics.csf.breit_ci import attach_breit_operator_energy
 
         with pytest.raises(BreitCorrectionError, match="absent"):
             gaunt_stack.apply(ne_result)

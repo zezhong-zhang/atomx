@@ -211,11 +211,8 @@ def _coarse_auger_rate(
             amplitude = 0.0
             if E_ha > 0.0:
                 if shooting_n_grid:
-                    from atomx.numerics.bspline.evaluate import (
-                        compute_yk,
-                        eval_P,
-                        eval_Q,
-                    )
+                    from atomx.numerics.yk import compute_yk
+                    from atomx.numerics.bspline.evaluate import eval_P, eval_Q
                     from atomx.numerics.shooting.dirac_continuum import (
                         solve_dirac_continuum_shooting,
                     )

@@ -438,6 +438,10 @@ class ShootingResult:
     #: solvers (scattering/DR orbital bases) can reuse the FAC-style
     #: optimized potential.  See :func:`atomx.numerics.shooting.local.dfs_frozen_orbital`.
     _rv: Optional[np.ndarray] = field(default=None, repr=False)
+    #: Actual r*(V_nucleus + V_environment) used by the orbital solver.
+    #: Preserve the sampled field: rebuilding it from a model name can use
+    #: different nuclear parameters or lose an external screening potential.
+    _rv_nuc: Optional[np.ndarray] = field(default=None, repr=False)
     _difr: Optional[np.ndarray] = field(default=None, repr=False)
     _pa: Optional[np.ndarray] = field(default=None, repr=False)
     _qa: Optional[np.ndarray] = field(default=None, repr=False)
@@ -451,6 +455,7 @@ class ShootingResult:
     #: Hartree-Fock solver (:mod:`atomx.numerics.shooting.hartree_fock`).
     _model: str = field(default="dfs", repr=False)
     solver_diagnostics: Dict = field(default_factory=dict)
+    radial_convergence: Dict = field(default_factory=dict)
     calculation_spec: object = None
 
     def save(self, path):

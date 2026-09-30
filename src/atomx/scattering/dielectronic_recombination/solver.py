@@ -359,146 +359,60 @@ def _build_mcdhf_result_for_dr(
 
 
 def _dr33_manifold_states(initial_atom) -> List[AutoionizationState]:
-    """Ab-initio dr33 resonance list from determinant-CI manifolds.
+    """Ne-like dr33 states from the shared native manifold constructor.
 
-    Builds every 2p- and 2s-hole ``3l3l'`` (dr33) resonance manifold of a
-    Ne-like recombining ion with
-    :class:`~atomx.scattering.autoionization.mscheme_ci.ResonanceManifold`
-    and returns one :class:`AutoionizationState` per CI level, carrying
-    the ab-initio resonance energy (``E_level − E_ion`` in the manifold's
-    frozen-orbital accounting), the exact determinant Auger width, and
-    the total E1 stabilizing width (``ResonanceManifold.dr_levels``).
-    The n=3 orbitals are frozen-core V^{N-1} eigenstates from
-    :func:`atomx.methods.mbpt.build_virtual_basis`. The one-body matrix
-    includes the exact bare Dirac operator and frozen-core direct/exchange
-    terms; active interactions are added once by determinant CI.
-
-    Verified against the complete clean-room FAC dr33 reference
-    (``tests/data/fe17_dr33_fac_cleanroom.json``; SetSE/VP/MS/Breit off,
-    AICut 0): α_DR ratios 1.090 / 1.007 / 0.995 / 0.984 at 1 / 5 / 10 / 50 MK
-    for Fe XVII — see ``tests/test_dr_vs_fac.py`` and
-    ``benchmarks/bench_fac_dr.py``.
-
-    Raises
-    ------
-    NotImplementedError
-        If the recombining ion is not a solved Ne-like ``1s2 2s2 2p6``
-        system — the only manifold topology implemented (and FAC-verified)
-        so far.
+    The result's local shooting potential or B-spline Fock basis determines
+    the virtual orbitals. No new SCF calculation or engine conversion occurs.
+    Hole/parity spaces remain separate, with coherent mixing within each.
+    Continuum sampling covers a bound on the spectrum of the actual CI
+    Hamiltonian, rather than assuming a fixed Fe electron energy at every Z.
     """
-    from atomx.constants import HARTREE_EV
-    from atomx.methods.mbpt import build_virtual_basis
-    from atomx.numerics.bspline.evaluate import eval_P, eval_Q
-    from atomx.numerics.quadrature import make_fine_grid, p_rel
-    from atomx.scattering.autoionization.mscheme_ci import (
-        ResonanceManifold,
-        build_bspline_core_folded_one_body,
-    )
+    from atomx.scattering.autoionization.mscheme_ci import manifold_from_configs
 
     unsupported = (
-        "dr_calculate without width hooks drives the ab-initio "
-        "determinant-CI manifold pipeline (ResonanceManifold.dr_levels), "
-        "which currently implements only Ne-like recombining ions "
-        "(core '1s2 2s2 2p6', dr33 3l3l' complex — e.g. Fe XVII) over a "
-        "solved MCDHF result. "
-    )
+        "The default DR manifold calculation supports solved Ne-like "
+        "'1s2 2s2 2p6' ions and the dr33 capture complex. ")
     try:
         core = _config_string(initial_atom)
     except TypeError:
         core = ""
     if sorted(core.split()) != ["1s2", "2p6", "2s2"]:
-        raise NotImplementedError(
-            unsupported
-            + f"Got core config {core!r}.  Pass explicit auger_rate_fn / "
-            "radiative_rate_fn hooks, or feed externally computed "
-            "AutoionizationState rows to dr_rate_coefficient."
-        )
-
+        raise NotImplementedError(unsupported + f"Got core config {core!r}.")
     result = solved_result(initial_atom)
-    bsp = None
-    if result is not None:
-        bsp = getattr(result, "_bsp_data", None) or getattr(result, "bsp_data", None)
-    if result is None or bsp is None or not getattr(result, "orbitals_raw", None):
-        raise NotImplementedError(
-            unsupported
-            + "The atom does not carry a solved MCDHF result with raw "
-            "B-spline orbitals (orbitals_raw / bsp_data); solve the "
-            "recombining ion first, e.g. "
-            "Atom(26, charge=16, config=['1s2 2s2 2p6']).solve()."
-        )
-
-    Z = int(getattr(initial_atom, "Z", 0) or getattr(result, "Z", 0))
-
-    # Fine radial grid sized for the fastest Auger electron (~500 eV for
-    # Fe XVII dr33; harmless overkill for lighter Ne-like systems).
-    r_fine = make_fine_grid(float(bsp["t"][-1]), p_rel(500.0 / HARTREE_EV))
-    dr_fine = np.gradient(r_fine)
-    gr = bsp["gr"].ravel()
-    order = np.argsort(gr)
-    grs = gr[order]
-
-    def _tofine(P, Q):
-        Pg = eval_P(P, bsp).ravel()[order]
-        Qg = eval_Q(Q, bsp).ravel()[order]
-        return np.interp(r_fine, grs, Pg), np.interp(r_fine, grs, Qg)
-
-    # n=2 hole orbitals from the solved ground configuration; n=3 excited
-    # orbitals from the frozen-core V^{N-1} eigenbasis.
-    orbital_map = {}
-    orbital_eps = {}
-    orbital_coeffs = {}
-    for kappa, lab, idx in ((-1, "2s1/2", 1), (1, "2p1/2", 0), (-2, "2p3/2", 0)):
-        P, Q, _ = result.orbitals_raw[kappa][idx]
-        orbital_map[(2, kappa)] = _tofine(P, Q)
-        orbital_coeffs[(2, kappa)] = (P, Q)
-        orbital_eps[(2, kappa)] = float(result.orbital_energies[lab])
-    for kappa in (-1, 1, -2, 2, -3):
-        _occ, virt = build_virtual_basis(result, kappa)
-        P, Q, e = virt[0]
-        orbital_map[(3, kappa)] = _tofine(P, Q)
-        orbital_coeffs[(3, kappa)] = (P, Q)
-        orbital_eps[(3, kappa)] = float(e)
-
-    one_body = build_bspline_core_folded_one_body(
-        result, orbital_coeffs, orbital_map, r_fine, dr_fine)
-
-    # Active-space groups: hole shell + the three n=3 nl groups.
-    G3 = [([(3, -1)], 0), ([(3, 1), (3, -2)], 0), ([(3, 2), (3, -3)], 0)]
-
-    def _make(hole_subs, hole_ne, confs):
-        return ResonanceManifold(
-            result, [(hole_subs, hole_ne)] + G3,
-            r_fine=r_fine, dr_fine=dr_fine, orbital_map=orbital_map,
-            orbital_energies=orbital_eps, configs=confs,
-            one_body=one_body)
-
-    # Parity-blocked multi-configuration manifolds (matching the FAC dr33
-    # configuration set '2s2 2p5 3*2' + '2s1 2p6 3*2'):
-    #   2p^5 {3s3p + 3p3d}
-    #   2p^5 {3s3d + 3p² + 3d² + 3s²}
-    #   2s^1 {3s² + 3s3d + 3p² + 3d²}
-    #   2s^1 {3s3p + 3p3d}
-    manifolds = [
-        _make([(2, 1), (2, -2)], 5, [(5, 1, 1, 0), (5, 0, 1, 1)]),
-        _make([(2, 1), (2, -2)], 5,
-              [(5, 1, 0, 1), (5, 0, 2, 0), (5, 0, 0, 2), (5, 2, 0, 0)]),
-        _make([(2, -1)], 1,
-              [(1, 2, 0, 0), (1, 1, 0, 1), (1, 0, 2, 0), (1, 0, 0, 2)]),
-        _make([(2, -1)], 1, [(1, 1, 1, 0), (1, 0, 1, 1)]),
-    ]
-
-    states: List[AutoionizationState] = []
-    for M in manifolds:
-        e_ion = M.ion_energy()
-        for tM in range(1, 13, 2):
-            for L in M.dr_levels(tM, Z=Z, bsp_data=bsp, e_ion=e_ion):
+    if result is None:
+        raise NotImplementedError(unsupported + "Solve the recombining ion first.")
+    Z = int(result.Z)
+    groups = {
+        'p_even': ['2p5 3s1 3p1', '2p5 3p1 3d1'],
+        'p_odd': ['2p5 3s2', '2p5 3p2', '2p5 3d2', '2p5 3s1 3d1'],
+        's_even': ['2s1 3s2', '2s1 3p2', '2s1 3d2', '2s1 3s1 3d1'],
+        's_odd': ['2s1 3s1 3p1', '2s1 3p1 3d1'],
+    }
+    states = []
+    for name, configs in groups.items():
+        grid_energy = 1000.
+        manifold, workspace = manifold_from_configs(result, configs, e_max_eV=grid_energy)
+        # Every half-integer J has an M=1/2 component. Gershgorin's upper
+        # bound on this complete determinant block covers every resonance,
+        # without a second eigenvalue solve. Bound integrals stay native and
+        # are independent of the continuum interpolation grid being sized.
+        h = manifold.hamiltonian(manifold.determinants(1))
+        upper = np.max(np.diag(h)+np.sum(np.abs(h), axis=1)-np.abs(np.diag(h)))
+        upper_eV = float((upper-manifold.ion_energy())*HARTREE_EV)
+        if upper_eV > grid_energy:
+            manifold, workspace = manifold_from_configs(
+                result, configs, e_max_eV=upper_eV)
+        tm = 1
+        while manifold.determinants(tm):
+            for index, level in enumerate(manifold.dr_levels(tm, Z=Z, bsp_data=workspace)):
                 states.append(AutoionizationState(
-                    label=L.dominant[:48],
-                    E_resonance_eV=L.E_res_au * HARTREE_EV,
-                    J=tM / 2.0,
-                    gamma_auger_per_s=L.gamma_auger_per_s,
-                    a_radiative_per_s=L.a_radiative_per_s,
+                    label=f"{name}:2J={tm}:level={index}",
+                    E_resonance_eV=level.E_res_au*HARTREE_EV,
+                    J=tm/2., gamma_auger_per_s=level.gamma_auger_per_s,
+                    a_radiative_per_s=level.a_radiative_per_s,
+                    channels={"ground": level.gamma_auger_per_s},
                 ))
+            tm += 2
     return states
 
 
@@ -532,12 +446,11 @@ def dr_calculate(
     (:class:`~atomx.scattering.autoionization.mscheme_ci.ResonanceManifold`
     ``dr_levels``: ab-initio resonance energies, exact determinant Auger
     widths, and E1 stabilizing widths) and feeds them to
-    :func:`dr_rate_coefficient` unchanged.  This is the FAC-verified
-    physics (Fe XVII dr33: α ratios 1.090/1.007/0.995/0.984 at 1/5/10/50 MK
-    against the complete clean-room FAC reference; the 1-MK deficit is
-    Boltzmann suppression from the documented ~+40 eV frozen-orbital
-    E_res offset, not a width error).  Currently implemented for Ne-like
-    recombining ions (core ``1s2 2s2 2p6``); the Δn=0 dr33 (3l3l')
+    :func:`dr_rate_coefficient` unchanged. The matched Fe benchmark uses
+    an independently optimized local potential, with aggregate rates within
+    2% of FAC for the same dr33 spaces. This does not establish uniform
+    accuracy of individual widths. Currently implemented for Ne-like
+    recombining ions (core ``1s2 2s2 2p6``); the Δn=1 dr33 (3l3l')
     complex is computed regardless of ``n_max``/``l_max`` (higher-n
     capture manifolds, e.g. dr34, are a documented follow-up).  Other
     systems raise :class:`NotImplementedError`.

@@ -42,15 +42,16 @@ import math
 
 import numpy as np
 
+from atomx.angular.coefficients import cg, ckm
+
+from atomx.potentials.static_field import static_hartree_potential
+
 from atomx.constants import AU_RATE_PER_S, HARTREE_EV
 from atomx.numerics.bspline.evaluate import eval_P, eval_Q
 from atomx.numerics.quadrature import grid_slater_rk, make_fine_grid, p_rel
 from atomx.scattering.distorted_wave.solver import (
     _allowed_k,
-    _cg2,
-    _ck_m,
     _continuum_on_grid,
-    _distorting_potential_fn,
     _l_of,
     _shooting_points,
     _tj_of,
@@ -146,7 +147,7 @@ def auger_rate_jj_level(
     kappa_f = l_f if tj_f == 2 * l_f - 1 else -(l_f + 1)
 
     # delta(E)-normalized shooting continuum in the target mean potential.
-    V_func = _distorting_potential_fn(result, bsp_data, Z, screening="fac")
+    V_func = static_hartree_potential(result, screening="mean")
     N_bound = sum(float(sh.occupation) for sh in result.subshells)
     Z_res = max(float(Z) - N_bound + 1.0, 1.0)
     r_max_box = float(bsp_data["t"][-1])
@@ -202,13 +203,13 @@ def auger_rate_jj_level(
                 tMa = tM_h + tm_1
                 if abs(tMa) > tJa:
                     continue
-                c_a = _cg2(tj_h, tM_h, tj_1, tm_1, tJa, tMa)
+                c_a = cg(tj_h, tM_h, tj_1, tm_1, tJa, tMa)
                 if abs(c_a) < 1e-15:
                     continue
                 tm_2 = tM - tMa
                 if abs(tm_2) > tj_2:
                     continue
-                c_b = _cg2(tJa, tMa, tj_2, tm_2, tJ, tM)
+                c_b = cg(tJa, tMa, tj_2, tm_2, tJ, tM)
                 if abs(c_b) < 1e-15:
                     continue
                 coeffs = [(tm_1, tm_2, c_a * c_b)]
@@ -219,13 +220,13 @@ def auger_rate_jj_level(
                 tMp = tM - tM_h
                 if abs(tMp) > tJa:
                     continue
-                c_hp = _cg2(tj_h, tM_h, tJa, tMp, tJ, tM)
+                c_hp = cg(tj_h, tM_h, tJa, tMp, tJ, tM)
                 if abs(c_hp) < 1e-15:
                     continue
                 tm_2 = tMp - tm_1
                 if abs(tm_2) > tj_2:
                     continue
-                c_p = _cg2(tj_1, tm_1, tj_2, tm_2, tJa, tMp)
+                c_p = cg(tj_1, tm_1, tj_2, tm_2, tJa, tMp)
                 if abs(c_p) < 1e-15:
                     continue
                 # 1/sqrt(2) pair normalization; the two c+ orderings of the
@@ -244,10 +245,10 @@ def auger_rate_jj_level(
                 for k in ks_D:
                     if abs(tq) > 2 * k:
                         continue
-                    e1 = _ck_m(kappa_h, tnu, kappa_1, tm1, k, tq)
+                    e1 = ckm(kappa_h, tnu, kappa_1, tm1, k, tq)
                     if e1 == 0.0:
                         continue
-                    e2 = _ck_m(kappa_f, tm_f, kappa_2, tm2, k, -tq)
+                    e2 = ckm(kappa_f, tm_f, kappa_2, tm2, k, -tq)
                     if e2 == 0.0:
                         continue
                     phase = 1.0 if (tq // 2) % 2 == 0 else -1.0
@@ -257,10 +258,10 @@ def auger_rate_jj_level(
                 for k in ks_X:
                     if abs(tqx) > 2 * k:
                         continue
-                    e1 = _ck_m(kappa_h, tnu, kappa_2, tm2, k, tqx)
+                    e1 = ckm(kappa_h, tnu, kappa_2, tm2, k, tqx)
                     if e1 == 0.0:
                         continue
-                    e2 = _ck_m(kappa_f, tm_f, kappa_1, tm1, k, -tqx)
+                    e2 = ckm(kappa_f, tm_f, kappa_1, tm1, k, -tqx)
                     if e2 == 0.0:
                         continue
                     phase = 1.0 if (tqx // 2) % 2 == 0 else -1.0

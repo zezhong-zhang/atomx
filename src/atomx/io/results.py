@@ -8,7 +8,7 @@ import json
 from dataclasses import asdict
 
 _METADATA_FIELDS = (
-    "Z", "_equation", "provenance", "solver_diagnostics", "operator_stages",
+    "Z", "_equation", "provenance", "solver_diagnostics", "operator_stages", "radial_convergence",
     "_breit_provenance", "_nms_provenance", "_sms_provenance",
     "_hydrogenic_mass_remainder_provenance",
 )
@@ -282,10 +282,12 @@ def _validate_shooting_arrays(result):
         array = np.asarray(getattr(result, name))
         if array.shape != shape or not np.all(np.isfinite(array)):
             raise ValueError(f'incomplete or nonfinite shooting spinors: {name}')
-    if result._rv is not None:
-        potential = np.asarray(result._rv)
-        if potential.shape != radius.shape or not np.all(np.isfinite(potential)):
-            raise ValueError('invalid shooting local potential')
+    for name in ('_rv', '_rv_nuc'):
+        value = getattr(result, name)
+        if value is not None:
+            potential = np.asarray(value)
+            if potential.shape != radius.shape or not np.all(np.isfinite(potential)):
+                raise ValueError(f'invalid shooting potential: {name}')
     identities = [(s.n, s.kappa) for s in result.subshells]
     if len(set(identities)) != len(identities):
         raise ValueError('duplicate shooting orbital identities')
@@ -325,7 +327,7 @@ def save_shooting_result(result, path):
             f.attrs['schema_version'] = 1
             f.create_dataset('physical_metadata', data=metadata)
             f.create_dataset('state', data=encoded)
-            for name in ('_grid', '_difr', '_pa', '_qa', '_rv'):
+            for name in ('_grid', '_difr', '_pa', '_qa', '_rv', '_rv_nuc'):
                 value = getattr(result, name)
                 if value is not None:
                     f.create_dataset(name, data=value, compression='gzip', fletcher32=True)
@@ -355,7 +357,7 @@ def load_shooting_result(path):
         state['subshells'] = [Subshell(**s) for s in state['subshells']]
         state['_model'] = state.pop('model')
         result = ShootingResult(**state, **{name: f[name][:] if name in f else None
-            for name in ('_grid', '_difr', '_pa', '_qa', '_rv')})
+            for name in ('_grid', '_difr', '_pa', '_qa', '_rv', '_rv_nuc')})
     if configs is not None:
         result._jj_configs = [JJConfig(subshells=[Subshell(**s) for s in c['subshells']],
                                       weight=c['weight']) for c in configs]

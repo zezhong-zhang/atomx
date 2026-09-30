@@ -72,18 +72,18 @@ def be_mcdhf():
 
 def test_dhf_result_is_scfresult(he_dhf):
     assert isinstance(he_dhf._result, SCFResult)
-    assert he_dhf._mcdhf_result is None
+    assert he_dhf._csf_result is None
 
 
 def test_mcdhf_result_is_mcdhfresult(be_mcdhf):
     assert isinstance(be_mcdhf._result, MCDHFResult)
     # Back-compat alias: _mcdhf_result returns the same object.
-    assert be_mcdhf._mcdhf_result is be_mcdhf._result
+    assert be_mcdhf._csf_result is be_mcdhf._result
 
 
 def test_shooting_result_is_shootingresult(he_shooting):
     assert isinstance(he_shooting._result, ShootingResult)
-    assert he_shooting._mcdhf_result is None
+    assert he_shooting._csf_result is None
 
 
 def test_every_result_satisfies_atomicresult_protocol(he_dhf, be_mcdhf, he_shooting):

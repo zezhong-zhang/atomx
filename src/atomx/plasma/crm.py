@@ -257,8 +257,8 @@ class CollisionalRadiativeModel:
 
         # Build levels from orbital energies or CI states
         levels = []
-        if atom._mcdhf_result is not None:
-            result = atom._mcdhf_result
+        if atom._csf_result is not None:
+            result = atom._csf_result
             for i, E in enumerate(atom.state_energies):
                 # CI is block diagonal in J and parity. The dominant CSF
                 # supplies the exact block label, not an estimated degeneracy.

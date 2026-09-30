@@ -69,25 +69,15 @@ def test_flambaum_ginges_constants_match_paper_values():
     assert (WK_LEADING, WK_DENOM_SCALE) == (0.092, 1.62)
 
 
-def test_nuclear_structure_constants_round_trip():
-    """The Zemach / polarisability re-exports in
-    :mod:`atomx.properties.hyperfine.qed_corrections` still resolve to the
-    original CODATA / Carlson numbers via the data module."""
-    from atomx.properties.hyperfine.qed_corrections import (
-        DEUTERON_POLARIZABILITY_D1S,
-        DEUTERON_ZEMACH_RADIUS_FM,
-        HELIUM3_POLARIZABILITY,
-        HELIUM3_ZEMACH_RADIUS_FM,
-        PROTON_POLARIZABILITY_H1S,
-        PROTON_ZEMACH_RADIUS_FM,
-    )
-
-    assert PROTON_ZEMACH_RADIUS_FM == 1.054
-    assert DEUTERON_ZEMACH_RADIUS_FM == 2.593
-    assert HELIUM3_ZEMACH_RADIUS_FM == 2.528
-    assert PROTON_POLARIZABILITY_H1S == 1.3e-6
-    assert DEUTERON_POLARIZABILITY_D1S == 1.7e-6
-    assert HELIUM3_POLARIZABILITY == 3.1e-6
+def test_nuclear_structure_constants():
+    """Per-isotope data retain their tabulated values and units."""
+    from atomx.data.nuclear_structure import TABLE
+    assert TABLE["h1s"].zemach_radius_fm == 1.054
+    assert TABLE["d1s"].zemach_radius_fm == 2.593
+    assert TABLE["he3_1s"].zemach_radius_fm == 2.528
+    assert TABLE["h1s"].polarisability_fraction == 1.3e-6
+    assert TABLE["d1s"].polarisability_fraction == 1.7e-6
+    assert TABLE["he3_1s"].polarisability_fraction == 3.1e-6
 
 
 def test_data_load_dispatcher_finds_every_table():

@@ -40,8 +40,9 @@ Limitations
 -----------
 - Single-orbital approximation: assumes the ``(N-1)``-electron core
   is identical in PI and RR (no shake-up).
-- Single-active-electron bound-free matrix elements in the long-wavelength
-  approximation.
+- Single-active-electron bound-free matrix elements: electric multipoles
+  use the long-wavelength approximation; magnetic multipoles retain photon
+  retardation on the B-spline continuum route.
 - Direct shooting continuum currently supports E1 only; B-spline continuum
   supports E1, M1, and E2.
 
@@ -138,10 +139,11 @@ def _normalise_multipoles(multipoles) -> tuple[tuple[str, int], ...]:
     return tuple(out)
 
 
-def _radial_multipole(P_bound, Q_bound, P_cont, Q_cont, bsp_data, kind: str, L: int):
+def _radial_multipole(P_bound, Q_bound, P_cont, Q_cont, bsp_data, kind: str, L: int, omega, kappa_i, kappa_f):
     if kind == "M":
-        return radial_mL(P_bound, Q_bound, P_cont, Q_cont, bsp_data, L=L)
-    return radial_eL(P_bound, Q_bound, P_cont, Q_cont, bsp_data, L=L)
+        return radial_mL(P_bound, Q_bound, P_cont, Q_cont, bsp_data, L=L, omega=omega)
+    return radial_eL(P_bound, Q_bound, P_cont, Q_cont, bsp_data, L=L,
+                     kappa_i=kappa_i, kappa_f=kappa_f, omega=omega)
 
 
 def _residual_hartree_potential(result, capture_label):
@@ -151,7 +153,8 @@ def _residual_hartree_potential(result, capture_label):
     Coulomb tail. This local channel approximation omits core relaxation
     and nonlocal exchange; it is recorded in the result provenance.
     """
-    from atomx.numerics.bspline.evaluate import compute_yk, eval_P, eval_Q
+    from atomx.numerics.yk import compute_yk
+    from atomx.numerics.bspline.evaluate import eval_P, eval_Q
     data = result._bsp_data
     radius = data["gr"]
     density = np.zeros_like(radius)
@@ -256,7 +259,7 @@ def _bound_free_multipole_cross_sections(
                     continuum_cache[kf] = (Pf, Qf)
                 Pf, Qf = continuum_cache[kf]
                 rme = _radial_multipole(
-                    bound_P, bound_Q, Pf, Qf, bsp_data, kind, L
+                    bound_P, bound_Q, Pf, Qf, bsp_data, kind, L, float(omega), bound_kappa, kf
                 )
                 prefactor = (
                     4.0 * np.pi ** 2 * ALPHA * float(omega) / 3.0
@@ -313,8 +316,14 @@ def _shooting_photoionization_cross_section(
     )
     Pb = np.interp(r, gr_sorted, Pb_grid, left=0.0, right=0.0)
     Qb = np.interp(r, gr_sorted, Qb_grid, left=0.0, right=0.0)
-    radial_weight_P = Pb * r
-    radial_weight_Q = Qb * r
+    from atomx.numerics.radial_workspace import make_grid_workspace
+    # Same trapezoidal quadrature as before, expressed through the common
+    # workspace so both continuum engines use the same photon operator.
+    weights = np.empty_like(r)
+    weights[0], weights[-1] = (r[1]-r[0])/2, (r[-1]-r[-2])/2
+    weights[1:-1] = (r[2:]-r[:-2])/2
+    start = 1 if r[0] == 0 else 0
+    workspace = make_grid_workspace(r[start:], weights[start:])
     for idx, omega, electron_energy in active:
         for kf, angular_factor in channels:
             wave = waves[(kf, electron_energy)]
@@ -322,7 +331,8 @@ def _shooting_photoionization_cross_section(
                 raise RuntimeError(
                     f"shooting PI continuum failed at E={electron_energy} Ha, kappa={kf}")
             P_cont, Q_cont = wave
-            dme = np.trapezoid(P_cont * radial_weight_P + Q_cont * radial_weight_Q, r)
+            dme = radial_eL(Pb[start:], Qb[start:], P_cont[start:], Q_cont[start:],
+                            workspace, kappa_i=sh.kappa, kappa_f=kf, omega=omega)
             sigma[idx] += (
                 4.0 * np.pi ** 2 * ALPHA * omega / 3.0
                 * dme ** 2 * angular_factor
@@ -537,6 +547,9 @@ def rr_cross_section(
                                     if continuum_model is None or continuum_model.potential is None
                                     else continuum_model.potential.kind),
             "multipoles": [_multipole_label(kind, L) for kind, L in multipoles],
+            "photon_approximation": {_multipole_label(kind, L):
+                'finite_wavelength'
+                for kind, L in multipoles},
             "per_orbital": prov_per_orb,
         },
     )

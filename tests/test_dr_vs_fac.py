@@ -1,37 +1,9 @@
-"""FAC parity tests for the DR driver (HYP-146, HYP-530).
+"""DR kernel snapshots, historical reference distinctions and matched FAC panel.
 
-``dr_calculate`` (no hooks) drives the ab-initio determinant-CI manifold
-pipeline (``ResonanceManifold.dr_levels``) since 2026-07-16; the full
-end-to-end build vs the clean-room FAC dr33 reference lives in
-``tests/test_dr_manifold_e2e.py`` (slow, ~1-2 min).  This module keeps
-the fast gates plus one live recompute:
-
-1. ``test_kernel_reproduces_recorded_alpha`` *(snapshot)* — feeds the
-   fixture's stored widths through atomx's ``dr_rate_coefficient`` Burgess
-   kernel and checks it still returns the number the fixture recorded.
-   **This is a same-kernel round-trip, not a FAC parity test**: the
-   fixture's ``alpha_fac_cm3_s`` was itself produced by combining FAC's
-   AITable+TRTable widths through this kernel, so the prefactor cancels.
-   The measured ratio is constant to six digits at every temperature
-   (0.99970901, = the RYDBERG_EV**1.5 unit conversion), hence the 1e-3
-   gate; the absolute scale is gated by
-   ``tests/test_eii_ea.py::test_detailed_balance_capture_flux_is_shared_by_dr_and_re``
-   against the Saha coefficient.
-
-2. ``test_benchmark_csv_gate`` compares the corrected default manifold
-   pipeline with the unchanged clean-room FAC dr33 reference. The frozen
-   core-folded one-body repair removes active-interaction double counting:
-   measured atomx/FAC ratios are 1.090/1.007/0.995/0.984 at 1/5/10/50 MK,
-   with rms relative error 0.0462. The CSV atomx column is recomputed live.
-
-3. ``test_dr_fixture_pair_discrepancy_is_documented`` — the two
-   FAC-derived Fe XVII fixtures in ``tests/data/`` disagree by up to 3.9x
-   at 1 MK.  They are different FAC runs (dr33+dr34+KLM with AICut 1e-4
-   vs dr33 with AICut 0) and must not be mixed; this test pins the
-   measured gap so the adjudication cannot silently change.
-
-4. ``test_end_to_end_driver_returns_positive_alpha`` — smoke test of the
-   hook path (external widths through the Burgess kernel).
+The current public-driver benchmark uses fac_fe_dr33_matched.json with native
+local-potential shooting and complete separately mixed dr33 spaces. Its
+aggregate gates are centered on FAC. Historical fixtures remain unchanged
+for their kernel round-trip and differing-scope checks.
 """
 
 from __future__ import annotations
@@ -62,8 +34,8 @@ RESULTS_CSV = Path(__file__).parent.parent / "benchmarks" / "results_fac_dr.csv"
 # residual 1 - 0.99970901 = 2.9e-4 at every temperature, so 1e-3 is 3.4x
 # the measurement (the old 1 % gate was 34x it).
 KERNEL_TOLERANCE = 1.0e-3
-RMS_GATE = 0.10
-RATIO_GATE = (0.85, 1.15)  # all four temperatures
+RMS_GATE = 0.02
+RATIO_GATE = (0.98, 1.02)  # all four temperatures
 
 # ``fe17_dr_fac.json::alpha_fac_cm3_s`` was produced by combining FAC's
 # AITable+TRTable widths through this same Burgess kernel (see the fixture's
@@ -135,7 +107,7 @@ def test_dr_fixture_pair_discrepancy_is_documented():
     ``fe17_dr_fac.json`` (194 resonances) is the older AITable+TRTable dump
     (dr33+dr34+KLM, AICut 1e-4); ``fe17_dr33_fac_cleanroom.json`` (236
     resonances) is the clean-room dr33 deck with SetSE/VP/MS/Breit off and
-    AICut 0 that ``bench_fac_dr.py`` and ``test_dr_manifold_e2e.py`` use.
+    AICut 0 used by the historical comparison; the current matched panel has its own fixture.
     Both were combined through the same Burgess kernel, so the pipeline is
     simultaneously "0.49 of FAC" (cleanroom) and "1.9x FAC" (old fixture) —
     they cannot both be FAC.  Adjudication: the cleanroom deck is the
@@ -164,9 +136,9 @@ def test_dr_fixture_pair_discrepancy_is_documented():
     med_clean = float(np.median([r["gamma_auger_per_s"]
                                  for r in clean["resonances"]]))
     assert med_old / med_clean == pytest.approx(23.66, rel=0.05)
-    # the clean-room fixture is the one bench_fac_dr.py compares against
-    from bench_fac_dr import FIXTURE_CLEAN  # noqa: E402
-    assert FIXTURE_CLEAN == FIXTURE_CLEAN_PATH
+    # Historical references remain distinct from the new matched-space panel.
+    from bench_fac_dr import FIXTURE_MATCHED
+    assert FIXTURE_MATCHED.resolve() not in (FIXTURE_PATH.resolve(), FIXTURE_CLEAN_PATH.resolve())
     assert "AICut 0" in clean["provenance"]
 
 
@@ -191,7 +163,7 @@ def _load_results_csv():
 
 @pytest.mark.external_fac
 def test_benchmark_csv_gate():
-    """The unchanged FAC column bounds all corrected DR temperatures."""
+    """The matched FAC column bounds all four DR temperatures."""
     data_rows, rms_row = _load_results_csv()
     assert len(data_rows) == 4
     assert float(rms_row["rel_diff"]) <= RMS_GATE
@@ -202,23 +174,19 @@ def test_benchmark_csv_gate():
 
 
 @pytest.mark.external_fac
-def test_benchmark_csv_reference_is_cleanroom():
-    """The CSV must be benchmarked against the clean-room FAC reference."""
+def test_benchmark_csv_reference_is_matched():
+    """The CSV names the matched spaces and current independent fixture."""
     data_rows, rms_row = _load_results_csv()
-    assert all("clean-room FAC" in r["note"] for r in data_rows), (
-        "results_fac_dr.csv note column no longer labels the clean-room "
-        "FAC reference — was the benchmark regenerated with a different "
-        "reference?"
-    )
-    assert "0.10" in rms_row["note"]
+    assert all("fac_fe_dr33_matched.json" in row['note'] for row in data_rows)
+    assert "0.02" in rms_row['note']
 
 
 @pytest.mark.external_fac
 def test_live_atomx_dr_matches_the_recorded_panel():
     """Recompute the manifold pipeline live and gate it against the panel.
 
-    Live atomx agrees with the updated snapshot and the unchanged FAC
-    column stays within the measured corrected error envelope.
+    Live Atomx agrees with the saved panel and the independent FAC
+    column stays within the aggregate accuracy gate.
     """
     import bench_fac_dr
 
@@ -226,7 +194,6 @@ def test_live_atomx_dr_matches_the_recorded_panel():
     rc = bench_fac_dr.run_atomx()
     live = np.asarray(rc.alpha_cm3_s, dtype=float)
     assert live.shape == (len(data_rows),)
-    measured = {1.0: 1.08807, 5.0: 1.00520, 10.0: 0.99241, 50.0: 0.98185}
     rels = []
     for row, value in zip(data_rows, live, strict=True):
         T_mk = float(row["T_MK"])
@@ -239,11 +206,7 @@ def test_live_atomx_dr_matches_the_recorded_panel():
         fac = float(row["alpha_fac_cm3_s"])
         ratio = value / fac
         rels.append((value - fac) / fac)
-        centre = measured[T_mk]
-        assert abs(ratio - centre) <= 0.05 * centre, (
-            f"T = {T_mk} MK: live alpha_atomx/alpha_FAC = {ratio:.3f}, "
-            f"measured {centre:.3f} ± 5 %"
-        )
+        assert RATIO_GATE[0] <= ratio <= RATIO_GATE[1], (T_mk, ratio)
     rms = float(np.sqrt(np.mean(np.square(rels))))
     assert rms <= RMS_GATE, f"live-vs-FAC rms {rms:.4f} exceeds {RMS_GATE}"
 

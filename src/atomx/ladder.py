@@ -197,7 +197,7 @@ class Ladder:
         """Canonical progression from Schrödinger to Dirac-Fock + QED.
 
         Each step adds one well-defined physical effect on top of the
-        previous one (with the caveat that ``HartreeFock`` here is
+        previous one (with the caveat that ``HartreeFockSlater`` here is
         currently HF-Slater under the hood — see issue HYP-13).
         """
         return cls(

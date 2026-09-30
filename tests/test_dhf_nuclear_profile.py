@@ -35,3 +35,24 @@ def test_selected_mass_number_reaches_finite_nuclear_hamiltonian():
             DiracFock(nuclear=NuclearModel.POINT, nuclear_mass_number=a))
         point.append(result.total_energy)
     assert point[0] == pytest.approx(point[1], abs=1e-12)
+
+
+@pytest.mark.parametrize('nuclear',['point','fermi'])
+def test_neon_energy_and_recoil_converge_between_radial_engines(nuclear):
+    """Resolve the Fermi surface and converge orbitals for first-order properties."""
+    from atomx.methods.dirac_fock import DFSolver, neon_subshells
+    from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
+    from atomx.radial_state import native_radial_state
+    from atomx.properties.isotope_shift import compute_sms_abinitio
+    bs = DFSolver(10,neon_subshells(),ns=90,r_max=75.,nuclear=nuclear).solve(
+        tol=1e-9,max_iter=100)
+    grid = ShootingHFSolver(10,neon_subshells(),n_grid=2000,r_max=75.,nuclear=nuclear).solve(
+        tol=1e-10,orbital_tolerance=1e-9,max_iter=100)
+    assert bs.converged and grid.converged
+    assert bs.total_energy == pytest.approx(grid.total_energy,abs=1e-9)
+    coefficients=[]
+    for result in (bs,grid):
+        state=native_radial_state(result)
+        coefficients.append(compute_sms_abinitio(list(state.occupied),state.correction_workspace(),Z=10).K_SMS_au)
+    assert coefficients[0] == pytest.approx(coefficients[1],rel=1e-9)
+    assert grid.solver_diagnostics['undamped_orbital_update_norm'] <= 1e-9

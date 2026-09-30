@@ -16,7 +16,7 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 
-from atomx.angular.coefficients import reduced_C
+from atomx.angular.coefficients import reduced_C, coupled_coulomb_direct, coupled_coulomb_exchange
 from atomx.angular.wigner import wigner_3j, wigner_6j
 from atomx.scattering.distorted_wave.solver import (
     _allowed_k,
@@ -176,22 +176,20 @@ class TestParityConservation:
     def test_parity_forbidden_multipole_has_zero_kernel_coefficient(self):
         from atomx.scattering.distorted_wave.solver import (
             _allowed_k,
-            _cc_direct,
-            _cc_exchange,
         )
 
         # 1s1/2 -> 2p1/2 (kappa -1 -> -2, l = 0 -> 1): l_a + l_b + k even
         # excludes k = 0, so only the dipole survives.
         assert _allowed_k(-1, -2) == [1]
-        assert _cc_direct(-2, -2, -1, -1, 2, 0) == 0.0
-        assert _cc_exchange(-2, -2, -1, -1, 2, 0) == 0.0
-        assert _cc_direct(-2, -2, -1, -1, 2, 1) != 0.0
-        assert _cc_exchange(-2, -2, -1, -1, 2, 1) != 0.0
+        assert coupled_coulomb_direct(-2, -2, -1, -1, 2, 0) == 0.0
+        assert coupled_coulomb_exchange(-2, -2, -1, -1, 2, 0) == 0.0
+        assert coupled_coulomb_direct(-2, -2, -1, -1, 2, 1) != 0.0
+        assert coupled_coulomb_exchange(-2, -2, -1, -1, 2, 1) != 0.0
 
         # s -> s (kappa -1 -> -1) is the complementary case: k = 0 only.
         assert _allowed_k(-1, -1) == [0]
-        assert _cc_direct(-1, -1, -1, -1, 0, 0) != 0.0
-        assert _cc_direct(-1, -1, -1, -1, 0, 1) == 0.0
+        assert coupled_coulomb_direct(-1, -1, -1, -1, 0, 0) != 0.0
+        assert coupled_coulomb_direct(-1, -1, -1, -1, 0, 1) == 0.0
 
 
 class TestTargetStateMetadata:
@@ -210,7 +208,7 @@ class TestTargetStateMetadata:
 
     def test_mcdhf_uses_lowest_state_J_not_active_orbital_j(self):
         from atomx.methods.dirac_fock import Subshell
-        from atomx.methods.mcdhf.config import CSF
+        from atomx.config.csf import CSF
 
         csfs = [
             CSF([Subshell(1, -1, 1.0), Subshell(2, 1, 1.0)],
@@ -233,7 +231,7 @@ class TestTargetStateMetadata:
 
     def test_target_transition_population_filters_many_electron_rank(self):
         from atomx.methods.dirac_fock import Subshell
-        from atomx.methods.mcdhf.config import CSF
+        from atomx.config.csf import CSF
 
         csf_i = CSF([Subshell(1, -1, 2.0)],
                     total_J2=0, parity=1, label="1s2 [J=0/2]")

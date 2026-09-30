@@ -395,7 +395,7 @@ def test_explicit_ci_averaging_needs_hf_exchange():
     with pytest.raises(ValueError, match="averaging='ci' requires"):
         Atom(10, exchange="slater", correlation=Correlation(averaging="ci"))
     # The defaulted "ci" falls back quietly instead (see solve()).
-    assert Atom(10, exchange="slater").averaging == "ci"
+    assert Atom(10, exchange="slater").averaging == "statistical"
 
 
 def test_stewart_pyatt_needs_a_charged_ion():

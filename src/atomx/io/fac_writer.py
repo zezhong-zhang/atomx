@@ -294,14 +294,12 @@ def read_lev(path: str | Path) -> list[dict[str, Any]]:
 def _format_tr_row(
     upper: int, twoj_upper: int,
     lower: int, twoj_lower: int,
-    deltaE_eV: float, gf: float, gA_per_s: float,
-    gf_alt: float | None = None,
+    deltaE_eV: float, gf: float, A_per_s: float,
+    reduced_matrix_element: float,
 ) -> str:
-    if gf_alt is None:
-        gf_alt = gf
     return (
         f"{upper:6d} {twoj_upper:2d}  {lower:5d} {twoj_lower:2d}"
-        f"  {deltaE_eV: .8E}  {gf: .8E}  {gA_per_s: .8E}  {gf_alt: .8E}"
+        f"  {deltaE_eV: .8E}  {gf: .8E}  {A_per_s: .8E}  {reduced_matrix_element: .8E}"
     )
 
 
@@ -325,7 +323,7 @@ def write_tra(
         pre-computed iterable of dicts::
 
             {upper, twoj_upper, lower, twoj_lower,
-             deltaE_eV, gf, gA_per_s[, gf_alt]}
+             deltaE_eV, gf, A_per_s, reduced_matrix_element}
 
         For MCDHF results we recover ``upper`` / ``lower`` from
         ``TransitionResult.{initial,final}_label`` which look like
@@ -340,6 +338,11 @@ def write_tra(
         Optional list of dicts (same shape as :func:`read_lev` rows) so
         the writer can look up ``twoj`` from the LEV table when the
         ``TransitionResult`` doesn't carry it.
+
+    Computed rows export the positive magnitude of FAC's reduced amplitude:
+    TransitionResult retains line strengths, not coherent matrix-element
+    phases. Explicit rows preserve the supplied signed amplitude. Columns
+    follow FAC's rate convention: A, not degeneracy-weighted gA.
 
     Returns the path written.
     """
@@ -363,7 +366,9 @@ def write_tra(
         raise ValueError("Z must be provided or inferable from the Atom.")
     nele = _count_electrons(atom_or_transitions, fallback=int(Z) if is_explicit_rows else None)
 
-    code = _MULTIP_CODE.get(multipole.upper(), 0)
+    if multipole.upper() not in _MULTIP_CODE:
+        raise ValueError(f'unsupported FAC multipole {multipole!r}')
+    code = _MULTIP_CODE[multipole.upper()]
     gauge_code = 2 if gauge.lower() in ("length", "babushkin") else 1
 
     lines = _emit_global_header(FAC_TYPE_TR, int(Z), tsess=tsess)
@@ -371,7 +376,11 @@ def write_tra(
     lines.append(f"NTRANS\t= {len(rows)}")
     lines.append(f"MULTIP\t= {code}")
     lines.append(f"GAUGE\t= {gauge_code}")
-    lines.append("MODE\t= 1")
+    default_mode = 0 if multipole.upper().startswith('M') else 1
+    modes = {int(r.get('mode', default_mode)) for r in rows}
+    if len(modes) > 1 or not modes.issubset({0, 1}):
+        raise ValueError('one FAC transition block requires a common mode 0 or 1')
+    lines.append(f"MODE\t= {next(iter(modes), default_mode)}")
     for r in rows:
         lines.append(_format_tr_row(
             upper=int(r["upper"]),
@@ -380,8 +389,8 @@ def write_tra(
             twoj_lower=int(r.get("twoj_lower", r.get("2J_lower", 0))),
             deltaE_eV=float(r["deltaE_eV"]),
             gf=float(r["gf"]),
-            gA_per_s=float(r["gA_per_s"]),
-            gf_alt=float(r.get("gf_alt", r["gf"])),
+            A_per_s=float(r["A_per_s"]),
+            reduced_matrix_element=float(r["reduced_matrix_element"]),
         ))
     lines.append("")
     path.write_text("\n".join(lines))
@@ -392,14 +401,21 @@ def read_tra(path: str | Path) -> list[dict[str, Any]]:
     """Read a FAC TR ASCII table.
 
     Returns one dict per transition with keys
-    ``{upper, twoj_upper, lower, twoj_lower, DELTA_E_eV, gf, gA_per_s,
-       gf_alt, multipole, gauge, Z}``.
+    ``{upper, twoj_upper, lower, twoj_lower, DELTA_E_eV, gf, A_per_s,
+       reduced_matrix_element, multipole, multipole_code, gauge, mode, Z}``.
+
+    FAC ``dbase.c::PrintTRTable`` prints A (already divided by the upper
+    degeneracy) and a signed reduced multipole amplitude in columns 7 and 8.
+    Column 8 is not a second gf. Aggregated MULTIP=0 tables carry total gf
+    there instead; their reduced_matrix_element is None and aggregate_gf
+    retains the value. UTA tables have a different layout and are rejected.
     """
     raw = Path(path).read_text().splitlines()
     meta = _parse_global_header(raw)
     rows: list[dict[str, Any]] = []
     multip_code = None
     gauge_code = None
+    mode = None
     seen_data = False
     for line in raw:
         s = line.strip()
@@ -417,7 +433,10 @@ def read_tra(path: str | Path) -> list[dict[str, Any]]:
             except (ValueError, IndexError):
                 gauge_code = None
             continue
-        if s.startswith("MODE") or s.startswith("NELE") or s.startswith("NTRANS"):
+        if s.startswith("MODE"):
+            mode = int(s.split('=')[1])
+            continue
+        if s.startswith("NELE") or s.startswith("NTRANS"):
             continue
         parts = s.split()
         if len(parts) < 7:
@@ -429,10 +448,12 @@ def read_tra(path: str | Path) -> list[dict[str, Any]]:
             twoj_l = int(parts[3])
             de = float(parts[4])
             gf = float(parts[5])
-            ga = float(parts[6])
-            gf_alt = float(parts[7]) if len(parts) > 7 else gf
+            rate = float(parts[6])
+            amplitude = float(parts[7]) if len(parts) > 7 else None
         except ValueError:
             continue
+        if len(parts) != 8 or multip_code is None or gauge_code is None or mode is None:
+            raise ValueError('unsupported or incomplete FAC resolved-transition table')
         seen_data = True
         rows.append({
             "upper": upper,
@@ -441,9 +462,12 @@ def read_tra(path: str | Path) -> list[dict[str, Any]]:
             "twoj_lower": twoj_l,
             "DELTA_E_eV": de,
             "gf": gf,
-            "gA_per_s": ga,
-            "gf_alt": gf_alt,
-            "multipole": _MULTIP_FROM_CODE.get(multip_code or 0, "E1"),
+            "A_per_s": rate,
+            "reduced_matrix_element": amplitude if multip_code != 0 else None,
+            "aggregate_gf": amplitude if multip_code == 0 else None,
+            "multipole": _MULTIP_FROM_CODE.get(multip_code, "total" if multip_code == 0 else "unknown"),
+            "multipole_code": multip_code,
+            "mode": mode,
             "gauge": "length" if (gauge_code or 2) == 2 else "velocity",
             "Z": meta["Z"],
         })
@@ -721,7 +745,7 @@ def _levels_from_atom(atom) -> list[dict[str, Any]]:
     e0 = float(energies_ha[0])
     de_eV = (np.asarray(energies_ha, dtype=float) - e0) * HARTREE_EV
 
-    mcdhf = getattr(atom, "_mcdhf_result", None)
+    mcdhf = getattr(atom, "_csf_result", None)
     levels: list[dict[str, Any]] = []
     if mcdhf is not None and getattr(mcdhf, "csfs", None) and getattr(mcdhf, "mixing_coefficients", None) is not None:
         csfs = mcdhf.csfs
@@ -827,6 +851,8 @@ def _transitions_from_atom(
     levels: Sequence[dict] | None = None,
 ) -> list[dict[str, Any]]:
     """Compute transitions and pack them into write_tra row dicts."""
+    from atomx.properties.transitions.rates import _double_factorial
+    rank = int(multipole[1:])
     trs = atom.transitions(multipoles=[multipole], gauge=gauge)
 
     # Build {ilev -> twoj} lookup from either the passed-in level list or
@@ -864,8 +890,10 @@ def _transitions_from_atom(
             "twoj_lower": twoj_l,
             "deltaE_eV": float(t.energy_eV),
             "gf": float(t.gf_value),
-            "gA_per_s": float(t.A_rate_per_s) * (twoj_u + 1),
-            "gf_alt": float(t.gf_value),
+            "A_per_s": float(t.A_rate_per_s),
+            "reduced_matrix_element": float(np.sqrt(t.line_strength * (rank+1)/rank)
+                / _double_factorial(2*rank-1)),
             "multipole": t.multipole,
+            "mode": 0 if t.photon_approximation == 'finite_wavelength' else 1,
         })
     return rows

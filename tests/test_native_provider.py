@@ -15,7 +15,7 @@ import numpy as np
 
 from atomx.providers.contract import Capability
 from atomx.providers.native_adapter import NativeProvider, from_atomic_result
-from atomx.scattering.protocols import AtomicResultLike
+from atomx.state_protocols import AtomicResultLike
 
 
 @dataclass

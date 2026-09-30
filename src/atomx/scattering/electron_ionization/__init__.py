@@ -10,10 +10,11 @@ Two methods are provided:
    plasma-physics databases (NIFS, NIST EII).
 2. **Distorted-wave (DW) EII** — First-principles DW Born approximation
    (Younger 1981 / Pindzola-Griffin / Gu FAC 2008).  Frozen-core
-   V^{N-1} static-Hartree distorted waves, J-coupled antisymmetric
-   Slater integrals, and Coulomb-Bethe high-ℓ top-up.  Validated
-   against Younger 1981 for He⁺ (≤15 %) and NIST Argon near
-   threshold.  Access via ``method="dw"`` in :func:`eii_cross_section`.
+   mean Hartree distorted waves, J-coupled antisymmetric Slater integrals,
+   with an optional geometric estimate of the incident partial-wave tail. The default
+   density is scaled by (N-1)/N; an explicit continuum potential is honored.
+   High-energy partial-wave convergence remains to be established beyond
+   the sampled panels. Access via ``method="dw"`` in :func:`eii_cross_section`.
 
 Maxwellian-averaged rate coefficients are produced by
 :func:`eii_rate_coefficient`; non-Maxwellian (e.g. κ-distribution)
@@ -34,6 +35,10 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, Optional
 
 import numpy as np
+
+from atomx.numerics.radial_metric import RadialMetric
+
+from atomx.potentials.static_field import static_hartree_potential
 
 from atomx.constants import BOHR_RADIUS_M, C_SQ, HARTREE_EV
 from atomx.scattering._jit_kernels import eii_dw_inner_sum, trapezoidal_integrate
@@ -152,10 +157,12 @@ def eii_cross_section(
     Q_per_orbital: Optional[Dict[str, float]] = None,
     avgT_per_orbital_eV: Optional[Dict[str, float]] = None,
     kappa_max: int = 5,
-    n_outgoing_energies: int = 6,
+    n_outgoing_energies: int = 16,
     dw_energy_cutoff_per_I: float = 5.0,
     continuum_model: Any = None,
     continuum_failure_mode: str = "raise",
+    partial_wave_tail: str = "none",
+    radial_refinement: int = 1,
 ) -> EIIResult:
     """Total electron-impact ionisation cross section.
 
@@ -175,11 +182,19 @@ def eii_cross_section(
     Q_per_orbital, avgT_per_orbital_eV
         Only used by BEB/BED; see below.
     kappa_max
-        DW-only: largest |κ| in the partial-wave expansion of the
-        projectile and outgoing electrons.  Default 5 covers s..h.
+        DW-only: largest orbital angular momentum l of the projectile and
+        outgoing electrons; both Dirac partners are included. Default 5
+        covers s..h (including kappa=-6).
     n_outgoing_energies
         DW-only: number of E_1 quadrature nodes for the integral
-        over the outgoing-electron energy share. Default 6.
+        over the full outgoing-electron half-sharing interval. Default 16.
+    radial_refinement : int
+        DW-only: subdivide each observable integration interval by this factor
+        (default 1), independently of the shooting source grid.
+    partial_wave_tail : {"none", "geometric"}
+        DW-only: return the explicit partial-wave sum by default. The optional
+        capped geometric estimate is approximate and does not replace cutoff
+        convergence. Its value and unresolved nodes are reported separately.
 
     Returns
     -------
@@ -187,10 +202,13 @@ def eii_cross_section(
     """
     energies_arr = _validate_energy_grid(energies_eV)
     kappa_max = _validate_positive_int(kappa_max, "kappa_max")
+    radial_refinement = _validate_positive_int(radial_refinement, "radial_refinement")
     n_outgoing_energies = _validate_positive_int(
         n_outgoing_energies, "n_outgoing_energies", minimum=3
     )
     failure_mode = _validate_continuum_failure_mode(continuum_failure_mode)
+    if partial_wave_tail not in ('none', 'geometric'):
+        raise ValueError("partial_wave_tail must be 'none' or 'geometric'")
     method_u = method.upper()
     if method_u == "DW":
         return _eii_dw_total(
@@ -199,6 +217,8 @@ def eii_cross_section(
             n_outgoing_energies=n_outgoing_energies,
             continuum_model=continuum_model,
             continuum_failure_mode=failure_mode,
+            partial_wave_tail=partial_wave_tail,
+            radial_refinement=radial_refinement,
         )
     if method_u == "AUTO":
         # Explicit DW/BEB model interpolation, not FAC's Born completion.
@@ -228,6 +248,8 @@ def eii_cross_section(
                 scf_result, energies_arr[dw_mask], kappa_max=kappa_max,
                 n_outgoing_energies=n_outgoing_energies,
                 continuum_model=continuum_model, continuum_failure_mode=failure_mode,
+                partial_wave_tail=partial_wave_tail,
+                radial_refinement=radial_refinement,
             )
             wd = 1-weight_beb[dw_mask]
             sigma_total[dw_mask] += wd*r_dw.sigma_total_cm2
@@ -257,7 +279,7 @@ def eii_cross_section(
     energies = energies_arr
     sigma_total = np.zeros_like(energies)
     by_orbital: Dict[str, np.ndarray] = {}
-    prov_per_orb: Dict[str, Dict[str, float]] = {}
+    prov_per_orb: Dict[str, Dict[str, Any]] = {}
 
     for sh in scf_result.subshells:
         eps = scf_result.orbital_energies.get(sh.label)
@@ -491,10 +513,13 @@ def _eii_dw_total(
     n_outgoing_energies: int,
     continuum_model: Any = None,
     continuum_failure_mode: str = "raise",
+    partial_wave_tail: str = "none",
+    radial_refinement: int = 1,
     e1_grid_frac: Any = None,
     _capture: Any = None,
+    _channel_limits: Any = None,
 ) -> "EIIResult":
-    """Relativistic distorted-wave EII on the FAC-exact CE machinery.
+    """Relativistic distorted-wave EII using shared CE angular/radial kernels.
 
     Ionization is treated as excitation into the continuum: for each
     ejected-electron energy E1 the two-electron T-matrix
@@ -503,41 +528,38 @@ def _eii_dw_total(
 
     is assembled exactly as in
     :func:`atomx.scattering.distorted_wave.solver.dw_excitation_cross_section`
-    (exact m-summation angular coefficients, direct minus exchange,
-    delta(E)-normalized shooting continuum waves in the FAC-convention
-    (N-1)/N mean potential, fine-grid Slater integrals), and
+    (exact Racah-recoupled angular coefficients, direct minus exchange,
+    delta(E)-normalized shooting continuum waves in the selected local
+    potential, fine-grid Slater integrals), and
 
         sigma(E_i) = pi / p_i^2 * q_a / (2 j_a + 1)
                      * Int_0^{Tmax/2} dE1  2 pi^2
                        Sum_{J, kap_in, kap_1, kap_2} (2J+1) |T_J|^2
 
-    The E1 integral runs over the FAC-equivalent ejected-energy window
-    [~1.5e-3 T, T/2] with log-spaced low nodes (FAC ionization.c
-    CIRadialQkIntegratedTable, YEG0 = 5e-4): dsigma/dE1 is dominated by
-    soft ejection, and a window starting at 0.05 T loses 30-45% of the
-    total at high E.  Identical outgoing electrons: the antisymmetrized
+    The default E1 integral covers [0, T/2], using Gauss-Legendre nodes
+    under E1 = I*sinh(x)^2 to resolve soft ejection on the binding-energy
+    scale without evaluating a zero-energy continuum wave. Identical outgoing electrons:
+    the antisymmetrized
     |D - E|^2 covers the exchange (Slater-Condon, no extra recoupling
-    phase - the exact m-summation absorbs it).  A geometric high-l tail
-    on the incident partial-wave profile tops up l > kappa_max.
+    phase - the exchange coefficient includes it). The computed partial-wave
+    sum is returned by default; geometric incident-tail completion is opt-in.
     """
     from atomx.constants import HARTREE_EV as _HEV
     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
     from atomx.numerics.quadrature import (
         make_fine_grid,
         p_rel,
+        sinh_squared_quadrature,
         yk_pair_dot_batch_on_grid,
     )
     from atomx.numerics.shooting.dirac_continuum import (
-        solve_dirac_continuum_many,
+        DiracContinuumBatch,
     )
+    from atomx.angular.coefficients import coupled_coulomb_direct, coupled_coulomb_exchange
     from atomx.scattering._jit_kernels import eii_dw_channel_jsum
+    from atomx.numerics.extrapolation import geometric_tail_estimate
     from atomx.scattering.distorted_wave.solver import (
         _allowed_k,
-        _cc_direct,
-        _cc_exchange,
-        _continuum_on_grid,
-        _distorting_potential_fn,
-        _geometric_tail,
         _l_of,
         _shooting_points,
         _tj_of,
@@ -550,21 +572,43 @@ def _eii_dw_total(
 
     energies = _validate_energy_grid(energies_eV)
     kappa_max = _validate_positive_int(kappa_max, "kappa_max")
+    if _channel_limits is None:
+        channel_limits = (kappa_max, kappa_max, kappa_max)
+    else:
+        if len(_channel_limits) != 3:
+            raise ValueError('channel limits need incident, slow and fast orbital-l cutoffs')
+        channel_limits = tuple(_validate_positive_int(v, 'channel limit', minimum=0)
+                               for v in _channel_limits)
+        if max(channel_limits) > kappa_max:
+            raise ValueError('channel limits cannot exceed kappa_max')
+    radial_refinement = _validate_positive_int(radial_refinement, "radial_refinement")
     n_outgoing_energies = _validate_positive_int(
         n_outgoing_energies, "n_outgoing_energies", minimum=3
     )
     failure_mode = _validate_continuum_failure_mode(continuum_failure_mode)
+    if partial_wave_tail not in ('none', 'geometric'):
+        raise ValueError("partial_wave_tail must be 'none' or 'geometric'")
+    if e1_grid_frac is not None:
+        e1_grid_frac = np.asarray(e1_grid_frac, dtype=float)
+        if (e1_grid_frac.ndim != 1 or e1_grid_frac.size < 2
+                or not np.isfinite(e1_grid_frac).all()
+                or np.any(np.diff(e1_grid_frac) <= 0)
+                or e1_grid_frac[0] <= 0 or e1_grid_frac[-1] > .5):
+            raise ValueError('custom energy-sharing fractions must increase within (0, 0.5]')
     sigma_total = np.zeros_like(energies)
     by_orbital: Dict[str, np.ndarray] = {}
     prov_per_orb: Dict[str, Dict[str, float]] = {}
     continuum_failures: list[dict[str, Any]] = []
 
-    # FAC-convention mean potential of the target; continuum waves for the
-    # projectile and both outgoing electrons are solved in it.
-    V_func = _distorting_potential_fn(scf_result, bsp_data, Z, screening="fac")
-    N_bound = sum(float(sh.occupation) for sh in scf_result.subshells)
-    Z_res = max(float(Z) - N_bound + 1.0, 1.0)
-    r_max_box = float(bsp_data["t"][-1])
+    # Use one selected field for the projectile and both outgoing electrons.
+    # The default removes one electron's mean Hartree self-field; explicit
+    # models may select a different screening or local exchange prescription.
+    potential_model = getattr(continuum_model, 'potential', None)
+    V_func = (static_hartree_potential(scf_result, screening="mean")
+              if potential_model is None else potential_model.build_callable(scf_result))
+    Z_res = float(V_func.residual_charge)
+    bound_r_max = float(bsp_data["t"][-1])
+    r_max_box = bound_r_max
     shooting_n_grid = None
     if continuum_model is not None:
         model_method = str(getattr(continuum_model, "method", "")).lower()
@@ -573,11 +617,6 @@ def _eii_dw_total(
             if model_r_max is not None:
                 if not np.isfinite(float(model_r_max)) or float(model_r_max) <= 0.0:
                     raise ValueError("shooting r_max must be finite and > 0")
-                if float(model_r_max) > r_max_box:
-                    raise ValueError(
-                        "shooting r_max cannot exceed the bound-orbital "
-                        f"B-spline box ({r_max_box:.6g} a0)"
-                    )
                 r_max_box = float(model_r_max)
             model_n_grid = getattr(continuum_model, "shooting_n_grid", None)
             if model_n_grid is not None:
@@ -587,21 +626,21 @@ def _eii_dw_total(
 
     E_max_au = float(np.max(energies)) / _HEV
     p_max = p_rel(max(E_max_au, 1.0))
-    r_fine = make_fine_grid(r_max_box, p_max, z_inner=float(Z))
+    r_fine = make_fine_grid(r_max_box, p_max, z_inner=float(Z),
+                            refinement=radial_refinement)
     _require_finite_array(r_fine, "continuum fine grid")
-    dr_fine = np.gradient(r_fine)
+    dr_fine = RadialMetric.trapezoid(r_fine).weights
     _require_finite_array(dr_fine, "continuum fine-grid spacings", shape=r_fine.shape)
     n_shoot = shooting_n_grid or _shooting_points(r_max_box, p_max)
 
-    gr_flat = bsp_data["gr"].ravel()
-    _o = np.argsort(gr_flat)
-    gr_sorted = gr_flat[_o]
-
     def _bound_to_fine(coef_P, coef_Q):
-        Pg = eval_P(coef_P, bsp_data).ravel()[_o]
-        Qg = eval_Q(coef_Q, bsp_data).ravel()[_o]
-        P = np.interp(r_fine, gr_sorted, Pg)
-        Q = np.interp(r_fine, gr_sorted, Qg)
+        # The bound expansion has finite-box support; continuum pairs in
+        # the Coulomb source do not. Extend the collision domain without
+        # extrapolating the bound expansion or changing its native box.
+        inside = (r_fine >= bsp_data["t"][0]) & (r_fine <= bound_r_max)
+        P, Q = np.zeros_like(r_fine), np.zeros_like(r_fine)
+        P[inside] = eval_P(coef_P, bsp_data, r_fine[inside])
+        Q[inside] = eval_Q(coef_Q, bsp_data, r_fine[inside])
         _require_finite_array(P, "bound large-component wave", shape=r_fine.shape)
         _require_finite_array(Q, "bound small-component wave", shape=r_fine.shape)
         return P, Q
@@ -619,6 +658,9 @@ def _eii_dw_total(
             "energy_au": float(energy_au),
             "energy_eV": float(energy_au) * _HEV,
             "r_max_a0": float(r_max_box),
+            "radial_refinement": int(radial_refinement),
+            "radial_quadrature": "trapezoid",
+            "radial_grid_points": len(r_fine),
             "shooting_n_grid": int(n_shoot),
             "fine_grid_points": int(r_fine.shape[0]),
             "stage": stage,
@@ -642,40 +684,70 @@ def _eii_dw_total(
             f"{sample}{more}"
         )
 
-    def _wave(kappa: int, energy_au: float):
-        key = (int(kappa), round(float(energy_au), 10))
-        if key not in cont_cache:
-            try:
-                P, Q = _continuum_on_grid(
-                    int(kappa), float(energy_au), V_func, Z_res,
-                    r_fine, r_max_box, n_shoot)
-                _require_finite_array(P, "continuum large-component wave", shape=r_fine.shape)
-                _require_finite_array(Q, "continuum small-component wave", shape=r_fine.shape)
-                cont_cache[key] = (P, Q)
-            except Exception as exc:
-                _record_continuum_failure(kappa, energy_au, "single", exc)
-                cont_cache[key] = None
-                _raise_if_continuum_failures()
-        return cont_cache[key]
+    def _prefill(energies_needed):
+        """Keep only the incident wave and this node's two outgoing energies.
+
+        Each sharing node consumes its outgoing waves once. Streaming them
+        keeps wave storage independent of the sharing order and incident grid size.
+        """
+        energies_needed = {float(E) for E in energies_needed}
+        for key in list(cont_cache):
+            if key[1] not in energies_needed:
+                del cont_cache[key]
+        reqs = [(k, E) for k in kappa_list
+                for E in sorted(energies_needed) if (k, E) not in cont_cache]
+        if not reqs:
+            return
+        try:
+            _r_s, raw = continuum.solve_many(reqs)
+            for kap, E in reqs:
+                key = (kap, E)
+                pq = raw.get(key)
+                if pq is None:
+                    _record_continuum_failure(kap, E, 'batch' if key in raw else 'batch-missing')
+                    cont_cache[key] = None
+                else:
+                    P, Q = pq
+                    _require_finite_array(P, 'batch continuum large-component wave', shape=r_fine.shape)
+                    _require_finite_array(Q, 'batch continuum small-component wave', shape=r_fine.shape)
+                    cont_cache[key] = (P, Q)
+        except Exception as exc:
+            for kap, E in reqs:
+                key = (kap, E)
+                if key not in cont_cache:
+                    cont_cache[key] = None
+                _record_continuum_failure(kap, E, 'batch', exc)
+        _raise_if_continuum_failures()
 
     kappa_list = [k for k in range(-kappa_max - 1, kappa_max + 1)
                   if k != 0 and _l_of(k) <= kappa_max]
     n_kappa = len(kappa_list)
     n_fine = r_fine.shape[0]
+    # Internal matched-space diagnostic: these restrict the complete
+    # antisymmetrized channel, never its direct/exchange pieces separately.
+    incident_kappas, slow_kappas, fast_kappas = (
+        [k for k in kappa_list if _l_of(k) <= limit] for limit in channel_limits)
 
-    def _stack_waves(energy_au):
+    def _stack_waves(energy_au, out=None):
         """All partial waves at one energy as (P, Q) row stacks + a
         per-kappa availability mask (missing waves leave zero rows;
         the channel kernel masks them out)."""
-        P = np.zeros((n_kappa, n_fine))
-        Q = np.zeros((n_kappa, n_fine))
-        ok = np.zeros(n_kappa, dtype=np.bool_)
+        if out is None:
+            P = np.empty((n_kappa, n_fine))
+            Q = np.empty((n_kappa, n_fine))
+            ok = np.empty(n_kappa, dtype=np.bool_)
+        else:
+            P, Q, ok = out
         for i, kap in enumerate(kappa_list):
-            w = _wave(kap, energy_au)
+            w = cont_cache[int(kap), float(energy_au)]
             if w is not None:
                 P[i] = w[0]
                 Q[i] = w[1]
                 ok[i] = True
+            else:
+                P[i] = 0.
+                Q[i] = 0.
+                ok[i] = False
         return P, Q, ok
 
     for sh in scf_result.subshells:
@@ -694,28 +766,30 @@ def _eii_dw_total(
             continue
         P_a_c, Q_a_c, _q = orb_list[idx_in_kappa]
         P_a, Q_a = _bound_to_fine(P_a_c, Q_a_c)
-        # support of the ionized orbital: every radial integral of this
-        # shell is weighted by a density containing P_a — truncate the
-        # Y functions and dots there (|rho| < 1e-16*max contributes ~1e-13
-        # relative, far below quadrature accuracy).
-        _amax = float(np.max(np.abs(P_a)))
-        _sup = np.nonzero(np.abs(P_a) > 1.0e-16 * _amax)[0]
-        i_sup = int(_sup[-1]) if len(_sup) else len(P_a) - 1
+        # Integrate the complete supplied spinor. A small pointwise P value
+        # cannot bound a signed matrix element's relative tail error, nor
+        # justify dropping its Q component.
+        nonzero = np.flatnonzero((P_a != 0.) | (Q_a != 0.))
+        i_sup = min(int(nonzero[-1])+1, len(r_fine)-1) if nonzero.size else 0
+        # Only the consuming bound-continuum density is cut. Y^k still
+        # integrates the continuum-continuum source over the entire grid.
 
         sigma_a = np.zeros_like(energies)
+        sharing_diagnostics = []
+        completed_energies = {}
 
         # Energy-independent channel table for this shell: parity/triangle
-        # selection, multipole lists, and the m-summed angular coefficients
+        # selection, multipole lists, and the coupled angular coefficients
         # per total J.  Previously recomputed for every ejected-energy node
         # of every incident energy — it only depends on the kappas.
         channels = []
-        for kappa_in in kappa_list:
+        for kappa_in in incident_kappas:
             tj_in = _tj_of(kappa_in)
             l_in = _l_of(kappa_in)
-            for kappa_1 in kappa_list:
+            for kappa_1 in slow_kappas:
                 tj_1 = _tj_of(kappa_1)
                 l_1 = _l_of(kappa_1)
-                for kappa_2 in kappa_list:
+                for kappa_2 in fast_kappas:
                     tj_2 = _tj_of(kappa_2)
                     l_2 = _l_of(kappa_2)
                     if (l_a + l_in + l_1 + l_2) % 2 != 0:
@@ -732,11 +806,11 @@ def _eii_dw_total(
                         continue
                     jrows = []
                     for tJ in range(tJ_lo, tJ_hi + 1, 2):
-                        ccd = [(k, _cc_direct(kappa_1, kappa_2,
+                        ccd = [(k, coupled_coulomb_direct(kappa_1, kappa_2,
                                               kappa_a, kappa_in, tJ, k))
                                for k in ks]
                         ccd = [(k, a) for (k, a) in ccd if a != 0.0]
-                        cce = [(t, _cc_exchange(kappa_1, kappa_2,
+                        cce = [(t, coupled_coulomb_exchange(kappa_1, kappa_2,
                                                 kappa_a, kappa_in, tJ, t))
                                for t in ts]
                         cce = [(t, a) for (t, a) in cce if a != 0.0]
@@ -850,126 +924,124 @@ def _eii_dw_total(
             T_max = E_i_au - I_a_au
             if T_max <= 0.0:
                 continue
+            energy_key = float(E_i_eV)
+            if energy_key in completed_energies:
+                sigma_a[E_i_idx], diagnostic = completed_energies[energy_key]
+                sharing_diagnostics.append(diagnostic.copy())
+                continue
             p_i_sq = 2.0 * E_i_au + (E_i_au * E_i_au) / C_SQ
 
             if e1_grid_frac is not None:
-                E1_grid = np.asarray(e1_grid_frac, dtype=float) * T_max
+                E1_grid = e1_grid_frac * T_max
+                E1_weights = None
             else:
-                # FAC-equivalent ejected-energy window (ionization.c
-                # CIRadialQkIntegratedTable: y in [YEG0*I/T, 0.5],
-                # log-spaced): soft ejection dominates dsigma/dE1, so the
-                # low-E1 nodes are log-spaced down to ~1e-3 of T; the old
-                # 0.05T..0.49T linear window missed ~30-45% of the
-                # integral at high E.
-                n_lo = max(n_outgoing_energies // 2, 3)
-                n_hi = max(n_outgoing_energies - n_lo, 3)
-                E1_grid = np.concatenate([
-                    np.geomspace(1.5e-3, 0.08, n_lo),
-                    np.linspace(0.13, 0.499, n_hi),
-                ]) * T_max
+                E1_grid, E1_weights = sinh_squared_quadrature(
+                    n_outgoing_energies, .5*T_max, I_a_au)
             integrand = np.zeros_like(E1_grid)
+            tail_integrand = np.zeros_like(E1_grid)
+            unresolved_tail_nodes = 0
 
-            # Thread-parallel prefill of every continuum wave used by this
-            # incident energy: projectile + all ejected/scattered nodes.
-            energies_needed = {round(E_i_au, 10)}
-            for E_1_au in E1_grid:
-                energies_needed.add(round(float(E_1_au), 10))
-                energies_needed.add(round(float(T_max - E_1_au), 10))
-            try:
-                reqs = [(k, E) for k in kappa_list
-                        for E in energies_needed]
-                _r_s, raw = solve_dirac_continuum_many(
-                    reqs, V_func, r_max=r_max_box, n_grid=n_shoot,
-                    Z_residual=Z_res, interp_grid=r_fine)
-                for (kap, E), pq in raw.items():
-                    key = (int(kap), round(float(E), 10))
-                    if key not in cont_cache:
-                        if pq is None:
-                            _record_continuum_failure(kap, E, "batch")
-                            cont_cache[key] = None
-                        else:
-                            P, Q = pq
-                            _require_finite_array(
-                                P, "batch continuum large-component wave",
-                                shape=r_fine.shape,
-                            )
-                            _require_finite_array(
-                                Q, "batch continuum small-component wave",
-                                shape=r_fine.shape,
-                            )
-                            cont_cache[key] = (P, Q)
-                missing = set(reqs) - set(raw)
-                for kap, E in missing:
-                    _record_continuum_failure(kap, E, "batch-missing")
-                    cont_cache[(int(kap), round(float(E), 10))] = None
-                _raise_if_continuum_failures()
-            except Exception as exc:
-                for kap, E in reqs:
-                    key = (int(kap), round(float(E), 10))
-                    if key not in cont_cache:
-                        cont_cache[key] = None
-                    _record_continuum_failure(kap, E, "batch", exc)
-                _raise_if_continuum_failures()
+            with DiracContinuumBatch(
+                    V_func, r_max=r_max_box, n_grid=n_shoot,
+                    Z_residual=Z_res, interp_grid=r_fine) as continuum:
+                _prefill({E_i_au})
+                WinP, WinQ, ok_in = _stack_waves(E_i_au)
+                outgoing1 = outgoing2 = None
 
-            WinP, WinQ, ok_in = _stack_waves(E_i_au)
+                for j_E1, E_1_au in enumerate(E1_grid):
+                    E_2_au = T_max - E_1_au
+                    _prefill({E_i_au, E_1_au, E_2_au})
+                    outgoing1 = _stack_waves(E_1_au, outgoing1)
+                    outgoing2 = _stack_waves(E_2_au, outgoing2)
+                    W1P, W1Q, ok_1 = outgoing1
+                    W2P, W2Q, ok_2 = outgoing2
+                    # Bound-continuum density rows (trapezoid weights folded
+                    # in), then all direct/exchange Slater values of the
+                    # node in two prange batches: Y^k builds parallel over
+                    # ROWS with the consumer dots fused in (each row is the
+                    # serial fused kernel — a batched 2D-cumsum variant was
+                    # tried and lost: the reversed-slice cumsums force
+                    # full-matrix copies in this memory-bound regime).
+                    RhoA1 = (P_a_s * W1P[:, :i_sup + 1]
+                             + Q_a_s * W1Q[:, :i_sup + 1]) * dr_s
+                    RhoA2 = (P_a_s * W2P[:, :i_sup + 1]
+                             + Q_a_s * W2Q[:, :i_sup + 1]) * dr_s
+                    Rd = yk_pair_dot_batch_on_grid(
+                        WinP, WinQ, W2P, W2Q, db_a, db_b, db_k,
+                        ok_in[db_a] & ok_2[db_b], RhoA1, d_ptr, d_cons_rho,
+                        r_fine, i_cut=i_sup)
+                    Re = yk_pair_dot_batch_on_grid(
+                        WinP, WinQ, W1P, W1Q, eb_a, eb_b, eb_k,
+                        ok_in[eb_a] & ok_1[eb_b], RhoA2, e_ptr, e_cons_rho,
+                        r_fine, i_cut=i_sup)
+                    _require_finite_array(Rd, "DW EII direct Slater integrals")
+                    _require_finite_array(Re, "DW EII exchange Slater integrals")
+                    # Slater-Condon for the antisymmetrized outgoing pair:
+                    # T = D - E exactly; the coupled-state permutation in
+                    # coupled_coulomb_exchange absorbs all recoupling phases (verified:
+                    # a J-dependent (-1)^{j1+j2-J} variant degrades
+                    # agreement with FAC's exact-grid values).
+                    prof_l = eii_dw_channel_jsum(
+                        Rd, Re, ok_in, ok_1, ok_2,
+                        ch_in, ch_1, ch_2, ch_lin, ch_jr0, ch_jr1,
+                        jw, jd0, jd1, je0, je1,
+                        d_slot, d_ang, e_slot, e_ang,
+                        kappa_max + 1)
 
-            for j_E1, E_1_au in enumerate(E1_grid):
-                E_2_au = T_max - E_1_au
-                W1P, W1Q, ok_1 = _stack_waves(E_1_au)
-                W2P, W2Q, ok_2 = _stack_waves(E_2_au)
-                # Bound-continuum density rows (trapezoid weights folded
-                # in), then all direct/exchange Slater values of the
-                # node in two prange batches: Y^k builds parallel over
-                # ROWS with the consumer dots fused in (each row is the
-                # serial fused kernel — a batched 2D-cumsum variant was
-                # tried and lost: the reversed-slice cumsums force
-                # full-matrix copies in this memory-bound regime).
-                RhoA1 = (P_a_s * W1P[:, :i_sup + 1]
-                         + Q_a_s * W1Q[:, :i_sup + 1]) * dr_s
-                RhoA2 = (P_a_s * W2P[:, :i_sup + 1]
-                         + Q_a_s * W2Q[:, :i_sup + 1]) * dr_s
-                Rd = yk_pair_dot_batch_on_grid(
-                    WinP, WinQ, W2P, W2Q, db_a, db_b, db_k,
-                    ok_in[db_a] & ok_2[db_b], RhoA1, d_ptr, d_cons_rho,
-                    r_fine, i_cut=i_sup)
-                Re = yk_pair_dot_batch_on_grid(
-                    WinP, WinQ, W1P, W1Q, eb_a, eb_b, eb_k,
-                    ok_in[eb_a] & ok_1[eb_b], RhoA2, e_ptr, e_cons_rho,
-                    r_fine, i_cut=i_sup)
-                _require_finite_array(Rd, "DW EII direct Slater integrals")
-                _require_finite_array(Re, "DW EII exchange Slater integrals")
-                # Slater-Condon for the antisymmetrized outgoing pair:
-                # T = D - E exactly; the exact m-summation in
-                # _cc_exchange absorbs all recoupling phases (verified:
-                # a J-dependent (-1)^{j1+j2-J} variant degrades
-                # agreement with FAC's exact-grid values).
-                prof_l = eii_dw_channel_jsum(
-                    Rd, Re, ok_in, ok_1, ok_2,
-                    ch_in, ch_1, ch_2, ch_lin, ch_jr0, ch_jr1,
-                    jw, jd0, jd1, je0, je1,
-                    d_slot, d_ang, e_slot, e_ang,
-                    kappa_max + 1)
-
-                om = float(np.sum(prof_l))
-                # Geometric high-l tail on the incident partial wave.
-                om += _geometric_tail(prof_l, kappa_max)
-                integrand[j_E1] = 2.0 * np.pi ** 2 * om
+                    om = float(np.sum(prof_l))
+                    # Geometric high-l tail on the incident partial wave.
+                    tail, tail_resolved = geometric_tail_estimate(prof_l, channel_limits[0])
+                    unresolved_tail_nodes += int(not tail_resolved)
+                    tail_integrand[j_E1] = 2.0 * np.pi ** 2 * tail
+                    if partial_wave_tail == 'geometric':
+                        om += tail
+                    integrand[j_E1] = 2.0 * np.pi ** 2 * om
             if _capture is not None:
                 _capture[(sh.label, float(E_i_eV))] = (
                     E1_grid.copy(), integrand.copy(), T_max)
-            integral = float(np.trapezoid(integrand, E1_grid))
+            integral = float(np.trapezoid(integrand, E1_grid) if E1_weights is None
+                             else np.dot(E1_weights, integrand))
+            tail_integral = float(np.trapezoid(tail_integrand, E1_grid) if E1_weights is None
+                                  else np.dot(E1_weights, tail_integrand))
+            applied_tail = tail_integral if partial_wave_tail == 'geometric' else 0.
             sigma_a_au = (np.pi / p_i_sq) * (q_a / (tj_a + 1.0)) * integral
             sigma_a[E_i_idx] = sigma_a_au * BOHR_RADIUS_M ** 2 * 1e4
+            prefactor = (np.pi / p_i_sq) * (q_a / (tj_a + 1.0)) * BOHR_RADIUS_M ** 2 * 1e4
+            sharing_diagnostics.append(dict(
+                incident_energy_eV=float(E_i_eV),
+                explicit_partial_wave_sigma_cm2=float(prefactor*(integral-applied_tail)),
+                incident_tail_sigma_cm2=float(prefactor*applied_tail),
+                estimated_incident_tail_sigma_cm2=float(prefactor*tail_integral),
+                unresolved_tail_nodes=unresolved_tail_nodes,
+                quadrature_nodes=len(E1_grid)))
+            completed_energies[energy_key] = sigma_a[E_i_idx], sharing_diagnostics[-1]
 
         by_orbital[sh.label] = sigma_a
         sigma_total += sigma_a
         prov_per_orb[sh.label] = {
             "I_eV": I_a_au * _HEV, "occupation": q_a,
             "kappa_max": kappa_max,
-            "n_E1_quadrature": n_outgoing_energies,
+            "channel_l_limits": dict(zip(('incident', 'slow', 'fast'), channel_limits)),
+            "n_E1_quadrature": n_outgoing_energies if e1_grid_frac is None else len(e1_grid_frac),
+            "energy_sharing_quadrature": ('gauss-legendre-sinh-squared' if e1_grid_frac is None
+                                          else 'custom-trapezoid'),
+            "energy_sharing_fraction_interval": ([0., .5] if e1_grid_frac is None
+                                                 else [float(e1_grid_frac[0]), float(e1_grid_frac[-1])]),
+            "partial_wave_diagnostics": sharing_diagnostics,
+            "incident_tail_model": partial_wave_tail,
+            "partial_wave_convergence": 'not certified; refine kappa_max independently',
+            "radial_refinement": int(radial_refinement),
+            "radial_quadrature": "trapezoid",
+            "radial_grid_points": len(r_fine),
             "shooting_n_grid": int(n_shoot),
             "shooting_r_max_a0": float(r_max_box),
-            "continuum": "shooting delta(E), FAC (N-1)/N mean potential",
+            "bound_r_max_a0": bound_r_max,
+            "bound_exterior": "zero outside native B-spline box",
+            "radial_domain_convergence": "not certified; refine shooting r_max independently",
+            "continuum": "shooting delta(E), Dirac-Coulomb matching",
+            "potential": "mean_hartree" if potential_model is None else potential_model.kind,
+            "screening": getattr(V_func, 'screening', None),
+            "residual_charge": Z_res,
         }
 
     include_local_exchange = False
@@ -989,6 +1061,8 @@ def _eii_dw_total(
             "include_local_exchange": include_local_exchange,
             "continuum_failure_mode": failure_mode,
             "continuum_failures": continuum_failures,
+            "collision_operator": "instantaneous_coulomb",
+            "transverse_exchange": False,
         },
     )
 

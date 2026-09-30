@@ -63,11 +63,10 @@ sys.path.insert(0, str(ROOT / "benchmarks"))
 from bench_fac_dw_excitation import SEQUENCES, _threshold_eV  # noqa: E402
 
 from atomx import Atom  # noqa: E402
+from atomx.numerics.extrapolation import geometric_tail_estimate  # noqa: E402
 from atomx.constants import BOLTZMANN_EV  # noqa: E402
 from atomx.scattering.distorted_wave import born as born_mod  # noqa: E402
 from atomx.scattering.distorted_wave.solver import (  # noqa: E402
-    _geometric_tail,
-    _geometric_tail_estimate,
     collision_strength_to_rate,
     dw_excitation_cross_section,
 )
@@ -86,7 +85,7 @@ BORN_TOL = 0.25
 # partial-wave sum the blend is allowed to contribute, measured at
 # L_max=6, kappa_max=10 on 2026-09-22.
 # Refreshed after constrained radial orbitals / mixed exchange (2026-09-23).
-OMEGA_DW_PIN = (0.023307841194157325, 0.009582412509053196, 0.0037768198990892677)
+OMEGA_DW_PIN = (0.02328183717443631, 0.009572258091773525, 0.0037728889202324543)
 OMEGA_DW_PIN_RTOL = 1.0e-3
 # Hydrogenic 1s -> 2p absorption oscillator strength, exact:
 #   f_{1s->np} = 2^8 n^5 (n-1)^{2n-4} / (3 (n+1)^{2n+4})   (n = 2)
@@ -146,7 +145,7 @@ def high_energy_completion() -> dict[str, np.ndarray]:
     weights: list[np.ndarray] = []
     tail_estimates: list[tuple[float, bool]] = []
     original_blend = born_mod.born_blend_weights
-    original_estimate = _geometric_tail_estimate
+    original_estimate = geometric_tail_estimate
 
     def blend_spy(omega_dw, tail_arr, p_born=0.5):
         w = original_blend(omega_dw, tail_arr, p_born)
@@ -162,7 +161,7 @@ def high_energy_completion() -> dict[str, np.ndarray]:
     with pytest.MonkeyPatch.context() as mp:
         mp.setattr(born_mod, "born_blend_weights", blend_spy)
         mp.setattr("atomx.scattering.distorted_wave.solver."
-                   "_geometric_tail_estimate", estimate_spy)
+                   "geometric_tail_estimate", estimate_spy)
         omega = _dw_omega(energies, threshold)
         shipped_estimates = list(tail_estimates)
         mp.setattr(born_mod, "born_blend_weights",
@@ -220,8 +219,8 @@ def test_dw_partial_wave_sum_is_pinned(high_energy_completion):
     be pinned against it).  They exist so that a *further* collapse of the
     partial-wave sum — which the 25 % Born band cannot see, because the blend
     forces ``Omega >= 0.707 Omega_Born`` for any Omega_DW — trips immediately.
-    Refreshed after using the radial Dirac equation for the continuum
-    matching derivative: 0.023308 / 0.009582 / 0.003777. These are still
+    Refreshed after native B-spline bound sampling and the shared nuclear
+    field correction: 0.023282 / 0.009572 / 0.003773. These are still
     implementation snapshots, not FAC or asymptotic Born references.
     """
     omega_dw = _omega_dw_from_fixture(high_energy_completion)
@@ -230,9 +229,8 @@ def test_dw_partial_wave_sum_is_pinned(high_energy_completion):
         err_msg=(
             "the DW partial-wave sum at 50-100-200x threshold moved; it was "
             "0.0233/0.0096/0.0038 (9x/30x/110x below Born) when this pin was "
-            "recorded.  A decrease is a regression in the DW kernel; an "
-            "increase means the kernel finally converges — re-derive the pin "
-            "and tighten test_dw_omega_rises_and_tracks_born_at_high_energy."
+            "recorded. Inspect any change against independent radial accuracy and "
+            "partial-wave convergence before updating this implementation snapshot."
         ),
     )
 
@@ -298,19 +296,25 @@ def test_unresolved_tail_is_flagged_not_zero(high_energy_completion):
 def test_geometric_tail_estimate_rising_profile_is_a_floor():
     """Unit form: q rising at l_last -> capped floor + converged=False."""
     rising = np.array([0.0, 0.0, 0.5, 0.4, 0.45])
-    tail, converged = _geometric_tail_estimate(rising, 4)
+    tail, converged = geometric_tail_estimate(rising, 4)
     assert converged is False
     assert tail == pytest.approx(0.45 * 0.85 / 0.15)
-    # The EII-facing legacy entry point stays at 0.0 for an unresolved
-    # profile (its consumer *adds* the tail; changing it is out of scope
-    # here), so the flag — not this value — is what the completion reads.
-    assert _geometric_tail(rising, 4) == 0.0
 
     decaying = np.array([0.0, 0.0, 0.5, 0.25, 0.125])
-    tail_dec, converged_dec = _geometric_tail_estimate(decaying, 4)
+    tail_dec, converged_dec = geometric_tail_estimate(decaying, 4)
     assert converged_dec is True
     assert tail_dec == pytest.approx(0.125 * 0.5 / 0.5)
-    assert _geometric_tail(decaying, 4) == pytest.approx(tail_dec)
+
+
+def test_geometric_tail_does_not_jump_when_profile_starts_rising():
+    # A former EII wrapper switched the tail to zero at ratio=1, creating
+    # a discontinuity in the outgoing-energy integrand. Both consumers now
+    # use the same bounded estimate and retain its unresolved flag.
+    profiles = [np.array([0., 0., .5, 1., 1.+d]) for d in [-1e-8, 0., 1e-8]]
+    estimates = [geometric_tail_estimate(p, 4) for p in profiles]
+    assert not any(converged for _, converged in estimates)
+    values = np.array([value for value, _ in estimates])
+    np.testing.assert_allclose(values, .85/.15, rtol=2e-8)
 
 
 def test_blend_weights_single_zero_does_not_propagate():

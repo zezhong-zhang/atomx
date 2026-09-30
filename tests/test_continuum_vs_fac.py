@@ -24,6 +24,8 @@ import sys
 from pathlib import Path
 
 import numpy as np
+
+from atomx.potentials.static_field import static_hartree_potential
 import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -77,7 +79,6 @@ def test_wave_matches_fac(solved, fname, Z):
     from atomx.numerics.quadrature import p_rel
     from atomx.numerics.shooting.dirac_continuum import solve_dirac_continuum_shooting
     from atomx.scattering.distorted_wave.solver import (
-        _distorting_potential_fn,
         _shooting_points,
     )
 
@@ -85,7 +86,7 @@ def test_wave_matches_fac(solved, fname, Z):
     E = hdr["energy"] / HEV
     kappa = int(hdr["kappa"])
     a = solved[Z]
-    V = _distorting_potential_fn(a._result, a._bsp_data, Z, screening="fac")
+    V = static_hartree_potential(a._result, screening="mean")
     r_max = float(a._bsp_data["t"][-1])
     n = _shooting_points(r_max, p_rel(E))
     rs, Ps, _Qs, _ = solve_dirac_continuum_shooting(

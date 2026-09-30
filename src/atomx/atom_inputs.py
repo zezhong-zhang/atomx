@@ -156,8 +156,9 @@ class Corrections:
     Attributes
     ----------
     breit : bool, optional
-        Include the Breit interaction (Gaunt + retardation), evaluated
-        perturbatively after the SCF.  Default ``None`` = on.
+        Include transverse exchange after orbital optimization: a DHF
+        expectation or a resolved CSF Hamiltonian contribution. Static
+        Breit (Gaunt + retardation) is the default. ``None`` = on.
     qed : bool, optional
         Include the QED corrections (vacuum polarization + self energy).
         Default ``None`` = on.
@@ -172,14 +173,37 @@ class Corrections:
         given it *replaces* the ``breit``/``qed``/``qed_backend`` sugar,
         so a flag that contradicts the stack raises rather than being
         silently overridden.
+    breit_frequency : {"static", "orbital_differences"}, optional
+        Static Breit by default. ``"orbital_differences"`` selects the real
+        finite-frequency transverse operator, averaging operators evaluated
+        at the two vertex frequencies. Applied on fixed orbitals after Dirac-Coulomb solving.
+        An explicit stack must agree with this choice.
+    breit_orbital_energies : mapping, optional
+        ``(n, kappa) -> energy`` in Hartree for the frequency prescription.
+        Ordinary DHF uses its converged orbital energies when omitted.
+        CSF calculations (Hamiltonian DF and MCDHF) require an explicit
+        complete mapping; correlation-orbital energies are not inferred.
     """
 
     breit: Optional[bool] = None
     qed: Optional[bool] = None
     qed_backend: Optional[str] = None
     stack: Optional[Any] = None
+    breit_frequency: Optional[str] = None
+    breit_orbital_energies: Optional[dict] = None
 
     def __post_init__(self):
+        if self.breit_frequency not in (None, 'static', 'orbital_differences'):
+            raise ValueError("breit_frequency must be 'static' or 'orbital_differences'")
+        if self.breit_frequency == 'orbital_differences' and self.breit is False:
+            raise ValueError('finite-frequency Breit requires breit=True')
+        if self.breit_orbital_energies is not None:
+            frequency = self.breit_frequency or getattr(self.stack, 'breit_frequency', 'static')
+            if frequency != 'orbital_differences':
+                raise ValueError('breit_orbital_energies requires orbital_differences frequency')
+            from atomx.physics.csf.transverse import validate_orbital_energies
+            object.__setattr__(self, 'breit_orbital_energies', validate_orbital_energies(
+                self.breit_orbital_energies, self.breit_orbital_energies))
         if self.qed_backend is not None and self.qed_backend not in SE_BACKENDS:
             raise ValueError(
                 f"qed_backend must be one of "
@@ -202,6 +226,8 @@ class ResolvedCorrections:
     qed: bool
     qed_backend: str
     stack: Optional[Any]
+    breit_frequency: str = 'static'
+    breit_orbital_energies: Optional[dict] = None
 
     @property
     def any(self) -> bool:
@@ -258,11 +284,19 @@ def resolve_corrections(spec=None) -> ResolvedCorrections:
             qed=True if spec.qed is None else bool(spec.qed),
             qed_backend=spec.qed_backend or "auto",
             stack=None,
+            breit_frequency=spec.breit_frequency or 'static',
+            breit_orbital_energies=spec.breit_orbital_energies,
         )
 
     # An explicit stack is authoritative: every flag the caller *did* set
     # must agree with it, or the run would silently do something else.
     stack_breit = bool(getattr(stack, "include_breit", False))
+    stack_frequency = getattr(stack, 'breit_frequency', 'static')
+    stack_energies = getattr(stack, 'breit_orbital_energies', None)
+    if spec.breit_frequency is not None and spec.breit_frequency != stack_frequency:
+        raise ValueError('breit_frequency contradicts the correction stack')
+    if spec.breit_orbital_energies is not None and spec.breit_orbital_energies != stack_energies:
+        raise ValueError('breit_orbital_energies contradicts the correction stack')
     stack_qed = (
         getattr(stack, "se_backend", None) is not None
         or bool(getattr(stack, "include_vp", False))
@@ -288,6 +322,8 @@ def resolve_corrections(spec=None) -> ResolvedCorrections:
         qed=stack_qed,
         qed_backend=spec.qed_backend or "auto",
         stack=stack,
+        breit_frequency=stack_frequency,
+        breit_orbital_energies=stack_energies,
     )
 
 
@@ -304,18 +340,22 @@ class Correlation:
         Closed shells are frozen for ``Z > 10`` (``1s 2s 2p``) and
         ``Z > 4`` (``1s``).  Default ``None`` = no auto-expansion
         (single-configuration DHF, or the explicit list in ``config=``).
-    averaging : {"ci", "statistical", "equal", "fractional"}, optional
-        Weights of the jj-CSFs that span a partially filled
-        non-relativistic shell in the Guerra-averaged Fock operator
-        ``w_ij = sum_J c_J^2 n_i^J n_j^J``.  ``"ci"`` (default) takes the
-        ``c_J`` from diagonalising the CI Hamiltonian (physically correct
-        averaged-monoconfiguration; collapses to plain DHF for closed
-        shells); ``"statistical"`` uses the ``C(2j+1, q)`` M_J counts
-        (DBSR_HF ``term=AV``); ``"equal"`` uniform weights;
-        ``"fractional"`` the legacy ``q(q-1)`` fallback.  ``"ci"`` needs
-        ``exchange="hf"`` — the local models carry no per-pair Slater
-        structure to average, so the *defaulted* ``"ci"`` falls back to
-        ``"statistical"`` while an *explicit* ``averaging="ci"`` raises.
+    averaging : {"hamiltonian", "statistical", "equal", "fractional", "ci"}, optional
+        Single-configuration HF defaults to ``"hamiltonian"``: diagonalize
+        the Hamiltonian among the intermediate-coupling CSFs of that one
+        nonrelativistic configuration and optimize orbitals using the full
+        state energy, including CSF interference. Effective occupations are
+        ``sum_j |c_j|**2 n_ij`` (Guerra et al., Eq. 10). No excited
+        configurations are generated. Degenerate ground states are averaged
+        equally. Both engines solve direct radial DF source equations on the
+        self-consistent electron branch, without a finite continuum optimizer.
+        Radial variation is Dirac–Coulomb; Breit/QED/recoil retain
+        their recorded subsequent correction stages.
+        ``"statistical"`` is a separate fixed ensemble with integer jj
+        configuration degeneracy weights; ``"equal"`` weights those
+        configurations equally. ``"fractional"`` requests products of mean
+        occupations. Local exchange defaults to ``"statistical"``.
+        ``"ci"`` is reserved for explicit configuration lists/expansions.
     radial_optimization : {"mcdhf", "fac_frozen", "fac_frozen_local"}
         How the multi-configuration outer loop treats the radial shapes:
         ``"mcdhf"`` (default) re-optimises orbitals and CI coefficients
@@ -358,10 +398,10 @@ class Correlation:
             raise ValueError(
                 f"expansion must be None, 's', or 'sd' "
                 f"(got {self.expansion!r})")
-        if self.averaging not in (None, "ci", "statistical", "equal",
+        if self.averaging not in (None, "hamiltonian", "ci", "statistical", "equal",
                                   "fractional"):
             raise ValueError(
-                f"averaging must be None, 'ci', 'statistical', 'equal', or "
+                f"averaging must be None, 'hamiltonian', 'ci', 'statistical', 'equal', or "
                 f"'fractional' (got {self.averaging!r})")
         if self.radial_optimization not in ("mcdhf", "fac_frozen",
                                             "fac_frozen_local"):
@@ -415,6 +455,9 @@ class Basis:
         shooting grid ``n_grid``, and :meth:`Atom.solve`'s
         ``tol``/``max_iter``.  A field set on this object always wins over
         the tier.  Default ``None``.
+    shooting_space : ShootingSpace, optional
+        Finite electron-space controls for explicit MCDHF with shooting.
+        Direct Hamiltonian DF instead uses ``sampling.n_grid`` and ``r_max``.
     """
 
     ns: Optional[int] = None

@@ -188,7 +188,7 @@ def test_breit_scalar_matches_dbsr_hf():
     retardation channels, still ~50x too small.  The 1 % band excludes
     the pre-fix 0.050449 by 200x.
     """
-    from atomx.methods.mcdhf.config import enumerate_jj_csfs_many
+    from atomx.config.csf import enumerate_jj_csfs_many
     from atomx.methods.mcdhf.solver import MCDHFSolver
 
     csfs = enumerate_jj_csfs_many(["1s2 2s2 2p6"])

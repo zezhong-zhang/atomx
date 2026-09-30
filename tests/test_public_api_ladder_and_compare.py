@@ -180,6 +180,7 @@ def test_compare_prints_each_energy_in_the_requested_unit(ne_ladder, capsys):
     assert "cm-1" in out
     assert f"{float(before.total_energy) * HARTREE_CM1:.6f}" in out
     assert f"{float(after.total_energy) * HARTREE_CM1:.6f}" in out
+    assert '_eigensolver' not in out
 
 
 # ---------------------------------------------------------------------------

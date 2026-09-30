@@ -1,12 +1,14 @@
 """Single-channel electric-dipole photoionization on a B-spline continuum.
 
 Scattering owns channel selection and cross-section normalization. Numerical
-continuum eigenproblems and radial matrix elements remain in numerics.
+continuum eigenproblems remain in numerics. The finite-frequency photon
+operator is shared with bound-bound transitions.
 """
 import numpy as np
 
 from atomx.constants import ALPHA
-from atomx.numerics.bspline.continuum import solve_continuum, dipole_matrix_element
+from atomx.numerics.bspline.continuum import solve_continuum
+from atomx.properties.transitions.multipole import radial_eL
 
 
 def photoionization_cross_section(bound_P, bound_Q, bound_kappa, bound_energy,
@@ -14,7 +16,9 @@ def photoionization_cross_section(bound_P, bound_Q, bound_kappa, bound_energy,
                                    V_scf_PP=None, V_scf_QQ=None):
     """Compute photoionization cross-section σ(ω) for a bound orbital.
 
-    σ(ω) = (4π²αω/3) Σ_{κ_f} |<f|r|i>|² × angular_factor
+    σ(ω) = (4π²αω/3) Σ_{κ_f} |R_E1(ω)|² × angular_factor
+
+    R_E1 is the finite-frequency Babushkin radial operator.
 
     Parameters
     ----------
@@ -80,7 +84,8 @@ def photoionization_cross_section(bound_P, bound_Q, bound_kappa, bound_energy,
                 kf, electron_energy, Z, bsp_data, V_scf_PP, V_scf_QQ,
                 energy_normalized=True)
 
-            dme = dipole_matrix_element(bound_P, bound_Q, Pf, Qf, bsp_data)
+            dme = radial_eL(bound_P, bound_Q, Pf, Qf, bsp_data,
+                            kappa_i=bound_kappa, kappa_f=kf, omega=float(omega))
 
             # σ = 4π²αω/3 × |<f|r|i>|² × (2j_f+1)
             sigma[idx] += (4.0 * np.pi ** 2 * ALPHA * omega / 3.0

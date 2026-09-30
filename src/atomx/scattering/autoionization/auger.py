@@ -33,7 +33,7 @@ As a **calibrated practical helper** this module ships
 
 For most production uses the angular coefficients are the same as for
 two-electron Coulomb matrix elements in MCDHF (see
-:mod:`atomx.methods.mcdhf.matrix`); users can compute them there and pass them
+:mod:`atomx.physics.csf.matrix`); users can compute them there and pass them
 in.  Validated against expected scalings; absolute cross-checks vs. FAC
 are planned follow-ups.
 """
