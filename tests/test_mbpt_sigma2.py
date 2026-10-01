@@ -172,48 +172,51 @@ def test_sigma2_mscheme_bigger_than_samej(workspace, sigma2):
 
 
 def test_holeline_brute_collision(workspace):
-    """Hole-line vs inline brute force on the Be 2s2s diagonal + Hermiticity."""
+    """Corrected hole-line: brute-force collision + PHYSICS SIGN gate.
+
+    Sign gate (the lesson of the 2026-10-02 NO-SHIP): the diagonal
+    element must be NEGATIVE (attractive second-order correction) for
+    valence orbitals above the core — checked BEFORE any anchor run."""
     from atomx.methods.mbpt_sigma2 import build_sigma2_holeline
     from atomx.angular.csf_hamiltonian import two_body_angular, _m2_values, twoj
     import atomx.physics.csf.matrix as MAT
     dhf, od, eps = workspace
     d = build_sigma2_holeline(od, dhf.bsp_data, 4, dhf.ns,
                               core_keys=[(1, -1)],
+                              virt_keys=_VIRT,
                               valence_keys=_VALENCE, eps=eps)
     up, dn = d.index[(2, -1, 1)], d.index[(2, -1, -1)]
     fast = d(up, dn, up, dn)
-    # brute force
-    ext = sorted(set(_VALENCE) | {(1, -1)})
+    # brute force: direct-exchange, symmetrised denominator
+    ext = sorted(set(_VALENCE) | {(1, -1)} | set(_VIRT))
     spinors = [(n, k, m2) for (n, k) in ext for m2 in _m2_values(twoj(k))]
-    idx = {s: i for i, s in enumerate(spinors)}
-    def g2(ia, ib, im, im2_):
-        a, b, m, m2_ = spinors[ia], spinors[ib], spinors[im], spinors[im2_]
-        t = two_body_angular(a[1], a[2], b[1], b[2], m[1], m[2], m2_[1], m2_[2])
+    idx = {s_: i for i, s_ in enumerate(spinors)}
+    def g2(ia, ic, im, ir_):
+        a, c, m, r_ = spinors[ia], spinors[ic], spinors[im], spinors[ir_]
+        t = two_body_angular(a[1], a[2], m[1], m[2], c[1], c[2], r_[1], r_[2])
         if not t:
             return 0.0
-        Pa, Qa = od[(a[0], a[1])]; Pb, Qb = od[(b[0], b[1])]
-        Pm, Qm = od[(m[0], m[1])]; Pm2, Qm2 = od[(m2_[0], m2_[1])]
-        return sum(co * MAT._rk(Pa, Qa, Pm, Qm, Pb, Qb, Pm2, Qm2,
+        Pa, Qa = od[(a[0], a[1])]; Pc, Qc = od[(c[0], c[1])]
+        Pm, Qm = od[(m[0], m[1])]; Pr, Qr = od[(r_[0], r_[1])]
+        return sum(co * MAT._rk(Pa, Qa, Pc, Qc, Pm, Qm, Pr, Qr,
                                 dhf.bsp_data, k) for k, co in t)
     core_spin = [idx[(1, -1, m2)] for m2 in (-1, 1)]
+    virt_spin = [idx[(n, k, m2)] for (n, k) in _VIRT
+                for m2 in _m2_values(twoj(k))]
     ia_, ib_ = idx[(2, -1, 1)], idx[(2, -1, -1)]
     e_val = eps[(2, -1)] * 2
     total = 0.0
-    for i1 in range(len(core_spin)):
-        for i2 in range(len(core_spin)):
-            if i1 == i2:
-                continue
-            mi, mj = core_spin[i1], core_spin[i2]
-            e_core = eps[spinors[mi][:2]] + eps[spinors[mj][:2]]
-            P1 = g2(ia_, ib_, mi, mj)
-            P2 = g2(mi, mj, ia_, ib_)
-            if P1 and P2:
-                total += P1 * P2 / (e_val - e_core)  # symm denominator: bra==ket
+    for mi in core_spin:
+        for ri in virt_spin:
+            e_int = eps[spinors[mi][:2]] + eps[spinors[ri][:2]]
+            g1 = g2(ia_, ia_, mi, ri)   # <a m|V|c r>, a=c=2s_up
+            g2b = g2(ib_, ib_, ri, mi) # <b r|V|d m>, b=d=2s_dn
+            if g1 and g2b:
+                total -= g1 * g2b * (1.0 / (e_val - e_int))  # diag: symm D
     brute = total
     assert abs(fast - brute) < 1e-14, (fast, brute)
-    assert fast != 0.0, "hole-line vanished on 2s2s"
-    # Hermiticity on an off-diagonal element
-    p = d.index[(2, -2, 3)]
-    x = d(up, p, up, p)
-    assert x == d(up, p, up, p)
-    print(f"holeline: fast={fast:.6e} brute={brute:.6e} n_core_pairs={d.n_core_pairs}")
+    # PHYSICS SIGN GATE: attractive
+    assert fast < 0.0, f"hole-line diagonal not attractive: {fast}"
+    assert d.n_intermediate > 0
+    print(f"holeline(corrected): fast={fast:.3e} brute={brute:.3e} "
+          f"n_int={d.n_intermediate}")
