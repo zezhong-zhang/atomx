@@ -217,3 +217,31 @@ NOT the missing 3195.  Remaining candidates, in order:
    <=50 cm-1 CF goal likely requires CI+all-order-class treatment, and
    the CF pipeline should plan to CALIBRATE against measured free-ion
    levels rather than demand ab initio perfection.
+
+## Hole-line verdict (2026-10-02, dual anchor) — NO-SHIP, construction is wrong physics
+
+    v1 (bubble+holeline+Breit):  7F0: -10846.32 -> -10837.29 Ha  (+9.03 Ha!!)
+                                 5D0-7F0: 20376 -> 23231  (+2854.5, WRONG SIGN)
+    v2 (+Sigma1+wide window):    7F0: -10845.91 -> -10844.52 Ha  (+1.4 Ha)
+                                 5D0-7F0: 19549 -> 21472  (+1923, WRONG SIGN)
+
+Diagnosis (the +9 Ha absolute shift is the tell): the implemented
+"hole-line" uses CORE-PAIR GROUND STATES as the intermediate
+(g(a,b,m,m') g(m,m',c,d) / D) — but the intermediate states of the
+valence resolvent must be states OUTSIDE the CI reference.  Core-pair
+ground configurations are INSIDE the reference; summing 2862 core pairs
+of |g|^2/D adds wholesale core-pair correlation to the valence problem
+(repulsive, ~10 Ha scale for a 54-electron [Xe] core).  The Be
+brute-force collision gate validated only INTERNAL CONSISTENCY (fast ==
+brute), not the physics sign/role — its "attractive" check was for the
+bubble family only.  Lesson recorded: pair a brute-force collision with
+a PHYSICS sign/magnitude gate before any anchor run.
+
+Correct construction (next increment): the true Dzuba hole-line has
+intermediates (m core, r virtual) with denominator eps_a+eps_b-eps_m-
+eps_r — the same (m, r) pool as the bubble, evaluated at the PAIR level;
+G-tables from the bubble builder serve directly.
+
+The v1/v2 hole-line deltas are quarantined: ci_mbpt keeps raising, the
+v2 wide-window BASELINE (5D0 = 19549 vs 45-orbital 20376, -827 cm-1)
+stands as genuine window-convergence information.
