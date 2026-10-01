@@ -211,18 +211,25 @@ def _coarse_auger_rate(
             amplitude = 0.0
             if E_ha > 0.0:
                 if shooting_n_grid:
-                    from atomx.numerics.yk import compute_yk
                     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
                     from atomx.numerics.shooting.dirac_continuum import (
                         solve_dirac_continuum_shooting,
                     )
+                    from atomx.numerics.yk import compute_yk
 
                     gr = bsp_data["gr"]
                     grw = bsp_data["grw"]
                     Z = float(getattr(result, "Z", 0))
 
-                    def _bare_potential(r):
-                        return -Z / np.maximum(r, 1e-30)
+                    # CONTINUUM POTENTIAL (2026-10-02 fix): the bare
+                    # -Z/r field over-binds the Auger electron (measured
+                    # R^0 inflated 3.6x on Ne KLL).  Physical field: the
+                    # FINAL state (two source electrons out, one fills
+                    # the hole; tail -Z_res/r, Z_res = Z - N + 1):
+                    #   V_eps = -Z/r + J[rho_init] - Y0[rho_a+rho_b-rho_c]
+                    # mirroring XATOM's final-configuration field without
+                    # a second SCF solve.
+                    from atomx.numerics.quadrature import yk_on_grid as _yk0
 
                     def _eval_bound(P, Q):
                         return eval_P(P, bsp_data), eval_Q(Q, bsp_data)
@@ -231,11 +238,53 @@ def _coarse_auger_rate(
                     Pb_g, Qb_g = _eval_bound(P_b, Q_b)
                     Pc_g, Qc_g = _eval_bound(P_c, Q_c)
 
+                    _r_flat = gr.ravel()
+                    _w_flat = grw.ravel()
+                    _rho_full = np.zeros_like(_r_flat)
+                    for _k, (_Pk, _Qk, _ok) in getattr(
+                            result, "orbitals_by_subshell",
+                            lambda: {})().items():
+                        _rho_full += _ok * (
+                            eval_P(_Pk, bsp_data).ravel() ** 2
+                            + eval_Q(_Qk, bsp_data).ravel() ** 2)
+                    _rho_delta = (Pa_g.ravel() ** 2 + Qa_g.ravel() ** 2
+                                  + Pb_g.ravel() ** 2 + Qb_g.ravel() ** 2
+                                  - Pc_g.ravel() ** 2 - Qc_g.ravel() ** 2)
+                    _V0 = (-Z / _r_flat
+                           + _yk0(_rho_full, _r_flat, 0)
+                           - _yk0(_rho_delta, _r_flat, 0))
+
+                    def _bare_potential(r):
+                        return np.interp(r, _r_flat, _V0)
+
+
+
+                    # FINE GRID (aliasing fix, 2026-10-02): the B-spline
+                    # Gauss grid reaches dr ~ 2.8 a0 in the outer region
+                    # while an 800 eV continuum has wavelength ~0.8 a0;
+                    # integrating the oscillatory interpolated continuum
+                    # on it ALIASES (measured R^0 inflated ~2x on Ne
+                    # KLL).  Mirror mscheme_ci/jj_level: make_fine_grid
+                    # sized by the continuum momentum + the fused
+                    # grid_slater_rk kernel.
+                    from atomx.numerics.quadrature import (
+                        grid_slater_rk as _gsr, make_fine_grid)
+                    _p_max = np.sqrt(2.0 * max(E_ha, 1e-3))
+                    fg = make_fine_grid(float(bsp_data["t"][-1]),
+                                        _p_max, z_inner=max(Z, 1.0))
+
+                    def _to_fg(G):
+                        return np.interp(fg, gr.ravel(), G.ravel())
+
+                    Pa_f, Qa_f = _to_fg(Pa_g), _to_fg(Qa_g)
+                    Pb_f, Qb_f = _to_fg(Pb_g), _to_fg(Qb_g)
+                    Pc_f, Qc_f = _to_fg(Pc_g), _to_fg(Qc_g)
+
                     def _grid_slater(P1, Q1, P2, Q2, P3, Q3, P4, Q4, k):
-                        rho13 = P1 * P3 + Q1 * Q3
-                        rho24 = P2 * P4 + Q2 * Q4
-                        y24 = compute_yk(rho24, gr, grw, bsp_data["nv"], gr.shape[1], k)
-                        return float(np.sum(grw * rho13 * y24))
+                        P4f = np.interp(fg, gr.ravel(), P4.ravel())
+                        Q4f = np.interp(fg, gr.ravel(), Q4.ravel())
+                        return _gsr(P1, Q1, P2, Q2, P3, Q3, P4f, Q4f,
+                                    fg, k)
 
                 for kappa_eps in range(-int(kappa_max), int(kappa_max) + 1):
                     if kappa_eps == 0:
@@ -299,12 +348,12 @@ def _coarse_auger_rate(
                                 continue
                         if shooting_n_grid:
                             Rk = _grid_slater(
-                                Pa_g,
-                                Qa_g,
-                                Pb_g,
-                                Qb_g,
-                                Pc_g,
-                                Qc_g,
+                                Pa_f,
+                                Qa_f,
+                                Pb_f,
+                                Qb_f,
+                                Pc_f,
+                                Qc_f,
                                 P_eps_g,
                                 Q_eps_g,
                                 k,
@@ -346,12 +395,12 @@ def _coarse_auger_rate(
                                 continue
                         if shooting_n_grid:
                             Rk = _grid_slater(
-                                Pb_g,
-                                Qb_g,
-                                Pa_g,
-                                Qa_g,
-                                Pc_g,
-                                Qc_g,
+                                Pb_f,
+                                Qb_f,
+                                Pa_f,
+                                Qa_f,
+                                Pc_f,
+                                Qc_f,
                                 P_eps_g,
                                 Q_eps_g,
                                 k,
