@@ -41,5 +41,5 @@ if __name__ == "__main__":
                   flush=True)
     # half-integer sector integrity: J values all half-integers
     js = sorted({J for J, _ in lad})
-    assert all(abs(2 * J - round(2 * J)) == 1.0 for J in js), js
+    assert all(round(2 * J) % 2 == 1 and abs(2 * J - round(2 * J)) < 1e-9 for J in js), js
     print("\nHALF-INTEGER SECTOR INTEGRITY PASS", flush=True)
