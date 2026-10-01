@@ -322,3 +322,55 @@ P+Q_D (double excitations to virtuals), with the second-order PT estimate
 test validates: (a) the Q_D sector dominates the CI gap, (b) second-
 order PT captures most of it with the right sign — the premises the
 Eq. (11) implementation builds on.
+
+## Ladder Eq.(11) verdict (2026-10-01 evening) — machinery FIXED, physics reach NEGLIGIBLE
+
+**Three findings, evidence-graded:**
+
+1. **Construction bug (fixed)**: the internal exchange was built by
+   swapping (m,n) in BOTH vertex factors over an m↔n-symmetric ordered
+   pair set — relabelling makes it termwise equal to the direct part, so
+   `d − ex ≡ 0` identically for EVERY element (the "diagonal exactly
+   0.0" symptom).  Correct structure: swap the bra factor only,
+   `t(ab,cd) = ½ Σ_ordered [<ab|mn> − <ab|nm>]<mn|cd>·inv`; the
+   assembler's ket antisymmetrisation completes the four-side
+   antisymmetrisation to `Σ_{m<n}<ab||mn><mn||cd>` (verified
+   symbolically; probe: diagonal −1.447e-8 Ha = ½·direct, attractive).
+   6/6 module tests green post-fix.
+
+2. **The −1078 cm⁻¹ direction-test gap is RETRACTED (workspace
+   contamination)**: it compared two `Atom.solve()` runs whose config
+   sets differ, and the DF workspace differs with the config set (the
+   recorded wide-window trap).  Fixed-workspace measurement on Be
+   (ONE DF solve, sparse CI at 2M=0): the TRUE Q_D gap is
+   **−1.30 cm⁻¹**, and eigen-PT2 from the P eigenvector reproduces it
+   at 102.3% — the sector is weakly coupled and second-order-exact,
+   so the calibration premise is now clean.
+
+3. **Sector decomposition kills the direction** (same fixed workspace):
+
+   | channel (Q-sector PT2) | contribution |
+   |---|---|
+   | mixed doubles (2s²→2p·4s type) | −1.221 cm⁻¹ (92%) |
+   | singles (q+2s; incl. ⟨2s|h|4s⟩=−0.021 Ha Brillouin residual of the bare-h assembler) | −0.102 cm⁻¹ (8%) |
+   | **pure-Q doubles = Eq.(11) ladder sector** | **−0.002 cm⁻¹ (0.15%)** |
+
+   The both-virtual ladder into 4s–5f is orthogonality-suppressed
+   (R⁰(2s4s;2s4s)=1.1e-4 Ha is genuine physics, not a bug) and its
+   post-fix CI shift (−6.6e-4 cm⁻¹ ≈ 33% of its own sector's PT2) is
+   self-consistent — but the sector itself is 0.15% of the anchor gap.
+
+**Consequence for the Eu 5D0 residual (−3195 cm⁻¹)**: with hole-line
+(3× NO-SHIP), same-J bubble (common-mode), and now the ladder
+(negligible sector) all measured, the missing differential is NOT any
+second-order valence pair correction into high virtuals.  Remaining
+candidates: full multi-J Σ (all J channels mixed — the audit's "main
+dish"), Σ₁/triples, or empirical anchor calibration (the nephelauxetic
+argument: ab initio F^k accuracy for 4fⁿ is ~1000 cm⁻¹-class).  CF
+pipeline stance unchanged: calibrate free-ion anchors empirically.
+
+Scripts: `scripts/be_ladder_validation.py` (fixed-workspace gate, exit
+code = gate verdict), `scripts/_probe_ladder*.py`, `_probe_onebody.py`
+(footnote: the assembler one-body is bare Dirac h, no DF mean field —
+singles residuals like ⟨2s|h|4s⟩ survive; quantify before any
+Σ₁ work).
