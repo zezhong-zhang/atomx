@@ -6,19 +6,20 @@ G1 ANALYTIC 1x1: omega^2 = (a+b)(a-b), alpha = (2/3)d^2/(a+b); the
 G2 RANDOM 2x2/3x3: RPA equations satisfied columnwise; X^T X - Y^T Y
    = identity; poles real positive.
 G3 Ne INTEGRATION: DF workspace, screening direction (alpha_RPA <
-   alpha_DF), poles real positive and split.  Absolute alpha is
+   alpha_DF is not presumed), poles real positive and split. Absolute alpha is
    virtual-orbital-quality limited (recorded) — NOT gated on
    experiment yet.
 """
 import sys
+from pathlib import Path
 
 import numpy as np
 import pytest
 
-sys.path.insert(0, "/tmp/atomx-cimbpt")
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from atomx.methods.rpa import dipole_polarizability, solve_rpa, \
-    solve_symmetric_rpa
+from atomx.methods.rpa import dipole_polarizability, solve_rpa, solve_symmetric_rpa
 
 
 def test_g1_analytic_one_by_one():
@@ -57,8 +58,9 @@ def test_g2_random_blocks():
 
 @pytest.fixture(scope="module")
 def ne_rpa():
-    from atomx.methods.dirac_fock import DFSolver, Subshell
     import re as _re
+
+    from atomx.methods.dirac_fock import DFSolver, Subshell
     occ = [(1, -1), (2, -1), (2, 1), (2, -2)]
     virt = [(3, -1), (3, 1), (3, -2), (3, 2), (3, -3), (4, -1),
             (4, 1), (4, -2), (4, 2), (4, -3), (4, 3), (4, -4),
@@ -86,7 +88,7 @@ def ne_rpa():
     return od, dhf.bsp_data, eps, res
 
 
-def test_g3_ne_screening_direction(ne_rpa):
+def test_g3_ne_response_equations(ne_rpa):
     od, bsp, eps, res = ne_rpa
     assert np.all(res.omega_au > 0)
     assert len(res.omega_au) >= 10
@@ -96,8 +98,10 @@ def test_g3_ne_screening_direction(ne_rpa):
                   for p, h in res.ph_pairs])
     de = np.array([eps[p] - eps[h] for p, h in res.ph_pairs])
     alpha_df = float(np.sum(2.0 / 3.0 * d ** 2 / de))
-    assert alpha_rpa < alpha_df, (alpha_rpa, alpha_df)
-    assert 0.5 < alpha_rpa / alpha_df < 1.0
+    # Positivity alone does not constrain the sign of the TDHF correction.
+    assert alpha_rpa > 0 and alpha_df > 0
+    assert np.allclose(res.A @ res.X + res.B @ res.Y, res.X * res.omega_au, atol=1e-10)
+    assert np.allclose(-res.B @ res.X - res.A @ res.Y, res.Y * res.omega_au, atol=1e-10)
 
 
 def test_g4_ne_dense_continuum_completeness():
@@ -106,9 +110,14 @@ def test_g4_ne_dense_continuum_completeness():
     from 0.08 (bound virtuals) to O(10), alpha_DF into the right
     order (experiment 2.669), RPA still screens."""
     import re as _re
+
     from atomx.methods.dirac_fock import DFSolver, Subshell
-    from atomx.methods.rpa import (dense_continuum_virtuals,
-                                   reduced_dipole, solve_rpa, trk_sum)
+    from atomx.methods.rpa import (
+        dense_continuum_virtuals,
+        reduced_dipole,
+        solve_rpa,
+        trk_sum,
+    )
     occ = [(1, -1), (2, -1), (2, 1), (2, -2)]
     subs = [Subshell(n=n, kappa=k,
                      occupation=float(2 * k if k > 0 else -2 * k))
@@ -140,4 +149,77 @@ def test_g4_ne_dense_continuum_completeness():
     alpha_df = float(np.sum(2.0 / 3.0 * d ** 2 / de))
     assert trk > 8.0, trk                      # completeness restored
     assert 1.4 < alpha_df < 2.6, alpha_df      # right order of magnitude
-    assert alpha_rpa < alpha_df                # screening survives
+    # Finite ns=40 regression of the corrected particle-hole/V^N calculation.
+    # TDHF response increases here; an assumed screening direction hid the bug.
+    assert alpha_rpa == pytest.approx(2.374467681, abs=0.005)
+    assert np.allclose(res.A, res.A.T, atol=1e-12)
+    assert np.allclose(res.B, res.B.T, atol=1e-12)
+
+
+# ---------------------------------------------------------------------------
+# He exact-TDA anchors (2026-10-02 review round): the A-kernel magnitude
+# gate the reviews demanded.  The ph coupling A[0,0] - de for the
+# 1s(hole) x 2s(particle) block MUST equal the fixed-workspace two-electron
+# CI difference.  Anchors extracted at ns=40/ks=7 (this file's fixture
+# class); a correct kernel reproduces them to <1e-3.  Both the merged
+# pp-pair kernel (+0.157) and the CG-tensor rewrite (-0.148) FAIL these —
+# strict xfail until the correct particle-hole tensor lands.
+# ---------------------------------------------------------------------------
+
+@pytest.fixture(scope="module")
+def he_anchor():
+    import re as _re
+
+    import numpy as np
+
+    from atomx.config.csf import enumerate_jj_csfs_many
+    from atomx.methods.dirac_fock import DFSolver, Subshell
+    from atomx.methods.mcdhf.excitations import generate_sd_excitations
+    from atomx.physics.csf import sparse_ci as SC
+    from atomx.physics.csf.sparse_ci import patterns_from_csfs
+
+    dhf = DFSolver(Z=2,
+                   subshells=[Subshell(n=1, kappa=-1, occupation=2.0),
+                              Subshell(n=2, kappa=-1, occupation=1e-6)],
+                   ns=40, ks=7, starting_potential="tfda")
+    r = dhf.solve()
+    od = {(n, k): (P, Q) for (n, k), (P, Q, _o)
+          in r.orbitals_by_subshell().items()}
+    eps = {}
+    for lab, e in r.orbital_energies.items():
+        m = _re.fullmatch(r"(\d+)([spdf])(\d+)/(\d+)", lab)
+        n = int(m.group(1))
+        ll = "spdf".index(m.group(2))
+        j2 = int(round(2 * int(m.group(3)) / int(m.group(4))))
+        eps[(n, -(ll + 1) if j2 == 2 * ll + 1 else ll)] = e
+    cfgs = generate_sd_excitations("1s2", ["2s"], core_orbitals=None,
+                                   max_excitations=1)
+    pats = patterns_from_csfs(enumerate_jj_csfs_many(cfgs))
+    masks, spinors = SC.enumerate_determinants(pats, od, 0)
+    H = SC.assemble_sparse_hamiltonian(masks, spinors, od,
+                                       dhf.bsp_data, 2, 40)
+    w = np.linalg.eigvalsh(H.toarray())
+    de = eps[(2, -1)] - eps[(1, -1)]
+    return od, dhf.bsp_data, eps, w, de
+
+
+@pytest.mark.xfail(strict=True,
+                   reason="A-kernel not yet the correct ph tensor: "
+                          "merged +0.157 / rewrite -0.148 vs exact -0.031")
+def test_he_tda_anchor_J0(he_anchor):
+    od, bsp, eps, w, de = he_anchor
+    res = solve_rpa(od, bsp, eps, [(1, -1)], [(2, -1)], twoJ=0,
+                    exc_parity=1)
+    assert res.A[0, 0] - de == pytest.approx(w[2] - w[0] - de,
+                                             abs=1e-3)
+
+
+@pytest.mark.xfail(strict=True,
+                   reason="J=1 block anchor -0.0372; both kernel versions "
+                          "miss it")
+def test_he_tda_anchor_J1(he_anchor):
+    od, bsp, eps, w, de = he_anchor
+    res = solve_rpa(od, bsp, eps, [(1, -1)], [(2, -1)], twoJ=2,
+                    exc_parity=1)
+    assert res.A[0, 0] - de == pytest.approx(w[1] - w[0] - de,
+                                             abs=1e-3)
