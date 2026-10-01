@@ -22,37 +22,76 @@ has no dielectronic correlation, cannot bind the (2s2) quasi-state,
 and its coupling to the open channel carries no Feshbach structure.
 NO ab initio observable has ever validated the CC Hamiltonian.
 
-## Design: a real (N+1)-electron inner region from existing machinery
+## External review (kimi, 2026-10-01): REDESIGN — accepted
 
-The repo already owns every ingredient of an RMATRX/DARC-style inner
-region:
+All 8 issues valid.  The fatal ones: (1) the draft conflated e+He+
+(2 electrons — where the Burke poles live; He+ has NO target
+correlation, all correlation is chi_j) with e-He (3 electrons — where
+"correlated He targets" would apply); (2) the claimed sparse-CI reuse
+is blocked by the 128-spinor two-word mask cap (~960 continuum spinors
+for l_c<=2) AND by frozen-core-less phase-1b combinatorial explosion
+(2e9 quadruples for a fully-active 2-electron system); (4) jj m-scheme
+CI vs nonrelativistic LS cc_inner/outer is a full-stack mismatch, and
+cc_inner's scipy scalar-P splines are NOT the CI workspace's Dirac
+(P,Q) weak-form splines; (5) surface-amplitude extraction (eigenvector
+output + antisymmetrised channel projection + boundary evaluation) is
+the main new work, not a "generalisation"; (3) Bloch operator and
+Buttle correction are both absent (grep buttle = 0); (7) same-kappa
+bound/continuum orthogonality does NOT hold in a spline basis
+(off-diagonal S is direct evidence) — Lagrange multipliers or explicit
+orthogonalisation required.
 
-1. **Box basis**: the Dirac B-spline workspace IS the R-matrix basis
-   (cavity splines; first-spline-dropped convention already matches).
-2. **(N+1) expansion**: Psi_k = sum_ij c_ij A[Phi_i(N) u_j] + sum_j
-   d_j chi_j(N+1) — the m-scheme sparse CI (NIST-validated today on
-   Ce3+/Pr3+/Eu3+/Nd3+ multiplets) assembles exactly this once the
-   continuum spinors are in the spinor table; chi_j = box-bound
-   (N+1)-electron configurations supply the dielectronic correlation
-   that the current model lacks.
-3. **Correlated targets**: Phi_i from the CI machinery (He 1s2 1S,
-   1s2s/2p 1,3 L), not frozen hydrogenic orbitals.
-4. **Surface amplitudes**: w_ik = <Psi_k | r=a> per channel — the
-   existing surface.py generalised from one channel to blocks.
-5. **Outer region**: cc_outer.py already multi-channel.
+## Redesigned (v2, decision-first)
 
-Gate plan (physics gates BEFORE any anchor use, per session discipline):
-  G-A  He 1s2s 3S / 1s2p 3P threshold positions vs NIST (target quality)
-  G-B  1Se(2s2) pole AB INITIO within ~0.02 eV of Burke -0.77816 Ha
-       (pi-rise must appear in the PURE-CC eigenphase, no injected poles)
-  G-C  1Po(2s2p+), 1De(2p2) widths within 30%
-  G-D  eigenphase unitarity + Buttle-corrected R-matrix continuity
+**D1 SYSTEM: e + He+ (2 electrons), LS coupling, nonrelativistic.**
+The Burke gates live here; He+ is a one-electron target so ALL
+dielectronic correlation comes from the chi_j (2l, 2l') L^2
+configurations — exactly Burke 1971's own construction.  e-He (3e) and
+the relativistic DARC route (jj CI reuse) are LATER phases with their
+own projects (see D6).
 
-Cost estimate: the (N+1) CI for e-He with l_c<=2 and ~40 splines is
-~1e4-1e5 determinants per LSpi block — sparse assembler scale, minutes.
+**D2 REPRESENTATION: channel-radial, not m-scheme determinants.**
+For 2 electrons the close-coupling + chi_j expansion is built directly
+in LS-coupled channel-radial form on cc_inner's OWN spline workspace:
+Psi_k = sum_i A[Phi_i(1) u_i(2)] + sum_j c_j chi_j — a block matrix
+problem of order ~(|channels| x n_basis + n_chi), NOT a determinant
+CI.  The 128-spinor mask cap and phase-1b explosion never arise.
+(Masking fix for the general jj route stays a separate backlog item
+with the overflow assert it deserves.)
 
-## Decision
+**D3 HAMILTONIAN: the true 2-electron operator in the box.**
+Direct + exchange coupling between channel blocks from the existing
+angular_cc kernels; chi_j-continuum and chi_j-chi_j blocks from the
+same two-electron integrals; Bloch b=0 symmetric form documented
+(cc_inner already builds it — name it); bound-continuum orthogonality
+by explicit Gram-Schmidt on the spline grid (Burke & Robb 1975
+alternative: Lagrange multipliers — pick one, document).
 
-The empirical-pole path stays (labelled honestly); the inner-region
-upgrade is the next HYP-grade increment.  External review of this
-design BEFORE implementation (workflow).
+**D4 SURFACE + BUTTLE.**  Eigenvector-level output (not just spectra);
+channel-projected boundary amplitudes w_ik; R_ij(E) = (1/2a) sum_k
+w_ik w_jk / (E_k - E) PLUS the Buttle correction per channel (solve
+the homogeneous single-channel problem on the same grid; s-wave first
+to break).  Pole-count convergence gate: R(E) at n_basis = 40/60/80.
+
+**D5 GATES (numbers fixed by D1).**
+  G-A  He+ n=2 threshold (analytic -0.5 Ha) and 1s binding (-2.0) —
+       free sanity from the target orbitals
+  G-B  1Se(2s2) pole AB INITIO within 0.02 eV of -0.77816 Ha, pi-rise
+       in the PURE eigenphase (no injected poles), sampling resolution
+       <= Gamma/4 written INTO the gate
+  G-C  1Po / 1De widths within 30%
+  G-D  unitarity + Buttle-corrected continuity + n_basis convergence
+
+**D6 LATER PHASES (explicitly out of scope now).**  e-He 3e with
+correlated CI targets; relativistic DARC (jj) inner region — requires
+the mask-representation redesign (>=4-word or occ-array) and the
+phase-1b candidate generation fix for core-less systems; each reuse
+claim must ship a "what is missing" list.
+
+**Missing-list for D3 reuse (per review rule):**
+- angular_cc direct/exchange kernels: REUSABLE as-is
+- cc_inner spline workspace: REUSABLE as the basis; its Hamiltonian
+  assembly is REPLACED (static+exchange -> true 2e blocks)
+- surface.py: formula generalises, but eigenvector plumbing is NEW
+- Buttle: ENTIRELY NEW (nothing exists)
+- orthogonality: NEW (none exists)
