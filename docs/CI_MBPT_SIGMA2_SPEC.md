@@ -190,3 +190,30 @@ dense linear algebra per channel pair:
 Campaign budget (whole lanthanide series, 15 ions): one table per ion
 (~5 min) + sparse solves (~15 min) — comfortably an overnight sweep,
 with the 5090 as a later drop-in for the dgemm layer.
+
+## m-scheme bubble verdict (2026-10-01, final anchor)
+
+Construction CORRECT (digit-exact vs brute force on Be; sign now right:
+-53 vs the same-J slice's +41), machinery fast (28 s table, sub-us
+per quadruple).  Physics verdict at the Eu3+ anchor:
+
+    7F0: -10846.319581 -> -10846.741882 Ha   (-9300 cm-1, common-mode!)
+    5D0-7F0: 20376.4 -> 20323.8 cm-1          (differential -52.6)
+
+The complete second-order core-polarisation screening lowers the whole
+ion by ~0.42 Ha but is essentially COMMON-MODE across the 7F/5D terms:
+the multiplet splitting is an exchange-integral (G^k) difference, and
+core polarisation barely discriminates between terms.  Gate 2 verdict:
+NOT the missing 3195.  Remaining candidates, in order:
+
+1. hole-line family (valence-pair virtual excitation of core electrons,
+   denominator eps_a+eps_b-eps_m-eps_r) — NOT common-mode by construction
+   (valence energies in the denominator);
+2. Sigma(1) configuration-dependent one-body shifts;
+3. triples sector;
+4. literature context: ab initio 4f^n term splittings historically sit
+   ~1000 cm-1 high even in CI+MBPT (the semi-empirical community's
+   "nephelauxetic" F^k reduction absorbs exactly this); the free-ion
+   <=50 cm-1 CF goal likely requires CI+all-order-class treatment, and
+   the CF pipeline should plan to CALIBRATE against measured free-ion
+   levels rather than demand ab initio perfection.
