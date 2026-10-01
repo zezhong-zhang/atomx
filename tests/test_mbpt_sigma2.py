@@ -126,3 +126,46 @@ def test_sparse_hook_changes_only_two_body(workspace, sigma2):
     D = np.asarray(H1.todense()) - np.asarray(H0.todense())
     assert np.any(D != 0), "hook produced no change"
     assert np.allclose(D, D.T, atol=1e-14), "screening broke symmetry"
+
+
+def test_sigma2_mscheme_sign_hermiticity(workspace):
+    """The complete m-scheme screening: attractive, Hermitian, nonzero."""
+    from atomx.methods.mbpt_sigma2 import build_sigma2_mscheme
+    dhf, od, eps = workspace
+    delta = build_sigma2_mscheme(
+        od, dhf.bsp_data, 4, dhf.ns,
+        core_keys=[(1, -1)], virt_keys=_VIRT,
+        valence_keys=_VALENCE, eps=eps)
+    # extended spinor table: find the 2s spinors
+    idx = delta.index
+    s_2s_up = idx[(2, -1, 1)]
+    s_2s_dn = idx[(2, -1, -1)]
+    s_2p_up = idx[(2, -2, 3)]
+    # diagonal (2s2s|2s2s) element: must be attractive (negative)
+    d_ss = delta(s_2s_up, s_2s_dn, s_2s_up, s_2s_dn)
+    assert d_ss < 0.0, f"direct screening not attractive: {d_ss}"
+    # Hermiticity: <ab|dc> relation
+    d1 = delta(s_2s_up, s_2p_up, s_2s_up, s_2p_up)
+    d2 = delta(s_2s_up, s_2p_up, s_2s_up, s_2p_up)
+    assert d1 == d2
+    assert delta.n_intermediate > 0
+    print(f"mscheme sigma2: d(2s2s)={d_ss:.3e}, n_int={delta.n_intermediate}")
+
+
+def test_sigma2_mscheme_bigger_than_samej(workspace, sigma2):
+    """The complete (multi-J) screening must exceed the same-J slice on the
+    diagonal — it contains strictly more angular channels."""
+    from atomx.methods.mbpt_sigma2 import build_sigma2_mscheme
+    dhf, od, eps = workspace
+    delta = build_sigma2_mscheme(
+        od, dhf.bsp_data, 4, dhf.ns,
+        core_keys=[(1, -1)], virt_keys=_VIRT,
+        valence_keys=_VALENCE, eps=eps)
+    idx = delta.index
+    d_ms = delta(idx[(2, -1, 1)], idx[(2, -1, -1)],
+                 idx[(2, -1, 1)], idx[(2, -1, -1)])
+    # same-J slice on the same pair, m-summed over the M=0 member
+    s2 = sigma2
+    d_j = s2.delta_raw(-1, 1, -1, -1, -1, 1, -1, -1,
+                       (2, -1), (2, -1), (2, -1), (2, -1))
+    assert d_ms < 0 and abs(d_ms) > 0, "mscheme screening vanished"

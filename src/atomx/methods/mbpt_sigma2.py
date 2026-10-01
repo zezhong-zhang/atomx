@@ -206,3 +206,92 @@ def build_sigma2_bubble(orbitals_dict, bsp_data, Z, ns,
         G = -(S * Dinv) @ S.T
         channels[j2] = 0.5 * (G + G.T)
     return Sigma2Bubble(channels, pair_index, valence_pairs, n_clipped)
+
+
+def build_sigma2_mscheme(orbitals_dict, bsp_data, Z, ns,
+                         core_keys, virt_keys, valence_keys, eps,
+                         denom_floor: float = 0.05):
+    """Complete second-order screening in the m-scheme (all J channels).
+
+    The bubble in m-scheme needs no J-channel reconstruction — the
+    angular-momentum sums live inside the m-scheme Coulomb elements
+    themselves, so this construction includes the cross-channel (multi-J)
+    physics the same-J pair-space version structurally could not see:
+
+        d(a,b,c,d) = -sum_{m in core, r in virt} [
+              g(a, m, c, r) g(b, r, d, m)
+            + g(b, m, d, r) g(a, r, c, m) ] / (eps_r - eps_m)
+
+    with raw (un-antisymmetrised) m-scheme Coulomb elements g.  Returns a
+    callable keyed by global spin-orbital indices over an EXTENDED table
+    (valence + core + virtual spinors); the caller adapts it to the
+    assembler's pattern-restricted spinor indices through the orbital
+    (n, kappa, 2m) labels.
+    """
+    from atomx.angular.csf_hamiltonian import _m2_values, two_body_angular, twoj
+    import atomx.physics.csf.matrix as MAT
+    from atomx.numerics.bspline.convol import ConvolCache
+
+    ext = sorted(set(valence_keys) | set(core_keys) | set(virt_keys))
+    spinors = [(n, k, m2) for (n, k) in ext
+               for m2 in _m2_values(twoj(k))]
+    index = {s: i for i, s in enumerate(spinors)}
+    core_idx = [index[(n, k, m2)] for (n, k) in core_keys
+                if (n, k) in orbitals_dict
+                for m2 in _m2_values(twoj(k))]
+    virt_idx = [index[(n, k, m2)] for (n, k) in virt_keys
+                if (n, k) in orbitals_dict
+                for m2 in _m2_values(twoj(k))]
+    denom = []
+    mr_pairs = []
+    for mi in core_idx:
+        for ri in virt_idx:
+            d = eps[spinors[ri][:2]] - eps[spinors[mi][:2]]
+            if abs(d) < denom_floor:
+                continue  # clipped; counted by omission from the window
+            denom.append(d)
+            mr_pairs.append((mi, ri))
+    cache = ConvolCache(bsp_data)
+
+    @lru_cache(maxsize=None)
+    def g(ia, ic, im, ir_):
+        a, c, m, r_ = spinors[ia], spinors[ic], spinors[im], spinors[ir_]
+        terms = two_body_angular(a[1], a[2], m[1], m[2],
+                                 c[1], c[2], r_[1], r_[2])
+        if not terms:
+            return 0.0
+        Pa, Qa = orbitals_dict[(a[0], a[1])]
+        Pc, Qc = orbitals_dict[(c[0], c[1])]
+        Pm, Qm = orbitals_dict[(m[0], m[1])]
+        Pr, Qr = orbitals_dict[(r_[0], r_[1])]
+        total = 0.0
+        for k, coef in terms:
+            total += coef * MAT._rk(Pa, Qa, Pc, Qc, Pm, Qm, Pr, Qr,
+                                    bsp_data, k)
+        return total
+
+    def delta(ia, ib, ic, id_):
+        """Antisymmetrised m-scheme screening <ab|dV_A|cd>, spinor indices.
+
+        direct bubble:  vertex 1 on the (a, c) lines, vertex 2 on (b, d);
+        exchange bubble: vertex 1 on the (a, d) lines, vertex 2 on (b, c)
+        (the valence-exchange counterpart subtracted, matching the (v - v2)
+        convention the assembler applies).
+        """
+        total = 0.0
+        for n_, (mi, ri) in enumerate(mr_pairs):
+            g1 = g(ia, ic, mi, ri)    # <a m|V|c r>
+            g3 = g(ia, id_, mi, ri)   # <a m|V|d r>
+            if g1 == 0.0 and g3 == 0.0:
+                continue
+            g2 = g(ib, id_, ri, mi)   # <b r|V|d m>
+            g4 = g(ib, ic, ri, mi)    # <b r|V|c m>
+            term = g1 * g2 - g3 * g4
+            if term != 0.0:
+                total -= term / denom[n_]
+        return total
+
+    delta.n_intermediate = len(mr_pairs)
+    delta.spinors = spinors
+    delta.index = index
+    return delta
