@@ -140,3 +140,36 @@ def test_numba_path_identical_to_python_reference(be):
         assert np.array_equal(a, b), (name, a, b)
     # and the dispatcher default really used numba
     assert assemble_sparse_hamiltonian is not None
+
+
+def test_sparse_breit_matches_exact_engine(be):
+    """include_breit on the sparse path must reproduce the exact engine's
+    Breit-in-CI spectrum (Gaunt + retardation inside every block)."""
+    from atomx.physics.csf.sparse_ci import (
+        _assemble_reference, assemble_sparse_hamiltonian, sparse_ci_spectrum)
+    dhf, od, csfs = be
+    pats = patterns_from_csfs(csfs)
+    masks, spinors = enumerate_determinants(pats, od, 0)
+    Hn = assemble_sparse_hamiltonian(masks, spinors, od, dhf.bsp_data, 4,
+                                     dhf.ns, include_breit=True)
+    Hp = _assemble_reference(masks, spinors, od, dhf.bsp_data, 4, dhf.ns,
+                             include_breit=True)
+    w_numba = np.sort(np.linalg.eigvalsh(Hn.toarray()))
+    w_ref = np.sort(np.linalg.eigvalsh(Hp.toarray()))
+    assert np.allclose(w_numba, w_ref, atol=1e-10)
+    # cross-engine: build_ci_matrix with include_breit=True
+    basis = get_shared_orbital_basis(csfs)
+    from atomx.physics.csf.matrix import _group_csf_indices
+    w_exact = []
+    for _key, idx in _group_csf_indices(csfs):
+        sub = [csfs[i] for i in idx]
+        H = build_ci_matrix(sub, od, basis, dhf.bsp_data, 4, dhf.ns,
+                            include_breit=True)
+        w_exact.extend(np.linalg.eigvalsh(np.asarray(H)))
+    w_exact = np.sort(w_exact)
+    assert len(w_exact) == len(w_ref)
+    assert np.allclose(w_ref, w_exact, atol=1e-9)
+    # and Breit actually moved something vs the pure-DC spectrum
+    w_dc, _ = sparse_ci_spectrum(od, dhf.bsp_data, 4, dhf.ns, pats,
+                                 m2_total=0, n_states=100)
+    assert not np.allclose(w_ref, w_dc, atol=1e-9), "Breit had no effect"

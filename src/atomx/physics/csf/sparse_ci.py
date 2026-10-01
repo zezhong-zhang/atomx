@@ -54,6 +54,8 @@ _NB = _NB_MOD
 from scipy.sparse.linalg import eigsh
 
 from atomx.angular.csf_hamiltonian import _m2_values, _ops_sign, two_body_angular, twoj
+from atomx.physics.csf.breit_ci import breit_terms
+from atomx.physics.csf.matrix import _breit_radial_evaluator
 import atomx.physics.csf.matrix as MAT
 
 __all__ = [
@@ -139,7 +141,8 @@ def enumerate_determinants(patterns, orbitals_dict, m2_total: int = 0):
 
 
 def assemble_sparse_hamiltonian(masks, spinors, orbitals_dict, bsp_data, Z, ns,
-                                *, method="numba", two_body_delta=None):
+                                *, method="numba", two_body_delta=None,
+                                include_breit=False):
     """CSR Hamiltonian over the determinant masks (Dirac-Coulomb).
 
     ``method="numba"`` (default): two-phase build — every distinct
@@ -151,13 +154,15 @@ def assemble_sparse_hamiltonian(masks, spinors, orbitals_dict, bsp_data, Z, ns,
     if method == "python" or _NB is None:
         return _assemble_reference(masks, spinors, orbitals_dict,
                                    bsp_data, Z, ns,
-                                   two_body_delta=two_body_delta)
+                                   two_body_delta=two_body_delta,
+                                   include_breit=include_breit)
     return _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
-                           two_body_delta=two_body_delta)
+                           two_body_delta=two_body_delta,
+                           include_breit=include_breit)
 
 
 def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns,
-                        *, two_body_delta=None):
+                        *, two_body_delta=None, include_breit=False):
     """CSR Hamiltonian over the determinant masks (Dirac-Coulomb)."""
     index = {mask: i for i, mask in enumerate(masks)}
     n = len(masks)
@@ -188,6 +193,19 @@ def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns,
             total += coef * MAT._rk(Pa, Qa, Pc, Qc, Pb, Qb, Pd, Qd,
                                     bsp_data, k)
         return total
+
+    breit_evaluate = (_breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns)
+                      if include_breit else None)
+
+    if breit_evaluate is not None:
+        def _breit_element(ia, ib, ic, id_):
+            total = 0.0
+            for key, coeff in breit_terms(ia, ib, ic, id_, 1.0, spinors):
+                total += coeff * breit_evaluate(key)
+            return total
+    else:
+        def _breit_element(ia, ib, ic, id_):
+            return 0.0
 
     # add-pair buckets by m-sum, for the two-body loop
     pair_buckets: Dict[int, List[Tuple[int, int]]] = {}
@@ -233,6 +251,9 @@ def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns,
                 v = v_element(a, b, c, d)
                 v2 = v_element(a, b, d, c)
                 anti = v - v2
+                if include_breit:
+                    anti += (_breit_element(a, b, c, d)
+                             - _breit_element(a, b, d, c))
                 if two_body_delta is not None:
                     anti += two_body_delta(a, b, c, d)
                 if anti == 0.0:
@@ -611,7 +632,7 @@ if _NB is not None:
 
 
 def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
-                    *, two_body_delta=None):
+                    *, two_body_delta=None, include_breit=False):
     """Phase 1 (Python, once per distinct value) + phase 2 (numba)."""
     from functools import lru_cache
 
@@ -707,6 +728,18 @@ def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
             for si in (a, b):
                 pairs_with.setdefault((si, ms), []).append((a, b))
 
+    breit_evaluate = (_breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns)
+                      if include_breit else None)
+    if breit_evaluate is not None:
+        def _breit_element(ia, ib, ic, id_):
+            total = 0.0
+            for key, coeff in breit_terms(ia, ib, ic, id_, 1.0, spinors):
+                total += coeff * breit_evaluate(key)
+            return total
+    else:
+        def _breit_element(ia, ib, ic, id_):
+            return 0.0
+
     vb: Dict[int, float] = {}
     for ms, ab_list in buckets.items():
         cand_open = open_pairs[ms]
@@ -729,12 +762,15 @@ def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
                 v = _v(a, b, c, d)
                 v2 = _v(a, b, d, c)
                 anti = v - v2
-                if anti == 0.0 and two_body_delta is None:
+                if anti == 0.0 and two_body_delta is None and not include_breit:
                     continue
+                if include_breit:
+                    anti += (_breit_element(a, b, c, d)
+                             - _breit_element(a, b, d, c))
                 if two_body_delta is not None:
                     anti += two_body_delta(a, b, c, d)
-                    if anti == 0.0:
-                        continue
+                if anti == 0.0:
+                    continue
                 vb[key] = anti
 
     vb_keys = np.array(sorted(vb), dtype=np.int64)

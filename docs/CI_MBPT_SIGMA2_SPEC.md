@@ -115,3 +115,41 @@ Budget target: Eu9+ Σ⁽²⁾ table build in ≤ 5 min single-node CPU
 (≈ S-block assembly dominates; the dgemms are milliseconds), so the full
 CI+MBPT loop for one ion stays in "minutes per configuration" territory
 end to end alongside the sparse engine.
+
+## Measured verdicts (2026-10-01, Eu3+ anchor run)
+
+**Same-J bubble: NOT SHIPPED (gate 2 verdict).**  Full-SD sparse CI,
+clean workspace ([Xe]+statistical 4f, 14 genuinely-open shells, 8 J
+channels all attractive, screening -13..-18 mHa per pair diagonal):
+
+    7F0: -10846.319581 -> -10846.322445 Ha  (-630 cm-1, common-mode)
+    5D0: 20376 -> 20417 cm-1   =>  Delta(5D0-7F0) = +41 cm-1
+
+The same-J restriction captures the diagonal (common-mode polarisation)
+part only; the differential physics lives in the cross-J-channel induced
+interaction (independent vertex J's, 6j-recoupled) and the hole-line
+family.  ci_mbpt keeps raising; the machine (S-blocks, dgemm, CG
+recoupling, hook, gates) is retained and tested.
+
+**Reframing of the +3195 residual:** it is not "screening" alone — it is
+ALL correlation beyond the 12 discrete SD virtual shells (continuum,
+higher n, higher sectors).  The full Sigma(1)+Sigma(2) operator set
+should be understood as completing the virtual spectrum.
+
+## Physics completeness audit for the Eu3+ free-ion anchor
+
+| physics | in model? | expected size (5D-7F) | machinery |
+|---|---|---|---|
+| Dirac-Coulomb, SD valence CI | yes | — | sparse engine |
+| same-J bubble | yes (measured) | +41 (common-mode -630) | mbpt_sigma2 |
+| full Sigma (multi-J induced + hole-line + Sigma1) | NO | main dish (~3000) | next increment |
+| Breit (Gaunt+retardation) in sparse CI | **yes (today)** | ~50-200 | include_breit, gated vs exact engine |
+| triples sector | no | sub-leading | absorbed partly in Sigma |
+| QED (SE/VP) on 4f | no | ~cm-1 | qed modules, needed at CF stage |
+| term-dependent orbital relaxation | no (one orbital set) | second order | EOL variants |
+| frequency-dependent Breit, two-loop | no | negligible here | — |
+
+Breit reached the sparse engine through the same antisymmetrised-additive
+pattern as two_body_delta (phase-1 value table); parity test asserts
+sparse-with-Breit == reference-with-Breit == build_ci_matrix(
+include_breit=True) on Be.
