@@ -486,3 +486,88 @@ def build_sigma2_holeline(orbitals_dict, bsp_data, Z, ns,
     delta_hl.index = index
     delta_hl.n_core_pairs = sum(len(v) for v in cc.values())
     return delta_hl
+
+
+def build_sigma1_mscheme(orbitals_dict, bsp_data, Z, ns,
+                          core_keys, virt_keys, valence_keys, eps,
+                          denom_floor: float = 0.05):
+    """Second-order one-body self-energy (core-polarisation screening of
+    the valence field) in the m-scheme — the one-body analogue of the
+    bubble:
+
+        S1(v, v') = -2 sum_{m in core, r in virt}
+                    g(v, r, m, m) g(r, v', m, m) / (eps_r - eps_m)
+
+    (factor 2 = two time orderings, same convention as the bubble).
+    Delivered as an {(n,kappa) x (n,kappa) -> shift} dict suitable for the
+    assembler's one-body table: the assembler only asks same-(kappa, m)
+    one-body elements, and m-conservation of g forces m_v == m_r == m_v'
+    automatically, so the m-sum collapses per (v, v').
+    """
+    from functools import lru_cache as _lru
+    from atomx.angular.csf_hamiltonian import _m2_values, two_body_angular, twoj
+    import atomx.physics.csf.matrix as MAT
+
+    ext = sorted(set(valence_keys) | set(core_keys) | set(virt_keys))
+    spinors = [(n, k, m2) for (n, k) in ext
+               for m2 in _m2_values(twoj(k))]
+    index = {s: i for i, s in enumerate(spinors)}
+    core_idx = [index[(n, k, m2)] for (n, k) in core_keys
+                if (n, k) in orbitals_dict
+                for m2 in _m2_values(twoj(k))]
+    virt_idx = [index[(n, k, m2)] for (n, k) in virt_keys
+                if (n, k) in orbitals_dict
+                for m2 in _m2_values(twoj(k))]
+    val_idx = [index[(n, k, m2)] for (n, k) in valence_keys
+               if (n, k) in orbitals_dict
+               for m2 in _m2_values(twoj(k))]
+
+    @_lru(maxsize=None)
+    def g(ia, ic, im, ir_):
+        a, c, m, r_ = spinors[ia], spinors[ic], spinors[im], spinors[ir_]
+        terms = two_body_angular(a[1], a[2], m[1], m[2],
+                                 c[1], c[2], r_[1], r_[2])
+        if not terms:
+            return 0.0
+        Pa, Qa = orbitals_dict[(a[0], a[1])]
+        Pc, Qc = orbitals_dict[(c[0], c[1])]
+        Pm, Qm = orbitals_dict[(m[0], m[1])]
+        Pr, Qr = orbitals_dict[(r_[0], r_[1])]
+        total = 0.0
+        for k, coef in terms:
+            total += coef * MAT._rk(Pa, Qa, Pc, Qc, Pm, Qm, Pr, Qr,
+                                    bsp_data, k)
+        return total
+
+    shifts = {}
+    for iv in val_idx:
+        for iv2 in val_idx:
+            if spinors[iv][1] != spinors[iv2][1]:
+                continue  # one-body preserves kappa
+            if spinors[iv][2] != spinors[iv2][2]:
+                continue  # and m
+            total = 0.0
+            for mi in core_idx:
+                for ri in virt_idx:
+                    d = eps[spinors[ri][:2]] - eps[spinors[mi][:2]]
+                    if abs(d) < denom_floor:
+                        continue
+                    g1 = g(iv, ri, mi, mi)     # <v m|V|r m>
+                    if g1 == 0.0:
+                        continue
+                    g2 = g(ri, iv2, mi, mi)    # <r m|V|v' m>
+                    total -= 2.0 * g1 * g2 / d
+            key = (spinors[iv][:2], spinors[iv2][:2])
+            shifts[key] = shifts.get(key, 0.0) + total / 1.0
+    # each (n,k) pair appears once per shared m value with identical
+    # contribution by symmetry; average over the number of m values to
+    # avoid double counting when the assembler applies it per element.
+    from collections import Counter
+    counts = Counter()
+    for iv in val_idx:
+        for iv2 in val_idx:
+            if spinors[iv][1] == spinors[iv2][1] and spinors[iv][2] == spinors[iv2][2]:
+                counts[(spinors[iv][:2], spinors[iv2][:2])] += 1
+    for key in list(shifts):
+        shifts[key] /= counts.get(key, 1)
+    return shifts

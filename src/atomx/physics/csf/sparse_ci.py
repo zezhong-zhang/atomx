@@ -142,7 +142,7 @@ def enumerate_determinants(patterns, orbitals_dict, m2_total: int = 0):
 
 def assemble_sparse_hamiltonian(masks, spinors, orbitals_dict, bsp_data, Z, ns,
                                 *, method="numba", two_body_delta=None,
-                                include_breit=False):
+                                one_body_delta=None, include_breit=False):
     """CSR Hamiltonian over the determinant masks (Dirac-Coulomb).
 
     ``method="numba"`` (default): two-phase build — every distinct
@@ -155,14 +155,17 @@ def assemble_sparse_hamiltonian(masks, spinors, orbitals_dict, bsp_data, Z, ns,
         return _assemble_reference(masks, spinors, orbitals_dict,
                                    bsp_data, Z, ns,
                                    two_body_delta=two_body_delta,
+                                   one_body_delta=one_body_delta,
                                    include_breit=include_breit)
     return _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
                            two_body_delta=two_body_delta,
+                           one_body_delta=one_body_delta,
                            include_breit=include_breit)
 
 
 def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns,
-                        *, two_body_delta=None, include_breit=False):
+                        *, two_body_delta=None, one_body_delta=None,
+                        include_breit=False):
     """CSR Hamiltonian over the determinant masks (Dirac-Coulomb)."""
     index = {mask: i for i, mask in enumerate(masks)}
     n = len(masks)
@@ -234,6 +237,8 @@ def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns,
             for a in km_partners[(kc, mc)]:
                 na, ka, ma = spinors[a]
                 h = one_body((na, ka), (nc, kc))
+                if one_body_delta is not None:
+                    h += one_body_delta.get(((na, ka), (nc, kc)), 0.0)
                 if a == c:
                     diag[col] += h
                     continue
@@ -632,7 +637,8 @@ if _NB is not None:
 
 
 def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
-                    *, two_body_delta=None, include_breit=False):
+                    *, two_body_delta=None, one_body_delta=None,
+                    include_breit=False):
     """Phase 1 (Python, once per distinct value) + phase 2 (numba)."""
     from functools import lru_cache
 
@@ -687,6 +693,10 @@ def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
             for a in members:
                 h1[a * nspin + c] = _one_body(
                     (spinors[a][0], spinors[a][1]), (spinors[c][0], spinors[c][1]))
+                if one_body_delta is not None:
+                    h1[a * nspin + c] += one_body_delta.get(
+                        ((spinors[a][0], spinors[a][1]),
+                         (spinors[c][0], spinors[c][1])), 0.0)
     h1_keys = np.array(sorted(h1), dtype=np.int64)
     h1_vals = np.array([h1[k] for k in h1_keys], dtype=np.float64)
 
