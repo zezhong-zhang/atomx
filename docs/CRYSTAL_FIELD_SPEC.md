@@ -60,12 +60,10 @@ unused.
 
 1. **Tesseral real-B conversion** for general low-symmetry sites (needed
    before any real-lattice CI run; axial/cubic sets are already real).
-2. **point_charge_bkq validation**: its Y_kq against sympy + a
-   G4-style direct-potential quadrature of Σ q_i/|R_i − r| (currently
-   validation-grade only; the multipole expansion constants are
-   asserted by construction, not yet digit-tested).
-3. **Off-diagonal n** CF elements (⟨4f|r^k|5f⟩ etc.) — deferred;
-   needs the two-body relaxation story first.
+2. ~~point_charge_bkq validation~~ DONE in the review round (G7 axial
+   closed form + G7c sympy digit check); a full direct-potential 3D
+   quadrature cross-check remains optional depth.
+3. ~~Off-diagonal n~~ ENABLED in the review round (G6).
 4. **Eu CF anchor protocol**: free-ion anchors calibrated empirically
    (CI_MBPT_SIGMA2_SPEC verdict), CF from DFT-IAM or literature B_kq,
    splitting checked against NIST crystal-field levels.
