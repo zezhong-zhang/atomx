@@ -284,3 +284,41 @@ documented strategy).
 The ten-fold gap (multi-ref CI ~550 cm-1 vs bubble 53 cm-1) is the
 campaign's headline: the residual is STATIC-correlation + valence-spectrum
 dominated, exactly what single-reference perturbation cannot reach.
+
+## Hole-line literature research (2026-10-03): both failures precisely diagnosed
+
+Source of truth: Kozlov, Tupitsyn, Bondarev, Mironova,
+"Combination of the Perturbation Theory with Configuration Interaction
+Method" (arXiv:2202.02026, 2022) — Eq. (11) + Figs. 1/4/5/6; and
+Dzuba, Flambaum, Kozlov, Phys. Rev. A 54, 3948 (1996).
+
+THE CORRECT Σ₂ (valence double-excitation "ladder", their diagram (d) /
+Fig. 6 first term) at the pair level:
+
+    R^{k,eff}_{a,b,c,d} = Σ_{k1,k2} Σ_{m,n∈VIRTUAL}
+        (6j chains: {jc ja k; k1 k2 jm}{jb jd k; k2 k1 jn} + C.G. factors)
+        × R^{k1}_{a,b,m,n} R^{k2}_{c,d,m,n} / ΔE
+
+KEY STRUCTURAL FACTS that BOTH failed constructions violated:
+1. The intermediate pair (m, n) has BOTH orbitals VIRTUAL (double
+   excitations TO virtual shells) — my v1 used core-PAIR GROUND states
+   (inside the CI reference => wholesale core correlation, +9 Ha);
+   my v2 used (m core, r virtual) — the BUBBLE's pool — i.e. double
+   counting the core-polarisation diagram (their Fig. 4(b)/(e), not
+   the ladder at all).
+2. The two vertices couple through INDEPENDENT multipoles k1, k2 with
+   6j recoupling — neither the same-J diagonal channel (v1) nor raw
+   m-scheme products without the k1-k2 recoupling (v2).
+3. Denominator ΔE = ε_a + ε_b − ε_m − ε_n (HF), with Kozlov's Eq. (29)
+   interaction corrections as an optional refinement.
+4. The CORE-side "hole-line" analogue (Fig. 6 second term) uses
+   intermediate pairs from the CORE with the SAME Eq. (11) structure —
+   a genuinely different vertex pool from both of my attempts.
+
+MINIMAL LOCAL TEST (direction-check before any re-implementation): the
+He ground state in the Kozlov Table 1 setup — CI in P (n ≤ 3) vs CI in
+P+Q_D (double excitations to virtuals), with the second-order PT estimate
+Σ_Q |H_n0|²/(E0−En) computed from the EXACT sparse Hamiltonian.  The
+test validates: (a) the Q_D sector dominates the CI gap, (b) second-
+order PT captures most of it with the right sign — the premises the
+Eq. (11) implementation builds on.
