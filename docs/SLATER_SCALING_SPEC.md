@@ -106,3 +106,31 @@ core-polarisation as COMMON-MODE (−9300 abs / −53 cm⁻¹ differential
 5D-7F) — the 4d MONOPOLE screening is inside the DF; what it cannot
 give is the 4d-hole EXCHANGE screening of F^k, which is the missing
 piece the slater_scaling s_k currently absorb.
+
+## Rejected alternative: single-parameter uniform alpha (2026-10-01)
+
+Proposal (user): all F^k share one radial scale, F^k -> F^k/alpha,
+alpha ~ 1.183 from 20434/17270; shape corrections <2%; zeta untouched.
+TESTED AND REFUTED on three independent measurements:
+
+1. Pr constrained uniform fit: RMS 460 vs 210 (3-param) — per-k
+   differentiation carries real information (F^2-dominated terms want
+   -27%, F^4/F^6-dominated -8..-12%).
+2. Eu 5D0 under alpha=1.183: +3164 -> **+6735** (WORSE), and the 7F_J
+   ladder degrades at high J (+10.9% -> +14.1%) — opposite of the
+   predicted 5-8% compression.
+3. Nd 4F3/2: +34% -> +54% (worse); 3-param transfer: -1.5%.
+
+PHYSICS OF THE FAILURE: the derivation assumed Delta-E(5D0) =
+c2 F2 + c4 F4 + c6 F6 with positive coefficients.  The MEASURED
+Jacobian row is (-4216, +11995, +15194) — SIGN-ALTERNATING: the
+5D-7F splitting is G^k-EXCHANGE-dominated, and 4f^6 multiplet gaps
+are not same-sign combinations of the F^k.  Uniform F^k scaling
+therefore cannot translate into uniform gap scaling.  Additionally
+alpha = 20434/17270 treats the whole gap (including its F^k-independent
+part) as proportional to F^k — circular.
+
+VALID parts of the proposal, already adopted: zeta must NOT be scaled
+(measured: 7F fine structure is F^k-orthogonal and stays at its zeta
+level under the 3-param scaling); the semi-core-correlation origin;
+constraint-disciplined fitting.
