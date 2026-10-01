@@ -129,3 +129,25 @@ the ORBITAL layer:
    real prediction gates).
 4. Buttle correction + convergence gate unchanged (D4/D5).
 The v2 representation decisions (D1/D2) are unaffected.
+
+## v3 progress log (2026-10-02)
+
+1. Contracted targets (zeta sweep, `rmatrix_contracted_zeta.py`): the
+   closed 1Se pole moves -0.60 -> **-0.689** at zeta~1.15-1.20 —
+   single-STO contraction delivers 78% of the Burke shift.  2s-bar is
+   orthogonal to 1s BY CONSTRUCTION (r(1-(zeta+2)r/2)e^{-zeta r});
+   post-hoc Schmidt breaks P(0)=0 and log-diverges <1/r>.
+2. Orthogonal pair channel EXCLUDED (theorem-grade, 
+   `rmatrix_chi_pair.py`): any phi perpendicular to (1s, 2s-bar) has
+   E >= E(3s) = -0.222 Ha, so its pair block cannot reach -0.778.
+   Measured e_phi = +0.04..+1.5 Ha, phi-composition ~0.01.
+3. REMAINING SPEC (precisely): non-orthogonal chi_j blocks — extend
+   assemble_cc_inner_region with correlation configurations chi =
+   (phi_pair)^2 carrying NON-TRIVIAL cross blocks:
+     S[chi, (i,b)]     = 2 <phi|Phi_i> <phi|B_b>          (both spins)
+     H[chi, (i,b)]     = <phi|h|Phi_i><phi|B_b> + <phi|Phi_i><phi|h|B_b>
+                         + <phiphi|V|Phi_i B_b>_LS-sym
+     H[chi, chi']      = 2<phi|h|phi'> + <phiphi|V|phi'phi'>
+   All kernels (y_k, direct/exchange coefficients) already exist; the
+   work is the block plumbing + a regression gate (chi-free case must
+   reproduce the 3-channel numbers digit-exactly).
