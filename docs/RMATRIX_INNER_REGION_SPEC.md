@@ -95,3 +95,37 @@ claim must ship a "what is missing" list.
 - surface.py: formula generalises, but eigenvector plumbing is NEW
 - Buttle: ENTIRELY NEW (nothing exists)
 - orthogonality: NEW (none exists)
+
+
+## Diagnosis round 2 (2026-10-01, channel-resolved): correction + root cause
+
+CORRECTION of the "distorted-wave grade" verdict: cc_inner is a TRUE
+two-electron CC construction — exact LS direct/exchange angular
+coefficients, exact non-local exchange kernel, Bloch b=0 symmetric
+form, proper surface amplitudes.  The earlier flat-eigenphase verdict
+stands, but the mechanism is NOT missing operator structure.
+
+CHANNEL-RESOLVED MEASUREMENT (1Se, 3-channel, a=25, n_basis=60):
+- E=-0.7364: comp (0.97, 0.03, 0.00) — an OPEN-channel 1s-es pseudostate,
+  not a resonance.
+- Closed-dominated eigenvalues ALL sit at -0.61..-0.47 (n=2 continuum
+  pseudostates); NO closed-like eigenpair anywhere near -0.78.
+
+ROOT CAUSE: frozen HYDROGENIC 2s/2p targets.  The (2s2)1S quasi-bound
+pole needs the two n=2 electrons to bind ~0.28 Ha below the n=2
+threshold — dielectronic relaxation that hydrogenic He+ orbitals cannot
+represent; the closed-channel pole lands ~0.18 Ha too high and the
+Feshbach structure never forms.  This is EXACTLY Burke 1971's own
+history: their contribution over earlier 3-state work was variational
+CONTRACTED n=2 orbitals (effective zeta ~ 1.5 vs hydrogenic 1.0).
+
+REVISED WORK PLAN (v3): the inner-region operator is DONE; the work is
+the ORBITAL layer:
+1. Contracted 2s-bar/2p-bar target orbitals, single exponent zeta
+   (Burke-style 2s-bar ~ N r exp(-zeta r)).
+2. Tune zeta so the 1Se closed-channel pole lands at -0.77816 (one
+   parameter, one anchor symmetry).
+3. PREDICT 1Po/1De poles and widths with the SAME zeta (G-B/G-C as
+   real prediction gates).
+4. Buttle correction + convergence gate unchanged (D4/D5).
+The v2 representation decisions (D1/D2) are unaffected.
