@@ -131,6 +131,12 @@ def solve_rpa(orbitals_dict, bsp_data, eps, occupied, virtuals, twoJ,
     A = np.zeros((n, n))
     B = np.zeros((n, n))
     de = np.array([eps[p] - eps[h] for p, h in pairs])
+    # bilinear reuse (the rk_bilinear path: one M build per DISTINCT
+    # bra pair ~ one scalar R^k; every reuse is an O(ns^2) BLAS matvec
+    # — turns the O(n_ph^2) kernel-integral calls into O(#distinct
+    # bras) builds + cheap evals; the production-scale fix)
+    bl_A: dict = {}
+    bl_B: dict = {}
     for i, (p, h) in enumerate(pairs):
         Pp, Qp = orbitals_dict[p]
         Ph, Qh = orbitals_dict[h]
@@ -138,18 +144,26 @@ def solve_rpa(orbitals_dict, bsp_data, eps, occupied, virtuals, twoJ,
             Pp2, Qp2 = orbitals_dict[p2]
             Ph2, Qh2 = orbitals_dict[h2]
             # A: ph-ph coupling <p h'; J|v|p' h; J>_A
+            keyA = (p, h2)
+            if keyA not in bl_A:
+                bl_A[keyA] = {}
             A[i, j] = _pair_v_J(Pp, Qp, p[1], Ph2, Qh2, h2[1],
                                 Pp2, Qp2, p2[1], Ph, Qh, h[1],
-                                twoJ, bsp_data, cache)
+                                twoJ, bsp_data, cache,
+                                rk_bilinear=bl_A[keyA])
             # B: backward pp-hh coupling <p p'; J|v|h h'; J>_A.
             # _pair_v_J works with UNNORMALISED coupled products —
             # callers divide by sqrt((1+delta_ab)(1+delta_rs)) (the
             # mbpt caller does; omitting it inflates same-orbital
             # bra/kets by up to 2x — review-round bug)
+            keyB = (p, p2)
+            if keyB not in bl_B:
+                bl_B[keyB] = {}
             norm_b = np.sqrt((1.0 + (p == p2)) * (1.0 + (h == h2)))
             B[i, j] = _pair_v_J(Pp, Qp, p[1], Pp2, Qp2, p2[1],
                                 Ph, Qh, h[1], Ph2, Qh2, h2[1],
-                                twoJ, bsp_data, cache) / norm_b
+                                twoJ, bsp_data, cache,
+                                rk_bilinear=bl_B[keyB]) / norm_b
     np.fill_diagonal(A, A.diagonal() + de)
     w, X, Y = solve_symmetric_rpa(A, B)
     return RPAResult(twoJ=twoJ, omega_au=w, X=X, Y=Y, ph_pairs=pairs,
