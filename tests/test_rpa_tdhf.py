@@ -98,3 +98,46 @@ def test_g3_ne_screening_direction(ne_rpa):
     alpha_df = float(np.sum(2.0 / 3.0 * d ** 2 / de))
     assert alpha_rpa < alpha_df, (alpha_rpa, alpha_df)
     assert 0.5 < alpha_rpa / alpha_df < 1.0
+
+
+def test_g4_ne_dense_continuum_completeness():
+    """G4: the virtual-orbital fix.  Dense continuum pseudostates in
+    the full V^N field restore the response completeness: TRK jumps
+    from 0.08 (bound virtuals) to O(10), alpha_DF into the right
+    order (experiment 2.669), RPA still screens."""
+    import re as _re
+    from atomx.methods.dirac_fock import DFSolver, Subshell
+    from atomx.methods.rpa import (dense_continuum_virtuals,
+                                   reduced_dipole, solve_rpa, trk_sum)
+    occ = [(1, -1), (2, -1), (2, 1), (2, -2)]
+    subs = [Subshell(n=n, kappa=k,
+                     occupation=float(2 * k if k > 0 else -2 * k))
+            for n, k in occ]
+    dhf = DFSolver(Z=10, subshells=subs, ns=40, ks=7,
+                   starting_potential="tfda")
+    r = dhf.solve()
+    od = {(n, k): (P, Q) for (n, k), (P, Q, _o)
+          in r.orbitals_by_subshell().items()}
+    eps = {}
+    for lab, e in r.orbital_energies.items():
+        m = _re.fullmatch(r"(\d+)([spdf])(\d+)/(\d+)", lab)
+        n = int(m.group(1))
+        ll = "spdf".index(m.group(2))
+        j2 = int(round(2 * int(m.group(3)) / int(m.group(4))))
+        eps[(n, -(ll + 1) if j2 == 2 * ll + 1 else ll)] = e
+    vod, veps = dense_continuum_virtuals(r)
+    od.update(vod)
+    eps.update(veps)
+    assert len(vod) > 40
+    res = solve_rpa(od, dhf.bsp_data, eps, list(
+        {(n, k) for n, k in od if (n, k) in eps} - set(vod)),
+        list(vod), twoJ=2, exc_parity=-1)
+    trk = trk_sum(res, od, dhf.bsp_data, eps)
+    alpha_rpa = dipole_polarizability(res, od, dhf.bsp_data)
+    d = np.array([reduced_dipole(od, dhf.bsp_data, p, h)
+                  for p, h in res.ph_pairs])
+    de = np.array([eps[p] - eps[h] for p, h in res.ph_pairs])
+    alpha_df = float(np.sum(2.0 / 3.0 * d ** 2 / de))
+    assert trk > 8.0, trk                      # completeness restored
+    assert 1.4 < alpha_df < 2.6, alpha_df      # right order of magnitude
+    assert alpha_rpa < alpha_df                # screening survives
