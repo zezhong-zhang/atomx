@@ -151,3 +151,16 @@ The v2 representation decisions (D1/D2) are unaffected.
    All kernels (y_k, direct/exchange coefficients) already exist; the
    work is the block plumbing + a regression gate (chi-free case must
    reproduce the 3-channel numbers digit-exactly).
+
+## v3 progress log addendum (2026-10-02): chi-as-extra-channel excluded
+
+The non-orthogonal pair channel was IMPLEMENTED (cc_inner pair_targets:
+non-diagonal S and one-body cross blocks for 1S all-s; regression-clean
+23/23 when unused) and FAILS structurally: a smooth-STO phi lies almost
+entirely inside (2s-bar x splines), so the extra channel adds ~no span
+and S goes indefinite (Cholesky failure).  Combined with the earlier
+variational-bound exclusion of ORTHOGONAL phi, the conclusion is sharp:
+**the remaining 0.09 Ha lives in richer TARGETS (Burke's multi-STO
+2s-bar), not in extra channels.**  Next: 2-term STO target
+(c1, z1, c2, z2), single channel per l — structurally immune to both
+exclusions.
