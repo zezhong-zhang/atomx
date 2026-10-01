@@ -350,3 +350,139 @@ def build_sigma2_mscheme(orbitals_dict, bsp_data, Z, ns,
     delta.spinors = spinors
     delta.index = index
     return delta
+
+
+def build_sigma2_holeline(orbitals_dict, bsp_data, Z, ns,
+                          core_keys, valence_keys, eps,
+                          denom_floor: float = 0.02):
+    """Second-order hole-line family in the m-scheme.
+
+    The valence pair virtually excites a core pair (m, m'); the valence
+    energies enter the denominator, so unlike the core-polarisation
+    bubble this family is NOT common-mode across terms by construction
+    (Dzuba-Flambaum-Kozlov Sigma(2) hole-line):
+
+        d_hl(ab, cd) = 1/2 sum_{m,m' in core} g(a,b,m,m') g(m,m',c,d)
+                       * [ 1/(eps_a+eps_b-eps_m-eps_m')
+                         + 1/(eps_c+eps_d-eps_m-eps_m') ]
+
+    symmetrised denominator => Hermitian operator.  Delivered raw
+    (un-antisymmetrised); the assembler's antisymmetrisation
+    (direct - exchange) applies unchanged, same convention as the
+    bubble.  Intermediates bucketed by total pair m.
+    """
+    from functools import lru_cache as _lru
+    import numba as _nb
+    import numpy as _np
+
+    from atomx.angular.csf_hamiltonian import _m2_values, two_body_angular, twoj
+    import atomx.physics.csf.matrix as MAT
+
+    @_nb.njit(cache=True)
+    def _pair_dot(p1, p2, dinv):
+        total = 0.0
+        for j in range(p1.shape[0]):
+            total += p1[j] * p2[j] * dinv[j]
+        return total
+
+    ext = sorted(set(valence_keys) | set(core_keys))
+    spinors = [(n, k, m2) for (n, k) in ext
+               for m2 in _m2_values(twoj(k))]
+    index = {s: i for i, s in enumerate(spinors)}
+    core_idx = [index[(n, k, m2)] for (n, k) in core_keys
+                if (n, k) in orbitals_dict
+                for m2 in _m2_values(twoj(k))]
+    val_idx = [index[(n, k, m2)] for (n, k) in valence_keys
+               if (n, k) in orbitals_dict
+               for m2 in _m2_values(twoj(k))]
+
+    # core-pair intermediates, bucketed by total pair 2m; keep denominators
+    cc = {}
+    for i1 in range(len(core_idx)):
+        for i2 in range(len(core_idx)):
+            if i1 == i2:
+                continue
+            mi, mj = core_idx[i1], core_idx[i2]
+            # m-conservation of the pair element requires m2a+m2b == m2m+m2m'.
+            # BOTH orderings of each core pair enter: the m-scheme pair
+            # element <ab|V|m m'> is not symmetric under m <-> m' (the k=0
+            # monopole pairs m_a=m_c, m_b=m_d — one ordering alone can be
+            # identically zero while the swapped one carries the strength).
+            e_pair = eps[spinors[mi][:2]] + eps[spinors[mj][:2]]
+            cc.setdefault(spinors[mi][2] + spinors[mj][2], []).append((mi, mj, e_pair))
+
+    @_lru(maxsize=None)
+    def g2(ia, ib, im, im2_):
+        """Raw m-scheme element <a b|V|m m'>."""
+        a, b, m, m2_ = spinors[ia], spinors[ib], spinors[im], spinors[im2_]
+        terms = two_body_angular(a[1], a[2], b[1], b[2],
+                                 m[1], m[2], m2_[1], m2_[2])
+        if not terms:
+            return 0.0
+        Pa, Qa = orbitals_dict[(a[0], a[1])]
+        Pb, Qb = orbitals_dict[(b[0], b[1])]
+        Pm, Qm = orbitals_dict[(m[0], m[1])]
+        Pm2, Qm2 = orbitals_dict[(m2_[0], m2_[1])]
+        total = 0.0
+        for k, coef in terms:
+            total += coef * MAT._rk(Pa, Qa, Pm, Qm, Pb, Qb, Pm2, Qm2,
+                                    bsp_data, k)
+        return total
+
+    # tables: rows = valence pairs with the bucket's total m,
+    #         cols = core-core pairs of that bucket, PLUS the transposed
+    #         role <m m'|V|c d> served by a second table (slot order).
+    Gv = {}     # Gv[bucket][(ab) row] -> vector over core-pair cols
+    Gc = {}     # Gc[bucket][(cd) row] -> same-bucket transposed elements
+    dinv_pair = {}
+    for bucket, pairs in cc.items():
+        rows_ab = [(ia, ib) for ia in val_idx for ib in val_idx
+                   if spinors[ia][2] + spinors[ib][2] == bucket]
+        Mv = _np.zeros((len(rows_ab), len(pairs)))
+        Mc = _np.zeros((len(rows_ab), len(pairs)))
+        for r_, (ia, ib) in enumerate(rows_ab):
+            for c_, (mi, mj, e_core) in enumerate(pairs):
+                Mv[r_, c_] = g2(ia, ib, mi, mj)      # <ab|V|mm'>
+                Mc[r_, c_] = g2(mi, mj, ia, ib)      # <mm'|V|ab>
+        Gv[bucket] = Mv
+        Gc[bucket] = Mc
+        dinv_pair[bucket] = _np.zeros(len(pairs))
+        for r_ in range(len(rows_ab)):
+            ia, ib = rows_ab[r_]
+            e_val = eps[spinors[ia][:2]] + eps[spinors[ib][:2]]
+            ds = _np.array([
+                (1.0 / (e_val - p[2])) if abs(e_val - p[2]) > denom_floor
+                else (1.0 / denom_floor if e_val > p[2] else -1.0 / denom_floor)
+                for p in pairs])
+            dinv_pair[(bucket, r_)] = ds
+        for r_, pair in enumerate(rows_ab):
+            pass  # row registry below
+        Gv.setdefault("_rows", {})[bucket] = rows_ab
+
+    rows_registry = Gv.pop("_rows")
+
+    def delta_hl(ia, ib, ic, id_):
+        """Raw (un-antisymmetrised) hole-line element d(ab, cd)."""
+        bucket = spinors[ia][2] + spinors[ib][2]
+        if bucket != spinors[ic][2] + spinors[id_][2]:
+            return 0.0  # operator conserves pair m
+        tab = rows_registry.get(bucket)
+        if not tab:
+            return 0.0
+        try:
+            r_ab = tab.index((ia, ib))
+            r_cd = tab.index((ic, id_))
+        except ValueError:
+            return 0.0
+        p1 = Gv[bucket][r_ab]
+        p2 = Gc[bucket][r_cd]
+        d1 = dinv_pair.get((bucket, r_ab))
+        d2 = dinv_pair.get((bucket, r_cd))
+        if d1 is None or d2 is None:
+            return 0.0
+        return 0.5 * (_pair_dot(p1, p2, d1) + _pair_dot(p1, p2, d2))
+
+    delta_hl.spinors = spinors
+    delta_hl.index = index
+    delta_hl.n_core_pairs = sum(len(v) for v in cc.values())
+    return delta_hl

@@ -169,3 +169,51 @@ def test_sigma2_mscheme_bigger_than_samej(workspace, sigma2):
     d_j = s2.delta_raw(-1, 1, -1, -1, -1, 1, -1, -1,
                        (2, -1), (2, -1), (2, -1), (2, -1))
     assert d_ms < 0 and abs(d_ms) > 0, "mscheme screening vanished"
+
+
+def test_holeline_brute_collision(workspace):
+    """Hole-line vs inline brute force on the Be 2s2s diagonal + Hermiticity."""
+    from atomx.methods.mbpt_sigma2 import build_sigma2_holeline
+    from atomx.angular.csf_hamiltonian import two_body_angular, _m2_values, twoj
+    import atomx.physics.csf.matrix as MAT
+    dhf, od, eps = workspace
+    d = build_sigma2_holeline(od, dhf.bsp_data, 4, dhf.ns,
+                              core_keys=[(1, -1)],
+                              valence_keys=_VALENCE, eps=eps)
+    up, dn = d.index[(2, -1, 1)], d.index[(2, -1, -1)]
+    fast = d(up, dn, up, dn)
+    # brute force
+    ext = sorted(set(_VALENCE) | {(1, -1)})
+    spinors = [(n, k, m2) for (n, k) in ext for m2 in _m2_values(twoj(k))]
+    idx = {s: i for i, s in enumerate(spinors)}
+    def g2(ia, ib, im, im2_):
+        a, b, m, m2_ = spinors[ia], spinors[ib], spinors[im], spinors[im2_]
+        t = two_body_angular(a[1], a[2], b[1], b[2], m[1], m[2], m2_[1], m2_[2])
+        if not t:
+            return 0.0
+        Pa, Qa = od[(a[0], a[1])]; Pb, Qb = od[(b[0], b[1])]
+        Pm, Qm = od[(m[0], m[1])]; Pm2, Qm2 = od[(m2_[0], m2_[1])]
+        return sum(co * MAT._rk(Pa, Qa, Pm, Qm, Pb, Qb, Pm2, Qm2,
+                                dhf.bsp_data, k) for k, co in t)
+    core_spin = [idx[(1, -1, m2)] for m2 in (-1, 1)]
+    ia_, ib_ = idx[(2, -1, 1)], idx[(2, -1, -1)]
+    e_val = eps[(2, -1)] * 2
+    total = 0.0
+    for i1 in range(len(core_spin)):
+        for i2 in range(len(core_spin)):
+            if i1 == i2:
+                continue
+            mi, mj = core_spin[i1], core_spin[i2]
+            e_core = eps[spinors[mi][:2]] + eps[spinors[mj][:2]]
+            P1 = g2(ia_, ib_, mi, mj)
+            P2 = g2(mi, mj, ia_, ib_)
+            if P1 and P2:
+                total += P1 * P2 / (e_val - e_core)  # symm denominator: bra==ket
+    brute = total
+    assert abs(fast - brute) < 1e-14, (fast, brute)
+    assert fast != 0.0, "hole-line vanished on 2s2s"
+    # Hermiticity on an off-diagonal element
+    p = d.index[(2, -2, 3)]
+    x = d(up, p, up, p)
+    assert x == d(up, p, up, p)
+    print(f"holeline: fast={fast:.6e} brute={brute:.6e} n_core_pairs={d.n_core_pairs}")
