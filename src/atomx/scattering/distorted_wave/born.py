@@ -88,10 +88,15 @@ def born_excitation_dipole(
     if not np.any(above):
         return out
     Ee = E[above]
-    # van Regemorter ALN form: σ = 8π²·a₀² · f_ab · ḡ · ln(E/ΔE) / (√3 · E)
+    # van Regemorter ALN form:
+    #   σ = 8π²·a₀² · f_ab · ḡ · (Ry/ΔE) · ln(E/ΔE) / (√3 · (E/Ry))
+    # The (Ry/ΔE) factor was missing (the review measured magnitudes
+    # off by exactly 2·ΔE_Ry — tests gated shape only).
+    E_Ry = Ee / (2.0 * HARTREE_EV)
+    dE_Ry = delta_E_eV / (2.0 * HARTREE_EV)
     sigma = (8.0 * math.pi ** 2 * _A0_CM2 * f_ab * gaunt_factor
              * np.log(Ee / delta_E_eV)
-             / (math.sqrt(3.0) * (Ee / HARTREE_EV)))
+             / (math.sqrt(3.0) * E_Ry * dE_Ry))
     sigma = np.maximum(sigma, 0.0)
     out[above] = sigma
     return out

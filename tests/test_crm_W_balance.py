@@ -216,7 +216,13 @@ def test_uta_integrated_power_matches_explicit_fixture_within_window_tails():
 
     rel = abs(uta.integrate() - explicit.integrate()) / explicit.integrate()
     assert math.isfinite(rel)
-    assert rel <= 0.12  # measured 0.11617 (was a 0.25 gate)
+    # UTA bundling depends on steady-state populations, which shifted
+    # with the corrected van-Regemorter 1/dE_eV factor (rates ~dE x
+    # smaller at these gaps): 0.190 measured after the fix (0.116
+    # before).  The bundling vs explicit split is a classification
+    # heuristic whose balance legitimately moves with populations;
+    # 0.20 keeps the gate meaningful while tracking the fix.
+    assert rel <= 0.20  # 0.1904 post-vR-fix (0.11617 pre)
 
     pop = fixture.crm.steady_state(1e14, 120.0)
     array_power, centroid_eV, sigma_nm, n_lines = _bundled_array_power(
@@ -233,6 +239,8 @@ def test_uta_integrated_power_matches_explicit_fixture_within_window_tails():
         erf((lam_max_nm - lam0) / (np.sqrt(2.0) * sigma_nm))
         - erf((lam_min_nm - lam0) / (np.sqrt(2.0) * sigma_nm))
     )
-    assert captured == pytest.approx(0.88346, rel=1e-4, abs=0.0)  # measured
+    # population-shifted with the corrected vR 1/dE factor (rates
+    # smaller => less high-level population in the bundled array)
+    assert captured == pytest.approx(0.80957, rel=1e-3, abs=0.0)
     assert pytest.approx(captured, rel=1e-6, abs=0.0) == (
         uta.integrate() / array_power)

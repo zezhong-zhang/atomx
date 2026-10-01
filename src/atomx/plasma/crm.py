@@ -379,7 +379,12 @@ class CollisionalRadiativeModel:
                     # gaunt = max(0.2, 0.276 exp(x) E1(x)) with
                     # exp(x) E1(x) -> (x+1)/(x(x+2)) for x > 1.
                     gaunt = max(0.2, 0.276 * _e1_times_exp(x))
-                    base = 1.578e-5 * tr.gf / (g_l * np.sqrt(kT))
+                    # van Regemorter carries 1/dE_eV (the review found
+                    # the old base missing it — rates off by exactly
+                    # dE_eV, 10x at 10 eV).  Constant: 8.63e-6 cm^3/s
+                    # with E in eV and T in eV via sqrt(kT).
+                    base = (8.63e-6 * tr.gf
+                            / (dE_eV * g_l * np.sqrt(kT)))
                     C_exc = base * gaunt * np.exp(-x)
                     C_deexc = base * gaunt * (g_l / g_u)
             if C_exc > 0.0:

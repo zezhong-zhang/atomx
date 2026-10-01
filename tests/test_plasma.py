@@ -317,10 +317,16 @@ class TestCRM:
             pop = crm.steady_state(ne_cm3=ne, Te_eV=Te)
             deviations.append(float(np.max(np.abs(pop / boltzmann - 1.0))))
 
-        # monotone convergence in ne, and dense enough to be LTE
+        # monotone convergence in ne, and dense enough to be LTE.
+        # The 1e-3 bound at ne=1e18 tracked the OLD (missing-1/dE) vR
+        # constant; with the corrected q = 8.63e-6 gf gbar/(dE g
+        # sqrt(T)) the absolute rates are ~dE x smaller so the residual
+        # A/(ne C) is larger at fixed ne: 1.4e-3 at 1e18.  The LIMIT
+        # structure (1/ne convergence, exact Boltzmann ratio) is the
+        # physics; loosen the first-point bound accordingly.
         assert deviations[0] > deviations[1] > deviations[2]
         assert deviations[2] < 1e-9
-        assert 0.0 < deviations[0] < 1e-3
+        assert 0.0 < deviations[0] < 5e-3
 
         # ... and the ratio itself is the analytic Boltzmann ratio
         pop = crm.steady_state(ne_cm3=1e25, Te_eV=Te)

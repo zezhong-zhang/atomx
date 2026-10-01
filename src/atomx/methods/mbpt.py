@@ -226,13 +226,18 @@ def _build_closed_shell_fock(
     # This is the standard Sapirstein-Johnson-Blundell choice (1988)
     # and matches FAC's "frozen-core" mode.
     if potential_mode == "VN-1":
+        # Reduce the OUTERmost subshell by one electron.  Match by
+        # (n, kappa) VALUE, never by id(): scf_result.subshells is a
+        # property that rebuilds the list per access, so identity tests
+        # against it never fire and VN-1 silently degraded to VN (the
+        # review's H-polarizability 4.18-vs-4.5 finding).
         outer = max(
             scf_result.subshells,
             key=lambda s: (s.n, _l_from_kappa(s.kappa), -abs(s.kappa)),
         )
-        reduce_id = id(outer)
+        reduce_key = (outer.n, outer.kappa)
     elif potential_mode == "VN":
-        reduce_id = None
+        reduce_key = None
     else:
         raise ValueError(
             f"Unknown potential_mode {potential_mode!r}; "
@@ -244,7 +249,7 @@ def _build_closed_shell_fock(
         kb = sh.kappa
         tj_b = _twoj_from_kappa(kb)
         q_b = float(sh.occupation)
-        if id(sh) == reduce_id:
+        if reduce_key is not None and (sh.n, sh.kappa) == reduce_key:
             q_b -= 1.0
         if q_b <= 0.0:
             continue

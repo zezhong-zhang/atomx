@@ -152,13 +152,16 @@ def test_module_dr_prefactor_is_the_ev_convention_closed_form():
 
 
 def _satellite_to_w_ratio_closed_form(Te_eV, ne_cm3, resonance):
-    """Analytic satellite/w flux ratio (see the module docstring)."""
+    """Analytic satellite/w flux ratio (see the module docstring).
+
+    Uses the CORRECTED van Regemorter constant (8.63e-6 with 1/dE_eV;
+    the previous 1.578e-5 without it is the review's "wrong formula
+    pinned as closed form" — the numeric expectations in the
+    docstrings below date from the old constant and shift with it).
+    """
     x = E_W_EV / Te_eV
-    # van Regemorter effective Gaunt factor, large-x asymptote used by
-    # atomx.plasma.crm for dE/kT > 1 (the same expression the underflow
-    # test derives at test_plasma_physics.py:250).
     gaunt = max(0.2, 0.276 * (x + 1.0) / (x * (x + 2.0)))
-    base = 1.578e-5 * _GF_W / (_G_BOUND * np.sqrt(Te_eV))
+    base = 8.63e-6 * _GF_W / (E_W_EV * _G_BOUND * np.sqrt(Te_eV))
     c_exc = base * gaunt * np.exp(-x)
     # detailed balance: C_deexc = C_exc (g_l/g_u) exp(+x)
     c_deexc = base * gaunt * (_G_BOUND / _G_W)

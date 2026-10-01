@@ -309,12 +309,16 @@ def test_crm_deexcitation_survives_boltzmann_underflow():
     )
     matrix = crm._build_rate_matrix(ne, te)
 
-    # van Regemorter effective Gaunt factor for x >> 1
+    # van Regemorter effective Gaunt factor for x >> 1 (corrected
+    # constant: the OLD closed form lacked the 1/dE_eV factor — the
+    # review's "test pins the wrong formula" finding; q now carries
+    # 8.63e-6 * gf / (dE g sqrt(T)) * gbar)
     x = 600.0 / te
     gaunt = max(0.2, 0.276 * (x + 1.0) / (x * (x + 2.0)))
-    c_deexc_closed = 1.578e-5 * 1.0 / (1.0 * np.sqrt(te)) * gaunt * (1.0 / 3.0)
+    c_deexc_closed = (8.63e-6 * 1.0 / (600.0 * 1.0 * np.sqrt(te))
+                      * gaunt * (1.0 / 3.0))
 
-    assert pytest.approx(1.176e-6, rel=1e-3, abs=0.0) == matrix[0, 1] / ne
+    assert pytest.approx(c_deexc_closed, rel=1e-3, abs=0.0) == matrix[0, 1] / ne
     assert pytest.approx(c_deexc_closed, rel=1e-12, abs=0.0) == matrix[0, 1] / ne
     assert matrix[1, 0] == 0.0  # exp(-750) is genuinely zero
 
