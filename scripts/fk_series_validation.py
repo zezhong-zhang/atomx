@@ -58,7 +58,7 @@ for tag, sc in [("bare", (0.0, 0.0, 0.0)), ("Pr-scaled", (s2, s4, s6))]:
                                             pats_nd, twoJ + 2,
                                             n_states=10 ** 7)
         else:
-            delta = make_slater_delta(od_nd, bsp_nd, 60, sc)
+            delta = make_slater_delta(od_nd, bsp_nd, sc)
             cache = {}
             def ev(m2):
                 if m2 not in cache:

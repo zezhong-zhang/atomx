@@ -52,7 +52,7 @@ def build(Z, nval):
     return od, dhf.bsp_data, pats
 
 
-def make_slater_delta(od, bsp, Z, scale):
+def make_slater_delta(od, bsp, scale):
     """two_body_delta: additive antisymmetrised Slater scaling.
 
     The assembler forms anti = v(ab,cd) - v(ab,dc) + delta(ab,cd), so
@@ -110,7 +110,7 @@ def levels_with_scale(od, bsp, Z, pats, scale, twoJmax=6):
 
             def sector_eval(m2):
                 if m2 not in sector_cache:
-                    delta = make_slater_delta(od, bsp, Z, scale)
+                    delta = make_slater_delta(od, bsp, scale)
                     msk, spn = SC.enumerate_determinants(pats, od, m2)
 
                     def dd(ia, ib, ic, id_):

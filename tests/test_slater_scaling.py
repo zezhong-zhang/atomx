@@ -16,7 +16,6 @@ import sys
 import numpy as np
 import pytest
 
-sys.path.insert(0, "/tmp/atomx-cimbpt")
 
 from atomx.methods.csf.slater_scaling import (fit_slater_scaling,
                                               free_ion_levels)
@@ -87,7 +86,9 @@ def _pr_residuals(pr_ws, scale):
 
 
 def test_g1_pr_fit_and_linearity(pr_ws):
-    x, hist = fit_slater_scaling(lambda s: _pr_residuals(pr_ws, s))
+    x, hist, diag = fit_slater_scaling(
+        lambda s: _pr_residuals(pr_ws, s))
+    assert diag['cond'] < 200, diag
     rms = hist[-1]
     assert rms < 350, rms
     assert x[0] == pytest.approx(-0.27, abs=0.05), x
@@ -109,8 +110,8 @@ def test_g2_scaled_hermitian(pr_ws):
     od, bsp, pats = pr_ws
     masks, spinors = SC.enumerate_determinants(pats, od, 2)
     from atomx.methods.csf.slater_scaling import make_slater_delta
-    delta = make_slater_delta(od, bsp, 59, {2: -0.27, 4: -0.08,
-                                            6: -0.12})
+    delta = make_slater_delta(od, bsp, {2: -0.27, 4: -0.08,
+                                         6: -0.12})
     dd = lambda a, b, c, d: delta(a, b, c, d, spinors)
     H = SC.assemble_sparse_hamiltonian(masks, spinors, od, bsp, 59, 50,
                                        two_body_delta=dd)
@@ -124,7 +125,8 @@ def test_g3_transfer_eu(pr_ws, eu_ws):
     the transferred prediction lands within a documented bound — NOT
     at the lucky 1S0-anchored value.  The ANCHOR protocol therefore
     fits the anchor ion's own inter-multiplet gaps (see spec)."""
-    x, _ = fit_slater_scaling(lambda s: _pr_residuals(pr_ws, s))
+    x, hist, diag = fit_slater_scaling(
+        lambda s: _pr_residuals(pr_ws, s))
     od, bsp, pats = eu_ws
     lv0 = free_ion_levels(od, bsp, 63, 50, pats)
     lv1 = free_ion_levels(od, bsp, 63, 50, pats,
@@ -146,7 +148,8 @@ def test_g3_transfer_eu(pr_ws, eu_ws):
 
 
 def test_g4_transfer_nd(pr_ws, nd_ws):
-    x, _ = fit_slater_scaling(lambda s: _pr_residuals(pr_ws, s))
+    x, hist, diag = fit_slater_scaling(
+        lambda s: _pr_residuals(pr_ws, s))
     od, bsp, pats = nd_ws
     out = {}
     for tag, sc in (("bare", None),

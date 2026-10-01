@@ -38,15 +38,33 @@ if __name__ == "__main__":
     od, bsp, pats = _build(63, 6, ns=50)
     from atomx.methods.csf.slater_scaling import free_ion_levels
 
-    def res(s):
-        lv = free_ion_levels(od, bsp, 63, 50, pats, scale=s)
+    # OVERDETERMINED (review #3): fix s2 at the series prior (Pr fit)
+    # and fit (s4, s6) on the three 5D gaps — residuals are then
+    # meaningful and the series gate is a real check, not packaging.
+    # References are AQUO-ION (Carnall IV) values used for the free
+    # ion within their uncertainty — flagged, not hidden.
+    S2_PRIOR = -0.2726
+
+    def res(p):
+        s4, s6 = p
+        lv = free_ion_levels(od, bsp, 63, 50, pats,
+                             scale=(S2_PRIOR, s4, s6))
         gaps, _ = extract(lv)
         return [gaps[J] - ref for J, ref in REFS]
 
-    x, hist = fit_slater_scaling(res, tol=0.05, max_iter=10)
-    s2, s4, s6 = x
-    print(f"Eu Tier-A fit (5D0/1/2 gaps): s = ({s2:+.4f}, {s4:+.4f}, "
-          f"{s6:+.4f})", flush=True)
+    from atomx.methods.csf.slater_scaling import fit_slater_scaling         as _fit
+    xg, hist, diag = _fit(lambda t: res(t[:2]),
+                          x0=(S2_PRIOR, -0.08, -0.119))
+    print(f"  fit diagnostics: cond={diag.get('cond'):.1f}, "
+          f"sigma={diag.get('sigma')}", flush=True)
+    s2, s4, s6 = S2_PRIOR, xg[1], xg[2]
+    r_fin = np.array(res((s4, s6)))
+    rms = float(np.sqrt(np.mean(r_fin ** 2)))
+    print(f"Eu Tier-A (overdetermined: s2 fixed at Pr prior, 3 gaps "
+          f"vs 2 params): s = ({s2:+.4f}, {s4:+.4f}, {s6:+.4f})",
+          flush=True)
+    print(f"  residual RMS = {rms:.1f} cm^-1 (real, not interpolation)",
+          flush=True)
     print("Pr series source:            s = (-0.2726, -0.0804, -0.1193)",
           flush=True)
     dev = [abs(a - b) for a, b in zip(x, (-0.2726, -0.0804, -0.1193))]
@@ -55,7 +73,8 @@ if __name__ == "__main__":
           flush=True)
 
     print("\ncalibrated anchor ladder vs NIST:", flush=True)
-    lv = free_ion_levels(od, bsp, 63, 50, pats, scale=tuple(x))
+    lv = free_ion_levels(od, bsp, 63, 50, pats,
+                         scale=(S2_PRIOR, s4, s6))
     gaps, _ = extract(lv)
     for J, ref in REFS:
         print(f"  5D{J:.0f}: {gaps[J]:9.1f} vs {ref:9.1f} "

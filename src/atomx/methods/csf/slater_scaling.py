@@ -63,11 +63,23 @@ def multiset_subtract(w, w_hi, tol: float = 1e-8):
     wl = list(w)
     for x in w_hi:
         j = min(range(len(wl)), key=lambda i: abs(wl[i] - x))
+        gap = abs(wl[j] - x)
+        if len(wl) > 1:
+            others = sorted(abs(wl[i] - x) for i in range(len(wl))
+                            if i != j)
+            if others and others[0] < 1e-6 and gap > 1e-10:
+                # near-degenerate alternative matches: the nearest-copy
+                # heuristic may have grabbed the WRONG copy — flag it
+                import warnings
+                warnings.warn(
+                    f"multiset_subtract ambiguous match (gap {gap:.3e} "
+                    f"Ha, alternative {others[0]:.3e}); level "
+                    "assignment may be unstable", stacklevel=2)
         wl.pop(j)
     return np.array(wl)
 
 
-def make_slater_delta(orbitals_dict, bsp_data, Z, scale: Mapping[int, float]):
+def make_slater_delta(orbitals_dict, bsp_data, scale: Mapping[int, float]):
     """two_body_delta scaling R^k by (1 + scale[k]); k outside the
     mapping is left untouched.  Returns ``delta(ia, ib, ic, id_,
     spinors)`` over spinor INDEX tuples (indices of the caller's
@@ -130,7 +142,7 @@ def free_ion_levels(orbitals_dict, bsp_data, Z, ns, patterns, scale=None,
                 seen.append(m2)
         twoJ_values = seen      # the TOP sector carries J = M_max
         # (spec(M_max) - spec(empty) = the stretched manifold)
-    delta = (make_slater_delta(orbitals_dict, bsp_data, Z, scale)
+    delta = (make_slater_delta(orbitals_dict, bsp_data, scale)
              if scale else None)
     sector_cache: Dict[int, np.ndarray] = {}
 
@@ -173,6 +185,7 @@ def fit_slater_scaling(residuals_fn, x0=None, h: float = 0.02,
     """
     x = np.zeros(3) if x0 is None else np.asarray(x0, float).copy()
     hist = []
+    diagnostics = {}
     for _ in range(max_iter):
         r = np.asarray(residuals_fn(tuple(x)), float)
         rms = float(np.sqrt(np.mean(r ** 2)))
@@ -180,10 +193,32 @@ def fit_slater_scaling(residuals_fn, x0=None, h: float = 0.02,
         Jm = np.column_stack([
             (np.asarray(residuals_fn(tuple(x + e)), float) - r) / h
             for e in [(h, 0, 0), (0, h, 0), (0, 0, h)]])
+        # conditioning diagnostics: the s4/s6 ratio direction is known
+        # weakly pinned — report it instead of silently swallowing it
+        sv = np.linalg.svd(Jm, compute_uv=False)
+        diagnostics["cond"] = float(sv[0] / sv[-1]) if sv[-1] > 0 else             float("inf")
         step, *_ = np.linalg.lstsq(Jm, -r, rcond=None)
         r_new = np.asarray(residuals_fn(tuple(x + step)), float)
         rms_new = float(np.sqrt(np.mean(r_new ** 2)))
         if rms_new >= rms - tol:
-            break
-        x = x + step
-    return x, hist
+            # backtracking line search before giving up (review #7)
+            improved = False
+            for beta in (0.5, 0.25, 0.1):
+                r_bt = np.asarray(residuals_fn(tuple(x + beta * step)),
+                                   float)
+                if float(np.sqrt(np.mean(r_bt ** 2))) < rms - tol:
+                    x = x + beta * step
+                    improved = True
+                    break
+            if not improved:
+                break
+        else:
+            x = x + step
+    # parameter error bars from (J^T J)^-1 * residual variance
+    try:
+        dof = max(len(r) - len(x), 1)
+        cov = np.linalg.inv(Jm.T @ Jm) * (float(np.sum(r ** 2)) / dof)
+        diagnostics["sigma"] = np.sqrt(np.diag(cov)).tolist()
+    except np.linalg.LinAlgError:
+        diagnostics["sigma"] = None
+    return x, hist, diagnostics
