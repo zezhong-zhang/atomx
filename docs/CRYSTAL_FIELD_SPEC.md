@@ -69,3 +69,55 @@ unused.
 4. **Eu CF anchor protocol**: free-ion anchors calibrated empirically
    (CI_MBPT_SIGMA2_SPEC verdict), CF from DFT-IAM or literature B_kq,
    splitting checked against NIST crystal-field levels.
+
+## External review round (2026-10-01, kimi-for-coding, FIX-FIRST → fixed)
+
+Per the new workflow (proposals get an external-model critique from
+physics/numerics/code angles before shipping), the committed module was
+reviewed; verdict FIX-FIRST with 10 ranked issues.  Tier-1 fixes
+applied same day (24/24 gates green):
+
+1. **point_charge_bkq electron sign** — V_electron = −φ: overall minus
+   added (splittings were hole-like/inverted).  Now gated: axial unit
+   charge gives exactly A_k^0 = −q/R^{k+1} (G7).
+2. **Y_{k,−q} conjugation** — the old branch kept a factorial ratio AND
+   skipped the conjugate (two errors cancelling in A^q_k by accident);
+   the review-driven "fix" first kept the ratio — magnitude-wrong;
+   correct relation is Y_{k,−q} = (−1)^q conj(Y_{k,q}) with NO ratio.
+   Y is now module-level `_Y_kq`, digit-validated against sympy
+   assoc_legendre (G7c).
+3. **r<R guard** — `r_inside` is now a REQUIRED argument; charges inside
+   the shell raise instead of silently producing divergent B.
+4. **Cross-n same-kappa elements ENABLED** (were silently zeroed —
+   wrong Hamiltonian for any CI with 4f+5f; the "two-body relaxation"
+   deferral rationale was bogus for a one-body operator).  Gated (G6).
+5. **Build-time B validation** — q range hard-checked; Hermiticity
+   partner check warns (default) or raises (strict) — non-Hermitian
+   input no longer flows silently into H.  Gated (G7b); the
+   point-charge output now feeds a strict build as an end-to-end test.
+6. **Single-quadrature normalisation** — norm now = rpow(k=0) on the
+   same Gauss grid (was: Gauss-grid radial ÷ external _norm_sq = two
+   quadrature rules dividing; also removes the private import).
+7. **Unit hazard documented** — literature Wybourne B_kq INCLUDE
+   ⟨r^k⟩; here B are radial-free A_kq: divide ⟨r^k⟩ out first.
+
+Honesty note: the earlier "python + numba serial + numba parallel wired"
+claim overstates — the parallel kernel (n≥2000) m-channel segment has
+NO test coverage below the trigger (Be M=0 sectors cap ~1.4k dets; DF
+refuses unbound 6s/6d).  It is a structural mirror of the gated serial
+path; the first Eu-scale CF run must include a python-vs-numba
+spot-check.
+
+Remaining from the review (scheduled, not blocking):
+- tesseral (real) B representation for low-symmetry sites — the
+  complex capability has no CI consumer until this lands (float() of
+  complex raises by design).
+- h1m table: per-group CSR instead of global sorted keys + binary
+  search (a small-table design tax, not a bottleneck).
+- phase-1a' should skip frozen-core pairs using the existing `frozen`
+  set; cf() should pre-group bkq by q (O(1) lookup).
+- lru_cache closures hold the workspace with no clear() API.
+- library-level adapter from build_cf_operator to the assembler channel
+  (the only glue today is test-local; KeyError→0.0 adapters must
+  fail loud).
+- layering: r^k moments belong in the MAT/basis layer, not here.

@@ -83,7 +83,8 @@ def rpow_grid(orbitals_dict, bsp_data):
     return rpow
 
 
-def build_cf_operator(orbitals_dict, bsp_data, Z, ns, bkq, radial=None):
+def build_cf_operator(orbitals_dict, bsp_data, Z, ns, bkq, radial=None,
+                      hermiticity="warn"):
     """One-body CF element callable over spinor index pairs.
 
     Parameters
@@ -91,15 +92,48 @@ def build_cf_operator(orbitals_dict, bsp_data, Z, ns, bkq, radial=None):
     bkq : dict {(k, q): B_kq in cm^-1}
         k = 2, 4, 6 for f electrons; q spans -k..k as supplied.  Values
         may be complex; Hermiticity requires B_{k,-q} = (-1)^q B_{kq}*.
+        UNIT HAZARD: these are RADIAL-FREE A_kq.  Literature Wybourne
+        B_kq usually INCLUDE <r^k> (B = A <r^k>) — divide it out before
+        feeding them here, or r^k is applied twice.
     radial : optional callable ((na,ka), (nb,kb), k) -> <a| r^k |b> in
         bohr^k; when None, integrated on the workspace Gauss grid.
+    hermiticity : "warn" (default) / "strict" / "off"
+        Build-time check of the B set: a partner B_{k,-q} that is
+        missing (common q>0-only input habit) or violates
+        B_{k,-q} = (-1)^q B_{kq}* warns in "warn" mode and raises in
+        "strict" — a non-Hermitian set silently produces a non-Hermitian
+        H otherwise.
 
     Returns a callable cf(ia, ib) -> element in HARTREE (complex when
     any B is complex) between spinor indices of the shared m-scheme
     spinor layout ((n, kappa, 2m) tuples); consumers adapt it to their
-    own index tables via labels.
+    own index tables via labels.  CI wiring additionally needs a REAL
+    set (float() of complex raises) — complex sites wait on the tesseral
+    conversion follow-up.
     """
+    import warnings
+
     import numpy as np
+
+    for (k, q) in bkq:
+        if abs(q) > k:
+            raise ValueError(f"B entry ({k},{q}): |q| > k is invalid")
+    if hermiticity != "off":
+        for (k, q), bval in bkq.items():
+            partner = bkq.get((k, -q))
+            expect = (-1) ** q * np.conj(bval)
+            if partner is None:
+                if q != 0:
+                    msg = f"B set lacks ({k},{-q}): H will be non-Hermitian"
+                    if hermiticity == "strict":
+                        raise ValueError(msg)
+                    warnings.warn(msg, stacklevel=2)
+            elif abs(partner - expect) > 1e-9 * max(1.0, abs(expect)):
+                msg = (f"B({k},{-q}) != (-1)^q conj(B({k},{q})): "
+                       "H will be non-Hermitian")
+                if hermiticity == "strict":
+                    raise ValueError(msg)
+                warnings.warn(msg, stacklevel=2)
 
     ext = sorted(orbitals_dict)
     spinors = [(n, k, m2) for (n, k) in ext for m2 in _m2_values(twoj(k))]
@@ -110,11 +144,9 @@ def build_cf_operator(orbitals_dict, bsp_data, Z, ns, bkq, radial=None):
 
     @lru_cache(maxsize=None)
     def norm_of(n_kappa):
-        if bsp_data is None:
-            return 1.0  # synthetic/angular tests with a custom radial
-        from atomx.physics.csf.matrix import _norm_sq
-        P, Q = orbitals_dict[n_kappa]
-        return _norm_sq(P, Q, n_kappa[1], Z, bsp_data, ns)
+        # same quadrature as rpow (single consistent Gauss-grid measure;
+        # dividing by an external _norm_sq mixes two quadrature rules)
+        return rpow(n_kappa, n_kappa, 0)
 
     @lru_cache(maxsize=None)
     def radial_of(a_key, b_key, k):
@@ -146,10 +178,6 @@ def build_cf_operator(orbitals_dict, bsp_data, Z, ns, bkq, radial=None):
 
     def cf(ia, ib):
         a, b = spinors[ia], spinors[ib]
-        if a[0] != b[0]:
-            # off-diagonal n mixing deferred (needs the same-n
-            # leading term first; two-body relaxation follow-up)
-            return 0.0
         q2 = a[2] - b[2]
         if q2 % 2:
             return 0.0
@@ -172,42 +200,66 @@ def build_cf_operator(orbitals_dict, bsp_data, Z, ns, bkq, radial=None):
     return cf
 
 
-def point_charge_bkq(charges_coords, r_site, kmax=6):
+def _Y_kq(k, q, theta, phi):
+    """Complex spherical harmonic Y_kq (Condon-Shortley), module-level
+    for direct test access.  P_k^q via the power-basis q-th derivative
+    of P_k; the q<0 branch is Y_{k,-q} = (-1)^q conj(Y_{k,q}) — NO
+    factorial ratio (the normalisation carries it; keeping both was the
+    accidental-cancellation bug the review caught)."""
+    import cmath
+    from math import factorial, pi, sqrt
+
+    import numpy as np
+
+    if q < 0:
+        return ((-1) ** (-q)) * np.conj(_Y_kq(k, -q, theta, phi))
+    x = np.cos(theta)
+    pk = np.polynomial.legendre.leg2poly(
+        np.polynomial.legendre.Legendre.basis(k).coef)
+    dp = np.polynomial.Polynomial(pk).deriv(q)
+    pkq = ((-1.0) ** q) * (1.0 - x * x) ** (q / 2.0) * float(dp(x))
+    norm = sqrt((2 * k + 1) / (4 * pi)
+                * factorial(k - q) / factorial(k + q))
+    return norm * pkq * cmath.exp(1j * q * phi)
+
+
+def point_charge_bkq(charges_coords, r_site, kmax=6, r_inside=None):
     """A^q_k of a point-charge lattice at a site (validation input).
 
-    Multipole expansion of sum_i q_i / |R_i - r| for r inside the shell:
+    ELECTRON Hamiltonian convention: the crystal-field operator acting
+    on the ELECTRON is V = -phi with phi = sum_i q_i/|R_i - r|, so
 
-        A^q_k = sqrt(4pi/(2k+1)) sum_i q_i conj(Y_kq(R_i)) / R_i^{k+1}
+        A^q_k = -sqrt(4pi/(2k+1)) sum_i q_i conj(Y_kq(R_i)) / R_i^{k+1}
+
+    (the overall MINUS is the electron charge; entering physical ionic
+    charges q_i > 0 gives electron B values directly).
 
     charges_coords : list of (q_charge, (x, y, z)) in atomic units;
-    r_site : the impurity site position.  Returns {(k, q): B_kq} with
-    complex values in cm^-1 (the B convention of
-    :func:`build_cf_operator`; Hermiticity holds by construction for
-    real charges).
+    r_site : the impurity site position;
+    r_inside : REQUIRED bound on the CF shell radius (bohr).  The
+        r^k/R^{k+1} expansion converges only for r < R_min — a charge
+        inside the shell silently produces divergent/garbage B, so this
+        guard refuses to run without an explicit shell estimate.
+
+    Returns {(k, q): B_kq} with complex values in cm^-1 (the B
+    convention of :func:`build_cf_operator`; Hermiticity holds by
+    construction for real charges).  Closed-form check (gated in the
+    test suite): one axial charge q at distance R gives exactly
+    A_k^0 = -q/R^{k+1} for every even k (because
+    sqrt(4pi/(2k+1)) Y_k0 = P_k and P_k(1) = 1).
     """
     import cmath
     from math import factorial, pi, sqrt
 
     import numpy as np
 
-    def Y(k, q, theta, phi):
-        """Complex spherical harmonic Y_kq.
+    if r_inside is None:
+        raise ValueError(
+            "r_inside (bohr, an upper bound on the CF shell radius, "
+            "e.g. ~1 for 4f) is required: the multipole expansion "
+            "diverges for charges inside the shell")
 
-        P_k^q via the power-basis q-th derivative of P_k (validation
-        grade; cross-checked against sympy in the test suite).
-        """
-        if q < 0:
-            mq = -q
-            pref = ((-1) ** mq) * factorial(k - mq) / factorial(k + mq)
-            return pref * Y(k, mq, theta, phi)
-        x = np.cos(theta)
-        pk = np.polynomial.legendre.leg2poly(
-            np.polynomial.legendre.Legendre.basis(k).coef)
-        dp = np.polynomial.Polynomial(pk).deriv(q)
-        pkq = ((-1.0) ** q) * (1.0 - x * x) ** (q / 2.0) * float(dp(x))
-        norm = sqrt((2 * k + 1) / (4 * pi)
-                    * factorial(k - q) / factorial(k + q))
-        return norm * pkq * cmath.exp(1j * q * phi)
+    ykq = _Y_kq
 
     bkq: Dict[Tuple[int, int], complex] = {}
     for (qc, (x, y, z)) in charges_coords:
@@ -215,12 +267,16 @@ def point_charge_bkq(charges_coords, r_site, kmax=6):
         R = np.sqrt(dx * dx + dy * dy + dz * dz)
         if R < 1e-8:
             continue
+        if R <= r_inside:
+            raise ValueError(
+                f"charge at R={R:.3f} bohr <= r_inside={r_inside}: "
+                "multipole expansion invalid (charge inside the shell)")
         theta = np.arccos(dz / R)
         phi = np.arctan2(dy, dx)
         for k in range(2, kmax + 1, 2):
             for q in range(-k, k + 1):
-                val = (qc * np.conj(Y(k, q, theta, phi))
-                       / R ** (k + 1))
+                val = -(qc * np.conj(ykq(k, q, theta, phi))
+                        / R ** (k + 1))
                 val = val * sqrt(4 * pi / (2 * k + 1))
                 bkq[(k, q)] = bkq.get((k, q), 0.0) + val
     return {kk: v * CM_PER_HARTREE for kk, v in bkq.items()}

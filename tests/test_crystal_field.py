@@ -79,7 +79,8 @@ def _synthetic_operator(bkq):
     keys = [(4, -4), (4, 3)]  # 4f7/2, 4f5/2
     orbitals = {k: (np.array([1.0]), np.array([0.0])) for k in keys}
     return build_cf_operator(orbitals, None, 4, 50, bkq,
-                             radial=lambda a, b, k: 1.0)
+                             radial=lambda a, b, k: 1.0,
+                             hermiticity="off")
 
 
 KAPPAS = [(4, -4), (4, 3)]
@@ -142,7 +143,9 @@ def be_workspace():
                    subshells=[Subshell(n=1, kappa=-1, occupation=2.0),
                               Subshell(n=2, kappa=-1, occupation=2.0),
                               Subshell(n=2, kappa=1, occupation=1e-6),
-                              Subshell(n=2, kappa=-2, occupation=1e-6)],
+                              Subshell(n=2, kappa=-2, occupation=1e-6),
+                              Subshell(n=3, kappa=-1, occupation=1e-6),
+                              Subshell(n=3, kappa=-2, occupation=1e-6)],
                    ns=50, ks=9, starting_potential="tfda")
     r = dhf.solve()
     od = {(n, k): (P, Q) for (n, k), (P, Q, _o)
@@ -204,3 +207,82 @@ def test_g5_assembler_m_mixing_paths(be_workspace):
     w1 = eigsh(Hp, k=1, which="SA", return_eigenvectors=False)[0]
     assert w1 != pytest.approx(w0, abs=1e-8)
     assert math.isfinite(w1)
+
+
+# ---- G6/G7: review-fix gates (kimi critique, 2026-10-01) -----------------
+
+def test_g6_cross_n_elements_enabled(be_workspace):
+    """Same-kappa different-n CF elements are real physics (<4f|r^k|5f>);
+    the old code silently zeroed them (review issue #2)."""
+    od, bsp = be_workspace
+    cf = build_cf_operator(od, bsp, 4, 50, {(2, 0): 5000.0})
+    up2p = cf.index[(2, -2, 1)]
+    up3p = cf.index[(3, -2, 1)]
+    fwd = cf(up2p, up3p)
+    rev = cf(up3p, up2p)
+    assert fwd != 0.0, "cross-n element must not be silently zero"
+    assert fwd == pytest.approx(rev, rel=1e-10), "cross-n must be Hermitian"
+
+
+def test_g7_point_charge_closed_form_and_guards():
+    """Axial charge: A_k^0 = -q/R^{k+1} exactly; q!=0 vanishes; the
+    r_inside guard refuses charges inside the shell; output feeds
+    build_cf_operator with hermiticity='strict'."""
+    from atomx.methods.csf.crystal_field import (CM_PER_HARTREE,
+                                                 point_charge_bkq)
+    R = 3.0
+    bkq = point_charge_bkq([(1.0, (0.0, 0.0, R))], (0.0, 0.0, 0.0),
+                           kmax=6, r_inside=1.0)
+    for k in (2, 4, 6):
+        want = -1.0 / R ** (k + 1) * CM_PER_HARTREE
+        assert bkq[(k, 0)] == pytest.approx(want, rel=1e-12), k
+        for q in range(-k, k + 1):
+            if q != 0:
+                assert abs(bkq[(k, q)]) < 1e-14 * abs(bkq[(k, 0)])
+    # r<R guard
+    with pytest.raises(ValueError, match="inside the shell"):
+        point_charge_bkq([(1.0, (0.0, 0.0, 0.5))], (0.0, 0.0, 0.0),
+                         kmax=6, r_inside=1.0)
+    with pytest.raises(ValueError, match="r_inside"):
+        point_charge_bkq([(1.0, (0.0, 0.0, 3.0))], (0.0, 0.0, 0.0))
+    # general-site output is Hermitian by construction -> strict build
+    gen = point_charge_bkq([(1.0, (1.0, 2.0, 2.0)), (-2.0, (-1.5, 0.5, 2.5))],
+                           (0.0, 0.0, 0.0), kmax=4, r_inside=1.0)
+    keys = [(4, -4), (4, 3)]
+    od = {k: (np.array([1.0]), np.array([0.0])) for k in keys}
+    build_cf_operator(od, None, 4, 50, gen,
+                      radial=lambda a, b, k: 1.0, hermiticity="strict")
+
+
+def test_g7b_hermiticity_validation_warns():
+    keys = [(4, -4), (4, 3)]
+    od = {k: (np.array([1.0]), np.array([0.0])) for k in keys}
+    with pytest.warns(UserWarning, match="non-Hermitian"):
+        build_cf_operator(od, None, 4, 50, {(2, 1): 100.0},
+                          radial=lambda a, b, k: 1.0)
+    with pytest.raises(ValueError, match="non-Hermitian"):
+        build_cf_operator(od, None, 4, 50, {(2, 1): 100.0},
+                          radial=lambda a, b, k: 1.0, hermiticity="strict")
+    with pytest.raises(ValueError, match=r"\|q\| > k"):
+        build_cf_operator(od, None, 4, 50, {(2, 3): 100.0},
+                          radial=lambda a, b, k: 1.0)
+
+
+def test_g7c_Y_vs_sympy():
+    """The module spherical harmonic vs sympy Ynm, generic direction."""
+    from atomx.methods.csf.crystal_field import _Y_kq
+    import math
+
+    from sympy import N, exp, factorial as sfac, pi as spi, sqrt as ssqrt
+    from sympy.functions.special.polynomials import assoc_legendre
+
+    th, ph = 0.9, 2.1
+    x = math.cos(th)
+    for k in (2, 4, 6):
+        for q in range(-k, k + 1):
+            got = _Y_kq(k, q, th, ph)
+            yy = (ssqrt((2 * k + 1) / (4 * spi)
+                        * sfac(k - q) / sfac(k + q))
+                  * assoc_legendre(k, q, x) * exp(1j * q * ph))
+            ref = complex(N(yy))
+            assert got == pytest.approx(ref, rel=1e-10, abs=1e-12), (k, q)
