@@ -44,6 +44,23 @@ from atomx.numerics.bspline.convol import ConvolCache
 __all__ = ["Sigma2Bubble", "build_sigma2_bubble"]
 
 
+def build_sigma2_holeline(*_args, **_kwargs):
+    """DEPRECATED — hole-line is QUARANTINED (3x NO-SHIP).
+
+    The corrected construction still over-corrects the Eu anchor by
+    4.7x (bubble+holeline+Breit = -15069 cm^-1 vs the needed -3195;
+    CI_MBPT_SIGMA2_SPEC.md "hole-line verdict").  Importing this raises
+    so no new code wires it by accident; the quarantine lifts only
+    after a construction passes BOTH the brute-force collision gate and
+    a physical sign/magnitude gate against the Eu anchor.
+    """
+    raise NotImplementedError(
+        "build_sigma2_holeline is QUARANTINED (3x NO-SHIP; see "
+        "docs/CI_MBPT_SIGMA2_SPEC.md). The ladder arc showed the "
+        "missing 5D0-7F0 differential is NOT any second-order "
+        "valence-pair correction; use slater_scaling for anchors.")
+
+
 def _twoj(kappa: int) -> int:
     return _twoj_from_kappa(kappa)
 
@@ -350,7 +367,7 @@ def build_sigma2_mscheme(orbitals_dict, bsp_data, Z, ns,
     return delta
 
 
-def build_sigma2_holeline(orbitals_dict, bsp_data, Z, ns,
+def _build_sigma2_holeline_quarantined(orbitals_dict, bsp_data, Z, ns,
                           core_keys, virt_keys, valence_keys, eps,
                           denom_floor: float = 0.02):
     """Second-order hole-line family, CORRECTED construction.

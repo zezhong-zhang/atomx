@@ -374,3 +374,15 @@ code = gate verdict), `scripts/_probe_ladder*.py`, `_probe_onebody.py`
 (footnote: the assembler one-body is bare Dirac h, no DF mean field —
 singles residuals like ⟨2s|h|4s⟩ survive; quantify before any
 Σ₁ work).
+
+## Hole-line export QUARANTINED (2026-10-02)
+
+`build_sigma2_holeline` now raises `NotImplementedError` on call (the
+construction lives on as `_build_sigma2_holeline_quarantined`, used
+only by the permutation-symmetry regression).  Rationale: three NO-SHIP
+verdicts + the corrected construction still 4.7x over the Eu anchor
+(-15069 vs -3195 cm^-1).  Any revival must pass BOTH the brute-force
+collision gate and a physical sign/magnitude gate against the anchor
+first — and the ladder arc showed the missing differential is NOT a
+second-order valence-pair correction at all (anchors use
+slater_scaling).
