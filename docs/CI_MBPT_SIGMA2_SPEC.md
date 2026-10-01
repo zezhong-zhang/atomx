@@ -66,3 +66,52 @@ order as the exact engine's radial cache, not the determinant count.
 `mbpt_provenance` records the Σ⁽²⁾ diagram set, window, and reference
 core; CI+Σ⁽¹⁾+Σ⁽²⁾ is the first configuration allowed to be labelled
 "CI+MBPT" (see the guard in ci_mbpt.py).
+
+## High-performance architecture (design requirement, 2026-10-01)
+
+The naive cost model — δR^k per orbital 4-tuple with an (m, r) core×virtual
+loop inside — is O(#tuples × #core × #virt) Python-level V_J evaluations:
+for Eu9+ [Xe] (~20 core shells) and a window of ~200 virtuals that is
+10^4 tuples × 4·10^3 pairs = 10^7-10^8 evaluations.  Unacceptable.  The
+design below is the performance contract for the implementation.
+
+**Key structural fact:** at fixed total pair angular momentum J, the
+bubble term is a matrix product in pair space,
+
+    δG^{(J)} = - S^{(J)} · D^{-1} · S^{(J)T}
+
+with S^{(J)}[(ab), (mr)] = ⟨ab; J|g|mr; J⟩ (valence-pair × core-virtual-pair
+supermatrix) and D the energy denominator diagonal.  Same for the
+hole-line family with core-pair × valence-virtual-pair blocks.  So:
+
+1. **Reduce Σ⁽²⁾ to dense linear algebra per J channel.**  Build the
+   S^{(J)} blocks once (this is the only place radial integrals appear),
+   then one `dgemm` per J per diagram family.  Pair-space dimensions are
+   10^2-10^3 per block — laptop BLAS territory, and the 5090 makes it
+   trivial via CuPy later with zero algorithm change.
+
+2. **Batched radial precompute.**  Every distinct R^k the S-blocks need is
+   enumerated up front and evaluated in one batched pass over the numba
+   convol kernels (the same discipline as the sparse-CI phase-1 value
+   table: enumerate keys once, compute once, never inside a hot loop).
+
+3. **prange over J channels** — blocks are independent; reuse the
+   block-partition pattern from the sparse assembler.
+
+4. **Compute-once, reuse-everywhere caching.**  The δR^k table depends
+   only on (core reference, virtual window), never on the CI space: build
+   it once, cache on disk (npz keyed by a provenance hash), and let every
+   subsequent CI diagonalization — every M sector, every J extraction,
+   every active-space variant — ride the same table through the radial
+   key.  One Eu9+ build amortises across the whole lanthanide campaign.
+
+5. **Numerics discipline:** denominators floored away from zero (quasi-
+   degenerate core/virtual crossings clipped and counted); float64
+   throughout the pair-space algebra (the dgemm path is not where to
+   economise); the analytic gate (reduction to mbpt2_energy) doubles as
+   the numerical-accuracy check at machine precision.
+
+Budget target: Eu9+ Σ⁽²⁾ table build in ≤ 5 min single-node CPU
+(≈ S-block assembly dominates; the dgemms are milliseconds), so the full
+CI+MBPT loop for one ion stays in "minutes per configuration" territory
+end to end alongside the sparse engine.
