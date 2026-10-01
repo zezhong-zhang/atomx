@@ -56,6 +56,11 @@ if __name__ == "__main__":
     de = np.array([eps[p] - eps[h] for p, h in res.ph_pairs])
     alpha_df = float(np.sum(2.0 / 3.0 * d ** 2 / de))
     alpha_rpa = dipole_polarizability(res, od, dhf.bsp_data)
+    from atomx.methods.rpa import trk_sum
+    trk = trk_sum(res, od, dhf.bsp_data, eps)
+    print(f"\nTRK sum S = {trk:.2f} (complete basis would give ~N=10; "
+          f"the deficit quantifies the frozen-virtual completeness)",
+          flush=True)
     print(f"\nalpha_DF  = {alpha_df:.3f} a0^3", flush=True)
     print(f"alpha_RPA = {alpha_rpa:.3f} a0^3", flush=True)
     print(f"experiment = 2.669 a0^3; RPA/DF = "

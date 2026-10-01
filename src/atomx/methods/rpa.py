@@ -117,6 +117,11 @@ def solve_symmetric_rpa(A, B):
 def solve_rpa(orbitals_dict, bsp_data, eps, occupied, virtuals, twoJ,
               exc_parity) -> RPAResult:
     """Assemble and solve one J^pi TDHF block."""
+    overlap = set(occupied) & set(virtuals)
+    if overlap:
+        raise ValueError(
+            f"orbitals both occupied and virtual: {sorted(overlap)} — "
+            "the A-kernel delta-normalisation assumes disjoint lists")
     pairs = ph_pairs_for(occupied, virtuals, twoJ, exc_parity)
     if not pairs:
         raise ValueError("empty ph basis")
@@ -135,10 +140,15 @@ def solve_rpa(orbitals_dict, bsp_data, eps, occupied, virtuals, twoJ,
             A[i, j] = _pair_v_J(Pp, Qp, p[1], Ph2, Qh2, h2[1],
                                 Pp2, Qp2, p2[1], Ph, Qh, h[1],
                                 twoJ, bsp_data, cache)
-            # B: backward pp-hh coupling <p p'; J|v|h h'; J>_A
+            # B: backward pp-hh coupling <p p'; J|v|h h'; J>_A.
+            # _pair_v_J works with UNNORMALISED coupled products —
+            # callers divide by sqrt((1+delta_ab)(1+delta_rs)) (the
+            # mbpt caller does; omitting it inflates same-orbital
+            # bra/kets by up to 2x — review-round bug)
+            norm_b = np.sqrt((1.0 + (p == p2)) * (1.0 + (h == h2)))
             B[i, j] = _pair_v_J(Pp, Qp, p[1], Pp2, Qp2, p2[1],
                                 Ph, Qh, h[1], Ph2, Qh2, h2[1],
-                                twoJ, bsp_data, cache)
+                                twoJ, bsp_data, cache) / norm_b
     np.fill_diagonal(A, A.diagonal() + de)
     w, X, Y = solve_symmetric_rpa(A, B)
     return RPAResult(twoJ=twoJ, omega_au=w, X=X, Y=Y, ph_pairs=pairs,
@@ -153,8 +163,23 @@ def reduced_dipole(orbitals_dict, bsp_data, p, h) -> float:
                                                   bsp_data, L=1)
 
 
+def trk_sum(res: RPAResult, orbitals_dict, bsp_data, eps) -> float:
+    """DF-only Thomas-Reiche-Kuhn sum  S = (2/3) sum_ph de |d|^2.
+
+    For a complete one-electron basis S = N_electron (length gauge,
+    up to relativistic corrections).  A value far below N quantifies
+    the basis-completeness deficit of the virtual set."""
+    d = np.array([reduced_dipole(orbitals_dict, bsp_data, p, h)
+                  for p, h in res.ph_pairs])
+    de = np.array([eps[p] - eps[h] for p, h in res.ph_pairs])
+    return float(np.sum(2.0 / 3.0 * de * d ** 2))
+
+
 def dipole_polarizability(res: RPAResult, orbitals_dict, bsp_data) -> float:
-    """alpha_D = (2/3) sum_nu |(X+Y).d|^2 / omega_nu (length form)."""
+    """alpha_D = (2/3) sum_nu |(X+Y).d|^2 / omega_nu (length form).
+
+    E1 response only: asserts the block is twoJ = 2 (dipole)."""
+    assert res.twoJ == 2, "dipole polarizability needs the J=1 block"
     d = np.array([reduced_dipole(orbitals_dict, bsp_data, p, h)
                   for p, h in res.ph_pairs])
     alpha = 0.0
