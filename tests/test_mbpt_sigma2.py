@@ -18,7 +18,10 @@ import pytest
 
 from atomx.config.csf import enumerate_jj_csfs_many
 from atomx.methods.dirac_fock import DFSolver, Subshell
-from atomx.methods.mbpt_sigma2 import build_sigma2_bubble
+from atomx.methods.mbpt_sigma2 import (
+    _build_sigma2_holeline_quarantined as build_sigma2_holeline,
+    build_sigma2_bubble,
+)
 from atomx.physics.csf.sparse_ci import (
     _assemble_reference,
     enumerate_determinants,
@@ -198,7 +201,8 @@ def test_holeline_brute_collision(workspace):
     valence orbitals above the core — checked BEFORE any anchor run."""
     import atomx.physics.csf.matrix as MAT
     from atomx.angular.csf_hamiltonian import _m2_values, two_body_angular, twoj
-    from atomx.methods.mbpt_sigma2 import build_sigma2_holeline
+    from atomx.methods.mbpt_sigma2 import (
+        _build_sigma2_holeline_quarantined as build_sigma2_holeline)
 
     dhf, od, eps = workspace
     d = build_sigma2_holeline(
