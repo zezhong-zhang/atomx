@@ -153,3 +153,40 @@ Breit reached the sparse engine through the same antisymmetrised-additive
 pattern as two_body_delta (phase-1 value table); parity test asserts
 sparse-with-Breit == reference-with-Breit == build_ci_matrix(
 include_breit=True) on Be.
+
+## Multi-J induced interaction: HPC design (the next increment's contract)
+
+The full Kozlov/Dzuba induced interaction sums over TWO independent
+vertex couplings J1 (valence pair a,m) and J2 (valence pair c,m), joined
+by 6j recouplings of the intermediate pair:
+
+    delta G[(ab)J; (cd)J'] = - sum_{J''} S^{(J)} . D^{-1} . R^{(J,J'')} . S^{(J')}T
+
+where the S^{(J)} blocks are EXACTLY the ones the same-J increment
+already builds (unchanged), and R^{(J,J'')} are sparse 6j rotation
+matrices over the (m,r) intermediate pairs.  The whole family remains
+dense linear algebra per channel pair:
+
+* **Cost model, calibrated by measurement** (Eu3+ anchor, 2026-10-01):
+  S-build 69 s for 196 pairs x 8 channels x 21 core x 14 virt; dgemms
+  sub-second.  Multi-J adds the R-chain: ~n_J^2 channel pairs x one
+  dgemm each = ~64 dgemms of the same size -> still seconds.  The S-build
+  dominates unchanged; total full-Sigma table budget stays <= 5 min/ion.
+* **Same S-blocks serve all diagram families** — bubble, hole-line (the
+  S-table transposed roles: core-pair x valence-virtual blocks), and
+  particle-particle reuse radial work through the shared ConvolCache;
+  build once per (core reference, virtual window), disk-cache keyed by
+  provenance hash (spec section 4).
+* **prange over (J, J') channel pairs** — block-partition discipline from
+  the sparse assembler; no cross-channel state.
+* **Vectorise the S-build only when the window grows**: the current
+  69 s Python-loop build is fine at ~300 intermediates; a continuum-rich
+  window (~10^3+) promotes the S-build inner loops to the batched
+  numba radial pattern (enumerate keys once, evaluate once) — deferred
+  until the convergence gate demands bigger windows.
+* **delta_raw recoupling cost is measured-cheap**: phase-1 quadruple
+  lookups added < 5 s to a 950 s solve; no action needed.
+
+Campaign budget (whole lanthanide series, 15 ions): one table per ion
+(~5 min) + sparse solves (~15 min) — comfortably an overnight sweep,
+with the 5090 as a later drop-in for the dgemm layer.
