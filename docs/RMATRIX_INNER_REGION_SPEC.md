@@ -164,3 +164,19 @@ variational-bound exclusion of ORTHOGONAL phi, the conclusion is sharp:
 2s-bar), not in extra channels.**  Next: 2-term STO target
 (c1, z1, c2, z2), single channel per l — structurally immune to both
 exclusions.
+
+## v3 closing verdict on the orbital layer (2026-10-02)
+
+Three exclusions now bracket the 1Se pole problem:
+1. orthogonal phi channel: variational bound (E >= E(3s)).
+2. non-orthogonal phi as an EXTRA channel: S near-singular (smooth STO
+   adds no span over (2s-bar x splines)).
+3. richer STO targets (2-term, coarse grid + continuous path): the
+   closed pole is at its variational limit -0.689 (single STO, zeta
+   ~1.15-1.2); the 2-STO path shallows monotonically.
+
+SUCCESSOR TASK: in-box variational optimisation of the (N+1) pseudo
+-state orbitals — apply the repo's MCDHF/EOL machinery to the
+2-electron box problem (optimise 2s-bar/2p-bar against the inner-region
+spectrum itself, Burke's actual procedure).  This is a machinery layer
+change (EOL on the box), not another STO parametrisation.
