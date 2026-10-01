@@ -234,21 +234,43 @@ def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns):
     return H
 
 
+_SECTOR_CACHE: Dict[Tuple[int, int, tuple, int], tuple] = {}
+_SECTOR_CACHE_MAX = 4
+
+
 def sparse_ci_spectrum(orbitals_dict, bsp_data, Z, ns, patterns,
                        m2_total: int = 0, n_states: int = 10):
     """Lowest ``n_states`` energies of one ``2M`` determinant sector.
 
     Returns ``(eigenvalues, n_determinants)`` with eigenvalues ascending.
+
+    Assembled sector Hamiltonians are cached (up to 4) keyed by
+    ``(Z, ns, patterns, m2_total)`` — ``sparse_j_levels`` needs the
+    ``2M = 2J`` sector that a spectrum call may already have built, and
+    rebuilding a 60k-determinant assembly costs minutes.
     """
-    masks, spinors = enumerate_determinants(patterns, orbitals_dict, m2_total)
-    n = len(masks)
-    if n == 0:
-        return np.array([]), 0
-    H = assemble_sparse_hamiltonian(masks, spinors, orbitals_dict, bsp_data, Z, ns)
+    key = (Z, ns, tuple(patterns), m2_total)
+    if key in _SECTOR_CACHE:
+        H, n = _SECTOR_CACHE[key]
+    else:
+        masks, spinors = enumerate_determinants(patterns, orbitals_dict,
+                                                m2_total)
+        n = len(masks)
+        if n == 0:
+            return np.array([]), 0
+        H = assemble_sparse_hamiltonian(masks, spinors, orbitals_dict,
+                                        bsp_data, Z, ns)
+        if len(_SECTOR_CACHE) >= _SECTOR_CACHE_MAX:
+            _SECTOR_CACHE.clear()
+        _SECTOR_CACHE[key] = (H, n)
     if n_states >= n - 1:
         w = np.linalg.eigvalsh(H.toarray())
         return w[:max(0, n_states)], n
-    w = eigsh(H, k=n_states, which="SA", return_eigenvectors=False)
+    # ARPACK's default ncv = max(2k+1, 20) restarts heavily for large k;
+    # a wider Krylov space converges far fewer times.
+    ncv = min(n - 1, max(4 * n_states + 1, 60))
+    w = eigsh(H, k=n_states, which="SA", ncv=ncv,
+              return_eigenvectors=False)
     return np.sort(w), n
 
 
