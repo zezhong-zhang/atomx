@@ -1,0 +1,125 @@
+{
+  "python": "3.10.21",
+  "platform": "Linux-7.0.0-34-generic-x86_64-with-glibc2.43",
+  "packages": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "numba": "0.65.0",
+    "matplotlib": "3.10.8"
+  },
+  "atomx": {
+    "path": "/data/code/atomx",
+    "HEAD": "08b4368d8aad79c77feb1e3de300bdb60c03cd69",
+    "status_at_summary": [
+      "?? docs/comparison_xraypac_fac_2026_10_02/"
+    ]
+  },
+  "fac": {
+    "path": "/home/zzhang/code/fac",
+    "HEAD": "35f9846c1d93d5b6eb3b47ce66038388aeb6b70c",
+    "status_at_summary": [
+      " M PFAC.egg-info/PKG-INFO",
+      " M python/consts.py",
+      " M setup.py",
+      "?? bin/"
+    ]
+  },
+  "xatom_source": {
+    "path": "/home/zzhang/code/xraypac/xatom",
+    "git_repository": false,
+    "sha256": {
+      "CMakeLists.txt": "2c4e3908cbc0051f67e69d2f44954ffb23a940ecf614c5dfb2b474a6e707339d",
+      "src/CMakeLists.txt": "c5ba19d7ced004ab61c1cf83e07b0877687d89a523451b56b1575eab23a9f16e",
+      "src/RSE.f": "1f628bdcf3fe6815f6eb7237edc54457c7baa964e52c1666f4ac02427a0e57e9",
+      "src/anglib.f90": "043f88146dfb783eb0fd5002f18ffed5e0914137d701b9e56a6705942e718201",
+      "src/atom.f90": "a7dec68e83c0c507afe05f1eeadac741e57dc2876ab0c9f4e9ed0e12ea345ed8",
+      "src/cfelt_bessel.f90": "32144b71c72f3c29b6c0e2748ff1095d3f036b8696d389df56314b03a2824632",
+      "src/compton.f90": "f531f221c672d40b9888b62e35c17fb983af4d7258751b39b647a5b9f02038e7",
+      "src/constants.f90": "ac48c7be55eb62f2b0eec917f4eb48605af3c863e73b0ccf78b471a4ab85fb98",
+      "src/coord_system.f90": "00aba4128355752293f6cd89f77088783b4a28b969ef274c811f771f53cb2c0b",
+      "src/coulomb.f90": "5e3ab043bad1903263dd5dd2ff85a82b776845b218b94ccb83b2594f573c7b9c",
+      "src/decay.f90": "70bcd4bd935ba87b33f267cb2434800cddd460ffa74b4964a0450bc813aa7a38",
+      "src/eigen_LAPACK.f90": "306cbebcd3e07614f37f027bfb3ba1dedd29746c2044378143d42220aaf591ec",
+      "src/elec_config.f90": "33a666069df2b907d0e391980ef27791e1e1523c223a0c196f108fba81a79e9b",
+      "src/excalib.f90": "9b01fac5121012d9887f138f824410b59d03c21ee952b150bf6f1d1948d5ac45",
+      "src/find_config.f90": "f0090431294f84cda7018a8518ff9a0a1d38b3776d687891494df4bf6fe4db8a",
+      "src/functional_xc.f90": "91034be2be124f71e2954848dbaaca38b6b598acfc94143de24761108d8ff591",
+      "src/gps.f90": "89b77f7c8f143e9baac79e749a61d6d11a844fd0c04239791c382b251fc7a2ec",
+      "src/impact_ionization.f90": "00a6ce6180d3b694b0b78e7f67def845e859f85a55f2d63060ad637518140f37",
+      "src/interpolate.f90": "5a5f976aaa5031c2d2b2c738d5a20724c261e9f1c5e14a5635065794c582cbad",
+      "src/legendre.f90": "ff1790335d67f79f2cb3bf48e267d9cd3079198a2f5a1bd0cbc1f6e2ddbca124",
+      "src/m_spherical_bessel.f": "bad628a75f4815172d51bb19ff59d124fb4468b551c1f2f7ea9218cb50ac9a13",
+      "src/matrix.f90": "871264da2d16367a55a2699289d290f86367ff266ddf1ec0ff27be7d7f061903",
+      "src/operations.f90": "4405d761acdea364ef29b0f0f2dcd43eba8a676b016a3d7b9800943bb175300f",
+      "src/pcs.f90": "f236bc0ce4d1fdce95dad6a1ebbd9a530ec3ed42613bcc93854d6033cf2051e8",
+      "src/plasma.f90": "4722eac9b87fc93ee457bf61dc5c52d8ddb7a5222be3ae603da6f90dc9d417ae",
+      "src/print_property.f90": "e264da281cc7bc96b45d074c8ac25ac6ec398e336a18c16c6cb289236432e2ae",
+      "src/process.f90": "646c03e515e55a1a852a0d9a6a40b3c7110f3f6f5a24434a39ecd24d27fcf990",
+      "src/random_num.f90": "e50bd8497eaa5eda6966495e31d7c11466b8aa0513539a534011209bdad123e6",
+      "src/read_param.f90": "f359b393b51b36b190cb70c449a39652bca15ac01f06b67526329fff49649b2a",
+      "src/rk4.f": "62a425a547d14a0cd22901b35922e11cccf50ffd7eb394c2d3dd705ef1388127",
+      "src/scattering.f90": "8de3ec33743ba018396c7322b8f92f2686b50a5cdb44c29ee09487bf1f7cf626",
+      "src/scf.f90": "7035b77323a12d0ddc1e8be6be2f524890cfc5a7d6bac193969b8562bd3d39d4",
+      "src/shakeoff.f90": "8af37e5814f689e62aa5585db68645395ec470d355b1ec69514df4c089d041b0",
+      "src/spectra.f90": "b3adc63f646d0a1e6745355ec24a1e1a2bf22da6bf11469047a0cc27f3fa3bff",
+      "src/spherical_bessel.f90": "9c02008aae8ef9bc2090a8f63039b2bd82f7301bf9853673997a8672f828ba1b",
+      "src/stdio.f90": "6e2ee7131f729926400a907ed199c5a0eeb9abcc1dc5c0357eeafa53b1810cae",
+      "src/tindex.f90": "45a0641b11d9109a13a550dc15a7436954cc2c37c5256c74622f350a82f47aae",
+      "src/track_elec_config.f90": "e6b593e239dc192582b1f060e56b6c5f4ea5a96b30e6e324a8418fca9614aefa",
+      "src/transition.f90": "383fa399297e93cbb9f7521ec7ad40f298e11693637cb2bb40218a8a1b954f99",
+      "src/unbound.f": "3c82e6d395b795c0ee5e3e1924664201f68b4858a427feee199e4f1b686c6b79",
+      "src/validate_dat.f90": "5e658c42cc68f07af5e8536974631d698fbd2d926b9b9d81752a7bb470c1d17f",
+      "src/wavefunction.f90": "8665cc2d91be8baee86d5422a833f1319e45bdf5884df5210c1aadb3002e1952",
+      "src/xatom.f90": "626064c79ddd26a63a80dfec3bb44bbbb3c99c064deed12bca596b39177b3c10",
+      "src/xatom_imaging.f90": "8d70aafb341ca5d1ef3b4b21a4c2d480ecfa025b6b14078762f9d73714463871",
+      "src/xatom_mc.f90": "edc86e460e7b4b93703ec3f7f44855f9bc3f123d5b2f36a8ce8c44998b68afd4",
+      "src/xatom_mc_fly.f90": "4f509407f7501daa1661c889360ea1bd9d2f9c9ae0ecc2d1a8d1c395e6c4691f",
+      "src/xatom_req.f90": "cf2a9f6c940ff0994fcb5391526ffb44a0635e45cd5804d5e9ced94ee361fdda",
+      "src/xatom_shakeoff.f90": "b9d0cbfbdacf6438b0cdebb0dfa133532389ab27c9a0edbd2d0bc50eae4f310f",
+      "src/xatom_shakeoff_dat.f90": "df99b94f1bca942fb5bf715035151adbc21983056677e6e637ef2f9c52593b3a",
+      "src/xatom_twostep.f90": "29cb914680260dbecb691cb20f16c9636878d4907c593f257963b1fdee614682"
+    }
+  },
+  "binaries": {
+    "/tmp/atomx-xraypac-build/build/src/xatom": "f797d6c366d4868d45376d16b426b40b6c36795220b77ee641833fc9871e68d8",
+    "/home/zzhang/code/fac/bin/sfac": "d364e867895460efb8924dbb80eccf6addae5d842c08002aff0fc58f3cc21deb"
+  },
+  "driver_sha256": "85d670e1d25a316121d01e42663f08a4e014366ba251a866e567ae152f190490",
+  "threads": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1"
+  },
+  "units": {
+    "PI": "Mb = 1e-18 cm^2",
+    "Auger": "s^-1 per one 1s vacancy",
+    "Hartree_eV": 27.211386245981167,
+    "atomic_rate_per_s": 4.134137333517135e+16,
+    "a0_squared_Mb": 28.002852015912886
+  },
+  "grid": {
+    "xatom_coarse": "N=200, rmax=50, dr=.005",
+    "xatom_fine": "N=300, rmax=80, dr=.0025",
+    "fac_coarse": "1600 points, radial_grid_command density_scale=2",
+    "fac_fine": "3200 points, radial_grid_command density_scale=4",
+    "atomx_coarse": "ns=80, ks=9, rmax=80, shooting=8000, scattering refinement=1",
+    "atomx_fine": "ns=120, ks=9, rmax=80, shooting=16000, scattering refinement=2",
+    "atomx_gu_controls": "Gu SCF tol=1e-9; frozen local-field sampling=8000; Auger on fine grid",
+    "atomx_PI_final_refinement": "ns=160, ks=9, rmax=80, shooting=32000; matched frozen-field scattering refinement=4"
+  },
+  "models": {
+    "xatom": "nonrelativistic Hartree-Fock-Slater, frozen initial potential, configuration average",
+    "fac": "Dirac local Gu central field; initial configuration optimized; E1; Breit, SE, VP, MS off; per-configuration structure without interconfiguration CI",
+    "atomx_HF_PI": "Dirac-Fock bound orbitals; production RR/PI shooting kernel; shell-specific residual-core Gu continuum; orbital thresholds",
+    "atomx_HF_Auger": "benchmark magnetic configuration average using production angular/Slater/continuum kernels; HF bound orbitals; frozen initial Gu/Latter field; orbital-sum kinetics",
+    "atomx_matched_PI": "Gu bound orbitals; frozen initial Gu/Latter field; FAC per-jj ionization thresholds; production finite-frequency E1 operator",
+    "atomx_matched_Auger": "Gu bound orbitals; frozen initial Gu/Latter field; FAC rate-weighted mean electron energy per shell pair; not level-resolved identity"
+  },
+  "limitations": [
+    "Ne and Ar only; PI at five photon energies, not a threshold scan",
+    "Agreement is a model comparison, not experimental validation",
+    "Auger configuration-average driver does not validate the public coarse Auger API",
+    "Gu Auger controls have no independent bound-basis refinement run",
+    "Git status records summary time; xraypac has no Git revision"
+  ]
+}

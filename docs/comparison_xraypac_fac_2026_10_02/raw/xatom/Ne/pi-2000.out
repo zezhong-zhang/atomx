@@ -1,0 +1,79 @@
+# ---------------------------------------------------
+# XATOM HFS : electronic structure of atoms and more,
+#
+# Job started at  :  2-Oct-2026  2:54:38
+# ---------------------------------------------------
+# Atom: Ne
+#   nuclear charge:   10
+#   total electrons:  10
+#   total charge:     +0
+#   configuration: 1s2_2s2_2p6
+#
+# Computational method:
+#   exchange functional: Slater (Latter tail correction)
+#   correlation functional: none
+#
+# Grid for the spherical coordinate:
+#   N =  300
+#   L parameter =      1.0
+#   Rmax(a.u.)  =     80.0
+#   lmax  =    1
+#
+# SCF converged after   21 iterations
+#   energy convergence  = -3.664E-08
+#   density convergence =  4.695E-07
+#
+# Energies: 
+# - zeroth-order energy (a.u.):
+#   SUM of E_orb   =     -70.57135567  [     -1920.34 eV ]
+#   (SUM of E_kin) =     132.75366199
+#   (Effec. pot E) =    -203.32501766
+#
+# - first-order energy (a.u.): with DFT formula
+#   Kinetic E      =     132.75366199
+#   E Latter corr  =      -0.07668619
+#   Nuc-Elec pot E =    -317.07121485    One-Elec E =    -184.39423904
+#
+#   Hartree E      =      68.21745186
+#   Exchange E     =     -16.95901527
+#   Correlation E  =       0.00000000    Two-Elec E =      51.25843659
+#   ---------------------------------
+#   Total Energy   =    -133.13580245  [     -3622.81 eV ]
+#
+#                E(0)        E(1)
+# |E_TOT|    -1920.34    -3622.81
+#
+# Orbital energies: 
+#        n_occ        E(a.u.)          E(eV)         KE(eV)
+#   1s       2   -31.49534181    -857.031821    1273.930477
+#   2s       2    -1.58385012     -43.098753     150.147441
+#   2p       6    -0.73549530     -20.013845     127.375826
+#
+#              1s        2s        2p
+# |SCF|   -857.03    -43.10    -20.01
+#
+# Radial wavefunction information (a.u.): (r_m: r_max where |u(r)| >  1.0E-08)
+#              <r>       <r^2>         r_m   norm. err
+#   1s       0.157       0.033       2.698     8.6E-09
+#   2s       0.877       0.938      12.070    -8.2E-09
+#   2p       0.933       1.168      17.400    -3.1E-09
+#
+# Uniform grid parameters for continuum states:
+#   N_uniform             =    7137
+#   continuum_rmax(a.u.)  =      17.843 (internally determined)
+#   dr(a.u.)              =   2.50E-03
+#   threshold to determine r_m =   1.00E-08
+#   continuum_rmax is just right next to r_m in radial grid.
+#
+# Photoabsorption cross section:
+#   photon energy =    73.499 a.u. =   2000.00 eV
+#                       cs(Mb)     cs(a.u.)
+#        1s    :   3.91835E-02  1.39927E-03
+#        2s    :   1.88914E-03  6.74624E-05
+#        2p    :   4.90783E-04  1.75262E-05
+#   ---------------------------------------
+#   Total P cs =   4.15634E-02  1.48426E-03
+#
+# Current date/time  :  2-Oct-2026  2:54:39
+# elapsed real time  :  1.06 seconds on fermi
+# Job time(CPU_time) :  1.06 seconds on fermi

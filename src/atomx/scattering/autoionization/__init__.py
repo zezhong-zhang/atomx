@@ -429,7 +429,43 @@ def _coarse_auger_rate(
                     )
                 else:
                     pop = float(population_factor)
-                rate = max(0.0, float(amplitude) * pop * AU_RATE_PER_S)
+                # XATOM-decomposition fix (2026-10-02): the LS rate is
+                # pi * N12 * sum_{S,L} (2S+1)(2L+1) M_{LS}^2 / (2 l_h+1)
+                # with M built COHERENTLY from direct-minus-exchange
+                # amplitudes (M0 = tau*(R12 T12 +- R21 T21)) and the
+                # pair normalisation N12 = occ1(occ1-1)/((4l1+2)(4l1+1))
+                # for equivalent sources (tau^2 = 1/2 built into N12),
+                # occ1 occ2/((4l1+2)(4l2+2)) otherwise.  The previous
+                # incoherent 2pi*(W R)^2-per-term with pop=1 measured
+                # 12x XATOM on the Ne 2s2s KLL channel (x4 = (2R)^2 vs
+                # (sqrt2 R)^2 for the equivalent pair, x3 = missing N12).
+                _l1 = abs(source_key[1]) if source_key[1] > 0 else -source_key[1] - 1
+                _l2 = abs(source2_key[1]) if source2_key[1] > 0 else -source2_key[1] - 1
+                if source_key == source2_key:
+                    _tau2 = 0.5  # equivalent pair: tau^2 = 1/2
+                else:
+                    _tau2 = 1.0
+                if state_index is None:
+                    _g1 = 2 * (2 * _l1 + 1)
+                    _g2 = 2 * (2 * _l2 + 1)
+                    _q1 = _state_occupation(result, None, source_key)
+                    _q2 = _state_occupation(result, None, source2_key)
+                    if min(_q1, _q2) < 0.5:
+                        # PER-RESONANCE caller (DR captured pairs: 3s/3p
+                        # unoccupied in the ground solve) — a definite
+                        # pair decays, no pair normalisation, no tau^2
+                        # (HYP-530 semantics preserved)
+                        _n12 = 1.0
+                        _tau2 = 1.0
+                    elif source_key == source2_key:
+                        _n12 = max(_q1 * max(_q1 - 1.0, 0.0),
+                                   0.0) / max(_g1 * (_g1 - 1), 1)
+                    else:
+                        _n12 = _q1 * _q2 / max(_g1 * _g2, 1)
+                else:
+                    _n12 = pop  # level-resolved callers keep their factor
+                rate = max(0.0, float(amplitude) * _tau2 * _n12
+                           * AU_RATE_PER_S)
             else:
                 rate = 0.0
 
