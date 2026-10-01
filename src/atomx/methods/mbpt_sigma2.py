@@ -587,3 +587,153 @@ def build_sigma1_mscheme(orbitals_dict, bsp_data, Z, ns,
     for key in list(shifts):
         shifts[key] /= counts.get(key, 1)
     return shifts
+
+
+def build_sigma2_ladder(orbitals_dict, bsp_data, Z, ns,
+                       virt_keys, valence_keys, eps,
+                       denom_floor: float = 0.02):
+    """Valence-ladder Sigma(2) per Kozlov et al. arXiv:2202.02026 Eq. (11).
+
+    The literature diagnosis of the two failed hole-line constructions:
+    the correct intermediate space is (m, n) BOTH VIRTUAL (valence-pair
+    double excitations), with the pair-level product
+
+        d(a,b,c,d) = -1/2 sum_{m,n in VIRTUAL}
+                     [ <ab|V|mn><mn|V|cd> - <ab|V|nm><nm|V|cd> ]  (dir - exch)
+                     * [1/D_ab + 1/D_cd],  D_xy = eps_x+eps_y-eps_m-eps_n
+
+    (symmetrised denominator => Hermitian; delivered antisymmetrised, the
+    assembler applies it on top of (v - v2) unchanged).  Bucketed by
+    total pair 2M (m conservation).  GATE ORDER (recorded lesson):
+    brute-force collision, then a PHYSICS calibration gate against the
+    measured Q_D gap BEFORE any anchor run.
+    """
+    from functools import lru_cache as _lru
+    import numba as _nb
+    import numpy as _np
+
+    from atomx.angular.csf_hamiltonian import _m2_values, two_body_angular, twoj
+    import atomx.physics.csf.matrix as MAT
+
+    @_nb.njit(cache=True)
+    def _pair_dot(p1, p2, dinv):
+        total = 0.0
+        for j in range(p1.shape[0]):
+            total += p1[j] * p2[j] * dinv[j]
+        return total
+
+    ext = sorted(set(valence_keys) | set(virt_keys))
+    spinors = [(n, k, m2) for (n, k) in ext
+               for m2 in _m2_values(twoj(k))]
+    index = {s_: i for i, s_ in enumerate(spinors)}
+    virt_idx = [index[(n, k, m2)] for (n, k) in virt_keys
+                if (n, k) in orbitals_dict
+                for m2 in _m2_values(twoj(k))]
+    val_idx = [index[(n, k, m2)] for (n, k) in valence_keys
+              if (n, k) in orbitals_dict
+              for m2 in _m2_values(twoj(k))]
+
+    # virtual-virtual pairs (both orderings), bucketed by total pair 2M
+    vvp = {}
+    for i1 in range(len(virt_idx)):
+        for i2 in range(len(virt_idx)):
+            if i1 == i2:
+                continue
+            mi, ni = virt_idx[i1], virt_idx[i2]
+            vvp.setdefault(spinors[mi][2] + spinors[ni][2],
+                           []).append((mi, ni))
+
+    @_lru(maxsize=None)
+    def g2(ia, ib, im, in_):
+        """Raw m-scheme pair element <a b|V|m n>."""
+        a, b, m, n_ = spinors[ia], spinors[ib], spinors[im], spinors[in_]
+        terms = two_body_angular(a[1], a[2], b[1], b[2],
+                                 m[1], m[2], n_[1], n_[2])
+        if not terms:
+            return 0.0
+        Pa, Qa = orbitals_dict[(a[0], a[1])]
+        Pb, Qb = orbitals_dict[(b[0], b[1])]
+        Pm, Qm = orbitals_dict[(m[0], m[1])]
+        Pn, Qn = orbitals_dict[(n_[0], n_[1])]
+        total = 0.0
+        for k, coef in terms:
+            total += coef * MAT._rk(Pa, Qa, Pm, Qm, Pb, Qb, Pn, Qn,
+                                    bsp_data, k)
+        return total
+
+    # Pair tables per total-M bucket:
+    #   G1[M][(ab) rows, (mn) cols] = <ab|V|mn>   (bra/ket valence pairs)
+    #   G2t[M][(cd) rows, (mn) cols] = <mn|V|cd>   (transposed slots)
+    G1 = {}
+    G2t = {}
+    Emn = {}
+    rows1_of = {}
+    rows2_of = {}
+    for bucket, pairs in vvp.items():
+        rows1 = [(ia, ib) for ia in val_idx for ib in val_idx
+                 if spinors[ia][2] + spinors[ib][2] == bucket]
+        rows2 = [(ic, idd) for ic in val_idx for idd in val_idx
+                 if spinors[ic][2] + spinors[idd][2] == bucket]
+        M1 = _np.zeros((len(rows1), len(pairs)))
+        M2 = _np.zeros((len(rows2), len(pairs)))
+        for r_, (ia, ib) in enumerate(rows1):
+            for c_, (mi, ni) in enumerate(pairs):
+                M1[r_, c_] = g2(ia, ib, mi, ni)
+        for r_, (ic, idd) in enumerate(rows2):
+            for c_, (mi, ni) in enumerate(pairs):
+                M2[r_, c_] = g2(mi, ni, ic, idd)
+        G1[bucket] = M1
+        G2t[bucket] = M2
+        Emn[bucket] = _np.array([
+            eps[spinors[mi][:2]] + eps[spinors[ni][:2]]
+            for (mi, ni) in pairs])
+        for r_, pr in enumerate(rows1):
+            rows1_of[(bucket, pr)] = r_
+        for r_, pr in enumerate(rows2):
+            rows2_of[(bucket, pr)] = r_
+
+    def delta_ladder(ia, ib, ic, id_):
+        """Antisymmetrised m-scheme ladder element <ab|dV_A|cd>."""
+        bucket = spinors[ia][2] + spinors[ib][2]
+        if bucket != spinors[ic][2] + spinors[id_][2]:
+            return 0.0
+        if bucket not in vvp:
+            return 0.0
+        r_ab = rows1_of.get((bucket, (ia, ib)))
+        r_cd = rows2_of.get((bucket, (ic, id_)))
+        if r_ab is None or r_cd is None:
+            return 0.0
+        e_ab = eps[spinors[ia][:2]] + eps[spinors[ib][:2]]
+        e_cd = eps[spinors[ic][:2]] + eps[spinors[id_][:2]]
+        emn = Emn[bucket]
+        ok = (np.abs(e_ab - emn) > denom_floor) & (np.abs(e_cd - emn) > denom_floor)
+        if not ok.any():
+            return 0.0
+        inv = np.where(ok, 0.5 * (1.0 / (e_ab - emn) + 1.0 / (e_cd - emn)), 0.0)
+        # direct: <ab|V|mn><mn|V|cd>; exchange via swapped intermediate
+        d = _pair_dot(G1[bucket][r_ab], G2t[bucket][r_cd], inv)
+        # exchange columns: swap (m,n) -> (n,m) => use reversed pair list
+        rev = []
+        for (mi, ni) in vvp[bucket]:
+            rev.append((ni, mi))
+        # build swapped G columns lazily (cache by bucket)
+        key = ("rev", bucket)
+        if key not in G1:
+            M1r = _np.zeros_like(G1[bucket])
+            M2r = _np.zeros_like(G2t[bucket])
+            for r_, (ia2, ib2) in enumerate(
+                    [(x, y) for x in val_idx for y in val_idx
+                     if spinors[x][2] + spinors[y][2] == bucket]):
+                for c_, (ni, mi) in enumerate(rev):
+                    M1r[r_, c_] = G1[bucket][r_, c_]  # same rows, swapped cols
+            G1[key] = None  # not needed; direct swap below is cheaper
+        # exchange: <ab|V|nm><nm|V|cd> — recompute via reversed pair order
+        g_ab_rev = _np.array([g2(ia, ib, ni, mi) for (mi, ni) in vvp[bucket]])
+        g_rev_cd = _np.array([g2(ni, mi, ic, id_) for (mi, ni) in vvp[bucket]])
+        ex = _pair_dot(g_ab_rev, g_rev_cd, inv)
+        return d - ex
+
+    delta_ladder.spinors = spinors
+    delta_ladder.index = index
+    delta_ladder.n_intermediate = sum(len(v) for v in vvp.values())
+    return delta_ladder
