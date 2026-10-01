@@ -21,9 +21,52 @@ __version__ = "0.2.0"
 # Public names are resolved on first use. Importing the package does not
 # initialize solvers, scattering services, or optional rendering backends.
 from importlib import import_module as _import_module
+from typing import TYPE_CHECKING, Any
 
 # Keep the public callable stable even when atomx.compare is imported directly.
 from atomx.compare import compare, theory_ladder, what_changed
+
+if TYPE_CHECKING:
+    # Statically bind the lazy names so type checkers and IDEs resolve the
+    # public API (``from atomx import Atom`` etc.) to the real classes instead
+    # of the ModuleType inferred from the ``import_module`` calls in
+    # ``__getattr__`` below.  Never executed at runtime — the lazy loader is
+    # untouched.
+    from atomx.atom import Atom
+    from atomx.atom_inputs import (
+        Basis,
+        Corrections,
+        Correlation,
+        Environment,
+        Exchange,
+    )
+    from atomx.calculation_spec import CalculationSpec
+    from atomx.ladder import Ladder, LadderRun, RungOutcome
+    from atomx.methods import (
+        MCDHF,
+        BreitPauli,
+        DiracFock,
+        HartreeFockSlater,
+        HydrogenicDirac,
+        HydrogenicSchrodinger,
+        Method,
+    )
+    from atomx.numerics.shooting.adaptive import RadialRefinement
+    from atomx.numerics.shooting.electron_space import ShootingSpace
+    from atomx.results import AtomicResult, HyperfineResult, OrbitalWavefunction, Waves
+    from atomx.sampling import Sampling
+    from atomx.scattering.models import ContinuumModel, PotentialModel
+    from atomx.types import (
+        CouplingScheme,
+        EnergyUnit,
+        Gauge,
+        Multipole,
+        NuclearModel,
+        RelativisticCorrection,
+        StartingPotential,
+        TheoryLevel,
+    )
+    from atomx.units import codata_version, pint_available, ureg
 
 _PUBLIC_MODULES = (
     'fitting', 'lineshapes', 'properties', 'scattering', 'spectrum',
@@ -50,7 +93,10 @@ _EXPORTS = {name: module for module, names in _PUBLIC_NAMES.items() for name in 
 __all__ = [*_PUBLIC_MODULES, *_EXPORTS]
 
 
-def __getattr__(name):
+def __getattr__(name: str) -> Any:
+    # ``Any`` so names not covered by the static bindings above (the
+    # subpackages in _PUBLIC_MODULES) don't inherit the ModuleType
+    # inferred from ``import_module`` in this body.
     if name in _PUBLIC_MODULES:
         value = _import_module(f'atomx.{name}')
         globals()[name] = value
