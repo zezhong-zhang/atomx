@@ -1,0 +1,33 @@
+DF solved; orbitals: 19
+cubic B set (cm^-1): {(4, -4): '+14.19', (4, 0): '+23.74', (4, 4): '+14.19', (6, -4): '+0.4177', (6, 0): '-0.2233', (6, 4): '+0.4177'}
+cubic ratios: B4^4/B4^0 = 0.597614 (sqrt(5/14)=0.597614), B6^4/B6^0 = -1.870829 (-sqrt(7/2)=-1.870829)
+  <(-4,-3)|V|(-4,-3)>: direct=-1.026414e+00  cf+mono=-1.026414e+00  rel=1.9e-08
+  <(-4,7)|V|(-4,-1)>: direct=+2.856591e-05  cf+mono=+2.852666e-05  rel=1.4e-03
+  <(3,-1)|V|(3,3)>: direct=-2.667399e-17  cf+mono=+0.000000e+00  rel=2.7e-05
+  <(-4,-3)|V|(3,-1)>: direct=-6.279863e-19  cf+mono=+0.000000e+00  rel=1.2e-06
+  <(3,1)|V|(-4,-5)>: direct=+9.622621e-19  cf+mono=+0.000000e+00  rel=1.4e-06
+GATE (c) PASS: 5 elements quadrature-verified (windowed, k>=8 truncation + quadrature budget 5e-3)
+
+free-ion levels (no CF) per M sector, spread: 2299.339 cm^-1 (should be ~0: J-degenerate across m)
+  lower cluster: 6 states, upper: 8 states, 2F splitting = 2299.3 cm^-1
+GATE (a) PASS: 2F5/2 below 2F7/2, splitting 2299 cm^-1
+
+cubic-split levels (cm^-1, relative to ground):
+       0.000
+       0.000
+      26.750
+      26.750
+      26.750
+      26.750
+    2294.141
+    2294.141
+    2320.784
+    2320.784
+    2320.784
+    2320.784
+    2333.444
+    2333.444
+degeneracy pattern: [2, 4, 2, 4, 2]
+GATE (b) PASS: cubic degeneracies 2+4 (J=5/2) and 2+2+4 (J=7/2)
+
+ALL GATES PASS

@@ -184,7 +184,7 @@ def fit_slater_scaling(residuals_fn, x0=None, h: float = 0.02,
     ``residuals_fn(scale_tuple) -> np.array`` returns
     ``E_calc(scale) - E_ref`` per assigned level.  Level energies are
     analytic (nearly linear) in the scalings, so a numerical Jacobian
-    converges in a handful of steps.  Returns ``(x, rms_history)``.
+    converges in a handful of steps. Returns ``(x, rms_history, diagnostics)``.
     """
     x = np.zeros(3) if x0 is None else np.asarray(x0, float).copy()
     hist = []

@@ -307,11 +307,17 @@ def build_virtual_basis(
 ) -> Tuple[List[Tuple[np.ndarray, np.ndarray, float]], List[Tuple[np.ndarray, np.ndarray, float]]]:
     """Diagonalise h_κ in the converged B-spline basis.
 
+    With ``orthogonal_to_occupied=True``, retain the stored occupied
+    orbitals and diagonalize in their metric-orthogonal complement.
+    This preserves the reference determinant while supplying canonical
+    virtuals for particle-hole and self-energy calculations.
+
     Returns
     -------
     occupied : list[(P, Q, ε)]
         Eigenstates that match an occupied subshell with this κ.
-        Identified by overlap ≥ 0.5 with a stored DHF orbital.
+        Identified by overlap ≥ 0.5 with a stored DHF orbital, or returned
+        directly from that reference when projection is requested.
     virtuals : list[(P, Q, ε)]
         All remaining physical eigenstates (E > -2c² ≈ negative
         continuum threshold), sorted by increasing energy.  Includes

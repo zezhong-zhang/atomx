@@ -17,7 +17,11 @@ from typing import List, Sequence, Tuple
 import numpy as np
 
 from atomx.angular.clebsch import clebsch_gordan
-from atomx.angular.csf_hamiltonian import two_body_angular, twoj
+from atomx.angular.csf_hamiltonian import (
+    _m2_values,
+    two_body_angular,
+    twoj,
+)
 from atomx.numerics.bspline.convol import (
     ConvolCache,
     build_slater_rk_bilinear,
@@ -286,3 +290,121 @@ def dipole_polarizability(res: RPAResult, orbitals_dict, bsp_data) -> float:
         amp = float((res.X[:, k] + res.Y[:, k]) @ d)
         alpha += 2.0 / 3.0 * amp**2 / res.omega_au[k]
     return alpha
+
+
+# ---------------------------------------------------------------------------
+# CI-direct A construction (2026-10-02).  Validated to all digits on the
+# He exact anchors (J=0 -0.030765, J=1 -0.037191) and on the Be 2s->2p
+# J=1 block.  A = C H_ph C^T - E0 I with C the row-normalised
+# CG(j_p, m_p; j_h, -m_h | J, M) over m-scheme ph determinants from the
+# trusted sparse assembler — the DF one-body residual is carried BY
+# CONSTRUCTION (no CG-tensor sign minefield, no canonical-HF assumption).
+# ---------------------------------------------------------------------------
+
+
+def _ph_components(pairs, twoJ):
+    """(p, mp, h, mh, cg) at the stretched projection M=J: m_p - m_h =
+    2J and CG(j_p, m_p; j_h, -m_h | J, J) nonzero."""
+    from atomx.angular.clebsch import clebsch_gordan
+    from atomx.angular.csf_hamiltonian import _m2_values
+    comps = []
+    for (p, h) in pairs:
+        jp, jh = twoj(p[1]), twoj(h[1])
+        for mp in _m2_values(jp):
+            for mh in _m2_values(jh):
+                if mp - mh != twoJ:
+                    continue
+                cg = clebsch_gordan(jp, mp, jh, -mh, twoJ, twoJ)
+                if abs(cg) > 1e-10:
+                    comps.append((p, mp, h, mh, cg))
+    return comps
+
+
+def solve_rpa_ci_direct(orbitals_dict, bsp_data, Z, ns, occupied,
+                        virtuals, twoJ, exc_parity):
+    """TDHF A by direct CI over {ref + ph} determinants (TDA block).
+
+    Returns (A, labels, E0): A in Hartree relative to the reference
+    determinant energy, labels the ph pair per row/col, E0 the
+    reference determinant energy.  B (2p2h) is a follow-up.
+    """
+    from atomx.physics.csf import sparse_ci as SC
+    occupied = list(occupied)
+    ref_occ = sorted((n, k, m) for (n, k) in occupied
+                     for m in _m2_values(twoj(k)))
+    pairs = ph_pairs_for(occupied, virtuals, twoJ, exc_parity)
+    if not pairs:
+        raise ValueError("empty ph basis")
+    comps = _ph_components(pairs, twoJ)
+    if not comps:
+        raise ValueError("no stretched M components")
+
+    # Patterns carry EXACT occupations (enumerate fills q exactly):
+    #   ref pattern   — all closed reference shells (its det lives only
+    #                   in the M=0 sector -> E0 from there)
+    #   ph patterns   — closed ref shells EXCEPT one hole shell, plus
+    #                   one electron in a virtual shell (q=1)
+    ref_shells = sorted({(o[0], o[1]) for o in ref_occ})
+    cap = lambda k: 2 * twoj(k) if k < 0 else -2 * k
+    ref_pattern = tuple((n, k, cap(k)) for (n, k) in ref_shells)
+    hole_shells = sorted({(h[0], h[1]) for (_p, _mp, h, _mh, _cg)
+                          in comps})
+    virt_shells = sorted({(p[0], p[1]) for (p, _mp, _h, _mh, _cg)
+                          in comps})
+    ph_patterns = []
+    for hv in hole_shells:
+        base = [(n, k, cap(k) - 1) if (n, k) == hv else
+                (n, k, cap(k)) for (n, k) in ref_shells]
+        for vs in virt_shells:
+            ph_patterns.append(tuple(base + [(vs[0], vs[1], 1)]))
+    # E0 from the M=0 reference sector
+    m0, sp0 = SC.enumerate_determinants([ref_pattern], orbitals_dict,
+                                        0)
+    if len(m0) != 1:
+        raise ValueError("reference sector ambiguous")
+    H0 = SC.assemble_sparse_hamiltonian(m0, sp0, orbitals_dict,
+                                        bsp_data, Z, ns).toarray()
+    E0 = H0[0, 0]
+    # ph sector at M = twoJ
+    masks, spinors = SC.enumerate_determinants(ph_patterns,
+                                               orbitals_dict, twoJ)
+    if not masks:
+        raise ValueError("empty M sector")
+    H = SC.assemble_sparse_hamiltonian(masks, spinors, orbitals_dict,
+                                       bsp_data, Z, ns).toarray()
+
+    def occ_of(mask):
+        return sorted(spinors[b] for b in range(len(spinors))
+                      if mask >> b & 1)
+
+    rows = {}
+    for i, m in enumerate(masks):
+        occ = occ_of(m)
+        extra = [o for o in occ if (o[0], o[1]) in set(virt_shells)]
+        missing = [o for o in ref_occ if o not in occ]
+        if len(extra) == 1 and len(missing) == 1:
+            rows[(extra[0][:2], extra[0][2], missing[0][:2],
+                  missing[0][2])] = i
+
+    # ONE coupled state per (p, h) PAIR: its (mp, mh) components are
+    # COLUMNS of the same row (at the stretched M=J a state usually has
+    # a single component; J=0 has two — treating components as separate
+    # states spuriously doubles the spectrum with both J members)
+    by_pair = {}
+    for (p, mp, h, mh, cg) in comps:
+        by_pair.setdefault((p, h), []).append((mp, mh, cg))
+    labels = sorted(by_pair, key=str)
+    C = np.zeros((len(labels), len(masks)))
+    for r_, key_ph in enumerate(labels):
+        for (mp, mh, cg) in by_pair[key_ph]:
+            key = (key_ph[0], mp, key_ph[1], mh)
+            if key not in rows:
+                raise ValueError(f"ph det missing from sector: {key}")
+            C[r_, rows[key]] = cg
+    n = len(labels)
+    norms = np.linalg.norm(C, axis=1)
+    if np.any(norms < 1e-12):
+        raise ValueError("zero-norm coupled state")
+    C = C / norms[:, None]
+    A = C @ H @ C.T - E0 * np.eye(n)
+    return A, labels, E0

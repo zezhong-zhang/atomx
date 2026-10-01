@@ -175,8 +175,7 @@ def test_g5_assembler_m_mixing_paths(be_workspace):
     bkq = {(2, 0): 5000.0, (2, 2): 3000.0, (2, -2): 3000.0}
     cf = build_cf_operator(od, bsp, 4, 50, bkq)
 
-    # m-mixing delta over the assembler's own spinor labels: same-kappa
-    # pairs; element independent of the m-blind base h
+    # General one-body delta over the assembler's own spinor labels.
     def m_delta(ia, ic):
         sa, sc = spinors[ia], spinors[ic]
         try:
@@ -192,7 +191,7 @@ def test_g5_assembler_m_mixing_paths(be_workspace):
     cfgs = generate_sd_excitations("1s2 2s2", ["2s", "2p"],
                                    core_orbitals=["1s"], max_excitations=2)
     pats = patterns_from_csfs(enumerate_jj_csfs_many(cfgs))
-    masks, spinors = SC.enumerate_determinants(pats, od, 0)
+    masks, spinors = SC.enumerate_determinants(pats, od, None)
     Hp = SC.assemble_sparse_hamiltonian(masks, spinors, od, bsp, 4, 50,
                                         method="python",
                                         one_body_m_delta=m_delta)

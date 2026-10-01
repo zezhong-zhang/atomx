@@ -163,8 +163,11 @@ def test_sigma2_mscheme_sign_hermiticity(workspace):
 
 
 def test_sigma2_mscheme_bigger_than_samej(workspace, sigma2):
-    """The complete (multi-J) screening must exceed the same-J slice on the
-    diagonal — it contains strictly more angular channels."""
+    """Additional channels strengthen this Be diagonal screening element.
+
+    This fixture-specific comparison is not a general monotonicity theorem
+    for exchange-containing corrections.
+    """
     from atomx.methods.mbpt_sigma2 import build_sigma2_mscheme
 
     dhf, od, eps = workspace
@@ -181,9 +184,10 @@ def test_sigma2_mscheme_bigger_than_samej(workspace, sigma2):
     idx = delta.index
     d_ms = delta(idx[(2, -1, 1)], idx[(2, -1, -1)], idx[(2, -1, 1)], idx[(2, -1, -1)])
     # same-J slice on the same pair, m-summed over the M=0 member
-    s2 = sigma2
-    s2.delta_raw(-1, 1, -1, -1, -1, 1, -1, -1, (2, -1), (2, -1), (2, -1), (2, -1))
-    assert d_ms < 0 and abs(d_ms) > 0, "mscheme screening vanished"
+    d_j = sigma2.delta_raw(
+        -1, 1, -1, -1, -1, 1, -1, -1, (2, -1), (2, -1), (2, -1), (2, -1)
+    )
+    assert d_ms < d_j < -1e-12, (d_ms, d_j)
 
 
 def test_holeline_brute_collision(workspace):

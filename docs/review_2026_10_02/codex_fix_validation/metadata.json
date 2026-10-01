@@ -1,0 +1,56 @@
+{
+  "reviewed_revision": "5018fab8ef93a5457ae2ef627efdf54e035114ec",
+  "repair_revision": "9eb22ca876db3c53d8e025d48810bc88dbb1c2b9",
+  "post_revision_changes": [
+    "canonical He RPA test reference and independent backward CI gates",
+    "legacy Sigma2 and CF test-audit repairs",
+    "documentation"
+  ],
+  "python": "3.10.21",
+  "numpy": "2.2.6",
+  "scipy": "1.15.3",
+  "numba": "0.65.0",
+  "threads": {
+    "OPENBLAS_NUM_THREADS": 1,
+    "OMP_NUM_THREADS": 1,
+    "NUMBA_NUM_THREADS": 1
+  },
+  "external_reference_checks": {
+    "benchmarks/results_fac_structure.csv": {
+      "external_column": "E_fac_eV",
+      "rows": 20,
+      "unchanged_from_5018fab": true
+    },
+    "benchmarks/results_fac_pi_rr.csv": {
+      "external_column": "sigma_fac_1e20cm2",
+      "rows": 24,
+      "unchanged_from_5018fab": true
+    }
+  },
+  "validation": {
+    "non_slow_suite": {
+      "passed": 3931,
+      "skipped": 11,
+      "deselected": 28,
+      "xfailed_at_collection": 21,
+      "unexpected_failures": 0,
+      "warnings": 1,
+      "seconds": 986.63
+    },
+    "final_rpa_operator_tests": {
+      "passed": 20,
+      "seconds": 10.85
+    },
+    "final_legacy_audit_tests": {
+      "passed": 2,
+      "seconds": 2.05
+    },
+    "default_cache_wigner_tests": {
+      "passed": 21
+    },
+    "remaining_xfails_after_He_fixture_repair": 19,
+    "ruff": "passed",
+    "compileall_src_scripts": "passed",
+    "diff_check": "passed"
+  }
+}
