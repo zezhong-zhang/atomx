@@ -218,42 +218,65 @@ def build_sigma2_mscheme(orbitals_dict, bsp_data, Z, ns,
     themselves, so this construction includes the cross-channel (multi-J)
     physics the same-J pair-space version structurally could not see:
 
-        d(a,b,c,d) = -sum_{m in core, r in virt} [
-              g(a, m, c, r) g(b, r, d, m)
-            + g(b, m, d, r) g(a, r, c, m) ] / (eps_r - eps_m)
+        d(a,b,c,d) = -sum_{m in core, r in virt}
+                     [g(a,m,c,r) g(b,r,d,m) - g(a,m,d,r) g(b,r,c,m)]
+                     / (eps_r - eps_m)
 
-    with raw (un-antisymmetrised) m-scheme Coulomb elements g.  Returns a
-    callable keyed by global spin-orbital indices over an EXTENDED table
-    (valence + core + virtual spinors); the caller adapts it to the
-    assembler's pattern-restricted spinor indices through the orbital
-    (n, kappa, 2m) labels.
+    with raw (un-antisymmetrised) m-scheme Coulomb elements g.
+
+    High-performance layout (m-conservation bucketing): the element
+    g(a,m,c,r) is nonzero only when m2a - m2c == m2r - m2m, so the
+    (m, r) intermediates partition into buckets by that difference and
+    the per-bucket G tables are dense [valence-pair x intermediate].
+    Each quadruple then costs one small numba dot product per diagram
+    term instead of ~600 Python element calls.
     """
+    from functools import lru_cache as _lru
+    from math import sqrt as _sqrt
+
+    import numba as _nb
+    import numpy as _np
+
     from atomx.angular.csf_hamiltonian import _m2_values, two_body_angular, twoj
     import atomx.physics.csf.matrix as MAT
-    from atomx.numerics.bspline.convol import ConvolCache
+
+    @_nb.njit(cache=True)
+    def _bucket_dot(g1, g2, dinv):
+        total = 0.0
+        for j in range(g1.shape[0]):
+            total += g1[j] * g2[j] * dinv[j]
+        return total
 
     ext = sorted(set(valence_keys) | set(core_keys) | set(virt_keys))
     spinors = [(n, k, m2) for (n, k) in ext
                for m2 in _m2_values(twoj(k))]
     index = {s: i for i, s in enumerate(spinors)}
+
     core_idx = [index[(n, k, m2)] for (n, k) in core_keys
                 if (n, k) in orbitals_dict
                 for m2 in _m2_values(twoj(k))]
     virt_idx = [index[(n, k, m2)] for (n, k) in virt_keys
                 if (n, k) in orbitals_dict
                 for m2 in _m2_values(twoj(k))]
-    denom = []
-    mr_pairs = []
+    val_idx = [index[(n, k, m2)] for (n, k) in valence_keys
+               if (n, k) in orbitals_dict
+               for m2 in _m2_values(twoj(k))]
+
+    # intermediates, bucketed by (m2r - m2m)
+    buckets = {}
+    denom_all = []
+    mr_flat = []
     for mi in core_idx:
         for ri in virt_idx:
             d = eps[spinors[ri][:2]] - eps[spinors[mi][:2]]
             if abs(d) < denom_floor:
-                continue  # clipped; counted by omission from the window
-            denom.append(d)
-            mr_pairs.append((mi, ri))
-    cache = ConvolCache(bsp_data)
+                continue
+            delta = spinors[ri][2] - spinors[mi][2]
+            buckets.setdefault(delta, []).append(len(mr_flat))
+            mr_flat.append((mi, ri))
+            denom_all.append(d)
 
-    @lru_cache(maxsize=None)
+    @_lru(maxsize=None)
     def g(ia, ic, im, ir_):
         a, c, m, r_ = spinors[ia], spinors[ic], spinors[im], spinors[ir_]
         terms = two_body_angular(a[1], a[2], m[1], m[2],
@@ -270,28 +293,60 @@ def build_sigma2_mscheme(orbitals_dict, bsp_data, Z, ns,
                                     bsp_data, k)
         return total
 
-    def delta(ia, ib, ic, id_):
-        """Antisymmetrised m-scheme screening <ab|dV_A|cd>, spinor indices.
+    # G1[delta]: rows = valence pairs (a, c) with m2a - m2c == delta,
+    #            cols = bucket(delta) intermediates; values g(a, m, c, r).
+    # G2[delta]: rows = valence pairs (b, d) with m2b - m2d == -delta
+    #            (slot-transposed element g(b, d, r, m)), SAME columns —
+    #            building the transposed table directly avoids the
+    #            reversed-pair lookup, which cannot exist because (r, m)
+    #            swaps the core/virtual slot roles.
+    G1 = {}
+    G2 = {}
+    dinv = {}
+    row_of = {}
+    for delta, js in buckets.items():
+        rows1 = [(ia, ic) for ia in val_idx for ic in val_idx
+                 if spinors[ia][2] - spinors[ic][2] == delta]
+        rows2 = [(ib, idd) for ib in val_idx for idd in val_idx
+                 if spinors[ib][2] - spinors[idd][2] == -delta]
+        M1 = _np.zeros((len(rows1), len(js)))
+        M2 = _np.zeros((len(rows2), len(js)))
+        for r_, (ia, ic) in enumerate(rows1):
+            for c_, j in enumerate(js):
+                mi, ri = mr_flat[j]
+                M1[r_, c_] = g(ia, ic, mi, ri)
+        for r_, (ib, idd) in enumerate(rows2):
+            for c_, j in enumerate(js):
+                mi, ri = mr_flat[j]
+                M2[r_, c_] = g(ib, idd, ri, mi)
+        G1[delta] = M1
+        G2[delta] = M2
+        dinv[delta] = 1.0 / _np.array([denom_all[j] for j in js])
+        for r_, pair in enumerate(rows1):
+            row_of[(delta, pair)] = ("1", r_)
+        for r_, pair in enumerate(rows2):
+            row_of[(delta, pair)] = ("2", r_)
 
-        direct bubble:  vertex 1 on the (a, c) lines, vertex 2 on (b, d);
-        exchange bubble: vertex 1 on the (a, d) lines, vertex 2 on (b, c)
-        (the valence-exchange counterpart subtracted, matching the (v - v2)
-        convention the assembler applies).
-        """
+    def delta(ia, ib, ic, id_):
+        """Antisymmetrised m-scheme screening <ab|dV_A|cd>, spinor indices."""
+        d1 = spinors[ia][2] - spinors[ic][2]   # direct bucket key
+        d2 = spinors[ia][2] - spinors[id_][2]  # exchange bucket key
         total = 0.0
-        for n_, (mi, ri) in enumerate(mr_pairs):
-            g1 = g(ia, ic, mi, ri)    # <a m|V|c r>
-            g3 = g(ia, id_, mi, ri)   # <a m|V|d r>
-            if g1 == 0.0 and g3 == 0.0:
-                continue
-            g2 = g(ib, id_, ri, mi)   # <b r|V|d m>
-            g4 = g(ib, ic, ri, mi)    # <b r|V|c m>
-            term = g1 * g2 - g3 * g4
-            if term != 0.0:
-                total -= term / denom[n_]
+        ra = row_of.get((d1, (ia, ic)))
+        rb = row_of.get((d1, (ib, id_)))
+        if ra and rb:
+            g1 = G1[d1][ra[1]]
+            g2 = G2[d1][rb[1]]
+            total -= _bucket_dot(g1, g2, dinv[d1])
+        rc = row_of.get((d2, (ia, id_)))
+        rd = row_of.get((d2, (ib, ic)))
+        if rc and rd:
+            g3 = G1[d2][rc[1]]
+            g4 = G2[d2][rd[1]]
+            total += _bucket_dot(g3, g4, dinv[d2])
         return total
 
-    delta.n_intermediate = len(mr_pairs)
+    delta.n_intermediate = len(mr_flat)
     delta.spinors = spinors
     delta.index = index
     return delta
