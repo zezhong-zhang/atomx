@@ -72,3 +72,37 @@ per distinct quadruple): 0.3 s per scaled 4f² ladder vs 86 s with
    and the assembler both reach into private internals).
 6. External review of this module (workflow) before the anchor
    pipeline adopts it.
+
+## Root-cause roadmap (user direction, 2026-10-01) — "让电子云不再虚胖"
+
+The fitted (s2,s4,s6) = (−27%, −8%, −12%) are not free parameters —
+they are the MEASURE of what the frozen-statistical-DF machinery is
+missing, dominated by semi-core correlation.  Physics reading
+(literature-consistent magnitudes): 4d semi-core correlation screens
+F^k(4f,4f) by ~10-20%; the rest is 5s/5p screening + orbital
+relaxation lost to the statistical average.  The fundamental fix is to
+put that physics back:
+
+1. **解冻 4d 半芯** — CI/MBPT with 4d⁻¹ sectors active (4d↔4f dynamic
+   correlation tightens the 4f cloud).  Cost estimate with the sparse
+   machinery: core-hole patterns multiply the 4f⁶ space by ~50-100×
+   (hours-scale anchor runs; staged: single-4d-hole subspace first).
+2. **全电子 DKH3/四分量变分自洽** — term-specific (EOL) 4f spinors
+   instead of the statistical average; the repo's MCDHF/
+   radial_optimization machinery is the entry point.
+3. **NEVPT2/CASPT2 级半芯相关 (4d,5s,5p)** — beyond the CI+MBPT we
+   measured as insufficient (the Sigma2 arc: second-order pair
+   channels into high virtuals are orthogonality-suppressed — but
+   SEMI-CORE holes are a different, unsuppressed channel; that is
+   exactly why the fitted s_k are as large as they are).
+
+Success criterion: ⁵D₀ walks to ~17270 ab initio (no anchor); until
+then the two-tier calibration is "the honest thermometer".  Fallback
+(per user): per-ion Cowan fits — Tier A already supports them (fit
+more than 3 parameters on the anchor ion's own levels).
+
+Measured partial support already in hand: the bubble arc measured
+core-polarisation as COMMON-MODE (−9300 abs / −53 cm⁻¹ differential
+5D-7F) — the 4d MONOPOLE screening is inside the DF; what it cannot
+give is the 4d-hole EXCHANGE screening of F^k, which is the missing
+piece the slater_scaling s_k currently absorb.
