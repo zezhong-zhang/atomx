@@ -34,7 +34,7 @@ from scipy.linalg import eigh
 
 from atomx.scattering.r_matrix.angular_cc import direct_terms, exchange_terms
 from atomx.scattering.r_matrix.cc_potentials import cumulative_y_k
-from atomx.scattering.r_matrix.channel_table import Channel
+from atomx.scattering.r_matrix.channel_table import Channel, TargetState
 from atomx.scattering.two_electron.angular import (
     _electron_contribution,
     direct_coefficient,
@@ -113,13 +113,34 @@ def assemble_cc_inner_region(
     n_basis: int,
     k_spline_order: int = 6,
     n_gauss: int = 10,
+    pair_targets: Sequence[tuple] = (),
 ) -> CCInnerSolution:
     """Assemble + diagonalise the multi-channel inner-region Hamiltonian.
 
     Returns the eigenpairs ``(E_n, ψ_n)`` of the generalised eigenvalue
     problem ``H ψ = E S ψ`` together with the surface amplitudes
     ``w_n^i = ψ_n[i, :] . B(a)`` in each channel ``i``.
+
+    ``pair_targets`` — optional NON-ORTHOGONAL correlation pseudo-state
+    channels (Burke's chi_j layer): list of ``(label, P_callable,
+    energy_au)`` with l = 0, appended as (target, eps s) channels whose
+    target may OVERLAP the regular s-targets.  This adds non-diagonal S
+    and one-body cross blocks (singlet 1S, all-s only — the angular
+    orthogonality zeroes the cross overlap against p-channels).  The
+    (phi, phi) dielectronic pair function lies inside the new channel's
+    span; an ORTHOGONAL phi cannot bind it (variational bound: any
+    state perpendicular to (1s, 2s-bar) sits above E(3s)).
     """
+    if pair_targets:
+        if L_total != 0 or S_total != 0.0:
+            raise NotImplementedError(
+                "pair_targets cross-blocks derived for singlet 1S only")
+    channels = list(channels) + [
+        Channel(index=len(channels) + i,
+                target=TargetState(label=lab, n_electrons=1, l=0,
+                                   energy_au=e, P=P, n=2, Z=Z),
+                l_c=0, threshold_au=e)
+        for i, (lab, P, e) in enumerate(pair_targets)]
     n_ch = len(channels)
     if n_ch == 0:
         raise ValueError("must pass at least one channel")
@@ -322,6 +343,64 @@ def assemble_cc_inner_region(
                 # Composite-target exchange requires three-electron
                 # recoupling; it is not yet implemented.
                 pass
+
+    # ------------------------------------------------------------------
+    # NON-ORTHOGONAL cross blocks (pair_targets vs s-channels), 1S all-s:
+    # bilinear forms of h = T + V_nuc between grid-sampled targets and
+    # the spline columns.  (S exchange term and the angular factor are
+    # +1 for spatial-symmetric singlet products.)
+    # ------------------------------------------------------------------
+    if pair_targets:
+        s_channels = [(idx, ch) for idx, ch in enumerate(channels)
+                      if ch.target.l == 0 and ch.l_c == 0]
+        grids = {}
+        for idx, ch in s_channels:
+            g = np.asarray(ch.target.P(r_q))
+            assert np.all(np.isfinite(g)), ch.target.label
+            grids[idx] = g
+
+        def h_bilinear(f_g, g_g):
+            """<f|h|g> row/column pieces vs splines or scalars."""
+            df = np.gradient(f_g, r_q)
+            dg = np.gradient(g_g, r_q)
+            t_scalar = 0.5 * float(np.sum(w_q * df * dg))
+            v_scalar = -Z * float(np.sum(w_q * f_g * g_g * inv_r))
+            return t_scalar + v_scalar
+
+        def h_row(f_g):
+            """<f|h|B_b> for every spline column b."""
+            df = np.gradient(f_g, r_q)
+            t_row = 0.5 * (dB.T @ (w_q * df))
+            v_row = -Z * (B.T @ (w_q * f_g * inv_r))
+            return t_row + v_row
+
+        def ov_row(f_g):
+            return B.T @ (w_q * f_g)          # <B_b|f>
+
+        for x_idx, ch_x in s_channels:
+            phi_g = grids[x_idx]
+            phB = ov_row(phi_g)
+            hphiB = h_row(phi_g)
+            for i_idx, ch_i in s_channels:
+                if i_idx == x_idx:
+                    continue
+                Phi_g = grids[i_idx]
+                ov = float(np.sum(w_q * phi_g * Phi_g))
+                if abs(ov) < 1e-12 and ch_x.target.label == \
+                        ch_i.target.label:
+                    continue
+                PhiB = ov_row(Phi_g)
+                hPhiB = h_row(Phi_g)
+                hphiPhi = h_bilinear(phi_g, Phi_g)
+                cross_S = ov * S_one + np.outer(phB, PhiB)
+                sx = slice(x_idx * n_eff, (x_idx + 1) * n_eff)
+                si = slice(i_idx * n_eff, (i_idx + 1) * n_eff)
+                S[sx, si] += cross_S
+                H[sx, si] += (ov * (T_one + V_nuc_one)
+                              + hphiPhi * S_one
+                              + np.outer(hphiB, PhiB)
+                              + np.outer(phB, hPhiB)
+                              + ch_i.target.energy_au * cross_S)
 
     # Symmetrise to undo accumulated round-off before eigensolve.
     H = 0.5 * (H + H.T)

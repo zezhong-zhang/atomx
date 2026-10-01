@@ -598,12 +598,17 @@ def build_sigma2_ladder(orbitals_dict, bsp_data, Z, ns,
     the correct intermediate space is (m, n) BOTH VIRTUAL (valence-pair
     double excitations), with the pair-level product
 
-        d(a,b,c,d) = -1/2 sum_{m,n in VIRTUAL}
-                     [ <ab|V|mn><mn|V|cd> - <ab|V|nm><nm|V|cd> ]  (dir - exch)
-                     * [1/D_ab + 1/D_cd],  D_xy = eps_x+eps_y-eps_m-eps_n
+        t(a,b,c,d) = 1/2 sum_{(m,n) ordered, m!=n}
+                     [ <ab|V|mn> - <ab|V|nm> ] <mn|V|cd>
+                     * 1/2 [1/D_ab + 1/D_cd],  D_xy = eps_x+eps_y-eps_m-eps_n
 
-    (symmetrised denominator => Hermitian; delivered antisymmetrised, the
-    assembler applies it on top of (v - v2) unchanged).  Bucketed by
+    The internal exchange swaps (m,n) in the BRA factor ONLY.  Swapping
+    both factors (<ab|nm><nm|cd>) is identically zero after relabelling
+    the m<->n-symmetric ordered sum — the construction bug this gate
+    caught.  Delivered RAW: the assembler's ket antisymmetrisation
+    t(ab,cd) - t(ab,dc) completes the four-side antisymmetrisation to
+    sum_{m<n} <ab||mn><mn||cd> * inv (Hermitian, attractive diagonal).
+    Bucketed by
     total pair 2M (m conservation).  GATE ORDER (recorded lesson):
     brute-force collision, then a PHYSICS calibration gate against the
     measured Q_D gap BEFORE any anchor run.
@@ -691,6 +696,11 @@ def build_sigma2_ladder(orbitals_dict, bsp_data, Z, ns,
             rows1_of[(bucket, pr)] = r_
         for r_, pr in enumerate(rows2):
             rows2_of[(bucket, pr)] = r_
+    # pair-swap permutation per bucket: rev[c] = column of (n, m)
+    rev_of = {}
+    for bucket, pairs in vvp.items():
+        pos = {p: c for c, p in enumerate(pairs)}
+        rev_of[bucket] = _np.array([pos[(ni, mi)] for (mi, ni) in pairs])
 
     def delta_ladder(ia, ib, ic, id_):
         """Antisymmetrised m-scheme ladder element <ab|dV_A|cd>."""
@@ -710,28 +720,13 @@ def build_sigma2_ladder(orbitals_dict, bsp_data, Z, ns,
         if not ok.any():
             return 0.0
         inv = np.where(ok, 0.5 * (1.0 / (e_ab - emn) + 1.0 / (e_cd - emn)), 0.0)
-        # direct: <ab|V|mn><mn|V|cd>; exchange via swapped intermediate
-        d = _pair_dot(G1[bucket][r_ab], G2t[bucket][r_cd], inv)
-        # exchange columns: swap (m,n) -> (n,m) => use reversed pair list
-        rev = []
-        for (mi, ni) in vvp[bucket]:
-            rev.append((ni, mi))
-        # build swapped G columns lazily (cache by bucket)
-        key = ("rev", bucket)
-        if key not in G1:
-            M1r = _np.zeros_like(G1[bucket])
-            M2r = _np.zeros_like(G2t[bucket])
-            for r_, (ia2, ib2) in enumerate(
-                    [(x, y) for x in val_idx for y in val_idx
-                     if spinors[x][2] + spinors[y][2] == bucket]):
-                for c_, (ni, mi) in enumerate(rev):
-                    M1r[r_, c_] = G1[bucket][r_, c_]  # same rows, swapped cols
-            G1[key] = None  # not needed; direct swap below is cheaper
-        # exchange: <ab|V|nm><nm|V|cd> — recompute via reversed pair order
-        g_ab_rev = _np.array([g2(ia, ib, ni, mi) for (mi, ni) in vvp[bucket]])
-        g_rev_cd = _np.array([g2(ni, mi, ic, id_) for (mi, ni) in vvp[bucket]])
-        ex = _pair_dot(g_ab_rev, g_rev_cd, inv)
-        return d - ex
+        # exchange: swap the internal pair in the BRA factor only
+        row_ab = G1[bucket][r_ab]
+        row_abx = row_ab[rev_of[bucket]]           # <ab|V|nm> columns
+        row_cd = G2t[bucket][r_cd]                 # <mn|V|cd>
+        d = _pair_dot(row_ab, row_cd, inv)
+        ex = _pair_dot(row_abx, row_cd, inv)
+        return 0.5 * (d - ex)
 
     delta_ladder.spinors = spinors
     delta_ladder.index = index

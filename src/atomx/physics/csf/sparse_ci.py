@@ -142,7 +142,8 @@ def enumerate_determinants(patterns, orbitals_dict, m2_total: int = 0):
 
 def assemble_sparse_hamiltonian(masks, spinors, orbitals_dict, bsp_data, Z, ns,
                                 *, method="numba", two_body_delta=None,
-                                one_body_delta=None, include_breit=False):
+                                one_body_delta=None, one_body_m_delta=None,
+                                include_breit=False):
     """CSR Hamiltonian over the determinant masks (Dirac-Coulomb).
 
     ``method="numba"`` (default): two-phase build — every distinct
@@ -150,22 +151,31 @@ def assemble_sparse_hamiltonian(masks, spinors, orbitals_dict, bsp_data, Z, ns,
     numba kernel walks the determinants doing pure bit arithmetic
     (phase 2).  ``method="python"`` keeps the reference loop; the two
     paths are asserted element-identical in the test suite.
+
+    ``one_body_m_delta`` — optional callable ``(ia, ic) -> float`` over
+    spinor indices adding an m-MIXING one-body channel (same kappa,
+    different m; e.g. the crystal-field q != 0 terms).  Delivered as a
+    separate pass so the base one-body value (m-blind) is not re-emitted
+    for every m pair.  Must be real: complex CF parameter sets need a
+    tesseral (real) representation before CI wiring.
     """
     if method == "python" or _NB is None:
         return _assemble_reference(masks, spinors, orbitals_dict,
                                    bsp_data, Z, ns,
                                    two_body_delta=two_body_delta,
                                    one_body_delta=one_body_delta,
+                                   one_body_m_delta=one_body_m_delta,
                                    include_breit=include_breit)
     return _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
                            two_body_delta=two_body_delta,
                            one_body_delta=one_body_delta,
+                           one_body_m_delta=one_body_m_delta,
                            include_breit=include_breit)
 
 
 def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns,
                         *, two_body_delta=None, one_body_delta=None,
-                        include_breit=False):
+                        one_body_m_delta=None, include_breit=False):
     """CSR Hamiltonian over the determinant masks (Dirac-Coulomb)."""
     index = {mask: i for i, mask in enumerate(masks)}
     n = len(masks)
@@ -217,8 +227,10 @@ def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns,
 
     # one-body partners sharing (kappa, m)
     km_partners: Dict[Tuple[int, int], List[int]] = {}
+    kappa_partners: Dict[int, List[int]] = {}
     for si, (_n, kappa, m2) in enumerate(spinors):
         km_partners.setdefault((kappa, m2), []).append(si)
+        kappa_partners.setdefault(kappa, []).append(si)
 
     rows: List[int] = []
     cols: List[int] = []
@@ -249,6 +261,26 @@ def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns,
                 row = index.get(nmask)
                 if row is not None:
                     emit(row, col, sign * h)
+        # one-body m-resolved channel (crystal field): same kappa, any m
+        # — m-diagonal elements (q=0) are m-dependent, so neither the
+        # m-blind base value nor one_body_delta can carry them
+        if one_body_m_delta is not None:
+            for c in occ:
+                kc = spinors[c][1]
+                for a in kappa_partners[kc]:
+                    h = one_body_m_delta(a, c)
+                    if h == 0.0:
+                        continue
+                    if a == c:
+                        diag[col] += h
+                        continue
+                    sign = _ops_sign(mask, [(a, True), (c, False)])
+                    if not sign:
+                        continue
+                    nmask = (mask & ~(1 << c)) | (1 << a)
+                    row = index.get(nmask)
+                    if row is not None:
+                        emit(row, col, sign * h)
         # two-body
         for c, d in itertools.combinations(occ, 2):
             m_sum = spinors[c][2] + spinors[d][2]
@@ -459,6 +491,8 @@ if _NB is not None:
     def _assemble_kernel_parallel(mlo, mhi, occ, nspin, m2arr,
                                   h1_keys, h1_vals,
                                   pgrp, pflat, pstart, plen,
+                                  kgrp, kflat, kstart, klen,
+                                  h1m_keys, h1m_vals,
                                   bflat, bstart, blen, msum_shift,
                                   vb_keys, vb_vals,
                                   shi, slo, srow,
@@ -513,6 +547,40 @@ if _NB is not None:
                             cols_b[blk, count] = col
                             vals_b[blk, count] = sg * h
                             count += 1
+                # ---- one-body m-mixing (crystal field q != 0) ----
+                if h1m_keys.shape[0] > 0:
+                    for ei in range(ne):
+                        c = occ[col, ei]
+                        g = kgrp[c]
+                        for pi in range(kstart[g], kstart[g] + klen[g]):
+                            a = kflat[pi]
+                            key = a * nspin + c
+                            lo_i, hi_i = 0, h1m_keys.shape[0]
+                            while lo_i < hi_i:
+                                mid = (lo_i + hi_i) // 2
+                                if h1m_keys[mid] < key:
+                                    lo_i = mid + 1
+                                else:
+                                    hi_i = mid
+                            if (lo_i >= h1m_keys.shape[0]
+                                    or h1m_keys[lo_i] != key):
+                                continue
+                            if a == c:
+                                diag_b[blk, col] += h1m_vals[lo_i]
+                                continue
+                            tlo, thi = _clr(lo, hi, c)
+                            tlo, thi = _set(tlo, thi, a)
+                            row = _find_row(shi, slo, srow, tlo, thi)
+                            if row < 0:
+                                continue
+                            sg = _sign_1e(lo, hi, a, c)
+                            if sg == 0:
+                                continue
+                            if count < cap:
+                                rows_b[blk, count] = row
+                                cols_b[blk, count] = col
+                                vals_b[blk, count] = sg * h1m_vals[lo_i]
+                                count += 1
                 for ei in range(ne):
                     c = occ[col, ei]
                     for fj in range(ei + 1, ne):
@@ -553,6 +621,8 @@ if _NB is not None:
     def _assemble_kernel(mlo, mhi, occ, nspin, m2arr,
                          h1_keys, h1_vals,
                          pgrp, pflat, pstart, plen,
+                         kgrp, kflat, kstart, klen,
+                         h1m_keys, h1m_vals,
                          bflat, bstart, blen, msum_shift,
                          vb_keys, vb_vals,
                          shi, slo, srow,
@@ -599,6 +669,39 @@ if _NB is not None:
                         cols[count] = col
                         vals[count] = sg * h
                         count += 1
+            # ---- one-body m-mixing (crystal field q != 0) ----
+            if h1m_keys.shape[0] > 0:
+                for ei in range(ne):
+                    c = occ[col, ei]
+                    g = kgrp[c]
+                    for pi in range(kstart[g], kstart[g] + klen[g]):
+                        a = kflat[pi]
+                        key = a * nspin + c
+                        lo_i, hi_i = 0, h1m_keys.shape[0]
+                        while lo_i < hi_i:
+                            mid = (lo_i + hi_i) // 2
+                            if h1m_keys[mid] < key:
+                                lo_i = mid + 1
+                            else:
+                                hi_i = mid
+                        if lo_i >= h1m_keys.shape[0] or h1m_keys[lo_i] != key:
+                            continue
+                        if a == c:
+                            diag[col] += h1m_vals[lo_i]
+                            continue
+                        tlo, thi = _clr(lo, hi, c)
+                        tlo, thi = _set(tlo, thi, a)
+                        row = _find_row(shi, slo, srow, tlo, thi)
+                        if row < 0:
+                            continue
+                        sg = _sign_1e(lo, hi, a, c)
+                        if sg == 0:
+                            continue
+                        if count < cap:
+                            rows[count] = row
+                            cols[count] = col
+                            vals[count] = sg * h1m_vals[lo_i]
+                            count += 1
             # ---- two-body ----
             for ei in range(ne):
                 c = occ[col, ei]
@@ -638,7 +741,7 @@ if _NB is not None:
 
 def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
                     *, two_body_delta=None, one_body_delta=None,
-                    include_breit=False):
+                    one_body_m_delta=None, include_breit=False):
     """Phase 1 (Python, once per distinct value) + phase 2 (numba)."""
     from functools import lru_cache
 
@@ -699,6 +802,35 @@ def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
                          (spinors[c][0], spinors[c][1])), 0.0)
     h1_keys = np.array(sorted(h1), dtype=np.int64)
     h1_vals = np.array([h1[k] for k in h1_keys], dtype=np.float64)
+
+    # ---- phase 1a': m-mixing one-body table over kappa groups ----
+    # (crystal-field q != 0 terms; empty tables => zero-cost when unused)
+    k_groups: Dict[int, List[int]] = {}
+    for si, (_n, kappa, _m) in enumerate(spinors):
+        k_groups.setdefault(kappa, []).append(si)
+    h1m: Dict[int, float] = {}
+    if one_body_m_delta is not None:
+        for members in k_groups.values():
+            for c in members:
+                for a in members:
+                    v = one_body_m_delta(a, c)
+                    if v != 0.0:
+                        h1m[a * nspin + c] = v
+    h1m_keys = np.array(sorted(h1m), dtype=np.int64)
+    h1m_vals = np.array([h1m[k] for k in h1m_keys], dtype=np.float64)
+    kgrp = np.zeros(nspin, dtype=np.int64)
+    kflat_a: List[int] = []
+    kstart_a: List[int] = []
+    klen_a: List[int] = []
+    for g, members in k_groups.items():
+        kstart_a.append(len(kflat_a))
+        kflat_a.extend(members)
+        klen_a.append(len(members))
+        for si in members:
+            kgrp[si] = len(kstart_a) - 1
+    kflat = np.array(kflat_a, dtype=np.int64)
+    kstart = np.array(kstart_a, dtype=np.int64)
+    klen = np.array(klen_a, dtype=np.int64)
 
     # ---- phase 1b: two-body value table over m-matched quadruples ----
     # A spin-orbital set in every determinant mask is frozen (closed core):
@@ -836,6 +968,8 @@ def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
                 mlo, mhi, occ, nspin, m2arr,
                 h1_keys, h1_vals,
                 pgrp, pflat_a, pstart_a, plen_a,
+                kgrp, kflat, kstart, klen,
+                h1m_keys, h1m_vals,
                 bflat_a, bstart_a, blen_a, msum_shift,
                 vb_keys, vb_vals,
                 shi, slo, srow,
@@ -867,6 +1001,8 @@ def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
                 mlo, mhi, occ, nspin, m2arr,
                 h1_keys, h1_vals,
                 pgrp, pflat_a, pstart_a, plen_a,
+                kgrp, kflat, kstart, klen,
+                h1m_keys, h1m_vals,
                 bflat_a, bstart_a, blen_a, msum_shift,
                 vb_keys, vb_vals,
                 shi, slo, srow,
