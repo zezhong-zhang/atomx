@@ -21,7 +21,7 @@ def rotate_occupied(pa, qa, pairs, energy, *, harmonics=(2, 4), pair_energy=None
     for a, b, core_hole in pairs:
         ap, aq, bp, bq = (v.copy() for v in (pa[a], qa[a], pa[b], qa[b]))
         sample_energy = energy if pair_energy is None else pair_energy(a, b)
-        def rotate(t):
+        def rotate(t, *, a=a, ap=ap, aq=aq, b=b, bp=bp, bq=bq):
             c, s = np.cos(t), np.sin(t)
             pa[a], qa[a] = c*ap+s*bp, c*aq+s*bq
             pa[b], qa[b] = c*bp-s*ap, c*bq-s*aq
@@ -38,7 +38,7 @@ def rotate_occupied(pa, qa, pairs, energy, *, harmonics=(2, 4), pair_energy=None
         # Evaluate E(t)-E(0) without subtracting nearly equal
         # cosine terms. This resolves rotations far below the
         # total-energy ulp (e.g. a deep K core/valence pair).
-        def fit(t):
+        def fit(t, *, coef=coef):
             return float(sum(-2*coef[2*i+1]*np.sin(m*t/2)**2
                              +coef[2*i+2]*np.sin(m*t)
                              for i, m in enumerate(harmonics)))

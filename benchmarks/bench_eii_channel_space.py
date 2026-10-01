@@ -2,9 +2,11 @@
 import argparse
 import hashlib
 import json
-from pathlib import Path
 import time
+from pathlib import Path
+
 import numba
+
 from atomx import Atom
 from atomx.constants import HARTREE_EV
 from atomx.scattering import ContinuumModel

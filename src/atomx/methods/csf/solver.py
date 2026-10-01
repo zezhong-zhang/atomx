@@ -13,13 +13,13 @@ from typing import Dict, List
 import numpy as np
 from scipy import linalg
 
+from atomx.config.csf import CSF, get_shared_orbital_basis
+from atomx.config.subshell import Subshell
 from atomx.corrections.qed import DEFAULT_SE_METHOD
 from atomx.methods.ci import ci_solve
 from atomx.methods.dirac_fock import DFSolver
-from atomx.config.subshell import Subshell
-from atomx.config.csf import CSF, get_shared_orbital_basis
-from atomx.physics.csf.matrix import GridCIWorkspace, build_ci_matrix
 from atomx.numerics.bspline.dirac_assembly import canonicalize_radial_phase
+from atomx.physics.csf.matrix import build_ci_matrix
 
 
 @dataclass
@@ -208,7 +208,7 @@ class VariationalCSFResult:
     def waves(self):
         """Build :class:`atomx.results.Waves` for either radial engine."""
         from atomx.methods.dirac_fock import _eval_bspline_on_grid
-        from atomx.results import OrbitalWavefunction, Waves, RadialMetric
+        from atomx.results import OrbitalWavefunction, RadialMetric, Waves
         if not self.orbitals_dict:
             return Waves(grid=np.array([]))
 

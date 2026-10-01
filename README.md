@@ -254,13 +254,13 @@ Two further caveats that the numbers above do not convey:
 
 * **Structure vs FAC** (`benchmarks/bench_fac_structure.py`) is reported
   relative to *total* energy, which hides absolute disagreements.  Re-measured
-  2026-09-19 with the flags matched to FAC's default (`breit=False, qed=True`,
-  which is now the driver's default): the whole Z = 10…82 panel agrees to
-  **≤ 9.6e-4 (0.096 %)**, the worst absolute row being **426 eV at Z = 82**
-  (Ar-like Pb).  The previously documented "7 keV at Z=82 (1.6 %)" came from an
-  atomx column that had gone stale for five months *and* an unmatched
-  `qed=False`; see `docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md` finding H1.
-  `tests/test_fac_structure_snapshot.py` now gates the recorded column.
+  2026-10-02 with static Breit and QED enabled in both calculations
+  (`breit=True, qed=True`): the Z = 10…82 panel agrees within
+  **2.39e-04 (0.0239 %)** of total energy, with a maximum absolute
+  difference of **11.1 eV**. The external FAC column is unchanged.
+  Earlier comparisons incorrectly treated FAC's default as Breit-off.
+  `tests/test_fac_structure_snapshot.py` checks the refreshed Atomx column
+  and retains the previous external accuracy thresholds.
 * **The CRM/plasma benchmarks** (`bench_fac_crm_*.py`: Au/Fe/W cooling,
   charge-state balance, NLTE-9 ⟨Z⟩) are **synthetic placeholders**, disclosed
   in each file; the tests that asserted agreement with them are skipped with

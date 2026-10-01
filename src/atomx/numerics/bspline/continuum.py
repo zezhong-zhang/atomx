@@ -25,7 +25,6 @@ from scipy import linalg
 from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
 
 
-
 def continuum_energy_normalization_factor(energy, bsp_data, equation=None):
     """Box-normalized pseudo-state -> delta-energy normalization factor.
 

@@ -63,8 +63,8 @@ sys.path.insert(0, str(ROOT / "benchmarks"))
 from bench_fac_dw_excitation import SEQUENCES, _threshold_eV  # noqa: E402
 
 from atomx import Atom  # noqa: E402
-from atomx.numerics.extrapolation import geometric_tail_estimate  # noqa: E402
 from atomx.constants import BOLTZMANN_EV  # noqa: E402
+from atomx.numerics.extrapolation import geometric_tail_estimate  # noqa: E402
 from atomx.scattering.distorted_wave import born as born_mod  # noqa: E402
 from atomx.scattering.distorted_wave.solver import (  # noqa: E402
     collision_strength_to_rate,

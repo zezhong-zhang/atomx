@@ -5,11 +5,13 @@ import hashlib
 import json
 import time
 from pathlib import Path
+
 import numpy as np
+
+import atomx.scattering.autoionization.mscheme_ci as ci
 from atomx import Atom, Basis, Sampling
 from atomx.scattering.autoionization import dr_calculate, dr_rate_coefficient
 from atomx.scattering.autoionization.auger import AutoionizationState
-import atomx.scattering.autoionization.mscheme_ci as ci
 from benchmarks.bench_reference_dr_radiative import deck, fac_reference, run_reference
 
 
@@ -86,7 +88,7 @@ def main():
             raise RuntimeError("Atomx ground SCF did not converge")
         calls = []
 
-        def measured(result, configs, **kw):
+        def measured(result, configs, *, calls=calls, **kw):
             m, w = factory(result, configs, **kw)
             calls.append(
                 dict(
@@ -108,7 +110,8 @@ def main():
             ci.manifold_from_configs = factory
         elapsed = time.perf_counter() - t
         f = dr_rate_coefficient(fr, temperatures, initial_state_g=1.0)
-        key = lambda r: (r.label.split(":")[0], r.J, r.E_resonance_eV)
+        def key(r):
+            return (r.label.split(":")[0], r.J, r.E_resonance_eV)
         pairs = []
         for x, y in zip(
             sorted(r.resonances, key=key), sorted(fr, key=key), strict=True

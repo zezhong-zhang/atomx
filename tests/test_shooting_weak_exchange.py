@@ -70,10 +70,10 @@ def test_sub_ulp_pole_source_retains_orthogonal_response():
 
 @pytest.mark.parametrize('configuration', ['1s1 10d1','1s1 13i1'])
 def test_excited_helium_matches_independent_bspline(configuration):
-    from atomx.config.jj_coupling import generate_jj_average, JJConfig
-    from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
-    from atomx.methods.dirac_fock import DiracFock
+    from atomx.config.jj_coupling import JJConfig, generate_jj_average
     from atomx.config.parsing import parse_nr_shells
+    from atomx.methods.dirac_fock import DiracFock
+    from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
     shells,ensemble = generate_jj_average(configuration,averaging='statistical')
     kept = [i for i,s in enumerate(shells) if s.occupation>0]
     shells = [shells[i] for i in kept]

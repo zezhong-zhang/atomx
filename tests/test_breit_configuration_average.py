@@ -6,11 +6,11 @@ from collections import defaultdict
 import numpy as np
 import pytest
 
+from atomx.angular.csf_hamiltonian import csf_signature, exact_block_matrix
+from atomx.config.csf import enumerate_jj_csfs
 from atomx.config.jj_coupling import generate_jj_average
 from atomx.physics.csf import matrix
 from atomx.physics.csf.breit_ci import breit_configuration_average
-from atomx.config.csf import enumerate_jj_csfs
-from atomx.angular.csf_hamiltonian import csf_signature, exact_block_matrix
 
 
 def _radial(key):

@@ -81,8 +81,8 @@ import numpy as np  # noqa: E402
 
 import benchmarks.nist_asd as nist  # noqa: E402
 from atomx import Atom, Corrections  # noqa: E402
-from atomx.methods import DiracFock, mbpt2_energy  # noqa: E402
 from atomx.config.csf import enumerate_jj_csfs  # noqa: E402
+from atomx.methods import DiracFock, mbpt2_energy  # noqa: E402
 from atomx.physics.dirac import hydrogenic_dirac_energy  # noqa: E402
 
 WORK_DIR = REPO_ROOT / "benchmarks" / "_nist_work"

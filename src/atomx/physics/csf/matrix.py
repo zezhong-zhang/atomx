@@ -25,6 +25,11 @@ from atomx.angular.coefficients import (
     exchange_lambda,
     reduced_cl_j2,
 )
+from atomx.angular.csf_hamiltonian import (
+    MAX_BLOCK_DETERMINANTS,
+    csf_signature,
+    exact_block_matrix,
+)
 from atomx.angular.csf_recoupling import (
     chain_projection_amplitudes,
     make_chain_coupled_state,
@@ -32,11 +37,6 @@ from atomx.angular.csf_recoupling import (
 )
 from atomx.angular.rcfp import ReducedSubshellState
 from atomx.angular.wigner import wigner_6j
-from atomx.angular.csf_hamiltonian import (
-    MAX_BLOCK_DETERMINANTS,
-    csf_signature,
-    exact_block_matrix,
-)
 from atomx.numerics.bspline.convol import (
     ConvolCache,
     _convol_case1_t,
@@ -48,8 +48,9 @@ from atomx.numerics.bspline.convol import (
 )
 from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
 from atomx.numerics.shooting.constants import SL
-from atomx.numerics.shooting.quadrature import slag6, slag6_weights
 from atomx.numerics.shooting.coulomb import _slater_integral_slag6, _yk_over_r
+from atomx.numerics.shooting.operators import _ds_derivative
+from atomx.numerics.shooting.quadrature import slag6, slag6_weights
 
 # Build-scoped memo for Slater integrals and Dirac H0/S0 blocks: every CSF
 # in a CI build shares ONE orbital basis, so the same (orbitals, k)
@@ -296,8 +297,8 @@ def _breit_rk(f1, f2, f3, f4, comps, bsp_data, L):
             from atomx.numerics.yk import compute_yk
 
             gr, grw = workspace_arrays(bsp_data)
-            r_flat = np.ravel(gr)
-            w_flat = np.ravel(grw)
+            np.ravel(gr)
+            np.ravel(grw)
 
             def _eval(coeff, comp):
                 zeros = np.zeros_like(coeff)
@@ -394,9 +395,6 @@ class GridCIWorkspace:
 # Central: antisymmetric weights for offsets ±1..±4; edge rows i=0..3 are
 # the one-sided/offset 8th-order weights on nodes 0..8 (right edge uses the
 # mirrored negated rows — first-derivative parity).
-from atomx.numerics.shooting.operators import (
-    _FD_CENTRAL, _FD_EDGE, _ds_derivative,
-)
 
 
 def _grid_ds(y):

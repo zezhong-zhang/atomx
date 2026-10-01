@@ -43,12 +43,10 @@ import math
 import numpy as np
 
 from atomx.angular.coefficients import cg, ckm
-
-from atomx.potentials.static_field import static_hartree_potential
-
 from atomx.constants import AU_RATE_PER_S, HARTREE_EV
 from atomx.numerics.bspline.evaluate import eval_P, eval_Q
 from atomx.numerics.quadrature import grid_slater_rk, make_fine_grid, p_rel
+from atomx.potentials.static_field import static_hartree_potential
 from atomx.scattering.distorted_wave.solver import (
     _allowed_k,
     _continuum_on_grid,

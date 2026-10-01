@@ -32,7 +32,6 @@ virtual window sweeps must be stable.
 """
 from __future__ import annotations
 
-from functools import lru_cache
 from math import sqrt
 from typing import Dict, List, Sequence, Tuple
 
@@ -170,8 +169,6 @@ def build_sigma2_bubble(orbitals_dict, bsp_data, Z, ns,
     virt = [k for k in virt_keys if k in orbitals_dict]
 
     for j2 in range(0, (j2_max or 16) + 1, 2):
-        rows = []
-        diag = []
         # S blocks: valence-pair x (core, virt) channels
         any_pair = False
         S = np.zeros((len(valence_pairs),
@@ -232,13 +229,12 @@ def build_sigma2_mscheme(orbitals_dict, bsp_data, Z, ns,
     term instead of ~600 Python element calls.
     """
     from functools import lru_cache as _lru
-    from math import sqrt as _sqrt
 
     import numba as _nb
     import numpy as _np
 
-    from atomx.angular.csf_hamiltonian import _m2_values, two_body_angular, twoj
     import atomx.physics.csf.matrix as MAT
+    from atomx.angular.csf_hamiltonian import _m2_values, two_body_angular, twoj
 
     @_nb.njit(cache=True)
     def _bucket_dot(g1, g2, dinv):
@@ -303,7 +299,7 @@ def build_sigma2_mscheme(orbitals_dict, bsp_data, Z, ns,
     G1 = {}
     G2 = {}
     dinv = {}
-    row_of = {}
+    rows1_of, rows2_of = {}, {}
     for delta, js in buckets.items():
         rows1 = [(ia, ic) for ia in val_idx for ic in val_idx
                  if spinors[ia][2] - spinors[ic][2] == delta]
@@ -323,26 +319,28 @@ def build_sigma2_mscheme(orbitals_dict, bsp_data, Z, ns,
         G2[delta] = M2
         dinv[delta] = 1.0 / _np.array([denom_all[j] for j in js])
         for r_, pair in enumerate(rows1):
-            row_of[(delta, pair)] = ("1", r_)
+            rows1_of[(delta, pair)] = r_
         for r_, pair in enumerate(rows2):
-            row_of[(delta, pair)] = ("2", r_)
+            rows2_of[(delta, pair)] = r_
 
     def delta(ia, ib, ic, id_):
         """Antisymmetrised m-scheme screening <ab|dV_A|cd>, spinor indices."""
+        if spinors[ia][2] + spinors[ib][2] != spinors[ic][2] + spinors[id_][2]:
+            return 0.0
         d1 = spinors[ia][2] - spinors[ic][2]   # direct bucket key
         d2 = spinors[ia][2] - spinors[id_][2]  # exchange bucket key
         total = 0.0
-        ra = row_of.get((d1, (ia, ic)))
-        rb = row_of.get((d1, (ib, id_)))
-        if ra and rb:
-            g1 = G1[d1][ra[1]]
-            g2 = G2[d1][rb[1]]
+        ra = rows1_of.get((d1, (ia, ic)))
+        rb = rows2_of.get((d1, (ib, id_)))
+        if ra is not None and rb is not None:
+            g1 = G1[d1][ra]
+            g2 = G2[d1][rb]
             total -= _bucket_dot(g1, g2, dinv[d1])
-        rc = row_of.get((d2, (ia, id_)))
-        rd = row_of.get((d2, (ib, ic)))
-        if rc and rd:
-            g3 = G1[d2][rc[1]]
-            g4 = G2[d2][rd[1]]
+        rc = rows1_of.get((d2, (ia, id_)))
+        rd = rows2_of.get((d2, (ib, ic)))
+        if rc is not None and rd is not None:
+            g3 = G1[d2][rc]
+            g4 = G2[d2][rd]
             total += _bucket_dot(g3, g4, dinv[d2])
         return total
 
@@ -374,11 +372,12 @@ def build_sigma2_holeline(orbitals_dict, bsp_data, Z, ns,
     NEGATIVE/attractive for valence-above-core) before any anchor run.
     """
     from functools import lru_cache as _lru
+
     import numba as _nb
     import numpy as _np
 
-    from atomx.angular.csf_hamiltonian import _m2_values, two_body_angular, twoj
     import atomx.physics.csf.matrix as MAT
+    from atomx.angular.csf_hamiltonian import _m2_values, two_body_angular, twoj
 
     @_nb.njit(cache=True)
     def _pair_dot(p1, p2, dinv):
@@ -471,31 +470,23 @@ def build_sigma2_holeline(orbitals_dict, bsp_data, Z, ns,
         d1 = spinors[ia][2] - spinors[ic][2]
         d2 = spinors[ia][2] - spinors[id_][2]
         total = 0.0
-        for delta, rows, table_pair in ((d1, 0, 0), (d2, 1, 0)):
-            if delta not in buckets:
+        e_ab = eps[spinors[ia][:2]] + eps[spinors[ib][:2]]
+        e_cd = eps[spinors[ic][:2]] + eps[spinors[id_][:2]]
+        for bucket, ac, bd, sign in (
+            (d1, (ia, ic), (ib, id_), -1.0),
+            (d2, (ia, id_), (ib, ic), 1.0),
+        ):
+            if bucket not in buckets:
                 continue
-            js = buckets[delta]
-            mr_e = Dm[delta]
-            if delta == d1:
-                r_ac = rows1_of.get((delta, (ia, ic)))
-                r_bd = rows2_of.get((delta, (ib, id_)))
-                if r_ac is None or r_bd is None:
-                    continue
-                e_ab = eps[spinors[ia][:2]] + eps[spinors[ib][:2]]
-                e_cd = eps[spinors[ic][:2]] + eps[spinors[id_][:2]]
-                dinv = _np.array([
-                    0.5 * (1.0 / (e_ab - mr_e[j]) + 1.0 / (e_cd - mr_e[j]))
-                    for j in range(len(js))])
-                g1 = G1[delta][r_ac]
-                g2 = G2t[delta][r_bd]
-                total -= _pair_dot(g1, g2, dinv)
-                # exchange bubble of the pair family
-                r_ad = rows1_of.get((delta, (ia, id_)))
-                r_bc = rows2_of.get((delta, (ib, ic)))
-                if r_ad is not None and r_bc is not None:
-                    g3 = G1[delta][r_ad]
-                    g4 = G2t[delta][r_bc]
-                    total += _pair_dot(g3, g4, dinv)
+            r_ac = rows1_of.get((bucket, ac))
+            r_bd = rows2_of.get((bucket, bd))
+            if r_ac is None or r_bd is None:
+                continue
+            da, dc = e_ab - Dm[bucket], e_cd - Dm[bucket]
+            if _np.any(abs(da) < denom_floor) or _np.any(abs(dc) < denom_floor):
+                raise ValueError('hole-line intermediate is quasi-degenerate')
+            dinv = 0.5 * (1.0 / da + 1.0 / dc)
+            total += sign * _pair_dot(G1[bucket][r_ac], G2t[bucket][r_bd], dinv)
         return total
 
     delta_hl.spinors = spinors
@@ -521,8 +512,9 @@ def build_sigma1_mscheme(orbitals_dict, bsp_data, Z, ns,
     automatically, so the m-sum collapses per (v, v').
     """
     from functools import lru_cache as _lru
-    from atomx.angular.csf_hamiltonian import _m2_values, two_body_angular, twoj
+
     import atomx.physics.csf.matrix as MAT
+    from atomx.angular.csf_hamiltonian import _m2_values, two_body_angular, twoj
 
     ext = sorted(set(valence_keys) | set(core_keys) | set(virt_keys))
     spinors = [(n, k, m2) for (n, k) in ext
@@ -614,11 +606,12 @@ def build_sigma2_ladder(orbitals_dict, bsp_data, Z, ns,
     measured Q_D gap BEFORE any anchor run.
     """
     from functools import lru_cache as _lru
+
     import numba as _nb
     import numpy as _np
 
-    from atomx.angular.csf_hamiltonian import _m2_values, two_body_angular, twoj
     import atomx.physics.csf.matrix as MAT
+    from atomx.angular.csf_hamiltonian import _m2_values, two_body_angular, twoj
 
     @_nb.njit(cache=True)
     def _pair_dot(p1, p2, dinv):

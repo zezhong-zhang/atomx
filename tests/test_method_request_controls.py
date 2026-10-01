@@ -58,7 +58,8 @@ def test_mcdhf_atom_dispatch_preserves_basis_box_and_screening(monkeypatch):
     monkeypatch.setattr(module, 'MCDHFSolver', Solver)
     atom = Atom(2, config=['1s2', '1s1 2s1'],
                 basis=Basis(ns=47, r_max=31.))
-    screening = lambda r: np.zeros_like(r)
+    def screening(r):
+        return np.zeros_like(r)
     monkeypatch.setattr(atom, '_screening_shift', lambda: screening)
     assert atom.solve(MCDHF(), max_iter=7, tol=2e-7) is sentinel
     assert captured['ns'] == 47

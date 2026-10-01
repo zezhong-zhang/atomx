@@ -2,8 +2,8 @@
 import numpy as np
 import pytest
 
-from atomx.numerics.bspline.evaluate import eval_P, eval_Q
 from atomx.numerics.bspline.basis import prepare_bspline_data
+from atomx.numerics.bspline.evaluate import eval_P, eval_Q
 
 
 @pytest.fixture

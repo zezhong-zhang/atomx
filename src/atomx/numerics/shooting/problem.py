@@ -4,9 +4,9 @@ This numerical context does not decide whether its potential defines the
 physical Hamiltonian, an electron projector, or a preconditioner. That role
 belongs to the calling method. Units are bohr, Hartree and atomic units.
 """
+import hashlib
 from dataclasses import dataclass, field
 from functools import cached_property
-import hashlib
 
 import numpy as np
 

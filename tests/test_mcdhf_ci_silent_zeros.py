@@ -30,9 +30,9 @@ import pytest
 from _be_reference import BE_DC_SANITY_FLOOR
 
 from atomx import Atom
+from atomx.config.csf import get_shared_orbital_basis, make_csf_list
 from atomx.methods.ci import ci_solve
 from atomx.methods.dirac_fock import DFSolver, Subshell
-from atomx.config.csf import get_shared_orbital_basis, make_csf_list
 from atomx.methods.mcdhf.excitations import (
     generate_sd_excitations,
     suggest_virtual_orbitals,

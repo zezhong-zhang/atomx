@@ -148,8 +148,8 @@ def build_au_atom(charge: int) -> Atom:
                 Z=Z_AU,
                 charge=charge,
                 config=list(au_m_shell_configs(charge)),
-                exchange="gu",
-                correlation=Correlation(averaging="statistical"),
+                exchange="hf",
+                correlation=Correlation(averaging="ci"),
            )
     # Explicit marker used by the benchmark/tests.  Atom itself does not yet
     # own a UTA switch, so the panel fixture forces UTA behavior at this layer.

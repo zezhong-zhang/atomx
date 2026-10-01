@@ -101,8 +101,8 @@ def test_resolved_p_recoil_checks_both_kappa_signs():
 
 
 def test_csf_recoil_expectation_includes_off_diagonal_radial_terms():
-    from atomx.corrections.recoil import recoil_state_parameters
     from atomx.config.csf import enumerate_jj_csfs
+    from atomx.corrections.recoil import recoil_state_parameters
 
     r = np.linspace(1e-6, 40, 8000)
     w = np.full_like(r, r[1] - r[0])

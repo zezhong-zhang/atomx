@@ -38,7 +38,6 @@ from atomx.properties.hyperfine.nuclear_moments import (
     g_factor,
     nuclear_moment,
 )
-
 from atomx.properties.hyperfine.quadrupole import (
     BARN_BOHR2,
     hyperfine_B,

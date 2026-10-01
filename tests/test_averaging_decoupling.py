@@ -75,7 +75,7 @@ def test_hamiltonian_state_differs_from_statistical_ensemble(carbon):
 
 
 def test_hamiltonian_keeps_two_body_coherence(carbon):
-    from atomx.physics.csf.matrix import build_ci_matrix, GridCIWorkspace
+    from atomx.physics.csf.matrix import GridCIWorkspace, build_ci_matrix
     result = carbon.result
     keys = tuple(result.occupations)
     if carbon.engine == 'shooting':
@@ -180,6 +180,7 @@ def test_mcdhf_shooting_engine_rejects_bspline_only_options():
 
 def test_californium_dispatch_has_one_nr_configuration_and_no_mc_entry(monkeypatch):
     from types import SimpleNamespace
+
     from atomx.methods.hamiltonian_df import HamiltonianDFSolver
     calls = []
     def forbid(*args, **kwargs):

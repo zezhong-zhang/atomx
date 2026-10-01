@@ -21,8 +21,8 @@ from __future__ import annotations
 
 import pytest
 
-from atomx.data.nuclear_structure import TABLE as NUCLEAR_STRUCTURE
 from atomx.constants import PROTON_ELECTRON_MASS_RATIO
+from atomx.data.nuclear_structure import TABLE as NUCLEAR_STRUCTURE
 from atomx.methods.dirac_fock import DFSolver, Subshell
 from atomx.properties.hyperfine import (
     hyperfine_A,
@@ -152,7 +152,9 @@ def na_dhf_result():
         Subshell(n=3, kappa=-1, occupation=1),
     ]
     solver = DFSolver(Z=11, subshells=shells, ns=60, ks=9, exchange="hf")
-    return solver, solver.solve(max_iter=100, tol=1e-7)
+    result = solver.solve(max_iter=100, tol=1e-8, mode="orbital", damping=0.5)
+    assert result.converged, result.residual
+    return solver, result
 
 
 class TestSodium:
@@ -427,7 +429,14 @@ class TestFiniteNuclearMass:
         assert pytest.approx(1418.9532, abs=2e-3) == rungs["finite_nuclear_mass"]
         # The raw DHF value sits +610.46 ppm above the measured 21-cm line.
         gap_ppm = (rungs["dhf"] / 1420.405751768 - 1.0) * 1e6
-        assert pytest.approx(610.46, abs=0.05) == gap_ppm
+        # The independent point-nucleus Dirac 1s radial integral gives
+        # A = (4/3) alpha^2 g_I Z^3 / [m_p gamma(2 gamma-1)].
+        from atomx.constants import ALPHA
+        from atomx.properties.hyperfine.dipole import HARTREE_MHZ
+        gamma = (1-ALPHA**2)**0.5
+        analytic = ((4/3)*ALPHA**2*nuclear_moment(1,1).g_I /
+                    (PROTON_ELECTRON_MASS_RATIO*gamma*(2*gamma-1))*HARTREE_MHZ)
+        assert rungs["dhf"] == pytest.approx(analytic,rel=2e-6)
         # ... and the -1632 ppm reduced-mass term dominates that budget.
         assert abs((factor - 1.0) * 1e6) > 2.0 * gap_ppm
 

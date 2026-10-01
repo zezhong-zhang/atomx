@@ -19,8 +19,8 @@ import re
 
 import pytest
 
-from atomx.config.jj_coupling import generate_jj_average
 from atomx.config.csf import _parse_config_string
+from atomx.config.jj_coupling import generate_jj_average
 
 
 def _avg_occ(subshells):

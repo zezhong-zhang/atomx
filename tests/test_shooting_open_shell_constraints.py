@@ -1,10 +1,11 @@
 """Independent variational and cross-engine controls for occupied exchange."""
 import numpy as np
 import pytest
+
 from atomx.config.jj_coupling import generate_jj_average
 from atomx.methods.dirac_fock import DFSolver
-from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
 from atomx.numerics.radial_metric import RadialMetric
+from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
 
 
 def test_lithium_open_shell_matches_variational_bspline():

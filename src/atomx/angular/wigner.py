@@ -8,8 +8,8 @@ All angular momentum arguments are twice the physical value (integer storage):
 The "t" prefix means "twice j" throughout this module.
 """
 
-from functools import lru_cache
 import math
+from functools import lru_cache
 
 import numba as nb
 import numpy as np

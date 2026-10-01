@@ -17,9 +17,10 @@ For full control, drop into the constructor::
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, replace
 from typing import Optional
-import math
+
 from atomx.numerics.shooting.adaptive import RadialRefinement
 
 

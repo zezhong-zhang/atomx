@@ -12,9 +12,20 @@ import numpy as np
 import pytest
 
 from atomx.config.csf import enumerate_jj_csfs_many, get_shared_orbital_basis
-from atomx.physics.csf.matrix import build_ci_matrix, _group_csf_indices, _radial_evaluator, _reset_memo
+from atomx.physics.csf.matrix import (
+    _group_csf_indices,
+    _radial_evaluator,
+    _reset_memo,
+    build_ci_matrix,
+)
 from benchmarks.bench_reference_ci_operator import (
-    angular_blocks, common_grid, compare_spectra, freeze, one_body_constant_shift, spectrum)
+    angular_blocks,
+    common_grid,
+    compare_spectra,
+    freeze,
+    one_body_constant_shift,
+    spectrum,
+)
 
 DATA = Path(__file__).parent/'data'
 REFERENCE = json.loads((DATA/'fac_ci_operator.json').read_text())

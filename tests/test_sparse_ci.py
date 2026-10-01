@@ -89,7 +89,7 @@ def test_sparse_spectrum_matches_exact_csf_blocks(be):
 
 def test_sparse_matches_mscheme_oracle(be):
     dhf, od, csfs = be
-    from mscheme_ci_reference import patterns_from_configs, mscheme_levels
+    from mscheme_ci_reference import mscheme_levels, patterns_from_configs
     patterns = patterns_from_configs(CONFIGS)
     w_oracle, n_oracle = mscheme_levels(od, dhf.bsp_data, 4, dhf.ns,
                                         patterns, M2=0)
@@ -127,9 +127,11 @@ def test_sparse_j_levels_match_exact_csf_blocks(be):
 def test_numba_path_identical_to_python_reference(be):
     """The numba two-phase build must reproduce the reference loop's CSR
     element-for-element (same values, same sparsity)."""
-    import scipy.sparse as spa
     from atomx.physics.csf.sparse_ci import (
-        _assemble_numba, _assemble_reference, assemble_sparse_hamiltonian)
+        _assemble_numba,
+        _assemble_reference,
+        assemble_sparse_hamiltonian,
+    )
     dhf, od, csfs = be
     pats = patterns_from_csfs(csfs)
     masks, spinors = enumerate_determinants(pats, od, 0)
@@ -146,7 +148,10 @@ def test_sparse_breit_matches_exact_engine(be):
     """include_breit on the sparse path must reproduce the exact engine's
     Breit-in-CI spectrum (Gaunt + retardation inside every block)."""
     from atomx.physics.csf.sparse_ci import (
-        _assemble_reference, assemble_sparse_hamiltonian, sparse_ci_spectrum)
+        _assemble_reference,
+        assemble_sparse_hamiltonian,
+        sparse_ci_spectrum,
+    )
     dhf, od, csfs = be
     pats = patterns_from_csfs(csfs)
     masks, spinors = enumerate_determinants(pats, od, 0)

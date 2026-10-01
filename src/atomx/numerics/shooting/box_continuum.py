@@ -161,7 +161,7 @@ class BoxDiracContinuum:
                 brackets.append((lo, hi))
                 continue
             mid = .5*(lo+hi)
-            if mid == lo or mid == hi:
+            if mid in (lo, hi):
                 raise RuntimeError('unresolved negative box root bracket')
             _, nm, _ = self._shoot(mid, kappa)
             pending.extend([(lo, mid, nlo, nm), (mid, hi, nm, nhi)])
@@ -173,7 +173,7 @@ class BoxDiracContinuum:
             allowed = np.flatnonzero(self.rv[1:]/self.r[1:] < .5*(lo+hi))+1
             index = int(np.clip(allowed[-1] if len(allowed) else len(self.r)//2,
                                 2, len(self.r)-3))
-            def match(energy, reconstruct=False):
+            def match(energy, reconstruct=False, *, index=index):
                 # Match directions, not globally scaled amplitudes. A heavy
                 # nucleus in a large box can span thousands of exponential
                 # log units: rescaling an entire shooting history erases the

@@ -1,5 +1,6 @@
 """Correction preflight and result validation before energy mutation."""
 from types import SimpleNamespace
+
 import pytest
 
 from atomx.corrections.protocol import CorrectionResult
@@ -101,8 +102,9 @@ def test_operator_overlap_rejected_before_any_evaluation(name, operator, stage):
 
 
 def test_operator_stages_persist_and_guard_reapplication():
-    from atomx.io.results import _encode_metadata, _restore_metadata
     import json
+
+    from atomx.io.results import _encode_metadata, _restore_metadata
     result = SimpleNamespace(total_energy=-1., energy_components={})
     finalize_with_corrections(result, stack(Term('breit', shift=0.)))
     restored = SimpleNamespace()

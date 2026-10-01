@@ -1,6 +1,7 @@
 """DBSR radial/energy comparison independent of orbital optimization."""
 import json
 from pathlib import Path
+
 import numpy as np
 import pytest
 

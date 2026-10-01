@@ -54,8 +54,8 @@ print("delta_ladder(2s2s) =", lad(up, dn, up, dn))
 
 # --- manual mirror of delta_ladder internals (cannot reach closures, so
 # rebuild the same tables here with the module's exposed spinors) ---
-from atomx.angular.csf_hamiltonian import two_body_angular
 import atomx.physics.csf.matrix as MAT
+from atomx.angular.csf_hamiltonian import two_body_angular
 
 spinors = lad.spinors
 virt_idx = [i for i, s in enumerate(spinors) if s[:2] in set(Q)]

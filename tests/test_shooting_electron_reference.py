@@ -1,20 +1,25 @@
 """Matched electron projectors must recover the same occupied HF problem."""
 
 import hashlib
+
 import numpy as np
-from scipy.interpolate import CubicSpline
-from atomx.config.jj_coupling import generate_jj_average
-from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
-from atomx.numerics.shooting.electron_space import continuum_enriched_electron_space
-from atomx.numerics.shooting.orbital_optimization import optimize_grid_shooting
 import pytest
+from scipy.interpolate import CubicSpline
 
 from atomx.config.csf import enumerate_jj_csfs_many
-from atomx.methods.csf.grid_functional import GridCSFFunctional
-from atomx.numerics.shooting.electron_space import bound_electron_space
-from atomx.methods.csf.grid_functional import occupied_1s2_reference_potential
-from atomx.physics.csf.matrix import GridCIWorkspace
+from atomx.config.jj_coupling import generate_jj_average
+from atomx.methods.csf.grid_functional import (
+    GridCSFFunctional,
+    occupied_1s2_reference_potential,
+)
+from atomx.numerics.shooting.electron_space import (
+    bound_electron_space,
+    continuum_enriched_electron_space,
+)
 from atomx.numerics.shooting.grid import sgrid
+from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
+from atomx.numerics.shooting.orbital_optimization import optimize_grid_shooting
+from atomx.physics.csf.matrix import GridCIWorkspace
 
 
 def compare_reference(z, *, grid=4000, continuum=160, nuclear="fermi"):

@@ -11,13 +11,13 @@ import numpy as np
 
 from atomx.methods.ci import ci_solve
 from atomx.numerics.bspline.convol import (
-    ConvolCache,
     SEMISEPARABLE_DIRECT_NS,
-    _convol_case1_semiseparable_t,
-    compute_slater_rk_cell,
+    ConvolCache,
     _banded_to_full_add,
+    _convol_case1_semiseparable_t,
     _convol_case1_t,
     _density_sym,
+    compute_slater_rk_cell,
 )
 from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
 

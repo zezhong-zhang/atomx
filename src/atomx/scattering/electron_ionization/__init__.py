@@ -36,11 +36,9 @@ from typing import Any, Dict, Optional
 
 import numpy as np
 
-from atomx.numerics.radial_metric import RadialMetric
-
-from atomx.potentials.static_field import static_hartree_potential
-
 from atomx.constants import BOHR_RADIUS_M, C_SQ, HARTREE_EV
+from atomx.numerics.radial_metric import RadialMetric
+from atomx.potentials.static_field import static_hartree_potential
 from atomx.scattering._jit_kernels import eii_dw_inner_sum, trapezoidal_integrate
 
 # π·a₀² in cm² (atomic-physics cross-section unit)
@@ -544,8 +542,13 @@ def _eii_dw_total(
     phase - the exchange coefficient includes it). The computed partial-wave
     sum is returned by default; geometric incident-tail completion is opt-in.
     """
+    from atomx.angular.coefficients import (
+        coupled_coulomb_direct,
+        coupled_coulomb_exchange,
+    )
     from atomx.constants import HARTREE_EV as _HEV
     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
+    from atomx.numerics.extrapolation import geometric_tail_estimate
     from atomx.numerics.quadrature import (
         make_fine_grid,
         p_rel,
@@ -555,9 +558,7 @@ def _eii_dw_total(
     from atomx.numerics.shooting.dirac_continuum import (
         DiracContinuumBatch,
     )
-    from atomx.angular.coefficients import coupled_coulomb_direct, coupled_coulomb_exchange
     from atomx.scattering._jit_kernels import eii_dw_channel_jsum
-    from atomx.numerics.extrapolation import geometric_tail_estimate
     from atomx.scattering.distorted_wave.solver import (
         _allowed_k,
         _l_of,
@@ -1021,7 +1022,7 @@ def _eii_dw_total(
         prov_per_orb[sh.label] = {
             "I_eV": I_a_au * _HEV, "occupation": q_a,
             "kappa_max": kappa_max,
-            "channel_l_limits": dict(zip(('incident', 'slow', 'fast'), channel_limits)),
+            "channel_l_limits": dict(zip(('incident', 'slow', 'fast'), channel_limits, strict=False)),
             "n_E1_quadrature": n_outgoing_energies if e1_grid_frac is None else len(e1_grid_frac),
             "energy_sharing_quadrature": ('gauss-legendre-sinh-squared' if e1_grid_frac is None
                                           else 'custom-trapezoid'),

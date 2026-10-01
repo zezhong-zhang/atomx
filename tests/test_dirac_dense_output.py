@@ -5,9 +5,12 @@ from pathlib import Path
 import numpy as np
 import pytest
 from scipy.special import spherical_jn
+
 from atomx.constants import C
 from atomx.numerics.shooting.dirac_continuum import (
-    solve_dirac_continuum_shooting, solve_dirac_continuum_many)
+    solve_dirac_continuum_many,
+    solve_dirac_continuum_shooting,
+)
 
 
 @pytest.mark.parametrize('energy', [.01, 10., 7500.])
@@ -49,8 +52,9 @@ def test_threaded_dense_samples_match_scalar_and_return_output_grid():
 
 
 def test_reusable_batch_preserves_waves_refreshes_field_and_releases_workers(monkeypatch):
-    from concurrent.futures import ThreadPoolExecutor
     import concurrent.futures
+    from concurrent.futures import ThreadPoolExecutor
+
     from atomx.numerics.shooting.dirac_continuum import DiracContinuumBatch
     pools = []
 
@@ -89,9 +93,10 @@ def test_reusable_batch_preserves_waves_refreshes_field_and_releases_workers(mon
 
 
 def test_reusable_batch_releases_workers_after_wave_failure(monkeypatch):
-    import atomx.numerics.shooting.dirac_continuum as continuum
-    from concurrent.futures import ThreadPoolExecutor
     import concurrent.futures
+    from concurrent.futures import ThreadPoolExecutor
+
+    import atomx.numerics.shooting.dirac_continuum as continuum
     closed = []
 
     class CountedPool(ThreadPoolExecutor):
@@ -104,9 +109,9 @@ def test_reusable_batch_releases_workers_after_wave_failure(monkeypatch):
 
     monkeypatch.setattr(concurrent.futures, 'ThreadPoolExecutor', CountedPool)
     monkeypatch.setattr(continuum, '_solve_prepared', fail)
-    with pytest.raises(RuntimeError, match='kappa=-1, E=1.0 Ha'):
-        with continuum.DiracContinuumBatch(lambda r: -2/r, workers=2) as batch:
-            batch.solve_many([(-1, 1.), (1, 2.), (-3, 3.)])
+    with (pytest.raises(RuntimeError, match='kappa=-1, E=1.0 Ha'),
+          continuum.DiracContinuumBatch(lambda r: -2/r, workers=2) as batch):
+        batch.solve_many([(-1, 1.), (1, 2.), (-3, 3.)])
     assert closed
 
 
@@ -152,8 +157,8 @@ def test_high_partial_wave_dense_output_preserves_tiny_regular_solution(kappa, e
 
 
 def test_zero_middle_interval_is_not_confused_with_regular_origin_boundary():
-    from atomx.numerics.shooting.dirac_power_series import dir0
     from atomx.numerics.shooting.dirac_integrator import dir_integrate
+    from atomx.numerics.shooting.dirac_power_series import dir0
     args = (1., -65., 1e-10, 0., 0.)
     p, q, ca, cb, _, _, terms = dir0(*args, 1., 2., -2., 0., 0., 0.)
     assert p == q == 0. and terms < 60
@@ -176,7 +181,7 @@ REFERENCE = json.loads((Path(__file__).parent/'data/radial_screened_continuum_re
 
 @pytest.mark.parametrize('case', REFERENCE['cases'])
 def test_screened_dense_output_against_external_radial_dfree(case):
-    assert C == REFERENCE['speed_of_light']
+    assert REFERENCE['speed_of_light'] == C
     samples = np.array(case['samples'])
     target, reference = samples[:, 0], samples[:, 1:].T
     def potential(r):
@@ -194,8 +199,8 @@ def test_screened_dense_output_against_external_radial_dfree(case):
 
 @pytest.mark.parametrize('kappa', [-1, 1, -3, 5])
 def test_adaptive_origin_sampling_preserves_regular_solution_scale(kappa):
-    from atomx.numerics.shooting.dirac_sampling import sample_dirac_solution
     from atomx.numerics.shooting.dirac_power_series import dir0
+    from atomx.numerics.shooting.dirac_sampling import sample_dirac_solution
     # A constant deep potential is an exactly soluble numerical stress case.
     # Its first interval contains many oscillations and cannot use one series.
     energy, depth = 1., 1e7

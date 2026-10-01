@@ -2,6 +2,7 @@
 import numpy as np
 from scipy.linalg import cholesky, eigh, qr, solve_triangular
 from scipy.optimize import brentq
+
 from atomx.numerics.shooting.constants import SL
 
 
@@ -59,6 +60,18 @@ def solve_constrained_source(hamiltonian, metric, source, reference, *,
                 coefficient[target] *= -1
             energy, vector = pole, states @ coefficient
         else:
+            if norm_defect(low) > 0:
+                # A source residue at the preceding pole makes the norm
+                # diverge at both ends. It is strictly convex between
+                # poles; bracket the upper root from its unique minimum.
+                def norm_derivative(energy):
+                    return float(2*np.sum(amplitudes**2/(energies-energy)**3))
+
+                if norm_derivative(low) >= 0:
+                    raise ValueError('no normalized source root on the requested branch')
+                low = brentq(norm_derivative, low, high, xtol=1e-11)
+                if norm_defect(low) > 0:
+                    raise ValueError('no normalized source root between adjacent poles')
             energy = brentq(norm_defect, low, high, xtol=1e-11)
             vector = states @ (amplitudes/(energies-energy))
     out = np.zeros_like(reference)

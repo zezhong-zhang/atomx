@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
+
 from atomx.constants import HARTREE_EV
 
 #: CODATA hartree → cm⁻¹ (the value quoted in the task brief; identical to

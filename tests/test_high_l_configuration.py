@@ -6,8 +6,8 @@ from atomx.config.jj_coupling import generate_jj_average
 from atomx.config.parsing import parse_nr_shells
 from atomx.methods.dirac_fock import DiracFock
 from atomx.physics.dirac import hydrogenic_dirac_energy
-from atomx.types import NuclearModel
 from atomx.reference_data.matching import expand_nist_config
+from atomx.types import NuclearModel
 
 
 def test_k_configuration_expansion_and_statistical_jj_weights():
@@ -47,6 +47,7 @@ def test_complete_bethe_log_reference_includes_l_states():
     assert klamaq_f(9,8)==pytest.approx(expected,abs=1e-15)
 def test_generic_l_placeholder_is_not_a_physical_orbital():
     import pytest
+
     from atomx.config.parsing import parse_nr_shells
     from atomx.reference_data.matching import expand_nist_config
 

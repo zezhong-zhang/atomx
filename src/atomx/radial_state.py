@@ -5,7 +5,9 @@ remain on their result: effective occupations must never replace coherences.
 """
 from dataclasses import dataclass
 from types import MappingProxyType
+
 import numpy as np
+
 from atomx.numerics.radial_metric import RadialMetric
 
 

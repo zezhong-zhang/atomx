@@ -812,9 +812,10 @@ class Atom:
         if method is not None or self.engine != 'shooting' or self._multi_config:
             raise ValueError('radial_refinement requires single-configuration shooting via Atom.solve()')
         from dataclasses import replace
+
+        from atomx.config.csf import _parse_config_string
         from atomx.numerics.shooting.adaptive import RadialSample, refine_radial_grid
         from atomx.radial_state import native_radial_state
-        from atomx.config.csf import _parse_config_string
 
         requested_box, requested_points = self.r_max, self._n_grid
         shells = _parse_config_string(self._config_strings[0])
@@ -1214,11 +1215,11 @@ class Atom:
 
     def _solve_method(self, method, tol, max_iter, log=None, *, orbital_tolerance=None):
         """Dispatch to a theory-level method object."""
+        from atomx.methods.breit_pauli import BreitPauli
         from atomx.methods.dirac_fock import DiracFock
         from atomx.methods.hartree_fock_slater import HartreeFockSlater
         from atomx.methods.hydrogenic import HydrogenicDirac, HydrogenicSchrodinger
         from atomx.methods.mcdhf import MCDHF
-        from atomx.methods.breit_pauli import BreitPauli
 
         if orbital_tolerance is not None and not isinstance(method, DiracFock):
             raise ValueError('orbital_tolerance is an L2 DF update threshold; '

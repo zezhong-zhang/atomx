@@ -16,8 +16,8 @@ the configuration-average recoil API for an independently averaged ensemble.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field
 import math
+from dataclasses import dataclass, field
 
 from atomx.angular.coefficients import reduced_C
 from atomx.corrections.specific_recoil import configuration_average_recoil_contributions

@@ -11,10 +11,10 @@ sys.path.insert(0, str(ROOT / "benchmarks"))
 
 from fac_runner import (  # noqa: E402
     parse_ci,
+    radial_grid_command,
     require_sfac_bin,
     resolve_sfac_bin,
     run_sfac,
-    radial_grid_command,
 )
 
 

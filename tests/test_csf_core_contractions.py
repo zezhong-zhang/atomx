@@ -1,8 +1,10 @@
 """Common-core normal ordering preserves exact determinant matrix elements."""
 from itertools import combinations
+
 import numpy as np
 import pytest
-from atomx.angular.csf_hamiltonian import _pair_terms, _core_contracted_pair_terms
+
+from atomx.angular.csf_hamiltonian import _core_contracted_pair_terms, _pair_terms
 from atomx.physics.csf.breit_ci import breit_terms
 
 

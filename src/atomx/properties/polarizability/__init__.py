@@ -304,7 +304,11 @@ def _bbr_shift_from_alpha(
     # black-body field formula. This guarantees the constant-alpha
     # limit matches the static branch above.
     x = omega / kT_au
-    weight = np.where(x > 700, 0.0, np.where(x < 1e-6, x ** 2, x ** 3 / np.expm1(x)))
+    weight = np.zeros_like(x)
+    small = x < 1e-6
+    resolved = (x >= 1e-6) & (x <= 700)
+    weight[small] = x[small] ** 2
+    weight[resolved] = x[resolved] ** 3 / np.expm1(x[resolved])
     integrand = weight * alpha
 
     _trap = np.trapezoid if hasattr(np, "trapezoid") else np.trapz

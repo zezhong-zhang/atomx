@@ -1,5 +1,6 @@
 """Final-state CI, photon frequencies and coherent stabilization amplitudes."""
 from types import SimpleNamespace
+
 import numpy as np
 import pytest
 

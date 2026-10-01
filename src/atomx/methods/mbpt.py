@@ -303,6 +303,7 @@ def build_virtual_basis(
     cache: Optional[ConvolCache] = None,
     e_max: Optional[float] = None,
     potential_mode: str = "VN",
+    orthogonal_to_occupied: bool = False,
 ) -> Tuple[List[Tuple[np.ndarray, np.ndarray, float]], List[Tuple[np.ndarray, np.ndarray, float]]]:
     """Diagonalise h_κ in the converged B-spline basis.
 
@@ -323,7 +324,14 @@ def build_virtual_basis(
 
     H, S = _build_closed_shell_fock(scf_result, kappa, cache=cache,
                                      potential_mode=potential_mode)
-    res = solve_dirac(H, S, ns_full, kappa, nsp=nsp, nsq=nsq)
+    stored = [(P, Q, sh) for (P, Q, q), sh in zip(
+        scf_result.orbitals_raw.get(kappa, []),
+        [s for s in scf_result.subshells if s.kappa == kappa], strict=True)
+        if q > 0.01]
+    constraints = (np.column_stack([np.r_[P, Q] for P, Q, _ in stored])
+                   if orthogonal_to_occupied and stored else None)
+    res = solve_dirac(H, S, ns_full, kappa, nsp=nsp, nsq=nsq,
+                      orthogonal_to=constraints)
 
     # Filter to physical states (above Dirac negative-energy continuum)
     physical_mask = res.eigenvalues > -1.5 * C_SQ
@@ -348,6 +356,11 @@ def build_virtual_basis(
         P[:nsp] = vec[:nsp]
         Q[:nsq] = vec[ns_full:ns_full + nsq]
         states.append((P, Q, float(res.eigenvalues[i])))
+
+    if orthogonal_to_occupied:
+        occupied = [(P, Q, scf_result.orbital_energies[sh.label])
+                    for P, Q, sh in stored]
+        return occupied, states
 
     # Identify which states are the occupied ones — by overlap with
     # the stored DHF orbitals.

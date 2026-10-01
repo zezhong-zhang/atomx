@@ -34,7 +34,8 @@ def test_native_frozen_core_reproduces_all_fac_levels(case):
     waves, ws = common_grid(sources, case['z'], 8000, alpha=case['fac_alpha'])
     native = _radial_evaluator(waves, ws, case['z'], ws.n)
     fac = {freeze(row['key']): row['value_Ha'] for row in case['radial']}
-    radial = lambda key: fac[key] if key[0] == 'h' else native(key)
+    def radial(key):
+        return fac[key] if key[0] == 'h' else native(key)
     active = set(waves)-{(1, -1)}
     one_body = closed_core_one_body(active, {(1, -1): 2}, radial)
     core_energy = 2*fac['h', 1, -1, 1]+radial(('r', 0, *((1, -1),)*4))
@@ -78,7 +79,7 @@ def test_closed_shell_exchange_matches_explicit_m_sum(core_kappa, active_kappa):
     for rank in _allowed_k(active_kappa, core_kappa):
         # A pure exchange radial integral isolates the angular coefficient;
         # n_a != n_b tests the same coefficient in off-diagonal h_eff.
-        def radial(key):
+        def radial(key, *, rank=rank):
             return float(key == ('r', rank, a, c, c, b))
         reduced = -closed_core_one_body([a, b], {c: 2*abs(core_kappa)}, radial)[a, b]
         ja, jc = 2*abs(active_kappa)-1, 2*abs(core_kappa)-1

@@ -23,13 +23,13 @@ import numpy as np
 import pytest
 
 from atomx.angular.coefficients import exchange_k_range, exchange_lambda
+from atomx.config.csf import CSF, get_shared_orbital_basis
 from atomx.methods.ci import ci_solve
 from atomx.methods.dirac_fock import Subshell
-from atomx.physics.csf import matrix as ci_matrix
-from atomx.config.csf import CSF, get_shared_orbital_basis
-from atomx.physics.csf.matrix import GridCIWorkspace, build_ci_matrix
 from atomx.numerics.shooting.grid import sgrid
 from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
+from atomx.physics.csf import matrix as ci_matrix
+from atomx.physics.csf.matrix import GridCIWorkspace, build_ci_matrix
 
 TOTAL_RTOL = 1.0e-6      # gate (a)
 EIGEN_RTOL = 1.0e-5      # gate (b)

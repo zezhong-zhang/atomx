@@ -150,8 +150,8 @@ class TestAngularFactors:
 
 def test_closed_shell_e1_particle_hole_obeys_one_electron_sum_rule(monkeypatch):
     """A filled shell has unit total strength per occupied magnetic spinor."""
-    from atomx.methods.dirac_fock import Subshell
     from atomx.config.csf import CSF
+    from atomx.methods.dirac_fock import Subshell
     from atomx.properties.transitions import calculator as calc_mod
     from atomx.properties.transitions.calculator import TransitionCalculator
 

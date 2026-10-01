@@ -14,7 +14,11 @@ from scipy.interpolate import make_interp_spline
 
 from atomx.numerics.radial_workspace import make_grid_workspace
 from atomx.properties.transitions.angular import angular_eL, angular_mL
-from atomx.properties.transitions.multipole import radial_eL, radial_eL_velocity, radial_mL
+from atomx.properties.transitions.multipole import (
+    radial_eL,
+    radial_eL_velocity,
+    radial_mL,
+)
 from atomx.properties.transitions.rates import einstein_A_eL
 
 

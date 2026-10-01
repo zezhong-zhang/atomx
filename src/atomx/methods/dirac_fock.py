@@ -16,6 +16,7 @@ import numpy as np
 from atomx.angular.coefficients import (
     exchange_k_range,
 )
+from atomx.config.subshell import Subshell
 from atomx.methods.base import Method
 from atomx.methods.scf_observables import SCFObservablesMixin
 from atomx.numerics.bspline.basis import prepare_bspline_data
@@ -29,7 +30,6 @@ from atomx.numerics.bspline.dirac_assembly import (
     canonicalize_radial_phase,
     solve_dirac,
 )
-from atomx.numerics.yk import compute_yk
 from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 from atomx.numerics.bspline.integrals import (
     _assemble_integral,
@@ -38,10 +38,8 @@ from atomx.numerics.bspline.integrals import (
 )
 from atomx.numerics.bspline.knots import make_knots
 from atomx.numerics.diis import diis_extrapolate
+from atomx.numerics.yk import compute_yk
 from atomx.types import Exchange, TheoryLevel
-
-
-from atomx.config.subshell import Subshell
 
 
 def _canonicalized_orbitals_raw(orbitals):
@@ -159,7 +157,7 @@ class SCFResult(SCFObservablesMixin):
     @property
     def waves(self):
         """Build :class:`atomx.results.Waves` container from B-spline coefficients."""
-        from atomx.results import OrbitalWavefunction, Waves, RadialMetric
+        from atomx.results import OrbitalWavefunction, RadialMetric, Waves
         if not self.orbitals_raw or not self._bsp_data:
             return Waves(grid=np.array([]))
 
@@ -2343,9 +2341,8 @@ class DFSolver:
         :func:`atomx.corrections.stack.finalize_with_corrections`, which
         the shooting path shares.
         """
-        from atomx.corrections.stack import finalize_with_corrections
-
         from atomx.calculation_spec import resolved_solver_spec
+        from atomx.corrections.stack import finalize_with_corrections
         result.calculation_spec = resolved_solver_spec(self, method='DHF' if self.exchange == 'hf' else 'DFS', engine='bspline',
             controls=getattr(self, '_calculation_controls', {}))
         result._nuclear_potential = self._nuclear_potential

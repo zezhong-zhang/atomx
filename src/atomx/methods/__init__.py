@@ -11,13 +11,12 @@ Pedagogical progression:
 """
 
 from atomx.methods.base import Method
+from atomx.methods.breit_pauli import BreitPauli
 from atomx.methods.dirac_fock import DiracFock
 from atomx.methods.hartree_fock_slater import HartreeFockSlater
-
 from atomx.methods.hydrogenic import HydrogenicDirac, HydrogenicSchrodinger
 from atomx.methods.mbpt import MBPT2Result, mbpt2_energy
 from atomx.methods.mcdhf import MCDHF
-from atomx.methods.breit_pauli import BreitPauli
 
 __all__ = [
     "Method",

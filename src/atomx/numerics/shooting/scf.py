@@ -5,12 +5,15 @@ energy objective, and an occupied-space stationarity measure. This engine
 owns root solves, normalization, damping and numerical stopping criteria.
 Callbacks act on whole radial arrays; there is no per-grid-point callback.
 """
-from dataclasses import dataclass
 import math
+from dataclasses import dataclass
+
 import numpy as np
+
 from atomx.numerics.shooting.dirac_bound import dbound
 from atomx.numerics.shooting.dirac_orbital import (
-    solve_inhomogeneous_orbital, FrozenSourceConvergenceError,
+    FrozenSourceConvergenceError,
+    solve_inhomogeneous_orbital,
 )
 from atomx.numerics.shooting.quadrature import slag6
 from atomx.numerics.shooting.spline import splin0
@@ -131,7 +134,7 @@ def iterate_nonlocal_orbitals(pa, qa, ev, *, ns, kappas, groups, r, difr,
                 p_new, q_new, e_new, report = solve_nonlocal_bound_state(
                     e_seed, ns[a], kappas[a], ShootingRadialProblem(r, difr, rv_loc),
                     np.array([pa[a], qa[a]]),
-                    lambda trial: exchange_action(a, trial, pa, qa))
+                    lambda trial, *, a=a: exchange_action(a, trial, pa, qa))
                 # Retain this formulation: alternating it with frozen-source
                 # roots can destabilize an otherwise converged orbital.
                 nonlocal_orbitals.add(a)

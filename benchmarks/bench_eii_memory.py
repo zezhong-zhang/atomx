@@ -3,12 +3,13 @@ import argparse
 import hashlib
 import importlib.util
 import json
-from pathlib import Path
 import resource
 import sys
 import time
+from pathlib import Path
 
 import numba
+
 from atomx import Atom
 from atomx.constants import HARTREE_EV
 from atomx.scattering import ContinuumModel

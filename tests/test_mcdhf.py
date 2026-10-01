@@ -7,14 +7,14 @@ import numpy as np
 import pytest
 from _be_reference import BE_DC_SANITY_FLOOR
 
-from atomx.constants import HARTREE_CM1
-from atomx.methods.dirac_fock import Subshell
 from atomx.config.csf import (
     _parse_config_string,
     enumerate_jj_csfs,
     get_shared_orbital_basis,
     make_csf_list,
 )
+from atomx.constants import HARTREE_CM1
+from atomx.methods.dirac_fock import Subshell
 from atomx.methods.mcdhf.solver import MCDHFResult, MCDHFSolver
 
 

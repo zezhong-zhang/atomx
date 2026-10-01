@@ -8,9 +8,12 @@ import numpy as np
 import pytest
 
 from atomx import Atom, Basis, Sampling
-from atomx.scattering.autoionization import dr_calculate, dr_rate_coefficient
+from atomx.scattering.autoionization import (
+    dr_calculate,
+    dr_rate_coefficient,
+    mscheme_ci,
+)
 from atomx.scattering.autoionization.auger import AutoionizationState
-from atomx.scattering.autoionization import mscheme_ci
 
 
 @pytest.mark.external_fac

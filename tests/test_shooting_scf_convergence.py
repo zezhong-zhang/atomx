@@ -1,6 +1,7 @@
 """Energy plateaus from damping must not certify orbital convergence."""
 import numpy as np
 import pytest
+
 from atomx.numerics.shooting import scf
 from atomx.numerics.shooting.grid import sgrid
 from atomx.numerics.shooting.quadrature import slag6

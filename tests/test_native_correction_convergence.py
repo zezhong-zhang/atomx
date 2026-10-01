@@ -30,9 +30,9 @@ def test_slag6_prefix_keeps_origin_endpoint_weights():
 
 def test_closed_shell_shooting_is_canonical_and_corrections_match_bspline():
     from atomx.config.jj_coupling import generate_jj_average
-    from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
-    from atomx.methods.dirac_fock import DiracFock
     from atomx.corrections.stack import CorrectionStack
+    from atomx.methods.dirac_fock import DiracFock
+    from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
     shells,configs=generate_jj_average('1s2 2s2',averaging='statistical')
     solver=ShootingHFSolver(16,shells,n_grid=3200,aw=32,nuclear='fermi',jj_configs=configs)
     shooting=solver.solve(max_iter=200,tol=1e-12)

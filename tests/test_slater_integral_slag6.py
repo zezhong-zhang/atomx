@@ -29,11 +29,11 @@ import pytest
 
 from atomx import Atom, Exchange
 from atomx.constants import HARTREE_EV
-from atomx.numerics.shooting.grid import sgrid
 from atomx.numerics.shooting.coulomb import (
     _slater_integral,
     _slater_integral_slag6,
 )
+from atomx.numerics.shooting.grid import sgrid
 
 
 def _hydrogenic_density_on_grid(z_eff: float) -> tuple[np.ndarray, np.ndarray, np.ndarray]:

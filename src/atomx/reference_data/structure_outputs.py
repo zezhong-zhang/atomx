@@ -3,8 +3,8 @@
 Printed rounding bounds describe serialization precision, not experimental
 uncertainty or a solver's numerical error estimate.
 """
-import re
 import math
+import re
 from decimal import Decimal
 
 NUMBER = r'[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[DdEe][-+]?\d+)?'
@@ -102,8 +102,8 @@ def orbital_differences(calculated, reference):
 
 def parse_dbsr_configurations(text):
     """Read the actual integer-jj ensemble from DBSR's generated .conf file."""
-    from atomx.config.subshell import Subshell
     from atomx.config.jj_coupling import JJConfig
+    from atomx.config.subshell import Subshell
     try:
         core = text.split('Core subshells:',1)[1].split('Peel subshells:',1)[0]
         entries = text.split('CSF(s):',1)[1]

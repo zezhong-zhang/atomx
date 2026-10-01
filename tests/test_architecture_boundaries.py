@@ -1,8 +1,8 @@
 """Public imports and result conversion must not trigger unrelated work."""
 import os
-from pathlib import Path
 import subprocess
 import sys
+from pathlib import Path
 from types import SimpleNamespace
 
 import numpy as np
@@ -31,8 +31,8 @@ def test_result_coercion_requires_convergence_and_preserves_identity():
 
 
 def test_grid_accessor_preserves_native_shooting_quadrature():
-    from atomx.numerics.shooting.grid import sgrid
     from atomx.numerics.radial_metric import RadialMetric
+    from atomx.numerics.shooting.grid import sgrid
     r, dr, _ = sgrid(20., 1e-7, .1, 1000)
     result = SimpleNamespace(_grid=r, _difr=dr)
     workspace = grid_data(result)
@@ -104,8 +104,7 @@ assert ShootingSpace().n_grid > 0
 
 
 def test_photoionization_public_entry_and_integer_energy_grid(monkeypatch):
-    from atomx.scattering.photoionization import direct
-    from atomx.scattering.photoionization import photoionization_cross_section
+    from atomx.scattering.photoionization import direct, photoionization_cross_section
     monkeypatch.setattr(direct, 'solve_continuum',
                         lambda *args, **kwargs: (np.ones(2), np.zeros(2), 1.))
     frequencies = []

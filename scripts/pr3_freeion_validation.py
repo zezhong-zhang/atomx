@@ -9,16 +9,18 @@ NIST free-ion (cm^-1): 3H4=0, 3H5=2152, 3H6=4389, 3F2=4997, 3F3=6415,
 3P2=23160.
 """
 import sys
+from pathlib import Path
 
-import numpy as np
-
-sys.path.insert(0, "/tmp/atomx-cimbpt")
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from atomx.config.csf import enumerate_jj_csfs_many
 from atomx.methods.dirac_fock import DFSolver, Subshell
 from atomx.methods.mcdhf.excitations import generate_sd_excitations
-from atomx.physics.csf.sparse_ci import (enumerate_determinants,
-                                         patterns_from_csfs, sparse_j_levels)
+from atomx.physics.csf.sparse_ci import (
+    patterns_from_csfs,
+    sparse_j_levels,
+)
 
 CM = 219474.63
 NIST = {"3H4": 0.0, "3H5": 2152.0, "3H6": 4389.0, "3F2": 4997.0,
@@ -70,6 +72,7 @@ for J, e in levels[:20]:
 # J=0: 2 (3P0, 1S0), J=1: 1 (3P1), J=2: 3 (3F2,1D2,3P2),
 # J=3: 1 (3F3), J=4: 3 (3H4,3F4,1G4), J=5: 1 (3H5), J=6: 2 (3H6,1I6)
 from collections import Counter
+
 cnt = Counter(J for J, _ in levels)
 print("\nper-J level counts:", dict(sorted(cnt.items())), flush=True)
 expect = {0: 2, 1: 1, 2: 3, 3: 1, 4: 3, 5: 1, 6: 2}
@@ -90,7 +93,7 @@ rows = []
 for J in sorted(nist_by_J):
     mine = sorted(e for j, e in levels if j == J)
     ref = sorted(nist_by_J[J])
-    for (re_, term), ec in zip(ref, mine):
+    for (re_, term), ec in zip(ref, mine, strict=False):
         pct = (ec - E0 - re_) / re_ * 100 if re_ > 0 else float("nan")
         rows.append((re_, term, ec - E0, pct))
         print(f"  {term}: {ec - E0:9.1f} vs {re_:9.1f}  "

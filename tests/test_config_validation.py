@@ -14,11 +14,11 @@ shared parser's reviewed semantics (review finding M2).
 import pytest
 
 from atomx import Atom
-from atomx.config.parsing import validate_config_string
 from atomx.config.csf import (
     count_j_resolved_csfs,
     enumerate_jj_csfs,
 )
+from atomx.config.parsing import validate_config_string
 
 
 class TestValidateConfigString:

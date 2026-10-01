@@ -1,12 +1,13 @@
 """Finite-photon operators: independent FAC data and local-Dirac identities."""
-from pathlib import Path
 import json
+from pathlib import Path
+
 import numpy as np
 import pytest
 
 from atomx.config.subshell import Subshell
-from atomx.numerics.shooting.local import ShootingSolver
 from atomx.numerics.radial_workspace import make_grid_workspace
+from atomx.numerics.shooting.local import ShootingSolver
 from atomx.numerics.special import scaled_spherical_jn
 from atomx.properties.transitions.angular import angular_eL
 from atomx.properties.transitions.multipole import radial_eL, radial_eL_velocity
@@ -76,7 +77,7 @@ def test_static_limit_and_missing_frequency_contract(rank):
 
 
 def test_scaled_bessel_is_regular_and_even():
-    from scipy.special import spherical_jn, factorial2
+    from scipy.special import factorial2, spherical_jn
     x = np.array([0., 1e-100, .099999, .100001, 1., 10.])
     for rank in range(6):
         values = scaled_spherical_jn(rank, x)

@@ -8,14 +8,15 @@ Track the CLOSED-channel-dominated 1Se eigenvalue vs zeta; target
 Burke -0.77816 Ha.
 """
 import sys
+from pathlib import Path
 
 import numpy as np
 
-sys.path.insert(0, "/tmp/atomx-cimbpt")
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from atomx.scattering.r_matrix import heplus_target_states
-from atomx.scattering.r_matrix.channel_table import Channel, TargetState
 from atomx.scattering.r_matrix.cc_inner import assemble_cc_inner_region
+from atomx.scattering.r_matrix.channel_table import Channel, TargetState
 
 
 def contracted_targets(zeta, r):

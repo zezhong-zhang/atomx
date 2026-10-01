@@ -16,7 +16,8 @@ implemented interface does not establish experimental accuracy for every atom.
 | NIST comparison | Packaged configuration matching, centroid evaluation and read-only native campaign comparison | Ingestion, production queue orchestration and HTTP routing still partly live in scripts |
 | Providers | Native adapter and provider contracts; optional PySCF adapter | No claim of implemented ABACUS/DeePTB adapters or every proposal in ADR-0001 |
 | R-matrix | Single-channel and multichannel drivers are implemented | Supported target/channel models are those documented by the actual drivers |
-| Coupled cluster / RPA | Explicit `NotImplementedError` entry points | These remain scaffolds |
+| Coupled cluster | Explicit `NotImplementedError` entry point | Remains a scaffold |
+| RPA / TDHF | Closed-shell particle-hole response with a metric-orthogonal V^N virtual basis | Finite basis and partial-wave convergence required |
 | Visualization | Renderers loaded on demand; core imports do not load Matplotlib, Plotly or Manim | Matplotlib remains a declared base dependency for installation compatibility |
 
 ## Verification map

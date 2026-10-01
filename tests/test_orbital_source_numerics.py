@@ -1,8 +1,9 @@
 """Representation-independent rotation and normalized source-equation oracles."""
 import numpy as np
 import pytest
-from atomx.numerics.orbital_rotations import rotate_occupied
+
 from atomx.numerics.bspline.inhomogeneous import solve_constrained_source
+from atomx.numerics.orbital_rotations import rotate_occupied
 
 
 @pytest.mark.parametrize('saddle', [False, True])
@@ -33,3 +34,16 @@ def test_source_equation_retains_negative_energy_response_and_constraints():
     assert energy == pytest.approx(expected_energy, abs=1e-10)
     np.testing.assert_allclose(orbital, vector, atol=1e-10)
     np.testing.assert_allclose((hamiltonian-energy*metric)@orbital, source, atol=1e-10)
+
+
+def test_excited_source_root_with_residue_at_both_neighboring_poles():
+    energies = np.array([-40000.,-4.,-1.,2.])
+    metric = np.eye(4)
+    hamiltonian = np.diag(energies)
+    source = np.array([0.,.1,.2,0.])
+    reference = np.array([0.,0.,1.,0.])
+    vector,energy = solve_constrained_source(hamiltonian,metric,source,reference,
+                                            principal=2,kappa=-1)
+    assert -1.3 < energy < -1.
+    np.testing.assert_allclose(vector@vector,1.,atol=1e-12)
+    np.testing.assert_allclose((hamiltonian-energy*metric)@vector,source,atol=1e-10)

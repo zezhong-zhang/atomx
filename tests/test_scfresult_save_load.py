@@ -12,9 +12,8 @@ import h5py
 import numpy as np
 import pytest
 
-from atomx.methods.dirac_fock import SCFResult, Subshell
 from atomx import Atom
-from atomx.methods.dirac_fock import DiracFock
+from atomx.methods.dirac_fock import DiracFock, SCFResult, Subshell
 
 
 def _make_result(subshells, orbitals_raw):

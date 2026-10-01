@@ -25,55 +25,76 @@ from atomx import Atom, Basis, Correlation, Exchange  # noqa: E402
 PANEL = {
     "ne_closed_shooting": (
         dict(Z=10, config="1s2 2s2 2p6"),
-        -128.66377231938978,
+        -128.6637963026429,
     ),
     "ne_closed_bspline": (
         dict(Z=10, config="1s2 2s2 2p6", engine="bspline"),
-        -128.6637650908719,
+        -128.6637967332632,
     ),
     "n_open_ci_averaging": (
-        dict(Z=7, config=["1s2 2s2 2p3"],
-             correlation=Correlation(averaging="ci")),
+        dict(Z=7, config=["1s2 2s2 2p3"], correlation=Correlation(averaging="ci")),
         # Canonical 2p labels make the applied Mohr shift match the reported
         # QED components; the old per-state label "21" was read as n=21.
-        -54.422789940150686,
+        -54.424528752960605,
     ),
     "n_open_statistical": (
-        dict(Z=7, config="1s2 2s2 2p3",
-             correlation=Correlation(averaging="statistical"), corrections="none"),
-        -54.335382114182025,
+        dict(
+            Z=7,
+            config="1s2 2s2 2p3",
+            correlation=Correlation(averaging="statistical"),
+            corrections="none",
+        ),
+        -54.32772197031717,
     ),
     "be_multiconfig": (
         dict(Z=4, config=["1s2 2s2", "1s2 2p2"]),
-        -14.618591920091689,
+        -14.618596180945834,
     ),
     "be_multiconfig_fac_frozen": (
-        dict(Z=4, config=["1s2 2s2", "1s2 2p2"],
-             correlation=Correlation(averaging="statistical",
-                                     radial_optimization="fac_frozen")),
-        -14.612978029125962,
+        dict(
+            Z=4,
+            config=["1s2 2s2", "1s2 2p2"],
+            correlation=Correlation(averaging="ci", radial_optimization="fac_frozen"),
+        ),
+        -14.6129821337042,
     ),
     "fe17_breit_qed": (
         dict(Z=26, charge=16, config="1s2 2s2 2p6"),
-        -1147.6626233193062,
+        -1147.669231352679,
     ),
     "fe17_gu_shooting": (
-        dict(Z=26, charge=16, config="1s2 2s2 2p6", engine="shooting",
-             exchange=Exchange(model="gu")),
-        -1147.6493596472556,
+        dict(
+            Z=26,
+            charge=16,
+            config="1s2 2s2 2p6",
+            engine="shooting",
+            exchange=Exchange(model="gu"),
+        ),
+        -1147.6557630119237,
     ),
     "fe17_slater_bspline": (
-        dict(Z=26, charge=16, config="1s2 2s2 2p6", engine="bspline",
-             exchange=Exchange(model="slater", alpha_x=1.0)),
-        -1147.6265690579844,
+        dict(
+            Z=26,
+            charge=16,
+            config="1s2 2s2 2p6",
+            engine="bspline",
+            exchange=Exchange(model="slater", alpha_x=1.0),
+        ),
+        -1147.6330853437305,
     ),
     "h_6s_shooting": (
         dict(Z=1, config="6s1", engine="shooting", corrections="none"),
-        -0.013888996745332824,
+        -0.013888996745345371,
     ),
     "u91_refined_grid": (
-        dict(Z=92, charge=91, config="1s1", engine="bspline",
-             basis=Basis(grid_hi=0.005, grid_he=0.10), corrections="none"),
+        dict(
+            Z=92,
+            charge=91,
+            config="1s1",
+            engine="bspline",
+            basis=Basis(grid_hi=0.005, grid_he=0.10),
+            corrections="none",
+        ),
         -4854.196388949222,
     ),
 }
@@ -95,17 +116,16 @@ CONVERGENCE_SCALE_HA = 1e-6
 
 
 @pytest.mark.snapshot
-@pytest.mark.parametrize("name,kwargs,expected", [
-    pytest.param(n, kw, e, id=n) for n, (kw, e) in PANEL.items()
-])
-def test_canonical_form_reproduces_the_recorded_number(name, kwargs,
-                                                         expected):
+@pytest.mark.parametrize(
+    "name,kwargs,expected",
+    [pytest.param(n, kw, e, id=n) for n, (kw, e) in PANEL.items()],
+)
+def test_canonical_form_reproduces_the_recorded_number(name, kwargs, expected):
     """Frozen default-path value, at the solver's convergence scale."""
     atom = Atom(**kwargs).solve()
     if name not in NON_CONVERGED:
         assert atom.converged, name
-    assert atom.total_energy == pytest.approx(
-        expected, abs=CONVERGENCE_SCALE_HA), name
+    assert atom.total_energy == pytest.approx(expected, abs=CONVERGENCE_SCALE_HA), name
 
 
 @pytest.mark.snapshot
@@ -118,11 +138,16 @@ def test_the_ne_panel_keeps_every_orbital():
     ``test_ne_correction_free_energy_matches_dbsr_hf`` below.
     """
     atom = Atom(10, config="1s2 2s2 2p6").solve()
-    assert atom.total_energy == pytest.approx(PANEL['ne_closed_shooting'][1], abs=1e-12)
+    assert atom.total_energy == pytest.approx(PANEL["ne_closed_shooting"][1], abs=1e-12)
     assert atom.orbital_energies == pytest.approx(
-        {"1s1/2": -32.817447803729735, "2s1/2": -1.9358521624506706,
-         "2p1/2": -0.8528343072534854, "2p3/2": -0.8482721633409784},
-        abs=1e-12)
+        {
+            "1s1/2": -32.81740116786503,
+            "2s1/2": -1.9359012201404546,
+            "2p1/2": -0.8528958736592376,
+            "2p3/2": -0.8483426674034096,
+        },
+        abs=1e-12,
+    )
 
 
 @pytest.mark.snapshot
@@ -130,24 +155,31 @@ def test_only_the_documented_inputs_move_a_result():
     """Configuration controls select distinct calculations."""
     # 1. The plasma screens the nucleus (unscreened default is untouched).
     from atomx import Environment
+
     bare = Atom(10, charge=2, corrections="none").solve()
-    dense = Atom(10, charge=2, corrections="none",
-                 environment=Environment(plasma_ne=1e22,
-                                         plasma_Te=100.0)).solve()
-    assert bare.total_energy == pytest.approx(-126.51974272, abs=1e-7)
+    dense = Atom(
+        10,
+        charge=2,
+        corrections="none",
+        environment=Environment(plasma_ne=1e22, plasma_Te=100.0),
+    ).solve()
+    assert bare.total_energy == pytest.approx(-126.51991188019633, abs=1e-7)
     assert dense.total_energy != bare.total_energy
     # 2. A tier that sets r_max/n_grid reaches the solvers; one that leaves
     #    them at their schema defaults does not.
     from atomx import Sampling
+
     assert Atom(10, basis=Basis(sampling=Sampling.standard)).r_max is None
     assert Atom(10, basis=Basis(sampling=Sampling.quick)).r_max == 60.0
     # 3. qed_backend is carried by Corrections; the default is still "auto".
-    assert Atom(10, config=["1s2 2s2 2p6", "1s2 2s2 2p5 3s1"]).qed_backend \
-        == "auto"
+    assert Atom(10, config=["1s2 2s2 2p6", "1s2 2s2 2p5 3s1"]).qed_backend == "auto"
     # 4. slater_method is only accepted where it is read.
     with pytest.raises(ValueError, match="SHOOTING engine"):
-        Atom(10, engine="bspline",
-             exchange=Exchange(model="slater", slater_method="power_series"))
+        Atom(
+            10,
+            engine="bspline",
+            exchange=Exchange(model="slater", slater_method="power_series"),
+        )
 
 
 def test_ne_correction_free_energy_matches_dbsr_hf():
@@ -170,13 +202,14 @@ def test_ne_correction_free_energy_matches_dbsr_hf():
     The corrected default includes the Gaunt operator and model QED shifts;
     it is distinct from this correction-free reference.
     """
-    dbsr_hf_ne_coulomb = -128.69192580   # benchmarks/EXTERNAL_VERIFICATION.md
+    dbsr_hf_ne_coulomb = -128.69192580  # benchmarks/EXTERNAL_VERIFICATION.md
     atom = Atom(10, config="1s2 2s2 2p6", corrections="none")
     atom.solve(tol=1e-11, max_iter=60)
     assert atom.converged
     assert atom.total_energy == pytest.approx(dbsr_hf_ne_coulomb, abs=1e-6), (
         f"correction-free Ne = {atom.total_energy!r} Ha vs "
-        f"DBSR_HF {dbsr_hf_ne_coulomb} Ha")
+        f"DBSR_HF {dbsr_hf_ne_coulomb} Ha"
+    )
     # The gate above must not be satisfiable by the Breit+QED default path:
     # its nonzero corrections exceed the reference tolerance.
     default = Atom(10, config="1s2 2s2 2p6").solve()

@@ -37,26 +37,28 @@ PT2-guided *selection* layer (CIPSI/SHCI-style growth of the determinant
 space) composes on top of ``assemble_sparse_hamiltonian`` and is planned
 as the next increment.
 """
+
 from __future__ import annotations
 
 import itertools
 from functools import lru_cache
-from typing import Dict, List, Optional, Sequence, Tuple
+from hashlib import blake2b
+from typing import Dict, List, Tuple
 
 import numpy as np
 import scipy.sparse as sp
+from scipy.sparse.linalg import eigsh
+
+import atomx.physics.csf.matrix as MAT
+from atomx.angular.csf_hamiltonian import _m2_values, _ops_sign, two_body_angular, twoj
+from atomx.physics.csf.breit_ci import breit_terms
+from atomx.physics.csf.matrix import _breit_radial_evaluator
 
 try:
     import numba as _NB_MOD
 except ImportError:  # pragma: no cover - numba is a hard dep, guarded anyway
     _NB_MOD = None
 _NB = _NB_MOD
-from scipy.sparse.linalg import eigsh
-
-from atomx.angular.csf_hamiltonian import _m2_values, _ops_sign, two_body_angular, twoj
-from atomx.physics.csf.breit_ci import breit_terms
-from atomx.physics.csf.matrix import _breit_radial_evaluator
-import atomx.physics.csf.matrix as MAT
 
 __all__ = [
     "enumerate_determinants",
@@ -75,8 +77,9 @@ def patterns_from_csfs(csfs) -> Tuple[Tuple[Tuple[int, int, int], ...], ...]:
     """
     seen = set()
     for csf in csfs:
-        pat = tuple(sorted((sh.n, sh.kappa, int(round(sh.occupation)))
-                           for sh in csf.subshells))
+        pat = tuple(
+            sorted((sh.n, sh.kappa, int(round(sh.occupation))) for sh in csf.subshells)
+        )
         seen.add(pat)
     return tuple(sorted(seen))
 
@@ -95,14 +98,14 @@ def _spinor_table(orbitals_dict, patterns=None) -> List[Tuple[int, int, int]]:
     else:
         keys = sorted(orbitals_dict)
     out = []
-    for (n, kappa) in keys:
+    for n, kappa in keys:
         for m2 in _m2_values(twoj(kappa)):
             out.append((n, kappa, m2))
     return out
 
 
-def enumerate_determinants(patterns, orbitals_dict, m2_total: int = 0):
-    """Occupation bitmasks of the pattern set at fixed ``2M``.
+def enumerate_determinants(patterns, orbitals_dict, m2_total: int | None = 0):
+    """Occupation bitmasks at fixed ``2M``, or all M when ``m2_total=None``.
 
     A determinant is a bitmask over the global spin-orbital table; two
     determinants are the same physical state iff their masks are equal
@@ -116,13 +119,14 @@ def enumerate_determinants(patterns, orbitals_dict, m2_total: int = 0):
     masks = []
     for pattern in patterns:
         per_shell = []
-        for (n, kappa, q) in pattern:
+        for n, kappa, q in pattern:
             members = offset[(n, kappa)]
             per_shell.append((members, q))
+
         # recursive product of combinations with a running m-sum
-        def rec(i, chosen, m_sum):
+        def rec(i, chosen, m_sum, *, per_shell=per_shell):
             if i == len(per_shell):
-                if m_sum == m2_total:
+                if m2_total is None or m_sum == m2_total:
                     mask = 0
                     for si in chosen:
                         mask |= 1 << si
@@ -133,17 +137,31 @@ def enumerate_determinants(patterns, orbitals_dict, m2_total: int = 0):
                 rec(i + 1, chosen, m_sum)
                 return
             for combo in itertools.combinations(members, q):
-                rec(i + 1, chosen + list(combo),
-                    m_sum + sum(spinors[si][2] for si in combo))
+                rec(
+                    i + 1,
+                    chosen + list(combo),
+                    m_sum + sum(spinors[si][2] for si in combo),
+                )
+
         rec(0, [], 0)
     masks.sort()
     return masks, spinors
 
 
-def assemble_sparse_hamiltonian(masks, spinors, orbitals_dict, bsp_data, Z, ns,
-                                *, method="numba", two_body_delta=None,
-                                one_body_delta=None, one_body_m_delta=None,
-                                include_breit=False):
+def assemble_sparse_hamiltonian(
+    masks,
+    spinors,
+    orbitals_dict,
+    bsp_data,
+    Z,
+    ns,
+    *,
+    method="numba",
+    two_body_delta=None,
+    one_body_delta=None,
+    one_body_m_delta=None,
+    include_breit=False,
+):
     """CSR Hamiltonian over the determinant masks (Dirac-Coulomb).
 
     ``method="numba"`` (default): two-phase build — every distinct
@@ -153,29 +171,55 @@ def assemble_sparse_hamiltonian(masks, spinors, orbitals_dict, bsp_data, Z, ns,
     paths are asserted element-identical in the test suite.
 
     ``one_body_m_delta`` — optional callable ``(ia, ic) -> float`` over
-    spinor indices adding an m-MIXING one-body channel (same kappa,
-    different m; e.g. the crystal-field q != 0 terms).  Delivered as a
+    spinor indices adding a general one-body channel, including cross-kappa
+    and different-m elements (e.g. nonspherical crystal fields).  Delivered as a
     separate pass so the base one-body value (m-blind) is not re-emitted
     for every m pair.  Must be real: complex CF parameter sets need a
     tesseral (real) representation before CI wiring.
     """
+    # Identity-keyed radial integrals belong to one immutable assembly.
+    # Reset them even when input arrays or quadrature were changed in place.
+    MAT._reset_memo()
     if method == "python" or _NB is None:
-        return _assemble_reference(masks, spinors, orbitals_dict,
-                                   bsp_data, Z, ns,
-                                   two_body_delta=two_body_delta,
-                                   one_body_delta=one_body_delta,
-                                   one_body_m_delta=one_body_m_delta,
-                                   include_breit=include_breit)
-    return _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
-                           two_body_delta=two_body_delta,
-                           one_body_delta=one_body_delta,
-                           one_body_m_delta=one_body_m_delta,
-                           include_breit=include_breit)
+        return _assemble_reference(
+            masks,
+            spinors,
+            orbitals_dict,
+            bsp_data,
+            Z,
+            ns,
+            two_body_delta=two_body_delta,
+            one_body_delta=one_body_delta,
+            one_body_m_delta=one_body_m_delta,
+            include_breit=include_breit,
+        )
+    return _assemble_numba(
+        masks,
+        spinors,
+        orbitals_dict,
+        bsp_data,
+        Z,
+        ns,
+        two_body_delta=two_body_delta,
+        one_body_delta=one_body_delta,
+        one_body_m_delta=one_body_m_delta,
+        include_breit=include_breit,
+    )
 
 
-def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns,
-                        *, two_body_delta=None, one_body_delta=None,
-                        one_body_m_delta=None, include_breit=False):
+def _assemble_reference(
+    masks,
+    spinors,
+    orbitals_dict,
+    bsp_data,
+    Z,
+    ns,
+    *,
+    two_body_delta=None,
+    one_body_delta=None,
+    one_body_m_delta=None,
+    include_breit=False,
+):
     """CSR Hamiltonian over the determinant masks (Dirac-Coulomb)."""
     index = {mask: i for i, mask in enumerate(masks)}
     n = len(masks)
@@ -193,7 +237,10 @@ def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns,
 
     @lru_cache(maxsize=None)
     def v_element(ia, ib, ic, id_):
-        a = spinors[ia]; b = spinors[ib]; c = spinors[ic]; d = spinors[id_]
+        a = spinors[ia]
+        b = spinors[ib]
+        c = spinors[ic]
+        d = spinors[id_]
         terms = angular(a[1], a[2], b[1], b[2], c[1], c[2], d[1], d[2])
         if not terms:
             return 0.0
@@ -203,20 +250,24 @@ def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns,
         Pd, Qd = orbitals_dict[(d[0], d[1])]
         total = 0.0
         for k, coef in terms:
-            total += coef * MAT._rk(Pa, Qa, Pc, Qc, Pb, Qb, Pd, Qd,
-                                    bsp_data, k)
+            total += coef * MAT._rk(Pa, Qa, Pc, Qc, Pb, Qb, Pd, Qd, bsp_data, k)
         return total
 
-    breit_evaluate = (_breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns)
-                      if include_breit else None)
+    breit_evaluate = (
+        _breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns)
+        if include_breit
+        else None
+    )
 
     if breit_evaluate is not None:
+
         def _breit_element(ia, ib, ic, id_):
             total = 0.0
             for key, coeff in breit_terms(ia, ib, ic, id_, 1.0, spinors):
                 total += coeff * breit_evaluate(key)
             return total
     else:
+
         def _breit_element(ia, ib, ic, id_):
             return 0.0
 
@@ -227,10 +278,8 @@ def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns,
 
     # one-body partners sharing (kappa, m)
     km_partners: Dict[Tuple[int, int], List[int]] = {}
-    kappa_partners: Dict[int, List[int]] = {}
     for si, (_n, kappa, m2) in enumerate(spinors):
         km_partners.setdefault((kappa, m2), []).append(si)
-        kappa_partners.setdefault(kappa, []).append(si)
 
     rows: List[int] = []
     cols: List[int] = []
@@ -238,7 +287,9 @@ def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns,
 
     def emit(row, col, value):
         if value != 0.0:
-            rows.append(row); cols.append(col); vals.append(value)
+            rows.append(row)
+            cols.append(col)
+            vals.append(value)
 
     diag = np.zeros(n)
     for col, mask in enumerate(masks):
@@ -266,8 +317,7 @@ def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns,
         # m-blind base value nor one_body_delta can carry them
         if one_body_m_delta is not None:
             for c in occ:
-                kc = spinors[c][1]
-                for a in kappa_partners[kc]:
+                for a in range(len(spinors)):
                     h = one_body_m_delta(a, c)
                     if h == 0.0:
                         continue
@@ -289,14 +339,12 @@ def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns,
                 v2 = v_element(a, b, d, c)
                 anti = v - v2
                 if include_breit:
-                    anti += (_breit_element(a, b, c, d)
-                             - _breit_element(a, b, d, c))
+                    anti += _breit_element(a, b, c, d) - _breit_element(a, b, d, c)
                 if two_body_delta is not None:
                     anti += two_body_delta(a, b, c, d)
                 if anti == 0.0:
                     continue
-                sign = _ops_sign(mask, [(a, True), (b, True),
-                                         (d, False), (c, False)])
+                sign = _ops_sign(mask, [(a, True), (b, True), (d, False), (c, False)])
                 if not sign:
                     continue
                 nmask = (mask & ~(1 << c) & ~(1 << d)) | (1 << a) | (1 << b)
@@ -309,43 +357,80 @@ def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns,
     return H
 
 
-_SECTOR_CACHE: Dict[Tuple[int, int, tuple, int], tuple] = {}
+_SECTOR_CACHE: Dict[tuple, tuple] = {}
 _SECTOR_CACHE_MAX = 4
+_SECTOR_CACHE_BYTES = 128 * 1024**2
 
 
-def sparse_ci_spectrum(orbitals_dict, bsp_data, Z, ns, patterns,
-                       m2_total: int = 0, n_states: int = 10):
+def _sector_fingerprint(orbitals_dict, bsp_data):
+    """Content identity, including in-place orbital and quadrature changes."""
+    digest = blake2b(digest_size=24)
+    for key, value in sorted(bsp_data.items()):
+        if key.startswith("_"):
+            continue  # memoized data are not Hamiltonian inputs
+        digest.update(key.encode())
+        if isinstance(value, np.ndarray):
+            a = np.ascontiguousarray(value)
+            digest.update(repr((a.shape, a.dtype.str)).encode())
+            digest.update(a.tobytes())
+        else:
+            digest.update(repr(value).encode())
+    for key, components in sorted(orbitals_dict.items()):
+        digest.update(repr(key).encode())
+        for component in components:
+            a = np.ascontiguousarray(component)
+            digest.update(repr((a.shape, a.dtype.str)).encode())
+            digest.update(a.tobytes())
+    return digest.digest()
+
+
+def sparse_ci_spectrum(
+    orbitals_dict, bsp_data, Z, ns, patterns, m2_total: int = 0, n_states: int = 10
+):
     """Lowest ``n_states`` energies of one ``2M`` determinant sector.
 
     Returns ``(eigenvalues, n_determinants)`` with eigenvalues ascending.
 
-    Assembled sector Hamiltonians are cached (up to 4) keyed by
-    ``(Z, ns, patterns, m2_total)`` — ``sparse_j_levels`` needs the
+    Assembled sector Hamiltonians are cached (up to 4 and 128 MiB), keyed by
+    orbital and radial-workspace content as well as Z, ns, patterns and M — ``sparse_j_levels`` needs the
     ``2M = 2J`` sector that a spectrum call may already have built, and
     rebuilding a 60k-determinant assembly costs minutes.
     """
-    key = (Z, ns, tuple(patterns), m2_total)
+    key = (
+        Z,
+        ns,
+        tuple(patterns),
+        m2_total,
+        _sector_fingerprint(orbitals_dict, bsp_data),
+    )
     if key in _SECTOR_CACHE:
         H, n = _SECTOR_CACHE[key]
     else:
-        masks, spinors = enumerate_determinants(patterns, orbitals_dict,
-                                                m2_total)
+        masks, spinors = enumerate_determinants(patterns, orbitals_dict, m2_total)
         n = len(masks)
         if n == 0:
             return np.array([]), 0
-        H = assemble_sparse_hamiltonian(masks, spinors, orbitals_dict,
-                                        bsp_data, Z, ns)
-        if len(_SECTOR_CACHE) >= _SECTOR_CACHE_MAX:
-            _SECTOR_CACHE.clear()
-        _SECTOR_CACHE[key] = (H, n)
+        H = assemble_sparse_hamiltonian(masks, spinors, orbitals_dict, bsp_data, Z, ns)
+        size = H.data.nbytes + H.indices.nbytes + H.indptr.nbytes
+        if size <= _SECTOR_CACHE_BYTES:
+            while _SECTOR_CACHE and (
+                len(_SECTOR_CACHE) >= _SECTOR_CACHE_MAX
+                or sum(
+                    h.data.nbytes + h.indices.nbytes + h.indptr.nbytes
+                    for h, _ in _SECTOR_CACHE.values()
+                )
+                + size
+                > _SECTOR_CACHE_BYTES
+            ):
+                _SECTOR_CACHE.pop(next(iter(_SECTOR_CACHE)))
+            _SECTOR_CACHE[key] = (H, n)
     if n_states >= n - 1:
         w = np.linalg.eigvalsh(H.toarray())
-        return w[:max(0, n_states)], n
+        return w[: max(0, n_states)], n
     # ARPACK's default ncv = max(2k+1, 20) restarts heavily for large k;
     # a wider Krylov space converges far fewer times.
     ncv = min(n - 1, max(4 * n_states + 1, 60))
-    w = eigsh(H, k=n_states, which="SA", ncv=ncv,
-              return_eigenvectors=False)
+    w = eigsh(H, k=n_states, which="SA", ncv=ncv, return_eigenvectors=False)
     return np.sort(w), n
 
 
@@ -367,8 +452,16 @@ def _multiset_subtract(low: np.ndarray, high: np.ndarray, tol: float):
     return np.sort(np.array(remaining)) if remaining else np.array([])
 
 
-def sparse_j_levels(orbitals_dict, bsp_data, Z, ns, patterns,
-                    j2: int, n_states: int = 10, tol: float = 1e-8):
+def sparse_j_levels(
+    orbitals_dict,
+    bsp_data,
+    Z,
+    ns,
+    patterns,
+    j2: int,
+    n_states: int = 10,
+    tol: float = 1e-8,
+):
     """Energies of the pure ``2J`` manifold from M-sector subtraction.
 
     ``spec(J) = spec(M=J) − spec(M=J+2)`` as multisets: every eigenvalue of
@@ -379,10 +472,12 @@ def sparse_j_levels(orbitals_dict, bsp_data, Z, ns, patterns,
 
     Returns ``(energies, n_dets_mj, n_dets_mj_plus2)``.
     """
-    w_j, n_j = sparse_ci_spectrum(orbitals_dict, bsp_data, Z, ns, patterns,
-                                  m2_total=j2, n_states=n_states)
-    w_hi, n_hi = sparse_ci_spectrum(orbitals_dict, bsp_data, Z, ns, patterns,
-                                    m2_total=j2 + 2, n_states=n_states)
+    w_j, n_j = sparse_ci_spectrum(
+        orbitals_dict, bsp_data, Z, ns, patterns, m2_total=j2, n_states=n_states
+    )
+    w_hi, n_hi = sparse_ci_spectrum(
+        orbitals_dict, bsp_data, Z, ns, patterns, m2_total=j2 + 2, n_states=n_states
+    )
     return _multiset_subtract(w_j, w_hi, tol), n_j, n_hi
 
 
@@ -391,12 +486,13 @@ def sparse_j_levels(orbitals_dict, bsp_data, Z, ns, patterns,
 # ---------------------------------------------------------------------------
 
 if _NB is not None:
+
     @_NB.njit(cache=True)
     def _popcnt64(x):  # uint64 SWAR popcount
         m1 = np.uint64(0x5555555555555555)
         m2 = np.uint64(0x3333333333333333)
         m4 = np.uint64(0x0F0F0F0F0F0F0F0F)
-        h  = np.uint64(0x0101010101010101)
+        h = np.uint64(0x0101010101010101)
         x = x - ((x >> np.uint64(1)) & m1)
         x = (x & m2) + ((x >> np.uint64(2)) & m2)
         x = (x + (x >> np.uint64(4))) & m4
@@ -414,9 +510,12 @@ if _NB is not None:
         if idx == 0:
             return 0
         if idx <= 64:
-            return np.int64(_popcnt64(lo & ((np.uint64(1) << np.uint64(idx)) - np.uint64(1))))
-        return np.int64(_popcnt64(lo)) + np.int64(_popcnt64(
-            hi & ((np.uint64(1) << np.uint64(idx - 64)) - np.uint64(1))))
+            return np.int64(
+                _popcnt64(lo & ((np.uint64(1) << np.uint64(idx)) - np.uint64(1)))
+            )
+        return np.int64(_popcnt64(lo)) + np.int64(
+            _popcnt64(hi & ((np.uint64(1) << np.uint64(idx - 64)) - np.uint64(1)))
+        )
 
     @_NB.njit(cache=True)
     def _clr(lo, hi, idx):
@@ -470,12 +569,11 @@ if _NB is not None:
             sign = -sign
         return sign
 
-
     @_NB.njit(cache=True)
     def _find_row(shi, slo, srow, tlo, thi):
         """Binary search of (thi, tlo) in the lexsorted det table."""
         a = np.searchsorted(shi, thi)
-        b = np.searchsorted(shi, thi, side='right')
+        b = np.searchsorted(shi, thi, side="right")
         while a < b:
             mid = (a + b) // 2
             if slo[mid] < tlo:
@@ -486,17 +584,40 @@ if _NB is not None:
             return srow[a]
         return -1
 
-
     @_NB.njit(cache=True, parallel=True)
-    def _assemble_kernel_parallel(mlo, mhi, occ, nspin, m2arr,
-                                  h1_keys, h1_vals,
-                                  pgrp, pflat, pstart, plen,
-                                  kgrp, kflat, kstart, klen,
-                                  h1m_keys, h1m_vals,
-                                  bflat, bstart, blen, msum_shift,
-                                  vb_keys, vb_vals,
-                                  shi, slo, srow,
-                                  rows_b, cols_b, vals_b, diag_b, chunk):
+    def _assemble_kernel_parallel(
+        mlo,
+        mhi,
+        occ,
+        nspin,
+        m2arr,
+        h1_keys,
+        h1_vals,
+        pgrp,
+        pflat,
+        pstart,
+        plen,
+        kgrp,
+        kflat,
+        kstart,
+        klen,
+        h1m_keys,
+        h1m_vals,
+        bflat,
+        bstart,
+        blen,
+        msum_shift,
+        vb_keys,
+        vb_vals,
+        shi,
+        slo,
+        srow,
+        rows_b,
+        cols_b,
+        vals_b,
+        diag_b,
+        chunk,
+    ):
         """Block-partitioned prange twin of _assemble_kernel.
 
         Determinant ``col`` belongs to block ``col // chunk`` and writes
@@ -562,8 +683,7 @@ if _NB is not None:
                                     lo_i = mid + 1
                                 else:
                                     hi_i = mid
-                            if (lo_i >= h1m_keys.shape[0]
-                                    or h1m_keys[lo_i] != key):
+                            if lo_i >= h1m_keys.shape[0] or h1m_keys[lo_i] != key:
                                 continue
                             if a == c:
                                 diag_b[blk, col] += h1m_vals[lo_i]
@@ -618,15 +738,38 @@ if _NB is not None:
         return counts
 
     @_NB.njit(cache=True)
-    def _assemble_kernel(mlo, mhi, occ, nspin, m2arr,
-                         h1_keys, h1_vals,
-                         pgrp, pflat, pstart, plen,
-                         kgrp, kflat, kstart, klen,
-                         h1m_keys, h1m_vals,
-                         bflat, bstart, blen, msum_shift,
-                         vb_keys, vb_vals,
-                         shi, slo, srow,
-                         rows, cols, vals, diag):
+    def _assemble_kernel(
+        mlo,
+        mhi,
+        occ,
+        nspin,
+        m2arr,
+        h1_keys,
+        h1_vals,
+        pgrp,
+        pflat,
+        pstart,
+        plen,
+        kgrp,
+        kflat,
+        kstart,
+        klen,
+        h1m_keys,
+        h1m_vals,
+        bflat,
+        bstart,
+        blen,
+        msum_shift,
+        vb_keys,
+        vb_vals,
+        shi,
+        slo,
+        srow,
+        rows,
+        cols,
+        vals,
+        diag,
+    ):
         """Emit the COO triplets of H over all determinants (col-major)."""
         n = mlo.shape[0]
         count = 0
@@ -739,9 +882,19 @@ if _NB is not None:
         return count
 
 
-def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
-                    *, two_body_delta=None, one_body_delta=None,
-                    one_body_m_delta=None, include_breit=False):
+def _assemble_numba(
+    masks,
+    spinors,
+    orbitals_dict,
+    bsp_data,
+    Z,
+    ns,
+    *,
+    two_body_delta=None,
+    one_body_delta=None,
+    one_body_m_delta=None,
+    include_breit=False,
+):
     """Phase 1 (Python, once per distinct value) + phase 2 (numba)."""
     from functools import lru_cache
 
@@ -770,8 +923,7 @@ def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
         Pd, Qd = orbitals_dict[(d[0], d[1])]
         total = 0.0
         for k, coef in terms:
-            total += coef * MAT._rk(Pa, Qa, Pc, Qc, Pb, Qb, Pd, Qd,
-                                    bsp_data, k)
+            total += coef * MAT._rk(Pa, Qa, Pc, Qc, Pb, Qb, Pd, Qd, bsp_data, k)
         return total
 
     # ---- phase 1a: one-body table over (kappa, m) partner pairs ----
@@ -795,19 +947,26 @@ def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
         for c in members:
             for a in members:
                 h1[a * nspin + c] = _one_body(
-                    (spinors[a][0], spinors[a][1]), (spinors[c][0], spinors[c][1]))
+                    (spinors[a][0], spinors[a][1]), (spinors[c][0], spinors[c][1])
+                )
                 if one_body_delta is not None:
                     h1[a * nspin + c] += one_body_delta.get(
-                        ((spinors[a][0], spinors[a][1]),
-                         (spinors[c][0], spinors[c][1])), 0.0)
+                        (
+                            (spinors[a][0], spinors[a][1]),
+                            (spinors[c][0], spinors[c][1]),
+                        ),
+                        0.0,
+                    )
     h1_keys = np.array(sorted(h1), dtype=np.int64)
     h1_vals = np.array([h1[k] for k in h1_keys], dtype=np.float64)
 
     # ---- phase 1a': m-mixing one-body table over kappa groups ----
     # (crystal-field q != 0 terms; empty tables => zero-cost when unused)
     k_groups: Dict[int, List[int]] = {}
-    for si, (_n, kappa, _m) in enumerate(spinors):
-        k_groups.setdefault(kappa, []).append(si)
+    # A nonspherical external operator can mix kappa as well as m.
+    # Keep the spherical base Hamiltonian's partner classes separate.
+    if one_body_m_delta is not None:
+        k_groups[0] = list(range(nspin))
     h1m: Dict[int, float] = {}
     if one_body_m_delta is not None:
         for members in k_groups.values():
@@ -822,7 +981,7 @@ def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
     kflat_a: List[int] = []
     kstart_a: List[int] = []
     klen_a: List[int] = []
-    for g, members in k_groups.items():
+    for _g, members in k_groups.items():
         kstart_a.append(len(kflat_a))
         kflat_a.extend(members)
         klen_a.append(len(members))
@@ -849,8 +1008,9 @@ def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
     nbuckets = 2 * (max(m2arr_py) - m2min) + 1
     buckets: Dict[int, list] = {}
     for ia, ib in itertools.combinations(range(nspin), 2):
-        buckets.setdefault(m2arr_py[ia] + m2arr_py[ib] + msum_shift,
-                           []).append((ia, ib))
+        buckets.setdefault(m2arr_py[ia] + m2arr_py[ib] + msum_shift, []).append(
+            (ia, ib)
+        )
 
     def _key(a, b, c, d):
         return ((a * nspin + b) * nspin + c) * nspin + d
@@ -862,30 +1022,36 @@ def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
     # must restore it, so only pairs containing that spinor are visited.
     open_pairs: Dict[int, list] = {}
     for ms, ab_list in buckets.items():
-        open_pairs[ms] = [(a, b) for (a, b) in ab_list
-                          if a in open_spinors and b in open_spinors]
+        open_pairs[ms] = [
+            (a, b) for (a, b) in ab_list if a in open_spinors and b in open_spinors
+        ]
     pairs_with: Dict[Tuple[int, int], list] = {}
     for ms, ab_list in buckets.items():
-        for (a, b) in ab_list:
+        for a, b in ab_list:
             for si in (a, b):
                 pairs_with.setdefault((si, ms), []).append((a, b))
 
-    breit_evaluate = (_breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns)
-                      if include_breit else None)
+    breit_evaluate = (
+        _breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns)
+        if include_breit
+        else None
+    )
     if breit_evaluate is not None:
+
         def _breit_element(ia, ib, ic, id_):
             total = 0.0
             for key, coeff in breit_terms(ia, ib, ic, id_, 1.0, spinors):
                 total += coeff * breit_evaluate(key)
             return total
     else:
+
         def _breit_element(ia, ib, ic, id_):
             return 0.0
 
     vb: Dict[int, float] = {}
     for ms, ab_list in buckets.items():
         cand_open = open_pairs[ms]
-        for (c, d) in ab_list:
+        for c, d in ab_list:
             c_open = c in open_spinors
             d_open = d in open_spinors
             if c_open and d_open:
@@ -895,9 +1061,10 @@ def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
             elif d_open:
                 ab_cands = pairs_with.get((c, ms), [])
             else:
-                ab_cands = [(a, b) for (a, b) in pairs_with.get((c, ms), [])
-                            if a == d or b == d]
-            for (a, b) in ab_cands:
+                ab_cands = [
+                    (a, b) for (a, b) in pairs_with.get((c, ms), []) if a == d or b == d
+                ]
+            for a, b in ab_cands:
                 key = _key(a, b, c, d)
                 if key in vb:
                     continue
@@ -907,8 +1074,7 @@ def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
                 if anti == 0.0 and two_body_delta is None and not include_breit:
                     continue
                 if include_breit:
-                    anti += (_breit_element(a, b, c, d)
-                             - _breit_element(a, b, d, c))
+                    anti += _breit_element(a, b, c, d) - _breit_element(a, b, d, c)
                 if two_body_delta is not None:
                     anti += two_body_delta(a, b, c, d)
                 if anti == 0.0:
@@ -924,7 +1090,7 @@ def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
     for ms in range(nbuckets):
         pairs = buckets.get(ms, [])
         bstart[ms] = len(bflat) // 2
-        for (a, b) in pairs:
+        for a, b in pairs:
             bflat.append(a)
             bflat.append(b)
         blen[ms] = len(pairs)
@@ -954,7 +1120,12 @@ def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
 
     use_parallel = n >= 2000 and _assemble_kernel_parallel is not None
     if use_parallel:
-        nblocks = min(n, max(1, _NB.get_num_threads() * 4 if hasattr(_NB, "get_num_threads") else 16))
+        nblocks = min(
+            n,
+            max(
+                1, _NB.get_num_threads() * 4 if hasattr(_NB, "get_num_threads") else 16
+            ),
+        )
         chunk = (n + nblocks - 1) // nblocks
         nblocks = (n + chunk - 1) // chunk
         cap_per_det = 768
@@ -965,15 +1136,38 @@ def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
             vals_b = np.zeros((nblocks, capb), dtype=np.float64)
             diag_b = np.zeros((nblocks, n))
             counts = _assemble_kernel_parallel(
-                mlo, mhi, occ, nspin, m2arr,
-                h1_keys, h1_vals,
-                pgrp, pflat_a, pstart_a, plen_a,
-                kgrp, kflat, kstart, klen,
-                h1m_keys, h1m_vals,
-                bflat_a, bstart_a, blen_a, msum_shift,
-                vb_keys, vb_vals,
-                shi, slo, srow,
-                rows_b, cols_b, vals_b, diag_b, chunk)
+                mlo,
+                mhi,
+                occ,
+                nspin,
+                m2arr,
+                h1_keys,
+                h1_vals,
+                pgrp,
+                pflat_a,
+                pstart_a,
+                plen_a,
+                kgrp,
+                kflat,
+                kstart,
+                klen,
+                h1m_keys,
+                h1m_vals,
+                bflat_a,
+                bstart_a,
+                blen_a,
+                msum_shift,
+                vb_keys,
+                vb_vals,
+                shi,
+                slo,
+                srow,
+                rows_b,
+                cols_b,
+                vals_b,
+                diag_b,
+                chunk,
+            )
             if int(counts.max()) < capb:
                 break
             cap_per_det *= 8
@@ -984,9 +1178,9 @@ def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
         pos = 0
         for blk in range(nblocks):
             c = int(counts[blk])
-            rows[pos:pos + c] = rows_b[blk, :c]
-            cols[pos:pos + c] = cols_b[blk, :c]
-            vals[pos:pos + c] = vals_b[blk, :c]
+            rows[pos : pos + c] = rows_b[blk, :c]
+            cols[pos : pos + c] = cols_b[blk, :c]
+            vals[pos : pos + c] = vals_b[blk, :c]
             pos += c
         diag = diag_b.sum(axis=0)
     else:
@@ -998,15 +1192,37 @@ def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
             vals = np.empty(cap, dtype=np.float64)
             diag = np.zeros(n)
             count = _assemble_kernel(
-                mlo, mhi, occ, nspin, m2arr,
-                h1_keys, h1_vals,
-                pgrp, pflat_a, pstart_a, plen_a,
-                kgrp, kflat, kstart, klen,
-                h1m_keys, h1m_vals,
-                bflat_a, bstart_a, blen_a, msum_shift,
-                vb_keys, vb_vals,
-                shi, slo, srow,
-                rows, cols, vals, diag)
+                mlo,
+                mhi,
+                occ,
+                nspin,
+                m2arr,
+                h1_keys,
+                h1_vals,
+                pgrp,
+                pflat_a,
+                pstart_a,
+                plen_a,
+                kgrp,
+                kflat,
+                kstart,
+                klen,
+                h1m_keys,
+                h1m_vals,
+                bflat_a,
+                bstart_a,
+                blen_a,
+                msum_shift,
+                vb_keys,
+                vb_vals,
+                shi,
+                slo,
+                srow,
+                rows,
+                cols,
+                vals,
+                diag,
+            )
             if count < cap:
                 rows, cols, vals = rows[:count], cols[:count], vals[:count]
                 break

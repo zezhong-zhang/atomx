@@ -7,10 +7,17 @@ interference is physical even when an individual CI coefficient is tiny.
 import hashlib
 import json
 from pathlib import Path
+
 import numpy as np
 import pytest
+
 from benchmarks.bench_reference_dr_radiative import (
-    common_manifolds_from_data, calculate, compare, GROUPS, MODES)
+    GROUPS,
+    MODES,
+    calculate,
+    common_manifolds_from_data,
+    compare,
+)
 
 DATA=Path(__file__).parent/'data'
 REFERENCE=json.loads((DATA/'fac_dr_radiative_reference.json').read_text())

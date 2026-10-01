@@ -48,7 +48,6 @@ CLI::
 from __future__ import annotations
 
 import argparse
-import re
 import sys
 from dataclasses import dataclass, field
 from functools import lru_cache
@@ -60,40 +59,13 @@ MANIFEST_PATH = DATA_ROOT / "manifest.json"
 
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from atomx.constants import HARTREE_EV  # noqa: E402  (needs the sys.path above)
 
 # Compatibility exports; the installable package owns record parsing.
 from atomx.reference_data.nist import (
-    HA_CM1,
-    _TAG_RE,
-    _ENTITIES,
-    _TITLE_LEVELS_RE,
-    _TITLE_LINES_RE,
-    _SEQ_RE,
-    _MEDIUM_RE,
-    _SUBSHELL_RE,
-    _L_VALUE,
-    _NUMBER_RE,
-    _clean,
-    _to_float,
-    _parse_j,
-    normalise_configuration,
-    configuration_map,
-    _filled,
-    nist_config_matches,
-    cm1_to_hartree,
-    hartree_to_cm1,
-    cm1_to_ev,
-    ev_to_cm1,
-    hartree_to_ev,
     Level,
     SpectralLine,
-    _read_table,
-    _reference_code,
+    nist_config_matches,
     parse_levels_text,
-    _flat_header,
-    _cell_float,
-    _split_energy_pair,
     parse_lines_text,
 )
 

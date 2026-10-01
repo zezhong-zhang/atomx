@@ -10,14 +10,17 @@ References: 5D0 = 17270 (free ion), 5D1 = 19025 +- 20, 5D2 = 21500 +- 50
 (Carnall aquo-ion series IV; free-ion within the uncertainty).
 """
 import sys
+from pathlib import Path
 
 import numpy as np
 
-sys.path.insert(0, "/tmp/atomx-cimbpt")
-sys.path.insert(0, "/tmp/atomx-cimbpt/tests")
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
+from atomx.methods.csf.lanthanide_workspace import (
+    build_lanthanide_workspace as _build,
+)
 from atomx.methods.csf.slater_scaling import fit_slater_scaling
-from test_slater_scaling import _build
 
 REFS = [(0.0, 17270.0), (1.0, 19025.0), (2.0, 21500.0)]
 NIST_7F = [0.0, 370.0, 1041.0, 1890.0, 2862.0, 3807.0, 4940.0]
@@ -27,7 +30,7 @@ def extract(lv):
     allL = sorted((e, J) for J, es in lv.items() for e in es)
     e0 = allL[0][0]
     out = {}
-    for J, ref in REFS:
+    for J, _ref in REFS:
         thr = 15000 if J != 0.0 else 15000
         e = min(e for e, j in allL if j == J and e - e0 > thr)
         out[J] = e - e0
@@ -52,12 +55,10 @@ if __name__ == "__main__":
         gaps, _ = extract(lv)
         return [gaps[J] - ref for J, ref in REFS]
 
-    from atomx.methods.csf.slater_scaling import fit_slater_scaling         as _fit
-    xg, hist, diag = _fit(lambda t: res(t[:2]),
-                          x0=(S2_PRIOR, -0.08, -0.119))
+    xg, hist, diag = fit_slater_scaling(res, x0=(-0.08, -0.119))
     print(f"  fit diagnostics: cond={diag.get('cond'):.1f}, "
           f"sigma={diag.get('sigma')}", flush=True)
-    s2, s4, s6 = S2_PRIOR, xg[1], xg[2]
+    s2, s4, s6 = S2_PRIOR, xg[0], xg[1]
     r_fin = np.array(res((s4, s6)))
     rms = float(np.sqrt(np.mean(r_fin ** 2)))
     print(f"Eu Tier-A (overdetermined: s2 fixed at Pr prior, 3 gaps "
@@ -67,7 +68,7 @@ if __name__ == "__main__":
           flush=True)
     print("Pr series source:            s = (-0.2726, -0.0804, -0.1193)",
           flush=True)
-    dev = [abs(a - b) for a, b in zip(x, (-0.2726, -0.0804, -0.1193))]
+    dev = [abs(a - b) for a, b in zip((s2, s4, s6), (-0.2726, -0.0804, -0.1193), strict=True)]
     print(f"series scatter: {dev[0]:.3f} / {dev[1]:.3f} / {dev[2]:.3f}"
           f"  -> {'CONSISTENT' if max(dev) < 0.08 else 'DRIFT — flag'}",
           flush=True)

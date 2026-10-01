@@ -37,14 +37,11 @@ from itertools import combinations
 
 import numpy as np
 
-from atomx.numerics.radial_metric import RadialMetric
-
 from atomx.angular.coefficients import ckm
-
-from atomx.potentials.static_field import static_hartree_potential
-
 from atomx.constants import AU_RATE_PER_S, HARTREE_EV
 from atomx.numerics.quadrature import grid_slater_rk, p_rel
+from atomx.numerics.radial_metric import RadialMetric
+from atomx.potentials.static_field import static_hartree_potential
 from atomx.scattering.distorted_wave.solver import (
     _allowed_k,
     _continuum_on_grid,
@@ -1029,8 +1026,8 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
             orbital_map[(n, kappa)] = (P, Q)
             orbital_eps[(n, kappa)] = float(eps)
 
-        from atomx.physics.csf.matrix import GridCIWorkspace, _radial_evaluator
         from atomx.numerics.shooting.quadrature import slag6_weights
+        from atomx.physics.csf.matrix import GridCIWorkspace, _radial_evaluator
 
         rv_nuc = getattr(result, "_rv_nuc", None)
         if rv_nuc is None:

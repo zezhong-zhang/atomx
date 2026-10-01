@@ -14,7 +14,6 @@ from atomx.properties.transitions.ci_lines import ci_line_strengths
 from atomx.properties.transitions.rates import einstein_A_eL
 from benchmarks.bench_reference_ci_transitions import compare_levels
 
-
 REFERENCE = json.loads((Path(__file__).parent/'data/fac_ne_like_ci_reference.json').read_text())
 
 

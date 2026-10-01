@@ -18,24 +18,23 @@ from functools import lru_cache
 
 import numpy as np
 
-from atomx.numerics.radial_metric import RadialMetric
-
 from atomx.angular.coefficients import coupled_coulomb_direct, coupled_coulomb_exchange
 from atomx.angular.csf import csf_parity, csf_twice_j, one_body_csf_coupling
-from atomx.constants import BOHR_RADIUS_M, C_SQ, HARTREE_EV
-from atomx.potentials.static_field import static_hartree_potential
-from atomx.numerics.extrapolation import geometric_tail_estimate
 from atomx.config.csf import CSF
+from atomx.constants import BOHR_RADIUS_M, C_SQ, HARTREE_EV
 from atomx.numerics.bspline.evaluate import eval_P, eval_Q
+from atomx.numerics.extrapolation import geometric_tail_estimate
 from atomx.numerics.quadrature import (  # canonical kernels (E5)
     grid_slater_rk,
     make_fine_grid,
     p_rel,
 )
+from atomx.numerics.radial_metric import RadialMetric
 from atomx.numerics.shooting.dirac_continuum import (
     solve_dirac_continuum_many,
     solve_dirac_continuum_shooting,
 )
+from atomx.potentials.static_field import static_hartree_potential
 
 
 def _l_of(kappa):

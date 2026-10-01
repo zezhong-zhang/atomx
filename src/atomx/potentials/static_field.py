@@ -259,8 +259,8 @@ def static_hartree_potential(
     # at R/n misses high-Z core charge and flattens the nuclear singularity.
     N_eff = 0.0
     if bsp_data is not None and "bsp_p" in bsp_data:
-        from atomx.numerics.yk import compute_yk
         from atomx.numerics.bspline.evaluate import eval_P, eval_Q
+        from atomx.numerics.yk import compute_yk
         gr = bsp_data["gr"]
         density = np.zeros_like(gr)
         sampled = {}

@@ -3,10 +3,10 @@ import numpy as np
 
 from atomx import Atom
 from atomx.config.csf import enumerate_jj_csfs
-from atomx.numerics.bspline.orbital_optimization import optimize_orbitals
 from atomx.methods.csf.variational import CSFOrbitalFunctional
 from atomx.methods.csf.virtual_stability import populate_weak_virtuals
 from atomx.numerics.bspline.dirac_assembly import solve_dirac
+from atomx.numerics.bspline.orbital_optimization import optimize_orbitals
 from atomx.potentials.nuclear import make_nuclear_potential
 
 

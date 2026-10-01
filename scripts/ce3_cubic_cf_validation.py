@@ -13,14 +13,15 @@ GATES (hard):
   (d) assembled H Hermitian
 """
 import sys
+from pathlib import Path
 
 import numpy as np
 
-sys.path.insert(0, "/tmp/atomx-cimbpt")
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
+from atomx.methods.csf.crystal_field import build_cf_operator, point_charge_bkq
 from atomx.methods.dirac_fock import DFSolver, Subshell
-from atomx.methods.csf.crystal_field import (build_cf_operator,
-                                             point_charge_bkq)
 from atomx.physics.csf import sparse_ci as SC
 
 CM = 219474.63
@@ -67,6 +68,7 @@ for (k, q), v in nonzero.items():
     assert (k, abs(q)) in [(4, 0), (4, 4), (6, 0), (6, 4)], (k, q)
     assert abs(v.imag) < 1e-9 * max(1.0, abs(v.real)), (k, q, v)
 import math as _mth
+
 r4 = nonzero[(4, 4)].real / nonzero[(4, 0)].real
 r6 = nonzero[(6, 4)].real / nonzero[(6, 0)].real
 print(f"cubic ratios: B4^4/B4^0 = {r4:.6f} (sqrt(5/14)="
@@ -79,7 +81,7 @@ bkq_real = {kk: float(v.real) for kk, v in nonzero.items()}
 cf = build_cf_operator(od, bsp, 58, 50, bkq_real)
 
 # ---- GATE (c): direct 3D quadrature, no multipole expansion ---------
-from atomx.angular.csf_hamiltonian import _m2_values, twoj  # noqa: E402
+from atomx.angular.csf_hamiltonian import twoj  # noqa: E402
 
 NT, NP, NR = 40, 80, 40
 xg, wg = np.polynomial.legendre.leggauss(NT)
@@ -108,12 +110,18 @@ def _Omega(kappa, m2, th, ph):
     m = m2 / 2.0
     up = float(clebsch_gordan(l, 1 / 2, j, m - 1 / 2, 1 / 2, m))
     dn = float(clebsch_gordan(l, 1 / 2, j, m + 1 / 2, -1 / 2, m))
-    from scipy.special import sph_harm
+    try:
+        from scipy.special import sph_harm_y
+    except ImportError:  # scipy < 1.15
+        from scipy.special import sph_harm
+
+        def sph_harm_y(l, m, theta, phi):
+            return sph_harm(m, l, phi, theta)
 
     def Y(l_, m_):
         if abs(m_) > l_:
             return np.zeros_like(th, dtype=complex)
-        v = sph_harm(abs(int(m_)), l_, ph, th)
+        v = sph_harm_y(l_, abs(int(m_)), th, ph)
         return v if m_ >= 0 else (-1.0) ** int(-m_) * np.conj(v)
 
     return up * Y(l, m - 1 / 2), dn * Y(l, m + 1 / 2)
@@ -147,6 +155,7 @@ def direct_element(ka, m2a, kb, m2b):
 
 # windowed radial norm (for the k=0 series term on the same window)
 from atomx.methods.dirac_fock import _eval_bspline_on_grid
+
 norm_win = {}
 for kk in [(4, 3), (4, -4)]:
     P, Q = od[kk]
@@ -164,10 +173,7 @@ for ka, m2a, kb, m2b in [(-4, -3, -4, -3), (-4, 7, -4, -1),
     want = direct_element(ka, m2a, kb, m2b)
     # the direct integral contains the k=0 constant on the window; cf
     # (built from k>=2 B parameters) does not — add it analytically
-    if (ka, m2a) == (kb, m2b):
-        want_series = got + mono * norm_win[(4, ka)]
-    else:
-        want_series = got
+    want_series = got + mono * norm_win[4, ka] if (ka, m2a) == (kb, m2b) else got
     rel = abs(want - want_series) / max(abs(want), 1e-12)
     print(f"  <({ka},{m2a})|V|({kb},{m2b})>: direct={want.real:+.6e}  "
           f"cf+mono={want_series:+.6e}  rel={rel:.1e}", flush=True)
@@ -181,8 +187,7 @@ CORE_PAT = [("1s", 2), ("2s", 2), ("2p", 6), ("3s", 2), ("3p", 6),
             ("3d", 10), ("4s", 2), ("4p", 6), ("4d", 10), ("5s", 2),
             ("5p", 6)]
 from atomx.config.csf import enumerate_jj_csfs_many  # noqa: E402
-from atomx.methods.mcdhf.excitations import (  # noqa: E402
-    generate_sd_excitations)
+from atomx.methods.mcdhf.excitations import generate_sd_excitations  # noqa: E402
 from atomx.physics.csf.sparse_ci import patterns_from_csfs  # noqa: E402
 
 REF = " ".join(f"{s}{q}" for s, q in CORE_PAT) + " 4f1"
@@ -192,7 +197,7 @@ pats = patterns_from_csfs(enumerate_jj_csfs_many(cfgs))
 pats = [p for p in pats if all((n, k) in od for (n, k, _q) in p)]
 
 
-def levels(m2):
+def levels(m2=None, with_cf=False):
     masks, spinors = SC.enumerate_determinants(pats, od, m2)
     if not masks:
         return None
@@ -202,7 +207,7 @@ def levels(m2):
         return float(cf(lad[spinors[ia]], lad[spinors[ic]]))
 
     H = SC.assemble_sparse_hamiltonian(masks, spinors, od, bsp, 58, 50,
-                                       one_body_m_delta=m_delta)
+                                       one_body_m_delta=m_delta if with_cf else None)
     Hd = (H - H.T).tocoo()
     assert Hd.data.size == 0 or np.max(np.abs(Hd.data)) < 1e-8, "H not Hermitian"
     w = np.linalg.eigvalsh(H.toarray())
@@ -236,9 +241,7 @@ print(f"GATE (a) PASS: 2F5/2 below 2F7/2, splitting {split_cm:.0f} cm^-1",
       flush=True)
 
 # GATE (b): cubic degeneracy pattern — recompute WITH the CF channel
-all_cf = np.concatenate([w for (w, _) in
-                         [levels(m2) for m2 in (-7, -5, -3, -1, 1, 3, 5, 7)]
-                         if w is not None])
+all_cf, _ = levels(None, with_cf=True)
 es = np.sort(all_cf)
 print("\ncubic-split levels (cm^-1, relative to ground):",
       flush=True)
@@ -254,7 +257,8 @@ for e in es[1:]:
         groups.append([e])
 sizes = [len(g) for g in groups]
 print("degeneracy pattern:", sizes, flush=True)
-assert sizes == [2, 4, 2, 2, 4], f"cubic pattern must be 2+4 | 2+2+4: {sizes}"
+assert sorted(sizes[:2]) == [2, 4] and sorted(sizes[2:]) == [2, 2, 4], (
+    f"cubic irreducible dimensions must be 2+4 | 2+2+4: {sizes}")
 print("GATE (b) PASS: cubic degeneracies 2+4 (J=5/2) and 2+2+4 (J=7/2)",
       flush=True)
 print("\nALL GATES PASS", flush=True)

@@ -332,7 +332,7 @@ def test_finite_frequency_ci_reversing_configurations_preserves_lines(fe17_groun
     backward = ci_line_strengths(fe17_ground, '2p6', '2p5 3s1')
     reverse = sorted(backward.lines, key=lambda line: line.omega_au)
     assert len(forward) == len(reverse)
-    for a, b in zip(forward, reverse):
+    for a, b in zip(forward, reverse, strict=False):
         assert a.omega_au == pytest.approx(b.omega_au, rel=1e-12)
-        assert a.S == pytest.approx(b.S, rel=1e-10)
+        assert pytest.approx(b.S, rel=1e-10) == a.S
         assert a.A_per_s == pytest.approx(b.A_per_s, rel=1e-10)

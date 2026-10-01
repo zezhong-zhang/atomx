@@ -18,7 +18,7 @@ def test_free_box_relativistic_bessel_spectrum(kappa):
     # Independent analytic spherical-Bessel zeros, including both j branches.
     roots = []
     samples = np.arange(.01, 30., .1)
-    for a, b in zip(samples[:-1], samples[1:]):
+    for a, b in zip(samples[:-1], samples[1:], strict=False):
         if spherical_jn(ell, a)*spherical_jn(ell, b) < 0:
             roots.append(brentq(lambda x: spherical_jn(ell, x), a, b))
     momentum = np.array(roots[:5])/r[-1]
@@ -66,10 +66,10 @@ def test_grid_refinement_and_underresolved_rejection():
 
 
 def test_enrichment_contains_original_space_and_is_nested():
-    from atomx.numerics.shooting.electron_space import continuum_enriched_electron_space
-    from atomx.methods.csf.grid_functional import GridCSFFunctional
-    from atomx.physics.csf.matrix import GridCIWorkspace
     from atomx.config.csf import enumerate_jj_csfs_many
+    from atomx.methods.csf.grid_functional import GridCSFFunctional
+    from atomx.numerics.shooting.electron_space import continuum_enriched_electron_space
+    from atomx.physics.csf.matrix import GridCIWorkspace
     r, dr, n = sgrid(100., 1e-7, .2, 1000)
     csfs = [c for c in enumerate_jj_csfs_many(['1s2', '2s2', '2p2'])
             if c.total_J2 == 0 and c.parity == 1]
@@ -106,12 +106,12 @@ def test_diffuse_negative_box_roots_match_bound_limit_and_boundary():
 
 
 def test_continuum_carbon_converges_without_noise_selected_step_stall():
-    from atomx.numerics.shooting.electron_space import continuum_enriched_electron_space
-    from atomx.numerics.shooting.orbital_optimization import optimize_grid_shooting
-    from atomx.methods.csf.grid_functional import GridCSFFunctional
-    from atomx.physics.csf.matrix import GridCIWorkspace
     from atomx.config.csf import enumerate_jj_csfs_many
+    from atomx.methods.csf.grid_functional import GridCSFFunctional
+    from atomx.numerics.shooting.electron_space import continuum_enriched_electron_space
     from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
+    from atomx.numerics.shooting.orbital_optimization import optimize_grid_shooting
+    from atomx.physics.csf.matrix import GridCIWorkspace
     r, dr, n = sgrid(20., 1e-7, 20/2400, 4000)
     nucleus = ShootingHFSolver(6, [], nuclear='fermi')
     f = GridCSFFunctional(enumerate_jj_csfs_many(['1s2']),

@@ -7,12 +7,12 @@ Compare complete eigenvalue multisets per J/parity block; CSF phase conventions
 need not agree. The diagnostic frontend calls the unmodified FAC library.
 """
 import argparse
-from itertools import combinations_with_replacement
 import json
 import os
-from pathlib import Path
 import re
 import time
+from itertools import combinations_with_replacement
+from pathlib import Path
 
 import numpy as np
 from scipy.interpolate import make_interp_spline
@@ -24,10 +24,17 @@ from atomx.numerics.shooting.grid import sgrid
 from atomx.numerics.shooting.operators import _ds_derivative
 from atomx.numerics.shooting.quadrature import slag6
 from atomx.physics.csf.matrix import (
-    GridCIWorkspace, _group_csf_indices, _radial_evaluator, _reset_memo)
+    GridCIWorkspace,
+    _group_csf_indices,
+    _radial_evaluator,
+    _reset_memo,
+)
 from benchmarks.bench_reference_structure import run_reference, sha256
 from benchmarks.fac_runner import (
-    orbital_accuracy_commands, radial_grid_command, parse_hamiltonian_binary)
+    orbital_accuracy_commands,
+    parse_hamiltonian_binary,
+    radial_grid_command,
+)
 
 
 def configurations(sequence):

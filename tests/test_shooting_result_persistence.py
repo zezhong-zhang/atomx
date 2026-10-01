@@ -1,16 +1,17 @@
 """Checkpoints retain the native metric and open-shell correction identity."""
-from dataclasses import asdict
 import os
-from pathlib import Path
 import subprocess
 import sys
+from dataclasses import asdict
+from pathlib import Path
+
 import numpy as np
 import pytest
 
 from atomx.config.jj_coupling import generate_jj_average
+from atomx.corrections.stack import CorrectionStack, finalize_with_corrections
 from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
 from atomx.results import ShootingResult
-from atomx.corrections.stack import CorrectionStack, finalize_with_corrections
 
 
 @pytest.mark.parametrize('equation', ['dirac', 'schrodinger'])

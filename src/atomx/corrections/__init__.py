@@ -15,8 +15,8 @@ with provenance captured under ``"_skipped"``.
 from atomx.corrections import qedmod  # noqa: F401
 from atomx.corrections.adapters import (  # noqa: F401
     BreitCorrection,
-    NormalMassShiftCorrection,
     HydrogenicRadiativeMassLeadingCorrection,
+    NormalMassShiftCorrection,
     SelfEnergyCorrection,
     UehlingVPCorrection,
     WichmannKrollVPCorrection,

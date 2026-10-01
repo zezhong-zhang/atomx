@@ -68,10 +68,9 @@ import pytest
 from atomx.angular.wigner import wigner_3j
 from atomx.physics.csf.breit_ci import (
     RETARDATION_NOTE,
-    BreitOperatorError,
     _clm,
-    _sigma_mu,
     _one_body_terms,
+    _sigma_mu,
     gaunt_angular_terms,
     l_of_kappa,
     retardation_terms,

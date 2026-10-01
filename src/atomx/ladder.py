@@ -29,10 +29,10 @@ from typing import List, Optional, Sequence
 
 from atomx.constants import HARTREE_CM1, HARTREE_EV
 from atomx.methods.base import Method
+from atomx.methods.breit_pauli import BreitPauli
 from atomx.methods.dirac_fock import DiracFock
 from atomx.methods.hartree_fock_slater import HartreeFockSlater
 from atomx.methods.hydrogenic import HydrogenicDirac, HydrogenicSchrodinger
-from atomx.methods.breit_pauli import BreitPauli
 from atomx.types import Exchange, TheoryLevel
 
 # ---------------------------------------------------------------------------

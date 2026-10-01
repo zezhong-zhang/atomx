@@ -2,7 +2,7 @@
 import numpy as np
 import pytest
 
-from atomx import Atom, Basis, Sampling, RadialRefinement
+from atomx import Atom, Basis, RadialRefinement, Sampling
 from atomx.config.subshell import Subshell
 from atomx.methods.dirac_fock import DFSolver, DiracFock
 from atomx.numerics.radial_metric import orbital_distance

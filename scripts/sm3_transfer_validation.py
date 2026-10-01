@@ -6,14 +6,15 @@ Refs (Carnall aquo, +-tolerance): 6H5/2=0, 6H7/2~1080, 6H9/2~2290,
 6H11/2~3600 (approximate — the gates use loose bands).
 """
 import sys
+from pathlib import Path
 
-import numpy as np
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-sys.path.insert(0, "/tmp/atomx-cimbpt")
-sys.path.insert(0, "/tmp/atomx-cimbpt/tests")
-
+from atomx.methods.csf.lanthanide_workspace import (
+    build_lanthanide_workspace as _build,
+)
 from atomx.methods.csf.slater_scaling import free_ion_levels
-from test_slater_scaling import _build
 
 REFS = {2.5: (0.0, "6H5/2"), 3.5: (1080.0, "6H7/2"),
         4.5: (2290.0, "6H9/2"), 5.5: (3600.0, "6H11/2")}

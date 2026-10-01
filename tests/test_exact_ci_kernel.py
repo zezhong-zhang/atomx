@@ -34,13 +34,13 @@ sys.path.insert(0, str(BENCH_DIR))
 from mscheme_ci_reference import _angular_terms, mscheme_levels  # noqa: E402
 
 import atomx.physics.csf.matrix as MAT  # noqa: E402
-from atomx.methods.dirac_fock import Subshell  # noqa: E402
 from atomx.angular import csf_hamiltonian as exact_ci  # noqa: E402
 from atomx.config.csf import (  # noqa: E402
     CSF,
     count_j_resolved_csfs,
     enumerate_jj_csfs,
 )
+from atomx.methods.dirac_fock import Subshell  # noqa: E402
 
 
 def _fake(*args) -> float:

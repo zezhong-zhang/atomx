@@ -24,12 +24,6 @@ def test_coupled_cluster_scaffold_import_and_raises():
         coupled_cluster.compute()
 
 
-def test_rpa_scaffold_import_and_raises():
-    from atomx.methods import rpa
-
-    assert hasattr(rpa, "RPAResult")
-    with pytest.raises(NotImplementedError, match="rpa"):
-        rpa.compute()
 
 
 # ---------------------------------------------------------------------------

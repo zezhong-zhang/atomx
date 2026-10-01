@@ -85,8 +85,8 @@ class TestBreitPauliSolve:
     def test_helium_1s2_single_corrected_key(self):
         """He '1s2': one output key per subshell, corrected in place."""
         from atomx.atom import Atom
-        from atomx.methods.hartree_fock_slater import HartreeFockSlater
         from atomx.methods.breit_pauli import BreitPauli
+        from atomx.methods.hartree_fock_slater import HartreeFockSlater
 
         result = Atom(Z=2, config="1s2").solve(BreitPauli())
 
@@ -111,8 +111,8 @@ class TestBreitPauliSolve:
         KeyError, no leftover stale entries), and the fine-structure
         splitting stays the analytic α²Z⁴/32.
         """
-        from atomx.methods.dirac_fock import Subshell
         from atomx.methods.breit_pauli import BreitPauli
+        from atomx.methods.dirac_fock import Subshell
 
         subshells = [
             Subshell(n=1, kappa=-1, occupation=2),
@@ -141,8 +141,8 @@ class TestBreitPauliSpinOrbitTotalEnergy:
 
     def test_single_2p1_electron_so_correction_nonzero(self):
         """H-like Z=1 '2p1': E_spin_orbit == E_so_minus analytically."""
-        from atomx.methods.dirac_fock import Subshell
         from atomx.methods.breit_pauli import BreitPauli
+        from atomx.methods.dirac_fock import Subshell
 
         result = BreitPauli().solve(
             Z=1, subshells=[Subshell(n=2, kappa=1, occupation=1.0)]
@@ -167,8 +167,8 @@ class TestBreitPauliSpinOrbitTotalEnergy:
         (2j+1)-weighted average happened to be correct; the fix must
         not regress it.
         """
-        from atomx.methods.dirac_fock import Subshell
         from atomx.methods.breit_pauli import BreitPauli
+        from atomx.methods.dirac_fock import Subshell
 
         subshells = [
             Subshell(n=1, kappa=-1, occupation=2),
@@ -184,8 +184,8 @@ class TestBreitPauliSpinOrbitTotalEnergy:
 
     def test_partial_statistical_occupation_weighted_by_member(self):
         """2p3/2^1 alone contributes its own shift times occupation."""
-        from atomx.methods.dirac_fock import Subshell
         from atomx.methods.breit_pauli import BreitPauli
+        from atomx.methods.dirac_fock import Subshell
 
         result = BreitPauli().solve(
             Z=1, subshells=[Subshell(n=2, kappa=-2, occupation=1.0)]
@@ -207,8 +207,8 @@ class TestBreitPauliCustomLabel:
     """
 
     def test_custom_label_leaves_no_stale_nr_key(self):
-        from atomx.methods.dirac_fock import Subshell
         from atomx.methods.breit_pauli import BreitPauli
+        from atomx.methods.dirac_fock import Subshell
 
         subshells = [Subshell(n=2, kappa=1, occupation=1.0, label="2p-core")]
         result = BreitPauli().solve(Z=1, subshells=subshells)

@@ -2,13 +2,13 @@
 import numpy as np
 import pytest
 
-from atomx.numerics.shooting.preconditioner import RadialGreen
-from atomx.numerics.bspline.orbital_optimization import optimize_orbitals
-from atomx.methods.csf.variational import CSFOrbitalFunctional
 from atomx.config.csf import enumerate_jj_csfs
+from atomx.methods.csf.variational import CSFOrbitalFunctional
 from atomx.numerics.bspline.basis import prepare_bspline_data
-from atomx.numerics.bspline.knots import make_knots
 from atomx.numerics.bspline.dirac_assembly import solve_dirac
+from atomx.numerics.bspline.knots import make_knots
+from atomx.numerics.bspline.orbital_optimization import optimize_orbitals
+from atomx.numerics.shooting.preconditioner import RadialGreen
 
 
 def test_public_option_rejects_incompatible_protocols():

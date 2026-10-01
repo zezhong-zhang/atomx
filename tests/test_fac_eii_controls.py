@@ -1,5 +1,6 @@
 """SFAC command order and reference-grid controls must stay explicit."""
 import pytest
+
 from benchmarks.bench_fac_eii_integration import refine_deck
 
 DECK = """SetCIPWOptions(1e-3,20,8,36,18)

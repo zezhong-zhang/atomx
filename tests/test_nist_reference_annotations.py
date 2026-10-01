@@ -1,5 +1,6 @@
 import pytest
-from atomx.reference_data.annotations import AnnotationLinks,parse_annotation
+
+from atomx.reference_data.annotations import AnnotationLinks, parse_annotation
 
 
 def test_annotation_link_requires_exact_nist_source_and_comment_identity():

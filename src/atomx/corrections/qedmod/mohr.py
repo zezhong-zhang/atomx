@@ -27,10 +27,10 @@ for high-``l`` states.  See
 from __future__ import annotations
 
 import re
+
 import numpy as np
 
 from atomx.constants import ALPHA
-from atomx.physics.dirac import hydrogenic_dirac_coulomb_expectation
 from atomx.corrections.qedmod.base import SEBackend, SEResult, register_backend
 from atomx.data.mohr_se import (
     SD_ROWS,
@@ -40,6 +40,7 @@ from atomx.data.mohr_se import (
     klamaq_f,
 )
 from atomx.data.mohr_se import TABLE as _SE_TABLE
+from atomx.physics.dirac import hydrogenic_dirac_coulomb_expectation
 
 # Numerical safety floor for comparing the hydrogenic ⟨-Z/r⟩ = -Z²/n² to
 # the SCF value before taking their ratio.  The hydrogenic denominator is

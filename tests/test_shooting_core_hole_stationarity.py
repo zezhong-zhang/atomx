@@ -4,9 +4,9 @@ import pytest
 
 
 def test_beryllium_core_hole_keeps_radial_identity_and_matches_bspline():
-    from atomx.config.jj_coupling import generate_jj_average, JJConfig
-    from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
+    from atomx.config.jj_coupling import JJConfig, generate_jj_average
     from atomx.methods.dirac_fock import DiracFock
+    from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
     from atomx.numerics.shooting.operators import one_body_element
     shells,ensemble=generate_jj_average('1s1 2s2 2p1',averaging='statistical')
     kept=[i for i,s in enumerate(shells) if s.occupation>0]

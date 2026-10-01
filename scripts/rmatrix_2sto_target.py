@@ -7,18 +7,19 @@ Structurally immune to both earlier exclusions (no extra channel: the
 span genuinely widens through the richer target).
 """
 import sys
+from pathlib import Path
 
 import numpy as np
 
-sys.path.insert(0, "/tmp/atomx-cimbpt")
-sys.path.insert(0, "/tmp/atomx-cimbpt/scripts")
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
+from rmatrix_contracted_zeta import contracted_targets
 from scipy.interpolate import interp1d
 
 from atomx.scattering.r_matrix.cc_inner import assemble_cc_inner_region
-from atomx.scattering.r_matrix.channel_table import (Channel,
-                                                     TargetState)
-from rmatrix_contracted_zeta import contracted_targets
+from atomx.scattering.r_matrix.channel_table import Channel, TargetState
 
 
 def two_sto_target(z1, z2, r, mix=0.5, P1s=None):
@@ -52,7 +53,7 @@ def pole_2sto(z1, z2, mix, zeta_p=1.2, a=25.0, n_basis=60):
                               ("2s#", 0, e2s, fs[1]),
                               ("2p#", 1, e2p, fs[2])]]
     chans = [Channel(index=i, target=t, l_c=l, threshold_au=t.energy_au)
-             for i, (t, l) in enumerate(zip(ts, (0, 0, 1)))]
+             for i, (t, l) in enumerate(zip(ts, (0, 0, 1), strict=False))]
     sol = assemble_cc_inner_region(chans, L_total=0, S_total=0.0, Z=2.0,
                                    a_au=a, n_basis=n_basis,
                                    k_spline_order=6, n_gauss=12)

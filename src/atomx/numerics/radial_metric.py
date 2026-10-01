@@ -1,5 +1,6 @@
 """Owned quadrature contract shared by radial engines and observables."""
 from dataclasses import dataclass
+
 import numpy as np
 
 

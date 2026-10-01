@@ -4,11 +4,12 @@ Solvers resolve their defaults before entering this boundary. The record is
 attached to the result before corrections and preserved by public dispatch.
 It describes model and discretization; iteration convergence is separate.
 """
-from dataclasses import dataclass, fields, is_dataclass
-from collections.abc import Mapping
-from types import MappingProxyType
 import hashlib
 import math
+from collections.abc import Mapping
+from dataclasses import dataclass, fields, is_dataclass
+from types import MappingProxyType
+
 import numpy as np
 
 

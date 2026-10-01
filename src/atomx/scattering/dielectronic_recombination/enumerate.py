@@ -21,9 +21,9 @@ from typing import Callable, Sequence
 
 import numpy as np
 
-from atomx.constants import HARTREE_EV, RYDBERG_EV
-from atomx.config.subshell import Subshell
 from atomx.config.csf import CSF
+from atomx.config.subshell import Subshell
+from atomx.constants import HARTREE_EV, RYDBERG_EV
 from atomx.properties.transitions.angular import selection_rules
 from atomx.scattering.autoionization.auger import AutoionizationState
 

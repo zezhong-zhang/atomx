@@ -1,9 +1,11 @@
+from types import SimpleNamespace
+
 import numpy as np
 import pytest
-from types import SimpleNamespace
+
+from atomx.corrections.adapters import _grid_workspace_of
 from atomx.numerics.radial_metric import RadialMetric
 from atomx.numerics.shooting.quadrature import slag6
-from atomx.corrections.adapters import _grid_workspace_of
 from atomx.results import OrbitalWavefunction, Waves
 
 
@@ -33,9 +35,9 @@ def test_observable_uses_native_quadrature_and_rejects_other_grid():
 
 
 def test_result_radial_snapshot_owns_native_spinors():
-    from atomx.results import ShootingResult
-    from atomx.methods.dirac_fock import Subshell
     from atomx.corrections.adapters import _dirac_orbital_payload
+    from atomx.methods.dirac_fock import Subshell
+    from atomx.results import ShootingResult
     r = np.linspace(0., 2., 31)
     p = (r*np.exp(-r))[None, :]
     result = ShootingResult(True, 1, -.5, {}, Z=1,

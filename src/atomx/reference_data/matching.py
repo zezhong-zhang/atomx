@@ -5,15 +5,18 @@ Configuration averages and evaluated complete manifolds remain distinct
 from resolved spectral lines. Unmatched and incomplete records are retained.
 """
 from __future__ import annotations
+
+import math
+import sqlite3
 from collections import defaultdict
 from fractions import Fraction
 from functools import lru_cache
 from math import comb
-import math
-import sqlite3
+
 from atomx.config import ground_state_config
 from atomx.config.parsing import parse_nr_shells
 from atomx.reference_data.nist import _filled, configuration_map
+
 
 def expand_nist_config(text: str, electrons: int) -> str | None:
     """Restore only closed inner subshells omitted by NIST's notation."""

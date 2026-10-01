@@ -12,10 +12,10 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
+from atomx.config.csf import get_shared_orbital_basis
 from atomx.methods.ci import CIResult, ci_solve
 from atomx.methods.dirac_fock import DFSolver
 from atomx.methods.mcdhf import MCDHFSolver, make_csf_list
-from atomx.config.csf import get_shared_orbital_basis
 
 
 def _he_csfs():

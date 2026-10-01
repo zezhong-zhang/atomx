@@ -2,9 +2,9 @@
 import numpy as np
 import pytest
 
+from atomx.config.csf import enumerate_jj_csfs
 from atomx.corrections.specific_recoil import momentum_recoil_matrix, vinti_matrix
 from atomx.numerics.radial_workspace import make_grid_workspace
-from atomx.config.csf import enumerate_jj_csfs
 
 
 def hydrogenic(z):
@@ -212,6 +212,7 @@ def test_recoil_spherical_harmonic_phase_matches_explicit_spinor_integral(ka,kb)
     """The C denominator must have the same tensor convention as sigma."""
     from sympy import Rational
     from sympy.physics.wigner import clebsch_gordan, wigner_3j
+
     from atomx.angular.coefficients import reduced_cl_j2
     half = Rational(1,2)
     ja, jb = abs(ka)-half, abs(kb)-half
@@ -231,16 +232,17 @@ def test_recoil_spherical_harmonic_phase_matches_explicit_spinor_integral(ka,kb)
 def test_leading_and_breit_vinti_against_live_fac(z):
     import json
     from pathlib import Path
+
     from atomx.config.subshell import Subshell
-    from atomx.numerics.shooting.local import ShootingSolver
     from atomx.corrections.specific_recoil import recoil_radial_matrices
+    from atomx.numerics.shooting.local import ShootingSolver
     reference = json.loads((Path(__file__).parent/'data/fac_vinti_reference.json').read_text())
     rows = next(c['rows'] for c in reference['cases'] if c['z']==z)
     keys = sorted({tuple(r[side]) for r in rows for side in ('bra','ket')})
     states = [ShootingSolver(z,[Subshell(n,k,1)],nuclear='point',n_grid=2000,
                               r_max=125/z).solve(tol=1e-11) for n,k in keys]
     assert all(s.converged for s in states)
-    waves = [(s._pa[0,1:],s._qa[0,1:],k[1]) for k,s in zip(keys,states)]
+    waves = [(s._pa[0,1:],s._qa[0,1:],k[1]) for k,s in zip(keys,states, strict=False)]
     leading, breit = recoil_radial_matrices(waves,states[0].radial_state.correction_workspace(),Z=z)
     for row in rows:
         a,b = keys.index(tuple(row['bra'])),keys.index(tuple(row['ket']))

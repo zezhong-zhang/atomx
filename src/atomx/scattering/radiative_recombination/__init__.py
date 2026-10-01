@@ -65,13 +65,13 @@ import numpy as np
 
 from atomx.constants import ALPHA, BOHR_RADIUS_M, HARTREE_EV
 from atomx.numerics.bspline.continuum import solve_continuum
-from atomx.scattering.photoionization.direct import photoionization_cross_section
 from atomx.properties.transitions.angular import (
     allowed_final_kappas,
     line_strength_factor,
 )
 from atomx.properties.transitions.multipole import radial_eL, radial_mL
 from atomx.scattering.models import ContinuumModel
+from atomx.scattering.photoionization.direct import photoionization_cross_section
 
 BOHR_CM2 = (BOHR_RADIUS_M * 100.0) ** 2  # a₀² in cm²
 AU_VELOCITY_CM_S = ALPHA * 299_792_458.0 * 100.0
@@ -153,8 +153,8 @@ def _residual_hartree_potential(result, capture_label):
     Coulomb tail. This local channel approximation omits core relaxation
     and nonlocal exchange; it is recorded in the result provenance.
     """
-    from atomx.numerics.yk import compute_yk
     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
+    from atomx.numerics.yk import compute_yk
     data = result._bsp_data
     radius = data["gr"]
     density = np.zeros_like(radius)

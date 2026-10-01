@@ -134,6 +134,7 @@ def test_screened_potential_uses_the_coulomb_tail_interval():
 @pytest.mark.parametrize('kappa', [-1, 1, -3])
 def test_screened_continuum_against_independent_ode(kappa):
     from scipy.integrate import solve_ivp
+
     from atomx.constants import C
 
     def potential(r):

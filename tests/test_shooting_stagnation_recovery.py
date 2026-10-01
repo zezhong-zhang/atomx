@@ -1,6 +1,7 @@
 """Energy-stationary frozen-source plateaus must not exhaust the SCF budget."""
 import numpy as np
 import pytest
+
 from atomx.config.jj_coupling import generate_jj_average
 from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
 
@@ -22,7 +23,7 @@ def test_adaptive_plateau_recovery_matches_implicit_exchange(z,n,mass):
     # is stationary to second order. Compare shapes at the requested update
     # tolerance rather than imposing energy-like accuracy on eigenvalues.
     weights=adaptive.radial_state.metric.weights
-    for p,q,r,s in zip(adaptive._pa,adaptive._qa,implicit._pa,implicit._qa):
+    for p,q,r,s in zip(adaptive._pa,adaptive._qa,implicit._pa,implicit._qa, strict=False):
         sign=1. if np.sum((p*r+q*s)*weights)>=0 else -1.
         difference=np.sqrt(np.sum(((p-sign*r)**2+(q-sign*s)**2)*weights))
         assert difference <= 2*d['orbital_update_tolerance']

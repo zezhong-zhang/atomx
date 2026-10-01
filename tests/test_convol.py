@@ -406,8 +406,10 @@ class TestSCFIntegration:
 def test_full_dirac_direct_and_exchange_blocks_contract_to_slater(he_setup, rank):
     """Mixed spinor components are required in both J and K contractions."""
     from atomx.numerics.bspline.convol import (
-        compute_direct_potential_cell, compute_exchange_matrix_cell,
-        compute_slater_rk_cell)
+        compute_direct_potential_cell,
+        compute_exchange_matrix_cell,
+        compute_slater_rk_cell,
+    )
     bsp, ns = he_setup['data'], he_setup['ns']
     rng = np.random.default_rng(713)
     # Comparable P/Q amplitudes expose missing relativistic terms; random

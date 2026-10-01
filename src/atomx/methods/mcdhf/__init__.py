@@ -23,15 +23,15 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from atomx.methods.base import Method
 from atomx.config.csf import (
     CSF,
     count_j_resolved_csfs,
     make_csf_list,
 )
-from atomx.physics.csf.matrix import build_ci_matrix
+from atomx.methods.base import Method
 from atomx.methods.mcdhf.solver import MCDHFResult, MCDHFSolver
 from atomx.numerics.shooting.electron_space import ShootingSpace
+from atomx.physics.csf.matrix import build_ci_matrix
 from atomx.types import Correlation, TheoryLevel
 
 
@@ -133,8 +133,8 @@ class MCDHF(Method):
         csfs = make_csf_list(Z, config_strings)
         stack = None
         if self.breit_frequency != 'static' or self.breit_orbital_energies is not None:
-            from atomx.corrections.stack import CorrectionStack
             from atomx.corrections.qed import resolve_se_method
+            from atomx.corrections.stack import CorrectionStack
             stack = CorrectionStack(
                 include_breit=self.breit, breit_frequency=self.breit_frequency,
                 breit_orbital_energies=self.breit_orbital_energies,

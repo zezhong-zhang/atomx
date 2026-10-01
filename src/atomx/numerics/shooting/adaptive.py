@@ -7,10 +7,12 @@ Tail mass is checked for *every* orbital, including exchange-induced core tails.
 It is a warning indicator, not an estimate of the omitted infinite-domain norm;
 an enlarged-box calculation provides the separate boundary check.
 """
-from dataclasses import dataclass
 import math
+from dataclasses import dataclass
 from numbers import Integral
+
 import numpy as np
+
 
 @dataclass(frozen=True)
 class RadialRefinement:

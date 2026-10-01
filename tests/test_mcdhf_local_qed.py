@@ -3,12 +3,12 @@
 import numpy as np
 import pytest
 
+from atomx.config.csf import enumerate_jj_csfs
 from atomx.constants import C
 from atomx.corrections.qed import short_range_radial_matrix, uehling_potential
 from atomx.corrections.stack import CorrectionStack
-from atomx.numerics.radial_workspace import make_grid_workspace
-from atomx.config.csf import enumerate_jj_csfs
 from atomx.methods.mcdhf.solver import MCDHFSolver
+from atomx.numerics.radial_workspace import make_grid_workspace
 
 
 def radial_pair():

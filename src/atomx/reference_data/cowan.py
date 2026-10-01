@@ -3,8 +3,8 @@
 The seven printed ETOT columns are defined in RCN OUTPT, format 50.
 RCN always exports the last (corrected) column to RCN2, even for CORRF=0.
 """
-import re
 import math
+import re
 
 # RCN2 G5INP's conversion, preserved for reproducibility of this code version.
 RCN_RYDBERG_CM1 = 109737.31
@@ -60,7 +60,7 @@ def parse_rcn_energies(text):
                   re.findall(r'[-+]?\d+\.\d+(?:[DE][-+]?\d+)?', line)]
         if len(values) != len(ENERGY_COLUMNS):
             raise ValueError('incomplete Cowan ETOT ledger')
-        result.append(dict(zip(ENERGY_COLUMNS, values)))
+        result.append(dict(zip(ENERGY_COLUMNS, values, strict=False)))
     if not result:
         raise ValueError('Cowan output contains no ETOT ledger')
     return result
@@ -90,7 +90,7 @@ def read_rcn_radial_records(path):
     Only the stored orbitals and physical mesh entries are returned.
     """
     import numpy as np
-    from scipy.io import FortranFile, FortranEOFError
+    from scipy.io import FortranEOFError, FortranFile
     records = []
     with FortranFile(path, 'r', header_dtype=np.dtype('<u4')) as stream:
         while True:
@@ -98,7 +98,7 @@ def read_rcn_radial_records(path):
                 raw = stream.read_record(np.uint8)
             except FortranEOFError:
                 break
-            def integer(offset):
+            def integer(offset, *, raw=raw):
                 return int(raw[offset:offset+4].view('<i4')[0])
             if len(raw) < 1306:
                 raise ValueError('truncated LANL RCN radial header')

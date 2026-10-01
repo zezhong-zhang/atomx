@@ -43,12 +43,12 @@ One implementation of each radial kernel serves both engines.
 import numpy as np
 
 from atomx.constants import C
-from atomx.numerics.special import scaled_spherical_jn
 
 # One radial-integral implementation serves both engines: the workspace
 # seam evaluates B-spline coefficient vectors through the (kinetic-
 # balance-aware) basis tables and passes grid-tabulated orbitals through.
 from atomx.numerics.radial_workspace import eval_orbital_pair, workspace_arrays
+from atomx.numerics.special import scaled_spherical_jn
 
 
 def radial_eL(P_i, Q_i, P_f, Q_f, bsp_data, L=1, *,

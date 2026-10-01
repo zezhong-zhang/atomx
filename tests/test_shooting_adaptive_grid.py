@@ -1,9 +1,10 @@
 """Refinement must expose unresolved discretization and preserve the model."""
 from dataclasses import replace
+
 import numpy as np
 import pytest
 
-from atomx import Atom, Basis, Sampling, RadialRefinement
+from atomx import Atom, Basis, RadialRefinement, Sampling
 from atomx.numerics.shooting.adaptive import RadialSample, refine_radial_grid
 from atomx.numerics.shooting.dirac_orbital import RadialBoxError
 
@@ -109,8 +110,8 @@ def test_invalid_controls(kwargs):
 
 
 def test_hydrogenic_radial_refinement_and_persistence(tmp_path):
-    from atomx.results import ShootingResult
     from atomx.numerics.shooting.constants import SL
+    from atomx.results import ShootingResult
     atom = Atom(1, nuclear='point', corrections='none',
         basis=Basis(sampling=Sampling(radial_refinement=RadialRefinement())))
     atom.solve()

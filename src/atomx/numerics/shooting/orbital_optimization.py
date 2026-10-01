@@ -1,5 +1,6 @@
 """Constrained grid optimization of a supplied energy/gradient functional."""
 import numpy as np
+
 from atomx.numerics.shooting.dirac_response import DiracResponse
 from atomx.numerics.shooting.problem import ShootingRadialProblem
 

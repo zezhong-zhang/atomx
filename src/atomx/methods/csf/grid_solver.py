@@ -8,13 +8,14 @@ import numpy as np
 
 def solve_variational_shooting(solver, *, max_iter, tolerance):
     """Return the optimized orbitals, CI and native radial context."""
+    from atomx.numerics.shooting.electron_space import continuum_enriched_electron_space
     from atomx.numerics.shooting.grid import sgrid
+    from atomx.numerics.shooting.orbital_optimization import optimize_grid_shooting
+    from atomx.physics.csf.matrix import GridCIWorkspace
     from atomx.potentials.radial_nucleus import screened_nuclear_rv
     from atomx.results import ShootingResult
-    from atomx.physics.csf.matrix import GridCIWorkspace
+
     from .grid_functional import GridCSFFunctional
-    from atomx.numerics.shooting.electron_space import continuum_enriched_electron_space
-    from atomx.numerics.shooting.orbital_optimization import optimize_grid_shooting
 
     controls = solver.shooting_space
     required = max(n-(k if k > 0 else -k-1) for n, k in solver.orbital_basis)

@@ -23,8 +23,7 @@ from atomx.constants import HARTREE_EV
 from atomx.corrections import CorrectionResult, CorrectionStack
 from atomx.methods.dirac_fock import SCFResult
 from atomx.methods.mcdhf.solver import MCDHFResult
-from atomx.results import ShootingResult
-from atomx.results import AtomicResult, Waves
+from atomx.results import AtomicResult, ShootingResult, Waves
 
 #: Optional-extra guards, declared once and named in the skip reason.  A bare
 #: in-body ``importorskip`` makes the node disappear with no record of which

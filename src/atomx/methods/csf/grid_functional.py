@@ -11,11 +11,12 @@ from __future__ import annotations
 import numpy as np
 
 from atomx.methods.ci import ci_solve
+from atomx.numerics.shooting.constants import SL
+from atomx.numerics.shooting.coulomb import _yk_over_r
+from atomx.numerics.shooting.operators import _FD_CENTRAL, _FD_EDGE
+from atomx.numerics.shooting.quadrature import slag6_adjoint, slag6_weights
 from atomx.physics.csf import matrix
 from atomx.physics.csf.radial_density import CIRadialDensity
-from atomx.numerics.shooting.constants import SL
-from atomx.numerics.shooting.quadrature import slag6_adjoint, slag6_weights
-from atomx.numerics.shooting.coulomb import _yk_over_r
 
 
 def derivative_adjoint(source):
@@ -24,12 +25,12 @@ def derivative_adjoint(source):
     if n < 9:
         raise ValueError('grid needs at least 9 points')
     out = np.zeros_like(source)
-    for offset, coeff in enumerate(matrix._FD_CENTRAL, 1):
+    for offset, coeff in enumerate(_FD_CENTRAL, 1):
         out[4+offset:n-4+offset] += coeff*source[4:n-4]
         out[4-offset:n-4-offset] -= coeff*source[4:n-4]
     for i in range(4):
-        out[:9] += source[i]*matrix._FD_EDGE[i]
-        out[-9:] -= source[n-1-i]*matrix._FD_EDGE[i][::-1]
+        out[:9] += source[i]*_FD_EDGE[i]
+        out[-9:] -= source[n-1-i]*_FD_EDGE[i][::-1]
     return out
 
 

@@ -12,9 +12,15 @@ import numpy as np
 
 from atomx.numerics.shooting.constants import SL
 from atomx.numerics.shooting.dirac_green import (
-    homogeneous_pair as _homogeneous_pair, green_solve as _green_solve,
-    box_inward as _box_inward, box_pair as _box_pair,
-    scaled_box_pair, scaled_green_solve, prepare_scaled_green,
+    green_solve as _green_solve,
+)
+from atomx.numerics.shooting.dirac_green import (
+    homogeneous_pair as _homogeneous_pair,
+)
+from atomx.numerics.shooting.dirac_green import (
+    prepare_scaled_green,
+    scaled_box_pair,
+    scaled_green_solve,
 )
 from atomx.numerics.shooting.problem import ShootingRadialProblem
 

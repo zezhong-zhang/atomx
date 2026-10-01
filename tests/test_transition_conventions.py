@@ -1,5 +1,6 @@
 """Physical absorption/emission identities and live FAC column conventions."""
 from pathlib import Path
+
 import numpy as np
 import pytest
 
@@ -56,7 +57,7 @@ def test_fac_writer_preserves_rate_and_signed_amplitude(tmp_path):
         path = tmp_path/f'{multipole}.txt'
         write_tra(rows, path, multipole=multipole, Z=10)
         reread = read_tra(path)
-        for before, after in zip(rows,reread):
+        for before, after in zip(rows,reread, strict=False):
             for field in ('A_per_s','gf','reduced_matrix_element'):
                 assert after[field] == pytest.approx(before[field],rel=1e-8)
 

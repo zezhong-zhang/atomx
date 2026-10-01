@@ -265,9 +265,9 @@ class TestAbInitioSMSNoble:
 
     def test_Ne_property_matches_recoil_operator(self):
         """Property and energy-correction entry points evaluate one operator."""
+        from atomx.corrections.specific_recoil import configuration_average_recoil
         from atomx.methods.dirac_fock import DFSolver, neon_subshells
         from atomx.properties.isotope_shift import compute_sms_abinitio
-        from atomx.corrections.specific_recoil import configuration_average_recoil
         solver = DFSolver(Z=10, subshells=neon_subshells(), ns=70, ks=9, exchange="hf")
         result = solver.solve(max_iter=100, tol=1e-8)
         assert result.converged

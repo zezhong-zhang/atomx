@@ -8,14 +8,17 @@ source change must be the speed-of-light constant matched to Atomx.
 import argparse
 import hashlib
 import json
-from pathlib import Path
 import subprocess
 import time
+from pathlib import Path
 
 import numpy as np
+
 from atomx.constants import C
 from atomx.numerics.shooting.dirac_continuum import (
-    _prepare_potential, solve_dirac_continuum_shooting)
+    _prepare_potential,
+    solve_dirac_continuum_shooting,
+)
 
 
 def sha(path):
@@ -42,7 +45,7 @@ def main():
         Path('src/atomx/numerics/shooting').glob('*.py')}, cases=[])
     target = np.r_[0., np.geomspace(1e-7, args.r_max, args.n_output-1)]
     for z, tail, scale in [(10., 0., 1.), (26., 17., .3), (82., 73., .1)]:
-        def potential(r):
+        def potential(r, *, scale=scale, tail=tail, z=z):
             return -(tail+(z-tail)*np.exp(-r/scale))/r
         prep = _prepare_potential(potential, args.r_max, args.n_grid, tail)
         source_r, source_rv = prep[0], prep[-1]
@@ -58,7 +61,7 @@ def main():
                         Z_residual=tail, interp_grid=target)
                     durations.append(time.perf_counter()-start)
                 inputs = f'{len(source_r)} {len(target)} {energy} {kappa} 1e-10\n'
-                inputs += ''.join(f'{a:.17g} {b:.17g}\n' for a,b in zip(source_r, source_rv))
+                inputs += ''.join(f'{a:.17g} {b:.17g}\n' for a,b in zip(source_r, source_rv, strict=False))
                 inputs += ''.join(f'{x:.17g}\n' for x in target)
                 (folder/'input.txt').write_text(inputs)
                 start = time.perf_counter()

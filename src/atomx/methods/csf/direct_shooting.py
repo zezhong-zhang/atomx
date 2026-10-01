@@ -1,11 +1,13 @@
 """Monoconfiguration Hamiltonian DF via direct coupled radial shooting."""
 from copy import deepcopy
+
 import numpy as np
-from atomx.methods.ci import ci_solve
+
 from atomx.config.jj_coupling import generate_jj_average
+from atomx.methods.ci import ci_solve
+from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
 from atomx.physics.csf.matrix import GridCIWorkspace
 from atomx.physics.csf.radial_fock import CSFRadialFock
-from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
 
 
 def solve_direct_shooting(solver, *, max_iter, tolerance, orbital_tolerance=None):

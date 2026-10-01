@@ -1,8 +1,6 @@
 from atomx.reference_data.spectrum_notes import extract_spectrum_notes
 
 
-
-
 def test_extract_editorial_context_and_safe_reference_links():
     html='''<table><tr><td class='brt1'>Lines:</td><td class='blf'>Intensity at 1.9&nbsp;eV.
     <a href="javascript:void(0)" onclick="popded('https://physics.nist.gov/ref?a=1&amp;b=2')">Source</a>

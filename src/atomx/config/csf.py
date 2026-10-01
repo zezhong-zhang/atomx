@@ -7,17 +7,16 @@ characterized by (n, kappa), and the occupation q <= 2j+1.
 For MCDHF, we need multiple CSFs that can mix via CI.
 """
 
-import re
 from dataclasses import dataclass
 from typing import List, Optional, Tuple
 
 import numpy as np
 
+from atomx.angular.csf_hamiltonian import coupling_paths
 from atomx.angular.csf_recoupling import allowed_coupled_J2
 from atomx.angular.mscheme import subshell_j_counts_mscheme
 from atomx.config.parsing import parse_nr_shells
 from atomx.config.subshell import Subshell
-from atomx.angular.csf_hamiltonian import coupling_paths
 
 
 @dataclass

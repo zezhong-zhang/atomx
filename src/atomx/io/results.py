@@ -181,6 +181,7 @@ def load_scf_result(path, *, result_type):
         Fully reconstructed result with bsp_data for downstream use.
     """
     import h5py
+
     from atomx.config.subshell import Subshell
 
     path = str(path)
@@ -306,6 +307,7 @@ def save_shooting_result(result, path):
     import os
     import tempfile
     from pathlib import Path
+
     import h5py
     _validate_shooting_arrays(result)
     metadata = _encode_metadata(result)
@@ -341,9 +343,11 @@ def save_shooting_result(result, path):
 def load_shooting_result(path):
     """Restore a shooting result without solving or changing its radial metric."""
     from pathlib import Path
+
     import h5py
-    from atomx.config.subshell import Subshell
+
     from atomx.config.jj_coupling import JJConfig
+    from atomx.config.subshell import Subshell
     from atomx.results import ShootingResult
     path = Path(path)
     if not str(path).endswith('.h5'):

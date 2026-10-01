@@ -1,13 +1,16 @@
 """Racah reduction checked against magnetic sums and exact symbolic algebra."""
-from itertools import product
 import math
+from itertools import product
 
 import pytest
 from sympy import Rational, sqrt
 from sympy.physics.wigner import wigner_3j, wigner_6j
 
 from atomx.angular.coefficients import (
-    cg, ckm, coupled_coulomb_direct, coupled_coulomb_exchange,
+    cg,
+    ckm,
+    coupled_coulomb_direct,
+    coupled_coulomb_exchange,
 )
 
 

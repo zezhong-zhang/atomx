@@ -7,16 +7,18 @@ NON-ORTHOGONAL pair pseudo-state phi(zeta2) = N r exp(-zeta2 r)
 Scan zeta2 for the closed pole -> Burke -0.77816.
 """
 import sys
+from pathlib import Path
 
 import numpy as np
 
-sys.path.insert(0, "/tmp/atomx-cimbpt")
-sys.path.insert(0, "/tmp/atomx-cimbpt/scripts")
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
+from rmatrix_contracted_zeta import contracted_targets
 from scipy.interpolate import interp1d
 
 from atomx.scattering.r_matrix.cc_inner import assemble_cc_inner_region
-from rmatrix_contracted_zeta import contracted_targets
 
 
 def pole_with_chi(zeta, zeta2, a=25.0, n_basis=60):
@@ -30,15 +32,14 @@ def pole_with_chi(zeta, zeta2, a=25.0, n_basis=60):
     fs = [interp1d(r_fine, P, fill_value=0.0, bounds_error=False)
           for P in (P1s, P2s, P2p)]
     fphi = interp1d(r_fine, Pphi, fill_value=0.0, bounds_error=False)
-    from atomx.scattering.r_matrix.channel_table import (
-        Channel, TargetState)
+    from atomx.scattering.r_matrix.channel_table import Channel, TargetState
     ts = [TargetState(label=l, n_electrons=1, l=ll, energy_au=e, P=f,
                       n=2, Z=2.0)
           for l, ll, e, f in [("1s", 0, e1s, fs[0]),
                               ("2s#", 0, e2s, fs[1]),
                               ("2p#", 1, e2p, fs[2])]]
     chans = [Channel(index=i, target=t, l_c=l, threshold_au=t.energy_au)
-             for i, (t, l) in enumerate(zip(ts, (0, 0, 1)))]
+             for i, (t, l) in enumerate(zip(ts, (0, 0, 1), strict=False))]
     sol = assemble_cc_inner_region(
         chans, L_total=0, S_total=0.0, Z=2.0, a_au=a, n_basis=n_basis,
         k_spline_order=6, n_gauss=12,

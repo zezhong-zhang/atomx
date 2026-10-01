@@ -1,11 +1,12 @@
 """Nonlocal shooting eigenproblems with analytically known spectral shifts."""
 import numpy as np
 import pytest
-from atomx.numerics.shooting.grid import sgrid
-from atomx.numerics.shooting.problem import ShootingRadialProblem
+
 from atomx.numerics.shooting.dirac_bound import dbound
-from atomx.numerics.shooting.nonlocal_eigen import solve_nonlocal_bound_state
 from atomx.numerics.shooting.dirac_orbital import OrbitalSolveError
+from atomx.numerics.shooting.grid import sgrid
+from atomx.numerics.shooting.nonlocal_eigen import solve_nonlocal_bound_state
+from atomx.numerics.shooting.problem import ShootingRadialProblem
 
 
 @pytest.fixture(scope='module')

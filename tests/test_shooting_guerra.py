@@ -56,13 +56,18 @@ def _statistical_subshells(config_str):
 #: bit-identity is asserted separately below.
 _PIN_REL = 1.0e-13
 _BASELINE = {
-    "Ne": ("1s2 2s2 2p6", 10, -128.69197743882302, {
-        "1s1/2": -32.81746674512012,
-        "2s1/2": -1.9358533149080215,
-        "2p1/2": -0.8528341378011031,
-        "2p3/2": -0.8482719942102857,
-    }),
-    "Co": ("1s2 2s2 2p6 3s2 3p6 3d7 4s2", 27, -1392.0024688180542, None),
+    "Ne": (
+        "1s2 2s2 2p6",
+        10,
+        -128.69197743877024,
+        {
+            "1s1/2": -32.817466745129536,
+            "2s1/2": -1.9358533148968573,
+            "2p1/2": -0.852834137793202,
+            "2p3/2": -0.8482719942089971,
+        },
+    ),
+    "Co": ("1s2 2s2 2p6 3s2 3p6 3d7 4s2", 27, -1392.0024688190515, None),
 }
 
 
@@ -77,22 +82,24 @@ def test_no_jj_configs_matches_recorded_baseline(name):
     """
     cfg, Z, e_ref, oe_ref = _BASELINE[name]
     subshells = _statistical_subshells(cfg)
-    res = ShootingHFSolver(Z=Z, subshells=subshells, jj_configs=None,
-                           constraint_mode="schmidt_legacy").solve()
+    res = ShootingHFSolver(
+        Z=Z, subshells=subshells, jj_configs=None, constraint_mode="schmidt_legacy"
+    ).solve()
     assert res.converged
     assert res.total_energy == pytest.approx(e_ref, rel=_PIN_REL), (
-        f"{name}: statistical path changed: "
-        f"{res.total_energy!r} != {e_ref!r}")
+        f"{name}: statistical path changed: {res.total_energy!r} != {e_ref!r}"
+    )
     if oe_ref is not None:
         for label, eps in oe_ref.items():
             assert res.orbital_energies[label] == pytest.approx(eps, rel=_PIN_REL), (
-                f"{name} {label}: {res.orbital_energies[label]!r} "
-                f"!= {eps!r}")
+                f"{name} {label}: {res.orbital_energies[label]!r} != {eps!r}"
+            )
 
     # The seam's actual contract — repeating the solve in this process must
     # reproduce the very same bits (no global state leaking between solves).
-    repeat = ShootingHFSolver(Z=Z, subshells=subshells, jj_configs=None,
-                           constraint_mode="schmidt_legacy").solve()
+    repeat = ShootingHFSolver(
+        Z=Z, subshells=subshells, jj_configs=None, constraint_mode="schmidt_legacy"
+    ).solve()
     assert repeat.total_energy == res.total_energy
     for label in res.orbital_energies:
         assert repeat.orbital_energies[label] == res.orbital_energies[label]
@@ -103,18 +110,20 @@ def test_no_jj_configs_matches_recorded_baseline(name):
 # ----------------------------------------------------------------------
 def test_single_config_matches_statistical():
     subshells = _statistical_subshells("1s2 2s2 2p2")
-    single = [JJConfig(
-        subshells=[Subshell(n=s.n, kappa=s.kappa, occupation=s.occupation)
-                   for s in subshells],
-        weight=1.0)]
+    single = [
+        JJConfig(
+            subshells=[
+                Subshell(n=s.n, kappa=s.kappa, occupation=s.occupation)
+                for s in subshells
+            ],
+            weight=1.0,
+        )
+    ]
     r_stat = ShootingHFSolver(Z=6, subshells=subshells).solve()
-    r_one = ShootingHFSolver(Z=6, subshells=subshells,
-                             jj_configs=single).solve()
+    r_one = ShootingHFSolver(Z=6, subshells=subshells, jj_configs=single).solve()
     assert r_one.converged
-    rel = abs(r_one.total_energy - r_stat.total_energy) / abs(
-        r_stat.total_energy)
-    assert rel <= 1e-12, (
-        f"single-config Guerra vs statistical: rel {rel:.2e}")
+    rel = abs(r_one.total_energy - r_stat.total_energy) / abs(r_stat.total_energy)
+    assert rel <= 1e-12, f"single-config Guerra vs statistical: rel {rel:.2e}"
     for label, eps in r_stat.orbital_energies.items():
         rel_o = abs(r_one.orbital_energies[label] - eps) / abs(eps)
         assert rel_o <= 1e-10, f"{label}: rel {rel_o:.2e}"
@@ -129,12 +138,20 @@ def _carbon_two_csf():
     Keeps the 2p-/2p+ cross terms nonzero (WW(2p-, 2p+) = 0.5), unlike
     a (2p-)^2 / (2p+)^2 mixture where they vanish.
     """
+
     def mk(qm, qp):
-        return [Subshell(1, -1, 2.0), Subshell(2, -1, 2.0),
-                Subshell(2, 1, float(qm)), Subshell(2, -2, float(qp))]
+        return [
+            Subshell(1, -1, 2.0),
+            Subshell(2, -1, 2.0),
+            Subshell(2, 1, float(qm)),
+            Subshell(2, -2, float(qp)),
+        ]
+
     subshells = mk(0.5, 1.5)  # weighted-average occupations
-    configs = [JJConfig(subshells=mk(1, 1), weight=0.5),
-               JJConfig(subshells=mk(0, 2), weight=0.5)]
+    configs = [
+        JJConfig(subshells=mk(1, 1), weight=0.5),
+        JJConfig(subshells=mk(0, 2), weight=0.5),
+    ]
     return subshells, configs
 
 
@@ -144,20 +161,22 @@ def two_csf_deltas():
     # Shooting tol is on the per-sweep energy CHANGE with 0.5 damping;
     # the default 1e-7 cap leaves ~2e-5 Ha residual, which is exactly
     # the size of the delta discrepancy being gated — tighten it.
-    s_stat = ShootingHFSolver(Z=6, subshells=subshells).solve(
-        max_iter=200, tol=1e-10)
-    s_ci = ShootingHFSolver(Z=6, subshells=subshells,
-                            jj_configs=configs).solve(
-        max_iter=200, tol=1e-10)
-    b_stat = DFSolver(Z=6, subshells=subshells, exchange="hf",
-                      nuclear="point").solve(max_iter=200, tol=1e-9)
-    b_ci = DFSolver(Z=6, subshells=subshells, exchange="hf",
-                    nuclear="point", jj_configs=configs).solve(
-        max_iter=200, tol=1e-9)
+    s_stat = ShootingHFSolver(Z=6, subshells=subshells).solve(max_iter=200, tol=1e-10)
+    s_ci = ShootingHFSolver(Z=6, subshells=subshells, jj_configs=configs).solve(
+        max_iter=200, tol=1e-10
+    )
+    b_stat = DFSolver(Z=6, subshells=subshells, exchange="hf", nuclear="point").solve(
+        max_iter=200, tol=1e-9
+    )
+    b_ci = DFSolver(
+        Z=6, subshells=subshells, exchange="hf", nuclear="point", jj_configs=configs
+    ).solve(max_iter=200, tol=1e-9)
     for r in (s_stat, s_ci, b_stat, b_ci):
         assert r.converged
-    return (s_ci.total_energy - s_stat.total_energy,
-            float(b_ci.total_energy) - float(b_stat.total_energy))
+    return (
+        s_ci.total_energy - s_stat.total_energy,
+        float(b_ci.total_energy) - float(b_stat.total_energy),
+    )
 
 
 def test_two_csf_delta_same_direction(two_csf_deltas):
@@ -172,7 +191,8 @@ def test_two_csf_delta_matches_bspline(two_csf_deltas):
     rel = abs(d_shoot - d_bspline) / abs(d_bspline)
     assert rel <= 1e-4, (
         f"ci-vs-statistical delta: shooting {d_shoot!r} vs "
-        f"bspline {d_bspline!r} (rel {rel:.2e})")
+        f"bspline {d_bspline!r} (rel {rel:.2e})"
+    )
 
 
 # ----------------------------------------------------------------------
@@ -187,7 +207,8 @@ def test_misaligned_jj_configs_rejected():
 
 def test_zero_occupation_rejected_with_jj_configs():
     subshells = [Subshell(1, -1, 2.0), Subshell(2, -1, 0.0)]
-    cfgs = [JJConfig(subshells=[Subshell(1, -1, 2.0),
-                                Subshell(2, -1, 0.0)], weight=1.0)]
+    cfgs = [
+        JJConfig(subshells=[Subshell(1, -1, 2.0), Subshell(2, -1, 0.0)], weight=1.0)
+    ]
     with pytest.raises(ValueError, match="q > 0"):
         ShootingHFSolver(Z=4, subshells=subshells, jj_configs=cfgs)

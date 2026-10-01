@@ -1,9 +1,10 @@
 """Radial Coulomb integrals, independent of SCF orchestration."""
-import math
 import numba as nb
 import numpy as np
+
 from .quadrature import slag6
 from .spline import splin0
+
 
 @nb.njit(cache=True)
 def _slater_integral(f1, f2, l, r, difr, np_):

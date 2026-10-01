@@ -5,9 +5,10 @@ orbitals frozen. Neither exchange coefficients nor SCF policy live here.
 """
 import numpy as np
 from scipy.sparse.linalg import LinearOperator, eigs, gmres
+
 from .constants import SL
-from .dirac_response import DiracResponse
 from .dirac_orbital import OrbitalSolveError, _count_nodes
+from .dirac_response import DiracResponse
 
 
 def _direct_nonlocal_bound_state(energy, n, kappa, problem, initial, exchange,
@@ -161,7 +162,7 @@ def solve_nonlocal_bound_state(energy, n, kappa, problem, initial, exchange,
         exchange_calls += 1
         p, q, e, report = _direct_nonlocal_bound_state(
             predicted, n, kappa, problem, psi,
-            lambda x: coupling*exchange(x), minimum_overlap=minimum_overlap,
+            lambda x, *, coupling=coupling: coupling*exchange(x), minimum_overlap=minimum_overlap,
             residual_tolerance=residual_tolerance)
         psi = np.array([p, q])
         steps.append(dict(coupling=coupling, energy=e, **report))

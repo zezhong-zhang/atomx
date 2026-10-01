@@ -12,8 +12,8 @@ from typing import Dict, Optional, Protocol, runtime_checkable
 
 import numpy as np
 
-from atomx.types import CouplingScheme, TheoryLevel
 from atomx.numerics.radial_metric import RadialMetric
+from atomx.types import CouplingScheme, TheoryLevel
 
 
 @dataclass

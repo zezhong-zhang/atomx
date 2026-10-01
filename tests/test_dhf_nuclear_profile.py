@@ -42,8 +42,8 @@ def test_neon_energy_and_recoil_converge_between_radial_engines(nuclear):
     """Resolve the Fermi surface and converge orbitals for first-order properties."""
     from atomx.methods.dirac_fock import DFSolver, neon_subshells
     from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
-    from atomx.radial_state import native_radial_state
     from atomx.properties.isotope_shift import compute_sms_abinitio
+    from atomx.radial_state import native_radial_state
     bs = DFSolver(10,neon_subshells(),ns=90,r_max=75.,nuclear=nuclear).solve(
         tol=1e-9,max_iter=100)
     grid = ShootingHFSolver(10,neon_subshells(),n_grid=2000,r_max=75.,nuclear=nuclear).solve(

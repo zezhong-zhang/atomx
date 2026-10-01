@@ -47,6 +47,8 @@ import pytest
 from scipy.special import eval_genlaguerre
 
 from atomx.angular.csf_recoupling import allowed_coupled_J2
+from atomx.numerics.bspline.basis import prepare_bspline_data
+from atomx.numerics.quadrature import make_fine_grid
 from atomx.physics.csf.matrix import (
     GridCIWorkspace,
     _fk,
@@ -55,8 +57,6 @@ from atomx.physics.csf.matrix import (
     _two_diff_element,
     _two_electron_replacement_element,
 )
-from atomx.numerics.bspline.basis import prepare_bspline_data
-from atomx.numerics.quadrature import make_fine_grid
 from atomx.scattering.autoionization.mscheme_ci import ResonanceManifold
 
 
@@ -350,7 +350,7 @@ def test_j2_pair_channel_moves_a_real_calculation():
     # Self snapshot after constrained optimization of the full correlated
     # Dirac-Coulomb functional, followed by Gaunt/model-QED corrections.
     assert atom.converged
-    assert float(result.total_energy) == pytest.approx(-37.70479579, abs=1e-5)
+    assert float(result.total_energy) == pytest.approx(-37.70484425926792, abs=1e-5)
     labels = [c.label for c in result.csfs] if result.csfs else []
     assert any("[J=4/2]" in lab for lab in labels), (
         "expected J = 2 CSFs in this space")
@@ -379,7 +379,7 @@ def test_split_channel_moves_a_real_calculation():
     # Self snapshot after constrained optimization of the full correlated
     # Dirac-Coulomb functional, followed by Gaunt/model-QED corrections.
     assert atom.converged
-    assert e_split == pytest.approx(-37.70563288, abs=1e-5)
+    assert e_split == pytest.approx(-37.70568011522897, abs=1e-5)
     lowering = e_base - e_split
     assert 0.0 < lowering < 0.05, (
         f"3d¹4d¹ admixture moved the energy by {lowering:.5f} Ha")
@@ -482,8 +482,8 @@ def test_spectator_guard_leaves_open_shell_parentage_alone():
 
 def _real_csf(tJ2, occ):
     """Real :class:`CSF` (provides ``differs_from``) for ``_two_diff_element``."""
-    from atomx.methods.dirac_fock import Subshell
     from atomx.config.csf import CSF
+    from atomx.methods.dirac_fock import Subshell
 
     return CSF(
         subshells=[Subshell(n, k, float(q)) for (n, k), q in occ],

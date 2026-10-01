@@ -9,17 +9,17 @@ NIST/literature free-ion 7F_J (cm^-1): 0, 370, 1041, 1890, 2862,
 3807, 4940 (literature-memory values, % level comparison only).
 """
 import sys
-from collections import Counter
+from pathlib import Path
 
 import numpy as np
 
-sys.path.insert(0, "/tmp/atomx-cimbpt")
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from atomx.config.csf import enumerate_jj_csfs_many
 from atomx.methods.dirac_fock import DFSolver, Subshell
 from atomx.methods.mcdhf.excitations import generate_sd_excitations
-from atomx.physics.csf.sparse_ci import (patterns_from_csfs,
-                                         sparse_j_levels)
+from atomx.physics.csf.sparse_ci import patterns_from_csfs, sparse_j_levels
 
 CM = 219474.63
 NIST_7F = [0.0, 370.0, 1041.0, 1890.0, 2862.0, 3807.0, 4940.0]
@@ -78,7 +78,7 @@ for J, e in levels:
     used.add(J)
 print("\n7F_J ladder vs NIST:", flush=True)
 pcts = []
-for (J, e), ref in zip(lad, NIST_7F):
+for (J, e), ref in zip(lad, NIST_7F, strict=False):
     pct = (e - ref) / ref * 100 if ref > 0 else float("nan")
     if ref > 0:
         pcts.append(pct)

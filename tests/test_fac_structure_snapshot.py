@@ -6,7 +6,8 @@ recomputed it: the atomx column sat unchanged for five months of physics
 changes (last touched 2026-04-20, HEAD 2026-09-18) and the "7 keV / 1.6 % at
 Z=82" limitation that both documents carried came from that stale record plus
 an unmatched ``qed=False``.  With the flags matched to FAC's default the same
-row agrees to 426 eV (9.6e-4 relative).
+row used mismatched Breit flags. The repaired driver enables the static
+Breit term that is enabled by default in FAC.
 
 This test recomputes the atomx column live with the driver's own function and
 compares it against the committed values, so drift is detected instead of
@@ -60,7 +61,7 @@ def test_csv_exists_and_covers_the_panel():
 def test_atomx_column_is_not_stale(row):
     """Recompute atomx the way the driver does and compare to the record."""
     Z, iso = int(row["Z"]), row["iso"]
-    e_ha, _t, _conv = run_atomx(Z, iso, breit=False, qed=True)
+    e_ha, _t, _conv = run_atomx(Z, iso, breit=True, qed=True)
     recorded = float(row["E_atomx_Ha"])
     rel = abs(e_ha - recorded) / abs(recorded)
     assert rel < SNAPSHOT_REL, (
@@ -81,7 +82,7 @@ def test_atomx_column_is_not_stale(row):
 def test_panel_agrees_with_fac_at_the_documented_level():
     """The claim README makes: ≤0.1 % across the whole panel.
 
-    Measured 2026-09-19: worst 9.6e-4 at Z=82 Ar-like (426 eV absolute).
+    Keep the established accuracy thresholds; flags are now matched explicitly.
     """
     worst = max(abs(float(r["rel_diff"])) for r in _rows() if r["rel_diff"])
     assert worst < 1.0e-3, (

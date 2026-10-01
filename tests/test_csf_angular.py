@@ -12,8 +12,8 @@ from atomx.angular.csf import (
     orbital_tensor_coupling_coeff,
     two_body_csf_coupling,
 )
-from atomx.methods.dirac_fock import Subshell
 from atomx.config.csf import CSF
+from atomx.methods.dirac_fock import Subshell
 
 
 def test_explicit_j_zero_is_preserved():

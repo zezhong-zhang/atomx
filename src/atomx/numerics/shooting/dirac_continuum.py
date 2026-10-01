@@ -52,7 +52,10 @@ import numpy as np
 from atomx.constants import C_SQ as _C_SQ  # CODATA-2022 c² (M12)
 from atomx.numerics.shooting.dirac_coulomb import dirac_coulomb_outgoing
 from atomx.numerics.shooting.dirac_integrator import doutw
-from atomx.numerics.shooting.dirac_sampling import sample_dirac_solution, validate_output_grid
+from atomx.numerics.shooting.dirac_sampling import (
+    sample_dirac_solution,
+    validate_output_grid,
+)
 from atomx.numerics.shooting.grid import sgrid
 from atomx.numerics.shooting.spline import vint
 

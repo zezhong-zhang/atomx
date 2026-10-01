@@ -1,13 +1,13 @@
 """Physical and public API controls for the full shooting migration."""
-from dataclasses import FrozenInstanceError
 import json
+from dataclasses import FrozenInstanceError
+
 import numpy as np
 import pytest
 
 from atomx import Atom, Basis, Corrections, ShootingSpace
-from atomx.corrections.stack import CorrectionStack
 from atomx.corrections.adapters import NormalMassShiftCorrection, UehlingVPCorrection
-from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
+from atomx.corrections.stack import CorrectionStack
 from atomx.numerics.shooting.constants import SL
 from atomx.numerics.shooting.dirac_green import _scaled_slag6
 from atomx.numerics.shooting.dirac_response import DiracResponse

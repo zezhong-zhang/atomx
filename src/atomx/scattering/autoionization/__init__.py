@@ -267,8 +267,8 @@ def _coarse_auger_rate(
                     # KLL).  Mirror mscheme_ci/jj_level: make_fine_grid
                     # sized by the continuum momentum + the fused
                     # grid_slater_rk kernel.
-                    from atomx.numerics.quadrature import (
-                        grid_slater_rk as _gsr, make_fine_grid)
+                    from atomx.numerics.quadrature import grid_slater_rk as _gsr
+                    from atomx.numerics.quadrature import make_fine_grid
                     _p_max = np.sqrt(2.0 * max(E_ha, 1e-3))
                     fg = make_fine_grid(float(bsp_data["t"][-1]),
                                         _p_max, z_inner=max(Z, 1.0))

@@ -52,10 +52,10 @@ import numpy as np
 import pytest
 
 from atomx import Atom, Correlation
-from atomx.constants import ALPHA, HARTREE_EV
-from atomx.physics.csf import matrix
 from atomx.config.csf import enumerate_jj_csfs
+from atomx.constants import ALPHA, HARTREE_EV
 from atomx.methods.mcdhf.solver import MCDHFSolver
+from atomx.physics.csf import matrix
 
 BENCH_DIR = Path(__file__).resolve().parent.parent / "benchmarks"
 sys.path.insert(0, str(BENCH_DIR))
@@ -362,7 +362,7 @@ def _hlike_solved():
     csfs = []
     for cfg in ["1s1", "2s1", "2p1"]:
         csfs.extend(enumerate_jj_csfs(cfg))
-    solver = MCDHFSolver(Z=1, csfs=csfs, ns=30, ks=7, use_physics_grid=False)
+    solver = MCDHFSolver(Z=1, csfs=csfs, ns=60, ks=9, use_physics_grid=False)
     return solver.solve(max_iter=3, scf_tol=1e-4, ci_tol=1e-6)
 
 

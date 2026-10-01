@@ -36,12 +36,12 @@ right long-term home (see spec follow-ups).
 """
 from __future__ import annotations
 
-from typing import Dict, Mapping, Sequence, Tuple
+from typing import Dict, Mapping
 
 import numpy as np
 
-from atomx.angular.csf_hamiltonian import two_body_angular
 import atomx.physics.csf.matrix as MAT
+from atomx.angular.csf_hamiltonian import two_body_angular
 
 __all__ = ["make_slater_delta", "free_ion_levels", "fit_slater_scaling",
            "multiset_subtract"]
@@ -86,7 +86,7 @@ def make_slater_delta(orbitals_dict, bsp_data, scale: Mapping[int, float]):
     table; labels are read from ``spinors``).
     """
     if isinstance(scale, (tuple, list)):
-        scale = dict(zip(_SCALE_KS, scale))
+        scale = dict(zip(_SCALE_KS, scale, strict=False))
     scale_map = {int(k): float(v) for k, v in scale.items()
                  if float(v) != 0.0}
     if not scale_map:
@@ -106,13 +106,15 @@ def make_slater_delta(orbitals_dict, bsp_data, scale: Mapping[int, float]):
         Pb, Qb = orbitals_dict[(b[0], b[1])]
         Pd, Qd = orbitals_dict[(d[0], d[1])]
         total = 0.0
-        for terms, sign in ((t1, 1.0), (t2, -1.0)):
+        for terms, sign, P2, Q2, P4, Q4 in (
+            (t1, 1.0, Pc, Qc, Pd, Qd), (t2, -1.0, Pd, Qd, Pc, Qc)
+        ):
             for k, coef in terms:
                 sk = scale_map.get(k)
                 if sk is None:
                     continue
                 total += sign * sk * coef * MAT._rk(
-                    Pa, Qa, Pc, Qc, Pb, Qb, Pd, Qd, bsp_data, k)
+                    Pa, Qa, P2, Q2, Pb, Qb, P4, Q4, bsp_data, k)
         return total
 
     return delta
@@ -158,7 +160,8 @@ def free_ion_levels(orbitals_dict, bsp_data, Z, ns, patterns, scale=None,
                                              n_states=10 ** 7)
                 sector_cache[m2] = w
             else:
-                dd = lambda a, b, c, d: delta(a, b, c, d, spinors)
+                def dd(a, b, c, d):
+                    return delta(a, b, c, d, spinors)
                 H = SC.assemble_sparse_hamiltonian(
                     masks, spinors, orbitals_dict, bsp_data, Z, ns,
                     two_body_delta=dd)
@@ -176,7 +179,7 @@ def free_ion_levels(orbitals_dict, bsp_data, Z, ns, patterns, scale=None,
 
 def fit_slater_scaling(residuals_fn, x0=None, h: float = 0.02,
                        max_iter: int = 8, tol: float = 1.0):
-    """Gauss-Newton fit of (s2, s4, s6).
+    """Gauss-Newton fit, defaulting to the three Slater scale parameters.
 
     ``residuals_fn(scale_tuple) -> np.array`` returns
     ``E_calc(scale) - E_ref`` per assigned level.  Level energies are
@@ -192,7 +195,7 @@ def fit_slater_scaling(residuals_fn, x0=None, h: float = 0.02,
         hist.append(rms)
         Jm = np.column_stack([
             (np.asarray(residuals_fn(tuple(x + e)), float) - r) / h
-            for e in [(h, 0, 0), (0, h, 0), (0, 0, h)]])
+            for e in h * np.eye(len(x))])
         # conditioning diagnostics: the s4/s6 ratio direction is known
         # weakly pinned — report it instead of silently swallowing it
         sv = np.linalg.svd(Jm, compute_uv=False)

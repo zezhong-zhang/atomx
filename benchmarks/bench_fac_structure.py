@@ -10,17 +10,12 @@ Both use non-relativistic configurations filled in jj-coupling order.  Compares:
     - atomx DiracFock total energy (Hartree, converted to eV)
     - wall time
 
-Flag matching (2026-09-19)
+Flag matching (2026-10-02)
 --------------------------
-FAC's *default* structure run includes QED and has no Breit, so a like-for-like
-comparison needs ``atomx breit=False, qed=True``.  The historical CSV was
-generated with ``qed=False, breit=False`` and its atomx column was additionally
-left to go stale for five months, which is where the README's "7 keV / 1.6 % at
-Z=82" limitation came from: with matched flags today the same row agrees to
-873 eV (0.20 %).  ``--breit/--qed`` default to that matched pair; pass
-``--no-qed`` to reproduce the old, unmatched convention.
-
-See ``docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md`` finding H1.
+FAC enables QED AND static Breit by default (faclib/consts.h:
+QEDBREIT=10, QEDMBREIT=0). The old driver incorrectly assumed Breit was
+absent. Both programs now explicitly receive the same enable/disable flags.
+The stored external FAC column is retained when refreshing Atomx output.
 """
 
 from __future__ import annotations
@@ -45,8 +40,8 @@ EV_PER_HARTREE = HARTREE_EV
 
 
 ISOSEQUENCE_CONFIGS = {
-    "H-like": ("1s1", 1),       # 1 electron
-    "He-like": ("1s2", 2),      # 2 electrons
+    "H-like": ("1s1", 1),  # 1 electron
+    "He-like": ("1s2", 2),  # 2 electrons
     "Li-like": ("1s2 2s1", 3),
     "Be-like": ("1s2 2s2", 4),
     "B-like": ("1s2 2s2 2p1", 5),
@@ -65,6 +60,9 @@ DEFAULT_ISO_PANEL = ["He-like", "Ne-like", "Ar-like"]
 
 FAC_TEMPLATE = """# ground-state structure for {name} Z={Z}
 SetAtom('{symbol}', {Z})
+SetBreit({breit_n}, 0)
+SetSE({se_n})
+SetVP({vp_n})
 {closed_cmds}
 Config('{label}', '{open_config}')
 ConfigEnergy(0)
@@ -77,18 +75,98 @@ PrintTable('out.lev.b', 'out.lev', 1)
 
 
 ELEMENT_SYMBOLS = {
-    1: "H", 2: "He", 3: "Li", 4: "Be", 5: "B", 6: "C", 7: "N", 8: "O", 9: "F",
-    10: "Ne", 11: "Na", 12: "Mg", 13: "Al", 14: "Si", 15: "P", 16: "S", 17: "Cl",
-    18: "Ar", 19: "K", 20: "Ca", 21: "Sc", 22: "Ti", 23: "V", 24: "Cr", 25: "Mn",
-    26: "Fe", 27: "Co", 28: "Ni", 29: "Cu", 30: "Zn", 31: "Ga", 32: "Ge", 33: "As",
-    34: "Se", 35: "Br", 36: "Kr", 37: "Rb", 38: "Sr", 39: "Y", 40: "Zr", 41: "Nb",
-    42: "Mo", 43: "Tc", 44: "Ru", 45: "Rh", 46: "Pd", 47: "Ag", 48: "Cd", 49: "In",
-    50: "Sn", 51: "Sb", 52: "Te", 53: "I", 54: "Xe", 55: "Cs", 56: "Ba", 57: "La",
-    58: "Ce", 59: "Pr", 60: "Nd", 61: "Pm", 62: "Sm", 63: "Eu", 64: "Gd", 65: "Tb",
-    66: "Dy", 67: "Ho", 68: "Er", 69: "Tm", 70: "Yb", 71: "Lu", 72: "Hf", 73: "Ta",
-    74: "W", 75: "Re", 76: "Os", 77: "Ir", 78: "Pt", 79: "Au", 80: "Hg", 81: "Tl",
-    82: "Pb", 83: "Bi", 84: "Po", 85: "At", 86: "Rn", 87: "Fr", 88: "Ra", 89: "Ac",
-    90: "Th", 91: "Pa", 92: "U",
+    1: "H",
+    2: "He",
+    3: "Li",
+    4: "Be",
+    5: "B",
+    6: "C",
+    7: "N",
+    8: "O",
+    9: "F",
+    10: "Ne",
+    11: "Na",
+    12: "Mg",
+    13: "Al",
+    14: "Si",
+    15: "P",
+    16: "S",
+    17: "Cl",
+    18: "Ar",
+    19: "K",
+    20: "Ca",
+    21: "Sc",
+    22: "Ti",
+    23: "V",
+    24: "Cr",
+    25: "Mn",
+    26: "Fe",
+    27: "Co",
+    28: "Ni",
+    29: "Cu",
+    30: "Zn",
+    31: "Ga",
+    32: "Ge",
+    33: "As",
+    34: "Se",
+    35: "Br",
+    36: "Kr",
+    37: "Rb",
+    38: "Sr",
+    39: "Y",
+    40: "Zr",
+    41: "Nb",
+    42: "Mo",
+    43: "Tc",
+    44: "Ru",
+    45: "Rh",
+    46: "Pd",
+    47: "Ag",
+    48: "Cd",
+    49: "In",
+    50: "Sn",
+    51: "Sb",
+    52: "Te",
+    53: "I",
+    54: "Xe",
+    55: "Cs",
+    56: "Ba",
+    57: "La",
+    58: "Ce",
+    59: "Pr",
+    60: "Nd",
+    61: "Pm",
+    62: "Sm",
+    63: "Eu",
+    64: "Gd",
+    65: "Tb",
+    66: "Dy",
+    67: "Ho",
+    68: "Er",
+    69: "Tm",
+    70: "Yb",
+    71: "Lu",
+    72: "Hf",
+    73: "Ta",
+    74: "W",
+    75: "Re",
+    76: "Os",
+    77: "Ir",
+    78: "Pt",
+    79: "Au",
+    80: "Hg",
+    81: "Tl",
+    82: "Pb",
+    83: "Bi",
+    84: "Po",
+    85: "At",
+    86: "Rn",
+    87: "Fr",
+    88: "Ra",
+    89: "Ac",
+    90: "Th",
+    91: "Pa",
+    92: "U",
 }
 
 
@@ -101,29 +179,40 @@ CLOSED_SHELLS_FOR_ISO = {
 }
 OPEN_CONFIG_FOR_ISO = {
     "He-like": "1s2",
-    "Ne-like": "2*8",       # "2s²2p⁶" in FAC notation
+    "Ne-like": "2*8",  # "2s²2p⁶" in FAC notation
     "Na-like": "3s1",
     "Mg-like": "3s2",
     "Ar-like": "3p6",
 }
 
 
-def build_fac_script(Z: int, iso: str) -> str:
+def build_fac_script(Z: int, iso: str, breit: bool = True, qed: bool = True) -> str:
     symbol = ELEMENT_SYMBOLS[Z]
     closed = CLOSED_SHELLS_FOR_ISO[iso]
-    closed_cmds = "\n".join(f"Closed('{sh}')" for sh in closed) if closed else "# (no closed shells)"
+    closed_cmds = (
+        "\n".join(f"Closed('{sh}')" for sh in closed)
+        if closed
+        else "# (no closed shells)"
+    )
     return FAC_TEMPLATE.format(
-        name=iso, Z=Z, symbol=symbol, closed_cmds=closed_cmds,
-        label="gnd", open_config=OPEN_CONFIG_FOR_ISO[iso],
+        name=iso,
+        Z=Z,
+        symbol=symbol,
+        closed_cmds=closed_cmds,
+        label="gnd",
+        open_config=OPEN_CONFIG_FOR_ISO[iso],
+        breit_n=10 if breit else 0,
+        se_n=5 if qed else 0,
+        vp_n=3 if qed else 0,
     )
 
 
-def run_fac(Z: int, iso: str):
+def run_fac(Z: int, iso: str, breit: bool = True, qed: bool = True):
     """Returns (E0_in_eV, wall_time_s). E0 is negative (total binding)."""
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)
         sf = tmp_path / "run.sf"
-        sf.write_text(build_fac_script(Z, iso))
+        sf.write_text(build_fac_script(Z, iso, breit=breit, qed=qed))
         t0 = time.perf_counter()
         try:
             _stdout, elapsed, wd = run_sfac(sf, workdir=tmp_path)
@@ -138,19 +227,19 @@ def run_fac(Z: int, iso: str):
         return e0, elapsed
 
 
-def run_atomx(Z: int, iso: str, breit: bool = False, qed: bool = False):
+def run_atomx(Z: int, iso: str, breit: bool = True, qed: bool = True):
     cfg, nel = ISOSEQUENCE_CONFIGS[iso]
     charge = Z - nel
     t0 = time.perf_counter()
     # Engine pinned to the B-spline DHF: the FAC-parity CSVs/gates were
     # produced on it (the bare default now resolves to shooting).
     atom = Atom(
-                Z=Z,
-                charge=charge,
-                config=cfg,
-                corrections=Corrections(breit=breit, qed=qed),
-                engine="bspline",
-           )
+        Z=Z,
+        charge=charge,
+        config=cfg,
+        corrections=Corrections(breit=breit, qed=qed),
+        engine="bspline",
+    )
     atom.solve()
     t1 = time.perf_counter()
     return atom.total_energy, t1 - t0, atom.converged
@@ -160,21 +249,47 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--z", nargs="+", type=int, default=DEFAULT_Z_PANEL)
     p.add_argument("--iso", nargs="+", default=DEFAULT_ISO_PANEL)
-    # Matched to FAC's default structure run (QED on, Breit off).
-    p.add_argument("--breit", action="store_true",
-                   help="include the Breit interaction (FAC's default does not)")
-    p.add_argument("--no-qed", dest="qed", action="store_false",
-                   help="disable QED (FAC's default has it on)")
+    # FAC defaults include static Breit and QED; set both explicitly.
+    p.add_argument(
+        "--breit",
+        action="store_true",
+        default=True,
+        help="include static Breit (default in Atomx and FAC)",
+    )
+    p.add_argument(
+        "--no-breit",
+        dest="breit",
+        action="store_false",
+        help="disable static Breit in both programs",
+    )
+    p.add_argument(
+        "--no-qed",
+        dest="qed",
+        action="store_false",
+        help="disable QED (FAC's default has it on)",
+    )
     p.set_defaults(qed=True)
-    p.add_argument("--out", default=str(ROOT / "benchmarks" / "results_fac_structure.csv"))
-    p.add_argument("--matrix", action="store_true", help="run the full Z x iso FAC-parity matrix")
-    p.add_argument("--quick", action="store_true", help="with --matrix, skip Z=74 and Z=82")
-    p.add_argument("--no-fac", action="store_true", help="with --matrix, omit sfac columns")
-    p.add_argument("--timeout", type=float, default=300.0, help="sfac timeout per matrix cell")
+    p.add_argument(
+        "--out", default=str(ROOT / "benchmarks" / "results_fac_structure.csv")
+    )
+    p.add_argument(
+        "--matrix", action="store_true", help="run the full Z x iso FAC-parity matrix"
+    )
+    p.add_argument(
+        "--quick", action="store_true", help="with --matrix, skip Z=74 and Z=82"
+    )
+    p.add_argument(
+        "--no-fac", action="store_true", help="with --matrix, omit sfac columns"
+    )
+    p.add_argument(
+        "--timeout", type=float, default=300.0, help="sfac timeout per matrix cell"
+    )
     args = p.parse_args()
 
     if args.matrix:
-        rows = run_matrix(quick=args.quick, include_fac=not args.no_fac, timeout=args.timeout)
+        rows = run_matrix(
+            quick=args.quick, include_fac=not args.no_fac, timeout=args.timeout
+        )
         write_matrix_csv(rows, Path(args.out))
         print_matrix_summary(rows)
         return
@@ -182,10 +297,14 @@ def main():
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     with out.open("w") as f:
-        f.write("Z,iso,config,nel,E_atomx_Ha,E_atomx_eV,E_fac_eV,"
-                "diff_eV,rel_diff,t_atomx_s,t_fac_s\n")
-        hdr = (f"{'Z':>3}  {'iso':>8}  {'E_atomx_eV':>15}  {'E_fac_eV':>15}  "
-               f"{'ΔE_eV':>11}  {'rel':>9}  {'t_ax':>7}  {'t_fac':>7}")
+        f.write(
+            "Z,iso,config,nel,E_atomx_Ha,E_atomx_eV,E_fac_eV,"
+            "diff_eV,rel_diff,t_atomx_s,t_fac_s\n"
+        )
+        hdr = (
+            f"{'Z':>3}  {'iso':>8}  {'E_atomx_eV':>15}  {'E_fac_eV':>15}  "
+            f"{'ΔE_eV':>11}  {'rel':>9}  {'t_ax':>7}  {'t_fac':>7}"
+        )
         print(hdr)
         print("-" * len(hdr))
         for Z in args.z:
@@ -196,26 +315,36 @@ def main():
                 if nel > Z:
                     continue  # unphysical (can't have more electrons than Z)
                 try:
-                    e_a_ha, t_a, conv = run_atomx(Z, iso, breit=args.breit, qed=args.qed)
+                    e_a_ha, t_a, conv = run_atomx(
+                        Z, iso, breit=args.breit, qed=args.qed
+                    )
                 except Exception as e:
                     print(f"{Z:>3}  {iso:>8}  atomx FAILED: {e}")
                     f.write(f"{Z},{iso},{cfg},{nel},,,,,,,\n")
                     continue
                 e_a_ev = e_a_ha * EV_PER_HARTREE
                 try:
-                    e_f_ev, t_f = run_fac(Z, iso)
+                    e_f_ev, t_f = run_fac(Z, iso, breit=args.breit, qed=args.qed)
                 except Exception as e:
                     print(f"{Z:>3}  {iso:>8}  FAC FAILED: {e}")
-                    f.write(f"{Z},{iso},{cfg},{nel},{e_a_ha:.6f},{e_a_ev:.3f},,,,{t_a:.3f},\n")
+                    f.write(
+                        f"{Z},{iso},{cfg},{nel},{e_a_ha:.6f},{e_a_ev:.3f},,,,{t_a:.3f},\n"
+                    )
                     continue
                 if e_f_ev is None:
-                    print(f"{Z:>3}  {iso:>8}  {e_a_ev:15.3f}  {'—':>15}  {'—':>11}  {'—':>9}  {t_a:7.3f}  {t_f:7.3f}")
-                    f.write(f"{Z},{iso},{cfg},{nel},{e_a_ha:.6f},{e_a_ev:.3f},,,,{t_a:.3f},{t_f:.3f}\n")
+                    print(
+                        f"{Z:>3}  {iso:>8}  {e_a_ev:15.3f}  {'—':>15}  {'—':>11}  {'—':>9}  {t_a:7.3f}  {t_f:7.3f}"
+                    )
+                    f.write(
+                        f"{Z},{iso},{cfg},{nel},{e_a_ha:.6f},{e_a_ev:.3f},,,,{t_a:.3f},{t_f:.3f}\n"
+                    )
                     continue
                 diff = e_a_ev - e_f_ev
                 rel = abs(diff / e_f_ev) if e_f_ev else 0.0
-                line = (f"{Z:>3}  {iso:>8}  {e_a_ev:15.3f}  {e_f_ev:15.3f}  "
-                        f"{diff:11.3f}  {rel:9.2e}  {t_a:7.3f}  {t_f:7.3f}")
+                line = (
+                    f"{Z:>3}  {iso:>8}  {e_a_ev:15.3f}  {e_f_ev:15.3f}  "
+                    f"{diff:11.3f}  {rel:9.2e}  {t_a:7.3f}  {t_f:7.3f}"
+                )
                 print(line)
                 f.write(
                     f"{Z},{iso},{cfg},{nel},{e_a_ha:.6f},{e_a_ev:.3f},{e_f_ev:.3f},"

@@ -7,6 +7,7 @@ Sc X energy is an independent DBSR_HF reference; other cases compare branches.
 
 import numpy as np
 import pytest
+
 from atomx import Atom, Basis
 from atomx.methods.dirac_fock import DiracFock
 from atomx.types import Exchange

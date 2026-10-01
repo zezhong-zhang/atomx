@@ -1,50 +1,28 @@
-"""MBPT(2) transition-energy helper.
+"""On-shell diagonal second-order self-energy for a closed-shell DHF reference.
 
-While :mod:`atomx.methods.mbpt` ships closed-shell second-order MBPT
-for the *correlation energy* of the whole atom, transition-rate
-work needs the second-order shift to *individual orbital energies*
-so that excitation frequencies inherit the correlation contribution.
+Both 2p1h and 2h1p diagrams are included, with antisymmetrized Coulomb
+matrix elements and all allowed multipoles::
 
-This module ships a thin, pragmatic wrapper:
+    Sigma_a(w) = 1/2 sum_brs |<ab||rs>|^2 / (w + eb - er - es)
+               + 1/2 sum_bcr |<ar||bc>|^2 / (w + er - eb - ec)
 
-* :func:`mbpt2_orbital_energy_shift(scf, orbital_label)` — returns
-  the diagonal MBPT(2) self-energy estimate of orbital ``a`` in the
-  closed-shell-frozen-core approximation.
-
-* :func:`mbpt2_transition_energy(scf, alpha, beta)` — returns the
-  correlation-corrected ω = (ε_β + ΔE_β) − (ε_α + ΔE_α).
-
-The diagonal-MBPT estimate is
-
-    ΔE_a ≈ ⟨a | Σ^(2) | a⟩
-
-where Σ^(2) is the second-order self-energy operator.  In the
-closed-shell DHF reference this equals the trace of the full
-2nd-order amplitude tensor over occupied b ≠ a:
-
-    ΔE_a = Σ_{b∈occ, b≠a} Σ_{r∈virt} Σ_{s∈virt}
-              |V(a,b → r,s)|² / (ε_a + ε_b − ε_r − ε_s) · (1 / (2j_a+1))
-
-For atoms with only one occupied subshell (He, He-like, hydrogenic)
-the b ≠ a sum is empty and ΔE_a = 0 — the leading correlation
-shift comes from the *off-diagonal* ⟨a | Σ^(2) | b⟩ matrix elements
-which require an all-order treatment beyond MBPT(2).
-
-A full TransitionMBPT solver — including off-diagonal matrix-element
-corrections via RPA / core-polarization — is a separate effort
-tracked as a remaining gap in REPORT_FAC_PARITY.md.
-
-Reference
----------
-* I. Lindgren & J. Morrison, *Atomic Many-Body Theory*, 2nd ed.
-  (Springer, 1986), §13.5.
-* M. F. Gu, *Astrophys. J.* **657**, 1172 (2007) — FAC
-  ``TransitionMBPT``.
+Here b,c are occupied spin orbitals and r,s virtual spin orbitals. The
+result averages over the magnetic states of a and evaluates w = ea.
+This is an orbital quasiparticle estimate, not a correlated neutral
+excitation or a correction to transition matrix elements. Virtual,
+partial-wave and radial cutoffs need convergence checks. See also
+https://pyscf.org/user/agf2.html for the second-order self-energy.
 """
 
 from __future__ import annotations
 
+from itertools import combinations_with_replacement
+
+import numpy as np
+
 from atomx.constants import HARTREE_EV
+
+__all__ = ["mbpt2_orbital_energy_shift", "mbpt2_transition_energy"]
 
 
 def mbpt2_orbital_energy_shift(
@@ -53,116 +31,109 @@ def mbpt2_orbital_energy_shift(
     *,
     kappa_max: int = 2,
     energy_window_au: float = 50.0,
+    n_virt_max: int | None = None,
+    denom_floor: float = 1e-8,
 ) -> float:
-    """Diagonal second-order MBPT self-energy of one occupied orbital.
+    """Return Sigma_aa(ea) in hartree, including same-subshell partners.
 
-    Returns 0 when the reference has only the named orbital occupied
-    (e.g. He 1s, He-like 1s²) — in those cases the leading shift
-    comes from off-diagonal matrix elements that are not handled by
-    this thin helper.  Use the full
-    :func:`atomx.methods.mbpt.mbpt2_energy` for the closed-shell
-    correlation energy or extend the function for transition-specific
-    matrix elements.
-
-    Parameters
-    ----------
-    scf_result
-        Solved closed-shell SCFResult.
-    orbital_label : str
-        Subshell label (e.g. ``"2s1/2"``).
-    kappa_max : int
-        Largest |κ| for the virtual partial-wave sum (default 2).
-    energy_window_au : float
-        Cap on virtual energy in atomic units; states with ε > this
-        are skipped to avoid integrable-but-noisy pseudo-continuum
-        contributions (default 50 a.u.).
-
-    Returns
-    -------
-    float
-        ΔE_a in Hartree.
+    Each virtual kappa block is solved once in the reference V^N Fock
+    field, projected against occupied orbitals in the overlap metric.
+    Bound virtuals are retained. ``n_virt_max`` caps roots per kappa;
+    ``energy_window_au`` is an upper energy ceiling. A near-zero
+    denominator raises rather than silently omitting a resonant term.
     """
-    from atomx.angular.coefficients import exchange_lambda
-    from atomx.methods.mbpt import build_virtual_basis
-    from atomx.numerics.bspline.convol import (
-        ConvolCache,
-        compute_slater_rk_cell,
-    )
+    from atomx.methods.mbpt import _pair_v_J, build_virtual_basis
+    from atomx.numerics.bspline.convol import ConvolCache
 
-    sh_a = next((s for s in scf_result.subshells if s.label == orbital_label),
-                 None)
+    subshells = scf_result.subshells
+    sh_a = next((s for s in subshells if s.label == orbital_label), None)
     if sh_a is None:
-        raise ValueError(
-            f"orbital {orbital_label!r} not found among "
-            f"{[s.label for s in scf_result.subshells]}"
+        raise ValueError(f"orbital {orbital_label!r} not found")
+    if not scf_result.converged:
+        raise ValueError("SCFResult must be converged")
+    if kappa_max < 1 or (n_virt_max is not None and n_virt_max < 1):
+        raise ValueError("partial-wave and virtual-state limits must be positive")
+    if denom_floor <= 0 or not np.isfinite(energy_window_au):
+        raise ValueError("require positive denominator floor and finite energy ceiling")
+    occupied = []
+    a = None
+    for sh in subshells:
+        if sh.occupation <= 0.01:
+            continue
+        if abs(sh.occupation - 2 * abs(sh.kappa)) > 0.01:
+            raise ValueError("orbital self-energy requires a closed-shell reference")
+        same = [s for s in subshells if s.kappa == sh.kappa]
+        P, Q, _ = scf_result.orbitals_raw[sh.kappa][same.index(sh)]
+        state = (P, Q, sh.kappa, scf_result.orbital_energies[sh.label])
+        occupied.append(state)
+        if sh is sh_a:
+            a = state
+    if a is None:
+        same = [s for s in subshells if s.kappa == sh_a.kappa]
+        P, Q, _ = scf_result.orbitals_raw[sh_a.kappa][same.index(sh_a)]
+        a = (P, Q, sh_a.kappa, scf_result.orbital_energies[orbital_label])
+    data = scf_result._bsp_data
+    cache = ConvolCache(data)
+    virtuals = []
+    for kap in range(-kappa_max, kappa_max + 1):
+        if kap == 0:
+            continue
+        _, states = build_virtual_basis(
+            scf_result,
+            kap,
+            cache=cache,
+            e_max=energy_window_au,
+            potential_mode="VN",
+            orthogonal_to_occupied=True,
         )
-    bsp_data = scf_result._bsp_data
-    cache = ConvolCache(bsp_data)
-    eps_a = scf_result.orbital_energies[orbital_label]
-    sh_a_subs = [s for s in scf_result.subshells if s.kappa == sh_a.kappa]
-    P_a, Q_a, _ = scf_result.orbitals_raw[sh_a.kappa][sh_a_subs.index(sh_a)]
-    kappa_a = sh_a.kappa
+        # Also enforce the ceiling for alternative basis providers.
+        states = [s for s in states if s[2] < energy_window_au]
+        if n_virt_max is not None:
+            states = states[:n_virt_max]
+        virtuals.extend((P, Q, kap, e) for P, Q, e in states)
 
-    # Find other occupied subshells b ≠ a
-    other_occ = [s for s in scf_result.subshells if s.label != orbital_label]
-    if not other_occ:
-        return 0.0  # No b ≠ a — diagonal MBPT2 vanishes for this orbital
+    def numerator(bra1, bra2, ket1, ket2, bilinear):
+        j1, j2, j3, j4 = [2 * abs(s[2]) - 1 for s in (bra1, bra2, ket1, ket2)]
+        total = 0.0
+        for twoJ in range(
+            max(abs(j1 - j2), abs(j3 - j4)), min(j1 + j2, j3 + j4) + 1, 2
+        ):
+            v = _pair_v_J(
+                *bra1[:3],
+                *bra2[:3],
+                *ket1[:3],
+                *ket2[:3],
+                twoJ,
+                data,
+                cache,
+                rk_bilinear=bilinear,
+            )
+            total += (twoJ + 1) * v * v
+        return total / (2 * abs(a[2]))
 
-    delta_E = 0.0
-    kappa_list_virt = list(range(-kappa_max, kappa_max + 1))
-    kappa_list_virt = [k for k in kappa_list_virt if k != 0]
+    def contribution(value, denom):
+        if value == 0:
+            return 0.0
+        if abs(denom) < denom_floor:
+            raise ValueError("resonant second-order self-energy denominator")
+        return value / denom
 
-    tj_a = 2 * abs(kappa_a) - 1
-
-    for sh_b in other_occ:
-        eps_b = scf_result.orbital_energies[sh_b.label]
-        kappa_b = sh_b.kappa
-        sh_b_subs = [s for s in scf_result.subshells if s.kappa == kappa_b]
-        P_b, Q_b, _ = scf_result.orbitals_raw[kappa_b][sh_b_subs.index(sh_b)]
-
-        for kappa_r in kappa_list_virt:
-            try:
-                _, virt_r = build_virtual_basis(
-                    scf_result, kappa_r, cache=cache,
-                    potential_mode="VN-1",
-                )
-            except Exception:
-                continue
-            for (P_r, Q_r, eps_r) in virt_r:
-                if eps_r > energy_window_au or eps_r < 0:
-                    continue
-
-                for kappa_s in kappa_list_virt:
-                    try:
-                        _, virt_s = build_virtual_basis(
-                            scf_result, kappa_s, cache=cache,
-                            potential_mode="VN-1",
-                        )
-                    except Exception:
-                        continue
-                    for (P_s, Q_s, eps_s) in virt_s:
-                        if eps_s > energy_window_au or eps_s < 0:
-                            continue
-                        denom = eps_a + eps_b - eps_r - eps_s
-                        if abs(denom) < 1e-6:
-                            continue
-
-                        # Allowed multipoles for direct (a,r)+(b,s)
-                        ang_ar = exchange_lambda(kappa_a, kappa_r, 1)
-                        ang_bs = exchange_lambda(kappa_b, kappa_s, 1)
-                        if abs(ang_ar) < 1e-12 or abs(ang_bs) < 1e-12:
-                            continue
-                        # k = 1 dominant multipole only (efficient
-                        # cap; for tighter calc add a k loop and
-                        # appropriate Wigner reduction)
-                        Rk = compute_slater_rk_cell(
-                            P_a, Q_a, P_b, Q_b,
-                            P_r, Q_r, P_s, Q_s,
-                            bsp_data, 1, cache=cache,
-                        )
-                        V = ang_ar * ang_bs * Rk
-                        delta_E += -(V * V) / (denom * (tj_a + 1))
-    return float(delta_E)
+    shift = 0.0
+    virtual_pairs = list(combinations_with_replacement(range(len(virtuals)), 2))
+    for b in occupied:
+        bilinear = {}
+        for ir, is_ in virtual_pairs:
+            r, s = virtuals[ir], virtuals[is_]
+            v2 = numerator(a, b, r, s, bilinear) / (1 + (ir == is_))
+            shift += contribution(v2, a[3] + b[3] - r[3] - s[3])
+    occupied_pairs = list(combinations_with_replacement(range(len(occupied)), 2))
+    for r in virtuals:
+        bilinear = {}
+        for ib, ic in occupied_pairs:
+            b, c = occupied[ib], occupied[ic]
+            v2 = numerator(a, r, b, c, bilinear) / (1 + (ib == ic))
+            shift += contribution(v2, a[3] + r[3] - b[3] - c[3])
+    return float(shift)
 
 
 def mbpt2_transition_energy(
@@ -171,46 +142,28 @@ def mbpt2_transition_energy(
     beta_label: str,
     *,
     kappa_max: int = 2,
+    energy_window_au: float = 50.0,
+    n_virt_max: int | None = None,
 ) -> dict:
-    """MBPT(2)-corrected transition energy ω_corr = ε_β − ε_α + ΔE_β − ΔE_α.
-
-    Returns a dict including the DHF reference, per-orbital diagonal
-    self-energy shifts, and the corrected ω in Hartree and eV.
-
-    For systems with a single occupied orbital both shifts are zero
-    by construction (see :func:`mbpt2_orbital_energy_shift`); the
-    dict still reports the DHF reference for downstream consistency.
-
-    Parameters
-    ----------
-    scf_result : SCFResult
-    alpha_label, beta_label : str
-    kappa_max : int
-
-    Returns
-    -------
-    dict
-        {'omega_DHF_au', 'delta_E_alpha_au', 'delta_E_beta_au',
-         'omega_corrected_au', 'omega_corrected_eV'}
-    """
-    eps_a = scf_result.orbital_energies[alpha_label]
-    eps_b = scf_result.orbital_energies[beta_label]
-    omega_DHF = eps_b - eps_a
-    dE_a = mbpt2_orbital_energy_shift(scf_result, alpha_label,
-                                       kappa_max=kappa_max)
-    dE_b = mbpt2_orbital_energy_shift(scf_result, beta_label,
-                                       kappa_max=kappa_max)
-    omega_corr = omega_DHF + dE_b - dE_a
+    """Difference of on-shell orbital energies, with shifts and eV conversion."""
+    omega = (
+        scf_result.orbital_energies[beta_label]
+        - scf_result.orbital_energies[alpha_label]
+    )
+    options = dict(
+        kappa_max=kappa_max, energy_window_au=energy_window_au, n_virt_max=n_virt_max
+    )
+    da = mbpt2_orbital_energy_shift(scf_result, alpha_label, **options)
+    db = (
+        da
+        if alpha_label == beta_label
+        else mbpt2_orbital_energy_shift(scf_result, beta_label, **options)
+    )
+    corrected = omega + (db - da)
     return {
-        "omega_DHF_au": float(omega_DHF),
-        "delta_E_alpha_au": float(dE_a),
-        "delta_E_beta_au": float(dE_b),
-        "omega_corrected_au": float(omega_corr),
-        "omega_corrected_eV": float(omega_corr * HARTREE_EV),
+        "omega_DHF_au": float(omega),
+        "delta_E_alpha_au": da,
+        "delta_E_beta_au": db,
+        "omega_corrected_au": float(corrected),
+        "omega_corrected_eV": float(corrected * HARTREE_EV),
     }
-
-
-__all__ = [
-    "mbpt2_orbital_energy_shift",
-    "mbpt2_transition_energy",
-]

@@ -95,9 +95,11 @@ def test_nonlocal_shooting_is_not_replaced_by_a_local_model():
 def test_complete_symmetry_inventory_and_energies(dr_states):
     reference = REFERENCE['resonances']
     assert len(dr_states) == len(reference) == 237
-    inventory = lambda rows: Counter((r['group'], r['two_J']) for r in rows)
+    def inventory(rows):
+        return Counter((r['group'], r['two_J']) for r in rows)
     assert inventory(dr_states) == inventory(reference)
-    key = lambda r: (r['group'], r['two_J'], r['energy_eV'])
+    def key(r):
+        return (r['group'], r['two_J'], r['energy_eV'])
     for actual, expected in zip(sorted(dr_states, key=key), sorted(reference, key=key), strict=True):
         assert abs(actual['energy_eV']-expected['energy_eV']) < .5
 

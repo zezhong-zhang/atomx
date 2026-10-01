@@ -1,7 +1,9 @@
 """A mean continuum field must retain the nucleus and remove one self-field."""
 from types import SimpleNamespace
+
 import numpy as np
 import pytest
+
 from atomx import Atom
 from atomx.potentials.static_field import static_hartree_potential
 

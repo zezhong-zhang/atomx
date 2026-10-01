@@ -290,8 +290,8 @@ def breit_operator_energy(orbitals_dict, bsp_data, Z, ns, config: str, *,
         ``MCDHFSolver`` does; silently returning one CSF's diagonal (or
         a scalar) instead is the defect this function exists to avoid.
     """
-    from atomx.config.csf import enumerate_jj_csfs_many
     from atomx.angular.csf_hamiltonian import csf_signature, exact_block_matrix
+    from atomx.config.csf import enumerate_jj_csfs_many
     from atomx.physics.csf.matrix import _breit_radial_evaluator
 
     csfs = enumerate_jj_csfs_many([config])

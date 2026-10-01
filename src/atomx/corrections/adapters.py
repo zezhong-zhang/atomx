@@ -15,7 +15,7 @@ those physics modules lean and gives the stack a single import surface.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Dict, List, Tuple
+from typing import TYPE_CHECKING, Any, List, Tuple
 
 from atomx.corrections.protocol import CorrectionResult
 from atomx.radial_state import native_radial_state, radial_workspace_of
@@ -36,22 +36,25 @@ def _flatten_scf_orbitals(result: "AtomicResult") -> List[OrbitalTuple]:
 
 
 def _supports_native_dirac(result, representation):
-    if getattr(result, 'Z', None) is None:
+    if getattr(result, "Z", None) is None:
         return False
     try:
         state = native_radial_state(result)
     except (AttributeError, ValueError, TypeError, KeyError):
         return False
-    return (state.equation == 'dirac' and state.representation == representation
-            and bool(state.occupied))
+    return (
+        state.equation == "dirac"
+        and state.representation == representation
+        and bool(state.occupied)
+    )
 
 
 def _has_bspline_dirac_data(result):
-    return _supports_native_dirac(result, 'bspline')
+    return _supports_native_dirac(result, "bspline")
 
 
 def _has_radial_grid_data(result):
-    return _supports_native_dirac(result, 'grid')
+    return _supports_native_dirac(result, "grid")
 
 
 def _flatten_grid_orbitals(result):
@@ -60,7 +63,8 @@ def _flatten_grid_orbitals(result):
 
 def _origin_offset(r):
     import numpy as np
-    return int(np.searchsorted(r, 0., side='right'))
+
+    return int(np.searchsorted(r, 0.0, side="right"))
 
 
 def _grid_workspace_of(result):
@@ -76,14 +80,15 @@ def _dirac_orbital_payload(result):
 # Vacuum polarisation (Uehling)
 # ---------------------------------------------------------------------------
 
+
 def _has_correlated_radial_data(result):
-    if not callable(getattr(result, 'one_body_density_matrix', None)):
+    if not callable(getattr(result, "one_body_density_matrix", None)):
         return False
     try:
         state = native_radial_state(result)
     except (AttributeError, ValueError, TypeError, KeyError):
         return False
-    return state.equation == 'dirac' and bool(state.orbitals)
+    return state.equation == "dirac" and bool(state.orbitals)
 
 
 def _correlated_local_energy(result, potential=None, *, radial_builder=None):
@@ -91,8 +96,11 @@ def _correlated_local_energy(result, potential=None, *, radial_builder=None):
     import numpy as np
 
     from atomx.corrections.qed import short_range_radial_matrix
+
     workspace, i0 = radial_workspace_of(result)
-    states = np.flatnonzero(abs(result.state_energies-result.state_energies[0]) < 1e-10)
+    states = np.flatnonzero(
+        abs(result.state_energies - result.state_energies[0]) < 1e-10
+    )
     values = []
     for state in states:
         keys, density = result.one_body_density_matrix(state)
@@ -100,9 +108,12 @@ def _correlated_local_energy(result, potential=None, *, radial_builder=None):
         block = (int(result.state_J2[state]), int(result.state_parity[state]))
         orbitals.update(result.per_block_orbitals.get(block, {}))
         waves = [(orbitals[k][0][i0:], orbitals[k][1][i0:], k[1]) for k in keys]
-        radial = (radial_builder(keys, waves, workspace) if radial_builder is not None
-                  else short_range_radial_matrix(waves, workspace, potential))
-        values.append(float(np.sum(density*radial)))
+        radial = (
+            radial_builder(keys, waves, workspace)
+            if radial_builder is not None
+            else short_range_radial_matrix(waves, workspace, potential)
+        )
+        values.append(float(np.sum(density * radial)))
     return float(np.mean(values))
 
 
@@ -117,25 +128,34 @@ class UehlingVPCorrection:
     """
 
     name = "uehling_vp"
-    description = ("Uehling VP  ⟨a|V_VP|a⟩ with V_VP = −(2Zα/3π)/r · I(2cr), "
-                   "I = the Uehling integral (kernel fixed in 200d657).")
+    description = (
+        "Uehling VP  ⟨a|V_VP|a⟩ with V_VP = −(2Zα/3π)/r · I(2cr), "
+        "I = the Uehling integral (kernel fixed in 200d657)."
+    )
 
     def supports(self, result: "AtomicResult") -> bool:
-        return (_has_correlated_radial_data(result) or _has_bspline_dirac_data(result)
-                or _has_radial_grid_data(result))
+        return (
+            _has_correlated_radial_data(result)
+            or _has_bspline_dirac_data(result)
+            or _has_radial_grid_data(result)
+        )
 
     def evaluate(self, result: "AtomicResult", **_: Any) -> CorrectionResult:
         from atomx.corrections.qed import compute_vp_energy, uehling_potential
 
         if _has_correlated_radial_data(result):
-            E = _correlated_local_energy(result, lambda r: uehling_potential(r, result.Z))
+            E = _correlated_local_energy(
+                result, lambda r: uehling_potential(r, result.Z)
+            )
         else:
             orbitals, workspace = _dirac_orbital_payload(result)
             E = float(compute_vp_energy(orbitals, workspace, result.Z))
         return CorrectionResult(
             name=self.name,
             energy_shift=E,
-            provenance={"method": "Uehling point-nucleus, full local one-body expectation"},
+            provenance={
+                "method": "Uehling point-nucleus, full local one-body expectation"
+            },
         )
 
 
@@ -146,28 +166,37 @@ class WichmannKrollVPCorrection:
     description = "Higher-order VP (Flambaum–Ginges 2005 eq. 12)."
 
     def supports(self, result: "AtomicResult") -> bool:
-        return (_has_correlated_radial_data(result) or _has_bspline_dirac_data(result)
-                or _has_radial_grid_data(result))
+        return (
+            _has_correlated_radial_data(result)
+            or _has_bspline_dirac_data(result)
+            or _has_radial_grid_data(result)
+        )
 
     def evaluate(self, result: "AtomicResult", **_: Any) -> CorrectionResult:
         from atomx.corrections.qed import compute_wk_vp_energy
         from atomx.corrections.qedmod.flambaum_ginges import V_wichmann_kroll
 
         if _has_correlated_radial_data(result):
-            E = _correlated_local_energy(result, lambda r: V_wichmann_kroll(r, result.Z))
+            E = _correlated_local_energy(
+                result, lambda r: V_wichmann_kroll(r, result.Z)
+            )
         else:
             orbitals, workspace = _dirac_orbital_payload(result)
             E = float(compute_wk_vp_energy(orbitals, workspace, result.Z))
         return CorrectionResult(
             name=self.name,
             energy_shift=E,
-            provenance={"method": "Flambaum–Ginges WK fit", "reference": "PRA 72, 052115 (2005)"},
+            provenance={
+                "method": "Flambaum–Ginges WK fit",
+                "reference": "PRA 72, 052115 (2005)",
+            },
         )
 
 
 # ---------------------------------------------------------------------------
 # Self-energy (delegates to the qedmod backend registry)
 # ---------------------------------------------------------------------------
+
 
 class SelfEnergyCorrection:
     """Pluggable self-energy correction.
@@ -184,41 +213,54 @@ class SelfEnergyCorrection:
         self.name = f"self_energy[{backend}]"
         self._backend_name = backend
         self.description = (
-            f"Self-energy via the {backend!r} backend "
-            f"(see atomx.corrections.qedmod)."
+            f"Self-energy via the {backend!r} backend (see atomx.corrections.qedmod)."
         )
 
     def supports(self, result: "AtomicResult") -> bool:
-        return (_has_correlated_radial_data(result) or _has_bspline_dirac_data(result)
-                or _has_radial_grid_data(result))
+        return (
+            _has_correlated_radial_data(result)
+            or _has_bspline_dirac_data(result)
+            or _has_radial_grid_data(result)
+        )
 
     def evaluate(self, result: "AtomicResult", **_: Any) -> CorrectionResult:
         from atomx.corrections.qedmod import get_backend
 
         if _has_correlated_radial_data(result):
-            from atomx.corrections.qed import self_energy_radial_matrix
             from atomx.config.subshell import Subshell
+            from atomx.corrections.qed import self_energy_radial_matrix
 
             def radial_builder(keys, waves, workspace):
                 return self_energy_radial_matrix(
-                    [(p, q, k, Subshell(*key, 1.).label)
-                     for key, (p, q, k) in zip(keys, waves, strict=True)],
-                    result.Z, workspace, method=self._backend_name)
+                    [
+                        (p, q, k, Subshell(*key, 1.0).label)
+                        for key, (p, q, k) in zip(keys, waves, strict=True)
+                    ],
+                    result.Z,
+                    workspace,
+                    method=self._backend_name,
+                )
 
             energy = _correlated_local_energy(result, radial_builder=radial_builder)
-            provenance={"backend": self._backend_name,
-                        "evaluation": "correlated one-body density contraction"}
-            if self._backend_name in ('mohr','mss'):
-                provenance['screening_reference'] = 'exact_point_dirac_coulomb_expectation_v1'
+            provenance = {
+                "backend": self._backend_name,
+                "evaluation": "correlated one-body density contraction",
+            }
+            if self._backend_name in ("mohr", "mss"):
+                provenance["screening_reference"] = (
+                    "exact_point_dirac_coulomb_expectation_v1"
+                )
             return CorrectionResult(
-                name=self.name, energy_shift=energy,
-                provenance=provenance)
+                name=self.name, energy_shift=energy, provenance=provenance
+            )
         backend = get_backend(self._backend_name)
         orbitals, workspace = _dirac_orbital_payload(result)
         out = backend.compute(orbitals, workspace, result.Z)
-        provenance={"backend": self._backend_name, "method": out.method}
-        if out.method == 'mohr':
-            provenance['screening_reference'] = 'exact_point_dirac_coulomb_expectation_v1'
+        provenance = {"backend": self._backend_name, "method": out.method}
+        if out.method == "mohr":
+            provenance["screening_reference"] = (
+                "exact_point_dirac_coulomb_expectation_v1"
+            )
         return CorrectionResult(
             name=self.name,
             energy_shift=float(out.E_SE),
@@ -230,6 +272,7 @@ class SelfEnergyCorrection:
 # ---------------------------------------------------------------------------
 # Breit interaction
 # ---------------------------------------------------------------------------
+
 
 class BreitCorrectionError(RuntimeError):
     """The requested operator matrix element is unavailable."""
@@ -250,53 +293,85 @@ class BreitCorrection:
     name = "breit"
     description = "DBSR_HF Breit average, including static retardation."
 
-    def __init__(self, mode: str = "dbsr_hf", *, frequency="static",
-                 orbital_energies=None) -> None:
+    def __init__(
+        self, mode: str = "dbsr_hf", *, frequency="static", orbital_energies=None
+    ) -> None:
         if mode not in {"dbsr_hf", "operator", "scalar_pairs", "scalar_legacy"}:
             raise ValueError(
                 "Breit mode must be 'dbsr_hf', 'operator', 'scalar_pairs', "
-                "or 'scalar_legacy'")
+                "or 'scalar_legacy'"
+            )
         self.mode = mode
-        if frequency not in ('static', 'orbital_differences'):
-            raise ValueError("Breit frequency must be 'static' or 'orbital_differences'")
-        if frequency != 'static' and mode not in ('dbsr_hf', 'operator'):
-            raise ValueError('finite-frequency Breit cannot use a legacy scalar mode')
-        if frequency == 'static' and orbital_energies is not None:
-            raise ValueError('orbital energies require finite-frequency Breit')
+        if frequency not in ("static", "orbital_differences"):
+            raise ValueError(
+                "Breit frequency must be 'static' or 'orbital_differences'"
+            )
+        if frequency != "static" and mode not in ("dbsr_hf", "operator"):
+            raise ValueError("finite-frequency Breit cannot use a legacy scalar mode")
+        if frequency == "static" and orbital_energies is not None:
+            raise ValueError("orbital energies require finite-frequency Breit")
         self.frequency = frequency
         self.orbital_energies = orbital_energies
 
     def supports(self, result: "AtomicResult") -> bool:
-        if self.frequency != 'static' and _has_correlated_radial_data(result):
-            return False  # correlated states need the operator inside their CI Hamiltonian
+        if self.frequency != "static" and _has_correlated_radial_data(result):
+            return (
+                False  # correlated states need the operator inside their CI Hamiltonian
+            )
         return _has_bspline_dirac_data(result) or _has_radial_grid_data(result)
 
     def evaluate(self, result: "AtomicResult", **_: Any) -> CorrectionResult:
-        if self.frequency == 'orbital_differences':
+        if self.frequency == "orbital_differences":
             from atomx.physics.csf.breit_ci import (
-                _ci_radial_inputs, breit_configuration_average,
-                breit_operator_energy, configuration_string_of)
+                _ci_radial_inputs,
+                breit_configuration_average,
+                breit_operator_energy,
+                configuration_string_of,
+            )
             from atomx.physics.csf.transverse import (
-                validate_orbital_energies, frequency_provenance)
+                frequency_provenance,
+                validate_orbital_energies,
+            )
+
             orbitals, workspace, Z, ns = _ci_radial_inputs(result)
             energies = self.orbital_energies
             if energies is None:
-                energies = {(s.n, s.kappa): result.orbital_energies[s.label]
-                            for s in result.subshells}
+                energies = {
+                    (s.n, s.kappa): result.orbital_energies[s.label]
+                    for s in result.subshells
+                }
             energies = validate_orbital_energies(orbitals, energies)
-            configs = result.__dict__.get('_jj_configs')
+            configs = result.__dict__.get("_jj_configs")
             if configs is None:
-                energy = breit_operator_energy(orbitals, workspace, Z, ns,
-                    configuration_string_of(result.subshells), orbital_energies=energies)
+                energy = breit_operator_energy(
+                    orbitals,
+                    workspace,
+                    Z,
+                    ns,
+                    configuration_string_of(result.subshells),
+                    orbital_energies=energies,
+                )
             else:
-                energy = breit_configuration_average(orbitals, workspace, Z, ns,
-                    configs, orbital_energies=energies)
-            return CorrectionResult(name=self.name, energy_shift=float(energy), provenance={
-                'mode': 'operator', 'operator': 'finite-frequency-transverse',
-                'stage': 'post_scf_expectation', 'retardation_included': True,
-                'averaging': 'single_csf' if configs is None else 'jj_configuration_ensemble',
-                'energy_source': 'converged_orbital_energies' if self.orbital_energies is None else 'explicit',
-                **frequency_provenance(energies)})
+                energy = breit_configuration_average(
+                    orbitals, workspace, Z, ns, configs, orbital_energies=energies
+                )
+            return CorrectionResult(
+                name=self.name,
+                energy_shift=float(energy),
+                provenance={
+                    "mode": "operator",
+                    "operator": "finite-frequency-transverse",
+                    "stage": "post_scf_expectation",
+                    "retardation_included": True,
+                    "averaging": "single_csf"
+                    if configs is None
+                    else "jj_configuration_ensemble",
+                    "energy_source": "converged_orbital_energies"
+                    if self.orbital_energies is None
+                    else "explicit",
+                    **frequency_provenance(energies),
+                },
+            )
         from atomx.corrections.breit import (
             SCALAR_BREIT_NOTE,
             compute_breit_energy,
@@ -308,32 +383,41 @@ class BreitCorrection:
 
             orbitals, workspace = _dirac_orbital_payload(result)
             configs = result.__dict__.get("_jj_configs")
-            energy = float(compute_dbsr_breit_energy(
-                orbitals, workspace, jj_configs=configs))
+            energy = float(
+                compute_dbsr_breit_energy(orbitals, workspace, jj_configs=configs)
+            )
             provenance = {
                 "mode": "dbsr_hf",
                 "operator": "average_configuration",
                 "scalar_shift_applied": True,
                 "retardation_included": True,
-                "pair_weighting": ("exact_jj_ensemble" if configs is not None
-                                   else "integer_configuration"),
+                "pair_weighting": (
+                    "exact_jj_ensemble"
+                    if configs is not None
+                    else "integer_configuration"
+                ),
                 "reference": "DBSR_HF hf_MOD_energy.f90 and hf_energy_BR.f90",
                 "implementation": "corrections/dbsr_breit.py",
-                "radial_integration": ("gauss_cell_polynomial" if workspace['gr'].ndim == 2
-                                       else workspace.get('integration_rule', 'trapezoidal')),
+                "radial_integration": (
+                    "gauss_cell_polynomial"
+                    if workspace["gr"].ndim == 2
+                    else workspace.get("integration_rule", "trapezoidal")
+                ),
                 "note": "Full static Breit configuration-average energy on the "
-                        "converged orbitals; resolved J-dependent shifts "
-                        "require a Breit operator in CI.",
+                "converged orbitals; resolved J-dependent shifts "
+                "require a Breit operator in CI.",
             }
             if operator is not None:
                 provenance["static_breit_operator_cross_check"] = float(operator)
             return CorrectionResult(
-                name=self.name, energy_shift=energy, provenance=provenance)
+                name=self.name, energy_shift=energy, provenance=provenance
+            )
         if self.mode == "operator":
             if operator is None:
                 raise BreitCorrectionError(
                     "Static Breit operator value is absent; calculate its matrix "
-                    "element before applying the default Breit correction")
+                    "element before applying the default Breit correction"
+                )
             return CorrectionResult(
                 name=self.name,
                 energy_shift=float(operator),
@@ -345,32 +429,36 @@ class BreitCorrection:
                     "reference": "two-electron static Breit operator in MCDHF CI basis",
                     "implementation": "physics/csf/breit_ci.py",
                     "note": "Complete frequency-independent Breit operator in the "
-                            "selected orbital/configuration space. Frequency-dependent "
-                            "transverse exchange is not included.",
+                    "selected orbital/configuration space. Frequency-dependent "
+                    "transverse exchange is not included.",
                 },
             )
 
         orbitals, workspace = _dirac_orbital_payload(result)
-        configs = (result.__dict__.get("_jj_configs")
-                   if self.mode == "scalar_pairs" else None)
-        E = float(compute_breit_energy(
-            orbitals, workspace, result.Z, jj_configs=configs))
+        configs = (
+            result.__dict__.get("_jj_configs") if self.mode == "scalar_pairs" else None
+        )
+        E = float(
+            compute_breit_energy(orbitals, workspace, result.Z, jj_configs=configs)
+        )
         provenance = {
             "mode": self.mode,
             "operator": "none",
             "scalar_shift_applied": True,
             "reference": "Grant & Pyper, J.Phys.B 9, 761 (1976)",
             "implementation": "corrections/breit.py scalar AOC "
-                              "(v=L normalised by 1/(2L+1))",
+            "(v=L normalised by 1/(2L+1))",
             "externally_validated": False,
             "validation": SCALAR_BREIT_NOTE,
-            "pair_weighting": ("exact_jj_ensemble" if configs is not None
-                               else "product_of_mean_occupations"),
+            "pair_weighting": (
+                "exact_jj_ensemble"
+                if configs is not None
+                else "product_of_mean_occupations"
+            ),
         }
         if operator is not None:
             provenance["static_breit_operator_cross_check"] = float(operator)
-            provenance["operator_vs_scalar_ratio"] = (
-                float(operator) / E if E else None)
+            provenance["operator_vs_scalar_ratio"] = float(operator) / E if E else None
         return CorrectionResult(
             name=self.name,
             energy_shift=E,
@@ -382,16 +470,20 @@ class BreitCorrection:
 # Normal Mass Shift
 # ---------------------------------------------------------------------------
 
+
 class NormalMassShiftCorrection:
     """One-body Breit recoil; the historical virial estimate is opt-in."""
 
     name = "nms"
-    description = ("Normal mass shift from the one-body Breit recoil operator; "
-                   "nonrelativistic limit +⟨p²/2⟩/M. The optional virial "
-                   "estimate is −E_total/M.")
+    description = (
+        "Normal mass shift from the one-body Breit recoil operator; "
+        "nonrelativistic limit +⟨p²/2⟩/M. The optional virial "
+        "estimate is −E_total/M."
+    )
 
     def __init__(self, nuclear_mass_me: float, mode: str = "operator"):
         import math
+
         if not math.isfinite(nuclear_mass_me) or nuclear_mass_me <= 0.0:
             raise ValueError(
                 "nuclear_mass_me must be positive (units of electron mass)."
@@ -413,20 +505,29 @@ class NormalMassShiftCorrection:
             import numpy as np
 
             from atomx.corrections.recoil import recoil_provenance, recoil_radial_matrix
+
             if callable(getattr(result, "one_body_density_matrix", None)):
-                energy = _correlated_local_energy(result, radial_builder=(
-                    lambda keys, orbitals, workspace: recoil_radial_matrix(
-                        orbitals, workspace, result.Z)))
-                return CorrectionResult(self.name, energy/self._M,
-                                        provenance=recoil_provenance(self._M))
+                energy = _correlated_local_energy(
+                    result,
+                    radial_builder=(
+                        lambda keys, orbitals, workspace: recoil_radial_matrix(
+                            orbitals, workspace, result.Z
+                        )
+                    ),
+                )
+                return CorrectionResult(
+                    self.name, energy / self._M, provenance=recoil_provenance(self._M)
+                )
             else:
                 payload, workspace = _dirac_orbital_payload(result)
                 orbitals = [(p, q, k) for p, q, _, k, _ in payload]
                 density = np.diag([occ for _, _, occ, _, _ in payload])
             matrix = recoil_radial_matrix(orbitals, workspace, result.Z)
             return CorrectionResult(
-                name=self.name, energy_shift=float(np.sum(density * matrix) / self._M),
-                provenance=recoil_provenance(self._M))
+                name=self.name,
+                energy_shift=float(np.sum(density * matrix) / self._M),
+                provenance=recoil_provenance(self._M),
+            )
         from atomx.properties.isotope_shift.mass_shift import normal_mass_shift
 
         # ``normal_mass_shift`` takes the nuclear mass as ``mass_me`` and
@@ -470,85 +571,136 @@ class HydrogenicMassRemainderCorrection:
     Correlation-orbital labels are not accepted as hydrogenic n values.
     """
 
-    name = 'hydrogenic_mass_remainder'
-    description = 'Exact one-electron nonrelativistic reduced-mass remainder beyond first order.'
+    name = "hydrogenic_mass_remainder"
+    description = (
+        "Exact one-electron nonrelativistic reduced-mass remainder beyond first order."
+    )
 
     def __init__(self, nuclear_mass_me: float):
         self._M = NormalMassShiftCorrection(nuclear_mass_me)._M
 
     def supports(self, result):
-        return (not callable(getattr(result, 'one_body_density_matrix', None))
-                and bool(getattr(result, 'subshells', None)))
+        return not callable(getattr(result, "one_body_density_matrix", None)) and bool(
+            getattr(result, "subshells", None)
+        )
 
     def evaluate(self, result, **_):
         from atomx.corrections.recoil import hydrogenic_mass_remainder
 
         if not self.supports(result):
-            raise ValueError('Hydrogenic mass remainder requires identified single-configuration shells')
+            raise ValueError(
+                "Hydrogenic mass remainder requires identified single-configuration shells"
+            )
         shells = [s for s in result.subshells if s.occupation > 1e-12]
         electrons = sum(s.occupation for s in shells)
-        applied = abs(electrons-1.) < 1e-10
+        applied = abs(electrons - 1.0) < 1e-10
         if applied and len({s.n for s in shells}) != 1:
-            raise ValueError('Hydrogenic mass remainder requires one identified principal shell')
-        shift = (sum(s.occupation*hydrogenic_mass_remainder(result.Z, s.n, self._M)
-                     for s in shells) if applied else 0.)
-        return CorrectionResult(name=self.name, energy_shift=shift, provenance={
-            'operator': self.description, 'nuclear_mass_me': self._M,
-            'applied': applied, 'scope': 'one-electron point-Coulomb nonrelativistic remainder',
-            'first_order_subtracted': True,
-            'omitted': ['higher-order relativistic recoil', 'finite-size recoil',
-                        'radiative recoil', 'multielectron higher-order recoil'],
-            'reference': 'https://physics.nist.gov/cuu/pdf/CODATA_RMP2016.pdf'})
+            raise ValueError(
+                "Hydrogenic mass remainder requires one identified principal shell"
+            )
+        shift = (
+            sum(
+                s.occupation * hydrogenic_mass_remainder(result.Z, s.n, self._M)
+                for s in shells
+            )
+            if applied
+            else 0.0
+        )
+        return CorrectionResult(
+            name=self.name,
+            energy_shift=shift,
+            provenance={
+                "operator": self.description,
+                "nuclear_mass_me": self._M,
+                "applied": applied,
+                "scope": "one-electron point-Coulomb nonrelativistic remainder",
+                "first_order_subtracted": True,
+                "omitted": [
+                    "higher-order relativistic recoil",
+                    "finite-size recoil",
+                    "radiative recoil",
+                    "multielectron higher-order recoil",
+                ],
+                "reference": "https://physics.nist.gov/cuu/pdf/CODATA_RMP2016.pdf",
+            },
+        )
 
 
 class HydrogenicRadiativeMassLeadingCorrection:
     """Explicit alpha*(Z alpha)^4 reduced-mass QED addition for one electron."""
 
-    name = 'hydrogenic_radiative_mass_leading'
-    description = 'Leading-order finite-mass self-energy and vacuum-polarization addition.'
+    name = "hydrogenic_radiative_mass_leading"
+    description = (
+        "Leading-order finite-mass self-energy and vacuum-polarization addition."
+    )
 
     def __init__(self, nuclear_mass_me):
         self._M = NormalMassShiftCorrection(nuclear_mass_me)._M
 
     def supports(self, result):
-        return (not callable(getattr(result,'one_body_density_matrix',None))
-                and bool(getattr(result,'subshells',None))
-                and abs(sum(s.occupation for s in result.subshells)-1.)<1e-10)
+        return (
+            not callable(getattr(result, "one_body_density_matrix", None))
+            and bool(getattr(result, "subshells", None))
+            and abs(sum(s.occupation for s in result.subshells) - 1.0) < 1e-10
+        )
 
     def evaluate(self, result, **_):
         from atomx.corrections.radiative_mass import hydrogenic_radiative_mass_leading
+
         if not self.supports(result):
-            raise ValueError('radiative mass addition requires identified one-electron shells')
-        shifts={}
-        components={'self_energy_mass_ha':0.,'vacuum_polarization_mass_ha':0.}
+            raise ValueError(
+                "radiative mass addition requires identified one-electron shells"
+            )
+        shifts = {}
+        components = {"self_energy_mass_ha": 0.0, "vacuum_polarization_mass_ha": 0.0}
         for shell in result.subshells:
-            if shell.occupation<=0:continue
-            values=hydrogenic_radiative_mass_leading(result.Z,shell.n,shell.kappa,self._M)
-            shifts[shell.label]=sum(values.values())
-            for key,value in values.items():components[key]+=shell.occupation*value
-        return CorrectionResult(name=self.name,energy_shift=sum(components.values()),
-            per_orbital=shifts,provenance=dict(nuclear_mass_me=self._M,
-                order='alpha*(Z alpha)^4, including leading logarithm',
-                mass_treatment='finite minus infinite nuclear mass; ordinary recoil excluded',
-                components=components,reference='https://doi.org/10.1063/5.0064853',
-                omitted=['higher powers of Z alpha','finite nuclear size in radiative mass terms',
-                         'two-loop mass terms','additional radiative-recoil operators',
-                         'many-electron radiative recoil']))
+            if shell.occupation <= 0:
+                continue
+            values = hydrogenic_radiative_mass_leading(
+                result.Z, shell.n, shell.kappa, self._M
+            )
+            shifts[shell.label] = sum(values.values())
+            for key, value in values.items():
+                components[key] += shell.occupation * value
+        return CorrectionResult(
+            name=self.name,
+            energy_shift=sum(components.values()),
+            per_orbital=shifts,
+            provenance=dict(
+                nuclear_mass_me=self._M,
+                order="alpha*(Z alpha)^4, including leading logarithm",
+                mass_treatment="finite minus infinite nuclear mass; ordinary recoil excluded",
+                components=components,
+                reference="https://doi.org/10.1063/5.0064853",
+                omitted=[
+                    "higher powers of Z alpha",
+                    "finite nuclear size in radiative mass terms",
+                    "two-loop mass terms",
+                    "additional radiative-recoil operators",
+                    "many-electron radiative recoil",
+                ],
+            ),
+        )
 
 
 class SpecificMassShiftCorrection:
     """First-order point-Coulomb two-electron Breit recoil (GRASP RIS4)."""
 
     name = "sms"
-    description = "Two-electron Breit recoil with VINTI and relativistic SMS2/SMS3 terms."
+    description = (
+        "Two-electron Breit recoil with VINTI and relativistic SMS2/SMS3 terms."
+    )
 
     def __init__(self, nuclear_mass_me: float):
         # Reuse the common positive, finite nuclear-mass validation.
         self._M = NormalMassShiftCorrection(nuclear_mass_me)._M
 
     def supports(self, result):
-        return (_has_correlated_radial_data(result) or _has_bspline_dirac_data(result)
-                or _has_radial_grid_data(result))
+        return (
+            _has_correlated_radial_data(result)
+            or _has_bspline_dirac_data(result)
+            or _has_radial_grid_data(result)
+        )
 
     def evaluate(self, result, **_):
         import numpy as np
@@ -558,21 +710,36 @@ class SpecificMassShiftCorrection:
             momentum_recoil_parameters,
             specific_recoil_provenance,
         )
+
         if _has_correlated_radial_data(result):
             if result.per_block_orbitals:
-                raise NotImplementedError("two-body recoil with per-block orbitals is not implemented")
+                raise NotImplementedError(
+                    "two-body recoil with per-block orbitals is not implemented"
+                )
             workspace, i0 = radial_workspace_of(result)
-            orbitals = {k: (p[i0:], q[i0:])
-                        for k, (p, q) in native_radial_state(result).orbitals.items()}
-            states = abs(result.state_energies-result.state_energies[0]) < 1e-10
+            orbitals = {
+                k: (p[i0:], q[i0:])
+                for k, (p, q) in native_radial_state(result).orbitals.items()
+            }
+            states = abs(result.state_energies - result.state_energies[0]) < 1e-10
             parameters = momentum_recoil_parameters(
-                result.csfs, result.mixing_coefficients[:, states], orbitals,
-                workspace, Z=result.Z)
+                result.csfs,
+                result.mixing_coefficients[:, states],
+                orbitals,
+                workspace,
+                Z=result.Z,
+            )
             parameter = float(np.mean(parameters))
         else:
             orbitals, workspace = _dirac_orbital_payload(result)
             parameter = configuration_average_recoil(
-                orbitals, workspace, Z=result.Z,
-                jj_configs=result.__dict__.get('_jj_configs'))
-        return CorrectionResult(name=self.name, energy_shift=parameter/self._M,
-                                provenance=specific_recoil_provenance(self._M))
+                orbitals,
+                workspace,
+                Z=result.Z,
+                jj_configs=result.__dict__.get("_jj_configs"),
+            )
+        return CorrectionResult(
+            name=self.name,
+            energy_shift=parameter / self._M,
+            provenance=specific_recoil_provenance(self._M),
+        )

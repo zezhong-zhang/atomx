@@ -7,10 +7,12 @@ EFFECTIVE s_k^(4d): how much of the fitted (-0.27, -0.08, -0.12) does
 the 4d channel actually deliver?  (All orders within P+Q, leading 2nd.)
 """
 import sys
+from pathlib import Path
 
 import numpy as np
 
-sys.path.insert(0, "/tmp/atomx-cimbpt")
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from atomx.methods.csf import slater_scaling as SS
 

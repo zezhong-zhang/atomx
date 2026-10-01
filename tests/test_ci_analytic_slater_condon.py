@@ -40,8 +40,8 @@ import numpy as np
 import pytest
 from _be_reference import BE_DC_SANITY_FLOOR, be_1csf_energy
 
-import atomx.physics.csf.matrix as MAT
 import atomx.methods.csf.solver as SOLVER
+import atomx.physics.csf.matrix as MAT
 from atomx import Atom
 
 BE_2CONFIG_MCHF = -14.6166

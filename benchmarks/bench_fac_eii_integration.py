@@ -3,10 +3,11 @@ import argparse
 import ast
 import hashlib
 import json
-from pathlib import Path
 import re
+from pathlib import Path
 
 import numpy as np
+
 from benchmarks.bench_reference_structure import run_reference
 from benchmarks.fac_runner import parse_ci
 

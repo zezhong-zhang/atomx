@@ -5,12 +5,15 @@ owns the eigenvalue bracket, normalization Newton step and wrong-root guard;
 occupations, angular coefficients and SCF mixing belong to the method.
 """
 import math
+
 import numpy as np
+
 from .constants import SL
 from .dirac_bound import dbound
-from .dirac_green import homogeneous_pair as _homogeneous_pair, green_solve as _green_solve
+from .dirac_green import green_solve as _green_solve
+from .dirac_green import homogeneous_pair as _homogeneous_pair
+from .dirac_green import prepare_scaled_green, scaled_box_pair, scaled_green_solve
 from .quadrature import slag6, slag6_weights
-from .dirac_green import scaled_box_pair, scaled_green_solve, prepare_scaled_green
 from .spline import splin0
 
 
@@ -156,13 +159,13 @@ def solve_inhomogeneous_orbital(e0, n, kappa, rv_loc, chi_p, chi_q,
             pair = scaled_box_pair(e, kappa, r, va, vb, vc, vd)
             quadrature = prepare_scaled_green(pair)
             nzero, ncut = pair[4], np_
-            def green(cp, cq):
+            def green(cp, cq, *, pair=pair, quadrature=quadrature):
                 return scaled_green_solve(cp, cq, pair, difr, quadrature)
         else:
             (p_reg, q_reg, p_irr, q_irr, w_const,
              ncut, iotp, nzero) = _homogeneous_pair(
                 e, kappa, r, ind, np_, va, vb, vc, vd)
-            def green(cp, cq):
+            def green(cp, cq, *, ncut=ncut, p_irr=p_irr, p_reg=p_reg, q_irr=q_irr, q_reg=q_reg, w_const=w_const):
                 return _green_solve(cp, cq, p_reg, q_reg, p_irr, q_irr,
                                     w_const, difr, ncut, stable_tail=False)
 
@@ -180,7 +183,7 @@ def solve_inhomogeneous_orbital(e0, n, kappa, rv_loc, chi_p, chi_q,
             condition = np.linalg.cond(border)
             if not np.isfinite(condition) or condition > 1e12:
                 raise OrbitalSolveError('singular same-kappa constraint border')
-            def enforce(pair):
+            def enforce(pair, *, border=border, c=c, ncut=ncut, responses=responses):
                 overlap = np.einsum('iar,r,ar->i', c, metric[:ncut], pair)
                 multipliers = np.linalg.solve(border, -overlap)
                 return pair+np.einsum('i,iar->ar', multipliers, responses)

@@ -19,7 +19,6 @@ removed.
 import numba as nb
 import numpy as np
 
-from atomx.numerics.yk import compute_yk
 from atomx.numerics.bspline.evaluate import eval_orbital_on_grid
 from atomx.numerics.bspline.evaluate import (
     eval_P as _eval_P,
@@ -27,6 +26,7 @@ from atomx.numerics.bspline.evaluate import (
 from atomx.numerics.bspline.evaluate import (
     eval_Q as _eval_Q,
 )
+from atomx.numerics.yk import compute_yk
 
 # ---------------------------------------------------------------------------
 # Exchange matrix: FULL Numba kernel (the critical hot path)

@@ -9,21 +9,30 @@ State matching uses n, l, J and parity, never nearest transition energy.
 import argparse
 import json
 import os
-from pathlib import Path
 import platform
 import time
+from pathlib import Path
+
 import numpy as np
 
-from benchmarks.bench_reference_structure import run_reference, sha256
-from benchmarks.fac_runner import parse_levels, radial_grid_command, orbital_accuracy_commands
-from atomx.constants import ALPHA, AU_RATE_PER_S, HARTREE_EV, chemical_symbols
 from atomx.config.subshell import Subshell
+from atomx.constants import ALPHA, AU_RATE_PER_S, HARTREE_EV, chemical_symbols
 from atomx.io.fac_writer import read_tra
 from atomx.numerics.shooting.local import ShootingSolver
 from atomx.physics.dirac import hydrogenic_dirac_energy
 from atomx.properties.transitions.angular import angular_eL, angular_mL
-from atomx.properties.transitions.multipole import radial_eL, radial_eL_velocity, radial_mL
+from atomx.properties.transitions.multipole import (
+    radial_eL,
+    radial_eL_velocity,
+    radial_mL,
+)
 from atomx.properties.transitions.rates import einstein_A_eL, oscillator_strength
+from benchmarks.bench_reference_structure import run_reference, sha256
+from benchmarks.fac_runner import (
+    orbital_accuracy_commands,
+    parse_levels,
+    radial_grid_command,
+)
 
 GROUPS = [('g', '1s1'), ('s', '2s1')] + [
     (name+branch, f'{n}[{ell}{sign}]1')

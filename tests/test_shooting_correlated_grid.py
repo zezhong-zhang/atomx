@@ -2,15 +2,18 @@
 import numpy as np
 import pytest
 
-from atomx.numerics.shooting.grid import sgrid
-from atomx.numerics.shooting.quadrature import slag6, slag6_adjoint, slag6_weights
+from atomx.config.csf import enumerate_jj_csfs_many
+from atomx.methods.csf.grid_functional import (
+    GridCSFFunctional,
+    coulomb_adjoint,
+    derivative_adjoint,
+)
 from atomx.numerics.shooting.constants import SL
 from atomx.numerics.shooting.coulomb import _yk_over_r
-from atomx.physics.csf import matrix
-from atomx.methods.csf.grid_functional import (
-    GridCSFFunctional, derivative_adjoint, coulomb_adjoint)
-from atomx.config.csf import enumerate_jj_csfs_many
 from atomx.numerics.shooting.dirac_response import DiracResponse
+from atomx.numerics.shooting.grid import sgrid
+from atomx.numerics.shooting.quadrature import slag6, slag6_adjoint, slag6_weights
+from atomx.physics.csf import matrix
 
 
 @pytest.mark.parametrize('n', [3, 6, 9, 83])

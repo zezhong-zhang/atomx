@@ -75,7 +75,7 @@ def hydrogenic_dirac_coulomb_expectation(n: int, kappa: int, Z: float) -> float:
     In particular, 1s gives −Z²/gamma rather than its nonrelativistic limit.
     """
     ell = kappa if kappa > 0 else -kappa-1
-    if kappa == 0 or n <= ell or not math.isfinite(Z) or Z <= 0 or ALPHA*Z >= abs(kappa):
+    if kappa == 0 or n <= ell or not math.isfinite(Z) or Z <= 0 or abs(kappa) <= ALPHA*Z:
         raise ValueError('invalid bound point-Coulomb state')
     a2=(ALPHA*Z)**2
     gamma=math.sqrt(kappa*kappa-a2)

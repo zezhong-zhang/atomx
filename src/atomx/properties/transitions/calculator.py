@@ -21,6 +21,11 @@ from atomx.angular.csf import (
     csf_twice_j,
     multipole_allows_state_transition,
 )
+from atomx.angular.csf_hamiltonian import (
+    csf_signature,
+    nonorthogonal_tensor_terms,
+    one_body_tensor_terms,
+)
 from atomx.constants import (
     HARTREE_CM1,
     HARTREE_EV,
@@ -31,11 +36,6 @@ from atomx.corrections.adapters import (
     _grid_workspace_of,
     _has_bspline_dirac_data,
     _has_radial_grid_data,
-)
-from atomx.angular.csf_hamiltonian import (
-    csf_signature,
-    nonorthogonal_tensor_terms,
-    one_body_tensor_terms,
 )
 from atomx.properties.transitions.angular import (
     _kappa_to_lj,
@@ -284,7 +284,10 @@ class TransitionCalculator:
         if reference is None:
             raise NotImplementedError('determinant-CI transitions require an explicit solved '
                                       'ci_reference; no replacement atom is calculated')
-        from atomx.properties.transitions.ci_lines import ci_line_strengths, ground_config_of_pair
+        from atomx.properties.transitions.ci_lines import (
+            ci_line_strengths,
+            ground_config_of_pair,
+        )
         from atomx.scattering.autoionization.mscheme_ci import _parse_config_tokens
         ground_cfg = ground_config_of_pair(cfgs[0], cfgs[1])
         result = getattr(reference, '_result', reference)

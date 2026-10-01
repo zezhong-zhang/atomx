@@ -1,7 +1,8 @@
 """Independent high-angular-momentum and compiled-caller Wigner checks."""
 import pytest
 from sympy import Rational
-from sympy.physics.wigner import wigner_3j as exact_3j, wigner_6j as exact_6j
+from sympy.physics.wigner import wigner_3j as exact_3j
+from sympy.physics.wigner import wigner_6j as exact_6j
 
 from atomx.angular.clebsch import clebsch_gordan
 from atomx.angular.wigner import wigner_3j, wigner_6j, wigner_9j
@@ -32,7 +33,8 @@ def test_6j_cancellation_and_large_factorials(args):
 
 
 def test_compiled_callers_reach_exact_fallback():
-    from sympy.physics.wigner import clebsch_gordan as exact_cg, wigner_9j as exact_9j
+    from sympy.physics.wigner import clebsch_gordan as exact_cg
+    from sympy.physics.wigner import wigner_9j as exact_9j
     reference = float(exact_cg(20,20,20,0,0,0).evalf(40))
     assert clebsch_gordan(40,0,40,0,40,0) == pytest.approx(reference, rel=3e-12)
     reference = float(exact_9j(*([10]*9)).evalf(40))

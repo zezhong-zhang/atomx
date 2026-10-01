@@ -12,10 +12,10 @@ from atomx.numerics.bspline.continuum import (
     dipole_matrix_element,
     solve_continuum,
 )
-from atomx.scattering.photoionization import photoionization_cross_section
 from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices, solve_dirac
 from atomx.numerics.bspline.knots import make_knots
 from atomx.physics import Dirac, Schrodinger
+from atomx.scattering.photoionization import photoionization_cross_section
 
 BOHR_CM2 = (BOHR_RADIUS_M * 100.0) ** 2
 
@@ -263,13 +263,15 @@ class TestPhotoionization:
         electron_energy = float(photon[0] + E_1s)
 
         from atomx.properties.transitions.angular import line_strength_factor
+        from atomx.properties.transitions.multipole import radial_eL
 
         partials = []
         for kf in (1, -2):
             angular_factor = line_strength_factor(-1, kf, 1, "E") / 2.0
             Pf, Qf, _ = solve_continuum(
                 kf, electron_energy, 1, data, energy_normalized=True)
-            dme = dipole_matrix_element(P_1s, Q_1s, Pf, Qf, data)
+            dme = radial_eL(P_1s, Q_1s, Pf, Qf, data,
+                            kappa_i=-1, kappa_f=kf, omega=float(photon[0]))
             partials.append(
                 4.0 * np.pi ** 2 * ALPHA * float(photon[0]) / 3.0
                 * dme ** 2 * angular_factor

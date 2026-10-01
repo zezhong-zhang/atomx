@@ -4,13 +4,14 @@ eigenphase, without empirical poles?  (The existing test is a
 model/fitter regression on tabulated poles, not an ab initio gate.)
 """
 import sys
+from pathlib import Path
 
 import numpy as np
 
-sys.path.insert(0, "/tmp/atomx-cimbpt")
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from atomx.scattering.r_matrix import (compute_multichannel,
-                                       heplus_target_states)
+from atomx.scattering.r_matrix import compute_multichannel, heplus_target_states
 from atomx.scattering.r_matrix.resonance import fit_breit_wigner
 
 BURKE1971 = {

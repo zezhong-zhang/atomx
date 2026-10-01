@@ -9,12 +9,13 @@ import argparse
 import hashlib
 import json
 import os
-from pathlib import Path
 import platform
 import subprocess
 import time
+from pathlib import Path
 
 import numpy as np
+
 from atomx.constants import C
 from atomx.numerics.shooting.dirac_continuum import solve_dirac_continuum_shooting
 from atomx.numerics.shooting.dirac_coulomb import dirac_coulomb_outgoing
@@ -85,7 +86,7 @@ def main():
                     for box in [5., 75.]:
                         start = time.perf_counter()
                         r, p, q, phase = solve_dirac_continuum_shooting(
-                            e, k, lambda r: -z/r, r_max=box, n_grid=4000, Z_residual=z)
+                            e, k, lambda r, *, z=z: -z/r, r_max=box, n_grid=4000, Z_residual=z)
                         seconds = time.perf_counter()-start
                         ix = [int(np.argmin(abs(r-x))) for x in [.01, .1, 1., .75*box, box]]
                         rows.append(dict(z=z, e=e, k=k, box=box, phase=phase, seconds=seconds,
@@ -105,7 +106,7 @@ def main():
             norm = np.sqrt((2+e/C**2)/(np.pi*np.sqrt(e*(2+e/C**2))))
             actual = np.array([row['p'], row['q']])/norm
             sign = 1 if np.vdot(actual[:, accepted], target[:, accepted]) >= 0 else -1
-            row['reference_regular'] = [[float(v) if ok else None for v, ok in zip(component, accepted)]
+            row['reference_regular'] = [[float(v) if ok else None for v, ok in zip(component, accepted, strict=False)]
                                         for component in target]
             row['reference_valid'] = accepted.tolist()
             row['error_over_asymptotic_amplitude'] = float(np.max(abs(actual[:, accepted]-sign*target[:, accepted])))

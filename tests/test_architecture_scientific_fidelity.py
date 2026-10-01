@@ -5,7 +5,10 @@ import pytest
 
 from atomx import Atom, Basis, BreitPauli, HartreeFockSlater, Sampling
 from atomx.config.subshell import Subshell
-from atomx.properties.transitions.calculator import TransitionCalculator, TransitionResult
+from atomx.properties.transitions.calculator import (
+    TransitionCalculator,
+    TransitionResult,
+)
 from atomx.types import NuclearModel
 
 

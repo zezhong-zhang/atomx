@@ -8,20 +8,18 @@ fails => per-ion Cowan fits (R0) stay.
 Scaling = two_body_delta: element' = sum_k (1+s_k) coef_k R^k.
 """
 import sys
-from collections import Counter
+from pathlib import Path
 
 import numpy as np
-from scipy.optimize import least_squares
 
-sys.path.insert(0, "/tmp/atomx-cimbpt")
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from atomx.angular.csf_hamiltonian import two_body_angular, twoj
 from atomx.config.csf import enumerate_jj_csfs_many
 from atomx.methods.dirac_fock import DFSolver, Subshell
 from atomx.methods.mcdhf.excitations import generate_sd_excitations
 from atomx.physics.csf import sparse_ci as SC
 from atomx.physics.csf.sparse_ci import patterns_from_csfs
-import atomx.physics.csf.matrix as MAT
 
 CM = 219474.63
 Xe = [(1, -1), (2, -1), (2, 1), (2, -2), (3, -1), (3, 1), (3, -2),
@@ -52,45 +50,7 @@ def build(Z, nval):
     return od, dhf.bsp_data, pats
 
 
-def make_slater_delta(od, bsp, scale):
-    """two_body_delta: additive antisymmetrised Slater scaling.
-
-    The assembler forms anti = v(ab,cd) - v(ab,dc) + delta(ab,cd), so
-    the CORRECT scaling increment is
-        delta = sum_k s_k [term_k(ab,cd) - term_k(ab,dc)]
-    (scaling the raw element only in the first slot would break the
-    antisymmetrisation).
-    """
-    from functools import lru_cache
-    s2, s4, s6 = scale
-    scale_of = {2: s2, 4: s4, 6: s6}
-
-    def delta(ia, ib, ic, id_, spinors):
-        a, b, c, d = (spinors[ia], spinors[ib], spinors[ic],
-                      spinors[id_])
-        t1 = two_body_angular(a[1], a[2], b[1], b[2],
-                              c[1], c[2], d[1], d[2])
-        t2 = two_body_angular(a[1], a[2], b[1], b[2],
-                              d[1], d[2], c[1], c[2])
-        if not t1 and not t2:
-            return 0.0
-        Pa, Qa = od[(a[0], a[1])]
-        Pc, Qc = od[(c[0], c[1])]
-        Pb, Qb = od[(b[0], b[1])]
-        Pd, Qd = od[(d[0], d[1])]
-        total = 0.0
-        for k, coef in t1:
-            sk = scale_of.get(k)
-            if sk:
-                total += sk * coef * MAT._rk(Pa, Qa, Pc, Qc, Pb, Qb,
-                                             Pd, Qd, bsp, k)
-        for k, coef in t2:
-            sk = scale_of.get(k)
-            if sk:
-                total -= sk * coef * MAT._rk(Pa, Qa, Pc, Qc, Pb, Qb,
-                                             Pd, Qd, bsp, k)
-        return total
-    return delta
+from atomx.methods.csf.slater_scaling import make_slater_delta
 
 
 def levels_with_scale(od, bsp, Z, pats, scale, twoJmax=6):
@@ -125,7 +85,7 @@ def levels_with_scale(od, bsp, Z, pats, scale, twoJmax=6):
             w = sector_eval(twoJ)
             w_hi = sector_eval(twoJ + 2)
         # multiset subtract
-        pure = sorted(w.tolist() + [-x for x in w_hi.tolist()])
+        sorted(w.tolist() + [-x for x in w_hi.tolist()])
         # proper subtraction: remove w_hi entries from w
         wl = list(w)
         for x in w_hi:
@@ -141,8 +101,10 @@ NIST_PR = {0: [21390.0, 50000.0], 1: [22012.0], 2: [4997.0, 17334.0,
            6: [4389.0, 22215.0]}
 
 
-def pr_residuals(scale, od, bsp, pats, cache={}):
-    key = tuple(round(s, 8) for s in scale)
+def pr_residuals(scale, od, bsp, pats, cache=None):
+    if cache is None:
+        cache = {}
+    key = (id(od), id(bsp), repr(NIST_PR), tuple(round(s, 8) for s in scale))
     if key in cache:
         return cache[key]
     lv = levels_with_scale(od, bsp, 59, pats, scale)
@@ -150,7 +112,7 @@ def pr_residuals(scale, od, bsp, pats, cache={}):
     E0 = allE[0]                      # 3H4 (global ground), not J=0's
     res = []
     for J, es in lv:
-        for e, ref in zip(sorted(es), sorted(NIST_PR[J])):
+        for e, ref in zip(sorted(es), sorted(NIST_PR[J]), strict=False):
             res.append((e - E0) - ref)
     cache[key] = res
     return res
@@ -187,7 +149,7 @@ if __name__ == "__main__":
             / h for e2 in [(h, 0, 0), (0, h, 0), (0, 0, h)]])
         step, *_ = np.linalg.lstsq(Jm, -r1, rcond=None)
     s2, s4, s6 = x
-    rf = pr_residuals(tuple(fit.x), od_pr, bsp_pr, pats_pr)
+    rf = pr_residuals(tuple(x), od_pr, bsp_pr, pats_pr)
     print(f"  fitted s = ({s2:+.4f}, {s4:+.4f}, {s6:+.4f})", flush=True)
     print(f"  fitted RMS: {np.sqrt(np.mean(np.square(rf))):.0f} cm^-1",
           flush=True)

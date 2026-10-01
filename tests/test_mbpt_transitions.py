@@ -1,66 +1,114 @@
-"""MBPT(2) transition-energy regression tests."""
+"""Nonzero self-energy gates against explicit spin-orbital sums."""
+
+from itertools import product
+from unittest.mock import patch
 
 import pytest
+from test_review_regressions import _coulomb
 
-from atomx import Atom
+from atomx.constants import HARTREE_EV
+from atomx.methods.dirac_fock import DFSolver, Subshell
 from atomx.methods.mbpt_transitions import (
     mbpt2_orbital_energy_shift,
     mbpt2_transition_energy,
 )
 
 
-def test_single_occupied_orbital_returns_zero():
-    """A reference with only one occupied orbital has no diagonal
-    Brueckner contribution (Σ_{b≠a} sum is empty)."""
-    atom = Atom(Z=2, config="1s2", engine="bspline", corrections="none")
-    atom.solve()
-    shift = mbpt2_orbital_energy_shift(atom._result, "1s1/2")
-    assert shift == 0.0
+@pytest.fixture(scope="module")
+def helium():
+    return DFSolver(
+        Z=4, subshells=[Subshell(n=1, kappa=-1, occupation=2.0)], ns=30, ks=7
+    ).solve()
 
 
-def test_invalid_orbital_label():
-    atom = Atom(Z=2, config="1s2", engine="bspline", corrections="none")
-    atom.solve()
-    with pytest.raises(ValueError):
-        mbpt2_orbital_energy_shift(atom._result, "9z9/2")
+def test_same_subshell_self_energy_matches_spin_orbital_sum(helium):
+    from atomx.angular.csf_hamiltonian import _m2_values, twoj
+    from atomx.methods.mbpt import build_virtual_basis
+
+    occupied = [(1, -1)]
+    od = {key: (P, Q) for key, (P, Q, q) in helium.orbitals_by_subshell().items()}
+    eps = {(1, -1): helium.orbital_energies["1s1/2"]}
+    blocks = {}
+    for k in (-1, 1):
+        _, states = build_virtual_basis(
+            helium, k, e_max=50.0, orthogonal_to_occupied=True
+        )
+        blocks[k] = states[:2]
+        for i, (P, Q, e) in enumerate(blocks[k]):
+            od[(100 + i, k)] = (P, Q)
+            eps[(100 + i, k)] = e
+    virt = [key for key in od if key not in occupied]
+
+    def spin(keys):
+        return [(*key, m) for key in keys for m in _m2_values(twoj(key[1]))]
+
+    core, vspin = spin(occupied), spin(virt)
+    g = _coulomb(od, helium._bsp_data)
+    reference = 0.0
+    for a in core:
+        for b, r, s in product(core, vspin, vspin):
+            anti = g(a, b, r, s) - g(a, b, s, r)
+            reference += (
+                0.5
+                * anti**2
+                / (eps[a[:2]] + eps[b[:2]] - eps[r[:2]] - eps[s[:2]])
+                / len(core)
+            )
+        for b, c, r in product(core, core, vspin):
+            anti = g(a, r, b, c) - g(a, r, c, b)
+            reference += (
+                0.5
+                * anti**2
+                / (eps[a[:2]] + eps[r[:2]] - eps[b[:2]] - eps[c[:2]])
+                / len(core)
+            )
+
+    def basis(scf, kappa, **kwargs):
+        assert kwargs["potential_mode"] == "VN"
+        assert kwargs["orthogonal_to_occupied"]
+        return [], blocks[kappa]
+
+    with patch("atomx.methods.mbpt.build_virtual_basis", side_effect=basis) as build:
+        actual = mbpt2_orbital_energy_shift(helium, "1s1/2", kappa_max=1, n_virt_max=2)
+    assert abs(reference) > 1e-6
+    assert actual == pytest.approx(reference, rel=1e-11, abs=1e-13)
+    assert build.call_count == 2  # One eigensystem per kappa, independent of r/s loops.
+    assert any(e < 0 for _, _, e in blocks[-1])  # Bound virtuals contribute.
 
 
-def test_transition_energy_returns_dict_with_all_keys():
-    """mbpt2_transition_energy returns the full 5-key dict."""
-    atom = Atom(Z=2, config="1s2", engine="bspline", corrections="none")
-    atom.solve()
-    # Build a degenerate self-transition just to exercise the pipeline
-    res = mbpt2_transition_energy(atom._result, "1s1/2", "1s1/2")
-    for key in ("omega_DHF_au", "delta_E_alpha_au", "delta_E_beta_au",
-                 "omega_corrected_au", "omega_corrected_eV"):
-        assert key in res
-    # Self-transition: ω = 0
-    assert res["omega_DHF_au"] == 0.0
-    assert res["omega_corrected_au"] == 0.0
+def test_invalid_orbital_label(helium):
+    with pytest.raises(ValueError, match="not found"):
+        mbpt2_orbital_energy_shift(helium, "9z9/2")
 
 
-def test_transition_energy_is_exactly_zero_for_a_single_orbital_reference():
-    """He 1s2: one occupied orbital, so both shifts are 0 by construction.
+def test_virtual_basis_errors_propagate(helium):
+    with (
+        patch(
+            "atomx.methods.mbpt.build_virtual_basis",
+            side_effect=RuntimeError("eigensolver failed"),
+        ),
+        pytest.raises(RuntimeError, match="eigensolver failed"),
+    ):
+        mbpt2_orbital_energy_shift(helium, "1s1/2")
 
-    Explicitly a *definitional* case: the previous name
-    (``test_transition_energy_self_consistent``) and its assertion
-    ``omega_corrected_au == omega_DHF_au`` read as a physics gate, but the
-    test above has already established that both sides are exactly 0.0
-    (audit finding F13: 0 == 0).
 
-    The non-zero case is NOT covered, and cannot be cheaply: the diagonal
-    MBPT(2) self-energy needs an atom with two occupied subshells, and
-    ``mbpt2_orbital_energy_shift`` builds a full virtual basis per kappa —
-    measured > 4 min for Be 2s1/2 and > 8 min for Ne 2p on this machine,
-    against a 4-second file and a ~550 s suite.  Audit finding F16 stays
-    open with that measurement; what this file gates today is the API
-    contract, the exact-zero limit, and the unit conversion.
-    """
-    atom = Atom(Z=2, config="1s2", engine="bspline", corrections="none")
-    atom.solve()
-    res = mbpt2_transition_energy(atom._result, "1s1/2", "1s1/2")
-    assert res["delta_E_alpha_au"] == 0.0
-    assert res["delta_E_beta_au"] == 0.0
-    assert res["omega_DHF_au"] == 0.0
-    assert res["omega_corrected_au"] == 0.0
-    assert res["omega_corrected_eV"] == 0.0
+def test_self_transition_zero_with_nonzero_equal_shifts(helium):
+    result = mbpt2_transition_energy(
+        helium, "1s1/2", "1s1/2", kappa_max=1, n_virt_max=2
+    )
+    assert abs(result["delta_E_alpha_au"]) > 1e-6
+    assert result["delta_E_alpha_au"] == result["delta_E_beta_au"]
+    assert result["omega_DHF_au"] == result["omega_corrected_au"] == 0.0
+
+
+def test_nonzero_transition_difference_and_units(helium):
+    from types import SimpleNamespace
+
+    fake = SimpleNamespace(orbital_energies={"a": -1.0, "b": -0.2})
+    with patch(
+        "atomx.methods.mbpt_transitions.mbpt2_orbital_energy_shift",
+        side_effect=[0.03, -0.01],
+    ):
+        result = mbpt2_transition_energy(fake, "a", "b")
+    assert result["omega_corrected_au"] == pytest.approx(0.76)
+    assert result["omega_corrected_eV"] == pytest.approx(0.76 * HARTREE_EV)

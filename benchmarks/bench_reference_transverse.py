@@ -9,9 +9,9 @@ Each FAC mode runs in a fresh process because its Breit cache omits mode.
 import argparse
 import json
 import os
-from pathlib import Path
 import re
 import time
+from pathlib import Path
 
 import numpy as np
 
@@ -20,8 +20,8 @@ from atomx.physics.csf.breit_ci import breit_terms
 from atomx.physics.csf.matrix import GridCIWorkspace
 from atomx.physics.csf.transverse import radial_evaluator
 from benchmarks.bench_reference_structure import run_reference, sha256
-from benchmarks.fac_runner import radial_grid_command, orbital_accuracy_commands
 from benchmarks.bench_reference_transitions import atomx_orbitals
+from benchmarks.fac_runner import orbital_accuracy_commands, radial_grid_command
 
 PAIRS = [((1, -1), (2, -1)), ((1, -1), (2, 1)),
          ((1, -1), (2, -2)), ((2, 1), (2, -2)),

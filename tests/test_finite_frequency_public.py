@@ -6,7 +6,10 @@ from atomx import Atom, Basis, Corrections, Correlation, Sampling
 from atomx.atom_inputs import resolve_corrections
 from atomx.corrections.stack import CorrectionStack, finalize_with_corrections
 from atomx.physics.csf.breit_ci import (
-    _ci_radial_inputs, breit_operator_energy, breit_configuration_average)
+    _ci_radial_inputs,
+    breit_configuration_average,
+    breit_operator_energy,
+)
 
 
 def finite(**kwargs):
@@ -61,10 +64,10 @@ def test_explicit_zero_frequencies_recover_static_open_shell_ensemble():
 
 @pytest.mark.parametrize('engine', ['shooting', 'bspline'])
 def test_public_multiconfiguration_final_hamiltonian(engine):
-    from atomx.methods.ci import ci_solve
     from atomx.config.csf import enumerate_jj_csfs_many, get_shared_orbital_basis
-    from atomx.physics.csf.matrix import GridCIWorkspace
+    from atomx.methods.ci import ci_solve
     from atomx.numerics.shooting.electron_space import ShootingSpace
+    from atomx.physics.csf.matrix import GridCIWorkspace
     energies = {(1, -1): -1.9, (2, -1): -.3}
     space = ShootingSpace(n_grid=600, outer_intervals=300, continuum_roots=12)
     basis = Basis(r_max=80, shooting_space=space) if engine == 'shooting' else Basis(ns=40, r_max=25)
@@ -123,9 +126,9 @@ def test_frequency_inputs_fail_before_correlation_solve():
 
 
 def test_method_objects_share_the_frequency_controls():
+    from atomx.config.subshell import Subshell
     from atomx.methods.dirac_fock import DiracFock
     from atomx.methods.mcdhf import MCDHF
-    from atomx.config.subshell import Subshell
     from atomx.types import NuclearModel
     df = DiracFock(breit=True, qed=False, nuclear=NuclearModel.POINT,
                    breit_frequency='orbital_differences')

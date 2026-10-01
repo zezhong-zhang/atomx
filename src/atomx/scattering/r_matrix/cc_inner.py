@@ -131,10 +131,9 @@ def assemble_cc_inner_region(
     span; an ORTHOGONAL phi cannot bind it (variational bound: any
     state perpendicular to (1s, 2s-bar) sits above E(3s)).
     """
-    if pair_targets:
-        if L_total != 0 or S_total != 0.0:
-            raise NotImplementedError(
-                "pair_targets cross-blocks derived for singlet 1S only")
+    if pair_targets and (L_total != 0 or S_total != 0.0):
+        raise NotImplementedError(
+            "pair_targets cross-blocks derived for singlet 1S only")
     channels = list(channels) + [
         Channel(index=len(channels) + i,
                 target=TargetState(label=lab, n_electrons=1, l=0,

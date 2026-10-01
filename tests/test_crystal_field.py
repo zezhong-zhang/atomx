@@ -34,7 +34,13 @@ def _direct_Ckq(kappa_a, m2a, kappa_b, m2b, k, q, nt=48, np_=96):
     Vectorised: CG coefficients are angle-independent (computed once);
     Y_lm are cached on the (theta, phi) grid.
     """
-    from scipy.special import sph_harm
+    try:
+        from scipy.special import sph_harm_y
+    except ImportError:  # scipy < 1.15
+        from scipy.special import sph_harm
+
+        def sph_harm_y(l, m, theta, phi):
+            return sph_harm(m, l, phi, theta)
 
     x, wx = np.polynomial.legendre.leggauss(nt)
     theta = np.arccos(x)
@@ -50,7 +56,7 @@ def _direct_Ckq(kappa_a, m2a, kappa_b, m2b, k, q, nt=48, np_=96):
             if abs(m) > l:
                 ycache[key] = np.zeros((nt, np_), dtype=complex)
             else:
-                v = sph_harm(abs(int(m)), l, PH, TH)
+                v = sph_harm_y(l, abs(int(m)), TH, PH)
                 if m < 0:
                     v = (-1.0) ** int(-m) * np.conj(v)
                 ycache[key] = v
@@ -228,8 +234,7 @@ def test_g7_point_charge_closed_form_and_guards():
     """Axial charge: A_k^0 = -q/R^{k+1} exactly; q!=0 vanishes; the
     r_inside guard refuses charges inside the shell; output feeds
     build_cf_operator with hermiticity='strict'."""
-    from atomx.methods.csf.crystal_field import (CM_PER_HARTREE,
-                                                 point_charge_bkq)
+    from atomx.methods.csf.crystal_field import CM_PER_HARTREE, point_charge_bkq
     R = 3.0
     bkq = point_charge_bkq([(1.0, (0.0, 0.0, R))], (0.0, 0.0, 0.0),
                            kmax=6, r_inside=1.0)
@@ -270,11 +275,15 @@ def test_g7b_hermiticity_validation_warns():
 
 def test_g7c_Y_vs_sympy():
     """The module spherical harmonic vs sympy Ynm, generic direction."""
-    from atomx.methods.csf.crystal_field import _Y_kq
     import math
 
-    from sympy import N, exp, factorial as sfac, pi as spi, sqrt as ssqrt
+    from sympy import N, exp
+    from sympy import factorial as sfac
+    from sympy import pi as spi
+    from sympy import sqrt as ssqrt
     from sympy.functions.special.polynomials import assoc_legendre
+
+    from atomx.methods.csf.crystal_field import _Y_kq
 
     th, ph = 0.9, 2.1
     x = math.cos(th)

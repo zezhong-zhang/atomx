@@ -20,7 +20,6 @@ We check:
 This is the "simple, local" direction check before re-implementing the
 J-coupled Eq. (11) with k1-k2 6j recoupling.
 """
-import numpy as np
 
 from atomx import Atom, Correlation
 from atomx.methods.mcdhf.excitations import generate_sd_excitations
@@ -65,10 +64,10 @@ if __name__ == "__main__":
     assert EF < EP, "Q_D sector must lower the energy"
 
     E_ref = -14.653000  # Kozlov 2022 Table 1: CI+MBPT(P+Q_D) Be value
-    print(f"\nDirection check (Be, cf. Kozlov Table 1):", flush=True)
+    print("\nDirection check (Be, cf. Kozlov Table 1):", flush=True)
     print(f"  E(P)      = {EP:.9f} Ha", flush=True)
     print(f"  E(P+Q_D)  = {EF:.9f} Ha", flush=True)
     print(f"  Q_D contribution = {EF - EP:+.6f} Ha "
           f"({(EF - EP) * 219474.63:+.1f} cm^-1)", flush=True)
-    print(f"  cf. Kozlov CI(P) = -14.6428, CI+MBPT = -14.6530 "
-          f"(Q_D ladder + core parts = -0.0102 Ha)", flush=True)
+    print("  cf. Kozlov CI(P) = -14.6428, CI+MBPT = -14.6530 "
+          "(Q_D ladder + core parts = -0.0102 Ha)", flush=True)

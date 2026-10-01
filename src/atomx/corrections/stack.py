@@ -23,8 +23,8 @@ Example
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
 import math
+from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Dict, List, Optional
 
 from atomx.corrections.adapters import (
@@ -36,7 +36,11 @@ from atomx.corrections.adapters import (
     UehlingVPCorrection,
     WichmannKrollVPCorrection,
 )
-from atomx.corrections.protocol import Correction, CorrectionResult, CorrectionApplication
+from atomx.corrections.protocol import (
+    Correction,
+    CorrectionApplication,
+    CorrectionResult,
+)
 
 if TYPE_CHECKING:
     from atomx.results import AtomicResult
@@ -295,6 +299,7 @@ def finalize_with_corrections(result: "AtomicResult",
     applied = stack.apply(result)
     if getattr(result, 'calculation_spec', None) is not None:
         from dataclasses import replace
+
         from atomx.calculation_spec import resolved_correction_spec
         result.calculation_spec = replace(result.calculation_spec,
             corrections=resolved_correction_spec(stack))

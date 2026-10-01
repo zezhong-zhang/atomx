@@ -171,13 +171,20 @@ class ShootingHFSolver:
         stationarity lost in individually constrained solves.
         """
         from atomx.numerics.orbital_rotations import rotate_occupied
+        original_pa, original_qa = pa, qa
+        pa, qa = np.asarray(pa), np.asarray(qa)
         pairs = tuple(self.functional.rotation_pairs(groups))
         if not pairs:
             return self.functional.total_energy(pa, qa, r, difr, rv)
-        return rotate_occupied(pa, qa, pairs,
+        energy = rotate_occupied(pa, qa, pairs,
             lambda: self.functional.total_energy(pa, qa, r, difr, rv),
             pair_energy=self.functional.rotation_energy_factory(pa, qa, r, difr, rv),
             harmonics=getattr(self.functional, 'rotation_harmonics', (2, 4)))
+        if isinstance(original_pa, list):
+            original_pa[:] = list(pa)
+        if isinstance(original_qa, list):
+            original_qa[:] = list(qa)
+        return energy
 
     def solve(self, max_iter: int = 60, tol: float = 1.0e-7,
               damping: float = 0.5, *, seed: Optional[ShootingResult] = None,

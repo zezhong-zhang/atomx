@@ -37,8 +37,8 @@ from __future__ import annotations
 from functools import lru_cache
 from typing import Dict, Tuple
 
-from atomx.angular.csf_hamiltonian import _m2_values, twoj
 from atomx.angular.coefficients import reduced_cl_j2
+from atomx.angular.csf_hamiltonian import _m2_values, twoj
 from atomx.angular.wigner import wigner_3j
 
 __all__ = ["build_cf_operator", "point_charge_bkq", "rpow_grid"]
@@ -248,8 +248,7 @@ def point_charge_bkq(charges_coords, r_site, kmax=6, r_inside=None):
     A_k^0 = -q/R^{k+1} for every even k (because
     sqrt(4pi/(2k+1)) Y_k0 = P_k and P_k(1) = 1).
     """
-    import cmath
-    from math import factorial, pi, sqrt
+    from math import pi, sqrt
 
     import numpy as np
 
@@ -267,7 +266,7 @@ def point_charge_bkq(charges_coords, r_site, kmax=6, r_inside=None):
         R = np.sqrt(dx * dx + dy * dy + dz * dz)
         if R < 1e-8:
             continue
-        if R <= r_inside:
+        if r_inside >= R:
             raise ValueError(
                 f"charge at R={R:.3f} bohr <= r_inside={r_inside}: "
                 "multipole expansion invalid (charge inside the shell)")

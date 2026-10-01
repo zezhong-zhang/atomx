@@ -16,7 +16,11 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 
-from atomx.angular.coefficients import reduced_C, coupled_coulomb_direct, coupled_coulomb_exchange
+from atomx.angular.coefficients import (
+    coupled_coulomb_direct,
+    coupled_coulomb_exchange,
+    reduced_C,
+)
 from atomx.angular.wigner import wigner_3j, wigner_6j
 from atomx.scattering.distorted_wave.solver import (
     _allowed_k,
@@ -207,8 +211,8 @@ class TestTargetStateMetadata:
         assert csf.total_J2 == 0
 
     def test_mcdhf_uses_lowest_state_J_not_active_orbital_j(self):
-        from atomx.methods.dirac_fock import Subshell
         from atomx.config.csf import CSF
+        from atomx.methods.dirac_fock import Subshell
 
         csfs = [
             CSF([Subshell(1, -1, 1.0), Subshell(2, 1, 1.0)],
@@ -230,8 +234,8 @@ class TestTargetStateMetadata:
         assert csf is csfs[0]
 
     def test_target_transition_population_filters_many_electron_rank(self):
-        from atomx.methods.dirac_fock import Subshell
         from atomx.config.csf import CSF
+        from atomx.methods.dirac_fock import Subshell
 
         csf_i = CSF([Subshell(1, -1, 2.0)],
                     total_J2=0, parity=1, label="1s2 [J=0/2]")

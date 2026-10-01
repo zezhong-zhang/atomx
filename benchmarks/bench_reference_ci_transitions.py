@@ -10,20 +10,23 @@ transition call contains a single upper level, avoiding frequency averaging.
 from __future__ import annotations
 
 import argparse
-from dataclasses import asdict
 import json
 import os
-from pathlib import Path
 import statistics
 import time
+from dataclasses import asdict
+from pathlib import Path
 
 from atomx import Atom, Basis, Sampling
 from atomx.constants import HARTREE_EV, chemical_symbols
 from atomx.properties.transitions.ci_lines import ci_line_strengths
 from benchmarks.bench_reference_structure import run_reference, sha256
 from benchmarks.fac_runner import (
-    orbital_accuracy_commands, parse_levels, parse_transitions, radial_grid_command)
-
+    orbital_accuracy_commands,
+    parse_levels,
+    parse_transitions,
+    radial_grid_command,
+)
 
 CONFIGS = ('2p5 3s1', '2p5 3d1')
 MODES = {'long_wavelength': 1, 'finite_wavelength': 0}
@@ -47,7 +50,7 @@ def fac_script(z, points, density, *, configuration_shifts=False):
         lines.append(f"Structure('levels.b',['{group}'])")
     lines += ["MemENTable('levels.b')", "PrintTable('levels.b','levels.txt',1)",
               'SetTransitionCut(0)']
-    for name, mode in MODES.items():
+    for _name, mode in MODES.items():
         lines.append(f'SetTransitionOptions(2,{mode})')
         # Separate Structure calls give ground 0, four 3s and twelve 3d
         # levels. Verify that inventory from the actual output before use.
@@ -121,7 +124,7 @@ def run_case(z, folder, args):
         raise RuntimeError('FAC optimization convergence is not established')
     fac_levels, fac_lines = reference(folder)
     timings = []
-    for repeat in range(args.repeats+1):
+    for _repeat in range(args.repeats+1):
         start = time.perf_counter()
         atom = Atom(z, charge=z-10, config='1s2 2s2 2p6', engine='shooting',
                     exchange='gu', nuclear='point', corrections='none',

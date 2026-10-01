@@ -58,7 +58,7 @@ from typing import Dict, Optional, Tuple
 
 from atomx.methods.ci import ci_solve
 
-__all__ = ["CIMBPTResult", "ci_mbpt_solve"]
+__all__ = ["ci_mbpt_solve"]
 
 
 def ci_mbpt_solve(

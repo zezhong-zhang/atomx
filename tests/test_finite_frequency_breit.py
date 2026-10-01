@@ -59,7 +59,7 @@ def test_radial_contraction_against_split_quadrature(component, order):
     for i, j in ((4, 3), (30, 6), (65, 2)):
         target = r[i, j]
 
-        def integrand(s):
+        def integrand(s, *, target=target):
             lo, hi = sorted((s, target))
             jl, _, djl, _ = _scaled_factors(order, np.array(k*lo))
             _, yh, _, dyh = _scaled_factors(order, np.array(k*hi))
@@ -133,6 +133,7 @@ def test_ci_frequency_is_explicit_and_recorded(neon_orbitals):
 def test_live_fac_two_electron_matrix_elements(Z, common_spinors):
     import json
     from pathlib import Path
+
     from atomx.config.subshell import Subshell
     from atomx.numerics.shooting.local import ShootingSolver
     from atomx.physics.csf.breit_ci import breit_terms

@@ -5,6 +5,7 @@ normalized on the supplied native SLAG6 grid, preserving the shooting
 Hamiltonian convention independently of the many-electron method.
 """
 import numpy as np
+
 from atomx.numerics.shooting.quadrature import slag6
 
 

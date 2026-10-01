@@ -25,7 +25,8 @@ def test_repulsive_reference_satisfies_dirac_equation():
     c = REFERENCE['speed_of_light']
     energy, kappa, charge, radius = 2., -2, -3., 15.
     step = 1e-4
-    at = lambda r: dirac_coulomb_outgoing(energy, kappa, charge, r, c=c)
+    def at(r):
+        return dirac_coulomb_outgoing(energy, kappa, charge, r, c=c)
     derivative = (-at(radius+2*step)+8*at(radius+step)
                   -8*at(radius-step)+at(radius-2*step))/(12*step)
     p, q = at(radius)
@@ -43,7 +44,7 @@ def test_integrated_wave_has_radial_absolute_normalization_and_phase(case):
     from atomx.constants import C
     from atomx.numerics.shooting.dirac_continuum import solve_dirac_continuum_shooting
 
-    assert C == CONTINUUM['speed_of_light']
+    assert CONTINUUM['speed_of_light'] == C
     energy, charge = case['e'], case['z']
     r, p, q, phase = solve_dirac_continuum_shooting(
         energy, case['k'], lambda r: -charge/r, r_max=case['box'],

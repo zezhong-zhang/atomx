@@ -6,24 +6,28 @@
     11698.6; 4I11/2 = 1897.07).
 """
 import sys
+from pathlib import Path
 
 import numpy as np
 
-sys.path.insert(0, "/tmp/atomx-cimbpt")
-exec(open("/tmp/atomx-cimbpt/scripts/fk_transfer_experiment.py").read()
-     .split('if __name__')[0])
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+import fk_transfer_experiment as transfer
+from fk_transfer_experiment import CM, SC, build, pr_residuals
+
+from atomx.methods.csf.slater_scaling import make_slater_delta
 
 # --- (1) Pr refit without 1S0 -------------------------------------------
 NIST_PR_CLEAN = {0: [21390.0], 1: [22012.0], 2: [4997.0, 17334.0,
                                                  23160.0],
                  3: [6415.0], 4: [0.0, 6853.0, 9925.0], 5: [2152.0],
                  6: [4389.0, 22215.0]}
-globals()["NIST_PR"] = NIST_PR_CLEAN
+transfer.NIST_PR = NIST_PR_CLEAN
 
 od, bsp, pats = build(59, 2)
 h = 0.02
 x = np.zeros(3)
-for it in range(6):
+for _it in range(6):
     r0 = np.array(pr_residuals(tuple(x), od, bsp, pats))
     Jm = np.column_stack([
         (np.array(pr_residuals(tuple(x + e), od, bsp, pats)) - r0) / h
@@ -60,14 +64,15 @@ for tag, sc in [("bare", (0.0, 0.0, 0.0)), ("Pr-scaled", (s2, s4, s6))]:
         else:
             delta = make_slater_delta(od_nd, bsp_nd, sc)
             cache = {}
-            def ev(m2):
+            def ev(m2, *, cache=cache, delta=delta):
                 if m2 not in cache:
                     msk, spn = SC.enumerate_determinants(pats_nd, od_nd,
                                                          m2)
                     if not msk:
                         cache[m2] = np.array([])
                         return cache[m2]
-                    dd = lambda a, b, c, d: delta(a, b, c, d, spn)
+                    def dd(a, b, c, ket_d, *, delta=delta):
+                        return delta(a, b, c, ket_d, spn)
                     H = SC.assemble_sparse_hamiltonian(msk, spn, od_nd,
                                                        bsp_nd, 60, 50,
                                                        two_body_delta=dd)

@@ -6,10 +6,10 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from atomx.numerics.shooting.problem import ShootingRadialProblem
-from atomx.numerics.shooting.grid import sgrid
-from atomx.numerics.shooting.dirac_response import DiracResponse
 from atomx.numerics.shooting.box_continuum import BoxDiracContinuum
+from atomx.numerics.shooting.dirac_response import DiracResponse
+from atomx.numerics.shooting.grid import sgrid
+from atomx.numerics.shooting.problem import ShootingRadialProblem
 
 
 def test_shared_problem_cannot_be_invalidated_by_input_mutation():

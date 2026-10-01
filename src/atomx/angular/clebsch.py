@@ -10,7 +10,9 @@ import numpy as np
 from atomx.angular.wigner import wigner_3j
 
 
-@nb.njit(cache=True)
+# This thin adapter must see the current imported Wigner kernel. Numba's
+# disk cache does not invalidate callers when an imported callee changes.
+@nb.njit(cache=False)
 def clebsch_gordan(tj1, tm1, tj2, tm2, tj3, tm3):
     """Clebsch-Gordan coefficient <j1 m1; j2 m2 | j3 m3>.
 

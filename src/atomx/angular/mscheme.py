@@ -90,8 +90,10 @@ def _one_body_links(bra, ket, pairs):
                 sign_a, final = created
                 row = index.get(final)
                 if row is not None:
-                    rows.append(row); columns.append(column)
-                    entries.append(entry); signs.append(sign_a*sign_b)
+                    rows.append(row)
+                    columns.append(column)
+                    entries.append(entry)
+                    signs.append(sign_a * sign_b)
     arrays = tuple(np.asarray(x, dtype=int) for x in (rows, columns, entries, signs))
     for array in arrays:
         array.setflags(write=False)
@@ -107,12 +109,13 @@ def one_body_action(dets_bra, dets_ket, weights, elements):
     """
     weights = np.asarray(weights)
     if weights.shape != (len(dets_ket),):
-        raise ValueError('one-body action requires one amplitude per ket determinant')
+        raise ValueError("one-body action requires one amplitude per ket determinant")
     values = np.asarray(list(elements.values()))
     rows, columns, entries, signs = _one_body_links(
-        tuple(dets_bra), tuple(dets_ket), tuple(elements))
+        tuple(dets_bra), tuple(dets_ket), tuple(elements)
+    )
     result = np.zeros(len(dets_bra), dtype=np.result_type(weights, values, float))
-    np.add.at(result, rows, signs*values[entries]*weights[columns])
+    np.add.at(result, rows, signs * values[entries] * weights[columns])
     return result
 
 
@@ -138,7 +141,9 @@ def _jplus_apply(j2: int, mask: int) -> dict[int, float]:
         if cre is None:
             continue
         phase_c, new_mask = cre
-        out[new_mask] = out.get(new_mask, 0.0) + phase_a * phase_c * _jplus_single_coeff(j2, m)
+        out[new_mask] = out.get(
+            new_mask, 0.0
+        ) + phase_a * phase_c * _jplus_single_coeff(j2, m)
     return out
 
 
@@ -186,14 +191,16 @@ def highest_weight_states(j2: int, q: int) -> tuple[SubshellTermState, ...]:
                     if coeff < 0:
                         vec = -vec
                     break
-            states.append(SubshellTermState(
-                j2=j2,
-                q=q,
-                J2=J2,
-                index=sum(1 for s in states if s.J2 == J2),
-                determinants=dets,
-                coefficients=tuple(float(x) for x in vec),
-            ))
+            states.append(
+                SubshellTermState(
+                    j2=j2,
+                    q=q,
+                    J2=J2,
+                    index=sum(1 for s in states if s.J2 == J2),
+                    determinants=dets,
+                    coefficients=tuple(float(x) for x in vec),
+                )
+            )
     return tuple(states)
 
 
@@ -213,8 +220,9 @@ def _state_vector_map(state: SubshellTermState) -> dict[int, float]:
     }
 
 
-def creation_matrix_element(bra: SubshellTermState, ket: SubshellTermState,
-                            m2: int) -> float:
+def creation_matrix_element(
+    bra: SubshellTermState, ket: SubshellTermState, m2: int
+) -> float:
     """Return ``<bra|a†_m|ket>`` between highest-weight subshell states."""
     if bra.j2 != ket.j2 or bra.q != ket.q + 1:
         return 0.0
@@ -237,8 +245,9 @@ def creation_matrix_element(bra: SubshellTermState, ket: SubshellTermState,
     return float(total)
 
 
-def reduced_creation_matrix_element(bra: SubshellTermState,
-                                    ket: SubshellTermState) -> float:
+def reduced_creation_matrix_element(
+    bra: SubshellTermState, ket: SubshellTermState
+) -> float:
     """Reduced matrix element ``<bra||a†||ket>``.
 
     Uses the Wigner-Eckart convention
@@ -260,9 +269,9 @@ def reduced_creation_matrix_element(bra: SubshellTermState,
     return float(actual / w3j)
 
 
-def coupled_one_body_tensor_matrix_element(bra: SubshellTermState,
-                                           ket: SubshellTermState,
-                                           K2: int, Q2: int) -> float:
+def coupled_one_body_tensor_matrix_element(
+    bra: SubshellTermState, ket: SubshellTermState, K2: int, Q2: int
+) -> float:
     """Return ``<bra|[a† x atilde]^K_Q|ket>`` for one ``j^q`` subshell.
 
     The time-reversed annihilation operator is
@@ -309,9 +318,9 @@ def coupled_one_body_tensor_matrix_element(bra: SubshellTermState,
     return float(total)
 
 
-def reduced_one_body_tensor_matrix_element(bra: SubshellTermState,
-                                           ket: SubshellTermState,
-                                           K2: int) -> float:
+def reduced_one_body_tensor_matrix_element(
+    bra: SubshellTermState, ket: SubshellTermState, K2: int
+) -> float:
     """Reduced ``<bra||[a† x atilde]^K||ket>`` matrix element."""
     if bra.j2 != ket.j2 or bra.q != ket.q:
         return 0.0
@@ -327,8 +336,9 @@ def reduced_one_body_tensor_matrix_element(bra: SubshellTermState,
     return float(actual / w3j)
 
 
-def _one_body_tensor_apply(j2: int, q: int, vector: dict[int, float],
-                           K2: int, Q2: int) -> dict[int, float]:
+def _one_body_tensor_apply(
+    j2: int, q: int, vector: dict[int, float], K2: int, Q2: int
+) -> dict[int, float]:
     """Apply ``[a† x atilde]^K_Q`` to a determinant-space vector."""
     m_values = _m2_values(j2)
     out: dict[int, float] = {}
@@ -363,8 +373,9 @@ def _one_body_tensor_apply(j2: int, q: int, vector: dict[int, float],
     return out
 
 
-def _creation_apply(j2: int, q: int, vector: dict[int, float],
-                    m2: int) -> dict[int, float]:
+def _creation_apply(
+    j2: int, q: int, vector: dict[int, float], m2: int
+) -> dict[int, float]:
     """Apply ``a†_m`` to a determinant-space vector."""
     m_values = _m2_values(j2)
     if m2 not in m_values:
@@ -382,8 +393,9 @@ def _creation_apply(j2: int, q: int, vector: dict[int, float],
     return out
 
 
-def _annihilation_apply(j2: int, q: int, vector: dict[int, float],
-                        m2: int) -> dict[int, float]:
+def _annihilation_apply(
+    j2: int, q: int, vector: dict[int, float], m2: int
+) -> dict[int, float]:
     """Apply ``a_m`` to a determinant-space vector."""
     m_values = _m2_values(j2)
     if m2 not in m_values:
@@ -405,9 +417,9 @@ def _inner_product(left: dict[int, float], right: dict[int, float]) -> float:
     return float(sum(left.get(det, 0.0) * amp for det, amp in right.items()))
 
 
-def coupled_wxw_scalar_matrix_element(bra: SubshellTermState,
-                                      ket: SubshellTermState,
-                                      K2: int) -> float:
+def coupled_wxw_scalar_matrix_element(
+    bra: SubshellTermState, ket: SubshellTermState, K2: int
+) -> float:
     """Return ``<bra|[W^K x W^K]^0_0|ket>`` for one ``j^q`` subshell."""
     if bra.j2 != ket.j2 or bra.q != ket.q or bra.J2 != ket.J2:
         return 0.0
@@ -427,9 +439,9 @@ def coupled_wxw_scalar_matrix_element(bra: SubshellTermState,
     return float(sum(bra_vec.get(det, 0.0) * amp for det, amp in accum.items()))
 
 
-def coupled_axw_matrix_element(bra: SubshellTermState,
-                               ket: SubshellTermState,
-                               K2: int, R2: int, Q2: int) -> float:
+def coupled_axw_matrix_element(
+    bra: SubshellTermState, ket: SubshellTermState, K2: int, R2: int, Q2: int
+) -> float:
     """Return ``<bra|[A^j x W^K]^R_Q|ket>`` for one subshell.
 
     ``A`` is the electron creation operator.  The result changes occupation
@@ -454,9 +466,9 @@ def coupled_axw_matrix_element(bra: SubshellTermState,
     return _inner_product(_state_vector_map(bra), accum)
 
 
-def reduced_axw_matrix_element(bra: SubshellTermState,
-                               ket: SubshellTermState,
-                               K2: int, R2: int) -> float:
+def reduced_axw_matrix_element(
+    bra: SubshellTermState, ket: SubshellTermState, K2: int, R2: int
+) -> float:
     """Reduced ``<bra||[A^j x W^K]^R||ket>`` matrix element."""
     if bra.j2 != ket.j2 or bra.q != ket.q + 1:
         return 0.0
@@ -472,9 +484,9 @@ def reduced_axw_matrix_element(bra: SubshellTermState,
     return float(actual / w3j)
 
 
-def coupled_wxa_matrix_element(bra: SubshellTermState,
-                               ket: SubshellTermState,
-                               K2: int, R2: int, Q2: int) -> float:
+def coupled_wxa_matrix_element(
+    bra: SubshellTermState, ket: SubshellTermState, K2: int, R2: int, Q2: int
+) -> float:
     """Return ``<bra|[W^K x A^j]^R_Q|ket>`` for one subshell."""
     if bra.j2 != ket.j2 or bra.q != ket.q + 1 or bra.J2 != ket.J2 + Q2:
         return 0.0
@@ -495,9 +507,9 @@ def coupled_wxa_matrix_element(bra: SubshellTermState,
     return _inner_product(_state_vector_map(bra), accum)
 
 
-def reduced_wxa_matrix_element(bra: SubshellTermState,
-                               ket: SubshellTermState,
-                               K2: int, R2: int) -> float:
+def reduced_wxa_matrix_element(
+    bra: SubshellTermState, ket: SubshellTermState, K2: int, R2: int
+) -> float:
     """Reduced ``<bra||[W^K x A^j]^R||ket>`` matrix element."""
     if bra.j2 != ket.j2 or bra.q != ket.q + 1:
         return 0.0
@@ -513,9 +525,9 @@ def reduced_wxa_matrix_element(bra: SubshellTermState,
     return float(actual / w3j)
 
 
-def coupled_pair_creation_matrix_element(bra: SubshellTermState,
-                                         ket: SubshellTermState,
-                                         K2: int, Q2: int) -> float:
+def coupled_pair_creation_matrix_element(
+    bra: SubshellTermState, ket: SubshellTermState, K2: int, Q2: int
+) -> float:
     """Return ``<bra|[A^j x A^j]^K_Q|ket>`` for one subshell."""
     if bra.j2 != ket.j2 or bra.q != ket.q + 2 or bra.J2 != ket.J2 + Q2:
         return 0.0
@@ -536,9 +548,9 @@ def coupled_pair_creation_matrix_element(bra: SubshellTermState,
     return _inner_product(_state_vector_map(bra), accum)
 
 
-def reduced_pair_creation_matrix_element(bra: SubshellTermState,
-                                         ket: SubshellTermState,
-                                         K2: int) -> float:
+def reduced_pair_creation_matrix_element(
+    bra: SubshellTermState, ket: SubshellTermState, K2: int
+) -> float:
     """Reduced ``<bra||[A^j x A^j]^K||ket>`` matrix element."""
     if bra.j2 != ket.j2 or bra.q != ket.q + 2:
         return 0.0
@@ -554,9 +566,9 @@ def reduced_pair_creation_matrix_element(bra: SubshellTermState,
     return float(actual / w3j)
 
 
-def coupled_pair_annihilation_matrix_element(bra: SubshellTermState,
-                                             ket: SubshellTermState,
-                                             K2: int, Q2: int) -> float:
+def coupled_pair_annihilation_matrix_element(
+    bra: SubshellTermState, ket: SubshellTermState, K2: int, Q2: int
+) -> float:
     """Return ``<bra|[a x a]^K_Q|ket>`` for one subshell."""
     if bra.j2 != ket.j2 or bra.q + 2 != ket.q or bra.J2 != ket.J2 + Q2:
         return 0.0
@@ -577,9 +589,9 @@ def coupled_pair_annihilation_matrix_element(bra: SubshellTermState,
     return _inner_product(_state_vector_map(bra), accum)
 
 
-def reduced_pair_annihilation_matrix_element(bra: SubshellTermState,
-                                             ket: SubshellTermState,
-                                             K2: int) -> float:
+def reduced_pair_annihilation_matrix_element(
+    bra: SubshellTermState, ket: SubshellTermState, K2: int
+) -> float:
     """Reduced ``<bra||[a x a]^K||ket>`` matrix element."""
     if bra.j2 != ket.j2 or bra.q + 2 != ket.q:
         return 0.0

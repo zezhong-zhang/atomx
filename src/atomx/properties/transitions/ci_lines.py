@@ -65,7 +65,6 @@ from dataclasses import dataclass, field
 import numpy as np
 
 from atomx.angular.coefficients import ckm
-
 from atomx.constants import HARTREE_INV_ANGSTROM
 from atomx.properties.transitions.rates import einstein_A_eL, oscillator_strength
 from atomx.scattering.autoionization.mscheme_ci import (
