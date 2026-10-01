@@ -79,10 +79,21 @@ def patterns_from_csfs(csfs) -> Tuple[Tuple[Tuple[int, int, int], ...], ...]:
     return tuple(sorted(seen))
 
 
-def _spinor_table(orbitals_dict) -> List[Tuple[int, int, int]]:
-    """Global spin-orbital list: (n, kappa, 2m), sorted for stable masks."""
+def _spinor_table(orbitals_dict, patterns=None) -> List[Tuple[int, int, int]]:
+    """Global spin-orbital list: (n, kappa, 2m), sorted for stable masks.
+
+    With ``patterns``, only subshells the patterns actually reference are
+    listed — orbitals that exist purely as MBPT intermediate states never
+    enter a determinant, and including them both bloats the pair buckets
+    and (past 128 spinors) overflows the two-word masks.
+    """
+    if patterns is not None:
+        allowed = {(n, k) for pattern in patterns for (n, k, _q) in pattern}
+        keys = sorted(k for k in orbitals_dict if k in allowed)
+    else:
+        keys = sorted(orbitals_dict)
     out = []
-    for (n, kappa) in sorted(orbitals_dict):
+    for (n, kappa) in keys:
         for m2 in _m2_values(twoj(kappa)):
             out.append((n, kappa, m2))
     return out
@@ -95,7 +106,7 @@ def enumerate_determinants(patterns, orbitals_dict, m2_total: int = 0):
     determinants are the same physical state iff their masks are equal
     (each determinant belongs to exactly one occupation pattern).
     """
-    spinors = _spinor_table(orbitals_dict)
+    spinors = _spinor_table(orbitals_dict, patterns)
     # (n, kappa) -> (bit offset, list of global indices)
     offset = {}
     for si, (n, kappa, _m) in enumerate(spinors):
