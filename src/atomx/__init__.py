@@ -20,11 +20,41 @@ __version__ = "0.2.0"
 
 # Public names are resolved on first use. Importing the package does not
 # initialize solvers, scattering services, or optional rendering backends.
+# ---------------------------------------------------------------------------
+# macOS/Accelerate BLAS warning filter
+# ---------------------------------------------------------------------------
+# Apple's Accelerate ddot/gemv kernels set spurious FP status flags
+# (divide-by-zero, overflow, invalid) *inside* the kernel even for clean,
+# finite inputs; numpy then reports them at the calling matmul as
+# "… encountered in matmul".  Verified 2026-10-01: the trio fires on plain
+# random vectors with no zeros, the computed dot is unaffected, and every
+# direct input/intermediate at the warned physics sites was finite.  On this
+# platform the warning therefore carries zero information, so suppress
+# exactly that message pattern — and only when the linked BLAS is
+# Accelerate (elsewhere the same warning can be genuine).  Elementwise
+# warnings ("in divide", "in sqrt", …) and explicit NaN tripwires are
+# untouched.  Set ATOMX_STRICT_FP_WARNINGS=1 to keep even these.
+import os as _os
+import sys as _sys
+import warnings as _warnings
 from importlib import import_module as _import_module
 from typing import TYPE_CHECKING, Any
 
 # Keep the public callable stable even when atomx.compare is imported directly.
 from atomx.compare import compare, theory_ladder, what_changed
+
+if (_sys.platform == 'darwin'
+        and not _os.environ.get('ATOMX_STRICT_FP_WARNINGS')):
+    try:
+        from numpy import __config__ as _np_config
+        _blas_name = str(_np_config.show_config(mode='dicts')[
+            'Build Dependencies']['blas']['name']).lower()
+    except Exception:
+        _blas_name = ''
+    if 'accelerate' in _blas_name:
+        _warnings.filterwarnings(
+            'ignore', message=r'.*encountered in matmul',
+            category=RuntimeWarning)
 
 if TYPE_CHECKING:
     # Statically bind the lazy names so type checkers and IDEs resolve the
