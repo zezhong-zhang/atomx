@@ -128,7 +128,7 @@ def enumerate_determinants(patterns, orbitals_dict, m2_total: int = 0):
 
 
 def assemble_sparse_hamiltonian(masks, spinors, orbitals_dict, bsp_data, Z, ns,
-                                *, method="numba"):
+                                *, method="numba", two_body_delta=None):
     """CSR Hamiltonian over the determinant masks (Dirac-Coulomb).
 
     ``method="numba"`` (default): two-phase build — every distinct
@@ -139,11 +139,14 @@ def assemble_sparse_hamiltonian(masks, spinors, orbitals_dict, bsp_data, Z, ns,
     """
     if method == "python" or _NB is None:
         return _assemble_reference(masks, spinors, orbitals_dict,
-                                   bsp_data, Z, ns)
-    return _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns)
+                                   bsp_data, Z, ns,
+                                   two_body_delta=two_body_delta)
+    return _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
+                           two_body_delta=two_body_delta)
 
 
-def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns):
+def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns,
+                        *, two_body_delta=None):
     """CSR Hamiltonian over the determinant masks (Dirac-Coulomb)."""
     index = {mask: i for i, mask in enumerate(masks)}
     n = len(masks)
@@ -218,7 +221,10 @@ def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns):
             for a, b in pair_buckets.get(m_sum, ()):
                 v = v_element(a, b, c, d)
                 v2 = v_element(a, b, d, c)
-                if v == 0.0 and v2 == 0.0:
+                anti = v - v2
+                if two_body_delta is not None:
+                    anti += two_body_delta(a, b, c, d)
+                if anti == 0.0:
                     continue
                 sign = _ops_sign(mask, [(a, True), (b, True),
                                          (d, False), (c, False)])
@@ -227,7 +233,7 @@ def _assemble_reference(masks, spinors, orbitals_dict, bsp_data, Z, ns):
                 nmask = (mask & ~(1 << c) & ~(1 << d)) | (1 << a) | (1 << b)
                 row = index.get(nmask)
                 if row is not None:
-                    emit(row, col, sign * (v - v2))
+                    emit(row, col, sign * anti)
     H = sp.coo_matrix((vals, (rows, cols)), shape=(n, n)).tocsr()
     H = H + sp.diags(diag)
     H.sum_duplicates()
@@ -593,7 +599,8 @@ if _NB is not None:
         return count
 
 
-def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns):
+def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns,
+                    *, two_body_delta=None):
     """Phase 1 (Python, once per distinct value) + phase 2 (numba)."""
     from functools import lru_cache
 
@@ -710,9 +717,14 @@ def _assemble_numba(masks, spinors, orbitals_dict, bsp_data, Z, ns):
                     continue
                 v = _v(a, b, c, d)
                 v2 = _v(a, b, d, c)
-                if v == 0.0 and v2 == 0.0:
+                anti = v - v2
+                if anti == 0.0 and two_body_delta is None:
                     continue
-                vb[key] = v - v2
+                if two_body_delta is not None:
+                    anti += two_body_delta(a, b, c, d)
+                    if anti == 0.0:
+                        continue
+                vb[key] = anti
 
     vb_keys = np.array(sorted(vb), dtype=np.int64)
     vb_vals = np.array([vb[k] for k in vb_keys], dtype=np.float64)
