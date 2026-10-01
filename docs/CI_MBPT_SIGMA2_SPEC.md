@@ -245,3 +245,42 @@ G-tables from the bubble builder serve directly.
 The v1/v2 hole-line deltas are quarantined: ci_mbpt keeps raising, the
 v2 wide-window BASELINE (5D0 = 19549 vs 45-orbital 20376, -827 cm-1)
 stands as genuine window-convergence information.
+
+## Corrected hole-line verdict (2026-10-03) — NO-SHIP (third); hole-line quarantined
+
+    7F0: -10846.32 -> -10837.70 Ha (+8.6 Ha up)
+    5D0-7F0: 20376 -> 5307 cm-1  (Delta -15069 — 5x overshoot)
+
+Diagnosis: the "corrected" construction reuses the SAME (m, r) pool and
+the SAME pair products g(a,m,c,r)g(b,r,d,m) as the bubble direct term —
+it is the bubble with a different denominator, i.e. DOUBLE COUNTING; and
+the pair denominator eps_a+eps_b-eps_m-eps_r crosses near-degeneracy for
+4f valence energies, producing singular contributions (the 15 000 cm-1
+collapse).  The proper Dzuba hole-line has a genuinely different vertex
+structure (core-PAIR excitations with Pauli-resolved intermediate states);
+a faithful derivation from the primary literature is required — quick
+m-scheme reconstructions have now failed the anchor three times with
+three different failure modes.
+
+DISPOSITION: hole-line is QUARANTINED.  ci_mbpt.py keeps raising.
+The shippable physics stack is: multi-reference SD CI + Breit (+ wide-
+window protocol); the free-ion term-splitting residual is assigned to
+beyond-second-order physics (triples / CI+all-order / full virtual
+spectrum), consistent with the literature's ~1000 cm-1 CI+MBPT ceiling.
+CF pipeline calibrates free-ion anchors against experiment (already the
+documented strategy).
+
+## Eu control experiment (review node 6) — final table
+
+| method | 5D0-7F0 (cm-1) | vs NIST 17270 | residual share closed |
+|---|---|---|---|
+| single-ref DF (4f6 only) | ~20 922 | +3 652 | — |
+| multi-ref SD CI (12 shells) | 20 376 | +3 106 | ~15% (static correlation) |
+| + bubble screening | 20 323 | +3 053 | +1.7% |
+| + corrected hole-line | NO-SHIP (double-count/singular) | — | — |
+| + Breit (engine-gated at Be; Eu anchor pending) | pending | ~50-200 expected | — |
+| full closure | assigned to triples / all-order / full virtual spectrum + experimental calibration | | |
+
+The ten-fold gap (multi-ref CI ~550 cm-1 vs bubble 53 cm-1) is the
+campaign's headline: the residual is STATIC-correlation + valence-spectrum
+dominated, exactly what single-reference perturbation cannot reach.
