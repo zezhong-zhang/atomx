@@ -119,3 +119,17 @@ Remaining from the review (scheduled, not blocking):
   (the only glue today is test-local; KeyError→0.0 adapters must
   fail loud).
 - layering: r^k moments belong in the MAT/basis layer, not here.
+
+## Review-claim audit (2026-10-02): cross-j coupling is PRESENT
+
+The external review claimed "the assembler omits cross-j couplings."
+Live probe (4f1 Ce-like, M=1): the one_body_m_delta channel partners
+by KAPPA group only, and the assembled CF block connects
+det[(4f7/2,m)] <-> det[(4f5/2,m)] with -0.001 Ha off-diagonal for a
+B20=5000 cm^-1 field (k=2 parity 3+2+3 even; angular handles
+kappa_a != kappa_b via the 3j chain). 24/24 CF gates green with the
+cross-j path exercised. Claim REFUTED on the live path.  The
+remaining honest scope note: the m-channel acts on electrons OCCUPIED
+in the reference — CF on closed-core electrons (which would mix M
+sectors of the core) is not represented; for 4f^n ions with a frozen
+[Xe] core this is the standard and intended approximation.
