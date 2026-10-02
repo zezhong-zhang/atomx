@@ -325,5 +325,12 @@
    ],
    "mean_charge": 8.09249
   }
- ]
+ ],
+ "xatom_sigma_1keV_Mb": {
+  "1s": 0.232082,
+  "2s": 0.0106065,
+  "2p": 0.00539091,
+  "total": 0.248079,
+  "note": "fresh -pcs run 2026-10-02; the anchor's low-fluence mechanics check sigma*F*2 = mean charge; the atomx MCDHF pseudo-state path measures 0.0334 Mb (ratio 0.135) \u2014 the shooting/Milne PI fix is the next increment"
+ }
 }
