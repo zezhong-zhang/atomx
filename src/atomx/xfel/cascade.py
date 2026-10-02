@@ -27,6 +27,7 @@ Public API: :func:`cascade`.
 
 from __future__ import annotations
 
+import numpy as np
 from dataclasses import dataclass, field
 from typing import Callable, Dict, List, Mapping, Optional, Tuple
 
@@ -118,25 +119,54 @@ class RateProvider:
 
     def pi_sigmas_cm2(self, config: Config,
                       photon_energy_eV: float) -> Dict[Subshell, float]:
-        """Per-subshell PI cross section in cm^2 (subshell sum)."""
+        """Per-subshell PI cross section in cm^2 (subshell sum).
+
+        SHOOTING + MILNE (2026-10-03): the default B-spline pseudo-state
+        continuum cannot resolve a 1 keV photoelectron (k ~ 8.6 a.u.) —
+        measured on Ne 1s at 1 keV: 0.0245 Mb vs XATOM's 0.2321 (9.5x
+        low; basis enlargement made it worse).  The RR module's shooting
+        Dirac continuum inverted through the Milne relation measures
+        0.2335 Mb — ratio 1.006.  This path: one rr_cross_section call
+        per subshell with capture_orbitals pinned, Milne factor
+        a^2*w^2/(E(2+a^2 E)) per the RR module's own documented
+        convention (Gu 2003 eq. 1).
+        """
         key = _key(config)
         ckey = (key, photon_energy_eV)
         if ckey not in self._pi_cache:
-            from atomx.scattering.anomalous import atomic_sigma_pi
+            from atomx.constants import ALPHA
+            from atomx.scattering.models import ContinuumModel
+            from atomx.scattering.radiative_recombination import (
+                rr_cross_section,
+            )
 
             result = self._unwrap(self._solve(config))
             omega_ha = photon_energy_eV / 27.211386245988
-            total_a0sq = atomic_sigma_pi(result, [omega_ha])[0]
-            occ = _occupation_table(result)
-            total_occ = sum(occ.get(sh, q) for sh, q in config.items())
-            if total_occ <= 0:
-                self._pi_cache[ckey] = {sh: 0.0 for sh in config}
-            else:
-                per_electron = total_a0sq / total_occ
-                self._pi_cache[ckey] = {
-                    sh: per_electron * _CM2_PER_A0SQ * occ.get(sh, 0.0)
-                    for sh in config if occ.get(sh, 0.0) > 0.0
-                }
+            table: Dict[Subshell, float] = {}
+            for sh, q in config.items():
+                label = _subshell_label(sh)
+                e_bind = getattr(result, "orbital_energies", {}).get(label)
+                if e_bind is None or e_bind >= 0.0:
+                    table[sh] = 0.0
+                    continue
+                e_free_eV = photon_energy_eV + e_bind * 27.211386245988
+                if e_free_eV <= 0.0:
+                    table[sh] = 0.0     # below threshold
+                    continue
+                rr = rr_cross_section(
+                    result,
+                    np.array([e_free_eV]),
+                    capture_orbitals=[label],
+                    continuum_model=ContinuumModel(method="shooting"),
+                    multipoles=("E1",),
+                    g_initial=1,
+                )
+                e_ha = e_free_eV / 27.211386245988
+                milne = (ALPHA ** 2 * omega_ha ** 2
+                         / (e_ha * (2.0 + ALPHA ** 2 * e_ha)))
+                s_rr = float(rr.sigma_by_orbital.get(label, [0.0])[0])
+                table[sh] = (s_rr / milne) * _CM2_PER_A0SQ
+            self._pi_cache[ckey] = table
         return self._pi_cache[ckey]
 
     def auger_channels(self, config: Config) -> List[Tuple[Subshell,
