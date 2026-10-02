@@ -286,11 +286,13 @@ def _auger_tree_branching(config: Config, prov: RateProvider,
         total = sum(c[3] for c in channels)
         pick = rng.random() * total
         acc = 0.0
-        hole = s1 = s2 = None
-        for hole, s1, s2, g in channels:
-            acc += g
+        chosen = channels[-1]
+        for cand in channels:
+            acc += cand[3]
             if pick <= acc:
+                chosen = cand
                 break
+        hole, s1, s2 = chosen[0], chosen[1], chosen[2]
         config = _daughter_after_auger(config, hole, s1, s2)
         emitted += 1
         key = _key(config)
