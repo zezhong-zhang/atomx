@@ -186,7 +186,10 @@ def _coarse_auger_rate(
         cowan_grant_auger_B,
         exchange_k_range,
         exchange_lambda,
+        reduced_cl_j2,
     )
+    from atomx.angular.coefficients import _twoj_from_kappa as _twoj
+    from atomx.angular.wigner import wigner_6j
     from atomx.constants import AU_RATE_PER_S, HARTREE_EV
     from atomx.numerics.bspline.continuum import solve_continuum
 
@@ -210,6 +213,8 @@ def _coarse_auger_rate(
             E_ha = E_eV / HARTREE_EV
             amplitude = 0.0
             if E_ha > 0.0:
+                amp_direct = 0.0
+                amp_exchange = 0.0
                 if shooting_n_grid:
                     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
                     from atomx.numerics.shooting.dirac_continuum import (
@@ -327,13 +332,20 @@ def _coarse_auger_rate(
                     direct_ks &= set(exchange_k_range(source2_key[1], kappa_eps))
                     exchange_ks = set(exchange_k_range(source2_key[1], hole_key[1]))
                     exchange_ks &= set(exchange_k_range(source_key[1], kappa_eps))
+                    equiv_pair = (source_key == source2_key)
                     for k in sorted(direct_ks):
                         if J_res is None:
-                            wa = exchange_lambda(source_key[1], hole_key[1], k)
-                            wb = exchange_lambda(source2_key[1], kappa_eps, k)
-                            if wa <= 0.0 or wb <= 0.0:
+                            # FAC SlaterTotal sd: R^k(ab;cd) * C_a c * C_b e
+                            # (NO 6j); equiv-pair 0.5 handled via _tau2
+                            ca = reduced_cl_j2(
+                                _twoj(source_key[1]), 2 * k,
+                                _twoj(hole_key[1]))
+                            cb = reduced_cl_j2(
+                                _twoj(source2_key[1]), 2 * k,
+                                _twoj(kappa_eps))
+                            if ca == 0.0 or cb == 0.0:
                                 continue
-                            angular = float(np.sqrt(wa * wb))
+                            angular = float(ca * cb)
                         else:
                             angular = cowan_grant_auger_B(
                                 source_key[1],
@@ -374,13 +386,41 @@ def _coarse_auger_rate(
                                 bsp_data=bsp_data,
                                 method=slater_method,
                             )
-                    for k in sorted(exchange_ks):
+                    # FAC SlaterTotal se: full t-sum with 6j
+                    # {j0 j2 k; j1 j3 t} arrangement, phase and
+                    # parity guards, radial swapped R^t(a b; d c)
+                    t_min = max(abs(_twoj(source_key[1])
+                                   - _twoj(kappa_eps)),
+                                 abs(_twoj(source2_key[1])
+                                     - _twoj(hole_key[1]))) // 2
+                    t_max = min(_twoj(source_key[1]) + _twoj(kappa_eps),
+                                _twoj(source2_key[1])
+                                + _twoj(hole_key[1])) // 2
+                    for t2 in range(2 * t_min, 2 * t_max + 1, 2):
+                        t = t2 // 2
+                        k = t  # exchange rank == t (FAC: Slater R^t)
+
                         if J_res is None:
-                            wa = exchange_lambda(source2_key[1], hole_key[1], k)
-                            wb = exchange_lambda(source_key[1], kappa_eps, k)
-                            if wa <= 0.0 or wb <= 0.0:
+                            ca_e = reduced_cl_j2(
+                                _twoj(source_key[1]), t2,
+                                _twoj(kappa_eps))
+                            cb_e = reduced_cl_j2(
+                                _twoj(source2_key[1]), t2,
+                                _twoj(hole_key[1]))
+                            if ca_e == 0.0 or cb_e == 0.0:
                                 continue
-                            angular = float(np.sqrt(wa * wb))
+                            sixj_e = wigner_6j(
+                                _twoj(source_key[1]),
+                                _twoj(hole_key[1]),
+                                2 * k,
+                                _twoj(source2_key[1]),
+                                _twoj(kappa_eps), t2)
+                            if abs(sixj_e) < 1e-15:
+                                continue
+                            phase_e = -1.0 if ((t + k) % 2) else 1.0
+                            angular = float(
+                                phase_e * (2.0 * k + 1.0) * sixj_e
+                                * ca_e * cb_e)
                         else:
                             angular = cowan_grant_auger_B(
                                 source2_key[1],
