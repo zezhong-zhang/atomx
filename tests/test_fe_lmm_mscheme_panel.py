@@ -90,6 +90,9 @@ def _matched(levels, row):
     return max(window, key=lambda L: L.gamma_auger_per_s)
 
 
+TR_TOTALS = Path(__file__).parent / "data" / "fe17_lmm_tr_totals.json"
+
+
 def _rows(levels):
     panel = json.loads(FIXTURE.read_text())
     out = []
@@ -117,6 +120,35 @@ def test_fe_lmm_mscheme_panel_band(panel_levels):
         assert BAND[0] <= r["ratio"] <= BAND[1], (
             f"ILEV {r['ilev']}: atomx/FAC = {r['ratio']:.3f} outside "
             f"{BAND}; panel:\n{report}"
+        )
+
+
+@pytest.mark.slow
+def test_fe_lmm_mscheme_radiative_totals_vs_fac_tr(panel_levels):
+    """Level-total A_r vs the regenerated FAC TR totals (like-for-like).
+
+    Convention (found 2026-10-02 by rerunning the archived sfac script):
+    the kll fixture's a_radiative is the TR total divided by (2J+1)
+    (DR per-substate convention) — the yield comparison must use the
+    level TOTAL.  Measured, full nl=3 complex manifold: ILEV 32/190
+    close at 0.96/0.97; 71/142/72 sit at 1.9/2.6/0.25 (same
+    level-matching/model class as the Auger residuals).
+    """
+    rows = _rows(panel_levels)
+    tr = {r["ilev"]: r for r in json.loads(TR_TOTALS.read_text())["rows"]}
+    ratios = []
+    for r in rows:
+        ref = tr[r["ilev"]]["tr_total_A_per_s"]
+        L = _matched(panel_levels, next(
+            x for x in json.loads(FIXTURE.read_text())["resonances"]
+            if x["ilev"] == r["ilev"]))
+        a_ours = L.a_radiative_per_s
+        ratios.append((r["ilev"], a_ours / ref))
+    report = "; ".join(f"ILEV {i}: {x:.2f}" for i, x in ratios)
+    for i, x in ratios:
+        assert 0.2 <= x <= 3.0, (
+            f"ILEV {i}: A_r(level-total)/TR = {x:.2f} outside "
+            f"[0.2, 3.0]; panel: {report}"
         )
 
 
