@@ -224,14 +224,30 @@ class RateProvider:
             return []
 
         result = self._unwrap(self._solve(config))
+        energies = getattr(result, "orbital_energies", {})
         labels = {sh: _subshell_label(sh) for sh in config}
         channels = []
         for nh_kh, ns1_ks1, ns2_ks2 in triples:
+            # Auger electron energy from orbital-energy differences:
+            # E = I(hole) - I(s1) - I(s2) = eps_s1 + eps_s2 - eps_hole
+            # (2s2s check on Ne HFS: 770 eV vs XATOM 815 — coarse but
+            # the rate's E-dependence is weak; the earlier omission of
+            # resonance_energy_eV left E_ha = 0 and EVERY channel
+            # silently zero — the K-hole daughter never Auger-decayed)
+            e_h = energies.get(labels[nh_kh])
+            e_1 = energies.get(labels[ns1_ks1])
+            e_2 = energies.get(labels[ns2_ks2])
+            if e_h is None or e_1 is None or e_2 is None:
+                continue
+            e_aug_eV = (e_1 + e_2 - e_h) * 27.211386245988
+            if e_aug_eV <= 0.0:
+                continue
             out = auger_rate_csf_average(
                 result,
                 hole_label=labels[nh_kh],
                 source_label=labels[ns1_ks1],
                 source2_label=labels[ns2_ks2],
+                resonance_energy_eV=e_aug_eV,
                 shooting_n_grid=200,
             )
             gamma = float(out["Gamma_per_s"])
