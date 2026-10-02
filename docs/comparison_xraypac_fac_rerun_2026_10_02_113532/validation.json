@@ -1,0 +1,20 @@
+{
+  "source_matches_snapshot": true,
+  "source_archive_verified": true,
+  "legacy_API_matches_08b4368": true,
+  "same_radial_production_LS_channels_passed": 13,
+  "independent_numeric_fields_unchanged": 1602,
+  "csv_counts": {
+    "public_Auger": 15,
+    "PI": 50,
+    "Fe": 5,
+    "radial_integrals": 34
+  },
+  "targeted_tests": {
+    "passed": 7,
+    "failed": 1,
+    "xfailed": 3
+  },
+  "remaining_failure": "test_kll_auger_within_order_of_magnitude_of_fac: ILEV 32 ratio 0.3449394736 below 0.4",
+  "verified_HEAD": "227982affe2a9a17131d4b017690722957d02d91"
+}

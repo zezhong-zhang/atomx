@@ -1,0 +1,75 @@
+# ---------------------------------------------------
+# XATOM HFS : electronic structure of atoms and more,
+#
+# Job started at  :  2-Oct-2026 12:24:05
+# ---------------------------------------------------
+# Atomic ion: Xe+
+#   nuclear charge:   54
+#   total electrons:  53
+#   total charge:     +1
+#   configuration: 1s2_2s2_2p5_3s2_3p6_3d10_4s2_4p6_4d10_5s2_5p6
+#
+# Computational method:
+#   exchange functional: Slater (Latter tail correction)
+#   correlation functional: none
+#
+# Grid for the spherical coordinate:
+#   N =  300
+#   L parameter =      1.0
+#   Rmax(a.u.)  =     80.0
+#   lmax  =    3
+#
+# SCF converged after   26 iterations
+#   energy convergence  = -9.657E-08
+#   density convergence =  4.772E-08
+#
+# Energies: 
+# - zeroth-order energy (a.u.):
+#   SUM of E_orb   =   -4411.33355464  [   -120038.49 eV ]
+#   (SUM of E_kin) =    7130.65486661
+#   (Effec. pot E) =  -11541.98842125
+#
+# - first-order energy (a.u.): with DFT formula
+#   Kinetic E      =    7130.65486661
+#   E Latter corr  =      -0.03305942
+#   Nuc-Elec pot E =  -16814.95619499    One-Elec E =   -9684.33438780
+#
+#   Hartree E      =    2802.78792614
+#   Exchange E     =    -249.43126434
+#   Correlation E  =       0.00000000    Two-Elec E =    2553.35666180
+#   ---------------------------------
+#   Total Energy   =   -7130.97772600  [   -194043.77 eV ]
+#
+#                E(0)        E(1)
+# |E_TOT|  -120038.49  -194043.77
+#
+# Orbital energies: 
+#        n_occ        E(a.u.)          E(eV)         KE(eV)
+#   1s       2 -1225.49856859  -33347.511406   39018.450644
+#   2s       2  -191.01083997   -5197.669200    8371.389778
+#   2p       5  -181.13931362   -4929.051312    8414.533556
+#   3s       2   -40.53403592   -1102.987192    2560.815524
+#   3p       6   -36.13774982    -983.358166    2516.809062
+#   3d      10   -27.86173334    -758.156308    2432.204396
+#   4s       2    -7.98816707    -217.369077     765.931081
+#   4p       6    -6.34897192    -172.764309     709.456020
+#   4d      10    -3.45868482     -94.115599     581.510224
+#   5s       2    -1.24706456     -33.934352     156.487499
+#   5p       6    -0.82585372     -22.472622     120.238323
+#
+#              1s        2s        2p        3s        3p        3d        4s        4p        4d        5s        5p
+# |SCF| -33347.51  -5197.67  -4929.05  -1102.99   -983.36   -758.16   -217.37   -172.76    -94.12    -33.93    -22.47
+#
+# Fluorescence (based on orbital energies):
+#   I     F        x-ray E(eV)     rate(a.u.)              R_int
+#   2p  - 3s  :        3826.06    2.19670E-04       -2.13908E-02
+#   2p  - 3d  :        4170.90    8.80921E-03       -8.41548E-02
+#   2p  - 4s  :        4711.68    4.92235E-05       -7.40954E-03
+#   2p  - 4d  :        4834.94    1.34727E-03        2.63691E-02
+#   2p  - 5s  :        4895.12    7.98504E-06       -2.81814E-03
+#                ----------------------------
+#                Total F rate =   1.04334E-02 a.u.  ( lifetime = 2.3 fs )
+#
+# Current date/time  :  2-Oct-2026 12:24:06
+# elapsed real time  :  1.88 seconds on fermi
+# Job time(CPU_time) :  1.88 seconds on fermi

@@ -1,0 +1,63 @@
+# ---------------------------------------------------
+# XATOM HFS : electronic structure of atoms and more,
+#
+# Job started at  :  2-Oct-2026 12:18:02
+# ---------------------------------------------------
+# Atomic ion: C+
+#   nuclear charge:    6
+#   total electrons:   5
+#   total charge:     +1
+#   configuration: 1s2_2s1_2p2
+#
+# Computational method:
+#   exchange functional: Slater (Latter tail correction)
+#   correlation functional: none
+#
+# Grid for the spherical coordinate:
+#   N =  300
+#   L parameter =      1.0
+#   Rmax(a.u.)  =     80.0
+#   lmax  =    2
+#
+# SCF converged after   20 iterations
+#   energy convergence  = -8.757E-08
+#   density convergence =  2.402E-08
+#
+# Energies: 
+# - zeroth-order energy (a.u.):
+#   SUM of E_orb   =     -25.30354254  [      -688.54 eV ]
+#   (SUM of E_kin) =      38.19403419
+#   (Effec. pot E) =     -63.49757673
+#
+# - first-order energy (a.u.): with DFT formula
+#   Kinetic E      =      38.19403419
+#   E Latter corr  =      -0.07307396
+#   Nuc-Elec pot E =     -85.68272307    One-Elec E =     -47.56176284
+#
+#   Hartree E      =      15.27838328
+#   Exchange E     =      -6.22390970
+#   Correlation E  =       0.00000000    Two-Elec E =       9.05447359
+#   ---------------------------------
+#   Total Energy   =     -38.50728925  [     -1047.84 eV ]
+#
+#                E(0)        E(1)
+# |E_TOT|     -688.54    -1047.84
+#
+# Orbital energies: 
+#        n_occ        E(a.u.)          E(eV)         KE(eV)
+#   1s       2   -11.29615542    -307.384016     447.187365
+#   2s       1    -1.11710303     -30.397919      54.006896
+#   2p       2    -0.79706434     -21.689223      45.465441
+#
+#              1s        2s        2p
+# |SCF|   -307.38    -30.40    -21.69
+#
+# Fluorescence (based on orbital energies):
+#   I     F        x-ray E(eV)     rate(a.u.)              R_int
+#   2s  - 2p  :           8.71    1.16112E-08       -1.43212E+00
+#                ----------------------------
+#                Total F rate =   1.16112E-08 a.u.  ( lifetime = 2083231.1 fs )
+#
+# Current date/time  :  2-Oct-2026 12:18:03
+# elapsed real time  :  1.09 seconds on fermi
+# Job time(CPU_time) :  1.09 seconds on fermi

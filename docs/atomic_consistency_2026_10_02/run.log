@@ -1,0 +1,22 @@
+C hf relaxed fluorescence/FAC [('1s', 1.5362468340907978), ('2s', 0.2546450964112305), ('2p', None)] frozen/relaxed PI range 0.605675040751234 1.037274891153722
+C gu relaxed fluorescence/FAC [('1s', 0.9848600592406292), ('2s', 0.2695773263108178), ('2p', None)] frozen/relaxed PI range 0.9994041414231646 1.0000423116887172
+Ne hf relaxed fluorescence/FAC [('1s', 1.3223875231925208), ('2s', 0.9819893751826686), ('2p', None)] frozen/relaxed PI range 0.7882873481210481 1.014131192881964
+Ne gu relaxed fluorescence/FAC [('1s', 0.9998578250551607), ('2s', 1.00016668886219), ('2p', None)] frozen/relaxed PI range 0.9988787303263783 1.0003673323838287
+Ar hf relaxed fluorescence/FAC [('1s', 1.1393269946374307), ('2s', 1.3945850327488523), ('2p', 1.9345110418380995)] frozen/relaxed PI range 0.9344213612749633 1.0279981531340177
+Ar gu relaxed fluorescence/FAC [('1s', 0.9999832846711856), ('2s', 0.999918972009425), ('2p', 1.0005194251947962)] frozen/relaxed PI range 0.9999075511780912 1.000021044450019
+Traceback (most recent call last):
+  File "/data/code/atomx/benchmarks/bench_atomic_consistency.py", line 250, in <module>
+    
+  File "/data/code/atomx/benchmarks/bench_atomic_consistency.py", line 246, in main
+    args = p.parse_args()
+  File "/data/code/atomx/benchmarks/bench_atomic_consistency.py", line 150, in run
+    final[source] -= 1
+  File "/data/code/atomx/benchmarks/bench_atomic_consistency.py", line 57, in solve
+    r = s.solve(max_iter=300, tol=1e-9, damping=0.5, mode="orbital")
+  File "/data/code/atomx/src/atomx/methods/dirac_fock.py", line 2140, in solve
+    diis_orb_history.clear()
+  File "/data/code/atomx/src/atomx/methods/dirac_fock.py", line 851, in _build_direct_potential
+    
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/serialize.py", line 30, in _numba_unpickle
+    def _numba_unpickle(address, bytedata, hashed):
+KeyboardInterrupt

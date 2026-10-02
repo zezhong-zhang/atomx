@@ -1,0 +1,591 @@
+{
+  "element": "Ne",
+  "exchange": "gu",
+  "ns": 180,
+  "shooting_grid": 16000,
+  "seconds": 22.83692702295957,
+  "configurations": {
+    "1s2 2s2 2p6": {
+      "total_Ha": -128.66389584801368,
+      "iterations": 84,
+      "orbital_eV": {
+        "1s1/2": -841.303056233597,
+        "2s1/2": -40.105390182295785,
+        "2p1/2": -17.534587700725222,
+        "2p3/2": -17.427174811286473
+      }
+    },
+    "1s1 2s2 2p6": {
+      "total_Ha": -96.71001813488903,
+      "iterations": 67,
+      "orbital_eV": {
+        "1s1/2": -938.8311474713109,
+        "2s1/2": -64.32486394267417,
+        "2p1/2": -42.22754085868389,
+        "2p3/2": -42.05841492969385
+      }
+    },
+    "1s2 2s1 2p6": {
+      "total_Ha": -126.85735272568385,
+      "iterations": 80,
+      "orbital_eV": {
+        "1s1/2": -865.1127588028793,
+        "2s1/2": -60.15310484346153,
+        "2p1/2": -37.260074487078164,
+        "2p3/2": -37.13818932037251
+      }
+    },
+    "1s2 2s2 2p5": {
+      "total_Ha": -127.94430086659474,
+      "iterations": 79,
+      "orbital_eV": {
+        "1s1/2": -865.4062830770945,
+        "2s1/2": -60.05003940215235,
+        "2p1/2": -37.24284264091832,
+        "2p3/2": -37.120090307048834
+      }
+    }
+  },
+  "thresholds_eV": {
+    "orbital": null,
+    "frozen": {
+      "1s1/2": 892.0265863145679,
+      "2s1/2": 53.222447780830365,
+      "2p1/2": 23.6283441660892,
+      "2p3/2": 23.6283441660892
+    },
+    "relaxed": {
+      "1s1/2": 869.5093085086844,
+      "2s1/2": 49.15854267173774,
+      "2p1/2": 19.581176980060313,
+      "2p3/2": 19.581176980060313
+    }
+  },
+  "pi": [
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "residual",
+      "energy_mode": "orbital",
+      "shell": "1s",
+      "photon_eV": 1028.0,
+      "atomx_Mb": 0.15881452508258254,
+      "fac_Mb": 0.232029915,
+      "ratio": 0.6844571101212641
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "residual",
+      "energy_mode": "orbital",
+      "shell": "1s",
+      "photon_eV": 1714.0,
+      "atomx_Mb": 0.04399060492704025,
+      "fac_Mb": 0.0610648012,
+      "ratio": 0.7203921745845339
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "residual",
+      "energy_mode": "orbital",
+      "shell": "1s",
+      "photon_eV": 3428.0,
+      "atomx_Mb": 0.006875419180798745,
+      "fac_Mb": 0.00873901963,
+      "ratio": 0.7867494835686442
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "residual",
+      "energy_mode": "orbital",
+      "shell": "2s",
+      "photon_eV": 1028.0,
+      "atomx_Mb": 0.008326478292955634,
+      "fac_Mb": 0.00982834697,
+      "ratio": 0.8471901041315835
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "residual",
+      "energy_mode": "orbital",
+      "shell": "2s",
+      "photon_eV": 1714.0,
+      "atomx_Mb": 0.0024809068776475494,
+      "fac_Mb": 0.00275083244,
+      "ratio": 0.9018749530405965
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "residual",
+      "energy_mode": "orbital",
+      "shell": "2s",
+      "photon_eV": 3428.0,
+      "atomx_Mb": 0.00040353406323571125,
+      "fac_Mb": 0.00042852092500000004,
+      "ratio": 0.9416904512555863
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "residual",
+      "energy_mode": "orbital",
+      "shell": "2p",
+      "photon_eV": 1028.0,
+      "atomx_Mb": 0.0037010725360217015,
+      "fac_Mb": 0.00451614887,
+      "ratio": 0.8195196045478681
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "residual",
+      "energy_mode": "orbital",
+      "shell": "2p",
+      "photon_eV": 1714.0,
+      "atomx_Mb": 0.0006888162464969625,
+      "fac_Mb": 0.0007688880900000001,
+      "ratio": 0.8958602109404015
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "residual",
+      "energy_mode": "orbital",
+      "shell": "2p",
+      "photon_eV": 3428.0,
+      "atomx_Mb": 5.750631155600776e-05,
+      "fac_Mb": 6.14289474e-05,
+      "ratio": 0.9361435282546899
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "orbital",
+      "shell": "1s",
+      "photon_eV": 1028.0,
+      "atomx_Mb": 0.21088204668456653,
+      "fac_Mb": 0.232029915,
+      "ratio": 0.9088571475129253
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "orbital",
+      "shell": "1s",
+      "photon_eV": 1714.0,
+      "atomx_Mb": 0.05747451565202312,
+      "fac_Mb": 0.0610648012,
+      "ratio": 0.9412053183270352
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "orbital",
+      "shell": "1s",
+      "photon_eV": 3428.0,
+      "atomx_Mb": 0.008463716672005088,
+      "fac_Mb": 0.00873901963,
+      "ratio": 0.9684972720452726
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "orbital",
+      "shell": "2s",
+      "photon_eV": 1028.0,
+      "atomx_Mb": 0.009542845797094546,
+      "fac_Mb": 0.00982834697,
+      "ratio": 0.9709512521508533
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "orbital",
+      "shell": "2s",
+      "photon_eV": 1714.0,
+      "atomx_Mb": 0.002697270951273117,
+      "fac_Mb": 0.00275083244,
+      "ratio": 0.9805289889896446
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "orbital",
+      "shell": "2s",
+      "photon_eV": 3428.0,
+      "atomx_Mb": 0.0004240198620036436,
+      "fac_Mb": 0.00042852092500000004,
+      "ratio": 0.9894962818995211
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "orbital",
+      "shell": "2p",
+      "photon_eV": 1028.0,
+      "atomx_Mb": 0.004473483813885235,
+      "fac_Mb": 0.00451614887,
+      "ratio": 0.9905527790728552
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "orbital",
+      "shell": "2p",
+      "photon_eV": 1714.0,
+      "atomx_Mb": 0.0007644516515249204,
+      "fac_Mb": 0.0007688880900000001,
+      "ratio": 0.9942300595720247
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "orbital",
+      "shell": "2p",
+      "photon_eV": 3428.0,
+      "atomx_Mb": 6.117968987323625e-05,
+      "fac_Mb": 6.14289474e-05,
+      "ratio": 0.9959423441664939
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "frozen",
+      "shell": "1s",
+      "photon_eV": 1028.0,
+      "atomx_Mb": 0.25075851092812745,
+      "fac_Mb": 0.232029915,
+      "ratio": 1.080716298707119
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "frozen",
+      "shell": "1s",
+      "photon_eV": 1714.0,
+      "atomx_Mb": 0.06412619412988105,
+      "fac_Mb": 0.0610648012,
+      "ratio": 1.050133511773081
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "frozen",
+      "shell": "1s",
+      "photon_eV": 3428.0,
+      "atomx_Mb": 0.008966353906796874,
+      "fac_Mb": 0.00873901963,
+      "ratio": 1.026013704788631
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "frozen",
+      "shell": "2s",
+      "photon_eV": 1028.0,
+      "atomx_Mb": 0.00996532510345785,
+      "fac_Mb": 0.00982834697,
+      "ratio": 1.013937046980124
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "frozen",
+      "shell": "2s",
+      "photon_eV": 1714.0,
+      "atomx_Mb": 0.0027722424185006407,
+      "fac_Mb": 0.00275083244,
+      "ratio": 1.0077830907434844
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "frozen",
+      "shell": "2s",
+      "photon_eV": 3428.0,
+      "atomx_Mb": 0.0004302202758175861,
+      "fac_Mb": 0.00042852092500000004,
+      "ratio": 1.0039656192228794
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "frozen",
+      "shell": "2p",
+      "photon_eV": 1028.0,
+      "atomx_Mb": 0.004592654080677617,
+      "fac_Mb": 0.00451614887,
+      "ratio": 1.0169403650942128
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "frozen",
+      "shell": "2p",
+      "photon_eV": 1714.0,
+      "atomx_Mb": 0.0007770697608541694,
+      "fac_Mb": 0.0007688880900000001,
+      "ratio": 1.0106409124560238
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "frozen",
+      "shell": "2p",
+      "photon_eV": 3428.0,
+      "atomx_Mb": 6.170658099576365e-05,
+      "fac_Mb": 6.14289474e-05,
+      "ratio": 1.0045195890132352
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "relaxed",
+      "shell": "1s",
+      "photon_eV": 1028.0,
+      "atomx_Mb": 0.23202298173860267,
+      "fac_Mb": 0.232029915,
+      "ratio": 0.9999701191055587
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "relaxed",
+      "shell": "1s",
+      "photon_eV": 1714.0,
+      "atomx_Mb": 0.06106118796911943,
+      "fac_Mb": 0.0610648012,
+      "ratio": 0.9999408295645026
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "relaxed",
+      "shell": "1s",
+      "photon_eV": 3428.0,
+      "atomx_Mb": 0.008738775335495615,
+      "fac_Mb": 0.00873901963,
+      "ratio": 0.9999720455480444
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "relaxed",
+      "shell": "2s",
+      "photon_eV": 1028.0,
+      "atomx_Mb": 0.009831957240121586,
+      "fac_Mb": 0.00982834697,
+      "ratio": 1.0003673323838287
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "relaxed",
+      "shell": "2s",
+      "photon_eV": 1714.0,
+      "atomx_Mb": 0.002748737848222473,
+      "fac_Mb": 0.00275083244,
+      "ratio": 0.9992385607545304
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "relaxed",
+      "shell": "2s",
+      "photon_eV": 3428.0,
+      "atomx_Mb": 0.0004282872413017863,
+      "fac_Mb": 0.00042852092500000004,
+      "ratio": 0.99945467377535
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "relaxed",
+      "shell": "2p",
+      "photon_eV": 1028.0,
+      "atomx_Mb": 0.00451399680178109,
+      "fac_Mb": 0.00451614887,
+      "ratio": 0.999523472701884
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "relaxed",
+      "shell": "2p",
+      "photon_eV": 1714.0,
+      "atomx_Mb": 0.0007687581536769813,
+      "fac_Mb": 0.0007688880900000001,
+      "ratio": 0.9998310074967883
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "field": "frozen",
+      "energy_mode": "relaxed",
+      "shell": "2p",
+      "photon_eV": 3428.0,
+      "atomx_Mb": 6.136006898419788e-05,
+      "fac_Mb": 6.14289474e-05,
+      "ratio": 0.9988787303263783
+    }
+  ],
+  "fluorescence": [
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "hole": "1s",
+      "energy_mode": "orbital",
+      "atomx_per_s": 7291450369282.41,
+      "fac_per_s": 6209508000000.0,
+      "ratio": 1.174239628853431
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "hole": "1s",
+      "energy_mode": "frozen",
+      "atomx_per_s": 5993987510267.575,
+      "fac_per_s": 6209508000000.0,
+      "ratio": 0.9652918573045682
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "hole": "1s",
+      "energy_mode": "relaxed",
+      "atomx_per_s": 6208625163542.621,
+      "fac_per_s": 6209508000000.0,
+      "ratio": 0.9998578250551607
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "hole": "2s",
+      "energy_mode": "orbital",
+      "atomx_per_s": 9530612648.843884,
+      "fac_per_s": 20332428000.0,
+      "ratio": 0.46873952529643204
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "hole": "2s",
+      "energy_mode": "frozen",
+      "atomx_per_s": 20426188531.30524,
+      "fac_per_s": 20332428000.0,
+      "ratio": 1.0046113789905091
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "hole": "2s",
+      "energy_mode": "relaxed",
+      "atomx_per_s": 20335817189.28888,
+      "fac_per_s": 20332428000.0,
+      "ratio": 1.00016668886219
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "hole": "2p",
+      "energy_mode": "orbital",
+      "atomx_per_s": 0,
+      "fac_per_s": 0.0,
+      "ratio": null
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "hole": "2p",
+      "energy_mode": "frozen",
+      "atomx_per_s": 0,
+      "fac_per_s": 0.0,
+      "ratio": null
+    },
+    {
+      "element": "Ne",
+      "Z": 10,
+      "exchange": "gu",
+      "hole": "2p",
+      "energy_mode": "relaxed",
+      "atomx_per_s": 0,
+      "fac_per_s": 0.0,
+      "ratio": null
+    }
+  ],
+  "occupation_model": "statistical_jj_moments"
+}

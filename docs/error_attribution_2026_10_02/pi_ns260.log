@@ -1,0 +1,10 @@
+C 9.885900306981057 s; neutral energy delta 2.2595759887167333e-05
+Ne 9.832798122020904 s; neutral energy delta 0.0001007480027794827
+Ar 11.561026006005704 s; neutral energy delta -4.185072009477153e-05
+Fe 15.79718536598375 s; neutral energy delta 2.3961520128068514e-05
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/error_attribution_2026_10_02/pi_native_controls.py", line 104, in <module>
+    run(el, args.ns)
+  File "/data/code/atomx/docs/error_attribution_2026_10_02/pi_native_controls.py", line 33, in run
+    assert result.converged
+AssertionError

@@ -1,0 +1,61 @@
+# ---------------------------------------------------
+# XATOM HFS : electronic structure of atoms and more,
+#
+# Job started at  :  2-Oct-2026 12:18:04
+# ---------------------------------------------------
+# Atomic ion: C+
+#   nuclear charge:    6
+#   total electrons:   5
+#   total charge:     +1
+#   configuration: 1s2_2s2_2p1
+#
+# Computational method:
+#   exchange functional: Slater (Latter tail correction)
+#   correlation functional: none
+#
+# Grid for the spherical coordinate:
+#   N =  300
+#   L parameter =      1.0
+#   Rmax(a.u.)  =     80.0
+#   lmax  =    2
+#
+# SCF converged after   20 iterations
+#   energy convergence  = -6.677E-08
+#   density convergence =  6.758E-09
+#
+# Energies: 
+# - zeroth-order energy (a.u.):
+#   SUM of E_orb   =     -25.63495436  [      -697.56 eV ]
+#   (SUM of E_kin) =      38.50592602
+#   (Effec. pot E) =     -64.14088038
+#
+# - first-order energy (a.u.): with DFT formula
+#   Kinetic E      =      38.50592602
+#   E Latter corr  =      -0.07248166
+#   Nuc-Elec pot E =     -86.28481357    One-Elec E =     -47.85136921
+#
+#   Hartree E      =      15.28771704
+#   Exchange E     =      -6.26926442
+#   Correlation E  =       0.00000000    Two-Elec E =       9.01845262
+#   ---------------------------------
+#   Total Energy   =     -38.83291659  [     -1056.70 eV ]
+#
+#                E(0)        E(1)
+# |E_TOT|     -697.56    -1056.70
+#
+# Orbital energies: 
+#        n_occ        E(a.u.)          E(eV)         KE(eV)
+#   1s       2   -11.29908990    -307.463867     447.044585
+#   2s       2    -1.11906528     -30.451314      54.080093
+#   2p       1    -0.79864400     -21.732208      45.550159
+#
+#              1s        2s        2p
+# |SCF|   -307.46    -30.45    -21.73
+#
+# Fluorescence (based on orbital energies):
+#   I     F        x-ray E(eV)     rate(a.u.)              R_int
+#   NONE
+#
+# Current date/time  :  2-Oct-2026 12:18:05
+# elapsed real time  :  1.08 seconds on fermi
+# Job time(CPU_time) :  1.08 seconds on fermi

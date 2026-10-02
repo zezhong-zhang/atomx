@@ -1,0 +1,93 @@
+# ---------------------------------------------------
+# XATOM HFS : electronic structure of atoms and more,
+#
+# Job started at  :  2-Oct-2026 11:40:11
+# ---------------------------------------------------
+# Atomic ion: Ne+
+#   nuclear charge:   10
+#   total electrons:   9
+#   total charge:     +1
+#   configuration: 1s1_2s2_2p6
+#
+# Computational method:
+#   exchange functional: Slater (Latter tail correction)
+#   correlation functional: none
+#
+# Grid for the spherical coordinate:
+#   N =  200
+#   L parameter =      1.0
+#   Rmax(a.u.)  =     50.0
+#   lmax  =    2
+#
+# SCF converged after   23 iterations
+#   energy convergence  = -4.884E-08
+#   density convergence =  2.604E-09
+#
+# Energies: 
+# - zeroth-order energy (a.u.):
+#   SUM of E_orb   =     -50.09230812  [     -1363.08 eV ]
+#   (SUM of E_kin) =      99.50094363
+#   (Effec. pot E) =    -149.59325175
+#
+# - first-order energy (a.u.): with DFT formula
+#   Kinetic E      =      99.50094363
+#   E Latter corr  =      -0.08702122
+#   Nuc-Elec pot E =    -240.28460301    One-Elec E =    -140.87068060
+#
+#   Hartree E      =      54.39681218
+#   Exchange E     =     -13.51143891
+#   Correlation E  =       0.00000000    Two-Elec E =      40.88537327
+#   ---------------------------------
+#   Total Energy   =     -99.98530734  [     -2720.74 eV ]
+#
+#                E(0)        E(1)
+# |E_TOT|    -1363.08    -2720.74
+#
+# Orbital energies: 
+#        n_occ        E(a.u.)          E(eV)         KE(eV)
+#   1s       1   -34.96749248    -951.513844    1326.738180
+#   2s       2    -2.50364020     -68.127513     178.635214
+#   2p       6    -1.68625587     -45.885355     170.591620
+#
+#              1s        2s        2p
+# |SCF|   -951.51    -68.13    -45.89
+#
+# Radial wavefunction information (a.u.): (r_m: r_max where |u(r)| >  1.0E-08)
+#              <r>       <r^2>         r_m   norm. err
+#   1s       0.153       0.031       2.585     3.2E-07
+#   2s       0.807       0.787      10.090    -2.4E-08
+#   2p       0.773       0.773      12.135    -2.1E-08
+#
+# Uniform grid parameters for continuum states:
+#   N_uniform             =    2535
+#   continuum_rmax(a.u.)  =      12.676 (internally determined)
+#   dr(a.u.)              =   5.00E-03
+#   threshold to determine r_m =   1.00E-08
+#   continuum_rmax is just right next to r_m in radial grid.
+#
+# Fluorescence (based on orbital energies):
+#   I     F        x-ray E(eV)     rate(a.u.)              R_int
+#   1s  - 2p  :         905.63    1.88290E-04       -9.92880E-02
+#                ----------------------------
+#                Total F rate =   1.88290E-04 a.u.  ( lifetime = 128.5 fs )
+#
+# Auger decay (based on orbital energies):
+#                     K.E.(eV)     rate(a.u.)         K i1 i2 i3 i4          R_K
+#                                                     0 20 20 10 0   1.17702E-02
+#   1s  - 2s  2s  :     815.26    8.70451E-04    
+#                                                     0 20 21 10 1  -9.68822E-03
+#                                                     1 21 20 10 1  -1.55723E-02
+#   1s  - 2s  2p  :     837.50    2.65841E-03    
+#                                                     1 21 21 10 0  -1.43620E-02
+#                                                     1 21 21 10 2   3.69490E-02
+#   1s  - 2p  2p  :     859.74    6.15067E-03    
+#             -------------------------------
+#             1s  hole A rate =   9.67952E-03    
+#                Total A rate =   9.67952E-03 a.u.  ( lifetime = 2.5 fs )
+#
+#            Total decay rate =   9.86781E-03 a.u.  ( lifetime = 2.5 fs )
+#           Total decay width =   2.68517E-01 eV
+#
+# Current date/time  :  2-Oct-2026 11:40:11
+# elapsed real time  :  0.38 seconds on fermi
+# Job time(CPU_time) :  0.38 seconds on fermi

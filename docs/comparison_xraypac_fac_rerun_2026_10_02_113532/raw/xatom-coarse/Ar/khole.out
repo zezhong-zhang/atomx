@@ -1,0 +1,120 @@
+# ---------------------------------------------------
+# XATOM HFS : electronic structure of atoms and more,
+#
+# Job started at  :  2-Oct-2026 11:40:13
+# ---------------------------------------------------
+# Atomic ion: Ar+
+#   nuclear charge:   18
+#   total electrons:  17
+#   total charge:     +1
+#   configuration: 1s1_2s2_2p6_3s2_3p6
+#
+# Computational method:
+#   exchange functional: Slater (Latter tail correction)
+#   correlation functional: none
+#
+# Grid for the spherical coordinate:
+#   N =  200
+#   L parameter =      1.0
+#   Rmax(a.u.)  =     50.0
+#   lmax  =    2
+#
+# SCF converged after   23 iterations
+#   energy convergence  = -9.384E-08
+#   density convergence =  1.511E-08
+#
+# Energies: 
+# - zeroth-order energy (a.u.):
+#   SUM of E_orb   =    -227.54753458  [     -6191.88 eV ]
+#   (SUM of E_kin) =     418.49263473
+#   (Effec. pot E) =    -646.04016931
+#
+# - first-order energy (a.u.): with DFT formula
+#   Kinetic E      =     418.49263473
+#   E Latter corr  =      -0.04964157
+#   Nuc-Elec pot E =   -1004.91889834    One-Elec E =    -586.47590518
+#
+#   Hartree E      =     203.09217015
+#   Exchange E     =     -35.44197727
+#   Correlation E  =       0.00000000    Two-Elec E =     167.65019288
+#   ---------------------------------
+#   Total Energy   =    -418.82571230  [    -11396.83 eV ]
+#
+#                E(0)        E(1)
+# |E_TOT|    -6191.88   -11396.83
+#
+# Orbital energies: 
+#        n_occ        E(a.u.)          E(eV)         KE(eV)
+#   1s       1  -123.31921098   -3355.686331    4320.674978
+#   2s       2   -13.31627644    -362.354304     756.923108
+#   2p       6   -11.25472977    -306.256767     758.488784
+#   3s       2    -1.67326341     -45.531812     142.007066
+#   3p       6    -1.12014421     -30.480674     119.715917
+#
+#              1s        2s        2p        3s        3p
+# |SCF|  -3355.69   -362.35   -306.26    -45.53    -30.48
+#
+# Radial wavefunction information (a.u.): (r_m: r_max where |u(r)| >  1.0E-08)
+#              <r>       <r^2>         r_m   norm. err
+#   1s       0.085       0.010       1.410     4.0E-06
+#   2s       0.394       0.184       4.365     2.9E-07
+#   2p       0.347       0.148       4.625    -3.5E-08
+#   3s       1.263       1.846      12.770    -4.4E-08
+#   3p       1.374       2.239      15.570    -6.9E-08
+#
+# Uniform grid parameters for continuum states:
+#   N_uniform             =    3128
+#   continuum_rmax(a.u.)  =      15.642 (internally determined)
+#   dr(a.u.)              =   5.00E-03
+#   threshold to determine r_m =   1.00E-08
+#   continuum_rmax is just right next to r_m in radial grid.
+#
+# Fluorescence (based on orbital energies):
+#   I     F        x-ray E(eV)     rate(a.u.)              R_int
+#   1s  - 2p  :        3049.43    2.92600E-03       -6.33458E-02
+#   1s  - 3p  :        3325.21    2.79003E-04        1.71785E-02
+#                ----------------------------
+#                Total F rate =   3.20500E-03 a.u.  ( lifetime = 7.5 fs )
+#
+# Auger decay (based on orbital energies):
+#                     K.E.(eV)     rate(a.u.)         K i1 i2 i3 i4          R_K
+#                                                     0 20 20 10 0  -1.48333E-02
+#   1s  - 2s  2s  :    2630.98    1.38248E-03    
+#                                                     0 20 21 10 1   1.28004E-02
+#                                                     1 21 20 10 1   2.12425E-02
+#   1s  - 2s  2p  :    2687.08    4.65022E-03    
+#                                                     0 20 30 10 0  -5.15269E-03
+#                                                     0 30 20 10 0  -4.80692E-03
+#   1s  - 2s  3s  :    2947.80    3.12754E-04    
+#                                                     0 20 31 10 1  -4.01064E-03
+#                                                     1 31 20 10 1  -6.47926E-03
+#   1s  - 2s  3p  :    2962.85    4.55698E-04    
+#                                                     1 21 21 10 0   2.04204E-02
+#                                                     1 21 21 10 2  -5.14665E-02
+#   1s  - 2p  2p  :    2743.17    1.19686E-02    
+#                                                     0 30 21 10 1   4.02032E-03
+#                                                     1 21 30 10 1   7.20902E-03
+#   1s  - 2p  3s  :    3003.90    4.62816E-04    
+#                                                     1 21 31 10 0  -6.50511E-03
+#                                                     1 31 21 10 0  -5.96132E-03
+#                                                     1 21 31 10 2   1.55863E-02
+#                                                     1 31 21 10 2   1.47707E-02
+#   1s  - 2p  3p  :    3018.95    2.09794E-03    
+#                                                     0 30 30 10 0  -1.67039E-03
+#   1s  - 3s  3s  :    3264.62    1.75313E-05    
+#                                                     0 30 31 10 1  -1.26259E-03
+#                                                     1 31 30 10 1  -2.20100E-03
+#   1s  - 3s  3p  :    3279.67    4.54682E-05    
+#                                                     1 31 31 10 0   1.89452E-03
+#                                                     1 31 31 10 2  -4.49449E-03
+#   1s  - 3p  3p  :    3294.72    9.21326E-05    
+#             -------------------------------
+#             1s  hole A rate =   2.14856E-02    
+#                Total A rate =   2.14856E-02 a.u.  ( lifetime = 1.1 fs )
+#
+#            Total decay rate =   2.46906E-02 a.u.  ( lifetime = 979.7 as )
+#           Total decay width =   6.71867E-01 eV
+#
+# Current date/time  :  2-Oct-2026 11:40:13
+# elapsed real time  :  0.38 seconds on fermi
+# Job time(CPU_time) :  0.38 seconds on fermi

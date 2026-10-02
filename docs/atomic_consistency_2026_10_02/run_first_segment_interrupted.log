@@ -1,0 +1,26 @@
+C hf relaxed fluorescence/FAC [('1s', 1.5339614188057658), ('2s', 0.2549544178365427), ('2p', None)] frozen/relaxed PI range 0.604334447878407 1.0368704750042406
+C gu relaxed fluorescence/FAC [('1s', 0.9848600592406292), ('2s', 0.2695773263108178), ('2p', None)] frozen/relaxed PI range 0.9994041414231646 1.0000423116887172
+Ne hf relaxed fluorescence/FAC [('1s', 1.322396392227594), ('2s', 0.9819964607969099), ('2p', None)] frozen/relaxed PI range 0.7882958666613938 1.0141318360633302
+Ne gu relaxed fluorescence/FAC [('1s', 0.9998578250551607), ('2s', 1.00016668886219), ('2p', None)] frozen/relaxed PI range 0.9988787303263783 1.0003673323838287
+Ar hf relaxed fluorescence/FAC [('1s', 1.1393391564450674), ('2s', 1.3945928913643377), ('2p', 1.933296192934695)] frozen/relaxed PI range 0.9344425524044796 1.0279972204181826
+Ar gu relaxed fluorescence/FAC [('1s', 0.9999832846711856), ('2s', 0.999918972009425), ('2p', 1.0005194251947962)] frozen/relaxed PI range 0.9999075511780912 1.000021044450019
+Fe hf relaxed fluorescence/FAC [('1s', 1.0824238599934133), ('2s', 1.1788807382057993), ('2p', 1.2268589432311972)] frozen/relaxed PI range 0.9503425676502509 1.0134508976077907
+Fe gu relaxed fluorescence/FAC [('1s', 1.001360936614429), ('2s', 1.0013256366363346), ('2p', 0.9914466478867661)] frozen/relaxed PI range 0.9998831661241843 1.0000326484627406
+Traceback (most recent call last):
+  File "/data/code/atomx/benchmarks/bench_atomic_consistency.py", line 252, in <module>
+    run(args)
+  File "/data/code/atomx/benchmarks/bench_atomic_consistency.py", line 248, in main
+    p.add_argument("--ns", type=int, default=180)
+  File "/data/code/atomx/benchmarks/bench_atomic_consistency.py", line 71, in run
+    hole_states = {}
+  File "/data/code/atomx/benchmarks/bench_atomic_consistency.py", line 57, in solve
+    r_max=80,
+  File "/data/code/atomx/src/atomx/methods/dirac_fock.py", line 2185, in solve
+    result = solve_dirac(H, S_full, ns_full, kappa,
+  File "/data/code/atomx/src/atomx/numerics/bspline/dirac_assembly.py", line 413, in solve_dirac
+    eigenvalues, eigenvectors = _eigh_finite(H_red, S_red)
+  File "/data/code/atomx/src/atomx/numerics/bspline/dirac_assembly.py", line 285, in _eigh_finite
+    w, v = linalg.eigh(H_red, S_red, driver="gvd", check_finite=False)
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/scipy/linalg/_decomp.py", line 575, in eigh
+    w, v, *other_args, info = drv(a=a1, b=b1, **drv_args, **lwork_args)
+KeyboardInterrupt

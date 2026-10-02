@@ -1,0 +1,15 @@
+....Fxx                                                                  [100%]
+=================================== FAILURES ===================================
+_______________ test_kll_auger_within_order_of_magnitude_of_fac ________________
+/tmp/atomx-comparison-snapshot-j7k_3qnw/tests/test_auger_fac_panel.py:219: in test_kll_auger_within_order_of_magnitude_of_fac
+    assert RATIO_FLOOR <= r["ratio"] <= RATIO_CEIL, (
+E   AssertionError: ILEV 32: atomx/FAC = 0.34 outside [0.4, 6.5]; live panel:
+E       ILEV 32 J=0.5 3s1/2+3p1/2 -> 2p1/2+eps: atomx=1.414e+14 s^-1  FAC=4.100e+14 s^-1  atomx/FAC=0.34
+E       ILEV 71 J=0.5 3p3/2+3p1/2 -> 2p3/2+eps: atomx=5.576e+14 s^-1  FAC=3.927e+14 s^-1  atomx/FAC=1.42
+E       ILEV 72 J=1.5 3p3/2+3p3/2 -> 2p3/2+eps: atomx=5.662e+14 s^-1  FAC=3.126e+14 s^-1  atomx/FAC=1.81
+E       ILEV 142 J=2.5 3p1/2+3d5/2 -> 2p1/2+eps: atomx=9.038e+14 s^-1  FAC=3.184e+14 s^-1  atomx/FAC=2.84
+E       ILEV 190 J=3.5 3d3/2+3d5/2 -> 2p1/2+eps: atomx=1.395e+15 s^-1  FAC=3.081e+14 s^-1  atomx/FAC=4.53
+E   assert 0.4 <= 0.34493947360355065
+=========================== short test summary info ============================
+FAILED ../../../tmp/atomx-comparison-snapshot-j7k_3qnw/tests/test_auger_fac_panel.py::test_kll_auger_within_order_of_magnitude_of_fac
+1 failed, 4 passed, 2 xfailed in 13.26s

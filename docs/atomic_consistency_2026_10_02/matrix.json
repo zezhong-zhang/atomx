@@ -1,0 +1,60 @@
+{
+  "cells": [
+    {
+      "family": "PI/RR",
+      "observable": "RR capture into He-like Fe24+ 1s\u00b2",
+      "evidence": "benchmarks/results_fac_pi_rr.csv",
+      "status": "archived FAC; 6 points; |error| max 4.7%"
+    },
+    {
+      "family": "PI/RR",
+      "observable": "RR capture into Li-like Fe23+ 2s/2p",
+      "evidence": "benchmarks/results_fac_pi_rr.csv",
+      "status": "archived FAC; 18 points; |error| max 20.4%"
+    },
+    {
+      "family": "PI",
+      "observable": "neutral K/L PI, C/Ne/Ar/Fe/Kr/Xe",
+      "evidence": "/data/code/atomx/docs/atomic_consistency_2026_10_02/pi.csv",
+      "status": "statistical moments + native delta-SCF; 54 samples per model; HF/FAC 0.604\u20131.037\u00d7; Gu/FAC 0.997\u20131.000\u00d7; frozen Gu continuum"
+    },
+    {
+      "family": "AUGER",
+      "observable": "Ne KLL configuration average (LS)",
+      "evidence": "/data/code/atomx/docs/systematic_xray_2026_10_02/ne_ls.json",
+      "status": "separate public Atom anchor: 1.025\u00d7 XATOM; radial settings differ from Z sweep"
+    },
+    {
+      "family": "AUGER",
+      "observable": "Fe XVI LMM \u2192 Fe XVII, five resonances (jj)",
+      "evidence": "/data/code/atomx/docs/systematic_xray_2026_10_02/fe_jj.json",
+      "status": "archived FAC: 5 live points; 0.644\u20133.562\u00d7; 10% accuracy unmet"
+    },
+    {
+      "family": "FLUOR",
+      "observable": "K/L per-vacancy radiative widths",
+      "evidence": "/data/code/atomx/docs/atomic_consistency_2026_10_02/fluorescence.csv",
+      "status": "statistical moments + native delta-SCF; 18 samples per model; HF/FAC 0.255\u20131.933\u00d7; Gu/FAC 0.270\u20131.005\u00d7; E1 only; C 2s discrepancy retained"
+    },
+    {
+      "family": "YIELD",
+      "observable": "omega_K=A_r/(A_r+Gamma_A), Z panel",
+      "evidence": "/data/code/atomx/docs/systematic_xray_2026_10_02/yield.csv",
+      "status": "measured 6 Z points; native/FAC 1.019\u20132.066\u00d7; LS Auger + E1; archived model, not recomputed with consistency-panel radiative widths"
+    },
+    {
+      "family": "RAYLEIGH",
+      "observable": "nonresonant f0, Ne/Ar/Fe",
+      "evidence": "/data/code/atomx/docs/systematic_xray_2026_10_02/scattering.csv",
+      "status": "9 energy/element points; native/FAC-spinor integral 0.993\u20131.004\u00d7"
+    },
+    {
+      "family": "COMPTON",
+      "observable": "WH S(q), Thomson/KN weighted, Ne/Ar/Fe",
+      "evidence": "/data/code/atomx/docs/systematic_xray_2026_10_02/scattering.csv",
+      "status": "9 energy/element points; native/FAC-spinor KN integral 0.918\u20131.001\u00d7; no DDCS"
+    }
+  ],
+  "missing": 0,
+  "scope": "measured coverage, not uniform physical accuracy"
+}

@@ -1,0 +1,103 @@
+# ---------------------------------------------------
+# XATOM HFS : electronic structure of atoms and more,
+#
+# Job started at  :  2-Oct-2026 14:32:40
+# ---------------------------------------------------
+# Atom: Xe
+#   nuclear charge:   54
+#   total electrons:  54
+#   total charge:     +0
+#   configuration: 1s2_2s2_2p6_3s2_3p6_3d10_4s2_4p6_4d10_5s2_5p6
+#
+# Computational method:
+#   exchange functional: Slater (Latter tail correction)
+#   correlation functional: none
+#
+# Grid for the spherical coordinate:
+#   N =  300
+#   L parameter =      1.0
+#   Rmax(a.u.)  =     80.0
+#   lmax  =    2
+#
+# SCF converged after   27 iterations
+#   energy convergence  = -6.059E-08
+#   density convergence =  2.717E-08
+#
+# Energies: 
+# - zeroth-order energy (a.u.):
+#   SUM of E_orb   =   -4472.59054616  [   -121705.38 eV ]
+#   (SUM of E_kin) =    7308.97933132
+#   (Effec. pot E) =  -11781.56987747
+#
+# - first-order energy (a.u.): with DFT formula
+#   Kinetic E      =    7308.97933132
+#   E Latter corr  =      -0.03198668
+#   Nuc-Elec pot E =  -17282.59025073    One-Elec E =   -9973.64290609
+#
+#   Hartree E      =    2922.84363232
+#   Exchange E     =    -258.47617853
+#   Correlation E  =       0.00000000    Two-Elec E =    2664.36745379
+#   ---------------------------------
+#   Total Energy   =   -7309.27545230  [   -198895.50 eV ]
+#
+#                E(0)        E(1)
+# |E_TOT|  -121705.38  -198895.50
+#
+# Orbital energies: 
+#        n_occ        E(a.u.)          E(eV)         KE(eV)
+#   1s       2 -1217.21968461  -33122.231520   38993.544666
+#   2s       2  -186.02770648   -5062.071244    8265.696322
+#   2p       6  -175.53087197   -4776.437856    8312.423792
+#   3s       2   -38.47602359   -1046.985830    2485.954366
+#   3p       6   -33.95873521    -924.064163    2434.938702
+#   3d      10   -25.48116864    -693.377849    2326.103873
+#   4s       2    -7.09424942    -193.044341     729.046387
+#   4p       6    -5.46364724    -148.673400     669.514428
+#   4d      10    -2.63051231     -71.579879     532.607415
+#   5s       2    -0.80131032     -21.804762     135.784313
+#   5p       6    -0.41937689     -11.411825      96.502053
+#
+#              1s        2s        2p        3s        3p        3d        4s        4p        4d        5s        5p
+# |SCF| -33122.23  -5062.07  -4776.44  -1046.99   -924.06   -693.38   -193.04   -148.67    -71.58    -21.80    -11.41
+#
+# Radial wavefunction information (a.u.): (r_m: r_max where |u(r)| >  1.0E-08)
+#              <r>       <r^2>         r_m   norm. err
+#   1s       0.028       0.001       0.469    -2.2E-07
+#   2s       0.121       0.017       1.236    -5.0E-08
+#   2p       0.103       0.013       1.244    -2.5E-08
+#   3s       0.318       0.116       2.709    -1.8E-08
+#   3p       0.308       0.110       2.831    -1.8E-08
+#   3d       0.278       0.091       3.126    -9.7E-09
+#   4s       0.738       0.614       6.117    -1.7E-08
+#   4p       0.766       0.667       6.821    -1.8E-08
+#   4d       0.848       0.837       9.312    -1.6E-08
+#   5s       1.877       3.984      17.816    -3.1E-08
+#   5p       2.231       5.748      24.467    -2.8E-08
+#
+# Uniform grid parameters for continuum states:
+#   N_uniform             =   40182
+#   continuum_rmax(a.u.)  =      25.114 (internally determined)
+#   dr(a.u.)              =   6.25E-04
+#   threshold to determine r_m =   1.00E-08
+#   continuum_rmax is just right next to r_m in radial grid.
+#
+# Photoabsorption cross section:
+#   photon energy =  1460.675 a.u. =  39747.00 eV
+#                       cs(Mb)     cs(a.u.)
+#        1s    :   4.12486E-03  1.47301E-04
+#        2s    :   3.35655E-04  1.19865E-05
+#        2p    :   2.17793E-04  7.77754E-06
+#        3s    :   6.55172E-05  2.33966E-06
+#        3p    :   4.22233E-05  1.50782E-06
+#        3d    :   2.93311E-06  1.04743E-07
+#        4s    :   1.43142E-05  5.11169E-07
+#        4p    :   8.57855E-06  3.06346E-07
+#        4d    :   5.47024E-07  1.95346E-08
+#        5s    :   2.11676E-06  7.55909E-08
+#        5p    :   9.51208E-07  3.39683E-08
+#   ---------------------------------------
+#   Total P cs =   4.81549E-03  1.71964E-04
+#
+# Current date/time  :  2-Oct-2026 14:32:42
+# elapsed real time  :  1.94 seconds on fermi
+# Job time(CPU_time) :  1.94 seconds on fermi

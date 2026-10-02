@@ -1,0 +1,61 @@
+# ---------------------------------------------------
+# XATOM HFS : electronic structure of atoms and more,
+#
+# Job started at  :  2-Oct-2026 12:17:24
+# ---------------------------------------------------
+# Atomic ion: Ne+
+#   nuclear charge:   10
+#   total electrons:   9
+#   total charge:     +1
+#   configuration: 1s2_2s2_2p5
+#
+# Computational method:
+#   exchange functional: Slater (Latter tail correction)
+#   correlation functional: none
+#
+# Grid for the spherical coordinate:
+#   N =  300
+#   L parameter =      1.0
+#   Rmax(a.u.)  =     80.0
+#   lmax  =    2
+#
+# SCF converged after   23 iterations
+#   energy convergence  = -4.713E-08
+#   density convergence =  4.102E-10
+#
+# Energies: 
+# - zeroth-order energy (a.u.):
+#   SUM of E_orb   =     -76.92211536  [     -2093.16 eV ]
+#   (SUM of E_kin) =     131.63983314
+#   (Effec. pot E) =    -208.56194849
+#
+# - first-order energy (a.u.): with DFT formula
+#   Kinetic E      =     131.63983314
+#   E Latter corr  =      -0.08498742
+#   Nuc-Elec pot E =    -308.09829632    One-Elec E =    -176.54345061
+#
+#   Hartree E      =      60.53799804
+#   Exchange E     =     -16.09099562
+#   Correlation E  =       0.00000000    Two-Elec E =      44.44700242
+#   ---------------------------------
+#   Total Energy   =    -132.09644819  [     -3594.53 eV ]
+#
+#                E(0)        E(1)
+# |E_TOT|    -2093.16    -3594.53
+#
+# Orbital energies: 
+#        n_occ        E(a.u.)          E(eV)         KE(eV)
+#   1s       2   -32.41006449    -881.922691    1274.400971
+#   2s       2    -2.33714357     -63.596910     160.464604
+#   2p       5    -1.48553985     -40.423594     142.474164
+#
+#              1s        2s        2p
+# |SCF|   -881.92    -63.60    -40.42
+#
+# Fluorescence (based on orbital energies):
+#   I     F        x-ray E(eV)     rate(a.u.)              R_int
+#   NONE
+#
+# Current date/time  :  2-Oct-2026 12:17:25
+# elapsed real time  :  1.22 seconds on fermi
+# Job time(CPU_time) :  1.22 seconds on fermi

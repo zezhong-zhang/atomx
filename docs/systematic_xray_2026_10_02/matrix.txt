@@ -1,0 +1,28 @@
+1. PI/RR    RR capture into He-like Fe24+ 1s²
+   archived FAC; 6 points; |error| max 4.8%
+   benchmarks/results_fac_pi_rr.csv
+2. PI/RR    RR capture into Li-like Fe23+ 2s/2p
+   archived FAC; 18 points; |error| max 20.7%
+   benchmarks/results_fac_pi_rr.csv
+3. PI       neutral K/L PI, C/Ne/Ar/Fe/Kr/Xe
+   measured 54 points; native/FAC 0.566–0.989×
+   /data/code/atomx/docs/systematic_xray_2026_10_02/pi.csv
+4. AUGER    Ne KLL configuration average (LS)
+   separate public Atom anchor: 1.025× XATOM; radial settings differ from Z sweep
+   /data/code/atomx/docs/systematic_xray_2026_10_02/ne_ls.json
+5. AUGER    Fe XVI LMM → Fe XVII, five resonances (jj)
+   archived FAC: 5 live points; 0.644–3.562×; 10% accuracy unmet
+   /data/code/atomx/docs/systematic_xray_2026_10_02/fe_jj.json
+6. FLUOR    K/L per-vacancy radiative widths
+   measured 18 hole widths; native/FAC 0.451–3.088×; E1 only
+   /data/code/atomx/docs/systematic_xray_2026_10_02/fluorescence_totals.csv
+7. YIELD    omega_K=A_r/(A_r+Gamma_A), Z panel
+   measured 6 Z points; native/FAC 1.019–2.066×; LS Auger + E1
+   /data/code/atomx/docs/systematic_xray_2026_10_02/yield.csv
+8. RAYLEIGH nonresonant f0, Ne/Ar/Fe
+   9 energy/element points; native/FAC-spinor integral 0.993–1.004×
+   /data/code/atomx/docs/systematic_xray_2026_10_02/scattering.csv
+9. COMPTON  WH S(q), Thomson/KN weighted, Ne/Ar/Fe
+   9 energy/element points; native/FAC-spinor KN integral 0.918–1.001×; no DDCS
+   /data/code/atomx/docs/systematic_xray_2026_10_02/scattering.csv
+0 missing evidence cells of 9; accuracy/model restrictions remain explicit.

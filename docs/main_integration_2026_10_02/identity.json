@@ -1,0 +1,18 @@
+{
+  "head": "1ca20d587637c06d4bf90321fd0357f6784652d6",
+  "origin_main": "3cd7eae5433cf8ebd8a8fe7c8c51ced414b0a412",
+  "integration": "worktree is already main; git merge origin/main reports already up to date",
+  "source_sha256": {
+    "src/atomx/methods/dirac_fock.py": "71004a3ab06ebdd58ba178d4024103079d6629bb5006ff8a77e80e910a8181d5",
+    "src/atomx/scattering/autoionization/mscheme_ci.py": "c599e43d9809684689b2530229a3dfad0d74251d4d7091144fe726647bd68d2b",
+    "tests/test_fe_lmm_mscheme_panel.py": "147d3bc5e961fe307efe8fcbf98d81d74fd9beea01faeceff00dcc4b5395c32a",
+    "benchmarks/bench_systematic_fac_matrix.py": "2b55750c037156d0f0e4ae0b7987b6f8c8bad0a104e7dd800b35994940ab5e7f"
+  },
+  "results_sha256": {
+    "fe_lmm.json": "5deeaf2f13cbe105130f51474df5bd87cdbbf98093aee8bac9a5be2abc0aa299",
+    "fe_lmm.csv": "cfe3284b162db0b88f096e8b3dd3af20014377db4e72adb1eb8a252385724acd",
+    "matrix.json": "564dbfb2426325763d43e372a94338106e3b63d9c1d87a5ec262bb10ef4c77e4",
+    "validation.log": "fccf660d7ec45cf9eb958f3e812f1e2cbec708c7577af66135a861b91bf722c8",
+    "README.md": "896a8dddf8982526e6d74d7067ffcc3b89b0eb12f3fbbfa10bf30915f9685c3d"
+  }
+}

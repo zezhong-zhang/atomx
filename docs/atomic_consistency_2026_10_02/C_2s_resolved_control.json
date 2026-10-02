@@ -1,0 +1,14 @@
+{
+  "native_delta_scf_photon_eV": 8.05379669409287,
+  "fac_line_energy_range_eV": [
+    3.825202,
+    13.86552
+  ],
+  "fac_width_per_s": 1530728517.2997766,
+  "fac_same_line_strengths_at_native_centroid_per_s": 412715921.28529006,
+  "native_gu_per_s": 412649701.0013962,
+  "native_gu_over_fac_collapsed": 0.9998395499652941,
+  "native_gu_over_fac_resolved": 0.2695773263108178,
+  "control_only": true,
+  "interpretation": "Replace FAC line frequencies by the native configuration centroid while retaining weighted strengths. Tests sensitivity to resolved energy/strength correlations; no control is used in the native benchmark."
+}

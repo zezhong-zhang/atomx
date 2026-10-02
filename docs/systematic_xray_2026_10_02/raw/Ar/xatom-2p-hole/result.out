@@ -1,0 +1,65 @@
+# ---------------------------------------------------
+# XATOM HFS : electronic structure of atoms and more,
+#
+# Job started at  :  2-Oct-2026 12:18:41
+# ---------------------------------------------------
+# Atomic ion: Ar+
+#   nuclear charge:   18
+#   total electrons:  17
+#   total charge:     +1
+#   configuration: 1s2_2s2_2p5_3s2_3p6
+#
+# Computational method:
+#   exchange functional: Slater (Latter tail correction)
+#   correlation functional: none
+#
+# Grid for the spherical coordinate:
+#   N =  300
+#   L parameter =      1.0
+#   Rmax(a.u.)  =     80.0
+#   lmax  =    2
+#
+# SCF converged after   23 iterations
+#   energy convergence  = -9.569E-08
+#   density convergence =  3.270E-08
+#
+# Energies: 
+# - zeroth-order energy (a.u.):
+#   SUM of E_orb   =    -325.60206303  [     -8860.08 eV ]
+#   (SUM of E_kin) =     528.45826111
+#   (Effec. pot E) =    -854.06032414
+#
+# - first-order energy (a.u.): with DFT formula
+#   Kinetic E      =     528.45826111
+#   E Latter corr  =      -0.04868783
+#   Nuc-Elec pot E =   -1233.46388985    One-Elec E =    -705.05431657
+#
+#   Hartree E      =     216.63811105
+#   Exchange E     =     -40.36797642
+#   Correlation E  =       0.00000000    Two-Elec E =     176.27013463
+#   ---------------------------------
+#   Total Energy   =    -528.78418194  [    -14388.95 eV ]
+#
+#                E(0)        E(1)
+# |E_TOT|    -8860.08   -14388.95
+#
+# Orbital energies: 
+#        n_occ        E(a.u.)          E(eV)         KE(eV)
+#   1s       2  -118.39485474   -3221.687785    4224.485577
+#   2s       2   -12.85881222    -349.906069     719.900072
+#   2p       5   -10.63413352    -289.369484     703.187693
+#   3s       2    -1.65803806     -45.117509     139.370588
+#   3p       6    -1.10133090     -29.968737     116.104903
+#
+#              1s        2s        2p        3s        3p
+# |SCF|  -3221.69   -349.91   -289.37    -45.12    -29.97
+#
+# Fluorescence (based on orbital energies):
+#   I     F        x-ray E(eV)     rate(a.u.)              R_int
+#   2p  - 3s  :         244.25    1.10544E-06       -9.40761E-02
+#                ----------------------------
+#                Total F rate =   1.10544E-06 a.u.  ( lifetime = 21881.7 fs )
+#
+# Current date/time  :  2-Oct-2026 12:18:42
+# elapsed real time  :  1.22 seconds on fermi
+# Job time(CPU_time) :  1.22 seconds on fermi

@@ -1,0 +1,39 @@
+{
+  "rows": [
+    {
+      "ilev": 32,
+      "E_fac": 287.19,
+      "E_ours": 285.3189061062134,
+      "ratio": 0.9312762724340498
+    },
+    {
+      "ilev": 71,
+      "E_fac": 319.28,
+      "E_ours": 318.24185971563753,
+      "ratio": 0.8922265802627309
+    },
+    {
+      "ilev": 72,
+      "E_fac": 321.38,
+      "E_ours": 319.96954162998037,
+      "ratio": 0.9771099121397392
+    },
+    {
+      "ilev": 142,
+      "E_fac": 371.97,
+      "E_ours": 371.274210365549,
+      "ratio": 1.1143271007155973
+    },
+    {
+      "ilev": 190,
+      "E_fac": 409.13,
+      "E_ours": 409.19208381588925,
+      "ratio": 1.091805903935481
+    }
+  ],
+  "protocol": "fac_frozen reference configuration orbitals; full nl=3 CI manifold",
+  "pairing": "strongest width inside +/-2.5 eV of FAC in the same 2J block",
+  "band_15pct_passed": true,
+  "max_abs_fractional_error": 0.11432710071559726,
+  "native_hamiltonian_relaxation": false
+}
