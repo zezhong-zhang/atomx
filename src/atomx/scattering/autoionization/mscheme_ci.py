@@ -955,6 +955,16 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
             elif g_occ == 0.0:
                 if (n, l) not in excited_nls:
                     excited_nls.append((n, l))
+            elif occ < cap:
+                # partially occupied in the ground result but the CONFIG
+                # token marks it excited: allowed — this is how a
+                # resonance-average solve hands RELAXED virtual
+                # orbitals to the manifold (their fractional occupation
+                # only relaxed the orbitals; the active electrons are
+                # handled entirely by the determinant CI below and are
+                # excluded from N_bound / the core contraction)
+                if (n, l) not in excited_nls:
+                    excited_nls.append((n, l))
             else:
                 raise ValueError(
                     f"subshell {n}{_L_CHARS[l]} is partially occupied in "
@@ -985,7 +995,12 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
         r_max = float(grid[-1])
         r_fine = make_fine_grid(r_max, p_rel(float(e_max_eV) / HARTREE_EV), z_inner=int(result.Z))
         dr_fine = RadialMetric.trapezoid(r_fine).weights
-        N_bound = sum(occ for (_n, _k, occ) in meta)
+        # closed-core electron count: excited-nl subshells (empty
+        # virtuals or fractional resonance-average occupations) do not
+        # contribute — the Auger residual is the closed core alone
+        _excited = set(excited_nls)
+        N_bound = sum(occ for (_n, _k, occ) in meta
+                      if (_n, _l_of(_k)) not in _excited)
         Z_res = max(Z - N_bound + 1.0, 1.0)
 
         def _tofine(P, Q):
@@ -1091,6 +1106,23 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
 
         for (n_e, l_e) in excited_nls:
             for kappa in _kappas_of_l(l_e):
+                present = next((sh for sh in result.subshells
+                                if sh.kappa == kappa and sh.n == n_e), None)
+                if present is not None:
+                    # RELAXED VIRTUAL: the resonance-average solve
+                    # supplies the excited orbital directly (fractional
+                    # occupation) — use it instead of a frozen-core
+                    # V^N virtual
+                    same = [sh for sh in result.subshells
+                            if sh.kappa == kappa]
+                    idx = same.index(present)
+                    P, Q = result.orbitals_raw[kappa][idx][:2]
+                    orbital_map[(n_e, kappa)] = _tofine(P, Q)
+                    orbital_coeffs[(n_e, kappa)] = (P, Q)
+                    orbital_eps[(n_e, kappa)] = float(
+                        result.orbital_energies[
+                            _orbital_label(n_e, kappa)])
+                    continue
                 occ_ns = [sh.n for sh in result.subshells
                           if sh.kappa == kappa]
                 n_first_virt = max([_l_of(kappa)] + occ_ns) + 1
