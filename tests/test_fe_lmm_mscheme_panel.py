@@ -122,9 +122,15 @@ def test_fe_lmm_mscheme_panel_band(panel_levels):
         + " / ".join(f"{v:.3f}" for v in MEASURED.values())
         + f" for ILEV {'/'.join(str(k) for k in MEASURED)}, worst "
         f"|atomx/FAC - 1| = {MEASURED_WORST:.3f} against the 0.10 gate. "
-        "The residual sits in the manifold-H model (no Breit/QED, no "
-        "core-polarisation dressing) and the ~1 eV level-order "
-        "sensitivity of the near-degenerate pairs."
+        "Residual attribution (from the reference's sfac script, "
+        "tests/data/fe17_dr_fac.json): the FAC CI space additionally "
+        "mixes the 2s-hole complex ('2s1 2p6 3*2', ~130 eV up, "
+        "second-order) and the n=4 partners (dr34, 40-60 eV up, "
+        "first-order candidates) — our manifold has the nl=3 complex "
+        "only; the reference is no-Breit so Breit is NOT a lever; "
+        "remaining model gaps: manifold one-body dressing "
+        "(core polarisation) and the ~1 eV level-order sensitivity "
+        "of the near-degenerate pairs."
     ),
 )
 def test_fe_lmm_mscheme_panel_10pct(panel_levels):
