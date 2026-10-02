@@ -160,23 +160,52 @@ class RateProvider:
     def _build_auger(self, config: Config) -> list:
         from atomx.scattering.autoionization import auger_rate_csf_average
 
+        # HOLE GATE (2026-10-02 XFEL increment): an Auger channel needs
+        # a vacancy (occupation below capacity) with at least two
+        # electrons in HIGHER subshells to fill and emit.  Closed shells
+        # have no channels, but the LS chain runs the full shooting
+        # continuum solve per subshell-triple before discovering the
+        # rate is zero — gating by vacancy presence first turns the
+        # ~64-solves-per-config enumeration into ~0 for closed shells
+        # (the dominant configuration-graph population).
+        def _capacity(k: int) -> float:
+            return 2.0 * (2.0 * (k if k > 0 else -k - 1) + 1)
+
+        subs_sorted = sorted(config)  # (n, kappa) ascending
+        triples = []
+        for i, hole in enumerate(subs_sorted):
+            if config[hole] >= _capacity(hole[1]):
+                continue                      # full: no vacancy
+            higher = [s for s in subs_sorted[i + 1:]
+                      if config.get(s, 0.0) >= 1.0]
+            if len(higher) < 1:
+                continue                      # nothing above to decay
+            for a in higher:
+                for b in higher:
+                    if b < a:
+                        continue
+                    if config[a] + config[b] < 1.5:
+                        continue
+                    if (a == b and config[a] < 1.5):
+                        continue              # equivalent pair needs 2
+                    triples.append((hole, a, b))
+        if not triples:
+            return []
+
         result = self._unwrap(self._solve(config))
         labels = {sh: _subshell_label(sh) for sh in config}
         channels = []
-        subs = sorted(config)
-        for nh_kh in subs:
-            for i, ns1_ks1 in enumerate(subs):
-                for ns2_ks2 in subs[i:]:
-                    out = auger_rate_csf_average(
-                        result,
-                        hole_label=labels[nh_kh],
-                        source_label=labels[ns1_ks1],
-                        source2_label=labels[ns2_ks2],
-                        shooting_n_grid=200,
-                    )
-                    gamma = float(out["Gamma_per_s"])
-                    if gamma > 0.0:
-                        channels.append((nh_kh, ns1_ks1, ns2_ks2, gamma))
+        for nh_kh, ns1_ks1, ns2_ks2 in triples:
+            out = auger_rate_csf_average(
+                result,
+                hole_label=labels[nh_kh],
+                source_label=labels[ns1_ks1],
+                source2_label=labels[ns2_ks2],
+                shooting_n_grid=200,
+            )
+            gamma = float(out["Gamma_per_s"])
+            if gamma > 0.0:
+                channels.append((nh_kh, ns1_ks1, ns2_ks2, gamma))
         return channels
 
 
