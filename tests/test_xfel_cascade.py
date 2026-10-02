@@ -113,3 +113,38 @@ def test_live_ne_cascade_end_to_end():
     assert total == pytest.approx(1.0, abs=1e-6)
     assert res.configs_visited >= 1
     assert res.photons_absorbed >= 0.0
+
+
+def test_mc_low_fluence_matches_time_resolved_limit():
+    """Survival at small P converges to exp(-P) (rate-equation limit);
+    the deterministic single pass is its first-order 1-P."""
+    from atomx.xfel.cascade import cascade_mc
+    p = 0.3
+    res = cascade_mc(None, NE_CONFIG, Pulse(1000.0, 0.3e20),
+                     n_trajectories=4000, seed=11,
+                     provider=_FakeProvider())
+    assert res.charge_distribution[0] == pytest.approx(
+        (1 - p / 8) ** 8, abs=0.03)
+    assert res.mean_absorbed >= p * 0.8
+
+
+def test_mc_high_fluence_saturates_beyond_single_pass():
+    """Re-absorption is the MC increment's physics: at P=1/step the
+    mock walks 1s2 ->PI+Auger-> 1s2(2s gone) ->PI-> 1s1 ->PI-> 1s0,
+    reaching charge 4 (single pass stops at charge 2)."""
+    from atomx.xfel.cascade import cascade_mc
+    res = cascade_mc(None, NE_CONFIG, Pulse(1000.0, 1e21),
+                     n_trajectories=500, seed=3, n_bins=8,
+                     provider=_FakeProvider())
+    assert res.mean_absorbed == pytest.approx(3.0, abs=0.2)
+    assert res.charge_distribution.get(4, 0.0) > 0.9
+    assert res.mean_emitted == pytest.approx(4.0, abs=0.3)
+
+
+def test_mc_zero_fluence_neutral():
+    from atomx.xfel.cascade import cascade_mc
+    res = cascade_mc(None, NE_CONFIG, Pulse(1000.0, 0.0),
+                     n_trajectories=100, seed=1,
+                     provider=_FakeProvider())
+    assert res.charge_distribution == {0: 1.0}
+    assert res.mean_absorbed == 0.0

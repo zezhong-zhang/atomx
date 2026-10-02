@@ -266,3 +266,120 @@ def cascade(atom_factory: Callable[[str], object], base_config: Config,
     return res
 
 
+
+
+# ---------------------------------------------------------------------------
+# Increment 2: Monte-Carlo over the pulse (re-absorption + branching trees)
+# ---------------------------------------------------------------------------
+
+def _auger_tree_branching(config: Config, prov: RateProvider,
+                          configs: Dict[ConfigKey, Config],
+                          rng) -> Tuple[Config, int, bool]:
+    """Stochastic Auger cascade: sample channels by rate ratio; returns
+    (terminal config, electrons emitted, whether any channel fired)."""
+    config = dict(config)
+    emitted = 0
+    for _ in range(24):
+        channels = prov.auger_channels(config)
+        if not channels:
+            break
+        total = sum(c[3] for c in channels)
+        pick = rng.random() * total
+        acc = 0.0
+        hole = s1 = s2 = None
+        for hole, s1, s2, g in channels:
+            acc += g
+            if pick <= acc:
+                break
+        config = _daughter_after_auger(config, hole, s1, s2)
+        emitted += 1
+        key = _key(config)
+        if key not in configs:
+            configs[key] = dict(config)
+    return config, emitted, bool(emitted)
+
+
+@dataclass
+class MCResult:
+    n_trajectories: int
+    charge_distribution: Dict[int, float] = field(default_factory=dict)
+    mean_charge: float = 0.0
+    mean_absorbed: float = 0.0
+    mean_emitted: float = 0.0
+    configs_visited: int = 0
+
+
+def cascade_mc(atom_factory: Callable[[str], object], base_config: Config,
+               pulse: Pulse, *, n_trajectories: int = 2000,
+               n_bins: int = 8, max_charge: int = 12,
+               seed: int = 7, provider: Optional[RateProvider] = None,
+               ) -> MCResult:
+    """Photon-by-photon MC over the pulse — the xatom_mc analog.
+
+    The pulse is discretised into ``n_bins`` time bins; per bin the
+    absorption probability per subshell is
+    ``P_bin = min(1, fluence*sigma/n_bins)`` and the absorbing subshell
+    is SAMPLED by cross-section weight; after each absorption the Auger
+    tree branches stochastically by rate ratios.  Neutral survival
+    converges to ``exp(-fluence*sigma)`` as ``n_bins -> inf`` (the
+    time-resolved rate-equation limit); the deterministic single pass
+    of :func:`cascade` is its first-order expansion ``1 - fluence*sigma``.
+    Failed draws CONSUME a bin (no retry): retrying would inflate the
+    absorbed fraction to 1 at any nonzero fluence.
+    """
+    import random
+
+    rng = random.Random(seed)
+    prov = provider or RateProvider(atom_factory)
+    base_nelec = sum(base_config.values())
+    configs: Dict[ConfigKey, Config] = {_key(base_config): dict(base_config)}
+    charge_counts: Dict[int, int] = {}
+    absorbed_total = 0
+    emitted_total = 0
+
+    for _ in range(n_trajectories):
+        config = dict(base_config)
+        for _bin in range(n_bins):
+            key = _key(config)
+            if key not in configs:
+                configs[key] = dict(config)
+            charge = base_nelec - sum(config.values())
+            if charge >= max_charge:
+                break
+            sigmas = prov.pi_sigmas_cm2(config, pulse.photon_energy_eV)
+            p_abs = {sh: pulse.fluence_photons_per_cm2 * s / n_bins
+                     for sh, s in sigmas.items() if s > 0.0}
+            p_sum = sum(p_abs.values())
+            if p_sum <= 1e-12:
+                break                      # thresholds closed: frozen
+            if rng.random() > min(p_sum, 1.0):
+                continue                   # bin passes without absorption
+            # sample the absorbing subshell by weight
+            pick = rng.random() * sum(p_abs.values())
+            acc = 0.0
+            target = None
+            for sh, p in p_abs.items():
+                acc += p
+                if pick <= acc:
+                    target = sh
+                    break
+            if target is None:
+                target = next(iter(p_abs))
+            daughter = _daughter_after_pi(config, target)
+            terminal, n_auger, _ = _auger_tree_branching(
+                daughter, prov, configs, rng)
+            absorbed_total += 1
+            emitted_total += 1 + n_auger
+            config = terminal
+        charge = int(round(base_nelec - sum(config.values())))
+        charge_counts[charge] = charge_counts.get(charge, 0) + 1
+
+    res = MCResult(n_trajectories=n_trajectories,
+                   configs_visited=len(configs))
+    for q, n in charge_counts.items():
+        res.charge_distribution[q] = n / n_trajectories
+    res.mean_charge = sum(q * p for q, p in
+                          res.charge_distribution.items())
+    res.mean_absorbed = absorbed_total / n_trajectories
+    res.mean_emitted = emitted_total / n_trajectories
+    return res
