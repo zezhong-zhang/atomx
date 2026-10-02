@@ -89,6 +89,33 @@ class RadiativeChannel:
     photon_approximation: str
 
 
+
+def _resolve_j2_in_degenerate_clusters(evals, evecs, j2_matrix,
+                                       tol=1e-9):
+    """Rotate eigenvectors within exactly-degenerate clusters to sharp J.
+
+    ``H`` and ``J^2`` commute; each fixed-M degenerate cluster of ``H``
+    can be rotated so both are diagonal.  Only clusters wider than one
+    eigenvalue are touched; isolated eigenvalues are left bit-for-bit.
+    """
+    evals = np.array(evals, dtype=float)
+    evecs = np.array(evecs, dtype=float)
+    n = evals.size
+    i = 0
+    while i < n:
+        j = i
+        while j + 1 < n and evals[j + 1] - evals[j] <= tol:
+            j += 1
+        if j > i:
+            block = evecs[:, i:j + 1]
+            small = block.T @ (j2_matrix @ block)
+            small = 0.5 * (small + small.T)
+            _vals, rot = np.linalg.eigh(small)
+            evecs[:, i:j + 1] = block @ rot
+        i = j + 1
+    return evals, evecs
+
+
 class ResonanceManifold:
     """Determinant CI over one resonance configuration.
 
@@ -728,6 +755,18 @@ class ResonanceManifold:
         H = self.hamiltonian(dets)
         J2 = self.j2_matrix(dets)
         evals, evecs = np.linalg.eigh(H)
+        # J-PURIFICATION (2026-10-02 radiative audit): [H, J^2] = 0, so
+        # exact-J multiplets at fixed M are EXACTLY degenerate and
+        # LAPACK returns arbitrary mixtures of different J inside each
+        # degenerate cluster.  Selecting levels by <J^2> expectation
+        # then feeds a J-MIXED eigenvector to the observables — the
+        # E1 line strength (highly J-selective) borrowed/spuriously
+        # suppressed strength by up to an order of magnitude on the Fe
+        # LMM panel (Auger, channel-smooth, tolerated it).  Resolve the
+        # commuting pair: within each degenerate cluster diagonalise
+        # J^2 and rotate to sharp-J common eigenvectors.
+        evals, evecs = _resolve_j2_in_degenerate_clusters(
+            evals, evecs, J2)
         if e_ion is None:
             e_ion = self.ion_energy()
 
