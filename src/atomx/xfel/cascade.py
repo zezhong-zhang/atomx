@@ -1,0 +1,268 @@
+"""Deterministic sequential-photoionization cascade (XFEL increment 1).
+
+The XATOM ``track_elec_config`` analog, first increment per
+docs/XFEL_GAP_ANALYSIS.md: an explicit configuration graph pumped by a
+photon fluence, with per-configuration rate tables built from the
+validated atomx providers —
+
+* subshell PI: :func:`atomx.scattering.anomalous.atomic_sigma_pi`
+  (validated vs FAC panels and the Sommerfeld-analytic H 1s curve);
+* Auger: the LS chain of ``auger_rate_csf_average`` (Ne KLL closes at
+  1.025x of XATOM channel totals, gated in
+  tests/test_auger_ne_kll_xatom.py).
+
+Approximation (documented, first increment): a SINGLE absorption
+pass per configuration — ``P = fluence * sigma`` (photons/cm^2 times
+cm^2, pulse-integrated), applied once, with decay instantaneous
+against the pulse (Auger ~fs vs XFEL ~10-100 fs) and the Auger tree
+walked by rate ordering (strongest channel first).  This is the
+first-order picture valid for fluence*sigma << 1; the re-absorption
+of survivors (sequential multiphoton saturation) needs the
+time-resolved / MC increment — iterating the single pass instead
+would wrongly ionise everything at any nonzero fluence.  Radiative
+stabilisation and shakeoff are deferred (gap analysis §4).
+
+Public API: :func:`cascade`.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from typing import Callable, Dict, List, Mapping, Optional, Tuple
+
+Subshell = Tuple[int, int]          # (n, kappa)
+Config = Mapping[Subshell, float]   # occupied subshells only
+ConfigKey = Tuple[Tuple[int, int, float], ...]
+
+_CM2_PER_A0SQ = 2.8002852e-17
+_LCHAR = "spdfghiklmno"
+
+
+@dataclass(frozen=True)
+class Pulse:
+    """Monochromatic, pulse-integrated photon fluence."""
+
+    photon_energy_eV: float
+    fluence_photons_per_cm2: float
+
+
+@dataclass
+class CascadeResult:
+    populations: Dict[ConfigKey, float] = field(default_factory=dict)
+    charge_distribution: Dict[int, float] = field(default_factory=dict)
+    electrons_emitted: float = 0.0
+    photons_absorbed: float = 0.0
+    configs_visited: int = 0
+    steps: int = 0
+
+
+def config_label(config: Config) -> str:
+    """LS-style label with jj shells MERGED per (n, l): the Atom config
+    grammar has no separate tokens for j-split partners, and emitting
+    both (e.g. 2p2 2p2) constructs an ambiguous duplicate-subshell
+    config that the ExactCI engine rightly rejects."""
+    merged: Dict[Tuple[int, int], float] = {}
+    for (n, k), q in config.items():
+        l = k if k > 0 else -k - 1
+        merged[(n, l)] = merged.get((n, l), 0.0) + q
+    return " ".join(
+        f"{n}{_LCHAR[l]}{int(round(q))}"
+        for (n, l), q in sorted(merged.items()))
+
+
+def _key(config: Config) -> ConfigKey:
+    """Occupation-resolved: 1s1 2p6 and 1s2 2p6 are DIFFERENT nodes.
+
+    (A subshell-only key collided them, so the Auger-refilled parent
+    re-absorbed forever — the first live bug, caught by the mock gates.)
+    """
+    return tuple(sorted((n, k, round(q, 6))
+                        for (n, k), q in config.items() if q >= 0.5))
+
+
+def _daughter_after_pi(config: Config, target: Subshell) -> Config:
+    out = dict(config)
+    out[target] = out.get(target, 0.0) - 1.0
+    if out[target] < 0.5:
+        out.pop(target)
+    return out
+
+
+def _daughter_after_auger(config: Config, hole: Subshell,
+                          source: Subshell, source2: Subshell) -> Config:
+    out = dict(config)
+    out[hole] = out.get(hole, 0.0) + 1.0
+    for s in (source, source2):
+        out[s] = out.get(s, 0.0) - 1.0
+        if out[s] < 0.5:
+            out.pop(s)
+    return out
+
+
+class RateProvider:
+    """Per-configuration rate tables, memoised on the configuration graph.
+
+    ``atom_factory(config_label)`` must solve the structure for the
+    labelled configuration and return the solved result object.
+    Subclass to swap providers (mscheme-CI Auger tier, resonant PI).
+    """
+
+    def __init__(self, atom_factory: Callable[[str], object]):
+        self._atom_factory = atom_factory
+        self._unwrap = lambda r: getattr(r, "_result", r)
+        self._solves: Dict[ConfigKey, object] = {}
+        self._pi_cache: Dict[Tuple[ConfigKey, float], Dict[Subshell, float]] = {}
+        self._auger_cache: Dict[ConfigKey, List] = {}
+
+    # -- override points ---------------------------------------------------
+
+    def pi_sigmas_cm2(self, config: Config,
+                      photon_energy_eV: float) -> Dict[Subshell, float]:
+        """Per-subshell PI cross section in cm^2 (subshell sum)."""
+        key = _key(config)
+        ckey = (key, photon_energy_eV)
+        if ckey not in self._pi_cache:
+            from atomx.scattering.anomalous import atomic_sigma_pi
+
+            result = self._unwrap(self._solve(config))
+            omega_ha = photon_energy_eV / 27.211386245988
+            total_a0sq = atomic_sigma_pi(result, [omega_ha])[0]
+            occ = _occupation_table(result)
+            total_occ = sum(occ.get(sh, q) for sh, q in config.items())
+            if total_occ <= 0:
+                self._pi_cache[ckey] = {sh: 0.0 for sh in config}
+            else:
+                per_electron = total_a0sq / total_occ
+                self._pi_cache[ckey] = {
+                    sh: per_electron * _CM2_PER_A0SQ * occ.get(sh, 0.0)
+                    for sh in config if occ.get(sh, 0.0) > 0.0
+                }
+        return self._pi_cache[ckey]
+
+    def auger_channels(self, config: Config) -> List[Tuple[Subshell,
+                                                           Subshell,
+                                                           Subshell,
+                                                           float]]:
+        """Open Auger channels [(hole, source, source2, rate_per_s)]."""
+        key = _key(config)
+        if key not in self._auger_cache:
+            self._auger_cache[key] = self._build_auger(config)
+        return self._auger_cache[key]
+
+    # -- internals ----------------------------------------------------------
+
+    def _solve(self, config: Config) -> object:
+        key = _key(config)
+        if key not in self._solves:
+            self._solves[key] = self._atom_factory(config_label(config))
+        return self._solves[key]
+
+    def _build_auger(self, config: Config) -> list:
+        from atomx.scattering.autoionization import auger_rate_csf_average
+
+        result = self._unwrap(self._solve(config))
+        labels = {sh: _subshell_label(sh) for sh in config}
+        channels = []
+        subs = sorted(config)
+        for nh_kh in subs:
+            for i, ns1_ks1 in enumerate(subs):
+                for ns2_ks2 in subs[i:]:
+                    out = auger_rate_csf_average(
+                        result,
+                        hole_label=labels[nh_kh],
+                        source_label=labels[ns1_ks1],
+                        source2_label=labels[ns2_ks2],
+                        shooting_n_grid=200,
+                    )
+                    gamma = float(out["Gamma_per_s"])
+                    if gamma > 0.0:
+                        channels.append((nh_kh, ns1_ks1, ns2_ks2, gamma))
+        return channels
+
+
+def _subshell_label(sh: Subshell) -> str:
+    n, k = sh
+    return f"{n}{_LCHAR[(k if k > 0 else -k - 1)]}{2 * abs(k) - 1}/2"
+
+
+def _occupation_table(result) -> Dict[Subshell, float]:
+    if getattr(result, "occupations", None):
+        return dict(result.occupations)
+    return {(sh.n, sh.kappa): float(sh.occupation)
+            for sh in getattr(result, "subshells", [])}
+
+
+def _auger_tree(config: Config, prov: RateProvider,
+                configs: Dict[ConfigKey, Config]) -> Tuple[Config, int]:
+    """Instant Auger cascade by rate ordering; returns the terminal
+    configuration and the number of Auger electrons emitted."""
+    config = dict(config)
+    emitted = 0
+    for _ in range(24):                    # bounded hole migration
+        channels = prov.auger_channels(config)
+        if not channels:
+            break
+        hole, s1, s2, _g = max(channels, key=lambda c: c[3])
+        config = _daughter_after_auger(config, hole, s1, s2)
+        emitted += 1
+        key = _key(config)
+        if key not in configs:
+            configs[key] = dict(config)
+    return config, emitted
+
+
+def cascade(atom_factory: Callable[[str], object], base_config: Config,
+            pulse: Pulse, *, provider: Optional[RateProvider] = None,
+            max_charge: int = 12) -> CascadeResult:
+    """Deterministic sequential-PI cascade over the configuration graph."""
+    prov = provider or RateProvider(atom_factory)
+    res = CascadeResult()
+    base_nelec = sum(base_config.values())
+
+    configs: Dict[ConfigKey, Config] = {_key(base_config): dict(base_config)}
+    populations: Dict[ConfigKey, float] = {_key(base_config): 1.0}
+
+    # single absorption pass (see module docstring for the regime)
+    if True:
+        res.steps = 1
+        nxt: Dict[ConfigKey, float] = {}
+        emitted_this_step = 0.0
+        for key, pop in populations.items():
+            config = configs[key]
+            charge = base_nelec - sum(config.values())
+            if charge >= max_charge:
+                nxt[key] = nxt.get(key, 0.0) + pop
+                continue
+            sigmas = prov.pi_sigmas_cm2(config, pulse.photon_energy_eV)
+            p_abs = {sh: pulse.fluence_photons_per_cm2 * s
+                     for sh, s in sigmas.items() if s > 0.0}
+            p_sum = sum(p_abs.values())
+            if p_sum <= 1e-12:
+                nxt[key] = nxt.get(key, 0.0) + pop
+                continue
+            p_sum = min(p_sum, 1.0)
+            nxt[key] = nxt.get(key, 0.0) + pop * (1.0 - p_sum)
+            absorbed = pop * p_sum
+            res.photons_absorbed += absorbed
+            for sh, p_sh in p_abs.items():
+                w_sh = p_sh / sum(p_abs.values())
+                daughter = _daughter_after_pi(config, sh)
+                terminal, n_auger = _auger_tree(daughter, prov, configs)
+                # 1 photoelectron + n_auger Auger electrons per event
+                emitted_this_step += absorbed * w_sh * (1 + n_auger)
+                tkey = _key(terminal)
+                if tkey not in configs:
+                    configs[tkey] = dict(terminal)
+                nxt[tkey] = nxt.get(tkey, 0.0) + absorbed * w_sh
+        res.electrons_emitted += emitted_this_step
+        populations = {k: v for k, v in nxt.items() if v > 1e-15}
+
+    for key, pop in populations.items():
+        charge = int(round(base_nelec - sum(configs[key].values())))
+        res.populations[key] = pop
+        res.charge_distribution[charge] = (
+            res.charge_distribution.get(charge, 0.0) + pop)
+    res.configs_visited = len(configs)
+    return res
+
+

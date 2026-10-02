@@ -154,8 +154,9 @@ def _subshell_table(result):
         }
         energies = getattr(result, "orbital_energies", None) or {}
         for key, (P, Q) in result.orbitals_dict.items():
+            e = energies.get(key, energies.get(_label(*key)))
             table[key] = (P, Q, float(occ.get(key, 0.0)),
-                          float(energies.get(key, 0.0)))
+                          float(e) if e is not None else None)
     else:
         raise TypeError(
             f"{type(result).__name__} exposes neither orbitals_by_subshell "
