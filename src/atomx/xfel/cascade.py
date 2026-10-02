@@ -461,3 +461,92 @@ def cascade_mc(atom_factory: Callable[[str], object], base_config: Config,
     res.mean_absorbed = absorbed_total / n_trajectories
     res.mean_emitted = emitted_total / n_trajectories
     return res
+
+
+# ---------------------------------------------------------------------------
+# Increment: table-driven provider (performance plan layer 2)
+# ---------------------------------------------------------------------------
+
+def build_rate_table(atom_factory, base_config: Config,
+                     photon_energy_eV: float, *,
+                     max_charge: int = 12,
+                     provider: Optional[RateProvider] = None) -> dict:
+    """Enumerate the reachable configuration graph ONCE and serialise
+    every configuration's rate table (PI per subshell, Auger channels)
+    to a picklable dict — the XATOM results.dat architecture.
+
+    Generation walks the graph exactly like cascade_mc (PI daughters x
+    Auger trees, sampled per branch but deterministically bounded by
+    max_charge); with ``seed`` fixed the enumeration is complete for
+    the fluence-independent table.  Feed to :class:`TableRateProvider`
+    for millisecond-per-trajectory MC.
+    """
+    import random
+
+    prov = provider or RateProvider(atom_factory)
+    rng = random.Random(20261003)
+    base_nelec = sum(base_config.values())
+    table: Dict[str, dict] = {}
+    frontier = [dict(base_config)]
+    seen = {_key(base_config)}
+    while frontier:
+        config = frontier.pop()
+        if sum(config.values()) < 1.0:
+            continue            # bare ion: no PI channels, no labels
+        label = config_label(config)
+        sigmas = prov.pi_sigmas_cm2(config, photon_energy_eV)
+        channels = prov.auger_channels(config)
+        table[label] = {
+            "sigma_cm2": {f"{n},{k}": s for (n, k), s in sigmas.items()},
+            "auger": [
+                {"hole": list(h), "s1": list(s1), "s2": list(s2),
+                 "rate": float(g)}
+                for h, s1, s2, g in channels
+            ],
+            "occupations": {f"{n},{k}": q for (n, k), q in config.items()},
+        }
+        if base_nelec - sum(config.values()) >= max_charge:
+            continue
+        for (n, k) in sigmas:
+            daughter = _daughter_after_pi(config, (n, k))
+            terminal, _n_aug, _ = _auger_tree_branching(
+                daughter, prov, {}, rng)
+            tk = _key(terminal)
+            if tk not in seen:
+                seen.add(tk)
+                frontier.append(terminal)
+    return {"photon_energy_eV": photon_energy_eV,
+            "base_nelec": base_nelec, "configs": table}
+
+
+class TableRateProvider(RateProvider):
+    """Read-only provider over a serialised rate table."""
+
+    def __init__(self, table: dict):
+        super().__init__(lambda label: None)
+        self._table = table
+
+    def _config_of(self, config: Config) -> str | None:
+        want = {f"{n},{k}": q for (n, k), q in config.items()}
+        for label, row in self._table["configs"].items():
+            if row["occupations"] == want:
+                return label
+        return None
+
+    def pi_sigmas_cm2(self, config, photon_energy_eV):
+        label = self._config_of(config)
+        if label is None:
+            return {}
+        row = self._table["configs"][label]
+        return {tuple(int(x) for x in k.split(",")): v
+                for k, v in row["sigma_cm2"].items()}
+
+    def auger_channels(self, config):
+        label = self._config_of(config)
+        if label is None:
+            return []
+        out = []
+        for ch in self._table["configs"][label]["auger"]:
+            out.append((tuple(ch["hole"]), tuple(ch["s1"]),
+                        tuple(ch["s2"]), ch["rate"]))
+        return out

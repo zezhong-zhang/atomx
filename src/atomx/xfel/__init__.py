@@ -5,9 +5,11 @@ from atomx.xfel.cascade import (
     MCResult,
     Pulse,
     RateProvider,
+    TableRateProvider,
+    build_rate_table,
     cascade,
     cascade_mc,
 )
 
-__all__ = ["MCResult", "Pulse", "RateProvider", "cascade",
-           "cascade_mc"]
+__all__ = ["MCResult", "Pulse", "RateProvider", "TableRateProvider",
+           "build_rate_table", "cascade", "cascade_mc"]
