@@ -59,13 +59,13 @@ from atomx.scattering.autoionization import auger_rate_csf_average  # noqa: E402
 FIXTURE_PATH = Path(__file__).parent / "data" / "fe17_kll_auger_fac.json"
 
 # Aspirational per-resonance tolerance.  Currently xfailed because the
-# coarse LS-chain rate is channel-J-averaged while the FAC reference is
-# per-J level.  RE-MEASURED 2026-10-02 (LS chain + full final-state
-# continuum field): atomx/FAC = 0.34 / 1.42 / 1.81 / 2.84 / 4.53, so the
-# worst |atomx/FAC - 1| is 3.53 (2026-09-22, jj sd/se path: 0.50 / 1.20
-# / 5.13 / 1.38 / 0.81 with worst 4.13).
+# coarse UTA0 jj channel rate is m-averaged while the FAC reference is
+# per-J level.  RE-MEASURED 2026-10-02 (jj UTA0 mode, matching the
+# relativistic reference): atomx/FAC = 0.64 / 1.16 / 2.39 / 2.60 / 3.56,
+# so the worst |atomx/FAC - 1| is 2.60 (LS-chain mode: 0.34 / 1.42 /
+# 1.81 / 2.84 / 4.53 with worst 3.53 and ILEV 32 below the band floor).
 STRICT_TOLERANCE = 0.10
-MEASURED_WORST_RATIO_DEVIATION = 3.53
+MEASURED_WORST_RATIO_DEVIATION = 2.60
 
 
 @pytest.fixture(scope="module")
@@ -111,6 +111,7 @@ def _per_resonance_rates(fac_panel, fe17_result) -> list[dict]:
             source_label=row["atomx_source_label"],
             source2_label=row["atomx_source2_label"],
             resonance_energy_eV=row["E_resonance_eV"],
+            angular_mode="jj",
         )
         atomx = float(result["Gamma_per_s"])
         fac = float(row["gamma_auger_per_s"])

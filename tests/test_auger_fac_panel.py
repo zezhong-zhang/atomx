@@ -127,12 +127,19 @@ def live_rates(kll_panel, fe17_result) -> list[dict]:
     """Live atomx per-resonance KLL Auger widths, paired with their FAC value."""
     out = []
     for row in kll_panel["resonances"]:
+        # angular_mode="jj": the FAC reference is a relativistic
+        # (Dirac, J-resolved AITable) computation, so the jj UTA chain —
+        # the FAC AutoionizeRateUTA0 transcription — is the like-for-like
+        # angular treatment (dual-chain methodology: the LS chain is
+        # validated against the NON-relativistic XATOM reference in
+        # tests/test_auger_ne_kll_xatom.py).
         result = auger_rate_csf_average(
             fe17_result,
             hole_label=row["atomx_hole_label"],
             source_label=row["atomx_source_label"],
             source2_label=row["atomx_source2_label"],
             resonance_energy_eV=row["E_resonance_eV"],
+            angular_mode="jj",
         )
         atomx = float(result["Gamma_per_s"])
         fac = float(row["gamma_auger_per_s"])
@@ -202,17 +209,17 @@ def test_kll_auger_magnitude_gate(live_rates):
 def test_kll_auger_within_order_of_magnitude_of_fac(live_rates):
     """Honest current accuracy: live atomx/FAC in [0.40, 6.5] per resonance.
 
-    Measured 2026-10-02 (LS-chain coarse path + full final-state continuum
-    field): 0.34 / 1.42 / 1.81 / 2.84 / 4.53 for ILEV 32 / 71 / 72 / 142 /
-    190 (2026-09-22, jj sd/se coarse path: 0.50 / 1.20 / 5.13 / 1.38 /
-    0.81).  The LS-chain channel rate is J-averaged while the FAC reference
-    is per-J-resolved level, so the residual spread mixes (i) J-averaging,
-    (ii) the orbital-basis difference (our MCDHF fac_frozen 3l radials vs
-    FAC's ground-config orbitals — largest at ILEV 190), and (iii) FAC's
-    CI level mixing.  ILEV 32 sits just under the 0.40 floor (0.34): the
-    3s+3p mixed channel carries the strongest direct-exchange
-    interference.  This documents the real state, it is NOT the README's
-    per-level accuracy claim, and it catches a factor-2 error in either
+    Measured 2026-10-02, angular_mode="jj" (the FAC
+    AutoionizeRateUTA0 transcription, matching the relativistic
+    reference): 0.64 / 1.16 / 2.39 / 2.60 / 3.56 for ILEV 32 / 71 / 72 /
+    142 / 190 — ALL FIVE IN BAND for the first time (the LS-chain mode
+    measures 0.34 / 1.42 / 1.81 / 2.84 / 4.53 with ILEV 32 below the
+    floor; 2026-09-22 jj sd/se path: 0.50 / 1.20 / 5.13 / 1.38 / 0.81).
+    The residual spread mixes (i) channel m-average vs per-J reference,
+    (ii) the orbital-basis difference (our MCDHF fac_frozen 3l radials
+    vs FAC's ground-config orbitals), and (iii) FAC's CI level mixing.
+    This documents the real state, it is NOT the README's per-level
+    accuracy claim, and it catches a factor-2 error in either
     direction.
     """
     for r in live_rates:
@@ -226,12 +233,12 @@ def test_kll_auger_within_order_of_magnitude_of_fac(live_rates):
 @pytest.mark.xfail(
     strict=True,
     reason=(
-        "Aspirational 10% per-resonance KLL parity.  The LS-chain coarse "
-        "rate is channel-J-averaged while the reference is per-J FAC "
-        "level: MEASURED live atomx/FAC = 0.34 / 1.42 / 1.81 / 2.84 / "
-        "4.53 for ILEV 32 / 71 / 72 / 142 / 190 (2026-10-02, LS chain + "
-        "full final-state continuum field), i.e. the worst |atomx/FAC - "
-        "1| = 3.53 against the 0.10 gate.  The J-resolved jj_level path "
+        "Aspirational 10% per-resonance KLL parity.  The UTA0 jj "
+        "channel rate is m-averaged while the reference is per-J FAC "
+        "level: MEASURED live atomx/FAC = 0.64 / 1.16 / 2.39 / 2.60 / "
+        "3.56 for ILEV 32 / 71 / 72 / 142 / 190 (2026-10-02, jj UTA0 "
+        "mode), i.e. the worst |atomx/FAC - 1| = 2.60 against the 0.10 "
+        "gate.  The J-resolved jj_level path "
         "reaches 0.10-1.01x on the same panel and 1.007x for ILEV 71 "
         "(tests/test_jj_level_auger.py); closing the remaining gap needs "
         "j-resolved CSF eigenvectors wired into the jj_level amplitudes."

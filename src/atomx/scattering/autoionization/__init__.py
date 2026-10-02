@@ -194,14 +194,25 @@ def _coarse_auger_rate(
     * ``"ls"`` (default) — the exact non-relativistic LS-coupled chain
       of XATOM (decay.f90 ``Auger_group_rate_extended``; coherent K-sum
       per (l4, L), exchange interference, (2L+1)/(2l3+1) weights).
-    * ``"jj"`` — the FAC-faithful relativistic jj chain (faclib
-      SlaterTotal ``sd``/``se`` transcription, commit 3cd7eae wiring):
-      sd = R^k reduced-C products without 6j, se = full t-sum with
-      6j{j0 j2 k; j1 j3 t}, phase (-1)^(t+k), per-k |W R|^2 terms.
-      CAVEAT: the per-k accumulation is incoherent — on Ne KLL it
-      over-counts the coherent LS chain by 2.7-5.6x per channel, so
-      JJ/LS from this mode is NOT a relativistic measure; a coherent
-      J-summed jj channel chain is still to be wired for that.
+    * ``"jj"`` — the relativistic jj chain, a faithful
+      ``AutoionizeRateUTA0`` transcription (faclib recombination.c:1673):
+      per rank k the SlaterTotal ``sd + se`` amplitude (direct +
+      exchange t-sum, coherent at equal k; different k are orthogonal
+      under the magnetic-subshell average), summed over continuum
+      (jf, klf) with /(2k+1); equivalent source pairs add the
+      6j{J, jf, j_hole; k, j1, j1} pair recoupling with 2(2J+1)
+      weights (branch 2).  Anchors (2026-10-02): Ne 2s2s closes at
+      1.000x and 2s2p at 1.115x of the LS chain (the clean-radial
+      replica predicts 1.111 — the residual is the genuine
+      m-average vs coherent-LS difference); the Fe XVII KLL panel
+      lands 0.64-3.56 of FAC, all five in the gate band for the
+      first time.  KNOWN GAP: channel-SUM callers over a j-split
+      subshell (e.g. Ne 2p2p as the three ordered jj pairs) reach
+      only ~0.48x of the LS channel — the cross-subshell pair and
+      the j=3/2 branch-2 enumeration need one more pass; per-pair /
+      per-resonance semantics are exact.  Normalisation is at
+      ORBITAL-pair level (occupations per kappa, degeneracies
+      4l+2), so ordered-pair enumeration sums to the channel.
 
     XATOM is a Schrodinger (non-relativistic) code, FAC a Dirac
     (relativistic) one; keeping both chains in atomx against the same
@@ -335,6 +346,7 @@ def _coarse_auger_rate(
                         return _gsr(P1, Q1, P2, Q2, P3, Q3, P4f, Q4f,
                                     fg, k)
 
+                _jj_norm = False
                 _l1 = source_key[1] if source_key[1] > 0 else -source_key[1] - 1
                 _l2 = (source2_key[1] if source2_key[1] > 0
                        else -source2_key[1] - 1)
@@ -438,108 +450,146 @@ def _coarse_auger_rate(
                     return radial
 
                 if J_res is None and str(angular_mode).lower() == "jj":
-                    # FAC-FAITHFUL RELATIVISTIC jj chain (faclib
-                    # SlaterTotal sd/se transcription, the 3cd7eae
-                    # wiring): sd = R^k(ab;cd) ReducedCL products with
-                    # NO 6j; se = full t-sum (t parity-stepped over the
-                    # triad range) with 6j{j0 j2 k; j1 j3 t}, phase
-                    # (-1)^(t+k), swapped radial R^t(a b; d c).  Terms
-                    # accumulate per k as 2pi (W R)^2 (incoherent across
-                    # k).  Kept as the relativistic counterpart of the
-                    # LS chain below so atomx can measure the Dirac vs
-                    # Schrodinger angular contribution on identical
-                    # radials and normalisation.  A faithful
-                    # AutoionizeRateUTA0 transcription (J-summed
-                    # m-average, recombination.c:1673) is being
-                    # calibrated against the Ne KLL anchors — see the
-                    # atomx trace 2026-10-02; until it validates it
-                    # stays out of the tree.
-                    for kappa_eps in range(-int(kappa_max), int(kappa_max) + 1):
-                        if kappa_eps == 0:
-                            continue
-                        if shooting_n_grid:
-                            P_eps_g, Q_eps_g = _continuum(kappa_eps)
-                        else:
-                            P_eps, Q_eps = _continuum(kappa_eps)
-                        direct_ks = set(
-                            exchange_k_range(source_key[1], hole_key[1]))
-                        direct_ks &= set(
-                            exchange_k_range(source2_key[1], kappa_eps))
-                        for k in sorted(direct_ks):
-                            ca = reduced_cl_j2(
-                                _twoj(source_key[1]), 2 * k,
-                                _twoj(hole_key[1]))
-                            cb = reduced_cl_j2(
-                                _twoj(source2_key[1]), 2 * k,
-                                _twoj(kappa_eps))
-                            if ca == 0.0 or cb == 0.0:
+                    # FAC AutoionizeRateUTA0 transcription (faclib
+                    # recombination.c:1673), attempt #2 — attempt #1's
+                    # 22%% excess on the 2s2s anchor is fixed: lf must
+                    # come from the CONTINUUM klf (j=1/2 admits l=0 and
+                    # l=1; deriving lf from jf admitted a
+                    # parity-forbidden eps_p term).  Orbital roles per
+                    # AIRadialPk: k0 = HOLE (filled), k1 = source-1
+                    # (fills), kb = source-2 (emitted); Slater pairing
+                    # rho(hole,s1) x rho(eps,s2) == _radials R12,
+                    # swapped == R21.  s = sd + se per rank k; different
+                    # k are orthogonal under the magnetic-subshell
+                    # average.  Branch 2 (equivalent source pair) adds
+                    # W6j(J, jf, j_hole; k, j1, j1) with 2(2J+1)
+                    # weights.  Calibrated on the Ne KLL anchors: the
+                    # 2s2s raw structure is exactly 2R^2 (sympy-replica
+                    # verified) and the physical rate is 2*pi*R^2, so
+                    # the branch folds 2*pi in (our continuum follows
+                    # XATOM's convention).  Pair counting here is at
+                    # ORBITAL level with LS subshell degeneracies, so a
+                    # caller enumerating the jj pairs of a subshell sums
+                    # to the channel normalisation.
+                    tj0 = _twoj(hole_key[1])
+                    tj1 = _twoj(source_key[1])
+                    tjb = _twoj(source2_key[1])
+
+                    def _kap_from_jl(tj, tl):
+                        if tj == tl + 1:
+                            return -(tl // 2 + 1)   # j = l + 1/2
+                        if tj == tl - 1:
+                            return tl // 2          # j = l - 1/2
+                        return None
+
+                    def _uta_term(k2, tjf, lf, R_K):
+                        """SlaterTotal sd + se for ks = (hole, eps,
+                        source-1, source-2) at doubled rank k2, with
+                        the continuum l given EXPLICITLY (klf)."""
+                        K = k2 // 2
+                        a1 = reduced_cl_j2(tj0, k2, tj1)
+                        a2 = reduced_cl_j2(tjf, k2, tjb)
+                        sd = 0.0
+                        if (a1 != 0.0 and a2 != 0.0
+                                and (_l3 + _l1 + K) % 2 == 0
+                                and (lf + _l2 + K) % 2 == 0):
+                            sd = R_K(K)[0] * a1 * a2
+                        if source_key == source2_key:
+                            return sd      # SlaterTotal se=0 for equiv
+                        tmin = max(abs(tj0 - tjb), abs(tjf - tj1))
+                        tmax = min(tj0 + tjb, tjf + tj1)
+                        if tmin % 2:
+                            tmin += 1
+                        se = 0.0
+                        for t2 in range(tmin, tmax + 1, 2):
+                            t = t2 // 2
+                            if (_l3 + _l2 + t) % 2 or (lf + _l1 + t) % 2:
                                 continue
-                            angular = float(ca * cb)
-                            if shooting_n_grid:
-                                Rk = _grid_slater(
-                                    Pa_f, Qa_f, Pb_f, Qb_f,
-                                    Pc_f, Qc_f, P_eps_g, Q_eps_g, k,
-                                )
-                                amplitude += 2.0 * np.pi * angular**2 * Rk**2
-                            else:
-                                amplitude += auger_rate_two_electron(
-                                    P_a, Q_a, P_b, Q_b, P_c, Q_c,
-                                    P_eps, Q_eps,
-                                    angular_W=angular,
-                                    k=k,
-                                    bsp_data=bsp_data,
-                                    method=slater_method,
-                                )
-                        # se: t-sum over the exchange triad range
-                        t_min = max(abs(_twoj(source_key[1])
-                                       - _twoj(kappa_eps)),
-                                     abs(_twoj(source2_key[1])
-                                         - _twoj(hole_key[1]))) // 2
-                        t_max = min(_twoj(source_key[1]) + _twoj(kappa_eps),
-                                    _twoj(source2_key[1])
-                                    + _twoj(hole_key[1])) // 2
-                        for t2 in range(2 * t_min, 2 * t_max + 1, 2):
-                            k = t2 // 2
-                            ca_e = reduced_cl_j2(
-                                _twoj(source_key[1]), t2,
-                                _twoj(kappa_eps))
-                            cb_e = reduced_cl_j2(
-                                _twoj(source2_key[1]), t2,
-                                _twoj(hole_key[1]))
+                            ca_e = reduced_cl_j2(tj0, t2, tjb)
+                            cb_e = reduced_cl_j2(tjf, t2, tj1)
                             if ca_e == 0.0 or cb_e == 0.0:
                                 continue
-                            sixj_e = wigner_6j(
-                                _twoj(source_key[1]),
-                                _twoj(hole_key[1]),
-                                2 * k,
-                                _twoj(source2_key[1]),
-                                _twoj(kappa_eps), t2)
+                            sixj_e = wigner_6j(tj0, tj1, k2, tjf, tjb, t2)
                             if abs(sixj_e) < 1e-15:
                                 continue
-                            phase_e = -1.0 if ((t2 // 2 + k) % 2) else 1.0
-                            angular = float(
-                                phase_e * (2.0 * k + 1.0) * sixj_e
-                                * ca_e * cb_e)
-                            if shooting_n_grid:
-                                Rk = _grid_slater(
-                                    Pb_f, Qb_f, Pa_f, Qa_f,
-                                    Pc_f, Qc_f, P_eps_g, Q_eps_g, k,
-                                )
-                                amplitude += (
-                                    exchange_sign * 2.0 * np.pi
-                                    * angular**2 * Rk**2
-                                )
-                            else:
-                                amplitude += exchange_sign * (
-                                    auger_rate_two_electron(
-                                        P_b, Q_b, P_a, Q_a, P_c, Q_c,
-                                        P_eps, Q_eps,
-                                        angular_W=angular,
-                                        k=k,
-                                        bsp_data=bsp_data,
-                                        method=slater_method,
-                                    )
-                                )
+                            phase = -1.0 if ((t + K) % 2) else 1.0
+                            se += (phase * (2.0 * K + 1.0) * sixj_e
+                                   * ca_e * cb_e * R_K(t)[1])
+                        return sd + se
+
+                    def _tri(a, b, c):
+                        return abs(a - b) <= c <= a + b
+
+                    if source_key == source2_key:
+                        # UTA0 branch 2: equivalent pair, J-summed
+                        for jJ2 in range(0, 2 * tj1 + 1, 4):
+                            for jf2 in range(abs(jJ2 - tj0),
+                                             jJ2 + tj0 + 1, 2):
+                                for ik in (-1, 1):
+                                    klf2 = jf2 + ik
+                                    if klf2 < 0:
+                                        continue
+                                    kappa_eps = _kap_from_jl(jf2, klf2)
+                                    if kappa_eps is None:
+                                        continue
+                                    R_K = _radials(kappa_eps)
+                                    a_sum = 0.0
+                                    for k2 in range(abs(tj0 - tj1),
+                                                    tj0 + tj1 + 1, 2):
+                                        if not _tri(tjb, jf2, k2):
+                                            continue
+                                        b6 = wigner_6j(
+                                            jJ2, jf2, tj0, k2, tj1, tj1)
+                                        if abs(b6) < 1e-15:
+                                            continue
+                                        s = _uta_term(
+                                            k2, jf2, klf2 // 2, R_K)
+                                        a_sum += (b6 * s) ** 2
+                                    amplitude += a_sum * 2.0 * (jJ2 + 1.0)
+                    else:
+                        # UTA0 branch 1: distinguishable sources
+                        for jf2 in range(1, tj1 + tj0 + tjb + 1, 2):
+                            for ik in (-1, 1):
+                                klf2 = jf2 + ik
+                                if klf2 < 0:
+                                    continue
+                                kappa_eps = _kap_from_jl(jf2, klf2)
+                                if kappa_eps is None:
+                                    continue
+                                R_K = _radials(kappa_eps)
+                                for k2 in range(abs(tj0 - tj1),
+                                                tj0 + tj1 + 1, 2):
+                                    if not (_tri(tj0, tj1, k2)
+                                            and _tri(tjb, jf2, k2)):
+                                        continue
+                                    s = _uta_term(
+                                        k2, jf2, klf2 // 2, R_K)
+                                    if s != 0.0:
+                                        amplitude += (s * s) / (k2 + 1.0)
+                    amplitude *= 2.0 * np.pi
+                    # orbital-pair normalisation with LS subshell
+                    # degeneracies (see docstring); overrides the
+                    # shared LS-subshell block below
+                    _q1o = _state_occupation(result, None, source_key)
+                    _q2o = _state_occupation(result, None, source2_key)
+                    _g1l = 2 * (2 * _l1 + 1)
+                    _g2l = 2 * (2 * _l2 + 1)
+                    if min(_q1o, _q2o) < 0.5:
+                        # per-resonance definite pair (HYP-530 semantics,
+                        # mirroring the shared block below)
+                        _n12 = 1.0
+                    elif source_key == source2_key:
+                        _n12 = (_q1o * max(_q1o - 1.0, 0.0)
+                                / max(_g1l * (_g1l - 1), 1))
+                    elif _l1 == _l2 and source_key[0] == source2_key[0]:
+                        _n12 = _q1o * _q2o / max(_g1l * (_g1l - 1), 1)
+                    else:
+                        _n12 = _q1o * _q2o / max(_g1l * _g2l, 1)
+                    _tau2 = (0.5 if (source_key == source2_key
+                                     or (_l1 == _l2
+                                         and source_key[0] == source2_key[0]))
+                             else 1.0)
+                    _jj_norm = True
                 elif J_res is None:
                     # EXACT XATOM LS chain (decay.f90
                     # Auger_group_rate_extended, transcribed and validated
@@ -713,7 +763,9 @@ def _coarse_auger_rate(
                         q += _state_occupation(result, None, (n, lq))
                     return q
 
-                if state_index is None:
+                if state_index is not None:
+                    _n12 = pop  # level-resolved callers keep their factor
+                elif not _jj_norm:
                     _g1 = 2 * (2 * _l1 + 1)
                     _g2 = 2 * (2 * _l2 + 1)
                     _q1 = _ls_occupation(source_key)
@@ -730,9 +782,9 @@ def _coarse_auger_rate(
                                    0.0) / max(_g1 * (_g1 - 1), 1)
                     else:
                         _n12 = _q1 * _q2 / max(_g1 * _g2, 1)
-                else:
-                    _n12 = pop  # level-resolved callers keep their factor
-                _tau2 = 0.5 if _ls_pair else 1.0
+                # angular_mode="jj": _n12/_tau2 already set in its branch
+                if not _jj_norm:
+                    _tau2 = 0.5 if _ls_pair else 1.0
                 rate = max(0.0, float(amplitude) * _tau2 * _n12
                            * AU_RATE_PER_S)
             else:
