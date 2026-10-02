@@ -887,13 +887,16 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
     the physics the configuration-average proxy misses.
 
     ``active_result`` (optional) supplies the HOLE and EXCITED orbitals
-    from a separate resonance-average solve (e.g. an MCDHF average-level
-    CI-averaging iteration, or an equal-weight fractional-occupation
-    DHF): the active orbitals are evaluated on that solve's own basis
+    from a separate radial solve. A variational MCDHF solve can relax
+    them against the coherent CI Hamiltonian; a reference-frozen or
+    fractional-occupation solve supplies a distinct comparison model.
+    The active orbitals are evaluated on that solve's own basis
     and interpolated onto the common fine grid, while the closed core,
     the Auger final-state target and the continuum field stay with
-    ``result``.  This implements the CI-averaging relaxation without
-    mixing bases.
+    ``result``. This adapter does not perform orbital relaxation or
+    guarantee that the supplied orbitals are stationary for this
+    manifold's Hamiltonian. That requires a separate consistent
+    CI/orbital iteration, with its target states and weights specified.
 
     Two orbital-basis pipelines, selected by the solve that produced
     ``result``:

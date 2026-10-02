@@ -86,6 +86,10 @@ def save_scf_result(self, path):
 
     path = str(path)
     metadata_json = _encode_metadata(self)
+    snapshot = getattr(self, '_local_central_field', None)
+    if snapshot is not None:
+        from atomx.potentials.frozen_field import frozen_scf_potential
+        frozen_scf_potential(self)  # Validate before replacing a checkpoint.
 
     filepath = f"{path}.h5" if not path.endswith(".h5") else path
     with h5py.File(filepath, "w") as f:
@@ -165,6 +169,14 @@ def save_scf_result(self, path):
                                      self._bsp_data["ks"]))
             if "tp" in self._bsp_data:
                 basis.create_dataset("tp", data=self._bsp_data["tp"])
+        if snapshot is not None:
+            group = f.create_group('local_central_field')
+            group.create_dataset('radius', data=snapshot.radius)
+            group.create_dataset('screening_charge', data=snapshot.screening_charge)
+            group.create_dataset('subshells', data=self._local_central_field_subshells)
+            for key in ('Z', 'electron_count', 'residual_charge', 'exchange',
+                        'fac_ihx', 'fac_hxs', 'fac_csi'):
+                group.attrs[key] = getattr(snapshot, key)
 
 
 def load_scf_result(path, *, result_type):
@@ -240,6 +252,14 @@ def load_scf_result(path, *, result_type):
                 orbitals_raw[kappa].append((P, Q, occ))
 
         bsp_data = None
+        local_field_data = None
+        if 'local_central_field' in f:
+            group = f['local_central_field']
+            local_field_data = dict(group.attrs)
+            local_field_data.update(radius=group['radius'][:],
+                                    screening_charge=group['screening_charge'][:])
+            local_field_subshells = tuple(
+                (int(n), int(k), float(q)) for n, k, q in group['subshells'][:])
         if "basis" in f:
             from atomx.numerics.bspline.basis import prepare_bspline_data
             t = f["basis"]["t"][:]
@@ -264,6 +284,23 @@ def load_scf_result(path, *, result_type):
     )
 
     _restore_metadata(result, physical, version)
+    if local_field_data is not None:
+        from atomx.potentials.frozen_field import FrozenLocalField, frozen_scf_potential
+        from atomx.potentials.nuclear import make_nuclear_potential, nuclear_profile
+        if result.calculation_spec is None:
+            raise ValueError('saved local field lacks nuclear model identity')
+        physics = result.calculation_spec.to_dict()['physics']
+        profile = physics['nuclear_profile']
+        model = profile['model']
+        mass_number = profile.get('requested_mass_number')
+        if (physics.get('screening_potential') is not None or
+                nuclear_profile(result.Z, model, mass_number) != profile):
+            raise ValueError('saved local field nuclear model cannot be restored exactly')
+        nuclear = make_nuclear_potential(result.Z, model, mass_number)
+        result._nuclear_potential = nuclear
+        result._local_central_field = FrozenLocalField(**local_field_data, nuclear=nuclear)
+        result._local_central_field_subshells = local_field_subshells
+        frozen_scf_potential(result)
     return result
 
 

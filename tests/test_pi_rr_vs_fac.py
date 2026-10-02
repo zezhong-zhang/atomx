@@ -28,6 +28,10 @@ accuracy bands are unchanged: K-shell errors are about 4%, Li-like 2s
 errors up to about 12%, and 2p errors up to about 23% on this panel after
 the exact Dirac-derivative continuum normalization. These are different
 local-exchange/HF models, so this comparison is not an exact identity.
+
+The 2026-10-02 native-column refresh evaluates the bound B-spline
+expansion directly on the continuum grid. FAC values and all accuracy
+bands are preserved; CSV timing columns retain their historical values.
 """
 
 from __future__ import annotations

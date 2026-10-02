@@ -198,10 +198,11 @@ def _residual_hartree_potential(result, capture_label):
 def _rr_potential(result, sh, model):
     if model is None or model.potential is None:
         return _residual_hartree_potential(result, sh.label)
-    potential = model.potential.build_callable(result, exclude_label=sh.label)
+    exclude = sh.label if model.orbital_removal == "capture" else None
+    potential = model.potential.build_callable(result, exclude_label=exclude)
     residual = (float(result.Z) if model.potential.kind == "bare" else
                 float(result.Z) - sum(s.occupation for s in result.subshells) + min(1.0, sh.occupation))
-    return potential, residual
+    return potential, float(getattr(potential, "residual_charge", residual))
 
 
 def _rr_potential_matrices(result, sh, model):
@@ -277,6 +278,8 @@ def _shooting_photoionization_cross_section(
     Q_bound,
     photon_au: np.ndarray,
     continuum_model: ContinuumModel,
+    *,
+    potential=None,
 ) -> np.ndarray:
     """PI cross section using direct shooting continuum from a model."""
     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
@@ -285,13 +288,8 @@ def _shooting_photoionization_cross_section(
     bsp_data = scf_result._bsp_data
     if bsp_data is None:
         raise ValueError("shooting PI requires B-spline data for bound orbitals")
-    gr = bsp_data["gr"].ravel()
-    sort_idx = np.argsort(gr)
-    gr_sorted = gr[sort_idx]
-    Pb_grid = eval_P(P_bound, bsp_data).ravel()[sort_idx]
-    Qb_grid = eval_Q(Q_bound, bsp_data).ravel()[sort_idx]
-
-    V_func, z_residual = _rr_potential(scf_result, sh, continuum_model)
+    V_func, z_residual = (_rr_potential(scf_result, sh, continuum_model)
+                        if potential is None else potential)
 
     sigma = np.zeros_like(photon_au, dtype=float)
     channels = [(kf, line_strength_factor(sh.kappa, kf, 1, "E") / (2 * abs(sh.kappa)))
@@ -314,8 +312,11 @@ def _shooting_photoionization_cross_section(
         r_max=continuum_model.shooting_r_max or 50.0,
         Z_residual=z_residual,
     )
-    Pb = np.interp(r, gr_sorted, Pb_grid, left=0.0, right=0.0)
-    Qb = np.interp(r, gr_sorted, Qb_grid, left=0.0, right=0.0)
+    # Evaluate the B-spline expansion directly on the continuum grid.
+    # Interpolating sparse Gauss samples adds an avoidable bound-state error
+    # and loses the exact compact support and endpoint behaviour.
+    Pb = eval_P(P_bound, bsp_data, r)
+    Qb = eval_Q(Q_bound, bsp_data, r)
     from atomx.numerics.radial_workspace import make_grid_workspace
     # Same trapezoidal quadrature as before, expressed through the common
     # workspace so both continuum engines use the same photon operator.

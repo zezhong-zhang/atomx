@@ -3,10 +3,17 @@
 The proper-physics ladder for the five AITable KLL resonances:
 configuration-average jj chain 0.64-3.56x -> single-CSF jj_level
 0.10-0.98x -> determinant-CI eigenlevels 0.62-1.33x (frozen actives)
--> 0.79-1.49x (MCDHF CI-averaging relaxation of the actives) -> the
+-> 0.79-1.49x (separate active-orbital calculation) -> the
 FULL nl=3 complex (3s2/3s3d included; they share the (J, parity)
 blocks with 3s3p/3p2 and dilute the 3p^2 Auger strength) ->
-0.89-1.11x.
+0.89-1.11x on the reference-frozen orbital protocol below.
+
+This fixture selects ``fac_frozen``: it optimizes the reference
+configuration and diagonalizes the CI on that common orbital set.
+It does not test coherent Hamiltonian-average radial relaxation.
+The native variational protocol is ``mcdhf``; its stationary CI
+functional retains CSF interference and re-diagonalizes as orbitals
+change. The measured bands below belong only to ``fac_frozen``.
 
 Level correspondence: within each 2J block, among eigenlevels inside a
 +-2.5 eV window of the FAC resonance energy, take the STRONGEST Auger
@@ -118,7 +125,7 @@ def test_fe_lmm_mscheme_panel_band(panel_levels):
     strict=True,
     reason=(
         "Aspirational 10% per-resonance parity.  MEASURED 2026-10-02 "
-        "(full nl=3 complex + MCDHF CI-averaging actives): "
+        "(full nl=3 complex + reference-frozen active orbitals): "
         + " / ".join(f"{v:.3f}" for v in MEASURED.values())
         + f" for ILEV {'/'.join(str(k) for k in MEASURED)}, worst "
         f"|atomx/FAC - 1| = {MEASURED_WORST:.3f} against the 0.10 gate. "

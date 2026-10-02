@@ -36,10 +36,16 @@ from atomx.scattering.photoionization.fano import (
     apply_resonances,
     fano_profile,
 )
+from atomx.scattering.photoionization.subshell import (
+    SubshellPIResult,
+    subshell_photoionization,
+)
 
 __all__ = [
     "photoionization_cross_section",
     "FanoResonance",
     "apply_resonances",
     "fano_profile",
+    "SubshellPIResult",
+    "subshell_photoionization",
 ]

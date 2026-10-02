@@ -73,6 +73,7 @@ class SCFResult(SCFObservablesMixin):
     _bsp_data: Optional[Dict] = field(default=None, repr=False)
     calculation_spec: object = None
     solver_diagnostics: Dict = field(default_factory=dict)
+    _local_central_field: object = field(default=None, repr=False)
 
     @property
     def energy_breakdown(self) -> Dict[str, float]:
@@ -551,6 +552,84 @@ class DFSolver:
         # ~30 to ~3 once weights settle.
         self.seed_orbitals = None
 
+    @classmethod
+    def from_configuration(cls, Z, configuration, *, averaging="statistical", **kwargs):
+        """Construct a configuration-average solver with occupation moments.
+
+        A fractional mean occupation does not determine its electron-pair
+        count: <q(q-1)> differs from <q>(<q>-1). Keep the integer jj
+        distributions and their weights together with the mean occupations.
+        The explicit ``subshells`` constructor remains available for resolved
+        jj occupations or caller-supplied multi-configuration weights.
+        """
+        from atomx.config.jj_coupling import generate_jj_average
+
+        if "jj_configs" in kwargs or "subshells" in kwargs:
+            raise ValueError(
+                "from_configuration derives subshells and jj_configs together"
+            )
+        subshells, configurations = generate_jj_average(
+            configuration, averaging=averaging
+        )
+        # Zero-occupation shells do not define an occupied statistical
+        # ensemble or a Fock-field divisor. Spectroscopic virtuals need an
+        # explicit parent-field model through the subshell constructor.
+        active = [i for i, s in enumerate(subshells) if s.occupation > 0]
+        if not active:
+            raise ValueError("configuration must contain an occupied orbital")
+        from atomx.config.jj_coupling import JJConfig
+
+        subshells = [subshells[i] for i in active]
+        configurations = [
+            JJConfig([c.subshells[i] for i in active], c.weight) for c in configurations
+        ]
+        return cls(Z, subshells, jj_configs=configurations, **kwargs)
+
+    def frozen_configuration_energy(
+        self, result, configuration, *, averaging="statistical"
+    ):
+        """HF configuration-average energy on the supplied fixed orbitals.
+
+        This is a frozen-orbital expectation value, not a relaxed delta-SCF
+        energy or a CI level energy. Reuse the solver's nuclear Hamiltonian
+        and radial convolution cache without modifying the initial state.
+        Local-exchange orbitals are evaluated with the same HF energy
+        functional as :meth:`solve`.
+        """
+        import copy
+
+        from atomx.config.jj_coupling import JJConfig, generate_jj_average
+
+        if result._bsp_data is not self.bsp_data or result.Z != self.Z:
+            raise ValueError("result must belong to this solver's radial grid and atom")
+        means, configurations = generate_jj_average(configuration, averaging=averaging)
+        basis = [(s.n, s.kappa) for s in self.subshells]
+        radial = result.orbitals_by_subshell()
+        if any(s.occupation > 0 and (s.n, s.kappa) not in radial for s in means):
+            raise ValueError(
+                "the final configuration needs an unavailable bound orbital"
+            )
+        mean_occ = {(s.n, s.kappa): s.occupation for s in means}
+        target = copy.copy(self)
+        target.subshells = [Subshell(n, k, mean_occ.get((n, k), 0.0)) for n, k in basis]
+        target.jj_configs = []
+        for c in configurations:
+            occupations = {(s.n, s.kappa): s.occupation for s in c.subshells}
+            target.jj_configs.append(
+                JJConfig(
+                    [Subshell(n, k, occupations.get((n, k), 0)) for n, k in basis],
+                    c.weight,
+                )
+            )
+        orbitals = {}
+        for sh in target.subshells:
+            key = (sh.n, sh.kappa)
+            if key not in radial:
+                raise ValueError("the result has an incomplete bound-orbital basis")
+            P, Q, _ = radial[key]
+            orbitals.setdefault(sh.kappa, []).append((P, Q, sh.occupation))
+        return target._compute_total_energy(orbitals)[0]
+
     def _flatten_orbitals(self, orbitals):
         """Flatten orbitals dict to list of (P, Q, occ, kappa, label)."""
         orb_list = []
@@ -583,7 +662,8 @@ class DFSolver:
         """Get WW(i,j) — generalized occupation product for energy coefficients.
 
         With jj_configs: WW is the multi-configuration weighted average.
-        Without: uses statistical weight formula for jj-average:
+        For a statistical NR configuration average, construct this solver
+        with ``from_configuration`` (or supply matching jj_configs):
           w(n-,n+) = C(2l,n-)*C(2l+2,n+) / C(4l+2, N)
           WW(i,i) = Σ_c w(c) * q_c(i) * (q_c(i) - 1)
           WW(i,j) = Σ_c w(c) * q_c(i) * q_c(j)
@@ -591,7 +671,8 @@ class DFSolver:
         if self.jj_configs is not None:
             from atomx.config.jj_coupling import compute_WW
             return compute_WW(i, j, self.jj_configs)
-        # Single-config with fractional occupations: q*(q-1) is correct
+        # Explicit occupation-product model. This is not the second moment
+        # of an ensemble with fractional mean occupations.
         qi = self.subshells[i].occupation
         if i == j:
             return qi * (qi - 1.0)
@@ -843,11 +924,9 @@ class DFSolver:
         exchange_cache key: (kappa_b, orb_i, k, block_type) -> matrix
         This gives ~N_target speedup since each source convolution is done once.
 
-        Source weights: ``occ_b`` (the source's occupation from the
-        orbital list) by default — the pre-seam convention of this path,
-        which equals ``WW(target, b)/q_target`` for a closed shell.  When
-        the R7 asymmetric seam is supplied both the direct potential and
-        this exchange term are built from the same effective weight
+        Source weights: ``occ_b`` for explicit occupation-product input.
+        Statistical jj ensembles and the R7 asymmetric seam use the
+        same effective weight as the direct potential:
         ``_mean_field_weight(target, b) / _mean_field_divisor(target)``,
         so a collapsed target really does see the reference
         configuration's field (and only that field).
@@ -868,7 +947,7 @@ class DFSolver:
         if exchange_cache is None:
             exchange_cache = {}
 
-        use_seam = self.mean_field_coeffs is not None
+        use_seam = self.mean_field_coeffs is not None or self.jj_configs is not None
         target_flat = self._flat_orbital_index(target_kappa, target_idx) if use_seam else -1
 
         tj_a = 2 * abs(target_kappa) - 1
@@ -1341,10 +1420,10 @@ class DFSolver:
         For j>=1 (p3/2, d, f, ...), adds the intra-shell potential:
             coeff = -(q-1) * Lambda(k) / (2j * (2j+1))
 
-        ``q - 1`` is the target's self-interaction-removed occupation,
-        i.e. ``_mean_field_weight(i, i) / _mean_field_divisor(i)`` on the
-        pre-seam path.  With the R7 seam it is taken from the supplied
-        coefficient matrix, so a collapsed target whose reference
+        ``q - 1`` applies to explicit occupation-product input.
+        Statistical jj ensembles instead use ``<q(q-1)>/<q>``.
+        With the R7 seam it is taken from the supplied coefficient
+        matrix, so a collapsed target whose reference
         occupation is zero carries no intra-shell field at all (a
         spectator virtual in a frozen potential).
 
@@ -1355,6 +1434,7 @@ class DFSolver:
         from atomx.numerics.bspline.convol import (
             _banded_to_full_add,
             _convol_case1,
+            _convol_case1_mixed,
             _density_sym,
         )
 
@@ -1373,7 +1453,7 @@ class DFSolver:
             return Vi_PP, Vi_QQ
 
         P_a, Q_a, q_a = orb_list_t[target_idx]
-        if self.mean_field_coeffs is None:
+        if self.mean_field_coeffs is None and self.jj_configs is None:
             if q_a * (q_a - 1.0) < 1e-15:
                 return Vi_PP, Vi_QQ
             c_ii = q_a - 1.0
@@ -1403,10 +1483,18 @@ class DFSolver:
             v = _convol_case1(rkb_pp, d_P, ns_full, ksp)
             _banded_to_full_add(Vi_PP, v, ns_full, ksp, coeff)
 
+            rkb_qp, _, _ = self._convol_cache.get_rkb(k, "qpqp")
+            v = _convol_case1_mixed(rkb_qp, d_P, ns_full, ksq, ksp)
+            _banded_to_full_add(Vi_QQ, v, ns_full, ksq, coeff)
+
             rkb_qq, _, _ = self._convol_cache.get_rkb(k, "qqqq")
             d_Q = _density_sym(Q_a[:ns_full], Q_a[:ns_full], ns_full, ksq)
             v = _convol_case1(rkb_qq, d_Q, ns_full, ksq)
             _banded_to_full_add(Vi_QQ, v, ns_full, ksq, coeff)
+
+            rkb_pq, _, _ = self._convol_cache.get_rkb(k, "pqpq")
+            v = _convol_case1_mixed(rkb_pq, d_Q, ns_full, ksp, ksq)
+            _banded_to_full_add(Vi_PP, v, ns_full, ksp, coeff)
         return Vi_PP, Vi_QQ
 
     def _compute_total_energy(self, orbitals, orbital_energies=None, *, active_indices=None):
@@ -2346,6 +2434,37 @@ class DFSolver:
         result.calculation_spec = resolved_solver_spec(self, method='DHF' if self.exchange == 'hf' else 'DFS', engine='bspline',
             controls=getattr(self, '_calculation_controls', {}))
         result._nuclear_potential = self._nuclear_potential
+        if (self.exchange == 'gu' and result.converged and self.N_electrons > 0
+                and self.screening_potential is None):
+            from atomx.numerics.bspline.local_potential import (
+                local_central_potential_from_radial_density,
+                radial_density_from_orbitals,
+            )
+            from atomx.potentials.frozen_field import FrozenLocalField
+
+            orbitals = result.orbitals_by_subshell()
+            density, number = radial_density_from_orbitals(
+                {key: pq[:2] for key, pq in orbitals.items()}, self.bsp_data,
+                occupations={key: pq[2] for key, pq in orbitals.items()},
+            )
+            radius = self.bsp_data['gr']
+            nuclear_grid = (-self.Z / radius if self._nuclear_potential is None else
+                            np.vectorize(self._nuclear_potential, otypes=[float])(radius))
+            parts = local_central_potential_from_radial_density(
+                Z=self.Z, rho_rad=density, gr=radius, grw=self.bsp_data['grw'],
+                n_total=number, exchange='fac', fac_ihx=self.fac_ihx,
+                fac_hxs=self.fac_hxs, nuclear_grid=nuclear_grid,
+            )
+            result._local_central_field = FrozenLocalField(
+                radius=radius,
+                screening_charge=radius * (parts['central'] - parts['nuclear']),
+                Z=float(self.Z), electron_count=float(self.N_electrons),
+                residual_charge=1.0 + self.Z - self.N_electrons,
+                nuclear=self._nuclear_potential,
+                fac_ihx=self.fac_ihx, fac_hxs=self.fac_hxs,
+            )
+            result._local_central_field_subshells = tuple(
+                (sh.n, sh.kappa, float(sh.occupation)) for sh in result.subshells)
         result.__dict__["_jj_configs"] = self.jj_configs
         stack = self.correction_stack
         if (stack is not None and stack.include_breit

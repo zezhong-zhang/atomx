@@ -39,3 +39,8 @@ dataset/
 output/
 trace.md
 benchmarks/
+!benchmarks/
+benchmarks/*
+!benchmarks/bench_systematic_fac_matrix.py
+!benchmarks/bench_systematic_xray.py
+!benchmarks/bench_atomic_consistency.py

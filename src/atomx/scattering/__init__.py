@@ -26,5 +26,6 @@ Modules
 """
 
 from atomx.scattering.models import ContinuumModel, PotentialModel
+from atomx.scattering.xray import AtomicScattering, ScatteringOrbital
 
-__all__ = ["ContinuumModel", "PotentialModel"]
+__all__ = ["ContinuumModel", "PotentialModel", "AtomicScattering", "ScatteringOrbital"]
