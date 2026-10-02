@@ -51,7 +51,7 @@ def test_mean_charge_monotone_and_saturates(anchor):
     rows = anchor["rows"]
     means = [r["mean_charge"] for r in rows]
     # monotone in the fluence scan up to MC noise
-    for lo, hi in zip(means, means[1:], strict=True):
+    for lo, hi in zip(means[:-1], means[1:], strict=True):
         assert hi >= lo - 0.15
     # saturation plateau: the highest decade stays on Ne^8+
     top = [r for r in rows if r["fluence_au"] >= 1e5]
