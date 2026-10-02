@@ -34,12 +34,12 @@ duplicated magnitude test was deleted here; the 10 % gate is kept (it is the
 second, independent statement of the same aspirational claim) and is now a
 *loud* strict xfail.
 
-The strict 10 % per-resonance gate stays ``xfail`` because the
-average-of-configuration angular factor ``exchange_lambda`` over-counts
-magnetic substates that do not contribute to a specific J-resolved
-resonance (notably the k=0 monopole term for 3p3/2 -> 2p3/2 and the
-high-R^k 3d-3d couplings).  A proper Cowan-Grant J-resolved angular
-treatment is the remaining gap (follow-up).
+The strict 10 % per-resonance gate stays ``xfail`` because the coarse
+path evaluates the LS-coupled CHANNEL rate (J-averaged over the fine
+structure) while the FAC reference is per-J-resolved level; the residual
+spread also mixes the orbital-basis difference (our MCDHF fac_frozen 3l
+radials vs FAC's ground-config orbitals) and FAC's CI level mixing.  The
+J-resolved ``jj_level`` treatment is the remaining gap (follow-up).
 """
 
 from __future__ import annotations
@@ -59,13 +59,13 @@ from atomx.scattering.autoionization import auger_rate_csf_average  # noqa: E402
 FIXTURE_PATH = Path(__file__).parent / "data" / "fe17_kll_auger_fac.json"
 
 # Aspirational per-resonance tolerance.  Currently xfailed because the
-# average-of-configuration angular factor over-counts magnetic substates
-# vs the J-resolved FAC rate.  RE-MEASURED 2026-09-22 on the five panel
-# resonances (the R7 asymmetric-mean-field fix moved them): atomx/FAC =
-# 0.50 / 1.20 / 5.13 / 1.38 / 0.81, so the worst |atomx/FAC - 1| is 4.13
-# (the 1.13-14.82 quoted here on 2026-09-17 is stale).
+# coarse LS-chain rate is channel-J-averaged while the FAC reference is
+# per-J level.  RE-MEASURED 2026-10-02 (LS chain + full final-state
+# continuum field): atomx/FAC = 0.34 / 1.42 / 1.81 / 2.84 / 4.53, so the
+# worst |atomx/FAC - 1| is 3.53 (2026-09-22, jj sd/se path: 0.50 / 1.20
+# / 5.13 / 1.38 / 0.81 with worst 4.13).
 STRICT_TOLERANCE = 0.10
-MEASURED_WORST_RATIO_DEVIATION = 4.13
+MEASURED_WORST_RATIO_DEVIATION = 3.53
 
 
 @pytest.fixture(scope="module")

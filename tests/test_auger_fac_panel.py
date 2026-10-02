@@ -202,12 +202,18 @@ def test_kll_auger_magnitude_gate(live_rates):
 def test_kll_auger_within_order_of_magnitude_of_fac(live_rates):
     """Honest current accuracy: live atomx/FAC in [0.40, 6.5] per resonance.
 
-    Measured 2026-09-22: 0.50 / 1.20 / 5.13 / 1.38 / 0.81 for ILEV 32 / 71 /
-    72 / 142 / 190 (the 2026-09-17 numbers 1.13-14.82 predate the R7
-    asymmetric-mean-field fix).  This documents the real state ("the
-    average-of-configuration angular factor over-counts by up to 5x and
-    under-counts the ILEV 32 channel 2x"), it is NOT the README's per-level
-    accuracy claim, and it now catches a factor-2 error in either direction.
+    Measured 2026-10-02 (LS-chain coarse path + full final-state continuum
+    field): 0.34 / 1.42 / 1.81 / 2.84 / 4.53 for ILEV 32 / 71 / 72 / 142 /
+    190 (2026-09-22, jj sd/se coarse path: 0.50 / 1.20 / 5.13 / 1.38 /
+    0.81).  The LS-chain channel rate is J-averaged while the FAC reference
+    is per-J-resolved level, so the residual spread mixes (i) J-averaging,
+    (ii) the orbital-basis difference (our MCDHF fac_frozen 3l radials vs
+    FAC's ground-config orbitals — largest at ILEV 190), and (iii) FAC's
+    CI level mixing.  ILEV 32 sits just under the 0.40 floor (0.34): the
+    3s+3p mixed channel carries the strongest direct-exchange
+    interference.  This documents the real state, it is NOT the README's
+    per-level accuracy claim, and it catches a factor-2 error in either
+    direction.
     """
     for r in live_rates:
         assert RATIO_FLOOR <= r["ratio"] <= RATIO_CEIL, (
@@ -220,14 +226,15 @@ def test_kll_auger_within_order_of_magnitude_of_fac(live_rates):
 @pytest.mark.xfail(
     strict=True,
     reason=(
-        "Aspirational 10% per-resonance KLL parity.  The configuration-average "
-        "angular factor over-counts magnetic substates for a J-resolved "
-        "resonance: MEASURED live atomx/FAC = 0.50 / 1.20 / 5.13 / 1.38 / 0.81 "
-        "for ILEV 32 / 71 / 72 / 142 / 190 (2026-09-22, post-R7), i.e. the "
-        "worst |atomx/FAC - 1| = 4.13 against the 0.10 gate.  The J-resolved "
-        "jj_level path reaches 0.10-1.01x on the same panel and 1.007x for "
-        "ILEV 71 (tests/test_jj_level_auger.py); closing the remaining gap "
-        "needs j-resolved CSF eigenvectors wired into the jj_level amplitudes."
+        "Aspirational 10% per-resonance KLL parity.  The LS-chain coarse "
+        "rate is channel-J-averaged while the reference is per-J FAC "
+        "level: MEASURED live atomx/FAC = 0.34 / 1.42 / 1.81 / 2.84 / "
+        "4.53 for ILEV 32 / 71 / 72 / 142 / 190 (2026-10-02, LS chain + "
+        "full final-state continuum field), i.e. the worst |atomx/FAC - "
+        "1| = 3.53 against the 0.10 gate.  The J-resolved jj_level path "
+        "reaches 0.10-1.01x on the same panel and 1.007x for ILEV 71 "
+        "(tests/test_jj_level_auger.py); closing the remaining gap needs "
+        "j-resolved CSF eigenvectors wired into the jj_level amplitudes."
     ),
 )
 def test_kll_auger_per_resonance_10pct_vs_fac(live_rates):

@@ -135,6 +135,25 @@ def reduced_cl_j2(tj_a, tk, tj_b):
     return float(phase * np.sqrt((tj_a + 1) * (tj_b + 1)) * w3j)
 
 
+def reduced_matrix_ls(k: int, l: int, lp: int) -> float:
+    """LS (non-relativistic) reduced matrix element ``<l||K||l'>``.
+
+    XATOM ``reduced_matrix(K, l, l')`` (coulomb.f90:271, Son-Young-Santra
+    PRA 83, 033402 Eq. (11) with the erratum applied):
+
+        <l||K||l'> = (-1)^(l-l'+K) sqrt(2l'+1) <l' 0 K 0 | l 0>
+
+    Zero when the triangle or m=0 parity selection rules forbid the term.
+    """
+    if abs(l - lp) > k or l + lp < k or (l + lp + k) % 2:
+        return 0.0
+    return (
+        (-1.0) ** (l - lp + k)
+        * math.sqrt(2 * lp + 1)
+        * cg(2 * lp, 0, 2 * k, 0, 2 * l, 0)
+    )
+
+
 def exchange_lambda(kappa_a, kappa_b, k):
     """Angular coefficient Lambda(k, kappa_a, kappa_b) for the exchange interaction.
 
