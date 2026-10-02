@@ -186,7 +186,10 @@ def _coarse_auger_rate(
         cowan_grant_auger_B,
         exchange_k_range,
         exchange_lambda,
+        reduced_cl_j2,
     )
+    from atomx.angular.coefficients import _twoj_from_kappa as _twoj
+    from atomx.angular.wigner import wigner_6j
     from atomx.constants import AU_RATE_PER_S, HARTREE_EV
     from atomx.numerics.bspline.continuum import solve_continuum
 
@@ -210,6 +213,8 @@ def _coarse_auger_rate(
             E_ha = E_eV / HARTREE_EV
             amplitude = 0.0
             if E_ha > 0.0:
+                amp_direct = 0.0
+                amp_exchange = 0.0
                 if shooting_n_grid:
                     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
                     from atomx.numerics.shooting.dirac_continuum import (
@@ -329,11 +334,31 @@ def _coarse_auger_rate(
                     exchange_ks &= set(exchange_k_range(source_key[1], kappa_eps))
                     for k in sorted(direct_ks):
                         if J_res is None:
-                            wa = exchange_lambda(source_key[1], hole_key[1], k)
-                            wb = exchange_lambda(source2_key[1], kappa_eps, k)
-                            if wa <= 0.0 or wb <= 0.0:
+                            # Gu/FAC sd amplitude (transcribed from
+                            # faclib + SYS Eq.(10)-(11)): the jj
+                            # reduced-C product, NOT the EII-average
+                            # exchange_lambda (which carried (2j+1)^2
+                            # 3j^2 and overcounted x4 on s-s K=0)
+                            ca = reduced_cl_j2(
+                                _twoj(source_key[1]), 2 * k,
+                                _twoj(hole_key[1]))
+                            cb = reduced_cl_j2(
+                                _twoj(source2_key[1]), 2 * k,
+                                _twoj(kappa_eps))
+                            if ca == 0.0 or cb == 0.0:
                                 continue
-                            angular = float(np.sqrt(wa * wb))
+                            sixj_d = wigner_6j(
+                                _twoj(source_key[1]),
+                                _twoj(source2_key[1]), 0,
+                                _twoj(kappa_eps),
+                                _twoj(hole_key[1]), 2 * k)
+                            if abs(sixj_d) < 1e-15:
+                                continue
+                            angular = float(
+                                np.sqrt(
+                                    (_twoj(hole_key[1]) + 1)
+                                    * (_twoj(source_key[1]) + 1))
+                                * sixj_d * ca * cb)
                         else:
                             angular = cowan_grant_auger_B(
                                 source_key[1],
@@ -358,29 +383,36 @@ def _coarse_auger_rate(
                                 Q_eps_g,
                                 k,
                             )
-                            amplitude += 2.0 * np.pi * angular**2 * Rk**2
+                            amp_direct += angular * Rk
                         else:
-                            amplitude += auger_rate_two_electron(
-                                P_a,
-                                Q_a,
-                                P_b,
-                                Q_b,
-                                P_c,
-                                Q_c,
-                                P_eps,
-                                Q_eps,
-                                angular_W=angular,
-                                k=k,
-                                bsp_data=bsp_data,
-                                method=slater_method,
-                            )
+                            amp_direct += np.sqrt(
+                                auger_rate_two_electron(
+                                    P_a, Q_a, P_b, Q_b, P_c, Q_c, P_eps,
+                                    Q_eps, angular_W=angular, k=k,
+                                    bsp_data=bsp_data,
+                                    method=slater_method) / (2.0 * np.pi))
                     for k in sorted(exchange_ks):
                         if J_res is None:
-                            wa = exchange_lambda(source2_key[1], hole_key[1], k)
-                            wb = exchange_lambda(source_key[1], kappa_eps, k)
-                            if wa <= 0.0 or wb <= 0.0:
+                            ca = reduced_cl_j2(
+                                _twoj(source2_key[1]), 2 * k,
+                                _twoj(hole_key[1]))
+                            cb = reduced_cl_j2(
+                                _twoj(source_key[1]), 2 * k,
+                                _twoj(kappa_eps))
+                            if ca == 0.0 or cb == 0.0:
                                 continue
-                            angular = float(np.sqrt(wa * wb))
+                            sixj_e = wigner_6j(
+                                _twoj(source2_key[1]),
+                                _twoj(source_key[1]), 0,
+                                _twoj(kappa_eps),
+                                _twoj(hole_key[1]), 2 * k)
+                            if abs(sixj_e) < 1e-15:
+                                continue
+                            angular = float(
+                                np.sqrt(
+                                    (_twoj(hole_key[1]) + 1)
+                                    * (_twoj(source2_key[1]) + 1))
+                                * sixj_e * ca * cb)
                         else:
                             angular = cowan_grant_auger_B(
                                 source2_key[1],
@@ -405,24 +437,14 @@ def _coarse_auger_rate(
                                 Q_eps_g,
                                 k,
                             )
-                            amplitude += (
-                                exchange_sign * 2.0 * np.pi * angular**2 * Rk**2
-                            )
+                            amp_exchange += exchange_sign * angular * Rk
                         else:
-                            amplitude += exchange_sign * auger_rate_two_electron(
-                                P_b,
-                                Q_b,
-                                P_a,
-                                Q_a,
-                                P_c,
-                                Q_c,
-                                P_eps,
-                                Q_eps,
-                                angular_W=angular,
-                                k=k,
-                                bsp_data=bsp_data,
-                                method=slater_method,
-                            )
+                            amp_exchange += exchange_sign * np.sqrt(
+                                auger_rate_two_electron(
+                                    P_b, Q_b, P_a, Q_a, P_c, Q_c, P_eps,
+                                    Q_eps, angular_W=angular, k=k,
+                                    bsp_data=bsp_data,
+                                    method=slater_method) / (2.0 * np.pi))
                 if population_factor is None:
                     pop = _channel_population_factor(
                         result, state_index, source_key, source2_key, hole_key
@@ -464,8 +486,13 @@ def _coarse_auger_rate(
                         _n12 = _q1 * _q2 / max(_g1 * _g2, 1)
                 else:
                     _n12 = pop  # level-resolved callers keep their factor
-                rate = max(0.0, float(amplitude) * _tau2 * _n12
-                           * AU_RATE_PER_S)
+                # SYS Eq.(9): M0 = tau*(R12 T12 + R21 T21) for even L
+                # (the s-pair L=0 channel our 6j arrangement selects);
+                # unconditional subtraction cancelled the equivalent pair
+                # exactly (R21=R12, T21=T12) — the zero-rate bug.
+                amp_total = amp_direct + amp_exchange
+                rate = max(0.0, 2.0 * np.pi * amp_total**2 * _tau2
+                           * _n12 * AU_RATE_PER_S)
             else:
                 rate = 0.0
 
