@@ -27,9 +27,10 @@ Public API: :func:`cascade`.
 
 from __future__ import annotations
 
-import numpy as np
 from dataclasses import dataclass, field
 from typing import Callable, Dict, List, Mapping, Optional, Tuple
+
+import numpy as np
 
 Subshell = Tuple[int, int]          # (n, kappa)
 Config = Mapping[Subshell, float]   # occupied subshells only
