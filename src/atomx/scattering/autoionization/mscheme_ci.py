@@ -875,7 +875,7 @@ class _ClosedShellTarget:
 
 
 def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
-                          one_body=None, V_func=None):
+                          one_body=None, V_func=None, active_result=None):
     """Build a :class:`ResonanceManifold` from non-relativistic config strings.
 
     ``result`` is the solved closed-shell ground configuration of the
@@ -885,6 +885,15 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
     ignored).  All configurations are unioned into a single CI manifold,
     so levels mix across configurations within each (J, parity) block —
     the physics the configuration-average proxy misses.
+
+    ``active_result`` (optional) supplies the HOLE and EXCITED orbitals
+    from a separate resonance-average solve (e.g. an MCDHF average-level
+    CI-averaging iteration, or an equal-weight fractional-occupation
+    DHF): the active orbitals are evaluated on that solve's own basis
+    and interpolated onto the common fine grid, while the closed core,
+    the Auger final-state target and the continuum field stay with
+    ``result``.  This implements the CI-averaging relaxation without
+    mixing bases.
 
     Two orbital-basis pipelines, selected by the solve that produced
     ``result``:
@@ -1095,32 +1104,48 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
             return np.interp(r_fine, grs, Pg), np.interp(r_fine, grs, Qg)
 
         orbital_coeffs = {}
+        _act = result if active_result is None else active_result
+        _act_tofine = _tofine
+        if active_result is not None:
+            _act_bsp = (getattr(active_result, "_bsp_data", None)
+                        or active_result.bsp_data)
+            _act_gr = _act_bsp["gr"].ravel()
+            _act_order = np.argsort(_act_gr)
+            _act_grs = _act_gr[_act_order]
+
+            def _act_tofine(P, Q, _b=_act_bsp, _g=_act_grs):
+                from atomx.numerics.bspline.evaluate import eval_P as _eP
+                from atomx.numerics.bspline.evaluate import eval_Q as _eQ
+                Pg = _eP(P, _b).ravel()[_act_order]
+                Qg = _eQ(Q, _b).ravel()[_act_order]
+                return (np.interp(r_fine, _g, Pg),
+                        np.interp(r_fine, _g, Qg))
         for kappa in hole_kappas:
-            same = [sh for sh in result.subshells if sh.kappa == kappa]
+            same = [sh for sh in _act.subshells if sh.kappa == kappa]
             idx = next(i for i, sh in enumerate(same) if sh.n == n_h)
-            P, Q = result.orbitals_raw[kappa][idx][:2]
-            orbital_map[(n_h, kappa)] = _tofine(P, Q)
+            P, Q = _act.orbitals_raw[kappa][idx][:2]
+            orbital_map[(n_h, kappa)] = _act_tofine(P, Q)
             orbital_coeffs[(n_h, kappa)] = (P, Q)
             orbital_eps[(n_h, kappa)] = float(
-                result.orbital_energies[_orbital_label(n_h, kappa)])
+                _act.orbital_energies[_orbital_label(n_h, kappa)])
 
         for (n_e, l_e) in excited_nls:
             for kappa in _kappas_of_l(l_e):
-                present = next((sh for sh in result.subshells
+                present = next((sh for sh in _act.subshells
                                 if sh.kappa == kappa and sh.n == n_e), None)
                 if present is not None:
                     # RELAXED VIRTUAL: the resonance-average solve
                     # supplies the excited orbital directly (fractional
                     # occupation) — use it instead of a frozen-core
                     # V^N virtual
-                    same = [sh for sh in result.subshells
+                    same = [sh for sh in _act.subshells
                             if sh.kappa == kappa]
                     idx = same.index(present)
-                    P, Q = result.orbitals_raw[kappa][idx][:2]
-                    orbital_map[(n_e, kappa)] = _tofine(P, Q)
+                    P, Q = _act.orbitals_raw[kappa][idx][:2]
+                    orbital_map[(n_e, kappa)] = _act_tofine(P, Q)
                     orbital_coeffs[(n_e, kappa)] = (P, Q)
                     orbital_eps[(n_e, kappa)] = float(
-                        result.orbital_energies[
+                        _act.orbital_energies[
                             _orbital_label(n_e, kappa)])
                     continue
                 occ_ns = [sh.n for sh in result.subshells
@@ -1137,7 +1162,8 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
                 orbital_coeffs[(n_e, kappa)] = (P, Q)
                 orbital_eps[(n_e, kappa)] = float(eps)
 
-        bound_radial, bound_orbitals = bspline_bound_integrals(result, orbital_coeffs)
+        bound_radial, bound_orbitals = bspline_bound_integrals(
+            _act, orbital_coeffs)
         property_workspace = bsp
         if one_body is None:
             core = {(n, k): occ for n, k, occ in meta
@@ -1167,7 +1193,7 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
 
 def auger_levels(result, configs, *, two_J=None, e_max_eV: float = 1000.0,
                  shooting_n_grid=None, L_max: int = 6,
-                 one_body=None, V_func=None):
+                 one_body=None, V_func=None, active_result=None):
     """J-resolved, CI-mixed autoionization levels of a resonance complex.
 
     The proper-physics replacement for the configuration-average
@@ -1201,7 +1227,7 @@ def auger_levels(result, configs, *, two_J=None, e_max_eV: float = 1000.0,
         result = result._result
     manifold, bsp = manifold_from_configs(
         result, configs, e_max_eV=e_max_eV,
-        one_body=one_body, V_func=V_func)
+        one_body=one_body, V_func=V_func, active_result=active_result)
     Z = int(getattr(result, "Z", 0))
 
     if two_J is None:
