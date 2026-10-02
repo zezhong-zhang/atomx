@@ -144,7 +144,7 @@ class RateProvider:
             result = self._unwrap(self._solve(config))
             omega_ha = photon_energy_eV / 27.211386245988
             table: Dict[Subshell, float] = {}
-            for sh, q in config.items():
+            for sh in config:
                 label = _subshell_label(sh)
                 e_bind = getattr(result, "orbital_energies", {}).get(label)
                 if e_bind is None or e_bind >= 0.0:
