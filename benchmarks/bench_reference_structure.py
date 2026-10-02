@@ -36,6 +36,10 @@ from atomx.reference_data.structure_outputs import (
 from benchmarks.bench_shooting_vs_radial import parse_dhfs_input
 from benchmarks.fac_runner import parse_e0, parse_levels
 
+#: sfac on this Mac needs the relocated gcc runtime on DYLD_LIBRARY_PATH
+#: (same mechanism as benchmarks/fac_runner.py; set FAC_DYLD_LIB).
+FAC_DYLD_LIB = os.environ.get('FAC_DYLD_LIB', '')
+
 
 def sha256(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
