@@ -481,7 +481,6 @@ def build_rate_table(atom_factory, base_config: Config,
     the fluence-independent table.  Feed to :class:`TableRateProvider`
     for millisecond-per-trajectory MC.
     """
-    import random
 
     prov = provider or RateProvider(atom_factory)
     base_nelec = sum(base_config.values())
@@ -590,15 +589,17 @@ def _rate_row_worker(job: dict) -> dict:
     try:
         from atomx import Atom, Correlation
 
-        factory = (lambda lbl: Atom(
-            Z=int(job["Z"]),
-            charge=int(job["Z"]) - sum(
-                int(t[2:]) for t in lbl.split()),
-            config=[lbl],
-            correlation=Correlation(
-                radial_optimization=job.get(
-                    "correlation", "fac_frozen")),
-            corrections="none").solve())
+        z = int(job["z"])
+        corr = job.get("correlation", "fac_frozen")
+
+        def factory(lbl):
+            return Atom(
+                Z=z,
+                charge=z - sum(int(t[2:]) for t in lbl.split()),
+                config=[lbl],
+                correlation=Correlation(radial_optimization=corr),
+                corrections="none").solve()
+
         prov = RateProvider(factory)
         sigmas = prov.pi_sigmas_cm2(label_config,
                                     float(job["photon_eV"]))
@@ -639,7 +640,7 @@ def build_rate_table_parallel(Z: int, base_config: Config,
 
     configs = enumerate_configs(base_config, max_charge=max_charge)
     jobs = [{"config": {f"{n},{k}": q for (n, k), q in c.items()},
-             "Z": Z, "photon_eV": photon_energy_eV,
+             "z": Z, "photon_eV": photon_energy_eV,
              "correlation": correlation} for c in configs]
     workers = n_workers or min(len(jobs), os.cpu_count() or 1)
     workers = max(1, min(workers, len(jobs)))
