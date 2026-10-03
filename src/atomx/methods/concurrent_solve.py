@@ -51,8 +51,14 @@ def summarize(atom, result) -> dict:
 
 
 def _run_job(job: dict) -> Any:
-    """Worker entry: pin threads, construct the Atom, solve, reduce."""
+    """Worker entry: pin threads, isolate numba cache, solve, reduce."""
     _pin_threads()
+    # Per-process numba cache dir: concurrent *.nbi/*.nbc writes in the
+    # shared __pycache__ are the root cause of the intermittent
+    # "underlying object has vanished" ReferenceError flake (manually
+    # wiped twice during the 2026-10-02/03 sessions before this fix).
+    if os.environ.get("ATOMX_NUMBA_CACHE_DIR"):
+        os.environ["NUMBA_CACHE_DIR"] = os.environ["ATOMX_NUMBA_CACHE_DIR"]
     from atomx import Atom
 
     job = dict(job)

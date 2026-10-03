@@ -484,7 +484,6 @@ def build_rate_table(atom_factory, base_config: Config,
     import random
 
     prov = provider or RateProvider(atom_factory)
-    rng = random.Random(20261003)
     base_nelec = sum(base_config.values())
     table: Dict[str, dict] = {}
     frontier = [dict(base_config)]
@@ -509,14 +508,161 @@ def build_rate_table(atom_factory, base_config: Config,
             continue
         for (n, k) in sigmas:
             daughter = _daughter_after_pi(config, (n, k))
-            terminal, _n_aug, _ = _auger_tree_branching(
-                daughter, prov, {}, rng)
-            tk = _key(terminal)
-            if tk not in seen:
-                seen.add(tk)
-                frontier.append(terminal)
+            # EXHAUSTIVE Auger-tree enumeration (the single-sample walk
+            # seeded one branch; a different-seed MC then hit terminals
+            # missing from the table and froze at charge ~1 — measured
+            # F=1000 ratio 0.18 vs the live 0.78).  Collect EVERY
+            # reachable config down all channel orders, dedup on _key.
+            aug_frontier = [daughter]
+            aug_seen = set()
+            while aug_frontier:
+                aug_cfg = aug_frontier.pop()
+                ak = _key(aug_cfg)
+                if ak in aug_seen:
+                    continue
+                aug_seen.add(ak)
+                tk = ak
+                if tk not in seen:
+                    seen.add(tk)
+                    frontier.append(aug_cfg)
+                for hole, s1, s2, _g in prov.auger_channels(aug_cfg):
+                    nxt = _daughter_after_auger(aug_cfg, hole, s1, s2)
+                    nk = _key(nxt)
+                    if nk not in aug_seen:
+                        aug_frontier.append(nxt)
     return {"photon_energy_eV": photon_energy_eV,
             "base_nelec": base_nelec, "configs": table}
+
+
+def enumerate_configs(base_config: Config,
+                     max_charge: int = 12) -> List[Config]:
+    """All occupation tuples over the SAME subshell set (complete).
+
+    PI only removes electrons from occupied subshells and Auger only
+    moves them within, so the reachable graph from ``base_config``
+    never grows the subshell set — every reachable configuration is
+    an occupation tuple over the same (n, kappa) keys.  This makes
+    the configuration list SOLVE-INDEPENDENT (the v1/v2 builders
+    discovered configs by walking the graph, which requires a solve
+    per step and serialised the whole build).
+    """
+    items = sorted(base_config.items())
+    caps = [2 * abs(k) for (n, k), _q in items]  # 2j+1 = 2|kappa| per jj subshell
+    base_total = sum(q for _k, q in items)
+    floor_total = max(int(round(base_total)) - int(max_charge), 0)
+    out: List[Config] = []
+
+    def _rec(i: int, occ: List[int], remaining: int) -> None:
+        if i == len(items):
+            if remaining == 0:
+                out.append({items[j][0]: float(occ[j])
+                           for j in range(len(items)) if occ[j] > 0})
+            return
+        cap = min(caps[i], remaining)
+        for q in range(cap, -1, -1):
+            occ.append(q)
+            _rec(i + 1, occ, remaining - q)
+            occ.pop()
+
+    for total in range(int(round(base_total)), max(floor_total, 1) - 1, -1):
+        _rec(0, [], total)
+    return out
+
+
+def _rate_row_worker(job: dict) -> dict:
+    """Pool worker: solve ONE config and build its picklable rate row.
+
+    ``job = {"config": {"n,k": q, ...}, "Z": Z, "photon_eV": E,
+    "correlation": "fac_frozen"}``.  Runs in an isolated process with
+    pinned BLAS threads; returns the table row (sigma_cm2 + auger
+    channels + occupations) or {"error": ...} so one bad config never
+    kills the build.
+    """
+    import os
+    for var in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS",
+                "MKL_NUM_THREADS", "NUMEXPR_NUM_THREADS"):
+        os.environ[var] = "1"
+    label_config = {
+        (int(k.split(",")[0]), int(k.split(",")[1])): q
+        for k, q in job["config"].items()
+    }
+    label = config_label(label_config)
+    try:
+        from atomx import Atom, Correlation
+
+        factory = (lambda lbl: Atom(
+            Z=int(job["Z"]),
+            charge=int(job["Z"]) - sum(
+                int(t[2:]) for t in lbl.split()),
+            config=[lbl],
+            correlation=Correlation(
+                radial_optimization=job.get(
+                    "correlation", "fac_frozen")),
+            corrections="none").solve())
+        prov = RateProvider(factory)
+        sigmas = prov.pi_sigmas_cm2(label_config,
+                                    float(job["photon_eV"]))
+        channels = prov.auger_channels(label_config)
+        return {
+            "label": label,
+            "sigma_cm2": {f"{n},{k}": v
+                          for (n, k), v in sigmas.items()},
+            "auger": [{"hole": list(h), "s1": list(s1),
+                       "s2": list(s2), "rate": float(g)}
+                      for h, s1, s2, g in channels],
+            "occupations": {f"{n},{k}": q
+                           for (n, k), q in label_config.items()},
+        }
+    except Exception as exc:  # noqa: BLE001 - record and continue
+        return {"label": label, "error": f"{type(exc).__name__}: {exc}",
+                "occupations": {f"{n},{k}": q
+                               for (n, k), q in label_config.items()}}
+
+
+def build_rate_table_parallel(Z: int, base_config: Config,
+                             photon_energy_eV: float, *,
+                             max_charge: int = 12,
+                             n_workers: int | None = None,
+                             correlation: str = "fac_frozen") -> dict:
+    """Complete + parallel rate-table build (the v3 infrastructure).
+
+    Combinatorial enumeration (solve-independent, complete by the
+    subshell-set-preservation argument in :func:`enumerate_configs`)
+    then one pool worker per configuration — each builds its own rate
+    row with its own isolated solve.  Replaces the graph-walking
+    builders (v1 single-sample: under-covered; v2 exhaustive: serial,
+    measured >30 min for Ne).  Returns the same dict shape as
+    :func:`build_rate_table` plus a ``failed`` list.
+    """
+    import os
+    from concurrent.futures import ProcessPoolExecutor
+
+    configs = enumerate_configs(base_config, max_charge=max_charge)
+    jobs = [{"config": {f"{n},{k}": q for (n, k), q in c.items()},
+             "Z": Z, "photon_eV": photon_energy_eV,
+             "correlation": correlation} for c in configs]
+    workers = n_workers or min(len(jobs), os.cpu_count() or 1)
+    workers = max(1, min(workers, len(jobs)))
+    table: Dict[str, dict] = {}
+    failed: List[dict] = []
+    executor = ProcessPoolExecutor(max_workers=workers)
+    try:
+        for row in executor.map(_rate_row_worker, jobs):
+            label = row.pop("label")
+            if "error" in row:
+                failed.append({"label": label, **row})
+                continue
+            table[label] = row
+    finally:
+        executor.shutdown(wait=True)
+    return {"photon_energy_eV": photon_energy_eV,
+            "base_nelec": int(round(sum(base_config.values()))),
+            "configs": table, "failed": failed,
+            "provenance": (
+                "build_rate_table_parallel v3 2026-10-03: combinatorial "
+                "enumeration (complete over the fixed subshell set) + "
+                "per-config pool workers; sigma_PI via shooting/Milne, "
+                "Auger via the gated LS chain")}
 
 
 class TableRateProvider(RateProvider):
