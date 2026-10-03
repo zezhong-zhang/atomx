@@ -46,6 +46,7 @@ from collections import OrderedDict
 
 import numba as nb
 import numpy as np
+from numba import prange as _prange
 
 # ══════════════════════════════════════════════════════════════════════
 # 1. Moments: <B_i B_j | r^k> per interval
@@ -1968,3 +1969,151 @@ def compute_slater_rk_table(M, CP_l, CQ_l, CP_r, CQ_r):
     M_PP, M_QQ, M_PQ, M_QP = M
     return (CP_l.T @ M_PP @ CP_r + CQ_l.T @ M_QQ @ CQ_r
             + CP_l.T @ M_PQ @ CQ_r + CQ_l.T @ M_QP @ CP_r)
+
+
+# ---------------------------------------------------------------------------
+# Batched cell kernels (performance plan tier-3a, 2026-10-03)
+# ---------------------------------------------------------------------------
+
+@nb.njit(parallel=True, cache=True)
+def _rk_cell_batch_sym(rkb, p1_stack, p2_stack, p3_stack, p4_stack, ns, ks):
+    """Batched pppp/qqqq-term cell R^k for many integrals (prange).
+
+    Element b: symmetrised band density(p1, p2), case-2 contraction
+    with ``rkb``, trace against density(p3, p4) — the exact loop
+    structure of the scalar path in :func:`_compute_slater_rk_cell_once`
+    (``_density_sym`` + ``_convol_case2`` + ``_sum_amb_banded``),
+    evaluated for all batch elements in parallel.  Coefficient stacks
+    must be zero-padded to a common length covering ``ns``.
+    """
+    b_n = p1_stack.shape[0]
+    out = np.zeros(b_n)
+    for b in _prange(b_n):
+        p1 = p1_stack[b]
+        p2 = p2_stack[b]
+        p3 = p3_stack[b]
+        p4 = p4_stack[b]
+        acc = 0.0
+        for j in range(ns):
+            for jp in range(ks):
+                if j + jp >= ns:
+                    continue
+                a_jjp = 0.0
+                for ip in range(ks):
+                    for i in range(ns):
+                        if i + ip >= ns:
+                            continue
+                        d_ab = p1[i] * p2[i + ip]
+                        if ip > 0:
+                            d_ab += p1[i + ip] * p2[i]
+                        a_jjp += rkb[i, j, ip, jp] * d_ab
+                d_cd = p3[j] * p4[j + jp]
+                if jp > 0:
+                    d_cd += p3[j + jp] * p4[j]
+                acc += a_jjp * d_cd
+        out[b] = acc
+    return out
+
+
+@nb.njit(parallel=True, cache=True)
+def _rk_cell_batch_mixed(rkb, p1_stack, p2_stack, q1_stack, q2_stack,
+                          ns_c, ks_left, ks_right, ns_t):
+    """Batched pqpq/qpqp-term cell contraction for many integrals.
+
+    Element b: band density(p1, p2) (ks_left basis) contracted through
+    ``rkb`` to (ns_c, ks_right) bands, traced against band density(q1,
+    q2) (ks_right basis) over the first ns_t rows — the exact mixed
+    structure of :func:`_compute_slater_rk_cell_once` (HYP-1590
+    zero-pad semantics preserved via padded stacks).
+    """
+    b_n = p1_stack.shape[0]
+    out = np.zeros(b_n)
+    for b in _prange(b_n):
+        p1 = p1_stack[b]
+        p2 = p2_stack[b]
+        q1 = q1_stack[b]
+        q2 = q2_stack[b]
+        acc = 0.0
+        for j in range(ns_c):
+            for jp in range(ks_right):
+                if j + jp >= ns_c:
+                    continue
+                a_jjp = 0.0
+                for ip in range(ks_left):
+                    for i in range(ns_c):
+                        if i + ip >= ns_c:
+                            continue
+                        d_ab = p1[i] * p2[i + ip]
+                        if ip > 0:
+                            d_ab += p1[i + ip] * p2[i]
+                        a_jjp += rkb[i, j, ip, jp] * d_ab
+                if j < ns_t:
+                    d_cd = q1[j] * q2[j + jp]
+                    if jp > 0:
+                        d_cd += q1[j + jp] * q2[j]
+                    acc += a_jjp * d_cd
+        out[b] = acc
+    return out
+
+
+def compute_slater_rk_cell_batch(orbital_arrays, keys, bsp_data, cache=None):
+    """Batched Slater R^k(ab, cd) over many (a, b, c, d, k) tuples.
+
+    ``orbital_arrays`` maps each key used in ``keys`` to the (P, Q)
+    COEFFICIENT vectors; ``keys`` is a list of ``(a, b, c, d, k)``
+    tuples in that key space.  Groups by k, fetches the SAME cached
+    rkb factor tensors as the scalar cell kernel (``cache``), and
+    evaluates the four component terms (pppp/qqqq/pqpq/qpqp) with
+    prange-batched numba kernels.  Returns a list aligned with
+    ``keys``: the same arithmetic as :func:`compute_slater_rk_cell`,
+    evaluated in parallel.  This is the performance-plan tier-3a
+    infrastructure: the measured CI two-body assembly hotspot is ~100k
+    unique cell integrals at ~150 us each (~30 s serial) — the batch
+    kernel amortises the same work across cores.
+    """
+    bd = bsp_data
+    nsp = bd.get("nsp", bd["ns"])
+    nsq = bd.get("nsq", bd["ns"])
+    ksp = bd.get("ksp", bd["ks"])
+    ksq = bd.get("ksq", bd["ks"])
+    ns_loc = bd["ns"]
+    ns_full = max(nsp, nsq)
+    if cache is None:
+        cache = ConvolCache(bd)
+
+    by_k = {}
+    for idx, key in enumerate(keys):
+        by_k.setdefault(key[4], []).append(idx)
+    result = [0.0] * len(keys)
+
+    for k, idxs in by_k.items():
+        rkb_pp, _, _ = cache.get_rkb(k, "pppp")
+        rkb_qq, _, _ = cache.get_rkb(k, "qqqq")
+        rkb_pq, _, _ = cache.get_rkb(k, "pqpq")
+        rkb_qp, _, _ = cache.get_rkb(k, "qpqp")
+
+        # per-role stacked P/Q coefficient matrices (zero-padded)
+        roles = ("a", "b", "c", "d")
+        stacks = {"P": {}, "Q": {}}
+        for comp in ("P", "Q"):
+            for role, slot in zip(roles, (0, 1, 2, 3), strict=True):
+                mat = np.zeros((len(idxs), ns_full))
+                for r, i in enumerate(idxs):
+                    key = keys[i]
+                    arr = orbital_arrays[key[slot]][0 if comp == "P" else 1]
+                    m = min(len(arr), ns_full)
+                    mat[r, :m] = arr[:m]
+                stacks[comp][role] = mat
+
+        P, Q = stacks["P"], stacks["Q"]
+        out_pp = _rk_cell_batch_sym(rkb_pp, P["a"], P["b"], P["c"], P["d"],
+                                  nsp, ksp)
+        out_qq = _rk_cell_batch_sym(rkb_qq, Q["a"], Q["b"], Q["c"], Q["d"],
+                                  nsq, ksq)
+        out_pq = _rk_cell_batch_mixed(rkb_pq, P["a"], P["b"], Q["c"], Q["d"],
+                                       ns_loc, ksp, ksq, min(ns_loc, nsq))
+        out_qp = _rk_cell_batch_mixed(rkb_qp, Q["a"], Q["b"], P["c"], P["d"],
+                                     ns_loc, ksq, ksp, min(ns_loc, nsp))
+        for r, i in enumerate(idxs):
+            result[i] = float(out_pp[r] + out_qq[r] + out_pq[r] + out_qp[r])
+    return result
