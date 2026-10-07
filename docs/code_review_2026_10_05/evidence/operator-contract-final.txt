@@ -1,0 +1,12 @@
+..........................x............................................. [ 50%]
+......................................................................   [100%]
+============================= slowest 8 durations ==============================
+8.23s call     tests/test_ci_matrix_vs_mscheme_reference.py::test_he_like_1s2p_levels_match_oracle[fac_frozen]
+7.39s call     tests/test_ci_matrix_vs_mscheme_reference.py::test_sd_correlation_is_variational
+6.48s call     tests/test_ci_matrix_vs_mscheme_reference.py::test_he_like_1s2p_j1_splitting_matches_two_thirds_g1[fac_frozen]
+4.82s call     tests/test_ci_matrix_vs_mscheme_reference.py::test_singles_expansion_gains_nothing_on_hf_orbitals
+4.77s call     tests/test_ci_matrix_vs_mscheme_reference.py::test_he_like_1s2p_levels_match_oracle[mcdhf]
+4.75s call     tests/test_ci_matrix_vs_mscheme_reference.py::test_singles_correlation_is_variational
+4.71s call     tests/test_ci_matrix_vs_mscheme_reference.py::test_he_like_1s2p_j1_splitting_matches_two_thirds_g1[mcdhf]
+3.31s call     tests/test_ci_matrix_vs_mscheme_reference.py::test_full_spectrum_matches_mscheme_reference
+141 passed, 1 xfailed in 54.05s

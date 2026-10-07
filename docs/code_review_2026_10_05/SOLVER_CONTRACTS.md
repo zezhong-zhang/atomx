@@ -43,6 +43,6 @@ Updated: constructor/result/failure docstrings, [migration notes](../MIGRATION.m
 and [architecture contracts](../ARCHITECTURE_DESIGN.md). Retained: capabilities
 and provider ADR, since numerical operators and provider shape/budget contracts
 are preserved. Archive loading, correction injection, live solver/grid controls,
-failure injection, provider checks and public DR paths are exercised.
-Self-consistency does not establish experimental
+failure injection, provider checks and public DR paths are exercised; see
+[validation](VALIDATION.md). Self-consistency does not establish experimental
 accuracy or resolve the Ne satellite discrepancy.

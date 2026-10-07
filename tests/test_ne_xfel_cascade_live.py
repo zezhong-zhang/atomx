@@ -1,4 +1,8 @@
-"""Live cascade_mc vs the Young-2010 anchor — fluence-sweep gate.
+"""Historical cascade_mc sweep vs the Young-2010 anchor — replay gates.
+
+The archived-row comparisons below validate recorded evidence. They do not
+run today's structure/rate builders. The live neutral-survival check at the
+end exercises the current cascade and table provider on declared frozen rates.
 
 The sweep result (one shared provider, all fluences amortize the
 configuration solves) lands at tests/data/ne_xfel_cascade_sweep.json.
@@ -75,3 +79,33 @@ def test_all_high_fluence_rows_within_band(sweep_rows):
             f"F={row['fluence_au']}: ratio {row['ratio']:.2f} outside "
             f"[0.6, 1.5]; sweep: {report}"
         )
+
+
+def test_current_table_cascade_neutral_survival():
+    """Live current-code gate on frozen rates; no renewed XATOM accuracy claim.
+
+    A neutral atom cannot be repopulated by this PI/Auger graph, so its
+    survival after B Bernoulli bins is exactly (1-sigma*F/B)^B. The
+    acceptance rule is five binomial standard deviations, seed fixed in
+    advance. This tests the retained discretized MC model, not exp(-sigma F).
+    """
+    import math
+
+    from atomx.xfel.cascade import Pulse, TableRateProvider, cascade_mc
+
+    table = json.loads((SWEEP.parent / "ne_1keV_rate_table.json").read_text())
+    row = table["configs"]["1s2 2s2 2p6"]
+    config = {tuple(map(int, key.split(","))): value
+              for key, value in row["occupations"].items()}
+    sigma = math.fsum(row["sigma_cm2"].values())
+    bins, trajectories = 16, 20000
+    fluence = 0.3 / sigma
+    expected = (1 - 0.3 / bins) ** bins
+    result = cascade_mc(
+        None, config, Pulse(table["photon_energy_eV"], fluence),
+        provider=TableRateProvider(table), n_bins=bins,
+        n_trajectories=trajectories, seed=20261005,
+    )
+    uncertainty = math.sqrt(expected * (1 - expected) / trajectories)
+    assert result.charge_distribution.get(0, 0.0) == pytest.approx(expected, abs=5 * uncertainty)
+    assert math.fsum(result.charge_distribution.values()) == pytest.approx(1.0, abs=1e-12)

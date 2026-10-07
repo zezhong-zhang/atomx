@@ -1,140 +1,91 @@
-"""Gates for the series Slater-scaling calibration (R4 route).
+"""Small complete 4f² gates; measured ion transfers live in the slow campaign.
 
-Regression anchors are the MEASURED transfer numbers (2026-10-01):
-  Pr fit (no 1S0): (s2,s4,s6) ~ (-0.27, -0.08, -0.12), RMS ~ 210
-  Eu3+ 5D0 bare +3164 -> scaled -257 +- slack
-  Nd3+ 4F3/2 bare +34% -> scaled -1.5% +- slack
-G1 linearity: one Jacobian step lands within a few cm^-1 of the full
-   fit (energies are near-linear in the scalings).
-G2 delta convention: scaling applied at the element level equals the
-   scaling applied inside _rk by construction (spot-check Hermiticity
-   of the assembled H).
-G3 transfer regression: the three-ion numbers above reproduce.
+These fixed, normalized radial functions test algorithms and conventions,
+not a stationary free-ion model or experimental agreement. All 14 f spinors
+and their complete M sectors are retained (91 determinants in total).
 """
+
+from itertools import combinations
 
 import numpy as np
 import pytest
 
-from atomx.constants import HARTREE_CM1
-from atomx.methods.csf.slater_scaling import fit_slater_scaling, free_ion_levels
-
-#: Canonical Ha → cm⁻¹ (the truncated 219474.63 copy was retired in the
-#: P4 constants consolidation; ``free_ion_levels`` defaults to the same).
-CM = HARTREE_CM1
-
-
-NIST_PR = {0: [21390.0], 1: [22012.0], 2: [4997.0, 17334.0, 23160.0],
-           3: [6415.0], 4: [0.0, 6853.0, 9925.0], 5: [2152.0],
-           6: [4389.0, 22215.0]}
-
-
-from atomx.methods.csf.lanthanide_workspace import (
-    build_lanthanide_workspace as _build,
+from atomx.methods.csf.slater_scaling import (
+    fit_slater_scaling,
+    free_ion_levels,
+    make_slater_delta,
+    multiset_subtract,
 )
+from atomx.numerics.bspline.basis import prepare_bspline_data
+from atomx.numerics.bspline.knots import make_knots
+from atomx.physics.csf import sparse_ci as SC
 
 
 @pytest.fixture(scope="module")
-def pr_ws():
-    return _build(59, 2)
+def small_f2():
+    ns, ks = 24, 7
+    knots = make_knots(ns, ks, 1e-6, 30.0)
+    data = prepare_bspline_data(knots, ns, ks)
+    # A fixed f-like expansion, shared between the two j partners.
+    p = np.zeros(ns)
+    p[16:23] = (0.1, 0.3, 0.7, 1.0, 0.8, 0.4, 0.1)
+    values = np.zeros_like(data["gr"])
+    for iv in range(data["nv"]):
+        values[iv] = data["bsp_p"][iv] @ p[iv:iv + ks]
+    p /= np.sqrt(np.sum(data["grw"] * values**2))
+    od = {(4, k): (p.copy(), np.zeros(ns)) for k in (3, -4)}
+    patterns = [((4, 3, 2),), ((4, 3, 1), (4, -4, 1)), ((4, -4, 2),)]
+    return od, data, patterns
 
 
-@pytest.fixture(scope="module")
-def eu_ws():
-    return _build(63, 6)
+def test_scaling_is_linear_antisymmetric_and_hermitian(small_f2):
+    od, data, patterns = small_f2
+    masks, spinors = SC.enumerate_determinants(patterns, od, 0)
+    scales = {2: -0.2, 4: -0.1, 6: -0.05}
+    delta = make_slater_delta(od, data, scales)
+    individual = {k: make_slater_delta(od, data, {k: s}) for k, s in scales.items()}
+    pairs = list(combinations(range(len(spinors)), 2))
+    nonzero = off_diagonal = 0
+    for a, b in pairs:
+        for c, d in pairs:
+            value = delta(a, b, c, d, spinors)
+            assert value == pytest.approx(sum(f(a, b, c, d, spinors)
+                                             for f in individual.values()), abs=2e-15)
+            assert value == pytest.approx(-delta(b, a, c, d, spinors), abs=2e-15)
+            assert value == pytest.approx(-delta(a, b, d, c, spinors), abs=2e-15)
+            assert value == pytest.approx(delta(c, d, a, b, spinors), abs=2e-15)
+            nonzero += abs(value) > 1e-12
+            off_diagonal += (a, b) != (c, d) and abs(value) > 1e-12
+    assert nonzero > 10 and off_diagonal > 10
+    H = SC.assemble_sparse_hamiltonian(
+        masks, spinors, od, data, 1, data["ns"],
+        two_body_delta=lambda a, b, c, d: delta(a, b, c, d, spinors))
+    np.testing.assert_allclose(H.toarray(), H.toarray().T, atol=1e-13, rtol=0)
+    assert make_slater_delta(od, data, {2: 0.0}) is None
 
 
-@pytest.fixture(scope="module")
-def nd_ws():
-    return _build(60, 3)
+def test_complete_j_ladder_and_known_parameter_recovery(small_f2):
+    od, data, patterns = small_f2
+    target = (-0.2, -0.1, -0.05)
+
+    def levels(scale):
+        return free_ion_levels(od, data, 1, data["ns"], patterns, scale=scale, cm=1.0)
+
+    reference = levels(target)
+    # Full 4f² space: choose(14,2) states, recovered with 2J+1 weights.
+    assert sum(round(2*j + 1)*len(es) for j, es in reference.items()) == 91
+    def residuals(scale):
+        computed = levels(scale)
+        assert computed.keys() == reference.keys()
+        return np.concatenate([computed[j] - reference[j] for j in sorted(reference)])
+
+    fitted, history, diagnostics = fit_slater_scaling(residuals, tol=1e-12)
+    np.testing.assert_allclose(fitted, target, atol=1e-8, rtol=0)
+    assert history[-1] < 1e-10
+    assert np.isfinite(diagnostics["cond"])
 
 
-def _pr_residuals(pr_ws, scale):
-    od, bsp, pats = pr_ws
-    lv = free_ion_levels(od, bsp, 59, 50, pats, scale=scale or None)
-    allE = sorted(e for es in lv.values() for e in es)
-    E0 = allE[0]
-    res = []
-    for J in sorted(NIST_PR):
-        for e, ref in zip(sorted(lv[J]), NIST_PR[J], strict=False):
-            res.append((e - E0) - ref)
-    return res
-
-
-def test_g1_pr_fit_and_linearity(pr_ws):
-    x, hist, diag = fit_slater_scaling(
-        lambda s: _pr_residuals(pr_ws, s))
-    assert diag['cond'] < 200, diag
-    rms = hist[-1]
-    assert rms < 350, rms
-    assert x[0] == pytest.approx(-0.27, abs=0.05), x
-    assert x[1] == pytest.approx(-0.08, abs=0.05), x
-    assert x[2] == pytest.approx(-0.12, abs=0.05), x
-    # G1: near-linearity — one Jacobian step from 0 gets most of the way
-    r0 = np.asarray(_pr_residuals(pr_ws, (0, 0, 0)))
-    h = 0.02
-    Jm = np.column_stack([
-        (np.asarray(_pr_residuals(pr_ws, e)) - r0) / h
-        for e in [(h, 0, 0), (0, h, 0), (0, 0, h)]])
-    step, *_ = np.linalg.lstsq(Jm, -r0, rcond=None)
-    r1 = np.asarray(_pr_residuals(pr_ws, tuple(step)))
-    assert np.sqrt(np.mean(r1 ** 2)) < 1.3 * rms
-
-
-def test_g2_scaled_hermitian(pr_ws):
-    from atomx.physics.csf import sparse_ci as SC
-    od, bsp, pats = pr_ws
-    masks, spinors = SC.enumerate_determinants(pats, od, 2)
-    from atomx.methods.csf.slater_scaling import make_slater_delta
-    delta = make_slater_delta(od, bsp, {2: -0.27, 4: -0.08,
-                                         6: -0.12})
-    def dd(a, b, c, d):
-        return delta(a, b, c, d, spinors)
-    H = SC.assemble_sparse_hamiltonian(masks, spinors, od, bsp, 59, 50,
-                                       two_body_delta=dd)
-    Hd = (H - H.T).tocoo()
-    assert Hd.data.size == 0 or np.max(np.abs(Hd.data)) < 1e-9
-
-
-def test_g3_transfer_eu(pr_ws, eu_ws):
-    """G3 HONEST BOUND: Eu 5D0 is a pure G^k-ratio probe.  The Pr
-    source (no 1S0) pins s2 well but leaves the s4/s6 ratio loose, so
-    the transferred prediction lands within a documented bound — NOT
-    at the lucky 1S0-anchored value.  The ANCHOR protocol therefore
-    fits the anchor ion's own inter-multiplet gaps (see spec)."""
-    x, hist, diag = fit_slater_scaling(
-        lambda s: _pr_residuals(pr_ws, s))
-    od, bsp, pats = eu_ws
-    lv0 = free_ion_levels(od, bsp, 63, 50, pats)
-    lv1 = free_ion_levels(od, bsp, 63, 50, pats,
-                          scale={2: x[0], 4: x[1], 6: x[2]})
-    for lv, tag in ((lv0, "bare"), (lv1, "scaled")):
-        allL = sorted((e, J) for J, es in lv.items() for e in es)
-        e0 = allL[0][0]
-        e5d0 = min(e for e, J in allL if J == 0 and e - e0 > 10000)
-        if tag == "bare":
-            bare = e5d0 - e0
-        else:
-            scaled = e5d0 - e0
-    assert bare == pytest.approx(20434, abs=60)
-    # ratio-anchored transfer: 17013 (with the 1S0 guess); ratio-loose:
-    # 18769.  Gate the BOUND: scaling must remove most of the +3164
-    # error and stay below 1600.
-    assert 16800 <= scaled <= 18900, scaled
-    assert abs(scaled - 17270) < abs(bare - 17270) * 0.55, scaled
-
-
-def test_g4_transfer_nd(pr_ws, nd_ws):
-    x, hist, diag = fit_slater_scaling(
-        lambda s: _pr_residuals(pr_ws, s))
-    od, bsp, pats = nd_ws
-    out = {}
-    for tag, sc in (("bare", None),
-                    ("scaled", {2: x[0], 4: x[1], 6: x[2]})):
-        lv = free_ion_levels(od, bsp, 60, 50, pats, scale=sc,
-                             twoJ_values=[3, 9, 11, 13, 15, 17])
-        e0 = lv[4.5][0]
-        out[tag] = (lv[5.5][0] - e0, lv[1.5][0] - e0)
-    assert out["bare"][1] == pytest.approx(15690, abs=80)
-    assert out["scaled"][1] == pytest.approx(11528, abs=80)
-    assert abs(out["scaled"][1] - 11699) < 250
-    assert abs(out["scaled"][0] - 1897) < 80
+def test_multiset_subtraction_preserves_degenerate_copies():
+    np.testing.assert_array_equal(multiset_subtract([1, 1, 2, 3], [1, 3]), [1, 2])
+    with pytest.raises(ValueError, match="high sector larger"):
+        multiset_subtract([1], [1, 1])

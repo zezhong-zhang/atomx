@@ -1,0 +1,488 @@
+{
+  "base_commit": "9deec40",
+  "source_scope": "isolated selected review delivery; other files from base",
+  "selected_sources": {
+    "benchmarks/bench_gauss_legendre.py": {
+      "sha256": "3db144d53a7a8007d7d0e37be053e3db53c48061a6a29b0f8fdac4a753e379e4",
+      "bytes": 3217
+    },
+    "benchmarks/mscheme_ci_reference.py": {
+      "sha256": "4d6ec167ab6f49ef77bec1aa559708cbcd6a06adddba830d1ee0f499666f1f70",
+      "bytes": 14210
+    },
+    "benchmarks/verify_external_codes.py": {
+      "sha256": "a981ec110690dd7f0f952cdeb5c0665c05631b7d1eb6d67b5fe524b9cf0fc6e1",
+      "bytes": 24641
+    },
+    "scripts/xatom_ne_benchmark.py": {
+      "sha256": "251f0c3ab5cde275ae41592e2163220acf1ab78af3ba6317bdc112bd65e97540",
+      "bytes": 4097
+    },
+    "src/atomx/angular/__init__.py": {
+      "sha256": "d98cfab8e7691851009714d9c4dfecb3b9118c5106bdfdfc48e20ac6c3a05d61",
+      "bytes": 1175
+    },
+    "src/atomx/angular/coefficients.py": {
+      "sha256": "0299bc96e53ddf7f529dae4aeab8caaaaf48687abd02dd9a7ee01e997ee57710",
+      "bytes": 11121
+    },
+    "src/atomx/angular/csf_hamiltonian.py": {
+      "sha256": "f8cd13fdd470e89fae6c64473ada126cb1d63262070d039665b714cf9e7d68b2",
+      "bytes": 57479
+    },
+    "src/atomx/angular/ls_coupling.py": {
+      "sha256": "4a05a6f9f4f3147ab2e034e2567ef8a8edd2156d1fb9eae3c193f004e2fe18a1",
+      "bytes": 5569
+    },
+    "src/atomx/angular/mscheme.py": {
+      "sha256": "21edff730e25c3d3945583cb830b50f5bf52f1f0d3a1585800885902b5fbfdf2",
+      "bytes": 21058
+    },
+    "src/atomx/angular/recoupling.py": {
+      "sha256": "b57a353cbeded0e5c38a63ca40e415aff37bc8e8df19ce552ea3cfbe3661c5ba",
+      "bytes": 5363
+    },
+    "src/atomx/angular/spinor_harmonics.py": {
+      "sha256": "9d35900460870c3c298eecf0dd00a76f4b437cfca783b0bd9b866bb5cfe0c0af",
+      "bytes": 5575
+    },
+    "src/atomx/atom.py": {
+      "sha256": "b788f0c55106dc87409de64d5eed7226c5786c98d3af7df2f0bfb8edb0db9212",
+      "bytes": 97063
+    },
+    "src/atomx/calculation_spec.py": {
+      "sha256": "c2f9d7a7869713b1d69f49a72cc90ee82b1dec1a8459b3de57f417d8f39d93a2",
+      "bytes": 6225
+    },
+    "src/atomx/config/parsing.py": {
+      "sha256": "e7a5b7878f12a4b969aae7925cddad2539560177a442def4892b018d23b5ba4e",
+      "bytes": 3545
+    },
+    "src/atomx/config/subshell.py": {
+      "sha256": "4572ba40d89a6681006d9ae773017a7347d6452edb8a27dbf1f38242d0c86cce",
+      "bytes": 1877
+    },
+    "src/atomx/constants.py": {
+      "sha256": "85e55d5b2f87ac120faf68c66a9e5f945548f35629f8b235a99fc1ae2015ac9d",
+      "bytes": 9293
+    },
+    "src/atomx/corrections/qedmod/mohr.py": {
+      "sha256": "fe6aefe11e4045d8250d307fb8de4d5b94a9f1677374de3bf22aaa5da192280d",
+      "bytes": 6572
+    },
+    "src/atomx/corrections/qedmod/shabaev.py": {
+      "sha256": "bd4cba9683ea9eb271b3101f7a4d340efebbbc8fc76e3cc2c22485b1a92a7d9b",
+      "bytes": 15785
+    },
+    "src/atomx/corrections/specific_recoil.py": {
+      "sha256": "31d5b7e6df6d4c690196cbbb8cb88a6697cf453b94c65501db80ea8c3c2916c1",
+      "bytes": 7574
+    },
+    "src/atomx/corrections/stack.py": {
+      "sha256": "ac5e49a7bfc4b391e9dc1b4ca067e5cbfbbcdaf200cb4a755cd5259604d67347",
+      "bytes": 17722
+    },
+    "src/atomx/io/fac_writer.py": {
+      "sha256": "ea4730f02f8da72983ee4aba3df46dc68a259af32034804260bf3c123209e2fa",
+      "bytes": 31800
+    },
+    "src/atomx/io/results.py": {
+      "sha256": "31d2e497b93c68b2bce760d2d102857ea869cf57c0ace2b60141b58b23abb1e4",
+      "bytes": 18691
+    },
+    "src/atomx/methods/breit_pauli.py": {
+      "sha256": "891da6014b1ba44fb4c6d8abcd9878b5f4a56da86545b700df8e6af6720e7208",
+      "bytes": 9248
+    },
+    "src/atomx/methods/csf/crystal_field.py": {
+      "sha256": "9c47bb6c742f32b074121c7388c1b9168c479023f2681baf9d567bfdc02669d3",
+      "bytes": 11296
+    },
+    "src/atomx/methods/csf/grid_solver.py": {
+      "sha256": "d8a7966eb9f3bf2b74d52981f0da4422dd8ce3b2637f7ac1adadc538fd2a4a6f",
+      "bytes": 3976
+    },
+    "src/atomx/methods/csf/slater_scaling.py": {
+      "sha256": "4d165148ffa8a059fd748bcbe93f23e3ad6564a23283ce2129238c886fb33d52",
+      "bytes": 9607
+    },
+    "src/atomx/methods/csf/solver.py": {
+      "sha256": "704448104e4127595a4b802b0dafe74851583139a06ded363df18c87a7995a81",
+      "bytes": 92487
+    },
+    "src/atomx/methods/dirac_fock.py": {
+      "sha256": "5d3481d9ec7017a8311e89ee872bdcdc729d6c2a9e766e78c4320381ca5b4129",
+      "bytes": 132460
+    },
+    "src/atomx/methods/hydrogenic.py": {
+      "sha256": "095a11605aada6a4954537f87fe588794a9e76879d8dcc65f2511753d9e3a942",
+      "bytes": 4677
+    },
+    "src/atomx/methods/mbpt.py": {
+      "sha256": "810aa26621798821da56e8965524dbf27f5fe735cebdf1d371c7c1e494352e3e",
+      "bytes": 45172
+    },
+    "src/atomx/methods/mbpt_sigma2.py": {
+      "sha256": "fe671a8a4808b42ed9b9a57ee28ac854744390050293f5d0e32cd62f70dcd8d1",
+      "bytes": 30648
+    },
+    "src/atomx/methods/mcdhf/excitations.py": {
+      "sha256": "264679be4318273fa533ffd70d41af6ed3df0183437db5f60f97ba2612b00386",
+      "bytes": 8082
+    },
+    "src/atomx/methods/rpa.py": {
+      "sha256": "386313334fcb43d239ae68dfe211d9724ba3b3fe1a984003e54ed44cc1f18051",
+      "bytes": 15602
+    },
+    "src/atomx/numerics/bspline/convol.py": {
+      "sha256": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe",
+      "bytes": 86747
+    },
+    "src/atomx/numerics/quadrature.py": {
+      "sha256": "22a5bab9474ab8e3984f31125be18356f82fddc3746be28547b17fddbfd25021",
+      "bytes": 17233
+    },
+    "src/atomx/numerics/shooting/dirac_orbital.py": {
+      "sha256": "00d5a052221f0712406fb6834d0676eff8f849c531db982933afb91f07c328a0",
+      "bytes": 12162
+    },
+    "src/atomx/physics/csf/breit_ci.py": {
+      "sha256": "3f66f224975e24f2e8266904ea4589aa8b9c0e591c2d0c18c7a915ca94e7cd38",
+      "bytes": 22832
+    },
+    "src/atomx/physics/csf/frozen_core.py": {
+      "sha256": "dfb4b28a07e69360d735f293a4d0aa586d54c153c69b5b9684a6d4b409dd1f74",
+      "bytes": 2239
+    },
+    "src/atomx/physics/csf/matrix.py": {
+      "sha256": "5c7a05936905576ee3e26b7d36933a862337136cf727826f1c12157cbb9635b5",
+      "bytes": 43399
+    },
+    "src/atomx/physics/hartree_fock.py": {
+      "sha256": "b2de2fcb942b46a02fe13a650c29807c7aeab8c676679656fba571a02fbcc079",
+      "bytes": 13743
+    },
+    "src/atomx/plasma/crm.py": {
+      "sha256": "f8c137669091f28ec5ba2cfc428ac3dd13921be23c841afa0ca2937d77cd700a",
+      "bytes": 34937
+    },
+    "src/atomx/potentials/static_field.py": {
+      "sha256": "72ba331ff7959545a76be29dadcfcbf2e31ec70f1e0775abecd538df16faa2c3",
+      "bytes": 15326
+    },
+    "src/atomx/properties/_sos_basis.py": {
+      "sha256": "37d004cac37690f542b0beee6fb220ebcf5a23c417316c637274f37da34b3925",
+      "bytes": 2704
+    },
+    "src/atomx/properties/edm/sternheimer.py": {
+      "sha256": "98b5923e341c1814ac93e1cbd79a0ad07466af8a3e6b47bf3cf291fe0f3dd319",
+      "bytes": 17365
+    },
+    "src/atomx/properties/isotope_shift/sms_abinitio.py": {
+      "sha256": "5474536a3156620b397fa2464e1ad2d5db409a648304d7232a96b8ddaa26d24a",
+      "bytes": 3581
+    },
+    "src/atomx/properties/polarizability/__init__.py": {
+      "sha256": "07efbc0e99cee4f9a7305d145b98847c933e0af4c56a1279dd8f1d18025adbb4",
+      "bytes": 12361
+    },
+    "src/atomx/properties/transitions/angular.py": {
+      "sha256": "8c63cfad3d69316a58fddd4d6ef04a0078121a453df17e33ea7f3623871de802",
+      "bytes": 7261
+    },
+    "src/atomx/properties/transitions/calculator.py": {
+      "sha256": "11bde0c467a39576a1078fda0fde01140ff8351b0c92a79b4b7cd46e69f5719e",
+      "bytes": 29451
+    },
+    "src/atomx/properties/transitions/ci_lines.py": {
+      "sha256": "c6e7d3e15444f951af3374f923342fa1bd2354f200aca0df2c465c852d8e1701",
+      "bytes": 25811
+    },
+    "src/atomx/properties/transitions/fluorescence.py": {
+      "sha256": "973d86924943ec5ab5da7f72aa8303c31d7cbe8016789fcefebfa89d97fafb52",
+      "bytes": 3959
+    },
+    "src/atomx/properties/transitions/rates.py": {
+      "sha256": "12e312a4ac3d76b17a0f3a86c5ac42a93d442eda646b0fc9eee97208b50df97e",
+      "bytes": 6483
+    },
+    "src/atomx/properties/zeeman/lande.py": {
+      "sha256": "f1cab7c0fc6b4ded0156ffb1d7a6792795086b5405066f08f135c187ff0ae72d",
+      "bytes": 7602
+    },
+    "src/atomx/providers/contract.py": {
+      "sha256": "faeef57853b4603aa756b6b5eab621bb0c424529ae4656a18bbc330aca326f2f",
+      "bytes": 37867
+    },
+    "src/atomx/radial_state.py": {
+      "sha256": "5fa95f0ccf1f12de952fc3cb3d602b1570985373d49f5a39c24918b2aa8637de",
+      "bytes": 4751
+    },
+    "src/atomx/reference_data/matching.py": {
+      "sha256": "5ff30138bc4fed0b1b6ef0f94a41c71953099669166e59fe45fa8f39f7fd11ae",
+      "bytes": 6464
+    },
+    "src/atomx/reference_data/nist.py": {
+      "sha256": "5197635c01eea7245b0b19684d3e42d6de25c66d9285b116a42f12aadbd3bbba",
+      "bytes": 21773
+    },
+    "src/atomx/reference_data/structure_outputs.py": {
+      "sha256": "01978b9a3d10fe8b8a46a2d3ca187ec8de7abcc9da5926dc3a41acb94bc8d76c",
+      "bytes": 7395
+    },
+    "src/atomx/results.py": {
+      "sha256": "41664c21643848eeef11e5225b5d0ce33a67fefba22628091df6716e4c9e2dd7",
+      "bytes": 26209
+    },
+    "src/atomx/scattering/anomalous.py": {
+      "sha256": "6c4734b12627782921f6b14eed23c04a668a9d3a846afd3b8f6af7d69c6379c9",
+      "bytes": 7410
+    },
+    "src/atomx/scattering/autoionization/__init__.py": {
+      "sha256": "fb1743c800d920803f10c8b49b37f1197b5426381d9031460c41806caad821bc",
+      "bytes": 41996
+    },
+    "src/atomx/scattering/autoionization/jj_level.py": {
+      "sha256": "1ffb451bc6c6ac81e3bd7db6cbebc5f868062654a970fe3fe24691d18f1385ba",
+      "bytes": 10898
+    },
+    "src/atomx/scattering/autoionization/mscheme_ci.py": {
+      "sha256": "2c0ec37cc241d7721dc399e4b8761e4833d9e9b49f6ed72bd637c78b0bcd0e50",
+      "bytes": 58409
+    },
+    "src/atomx/scattering/dielectronic_recombination/enumerate.py": {
+      "sha256": "99890f693dfacff295d7aa906b6c81cda215cb53c385c57484c9f7ecbd65f013",
+      "bytes": 17139
+    },
+    "src/atomx/scattering/dielectronic_recombination/fac_reference.py": {
+      "sha256": "5787f89cc34cce6440021e6d357dfdaa0d267673d7d67e7676e27e1c58f3e799",
+      "bytes": 7542
+    },
+    "src/atomx/scattering/dielectronic_recombination/solver.py": {
+      "sha256": "625ac453c4ae66d3821444acda1e1d7c5b38547fb90da6ffd4418bfad343cd2b",
+      "bytes": 22781
+    },
+    "src/atomx/scattering/dielectronic_recombination/widths.py": {
+      "sha256": "0225b15e008dd7d7fc3599e415a292ab36fddf5cab3f3f9ffe7ced5a6b2d672e",
+      "bytes": 5631
+    },
+    "src/atomx/scattering/distorted_wave/born.py": {
+      "sha256": "b7e876048732cb9513d17bf39813fe094ff39968ef656bd9a594b0b17e23eef6",
+      "bytes": 11763
+    },
+    "src/atomx/scattering/distorted_wave/solver.py": {
+      "sha256": "5953547ba272adfd80c3c5ab8bcdf745f4780f3c622304368ea27808fb1c0f7e",
+      "bytes": 34128
+    },
+    "src/atomx/scattering/electron_ionization/__init__.py": {
+      "sha256": "fffc2843b36875a2b68a1492e8f35611050ce68cc4672317444da954b38b4bb9",
+      "bytes": 50411
+    },
+    "src/atomx/scattering/r_matrix/angular_cc.py": {
+      "sha256": "46c206d2d2e4cde9c27e494c451d9b81d219ce58de98e83a2d1f1ec6caed5dcc",
+      "bytes": 6325
+    },
+    "src/atomx/scattering/r_matrix/target_states.py": {
+      "sha256": "48806be642c8ada9a9d3b723ee64605a54342f8a9620496f80768b4fd0273f47",
+      "bytes": 5921
+    },
+    "src/atomx/scattering/radiative_recombination/__init__.py": {
+      "sha256": "df0a4fa4d85bc23b766b67533ba0c71149fd6c22f4cbf49063562a07834e6c5d",
+      "bytes": 31089
+    },
+    "src/atomx/scattering/two_electron/angular.py": {
+      "sha256": "b855abb2d4c10b3ef79749b350b046f2fa7076fc632228c900b4060a8a0b9430",
+      "bytes": 15312
+    },
+    "src/atomx/scattering/two_electron/coulomb.py": {
+      "sha256": "edd8b701f08bc9318b384229d9d9251807c9a6544739eb06560566d26aef84e5",
+      "bytes": 4266
+    },
+    "src/atomx/scattering/two_electron/states.py": {
+      "sha256": "74edff8293f15a02289acb05800c21d5750e8d6bec9cabcba9cccc5cd10d4c5a",
+      "bytes": 4630
+    },
+    "src/atomx/scattering/xray.py": {
+      "sha256": "246040174cc88db82cd606acb86e09cc4a88a9f5640e73907e44f9d4c4e34312",
+      "bytes": 9854
+    },
+    "src/atomx/spectrum/crm_synth.py": {
+      "sha256": "c2d1aed0aa0b602ad17194d94958bbb25d048e81a04e4f90a7076acbfb8ec7ce",
+      "bytes": 17949
+    },
+    "src/atomx/spectrum/uta.py": {
+      "sha256": "0d31d150df7cc3fe1fdd0f431dc77717e8a4f9582ed3235373c285007c14338e",
+      "bytes": 1356
+    },
+    "src/atomx/uta/moments.py": {
+      "sha256": "92aacbb8864dcb9dbee226ba7b3846cd15248a7d6e300ea09db4fd36923766c1",
+      "bytes": 7562
+    },
+    "src/atomx/viz/mpl.py": {
+      "sha256": "0ad4c06ac21e61708a177c12df4e82e4fd09ebbac04787e98692a2bd6e94f3cd",
+      "bytes": 14458
+    },
+    "src/atomx/xfel/cascade.py": {
+      "sha256": "9609139f65fba1e32865506fe71942a65f1a5f0d25cfe2f24617521836c1fb3c",
+      "bytes": 29098
+    },
+    "tests/test_angular.py": {
+      "sha256": "14770f852e50579b391f5b8b690c9aca17db3af74f4a54c19964c7355587e32d",
+      "bytes": 11359
+    },
+    "tests/test_ci_line_strengths.py": {
+      "sha256": "cd17352a83c77978d5658980857eb0ac3e5f007fa14f6c42eaa0335fc4aba9f1",
+      "bytes": 14378
+    },
+    "tests/test_ci_matrix_vs_mscheme_reference.py": {
+      "sha256": "efbd8a1e2b65f6dde40ad4e77e99706ebdff360398e9835fdde76d30e0762b99",
+      "bytes": 21635
+    },
+    "tests/test_ci_memo_reuse.py": {
+      "sha256": "4c73440afd0ecf428f12ad54f10feeadf25a5afd95549199c5afd3fd348f4804",
+      "bytes": 8901
+    },
+    "tests/test_constants_hygiene.py": {
+      "sha256": "8b65b5620075afd23dff96f71728b2e89d3a39dee37c48811bf90db069b6c625",
+      "bytes": 6176
+    },
+    "tests/test_convol.py": {
+      "sha256": "0580e22bbcc00230a892f3599210066517ee7ec5e4d2b1fa16171e6d4925d0d4",
+      "bytes": 16525
+    },
+    "tests/test_correction_stack_injection.py": {
+      "sha256": "95afa1137eafeaa8889e27fbb66411176ee9a1dd169d8e3a4465844c0b6b729c",
+      "bytes": 2477
+    },
+    "tests/test_coupled_coulomb.py": {
+      "sha256": "f70f3412deb4c48dbe901fdf1a779ab9e6448fda75deb40dfe919364dc1fffca",
+      "bytes": 3771
+    },
+    "tests/test_csf_recoupling.py": {
+      "sha256": "38ed7ec6b5c319a32efaa2aaec752c70f024b71306df86fb3dfa96974369f6d4",
+      "bytes": 27541
+    },
+    "tests/test_dhf_nuclear_profile.py": {
+      "sha256": "8afd0c3a3658d190160593cccce108ea0815d1336f7ab25eb1db637d19a948a7",
+      "bytes": 2714
+    },
+    "tests/test_dhf_semiseparable_exchange.py": {
+      "sha256": "a177a7c9c2c0718f37c0a77222e321ff75bef60de24593f1d9d37347dff023a0",
+      "bytes": 2053
+    },
+    "tests/test_dw_angular_coupling.py": {
+      "sha256": "a49ccd15034049b0718b38152d7b4c6be3b647af8e7dd16df423aa345f5b0d33",
+      "bytes": 17972
+    },
+    "tests/test_finite_frequency_public.py": {
+      "sha256": "7b615f9f04af86483a161dc13e78af1d7fdfa3338d102c0ce70ebb7d69891aad",
+      "bytes": 7862
+    },
+    "tests/test_gauss_legendre_rule.py": {
+      "sha256": "b7d90963b92bea1ed4d707a128524776661713991f0e7059d2a042d229a0bbe7",
+      "bytes": 1019
+    },
+    "tests/test_mbpt2.py": {
+      "sha256": "1b3df42050744a10cc0aa4e1bf21bf6215d58b0bdc9e72fa81ed67db47eafe64",
+      "bytes": 4536
+    },
+    "tests/test_mbpt_sigma2.py": {
+      "sha256": "662aad2f8b38d228a6afd47a435468be856582eb8946b1b03df90c4d464da842",
+      "bytes": 8806
+    },
+    "tests/test_mcdhf.py": {
+      "sha256": "8c87ed22201a7b037e7a413c5e0c38e584d4d08a7a52ee48ff0f76ab95c2c59b",
+      "bytes": 16686
+    },
+    "tests/test_mean_hartree_field.py": {
+      "sha256": "b659feb66b9764c6322a47d17528beab8f22c7223c3494908dfe28406ee8e8ce",
+      "bytes": 4795
+    },
+    "tests/test_ne_xfel_cascade_live.py": {
+      "sha256": "f9a82ae4da97c3fc09e0a889800269b3032d0513b1118e5d99dd57ae2bd31e1f",
+      "bytes": 4652
+    },
+    "tests/test_qed_backend_auto.py": {
+      "sha256": "4229c7d834a2121225319ae3feed9530827248e640b6c92e0465854196dd3d59",
+      "bytes": 745
+    },
+    "tests/test_qedmod.py": {
+      "sha256": "b8acbf9aa6b17540bbdc44109d393c6b57c0a020a6663984a9879d7c961d56fe",
+      "bytes": 20231
+    },
+    "tests/test_radiative_normalization.py": {
+      "sha256": "ef144ab9ef7600230e86f79786b38c78b1e05ba53ae5f4641491f165d1be030f",
+      "bytes": 1590
+    },
+    "tests/test_recoil_operator.py": {
+      "sha256": "04c3cb77d87b051aceadac8051a310a7225915021134ed2252446dd7e43d9969",
+      "bytes": 6393
+    },
+    "tests/test_review_fail_closed.py": {
+      "sha256": "a14c69ab727293abcc98b18279be4a132b6e69e96c705f47c79178162888b547",
+      "bytes": 2295
+    },
+    "tests/test_review_regressions.py": {
+      "sha256": "ce8df4d7c1f9c98a3167726abe2758e06f5fc2a6364ba25a7779f335f582040a",
+      "bytes": 7729
+    },
+    "tests/test_review_structure_numerics.py": {
+      "sha256": "89888386913029341cc9f5cb28df5e52e5dd5c7c5893b6b8a13b9e646de15413",
+      "bytes": 14505
+    },
+    "tests/test_rkb_bank_sharing.py": {
+      "sha256": "ba68e45863dbdf996a76318b4cecac32d1b680e8545e8cfc776845801393c2e8",
+      "bytes": 7494
+    },
+    "tests/test_scfresult_save_load.py": {
+      "sha256": "1c2094519a59f53692c9cd2158959fbff19e746503e08e7a2713e8ed6ab482aa",
+      "bytes": 8903
+    },
+    "tests/test_shooting_corrections.py": {
+      "sha256": "814e61d62e71f6115aada6f15961535f5313ffb04d7a8e4a21226463c73e0b80",
+      "bytes": 8480
+    },
+    "tests/test_slater_kernel_crosscheck.py": {
+      "sha256": "2fab4ad249c9c1e1a07c93caee70579cf4f4c8154e423e71668095f99779b36b",
+      "bytes": 25334
+    },
+    "tests/test_slater_scaling.py": {
+      "sha256": "57041a3da282fcf1cf1bb54e3227813d98167814da9980a7d951787efa9505e0",
+      "bytes": 3780
+    },
+    "tests/test_slater_scaling_transfer.py": {
+      "sha256": "5af5d7d81736af4aef041f3c24670c87e86bbcd822ca6c07b3865c21ff370829",
+      "bytes": 5212
+    },
+    "tests/test_sos_basis.py": {
+      "sha256": "dd208d5a7b6663dc565713989fc2d87ccafceb7f7e9c95589e69650bc8c98a38",
+      "bytes": 2873
+    },
+    "tests/test_specific_recoil.py": {
+      "sha256": "0848754f391a452fc6bc3a9da3cd496b847600572c3f9b02905c885019700331",
+      "bytes": 12810
+    },
+    "tests/test_transitions.py": {
+      "sha256": "4df7988b99f0ebcd3cd028bc69b49f5af5c2f127944e327b89459035e12e6341",
+      "bytes": 13097
+    },
+    "tests/test_two_electron_angular.py": {
+      "sha256": "ea565a5101fe7c2b35b89a97197eb10ff8da1dd06bff133b0232c2805d7b58f1",
+      "bytes": 1872
+    },
+    "tests/test_two_electron_replacement.py": {
+      "sha256": "891cc6d0bbe866ee28c9bbce4294b37b4503aa37322bbdf6e1a60d2b75d60d53",
+      "bytes": 9185
+    }
+  },
+  "index_hook_prerequisite": {
+    "scripts/build_project_index.py": {
+      "sha256": "17da75242fe00e00a42ad6d944b4a3d3bde3ebacdf102755781b77a5c287bca5",
+      "bytes": 13434
+    },
+    "tests/test_project_index.py": {
+      "sha256": "4f1ed2baae9378f88c99df3d71cdd5936e0ef6cf65925ae01507f6ff718cace9",
+      "bytes": 6243
+    }
+  }
+}

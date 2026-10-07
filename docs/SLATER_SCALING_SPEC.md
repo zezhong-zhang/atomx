@@ -48,7 +48,7 @@ later with a ζ-scaling hook if needed.
   Jacobian (energies are near-linear in s; one step gets most of the
   way — gate G1).
 
-Gates (tests/test_slater_scaling.py): G1 Pr fit + linearity,
+Gates (tests/test_slater_scaling_transfer.py, slow): G1 Pr fit + linearity,
 G2 scaled-H Hermiticity, G3 Eu transfer HONEST BOUND (ratio
 sensitivity documented, not hidden), G4 Nd transfer regression.
 

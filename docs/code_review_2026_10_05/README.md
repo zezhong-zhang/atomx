@@ -16,6 +16,30 @@ Requested framing: two voices — Linus (engineering bluntness) and Feynman
 
 ---
 
+## Delivery status (2026-10-05)
+
+The findings below record the original dirty-tree audit, including observations
+of a separate scientific-development stack. This delivery covers today's review
+fixes and documentation. The unfinished XFEL/state/complex-CI stack is excluded.
+Line references below identify the reviewed source, not the current layout.
+
+| Finding | Current disposition |
+|---|---|
+| E1, E3, matrix/cache parts of E8 | Metric audit bound to orbital **and radial** content; nuclear-context-safe reuse; legacy CI removed; shared teardown explicit |
+| E2, duplicated portions of E4 | Declared solver controls, shared grid installation and radial-state access; mirrored legacy functional removed |
+| E5, E6 | Variational diagnostics declared; numeric energies separated from metadata; legacy archive migration |
+| E7, provider part of E8 | Failures propagate; approximations require explicit selection; required rates/weights and nuclear provenance enforced; duplicate ERI scans removed |
+| P3–P5 | Convention-bearing names, shared angular/radial/rate machinery, kappa/label helpers and canonical conversion constants |
+| P1 | Six kernels on one normalized density, independently anchored; discretization and first-cell limitations retained |
+| P2 | Added live frozen-table Monte Carlo survival/conservation gate; historical fixture replay remains historical; independent physical reference coverage is not expanded |
+| P6 | Cheap kernel comparison performed; Ne satellite discrepancy attribution remains unresolved |
+| E4/E8 remaining design suggestions | Coherent drivers and existing `Atom.solve`/`Atom.result` semantics retained with reasons; B-spline functional/iteration separation stays longer-term work |
+
+Details: [shared physics](SHARED_PHYSICS.md), [solver contracts](SOLVER_CONTRACTS.md),
+[test performance](TEST_PERFORMANCE.md) and [validation/source identity](VALIDATION.md).
+The original prioritization is historical; this table is the current review status.
+
+
 ## Part I — Engineering findings (ranked)
 
 ### Critical
@@ -37,7 +61,7 @@ problem.) Related: `numerics/bspline/convol.py:1404` module-global `_RKB_BANKS`;
 `ConvolCache.clear()` (1655-1657) wipes banks shared with other caches on the grid.
 
 *Resolution (2026-10-05): the env knob and count cadence are removed. The audit
-is memoised per workspace on an orbital-content fingerprint
+is memoised per workspace on an orbital-and-radial-content fingerprint
 (`matrix._orbital_metric_fingerprint`): first build and every content change
 audit; byte-identical validated content skips. Recorded only after a passed
 audit. Gated by `tests/test_ci_memo_reuse.py::TestMetricCheckMemo`.*
@@ -91,8 +115,13 @@ property verbatim in 3 files (`results.py:501-507`, `dirac_fock.py:150-156`,
 `DFSolver.install_physics_grid(...)` method (`methods/dirac_fock.py`), called by
 `atom.py`, both `csf/solver.py` sites and `DiracFock.solve` (which keeps its
 `log.basis_info` call on the returned basis data) — the four hand-mirrored
-mutations of solver internals are gone. The god-method split, the duplicated SCF
-energy functional, and the `radial_state` triplication remain open.*
+mutations of solver internals are gone. The `radial_state` property now lives
+in `RadialStateMixin`, and the mirrored SCF energy functional vanished with the
+legacy kernel. Coherent orchestration remains in its owning modules; the planned
+B-spline functional/iteration separation remains longer-term work.*
+
+*Further disposition: [solver contracts](SOLVER_CONTRACTS.md) records why the
+existing return/accessor contract is retained.*
 
 **E5. `__dict__` metadata bus on result objects.** `methods/csf/solver.py:1471-1590`:
 21 `result.__dict__[...] =` writes (`_E_Breit`, `_qed_provenance`,
@@ -281,5 +310,18 @@ attributed until the boring comparisons exist. Do the boring experiment first.
 
 *Review conducted 2026-10-05. Concurrent-session edits to AGENTS.md during the
 review were re-read and accounted for; findings verified against the working tree at
-that date. This document is a review record, not a change set — no production code
-was modified.*
+that date. The original audit changed no production code; the delivery status and linked
+records above describe the subsequent reviewed fixes and their validation.*
+
+
+## Lasting knowledge disposition
+
+Trigger → action → reason → scope: when reusing a successful orbital metric
+check or one-body block, include radial representation content and the nuclear
+context; object identity alone misses in-place changes. This strengthens the
+existing cache/metric rule rather than introduces a second physical contract.
+When a test needs only algorithmic correctness, use the smallest complete space
+that retains phases, interference and symmetry; keep large external/transfer
+claims in explicitly named campaigns. This is the user's test-design decision,
+not a performance measurement. No new root rule or independent physics insight
+is promoted. Failed checks and the kernel limitations remain registered below.

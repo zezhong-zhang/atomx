@@ -57,6 +57,28 @@ validate the affected contracts; only a complete run establishes full-suite
 status. Historical test counts and campaign results live in the
 [archive](archive/README.md).
 
+## Small correctness gates and expensive transfer campaigns
+
+`test_slater_scaling.py` uses a complete 91-determinant 4f² space with fixed,
+normalized radial functions. It gates antisymmetry, non-diagonal interference,
+complete J-sector extraction and parameter recovery. It does not claim free-ion
+stationarity or agreement with experiment. The original Pr/Eu/Nd models and
+numerical acceptance rules remain in `test_slater_scaling_transfer.py` (slow),
+with one shared Pr fit. A full `pytest` still runs this campaign.
+
+```bash
+.venv/bin/python -m pytest -q -m 'not slow' --durations=30
+.venv/bin/python -m pytest -q tests/test_slater_scaling_transfer.py --durations=10
+.venv/bin/python -m pytest -q tests/test_slater_kernel_crosscheck.py tests/test_gauss_legendre_rule.py
+```
+
+The six-kernel crosscheck retains scalar/profile accuracy gates and independent
+reference anchors. Its refinement tests use smaller pairs of grids with the
+same refinement factor and convergence-order bounds. The shared Gauss-Legendre
+rule is also checked against exact polynomial moments and read-only cache
+ownership. [Measurements and limits](code_review_2026_10_05/TEST_PERFORMANCE.md)
+distinguish test-workload reduction from same-input kernel acceleration.
+
 ## Commit-time project navigation
 
 Install `.venv/bin/pre-commit install` once per clone. The `project-index` hook

@@ -54,6 +54,6 @@ retain their original formulas; the legacy-CI and metric-cadence status records
 are corrected with links to this review. Historical probe scripts target their
 recorded revisions; their old imports are not current API examples.
 
-Relevant gates include `test_ci_memo_reuse.py`, `test_radiative_normalization.py`,
-`test_angular.py` and `test_fac_ci_operator.py`. Internal CI transcription parity
-remains a convention check; independent FAC/analytic gates provide separate evidence.
+Validation commands and source identity are registered in
+[validation](VALIDATION.md). Internal CI transcription parity remains a
+convention check; independent FAC/analytic gates provide separate evidence.

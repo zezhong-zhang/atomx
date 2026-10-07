@@ -1,0 +1,12 @@
+...................xxxx................................................. [ 67%]
+...................................                                      [100%]
+============================= slowest 8 durations ==============================
+4.71s call     tests/test_eii_quadrature.py::test_full_interval_matches_independent_linear_gauss_integration
+2.61s call     tests/test_correction_stack_injection.py::test_flags_build_equivalent_stack
+2.46s call     tests/test_mcdhf.py::TestMCDHFSolver::test_variational_projector_fock_matches_nuclear_on_light_atom
+1.93s setup    tests/test_shooting_corrections.py::test_shooting_reports_all_components[He]
+1.83s call     tests/test_architecture_boundaries.py::test_shooting_drivers_run_without_method_imports
+1.55s call     tests/test_mcdhf.py::TestMCDHFSolver::test_two_config_be
+1.36s call     tests/test_ne_xfel_cascade_live.py::test_current_table_cascade_neutral_survival
+1.25s call     tests/test_mcdhf.py::TestMCDHFSolver::test_mixing_coefficients
+103 passed, 1 deselected, 4 xfailed in 24.73s

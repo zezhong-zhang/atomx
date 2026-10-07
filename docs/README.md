@@ -26,3 +26,6 @@
 
 Current guides describe supported code. Historical reports retain the state of
 older source snapshots; their commands and database counts may no longer apply.
+
+The [2026-10-05 code review](code_review_2026_10_05/README.md) records current
+fix dispositions, replayable validation and measured test hotspots.

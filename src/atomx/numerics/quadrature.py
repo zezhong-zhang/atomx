@@ -30,16 +30,45 @@ dense output on scattering-style composite grids.
 from __future__ import annotations
 
 import math
+import operator
 from functools import lru_cache
 
 import numba as nb
 import numpy as np
+from scipy.special import roots_legendre
 
 from atomx.constants import C_SQ  # CODATA-2022 c² (was a stale 2018 literal)
 
 
 class GridResourceError(RuntimeError):
     """Raised when a requested scattering quadrature grid exceeds its cap."""
+
+
+@lru_cache(maxsize=32)
+def _gauss_legendre_rule(order):
+    nodes, weights = roots_legendre(order)
+    nodes.setflags(write=False)
+    weights.setflags(write=False)
+    return nodes, weights
+
+
+def gauss_legendre_rule(order):
+    """Read-only cached Gauss-Legendre rule on [-1, 1].
+
+    Cache identity is the positive integer order; no interval or physical
+    inputs enter this canonical rule. Copy before modifying its arrays.
+    SciPy constructs the roots through a banded Jacobi eigensolve rather
+    than NumPy's dense companion eigensolve at large orders.
+    """
+    if isinstance(order, (bool, np.bool_)):
+        raise ValueError("quadrature order must be a positive integer")
+    try:
+        n = operator.index(order)
+    except TypeError as exc:
+        raise ValueError("quadrature order must be a positive integer") from exc
+    if n < 1:
+        raise ValueError("quadrature order must be a positive integer")
+    return _gauss_legendre_rule(n)
 
 
 def sinh_squared_quadrature(n, upper, scale):
@@ -55,7 +84,7 @@ def sinh_squared_quadrature(n, upper, scale):
         raise ValueError('quadrature order must be a positive integer')
     if not (np.isfinite(upper) and upper > 0 and np.isfinite(scale) and scale > 0):
         raise ValueError('quadrature upper limit and scale must be finite and positive')
-    t, w = np.polynomial.legendre.leggauss(int(n))
+    t, w = gauss_legendre_rule(int(n))
     extent = np.arcsinh(np.sqrt(upper / scale))
     x = .5 * extent * (t + 1.)
     nodes = scale * np.sinh(x)**2

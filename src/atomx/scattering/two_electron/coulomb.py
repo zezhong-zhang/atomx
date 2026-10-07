@@ -10,10 +10,12 @@ from typing import Callable
 
 import numpy as np
 
+from atomx.numerics.quadrature import gauss_legendre_rule
+
 
 def _gauss_legendre_grid(n_points: int, r_max: float) -> tuple[np.ndarray, np.ndarray]:
     """Gauss-Legendre nodes and weights on ``[0, r_max]``."""
-    x, w = np.polynomial.legendre.leggauss(n_points)
+    x, w = gauss_legendre_rule(n_points)
     # Map [-1, 1] -> [0, r_max]
     r = 0.5 * r_max * (x + 1.0)
     w = 0.5 * r_max * w

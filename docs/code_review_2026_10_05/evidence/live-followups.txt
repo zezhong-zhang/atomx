@@ -1,0 +1,15 @@
+........................................................................ [ 48%]
+........................................................................ [ 96%]
+......                                                                   [100%]
+============================= slowest 10 durations =============================
+41.67s setup    tests/test_slater_scaling_transfer.py::test_g1_pr_fit_and_linearity
+36.95s call     tests/test_slater_scaling_transfer.py::test_g3_transfer_eu
+15.50s call     tests/test_two_electron_replacement.py::test_split_channel_moves_a_real_calculation
+13.59s call     tests/test_slater_scaling_transfer.py::test_g1_pr_fit_and_linearity
+6.62s call     tests/test_slater_scaling_transfer.py::test_g4_transfer_nd
+6.61s call     tests/test_two_electron_replacement.py::test_j2_pair_channel_moves_a_real_calculation
+2.81s call     tests/test_dr_public_heavy.py::test_pb_public_dr_covers_continuum_energies_and_matches_fac
+2.70s setup    tests/test_dr_manifold_e2e.py::test_public_driver_preserves_native_model_and_resolved_rates
+2.60s call     tests/test_convol.py::TestSCFIntegration::test_he_total_energy
+2.49s call     tests/test_two_electron_replacement.py::test_be_2s2_2p2_pair_couples
+150 passed in 147.96s (0:02:27)

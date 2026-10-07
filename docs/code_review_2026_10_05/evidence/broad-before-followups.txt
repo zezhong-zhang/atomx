@@ -1,0 +1,126 @@
+........................................................................ [  1%]
+........................................................................ [  3%]
+........................................................................ [  5%]
+.....................................................................x.. [  7%]
+..............xx........................................................ [  8%]
+........................................................................ [ 10%]
+........................................................................ [ 12%]
+....s...........................xx................................x..... [ 14%]
+........................................................................ [ 15%]
+...........................FFFFFFFFFFFF................................. [ 17%]
+.......................................................................s [ 19%]
+.s...s..ss.............................................................. [ 21%]
+........................................................................ [ 23%]
+........................................................................ [ 24%]
+........................................................................ [ 26%]
+........................................................................ [ 28%]
+........................................................................ [ 30%]
+........................................................................ [ 31%]
+........................................................................ [ 33%]
+........................................................................ [ 35%]
+............x........................................................x.. [ 37%]
+........................................................................ [ 38%]
+........................................................................ [ 40%]
+........................................................................ [ 42%]
+........................................................................ [ 44%]
+........................................................................ [ 46%]
+........................................................................ [ 47%]
+........................................................................ [ 49%]
+............................................................x........... [ 51%]
+........................................................................ [ 53%]
+........................................................................ [ 54%]
+........................................................................ [ 56%]
+........................................................................ [ 58%]
+......................................................x...x............. [ 60%]
+........................................................................ [ 62%]
+....................................................x.................x. [ 63%]
+........................................................................ [ 65%]
+........................................................................ [ 67%]
+........................................................................ [ 69%]
+............................x........................................... [ 70%]
+.......................x................................................ [ 72%]
+........................................................................ [ 74%]
+........................................................................ [ 76%]
+........................................................................ [ 77%]
+........................................................................ [ 79%]
+........................................................................ [ 81%]
+........................................................................ [ 83%]
+........................................................................ [ 85%]
+........................................................................ [ 86%]
+........................................................................ [ 88%]
+........................................................................ [ 90%]
+........................................................................ [ 92%]
+........................................................................ [ 93%]
+..............................xxxx...................................... [ 95%]
+........................................................................ [ 97%]
+........................................................................ [ 99%]
+...............................                                          [100%]
+=================================== FAILURES ===================================
+_______ TestRkb.test_overlap_strip_matches_independent_full_bank[0-pppp] _______
+tests/test_convol.py:220: in test_overlap_strip_matches_independent_full_bank
+    compact_cache.clear()
+E   AttributeError: 'ConvolCache' object has no attribute 'clear'
+_______ TestRkb.test_overlap_strip_matches_independent_full_bank[0-qqqq] _______
+tests/test_convol.py:220: in test_overlap_strip_matches_independent_full_bank
+    compact_cache.clear()
+E   AttributeError: 'ConvolCache' object has no attribute 'clear'
+_______ TestRkb.test_overlap_strip_matches_independent_full_bank[0-pqpq] _______
+tests/test_convol.py:220: in test_overlap_strip_matches_independent_full_bank
+    compact_cache.clear()
+E   AttributeError: 'ConvolCache' object has no attribute 'clear'
+_______ TestRkb.test_overlap_strip_matches_independent_full_bank[0-qpqp] _______
+tests/test_convol.py:220: in test_overlap_strip_matches_independent_full_bank
+    compact_cache.clear()
+E   AttributeError: 'ConvolCache' object has no attribute 'clear'
+_______ TestRkb.test_overlap_strip_matches_independent_full_bank[1-pppp] _______
+tests/test_convol.py:220: in test_overlap_strip_matches_independent_full_bank
+    compact_cache.clear()
+E   AttributeError: 'ConvolCache' object has no attribute 'clear'
+_______ TestRkb.test_overlap_strip_matches_independent_full_bank[1-qqqq] _______
+tests/test_convol.py:220: in test_overlap_strip_matches_independent_full_bank
+    compact_cache.clear()
+E   AttributeError: 'ConvolCache' object has no attribute 'clear'
+_______ TestRkb.test_overlap_strip_matches_independent_full_bank[1-pqpq] _______
+tests/test_convol.py:220: in test_overlap_strip_matches_independent_full_bank
+    compact_cache.clear()
+E   AttributeError: 'ConvolCache' object has no attribute 'clear'
+_______ TestRkb.test_overlap_strip_matches_independent_full_bank[1-qpqp] _______
+tests/test_convol.py:220: in test_overlap_strip_matches_independent_full_bank
+    compact_cache.clear()
+E   AttributeError: 'ConvolCache' object has no attribute 'clear'
+_______ TestRkb.test_overlap_strip_matches_independent_full_bank[6-pppp] _______
+tests/test_convol.py:220: in test_overlap_strip_matches_independent_full_bank
+    compact_cache.clear()
+E   AttributeError: 'ConvolCache' object has no attribute 'clear'
+_______ TestRkb.test_overlap_strip_matches_independent_full_bank[6-qqqq] _______
+tests/test_convol.py:220: in test_overlap_strip_matches_independent_full_bank
+    compact_cache.clear()
+E   AttributeError: 'ConvolCache' object has no attribute 'clear'
+_______ TestRkb.test_overlap_strip_matches_independent_full_bank[6-pqpq] _______
+tests/test_convol.py:220: in test_overlap_strip_matches_independent_full_bank
+    compact_cache.clear()
+E   AttributeError: 'ConvolCache' object has no attribute 'clear'
+_______ TestRkb.test_overlap_strip_matches_independent_full_bank[6-qpqp] _______
+tests/test_convol.py:220: in test_overlap_strip_matches_independent_full_bank
+    compact_cache.clear()
+E   AttributeError: 'ConvolCache' object has no attribute 'clear'
+=============================== warnings summary ===============================
+tests/test_viz_scattering.py::test_cross_section_with_reference_and_ratio
+  /tmp/atomx-review-20261005/src/atomx/viz/scattering.py:135: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+    fig.tight_layout()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_convol.py::TestRkb::test_overlap_strip_matches_independent_full_bank[0-pppp]
+FAILED tests/test_convol.py::TestRkb::test_overlap_strip_matches_independent_full_bank[0-qqqq]
+FAILED tests/test_convol.py::TestRkb::test_overlap_strip_matches_independent_full_bank[0-pqpq]
+FAILED tests/test_convol.py::TestRkb::test_overlap_strip_matches_independent_full_bank[0-qpqp]
+FAILED tests/test_convol.py::TestRkb::test_overlap_strip_matches_independent_full_bank[1-pppp]
+FAILED tests/test_convol.py::TestRkb::test_overlap_strip_matches_independent_full_bank[1-qqqq]
+FAILED tests/test_convol.py::TestRkb::test_overlap_strip_matches_independent_full_bank[1-pqpq]
+FAILED tests/test_convol.py::TestRkb::test_overlap_strip_matches_independent_full_bank[1-qpqp]
+FAILED tests/test_convol.py::TestRkb::test_overlap_strip_matches_independent_full_bank[6-pppp]
+FAILED tests/test_convol.py::TestRkb::test_overlap_strip_matches_independent_full_bank[6-qqqq]
+FAILED tests/test_convol.py::TestRkb::test_overlap_strip_matches_independent_full_bank[6-pqpq]
+FAILED tests/test_convol.py::TestRkb::test_overlap_strip_matches_independent_full_bank[6-qpqp]
+12 failed, 4026 passed, 6 skipped, 33 deselected, 19 xfailed, 1 warning in 1169.00s (0:19:29)

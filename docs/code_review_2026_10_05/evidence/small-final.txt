@@ -1,0 +1,12 @@
+........................................................................ [ 97%]
+..                                                                       [100%]
+============================= slowest 8 durations ==============================
+0.55s call     tests/test_slater_scaling.py::test_complete_j_ladder_and_known_parameter_recovery
+0.47s setup    tests/test_slater_kernel_crosscheck.py::test_scalar_rk_matches_reference[cc_potentials-0]
+0.17s call     tests/test_slater_scaling.py::test_scaling_is_linear_antisymmetric_and_hermitian
+0.16s call     tests/test_slater_kernel_crosscheck.py::TestReferenceAnchor::test_scalar_closed_forms
+0.08s setup    tests/test_slater_scaling.py::test_scaling_is_linear_antisymmetric_and_hermitian
+0.07s call     tests/test_slater_kernel_crosscheck.py::test_yk_profile_matches_reference[cc_potentials-2]
+0.06s call     tests/test_slater_kernel_crosscheck.py::test_yk_profile_matches_reference[shooting_slag6-2]
+0.06s call     tests/test_slater_kernel_crosscheck.py::test_yk_profile_matches_reference[yk_gauss-2]
+74 passed in 2.40s
