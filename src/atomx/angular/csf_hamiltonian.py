@@ -34,7 +34,7 @@ It is the oracle this module is gated against in
 else.  The angular kernel here (:func:`two_body_angular`) reproduces the
 oracle's formula with the repo's numeric
 :func:`atomx.angular.wigner.wigner_3j` and
-:func:`atomx.angular.coefficients.reduced_C`.
+:func:`atomx.angular.coefficients.reduced_C_jj`.
 
 Cost model
 ----------
@@ -73,15 +73,18 @@ from scipy.sparse import csr_matrix
 from scipy.sparse.linalg import LinearOperator
 
 from atomx.angular.clebsch import clebsch_gordan
-from atomx.angular.coefficients import reduced_C
+from atomx.angular.coefficients import reduced_C_jj
 from atomx.angular.csf_recoupling import allowed_coupled_J2
 from atomx.angular.mscheme import (
+    _annihilate,
+    _create,
     _jplus_apply,
     determinants_by_m,
     highest_weight_states,
     jplus_matrix,
     subshell_j_counts_mscheme,
 )
+from atomx.angular.recoupling import twoj_of_kappa
 from atomx.angular.wigner import wigner_3j
 
 __all__ = [
@@ -133,8 +136,13 @@ class ExactCISpaceError(ValueError):
 # ---------------------------------------------------------------------------
 
 def twoj(kappa: int) -> int:
-    """``2j`` for a Dirac quantum number ``kappa``."""
-    return 2 * abs(int(kappa)) - 1
+    """``2j`` for a Dirac quantum number ``kappa``.
+
+    Thin alias of the canonical :func:`atomx.angular.recoupling.twoj_of_kappa`;
+    kept under this short name because the CI assembler and
+    ``atomx.physics.csf.matrix`` call it throughout.
+    """
+    return twoj_of_kappa(int(kappa))
 
 
 def _m2_values(tj: int) -> tuple[int, ...]:
@@ -802,7 +810,7 @@ def two_body_angular(ka: int, m2a: int, kb: int, m2b: int,
     provides — keeping it outside is what makes this module independent of
     any radial workspace.  The 3j symbols come from
     :func:`atomx.angular.wigner.wigner_3j` and the reduced ``C^k`` from
-    :func:`atomx.angular.coefficients.reduced_C` (Grant's convention); the
+    :func:`atomx.angular.coefficients.reduced_C_jj` (Grant's convention); the
     formula is the one ``benchmarks/mscheme_ci_reference.py::_angular_terms``
     implements with sympy.
     """
@@ -816,10 +824,10 @@ def two_body_angular(ka: int, m2a: int, kb: int, m2b: int,
     kmax = min((tja + tjc) // 2, (tjb + tjd) // 2)
     out = []
     for k in range(kmax + 1):
-        ca = reduced_C(ka, kc, k)
+        ca = reduced_C_jj(ka, kc, k)
         if ca == 0.0:
             continue
-        cb = reduced_C(kb, kd, k)
+        cb = reduced_C_jj(kb, kd, k)
         if cb == 0.0:
             continue
         t1 = wigner_3j(tja, 2 * k, tjc, -m2a, q2, m2c)
@@ -841,25 +849,18 @@ def two_body_angular(ka: int, m2a: int, kb: int, m2b: int,
 def _ops_sign(mask: int, ops) -> int:
     """Sign of applying ``ops`` right-to-left to ``mask``; 0 if it vanishes.
 
-    The same convention as the oracle's ``_apply_ops``: the sign is the
-    parity of the occupied lower indices at every step.
+    The same convention as the oracle's ``_apply_ops``: each step carries
+    the canonical fermion sign of :func:`atomx.angular.mscheme._annihilate`
+    / ``_create`` — the parity of the occupied lower indices.
     """
     sign = 1
     occ = mask
     for idx, create in reversed(ops):
-        bit = 1 << idx
-        if create:
-            if occ & bit:
-                return 0
-            if (occ & (bit - 1)).bit_count() & 1:
-                sign = -sign
-            occ |= bit
-        else:
-            if not occ & bit:
-                return 0
-            if (occ & (bit - 1)).bit_count() & 1:
-                sign = -sign
-            occ &= ~bit
+        applied = _create(occ, idx) if create else _annihilate(occ, idx)
+        if applied is None:
+            return 0
+        phase, occ = applied
+        sign *= phase
     return sign
 
 

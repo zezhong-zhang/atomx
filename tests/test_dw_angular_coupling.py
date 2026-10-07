@@ -19,16 +19,15 @@ import pytest
 from atomx.angular.coefficients import (
     coupled_coulomb_direct,
     coupled_coulomb_exchange,
-    reduced_C,
+    reduced_C_jj,
 )
+from atomx.angular.recoupling import l_of_kappa, twoj_of_kappa
 from atomx.angular.wigner import wigner_3j, wigner_6j
 from atomx.scattering.distorted_wave.solver import (
     _allowed_k,
-    _l_of,
     _target_projectile_J_range,
     _target_state_metadata,
     _target_transition_population,
-    _tj_of,
     dw_excitation_cross_section,
 )
 
@@ -40,37 +39,37 @@ from atomx.scattering.distorted_wave.solver import (
 class TestLOf:
     def test_positive_kappa(self):
         # kappa=1 → l=1 (p_{1/2})
-        assert _l_of(1) == 1
+        assert l_of_kappa(1) == 1
 
     def test_negative_kappa(self):
         # kappa=-1 → l=0 (s_{1/2})
-        assert _l_of(-1) == 0
+        assert l_of_kappa(-1) == 0
         # kappa=-2 → l=1 (p_{3/2})
-        assert _l_of(-2) == 1
+        assert l_of_kappa(-2) == 1
         # kappa=-3 → l=2 (d_{5/2})
-        assert _l_of(-3) == 2
+        assert l_of_kappa(-3) == 2
 
 
 class TestTjOf:
     def test_kappa_minus1(self):
         # kappa=-1 → j=1/2 → tj=1
-        assert _tj_of(-1) == 1
+        assert twoj_of_kappa(-1) == 1
 
     def test_kappa_1(self):
         # kappa=1 → j=1/2 → tj=1
-        assert _tj_of(1) == 1
+        assert twoj_of_kappa(1) == 1
 
     def test_kappa_minus2(self):
         # kappa=-2 → j=3/2 → tj=3
-        assert _tj_of(-2) == 3
+        assert twoj_of_kappa(-2) == 3
 
     def test_kappa_2(self):
         # kappa=2 → j=3/2 → tj=3
-        assert _tj_of(2) == 3
+        assert twoj_of_kappa(2) == 3
 
     def test_kappa_minus3(self):
         # kappa=-3 → j=5/2 → tj=5
-        assert _tj_of(-3) == 5
+        assert twoj_of_kappa(-3) == 5
 
 
 class TestReducedC:
@@ -81,20 +80,20 @@ class TestReducedC:
         # (the sign depends on the phase convention).
         # Grant (2007): ⟨κ‖C^k‖κ⟩ = (-1)^{j+1/2} · (2j+1) · 3j(j,0,j;-1/2,0,1/2)
         for kappa in [-1, 1, -2, 2, -3]:
-            tj = _tj_of(kappa)
+            tj = twoj_of_kappa(kappa)
             expected_mag = math.sqrt(tj + 1)
-            actual = reduced_C(kappa, kappa, 0)
+            actual = reduced_C_jj(kappa, kappa, 0)
             assert abs(abs(actual) - expected_mag) < 1e-12, \
                 f"|C^0({kappa},{kappa})| = {abs(actual)}, expected {expected_mag}"
 
     def test_parity_forbidden(self):
         # kappa=-1 (l=0) to kappa=-2 (l=1) with k=0: l+l+k=0+1+0=1 (odd) → forbidden
-        assert reduced_C(-1, -2, 0) == 0.0
+        assert reduced_C_jj(-1, -2, 0) == 0.0
 
     def test_triangle_forbidden(self):
         # kappa=-1 (j=1/2) to kappa=-3 (j=5/2) with k=0:
         # |1/2 - 5/2| = 2 > 0, so k=0 is forbidden
-        assert reduced_C(-1, -3, 0) == 0.0
+        assert reduced_C_jj(-1, -3, 0) == 0.0
 
     def test_symmetry_under_conjugation(self):
         # ⟨a‖C^k‖b⟩ and ⟨b‖C^k‖a⟩ differ by phase (-1)^{j_a-j_b+k}
@@ -102,8 +101,8 @@ class TestReducedC:
         for kappa_a in [-1, -2, 1, 2]:
             for kappa_b in [-1, -2, 1, 2]:
                 for k in [0, 1, 2]:
-                    va = abs(reduced_C(kappa_a, kappa_b, k))
-                    vb = abs(reduced_C(kappa_b, kappa_a, k))
+                    va = abs(reduced_C_jj(kappa_a, kappa_b, k))
+                    vb = abs(reduced_C_jj(kappa_b, kappa_a, k))
                     assert abs(va - vb) < 1e-12, \
                         f"|C^{k}({kappa_a},{kappa_b})| = {va}, |C^{k}({kappa_b},{kappa_a})| = {vb}"
 
@@ -111,7 +110,7 @@ class TestReducedC:
         # 1s_{1/2} (κ=-1) → 2p_{3/2} (κ=-2): k=1 (E1 allowed)
         # l_i=0, l_f=1, k=1: l_i+l_f+k=2 (even) ✓
         # |j_i-j_f|=1, k=1: 0≤1≤2 ✓
-        val = reduced_C(-1, -2, 1)
+        val = reduced_C_jj(-1, -2, 1)
         assert val != 0.0
         # Known value: for κ=-1 (j=1/2) → κ=-2 (j=3/2), k=1:
         # ⟨1/2‖C^1‖3/2⟩ = (-1)^{1/2+1/2} · sqrt(2·4) · 3j(1, 2, 3; -1, 0, 1) [twice-j]

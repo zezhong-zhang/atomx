@@ -24,7 +24,10 @@ from atomx.scattering.dielectronic_recombination.enumerate import (
     enumerate_dr_resonances,
 )
 
-_L_CHARS = "spdfgh"
+# FAC reference labels in this parser carry only l <= h; the capacity table
+# below is likewise limited.  The alphabet is a prefix of the canonical
+# :data:`atomx.config.subshell.L_LETTERS` — kept narrow on purpose so an
+# unexpected high-l token fails to match instead of being misparsed.
 _SUBSHELL_CAPACITY = {"s": 2, "p": 6, "d": 10, "f": 14}
 
 

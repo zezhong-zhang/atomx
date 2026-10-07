@@ -5,6 +5,9 @@ MCDHF route. Radial cutoff convergence is reported separately from stationarity.
 """
 import numpy as np
 
+from atomx.angular.recoupling import lj_from_kappa
+from atomx.config.subshell import l_letter
+
 
 def solve_variational_shooting(solver, *, max_iter, tolerance):
     """Return the optimized orbitals, CI and native radial context."""
@@ -48,8 +51,8 @@ def solve_variational_shooting(solver, *, max_iter, tolerance):
     energies = {}
     for key in functional.keys:
         n_shell, kappa = key
-        ell = kappa if kappa > 0 else -kappa-1
-        label = f'{n_shell}{"spdfghiklmno"[ell]}{2*abs(kappa)-1}/2'
+        ell, tj = lj_from_kappa(kappa)
+        label = f'{n_shell}{l_letter(ell)}{tj}/2'
         occupation = functional.last_occupations[key]
         if occupation > 1e-12:
             energies[label] = float((.5*np.sum(orbitals[key]*derivative[key])+normal[key])/occupation)

@@ -83,6 +83,22 @@ def radial_state_of(result):
                        _owned(raw), _owned(occupied), offset)
 
 
+class RadialStateMixin:
+    """Shared ``radial_state`` property for native result classes.
+
+    Single implementation of the owned, lazily cached radial snapshot;
+    previously mirrored verbatim in ``results.py``,
+    ``methods/dirac_fock.py`` and ``methods/csf/solver.py``.
+    """
+
+    @property
+    def radial_state(self):
+        """Owned native radial snapshot for correction and analysis consumers."""
+        if '_radial_state' not in self.__dict__:
+            self.__dict__['_radial_state'] = radial_state_of(self)
+        return self.__dict__['_radial_state']
+
+
 def native_radial_state(result):
     """Use the public snapshot, with a boundary adapter for legacy results."""
     if hasattr(type(result), 'radial_state'):

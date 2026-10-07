@@ -16,6 +16,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
+from atomx.config.subshell import l_letter
 from atomx.methods.base import Method
 from atomx.types import NuclearModel, TheoryLevel
 
@@ -38,12 +39,12 @@ class HydrogenicSchrodinger(Method):
         orbital_energies = {}
         for sh in subshells:
             n, l = sh.n, sh.l
-            l_char = "spdfghiklmno"[l] if l < 12 else f"l{l}"
+            l_char = l_letter(l)
             orbital_energies[f"{n}{l_char}"] = -Z ** 2 / (2.0 * n ** 2)
 
         total_energy = sum(
             sh.occupation * orbital_energies.get(
-                f"{sh.n}{'spdfghiklmno'[sh.l] if sh.l < 12 else f'l{sh.l}'}",
+                f"{sh.n}{l_letter(sh.l)}",
                 0.0)
             for sh in subshells)
 
@@ -103,7 +104,7 @@ class HydrogenicDirac(Method):
                 1.0 / np.sqrt(1 + (Z_alpha / (n_radial + gamma)) ** 2)
                 - 1.0)
 
-            l_char = "spdfghiklmno"[l] if l < 12 else f"l{l}"
+            l_char = l_letter(l)
             label = f"{n}{l_char}{j2}/2"
             orbital_energies[label] = E
             total_energy += sh.occupation * E

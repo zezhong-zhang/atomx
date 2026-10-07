@@ -40,6 +40,8 @@ A. Burgess, *Astrophys. J.* **139**, 776 (1965) — first DR theory.
 D. W. Savin, *Astrophys. J.* **562**, 1259 (2001) — benchmark Fe XVI DR.
 """
 
+from atomx.angular.recoupling import lj_from_kappa
+from atomx.config.subshell import l_letter
 from atomx.scattering.autoionization.auger import (
     AutoionizationState,
     auger_rate_two_electron,
@@ -101,10 +103,8 @@ def __getattr__(name):
 
 def _orbital_key_from_label(result, label: str):
     for n, kappa in getattr(result, "orbitals_dict", {}):
-        orbital_l = kappa if kappa > 0 else -kappa - 1
-        j2 = 2 * abs(kappa) - 1
-        l_char = "spdfghiklmno"[orbital_l] if orbital_l < 12 else f"l{orbital_l}"
-        if f"{n}{l_char}{j2}/2" == label:
+        orbital_l, j2 = lj_from_kappa(kappa)
+        if f"{n}{l_letter(orbital_l)}{j2}/2" == label:
             return (n, kappa)
     return None
 
@@ -222,13 +222,13 @@ def _coarse_auger_rate(
     """
     import numpy as np
 
-    from atomx.angular.coefficients import _twoj_from_kappa as _twoj
     from atomx.angular.coefficients import (
         cowan_grant_auger_B,
         exchange_k_range,
         reduced_cl_j2,
         reduced_matrix_ls,
     )
+    from atomx.angular.recoupling import twoj_of_kappa as _twoj
     from atomx.angular.wigner import wigner_6j
     from atomx.constants import AU_RATE_PER_S, HARTREE_EV
     from atomx.numerics.bspline.continuum import solve_continuum

@@ -54,7 +54,10 @@ from functools import lru_cache
 
 import numpy as np
 
+from atomx.angular.clebsch import clebsch_gordan
+from atomx.angular.recoupling import l_of_kappa, twoj_of_kappa
 from atomx.angular.wigner import wigner_3j
+from atomx.config.subshell import L_LETTERS
 
 __all__ = [
     "BreitOperatorError",
@@ -88,21 +91,6 @@ RETARDATION_NOTE = (
 
 
 
-def twoj_of_kappa(kappa: int) -> int:
-    """``2j`` for a Dirac quantum number ``kappa``."""
-    return 2 * abs(int(kappa)) - 1
-
-
-def l_of_kappa(kappa: int) -> int:
-    """Orbital angular momentum of the *large* component of ``kappa``."""
-    kappa = int(kappa)
-    return kappa if kappa > 0 else -kappa - 1
-
-
-# ---------------------------------------------------------------------------
-# Spinor spherical harmonics and Pauli matrices
-# ---------------------------------------------------------------------------
-
 @lru_cache(maxsize=None)
 def _spinor_coeffs(kappa: int, m2: int):
     """``chi_{kappa m} = sum c (Y_{l m_l} xi_{m_s})`` as (c, l, 2m_l, 2m_s)."""
@@ -113,11 +101,7 @@ def _spinor_coeffs(kappa: int, m2: int):
         ms2 = m2 - ml2
         if abs(ms2) != 1:
             continue
-        w = wigner_3j(2 * l, 1, j2, ml2, ms2, -m2)
-        if w == 0.0:
-            continue
-        phase = 1.0 if ((2 * l - 1 + m2) // 2) % 2 == 0 else -1.0
-        c = phase * math.sqrt(j2 + 1.0) * w
+        c = clebsch_gordan(2 * l, ml2, 1, ms2, j2, m2)
         if c:
             out.append((c, l, ml2, ms2))
     return tuple(out)
@@ -327,12 +311,11 @@ def configuration_string_of(subshells) -> str:
     configurations, and the ``nl^q`` token would be a silent
     reinterpretation of that average.
     """
-    l_char = "spdfghiklmno"
     order: list = []
     totals: dict = {}
     for sh in subshells:
         kappa = int(sh.kappa)
-        l = kappa if kappa > 0 else -kappa - 1
+        l = l_of_kappa(kappa)
         key = (int(sh.n), l)
         if key not in totals:
             order.append(key)
@@ -347,7 +330,7 @@ def configuration_string_of(subshells) -> str:
                 f"fractional occupation {q!r}, i.e. the SCF averaged over "
                 f"several configurations, so there is no single "
                 f"configuration whose Breit energy could be reported.")
-        parts.append(f"{key[0]}{l_char[key[1]]}{int(round(q))}")
+        parts.append(f"{key[0]}{L_LETTERS[key[1]]}{int(round(q))}")
     return " ".join(parts)
 
 

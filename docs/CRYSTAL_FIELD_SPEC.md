@@ -21,7 +21,7 @@ V_CF = Σ_{k,q} B^q_k · r^k · C^q_k(r̂),  C^q_k = √(4π/(2k+1)) Y_{kq}
   `point_charge_bkq` for validation).  The module never invents them.
 - Element: ⟨nκ_a m_a|V|nκ_b m_b⟩ = Σ_k B^{q=m_a−m_b}_k · ⟨r^k⟩ ·
   (−1)^{j_a−m_a} (j_a k j_b; −m_a q m_b) ⟨κ_a‖C^k‖κ_b⟩ with
-  `reduced_cl_j2` (GRASP/FAC phase — the legacy `reduced_C` differs by
+  `reduced_cl_j2` (GRASP/FAC phase — the jj `reduced_C_jj` differs by
   (−1)^{j_a+j_b+k}, harmless in two-vertex CI products, WRONG for
   one-body operators).
 
@@ -44,13 +44,13 @@ unused.
 - **G4** digit-exact vs INDEPENDENT path: CG-built spinor spherical
   harmonics + vectorised angular quadrature (no 3j of the operator
   route) — 9 (κ_a,κ_b,k,q) combinations over all m.  This gate caught:
-  the reduced_C phase (q=0 diagonals), the B/q disconnection (G2 sign
+  the reduced_C_jj phase (q=0 diagonals), the B/q disconnection (G2 sign
   flips), and its own quadrature conjugation bug (Y_{l,−m}=(−1)^m Y*)
 - **G5** python/numba element-identical; H Hermitian; spectrum moves
 
 ## Bugs caught by the gates (do not reintroduce)
 
-1. `reduced_C` legacy phase in a one-body context (see above).
+1. `reduced_C_jj` (Grant jj) phase in a one-body context (see above).
 2. B-lookup disconnected from the tensor component: the angular
    machinery derives q from m_a − m_b; the B sum MUST be keyed by that
    same q (`if kq != q: continue`).

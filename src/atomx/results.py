@@ -12,7 +12,9 @@ from typing import Dict, Optional, Protocol, runtime_checkable
 
 import numpy as np
 
+from atomx.config.subshell import l_letter
 from atomx.numerics.radial_metric import RadialMetric
+from atomx.radial_state import RadialStateMixin
 from atomx.types import CouplingScheme, TheoryLevel
 
 
@@ -95,7 +97,7 @@ class OrbitalWavefunction:
     def l_symbol(self) -> str:
         """Spectroscopic letter for the orbital angular momentum
         (``s``, ``p``, ``d``, …)."""
-        return "spdfghiklmnoqrtuvwxyz"[self.l] if self.l < 21 else f"l{self.l}"
+        return l_letter(self.l)
 
     def to_dict(self) -> dict:
         """Compact ``{quantum_number → value}`` summary for ``Atom.summary()``
@@ -413,7 +415,7 @@ class Waves:
 
 
 @dataclass
-class ShootingResult:
+class ShootingResult(RadialStateMixin):
     """Result of an ODE shooting calculation.
 
     Satisfies the ``AtomicResult`` protocol from ``atomx.results``.
@@ -497,14 +499,6 @@ class ShootingResult:
         if self._equation == "schrodinger":
             return CouplingScheme.LS
         return CouplingScheme.JJ
-
-    @property
-    def radial_state(self):
-        """Owned native radial snapshot for correction and analysis consumers."""
-        from atomx.radial_state import radial_state_of
-        if '_radial_state' not in self.__dict__:
-            self.__dict__['_radial_state'] = radial_state_of(self)
-        return self.__dict__['_radial_state']
 
     @property
     def waves(self):

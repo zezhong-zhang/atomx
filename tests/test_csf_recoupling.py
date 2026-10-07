@@ -7,8 +7,8 @@
 ``chain_state_from_simple_csf_auto``, ``scalar_w_subshell_coeff``,
 ``two_subshell_*_w_reduced`` — is reachable only from within
 ``atomx.angular.csf_recoupling`` itself and the ``angular/__init__``
-re-exports; the only consumers in ``src/`` are the unreachable legacy
-``matrix._branch9_*`` helpers.  The single recoupling function on a live path
+re-exports. The former unreachable ``matrix._branch9_*`` consumers were
+deleted in the 2026-10-05 review; these tests retain their algebraic scope.  The single recoupling function on a live path
 is ``allowed_coupled_J2`` (used by ``exact_ci`` and ``config``), which this
 file does not test.
 

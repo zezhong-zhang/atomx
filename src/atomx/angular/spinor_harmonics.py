@@ -43,6 +43,7 @@ import numpy as np
 from scipy import special as _sp
 
 from atomx.angular.clebsch import clebsch_gordan
+from atomx.angular.recoupling import lj_from_kappa
 
 # scipy ≥ 1.15 deprecates ``sph_harm`` in favour of ``sph_harm_y`` with
 # a different argument order.  Centralise the compatibility shim once so
@@ -99,9 +100,8 @@ def _l_j_from_kappa(kappa: int) -> tuple[int, float]:
     """Return (l, j) for the given Dirac quantum number κ."""
     if kappa == 0:
         raise ValueError("kappa must be non-zero for a Dirac orbital.")
-    l = kappa if kappa > 0 else -kappa - 1
-    j = abs(kappa) - 0.5
-    return l, j
+    l, j2 = lj_from_kappa(kappa)
+    return l, j2 / 2.0
 
 
 def _valid_mu_values(j: float) -> np.ndarray:

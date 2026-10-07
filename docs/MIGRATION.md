@@ -533,12 +533,14 @@ no general bound on signed matrix-element errors and is no longer applied.
 The coupled two-electron Coulomb coefficients now live in
 `atomx.angular.coefficients.coupled_coulomb_direct` and
 `coupled_coulomb_exchange`. They use an exact Racah reduction of the former
-magnetic-sublevel sums, with the same `reduced_C` phase convention. Their
+magnetic-sublevel sums, with the same `reduced_C_jj` (Grant) phase convention. Their
 arguments are `(kappa_c, kappa_d, kappa_a, kappa_b, twice_J, rank)`; the
 antisymmetrized amplitude remains `D*R_direct - E*R_exchange`.
 
 The private DW helpers `_cc_direct`, `_cc_exchange`, `_ck_m` and `_cg2` have
-been removed. Import `ckm` and `cg` directly from `atomx.angular.coefficients`.
+been removed. Import `ckm` from `atomx.angular.coefficients` and
+`clebsch_gordan` from `atomx.angular.clebsch` (the canonical CG kernel;
+the former `coefficients.cg` wrapper is gone).
 CE, EII, Auger and CI photon callers have been migrated; no forwarding aliases
 remain. The radial integrals and physical channel truncations are unchanged.
 
@@ -783,3 +785,21 @@ change. See `DF_SOLVER_CONTROLS.md` for live Salvat RADIAL comparisons.
 The Breit configuration-average evaluator copies its radial mesh before
 marking that copy immutable for geometry reuse. Caller-owned grids remain
 mutable and cannot silently stale the integration geometry.
+
+## 2026-10-05 review: explicit operator conventions
+
+Use `atomx.angular.coefficients.reduced_C_jj` for the retained Grant jj phase
+and `atomx.scattering.r_matrix.angular_cc.reduced_C_LS` for orbital LS coupling.
+The ambiguous `reduced_C` imports are removed. `reduced_cl_j2` retains the separate
+GRASP/FAC phase used by one-body transitions; do not substitute a renamed function
+without checking its convention.
+
+CG coefficients come from `angular.clebsch.clebsch_gordan`; kappa helpers from
+`angular.recoupling`; label formatters from `config.subshell`. Private DW/local
+copies and `coefficients.cg` are removed. Use `properties.transitions.rates.
+einstein_A_prefactor` only with explicit magnetic-state strength;
+`einstein_A_eL` accepts reduced strength and applies initial-state averaging.
+
+`ConvolCache.clear()` is replaced by `release_shared_banks()`. This releases
+shared banks process-wide for the grid. The known-wrong private legacy CI builder
+has been deleted; use `physics.csf.matrix.build_ci_matrix`.

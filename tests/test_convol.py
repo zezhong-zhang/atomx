@@ -217,7 +217,9 @@ class TestRkb:
             make_knots(ns, 9, 0.0125, 50.0), ns, 9,
             kinetic_balance=True)
         compact_cache = ConvolCache(data)
-        compact_cache.clear()
+        # Banks are shared process-wide per grid content; a same-grid bank
+        # from an earlier parametrized case must not leak into this one.
+        compact_cache.release_shared_banks()
         near, *_ = compact_cache.get_coulomb_factors(k, component)
         assert (k, component) not in compact_cache._cache
         assert (k, component, "T") not in compact_cache._cache

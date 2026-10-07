@@ -13,14 +13,8 @@ Key selection rules:
 
 import numpy as np
 
+from atomx.angular.recoupling import lj_from_kappa
 from atomx.angular.wigner import wigner_3j
-
-
-def _kappa_to_lj(kappa):
-    """Convert kappa to (l, j) as integers and twice-j."""
-    l = kappa if kappa > 0 else -kappa - 1
-    tj = 2 * abs(kappa) - 1  # twice j
-    return l, tj
 
 
 def selection_rules(kappa_i, kappa_f, L, multipole_type='E'):
@@ -40,8 +34,8 @@ def selection_rules(kappa_i, kappa_f, L, multipole_type='E'):
     bool
         True if transition is allowed.
     """
-    l_i, tj_i = _kappa_to_lj(kappa_i)
-    l_f, tj_f = _kappa_to_lj(kappa_f)
+    l_i, tj_i = lj_from_kappa(kappa_i)
+    l_f, tj_f = lj_from_kappa(kappa_f)
 
     # Triangle condition: |j_i - j_f| <= L <= j_i + j_f
     tL = 2 * L
@@ -83,8 +77,8 @@ def angular_eL(kappa_i, kappa_f, L):
     if not selection_rules(kappa_i, kappa_f, L, 'E'):
         return 0.0
 
-    l_i, tj_i = _kappa_to_lj(kappa_i)
-    l_f, tj_f = _kappa_to_lj(kappa_f)
+    l_i, tj_i = lj_from_kappa(kappa_i)
+    l_f, tj_f = lj_from_kappa(kappa_f)
 
     # 3j symbol: (j_i  L  j_f; -1/2  0  1/2)
     # In twice-j convention: (tj_i  2L  tj_f; -1  0  1)
@@ -143,8 +137,8 @@ def angular_mL(kappa_i, kappa_f, L):
     if not selection_rules(kappa_i, kappa_f, L, 'M'):
         return 0.0
 
-    l_i, tj_i = _kappa_to_lj(kappa_i)
-    l_f, tj_f = _kappa_to_lj(kappa_f)
+    l_i, tj_i = lj_from_kappa(kappa_i)
+    l_f, tj_f = lj_from_kappa(kappa_f)
 
     tL = 2 * L
     threej = wigner_3j(tj_i, tL, tj_f, -1, 0, 1)
@@ -182,7 +176,7 @@ def allowed_final_kappas(kappa_i, L, multipole_type='E'):
     list of int
         Allowed final kappa values.
     """
-    l_i, tj_i = _kappa_to_lj(kappa_i)
+    l_i, tj_i = lj_from_kappa(kappa_i)
 
     results = []
     # Scan over possible l_f values: |l_i - L| to l_i + L
@@ -200,7 +194,7 @@ def allowed_final_kappas(kappa_i, L, multipole_type='E'):
         for kf in [-(l_f + 1), l_f]:
             if kf == 0:
                 continue  # kappa=0 is not physical
-            l_f_check, tj_f = _kappa_to_lj(kf)
+            l_f_check, tj_f = lj_from_kappa(kf)
             if l_f_check != l_f:
                 continue
 

@@ -28,6 +28,7 @@ from typing import Any, Iterable, Sequence
 
 import numpy as np
 
+from atomx.angular.recoupling import l_of_kappa
 from atomx.constants import HARTREE_EV, element_symbol
 
 FAC_TYPE_LEV = 1
@@ -801,9 +802,9 @@ def _vnl_from_csf(csf) -> int:
         occ = float(getattr(sh, "occupation", 0.0))
         if occ >= max_occ - 1e-6:
             # Treat as closed; still keep as fallback in case nothing open.
-            cand = (False, int(sh.n), _l_from_kappa(sh.kappa))
+            cand = (False, int(sh.n), l_of_kappa(sh.kappa))
         else:
-            cand = (True, int(sh.n), _l_from_kappa(sh.kappa))
+            cand = (True, int(sh.n), l_of_kappa(sh.kappa))
         if best is None:
             best = cand
         else:
@@ -813,18 +814,6 @@ def _vnl_from_csf(csf) -> int:
     if best is None:
         return 0
     return 100 * best[1] + best[2]
-
-
-def _l_from_kappa(kappa: int) -> int:
-    """Dirac orbital ℓ from quantum number κ.
-
-    Standard convention: κ < 0 → ℓ = −κ − 1 (j = ℓ + ½);
-    κ > 0 → ℓ = κ (j = ℓ − ½).
-    """
-    k = int(kappa)
-    if k == 0:
-        return 0
-    return -k - 1 if k < 0 else k
 
 
 def _state_index_from_label(label: str, fallback: int) -> int:

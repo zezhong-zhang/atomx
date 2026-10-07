@@ -7,7 +7,8 @@ LS-coupling (non-relativistic):
     term_symbol, ls_expectation, allowed_terms, slater_condon_f
 
 Recoupling (LS ↔ jj transformations):
-    ls_jj_transformation, kappa_from_lj, lj_from_kappa
+    ls_jj_transformation, kappa_from_lj, lj_from_kappa, l_of_kappa,
+    twoj_of_kappa
 """
 
 from atomx.angular.clebsch import clebsch_gordan
@@ -32,7 +33,9 @@ from atomx.angular.ls_coupling import (
 )
 from atomx.angular.recoupling import (
     kappa_from_lj,
+    l_of_kappa,
     lj_from_kappa,
     ls_jj_transformation,
+    twoj_of_kappa,
 )
 from atomx.angular.wigner import wigner_3j, wigner_6j, wigner_9j

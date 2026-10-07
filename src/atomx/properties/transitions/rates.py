@@ -30,6 +30,21 @@ def _double_factorial(n):
     return result
 
 
+def einstein_A_prefactor(omega, L):
+    """Radiative factor in s^-1 per squared magnetic multipole amplitude.
+
+    Multiply by the summed final-M/polarization strength for one initial
+    magnetic state. For a reduced line strength, divide by ``2J_i+1``
+    as :func:`einstein_A_eL` does. No statistical weight is inferred here.
+    """
+    if omega <= 0:
+        return 0.0
+    dbl_fact = _double_factorial(2 * L + 1)
+    return (2.0 * ALPHA ** (2 * L + 1) * omega ** (2 * L + 1)
+            * (L + 1) * (2 * L + 1)
+            / (L * dbl_fact ** 2) * AU_RATE_PER_S)
+
+
 def einstein_A_eL(omega, line_strength, L, tj_i):
     """Einstein A-coefficient for electric 2^L-pole transition.
 
@@ -69,12 +84,7 @@ def einstein_A_eL(omega, line_strength, L, tj_i):
     if omega <= 0 or line_strength <= 0:
         return 0.0
 
-    dbl_fact = _double_factorial(2 * L + 1)
-    prefactor = (2.0 * ALPHA ** (2 * L + 1) * omega ** (2 * L + 1)
-                 * (L + 1) * (2 * L + 1)
-                 / (L * dbl_fact ** 2))
-    A_au = prefactor * line_strength / (tj_i + 1)
-    return A_au * AU_RATE_PER_S
+    return einstein_A_prefactor(omega, L) * line_strength / (tj_i + 1)
 
 
 def einstein_A_mL(omega, line_strength, L, tj_i):

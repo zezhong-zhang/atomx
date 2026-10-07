@@ -110,6 +110,28 @@ def ls_jj_transformation(l1: int, l2: int, J2: int) -> np.ndarray:
     return T
 
 
+def l_of_kappa(kappa: int) -> int:
+    """Orbital angular momentum ``l`` of the large component for ``kappa``.
+
+    ``kappa < 0`` gives ``l = -kappa - 1`` (``j = l + 1/2``);
+    ``kappa > 0`` gives ``l = kappa`` (``j = l - 1/2``).
+
+    This is the canonical κ→l mapping for the whole package; modules that
+    previously carried private copies (``_l_of``, ``_l_from_kappa``,
+    ``_l_of_kappa``, ...) import it from here.
+    """
+    return kappa if kappa > 0 else -kappa - 1
+
+
+def twoj_of_kappa(kappa: int) -> int:
+    """Twice the total angular momentum, ``2j = 2|kappa| - 1``.
+
+    Canonical κ→2j mapping; the former per-module copies
+    (``_tj_of``, ``_twoj_from_kappa``, ``twoj``, ...) delegate here.
+    """
+    return 2 * abs(kappa) - 1
+
+
 def kappa_from_lj(l: int, j2: int) -> int:
     """Convert (l, 2j) to relativistic quantum number kappa.
 
@@ -131,10 +153,4 @@ def lj_from_kappa(kappa: int) -> tuple:
     -------
     (l, j2) : tuple of int
     """
-    if kappa < 0:
-        l = -kappa - 1
-        j2 = -2 * kappa - 1
-    else:
-        l = kappa
-        j2 = 2 * kappa - 1
-    return l, j2
+    return l_of_kappa(kappa), twoj_of_kappa(kappa)

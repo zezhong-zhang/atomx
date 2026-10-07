@@ -12,6 +12,7 @@ from typing import TYPE_CHECKING, Callable
 
 import numpy as np
 
+from atomx.config.subshell import L_LETTERS
 from atomx.scattering.two_electron import coulomb
 
 if TYPE_CHECKING:
@@ -56,7 +57,7 @@ class TwoElectronTerm:
     @property
     def configuration(self) -> str:
         """Configuration string, e.g. ``1s.2p``."""
-        syms = "spdfgh"
+        syms = L_LETTERS
         return f"{self.n1}{syms[self.l1]}.{self.n2}{syms[self.l2]}"
 
     def to_target_state(self, Z: float) -> TargetState:
@@ -79,7 +80,7 @@ class TwoElectronTerm:
 
 
 def _orbital_label(n: int, l: int) -> str:
-    return f"{n}{'spdfgh'[l]}"
+    return f"{n}{L_LETTERS[l]}"
 
 
 def helike_terms(
@@ -138,7 +139,7 @@ def helike_terms(
             P_nl = st.P
             for S in (0, 1):
                 multiplicity = 2 * S + 1
-                term_label = f"1s{orbital_label} ^{multiplicity}{'spdfgh'[l].upper()}"
+                term_label = f"1s{orbital_label} ^{multiplicity}{L_LETTERS[l].upper()}"
                 e_term = coulomb.term_energy_1s_nl(
                     P_1s, P_nl, e_1s, e_nl, l, S,
                     n_points=n_grid, r_max=r_max,

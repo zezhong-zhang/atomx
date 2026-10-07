@@ -32,6 +32,10 @@ from typing import Callable, Dict, List, Mapping, Optional, Tuple
 
 import numpy as np
 
+from atomx.angular.recoupling import lj_from_kappa
+from atomx.config.subshell import l_letter
+from atomx.constants import HARTREE_EV
+
 Subshell = Tuple[int, int]          # (n, kappa)
 Config = Mapping[Subshell, float]   # occupied subshells only
 ConfigKey = Tuple[Tuple[int, int, float], ...]
@@ -142,7 +146,7 @@ class RateProvider:
             )
 
             result = self._unwrap(self._solve(config))
-            omega_ha = photon_energy_eV / 27.211386245988
+            omega_ha = photon_energy_eV / HARTREE_EV
             table: Dict[Subshell, float] = {}
             for sh in config:
                 label = _subshell_label(sh)
@@ -150,7 +154,7 @@ class RateProvider:
                 if e_bind is None or e_bind >= 0.0:
                     table[sh] = 0.0
                     continue
-                e_free_eV = photon_energy_eV + e_bind * 27.211386245988
+                e_free_eV = photon_energy_eV + e_bind * HARTREE_EV
                 if e_free_eV <= 0.0:
                     table[sh] = 0.0     # below threshold
                     continue
@@ -162,7 +166,7 @@ class RateProvider:
                     multipoles=("E1",),
                     g_initial=1,
                 )
-                e_ha = e_free_eV / 27.211386245988
+                e_ha = e_free_eV / HARTREE_EV
                 milne = (ALPHA ** 2 * omega_ha ** 2
                          / (e_ha * (2.0 + ALPHA ** 2 * e_ha)))
                 s_rr = float(rr.sigma_by_orbital.get(label, [0.0])[0])
@@ -239,7 +243,7 @@ class RateProvider:
             e_2 = energies.get(labels[ns2_ks2])
             if e_h is None or e_1 is None or e_2 is None:
                 continue
-            e_aug_eV = (e_1 + e_2 - e_h) * 27.211386245988
+            e_aug_eV = (e_1 + e_2 - e_h) * HARTREE_EV
             if e_aug_eV <= 0.0:
                 continue
             out = auger_rate_csf_average(
@@ -258,7 +262,8 @@ class RateProvider:
 
 def _subshell_label(sh: Subshell) -> str:
     n, k = sh
-    return f"{n}{_LCHAR[(k if k > 0 else -k - 1)]}{2 * abs(k) - 1}/2"
+    l, j2 = lj_from_kappa(k)
+    return f"{n}{l_letter(l)}{j2}/2"
 
 
 def _occupation_table(result) -> Dict[Subshell, float]:

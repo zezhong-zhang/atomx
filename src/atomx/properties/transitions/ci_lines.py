@@ -65,6 +65,8 @@ from dataclasses import dataclass, field
 import numpy as np
 
 from atomx.angular.coefficients import ckm
+from atomx.angular.recoupling import l_of_kappa, twoj_of_kappa
+from atomx.config.subshell import L_LETTERS
 from atomx.constants import HARTREE_INV_ANGSTROM
 from atomx.properties.transitions.rates import einstein_A_eL, oscillator_strength
 from atomx.scattering.autoionization.mscheme_ci import (
@@ -72,9 +74,8 @@ from atomx.scattering.autoionization.mscheme_ci import (
     _subshell_meta,
     manifold_from_configs,
 )
-from atomx.scattering.distorted_wave.solver import _l_of, _tj_of
 
-_L_CHARS = "spdfghiklmno"
+_L_CHARS = L_LETTERS
 
 
 class CISizeError(ValueError):
@@ -199,7 +200,7 @@ def _config_parity(tup, groups) -> int:
     """Parity (-1)^(sum l * occ) over the active groups."""
     s = 0
     for (subshells, _ne), occ in zip(groups, tup, strict=False):
-        l = _l_of(subshells[0][1])
+        l = l_of_kappa(subshells[0][1])
         s += l * int(occ)
     return -1 if s % 2 else 1
 
@@ -220,7 +221,7 @@ class _PairCI:
         meta = _subshell_meta(result)
         ground_occ: dict = {}
         for (n, kappa, occ) in meta:
-            key = (n, _l_of(kappa))
+            key = (n, l_of_kappa(kappa))
             ground_occ[key] = ground_occ.get(key, 0.0) + occ
 
         parsed = {cfg: _parse_config_tokens(cfg) for cfg in (config_i, config_f)}
@@ -248,9 +249,9 @@ class _PairCI:
 
         # group layout: groups[0] is the hole group, then excited nl groups
         hole_sub = man.groups[0][0][0]
-        self.hole_nl = (hole_sub[0], _l_of(hole_sub[1]))
+        self.hole_nl = (hole_sub[0], l_of_kappa(hole_sub[1]))
         self.cap_h = _shell_cap(self.hole_nl[1])
-        self.excited_nls = [(g[0][0][0], _l_of(g[0][0][1]))
+        self.excited_nls = [(g[0][0][0], l_of_kappa(g[0][0][1]))
                             for g in man.groups[1:]]
 
         def _tuple_of(cfg):
@@ -478,7 +479,7 @@ class _PairCI:
             counts[key] = counts.get(key, 0) + 1
         parts = []
         for (n, kappa), c in sorted(counts.items()):
-            lab = f"{n}{_L_CHARS[_l_of(kappa)]}{_tj_of(kappa)}/2"
+            lab = f"{n}{_L_CHARS[l_of_kappa(kappa)]}{twoj_of_kappa(kappa)}/2"
             parts.append(lab if c == 1 else f"{lab}^{c}")
         sign = "+" if parity > 0 else "-"
         return " ".join(parts) + f" [J={tJ}/2,{sign}]"

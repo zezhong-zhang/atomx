@@ -23,6 +23,7 @@ from typing import Callable
 import numpy as np
 from scipy.special import eval_genlaguerre
 
+from atomx.config.subshell import l_letter
 from atomx.scattering.two_electron.states import TwoElectronTerm
 
 
@@ -132,7 +133,7 @@ def heplus_target_states(Z: float = 2.0, *, n_max: int = 2) -> dict[str, TargetS
     for n in range(1, n_max + 1):
         energy = -0.5 * Z * Z / (n * n)
         for l in range(n):
-            label = f"{n}{'spdfgh'[l]}"
+            label = f"{n}{l_letter(l)}"
             if n <= 2:
                 # Keep the existing hand-written builders for the default basis
                 # to avoid any accidental regression in the Burke tests.

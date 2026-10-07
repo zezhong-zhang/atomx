@@ -169,6 +169,9 @@ HARTREE_EV = HARTREE_J / _active["_e"]                     # 1 Ha / (1 eV)
 RYDBERG_EV = 0.5 * HARTREE_EV                              # 1 Ry = Ha/2 in eV (~13.6057)
 HARTREE_CM1 = HARTREE_J / (100.0 * _active["_hplanck"] * _active["_c"])  # 1 Ha / cm^-1
 
+# Photon energy-wavelength product hc (~1239.841984 eV*nm)
+HC_EV_NM = 1e9 * _active["_hplanck"] * _active["_c"] / _active["_e"]
+
 # Length
 BOHR_RADIUS_M = _active["_a0"]
 BOHR_RADIUS_FM = BOHR_RADIUS_M * 1e15

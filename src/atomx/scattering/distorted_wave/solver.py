@@ -20,6 +20,7 @@ import numpy as np
 
 from atomx.angular.coefficients import coupled_coulomb_direct, coupled_coulomb_exchange
 from atomx.angular.csf import csf_parity, csf_twice_j, one_body_csf_coupling
+from atomx.angular.recoupling import l_of_kappa, twoj_of_kappa
 from atomx.config.csf import CSF
 from atomx.constants import BOHR_RADIUS_M, C_SQ, HARTREE_EV
 from atomx.numerics.bspline.evaluate import eval_P, eval_Q
@@ -37,16 +38,6 @@ from atomx.numerics.shooting.dirac_continuum import (
 from atomx.potentials.static_field import static_hartree_potential
 
 
-def _l_of(kappa):
-    """Orbital angular momentum l from kappa."""
-    return kappa if kappa > 0 else -kappa - 1
-
-
-def _tj_of(kappa):
-    """Twice-j from kappa."""
-    return 2 * abs(kappa) - 1
-
-
 # Reduced matrix element ⟨κ_a‖C^k‖κ_b⟩, Grant (2007) convention.
 @lru_cache(maxsize=None)
 def _allowed_k(kappa_a, kappa_b):
@@ -55,8 +46,8 @@ def _allowed_k(kappa_a, kappa_b):
     Selection rules: |j_a - j_b| ≤ k ≤ j_a + j_b, l_a + l_b + k even.
     (lru_cached; callers must not mutate the returned list.)
     """
-    tja, tjb = _tj_of(kappa_a), _tj_of(kappa_b)
-    la, lb = _l_of(kappa_a), _l_of(kappa_b)
+    tja, tjb = twoj_of_kappa(kappa_a), twoj_of_kappa(kappa_b)
+    la, lb = l_of_kappa(kappa_a), l_of_kappa(kappa_b)
     kmin = abs(tja - tjb) // 2
     kmax = (tja + tjb) // 2
     return [k for k in range(kmin, kmax + 1) if (k + la + lb) % 2 == 0]
@@ -83,7 +74,7 @@ def _csf_from_result_subshells(result):
     parity = 1
     for sh in subshells:
         if int(round(float(sh.occupation))) % 2:
-            parity *= -1 if _l_of(sh.kappa) % 2 else 1
+            parity *= -1 if l_of_kappa(sh.kappa) % 2 else 1
     csf = CSF(subshells=subshells, total_J2=0, parity=parity, label="scf")
     tj = csf_twice_j(csf)
     return CSF(subshells=subshells, total_J2=tj, parity=parity, label=f"scf [J={tj}/2]")
@@ -317,7 +308,7 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
         return np.zeros_like(energies_eV), np.zeros_like(energies_eV)
 
     kappa_list = [k for k in range(-kappa_max - 1, kappa_max + 1)
-                  if k != 0 and _l_of(k) <= kappa_max]
+                  if k != 0 and l_of_kappa(k) <= kappa_max]
 
     # At E_inc == threshold the outgoing electron has zero kinetic energy and
     # the DW integral is singular; FAC evaluates the threshold point at a
@@ -418,17 +409,17 @@ def dw_excitation_cross_section(atom_initial, atom_final, energies_eV,
             w_in = _wave(kappa_in, E_inc)
             if w_in is None:
                 continue
-            tj_in = _tj_of(kappa_in)
-            l_in = _l_of(kappa_in)
+            tj_in = twoj_of_kappa(kappa_in)
+            l_in = l_of_kappa(kappa_in)
             for kappa_out in kappa_list:
-                tj_out = _tj_of(kappa_out)
-                l_out = _l_of(kappa_out)
+                tj_out = twoj_of_kappa(kappa_out)
+                l_out = l_of_kappa(kappa_out)
                 w_out = None
                 for (ka, kb, pop, Pa, Qa, Pb, Qb) in pair_data:
-                    la, lb = _l_of(ka), _l_of(kb)
+                    la, lb = l_of_kappa(ka), l_of_kappa(kb)
                     if (la + l_in + lb + l_out) % 2 != 0:
                         continue
-                    tja, tjb = _tj_of(ka), _tj_of(kb)
+                    tja, tjb = twoj_of_kappa(ka), twoj_of_kappa(kb)
                     ks = [k for k in _allowed_k(ka, kb)
                           if k in _allowed_k(kappa_in, kappa_out)
                           and k <= L_max]
@@ -541,9 +532,9 @@ def _active_transition_pairs(result_i, result_f):
         delta = occ_f.get(key, 0.0) - occ_i.get(key, 0.0)
         n, kappa = key
         if delta < -0.01:
-            src_nl.add((n, _l_of(kappa)))
+            src_nl.add((n, l_of_kappa(kappa)))
         elif delta > 0.01:
-            dst_nl.add((n, _l_of(kappa)))
+            dst_nl.add((n, l_of_kappa(kappa)))
     dst_nl -= src_nl
     if not src_nl or not dst_nl:
         return []

@@ -14,15 +14,18 @@ correlation energy (~95% for atoms).
 
 import re
 
+from atomx.angular.recoupling import l_of_kappa
 from atomx.config.csf import _parse_config_string
+from atomx.config.subshell import L_LETTERS
 
-# Orbital-label letters, index == l (shared with config parsing).
-_L_SYMBOLS = "spdfghiklmno"
+# Orbital-label letters, index == l (canonical alphabet — the same one the
+# config parser accepts, so labels round-trip).
+_L_SYMBOLS = L_LETTERS
 
 
 def _split_nl(key):
     """Split an orbital key like ``"10h"`` into (n, l_char); n may be >= 10."""
-    m = re.fullmatch(r"(\d+)([spdfghiklmno])", key)
+    m = re.fullmatch(r"(\d+)([" + L_LETTERS + "])", key)
     if m is None:
         raise ValueError(f"cannot parse orbital label {key!r}")
     return int(m.group(1)), m.group(2)
@@ -56,7 +59,7 @@ def generate_sd_excitations(ref_config_str, virtual_orbitals,
     l_map_inv = {i: ch for i, ch in enumerate(_L_SYMBOLS)}
     ref_occ = {}
     for sh in ref_shells:
-        l = sh.kappa if sh.kappa > 0 else -sh.kappa - 1
+        l = l_of_kappa(sh.kappa)
         key = f"{sh.n}{l_map_inv[l]}"
         ref_occ[key] = ref_occ.get(key, 0) + sh.occupation
 
@@ -72,7 +75,7 @@ def generate_sd_excitations(ref_config_str, virtual_orbitals,
     l_map = {ch: i for i, ch in enumerate(_L_SYMBOLS)}
     virtual_slots = []
     for virt in virtual_orbitals:
-        m = re.fullmatch(r"(\d+)([spdfghiklmno])", virt)
+        m = re.fullmatch(r"(\d+)([" + L_LETTERS + "])", virt)
         if m is None:
             raise ValueError(f"cannot parse virtual orbital label {virt!r}")
         l = l_map[m.group(2)]

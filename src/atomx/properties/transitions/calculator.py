@@ -14,7 +14,6 @@ from typing import Optional
 
 import numpy as np
 
-from atomx.angular.coefficients import reduced_C
 from atomx.angular.csf import (
     csf_has_explicit_j,
     csf_parity,
@@ -26,6 +25,8 @@ from atomx.angular.csf_hamiltonian import (
     nonorthogonal_tensor_terms,
     one_body_tensor_terms,
 )
+from atomx.angular.recoupling import lj_from_kappa
+from atomx.config.subshell import l_letter
 from atomx.constants import (
     HARTREE_CM1,
     HARTREE_EV,
@@ -38,7 +39,6 @@ from atomx.corrections.adapters import (
     _has_radial_grid_data,
 )
 from atomx.properties.transitions.angular import (
-    _kappa_to_lj,
     angular_eL,
     angular_mL,
     selection_rules,
@@ -119,56 +119,8 @@ def _energy_to_wavelength_angstrom(dE_hartree):
 
 def _subshell_label(n, kappa):
     """Human-readable subshell label from (n, kappa)."""
-    l = kappa if kappa > 0 else -kappa - 1
-    tj = 2 * abs(kappa) - 1
-    l_chars = "spdfghiklmno"
-    l_char = l_chars[l] if l < len(l_chars) else f"l{l}"
-    return f"{n}{l_char}{tj}/2"
-
-
-def _csf_twice_J(csf):
-    """Infer 2·J_total for a CSF from its subshell structure.
-
-    Accurate for CSFs with zero or one partially-filled relativistic
-    subshell (the common case enumerated by
-    :func:`atomx.config.csf.enumerate_jj_csfs`):
-
-    * closed CSF → J = 0 (returns 0)
-    * one electron or one hole in ``(n, kappa)`` → J = j_kappa (returns
-      ``2j = 2|kappa|-1``)
-
-    Multiple open shells are reported as J = j of the single most-open
-    shell; this is approximate but better than the previous hard-coded
-    ``tj=1`` placeholder. If a CSF carries an explicit ``total_J2``
-    attribute that takes precedence — including the J=0 case, which is
-    recognised either from a non-default attribute *or* from the
-    bracketed ``[J=0/2]`` label tag emitted by
-    :func:`atomx.config.csf.enumerate_jj_csfs`.
-    """
-    # Honour explicit total_J2 if somebody populated it.  The closed-shell
-    # J=0 CSF carries ``total_J2=0`` (default int) but its label tags it
-    # with ``[J=0/2]``; treat that as explicit so the caller doesn't fall
-    # back to the open-shell heuristic.
-    explicit = int(getattr(csf, "total_J2", 0))
-    label = str(getattr(csf, "label", ""))
-    if explicit > 0 or " J=" in label or "[J=" in label:
-        return explicit
-
-    open_shells = []
-    for sh in csf.subshells:
-        j2 = 2 * abs(sh.kappa) - 1  # twice j
-        max_occ = j2 + 1
-        if 1e-6 < sh.occupation < max_occ - 1e-6:
-            open_shells.append((sh, j2))
-    if not open_shells:
-        return 0
-    # Most-open shell: take the one furthest from half-filled.
-    # For one electron or one hole, result = j of that shell.
-    sh, j2 = min(
-        open_shells,
-        key=lambda s: abs(s[0].occupation - (s[1] + 1) / 2.0),
-    )
-    return int(j2)
+    l, tj = lj_from_kappa(kappa)
+    return f"{n}{l_letter(l)}{tj}/2"
 
 
 class TransitionCalculator:
@@ -393,8 +345,8 @@ class TransitionCalculator:
 
                 omega = abs(dE)
                 wavelength = _energy_to_wavelength_angstrom(dE)
-                _, tj_i = _kappa_to_lj(k_i)
-                _, tj_f = _kappa_to_lj(k_f)
+                _, tj_i = lj_from_kappa(k_i)
+                _, tj_f = lj_from_kappa(k_f)
 
                 for mp in multipoles:
                     mp_type = mp[0]  # 'E' or 'M'
@@ -548,8 +500,8 @@ class TransitionCalculator:
                         ):
                             continue
                     else:
-                        tj_I = _csf_twice_J(csfs[dom_I])
-                        tj_F = _csf_twice_J(csfs[dom_F])
+                        tj_I = csf_twice_j(csfs[dom_I])
+                        tj_F = csf_twice_j(csfs[dom_F])
 
                     block_I = (int(tj_I), int(pi_I)) if explicit_I and explicit_F else None
                     block_F = (int(tj_F), int(pi_F)) if explicit_I and explicit_F else None
@@ -665,10 +617,14 @@ class TransitionCalculator:
                     else:
                         radial = radial_eL(P_i, Q_i, P_f, Q_f, bsp_data, L,
                             kappa_i=k_i, kappa_f=k_f, omega=omega)
-                    angular = reduced_C(k_f, k_i, L)
+                    # Same angular factor as the single-orbital path
+                    # (:func:`angular_eL` ≡ reduced_C_jj(k_f, k_i, L) by the
+                    # 3j column-swap/m-flip symmetry; pinned in
+                    # tests/test_angular.py).
+                    angular = angular_eL(k_i, k_f, L)
                 else:
                     radial = radial_mL(P_i, Q_i, P_f, Q_f, bsp_data, L, omega=omega)
-                    angular = reduced_C(-k_f, k_i, L) * (k_i + k_f) / (L + 1)
+                    angular = angular_mL(k_i, k_f, L)
                 cache[cache_key] = angular * radial
             total += coefficient * cache[cache_key]
         return total

@@ -4,12 +4,12 @@ from __future__ import annotations
 
 from typing import Callable
 
+from atomx.angular.recoupling import lj_from_kappa
+from atomx.config.subshell import l_letter
 from atomx.properties.transitions.angular import angular_eL, selection_rules
 from atomx.properties.transitions.multipole import radial_eL
 from atomx.properties.transitions.rates import einstein_A_eL
 from atomx.scattering.dielectronic_recombination.enumerate import DRResonanceSpec
-
-_L_SYMBOLS = "spdfghiklmno"
 
 
 def solved_result(atom):
@@ -31,14 +31,8 @@ def has_solved_result(atom) -> bool:
 
 
 def _label_for_key(n: int, kappa: int) -> str:
-    orbital_l = kappa if kappa > 0 else -kappa - 1
-    j2 = 2 * abs(kappa) - 1
-    l_char = (
-        _L_SYMBOLS[orbital_l]
-        if orbital_l < len(_L_SYMBOLS)
-        else f"l{orbital_l}"
-    )
-    return f"{n}{l_char}{j2}/2"
+    orbital_l, j2 = lj_from_kappa(kappa)
+    return f"{n}{l_letter(orbital_l)}{j2}/2"
 
 
 def _orbital_key_from_label(result, label: str):

@@ -47,7 +47,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from math import pi, sqrt
 
-from atomx.angular.coefficients import _l_from_kappa
+from atomx.angular.recoupling import l_of_kappa
 from atomx.constants import ALPHA, CODATA, DEFAULT_CODATA_VERSION
 from atomx.properties.hyperfine.dipole import ELECTRON_ANOMALOUS_MOMENT
 
@@ -142,7 +142,7 @@ def lande_gJ_hydrogenic(kappa: int, Z: int) -> float:
 
     Za = Z * ALPHA
     j = abs(kappa) - 0.5
-    l = _l_from_kappa(kappa)
+    l = l_of_kappa(kappa)
 
     # For j = 1/2 (|κ| = 1) Breit (1928) gives closed forms.
     if abs(kappa) == 1:
@@ -204,7 +204,7 @@ def lande_factor(
 
     Returns a :class:`LandeFactor` with ``.nr``, ``.dirac``, ``.bound``.
     """
-    l = _l_from_kappa(kappa)
+    l = l_of_kappa(kappa)
     j = abs(kappa) - 0.5
     g_nr = lande_gJ_nr(l=l, j=j)
     g_dirac = lande_gJ_hydrogenic(kappa, Z)

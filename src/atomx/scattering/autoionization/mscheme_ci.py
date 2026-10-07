@@ -38,6 +38,13 @@ from itertools import combinations
 import numpy as np
 
 from atomx.angular.coefficients import ckm
+from atomx.angular.mscheme import _occupation_sign
+from atomx.angular.recoupling import (
+    kappa_from_lj,
+    l_of_kappa,
+    twoj_of_kappa,
+)
+from atomx.config.subshell import L_LETTERS
 from atomx.constants import AU_RATE_PER_S, HARTREE_EV
 from atomx.numerics.quadrature import grid_slater_rk, p_rel
 from atomx.numerics.radial_metric import RadialMetric
@@ -45,9 +52,7 @@ from atomx.potentials.static_field import static_hartree_potential
 from atomx.scattering.distorted_wave.solver import (
     _allowed_k,
     _continuum_on_grid,
-    _l_of,
     _shooting_points,
-    _tj_of,
 )
 
 
@@ -166,7 +171,7 @@ class ResonanceManifold:
         for subshell_list, ne in groups:
             mask = 0
             for (n, kappa) in subshell_list:
-                tj = _tj_of(kappa)
+                tj = twoj_of_kappa(kappa)
                 P, Q = orbital_map[(n, kappa)]
                 for tm in range(-tj, tj + 1, 2):
                     mask |= 1 << len(self.orbitals)
@@ -313,7 +318,13 @@ class ResonanceManifold:
 
     @staticmethod
     def _phase_remove(mask, i):
-        return -1.0 if bin(mask & ((1 << i) - 1)).count("1") % 2 else 1.0
+        """Fermion sign of toggling orbital ``i`` in ``mask``.
+
+        Canonical convention of :func:`atomx.angular.mscheme._occupation_sign`
+        (parity of occupied bits below ``i``); the same value for creation
+        and annihilation since it is evaluated on the pre-toggle mask.
+        """
+        return float(_occupation_sign(mask, i))
 
     def parity_of_det(self, det: int) -> int:
         """Parity of a determinant relative to the closed-shell ion.
@@ -327,11 +338,11 @@ class ResonanceManifold:
         block."""
         par = 1
         for i in self._occ_list(det):
-            par *= -1 if _l_of(self.orbitals[i].kappa) % 2 else 1
+            par *= -1 if l_of_kappa(self.orbitals[i].kappa) % 2 else 1
         mask = self.group_bits[0]
         for i in range(self.n_orb):
             if mask & (1 << i):
-                par *= -1 if _l_of(self.orbitals[i].kappa) % 2 else 1
+                par *= -1 if l_of_kappa(self.orbitals[i].kappa) % 2 else 1
         return par
 
     # ---- Hamiltonian ----------------------------------------------------
@@ -399,7 +410,7 @@ class ResonanceManifold:
             terms = {}
             for i in self._occ_list(d):
                 o = orbs[i]
-                tj = _tj_of(o.kappa)
+                tj = twoj_of_kappa(o.kappa)
                 if o.tm + 2 > tj:
                     continue
                 # target orbital: same subshell, tm+2 (adjacent index)
@@ -685,7 +696,7 @@ class ResonanceManifold:
         Only final levels below the closed-shell ion threshold stabilize.
         """
         from atomx.angular.mscheme import one_body_action
-        from atomx.constants import ALPHA
+        from atomx.properties.transitions.rates import einstein_A_prefactor
 
         if photon_approximation not in ('finite_wavelength', 'long_wavelength'):
             raise ValueError('unknown photon approximation')
@@ -728,8 +739,17 @@ class ResonanceManifold:
                     strength += float(abs(amplitude)**2)
                 dominant_index = by_m[min(by_m)][int(np.argmax(abs(mixing[:, level])))]
                 dominant = self.orbitals[dominant_index]
+                # Einstein E1 prefactor (4/3)*alpha^3*omega^3 with the rate
+                # unit conversion — the same constant as
+                # :func:`atomx.properties.transitions.rates.einstein_A_eL`
+                # for L=1.  The shared function's /(2J+1) is absent here by
+                # construction: ``strength`` is the per-initial-sublevel
+                # strength (fixed initial 2M, final M summed), which equals
+                # S/(2J+1) for a pure-J level; the initial vector may carry
+                # no unique J, so the per-sublevel form is the well-defined
+                # one.
                 channels.append(RadiativeChannel(kappa, level, float(final_energy), omega,
-                    (4./3.)*ALPHA**3*omega**3*strength*AU_RATE_PER_S,
+                    einstein_A_prefactor(omega, 1) * strength,
                     (dominant.n, dominant.kappa), photon_approximation))
         return channels
 
@@ -806,16 +826,16 @@ class ResonanceManifold:
 
     def _det_label(self, det):
         parts = []
-        _L = "spdfghiklmno"
+        _L = _L_CHARS
         for i in self._occ_list(det):
             o = self.orbitals[i]
             if not (self.group_bits[0] & (1 << i)):
-                parts.append(f"{o.n}{_L[_l_of(o.kappa)]}{_tj_of(o.kappa)}/2"
+                parts.append(f"{o.n}{_L[l_of_kappa(o.kappa)]}{twoj_of_kappa(o.kappa)}/2"
                              f"[m={o.tm}/2]")
         missing = self.group_bits[0] & ~det
         for i in self._occ_list(missing):
             o = self.orbitals[i]
-            parts.insert(0, f"{o.n}{_L[_l_of(o.kappa)]}{_tj_of(o.kappa)}/2^-1"
+            parts.insert(0, f"{o.n}{_L[l_of_kappa(o.kappa)]}{twoj_of_kappa(o.kappa)}/2^-1"
                             f"[m={o.tm}/2]")
         return " ".join(parts)
 
@@ -849,7 +869,7 @@ def bspline_bound_integrals(result, active_coeffs):
 # High-level entry point: config strings -> J-resolved CI levels
 # ---------------------------------------------------------------------------
 
-_L_CHARS = "spdfghiklmno"
+_L_CHARS = L_LETTERS
 
 
 def _parse_config_tokens(config: str) -> dict:
@@ -872,7 +892,7 @@ def _kappas_of_l(l: int) -> list[int]:
 
 
 def _orbital_label(n: int, kappa: int) -> str:
-    return f"{n}{_L_CHARS[_l_of(kappa)]}{_tj_of(kappa)}/2"
+    return f"{n}{_L_CHARS[l_of_kappa(kappa)]}{twoj_of_kappa(kappa)}/2"
 
 
 def _subshell_meta(result):
@@ -894,7 +914,7 @@ def _subshell_meta(result):
         n = int(m.group(1))
         l = _L_CHARS.index(m.group(2))
         tj = int(m.group(3))
-        kappa = l if tj == 2 * l - 1 else -(l + 1)
+        kappa = kappa_from_lj(l, tj)
         out.append((n, kappa, float(tj + 1)))
     return out
 
@@ -981,7 +1001,7 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
     # ---- classify tokens against the ground configuration ---------------
     ground_occ: dict = {}
     for (n, kappa, occ) in meta:
-        key = (n, _l_of(kappa))
+        key = (n, l_of_kappa(kappa))
         ground_occ[key] = ground_occ.get(key, 0.0) + occ
 
     parsed = [_parse_config_tokens(c) for c in configs]
@@ -1051,7 +1071,7 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
         # contribute — the Auger residual is the closed core alone
         _excited = set(excited_nls)
         N_bound = sum(occ for (_n, _k, occ) in meta
-                      if (_n, _l_of(_k)) not in _excited)
+                      if (_n, l_of_kappa(_k)) not in _excited)
         Z_res = max(Z - N_bound + 1.0, 1.0)
 
         def _tofine(P, Q):
@@ -1192,7 +1212,7 @@ def manifold_from_configs(result, configs, *, e_max_eV: float = 1000.0,
                     continue
                 occ_ns = [sh.n for sh in result.subshells
                           if sh.kappa == kappa]
-                n_first_virt = max([_l_of(kappa)] + occ_ns) + 1
+                n_first_virt = max([l_of_kappa(kappa)] + occ_ns) + 1
                 _occ, virt = build_virtual_basis(result, kappa)
                 vi = n_e - n_first_virt
                 if vi < 0 or vi >= len(virt):

@@ -214,7 +214,7 @@ def test_sum_rule_e2_cross_config(fe17_ground):
 def test_one_electron_consistency(fe17_ground):
     """One hole + one electron: CI multiplet total == the jj one-electron
     channel strengths |<kappa_h||C^1||kappa_e>|^2 R^2 exactly (1e-10),
-    computed with the same angular convention (reduced_C == angular_eL
+    computed with the same angular convention (reduced_C_jj == angular_eL
     up to sign) and the same fine-grid radial integrals.
 
     Per line the CI values differ from the pure channels by the physical
@@ -226,7 +226,7 @@ def test_one_electron_consistency(fe17_ground):
     1.397, five times closer than the old bracket ends to the value they
     were supposed to exclude.
     """
-    from atomx.angular.coefficients import reduced_C
+    from atomx.angular.coefficients import reduced_C_jj
     from atomx.properties.transitions.angular import angular_eL
 
     ls = ci_line_strengths(fe17_ground, "2p5 3s1", "2p6",
@@ -236,7 +236,7 @@ def test_one_electron_consistency(fe17_ground):
     for kh in (1, -2):
         oh = next(o for o in man.orbitals if (o.n, o.kappa) == (2, kh))
         oe = next(o for o in man.orbitals if (o.n, o.kappa) == (3, -1))
-        red = reduced_C(kh, -1, 1)
+        red = reduced_C_jj(kh, -1, 1)
         assert abs(red) == pytest.approx(abs(angular_eL(kh, -1, 1)), rel=1e-12)
         channels[kh] = red ** 2 * man._rdip(oh, oe) ** 2
 

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from atomx.angular.coefficients import _l_from_kappa
+from atomx.angular.recoupling import l_of_kappa
 from atomx.methods.dirac_fock import DiracFock, Exchange, Subshell
 from atomx.methods.mbpt import build_virtual_basis
 from atomx.numerics.bspline.convol import ConvolCache
@@ -31,7 +31,7 @@ def test_kappa_list_contents(lithium_result):
     )
     assert kappa_list_1 == [-1, +1, -2]
     assert len(kappa_list_1) == len(set(kappa_list_1))
-    assert all(_l_from_kappa(kappa) <= 1 for kappa in kappa_list_1)
+    assert all(l_of_kappa(kappa) <= 1 for kappa in kappa_list_1)
     assert set(occ_basis_1) == set(kappa_list_1)
     assert set(virt_basis_1) == set(kappa_list_1)
 
@@ -39,7 +39,7 @@ def test_kappa_list_contents(lithium_result):
         lithium_result, cache=cache, kappa_max=2, n_virt_max=1
     )
     assert kappa_list_2 == [-1, +1, -2, +2, -3]
-    assert all(_l_from_kappa(kappa) <= 2 for kappa in kappa_list_2)
+    assert all(l_of_kappa(kappa) <= 2 for kappa in kappa_list_2)
 
 
 def test_n_virt_max_truncation(lithium_result):

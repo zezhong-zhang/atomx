@@ -7,8 +7,10 @@ import math
 import re
 from decimal import Decimal
 
+from atomx.config.subshell import L_LETTERS
+
 NUMBER = r'[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[DdEe][-+]?\d+)?'
-LETTERS = 'spdfghiklmnoqrtuvwxyz'
+LETTERS = L_LETTERS
 
 
 def number(token):

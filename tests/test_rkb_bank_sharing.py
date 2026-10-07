@@ -111,6 +111,29 @@ def test_a_different_grid_gets_its_own_banks(bank_builds):
     assert bank_builds["_build_rkb_sym"] == 2
 
 
+def test_release_shared_banks_drops_all_caches_and_rebuilds_identically(
+        bank_builds):
+    """``release_shared_banks`` is the grid-wide teardown: one call frees the
+    banks for every cache on the grid, and a surviving cache lazily rebuilds
+    bit-identical content — the banks are pure functions of the grid
+    geometry.  The only cost of an early release is the rebuild itself.
+    """
+    a, b = _workspace(), _workspace()
+    cache_a, cache_b = ConvolCache(a.bsp_data), ConvolCache(b.bsp_data)
+    bank_a, _, _ = cache_a.get_rkb(2, "pppp")
+    reference = bank_a.copy()
+
+    cache_a.release_shared_banks()
+    assert len(cache_b._cache) == 0      # one shared dict: gone for both
+
+    builds_before = sum(bank_builds.values())
+    bank_b, _, _ = cache_b.get_rkb(2, "pppp")
+    assert sum(bank_builds.values()) == builds_before + 1   # rebuilt, once
+    np.testing.assert_array_equal(bank_b, reference)        # bit-identical
+    # Both caches share the rebuilt bank again — no second build.
+    assert cache_a.get_rkb(2, "pppp")[0] is bank_b
+
+
 def test_registry_is_bounded(bank_builds):
     for ns in (24, 26, 28, 30, 32, 34, 36):
         ConvolCache(_workspace(ns=ns).bsp_data)

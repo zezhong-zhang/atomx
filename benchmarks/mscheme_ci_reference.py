@@ -68,9 +68,9 @@ with ``<kappa_a||C^k||kappa_c>`` in Grant's convention.
 
 Validation of this oracle
 -------------------------
-* He ``1s2`` and Be ``1s2 2s2`` (one determinant each) reproduce
-  ``matrix._diagonal_element`` — and hence the DFSolver total energy —
-  to 1.8e-15 / 7.1e-15 Ha;
+* He ``1s2`` and Be ``1s2 2s2`` (one determinant each) reproduce the
+  production ``build_ci_matrix`` diagonal — and hence the DFSolver total
+  energy — to 1.8e-15 / 7.1e-15 Ha;
 * with only ``2p_1/2`` populated, the two ``M = 0`` determinants are
   exactly degenerate, as they must be when there is no spin-orbit
   partner: ``2s_1/2 2p_1/2`` gives ``3P0``/``3P1`` at the same energy

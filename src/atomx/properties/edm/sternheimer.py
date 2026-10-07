@@ -72,7 +72,7 @@ from typing import Any, Dict, Optional
 
 import numpy as np
 
-from atomx.angular.coefficients import _l_from_kappa
+from atomx.angular.recoupling import l_of_kappa
 from atomx.numerics.bspline.convol import ConvolCache
 from atomx.numerics.bspline.evaluate import eval_P as _eval_P
 from atomx.numerics.bspline.evaluate import eval_Q as _eval_Q
@@ -211,8 +211,8 @@ def _tp_odd_angular(kappa_a: int, kappa_r: int) -> float:
     float
         Angular factor (0 if forbidden).
     """
-    l_a = _l_from_kappa(kappa_a)
-    l_r = _l_from_kappa(kappa_r)
+    l_a = l_of_kappa(kappa_a)
+    l_r = l_of_kappa(kappa_r)
 
     # Parity: l_a + l_r must be odd (pseudoscalar)
     if (l_a + l_r) % 2 == 0:
@@ -324,7 +324,7 @@ def sternheimer_edm_enhancement(
         if not target_shells:
             # Fallback: use the outermost subshell
             target_shells = [
-                max(scf_result.subshells, key=lambda s: (s.n, _l_from_kappa(s.kappa))).label
+                max(scf_result.subshells, key=lambda s: (s.n, l_of_kappa(s.kappa))).label
             ]
 
     kappa_list, occ_basis, virt_basis = build_sos_virtual_basis(
@@ -403,7 +403,7 @@ def sternheimer_edm_enhancement(
         if sh_out is not None:
             n_eff = float(sh_out.n)
             J = (2 * abs(sh_out.kappa) - 1) / 2.0
-            L = _l_from_kappa(sh_out.kappa)
+            L = l_of_kappa(sh_out.kappa)
             sandars_R = electron_edm_enhancement_sandars(
                 Z, n_eff=n_eff, J=J, L=L
             )

@@ -11,7 +11,7 @@ from __future__ import annotations
 
 from atomx.angular.clebsch import clebsch_gordan
 from atomx.angular.wigner import wigner_3j, wigner_6j
-from atomx.scattering.r_matrix.angular_cc import reduced_C
+from atomx.scattering.r_matrix.angular_cc import reduced_C_LS
 
 
 def _electron_contribution(
@@ -30,7 +30,7 @@ def _electron_contribution(
     """
     if (l_bra + k + l_ket) % 2 != 0:
         return 0.0
-    rm = reduced_C(l_bra, k, l_ket)
+    rm = reduced_C_LS(l_bra, k, l_ket)
     if rm == 0.0:
         return 0.0
     six = wigner_6j(
@@ -96,7 +96,7 @@ def direct_coefficient(
     one-electron target reduced matrix element ``<l_t_bra||C^k||l_t_ket>``
     is replaced by the supplied two-electron value ``target_reduced_c``.
     """
-    rm_c = reduced_C(l_c_bra, k, l_c_ket)
+    rm_c = reduced_C_LS(l_c_bra, k, l_c_ket)
     if rm_c == 0.0:
         return 0.0
     six = wigner_6j(
@@ -270,7 +270,7 @@ def _C_matrix_element(
     """``<l_bra m_bra | C^k_q | l_ket m_ket>`` using Wigner-Eckart."""
     if m_ket + q != m_bra:
         return 0.0
-    rm = reduced_C(l_bra, k, l_ket)
+    rm = reduced_C_LS(l_bra, k, l_ket)
     if rm == 0.0:
         return 0.0
     threej = wigner_3j(
@@ -433,10 +433,10 @@ def two_electron_cc_coefficients(
                     continue
 
                 for k in range(k_max + 1):
-                    rm_a = reduced_C(la_j, k, la_i)
+                    rm_a = reduced_C_LS(la_j, k, la_i)
                     if rm_a == 0.0:
                         continue
-                    rm_c = reduced_C(lc_j, k, lc_i)
+                    rm_c = reduced_C_LS(lc_j, k, lc_i)
                     if rm_c == 0.0:
                         continue
 

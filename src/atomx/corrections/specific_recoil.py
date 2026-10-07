@@ -71,15 +71,15 @@ def recoil_radial_matrices(orbitals, workspace, *, Z=None):
 
 
 def _breit_vinti_from_waves(waves, kappas, r, w, Z, values):
-    from atomx.angular.coefficients import reduced_C, reduced_cl_j2
+    from atomx.angular.coefficients import reduced_C_jj, reduced_cl_j2
     for a, ka in enumerate(kappas):
         pa, qa, _, _ = waves[a]
         for c, kc in enumerate(kappas):
-            if abs(reduced_C(ka, kc, 1)) < 1e-14:
+            if abs(reduced_C_jj(ka, kc, 1)) < 1e-14:
                 continue
             # SIGMA_1/2 use the standard Wigner-Eckart convention. Divide
             # by GRASP CRE / FAC ReducedCL in that same convention. The
-            # legacy reduced_C uses reversed 3j projections and differs in
+            # jj reduced_C_jj uses reversed 3j projections and differs in
             # sign for unequal-j rank-one channels; mixing these conventions
             # reverses SMS2 relative to the momentum and SMS3 terms.
             angular = reduced_cl_j2(2*abs(ka)-1, 2, 2*abs(kc)-1)
@@ -142,7 +142,7 @@ def configuration_average_recoil_contributions(orbitals, workspace, *, Z=None, j
     q_a/(2j_a+1), not another factor of each full subshell degeneracy.
     This is the same operator used by the correction stack and properties.
     """
-    from atomx.angular.coefficients import reduced_C
+    from atomx.angular.coefficients import reduced_C_jj
     moments = None
     if jj_configs is not None:
         from atomx.corrections.dbsr_breit import _pair_moments
@@ -157,7 +157,7 @@ def configuration_average_recoil_contributions(orbitals, workspace, *, Z=None, j
             _, _, qb, kb = orbitals[b][:4]
             fb = qb/(2*abs(kb))
             pair_weight = fa*fb if moments is None else moments[a, b]/(4*abs(ka*kb))
-            angular = reduced_C(ka, kb, 1)
+            angular = reduced_C_jj(ka, kb, 1)
             if angular != 0. and pair_weight != 0.:
                 contributions[a, b] = float(pair_weight*angular**2*
                     (vr[a, b]*v[b, a]+vr[b, a]*v[a, b])/2)

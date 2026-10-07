@@ -52,8 +52,13 @@ from typing import List
 from atomx.angular.wigner import wigner_3j, wigner_6j
 
 
-def reduced_C(l: int, k: int, l_prime: int) -> float:
-    """``< l || C^k || l' > = (-1)^l sqrt((2l+1)(2l'+1)) (l k l'; 0 0 0)``."""
+def reduced_C_LS(l: int, k: int, l_prime: int) -> float:
+    """``< l || C^k || l' > = (-1)^l sqrt((2l+1)(2l'+1)) (l k l'; 0 0 0)``.
+
+    LS-coupling convention (integer ``l``); the jj-coupling analogue is
+    :func:`atomx.angular.coefficients.reduced_C_jj` — a different function
+    with a different phase, do not mix them.
+    """
     # Parity selection: l + k + l' must be even, otherwise the 3j with all
     # m = 0 vanishes.
     if (l + k + l_prime) % 2 != 0:
@@ -95,10 +100,10 @@ def direct_terms(
 
     terms: List[AngularTerm] = []
     for k in range(k_min, k_max + 1):
-        rm_t = reduced_C(l_tj, k, l_ti)
+        rm_t = reduced_C_LS(l_tj, k, l_ti)
         if rm_t == 0.0:
             continue
-        rm_c = reduced_C(l_cj, k, l_ci)
+        rm_c = reduced_C_LS(l_cj, k, l_ci)
         if rm_c == 0.0:
             continue
         sj = _sixj(l_tj, l_cj, L, l_ci, l_ti, k)
@@ -144,10 +149,10 @@ def exchange_terms(
 
     terms: List[AngularTerm] = []
     for k in range(k_min, k_max + 1):
-        rm1 = reduced_C(l_tj, k, l_ci)
+        rm1 = reduced_C_LS(l_tj, k, l_ci)
         if rm1 == 0.0:
             continue
-        rm2 = reduced_C(l_cj, k, l_ti)
+        rm2 = reduced_C_LS(l_cj, k, l_ti)
         if rm2 == 0.0:
             continue
         sj = _sixj(l_tj, l_cj, L, l_ti, l_ci, k)

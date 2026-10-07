@@ -22,6 +22,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import List
 
+from atomx.config.subshell import l_letter
 from atomx.methods.base import Method
 from atomx.types import (
     CouplingScheme,
@@ -149,7 +150,7 @@ class BreitPauli(Method):
 
         for group in groups:
             n, l, members = group["n"], group["l"], group["members"]
-            l_char = "spdfghiklmno"[l] if l < 12 else f"l{l}"
+            l_char = l_letter(l)
             q_tot = sum(sh.occupation for sh, _ in members)
             Z_eff = Z
 

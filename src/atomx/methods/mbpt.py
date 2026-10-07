@@ -60,11 +60,10 @@ from typing import Any, Dict, List, Optional, Tuple
 import numpy as np
 
 from atomx.angular.coefficients import (
-    _l_from_kappa,
-    _twoj_from_kappa,
     exchange_lambda,
-    reduced_C,
+    reduced_C_jj,
 )
+from atomx.angular.recoupling import l_of_kappa, twoj_of_kappa
 from atomx.angular.wigner import wigner_6j
 from atomx.constants import C_SQ
 from atomx.numerics.bspline.convol import (
@@ -129,10 +128,10 @@ class MBPT2Result:
 
 
 # ---------------------------------------------------------------------------
-# Angular helpers — canonical implementations live in atomx.angular.coefficients
-# (imported above).  reduced_C stays in __all__ and is test-imported;
-# _l_from_kappa/_twoj_from_kappa are thin aliases used throughout this module
-# and by mbpt_transitions.py.
+# Angular helpers — canonical implementations live in atomx.angular.recoupling
+# (``l_of_kappa``/``twoj_of_kappa``, imported above) and
+# atomx.angular.coefficients (``reduced_C_jj``, Grant convention; kept in
+# __all__ because it is test-imported from this module).
 # ---------------------------------------------------------------------------
 
 
@@ -146,8 +145,8 @@ def _allowed_k_range(kappa_a: int, kappa_b: int) -> List[int]:
     j_b = abs(kappa_b) - 0.5
     k_min = int(abs(j_a - j_b))
     k_max = int(j_a + j_b)
-    l_a = _l_from_kappa(kappa_a)
-    l_b = _l_from_kappa(kappa_b)
+    l_a = l_of_kappa(kappa_a)
+    l_b = l_of_kappa(kappa_b)
     return [k for k in range(k_min, k_max + 1) if (k + l_a + l_b) % 2 == 0]
 
 
@@ -218,7 +217,7 @@ def _build_closed_shell_fock(
     if cache is None:
         cache = ConvolCache(bsp_data)
 
-    tj_kappa = _twoj_from_kappa(kappa)
+    tj_kappa = twoj_of_kappa(kappa)
 
     # ── V^{N-1} bookkeeping ─────────────────────────────────────────
     # Subtract one electron from the OUTERMOST occupied subshell to
@@ -233,7 +232,7 @@ def _build_closed_shell_fock(
         # review's H-polarizability 4.18-vs-4.5 finding).
         outer = max(
             scf_result.subshells,
-            key=lambda s: (s.n, _l_from_kappa(s.kappa), -abs(s.kappa)),
+            key=lambda s: (s.n, l_of_kappa(s.kappa), -abs(s.kappa)),
         )
         reduce_key = (outer.n, outer.kappa)
     elif potential_mode == "VN":
@@ -247,7 +246,7 @@ def _build_closed_shell_fock(
     # Loop over occupied subshells b (kappa_b grouped)
     for sh in scf_result.subshells:
         kb = sh.kappa
-        tj_b = _twoj_from_kappa(kb)
+        tj_b = twoj_of_kappa(kb)
         q_b = float(sh.occupation)
         if reduce_key is not None and (sh.n, sh.kappa) == reduce_key:
             q_b -= 1.0
@@ -473,7 +472,7 @@ def mbpt2_energy(
     if not scf_result.converged:
         raise ValueError("SCFResult must be converged.")
     for sh in scf_result.subshells:
-        max_occ = _twoj_from_kappa(sh.kappa) + 1
+        max_occ = twoj_of_kappa(sh.kappa) + 1
         if abs(sh.occupation - max_occ) > 0.01:
             raise ValueError(
                 f"MBPT(2) requires a closed-shell reference; subshell "
@@ -494,7 +493,7 @@ def mbpt2_energy(
     # Remove κ=+0 (doesn't exist) and trim to those with ℓ ≤ kappa_max
     kappa_list = [
         k for k in kappa_list
-        if _l_from_kappa(k) <= kappa_max
+        if l_of_kappa(k) <= kappa_max
     ]
 
     occ_basis: Dict[int, List[Tuple[np.ndarray, np.ndarray, float, str]]] = {}
@@ -613,8 +612,8 @@ def _mbpt2_pair_contribution(
     term_recorder: Optional[Any] = None,
 ) -> float:
     """Sum over (r,s) virtuals for one occupied pair (a,b)."""
-    tj_a = _twoj_from_kappa(kappa_a)
-    tj_b = _twoj_from_kappa(kappa_b)
+    tj_a = twoj_of_kappa(kappa_a)
+    tj_b = twoj_of_kappa(kappa_b)
     tJ_min = abs(tj_a - tj_b)
     tJ_max = tj_a + tj_b
     pair_E = 0.0
@@ -652,7 +651,7 @@ def _mbpt2_pair_contribution(
         if not _allowed_k_range(kappa_a, kappa_r) and \
            not _allowed_k_range(kappa_b, kappa_r):
             continue
-        tj_r = _twoj_from_kappa(kappa_r)
+        tj_r = twoj_of_kappa(kappa_r)
 
         # Unordered virtual channels only: the antisymmetrised amplitude
         # obeys A_J(ab; sr) = −(−1)^{j_r+j_s−J} A_J(ab; rs), so
@@ -662,7 +661,7 @@ def _mbpt2_pair_contribution(
         # κ_list ordering is summed; the κ_r == κ_s channel keeps the
         # orb_r_idx ≤ orb_s_idx guard below.
         for kappa_s in kappa_list[ka_r:]:
-            tj_s = _twoj_from_kappa(kappa_s)
+            tj_s = twoj_of_kappa(kappa_s)
             # J-pair triangle on (j_r, j_s, J) must overlap (j_a, j_b, J)
             tJ_rs_min = abs(tj_r - tj_s)
             tJ_rs_max = tj_r + tj_s
@@ -672,10 +671,10 @@ def _mbpt2_pair_contribution(
                 continue
             # Parity of total CSF: l_a+l_b = l_r+l_s (mod 2) for non-zero
             # angular factor.
-            l_a = _l_from_kappa(kappa_a)
-            l_b = _l_from_kappa(kappa_b)
-            l_r = _l_from_kappa(kappa_r)
-            l_s = _l_from_kappa(kappa_s)
+            l_a = l_of_kappa(kappa_a)
+            l_b = l_of_kappa(kappa_b)
+            l_r = l_of_kappa(kappa_r)
+            l_s = l_of_kappa(kappa_s)
             if (l_a + l_b + l_r + l_s) % 2 != 0:
                 continue
 
@@ -691,10 +690,10 @@ def _mbpt2_pair_contribution(
                 continue
 
             # Pre-compute reduced C^k matrix elements
-            Ck_ar = {k: reduced_C(kappa_a, kappa_r, k) for k in k_d_list}
-            Ck_bs = {k: reduced_C(kappa_b, kappa_s, k) for k in k_d_list}
-            Ck_as = {k: reduced_C(kappa_a, kappa_s, k) for k in k_e_list}
-            Ck_br = {k: reduced_C(kappa_b, kappa_r, k) for k in k_e_list}
+            Ck_ar = {k: reduced_C_jj(kappa_a, kappa_r, k) for k in k_d_list}
+            Ck_bs = {k: reduced_C_jj(kappa_b, kappa_s, k) for k in k_d_list}
+            Ck_as = {k: reduced_C_jj(kappa_a, kappa_s, k) for k in k_e_list}
+            Ck_br = {k: reduced_C_jj(kappa_b, kappa_r, k) for k in k_e_list}
 
             # Loop over virtuals (r in κ_r, s in κ_s)
             virt_r = virt_basis[kappa_r]
@@ -833,16 +832,16 @@ def _pair_v_J(Pa, Qa, kappa_a, Pb, Qb, kappa_b,
             rk_bilinear[k] = Mk
         return eval_slater_rk_bilinear(Mk, P2, Q2, P4, Q4)
 
-    tj_a = _twoj_from_kappa(kappa_a)
-    tj_b = _twoj_from_kappa(kappa_b)
-    tj_r = _twoj_from_kappa(kappa_r)
-    tj_s = _twoj_from_kappa(kappa_s)
+    tj_a = twoj_of_kappa(kappa_a)
+    tj_b = twoj_of_kappa(kappa_b)
+    tj_r = twoj_of_kappa(kappa_r)
+    tj_s = twoj_of_kappa(kappa_s)
     if tJ < max(abs(tj_a - tj_b), abs(tj_r - tj_s)):
         return 0.0
     if tJ > min(tj_a + tj_b, tj_r + tj_s):
         return 0.0
-    if (_l_from_kappa(kappa_a) + _l_from_kappa(kappa_b)
-            + _l_from_kappa(kappa_r) + _l_from_kappa(kappa_s)) % 2:
+    if (l_of_kappa(kappa_a) + l_of_kappa(kappa_b)
+            + l_of_kappa(kappa_r) + l_of_kappa(kappa_s)) % 2:
         return 0.0
 
     k_d = [k for k in _allowed_k_range(kappa_a, kappa_r)
@@ -855,8 +854,8 @@ def _pair_v_J(Pa, Qa, kappa_a, Pb, Qb, kappa_b,
 
     VJ_d = 0.0
     for k in k_d:
-        c1 = reduced_C(kappa_a, kappa_r, k)
-        c2 = reduced_C(kappa_b, kappa_s, k)
+        c1 = reduced_C_jj(kappa_a, kappa_r, k)
+        c2 = reduced_C_jj(kappa_b, kappa_s, k)
         if abs(c1) < 1e-15 or abs(c2) < 1e-15:
             continue
         sj = _wigner_6j(tj_a, tj_b, tJ, tj_s, tj_r, 2 * k)
@@ -868,8 +867,8 @@ def _pair_v_J(Pa, Qa, kappa_a, Pb, Qb, kappa_b,
 
     VJ_e = 0.0
     for k in k_e:
-        c1 = reduced_C(kappa_a, kappa_s, k)
-        c2 = reduced_C(kappa_b, kappa_r, k)
+        c1 = reduced_C_jj(kappa_a, kappa_s, k)
+        c2 = reduced_C_jj(kappa_b, kappa_r, k)
         if abs(c1) < 1e-15 or abs(c2) < 1e-15:
             continue
         sj = _wigner_6j(tj_a, tj_b, tJ, tj_r, tj_s, 2 * k)
@@ -921,7 +920,7 @@ def pair_ladder_energy(
     if not scf_result.converged:
         raise ValueError("SCFResult must be converged.")
     for sh in scf_result.subshells:
-        max_occ = _twoj_from_kappa(sh.kappa) + 1
+        max_occ = twoj_of_kappa(sh.kappa) + 1
         if abs(sh.occupation - max_occ) > 0.01:
             raise ValueError("pair_ladder_energy requires a closed shell.")
 
@@ -933,7 +932,7 @@ def pair_ladder_energy(
         kappa_list.append(-k_abs)
         if k_abs >= 1:
             kappa_list.append(+k_abs)
-    kappa_list = [k for k in kappa_list if _l_from_kappa(k) <= kappa_max]
+    kappa_list = [k for k in kappa_list if l_of_kappa(k) <= kappa_max]
 
     occ_basis: Dict[int, List[Tuple[np.ndarray, np.ndarray, float, str]]] = {}
     virt_basis: Dict[int, List[Tuple[np.ndarray, np.ndarray, float]]] = {}
@@ -966,8 +965,8 @@ def pair_ladder_energy(
                        else enumerate(occ_basis[kappa_b]))
                 for ib, (Pb, Qb, eps_b, lab_b) in itb:
                     same_ab = (kappa_a == kappa_b and ia == ib)
-                    tj_a = _twoj_from_kappa(kappa_a)
-                    tj_b = _twoj_from_kappa(kappa_b)
+                    tj_a = twoj_of_kappa(kappa_a)
+                    tj_b = twoj_of_kappa(kappa_b)
                     # {k: M} bilinear cache for the fixed bra pair (a, b);
                     # valid across all J blocks and (r, s) kets
                     bl_ab: Dict[int, tuple] = {}
@@ -979,14 +978,14 @@ def pair_ladder_energy(
                             for ks in kappa_list:
                                 if (kr, ks) > (ks, kr):
                                     continue
-                                tj_r = _twoj_from_kappa(kr)
-                                tj_s = _twoj_from_kappa(ks)
+                                tj_r = twoj_of_kappa(kr)
+                                tj_s = twoj_of_kappa(ks)
                                 if tJ < abs(tj_r - tj_s) or tJ > tj_r + tj_s:
                                     continue
-                                if (_l_from_kappa(kappa_a)
-                                        + _l_from_kappa(kappa_b)
-                                        + _l_from_kappa(kr)
-                                        + _l_from_kappa(ks)) % 2:
+                                if (l_of_kappa(kappa_a)
+                                        + l_of_kappa(kappa_b)
+                                        + l_of_kappa(kr)
+                                        + l_of_kappa(ks)) % 2:
                                     continue
                                 for ir, vr in enumerate(virt_basis[kr]):
                                     js0 = ir if kr == ks else 0
@@ -1073,5 +1072,5 @@ __all__ = [
     "build_virtual_basis",
     "mbpt2_energy",
     "pair_ladder_energy",
-    "reduced_C",
+    "reduced_C_jj",
 ]

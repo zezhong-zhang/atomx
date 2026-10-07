@@ -33,7 +33,7 @@ from typing import Mapping, Optional, Sequence
 
 import numpy as np
 
-from atomx.constants import HARTREE_EV, HARTREE_INV_ANGSTROM
+from atomx.constants import BOLTZMANN_EV, HARTREE_EV, HARTREE_INV_ANGSTROM, HC_EV_NM
 from atomx.lineshapes import doppler_width, natural_width
 from atomx.spectrum.spectrum import Spectrum
 from atomx.spectrum.uta import add_uta_array_to_spectrum
@@ -139,7 +139,7 @@ def crm_emission_spectrum(
     )
 
     if T_ion_K is None:
-        T_ion_K = T_e_eV * 11604.5250061657
+        T_ion_K = T_e_eV / BOLTZMANN_EV
 
     spec = Spectrum.linear(
         lam_min_nm, lam_max_nm, n_points,
@@ -212,11 +212,11 @@ def crm_emission_spectrum(
                      T_ion_K, ion_mass_amu, profile, stark_hwhm_nm)
 
     # Continuum channels, rendered on the same wavelength grid.  Photon
-    # energy E(eV) = 1239.8419843320026 / lambda(nm); the per-eV
-    # emissivity converts to per-nm with |dE/dlambda| = E / lambda.
+    # energy E(eV) = HC_EV_NM / lambda(nm); the per-eV emissivity
+    # converts to per-nm with |dE/dlambda| = E / lambda.
     if include_free_free or include_rr_continuum:
         lam = spec.wavelength_nm
-        E_eV = 1239.8419843320026 / lam
+        E_eV = HC_EV_NM / lam
         jac = E_eV / lam  # eV per nm
         if include_free_free:
             if ff_Z_eff is None:

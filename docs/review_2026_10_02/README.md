@@ -232,7 +232,11 @@ Open items:
   residual gate — a deliberate correctness-first choice. Revisit only if RPA
   spaces grow.
 - HPC-note landing status (grep-level): §2.2 h0-carry landed as designed;
-  §2.3 metric-check cadence landed (`ATOMX_CI_METRIC_CHECK_EVERY`); §2.4
+  §2.3 metric-check cadence landed (`ATOMX_CI_METRIC_CHECK_EVERY`) —
+  **superseded 2026-10-05**: the env-tunable cadence was removed (finding
+  E1 of `docs/code_review_2026_10_05/README.md`); the audit is now memoised
+  per workspace on an orbital-and-radial-content fingerprint
+  (`matrix._orbital_metric_fingerprint`), with no env knob; §2.4
   frozen-CI partially landed; §2.5 screening not landed (above); §2.6 convol
   prange intentionally not landed; §3.2/§3.3 Coulomb-tail continuation and
   batched cells not landed; §4.2 CI-line caching landed; §4.4 local-window

@@ -4,6 +4,7 @@ This module keeps the heavy-Z spectrum path explicit while reusing the
 configuration-average UTA moment implementation in :mod:`atomx.uta`.
 """
 
+from atomx.constants import HC_EV_NM
 from atomx.uta import UTAArray, uta_moments, uta_simple_from_levels
 
 
@@ -33,8 +34,7 @@ def add_uta_array_to_spectrum(
 def _uta_sigma_nm(centroid_eV: float, std_eV: float) -> float:
     if centroid_eV <= 0 or std_eV <= 0:
         return 0.0
-    hc_ev_nm = 1239.841984
-    return hc_ev_nm * std_eV / (centroid_eV ** 2)
+    return HC_EV_NM * std_eV / (centroid_eV ** 2)
 
 
 __all__ = [

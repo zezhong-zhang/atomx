@@ -5,8 +5,8 @@ boundary solves, orbital rotations and convergence are owned by numerics.
 """
 import numpy as np
 
+from atomx.angular.recoupling import l_of_kappa
 from atomx.numerics.shooting.coulomb import _slater_integral_slag6, _yk_over_r
-from atomx.numerics.shooting.dirac_orbital import _l_of_kappa
 from atomx.numerics.shooting.quadrature import slag6_weights
 
 
@@ -79,7 +79,7 @@ class RadialHartreeFock:
         intra = []  # per shell: list of (k, coeff)
         for a in range(nsh):
             terms = []
-            la = _l_of_kappa(kappas[a])
+            la = l_of_kappa(kappas[a])
             wq_aa = self.get_WW(a, a) / occ[a] if guerra else occ[a] - 1.0
             for k in range(2, tj[a] + 1):
                 if (k + 2 * la) % 2 != 0:

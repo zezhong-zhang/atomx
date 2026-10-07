@@ -484,14 +484,14 @@ def compare_table_s12(rows: list[dict], quick: bool) -> None:
 
 def _is_closed_shell(atom) -> bool:
     """True when every subshell is full (one level, no averaging ambiguity)."""
-    from atomx.angular.coefficients import _twoj_from_kappa
+    from atomx.angular.recoupling import twoj_of_kappa
 
     subs = getattr(atom, "_result", None)
     subs = getattr(subs, "subshells", None) or getattr(atom, "subshells", None)
     if not subs:
         return False
     return all(
-        abs(sh.occupation - (_twoj_from_kappa(sh.kappa) + 1)) < 1e-6
+        abs(sh.occupation - (twoj_of_kappa(sh.kappa) + 1)) < 1e-6
         for sh in subs
     )
 

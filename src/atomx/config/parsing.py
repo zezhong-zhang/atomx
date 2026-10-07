@@ -18,11 +18,14 @@ from __future__ import annotations
 import re
 from typing import List, Tuple
 
-#: Spectroscopic letter -> orbital angular momentum.
-L_MAP: dict[str, int] = {letter: ell for ell, letter in enumerate("spdfghiklmnoqrtuvwxyz")}
+from atomx.config.subshell import L_LETTERS
+
+#: Spectroscopic letter -> orbital angular momentum, built from the
+#: canonical :data:`atomx.config.subshell.L_LETTERS` alphabet.
+L_MAP: dict[str, int] = {letter: ell for ell, letter in enumerate(L_LETTERS)}
 
 #: ``<n><letter><occupation?>`` — occupation defaults to 1.
-_SHELL_RE = re.compile(r"^(\d+)([spdfghiklmnoqrtuvwxyz])(\d*)$")
+_SHELL_RE = re.compile(r"^(\d+)([" + L_LETTERS + r"])(\d*)$")
 
 
 def parse_nr_shells(config_str: str) -> List[Tuple[int, int, int]]:

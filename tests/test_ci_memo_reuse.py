@@ -7,9 +7,12 @@ at -36 % wall time on Fe XVII j-resolved MCDHF, energies bit-identical):
 * the ``("h0", ns, kappa, Z)`` one-body Dirac blocks are orbital
   independent, so ``build_ci_matrix`` carries them across its entry reset
   instead of rebuilding them ~5x per CI construction; and
-* the orbital-metric orthonormality audit runs on the first build of each
-  radial workspace and then every ``_METRIC_CHECK_EVERY`` builds, not on
-  every build (``ATOMX_CI_METRIC_CHECK_EVERY=1`` restores per-build).
+* the orbital-metric orthonormality audit is memoised per radial
+  workspace on a CONTENT fingerprint of the audited orbitals: it runs on
+  the first build of a workspace and again whenever the orbital byte
+  content changes, and is skipped only for byte-identical orbitals
+  already validated in the same workspace context.  There is no cadence
+  and no environment knob.
 
 The guards pin the *semantics* (when blocks are reused vs rebuilt, when
 the tripwire fires), not timings.
@@ -50,14 +53,14 @@ def cap():
 
 @pytest.fixture()
 def fresh_memo():
-    """Isolate each test from module-global memo/cadence state."""
+    """Isolate each test from module-global memo/audit state."""
     matrix._reset_memo()
     matrix._METRIC_CHECK_STATE["context"] = None
-    matrix._METRIC_CHECK_STATE["count"] = 0
+    matrix._METRIC_CHECK_STATE["fingerprint"] = None
     yield
     matrix._reset_memo()
     matrix._METRIC_CHECK_STATE["context"] = None
-    matrix._METRIC_CHECK_STATE["count"] = 0
+    matrix._METRIC_CHECK_STATE["fingerprint"] = None
 
 
 def _build(captured, **overrides):
@@ -125,34 +128,104 @@ class TestH0Carry:
         assert not _same_objects(_h0_entries(), h0_first)
 
 
-class TestMetricCheckCadence:
-    def test_cadence_gate(self, fresh_memo, monkeypatch):
-        monkeypatch.setattr(matrix, "_METRIC_CHECK_EVERY", 3)
-        ws = object()
-        assert matrix._metric_check_due(ws) is True  # first build: always
-        assert [matrix._metric_check_due(ws) for _ in range(5)] == [
-            False,
-            False,
-            True,
-            False,
-            False,
-        ]
-        assert matrix._metric_check_due(object()) is True  # new workspace
+    def test_mutated_nuclear_callable_invalidates_h0(self, cap, fresh_memo):
+        shift = [0.0]
+        def potential(r):
+            return -cap["Z"] / r + shift[0]
+        before = _build(cap, nuclear_potential=potential)
+        cached = _h0_entries()
+        shift[0] = 0.01
+        after = _build(cap, nuclear_potential=potential)
+        assert not _same_objects(cached, _h0_entries())
+        # Four electrons: a constant shift in V adds exactly 4*shift.
+        np.testing.assert_allclose(after-before, 0.04*np.eye(len(before)),
+                                   atol=2e-12, rtol=0)
 
-    def test_every_one_restores_per_build_checking(self, fresh_memo, monkeypatch):
-        monkeypatch.setattr(matrix, "_METRIC_CHECK_EVERY", 1)
-        ws = object()
-        assert all(matrix._metric_check_due(ws) for _ in range(4))
 
-    def test_every_zero_checks_first_build_only(self, fresh_memo, monkeypatch):
-        monkeypatch.setattr(matrix, "_METRIC_CHECK_EVERY", 0)
-        ws = object()
-        assert matrix._metric_check_due(ws) is True
-        assert not any(matrix._metric_check_due(ws) for _ in range(3))
-        assert matrix._metric_check_due(object()) is True
+class TestMetricCheckMemo:
+    def test_workspace_content_change_invalidates_audit_and_h0(self, cap, fresh_memo):
+        """An in-place metric change must not reuse the earlier pass or H0."""
+        workspace = {
+            k: (v.copy() if isinstance(v, np.ndarray) else v)
+            for k, v in cap["bsp_data"].items()
+        }
+        _build(cap, bsp_data=workspace)
+        original = _h0_entries()
+        workspace["grw"] *= 1.5
+        for _ in range(2):
+            with pytest.raises(ValueError, match="orthonormal"):
+                _build(cap, bsp_data=workspace)
+        assert not _same_objects(_h0_entries(), original)
+
+    @staticmethod
+    def _spy(monkeypatch):
+        """Count real audit invocations through build_ci_matrix."""
+        calls = []
+        real = matrix._check_orbital_metric
+
+        def spy(*args, **kwargs):
+            calls.append(args)
+            return real(*args, **kwargs)
+
+        monkeypatch.setattr(matrix, "_check_orbital_metric", spy)
+        return calls
+
+    def test_same_content_audits_once(self, cap, fresh_memo, monkeypatch):
+        calls = self._spy(monkeypatch)
+        _build(cap)
+        _build(cap)
+        _build(cap)
+        assert len(calls) == 1
+
+    def test_changed_content_reaudits(self, cap, fresh_memo, monkeypatch):
+        calls = self._spy(monkeypatch)
+        _build(cap)
+        assert len(calls) == 1
+        tweaked = {
+            k: (p.copy(), q.copy()) for k, (p, q) in cap["orbitals_dict"].items()
+        }
+        key = next(iter(tweaked))
+        p, q = tweaked[key]
+        # A sub-tolerance perturbation: the audit must RUN (content changed)
+        # and PASS (defect ~2e-12 << 1e-7).
+        tweaked[key] = (p * (1.0 + 1e-12), q)
+        _build(cap, orbitals_dict=tweaked)
+        assert len(calls) == 2
+
+    def test_new_workspace_reaudits(self, cap, fresh_memo, monkeypatch):
+        calls = self._spy(monkeypatch)
+        _build(cap)
+        twin = {
+            k: (v.copy() if isinstance(v, np.ndarray) else v)
+            for k, v in cap["bsp_data"].items()
+        }
+        _build(cap, bsp_data=twin)
+        assert len(calls) == 2
+
+    def test_failed_audit_is_not_memoised(self, cap, fresh_memo, monkeypatch):
+        """A rejected orbital set is re-audited on every later attempt."""
+        calls = self._spy(monkeypatch)
+        bad = dict(cap["orbitals_dict"])
+        key = next(iter(bad))
+        p, q = bad[key]
+        bad[key] = (1.5 * p, 1.5 * q)  # breaks normalization
+        for _ in range(2):
+            with pytest.raises(ValueError, match="orthonormal"):
+                _build(cap, orbitals_dict=bad)
+        assert len(calls) == 2
+
+    def test_fingerprint_tracks_content_not_identity(self):
+        a = np.arange(8.0)
+        orbs = {(1, -1): (a, a.copy())}
+        keys = [(1, -1)]
+        fp1 = matrix._orbital_metric_fingerprint(orbs, keys, 4, 8)
+        clone = {(1, -1): (a.copy(), a.copy())}
+        assert matrix._orbital_metric_fingerprint(clone, keys, 4, 8) == fp1
+        clone[(1, -1)][0][3] += 1e-9
+        assert matrix._orbital_metric_fingerprint(clone, keys, 4, 8) != fp1
 
     def test_tripwire_fires_on_first_build_of_workspace(self, cap, fresh_memo):
-        """A corrupted orbital set is rejected even under the cadence."""
+        """A corrupted orbital set is rejected on its first build."""
         bad_orbitals = dict(cap["orbitals_dict"])
         key = next(iter(bad_orbitals))
         p, q = bad_orbitals[key]

@@ -36,6 +36,8 @@ from __future__ import annotations
 
 import numpy as np
 
+from atomx.angular.recoupling import lj_from_kappa
+from atomx.config.subshell import l_letter
 from atomx.constants import ALPHA
 
 
@@ -132,10 +134,8 @@ def _subshell_table(result):
     the spectroscopy pipelines produce.
     """
     def _label(n, kappa):
-        orbital_l = kappa if kappa > 0 else -kappa - 1
-        j2 = 2 * abs(kappa) - 1
-        l_char = "spdfghiklmno"[orbital_l] if orbital_l < 12 else f"l{orbital_l}"
-        return f"{n}{l_char}{j2}/2"
+        orbital_l, j2 = lj_from_kappa(kappa)
+        return f"{n}{l_letter(orbital_l)}{j2}/2"
 
     table = {}
     if hasattr(result, "orbitals_by_subshell"):

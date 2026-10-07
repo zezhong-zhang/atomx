@@ -183,8 +183,8 @@ def test_closed_shell_e1_particle_hole_obeys_one_electron_sum_rule(monkeypatch):
 
     # Summing |<j_f m_f|C^1_q|j_i m_i>|² over the filled initial shell
     # and all final m,q gives |<j_f||C^1||j_i>|², without a sqrt(2).
-    from atomx.angular.coefficients import reduced_C
-    assert me ** 2 == pytest.approx(reduced_C(2, -2, 1) ** 2)
+    from atomx.angular.coefficients import reduced_C_jj
+    assert me ** 2 == pytest.approx(reduced_C_jj(2, -2, 1) ** 2)
 
 
 # ===== Rates module tests =====

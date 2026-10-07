@@ -2,8 +2,12 @@
 
 import numpy as np
 
+from atomx.angular.recoupling import twoj_of_kappa
+from atomx.config.subshell import l_letter
 from atomx.constants import HARTREE_EV
+from atomx.numerics.radial_workspace import make_grid_workspace
 from atomx.properties.transitions.angular import angular_eL
+from atomx.properties.transitions.multipole import radial_eL
 from atomx.properties.transitions.rates import einstein_A_eL
 
 
@@ -20,6 +24,9 @@ def fluorescence_rates(result, hole, *, photon_energies_eV=None):
     from atomx.scattering.xray import AtomicScattering
 
     model = AtomicScattering.from_result(result)
+    # Grid workspace over the model's quadrature so the dipole radial
+    # integral comes from the shared kernel (radial_eL static limit).
+    workspace = make_grid_workspace(model.r, model.weights)
     h_n, h_l = hole
     targets = [a for a in model.orbitals if (a.n, a.l) == (h_n, h_l)]
     if not targets:
@@ -44,8 +51,8 @@ def fluorescence_rates(result, hole, *, photon_energies_eV=None):
             angular = angular_eL(a.kappa, h.kappa, 1)
             if not angular:
                 continue
-            a_label = f"{a.n}{'spdfgh'[a.l]}{2 * abs(a.kappa) - 1}/2"
-            h_label = f"{h.n}{'spdfgh'[h.l]}{2 * abs(h.kappa) - 1}/2"
+            a_label = f"{a.n}{l_letter(a.l)}{twoj_of_kappa(a.kappa)}/2"
+            h_label = f"{h.n}{l_letter(h.l)}{twoj_of_kappa(h.kappa)}/2"
             if photon_energies_eV is None:
                 energy = (
                     result.orbital_energies[a_label] - result.orbital_energies[h_label]
@@ -56,7 +63,7 @@ def fluorescence_rates(result, hole, *, photon_energies_eV=None):
                 energy = photon_energies_eV[source]
             if energy <= 0:
                 continue
-            radial = np.sum(model.weights * model.r * (a.P * h.P + a.Q * h.Q))
+            radial = radial_eL(a.P, a.Q, h.P, h.Q, workspace, 1)
             rate = (
                 a.occupation
                 / degeneracy

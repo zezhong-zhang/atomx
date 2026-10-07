@@ -143,7 +143,7 @@ def slater_condon_f(k: int, l: int) -> float:
     in the non-relativistic orbital convention used throughout atomx
     (``<l||C^k||l'> = (-1)^l sqrt((2l+1)(2l'+1)) (l k l'; 0 0 0)``; see
     :func:`atomx.scattering.r_matrix.angular_cc.angular_cc` and the
-    convention note in :func:`atomx.angular.coefficients.reduced_C`).
+    convention note in :func:`atomx.angular.coefficients.reduced_C_jj`).
 
     This is *not* the plain Clebsch-Gordan square: with
     ``CG = <l 0 k 0 | l 0> = (-1)^k sqrt(2l+1) (l k l; 0 0 0)`` the two

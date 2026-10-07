@@ -36,7 +36,9 @@ def test_mixed_exchange_avoids_full_banks_in_batch_scf(monkeypatch):
     monkeypatch.setattr(convol, "SEMISEPARABLE_MIXED_EXCHANGE_NS", 10**9)
     full_solver = neon()
     full = full_solver.solve(max_iter=3, tol=1e-5)
-    full_solver._convol_cache.clear()
+    # Release the ns=320 full-basis banks (shared process-wide on this
+    # grid) before the compact solve, so both do not sit in memory at once.
+    full_solver._convol_cache.release_shared_banks()
 
     monkeypatch.setattr(convol, "SEMISEPARABLE_MIXED_EXCHANGE_NS", 320)
     compact_solver = neon()

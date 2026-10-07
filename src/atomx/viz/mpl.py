@@ -28,6 +28,8 @@ from typing import Optional, Sequence
 
 import numpy as np
 
+from atomx.constants import HC_EV_NM
+
 # matplotlib is listed as a core-viz dep in pyproject.  Import guarded
 # so `import atomx.viz.mpl` works even in headless no-matplotlib envs —
 # functions raise a helpful error on call.
@@ -333,7 +335,7 @@ def plot_spectrum(
             if hasattr(r, "E_res_eV"):
                 # Convert eV → nm if any ;-)
                 E_eV = float(r.E_res_eV)
-                lam_nm = 1239.841984 / E_eV
+                lam_nm = HC_EV_NM / E_eV
                 ax.axvline(lam_nm, color="crimson", alpha=0.3, linewidth=0.8)
 
     fig.tight_layout()

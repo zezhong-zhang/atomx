@@ -43,6 +43,7 @@ from ``_convol_case1`` by ~5e-15 relative per element.
 """
 
 from collections import OrderedDict
+from collections.abc import Mapping
 
 import numba as nb
 import numpy as np
@@ -1416,10 +1417,10 @@ def grid_bank_key(bsp_data):
     quadrature *shape* enters the key so a caller changing ``n_gauss``
     without changing the knots still gets its own banks.
     """
-    t = bsp_data.get("t") if isinstance(bsp_data, dict) else None
+    t = bsp_data.get("t") if isinstance(bsp_data, Mapping) else None
     if t is None:
         raise TypeError(
-            "ConvolCache needs a B-spline workspace dict carrying a 't' "
+            "ConvolCache needs a B-spline workspace mapping carrying a 't' "
             f"knot vector (got {type(bsp_data).__name__})")
     t = np.ascontiguousarray(t)
     tp = bsp_data.get("tp")
@@ -1477,6 +1478,10 @@ class ConvolCache:
     constructs a fresh :class:`~atomx.methods.dirac_fock.DFSolver` per outer
     iteration — builds each of the 20 banks once instead of once per
     iteration.  Banks are read-only to every consumer.
+
+    A cache owns no bank individually, so there is no per-instance
+    "clear": the only teardown operation is :meth:`release_shared_banks`,
+    which drops the whole grid's banks for every cache at once.
     """
 
     def __init__(self, bsp_data):
@@ -1651,8 +1656,20 @@ class ConvolCache:
         near, rising, falling, _, _ = self.get_coulomb_factors(k, itype)
         return near, rising, falling
 
-    def clear(self):
-        """Drop this grid's banks (shared with every cache on the grid)."""
+    def release_shared_banks(self):
+        """Drop this grid's banks, for this cache and every other live one.
+
+        ``_cache`` is the process-wide bank dict of this grid's content
+        key (see :func:`shared_banks`), so releasing here frees the banks
+        for *all* caches sharing the grid — that is the intent: immediate
+        memory relief between large solves.  Safety does not depend on the
+        caller being the last user: banks are pure functions of the grid
+        geometry, so any cache that keeps running lazily rebuilds
+        bit-identical content on its next access, at the rebuild cost the
+        sharing exists to avoid.  Single-threaded by design: every
+        ``ConvolCache`` consumer runs in one thread (parallel drivers use
+        process pools, where each process holds its own registry).
+        """
         self._cache.clear()
 
 

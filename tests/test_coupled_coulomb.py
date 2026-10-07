@@ -6,8 +6,8 @@ import pytest
 from sympy import Rational, sqrt
 from sympy.physics.wigner import wigner_3j, wigner_6j
 
+from atomx.angular.clebsch import clebsch_gordan
 from atomx.angular.coefficients import (
-    cg,
     ckm,
     coupled_coulomb_direct,
     coupled_coulomb_exchange,
@@ -26,7 +26,7 @@ def magnetic_sum(c, d, a, b, tJ, k, tM, exchange=False):
             md = tM-mc
             if abs(md) > jd:
                 continue
-            left = cg(ja, ma, jb, mb, tJ, tM) * cg(jc, mc, jd, md, tJ, tM)
+            left = clebsch_gordan(ja, ma, jb, mb, tJ, tM) * clebsch_gordan(jc, mc, jd, md, tJ, tM)
             q = (md if exchange else mc)-ma
             if exchange:
                 vertex = ckm(d, md, a, ma, k, q)*ckm(c, mc, b, mb, k, -q)

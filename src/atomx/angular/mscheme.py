@@ -55,18 +55,28 @@ def determinants_by_m(j2: int, q: int, M2: int) -> tuple[int, ...]:
     return tuple(dets)
 
 
+def _occupation_sign(mask: int, orbital: int) -> int:
+    """Fermion sign ``(-1)**n`` with ``n`` occupied bits below ``orbital``.
+
+    The single bitmask-sign convention shared by every determinant engine
+    (this module's ``_annihilate``/``_create``,
+    :mod:`atomx.angular.csf_hamiltonian`, and
+    :mod:`atomx.scattering.autoionization.mscheme_ci`).  Evaluated on the
+    mask *before* the toggle, it is the same for creation and annihilation.
+    """
+    return -1 if (_popcount(mask & ((1 << orbital) - 1)) % 2) else 1
+
+
 def _annihilate(mask: int, orbital: int) -> tuple[int, int] | None:
     if not (mask & (1 << orbital)):
         return None
-    phase = -1 if (_popcount(mask & ((1 << orbital) - 1)) % 2) else 1
-    return phase, mask ^ (1 << orbital)
+    return _occupation_sign(mask, orbital), mask ^ (1 << orbital)
 
 
 def _create(mask: int, orbital: int) -> tuple[int, int] | None:
     if mask & (1 << orbital):
         return None
-    phase = -1 if (_popcount(mask & ((1 << orbital) - 1)) % 2) else 1
-    return phase, mask | (1 << orbital)
+    return _occupation_sign(mask, orbital), mask | (1 << orbital)
 
 
 @lru_cache(maxsize=128)

@@ -287,9 +287,9 @@ def _bbr_shift_from_alpha(
     For high accuracy at moderate T, integrate the Planck-weighted
     α_R(ω).  Returns the shift in hartree.
     """
-    from atomx.constants import HARTREE_EV
+    from atomx.constants import BOLTZMANN_EV, HARTREE_EV
     # Boltzmann constant in hartree/K
-    kT_au = (T_K / 11604.5) / HARTREE_EV  # = k_B T in hartree
+    kT_au = BOLTZMANN_EV * T_K / HARTREE_EV  # = k_B T in hartree
 
     # Filter physical (real) part of α_omega
     real_alpha = np.real(alpha_omega)

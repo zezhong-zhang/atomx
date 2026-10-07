@@ -42,6 +42,7 @@ import numpy as np
 
 import atomx.physics.csf.matrix as MAT
 from atomx.angular.csf_hamiltonian import two_body_angular
+from atomx.constants import HARTREE_CM1
 
 __all__ = ["make_slater_delta", "free_ion_levels", "fit_slater_scaling",
            "multiset_subtract"]
@@ -121,7 +122,7 @@ def make_slater_delta(orbitals_dict, bsp_data, scale: Mapping[int, float]):
 
 
 def free_ion_levels(orbitals_dict, bsp_data, Z, ns, patterns, scale=None,
-                    twoJ_values=None, cm: float = 219474.63):
+                    twoJ_values=None, cm: float = HARTREE_CM1):
     """Pure-J ladder of a pattern set, optionally with Slater scaling.
 
     Returns a dict ``{J: sorted energies in cm^-1}`` via the

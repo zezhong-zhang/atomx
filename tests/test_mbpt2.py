@@ -11,7 +11,7 @@ from atomx.methods.mbpt import (
     MBPT2Result,
     _allowed_k_range,
     mbpt2_energy,
-    reduced_C,
+    reduced_C_jj,
 )
 
 # ── Reduced matrix-element sanity checks ────────────────────────────────
@@ -19,20 +19,20 @@ from atomx.methods.mbpt import (
 
 def test_reduced_C_diagonal_s():
     """⟨s_{1/2} ‖ C^0 ‖ s_{1/2}⟩ = -√2 (Grant phase convention)."""
-    val = reduced_C(-1, -1, 0)
+    val = reduced_C_jj(-1, -1, 0)
     assert math.isclose(val, -math.sqrt(2.0), abs_tol=1e-12)
 
 
 def test_reduced_C_dipole_s_to_p32():
     """⟨s_{1/2} ‖ C^1 ‖ p_{3/2}⟩ = 2/√3."""
-    val = reduced_C(-1, -2, 1)
+    val = reduced_C_jj(-1, -2, 1)
     assert math.isclose(val, 2.0 / math.sqrt(3.0), abs_tol=1e-12)
 
 
 def test_reduced_C_parity_violation():
     """Parity-forbidden multipoles return exactly zero."""
     # ⟨s_{1/2} ‖ C^1 ‖ s_{1/2}⟩ violates parity (l_a+k+l_b = 1, odd).
-    assert reduced_C(-1, -1, 1) == 0.0
+    assert reduced_C_jj(-1, -1, 1) == 0.0
 
 
 def test_allowed_k_range_s_to_p():

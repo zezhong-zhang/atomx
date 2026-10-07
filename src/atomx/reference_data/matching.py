@@ -15,6 +15,7 @@ from math import comb
 
 from atomx.config import ground_state_config
 from atomx.config.parsing import parse_nr_shells
+from atomx.config.subshell import L_LETTERS
 from atomx.reference_data.nist import _filled, configuration_map
 
 
@@ -38,7 +39,7 @@ def expand_nist_config(text: str, electrons: int) -> str | None:
             deficit -= occupancy
     if deficit:
         return None
-    letters = "spdfghiklmnoqrtuvwxyz"
+    letters = L_LETTERS
     config = " ".join(f"{n}{letters[l]}{q}" for (n, l), q in sorted(full.items()))
     try:
         parsed = parse_nr_shells(config)

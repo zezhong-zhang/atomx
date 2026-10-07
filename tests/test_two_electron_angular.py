@@ -2,7 +2,7 @@
 
 import math
 
-from atomx.scattering.r_matrix.angular_cc import reduced_C
+from atomx.scattering.r_matrix.angular_cc import reduced_C_LS
 from atomx.scattering.two_electron.angular import (
     direct_coefficient,
     target_reduced_multipole,
@@ -36,7 +36,7 @@ def test_target_reduced_multipole_1s2_to_1s2p():
         l1_ket=0, l2_ket=0, L_t_ket=0,
         k=1,
     )
-    # <1s||C^1||2p> = reduced_C(0,1,1) = -1.
+    # <1s||C^1||2p> = reduced_C_LS(0,1,1) = -1.
     assert abs(M - (-1.0)) < 1e-12
 
 
@@ -50,7 +50,7 @@ def test_direct_coefficient_reduces_to_one_electron_target():
     l_t, l_c, L = 1, 2, 3
     terms_one = {t.k: t.coefficient for t in direct_terms(l_t, l_c, l_t, l_c, L)}
     for k, coeff_one in terms_one.items():
-        rm_t = reduced_C(l_t, k, l_t)
+        rm_t = reduced_C_LS(l_t, k, l_t)
         coeff_two = direct_coefficient(
             l_t, l_c, l_t, l_c, L, k=k, target_reduced_c=rm_t
         )

@@ -19,7 +19,7 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass, field
 
-from atomx.angular.coefficients import reduced_C
+from atomx.angular.coefficients import reduced_C_jj
 from atomx.corrections.specific_recoil import configuration_average_recoil_contributions
 
 
@@ -40,7 +40,7 @@ class SMSResult:
 
 def _allowed_sms_pair(kappa_a: int, kappa_b: int) -> bool:
     """Rank-one, odd-parity momentum selection rule."""
-    return reduced_C(kappa_a, kappa_b, 1) != 0.
+    return reduced_C_jj(kappa_a, kappa_b, 1) != 0.
 
 
 def compute_sms_abinitio(orbitals, workspace, *, Z=None) -> SMSResult:

@@ -22,6 +22,7 @@ from atomx.angular.csf_hamiltonian import (
     two_body_angular,
     twoj,
 )
+from atomx.angular.recoupling import l_of_kappa
 from atomx.numerics.bspline.convol import (
     ConvolCache,
     build_slater_rk_bilinear,
@@ -57,8 +58,7 @@ class RPAResult:
 
 
 def _parity(kappa: int) -> int:
-    l = kappa if kappa > 0 else -kappa - 1
-    return -1 if l % 2 else 1
+    return -1 if l_of_kappa(kappa) % 2 else 1
 
 
 def ph_pairs_for(
@@ -345,7 +345,10 @@ def solve_rpa_ci_direct(orbitals_dict, bsp_data, Z, ns, occupied,
     #   ph patterns   — closed ref shells EXCEPT one hole shell, plus
     #                   one electron in a virtual shell (q=1)
     ref_shells = sorted({(o[0], o[1]) for o in ref_occ})
-    cap = lambda k: 2 * twoj(k) if k < 0 else -2 * k
+
+    def cap(k):
+        return 2 * twoj(k) if k < 0 else -2 * k
+
     ref_pattern = tuple((n, k, cap(k)) for (n, k) in ref_shells)
     hole_shells = sorted({(h[0], h[1]) for (_p, _mp, h, _mh, _cg)
                           in comps})

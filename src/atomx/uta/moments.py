@@ -29,6 +29,8 @@ from typing import Mapping, Optional, Sequence, Tuple
 
 import numpy as np
 
+from atomx.constants import HC_EV_NM
+
 
 @dataclass
 class UTAArray:
@@ -66,10 +68,6 @@ class UTAArray:
     n_lines: int = 0
 
 
-# hc in eV·nm
-_HC_EV_NM = 1239.841984
-
-
 def uta_moments(
     lines: Sequence[Tuple[float, float]],
 ) -> UTAArray:
@@ -103,7 +101,7 @@ def uta_moments(
     std = sqrt(variance)
     fwhm = 2.0 * sqrt(2.0 * np.log(2.0)) * std
 
-    centroid_nm = _HC_EV_NM / centroid if centroid > 0 else float("nan")
+    centroid_nm = HC_EV_NM / centroid if centroid > 0 else float("nan")
 
     return UTAArray(
         total_strength=total,

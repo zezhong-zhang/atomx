@@ -63,6 +63,7 @@ from typing import Any, Dict, List, Optional
 
 import numpy as np
 
+from atomx.config.subshell import l_letter
 from atomx.constants import ALPHA, BOHR_RADIUS_M, HARTREE_EV
 from atomx.numerics.bspline.continuum import solve_continuum
 from atomx.properties.transitions.angular import (
@@ -280,6 +281,8 @@ def _shooting_photoionization_cross_section(
     continuum_model: ContinuumModel,
     *,
     potential=None,
+    magnetic_m2=None,
+    polarization_q=0,
 ) -> np.ndarray:
     """PI cross section using direct shooting continuum from a model."""
     from atomx.numerics.bspline.evaluate import eval_P, eval_Q
@@ -295,6 +298,19 @@ def _shooting_photoionization_cross_section(
     channels = [(kf, line_strength_factor(sh.kappa, kf, 1, "E") / (2 * abs(sh.kappa)))
                 for kf in _final_e1_kappas(sh.kappa)]
     channels = [(kf, factor) for kf, factor in channels if factor != 0.0]
+    if magnetic_m2 is not None:
+        from atomx.angular.wigner import wigner_3j
+        j2 = 2 * abs(sh.kappa) - 1
+        if (magnetic_m2 not in range(-j2, j2 + 1, 2)
+                or polarization_q not in (-1, 0, 1)):
+            raise ValueError('invalid magnetic sublevel or spherical polarization')
+        # Replace the m-averaged 1/(3g) by the selected tensor component.
+        # The external cross-section prefactor already contains 1/3.
+        channels = [(kf, factor * 3 * (j2 + 1) * wigner_3j(
+            2 * abs(kf) - 1, 2, j2,
+            -magnetic_m2 - 2 * polarization_q, 2 * polarization_q, magnetic_m2
+        )**2) for kf, factor in channels]
+        channels = [(kf, factor) for kf, factor in channels if factor != 0.0]
     active = [(idx, float(omega), float(omega + scf_result.orbital_energies[sh.label]))
               for idx, omega in enumerate(photon_au)
               if omega + scf_result.orbital_energies[sh.label] > 0.0]
@@ -670,7 +686,7 @@ def rr_cross_section_rydberg(
     -------
     RRResult
     """
-    from atomx.methods.mbpt import _l_from_kappa
+    from atomx.angular.recoupling import l_of_kappa, twoj_of_kappa
     from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices, solve_dirac
 
     energies = np.asarray(energies_eV, dtype=float)
@@ -685,7 +701,7 @@ def rr_cross_section_rydberg(
     occupied = [sh for sh in scf_result.subshells if sh.occupation > 0]
     if not occupied:
         raise ValueError("the recombined system must contain a captured electron")
-    outer = max(occupied, key=lambda sh: (sh.n, _l_from_kappa(sh.kappa), -abs(sh.kappa)))
+    outer = max(occupied, key=lambda sh: (sh.n, l_of_kappa(sh.kappa), -abs(sh.kappa)))
     potential_pp, potential_qq = _rr_potential_matrices(scf_result, outer, None)
     core_occupations = {(sh.n, sh.kappa): max(0., sh.occupation - (sh is outer))
                         for sh in occupied}
@@ -695,7 +711,7 @@ def rr_cross_section_rydberg(
     for k_abs in range(1, kappa_max + 2):
         kappa_list.append(-k_abs)
         kappa_list.append(+k_abs)
-    kappa_list = [k for k in kappa_list if abs(k) > 0 and _l_from_kappa(k) <= kappa_max]
+    kappa_list = [k for k in kappa_list if abs(k) > 0 and l_of_kappa(k) <= kappa_max]
 
     sigma_total = np.zeros_like(energies)
     by_state: Dict[str, np.ndarray] = {}
@@ -718,14 +734,14 @@ def rr_cross_section_rydberg(
         bound_states.sort(key=lambda t: t[2])
         bound_states = bound_states[:n_max_per_kappa]
 
-        l = _l_from_kappa(kappa)
-        j2 = 2 * abs(kappa) - 1
+        l = l_of_kappa(kappa)
+        j2 = twoj_of_kappa(kappa)
         for n_idx, (P_n, Q_n, eps_n) in enumerate(bound_states):
             n_principal = l + 1 + n_idx  # rough mapping (shifts can occur)
             vacancies = max(0., j2 + 1 - core_occupations.get((n_principal, kappa), 0.))
             if vacancies < 1e-12:
                 continue
-            label = f"{n_principal}{'spdfghi'[l] if l<7 else f'l{l}'}{j2}/2"
+            label = f"{n_principal}{l_letter(l)}{j2}/2"
 
             I_n_au = -eps_n
             photon_au = energies_au + I_n_au

@@ -8,6 +8,8 @@ import math
 
 import numpy as np
 
+from atomx.angular.recoupling import l_of_kappa
+
 from .constants import SL
 from .dirac_bound import dbound
 from .dirac_green import green_solve as _green_solve
@@ -15,10 +17,6 @@ from .dirac_green import homogeneous_pair as _homogeneous_pair
 from .dirac_green import prepare_scaled_green, scaled_box_pair, scaled_green_solve
 from .quadrature import slag6, slag6_weights
 from .spline import splin0
-
-
-def _l_of_kappa(kappa: int) -> int:
-    return -kappa - 1 if kappa < 0 else kappa
 
 
 def _count_nodes(p: np.ndarray, ncut: int) -> int:
@@ -119,7 +117,7 @@ def solve_inhomogeneous_orbital(e0, n, kappa, rv_loc, chi_p, chi_q,
     solver (:func:`dbound`) when the exchange source vanishes
     (single-shell systems like He, hydrogen-like ions).
     """
-    l = _l_of_kappa(kappa)
+    l = l_of_kappa(kappa)
     nr = n - l - 1  # required radial node count
 
     va, vb, vc, vd = splin0(r, rv_loc, np_, 0.0, 0.0)

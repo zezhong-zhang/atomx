@@ -16,15 +16,9 @@ from functools import lru_cache
 
 import numpy as np
 
+from atomx.angular.clebsch import clebsch_gordan
+from atomx.angular.recoupling import l_of_kappa, twoj_of_kappa
 from atomx.angular.wigner import wigner_3j, wigner_6j
-
-
-def _l_from_kappa(kappa: int) -> int:
-    return kappa if kappa > 0 else -kappa - 1
-
-
-def _twoj_from_kappa(kappa: int) -> int:
-    return 2 * abs(kappa) - 1
 
 
 def _twoj(value: float | int) -> int:
@@ -32,14 +26,16 @@ def _twoj(value: float | int) -> int:
 
 
 @lru_cache(maxsize=None)
-def reduced_C(kappa_a: int, kappa_b: int, k: int) -> float:
-    """Legacy reduced C tensor used by Atomx's CI angular machinery.
+def reduced_C_jj(kappa_a: int, kappa_b: int, k: int) -> float:
+    """Reduced C tensor in Grant's jj-coupling phase convention.
 
     Its phase is (-1)^(j_a+1/2) multiplying the 3j projections
     (-1/2, 0, +1/2). GRASP CRE and FAC ReducedCL instead use
     (+1/2, 0, -1/2), as implemented by :func:`reduced_cl_j2`.
     The two conventions differ by (-1)^(j_a+j_b+k); their squared
     coefficients agree, but mixed operators need explicit conversion.
+    The LS-coupled reduced C element is a different function:
+    :func:`atomx.scattering.r_matrix.angular_cc.reduced_C_LS`.
 
     In particular this function gives -sqrt(2j+1) at k=0. Do not combine
     it directly with a standard reduced Pauli spin tensor: the recoil
@@ -49,13 +45,13 @@ def reduced_C(kappa_a: int, kappa_b: int, k: int) -> float:
 
     Cached as a pure function of the integer angular quantum numbers.
     """
-    l_a = _l_from_kappa(kappa_a)
-    l_b = _l_from_kappa(kappa_b)
+    l_a = l_of_kappa(kappa_a)
+    l_b = l_of_kappa(kappa_b)
     if (l_a + k + l_b) % 2 != 0:
         return 0.0
 
-    tj_a = _twoj_from_kappa(kappa_a)
-    tj_b = _twoj_from_kappa(kappa_b)
+    tj_a = twoj_of_kappa(kappa_a)
+    tj_b = twoj_of_kappa(kappa_b)
     tk = 2 * int(k)
     if tk < abs(tj_a - tj_b) or tk > tj_a + tj_b:
         return 0.0
@@ -88,15 +84,15 @@ def cowan_grant_auger_B(
     contribution independently.  A zero return means a triangle/parity rule
     forbids the requested coupling.
     """
-    C_ac = reduced_C(kappa_a, kappa_c, k)
-    C_be = reduced_C(kappa_b, kappa_eps, k)
+    C_ac = reduced_C_jj(kappa_a, kappa_c, k)
+    C_be = reduced_C_jj(kappa_b, kappa_eps, k)
     if abs(C_ac) < 1e-15 or abs(C_be) < 1e-15:
         return 0.0
 
-    tj_a = _twoj_from_kappa(kappa_a)
-    tj_b = _twoj_from_kappa(kappa_b)
-    tj_c = _twoj_from_kappa(kappa_c)
-    tj_e = _twoj_from_kappa(kappa_eps)
+    tj_a = twoj_of_kappa(kappa_a)
+    tj_b = twoj_of_kappa(kappa_b)
+    tj_c = twoj_of_kappa(kappa_c)
+    tj_e = twoj_of_kappa(kappa_eps)
     tJ_res = _twoj(J_res)
     tJ_final = _twoj(J_final)
 
@@ -150,7 +146,7 @@ def reduced_matrix_ls(k: int, l: int, lp: int) -> float:
     return (
         (-1.0) ** (l - lp + k)
         * math.sqrt(2 * lp + 1)
-        * cg(2 * lp, 0, 2 * k, 0, 2 * l, 0)
+        * clebsch_gordan(2 * lp, 0, 2 * k, 0, 2 * l, 0)
     )
 
 
@@ -173,8 +169,8 @@ def exchange_lambda(kappa_a, kappa_b, k):
         Angular coefficient. Zero if selection rules forbid this k.
     """
     # j = |kappa| - 1/2, so 2*j = 2*|kappa| - 1
-    tj_a = 2 * abs(kappa_a) - 1  # twice j_a
-    tj_b = 2 * abs(kappa_b) - 1  # twice j_b
+    tj_a = twoj_of_kappa(kappa_a)
+    tj_b = twoj_of_kappa(kappa_b)
     tk = 2 * k                    # twice k (k is integer)
 
     # 3j symbol: (j_a  k  j_b; -1/2  0  1/2)
@@ -202,13 +198,13 @@ def exchange_k_range(kappa_a, kappa_b):
     k_values : list of int
         Allowed multipole orders.
     """
-    l_a = kappa_a if kappa_a > 0 else -kappa_a - 1
-    l_b = kappa_b if kappa_b > 0 else -kappa_b - 1
-    j_a = abs(kappa_a) - 0.5
-    j_b = abs(kappa_b) - 0.5
+    l_a = l_of_kappa(kappa_a)
+    l_b = l_of_kappa(kappa_b)
+    tj_a = twoj_of_kappa(kappa_a)
+    tj_b = twoj_of_kappa(kappa_b)
 
-    k_min = int(abs(j_a - j_b))
-    k_max = int(j_a + j_b)
+    k_min = abs(tj_a - tj_b) // 2
+    k_max = (tj_a + tj_b) // 2
 
     return [k for k in range(k_min, k_max + 1)
             if (k + l_a + l_b) % 2 == 0]
@@ -250,8 +246,8 @@ def exchange_coefficient(kappa_a, kappa_b, k, q_b):
     -------
     float
     """
-    tj_a = 2 * abs(kappa_a) - 1
-    tj_b = 2 * abs(kappa_b) - 1
+    tj_a = twoj_of_kappa(kappa_a)
+    tj_b = twoj_of_kappa(kappa_b)
     lam = exchange_lambda(kappa_a, kappa_b, k)
     if abs(lam) < 1e-15:
         return 0.0
@@ -264,25 +260,6 @@ def exchange_coefficient(kappa_a, kappa_b, k, q_b):
 # ---------------------------------------------------------------------------
 
 @lru_cache(maxsize=None)
-def _twoj_of(kappa: int) -> int:
-    """2j for a relativistic kappa quantum number."""
-    return 2 * abs(kappa) - 1
-
-
-@lru_cache(maxsize=None)
-def cg(tj1: int, tm1: int, tj2: int, tm2: int, tJ: int, tM: int) -> float:
-    """Clebsch-Gordan ``<j1 m1; j2 m2 | J M>`` — all arguments doubled.
-
-    ``cg(j1, m1, j2, m2, J, M) = (-1)^(j1-j2+M) sqrt(2J+1) (j1 j2 J; m1 m2 -M)``.
-    """
-    w = wigner_3j(tj1, tj2, tJ, tm1, tm2, -tM)
-    if abs(w) < 1e-15:
-        return 0.0
-    phase = 1.0 if ((tj1 - tj2 + tM) // 2) % 2 == 0 else -1.0
-    return phase * math.sqrt(tJ + 1.0) * w
-
-
-@lru_cache(maxsize=None)
 def ckm(kappa_c: int, tmc: int, kappa_a: int, tma: int, k: int, tq: int) -> float:
     """``<j_c m_c | C^k_q | j_a m_a>`` (doubled m and q), Grant's ``<||C^k||>``.
 
@@ -292,16 +269,16 @@ def ckm(kappa_c: int, tmc: int, kappa_a: int, tma: int, k: int, tq: int) -> floa
     implementation.
 
     The Wigner–Eckart step here is the textbook one,
-    ``(-1)^(j_c-m_c) (j_c k j_a; -m_c q m_a)``, but ``reduced_C`` carries
+    ``(-1)^(j_c-m_c) (j_c k j_a; -m_c q m_a)``, but ``reduced_C_jj`` carries
     *Grant's* phase, so the product is Grant's coefficient, not the textbook
     one — in particular ``ckm(k, m, k, m, 0, 0) == -1`` for every ``k``/``m``
-    (see :func:`reduced_C`).  That is deliberate and pinned by
+    (see :func:`reduced_C_jj`).  That is deliberate and pinned by
     ``test_ckm_identity_sign_pins_grant_convention``.
     """
-    red = reduced_C(kappa_c, kappa_a, k)
+    red = reduced_C_jj(kappa_c, kappa_a, k)
     if red == 0.0:
         return 0.0
-    tjc, tja = _twoj_of(kappa_c), _twoj_of(kappa_a)
+    tjc, tja = twoj_of_kappa(kappa_c), twoj_of_kappa(kappa_a)
     w = wigner_3j(tjc, 2 * k, tja, -tmc, tq, tma)
     if abs(w) < 1e-15:
         return 0.0
@@ -314,7 +291,7 @@ def coupled_coulomb_direct(kappa_c, kappa_d, kappa_a, kappa_b, tJ, k):
     """Angular factor of ``<(c d) JM | C^k(1)·C^k(2) | (a b) JM>``.
 
     ``tJ`` is twice the total angular momentum; ``k`` is the integer tensor
-    rank. The spin-angular orbitals use :func:`reduced_C`'s phase convention.
+    rank. The spin-angular orbitals use :func:`reduced_C_jj`'s phase convention.
     Racah recoupling eliminates the magnetic-sublevel sums exactly:
 
     ``(-1)^(j_a+j_d+J) {j_c j_d J; j_b j_a k} <c||C^k||a><d||C^k||b>``.
@@ -326,12 +303,12 @@ def coupled_coulomb_direct(kappa_c, kappa_d, kappa_a, kappa_b, tJ, k):
     Bound the memo: a large continuum channel space otherwise retains
     millions of coefficients after its packed channel table is constructed.
     """
-    ca = reduced_C(kappa_c, kappa_a, k)
-    db = reduced_C(kappa_d, kappa_b, k)
+    ca = reduced_C_jj(kappa_c, kappa_a, k)
+    db = reduced_C_jj(kappa_d, kappa_b, k)
     if ca == 0.0 or db == 0.0:
         return 0.0
-    tja, tjb = _twoj_of(kappa_a), _twoj_of(kappa_b)
-    tjc, tjd = _twoj_of(kappa_c), _twoj_of(kappa_d)
+    tja, tjb = twoj_of_kappa(kappa_a), twoj_of_kappa(kappa_b)
+    tjc, tjd = twoj_of_kappa(kappa_c), twoj_of_kappa(kappa_d)
     sixj = wigner_6j(tjc, tjd, tJ, tjb, tja, 2 * k)
     phase = -1.0 if ((tja + tjd + tJ) // 2) % 2 else 1.0
     return phase * sixj * ca * db
@@ -346,7 +323,7 @@ def coupled_coulomb_exchange(kappa_c, kappa_d, kappa_a, kappa_b, tJ, k):
     permutation phase, not the fermionic minus sign: the antisymmetrized
     amplitude is ``D*R_direct - E*R_exchange``.
     """
-    tjc, tjd = _twoj_of(kappa_c), _twoj_of(kappa_d)
+    tjc, tjd = twoj_of_kappa(kappa_c), twoj_of_kappa(kappa_d)
     phase = -1.0 if ((tjc + tjd - tJ) // 2) % 2 else 1.0
     return phase * coupled_coulomb_direct(
         kappa_d, kappa_c, kappa_a, kappa_b, tJ, k)

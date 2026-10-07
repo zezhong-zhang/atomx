@@ -36,6 +36,7 @@ from typing import Any, Dict, Optional
 
 import numpy as np
 
+from atomx.angular.recoupling import l_of_kappa, twoj_of_kappa
 from atomx.constants import BOHR_RADIUS_M, C_SQ, HARTREE_EV
 from atomx.numerics.radial_metric import RadialMetric
 from atomx.potentials.static_field import static_hartree_potential
@@ -561,9 +562,7 @@ def _eii_dw_total(
     from atomx.scattering._jit_kernels import eii_dw_channel_jsum
     from atomx.scattering.distorted_wave.solver import (
         _allowed_k,
-        _l_of,
         _shooting_points,
-        _tj_of,
     )
 
     bsp_data = scf_result._bsp_data
@@ -721,13 +720,13 @@ def _eii_dw_total(
         _raise_if_continuum_failures()
 
     kappa_list = [k for k in range(-kappa_max - 1, kappa_max + 1)
-                  if k != 0 and _l_of(k) <= kappa_max]
+                  if k != 0 and l_of_kappa(k) <= kappa_max]
     n_kappa = len(kappa_list)
     n_fine = r_fine.shape[0]
     # Internal matched-space diagnostic: these restrict the complete
     # antisymmetrized channel, never its direct/exchange pieces separately.
     incident_kappas, slow_kappas, fast_kappas = (
-        [k for k in kappa_list if _l_of(k) <= limit] for limit in channel_limits)
+        [k for k in kappa_list if l_of_kappa(k) <= limit] for limit in channel_limits)
 
     def _stack_waves(energy_au, out=None):
         """All partial waves at one energy as (P, Q) row stacks + a
@@ -757,8 +756,8 @@ def _eii_dw_total(
             continue
         I_a_au = -eps_a
         kappa_a = sh.kappa
-        tj_a = _tj_of(kappa_a)
-        l_a = _l_of(kappa_a)
+        tj_a = twoj_of_kappa(kappa_a)
+        l_a = l_of_kappa(kappa_a)
         q_a = float(sh.occupation)
         orb_list = scf_result.orbitals_raw.get(kappa_a, [])
         kappa_subs = [s for s in scf_result.subshells if s.kappa == kappa_a]
@@ -785,14 +784,14 @@ def _eii_dw_total(
         # of every incident energy — it only depends on the kappas.
         channels = []
         for kappa_in in incident_kappas:
-            tj_in = _tj_of(kappa_in)
-            l_in = _l_of(kappa_in)
+            tj_in = twoj_of_kappa(kappa_in)
+            l_in = l_of_kappa(kappa_in)
             for kappa_1 in slow_kappas:
-                tj_1 = _tj_of(kappa_1)
-                l_1 = _l_of(kappa_1)
+                tj_1 = twoj_of_kappa(kappa_1)
+                l_1 = l_of_kappa(kappa_1)
                 for kappa_2 in fast_kappas:
-                    tj_2 = _tj_of(kappa_2)
-                    l_2 = _l_of(kappa_2)
+                    tj_2 = twoj_of_kappa(kappa_2)
+                    l_2 = l_of_kappa(kappa_2)
                     if (l_a + l_in + l_1 + l_2) % 2 != 0:
                         continue
                     tJ_lo = max(abs(tj_a - tj_in), abs(tj_1 - tj_2))

@@ -17,6 +17,8 @@ from atomx.methods.csf.crystal_field import build_cf_operator
 from atomx.methods.csf.slater_scaling import fit_slater_scaling, make_slater_delta
 from atomx.methods.mbpt_sigma2 import (
     _build_sigma2_holeline_quarantined as build_sigma2_holeline,
+)
+from atomx.methods.mbpt_sigma2 import (
     build_sigma2_mscheme,
 )
 from atomx.methods.rpa import solve_rpa

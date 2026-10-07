@@ -1,6 +1,22 @@
 """Shared relativistic subshell identity, independent of radial solvers."""
 from dataclasses import dataclass
 
+from atomx.angular.recoupling import l_of_kappa, twoj_of_kappa
+
+#: Spectroscopic letters indexed by orbital angular momentum ``l``
+#: (``s, p, d, f, g, h, i, k, ...``).  Canonical alphabet for the whole
+#: package: every label formatter uses it and
+#: :data:`atomx.config.parsing.L_MAP` is built from it, so formatters and
+#: parsers always agree.  Truncated copies (``"spdfgh"``,
+#: ``"spdfghiklmno"``) are prefixes of this table and agree for the ``l``
+#: values they reach; formatters fall back to ``f"l{l}"`` beyond it.
+L_LETTERS = "spdfghiklmnoqrtuvwxyz"
+
+
+def l_letter(l: int) -> str:
+    """Spectroscopic letter for ``l``; ``f"l{l}"`` beyond :data:`L_LETTERS`."""
+    return L_LETTERS[l] if 0 <= l < len(L_LETTERS) else f"l{l}"
+
 
 @dataclass
 class Subshell:
@@ -15,21 +31,20 @@ class Subshell:
     label: str = ""
 
     def __post_init__(self):
-        l = self.kappa if self.kappa > 0 else -self.kappa - 1
-        j2 = 2 * abs(self.kappa) - 1
+        l = l_of_kappa(self.kappa)
+        j2 = twoj_of_kappa(self.kappa)
         max_occ = j2 + 1
         if self.occupation > max_occ + 0.01:
             raise ValueError(f"Occupation {self.occupation} exceeds max {max_occ} for kappa={self.kappa}")
         if not self.label:
-            l_char = "spdfghiklmnoqrtuvwxyz"[l] if l < 21 else f"l{l}"
-            self.label = f"{self.n}{l_char}{j2}/2"
+            self.label = f"{self.n}{l_letter(l)}{j2}/2"
 
     @property
     def l(self):  # noqa: E743 — `l` is the orbital angular-momentum quantum
         # number and part of the public API (`Subshell.l`), as in the FAC/
         # DBSR_HF sources this module ports.
-        return self.kappa if self.kappa > 0 else -self.kappa - 1
+        return l_of_kappa(self.kappa)
 
     @property
     def j2(self):
-        return 2 * abs(self.kappa) - 1
+        return twoj_of_kappa(self.kappa)

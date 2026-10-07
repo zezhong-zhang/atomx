@@ -141,11 +141,11 @@ class TestClebschGordan:
 
 class TestCowanGrantAugerCoefficient:
     def test_reduced_C_matches_grant_convention(self):
-        from atomx.angular.coefficients import reduced_C
+        from atomx.angular.coefficients import reduced_C_jj
 
-        assert reduced_C(-1, -1, 0) == pytest.approx(-np.sqrt(2.0))
-        assert reduced_C(-1, -2, 1) == pytest.approx(2.0 / np.sqrt(3.0))
-        assert reduced_C(-1, -1, 1) == 0.0
+        assert reduced_C_jj(-1, -1, 0) == pytest.approx(-np.sqrt(2.0))
+        assert reduced_C_jj(-1, -2, 1) == pytest.approx(2.0 / np.sqrt(3.0))
+        assert reduced_C_jj(-1, -1, 1) == 0.0
 
     def test_cowan_grant_B_nonzero_closed_channel(self):
         from atomx.angular.coefficients import cowan_grant_auger_B
@@ -162,33 +162,37 @@ class TestCowanGrantAugerCoefficient:
 class TestWignerEckartConventionIsPinned:
     """Grant's phase convention is deliberate; pin it so it cannot drift.
 
-    ``reduced_C`` carries ``(-1)^(j_a+1/2)`` (Grant & Pyper 1976, GRASP
+    ``reduced_C_jj`` carries ``(-1)^(j_a+1/2)`` (Grant & Pyper 1976, GRASP
     ``rkint``), so the ``k = 0`` element is ``-sqrt(2j+1)`` and the
     m-resolved identity is ``-1`` rather than ``+1``.  Every consumer in
     atomx (CI/DFS, distorted wave, Auger) uses this same layer, and the FAC
     parity gates reproduce FAC, so the sign cancels in squared observables.
 
     The historical hazard was not the sign but the *mixture*: the
-    non-relativistic layer (`scattering/r_matrix/angular_cc.py`) uses
-    ``(-1)^l``, and nothing recorded which layer a given matrix element came
-    from.  See docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md H6.
+    non-relativistic layer uses ``(-1)^l``, and nothing recorded which layer
+    a given matrix element came from.  That is now mechanical: the two
+    functions are named ``reduced_C_jj`` (``angular/coefficients.py``) and
+    ``reduced_C_LS`` (``scattering/r_matrix/angular_cc.py``) — the
+    convention is in the name.  See
+    docs/archive/2026-09/PHYSICS_NUMERICS_REVIEW_2026-09-19.md H6.
     """
 
     def test_reduced_C_k0_is_negative_sqrt_2j_plus_1(self):
         import math
 
-        from atomx.angular.coefficients import reduced_C
+        from atomx.angular.coefficients import reduced_C_jj
 
         for kappa, tj in ((-1, 1), (1, 1), (-2, 3), (2, 3), (-3, 5), (3, 5)):
-            assert reduced_C(kappa, kappa, 0) == pytest.approx(
+            assert reduced_C_jj(kappa, kappa, 0) == pytest.approx(
                 -math.sqrt(tj + 1), rel=1e-12
             ), f"kappa={kappa}: Grant's phase must make <j||C^0||j> negative"
 
     def test_ckm_identity_sign_pins_grant_convention(self):
-        from atomx.angular.coefficients import _twoj_from_kappa, ckm
+        from atomx.angular.coefficients import ckm
+        from atomx.angular.recoupling import twoj_of_kappa
 
         for kappa in (-1, 1, -2, 2, -3):
-            tj = _twoj_from_kappa(kappa)
+            tj = twoj_of_kappa(kappa)
             for tm in range(-tj, tj + 1, 2):
                 assert ckm(kappa, tm, kappa, tm, 0, 0) == pytest.approx(-1.0)
 
@@ -200,18 +204,18 @@ class TestWignerEckartConventionIsPinned:
         magnitude error from the (deliberate) Grant sign.
         """
         from atomx.angular.coefficients import (
-            _twoj_from_kappa,
             ckm,
-            reduced_C,
+            reduced_C_jj,
         )
+        from atomx.angular.recoupling import twoj_of_kappa
 
         worst = 0.0
         checked = 0
         for kc in (-1, -2, 1, 2, -3):
             for ka in (-1, -2, 1, 2, -3):
-                tjc, tja = _twoj_from_kappa(kc), _twoj_from_kappa(ka)
+                tjc, tja = twoj_of_kappa(kc), twoj_of_kappa(ka)
                 for k in (0, 1, 2):
-                    red = reduced_C(kc, ka, k)
+                    red = reduced_C_jj(kc, ka, k)
                     if red == 0.0:
                         continue
                     for tmc in range(-tjc, tjc + 1, 2):
@@ -226,3 +230,52 @@ class TestWignerEckartConventionIsPinned:
                         checked += 1
         assert checked > 50
         assert worst < 1e-12, f"Wigner-Eckart sum rule violated by {worst:.2e}"
+
+
+class TestAngularELMatchesReducedCJj:
+    """Pin the verified-equal reduced-C pair (code review 2026-10-05, P3).
+
+    ``properties.transitions.angular.angular_eL(k_i, k_f, L)`` and
+    ``coefficients.reduced_C_jj(k_f, k_i, L)`` are the same number: the
+    3j column-swap and m-flip phases cancel exactly, and both apply the
+    same triangle/parity gates.  The transition calculator's CI and
+    single-orbital paths now both call ``angular_eL``/``angular_mL``; this
+    grid test pins the identity so a future edit to either implementation
+    fails loudly instead of silently desynchronising the two paths.
+    """
+
+    @staticmethod
+    def _kappas():
+        return (-5, -4, -3, -2, -1, 1, 2, 3, 4, 5)
+
+    def test_electric_grid(self):
+        from atomx.angular.coefficients import reduced_C_jj
+        from atomx.properties.transitions.angular import angular_eL
+
+        checked = 0
+        for k_i in self._kappas():
+            for k_f in self._kappas():
+                for L in (1, 2, 3, 4):
+                    got = angular_eL(k_i, k_f, L)
+                    want = reduced_C_jj(k_f, k_i, L)
+                    assert got == pytest.approx(want, abs=1e-12), (
+                        f"k_i={k_i} k_f={k_f} L={L}: {got} != {want}")
+                    if got != 0.0:
+                        checked += 1
+        assert checked > 100  # the grid must exercise nonzero elements
+
+    def test_magnetic_grid(self):
+        from atomx.angular.coefficients import reduced_C_jj
+        from atomx.properties.transitions.angular import angular_mL
+
+        checked = 0
+        for k_i in self._kappas():
+            for k_f in self._kappas():
+                for L in (1, 2, 3, 4):
+                    got = angular_mL(k_i, k_f, L)
+                    want = reduced_C_jj(-k_f, k_i, L) * (k_i + k_f) / (L + 1)
+                    assert got == pytest.approx(want, abs=1e-12), (
+                        f"k_i={k_i} k_f={k_f} L={L}: {got} != {want}")
+                    if got != 0.0:
+                        checked += 1
+        assert checked > 100

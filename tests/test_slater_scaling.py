@@ -15,9 +15,12 @@ G3 transfer regression: the three-ion numbers above reproduce.
 import numpy as np
 import pytest
 
+from atomx.constants import HARTREE_CM1
 from atomx.methods.csf.slater_scaling import fit_slater_scaling, free_ion_levels
 
-CM = 219474.63
+#: Canonical Ha → cm⁻¹ (the truncated 219474.63 copy was retired in the
+#: P4 constants consolidation; ``free_ion_levels`` defaults to the same).
+CM = HARTREE_CM1
 
 
 NIST_PR = {0: [21390.0], 1: [22012.0], 2: [4997.0, 17334.0, 23160.0],

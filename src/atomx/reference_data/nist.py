@@ -8,11 +8,15 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
-from atomx.constants import HARTREE_EV
+from atomx.config.parsing import L_MAP
+from atomx.config.subshell import L_LETTERS
+from atomx.constants import HARTREE_CM1, HARTREE_EV
 
-#: CODATA hartree → cm⁻¹ (the value quoted in the task brief; identical to
-#: :data:`atomx.constants.HARTREE_CM1` to all printed digits).
-HA_CM1 = 219474.6313632
+#: hartree → cm⁻¹, alias of the canonical :data:`atomx.constants.HARTREE_CM1`
+#: (review 2026-10-05 P4: the former literal here was the CODATA 2018 value
+#: 219474.6313632; the 2018↔2022 shift is 6e-8 cm⁻¹, below every NIST ASD
+#: printed digit).
+HA_CM1 = HARTREE_CM1
 
 # Numeric angle-bracket annotations are parent angular momenta, not HTML.
 _TAG_RE = re.compile(r"<(?:/?[A-Za-z][^>]*|![^>]*)>")
@@ -32,8 +36,8 @@ _SEQ_RE = re.compile(
 _MEDIUM_RE = re.compile(r"<i>&lambda;</i>\s*in</u>:\s*"
                         r"<span[^>]*>(?P<medium>\w+)</span>")
 #: Tokens of a NIST configuration string: ``2s2``, ``3d``, ``5g``, ``10p``.
-_SUBSHELL_RE = re.compile(r"(?P<n>\d+)(?P<l>[spdfghiklmnoqrtuvwxyz])(?P<occ>\d*)")
-_L_VALUE = {letter: ell for ell, letter in enumerate("spdfghiklmnoqrtuvwxyz")}
+_SUBSHELL_RE = re.compile(r"(?P<n>\d+)(?P<l>[" + L_LETTERS + r"])(?P<occ>\d*)")
+_L_VALUE = L_MAP
 _NUMBER_RE = re.compile(r"[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?")
 
 
@@ -103,7 +107,7 @@ def normalise_configuration(text: str) -> str:
         subshells.append((int(match.group("n")),
                           _L_VALUE[match.group("l")], occupation))
     subshells.sort()
-    return " ".join(f"{n}{'spdfghiklmnoqrtuvwxyz'[l]}{occ}" for n, l, occ in subshells)
+    return " ".join(f"{n}{L_LETTERS[l]}{occ}" for n, l, occ in subshells)
 
 
 def configuration_map(text: str) -> dict[tuple[int, int], int]:

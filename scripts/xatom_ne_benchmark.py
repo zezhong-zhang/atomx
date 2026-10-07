@@ -15,11 +15,8 @@ import numpy as np
 sys.path.insert(0, "/tmp/atomx-cimbpt")
 
 from atomx.methods.dirac_fock import DFSolver, Subshell
-from atomx.numerics.bspline.continuum import solve_continuum
-from atomx.scattering.photoionization.direct import (
-    photoionization_cross_section)
-from atomx.scattering.radiative_recombination import (
-    _rr_potential_matrices)
+from atomx.scattering.photoionization.direct import photoionization_cross_section
+from atomx.scattering.radiative_recombination import _rr_potential_matrices
 
 A02_MB = 28.002852
 AU_S = 4.134137e16

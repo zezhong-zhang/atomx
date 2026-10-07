@@ -15,8 +15,9 @@ widening of the (kappa, m) partner classes (the base one-body value is
 m-blind and would be wrongly re-emitted for every m pair).
 
 CONVENTION: ``bkq`` values are Wybourne-style crystal-field parameters
-A^q_k expressed in cm^-1 (1 au = 219474.63 cm^-1); the r^k expectation
-in bohr^k is applied INSIDE the operator, so B_kq are radial-free.
+A^q_k expressed in cm^-1 (conversion via ``atomx.constants.HARTREE_CM1``);
+the r^k expectation in bohr^k is applied INSIDE the operator, so B_kq are
+radial-free.
 Values may be complex (general site); a Hermitian set satisfies
 B_{k,-q} = (-1)^q conj(B_{kq}).  Provenance: the B_kq supplied here are
 INPUTS (DFT-IAM decomposition, literature, or :func:`point_charge_bkq`
@@ -39,16 +40,14 @@ from typing import Dict, Tuple
 
 from atomx.angular.coefficients import reduced_cl_j2
 from atomx.angular.csf_hamiltonian import _m2_values, twoj
+from atomx.angular.recoupling import l_of_kappa
 from atomx.angular.wigner import wigner_3j
+from atomx.constants import HARTREE_CM1
 
 __all__ = ["build_cf_operator", "point_charge_bkq", "rpow_grid"]
 
-CM_PER_HARTREE = 219474.63
+CM_PER_HARTREE = HARTREE_CM1
 HARTREE_PER_CM = 1.0 / CM_PER_HARTREE
-
-
-def _l_of_kappa(kappa: int) -> int:
-    return kappa if kappa > 0 else -kappa - 1
 
 
 def rpow_grid(orbitals_dict, bsp_data):
@@ -161,9 +160,9 @@ def build_cf_operator(orbitals_dict, bsp_data, Z, ns, bkq, radial=None,
         if q2 % 2:
             return 0.0
         # parity: l_a + k + l_b must be even (same-l for CF in practice)
-        if (_l_of_kappa(kappa_a) + _l_of_kappa(kappa_b) + k) % 2:
+        if (l_of_kappa(kappa_a) + l_of_kappa(kappa_b) + k) % 2:
             return 0.0
-        # GRASP/FAC reduced element (reduced_cl_j2): the legacy reduced_C
+        # GRASP/FAC reduced element (reduced_cl_j2): the reduced_C_jj
         # phase differs by (-1)^{j_a+j_b+k} — harmless in the CI's
         # two-vertex products, WRONG for a one-body operator (G4 gate)
         red = reduced_cl_j2(twoj(kappa_a), 2 * k, twoj(kappa_b))

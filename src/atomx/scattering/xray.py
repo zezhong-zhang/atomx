@@ -13,7 +13,7 @@ from dataclasses import dataclass
 import numpy as np
 from scipy.special import spherical_jn
 
-from atomx.angular.coefficients import reduced_C
+from atomx.angular.coefficients import reduced_C_jj
 from atomx.constants import ALPHA, BOHR_RADIUS_M, HARTREE_EV
 
 _RE2_BARN = (ALPHA**2 * BOHR_RADIUS_M) ** 2 / 1e-28
@@ -122,7 +122,7 @@ class AtomicScattering:
                 weight = fa if (a.n, a.l) == (b.n, b.l) else fa * fb
                 weight *= 1 if a is b else 2
                 ranks = [
-                    (L, (2 * L + 1) * reduced_C(a.kappa, b.kappa, L) ** 2)
+                    (L, (2 * L + 1) * reduced_C_jj(a.kappa, b.kappa, L) ** 2)
                     for L in range(a.l + b.l + 1)
                 ]
                 self._pairs.append(

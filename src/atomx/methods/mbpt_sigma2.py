@@ -37,8 +37,9 @@ from typing import Dict, List, Sequence, Tuple
 
 import numpy as np
 
-from atomx.angular.wigner import wigner_3j
-from atomx.methods.mbpt import _pair_v_J, _twoj_from_kappa  # same kernel as E^(2)
+from atomx.angular.clebsch import clebsch_gordan
+from atomx.angular.recoupling import twoj_of_kappa
+from atomx.methods.mbpt import _pair_v_J  # same kernel as E^(2)
 from atomx.numerics.bspline.convol import ConvolCache
 
 __all__ = ["Sigma2Bubble", "build_sigma2_bubble"]
@@ -59,23 +60,6 @@ def build_sigma2_holeline(*_args, **_kwargs):
         "docs/CI_MBPT_SIGMA2_SPEC.md). The ladder arc showed the "
         "missing 5D0-7F0 differential is NOT any second-order "
         "valence-pair correction; use slater_scaling for anchors.")
-
-
-def _twoj(kappa: int) -> int:
-    return _twoj_from_kappa(kappa)
-
-
-def _cg(j2_a, m2_a, j2_b, m2_b, j2_tot, m2_tot) -> float:
-    """Clebsch-Gordan <j_a m_a, j_b m_b | J M> from the Wigner 3j.
-
-    All quantum numbers in doubled units (2j, 2m, 2J, 2M).
-    """
-    # CG = (-1)^{j_a - j_b + M} sqrt(2J+1) * 3j(j_a j_b J; m_a m_b -M)
-    phase = (-1.0) ** ((j2_a - j2_b + m2_tot) // 2)
-    w = wigner_3j(j2_a, j2_b, j2_tot, m2_a, m2_b, -m2_tot)
-    if w == 0.0:
-        return 0.0
-    return phase * sqrt(j2_tot + 1) * w
 
 
 class Sigma2Bubble:
@@ -125,7 +109,8 @@ class Sigma2Bubble:
             return 0.0
         i_ab = self._pair_index[key_ab]
         i_cd = self._pair_index[key_cd]
-        j2a, j2b, j2c, j2d = _twoj(ka), _twoj(kb), _twoj(kc), _twoj(kd)
+        j2a, j2b, j2c, j2d = (twoj_of_kappa(ka), twoj_of_kappa(kb),
+                              twoj_of_kappa(kc), twoj_of_kappa(kd))
         j2_min = max(abs(j2a - j2b), abs(j2c - j2d))
         j2_max = min(j2a + j2b, j2c + j2d)
         m2 = m2a + m2b  # = m2c + m2d for m-conserving elements
@@ -135,8 +120,8 @@ class Sigma2Bubble:
             if M is None:
                 continue
             # sum over the single M fixed by the m values
-            cg_bra = _cg(j2a, m2a, j2b, m2b, j2, m2)
-            cg_ket = _cg(j2c, m2c, j2d, m2d, j2, m2)
+            cg_bra = clebsch_gordan(j2a, m2a, j2b, m2b, j2, m2)
+            cg_ket = clebsch_gordan(j2c, m2c, j2d, m2d, j2, m2)
             if cg_bra == 0.0 or cg_ket == 0.0:
                 continue
             total += cg_bra * cg_ket * M[i_ab, i_cd]

@@ -42,7 +42,14 @@ import math
 
 import numpy as np
 
-from atomx.angular.coefficients import cg, ckm
+from atomx.angular.clebsch import clebsch_gordan
+from atomx.angular.coefficients import ckm
+from atomx.angular.recoupling import (
+    kappa_from_lj,
+    l_of_kappa,
+    twoj_of_kappa,
+)
+from atomx.config.subshell import L_LETTERS
 from atomx.constants import AU_RATE_PER_S, HARTREE_EV
 from atomx.numerics.bspline.evaluate import eval_P, eval_Q
 from atomx.numerics.quadrature import grid_slater_rk, make_fine_grid, p_rel
@@ -50,25 +57,23 @@ from atomx.potentials.static_field import static_hartree_potential
 from atomx.scattering.distorted_wave.solver import (
     _allowed_k,
     _continuum_on_grid,
-    _l_of,
     _shooting_points,
-    _tj_of,
 )
 
-_L_SYMBOLS = "spdfghiklmno"
+_L_SYMBOLS = L_LETTERS
 
 
 def _kappa_from_label(label: str) -> tuple[int, int]:
     """Parse '3p1/2' -> (n, kappa)."""
     import re
 
-    m = re.fullmatch(r"(\d+)([spdfghiklmno])(\d+)/2", label)
+    m = re.fullmatch(r"(\d+)([" + L_LETTERS + r"])(\d+)/2", label)
     if m is None:
         raise ValueError(f"cannot parse orbital label {label!r}")
     n = int(m.group(1))
-    l = _L_SYMBOLS.index(m.group(2))
+    l = L_LETTERS.index(m.group(2))
     tj = int(m.group(3))
-    kappa = l if tj == 2 * l - 1 else -(l + 1)
+    kappa = kappa_from_lj(l, tj)
     return n, kappa
 
 
@@ -119,7 +124,7 @@ def auger_rate_jj_level(
     kappa_h, PQh = _orbital_PQ(result, hole_label)
     kappa_1, PQ1 = _orbital_PQ(result, e1_label)
     kappa_2, PQ2 = _orbital_PQ(result, e2_label)
-    tj_h, tj_1, tj_2 = _tj_of(kappa_h), _tj_of(kappa_1), _tj_of(kappa_2)
+    tj_h, tj_1, tj_2 = twoj_of_kappa(kappa_h), twoj_of_kappa(kappa_1), twoj_of_kappa(kappa_2)
     tJa = int(two_J_inter)
     tJ = int(two_J_res)
 
@@ -136,7 +141,7 @@ def auger_rate_jj_level(
     par_res = 1
     for kap in (kappa_h, kappa_1, kappa_2):
         # hole parity contributes like the orbital parity
-        par_res *= -1 if _l_of(kap) % 2 else 1
+        par_res *= -1 if l_of_kappa(kap) % 2 else 1
     tj_f = tJ
     l_opts = [(tj_f + 1) // 2, (tj_f - 1) // 2]
     l_f = next((l for l in l_opts if l >= 0 and ((-1 if l % 2 else 1) == par_res)), None)
@@ -201,13 +206,13 @@ def auger_rate_jj_level(
                 tMa = tM_h + tm_1
                 if abs(tMa) > tJa:
                     continue
-                c_a = cg(tj_h, tM_h, tj_1, tm_1, tJa, tMa)
+                c_a = clebsch_gordan(tj_h, tM_h, tj_1, tm_1, tJa, tMa)
                 if abs(c_a) < 1e-15:
                     continue
                 tm_2 = tM - tMa
                 if abs(tm_2) > tj_2:
                     continue
-                c_b = cg(tJa, tMa, tj_2, tm_2, tJ, tM)
+                c_b = clebsch_gordan(tJa, tMa, tj_2, tm_2, tJ, tM)
                 if abs(c_b) < 1e-15:
                     continue
                 coeffs = [(tm_1, tm_2, c_a * c_b)]
@@ -218,13 +223,13 @@ def auger_rate_jj_level(
                 tMp = tM - tM_h
                 if abs(tMp) > tJa:
                     continue
-                c_hp = cg(tj_h, tM_h, tJa, tMp, tJ, tM)
+                c_hp = clebsch_gordan(tj_h, tM_h, tJa, tMp, tJ, tM)
                 if abs(c_hp) < 1e-15:
                     continue
                 tm_2 = tMp - tm_1
                 if abs(tm_2) > tj_2:
                     continue
-                c_p = cg(tj_1, tm_1, tj_2, tm_2, tJa, tMp)
+                c_p = clebsch_gordan(tj_1, tm_1, tj_2, tm_2, tJa, tMp)
                 if abs(c_p) < 1e-15:
                     continue
                 # 1/sqrt(2) pair normalization; the two c+ orderings of the

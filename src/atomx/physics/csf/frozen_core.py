@@ -4,7 +4,7 @@ The radial callback uses the same keys as the full CSF Hamiltonian. Keeping
 this contraction independent of the radial representation lets frozen-core
 and full CI use identical integrals, including off-diagonal one-body terms.
 """
-from atomx.angular.coefficients import reduced_C
+from atomx.angular.coefficients import reduced_C_jj
 
 
 def closed_core_one_body(active, core, radial, *, bare_one_body=None):
@@ -39,7 +39,7 @@ def closed_core_one_body(active, core, radial, *, bare_one_body=None):
                 value += occupation * radial(('r', 0, a, b, c, c))
                 for rank in range(abs(abs(a[1]) - abs(c[1])),
                                   abs(a[1]) + abs(c[1])):
-                    angular = reduced_C(a[1], c[1], rank)**2 / (2 * abs(a[1]))
+                    angular = reduced_C_jj(a[1], c[1], rank)**2 / (2 * abs(a[1]))
                     if angular:
                         value -= angular * radial(('r', rank, a, c, c, b))
             matrix[a, b] = float(value)

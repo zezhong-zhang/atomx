@@ -145,8 +145,8 @@ def _reference_levels(captured, config_strings, M2=0):
 def test_closed_shell_ci_equals_mscheme_reference():
     """1s2 2s2 is one determinant: the two constructions must agree.
 
-    This is the oracle's own calibration against the repo (and through
-    ``_diagonal_element`` against ``DFSolver._compute_total_energy``).
+    This is the oracle's own calibration against the repo (and through the
+    ``build_ci_matrix`` diagonal against ``DFSolver._compute_total_energy``).
     """
     cfgs = ["1s2 2s2"]
     result, _csfs, cap = _run_capturing_ci(cfgs, radial_optimization="fac_frozen")

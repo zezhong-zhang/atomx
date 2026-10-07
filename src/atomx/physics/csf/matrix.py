@@ -10,33 +10,17 @@ parentage and fermion phases belong to ``angular.csf_hamiltonian``;
 radial integration uses the supplied grid or B-spline representation.
 """
 
-import math
-import os
+import hashlib
 from functools import lru_cache
 
 import numpy as np
 from scipy.sparse.linalg import LinearOperator
 
-from atomx.angular.clebsch import clebsch_gordan
-from atomx.angular.coefficients import (
-    cg,
-    ckm,
-    exchange_k_range,
-    exchange_lambda,
-    reduced_cl_j2,
-)
 from atomx.angular.csf_hamiltonian import (
     MAX_BLOCK_DETERMINANTS,
     csf_signature,
     exact_block_matrix,
 )
-from atomx.angular.csf_recoupling import (
-    chain_projection_amplitudes,
-    make_chain_coupled_state,
-    single_state_for_subshell,
-)
-from atomx.angular.rcfp import ReducedSubshellState
-from atomx.angular.wigner import wigner_6j
 from atomx.numerics.bspline.convol import (
     ConvolCache,
     _convol_case1_t,
@@ -90,14 +74,16 @@ _MEMO_KEEPALIVE: list = []
 
 # The radial workspace the current memo contents belong to (identity, not id()).
 _MEMO_CONTEXT = None
+_MEMO_GEOMETRY = None
 
 
 def _reset_memo() -> None:
     """Drop all memoised integrals and the references pinning their keys."""
-    global _MEMO_CONTEXT
+    global _MEMO_CONTEXT, _MEMO_GEOMETRY
     _SLATER_MEMO.clear()
     _MEMO_KEEPALIVE.clear()
     _MEMO_CONTEXT = None
+    _MEMO_GEOMETRY = None
 
 
 def _reset_memo_for_ci_build(bsp_data, nuclear_potential):
@@ -128,11 +114,24 @@ def _reset_memo_for_ci_build(bsp_data, nuclear_potential):
     The stashed ``_convol_cache`` (rkb tables, grid-only) is carried
     exactly as before.
     """
+    global _MEMO_GEOMETRY
+    geometry = _workspace_fingerprint(bsp_data)
+    if nuclear_potential is not None and not isinstance(bsp_data, GridCIWorkspace):
+        # A caller can update parameters captured by the same callable.
+        # H0 depends on its values on the actual integration grid, not
+        # callable identity alone. These are the nuclear_matrix inputs.
+        values = np.fromiter(
+            (nuclear_potential(float(radius)) for radius in bsp_data["gr"].ravel()),
+            dtype=np.float64, count=bsp_data["gr"].size)
+        geometry += hashlib.sha256(
+            repr((values.shape, values.dtype.str)).encode() + values.tobytes()
+        ).digest()
     stashed_cache = _SLATER_MEMO.get("_convol_cache")
     prev_potential = _SLATER_MEMO.get("_nuclear_potential")
     carry_h0 = (
         not isinstance(bsp_data, GridCIWorkspace)
         and _MEMO_CONTEXT is bsp_data
+        and geometry == _MEMO_GEOMETRY
         and prev_potential is nuclear_potential
         and "_nuclear_potential" in _SLATER_MEMO
     )
@@ -143,6 +142,7 @@ def _reset_memo_for_ci_build(bsp_data, nuclear_potential):
     )
     _reset_memo()
     _memo_context(bsp_data)
+    _MEMO_GEOMETRY = geometry
     if stashed_cache is not None:
         _SLATER_MEMO["_convol_cache"] = stashed_cache
     if carried:
@@ -171,8 +171,8 @@ def _pin(*arrays) -> None:
 def _context_cache(bsp_data) -> ConvolCache:
     """Cell-integral rkb cache for the current build (lazily created).
 
-    Standalone helper calls (unit tests poking ``_diagonal_element`` etc.
-    without going through :func:`build_ci_matrix`) get a fresh cache bound
+    Standalone helper calls (unit tests poking the radial helpers without
+    going through :func:`build_ci_matrix`) get a fresh cache bound
     to their ``bsp_data``; the *content* check evicts a stale cache when the
     grid changes between direct calls (an identity check would needlessly
     rebuild the banks for a rebuilt — but bit-identical — workspace dict;
@@ -498,14 +498,6 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
     gated against).  The result is variational and symmetric, and elements
     between different ``(2J, parity)`` are exactly ``0.0``.
 
-    The previous kernel — a configuration-average diagonal plus two
-    "J-correction" patches — is still reachable as
-    :func:`_legacy_build_ci_matrix_approximate` for comparison (explicit
-    ``allow_legacy_incorrect_physics=True`` opt-in), but is *not* on
-    the production path: it is not a representation of the Hamiltonian
-    (Be ``correlation="sd"`` came out 0.39 Ha below the exact ground
-    state).  There is no fallback to it.
-
     Parameters
     ----------
     bsp_data : dict or GridCIWorkspace
@@ -574,12 +566,26 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
             _SLATER_MEMO["_convol_cache"] = convol_cache
         _SLATER_MEMO["_nuclear_potential"] = nuclear_potential
     _check_orbitals_present(csfs, orbitals_dict)
-    if _metric_check_due(bsp_data):
+    metric_fp = _orbital_metric_fingerprint(
+        orbitals_dict, _csf_orbital_keys(csfs), Z, ns, bsp_data)
+    if _metric_check_due(bsp_data, metric_fp):
         _check_orbital_metric(csfs, orbitals_dict, bsp_data, Z, ns)
+        _metric_check_record(bsp_data, metric_fp)
     n_csf = len(csfs)
-    H = None if as_operator else np.zeros((n_csf, n_csf))
     if n_csf == 0:
-        return np.zeros((0, 0))
+        if not as_operator:
+            return np.zeros((0, 0))
+        # Honour the as_operator contract: same LinearOperator shape and
+        # block-structure attributes as the non-empty path below.
+        def apply_empty(v):
+            return np.zeros_like(v, dtype=float)
+
+        H = LinearOperator((0, 0), matvec=apply_empty, matmat=apply_empty,
+                           rmatvec=apply_empty, dtype=float)
+        H.diagonal = lambda: np.zeros(0)
+        H.blocks = []
+        return H
+    H = None if as_operator else np.zeros((n_csf, n_csf))
     if max_determinants is None:
         max_determinants = MAX_BLOCK_DETERMINANTS
     evaluate = _radial_evaluator(orbitals_dict, bsp_data, Z, ns,
@@ -640,11 +646,14 @@ def _group_csf_indices(csfs):
 
     Stable and deterministic; the order only fixes the order in which
     blocks are built (and therefore which caches warm first), never the
-    matrix values.
+    matrix values.  Every CSF must carry explicit ``total_J2`` and
+    ``parity`` attributes (both are declared fields of
+    :class:`atomx.config.csf.CSF`); a CSF lacking either raises rather
+    than being silently misassigned to the ``J = 0``, even-parity block.
     """
     groups: dict = {}
     for i, csf in enumerate(csfs):
-        key = (int(getattr(csf, "total_J2", 0)), int(getattr(csf, "parity", 1)))
+        key = (int(csf.total_J2), int(csf.parity))
         groups.setdefault(key, []).append(i)
     return sorted(groups.items(), key=lambda kv: (kv[0][0], -kv[0][1]))
 
@@ -682,8 +691,8 @@ def _radial_evaluator(orbitals_dict, bsp_data, Z, ns, *, nuclear_potential=None)
     @lru_cache(maxsize=512)
     def density(a, b):
         if is_grid:
-            pa, qa = _get_orb(a, orbitals_dict, ns)
-            pb, qb = _get_orb(b, orbitals_dict, ns)
+            pa, qa = _get_orb(a, orbitals_dict)
+            pb, qb = _get_orb(b, orbitals_dict)
             return pa*pb+qa*qb
         return tuple(_density_sym(x, y, ns, order)
                      for x, y, order in zip(orbitals_dict[a], orbitals_dict[b], orders, strict=True))
@@ -707,8 +716,8 @@ def _radial_evaluator(orbitals_dict, bsp_data, Z, ns, *, nuclear_potential=None)
     def evaluate(key):
         if key[0] == "h":
             _, n_a, kappa, n_c = key
-            Pa, Qa = _get_orb((n_a, kappa), orbitals_dict, ns)
-            Pc, Qc = _get_orb((n_c, kappa), orbitals_dict, ns)
+            Pa, Qa = _get_orb((n_a, kappa), orbitals_dict)
+            Pc, Qc = _get_orb((n_c, kappa), orbitals_dict)
             if is_grid:
                 h = _h_one_body(Pa, Qa, Pc, Qc, kappa, Z, bsp_data, ns)
                 norm_sq = _norm_sq(Pc, Qc, kappa, Z, bsp_data, ns)
@@ -780,7 +789,7 @@ def _breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns, *, orbital_energies=
         coeffs = []
         comps = []
         for (comp, n, kappa) in (key_a, key_c, key_b, key_d):
-            P, Q = _get_orb((n, kappa), orbitals_dict, ns)
+            P, Q = _get_orb((n, kappa), orbitals_dict)
             coeffs.append(P if comp == "P" else Q)
             comps.append(comp)
         return _breit_rk(coeffs[0], coeffs[2], coeffs[1], coeffs[3],
@@ -788,323 +797,6 @@ def _breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns, *, orbital_energies=
                          bsp_data, L)
 
     return evaluate
-
-
-def _legacy_build_ci_matrix_approximate(csfs, orbitals_dict, orbital_basis,
-                                        bsp_data, Z, ns,
-                                        nuclear_potential=None,
-                                        convol_cache=None, *,
-                                        allow_legacy_incorrect_physics=False):
-    """LEGACY approximate CI kernel — physically wrong, opt-in only.
-
-    This is the pre-fix assembly: ``_diagonal_element`` (a
-    configuration-average diagonal) plus the ``_diagonal_J_correction`` /
-    ``_off_diagonal_J_correction`` patches for the one- and two-electron
-    differences.  It is *not* a representation of the Hamiltonian — Be
-    ``correlation="sd"`` came out 0.39 Ha below the exact ground state, and
-    it returns non-zero elements between different total J — so
-    :func:`build_ci_matrix` does not fall back to it.  It survives because
-    the diagnostics in `docs/archive/2026-09/CORRELATION_SD_RESEARCH_2026-09-20.md`
-    (and anyone re-measuring the old numbers) need the old assembly
-    reachable.
-
-    The ``_legacy_`` name and the explicit ``allow_legacy_incorrect_physics``
-    flag are the guard (critical review F4): an agent or grepping user must
-    read this docstring — which documents the measured defects — before the
-    kernel will run.  Production and test paths never pass the flag.
-    """
-    if not allow_legacy_incorrect_physics:
-        raise RuntimeError(
-            "_legacy_build_ci_matrix_approximate is NOT a Hamiltonian: "
-            "Be correlation='sd' came out 0.39 Ha below the exact ground "
-            "state and it produces non-zero inter-J elements. Pass "
-            "allow_legacy_incorrect_physics=True only to re-measure those "
-            "legacy diagnostics (docs/archive/2026-09/CORRELATION_SD_RESEARCH_2026-09-20.md)."
-        )
-    # ``_reset_memo`` drops every memoised integral, including the CI's
-    # stashed rkb cache and the orbital-independent h0 blocks.  The
-    # entry-point reset carries the rkb cache (as before) and, when the
-    # workspace and nuclear model are unchanged, the h0 blocks too.
-    _reset_memo_for_ci_build(bsp_data, nuclear_potential)
-    if isinstance(bsp_data, GridCIWorkspace):
-        if nuclear_potential is not None:
-            raise ValueError(
-                "grid-flavour CI takes its nuclear potential from "
-                "GridCIWorkspace.rv_nuc; nuclear_potential= is "
-                "bspline-only")
-        if convol_cache is not None:
-            raise ValueError("convol_cache= is bspline-only")
-        if ns != bsp_data.n:
-            raise ValueError(
-                f"grid-flavour CI needs ns == len(r) "
-                f"(got ns={ns}, grid size {bsp_data.n})")
-    else:
-        if convol_cache is not None and convol_cache.same_grid(bsp_data):
-            _SLATER_MEMO["_convol_cache"] = convol_cache
-        _SLATER_MEMO["_nuclear_potential"] = nuclear_potential
-    _check_orbitals_present(csfs, orbitals_dict)
-    n_csf = len(csfs)
-    H = np.zeros((n_csf, n_csf))
-    for r in range(n_csf):
-        for s in range(r, n_csf):
-            h_rs = _ci_matrix_element(csfs[r], csfs[s], orbitals_dict,
-                                       orbital_basis, bsp_data, Z, ns,
-                                       is_diagonal=(r == s))
-            H[r, s] = h_rs
-            if r != s:
-                H[s, r] = h_rs
-    return H
-
-
-def _ci_matrix_element(csf_r, csf_s, orbitals_dict, orbital_basis,
-                        bsp_data, Z, ns, *, is_diagonal=False):
-    n_diff = csf_r.n_electron_diff(csf_s)
-    if n_diff == 0:
-        # Subshell occupations match.  When ``is_diagonal`` we are on
-        # the matrix diagonal (r == s) and apply the J-coupled
-        # correction (Grant §8.3) so distinct (J, parity) CSFs receive
-        # different physically meaningful diagonal energies.
-        #
-        # Two distinct CSFs with identical subshell lists but different
-        # ``total_J2`` (parentage-only difference) reuse the
-        # configuration-averaged kernel here; their cross-coupling is
-        # then zeroed by the block filter in ``methods/ci.py`` when
-        # ``(J, parity)`` differs.
-        if is_diagonal:
-            return _diagonal_with_J(csf_r, orbitals_dict, bsp_data, Z, ns)
-        if (csf_r.total_J2 == csf_s.total_J2
-                and csf_r.parity == csf_s.parity):
-            # Same occupations AND same (J, parity): repeated-parentage
-            # rows (e.g. 1s 2s 2p with (1s,2s) coupled to 0 or 1).  The
-            # exact off-diagonal needs coefficients of fractional
-            # parentage; returning the configuration-average energy here
-            # (the old behaviour) made the duplicate block rank-1 —
-            # [[E, E], [E, E]] has eigenvalues 2E and 0, which collapsed
-            # a 3-open-shell Li-like solve 6.9 keV BELOW its own ground
-            # state.  Orthogonal-parentage approximation: 0 keeps every
-            # such state at the configuration-average energy and
-            # preserves the multiplet centroid.
-            return 0.0
-        return _diagonal_element(csf_r, orbitals_dict, bsp_data, Z, ns)
-    elif n_diff == 1:
-        base = _one_diff_element(csf_r, csf_s, orbitals_dict, bsp_data, Z, ns)
-        return base + _off_diagonal_J_correction(
-            csf_r, csf_s, orbitals_dict, bsp_data, ns, n_diff=1,
-        )
-    elif n_diff == 2:
-        base = _two_diff_element(csf_r, csf_s, orbitals_dict, bsp_data)
-        return base + _off_diagonal_J_correction(
-            csf_r, csf_s, orbitals_dict, bsp_data, ns, n_diff=2,
-        )
-    return 0.0
-
-
-def _subshell_tm(key):
-    """Doubled-m values of a ``(n, kappa)`` subshell, ascending."""
-    tj = 2 * abs(key[1]) - 1
-    return list(range(-tj, tj + 1, 2))
-
-
-def _two_electron_state(pattern, tJ, order):
-    """m-resolved J-coupled two-electron state as ``{(i, j): coefficient}``.
-
-    ``pattern`` is ``[(key, 2)]`` (both electrons in one subshell) or
-    ``[(key_c, 1), (key_d, 1)]`` (one electron in each of two subshells);
-    ``order`` maps ``(key, tm)`` to a global spin-orbital index that fixes the
-    ascending-order sign convention (shared by both states of an element, so
-    relative signs are consistent).  States are built at ``M = 0``, which is
-    sufficient because a scalar two-body element is M-independent.
-
-    The one-subshell case uses the antisymmetrised combination
-    ``cg(m_i, m_j) - cg(m_j, m_i)`` over ascending pairs; the two-subshell case
-    uses ``cg`` in the ``(c, d)`` slot order with the sign flipped whenever the
-    ascending pair reverses that order.
-    """
-    vec: dict = {}
-    if len(pattern) == 1:
-        key = pattern[0][0]
-        tj = 2 * abs(key[1]) - 1
-        tms = _subshell_tm(key)
-        for x, tm_i in enumerate(tms):
-            for tm_j in tms[x + 1:]:
-                if tm_i + tm_j != 0:
-                    continue
-                c = (cg(tj, tm_i, tj, tm_j, tJ, 0)
-                     - cg(tj, tm_j, tj, tm_i, tJ, 0))
-                if c != 0.0:
-                    vec[(order[(key, tm_i)], order[(key, tm_j)])] = (
-                        vec.get((order[(key, tm_i)], order[(key, tm_j)]), 0.0) + c)
-    else:
-        key_c, key_d = pattern[0][0], pattern[1][0]
-        tjc, tjd = 2 * abs(key_c[1]) - 1, 2 * abs(key_d[1]) - 1
-        for tm_i in _subshell_tm(key_c):
-            for tm_j in _subshell_tm(key_d):
-                if tm_i + tm_j != 0:
-                    continue
-                c = cg(tjc, tm_i, tjd, tm_j, tJ, 0)
-                if c == 0.0:
-                    continue
-                i, j = order[(key_c, tm_i)], order[(key_d, tm_j)]
-                pair = (i, j) if i < j else (j, i)
-                vec[pair] = vec.get(pair, 0.0) + (c if i < j else -c)
-    norm = math.sqrt(sum(v * v for v in vec.values()))
-    if norm < 1e-14:
-        return {}                      # J not allowed for this pattern
-    return {k: v / norm for k, v in vec.items()}
-
-
-def _pattern_occupation_ok(occupations, pattern):
-    """True when every pattern subshell holds exactly the pattern's electrons.
-
-    ``occupations`` maps ``(n, kappa) -> q`` for the CSF on one side of the
-    element and ``pattern`` is that side's ``[(key, count)]`` active-pair
-    pattern.  The m-scheme two-electron state accounts for *every* electron
-    in the pattern subshells, so a subshell holding more than ``count``
-    electrons would silently drop the extras (HYP-1773: e.g. bra c³d¹ vs ket
-    c²b² built a c¹d¹ pair state and lost the third c electron).
-
-    There is deliberately no closed-subshell exception.  A fully occupied
-    subshell *is* a pure J = 0 pair condensate (pair-removal cfp of unit
-    magnitude, so the extra pair factorises as a scalar spectator), but the
-    element then still depends on the *opposite* side's residual-subshell
-    parentage: e.g. c⁴ ↔ c²b² at J = 0 has the two rows [(c²)₀(b²)₀] and
-    [(c²)₂(b²)₂] with genuinely different elements, and occupation-only
-    CSFs carry no parentage label to say which row is meant (review of
-    PR #81: oracle gives +0.120679 Ha for the first row and −0.141562 Ha
-    for the second on the same probe data).  The channel therefore declines
-    every over-occupied pattern conservatively.
-    """
-    for key, count in pattern:
-        q = occupations.get(key, 0.0)
-        if abs(q - count) > 1e-9:
-            return False
-    return True
-
-
-def _two_electron_replacement_element(csf_r, csf_s, pattern_r, pattern_s,
-                                      orbitals_dict, bsp_data):
-    """⟨pattern_r| 1/r₁₂ |pattern_s⟩ for two electrons outside closed spectators.
-
-    Both patterns hold exactly two electrons, in one subshell (``[(key, 2)]``,
-    the a² ↔ b² pair channel) or in two different subshells (``[(c,1),(d,1)]``,
-    the a² ↔ c¹d¹ channel and its transpose).  With every other subshell closed
-    the spectators couple to J = 0, so the two electrons are a pure J-coupled
-    two-electron state with ``J`` equal to the CSF's total J, and the element
-    is exact — no configuration average is involved.
-
-    Implementation: the two J-coupled states are expanded in the m-scheme
-    (Clebsch-Gordan coefficients, ascending-order signs) and contracted with
-    the antisymmetrised two-body elements
-
-        ⟨i j|g|k l⟩ = Σ_t R^t(i k, j l) · ckm·ckm · phase
-                      − (k ↔ l)
-
-    exactly as the FAC-ported determinant code does.  The radial integrals
-    ``R^t`` depend only on the subshells (not on m), so each distinct
-    (i,k,j,l,t) combination is evaluated once through the existing cell
-    integrator and reused for every m pair.
-
-    Guards (conservative): the CSF pair must be in the same (J, parity) block
-    (enforced upstream), every spectator subshell must be closed, and each
-    pattern subshell must hold exactly the pattern's electrons in its side's
-    CSF (see :func:`_pattern_occupation_ok`) — otherwise the two active
-    electrons are not in a definite J state and the configuration-average
-    machinery would have to supply the parentage.  Spectator occupations
-    are identical on both sides (only pattern subshells differ), so
-    checking them on ``csf_r`` covers ``csf_s`` as well.
-    """
-    occ_r = {(sh.n, sh.kappa): sh.occupation for sh in csf_r.subshells}
-    occ_s = {(sh.n, sh.kappa): sh.occupation for sh in csf_s.subshells}
-    if not (_pattern_occupation_ok(occ_r, pattern_r)
-            and _pattern_occupation_ok(occ_s, pattern_s)):
-        return 0.0
-
-    if any(abs(sh.occupation - (2 * abs(sh.kappa))) > 1e-9
-           for sh in csf_r.subshells
-           if (sh.n, sh.kappa) not in {p[0] for p in pattern_r + pattern_s}):
-        return 0.0
-
-    keys = sorted({p[0] for p in pattern_r + pattern_s})
-    order = {(key, tm): idx
-             for idx, (key, tm) in enumerate(
-                 (key, tm) for key in keys for tm in _subshell_tm(key))}
-
-    tJ = int(getattr(csf_r, "total_J2", 0))
-    state_r = _two_electron_state(pattern_r, tJ, order)
-    state_s = _two_electron_state(pattern_s, tJ, order)
-    if not state_r or not state_s:
-        return 0.0
-
-    ns = len(list(orbitals_dict.values())[0][0]) if orbitals_dict else 50
-    pq = {key: _get_orb(key, orbitals_dict, ns) for key in keys}
-    so = {idx: (key, tm) for (key, tm), idx in order.items()}
-
-    cache: dict = {}
-
-    def r_table(key_i, key_j, key_k, key_l, t):
-        """R^t(i k, j l) — subshell-resolved, so m-independent."""
-        ck = (key_i, key_j, key_k, key_l, t)
-        val = cache.get(ck)
-        if val is None:
-            Pi, Qi = pq[key_i]
-            Pj, Qj = pq[key_j]
-            Pk, Qk = pq[key_k]
-            Pl, Ql = pq[key_l]
-            # _rk pairs its first two orbitals and its last two, so pass
-            # (i, k, j, l) to obtain R^t(i k, j l).
-            val = _rk(Pi, Qi, Pk, Qk, Pj, Qj, Pl, Ql, bsp_data, t)
-            cache[ck] = val
-        return val
-
-    def v_element(idx_i, idx_j, idx_k, idx_l):
-        """⟨i(1) j(2)| 1/r₁₂ |k(1) l(2)⟩ (m-resolved)."""
-        key_i, tm_i = so[idx_i]
-        key_j, tm_j = so[idx_j]
-        key_k, tm_k = so[idx_k]
-        key_l, tm_l = so[idx_l]
-        tq = tm_i - tm_k
-        if tq != tm_l - tm_j:
-            return 0.0
-        total = 0.0
-        for t in exchange_k_range(key_i[1], key_k[1]):
-            if t not in exchange_k_range(key_j[1], key_l[1]):
-                continue
-            if abs(tq) > 2 * t:
-                continue
-            # slot order matches atomx.scattering...mscheme_ci._v exactly:
-            # ckm(kappa_a, tm_a, kappa_c, tm_c, k, tq) for the (a -> c) pair
-            e1 = ckm(key_i[1], tm_i, key_k[1], tm_k, t, tq)
-            if e1 == 0.0:
-                continue
-            e2 = ckm(key_j[1], tm_j, key_l[1], tm_l, t, -tq)
-            if e2 == 0.0:
-                continue
-            phase = 1.0 if (tq // 2) % 2 == 0 else -1.0
-            total += (r_table(key_i, key_j, key_k, key_l, t) * phase * e1 * e2)
-        return total
-
-    total = 0.0
-    for (i, j), c_r in state_r.items():
-        for (k, l), c_s in state_s.items():
-            total += c_r * c_s * (v_element(i, j, k, l) - v_element(i, j, l, k))
-    return total
-
-
-def _diagonal_with_J(csf, orbitals_dict, bsp_data, Z, ns):
-    """Diagonal CI element with J-coupled angular correction.
-
-    For CSFs with explicit ``total_J2`` and inferable intermediate
-    coupling — specifically those with at most two open subshells where
-    each open subshell carries a unique parentage (single electron or
-    single hole) — adds a J-dependent correction on top of the
-    configuration-averaged kernel so different (J, parity) members of
-    the same configuration acquire physically meaningful splittings.
-
-    Closed-shell or non-J-resolved CSFs are returned unchanged
-    (correction is zero), preserving backwards compatibility.
-    """
-    base = _diagonal_element(csf, orbitals_dict, bsp_data, Z, ns)
-    return base + _diagonal_J_correction(csf, orbitals_dict, bsp_data, ns)
 
 
 class MissingOrbitalError(ValueError):
@@ -1120,31 +812,17 @@ class MissingOrbitalError(ValueError):
     """
 
 
-def _get_orb(key, orbitals_dict, ns):
+def _get_orb(key, orbitals_dict):
     """Get orbital ``(P, Q)``; raise if the CI needs an unsolved orbital.
 
-    Two kinds of caller reach this helper:
-
-    * **production** — everything under :func:`build_ci_matrix`, where the
-      radial workspace is populated by the SCF and a missing key means an
-      orbital the CSF list needs was never solved.  Zero-filling it (the
-      previous behaviour) turned every element involving it into a silent
-      zero — see :class:`MissingOrbitalError` — so it raises.
-    * **angular-only unit-radial probes** — the J-coupling scaffolding is
-      exercised directly with no radial data at all, e.g.
-      ``_off_diagonal_J_correction(alpha, beta, orbitals_dict={},
-      bsp_data={}, ns=1)`` in
-      ``tests/test_off_diagonal_j_ci_helike_1s2p.py``, which substitutes
-      ``radial = 1.0`` for every Slater integral.  An *entirely empty*
-      map therefore means "no radial data supplied" and yields zeros, so
-      the angular body stays independently testable.  Production never
-      sees an empty map: :func:`_check_orbitals_present` rejects it at
-      the entry point.
+    Everything under :func:`build_ci_matrix` reaches this helper with the
+    radial workspace populated by the SCF, so a missing key means an
+    orbital the CSF list needs was never solved.  Zero-filling it (the
+    pre-:class:`MissingOrbitalError` behaviour) turned every element
+    involving it into a silent zero, so it raises.
     """
     if key in orbitals_dict:
         return orbitals_dict[key]
-    if not orbitals_dict:
-        return np.zeros(ns), np.zeros(ns)
     raise MissingOrbitalError(
         f"CI matrix needs orbital (n={key[0]}, kappa={key[1]}), which was "
         f"not solved; available orbitals: {sorted(orbitals_dict)}. "
@@ -1158,10 +836,9 @@ def _check_orbitals_present(csfs, orbitals_dict) -> None:
 
     Cheaper and far clearer than discovering it element-by-element inside
     :func:`_get_orb`: reports every missing ``(n, kappa)`` at once.  This
-    is the *production* gate — an empty ``orbitals_dict`` (which
-    :func:`_get_orb` tolerates for the angular-only unit-radial probes)
-    is rejected here, because a CI build with no radial data at all is
-    exactly the silent-zero failure this guard exists to stop.
+    is the *production* gate — an empty ``orbitals_dict`` is rejected here,
+    because a CI build with no radial data at all is exactly the
+    silent-zero failure this guard exists to stop.
     """
     missing = sorted({
         (sh.n, sh.kappa)
@@ -1178,43 +855,87 @@ def _check_orbitals_present(csfs, orbitals_dict) -> None:
             "CI returns the uncorrelated energy.")
 
 
-# Cadence of the orbital-metric tripwire (see _metric_check_due).
-# 1 = check on every CI build (the historical behaviour); N > 1 = check on
-# the first build of each radial workspace and then every N builds of the
-# same workspace; 0 = first build of each workspace only.
-_METRIC_CHECK_EVERY = int(os.environ.get("ATOMX_CI_METRIC_CHECK_EVERY", "20"))
+# Per-workspace validation memo for the orbital-metric tripwire.  The audit
+# runs on the first build of every radial workspace and again whenever the
+# CONTENT of the audited orbitals changes; it is skipped only when the
+# byte-identical orbital content was already validated in the same workspace
+# context.  There is no cadence and no environment knob: whether the audit
+# ran is a function of the inputs, not of build history.  The memo is
+# written only after a *passed* audit, so a rejected orbital set is
+# re-audited on every subsequent build attempt.
+_METRIC_CHECK_STATE = {"context": None, "fingerprint": None}
 
-# Per-workspace state for _metric_check_due: the last workspace object the
-# cadence was evaluated against and how many builds of it have passed.
-_METRIC_CHECK_STATE = {"context": None, "count": 0}
+
+def _csf_orbital_keys(csfs):
+    """Sorted ``(n, kappa)`` subshell keys the CSF list references."""
+    return sorted({(sh.n, sh.kappa) for csf in csfs for sh in csf.subshells})
 
 
-def _metric_check_due(workspace) -> bool:
-    """Decide whether this CI build pays the orbital-metric audit.
+def _workspace_fingerprint(workspace) -> bytes:
+    """Bind one-body reuse and metric validation to actual radial inputs."""
+    if isinstance(workspace, GridCIWorkspace):
+        values = ((key, getattr(workspace, key))
+                  for key in ("r", "difr", "rv_nuc", "n"))
+    else:
+        # Complete arrays and layout consumed by build_dirac_matrices.
+        values = ((key, workspace.get(key)) for key in (
+            "nv", "ks", "ksp", "ksq", "ns", "nsp", "nsq", "gr", "grw",
+            "bsp_p", "bsp_q", "bsp_p_d", "bsp_q_d"))
+    digest = hashlib.sha256()
+    for key, value in values:
+        digest.update(key.encode())
+        if isinstance(value, np.ndarray):
+            array = np.ascontiguousarray(value)
+            digest.update(repr((array.shape, array.dtype.str)).encode())
+            digest.update(array.tobytes())
+        else:
+            digest.update(repr(value).encode())
+    return digest.digest()
 
-    The audit is a tripwire, not a calculation input: it guards against a
-    solver handing the CI a non-orthonormal orbital set, and a persistent
-    violation is caught by the *next* audit of the same workspace.  Yet it
-    cost ~27 ms per call and ran on every build_ci_matrix call — ~20 % of
-    a variational MCDHF solve is the line-search rebuilding the same Gram
-    matrices for near-identical trial orbitals (measured; see
-    docs/HPC_NUMERICS_RESEARCH_2026-09-27.md §2.3).  The first build of
-    every new radial workspace is always audited (a freshly solved orbital
-    set is exactly where a violation can appear); subsequent builds of the
-    same workspace are audited every ``_METRIC_CHECK_EVERY`` builds.
-    Set ``ATOMX_CI_METRIC_CHECK_EVERY=1`` to restore per-build auditing.
+
+def _orbital_metric_fingerprint(orbitals, keys, Z, ns, workspace=None) -> bytes:
+    """Content hash of everything the orbital-metric audit reads.
+
+    The id()-keyed integral memo cannot serve here: it answers "same
+    object", and the audit must re-run when a solver writes new
+    coefficients into the same arrays (the MCDHF line search does exactly
+    that).  The digest covers ``(Z, ns)`` — which the Gram blocks depend
+    on — and, per audited ``(n, kappa)`` key, the byte content of the
+    orbital's ``(P, Q)`` arrays and the radial representation. Reuse requires
+    the same input content; no timing claim is attached to this audit gate.
+    """
+    h = hashlib.sha256()
+    h.update(repr((Z, ns)).encode())
+    if workspace is not None:
+        h.update(_workspace_fingerprint(workspace))
+    for key in keys:
+        h.update(repr(key).encode())
+        for component in orbitals[key]:
+            arr = np.ascontiguousarray(component, dtype=np.float64)
+            h.update(repr(arr.shape).encode())
+            h.update(arr.tobytes())
+    return h.digest()
+
+
+def _metric_check_due(workspace, fingerprint) -> bool:
+    """Whether this build's orbital content still needs the metric audit.
+
+    Pure query: ``True`` unless the identical workspace object and the
+    identical content fingerprint were recorded by
+    :func:`_metric_check_record` after a passed audit.  The first build of
+    a workspace and any content change are always due.  The audit is a
+    tripwire, not a calculation input: it guards against a solver handing
+    the CI a non-orthonormal orbital set.
     """
     state = _METRIC_CHECK_STATE
-    if state["context"] is not workspace:
-        state["context"] = workspace
-        state["count"] = 0
-        return True
-    state["count"] += 1
-    if _METRIC_CHECK_EVERY <= 0:
-        return False
-    if _METRIC_CHECK_EVERY == 1:
-        return True
-    return state["count"] % _METRIC_CHECK_EVERY == 0
+    return not (state["context"] is workspace
+                and state["fingerprint"] == fingerprint)
+
+
+def _metric_check_record(workspace, fingerprint) -> None:
+    """Record a passed audit; call only after ``_check_orbital_metric``."""
+    _METRIC_CHECK_STATE["context"] = workspace
+    _METRIC_CHECK_STATE["fingerprint"] = fingerprint
 
 
 def _check_orbital_metric(csfs, orbitals, workspace, Z, ns, tolerance=1e-7):
@@ -1226,7 +947,7 @@ def _check_orbital_metric(csfs, orbitals, workspace, Z, ns, tolerance=1e-7):
     determinant formulation and cannot use this kernel.
     """
     groups = {}
-    for n, kappa in sorted({(sh.n, sh.kappa) for csf in csfs for sh in csf.subshells}):
+    for n, kappa in _csf_orbital_keys(csfs):
         groups.setdefault(kappa, []).append((n, kappa))
     for kappa, keys in groups.items():
         if isinstance(workspace, GridCIWorkspace):
@@ -1246,1059 +967,3 @@ def _check_orbital_metric(csfs, orbitals, workspace, Z, ns, tolerance=1e-7):
                 f"CI requires orthonormal orbitals; kappa={kappa}, orbitals={keys}, "
                 f"max |overlap - identity|={defect:.3e} exceeds {tolerance:.0e}. "
                 "Solve with orbital constraints before constructing the CI Hamiltonian.")
-
-
-def _diagonal_element(csf, orbitals_dict, bsp_data, Z, ns):
-    """Configuration-average diagonal CI element.
-
-    Same-subshell two-electron terms must use q(q-1)/2, not q^2/2;
-    otherwise the CI diagonal contains self-interaction for closed subshells.
-    The coefficients match DFSolver._compute_total_energy so MCDHF CI
-    diagonals and the SCF energy functional stay consistent.
-    """
-    E_1e = 0.0
-    for sh in csf.subshells:
-        P, Q = _get_orb((sh.n, sh.kappa), orbitals_dict, ns)
-        norm_sq = _norm_sq(P, Q, sh.kappa, Z, bsp_data, ns)
-        if norm_sq > 1e-20:
-            E_1e += (sh.occupation
-                     * _h_one_body(P, Q, P, Q, sh.kappa, Z, bsp_data, ns)
-                     / norm_sq)
-
-    E_J, E_K = 0.0, 0.0
-    subshells = list(csf.subshells)
-    for i, sh_a in enumerate(subshells):
-        Pa, Qa = _get_orb((sh_a.n, sh_a.kappa), orbitals_dict, ns)
-        tj_a = 2 * abs(sh_a.kappa) - 1
-        l_a = sh_a.kappa if sh_a.kappa > 0 else -sh_a.kappa - 1
-        for j, sh_b in enumerate(subshells[: i + 1]):
-            Pb, Qb = _get_orb((sh_b.n, sh_b.kappa), orbitals_dict, ns)
-            tj_b = 2 * abs(sh_b.kappa) - 1
-
-            if i == j:
-                coeff = sh_a.occupation * (sh_a.occupation - 1.0) / 2.0
-                if abs(coeff) < 1e-15:
-                    continue
-                f0 = _fk(Pa, Qa, Pa, Qa, bsp_data, 0)
-                E_J += coeff * f0
-                for k in range(1, tj_a + 1):
-                    if (k + 2 * l_a) % 2 != 0:
-                        continue
-                    lam = exchange_lambda(sh_a.kappa, sh_a.kappa, k)
-                    if lam < 1e-15:
-                        continue
-                    fk = _fk(Pa, Qa, Pa, Qa, bsp_data, k)
-                    E_K += coeff * lam / (tj_a * (tj_a + 1.0)) * fk
-                continue
-
-            coeff = sh_a.occupation * sh_b.occupation
-            f0 = _fk(Pa, Qa, Pb, Qb, bsp_data, 0)
-            E_J += coeff * f0
-            for k in exchange_k_range(sh_a.kappa, sh_b.kappa):
-                lam = exchange_lambda(sh_a.kappa, sh_b.kappa, k)
-                if lam < 1e-15:
-                    continue
-                gk = _gk(Pa, Qa, Pb, Qb, bsp_data, k)
-                E_K += coeff * lam / ((tj_a + 1.0) * (tj_b + 1.0)) * gk
-
-    return E_1e + E_J - E_K
-
-
-def _one_diff_element(csf_r, csf_s, orbitals_dict, bsp_data, Z, ns):
-    """1-electron promotion (b → a) — ``csf_s`` (ket) → ``csf_r`` (bra).
-
-    Variable convention:
-
-    * ``a`` (= ``lost[0]``: bra > ket) is the **destination** orbital where an
-      electron arrived in the bra.
-    * ``b`` (= ``gained[0]``: bra < ket) is the **source** orbital that lost
-      one electron going from ket to bra.
-
-    The configuration-averaged jj-coupled Slater-Condon expression is
-
-        H_{rs} = √(q_b^{ket} (g_a − q_a^{ket})) ·
-                 [⟨a|h|b⟩ δ_{κ_a,κ_b}
-                  + Σ_{c ∈ common} q_c (X^direct − X^exchange)]
-
-    where ``q_b^{ket}`` is the source occupation in the ket and
-    ``g_a − q_a^{ket}`` are the destination vacancies in the ket.  The
-    direct integral ``R^0(ac, bc)`` is non-zero only when ``κ_a = κ_b``
-    (angular monopole orthogonality); for ``κ_a ≠ κ_b`` the only
-    contribution comes from the exchange multipoles ``k`` satisfying
-    triangle conditions on both ``(j_a, j_c)`` and ``(j_c, j_b)``.
-
-    For different-κ promotions the exchange angular factor is the
-    geometric mean ``√(λ^k(a,c) λ^k(c,b))`` (which reduces to ``λ^k(a,c)``
-    when ``κ_a = κ_b``).
-    """
-    diffs = csf_r.differs_from(csf_s)
-    lost = [(key, qs, qo) for key, qs, qo in diffs if qs > qo]
-    gained = [(key, qs, qo) for key, qs, qo in diffs if qs < qo]
-
-    if len(lost) != 1 or len(gained) != 1:
-        return 0.0
-
-    key_a, qa_r, qa_s = lost[0]    # destination (bra > ket)
-    key_b, qb_r, qb_s = gained[0]  # source (bra < ket)
-    Pa, Qa = _get_orb(key_a, orbitals_dict, ns)
-    Pb, Qb = _get_orb(key_b, orbitals_dict, ns)
-    kappa_a, kappa_b = key_a[1], key_b[1]
-
-    # jj-coupling 1-diff occupation weight: q_source^{ket} · h_dest^{ket}.
-    # ``qb_s`` = ket occupation of source subshell ``b`` (must be > 0).
-    # ``g_a − qa_s`` = ket vacancies in destination subshell ``a`` (> 0).
-    g_a = 2 * abs(kappa_a)
-    sqrt_factor = np.sqrt(qb_s * (g_a - qa_s))
-
-    # One-electron: ⟨a|h|b⟩ (non-zero only for same κ; h is a scalar tensor)
-    H_1e = 0.0
-    if kappa_a == kappa_b:
-        H_1e = _h_one_body(Pa, Qa, Pb, Qb, kappa_a, Z, bsp_data, ns)
-
-    # Two-electron: Σ_c q_c [direct − exchange] over common spectator orbitals
-    H_2e = 0.0
-    occ_r = {(sh.n, sh.kappa): sh.occupation for sh in csf_r.subshells}
-    occ_s = {(sh.n, sh.kappa): sh.occupation for sh in csf_s.subshells}
-    seen_c = set()
-    for sh_c in csf_r.subshells:
-        key_c = (sh_c.n, sh_c.kappa)
-        if key_c in seen_c or key_c in (key_a, key_b):
-            continue
-        seen_c.add(key_c)
-        q_common = min(occ_r.get(key_c, 0), occ_s.get(key_c, 0))
-        if q_common <= 0:
-            continue
-
-        Pc, Qc = _get_orb(key_c, orbitals_dict, ns)
-        kappa_c = key_c[1]
-        tj_c = 2 * abs(kappa_c) - 1
-
-        # Direct R^0(ac, bc) — angular factor at k=0 is δ_{κ_a, κ_b}.
-        # Skip entirely for different-κ promotions to avoid the spurious
-        # ⟨ψ_3s|·|ψ_3d⟩-type cross-coupling that was inflating the
-        # off-diagonal CI matrix for Fe XVII 2p⁵3l J=1 states.
-        if kappa_a == kappa_b:
-            rk_direct = _rk(Pa, Qa, Pc, Qc, Pb, Qb, Pc, Qc, bsp_data, 0)
-            H_2e += q_common * rk_direct
-
-        # Exchange: Σ_k c_k R^k(ac, cb) with k allowed on BOTH (a,c) and (c,b).
-        k_range_ab = sorted(set(exchange_k_range(kappa_a, kappa_c))
-                            & set(exchange_k_range(kappa_c, kappa_b)))
-        for k in k_range_ab:
-            lam_ac = exchange_lambda(kappa_a, kappa_c, k)
-            lam_cb = exchange_lambda(kappa_c, kappa_b, k)
-            if lam_ac < 1e-15 or lam_cb < 1e-15:
-                continue
-            # A closed spherical core contributes a scalar mean field. It
-            # cannot mix different κ orbitals in a one-electron promotion;
-            # FAC's recoupled Hamiltonian has the same selection behavior.
-            # Leaving the configuration-average geometric exchange term here
-            # over-couples Fe XVII 2p-hole/3d J=1 CSFs by O(100 eV).
-            cap_c = 2 * abs(kappa_c)
-            if kappa_a != kappa_b and int(round(q_common)) == cap_c:
-                continue
-            rk_exch = _rk(Pa, Qa, Pc, Qc, Pc, Qc, Pb, Qb,
-                                         bsp_data, k)
-            # Angular factor: √(λ^k(a,c) λ^k(c,b)) reduces to λ^k(a,c)
-            # when κ_a = κ_b (the standard same-orbital HF exchange).
-            ang_k = lam_ac if kappa_a == kappa_b else np.sqrt(lam_ac * lam_cb)
-            c_k = q_common / (tj_c + 1.0) * ang_k
-            H_2e -= c_k * rk_exch
-
-    return sqrt_factor * (H_1e + H_2e)
-
-
-def _pair_pattern(side):
-    """Occupancy pattern of the two active electrons, or None if not a pair.
-
-    ``side`` is the ``(key, q_bra, q_ket)`` list of subshells that gained or
-    lost electrons between the two CSFs.  Returns ``[(key, 2)]`` when a single
-    subshell changed by ±2 and ``[(key_c, 1), (key_d, 1)]`` when two subshells
-    changed by ±1 each (i.e. the two electrons arrived/left together); returns
-    None for any other pattern, which the caller treats as "not this channel".
-    """
-    if len(side) == 1:
-        key, q_bra, q_ket = side[0]
-        if abs(q_bra - q_ket) == 2:
-            return [(key, 2)]
-        return None
-    if len(side) == 2:
-        for _key, q_bra, q_ket in side:
-            if abs(q_bra - q_ket) != 1:
-                return None
-        return [(side[0][0], 1), (side[1][0], 1)]
-    return None
-
-
-def _two_diff_element(csf_r, csf_s, orbitals_dict, bsp_data):
-    """2-electron promotion (c → a, d → b).
-
-    ``lost`` (bra > ket): orbitals where the bra gained electrons → destinations.
-    ``gained`` (bra < ket): orbitals where the bra lost electrons → sources.
-
-    The configuration-averaged two-body Slater–Condon expression is
-
-        H_{rs} = δ_{κ_a,κ_c} δ_{κ_b,κ_d} R^0(ac, bd)
-                 − Σ_k λ̂^k_{ad,cb} R^k(ac, db)
-
-    where the direct ``k=0`` integral is non-zero only when the two
-    "left-orbital" pairs are angularly compatible (same κ), and the
-    exchange ``k`` must satisfy the triangle conditions on both
-    ``(κ_a, κ_d)`` and ``(κ_c, κ_b)`` simultaneously.  For different-κ
-    exchange pairs the magnitude is the geometric mean
-    ``√(λ^k(a,d) λ^k(c,b))`` (reduces to ``λ^k(a,d)`` in the same-κ
-    case).
-    """
-    diffs = csf_r.differs_from(csf_s)
-    lost = [(key, qs, qo) for key, qs, qo in diffs if qs > qo]
-    gained = [(key, qs, qo) for key, qs, qo in diffs if qs < qo]
-
-    # Two-electron replacements where one subshell changes by two electrons
-    # leave the two active electrons in a *definite* J-coupled state (with
-    # closed spectators the pair's J is the CSF's total J), so the element is
-    # exact rather than a configuration average.  Three patterns reach here:
-    #
-    #   a² ↔ b²        one key loses 2, one gains 2   (2s² ↔ 2p², the
-    #                                                  6p½² ↔ 6p3/2² jj pair)
-    #   a² ↔ c¹ d¹     one key loses 2, two gain 1    (double excitation into
-    #                                                  two different orbitals)
-    #   a¹ b¹ ↔ c²     two lose 1, one gains 2        (the transpose)
-    #
-    # All three go through the general two-electron element, which handles any
-    # total J (the J = 0 case was implemented first; J ≠ 0 needs the same
-    # machinery, not a special case).
-    pair_r = _pair_pattern(lost)
-    pair_s = _pair_pattern(gained)
-    if pair_r is not None and pair_s is not None:
-        return _two_electron_replacement_element(
-            csf_r, csf_s, pair_r, pair_s, orbitals_dict, bsp_data)
-
-    if len(lost) != 2 or len(gained) != 2:
-        return 0.0
-
-    ns = len(list(orbitals_dict.values())[0][0]) if orbitals_dict else 50
-
-    key_a, _, _ = lost[0]    # destination 1
-    key_b, _, _ = lost[1]    # destination 2
-    key_c, _, _ = gained[0]  # source 1
-    key_d, _, _ = gained[1]  # source 2
-
-    Pa, Qa = _get_orb(key_a, orbitals_dict, ns)
-    Pb, Qb = _get_orb(key_b, orbitals_dict, ns)
-    Pc, Qc = _get_orb(key_c, orbitals_dict, ns)
-    Pd, Qd = _get_orb(key_d, orbitals_dict, ns)
-
-    kappa_a, kappa_b = key_a[1], key_b[1]
-    kappa_c, kappa_d = key_c[1], key_d[1]
-
-    H_2e = 0.0
-
-    # Direct ⟨ac|g|bd⟩^{k=0}: angular factor at k=0 requires both
-    # ⟨ψ_a|·|ψ_b⟩_{k=0} ∝ δ_{κ_a, κ_b} and ⟨ψ_c|·|ψ_d⟩_{k=0} ∝ δ_{κ_c, κ_d}
-    # to be simultaneously non-zero.  In the (a→c, b→d) two-body
-    # promotion this means κ_a = κ_c AND κ_b = κ_d.
-    if kappa_a == kappa_c and kappa_b == kappa_d:
-        rk_direct = _rk(Pa, Qa, Pc, Qc, Pb, Qb, Pd, Qd, bsp_data, 0)
-        H_2e += rk_direct
-
-    # Exchange ⟨ac|g|db⟩.  We keep the original (κ_a, κ_d)-based form for
-    # backwards compatibility (it correctly handles the same-κ case used by
-    # existing benchmarks); for different-κ exchange pairs the proper
-    # angular factor is a geometric mean √(λ_ad · λ_cb), but the off-diagonal
-    # phase requires a full 6j treatment that is deferred to a follow-up.
-    for k in exchange_k_range(kappa_a, kappa_d):
-        lam = exchange_lambda(kappa_a, kappa_d, k)
-        if lam < 1e-15:
-            continue
-        rk_exch = _rk(Pa, Qa, Pc, Qc, Pd, Qd, Pb, Qb,
-                                     bsp_data, k)
-        tj_a = 2 * abs(kappa_a) - 1
-        tj_d = 2 * abs(kappa_d) - 1
-        c_k = lam / ((tj_a + 1.0) * (tj_d + 1.0))
-        H_2e -= c_k * rk_exch
-
-    return H_2e
-
-
-def _diagonal_J_correction(csf, orbitals_dict, bsp_data, ns):
-    """J-dependent diagonal correction for two-open-subshell CSFs.
-
-    The configuration-averaged exchange coefficient between two open
-    subshells (a, b) in :func:`_diagonal_element` is
-    ``q_a q_b /(g_a g_b) * λ^K``.  The proper Grant §8.3 J-coupled
-    coefficient for two electrons (or, by particle-hole symmetry, two
-    holes / one of each) with unique parentage ``J_a = j_a`` and
-    ``J_b = j_b`` coupled to total ``J`` is
-
-        g^K(J) = (-1)^{j_a + j_b + J + K}
-                 * λ^K_{ab} * {j_a j_b J; j_b j_a K}
-
-    where ``λ^K_{ab} = (2j_a+1)(2j_b+1) (j_a K j_b; -1/2 0 1/2)^2``.
-    The correction returned here is the difference times the Slater
-    integral ``G^K(a,b)``, summed over allowed multipoles ``K``, with
-    a sign that matches the existing kernel's ``-E_K`` convention.
-
-    Particle-hole conjugation changes the sign of the J-coupled pair
-    coefficient for one-hole/one-electron pairs.  The average coefficient
-    being replaced must still be the coefficient actually subtracted by
-    :func:`_diagonal_element`, namely ``q_a q_b λ^K/(g_a g_b)``.
-
-    Returns ``0.0`` for closed-shell-only CSFs (no open subshells),
-    for CSFs without explicit ``total_J2`` metadata, and for CSFs with
-    more than two open subshells (the general case requires a full
-    parentage chain that is not inferable from a bare ``CSF`` object
-    today — those continue to use the configuration-averaged kernel
-    until parentage labels are threaded through the CSF generator).
-    """
-    if not _has_explicit_J(csf):
-        return 0.0
-
-    open_subs = _open_subshells(csf)
-    if len(open_subs) != 2:
-        return 0.0
-
-    sh_a, sh_b = open_subs
-    qa = int(round(sh_a.occupation))
-    qb = int(round(sh_b.occupation))
-    cap_a = 2 * abs(sh_a.kappa)   # 2j_a + 1 (subshell capacity)
-    cap_b = 2 * abs(sh_b.kappa)
-    tj_a = cap_a - 1              # 2 j_a
-    tj_b = cap_b - 1              # 2 j_b
-
-    shell_totals: dict[tuple[int, int], tuple[int, int]] = {}
-    for sh in csf.subshells:
-        l = int(sh.kappa) if sh.kappa > 0 else -int(sh.kappa) - 1
-        key = (int(sh.n), l)
-        total_q, total_cap = shell_totals.get(key, (0, 4 * l + 2))
-        shell_totals[key] = (total_q + int(round(sh.occupation)), total_cap)
-
-    def _electron_hole_flags(sh, q, cap):
-        is_elec = q == 1
-        is_hole = q == cap - 1
-        if is_elec and is_hole:
-            # j=1/2 with q=1 is both a one-electron and one-hole subshell.
-            # Resolve it from the parent nonrelativistic nl occupancy: in a
-            # more-than-half-filled shell such as Fe XVII 2p^5, p1/2^1 is a
-            # core hole; in 1s^1 or 2p^1 it remains a valence electron.
-            l = int(sh.kappa) if sh.kappa > 0 else -int(sh.kappa) - 1
-            total_q, total_cap = shell_totals.get((int(sh.n), l), (q, cap))
-            is_hole = total_q > total_cap / 2.0
-            is_elec = not is_hole
-        return is_elec, is_hole
-
-    # Each open subshell must be a single electron (q=1) or a single
-    # hole (q=2j) so that its parentage J = j_subshell is unique.
-    is_elec_a, is_hole_a = _electron_hole_flags(sh_a, qa, cap_a)
-    is_elec_b, is_hole_b = _electron_hole_flags(sh_b, qb, cap_b)
-    if not ((is_elec_a or is_hole_a) and (is_elec_b or is_hole_b)):
-        return 0.0
-
-    Pa, Qa_orb = _get_orb((sh_a.n, sh_a.kappa), orbitals_dict, ns)
-    Pb, Qb_orb = _get_orb((sh_b.n, sh_b.kappa), orbitals_dict, ns)
-
-    total_J2 = int(csf.total_J2)
-    delta = 0.0
-    for k in exchange_k_range(sh_a.kappa, sh_b.kappa):
-        lam = exchange_lambda(sh_a.kappa, sh_b.kappa, k)
-        if lam < 1e-15:
-            continue
-        sixj = wigner_6j(tj_a, tj_b, total_J2, tj_b, tj_a, 2 * k)
-        if abs(sixj) < 1e-15:
-            g_K_J = 0.0
-        else:
-            exp_int = (tj_a + tj_b + total_J2) // 2 + k
-            phase = -1.0 if exp_int % 2 else 1.0
-            g_K_J = phase * sixj * lam
-        if is_hole_a ^ is_hole_b:
-            g_K_J = -g_K_J
-
-        avg_coef = qa * qb * lam / (cap_a * cap_b)
-
-        # Final energy uses (- exchange).  The existing kernel
-        # subtracts ``avg_coef * G^K`` from the diagonal; the proper
-        # J-coupled subtraction is ``g_K_J * G^K``.  Net correction to
-        # ADD to the existing diagonal energy is therefore
-        # ``(avg_coef - g_K_J) * G^K``.
-        gk_val = _gk(Pa, Qa_orb, Pb, Qb_orb, bsp_data, k)
-        delta += (avg_coef - g_K_J) * gk_val
-
-    return float(delta)
-
-
-def _aligned_unique_chain_from_occ(keys, occ, total_J2, parity):
-    subshells = []
-    for _n, kappa in keys:
-        j2 = 2 * abs(int(kappa)) - 1
-        q = int(round(occ.get((_n, kappa), 0)))
-        state = single_state_for_subshell(j2, q)
-        if state is None:
-            return None
-        subshells.append(state)
-
-    cumulative = []
-    current = 0
-    nonzero = 0
-    for state in subshells:
-        if not cumulative:
-            current = state.J2
-        elif state.J2 == 0:
-            pass
-        elif current == 0:
-            current = state.J2
-            nonzero += 1
-        else:
-            nonzero += 1
-            if nonzero > 2:
-                return None
-            current = int(total_J2)
-        if state.J2 != 0 and len(cumulative) == 0:
-            nonzero = 1
-        cumulative.append(current)
-
-    if current != int(total_J2):
-        return None
-    try:
-        return make_chain_coupled_state(
-            tuple(subshells), tuple(cumulative), parity=int(parity),
-        )
-    except ValueError:
-        return None
-
-
-def _simple_subshell_projection(state: ReducedSubshellState, M2: int):
-    j2, q = int(state.j2), int(state.q)
-    cap = j2 + 1
-    m_values = list(range(-j2, j2 + 1, 2))
-    if q == 0:
-        return {0: 1.0} if M2 == 0 else {}
-    if q == cap:
-        return {(1 << cap) - 1: 1.0} if M2 == 0 else {}
-    if q == 1:
-        return {1 << m_values.index(M2): 1.0} if M2 in m_values else {}
-    if q == cap - 1:
-        hole_m = -M2
-        if hole_m not in m_values:
-            return {}
-        return {((1 << cap) - 1) ^ (1 << m_values.index(hole_m)): 1.0}
-    return {}
-
-
-def _chain_global_projection(chain):
-    offsets = []
-    total = 0
-    for state in chain.subshells:
-        offsets.append(total)
-        total += int(state.j2) + 1
-
-    out = {}
-    for projections, chain_coeff in chain_projection_amplitudes(chain, chain.total_J2):
-        partial = {0: float(chain_coeff)}
-        for idx, (state, M2) in enumerate(zip(chain.subshells, projections, strict=False)):
-            next_partial = {}
-            for mask, coeff in partial.items():
-                for local_mask, local_coeff in _simple_subshell_projection(state, M2).items():
-                    global_mask = mask | (local_mask << offsets[idx])
-                    next_partial[global_mask] = next_partial.get(global_mask, 0.0) + coeff * local_coeff
-            partial = next_partial
-        for mask, coeff in partial.items():
-            if abs(coeff) > 1.0e-14:
-                out[mask] = out.get(mask, 0.0) + coeff
-    return out, offsets
-
-
-def _annihilate_global(mask, orbital):
-    if not (mask & (1 << orbital)):
-        return None
-    phase = -1.0 if (mask & ((1 << orbital) - 1)).bit_count() % 2 else 1.0
-    return phase, mask ^ (1 << orbital)
-
-
-def _create_global(mask, orbital):
-    if mask & (1 << orbital):
-        return None
-    phase = -1.0 if (mask & ((1 << orbital) - 1)).bit_count() % 2 else 1.0
-    return phase, mask | (1 << orbital)
-
-
-def _branch9_one_body_apply(mask, chain, offsets, source, dest, K2, Q2):
-    out = {}
-    source_j2 = int(chain.subshells[source].j2)
-    dest_j2 = int(chain.subshells[dest].j2)
-    source_m = list(range(-source_j2, source_j2 + 1, 2))
-    dest_m = list(range(-dest_j2, dest_j2 + 1, 2))
-    for m_create in dest_m:
-        mu = Q2 - m_create
-        if mu not in source_m:
-            continue
-        cg = clebsch_gordan(dest_j2, m_create, source_j2, mu, K2, Q2)
-        if abs(cg) < 1.0e-14:
-            continue
-        remove_m = -mu
-        ann = _annihilate_global(mask, offsets[source] + source_m.index(remove_m))
-        if ann is None:
-            continue
-        phase_a, intermediate = ann
-        cre = _create_global(intermediate, offsets[dest] + dest_m.index(m_create))
-        if cre is None:
-            continue
-        phase_c, final = cre
-        tilde_phase = -1.0 if ((source_j2 - mu) // 2) % 2 else 1.0
-        out[final] = out.get(final, 0.0) + phase_a * phase_c * tilde_phase * cg
-    return out
-
-
-def _branch9_double_excitation_scalar(csf_r, csf_s, source1, dest1, source2, dest2, K2):
-    occ_r = {(int(sh.n), int(sh.kappa)): int(round(sh.occupation)) for sh in csf_r.subshells}
-    occ_s = {(int(sh.n), int(sh.kappa)): int(round(sh.occupation)) for sh in csf_s.subshells}
-    keys = tuple(sorted(
-        set(occ_r) | set(occ_s) | {tuple(source1), tuple(dest1), tuple(source2), tuple(dest2)},
-        key=lambda key: (key[0], abs(key[1]), key[1]),
-    ))
-    index = {key: i for i, key in enumerate(keys)}
-    bra = _aligned_unique_chain_from_occ(keys, occ_r, int(csf_r.total_J2), int(getattr(csf_r, "parity", 1)))
-    ket = _aligned_unique_chain_from_occ(keys, occ_s, int(csf_s.total_J2), int(getattr(csf_s, "parity", 1)))
-    if bra is None or ket is None:
-        return None
-
-    bra_vec, offsets = _chain_global_projection(bra)
-    ket_vec, _ = _chain_global_projection(ket)
-    s1, d1 = index[tuple(source1)], index[tuple(dest1)]
-    s2, d2 = index[tuple(source2)], index[tuple(dest2)]
-
-    total = 0.0
-    for ket_mask, ket_coeff in ket_vec.items():
-        for q in range(-K2, K2 + 1, 2):
-            scalar_cg = clebsch_gordan(K2, q, K2, -q, 0, 0)
-            if abs(scalar_cg) < 1.0e-14:
-                continue
-            mid_terms = _branch9_one_body_apply(ket_mask, ket, offsets, s2, d2, K2, -q)
-            for mid_mask, coeff2 in mid_terms.items():
-                final_terms = _branch9_one_body_apply(mid_mask, ket, offsets, s1, d1, K2, q)
-                for final_mask, coeff1 in final_terms.items():
-                    total += bra_vec.get(final_mask, 0.0) * scalar_cg * coeff1 * coeff2 * ket_coeff
-    return float(total)
-
-
-def _off_diagonal_two_diff_J_correction(csf_r, csf_s, orbitals_dict, bsp_data, ns):
-    """J-coupled replacement correction for two-diff unique-parentage CSFs."""
-    diffs = csf_r.differs_from(csf_s)
-    lost = [(key, qr, qs) for key, qr, qs in diffs if qr > qs]
-    gained = [(key, qr, qs) for key, qr, qs in diffs if qr < qs]
-    if len(lost) != 2 or len(gained) != 2:
-        return 0.0
-
-    key_a, _, _ = lost[0]
-    key_b, _, _ = lost[1]
-    key_c, _, _ = gained[0]
-    key_d, _, _ = gained[1]
-
-    # Conservative scope: both endpoint CSFs carry only unique-parentage open
-    # subshells.  Do not require the raw source occupation in the opposite
-    # endpoint to be open: a p1/2 closed shell in the ket can be the source of
-    # a single p1/2 hole in the bra, and that particle-hole CSF still has
-    # unique parentage.  Requiring the closed source itself to be "unique"
-    # incorrectly skips the J-coupled replacement for Fe XVII p1/2-hole
-    # two-diff couplings and leaves the configuration-average term behind.
-    occ_r = {(int(sh.n), int(sh.kappa)): int(round(sh.occupation)) for sh in csf_r.subshells}
-    occ_s = {(int(sh.n), int(sh.kappa)): int(round(sh.occupation)) for sh in csf_s.subshells}
-    for csf, occ in ((csf_r, occ_r), (csf_s, occ_s)):
-        open_keys = []
-        for sh in csf.subshells:
-            key = (int(sh.n), int(sh.kappa))
-            q = occ[key]
-            cap = 2 * abs(int(sh.kappa))
-            if 0 < q < cap:
-                if q not in (1, cap - 1):
-                    return 0.0
-                open_keys.append(key)
-        if len(open_keys) != 2:
-            return 0.0
-
-    total_J2 = int(csf_r.total_J2)
-    tj_a = 2 * abs(int(key_a[1])) - 1
-    tj_b = 2 * abs(int(key_b[1])) - 1
-    tj_c = 2 * abs(int(key_c[1])) - 1
-    tj_d = 2 * abs(int(key_d[1])) - 1
-    Pa, Qa = _get_orb(key_a, orbitals_dict, ns)
-    Pb, Qb = _get_orb(key_b, orbitals_dict, ns)
-    Pc, Qc = _get_orb(key_c, orbitals_dict, ns)
-    Pd, Qd = _get_orb(key_d, orbitals_dict, ns)
-
-    def _nl_totals(csf):
-        totals: dict[tuple[int, int], tuple[int, int]] = {}
-        for sh in csf.subshells:
-            l = int(sh.kappa) if sh.kappa > 0 else -int(sh.kappa) - 1
-            key = (int(sh.n), l)
-            q0, cap0 = totals.get(key, (0, 4 * l + 2))
-            totals[key] = (q0 + int(round(sh.occupation)), cap0)
-        return totals
-
-    occ_r_all = {(int(sh.n), int(sh.kappa)): int(round(sh.occupation)) for sh in csf_r.subshells}
-    occ_s_all = {(int(sh.n), int(sh.kappa)): int(round(sh.occupation)) for sh in csf_s.subshells}
-    nl_r = _nl_totals(csf_r)
-    nl_s = _nl_totals(csf_s)
-
-    def _is_ambiguous_core_hole(key, *, side):
-        n, kappa = int(key[0]), int(key[1])
-        cap = 2 * abs(kappa)
-        if cap != 2:
-            return False
-        q = occ_r_all.get((n, kappa), 0) if side == "bra" else occ_s_all.get((n, kappa), 0)
-        if q != 1:
-            return False
-        l = kappa if kappa > 0 else -kappa - 1
-        total_q, total_cap = (nl_r if side == "bra" else nl_s).get((n, l), (q, cap))
-        return total_q > total_cap / 2.0
-
-    # FAC's all-distinct AngularZxZ0 branch carries an extra particle-hole
-    # phase for ambiguous j=1/2 holes.  The determinant projection alone cannot
-    # distinguish a p1/2 electron from a p1/2 hole because both have the same
-    # one-particle occupancy mask.  Use the compact FAC-phase coefficient for
-    # those core-hole transfers; keep the determinant branch for ordinary
-    # all-distinct electron-electron cases.
-    def _is_s_p12_hole_transfer(dest_key, source_key):
-        dest = (int(dest_key[0]), int(dest_key[1]))
-        source = (int(source_key[0]), int(source_key[1]))
-        if dest[0] != source[0]:
-            return False
-        if {dest[1], source[1]} != {-1, 1}:
-            return False
-        # The p1/2 member is the ambiguous cap=2 hole.  Restrict the compact
-        # FAC phase to s1/2 <-> p1/2 hole transfer; p1/2 <-> p3/2 hole
-        # couplings are already handled correctly by the determinant branch.
-        p12 = dest if dest[1] == 1 else source
-        return _is_ambiguous_core_hole(p12, side="bra") or _is_ambiguous_core_hole(p12, side="ket")
-
-    ambiguous_hole_transfer = (
-        _is_s_p12_hole_transfer(key_a, key_c)
-        or _is_s_p12_hole_transfer(key_b, key_d)
-    )
-
-    proper = 0.0
-    all_distinct = len({tuple(key_a), tuple(key_b), tuple(key_c), tuple(key_d)}) == 4
-    # Direct-coupled tensor product <a||C^K||c><b||C^K||d> R^K(ac,bd).
-    direct_ks = sorted(set(exchange_k_range(key_a[1], key_c[1]))
-                       & set(exchange_k_range(key_b[1], key_d[1])))
-    for k in direct_ks:
-        lam_ac = exchange_lambda(key_a[1], key_c[1], k)
-        lam_bd = exchange_lambda(key_b[1], key_d[1], k)
-        if lam_ac < 1.0e-15 or lam_bd < 1.0e-15:
-            continue
-        if all_distinct and not ambiguous_hole_transfer:
-            coeff = _branch9_double_excitation_scalar(
-                csf_r, csf_s, key_c, key_a, key_d, key_b, 2 * k,
-            )
-            if coeff is None or abs(coeff) < 1.0e-15:
-                continue
-        else:
-            sixj = wigner_6j(tj_a, tj_b, total_J2, tj_d, tj_c, 2 * k)
-            if abs(sixj) < 1.0e-15:
-                continue
-            phase_exp = (tj_a + tj_b + tj_c + tj_d + total_J2) // 2 + k
-            if all_distinct and ambiguous_hole_transfer:
-                phase_exp += 1
-            phase = -1.0 if phase_exp % 2 else 1.0
-            coeff = phase * sixj * float(np.sqrt(lam_ac * lam_bd))
-        radial = _rk(Pa, Qa, Pc, Qc, Pb, Qb, Pd, Qd, bsp_data, k) if bsp_data else 1.0
-        proper += coeff * radial
-
-    # Antisymmetrized exchange partner <a||C^K||d><b||C^K||c> R^K(ad,bc).
-    exchange_ks = sorted(set(exchange_k_range(key_a[1], key_d[1]))
-                         & set(exchange_k_range(key_b[1], key_c[1])))
-    for k in exchange_ks:
-        lam_ad = exchange_lambda(key_a[1], key_d[1], k)
-        lam_bc = exchange_lambda(key_b[1], key_c[1], k)
-        if lam_ad < 1.0e-15 or lam_bc < 1.0e-15:
-            continue
-        sixj = wigner_6j(tj_a, tj_b, total_J2, tj_c, tj_d, 2 * k)
-        if abs(sixj) < 1.0e-15:
-            continue
-        phase_exp = (tj_a + tj_b + tj_c + tj_d + total_J2) // 2 + k + 1
-        phase = -1.0 if phase_exp % 2 else 1.0
-        coeff = phase * sixj * float(np.sqrt(lam_ad * lam_bc))
-        radial = _rk(Pa, Qa, Pd, Qd, Pb, Qb, Pc, Qc, bsp_data, k) if bsp_data else 1.0
-        proper += coeff * radial
-
-    base = _two_diff_element(csf_r, csf_s, orbitals_dict, bsp_data) if bsp_data else 0.0
-    return float(proper - base)
-
-
-def _has_explicit_J(csf):
-    """Whether a CSF carries explicit J-resolution metadata.
-
-    Accepts a non-default ``total_J2`` attribute *or* a label containing
-    ``J=`` in either the legacy form ``... J=2/2`` or the bracketed form
-    ``... [J=2/2]`` that :func:`enumerate_jj_csfs` emits.  The bracketed
-    form is required for closed-shell J=0 CSFs whose ``total_J2`` is
-    zero — without it those silently bypass the J-coupled correction.
-    """
-    if int(getattr(csf, "total_J2", 0)) > 0:
-        return True
-    label = str(getattr(csf, "label", ""))
-    return " J=" in label or "[J=" in label
-
-
-def _open_subshells(csf):
-    """Return open subshells (0 < occupation < capacity) of a CSF."""
-    open_subs = []
-    for sh in csf.subshells:
-        cap = 2 * abs(sh.kappa)
-        q = int(round(sh.occupation))
-        if 0 < q < cap:
-            open_subs.append(sh)
-    return open_subs
-
-
-def _off_diagonal_J_correction(csf_r, csf_s, orbitals_dict, bsp_data, ns,
-                                 *, n_diff):
-    """J-coupled off-diagonal CI correction (Grant §8.3) — LANDED, UNVALIDATED.
-
-    HYP-184 follow-up.  The configuration-averaged 1-diff/2-diff
-    matrix elements computed by :func:`_one_diff_element` and
-    :func:`_two_diff_element` use the orbital-occupation-weighted
-    Slater-Condon expression appropriate for single-open-subshell
-    CSFs.  For two CSFs sharing the *same* (J, parity) block where
-    each CSF has two-or-more open subshells with **unique parentage**
-    (every open subshell is a single electron ``q=1`` or single hole
-    ``q=2j``), the proper Grant §8.3 6j-style J-coupled exchange
-    coefficient differs from the average-of-shell weight and must be
-    added as an off-diagonal correction analogous to
-    :func:`_diagonal_J_correction`.
-
-    The two relevant cases for the Fe XVII 2p⁵3l J=1⁻ block are:
-
-    * **1-diff**: bra and ket share one open subshell ``c`` (the
-      spectator) and differ in a single-electron promotion ``a → b``
-      (e.g. ``2p_{1/2}^{1} 3d_{3/2}^{1} ↔ 2p_{3/2}^{-1} 3d_{3/2}^{1}``).
-      The proper correction is
-
-          ΔH = Σ_K v^K(j_a, j_b, j_c; J) · R^K(ac, cb)
-
-      where ``v^K`` is the J-coupled exchange coefficient with a Wigner
-      6j weight ``{j_a j_b J; j_c j_c K}`` and the standard
-      ``(j_a, j_b)`` reduced matrix element.  The difference between
-      this and the geometric-mean configuration-averaged factor
-      ``√(λ^K(a,c) λ^K(c,b))`` used in
-      :func:`_one_diff_element` is what spreads the three J=1⁻
-      3d-electron CSFs into the proper ¹P₁ / ³D₁ / ³P₁ intensity
-      pattern that Bernitt 2012 sees.
-
-    * **2-diff**: bra and ket differ in two open subshells (e.g.
-      ``2p_{1/2}^{1} 3d_{3/2}^{1} ↔ 2p_{3/2}^{-1} 3d_{5/2}^{1}``).
-      The J-coupled formula involves a single 6j coupling on the
-      (j_a, j_b) → (j_c, j_d) → J chain analogous to the 1-diff
-      case.
-
-    Implementation notes (Grant §8.3 / Cowan §12):
-
-      g^K_offdiag(J) = (-1)^{j_a + j_b + j_c + j_d + J + K}
-                       * {6j(j_a j_b J; j_d j_c K)}
-                       * <j_a||C^K||j_b> <j_c||C^K||j_d>
-
-    The reduced matrix elements ``<j||C^K||j'>`` are the standard
-    angular tensor coefficients available via
-    :func:`atomx.angular.coefficients.exchange_lambda` (square root,
-    with sign managed by the 6j phase).
-
-    **Current status — body landed, correctness not established.**  This
-    docstring previously said the function "returns ``0.0``", which is
-    no longer true and was actively misleading: the body was landed
-    without updating the contract text.  What the body does today:
-
-    * it returns a populated correction for the unique-parentage,
-      same-``(J, parity)`` envelope described above;
-    * that correction is **quantitatively wrong**.  For the He-like
-      1s2p J=1 anchor it contributes ``+0.431282`` on a base
-      :func:`_one_diff_element` of ``-0.193857``, moving the J=1 level
-      to -14.711459 Ha where an independent m-scheme Slater-Condon CI
-      on the *same orbitals* gives -14.490933 Ha.  The "verify against
-      a He-like 1s2p analytic test" step below was therefore never
-      satisfied;
-    * outside the envelope nothing is returned, so the diagonal and
-      off-diagonal elements are drawn from two different physical
-      approximations depending on the CSF shape.
-
-    The structural reason an exact element is not available here is
-    that :class:`~atomx.config.csf.CSF` carries only
-    ``total_J2`` and an occupation list — no coupling tree (parentage) —
-    so the Grant §8.3 recoupling chain cannot be inferred from the
-    objects this function receives.
-
-    Measured consequences, the independent oracle used to measure them,
-    and the fix options are in
-    ``docs/archive/2026-09/CORRELATION_SD_RESEARCH_2026-09-20.md``; the regression gates
-    are in ``tests/test_ci_matrix_vs_mscheme_reference.py``.
-
-    Any future body must satisfy, at minimum:
-
-    1. Identifying the unique-parentage subset (each open subshell is
-       a single electron or single hole) on **both** ``csf_r`` and
-       ``csf_s`` and the matching same-(J,parity) constraint.
-    2. Selecting the spectator/source/destination shells and reading
-       off the ``(j_a, j_b, j_c, j_d)`` labels and total ``J``.
-    3. Evaluating the Slater integrals ``R^K`` over the radial part
-       using the module-level ``_rk`` (cell-algorithm integrator).
-    4. Composing the 6j-weighted angular factor and accumulating the
-       additive correction.
-    5. Verifying against the He-like 1s2p J=1 anchor: the two CSFs
-       ``|1s 2p_{1/2}; J=1⟩`` and ``|1s 2p_{3/2}; J=1⟩`` must
-       diagonalise to the singlet/triplet states with the
-       ``2·G¹(1s,2p)`` splitting **and** agree with
-       ``benchmarks/mscheme_ci_reference.py`` on the same orbitals.
-
-    Parameters
-    ----------
-    csf_r, csf_s : CSF
-        The two CSFs whose off-diagonal element is being corrected.
-        ``r != s`` (we never call this on the diagonal).
-    orbitals_dict : dict
-        ``(n, kappa) -> (P, Q)`` orbital map.
-    bsp_data : dict
-        B-spline basis data for Slater integrals.
-    ns : int
-        Number of B-spline coefficients per orbital (for orbital lookup).
-    n_diff : int
-        Number of subshell differences (1 or 2).  Used to dispatch on
-        the 1-diff vs 2-diff sub-formula; not used when the envelope
-        check above rejects the pair.
-
-    Returns
-    -------
-    float
-        Additive correction to be added to the base 1-diff / 2-diff
-        matrix element, or ``0.0`` when the pair is outside the
-        unique-parentage same-``(J, parity)`` envelope.  The non-zero
-        branch is **not yet correct** — see the status note above.
-    """
-    # Only apply when both CSFs carry explicit J/parity metadata and
-    # sit in the same (J, parity) block.  The block filter in
-    # ``methods/ci.py`` already drops cross-block elements, so this
-    # check is mostly a clarity gate for the no-op path.
-    if not (_has_explicit_J(csf_r) and _has_explicit_J(csf_s)):
-        return 0.0
-    if int(csf_r.total_J2) != int(csf_s.total_J2):
-        return 0.0
-    if int(getattr(csf_r, "parity", 1)) != int(getattr(csf_s, "parity", 1)):
-        return 0.0
-
-    if n_diff not in (1, 2):
-        return 0.0
-
-    if n_diff == 1:
-        return _off_diagonal_one_diff_J_correction(
-            csf_r, csf_s, orbitals_dict, bsp_data, ns,
-        )
-
-    return _off_diagonal_two_diff_J_correction(
-        csf_r, csf_s, orbitals_dict, bsp_data, ns,
-    )
-
-
-def _one_diff_single_spectator_exact_correction(
-    csf_r, csf_s, key_a, key_b, key_c, sqrt_factor, orbitals_dict, bsp_data, ns
-):
-    """Exact chain-coupled replacement for a one-electron spectator.
-
-    The compact 6j shortcut is reliable for the FAC-like single-hole
-    spectator branch used by the same-hole 3d spin-orbit pair, but it
-    over-corrects the Fe XVII p-hole move with a single 3d spectator.  In
-    that case evaluate the scalar product of the two one-body tensors in the
-    same m-scheme machinery used for branch-9 two-diff terms, then subtract
-    the configuration-average contribution already present in
-    ``_one_diff_element``.
-    """
-    Pa, Qa = _get_orb(key_a, orbitals_dict, ns)
-    Pb, Qb = _get_orb(key_b, orbitals_dict, ns)
-    Pc, Qc = _get_orb(key_c, orbitals_dict, ns)
-
-    proper = 0.0
-    base = 0.0
-    kappa_a, kappa_b, kappa_c = int(key_a[1]), int(key_b[1]), int(key_c[1])
-    tj_c = 2 * abs(kappa_c) - 1
-
-    if kappa_a == kappa_b:
-        rk_direct = _rk(Pa, Qa, Pc, Qc, Pb, Qb, Pc, Qc, bsp_data, 0)
-        base += rk_direct
-
-    base_ks = sorted(set(exchange_k_range(kappa_a, kappa_c))
-                     & set(exchange_k_range(kappa_c, kappa_b)))
-    for k in base_ks:
-        lam_ac = exchange_lambda(kappa_a, kappa_c, k)
-        lam_cb = exchange_lambda(kappa_c, kappa_b, k)
-        if lam_ac < 1.0e-15 or lam_cb < 1.0e-15:
-            continue
-        rk_exch = _rk(Pa, Qa, Pc, Qc, Pc, Qc, Pb, Qb, bsp_data, k)
-        ang_k = lam_ac if kappa_a == kappa_b else float(np.sqrt(lam_ac * lam_cb))
-        base -= ang_k / (tj_c + 1.0) * rk_exch
-
-    direct_ks = sorted(set(exchange_k_range(kappa_a, kappa_b))
-                       & set(exchange_k_range(kappa_c, kappa_c)))
-    for k in direct_ks:
-        coeff = _branch9_double_excitation_scalar(
-            csf_r, csf_s, key_b, key_a, key_c, key_c, 2 * k,
-        )
-        if coeff is None or abs(coeff) < 1.0e-15:
-            continue
-        radial = _rk(Pa, Qa, Pb, Qb, Pc, Qc, Pc, Qc, bsp_data, k)
-        proper += coeff * radial
-
-    exchange_ks = sorted(set(exchange_k_range(kappa_a, kappa_c))
-                         & set(exchange_k_range(kappa_c, kappa_b)))
-    for k in exchange_ks:
-        coeff = _branch9_double_excitation_scalar(
-            csf_r, csf_s, key_c, key_a, key_b, key_c, 2 * k,
-        )
-        if coeff is None or abs(coeff) < 1.0e-15:
-            continue
-        radial = _rk(Pa, Qa, Pc, Qc, Pc, Qc, Pb, Qb, bsp_data, k)
-        proper += coeff * radial
-
-    return float(sqrt_factor * (proper - base))
-
-
-def _off_diagonal_one_diff_J_correction(csf_r, csf_s, orbitals_dict, bsp_data, ns):
-    """Grant-style J-coupled correction for one-diff unique-parentage CSFs."""
-    diffs = csf_r.differs_from(csf_s)
-    lost = [(key, qr, qs) for key, qr, qs in diffs if qr > qs]
-    gained = [(key, qr, qs) for key, qr, qs in diffs if qr < qs]
-    if len(lost) != 1 or len(gained) != 1:
-        return 0.0
-
-    key_a, qa_r, qa_s = lost[0]    # destination in the bra
-    key_b, qb_r, qb_s = gained[0]  # source in the ket
-    if int(round(qa_r - qa_s)) != 1 or int(round(qb_s - qb_r)) != 1:
-        return 0.0
-
-    tj_a = 2 * abs(int(key_a[1])) - 1
-    tj_b = 2 * abs(int(key_b[1])) - 1
-    sqrt_factor = float(np.sqrt(qb_s * (2 * abs(int(key_a[1])) - qa_s)))
-    total_J2 = int(csf_r.total_J2)
-    occ_r = {(int(sh.n), int(sh.kappa)): float(sh.occupation) for sh in csf_r.subshells}
-    occ_s = {(int(sh.n), int(sh.kappa)): float(sh.occupation) for sh in csf_s.subshells}
-
-    delta = 0.0
-    seen: set[tuple[int, int]] = set()
-    for sh_c in csf_r.subshells:
-        key_c = (int(sh_c.n), int(sh_c.kappa))
-        if key_c in seen or key_c in (key_a, key_b):
-            continue
-        seen.add(key_c)
-        q_common = min(occ_r.get(key_c, 0.0), occ_s.get(key_c, 0.0))
-        if q_common <= 0.0:
-            continue
-
-        cap_c = 2 * abs(int(key_c[1]))
-        q_common_i = int(round(q_common))
-        # The compact 6j expression is valid when the spectator parentage is
-        # unique: a single electron or a single hole.  Closed spectators remain
-        # covered by the configuration-averaged base kernel.
-        if q_common_i not in (1, cap_c - 1):
-            continue
-
-        if q_common_i == 1 and bsp_data:
-            delta += _one_diff_single_spectator_exact_correction(
-                csf_r, csf_s, key_a, key_b, key_c, sqrt_factor,
-                orbitals_dict, bsp_data, ns,
-            ) / sqrt_factor
-            continue
-
-        tj_c = cap_c - 1
-        Pa, Qa = _get_orb(key_a, orbitals_dict, ns)
-        Pb, Qb = _get_orb(key_b, orbitals_dict, ns)
-        Pc, Qc = _get_orb(key_c, orbitals_dict, ns)
-
-        k_values = sorted(
-            set(exchange_k_range(key_a[1], key_c[1]))
-            & set(exchange_k_range(key_c[1], key_b[1]))
-        )
-        for k in k_values:
-            lam_ac = exchange_lambda(key_a[1], key_c[1], k)
-            lam_cb = exchange_lambda(key_c[1], key_b[1], k)
-            if lam_ac < 1.0e-15 or lam_cb < 1.0e-15:
-                continue
-            angular_mag = float(np.sqrt(lam_ac * lam_cb))
-            avg_coef = q_common / (tj_c + 1.0) * angular_mag
-            sixj = wigner_6j(tj_a, tj_b, total_J2, tj_c, tj_c, 2 * k)
-            if abs(sixj) < 1.0e-15:
-                j_coef = 0.0
-            else:
-                # FAC keeps the signed ReducedCL products separate from the
-                # radial Slater integral.  Using sqrt(lambda) here loses the
-                # relative p-/p+ and d-/d+ phases needed for the Fe XVII
-                # particle-hole J=1 off-diagonal signs.
-                r_ac = reduced_cl_j2(tj_a, 2 * k, tj_c)
-                r_cb = reduced_cl_j2(tj_c, 2 * k, tj_b)
-                phase_exp = (tj_a + tj_b + total_J2) // 2 + k
-                phase = -1.0 if phase_exp % 2 else 1.0
-                if q_common_i == cap_c - 1 and cap_c > 2:
-                    # Particle-hole conjugation for a single-hole spectator.
-                    # FAC's recoupled Hamiltonian keeps the k=1 and k=3
-                    # same-hole 2p3/2^-1 3d J=1 terms in phase; only the
-                    # global hole sign differs from the electron spectator.
-                    phase *= -1.0
-                j_coef = phase * sixj * r_ac * r_cb
-
-            if bsp_data:
-                rk_exch = _rk(Pa, Qa, Pc, Qc, Pc, Qc, Pb, Qb, bsp_data, k)
-            else:
-                # Unit-radial fallback for analytic angular tests that only
-                # assert the correction is wired and non-zero.
-                rk_exch = 1.0
-            delta += (avg_coef - j_coef) * rk_exch
-
-    # ``_one_diff_element`` multiplies the configuration-average spectator
-    # bracket by the jj occupation square-root factor.  The J-coupled
-    # replacement correction lives in the same bracket, so it must carry the
-    # same factor before being added to the base matrix element.
-    return float(sqrt_factor * delta)
-
-
-def _fac_inner_shell_index(chain_keys, key):
-    """Return FAC-style one-based shell index for an aligned key chain."""
-    try:
-        return tuple(chain_keys).index(tuple(key)) + 1
-    except ValueError:
-        return None
-
-
-def _fac_one_diff_open_spectator_exchange_coef(csf_r, csf_s, key_a, key_b, key_c, k):
-    """Conservative reachability probe for the FAC one-diff open-spectator path."""
-    occ_r = {(int(sh.n), int(sh.kappa)): int(round(sh.occupation)) for sh in csf_r.subshells}
-    occ_s = {(int(sh.n), int(sh.kappa)): int(round(sh.occupation)) for sh in csf_s.subshells}
-    q_common = min(occ_r.get(tuple(key_c), 0), occ_s.get(tuple(key_c), 0))
-    cap_c = 2 * abs(int(key_c[1]))
-    if q_common not in (1, cap_c - 1):
-        return None
-    if exchange_lambda(key_a[1], key_c[1], k) <= 1.0e-15:
-        return None
-    if exchange_lambda(key_c[1], key_b[1], k) <= 1.0e-15:
-        return None
-    return 0.0
-
-
-def _chain_one_diff_spectator_exact_scalar(*_args, **_kwargs):
-    """Placeholder for optional branch-inventory diagnostics."""
-    return None
-
-
-def _fac_two_diff_branch9_element(
-    csf_r, csf_s, key_a, key_b, key_c, key_d, orbitals_dict, bsp_data, ns,
-    *, unit_radials=False,
-):
-    """Reachability probe for FAC's all-four-distinct AngularZxZ0 branch.
-
-    Production still uses :func:`_off_diagonal_two_diff_J_correction`; this
-    helper exists so the inventory can distinguish branch-9 coverage from
-    completely unsupported CSF shapes while the full FAC SumCoeff recoupling is
-    being ported.
-    """
-    keys = {tuple(key_a), tuple(key_b), tuple(key_c), tuple(key_d)}
-    if len(keys) != 4:
-        return None
-    if int(getattr(csf_r, "total_J2", 0)) != int(getattr(csf_s, "total_J2", 0)):
-        return None
-    if int(getattr(csf_r, "parity", 1)) != int(getattr(csf_s, "parity", 1)):
-        return None
-    if unit_radials:
-        return 0.0
-    return _off_diagonal_two_diff_J_correction(csf_r, csf_s, orbitals_dict, bsp_data, ns)
