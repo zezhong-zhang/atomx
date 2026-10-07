@@ -56,3 +56,17 @@ A passing collection checks imports, not numerical correctness. Focused tests
 validate the affected contracts; only a complete run establishes full-suite
 status. Historical test counts and campaign results live in the
 [archive](archive/README.md).
+
+## Commit-time project navigation
+
+Install `.venv/bin/pre-commit install` once per clone. The `project-index` hook
+runs `python3 scripts/build_project_index.py --staged --stage` before every
+commit. It reads staged blobs, including partially staged files, and stages only
+`PROJECT_INDEX.md` and `PROJECT_INDEX.json`; unstaged and untracked scientific
+work is excluded. Preserve local index edits before rebuilding. Verify staged
+navigation with `--staged --check`; a working-tree preview can legitimately differ.
+
+`tests/test_project_index.py` checks deterministic AST/query output, staged
+renames/deletes, partial staging, exclusion of unrelated work, refusal to overwrite
+local index edits, invalid-source failure and the installed Git hook in a separate
+repository. These are navigation checks; they do not prove physical correctness.

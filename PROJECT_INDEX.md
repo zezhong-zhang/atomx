@@ -1,172 +1,74 @@
-# Project Index: atomx
+# Project index: atomx
 
-Generated: 2026-04-21
+自动生成的定位地图；先读此页，再查询相关符号/模块，最后读取命中的源码和测试。
+不要把完整 JSON 或全部文档加载到上下文；索引不证明物理能力或测试覆盖。
 
-> High-performance relativistic atomic structure calculations using B-spline Dirac-Fock.
-> Python 3.10+ · numpy/scipy/numba · pint units (optional) · matplotlib/plotly/manim viz.
+## 按需查询
 
-## 📁 Project Structure
-
-```
-atomx/
-├── src/atomx/
-│   ├── __init__.py            # Public API re-exports (Atom, Methods, units, …)
-│   ├── atom.py                # High-level Atom facade (859 lines)
-│   ├── types.py               # Enums: NuclearModel, Exchange, Correlation, Multipole, Gauge, …
-│   ├── results.py             # AtomicResult, HyperfineResult, OrbitalWavefunction, Waves
-│   ├── constants.py           # CODATA 2022 physical constants
-│   ├── units.py               # pint-based unit handling (pint-optional)
-│   ├── compare.py             # compare, theory_ladder, what_changed
-│   ├── log.py                 # Logging helpers
-│   ├── methods/               # Theory-level Method objects (Hydrogenic → MCDHF, CC, RPA, MBPT, CI, KS)
-│   │   ├── base.py            #   abstract Method
-│   │   ├── hydrogenic.py      #   exact: HydrogenicSchrodinger / HydrogenicDirac
-│   │   ├── hartree_fock.py    #   non-rel SCF (LS-coupling)
-│   │   ├── relativistic_hf.py #   BreitPauli (HF + perturbative rel.)
-│   │   ├── dirac_fock.py      #   DiracFock — primary B-spline DHF engine (2363 lines)
-│   │   ├── scf.py             #   shared SCF glue
-│   │   ├── mcdhf/             #   multi-configuration DHF: config, excitations, matrix, solver
-│   │   ├── ci.py, coupled_cluster.py, mbpt.py, rpa.py, kohn_sham.py
-│   ├── numerics/              # Low-level numerical kernels
-│   │   ├── bspline/           #   knots, basis, evaluate, integrals, convol, dirac_assembly, continuum
-│   │   ├── shooting/          #   ODE bound-state shooting (Dirac + Schrödinger), solver, spline, SLAG6
-│   │   ├── local_dfs/         #   FAC local-DFS: asymptotic.py, hxs_tables.py (local-exchange tables)
-│   │   └── analytic/          #   closed-form hydrogenic_dirac
-│   ├── physics/               # Physics operators: dirac, schrodinger, breit_pauli, two_body, base
-│   ├── angular/               # wigner, clebsch, coefficients, ls_coupling, recoupling, spinor_harmonics
-│   ├── config/                # Electron configurations, jj_coupling
-│   ├── corrections/           # Breit, QED stack (adapters, protocol, stack, qedmod/{shabaev,welton,mohr,flambaum_ginges})
-│   ├── potentials/            # nuclear (Fermi/uniform/point), thomas_fermi, parametric (GSZ)
-│   ├── prop/                  # Derived properties / observables
-│   │   ├── transitions/       #   multipole (E1/M1/E2…), angular, rates, calculator
-│   │   ├── hyperfine/         #   dipole A, quadrupole B, nuclear moments, QED corrections
-│   │   ├── isotope_shift/     #   field_shift, mass_shift, sms_abinitio
-│   │   ├── zeeman/            #   Landé g-factors, shifts
-│   │   ├── g_factor/, polarizability/, edm/, pnc/   # (stubs / in progress)
-│   ├── scattering/            # Continuum processes
-│   │   ├── photoionization/   #   fano
-│   │   ├── autoionization/    #   auger
-│   │   ├── dielectronic_recombination/solver.py
-│   │   ├── distorted_wave/solver.py
-│   │   └── r_matrix/          # (stub)
-│   ├── plasma/                # Screening (ion-sphere/Debye), collisional-radiative model
-│   ├── lineshapes/            # Voigt, Stark profiles
-│   ├── spectrum/              # Spectrum synthesis (transition lists + CRM)
-│   ├── uta/                   # Unresolved-transition-array moments
-│   ├── fitting/               # Slater-type orbital fits
-│   ├── viz/                   # mpl, plotly, plotly3d, manim back-ends
-│   └── data/                  # hyperfine_presets, mohr_se, flambaum_ginges, nuclear_structure
-├── tests/                     # pytest suite (37 modules)
-├── benchmarks/                # FAC comparisons, local-exchange, shooting vs radial (CSV + logs + REPORT.md)
-├── scripts/                   # benchmark_energies, compare_energies, generate_density_gs, output/*.h5
-├── docs/gallery/              # runnable examples (grotrian, radial_orbital, spectrum)
-├── docs/superpowers/plans/    # FAC calculator + calibration plan documents
-├── papers/                    # Reference PDFs
-├── media/                     # Generated figures / animations
-├── pyproject.toml             # Hatchling build, deps, pytest config
-└── uv.lock                    # uv-managed lockfile
+```sh
+python scripts/build_project_index.py --query CILevel
+python scripts/build_project_index.py --query numerics/bspline --limit 10
+python scripts/build_project_index.py --tests src/atomx/atom.py --limit 10
 ```
 
-## 🚀 Entry Points
+查询只读 PROJECT_INDEX.json，返回路径/行号和有限条匹配；再用 rg 缩小读取范围。
+行号属于建索引时的快照；动态导入、重导出及间接测试需另查，静态候选不是覆盖证明。
 
-- **Public API** — `src/atomx/__init__.py` — `Atom`, `HydrogenicSchrodinger`, `HydrogenicDirac`, `HartreeFock`, `BreitPauli`, `DiracFock`, `MCDHF`, `compare`, `theory_ladder`, `what_changed`, `ureg`.
-- **High-level facade** — `src/atomx/atom.py` — `Atom(Z, config=..., charge=..., nuclear=..., exchange=..., corrections=..., correlation=..., engine=..., basis=..., environment=...).solve(Method?)`; ten arguments, one per physical question (`docs/MIGRATION.md`).
-- **Primary SCF engine** — `src/atomx/methods/dirac_fock.py` (2363 lines) — B-spline Dirac-Fock with Breit + QED.
-- **FAC-compatible local DFS** — `src/atomx/numerics/local_dfs/` — asymptotic turning-point logic + HXS local-exchange tables.
-- **Benchmarks** — `benchmarks/bench_fac_{structure,lithium_like,levels_transitions}.py`, `bench_local_exchange.py`, `bench_shooting_vs_radial.py`, `fac_runner.py`; `scripts/benchmark_energies.py`, `scripts/compare_energies.py`, `scripts/generate_density_gs.py`.
-- **Examples** — `docs/gallery/{grotrian,radial_orbital,spectrum}_example.py`.
-- **Tests** — `pytest` (discovery from `pyproject.toml`).
+## 入口
 
-## 📦 Core Modules
+- [AGENTS.md](AGENTS.md)
+- [src/atomx/__init__.py](src/atomx/__init__.py)
+- [src/atomx/atom.py](src/atomx/atom.py)
+- [src/atomx/atom_inputs.py](src/atomx/atom_inputs.py)
+- [src/atomx/calculation_spec.py](src/atomx/calculation_spec.py)
+- [docs/README.md](docs/README.md)
+- [docs/ARCHITECTURE_DESIGN.md](docs/ARCHITECTURE_DESIGN.md)
+- [docs/ARCHITECTURE_CAPABILITIES.md](docs/ARCHITECTURE_CAPABILITIES.md)
+- [docs/TESTING.md](docs/TESTING.md)
 
-### `atomx.atom` — `src/atomx/atom.py`
-High-level `Atom` class — ten arguments, one per physical question: `Z` (required, positional), `config` (string, or a list for the MCDHF/CI path), `charge`, `nuclear` ∈ {fermi, point, uniform}, `exchange` ∈ {hf, slater, gu, tfda, gsz} or `Exchange(model=..., alpha_x=..., slater_method=...)`, `corrections` (preset "none"/"breit"/"qed"/"breit+qed" or `Corrections(breit=, qed=, qed_backend=, stack=)`), `correlation` ("s"/"sd" or `Correlation(expansion=, averaging=, radial_optimization=, j_resolved_csfs=, per_block_orbital_sets=)`), `engine` ∈ {bspline, shooting} (decoupled from the exchange model), `basis` (`Basis(ns=, ks=, r_max=, grid_hi=, grid_he=, grid_hmax=, starting_potential=, sampling=)`), `environment` (`Environment(plasma_ne=, plasma_Te=, screening=)`, applied inside the SCF). `Atom.resolved_inputs` reports what the defaults resolved to; retired spellings raise with their replacement (`docs/MIGRATION.md`). Drives a `Method` (default `DiracFock`) and returns `AtomicResult`.
+## 源码分区
 
-### `atomx.methods`
-Method objects encode theory level and are mutually comparable via `theory_ladder`:
-- `base.Method` (abstract)
-- `hydrogenic.HydrogenicSchrodinger` / `HydrogenicDirac` (exact)
-- `hartree_fock.HartreeFock` (non-rel SCF, LS-coupling)
-- `relativistic_hf.BreitPauli` (HF + perturbative rel.)
-- `dirac_fock.DiracFock` (four-component B-spline, jj-coupling) — main engine
-- `mcdhf/` (CSF-based multi-configuration DHF; config/excitations/matrix/solver)
-- `ci`, `coupled_cluster`, `mbpt`, `rpa`, `kohn_sham` (scaffolds / specialized variants)
+| 查询路径 | Python 文件数 |
+|---|---:|
+| [src/atomx/](src/atomx/) | 14 |
+| [src/atomx/angular/](src/atomx/angular/) | 12 |
+| [src/atomx/config/](src/atomx/config/) | 5 |
+| [src/atomx/corrections/](src/atomx/corrections/) | 18 |
+| [src/atomx/data/](src/atomx/data/) | 6 |
+| [src/atomx/fitting/](src/atomx/fitting/) | 2 |
+| [src/atomx/io/](src/atomx/io/) | 3 |
+| [src/atomx/lineshapes/](src/atomx/lineshapes/) | 3 |
+| [src/atomx/methods/](src/atomx/methods/) | 35 |
+| [src/atomx/numerics/](src/atomx/numerics/) | 61 |
+| [src/atomx/physics/](src/atomx/physics/) | 18 |
+| [src/atomx/plasma/](src/atomx/plasma/) | 6 |
+| [src/atomx/potentials/](src/atomx/potentials/) | 8 |
+| [src/atomx/properties/](src/atomx/properties/) | 29 |
+| [src/atomx/providers/](src/atomx/providers/) | 5 |
+| [src/atomx/reference_data/](src/atomx/reference_data/) | 8 |
+| [src/atomx/scattering/](src/atomx/scattering/) | 48 |
+| [src/atomx/spectrum/](src/atomx/spectrum/) | 5 |
+| [src/atomx/uta/](src/atomx/uta/) | 2 |
+| [src/atomx/viz/](src/atomx/viz/) | 6 |
+| [src/atomx/workflows/](src/atomx/workflows/) | 2 |
+| [src/atomx/xfel/](src/atomx/xfel/) | 2 |
 
-### `atomx.numerics`
-- `bspline/` — semi-exponential DBSR-HF-style grid, Dirac Hamiltonian assembly, continuum.
-- `shooting/` — reference ODE integrators (Dirac + Schrödinger bound/integrator/power-series), `solver.py`, `spline.py` used for cross-validation and SLAG6 Slater-integral backend.
-- `local_dfs/` — FAC-style local Dirac-Fock-Slater: `asymptotic.py` (turning-point / dbound scan), `hxs_tables.py` (HXS local-exchange lookup tables).
-- `analytic/hydrogenic_dirac.py` — Sommerfeld closed-form wavefunctions.
+## 其他上下文
 
-### `atomx.physics`
-Standalone operator definitions: `dirac`, `schrodinger`, `breit_pauli`, `two_body`, `base`.
+- 测试 281，工具/示例 97，文档 74，配置 5 个文件。
+- 详细路径、AST 定义/类方法、静态内部导入和内容 SHA 存在 PROJECT_INDEX.json（schema 2）。
+- 不含归档目录、source_* 源码快照和运行输出；保留的专题文档仍须按正文识别适用范围。
+- 名称匹配无结果时直接 rg；只查询源代码结构，不推断实现状态、正确性或性能。
 
-### `atomx.corrections`
-`breit.py` (Gaunt + full Breit), `qed.py`, `qedmod/` (Shabaev / Welton / Mohr / Flambaum-Ginges local QED potentials) plus a `stack`/`protocol`/`adapters` layer.
+## 更新
 
-### `atomx.prop` — observables
-- `transitions/` — multipole operators, angular factors, rates.
-- `hyperfine/` — dipole A, quadrupole B, nuclear moments, QED corrections.
-- `isotope_shift/` — field shift + NMS/SMS (including ab-initio closed-shell SMS).
-- `zeeman/` — Landé g-factors + shifts.
-- `g_factor/`, `polarizability/`, `edm/`, `pnc/` — stubs / in progress.
-
-### `atomx.scattering`
-- `photoionization/fano.py`, `autoionization/auger.py`, `dielectronic_recombination/solver.py`, `distorted_wave/solver.py`, `r_matrix/` (stub).
-
-### Other
-- `plasma/` (screening + CRM), `lineshapes/`, `spectrum/`, `uta/moments`, `fitting/slater`, `potentials/`, `angular/`, `config/jj_coupling`, `viz/`.
-- `data/` — lookup tables: `hyperfine_presets`, `mohr_se`, `flambaum_ginges`, `nuclear_structure`.
-
-## 🔧 Configuration
-
-- `pyproject.toml` — project metadata, dependencies, `testpaths = ["tests"]`, wheel packages `src/atomx`.
-- `conftest.py` — repo-root pytest fixtures.
-- `uv.lock` — uv-resolved lockfile.
-
-## 📚 Documentation
-
-- `docs/gallery/` — runnable examples: `grotrian_example.py`, `radial_orbital_example.py`, `spectrum_example.py`.
-- `docs/superpowers/plans/` — planning docs (FAC calculator, FAC calibration findings).
-- `benchmarks/REPORT.md` — FAC comparison report.
-- `papers/` — reference PDFs (Shabaev QED, Tupitsyn, arXiv 0507067/0610152, 2301.04132).
-- `trace.md` — rolling EARS/session trace.
-
-## 🧪 Test Coverage
-
-37 pytest modules under `tests/`:
-angular · atom_api · atom_unified_api · autoionization · bspline · ci · constants · continuum · convol · corrections_stack · data_loaders · dbound_heavy_z · dfsolver_fac · dfsolver_slater · dirac_hydrogenic · fac_asymptotic · fac_dfs_shooting · fitting · hyperfine · isotope · lineshapes · local_exchange · mcdhf · photoionization · plasma · potentials · qed · qedmod · scaffolds · scf · slater_integral_slag6 · spectrum_and_uta · transitions · units · viz · viz_plotly3d · zeeman.
-
-Run: `pytest` (discovery from `pyproject.toml`).
-
-## 🔗 Key Dependencies
-
-Required: `numpy>=1.24`, `scipy>=1.10`, `numba>=0.58`, `h5py>=3.0`, `plotly>=6.7`, `manim>=0.19.1`, `matplotlib>=3.10.8`, `nbformat`, `ipython`, `ipykernel`.
-
-Optional extras: `dev` (pytest, pytest-benchmark), `units` (pint), `viz`/`viz-manim`/`viz-all`, `all`.
-
-## 📝 Quick Start
-
-```bash
-# Install (editable, dev + units extras)
-pip install -e ".[dev,units]"
-# or: uv sync
-
-# Minimal example
-python -c "
-from atomx import Atom
-ne = Atom(10); ne.solve(); ne.summary()
-"
-
-# Theory ladder on the same system
-python -c "
-from atomx import Atom, HydrogenicDirac, HartreeFock, DiracFock, theory_ladder
-theory_ladder(Atom(Z=10), [HydrogenicDirac(), HartreeFock(), DiracFock(breit=True)])
-"
-
-# Tests
-pytest
+```sh
+python scripts/build_project_index.py                 # 当前工作树，含未忽略的新文件
+python scripts/build_project_index.py --check         # 检查工作树索引是否过期
+python scripts/build_project_index.py --staged --stage # 提交 hook：只读暂存内容，只暂存两份索引
 ```
 
----
-*Auto-generated index — refresh with `/sc:index-repo`.*
+提交前由 pre-commit 自动更新；新克隆先运行 .venv/bin/pre-commit install。
+暂存模式不读取未暂存源码/文档，不导入 atomx、不运行 SCF；输出无时间戳，相同内容生成相同索引。
+索引有未暂存改动时 hook 拒绝覆盖：先核对并暂存/保存这些改动，再重新提交。
+文档修改/合并/删除仍按 AGENTS.md 执行，重建项目索引不代替文档语义维护。

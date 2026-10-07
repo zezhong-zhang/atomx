@@ -18,3 +18,13 @@ repos:
       - id: check-merge-conflict
       - id: check-added-large-files
         args: ["--maxkb=2048"]
+
+  - repo: local
+    hooks:
+      - id: project-index
+        name: Rebuild agent project index from staged files
+        entry: python3 scripts/build_project_index.py --staged --stage
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-commit]
