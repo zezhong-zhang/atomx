@@ -26,7 +26,7 @@ def test_selected_mass_number_reaches_finite_nuclear_hamiltonian():
         result = Atom(Z=18, config='1s1', engine='bspline').solve(
             DiracFock(nuclear_mass_number=a), tol=1e-9)
         assert result.converged
-        assert result.energy_components['_nuclear_profile']['radius_mass_number'] == a
+        assert result.solver_diagnostics['_nuclear_profile']['radius_mass_number'] == a
         energies.append(result.total_energy)
     assert energies[1] > energies[0]
     point = []

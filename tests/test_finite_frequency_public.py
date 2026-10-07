@@ -94,7 +94,7 @@ def test_public_multiconfiguration_final_hamiltonian(engine):
         expected.state_energies[0]-dc.state_energies[0], abs=2e-10)
     assert result.breit_provenance['energy_source'] == 'explicit'
     assert ('breit', 'ci_hamiltonian') in result.operator_stages
-    assert '_E_Breit_scalar_not_applied' not in vars(result)
+    assert '_E_Breit_scalar_not_applied' not in result.solver_diagnostics
     stack = CorrectionStack(se_backend=None, include_vp=False,
                             breit_frequency='orbital_differences',
                             breit_orbital_energies=energies)

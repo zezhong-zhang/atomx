@@ -123,7 +123,7 @@ class TestMCDHFSolver:
                                  variational_projector=projector)
             result = solver.solve(max_iter=8, scf_tol=1e-4, ci_tol=1e-6)
             energies[projector] = result.ground_energy
-            diag = dict(result._variational_diagnostics)
+            diag = dict(result.solver_diagnostics["_variational_diagnostics"])
             leaks[projector] = diag["no_pair_projector_leakage"]
         assert abs(energies["nuclear"] - energies["fock"]) < 1e-6, (
             f"no-pair projector choice moved the Be energy by "
@@ -333,8 +333,8 @@ class TestManySameKappaBookkeeping:
         assert res.energy_components == {"E_total": -100.0}
         assert res.energy_breakdown == res.energy_components
 
-        res.__dict__["_E_Breit"] = 0.5
-        res.__dict__["_E_QED"] = {
+        res.solver_diagnostics["_E_Breit"] = 0.5
+        res.solver_diagnostics["_E_QED"] = {
             "E_SE": 0.3, "E_VP": -0.1, "E_QED_total": 0.2,
             "se_method": "mohr", "qed_backend": "auto",
         }
@@ -343,7 +343,8 @@ class TestManySameKappaBookkeeping:
         assert comps["E_SE"] == 0.3
         assert comps["E_VP"] == -0.1
         assert comps["E_QED_total"] == 0.2
-        assert comps["se_method"] == "mohr"
+        assert "se_method" not in comps
+        assert all(isinstance(value, (int, float)) for value in comps.values())
         # Non-legacy provenance keys stay off the numeric dict
         assert "qed_backend" not in comps
 

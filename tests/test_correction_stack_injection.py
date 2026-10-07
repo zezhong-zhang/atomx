@@ -2,7 +2,8 @@
 
 The solvers' include_breit/include_qed booleans are sugar building a
 CorrectionStack; a user-supplied stack overrides them and reaches the
-single post-SCF seam.  Legacy energy_components keys are preserved.
+single post-SCF seam. Numeric energy components and declared diagnostics
+retain shifts and provenance separately.
 """
 
 from __future__ import annotations
@@ -23,8 +24,10 @@ def test_flags_build_equivalent_stack():
     a = Atom(Z=10, config="1s2", charge=8)
     a.solve()
     c = a._result.energy_components
-    for key in ("E_Breit", "E_SE", "E_VP", "E_QED_total", "se_method"):
+    for key in ("E_Breit", "E_SE", "E_VP", "E_QED_total"):
         assert key in c
+    assert a.result.solver_diagnostics["se_method"]
+    assert all(isinstance(value, (int, float)) for value in c.values())
     assert c["E_QED_total"] == pytest.approx(c["E_SE"] + c["E_VP"],
                                              rel=1e-12)
 

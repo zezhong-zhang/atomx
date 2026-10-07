@@ -117,3 +117,19 @@ Keep equation changes and numerical algorithm changes reviewable separately.
 
 These are identified boundaries, not claims of completed implementations. See
 [capabilities](ARCHITECTURE_CAPABILITIES.md) and [historical design reviews](archive/README.md).
+
+## Reviewed shared contracts (2026-10-05)
+
+Angular convention names distinguish Grant jj (`reduced_C_jj`), orbital LS
+(`reduced_C_LS`) and GRASP/FAC one-body (`reduced_cl_j2`) phases. Callers reuse
+shared CG, fermion signs, kappa/label helpers, electromagnetic angular/radial
+operators and rate normalization. Native result classes share radial-state
+access; solver diagnostics carry policy/provenance separately from numeric
+energy components, including across persistence.
+
+`DFSolver.install_physics_grid` owns installation of a consistent basis and its
+derived matrices/cache. Virtual-orbital and core-hole stationarity policies are
+declared controls and enter the resolved calculation identity. CI audit reuse
+requires unchanged orbital and radial content; successful validation is the
+only event that records a reusable metric pass. See the
+[review disposition](code_review_2026_10_05/SOLVER_CONTRACTS.md).

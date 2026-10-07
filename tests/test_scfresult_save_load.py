@@ -187,9 +187,31 @@ def test_unknown_archive_schema_is_rejected(tmp_path):
 
 
 def test_structured_energy_provenance_roundtrip(tmp_path):
+    # Structured provenance is solver metadata, not an energy component
+    # (review E6): it round-trips through the solver_diagnostics channel.
     result = _gapped_result()
-    result.energy_components['_nuclear_profile'] = {
+    result.solver_diagnostics['_nuclear_profile'] = {
         'model': 'fermi', 'radius': np.float64(.001), 'optional': None}
     result.save(tmp_path/'structured')
     loaded = SCFResult.load(tmp_path/'structured')
+    assert loaded.solver_diagnostics == result.solver_diagnostics
     assert loaded.energy_components == result.energy_components
+
+
+def test_legacy_component_provenance_migrates_to_diagnostics(tmp_path):
+    # Archives written before review E6 carried the structured profile
+    # inside energy_components; loading restores it to solver_diagnostics.
+    import json
+    _gapped_result().save(tmp_path/'legacy_components')
+    with h5py.File(tmp_path/'legacy_components.h5', 'a') as archive:
+        dataset = archive['energies']['components_json']
+        components = json.loads(dataset[()])
+        components['_nuclear_profile'] = {'model': 'fermi', 'radius': .001}
+        components['se_method'] = 'mohr'
+        dataset[()] = json.dumps(components)
+    loaded = SCFResult.load(tmp_path/'legacy_components')
+    assert '_nuclear_profile' not in loaded.energy_components
+    assert 'se_method' not in loaded.energy_components
+    assert loaded.solver_diagnostics['se_method'] == 'mohr'
+    assert loaded.solver_diagnostics['_nuclear_profile'] == {
+        'model': 'fermi', 'radius': .001}

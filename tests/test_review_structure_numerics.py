@@ -147,7 +147,7 @@ def test_constrained_orbitals_and_physical_density(helium_s_basis):
     p, q = result.orbitals_dict[1, -1]
     u, v = result.orbitals_dict[2, -1]
     assert abs(_orbital_overlap(p, q, u, v, result.bsp_data)) < 1e-10
-    assert result.converged and result._inner_converged
+    assert result.converged and result.solver_diagnostics["_inner_converged"]
     assert sum(result.occupations.values()) == pytest.approx(2, abs=1e-13)
     keys, density = result.one_body_density_matrix()
     assert np.trace(density) == pytest.approx(2, abs=1e-12)

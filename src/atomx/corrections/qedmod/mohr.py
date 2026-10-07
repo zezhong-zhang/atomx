@@ -72,12 +72,12 @@ def _interp_table(z_grid, f_row, Z: float) -> float:
         return float(f_vals[-1])
     if Z in z_vals:  # exact grid hit: no interpolation roundoff
         return float(f_vals[int(np.searchsorted(z_vals, Z))])
-    try:
-        from scipy.interpolate import PchipInterpolator
+    # scipy is a hard dependency; a PCHIP failure means the static table
+    # itself is malformed and must surface, not degrade to linear
+    # interpolation of a QED reference table.
+    from scipy.interpolate import PchipInterpolator
 
-        return float(PchipInterpolator(z_vals, f_vals)(Z))
-    except Exception:  # pragma: no cover - scipy is a hard dependency
-        return float(np.interp(Z, z_vals, f_vals))
+    return float(PchipInterpolator(z_vals, f_vals)(Z))
 
 
 def _interpolate_se_f(Z: float, n: int, kappa: int) -> float:

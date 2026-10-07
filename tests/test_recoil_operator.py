@@ -62,7 +62,7 @@ def test_mcdhf_mass_stack_shifts_each_hydrogenic_level():
     np.testing.assert_allclose(shifts, expected, rtol=2e-5, atol=1e-10)
     assert shifts[0] > shifts[1] > 0
     assert corrected.energy_components["nms"] == pytest.approx(shifts[0], abs=1e-12)
-    assert "coherence" in corrected._nms_provenance["evaluation"]
+    assert "coherence" in corrected.solver_diagnostics["_nms_provenance"]["evaluation"]
 
 
 def test_mcdhf_vp_only_stack_does_not_enable_self_energy(monkeypatch):

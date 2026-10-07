@@ -36,9 +36,10 @@ from atomx.numerics.bspline.integrals import (
     nuclear_matrix,
     overlap_matrix,
 )
-from atomx.numerics.bspline.knots import make_knots
+from atomx.numerics.bspline.knots import make_knots, make_physics_knots
 from atomx.numerics.diis import diis_extrapolate
 from atomx.numerics.yk import compute_yk
+from atomx.radial_state import RadialStateMixin
 from atomx.types import Exchange, TheoryLevel
 
 
@@ -54,7 +55,7 @@ def _canonicalized_orbitals_raw(orbitals):
 
 
 @dataclass
-class SCFResult(SCFObservablesMixin):
+class SCFResult(SCFObservablesMixin, RadialStateMixin):
     """Result of an SCF calculation.
 
     Satisfies the ``AtomicResult`` protocol from ``atomx.results``.
@@ -74,6 +75,10 @@ class SCFResult(SCFObservablesMixin):
     calculation_spec: object = None
     solver_diagnostics: Dict = field(default_factory=dict)
     _local_central_field: object = field(default=None, repr=False)
+    #: Configuration ensemble defining fractional-occupation pair moments
+    #: (same contract as ``results.ShootingResult._jj_configs``); written
+    #: by :meth:`DFSolver._finalize_with_corrections`.
+    _jj_configs: Optional[list] = field(default=None, repr=False)
 
     @property
     def energy_breakdown(self) -> Dict[str, float]:
@@ -146,14 +151,6 @@ class SCFResult(SCFObservablesMixin):
                 f"{label!r} not in orbital_energies; "
                 f"available: {list(self.orbital_energies)}")
         return _as_quantity(self.orbital_energies[label], "hartree", unit)
-
-    @property
-    def radial_state(self):
-        """Owned native radial snapshot for correction and analysis consumers."""
-        from atomx.radial_state import radial_state_of
-        if '_radial_state' not in self.__dict__:
-            self.__dict__['_radial_state'] = radial_state_of(self)
-        return self.__dict__['_radial_state']
 
     @property
     def waves(self):
@@ -319,7 +316,9 @@ class DFSolver:
                  mean_field_normalization=None,
                  kinetic_balance=False,
                  screening_potential=None,
-                 log=None, nuclear_mass_number=None):
+                 log=None, nuclear_mass_number=None,
+                 virtual_orbital_keys=None,
+                 core_hole_stationary=True):
         """
         Parameters
         ----------
@@ -368,6 +367,20 @@ class DFSolver:
             exactly; ground-state energies agree with the RKB basis to ~1e-5
             (e.g. Ne DHF is identical to 6 digits).  The ``Atom`` / MCDHF
             production paths already build the basis with ``kinetic_balance=True``.
+        virtual_orbital_keys : iterable of (n, kappa), optional
+            Correlation orbitals solved in the frozen field of the
+            reference configuration: they are excluded from inter-orbital
+            orthogonality constraints and from occupied-pair energy
+            rotations.  Supplied by the FAC-frozen MCDHF protocols
+            (:class:`atomx.methods.csf.solver.VariationalCSFSolver`);
+            ``None`` (default) means no virtual orbitals.  Declared here
+            so a direct ``DFSolver(...)`` carries the same contract as the
+            injecting caller (review E2).
+        core_hole_stationary : bool, optional
+            When True (default), occupied-pair rotations involving a
+            core-hole subshell are relaxed to a local energy stationary
+            point in :meth:`_optimize_same_kappa_rotations`; when False,
+            those rotations stay frozen at the eigensolver's roots.
         """
         self.Z = Z
         self.subshells = subshells
@@ -516,6 +529,11 @@ class DFSolver:
         self.starting_potential = starting_potential
         self.N_electrons = sum(sh.occupation for sh in subshells)
         self._log = log  # CalculationLog instance or None
+        # Declared physics switches (review E2) — previously injected
+        # post-construction and read through getattr defaults.
+        self.virtual_orbital_keys = (set(virtual_orbital_keys)
+                                     if virtual_orbital_keys is not None else set())
+        self.core_hole_stationary = bool(core_hole_stationary)
 
         # Nuclear potential function (None = point nucleus -Z/r)
         from atomx.potentials.nuclear import make_nuclear_potential, nuclear_profile
@@ -657,6 +675,39 @@ class DFSolver:
         self.V_nuc_mat = nuclear_matrix(nv, ksq, ns, bsp, gr, grw, self.Z)
         # Reset convolution cache when grid changes
         self._convol_cache = ConvolCache(self.bsp_data)
+
+    def install_physics_grid(self, *, r_max=None, hi=None, he=None,
+                             hmax=None):
+        """Install the DBSR_HF-style semi-exponential physics grid.
+
+        Builds the knot sequence with
+        :func:`atomx.numerics.bspline.knots.make_physics_knots` from this
+        solver's own ``Z``, ``nuclear`` and ``ks``, then installs the
+        restricted-kinetic-balance basis on it: ``t``, ``bsp_data``,
+        ``ns``, ``r_max`` (the box the grid actually reached) and
+        ``kinetic_balance`` are reassigned together, and the overlap /
+        nuclear matrices plus the convolution cache are rebuilt through
+        :meth:`_precompute`.  A ``None`` argument leaves the
+        corresponding ``make_physics_knots`` default in force.  Returns
+        the new ``bsp_data`` dict for callers that log it.
+
+        Shared by every driver that previously inlined this block and
+        mutated the solver from outside (review E4): ``Atom``,
+        ``VariationalCSFSolver`` (shared and per-block passes) and
+        ``DiracFock``.
+        """
+        t_phys, ns_phys = make_physics_knots(
+            ks=self.ks, Z=self.Z, nuclear=self.nuclear,
+            r_max=r_max, hi=hi, he=he, hmax=hmax)
+        data = prepare_bspline_data(t_phys, ns_phys, self.ks,
+                                    kinetic_balance=True)
+        self.t = t_phys
+        self.bsp_data = data
+        self.ns = ns_phys
+        self.r_max = float(t_phys[-1])
+        self.kinetic_balance = True
+        self._precompute()
+        return data
 
     def _get_WW(self, i, j):
         """Get WW(i,j) — generalized occupation product for energy coefficients.
@@ -1689,7 +1740,7 @@ class DFSolver:
         in 2x2 matrices. The mixed exchange blocks are mutual transposes.
         """
         maximum = 0.0
-        virtual_keys = getattr(self, "virtual_orbital_keys", set())
+        virtual_keys = self.virtual_orbital_keys
         angles = np.arange(4) * (np.pi / 8)
         design = np.column_stack((-2*np.sin(2*angles), 2*np.cos(2*angles),
                                   -4*np.sin(4*angles), 4*np.cos(4*angles)))
@@ -2028,7 +2079,7 @@ class DFSolver:
                     H[:n_pq, ns_full:ns_full+n_pq] += V_PQ[:n_pq, :n_pq]
                     H[ns_full:ns_full+n_pq, :n_pq] += V_QP[:n_pq, :n_pq]
 
-                    virtual_keys = getattr(self, "virtual_orbital_keys", set())
+                    virtual_keys = self.virtual_orbital_keys
                     target_virtual = (sh.n, kappa) in virtual_keys
                     other_orbitals = [np.concatenate((P, Q))
                                       for j, (P, Q, _) in enumerate(orbitals.get(kappa, []))
@@ -2176,7 +2227,7 @@ class DFSolver:
                     H[:n_pq, ns_full:ns_full+n_pq] -= K_PQ[:n_pq, :n_pq]
                     H[ns_full:ns_full+n_pq, :n_pq] -= K_QP[:n_pq, :n_pq]
 
-                    virtual_keys = getattr(self, "virtual_orbital_keys", set())
+                    virtual_keys = self.virtual_orbital_keys
                     target_virtual = (sh.n, kappa) in virtual_keys
                     other_orbitals = [np.concatenate((P, Q))
                                       for j, (P, Q, _) in enumerate(orbitals.get(kappa, []))
@@ -2337,7 +2388,7 @@ class DFSolver:
             if (self.exchange == "hf" and self.mean_field_coeffs is None
                     and max_orb_change < 0.1):
                 max_orb_change = max(max_orb_change, self._optimize_same_kappa_rotations(
-                    orbitals, core_hole_stationary=getattr(self, 'core_hole_stationary', True)))
+                    orbitals, core_hole_stationary=self.core_hole_stationary))
 
             # Check convergence
             E_total_quick = sum(
@@ -2385,20 +2436,29 @@ class DFSolver:
         total_energy, energy_components = self._final_energy_checked(
             orbitals, orbital_energies)
 
-        energy_components["_core_hole_rotation_mode"] = (
-            "local_stationary_v1" if getattr(self, "core_hole_stationary", True)
-            else "frozen")
-        energy_components["_eigensolver_refinement_policy"] = (
-            "requested_root_spectral_residual_newton_v3")
-        energy_components["_diis_residual_policy"] = "actual_sweep_input_v1"
-        energy_components["_nuclear_profile"] = self.nuclear_profile
+        # Solver policy and nuclear-model provenance are metadata, not
+        # energies: ``energy_components`` stays float-only (review E6 —
+        # string/dict entries previously broke consumers iterating it as
+        # numbers), so these live in the declared ``solver_diagnostics``
+        # channel alongside the orbital-update diagnostics.
+        solver_diagnostics = dict(
+            orbital_update_tolerance=orbital_tolerance,
+            undamped_orbital_update_norm=orbital_update if orbital_tolerance is not None else None,
+            applied_orbital_update_norm=applied_update if orbital_tolerance is not None else None,
+            orbital_update_metric='Dirac overlap matrix',
+            eigenpair_tolerance=eigenpair_tolerance,
+            _core_hole_rotation_mode=("local_stationary_v1"
+                                      if self.core_hole_stationary else "frozen"),
+            _eigensolver_refinement_policy="requested_root_spectral_residual_newton_v3",
+            _diis_residual_policy="actual_sweep_input_v1",
+            _nuclear_profile=self.nuclear_profile)
 
         # Verify the constrained metric after damping/DIIS as well.
         max_overlap = _max_same_kappa_overlap(orbitals, self.bsp_data)
         energy_components["max_same_kappa_overlap"] = max_overlap
         if max_overlap > _SAME_KAPPA_OVERLAP_TOL:
             converged = False
-            energy_components["orthogonality_warning"] = (
+            solver_diagnostics["orthogonality_warning"] = (
                 f"same-kappa overlap {max_overlap:.2e} exceeds "
                 f"the constraint tolerance {_SAME_KAPPA_OVERLAP_TOL:.0e}")
 
@@ -2414,12 +2474,7 @@ class DFSolver:
             orbitals_raw=_canonicalized_orbitals_raw(orbitals),
             Z=self.Z,
             _bsp_data=self.bsp_data,
-            solver_diagnostics=dict(
-                orbital_update_tolerance=orbital_tolerance,
-                undamped_orbital_update_norm=orbital_update if orbital_tolerance is not None else None,
-                applied_orbital_update_norm=applied_update if orbital_tolerance is not None else None,
-                orbital_update_metric='Dirac overlap matrix',
-                eigenpair_tolerance=eigenpair_tolerance),
+            solver_diagnostics=solver_diagnostics,
         ))
 
     def _finalize_with_corrections(self, result):
@@ -2465,7 +2520,7 @@ class DFSolver:
             )
             result._local_central_field_subshells = tuple(
                 (sh.n, sh.kappa, float(sh.occupation)) for sh in result.subshells)
-        result.__dict__["_jj_configs"] = self.jj_configs
+        result._jj_configs = self.jj_configs
         stack = self.correction_stack
         if (stack is not None and stack.include_breit
                 and stack.breit_mode == "operator" and stack.breit_frequency == 'static'):
@@ -2631,24 +2686,13 @@ class DiracFock(Method):
             r_max=r_max, screening_potential=screening_potential,
             starting_potential=starting,
             jj_configs=jj_configs,
+            core_hole_stationary=self.core_hole_stationary,
             log=log)
         solver.seed_orbitals = self.seed_orbitals
-        solver.core_hole_stationary = self.core_hole_stationary
 
         if use_physics_grid:
-            from atomx.numerics.bspline.basis import prepare_bspline_data
-            from atomx.numerics.bspline.knots import make_physics_knots
-            t_phys, ns_phys = make_physics_knots(
-                ks=self.basis_order, Z=Z, nuclear=self.nuclear.value,
+            data = solver.install_physics_grid(
                 r_max=r_max, hi=grid_hi, he=grid_he, hmax=grid_hmax)
-            data = prepare_bspline_data(
-                t_phys, ns_phys, self.basis_order, kinetic_balance=True)
-            solver.t = t_phys
-            solver.bsp_data = data
-            solver.ns = ns_phys
-            solver.r_max = float(t_phys[-1])
-            solver.kinetic_balance = True
-            solver._precompute()
             if log:
                 log.basis_info(data)
 

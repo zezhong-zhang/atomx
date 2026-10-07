@@ -278,7 +278,8 @@ def finalize_with_corrections(result: "AtomicResult",
     Every backend the stack supports adds its ``energy_shift`` to
     ``result.total_energy``, with the legacy ``energy_components`` keys
     (``E_Breit``, ``E_SE``, ``E_VP``, ``E_WK``, ``E_QED_total``,
-    ``se_method``) preserved for backward compatibility.  Skipped
+    numeric shifts) preserved for backward compatibility. The self-energy
+    method is recorded in ``solver_diagnostics["se_method"]``. Skipped
     backends leave no component keys (their reasons remain in
     ``result._correction_results["_skipped"].provenance``).
 
@@ -312,9 +313,9 @@ def finalize_with_corrections(result: "AtomicResult",
                           CorrectionResult('_skipped', 0.)).provenance.items()))
     # Preserve the actual evaluation and skipped reasons. Re-running a
     # potentially expensive backend is not a provenance retrieval mechanism.
-    result.__dict__['_correction_results'] = applied
-    result.__dict__["correction_application"] = ledger
-    result.__dict__["operator_stages"] = (
+    result._correction_results = applied
+    result.correction_application = ledger
+    result.operator_stages = (
         *getattr(result, 'operator_stages', ()),
         *((name.split('[', 1)[0], ledger.stage) for name, _ in ledger.shifts),
     )
@@ -326,12 +327,17 @@ def finalize_with_corrections(result: "AtomicResult",
             continue
         if name == "breit":
             comps["E_Breit"] = cr.energy_shift
-            result.__dict__["_breit_provenance"] = dict(cr.provenance)
+            result._breit_provenance = dict(cr.provenance)
         elif name.startswith("self_energy"):
             comps["E_SE"] = cr.energy_shift
-            comps["se_method"] = name.split("[", 1)[1].rstrip("]")
-            if comps["se_method"] == "mohr":
-                comps["_mohr_high_ns_policy"] = "codata_a41_a40_v1"
+            se_method = name.split("[", 1)[1].rstrip("]")
+            result.solver_diagnostics["se_method"] = se_method
+            if se_method == "mohr":
+                # Solver-policy metadata, not an energy: it lives in the
+                # declared diagnostics channel so energy_components stays
+                # float-only (review E6).
+                result.solver_diagnostics["_mohr_high_ns_policy"] = (
+                    "codata_a41_a40_v1")
             e_qed += cr.energy_shift
             has_qed = True
         elif name == "uehling_vp":
@@ -348,7 +354,7 @@ def finalize_with_corrections(result: "AtomicResult",
             has_qed = True
         elif name in ("nms", "sms", "hydrogenic_mass_remainder"):
             comps[name] = cr.energy_shift
-            result.__dict__[f"_{name}_provenance"] = dict(cr.provenance)
+            setattr(result, f"_{name}_provenance", dict(cr.provenance))
         else:
             comps[name] = cr.energy_shift
         result.total_energy += cr.energy_shift

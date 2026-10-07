@@ -638,6 +638,8 @@ class TwoElectronIntegrals:
         if not np.issubdtype(self.eri.dtype, np.number):
             raise ProviderContractError("ERI must be numeric")
         if np.iscomplexobj(self.eri):
+            # Single finite scan: on a complex ERI it covers both parts, so
+            # the real projection below needs no second scan.
             if not np.all(np.isfinite(self.eri)):
                 raise ProviderContractError("ERI values must be finite")
             real = self.eri.real
@@ -658,25 +660,8 @@ class TwoElectronIntegrals:
                 normalized = self.eri.astype(float, copy=False)
             except (TypeError, ValueError) as exc:
                 raise ProviderContractError("ERI must be numeric") from exc
-        if normalized.ndim != 4:
-            raise ProviderContractError(
-                f"ERI must be rank-4 (ij|kl), got ndim={normalized.ndim}"
-            )
-        normalized_shape = self._validated_shape(normalized.shape)
-        if normalized_shape != advertised_shape:
-            raise ProviderContractError(
-                "ERI normalized shape must match advertised ndarray shape: "
-                f"expected {advertised_shape}, got {normalized_shape}"
-            )
-        normalized_size = self._shape_size(normalized_shape)
-        if normalized_size != advertised_size:
-            raise ProviderContractError(
-                "ERI normalized size must match advertised ndarray size: "
-                f"expected {advertised_size}, got {normalized_size}"
-            )
-        self._require_finite_scan_budget(normalized_size, "validation")
-        if not np.all(np.isfinite(normalized)):
-            raise ProviderContractError("ERI values must be finite")
+            if not np.all(np.isfinite(normalized)):
+                raise ProviderContractError("ERI values must be finite")
         self.eri = normalized
         return self
 

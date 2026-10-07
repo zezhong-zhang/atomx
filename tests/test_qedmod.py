@@ -259,7 +259,7 @@ class TestShabaevLocal:
         E_SE = result.energy_components.get("E_SE")
         assert E_SE is not None
         assert E_SE > 0
-        assert result.energy_components.get("se_method") == "shabaev_local"
+        assert result.solver_diagnostics.get("se_method") == "shabaev_local"
 
     def test_d_orbital_calibration_now_works(self):
         """After the 3d extension, κ = ±3 orbitals give non-zero SE."""
@@ -405,7 +405,7 @@ class TestSCFIntegration:
         assert E_SE is not None
         assert E_SE > 0  # SE is positive
         # And the bookkeeping entry records the backend used
-        assert result.energy_components.get("se_method") == "welton"
+        assert result.solver_diagnostics.get("se_method") == "welton"
 
     def test_qed_se_method_stub_raises_at_solve(self):
         """Passing a stub backend triggers NotImplementedError during solve."""

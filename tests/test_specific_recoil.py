@@ -175,7 +175,7 @@ def test_mcdhf_sms_stack_tracks_all_levels_and_adapter():
     predicted = bare.state_energies+corrections
     order = np.argsort(predicted, kind='stable')
     np.testing.assert_allclose(shifted.state_energies, predicted[order], atol=1e-10, rtol=0)
-    np.testing.assert_allclose(shifted._sms_state_shifts, corrections[order], atol=1e-12)
+    np.testing.assert_allclose(shifted.solver_diagnostics["_sms_state_shifts"], corrections[order], atol=1e-12)
     assert shifted.energy_components['sms'] == pytest.approx(corrections[order[0]])
     assert SpecificMassShiftCorrection(20000.).evaluate(bare).energy_shift == pytest.approx(corrections[0])
 

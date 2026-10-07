@@ -213,15 +213,22 @@ def _hydrogenic_r_exp_integral_dirac_cached(n: int, kappa: int, Z: int) -> float
     Computes ``∫ [P² + Q²] · r · exp(−r·c) dr`` using a hydrogenic
     Dirac solve on the B-spline basis (first-principles, includes all
     (Zα)² relativistic corrections to the reference density).
+
+    A failed solve propagates: silently substituting the non-relativistic
+    analytic formula here would mis-calibrate ``A_κ(Z)`` at O((Zα)²) and
+    the cache would make the degraded value permanent for the session.
+    The explicit ``use_dirac_reference=False`` switch on
+    :func:`_amplitude_A_kappa` remains the honest way to select the
+    non-relativistic reference.
     """
     from atomx.methods.hydrogenic_reference import hydrogenic_r_exp_integral_dirac
     try:
         return hydrogenic_r_exp_integral_dirac(n, kappa, Z)
-    except Exception:
-        # Numerical solve failed (e.g. Z too high for bound state) —
-        # fall back to non-rel analytic.
-        l = kappa if kappa > 0 else -kappa - 1
-        return _hydrogenic_r_exp_integral(n, l, Z)
+    except Exception as exc:
+        raise RuntimeError(
+            f"hydrogenic Dirac reference integral failed for "
+            f"(n={n}, kappa={kappa}, Z={Z})"
+        ) from exc
 
 
 def _amplitude_A_kappa(

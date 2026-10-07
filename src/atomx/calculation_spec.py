@@ -75,8 +75,15 @@ def resolved_correction_spec(stack):
 
 def resolved_solver_spec(solver, *, method, engine, controls):
     """Normalize native solver inputs at the single result-recording boundary."""
-    aw = float(getattr(solver, 'aw', 0.) or 0.)
-    nuclear = 'fermi' if aw > .5 else getattr(solver, 'nuclear', None) or 'point'
+    aw_attr = getattr(solver, 'aw', None)
+    nuclear_attr = getattr(solver, 'nuclear', None)
+    if aw_attr is None and not nuclear_attr:
+        raise ValueError(
+            'cannot record nuclear-model provenance: the solver declares '
+            "neither an atomic weight ('aw') nor a nuclear model ('nuclear'); "
+            'refusing to record a guessed point nucleus')
+    aw = float(aw_attr or 0.)
+    nuclear = 'fermi' if aw > .5 else nuclear_attr or 'point'
     profile = getattr(solver, 'nuclear_profile', None)
     if profile is None and nuclear == 'point':
         profile = dict(model='point', rms_radius_fm=0.)
@@ -94,6 +101,8 @@ def resolved_solver_spec(solver, *, method, engine, controls):
         rest_energy='subtracted', units='atomic')
     shells = getattr(solver, 'subshells', ())
     state = dict(subshells=tuple((s.n, s.kappa, float(s.occupation)) for s in shells))
+    if hasattr(solver, 'virtual_orbital_keys'):
+        state['virtual_orbital_keys'] = tuple(sorted(solver.virtual_orbital_keys))
     configs = getattr(solver, 'jj_configs', None)
     if configs is not None:
         state['jj_configurations'] = tuple(dict(weight=float(c.weight),
@@ -106,7 +115,8 @@ def resolved_solver_spec(solver, *, method, engine, controls):
         state['objective'] = getattr(solver, 'radial_optimization', 'mcdhf')
     numerics = {name: getattr(solver, name) for name in (
         'ns', 'ks', 'r_min', 'r_max', 'r_inner', 'n_grid', 'grid_hi', 'grid_he', 'grid_hmax',
-        'use_physics_grid', 'kinetic_balance', 'constraint_mode', 'orbital_preconditioner')
+        'use_physics_grid', 'kinetic_balance', 'constraint_mode', 'orbital_preconditioner',
+        'core_hole_stationary')
         if hasattr(solver, name)}
     if engine == 'shooting' and hasattr(solver, 'shooting_space'):
         if solver.shooting_space is not None:

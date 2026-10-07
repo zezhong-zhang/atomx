@@ -848,8 +848,8 @@ class Atom:
         self._result = final.value
         self._result.radial_convergence = audit
         self._result.converged = bool(final.converged and audit['converged'])
-        if hasattr(self._result, '_variational_diagnostics'):
-            self._result._variational_diagnostics.update(
+        if "_variational_diagnostics" in self._result.solver_diagnostics:
+            self._result.solver_diagnostics["_variational_diagnostics"].update(
                 radial_space_converged=audit['radial_space_converged'],
                 radial_space_convergence_reason=audit['termination_reason'])
         spec = self._result.calculation_spec
@@ -1108,7 +1108,7 @@ class Atom:
                 )
             if stack is not None:
                 from atomx.corrections.stack import finalize_with_corrections
-                self._result.__dict__["_jj_configs"] = correction_jj_configs
+                self._result._jj_configs = correction_jj_configs
                 if (stack.include_breit and stack.breit_mode == "operator"
                         and stack.breit_frequency == 'static'):
                     # The explicit Gaunt mode computes its CI matrix
@@ -1155,20 +1155,9 @@ class Atom:
 
             # DBSR_HF-style semi-exponential grid (matched to nuclear model)
             if self._use_physics_grid:
-                from atomx.numerics.bspline.basis import prepare_bspline_data
-                from atomx.numerics.bspline.knots import make_physics_knots
-                t_phys, ns_phys = make_physics_knots(
-                    ks=self.ks, Z=self.Z, nuclear=self.nuclear,
+                solver.install_physics_grid(
                     r_max=self.r_max, hi=self.grid_hi, he=self.grid_he,
                     hmax=self.grid_hmax)
-                data = prepare_bspline_data(t_phys, ns_phys, self.ks,
-                                            kinetic_balance=True)
-                solver.t = t_phys
-                solver.bsp_data = data
-                solver.ns = ns_phys
-                solver.r_max = float(t_phys[-1])
-                solver.kinetic_balance = True
-                solver._precompute()
 
             # f-electron systems (lanthanides/actinides) need more iterations
             has_f = any(sh.l >= 3 for sh in subshells)

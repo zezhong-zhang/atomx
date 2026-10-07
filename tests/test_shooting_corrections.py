@@ -74,10 +74,12 @@ def test_shooting_reports_all_components(solved, name):
     shooting, _ = solved[name]
     assert shooting.converged
     comp = shooting.energy_components
-    for key in COMPONENTS + ("E_QED_total", "se_method"):
+    for key in COMPONENTS + ("E_QED_total",):
         assert key in comp, (
             f"{name}: {key} missing from shooting energy_components "
             f"(corrections were silently skipped?)")
+    assert shooting.result.solver_diagnostics["se_method"]
+    assert all(isinstance(value, (int, float)) for value in comp.values())
     assert comp["E_QED_total"] == pytest.approx(
         comp["E_SE"] + comp["E_VP"], rel=1e-12)
 

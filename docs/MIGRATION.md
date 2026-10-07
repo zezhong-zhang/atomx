@@ -803,3 +803,18 @@ einstein_A_prefactor` only with explicit magnetic-state strength;
 `ConvolCache.clear()` is replaced by `release_shared_banks()`. This releases
 shared banks process-wide for the grid. The known-wrong private legacy CI builder
 has been deleted; use `physics.csf.matrix.build_ci_matrix`.
+
+## 2026-10-05 review: solver metadata and failures
+
+Pass `virtual_orbital_keys` and `core_hole_stationary` to `DFSolver` explicitly.
+Drivers use `install_physics_grid` to install a consistent representation.
+The numeric `energy_components` mapping no longer contains `se_method` or
+solver-policy/nuclear objects; read those from `solver_diagnostics`. Loading
+older archives migrates the known legacy metadata keys automatically.
+
+QED reference/interpolation failures propagate. DR screened-hydrogenic fallback
+widths require explicit `allow_default_widths=True`. Resonances consumed by CRM
+must supply their total radiative rate and statistical weight. Calculation
+provenance cannot guess a nuclear model when the solver supplies neither model
+nor atomic weight. [Review disposition](code_review_2026_10_05/SOLVER_CONTRACTS.md)
+records the retained contracts and limitations.

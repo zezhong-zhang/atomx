@@ -114,8 +114,10 @@ def save_scf_result(self, path):
         for label, E in self.orbital_energies.items():
             eng.attrs[f"orbital_{label}"] = E
         comp = eng.create_group("components")
-        # Components also carry structured nuclear/operator provenance.
-        # HDF5 attributes cannot represent dicts or None without object dtype.
+        # energy_components is float-only (review E6); structured
+        # nuclear/operator provenance lives in solver_diagnostics, carried
+        # by the physical_metadata JSON.  HDF5 attributes cannot represent
+        # dicts or None without object dtype.
         eng.create_dataset("components_json", data=json.dumps(
             self.energy_components, default=_json_scalar, allow_nan=False))
         for key, val in self.energy_components.items():
@@ -284,6 +286,16 @@ def load_scf_result(path, *, result_type):
     )
 
     _restore_metadata(result, physical, version)
+    # Archives written before review E6 carried solver-policy provenance
+    # (strings/dicts) inside energy_components; migrate it into the
+    # declared solver_diagnostics channel so the numeric dict is
+    # float-only again.
+    for key in ("se_method", "_core_hole_rotation_mode", "_eigensolver_refinement_policy",
+                "_diis_residual_policy", "_nuclear_profile",
+                "orthogonality_warning", "_mohr_high_ns_policy"):
+        if key in result.energy_components:
+            result.solver_diagnostics.setdefault(
+                key, result.energy_components.pop(key))
     if local_field_data is not None:
         from atomx.potentials.frozen_field import FrozenLocalField, frozen_scf_potential
         from atomx.potentials.nuclear import make_nuclear_potential, nuclear_profile

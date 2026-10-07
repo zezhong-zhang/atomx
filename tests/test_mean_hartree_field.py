@@ -49,7 +49,7 @@ def test_mean_hartree_density_and_tail_use_the_same_electron_number(engine):
 
 def test_mean_screening_and_missing_nuclear_data_are_explicit():
     result = SimpleNamespace(Z=10, subshells=[SimpleNamespace(occupation=1.)],
-                             energy_components={'_nuclear_profile': {'model':'fermi'}})
+                             solver_diagnostics={'_nuclear_profile': {'model':'fermi'}})
     with pytest.raises(ValueError, match='finite-nucleus field is missing'):
         static_hartree_potential(result, screening='mean')
     with pytest.raises(ValueError, match='twice'):

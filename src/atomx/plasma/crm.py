@@ -188,7 +188,7 @@ class CollisionalRadiativeModel:
             if not channels:
                 channels = {
                     self.levels[initial_level_idx].label: float(
-                        getattr(resonance, "a_radiative_per_s", 0.0)
+                        resonance.a_radiative_per_s
                     )
                 }
 
@@ -210,7 +210,7 @@ class CollisionalRadiativeModel:
                     f"{label_prefix}:{label}",
                     self.levels[initial_level_idx].energy_eV
                     + float(resonance.E_resonance_eV),
-                    g=max(int(round(float(getattr(resonance, "g", 1.0)))), 1),
+                    g=max(int(round(float(resonance.g))), 1),
                     config=f"{label_prefix} satellite",
                     autoionization_rate_s=float(resonance.gamma_auger_per_s),
                 )

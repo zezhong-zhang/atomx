@@ -39,6 +39,7 @@ from typing import Callable, Dict, List, Sequence
 import numpy as np
 
 from atomx.atom_inputs import Basis
+from atomx.config.subshell import L_LETTERS
 from atomx.constants import AU_TIME_S, ELECTRON_MASS_KG, HARTREE_EV, HARTREE_J
 from atomx.scattering.autoionization.auger import AutoionizationState
 from atomx.scattering.dielectronic_recombination.enumerate import (
@@ -332,7 +333,7 @@ def _build_mcdhf_result_for_dr(
             "configuration (atom._config_strings or atom.config)."
         )
 
-    l_symbols = "spdfghiklmno"
+    l_symbols = L_LETTERS
     virtuals: list[str] = []
     for n in range(1, n_max + 1):
         for l in range(0, min(l_max, n - 1) + 1):
@@ -432,6 +433,7 @@ def dr_calculate(
         float | tuple[float, dict[str, float]],
     ] | None = None,
     energy_fn: Callable[[DRResonanceSpec], float] | None = None,
+    allow_default_widths: bool = False,
 ) -> DRRateCoefficient:
     """End-to-end dielectronic-recombination rate driver.
 
@@ -467,6 +469,14 @@ def dr_calculate(
     externally computed (e.g. FAC) widths/energies through the Burgess
     kernel, as in ``dielectronic_recombination.fac_reference``.
 
+    When ``initial_atom`` carries no solved result and a width hook is
+    omitted, a compact MCDHF result is built first so the ab-initio
+    factories can fill the gap; a failed build raises rather than
+    degrading the widths.  Pass ``allow_default_widths=True`` to select
+    the semi-empirical screened-hydrogenic default widths
+    (:mod:`~atomx.scattering.dielectronic_recombination.enumerate`)
+    explicitly instead.
+
     ``energy_fn`` overrides the resonance energy per spec, useful when
     benchmarking against an external level list whose energies are
     trusted more than the one-electron estimate.
@@ -497,26 +507,24 @@ def dr_calculate(
         )
 
     # ---- hook path -------------------------------------------------------
-    # Build a minimal structure result for lightweight Atom-like mocks so the
-    # ab-initio width factories can run when only one hook is supplied.
+    # Build a minimal structure result for lightweight Atom-like inputs so
+    # the ab-initio width factories can run when only one hook is supplied.
+    # A failed build propagates: silently dropping to the semi-empirical
+    # default widths would change the physics without the caller asking
+    # (review E7).  ``allow_default_widths=True`` selects those defaults
+    # explicitly instead.
     if (
         not has_solved_result(initial_atom)
         and getattr(initial_atom, "orbital_energies", None)
         and (auger_rate_fn is None or radiative_rate_fn is None)
+        and not allow_default_widths
     ):
-        # Best-effort: lightweight mocks may lack Z / a parseable core
-        # config; in that case fall back to the screened-hydrogenic default
-        # widths rather than failing the whole driver.
-        try:
-            built_result = _build_mcdhf_result_for_dr(
-                initial_atom, n_max, l_max if l_max is not None else n_max
-            )
-        except Exception:
-            built_result = None
-        if built_result is not None:
-            initial_atom._result = built_result
-            if getattr(initial_atom, "result", None) is None:
-                initial_atom.result = built_result
+        built_result = _build_mcdhf_result_for_dr(
+            initial_atom, n_max, l_max if l_max is not None else n_max
+        )
+        initial_atom._result = built_result
+        if getattr(initial_atom, "result", None) is None:
+            initial_atom.result = built_result
 
     specs = enumerate_dr_resonances(
         initial_atom,
@@ -529,6 +537,21 @@ def dr_calculate(
             auger_rate_fn = make_abinitio_auger_rate_fn(initial_atom)
         if radiative_rate_fn is None:
             radiative_rate_fn = make_abinitio_radiative_rate_fn(initial_atom)
+    elif auger_rate_fn is None or radiative_rate_fn is None:
+        if not allow_default_widths:
+            missing = [
+                name
+                for name, fn in (("auger_rate_fn", auger_rate_fn),
+                                 ("radiative_rate_fn", radiative_rate_fn))
+                if fn is None
+            ]
+            raise ValueError(
+                f"dr_calculate: initial_atom carries no solved result, so "
+                f"the missing width hook(s) {missing} cannot be filled "
+                f"ab-initio.  Solve the atom first, supply the hook(s) "
+                f"explicitly, or pass allow_default_widths=True to select "
+                f"the semi-empirical screened-hydrogenic default widths."
+            )
     resonances = build_autoionization_states(
         specs,
         initial_atom,

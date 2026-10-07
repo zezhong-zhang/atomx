@@ -8,10 +8,12 @@ Auger and radiative widths, and feed them to the Burgess kernel.
 The default widths are intentionally semi-empirical fallbacks.  They keep the
 driver useful with today's public atomx APIs, while the call sites accept
 ``auger_rate_fn`` and ``radiative_rate_fn`` hooks for full matrix-element
-implementations as the MCDHF/J-block machinery lands.  Enumerated resonances
-also carry explicit J-resolved CSF placeholders so downstream Auger and
-radiative code can consume the same intermediate-state representation used by
-the structure solver.
+implementations as the MCDHF/J-block machinery lands.  ``dr_calculate``
+requires the explicit ``allow_default_widths=True`` opt-in before it will use
+them for an omitted hook.  Enumerated resonances also carry explicit
+J-resolved CSF placeholders so downstream Auger and radiative code can
+consume the same intermediate-state representation used by the structure
+solver.
 """
 
 from __future__ import annotations
@@ -21,13 +23,14 @@ from typing import Callable, Sequence
 
 import numpy as np
 
+from atomx.angular.recoupling import kappa_from_lj
 from atomx.config.csf import CSF
-from atomx.config.subshell import Subshell
+from atomx.config.subshell import L_LETTERS, Subshell
 from atomx.constants import HARTREE_EV, RYDBERG_EV
 from atomx.properties.transitions.angular import selection_rules
 from atomx.scattering.autoionization.auger import AutoionizationState
 
-_L_SYMBOLS = "spdfghiklmno"
+_L_SYMBOLS = L_LETTERS
 
 
 @dataclass(frozen=True)
@@ -84,8 +87,9 @@ class DRResonanceSpec:
 
 def _kappa_l_j(l: int) -> list[tuple[int, float]]:
     if l == 0:
-        return [(-1, 0.5)]
-    return [(l, l - 0.5), (-(l + 1), l + 0.5)]
+        return [(kappa_from_lj(0, 1), 0.5)]
+    return [(kappa_from_lj(l, 2 * l - 1), l - 0.5),
+            (kappa_from_lj(l, 2 * l + 1), l + 0.5)]
 
 
 def _config_string(obj) -> str:
@@ -212,7 +216,12 @@ def _initial_statistical_weight(atom, default: float = 1.0) -> float:
                     break
             if closed:
                 return 1.0
-        except Exception:
+        except ValueError:
+            # ``_parse_nr_config`` only raises ValueError (a token outside
+            # its strict NR grammar: bad occupancy or orbital letter).
+            # Such a string cannot answer the closed-shell question, so
+            # the weight is derived from the solved result's subshell
+            # occupations below.  Anything else is a bug and propagates.
             pass
 
     result = getattr(atom, "result", None)

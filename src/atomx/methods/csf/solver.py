@@ -20,10 +20,11 @@ from atomx.methods.ci import ci_solve
 from atomx.methods.dirac_fock import DFSolver
 from atomx.numerics.bspline.dirac_assembly import canonicalize_radial_phase
 from atomx.physics.csf.matrix import build_ci_matrix
+from atomx.radial_state import RadialStateMixin
 
 
 @dataclass
-class VariationalCSFResult:
+class VariationalCSFResult(RadialStateMixin):
     """State-resolved result of variational Dirac–Fock equations.
 
     Satisfies the ``AtomicResult`` protocol from ``atomx.results``.
@@ -58,6 +59,16 @@ class VariationalCSFResult:
     _grid: np.ndarray | None = field(default=None, repr=False)
     _difr: np.ndarray | None = field(default=None, repr=False)
     radial_convergence: Dict = field(default_factory=dict)
+    #: Declared channel for solver-emitted diagnostics and correction
+    #: provenance (Breit/QED/recoil shifts, variational diagnostics,
+    #: radial-optimization model).  Keys keep their historical
+    #: ``_``-prefixed names; values are typed by the producing branch in
+    #: :meth:`VariationalCSFSolver.solve`.  Replaces the former
+    #: ``result.__dict__[...]`` metadata bus (review E5).
+    solver_diagnostics: Dict = field(default_factory=dict)
+    calculation_spec: object = None
+    # Set by the actual solve; an unsolved result has no guessed nucleus.
+    _nuclear_potential: object = field(init=False, repr=False)
 
     def __post_init__(self):
         # Alias ``bsp_data`` → ``_bsp_data`` so downstream code (correction
@@ -84,7 +95,7 @@ class VariationalCSFResult:
         :func:`atomx.corrections.stack.finalize_with_corrections` so the
         Breit/QED shifts folded into ``state_energies`` stay inspectable
         on the MCDHF route: ``E_Breit``, ``E_SE``, ``E_VP``, ``E_WK``,
-        ``E_QED_total``, ``se_method`` (whichever were computed), plus
+        ``E_QED_total`` (whichever were computed), plus
         ``E_total``.
 
         ``E_Breit`` is always the Breit shift that entered ``E_total``:
@@ -107,20 +118,20 @@ class VariationalCSFResult:
         See :attr:`breit_provenance`.
         """
         comps: Dict[str, float] = {"E_total": self.ground_energy}
-        e_breit = self.__dict__.get("_E_Breit")
+        e_breit = self.solver_diagnostics.get("_E_Breit")
         if e_breit:
             comps["E_Breit"] = e_breit
-        e_scalar = self.__dict__.get("_E_Breit_scalar_not_applied")
+        e_scalar = self.solver_diagnostics.get("_E_Breit_scalar_not_applied")
         if e_scalar:
             comps["E_Breit_scalar_not_applied"] = e_scalar
-        qed = self.__dict__.get("_E_QED") or {}
-        for key in ("E_SE", "E_VP", "E_WK", "E_QED_total", "se_method"):
+        qed = self.solver_diagnostics.get("_E_QED") or {}
+        for key in ("E_SE", "E_VP", "E_WK", "E_QED_total"):
             if key in qed:
                 comps[key] = qed[key]
-        nms = self.__dict__.get("_nms_state_shifts")
+        nms = self.solver_diagnostics.get("_nms_state_shifts")
         if nms is not None:
             comps["nms"] = float(nms[0])
-        sms = self.__dict__.get("_sms_state_shifts")
+        sms = self.solver_diagnostics.get("_sms_state_shifts")
         if sms is not None:
             comps["sms"] = float(sms[0])
         return comps
@@ -128,15 +139,15 @@ class VariationalCSFResult:
     @property
     def orbital_optimization(self) -> Dict:
         """Model and stationarity diagnostics for the radial optimization."""
-        variational = self.__dict__.get("_variational_diagnostics")
+        variational = self.solver_diagnostics.get("_variational_diagnostics")
         if variational is not None:
-            return dict(variational, initializer_converged=self.__dict__.get("_inner_converged"))
+            return dict(variational, initializer_converged=self.solver_diagnostics.get("_inner_converged"))
         return {
-            "model": self.__dict__.get("_radial_optimization", "unspecified"),
+            "model": self.solver_diagnostics.get("_radial_optimization", "unspecified"),
             "functional": "configuration-average / frozen-orbital Dirac-Fock",
             "full_correlated_orbital_gradient": False,
-            "inner_converged": self.__dict__.get("_inner_converged"),
-            "inner_residual": self.__dict__.get("_inner_residual"),
+            "inner_converged": self.solver_diagnostics.get("_inner_converged"),
+            "inner_residual": self.solver_diagnostics.get("_inner_residual"),
         }
 
     @property
@@ -148,7 +159,7 @@ class VariationalCSFResult:
         ``"scalar"`` (the comparison-only uniform shift), plus what was
         omitted — see :data:`atomx.physics.csf.breit_ci.RETARDATION_NOTE`.
         """
-        return dict(self.__dict__.get("_breit_provenance") or {})
+        return dict(self.solver_diagnostics.get("_breit_provenance") or {})
 
     @property
     def energy_breakdown(self) -> Dict[str, float]:
@@ -158,7 +169,7 @@ class VariationalCSFResult:
     @property
     def qed_provenance(self) -> Dict:
         """Operator content and remaining approximations of applied QED."""
-        return dict(self.__dict__.get("_qed_provenance") or {})
+        return dict(self.solver_diagnostics.get("_qed_provenance") or {})
 
     @property
     def subshells(self) -> List[Subshell]:
@@ -195,14 +206,6 @@ class VariationalCSFResult:
     def coupling_scheme(self):
         from atomx.types import CouplingScheme
         return CouplingScheme.JJ
-
-    @property
-    def radial_state(self):
-        """Owned native radial snapshot for correction and analysis consumers."""
-        from atomx.radial_state import radial_state_of
-        if '_radial_state' not in self.__dict__:
-            self.__dict__['_radial_state'] = radial_state_of(self)
-        return self.__dict__['_radial_state']
 
     @property
     def waves(self):
@@ -1040,6 +1043,16 @@ class VariationalCSFSolver:
                     self._mean_field_matrices(
                         avg_subshells, weights, jj_configs))
 
+            # FAC-frozen protocols mark the zero-occupation correlation
+            # orbitals as virtual: they are solved in the frozen field but
+            # excluded from inter-orbital constraints and pair rotations.
+            # Declared at construction (review E2) rather than injected.
+            virtual_orbital_keys = None
+            if self.radial_optimization in {"fac_frozen", "fac_frozen_local"}:
+                reference_occupations = self._reference_occupations()
+                virtual_orbital_keys = {key for key in self.orbital_basis
+                                        if reference_occupations.get(key, 0.0) == 0.0}
+
             dhf = DFSolver(
                 Z=self.Z, subshells=avg_subshells,
                 ns=self.ns, ks=self.ks,
@@ -1053,28 +1066,17 @@ class VariationalCSFSolver:
                 mean_field_coeffs=mean_field_coeffs,
                 mean_field_normalization=mean_field_norm,
                 screening_potential=self.screening_potential,
+                virtual_orbital_keys=virtual_orbital_keys,
                 **kwargs,
             )
 
-            # Install the DBSR-HF-style semi-exponential physics grid
-            # before _precompute(), so the inner DHF matches the
-            # DFSolver path used for averaging in
-            # {"statistical","equal","fractional"}.
+            # Install the DBSR-HF-style semi-exponential physics grid so
+            # the inner DHF matches the DFSolver path used for averaging
+            # in {"statistical","equal","fractional"}.
             if self.use_physics_grid:
-                from atomx.numerics.bspline.basis import prepare_bspline_data
-                from atomx.numerics.bspline.knots import make_physics_knots
-                t_phys, ns_phys = make_physics_knots(
-                    ks=self.ks, Z=self.Z, nuclear=self.nuclear,
+                dhf.install_physics_grid(
                     r_max=self.r_max, hi=self.grid_hi, he=self.grid_he,
                     hmax=self.grid_hmax)
-                data = prepare_bspline_data(t_phys, ns_phys, self.ks,
-                                            kinetic_balance=True)
-                dhf.t = t_phys
-                dhf.bsp_data = data
-                dhf.ns = ns_phys
-                dhf.r_max = float(t_phys[-1])
-                dhf.kinetic_balance = True
-                dhf._precompute()
 
             # Warm-start from the previous outer iteration's converged
             # orbitals. Only applied when the basis dimension matches;
@@ -1083,10 +1085,6 @@ class VariationalCSFSolver:
             if seed_orbitals is not None:
                 dhf.seed_orbitals = seed_orbitals
 
-            if self.radial_optimization in {"fac_frozen", "fac_frozen_local"}:
-                reference_occupations = self._reference_occupations()
-                dhf.virtual_orbital_keys = {key for key in self.orbital_basis
-                                           if reference_occupations.get(key, 0.0) == 0.0}
             dhf_result = dhf.solve(max_iter=scf_max_iter, tol=scf_tol,
                 orbital_tolerance=orbital_tolerance if not use_correlated_gradient else None)
             inner_converged = bool(dhf_result.converged)
@@ -1466,29 +1464,29 @@ class VariationalCSFSolver:
         result.calculation_spec = resolved_solver_spec(self, method=self.method_name, engine=self.engine,
                                                       controls=controls)
         result._nuclear_potential = dhf._nuclear_potential if dhf is not None else None
-        result.__dict__["_variational_diagnostics"] = variational_diagnostics
-        result.__dict__["_radial_optimization"] = self.radial_optimization
-        result.__dict__["_inner_converged"] = inner_converged
-        result.__dict__["_inner_residual"] = inner_residual
+        result.solver_diagnostics["_variational_diagnostics"] = variational_diagnostics
+        result.solver_diagnostics["_radial_optimization"] = self.radial_optimization
+        result.solver_diagnostics["_inner_converged"] = inner_converged
+        result.solver_diagnostics["_inner_residual"] = inner_residual
         # Attach correction components for downstream energy breakdown.
         # ``E_Breit`` is the shift that is in ``E_total``: the measured CI
         # operator shift on the operator route, the (fixed) scalar on the
         # scalar route.  The non-applied one is reported under a key whose
         # name says so.
         if breit_operator_in_ci and E_Breit_operator is not None:
-            result.__dict__["_E_Breit"] = E_Breit_operator
+            result.solver_diagnostics["_E_Breit"] = E_Breit_operator
         if E_Breit:
             if breit_operator_in_ci:
-                result.__dict__["_E_Breit_scalar_not_applied"] = E_Breit
+                result.solver_diagnostics["_E_Breit_scalar_not_applied"] = E_Breit
                 if E_Breit_operator is not None:
-                    result.__dict__["_E_Breit"] = E_Breit_operator
+                    result.solver_diagnostics["_E_Breit"] = E_Breit_operator
             else:
-                result.__dict__["_E_Breit"] = E_Breit
+                result.solver_diagnostics["_E_Breit"] = E_Breit
         if self.include_breit:
             from atomx.physics.csf.breit_ci import RETARDATION_NOTE
-            result.__dict__["_breit_mode"] = self.breit_mode
+            result.solver_diagnostics["_breit_mode"] = self.breit_mode
             if breit_operator_in_ci:
-                result.__dict__["_breit_provenance"] = {
+                result.solver_diagnostics["_breit_provenance"] = {
                     "mode": "operator",
                     "operator": "static-breit-gaunt-retardation-in-blocks",
                     "scalar_shift_applied": False,
@@ -1502,7 +1500,7 @@ class VariationalCSFSolver:
                 }
                 if self.breit_orbital_energies is not None:
                     from atomx.physics.csf.transverse import frequency_provenance
-                    result.__dict__['_breit_provenance'].update(
+                    result.solver_diagnostics['_breit_provenance'].update(
                         operator='finite-frequency-transverse-in-blocks',
                         applied_shift_source=(
                             'E(CI with finite-frequency transverse) minus E(Dirac-Coulomb CI) '
@@ -1511,7 +1509,7 @@ class VariationalCSFSolver:
                         energy_source='explicit',
                         **frequency_provenance(self.breit_orbital_energies))
             else:
-                result.__dict__["_breit_provenance"] = {
+                result.solver_diagnostics["_breit_provenance"] = {
                     "mode": "scalar",
                     "operator": "none",
                     "scalar_shift_applied": bool(E_Breit),
@@ -1522,23 +1520,25 @@ class VariationalCSFSolver:
                         "so it cannot split levels."),
                 }
         if qed_components:
-            result.__dict__["_E_QED"] = qed_components
-            result.__dict__["_qed_state_components"] = qed_state_components
-            result.__dict__["_qed_provenance"] = {
+            result.solver_diagnostics["_E_QED"] = qed_components
+            if "se_method" in qed_components:
+                result.solver_diagnostics["se_method"] = qed_components["se_method"]
+            result.solver_diagnostics["_qed_state_components"] = qed_state_components
+            result.solver_diagnostics["_qed_provenance"] = {
                 "vacuum_polarization": "full radial one-body matrix; first-order CI expectation",
                 "self_energy": ("full radial local-model matrix; nonlocal SE absent"
                                 if self.correction_stack.se_backend == "shabaev_local"
                                 else "diagonal orbital model; off-diagonal self-energy absent"),
                 "degeneracy": "correction not diagonalized within degenerate manifolds",
             }
-            result.__dict__["_qed_state_shifts"] = np.asarray(
+            result.solver_diagnostics["_qed_state_shifts"] = np.asarray(
                 qed_state_shifts, dtype=float)
         if sms_provenance is not None:
-            result.__dict__["_sms_state_shifts"] = sms_state_shifts
-            result.__dict__["_sms_provenance"] = sms_provenance
+            result.solver_diagnostics["_sms_state_shifts"] = sms_state_shifts
+            result.solver_diagnostics["_sms_provenance"] = sms_provenance
         if nms_provenance is not None:
-            result.__dict__["_nms_state_shifts"] = nms_state_shifts
-            result.__dict__["_nms_provenance"] = nms_provenance
+            result.solver_diagnostics["_nms_state_shifts"] = nms_state_shifts
+            result.solver_diagnostics["_nms_provenance"] = nms_provenance
         # Explicit inclusion stages prevent downstream post-SCF stacks from
         # adding an interaction already present in these state energies.
         operator_stages = []
@@ -1776,20 +1776,9 @@ class VariationalCSFSolver:
                 **kwargs,
             )
             if self.use_physics_grid:
-                from atomx.numerics.bspline.basis import prepare_bspline_data
-                from atomx.numerics.bspline.knots import make_physics_knots
-                t_phys, ns_phys = make_physics_knots(
-                    ks=self.ks, Z=self.Z, nuclear=self.nuclear,
+                block_dhf.install_physics_grid(
                     r_max=self.r_max, hi=self.grid_hi, he=self.grid_he,
                     hmax=self.grid_hmax)
-                data = prepare_bspline_data(t_phys, ns_phys, self.ks,
-                                            kinetic_balance=True)
-                block_dhf.t = t_phys
-                block_dhf.bsp_data = data
-                block_dhf.ns = ns_phys
-                block_dhf.r_max = float(t_phys[-1])
-                block_dhf.kinetic_balance = True
-                block_dhf._precompute()
 
             block_result = block_dhf.solve(max_iter=20, tol=1.0e-5)
             # Keyed by (n, kappa) via SCFResult's own subshell bookkeeping
