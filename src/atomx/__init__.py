@@ -83,6 +83,8 @@ if TYPE_CHECKING:
     )
     from atomx.numerics.shooting.adaptive import RadialRefinement
     from atomx.numerics.shooting.electron_space import ShootingSpace
+    from atomx.physics.csf.levels import CILevel, CILevelPopulation
+    from atomx.physics.csf.state_average import CIChargeStateAverage, CIStateAverage
     from atomx.results import AtomicResult, HyperfineResult, OrbitalWavefunction, Waves
     from atomx.sampling import Sampling
     from atomx.scattering.models import ContinuumModel, PotentialModel
@@ -112,6 +114,8 @@ _PUBLIC_NAMES = {
     'results': ('AtomicResult', 'HyperfineResult', 'OrbitalWavefunction', 'Waves'),
     'sampling': ('Sampling',),
     'calculation_spec': ('CalculationSpec',),
+    'physics.csf.state_average': ('CIStateAverage', 'CIChargeStateAverage'),
+    'physics.csf.levels': ('CILevel', 'CILevelPopulation'),
     'numerics.shooting.electron_space': ('ShootingSpace',),
     'numerics.shooting.adaptive': ('RadialRefinement',),
     'scattering.models': ('ContinuumModel', 'PotentialModel'),

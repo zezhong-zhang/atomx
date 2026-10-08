@@ -1,4 +1,6 @@
 """Constrained minimization of a supplied radial state functional."""
+import hashlib
+
 import numpy as np
 
 
@@ -7,7 +9,8 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
                       preconditioner_factory=None, refresh_patience=15,
                       refresh_min_ratio=0.25, max_refreshes=4,
                       projector_source="nuclear", occupation_floor=0.05,
-                      progress_callback=None, orbital_preconditioner="spectral"):
+                      progress_callback=None, orbital_preconditioner="spectral",
+                      history_size=10):
     """Minimize the correlated energy in a fixed positive-energy subspace.
 
     A nuclear Dirac projector fixes the finite-basis no-pair Hamiltonian.
@@ -16,6 +19,10 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
     full CI Hellmann–Feynman derivative, not a configuration average.
     Limited-memory secant updates and orbital-energy preconditioning avoid
     forming the orbital Hessian.
+
+    ``history_size`` bounds retained secant pairs. Increasing it can help
+    larger correlation spaces without changing the energy functional or
+    convergence tests; the default retains the previous ten-pair path.
 
     ``orbital_preconditioner='shooting'`` uses a two-sided positive radial
     Green solve for update directions. The Hamiltonian, no-pair space,
@@ -64,9 +71,13 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
     that shell and the projector choice matters.
     """
     from atomx.numerics.bspline.dirac_assembly import solve_dirac
+    from atomx.numerics.bspline.orbital_subspace import radial_projector_start
 
     if orbital_preconditioner not in ("spectral", "shooting"):
         raise ValueError("orbital_preconditioner must be 'spectral' or 'shooting'")
+    if (isinstance(history_size, (bool, np.bool_))
+            or not isinstance(history_size, (int, np.integer)) or history_size < 1):
+        raise ValueError("history_size must be a positive integer")
     if not np.isfinite(occupation_floor) or occupation_floor <= 0:
         raise ValueError("occupation_floor must be finite and positive")
     if projector_source not in ("nuclear", "fock"):
@@ -103,9 +114,7 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
         # Otherwise unrestricted minimization would silently replace 2s by
         # 1s. Missing lower reference roots are frozen outside the active
         # space, within the same stated no-pair projector model.
-        l = kappa if kappa > 0 else -kappa - 1
-        has_kb = functional.data.get("ksp", functional.data["ks"]) != functional.data.get("ksq", functional.data["ks"])
-        first = min(key[0] for key in keys) - l - 1 + int(kappa > 0 and not has_kb)
+        first = radial_projector_start(kappa, min(key[0] for key in keys), functional.data)
         proj = result.coefficients[:, first:]
         eps_source = result.eigenvalues[first:]
         if projector_source == "fock" or preconditioner_matrices is not None:
@@ -159,7 +168,7 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
             # meaningful instead of retaining an arbitrary SCF rotation.
             y[:] = 0.
             for column, (n, _) in enumerate(keys):
-                root = n - l - 1 + int(kappa > 0 and not has_kb) - first
+                root = radial_projector_start(kappa, n, functional.data) - first
                 y[root, column] = 1.
         gram_values, gram_vectors = np.linalg.eigh(y.T @ y)
         if gram_values.min() < 1e-10:
@@ -256,6 +265,20 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
         inverse_diagonal[where] /= np.broadcast_to(populations, shape).ravel()
     if preconditioner_matrices is not None:
         inverse_blocks = scale_blocks(build_blocks(preconditioner_matrices, x))
+
+    # These spectral gaps/occupations are fixed for this run. Restarting
+    # at its endpoint creates a different residual metric even when the
+    # physical gradient is identical; fingerprint the actual representation
+    # so comparisons cannot silently assume those numbers are the same.
+    metric_digest = hashlib.sha256()
+    for keys, projector, shape, _ in layout:
+        metric_digest.update(repr((keys, shape)).encode())
+        metric_digest.update(np.ascontiguousarray(projector).tobytes())
+    metric_digest.update(inverse_diagonal.tobytes())
+    for blocks in inverse_blocks:
+        for block in blocks:
+            metric_digest.update(np.ascontiguousarray(block).tobytes())
+    residual_metric_sha256 = metric_digest.hexdigest()
 
     def spectral_precondition(vector):
         if not inverse_blocks:
@@ -375,7 +398,7 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
         curvature = float(s @ y)
         if curvature > 1e-12 * np.linalg.norm(s) * np.linalg.norm(y):
             history.append((s, y, 1.0 / curvature))
-            history = history[-10:]
+            history = history[-history_size:]
     return unpack(x), ci, {
         "converged": converged, "iterations": iteration,
         "termination_reason": termination_reason,
@@ -383,10 +406,12 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
         "occupation_floor": occupation_floor,
         "gradient_norm": float(np.linalg.norm(g)),
         "orbital_residual": residual, "orbital_tolerance": tolerance,
+        "residual_metric_sha256": residual_metric_sha256,
+        "residual_metric_scope": "run-initial spectral gaps and occupation scaling; endpoint restarts generally differ",
         "estimated_energy_error": energy_error, "energy_tolerance": energy_tolerance,
         "energy_history": energies,
         "functional": "correlated Dirac-Coulomb CI",
-        "target": "ground-state energy (equal ensemble at exact degeneracy)",
+        "target": functional.target_description,
         "radial_labels": "correlation-orbital labels; not guaranteed spectroscopic excited states",
         "projector": (
             "fixed positive-energy nuclear Dirac B-spline subspace"
@@ -397,6 +422,7 @@ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
         "excited_shell_constraints": "lower reference roots below each symmetry's first active shell are excluded",
         "preconditioner": "screened Fock spectral gaps" if inverse_blocks else "nuclear Dirac spectral gaps",
         "update_preconditioner": orbital_preconditioner,
+        "history_size": int(history_size),
         "shooting_iterations": shooting_iterations,
         "shooting_fallback_reason": shooting_fallback_reason,
         "shooting_operator": (

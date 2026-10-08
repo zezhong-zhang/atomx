@@ -31,8 +31,9 @@ one-body spinor matrix elements times a Slater-type radial integral
 ``int int f_a f_c (r_<^L/r_>^{L+1}) f_b f_d`` over the Dirac components
 ``f in {P, Q}``.  The one-body matrix elements are evaluated by explicit
 sums over the ``(l, m_l) x (1/2, m_s)`` decomposition of the spinor
-spherical harmonics, so no reduced-matrix-element table is needed and no
-convention can drift.
+spherical harmonics, so no reduced-matrix-element table is needed. These
+standard spinor matrix elements are converted to the CI Coulomb basis
+convention before they enter the Hamiltonian.
 
 The complete static operator
 ----------------------------
@@ -89,7 +90,26 @@ RETARDATION_NOTE = (
     "orbitals. Frequency-dependent transverse exchange is not included."
 )
 
+# ``l_of_kappa`` / ``twoj_of_kappa`` are re-exported from the canonical
+# angular layer (see ``__all__``); do not re-add local definitions here.
 
+
+def _ci_two_body_phase(ka: int, kb: int, kc: int, kd: int) -> float:
+    """Convert standard spinor two-body elements to the CI basis.
+
+    ``angular.coefficients.reduced_C_jj`` reverses the +/-1/2 projections
+    relative to the standard spinor C tensor. On one rank-K leg its ratio
+    is (-1)^(j_a+j_c+K); on two legs the K factors cancel, leaving
+    (-1)^sum(abs(kappa)). Apply this to both Gaunt and retardation, never
+    to the Coulomb Hamiltonian or only to one part of Breit. Diagonal and
+    same-configuration elements retain their sign.
+    """
+    return -1.0 if (abs(ka) + abs(kb) + abs(kc) + abs(kd)) % 2 else 1.0
+
+
+# ---------------------------------------------------------------------------
+# Spinor spherical harmonics and Pauli matrices
+# ---------------------------------------------------------------------------
 
 @lru_cache(maxsize=None)
 def _spinor_coeffs(kappa: int, m2: int):
@@ -101,6 +121,9 @@ def _spinor_coeffs(kappa: int, m2: int):
         ms2 = m2 - ml2
         if abs(ms2) != 1:
             continue
+        # <l m_l; 1/2 m_s | j m> via the canonical CG kernel (identical
+        # phase/sqrt formula as the former inline derivation, verified
+        # bit-equal over the full (kappa, m) grid on 2026-10-05).
         c = clebsch_gordan(2 * l, ml2, 1, ms2, j2, m2)
         if c:
             out.append((c, l, ml2, ms2))
@@ -225,7 +248,9 @@ def gaunt_angular_terms(kappa_a: int, m2a: int, kappa_b: int, m2b: int,
     # integral. Contract once in angular space, before principal quantum
     # numbers and determinant signs duplicate the terms across CI blocks.
     # Only exact zeros are removed: no angular or radial cutoff is added.
-    return tuple((*key, value) for key, value in out.items() if value != 0.)
+    phase_ci = _ci_two_body_phase(kappa_a, kappa_b, kappa_c, kappa_d)
+    return tuple((*key, phase_ci * value)
+                 for key, value in out.items() if value != 0.)
 
 
 def breit_operator_energy(orbitals_dict, bsp_data, Z, ns, config: str, *,

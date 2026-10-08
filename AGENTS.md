@@ -1,116 +1,137 @@
-# AGENTS.md — atomx 开发洞察与哲学（2026-10-02 战役蒸馏）
+# AGENTS.md — Working principles for atomx
 
-本文从 trace.md（36 条 EARS 记录）、20 个 commit 的收敛弧线和 11 个
-数据化死路中蒸馏。目的：让未来的 agent 不重付这些学费。
+**Measurement outranks speculation. Reference source outranks secondhand
+accounts. Check conventions before diagnosing a bug.**
 
-## 0. 一句话哲学
+Seek physical self-consistency, reuse shared machinery, and earn performance
+claims through measurement. Advance with the smallest experiment that can
+distinguish competing explanations. Make evidence replayable, conclusions
+revisable, and experience useful to the next agent.
 
-**测量压倒推理，参考源码压倒二手转述，约定先于 bug。**
-2026-10-02 全天 18 个 commit 的每一分进展都来自"插桩实测"，
-每一次翻车都来自"想当然"（含本人两次错误结论，均被自己的实验纠正）。
+This file holds lasting principles and cross-task obligations. Scientific
+contracts, commands, pitfalls, measurements, and detailed records belong in
+`docs/`. Use the compact [project index](PROJECT_INDEX.md) to locate code and tests;
+query only the relevant symbols instead of loading its full JSON. Consult the
+[reference index](docs/AGENT_REFERENCE.md) and relevant
+[insights](docs/AGENT_INSIGHTS.md); read by task, rather than loading all archives.
+Historical results apply to their recorded source, inputs, and models.
 
-## 1. 六条硬规矩（全部有当日翻车案例背书）
+## 1. Work within the task
 
-### 1.1 读参考实现源码，不读转述
-- faclib（/data/code/fac）、XATOM（/tmp/atomx-xraypac-build/source）
-  都在本地。trace 里的二手转述出过错两次：
-  - "sd×0.5 双重归一化"假设——读 SlaterTotal 源码发现触发条件是
-    `k0==k1 && k2==k3`，Auger 永不满足 → 假设证伪；
-  - R_K 输出的 K 列读串 → 角度链验证白跑一轮。
-- **能本地活跑参考代码就不要只读**：从 fixture 抽出 sfac 脚本直接
-  rerun（LD_LIBRARY_PATH 指向 xatom 工具链的 libgfortran），一次
-  就把"a_radiative 约定"钉死为 TR总/(2J+1)——六轮审计的最快一步。
+- Start with `git status --short`. Preserve other sessions' changes; do not
+  overwrite, revert, stage, or commit work outside the authorized scope.
+- Use `rg` to locate implementations, tests, and references. Read the relevant
+  code and [architecture](docs/ARCHITECTURE_DESIGN.md) before changing a design.
+  Distinguish implemented interfaces from proposals and historical capabilities.
+- Continue within existing authorization until the result is reviewable and
+  verified. Ask for clarification when a material contract cannot be inferred.
+- Before a diagnostic experiment, state the hypothesis, fixed conditions,
+  distinguishing outcomes, acceptance criterion, and stopping condition.
+  Stop low-information scans; large changes first warrant checking model and space definitions.
+- Estimate state-space size, memory, and work before allocating large objects.
+  Check resource caps and machine load before long runs; record cap changes.
+  Never silently shrink the physical model to fit a budget.
 
-### 1.2 角动量代数永远 sympy 数值验证，绝不手推
-- 手推 6j 零结构错过一次、K=2 读串一次；sympy 复制品在 Ne KLL
-  三个通道上精确复现 XATOM 的 1.0000 后，接线一次成功。
-- 注意约定：仓库 `wigner_6j` 用 doubled-j，sympy 用物理 j
-  （0/101 mismatch 教训）。
+## 2. Preserve physical meaning
 
-### 1.3 先排除"约定差异"，再怀疑代码 bug
-- Fe 辐射率"8-15× 偏差"追了六轮（单通道→相干和→波长→J纯度→
-  引擎互洽→**本地重跑 FAC**），最终答案：fixture 的 a_radiative
-  是 DR/Burgess 逐子态约定 = TR总/(2J+1)，五通道比值精确 2J+1。
-- 期间本人一度宣布"病灶锁定在某代码路径"——被认证引擎判别实验
-  证伪。**宣布归因前先问：两边定义的是同一个量吗？**
+- Keep expansion space, orbital optimization target, observable state,
+  dynamical preparation, and energy reference separate. Similar representations
+  do not make these interchangeable; changing one must not silently change another.
+- Carry state, basis, Hamiltonian, metric, units, and normalization identity
+  through calculations, operators, results, caches, and persistence.
+  A column index or configuration label alone is not a transferable state identity.
+- Respect complete symmetry and degenerate subspaces. Preserve signed amplitudes,
+  off-diagonal terms, and interference; a plausible diagonal result is insufficient.
+- Reuse public physical operators, angular algebra, radial kernels, and density
+  contractions. Methods select physics; numerical engines implement algorithms.
+  Keep dependency direction explicit and abstractions justified by actual consumers.
+- Declare approximations and operator coverage at the consuming interface.
+  Support each result type explicitly or reject it; do not use silent attribute
+  fallbacks to omit physics, change backends, or substitute an average model.
+- A failed scientific gate calls for fixing the solution or representation.
+  Do not adjust weights, state identity, tolerances, or error budgets to force a pass,
+  or add corrections already included in the retained Hamiltonian.
 
-### 1.4 校准锚点先行
-- 新转录公式先找解析锚：LS 链用 XATOM 自己的 R_K 值闭到
-  1.0000；UTA-0 用 2s2s=2πR² 锚定常数；H 1s 的 TRK 连续/分立
-  分区 0.5650/0.4350（我记错成 0.5048，闭式级数和纠正了我）。
-- 锚定后的转录"接线一次成功"是常态，未锚定的接线平均要 3-4 轮。
+## 3. Validate explanations and results
 
-### 1.5 半成品不进 main，死路必须数据化
-- 每个被证伪的假设（当日 11 个）在 trace.md 留下**测量值**，
-  不是一句话"不行"。归因修正（如径向假设被三重证伪）必须显式
-  更新此前写下的结论文档——错着留在文档里比没有文档更糟。
-- WIP 接线若比 committed 状态差 → revert 保 gates 绿（4f1753b→
-  6b5c1a9 先例）；若 uniformly better → commit 并把已知缺口写进
-  docstring（永远标注 KNOWN GAP）。
+- Before comparing numbers, match Hamiltonian, nucleus, state, energy zero,
+  units, normalization, averaging, and operator coverage. Read fixture generators
+  and reference source; rerun the reference locally when practical.
+- Anchor new formulas analytically or independently before production use.
+  Test relevant off-diagonal phases and interference, not only diagonal or closed-shell cases.
+- Validate derivatives and residuals in the actual constrained space and native
+  metric, including state response. Energy stability, successful line search,
+  or retained overlap does not replace a stationarity check.
+- Compare lower and upper states in the same space with the same operators.
+  Report individual energy changes, transition shifts, and splitting separately;
+  do not splice old and new states or assume space increments are additive errors.
+- Distinguish numerical residuals, conditional model bounds, radial/correlation/
+  continuum convergence, physical resonances, and experimental validation.
+  Independent references, internal snapshots, and repeated runs provide different evidence.
+- Predeclare matching and acceptance rules. Preserve failed and negative results;
+  unresolved causes remain unresolved. Use measured strict expected failures for
+  unfinished scientific targets and label known gaps explicitly.
 
-### 1.6 性能优化必须可测量才做
-- BLAS 线程 1→8：1.13s→1.27s（负收益，实测）；
-- 带状特征解：实测 Fock 矩阵带宽 166/N=219、密度 35%（HF 交换
-  填穿带结构）→ 死路；
-- 共享机高负载下加速不可认证 → speedup gate 带负载守卫，正确性
-  gate 常跑。不发布测不出的优化。
+## 4. Measure performance without changing the problem
 
-## 2. 已验证的物理结论（不要重新怀疑）
+- Profile the actual end-to-end workload and identify its dominant stage.
+  Check existing optimizations and recorded failed approaches before repeating them.
+- Prefer reusable angular structure, batched kernels, immutable radial snapshots,
+  and proven symmetry or sparsity. Remove only exact zeros and strictly unreachable
+  coordinates; small amplitudes are not a license to truncate.
+- Bind caches to complete physical and representation inputs. Invalidate on
+  dependency changes; a new trial requires its own snapshot identity.
+- Establish correctness separately from timing with the same Hamiltonian,
+  states, spaces, and residual gates. Use alternating paired measurements,
+  distinguish cold/warm caches, and record load and timing scope.
+- A kernel or stage speedup is not an end-to-end speedup. Failed load guards
+  invalidate controlled timing claims, while correctness checks should still run.
+- Prefer existing process pools for independent tasks and pin worker BLAS threads
+  to one. Measure threading, banded solvers, and matrix-free approaches before adopting them.
 
-1. **Auger 三级阶梯**（Fe XVII LMM vs FAC AITable，同管线）：
-   组态平均 jj 链 0.64–3.56 → 单CSF jj_level 0.10–0.98 →
-   行列式 CI 本征级 0.62–1.33 → MCDHF CI-平均弛豫 0.79–1.49 →
-   全 nl=3 复形 **0.89–1.11**。每加一层"能级信息"收紧一档。
-2. **径向不是 Fe 面板的限制项**（三重证伪：冻MCDHF≈DHF≈弛豫DHF
-   同模式）；主差 = CI 混合/能级位置（n=4 伙伴是一阶项但双刃）。
-3. **轨道弛豫正典方案 = MCDHF CI 哈密顿平均能级自洽**；等权分数
-   占据 DHF 只是构建器能力/对照工具（用户裁定）。
-4. **E1 全链认证 2%**（3C/3D vs FAC RME，shooting+gu 契约）；
-   mscheme 与 ci_lines 两引擎物理互洽。辐射率的量大偏差先查
-   约定（见 1.3）。
-5. **散射↔谱学一致是构造保证**：f₂=ωσ/(4πα)（光学定理）+ KK
-   色散 + TRK gate；H 1s 连续份额窗口实测 0.373 vs 精确 0.369。
-6. **流形辐射率参考约定**：fixture a_radiative = TR 级总/(2J+1)。
-   Like-for-like 后 ILEV 32/190 闭到 0.96/0.97。
+## 5. Verify and deliver
 
-## 3. 工程地形（实测数字）
+- Use the existing `.venv` and select checks from [TESTING.md](docs/TESTING.md).
+  Run affected tests and exercise changed public entry points; expand regression
+  scope when dependencies, failures, or unresolved concerns justify it.
+- Physics changes require the relevant live gates and refreshed measurements.
+  Documentation changes require factual, link, and diff checks. Collection alone
+  is not a passing numerical suite; report only validation actually performed.
+- Check generated compiler caches before treating a cache failure as a physics
+  defect. Any cleanup is limited to generated artifacts, never scientific evidence.
+- Keep replay-sensitive inputs, seeds, source/input hashes, states, bases,
+  operators, metrics, and parameters. Record actual dirty source, not just HEAD;
+  source changes require an explicit identity chain and matched-Hamiltonian validation.
+- Do not merge degraded or unverified work. Revert only your own failed attempts
+  and retain their evidence. Deliver what changed, why, validation, measured results,
+  limitations, and remaining work; self-consistency does not establish experimental accuracy.
 
-- **逐组态成本**：Fe 闭壳 DHF 1.13s（shooting 快路径）；mscheme
-  流形 2J=1,3,5,7 全套 warm ~5s。早先"分钟级"是共享机争抢的
-  wall time 幻觉——报耗时先看 loadavg。
-- **正确并行形态**：进程池 over 独立单元（solve_parallel，fork+
-  BLAS 钉1）；XFEL 级联/Z 面板即此形态。BLAS 线程与带状化均
-  非杠杆（§1.6）。
-- **真热点**（未做的 tier-②）：CI 两体装配的 10 万次逐单元
-  compute_slater_rk_cell 内核调用（`_v` 已有 LRU，别再看它）。
-- **result 类型动物园**：SCFResult / MCDHFResult / ShootingResult
-  属性面不同（orbitals_by_subshell vs orbitals_dict vs _bsp_data）。
-  getattr 静默回退曾吞掉 +J[ρ_full] 项造成径向 bug——新代码显式
-  支持两类或显式报错，不要静默回退。
-- **numba weakref flake**：报 "underlying object has vanished" 时
-  先 `find src \( -name '*.nbi' -o -name '*.nbc' \) -delete`，
-  环境问题不是代码问题（dr_vs_fac/plasma 在 HEAD 上同样失败）。
+## 6. Maintain documentation and learn
 
-## 4. 工作流契约
-
-- **trace.md 是账本**：每轮增量后写 EARS 条目（含测量值）；死路、
-  归因修正、用户裁定（如 §2.3）都要落账。trace.md 被 gitignore，
-  属于会话内知识——重要结论应同步进本文或 gate docstring。
-- **gate 纪律**：live 带如实反映当前测量（改物理后必须重测并更新
-  docstring 里的 MEASURED 值）；aspirational 门用 strict xfail 带
-  实测面板，禁止静默 xpass；配对/匹配规则必须客观且写明（如
-  "±2.5 eV 窗内最强级"），不许调带凑数。
-- **fixture 先问约定**：用外部参考前先读其生成脚本（fixture 的
-  'script' 字段/归档 run.sf），确认量的定义再比数值。
-- **共享机协作**：工作树可能有并行会话的在途改动（git status 里
-  不是自己的文件不碰不提交）；耗时长跑先查 loadavg。
-
-## 5. 当前前沿与下一刀（截至 2026-10-02 晚）
-
-- 主线队列：`xfel/cascade.py` 第一增量（规格：docs/
-  XFEL_GAP_ANALYSIS.md；Ne 荷态-流量锚，Young 2010；ω 已可在
-  匹配约定上定义）。
-- 10% gate 尾巴：ILEV 71/72/142 的混合/位置残差；n=4 等权弛豫
-  假设未测完（探针 /tmp/atomx-fe-n4relax.py 被会话重启打断）。
-- 系统性矩阵 TODO 格与权威工具位置见
-  benchmarks/bench_systematic_fac_matrix.py 与 trace.md 尾部。
+- Keep the commit-time project-index hook installed. Rebuild navigation from the
+  staged snapshot before every commit; never stage unrelated work to refresh it.
+  Index generation does not replace checking documentation against code.
+- Follow the [knowledge workflow](docs/AGENT_KNOWLEDGE_WORKFLOW.md). Every logical
+  code change includes a [documentation impact review](docs/README.md#code-to-documentation-entry-points)
+  and disposition in the same increment: update, merge, remove, or retain with a reason.
+- Renames, removals, defaults, and contract changes require searching old names
+  and behavior descriptions. Update examples, docstrings, capabilities, migration
+  notes, and incoming links; a new report does not repair an outdated guide.
+- Keep one current authoritative account per topic. Remove obsolete guidance
+  without independent value after checking incoming links and merging useful content.
+  Preserve unique archived evidence and failures; publish corrections with links to the originals.
+- After a substantive increment, record EARS (expectation/contract, action/experiment,
+  results, significance/limits) in ignored `trace.md`, with durable conclusions and
+  evidence in the owning `docs/` topic. Never leave lasting knowledge only in chat or `/tmp`.
+- At a phase boundary or handoff, distill: trigger → required/forbidden action →
+  reason → scope. Register evidence and status, or explicitly record “no new insight.”
+  Separate observation, inference, and user decision; preferences are not measurements.
+- Promote only supported, actionable, lasting insights useful across tasks.
+  Merge existing rules first. Keep formulas, tables, run logs, local paths, and
+  task queues in `docs/`; do not turn this file into a second source of detailed truth.
+- When evidence overturns a conclusion, revise current guidance, insight status,
+  navigation, and affected rules together. Mark superseded/withdrawn claims and
+  their replacements; do not rewrite archived evidence or silently erase failures.
+- Before delivery, check knowledge links, status, and rule consistency. Keep this
+  file in English and within 150 lines and 12 KiB UTF-8; move details into `docs/`
+  before adding rules or bypassing the budget with long lines.

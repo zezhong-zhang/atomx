@@ -1,0 +1,55 @@
+{
+  "hypothesis": "A stale column-1 assumption selects another symmetry instead of the lower J=1 odd root.",
+  "fixed_conditions": "Same Ne ion, configuration space, orbitals, production code and existing test tolerances. One spectrum, no scan.",
+  "distinguishing_outcome": "Resolve both J2=2/parity=-1 roots and compare to hardcoded columns 1/4; inspect emitted transition frequencies.",
+  "acceptance": "Actual lower root differs from column 1 while upper root remains column 4; a fixture-only selector repair then passes the unchanged bath/dark-state gates.",
+  "stopping_condition": "One spectrum and focused test rerun.",
+  "spectrum": [
+    {
+      "column": 0,
+      "energy_hartree": -93.96004509685488,
+      "J2": 0,
+      "parity": 1
+    },
+    {
+      "column": 1,
+      "energy_hartree": -60.34292287748986,
+      "J2": 0,
+      "parity": -1
+    },
+    {
+      "column": 2,
+      "energy_hartree": -60.34148971498342,
+      "J2": 2,
+      "parity": -1
+    },
+    {
+      "column": 3,
+      "energy_hartree": -60.334384309253494,
+      "J2": 4,
+      "parity": -1
+    },
+    {
+      "column": 4,
+      "energy_hartree": -60.04706730587731,
+      "J2": 2,
+      "parity": -1
+    }
+  ],
+  "resolved_J1_odd_columns": [
+    2,
+    4
+  ],
+  "hardcoded_fixture_lines": [
+    {
+      "lower": 0,
+      "upper": 4,
+      "energy_eV": 922.8191374216718
+    },
+    {
+      "lower": 0,
+      "upper": 2,
+      "energy_eV": 914.8074955280134
+    }
+  ]
+}

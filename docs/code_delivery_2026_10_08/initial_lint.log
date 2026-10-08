@@ -1,0 +1,373 @@
+I001 [*] Import block is un-sorted or un-formatted
+   --> src/atomx/methods/ci.py:206:17
+    |
+204 |             w, v = linalg.eigh(block, subset_by_index=subset)
+205 |             if dense_cluster_gap is not None:
+206 |                 from atomx.numerics.hermitian_clusters import refine_real_symmetric_clusters
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+207 |                 w, v, info = refine_real_symmetric_clusters(block, w, v, gap=dense_cluster_gap)
+208 |                 refinement.append(info)
+    |
+help: Organize imports
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> src/atomx/methods/csf/charge_variational.py:3:1
+   |
+ 1 |   """Shared-orbital charge-sector CI functional composed from existing kernels."""
+ 2 |
+ 3 | / from dataclasses import dataclass
+ 4 | | from collections.abc import Mapping
+ 5 | | from math import comb
+ 6 | | from types import MappingProxyType
+ 7 | |
+ 8 | | import numpy as np
+ 9 | |
+10 | | from atomx.config.csf import enumerate_jj_orbital_space
+11 | | from atomx.methods.csf.variational import CSFOrbitalFunctional
+12 | | from atomx.physics.csf.radial_density import CIRadialDensity
+13 | | from atomx.physics.csf.state_average import CIChargeStateAverage
+   | |________________________________________________________________^
+   |
+help: Organize imports
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> src/atomx/methods/csf/complex_ci.py:8:1
+   |
+ 6 |   """
+ 7 |
+ 8 | / from dataclasses import dataclass
+ 9 | | from types import MappingProxyType
+10 | |
+11 | | import numpy as np
+12 | | from scipy import linalg
+13 | |
+14 | | from atomx.angular.csf_hamiltonian import csf_signature, exact_block_matrix
+15 | | from atomx.config.csf import enumerate_jj_orbital_space
+16 | | from atomx.numerics.bspline.complex_dirac import ComplexScaledDiracWorkspace
+17 | | from atomx.numerics.complex_eigensolver import complex_target_spectrum, validate_complex_target_request
+18 | | from atomx.physics.csf.complex_radial import ComplexCIRadialSnapshot
+   | |____________________________________________________________________^
+   |
+help: Organize imports
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> src/atomx/numerics/bspline/complex_dirac.py:15:1
+   |
+13 |   """
+14 |
+15 | / from dataclasses import dataclass, field
+16 | |
+17 | | import numpy as np
+18 | | from scipy import linalg
+19 | | from scipy.interpolate import BSpline
+20 | |
+21 | | from atomx.constants import C, C_SQ, ALPHA
+22 | | from atomx.numerics.bspline.basis import setup_gauss_points
+23 | | from atomx.physics.dirac import Dirac
+   | |_____________________________________^
+   |
+help: Organize imports
+
+SIM300 [*] Yoda condition detected
+  --> src/atomx/numerics/bspline/complex_dirac.py:71:29
+   |
+69 |         if (not isinstance(kappa, (int, np.integer)) or kappa == 0
+70 |                 or not np.isscalar(Z) or np.iscomplexobj(Z) or not np.isfinite(Z)
+71 |                 or Z < 0 or ALPHA * Z >= abs(kappa)):
+   |                             ^^^^^^^^^^^^^^^^^^^^^^^
+72 |             raise ValueError("nonzero integer kappa and subcritical nonnegative Z required")
+73 |         ng = ks + 2 if n_gauss is None else n_gauss
+   |
+help: Rewrite as `abs(kappa) <= ALPHA * Z`
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> src/atomx/numerics/bspline/orbital_optimization.py:2:1
+  |
+1 |   """Constrained minimization of a supplied radial state functional."""
+2 | / import hashlib
+3 | | import numpy as np
+  | |__________________^
+  |
+help: Organize imports
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> src/atomx/numerics/complex_eigensolver.py:2:1
+  |
+1 |   """Controlled non-Hermitian target spectrum; no physical pole classification."""
+2 | / from dataclasses import dataclass
+3 | | from types import MappingProxyType
+4 | | import warnings
+5 | |
+6 | | import numpy as np
+7 | | from scipy import linalg
+8 | | from scipy.sparse.linalg import ArpackNoConvergence, LinearOperator, aslinearoperator, eigs, gmres
+  | |__________________________________________________________________________________________________^
+  |
+help: Organize imports
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> src/atomx/physics/csf/complex_radial.py:10:1
+   |
+ 8 |   """
+ 9 |
+10 | / from collections import OrderedDict
+11 | | from types import MappingProxyType
+12 | |
+13 | | import numpy as np
+14 | |
+15 | | from atomx.constants import C_SQ
+16 | | from atomx.numerics.bspline.complex_dirac import ComplexScaledDiracWorkspace
+17 | | from atomx.numerics.bspline.slater import slater_rk_direct
+18 | | from atomx.physics.csf.retardation import distance_potential, transition_current_divergence
+19 | | from atomx.numerics.yk import compute_yk
+   | |________________________________________^
+   |
+help: Organize imports
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> src/atomx/physics/csf/tracking.py:7:1
+   |
+ 5 |   rejected trials. Its selection cannot drift with line-search call order.
+ 6 |   """
+ 7 | / from dataclasses import dataclass
+ 8 | | from copy import deepcopy
+ 9 | | from types import MappingProxyType
+10 | |
+11 | | import numpy as np
+12 | |
+13 | | from atomx.physics.csf.levels import CILevel, ci_level_blocks, normalize_ci_weights
+14 | | from atomx.physics.csf.overlap import ci_subspace_overlaps
+15 | | from atomx.physics.csf.state_average import CIStateAverage
+   | |__________________________________________________________^
+   |
+help: Organize imports
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests/test_ci_basis_tracking.py:2:1
+   |
+ 1 |   """Physical projector identity, degeneracy gauge, and variational integration."""
+ 2 | / from copy import deepcopy
+ 3 | | from types import SimpleNamespace
+ 4 | |
+ 5 | | import numpy as np
+ 6 | | import pytest
+ 7 | |
+ 8 | | from atomx.config.csf import enumerate_jj_orbital_space
+ 9 | | from atomx.physics.csf.levels import CILevel
+10 | | from atomx.physics.csf.overlap import ci_subspace_overlaps
+11 | | from atomx.physics.csf.state_average import CIStateAverage, CIChargeStateAverage
+12 | | from atomx.physics.csf.tracking import CIBasisTracking, CITrackingAmbiguity
+13 | | from test_ci_basis_overlap import rotated_case
+   | |______________________________________________^
+   |
+help: Organize imports
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> tests/test_ci_level_block_validation.py:2:1
+  |
+1 |   """Block validation must retain full Gram semantics for cross-block leakage."""
+2 | / from types import SimpleNamespace
+3 | | import numpy as np
+4 | | import pytest
+5 | | from atomx.physics.csf.levels import ci_level_blocks
+  | |____________________________________________________^
+  |
+help: Organize imports
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests/test_complex_breit.py:2:1
+   |
+ 1 |   """Analytic derivative, continuity, complex kernel and full static Breit gates."""
+ 2 | / from collections import OrderedDict
+ 3 | |
+ 4 | | import numpy as np
+ 5 | | import pytest
+ 6 | |
+ 7 | | from atomx.angular.csf_hamiltonian import csf_signature, exact_block_matrix
+ 8 | | from atomx.constants import ALPHA, C
+ 9 | | from atomx.methods.csf.complex_ci import ComplexScaledCIModel
+10 | | from atomx.numerics.bspline.complex_dirac import ComplexScaledDiracWorkspace
+11 | | from atomx.numerics.bspline.knots import make_exponential_knots
+12 | | from atomx.physics.csf.complex_radial import ComplexCIRadialSnapshot
+13 | | from atomx.physics.csf.retardation import distance_potential
+14 | | from atomx.physics.csf.breit_ci import breit_terms
+   | |__________________________________________________^
+   |
+help: Organize imports
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> tests/test_complex_csf_contraction.py:3:1
+  |
+1 |   """Complex radial data reuse exact signed jj angular algebra without casts."""
+2 |
+3 | / import hashlib
+4 | | import numpy as np
+5 | | import pytest
+6 | |
+7 | | from atomx.angular.csf_hamiltonian import csf_signature, exact_block_matrix
+8 | | from atomx.config.csf import enumerate_jj_orbital_space
+  | |_______________________________________________________^
+  |
+help: Organize imports
+
+E731 Do not assign a `lambda` expression, use a `def`
+  --> tests/test_complex_csf_contraction.py:37:5
+   |
+35 |     real = exact_block_matrix(sigs, lambda k: values(k)[0])
+36 |     imag = exact_block_matrix(sigs, lambda k: values(k)[1])
+37 |     evaluator = lambda k: complex(*values(k))
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+38 |     H = exact_block_matrix(sigs, evaluator, integral_dtype=complex)
+39 |     np.testing.assert_allclose(H, real+1j*imag, atol=1e-14)
+   |
+help: Rewrite `evaluator` as a `def`
+
+B007 Loop control variable `w` not used within loop body
+  --> tests/test_complex_radial_ci.py:52:12
+   |
+50 |     ws = workspaces()
+51 |     s = ComplexCIRadialSnapshot(ws, {-1:3, 1:2, -2:2}, .3)
+52 |     for k, w in ws.items():
+   |            ^
+53 |         keys = [key for key in s.keys if key[1] == k]
+54 |         p, q = (np.array([s.orbitals[key][j] for key in keys]) for j in (0, 1))
+   |
+help: Rename unused `w` to `_w`
+
+I001 [*] Import block is un-sorted or un-formatted
+   --> tests/test_complex_radial_ci.py:109:5
+    |
+107 |   @pytest.mark.parametrize('ng', [17, 25, 33])
+108 |   def test_orthogonal_partial_rule_at_high_order_against_legendre_antiderivatives(ng):
+109 | /     from atomx.numerics.yk import yk_partial_matrices
+110 | |     from numpy.polynomial.legendre import Legendre
+    | |__________________________________________________^
+111 |       x, weights = np.polynomial.legendre.leggauss(ng)
+112 |       mo, mi = yk_partial_matrices(ng)
+    |
+help: Organize imports
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> tests/test_hermitian_clusters.py:2:1
+  |
+1 |   """Close-root resolution tested against an independent arbitrary-precision oracle."""
+2 | / import numpy as np
+3 | | import pytest
+4 | | import mpmath as mp
+5 | | from scipy import linalg
+6 | |
+7 | | from atomx.numerics.hermitian_clusters import refine_real_symmetric_clusters
+  | |____________________________________________________________________________^
+  |
+help: Organize imports
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests/test_hermitian_clusters.py:72:5
+   |
+71 |   def test_ci_partial_and_davidson_rejected_before_physical_assembly(monkeypatch):
+72 | /     from atomx.methods.ci import ci_solve
+73 | |     import atomx.physics.csf.matrix as matrix
+   | |_____________________________________________^
+74 |       def forbidden(*args, **kwargs):
+75 |           raise AssertionError('physical matrix allocated before validating request')
+   |
+help: Organize imports
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests/test_hermitian_clusters.py:83:5
+   |
+82 |   def test_real_charge_functional_refines_same_target_and_reuses_accepted_trial():
+83 | /     from atomx import Atom, Basis, Correlation, CIStateAverage, CIChargeStateAverage
+84 | |     from atomx.methods.csf.charge_variational import ChargeStateOrbitalFunctional
+   | |_________________________________________________________________________________^
+85 |       atom = Atom(6, config=['1s2', '1s1 2p1', '2s2'], basis=Basis(ns=30, ks=9),
+86 |                   corrections='none', correlation=Correlation(radial_optimization='fac_frozen_local'))
+   |
+help: Organize imports
+
+B905 `zip()` without an explicit `strict=` parameter
+  --> tests/test_nuclear_virtual_orbitals.py:39:41
+   |
+37 |     extended, diagnostics = extend_nuclear_virtuals(frozen, h, metric, data, layers=2)
+38 |     for key, pair in saved.items():
+39 |         for original, actual, source in zip(pair, extended[key], frozen[key]):
+   |                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+40 |             np.testing.assert_array_equal(original, actual)
+41 |             np.testing.assert_array_equal(original, source)
+   |
+help: Add explicit value for parameter `strict=`
+
+B905 `zip()` without an explicit `strict=` parameter
+  --> tests/test_nuclear_virtual_orbitals.py:91:33
+   |
+89 |             hydrogenic_dirac_energy(n, kappa, 10), abs=2e-5)
+90 |     for key, pair in frozen.items():
+91 |         for original, actual in zip(pair, extended[key]):
+   |                                 ^^^^^^^^^^^^^^^^^^^^^^^^
+92 |             np.testing.assert_array_equal(original, actual)
+   |
+help: Add explicit value for parameter `strict=`
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests/test_orbital_optimizer_history.py:2:1
+   |
+ 1 |   """Memory choices retain an independent-particle eigenproblem and its gates."""
+ 2 | / from types import SimpleNamespace
+ 3 | | import numpy as np
+ 4 | | import pytest
+ 5 | |
+ 6 | | from atomx.config.csf import enumerate_jj_csfs
+ 7 | | from atomx.methods.csf.variational import CSFOrbitalFunctional
+ 8 | | from atomx.numerics.bspline.basis import prepare_bspline_data
+ 9 | | from atomx.numerics.bspline.dirac_assembly import solve_dirac
+10 | | from atomx.numerics.bspline.knots import make_knots
+11 | | from atomx.numerics.bspline.orbital_optimization import optimize_orbitals
+   | |_________________________________________________________________________^
+   |
+help: Organize imports
+
+B905 `zip()` without an explicit `strict=` parameter
+  --> tests/test_orbital_optimizer_history.py:48:24
+   |
+46 |     b, _, explicit = optimize_orbitals(functional, waves, max_iter=12, history_size=10)
+47 |     np.testing.assert_array_equal(default['energy_history'], explicit['energy_history'])
+48 |     for left, right in zip(a[1, -1], b[1, -1]):
+   |                        ^^^^^^^^^^^^^^^^^^^^^^^
+49 |         np.testing.assert_array_equal(left, right)
+   |
+help: Add explicit value for parameter `strict=`
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests/test_static_radial_symmetry.py:2:1
+   |
+ 1 |   """Exact permutation reduction against unreduced signed CI contractions."""
+ 2 | / from itertools import product
+ 3 | |
+ 4 | | import numpy as np
+ 5 | | import pytest
+ 6 | |
+ 7 | | from atomx.angular.csf_hamiltonian import (
+ 8 | |     block_terms, breit_block_terms, csf_signature, evaluate_block, exact_block_matrix,
+ 9 | | )
+10 | | from atomx.config.csf import enumerate_jj_orbital_space
+11 | | from atomx.methods.csf.complex_ci import ComplexScaledCIModel
+12 | | from atomx.numerics.bspline.knots import make_exponential_knots
+13 | | from atomx.physics.csf.radial_symmetry import canonical_static_radial_key
+   | |_________________________________________________________________________^
+   |
+help: Organize imports
+
+B905 `zip()` without an explicit `strict=` parameter
+  --> tests/test_static_radial_symmetry.py:48:58
+   |
+46 |     labels = ((1,-1),(2,1),(3,-2),(4,1))
+47 |     if kind == 'g':
+48 |         labels = tuple((component,*a) for component,a in zip('PQPQ',labels))
+   |                                                          ^^^^^^^^^^^^^^^^^^
+49 |     original = (kind,2,*labels)
+50 |     value = analytic_integral(original)
+   |
+help: Add explicit value for parameter `strict=`
+
+Found 25 errors.
+[*] 19 fixable with the `--fix` option (6 hidden fixes can be enabled with the `--unsafe-fixes` option).

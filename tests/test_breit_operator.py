@@ -338,7 +338,8 @@ class TestTwoBodySelectionRules:
                         for xa, xc, a in left:
                             for xb, xd, b in right:
                                 key = (L, xa, xc, xb, xd)
-                                value = -(-1.)**(mu+q2//2)*a*b
+                                # Physical spinors -> legacy CI Coulomb basis.
+                                value = -(-1.)**(mu+q2//2+sum(map(abs,kappas)))*a*b
                                 expected[key] = expected.get(key, 0j)+value
             terms = gaunt_angular_terms(ka, ma, kb, mb, kc, mc, kd, md)
             actual = {tuple(term[:-1]): term[-1] for term in terms}

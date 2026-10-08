@@ -1,0 +1,416 @@
+{
+  "numerical_identity_controls_pass": true,
+  "rows": {
+    "4": {
+      "R": 4.0,
+      "ns": 125,
+      "gamma": 0.4,
+      "theta": 0.3,
+      "count": 64,
+      "states": {
+        "rank1": {
+          "real_Ha": -93.9966689970421,
+          "imag_Ha": 7.098920340453674e-10,
+          "bound_imag_gate_pass": true,
+          "center_coordinate_squared_L2": 0.9999999099481206,
+          "DKB_reconstruction_error": 3.30871044277219e-14,
+          "absolute_residual_Ha": 8.831017235952018e-12,
+          "root": 0,
+          "root_selection": "Lowest real-energy N2 J0 even root; coordinate-majority transfer from original bound ground state."
+        },
+        "mixed4": {
+          "real_Ha": -93.99694167541786,
+          "imag_Ha": 0.00012703253149145492,
+          "bound_imag_gate_pass": false,
+          "center_coordinate_squared_L2": 0.9999878518544066,
+          "DKB_reconstruction_error": 3.30871044277219e-14,
+          "absolute_residual_Ha": 9.145907116324708e-12,
+          "root": 0,
+          "root_selection": "Lowest real-energy N2 J0 even root; coordinate-majority transfer from original bound ground state."
+        }
+      },
+      "low_pool4_one_body_energies": {
+        "-1": [
+          {
+            "key": [
+              1,
+              -1
+            ],
+            "real_Ha": -50.06674201779781,
+            "imag_Ha": 3.6313828531131186e-10
+          },
+          {
+            "key": [
+              2,
+              -1
+            ],
+            "real_Ha": -12.520859661048206,
+            "imag_Ha": 2.465078336513622e-09
+          },
+          {
+            "key": [
+              3,
+              -1
+            ],
+            "real_Ha": -5.562554679820948,
+            "imag_Ha": 0.00021817367272503488
+          },
+          {
+            "key": [
+              4,
+              -1
+            ],
+            "real_Ha": -3.2700150180808945,
+            "imag_Ha": -0.058533942280852284
+          }
+        ],
+        "1": [
+          {
+            "key": [
+              2,
+              1
+            ],
+            "real_Ha": -12.520859665502488,
+            "imag_Ha": -1.8697424431542415e-10
+          },
+          {
+            "key": [
+              3,
+              1
+            ],
+            "real_Ha": -5.562719419471167,
+            "imag_Ha": 0.00011313542636995512
+          },
+          {
+            "key": [
+              4,
+              1
+            ],
+            "real_Ha": -3.24353307550959,
+            "imag_Ha": -0.0390365381356599
+          },
+          {
+            "key": [
+              5,
+              1
+            ],
+            "real_Ha": -1.9716566136476394,
+            "imag_Ha": -1.0812222697914042
+          }
+        ],
+        "-2": [
+          {
+            "key": [
+              2,
+              -2
+            ],
+            "real_Ha": -12.504163036193587,
+            "imag_Ha": -1.0527385972958708e-10
+          },
+          {
+            "key": [
+              3,
+              -2
+            ],
+            "real_Ha": -5.557769121831851,
+            "imag_Ha": 0.00011574768458321194
+          },
+          {
+            "key": [
+              4,
+              -2
+            ],
+            "real_Ha": -3.241829829382007,
+            "imag_Ha": -0.039525507909319635
+          },
+          {
+            "key": [
+              5,
+              -2
+            ],
+            "real_Ha": -1.9694617320024426,
+            "imag_Ha": -1.0831987956322466
+          }
+        ]
+      },
+      "raw_sha256": "bdc1ab608e5ba4cdc941cfdb3285ea5be6f2a5766dd6bede115e6b5de13c2310"
+    },
+    "8": {
+      "R": 8.0,
+      "ns": 125,
+      "gamma": 0.4,
+      "theta": 0.3,
+      "count": 64,
+      "states": {
+        "rank1": {
+          "real_Ha": -93.99666899656255,
+          "imag_Ha": 5.724025420317247e-10,
+          "bound_imag_gate_pass": true,
+          "center_coordinate_squared_L2": 0.9999999099477747,
+          "DKB_reconstruction_error": 5.649927944662705e-14,
+          "absolute_residual_Ha": 3.715988366504312e-12,
+          "root": 0,
+          "root_selection": "Lowest real-energy N2 J0 even root; coordinate-majority transfer from original bound ground state."
+        },
+        "mixed4": {
+          "real_Ha": -93.99692783509138,
+          "imag_Ha": -7.803523431024413e-07,
+          "bound_imag_gate_pass": false,
+          "center_coordinate_squared_L2": 0.9999723579904526,
+          "DKB_reconstruction_error": 5.649927944662705e-14,
+          "absolute_residual_Ha": 4.041384920978345e-12,
+          "root": 0,
+          "root_selection": "Lowest real-energy N2 J0 even root; coordinate-majority transfer from original bound ground state."
+        }
+      },
+      "low_pool4_one_body_energies": {
+        "-1": [
+          {
+            "key": [
+              1,
+              -1
+            ],
+            "real_Ha": -50.06674201727175,
+            "imag_Ha": 1.9905943453748837e-10
+          },
+          {
+            "key": [
+              2,
+              -1
+            ],
+            "real_Ha": -12.52085966314802,
+            "imag_Ha": 5.992907864013758e-11
+          },
+          {
+            "key": [
+              3,
+              -1
+            ],
+            "real_Ha": -5.562970351799918,
+            "imag_Ha": -1.1031096959164413e-11
+          },
+          {
+            "key": [
+              4,
+              -1
+            ],
+            "real_Ha": -3.1283888208084125,
+            "imag_Ha": -2.548938354376204e-07
+          }
+        ],
+        "1": [
+          {
+            "key": [
+              2,
+              1
+            ],
+            "real_Ha": -12.520859662888162,
+            "imag_Ha": -5.238604372524826e-11
+          },
+          {
+            "key": [
+              3,
+              1
+            ],
+            "real_Ha": -5.5629703555782015,
+            "imag_Ha": -3.6768635719004806e-09
+          },
+          {
+            "key": [
+              4,
+              1
+            ],
+            "real_Ha": -3.1283885677297114,
+            "imag_Ha": -1.3588322146778618e-07
+          },
+          {
+            "key": [
+              5,
+              1
+            ],
+            "real_Ha": -1.9998089098629142,
+            "imag_Ha": 0.0010949366439587465
+          }
+        ],
+        "-2": [
+          {
+            "key": [
+              2,
+              -2
+            ],
+            "real_Ha": -12.504163033623781,
+            "imag_Ha": -3.499537970588169e-11
+          },
+          {
+            "key": [
+              3,
+              -2
+            ],
+            "real_Ha": -5.558022657954679,
+            "imag_Ha": -1.9540259292373494e-09
+          },
+          {
+            "key": [
+              4,
+              -2
+            ],
+            "real_Ha": -3.126301510026514,
+            "imag_Ha": -1.4324552366643472e-07
+          },
+          {
+            "key": [
+              5,
+              -2
+            ],
+            "real_Ha": -1.9987283189833318,
+            "imag_Ha": 0.0011126004619828637
+          }
+        ]
+      },
+      "raw_sha256": "de15361a833907ba3c9687ddccf096634380c070c0270c564fd09b5493c3f44b"
+    },
+    "12": {
+      "R": 12.0,
+      "ns": 125,
+      "gamma": 0.4,
+      "theta": 0.3,
+      "count": 64,
+      "states": {
+        "rank1": {
+          "real_Ha": -93.99666900937977,
+          "imag_Ha": 1.3713332691622782e-09,
+          "bound_imag_gate_pass": true,
+          "center_coordinate_squared_L2": 0.9999999099386466,
+          "DKB_reconstruction_error": 5.5173662624400064e-14,
+          "absolute_residual_Ha": 2.5306421368754078e-12,
+          "root": 0,
+          "root_selection": "Lowest real-energy N2 J0 even root; coordinate-majority transfer from original bound ground state."
+        },
+        "mixed4": {
+          "real_Ha": -93.99692731457237,
+          "imag_Ha": 1.3403409179837314e-09,
+          "bound_imag_gate_pass": true,
+          "center_coordinate_squared_L2": 0.999972861451074,
+          "DKB_reconstruction_error": 5.5173662624400064e-14,
+          "absolute_residual_Ha": 2.556272780847167e-12,
+          "root": 0,
+          "root_selection": "Lowest real-energy N2 J0 even root; coordinate-majority transfer from original bound ground state."
+        }
+      },
+      "low_pool4_one_body_energies": {
+        "-1": [
+          {
+            "key": [
+              1,
+              -1
+            ],
+            "real_Ha": -50.06674201673036,
+            "imag_Ha": 6.141946425189526e-11
+          },
+          {
+            "key": [
+              2,
+              -1
+            ],
+            "real_Ha": -12.520859664874532,
+            "imag_Ha": 3.214431207273989e-09
+          },
+          {
+            "key": [
+              3,
+              -1
+            ],
+            "real_Ha": -5.562970356954827,
+            "imag_Ha": -2.1421736183498778e-10
+          },
+          {
+            "key": [
+              4,
+              -1
+            ],
+            "real_Ha": -3.1283880755327815,
+            "imag_Ha": -4.220301773683731e-09
+          }
+        ],
+        "1": [
+          {
+            "key": [
+              2,
+              1
+            ],
+            "real_Ha": -12.520859662943133,
+            "imag_Ha": 3.169194434528495e-11
+          },
+          {
+            "key": [
+              3,
+              1
+            ],
+            "real_Ha": -5.5629703598770135,
+            "imag_Ha": 2.856507027599756e-09
+          },
+          {
+            "key": [
+              4,
+              1
+            ],
+            "real_Ha": -3.1283880750214244,
+            "imag_Ha": -7.524304209603872e-10
+          },
+          {
+            "key": [
+              5,
+              1
+            ],
+            "real_Ha": -2.00181447077621,
+            "imag_Ha": 3.570804131319145e-08
+          }
+        ],
+        "-2": [
+          {
+            "key": [
+              2,
+              -2
+            ],
+            "real_Ha": -12.504163033627169,
+            "imag_Ha": 7.260545303958054e-12
+          },
+          {
+            "key": [
+              3,
+              -2
+            ],
+            "real_Ha": -5.558022660689395,
+            "imag_Ha": 4.214358130919764e-10
+          },
+          {
+            "key": [
+              4,
+              -2
+            ],
+            "real_Ha": -3.126300996340561,
+            "imag_Ha": -2.384067377248221e-09
+          },
+          {
+            "key": [
+              5,
+              -2
+            ],
+            "real_Ha": -2.0007460315062042,
+            "imag_Ha": 8.034622689009164e-08
+          }
+        ]
+      },
+      "raw_sha256": "66c3a6964440748c82d42371f83465c1d6b15546a5faa538066d1027acbb6615"
+    }
+  },
+  "finite_wall_and_density_changed_together": true,
+  "not_fixed_physical_cutoff_radial_bound": true,
+  "physical_poles_certified": false,
+  "scope": "Three predeclared N2 DC families, same count/order/ns/gamma/theta and complete rank pattern. R changes boundary and finite spectral density jointly; not a unique boundary attribution or q/r certificate.",
+  "script_sha256": "5302326ecde0d1d927e0d4bbe9f75632ac51a3b2d9f626492d934709c702e616",
+  "cross_grid_sha256": "d5948a4dd1b1e931bbee0a74b79bd36021e1732d8cb72517530bf030e385f931",
+  "protocol_sha256": "1f96c8b7794912b529c2e7a58e19b5f5d6419b71b84590c42ae54a0e53c38142",
+  "peak_RSS_GiB": 0.8099899291992188,
+  "seconds": 85.47747963503934
+}

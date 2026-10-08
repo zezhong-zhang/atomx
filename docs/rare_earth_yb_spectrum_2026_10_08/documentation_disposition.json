@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-08",
+  "task": "Rare-earth Yb II spectrum calculation and experimental comparison",
+  "authoritative_topic": "docs/rare_earth_yb_spectrum_2026_10_08/README.md",
+  "updated": ["docs/README.md", "docs/AGENT_REFERENCE.md"],
+  "retained": {
+    "docs/ARCHITECTURE_CAPABILITIES.md": "No scientific implementation changed; this bounded calculation does not expand solver or crystal-host capabilities.",
+    "docs/THEORY_NIST_COMPARISON.md": "Existing independent-reference, state-matching, vacuum/air and uncertainty conventions applied without change.",
+    "docs/spectroscopy_science_story_2026_10_06/": "Earlier broad framework remains dated design evidence; new actual Yb II calculation linked separately in current navigation.",
+    "docs/xfel_tail_breit_pole_2026_10_06/": "Earlier Ne evidence unchanged and not reinterpreted through Yb data."
+  },
+  "scientific_library_code_changed": false,
+  "calculation_and_reference_comparison_completed": true,
+  "experimental_precision_target_passed": false,
+  "insight_disposition": "No new general rule promoted. Existing convention-first, actual residual, independent experiment and approximate-QED coverage rules applied. Yb-specific negative results remain in owning topic.",
+  "scope": "Bounded case scripts, measured raw outputs, reference extraction, tables, plots, report and delivery to requesting user; no commit, submission or scientific-library changes."
+}

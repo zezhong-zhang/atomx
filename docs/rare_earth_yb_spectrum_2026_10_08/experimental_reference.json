@@ -1,0 +1,179 @@
+{
+  "system": "Yb II / Yb+ free ion",
+  "retrieval_date": "2026-10-08",
+  "reference_scope": "Explicit five low levels from NIST handbook, two measured air resonance wavelengths, and two direct lifetime experiments; not a complete/current-isotope-resolved ASD atlas",
+  "levels": [
+    {
+      "label": "6s_1/2",
+      "configuration_raw": "4 f 1 4 ( 1 S)6 s",
+      "term_raw": "2 S",
+      "two_J": 1,
+      "parity": 1,
+      "excitation_cm1": 0.0,
+      "uncertainty_cm1": null,
+      "uncertainty_status": "not supplied on handbook table; printed digits are not an uncertainty",
+      "source_ref": "M67",
+      "source_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    },
+    {
+      "label": "5d_3/2",
+      "configuration_raw": "4 f 1 4 ( 1 S)5 d",
+      "term_raw": "2 D",
+      "two_J": 3,
+      "parity": 1,
+      "excitation_cm1": 22960.8,
+      "uncertainty_cm1": null,
+      "uncertainty_status": "not supplied on handbook table; printed digits are not an uncertainty",
+      "source_ref": "M67",
+      "source_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    },
+    {
+      "label": "5d_5/2",
+      "configuration_raw": "4 f 1 4 ( 1 S)5 d",
+      "term_raw": "2 D",
+      "two_J": 5,
+      "parity": 1,
+      "excitation_cm1": 24332.69,
+      "uncertainty_cm1": null,
+      "uncertainty_status": "not supplied on handbook table; printed digits are not an uncertainty",
+      "source_ref": "M67",
+      "source_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    },
+    {
+      "label": "6p_1/2",
+      "configuration_raw": "4 f 1 4 ( 1 S)6 p",
+      "term_raw": "2 P°",
+      "two_J": 1,
+      "parity": -1,
+      "excitation_cm1": 27061.82,
+      "uncertainty_cm1": null,
+      "uncertainty_status": "not supplied on handbook table; printed digits are not an uncertainty",
+      "source_ref": "M67",
+      "source_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    },
+    {
+      "label": "6p_3/2",
+      "configuration_raw": "4 f 1 4 ( 1 S)6 p",
+      "term_raw": "2 P°",
+      "two_J": 3,
+      "parity": -1,
+      "excitation_cm1": 30392.23,
+      "uncertainty_cm1": null,
+      "uncertainty_status": "not supplied on handbook table; printed digits are not an uncertainty",
+      "source_ref": "M67",
+      "source_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    }
+  ],
+  "lines": [
+    {
+      "lower": "6s_1/2",
+      "upper": "6p_1/2",
+      "multipole": "E1",
+      "reference_wavenumber_cm1": 27061.82,
+      "reference_Ritz_vacuum_nm": 369.5242965920252,
+      "reference_type": "Ritz wavelength derived here from measured handbook level energies; not an observed wavelength",
+      "observed_air_record": {
+        "lower": "6s_1/2",
+        "upper": "6p_1/2",
+        "observed_wavelength_air_nm": 369.419,
+        "observed_wavelength_uncertainty_nm": null,
+        "wavelength_ref": "M67",
+        "compiled_A_per_s": 123000000.0,
+        "A_ref": "M00",
+        "A_reference_type": "Morton 2000 compilation; not claimed as a new direct experiment",
+        "source_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable4.htm"
+      }
+    },
+    {
+      "lower": "6s_1/2",
+      "upper": "6p_3/2",
+      "multipole": "E1",
+      "reference_wavenumber_cm1": 30392.23,
+      "reference_Ritz_vacuum_nm": 329.03146626621344,
+      "reference_type": "Ritz wavelength derived here from measured handbook level energies; not an observed wavelength",
+      "observed_air_record": {
+        "lower": "6s_1/2",
+        "upper": "6p_3/2",
+        "observed_wavelength_air_nm": 328.937,
+        "observed_wavelength_uncertainty_nm": null,
+        "wavelength_ref": "M67",
+        "compiled_A_per_s": 162000000.0,
+        "A_ref": "M00",
+        "A_reference_type": "Morton 2000 compilation; not claimed as a new direct experiment",
+        "source_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable4.htm"
+      }
+    },
+    {
+      "lower": "5d_3/2",
+      "upper": "6p_1/2",
+      "multipole": "E1",
+      "reference_wavenumber_cm1": 4101.02,
+      "reference_Ritz_vacuum_nm": 2438.417759484226,
+      "reference_type": "Ritz wavelength derived here from measured handbook level energies; not an observed wavelength",
+      "observed_air_record": null
+    },
+    {
+      "lower": "5d_3/2",
+      "upper": "6p_3/2",
+      "multipole": "E1",
+      "reference_wavenumber_cm1": 7431.43,
+      "reference_Ritz_vacuum_nm": 1345.6360350565099,
+      "reference_type": "Ritz wavelength derived here from measured handbook level energies; not an observed wavelength",
+      "observed_air_record": null
+    },
+    {
+      "lower": "5d_5/2",
+      "upper": "6p_3/2",
+      "multipole": "E1",
+      "reference_wavenumber_cm1": 6059.540000000001,
+      "reference_Ritz_vacuum_nm": 1650.290286061318,
+      "reference_type": "Ritz wavelength derived here from measured handbook level energies; not an observed wavelength",
+      "observed_air_record": null
+    },
+    {
+      "lower": "6s_1/2",
+      "upper": "5d_3/2",
+      "multipole": "E2",
+      "reference_wavenumber_cm1": 22960.8,
+      "reference_Ritz_vacuum_nm": 435.5248946029755,
+      "reference_type": "Ritz wavelength derived here from measured handbook level energies; not an observed wavelength",
+      "observed_air_record": null
+    },
+    {
+      "lower": "6s_1/2",
+      "upper": "5d_5/2",
+      "multipole": "E2",
+      "reference_wavenumber_cm1": 24332.69,
+      "reference_Ritz_vacuum_nm": 410.96976947472723,
+      "reference_type": "Ritz wavelength derived here from measured handbook level energies; not an observed wavelength",
+      "observed_air_record": null
+    }
+  ],
+  "lifetimes": [
+    {
+      "state": "6p_1/2",
+      "isotope": 174,
+      "lifetime_ns": 8.12,
+      "uncertainty_ns": 0.02,
+      "type": "direct single trapped-ion experiment",
+      "source_url": "https://doi.org/10.1103/PhysRevA.80.022502",
+      "open_source_url": "https://arxiv.org/abs/0906.0586"
+    },
+    {
+      "state": "5d_3/2",
+      "isotope": 174,
+      "lifetime_ms": 54.83,
+      "uncertainty_ms": 0.18,
+      "type": "direct single trapped-ion experiment",
+      "source_url": "https://doi.org/10.1103/PhysRevResearch.5.023193"
+    }
+  ],
+  "reference_file_sha256": {
+    "nist_ybii_levels.html": "c44697eae33cde7df1f496412e3d1f74980758007d66dfdef822d7104d2adfdd",
+    "reference_manifest.json": "63e61b4e316a8500f325ab65ce86faa14df684441850eaace6ef4a13195ee183",
+    "nist_yb_air_lines.html": "d1d9fc2b10cd516e32f7f0f4ed2eb8bdb4cc90a05c2c68ab6b6371215d3b8b6d",
+    "nist_ybii_persistent.html": "505b2001ab04188317707e0537d06ea9e15e9917864d835454428cfd03907d21",
+    "olmschenk_2009.pdf": "74ae6ae571410383b0046d50f909dc6a52193e3bdbee2c3d1f17e07bfd50c8ad",
+    "nist_yb_references.html": "ca6a44b340a0dfb1ac906de278f7399d728602cdec5621f485dd3517d4f0c928"
+  }
+}

@@ -1,0 +1,508 @@
+{
+  "primary": "v68_box90_newton",
+  "model": "Dirac-Coulomb frozen self-consistent [Xe]4f14 V68 core + one valence electron",
+  "levels": [
+    {
+      "state": "6s_1/2",
+      "calc_excitation_cm1": 0.0,
+      "experimental_excitation_cm1": 0.0,
+      "calc_minus_experiment_cm1": 0.0,
+      "relative_error_percent": null,
+      "experimental_uncertainty_cm1": null,
+      "reference_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    },
+    {
+      "state": "5d_3/2",
+      "calc_excitation_cm1": 24272.56453715243,
+      "experimental_excitation_cm1": 22960.8,
+      "calc_minus_experiment_cm1": 1311.7645371524304,
+      "relative_error_percent": 5.713061117872331,
+      "experimental_uncertainty_cm1": null,
+      "reference_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    },
+    {
+      "state": "5d_5/2",
+      "calc_excitation_cm1": 24752.150224231653,
+      "experimental_excitation_cm1": 24332.69,
+      "calc_minus_experiment_cm1": 419.46022423165414,
+      "relative_error_percent": 1.723854716563003,
+      "experimental_uncertainty_cm1": null,
+      "reference_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    },
+    {
+      "state": "6p_1/2",
+      "calc_excitation_cm1": 24702.423298792542,
+      "experimental_excitation_cm1": 27061.82,
+      "calc_minus_experiment_cm1": -2359.396701207457,
+      "relative_error_percent": -8.718544063952303,
+      "experimental_uncertainty_cm1": null,
+      "reference_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    },
+    {
+      "state": "6p_3/2",
+      "calc_excitation_cm1": 27513.07054516128,
+      "experimental_excitation_cm1": 30392.23,
+      "calc_minus_experiment_cm1": -2879.1594548387184,
+      "relative_error_percent": -9.473340570398152,
+      "experimental_uncertainty_cm1": null,
+      "reference_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    }
+  ],
+  "lines": [
+    {
+      "lower": "6s_1/2",
+      "upper": "6p_1/2",
+      "multipole": "E1",
+      "calc_wavenumber_cm1": 24702.423298792542,
+      "reference_wavenumber_cm1": 27061.82,
+      "calc_vacuum_nm": 404.81858314463676,
+      "reference_Ritz_vacuum_nm": 369.5242965920252,
+      "vacuum_wavelength_error_percent": 9.551276297151933,
+      "calc_A_length_per_s": 160521952.66680533,
+      "calc_A_velocity_per_s": 146579001.38861328,
+      "calc_A_velocity_over_length": 0.9131399098593489,
+      "reduced_matrix_element_au": 3.242198167919742,
+      "observed_air_nm": 369.419,
+      "reference_type": "Ritz wavelength derived here from measured handbook level energies; not an observed wavelength",
+      "reference_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    },
+    {
+      "lower": "6s_1/2",
+      "upper": "6p_3/2",
+      "multipole": "E1",
+      "calc_wavenumber_cm1": 27513.07054516128,
+      "reference_wavenumber_cm1": 30392.23,
+      "calc_vacuum_nm": 363.4636120909071,
+      "reference_Ritz_vacuum_nm": 329.03146626621344,
+      "vacuum_wavelength_error_percent": 10.464696952976293,
+      "calc_A_length_per_s": 217687694.70746014,
+      "calc_A_velocity_per_s": 197052834.73346695,
+      "calc_A_velocity_over_length": 0.905208881918092,
+      "reduced_matrix_element_au": -4.542605512645274,
+      "observed_air_nm": 328.937,
+      "reference_type": "Ritz wavelength derived here from measured handbook level energies; not an observed wavelength",
+      "reference_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    },
+    {
+      "lower": "5d_3/2",
+      "upper": "6p_1/2",
+      "multipole": "E1",
+      "calc_wavenumber_cm1": 429.8587616401119,
+      "reference_wavenumber_cm1": 4101.02,
+      "calc_vacuum_nm": 23263.455098371363,
+      "reference_Ritz_vacuum_nm": 2438.417759484226,
+      "vacuum_wavelength_error_percent": 854.0389462752293,
+      "calc_A_length_per_s": 1199.5644392364875,
+      "calc_A_velocity_per_s": 45407.77027405313,
+      "calc_A_velocity_over_length": 37.85354816199352,
+      "reduced_matrix_element_au": -3.861044390773614,
+      "observed_air_nm": null,
+      "reference_type": "Ritz wavelength derived here from measured handbook level energies; not an observed wavelength",
+      "reference_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    },
+    {
+      "lower": "5d_3/2",
+      "upper": "6p_3/2",
+      "multipole": "E1",
+      "calc_wavenumber_cm1": 3240.506008008851,
+      "reference_wavenumber_cm1": 7431.43,
+      "calc_vacuum_nm": 3085.937805806082,
+      "reference_Ritz_vacuum_nm": 1345.6360350565099,
+      "vacuum_wavelength_error_percent": 129.32930788201494,
+      "calc_A_length_per_s": 49633.31528697992,
+      "calc_A_velocity_per_s": 2.0437490942997214,
+      "calc_A_velocity_over_length": 4.117696112949055e-05,
+      "reduced_matrix_element_au": -1.6969305647093482,
+      "observed_air_nm": null,
+      "reference_type": "Ritz wavelength derived here from measured handbook level energies; not an observed wavelength",
+      "reference_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    },
+    {
+      "lower": "5d_5/2",
+      "upper": "6p_3/2",
+      "multipole": "E1",
+      "calc_wavenumber_cm1": 2760.92032092963,
+      "reference_wavenumber_cm1": 6059.540000000001,
+      "calc_vacuum_nm": 3621.9806577718105,
+      "reference_Ritz_vacuum_nm": 1650.290286061318,
+      "vacuum_wavelength_error_percent": 119.47536674994596,
+      "calc_A_length_per_s": 288265.1264656883,
+      "calc_A_velocity_per_s": 14537.100586217384,
+      "calc_A_velocity_over_length": 0.050429619303768644,
+      "reduced_matrix_element_au": -5.200102678640515,
+      "observed_air_nm": null,
+      "reference_type": "Ritz wavelength derived here from measured handbook level energies; not an observed wavelength",
+      "reference_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    },
+    {
+      "lower": "6s_1/2",
+      "upper": "5d_3/2",
+      "multipole": "E2",
+      "calc_wavenumber_cm1": 24272.56453715243,
+      "reference_wavenumber_cm1": 22960.8,
+      "calc_vacuum_nm": 411.9877808852836,
+      "reference_Ritz_vacuum_nm": 435.5248946029755,
+      "vacuum_wavelength_error_percent": -5.404309606491808,
+      "calc_A_length_per_s": 35.688377034198886,
+      "calc_A_velocity_per_s": 38.91547732886777,
+      "calc_A_velocity_over_length": 1.0904244060069326,
+      "reduced_matrix_element_au": -12.299994319434036,
+      "observed_air_nm": null,
+      "reference_type": "Ritz wavelength derived here from measured handbook level energies; not an observed wavelength",
+      "reference_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    },
+    {
+      "lower": "6s_1/2",
+      "upper": "5d_5/2",
+      "multipole": "E2",
+      "calc_wavenumber_cm1": 24752.150224231653,
+      "reference_wavenumber_cm1": 24332.69,
+      "calc_vacuum_nm": 404.00530497211287,
+      "reference_Ritz_vacuum_nm": 410.96976947472723,
+      "vacuum_wavelength_error_percent": -1.694641557581189,
+      "calc_A_length_per_s": 40.82104035847117,
+      "calc_A_velocity_per_s": 45.56411328449656,
+      "calc_A_velocity_over_length": 1.1161918678302647,
+      "reduced_matrix_element_au": 15.342142296269532,
+      "observed_air_nm": null,
+      "reference_type": "Ritz wavelength derived here from measured handbook level energies; not an observed wavelength",
+      "reference_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    }
+  ],
+  "lifetimes": [
+    {
+      "state": "6p_1/2",
+      "unit": "ns",
+      "calc_lifetime": 6.229630966624875,
+      "experiment_lifetime": 8.12,
+      "experiment_uncertainty": 0.02,
+      "relative_error_percent": -23.280406814964593,
+      "total_model_decay_rate_per_s": 160523152.23124456,
+      "included_channels": "6s_1/2:E1;5d_3/2:E1",
+      "experimental_isotope": 174,
+      "calculation_nuclear_radius_A_parameter": 175,
+      "scope": "sum of included five-level E1/E2/M1 channels; not isotope-resolved or all physical channels",
+      "reference_url": "https://doi.org/10.1103/PhysRevA.80.022502"
+    },
+    {
+      "state": "5d_3/2",
+      "unit": "ms",
+      "calc_lifetime": 28.020327148155147,
+      "experiment_lifetime": 54.83,
+      "experiment_uncertainty": 0.18,
+      "relative_error_percent": -48.89599279927932,
+      "total_model_decay_rate_per_s": 35.68837703830449,
+      "included_channels": "6s_1/2:E2;6s_1/2:M1",
+      "experimental_isotope": 174,
+      "calculation_nuclear_radius_A_parameter": 175,
+      "scope": "sum of included five-level E1/E2/M1 channels; not isotope-resolved or all physical channels",
+      "reference_url": "https://doi.org/10.1103/PhysRevResearch.5.023193"
+    }
+  ],
+  "fine_structure": [
+    {
+      "term": "5d",
+      "calc_splitting_cm1": 479.58568707922313,
+      "reference_splitting_cm1": 1371.8899999999994,
+      "relative_error_percent": -65.04197223689776
+    },
+    {
+      "term": "6p",
+      "calc_splitting_cm1": 2810.6472463687387,
+      "reference_splitting_cm1": 3330.41,
+      "relative_error_percent": -15.606569570451123
+    }
+  ],
+  "fixed_orbital_factors": [
+    {
+      "state": "6s_1/2",
+      "Breit_excitation_shift_cm1": 0.0,
+      "default_model_QED_excitation_shift_cm1": 0.0,
+      "4f_hole_CI_excitation_shift_cm1": 0.0,
+      "4f_hole_baseline_overlap_squared": 1.0
+    },
+    {
+      "state": "5d_3/2",
+      "Breit_excitation_shift_cm1": 27.587152016854684,
+      "default_model_QED_excitation_shift_cm1": 340.969580270425,
+      "4f_hole_CI_excitation_shift_cm1": 0.0,
+      "4f_hole_baseline_overlap_squared": 1.0
+    },
+    {
+      "state": "5d_5/2",
+      "Breit_excitation_shift_cm1": -14.241037033018605,
+      "default_model_QED_excitation_shift_cm1": 403.8769306691016,
+      "4f_hole_CI_excitation_shift_cm1": 0.0,
+      "4f_hole_baseline_overlap_squared": 1.0
+    },
+    {
+      "state": "6p_1/2",
+      "Breit_excitation_shift_cm1": -37.22962395701755,
+      "default_model_QED_excitation_shift_cm1": 320.41299085590936,
+      "4f_hole_CI_excitation_shift_cm1": -654.2889037544348,
+      "4f_hole_baseline_overlap_squared": 0.9849852311430539
+    },
+    {
+      "state": "6p_3/2",
+      "Breit_excitation_shift_cm1": -65.54189611910262,
+      "default_model_QED_excitation_shift_cm1": 411.78506875543917,
+      "4f_hole_CI_excitation_shift_cm1": -589.238340565945,
+      "4f_hole_baseline_overlap_squared": 0.9857333785423074
+    }
+  ],
+  "QED_model_sensitivity": [
+    {
+      "model": "indelicato",
+      "label": "6s_1/2",
+      "valence_VP_Ha": -6.446743998164016e-05,
+      "valence_SE_Ha": -0.0015740980671536634,
+      "QED_excitation_shift_cm1": -1.4872179508085802e-14
+    },
+    {
+      "model": "indelicato",
+      "label": "6p_1/2",
+      "valence_VP_Ha": -2.988254273832418e-06,
+      "valence_SE_Ha": -0.00017566824713211566,
+      "QED_excitation_shift_cm1": 320.41299085618016
+    },
+    {
+      "model": "indelicato",
+      "label": "6p_3/2",
+      "valence_VP_Ha": -2.46209872288856e-07,
+      "valence_SE_Ha": 0.0002379115281315962,
+      "QED_excitation_shift_cm1": 411.7850687556442
+    },
+    {
+      "model": "indelicato",
+      "label": "5d_3/2",
+      "valence_VP_Ha": -8.890626160504055e-09,
+      "valence_SE_Ha": -8.498489775146756e-05,
+      "QED_excitation_shift_cm1": 340.9695802705424
+    },
+    {
+      "model": "indelicato",
+      "label": "5d_5/2",
+      "valence_VP_Ha": -1.8159818849074896e-09,
+      "valence_SE_Ha": 0.00020163500589671625,
+      "QED_excitation_shift_cm1": 403.87693067001095
+    },
+    {
+      "model": "shabaev_local",
+      "label": "6s_1/2",
+      "valence_VP_Ha": -6.446743998164016e-05,
+      "valence_SE_Ha": 0.00023315786695689777,
+      "QED_excitation_shift_cm1": -2.9744359016171603e-15
+    },
+    {
+      "model": "shabaev_local",
+      "label": "6p_1/2",
+      "valence_VP_Ha": -2.988254273832418e-06,
+      "valence_SE_Ha": 9.417224042963121e-06,
+      "QED_excitation_shift_cm1": -35.61227350476081
+    },
+    {
+      "model": "shabaev_local",
+      "label": "6p_3/2",
+      "valence_VP_Ha": -2.46209872288856e-07,
+      "valence_SE_Ha": 2.1197869760026595e-05,
+      "QED_excitation_shift_cm1": -32.42491144457839
+    },
+    {
+      "model": "shabaev_local",
+      "label": "5d_3/2",
+      "valence_VP_Ha": -8.890626160504055e-09,
+      "valence_SE_Ha": -6.078730273722772e-06,
+      "QED_excitation_shift_cm1": -38.35934762776597
+    },
+    {
+      "model": "shabaev_local",
+      "label": "5d_5/2",
+      "valence_VP_Ha": -1.8159818849074896e-09,
+      "valence_SE_Ha": 9.654807032322385e-06,
+      "QED_excitation_shift_cm1": -34.90468262253907
+    },
+    {
+      "model": "flambaum_ginges",
+      "label": "6s_1/2",
+      "valence_VP_Ha": -6.446743998164016e-05,
+      "valence_SE_Ha": 7.472817390464511e-05,
+      "QED_excitation_shift_cm1": 0.0
+    },
+    {
+      "model": "flambaum_ginges",
+      "label": "6p_1/2",
+      "valence_VP_Ha": -2.988254273832418e-06,
+      "valence_SE_Ha": 2.5748123295931765e-05,
+      "QED_excitation_shift_cm1": 2.74324306823184
+    },
+    {
+      "model": "flambaum_ginges",
+      "label": "6p_3/2",
+      "valence_VP_Ha": -2.46209872288856e-07,
+      "valence_SE_Ha": 1.7370184318100165e-05,
+      "QED_excitation_shift_cm1": 1.5063071836994952
+    },
+    {
+      "model": "flambaum_ginges",
+      "label": "5d_3/2",
+      "valence_VP_Ha": -8.890626160504055e-09,
+      "valence_SE_Ha": 9.23152845972051e-06,
+      "QED_excitation_shift_cm1": -0.22783575655044946
+    },
+    {
+      "model": "flambaum_ginges",
+      "label": "5d_5/2",
+      "valence_VP_Ha": -1.8159818849074896e-09,
+      "valence_SE_Ha": 7.13696305968127e-06,
+      "QED_excitation_shift_cm1": -0.6859870206456404
+    }
+  ],
+  "radial_controls": [
+    {
+      "before": "v68_default",
+      "after": "v68_refined_newton",
+      "scope": "grid plus native eigenpair refinement",
+      "max_excitation_drift_cm1": 6.70693043502979e-05,
+      "excitation_drift_cm1": {
+        "6s_1/2": 0.0,
+        "5d_3/2": -6.70693043502979e-05,
+        "5d_5/2": -6.267786011449061e-05,
+        "6p_1/2": -2.195721390307881e-05,
+        "6p_3/2": -7.185997674241662e-06
+      },
+      "max_selected_A_relative_drift": 3.1350838125554503e-07,
+      "predeclared_excitation_gate_cm1": 1.0,
+      "passed": true
+    },
+    {
+      "before": "v68_refined_newton",
+      "after": "v68_box90_newton",
+      "scope": "R60 to R90 at same fine grid and native refinement",
+      "max_excitation_drift_cm1": 7.984453986864537e-07,
+      "excitation_drift_cm1": {
+        "6s_1/2": 0.0,
+        "5d_3/2": -3.992208803538233e-07,
+        "5d_5/2": -7.984417607076466e-07,
+        "6p_1/2": 7.984453986864537e-07,
+        "6p_3/2": 7.984453986864537e-07
+      },
+      "max_selected_A_relative_drift": 8.360474534896412e-09,
+      "predeclared_excitation_gate_cm1": 1.0,
+      "passed": true
+    }
+  ],
+  "verification": {
+    "date": "2026-10-08",
+    "primary": "v68_box90_newton",
+    "reference_level_state_match": true,
+    "positive_transition_energy_and_nonnegative_finite_rates": true,
+    "transition_energy_and_vacuum_identity": true,
+    "multipole_parity": true,
+    "table_counts": {
+      "levels": 5,
+      "selected_lines": 7,
+      "direct_lifetimes": 2,
+      "all_native_lines": 12
+    },
+    "numerical_model_gates_passed": true,
+    "radial_controls_passed": true,
+    "measured_primary_gates": {
+      "core_DF_residual": 1.116545974475089e-09,
+      "max_projected_valence_residual_Ha": 4.9403766873406245e-11,
+      "max_Hamiltonian_consistency_error_Ha": 2.6470992064986376e-11,
+      "orbital_metric_max_error": 4.440892098500626e-16
+    },
+    "experimental_excitation_goal_percent": 5.0,
+    "experimental_excitation_goal_passed": false,
+    "current_Atomx_source_hashes_match_run": true,
+    "run_dispositions": {
+      "dc_default": {
+        "same_Atomx_source_map_as_primary": true,
+        "status": "failure retained"
+      },
+      "dc_default_replay": {
+        "same_Atomx_source_map_as_primary": true,
+        "status": {
+          "passed": false,
+          "reason": "orbital solve unconverged; no production rates"
+        }
+      },
+      "dc_ground_frozen": {
+        "same_Atomx_source_map_as_primary": true,
+        "status": {
+          "passed": true,
+          "scope": "stationary declared model only; radial/experimental gates evaluated separately",
+          "n_lines": 12
+        }
+      },
+      "dc_refined": {
+        "same_Atomx_source_map_as_primary": true,
+        "status": {
+          "passed": false,
+          "reason": "orbital solve unconverged; no production rates"
+        }
+      },
+      "v68_box90": {
+        "same_Atomx_source_map_as_primary": true,
+        "status": {
+          "passed": true,
+          "scope": "declared frozen-core model; radial and experimental gates evaluated separately",
+          "n_lines": 12
+        }
+      },
+      "v68_box90_newton": {
+        "same_Atomx_source_map_as_primary": true,
+        "status": {
+          "passed": true,
+          "scope": "declared frozen-core model; radial and experimental gates evaluated separately",
+          "n_lines": 12
+        }
+      },
+      "v68_default": {
+        "same_Atomx_source_map_as_primary": true,
+        "status": {
+          "passed": true,
+          "scope": "declared frozen-core model; radial and experimental gates evaluated separately",
+          "n_lines": 12
+        }
+      },
+      "v68_default_4f_holes": {
+        "same_Atomx_source_map_as_primary": true,
+        "status": {
+          "passed": true,
+          "scope": "fixed-orbital factor probe; not orbital stationarity in extended/corrected model"
+        }
+      },
+      "v68_default_corrections": {
+        "same_Atomx_source_map_as_primary": true,
+        "status": {
+          "passed": true,
+          "scope": "fixed-orbital factor probe; not orbital stationarity in extended/corrected model"
+        }
+      },
+      "v68_default_qed_models": {
+        "same_Atomx_source_map_as_primary": true,
+        "status": {
+          "passed": true,
+          "scope": "approximate operator sensitivity only"
+        }
+      },
+      "v68_refined": {
+        "same_Atomx_source_map_as_primary": true,
+        "status": {
+          "passed": false,
+          "reason": "valence/metric/Hamiltonian gate failed"
+        }
+      },
+      "v68_refined_newton": {
+        "same_Atomx_source_map_as_primary": true,
+        "status": {
+          "passed": true,
+          "scope": "declared frozen-core model; radial and experimental gates evaluated separately",
+          "n_lines": 12
+        }
+      }
+    },
+    "scope": "replayed result identities, declared solver gates and radial controls; no full repository regression suite or experimental accuracy certification"
+  }
+}

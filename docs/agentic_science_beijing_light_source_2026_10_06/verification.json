@@ -1,0 +1,622 @@
+{
+  "pass": true,
+  "scope": "Documentary hashes, selected reported scalars, preservation of failed scientific gates, and package-local links. No physics computation, no proof of remaining physical error, no platform submission.",
+  "checks": [
+    {
+      "name": "evidence hash: evidence/e3200/analysis.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence hash: evidence/e3200/singles_analysis.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence hash: evidence/tail_model.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence hash: evidence/feedback_scale_analysis.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence hash: evidence/breit_path_3200.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence hash: evidence/frequency_reference_projection.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence hash: evidence/operator_tests.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence hash: evidence/frequency_tests.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence hash: evidence/complex_breit_off.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence hash: evidence/wall_control.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence hash: evidence/wall_center_comparison.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence hash: evidence/wall_angle_analysis.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence hash: evidence/energy_balance_precise_retry.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence hash: evidence/validation.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence hash: evidence/seal_check.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence hash: evidence/experimental_nominals.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence hash: evidence/measured_controls.png",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence hash: evidence/protocol.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence hash: evidence/validation_protocol.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence hash: evidence/ledger_precision_retry_protocol.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence hash: evidence/failed_validation_ledger_closure/manifest.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "source hash: sources/playground_getting-started.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "source hash: sources/playground_reading-a-trace.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "source hash: sources/playground_arm-bundles.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "source hash: sources/playground_AGENT_API.txt",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "source hash: sources/playground_challenges.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "source hash: sources/playground_benchmarks.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "source hash: sources/playground_hackathon_challenges.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "source hash: sources/xas_sim2real_challenge.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "source hash: sources/heps_overview.html",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "source hash: sources/heps_spectroscopy.html",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "original sealed archive manifest unchanged",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "q local increment remains failed",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "q forecast remains failed",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "r local increment remains failed",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "r forecast remains failed",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "document scalar: q photon eV",
+      "pass": true,
+      "details": {
+        "value": 908.193003809802,
+        "document_spelling": "908.193003810"
+      }
+    },
+    {
+      "name": "document scalar: q photon bias meV",
+      "pass": true,
+      "details": {
+        "value": -8.896190198015574,
+        "document_spelling": "-8.896190"
+      }
+    },
+    {
+      "name": "document scalar: q complete tail meV",
+      "pass": true,
+      "details": {
+        "value": 5.914650298650602,
+        "document_spelling": "5.914650"
+      }
+    },
+    {
+      "name": "document scalar: q singles meV",
+      "pass": true,
+      "details": {
+        "value": 0.014556151916940784,
+        "document_spelling": "0.014556"
+      }
+    },
+    {
+      "name": "document scalar: q Breit switch meV",
+      "pass": true,
+      "details": {
+        "value": -293.41202835705536,
+        "document_spelling": "-293.412028"
+      }
+    },
+    {
+      "name": "document scalar: q Breit nonlinear meV",
+      "pass": true,
+      "details": {
+        "value": 0.2413082886729967,
+        "document_spelling": "0.241308"
+      }
+    },
+    {
+      "name": "document scalar: q Breit paper difference meV",
+      "pass": true,
+      "details": {
+        "value": -4.018935631045622,
+        "document_spelling": "-4.018936"
+      }
+    },
+    {
+      "name": "document scalar: q measured forecast meV",
+      "pass": true,
+      "details": {
+        "value": 7.224006737876142,
+        "document_spelling": "7.224007"
+      }
+    },
+    {
+      "name": "document scalar: q forecast error meV",
+      "pass": true,
+      "details": {
+        "value": 1.3093564392255397,
+        "document_spelling": "1.309356"
+      }
+    },
+    {
+      "name": "document scalar: q reference frequency meV",
+      "pass": true,
+      "details": {
+        "value": 0.04508647750277944,
+        "document_spelling": "0.045086"
+      }
+    },
+    {
+      "name": "document scalar: q reference bound meV",
+      "pass": true,
+      "details": {
+        "value": 0.07199945176829295,
+        "document_spelling": "0.071999"
+      }
+    },
+    {
+      "name": "document scalar: r photon eV",
+      "pass": true,
+      "details": {
+        "value": 908.0657189178187,
+        "document_spelling": "908.065718918"
+      }
+    },
+    {
+      "name": "document scalar: r photon bias meV",
+      "pass": true,
+      "details": {
+        "value": -13.881082181342208,
+        "document_spelling": "-13.881082"
+      }
+    },
+    {
+      "name": "document scalar: r complete tail meV",
+      "pass": true,
+      "details": {
+        "value": 5.874689949420329,
+        "document_spelling": "5.874690"
+      }
+    },
+    {
+      "name": "document scalar: r singles meV",
+      "pass": true,
+      "details": {
+        "value": 0.014465013607867002,
+        "document_spelling": "0.014465"
+      }
+    },
+    {
+      "name": "document scalar: r Breit switch meV",
+      "pass": true,
+      "details": {
+        "value": -297.5567858237917,
+        "document_spelling": "-297.556786"
+      }
+    },
+    {
+      "name": "document scalar: r Breit nonlinear meV",
+      "pass": true,
+      "details": {
+        "value": 0.2911414362928326,
+        "document_spelling": "0.291141"
+      }
+    },
+    {
+      "name": "document scalar: r Breit paper difference meV",
+      "pass": true,
+      "details": {
+        "value": -4.490155954574561,
+        "document_spelling": "-4.490156"
+      }
+    },
+    {
+      "name": "document scalar: r measured forecast meV",
+      "pass": true,
+      "details": {
+        "value": 7.176687694116193,
+        "document_spelling": "7.176688"
+      }
+    },
+    {
+      "name": "document scalar: r forecast error meV",
+      "pass": true,
+      "details": {
+        "value": 1.3019977446958642,
+        "document_spelling": "1.301998"
+      }
+    },
+    {
+      "name": "document scalar: r reference frequency meV",
+      "pass": true,
+      "details": {
+        "value": 0.046889097886046414,
+        "document_spelling": "0.046889"
+      }
+    },
+    {
+      "name": "document scalar: r reference bound meV",
+      "pass": true,
+      "details": {
+        "value": 0.07042468646368877,
+        "document_spelling": "0.070425"
+      }
+    },
+    {
+      "name": "document scalar: split meV",
+      "pass": true,
+      "details": {
+        "value": 127.28489198332227,
+        "document_spelling": "127.284892"
+      }
+    },
+    {
+      "name": "document scalar: split minus joint experiment meV",
+      "pass": true,
+      "details": {
+        "value": 5.084891983322265,
+        "document_spelling": "5.084892"
+      }
+    },
+    {
+      "name": "document scalar: q rank2 pole transition meV",
+      "pass": true,
+      "details": {
+        "value": -31.49899742686828,
+        "document_spelling": "-31.498997"
+      }
+    },
+    {
+      "name": "document scalar: r rank2 pole transition meV",
+      "pass": true,
+      "details": {
+        "value": -32.13758469391906,
+        "document_spelling": "-32.137585"
+      }
+    },
+    {
+      "name": "full correlation remains uncompleted",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "physical pole remains uncertified",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "original finite-model independent validation passed",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "source snapshot file count",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "original archive count and seal",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/protocol.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> assets/agent_workflow.svg",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/tail_model.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/e3200/analysis.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/validation.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/e3200/singles_analysis.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/feedback_scale_analysis.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/experimental_nominals.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/breit_path_3200.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/frequency_reference_projection.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/operator_tests.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/frequency_tests.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/complex_breit_off.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/wall_control.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/wall_center_comparison.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/wall_angle_analysis.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/measured_controls.png",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/tail_model.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/failed_validation_ledger_closure/manifest.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/ledger_precision_retry_protocol.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/energy_balance_precise_retry.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence/seal_check.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 参赛项目书.md -> evidence_index.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 评审摘要.md -> 参赛项目书.md",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: 评审摘要.md -> evidence_index.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: README.md -> 参赛项目书.md",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: README.md -> 参赛项目书.pdf",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: README.md -> 参赛项目书.docx",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: README.md -> 参赛项目书.html",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: README.md -> 评审摘要.md",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: README.md -> evidence_index.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: README.md -> sources/index.json",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "local link: README.md -> build_document.py",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "evidence subset count matches document",
+      "pass": true,
+      "details": null
+    }
+  ],
+  "selected_scalar_count": 26,
+  "evidence_files": 21,
+  "package_local_links": 33,
+  "external_repository_links": [
+    {
+      "document": "参赛项目书.md",
+      "target": "../xfel_uv_tail_continuation_2026_10_06/README.md",
+      "exists_in_workspace": true
+    },
+    {
+      "document": "参赛项目书.md",
+      "target": "../xfel_tail_breit_pole_2026_10_06/README.md",
+      "exists_in_workspace": true
+    },
+    {
+      "document": "参赛项目书.md",
+      "target": "../xfel_tail_breit_pole_2026_10_06/README.md",
+      "exists_in_workspace": true
+    },
+    {
+      "document": "参赛项目书.md",
+      "target": "../xfel_tail_breit_pole_2026_10_06/README.md",
+      "exists_in_workspace": true
+    },
+    {
+      "document": "README.md",
+      "target": "../xfel_tail_breit_pole_2026_10_06/README.md",
+      "exists_in_workspace": true
+    }
+  ],
+  "physical_correlation_converged": false,
+  "physical_poles_certified": false,
+  "no_physics_imports": true
+}

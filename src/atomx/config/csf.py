@@ -8,6 +8,7 @@ For MCDHF, we need multiple CSFs that can mix via CI.
 """
 
 from dataclasses import dataclass
+from math import comb
 from typing import List, Optional, Tuple
 
 import numpy as np
@@ -17,6 +18,55 @@ from atomx.angular.csf_recoupling import allowed_coupled_J2
 from atomx.angular.mscheme import subshell_j_counts_mscheme
 from atomx.config.parsing import parse_nr_shells
 from atomx.config.subshell import Subshell
+
+
+def enumerate_jj_orbital_space(orbital_keys, electrons, *, magnetic_state_cap=512):
+    """Complete fixed-N CSFs over explicit relativistic orbitals, with a cap.
+
+    Reuses canonical subshell parentage/coupling paths. The exact magnetic
+    dimension is binomial(number of spinors, N); reject before enumeration,
+    never silently truncate occupied patterns or J blocks.
+    """
+    if (isinstance(magnetic_state_cap, bool)
+            or not isinstance(magnetic_state_cap, (int, np.integer))
+            or magnetic_state_cap < 1):
+        raise ValueError("positive integer magnetic_state_cap required")
+    keys = tuple(sorted(orbital_keys))
+    if len(set(keys)) != len(keys) or any(n < 1 or k == 0 for n, k in keys):
+        raise ValueError("distinct valid (n,kappa) orbitals required")
+    capacity = sum(2 * abs(k) for _, k in keys)
+    if (isinstance(electrons, bool)
+            or not isinstance(electrons, (int, np.integer))
+            or not 1 <= electrons <= capacity):
+        raise ValueError("electron count must fit the orbital space")
+    dimension = comb(capacity, int(electrons))
+    if dimension > magnetic_state_cap:
+        raise ValueError(f"complete {electrons}-electron space needs {dimension} magnetic states; cap={magnetic_state_cap}")
+    patterns = []
+
+    def visit(position, remaining, occupied):
+        if position == len(keys):
+            if remaining == 0:
+                patterns.append(occupied)
+            return
+        n, k = keys[position]
+        for count in range(min(2 * abs(k), remaining) + 1):
+            visit(position + 1, remaining - count,
+                  occupied + (((n, k, count),) if count else ()))
+
+    visit(0, int(electrons), ())
+    output = []
+    for pattern in patterns:
+        parity = (-1) ** sum((k if k > 0 else -k - 1) * q for _, k, q in pattern)
+        subshells = [Subshell(n, k, q) for n, k, q in pattern]
+        for path in coupling_paths(pattern):
+            j2 = path[-1][0]
+            output.append(CSF(subshells=list(subshells), total_J2=j2,
+                              parity=parity, coupling=path,
+                              label=f"{pattern} [J={j2}/2] tree={path}"))
+    if sum(c.total_J2 + 1 for c in output) != dimension:
+        raise RuntimeError("fixed-N CSFs do not span the complete orbital space")
+    return output
 
 
 @dataclass

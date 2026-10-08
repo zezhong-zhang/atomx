@@ -73,6 +73,8 @@ def ci_solve(
     breit_orbital_energies=None,
     max_determinants: int | None = None,
     one_body_shifts: dict | None = None,
+    radial_snapshot=None,
+    dense_cluster_gap=None,
 ) -> CIResult:
     """Build the CI matrix and diagonalise it.
 
@@ -121,6 +123,17 @@ def ci_solve(
         Optional pre-built cell-integral cache on ``bsp_data`` (see
         :func:`atomx.physics.csf.matrix.build_ci_matrix`).  B-spline
         flavour only.
+    radial_snapshot
+        Optional immutable common B-spline ``CIRadialSnapshot`` sharing
+        signed Coulomb integral values across charge/CSF spaces. Exact
+        orbital, geometry and nuclear Hamiltonian matches are required.
+    dense_cluster_gap
+        Optional positive absolute Hartree gap for extended-precision
+        Rayleigh--Ritz refinement of complete dense real symmetry blocks.
+        All close roots are retained; this does not change physical
+        degeneracy, root selection or state-average weights. Explicit only;
+        unsupported precision platforms raise. Incomplete/Davidson spectra
+        are unsupported. The original Hamiltonian and residual gates remain.
     include_breit
         Add the static Breit interaction (Gaunt plus retardation) to every
         ``(2J, parity)`` block of the CI matrix, so it shifts levels
@@ -153,6 +166,14 @@ def ci_solve(
         raise ValueError(f"n_states must be between 1 and {n}")
     if solver == "auto":
         solver = "dense" if (n <= 1500 or n_states is None) else "davidson"
+    if dense_cluster_gap is not None:
+        from numbers import Real
+        if (isinstance(dense_cluster_gap, (bool, np.bool_))
+                or not isinstance(dense_cluster_gap, Real)
+                or not np.isfinite(dense_cluster_gap) or dense_cluster_gap <= 0):
+            raise ValueError('dense_cluster_gap must be a finite positive real number')
+        if solver != 'dense' or n_states is not None:
+            raise ValueError('cluster refinement requires the complete dense CI spectrum')
     H_ci = build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
                            nuclear_potential=nuclear_potential,
                            convol_cache=convol_cache,
@@ -160,6 +181,7 @@ def ci_solve(
                            breit_orbital_energies=breit_orbital_energies,
                            max_determinants=max_determinants,
                            one_body_shifts=one_body_shifts,
+                           radial_snapshot=radial_snapshot,
                            as_operator=(solver == "davidson"))
     groups = _group_csfs_by_J_parity(csfs) or [((0, 1), list(range(n)))]
     if hasattr(H_ci, "blocks"):
@@ -167,6 +189,7 @@ def ci_solve(
     else:
         blocks = [(np.asarray(idx), H_ci[np.ix_(idx, idx)]) for _, idx in groups]
     values, vectors, iterations = [], [], []
+    refinement = []
     for idx, block in blocks:
         size = len(idx)
         if size == 0:
@@ -179,6 +202,12 @@ def ci_solve(
         else:
             subset = (0, k - 1) if k < size else None
             w, v = linalg.eigh(block, subset_by_index=subset)
+            if dense_cluster_gap is not None:
+                from atomx.numerics.hermitian_clusters import (
+                    refine_real_symmetric_clusters,
+                )
+                w, v, info = refine_real_symmetric_clusters(block, w, v, gap=dense_cluster_gap)
+                refinement.append(info)
         full = np.zeros((n, len(w)))
         full[idx] = v
         values.extend(w)
@@ -194,6 +223,8 @@ def ci_solve(
     }
     if iterations:
         provenance.update(n_iter=max(iterations), block_iterations=iterations, tol=tol)
+    if refinement:
+        provenance['dense_cluster_refinement'] = refinement
     if include_breit:
         if breit_orbital_energies is None:
             from atomx.physics.csf.breit_ci import RETARDATION_NOTE

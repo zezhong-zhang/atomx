@@ -1,0 +1,33 @@
+{
+  "label": "v68_box90_newton",
+  "he": 0.125,
+  "hmax": 0.5,
+  "rmax": 90.0,
+  "resume_core_from": "v68_box90",
+  "refine_eigenpairs": true,
+  "configs": [
+    "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6s1",
+    "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6p1",
+    "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d1"
+  ],
+  "contract": {
+    "hypothesis": "A monovalent Yb II frozen-core V^(N-1) Dirac-Fock model supplies resolved lines with independently verifiable core SCF, valence eigenpair and radial gates.",
+    "fixed_conditions": "Z70; self-consistent 68-electron Yb III [Xe]4f14 closed core; exactly one active electron, no spectator fractional populations; Fermi nucleus; Dirac-Coulomb; nonlocal HF exchange; no experimental fit; one BLAS thread",
+    "implementation_convention": "build_virtual_basis(potential_mode='VN') retains the full N=68 reference core, which is V^(N-1) relative to the 69-electron Yb II target. Selecting 'VN-1' here would incorrectly remove another core electron.",
+    "acceptance": {
+      "core_DF_converged": true,
+      "core_DF_tolerance": 1e-08,
+      "valence_projected_eigenpair_residual_Ha": 1e-07,
+      "orbital_metric_max_error": 1e-08,
+      "full_CI_minus_core_plus_valence_Ha": 1e-08,
+      "radial_transition_drift_cm1": 1.0,
+      "experimental_excitation_relative_error_goal": 0.05
+    },
+    "observable": "69-electron frozen-core energies E(core)+epsilon(valence), crosschecked against the full 69-electron CSF Hamiltonian; native finite-wavelength E1/E2/M1 tensors",
+    "resource_estimate": "19 occupied core orbitals + 5 active orbitals; five one-dimensional CSF blocks; <3 GiB anticipated RSS, no 69-electron SD expansion",
+    "stopping_rule": "900 seconds per run; retain and stop on core SCF, eigenpair, metric or Hamiltonian consistency failure; no relaxed gates",
+    "limits": "Core orbital relaxation between states, core polarization and core-valence correlation omitted. Not five-level EOL stationarity or crystal-host spectroscopy. Isotope shifts, hyperfine and recoil absent.",
+    "numerical_refinement": "Native bordered Newton refinement in the identical occupied-orthogonal Fock space; root overlap >=0.99 and energy displacement <one-quarter nearest root gap; original residual gates unchanged"
+  },
+  "protocol": "core_valence"
+}

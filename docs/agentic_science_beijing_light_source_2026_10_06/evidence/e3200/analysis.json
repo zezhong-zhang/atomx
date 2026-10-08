@@ -1,0 +1,35 @@
+{
+  "stage": "e3200",
+  "transitions": {
+    "q": {
+      "energy_eV": 908.193003809802,
+      "minus_experiment_meV": -8.896190198015574,
+      "extension_increment_meV": 5.914650298650602,
+      "feedback_prediction_meV": 5.914447896909016,
+      "feedback_error_meV": -0.00020240174158558943,
+      "feedback_gate_pass": true,
+      "local_increment_gate_pass": false
+    },
+    "r": {
+      "energy_eV": 908.0657189178187,
+      "minus_experiment_meV": -13.881082181342208,
+      "extension_increment_meV": 5.874689949420329,
+      "feedback_prediction_meV": 5.874487278747118,
+      "feedback_error_meV": -0.00020267067321100285,
+      "feedback_gate_pass": true,
+      "local_increment_gate_pass": false
+    }
+  },
+  "split_meV": 127.28489198332227,
+  "split_minus_experiment_meV": 5.084891983322265,
+  "experiment": {
+    "q_eV": 908.2019,
+    "r_eV": 908.0796,
+    "split_meV": 122.2,
+    "source": "https://doi.org/10.1103/PhysRevA.110.L030802"
+  },
+  "full_correlation_converged": false,
+  "physical_pole_certified": false,
+  "rank3_scope": "Complete bound n<=4 only; positive rank3 absent",
+  "production_source_changes": []
+}

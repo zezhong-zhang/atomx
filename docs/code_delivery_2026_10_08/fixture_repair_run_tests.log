@@ -1,0 +1,53 @@
+....................................................................s... [  8%]
+.......................................................................x [ 17%]
+........................................................................ [ 26%]
+........................................................................ [ 35%]
+........................................................................ [ 43%]
+........................................................................ [ 52%]
+........................................................................ [ 61%]
+........................................................................ [ 70%]
+........................................................................ [ 78%]
+........................................................................ [ 87%]
+.......................................................F
+=================================== FAILURES ===================================
+__ test_live_three_electron_residual_spaces_particle_number_and_Hartree_tail ___
+
+joint = (<atomx.xfel.multielectron_coherent.MultiElectronCoherentModel object at 0x74be6835f760>, CoherentGaussianPulse(photon_energy_eV=np.float64(899.0277857037636), fluence_photons_per_cm2=1e+17, fwhm_fs=10, center_fs=0.0, phase_rad=0.0))
+
+    def test_live_three_electron_residual_spaces_particle_number_and_Hartree_tail(joint):
+        model, _ = joint
+        provider = model.channels
+        assert len(model.system.state_ids) == 82
+        assert {n: len(r.state_energies) for n, r in provider.sectors.items()} == {3: 8, 2: 17, 1: 4}
+        for number, result in provider.sectors.items():
+            for level in range(len(result.state_energies)):
+                _, rho = result.one_body_density_matrix(level)
+                assert np.trace(rho) == pytest.approx(number, abs=1e-12)
+                token = provider._field_token(number, level)
+                assert float(provider._field(token)(1000)) == pytest.approx(-(10 - number) / 1000, abs=1e-14)
+>       assert len(model.pi_channels) == 530
+E       AssertionError: assert 528 == 530
+E        +  where 528 = len((CIContinuumChannel(process='pi', initial_electrons=3, initial_level=0, final_level=0, electron_kappa=-2, electron_m2=...appa=-1, electron_m2=1, electron_energy_hartree=57.12893228192931, components=(((0, 1), -7.29712411601687e-16),)), ...))
+E        +    where (CIContinuumChannel(process='pi', initial_electrons=3, initial_level=0, final_level=0, electron_kappa=-2, electron_m2=...appa=-1, electron_m2=1, electron_energy_hartree=57.12893228192931, components=(((0, 1), -7.29712411601687e-16),)), ...) = <atomx.xfel.multielectron_coherent.MultiElectronCoherentModel object at 0x74be6835f760>.pi_channels
+
+tests/test_xfel_multielectron_ci.py:163: AssertionError
+============================= slowest 15 durations =============================
+47.76s setup    tests/test_ci_J_block.py::test_fe17_spectrum_matches_the_mscheme_reference
+8.05s call     tests/test_ci_matrix_vs_mscheme_reference.py::test_he_like_1s2p_levels_match_oracle[fac_frozen]
+6.32s call     tests/test_ci_matrix_vs_mscheme_reference.py::test_he_like_1s2p_j1_splitting_matches_two_thirds_g1[fac_frozen]
+4.77s call     tests/test_transitions.py::TestAtomTransitions::test_he_has_transitions
+4.70s call     tests/test_ci_matrix_vs_mscheme_reference.py::test_singles_expansion_gains_nothing_on_hf_orbitals
+4.68s call     tests/test_ci_matrix_vs_mscheme_reference.py::test_he_like_1s2p_levels_match_oracle[mcdhf]
+4.62s call     tests/test_ci_matrix_vs_mscheme_reference.py::test_he_like_1s2p_j1_splitting_matches_two_thirds_g1[mcdhf]
+3.64s call     tests/test_ci_matrix_vs_mscheme_reference.py::test_full_spectrum_matches_mscheme_reference
+2.87s call     tests/test_mcdhf.py::TestMCDHFSolver::test_variational_projector_fock_matches_nuclear_on_light_atom
+2.20s setup    tests/test_xfel_multielectron_ci.py::test_live_three_electron_residual_spaces_particle_number_and_Hartree_tail
+1.98s call     tests/test_mcdhf.py::TestMCDHFSolver::test_two_config_be
+1.86s call     tests/test_architecture_boundaries.py::test_shooting_drivers_run_without_method_imports
+1.62s call     tests/test_finite_frequency_breit.py::test_live_fac_two_electron_matrix_elements[False-10]
+1.56s call     tests/test_complex_breit.py::test_actual_gaunt_split_quadrature_and_retardation_continuity_contraction
+1.36s call     tests/test_mcdhf.py::TestMCDHFSolver::test_excitation_energies
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_ci_J_block.py:295: sfac binary not available
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 773 passed, 1 skipped, 4 deselected, 1 xfailed in 134.14s (0:02:14)

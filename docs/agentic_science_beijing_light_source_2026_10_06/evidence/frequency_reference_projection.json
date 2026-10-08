@@ -1,0 +1,83 @@
+{
+  "pass_": true,
+  "stage": "e3200",
+  "rows": {
+    "g": {
+      "reference_dimension": 1,
+      "full_CSF_dimension": 78791,
+      "reference_weight": 0.9996450251608864,
+      "first_order_full_static_DCB_expectation_meV": 0.00789182312428296,
+      "reference_only_embedded_operator_norm_meV": 0.00789462551770597,
+      "canonical_reference_full_keys": [
+        "(((1, -1, 2), (2, -1, 1)), 1, ((0, 0, 0), (1, 1, 0)))"
+      ],
+      "full_state_unchanged": true,
+      "projection_not_renormalized": true
+    },
+    "q": {
+      "reference_dimension": 3,
+      "full_CSF_dimension": 114698,
+      "reference_weight": 0.9925554639085268,
+      "first_order_full_static_DCB_expectation_meV": 0.0529783006270624,
+      "reference_only_embedded_operator_norm_meV": 0.06410482625058697,
+      "canonical_reference_full_keys": [
+        "(((1, -1, 1), (2, -2, 1), (2, -1, 1)), 3, ((1, 1, 0), (2, 3, 0), (3, 1, 0)))",
+        "(((1, -1, 1), (2, -2, 1), (2, -1, 1)), 3, ((1, 1, 0), (4, 3, 0), (3, 1, 0)))",
+        "(((1, -1, 1), (2, -1, 1), (2, 1, 1)), 3, ((1, 1, 0), (2, 1, 0), (3, 1, 0)))"
+      ],
+      "full_state_unchanged": true,
+      "projection_not_renormalized": true
+    },
+    "r": {
+      "reference_dimension": 3,
+      "full_CSF_dimension": 78790,
+      "reference_weight": 0.9925599170930528,
+      "first_order_full_static_DCB_expectation_meV": 0.05478092101032937,
+      "reference_only_embedded_operator_norm_meV": 0.0625300609459828,
+      "canonical_reference_full_keys": [
+        "(((1, -1, 1), (2, -2, 1), (2, -1, 1)), 1, ((1, 1, 0), (2, 3, 0), (1, 1, 0)))",
+        "(((1, -1, 1), (2, -1, 1), (2, 1, 1)), 1, ((1, 1, 0), (0, 1, 0), (1, 1, 0)))",
+        "(((1, -1, 1), (2, -1, 1), (2, 1, 1)), 1, ((1, 1, 0), (2, 1, 0), (1, 1, 0)))"
+      ],
+      "full_state_unchanged": true,
+      "projection_not_renormalized": true
+    }
+  },
+  "photons": {
+    "q": {
+      "first_order_reference_frequency_response_meV": 0.04508647750277944,
+      "finite_ordered_eigenvalue_Weyl_photon_bound_meV": 0.07199945176829295
+    },
+    "r": {
+      "first_order_reference_frequency_response_meV": 0.046889097886046414,
+      "finite_ordered_eigenvalue_Weyl_photon_bound_meV": 0.07042468646368877
+    }
+  },
+  "prescription": "Static full CI plus reference-CSF-only symmetric-two-vertex real transverse correction; no frequency replacement on high virtual CSFs.",
+  "reference_method_primary_source": "https://arxiv.org/pdf/1209.6520",
+  "scope": "Same saved frozen-DF orbitals and actual complete retained static DCB states. First-order expectations only; finite ordered-eigenvalue bounds apply only to the declared embedded reference correction, not general frequency-dependent QED, projector/SCF, tracked-root ordering, physical poles or full theoretical error.",
+  "not_full_frequency_error_bound": true,
+  "no_new_correction_added_to_production_energies": true,
+  "script_sha256": "dc15431062485b3107326c471ccbb46a72cabe577b0563f50608fcb0b3783315",
+  "protocol_sha256": "422a2fc2c851c04c61272f603190974781ba6dff051e56ea2a267fc882385ac3",
+  "inputs_sha256": {
+    "frequency_core.json": "894dcf3c3abe4ad428dc5a27dfdf125737609763b0b2d123dfff93699dbb4370",
+    "frequency_validation.json": "decb10fc46aedd69f9c48c26b88ead12667d6f3a1d0be98bb8bbd4cfd6e5393f",
+    "breit_path_3200.json": "34175d2210d3a2244efd6101edb45845828baf1c554b6bfa449240bff8c6bb40",
+    "source_pin.json": "4dc3cb8e672eddebf3f0f066232c5c8e7f180a4f02006ca38e346c23813663d9",
+    "docs/xfel_tail_breit_pole_2026_10_06/frequency_core_g.npz": "26d08207933f6f841485a1095804d577fcaaa64340b058f6431da7256dc72ac0",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/g/space.npz": "41bac10e55edc376dab2c9325e68655bda86e23fb5c2f21d8e1e588b22728d65",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/g/breit_path/DCB/state.npz": "e7ab88768ae2679608185642e6b1648c2c4d243080031af2be595a9dfa8deb0c",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/g/breit_path/DCB/state.json": "f4a720136adf98f1c41d2e93b94463e7bd87a55b5d6dea5b686861330235a6e4",
+    "docs/xfel_tail_breit_pole_2026_10_06/frequency_core_q.npz": "74e9a638b66b0b9051f502ff8c406c554b329668308fe3ecf73e65754f0ded9a",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/q/space.npz": "e3e2d9031c70e59bc886e946541ba184a560c2d2fa86df028f23668b56cff620",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/q/breit_path/DCB/state.npz": "aa1e33f59912f08a99d85e39b730a56cb8d19244ec0f206bce297e36fae50405",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/q/breit_path/DCB/state.json": "3fb574569142fc9b18cbd6628367e0d271db78a73f5816412fdc334dcbd50d4f",
+    "docs/xfel_tail_breit_pole_2026_10_06/frequency_core_r.npz": "229ccb4fb49606b526dd1e1047c160834b7a904a004b1a8e7a3bfb9aa7ad0497",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/r/space.npz": "c7f69a067fcb28cffef03f82ba6ee755bf6047496044b46b2ddba3370210640b",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/r/breit_path/DCB/state.npz": "3a5955ce3089a585e36cb0c1e7c68c51c0886174e0b2dc41b60669e6e3865638",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/r/breit_path/DCB/state.json": "e0abc92dffff19fa1142f083facaa3c3e2c5703ded7b775ad80535ba6cf5207c"
+  },
+  "peak_RSS_GiB": 0.17766571044921875,
+  "seconds": 5.658184512052685
+}

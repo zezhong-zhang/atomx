@@ -1,0 +1,5 @@
+{
+  "exception": "TypeError(\"cannot pickle 'mappingproxy' object\")",
+  "traceback": "Traceback (most recent call last):\n  File \"/data/code/atomx/docs/rare_earth_yb_spectrum_2026_10_08/run_yb.py\", line 125, in main\n    basis=Basis(ks=args.ks, r_max=args.rmax, grid_hi=args.hi, grid_he=args.he, grid_hmax=args.hmax),\nTypeError: cannot pickle 'mappingproxy' object\n",
+  "elapsed_seconds": 191.94044455804396
+}

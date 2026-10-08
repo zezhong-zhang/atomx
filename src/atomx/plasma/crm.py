@@ -93,7 +93,10 @@ class CRMBoundFreeChannel:
     ``bound`` is the level before ionisation and ``continuum`` is the level
     representing the adjacent charge state after one electron has been
     removed.  EII rates are cm^3/s, TBR rates are cm^6/s, and PI rates are
-    s^-1 when supplied directly.
+    s^-1 when supplied directly. Native PI/RR requires an explicit scalar
+    photon-energy -> cm^2 cross-section provider. The same provider is
+    integrated for PI and Milne RR, including stimulated capture. Legacy
+    Kramers is available only with bound_free_model="kramers".
     """
 
     bound: int
@@ -104,10 +107,21 @@ class CRMBoundFreeChannel:
     eii_rate_cm3_s: Optional[float | Callable[[float], float]] = None
     photoionization_rate_s: Optional[float | Callable[[float], float]] = None
     sigma0_cm2: Optional[float] = None
+    photoionization_sigma_cm2: Optional[Callable[[float], float]] = None
+    bound_free_model: str = "native"
     eii_scf_result: Optional[object] = None
     eii_method: str = "BEB"
     eii_energy_grid_eV: Optional[np.ndarray] = None
     label: Optional[str] = None
+
+
+    def __post_init__(self):
+        if self.bound_free_model not in ("native", "kramers"):
+            raise ValueError("bound_free_model must be native or explicit kramers")
+        if self.bound_free_model == "native" and self.sigma0_cm2 is not None:
+            raise ValueError("sigma0 belongs to explicit Kramers approximation")
+        if self.bound_free_model == "kramers" and self.photoionization_sigma_cm2 is not None:
+            raise ValueError("native and Kramers cross sections must not coexist")
 
 
 class CollisionalRadiativeModel:
@@ -156,8 +170,11 @@ class CollisionalRadiativeModel:
         resonances
             Sequence of ``AutoionizationState``-like objects.  Each resonance
             must provide ``E_resonance_eV``, ``gamma_auger_per_s``,
-            ``a_radiative_per_s``, ``g``, and a ``channels`` mapping of
-            stabilised-final-level labels to A-rates.
+            ``a_radiative_per_s``, and ``g`` (the ``2J + 1`` statistical
+            weight — ``AutoionizationState.g``).  ``channels`` (a mapping of
+            stabilised-final-level labels to A-rates) is optional; without
+            it the total ``a_radiative_per_s`` is attached to the initial
+            level.
         initial_level_idx
             CRM level that dielectronic capture starts from.
         lower_level_by_channel
@@ -186,6 +203,13 @@ class CollisionalRadiativeModel:
         for i_res, resonance in enumerate(resonances):
             channels = dict(getattr(resonance, "channels", {}) or {})
             if not channels:
+                # ``channels`` is optional by design
+                # (``AutoionizationState`` defaults it to {}): an empty
+                # mapping means "attach the total radiative width to the
+                # initial level", filled in here from
+                # ``a_radiative_per_s`` — a required resonance attribute
+                # whose absence must fail loudly rather than silently
+                # zero the radiative stabilisation rate.
                 channels = {
                     self.levels[initial_level_idx].label: float(
                         resonance.a_radiative_per_s
@@ -442,7 +466,7 @@ class CollisionalRadiativeModel:
                     Te_eV,
                     g_bound=ch.g_bound or self.levels[b].g,
                     g_continuum=ch.g_continuum or self.levels[c].g,
-                    sigma0_cm2=ch.sigma0_cm2,
+                    cross_section_cm2=_channel_sigma_provider(ch),
                     radiation_temperature_eV=radiation_temperature_eV,
                     radiation_field=radiation_field,
                 )
@@ -677,10 +701,16 @@ def radiative_recombination_rate_cm3_s(
     g_bound: float = 1.0,
     g_continuum: float = 1.0,
     sigma0_cm2: Optional[float] = None,
+    cross_section_cm2: Optional[Callable[[float], float]] = None,
     radiation_temperature_eV: Optional[float] = None,
     radiation_field: Optional[Callable[[float], float]] = None,
 ) -> float:
     """Maxwellian Milne RR coefficient (cm³/s), spontaneous by default.
+
+    ``cross_section_cm2`` supplies the same energy-dependent PI provider
+    as the forward channel. Without it this standalone helper retains
+    its legacy Kramers analytic contract; CRM explicitly selects its
+    provider and never uses that fallback implicitly.
 
     For the Kramers PI cross section the spontaneous integral reduces to
     ``exp(x) E1(x)``, x=I/T. It has no activation Boltzmann factor and
@@ -696,6 +726,26 @@ def radiative_recombination_rate_cm3_s(
     if g_bound <= 0 or g_continuum <= 0:
         raise ValueError("statistical weights must be positive")
     I, T = float(ionization_potential_eV), float(Te_eV)
+    if cross_section_cm2 is not None:
+        if sigma0_cm2 is not None:
+            raise ValueError("native and Kramers cross sections must not coexist")
+        def kernel(x):
+            if x > 745:
+                return 0.0
+            omega = I + T*x
+            occupation = 0.0
+            if radiation_field is not None:
+                occupation = _nonnegative(radiation_field(omega), "photon flux") / _photon_flux_prefactor(omega)
+            elif radiation_temperature_eV is not None and radiation_temperature_eV > 0:
+                z = omega / radiation_temperature_eV
+                occupation = 1/np.expm1(z) if z < 700 else 0.0
+            return (_nonnegative(cross_section_cm2(omega), "PI cross section")
+                    * omega**2 * np.exp(-x) * (1+occupation) * T)
+        integral = quad(kernel, 0., np.inf, epsabs=0., epsrel=2e-9)[0]
+        me, ev, c = _ELECTRON_MASS_G, _EV_TO_ERG, _LIGHT_CM_S
+        prefactor = (np.sqrt(8/(np.pi*me)) * (T*ev)**-1.5 * ev**3
+                     * (g_bound/g_continuum) / (2*me*c**2))
+        return float(prefactor*integral)
     sigma0 = _hydrogenic_sigma0_cm2(I) if sigma0_cm2 is None else float(sigma0_cm2)
     x = I / T
     if x <= 50.0:
@@ -775,6 +825,24 @@ def _channel_eii_rate_cm3_s(ch: CRMBoundFreeChannel, Te_eV: float) -> float:
     return max(float(eii_rate_coefficient(xs, Te_eV)), 0.0)
 
 
+def _nonnegative(value, label):
+    value = float(value)
+    if not np.isfinite(value) or value < 0:
+        raise ValueError(f"{label} must be finite and nonnegative")
+    return value
+
+
+def _channel_sigma_provider(ch):
+    if ch.bound_free_model == "kramers":
+        sigma0 = (_hydrogenic_sigma0_cm2(ch.ionization_potential_eV)
+                  if ch.sigma0_cm2 is None else _nonnegative(ch.sigma0_cm2, "sigma0"))
+        return lambda energy: sigma0*(ch.ionization_potential_eV/energy)**3 if energy >= ch.ionization_potential_eV else 0.
+    if ch.photoionization_sigma_cm2 is None:
+        raise ValueError("CRM bound-free channel needs a real PI cross-section provider; "
+                         "Kramers requires bound_free_model='kramers' explicitly")
+    return ch.photoionization_sigma_cm2
+
+
 def _channel_photoionization_rate_s(
     ch: CRMBoundFreeChannel,
     *,
@@ -787,24 +855,29 @@ def _channel_photoionization_rate_s(
             ch.photoionization_rate_s(arg)
             if callable(ch.photoionization_rate_s) else ch.photoionization_rate_s
         )
-        return max(float(value), 0.0)
-    if radiation_field is not None:
-        threshold = ch.ionization_potential_eV
-        sigma0 = (_hydrogenic_sigma0_cm2(threshold) if ch.sigma0_cm2 is None else ch.sigma0_cm2)
-
-        def integrand(t):
-            # t=I/E maps the entire physical spectrum to (0,1], so
-            # custom fields are not silently cut off at E=100 I.
-            return t * max(float(radiation_field(float(threshold / t))), 0.0)
-
-        return float(sigma0 * threshold * quad(integrand, 0., 1., epsabs=0., epsrel=2e-10)[0])
-    if radiation_temperature_eV is None or radiation_temperature_eV <= 0.0:
+        return _nonnegative(value, "PI rate")
+    if radiation_field is None and (radiation_temperature_eV is None or radiation_temperature_eV <= 0):
         return 0.0
-    return _planck_photoionization_rate_s(
-        ch.ionization_potential_eV,
-        radiation_temperature_eV,
-        sigma0_cm2=ch.sigma0_cm2,
-    )
+    sigma = _channel_sigma_provider(ch)
+    threshold = ch.ionization_potential_eV
+    if radiation_field is not None:
+        # I/E maps the full physical spectrum to (0,1], with no guessed
+        # high-energy cutoff. A bounded table provider must reject
+        # unsupported energies rather than silently extrapolate.
+        def integrand(t):
+            energy = threshold/t
+            return (_nonnegative(sigma(energy), "PI cross section")
+                    * _nonnegative(radiation_field(energy), "photon flux") * threshold/t**2)
+        return float(quad(integrand,0.,1.,epsabs=0.,epsrel=2e-9)[0])
+    def kernel(x):
+        energy = threshold+radiation_temperature_eV*x
+        z = energy/radiation_temperature_eV
+        occupation = np.exp(-z)/(-np.expm1(-z)) if z < 745 else 0.
+        if occupation == 0:
+            return 0.0
+        return (_nonnegative(sigma(energy), "PI cross section")
+                * _photon_flux_prefactor(energy) * occupation * radiation_temperature_eV)
+    return float(quad(kernel,0.,np.inf,epsabs=0.,epsrel=2e-9)[0])
 
 
 def _hydrogenic_sigma0_cm2(ionization_potential_eV: float) -> float:

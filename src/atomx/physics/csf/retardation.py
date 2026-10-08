@@ -19,7 +19,12 @@ import numpy as np
 from scipy.interpolate import CubicSpline
 
 from atomx.numerics.yk import yk_partial_matrices
-from atomx.physics.csf.breit_ci import _clm, _spinor_coeffs, twoj_of_kappa
+from atomx.physics.csf.breit_ci import (
+    _ci_two_body_phase,
+    _clm,
+    _spinor_coeffs,
+    twoj_of_kappa,
+)
 
 
 @lru_cache(maxsize=None)
@@ -55,6 +60,7 @@ def retardation_terms(ia, ib, ic, id_, coeff, spinor_labels):
             continue
         angular = (
             0.5
+            * _ci_two_body_phase(ka, kb, kc, kd)
             * (-1.0) ** (q2 // 2)
             * scalar_spinor_element(ka, ma, kc, mc, L, q2)
             * scalar_spinor_element(kb, mb, kd, md, L, -q2)
@@ -88,6 +94,21 @@ def distance_potential(rho, r, weights, L):
         return r**b * outward + r**a * inward
 
     return channel(L + 2, -L - 1) / (2 * L + 3) - channel(L, 1 - L) / (2 * L - 1)
+
+
+def transition_current_divergence(a, c, wave_a, wave_c, r):
+    """Radial current divergence from P,Q,dP/dr,dQ/dr, without conjugation.
+
+    Shared by real static Breit and complex-scaled c-product consumers.
+    Derivatives refer to the caller's integration coordinate; this function
+    does not apply any operator dilation factor.
+    """
+    pa, qa, dpa, dqa = wave_a
+    pc, qc, dpc, dqc = wave_c
+    if a == c:
+        return np.zeros_like(pa)
+    return (dqa*pc + qa*dpc - dpa*qc - pa*dqc
+            + (c[1]-a[1])*(qa*pc+pa*qc)/r)
 
 
 def transition_current_fields(orbitals, workspace):
@@ -150,15 +171,7 @@ def transition_current_fields(orbitals, workspace):
             elif (c, a) in densities:
                 densities[a, c] = -densities[c, a]
             else:
-                pa, qa, dpa, dqa = wave(a)
-                pc, qc, dpc, dqc = wave(c)
-                densities[a, c] = (
-                    dqa * pc
-                    + qa * dpc
-                    - dpa * qc
-                    - pa * dqc
-                    + (c[1] - a[1]) * (qa * pc + pa * qc) / r
-                )
+                densities[a, c] = transition_current_divergence(a, c, wave(a), wave(c), r)
         return densities[a, c]
 
     return r, weights, wave, density

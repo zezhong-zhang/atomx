@@ -1,0 +1,70 @@
+{
+  "numerical_controls_pass": true,
+  "rows": {
+    "DC": {
+      "states": {
+        "rank1": {
+          "root": 0,
+          "real_Ha": -93.9966689970421,
+          "imag_Ha": 7.098920340453674e-10,
+          "bound_imag_gate_pass": true,
+          "coefficient_character": 0.9999999229932289,
+          "center_coordinate_squared_L2": 0.9999999099481206,
+          "absolute_residual_Ha": 8.831017235952018e-12
+        },
+        "mixed4": {
+          "root": 0,
+          "real_Ha": -93.99694167541786,
+          "imag_Ha": 0.00012703253149145492,
+          "bound_imag_gate_pass": false,
+          "coefficient_character": 0.9999961209641988,
+          "center_coordinate_squared_L2": 0.999987851854407,
+          "absolute_residual_Ha": 9.145907116324708e-12
+        }
+      },
+      "rank2_delta_complex_meV": {
+        "real": -7.419956603872761,
+        "imag": 3.4567119630724146
+      }
+    },
+    "DCB": {
+      "states": {
+        "rank1": {
+          "root": 0,
+          "real_Ha": -93.98483662820678,
+          "imag_Ha": 7.115202333407362e-10,
+          "bound_imag_gate_pass": true,
+          "coefficient_character": 1.0000000000000004,
+          "center_coordinate_squared_L2": 1.0,
+          "absolute_residual_Ha": 8.749640282920617e-12
+        },
+        "mixed4": {
+          "root": 0,
+          "real_Ha": -93.98511432245243,
+          "imag_Ha": 0.0001295091430647934,
+          "bound_imag_gate_pass": false,
+          "coefficient_character": 0.999996127304165,
+          "center_coordinate_squared_L2": 0.9999875629815315,
+          "absolute_residual_Ha": 9.273515699186467e-12
+        }
+      },
+      "rank2_delta_complex_meV": {
+        "real": -7.556445376763563,
+        "imag": 3.5241039528702354
+      }
+    }
+  },
+  "DC_rank2_bound_gate_pass": false,
+  "Breit_is_necessary_for_this_bound_failure": false,
+  "full_complex_Breit_error_bound": false,
+  "physical_poles_certified": false,
+  "scope": "Matched finite N2 point-projector spaces; tests whether the bound-reality failure exists without Breit. No inference of a unique source or transfer to real Fermi q/r.",
+  "script_sha256": "ff624b641ffe43579fb44855acb6a1b1c8e27500c6432348ce884e4ccbb1bfe2",
+  "protocol_sha256": "63a1146c5fdd14316d3f31ab863096ddd643fd953ba942f7f3adbfe326962038",
+  "input_sha256": {
+    "docs/xfel_complex_neighborhood_2026_10_05/mixed4_N2_g.npz": "f5b01be819b3a1f76ee9103147778840bc8210127e25157193e1913c01cc1ee4",
+    "docs/xfel_tail_breit_pole_2026_10_06/pole_center_N2_g.npz": "dc350ce7b5797dc40afdb96277c42e4c0ad44b106e36731f3c8ca47cde4fe27a"
+  },
+  "seconds": 34.79626117704902,
+  "peak_RSS_GiB": 0.4580078125
+}

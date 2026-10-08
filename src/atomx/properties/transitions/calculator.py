@@ -81,6 +81,14 @@ class TransitionResult:
     A_length: Optional[float] = None
     A_velocity: Optional[float] = None
     provenance: dict = field(default_factory=dict)
+    # Signed <final (upper)||T^L||initial (lower)> in the *same* CI
+    # eigenvector/CSF convention. Never infer this from sqrt(line_strength).
+    # UTA and independently diagonalized pair-CI rows leave these unset.
+    reduced_matrix_element_au: Optional[float] = None
+    initial_state_index: Optional[int] = None
+    final_state_index: Optional[int] = None
+    initial_two_J: Optional[int] = None
+    final_two_J: Optional[int] = None
 
     @property
     def wavelength_nm(self):
@@ -573,6 +581,15 @@ class TransitionCalculator:
                         resolution="ci",
                         A_length=A_length,
                         A_velocity=A_velocity,
+                        reduced_matrix_element_au=float(total_me[reported_gauge]),
+                        initial_state_index=I,
+                        final_state_index=F,
+                        initial_two_J=tj_I,
+                        final_two_J=tj_F,
+                        provenance={
+                            "amplitude_convention": "<upper||T||lower>; shared CI eigenvector phases",
+                            "orbital_basis": "per-block nonorthogonal" if per_block_orbitals else "shared orthonormal",
+                        },
                     ))
 
         return sorted(results, key=lambda r: r.wavelength_angstrom)

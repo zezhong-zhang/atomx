@@ -1,0 +1,19 @@
+{
+  "hypothesis": "Ordinary64 subtraction of order100Ha expectations and finite vector norm roundoff caused strict1e-8meV ledger closure failure. Test stable normalized small-difference contractions using platform longdouble arithmetic on unchanged float64 matrices/vectors.",
+  "script_sha256": "e369c84e2313f76fb8a28b0752956da5ef45d8f305adbbf29a07b841bc0ee86e",
+  "helper_sha256": {
+    "energy_balance.py": "7dbdfe346475a6ad8be30a43758390b415687e93c6b049d4d3d8e799971b83a2",
+    "compute.py": "49475a96fdb8d6f9981b74afede71dc3113f343a5b3e95676144beda227456d7"
+  },
+  "failure_manifest_sha256": "9a3121a98bffc63de8cf3528b79f41c649b7ff622f6f02eef608a04e7cd7024d",
+  "fixed": "All332physical source files, producer vectors/energies, actualold/new operator matrices, completeCSF/identity and original numerical gates. No fit, spectrum adjustment or Hamiltonian replacement.",
+  "gates": {
+    "energy_ledger_Ha": 1e-10,
+    "photon_increment_closure_meV": 1e-08,
+    "full_validator_Ha": 1e-10,
+    "memory_GiB": 104
+  },
+  "arithmetic": "Normalized expectations and stable exact delta identity, longdouble contractions/matvec; no forced closure. Record direct-vs-stable identities and raw original failure.",
+  "stop": "Any original source/input/closure/resource failure rejects retry; no gate relaxation. Run unchanged full original validator again if retry passes.",
+  "declared_before_measurement": true
+}

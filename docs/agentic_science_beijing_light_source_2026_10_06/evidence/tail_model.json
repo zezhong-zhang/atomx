@@ -1,0 +1,37 @@
+{
+  "pass_": true,
+  "measurement_only": true,
+  "rows": {
+    "q": {
+      "previous_full_increment_meV": 20.432576606758122,
+      "actual_full_increment_meV": 5.914650298650602,
+      "predeclared_p15_prediction_meV": 7.224006737876142,
+      "p15_prediction_error_meV": 1.3093564392255397,
+      "p15_prediction_gate_pass": false,
+      "local_increment_gate_pass": false,
+      "latest_effective_p": 1.7885063661146723,
+      "conditional_p15_beyond3200_proxy_meV": 3.2348296623917308,
+      "conditional_latest_p_beyond3200_proxy_meV": 2.4096477288076183
+    },
+    "r": {
+      "previous_full_increment_meV": 20.29873813987043,
+      "actual_full_increment_meV": 5.874689949420329,
+      "predeclared_p15_prediction_meV": 7.176687694116193,
+      "p15_prediction_error_meV": 1.3019977446958642,
+      "p15_prediction_gate_pass": false,
+      "local_increment_gate_pass": false,
+      "latest_effective_p": 1.788805428661917,
+      "conditional_p15_beyond3200_proxy_meV": 3.2129746216906585,
+      "conditional_latest_p_beyond3200_proxy_meV": 2.3926696268714616
+    }
+  },
+  "not_remaining_error_bound": true,
+  "no_proxy_added_to_CI_energies": true,
+  "source_sha256": "d09f496215f6e4a92eb755c46c6a97868051bae34667a3d0033d09ebe80c1459",
+  "pre_measurement_protocol_sha256": "f3fb5f9d62514f9a2575942418cfb46579e7787c176dd175f6aaba7b9307c4fb",
+  "input_sha256": {
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/analysis.json": "8c47f6d97153769c9f7263b74f10aa4171faab36c6fbd075e63ef2afaab855fb",
+    "docs/xfel_uv_tail_continuation_2026_10_06/e1600/analysis.json": "85c82ff144e2e24f0ec34441ae1a15b1296d3282c3723bd1a8bfac7fa35a0729"
+  },
+  "scope": "Finite frozen native s/p/d family and positive-pair cutoff. No infinite/radial/high-l/rank3/asymptotic certification."
+}

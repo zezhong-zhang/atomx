@@ -1,0 +1,107 @@
+{
+  "hypothesis": "At identical converged baseline orbitals, Hamiltonian correction increments and added 4f-hole configuration mixing provide distinct measured shifts, not additive error estimates.",
+  "base": "v68_default",
+  "factor": "4f_holes",
+  "fixed_conditions": "same Z70,69 electrons,24 orbitals,Fermi nucleus,radial metric and phase convention; no orbital reoptimization and no empirical offsets",
+  "matching": "same J/parity and maximum squared overlap with embedded baseline state; minimum 0.5",
+  "acceptance": {
+    "full_CI_absolute_residual_Ha": 1e-08,
+    "base_replay_energy_Ha": 1e-09,
+    "even_4f_extension_drift_Ha": 1e-09
+  },
+  "corrections": "full static Breit (Gaunt+retardation) in CI; local Uehling VP and diagonal Indelicato model SE as first-order state expectations; fixed orbitals; no orbital QED self-consistency or two-loop/screened many-body QED",
+  "resource_estimate": "five-CSF corrections or46-CSF full declared 4f-hole space; max36 raw determinants per symmetry block, cap2000 unchanged; anticipated<3GiB RSS",
+  "stopping_rule": "900 seconds; retain failure on exception, time cap, replay, eigenpair or matching gate; no selected-configuration truncation",
+  "extension_contract": {
+    "configurations": [
+      "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6s1",
+      "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6p1",
+      "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d1",
+      "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s2",
+      "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d1 6s1"
+    ],
+    "n_CSFS": 46,
+    "blocks": [
+      {
+        "two_J": 1,
+        "parity": -1,
+        "n_CSFS": 5,
+        "raw_determinants": 32,
+        "n_occupation_patterns": 4
+      },
+      {
+        "two_J": 1,
+        "parity": 1,
+        "n_CSFS": 1,
+        "raw_determinants": 1,
+        "n_occupation_patterns": 1
+      },
+      {
+        "two_J": 3,
+        "parity": -1,
+        "n_CSFS": 8,
+        "raw_determinants": 36,
+        "n_occupation_patterns": 5
+      },
+      {
+        "two_J": 3,
+        "parity": 1,
+        "n_CSFS": 1,
+        "raw_determinants": 1,
+        "n_occupation_patterns": 1
+      },
+      {
+        "two_J": 5,
+        "parity": -1,
+        "n_CSFS": 9,
+        "raw_determinants": 29,
+        "n_occupation_patterns": 5
+      },
+      {
+        "two_J": 5,
+        "parity": 1,
+        "n_CSFS": 1,
+        "raw_determinants": 1,
+        "n_occupation_patterns": 1
+      },
+      {
+        "two_J": 7,
+        "parity": -1,
+        "n_CSFS": 9,
+        "raw_determinants": 21,
+        "n_occupation_patterns": 5
+      },
+      {
+        "two_J": 9,
+        "parity": -1,
+        "n_CSFS": 7,
+        "raw_determinants": 12,
+        "n_occupation_patterns": 4
+      },
+      {
+        "two_J": 11,
+        "parity": -1,
+        "n_CSFS": 4,
+        "raw_determinants": 5,
+        "n_occupation_patterns": 3
+      },
+      {
+        "two_J": 13,
+        "parity": -1,
+        "n_CSFS": 1,
+        "raw_determinants": 1,
+        "n_occupation_patterns": 1
+      }
+    ],
+    "hypothesis": "Adding complete 4f13 6s2 and 4f13 5d6s manifolds at fixed common orbitals shifts/mixes the odd 6p levels; even 6s/5d energies must remain unchanged because parity separates the Hamiltonian.",
+    "fixed_conditions": "same converged 24 radial orbitals, same Fermi nucleus and Dirac-Coulomb Hamiltonian; no orbital reoptimization and no selected-CSF truncation",
+    "matching": "same J/parity and largest overlap with the embedded baseline eigenvector; require reference overlap squared >=0.5, otherwise mark ambiguous",
+    "acceptance": {
+      "CI_eigenpair_absolute_residual_Ha": 1e-08,
+      "even_state_energy_drift_Ha": 1e-09
+    },
+    "resource_estimate": "46 CSFs; raw determinant dimensions explicitly listed. Estimate <3 GiB RSS; single CPU/BLAS thread; dense CI only, no all-electron SD expansion.",
+    "stopping_rule": "900 seconds; exception, raw determinant cap 2000, eigenpair residual or even-state drift failure blocks a validated diagnosis; failed data retained",
+    "interpretation_limit": "Finite fixed-orbital configuration mixing probe; no claim of correlation-complete or extended-space orbital stationarity"
+  }
+}

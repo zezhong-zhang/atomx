@@ -1,0 +1,293 @@
+{
+  "pass_": true,
+  "complete_new_singles": true,
+  "states": {
+    "g": {
+      "energy_Ha": -102.78857554152336,
+      "absolute_residual_Ha": 9.462204904586135e-11,
+      "relative_residual": 9.205502513033368e-13,
+      "reference_probability": 0.99968192816229,
+      "iterations": 6,
+      "history": [
+        {
+          "step": 0,
+          "subspace": 1,
+          "energy_Ha": -102.78857486140836,
+          "absolute_residual_Ha": 0.03955949499089308,
+          "reference_probability": 0.9996819283297214
+        },
+        {
+          "step": 1,
+          "subspace": 2,
+          "energy_Ha": -102.7885755415131,
+          "absolute_residual_Ha": 6.980783890029685e-05,
+          "reference_probability": 0.9996819280207562
+        },
+        {
+          "step": 2,
+          "subspace": 3,
+          "energy_Ha": -102.78857554151679,
+          "absolute_residual_Ha": 1.176290571141191e-06,
+          "reference_probability": 0.9996819283583979
+        },
+        {
+          "step": 3,
+          "subspace": 4,
+          "energy_Ha": -102.78857554152336,
+          "absolute_residual_Ha": 1.9285225179584642e-07,
+          "reference_probability": 0.9996819281602721
+        },
+        {
+          "step": 4,
+          "subspace": 5,
+          "energy_Ha": -102.78857554152336,
+          "absolute_residual_Ha": 4.253936387443601e-09,
+          "reference_probability": 0.9996819281622829
+        },
+        {
+          "step": 5,
+          "subspace": 6,
+          "energy_Ha": -102.78857554152336,
+          "absolute_residual_Ha": 9.461885571274184e-11,
+          "reference_probability": 0.99968192816229
+        }
+      ],
+      "previous_squared_overlap": 0.999999999690935,
+      "actual_increment_meV": -0.018506867530399405,
+      "complete_new_rank1_CSF": 100,
+      "old_dimension": 66447,
+      "full_rank2_after_singles_increment_meV": -6.612575213947811,
+      "signed_full_Q_coordinate_partition_meV": {
+        "rank1": -0.018445705321410273,
+        "rank2_core_1_-1_both_positive": -0.5500117654780249,
+        "rank2_core_1_-1_bound_positive": -0.00010895765728046681,
+        "rank2_core_2_-1_both_positive": -6.061003384145965,
+        "rank2_core_2_-1_bound_positive": -0.0011760631299603656,
+        "rank2_core_2_-2_both_positive": -2.7495397129903496e-05,
+        "rank2_core_2_-2_bound_positive": -3.2883276329740675e-08,
+        "rank2_core_2_1_both_positive": -1.403312360677181e-05,
+        "rank2_core_2_1_bound_positive": -1.7108690657847148e-08
+      },
+      "scope": "Complete intermediate new-rank1 space; partitions use the full coupled Q solution and are not independent physical corrections.",
+      "seconds": 4.098568747984245,
+      "peak_RSS_GiB": 13.023017883300781,
+      "source_sha256": "1c791a801b9721eadc6c799e8d47f1992d9ea2b2f5671bcfe50e3b8250c66f63"
+    },
+    "q": {
+      "energy_Ha": -69.41331507129337,
+      "absolute_residual_Ha": 2.4505559066620073e-11,
+      "relative_residual": 3.530383045594463e-13,
+      "reference_probability": 0.987427189872264,
+      "iterations": 11,
+      "history": [
+        {
+          "step": 0,
+          "subspace": 1,
+          "energy_Ha": -69.41331492610738,
+          "absolute_residual_Ha": 0.018227072851359112,
+          "reference_probability": 0.987427144785302
+        },
+        {
+          "step": 1,
+          "subspace": 2,
+          "energy_Ha": -69.41331507129006,
+          "absolute_residual_Ha": 3.111909316631835e-05,
+          "reference_probability": 0.9874271447192475
+        },
+        {
+          "step": 2,
+          "subspace": 3,
+          "energy_Ha": -69.41331507129061,
+          "absolute_residual_Ha": 5.422481501035987e-06,
+          "reference_probability": 0.9874271441526258
+        },
+        {
+          "step": 3,
+          "subspace": 4,
+          "energy_Ha": -69.41331507129107,
+          "absolute_residual_Ha": 0.00010421896812008507,
+          "reference_probability": 0.9874272570427806
+        },
+        {
+          "step": 4,
+          "subspace": 5,
+          "energy_Ha": -69.41331507129333,
+          "absolute_residual_Ha": 2.8060043991521706e-06,
+          "reference_probability": 0.9874272164298508
+        },
+        {
+          "step": 5,
+          "subspace": 6,
+          "energy_Ha": -69.41331507129337,
+          "absolute_residual_Ha": 2.876964700134012e-07,
+          "reference_probability": 0.9874271771048703
+        },
+        {
+          "step": 6,
+          "subspace": 7,
+          "energy_Ha": -69.41331507129337,
+          "absolute_residual_Ha": 1.320549102009274e-07,
+          "reference_probability": 0.9874271890080915
+        },
+        {
+          "step": 7,
+          "subspace": 8,
+          "energy_Ha": -69.41331507129337,
+          "absolute_residual_Ha": 1.9444452447768036e-08,
+          "reference_probability": 0.9874271898749359
+        },
+        {
+          "step": 8,
+          "subspace": 9,
+          "energy_Ha": -69.41331507129337,
+          "absolute_residual_Ha": 2.514043840872873e-09,
+          "reference_probability": 0.9874271898728068
+        },
+        {
+          "step": 9,
+          "subspace": 10,
+          "energy_Ha": -69.41331507129337,
+          "absolute_residual_Ha": 2.044784868700423e-10,
+          "reference_probability": 0.987427189872173
+        },
+        {
+          "step": 10,
+          "subspace": 11,
+          "energy_Ha": -69.41331507129337,
+          "absolute_residual_Ha": 2.4503944610996454e-11,
+          "reference_probability": 0.987427189872264
+        }
+      ],
+      "previous_squared_overlap": 0.9999999999328535,
+      "actual_increment_meV": -0.003950715613458621,
+      "complete_new_rank1_CSF": 132,
+      "old_dimension": 96734,
+      "full_rank2_after_singles_increment_meV": -0.7124810672141489,
+      "signed_full_Q_coordinate_partition_meV": {
+        "rank1": -0.003940892889112956,
+        "rank2_core_1_-1_both_positive": -0.0004115811612249538,
+        "rank2_core_1_-1_bound_positive": -7.929183131633267e-06,
+        "rank2_core_2_-1_both_positive": -0.03445214584646047,
+        "rank2_core_2_-1_bound_positive": -1.3561893864025843e-05,
+        "rank2_core_2_-2_both_positive": -0.6771556042397093,
+        "rank2_core_2_-2_bound_positive": -0.0001270641544211889,
+        "rank2_core_2_1_both_positive": -0.0002283104577824798,
+        "rank2_core_2_1_bound_positive": -2.467510619568949e-06
+      },
+      "scope": "Complete intermediate new-rank1 space; partitions use the full coupled Q solution and are not independent physical corrections.",
+      "seconds": 14.994791915989481,
+      "peak_RSS_GiB": 28.478721618652344,
+      "source_sha256": "1c791a801b9721eadc6c799e8d47f1992d9ea2b2f5671bcfe50e3b8250c66f63"
+    },
+    "r": {
+      "energy_Ha": -69.41799123963048,
+      "absolute_residual_Ha": 7.727140879274406e-11,
+      "relative_residual": 1.1131323078192168e-12,
+      "reference_probability": 0.9887872956314754,
+      "iterations": 10,
+      "history": [
+        {
+          "step": 0,
+          "subspace": 1,
+          "energy_Ha": -69.41799109109455,
+          "absolute_residual_Ha": 0.018441342250164465,
+          "reference_probability": 0.9887872587378529
+        },
+        {
+          "step": 1,
+          "subspace": 2,
+          "energy_Ha": -69.41799123962942,
+          "absolute_residual_Ha": 3.1388878551845665e-05,
+          "reference_probability": 0.9887872586700247
+        },
+        {
+          "step": 2,
+          "subspace": 3,
+          "energy_Ha": -69.41799123963015,
+          "absolute_residual_Ha": 7.165711090022546e-07,
+          "reference_probability": 0.9887872936406087
+        },
+        {
+          "step": 3,
+          "subspace": 4,
+          "energy_Ha": -69.41799123963048,
+          "absolute_residual_Ha": 3.168469331628097e-07,
+          "reference_probability": 0.988787289076213
+        },
+        {
+          "step": 4,
+          "subspace": 5,
+          "energy_Ha": -69.41799123963048,
+          "absolute_residual_Ha": 3.2998799525373373e-07,
+          "reference_probability": 0.988787289003064
+        },
+        {
+          "step": 5,
+          "subspace": 6,
+          "energy_Ha": -69.41799123963048,
+          "absolute_residual_Ha": 1.850739909795911e-07,
+          "reference_probability": 0.9887872885559995
+        },
+        {
+          "step": 6,
+          "subspace": 7,
+          "energy_Ha": -69.41799123963048,
+          "absolute_residual_Ha": 4.772554792924437e-08,
+          "reference_probability": 0.9887872955518812
+        },
+        {
+          "step": 7,
+          "subspace": 8,
+          "energy_Ha": -69.41799123963048,
+          "absolute_residual_Ha": 6.009602630908987e-09,
+          "reference_probability": 0.988787295609747
+        },
+        {
+          "step": 8,
+          "subspace": 9,
+          "energy_Ha": -69.41799123963048,
+          "absolute_residual_Ha": 9.938068727585622e-10,
+          "reference_probability": 0.9887872956328481
+        },
+        {
+          "step": 9,
+          "subspace": 10,
+          "energy_Ha": -69.41799123963048,
+          "absolute_residual_Ha": 7.72716923613017e-11,
+          "reference_probability": 0.9887872956314754
+        }
+      ],
+      "previous_squared_overlap": 0.999999999931388,
+      "actual_increment_meV": -0.004041853922532403,
+      "complete_new_rank1_CSF": 100,
+      "old_dimension": 66446,
+      "full_rank2_after_singles_increment_meV": -0.7523502781353479,
+      "signed_full_Q_coordinate_partition_meV": {
+        "rank1": -0.004031750783927406,
+        "rank2_core_1_-1_both_positive": -0.0005333775798629284,
+        "rank2_core_1_-1_bound_positive": -8.670921536416688e-06,
+        "rank2_core_2_-1_both_positive": -0.033897159896318,
+        "rank2_core_2_-1_bound_positive": -1.344261635684712e-05,
+        "rank2_core_2_-2_both_positive": -0.0004416079155797429,
+        "rank2_core_2_-2_bound_positive": -4.883853773698222e-06,
+        "rank2_core_2_1_both_positive": -0.7172374055820123,
+        "rank2_core_2_1_bound_positive": -0.00013187634885843607
+      },
+      "scope": "Complete intermediate new-rank1 space; partitions use the full coupled Q solution and are not independent physical corrections.",
+      "seconds": 6.354900784092024,
+      "peak_RSS_GiB": 28.478721618652344,
+      "source_sha256": "1c791a801b9721eadc6c799e8d47f1992d9ea2b2f5671bcfe50e3b8250c66f63"
+    }
+  },
+  "new_singles_photon_increment_meV": {
+    "q": 0.014556151916940784,
+    "r": 0.014465013607867002
+  },
+  "rank2_after_singles_photon_increment_meV": {
+    "q": 5.900094146733661,
+    "r": 5.860224935812462
+  },
+  "coordinate_partition_is_one_coupled_solution": true,
+  "no_final_CI_energy_changed": true,
+  "script_sha256": "1c791a801b9721eadc6c799e8d47f1992d9ea2b2f5671bcfe50e3b8250c66f63"
+}

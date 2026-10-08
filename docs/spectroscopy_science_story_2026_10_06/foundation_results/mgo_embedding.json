@@ -1,0 +1,23 @@
+{
+  "model": "MgO:qm0/mm1/evjen",
+  "quantum_shells": 0,
+  "mm_shells": 1,
+  "nearest_neighbor_distance_angstrom": 2.106,
+  "formal_point_charges_e": {
+    "Mg": 2,
+    "O": -2
+  },
+  "n_mm_charges": 26,
+  "basis": "sto-3g",
+  "method": "point-charge embedded RHF",
+  "scf_converged": true,
+  "total_energy_hartree": -197.0130665173556,
+  "core_label": "Mg 1s",
+  "core_MO_index": 0,
+  "core_dominance": 0.9936799564114143,
+  "core_runner_up": 0.005725911220251416,
+  "core_MO_energy_hartree": -47.60966100094534,
+  "energy_zero": "mo_energy",
+  "interpretation": "Finite qm0 embedding and identity demonstration; STO-3G is not a quantitative core spectroscopy basis. MO energy is not Delta-SCF binding energy or a crystal XAS peak.",
+  "elapsed_seconds_uncontrolled": 0.4850853569805622
+}

@@ -1,0 +1,39 @@
+{
+  "hypothesis": "Ground-field frozen-orbital Dirac-Fock/RCI supplies an independently defined free-ion baseline when five-level EOL orbital optimization fails its stationarity gate. Experiment tests this approximation separately.",
+  "fixed_conditions": {
+    "Z": 70,
+    "charge": 1,
+    "electrons": 69,
+    "configs": [
+      "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6s1",
+      "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6p1",
+      "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d1"
+    ],
+    "engine": "bspline",
+    "exchange": "hf",
+    "Hamiltonian": "finite-Fermi-nucleus Dirac-Coulomb on shared frozen Dirac-Fock orbitals",
+    "orbital_objective": "native fac_frozen protocol: optimize first 4f14 6s configuration; four spectator orbitals have 0.001 initializer populations each, but all physical CI states contain exactly 69 electrons",
+    "corrections": "none",
+    "BLAS_threads": 1
+  },
+  "observable": "resolved many-electron energy differences and finite-wavelength E1/E2/M1 tensors in the same common orbital basis",
+  "acceptance": {
+    "solver_converged": true,
+    "requested_stationarity_tolerance": null,
+    "orbital_metric_max_error": 1e-08,
+    "radial_transition_drift_cm1": 1.0,
+    "experimental_excitation_relative_error_goal": 0.05,
+    "requested_DF_inner_tolerance": 1e-07
+  },
+  "distinguishing_outcomes": "SCF/metric failure blocks production rates; radial drift >1 cm^-1 blocks a radial-convergence claim; experiment >5% fails the mean-field accuracy goal and motivates correlation/configuration expansion.",
+  "resource_estimate": "5 CSFs, 5 one-dimensional J/parity blocks, 24 radial orbitals; spline matrices a few hundred squared; anticipated <3 GiB RSS. No 69-electron SD expansion requested.",
+  "stopping_rule": "900 seconds per solve; stop on exception or unconverged orbital solution, retaining diagnostics; never change state weights or insert empirical offsets to pass.",
+  "scope_exclusions": [
+    "crystal field or host",
+    "hyperfine/isotope-resolved centers",
+    "full core-valence correlation",
+    "all-order QED",
+    "experimental line intensity/population simulation"
+  ],
+  "interpretation_limit": "Ground-field SCF convergence and CI matrix convergence do not certify five-level EOL or frozen excited-orbital stationarity. The failed EOL results remain failed."
+}

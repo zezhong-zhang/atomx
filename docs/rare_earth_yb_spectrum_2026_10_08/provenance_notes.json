@@ -1,0 +1,34 @@
+{
+  "Atomx_source_map_sha256": "41645fe8314137db92c32748fe77901ff7e7290832f682fd6db0a53006d213b8",
+  "script_hashes_at_aggregation": {
+    "run_core_valence.py": "e26cce7d3a3cb647e8b9223632b0b02092d20449572ae7835ba4a1b9e470636d",
+    "build_bundle.py": "d3f027278fe3ca58f5c5d97c6641581a9842625aa039f780c44ca32d113893a1",
+    "probe_qed_models.py": "84ca8d143fe03ec0e7c0d4ef8122d6b9cf737225ed019ff8ccb4deecf96ee71a",
+    "render_report.py": "480cc707c4c35e2af9e88fcc5ebdb00fe496fb21010d4ebed637de5087b52c1a",
+    "build_report.py": "3740f18e9d3a8bf946167950d4447b90200da4e0588c16705ab1328d9d917582",
+    "build_comparison.py": "afe6d7b84df51f6f589c774b2a084493312fbdc15db30e339283af9471fc8859",
+    "run_yb.py": "81fd41dd686f7869a4d33a93776f5aedadfdfaecb8f45cd36bfc1d561215b58e",
+    "prepare_reference.py": "6bd269c61d748baf20dcc744a2d98ecb8c86852fd863b2c889bd872d3bef1b6b",
+    "check_space.py": "eb4a8aa64efd4991aa270b947607fc5f57df815ade16c0a9a3d25648a0dd3f90",
+    "probe_factors.py": "221446bfe8befe020a1dceb61f1565c7dd6823c3215f193f9cdc4c81b4ab4514",
+    "source_snapshots/run_core_valence_before_newton.py": "0776410823aa07aae46ef5512f7245c57f3d55fc5257347ef816dab9462bcce5"
+  },
+  "initial_V68_driver": "source_snapshots/run_core_valence_before_newton.py",
+  "refined_resumed_driver": "run_core_valence.py",
+  "snapshot_field_correction": "Per-run source_identity.script_sha256 hashes the imported run_yb.py snapshot helper, not every calling script. Library hashes were complete and unchanged. This record supplies actual script identity; original per-run files are retained unchanged.",
+  "initial_EOl_persistence_failure": "Initial dc_default produced a mappingproxy pickle failure before structured output; no spectrum is claimed from it. Replay and subsequent save failures retained; NPZ data preserved.",
+  "timing_scope": "uncontrolled concurrent machine load; elapsed times are execution records, not performance comparisons",
+  "script_hashes_at_delivery": {
+    "run_core_valence.py": "e26cce7d3a3cb647e8b9223632b0b02092d20449572ae7835ba4a1b9e470636d",
+    "build_bundle.py": "d3f027278fe3ca58f5c5d97c6641581a9842625aa039f780c44ca32d113893a1",
+    "probe_qed_models.py": "84ca8d143fe03ec0e7c0d4ef8122d6b9cf737225ed019ff8ccb4deecf96ee71a",
+    "render_report.py": "480cc707c4c35e2af9e88fcc5ebdb00fe496fb21010d4ebed637de5087b52c1a",
+    "build_report.py": "3740f18e9d3a8bf946167950d4447b90200da4e0588c16705ab1328d9d917582",
+    "build_comparison.py": "afe6d7b84df51f6f589c774b2a084493312fbdc15db30e339283af9471fc8859",
+    "run_yb.py": "81fd41dd686f7869a4d33a93776f5aedadfdfaecb8f45cd36bfc1d561215b58e",
+    "prepare_reference.py": "6bd269c61d748baf20dcc744a2d98ecb8c86852fd863b2c889bd872d3bef1b6b",
+    "check_space.py": "eb4a8aa64efd4991aa270b947607fc5f57df815ade16c0a9a3d25648a0dd3f90",
+    "probe_factors.py": "221446bfe8befe020a1dceb61f1565c7dd6823c3215f193f9cdc4c81b4ab4514",
+    "source_snapshots/run_core_valence_before_newton.py": "0776410823aa07aae46ef5512f7245c57f3d55fc5257347ef816dab9462bcce5"
+  }
+}

@@ -25,6 +25,7 @@ python scripts/build_project_index.py --tests src/atomx/atom.py --limit 10
 - [docs/ARCHITECTURE_DESIGN.md](docs/ARCHITECTURE_DESIGN.md)
 - [docs/ARCHITECTURE_CAPABILITIES.md](docs/ARCHITECTURE_CAPABILITIES.md)
 - [docs/TESTING.md](docs/TESTING.md)
+- [docs/AGENT_REFERENCE.md](docs/AGENT_REFERENCE.md)
 
 ## 源码分区
 
@@ -38,24 +39,24 @@ python scripts/build_project_index.py --tests src/atomx/atom.py --limit 10
 | [src/atomx/fitting/](src/atomx/fitting/) | 2 |
 | [src/atomx/io/](src/atomx/io/) | 3 |
 | [src/atomx/lineshapes/](src/atomx/lineshapes/) | 3 |
-| [src/atomx/methods/](src/atomx/methods/) | 35 |
-| [src/atomx/numerics/](src/atomx/numerics/) | 61 |
-| [src/atomx/physics/](src/atomx/physics/) | 18 |
+| [src/atomx/methods/](src/atomx/methods/) | 37 |
+| [src/atomx/numerics/](src/atomx/numerics/) | 66 |
+| [src/atomx/physics/](src/atomx/physics/) | 26 |
 | [src/atomx/plasma/](src/atomx/plasma/) | 6 |
 | [src/atomx/potentials/](src/atomx/potentials/) | 8 |
 | [src/atomx/properties/](src/atomx/properties/) | 29 |
 | [src/atomx/providers/](src/atomx/providers/) | 5 |
 | [src/atomx/reference_data/](src/atomx/reference_data/) | 8 |
-| [src/atomx/scattering/](src/atomx/scattering/) | 48 |
+| [src/atomx/scattering/](src/atomx/scattering/) | 50 |
 | [src/atomx/spectrum/](src/atomx/spectrum/) | 5 |
 | [src/atomx/uta/](src/atomx/uta/) | 2 |
 | [src/atomx/viz/](src/atomx/viz/) | 6 |
 | [src/atomx/workflows/](src/atomx/workflows/) | 2 |
-| [src/atomx/xfel/](src/atomx/xfel/) | 2 |
+| [src/atomx/xfel/](src/atomx/xfel/) | 19 |
 
 ## 其他上下文
 
-- 测试 287，工具/示例 98，文档 79，配置 5 个文件。
+- 测试 326，工具/示例 98，文档 94，配置 5 个文件。
 - 详细路径、AST 定义/类方法、静态内部导入和内容 SHA 存在 PROJECT_INDEX.json（schema 2）。
 - 不含归档目录、source_* 源码快照和运行输出；保留的专题文档仍须按正文识别适用范围。
 - 名称匹配无结果时直接 rg；只查询源代码结构，不推断实现状态、正确性或性能。

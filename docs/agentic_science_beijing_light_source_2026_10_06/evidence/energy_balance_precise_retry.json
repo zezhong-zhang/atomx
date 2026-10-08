@@ -1,0 +1,184 @@
+{
+  "pass_": true,
+  "expectation_ledger_only": true,
+  "not_an_operator_switching_calculation": true,
+  "no_CI_energy_changed": true,
+  "states": {
+    "g": {
+      "e3200": {
+        "DC": {
+          "old_expectation_Ha": -102.81373844993944,
+          "new_expectation_Ha": -102.81393774645782,
+          "expectation_increment_meV": -5.4231345393091095,
+          "direct_normalized_new_expectation_Ha": -102.81393774645782,
+          "direct_vs_stable_error_Ha": 4.85722573273506e-17
+        },
+        "Breit": {
+          "old_expectation_Ha": 0.011710816905092769,
+          "new_expectation_Ha": 0.011667486722932786,
+          "expectation_increment_meV": -1.179074322864002,
+          "direct_normalized_new_expectation_Ha": 0.011667486722932786,
+          "direct_vs_stable_error_Ha": 5.590417451878382e-20
+        },
+        "QED": {
+          "old_expectation_Ha": 0.010598795091716563,
+          "new_expectation_Ha": 0.010597713350033844,
+          "expectation_increment_meV": -0.02943569074684262,
+          "direct_normalized_new_expectation_Ha": 0.010597713350033844,
+          "direct_vs_stable_error_Ha": 3.3881317890172014e-20
+        },
+        "NMS": {
+          "old_expectation_Ha": 0.0028162506177206756,
+          "new_expectation_Ha": 0.0028162518242462217,
+          "expectation_increment_meV": 3.283123264853278e-05,
+          "direct_normalized_new_expectation_Ha": 0.0028162518242462217,
+          "direct_vs_stable_error_Ha": 1.0164395367051604e-20
+        },
+        "SMS": {
+          "old_expectation_Ha": 3.772591563749532e-05,
+          "new_expectation_Ha": 3.774537935602536e-05,
+          "expectation_increment_meV": 0.0005296347627038862,
+          "direct_normalized_new_expectation_Ha": 3.774537935602536e-05,
+          "direct_vs_stable_error_Ha": 4.963083675318166e-23
+        }
+      }
+    },
+    "q": {
+      "e3200": {
+        "DC": {
+          "old_expectation_Ha": -69.42225174538441,
+          "new_expectation_Ha": -69.4222735360508,
+          "expectation_increment_meV": -0.5929542394160875,
+          "direct_normalized_new_expectation_Ha": -69.4222735360508,
+          "direct_vs_stable_error_Ha": 6.522560269672795e-16
+        },
+        "Breit": {
+          "old_expectation_Ha": 0.0009051484231640935,
+          "new_expectation_Ha": 0.0009008255089747487,
+          "expectation_increment_meV": -0.11763248771449673,
+          "direct_normalized_new_expectation_Ha": 0.0009008255089747487,
+          "direct_vs_stable_error_Ha": 2.80579663777987e-21
+        },
+        "QED": {
+          "old_expectation_Ha": 0.005998995895538756,
+          "new_expectation_Ha": 0.0059987984680472456,
+          "expectation_increment_meV": -0.005372275727085241,
+          "direct_normalized_new_expectation_Ha": 0.0059987984680472456,
+          "direct_vs_stable_error_Ha": 2.964615315390051e-21
+        },
+        "NMS": {
+          "old_expectation_Ha": 0.0019028726875267498,
+          "new_expectation_Ha": 0.0019028715894022705,
+          "expectation_increment_meV": -2.988148935434807e-05,
+          "direct_normalized_new_expectation_Ha": 0.0019028715894022705,
+          "direct_vs_stable_error_Ha": 7.940933880509066e-21
+        },
+        "SMS": {
+          "old_expectation_Ha": 0.00012980227079064912,
+          "new_expectation_Ha": 0.0001297859946905714,
+          "expectation_increment_meV": -0.0004428952457927974,
+          "direct_normalized_new_expectation_Ha": 0.0001297859946905714,
+          "direct_vs_stable_error_Ha": 1.9322939109238726e-21
+        }
+      }
+    },
+    "r": {
+      "e3200": {
+        "DC": {
+          "old_expectation_Ha": -69.42675780138337,
+          "new_expectation_Ha": -69.42678075328435,
+          "expectation_increment_meV": -0.6245530425148768,
+          "direct_normalized_new_expectation_Ha": -69.42678075328435,
+          "direct_vs_stable_error_Ha": 3.122502256758253e-16
+        },
+        "Breit": {
+          "old_expectation_Ha": 0.0007551379110012567,
+          "new_expectation_Ha": 0.0007505207585899357,
+          "expectation_increment_meV": -0.12563911762101695,
+          "direct_normalized_new_expectation_Ha": 0.0007505207585899357,
+          "direct_vs_stable_error_Ha": 6.3527471044072525e-21
+        },
+        "QED": {
+          "old_expectation_Ha": 0.005985316125482802,
+          "new_expectation_Ha": 0.005985106611556296,
+          "expectation_increment_meV": -0.005701164378084628,
+          "direct_normalized_new_expectation_Ha": 0.005985106611556296,
+          "direct_vs_stable_error_Ha": 6.776263578034403e-21
+        },
+        "NMS": {
+          "old_expectation_Ha": 0.0019030519475420802,
+          "new_expectation_Ha": 0.0019030508697013642,
+          "expectation_increment_meV": -2.9329540031228608e-05,
+          "direct_normalized_new_expectation_Ha": 0.0019030508697013642,
+          "direct_vs_stable_error_Ha": 1.3023131564034868e-20
+        },
+        "SMS": {
+          "old_expectation_Ha": 0.00012320430476976836,
+          "new_expectation_Ha": 0.00012318705129590776,
+          "expectation_increment_meV": -0.0004694909413059552,
+          "direct_normalized_new_expectation_Ha": 0.00012318705129590776,
+          "direct_vs_stable_error_Ha": 1.045556294267027e-21
+        }
+      }
+    }
+  },
+  "photon_increment_ledger_meV": {
+    "e3200": {
+      "q": {
+        "DC": 4.830180299893022,
+        "Breit": 1.0614418351495052,
+        "QED": 0.024063415019757377,
+        "NMS": -6.271272200288085e-05,
+        "SMS": -0.0009725300084966837
+      },
+      "r": {
+        "DC": 4.798581496794233,
+        "Breit": 1.053435205242985,
+        "QED": 0.023734526368757992,
+        "NMS": -6.216077267976139e-05,
+        "SMS": -0.0009991257040098413
+      }
+    }
+  },
+  "balance_controls": {
+    "e3200": {
+      "g": {
+        "full_energy_balance_error_Ha": 9.511419429841794e-13,
+        "increment_balance_error_Ha": 2.001512086267894e-13,
+        "old_energy_balance_error_Ha": 7.509826094320715e-13,
+        "old_norm_error": -1.0931468404085098e-15,
+        "new_norm_error": 5.847102316214325e-16
+      },
+      "q": {
+        "full_energy_balance_error_Ha": 2.8629876247521224e-14,
+        "increment_balance_error_Ha": 1.1887637217295225e-13,
+        "old_energy_balance_error_Ha": 1.4750006771535595e-13,
+        "old_norm_error": -1.5053062962788744e-15,
+        "new_norm_error": 1.6688039838896884e-15
+      },
+      "r": {
+        "full_energy_balance_error_Ha": 4.0446812565875234e-14,
+        "increment_balance_error_Ha": 4.754419758238115e-13,
+        "old_energy_balance_error_Ha": 5.158859450737907e-13,
+        "old_norm_error": 2.572052813787362e-15,
+        "new_norm_error": -1.5472649203540634e-15
+      }
+    }
+  },
+  "photon_closure_errors_meV": {
+    "q": 8.681182883663041e-09,
+    "r": -7.491043341190107e-09
+  },
+  "gate_Ha": 1e-10,
+  "photon_closure_gate_meV": 1e-08,
+  "arithmetic": "Platform longdouble matvec/contractions; normalized expectations and stable delta formula2dx.H.old+dx.H.dx+2y.B.x+y.D.y with normalization change. Original float64 matrices and vectors unchanged.",
+  "longdouble_epsilon": 1.0842021724855044e-19,
+  "source_sha256": "e369c84e2313f76fb8a28b0752956da5ef45d8f305adbbf29a07b841bc0ee86e",
+  "script_sha256": "e369c84e2313f76fb8a28b0752956da5ef45d8f305adbbf29a07b841bc0ee86e",
+  "protocol_sha256": "f478dce504d1d30686e8bf5d42416b12a6f38cf00e4fb90252fefc2105c8313e",
+  "failure_manifest_sha256": "9a3121a98bffc63de8cf3528b79f41c649b7ff622f6f02eef608a04e7cd7024d",
+  "input_provenance_sha256": "7e2eeedc9ae8f4fa37402d2be557cc4cb0ba4ea47f3a922de093e087b629dc21",
+  "seconds": 1212.9616029270692,
+  "peak_RSS_GiB": 38.739906311035156,
+  "scope": "Same actual old/new producer states and immutable operators. Stable normalized accounting only; no fitted closure or energy correction."
+}

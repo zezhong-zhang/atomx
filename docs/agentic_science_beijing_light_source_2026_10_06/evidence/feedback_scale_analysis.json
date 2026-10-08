@@ -1,0 +1,40 @@
+{
+  "rows": {
+    "g": {
+      "coupling_squared_Ha2": 0.8869290403489961,
+      "effective_harmonic_gap_Ha": 3639.7741378758624,
+      "finite_u0_Q_feedback_magnitude_upper_bound_meV": 14.712685292134495,
+      "finite_fixed_u0_energy_argument_response_bound_meV": 2.1856372601316377e-06
+    },
+    "q": {
+      "coupling_squared_Ha2": 0.09342132967803989,
+      "effective_harmonic_gap_Ha": 3548.76937821925,
+      "finite_u0_Q_feedback_magnitude_upper_bound_meV": 1.6118289789419493,
+      "finite_fixed_u0_energy_argument_response_bound_meV": 2.690700660040744e-08
+    },
+    "r": {
+      "coupling_squared_Ha2": 0.09865037852827015,
+      "effective_harmonic_gap_Ha": 3549.402261709909,
+      "finite_u0_Q_feedback_magnitude_upper_bound_meV": 1.7035397695226775,
+      "finite_fixed_u0_energy_argument_response_bound_meV": 3.005048366495701e-08
+    }
+  },
+  "ground_to_upper_scale_ratios": {
+    "q": {
+      "coupling_squared_ratio": 9.493860164543156,
+      "effective_gap_ratio": 1.0256440331725016,
+      "feedback_magnitude_ratio": 9.256486517234384
+    },
+    "r": {
+      "coupling_squared_ratio": 8.99062987472298,
+      "effective_gap_ratio": 1.0254611535978504,
+      "feedback_magnitude_ratio": 8.767401713052887
+    }
+  },
+  "input_validation_sha256": "123fc1710fac456312673c4f0b108ab6868e97b90c6238cb1bba984eb63ffa9d",
+  "constants_sha256": "ef7c4ddc7cf640f7b0465fbbf07b679458004f9043c768abe7ea1ffb6ebcdc81",
+  "source": "Algebraic re-expression of independently replayed finite Hermitian Q resolvent, not a new fit or scan.",
+  "scope": "Effective harmonic denominator and norm/gap bound for the saved fixed-u0 finite-Q feedback at E0 only; not a bound on full-CI root response or any uncomputed space.",
+  "not_uncomputed_tail_bound": true,
+  "no_production_energy_changed": true
+}

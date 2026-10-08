@@ -1,0 +1,33 @@
+{
+  "rows": {
+    "N3_K3": {
+      "upper_real_increment_meV": -43.39423808807537,
+      "ground_real_increment_meV": -11.895240661207088,
+      "transition_real_increment_meV": -31.49899742686828,
+      "mixed4_formal_width_meV": 4.379074152411063,
+      "rank1_formal_width_meV": 4.19491816491876
+    },
+    "N3_K1": {
+      "upper_real_increment_meV": -44.03282535512615,
+      "ground_real_increment_meV": -11.895240661207088,
+      "transition_real_increment_meV": -32.13758469391906,
+      "mixed4_formal_width_meV": 5.664950231836681,
+      "rank1_formal_width_meV": 5.457173847342795
+    }
+  },
+  "same_point_DCB_R12_finite_spaces": true,
+  "not_Fermi_production_shift": true,
+  "physical_poles_certified": false,
+  "provisional_until_independent_full_replay": false,
+  "input_sha256": {
+    "wall_R12_DCB_N2_g.json": "a0ac45e2611fb6005ddf7ed9bcf53a566d32fd0ce23a002ff3c15e73c46407df",
+    "wall_R12_DCB_N3_g.json": "f157bb1d962bbc1105f756fb440ac1d45157cf2b14fa3e5d18738b47678e9191",
+    "wall_R12_DCB_N3_K3.json": "9cd995ceb9bde4c3bb19ef8e5bffdcf2e8a651572f9f29c78484ffd399b36512",
+    "wall_R12_DCB_N3_K1.json": "59d2348cef76af8ed8ba5f59aedb9ed3b9b836f8cbc6d31de1f6a03981a7b3f7"
+  },
+  "HARTREE_EV": 27.211386245981167,
+  "CODATA_version": "2022",
+  "constants_source_sha256": "ef7c4ddc7cf640f7b0465fbbf07b679458004f9043c768abe7ea1ffb6ebcdc81",
+  "independent_full_replay_sha256": "acb2ec621733aa8db4c68a7b2a664a5d431b08deb796a795d457eddae02c1a35",
+  "all_eight_full_eigensystem_controls_pass": true
+}

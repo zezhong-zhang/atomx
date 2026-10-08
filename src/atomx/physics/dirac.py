@@ -3,8 +3,8 @@
 The coupled radial Dirac equation for the large (P) and small (Q)
 components reads::
 
-    c (dP/dr − κ P/r)        =  (E + 2 c² − V) Q,
-   −c (dQ/dr + κ Q/r)        =  (E − V)     P
+    c (dP/dr + κ P/r)        =  (E + 2 c² − V) Q,
+    c (−dQ/dr + κ Q/r)       =  (E − V)     P
 
 in Hartree units with c = 1/α.  The κ = −(l+1) for j = l+½ and
 κ = +l for j = l−½.  The closed-form point-nucleus eigenvalues (the
@@ -24,7 +24,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from atomx.constants import ALPHA, C_SQ
+from atomx.constants import ALPHA, C_SQ, C
 
 # ---------------------------------------------------------------------------
 # Equation object
@@ -46,6 +46,40 @@ class Dirac:
     def eigenvalue_floor(self) -> float:
         """Dirac-sea / positive-energy boundary, ``−m_e c² = −c²`` in Hartree."""
         return -C_SQ
+
+    def radial_action(self, P, Q, dP, dQ, r, potential, kappa, *, dilation_angle=0.0):
+        """Rest-mass-subtracted h_D action on supplied radial values.
+
+        The representation owns the derivatives and quadrature; this
+        module owns the Dirac signs, kappa convention and rest energy.
+        Returns (hP, hQ) in Hartree times the radial amplitude. It includes
+        no exchange, electron Coulomb operator or boundary Bloch term.
+        Complex wave amplitudes are retained. For uniform complex scaling,
+        derivatives and 1/r couplings acquire exp(-i*theta); ``potential``
+        must already be V(r*exp(i*theta)). The rest mass is never scaled.
+        This action alone does not construct a no-pair projector or certify
+        a many-electron resonance.
+        """
+        arrays = tuple(np.asarray(v) for v in (P, Q, dP, dQ, r, potential))
+        P, Q, dP, dQ, r, potential = arrays
+        if (
+            any(v.shape != P.shape or not np.isfinite(v).all() for v in arrays)
+            or np.iscomplexobj(r)
+            or np.any(r <= 0)
+            or not isinstance(kappa, (int, np.integer))
+            or kappa == 0
+        ):
+            raise ValueError(
+                "Dirac action requires aligned finite radial arrays and nonzero kappa"
+            )
+        if (np.iscomplexobj(dilation_angle) or not np.isscalar(dilation_angle)
+                or not np.isfinite(dilation_angle) or abs(dilation_angle) >= np.pi / 2):
+            raise ValueError("dilation_angle must be real, finite and |theta| < pi/2")
+        scale = 1.0 if dilation_angle == 0 else np.exp(-1j * dilation_angle)
+        return (
+            potential * P + scale * C * (-dQ + kappa * Q / r),
+            scale * C * (dP + kappa * P / r) + (potential - 2 * C_SQ) * Q,
+        )
 
     def continuum_wave_number(self, energy_au: float) -> float:
         """Relativistic dispersion ``k = √(2E(1 + α²E/2))`` (Hartree, ``E > 0``).

@@ -1,0 +1,1 @@
+Native open-shell Breit regression: see metadata.json for exact origin and SHA256. All four complete matrices, radial P/Q, potential and Jacobian are from the original GRASP RCI. No atomx spectrum or experimental value enters the expected matrices. This finite frozen-orbital control does not certify orbital convergence or physical resonance accuracy.

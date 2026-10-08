@@ -1,0 +1,20 @@
+{
+  "hypothesis": "Recorded complete3200 three-state, singles and DC/DCB eigenpairs must replay against all original public operators and immutable old/new blocks.",
+  "fixed": "Physical source332, all producer Hamiltonians and states; no energy or coefficient alteration.",
+  "intervention": "Separate operator action accumulation, complete angular-tree/hash/shard replay, old271 arrays and prefix states, full resolvent action and independent minimum Q eigenpair, signed full-Q partitions, complete singles intermediate and DC/DCB response replay.",
+  "gates": {
+    "absolute_original_H_residual_Ha": 1e-10,
+    "norm_Ha": 1e-10,
+    "signed_reference_and_previous_overlap_min_exclusive": 0.5,
+    "Q_linear_relative_residual": 1e-10,
+    "minimum_Q_gap_positive": true,
+    "new_Q_eigenpair_residual_Ha": 1e-10,
+    "complete_sources_and_shard_hashes": true
+  },
+  "stop": "Any gate failure rejects delivery; no residual or finite positive-Q control certifies full correlation, radial convergence or physical poles.",
+  "script_sha256": "36da32dd76333a8fba313ef8c951ae1e6e293bbf4df66d17d6ea4dbbaeb7c00c",
+  "memory_cap_GiB": 104,
+  "run_after_producer_and_controls": true,
+  "prerun_minimum_Q_solver_control": "Before first validation measurement: use ARPACK relative tol1e-14, since positive eigenvalues at order1600Ha make tol1e-13 an insufficient guarantee of the fixed absolute1e-10Ha gate. Original unrun version preserved. Exact Q Hamiltonian, fixed v0, maxiter2000, root selection and scientific gates unchanged.",
+  "premeasurement_expectation_convention_control": "Independently apply separate original DC/Breit operators to saved full DCB states, verify both expectation values and energy sum with original1e-10Ha gate. Same Hamiltonians/source/roots/Q-eigenpair solver. Original unrun driver/protocol preserved."
+}

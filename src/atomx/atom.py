@@ -582,6 +582,7 @@ class Atom:
         self.radial_optimization = correlation_spec.radial_optimization
         self.orbital_preconditioner = correlation_spec.orbital_preconditioner
         self.max_determinants = correlation_spec.max_determinants
+        self.state_average = correlation_spec.state_average
         # Both flags are read only by the multi-configuration branch of
         # solve(); with a single configuration they have nothing to act on
         # and used to be dropped in silence.
@@ -911,6 +912,8 @@ class Atom:
                 f"reported it."
             )
 
+        if self.state_average is not None and not self._multi_config:
+            raise ValueError('CI state averaging requires config=[...] or a correlation expansion')
         if self._multi_config or use_hamiltonian_df:
             from atomx.config.csf import (
                 enumerate_jj_csfs,
@@ -947,6 +950,7 @@ class Atom:
                 radial_optimization=self.radial_optimization,
                 orbital_preconditioner=self.orbital_preconditioner,
                 max_determinants=self.max_determinants,
+                state_average=self.state_average,
                 engine=self.engine,
                 shooting_space=self.shooting_space,
                 screening_potential=self._screening_shift(),
@@ -1383,6 +1387,8 @@ class Atom:
             parts.append(f"sampling={self._sampling.label}")
         if self.radial_optimization != "mcdhf":
             parts.append(f"radial={self.radial_optimization}")
+        if self.state_average is not None:
+            parts.append(f"ci_state_average={self.state_average!r}")
         if self.j_resolved_csfs:
             parts.append("j_resolved_csfs")
         if self.per_block_orbital_sets:

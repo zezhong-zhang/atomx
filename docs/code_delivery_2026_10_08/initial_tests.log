@@ -1,0 +1,49 @@
+....................................................................s... [  8%]
+.......................................................................x [ 17%]
+........................................................................ [ 26%]
+........................................................................ [ 35%]
+........................................................................ [ 43%]
+........................................................................ [ 52%]
+........................................................................ [ 61%]
+........................................................................ [ 70%]
+........................................................................ [ 78%]
+........................................................................ [ 87%]
+..........................................F
+=================================== FAILURES ===================================
+___ test_exactly_degenerate_ci_lines_share_a_bath_and_preserve_a_dark_state ____
+
+neon = Atom(Ne, Z=10, solved)
+
+    def test_exactly_degenerate_ci_lines_share_a_bath_and_preserve_a_dark_state(neon):
+        changed = copy.copy(neon)
+        changed._result = copy.copy(neon._csf_result)
+        changed._result.state_energies = neon._csf_result.state_energies.copy()
+        changed._result.state_energies[1] = changed._result.state_energies[4]
+        ci = model(changed)
+>       assert len(ci.system.decay_operators) == 3
+E       assert 6 == 3
+E        +  where 6 = len((array([[      0.        +0.j,       0.        +0.j,       0.        +0.j,\n              0.        +0.j,       0.     ...     0.        +0.j,\n            0.        +0.j,     0.        +0.j,     0.        +0.j,\n            0.        +0.j]])))
+E        +    where (array([[      0.        +0.j,       0.        +0.j,       0.        +0.j,\n              0.        +0.j,       0.     ...     0.        +0.j,\n            0.        +0.j,     0.        +0.j,     0.        +0.j,\n            0.        +0.j]])) = <atomx.xfel.coherent.CoherentSystem object at 0x7ee622fe52d0>.decay_operators
+E        +      where <atomx.xfel.coherent.CoherentSystem object at 0x7ee622fe52d0> = <atomx.xfel.mcdhf_coherent.MCDHFCoherentModel object at 0x7ee622fe6920>.system
+
+tests/test_xfel_mcdhf_coherent.py:201: AssertionError
+============================= slowest 15 durations =============================
+47.23s setup    tests/test_ci_J_block.py::test_fe17_spectrum_matches_the_mscheme_reference
+7.83s call     tests/test_ci_matrix_vs_mscheme_reference.py::test_he_like_1s2p_levels_match_oracle[fac_frozen]
+6.25s call     tests/test_ci_matrix_vs_mscheme_reference.py::test_he_like_1s2p_j1_splitting_matches_two_thirds_g1[fac_frozen]
+4.98s call     tests/test_transitions.py::TestAtomTransitions::test_he_has_transitions
+4.71s call     tests/test_ci_matrix_vs_mscheme_reference.py::test_singles_expansion_gains_nothing_on_hf_orbitals
+4.61s call     tests/test_ci_matrix_vs_mscheme_reference.py::test_he_like_1s2p_j1_splitting_matches_two_thirds_g1[mcdhf]
+4.60s call     tests/test_ci_matrix_vs_mscheme_reference.py::test_he_like_1s2p_levels_match_oracle[mcdhf]
+3.31s call     tests/test_ci_matrix_vs_mscheme_reference.py::test_full_spectrum_matches_mscheme_reference
+2.58s call     tests/test_mcdhf.py::TestMCDHFSolver::test_variational_projector_fock_matches_nuclear_on_light_atom
+2.20s call     tests/test_ci.py::test_ci_solve_returns_ciresult_and_ground_energy_is_minimum
+2.14s setup    tests/test_slater_kernel_crosscheck.py::test_scalar_rk_matches_reference[cc_potentials-0]
+1.94s call     tests/test_complex_breit.py::test_actual_gaunt_split_quadrature_and_retardation_continuity_contraction
+1.93s call     tests/test_architecture_boundaries.py::test_shooting_drivers_run_without_method_imports
+1.84s call     tests/test_mcdhf.py::TestMCDHFSolver::test_two_config_be
+1.59s call     tests/test_finite_frequency_breit.py::test_live_fac_two_electron_matrix_elements[False-10]
+=========================== short test summary info ============================
+FAILED tests/test_xfel_mcdhf_coherent.py::test_exactly_degenerate_ci_lines_share_a_bath_and_preserve_a_dark_state
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 760 passed, 1 skipped, 4 deselected, 1 xfailed in 136.11s (0:02:16)

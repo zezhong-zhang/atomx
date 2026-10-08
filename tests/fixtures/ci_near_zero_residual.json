@@ -1,0 +1,74 @@
+{
+  "scope": "Captured complete original N3 J=1/2 even CI blocks; unselected root79 near zero; gates stay1e-10",
+  "failures": [
+    {
+      "file": "eigen_failure_0.npz",
+      "probe_step": 0.0005,
+      "probe_sign": -1,
+      "electron_number": 3,
+      "J2": 1,
+      "parity": 1,
+      "refusal": "cluster eigenvectors failed original-matrix residual gate",
+      "matrix_order": 304,
+      "peak_index": 79,
+      "peak_energy_Ha": -0.00017693626817560926,
+      "peak_relative_residual": 7.22050743594389e-10
+    },
+    {
+      "file": "eigen_failure_1.npz",
+      "probe_step": 0.00025,
+      "probe_sign": -1,
+      "electron_number": 3,
+      "J2": 1,
+      "parity": 1,
+      "refusal": "cluster eigenvectors failed original-matrix residual gate",
+      "matrix_order": 304,
+      "peak_index": 79,
+      "peak_energy_Ha": 0.0006065834773352208,
+      "peak_relative_residual": 1.2895681788585543e-10
+    }
+  ],
+  "outcomes": [
+    {
+      "step": 0.001,
+      "sign": -1,
+      "original_gate_pass": true,
+      "energy_Ha": -74.88552000459676,
+      "probability": 0.5000751624222879
+    },
+    {
+      "step": 0.001,
+      "sign": 1,
+      "original_gate_pass": true,
+      "energy_Ha": -74.8855238192321,
+      "probability": 0.5000751796118208
+    },
+    {
+      "step": 0.0005,
+      "sign": -1,
+      "original_gate_pass": false,
+      "refusal": "cluster eigenvectors failed original-matrix residual gate"
+    },
+    {
+      "step": 0.0005,
+      "sign": 1,
+      "original_gate_pass": true,
+      "energy_Ha": -74.88552308843599,
+      "probability": 0.5000757987002638
+    },
+    {
+      "step": 0.00025,
+      "sign": -1,
+      "original_gate_pass": false,
+      "refusal": "cluster eigenvectors failed original-matrix residual gate"
+    },
+    {
+      "step": 0.00025,
+      "sign": 1,
+      "original_gate_pass": true,
+      "energy_Ha": -74.88552266730072,
+      "probability": 0.50007595441714
+    }
+  ],
+  "fixture_sha256": "7f1cb01b439aebf390ead43a3d0d903ad821188f68364d66613278cac1018759"
+}

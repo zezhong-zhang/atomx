@@ -1,323 +1,516 @@
 # atomx
 
-High-performance atomic structure calculations, from textbook Schrodinger & Dirac to frontier QED.
+High-performance atomic structure calculations, from Schrödinger and Dirac models
+to Breit and QED corrections.
 
 ## Overview
 
-atomx is a Python library for computing atomic energy levels, wavefunctions, transition rates, hyperfine structure, and many other atomic properties. It implements a complete theory ladder — from simple hydrogenic models through multi-configuration Dirac-Hartree-Fock (MCDHF) with Breit and QED corrections — using B-spline basis sets and JIT-compiled numerical kernels.
+atomx is a Python library for computing atomic energy levels, wavefunctions,
+transition rates, hyperfine structure, and other atomic properties. Its theory
+ladder spans hydrogenic models, Hartree–Fock–Slater and Dirac–Fock, multi-configuration
+Dirac–Hartree–Fock (MCDHF), and correlation methods. B-spline and ODE shooting
+engines share physical operators and JIT-compiled numerical kernels.
+
+[Installation](#installation) · [Quick start](#quick-start) ·
+[Architecture](#architecture) · [Verification](#verification-against-fac) ·
+[Documentation](#documentation) · [Development](#development)
 
 ## Features
 
-- **Theory ladder** — Hydrogenic, Hartree-Fock, Breit-Pauli, Dirac-Fock, Dirac-Fock+Breit, Dirac-Fock+QED, MCDHF, MBPT(2), all-order pp-ladder pair correlation
-- **Decoupled engine × model** — choose the radial numerics (`bspline` B-spline Galerkin or `shooting` Salvat ODE) independently of the exchange model (`hf` non-local, `slater` with any α, `gu` FAC-style empirical α_xc)
-- **Atomic properties** — energy levels, orbital wavefunctions, transition rates (E1/M1/E2/M2), hyperfine structure (A, B), isotope shifts, Zeeman effect, g-factors, polarizability, EDM, PNC
-- **Scattering** (FAC-verified distorted wave) — collisional excitation with exact-GOS Born completion, electron-impact ionization, excitation-autoionization, autoionization (Auger), ab-initio dielectronic recombination with density suppression, resonant excitation, photoionization (Fano), radiative recombination, charge exchange, R-matrix
-- **Plasma modeling** — Debye/ion-sphere screening, collisional-radiative model (CRM) consuming the verified DW collision strengths, average-atom model, cascades
-- **Spectrum synthesis** — CRM lines + free-free (bremsstrahlung) + free-bound (RR) continuum channels, UTA (unresolved transition arrays)
-- **QED corrections** — vacuum polarization, self-energy (Mohr, Welton, Indelicato, Shabaev-local, Flambaum-Ginges backends), pluggable `CorrectionStack`
-- **Visualization** — matplotlib, Plotly, and Manim backends for energy levels, radial orbitals, Grotrian diagrams, spectra, cross sections with reference-ratio panels, DR resonance spectra
+- **Theory ladder** — Hydrogenic, Hartree–Fock–Slater, Breit–Pauli, Dirac–Fock,
+  Dirac–Fock with Breit/QED corrections, MCDHF/CI, MBPT(2), and all-order
+  particle-particle ladder correlation.
+- **Radial engine and exchange model** — B-spline Galerkin or Salvat ODE
+  shooting numerics; nonlocal HF, local Slater exchange with configurable
+  α, and Gu's FAC-style empirical exchange model. Supported combinations
+  depend on the method; the MCDHF/CI configuration-list path uses B-splines.
+- **Atomic properties** — Energy levels, radial orbitals, E1/M1/E2/M2
+  transitions, hyperfine A/B constants, isotope shifts, Zeeman effects,
+  g-factors, polarizability, EDM, and PNC.
+- **Scattering** — Distorted-wave collisional excitation and electron-impact
+  ionization, excitation-autoionization, Auger decay, dielectronic and
+  radiative recombination, resonant excitation, photoionization, charge
+  exchange, and R-matrix calculations.
+- **Plasma modeling** — Debye and ion-sphere screening, collisional-radiative
+  models, average-atom models, and cascades.
+- **XFEL dynamics** — Native atomic rate tables, pulse-driven population
+  equations and Monte Carlo cascades, magnetic-state coherent CI dynamics,
+  and transient scattering observables, with explicit model applicability gates.
+- **Spectrum synthesis** — Lines, free-free bremsstrahlung, free-bound
+  recombination continua, and unresolved transition arrays (UTA).
+- **QED corrections** — Vacuum polarization and self-energy models, including
+  Mohr, Welton, Indelicato, Shabaev-local, and Flambaum–Ginges backends,
+  with a composable `CorrectionStack`.
+- **Electronic-structure providers** — Native and optional PySCF adapters,
+  molecular core-hole states, and cluster/point-charge embedding.
+- **Visualization** — Matplotlib, Plotly, and Manim backends for energy levels,
+  radial orbitals, Grotrian diagrams, spectra, cross sections, and
+  recombination resonances.
 
-The [NIST spectrum atlas](docs/NIST_SPECTRUM_ATLAS.md) builds an auditable line and level catalog, interactive periodic table and ion viewer. Its [theory comparison](docs/THEORY_NIST_COMPARISON.md) shows calculated versus NIST wavelengths, ionization energies, and complete evaluated configuration centroids on separate coverage-aware periodic maps.
+The [capabilities and limits](docs/ARCHITECTURE_CAPABILITIES.md) describe
+supported result types, model approximations, and remaining gaps. For example,
+Breit–Pauli currently uses hydrogenic perturbative shifts, and PNC/EDM entry
+points require B-spline payloads.
+
+The [NIST reference-data interfaces](docs/NIST_SPECTRUM_ATLAS.md) parse
+caller-supplied levels, lines, classifications, and citations.
+[Theory comparison](docs/THEORY_NIST_COMPARISON.md) provides state matching and
+configuration-centroid conventions. The historical atlas builder and
+interactive viewer were retired; the retained APIs do not download a complete
+archive or provide a website launch command.
+
+## Installation
+
+Requires **Python 3.10 or later**. From the repository root:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -e .
+```
+
+On Windows PowerShell, activate with `.\.venv\Scripts\Activate.ps1`.
+Reuse an existing environment if you already have one.
+
+### Optional extras
+
+Install extras from the same checkout, for example:
+
+```bash
+python -m pip install -e ".[viz,units]"
+```
+
+| Extra | Adds |
+|---|---|
+| `pyscf` | PySCF electronic-structure providers and embedding |
+| `units` | Pint unit handling |
+| `notebook` | Jupyter kernel, IPython, and notebook support |
+| `viz` | Plotly visualization |
+| `viz-manim` | Manim animations |
+| `viz-all` | Plotly and Manim |
+| `dev` | Test, lint, and development tools, including Pint and PySCF |
+| `all` | Visualization, notebook, and units extras |
+
+Matplotlib is a base dependency. The `all` extra excludes PySCF and development
+tools; add `pyscf` or `dev` explicitly when needed. Dependency definitions live
+in [pyproject.toml](pyproject.toml).
 
 ## Quick start
+
+### Neutral neon
 
 ```python
 from atomx import Atom
 
-# Neutral neon — Dirac-HF on the shooting engine with Breit + QED
-# corrections, all on by default
-atom = Atom(Z=10)
-atom.solve()
-print(atom.total_energy)       # -128.61 Hartree
-print(atom.orbital_energies)   # {'1s1/2': -32.82, '2s1/2': -1.94, '2p1/2': -0.85, ...}
+ne = Atom(10)
+ne.solve()
 
-# Correction-free (pure Dirac-Coulomb) reference run
-atom = Atom(Z=10, corrections="none")
-atom.solve()
+if not ne.converged:
+    raise RuntimeError("SCF did not converge")
 
-# Multi-configuration CI, including two-electron replacements.  1s2 and
-# 1s1 2s1 are both 1S0 (J=0, even) and couple through the Hamiltonian.
-# A *list* of configurations selects the MCDHF/CI path.
-atom = Atom(Z=2, config=["1s2", "1s1 2s1"])
-atom.solve()
-print(atom.total_energy)                        # -2.8629 Hartree (HF: -2.8617)
-print(atom.result.mixing_coefficients[:, 0])    # [-0.999, 0.042, 0.0]
-
-# Same-symmetry *double* replacements couple too (the 2s²/2p²
-# near-degeneracy pair): the ground state mixes 2s² with both 2p² jj pairs
-# and drops 0.041 Ha below the single-configuration HF energy.
-atom = Atom(Z=4, config=["1s2 2s2", "1s2 2p2"])
-atom.solve()
-print(atom.total_energy)                        # -14.6139 Hartree
-print(atom.result.mixing_coefficients[:, 0])    # [0.944, 0.282, 0.0, 0.0, 0.0, 0.171]
-
-# The radial ENGINE and the exchange MODEL are independent choices.  A
-# knob that only exists for one model (alpha_x, slater_method) travels
-# with that model on the Exchange object.
-from atomx import Exchange
-
-atom = Atom(Z=26, charge=16, config="1s2 2s2 2p6",
-            engine="shooting", exchange="gu")     # FAC-style local DFS
-atom = Atom(Z=26, charge=16, config="1s2 2s2 2p6",
-            engine="bspline",
-            exchange=Exchange(model="slater", alpha_x=2/3))
-atom.solve()
-print(atom.provenance)   # {'engine': 'bspline', 'exchange': 'slater', 'averaging': 'statistical'}
+print(ne.total_energy)       # Total energy in Hartree
+print(ne.orbital_energies)   # Orbital energies in Hartree, keyed by subshell
+print(ne.resolved_inputs)    # Resolved engine, model, and numerical controls
 ```
+
+The default is nonlocal HF exchange on the shooting engine with a finite Fermi
+nucleus, Hamiltonian-derived single-configuration averaging, and post-SCF
+Breit/QED corrections enabled. Use `corrections="none"` for a Dirac–Coulomb
+reference calculation. The first call may take longer while Numba compiles
+numerical kernels.
+
+### Multi-configuration CI
+
+A list of configurations selects the common-orbital B-spline MCDHF/CI path.
+Same-symmetry single and double replacements can couple through the Hamiltonian:
+
+```python
+from atomx import Atom, Basis
+
+# Helium: the J=0, even states from these configurations can mix.
+he = Atom(2, config=["1s2", "1s1 2s1"], corrections="none")
+he.solve()
+print(he.converged, he.state_energies)
+
+# Beryllium: include the 2s² / 2p² double-replacement pair.
+be = Atom(
+    4,
+    config=["1s2 2s2", "1s2 2p2"],
+    corrections="none",
+    basis=Basis(ns=45),
+)
+be.solve()
+print(be.converged, be.total_energy)
+print(be.result.mixing_coefficients[:, 0])
+```
+
+These small spaces illustrate CI coupling; check radial and correlation-space
+refinement for your observable. Configurations define an expansion space,
+while energy levels are its mixed eigenstates. Optimization weights and
+physical initial populations have separate meanings. See the
+[state and optimization contracts](#states-and-orbital-optimization) below and
+the [atomic-state design](docs/ATOMIC_STATE_DESIGN.md) for implementation details
+and proposals that remain unfinished.
+
+### Choose the engine and exchange model
+
+```python
+from atomx import Atom, Exchange
+
+# Local Slater exchange with the shooting engine for Ne-like Fe XVII.
+ion = Atom(
+    26,
+    charge=16,
+    config="1s2 2s2 2p6",
+    engine="shooting",
+    exchange=Exchange(model="slater", alpha_x=2 / 3),
+    corrections="none",
+)
+ion.solve()
+print(ion.converged, ion.total_energy)
+print(ion.provenance)
+```
+
+For FAC-style local exchange, select `exchange="gu"`; both shooting and
+B-spline engines support it. `Exchange` carries controls specific to its
+model, such as `alpha_x` for Slater exchange.
 
 ### The ten constructor arguments
 
-`Atom` takes ten arguments, one per physical question.  Five of them accept
-either a plain value (the common case) or a frozen dataclass from
-`atomx.atom_inputs` when there is more to say:
+`Atom` accepts ten primary arguments. Detailed controls use frozen input
+objects exported from `atomx`:
 
-| Argument | Plain form | Object form | What it decides |
-|----------|-----------|-------------|-----------------|
-| `Z` | `10` | — | nuclear charge (required, positional) |
-| `config` | `"1s2 2s2 2p6"` | `["1s2 2s2", "1s2 2p2"]` for CI | which configurations enter |
-| `charge` | `0` | — | net ion charge, so `N = Z - charge` |
-| `nuclear` | `"fermi"` | — | nuclear charge distribution |
-| `exchange` | `"hf"` / `"slater"` / `"gu"` | `Exchange(model=..., alpha_x=..., slater_method=...)` | exchange model + the knobs only it reads |
-| `corrections` | `"none"` / `"breit"` / `"qed"` / `"breit+qed"` | `Corrections(breit=..., qed=..., qed_backend=..., stack=...)` | Breit + QED, and the self-energy backend |
-| `correlation` | `"s"` / `"sd"` | `Correlation(expansion=..., averaging=..., radial_optimization=..., j_resolved_csfs=..., per_block_orbital_sets=...)` | correlation expansion + CI/SCF protocol |
-| `engine` | `"bspline"` / `"shooting"` | — | radial engine (was `numerics=`) |
-| `basis` | — | `Basis(ns=..., ks=..., r_max=..., grid_hi=..., grid_he=..., grid_hmax=..., starting_potential=..., sampling=Sampling.high)` | radial basis, box, knot grid, accuracy tier |
-| `environment` | — | `Environment(plasma_ne=..., plasma_Te=..., screening="debye"\|"stewart_pyatt")` | the surrounding plasma, screened inside the SCF |
+| Argument | Plain form | Detailed form or meaning |
+|---|---|---|
+| `Z` | `10` | Nuclear charge; required |
+| `config` | `"1s2 2s2 2p6"` | A list selects explicit configurations for CI |
+| `charge` | `0` | Net ion charge; electron count is `Z - charge` |
+| `nuclear` | `"fermi"`, `"point"`, `"uniform"` | Nuclear charge distribution; uniform requires B-splines |
+| `exchange` | `"hf"`, `"slater"`, `"gu"` | `Exchange(model=..., alpha_x=..., slater_method=...)` |
+| `corrections` | `"none"`, `"breit"`, `"qed"`, `"breit+qed"` | `Corrections(breit=..., qed=..., qed_backend=..., stack=...)` |
+| `correlation` | `"s"`, `"sd"` | `Correlation(expansion=..., averaging=..., radial_optimization=..., state_average=...)` |
+| `engine` | `"bspline"`, `"shooting"` | Radial numerical engine |
+| `basis` | — | `Basis(ns=..., ks=..., r_max=..., sampling=...)` |
+| `environment` | — | `Environment(plasma_ne=..., plasma_Te=..., screening=...)` |
 
-There is exactly one spelling per question — the old flat keywords are gone,
-and each one raises a message naming its replacement (see
-[`docs/MIGRATION.md`](docs/MIGRATION.md)).
+`ns` is the B-spline count, `ks` the spline order, and `r_max` the box radius
+in Bohr. Inspect `help(Atom)` and the input classes for complete controls and
+supported combinations. Removed flat keywords raise errors naming their
+replacements; see the [migration guide](docs/MIGRATION.md).
+
+### Plasma-screened ions
+
+This Ne²⁺ example spells out all ten inputs. Its configuration contains the
+eight electrons required by `Z - charge`:
 
 ```python
 from atomx import Atom, Basis, Corrections, Correlation, Environment
 
-# Ne^2+ in a dense plasma (every argument spelled out)
-atom = Atom(
-    10,                                       # Z
-    config="1s2 2s2",                         # reference configuration
-    charge=2,                                 # net ion charge
-    nuclear="fermi",                          # finite-size nucleus
-    exchange="hf",                            # non-local HF exchange
+ion = Atom(
+    10,
+    config="1s2 2s2 2p4",
+    charge=2,
+    nuclear="fermi",
+    exchange="hf",
     corrections=Corrections(breit=True, qed=True, qed_backend="auto"),
-    correlation=Correlation(averaging="ci"),  # Guerra CI averaging
-    engine="bspline",                         # Galerkin B-spline SCF
-    basis=Basis(ns=200, ks=9, r_max=90.0),    # 200 B-splines, 90 Bohr box
-    environment=Environment(plasma_ne=1e22, plasma_Te=100.0,
-                            screening="debye"),   # free-electron sea
+    correlation=Correlation(averaging="hamiltonian"),
+    engine="bspline",
+    basis=Basis(ns=80, ks=9, r_max=75.0),
+    environment=Environment(
+        plasma_ne=1e22,       # Electron density in cm^-3
+        plasma_Te=100.0,      # Electron temperature in eV
+        screening="debye",
+    ),
 )
-atom.solve()
-print(atom.resolved_inputs)
-# Z=10 charge=2 fermi | 1s2 2s2 | engine=bspline exchange=hf averaging=ci
-# | breit=on qed=on(auto) | radial=bspline(ns=200, ks=9, grid=fixed)
-#   r_max=90.0 | plasma(ne=1e+22, Te=100.0, debye)
+ion.solve()
+print(ion.converged, ion.resolved_inputs)
 ```
 
-The plasma is not decoration: `plasma_ne`/`plasma_Te` define the Debye length
-`lambda_D = sqrt(kT / 4 pi n_e)` and the screened potential
-`-Z exp(-r/lambda_D)/r` is added to the nuclear potential *inside* the SCF,
-so every orbital moves up by ~`Z/lambda_D` (the ionisation potential
-depression).  A neutral atom has no net charge to screen, so at these
-densities the model predicts complete pressure ionisation and the solver
-says so instead of returning an unscreened atom.
-
-`atom.resolved_inputs` is a one-line summary of what was actually chosen:
-which engine `engine=None` resolved to, whether Breit and QED are on, which
-grid the run used, and whether the atom sits in a plasma.  Physically
-impossible combinations raise with the argument named and the alternative
-spelled out: `alpha_x` outside `Exchange(model="slater")`, `grid_*` with the
-shooting engine (or with an explicit `ns`), `plasma_Te` without
-`plasma_ne`, `j_resolved_csfs` without a multi-configuration input, or a
-`Corrections(stack=...)` that contradicts an explicit `breit`/`qed`.  See
-`docs/gallery/atom_inputs_example.py` for a runnable tour.
+Screening enters the SCF potential and changes the orbitals. The resulting
+energy shifts depend on the screening model and orbital relaxation; inputs
+that produce unbound subshells are rejected. `resolved_inputs` reports the
+engine, model, corrections, grid, and environment actually used.
 
 ### Theory ladder
 
-Climb the physics ladder rung-by-rung, seeing how each effect changes the total energy:
+Climb the method ladder and display each energy increment:
 
 ```python
-from atomx import Atom, Ladder, Sampling
+from atomx import Atom, Sampling
 from atomx.methods import DiracFock
 
-atom = Atom(Z=10)
-run = atom.climb(through=DiracFock(breit=True, qed=True), sampling=Sampling.quick)
+atom = Atom(2)
+run = atom.climb(
+    through=DiracFock(breit=True, qed=True),
+    sampling=Sampling.quick,
+)
 run.show(unit="eV")
 ```
 
+`Sampling.quick` is an exploratory preset. Ladder outcomes record individual
+rung errors, so inspect `run.outcomes` when using the results programmatically.
+
 ### Compare methods
+
+Solve each method first, then pass the resulting objects to `compare`:
 
 ```python
 from atomx import Atom, compare
-from atomx.methods import HartreeFock, BreitPauli, DiracFock
+from atomx.methods import BreitPauli, DiracFock, HartreeFockSlater
 
-results = compare(
-    Atom(Z=10),
-    [HartreeFock(), BreitPauli(), DiracFock(), DiracFock(breit=True, qed=True)],
-)
+methods = [
+    HartreeFockSlater(),
+    BreitPauli(),
+    DiracFock(),
+    DiracFock(breit=True, qed=True),
+]
+results = [Atom(2, corrections="none").solve(method) for method in methods]
+compare(*results)
 ```
 
-## Installation
+The nonrelativistic rung here uses local Slater exchange. Method comparisons
+must account for that model change as well as relativistic corrections.
 
-```bash
-pip install -e .
-```
+## External electronic-structure providers
 
-Requires Python >=3.10. For development dependencies:
+The [provider contract](docs/adr/ADR-0001-electronic-structure-provider.md)
+lets external electronic structures feed Atomx's Auger/CSF kernels. Install
+PySCF support with `python -m pip install -e ".[pyscf]"`.
 
-```bash
-pip install -e ".[dev]"
-```
+- `atomx.providers.pyscf_adapter.PySCFProvider` and `from_scf(mf)` convert
+  converged mean fields into validated `ElectronicStructurePayload` objects.
+- `build_core_hole_delta_scf_payload` constructs MOM-tracked molecular
+  core-hole ΔSCF states.
+- `atomx.providers.pyscf_embedding` provides rock-salt and point-charge
+  embedding, core-orbital identity tracking, embedded binding energies,
+  and cluster convergence studies.
 
-### Optional extras
-
-| Extra | Description |
-|-------|-------------|
-| `pyscf` | PySCF back-end for the electronic-structure providers (molecules, embedded clusters) |
-| `units` | Pint-based unit handling |
-| `viz` | matplotlib + Plotly visualization |
-| `viz-manim` | Manim animation backend |
-| `viz-all` | All visualization backends |
-| `all` | Everything |
-
-### External electronic-structure providers
-
-Atomx can drive its Auger/CSF kernels from external electronic-structure
-back-ends through the unified provider contract (`src/atomx/providers/`,
-ADR-0001). PySCF support is optional:
-
-```bash
-pip install "atomx[pyscf]"
-```
-
-Entry points:
-
-- `atomx.providers.pyscf_adapter.PySCFProvider` / `from_scf(mf)` — translate a
-  converged PySCF mean field into a validated `ElectronicStructurePayload`.
-- `atomx.providers.pyscf_adapter.build_core_hole_delta_scf_payload` —
-  MOM-tracked ΔSCF core-hole states for molecules.
-- `atomx.providers.pyscf_embedding` — cluster/point-charge embedding
-  (`rocksalt_embedding`, `build_embedded_scf`), the local-orbital bridge
-  (`core_orbital_identity`, `bridge_core_orbitals`) that keeps a central
-  atom's core-orbital identity traceable across isolated atom / molecule /
-  embedded cluster, embedded ΔSCF binding energies, and
-  `study_cluster_convergence` for environment convergence studies.
-
-Run the condensed-matter convergence benchmark (rock-salt MgO, Mg 1s):
-
-```bash
-python benchmarks/bench_pyscf_embedding_convergence.py
-```
+The [MgO embedding benchmark](benchmarks/bench_pyscf_embedding_convergence.py)
+demonstrates a Mg 1s convergence study. Provider availability does not imply
+that every proposed adapter in the design record is implemented.
 
 ## Architecture
 
-```
-src/atomx/
-  atom.py            # High-level Atom API
-  types.py           # Enums (Exchange, TheoryLevel, Gauge, ...)
-  results.py         # Data classes (AtomicResult, HyperfineResult, ...)
-  constants.py       # CODATA 2022 physical constants
-  methods/           # Theory-level Method objects (DiracFock, MCDHF, ...)
-  numerics/          # B-spline basis, ODE shooting, convolutions (numba JIT)
-  physics/           # Operator definitions (Dirac, Schrodinger, Breit-Pauli)
-  angular/           # Wigner symbols, Clebsch-Gordan, recoupling algebra
-  config/            # Electron configuration handling
-  corrections/       # Breit + QED correction stack
-  potentials/        # Nuclear charge distributions, statistical potentials
-  properties/        # Observables (transitions, hyperfine, isotope shift, ...)
-  scattering/        # Continuum processes (photoionization, DR, R-matrix, ...)
-  plasma/            # CRM, screening, average-atom, cascades
-  spectrum/          # Spectrum synthesis
-  viz/               # matplotlib, Plotly, Manim backends
+Methods define the Hamiltonian and configuration space; numerical engines
+solve the selected problem. B-spline Galerkin and ODE shooting are numerical
+representations, selected separately from exchange and correction models.
+Single-configuration HF defaults to Hamiltonian-derived intermediate coupling;
+an explicit configuration list or correlation expansion selects MCDHF/CI.
+
+```mermaid
+flowchart TD
+    A[Atom request and resolved specification] --> M[Method and configuration space]
+    P[Shared physical and angular operators] --> M
+    M --> N[Radial engines and constrained optimization]
+    M --> R[Solved results and native radial data]
+    N --> R
+    R --> O[Properties and scattering channels]
+    O --> D[Plasma and XFEL dynamics]
+    R --> V[Persistence and visualization]
 ```
 
-The layered design means you can use atomx at whatever level suits your needs:
-- **High-level**: `Atom(Z=10).solve()` for quick calculations
-- **Method-level**: Compose specific `Method` objects for fine-grained control
-- **Numerics-level**: Use B-spline bases, shooting solvers, and angular algebra directly
+`Atom` validates the request and records the resolved calculation identity in
+`CalculationSpec`, `resolved_inputs`, and provenance. Shared physical modules
+own operators and density contractions; methods assemble states and optimization
+objectives, and numerical modules own quadrature, eigensolvers, and constrained
+iteration. Numerical modules do not import method or application policy.
+Results retain the native radial representation and metric; properties and
+scattering consume those solved states. Rendering and optional provider imports
+are lazy.
+
+### States and orbital optimization
+
+Five choices have independent physical meanings:
+
+| Choice | Current contract |
+|---|---|
+| Expansion space | `config=[...]` or `Correlation(expansion=...)` defines the retained configurations and CSFs |
+| Orbital objective | The default ground-state target, `CIStateAverage`, or `CIChargeStateAverage` selects energies to optimize |
+| Observable state | Solved results expose the ground state by default; supported transition and channel APIs resolve CI levels |
+| Dynamical preparation | `CILevel`, `CILevelPopulation`, or an explicit magnetic-state density selects the initial state in supported coherent drivers |
+| Energy reference | Common sector energies and explicit photon ladders determine thresholds and rotating-frame energies |
+
+`CILevel(J2, parity, root)` identifies a zero-based energy root within a
+`(2J, parity)` block. It does not track configuration character across changing
+bases. `CILevelPopulation` supplies total, unpolarized level populations;
+optimization weights are specified separately through
+`Correlation(state_average=...)`. `CIStateAverage()` weights all resolved levels
+equally; `statistical=True` additionally weights their magnetic degeneracies.
+Changing the dynamical preparation does not repeat SCF or change its operators.
+
+`CIChargeStateAverage` jointly optimizes declared electron-number sectors in
+common orthonormal orbitals on the B-spline Dirac–Coulomb MCDHF path
+(`corrections="none"`). Sharing orbitals with residual ions does not by itself
+mean those ions were jointly optimized. Lower-level orbital functionals can
+explicitly bind `CIBasisTracking` to a frozen reference and reject ambiguous
+subspace identity. A unified `atom.state(...)` view, independently relaxed
+initial/final orbital transformations, and dynamic orbital relaxation remain
+unfinished. [Atomic-state design](docs/ATOMIC_STATE_DESIGN.md) gives the scope.
+
+### Processes and dynamics
+
+Properties and scattering reuse the shared radial and angular operators.
+The common-orbital CI photoionization/Auger channel providers construct complete
+residual Fock sectors over the retained orbitals. Their continuum approximation
+is an energy-normalized Dirac distorted wave in the frozen final-ion direct
+Hartree field, projected out of the retained bound space. Auger amplitudes keep
+the full signed one- and two-body Hamiltonian contributions. This path does not
+supply nonlocal continuum exchange or coupled Fano channels.
+
+XFEL workflows consume prepared rate tables or magnetic-state operators:
+`PopulationDynamics` and the cascade APIs evolve populations, while coherent
+drivers retain phases and resolve radiative/electron reservoirs explicitly.
+`MCDHFCoherentModel` requires `bound_only=True`; `TwoElectronCoherentModel`
+and `MultiElectronCoherentModel` add finite-space CI ionization channels.
+Prepared common-orbital channels reuse daughter spectra and continuum caches.
+These models have separate pulse, space, and reservoir applicability gates;
+their availability does not establish arbitrary-pulse or experimental accuracy.
+See the [XFEL design and limits](docs/XFEL_GAP_ANALYSIS.md).
+
+Complex-scaled Dirac/CI representations and target-spectrum solvers are also
+available in lower-level modules. They use the c-product and require independent
+pole/space convergence checks; they are not an automatic width extraction mode
+of `Atom.solve()`. [Capabilities](docs/ARCHITECTURE_CAPABILITIES.md) links the
+relevant verification contracts.
+
+### Module ownership
+
+```text
+src/atomx/
+  atom.py             # High-level Atom API
+  atom_inputs.py      # Exchange, Corrections, Correlation, Basis, Environment
+  calculation_spec.py # Resolved calculation identity
+  types.py            # Theory, coupling, gauge, and unit enums
+  results.py          # Results and convergence evidence
+  constants.py        # Physical constants
+  methods/            # Physical methods, CI assembly, correlated objectives
+  numerics/           # B-splines, shooting, eigensolvers, optimization
+  physics/            # Shared operators, CI state contracts, densities, snapshots
+  angular/            # Wigner symbols, recoupling, angular Hamiltonian tables
+  config/             # Configurations, subshells, CSFs
+  corrections/        # Breit/QED models and operator inclusion accounting
+  potentials/         # Nuclear and statistical potentials
+  properties/         # Transitions, hyperfine, isotope shifts, other observables
+  scattering/         # Continuum and collision processes
+  providers/          # Native and external electronic-structure adapters
+  plasma/             # Screening, CRM, average atom, cascades
+  xfel/               # Pulse, rate, and coherent dynamics workflows
+  spectrum/           # Spectral synthesis
+  reference_data/     # Reference parsers and matching
+  workflows/          # Calculation/reference comparison services
+  io/                 # Result persistence
+  viz/                # Matplotlib, Plotly, Manim rendering
+```
+
+Use the high-level `Atom` API for common calculations, method objects for
+physical-model selection, or numerical and angular modules directly.
+The [architecture guide](docs/ARCHITECTURE_DESIGN.md) describes ownership,
+dependency direction, state identity, and remaining design work.
 
 ## Verification against FAC
 
-The scattering and spectroscopy core is developed against a Flexible Atomic
-Code (FAC) build under a clean-room protocol (matched physics flags,
-exact-mode integrals, pinned energy grids). **What is gated in CI, and what is
-only a recorded result, is listed per row in [`docs/VERIFICATION.md`](docs/VERIFICATION.md)**
-— read it before quoting any number below. In short:
+Scattering and spectroscopy comparisons use matched physics flags,
+normalizations, nuclear models, and energy grids. The
+[verification guide](docs/VERIFICATION.md) distinguishes independent external
+references, Atomx regression snapshots, live checks, and historical evidence.
 
-| Quantity | Parity vs FAC | Gated by |
-|----------|---------------|----------|
-| Continuum waves (100 eV – 200 keV, l = 0–5, Fe/Xe) | amplitude √(2/π)·(1 ± 0.01), shape 0.001 % in matched potentials | `tests/test_continuum_vs_fac.py` — recomputes atomx against stored FAC dumps |
-| Collisional excitation Ω (He-like Z = 10/26/54, 1.05–5× threshold) | **live-measured** rms 3.3 %, every point ≤ 5.2 % (2026-09-18) | `tests/test_fac_dw_benchmarks.py` — recomputes atomx for the grid and asserts both the recorded FAC column and the recorded atomx column; regenerating the FAC reference needs `sfac` |
-| Electron-impact ionization (K-shell, vs exact-mode FAC) | **live-measured** rms 2.0 %, every point ≤ 3.1 % | same file |
-| DR radiative widths and α(T) (Fe XVII dr33) | widths 1.09–1.27; α(T) ratios 0.98 / 1.08 / 1.16 at 5 / 10 / 50 MK (worst FAC deviation 16.4 %, incl. the documented E_res offset) | `tests/test_dr_manifold_e2e.py` (`slow`), `tests/test_dr_vs_fac.py` — recompute against the clean-room fixture |
-| Auger widths (Li-like KLL) | 1.005–1.023 | **no executing gate for these ratios.** `tests/test_auger_fac_panel.py` computes atomx live for the five strongest Fe XVII KLL resonances and measures live/FAC = 1.13–14.8 (2026-09-17); the strict 10 % gate is `xfail`. The `1.005–1.023` figures in `docs/scattering_fac_verification_2026-07.md` are a development note, not a reproducible claim |
+| Quantity | Verification scope | Relevant gate |
+|---|---|---|
+| Continuum waves | Stored FAC radial dumps with matched potentials and energy normalization | [Continuum comparison](tests/test_continuum_vs_fac.py) |
+| Collisional excitation Ω | He-like Z=10/26/54 panel with matched thresholds and energy grids | [Live DW comparisons](tests/test_fac_dw_benchmarks.py) |
+| Electron-impact ionization | K-shell panel with matched exact-mode FAC references | [Live DW comparisons](tests/test_fac_dw_benchmarks.py) |
+| Dielectronic recombination | Fe XVII clean-room resonance widths and temperature-dependent rates | [DR comparison](tests/test_dr_vs_fac.py), [manifold calculation](tests/test_dr_manifold_e2e.py) |
+| Auger widths | **KNOWN GAP:** the strict 10% Fe XVII KLL agreement gate remains an expected failure | [Auger panel](tests/test_auger_fac_panel.py) |
+| Atomic structure | Total-energy snapshots and external FAC comparisons; absolute differences also matter | [Structure snapshots](tests/test_fac_structure_snapshot.py) |
 
-Two further caveats that the numbers above do not convey:
+Measured values and source-specific results live in the verification guide
+and linked reports. A small relative error in a total energy does not establish
+accurate transition energies or widths. SCF convergence, radial refinement,
+correlation-space convergence, and experimental agreement require separate checks.
 
-* **Structure vs FAC** (`benchmarks/bench_fac_structure.py`) is reported
-  relative to *total* energy, which hides absolute disagreements.  Re-measured
-  2026-10-02 with static Breit and QED enabled in both calculations
-  (`breit=True, qed=True`): the Z = 10…82 panel agrees within
-  **2.39e-04 (0.0239 %)** of total energy, with a maximum absolute
-  difference of **11.1 eV**. The external FAC column is unchanged.
-  Earlier comparisons incorrectly treated FAC's default as Breit-off.
-  `tests/test_fac_structure_snapshot.py` checks the refreshed Atomx column
-  and retains the previous external accuracy thresholds.
-* **The CRM/plasma benchmarks** (`bench_fac_crm_*.py`: Au/Fe/W cooling,
-  charge-state balance, NLTE-9 ⟨Z⟩) are **synthetic placeholders**, disclosed
-  in each file; the tests that asserted agreement with them are skipped with
-  the reason spelled out. They are not validation.
-
-`benchmarks/` regenerates the FAC references (`bench_fac_dw_excitation.py`,
-`bench_fac_dw_eii.py`, `bench_fac_dr.py`) when a live `sfac` is configured
-(`FAC_SFAC_PATH`, see `docs/VERIFICATION.md`). See `benchmarks/REPORT.md` and
-`docs/scattering_fac_verification_2026-07.md` for the methodology.
+FAC reference regeneration requires a configured `sfac` executable
+(`FAC_SFAC_PATH`). The [benchmark report](benchmarks/REPORT.md) and
+[external verification](benchmarks/EXTERNAL_VERIFICATION.md) document reference
+provenance and model differences. Inspect each CRM/plasma benchmark's source:
+historical synthetic panels do not provide independent validation.
 
 ## Performance
 
-Numba-JIT kernels, bilinear R^k Slater tables, threaded wave prefill and
-value-invariant caching keep production workloads interactive (32-core
-desktop, warm):
+The numerical implementation uses Numba JIT compilation, batched radial
+integrals, matrix-based Slater tables, reusable angular structures, and
+caches tied to their physical inputs. Shooting with local exchange provides
+a different cost/accuracy tradeoff from nonlocal HF or correlated CI.
 
-- ground-state DHF: Ne 0.86 s, Fe XVII 0.58 s (B-spline HF); 50 ms via the
-  shooting engine with Gu exchange
-- DW excitation: ~20 ms per energy point (He-like Fe, κ ≤ 10)
-- DW ionization: 0.23 s per energy point at production settings
-- MBPT(2)/all-order pair ladders: R^k tables via GEMM (28× over scalar)
+First-call compilation and warm-cache timings differ. Runtime also depends on
+the nucleus, radial grid, configuration space, continuum channels, thread
+settings, and machine load. The [benchmark report](benchmarks/REPORT.md)
+contains measured workload results; historical kernel or stage speedups do not
+establish current end-to-end performance. Use matched models and convergence
+criteria when comparing engines or optimizations.
 
 ## Documentation
 
-- `docs/MIGRATION.md` — Migration notes between versions
-- `docs/gallery/` — Runnable example scripts
-- `benchmarks/REPORT.md` — FAC parity benchmark report
+- [Documentation index](docs/README.md) — Current guides and historical evidence.
+- [Architecture](docs/ARCHITECTURE_DESIGN.md) and
+  [capabilities](docs/ARCHITECTURE_CAPABILITIES.md) — Module ownership and limits.
+- [Atomic-state design](docs/ATOMIC_STATE_DESIGN.md) and
+  [XFEL workflows](docs/XFEL_GAP_ANALYSIS.md) — Optimization, preparation, channels, and dynamics.
+- [Migration](docs/MIGRATION.md) — API changes and saved-data compatibility.
+- [Gallery](docs/gallery/) — Example scripts for inputs, orbitals, levels, and spectra.
+- [Verification](docs/VERIFICATION.md) and [testing](docs/TESTING.md) —
+  Scientific evidence and test organization.
+- [Benchmark report](benchmarks/REPORT.md) — FAC methodology and recorded results.
 
 ## Development
 
+Install development dependencies in your environment:
+
 ```bash
-# Run tests (fast: excludes the slow integration tests)
-pytest
-
-# Everything, including the slow suite and the book claims
-pytest -m ""
-
-# Detectors, by what they assert
-pytest -m external_fac   # atomx vs stored external FAC reference data
-pytest -m snapshot       # atomx vs its own recorded output (drift detector)
-pytest -m book           # executable claims from docs/book
-
-# Numerics gate: N fresh processes must agree bit-for-bit, and no numba
-# kernel may read out of bounds (see docs/VERIFICATION.md)
-python scripts/check_determinism.py --repeat 8 --panel full
-python scripts/check_determinism.py --repeat 1 --panel full --boundscheck
+python -m pip install -e ".[dev]"
 ```
+
+Run fast checks that directly exercise the affected contract. For the public
+inputs and state-selection behavior described here:
+
+```bash
+export OPENBLAS_NUM_THREADS=1
+export OMP_NUM_THREADS=1
+python -m pytest -q tests/test_atom_input_surface.py tests/test_ci_level_selection.py
+```
+
+These tests check constructor validation, engine routing, level identity, and
+population handling with small fixtures. For other changes, choose the relevant
+tests from the [testing guide](docs/TESTING.md). Heavy scientific campaigns
+have their own documented workflows and are separate from this routine check.
 
 ## Contributing checks
 
-The CI runs `ruff check --no-cache src tests scripts benchmarks` with the rule
-set in `pyproject.toml`, `pytest -m "not slow"` on Python 3.10 and 3.13, and
-the determinism gate. `pre-commit install` wires the same ruff selection into
-your commits.
+```bash
+python -m ruff check --no-cache src tests scripts benchmarks
+pre-commit install
+```
+
+CI runs lint, tests excluding `slow` on Python 3.10 and 3.13, and a determinism
+panel. The [test](.github/workflows/test.yml),
+[lint](.github/workflows/lint.yml), and [nightly](.github/workflows/nightly.yml)
+workflows define their environments and validation scope.
+
+Include reproducible inputs and relevant validation with a contribution.
+For numerical issues, report `resolved_inputs`, convergence status, and the
+reference or expected behavior. Update affected documentation with the code;
+[AGENTS.md](AGENTS.md) contains lasting working principles in English.
+Task-specific scientific contracts and records live in the
+[agent reference guide](docs/AGENT_REFERENCE.md); the
+[knowledge workflow](docs/AGENT_KNOWLEDGE_WORKFLOW.md) defines how to record
+evidence and distill it into reusable guidance.
 
 ## License
 
-No license has been chosen for this repository yet — `pyproject.toml` carries
-no `license` field and there is no `LICENSE` file, so the default "all rights
-reserved" applies. Pick one before distributing the package.
+atomx is licensed under the **GNU General Public License, version 3**
+(`GPL-3.0`). See [LICENSE](LICENSE) for the full terms.
+
+<!--
+Current guide. Dependencies: Atom/input exports, CalculationSpec, CSF solver and
+functionals, shared CI state/continuum modules, XFEL exports, pyproject and CI.
+Maintenance, earlier evidence, and validation: docs/AGENT_KNOWLEDGE_WORKFLOW.md section 9.
+-->

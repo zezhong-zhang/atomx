@@ -1,0 +1,18 @@
+START dc_default {'label': 'dc_default', 'he': 0.25, 'hi': 0.25, 'hmax': 1.0, 'rmax': 60.0, 'ks': 9, 'tol': 1e-07, 'iterations': 180}
+heartbeat elapsed=30.0s peak_RSS=644.7MiB
+heartbeat elapsed=60.1s peak_RSS=817.6MiB
+heartbeat elapsed=90.1s peak_RSS=817.7MiB
+heartbeat elapsed=120.1s peak_RSS=817.8MiB
+heartbeat elapsed=150.1s peak_RSS=817.8MiB
+heartbeat elapsed=180.1s peak_RSS=817.8MiB
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/rare_earth_yb_spectrum_2026_10_08/run_yb.py", line 125, in main
+    basis=Basis(ks=args.ks, r_max=args.rmax, grid_hi=args.hi, grid_he=args.he, grid_hmax=args.hmax),
+TypeError: cannot pickle 'mappingproxy' object
+
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/rare_earth_yb_spectrum_2026_10_08/run_yb.py", line 173, in <module>
+    print("STRUCTURE", json.dumps(clean({k: payload[k] for k in ("converged", "iterations", "levels", "orbital_metric_max_error", "elapsed_seconds_uncontrolled")})), flush=True)
+  File "/data/code/atomx/docs/rare_earth_yb_spectrum_2026_10_08/run_yb.py", line 125, in main
+    basis=Basis(ks=args.ks, r_max=args.rmax, grid_hi=args.hi, grid_he=args.he, grid_hmax=args.hmax),
+TypeError: cannot pickle 'mappingproxy' object

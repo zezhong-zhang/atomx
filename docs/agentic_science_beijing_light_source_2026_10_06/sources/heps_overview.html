@@ -1,0 +1,543 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="IE=EmulateIE7" http-equiv="X-UA-Compatible">
+
+<title>高能同步辐射光源</title>
+
+<link href="../../../images/heps_web.css" rel="stylesheet" type="text/css" />
+<link href="//english.ihep.cas.cn//heps/ah/bi/202110/W020240705745851353867.png" rel="shortcut icon" type="image/png" size="32*32" /> 
+
+<script language="JavaScript" type="text/JavaScript" src="../../../images/dhtml.js"></script>
+<script language="JavaScript" type="text/JavaScript" src="../../../images/dropdown_initialize.js"></script>
+<script language="javascript" type="text/javascript"> 
+    function ShowTabs(a,b,c){
+		var i;
+        for (i = 1; i <= b; i++) {
+            if (i == a) {
+               	document.getElementById("tit" + c + i).className = "act";                
+				document.getElementById("txt" + c + i).style.display = "block";
+            }
+            else {
+                document.getElementById("tit" + c + i).className = "";                
+				document.getElementById("txt" + c + i).style.display = "none";
+            }
+        }
+    }
+</script>
+
+
+</head>
+
+<body onLoad="init()">
+
+<!--头部 -->
+<style>
+ .input {
+    border: 0 none;
+    color: #A64E00;
+    cursor: pointer;
+    float: left;
+    height: 22px;
+    overflow: hidden;
+    width: 44px;
+}
+</style>
+
+<script language="JavaScript" type="text/JavaScript" src="//api.cas.cn/lib/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript">
+         function isValid(str){
+           if(str.indexOf('&') != -1 || str.indexOf('<') != -1 || str.indexOf('>') != -1 || str.indexOf('\'') != -1
+             || str.indexOf('\\') != -1 || str.indexOf('/') != -1 || str.indexOf('"') != -1
+             || str.indexOf('%') != -1 || str.indexOf('#') != -1){
+             return false;
+           }
+           return true;
+         }
+         $(function(){
+           $('#sub-pc').click(function(){
+             var searchword = $.trim($('#searchword').val());
+          if(searchword == "" || searchword == "请输入关键字" || !isValid(searchword)){
+            alert("请输入关键词后再进行提交。");
+               return false;
+          }
+          $('input[name="keyword"]').val(searchword);
+          $('form[name="searchform"]').submit();
+           });
+
+           $('#sub-mobile').click(function(){
+             var iptSword = $.trim($('#iptSword').val());
+          if(iptSword == "" || iptSword == "请输入关键字" || !isValid(iptSword)){
+            alert("请输入关键词后再进行提交。");
+               return false;
+          }
+          $('input[name="keyword"]').val(encodeURI(iptSword));
+          $('form[name="searchforms"]').submit();
+           });
+         });
+ 
+</script>
+
+
+<!--头部及menu begin-->
+
+<table width="1100" bgcolor="0882d5" border="0" align="center" cellpadding="0" cellspacing="0">    
+<tr>
+<td height="25" align="center">
+</td>
+</tr>
+
+      
+<tr style="padding:10px 10px 0px 10px;">                  
+
+<td rowspan="2" width="550" align="left" valign="center" border="0" class="logo">
+<a href="http://heps.ihep.ac.cn" target="_top" ><img src="/images/HEPS-title-202407.png" width="465" border="0" title="logo" /></a>
+</td>
+
+<td width="550" align="right" valign="top" class="hei1" style="padding:10px 0px 10px 0px;">
+<a href="http://english.heps.ihep.ac.cn" target="_balnk" class="bai1"><font size="4px">English</font></a>
+&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="http://www.ihep.cas.cn" class="bai1"><font size="4px">高能所</font></a>
+&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="../lxwm/" class="bai1"><font size="4px">联系我们</font></a>
+&nbsp;&nbsp;
+</td>
+
+<tr> 
+<td width="550" align="right" valign="bottom">
+&nbsp;&nbsp;
+</td>
+</tr> 
+
+</td>
+
+</tr>
+<tr>
+<td height="25" align="center">
+</td>
+</tr>
+</table> 
+
+                  
+
+
+
+
+<table width="1100" bgcolor="0b9afb" border="0" align="center" cellpadding="0" cellspacing="0">
+<tr>
+<td height="32" align="left">
+
+<div>
+<div class="hepsmenu" > 
+
+<a  class="bai16"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></font></a>	<a class="bai16">&nbsp;&nbsp;&nbsp;&nbsp;</a>
+
+<a href="http://heps.ihep.ac.cn" class="bai16"><strong>首页</strong></font></a>	<a class="bai16">&nbsp;&nbsp;|&nbsp;&nbsp;</a>
+
+ <hepsmenuul>
+
+         	<a id="menu1" href="../xmgk/" class="bai16"><strong>项目概况</strong></a>	<a class="bai16">&nbsp;&nbsp;|&nbsp;&nbsp;</a>
+         	<a id="menu2" href="../ggjz/" class="bai16"><strong>工程进展</strong></a>	<a class="bai16">&nbsp;&nbsp;|&nbsp;&nbsp;</a>
+         <a id="menu3" href="./" class="bai16"><strong>装置介绍</strong></a>	<a class="bai16">&nbsp;&nbsp;|&nbsp;&nbsp;</a>
+	
+
+	<a id="menu6" href="../kxpj/" class="bai16"><strong>科学传播</strong></a><a class="bai16">&nbsp;&nbsp;|&nbsp;&nbsp;</a>
+		<a id="menu8" href="../download/" class="bai16"><strong>工程下载</strong></a>	<a class="bai16">&nbsp;|&nbsp;&nbsp;</a>
+
+<a id="menu9" href="../zp/" class="bai16"><strong>人才招聘</strong></a>	<a class="bai16">&nbsp;|&nbsp;&nbsp;</a>
+<a id="menu5" href="../user/" class="bai16"><strong>用户开放</strong></a>	<a class="bai16">&nbsp;&nbsp;&nbsp;</a>
+
+
+
+</hepsmenuul>
+
+</div>
+
+<td width="900" align="left">
+
+<script language="JavaScript" type="text/JavaScript">
+  if (mtDropDown.isSupported()) {
+
+		var ms = new mtDropDownSet(mtDropDown.direction.down, 0, 0, mtDropDown.reference.bottomLeft);
+
+		var menu1 = ms.addMenu(document.getElementById("menu1"));
+		
+		menu1.addItem(" - 项目简介 ", "../xmgk/HEPSjj/");
+		
+		menu1.addItem(" - 组织机构 ", "../xmgk/zzjg/");
+		
+		menu1.addItem(" - 工程领导 ", "../xmgk/xrld/");
+		
+		menu1.addItem(" - 建设地点 ", "../xmgk/jsdd/");
+		
+		menu1.addItem(" - 进度计划 ", "../xmgk/jdjh/");
+		
+		menu1.addItem(" - 地方支持 ", "../xmgk/dfzc/");
+		
+
+		var menu2 = ms.addMenu(document.getElementById("menu2"));
+		
+		menu2.addItem(" - 2026 ", "../ggjz/2026/" );
+		
+		menu2.addItem(" - 2025 ", "../ggjz/2025/" );
+		
+		menu2.addItem(" - 2024 ", "../ggjz/2024/" );
+		
+		menu2.addItem(" - 2023 ", "../ggjz/2023/" );
+		
+		menu2.addItem(" - 2022 ", "../ggjz/2022/" );
+		
+		menu2.addItem(" - 2021 ", "../ggjz/2021/" );
+		
+		menu2.addItem(" - 2020 ", "../ggjz/2020/" );
+		
+		menu2.addItem(" - 2019 ", "../ggjz/2019/" );
+		
+		menu2.addItem(" - 2018 ", "../ggjz/2018/" );
+		
+		menu2.addItem(" - 2017 ", "../ggjz/2017/" );
+		
+		menu2.addItem(" - 2016 ", "../ggjz/2016/" );
+		
+
+
+		var menu3 = ms.addMenu(document.getElementById("menu3"));
+		
+		menu3.addItem(" - 加速器 ", "./jsq/" );
+		
+		menu3.addItem(" - 光束线站 ", "./gsxz/" );
+		
+
+		
+
+		
+		var menu6 = ms.addMenu(document.getElementById("menu6"));
+		
+		menu6.addItem(" - 科普文章 ", "../kxpj/kpwz/");
+		
+		menu6.addItem(" - 宣传手册 ", "../kxpj/xcsc/");
+		
+		menu6.addItem(" - 科普视频 ", "../kxpj/kpsp/");
+		
+		menu6.addItem(" - 媒体聚焦 ", "../kxpj/mtjj/");
+		
+		menu6.addItem(" - 科普链接 ", "../kxpj/kplj/");
+			
+				
+		mtDropDown.renderAll();
+	}
+        </script>
+</td>  
+
+
+<td width="200" align="left" valign="center" class="menu menu_search">
+<form name="searchform" action="https://ihep.cas.cn/dkxzz/HEPS/search/" method="get" target="_blank">
+
+<table width="200" align="left" valign="center" border="0" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+    <td valign="center">
+<input type="text" class="menu_search_input" id="searchword" name="keyword" onclick="javascript:if(this.value=='请输入关键字') this.value=''" value="请输入关键字" /></td>
+    <td align="left" valign="bottom">
+<input type="submit" id="sub-pc" src="//ihep.cas.cn/images/heps_search.png" width="15" height="15" />
+<input type="hidden" name="keyword" id="keywords" value="" />
+</td>
+
+  </tr>
+</tbody></table>
+
+</form>
+</td>
+
+
+</div>
+
+
+
+
+
+</td>
+</tr>
+
+</table>
+<!--头部结束 -->
+
+
+
+
+
+
+<!-- 中间部分 开始 -->
+<table bgcolor="#FFFFFF" width="1100" border="0" align="center" cellpadding="0" cellspacing="10" style="padding:10px 0px 10px 0px;">
+
+
+
+<tr>
+
+<!-- 中间部分的左侧 开始 -->
+<td width="240" valign="top">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td>
+
+ 
+
+	<table width="240" border="0" cellspacing="0" cellpadding="0" bgcolor="#E8F2FF">
+
+ <tr>
+  <td class="zw_left_title"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="11%" align="right" valign="middle">
+<img src="../../../images/cepc_ico_10.gif" /></td>
+    <td width="89%" class="zw_left_title1">装置介绍</td>
+  </tr>
+</table>
+</td>
+  </tr>
+    
+<tr>
+        <td style="line-height:2px; height:2px;">&nbsp;</td>
+</tr>
+
+<tr>
+  <td align="center" style=" padding-top:5px; padding-bottom:5px;">
+  
+  		
+		
+          <table width="90%" border="0" cellpadding="0" cellspacing="0" class="gray_border">
+		  
+          <tr>
+
+            <td width="12%" align="center"><img src="../../../images/cepc_ico_04f.gif" /></td>
+           <td width="88%" align="left" style="font-size:14px; padding-top:3px; padding-bottom:3px;" class="lan"><a href="./jsq/">加速器</a></td>
+          </tr>
+		  
+        </table>
+
+          <table width="90%" border="0" cellpadding="0" cellspacing="0" class="gray_border">
+		  
+          <tr>
+
+            <td width="12%" align="center"><img src="../../../images/cepc_ico_04f.gif" /></td>
+           <td width="88%" align="left" style="font-size:14px; padding-top:3px; padding-bottom:3px;" class="lan"><a href="./gsxz/">光束线站</a></td>
+          </tr>
+		  
+        </table>
+
+		
+		
+        
+		
+
+		
+        
+		
+
+  
+  
+  </td>
+  </tr>
+ 
+ <tr>
+  <td><img src="../../../images/zwleftbg_heps.png" /></td>
+  </tr>    
+
+
+<tr>
+          <td height="10" bgcolor="#FFFFFF"></td>
+        </tr>
+
+</table>
+
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+ <tr>
+
+<td width="240">
+
+
+<img src="../../../images/heps_xgt.png" width="240" height="150" />
+
+
+</td>
+
+
+
+</tr>
+</table>
+
+
+<table width="100%" bgcolor="#FFFFFF" border="0" align="center" cellpadding="0" cellspacing="0">                
+<tr>
+<td height="5px">
+&nbsp;&nbsp;&nbsp;
+</td>
+</tr>    
+</table>
+
+
+
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td height="31" background="../../../images/cepc_menu_03.gif" class="bk4a">
+
+<table width="94%" border="0" align="center" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="16"><img src="../../../images/cepc_ico_01.gif" width="9" height="6" /></td>
+              <td><strong class="lan2">HEPS主要设计参数</strong></td>
+            </tr>
+</table>
+</td>
+        </tr>
+
+        <tr>
+          <td class="bk1">
+
+<table width="100%" border="0" cellspacing="8" cellpadding="0">
+            <tr>
+<td class="hei">
+<strong>储存环周长：</strong>1360.4m<br />
+<strong>运行能量：</strong>6GeV<br />
+
+<strong>发射度：</strong><font face="Times New Roman">&le;&nbsp;0.06nm·rad</font><br />
+<strong>亮度：</strong><font face="Times New Roman">>1×10<sup>22</sup> phs/s/mm<sup>2</sup>/mrad<sup>2</sup>/0.1%BW</font><br />
+<strong>光束线站：</strong><a href="http://10.20.40.10/preview/ihep_cas/dkxzz/HEPS/zzjs/gsxz/">首期建设14条公共线站</a></td>
+
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+      
+    
+          </td>
+        </tr>
+
+        <tr>
+          <td height="10"></td>
+        </tr>
+
+      </table>
+
+
+
+</td>
+
+
+
+
+<!-- 中间部分的右侧 开始 取栏目下的第一篇文章-->
+
+    <td valign="top">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+      <tr>
+        <td height="31" background="../../../images/cepc_menu_03.gif" class="bk4">
+        <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+<tr>
+            <td width="16"><img src="../../../images/cepc_ico_01.gif" width="9" height="6" /></td>
+            <td width="400"><strong class="lan_15">
+HEPS主要构成
+</strong></td>
+            <td width="400" align="right"><img src="../../../images/heps_home.png" width="15" height="13" valign="center" />&nbsp;当前位置：<a href="../">首页</a> &gt; 
+                 <a href="./" title="装置介绍" class="CurrChnlCls">装置介绍</a></td>
+           </tr>
+
+        </table></td>
+      </tr>
+
+
+      <tr>
+        <td class="bk1"><table width="90%" align="center" border="0" cellspacing="8" cellpadding="0">
+          <tr>
+            <td height="500" valign="top"><table cellspacing="1" cellpadding="0" width="100%" align="center" border="0">
+              <tbody>
+
+
+<tr>
+        <td id="zoom" class="zw_content">　
+
+
+<div class="trs_editor_view TRS_UEDITOR trs_paper_default trs_external"><div class="TRS_Editor"><p class="MsoNormal" style="text-align:justify;layout-grid-mode: char; line-height: 150%; text-autospace: ; text-indent: 21pt"><span style="font-family:微软雅黑;font-size: 12pt">　　<span lang="EN-US" style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;; line-height: 150%">HEPS</span><span style="font-size: 12pt; font-family: 微软雅黑; line-height: 150%">项目主要建设内容由加速器、光束线站、配套设施等构成，主要包括：</span> </span></p><p class="MsoListParagraph" style="text-align:justify;layout-grid-mode: char; margin-left: 42pt; line-height: 150%; text-autospace: ; text-indent: -21pt"><span style="font-family:微软雅黑;font-size: 12pt">　　<span lang="EN-US" style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;; line-height: 150%"><span style="font-size: 12pt">(一) </span></span><span style="font-size: 12pt; color:blue; font-family: 微软雅黑; line-height: 150%"><a style="font-size: 12pt;color:blue" target="_self" href="https://heps.ihep.ac.cn/zzjs/jsq/" class="bai1"><strong><span style="border-bottom:1px solidtext-decoration:underline;">加速器</span></strong></a></span>主要建设电子能量为<span lang="EN-US" style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;; line-height: 150%">6</span><span style="font-size: 12pt; font-family: 微软雅黑; line-height: 150%">千兆电子伏的储存环，以及为储存环提供束流的直线加速器、输运线和增强器等。</span> </span></p><p class="MsoListParagraph" style="text-align:justify;layout-grid-mode: char; margin-left: 42pt; line-height: 150%; text-autospace: ; text-indent: -21pt"><span style="font-family:微软雅黑;font-size: 12pt">　　<span lang="EN-US" style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;; line-height: 150%"><span style="font-size: 12pt">(二) </span></span><span style="font-size: 12pt; color:#0000FF;font-family: 微软雅黑; line-height: 150%"><a style="font-size: 12pt;color:blue" target="_self" href="https://heps.ihep.ac.cn/zzjs/gsxz/" class="bai1"><strong><span style="border-bottom:1px solidtext-decoration:underline;">光束线站</span></strong></a></span>主要建设<span lang="EN-US" style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;; line-height: 150%">14</span><span style="font-size: 12pt; font-family: 微软雅黑; line-height: 150%">条光束线和相应的实验站等（首期建设）。</span> </span></p><p class="MsoListParagraph" style="text-align:justify;layout-grid-mode: char; margin-left: 42pt; line-height: 150%; text-autospace: ; text-indent: -21pt"><span style="font-family:微软雅黑"><span style="font-size: 12pt">　　<span lang="EN-US" style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;; line-height: 150%"><span style="font-size: 12pt">(三) </span></span><span style="font-size: 12pt; font-family: 微软雅黑; line-height: 150%">配套设施主要建设主体环形同步辐射光源实验建筑、配套附属建筑物，以及供水、供电、空调、辐射防护等通用设施。</span></span> </span></p></div></div>
+
+
+</td>
+      </tr>
+
+
+                
+
+
+
+              </tbody>
+            </table>
+              <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td height="10"></td>
+                </tr>
+                <tr>
+                  <td height="30" align="center" class="hei">
+                  
+                  
+                                    
+                  
+                  </td>
+                </tr>
+              </table></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+
+
+
+<!--底部 -->
+<!-- ■相关链接开始-->
+<table width="1100" height="60" bgcolor="#0b9afb" border="0" align="center" cellpadding="0" cellspacing="0">    
+<tr>            
+<td width="85%" height="35px" align="center" bgcolor="#0b9afb" class="bai1" style="padding:0px 10px 0px 10px;"> 
+
+<a class="bai1"><strong>相关链接：</strong></a>
+<a href="http://www.cas.cn/" class="bai1" target="_blank">中国科学院</a>&nbsp;&nbsp;
+
+
+<a stylecolor="#fd7400">|</a>
+&nbsp;&nbsp;<a href="http://lssf.cas.cn/" class="bai1" target="_blank">中科院重大基础设施共享平台</a>&nbsp;&nbsp;
+
+
+<a stylecolor="#fd7400">|</a>
+&nbsp;&nbsp;<a href="http://www.ihep.cas.cn/dkxzz/bsrf/"class="bai1" target="_blank">北京同步辐射装置</a>&nbsp;&nbsp;
+
+<a stylecolor="#fd7400">|</a>
+&nbsp;&nbsp;<a href="http://ssrf.sari.ac.cn/" class="bai1" target="_blank">上海光源</a>&nbsp;&nbsp;
+
+
+<a stylecolor="#fd7400">|</a>
+&nbsp;&nbsp;<a href="http://www.nsrl.ustc.edu.cn/"class="bai1" target="_blank">合肥光源</a>&nbsp;&nbsp;
+
+<a stylecolor="#fd7400">|</a>
+&nbsp;&nbsp;<a href="http://159.226.102.27/newIndex?serverId=322"class="bai1" target="_blank">高能所信息监测平台-SR装置动态</a>
+
+</td>        
+</tr>    
+</table>
+
+<!-- ■相关链接结束-->
+
+<table bgcolor="#0882d5" width="1100" height="200" border="0" cellpadding="0" cellspacing="0" align="center" style="padding:10px 0px 10px 0px;">
+  <tr>
+    <td height="60" align="center" class="bai">版权所有 &copy; 中国科学院高能物理研究所    备案序号：京ICP备05002790号    <br />
+    地址：北京市怀柔区光源街1号院 HEPS工程办&nbsp;&nbsp;&nbsp;&nbsp;邮编：101407     <br />
+    联系人: 苑梦尧&nbsp;&nbsp;&nbsp;&nbsp;电话：(010)88235967&nbsp;&nbsp;&nbsp;&nbsp;Email：heps@ihep.ac.cn<br>
+HEPS 用户办公室  联系人：于梅娟&nbsp;&nbsp;&nbsp;&nbsp;电话：(010)88235027&nbsp;&nbsp;&nbsp;&nbsp;Email：heps-user@ihep.ac.cn</td>
+<td><a href="https://heps.ihep.ac.cn/images/wechat.png" target="_blank"><img src="../../../../images/wechat.png" alt="北京光源用户之窗") / width="60" /></a></td><td><a href="https://bszs.conac.cn/sitename?method=show&id=072B126B27716842E053022819ACDE8D" target="_blank"> <img src="/images/foot-blue.png") /></a></td><td><a href="http://cas.cn/" target="_blank"> <img src="/images/cas-logo_2022.png") /></a></td><td></td>
+  </tr>
+</table>
+
+</body>
+</html>

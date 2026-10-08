@@ -1,0 +1,45 @@
+{
+  "hypotheses": {
+    "tail": "Complete positive rank2 1600->3200 Ha tests the pre-existing p=1.5 law and residual common shift.",
+    "Breit": "Exact DCB-DC includes wavefunction response; compare it with signed DC expectation of the same complete static Breit operator.",
+    "pole": "Signed triplet-parent q/r roots may have outgoing, locally stationary complex energies in the declared point-nuclear rank1 model; rank expansion must revalidate bound anchors."
+  },
+  "fixed_real": "Fermi Ne Z10, original mass; native ns160/gamma1/R40/Gauss21 frozen 1s2 DF DKB; s/p/d; bound n<=6 rank2 and bound n<=4 rank3; complete original five operators and signed states.",
+  "changed_tail": "Only complete positive rank1/rank2 1600->3200Ha; old orbital columns and all old operator blocks immutable; no negative branch.",
+  "pole_scope": "Separate point-nuclear nuclear-positive-projector static DCB model: ns125, order9, rmin1e-6,R4,gamma.4,Gauss33, s/p; full rank1 per-kappa64. No QED/recoil/finite-nucleus shifts spliced in.",
+  "gates": {
+    "real_absolute_residual_Ha": 1e-10,
+    "source_and_input_hashes": true,
+    "complete_symmetry": true,
+    "reference_squared_overlap_min_exclusive": 0.5,
+    "tail_new_photon_increment_meV": 1.0,
+    "tail_prediction_error_meV": 1.0,
+    "pole_bound_abs_imag_Ha": 1e-07,
+    "pole_complex_parameter_span_meV": 1.0,
+    "pole_selected_absolute_residual_Ha": 1e-10,
+    "pole_identity_squared_L2_min_exclusive": 0.5,
+    "pole_imaginary_sign": "negative",
+    "pole_rank_and_radial_increment_meV": 1.0
+  },
+  "tail_prior_prediction": "p1.5: next full doubling increment = measured800->1600 increment/2**1.5; no refit before measurement; never add extrapolated tails to energies.",
+  "stops": [
+    "Fail numerical/hash/identity/resource gate: archive failure and stop dependent computation.",
+    "Fail bound-anchor physical gate: no pole optimizer or physical certification in that space.",
+    "No nearest-energy or experimental root selection; no threshold or state-weight adjustment."
+  ],
+  "resources": {
+    "real_workers": 24,
+    "real_memory_cap_GiB": 104,
+    "worker_RSS_cap_GiB": 4,
+    "CSF_cap": 130000,
+    "raw_cap": 400000,
+    "previous_CSF_cap": 100000,
+    "previous_raw_cap": 300000,
+    "reason": "Prospective full3200 counts; count before allocation, no model shrink.",
+    "pole_workers_max": 4,
+    "pole_memory_cap_GiB": 12,
+    "blas_threads": 1
+  },
+  "physical_pole_certified": false,
+  "source_count": 332
+}

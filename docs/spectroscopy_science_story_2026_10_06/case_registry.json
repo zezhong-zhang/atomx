@@ -1,0 +1,417 @@
+{
+  "schema": "atomx-science-case-design-v1",
+  "date": "2026-10-06",
+  "owning_document": "研究体系与案例设计.md",
+  "meaning": "research setup and proposed gates; not a universal executable Atomx API",
+  "threshold_status": "proposed research targets; not measurements, industrial standards, or achieved accuracy",
+  "null_policy": "required identity, data, backend, or threshold must be fixed before relevant scientific execution; never guessed",
+  "global_execution_contract": [
+    "source and input hashes",
+    "backend versions",
+    "state, Hamiltonian, basis, metric and units",
+    "resource estimate and caps",
+    "independent reference",
+    "matched initial/final or lower/upper state controls",
+    "failed results retained"
+  ],
+  "software_demonstrations": {
+    "count": 3,
+    "results_directory": "foundation_results",
+    "full_spectra_certified": false
+  },
+  "cases": [
+    {
+      "case_id": "S01",
+      "title": "精密少电子离子：先把基础物理账算清楚",
+      "status": "planned_full_case_not_executed",
+      "scientific_acceptance_passed": null,
+      "setup_parameters": {
+        "Z": [
+          10,
+          18,
+          36,
+          54
+        ],
+        "electron_counts": [
+          1,
+          2,
+          3
+        ],
+        "charge_rule": "Z-N",
+        "light_ion_proposed_numerical_energy_stability_meV": 1,
+        "isotope_mass_and_radius": null
+      },
+      "motivation": "材料与等离子体谱学调用能级、跃迁强度和衰变率。若这些基础量的算符或表示有问题，后续反演会把误差错归给温度或化学环境。用少电子离子分层检验，可以区分电子相关、Breit、QED、有限核尺寸与数值误差。",
+      "system_and_starting_input": "Z=10、18、36、54；分别构建一、二、三电子等电子序列，电荷为 Z−N。先做类氢 1s 与 2p 参照，再扩展类氦 1s²/1s2s/1s2p、类锂 1s²2s/1s²2p。核同位素、质量与电荷半径从选定参考记录中读取；较重体系不能用未声明的点核替代实际核模型。",
+      "model_and_software": "Atomx 原子原生后端，明确 DC 基线，再逐项加入静态 Breit、模型 QED 与反冲。严格 QED 文献或独立求解器作为外部参照。轨道优化、CI 空间与目标 J/宇称分别记录，不能只靠组态名标识状态。",
+      "procedure": "依次做径向与盒半径控制、分波/相关扩展、算符开关、固定轨道重解与轨道响应。量化每个上下态的能移，再计算跃迁及分裂的变化。高 Z 同时比较核模型和核参数敏感性，不能仅按残差小宣称精密。",
+      "observables_and_validation": "能级差、精细结构、振子强度与寿命。类氢点核 DC 能量可作同模型解析控制；真实离子则对照匹配的独立文献。拟议轻离子精密任务先以 1 meV 数值稳定性作为目标，重离子根据实验及核不确定性另建预算；所有目标均需实测证明。模型 QED 与严格 QED 的差别单列。",
+      "atomx_role_and_next_case": "这里检验原子基础，不要求宣称所有电荷态已达到统一精度。随附 Ne X 无修正基态例子仅演示 API。基础原子数据随后进入 S02–S04 的谱线形成，而不是直接替代这些环境模型。",
+      "reference_urls": []
+    },
+    {
+      "case_id": "S02",
+      "title": "太阳大气与太阳风：Ne VIII 的谱线不是单一风速计",
+      "status": "planned_full_case_not_executed",
+      "scientific_acceptance_passed": null,
+      "setup_parameters": {
+        "Z": 10,
+        "charge": 7,
+        "log10_T_K_exploration": [
+          5.4,
+          6.1
+        ],
+        "log10_ne_cm_minus3_exploration": [
+          7,
+          10
+        ],
+        "reference_wavelength_angstrom_from_CHIANTI": 770.428,
+        "proposed_synthetic_velocity_recovery_error_km_per_s": 5,
+        "observational_data_id": null
+      },
+      "motivation": "太阳风起源涉及热等离子体沿开放或闭合磁结构的质量输运。Ne VIII 紫外谱线的线心和强度可约束这些过程，但视线叠加、静止参考波长与闭合环中的供质运动都可能影响解释。SOHO 的原始观测计划明确将 Ne VIII 770 Å 多普勒测量用于日冕洞外流研究。[SOHO JOP 101 原始观测计划](https://soho.nascom.nasa.gov/soc/JOPs/jop101.html)",
+      "system_and_starting_input": "Ne⁷⁺，1s²2s→1s²2p 的两条共振线；首先选择约 770 Å 分支并锁定参考波长。CHIANTI 的 Ne VIII 条目记录了 770.428 Å 参考及来源。本计划以 log₁₀(T/K)=5.4–6.1、log₁₀(nₑ/cm⁻³)=7–10 作探索网格，另扫描已声明的视线速度与观测几何；这些范围不是所有太阳区域的统一形成条件。[CHIANTI Ne VIII 原始数据说明](https://db.chiantidatabase.org/ne/ne_8.html)",
+      "model_and_software": "Atomx 检验能级、辐射跃迁与态身份；电子碰撞激发及电离/复合数据采用有出处的 CHIANTI 数据或独立计算。外层求解碰撞辐射布居与视线积分。先声明光学薄、Maxwell 电子和电离平衡，再分别检验非平衡与多温度分布。",
+      "procedure": "生成原子线表，构建多温度/密度发射系数，合成静止、单流与双流视线的谱。把仪器响应和波长校准误差带入多普勒拟合。单独比较开放流与闭合环供质假设，不用蓝移自动宣布太阳风源。",
+      "observables_and_validation": "线心、线宽、强度与空间关联。使用公开观测或预先登记的合成盲测；拟议合成速度恢复误差目标为 5 km/s，并报告波长零点产生的系统误差。若物理模型无法区分两个场景，应报告不可辨识。闭合日冕环中的 Ne VIII 蓝移已有原始研究，构成必要反例。[闭合环质量供给研究](https://arxiv.org/abs/0906.3007)",
+      "atomx_role_and_next_case": "提供基础线物理，不负责太阳磁场重建。这个案例说明“原子线 → 布居 → 视线谱 → 物理推断”的完整链条，随后把同一链条应用到更热的恒星环境。",
+      "reference_urls": [
+        "https://arxiv.org/abs/0906.3007",
+        "https://db.chiantidatabase.org/ne/ne_8.html",
+        "https://soho.nascom.nasa.gov/soc/JOPs/jop101.html"
+      ]
+    },
+    {
+      "case_id": "S03",
+      "title": "恒星大气与恒星风：Ne IX/X 的多观测量诊断",
+      "status": "planned_full_case_not_executed",
+      "scientific_acceptance_passed": null,
+      "setup_parameters": {
+        "Z": 10,
+        "charges": [
+          8,
+          9
+        ],
+        "log10_T_K_exploration": [
+          6,
+          7.5
+        ],
+        "log10_ne_cm_minus3_exploration": [
+          8,
+          13
+        ],
+        "UV_stellar_spectrum_and_geometry": null,
+        "proposed_refinement_line_ratio_change_max": 0.02,
+        "observational_data_id": null
+      },
+      "motivation": "热恒星等离子体可以产生 Ne IX 的类氦三线与 Ne X 的类氢线。Ne IX 的禁戒线/互组合线比对密度敏感，也会被 UV 光致激发改变；温度、多温度分布、混线与风中的吸收进一步造成退化。原始类氦诊断研究明确涵盖 Ne IX 和外部辐射场。[Porquet 等，类氦离子诊断](https://arxiv.org/abs/astro-ph/0012218)",
+      "system_and_starting_input": "Ne⁸⁺ 的 1s2p ¹P₁、1s2p ³P₁,₂、1s2s ³S₁ 到 1s² 跃迁，以及 Ne⁹⁺ Lyα。以 log₁₀(T/K)=6–7.5、log₁₀(nₑ/cm⁻³)=8–13 的模型网格起步；UV 场用所选恒星大气光谱及几何稀释因子定义。恒星风应用还需速度场、遮挡与吸收模型，不能使用静态日冕公式覆盖所有恒星。",
+      "model_and_software": "Atomx 计算或复核原子辐射量，碰撞与复合级联依赖有出处的数据。外层分别建立碰撞主导日冕模型与光致/风模型。Chandra 对 17 颗 OB 星的原始研究用类氦 f/i 与类氢/类氦线比约束风中 X 射线源的位置和温度，说明这些线需要与恒星环境共同解释。对照数据的对象、仪器与观测编号需在执行前确定。[OB 恒星风原始谱学研究](https://arxiv.org/abs/0707.0024)",
+      "procedure": "先比较 R=f/i 与 G=(f+i)/r，再联合 Ne X/Ne IX、线形和其他元素约束。以“高密度弱 UV”与“低密度强 UV”作为竞争解释；扫描的单位及积分区间固定，混线贡献独立计入。",
+      "observables_and_validation": "R、G、离子线比和线形。拟议原子/动力学网格加密后诊断线比变化小于 2%；用合成数据检验区间覆盖，并向真实观测报告密度—UV 退化。恢复的温度或密度如果只在预先固定 UV 的条件下成立，应写为条件结论。",
+      "atomx_role_and_next_case": "为同一元素的多个电荷态提供一致原子账本；完整恒星风输运是外部模块。由此转入 S04：把远距离观测的等离子体诊断，变成实验室能源系统中的杂质诊断。",
+      "reference_urls": [
+        "https://arxiv.org/abs/0707.0024",
+        "https://arxiv.org/abs/astro-ph/0012218"
+      ]
+    },
+    {
+      "case_id": "S04",
+      "title": "核聚变 Ne 与 W：谱学连接辐射冷却和杂质输运",
+      "status": "planned_full_case_not_executed",
+      "scientific_acceptance_passed": null,
+      "setup_parameters": {
+        "elements": [
+          "Ne",
+          "W"
+        ],
+        "Te_eV_exploration": [
+          5,
+          5000
+        ],
+        "ne_cm_minus3_exploration": [
+          1000000000000.0,
+          1000000000000000.0
+        ],
+        "proposed_population_sum_error_max": 1e-08,
+        "proposed_refinement_output_change_max": 0.05,
+        "device_discharge_and_transport_model": null,
+        "atomic_collision_rate_sources": null
+      },
+      "motivation": "聚变装置需要识别杂质产生的辐射，并区分边缘有益辐射与核心污染。Ne 注入与 W 杂质行为受装置、输运和电离条件共同影响；Ne 不是在任何装置中都更优的冷却选择。Ne 注入位置、输运及 W 行为已有专门的 SOLPS-ITER 原始研究。[EAST Ne 注入位置研究](https://pst.hfcas.ac.cn/cn/article/doi/10.1088/2058-6272/ac320f)",
+      "system_and_starting_input": "Ne 全电荷态的显式线/能级分辨范围，以及针对所选 W 线组的模型。探索域：Tₑ=5–5000 eV、nₑ=10¹²–10¹⁵ cm⁻³；按边缘与核心分区，不把全域当作单一 Maxwell 均匀等离子体。另记录输运驻留时间、电子分布、杂质密度及各率系数的来源。",
+      "model_and_software": "Atomx 可用的原子结构、辐射、光电离/Auger 和动力学模块是基础；电子碰撞、复合、荷交换以及高复杂度 W 数据需要外部原子数据库/代码补齐。外层碰撞辐射模型输出布居与辐射量，输运使用 SOLPS-ITER 或另经验证的模型。",
+      "procedure": "先在固定 Tₑ、nₑ 下验证电荷与布居守恒，再比较稳态与有限驻留时间响应。逐项扰动电离、复合与激发数据，计算线组及辐射损耗系数的敏感性。遗漏通道要记录，不能以零值替代并宣称总辐射完整。",
+      "observables_and_validation": "电荷态分布、诊断线比、辐射损耗系数 Lz（需声明 W·m³ 等单位）、发射功率与时间响应。拟议归一化守恒误差小于 10⁻⁸，率表加密后相关输出变化小于 5%；先同模型独立回放，再对照所选装置放电数据。这不构成装置热负荷控制或 MHD 稳定性验证。",
+      "atomx_role_and_next_case": "连接原子数据与能源诊断。常规杂质播撒和用于破裂缓解的含 Ne 碎裂弹丸是不同任务；后者有 ITER 专门系统，本文不把两者混成同一种控制策略。[ITER 破裂缓解系统](https://www.iter.org/machine/supporting-systems/disruption-mitigation)",
+      "reference_urls": [
+        "https://pst.hfcas.ac.cn/cn/article/doi/10.1088/2058-6272/ac320f",
+        "https://www.iter.org/machine/supporting-systems/disruption-mitigation"
+      ]
+    },
+    {
+      "case_id": "S05",
+      "title": "CO 与 CO₂：从孤立能级走向化学键的芯谱",
+      "status": "planned_full_case_not_executed",
+      "scientific_acceptance_passed": null,
+      "setup_parameters": {
+        "systems": [
+          "CO",
+          "CO2"
+        ],
+        "absorber_shells": [
+          "C 1s",
+          "O 1s"
+        ],
+        "CO_demo_bond_angstrom": 1.128,
+        "bond_sensitivity_angstrom": [
+          -0.02,
+          0.02
+        ],
+        "proposed_basis_peak_drift_eV_max": 0.1,
+        "proposed_relative_intensity_change_max": 0.05,
+        "core_response_backend_version": null,
+        "reference_spectra": null
+      },
+      "motivation": "同一个 C 或 O 吸收中心处于不同化学键环境时，芯激发能、π*/σ* 特征、偏振响应和衰变末态都会变化。CO/CO₂ 是把“元素识别”提升为“化学环境识别”的小体系起点，也为 CO₂ 转化与吸附中间体研究提供方法基准。",
+      "system_and_starting_input": "线性 CO 与 CO₂，分别考察 C 1s 与 O 1s。接口演示固定 CO 键长 1.128 Å、RHF/cc-pVDZ；研究计算应使用注明来源或重新优化的几何，并对键长 ±0.02 Å 做敏感性控制。基组阶梯从含芯区灵活性的双ζ到三ζ/四ζ，并检查弥散函数及芯轨道局域选择。",
+      "model_and_software": "Atomx 已有 PySCF RHF/ROHF 数据适配、芯空穴 ΔSCF 入口和有近似边界的分子 Auger 接口。中性芯激发 XAS 采用外部明确选择芯空间的响应方法，例如 CP2K 芯 TDDFT 或独立 CVS-EOM-CC；Atomx 的耦合簇入口不能作为已实现 CVS 求解器。CP2K 官方教程给出芯 TDDFT 路线。[CP2K X 射线吸收 TDDFT 教程](https://manual.cp2k.org/trunk/methods/properties/x-ray/tddft.html)",
+      "procedure": "先记录 AO/MO 度量和电子数，再分别建立 N−1 芯电离与 N 电子中性芯激发。按吸收原子追踪芯轨道；计算跃迁偶极及平行/垂直偏振。需要解释高分辨细结构时增加核振动与 Franck–Condon 处理，这一步是外部核运动计算。",
+      "observables_and_validation": "相对芯化学位移、吸收峰间距、偏振强度比和 Auger 动能。拟议基组加密后主要峰位变化小于 0.1 eV、相对强度变化小于 5%；绝对能量单独预算。离散 MO 连续态的 Auger 强度不能宣称为经能量归一化的物理宽度，也不能据其倒数给出真实寿命。",
+      "atomx_role_and_next_case": "它把原子芯物理与分子电子结构契约连接起来。S06 再把分子的局域化学环境扩展为固体的长程静电与嵌入环境。",
+      "reference_urls": [
+        "https://manual.cp2k.org/trunk/methods/properties/x-ray/tddft.html"
+      ]
+    },
+    {
+      "case_id": "S06",
+      "title": "MgO：局域芯态如何感受远处的晶体环境",
+      "status": "planned_full_case_not_executed",
+      "scientific_acceptance_passed": null,
+      "setup_parameters": {
+        "system": "MgO",
+        "demo_nearest_neighbor_distance_angstrom": 2.106,
+        "demo_formal_point_charges_e": {
+          "Mg": 2,
+          "O": -2
+        },
+        "demo_quantum_shells": 0,
+        "demo_mm_shells": 1,
+        "demo_evjen": true,
+        "demo_basis": "sto-3g",
+        "proposed_fixed_QM_MM_refinement_core_ionization_drift_eV_max": 0.1,
+        "production_core_basis": null
+      },
+      "motivation": "仅靠孤立原子或小分子，不能代表离子晶体中的长程电场和屏蔽。MgO 是较清楚的离子性基准，适合检验环境作用、芯身份与能量零点，然后再进入更复杂的过渡金属材料。",
+      "system_and_starting_input": "孤立 Mg、MgO 分子和 Mg 中心的岩盐型点电荷嵌入。演示参数为最近邻距离 2.106 Å、形式点电荷 Mg=+2e/O=−2e、qm0/mm1 与 Evjen 边界。STO-3G 仅用于接口检查；物理芯能量任务另使用芯区合适的基组。",
+      "model_and_software": "Atomx 的 `rocksalt_embedding`、`build_embedded_scf`、`core_orbital_identity` 和 `embedded_core_hole_delta_scf` 是实际实现。当前所读嵌入 SCF 入口使用 RHF；不能据一般 PySCF 能力宣称它已经接受任意自旋及周期模型。形式点电荷是模型参数，不是从电子密度测量得到的原子电荷。",
+      "procedure": "固定量子区和电荷态，独立扩大 mm 壳层，之后再设计量子区扩大控制。先核对 Mg 1s AO 投影身份，再以相同环境比较芯电离 ΔSCF。已有 qm0 与 qm1 构造拥有不同组成和电荷模型，不能把两个点拟合为同一体系的收敛外推。",
+      "observables_and_validation": "Mg 芯轨道身份、ΔSCF 位移、环境敏感性。拟议固定量子区的 mm 加密后芯电离位移变化小于 0.1 eV；芯身份需满足现有接口的主导性与歧义拒绝条件。当前演示只得到 MO 芯轨道量，未计算 ΔSCF 或 MgO 周期 XAS。",
+      "atomx_role_and_next_case": "建立原子—分子—嵌入之间的可追踪桥梁。它对 S07 的局域多重态、S11 的界面芯位移都有直接方法价值；但长程静电不能替代配体杂化或周期能带。",
+      "reference_urls": []
+    },
+    {
+      "case_id": "S07",
+      "title": "NiO：晶场之外还需要电荷转移",
+      "status": "planned_full_case_not_executed",
+      "scientific_acceptance_passed": null,
+      "setup_parameters": {
+        "system": "NiO",
+        "formal_d_electrons": 8,
+        "configurations": [
+          "d8",
+          "d9_Lhole",
+          "d10_Lhole2"
+        ],
+        "edrixs_tutorial_Udd_eV": 7.3,
+        "edrixs_tutorial_Udp_eV": 8.5,
+        "edrixs_tutorial_Delta_eV": 4.7,
+        "hybridization_scale_control": [
+          0,
+          0.5,
+          1
+        ],
+        "parameter_source": "https://nsls-ii.github.io/edrixs/auto_examples/example_3_AIM_XAS.html",
+        "proposed_matched_model_cross_code_peak_difference_eV_max": 0.05,
+        "proposed_normalized_integral_difference_max": 0.02,
+        "Atomx_CF_convention": "radial-free coefficients expressed in cm^-1; radial moment applied in operator, per CRYSTAL_FIELD_SPEC.md",
+        "external_backend_version": null
+      },
+      "motivation": "NiO 的金属 L 边直接触及局域 3d 强相关。它适合展示原子多重态为何有用，以及为什么单纯改变一个晶场参数仍可能漏掉配体共价性。这里比较三层模型，不预先宣布最复杂模型必然最准确。",
+      "system_and_starting_input": "八面体 NiO₆ 局域环境；原子 d⁸、晶场 d⁸、配体电荷转移 d⁸/d⁹L̲/d¹⁰L̲²。外部复现起点采用 edrixs 官方 NiO Anderson 模型：Udd=7.3 eV、Udp=8.5 eV、Δ=4.7 eV；保留其完整参数出处和约定。教程中的经验屏蔽与能轴调整必须标为模型/拟合选择。[edrixs 官方 NiO 案例](https://nsls-ii.github.io/edrixs/auto_examples/example_3_AIM_XAS.html)",
+      "model_and_software": "Atomx 提供原子径向、角动量、多重态与已实现的晶场张量算符基础；完整配体浴与电荷转移 XAS 由 edrixs 或 Quanty 计算。接入需要明确 Slater 积分、SOC、基序和局域坐标，当前未宣称这些外部适配器全部完成。",
+      "procedure": "在匹配的原子参数下先对照孤立多重态，然后加晶场，再逐步开启配体杂化。扫描杂化倍率 0、0.5、1 可用于识别强度重分布的原因，不能当作三个独立真实材料。分别核对初态与带芯空穴中间态，以及复球谐/实球谐基变换。",
+      "observables_and_validation": "L₂,₃ 峰间距、卫星与主峰积分权重、偏振差和占据响应。拟议同模型跨软件峰位差小于 0.05 eV、归一化积分强度差小于 2%，先完成算符与基变换控制，再与实验比较。绝对能轴平移与逐峰缩放不可用于消除内部模型偏差。",
+      "atomx_role_and_next_case": "Atomx 晶场输入的命名 B 使用文档所定义的径向因子未包含约定，单位为 cm⁻¹，并在算符中加入径向矩；不能直接当成 Stevens 参数或常见含径向矩的 Wybourne B。这个表示核对是材料软件桥接的关键。S08 随后转向局域配位相近、却因延展结构而产生谱差的材料。",
+      "reference_urls": [
+        "https://nsls-ii.github.io/edrixs/auto_examples/example_3_AIM_XAS.html"
+      ]
+    },
+    {
+      "case_id": "S08",
+      "title": "锐钛矿与金红石 TiO₂：局域多重态并非唯一材料路线",
+      "status": "planned_full_case_not_executed",
+      "scientific_acceptance_passed": null,
+      "setup_parameters": {
+        "systems": [
+          "anatase TiO2",
+          "rutile TiO2"
+        ],
+        "primary_edge": "Ti K",
+        "CIF_sources_and_hashes": null,
+        "starting_supercell_controls": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            2,
+            2,
+            2
+          ]
+        ],
+        "proposed_XANES_refinement_peak_drift_eV_max": 0.1,
+        "proposed_area_normalized_shape_change_max": 0.05,
+        "pseudopotential_and_core_hole_identity": null,
+        "EXAFS_k_R_windows": null
+      },
+      "motivation": "两种 TiO₂ 多晶型都包含 Ti—O 配位，却拥有不同连接结构。比较它们能够检验哪些谱特征由近邻局域环境解释，哪些需要更远邻、周期性和芯激子/散射处理。这也连接光催化与功能氧化物的结构选择。",
+      "system_and_starting_input": "锐钛矿、金红石的有来源 CIF 结构，以及可控的 TiO₆ 局域簇。研究 Ti K 边和 EXAFS，必要时辅以 O K 边。结构文件需记录来源、晶胞设置、原子位置及是否经过弛豫；本文没有生成或声称验证了这些 CIF。",
+      "model_and_software": "周期 Quantum ESPRESSO + XSpectra 是 K 边路线之一；EXAFS 使用包含适当散射功能的 FEFF 系列及 Larch 分析。Atomx 提供原子芯参照和局域算符，不能用其非共振原子 Rayleigh/Compton 接口冒充晶体 XAS。[QEF 官方 XSpectra 输入说明](https://github.com/QEF/q-e/blob/develop/XSpectra/Doc/INPUT_XSPECTRA)",
+      "procedure": "先固定交换相关、赝势和核处理，比较无芯空穴与显式芯空穴模型，再独立扩大超胞、k 点、能量截断和空带/响应空间。起步可用原胞与 2×2×2 超胞比较，但通过依据是谱收敛而非超胞名字。对边前峰检查偶极、四极与对称性破缺通道。",
+      "observables_and_validation": "边前峰、近边峰形、相对强度、χ(k) 与散射路径。拟议 XANES 数值加密后主要特征变化小于 0.1 eV、面积归一化谱形变化小于 5%；EXAFS 按实验可用 k/R 区间比较，并带散射相位解释键长。Larch 官方接口说明如何组织 FEFF 路径和拟合参数。[Larch 路径拟合文档](https://xraypy.github.io/xraylarch/xafs_feffit.html)",
+      "atomx_role_and_next_case": "该案例规定软件应按可观测量选型。S07 强调局域多体与配体，S08 强调延展末态及散射，两者共同构成 S09–S11 的材料模型选择依据。",
+      "reference_urls": [
+        "https://github.com/QEF/q-e/blob/develop/XSpectra/Doc/INPUT_XSPECTRA",
+        "https://xraypy.github.io/xraylarch/xafs_feffit.html"
+      ]
+    },
+    {
+      "case_id": "S09",
+      "title": "工况 LiFePO₄：谱边变化如何连接电池状态",
+      "status": "planned_full_case_not_executed",
+      "scientific_acceptance_passed": null,
+      "setup_parameters": {
+        "endmembers": [
+          "LiFePO4",
+          "FePO4"
+        ],
+        "primary_edge": "Fe K",
+        "formal_Fe_valence_endmembers": [
+          2,
+          3
+        ],
+        "data_split_unit": "whole cell, particle, or nonoverlapping time block",
+        "proposed_blind_mixture_fraction_absolute_error_max": 0.1,
+        "operando_data_and_timestamps": null,
+        "XRD_cross_validation": null
+      },
+      "motivation": "充放电改变 Fe 电子结构和晶体相，但平均光谱可能混合不同颗粒、相和时间状态。需要区分“两端元相混合”与“均匀连续中间状态”，才可能解释电极异质性与失效过程。SOLEIL 的原始研究说明 XAS 与 XRD 联合工况观测的价值。[SOLEIL 电池工况研究](https://www.synchrotron-soleil.fr/en/news/lithium-batteries)",
+      "system_and_starting_input": "LiFePO₄ 与 FePO₄ 端元，明确 Fe²⁺/Fe³⁺ 是形式价态标记。选取一个电极/电池的有时间戳充放电数据集，再定义中间状态和测量位置。模型候选包含端元线性混合及经独立结构约束的中间构型；不凭插值自动生成真实稳定相。",
+      "model_and_software": "Atomx 提供 Fe 原子芯/局域多重态基础；周期结构、芯空穴 K 边与 O K 边需外部后端。Fe K 边与 XRD 用于结构—价态联合检验，必要时用 EXAFS 约束局域键长。金属箔校准、测量模式与样品自吸收独立登记。",
+      "procedure": "锁定端元模型、线形与能标后预测中间谱；共同拟合 XAS、XRD 和电化学时间轴，比较混相与均匀变化假设。数据按整颗电池、颗粒或连续时间块划分训练与盲测，避免相邻扫描泄漏。通过重复点、低剂量对照或束流开关检验束流效应。",
+      "observables_and_validation": "边位移、峰形、端元权重、相分数及其时间一致性。拟议盲测先以混合分数绝对误差不超过 0.1 为研究目标，并检验预测区间与独立 XRD 是否相容；该阈值不是电池行业标准。没有谱数据与计数误差时，不能凭边位移给出唯一 SOC 或容量衰减因果。",
+      "atomx_role_and_next_case": "它为芯物理和局域解释提供基础，材料与电池多尺度模型由外部计算协作。该案例把“谱拟合好看”提升为“能够区分工作状态”，然后 S10 进一步检验工作中的活性结构是否就是制备时的结构。",
+      "reference_urls": [
+        "https://www.synchrotron-soleil.fr/en/news/lithium-batteries"
+      ]
+    },
+    {
+      "case_id": "S10",
+      "title": "Pd 单原子与小簇：催化活性物种会改变",
+      "status": "planned_full_case_not_executed",
+      "scientific_acceptance_passed": null,
+      "setup_parameters": {
+        "element": "Pd",
+        "candidate_classes": [
+          "supported isolated site",
+          "Pd2 or small cluster",
+          "nanoparticle reference"
+        ],
+        "edges": [
+          "Pd K"
+        ],
+        "geometry_sources_and_hashes": null,
+        "catalysis_and_independent_structural_data": null,
+        "primary_gate": "reject candidates conflicting with independently measured structure; preserve non-identifiability",
+        "predeclared_quantitative_inference_threshold": null
+      },
+      "motivation": "提高原子利用率并不自动提高反应活性；制备时的单原子可能在反应中聚集。Diamond 的原始研究案例通过 XAS、XPS 和 AC-STEM 检查碳氮载体上的 Pd 重构，为“单原子还是小簇”提供了可检验竞争解释。[Diamond 动态 Pd 催化研究](https://www.diamond.ac.uk/Science/Research/Highlights/2024/Exploring-the-Dynamics-of-Catalysis.html)",
+      "system_and_starting_input": "载体上的孤立 Pd 位点、Pd₂/小簇以及较大纳米颗粒参照。几何来自对应论文补充信息或明确的 DFT 构型优化；要记录载体缺陷、吸附物、总电荷和自旋。所比较的是明确结构候选，不是仅以“单原子”名称定义的唯一体系。",
+      "model_and_software": "嵌入/周期 DFT 提供候选结构，Pd K 边 XANES 和 EXAFS 用外部谱学后端；必要时补充 XPS。Atomx 为 Pd 原子相对论芯参照、跃迁与局域解释提供基础，不能把现有 MgO 点电荷构造直接当成碳氮共价载体模型。",
+      "procedure": "比较孤立位点和含 Pd—Pd 路径候选，生成可区分的联合谱特征，再对照反应时间和催化活性。实验型拓展应设计反应前、工况与恢复后的测量，并配置空载体和粒子参考；本文不提供装置操作条件或声称完成了催化实验。",
+      "observables_and_validation": "Pd—Pd/配体路径、边特征、芯位移与反应性能的时间对应。验证需要跨样本留出，并由显微或独立测量交叉检验；XAS 的平均结构及相近散射体的不可辨识性须保留。拟议候选筛选以排除与独立证据冲突的结构为主要成果，无法唯一识别时保留多个解释。",
+      "atomx_role_and_next_case": "这里共享 S05 的成键、S06 的环境和 S08 的散射思想。它把材料设计问题从静态结构优劣，推进为活性结构的形成与稳定性；S11 再将同样的局域芯解释用于制造界面。",
+      "reference_urls": [
+        "https://www.diamond.ac.uk/Science/Research/Highlights/2024/Exploring-the-Dynamics-of-Catalysis.html"
+      ]
+    },
+    {
+      "case_id": "S11",
+      "title": "Si/SiO₂：半导体界面需要能量零点与缺陷身份",
+      "status": "planned_full_case_not_executed",
+      "scientific_acceptance_passed": null,
+      "setup_parameters": {
+        "systems": [
+          "Si",
+          "SiO2",
+          "Si/SiO2 interface"
+        ],
+        "primary_observable": "Si 2p core ionization chemical shift",
+        "auxiliary_absorption_edges": [
+          "Si K",
+          "O K"
+        ],
+        "slab_orientation_termination_and_structure": null,
+        "energy_reference_and_charged_state_correction": null,
+        "proposed_relative_core_shift_refinement_drift_eV_max": 0.1
+      },
+      "motivation": "界面中的局域键、亚氧化结构和缺陷影响电子行为。同步辐射芯谱能提供化学环境信息，但充电、终态屏蔽和深度权重也会移动或改变谱。Si/SiO₂ 原始研究通过高分辨芯谱解析界面结构与氧化状态，是建立芯谱—界面模型连接的经典基准。[Himpsel 等，SiO₂/Si 界面芯谱](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.38.6084)",
+      "system_and_starting_input": "晶体 Si、SiO₂ 参考及一个有明确晶向和终止的 Si/SiO₂ slab。分别引入来源明确的氧缺失或氢钝化候选；非晶氧化层需多个独立结构样本，单个理想晶胞不能代表工艺无序。结构、缺陷电荷和表面处理全部记录。",
+      "model_and_software": "外部周期/簇后端计算 Si 2p 芯电离化学位移与 Si/O 相关吸收。Atomx 提供 Si 原子参照、芯态与相对论基础；当前没有已实现的通用 Si/SiO₂ 周期适配器。slab 的真空厚度、偶极修正与带电终态处理属于显式计算条件。",
+      "procedure": "用共同能量参照比较独立原子、有限簇和 slab；追踪相同吸收/电离位点，独立收敛厚度、真空、k 点与局域弛豫。XPS 的逃逸深度、实验充电与能量校准作为测量模型，不能由逐样本任意能轴平移吸收掉。",
+      "observables_and_validation": "相对 Si 2p 位移、组分强度、深度敏感性以及吸收形状。拟议数值加密后相对芯位移变化小于 0.1 eV；使用独立参考和不同探测深度检验候选。观察到化学位移并不等于测得界面陷阱密度或器件寿命，还需要电学证据。",
+      "atomx_role_and_next_case": "把原子芯物理用于制造过程的可追踪表征。界面案例尤其强调量子态、能量零点与仪器模型一起传递，这也是 S12 判断探针扰动所必需的条件。",
+      "reference_urls": [
+        "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.38.6084"
+      ]
+    },
+    {
+      "case_id": "S12",
+      "title": "Ne 的 XFEL 动力学：测量过程中样品本身会变化",
+      "status": "planned_full_case_not_executed",
+      "scientific_acceptance_passed": null,
+      "setup_parameters": {
+        "initial_system": "neutral Ne",
+        "Z": 10,
+        "initial_charge": 0,
+        "photon_energy_eV_exploration": [
+          800,
+          2000
+        ],
+        "pulse_FWHM_fs_exploration": [
+          5,
+          100
+        ],
+        "fluence_photons_per_um2_exploration": [
+          10000000000.0,
+          10000000000000.0
+        ],
+        "proposed_population_sum_error_max": 1e-08,
+        "proposed_refinement_yield_change_max": 0.02,
+        "pulse_shape_spatial_profile_and_normalization": null,
+        "rate_table_and_continuum_model_identity": null
+      },
+      "motivation": "强 X 射线脉冲可以在单个脉冲内改变电荷态与芯占据，使静态截面无法描述实际观测。Ne 是清楚的原子基准。LCLS 原始实验观察了超强 X 射线下 Ne 的连续电离及空心原子效应，为强场模型提供真实验证对象。[Young 等，Ne 飞秒 X 射线响应](https://www.nature.com/articles/nature09177)",
+      "system_and_starting_input": "中性 Ne 起始，显式保留后续电荷及芯空穴构型。拟议探索光子能量 800–2000 eV、脉冲 FWHM 5–100 fs、fluence 10¹⁰–10¹³ photons/μm²；分别声明面积、脉冲形状和归一化。该网格用于模型探索，并非复现原论文全部脉冲参数。",
+      "model_and_software": "Atomx 现有光电离、Auger、率方程、蒙特卡洛级联及部分相干动力学模块。初始采用非相干单光子率模型，再按强度和失谐检查是否需要相干或多光子扩展。连续态采用何种冻结离子近似、交换及耦合通道覆盖必须明确。",
+      "procedure": "生成同模型电荷态率表，先验证低 fluence 极限，再逐步增加剂量。比较固定 fluence 不同脉宽，求解末态电荷和时间占据，并积分焦斑分布；独立控制步长、构型空间和通道覆盖。相干密度矩阵任务另检查迹、正性及模型近似。",
+      "observables_and_validation": "电荷产额、电子动能、吸收变化和脉宽敏感性。拟议布居归一化误差小于 10⁻⁸、时间与空间加密后主要产额变化小于 2%；与论文或公开数据比较时带入真实焦斑和仪器模型，不能仅用名义峰值强度解释差别。",
+      "atomx_role_and_next_case": "该案例展示 Atomx 原子动力学基础，并给所有材料案例加上一项共同控制：探针剂量和时间。由此可以提出材料辐照损伤的拓展，但固体载流子、热、核运动与化学损伤仍需外部模型，不能从 Ne 级联直接推出材料损伤阈值。",
+      "reference_urls": [
+        "https://www.nature.com/articles/nature09177"
+      ]
+    }
+  ]
+}

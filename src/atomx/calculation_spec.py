@@ -113,6 +113,7 @@ def resolved_solver_spec(solver, *, method, engine, controls):
         state['csfs'] = tuple(dict(subshells=tuple((s.n, s.kappa, float(s.occupation))
              for s in c.subshells), J2=c.total_J2, parity=c.parity) for c in csfs)
         state['objective'] = getattr(solver, 'radial_optimization', 'mcdhf')
+        state['ci_state_average'] = getattr(solver, 'state_average', None)
     numerics = {name: getattr(solver, name) for name in (
         'ns', 'ks', 'r_min', 'r_max', 'r_inner', 'n_grid', 'grid_hi', 'grid_he', 'grid_hmax',
         'use_physics_grid', 'kinetic_balance', 'constraint_mode', 'orbital_preconditioner',

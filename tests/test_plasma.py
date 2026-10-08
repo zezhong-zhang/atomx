@@ -360,6 +360,7 @@ class TestCRM:
         ne = 1.0e12
         eii = 2.0e-8
         channel = CRMBoundFreeChannel(
+                    bound_free_model="kramers",
             bound=0, continuum=1, ionization_potential_eV=15.0,
             g_bound=2, g_continuum=1, eii_rate_cm3_s=eii,
         )
@@ -405,6 +406,7 @@ class TestCRM:
             [],
             bound_free_channels=[
                 CRMBoundFreeChannel(
+                    bound_free_model="kramers",
                     bound=0, continuum=1, ionization_potential_eV=20.0,
                     sigma0_cm2=1.0e-18,
                 )
@@ -435,6 +437,7 @@ class TestCRM:
             [CRMTransition(upper=2, lower=0, A_rate=1.0e8, gf=0.0)],
             bound_free_channels=[
                 CRMBoundFreeChannel(
+                    bound_free_model="kramers",
                     bound=0, continuum=1, ionization_potential_eV=12.0,
                     photoionization_rate_s=1.0e5,
                 )

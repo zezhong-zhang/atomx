@@ -1,0 +1,114 @@
+{
+  "date": "2026-10-08",
+  "primary": "v68_box90_newton",
+  "reference_level_state_match": true,
+  "positive_transition_energy_and_nonnegative_finite_rates": true,
+  "transition_energy_and_vacuum_identity": true,
+  "multipole_parity": true,
+  "table_counts": {
+    "levels": 5,
+    "selected_lines": 7,
+    "direct_lifetimes": 2,
+    "all_native_lines": 12
+  },
+  "numerical_model_gates_passed": true,
+  "radial_controls_passed": true,
+  "measured_primary_gates": {
+    "core_DF_residual": 1.116545974475089e-09,
+    "max_projected_valence_residual_Ha": 4.9403766873406245e-11,
+    "max_Hamiltonian_consistency_error_Ha": 2.6470992064986376e-11,
+    "orbital_metric_max_error": 4.440892098500626e-16
+  },
+  "experimental_excitation_goal_percent": 5.0,
+  "experimental_excitation_goal_passed": false,
+  "current_Atomx_source_hashes_match_run": true,
+  "run_dispositions": {
+    "dc_default": {
+      "same_Atomx_source_map_as_primary": true,
+      "status": "failure retained"
+    },
+    "dc_default_replay": {
+      "same_Atomx_source_map_as_primary": true,
+      "status": {
+        "passed": false,
+        "reason": "orbital solve unconverged; no production rates"
+      }
+    },
+    "dc_ground_frozen": {
+      "same_Atomx_source_map_as_primary": true,
+      "status": {
+        "passed": true,
+        "scope": "stationary declared model only; radial/experimental gates evaluated separately",
+        "n_lines": 12
+      }
+    },
+    "dc_refined": {
+      "same_Atomx_source_map_as_primary": true,
+      "status": {
+        "passed": false,
+        "reason": "orbital solve unconverged; no production rates"
+      }
+    },
+    "v68_box90": {
+      "same_Atomx_source_map_as_primary": true,
+      "status": {
+        "passed": true,
+        "scope": "declared frozen-core model; radial and experimental gates evaluated separately",
+        "n_lines": 12
+      }
+    },
+    "v68_box90_newton": {
+      "same_Atomx_source_map_as_primary": true,
+      "status": {
+        "passed": true,
+        "scope": "declared frozen-core model; radial and experimental gates evaluated separately",
+        "n_lines": 12
+      }
+    },
+    "v68_default": {
+      "same_Atomx_source_map_as_primary": true,
+      "status": {
+        "passed": true,
+        "scope": "declared frozen-core model; radial and experimental gates evaluated separately",
+        "n_lines": 12
+      }
+    },
+    "v68_default_4f_holes": {
+      "same_Atomx_source_map_as_primary": true,
+      "status": {
+        "passed": true,
+        "scope": "fixed-orbital factor probe; not orbital stationarity in extended/corrected model"
+      }
+    },
+    "v68_default_corrections": {
+      "same_Atomx_source_map_as_primary": true,
+      "status": {
+        "passed": true,
+        "scope": "fixed-orbital factor probe; not orbital stationarity in extended/corrected model"
+      }
+    },
+    "v68_default_qed_models": {
+      "same_Atomx_source_map_as_primary": true,
+      "status": {
+        "passed": true,
+        "scope": "approximate operator sensitivity only"
+      }
+    },
+    "v68_refined": {
+      "same_Atomx_source_map_as_primary": true,
+      "status": {
+        "passed": false,
+        "reason": "valence/metric/Hamiltonian gate failed"
+      }
+    },
+    "v68_refined_newton": {
+      "same_Atomx_source_map_as_primary": true,
+      "status": {
+        "passed": true,
+        "scope": "declared frozen-core model; radial and experimental gates evaluated separately",
+        "n_lines": 12
+      }
+    }
+  },
+  "scope": "replayed result identities, declared solver gates and radial controls; no full repository regression suite or experimental accuracy certification"
+}

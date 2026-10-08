@@ -1,0 +1,114 @@
+{
+  "primary": "v68_box90_newton",
+  "levels": [
+    {
+      "state": "6s_1/2",
+      "calc_excitation_cm1": 0.0,
+      "experimental_excitation_cm1": 0.0,
+      "calc_minus_experiment_cm1": 0.0,
+      "relative_error_percent": null,
+      "experimental_uncertainty_cm1": null,
+      "reference_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    },
+    {
+      "state": "5d_3/2",
+      "calc_excitation_cm1": 24272.56453715243,
+      "experimental_excitation_cm1": 22960.8,
+      "calc_minus_experiment_cm1": 1311.7645371524304,
+      "relative_error_percent": 5.713061117872331,
+      "experimental_uncertainty_cm1": null,
+      "reference_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    },
+    {
+      "state": "5d_5/2",
+      "calc_excitation_cm1": 24752.150224231653,
+      "experimental_excitation_cm1": 24332.69,
+      "calc_minus_experiment_cm1": 419.46022423165414,
+      "relative_error_percent": 1.723854716563003,
+      "experimental_uncertainty_cm1": null,
+      "reference_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    },
+    {
+      "state": "6p_1/2",
+      "calc_excitation_cm1": 24702.423298792542,
+      "experimental_excitation_cm1": 27061.82,
+      "calc_minus_experiment_cm1": -2359.396701207457,
+      "relative_error_percent": -8.718544063952303,
+      "experimental_uncertainty_cm1": null,
+      "reference_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    },
+    {
+      "state": "6p_3/2",
+      "calc_excitation_cm1": 27513.07054516128,
+      "experimental_excitation_cm1": 30392.23,
+      "calc_minus_experiment_cm1": -2879.1594548387184,
+      "relative_error_percent": -9.473340570398152,
+      "experimental_uncertainty_cm1": null,
+      "reference_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm"
+    }
+  ],
+  "lifetimes": [
+    {
+      "state": "6p_1/2",
+      "unit": "ns",
+      "calc_lifetime": 6.229630966624875,
+      "experiment_lifetime": 8.12,
+      "experiment_uncertainty": 0.02,
+      "relative_error_percent": -23.280406814964593,
+      "total_model_decay_rate_per_s": 160523152.23124456,
+      "included_channels": "6s_1/2:E1;5d_3/2:E1",
+      "experimental_isotope": 174,
+      "calculation_nuclear_radius_A_parameter": 175,
+      "scope": "sum of included five-level E1/E2/M1 channels; not isotope-resolved or all physical channels",
+      "reference_url": "https://doi.org/10.1103/PhysRevA.80.022502"
+    },
+    {
+      "state": "5d_3/2",
+      "unit": "ms",
+      "calc_lifetime": 28.020327148155147,
+      "experiment_lifetime": 54.83,
+      "experiment_uncertainty": 0.18,
+      "relative_error_percent": -48.89599279927932,
+      "total_model_decay_rate_per_s": 35.68837703830449,
+      "included_channels": "6s_1/2:E2;6s_1/2:M1",
+      "experimental_isotope": 174,
+      "calculation_nuclear_radius_A_parameter": 175,
+      "scope": "sum of included five-level E1/E2/M1 channels; not isotope-resolved or all physical channels",
+      "reference_url": "https://doi.org/10.1103/PhysRevResearch.5.023193"
+    }
+  ],
+  "radial": [
+    {
+      "before": "v68_default",
+      "after": "v68_refined_newton",
+      "scope": "grid plus native eigenpair refinement",
+      "max_excitation_drift_cm1": 6.70693043502979e-05,
+      "excitation_drift_cm1": {
+        "6s_1/2": 0.0,
+        "5d_3/2": -6.70693043502979e-05,
+        "5d_5/2": -6.267786011449061e-05,
+        "6p_1/2": -2.195721390307881e-05,
+        "6p_3/2": -7.185997674241662e-06
+      },
+      "max_selected_A_relative_drift": 3.1350838125554503e-07,
+      "predeclared_excitation_gate_cm1": 1.0,
+      "passed": true
+    },
+    {
+      "before": "v68_refined_newton",
+      "after": "v68_box90_newton",
+      "scope": "R60 to R90 at same fine grid and native refinement",
+      "max_excitation_drift_cm1": 7.984453986864537e-07,
+      "excitation_drift_cm1": {
+        "6s_1/2": 0.0,
+        "5d_3/2": -3.992208803538233e-07,
+        "5d_5/2": -7.984417607076466e-07,
+        "6p_1/2": 7.984453986864537e-07,
+        "6p_3/2": 7.984453986864537e-07
+      },
+      "max_selected_A_relative_drift": 8.360474534896412e-09,
+      "predeclared_excitation_gate_cm1": 1.0,
+      "passed": true
+    }
+  ]
+}

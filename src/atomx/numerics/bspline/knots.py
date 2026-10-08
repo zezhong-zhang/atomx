@@ -18,14 +18,29 @@ def make_knots(ns: int, ks: int, r_min: float, r_max: float,
 
 
 def make_exponential_knots(ns: int, ks: int, r_min: float,
-                           r_max: float) -> np.ndarray:
-    """Pure exponential (grid_type=2): given ns, compute he."""
+                           r_max: float, *, power: float = 1.0) -> np.ndarray:
+    """Exponential knots, optionally graded in the logarithmic coordinate.
+
+    ``power=1`` preserves the existing recurrence bit for bit. Other
+    positive powers use r_min*exp(log(R/r_min)*u**power) for u in [0,1],
+    permitting independent radial-grid scans for resonance calculations.
+    This grid parameter is not a physical fit or a nuclear radius.
+    """
+    if (not np.isscalar(power) or np.iscomplexobj(power)
+            or not np.isfinite(power) or power <= 0):
+        raise ValueError("positive finite real grid power required")
     nv = ns - ks + 1
+    if nv < 2 or ks < 1 or not 0 < r_min < r_max:
+        raise ValueError("valid spline count/order and 0 < r_min < r_max required")
     he = np.exp(np.log(r_max / r_min) / (nv - 1))
     t = np.zeros(ns + ks)
     t[ks] = r_min
-    for i in range(ks + 1, ns + 1):
-        t[i] = t[i - 1] * he
+    if power == 1.0:
+        for i in range(ks + 1, ns + 1):
+            t[i] = t[i - 1] * he
+    else:
+        u = np.linspace(0, 1, nv)
+        t[ks:ns+1] = r_min*np.exp(np.log(r_max/r_min)*u**power)
     t[ns:ns + ks] = r_max
     return t
 

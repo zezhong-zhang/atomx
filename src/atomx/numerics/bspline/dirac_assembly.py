@@ -48,6 +48,37 @@ from atomx.numerics.bspline.integrals import (
 NEGATIVE_CONTINUUM_EDGE = -C_SQ
 
 
+def apply_dirac_hamiltonian(P, Q, kappa, bspline_data, *, potential):
+    """Evaluate h_D on the native Gauss grid using exact spline derivatives.
+
+    Uses the common physics Dirac action. ``potential`` is explicitly
+    supplied on that same grid; no nuclear or model fallback is inferred.
+    This differential action excludes the matrix solver's Bloch boundary
+    operator. Bound spinors used for comparison must vanish at the box
+    boundary. Coefficients obey the existing P/Q kinetic-balance layout.
+    """
+    from atomx.numerics.bspline.evaluate import eval_orbital_on_grid, eval_P, eval_Q
+    from atomx.physics.dirac import Dirac
+
+    data = bspline_data
+    p, q = eval_P(P, data), eval_Q(Q, data)
+    dp = eval_orbital_on_grid(
+        P,
+        data["bsp_p_d"],
+        data["nv"],
+        data.get("ksp", data["ks"]),
+        data.get("nsp", data["ns"]),
+    )
+    dq = eval_orbital_on_grid(
+        Q,
+        data["bsp_q_d"],
+        data["nv"],
+        data.get("ksq", data["ks"]),
+        data.get("nsq", data["ns"]),
+    )
+    return Dirac().radial_action(p, q, dp, dq, data["gr"], potential, kappa)
+
+
 def build_dirac_matrices(ns, kappa, Z, bspline_data, nuclear_potential_func=None):
     """Assemble the Dirac Hamiltonian and overlap matrices.
 

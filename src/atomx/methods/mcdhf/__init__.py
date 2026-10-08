@@ -1,7 +1,8 @@
 """Multi-Configuration Dirac-Hartree-Fock (MCDHF).
 
 The B-spline route starts from Guerra-averaged DHF orbitals, then minimizes
-the ground-state correlated CI energy in its shared active space. Excited
+the ground-state correlated CI energy, or an explicit fixed CIStateAverage,
+in its shared active space. Excited
 states are diagonalized on that same orbital set; their principal labels
 are not guaranteed to remain spectroscopic after ground-state optimization.
 
@@ -26,6 +27,7 @@ from dataclasses import dataclass
 from atomx.config.csf import (
     CSF,
     count_j_resolved_csfs,
+    enumerate_jj_csfs_many,
     make_csf_list,
 )
 from atomx.methods.base import Method
@@ -87,6 +89,10 @@ class MCDHF(Method):
         Experimental shooting uses radial Green solves to precondition the
         full correlated gradient, retaining B-spline energy and constraint
         checks. It does not select the configuration-average shooting engine.
+    state_average : CIStateAverage or CIChargeStateAverage, optional
+        Fixed resolved-level energy average instead of the default ground
+        energy, using the same CI Hamiltonian and analytic orbital gradient.
+        All selected states share orthonormal orbitals. B-spline engine only.
 
     Notes
     -----
@@ -106,6 +112,7 @@ class MCDHF(Method):
     orbital_preconditioner: str = "spectral"
     engine: str = "bspline"
     shooting_space: ShootingSpace | None = None
+    state_average: object = None
 
     @property
     def theory_level(self) -> TheoryLevel:
@@ -130,7 +137,11 @@ class MCDHF(Method):
         if not use_physics_grid and any(
                 value is not None for value in (grid_hi, grid_he, grid_hmax)):
             raise ValueError('grid shape controls require use_physics_grid=True')
-        csfs = make_csf_list(Z, config_strings)
+        # Use the same resolved J/parity/coupling space as Atom's explicit
+        # configuration route. The legacy make_csf_list helper assigns one
+        # J=0/parity=+1 placeholder per configuration, losing open-shell
+        # levels and making symmetry-local ensemble selectors incorrect.
+        csfs = enumerate_jj_csfs_many(config_strings)
         stack = None
         if self.breit_frequency != 'static' or self.breit_orbital_energies is not None:
             from atomx.corrections.qed import resolve_se_method
@@ -146,6 +157,7 @@ class MCDHF(Method):
             breit_mode=self.breit_mode,
             correction_stack=stack,
             orbital_preconditioner=self.orbital_preconditioner,
+            state_average=self.state_average,
             engine=self.engine, shooting_space=self.shooting_space,
             nuclear=self.nuclear.value,
             r_max=r_max, use_physics_grid=use_physics_grid,

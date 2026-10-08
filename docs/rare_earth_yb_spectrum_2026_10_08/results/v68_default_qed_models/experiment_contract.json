@@ -1,0 +1,17 @@
+{
+  "hypothesis": "Different approximate SE operators can distinguish a robust radiative scale from sensitivity to the default high-n parameterization.",
+  "fixed_conditions": "same passed V68 orbitals, five valence states, Z70; first-order expectations only; common closed-core terms cancel exactly in excitation differences",
+  "models": [
+    "indelicato",
+    "shabaev_local",
+    "flambaum_ginges"
+  ],
+  "observable": "valence VP and SE expectation, then difference from 6s; NOT orbital reoptimization or full screened QED",
+  "limits": "Indelicato/Mohr n=6 uses native extrapolation; Shabaev here is local-only, FG electric model omits magnetic form factor. Model spread is NOT a physical uncertainty bound.",
+  "acceptance": {
+    "finite": true,
+    "VP_plus_default_SE_excitation_replay_cm1": 1e-05
+  },
+  "stopping_rule": "300 seconds, retain exceptions; do not substitute a failed backend",
+  "resource_estimate": "reuse 24-orbital workspace, evaluate five valence matrix elements per model; <2GiB anticipated"
+}

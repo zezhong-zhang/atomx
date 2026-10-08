@@ -485,7 +485,8 @@ def _norm_sq(P, Q, kappa, Z, bsp_data, ns):
 def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
                     nuclear_potential=None, convol_cache=None,
                     max_determinants=None, include_breit=False, as_operator=False,
-                    *, breit_orbital_energies=None, one_body_shifts=None):
+                    *, breit_orbital_energies=None, one_body_shifts=None,
+                    radial_snapshot=None):
     """Build the exact CI Hamiltonian matrix H_{rs} in the CSF basis.
 
     ``H[r, s]`` is the true expectation value ``<CSF_r|H|CSF_s>`` of the
@@ -541,6 +542,10 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
         symmetric average at the two electron-pair energy transfers, with
         energies held fixed during CI. Replaces static Breit; does not add
         a second Breit interaction or imply full bound-state QED.
+    radial_snapshot : CIRadialSnapshot or None
+        Reuse Dirac-Coulomb radial values across CI spaces on exactly the same
+        B-spline orbital/Hamiltonian snapshot. Mismatches raise. One-body
+        shifts and Breit remain independently applied per matrix build.
     """
     if breit_orbital_energies is not None and not include_breit:
         raise ValueError("breit_orbital_energies requires include_breit=True")
@@ -588,8 +593,15 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
     H = None if as_operator else np.zeros((n_csf, n_csf))
     if max_determinants is None:
         max_determinants = MAX_BLOCK_DETERMINANTS
-    evaluate = _radial_evaluator(orbitals_dict, bsp_data, Z, ns,
-                                 nuclear_potential=nuclear_potential)
+    if radial_snapshot is None:
+        evaluate = _radial_evaluator(orbitals_dict, bsp_data, Z, ns,
+                                    nuclear_potential=nuclear_potential)
+    else:
+        from atomx.physics.csf.radial_snapshot import CIRadialSnapshot
+        if not isinstance(radial_snapshot, CIRadialSnapshot):
+            raise TypeError("radial_snapshot must be CIRadialSnapshot")
+        evaluate = radial_snapshot.evaluator_for(orbitals_dict, bsp_data, Z, ns,
+                                                nuclear_potential=nuclear_potential)
     if one_body_shifts:
         # CI+MBPT Σ⁽¹⁾ injection: add a diagonal effective one-body shift
         # <a|h_D + Σ₁|a> = <a|h_D|a> + Δε_a for each listed orbital.  The

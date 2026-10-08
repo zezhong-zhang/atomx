@@ -8,14 +8,15 @@ objects carry native radial data, physical identity and convergence evidence.
 | Area | Responsibility |
 |---|---|
 | `atom.py`, `atom_inputs.py`, `calculation_spec.py` | Public requests, validation, dispatch and resolved calculation identity |
-| `config/`, `state_protocols.py` | Configurations, shared subshells and state contracts |
-| `physics/`, `angular/`, `potentials/` | Equations, field/energy expressions, angular coefficients and nuclear/environment fields |
+| `config/`, `state_protocols.py` | Configurations, shared subshells and radial state protocols |
+| `physics/`, `angular/`, `potentials/` | Equations, field/energy expressions, CI level/ensemble identity, radial snapshots, angular coefficients and nuclear/environment fields |
 | `methods/` | Physical method selection, CI/state assembly and correlated objectives |
 | `numerics/` | Radial geometry, integration, matrix assembly, eigensolvers, shooting, constraints and optimization |
 | `results.py`, `radial_state.py` | Result views, native metric and radial-state access |
 | `corrections/` | Capability checks, physical corrections and operator inclusion accounting |
 | `io/` | Versioned result persistence |
 | `properties/`, `scattering/` | Observables and process calculations consuming solved states |
+| `xfel/` | Pulse-driven populations, Monte Carlo cascades, coherent magnetic-state dynamics and transient observables |
 | `reference_data/`, `workflows/` | Source parsing, matching and comparison services |
 | `viz/`, `spectrum/`, `plasma/` | Rendering, spectral synthesis and population/rate models |
 | `scripts/` | Supported command-line workflows |
@@ -78,6 +79,47 @@ and matrix elements/density contractions to `physics/csf`. Constrained radial
 optimization algorithms belong to `numerics/{bspline,shooting}`; occupied
 rotation algebra is shared in `numerics/orbital_rotations.py`. Physical
 operators must not depend on either DF or MCDHF method entry points.
+
+### CI state identity and orbital objectives
+
+Configuration space, orbital optimization, observable state, dynamical
+preparation, and energy zero are separate contracts. `physics/csf/levels.py`
+owns `CILevel` and `CILevelPopulation`; `state_average.py` owns fixed single-
+and multi-charge objectives. Public inputs pass these objectives through
+`Correlation(state_average=...)` to the B-spline MCDHF solver. The joint-charge
+path currently requires Dirac–Coulomb and common orthonormal orbitals.
+
+`methods/csf/variational.py` and `charge_variational.py` combine CI energies,
+signed density contractions, and radial gradients. They can explicitly bind
+the lower-level `CIBasisTracking` contract to a frozen physical reference;
+ambiguous or lost subspace identity rejects a trial. Sorted public roots alone
+do not supply this tracking. `CIRadialSnapshot` shares immutable radial data and
+evaluators within a declared Hamiltonian snapshot.
+
+The [atomic-state design](ATOMIC_STATE_DESIGN.md) distinguishes these implemented
+pieces from the unfinished unified state-view and independent-orbital interfaces.
+
+### Channels and time evolution
+
+`scattering/ci_continuum.py` and `multielectron_ci.py` construct common-orbital
+ionic sectors, signed Dyson photoionization, and full one-/two-body Auger
+amplitudes. Complete residual sectors mean complete Fock spaces over the
+retained orbital pool. Continuum waves use the frozen final-ion direct Hartree
+Dirac field with retained-bound-space projection and energy normalization;
+nonlocal continuum exchange and coupled Fano channels remain outside this model.
+
+XFEL drivers consume rate graphs or coherent magnetic-state operators and
+prepared channels. The bound MCDHF driver explicitly excludes ionization;
+the two-/many-electron drivers add finite-space CI loss channels with separate
+reservoir applicability gates. Reusing a snapshot changes cost, not the
+preparation, orbital objective, or physical approximation.
+
+Complex-scaled Dirac and CI kernels are lower-level representations with a
+c-product and explicit projectors. Target eigensolvers do not themselves
+certify resonance poles. See [capabilities](ARCHITECTURE_CAPABILITIES.md) and
+[XFEL design/evidence](XFEL_GAP_ANALYSIS.md) for boundaries and verification.
+
+### Shared invariants
 
 - Keep configuration averages, term/level energies, orbital energies and
   transition energies distinct. Preserve occupations, coupling and state identity.

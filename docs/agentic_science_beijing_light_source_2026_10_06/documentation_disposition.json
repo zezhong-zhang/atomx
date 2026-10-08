@@ -1,0 +1,45 @@
+{
+  "task": "Complete competition project document for Beijing light source and future industries",
+  "changes": [
+    "New project document, summary, rendering tools and documentary evidence subset",
+    "One navigation entry in docs/README.md",
+    "One task routing row in docs/AGENT_REFERENCE.md"
+  ],
+  "retained": [
+    {
+      "path": "docs/XFEL_GAP_ANALYSIS.md",
+      "reason": "No new physical calculation, API or completion status; existing latest measurement and scope remain authoritative."
+    },
+    {
+      "path": "docs/AGENT_INSIGHTS.md",
+      "reason": "No new scientific insight. This increment presents already recorded diagnostics and a proposed application plan."
+    },
+    {
+      "path": "AGENTS.md",
+      "reason": "No new lasting repository rule."
+    },
+    {
+      "path": "docs/ARCHITECTURE_CAPABILITIES.md",
+      "reason": "No production capability implemented; material XANES and autonomous benchmarking are explicitly planned."
+    },
+    {
+      "path": "docs/ARCHITECTURE_DESIGN.md",
+      "reason": "No module ownership or implementation dependency changed."
+    },
+    {
+      "path": "docs/TESTING.md",
+      "reason": "Physics test commands unchanged; document-specific verification is owned by the new report."
+    },
+    {
+      "path": "docs/MIGRATION.md",
+      "reason": "No API or saved physics-data compatibility change."
+    },
+    {
+      "path": "docs/xfel_tail_breit_pole_2026_10_06/",
+      "reason": "Read-only sealed scientific archive; original manifest SHA unchanged."
+    }
+  ],
+  "no_new_scientific_insight": true,
+  "no_physics_source_edit": true,
+  "no_git_commit": true
+}

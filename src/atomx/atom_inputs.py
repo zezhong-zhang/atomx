@@ -386,6 +386,13 @@ class Correlation:
         built-in cap (2000); raise it when a valence-correlation
         expansion (e.g. lanthanide ``4f`` + singles) legitimately
         exceeds it.  Block build cost grows ~quadratically.
+    state_average : CIStateAverage or CIChargeStateAverage, optional
+        Optimize a fixed average of resolved CI energies in common
+        orthonormal orbitals (B-spline MCDHF only). ``None`` retains the
+        ground-state target. Result densities remain ground-state densities;
+        ensemble weights/occupations are recorded separately in diagnostics.
+        CIChargeStateAverage additionally optimizes explicitly selected charge
+        sectors in the same orbitals; it requires Dirac-Coulomb corrections.
     """
 
     expansion: Optional[str] = None
@@ -395,8 +402,18 @@ class Correlation:
     per_block_orbital_sets: bool = False
     orbital_preconditioner: str = "spectral"
     max_determinants: Optional[int] = None
+    state_average: object = None
 
     def __post_init__(self):
+        if self.state_average is not None:
+            from atomx.physics.csf.state_average import (
+                CIChargeStateAverage,
+                CIStateAverage,
+            )
+            if not isinstance(self.state_average, (CIStateAverage, CIChargeStateAverage)):
+                raise TypeError('state_average must be CIStateAverage, CIChargeStateAverage or None')
+            if self.radial_optimization != 'mcdhf' or self.per_block_orbital_sets:
+                raise ValueError('CI state averaging requires shared MCDHF optimization')
         if self.orbital_preconditioner not in ("spectral", "shooting"):
             raise ValueError("orbital_preconditioner must be 'spectral' or 'shooting'")
         if self.orbital_preconditioner == "shooting" and self.radial_optimization != "mcdhf":

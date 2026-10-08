@@ -409,7 +409,7 @@ class VariationalCSFSolver:
                  grid_hi=None, grid_he=None, grid_hmax=None,
                  variational_projector="nuclear",
                  orbital_preconditioner="spectral", shooting_space=None,
-                 max_determinants=None):
+                 max_determinants=None, state_average=None):
         self.Z = Z
         self.csfs = csfs
         self.n_csf = len(csfs)
@@ -488,6 +488,20 @@ class VariationalCSFSolver:
                 f"(got {radial_optimization!r})"
             )
         self.radial_optimization = radial_optimization
+        from atomx.physics.csf.state_average import CIChargeStateAverage, CIStateAverage
+        if state_average is not None:
+            if not isinstance(state_average, (CIStateAverage, CIChargeStateAverage)):
+                raise TypeError('state_average must be CIStateAverage, CIChargeStateAverage or None')
+            if engine != 'bspline' or radial_optimization != 'mcdhf' or per_block_orbital_sets:
+                raise ValueError('CI state averaging requires shared B-spline MCDHF optimization')
+            if isinstance(state_average, CIChargeStateAverage):
+                if include_breit or include_qed:
+                    raise ValueError('charge-sector orbital averaging requires corrections=none (Dirac-Coulomb)')
+                numbers = {sum(s.occupation for s in c.subshells) for c in csfs}
+                if len(numbers) != 1:
+                    raise ValueError('one fixed parent electron number required')
+                state_average.normalized_sectors(int(numbers.pop()))
+        self.state_average = state_average
         if variational_projector not in ("nuclear", "fock"):
             raise ValueError(
                 "variational_projector must be 'nuclear' or 'fock', "
@@ -974,7 +988,8 @@ class VariationalCSFSolver:
         # fixed point can spend hundreds of diagonalizations on spectator
         # orbitals without improving the eventual variational solution.
         use_correlated_gradient = (self.radial_optimization == "mcdhf"
-                                   and self.engine == "bspline" and self.n_csf > 1)
+                                   and self.engine == "bspline"
+                                   and (self.n_csf > 1 or self.state_average is not None))
         full_grid_gradient = self.engine == 'shooting'
         initializer_iterations = (0 if full_grid_gradient else
                                   min(max_iter, self.initializer_sweeps) if use_correlated_gradient else max_iter)
@@ -1215,13 +1230,22 @@ class VariationalCSFSolver:
                         if self._breit_in_ci else dc_ci)
             state_energies, mixing = final_ci.state_energies, final_ci.mixing_coefficients
         if use_correlated_gradient and orbitals_dict:
+            from atomx.methods.csf.charge_variational import (
+                ChargeStateOrbitalFunctional,
+            )
             from atomx.methods.csf.variational import CSFOrbitalFunctional
-            functional = CSFOrbitalFunctional(
+            from atomx.physics.csf.state_average import CIChargeStateAverage
+            joint_charge = isinstance(self.state_average, CIChargeStateAverage)
+            functional_class = ChargeStateOrbitalFunctional if joint_charge else CSFOrbitalFunctional
+            functional = functional_class(
                 self.csfs, dhf.bsp_data, self.Z, dhf._nuclear_potential,
-                getattr(dhf, "_convol_cache", None))
+                getattr(dhf, "_convol_cache", None), state_average=self.state_average)
             orbitals_dict, dc_ci, variational_diagnostics = self._optimize_bspline_state(
                 functional, orbitals_dict, dhf, dhf_result,
                 max_iter=max_iter, tolerance=scf_tol, energy_tolerance=ci_tol)
+            if joint_charge:
+                dc_ci = dc_ci.parent
+                variational_diagnostics.update(functional.objective_diagnostics())
             # The initializer's convergence is separately reported. The
             # final CI/orbital stationarity decides the variational result.
             converged = bool(variational_diagnostics["converged"])
@@ -1237,20 +1261,27 @@ class VariationalCSFSolver:
             mixing = final_ci.mixing_coefficients
             degenerate = abs(dc_ci.state_energies - dc_ci.state_energies[0]) < 1e-10
             occupations_for_energy = self._physical_subshells(
-                np.mean(dc_ci.mixing_coefficients[:, degenerate] ** 2, axis=1))
+                np.mean(dc_ci.mixing_coefficients[:, degenerate] ** 2, axis=1)
+                if self.state_average is None else
+                dc_ci.mixing_coefficients ** 2 @ functional.last_state_weights)
+            if self.state_average is not None:
+                variational_diagnostics['state_weights'] = functional.last_state_weights.tolist()
+                variational_diagnostics['ensemble_occupations'] = dict(functional.last_occupations)
             one_electron = sum(s.occupation for s in self.csfs[0].subshells) == 1
             for sh in occupations_for_energy:
                 key = (sh.n, sh.kappa)
+                objective_occupation = (functional.last_occupations.get(key, 0.0)
+                                        if joint_charge else sh.occupation)
                 if one_electron:
                     vector = np.concatenate(orbitals_dict[key])
                     orbital_energies[sh.label] = float(vector @ functional.one_body[sh.kappa] @ vector)
-                elif sh.occupation > 1e-10:
+                elif objective_occupation > 1e-10:
                     vector = np.concatenate(orbitals_dict[key])
                     orbital_energies[sh.label] = float(
-                        vector @ functional.last_gradient[key] / (2 * sh.occupation))
+                        vector @ functional.last_gradient[key] / (2 * objective_occupation))
             variational_diagnostics["orbital_energies"] = (
                 "one-electron nuclear eigenvalues" if one_electron else
-                "diagonal Lagrange multipliers divided by occupation")
+                "diagonal Lagrange multipliers divided by objective occupation")
 
         # Compute ground-state Guerra-averaged effective occupations,
         # so MCDHFResult.waves can carry physically meaningful
@@ -1466,6 +1497,9 @@ class VariationalCSFSolver:
         result._nuclear_potential = dhf._nuclear_potential if dhf is not None else None
         result.solver_diagnostics["_variational_diagnostics"] = variational_diagnostics
         result.solver_diagnostics["_radial_optimization"] = self.radial_optimization
+        from atomx.physics.csf.state_average import CIChargeStateAverage
+        if isinstance(self.state_average, CIChargeStateAverage):
+            result.solver_diagnostics["_charge_state_average"] = self.state_average
         result.solver_diagnostics["_inner_converged"] = inner_converged
         result.solver_diagnostics["_inner_residual"] = inner_residual
         # Attach correction components for downstream energy breakdown.

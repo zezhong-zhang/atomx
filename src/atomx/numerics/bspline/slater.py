@@ -7,6 +7,8 @@ method is the default.
 
 with densities ρ₁₃ = P₁P₃ + Q₁Q₃ and ρ₂₄ = P₂P₄ + Q₂Q₄ supplied by the
 caller (so the caller owns the large/small-component convention).
+Real and complex densities use the same kernel without conjugation;
+complex-rotation consumers supply c-product densities explicitly.
 
 Methods
 -------
@@ -110,13 +112,13 @@ def slater_rk_direct(rho13, rho24, gr, grw, k):
     g_inner = np.einsum('cj,xyj->cxy', rho24, inner)
     density = f_outer[:,:,None]*g_inner+g_outer[:,:,None]*f_inner
     diagonal = np.sum(density*kernel_jacobian*w[None,:,None]*w[None,None,:])
-    return float(off_diagonal+diagonal)
+    return np.asarray(off_diagonal+diagonal).item()
 
 
 def slater_rk_poisson(
     rho13: np.ndarray, rho24: np.ndarray,
     gr: np.ndarray, grw: np.ndarray, nv: int, n_gauss: int, k: int,
-) -> float:
+) -> float | complex:
     """Fast O(N) Slater integral via the Poisson ``Y^k`` potential.
 
     ``rho13`` and ``rho24`` may be passed flat (``nv*n_gauss``) or already
@@ -125,13 +127,13 @@ def slater_rk_poisson(
     rho24_2d = rho24.reshape(nv, n_gauss)
     rho13_2d = rho13.reshape(nv, n_gauss)
     yk = compute_yk(rho24_2d, gr, grw, nv, n_gauss, k)
-    return float(np.sum(grw * rho13_2d * yk))
+    return np.sum(grw * rho13_2d * yk).item()
 
 
 def slater_rk(
     rho13: np.ndarray, rho24: np.ndarray, bsp_data: dict, k: int,
     method: str = DEFAULT_METHOD,
-) -> float:
+) -> float | complex:
     """Slater radial integral ``R^k(13, 24)`` with a selectable integrator.
 
     Parameters
@@ -149,8 +151,8 @@ def slater_rk(
 
     Returns
     -------
-    float
-        ``R^k`` in atomic units.
+    float or complex
+        ``R^k`` in atomic units, preserving the density's complex part.
     """
     gr = bsp_data["gr"]
     grw = bsp_data["grw"]

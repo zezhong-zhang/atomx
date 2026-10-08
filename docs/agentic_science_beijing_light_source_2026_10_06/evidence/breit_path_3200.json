@@ -1,0 +1,781 @@
+{
+  "pass_": true,
+  "states": {
+    "g": {
+      "states": {
+        "DC": {
+          "energy_Ha": -102.81396663594163,
+          "absolute_residual_Ha": 6.460333521788253e-11,
+          "relative_residual": 6.283517437532514e-13,
+          "reference_probability": 0.9996876722847111,
+          "iterations": 8,
+          "history": [
+            {
+              "step": 0,
+              "subspace": 1,
+              "energy_Ha": -102.81393774645737,
+              "absolute_residual_Ha": 0.1511610935774624,
+              "reference_probability": 0.9996819238412885
+            },
+            {
+              "step": 1,
+              "subspace": 2,
+              "energy_Ha": -102.81396343710796,
+              "absolute_residual_Ha": 0.03617668794705671,
+              "reference_probability": 0.9996915055491674
+            },
+            {
+              "step": 2,
+              "subspace": 3,
+              "energy_Ha": -102.81396663328023,
+              "absolute_residual_Ha": 0.0009330083961870734,
+              "reference_probability": 0.9996876432183947
+            },
+            {
+              "step": 3,
+              "subspace": 4,
+              "energy_Ha": -102.81396663593779,
+              "absolute_residual_Ha": 2.9034676944876457e-05,
+              "reference_probability": 0.9996876730159956
+            },
+            {
+              "step": 4,
+              "subspace": 5,
+              "energy_Ha": -102.81396663594154,
+              "absolute_residual_Ha": 1.3366768652621202e-06,
+              "reference_probability": 0.9996876723346176
+            },
+            {
+              "step": 5,
+              "subspace": 6,
+              "energy_Ha": -102.81396663594163,
+              "absolute_residual_Ha": 4.5129803935074056e-08,
+              "reference_probability": 0.9996876722848925
+            },
+            {
+              "step": 6,
+              "subspace": 7,
+              "energy_Ha": -102.81396663594163,
+              "absolute_residual_Ha": 1.547194155270148e-09,
+              "reference_probability": 0.9996876722847498
+            },
+            {
+              "step": 7,
+              "subspace": 8,
+              "energy_Ha": -102.81396663594163,
+              "absolute_residual_Ha": 6.459803884209559e-11,
+              "reference_probability": 0.9996876722847111
+            }
+          ],
+          "previous_step_squared_overlap": 0.9999997546690327,
+          "operator_set": [
+            "DC"
+          ]
+        },
+        "DCB": {
+          "energy_Ha": -102.80227478450821,
+          "absolute_residual_Ha": 4.0789942511962154e-11,
+          "relative_residual": 3.967805439856764e-13,
+          "reference_probability": 0.9996819060558712,
+          "iterations": 8,
+          "history": [
+            {
+              "step": 0,
+              "subspace": 1,
+              "energy_Ha": -102.80225658103103,
+              "absolute_residual_Ha": 0.1357616552931049,
+              "reference_probability": 0.9996876722847162
+            },
+            {
+              "step": 1,
+              "subspace": 2,
+              "energy_Ha": -102.80227302878633,
+              "absolute_residual_Ha": 0.03570115701797418,
+              "reference_probability": 0.9996792027672686
+            },
+            {
+              "step": 2,
+              "subspace": 3,
+              "energy_Ha": -102.80227478292696,
+              "absolute_residual_Ha": 0.000608044243799696,
+              "reference_probability": 0.9996819149226122
+            },
+            {
+              "step": 3,
+              "subspace": 4,
+              "energy_Ha": -102.80227478450604,
+              "absolute_residual_Ha": 2.508523315276561e-05,
+              "reference_probability": 0.9996819055406859
+            },
+            {
+              "step": 4,
+              "subspace": 5,
+              "energy_Ha": -102.80227478450819,
+              "absolute_residual_Ha": 8.711587811769015e-07,
+              "reference_probability": 0.9996819060291151
+            },
+            {
+              "step": 5,
+              "subspace": 6,
+              "energy_Ha": -102.8022747845081,
+              "absolute_residual_Ha": 3.347582114712183e-08,
+              "reference_probability": 0.9996819060560628
+            },
+            {
+              "step": 6,
+              "subspace": 7,
+              "energy_Ha": -102.80227478450821,
+              "absolute_residual_Ha": 1.2153942734770716e-09,
+              "reference_probability": 0.9996819060558501
+            },
+            {
+              "step": 7,
+              "subspace": 8,
+              "energy_Ha": -102.80227478450821,
+              "absolute_residual_Ha": 4.078517925866137e-11,
+              "reference_probability": 0.9996819060558712
+            }
+          ],
+          "previous_step_squared_overlap": 0.9999998938467464,
+          "operator_set": [
+            "DC",
+            "Breit"
+          ]
+        }
+      },
+      "DC_first_order_Breit_Ha": 0.01171005491149747,
+      "exact_DCB_minus_DC_Ha": 0.01169185143341167,
+      "already_included_nonlinear_Ha": -1.8203478085799737e-05,
+      "DCB_state_DC_expectation_Ha": -102.81394846260889,
+      "DCB_state_Breit_expectation_Ha": 0.011673678101162868,
+      "DCB_expectation_balance_error_Ha": 4.831690603168681e-13
+    },
+    "q": {
+      "states": {
+        "DC": {
+          "energy_Ha": -69.42228433098306,
+          "absolute_residual_Ha": 9.146113188612873e-13,
+          "relative_residual": 1.3174607082946385e-14,
+          "reference_probability": 0.9882380501729275,
+          "iterations": 16,
+          "history": [
+            {
+              "step": 0,
+              "subspace": 1,
+              "energy_Ha": -69.42227353605078,
+              "absolute_residual_Ha": 0.05991838904677757,
+              "reference_probability": 0.9874416822732064
+            },
+            {
+              "step": 1,
+              "subspace": 2,
+              "energy_Ha": -69.42227105447665,
+              "absolute_residual_Ha": 0.053796460207700375,
+              "reference_probability": 0.9872963955589982
+            },
+            {
+              "step": 2,
+              "subspace": 3,
+              "energy_Ha": -69.42227199815613,
+              "absolute_residual_Ha": 0.05999171967174621,
+              "reference_probability": 0.9873194933925145
+            },
+            {
+              "step": 3,
+              "subspace": 4,
+              "energy_Ha": -69.42227906628277,
+              "absolute_residual_Ha": 0.038057529779973336,
+              "reference_probability": 0.9879436633422923
+            },
+            {
+              "step": 4,
+              "subspace": 5,
+              "energy_Ha": -69.42228366554116,
+              "absolute_residual_Ha": 0.014985836514071744,
+              "reference_probability": 0.9880731035348684
+            },
+            {
+              "step": 5,
+              "subspace": 6,
+              "energy_Ha": -69.42228430888306,
+              "absolute_residual_Ha": 0.00144179377197302,
+              "reference_probability": 0.9882312032976887
+            },
+            {
+              "step": 6,
+              "subspace": 7,
+              "energy_Ha": -69.42228433067875,
+              "absolute_residual_Ha": 0.0006691057302135545,
+              "reference_probability": 0.9882372181631475
+            },
+            {
+              "step": 7,
+              "subspace": 8,
+              "energy_Ha": -69.42228433097766,
+              "absolute_residual_Ha": 7.743793553248244e-05,
+              "reference_probability": 0.9882380418936184
+            },
+            {
+              "step": 8,
+              "subspace": 9,
+              "energy_Ha": -69.42228433098332,
+              "absolute_residual_Ha": 3.897741138265086e-05,
+              "reference_probability": 0.9882380628199645
+            },
+            {
+              "step": 9,
+              "subspace": 10,
+              "energy_Ha": -69.42228433098306,
+              "absolute_residual_Ha": 4.98357314179177e-06,
+              "reference_probability": 0.9882380498088827
+            },
+            {
+              "step": 10,
+              "subspace": 11,
+              "energy_Ha": -69.42228433098306,
+              "absolute_residual_Ha": 1.1829301510349566e-07,
+              "reference_probability": 0.9882380501681244
+            },
+            {
+              "step": 11,
+              "subspace": 12,
+              "energy_Ha": -69.42228433098306,
+              "absolute_residual_Ha": 1.3574323380677696e-08,
+              "reference_probability": 0.9882380501719124
+            },
+            {
+              "step": 12,
+              "subspace": 13,
+              "energy_Ha": -69.42228433098306,
+              "absolute_residual_Ha": 1.7523796791390106e-09,
+              "reference_probability": 0.9882380501731772
+            },
+            {
+              "step": 13,
+              "subspace": 14,
+              "energy_Ha": -69.42228433098306,
+              "absolute_residual_Ha": 2.593097307921399e-10,
+              "reference_probability": 0.9882380501729756
+            },
+            {
+              "step": 14,
+              "subspace": 15,
+              "energy_Ha": -69.42228433098306,
+              "absolute_residual_Ha": 4.5123294870417785e-10,
+              "reference_probability": 0.9882380501730123
+            },
+            {
+              "step": 15,
+              "subspace": 16,
+              "energy_Ha": -69.42228433098306,
+              "absolute_residual_Ha": 8.247658521813931e-13,
+              "reference_probability": 0.9882380501729275
+            }
+          ],
+          "previous_step_squared_overlap": 0.9999650066619105,
+          "operator_set": [
+            "DC"
+          ]
+        },
+        "DCB": {
+          "energy_Ha": -69.42137517270996,
+          "absolute_residual_Ha": 5.172488424010623e-11,
+          "relative_residual": 7.450858487234297e-13,
+          "reference_probability": 0.9873467258455778,
+          "iterations": 15,
+          "history": [
+            {
+              "step": 0,
+              "subspace": 1,
+              "energy_Ha": -69.42136583714806,
+              "absolute_residual_Ha": 0.04426175521735882,
+              "reference_probability": 0.9882380501729293
+            },
+            {
+              "step": 1,
+              "subspace": 2,
+              "energy_Ha": -69.42136306529666,
+              "absolute_residual_Ha": 0.04568216391887512,
+              "reference_probability": 0.988322958082962
+            },
+            {
+              "step": 2,
+              "subspace": 3,
+              "energy_Ha": -69.42136974826329,
+              "absolute_residual_Ha": 0.024858682194014554,
+              "reference_probability": 0.987814687529224
+            },
+            {
+              "step": 3,
+              "subspace": 4,
+              "energy_Ha": -69.42136989204171,
+              "absolute_residual_Ha": 0.0262896921046624,
+              "reference_probability": 0.9877862965362157
+            },
+            {
+              "step": 4,
+              "subspace": 5,
+              "energy_Ha": -69.42137455157044,
+              "absolute_residual_Ha": 0.018777497034850637,
+              "reference_probability": 0.9874901458271756
+            },
+            {
+              "step": 5,
+              "subspace": 6,
+              "energy_Ha": -69.42137516238172,
+              "absolute_residual_Ha": 0.0012890352101553309,
+              "reference_probability": 0.9873496235425697
+            },
+            {
+              "step": 6,
+              "subspace": 7,
+              "energy_Ha": -69.42137517255989,
+              "absolute_residual_Ha": 0.0004771479092258367,
+              "reference_probability": 0.987347355517101
+            },
+            {
+              "step": 7,
+              "subspace": 8,
+              "energy_Ha": -69.42137517270685,
+              "absolute_residual_Ha": 5.775322504482403e-05,
+              "reference_probability": 0.9873467454740713
+            },
+            {
+              "step": 8,
+              "subspace": 9,
+              "energy_Ha": -69.42137517271011,
+              "absolute_residual_Ha": 3.072335194502497e-05,
+              "reference_probability": 0.9873467126502251
+            },
+            {
+              "step": 9,
+              "subspace": 10,
+              "energy_Ha": -69.42137517270996,
+              "absolute_residual_Ha": 4.863861345204673e-06,
+              "reference_probability": 0.9873467264402426
+            },
+            {
+              "step": 10,
+              "subspace": 11,
+              "energy_Ha": -69.42137517270996,
+              "absolute_residual_Ha": 9.103148919664504e-08,
+              "reference_probability": 0.9873467258465753
+            },
+            {
+              "step": 11,
+              "subspace": 12,
+              "energy_Ha": -69.42137517270996,
+              "absolute_residual_Ha": 1.0215324610668886e-08,
+              "reference_probability": 0.9873467258423012
+            },
+            {
+              "step": 12,
+              "subspace": 13,
+              "energy_Ha": -69.42137517270996,
+              "absolute_residual_Ha": 1.4116859178239072e-09,
+              "reference_probability": 0.9873467258454258
+            },
+            {
+              "step": 13,
+              "subspace": 14,
+              "energy_Ha": -69.42137517270996,
+              "absolute_residual_Ha": 1.0730289534500053e-10,
+              "reference_probability": 0.9873467258455485
+            },
+            {
+              "step": 14,
+              "subspace": 15,
+              "energy_Ha": -69.42137517270996,
+              "absolute_residual_Ha": 5.1720797257727104e-11,
+              "reference_probability": 0.9873467258455778
+            }
+          ],
+          "previous_step_squared_overlap": 0.9999591655620926,
+          "operator_set": [
+            "DC",
+            "Breit"
+          ]
+        }
+      },
+      "DC_first_order_Breit_Ha": 0.0009184938351448158,
+      "exact_DCB_minus_DC_Ha": 0.0009091582731031167,
+      "already_included_nonlinear_Ha": -9.335562041699061e-06,
+      "DCB_state_DC_expectation_Ha": -69.4222750232325,
+      "DCB_state_Breit_expectation_Ha": 0.000899850523054744,
+      "DCB_expectation_balance_error_Ha": 5.115907697472721e-13
+    },
+    "r": {
+      "states": {
+        "DC": {
+          "energy_Ha": -69.42678957236991,
+          "absolute_residual_Ha": 6.6858068286645e-11,
+          "relative_residual": 9.630010072257872e-13,
+          "reference_probability": 0.9893753374435037,
+          "iterations": 14,
+          "history": [
+            {
+              "step": 0,
+              "subspace": 1,
+              "energy_Ha": -69.42678075328429,
+              "absolute_residual_Ha": 0.06094988824490964,
+              "reference_probability": 0.9887995247734009
+            },
+            {
+              "step": 1,
+              "subspace": 2,
+              "energy_Ha": -69.42679434437792,
+              "absolute_residual_Ha": 0.11864144495058943,
+              "reference_probability": 0.9896399512975762
+            },
+            {
+              "step": 2,
+              "subspace": 3,
+              "energy_Ha": -69.42679456597831,
+              "absolute_residual_Ha": 0.11142430977713405,
+              "reference_probability": 0.9896552526135004
+            },
+            {
+              "step": 3,
+              "subspace": 4,
+              "energy_Ha": -69.42678907888362,
+              "absolute_residual_Ha": 0.00415352117924641,
+              "reference_probability": 0.9893216886492534
+            },
+            {
+              "step": 4,
+              "subspace": 5,
+              "energy_Ha": -69.42678944346474,
+              "absolute_residual_Ha": 0.007142176231796974,
+              "reference_probability": 0.9893088771182119
+            },
+            {
+              "step": 5,
+              "subspace": 6,
+              "energy_Ha": -69.4267895663513,
+              "absolute_residual_Ha": 0.0006604490375232458,
+              "reference_probability": 0.9893743604577901
+            },
+            {
+              "step": 6,
+              "subspace": 7,
+              "energy_Ha": -69.4267895723007,
+              "absolute_residual_Ha": 0.00031447555396204094,
+              "reference_probability": 0.989374931508779
+            },
+            {
+              "step": 7,
+              "subspace": 8,
+              "energy_Ha": -69.42678957236922,
+              "absolute_residual_Ha": 3.6381155864245314e-05,
+              "reference_probability": 0.9893753197429614
+            },
+            {
+              "step": 8,
+              "subspace": 9,
+              "energy_Ha": -69.42678957237004,
+              "absolute_residual_Ha": 3.4388821804089965e-05,
+              "reference_probability": 0.9893753573366009
+            },
+            {
+              "step": 9,
+              "subspace": 10,
+              "energy_Ha": -69.4267895723699,
+              "absolute_residual_Ha": 1.526313522114908e-06,
+              "reference_probability": 0.9893753370104461
+            },
+            {
+              "step": 10,
+              "subspace": 11,
+              "energy_Ha": -69.4267895723699,
+              "absolute_residual_Ha": 4.675011489184018e-08,
+              "reference_probability": 0.9893753374486173
+            },
+            {
+              "step": 11,
+              "subspace": 12,
+              "energy_Ha": -69.42678957236991,
+              "absolute_residual_Ha": 4.576982018451229e-09,
+              "reference_probability": 0.9893753374439339
+            },
+            {
+              "step": 12,
+              "subspace": 13,
+              "energy_Ha": -69.4267895723699,
+              "absolute_residual_Ha": 6.635127216376063e-10,
+              "reference_probability": 0.9893753374436062
+            },
+            {
+              "step": 13,
+              "subspace": 14,
+              "energy_Ha": -69.42678957236991,
+              "absolute_residual_Ha": 6.685784143231698e-11,
+              "reference_probability": 0.9893753374435037
+            }
+          ],
+          "previous_step_squared_overlap": 0.9999757743095322,
+          "operator_set": [
+            "DC"
+          ]
+        },
+        "DCB": {
+          "energy_Ha": -69.4260327311243,
+          "absolute_residual_Ha": 1.704164637265524e-11,
+          "relative_residual": 2.4546478751932665e-13,
+          "reference_probability": 0.9886988053738919,
+          "iterations": 14,
+          "history": [
+            {
+              "step": 0,
+              "subspace": 1,
+              "energy_Ha": -69.42602522689681,
+              "absolute_residual_Ha": 0.0454735488104057,
+              "reference_probability": 0.989375337443501
+            },
+            {
+              "step": 1,
+              "subspace": 2,
+              "energy_Ha": -69.4260337431417,
+              "absolute_residual_Ha": 0.08013267133488255,
+              "reference_probability": 0.9881150037594412
+            },
+            {
+              "step": 2,
+              "subspace": 3,
+              "energy_Ha": -69.4260395456821,
+              "absolute_residual_Ha": 0.12076674424416166,
+              "reference_probability": 0.9874841410243165
+            },
+            {
+              "step": 3,
+              "subspace": 4,
+              "energy_Ha": -69.42603206039955,
+              "absolute_residual_Ha": 0.004584654038812545,
+              "reference_probability": 0.9887574497818062
+            },
+            {
+              "step": 4,
+              "subspace": 5,
+              "energy_Ha": -69.42603262997002,
+              "absolute_residual_Ha": 0.008651610694434413,
+              "reference_probability": 0.9887389913213851
+            },
+            {
+              "step": 5,
+              "subspace": 6,
+              "energy_Ha": -69.42603272939675,
+              "absolute_residual_Ha": 0.0005564032383121462,
+              "reference_probability": 0.9887013640649553
+            },
+            {
+              "step": 6,
+              "subspace": 7,
+              "energy_Ha": -69.4260327310933,
+              "absolute_residual_Ha": 0.00022134307863558796,
+              "reference_probability": 0.9886988717689856
+            },
+            {
+              "step": 7,
+              "subspace": 8,
+              "energy_Ha": -69.42603273112401,
+              "absolute_residual_Ha": 3.279997719637872e-05,
+              "reference_probability": 0.9886988292872334
+            },
+            {
+              "step": 8,
+              "subspace": 9,
+              "energy_Ha": -69.42603273112249,
+              "absolute_residual_Ha": 0.00045870360880600965,
+              "reference_probability": 0.9886991275669134
+            },
+            {
+              "step": 9,
+              "subspace": 10,
+              "energy_Ha": -69.4260327311243,
+              "absolute_residual_Ha": 1.0292835429373415e-06,
+              "reference_probability": 0.9886988057481554
+            },
+            {
+              "step": 10,
+              "subspace": 11,
+              "energy_Ha": -69.4260327311243,
+              "absolute_residual_Ha": 3.9255730524211166e-08,
+              "reference_probability": 0.9886988053699687
+            },
+            {
+              "step": 11,
+              "subspace": 12,
+              "energy_Ha": -69.4260327311243,
+              "absolute_residual_Ha": 2.898604411082835e-09,
+              "reference_probability": 0.9886988053723329
+            },
+            {
+              "step": 12,
+              "subspace": 13,
+              "energy_Ha": -69.4260327311243,
+              "absolute_residual_Ha": 5.000405662534528e-10,
+              "reference_probability": 0.9886988053738358
+            },
+            {
+              "step": 13,
+              "subspace": 14,
+              "energy_Ha": -69.4260327311243,
+              "absolute_residual_Ha": 1.7034181566867777e-11,
+              "reference_probability": 0.9886988053738919
+            }
+          ],
+          "previous_step_squared_overlap": 0.9999696460374145,
+          "operator_set": [
+            "DC",
+            "Breit"
+          ]
+        }
+      },
+      "DC_first_order_Breit_Ha": 0.0007643454732628245,
+      "exact_DCB_minus_DC_Ha": 0.000756841245618034,
+      "already_included_nonlinear_Ha": -7.504227644790471e-06,
+      "DCB_state_DC_expectation_Ha": -69.42678214717603,
+      "DCB_state_Breit_expectation_Ha": 0.000749416051175707,
+      "DCB_expectation_balance_error_Ha": 5.542233338928781e-13
+    }
+  },
+  "photons": {
+    "q": {
+      "DC_photon_eV": 908.6339646033222,
+      "DC_minus_2017_printed_meV": 3.8723151922113175,
+      "exact_Breit_increment_meV": -293.41202835705536,
+      "DC_first_order_Breit_meV": -293.65333664572836,
+      "already_included_nonlinear_meV": 0.2413082886729967,
+      "exact_Breit_minus_2017_printed_meV": -4.018935631045622,
+      "DCB_state_Breit_expectation_meV": -293.17078357550395,
+      "DCB_state_DC_expectation_photon_eV": 908.6337233585414,
+      "Breit_expectation_vs_switch_convention_difference_meV": 0.2412447815514156,
+      "DC_expectation_vs_pure_eigen_convention_difference_meV": -0.24124478079556866,
+      "DCB_expectation_Breit_minus_2017_printed_meV": -3.7776908494942063,
+      "DCB_expectation_DC_minus_2017_printed_meV": 3.631070411415749
+    },
+    "r": {
+      "DC_photon_eV": 908.5113707398132,
+      "DC_minus_2017_printed_meV": 2.0970066154859524,
+      "exact_Breit_increment_meV": -297.5567858237917,
+      "DC_first_order_Breit_meV": -297.84792726008453,
+      "already_included_nonlinear_meV": 0.2911414362928326,
+      "exact_Breit_minus_2017_printed_meV": -4.490155954574561,
+      "DCB_state_Breit_expectation_meV": -297.26431409451465,
+      "DCB_state_DC_expectation_photon_eV": 908.5110782680556,
+      "Breit_expectation_vs_switch_convention_difference_meV": 0.2924717292770538,
+      "DC_expectation_vs_pure_eigen_convention_difference_meV": -0.2924717575751856,
+      "DCB_expectation_Breit_minus_2017_printed_meV": -4.1976842252975075,
+      "DCB_expectation_DC_minus_2017_printed_meV": 1.8045348579107667
+    }
+  },
+  "fixed_full3200_CSF_orbitals_projector": true,
+  "not_orbital_SCF": true,
+  "no_producer_energies_changed": true,
+  "cross_model_comparison_not_unique_error_budget": true,
+  "input_sha256": {
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/g/space.npz": "41bac10e55edc376dab2c9325e68655bda86e23fb5c2f21d8e1e588b22728d65",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/g/state.npz": "90b37a73240aa618fed041ff8b78ed71f7205a4032e13e0372d3f1467945b194",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/g/state.json": "01d5ee1a3f29aca30ae39633377dd1a228aa9edefc67d2a9535fcf151857952f",
+    "docs/xfel_positive_rank2_closure_2026_10_05/g_DC.npz": "03a3523972c69f9ce5ffd666348587a3de40338e1e203a01bee31e22044dabeb",
+    "docs/xfel_bound_rank3_n6_2026_10_05/rank3/g/DC_B.npz": "973c3b4f877394911e3ed400818144d1327dcd64136d4eea75498a33e07a6e8b",
+    "docs/xfel_bound_rank3_n6_2026_10_05/rank3/g/DC_D.npz": "efd09371418751dace48bf574e8885d2e38f991d5dd0a7f823cd96307d71f229",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n5/g/DC_B.npz": "d107add4ee3f0a5e748aba63ce2a69a3abbf766447403f6c85d984924ccee17c",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n5/g/DC_D.npz": "818b9df1b8c97fedf68944ded5e03f559ecaade7dcbf19080336f122e0c94178",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n6/g/DC_B.npz": "be9c0cde9bf25f80995b8b5d49488df1cb2caf80b82b160d4b968d8e0f0e6b19",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n6/g/DC_D.npz": "497a3f1f0e633171f7ec4bb088a326ca8fe24d7c31088a14cffafe22877b7e64",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e400/g/DC_B.npz": "5e791eebae116d4f397707057c90c505c5005fc3445f8d23066c98e6600fd897",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e400/g/DC_D.npz": "b9846f0777fc1ee3016e59af4bdd77820f817d295cd4c337c79f17ae753b54da",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e800/g/DC_B.npz": "9c87c01b9e8a7607fe08bc740f216a5366298a6e49c4a9e8fefd1c835a419de4",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e800/g/DC_D.npz": "d98adddd94c74949979da89139cf86eb1c4e2741d1a5a465413dd6c31761a856",
+    "docs/xfel_uv_tail_continuation_2026_10_06/e1600/g/DC_B.npz": "6f6de9c1f7b48a6c8d0e8d516de1dfcb92713c70fd066da8fac944519900d3f7",
+    "docs/xfel_uv_tail_continuation_2026_10_06/e1600/g/DC_D.npz": "97f6c91efce190fc7825c9019fafd41023e888f9f62f6c050c2fded982ad0cc6",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/g/DC_B.npz": "573f89d31e4d0311911a1b2a674013ef2396cd6269fd3441b8207b4b281b2aac",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/g/DC_D.npz": "5e641a4482a99bc5e859d3c00392d43ee1883e36fbc13b38727c931c94d36fbe",
+    "docs/xfel_positive_rank2_closure_2026_10_05/g_Breit.npz": "6ca07968755a40703972169100a08a8dc10bc41977f1a53a738b86028c046172",
+    "docs/xfel_bound_rank3_n6_2026_10_05/rank3/g/Breit_B.npz": "35c304cf8bdadce7db4f18f720bc6f8ae7121f6fd7ca74b079402b16a99682fb",
+    "docs/xfel_bound_rank3_n6_2026_10_05/rank3/g/Breit_D.npz": "27367bcfce03bb8bdd827973ed35e50686d719842a874a65fe188fc4f37697d5",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n5/g/Breit_B.npz": "666ee45ebc7872bef77635ea623b644353106637cad1fd8b577c60ff5980d2dd",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n5/g/Breit_D.npz": "32655966e7299d547221a70d24468fc9e3b578dd99991cf6acbe1c138ab264eb",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n6/g/Breit_B.npz": "2701999b248a5725224a24919c7213d735735fa1fe1a407ca55a54ee67d754a0",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n6/g/Breit_D.npz": "0ba90ff759bf7b68fe031c441391cad8fdc86121d93b5b1e11a2fbdfd05611f0",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e400/g/Breit_B.npz": "9286ab9719e42f790bdf3b734b2027451594d0f211da00d395ff9e9a82589c07",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e400/g/Breit_D.npz": "8d7c10dc551fbc1f88da6757ae2c70b0370a95dcb4b4db6f7e591b3d5b009186",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e800/g/Breit_B.npz": "a2507f893a7b4a7cc50317d68b6fff95b83de68e1eace89c52a8b709ce8ac16c",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e800/g/Breit_D.npz": "affdf0f90b7bf250b8d4b6a6ef1bddf3be7218b62737aafea8da86c67d6e7636",
+    "docs/xfel_uv_tail_continuation_2026_10_06/e1600/g/Breit_B.npz": "fb008bfd0d1a2a365d8ca6396746a4f8dc45fb3c63bd734101c1949c264df9d6",
+    "docs/xfel_uv_tail_continuation_2026_10_06/e1600/g/Breit_D.npz": "ba32e05e983c1a78c1c3d392973b5f346b8de513852749f3078d6b18565553ff",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/g/Breit_B.npz": "28dcca5963bcb1d519a673602ae05070bc7d77721eb82bda8b6d43ca7d6728b7",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/g/Breit_D.npz": "7d8fb374a568180022239482dc81d2a2af302a845a044149f0b0bed81ca1b646",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/q/space.npz": "e3e2d9031c70e59bc886e946541ba184a560c2d2fa86df028f23668b56cff620",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/q/state.npz": "c8bb516b8285cceb0467206295953e6a4c3501ef4a81174b57a1de5153ac0e5a",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/q/state.json": "9fd9e148a82e60c9e73ffc8627b28bafeff7ca7f9cdf9cf6c63115ca36320037",
+    "docs/xfel_positive_rank2_closure_2026_10_05/q_DC.npz": "cf8d6ff14e58d723f58f97032a7e408acba47d1644632e7065d05b8df0126b58",
+    "docs/xfel_bound_rank3_n6_2026_10_05/rank3/q/DC_B.npz": "4d5b03ec4d4e3ebae910512081a1d6959d858a622e5d3157c4ee61a69f35231c",
+    "docs/xfel_bound_rank3_n6_2026_10_05/rank3/q/DC_D.npz": "81d9674e82894677c29188b5f9fee98a218e75afd3a307d5a373f28f3152065c",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n5/q/DC_B.npz": "8e83d61ab63ec3417248656ee8ce3a529bc144d2f096ee4195294ba4fbc2a588",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n5/q/DC_D.npz": "7386955cee4b466dc0b4043f5225015926dcffb9b34e308ab9ccd54e2533a992",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n6/q/DC_B.npz": "1264153cf4f31a755b73236af524c651ae22c7751a2d857ca9718330a2ff4c92",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n6/q/DC_D.npz": "c85ca2e7ad7b1551aa4147da3364a58efd519681679f9c93fdfd6513bd7a4a26",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e400/q/DC_B.npz": "df302074a1afda6e48c34e596429f17434250f670ee9f659f8224c5d687ed454",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e400/q/DC_D.npz": "830236650f560c1c806d304693d3c4bc620efa605821630f1ef8378e02ce9991",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e800/q/DC_B.npz": "4c637ead4b60317e7182c02a44b42516a671c92b739fbb27a40af43dde0a29fd",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e800/q/DC_D.npz": "136e962e3dabccb64f70d745f4d61fdc95954bb5a712d24be5bf0169a60aae88",
+    "docs/xfel_uv_tail_continuation_2026_10_06/e1600/q/DC_B.npz": "9609d78d6e5a62d0d788b512b9f6d1fe656421d89a345877e46526d5c3279baa",
+    "docs/xfel_uv_tail_continuation_2026_10_06/e1600/q/DC_D.npz": "5889c7b607e3f66b49e05348dbb0610304b00bf4f71593dc556b4ff6ad7b19f2",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/q/DC_B.npz": "556c7fd8daa48a417954196ae6cead09a560ab2d02aa3364444a2c4669afd80a",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/q/DC_D.npz": "43fdc405bdcc437d6be0bd7b9cc65a13583c4e778ec2730fb408d09d18dffccb",
+    "docs/xfel_positive_rank2_closure_2026_10_05/q_Breit.npz": "8a234f260675a983c429804a52e1ff200cee20ef2748447f6633380f2aa6137d",
+    "docs/xfel_bound_rank3_n6_2026_10_05/rank3/q/Breit_B.npz": "88ce71c4d2a9457f4312c9eb2974e1c661615822c870fb6bd8345661ddce7524",
+    "docs/xfel_bound_rank3_n6_2026_10_05/rank3/q/Breit_D.npz": "ed3b24117833064a3b33eb9b8aa7cebae5f4a180dec57e33872edeb47b765843",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n5/q/Breit_B.npz": "b8b62abb35d13b5e85c1ef15a34776b30b24aa172ec85d6d8bb02b44b397aba8",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n5/q/Breit_D.npz": "c4730484150110e2404ce6bf27d9b9e237bae2db3742c208a03981e7199178f6",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n6/q/Breit_B.npz": "216d27906a70bc774743d4739b39eeb00960b52cf94c695ed6f2d7de0c0b1e0e",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n6/q/Breit_D.npz": "10b1fbcced632ad5a60d3c4b018c41c70ce7aa129413c1cb3fb5ad1b26b5d606",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e400/q/Breit_B.npz": "e4e8f5ea96499e25d6975e6976a84e46ca5499798076fc34e5d391cbd9a8bffe",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e400/q/Breit_D.npz": "9764bdcb01ed582a82ee95ee43b654c354e7448f3233de37e2e8caa808673cfa",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e800/q/Breit_B.npz": "52b1d0d4e3b1853bf2991f0d90309f2efdec9dfafbdc6d8523a6871a8a19bff6",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e800/q/Breit_D.npz": "b9b2e2f8994523d1e97f5cac27687d4643169bab5cc95be7bf3e3f4de621f48f",
+    "docs/xfel_uv_tail_continuation_2026_10_06/e1600/q/Breit_B.npz": "cdabc3ee1752cccd9de59d634d1435d0e258b872edf13be9a13dd76022197c53",
+    "docs/xfel_uv_tail_continuation_2026_10_06/e1600/q/Breit_D.npz": "57d85ad937de05ed85e7fcdad82b5fc306c850d3f55a8a9dc1d728bc9c863739",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/q/Breit_B.npz": "aed4831f9416c59abdaaf32f110534de5e3c50b5053a9903284ca9ef2cac48ee",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/q/Breit_D.npz": "5c866dd76ff3656b05d9904132b0974b888515bf8e92c24fdd432cbe37b933fb",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/r/space.npz": "c7f69a067fcb28cffef03f82ba6ee755bf6047496044b46b2ddba3370210640b",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/r/state.npz": "9536da99f728876f4b9e8f0451c22ab4140033aec1c0347ad0e82b694dd83f30",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/r/state.json": "7a6fe9dd26f7f14d87f316065acc0b8f742b4ebb436e6686a0d9ab52ea27769d",
+    "docs/xfel_positive_rank2_closure_2026_10_05/r_DC.npz": "cdb15715c8323dde502f1eb2c04fea07fef507538f9034c2536ca2eac2453be1",
+    "docs/xfel_bound_rank3_n6_2026_10_05/rank3/r/DC_B.npz": "7a226e9425a7bb7c2d6c82785256a43750a078d93a03ff44fe62b8da065ae71d",
+    "docs/xfel_bound_rank3_n6_2026_10_05/rank3/r/DC_D.npz": "521cd88a7ad2367ac4f3540cb064764b190162aa7adc3560810b53feaaf2fda6",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n5/r/DC_B.npz": "fa9491b486073046da91784faebd6422522c7aa80dd9a4fabf42de5d4541b5fb",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n5/r/DC_D.npz": "d2bbc3cc4e1c48fadf52598a6c992ceb85daeef603ef19a81216ed22bb4c9cb0",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n6/r/DC_B.npz": "581bf53c31456c4ba56076ad337d16b2b5e528221775fd232b965a9794bd996e",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n6/r/DC_D.npz": "7d8619d74bc435e6e12be377c27c6ce34d603c6cd959c8cc730edf9838d5bf5a",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e400/r/DC_B.npz": "1f920f0c8a6bc4fa7c2ad48f51dd94c390a6e4699ffa667520665f298cc5c0fa",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e400/r/DC_D.npz": "ebc36fca42ee58ed771605b2a352af495701c202d2a3a363998ab40d0302fed3",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e800/r/DC_B.npz": "09fa5182a4998dfdaea7be748b700265551befe0941cfafcc20910a1b02eb78b",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e800/r/DC_D.npz": "4f17dfc28047c5e85c60bf6acdf8459e0f80609b192eedeaf1e0c533aec47261",
+    "docs/xfel_uv_tail_continuation_2026_10_06/e1600/r/DC_B.npz": "8cfd4a373824e2cb3b36c351d38e2d6ba13c925bbc054daf9183d58d08c4c5fe",
+    "docs/xfel_uv_tail_continuation_2026_10_06/e1600/r/DC_D.npz": "db03a22436c86849387b2bbb713ee0e1b8156f6efe9f6873fc28be3d5c5481ae",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/r/DC_B.npz": "ffa6fcd51a2f237ea5d1e3f7257dab6f26a41d0e8b71975d948b908c9529994d",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/r/DC_D.npz": "6d097b982f0f235cb5fdd3bd1ad676c4f4a2136cd91c37cb597fc38a195ef143",
+    "docs/xfel_positive_rank2_closure_2026_10_05/r_Breit.npz": "90a18c25047604305fde8d470b374ee8ce020d78fb9c5fffd9b829d86094ffd5",
+    "docs/xfel_bound_rank3_n6_2026_10_05/rank3/r/Breit_B.npz": "66dfb20cf45018d6c405627298fff2632ec021e65ddbdbcf3b44e88fdb22ac57",
+    "docs/xfel_bound_rank3_n6_2026_10_05/rank3/r/Breit_D.npz": "3100c556f725198ea0c9b460b6044474ba205f0ae422f981c3a211a6365bccd9",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n5/r/Breit_B.npz": "8106db194c37685ff0d7a06bbd105bb83459b7c69acc4a3ab35f72fd34877511",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n5/r/Breit_D.npz": "d5cd80783413796ecf75f1d1c21012213eb15ab40acc526221d397846f20bd28",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n6/r/Breit_B.npz": "cb4475c44c141e8239b111482d0723271376cc6556ecce1689f7f8c42b9d61ef",
+    "docs/xfel_bound_rank3_n6_2026_10_05/n6/r/Breit_D.npz": "37ad0663d9f523889cc0cd5beb803d3ef89010ccfa8c53c44d233cc74610934b",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e400/r/Breit_B.npz": "9549c9c4d9afae99b5a5e89f6ddc37f96ecef6a4297fc3368ed7ca40750c284f",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e400/r/Breit_D.npz": "33213c321b98c8ec35d73739d4f41bf2da9b3644d0db6ead87fe026975527bcc",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e800/r/Breit_B.npz": "ea89489c995f60849044931a0d61e2cd8bd022ce503873f5fd45a0b3f0697b85",
+    "docs/xfel_high_energy_pair_cutoff_2026_10_05/e800/r/Breit_D.npz": "00741f4bd7fac455ca7b24bf895ca189b850fbf66cc9ef100c1043414e57706c",
+    "docs/xfel_uv_tail_continuation_2026_10_06/e1600/r/Breit_B.npz": "faa875dd4218f45dd887e091772831a69d04bd115cd4724f127d51b915325e54",
+    "docs/xfel_uv_tail_continuation_2026_10_06/e1600/r/Breit_D.npz": "d7a9402fcdc1698cb35a6561c614c8e8017e3547a80c3112646575e2ab5c1618",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/r/Breit_B.npz": "05d7980520abc035374c0c968e2b03bec2334e0f73a6f071adca7d12ee331fea",
+    "docs/xfel_tail_breit_pole_2026_10_06/e3200/r/Breit_D.npz": "8f882cd923f0becf502245a09f10f908a2cfbed25d6261165bffa6cf56d18ef3"
+  },
+  "script_sha256": "68467bd3768570b6033337189b01fdeffb0ac0829a49b32c7f45c2b3fd4509e0",
+  "adapter_sha256": "49475a96fdb8d6f9981b74afede71dc3113f343a5b3e95676144beda227456d7",
+  "protocol_sha256": "bf3ef67bac51350c31b6a1c4acb6338ef78e1e519d94d3e595860cda037f560d",
+  "seconds": 997.2856475020526,
+  "peak_RSS_GiB": 51.80545425415039
+}

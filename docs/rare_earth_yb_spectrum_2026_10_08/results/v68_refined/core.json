@@ -1,0 +1,295 @@
+{
+  "converged": true,
+  "iterations": 49,
+  "residual": 1.1161688423636122e-09,
+  "total_energy_hartree": -14067.058077418147,
+  "solver_diagnostics": {
+    "orbital_update_tolerance": null,
+    "undamped_orbital_update_norm": null,
+    "applied_orbital_update_norm": null,
+    "orbital_update_metric": "Dirac overlap matrix",
+    "eigenpair_tolerance": 1.0000000000000001e-11,
+    "_core_hole_rotation_mode": "local_stationary_v1",
+    "_eigensolver_refinement_policy": "requested_root_spectral_residual_newton_v3",
+    "_diis_residual_policy": "actual_sweep_input_v1",
+    "_nuclear_profile": {
+      "model": "fermi",
+      "radius_mass_number": 175,
+      "requested_mass_number": null,
+      "rms_radius_fm": 5.246119777900239,
+      "reference_rms_radius_fm": 5.246119777900239,
+      "radius_source": "empirical_0.836_A_cuberoot_plus_0.570_fm",
+      "radius_clamped": false,
+      "diffuseness_bohr": 9.890591372451268e-06,
+      "half_density_radius_bohr": 0.00011885936071054029
+    }
+  },
+  "nuclear_profile": {
+    "model": "fermi",
+    "radius_mass_number": 175,
+    "requested_mass_number": null,
+    "rms_radius_fm": 5.246119777900239,
+    "reference_rms_radius_fm": 5.246119777900239,
+    "radius_source": "empirical_0.836_A_cuberoot_plus_0.570_fm",
+    "radius_clamped": false,
+    "diffuseness_bohr": 9.890591372451268e-06,
+    "half_density_radius_bohr": 0.00011885936071054029
+  },
+  "calculation_spec": {
+    "Z": 70.0,
+    "method": "DHF",
+    "engine": "bspline",
+    "physics": {
+      "equation": "dirac",
+      "nuclear": "fermi",
+      "nuclear_profile": {
+        "model": "fermi",
+        "radius_mass_number": 175,
+        "requested_mass_number": null,
+        "rms_radius_fm": 5.246119777900239,
+        "reference_rms_radius_fm": 5.246119777900239,
+        "radius_source": "empirical_0.836_A_cuberoot_plus_0.570_fm",
+        "radius_clamped": false,
+        "diffuseness_bohr": 9.890591372451268e-06,
+        "half_density_radius_bohr": 0.00011885936071054029
+      },
+      "exchange": "hf",
+      "nuclear_atomic_weight": null,
+      "screening_potential": null,
+      "electron_projector": "self_consistent",
+      "rest_energy": "subtracted",
+      "units": "atomic"
+    },
+    "state": {
+      "subshells": [
+        [
+          1,
+          -1,
+          2.0
+        ],
+        [
+          2,
+          -1,
+          2.0
+        ],
+        [
+          2,
+          1,
+          2.0
+        ],
+        [
+          2,
+          -2,
+          4.0
+        ],
+        [
+          3,
+          -1,
+          2.0
+        ],
+        [
+          3,
+          1,
+          2.0
+        ],
+        [
+          3,
+          -2,
+          4.0
+        ],
+        [
+          3,
+          2,
+          4.0
+        ],
+        [
+          3,
+          -3,
+          6.0
+        ],
+        [
+          4,
+          -1,
+          2.0
+        ],
+        [
+          4,
+          1,
+          2.0
+        ],
+        [
+          4,
+          -2,
+          4.0
+        ],
+        [
+          4,
+          2,
+          4.0
+        ],
+        [
+          4,
+          -3,
+          6.0
+        ],
+        [
+          5,
+          -1,
+          2.0
+        ],
+        [
+          5,
+          1,
+          2.0
+        ],
+        [
+          5,
+          -2,
+          4.0
+        ],
+        [
+          4,
+          3,
+          6.0
+        ],
+        [
+          4,
+          -4,
+          8.0
+        ]
+      ],
+      "virtual_orbital_keys": [],
+      "jj_configurations": [
+        {
+          "weight": 1.0,
+          "subshells": [
+            [
+              1,
+              -1,
+              2.0
+            ],
+            [
+              2,
+              -1,
+              2.0
+            ],
+            [
+              2,
+              1,
+              2.0
+            ],
+            [
+              2,
+              -2,
+              4.0
+            ],
+            [
+              3,
+              -1,
+              2.0
+            ],
+            [
+              3,
+              1,
+              2.0
+            ],
+            [
+              3,
+              -2,
+              4.0
+            ],
+            [
+              3,
+              2,
+              4.0
+            ],
+            [
+              3,
+              -3,
+              6.0
+            ],
+            [
+              4,
+              -1,
+              2.0
+            ],
+            [
+              4,
+              1,
+              2.0
+            ],
+            [
+              4,
+              -2,
+              4.0
+            ],
+            [
+              4,
+              2,
+              4.0
+            ],
+            [
+              4,
+              -3,
+              6.0
+            ],
+            [
+              5,
+              -1,
+              2.0
+            ],
+            [
+              5,
+              1,
+              2.0
+            ],
+            [
+              5,
+              -2,
+              4.0
+            ],
+            [
+              4,
+              3,
+              6.0
+            ],
+            [
+              4,
+              -4,
+              8.0
+            ]
+          ]
+        }
+      ],
+      "averaging": {
+        "selection": "hamiltonian",
+        "method": "hamiltonian",
+        "weights": "hamiltonian_eigenvectors"
+      }
+    },
+    "numerics": {
+      "ns": 230,
+      "ks": 9,
+      "r_min": 1.0865925223969749e-05,
+      "r_max": 60.0897019520305,
+      "kinetic_balance": true,
+      "core_hole_stationary": true,
+      "basis_knots": {
+        "shape": [
+          239
+        ],
+        "dtype": "float64",
+        "sha256": "c7a6bb80c8d57857ef87cba5fc698334d20c8827f606e8f5a84e58c7debb6036"
+      },
+      "max_iter": 160,
+      "tolerance": 1e-08,
+      "damping": null,
+      "mode": "batch",
+      "damping_release_residual": 0.01,
+      "orbital_tolerance": null,
+      "eigenpair_tolerance": 1.0000000000000001e-11
+    },
+    "corrections": {},
+    "schema_version": 1
+  }
+}

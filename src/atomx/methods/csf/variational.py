@@ -23,15 +23,36 @@ from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices
 
 
 class CSFOrbitalFunctional:
-    """Ground-state CI functional on orthonormal B-spline radial spinors.
+    """Ground or fixed-ensemble CI functional on orthonormal radial spinors.
 
     The gradient is Euclidean in the P/Q coefficient vectors. Project it
     into an orthogonality-preserving tangent space before an update. At an
     exact ground-state degeneracy we return the equal-weight ensemble
-    gradient. Breit/QED are subsequent RCI/perturbative corrections.
+    gradient. An explicit CIStateAverage selects excited roots within each
+    symmetry block. Breit/QED are subsequent RCI/perturbative corrections.
+    ``level_tracking`` optionally binds that ensemble to a frozen physical
+    CI reference, resolved on every energy and gradient trial.
+    ``dense_cluster_gap`` explicitly refines near-root numerical subspaces
+    of the same full real Hamiltonian; it is not a physical degeneracy gate.
     """
 
-    def __init__(self, csfs, bsp_data, Z, nuclear_potential=None, cache=None):
+    def __init__(self, csfs, bsp_data, Z, nuclear_potential=None, cache=None,
+                 *, state_average=None, level_tracking=None, dense_cluster_gap=None):
+        from atomx.physics.csf.state_average import CIStateAverage
+        if state_average is not None and not isinstance(state_average, CIStateAverage):
+            raise TypeError('state_average must be CIStateAverage or None')
+        if level_tracking is not None:
+            from atomx.physics.csf.tracking import CIBasisTracking
+            if not isinstance(level_tracking, CIBasisTracking) or level_tracking.state_average != state_average:
+                raise ValueError('level_tracking must reference this CIStateAverage target')
+        self.level_tracking = level_tracking
+        self.dense_cluster_gap = dense_cluster_gap
+        self.state_average = state_average
+        self.target_description = ('ground-state energy (equal ensemble at exact degeneracy)'
+                                   if state_average is None else
+                                   'fixed CI level average in shared orthonormal orbitals')
+        if level_tracking is not None:
+            self.target_description = 'frozen-reference physical CI subspace average in shared orthonormal orbitals'
         self.csfs = csfs
         self.data = bsp_data
         self.Z = Z
@@ -58,18 +79,45 @@ class CSFOrbitalFunctional:
         result = ci_result
         if result is None:
             result = ci_solve(self.csfs, orbitals, self.keys, self.data, self.Z, self.ns,
-                              nuclear_potential=self.nuclear_potential, convol_cache=self.cache)
-        energy = float(result.ground_energy)
+                              nuclear_potential=self.nuclear_potential, convol_cache=self.cache,
+                              dense_cluster_gap=self.dense_cluster_gap)
+        if self.level_tracking is not None:
+            state_weights, tracking = self.level_tracking.resolve(self.csfs, result, orbitals, self.metric)
+        else:
+            state_weights = (None if self.state_average is None else
+                             self.state_average.weights(self.csfs, result))
+        energy = (float(result.ground_energy) if state_weights is None else
+                  float(state_weights @ result.state_energies))
         if not gradient:
             return energy, result
-        weights = self.radial_density.contract(result)
-        self.last_weights = weights
+        weights = self.radial_density.contract(result, state_weights)
+        self.last_state_weights = state_weights
+        if self.level_tracking is not None:
+            self.last_tracking_diagnostics = tracking
+        gradient = self.gradient_from_weights(orbitals, weights, gradient_keys=gradient_keys)
+        return energy, gradient, result
+
+    def gradient_from_weights(self, orbitals, weights, *, gradient_keys=None,
+                              record_diagnostics=True):
+        """Differentiate a contracted Hamiltonian RDM using shared radial pairs.
+
+        Linear combinations from several electron sectors can be contracted
+        before this step, so each distinct Coulomb source is evaluated once.
+        ``weights`` retains the Hamiltonian angular kernel's signed terms.
+        ``record_diagnostics=False`` evaluates a transition/response gradient
+        without replacing the accepted energy state's RDM or populations.
+        """
+        if not isinstance(record_diagnostics, (bool, np.bool_)):
+            raise TypeError('record_diagnostics must be boolean')
+        if record_diagnostics:
+            self.last_weights = weights
         selected = self.keys if gradient_keys is None else tuple(gradient_keys)
         if any(key not in self.keys for key in selected):
             raise ValueError('gradient requested for an orbital outside the CSF basis')
         gradient = {key: np.zeros(2 * self.ns) for key in selected}
-        self.last_occupations = {key: max(0., weights.get(("h", key[0], key[1], key[0]), 0.))
-                                 for key in self.keys}
+        if record_diagnostics:
+            self.last_occupations = {key: max(0., weights.get(("h", key[0], key[1], key[0]), 0.))
+                                     for key in self.keys}
         vectors = {key: np.concatenate(orbitals[key]) for key in self.keys}
         gradient_terms = {}
 
@@ -102,8 +150,9 @@ class CSFOrbitalFunctional:
                 if right in gradient:
                     gradient[right][:self.ns] += weight * (pp @ pl)
                     gradient[right][self.ns:] += weight * (qq @ ql)
-        self.last_gradient = gradient
-        return energy, gradient, result
+        if record_diagnostics:
+            self.last_gradient = gradient
+        return gradient
 
     def energy_for_weights(self, orbitals, weights, *, integral_cache=None):
         """Evaluate a fixed coherent state without constructing its gradient."""

@@ -33,15 +33,14 @@ from typing import Callable, Dict, List, Mapping, Optional, Tuple
 import numpy as np
 
 from atomx.angular.recoupling import lj_from_kappa
-from atomx.config.subshell import l_letter
-from atomx.constants import HARTREE_EV
+from atomx.config.subshell import L_LETTERS, l_letter
 
 Subshell = Tuple[int, int]          # (n, kappa)
 Config = Mapping[Subshell, float]   # occupied subshells only
 ConfigKey = Tuple[Tuple[int, int, float], ...]
 
 _CM2_PER_A0SQ = 2.8002852e-17
-_LCHAR = "spdfghiklmno"
+_LCHAR = L_LETTERS
 
 
 @dataclass(frozen=True)
@@ -86,6 +85,105 @@ def _key(config: Config) -> ConfigKey:
                         for (n, k), q in config.items() if q >= 0.5))
 
 
+def _table_key(config: Config) -> str:
+    """Keep jj occupations in serialized identities, not merged LS labels.
+
+    Two jj distributions can share the human label ``2p3`` but remain
+    different cascade states. A merged label must not overwrite rows.
+    """
+    return "|".join(f"{n},{k},{float(q)!r}" for n, k, q in _key(config))
+
+
+def shell_support(config: Config) -> frozenset:
+    """Merged-(n, l) shells occupied — the skeleton-sharing key
+    (performance plan layer 0a).
+
+    Every configuration with the same occupied (n, l) shell SET shares
+    ONE structure solve.  Ne: the 62 enumerated configurations collapse
+    to 7 supports ({1s,2s,2p} ... {2p}); the user-measured "63 -> ~8"
+    of the 2026-10-03 work order.
+    """
+    return frozenset((n, k if k > 0 else -k - 1) for (n, k) in config)
+
+
+def _partner_kappa(k: int) -> int | None:
+    """The other kappa of the same (n, l) shell, if it exists."""
+    ell = k if k > 0 else -k - 1
+    if ell == 0:
+        return None
+    return -(ell + 1) if k > 0 else ell
+
+
+def skeleton_config_for(config: Config) -> Config:
+    """Maximal occupation over the same merged shells: every jj subshell
+    of every occupied (n, l) shell filled to its 2|kappa| capacity.
+
+    The xatom_mc_fly architecture ("one atom, one orbital set") made
+    per-shell-family: the skeleton is a CLOSED shell — the cleanest SCF
+    anchor — and every sub-configuration of the family reuses its
+    radials.  Justified by the triple radial falsification (frozen
+    MCDHF = DHF = relaxed-DHF on the Fe anchor panel: the radial basis
+    is insensitive to the ionisation path).
+    """
+    out: Dict[Subshell, float] = {}
+    for (n, k) in config:
+        out[(n, k)] = 2.0 * abs(k)
+        pk = _partner_kappa(k)
+        if pk is not None:
+            out[(n, pk)] = 2.0 * abs(pk)
+    return out
+
+
+def auger_triples(config: Config) -> List[Tuple[Subshell, Subshell, Subshell]]:
+    """Hole-gate-legal (hole, source, source2) triples — pure occupation
+    logic, no solve (the gate of ``RateProvider._build_auger``).
+
+    An Auger channel needs a VACANCY (jj occupation below the 2|kappa|
+    capacity — the same 4l+2 -> 2|kappa| correction enumerate_configs
+    received in v3; the old merged-shell gate admitted spurious
+    same-shell holes on jj-closed subshells, which only the negative
+    Auger-energy check caught) with electron(s) in HIGHER subshells to
+    fill and emit.  Closed shells have no channels, but the LS chain
+    runs the full shooting continuum solve per triple before
+    discovering the rate is zero — gating by vacancy presence first
+    turns the ~64-solves-per-config enumeration into ~0 for closed
+    shells (the dominant configuration-graph population).
+    """
+    def _capacity(k: int) -> float:
+        return 2.0 * abs(k)
+
+    def _subshell_order(nk: Subshell):
+        # ENERGY order, not raw (n, kappa) tuple order: the raw sort
+        # puts kappa=-2 (2p3/2) BEFORE kappa=+1 (2p1/2) and 2s between
+        # them, so L-vacancy channels lost 2p3/2 sources and the L2L3
+        # Coster-Kronig set entirely (1s-hole KLL channels were
+        # unaffected — every L subshell sorts above 1s either way —
+        # which is why the Ne anchor panel never caught it).
+        n, k = nk
+        ell = k if k > 0 else -k - 1
+        return (n, ell, 1 if k < 0 else 0)
+
+    subs_sorted = sorted(config, key=_subshell_order)
+    triples: List[Tuple[Subshell, Subshell, Subshell]] = []
+    for i, hole in enumerate(subs_sorted):
+        if config[hole] >= _capacity(hole[1]):
+            continue                      # full: no vacancy
+        higher = [s for s in subs_sorted[i + 1:]
+                  if config.get(s, 0.0) >= 1.0]
+        if not higher:
+            continue                      # nothing above to decay
+        for a in higher:
+            for b in higher:
+                if b < a:
+                    continue
+                if config[a] + config[b] < 1.5:
+                    continue
+                if a == b and config[a] < 1.5:
+                    continue              # equivalent pair needs 2
+                triples.append((hole, a, b))
+    return triples
+
+
 def _daughter_after_pi(config: Config, target: Subshell) -> Config:
     out = dict(config)
     out[target] = out.get(target, 0.0) - 1.0
@@ -111,12 +209,25 @@ class RateProvider:
     ``atom_factory(config_label)`` must solve the structure for the
     labelled configuration and return the solved result object.
     Subclass to swap providers (mscheme-CI Auger tier, resonant PI).
+
+    Structure solves are shared by SHELL SUPPORT (layer 0a, default):
+    every configuration of the same occupied-(n,l)-shell set reuses the
+    radials of its closed-shell skeleton (:func:`skeleton_config_for`).
+    ``n_solves`` counts skeleton solves for measurement gates.  An
+    explicit ``skeleton_config`` forces ONE global skeleton instead
+    (the xatom_mc_fly single-orbital-set mode).
     """
 
-    def __init__(self, atom_factory: Callable[[str], object]):
+    def __init__(self, atom_factory: Callable[[str], object],
+                 skeleton_config: Config | None = None):
         self._atom_factory = atom_factory
         self._unwrap = lambda r: getattr(r, "_result", r)
-        self._solves: Dict[ConfigKey, object] = {}
+        self._forced_skeleton: object | None = None
+        if skeleton_config is not None:
+            self._forced_skeleton = self._unwrap(
+                self._atom_factory(config_label(skeleton_config)))
+        self._skeletons: Dict[frozenset, object] = {}
+        self.n_solves = 0
         self._pi_cache: Dict[Tuple[ConfigKey, float], Dict[Subshell, float]] = {}
         self._auger_cache: Dict[ConfigKey, List] = {}
 
@@ -139,7 +250,7 @@ class RateProvider:
         key = _key(config)
         ckey = (key, photon_energy_eV)
         if ckey not in self._pi_cache:
-            from atomx.constants import ALPHA
+            from atomx.constants import ALPHA, HARTREE_EV
             from atomx.scattering.models import ContinuumModel
             from atomx.scattering.radiative_recombination import (
                 rr_cross_section,
@@ -187,43 +298,20 @@ class RateProvider:
     # -- internals ----------------------------------------------------------
 
     def _solve(self, config: Config) -> object:
-        key = _key(config)
-        if key not in self._solves:
-            self._solves[key] = self._atom_factory(config_label(config))
-        return self._solves[key]
+        if self._forced_skeleton is not None:
+            return self._forced_skeleton
+        support = shell_support(config)
+        if support not in self._skeletons:
+            self._skeletons[support] = self._unwrap(
+                self._atom_factory(config_label(skeleton_config_for(config))))
+            self.n_solves += 1
+        return self._skeletons[support]
 
     def _build_auger(self, config: Config) -> list:
+        from atomx.constants import HARTREE_EV
         from atomx.scattering.autoionization import auger_rate_csf_average
 
-        # HOLE GATE (2026-10-02 XFEL increment): an Auger channel needs
-        # a vacancy (occupation below capacity) with at least two
-        # electrons in HIGHER subshells to fill and emit.  Closed shells
-        # have no channels, but the LS chain runs the full shooting
-        # continuum solve per subshell-triple before discovering the
-        # rate is zero — gating by vacancy presence first turns the
-        # ~64-solves-per-config enumeration into ~0 for closed shells
-        # (the dominant configuration-graph population).
-        def _capacity(k: int) -> float:
-            return 2.0 * (2.0 * (k if k > 0 else -k - 1) + 1)
-
-        subs_sorted = sorted(config)  # (n, kappa) ascending
-        triples = []
-        for i, hole in enumerate(subs_sorted):
-            if config[hole] >= _capacity(hole[1]):
-                continue                      # full: no vacancy
-            higher = [s for s in subs_sorted[i + 1:]
-                      if config.get(s, 0.0) >= 1.0]
-            if len(higher) < 1:
-                continue                      # nothing above to decay
-            for a in higher:
-                for b in higher:
-                    if b < a:
-                        continue
-                    if config[a] + config[b] < 1.5:
-                        continue
-                    if (a == b and config[a] < 1.5):
-                        continue              # equivalent pair needs 2
-                    triples.append((hole, a, b))
+        triples = auger_triples(config)
         if not triples:
             return []
 
@@ -499,7 +587,8 @@ def build_rate_table(atom_factory, base_config: Config,
         label = config_label(config)
         sigmas = prov.pi_sigmas_cm2(config, photon_energy_eV)
         channels = prov.auger_channels(config)
-        table[label] = {
+        table[_table_key(config)] = {
+            "label": label,
             "sigma_cm2": {f"{n},{k}": s for (n, k), s in sigmas.items()},
             "auger": [
                 {"hole": list(h), "s1": list(s1), "s2": list(s2),
@@ -573,29 +662,33 @@ def enumerate_configs(base_config: Config,
     return out
 
 
-def _rate_row_worker(job: dict) -> dict:
-    """Pool worker: solve ONE config and build its picklable rate row.
+def _rate_group_worker(job: dict) -> dict:
+    """Pool worker: solve ONE shell-skeleton, build rows for its configs.
 
-    ``job = {"config": {"n,k": q, ...}, "Z": Z, "photon_eV": E,
-    "correlation": "fac_frozen"}``.  Runs in an isolated process with
-    pinned BLAS threads; returns the table row (sigma_cm2 + auger
-    channels + occupations) or {"error": ...} so one bad config never
-    kills the build.
+    ``job = {"configs": [{"n,k": q, ...}, ...], "z": Z, "photon_eV": E,
+    "correlation": str, "auger": bool}`` — every config in a job shares
+    the merged-(n,l) support, so the provider's lazy per-support sharing
+    performs exactly ONE structure solve per job.  Runs with pinned BLAS
+    threads and an isolated numba cache (the concurrent_solve
+    convention).  Returns ``{"rows": [...], "solves": n}`` where each
+    row is the v3 shape (label + sigma_cm2 + auger + occupations) or an
+    ``{"error": ...}`` row so one bad config never kills the build.
     """
     import os
     for var in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS",
                 "MKL_NUM_THREADS", "NUMEXPR_NUM_THREADS"):
         os.environ[var] = "1"
-    label_config = {
-        (int(k.split(",")[0]), int(k.split(",")[1])): q
-        for k, q in job["config"].items()
-    }
-    label = config_label(label_config)
+    if os.environ.get("ATOMX_NUMBA_CACHE_DIR"):
+        os.environ["NUMBA_CACHE_DIR"] = os.environ["ATOMX_NUMBA_CACHE_DIR"]
+
+    rows: List[dict] = []
+    solves = 0
     try:
         from atomx import Atom, Correlation
 
         z = int(job["z"])
         corr = job.get("correlation", "fac_frozen")
+        photon_eV = float(job["photon_eV"])
 
         def factory(lbl):
             return Atom(
@@ -606,69 +699,223 @@ def _rate_row_worker(job: dict) -> dict:
                 corrections="none").solve()
 
         prov = RateProvider(factory)
-        sigmas = prov.pi_sigmas_cm2(label_config,
-                                    float(job["photon_eV"]))
-        channels = prov.auger_channels(label_config)
-        return {
-            "label": label,
-            "sigma_cm2": {f"{n},{k}": v
-                          for (n, k), v in sigmas.items()},
-            "auger": [{"hole": list(h), "s1": list(s1),
-                       "s2": list(s2), "rate": float(g)}
-                      for h, s1, s2, g in channels],
-            "occupations": {f"{n},{k}": q
-                           for (n, k), q in label_config.items()},
-        }
-    except Exception as exc:  # noqa: BLE001 - record and continue
-        return {"label": label, "error": f"{type(exc).__name__}: {exc}",
-                "occupations": {f"{n},{k}": q
-                               for (n, k), q in label_config.items()}}
+        for cfg_s in job["configs"]:
+            label_config = {
+                (int(k.split(",")[0]), int(k.split(",")[1])): q
+                for k, q in cfg_s.items()
+            }
+            label = config_label(label_config)
+            occ = {f"{n},{k}": q for (n, k), q in label_config.items()}
+            try:
+                sigmas = prov.pi_sigmas_cm2(label_config, photon_eV)
+                channels = (prov.auger_channels(label_config)
+                            if job.get("auger", True) else [])
+                rows.append({
+                    "label": label,
+                    "sigma_cm2": {f"{n},{k}": v
+                                  for (n, k), v in sigmas.items()},
+                    "auger": [{"hole": list(h), "s1": list(s1),
+                               "s2": list(s2), "rate": float(g)}
+                              for h, s1, s2, g in channels],
+                    "occupations": occ,
+                })
+            except Exception as exc:  # noqa: BLE001 - record, continue
+                rows.append({"label": label,
+                             "error": f"{type(exc).__name__}: {exc}",
+                             "occupations": occ})
+        solves = prov.n_solves
+    except Exception as exc:  # noqa: BLE001 - whole-job failure
+        rows.append({"label": "<worker>",
+                     "error": f"{type(exc).__name__}: {exc}",
+                     "occupations": {}})
+    return {"rows": rows, "solves": solves}
+
+
+def _support_of_serialized(cfg_s: dict) -> frozenset:
+    """Merged-(n, l) support key of a serialized config dict."""
+    out = set()
+    for k in cfg_s:
+        n, kk = (int(x) for x in k.split(","))
+        out.add((n, kk if kk > 0 else -kk - 1))
+    return frozenset(out)
+
+
+def _group_by_support(cfg_dicts: List[dict]) -> List[List[dict]]:
+    """Group serialized configs by merged-(n,l) support (deterministic
+    order: size descending, then key)."""
+    groups: Dict[frozenset, List[dict]] = {}
+    for c in cfg_dicts:
+        groups.setdefault(_support_of_serialized(c), []).append(c)
+    return sorted(groups.values(),
+                  key=lambda g: (-len(g), sorted(g[0])))
+
+
+def _split_for_pool(groups: List[List[dict]],
+                    n_workers: int) -> List[List[dict]]:
+    """Split the largest groups until enough jobs exist to fill the pool.
+
+    Every job solves its own skeleton, so splitting trades redundant
+    solves for wall time — bounded: total solves <= n_jobs.
+    """
+    jobs = [list(g) for g in groups]
+    while len(jobs) < n_workers:
+        jobs.sort(key=lambda j: (-len(j), sorted(j[0])))
+        big = jobs[0]
+        if len(big) <= 1:
+            break
+        half = len(big) // 2
+        jobs[0] = big[:half]
+        jobs.append(big[half:])
+    return jobs
+
+
+def _prune_keep_set(base_config, configs, sigma_tot, fluence, threshold):
+    """BFS over the reachable graph with the layer-0b prune rule.
+
+    A configuration whose remaining PI channels give
+    ``fluence * sigma_total < threshold`` (the first-order estimate of
+    its re-absorption probability during the pulse) is a FROZEN
+    TERMINAL: it keeps its row (it holds population) but its PI subtree
+    is not expanded — the XATOM print_threshold analog.  Note the unit
+    convention: fluence is in photons/cm^2 (1 a.u. = 1 photon/a0^2 =
+    1/2.8002852e-17 cm^-2) and sigma in cm^2, so the product is
+    dimensionless.  Auger edges cost no fluence and follow
+    :func:`auger_triples` (over-inclusive w.r.t. zero-rate channels,
+    which keeps the closure safe: never drops a reachable config, may
+    keep a few extra).
+    """
+    from collections import deque
+
+    by_key = {_key(c): c for c in configs}
+    keep = {_key(base_config)}
+    queue = deque([dict(base_config)])
+    while queue:
+        cfg = queue.popleft()
+        if fluence * sigma_tot.get(_key(cfg), 0.0) >= threshold:
+            for sh in cfg:                       # PI daughters
+                d = _daughter_after_pi(cfg, sh)
+                dk = _key(d)
+                if dk in by_key and dk not in keep:
+                    keep.add(dk)
+                    queue.append(d)
+        for hole, s1, s2 in auger_triples(cfg):   # Auger closure
+            d = _daughter_after_auger(cfg, hole, s1, s2)
+            dk = _key(d)
+            if dk in by_key and dk not in keep:
+                keep.add(dk)
+                queue.append(d)
+    return keep
 
 
 def build_rate_table_parallel(Z: int, base_config: Config,
                              photon_energy_eV: float, *,
                              max_charge: int = 12,
                              n_workers: int | None = None,
-                             correlation: str = "fac_frozen") -> dict:
-    """Complete + parallel rate-table build (the v3 infrastructure).
+                             correlation: str = "fac_frozen",
+                             prune_fluence: float | None = None,
+                             prune_threshold: float = 1e-3) -> dict:
+    """Shell-skeleton-shared, prunable, parallel rate-table build (v4).
 
-    Combinatorial enumeration (solve-independent, complete by the
-    subshell-set-preservation argument in :func:`enumerate_configs`)
-    then one pool worker per configuration — each builds its own rate
-    row with its own isolated solve.  Replaces the graph-walking
-    builders (v1 single-sample: under-covered; v2 exhaustive: serial,
-    measured >30 min for Ne).  Returns the same dict shape as
-    :func:`build_rate_table` plus a ``failed`` list.
+    Layers of docs/PERFORMANCE_PLAN.md, all measured on Ne @ 1 keV:
+
+    * **0a skeleton sharing** — configs grouped by merged-(n,l) support;
+      ONE solve per group per job where v3 solved every configuration.
+      Oversized groups split to fill the pool; each split re-solves its
+      skeleton (total solves <= n_jobs).
+    * **0b F*sigma pruning** (opt-in via ``prune_fluence``) — a sigma
+      pass over the complete enumeration runs first, then the kept set
+      is the :func:`_prune_keep_set` closure; only kept configs get
+      their (expensive) Auger trees.  Prune at the LARGEST fluence of
+      the intended sweep so one table serves every fluence point.
+    * **1a parallel** — group jobs over a process pool, BLAS pinned,
+      numba cache isolated per process.
+
+    Returns the v3 dict shape (``configs`` + ``failed``) plus
+    ``skeleton`` / ``timings`` blocks and, when pruning, a ``prune``
+    block (kept/total).
     """
     import os
+    import time
     from concurrent.futures import ProcessPoolExecutor
 
+    def _serial(c: Config) -> dict:
+        return {f"{n},{k}": q for (n, k), q in c.items()}
+
+    def _deserial(c: dict) -> Config:
+        return {(int(k.split(",")[0]), int(k.split(",")[1])): q
+                for k, q in c.items()}
+
     configs = enumerate_configs(base_config, max_charge=max_charge)
-    jobs = [{"config": {f"{n},{k}": q for (n, k), q in c.items()},
-             "z": Z, "photon_eV": photon_energy_eV,
-             "correlation": correlation} for c in configs]
-    workers = n_workers or min(len(jobs), os.cpu_count() or 1)
-    workers = max(1, min(workers, len(jobs)))
+    cfg_dicts = [_serial(c) for c in configs]
+    workers = n_workers or min(len(cfg_dicts), os.cpu_count() or 1)
+    workers = max(1, min(workers, len(cfg_dicts)))
+
+    def _run(groups: List[List[dict]], auger: bool):
+        payload = [{"configs": g, "z": Z,
+                    "photon_eV": photon_energy_eV,
+                    "correlation": correlation, "auger": auger}
+                   for g in groups]
+        rows: List[dict] = []
+        solves = 0
+        executor = ProcessPoolExecutor(max_workers=workers)
+        try:
+            for res in executor.map(_rate_group_worker, payload):
+                rows.extend(res["rows"])
+                solves += res["solves"]
+        finally:
+            executor.shutdown(wait=True)
+        return rows, solves
+
+    timings: Dict[str, float] = {}
+    prune_meta = None
+    if prune_fluence is not None:
+        t0 = time.perf_counter()
+        rows, sig_solves = _run(_split_for_pool(
+            _group_by_support(cfg_dicts), workers), auger=False)
+        timings["sigma_pass_s"] = time.perf_counter() - t0
+        sigma_tot: Dict[ConfigKey, float] = {}
+        for row in rows:
+            if "error" not in row:
+                sigma_tot[_key(_deserial(row["occupations"]))] = sum(
+                    row["sigma_cm2"].values())
+        keep = _prune_keep_set(base_config, configs, sigma_tot,
+                               prune_fluence, prune_threshold)
+        prune_meta = {"fluence": prune_fluence,
+                      "threshold": prune_threshold,
+                      "kept": len(keep), "total": len(cfg_dicts),
+                      "sigma_skeleton_solves": sig_solves}
+        cfg_dicts = [c for c in cfg_dicts if _key(_deserial(c)) in keep]
+
+    t0 = time.perf_counter()
+    groups = _group_by_support(cfg_dicts)
+    n_supports = len(groups)
+    rows, solves = _run(_split_for_pool(groups, workers), auger=True)
+    timings["build_pass_s"] = time.perf_counter() - t0
     table: Dict[str, dict] = {}
     failed: List[dict] = []
-    executor = ProcessPoolExecutor(max_workers=workers)
-    try:
-        for row in executor.map(_rate_row_worker, jobs):
-            label = row.pop("label")
-            if "error" in row:
-                failed.append({"label": label, **row})
-                continue
-            table[label] = row
-    finally:
-        executor.shutdown(wait=True)
-    return {"photon_energy_eV": photon_energy_eV,
-            "base_nelec": int(round(sum(base_config.values()))),
-            "configs": table, "failed": failed,
-            "provenance": (
-                "build_rate_table_parallel v3 2026-10-03: combinatorial "
-                "enumeration (complete over the fixed subshell set) + "
-                "per-config pool workers; sigma_PI via shooting/Milne, "
-                "Auger via the gated LS chain")}
+    for row in rows:
+        if "error" in row:
+            if row["label"] != "<worker>":
+                failed.append(row)
+            continue
+        table[_table_key(_deserial(row["occupations"]))] = row
+    out = {"photon_energy_eV": photon_energy_eV,
+           "base_nelec": int(round(sum(base_config.values()))),
+           "configs": table, "failed": failed,
+           "skeleton": {
+               "supports": n_supports, "solves": solves,
+               "configs_per_solve": len(cfg_dicts) / max(solves, 1)},
+           "timings": timings,
+           "provenance": (
+               "build_rate_table_parallel v4 2026-10-03: support-grouped "
+               "shell-skeleton sharing (layer 0a) + grouped pool jobs "
+               "(layer 1a); sigma_PI via shooting/Milne, Auger via the "
+               "gated LS chain"
+               + ("; F*sigma subtree prune (layer 0b)"
+                  if prune_meta else ""))}
+    if prune_meta is not None:
+        out["prune"] = prune_meta
+    return out
 
 
 class TableRateProvider(RateProvider):

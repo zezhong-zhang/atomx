@@ -1,0 +1,19 @@
+{
+  "purpose": "software_contract_demonstrations_only",
+  "hypothesis": "The audited atomic and PySCF provider interfaces can run and preserve declared units, electron counts and orbital identity.",
+  "not_claimed": [
+    "converged QED",
+    "molecular XAS",
+    "periodic crystal XAS",
+    "experimental validation"
+  ],
+  "fixed_conditions": "one BLAS thread; explicit uncorrected atomic Hamiltonian; restricted RHF for finite molecular/embedding models",
+  "acceptance": {
+    "pyscf_scf_converged": true,
+    "electron_count_absolute_error": 1e-08,
+    "MO_metric_residual": 1e-08,
+    "core_dominance_min": 0.8
+  },
+  "resource_scope": "three small examples; no correlated CI space, periodic supercell, or full AO four-index ERI requested",
+  "stopping_rule": "stop on exception or contract failure; do not change model or gates"
+}

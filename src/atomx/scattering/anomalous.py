@@ -35,6 +35,7 @@ in tests/test_scattering_spectroscopy_consistency.py).
 from __future__ import annotations
 
 import numpy as np
+from scipy.integrate import trapezoid
 
 from atomx.angular.recoupling import lj_from_kappa
 from atomx.config.subshell import l_letter
@@ -47,7 +48,8 @@ def f2_from_sigma(omega_ha: np.ndarray, sigma_a0sq: np.ndarray) -> np.ndarray:
     Parameters
     ----------
     omega_ha : photon energies in Hartree (nonnegative)
-    sigma_a0sq : absorption cross section per ELECTRON in a_0^2
+    sigma_a0sq : absorption cross section in a_0^2, with the same
+        per-electron or occupation-summed convention as the desired f2
 
     Returns
     -------
@@ -59,20 +61,27 @@ def f2_from_sigma(omega_ha: np.ndarray, sigma_a0sq: np.ndarray) -> np.ndarray:
         raise ValueError("omega and sigma must have the same shape")
     if omega_ha.ndim != 1 or not np.all(np.isfinite(omega_ha)):
         raise ValueError("omega must be a finite 1-d array")
-    if np.any(omega_ha < 0) or np.any(sigma_a0sq < 0):
+    if (
+        not np.isfinite(sigma_a0sq).all()
+        or np.any(omega_ha < 0)
+        or np.any(sigma_a0sq < 0)
+    ):
         raise ValueError("omega and sigma must be nonnegative")
     return omega_ha * sigma_a0sq / (4.0 * np.pi * ALPHA)
 
 
-def f1_kramers_kronig(omega_grid: np.ndarray, f2_grid: np.ndarray,
-                      omega_eval: np.ndarray) -> np.ndarray:
+def f1_kramers_kronig(
+    omega_grid: np.ndarray, f2_grid: np.ndarray, omega_eval: np.ndarray
+) -> np.ndarray:
     """Principal-value dispersion integral for f1.
 
     f1(w) = (2/pi) P\\int w' f2(w') / (w^2 - w'^2) dw'.
 
-    The principal value is handled by excluding a symmetric window
-    around each evaluation point (the log-grid makes the excluded
-    weight second order in the grid spacing).
+    Integrate the piecewise-linear tabulation analytically. Subtract
+    f2(w) before integration so the pole cancels, then add its exact
+    finite-window logarithm. This handles evaluation at interior grid
+    nodes without dropping or joining cells across the pole. The finite
+    energy window and missing discrete absorption remain model limits.
 
     Parameters
     ----------
@@ -93,17 +102,47 @@ def f1_kramers_kronig(omega_grid: np.ndarray, f2_grid: np.ndarray,
         raise ValueError("omega_grid and f2_grid must have the same shape")
     if np.any(np.diff(omega_grid) <= 0) or omega_grid[0] <= 0:
         raise ValueError("omega_grid must be strictly increasing, > 0")
+    if (
+        not np.isfinite(omega_grid).all()
+        or not np.isfinite(f2_grid).all()
+        or np.any(f2_grid < 0)
+        or omega_eval.ndim != 1
+        or not np.isfinite(omega_eval).all()
+        or np.any(omega_eval < 0)
+    ):
+        raise ValueError("dispersion requires finite energies and nonnegative f2")
+    lo, hi = omega_grid[:-1], omega_grid[1:]
+    slope = np.diff(f2_grid) / (hi - lo)
+    intercept = f2_grid[:-1] - slope * lo
     out = np.zeros_like(omega_eval)
-    dw = np.gradient(omega_grid)
     for i, w in enumerate(omega_eval):
-        # principal value: drop the symmetric cell around w
-        mask = np.abs(omega_grid - w) > 0.5 * np.min(dw)
-        if not np.any(mask):
-            out[i] = 0.0
-            continue
-        wg, fg = omega_grid[mask], f2_grid[mask]
-        out[i] = (2.0 / np.pi) * np.trapezoid(
-            wg * fg / (w * w - wg * wg), wg)
+        if w == omega_grid[0] or w == omega_grid[-1]:
+            raise ValueError("principal value at a finite-window endpoint is undefined")
+        reference = np.interp(w, omega_grid, f2_grid)
+        span = (lo <= w) & (w <= hi)
+        integrals = np.empty_like(lo)
+        # In a segment containing w, f(x)-f(w)=slope*(x-w).
+        integrals[span] = slope[span] * (
+            -(hi[span] - lo[span])
+            + w * np.log1p((hi[span] - lo[span]) / (w + lo[span]))
+        )
+        other = ~span
+        plus = np.log1p((hi[other] - lo[other]) / (w + lo[other]))
+        minus = np.log(abs(w - hi[other])) - np.log(abs(w - lo[other]))
+        integrals[other] = slope[other] * (
+            -(hi[other] - lo[other]) + 0.5 * w * (plus - minus)
+        ) - 0.5 * (intercept[other] - reference) * (plus + minus)
+        constant = (
+            0.5
+            * reference
+            * (
+                np.log(abs(w - omega_grid[0]))
+                + np.log(w + omega_grid[0])
+                - np.log(abs(w - omega_grid[-1]))
+                - np.log(w + omega_grid[-1])
+            )
+        )
+        out[i] = (2 / np.pi) * (integrals.sum() + constant)
     return out
 
 
@@ -119,8 +158,7 @@ def trk_scattering_sum(omega_grid: np.ndarray, f2_grid: np.ndarray) -> float:
     f2_grid = np.asarray(f2_grid, dtype=float)
     good = f2_grid > 0
     return float(
-        (2.0 / np.pi)
-        * np.trapezoid(f2_grid[good] / omega_grid[good], omega_grid[good])
+        (2.0 / np.pi) * trapezoid(f2_grid[good] / omega_grid[good], omega_grid[good])
     )
 
 
@@ -133,6 +171,7 @@ def _subshell_table(result):
     physics; support either so the anomalous factors consume whatever
     the spectroscopy pipelines produce.
     """
+
     def _label(n, kappa):
         orbital_l, j2 = lj_from_kappa(kappa)
         return f"{n}{l_letter(orbital_l)}{j2}/2"
@@ -144,9 +183,8 @@ def _subshell_table(result):
             e = energies.get(_label(*key))
             if e is None:
                 # (n, kappa)-keyed fallback on the MCDHF shape
-                e = (energies.get(key) if hasattr(energies, "get") else None)
-            table[key] = (P, Q, float(occ),
-                          float(e) if e is not None else None)
+                e = energies.get(key) if hasattr(energies, "get") else None
+            table[key] = (P, Q, float(occ), float(e) if e is not None else None)
     elif hasattr(result, "orbitals_dict"):
         occ = getattr(result, "occupations", None) or {
             (sh.n, sh.kappa): float(sh.occupation)
@@ -155,8 +193,12 @@ def _subshell_table(result):
         energies = getattr(result, "orbital_energies", None) or {}
         for key, (P, Q) in result.orbitals_dict.items():
             e = energies.get(key, energies.get(_label(*key)))
-            table[key] = (P, Q, float(occ.get(key, 0.0)),
-                          float(e) if e is not None else None)
+            table[key] = (
+                P,
+                Q,
+                float(occ.get(key, 0.0)),
+                float(e) if e is not None else None,
+            )
     else:
         raise TypeError(
             f"{type(result).__name__} exposes neither orbitals_by_subshell "
@@ -184,7 +226,12 @@ def atomic_sigma_pi(result, photon_energies_ha, *, orbitals=None) -> np.ndarray:
         if q <= 0 or e_b is None or e_b >= 0:
             continue
         sigma += q * photoionization_cross_section(
-            P, Q, key[1], e_b, photon_energies_ha,
-            int(result.Z), bsp,
+            P,
+            Q,
+            key[1],
+            e_b,
+            photon_energies_ha,
+            int(result.Z),
+            bsp,
         )
     return sigma

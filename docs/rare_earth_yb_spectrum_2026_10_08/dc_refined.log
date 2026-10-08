@@ -1,0 +1,19 @@
+START dc_refined {'label': 'dc_refined', 'he': 0.125, 'hi': 0.25, 'hmax': 0.5, 'rmax': 60.0, 'ks': 9, 'tol': 1e-07, 'iterations': 180, 'protocol': 'eol'}
+heartbeat elapsed=30.0s peak_RSS=1524.6MiB
+heartbeat elapsed=60.0s peak_RSS=1526.7MiB
+heartbeat elapsed=90.0s peak_RSS=1528.1MiB
+heartbeat elapsed=120.0s peak_RSS=1528.1MiB
+heartbeat elapsed=150.0s peak_RSS=1528.1MiB
+heartbeat elapsed=180.0s peak_RSS=1528.1MiB
+heartbeat elapsed=210.0s peak_RSS=1992.7MiB
+heartbeat elapsed=240.0s peak_RSS=1992.9MiB
+heartbeat elapsed=270.1s peak_RSS=2069.0MiB
+heartbeat elapsed=300.1s peak_RSS=2069.3MiB
+heartbeat elapsed=330.1s peak_RSS=2069.3MiB
+heartbeat elapsed=360.1s peak_RSS=2069.3MiB
+heartbeat elapsed=390.1s peak_RSS=2069.3MiB
+heartbeat elapsed=420.1s peak_RSS=2069.3MiB
+heartbeat elapsed=450.2s peak_RSS=2069.3MiB
+heartbeat elapsed=480.2s peak_RSS=2069.3MiB
+heartbeat elapsed=510.2s peak_RSS=2069.3MiB
+STRUCTURE {"converged": false, "iterations": 24, "levels": [{"index": 0, "energy_hartree": -14067.48336257577, "excitation_cm1": 0.0, "two_J": 1, "parity": 1, "dominant_CSF_index": 0, "dominant_CSF": "1s1/2^2 2s1/2^2 2p1/2^2 2p3/2^4 3s1/2^2 3p1/2^2 3p3/2^4 3d3/2^4 3d5/2^6 4s1/2^2 4p1/2^2 4p3/2^4 4d3/2^4 4d5/2^6 5s1/2^2 5p1/2^2 5p3/2^4 4f5/2^6 4f7/2^8 6s1/2^1 [J=1/2] tree=0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-1:1:0", "dominant_weight": 1.0}, {"index": 1, "energy_hartree": -14067.375251061729, "excitation_cm1": 23727.734690150184, "two_J": 3, "parity": 1, "dominant_CSF_index": 4, "dominant_CSF": "1s1/2^2 2s1/2^2 2p1/2^2 2p3/2^4 3s1/2^2 3p1/2^2 3p3/2^4 3d3/2^4 3d5/2^6 4s1/2^2 4p1/2^2 4p3/2^4 4d3/2^4 4d5/2^6 5s1/2^2 5p1/2^2 5p3/2^4 4f5/2^6 4f7/2^8 5d3/2^1 [J=3/2] tree=0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-3:3:0", "dominant_weight": 1.0}, {"index": 2, "energy_hartree": -14067.372918111114, "excitation_cm1": 24239.758166321873, "two_J": 5, "parity": 1, "dominant_CSF_index": 3, "dominant_CSF": "1s1/2^2 2s1/2^2 2p1/2^2 2p3/2^4 3s1/2^2 3p1/2^2 3p3/2^4 3d3/2^4 3d5/2^6 4s1/2^2 4p1/2^2 4p3/2^4 4d3/2^4 4d5/2^6 5s1/2^2 5p1/2^2 5p3/2^4 4f5/2^6 4f7/2^8 5d5/2^1 [J=5/2] tree=0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-5:5:0", "dominant_weight": 1.0}, {"index": 3, "energy_hartree": -14067.36936642093, "excitation_cm1": 25019.264060258018, "two_J": 1, "parity": -1, "dominant_CSF_index": 2, "dominant_CSF": "1s1/2^2 2s1/2^2 2p1/2^2 2p3/2^4 3s1/2^2 3p1/2^2 3p3/2^4 3d3/2^4 3d5/2^6 4s1/2^2 4p1/2^2 4p3/2^4 4d3/2^4 4d5/2^6 5s1/2^2 5p1/2^2 5p3/2^4 4f5/2^6 4f7/2^8 6p1/2^1 [J=1/2] tree=0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-1:1:0", "dominant_weight": 1.0}, {"index": 4, "energy_hartree": -14067.35640290244, "excitation_cm1": 27864.427501891445, "two_J": 3, "parity": -1, "dominant_CSF_index": 1, "dominant_CSF": "1s1/2^2 2s1/2^2 2p1/2^2 2p3/2^4 3s1/2^2 3p1/2^2 3p3/2^4 3d3/2^4 3d5/2^6 4s1/2^2 4p1/2^2 4p3/2^4 4d3/2^4 4d5/2^6 5s1/2^2 5p1/2^2 5p3/2^4 4f5/2^6 4f7/2^8 6p3/2^1 [J=3/2] tree=0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-0:0:0-3:3:0", "dominant_weight": 1.0}], "orbital_metric_max_error": 2.220446049250313e-15, "elapsed_seconds_uncontrolled": 526.8061892340193}

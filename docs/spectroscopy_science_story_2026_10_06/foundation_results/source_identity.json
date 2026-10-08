@@ -1,0 +1,21 @@
+{
+  "git_head": "9deec40d41ee1a64f1a6a1b043440c10a6bd4a0a",
+  "source_status": "working tree contains pre-existing uncommitted work; HEAD alone is not source identity",
+  "audited_entrypoint_sha256": {
+    "src/atomx/atom.py": "1bdd988e00ddb86d099b2cc118ee7ff0171f65e57af3b233eb958eb4955fd1da",
+    "src/atomx/atom_inputs.py": "efbc114328891f1ab14a4781744efdd424908856dd4f9fbc38d1a2a52d86a9fa",
+    "src/atomx/providers/pyscf_adapter.py": "95365bd5839b54183d2b3c3ed09d2e233a6db6b4b7cc4e34745a359c8d21f179",
+    "src/atomx/providers/pyscf_embedding.py": "afdfb8afc76cdf5d75eedf9feab4d765c592b9471ea1eb04ecc7e6bc3a2d00a3",
+    "src/atomx/providers/contract.py": "faeef57853b4603aa756b6b5eab621bb0c424529ae4656a18bbc330aca326f2f",
+    "src/atomx/scattering/autoionization/molecular.py": "ba7c0993e4dda80afd52f8a4b4a2c7fd98e9652e9daa5f047aafc496353d1c9a",
+    "src/atomx/scattering/xray.py": "246040174cc88db82cd606acb86e09cc4a88a9f5640e73907e44f9d4c4e34312"
+  },
+  "hash_scope": "audited entry points only; not a complete transitive source snapshot",
+  "python": "3.10.21",
+  "packages": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "pyscf": "2.14.0"
+  },
+  "BLAS_threads": 1
+}

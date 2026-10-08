@@ -7,6 +7,9 @@ The key function _assemble_integral follows DBSR_HF's ZINTYm convention:
 it accepts (ks1, ks2) and produces an (mm x mm) matrix where mm = max(ns1, ns2).
 """
 
+from dataclasses import dataclass, field
+from types import MappingProxyType
+
 import numba as nb
 import numpy as np
 
@@ -59,10 +62,51 @@ def overlap_matrix(nv, ks, ns, bsp, grw):
     return 0.5 * (S + S.T)
 
 
+@dataclass(frozen=True)
+class SampledNuclearPotential:
+    """Immutable operator values on one exact B-spline quadrature grid.
+
+    This is a numerical integration input, not an interpolated potential
+    for continuum solving. Off-grid evaluation and mismatched grids fail.
+    """
+
+    radius: np.ndarray
+    values: np.ndarray
+    _points: object = field(init=False, repr=False)
+
+    def __post_init__(self):
+        radius = np.array(self.radius, dtype=float, copy=True)
+        values = np.array(self.values, dtype=float, copy=True)
+        if radius.shape != values.shape:
+            raise ValueError("sampled nuclear potential and grid shapes differ")
+        radius.setflags(write=False)
+        values.setflags(write=False)
+        object.__setattr__(self, "radius", radius)
+        object.__setattr__(self, "values", values)
+        object.__setattr__(
+            self,
+            "_points",
+            MappingProxyType(
+                dict(zip(map(float, radius.ravel()), values.ravel(), strict=True))
+            ),
+        )
+
+    def on_grid(self, radius):
+        if not np.array_equal(self.radius, radius):
+            raise ValueError("sampled nuclear potential quadrature grid mismatch")
+        return self.values
+
+    def __call__(self, radius):
+        return self._points[float(radius)]
+
+
 def nuclear_matrix(nv, ks, ns, bsp, gr, grw, Z, nuclear_potential_func=None):
     """Nuclear potential V_ij = <B_i | V_nuc(r) | B_j>."""
     if nuclear_potential_func is None:
         v_weights = grw * (-Z / gr)
+    elif isinstance(nuclear_potential_func, SampledNuclearPotential):
+        # Identical nodewise multiplication, with no repeated Python calls.
+        v_weights = grw * nuclear_potential_func.on_grid(gr)
     else:
         v_weights = np.zeros_like(grw)
         for iv in range(nv):

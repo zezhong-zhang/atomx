@@ -80,6 +80,7 @@ def _two_level_crm(chi_eV=CHI_EV, *, eii_cm3_s=1.0e-8, **channel_kwargs):
         [],
         bound_free_channels=[
             CRMBoundFreeChannel(
+                    bound_free_model="kramers",
                 bound=0,
                 continuum=1,
                 ionization_potential_eV=chi_eV,

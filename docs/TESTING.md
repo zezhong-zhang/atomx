@@ -57,6 +57,14 @@ validate the affected contracts; only a complete run establishes full-suite
 status. Historical test counts and campaign results live in the
 [archive](archive/README.md).
 
+The [2026-10-08 CI/XFEL delivery record](code_delivery_2026_10_08/validation.json)
+binds the selected regression run to its source hashes and preserves the initial
+failure and stale-column fixture diagnosis. Physical inputs, tolerances and
+strict known-gap gates are retained; slow campaigns are outside that run.
+The multi-electron PI check compares every signed coordinate with dense Fock
+annihilation matrices, including zero amplitudes and interference; a floating
+nonzero channel count is not a completeness or convergence gate.
+
 ## Small correctness gates and expensive transfer campaigns
 
 `test_slater_scaling.py` uses a complete 91-determinant 4f² space with fixed,

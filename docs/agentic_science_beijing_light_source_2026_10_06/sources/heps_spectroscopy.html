@@ -1,0 +1,524 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="IE=EmulateIE7" http-equiv="X-UA-Compatible">
+
+<title>HEPS首批X射线拉曼散射谱仪分析晶体完成在线测试--中国科学院高能物理研究所</title>
+
+<link href="../../../../../images/heps_web.css" rel="stylesheet" type="text/css" />
+<link href="//english.ihep.cas.cn//heps/ah/bi/202110/W020240705745851353867.png" rel="shortcut icon" type="image/png" size="32*32" /> 
+
+<script language="JavaScript" type="text/JavaScript" src="../../../../../images/dhtml.js"></script>
+<script language="JavaScript" type="text/JavaScript" src="../../../../../images/dropdown_initialize.js"></script>
+<script language="javascript" type="text/javascript"> 
+    function ShowTabs(a,b,c){
+		var i;
+        for (i = 1; i <= b; i++) {
+            if (i == a) {
+               	document.getElementById("tit" + c + i).className = "act";                
+				document.getElementById("txt" + c + i).style.display = "block";
+            }
+            else {
+                document.getElementById("tit" + c + i).className = "";                
+				document.getElementById("txt" + c + i).style.display = "none";
+            }
+        }
+    }
+</script>
+
+
+</head>
+
+
+
+
+
+
+
+
+
+<body onLoad="init()">
+
+
+<!--头部 -->
+<style>
+ .input {
+    border: 0 none;
+    color: #A64E00;
+    cursor: pointer;
+    float: left;
+    height: 22px;
+    overflow: hidden;
+    width: 44px;
+}
+</style>
+
+<script language="JavaScript" type="text/JavaScript" src="//api.cas.cn/lib/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript">
+         function isValid(str){
+           if(str.indexOf('&') != -1 || str.indexOf('<') != -1 || str.indexOf('>') != -1 || str.indexOf('\'') != -1
+             || str.indexOf('\\') != -1 || str.indexOf('/') != -1 || str.indexOf('"') != -1
+             || str.indexOf('%') != -1 || str.indexOf('#') != -1){
+             return false;
+           }
+           return true;
+         }
+         $(function(){
+           $('#sub-pc').click(function(){
+             var searchword = $.trim($('#searchword').val());
+          if(searchword == "" || searchword == "请输入关键字" || !isValid(searchword)){
+            alert("请输入关键词后再进行提交。");
+               return false;
+          }
+          $('input[name="keyword"]').val(searchword);
+          $('form[name="searchform"]').submit();
+           });
+
+           $('#sub-mobile').click(function(){
+             var iptSword = $.trim($('#iptSword').val());
+          if(iptSword == "" || iptSword == "请输入关键字" || !isValid(iptSword)){
+            alert("请输入关键词后再进行提交。");
+               return false;
+          }
+          $('input[name="keyword"]').val(encodeURI(iptSword));
+          $('form[name="searchforms"]').submit();
+           });
+         });
+ 
+</script>
+
+
+<!--头部及menu begin-->
+
+<table width="1100" bgcolor="0882d5" border="0" align="center" cellpadding="0" cellspacing="0">    
+<tr>
+<td height="25" align="center">
+</td>
+</tr>
+
+      
+<tr style="padding:10px 10px 0px 10px;">                  
+
+<td rowspan="2" width="550" align="left" valign="center" border="0" class="logo">
+<a href="http://heps.ihep.ac.cn" target="_top" ><img src="/images/HEPS-title-202407.png" width="465" border="0" title="logo" /></a>
+</td>
+
+<td width="550" align="right" valign="top" class="hei1" style="padding:10px 0px 10px 0px;">
+<a href="http://english.heps.ihep.ac.cn" target="_balnk" class="bai1"><font size="4px">English</font></a>
+&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="http://www.ihep.cas.cn" class="bai1"><font size="4px">高能所</font></a>
+&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="../../../lxwm/" class="bai1"><font size="4px">联系我们</font></a>
+&nbsp;&nbsp;
+</td>
+
+<tr> 
+<td width="550" align="right" valign="bottom">
+&nbsp;&nbsp;
+</td>
+</tr> 
+
+</td>
+
+</tr>
+<tr>
+<td height="25" align="center">
+</td>
+</tr>
+</table> 
+
+                  
+
+
+
+
+<table width="1100" bgcolor="0b9afb" border="0" align="center" cellpadding="0" cellspacing="0">
+<tr>
+<td height="32" align="left">
+
+<div>
+<div class="hepsmenu" > 
+
+<a  class="bai16"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></font></a>	<a class="bai16">&nbsp;&nbsp;&nbsp;&nbsp;</a>
+
+<a href="http://heps.ihep.ac.cn" class="bai16"><strong>首页</strong></font></a>	<a class="bai16">&nbsp;&nbsp;|&nbsp;&nbsp;</a>
+
+ <hepsmenuul>
+
+         	<a id="menu1" href="../../../xmgk/" class="bai16"><strong>项目概况</strong></a>	<a class="bai16">&nbsp;&nbsp;|&nbsp;&nbsp;</a>
+         	<a id="menu2" href="../../../ggjz/" class="bai16"><strong>工程进展</strong></a>	<a class="bai16">&nbsp;&nbsp;|&nbsp;&nbsp;</a>
+         <a id="menu3" href="../../../zzjs/" class="bai16"><strong>装置介绍</strong></a>	<a class="bai16">&nbsp;&nbsp;|&nbsp;&nbsp;</a>
+	
+
+	<a id="menu6" href="../../../kxpj/" class="bai16"><strong>科学传播</strong></a><a class="bai16">&nbsp;&nbsp;|&nbsp;&nbsp;</a>
+		<a id="menu8" href="../../../download/" class="bai16"><strong>工程下载</strong></a>	<a class="bai16">&nbsp;|&nbsp;&nbsp;</a>
+
+<a id="menu9" href="../../../zp/" class="bai16"><strong>人才招聘</strong></a>	<a class="bai16">&nbsp;|&nbsp;&nbsp;</a>
+<a id="menu5" href="../../../user/" class="bai16"><strong>用户开放</strong></a>	<a class="bai16">&nbsp;&nbsp;&nbsp;</a>
+
+
+
+</hepsmenuul>
+
+</div>
+
+<td width="900" align="left">
+
+<script language="JavaScript" type="text/JavaScript">
+  if (mtDropDown.isSupported()) {
+
+		var ms = new mtDropDownSet(mtDropDown.direction.down, 0, 0, mtDropDown.reference.bottomLeft);
+
+		var menu1 = ms.addMenu(document.getElementById("menu1"));
+		
+		menu1.addItem(" - 项目简介 ", "../../../xmgk/HEPSjj/");
+		
+		menu1.addItem(" - 组织机构 ", "../../../xmgk/zzjg/");
+		
+		menu1.addItem(" - 工程领导 ", "../../../xmgk/xrld/");
+		
+		menu1.addItem(" - 建设地点 ", "../../../xmgk/jsdd/");
+		
+		menu1.addItem(" - 进度计划 ", "../../../xmgk/jdjh/");
+		
+		menu1.addItem(" - 地方支持 ", "../../../xmgk/dfzc/");
+		
+
+		var menu2 = ms.addMenu(document.getElementById("menu2"));
+		
+		menu2.addItem(" - 2026 ", "../../../ggjz/2026/" );
+		
+		menu2.addItem(" - 2025 ", "../../../ggjz/2025/" );
+		
+		menu2.addItem(" - 2024 ", "../../../ggjz/2024/" );
+		
+		menu2.addItem(" - 2023 ", "../../../ggjz/2023/" );
+		
+		menu2.addItem(" - 2022 ", "../../../ggjz/2022/" );
+		
+		menu2.addItem(" - 2021 ", "../../../ggjz/2021/" );
+		
+		menu2.addItem(" - 2020 ", "../../../ggjz/2020/" );
+		
+		menu2.addItem(" - 2019 ", "../../../ggjz/2019/" );
+		
+		menu2.addItem(" - 2018 ", "../../../ggjz/2018/" );
+		
+		menu2.addItem(" - 2017 ", "../../../ggjz/2017/" );
+		
+		menu2.addItem(" - 2016 ", "../../../ggjz/2016/" );
+		
+
+
+		var menu3 = ms.addMenu(document.getElementById("menu3"));
+		
+		menu3.addItem(" - 加速器 ", "../../../zzjs/jsq/" );
+		
+		menu3.addItem(" - 光束线站 ", "../../../zzjs/gsxz/" );
+		
+
+		
+
+		
+		var menu6 = ms.addMenu(document.getElementById("menu6"));
+		
+		menu6.addItem(" - 科普文章 ", "../../../kxpj/kpwz/");
+		
+		menu6.addItem(" - 宣传手册 ", "../../../kxpj/xcsc/");
+		
+		menu6.addItem(" - 科普视频 ", "../../../kxpj/kpsp/");
+		
+		menu6.addItem(" - 媒体聚焦 ", "../../../kxpj/mtjj/");
+		
+		menu6.addItem(" - 科普链接 ", "../../../kxpj/kplj/");
+			
+				
+		mtDropDown.renderAll();
+	}
+        </script>
+</td>  
+
+
+<td width="200" align="left" valign="center" class="menu menu_search">
+<form name="searchform" action="https://ihep.cas.cn/dkxzz/HEPS/search/" method="get" target="_blank">
+
+<table width="200" align="left" valign="center" border="0" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+    <td valign="center">
+<input type="text" class="menu_search_input" id="searchword" name="keyword" onclick="javascript:if(this.value=='请输入关键字') this.value=''" value="请输入关键字" /></td>
+    <td align="left" valign="bottom">
+<input type="submit" id="sub-pc" src="//ihep.cas.cn/images/heps_search.png" width="15" height="15" />
+<input type="hidden" name="keyword" id="keywords" value="" />
+</td>
+
+  </tr>
+</tbody></table>
+
+</form>
+</td>
+
+
+</div>
+
+
+
+
+
+</td>
+</tr>
+
+</table>
+<!--头部结束 -->
+
+<table width="1100" height="30px" border="0" align="center" cellpadding="0" cellspacing="0" background="../../../../../images/cepc_top_02.gif" class="bk_d">
+<!--路径信息开始 -->
+<tr>
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="../../../../../images/heps_home.png" width="15" height="13" valign="center" />&nbsp;当前位置：
+<a href="../../../"> 首页</a> &gt; 
+<a href="../../" title="新闻动态" class="CurrChnlCls">新闻动态</a>&nbsp;&gt;&nbsp;<a href="../" title="2022年" class="CurrChnlCls">2022年</a>
+</td>
+</tr>
+<!--路径信息结束 -->
+</table>
+
+
+
+
+
+
+<table width="1100" height="40" border="0" cellspacing="0" cellpadding="0" bgcolor="#f9fdfe" align="center">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+
+
+
+<table width="1100" border="0" align="center" cellpadding="0" cellspacing="14" bgcolor="#f9fdfe">
+  <tr>
+    <td valign="top"><table width="85%" bgcolor="FFFFFF" border="0" align="center" cellpadding="0" cellspacing="0" class="margin10">
+ 
+     <tr>
+        <td align="center" height="30px">&nbsp;</td>
+      </tr>
+ 
+     <tr>
+        <td align="center" class="lan_15"></td>
+      </tr>
+  
+    <tr>
+        <td align="center" class="lan_15"><strong>HEPS首批X射线拉曼散射谱仪分析晶体完成在线测试</strong><br> <span class="lan_15"></span></td>
+      </tr>
+  
+    <tr>
+        <td height="38" align="center" class="bk_d1"><span class="hei1">文章来源： &nbsp;&nbsp;|&nbsp;&nbsp;发布时间：2022-11-01&nbsp;&nbsp;|&nbsp;&nbsp;【<a class="hei1" onclick="window.print()" href="#">打印</a>】&nbsp;【<a class="hei1" onclick="window.close();" href="#">关闭</a>】&nbsp;&nbsp;|&nbsp;&nbsp;浏览：<script src='http://count.cas.cn/?siteid=ihep.cas.cn'></script> </span></td>
+      </tr>
+      
+<tr>
+        <td height="12"></td>
+      </tr>
+      
+<tr>
+        <td id="zoom" class="zw_content">　
+
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" class="margin10">
+<div class=TRS_Editor><span style="font-size: 14px; font-family: 宋体; color: rgb(66,66,66)">　　</span><span style="font-size: 14px; font-family: 宋体; color: rgb(66,66,66)">近日，中科院高能所自主研制的球面弯曲分析晶体取得突破性进展，助力高能同步辐射光源（HEPS）高能量分辨谱学线站建设。</span>
+<p style="font-size: 14px; font-family: 宋体; color: rgb(66,66,66); padding-bottom: 10px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px">　　针对国内高压科学、能源材料等多学科的学科优势，为满足广大用户需求，HEPS高能量分辨谱学线站正在设计建造一台具有先进国际水平的X射线拉曼散射（XRS）谱仪—“乾坤”。其中，球面压弯分析晶体基于罗兰圆几何条件，将特定能量的X射线聚焦至探测器上，是XRS谱仪的核心光学部件。聚焦面形精度和高能量分辨是球面弯曲分析晶体的两项极为关键，又互相影响的技术指标，因而极具挑战性。“乾坤”谱仪采用6组模组化分析晶体阵列，由90余块半径1m的分析晶体构成，其晶体能量分辨的设计指标与电子-空穴态寿命展宽数量级相当，达到ΔE/E~10-5，球面弯曲面形精度满足1:1聚焦需求。</p>
+<p style="font-size: 14px; font-family: 宋体; color: rgb(66,66,66); padding-bottom: 10px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px">　　在HEPS工程指挥部的部署下，HEPS高能量分辨谱学线站团队与光学设计、光学机械、光束线控制系统相关人员，联合多学科中心晶体实验室积极攻关。线站核心成员郭志英、多学科中心晶体实验室刁千顺，经过多年技术攻关和反复尝试，不断改进优化分析晶体制备工艺，最终探索出兼顾能量分辨与聚焦特性于一体的球面弯曲分析晶体制备方法。今年10月2日-5日，项目团队在北京同步辐射装置（BSRF）1W2B线站上，采用Si(111)双晶单色器Si(220)切槽单色器两次单色化、毛细管微聚焦的光学配置，利用自研三元谱仪样机，对谱仪单模组内15块分析晶体（图1），采用EPICS-Bluesky控制系统实现单色器联动扫描，开展了批量、高精度指标测试（装置见图2）。优化后入射能量带宽实现高分辨，达到半高全宽0.8eV@9.7keV，分析晶体自身能量分辨（图3）达到半高全宽~1eV@9.7keV，与理论预测值相当，聚焦特性得到充分验证(图3、图4)，各项指标全部满足工程设计需求。</p>
+<p style="font-size: 14px; font-family: 宋体; color: rgb(66,66,66); padding-bottom: 10px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px">　　HEPS高能量分辨谱学线站是我国首条专注于硬X射线非弹性散射谱学实验的线站，聚焦核能级超精细结构、声子态密度、芯能级电子跃迁和价电子激发的探测，主要提供核共振散射（NRS）、XRS、共振非弹性散射（RIXS）等谱学方法，服务于量子科学、能源科学、材料科学、凝聚态物理、化学、生物化学、地学、高压科学、环境科学等多学科前沿研究。其中，XRS是一种基于X射线非弹性散射原理的先进谱学实验技术，欧洲ESRF （72块分析晶体）、美国APS（19块分析晶体）、日本SPring-8（12块分析晶体）、法国SOLEIL（40块分析晶体）、英国Diamond光源等光源已建成或规划建设XRS旗舰线站。由于非弹性散射截面极小，比X射线吸收截面小4~5个量级，XRS实验技术需要高亮度光源以增加入射光子通量，同时也需要大立体角谱仪提高探测效率，而大立体角探测需要多块发现晶体实现。</p>
+<p style="font-size: 14px; font-family: 宋体; color: rgb(66,66,66); padding-bottom: 10px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px">　　首批分析晶体的指标通过在线测试，将满足大批量分析晶体加工的工程需求，对HEPS“乾坤”谱仪、高能量分辨谱学线站的实施都具有里程碑意义。值得一提的是，该类型分析晶体的工艺也已经用于多种类型谱仪分析晶体的研制。接下来，该团队将高质量完成其余模组分析晶体的批量加工，同时，将致力攻关无应力高能量分辨分析晶体的研制。晶体研发工作还获得先进光源技术研发与测试平台PAPS的支持，BSRF-1W2B、3W1、4W1A、4W1B线站提供机时。</p>
+<p style="font-size: 14px; font-family: 宋体; color: rgb(66,66,66); padding-bottom: 10px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px" align="center">　　<img style="border-top: 0px; font-family: 宋体, Arial, Helvetica, sans-serif; border-right: 0px; border-bottom: 0px; padding-bottom: 0px; padding-top: 0px; padding-left: 0px; margin-left: 0px; border-left: 0px; padding-right: 0px; margin-right: 0px" alt="" width="600" height="400" oldsrc="W020221031517256887951.jpg" complete="complete" src="./W020221031517256887951.jpg" /></p>
+<p style="font-size: 14px; font-family: 宋体; color: rgb(66,66,66); padding-bottom: 10px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px" align="center">　　图1. HEPS自研分析晶体</p>
+<p style="font-size: 14px; font-family: 宋体; color: rgb(66,66,66); padding-bottom: 10px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px" align="center">　　<img style="border-top: 0px; font-family: 宋体, Arial, Helvetica, sans-serif; border-right: 0px; border-bottom: 0px; padding-bottom: 0px; padding-top: 0px; padding-left: 0px; margin-left: 0px; border-left: 0px; padding-right: 0px; margin-right: 0px" alt="" width="600" height="320" oldsrc="W020221031517257016834.png" complete="complete" src="./W020221031517257016834.png" /></p>
+<p style="font-size: 14px; font-family: 宋体; color: rgb(66,66,66); padding-bottom: 10px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px" align="center">　　图2. 分析晶体测试装置，其中，左图给出了散射光和分析晶体分析光路示意图</p>
+<p style="font-size: 14px; font-family: 宋体; color: rgb(66,66,66); padding-bottom: 10px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px" align="center">　　<img style="border-top: 0px; font-family: 宋体, Arial, Helvetica, sans-serif; border-right: 0px; border-bottom: 0px; padding-bottom: 0px; padding-top: 0px; padding-left: 0px; margin-left: 0px; border-left: 0px; padding-right: 0px; margin-right: 0px" alt="" width="600" height="400" oldsrc="W020221031517257285361.png" complete="complete" src="./W020221031517257285361.png" /></p>
+<p style="font-size: 14px; font-family: 宋体; color: rgb(66,66,66); padding-bottom: 10px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px" align="center">　　图3 分析晶体测试结果，左上为4#晶体能量分辨率实验结果和拟合曲线，左下为三块晶体在探测器上的聚焦光斑，右侧为分析晶体能量分辨率批量测试结果</p>
+<p style="font-size: 14px; font-family: 宋体; color: rgb(66,66,66); padding-bottom: 10px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px" align="center">　　</p>
+<p style="font-size: 14px; font-family: 宋体; color: rgb(66,66,66); padding-bottom: 10px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px" align="center"><a target="_blank" oldsrc="W020221101351566806154.gif" uploadpic="U020221101351254883252.gif" href="./W020221101351566806154.gif"><img style="border-left-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-top-width: 0px" alt="" width="600" height="441" oldsrc="W020221101351566806154.gif" src="./W020221101351566806154.gif" /></a></p>
+<p style="font-size: 14px; font-family: 宋体; color: rgb(66,66,66); padding-bottom: 10px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px" align="center">　　图4 扫描单色器能量时探测器上的光斑变化情况</p>
+<p style="font-size: 14px; font-family: 宋体; color: rgb(66,66,66); padding-bottom: 10px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px" align="center">　　<img style="border-top: 0px; font-family: 宋体, Arial, Helvetica, sans-serif; border-right: 0px; border-bottom: 0px; padding-bottom: 0px; padding-top: 0px; padding-left: 0px; margin-left: 0px; border-left: 0px; padding-right: 0px; margin-right: 0px" alt="" width="600" height="350" oldsrc="W020221031517257468962.jpg" complete="complete" src="./W020221031517257468962.jpg" /></p>
+<p style="font-size: 14px; font-family: 宋体; color: rgb(66,66,66); padding-bottom: 10px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px" align="center">　　图5 测试人员合影</p>
+<p style="font-size: 14px; font-family: 宋体; color: rgb(66,66,66); padding-bottom: 10px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px" align="justify">原文链接：<a href="http://www.ihep.cas.cn/xwdt/gnxw/2022/202210/t20221031_6542138.html">http://www.ihep.cas.cn/xwdt/gnxw/2022/202210/t20221031_6542138.html</a>&nbsp;</p></div>
+</table>
+</td>
+      </tr>
+      
+<tr>
+        <td id="zoom3" class="nrhei">&nbsp;</td>
+      </tr>
+      
+<tr>
+        <td>
+        
+<table width="90%" border="0" cellpadding="0" cellspacing="0" align="center">
+  <tr>
+     <td align="center">
+ <script language="javascript">
+   var str_appendix='<img id="pic_preview_box_id" src="./W020221101315314129463.jpg" alt="1.jpg"/>';
+   var file_appendix='';
+   var link_appendix='';
+   if(str_appendix!=""&file_appendix!="")
+    {
+   document.write("<table width='100%' border='0' cellpadding='0' cellspacing='0' bgcolor='#e5e5e5' align='center' style='line-height:24px'><tr><td width='100%' valign='center'>附件列表</td></tr></table>");
+     }
+else{
+if(str_appendix!=""&link_appendix!=""){
+document.write("<table width='100%' border='0' cellpadding='0' cellspacing='0' bgcolor='#e5e5e5' align='center' style='line-height:24px'><tr><td width='100%' valign='center'>附件列表</td></tr></table>");
+}
+}
+</script>                </td>
+             
+ </tr>
+                           
+</table>
+    
+        </td>
+      </tr>
+
+    </table></td>
+  </tr>
+  <tr><td>
+  
+  <table width="60%" border="0" cellpadding="0" cellspacing="0" align="center">
+                <tr>
+                <td align="left">
+ <SCRIPT LANGUAGE="JavaScript">
+createPageHTML(1, 0, "t20221101_6542537", "html");	
+</SCRIPT>
+  <br>
+                  </td>
+             
+               
+
+
+
+<table width="90%" border="0" cellpadding="0" cellspacing="0" align="center">
+
+
+
+ </table>  
+
+
+
+
+
+
+
+ </tr>
+                            
+            </table>  
+  
+  
+  </td></tr>
+
+
+ 
+</table> 
+        
+
+
+<table width="1100" height="40" border="0" cellspacing="0" cellpadding="0" bgcolor="#f9fdfe" align="center">
+  <tr>
+    <td width="900">&nbsp;
+</td>
+<td align="right">
+ <div class="bdsharebuttonbox" >
+	<a class="bds_weixin" data-cmd="weixin"></a>
+	
+	<a class="bds_tsina" data-cmd="tsina"></a>
+
+	
+</div>
+</td>
+  </tr>
+</table>
+
+
+
+<!-- ■相关链接开始-->
+<table width="1100" height="60" bgcolor="#0b9afb" border="0" align="center" cellpadding="0" cellspacing="0">    
+<tr>            
+<td width="85%" height="35px" align="center" bgcolor="#0b9afb" class="bai1" style="padding:0px 10px 0px 10px;"> 
+
+<a class="bai1"><strong>相关链接：</strong></a>
+<a href="http://www.cas.cn/" class="bai1" target="_blank">中国科学院</a>&nbsp;&nbsp;
+
+
+<a stylecolor="#fd7400">|</a>
+&nbsp;&nbsp;<a href="http://lssf.cas.cn/" class="bai1" target="_blank">中科院重大基础设施共享平台</a>&nbsp;&nbsp;
+
+
+<a stylecolor="#fd7400">|</a>
+&nbsp;&nbsp;<a href="http://www.ihep.cas.cn/dkxzz/bsrf/"class="bai1" target="_blank">北京同步辐射装置</a>&nbsp;&nbsp;
+
+<a stylecolor="#fd7400">|</a>
+&nbsp;&nbsp;<a href="http://ssrf.sari.ac.cn/" class="bai1" target="_blank">上海光源</a>&nbsp;&nbsp;
+
+
+<a stylecolor="#fd7400">|</a>
+&nbsp;&nbsp;<a href="http://www.nsrl.ustc.edu.cn/"class="bai1" target="_blank">合肥光源</a>&nbsp;&nbsp;
+
+<a stylecolor="#fd7400">|</a>
+&nbsp;&nbsp;<a href="http://159.226.102.27/newIndex?serverId=322"class="bai1" target="_blank">高能所信息监测平台-SR装置动态</a>
+
+</td>        
+</tr>    
+</table>
+
+<!-- ■相关链接结束-->
+
+<table bgcolor="#0882d5" width="1100" height="200" border="0" cellpadding="0" cellspacing="0" align="center" style="padding:10px 0px 10px 0px;">
+  <tr>
+    <td height="60" align="center" class="bai">版权所有 &copy; 中国科学院高能物理研究所    备案序号：京ICP备05002790号    <br />
+    地址：北京市怀柔区光源街1号院 HEPS工程办&nbsp;&nbsp;&nbsp;&nbsp;邮编：101407     <br />
+    联系人: 苑梦尧&nbsp;&nbsp;&nbsp;&nbsp;电话：(010)88235967&nbsp;&nbsp;&nbsp;&nbsp;Email：heps@ihep.ac.cn<br>
+HEPS 用户办公室  联系人：于梅娟&nbsp;&nbsp;&nbsp;&nbsp;电话：(010)88235027&nbsp;&nbsp;&nbsp;&nbsp;Email：heps-user@ihep.ac.cn</td>
+<td><a href="https://heps.ihep.ac.cn/images/wechat.png" target="_blank"><img src="../../../../images/wechat.png" alt="北京光源用户之窗") / width="60" /></a></td><td><a href="https://bszs.conac.cn/sitename?method=show&id=072B126B27716842E053022819ACDE8D" target="_blank"> <img src="/images/foot-blue.png") /></a></td><td><a href="http://cas.cn/" target="_blank"> <img src="/images/cas-logo_2022.png") /></a></td><td></td>
+  </tr>
+</table>
+
+
+
+<script>
+	window._bd_share_config = {
+
+              common : {
+			bdText : ' HEPS首批X射线拉曼散射谱仪分析晶体完成在线测试',	
+			bdDesc : '近日，中科院高能所自主研制的球面弯曲分析晶...',	
+			bdcomment:'近日，中科院高能所自主研制的球面弯曲分析晶...',
+			"bdPic" : "http://english.ihep.cas.cn/template/heps/lib/images/heps_favicon.ico"
+                        
+		},
+		share : [{
+			"bdSize" : 16
+		}],
+		slide : [{	   
+			bdImg : 0,
+			bdPos : "right",
+			bdTop : 200
+		}],
+		image : [{
+			viewType : 'list',
+			viewPos : 'top',
+			viewColor : 'black',
+			viewSize : '16',
+			viewList : ['weixin','tsina']
+		}],
+		selectShare : [{
+                         "bdContainerClass":null,
+			"bdselectMiniList" : ['weixin','tsina']
+		}]
+
+		
+	}
+	with(document)0[(getElementsByTagName('title')[0]||abstract).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>从原子能级到产业材料</title><style>
+@page { size:A4; margin:18mm 17mm 18mm;
+ @bottom-center { content:'Atomx · 原子分子晶体谱学与未来产业    ' counter(page) ' / ' counter(pages);
+ font:8pt 'Noto Sans CJK SC'; color:#617587; }
+}
+body { font-family:'Noto Sans CJK SC',sans-serif; color:#20303e; font-size:10pt; line-height:1.65; }
+h1 { font-size:23pt; line-height:1.4; color:#153d57; margin:0 0 9mm; }
+h2 { font-size:17pt; color:#153d57; margin-top:8mm; border-bottom:1px solid #d6e1e8; padding-bottom:2mm; }
+h3 { font-size:12pt; color:#294e68; margin-top:6mm; }
+h1,h2,h3 { break-after:avoid; }
+p { margin:2.5mm 0; orphans:3; widows:3; }
+a { color:#24648b; text-decoration:none; overflow-wrap:anywhere; }
+table { border-collapse:collapse; width:100%; font-size:8.2pt; line-height:1.5; margin:4mm 0; }
+thead { display:table-header-group; } tr { break-inside:avoid; }
+th { background:#e6eef4; text-align:left; font-weight:600; }
+td,th { padding:1.8mm; border:1px solid #cddbe5; overflow-wrap:anywhere; }
+pre { white-space:pre-wrap; background:#f2f5f7; padding:3mm; font-size:8pt; line-height:1.5; overflow-wrap:anywhere; }
+code { font-family:'DejaVu Sans Mono','Noto Sans CJK SC',monospace; font-size:0.9em; }
+img { width:100%; height:auto; display:block; margin:4mm auto; }
+.sources table { font-size:8pt; line-height:1.4; }
+.sources td,.sources th { padding:1.2mm; }
+li { margin:1.2mm 0; }
+@media screen { body { max-width:950px; margin:40px auto; padding:0 24px; } }
+</style><body><h1>从原子能级到产业材料</h1>
+<p>Atomx 驱动的原子、分子、晶体谱学研究体系</p>
+<p>北京光源与未来产业 · Agentic Science · 2026-10-06</p>
+<p><strong>主线：先把谱线的物理定义算清楚，再解释环境如何改变它，最后用光谱区分可检验的科学和材料状态。</strong>QED 提供精密原子物理的一部分，XAS 把芯电子响应变成材料局域结构信息，工作条件与测量模型决定这些信息能否用于实际决策。</p>
+<table>
+<thead>
+<tr>
+<th>递进</th>
+<th>案例</th>
+<th>为什么做</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原子基础</td>
+<td>少电子离子，QED/Breit/相关</td>
+<td>建立能量、状态、算符与误差的可信基础</td>
+</tr>
+<tr>
+<td>宇宙到能源</td>
+<td>太阳 Ne VIII、恒星 Ne IX/X、聚变 Ne/W</td>
+<td>从谱线到温度、密度、流动及杂质诊断</td>
+</tr>
+<tr>
+<td>化学键到环境</td>
+<td>CO/CO₂、MgO 嵌入</td>
+<td>区分芯电离/芯激发，识别成键与长程环境</td>
+</tr>
+<tr>
+<td>晶体模型</td>
+<td>NiO 多重态/电荷转移、TiO₂ 多晶型</td>
+<td>判断何时需要局域强相关或延展结构</td>
+</tr>
+<tr>
+<td>产业材料</td>
+<td>LiFePO₄ 工况、Pd 动态催化、Si/SiO₂ 界面</td>
+<td>区分混相、活性重构及局域界面状态</td>
+</tr>
+<tr>
+<td>测量的边界</td>
+<td>Ne XFEL 电荷动力学</td>
+<td>检查探针是否在测量中改变了对象</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ne 的故事要讲准确：</strong>Ne VIII 是三个电子的 Ne⁷⁺，太阳风相关约 77 nm 紫外价跃迁与此前约 908 eV 芯激发共振是不同跃迁。Ne IX/X 的热等离子体线还需要布居、碰撞/复合、UV 场和输运，不能由能级差直接得到唯一温度或密度。</p>
+<p><strong>Atomx 的角色：</strong>原子结构、CI/MCDHF、Breit/模型 QED、辐射与部分连续态/动力学是基础；已有 PySCF provider、芯 ΔSCF、有限嵌入与晶场接口。周期 XAS、完整配体电荷转移及核运动需与外部软件协作并建立明确适配。接口名称或架构提案不作为已实现能力。</p>
+<p><strong>Agent 的科学任务：</strong>提出竞争解释，选择最小有判别力的控制，锁定模型与验收规则，运行计算并保存失败，按结果决定下一步。演示应展示“为什么这样计算、排除了什么”，并以盲测、独立参考、可回放性和实际资源评价。</p>
+<p><strong>本次交付：</strong>12 个案例均给出动机、输入、模型/软件、步骤、观测量/验证和故事承接；附机器可读登记表及 PDF/Word/Markdown。Ne X 基态、CO provider、MgO 嵌入三个小例子已执行并通过声明的软件检查。12 个完整科学案例、材料实验和产业性能验证尚未完成。</p>
+<p>原始来源、已实现接口与研究边界见<a href="研究体系与案例设计.md">完整文档</a>。主题按用户给定要求组织，未据平台入口声称已确认当期完整评分规则，也未报名或提交。</p></body></html>

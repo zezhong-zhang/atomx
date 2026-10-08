@@ -26,7 +26,14 @@ class SubshellPIResult:
 
 
 def subshell_photoionization(
-    result, photon_energies_eV, *, continuum_model, orbitals=None, thresholds_eV=None
+    result,
+    photon_energies_eV,
+    *,
+    continuum_model,
+    orbitals=None,
+    thresholds_eV=None,
+    magnetic_m2_by_orbital=None,
+    polarization_q=0,
 ):
     """E1 cross sections per atom, with each occupation included once.
 
@@ -35,6 +42,9 @@ def subshell_photoionization(
     to negative orbital eigenvalues; supplied configuration/level energy
     differences replace only the continuum kinetic energy, retaining the
     initial bound functions. Provenance records every threshold and model.
+    An optional magnetic_m2_by_orbital selects a definite m for each
+    selected, singly occupied orbital and a spherical polarization q.
+    Otherwise the cross section is averaged over initial magnetic states.
     """
     import copy
 
@@ -61,6 +71,21 @@ def subshell_photoionization(
         if not set(names).issubset(selected):
             raise ValueError("requested orbital is not occupied in the initial state")
         selected = {name: selected[name] for name in names}
+    if magnetic_m2_by_orbital is not None:
+        if set(magnetic_m2_by_orbital) != set(selected) or polarization_q not in (
+            -1,
+            0,
+            1,
+        ):
+            raise ValueError("magnetic PI requires every selected orbital and q=-1,0,1")
+        for label, sh in selected.items():
+            j2 = 2 * abs(sh.kappa) - 1
+            if sh.occupation != 1 or magnetic_m2_by_orbital[label] not in range(
+                -j2, j2 + 1, 2
+            ):
+                raise ValueError(
+                    "magnetic PI requires singly occupied valid magnetic states"
+                )
     thresholds = {
         label: -result.orbital_energies[label] * HARTREE_EV for label in selected
     }
@@ -91,6 +116,10 @@ def subshell_photoionization(
             energies / HARTREE_EV,
             continuum_model,
             potential=prepared_potential,
+            magnetic_m2=None
+            if magnetic_m2_by_orbital is None
+            else magnetic_m2_by_orbital[label],
+            polarization_q=polarization_q,
         )
     return SubshellPIResult(
         energies.copy(),
@@ -102,5 +131,9 @@ def subshell_photoionization(
             continuum_potential_origins=potential_origins,
             multipoles=["E1"],
             occupation_weighted=True,
+            magnetic_m2_by_orbital=None
+            if magnetic_m2_by_orbital is None
+            else dict(magnetic_m2_by_orbital),
+            polarization_q=None if magnetic_m2_by_orbital is None else polarization_q,
         ),
     )
