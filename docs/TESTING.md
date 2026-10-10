@@ -28,6 +28,11 @@ OpenMP and Numba avoid oversubscription and reduce scheduling variability.
 | [Test](../.github/workflows/test.yml) | Main pushes and pull requests | Essential suite on Python 3.10 and 3.13, including two fresh-process determinism repeats |
 | [Lint](../.github/workflows/lint.yml) | Main pushes and pull requests | Ruff 0.15.6, repository documentation links and project-index freshness |
 
+The recorded 2026-10-10 hosted run passes **452 tests** per Python version:
+job time including setup/cleanup is **3m13s (3.10)** and **2m48s (3.13)**.
+These are source-bound observations; [logs and identities](ci_repair_2026_10_10/README.md)
+record the conditions. A local warm-cache default run passed in 37.83 s.
+
 The former nightly slow/book/bounds/full-determinism workflow was removed on
 2026-10-10 at the user's request. The three-minute goal is a turnaround target,
 not a scientific tolerance or a hardware-independent timing guarantee; each CI

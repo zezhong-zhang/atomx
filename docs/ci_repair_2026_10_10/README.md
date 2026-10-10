@@ -1,6 +1,6 @@
 # GitHub Actions repair and documentation organization — 2026-10-10
 
-Status: final local essential suite (452 tests), affected numerical panel, documentation tests and lint pass; final essential GitHub matrix pending. Full campaigns were canceled at the user’s request and are not claimed to pass.
+Status: **452 essential tests pass on GitHub Python 3.10 and 3.13**; lint, documentation links and project navigation pass. Job times including setup are 3m13s and 2m48s, respectively. Full campaigns were canceled at the user’s request and are not claimed to pass.
 Base: `233fec1a9710e95cf42bf64ecb821d287d4336e2`. Repairs are isolated from the
 main checkout's unrelated scientific changes in branch `fix/ci-docs`.
 
@@ -177,3 +177,23 @@ source, tolerance, state, Hamiltonian or test-function model was changed.
 with existing warm compilation caches. This is one observation, not a controlled
 speedup or cold GitHub prediction. [Final selection identity](essential_final_identity.json)
 records actual test/config hashes and unchanged ASTs of the moved campaign tests.
+
+## Final hosted validation
+
+[Test 38034235757](https://github.com/zezhong-zhang/atomx/actions/runs/38034235757)
+and [Lint 38034235964](https://github.com/zezhong-zhang/atomx/actions/runs/38034235964)
+pass on `fe39abc486be64462e9e353ff75f4b217cb9c0a0`. Both Python versions execute
+all **452 essential tests**. Measured job times including setup/cleanup:
+**3m13s (3.10)** and **2m48s (3.13)**. Pytest step wall times are 2m48s and
+2m31s. These are hosted observations within the approximate three-minute goal,
+not a universal runtime guarantee or a controlled kernel-speedup claim.
+The [complete passing logs](essential_hosted_final.log.gz) and
+[job/step timestamps](essential_hosted_final_jobs.json) retain the evidence.
+
+The final documentation-only increment records these already measured results;
+production source, selected tests and execution controls remain unchanged.
+Unrelated scientific work in the main checkout remains excluded from the PR.
+The original full suite was canceled, and the removed campaigns are not certified
+by these essential checks. Documentation disposition, links, index freshness
+and installed commit hooks were checked before delivery. No new root rule or
+physical accuracy claim follows.
