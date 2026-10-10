@@ -32,3 +32,7 @@ jobs:
         # heavily gitignored directory, ruff 0.15.6 was observed reporting
         # "All checks passed!" (exit 0) without checking any file.
         run: ruff check --no-cache src tests scripts benchmarks
+      - name: Check documentation links
+        run: python scripts/check_documentation.py
+      - name: Check project navigation is current
+        run: python scripts/build_project_index.py --check

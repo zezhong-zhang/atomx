@@ -48,9 +48,13 @@ later with a ζ-scaling hook if needed.
   Jacobian (energies are near-linear in s; one step gets most of the
   way — gate G1).
 
-Gates (tests/test_slater_scaling_transfer.py, slow): G1 Pr fit + linearity,
+Historical transfer gates (removed from active collection on 2026-10-10;
+[preserved source](archive/2026-10/long_running_tests/README.md)): G1 Pr fit + linearity,
 G2 scaled-H Hermiticity, G3 Eu transfer HONEST BOUND (ratio
-sensitivity documented, not hidden), G4 Nd transfer regression.
+sensitivity documented, not hidden), G4 Nd transfer regression. Current essential
+gates in `tests/test_slater_scaling.py` use a complete small 4f² space to check
+signed matrix identities and parameter recovery; they do not revalidate transfer
+to other ions. See [Testing](TESTING.md).
 
 ## Perf note
 

@@ -1,5 +1,8 @@
 # Frequency-dependent transverse exchange
 
+Repository availability: paths marked “local evidence” are outside the tracked
+checkout. They retain the original evidence location and are not GitHub links.
+
 ## Operator and frequency prescription
 
 The explicit frozen-orbital CI path now supports the real Coulomb-gauge
@@ -157,9 +160,9 @@ matrix with the existing independently checked static implementation.
 Tracked FAC Ne/Pb fixtures make those external checks reproducible without
 requiring the FAC executable in the test environment.
 
-Artifacts: [full matrix-element panel](../benchmarks/runs/2026-09-29-transverse-ci-live/),
-[grid refinement](../benchmarks/runs/2026-09-29-transverse-refinement/),
-[kernel reuse panel](../benchmarks/runs/2026-09-29-transverse-cached-live/).
+Artifacts: full matrix-element panel (local evidence: `../benchmarks/runs/2026-09-29-transverse-ci-live/`),
+grid refinement (local evidence: `../benchmarks/runs/2026-09-29-transverse-refinement/`),
+kernel reuse panel (local evidence: `../benchmarks/runs/2026-09-29-transverse-cached-live/`).
 Broad correlated-state, finite-nucleus and continuum validation remains open.
 
 ### Reference refinement and common-spinor diagnosis
@@ -205,14 +208,14 @@ Tracked tests now impose 0.1-ppm agreement on common Ne/Pb spinors and
 30-ppm external gate. The compressed common-spinor fixture includes its
 source hash and reference settings. No Atomx operator was fitted to FAC.
 
-Evidence: [common spinors](../benchmarks/runs/2026-09-29-transverse-common-panel/),
-[independent precision panel](../benchmarks/runs/2026-09-29-transverse-precision-panel/).
+Evidence: common spinors (local evidence: `../benchmarks/runs/2026-09-29-transverse-common-panel/`),
+independent precision panel (local evidence: `../benchmarks/runs/2026-09-29-transverse-precision-panel/`).
 The numerical grid and orbital controls are shared by the transition and
 recoil benchmark runners in `benchmarks/fac_runner.py`.
 
 ### Public-path integration checks
 
-The [public API audit](../benchmarks/runs/2026-09-30-transverse-public/)
+The public API audit (local evidence: `../benchmarks/runs/2026-09-30-transverse-public/`)
 checks both engines, a statistical open-shell ensemble, explicit
 multi-configuration final CI, the method objects, input contradictions and
 duplicate correction rejection. Seven dedicated integration tests pass.

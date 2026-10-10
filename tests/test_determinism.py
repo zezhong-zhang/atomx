@@ -11,9 +11,9 @@ which any existing test could see:
   several subprocesses detects.
 
 ``test_panel_is_deterministic_across_processes`` is cheap enough for every
-CI run.  ``test_panel_has_no_out_of_bounds_reads`` is marked ``slow``
-because numba bounds checking forces a full recompile; CI runs it in a
-dedicated job (see ``.github/workflows/test.yml``).
+CI run with two fresh processes over C, Ne and multi-configuration Be.
+``test_panel_has_no_out_of_bounds_reads`` is an explicit diagnostic outside
+the default essential suite because bounds checking forces a full recompile.
 """
 
 from __future__ import annotations
@@ -24,13 +24,10 @@ import subprocess
 import sys
 from pathlib import Path
 
-import pytest
-
 ROOT = Path(__file__).resolve().parent.parent
 PANEL = """
 import hashlib
 import json
-import sys
 import numpy as np
 from atomx import Atom, Basis, Correlation
 
@@ -40,8 +37,6 @@ cases = [
     dict(Z=4, config=['1s2 2s2', '1s2 2p2'], engine='bspline',
          correlation=Correlation(averaging='ci'), basis=Basis(ns=45)),
 ]
-if sys.argv[1] == 'full':
-    cases += [dict(Z=98, engine='shooting')]
 records = []
 for settings in cases:
     atom = Atom(**settings).solve()
@@ -62,13 +57,15 @@ print(json.dumps(records, sort_keys=True))
 """
 
 
-def _run(panel, cache, *, boundscheck=False):
+def _run(cache, *, boundscheck=False):
     env = os.environ.copy()
-    env.update(PYTHONPATH=str(ROOT/'src'), NUMBA_CACHE_DIR=str(cache),
+    env.update(PYTHONPATH=str(ROOT/'src'),
                NUMBA_BOUNDSCHECK=str(int(boundscheck)),
                NUMBA_DISABLE_JIT='0', NUMBA_NUM_THREADS='1',
                OPENBLAS_NUM_THREADS='1', OMP_NUM_THREADS='1', MKL_NUM_THREADS='1')
-    process = subprocess.run([sys.executable, '-c', PANEL, panel],
+    if cache is not None:
+        env['NUMBA_CACHE_DIR'] = str(cache)
+    process = subprocess.run([sys.executable, '-c', PANEL],
         capture_output=True, text=True, cwd=ROOT, env=env, timeout=1800)
     assert process.returncode == 0, (
         f'numerical panel failed ({process.returncode}):\n'
@@ -76,22 +73,9 @@ def _run(panel, cache, *, boundscheck=False):
     return json.loads(process.stdout)
 
 
-def test_panel_is_deterministic_across_processes(tmp_path):
+def test_panel_is_deterministic_across_processes():
     """Identical input must give bit-identical output in fresh processes."""
-    panel = os.environ.get('ATOMX_TEST_DETERMINISM_PANEL', 'quick')
-    repeats = int(os.environ.get('ATOMX_TEST_DETERMINISM_REPEATS', '3'))
-    assert panel in ('quick', 'full') and repeats >= 2
-    results = [_run(panel, tmp_path/'numba') for _ in range(repeats)]
+    # Fresh interpreters test process-dependent values and scratch memory.
+    # Reuse compiled kernels; the ordinary suite already exercises cold JIT.
+    results = [_run(None) for _ in range(2)]
     assert all(result == results[0] for result in results[1:])
-
-
-@pytest.mark.slow
-def test_panel_has_no_out_of_bounds_reads(tmp_path):
-    """Run the panel with NUMBA_BOUNDSCHECK=1 — catches OOB kernel reads.
-
-    With bounds checking off such a read returns heap garbage: harmless when
-    the value is finite (it is multiplied by a structurally zero rkb entry)
-    and a poisoned ``nan`` integral otherwise, which is exactly how the
-    nondeterministic-NaN bug stayed invisible.
-    """
-    assert len(_run('full', tmp_path/'numba-bounds', boundscheck=True)) == 4

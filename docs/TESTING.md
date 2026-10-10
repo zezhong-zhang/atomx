@@ -1,16 +1,115 @@
 # Testing Atomx
 
-Run tests from the repository root with the development dependencies installed.
-For a source checkout:
+The default suite targets about **three minutes** and contains a reviewed set of
+essential tests listed in `pyproject.toml` under `testpaths`. Plain `pytest -q`
+and GitHub Actions use the same selection. An explicit path overrides that
+selection, so run affected subsystem tests as well when changing their code.
+Do not use `pytest tests` as the routine command: it collects the extended suite.
+
+Use the existing `.venv`. For a fresh clone:
 
 ```bash
-PYTHONPATH=src:. OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -m pytest --collect-only -q
-PYTHONPATH=src:. OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -m pytest -q tests/test_architecture_boundaries.py tests/test_numerical_design_contracts.py
+uv sync --locked --extra dev --python 3.10
+.venv/bin/pre-commit install
+export PYTHONPATH=src:.
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 NUMBA_NUM_THREADS=1
+.venv/bin/python -m pytest -q --durations=15
 ```
 
-Limiting BLAS threads avoids oversubscription when calculations or test processes
-run concurrently. The development dependencies include `pytest-timeout`; without
-it, pytest reports unknown timeout configuration options.
+The essential suite does not require optional rendering backends or their Cairo
+and Pango system libraries. Development dependencies include the units/PySCF
+extras and `pytest-timeout`; the lock remains authoritative. Serial BLAS,
+OpenMP and Numba avoid oversubscription and reduce scheduling variability.
+
+## GitHub Actions and local equivalents
+
+| Workflow | Trigger | Gates |
+|---|---|---|
+| [Test](../.github/workflows/test.yml) | Main pushes and pull requests | Essential suite on Python 3.10 and 3.13, including two fresh-process determinism repeats |
+| [Lint](../.github/workflows/lint.yml) | Main pushes and pull requests | Ruff 0.15.6, repository documentation links and project-index freshness |
+
+The recorded 2026-10-10 hosted run passes **452 tests** per Python version:
+job time including setup/cleanup is **3m13s (3.10)** and **2m48s (3.13)**.
+These are source-bound observations; [logs and identities](ci_repair_2026_10_10/README.md)
+record the conditions. A local warm-cache default run passed in 37.83 s.
+
+The former nightly slow/book/bounds/full-determinism workflow was removed on
+2026-10-10 at the user's request. The three-minute goal is a turnaround target,
+not a scientific tolerance or a hardware-independent timing guarantee; each CI
+job has a five-minute safety timeout including environment setup.
+
+```bash
+# Focused checks explicitly select files or nodes outside the default list.
+.venv/bin/python -m pytest -q tests/test_sternheimer_edm.py -m 'not slow'
+.venv/bin/python -m pytest -q tests/test_numerical_bounds.py
+.venv/bin/python -m ruff check --no-cache src tests scripts benchmarks
+.venv/bin/python scripts/check_documentation.py
+.venv/bin/python scripts/build_project_index.py --check
+```
+
+The explicit bounds diagnostic uses the same C/Ne/Be inputs with
+`NUMBA_BOUNDSCHECK=1`. It forces a fresh compilation and is outside routine CI.
+The Cf addition and four/twelve-repeat campaigns have been removed. Two fresh
+processes still compare energies, every orbital energy and signed wave bytes.
+They reuse compiled kernels from the ordinary suite; only the optional bounds
+diagnostic requires an isolated compilation cache.
+
+The link check covers root and top-level documentation entry points and requires
+tracked repository targets. It excludes external URLs, heading anchors, fenced
+examples and archived report bodies. It cannot judge scientific claims; review
+the [owning guide](DEVELOPMENT.md#code-to-documentation-entry-points) with each change.
+Historical selected-panel counts live in [validation history](VALIDATION_HISTORY.md).
+
+## Essential coverage and removed campaigns
+
+| Essential contract | Selected coverage |
+|---|---|
+| Public inputs, units, method ownership | Input surface, configuration/method validation, constants, units and architecture boundaries |
+| Radial mathematics | Native metric, B-spline identities, analytic Dirac energies, shooting operators, Gauss moments and six-kernel crosschecks |
+| Signed CI and eigensolvers | Double-excitation signs, complete traces, dense closure, Davidson, radial snapshots and Hermitian clusters |
+| Independent physical anchors | Full signed GRASP open-shell Breit blocks and stored FAC CI operator matrices |
+| Public live behavior and corrections | Canonical Atom energy panel, correction ledgers/stack and native checkpoint round trips |
+| Rates and dynamics | Tracked native Ne table, complete signed multi-electron CI channels and analytic XFEL kinetics |
+| Reproducibility and maintenance | Two-process C/Ne/Be comparison, NIST workflow, documentation links and staged project-index behavior |
+
+Selection is explicit and reviewable; no runtime-based skipping, relaxed
+thresholds or truncated production models are used. Extended subsystem tests
+remain available by explicit path, but their results are not implied by a green
+essential run. Add or replace a default test only when its contract earns the
+runtime cost; inspect `--durations` and update this guide in the same change.
+
+Hosted timings also moved `test_ci_analytic_slater_condon.py` and the two
+absolute-reservoir campaigns in `test_xfel_reservoir_campaign.py` outside the
+default selection. Their models and assertions are unchanged. The small live
+three-electron closure, signed channels and pulse checks remain essential.
+
+The multi-minute Pr/Eu/Nd transfer, ns=256/320 DHF bank-comparison and Fe XVII
+LMM campaigns were removed from `tests/`. Their unchanged source and SHA-256
+manifest are retained in the [historical campaign archive](archive/2026-10/long_running_tests/README.md).
+The small complete 91-determinant 4f² Slater gates remain essential; they check
+antisymmetry, signed interference, J sectors and parameter recovery, without
+claiming free-ion stationarity or experimental agreement. Earlier
+[measurements](code_review_2026_10_05/TEST_PERFORMANCE.md) describe the original
+workloads and do not measure this new suite. Current measurements and source
+identity are in the [CI repair record](ci_repair_2026_10_10/README.md).
+
+## Fixtures and numerical regressions
+
+Tests must read fixtures from tracked paths. `tests/data/ne_native_1000eV.json`
+is the unchanged native 134-configuration table, SHA-256
+`17d9126593cda0a18a7e47f1d62833b125e57d5110e603eea351402765c008ae`;
+it differs from the older `ne_1keV_rate_table.json` model. Its recorded origin
+and [repair evidence](ci_repair_2026_10_10/README.md) identify the producer.
+
+`test_ci_dense_orthogonality.py` replays a native clustered CI block at three
+energy zeros with the original closure and residual gates. Complete dense CI
+uses LAPACK `evd`; partial dense spectra retain `evr`. The nitrogen self snapshot
+includes the independently anchored open-shell Breit phase already present in
+`233fec1`; it is not an experimental energy reference. The explicitly selected
+Sternheimer test retains the Na HF model/tolerance with a 100-iteration budget;
+the 40-iteration control failed before convergence at 46. It is outside the
+default selection because its extended scaling/heavy-atom work is unnecessary
+for every commit.
 
 ## Organization
 
@@ -57,35 +156,9 @@ validate the affected contracts; only a complete run establishes full-suite
 status. Historical test counts and campaign results live in the
 [archive](archive/README.md).
 
-The [2026-10-08 CI/XFEL delivery record](code_delivery_2026_10_08/validation.json)
-binds the selected regression run to its source hashes and preserves the initial
-failure and stale-column fixture diagnosis. Physical inputs, tolerances and
-strict known-gap gates are retained; slow campaigns are outside that run.
 The multi-electron PI check compares every signed coordinate with dense Fock
 annihilation matrices, including zero amplitudes and interference; a floating
 nonzero channel count is not a completeness or convergence gate.
-
-## Small correctness gates and expensive transfer campaigns
-
-`test_slater_scaling.py` uses a complete 91-determinant 4f² space with fixed,
-normalized radial functions. It gates antisymmetry, non-diagonal interference,
-complete J-sector extraction and parameter recovery. It does not claim free-ion
-stationarity or agreement with experiment. The original Pr/Eu/Nd models and
-numerical acceptance rules remain in `test_slater_scaling_transfer.py` (slow),
-with one shared Pr fit. A full `pytest` still runs this campaign.
-
-```bash
-.venv/bin/python -m pytest -q -m 'not slow' --durations=30
-.venv/bin/python -m pytest -q tests/test_slater_scaling_transfer.py --durations=10
-.venv/bin/python -m pytest -q tests/test_slater_kernel_crosscheck.py tests/test_gauss_legendre_rule.py
-```
-
-The six-kernel crosscheck retains scalar/profile accuracy gates and independent
-reference anchors. Its refinement tests use smaller pairs of grids with the
-same refinement factor and convergence-order bounds. The shared Gauss-Legendre
-rule is also checked against exact polynomial moments and read-only cache
-ownership. [Measurements and limits](code_review_2026_10_05/TEST_PERFORMANCE.md)
-distinguish test-workload reduction from same-input kernel acceleration.
 
 ## Commit-time project navigation
 

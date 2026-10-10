@@ -490,10 +490,12 @@ python -m ruff check --no-cache src tests scripts benchmarks
 pre-commit install
 ```
 
-CI runs lint, tests excluding `slow` on Python 3.10 and 3.13, and a determinism
-panel. The [test](.github/workflows/test.yml),
-[lint](.github/workflows/lint.yml), and [nightly](.github/workflows/nightly.yml)
-workflows define their environments and validation scope.
+CI runs the essential suite on Python 3.10 and 3.13, including two fresh-process
+determinism repeats, with a target of about three minutes. Plain `pytest -q`
+uses the same reviewed selection in `pyproject.toml`. The
+[test](.github/workflows/test.yml) and [lint](.github/workflows/lint.yml) workflows
+define the gates; long campaigns and their nightly schedule have been removed.
+See the [testing guide](docs/TESTING.md) for coverage and focused checks.
 
 Include reproducible inputs and relevant validation with a contribution.
 For numerical issues, report `resolved_inputs`, convergence status, and the

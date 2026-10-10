@@ -9,13 +9,13 @@ from atomx.constants import HARTREE_EV
 from atomx.xfel import CompiledRateTable
 from atomx.xfel.cascade import _table_key
 
-HERE = Path(__file__).resolve().parents[1] / 'docs/xfel_real_rates_2026_10_03'
+HERE = Path(__file__).resolve().parent / 'data'
 BASE = {(1, -1): 2, (2, -1): 2, (2, 1): 2, (2, -2): 4}
 
 
 @pytest.fixture(scope='module')
 def table():
-    return json.loads((HERE / 'ne_1000eV.json').read_text())
+    return json.loads((HERE / 'ne_native_1000eV.json').read_text())
 
 
 def test_complete_native_graph_and_empty_hole_decay(table):

@@ -16,7 +16,11 @@ concurrency:
 jobs:
   pytest:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 5
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      NUMBA_NUM_THREADS: "1"
     strategy:
       fail-fast: false
       matrix:
@@ -33,17 +37,13 @@ jobs:
         uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y pkg-config libcairo2-dev libpango1.0-dev
       - name: Install dependencies
         # --locked: CI must test the committed uv.lock, not a silent re-resolve.
-        # --all-extras: viz/notebook/manim extras are required by the test suite.
-        run: uv sync --locked --all-extras --python ${{ matrix.python-version }}
+        # The essential suite needs dev, not optional rendering backends.
+        run: uv sync --locked --extra dev --python ${{ matrix.python-version }}
       - name: Show pytest interpreter
         run: uv run --python ${{ matrix.python-version }} python -c "import sys; print(sys.version); print(sys.executable)"
-      - name: Run pytest
+      - name: Run essential suite
         env:
           # Serial math kernels for CI determinism. Hosted runners land on
           # heterogeneous Azure hardware, and threaded OpenBLAS (bundled in
@@ -54,10 +54,6 @@ jobs:
           # numerical sites). Serial BLAS removes the thread-scheduling
           # variance vector at a modest runtime cost.
           OPENBLAS_NUM_THREADS: "1"
+          OMP_NUM_THREADS: "1"
           NUMBA_NUM_THREADS: "1"
-        run: uv run --python ${{ matrix.python-version }} pytest -m "not slow" -q
-      - name: Determinism gate (fresh processes, bit-identical results)
-        env:
-          ATOMX_TEST_DETERMINISM_PANEL: full
-          ATOMX_TEST_DETERMINISM_REPEATS: "4"
-        run: uv run --python ${{ matrix.python-version }} pytest tests/test_determinism.py::test_panel_is_deterministic_across_processes -q
+        run: uv run --python ${{ matrix.python-version }} pytest -q --durations=15

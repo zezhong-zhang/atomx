@@ -89,3 +89,7 @@ campaign commands remain only as historical context. See [current guides](../REA
 - [Adaptive recovery of frozen-exchange orbital plateaus](2026-09/SHOOTING_STAGNATION_RECOVERY_2026-09-29.md)
 - [Static Breit retardation and larger correlation spaces](2026-09/STATIC_BREIT_CORRELATION_2026-09-28.md)
 - [Atomx theory compared with NIST spectra](2026-09/THEORY_NIST_CAMPAIGN_HISTORY_2026-09-29.md)
+
+## 2026-10
+
+- [Removed long test campaigns](2026-10/long_running_tests/README.md): source and hashes for the retired transfer, large-bank and Fe LMM tests.

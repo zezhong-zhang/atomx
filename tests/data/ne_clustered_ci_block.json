@@ -1,0 +1,32 @@
+{
+  "source_commit": "233fec1a9710e95cf42bf64ecb821d287d4336e2",
+  "producer": "docs/ci_repair_2026_10_10/probe_dense.py",
+  "model": "Ne two-electron residual CI; frozen common three-electron orbitals; ns=60 ks=9; Dirac-Coulomb; finite nucleus; no corrections",
+  "kind": "internal numerical regression, not external physics reference",
+  "matrix_hartree": [
+    [
+      -23.454697786251465,
+      -0.2703217652763914,
+      -1.7064903935411322,
+      -0.09213376510382137
+    ],
+    [
+      -0.2703217652763914,
+      -23.241708291281462,
+      -0.09184275456362531,
+      -1.6408202227225117
+    ],
+    [
+      -1.7064903935411322,
+      -0.09184275456362531,
+      -60.2126636820555,
+      -0.110999015413546
+    ],
+    [
+      -0.09213376510382137,
+      -1.6408202227225117,
+      -0.110999015413546,
+      -60.1208440890846
+    ]
+  ]
+}
