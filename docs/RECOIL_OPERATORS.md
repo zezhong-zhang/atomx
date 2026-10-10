@@ -1,5 +1,8 @@
 # Nuclear recoil operators and isotope properties
 
+Repository availability: paths marked “local evidence” are outside the tracked
+checkout. They retain the original evidence location and are not GitHub links.
+
 The leading recoil Hamiltonian is
 
 ```
@@ -64,7 +67,7 @@ convention is documented separately; it has not been changed globally.
 - A read-only `DumpVinti` diagnostic was added to an isolated sfac frontend.
   It calls the supplied, unchanged `libfac.a`. The modified frontend,
   build command, library/source hashes, input scripts and outputs are retained
-  in [the live recoil panel](../benchmarks/runs/2026-09-29-recoil-radial-live/).
+  in the live recoil panel (local evidence: `../benchmarks/runs/2026-09-29-recoil-radial-live/`).
 - Eight channels in both directions at Z = 1, 10, 26, 54, 82 give 80 radial
   comparisons. Leading and Breit-corrected magnitudes agree within 41 ppm.
   The original 4000-point Z=82 repeat increased allocation without refining
@@ -73,7 +76,7 @@ convention is documented separately; it has not been changed globally.
   2.9 ppm for both leading and Breit-corrected integrals. This is improved
   evidence for those two charges, not sub-ppm validation of the full panel.
   See [reference controls](TRANSVERSE_INTERACTION.md#reference-refinement-and-common-spinor-diagnosis)
-  and [raw refined recoil data](../benchmarks/runs/2026-09-29-recoil-precision-reference/).
+  and raw refined recoil data (local evidence: `../benchmarks/runs/2026-09-29-recoil-precision-reference/`).
 - The focused isotope/recoil/correction suite passes 124 tests. The previous
   neon basis gate is replaced by a direct-momentum calculation at a tighter
   SCF tolerance and a 50/70/90 B-spline refinement. The original 1e-9 relative

@@ -1,8 +1,7 @@
 name: Nightly (slow + bounds-check)
 
-# The default test job runs `pytest -m "not slow"` for turnaround time, which
-# left 15 slow tests — MCDHF, EII, DR end-to-end, MBPT(2), the book gate and
-# the numba bounds-check gate — unexecuted by any automation.  They run here.
+# The default test job runs `pytest -m "not slow"` for turnaround time.
+# Slow numerical campaigns and explicit book/bounds/determinism gates run here.
 
 on:
   schedule:
@@ -19,8 +18,27 @@ concurrency:
 
 jobs:
   slow:
+    name: ${{ matrix.suite }}
     runs-on: ubuntu-latest
     timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - suite: slow
+            pytest-args: '-m slow'
+          - suite: book
+            pytest-args: '-m book'
+          - suite: bounds-check
+            pytest-args: 'tests/test_determinism.py::test_panel_has_no_out_of_bounds_reads'
+          - suite: determinism
+            pytest-args: 'tests/test_determinism.py::test_panel_is_deterministic_across_processes'
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      NUMBA_NUM_THREADS: "1"
+      ATOMX_TEST_DETERMINISM_PANEL: full
+      ATOMX_TEST_DETERMINISM_REPEATS: "12"
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
@@ -37,16 +55,5 @@ jobs:
           sudo apt-get install -y pkg-config libcairo2-dev libpango1.0-dev
       - name: Install dependencies
         run: uv sync --locked --all-extras --python 3.13
-      - name: Slow tests
-        run: uv run --python 3.13 pytest -m "slow" -q
-      - name: Book claims
-        run: uv run --python 3.13 pytest -m "book" -q
-      - name: Out-of-bounds read gate (NUMBA_BOUNDSCHECK=1)
-        # Deterministic IndexError instead of heap garbage: this is the gate
-        # that turns the "nondeterministic NaN" class into a hard failure.
-        run: uv run --python 3.13 pytest tests/test_determinism.py::test_panel_has_no_out_of_bounds_reads -q
-      - name: Determinism across fresh processes
-        env:
-          ATOMX_TEST_DETERMINISM_PANEL: full
-          ATOMX_TEST_DETERMINISM_REPEATS: "12"
-        run: uv run --python 3.13 pytest tests/test_determinism.py::test_panel_is_deterministic_across_processes -q
+      - name: Run ${{ matrix.suite }} gate
+        run: uv run --python 3.13 pytest ${{ matrix.pytest-args }} -q

@@ -1,16 +1,71 @@
 # Testing Atomx
 
-Run tests from the repository root with the development dependencies installed.
-For a source checkout:
+Run tests from the repository root with the existing `.venv`. For a fresh clone,
+install the locked environment, including development and rendering extras:
 
 ```bash
-PYTHONPATH=src:. OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -m pytest --collect-only -q
-PYTHONPATH=src:. OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -m pytest -q tests/test_architecture_boundaries.py tests/test_numerical_design_contracts.py
+uv sync --locked --all-extras --python 3.10
+.venv/bin/pre-commit install
+```
+
+Manim needs `pkg-config`, Cairo and Pango development libraries; the workflows
+install `pkg-config libcairo2-dev libpango1.0-dev` on Ubuntu. For a source checkout:
+
+```bash
+export PYTHONPATH=src:.
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 NUMBA_NUM_THREADS=1
+.venv/bin/python -m pytest --collect-only -q
+.venv/bin/python -m pytest -q tests/test_architecture_boundaries.py tests/test_numerical_design_contracts.py
 ```
 
 Limiting BLAS threads avoids oversubscription when calculations or test processes
 run concurrently. The development dependencies include `pytest-timeout`; without
 it, pytest reports unknown timeout configuration options.
+
+## GitHub Actions and local equivalents
+
+| Workflow | Trigger | Gates |
+|---|---|---|
+| [Test](../.github/workflows/test.yml) | Main pushes and pull requests | Python 3.10 and 3.13, `pytest -m 'not slow'`, then four fresh-process determinism repeats |
+| [Nightly](../.github/workflows/nightly.yml) | Daily 04:17 UTC and manual dispatch | Python 3.13; independent slow, book, bounds-check and 12-repeat determinism jobs |
+| [Lint](../.github/workflows/lint.yml) | Main pushes and pull requests | Ruff 0.15.6, repository documentation links and project-index freshness |
+
+All numerical jobs set BLAS, OpenMP and Numba threads to one. Nightly jobs are
+independent so a slow-test failure does not suppress the book or safety gates.
+The bounds-check test launches its child with `NUMBA_BOUNDSCHECK=1`.
+
+```bash
+.venv/bin/python -m pytest -m 'not slow' -q
+.venv/bin/python -m pytest -m slow -q
+.venv/bin/python -m pytest -m book -q
+.venv/bin/python -m pytest tests/test_determinism.py::test_panel_has_no_out_of_bounds_reads -q
+ATOMX_TEST_DETERMINISM_PANEL=full ATOMX_TEST_DETERMINISM_REPEATS=12 .venv/bin/python -m pytest tests/test_determinism.py::test_panel_is_deterministic_across_processes -q
+.venv/bin/python -m ruff check --no-cache src tests scripts benchmarks
+.venv/bin/python scripts/check_documentation.py
+.venv/bin/python scripts/build_project_index.py --check
+```
+
+The link check covers root and top-level documentation entry points and requires
+tracked repository targets. It excludes external URLs, heading anchors, fenced
+examples and archived report bodies. It cannot judge scientific claims; review
+the [owning guide](DEVELOPMENT.md#code-to-documentation-entry-points) with each change.
+Historical selected-panel counts live in [validation history](VALIDATION_HISTORY.md).
+
+## Fixtures and numerical regressions
+
+Tests must read fixtures from tracked paths. `tests/data/ne_native_1000eV.json`
+is the unchanged native 134-configuration table, SHA-256
+`17d9126593cda0a18a7e47f1d62833b125e57d5110e603eea351402765c008ae`;
+it differs from the older `ne_1keV_rate_table.json` model. Its recorded origin
+and [repair evidence](ci_repair_2026_10_10/README.md) identify the producer.
+
+`test_ci_dense_orthogonality.py` replays a native clustered CI block at three
+energy zeros and checks the original closure threshold plus native residuals.
+Complete dense CI uses LAPACK `evd`; partial dense spectra retain `evr`.
+`test_sternheimer_edm.py` keeps the original Na HF model and tolerance with a
+100-iteration budget; the 40-iteration control failed before converging at 46.
+The nitrogen self snapshot includes the independently anchored open-shell Breit
+phase already present in `233fec1`; it is not an experimental energy reference.
 
 ## Organization
 
@@ -57,10 +112,6 @@ validate the affected contracts; only a complete run establishes full-suite
 status. Historical test counts and campaign results live in the
 [archive](archive/README.md).
 
-The [2026-10-08 CI/XFEL delivery record](code_delivery_2026_10_08/validation.json)
-binds the selected regression run to its source hashes and preserves the initial
-failure and stale-column fixture diagnosis. Physical inputs, tolerances and
-strict known-gap gates are retained; slow campaigns are outside that run.
 The multi-electron PI check compares every signed coordinate with dense Fock
 annihilation matrices, including zero amplitudes and interference; a floating
 nonzero channel count is not a completeness or convergence gate.

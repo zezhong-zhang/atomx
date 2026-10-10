@@ -1,5 +1,8 @@
 # Verification status and comparison contracts
 
+Repository availability: paths marked “local evidence” are outside the tracked
+checkout. They retain the original evidence location and are not GitHub links.
+
 Updated 2026-09-30. The objective remains agreement in physics, numerical
 accuracy and performance across structure, spectra, properties and collision
 calculations. The current live panel below covers only a subset. Neither a
@@ -43,7 +46,7 @@ general performance ratio. All eight SCF calculations met their requested
 stopping criteria, whose definitions are recorded separately.
 
 Raw evidence:
-[`2026-09-30-dbsr-orbital-accuracy`](../benchmarks/runs/2026-09-30-dbsr-orbital-accuracy/).
+`2026-09-30-dbsr-orbital-accuracy` (local evidence: `../benchmarks/runs/2026-09-30-dbsr-orbital-accuracy/`).
 All 26 reported orbital mean radii across these four atoms agree within DBSR's
 three-decimal print rounding. That coarse output does not demonstrate high
 precision for individual radii. Orbital energies need the separate convention
@@ -109,7 +112,7 @@ at the then-default Atomx controls were 7.8e-9 Ha (He), 5.4e-6 Ha (C),
 5.1e-6 Ha (Ne), and 8.5e-6 Ha (Xe). Tightening Xe to 4000 points and SCF
 tolerance 1e-12 reduces its maximum difference to 3.5e-7 Ha. The diagnostic
 does not alter reference orbitals or total energies; outputs and its patch
-are in [`final-fock`](../benchmarks/runs/2026-09-29-dbsr-final-fock/).
+are in `final-fock` (local evidence: `../benchmarks/runs/2026-09-29-dbsr-final-fock/`).
 
 Atomx Xe point-nucleus energies at 2,000 and 4,000 grid points differ by
 1.2e-10 Ha; reducing the inner grid radius from 1e-7 to 1e-8 bohr at 4,000
@@ -117,9 +120,9 @@ points changes the energy by about 3e-12 Ha. These refinement observations
 apply to this calculation, not to all atoms or operators.
 
 Refinement traces are in
-[`cusp-refinement`](../benchmarks/runs/2026-09-29-dbsr-cusp-refinement/),
-[`cusp-tight`](../benchmarks/runs/2026-09-29-dbsr-cusp-tight/) and
-[`grid-check`](../benchmarks/runs/2026-09-29-dbsr-grid-check/).
+`cusp-refinement` (local evidence: `../benchmarks/runs/2026-09-29-dbsr-cusp-refinement/`),
+`cusp-tight` (local evidence: `../benchmarks/runs/2026-09-29-dbsr-cusp-tight/`) and
+`grid-check` (local evidence: `../benchmarks/runs/2026-09-29-dbsr-grid-check/`).
 The earlier full-grid run timed out after 180 seconds; its partial trace is
 retained and is not used as a converged reference.
 
@@ -147,7 +150,7 @@ models. These discrepancies are not treated as numerical errors or passes.
 The current FAC output also does not certify the radial convergence residual.
 
 RADIAL/FAC raw data:
-[`2026-09-29-structure-matched`](../benchmarks/runs/2026-09-29-structure-matched/).
+`2026-09-29-structure-matched` (local evidence: `../benchmarks/runs/2026-09-29-structure-matched/`).
 Its original DBSR rows have been annotated with the later grid/constant findings.
 The first `2026-09-29-structure` run also had unmatched carbon occupations and
 FAC mass shifts; it is retained as an audited failed comparison setup.
@@ -193,7 +196,7 @@ spread), consistent with the independent leading-order Drake benchmark.
 The initial FAC hydrogen discrepancy is **not** an agreement pass.
 
 Electric finite-frequency operators are now implemented in both gauges.
-The follow-up [live panel](../benchmarks/runs/2026-09-29-electric-finite-frequency-live/)
+The follow-up live panel (local evidence: `../benchmarks/runs/2026-09-29-electric-finite-frequency-live/`)
 compares FAC mode 0 with the full Atomx operator: E1–E2 rate differences
 are below 9e-6 relative and E1–E4 below 2.7e-4 over Z=1,10,26,54,82.
 The maximum electric gauge **rate** discrepancy is 4.2e-12.
@@ -216,8 +219,8 @@ K_SMS(ns=70) = -117.83870438580823, outside its 1e-9 relative gate.
 It is unresolved and is not caused by adding photon retardation. Logs and
 the isolated baseline script are retained with the follow-up live panel.
 
-Evidence: [initial convention panel](../benchmarks/runs/2026-09-29-transition-conventions-live/),
-[magnetic correction panel](../benchmarks/runs/2026-09-29-magnetic-retardation-live/).
+Evidence: initial convention panel (local evidence: `../benchmarks/runs/2026-09-29-transition-conventions-live/`),
+magnetic correction panel (local evidence: `../benchmarks/runs/2026-09-29-magnetic-retardation-live/`).
 Tests cover Einstein absorption/emission consistency, live FAC data columns,
 M2–M4 radial operators, B-spline hydrogenic M1, and recombination dispatch.
 The focused physics run passed 104 tests with two existing He-like M1 xfails;
@@ -258,7 +261,7 @@ Neutral Ne point/Fermi shooting and B-spline finite-frequency expectations
 agree within 2.7e-12 Ha. This internal engine comparison does not establish
 the same precision against an external code.
 
-The [public orbital-control panel](../benchmarks/runs/2026-09-30-orbital-controls/)
+The public orbital-control panel (local evidence: `../benchmarks/runs/2026-09-30-orbital-controls/`)
 now reproduces that comparison through `Atom.solve`/`Sampling`, with an
 independent L2 update threshold. At fixed Ne energy tolerance 1e-9, tightening
 shooting's orbital threshold to 1e-9 reduces its difference from B-splines
@@ -282,7 +285,7 @@ and failed 12: one new test used a wrong enum import (fixed; the seven-test
 rerun passes), and 11 failures remain in the older API snapshot/control file.
 The Ne snapshot difference matches a retained pre-change run; these old
 expected numbers were not replaced. The full suite is still not green.
-The [public Ne audit](../benchmarks/runs/2026-09-30-transverse-public/)
+The public Ne audit (local evidence: `../benchmarks/runs/2026-09-30-transverse-public/`)
 converges on both engines at an SCF tolerance of 1e-9; B-splines missed a
 1e-11 target within 100 iterations. Both outcomes are retained.
 That tighter B-spline failure is superseded by the

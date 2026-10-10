@@ -1,5 +1,8 @@
 # XFEL Capability Gap Analysis — atomx vs XATOM / FAC / Cowan (2026-10-02)
 
+Repository availability: paths marked “local evidence” are outside the tracked
+checkout. They retain the original evidence location and are not GitHub links.
+
 Goal: enable atomx for XFEL (x-ray free-electron laser) calculations —
 sequential multiphoton ionization of atoms under intense pulsed x-ray
 irradiation, transient-configuration spectroscopy and scattering, and
@@ -9,19 +12,19 @@ Grounding: the vendored XATOM source (xraypac, /tmp build) is read at
 module level; atomx claims are taken from `src/` and the 2026-10
 validation campaign (see trace.md and the gates).
 
-当前 Ne q/r 谱位见[完整3200Ha尾部、Breit约定与极点判别](xfel_tail_breit_pole_2026_10_06/README.md)：同模型全修正 q=908.193003810、r=908.065718918 eV，计算−各自实验 -8.896190/-13.881082 meV。完整1600→3200Ha三态rank1+rank2使两线变化 +5.914650/5.874690 meV；全部新singles为 0.014556/0.014465，再补全部新rank2为 +5.900094/5.860225 meV。三态完整CI、旧态、singles、DC/DCB及五算符/Q谱隙独立重放通过原1e−10Ha残差及有符号身份门；旧271轨道逐位保持。局部1meV增量门仍未通过，测前p=1.5预测的实际门状态保留，条件代理不作尾项界。同空间实际Breit增量相对2017印刷分项 -4.018936/-4.490156 meV，纯DC分项差 3.872315/2.097007 meV；跨模型差不是唯一物理误差预算。f/g计数预检不等于能量，完整高κVP覆盖仍须先修复；>3200Ha、n>6、径向密度、正能/高n rank3、轨道/投影SCF和开放共振尚未全部闭合。旧核/同位素、点模型极点及尾项代理不加到新谱位；下方编号节保留各自历史模型。
+当前 Ne q/r 谱位见完整3200Ha尾部、Breit约定与极点判别 (local evidence: `xfel_tail_breit_pole_2026_10_06/README.md`)：同模型全修正 q=908.193003810、r=908.065718918 eV，计算−各自实验 -8.896190/-13.881082 meV。完整1600→3200Ha三态rank1+rank2使两线变化 +5.914650/5.874690 meV；全部新singles为 0.014556/0.014465，再补全部新rank2为 +5.900094/5.860225 meV。三态完整CI、旧态、singles、DC/DCB及五算符/Q谱隙独立重放通过原1e−10Ha残差及有符号身份门；旧271轨道逐位保持。局部1meV增量门仍未通过，测前p=1.5预测的实际门状态保留，条件代理不作尾项界。同空间实际Breit增量相对2017印刷分项 -4.018936/-4.490156 meV，纯DC分项差 3.872315/2.097007 meV；跨模型差不是唯一物理误差预算。f/g计数预检不等于能量，完整高κVP覆盖仍须先修复；>3200Ha、n>6、径向密度、正能/高n rank3、轨道/投影SCF和开放共振尚未全部闭合。旧核/同位素、点模型极点及尾项代理不加到新谱位；下方编号节保留各自历史模型。
 
-本轮[Breit与复极点判别](xfel_tail_breit_pole_2026_10_06/README.md)的完整3200Ha固定CI Breit非线性跃迁响应 +0.241308/0.291141 meV已含；23项静态/复算符和45项有限频率精确源核验通过。DCB态Breit期望与开关增量定义的差为 0.241245/0.292472 meV，两个定义独立保存；2017印刷分项取值态未完全核实，不因更接近而选择处方。同原生DF完整n=2核空间的频率−静态实际响应+0.040845/+0.042963meV及独立全矩阵重放通过；2012参考组态处方在完整3200Ha态的一阶响应+0.045086/0.046889meV，指定嵌入算符有序本征值界0.071999/0.070425meV，不足以在该处方内解释约4–5meV分项差，不约束一般QED/SCF/投影或跟踪根排序。R4完整小池rank2使束缚锚失败，关掉Breit仍失败；R4/8/12的N2 DC及R12 DCB四态恢复束缚门，支持外盒/有限谱干预而非纯墙面误差界。R12八个完整谱与对称角度独立重放通过，q/r电子宽度4.379/5.665meV，角度复能跨度0.000101/0.000104meV；rank1→rank2跃迁仍移动−31.499/−32.138meV，物理极点未认证。实验另报c.g.的权重/估计量未验证，不当作已匹配中心误差；q−r中共同基态严格抵消。
+本轮Breit与复极点判别 (local evidence: `xfel_tail_breit_pole_2026_10_06/README.md`)的完整3200Ha固定CI Breit非线性跃迁响应 +0.241308/0.291141 meV已含；23项静态/复算符和45项有限频率精确源核验通过。DCB态Breit期望与开关增量定义的差为 0.241245/0.292472 meV，两个定义独立保存；2017印刷分项取值态未完全核实，不因更接近而选择处方。同原生DF完整n=2核空间的频率−静态实际响应+0.040845/+0.042963meV及独立全矩阵重放通过；2012参考组态处方在完整3200Ha态的一阶响应+0.045086/0.046889meV，指定嵌入算符有序本征值界0.071999/0.070425meV，不足以在该处方内解释约4–5meV分项差，不约束一般QED/SCF/投影或跟踪根排序。R4完整小池rank2使束缚锚失败，关掉Breit仍失败；R4/8/12的N2 DC及R12 DCB四态恢复束缚门，支持外盒/有限谱干预而非纯墙面误差界。R12八个完整谱与对称角度独立重放通过，q/r电子宽度4.379/5.665meV，角度复能跨度0.000101/0.000104meV；rank1→rank2跃迁仍移动−31.499/−32.138meV，物理极点未认证。实验另报c.g.的权重/估计量未验证，不当作已匹配中心误差；q−r中共同基态严格抵消。
 
-关于加QED后是否再迭代，当前[完整800→1600Ha、QED重解与f/g预检](xfel_uv_tail_continuation_2026_10_06/README.md)在完整1600Ha空间直接解QED-off/on，并核对QED-off態的一阶期望：非线性q/r响应+0.039504/+0.039272meV已含在当前谱位。轨道及正能投影保持冻结，此控制不是完整轨道/密度QED-SCF或负能支/投影反馈上界。[原CI响应审计](xfel_qed_response_audit_2026_10_05/README.md)中的旧n4/5约+0.017673/+0.017567meV保留原模型范围；每次完整空间新增均重新求解全部五算符H，不能用小CI响应或残差认证轨道驻值。 原生与当前QED应用矩阵差的有限空间Weyl跃迁界为0.004915755meV，只约束同模型数值应用，不能替代QED模型或自洽/投影误差界。
+关于加QED后是否再迭代，当前完整800→1600Ha、QED重解与f/g预检 (local evidence: `xfel_uv_tail_continuation_2026_10_06/README.md`)在完整1600Ha空间直接解QED-off/on，并核对QED-off態的一阶期望：非线性q/r响应+0.039504/+0.039272meV已含在当前谱位。轨道及正能投影保持冻结，此控制不是完整轨道/密度QED-SCF或负能支/投影反馈上界。原CI响应审计 (local evidence: `xfel_qed_response_audit_2026_10_05/README.md`)中的旧n4/5约+0.017673/+0.017567meV保留原模型范围；每次完整空间新增均重新求解全部五算符H，不能用小CI响应或残差认证轨道驻值。 原生与当前QED应用矩阵差的有限空间Weyl跃迁界为0.004915755meV，只约束同模型数值应用，不能替代QED模型或自洽/投影误差界。
 
-另有[直接QED单电子轨道探针](xfel_qed_orbital_probe_2026_10_05/README.md)：全部221原轨道内保持Fock势与无对投影固定，完整同κQED矩阵入哈密顿量重求单电子本征态。参考占据组合的上态减基态非线性响应q/r为+0.017853/+0.017850meV，λ=0.5/1与二阶和相容；不支持简单冻结Fock轨道重求补250meV。该量不是相关三态能量，不可再加到现有CI谱位；密度反馈SCF、截断CI轨道优化及投影外方向仍未测，完整QED轨道SCF上界仍未知。
+另有直接QED单电子轨道探针 (local evidence: `xfel_qed_orbital_probe_2026_10_05/README.md`)：全部221原轨道内保持Fock势与无对投影固定，完整同κQED矩阵入哈密顿量重求单电子本征态。参考占据组合的上态减基态非线性响应q/r为+0.017853/+0.017850meV，λ=0.5/1与二阶和相容；不支持简单冻结Fock轨道重求补250meV。该量不是相关三态能量，不可再加到现有CI谱位；密度反馈SCF、截断CI轨道优化及投影外方向仍未测，完整QED轨道SCF上界仍未知。
 
-[13项因素筛选](xfel_factor_screening_2026_10_05/README.md)保留旧n4/0固定态的一阶控制：点核−Fermi跃迁约+0.522meV，半径同形±5%约0.05meV；条件自然同位素反冲质心约+0.19meV，纯22Ne约+2.03meV，属于旧状态控制。[束缚rank3/n5/n6](xfel_bound_rank3_n6_2026_10_05/README.md)直接约束小束缚rank3与n5/n6；按n6校准的n⁻³核心穿透模型给n≥7两线条件代理约+7.764/+7.809meV，渐近起点未认证，不是界。第一性1s²电子对高k/高L代理提出高能双虚轨道候选，后由[完整200→400→800Ha与新单激发对照](xfel_high_energy_pair_cutoff_2026_10_05/README.md)直接测量；旧百meV代理与形式高L约55meV不是可相加修正。两步条件尾部预测经[完整800→1600Ha、QED重解与f/g预检](xfel_uv_tail_continuation_2026_10_06/README.md)的新实际增量检验；p=1.5和有效p的>1600Ha数字仍为条件代理，未认证有限s/p/d渐近性或径向密度，不据此修正谱位。旧一般rank1的100→200Ha约−42meV及旧单4f约−0.2meV不能约束双虚轨道尖点尾部。 最新1600Ha态的内部反冲期望一阶质量控制见[完整800→1600Ha、QED重解与f/g预检](xfel_uv_tail_continuation_2026_10_06/README.md)：条件自然质心+0.190833/+0.192324meV，纯22Ne相对20Ne为+2.031936/+2.047816meV；未含同位素半径和非线性CI响应，实验组成未知，不加到生产谱位。
+13项因素筛选 (local evidence: `xfel_factor_screening_2026_10_05/README.md`)保留旧n4/0固定态的一阶控制：点核−Fermi跃迁约+0.522meV，半径同形±5%约0.05meV；条件自然同位素反冲质心约+0.19meV，纯22Ne约+2.03meV，属于旧状态控制。束缚rank3/n5/n6 (local evidence: `xfel_bound_rank3_n6_2026_10_05/README.md`)直接约束小束缚rank3与n5/n6；按n6校准的n⁻³核心穿透模型给n≥7两线条件代理约+7.764/+7.809meV，渐近起点未认证，不是界。第一性1s²电子对高k/高L代理提出高能双虚轨道候选，后由完整200→400→800Ha与新单激发对照 (local evidence: `xfel_high_energy_pair_cutoff_2026_10_05/README.md`)直接测量；旧百meV代理与形式高L约55meV不是可相加修正。两步条件尾部预测经完整800→1600Ha、QED重解与f/g预检 (local evidence: `xfel_uv_tail_continuation_2026_10_06/README.md`)的新实际增量检验；p=1.5和有效p的>1600Ha数字仍为条件代理，未认证有限s/p/d渐近性或径向密度，不据此修正谱位。旧一般rank1的100→200Ha约−42meV及旧单4f约−0.2meV不能约束双虚轨道尖点尾部。 最新1600Ha态的内部反冲期望一阶质量控制见完整800→1600Ha、QED重解与f/g预检 (local evidence: `xfel_uv_tail_continuation_2026_10_06/README.md`)：条件自然质心+0.190833/+0.192324meV，纯22Ne相对20Ne为+2.031936/+2.047816meV；未含同位素半径和非线性CI响应，实验组成未知，不加到生产谱位。
 
-[第一性原理诊断](xfel_first_principles_diagnosis_2026_10_05/README.md)完成同 n4 的 DC→Breit→QED→反冲三态路径与15态完整矩阵重放。相对2017印刷分项，纯 DC 已差约−273.5/−274.2meV，Breit增量再差约−18.5/−18.8meV，支持优先定位相关/空间表示；这些跨模型差不是唯一可加物理误差预算，也不足以把全部共同偏差归到基态。该分项对照对应旧n4/5空间；新谱位见上方最新完整三态对照，复极点仍未认证。
+第一性原理诊断 (local evidence: `xfel_first_principles_diagnosis_2026_10_05/README.md`)完成同 n4 的 DC→Breit→QED→反冲三态路径与15态完整矩阵重放。相对2017印刷分项，纯 DC 已差约−273.5/−274.2meV，Breit增量再差约−18.5/−18.8meV，支持优先定位相关/空间表示；这些跨模型差不是唯一可加物理误差预算，也不足以把全部共同偏差归到基态。该分项对照对应旧n4/5空间；新谱位见上方最新完整三态对照，复极点仍未认证。
 
-[核心电子对与条件零点定位](xfel_first_principles_localization_2026_10_05/README.md)在同轨道/同纯DC类氦核补入0–5Ha完整双外部空间，能量下降88.689meV，完整Q谱隙88.012Ha，属于闭通道相关。最新n4三态的相对论文偏差随有限类氦比较零点同移121.664meV，跃迁偏差严格不变，因而不能唯一分配给基态。此低电子数控制指导了后续[三电子直接干预](xfel_positive_rank2_closure_2026_10_05/README.md)；类氦能移本身不作为三电子谱位修正。
+核心电子对与条件零点定位 (local evidence: `xfel_first_principles_localization_2026_10_05/README.md`)在同轨道/同纯DC类氦核补入0–5Ha完整双外部空间，能量下降88.689meV，完整Q谱隙88.012Ha，属于闭通道相关。最新n4三态的相对论文偏差随有限类氦比较零点同移121.664meV，跃迁偏差严格不变，因而不能唯一分配给基态。此低电子数控制指导了后续三电子直接干预 (local evidence: `xfel_positive_rank2_closure_2026_10_05/README.md`)；类氦能移本身不作为三电子谱位修正。
 
 ## 1. What XFEL physics needs
 
@@ -132,7 +135,7 @@ time structure, imaging observables.
 
 ## 6. Complete native Ne rate graph (2026-10-03)
 
-The [actual-rate rebuild and threshold report](xfel_real_rates_2026_10_03/README.md) now provides 134 independently relaxed Gu jj configurations, including zero-occupation hole orbitals, with native daughter energy differences. All 378 occupied PI edges and 250 nonzero Auger edges close on the graph. `build_atomic_rate_table` is the production entry point for this model; the older skeleton-sharing provider is a different approximation.
+The actual-rate rebuild and threshold report (local evidence: `xfel_real_rates_2026_10_03/README.md`) now provides 134 independently relaxed Gu jj configurations, including zero-occupation hole orbitals, with native daughter energy differences. All 378 occupied PI edges and 250 nonzero Auger edges close on the graph. `build_atomic_rate_table` is the production entry point for this model; the older skeleton-sharing provider is a different approximation.
 
 Nine neutral-Ne PI points at 1028/1714/3428 eV agree with archived FAC references within 0.0343%; native Ne KLL totals are 1.0521 times a fresh XATOM reference. At F=1000 photons/a0², native Delta-SCF MC gives mean charge 4.8285 versus archived XATOM 5.9322. Changing only PI thresholds to orbital energies gives 5.9846: the dominant discrepancy is the near-edge threshold convention, with a concrete Ne4+ K threshold above 1 keV in the native model and below it in XATOM. This is a diagnostic, not a fitted replacement for native energy conservation.
 
@@ -140,7 +143,7 @@ The compiled MC reproduces the original seeded bin-wise observables on the new r
 
 ## 7. Finite pulses, sourced secondary channels and imaging (2026-10-03)
 
-The [extended XFEL implementation and live checks](xfel_extended_2026_10_03/README.md) now add sparse finite-lifetime population dynamics, native E1 fluorescence, exclusive single-shake photoionization, explicit resonant excited-state pumping, and a transient atomic imaging driver. The native Ne graph has 135 states including the bare ion, 264 radiative channels and 603 shake channels. At 100fs and F=1000 photons/a0² its mean charge is 4.90643, compared with 4.83421 for the finite-Auger-only graph. This does not remove the threshold-model discrepancy identified in §6.
+The extended XFEL implementation and live checks (local evidence: `xfel_extended_2026_10_03/README.md`) now add sparse finite-lifetime population dynamics, native E1 fluorescence, exclusive single-shake photoionization, explicit resonant excited-state pumping, and a transient atomic imaging driver. The native Ne graph has 135 states including the bare ion, 264 radiative channels and 603 shake channels. At 100fs and F=1000 photons/a0² its mean charge is 4.90643, compared with 4.83421 for the finite-Auger-only graph. This does not remove the threshold-model discrepancy identified in §6.
 
 CRM defaults to an explicit native PI cross-section provider, uses that same provider in Milne RR, and fails when it is absent. Kramers requires an explicit model selection; native plus Kramers input is rejected. Resonance pumping covers isolated incoherent lines with bandwidth and weak-pumping gates, not strong coherent Rabi dynamics or Fano interference. The live native H test checks sequential resonance-assisted ionization. At this historical increment the resonance graph was supplied manually; §8 replaces that step with native E1 graph preparation within the supplied orbital basis.
 
@@ -148,7 +151,7 @@ Imaging computes mean(|f|²) and its population variance. The live Ne bank uses 
 
 ## 8. Native preparation, broadband response and reuse (2026-10-03)
 
-The [production API report](xfel_native_api_2026_10_03/README.md) moves native
+The production API report (local evidence: `xfel_native_api_2026_10_03/README.md`) moves native
 resonance graph construction and state/spectrum imaging into
 `atomx.xfel.NativeXFELModel`. It checks archived SCFs, retabulates true PI
 over threshold-split Gaussian spectra, splits single-shake branches with
@@ -174,7 +177,7 @@ direct-double fit. No new external FAC/XATOM accuracy claim is made here.
 
 ## 9. Explicit magnetic state coherence and occupation correction
 
-The [coherent XFEL report](xfel_coherent_2026_10_03/README.md) adds
+The coherent XFEL report (local evidence: `xfel_coherent_2026_10_03/README.md`) adds
 `CoherentGaussianPulse`, `CoherentSystem` and a native one-electron
 adapter. A common orthonormal orbital basis supplies signed E1 amplitudes;
 the same amplitudes determine the radiative jump operators. Native
@@ -202,7 +205,7 @@ rejected by the new native coherent adapter.
 
 ## 10. Signed MCDHF CI coherence
 
-The [multielectron CI report](xfel_ci_coherent_2026_10_03/README.md) adds
+The multielectron CI report (local evidence: `xfel_ci_coherent_2026_10_03/README.md`) adds
 `MCDHFCoherentModel` and signed MCDHF transition amplitudes with explicit
 CI column indices and J values. One shared orthonormal orbital basis
 defines the drive and E1 emission. Exact degenerate emission paths share
@@ -224,7 +227,7 @@ nonsecular reservoirs remain outside its scope.
 
 ## 11. Resolved two-electron CI continuum losses
 
-The [CI loss report](xfel_ci_losses_2026_10_03/README.md) adds
+The CI loss report (local evidence: `xfel_ci_losses_2026_10_03/README.md`) adds
 `TwoElectronCoherentModel`: N=2→1→0 on one magnetic density basis, with
 signed Dyson PI and full Dirac–Coulomb Auger amplitudes (including h_D
 when a bound spectator is unchanged). Occupation and J weights are not
@@ -252,7 +255,7 @@ loss tensors as coherent amplitudes.
 
 ## 12. Shared Dirac operator and batched continuum preparation
 
-The [reuse/performance report](xfel_ci_reuse_2026_10_03/README.md) moves the
+The reuse/performance report (local evidence: `xfel_ci_reuse_2026_10_03/README.md`) moves the
 CI adapter's h_D action into the shared physics Dirac object and native
 B-spline evaluator. It replaces per-wave cubic interpolation with the
 existing Dirac propagator dense-output sampler and collects wave requests
@@ -270,7 +273,7 @@ anchors pass. This does not resolve the 20% external Auger residual in §11.
 
 ## 13. Fixed CI level-average orbital relaxation
 
-The [state-average report](xfel_state_average_2026_10_03/README.md) adds
+The state-average report (local evidence: `xfel_state_average_2026_10_03/README.md`) adds
 `CIStateAverage` to the shared B-spline MCDHF optimizer, for arbitrary
 electron number. It reuses the exact CI Hamiltonian angular weights and
 analytic orbital gradient, accepts symmetry-local root selectors and records
@@ -346,7 +349,7 @@ arbitrary-N resonance dynamics are not certified.
 Fresh FAC N3 AITable ratios span 0.5769–1.4322 after matching J/parity/energy root
 and level-rate conventions. Different optimization objectives and continuum
 models remain unisolated. Full results, replay, sources and failure probes:
-[general-N CI REXMI archive](xfel_multielectron_2026_10_04/README.md).
+general-N CI REXMI archive (local evidence: `xfel_multielectron_2026_10_04/README.md`).
 Outstanding: jointly relaxed charge sectors, tracked shell/root identities,
 nonlocal exchange/coupled/Fano/threshold memory, broader vacuum reservoirs with
 Hamiltonian shifts, coherent secondary losses/imaging and large-space scaling.
@@ -371,7 +374,7 @@ N4 operator buffers fall from2.451GB to3.273MB; paired Hamiltonian-action-only
 microbenchmark is8.89x, maximum difference6.66e-16. Small-basis historical
 arithmetic and full-density replay remain unchanged. Derivation, independent
 oracles, numeric diagnostics and scope:
-[finite-time reservoir archive](xfel_radiative_bound_2026_10_04/README.md).
+finite-time reservoir archive (local evidence: `xfel_radiative_bound_2026_10_04/README.md`).
 
 ## 17. N4 residual comparison and exact coordinate closure (2026-10-04)
 
@@ -401,7 +404,7 @@ reference hashes are checked separately. This supersedes the absence of a
 validated N4 trajectory in §16 for this specific parent-pumping input only.
 Joint-charge orbital relaxation, nonlocal exchange, Fano/memory/vacuum shifts,
 coherent secondary losses, active-space and daughter-pumping validation remain.
-See [the residual comparison archive](xfel_residual_certificate_2026_10_04/README.md)
+See the residual comparison archive (local evidence: `xfel_residual_certificate_2026_10_04/README.md`)
 for the input correction, proof, numerical limits, data and replay commands.
 
 ## 18. Shared-orbital charge-sector CI optimization (2026-10-04)
@@ -428,7 +431,7 @@ DW, SCF and dynamics and establishes no overall XFEL speedup. Default N2/N3
 full-density replay and inherited archive/reference identities are separately
 checked. Nonlocal exchange, Fano/memory/vacuum shifts, coherent secondary
 channels, active-space and all-daughter validation remain.
-See [joint charge averaging](xfel_charge_average_2026_10_04/README.md).
+See joint charge averaging (local evidence: `xfel_charge_average_2026_10_04/README.md`).
 
 ## 19. Cross-charge CI snapshot reuse and retained-space sensitivity (2026-10-04)
 
@@ -453,7 +456,7 @@ all matrices and diagonalizations, excludes SCF/DW/dynamics, and supersedes the
 initial slow cache implementation. Complete-space XFEL dynamics, higher-n
 convergence, nonlocal exchange, Fano/memory/vacuum shifts, coherent secondary
 losses and general heavy-atom/daughter-pumping validation remain open.
-See [the snapshot and space archive](xfel_ci_snapshot_2026_10_04/README.md).
+See the snapshot and space archive (local evidence: `xfel_ci_snapshot_2026_10_04/README.md`).
 
 ## 20. Complex DC/DCB prerequisites and spectroscopy gates (2026-10-04)
 
@@ -476,7 +479,7 @@ The static Ne7+ q/r experimental discrepancy, complex-pole stationarity,
 radial/box/angular/continuum-coverage convergence, finite-core alignment,
 frequency-dependent interaction, QED/recoil and measured XFEL/detector response
 remain outstanding. No new experimental, Auger-width, yield or SOTA certificate
-is issued. Full evidence: [complex static Breit](xfel_complex_breit_2026_10_04/README.md).
+is issued. Full evidence: complex static Breit (local evidence: `xfel_complex_breit_2026_10_04/README.md`).
 
 ## 21. Exact physical symmetry reduction (2026-10-04)
 
@@ -501,7 +504,7 @@ XFEL response needs explicit magnetic/tensor density and polarization;
 existing imaging is spherical. Wigner-D orientation reuse and a certified
 non-Hermitian target-pole solver remain future work. All prior spectroscopy,
 stationarity, continuum and experimental gates retain their original status.
-Evidence: [physical symmetry](xfel_physical_symmetry_2026_10_04/README.md).
+Evidence: physical symmetry (local evidence: `xfel_physical_symmetry_2026_10_04/README.md`).
 
 ## 22. Controlled partial complex spectrum (2026-10-04)
 
@@ -527,7 +530,7 @@ Remaining gaps: direct general-N reduced CSF compilation, near-degenerate
 full/target subspace treatment and across-angle identity, actual stationary
 open-channel poles and continuum/nuclear/experimental convergence. Numerical
 target capability does not close those physical requirements. Evidence:
-[target spectrum](xfel_target_poles_2026_10_04/README.md).
+target spectrum (local evidence: `xfel_target_poles_2026_10_04/README.md`).
 
 ## 23. P0 local derivatives and stationarity metric identity (2026-10-04)
 
@@ -559,7 +562,7 @@ P0 global path/target continuity and full n4 stationarity remain open, followed
 by correlation, genuine open-channel poles/continuum, corrections and joint
 experimental forward/statistical validation. No new Ne q/r, width or XFEL
 experimental certificate. Evidence:
-[P0 local gradient audit](xfel_local_gradient_2026_10_04/README.md).
+P0 local gradient audit (local evidence: `xfel_local_gradient_2026_10_04/README.md`).
 
 ## 24. Precision literature and operator coverage audit (2026-10-04)
 
@@ -587,7 +590,7 @@ Ne panel or full QEDMOD coverage. Record requested/supported/applied/skipped
 operators, avoid duplicate Breit and cross-Hamiltonian borrowed shifts.
 No physical calculation or gate changed in this audit; P0 stationarity, Ne
 q/r residuals and full width/yield/experimental requirements remain open.
-Evidence: [literature audit](xfel_precision_literature_audit_2026_10_04/README.md).
+Evidence: literature audit (local evidence: `xfel_precision_literature_audit_2026_10_04/README.md`).
 
 ## 25. Local reference programs for source and executable diagnosis (2026-10-04)
 
@@ -613,7 +616,7 @@ These are operator/target/model differences, not established causes of the
 current energy discrepancy. Static exchange does not supply full channel
 coupling; bound-state real-symmetric CI solvers do not certify complex poles.
 P0 stationarity, q/r errors and all width/yield/experimental gates remain
-unchanged. Evidence: [reference programs](reference_programs_2026_10_04/README.md).
+unchanged. Evidence: reference programs (local evidence: `reference_programs_2026_10_04/README.md`).
 
 ## 26. Live GRASP build and frozen n2 radial-input control (2026-10-04)
 
@@ -640,7 +643,7 @@ of order0.22eV. Original n4 basis/target/projector/optimization, correlation,
 resonance/continuum and correction/experiment gaps remain open. Next compare
 the original n4 identical radial snapshots/fullCSFspaces before interpreting
 independent optimization changes. Evidence:
-[GRASP diagnosis](grasp_diagnosis_2026_10_04/README.md).
+GRASP diagnosis (local evidence: `grasp_diagnosis_2026_10_04/README.md`).
 
 ## 27. Reference theory reproduction remains failed; new operator controls (2026-10-04)
 
@@ -680,7 +683,7 @@ Dedicated author2017/2024 inputs/executable were not obtained. ExactDKB
 continuumbalance/complexscaled precision and fulluncertainty budget remain
 missing from these generic reference controls. No productionphysics edit,
 SOTA/experimental widths/rates/yields certificate or speedup claim.
-Evidence: [reference theory attempts](reference_theory_reproduction_2026_10_04/README.md).
+Evidence: reference theory attempts (local evidence: `reference_theory_reproduction_2026_10_04/README.md`).
 
 ## 28. Open-shell Breit implementation gap closed on native n2/n3 controls (2026-10-04)
 
@@ -701,7 +704,7 @@ uncertainty or stationary physical predictions. All author reproduction,
 original n4 identity/stationarity, continuum/pole, fullnon-diagonalQED and
 experiment/rate/yield gates remain open. Existing sealed records preserved;
 new Breit spectra and losses must be rebuilt consistently before use.
-Evidence: [open-shell Breit diagnosis](xfel_breit_open_shell_diagnosis_2026_10_04/README.md).
+Evidence: open-shell Breit diagnosis (local evidence: `xfel_breit_open_shell_diagnosis_2026_10_04/README.md`).
 
 ## 29. Original n4 identity response and feasible descent controls (2026-10-04)
 
@@ -728,7 +731,7 @@ the current frozen-reference majority boundary. The prototype remains in
 the report, with no production change; general complete-degenerate-subspace
 and complex-pole responses remain missing. Feasible-direction progress is
 not stationary physical spectroscopy or published-theory reproduction.
-Evidence: [identity response diagnosis](xfel_identity_boundary_descent_2026_10_04/README.md).
+Evidence: identity response diagnosis (local evidence: `xfel_identity_boundary_descent_2026_10_04/README.md`).
 
 ## 30. Shared complete real CI subspace response; original n4 remains nonstationary (2026-10-04)
 
@@ -756,7 +759,7 @@ integration, KKT/global impossibility or spectral/theory/experimental accuracy.
 Next local feasible curvature/step modeling must retain the original hard gates.
 Previous native Breit equality holds; dedicated balanced-continuum/complex-pole
 reproduction, full QED and experimental forward comparison remain open.
-Evidence: [shared subspace response](xfel_subspace_response_2026_10_04/README.md).
+Evidence: shared subspace response (local evidence: `xfel_subspace_response_2026_10_04/README.md`).
 
 ## 31. Feasible curvature and explicit isolated-root numerical repair (2026-10-04)
 
@@ -788,7 +791,7 @@ endpoint repeats agree;72 tests including20 new geometry/residual cases pass.
 Production energy optimizer unchanged. All author-theory/pole/continuum/QED/
 width/yield/experiment/SOTA gates remain open. Next assess broader feasible
 curvature and multiple constraints without replacing the original reference.
-Evidence: [feasible curvature diagnosis](xfel_feasible_curvature_2026_10_04/README.md).
+Evidence: feasible curvature diagnosis (local evidence: `xfel_feasible_curvature_2026_10_04/README.md`).
 
 ## 32. Paper-method comparison and finite-channel truncation (2026-10-04)
 
@@ -824,7 +827,7 @@ n3~.22eV error, author-code reproduction or experimental/SOTA certification.
 Next separately declare a frozen-core DF/DKB spectroscopy benchmark, retaining
 the original shared-orbital task and gates; do not substitute a Q-only enrichment
 or same-Q correction for the original physical problem.
-Evidence: [paper and channel diagnosis](xfel_paper_method_diagnosis_2026_10_04/README.md).
+Evidence: paper and channel diagnosis (local evidence: `xfel_paper_method_diagnosis_2026_10_04/README.md`).
 
 ## 33. Complete fixed-projector spectator tail and exact elimination (2026-10-04)
 
@@ -855,7 +858,7 @@ Original orbital stationarity, author reproduction, QED/recoil, physical poles,
 widths/experimental forward/SOTA remain open. Preserve original joint objective;
 separately declare a frozen-core DF/DKB density benchmark rather than substituting
 the conditional spectator result for the shared-orbital problem.
-Evidence: [complete channel tail](xfel_channel_tail_2026_10_04/README.md).
+Evidence: complete channel tail (local evidence: `xfel_channel_tail_2026_10_04/README.md`).
 
 ## 34. Frozen-core continuum-density controls (2026-10-04)
 
@@ -882,7 +885,7 @@ energy change<1e−8Ha, pairGram<1e−10 and relative matrix residual<1e−10
 Original orbital stationarity, authorDF/DKB/complex-scaling reproduction, full
 correlation, QED/recoil, widths and experimental/SOTA gates remain open.
 Eleven old seals/21basis inputs/cleanGRASP44binaries/332productionPython sources
-unchanged. Evidence: [density diagnosis](xfel_continuum_density_2026_10_04/README.md).
+unchanged. Evidence: density diagnosis (local evidence: `xfel_continuum_density_2026_10_04/README.md`).
 
 ## 35. Independent frozen DF/DKB and correlation diagnosis (2026-10-04)
 
@@ -913,7 +916,7 @@ ten actual brackets,12 old seals/21basis inputs/cleanGRASP44binaries/332Python
 sources are verified. The nonzero-theta finite-Fermi pole provider, general-N
 outgoing exchange/coupled scattering, Breit/QED/recoil, experimental forward
 model and SOTA acceptance remain open. Evidence:
-[DF/DKB diagnosis](xfel_frozen_df_dkb_2026_10_04/README.md).
+DF/DKB diagnosis (local evidence: `xfel_frozen_df_dkb_2026_10_04/README.md`).
 
 ## 36. General virtual correlation and actual-energy balancing (2026-10-04)
 
@@ -954,7 +957,7 @@ cutoffs replay;13old seals/21identity inputs/cleanGRASP44binaries/332production
 sources remain unchanged. Missing multi-external correlation, joint density/
 Lmax/cutoff controls, original n4 joint-orbital stationarity, Breit/QED/recoil,
 finite-nucleus complex poles, widths and experimental/SOTA acceptance remain
-open. Evidence: [general virtual diagnosis](xfel_general_virtual_2026_10_04/README.md).
+open. Evidence: general virtual diagnosis (local evidence: `xfel_general_virtual_2026_10_04/README.md`).
 
 ## 37. Matched external-rank discrimination (2026-10-05)
 
@@ -985,7 +988,7 @@ inputs and332production sources remain unchanged. Recorded internal times.424s
 and19.33s are not a matched end-to-end10x benchmark. Full-cutoff/Lmax/density,
 original n4 orbital stationarity, author reproduction, corrections, poles and
 experimental precision remain open. Evidence:
-[external rank diagnosis](xfel_external_rank_2026_10_05/README.md).
+external rank diagnosis (local evidence: `xfel_external_rank_2026_10_05/README.md`).
 
 ## 38. Complete declared double-external windows (2026-10-05)
 
@@ -1018,7 +1021,7 @@ Hamiltonian. No attribution of the original joint-orbital n3 discrepancy follows
 Next: low-positive rank2 and cross-window pairs, cutoff/density/Lmax controls;
 original n4 stationarity, author reproduction, corrections, poles and experimental
 precision remain open. Evidence:
-[double-window diagnosis](xfel_double_window_2026_10_05/README.md).
+double-window diagnosis (local evidence: `xfel_double_window_2026_10_05/README.md`).
 
 ## 39. Lower-energy rank2 and cross-window pairs (2026-10-05)
 
@@ -1048,7 +1051,7 @@ controls replay, original full-window minimum majority~.987789 and residual<=3.7
 Assembly/angle reuse is the measured priority; no matched10x end-to-end claim.
 Missing low-positive and n>3bound rank2, rank3, cutoff/density/Lmax, original
 n4stationarity, author reproduction, corrections/poles/experiment remain open.
-Evidence: [low-window diagnosis](xfel_low_double_window_2026_10_05/README.md).
+Evidence: low-window diagnosis (local evidence: `xfel_low_double_window_2026_10_05/README.md`).
 
 Erratum: the previous sealed prose gave82.830454meV for r100→60; actual
 saved energies give82.548454meV. Section38 and trace corrected, old H/results
@@ -1076,7 +1079,7 @@ One production source changes and331remain unchanged. Historical332-source
 SHA guards must not be bypassed; subsequent experiments must explicitly consume
 this validated old-to-new kernel revision and its seal. Failed optional driver,
 intermediate source/memory results and initial diagnostic g are retained.
-Evidence: [sparse assembly report](xfel_ci_sparse_speed_2026_10_05/README.md).
+Evidence: sparse assembly report (local evidence: `xfel_ci_sparse_speed_2026_10_05/README.md`).
 
 ## 41. Double-excitation allocation and duplicate collection (2026-10-05)
 
@@ -1097,7 +1100,7 @@ maxresidual3.257e-15, minimummajority0.987893;107passed/1existingxfail,
 Ruffpassed. Eight independent occupation-list sign gates cover2–5electrons
 and high bits through511. One source changes,331/inputSHAunchanged, explicitly
 chained to section40. Physical precision/correlation/author reproduction remains
-open. Evidence: [pair speed report](xfel_ci_pair_speed_2026_10_05/README.md).
+open. Evidence: pair speed report (local evidence: `xfel_ci_pair_speed_2026_10_05/README.md`).
 
 ## 42. Stop unproductive key sorting; reuse existing angular tables (2026-10-05)
 
@@ -1124,7 +1127,7 @@ snapshot. Stage41's331unchanged-sources wording lacked a complete live guard;
 closeout equality now verified, without retroactively claiming that guard ran.
 Older seals unchanged. Corrected replay uses the full map. Physical correlation,
 n4stationarity,2017/2024 reproduction, corrections/poles/experiment stay open.
-Evidence: [key/cache report](xfel_radial_key_speed_2026_10_05/README.md).
+Evidence: key/cache report (local evidence: `xfel_radial_key_speed_2026_10_05/README.md`).
 
 ## 43. Closed-channel correlation distinguished from the open Auger family (2026-10-05)
 
@@ -1150,7 +1153,7 @@ original majority0.987880456.332source/inputSHA
 unchanged at start/end/replay; no production change or speed certificate.
 Low-positive/n>3bound rank2, rank3/higherL/density/cutoff, n4stationarity,
 corrections/poles/author reproduction remain open.
-Evidence: [threshold physics report](xfel_rank2_threshold_2026_10_05/README.md).
+Evidence: threshold physics report (local evidence: `xfel_rank2_threshold_2026_10_05/README.md`).
 
 ## 44. Same-space Breit/QED/recoil and five correlation windows (2026-10-05)
 
@@ -1186,7 +1189,7 @@ DC/corrected squared overlap0.999955801.332sources unchanged;
 higher L/radial density/uppercutoff, frequency/radiative/finite-size recoil,
 original n4 stationarity and physical poles remain open.
 2017+erratum908.194(4)/908.069(4) and2024new908.200(4)/908.071(4) are distinct.
-Evidence: [corrected window report](xfel_corrected_windows_2026_10_05/README.md).
+Evidence: corrected window report (local evidence: `xfel_corrected_windows_2026_10_05/README.md`).
 
 ## 45. 多电荷复尺度共享径向、二维身份与 rank 闭合（2026-10-05）
 

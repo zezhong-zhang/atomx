@@ -1,5 +1,8 @@
 # Dirac–Fock controls and solver routing
 
+Repository availability: paths marked “local evidence” are outside the tracked
+checkout. They retain the original evidence location and are not GitHub links.
+
 ## Argument and mechanism table
 
 This describes the current working implementation. An SCF convergence flag
@@ -130,7 +133,7 @@ Xe and Cf. Both starter choices converged throughout. Maximum changes were
 2.2e-11 Ha in total energy and 9.5e-12 Ha in orbital energies.
 
 Raw probes and scripts are in
-[`shooting-refinement`](../benchmarks/runs/2026-09-29-shooting-refinement/).
+`shooting-refinement` (local evidence: `../benchmarks/runs/2026-09-29-shooting-refinement/`).
 `benchmarks/bench_df_solver.py --refine --z 98 --repeats 1 --out <new-directory>`
 reproduces the adaptive measurement. Set OpenBLAS and OMP to one thread for
 comparisons; JIT and first-use angular setup affect first solves.
@@ -238,7 +241,7 @@ these cases show no material speedup from this change. The first measured
 solve may reuse disk JIT caches and is not described as a cold compilation.
 
 Raw measurements and source hashes are in
-[`benchmarks/runs/2026-09-29-df-optimization`](../benchmarks/runs/2026-09-29-df-optimization/).
+`benchmarks/runs/2026-09-29-df-optimization` (local evidence: `../benchmarks/runs/2026-09-29-df-optimization/`).
 Reproduce the current implementation with a new output directory:
 
 ```sh
@@ -370,7 +373,7 @@ is a stopping test, not a certified distance to the exact orbital.
 
 ### Public property checks and balanced direct DF (2026-09-30)
 
-The [public control panel](../benchmarks/runs/2026-09-30-orbital-controls/)
+The public control panel (local evidence: `../benchmarks/runs/2026-09-30-orbital-controls/`)
 holds the Ne SCF tolerance at 1e-9 and compares 2000-point shooting against
 120 B-splines. Corrections use the same converged orbitals; QED is off.
 For the point nucleus:
@@ -410,7 +413,7 @@ automatic physics grid. Explicitly supplied `r_min` is still honored.
 A larger radial dynamic range can require a larger fixed `ns`; the change
 does not certify an arbitrary basis size at every element.
 
-The [Ne radial audit](../benchmarks/runs/2026-09-29-neon-radial-audit/) retains
+The Ne radial audit (local evidence: `../benchmarks/runs/2026-09-29-neon-radial-audit/`) retains
 before/after values, raw DBSR output, solver controls and timing scripts.
 With 120 B-splines and 2000 shooting points, corrections disabled:
 
@@ -473,7 +476,7 @@ relaxed. The resolved inner threshold is recorded in `CalculationSpec`.
 The alternate per-orbital HF mode also rejects a missing bound root instead
 of substituting the last physical/continuum eigenvector.
 
-The [retained panel](../benchmarks/runs/2026-09-30-bspline-convergence/)
+The retained panel (local evidence: `../benchmarks/runs/2026-09-30-bspline-convergence/`)
 compares identical 120-spline calculations with the previous low-root
 extraction and the new accuracy check. Corrections are disabled. At
 `tol=1e-11`:

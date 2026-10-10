@@ -13,7 +13,7 @@ which any existing test could see:
 ``test_panel_is_deterministic_across_processes`` is cheap enough for every
 CI run.  ``test_panel_has_no_out_of_bounds_reads`` is marked ``slow``
 because numba bounds checking forces a full recompile; CI runs it in a
-dedicated job (see ``.github/workflows/test.yml``).
+dedicated job (see ``.github/workflows/nightly.yml``).
 """
 
 from __future__ import annotations

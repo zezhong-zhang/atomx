@@ -1,5 +1,8 @@
 # 原子态、弛豫与 XFEL 的统一设计
 
+Repository availability: paths marked “local evidence” are outside the tracked
+checkout. They retain the original evidence location and are not GitHub links.
+
 日期：2026-10-04。用户要求：尽可能自洽、复用模块且高性能；可自由设置
 基态、激发态与制备方式。本文件区分已接入的增量与后续设计。一般 N
 有限空间 REXMI 链已接入，完整物理与任意脉冲认证仍未完成（见 §8）。
@@ -215,7 +218,7 @@ SCF。不同视图共享昂贵原子数据，仅缓存与状态相关的收缩�
 | 随后 | 静态交换 DW、合法的独立轨道转换 | 方程残差、渐近相位/归一化、正交、PI/RR 互逆与参考对照 |
 | 最后按适用性 | 非世俗、多通道/近阈值及一般 REXMI | 弱场、时间/空间收敛、概率守恒、真实共振电离与实验/代码比较 |
 
-上一轮独立实验见 [CI 态平均归档](xfel_state_average_2026_10_03/README.md)：
+上一轮独立实验见 CI 态平均归档 (local evidence: `xfel_state_average_2026_10_03/README.md`)：
 Ne EOL 的离子根均束缚；statistical EOL Auger 相对 FAC 仍高 15.53%，
 原因未隔离，不能归因于某单项或调整权重抹平。N3 的 85.97% 峰值是
 bound-only 共振占率，电荷恒为 7。历史归档保持原样；新接口的实现
@@ -224,7 +227,7 @@ bound-only 共振占率，电荷恒为 7。历史归档保持原样；新接口�
 
 ## 8. 第二增量及识别边界
 
-[一般 N CI REXMI 归档](xfel_multielectron_2026_10_04/README.md)保留三电子真实
+一般 N CI REXMI 归档 (local evidence: `xfel_multielectron_2026_10_04/README.md`)保留三电子真实
 共振电离、四电子费米/PI 检查及 K 共振门禁失败。N3 的末电荷现在升到
 7.18726049；此前 bound-only 的电荷恒为 7 的记录保持原样。
 
@@ -239,7 +242,7 @@ prepared channel provider 可直接复用于 driver，共同缓存包含末态�
 原子快照的全局振幅缓存，也没有取代尚未实现的 AtomicStateView。
 
 Finite-time reservoir certification and exact sparse representation have since
-been added: see [the reservoir increment](xfel_radiative_bound_2026_10_04/README.md).
+been added: see the reservoir increment (local evidence: `xfel_radiative_bound_2026_10_04/README.md`).
 It preserves the state/optimization distinction, signed operators and old gates.
 N3 is verified under explicit conditional error budgets; the complete N4 K chain
 still fails its conservative budget. No joint-charge relaxation, root tracking,
@@ -247,7 +250,7 @@ nonlocal exchange, vacuum shifts or microscopic bath certification is implied.
 
 ## 9. 轨迹比较与光子阶梯身份
 
-[轨迹残差增量](xfel_residual_certificate_2026_10_04/README.md)现已在保持1e−3
+轨迹残差增量 (local evidence: `xfel_residual_certificate_2026_10_04/README.md`)现已在保持1e−3
 预算和旧默认门的条件下验证有限 N4 parent K pumping；此结果更新上一节
 “仍失败”的当前状态，保留历史归档。photon ladder 应绑定实际谱学态/
 基底快照：激发根不自动等于载频附近的根，新增孔态伙伴可能引入低能
@@ -276,7 +279,7 @@ Atom/MCDHF 求解器。显式 parent 空间与完整 retained-orbital daughter
 选择；Ne N3 高轨道重叠及小载频移动仍伴随近相消 Auger 率大幅变化，
 因此基底身份之外也必须记录完整 signed 算符与明确的空间收敛范围。
 具体契约、失败记录与数值证据见
-[联合电荷优化归档](xfel_charge_average_2026_10_04/README.md)。
+联合电荷优化归档 (local evidence: `xfel_charge_average_2026_10_04/README.md`)。
 
 ## 11. 同一 Hamiltonian 快照的径向复用与空间闭合
 
@@ -295,4 +298,4 @@ Ne N3 的 n=1,2空间验证到1.56e−13Ha；受限组态空间的谱改变0.433
 扩展空间的XFEL轨迹。原受限空间强Auger相消在扩展后明显减弱；
 全有符号算符与literal-zero分解项也需留档。性能只测量声明阶段，
 小面板收益不稳定时明确记录。见
-[跨电荷积分与空间诊断](xfel_ci_snapshot_2026_10_04/README.md)。
+跨电荷积分与空间诊断 (local evidence: `xfel_ci_snapshot_2026_10_04/README.md`)。

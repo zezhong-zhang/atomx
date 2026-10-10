@@ -1,10 +1,15 @@
 # Agent 开发参考索引
 
+Repository availability: paths marked “local evidence” are outside the tracked
+checkout. They retain the original evidence location and are not GitHub links.
+
 按任务读取相关入口；根 [AGENTS.md](../AGENTS.md) 是长期工作契约。
 源码、当前测试和实际输入决定实现状态，设计提案或历史运行不能替代验证。
 
 ## 当前指南
 
+- [CI 故障与文档维护记录](ci_repair_2026_10_10/README.md)：实际失败、相同物理输入的判别控制与验证；当前命令见 [测试](TESTING.md)。
+- [开发维护](DEVELOPMENT.md)、[研究证据](RESEARCH.md)与[验证历史](VALIDATION_HISTORY.md)：按内容用途分流，不把历史测试计数当作当前状态。
 - [Project index](../PROJECT_INDEX.md)：先定位模块、符号及静态测试候选；按需查询，不全文加载 JSON。
 - [文档维护与蒸馏机制](AGENT_KNOWLEDGE_WORKFLOW.md)：随代码修改/合并/删除文档、记录、晋升与勘误。
 - [洞察登记簿](AGENT_INSIGHTS.md)：可复用结论、状态、证据及规则去向。
@@ -22,18 +27,18 @@
 |---|---|---|
 | 稀土自由离子谱线、寿命与实验对照 | [Yb⁺ 实算](rare_earth_yb_spectrum_2026_10_08/README.md)：V68 冻结核、5 能级、7 谱线、2 寿命；数值与实验门限分开，含完整声明的 4f 空穴空间、静态 Breit 和近似 QED 敏感性 | — |
 | 原子/分子/晶体谱学、QED/XAS 与北京光源未来产业故事线 | [当前研究体系与 12 个案例 setup](spectroscopy_science_story_2026_10_06/README.md)；三个已测接口与完整科学计划分开。[此前 Ne 专题项目书](agentic_science_beijing_light_source_2026_10_06/README.md)保留作支持材料；当期赛题契约须另核 | — |
-| 公共态选择、占率、态平均 | [态选择](atomic_state_selection_2026_10_04/README.md)、[联合电荷优化](xfel_charge_average_2026_10_04/README.md)、[磁态统计目标](xfel_dc_audit_2026_10_04/README.md) | 0.1, 6, 10, 13 |
-| 轨道梯度、近根、驻值和残差度量 | [局部梯度与度量勘误](xfel_local_gradient_2026_10_04/README.md)、[身份响应](xfel_subspace_response_2026_10_04/README.md)、[边界曲率](xfel_feasible_curvature_2026_10_04/README.md) | 14–16, 22, 28–30 |
-| 跨径向基底身份、简并子空间 | [基底跟踪](xfel_basis_tracking_2026_10_04/README.md)、[活动空间](xfel_active_convergence_2026_10_04/README.md)；CI key 必须包含完整 coupling tree | 15–16, 37 |
-| XFEL 一般 N 通道、连续态及模型边界 | [多电子损失](xfel_multielectron_2026_10_04/README.md)、[径向快照/空间闭合](xfel_ci_snapshot_2026_10_04/README.md)、[联合电荷](xfel_charge_average_2026_10_04/README.md) | 7, 10–11 |
-| 近简并 reservoir、有限时间误差、RWA | [辐射界](xfel_radiative_bound_2026_10_04/README.md)、[轨迹残差认证](xfel_residual_certificate_2026_10_04/README.md) | 8–9 |
-| 完整 Breit、开放壳相位、QED/反冲约定 | [完整3200Ha、Breit约定与极点判别](xfel_tail_breit_pole_2026_10_06/README.md)、[Breit 相位修正](xfel_breit_open_shell_diagnosis_2026_10_04/README.md)、[完整修正与 QEDMOD 符号](xfel_corrected_windows_2026_10_05/README.md)、[同步扩窗修正](xfel_low_closed_corrected_2026_10_05/README.md)、[QED加入后的CI响应与轨道自洽审计](xfel_qed_response_audit_2026_10_05/README.md)、[直接QED单电子轨道响应估算](xfel_qed_orbital_probe_2026_10_05/README.md) | 19, 26–27, 44, 47 |
-| 复尺度、DKB、c-product、目标求解器 | [一电子核](xfel_complex_scaling_2026_10_04/README.md)、[复 CI](xfel_complex_ci_2026_10_04/README.md)、[完整复 Breit](xfel_complex_breit_2026_10_04/README.md)、[目标谱](xfel_target_poles_2026_10_04/README.md) | 17–21 |
-| 多电荷复尺度、保留池自适应和极点边界 | [完整3200Ha、Breit约定与极点判别](xfel_tail_breit_pole_2026_10_06/README.md)、[多电荷控制](xfel_multicharge_complex_2026_10_05/README.md)、[束缚邻域](xfel_complex_neighborhood_2026_10_05/README.md)、[双外部12/16控制与实验差距](xfel_complex_rank2_control_2026_10_05/README.md)、[角度/径向/算符判别](xfel_complex_representation_control_2026_10_05/README.md) | 45, 48–51 |
-| 连续谱密度、冻结 DF/DKB、相关 rank/窗口 | [冻结 DF/DKB](xfel_frozen_df_dkb_2026_10_04/README.md)、[一般虚轨道](xfel_general_virtual_2026_10_04/README.md)、[rank2 闭通道](xfel_rank2_threshold_2026_10_05/README.md)、[能量零点](xfel_dc_zero_audit_2026_10_05/README.md)、[同步低能窗口](xfel_low_closed_corrected_2026_10_05/README.md) | 31–39, 43, 46–47 |
-| CI 装配、对称性、稀疏投影和缓存性能 | [物理对称性](xfel_physical_symmetry_2026_10_04/README.md)、[稀疏装配](xfel_ci_sparse_speed_2026_10_05/README.md)、[双激发符号](xfel_ci_pair_speed_2026_10_05/README.md)、[径向键负结果/角缓存及 SHA 勘误](xfel_radial_key_speed_2026_10_05/README.md) | 11, 20–21, 40–42 |
-| Ne q/r 实验/理论、跃迁自适应和误差分解 | [完整3200Ha、Breit约定与极点判别](xfel_tail_breit_pole_2026_10_06/README.md)、[完整800→1600Ha、QED重解与f/g预检](xfel_uv_tail_continuation_2026_10_06/README.md)、[完整200→400→800Ha与新单激发对照](xfel_high_energy_pair_cutoff_2026_10_05/README.md)、[束缚rank3/n5/n6与先行电子对筛选（前期控制）](xfel_bound_rank3_n6_2026_10_05/README.md)、[13项因素筛选（旧n4/0控制）](xfel_factor_screening_2026_10_05/README.md)、[完整0–5Ha rank2原控制](xfel_positive_rank2_closure_2026_10_05/README.md)、[第一性定位：核心电子对与条件零点](xfel_first_principles_localization_2026_10_05/README.md)、[同 n4/5 算符分项](xfel_first_principles_diagnosis_2026_10_05/README.md)、[跃迁反馈回放与候选规模](xfel_transition_feedback_2026_10_05/README.md)、[精密文献审计](xfel_precision_literature_audit_2026_10_04/README.md) | 12, 23, 26, 44, 47 |
-| 外部软件位置、构建状态、同径向跨代码验证 | [参考程序](reference_programs_2026_10_04/README.md)、[GRASP 活跑](grasp_diagnosis_2026_10_04/README.md)、[开放壳 Breit 对照](xfel_breit_open_shell_diagnosis_2026_10_04/README.md) | 24–27 |
+| 公共态选择、占率、态平均 | [态选择](atomic_state_selection_2026_10_04/README.md)、联合电荷优化 (local evidence: `xfel_charge_average_2026_10_04/README.md`)、磁态统计目标 (local evidence: `xfel_dc_audit_2026_10_04/README.md`) | 0.1, 6, 10, 13 |
+| 轨道梯度、近根、驻值和残差度量 | 局部梯度与度量勘误 (local evidence: `xfel_local_gradient_2026_10_04/README.md`)、身份响应 (local evidence: `xfel_subspace_response_2026_10_04/README.md`)、边界曲率 (local evidence: `xfel_feasible_curvature_2026_10_04/README.md`) | 14–16, 22, 28–30 |
+| 跨径向基底身份、简并子空间 | 基底跟踪 (local evidence: `xfel_basis_tracking_2026_10_04/README.md`)、活动空间 (local evidence: `xfel_active_convergence_2026_10_04/README.md`)；CI key 必须包含完整 coupling tree | 15–16, 37 |
+| XFEL 一般 N 通道、连续态及模型边界 | 多电子损失 (local evidence: `xfel_multielectron_2026_10_04/README.md`)、径向快照/空间闭合 (local evidence: `xfel_ci_snapshot_2026_10_04/README.md`)、联合电荷 (local evidence: `xfel_charge_average_2026_10_04/README.md`) | 7, 10–11 |
+| 近简并 reservoir、有限时间误差、RWA | 辐射界 (local evidence: `xfel_radiative_bound_2026_10_04/README.md`)、轨迹残差认证 (local evidence: `xfel_residual_certificate_2026_10_04/README.md`) | 8–9 |
+| 完整 Breit、开放壳相位、QED/反冲约定 | 完整3200Ha、Breit约定与极点判别 (local evidence: `xfel_tail_breit_pole_2026_10_06/README.md`)、Breit 相位修正 (local evidence: `xfel_breit_open_shell_diagnosis_2026_10_04/README.md`)、完整修正与 QEDMOD 符号 (local evidence: `xfel_corrected_windows_2026_10_05/README.md`)、同步扩窗修正 (local evidence: `xfel_low_closed_corrected_2026_10_05/README.md`)、QED加入后的CI响应与轨道自洽审计 (local evidence: `xfel_qed_response_audit_2026_10_05/README.md`)、直接QED单电子轨道响应估算 (local evidence: `xfel_qed_orbital_probe_2026_10_05/README.md`) | 19, 26–27, 44, 47 |
+| 复尺度、DKB、c-product、目标求解器 | 一电子核 (local evidence: `xfel_complex_scaling_2026_10_04/README.md`)、复 CI (local evidence: `xfel_complex_ci_2026_10_04/README.md`)、完整复 Breit (local evidence: `xfel_complex_breit_2026_10_04/README.md`)、目标谱 (local evidence: `xfel_target_poles_2026_10_04/README.md`) | 17–21 |
+| 多电荷复尺度、保留池自适应和极点边界 | 完整3200Ha、Breit约定与极点判别 (local evidence: `xfel_tail_breit_pole_2026_10_06/README.md`)、多电荷控制 (local evidence: `xfel_multicharge_complex_2026_10_05/README.md`)、束缚邻域 (local evidence: `xfel_complex_neighborhood_2026_10_05/README.md`)、双外部12/16控制与实验差距 (local evidence: `xfel_complex_rank2_control_2026_10_05/README.md`)、角度/径向/算符判别 (local evidence: `xfel_complex_representation_control_2026_10_05/README.md`) | 45, 48–51 |
+| 连续谱密度、冻结 DF/DKB、相关 rank/窗口 | 冻结 DF/DKB (local evidence: `xfel_frozen_df_dkb_2026_10_04/README.md`)、一般虚轨道 (local evidence: `xfel_general_virtual_2026_10_04/README.md`)、rank2 闭通道 (local evidence: `xfel_rank2_threshold_2026_10_05/README.md`)、能量零点 (local evidence: `xfel_dc_zero_audit_2026_10_05/README.md`)、同步低能窗口 (local evidence: `xfel_low_closed_corrected_2026_10_05/README.md`) | 31–39, 43, 46–47 |
+| CI 装配、对称性、稀疏投影和缓存性能 | 物理对称性 (local evidence: `xfel_physical_symmetry_2026_10_04/README.md`)、稀疏装配 (local evidence: `xfel_ci_sparse_speed_2026_10_05/README.md`)、双激发符号 (local evidence: `xfel_ci_pair_speed_2026_10_05/README.md`)、径向键负结果/角缓存及 SHA 勘误 (local evidence: `xfel_radial_key_speed_2026_10_05/README.md`) | 11, 20–21, 40–42 |
+| Ne q/r 实验/理论、跃迁自适应和误差分解 | 完整3200Ha、Breit约定与极点判别 (local evidence: `xfel_tail_breit_pole_2026_10_06/README.md`)、完整800→1600Ha、QED重解与f/g预检 (local evidence: `xfel_uv_tail_continuation_2026_10_06/README.md`)、完整200→400→800Ha与新单激发对照 (local evidence: `xfel_high_energy_pair_cutoff_2026_10_05/README.md`)、束缚rank3/n5/n6与先行电子对筛选（前期控制） (local evidence: `xfel_bound_rank3_n6_2026_10_05/README.md`)、13项因素筛选（旧n4/0控制） (local evidence: `xfel_factor_screening_2026_10_05/README.md`)、完整0–5Ha rank2原控制 (local evidence: `xfel_positive_rank2_closure_2026_10_05/README.md`)、第一性定位：核心电子对与条件零点 (local evidence: `xfel_first_principles_localization_2026_10_05/README.md`)、同 n4/5 算符分项 (local evidence: `xfel_first_principles_diagnosis_2026_10_05/README.md`)、跃迁反馈回放与候选规模 (local evidence: `xfel_transition_feedback_2026_10_05/README.md`)、精密文献审计 (local evidence: `xfel_precision_literature_audit_2026_10_04/README.md`) | 12, 23, 26, 44, 47 |
+| 外部软件位置、构建状态、同径向跨代码验证 | 参考程序 (local evidence: `reference_programs_2026_10_04/README.md`)、GRASP 活跑 (local evidence: `grasp_diagnosis_2026_10_04/README.md`)、开放壳 Breit 对照 (local evidence: `xfel_breit_open_shell_diagnosis_2026_10_04/README.md`) | 24–27 |
 
 ## Task-specific scientific contracts
 

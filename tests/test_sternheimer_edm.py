@@ -47,6 +47,7 @@ def _solve_h():
     return df.solve(Z=1, subshells=[Subshell(n=1, kappa=-1, occupation=1)])
 
 
+@functools.lru_cache(maxsize=1)
 def _solve_lithium():
     df = DiracFock(exchange=Exchange.HARTREE_FOCK)
     return df.solve(
@@ -54,6 +55,22 @@ def _solve_lithium():
         subshells=[
             Subshell(n=1, kappa=-1, occupation=2),
             Subshell(n=2, kappa=-1, occupation=1),
+        ],
+    )
+
+
+@functools.lru_cache(maxsize=1)
+def _solve_sodium():
+    # The unchanged HF problem reaches tol=1e-5 after 46 iterations; the
+    # low-level default budget of 40 stops before the convergence gate.
+    return DiracFock(exchange=Exchange.HARTREE_FOCK).solve(
+        Z=11, max_iter=100,
+        subshells=[
+            Subshell(n=1, kappa=-1, occupation=2),
+            Subshell(n=2, kappa=-1, occupation=2),
+            Subshell(n=2, kappa=1, occupation=2),
+            Subshell(n=2, kappa=-2, occupation=4),
+            Subshell(n=3, kappa=-1, occupation=1),
         ],
     )
 
@@ -120,16 +137,7 @@ class TestSternheimerEDM:
         enhancement.  A 3x increase in Z from Li to Na must increase
         |R_e| by far more than the naive non-relativistic ~Z factor."""
         li = _solve_lithium()
-        df = DiracFock(exchange=Exchange.HARTREE_FOCK)
-        na = df.solve(
-            Z=11,
-            subshells=[
-                Subshell(n=1, kappa=-1, occupation=2),
-                Subshell(n=2, kappa=-1, occupation=2), Subshell(n=2, kappa=1, occupation=2),
-                Subshell(n=2, kappa=-2, occupation=4),
-                Subshell(n=3, kappa=-1, occupation=1),
-            ],
-        )
+        na = _solve_sodium()
         assert li.converged and na.converged
         R_li = abs(sternheimer_edm_enhancement(
             li, kappa_max=4, n_virt_max=20, target_subshell="2s1/2").R_electron_edm)
@@ -262,16 +270,7 @@ class TestSternheimerEDM:
     def test_fast_smoke_z_scaling(self):
         """Fast smoke variant of Z-scaling test with reduced virtual basis."""
         li = _solve_lithium()
-        df = DiracFock(exchange=Exchange.HARTREE_FOCK)
-        na = df.solve(
-            Z=11,
-            subshells=[
-                Subshell(n=1, kappa=-1, occupation=2),
-                Subshell(n=2, kappa=-1, occupation=2), Subshell(n=2, kappa=1, occupation=2),
-                Subshell(n=2, kappa=-2, occupation=4),
-                Subshell(n=3, kappa=-1, occupation=1),
-            ],
-        )
+        na = _solve_sodium()
         assert li.converged and na.converged
         # Reduced n_virt_max for speed; still enough to see the boost.
         R_li = abs(sternheimer_edm_enhancement(

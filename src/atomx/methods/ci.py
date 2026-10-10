@@ -201,7 +201,11 @@ def ci_solve(
             iterations.append(n_iter)
         else:
             subset = (0, k - 1) if k < size else None
-            w, v = linalg.eigh(block, subset_by_index=subset)
+            # Complete ionic spectra feed signed closure contractions. MRRR
+            # can lose orthogonality for clustered roots; divide-and-conquer
+            # preserves it without rotating or truncating the returned states.
+            driver = "evd" if subset is None else "evr"
+            w, v = linalg.eigh(block, subset_by_index=subset, driver=driver)
             if dense_cluster_gap is not None:
                 from atomx.numerics.hermitian_clusters import (
                     refine_real_symmetric_clusters,

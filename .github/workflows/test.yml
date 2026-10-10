@@ -17,6 +17,10 @@ jobs:
   pytest:
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      NUMBA_NUM_THREADS: "1"
     strategy:
       fail-fast: false
       matrix:
@@ -54,6 +58,7 @@ jobs:
           # numerical sites). Serial BLAS removes the thread-scheduling
           # variance vector at a modest runtime cost.
           OPENBLAS_NUM_THREADS: "1"
+          OMP_NUM_THREADS: "1"
           NUMBA_NUM_THREADS: "1"
         run: uv run --python ${{ matrix.python-version }} pytest -m "not slow" -q
       - name: Determinism gate (fresh processes, bit-identical results)

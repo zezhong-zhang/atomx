@@ -35,7 +35,10 @@ PANEL = {
         dict(Z=7, config=["1s2 2s2 2p3"], correlation=Correlation(averaging="ci")),
         # Canonical 2p labels make the applied Mohr shift match the reported
         # QED components; the old per-state label "21" was read as n=21.
-        -54.424528752960605,
+        # Re-recorded after the open-shell Breit phase fix in 233fec1.
+        # Independent signed GRASP blocks: test_breit_open_shell_reference.py.
+        # DC/QED are unchanged; the Breit shift decreased by 2.01408e-5 Ha.
+        -54.42454889375931,
     ),
     "n_open_statistical": (
         dict(
