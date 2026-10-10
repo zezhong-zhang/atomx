@@ -136,7 +136,6 @@ testpaths = [
     "tests/test_shooting_radial_operators.py",
     "tests/test_slater_kernel_crosscheck.py",
     "tests/test_slater_scaling.py",
-    "tests/test_ci_analytic_slater_condon.py",
     "tests/test_ci_double_excitation_sign.py",
     "tests/test_ci_complete_trace.py",
     "tests/test_ci_dense_orthogonality.py",
@@ -169,7 +168,7 @@ markers = [
     "slow: tests that run expensive atomic-structure calculations",
     "external_fac: asserts STORED EXTERNAL reference data (clean-room FAC fixtures/dumps); regenerating the reference needs sfac",
     "snapshot: frozen atomx SELF-regression against its own recorded output; asserts nothing external",
-    "book: executable claims from the book (docs/book); a claim that fails to verify fails this gate — run with `pytest -m book`",
+    "book: executable claims from the book (docs/book); a claim that fails to verify fails this gate — run explicitly with `pytest tests/test_book_preface.py -m book`",
 ]
 # Per-test timeout: a single LAPACK call on a thrashed box must fail loudly
 # as a test timeout, not wedge the whole suite (critical review F1; the

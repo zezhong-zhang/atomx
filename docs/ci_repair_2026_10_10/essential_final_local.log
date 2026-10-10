@@ -1,0 +1,29 @@
+........................................................................ [ 15%]
+........................................................................ [ 31%]
+........................................................................ [ 47%]
+........................................................................ [ 63%]
+........................................................................ [ 79%]
+........................................................................ [ 95%]
+....................                                                     [100%]
+============================= slowest 20 durations =============================
+9.41s call     tests/test_determinism.py::test_panel_is_deterministic_across_processes
+2.70s call     tests/test_xfel_multielectron_ci.py::test_clustered_three_electron_pulse_changes_charge_and_rejects_stale_carrier
+2.69s setup    tests/test_corrections_stack.py::TestApplyOnDHF::test_default_stack_runs_all_backends
+2.27s setup    tests/test_xfel_multielectron_ci.py::test_live_three_electron_residual_spaces_particle_number_and_Hartree_tail
+1.89s call     tests/test_architecture_boundaries.py::test_shooting_drivers_run_without_method_imports
+1.67s call     tests/test_atom_surface_equivalence.py::test_canonical_form_reproduces_the_recorded_number[be_multiconfig]
+1.27s call     tests/test_architecture_boundaries.py::test_public_imports_do_not_load_renderers_or_optional_backends
+1.23s call     tests/test_xfel_multielectron_ci.py::test_prepared_multielectron_snapshot_reuses_native_channel_caches
+1.21s call     tests/test_atom_surface_equivalence.py::test_canonical_form_reproduces_the_recorded_number[n_open_ci_averaging]
+1.04s call     tests/test_atom_surface_equivalence.py::test_canonical_form_reproduces_the_recorded_number[be_multiconfig_fac_frozen]
+0.86s call     tests/test_atom_surface_equivalence.py::test_canonical_form_reproduces_the_recorded_number[ne_closed_bspline]
+0.59s call     tests/test_xfel_multielectron_ci.py::test_general_N2_tensor_matches_existing_full_h_plus_V_provider
+0.55s call     tests/test_shooting_result_persistence.py::test_local_checkpoint_loads_without_importing_methods[dirac]
+0.55s call     tests/test_slater_scaling.py::test_complete_j_ladder_and_known_parameter_recovery
+0.54s call     tests/test_atom_surface_equivalence.py::test_canonical_form_reproduces_the_recorded_number[fe17_slater_bspline]
+0.52s call     tests/test_xfel_multielectron_ci.py::test_live_three_electron_residual_spaces_particle_number_and_Hartree_tail
+0.48s setup    tests/test_slater_kernel_crosscheck.py::test_scalar_rk_matches_reference[cc_potentials-0]
+0.40s call     tests/test_xfel_multielectron_ci.py::test_four_electron_live_cascade_and_preflight_capacity
+0.40s call     tests/test_atom_surface_equivalence.py::test_only_the_documented_inputs_move_a_result
+0.34s call     tests/test_xfel_kinetics.py::test_pulse_structure_matters_with_finite_lifetimes
+452 passed in 37.83s

@@ -46,6 +46,8 @@ The explicit bounds diagnostic uses the same C/Ne/Be inputs with
 `NUMBA_BOUNDSCHECK=1`. It forces a fresh compilation and is outside routine CI.
 The Cf addition and four/twelve-repeat campaigns have been removed. Two fresh
 processes still compare energies, every orbital energy and signed wave bytes.
+They reuse compiled kernels from the ordinary suite; only the optional bounds
+diagnostic requires an isolated compilation cache.
 
 The link check covers root and top-level documentation entry points and requires
 tracked repository targets. It excludes external URLs, heading anchors, fenced
@@ -59,7 +61,7 @@ Historical selected-panel counts live in [validation history](VALIDATION_HISTORY
 |---|---|
 | Public inputs, units, method ownership | Input surface, configuration/method validation, constants, units and architecture boundaries |
 | Radial mathematics | Native metric, B-spline identities, analytic Dirac energies, shooting operators, Gauss moments and six-kernel crosschecks |
-| Signed CI and eigensolvers | Analytic Slater–Condon, double-excitation signs, complete traces, dense closure, Davidson, radial snapshots and Hermitian clusters |
+| Signed CI and eigensolvers | Double-excitation signs, complete traces, dense closure, Davidson, radial snapshots and Hermitian clusters |
 | Independent physical anchors | Full signed GRASP open-shell Breit blocks and stored FAC CI operator matrices |
 | Public live behavior and corrections | Canonical Atom energy panel, correction ledgers/stack and native checkpoint round trips |
 | Rates and dynamics | Tracked native Ne table, complete signed multi-electron CI channels and analytic XFEL kinetics |
@@ -70,6 +72,11 @@ thresholds or truncated production models are used. Extended subsystem tests
 remain available by explicit path, but their results are not implied by a green
 essential run. Add or replace a default test only when its contract earns the
 runtime cost; inspect `--durations` and update this guide in the same change.
+
+Hosted timings also moved `test_ci_analytic_slater_condon.py` and the two
+absolute-reservoir campaigns in `test_xfel_reservoir_campaign.py` outside the
+default selection. Their models and assertions are unchanged. The small live
+three-electron closure, signed channels and pulse checks remain essential.
 
 The multi-minute Pr/Eu/Nd transfer, ns=256/320 DHF bank-comparison and Fe XVII
 LMM campaigns were removed from `tests/`. Their unchanged source and SHA-256

@@ -195,7 +195,8 @@ agreement. Automatic continuum box selection remains unfinished.
 Focused suites pass 155, 123 and 113 tests (overlapping selections), including
 poisoned scratch-buffer reuse, heavy bound states, sourced orbitals, adaptive
 grids and Breit operators. The earlier grouped-change gate passed 681 tests;
-the current full suite collects 3817 tests. These are not a full-suite pass.
+the then-current full suite collected 3817 tests. These historical counts are
+not a full-suite pass or the current essential selection; see [Testing](TESTING.md).
 
 Use `benchmarks/bench_radial_bound_kernels.py --probe <DBOUND-probe>
 --radial-source <matched-radial.f> --out <new-directory>` for the frozen-field
@@ -597,6 +598,7 @@ Two additional safety gates now exercise the current Atom API directly,
 replacing calls to the retired determinism CLI. Three fresh full-panel
 processes return identical energies and wave hashes; a separate fresh
 compilation passes Numba bounds checking. The panel covers shooting,
-B-splines, explicit MCDHF and Cf. Test and nightly workflows retain their
-full-panel repeat counts through the new tests. Together with the numerical
+B-splines, explicit MCDHF and Cf. These are historical full-panel results.
+Since 2026-10-10, routine CI retains C/Ne/Be with two fresh processes and the
+nightly workflow is removed; [Testing](TESTING.md) owns current coverage. Together with the numerical
 suite, **163 checks pass**, repairing eight failures from the initial audit.

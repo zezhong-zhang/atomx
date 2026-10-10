@@ -59,10 +59,12 @@ print(json.dumps(records, sort_keys=True))
 
 def _run(cache, *, boundscheck=False):
     env = os.environ.copy()
-    env.update(PYTHONPATH=str(ROOT/'src'), NUMBA_CACHE_DIR=str(cache),
+    env.update(PYTHONPATH=str(ROOT/'src'),
                NUMBA_BOUNDSCHECK=str(int(boundscheck)),
                NUMBA_DISABLE_JIT='0', NUMBA_NUM_THREADS='1',
                OPENBLAS_NUM_THREADS='1', OMP_NUM_THREADS='1', MKL_NUM_THREADS='1')
+    if cache is not None:
+        env['NUMBA_CACHE_DIR'] = str(cache)
     process = subprocess.run([sys.executable, '-c', PANEL],
         capture_output=True, text=True, cwd=ROOT, env=env, timeout=1800)
     assert process.returncode == 0, (
@@ -71,7 +73,9 @@ def _run(cache, *, boundscheck=False):
     return json.loads(process.stdout)
 
 
-def test_panel_is_deterministic_across_processes(tmp_path):
+def test_panel_is_deterministic_across_processes():
     """Identical input must give bit-identical output in fresh processes."""
-    results = [_run(tmp_path/'numba') for _ in range(2)]
+    # Fresh interpreters test process-dependent values and scratch memory.
+    # Reuse compiled kernels; the ordinary suite already exercises cold JIT.
+    results = [_run(None) for _ in range(2)]
     assert all(result == results[0] for result in results[1:])

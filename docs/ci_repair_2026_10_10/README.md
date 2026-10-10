@@ -1,6 +1,6 @@
 # GitHub Actions repair and documentation organization — 2026-10-10
 
-Status: affected numerical panel, essential selection trial, documentation tests and lint pass; final essential GitHub matrix pending. Full campaigns were canceled at the user’s request and are not claimed to pass.
+Status: final local essential suite (452 tests), affected numerical panel, documentation tests and lint pass; final essential GitHub matrix pending. Full campaigns were canceled at the user’s request and are not claimed to pass.
 Base: `233fec1a9710e95cf42bf64ecb821d287d4336e2`. Repairs are isolated from the
 main checkout's unrelated scientific changes in branch `fix/ci-docs`.
 
@@ -142,6 +142,38 @@ passing full suite. Lint [38032113551](https://github.com/zezhong-zhang/atomx/ac
 passed on the first repair commit.
 
 Documentation review: update Testing, README, Slater-scaling gate locations and
-historical verification's current-scope annotation; retain original archived
+historical verification and DF-control current-scope annotations; retain original archived
 measurements. Register the user decision under `knowledge-layers` rather than
 adding a performance claim or a root rule. No new physical insight.
+
+### Hosted turnaround control and final selection
+
+[Hosted trial 38032963022](https://github.com/zezhong-zhang/atomx/actions/runs/38032963022)
+completed all **458 numerical tests** in 292.30 s (3.10) and 283.39 s (3.13).
+The 3.10 job then hit its five-minute safety timeout; 3.13 completed successfully.
+This fails the turnaround target, despite passing numerical assertions. The
+[complete raw trial log](essential_hosted_trial.log.gz) is retained.
+
+Dominant 3.13 calls: determinism 59.95 s; four-electron absolute reservoir
+37.57 s; Be analytic/variational comparison 29.00 s; the first He analytic
+solve 19.16 s; three-electron absolute reservoir 11.33 s. Those two absolute
+reservoir tests move with unchanged function ASTs to
+`tests/test_xfel_reservoir_campaign.py`, outside the essential selection.
+The unchanged analytic Slater–Condon live panel is also now explicitly selected,
+not routine. Signed GRASP/FAC blocks, complete CI traces, the canonical public
+energy panel and the live three-electron closure remain essential. Final
+expected collection: **452 tests**. This is a declared coverage choice, not a
+large-space convergence or same-input performance claim.
+
+The determinism test now reuses compiled kernels while retaining two fresh
+interpreters and the identical C/Ne/Be physical inputs. The default suite
+exercises ordinary compilation; the explicit bounds diagnostic still uses an
+isolated cache. The [shared-cache local check](determinism_shared_cache.log)
+passes in 24.01 s; the [bounds diagnostic](bounds_diagnostic.log) passes in
+121.29 s. These observations are not controlled timing pairs. No production
+source, tolerance, state, Hamiltonian or test-function model was changed.
+
+[Final local default command](essential_final_local.log): **452 passed in 37.83 s**
+with existing warm compilation caches. This is one observation, not a controlled
+speedup or cold GitHub prediction. [Final selection identity](essential_final_identity.json)
+records actual test/config hashes and unchanged ASTs of the moved campaign tests.
