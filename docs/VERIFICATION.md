@@ -1340,6 +1340,10 @@ explicit MCDHF. CI and nightly workflows now use these tests, retaining their
 existing full-panel repeat counts. The final numerical and safety gates total
 163 passes and repair eight failures identified by the full audit.
 
+Current workflow scope changed on 2026-10-10: the full Cf/repeated campaign and
+nightly schedule were removed in favor of the essential suite. The preceding
+counts describe the historical audit, not current CI. See [Testing](TESTING.md).
+
 Inputs, outputs, source hashes, baseline failure reproductions and profiles
 are retained in
 [`2026-09-30-shooting-moments`](../benchmarks/runs/2026-09-30-shooting-moments/README.md).

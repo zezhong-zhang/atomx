@@ -1,0 +1,29 @@
+........................................................................ [ 15%]
+........................................................................ [ 31%]
+........................................................................ [ 47%]
+........................................................................ [ 63%]
+........................................................................ [ 78%]
+........................................................................ [ 94%]
+.........................                                                [100%]
+============================= slowest 20 durations =============================
+22.76s call     tests/test_xfel_multielectron_ci.py::test_four_electron_full_sparse_chain_retains_absolute_error_rejection
+17.45s call     tests/test_ci_analytic_slater_condon.py::test_be_two_configuration_near_degeneracy
+9.15s call     tests/test_ci_analytic_slater_condon.py::test_helike_1s2p_j1_splitting_is_two_thirds_g1[2]
+7.10s call     tests/test_xfel_multielectron_ci.py::test_absolute_reservoir_certification_reuses_three_electron_signed_model
+4.59s setup    tests/test_corrections_stack.py::TestApplyOnDHF::test_default_stack_runs_all_backends
+4.22s call     tests/test_xfel_multielectron_ci.py::test_clustered_three_electron_pulse_changes_charge_and_rejects_stale_carrier
+4.12s call     tests/test_atom_surface_equivalence.py::test_canonical_form_reproduces_the_recorded_number[be_multiconfig]
+3.23s setup    tests/test_xfel_multielectron_ci.py::test_live_three_electron_residual_spaces_particle_number_and_Hartree_tail
+2.60s call     tests/test_atom_surface_equivalence.py::test_canonical_form_reproduces_the_recorded_number[n_open_ci_averaging]
+2.48s call     tests/test_architecture_boundaries.py::test_shooting_drivers_run_without_method_imports
+2.27s call     tests/test_atom_surface_equivalence.py::test_canonical_form_reproduces_the_recorded_number[be_multiconfig_fac_frozen]
+1.92s setup    tests/test_slater_kernel_crosscheck.py::test_scalar_rk_matches_reference[cc_potentials-0]
+1.69s call     tests/test_xfel_multielectron_ci.py::test_prepared_multielectron_snapshot_reuses_native_channel_caches
+1.63s call     tests/test_ci_analytic_slater_condon.py::test_helike_1s2p_j1_splitting_is_two_thirds_g1[6]
+1.53s call     tests/test_atom_surface_equivalence.py::test_canonical_form_reproduces_the_recorded_number[ne_closed_bspline]
+1.51s call     tests/test_architecture_boundaries.py::test_public_imports_do_not_load_renderers_or_optional_backends
+1.45s call     tests/test_shooting_radial_operators.py::test_dirac_contraction_refines_to_analytic_integral[-3]
+1.06s call     tests/test_xfel_multielectron_ci.py::test_general_N2_tensor_matches_existing_full_h_plus_V_provider
+0.96s call     tests/test_shooting_result_persistence.py::test_local_checkpoint_loads_without_importing_methods[schrodinger]
+0.90s call     tests/test_atom_surface_equivalence.py::test_canonical_form_reproduces_the_recorded_number[fe17_slater_bspline]
+457 passed in 106.80s (0:01:46)

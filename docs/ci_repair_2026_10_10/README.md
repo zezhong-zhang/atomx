@@ -1,6 +1,6 @@
 # GitHub Actions repair and documentation organization — 2026-10-10
 
-Status: affected numerical panel, documentation tests and lint pass; full local and GitHub validation pending.
+Status: affected numerical panel, essential selection trial, documentation tests and lint pass; final essential GitHub matrix pending. Full campaigns were canceled at the user’s request and are not claimed to pass.
 Base: `233fec1a9710e95cf42bf64ecb821d287d4336e2`. Repairs are isolated from the
 main checkout's unrelated scientific changes in branch `fix/ci-docs`.
 
@@ -80,7 +80,7 @@ allocated. These checks make no timing or end-to-end performance claim.
 | Change | Owning documentation | Disposition |
 |---|---|---|
 | Fixtures, dense solver and sodium budget | [Testing](../TESTING.md), this record | Update commands, coverage and provenance; retain original numerical gates |
-| Nightly gate independence and serial kernels | [Testing](../TESTING.md), workflow YAML | Remove stale fixed slow-test count; run all four gates independently |
+| Routine test scope and serial kernels | [Testing](../TESTING.md), workflow YAML | Replace broad collection with reviewed essential selection; remove nightly and repeated heavy panels |
 | Current navigation | [Documentation index](../README.md) | Group guides by task; move dated reports to [research](../RESEARCH.md) |
 | Maintenance routing | [Development](../DEVELOPMENT.md) | Move the existing code-to-documentation table intact; retain its old incoming anchor |
 | Historical selected-panel counts | [Validation history](../VALIDATION_HISTORY.md) | Move dated results out of current test instructions without changing evidence |
@@ -95,3 +95,53 @@ Distillation: refine existing knowledge-layers and preserve-metric guidance.
 When a fixture passes only in a dirty checkout, verify tracked inputs; when
 closure fails, repair the eigensystem before changing its threshold. Scope is
 this native real dense CI and these workflow contracts. No new root rule needed.
+
+## Essential-suite scope decision and measurement
+
+User decision, 2026-10-10: remove long tests and target about three minutes for
+routine CI. This supersedes the initial repair's independent nightly matrix;
+it is a coverage decision, not a measurement that the large models got faster.
+The test selection is explicit in `pyproject.toml`; affected extended regressions
+are still selected by path when their implementation changes.
+
+Fixed conditions: unchanged production source after the dense-driver repair,
+original models and tolerances in every retained test, existing Python 3.10
+venv and one BLAS/OpenMP/Numba thread. Hypothesis: removing broad campaigns and
+redundant repeated heavy solves makes essential coverage fit the three-minute
+target. Accept only passing selected gates; stop the experiment at the target
+rather than launch another full campaign. Cold hosted-runner timings remain a
+separate observation from this warm local checkout; no controlled speedup is claimed.
+
+The initial [selection trial](essential_trial.log) passes **457 tests in 106.80 s**.
+A collection check caught that pytest expands `testpaths` as filesystem patterns,
+so a node selector did not collect determinism. The final selection uses only
+file paths and splits the optional bounds diagnostic into its own module.
+The determinism panel retains C, Ne and multi-configuration Be with two fresh
+processes and signed wave-byte comparisons. Cf and four/twelve-repeat campaigns
+are removed. The separate [determinism check](essential_determinism.log) passes in **46.38 s**.
+Final default collection contains **458 tests**, including determinism. Local
+selected checks total about **153.18 s** across these two invocations; the final
+combined command and cold-runner runtime are verified by GitHub, not inferred
+from summing these times.
+
+Three campaign-only modules moved unchanged to the
+[source archive](../archive/2026-10/long_running_tests/README.md), with SHA-256
+and original commit identities. The Pr/Eu/Nd models and ns=256/320 DHF tests
+were not reduced to manufacture a passing large-model result. Optional rendering
+extras and Cairo/Pango setup were removed from routine CI because the essential
+selection does not import those backends. Runtime target: about three minutes;
+job safety timeout: five minutes including setup.
+
+The broad local non-slow run was interrupted at approximately 41% (exit 130;
+[partial log](full_non_slow.log.gz)). GitHub Test
+[38032113586](https://github.com/zezhong-zhang/atomx/actions/runs/38032113586) and
+Nightly [38032155079](https://github.com/zezhong-zhang/atomx/actions/runs/38032155079)
+were canceled. Nightly book and bounds jobs had passed before cancellation;
+slow/determinism did not complete. These partial results do not establish a
+passing full suite. Lint [38032113551](https://github.com/zezhong-zhang/atomx/actions/runs/38032113551)
+passed on the first repair commit.
+
+Documentation review: update Testing, README, Slater-scaling gate locations and
+historical verification's current-scope annotation; retain original archived
+measurements. Register the user decision under `knowledge-layers` rather than
+adding a performance claim or a root rule. No new physical insight.

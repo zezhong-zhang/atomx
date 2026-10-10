@@ -57,6 +57,10 @@ checkout. They retain the original evidence location and are not GitHub links.
 
 ## knowledge-layers
 
+- 2026-10-10 用户裁定常规测试约三分钟：默认显式 essential 清单，昂贵 campaign 退出测试收集和 nightly；
+  保留源与失败证据，修改代码仍跑受影响子系统。此为测试范围决策，不是物理空间缩减或速度认证；
+  [当前命令和边界](TESTING.md)、[实测](ci_repair_2026_10_10/README.md)。
+
 - 2026-10-10 用户要求重组并持续维护文档：当前指南、开发路由与带日期证据分离；
   CI 检查索引新鲜度和入口链接是否已跟踪，语义仍由执行任务的 agent 负责。
   忽略的本地证据保留路径并明确其不可在 GitHub 读取；[处置与实测](ci_repair_2026_10_10/README.md)。
