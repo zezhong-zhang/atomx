@@ -52,6 +52,25 @@ supported result types, model approximations, and remaining gaps. For example,
 Breit–Pauli currently uses hydrogenic perturbative shifts, and PNC/EDM entry
 points require B-spline payloads.
 
+Lower-level correlation interfaces now include complete declared NR-SD CI,
+finite DC/DCB P/Q elimination and a bounded nonlinear CCSD solver. The
+[implementation and numerical anchors](docs/yb_sd_breit_completion_2026_10_09/README.md)
+state their resource and model limits. A separate [integral-driven CCSD/FS-CCSDT
+backend](docs/ATOMIC_FSCC.md) supports optional on-demand native integrals and
+bounded export, and solves native signed-integral tensor equations
+without determinant enumeration. Complete virtual energy bands and explicit
+core partitions are supported; angular-reduced scaling and automatic CC dispatch
+through `Atom.solve()` remain outside this interface.
+The separate [native scalar linearized SD interface](docs/ATOMIC_LINEARIZED_SD.md)
+provides exact angular resource planning and a bounded closed-core DC/DCB
+equation anchor. A direct reduced DC core-SD path now uses source-bound pCI
+diagrams with the native cell integrator and full noncanonical Fock terms;
+complete retained Ne virtual bands have been solved. A separate fixed-energy
+valence SD interface now supplies signed Sigma1 rows and implicit energy
+response on the same solved core. Complete directed two-valence Sigma2 and
+joint response are also available with finite full-vector validation; their
+CI energy/metric consumption and spectroscopic convergence remain unfinished.
+
 The [NIST reference-data interfaces](docs/NIST_SPECTRUM_ATLAS.md) parse
 caller-supplied levels, lines, classifications, and citations.
 [Theory comparison](docs/THEORY_NIST_COMPARISON.md) provides state matching and
@@ -450,6 +469,7 @@ criteria when comparing engines or optimizations.
 
 ## Documentation
 
+- [Zenodo deposit preparation](docs/ZENODO_RELEASE.md) — Source archive, citation metadata, and upload page.
 - [Documentation index](docs/README.md) — Current guides and historical evidence.
 - [Architecture](docs/ARCHITECTURE_DESIGN.md) and
   [capabilities](docs/ARCHITECTURE_CAPABILITIES.md) — Module ownership and limits.
@@ -490,10 +510,12 @@ python -m ruff check --no-cache src tests scripts benchmarks
 pre-commit install
 ```
 
-CI runs lint, tests excluding `slow` on Python 3.10 and 3.13, and a determinism
-panel. The [test](.github/workflows/test.yml),
-[lint](.github/workflows/lint.yml), and [nightly](.github/workflows/nightly.yml)
-workflows define their environments and validation scope.
+CI runs the essential suite on Python 3.10 and 3.13, including two fresh-process
+determinism repeats, with a target of about three minutes. Plain `pytest -q`
+uses the same reviewed selection in `pyproject.toml`. The
+[test](.github/workflows/test.yml) and [lint](.github/workflows/lint.yml) workflows
+define the gates; long campaigns and their nightly schedule have been removed.
+See the [testing guide](docs/TESTING.md) for coverage and focused checks.
 
 Include reproducible inputs and relevant validation with a contribution.
 For numerical issues, report `resolved_inputs`, convergence status, and the

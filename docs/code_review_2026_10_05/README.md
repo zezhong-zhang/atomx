@@ -77,6 +77,15 @@ AGENTS.md-documented failure mode ("result 类型动物园" / swallowed `+J[ρ_f
 radial bug), still live in the flagship solver. Verified: three read sites, zero
 declarations, one external injection.
 
+*Resolution (2026-10-10): both attributes are now declared `DFSolver.__init__`
+parameters (`virtual_orbital_keys=None` → empty set; `core_hole_stationary=True`)
+with docstring entries (`methods/dirac_fock.py:320-321, 534-536`); all five
+getattr reads are direct attribute access, and both injection sites became
+constructor pass-through (`methods/csf/solver.py:1058-1079` computes the set
+before construction; `DFSConfig.core_hole_stationary` forwards at
+`dirac_fock.py:2689`). A direct `DFSolver(...)` user now gets the declared
+defaults, not invisible ones.*
+
 **E3. Known-wrong legacy CI kernel (~1,500 lines) ships in the physics layer.**
 `physics/csf/matrix.py:805-2316`: `_legacy_build_ci_matrix_approximate` + ~20
 helpers, docstrings admit "quantitatively wrong" / "LANDED, UNVALIDATED". Verified
@@ -129,11 +138,28 @@ existing return/accessor contract is retained.*
 `atom.py:1115` and `dirac_fock.py:2468` write private state into result objects they
 didn't construct. Undeclared, untyped, undocumented data flow.
 
+*Resolution (2026-10-10): one declared channel — `solver_diagnostics: Dict` on
+all three result classes (`VariationalCSFResult` at `methods/csf/solver.py:63-69`,
+`SCFResult`, `ShootingResult`); the 21 `__dict__` writes and 13 `__dict__.get`
+reads route through it, `_jj_configs` became a declared `SCFResult` field, and
+16 external read/write sites (7 src, 9 test) were updated — no `__getattr__`
+shim. Recursive pass the same day swept the corrections layer's remaining keys
+(`breit_ci.py`'s `_E_Breit_operator*`, stack.py's `_*_provenance` setattr) into
+the same channel, with `io/results.py` migrating legacy archives on load.*
+
 **E6. Strings smuggled into a numeric-typed dict.** `dirac_fock.py:2388-2394` writes
 `"_core_hole_rotation_mode": "local_stationary_v1"` (and a `nuclear_profile` object)
 into `SCFResult.energy_components: Dict[str, float]` — while `atom.py:1183-1188`
 documents that string entries in that dict *previously broke consumers*. The rule is
 written in one module and violated in the other.
+
+*Resolution (2026-10-10): `energy_components` is float-only again. The four
+policy/provenance keys (`_core_hole_rotation_mode`, `_eigensolver_refinement_policy`,
+`_diis_residual_policy`, `_nuclear_profile`) plus the constraint-failure-path
+`orthogonality_warning` moved to the declared `solver_diagnostics` dict;
+`max_same_kappa_overlap` (a float) stays. `io/results.py` migrates the legacy
+keys out of old archives' `components_json` on load, pinned by
+`tests/test_scfresult_save_load.py`'s migration test.*
 
 *Addendum (2026-10-05): the leftover `corrections/stack.py` write of the
 `_mohr_high_ns_policy` string into `energy_components` now lands in
@@ -161,6 +187,18 @@ widths); `plasma/crm.py:205` (getattr default silently zeroes a radiative rate);
 `calculation_spec.py:78` (missing atomic weight silently selects a point nucleus).
 These violate the "unsupported paths refuse loudly" rule at the worst locations.
 
+*Resolution (2026-10-10): all five fail-closed. `shabaev.py` re-raises a
+`RuntimeError` naming `(n, kappa, Z)` with `__cause__` chaining (lru_cache never
+caches exceptions, so no session-poisoning; the explicit `use_dirac_reference=False`
+switch, now exposed on the public backend entries, remains the honest opt-out).
+`mohr.py` lets PCHIP errors propagate (scipy is a hard dependency). The DR solver
+gained an explicit `allow_default_widths=False` keyword: missing width hooks or
+a failed ab-initio build now raise naming the screened-hydrogenic opt-in.
+`plasma/crm.py` reads `a_radiative_per_s` directly (a required dataclass field —
+missing attribute is a contract violation). `calculation_spec.py::resolved_solver_spec`
+raises when neither `aw` nor `nuclear` is determinable instead of recording a
+guessed point nucleus. No test relied on any removed silent path.*
+
 *Addendum (2026-10-05): two silent-default leftovers swept. `enumerate.py::
 _initial_statistical_weight` narrows its config-parse guard from `except Exception`
 to `except ValueError` — the only failure its strict NR grammar raises; anything
@@ -187,6 +225,16 @@ re-imports `convol` symbols inside four methods despite a module-level import.
 (0, 0) `LinearOperator` with `.diagonal()`/`.blocks` when `as_operator=True`;
 both `ns = ... else 50` fallbacks vanished with the legacy helpers (E3 deletion).*
 
+*Resolution (2026-10-10): `Atom.solve()` has one return contract — always `self`
+with the result on `.result` (the method path previously returned the raw
+result object and never stored it); all consumer sites migrated, and
+`compare.py`'s `theory_ladder` (which silently aliased N references to one Atom
+under the old mixed contract) fixed in the same pass. `providers/contract.py`'s
+dead shape checks and duplicate ERI finite scan are removed (each input class
+scanned exactly once; the payload-level boundary re-scan stays as a deliberate
+gate). The in-function import sprawl remains as recorded — half are layering
+seams whose fix is architectural, not mechanical.*
+
 ---
 
 ## Part II — Physics epistemology findings
@@ -203,6 +251,21 @@ integrator substitution (`matrix.py:80-85` docstring). One cheap decisive experi
 — all kernels, one density, same answer — either buys confidence or finds a carried
 bug.
 
+*Resolution (2026-10-10): the experiment ran — `tests/test_slater_kernel_crosscheck.py`
+(55 tests) gates nine kernel paths (convol classic/semiseparable/batched, yk.py,
+trapezoid, SLAG6, legacy power-series, cc_potentials, two_electron Gauss-Legendre)
+against a 45-digit mpmath/incomplete-gamma reference on one hydrogenic density,
+k=0,1,2, plus pointwise Y^k profiles and a 1e-6 pairwise gate. Verdict: no
++74 Ha-class convention mismatch exists — the four production kernels agree to
+≤4.2e-8. Two measured findings, pinned two-sided so fixing them must update the
+gates: **F1** — `cc_potentials.py` and `two_electron/coulomb.py` still carry the
+half-cell partial-interval estimator `yk.py` abandoned (exact 1:5:12 bias-ratio
+signature of `docs/test_audit/PHYSICS_yk_node_values.md`; within kernel 5's
+documented 1 % contract, undocumented for kernel 6 — migration to
+`yk_partial_matrices` is recorded follow-up); **F2** — yk.py's pointwise Y^k
+inside the first knot cell converges only algebraically for k≥2 (endpoint-singular
+integrand; scalar contractions immune by adjointness, no current consumer exposed).*
+
 **P2. The largest CI cross-check shares its formula with the kernel it checks.**
 The m-scheme oracle (`benchmarks/mscheme_ci_reference.py`) is a transcription of the
 kernel; a sign error baked into both is invisible to it (honestly documented in
@@ -212,6 +275,13 @@ including off-diagonal interference signs (`tests/test_breit_open_shell_referenc
 plus FAC CI matrices and Condon-Shortley closed forms. Additionally, three XFEL test
 files gate archived JSON fixture replays — a code regression today would not fail
 them.
+
+*Status (2026-10-10): the m-scheme oracle's non-independence stays honestly
+documented at `tests/test_ci_matrix_vs_mscheme_reference.py:7-45`, with pointers
+to the genuinely independent anchors (GRASP native full-matrix, FAC, closed
+forms) — that structure is unchanged and deliberate. The XFEL fixture replays
+remain historical-evidence gates; a live computation gate now exists alongside
+them (`tests/test_ne_xfel_cascade_live.py`).*
 
 **P3. Convention collisions are documented but unenforced.** Two functions named
 `reduced_C` with different phases: `angular/coefficients.py:35` (Grant jj,
@@ -226,6 +296,19 @@ Einstein prefactor (`scattering/autoionization/mscheme_ci.py:732`,
 shared `einstein_A_eL` / `radial_eL`. Each inline copy is a fresh chance to lose a
 (2J+1) factor — the failure mode the project already paid six audit rounds for.
 
+*Resolution (2026-10-10): the convention is now in the name — `reduced_C_jj`
+(Grant jj, `angular/coefficients.py:29`) vs `reduced_C_LS`
+(`scattering/r_matrix/angular_cc.py:55`), all callers migrated, hazard H6 pinned
+mechanically. `angular_eL ≡ reduced_C_jj` (reversed args) is gated by
+`tests/test_angular.py:235` and `tests/test_ci_line_strengths.py:217-240`.
+The Einstein prefactor is single-sourced (`einstein_A_prefactor`/`einstein_A_eL`/
+`einstein_A_mL` in `properties/transitions/rates.py`, ~8 consumers); the two
+deliberately-kept inlines (`xfel/coherent.py:666-674`,
+`mscheme_ci.py:~741-745`) are m-resolved amplitude paths with no unique J —
+documented with cross-references. `radial_eL` is the single radial dipole
+implementation (fluorescence.py and coherent.py migrated, verified to 2.8e-17
+on a real solve).*
+
 **P4. Constants leak with divergent precision.** `27.211386245988` hardcoded ×4 in
 `xfel/cascade.py:257,265,277,330` instead of `constants.HARTREE_EV`;
 `219474.63` — a *truncated* copy of `HARTREE_CM1` — in
@@ -234,6 +317,13 @@ eV·nm ×4 at different precisions (`uta/moments.py:70`, `spectrum/uta.py:36`,
 `spectrum/crm_synth.py:219`, `viz/mpl.py:336`); `HA_CM1` duplicated in
 `reference_data/nist.py:15`. Individually harmless; collectively the "convention
 before bug" class at the module edges.
+
+*Resolution (2026-10-10): all sites read the canonical `constants.py` values
+(`HARTREE_EV`, `HARTREE_CM1` full precision, `HC_EV_NM`); `nist.py`'s `HA_CM1`
+is now an alias. Enforcement is mechanical: `tests/test_constants_hygiene.py`
+tokenizes `src/atomx` (comments/docstrings exempt) and fails on any executable
+literal within 1e-4 of the seven conversion-factor families, with an explicit
+empty whitelist and a teeth-check proving the review's literals fall in-window.*
 
 **P5. Micro-duplication around the one true kernel.** The Wigner symbols, signed jj
 CSF algebra, and B-spline cell integrator are genuinely single-source and well
@@ -248,11 +338,30 @@ one divergent alphabet in `scattering/ci_continuum.py:227`; `_csf_twice_J`
 (`calculator.py:137-179`) duplicating `csf_twice_j` (`angular/csf.py:45-70`) as a
 fallback in a file that already imports the shared one.
 
+*Resolution (2026-10-10): consolidated on the canonical implementations — CG-from-3j
+single-sourced in `angular/clebsch.py` (four copies removed, pre-merge
+verification bit-identical over a 15,618-case (κ, m) grid); fermion sign ops on
+`angular/mscheme.py::_occupation_sign` (the matrix.py copy vanished with E3);
+κ→(l, 2j) on `angular/recoupling.py::l_of_kappa`/`twoj_of_kappa` (+`lj_from_kappa`,
+`kappa_from_lj`), every named helper copy deleted; label tables on
+`config/subshell.py::L_LETTERS`/`l_letter` (the ci_continuum alphabet proved
+consistent-by-construction — it parses through the same table — and is now
+mechanical; `fac_reference.py`'s narrow `[spdfgh]` grammar is documented as
+deliberate); `_csf_twice_J` deleted. Residual: ~35 inline `κ→l` one-liners in
+numerics/physics layers remain as a noted follow-up sweep.*
+
 **P6. Strategic observation.** The Ne⁷⁺ q/r campaign has layered increasingly
 elaborate machinery (complex scaling, DKB, identity tracking) on top of the
 common-orbital CI while P1's cheap decisive experiment has never run. The ~0.22 eV
 discrepancy may be profound physics or a mundane kernel discrepancy; it cannot be
 attributed until the boring comparisons exist. Do the boring experiment first.
+
+*Status (2026-10-10): the boring experiment is done (P1 resolution above): the
+radial kernels are not the discrepancy — the four production paths agree to
+≤4.2e-8 on a shared density, and the only carried biases (F1/F2) are
+documented-class discretization effects outside the Ne⁷⁺ CI path. The
+~0.22 eV q/r gap must therefore be attributed elsewhere; that campaign's gates
+own the next step.*
 
 ---
 

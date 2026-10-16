@@ -74,6 +74,9 @@ Historical results apply to their recorded source, inputs, and models.
 
 ## 4. Measure performance without changing the problem
 
+- Treat high performance as a standing design requirement. Before extending a
+  workload, estimate work, resident memory, and data movement; prefer a scalable
+  representation and contraction structure before adding hardware or workers.
 - Profile the actual end-to-end workload and identify its dominant stage.
   Check existing optimizations and recorded failed approaches before repeating them.
 - Prefer reusable angular structure, batched kernels, immutable radial snapshots,

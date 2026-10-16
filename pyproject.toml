@@ -118,7 +118,45 @@ ignore = ["E741"]
 "benchmarks/**" = ["E402"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+# The reviewed essential suite is the default for both developers and CI.
+# Subsystem tests outside this list are invoked explicitly when their code changes.
+# Keep the coverage rationale and measured runtime in docs/TESTING.md.
+testpaths = [
+    "tests/test_architecture_boundaries.py",
+    "tests/test_numerical_design_contracts.py",
+    "tests/test_atom_input_surface.py",
+    "tests/test_config_validation.py",
+    "tests/test_method_request_controls.py",
+    "tests/test_constants.py",
+    "tests/test_units.py",
+    "tests/test_radial_metric.py",
+    "tests/test_gauss_legendre_rule.py",
+    "tests/test_bspline.py",
+    "tests/test_dirac_hydrogenic.py",
+    "tests/test_shooting_radial_operators.py",
+    "tests/test_slater_kernel_crosscheck.py",
+    "tests/test_slater_scaling.py",
+    "tests/test_ci_double_excitation_sign.py",
+    "tests/test_ci_complete_trace.py",
+    "tests/test_ci_dense_orthogonality.py",
+    "tests/test_davidson.py",
+    "tests/test_breit_open_shell_reference.py",
+    "tests/test_fac_ci_operator.py",
+    "tests/test_ci_radial_snapshot.py",
+    "tests/test_hermitian_clusters.py",
+    "tests/test_correction_application_contract.py",
+    "tests/test_corrections_stack.py",
+    "tests/test_qed_self_energy_table.py",
+    "tests/test_atom_surface_equivalence.py",
+    "tests/test_shooting_result_persistence.py",
+    "tests/test_nist_comparison_workflow.py",
+    "tests/test_ne_native_rate_table.py",
+    "tests/test_xfel_multielectron_ci.py",
+    "tests/test_xfel_kinetics.py",
+    "tests/test_determinism.py",
+    "tests/test_documentation_links.py",
+    "tests/test_project_index.py",
+]
 # A typo'd `-m` selector must not silently select nothing.
 addopts = ["--strict-markers"]
 # An `xfail` that starts passing must fail the run: a fix that no one is told
@@ -130,7 +168,7 @@ markers = [
     "slow: tests that run expensive atomic-structure calculations",
     "external_fac: asserts STORED EXTERNAL reference data (clean-room FAC fixtures/dumps); regenerating the reference needs sfac",
     "snapshot: frozen atomx SELF-regression against its own recorded output; asserts nothing external",
-    "book: executable claims from the book (docs/book); a claim that fails to verify fails this gate — run with `pytest -m book`",
+    "book: executable claims from the book (docs/book); a claim that fails to verify fails this gate — run explicitly with `pytest tests/test_book_preface.py -m book`",
 ]
 # Per-test timeout: a single LAPACK call on a thrashed box must fail loudly
 # as a test timeout, not wedge the whole suite (critical review F1; the
