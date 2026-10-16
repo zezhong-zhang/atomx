@@ -16,15 +16,16 @@ task and its unmet core-correlation gates remain in [the CI guide](TIN_EUV_BASEL
 ## Current atomic gates (2026-10-16)
 
 No complete experimental alignment or absolute CE result is accepted. The
-current **single declared n30/l6 core-hole CI+second-order model** gives:
+completed **single declared native V38 n35/l6 Zn30-hole-only
+CI+second-order model** gives:
 
 | Sn12+ target | Calculated(cm^-1) | Minus experiment(cm^-1) | Fixed acceptance |
 |---|---:|---:|---|
-|3F3|9805.401202|+19.401202|Conditional PASS30|
-|3F4|18684.896599|+120.896599|FAIL50|
-|1D2|24868.770603|+30.770603|FAIL25; LS character ambiguous|
-|3P2|38905.433466|-138.566534|FAIL30|
-|1G4|41025.192980|+1307.192980|FAIL44|
+|3F3|9792.557610|+6.557610|Conditional PASS30|
+|3F4|18662.388746|+98.388746|FAIL50|
+|1D2|24852.326800|+14.326800|FAIL identity; inside25 energy interval|
+|3P2|38872.919949|-171.080051|FAIL30|
+|1G4|40991.785106|+1273.785106|FAIL44|
 
 This preserves complete paper-fold6 n4 CI and all0..3 core-hole correction
 ranks, including positive box pseudostates. Full source/input identities,
@@ -35,6 +36,12 @@ method's one successful interval cannot fill that failed gate. The fixed n35/l6 
 nonperturbative4s-hole discriminator also fails overall experiment. Current API capabilities remain distinct from these private
 source-bound research drivers; no new contest release is produced while
 these scientific gates fail.
+
+The later original-source audit finds a different core partition: it includes
+4p-hole/outside paths omitted from this native Zn30-hole-only model. Its
+source-matched finite controls and corrected interpretation are retained
+[below](#independent-original-ambit-full-particle-hole-control-2026-10-16);
+conditional intervals from these different models must not be combined.
 
 ## Implemented chain and ownership
 
@@ -1927,12 +1934,16 @@ A primary-source method audit corrects the interpretation of the earlier
 generic native P/Q second-order results. [Reitsma et al. (2026)](https://journals.aps.org/pra/pdf/10.1103/v557-qqql)
 uses complete n4 CI for valence correlation and second-order **core-valence**
 MBPT, including effective three-body terms. Previous generic Q additionally
-contained pure-valence outside-n4 sectors. Those finite models and their
-failed results remain valid diagnostics of their own declared partition;
-they are not a direct reproduction of the paper's core-valence partition.
-No prior output or failed gate is rewritten.
+contained outside-n4 valence sectors. Those finite models and their failed
+results remain diagnostics of their declared partition, not direct paper
+reproductions. A later source/runtime audit below further corrects an overly
+narrow interpretation: original CoreMBPT uses the full closed-Fermi core,
+including4p valence holes, not only deepZn30. Thus a require-Zn30-hole
+selector is also a distinct finite model, not the source's default core-only
+partition. No prior output or failed gate is rewritten; differences between
+these models cannot be attributed solely to denominator conventions.
 
-A new discriminator selects every Q group containing a Zn30 core hole,
+A finite-model discriminator selects every Q group containing a Zn30 core hole,
 before energies, retaining all coupled vertices and ranks0..3. All Hermitian,
 forbidden-coordinate and complete-rank J-plus commutator gates pass. An
 independent physical38-electron Slater Q-sector calculation agrees at every
@@ -2136,3 +2147,280 @@ full-state and independent physical gates. Evidence: Sn12_4s_corehole_preflight,
 Sn12_4s_corehole_operator, Sn12_4s_corehole_fullM2_alllevels_original/expanded
 and Sn12_4s_corehole_all_five_comparison.json. The near-word ratio alone does
 not establish a physical low-state resonance or the cause of the EUV blueshift.
+
+
+### Separate V36 reference and exterior valence sector (2026-10-16)
+
+The earlier full244-virtual frozenKr FCI and full-n7 FSCC archives use the
+actual **closed36/V36** radial point, not the V38 statistical point used in
+the preceding core-hole campaign. All common orbitals are compared before
+reuse; no energy increment or amplitude is transferable between those points.
+The new V36 full-n4 operator uses the same280-spinor disk source as that FCI.
+Native on-demand full Fock/reference and every retained n4 ERI replay **exactly**.
+A full38-electron Slater anchor verifies the noncontiguous occupied4s and
+reordered4p wedge phases within5.457e-12Ha. This is an operator identity proof,
+not a new experimental accuracy claim.
+
+On that one V36 native DCB/49-key-model-QED Hamiltonian, the original22 n4
+P configurations (69100 M2=4 rows) now couple coherently to all1395
+frozenKr two-valence determinants in the full244-virtual n7 bank that have
+at least one exterior orbital. Q keeps4p6; exterior configurations with4p
+holes remain omitted. All45438 nonzero P-Q entries, Q-Q interactions and
+interference are retained. New cross samples match independent native
+DCB physical38 Slater values exactly; the full matrix has20032201 entries.
+Raw six-root residuals stay below6.09e-13Ha and explicit J-squared below
+7.76e-11. The P/expanded whole runs take2.17/18.81s on shared hardware;
+this is a method/space discriminator, not a speedup comparison.
+
+|Target|V36 n4P(cm^-1)|V36 P+external p6 sector(cm^-1)|Same-H change(cm^-1)|Final experiment gate|
+|---|---:|---:|---:|---|
+|3F3|9312.625743|9392.902198|+80.276455|FAIL30|
+|3F4|18046.805730|18093.612942|+46.807211|FAIL50|
+|1D2|26720.043495|26131.647319|-588.396176|FAIL25|
+|3P2|40619.610740|40089.126009|-530.484730|FAIL30|
+|1G4|41901.173195|40963.742128|-937.431067|FAIL44|
+
+This measured exterior response matters, but no deep-core or V38 correction
+is grafted onto it. A new V36 n35/l6 core-basis preparation independently
+reproduces the old280-spinor DC Fock via radial field projection within
+4.264e-13Ha, preserves every old radial byte and passes all old/new
+stationarity and Gram gates (Gram9.962e-13). Its H0 is the actual closed36
+field; there is no statistical-d averaging substitution. A first zeroexterior
+producer still points one check at the V38 Fock reference and fails before
+any coefficient use. The failure is retained; the continuation replaces it
+with an independently reconstructed V36 field minus the explicit4p trace,
+under the **unchanged1e-10Ha** field gate. New V36 coefficients and anchors
+now pass: independent physical38-electron zeroexterior Q (19350 rows)
+agrees within8.188e-16Ha; a separate158-spinor new-n35-shell control
+(343810 Q rows) agrees within7.078e-16Ha. Every0..3 rank is generated
+fresh in V36; no V38 coefficient enters the new operator. Its full3024-spinor
+Q space is not claimed to have an independent brute-force replay.
+
+Complete six-root M2 CI of that V36 n35/l6 core-only second-order model
+takes20.97s/about2550MiB RSS. Raw eigenpair residuals are below2.412e-12Ha
+and J-squared vector residuals below6.987e-11. All five experimental
+energy gates fail:
+
+|Target|V36 core-only n35(cm^-1)|Minus experiment(cm^-1)|Fixed acceptance|
+|---|---:|---:|---|
+|3F3|9429.984912|-356.015088|FAIL30|
+|3F4|18174.849503|-389.150497|FAIL50|
+|1D2|25773.813198|+935.813198|FAIL25 and identity(character0.4796)|
+|3P2|39626.176415|+582.176415|FAIL30|
+|1G4|41256.576736|+1538.576736|FAIL44|
+
+The large remaining V36/V38 dependence is a negative finite-model
+discriminator, not a reference-field convergence certificate. The V36
+exterior-valence CI and V36 core-only MBPT tables remain different retained
+spaces; their shifts must not be added. An independent original-AMBiT
+particle-hole CI+Sigma1/2/3 calculation is the next convention control;
+its specified inputs must remain distinct from the unavailable paper input.
+Evidence: Sn12_V36_n4_operator, Sn12_V36_valence_sector_CI_original/expanded,
+Sn12_V36_valence_sector_comparison.json, Sn12_V36_core_n35_preparation and
+the retained Sn12_V36_core_zero_outside failure/continuation,
+Sn12_V36_core_Q_partition_n35_v2 and Sn12_V36_core_only_fullM2_n35.
+
+The2026 [primary paper](https://journals.aps.org/pra/pdf/10.1103/v557-qqql)
+states that its supporting research data/software are not publicly available;
+authors provide further information on request. A public-data search finds no
+source input to replace that limitation. No author contact is sent. The local
+finite source-qualified models remain distinct from a byte-matched paper run.
+
+### Independent original AMBiT full particle-hole control (2026-10-16)
+
+An independently specified original-source run now uses closed V36,
+explicit Fermi120Sn half-density radius5.514213570173778fm/thickness2.3fm,
+DKB/Reno90 splines/order9/R60 on4096 lattice points, all22 fold6
+configurations as leading, no generated extra excitations, frozenZn30,
+and30spdfghi MBPT orbitals. Denominator shift/floor are explicitly zero;
+this input floor applies to Sigma1/2. Source Sigma3 retains its inherited
+0.01Ha floor, which a complete deep/active orbital-energy check finds
+inactive here (minimum absolute denominator1.868908973895Ha). Original
+nonperturbative-term warnings remain a rejection condition. PureDC
+and complete Sigma1+2+3 are separate runs; neither is the unpublished
+author input. The original source-owned triangular/leading Sigma3 consumer
+is used without replacing it by a Hermitian average of raw directions.
+
+Preflight reproduces exactly9714/11363/11738 CSFs for J2/3/4
+(32815 total); three dense matrices would occupy2890081672bytes.
+Preflight takes170.91s and the pureDC run212.13s on shared hardware.
+Only qualified identical orbital/angular caches are copied; no levels or
+MBPT coefficients transfer between the bare and corrected runs.
+
+The first model-projection export fails because original configuration
+names have a default display prefix; the next exporter explicitly requests
+Name(false). Both failures and corrections are retained. A subsequent raw
+Davidson residual8.768e-8Ha fails the unchanged1e-8 gate. A separately
+specified continuation refines the same complete saved matrices with eigsh
+and recomputes projections from the exact original CSF map; it does not
+change the Hamiltonian, root count, tolerances or state rule. Independent
+full-matrix residuals are then below9.545e-14Ha. Source Ck angular gauge,
+signed radial phases and the d2 model J-squared are checked before the
+same within-J/LS>=0.5 target matching. The J-squared check independently
+covers the model projection, not every original full-space CSF.
+
+|Target|Native V36 pureDC(cm^-1)|Original AMBiT pureDC(cm^-1)|
+|---|---:|---:|
+|3F3|9672.048753|9672.049851|
+|3F4|18693.581579|18693.583443|
+|1D2|27029.220610|27029.221577|
+|3P2|41343.648392|41343.650712|
+|1G4|42457.616201|42457.617795|
+
+Every excitation agrees within0.002321cm^-1 and the signed model LS
+characters agree closely. This strongly qualifies the bare n4 CI comparison
+at this point, but is not a full-integral or radial-byte identity certificate.
+All five bare experimental intervals still fail.
+
+A separate bounded performance control wraps only the original Sigma3
+getter at link time and caches exact ordered six-state calls, including hole
+flags. Original compiled main/libraries and matrix assembly remain unchanged.
+100000 raw/cached bitwise comparisons (4596 nonzero),4096 runtime hit checks,
+and explicit qualified update-invalidation controls pass. A first guard
+failure is retained: linker wrapping does not intercept general C++ virtual
+UpdateIntegrals dispatch. The continuation is therefore explicitly confined
+to this one immutable operator after initial update, not a generic mutable
+operator cache. At8million entries overflow computes the original function;
+it does not remove a term. The uncached calculation remains an independent
+control, and full saved-matrix byte equality is required when available.
+These concurrent shared-host runs do not establish a controlled speedup.
+
+The cached full V36 Sigma123 run completes in402.74s/about2992MiB RSS,
+with2156946996 calls,2152774908 hits,4172088 unique misses,6248 bitwise
+runtime checks and no overflow or source skip warnings. Independent saved-H
+audits retain original Davidson failures8.803e-8/1.415e-7Ha in J3/4,
+refine those identical matrices, and recompute the signed model projections.
+The maximum final full-matrix residual is8.941e-9Ha, below the unchanged
+1e-8 gate. This finite **DC-only** reference gives:
+
+|Target|Original V36 DC+Sigma123(cm^-1)|Same-point MBPT change(cm^-1)|
+|---|---:|---:|
+|3F3|10083.310837|+411.260986|
+|3F4|19280.640233|+587.056791|
+|1D2|26070.630873|-958.590703|
+|3P2|40763.285841|-580.364871|
+|1G4|42270.871071|-186.746724|
+
+All five experimental intervals fail and1D2 also fails identity(character
+0.4771). The full uncached run reaches its original1800s cap before finishing
+the first J2 matrix; that failed control is retained. A separate complete
+J12 sector of the same22leading/core/basis model has311 CSFs. Its raw and
+cached388132-byte matrices match exactly(SHA804314866aadd243dcb4a0c3aeeebe7470e0adc6b6cc1c675c45cc4c5266713f);
+independent six-root residual is7.229e-15Ha. This is complete consumer
+evidence in J12, not a large-J2/3/4 byte-equality certificate or a controlled
+speedup measurement. Cached J12 retains1046856 calls/240690 unique misses.
+
+An independently regenerated original averaged V38/subtraction control,
+with explicit4d0.8/4d+1.2 occupations, completes in421.02s. Its fresh
+preflight reproduces all CSF counts and100000 bitwise cache controls
+pass(4594nonzero); inherited Sigma3 floor is inactive(minimum1.816407357494Ha).
+Saved-H/CSF-map audits retain failed original Davidson roots and qualify
+the same fixed six-state matching with maximum residual8.888e-9Ha:
+
+|Target|Original V38 DC+Sigma123(cm^-1)|V38 minus V36(cm^-1)|
+|---|---:|---:|
+|3F3|10124.378270|+41.067433|
+|3F4|19310.732781|+30.092548|
+|1D2|25785.072527|-285.558347|
+|3P2|40478.467534|-284.818307|
+|1G4|41931.278753|-339.592319|
+
+All experimental energy intervals fail;1D2 also fails identity. Only the
+3F4 field variation lies within its original experimental interval, so the
+five-level field-stability test fails. This is a finite independently
+specified30spdfghi DC model, not a refutation of the unpublished paper input.
+
+Runtime classification and a physical Q-path audit now qualify the source
+partition itself: original core has12 radial keys/36 spinors, deep has
+10/30, and hole has2/6(the4p shell). CoreMBPTCalculator loops over
+core=deep+hole and uses InQSpace to reject only wholly valence intermediates.
+The actual 4d3/2+4p1/2 ->5s1/2+4f5/2 antisymmetrized Coulomb coupling is
+0.008412012287694828Ha and is retained in source core MBPT, while the
+native require-Zn30-hole selector excludes it. Thus earlier native/source
+differences also involve Q coverage, not only denominators or subtraction.
+The existing native Zn30-hole results retain their numerical qualifications
+as finite models; their interpretation as the source's core partition is
+withdrawn. Source --use-valence separately adds no-nonvalence-hole
+high-valence diagrams. The author's unpublished flag choices remain unknown.
+Evidence: Sn12_AMBiT_core_partition_probe, actual original
+OrbitalManager classification and Core/ValenceMBPTCalculator sources.
+
+A fixed-N90 original all-positive-branch control is admitted to address
+the different high-virtual coverage. Request100spdfghi deliberately exceeds
+that finite basis capacity; the actual inventory has1170 radial states,
+887 positive energies, maximum principal label96 and no original norm-based
+spurious removals. It is not labeled a completed n100 calculation. The
+preflight requires38088433 bare MBPT integrals below the predeclared200million
+cap; all same22 CI dimensions pass. A separate source-owned simultaneous
+static-Breit plus effective self-energy/Uehling model is prepared with the
+same full-positive branch, fresh selfconsistent orbitals and all effective
+operators. No native QEDMOD or another model's scalar correction is added.
+
+The low-n comparison does not certify the high virtual basis. On the same
+closed36 field, native/original30s pseudostates have energies75.459063/
+1.192577Ha, and30i+ has34.763075/1.218176Ha, although common n4/n7 bound
+energies closely agree. The original native outer knot intervals reach
+10.4646bohr. A single preregistered exact knot-enrichment diagnostic keeps
+all old knots and core functions, subdivides intervals ending above1bohr
+to maximum width0.5bohr, and re-solves virtuals without transferring MBPT
+coefficients. The197-spline embedding preserves every old function within
+6.662e-16 and core energies within5.685e-14Ha, but richer-space core
+stationarity fails at2.340e-5Ha versus1e-8. It is therefore not used as a
+converged new core. A separate fresh solve through the public
+install_physics_grid interface(hmax0.5/default hi/he) has180 splines and
+actualR60.32336491849; it converges in12 iterations, with projected core
+stationarity1.017e-11Ha and Gram1.959e-15. Low-n4 energies agree with
+original AMBiT within1.052e-8Ha, but its n30 box states lie at0.1616--0.2262Ha.
+The preregistered0.1Ha pseudostate-distribution comparison fails(maximum
+1.2691Ha difference). Neither failure is relaxed or treated as an experimental
+result. Matching n labels does not establish continuum coverage; integrated
+core-response convergence requires its own qualification.
+
+The N90 whole-positive source generator completes in605.67s but its
+request100 notation produces a source basis-coverage warning. That output
+remains unadmitted under the original warning gate. A separate exact-capacity
+read replay uses90s91p92d93f94g95h96i: the full1170-orbital inventory and
+every copied scientific basis/integral/H/level SHA stay unchanged, with no
+reader warning. This repairs the representation of the predeclared available
+branch, not the physical space or an experimental threshold. Strict saved-H
+and CSF-map audits on those same matrices then pass(maximum4.080e-9Ha),
+retaining raw Davidson failures and refinement:
+
+|Target|Original V36 whole-positive N90 DC+sourceCore Sigma123(cm^-1)|Minus n30(cm^-1)|
+|---|---:|---:|
+|3F3|10092.455440|+9.144603|
+|3F4|19293.396301|+12.756068|
+|1D2|26182.629642|+111.998769|
+|3P2|40898.933000|+135.647159|
+|1G4|42031.663719|-239.207352|
+
+All five experimental intervals fail and1D2 remains ambiguous(character
+0.4684). The single preregistered whole-positive N60/N90 response comparison
+passes; its all-five stability threshold is1cm^-1, independently of
+experimental proximity. N90-minus-N60 changes are+0.047263/+0.079020/
++0.045080/+0.103079/+0.072393cm^-1 for the five ordered targets; maximum
+0.103080cm^-1. N60 keeps all780 available orbitals using exact
+60s61p62d63f64g65h66i capacity notation before full-H execution. The native
+grid/distribution failures, source n30 response and full-positive response
+are distinct qualifications. A matched finite n7 source core versus
+core+high-valence(--use-valence) pair has matched field/basis bytes and
+52807/68169 bare-integral admissions. Core completes395.00s without warnings;
+the optional-valence producer completes473.16s but is rejected for six
+original nonperturbative dropped-term warnings, including4f+4f ->4d+5g.
+Examples have reduced-diagram numerator0.339939Ha^2/denominator-0.273171Ha
+and0.639197/-0.324691. These are diagram diagnostics, not a measured
+low-root Q gap or a universal perturbation-norm bound. The source already
+finished when the warnings were reviewed; no child was terminated. Its
+energy/state admission is stopped, and no skipped-term table is promoted
+or exterior-FCI scalar increment added. A justified retained-space or
+resolvent treatment is required before consuming that optional Q class.
+
+Full nuclear-density source QED initialization reaches the original1800s
+cap before HF iterations. The distinct original-default finite-RMS QED
+model is now profiled separately; Fermi Dirac nuclear potential, static
+Breit, electric/magnetic self-energy and Uehling remain explicit. Neither
+QED nuclear approximation is relabeled as another model's validation.
+Evidence: Sn12_AMBiT_original_V36_control (protocol, source manifest,
+preflight admission, original logs/matrices/levels and three audit versions),
+Sn12_V36_DC_n4_operator, Sn12_V36_DC_fullM2_levels and
+Sn12_V36_native_original_AMBiT_DC_comparison.json under the active root.

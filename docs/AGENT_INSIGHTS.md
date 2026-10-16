@@ -186,6 +186,16 @@ Yb⁺ 示例真实采用 MCDHF。先验共同态梯度驻值与平衡核价物�
 
 ## preserve-metric
 
+- 2026-10-16 [Sn 参考场和完整 Q 分区](EUV_SOURCE_MODEL.md#separate-v36-reference-and-exterior-valence-sector-2026-10-16)：
+  同为 Sn、同为 n7 的档案也可能来自 V36/V38 不同径向点；先验完整公共轨道、
+  Fock/ERI 和能量零点，再组装相干空间，禁止移植标量修正。核心重分区后重生成
+  互补关联，不能把含4s的旧core30修正加到显式4s-hole CI。离散Q类的算符和可以
+  是同一个二阶模型的恒等分解，但必须证明匹配Q占据、源、H0、全部秩和有符号
+  矩阵元；它不同于叠加不同模型的能级增量。有限独立Q、数值收敛和实验门分别记录。
+  AMBiT 的 core=deep+hole，不能仅凭“core-valence”名称等同于 Zn30-hole 选择器；
+  先验运行时轨道分类和非零 Q 路径，再比较分母或归因缺失物理。
+  已有原则的有范围实例；不新增根规则。
+
 - 2026-10-14 [Yb论文DHF起点的完整态回读](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/README.md)：
   病态补空间内的Gram通过后，仍须在最终物理系数上重验原始H/S残差、完整列Gram与核正交性。
   此例最后一次坐标回填可在能量几乎不变时损坏这些门；最终驱动在原矩阵含核约束修正，

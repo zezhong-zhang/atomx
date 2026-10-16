@@ -82,6 +82,29 @@ solver speedup follows. Large-output memory admission includes the actual
 SciPy int64 index rule. This numerical option does not certify new core-hole
 energies or experimental agreement.
 
+The private Sn core-correlation campaign now reaches a complete n35/l6
+bound/positive-box core-hole model with independently checked disjoint-Q
+contractions, and a separate explicit single/double4s-hole CI. The fixed n30
+to n35 stability gate fails; conditional passes on different models are never
+combined into a five-level pass. A separate V36 complete-n4/external-valence
+sector calculation validates orbital permutation phases and native P-Q
+couplings but still fails all five experimental intervals. Its V36 fields
+are distinct from V38 and require newly generated core operators; see the
+[current atomic gate ledger](EUV_SOURCE_MODEL.md#current-atomic-gates-2026-10-16).
+These source-bound private experiments add no public Atom dispatch, complete
+rate coverage or CE validation. Numerical primitive qualifications do not
+certify correlation convergence or experiment.
+
+An independent original-AMBiT bare full-n4 DC comparison agrees with native
+five-level excitation energies within0.002321cm^-1; strict saved-matrix/CSF
+audits retain original Davidson failures before refinement. A complete311-CSF
+J12 raw/cached matrix is byte-identical, separately from primitive cache
+controls. These do not certify experiment or uncomputed large-J byte identity.
+Actual source core=deep+4p-hole includes outside Q paths absent from the
+native require-Zn30-hole model; similarly named partitions are not equivalent.
+The current source-model account preserves this correction and the remaining
+reference-field, positive-continuum and Breit/QED qualifications.
+
 A separate numerical audit of the original backend shows that its1e-14
 numerator skip can leave an8.008e-12 amplitude error with a zero reported
 update in an analytic two-spinor case. The [current source contract](ATOMIC_FSCC.md#numerator-division-source-contract)
