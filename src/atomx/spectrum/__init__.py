@@ -18,6 +18,11 @@ Public API
 See :mod:`atomx.uta` for Unresolved-Transition-Array (Bauche-Arnoult)
 moments, and :meth:`synthesize_from_transitions` below for the
 standard emissivity-from-rates helper.
+
+Absolute homogeneous/layered angular and directional-ray transport lives in
+:mod:`slab_transfer`; explicit LTE continua live in :mod:`lte_continuum`.
+Unlike normalized spectra these consume 4pi power per volume and net opacity
+with explicit SI units. See docs/EUV_SOURCE_MODEL.md for the coupled source.
 """
 
 from atomx.spectrum.crm_synth import crm_emission_spectrum

@@ -42,21 +42,21 @@ python scripts/build_project_index.py --tests src/atomx/atom.py --limit 10
 | [src/atomx/methods/](src/atomx/methods/) | 54 |
 | [src/atomx/numerics/](src/atomx/numerics/) | 80 |
 | [src/atomx/physics/](src/atomx/physics/) | 34 |
-| [src/atomx/plasma/](src/atomx/plasma/) | 6 |
+| [src/atomx/plasma/](src/atomx/plasma/) | 13 |
 | [src/atomx/potentials/](src/atomx/potentials/) | 8 |
 | [src/atomx/properties/](src/atomx/properties/) | 31 |
 | [src/atomx/providers/](src/atomx/providers/) | 5 |
-| [src/atomx/reference_data/](src/atomx/reference_data/) | 8 |
-| [src/atomx/scattering/](src/atomx/scattering/) | 50 |
-| [src/atomx/spectrum/](src/atomx/spectrum/) | 5 |
+| [src/atomx/reference_data/](src/atomx/reference_data/) | 9 |
+| [src/atomx/scattering/](src/atomx/scattering/) | 54 |
+| [src/atomx/spectrum/](src/atomx/spectrum/) | 7 |
 | [src/atomx/uta/](src/atomx/uta/) | 2 |
 | [src/atomx/viz/](src/atomx/viz/) | 6 |
-| [src/atomx/workflows/](src/atomx/workflows/) | 2 |
+| [src/atomx/workflows/](src/atomx/workflows/) | 5 |
 | [src/atomx/xfel/](src/atomx/xfel/) | 19 |
 
 ## 其他上下文
 
-- 测试 390，工具/示例 98，文档 552，配置 5 个文件。
+- 测试 402，工具/示例 98，文档 555，配置 5 个文件。
 - 详细路径、AST 定义/类方法、静态内部导入和内容 SHA 存在 PROJECT_INDEX.json（schema 2）。
 - 不含归档目录、source_* 源码快照和运行输出；保留的专题文档仍须按正文识别适用范围。
 - 名称匹配无结果时直接 rg；只查询源代码结构，不推断实现状态、正确性或性能。

@@ -53,6 +53,36 @@ def maxwellian_rate(cross_section_cm2, energies_eV, temperature_eV):
     return prefactor * integral
 
 
+def maxwellian_rate_direct(cross_section_cm2, threshold_eV, temperature_eV, *, order=16):
+    """Nonrelativistic Maxwellian rate directly on threshold-shifted nodes.
+
+    The callback consumes the complete incident-energy array in eV and returns
+    matching nonnegative finite cross sections in cm². Gauss-Laguerre nodes
+    sample the entire excess-energy half-line; no interpolated table or fitted
+    tail is used. The caller must separately check quadrature order and the
+    physical cross section's convergence/coverage. Return units are cm³/s.
+    """
+    from scipy.special import roots_laguerre
+
+    from atomx.constants import CODATA, DEFAULT_CODATA_VERSION
+
+    if (not callable(cross_section_cm2) or not np.isfinite(threshold_eV) or threshold_eV < 0
+            or not np.isfinite(temperature_eV) or temperature_eV <= 0
+            or isinstance(order, (bool, np.bool_)) or not isinstance(order, (int, np.integer))
+            or not 2 <= order <= 128):
+        raise ValueError('finite threshold>=0, temperature>0, callable cross section and order2..128 required')
+    x, weights = roots_laguerre(int(order))
+    energy = threshold_eV+temperature_eV*x
+    sigma = np.asarray(cross_section_cm2(energy))
+    if (sigma.shape != energy.shape or not np.isrealobj(sigma)
+            or not np.isfinite(sigma).all() or np.any(sigma < 0)):
+        raise ValueError('complete finite nonnegative cross-section array required')
+    constants = CODATA[DEFAULT_CODATA_VERSION]
+    factor = (100*np.sqrt(8*constants['_e']/(np.pi*constants['_me']))
+              /np.sqrt(temperature_eV)*np.exp(-threshold_eV/temperature_eV))
+    return float(factor*np.dot(weights, energy*sigma))
+
+
 def effective_collision_rate(collision_strengths, energies_eV, temperature_eV,
                               g_i=1, threshold_eV=0.0):
     """Rate coefficient from collision strengths.

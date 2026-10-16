@@ -30,6 +30,7 @@ U. Fano, *Phys. Rev.* **124**, 1866 (1961).
 M. F. Gu, *Astrophys. J.* **582**, 1241 (2003) — FAC PI calculations.
 """
 
+from atomx.scattering.photoionization.ci import CIPhotoLevel, ExplicitCIPhotoionization
 from atomx.scattering.photoionization.direct import photoionization_cross_section
 from atomx.scattering.photoionization.fano import (
     FanoResonance,
@@ -42,6 +43,8 @@ from atomx.scattering.photoionization.subshell import (
 )
 
 __all__ = [
+    "CIPhotoLevel",
+    "ExplicitCIPhotoionization",
     "photoionization_cross_section",
     "FanoResonance",
     "apply_resonances",

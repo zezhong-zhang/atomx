@@ -87,6 +87,22 @@ class CRMDRSatelliteSource:
 
 
 @dataclass
+class CRMAutoionizationChannel:
+    """Explicit resonance -> continuum Auger channel and its inverse capture.
+
+    Isolated narrow-resonance impact approximation. Unlike
+    CRMDRSatelliteSource, the capture rate is unbranched. Level energies
+    must share a global ionization zero; the positive resonance-continuum gap
+    fixes the incident electron energy. Partial widths add for multiple channels.
+    """
+
+    resonance: int
+    continuum: int
+    partial_rate_per_s: float
+    source_id: str
+
+
+@dataclass
 class CRMBoundFreeChannel:
     """Adjacent charge-state channel for CRM bound-free rates.
 
@@ -140,7 +156,8 @@ class CollisionalRadiativeModel:
     def __init__(self, levels, transitions, *, Z: Optional[int] = None,
                  charge: Optional[int] = None, configs: Optional[list[str]] = None,
                  bound_free_channels: Optional[list[CRMBoundFreeChannel]] = None,
-                 dr_satellite_sources: Optional[list[CRMDRSatelliteSource]] = None):
+                 dr_satellite_sources: Optional[list[CRMDRSatelliteSource]] = None,
+                 autoionization_channels: Optional[list[CRMAutoionizationChannel]] = None):
         self.levels = levels
         self.transitions = transitions
         self.n_levels = len(levels)
@@ -153,6 +170,7 @@ class CollisionalRadiativeModel:
         self.dr_satellite_sources = (
             list(dr_satellite_sources) if dr_satellite_sources is not None else []
         )
+        self.autoionization_channels = list(autoionization_channels or ())
 
     def add_dr_satellites(
         self,
@@ -339,8 +357,13 @@ class CollisionalRadiativeModel:
         include_three_body: bool = True,
         include_photoionization: bool = True,
         include_radiative_recombination: bool = True,
+        include_collisional_excitation: bool = True,
+        include_autoionization: bool = True,
+        include_dielectronic_capture: bool = True,
         radiation_temperature_eV: Optional[float] = None,
         radiation_field: Optional[Callable[[float], float]] = None,
+        sparse: bool = False,
+        radiative_factors=None,
     ):
         """Build the rate matrix R.
 
@@ -356,18 +379,40 @@ class CollisionalRadiativeModel:
 
         Returns
         -------
-        ndarray, shape (n_levels, n_levels)
+        ndarray or CSR matrix, shape (n_levels, n_levels)
+            Optional radiative factors multiply A only, e.g. an explicitly
+            supplied homogeneous escape-probability closure. Collisions are
+            unchanged. Sparse and dense paths share every physical rate.
         """
         n = self.n_levels
-        R = np.zeros((n, n))
+        from scipy.sparse import coo_matrix, diags
+
+        rows, columns, values = [], [], []
+
+        def add(destination, source, value):
+            if destination < 0 or source < 0 or destination >= n or source >= n or destination == source:
+                raise ValueError("population transition requires distinct valid level indices")
+            if not np.isfinite(value) or value < 0:
+                raise ValueError("population rate must be finite and nonnegative")
+            if value:
+                rows.append(destination)
+                columns.append(source)
+                values.append(value)
+
+        if radiative_factors is None:
+            radiative_factors = np.ones(len(self.transitions))
+        factors = np.asarray(radiative_factors, dtype=float)
+        if (factors.shape != (len(self.transitions),) or np.any(~np.isfinite(factors))
+                or np.any(factors < 0) or np.any(factors > 1)):
+            raise ValueError("one finite radiative escape factor in [0,1] per transition required")
         kT = Te_eV
 
-        for tr in self.transitions:
+        for index, tr in enumerate(self.transitions):
             u = tr.upper
             l = tr.lower
 
             # Radiative decay: upper -> lower
-            R[l, u] += tr.A_rate
+            add(l, u, tr.A_rate * factors[index])
 
             # Collisional excitation: lower -> upper.  Tabulated DW
             # collision strengths (FAC-verified machinery) when present;
@@ -382,7 +427,7 @@ class CollisionalRadiativeModel:
             dE_eV = self.levels[u].energy_eV - self.levels[l].energy_eV
             C_exc = 0.0
             C_deexc = 0.0
-            if dE_eV > 0 and kT > 0:
+            if include_collisional_excitation and dE_eV > 0 and kT > 0:
                 g_l = max(self.levels[l].g, 1)
                 g_u = max(self.levels[u].g, 1)
                 x = dE_eV / kT
@@ -412,9 +457,9 @@ class CollisionalRadiativeModel:
                     C_exc = base * gaunt * np.exp(-x)
                     C_deexc = base * gaunt * (g_l / g_u)
             if C_exc > 0.0:
-                R[u, l] += ne_cm3 * C_exc
+                add(u, l, ne_cm3 * C_exc)
             if C_deexc > 0.0:
-                R[l, u] += ne_cm3 * C_deexc
+                add(l, u, ne_cm3 * C_deexc)
 
         for src in self.dr_satellite_sources:
             u = src.upper
@@ -426,7 +471,28 @@ class CollisionalRadiativeModel:
                 )
             alpha = max(float(src.rate_coefficient_cm3_s(Te_eV)), 0.0)
             if alpha > 0.0:
-                R[u, i] += ne_cm3 * alpha
+                add(u, i, ne_cm3 * alpha)
+
+        for ch in self.autoionization_channels:
+            r, c = ch.resonance, ch.continuum
+            if (not all(isinstance(v, (int, np.integer)) for v in (r, c))
+                    or not 0 <= r < n or not 0 <= c < n or r == c
+                    or not ch.source_id or not np.isfinite(ch.partial_rate_per_s)
+                    or ch.partial_rate_per_s < 0):
+                raise ValueError("explicit valid Auger states, partial width and source required")
+            gap = self.levels[r].energy_eV - self.levels[c].energy_eV
+            if gap <= 0:
+                raise ValueError("Auger resonance energy must be above its specified continuum level")
+            if include_autoionization:
+                add(c, r, ch.partial_rate_per_s)
+            if include_dielectronic_capture:
+                from atomx.scattering.dielectronic_recombination.solver import (
+                    dielectronic_capture_rate_cm3_s,
+                )
+
+                capture = dielectronic_capture_rate_cm3_s(Te_eV, gap, ch.partial_rate_per_s,
+                    g_resonance=self.levels[r].g, g_continuum=self.levels[c].g)
+                add(r, c, ne_cm3 * float(capture))
 
         for ch in self.bound_free_channels:
             b = ch.bound
@@ -442,7 +508,7 @@ class CollisionalRadiativeModel:
             if include_eii:
                 eii = _channel_eii_rate_cm3_s(ch, Te_eV)
                 if eii > 0.0:
-                    R[c, b] += ne_cm3 * eii
+                    add(c, b, ne_cm3 * eii)
 
                     if include_three_body:
                         beta = three_body_recombination_rate_cm6_s(
@@ -452,7 +518,7 @@ class CollisionalRadiativeModel:
                             g_bound=ch.g_bound or self.levels[b].g,
                             g_continuum=ch.g_continuum or self.levels[c].g,
                         )
-                        R[b, c] += ne_cm3 * ne_cm3 * beta
+                        add(b, c, ne_cm3 * ne_cm3 * beta)
 
             if include_radiative_recombination:
                 # Spontaneous radiative recombination (Milne inverse of the
@@ -471,7 +537,7 @@ class CollisionalRadiativeModel:
                     radiation_field=radiation_field,
                 )
                 if alpha_rr > 0.0:
-                    R[b, c] += ne_cm3 * alpha_rr
+                    add(b, c, ne_cm3 * alpha_rr)
 
             if include_photoionization:
                 pi_rate = _channel_photoionization_rate_s(
@@ -480,18 +546,19 @@ class CollisionalRadiativeModel:
                     radiation_field=radiation_field,
                 )
                 if pi_rate > 0.0:
-                    R[c, b] += pi_rate
+                    add(c, b, pi_rate)
 
-        # Diagonal: loss rate
-        for i in range(n):
-            R[i, i] = -np.sum(R[:, i]) + R[i, i]  # subtract off-diagonal sum
+        R = coo_matrix((values, (rows, columns)), shape=(n, n)).tocsr()
+        R -= diags(np.asarray(R.sum(axis=0)).ravel(), format="csr")
+        return R if sparse else R.toarray()
 
-        # Fix diagonal
-        for i in range(n):
-            R[i, i] = 0.0
-            R[i, i] = -np.sum(R[:, i])
+    def rate_matrix(self, ne_cm3, Te_eV, *, sparse=False, **rate_options):
+        """Public conservative generator; CSR storage avoids an N-level square.
 
-        return R
+        Uses the same Omega/gf fallback, bound-free and DR contracts as the
+        existing CRM. Requesting sparse storage changes no rate approximation.
+        """
+        return self._build_rate_matrix(ne_cm3, Te_eV, sparse=sparse, **rate_options)
 
     def steady_state(self, ne_cm3, Te_eV, **rate_options):
         """Solve for steady-state level populations.
@@ -704,6 +771,7 @@ def radiative_recombination_rate_cm3_s(
     cross_section_cm2: Optional[Callable[[float], float]] = None,
     radiation_temperature_eV: Optional[float] = None,
     radiation_field: Optional[Callable[[float], float]] = None,
+    photon_energy_moment: int = 0,
 ) -> float:
     """Maxwellian Milne RR coefficient (cm³/s), spontaneous by default.
 
@@ -720,7 +788,16 @@ def radiative_recombination_rate_cm3_s(
     flux in photons cm⁻² s⁻¹ eV⁻¹, as in the PI channel; it takes precedence
     over ``radiation_temperature_eV``. With a Planck field at T_rad=T_e,
     spontaneous + stimulated RR obey Saha detailed balance with PI.
+
+    ``photon_energy_moment=1`` returns the photon-energy-weighted coefficient
+    in eV cm³/s, from the same differential Milne kernel. It requires an
+    explicit cross-section provider and supplies radiation power for a coupled
+    kinetic energy equation; the default zeroth moment is unchanged.
     """
+    if photon_energy_moment not in (0, 1):
+        raise ValueError("supported RR photon-energy moments are0 and1")
+    if photon_energy_moment and cross_section_cm2 is None:
+        raise ValueError("RR photon moments require an explicit PI cross-section provider")
     if Te_eV <= 0.0 or ionization_potential_eV <= 0.0:
         return 0.0
     if g_bound <= 0 or g_continuum <= 0:
@@ -740,7 +817,7 @@ def radiative_recombination_rate_cm3_s(
                 z = omega / radiation_temperature_eV
                 occupation = 1/np.expm1(z) if z < 700 else 0.0
             return (_nonnegative(cross_section_cm2(omega), "PI cross section")
-                    * omega**2 * np.exp(-x) * (1+occupation) * T)
+                    * omega**(2 + photon_energy_moment) * np.exp(-x) * (1+occupation) * T)
         integral = quad(kernel, 0., np.inf, epsabs=0., epsrel=2e-9)[0]
         me, ev, c = _ELECTRON_MASS_G, _EV_TO_ERG, _LIGHT_CM_S
         prefactor = (np.sqrt(8/(np.pi*me)) * (T*ev)**-1.5 * ev**3
@@ -806,7 +883,7 @@ def _channel_eii_rate_cm3_s(ch: CRMBoundFreeChannel, Te_eV: float) -> float:
             ch.eii_rate_cm3_s(Te_eV)
             if callable(ch.eii_rate_cm3_s) else ch.eii_rate_cm3_s
         )
-        return max(float(value), 0.0)
+        return _nonnegative(value, "EII coefficient")
     if ch.eii_scf_result is None or Te_eV <= 0.0:
         return 0.0
     threshold = ch.ionization_potential_eV

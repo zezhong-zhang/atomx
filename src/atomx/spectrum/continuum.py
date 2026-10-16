@@ -86,12 +86,36 @@ def free_free_emissivity(
     if T <= 0.0:
         raise ValueError("T_e_eV must be > 0")
     x = E / T
-    g = (gaunt or gaunt_ff_born)(x)
-    T_K = T / BOLTZMANN_EV
-    eps_nu_erg = (_C_FF_ERG_CM3_HZ * Z_eff * Z_eff * n_e_cm3 * n_i_cm3
-                  / np.sqrt(T_K) * np.exp(-x) * g)
+    eps_nu_erg = _free_free_prefactor(E, T, Z_eff, n_e_cm3, n_i_cm3, gaunt) * np.exp(-x)
     # per Hz -> per eV of photon energy; erg -> eV
     return eps_nu_erg / _H_EV_S / _ERG_PER_EV
+
+
+def _free_free_prefactor(E_eV, T_eV, charge, ne_cm3, ni_cm3, gaunt):
+    """Shared per-Hz CGS coefficient before the thermal exponential."""
+    if T_eV <= 0 or not np.isfinite(T_eV):
+        raise ValueError("T_e_eV must be finite and positive")
+    g = (gaunt or gaunt_ff_born)(np.asarray(E_eV) / T_eV)
+    return (_C_FF_ERG_CM3_HZ * charge**2 * ne_cm3 * ni_cm3
+            / np.sqrt(T_eV / BOLTZMANN_EV) * g)
+
+
+def free_free_absorption(photon_energies_eV, T_e_eV, Z_eff, *, n_e_cm3=1.0,
+                         n_i_cm3=1.0, gaunt=None):
+    """LTE net free-free absorption in cm^-1, including stimulated emission.
+
+    Reuses the emission coefficient and cancels the Boltzmann exponential
+    analytically, so high-energy absorption survives emissivity underflow.
+    The default Born Gaunt factor has the same high-Z/low-T limitations as
+    free_free_emissivity; callers can supply a tabulated Gaunt provider.
+    """
+    E = np.asarray(photon_energies_eV, dtype=float)
+    if np.any(~np.isfinite(E)) or np.any(E <= 0):
+        raise ValueError("positive finite photon energies required")
+    eps0 = _free_free_prefactor(E, T_e_eV, Z_eff, n_e_cm3, n_i_cm3, gaunt)
+    nu = E / _H_EV_S
+    h_erg_s, c_cm_s = _H_EV_S * _ERG_PER_EV, 2.99792458e10
+    return eps0 * -np.expm1(-E / T_e_eV) / (8 * np.pi * h_erg_s * nu**3 / c_cm_s**2)
 
 
 def rr_continuum_emissivity(
@@ -118,6 +142,7 @@ def rr_continuum_emissivity(
 
 __all__ = [
     "free_free_emissivity",
+    "free_free_absorption",
     "rr_continuum_emissivity",
     "gaunt_ff_born",
 ]

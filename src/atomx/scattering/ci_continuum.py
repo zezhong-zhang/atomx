@@ -21,6 +21,7 @@ from atomx.angular.csf_hamiltonian import (
     csf_signature,
     two_body_angular,
 )
+from atomx.angular.dyson import dyson_annihilation
 from atomx.config.csf import enumerate_jj_csfs
 from atomx.config.subshell import L_LETTERS
 from atomx.constants import (
@@ -520,33 +521,14 @@ class _CommonOrbitalCIChannels:
                                     else {0: 1.0}
                                 )
                                 for mi in range(-ji, ji + 1, 2):
-                                    value = 0.0
-                                    for mask, ci in self.vectors[number][
-                                        initial, mi
-                                    ].items():
-                                        occupied = [
-                                            bit
-                                            for bit in range(len(self.spinors))
-                                            if mask & (1 << bit)
-                                        ]
-                                        for position, bit in enumerate(occupied):
-                                            spectator = mask ^ (1 << bit)
-                                            cf = final_vector.get(spectator, 0.0)
-                                            n, k, m = self.spinors[bit]
-                                            value += (
-                                                cf
-                                                * ci
-                                                * (-1) ** position
-                                                * ckm(
-                                                    kappa,
-                                                    me,
-                                                    k,
-                                                    m,
-                                                    1,
-                                                    2 * polarization_q,
-                                                )
-                                                * radial[n, k]
-                                            )
+                                    dyson = dyson_annihilation(
+                                        final_vector, self.vectors[number][initial, mi], len(self.spinors)
+                                    )
+                                    value = sum(
+                                        coefficient * ckm(kappa, me, k, m, 1, 2*polarization_q) * radial[n, k]
+                                        for coefficient, (n, k, m) in zip(dyson, self.spinors, strict=True)
+                                        if coefficient != 0
+                                    )
                                     if value != 0:
                                         components.append(
                                             ((mf, mi), float(scale * value))

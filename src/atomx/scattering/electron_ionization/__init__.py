@@ -518,6 +518,49 @@ def _eii_dw_total(
     _capture: Any = None,
     _channel_limits: Any = None,
 ) -> "EIIResult":
+    """SCF selection adapter for the shared explicit radial-channel DW driver."""
+    from atomx.scattering.electron_ionization.channels import EIIDWBoundChannel
+
+    channels = []
+    for sh in scf_result.subshells:
+        energy = scf_result.orbital_energies.get(sh.label)
+        if energy is None or energy >= 0.:
+            continue
+        orbitals = scf_result.orbitals_raw.get(sh.kappa, [])
+        index = [s for s in scf_result.subshells if s.kappa == sh.kappa].index(sh)
+        if index >= len(orbitals):
+            continue
+        p, q, _ = orbitals[index]
+        channels.append(EIIDWBoundChannel(sh.label, sh.kappa, -energy, float(sh.occupation), p, q))
+    potential = getattr(continuum_model, 'potential', None)
+    field = (static_hartree_potential(scf_result, screening='mean') if potential is None
+             else potential.build_callable(scf_result))
+    return _eii_dw_channels(channels, scf_result._bsp_data, scf_result.Z, energies_eV,
+        V_func=field, Z_res=float(field.residual_charge),
+        potential_kind='mean_hartree' if potential is None else potential.kind,
+        include_local_exchange=bool(getattr(potential, 'include_exchange', False)),
+        kappa_max=kappa_max, n_outgoing_energies=n_outgoing_energies,
+        continuum_model=continuum_model, continuum_failure_mode=continuum_failure_mode,
+        partial_wave_tail=partial_wave_tail, radial_refinement=radial_refinement,
+        e1_grid_frac=e1_grid_frac, _capture=_capture, _channel_limits=_channel_limits)
+
+
+def _eii_dw_channels(
+    channels, bsp_data, Z,
+    energies_eV: np.ndarray,
+    *,
+    V_func, Z_res, potential_kind, include_local_exchange=False,
+    pauli_projectors=None,
+    kappa_max: int,
+    n_outgoing_energies: int,
+    continuum_model: Any = None,
+    continuum_failure_mode: str = "raise",
+    partial_wave_tail: str = "none",
+    radial_refinement: int = 1,
+    e1_grid_frac: Any = None,
+    _capture: Any = None,
+    _channel_limits: Any = None,
+) -> "EIIResult":
     """Relativistic distorted-wave EII using shared CE angular/radial kernels.
 
     Ionization is treated as excitation into the continuum: for each
@@ -564,11 +607,15 @@ def _eii_dw_total(
         _allowed_k,
         _shooting_points,
     )
+    from atomx.scattering.electron_ionization.channels import EIIDWBoundChannel
 
-    bsp_data = scf_result._bsp_data
     if bsp_data is None:
-        raise ValueError("SCFResult is missing _bsp_data — re-run solve().")
-    Z = scf_result.Z
+        raise ValueError('DW channels require a native B-spline workspace')
+    channels = tuple(channels)
+    if (any(not isinstance(c, EIIDWBoundChannel) or len(c.P) != bsp_data['ns'] for c in channels)
+            or len({c.label for c in channels}) != len(channels)
+            or not callable(V_func) or not np.isfinite(Z_res)):
+        raise ValueError('unique explicit bound channels and a selected finite-charge field required')
 
     energies = _validate_energy_grid(energies_eV)
     kappa_max = _validate_positive_int(kappa_max, "kappa_max")
@@ -603,10 +650,6 @@ def _eii_dw_total(
     # Use one selected field for the projectile and both outgoing electrons.
     # The default removes one electron's mean Hartree self-field; explicit
     # models may select a different screening or local exchange prescription.
-    potential_model = getattr(continuum_model, 'potential', None)
-    V_func = (static_hartree_potential(scf_result, screening="mean")
-              if potential_model is None else potential_model.build_callable(scf_result))
-    Z_res = float(V_func.residual_charge)
     bound_r_max = float(bsp_data["t"][-1])
     r_max_box = bound_r_max
     shooting_n_grid = None
@@ -645,6 +688,19 @@ def _eii_dw_total(
         _require_finite_array(Q, "bound small-component wave", shape=r_fine.shape)
         return P, Q
 
+    projectors = {}
+    if pauli_projectors is not None:
+        for kappa, pairs in pauli_projectors.items():
+            if isinstance(kappa, bool) or not isinstance(kappa, (int, np.integer)) or kappa == 0:
+                raise ValueError('Pauli projectors require nonzero integer kappa')
+            waves = tuple(_bound_to_fine(p, q) for p, q in pairs)
+            if not waves:
+                continue
+            gram = np.array([[np.sum(dr_fine*(a*c+b*d)) for c, d in waves] for a, b in waves])
+            if not np.isfinite(gram).all() or np.linalg.cond(gram) > 1e12:
+                raise ValueError('Pauli projector metric is singular or ill-conditioned')
+            projectors[int(kappa)] = waves, gram
+    projection_defects = []
     cont_cache: Dict[tuple, Any] = {}
 
     def _record_continuum_failure(
@@ -710,6 +766,17 @@ def _eii_dw_total(
                     P, Q = pq
                     _require_finite_array(P, 'batch continuum large-component wave', shape=r_fine.shape)
                     _require_finite_array(Q, 'batch continuum small-component wave', shape=r_fine.shape)
+                    if kap in projectors:
+                        basis, gram = projectors[kap]
+                        overlap = np.array([np.sum(dr_fine*(a*P+b*Q)) for a, b in basis])
+                        P, Q = P.copy(), Q.copy()
+                        for weight, (a, b) in zip(np.linalg.solve(gram, overlap), basis, strict=True):
+                            P -= weight*a
+                            Q -= weight*b
+                        defect = float(max(abs(np.sum(dr_fine*(a*P+b*Q))) for a, b in basis))
+                        if defect > 1e-10:
+                            raise ValueError('DW continuum Pauli projection failed')
+                        projection_defects.append(defect)
                     cont_cache[key] = (P, Q)
         except Exception as exc:
             for kap, E in reqs:
@@ -750,21 +817,13 @@ def _eii_dw_total(
                 ok[i] = False
         return P, Q, ok
 
-    for sh in scf_result.subshells:
-        eps_a = scf_result.orbital_energies.get(sh.label)
-        if eps_a is None or eps_a >= 0.0:
-            continue
-        I_a_au = -eps_a
-        kappa_a = sh.kappa
+    for bound_channel in channels:
+        I_a_au = bound_channel.threshold_Ha
+        kappa_a = bound_channel.kappa
         tj_a = twoj_of_kappa(kappa_a)
         l_a = l_of_kappa(kappa_a)
-        q_a = float(sh.occupation)
-        orb_list = scf_result.orbitals_raw.get(kappa_a, [])
-        kappa_subs = [s for s in scf_result.subshells if s.kappa == kappa_a]
-        idx_in_kappa = kappa_subs.index(sh)
-        if idx_in_kappa >= len(orb_list):
-            continue
-        P_a_c, Q_a_c, _q = orb_list[idx_in_kappa]
+        q_a = bound_channel.occupation
+        P_a_c, Q_a_c = bound_channel.P, bound_channel.Q
         P_a, Q_a = _bound_to_fine(P_a_c, Q_a_c)
         # Integrate the complete supplied spinor. A small pointwise P value
         # cannot bound a signed matrix element's relative tail error, nor
@@ -997,7 +1056,7 @@ def _eii_dw_total(
                         om += tail
                     integrand[j_E1] = 2.0 * np.pi ** 2 * om
             if _capture is not None:
-                _capture[(sh.label, float(E_i_eV))] = (
+                _capture[(bound_channel.label, float(E_i_eV))] = (
                     E1_grid.copy(), integrand.copy(), T_max)
             integral = float(np.trapezoid(integrand, E1_grid) if E1_weights is None
                              else np.dot(E1_weights, integrand))
@@ -1016,9 +1075,9 @@ def _eii_dw_total(
                 quadrature_nodes=len(E1_grid)))
             completed_energies[energy_key] = sigma_a[E_i_idx], sharing_diagnostics[-1]
 
-        by_orbital[sh.label] = sigma_a
+        by_orbital[bound_channel.label] = sigma_a
         sigma_total += sigma_a
-        prov_per_orb[sh.label] = {
+        prov_per_orb[bound_channel.label] = {
             "I_eV": I_a_au * _HEV, "occupation": q_a,
             "kappa_max": kappa_max,
             "channel_l_limits": dict(zip(('incident', 'slow', 'fast'), channel_limits, strict=False)),
@@ -1039,15 +1098,10 @@ def _eii_dw_total(
             "bound_exterior": "zero outside native B-spline box",
             "radial_domain_convergence": "not certified; refine shooting r_max independently",
             "continuum": "shooting delta(E), Dirac-Coulomb matching",
-            "potential": "mean_hartree" if potential_model is None else potential_model.kind,
+            "potential": potential_kind,
             "screening": getattr(V_func, 'screening', None),
             "residual_charge": Z_res,
         }
-
-    include_local_exchange = False
-    if continuum_model is not None:
-        potential = getattr(continuum_model, "potential", None)
-        include_local_exchange = bool(getattr(potential, "include_exchange", False))
 
     return EIIResult(
         energies_eV=energies,
@@ -1056,13 +1110,16 @@ def _eii_dw_total(
         method="DW",
         provenance={
             "per_orbital": prov_per_orb,
-            "Z": scf_result.Z,
+            "Z": Z,
             "continuum_model": continuum_model,
             "include_local_exchange": include_local_exchange,
             "continuum_failure_mode": failure_mode,
             "continuum_failures": continuum_failures,
             "collision_operator": "instantaneous_coulomb",
             "transverse_exchange": False,
+            **({'pauli_projection_max_defect': max(projection_defects, default=0.),
+                'pauli_projector_kappas': tuple(sorted(projectors))}
+               if pauli_projectors is not None else {}),
         },
     )
 

@@ -78,6 +78,28 @@ _DR_PREFACTOR_CM3_S_EV_32 = (
 ) ** 1.5 * 1.0e6                                           # m³ -> cm³
 
 
+def dielectronic_capture_rate_cm3_s(temperature_eV, resonance_energy_eV,
+                                   partial_auger_rate_per_s, *, g_resonance, g_continuum):
+    """Unbranched inverse of a specified Auger channel, in cm³/s.
+
+    Isolated narrow-resonance Maxwellian impact limit. The resonance energy
+    is relative to this channel's continuum level.
+    No radiative stabilisation probability is included: an explicit kinetic
+    resonance must decay through its separately supplied Auger and A channels.
+    Multiplying this capture coefficient by A/sum(widths) gives the isolated
+    low-density DR coefficient used by :func:`dr_rate_coefficient`.
+    """
+    T = np.asarray(temperature_eV, dtype=float)
+    if (np.any(~np.isfinite(T)) or np.any(T <= 0)
+            or not np.isfinite(resonance_energy_eV) or resonance_energy_eV < 0
+            or not np.isfinite(partial_auger_rate_per_s) or partial_auger_rate_per_s < 0
+            or not all(np.isfinite(v) and v > 0 for v in (g_resonance, g_continuum))):
+        raise ValueError("positive temperature/weights and nonnegative finite resonance energy/width required")
+    return (_DR_PREFACTOR_CM3_S_EV_32 * T**(-1.5)
+            * g_resonance / (2 * g_continuum) * partial_auger_rate_per_s
+            * np.exp(-resonance_energy_eV / T))
+
+
 @dataclass
 class DRRateCoefficient:
     """Dielectronic-recombination rate coefficient, tabulated on T_e.
